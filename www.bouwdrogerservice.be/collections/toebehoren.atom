@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="nl" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://www.bouwdrogerservice.be/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://www.bouwdrogerservice.be/collections/toebehoren.atom"/>
+  <title>Bouwdrogerservice</title>
+  <updated>2024-02-09T08:30:11+01:00</updated>
+  <author>
+    <name>Bouwdrogerservice</name>
+  </author>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/7500364611801</id>
+    <published>2024-02-09T08:30:11+01:00</published>
+    <updated>2024-02-09T08:30:11+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/verlengkabel-15-m-230-v-16-a-3x1-5mm"/>
+    <title>Verlengkabel 20 m - 230 V - 16 A - 3x1,5mm²</title>
+    <s:type></s:type>
+    <s:vendor>Bouwdrogerservice</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/products/ezgif.com-gif-maker.jpg?v=1641241486"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Bouwdrogerservice<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            0.00 - 30.00
+            <a href="https://www.bouwdrogerservice.be/products/verlengkabel-15-m-230-v-16-a-3x1-5mm">(5 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span data-mce-fragment="1">Verlengkabels van hoge kwaliteit voor iedere machine.</span></p>
+<p><span data-mce-fragment="1">______________________________________________<br></span></p>
+<p>Afmetingen kabel: 3x1,5mm²</p>
+<p>Lengte kabel: 20m</p>
+<p>Voeding: 230 V </p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>verlengsnoer</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7500364611801</id>
+      <title>Vanaf</title>
+      <s:price currency="EUR">2.50</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7500364611801</id>
+      <title>1 week</title>
+      <s:price currency="EUR">10.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7500364611801</id>
+      <title>2 weken</title>
+      <s:price currency="EUR">0.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7500364611801</id>
+      <title>3 weken</title>
+      <s:price currency="EUR">25.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7500364611801</id>
+      <title>4 weken</title>
+      <s:price currency="EUR">30.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+    <published>2023-11-24T09:54:17+01:00</published>
+    <updated>2023-11-24T09:54:17+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/condenspomp-extern"/>
+    <title>Condenspomp Extern € 3,00 / Dag / Bouwdroger</title>
+    <s:type>condenspomp</s:type>
+    <s:vendor>Bouwdrogerservice</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/products/Condenspomp-Extern-68173-1507646210.webp?v=1654874437"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Bouwdrogerservice<br>
+        <strong>Type: </strong>condenspomp<br>
+        <strong>Prijs: </strong>
+            3.00 - 336.00
+            <a href="https://www.bouwdrogerservice.be/products/condenspomp-extern">(20 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p class="sub-title"><meta charset="UTF-8"><span>Optimaal geschikt voor lange, onbewaakte bouwdroging.</span></p>
+<p class="sub-title"><span>Nadat de condenspomp op de juiste wijze is aangesloten, en de ontvochtiging gestart is, vult het reservoir van de pomp zich langzaam met water. Bij het bereiken van het maximum aan water, springt de pomp automatisch aan en voert het water over de aangesloten slang af. Daarna schakelt de pomp weer uit, totdat het maximum weer is bereikt.</span></p>
+<p class="sub-title"><em>De automatische uitschakeling van de bouwdroger wordt buiten werking gesteld, zodra een condenspomp wordt aangesloten, zodat het condens afgepomt kan worden.</em></p>
+<p class="sub-title">______________________________________________<br></p>
+<div class="col-xs-6">
+<ul>
+<li>
+<p><b>Technische gegevens:</b></p>
+<ul>
+<li><span><span class="Apple-tab-span"> </span>Spanning: 220 V (50/60 Hz)</span></li>
+<li><span><span class="Apple-tab-span"> </span>Bereik: 58/55 watt</span></li>
+<li><span><span class="Apple-tab-span"> </span>Maximale pomphoogte: 3,90 m</span></li>
+<li><span><span class="Apple-tab-span"> </span>Terugslagventiel</span></li>
+<li><span><span class="Apple-tab-span"> </span>Waterslang toevoer: 25 mm (maximale diameter buiten)</span></li>
+<li><span><span class="Apple-tab-span"> </span>Waterslang uitgang: 5 mm (diameter binnen)</span></li>
+<li><span><span class="Apple-tab-span"> </span>Afmetingen 280 mm x 125 mm x 140 mm</span></li>
+<li><span><span class="Apple-tab-span"> </span>Gewicht ca. 1,9 kg</span></li>
+<li><span><span class="Apple-tab-span"> </span>Pompopbrengst: 90 l/h bij 3 m opvoerhoogte</span></li>
+</ul>
+</li>
+</ul>
+</div></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>condenspomp</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>Vanaf / 1 bouwdroger</title>
+      <s:price currency="EUR">3.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>Vanaf / 2 bouwdrogers</title>
+      <s:price currency="EUR">6.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>Vanaf / 3 bouwdrogers</title>
+      <s:price currency="EUR">9.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>Vanaf / 4 bouwdrogers</title>
+      <s:price currency="EUR">12.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>1 week / 1 bouwdroger</title>
+      <s:price currency="EUR">21.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>1 week / 2 bouwdrogers</title>
+      <s:price currency="EUR">42.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>1 week / 3 bouwdrogers</title>
+      <s:price currency="EUR">63.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>1 week / 4 bouwdrogers</title>
+      <s:price currency="EUR">84.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>2 weken / 1 bouwdroger</title>
+      <s:price currency="EUR">42.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>2 weken / 2 bouwdrogers</title>
+      <s:price currency="EUR">84.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>2 weken / 3 bouwdrogers</title>
+      <s:price currency="EUR">126.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>2 weken / 4 bouwdrogers</title>
+      <s:price currency="EUR">168.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>3 weken / 1 bouwdroger</title>
+      <s:price currency="EUR">63.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>3 weken / 2 bouwdrogers</title>
+      <s:price currency="EUR">126.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>3 weken / 3 bouwdrogers</title>
+      <s:price currency="EUR">189.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>3 weken / 4 bouwdrogers</title>
+      <s:price currency="EUR">252.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>4 weken / 1 bouwdroger</title>
+      <s:price currency="EUR">84.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>4 weken / 2 bouwdrogers</title>
+      <s:price currency="EUR">168.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>4 weken / 3 bouwdrogers</title>
+      <s:price currency="EUR">252.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7479177707737</id>
+      <title>4 weken / 4 bouwdrogers</title>
+      <s:price currency="EUR">336.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+    <published>2022-11-05T17:48:54+01:00</published>
+    <updated>2022-11-05T17:48:54+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/warmte-transportslang-4-00-dag"/>
+    <title>Warmte transportslang</title>
+    <s:type></s:type>
+    <s:vendor>Bouwdrogerservice</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/products/SP-C-slang-305-mm_-7_6-m-68057-1507646196_jpg.webp?v=1667666943"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Bouwdrogerservice<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            4.00 - 137.00
+            <a href="https://www.bouwdrogerservice.be/products/warmte-transportslang-4-00-dag">(20 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>luchttransportslang</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">4.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">14.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">19.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">29.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>1 week / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">28.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>1 week / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">38.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>1 week / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">43.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>1 week / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">53.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>2 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">56.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>2 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">66.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>2 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">71.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>2 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">81.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>3 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">84.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>3 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">94.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>3 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">99.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>3 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">109.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">112.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">122.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">127.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986956796121</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">137.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+    <published>2022-11-05T17:45:16+01:00</published>
+    <updated>2022-11-05T17:45:16+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/stofzak-4-00-dag"/>
+    <title>Stofzak</title>
+    <s:type></s:type>
+    <s:vendor>Bouwdrogerservice</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/products/Stofzak-TTV-4500---7000-L--5-m-68600-1507646260_jpg.webp?v=1667666735"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Bouwdrogerservice<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            4.00 - 137.00
+            <a href="https://www.bouwdrogerservice.be/products/stofzak-4-00-dag">(20 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>luchttransportslang</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">4.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">14.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">19.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">29.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>1 week / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">28.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>1 week / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">38.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>1 week / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">43.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>1 week / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">53.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>2 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">56.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>2 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">66.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>2 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">71.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>2 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">81.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>3 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">84.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>3 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">94.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>3 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">99.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>3 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">109.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">112.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">122.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">127.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986954764505</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">137.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+    <published>2022-11-05T17:38:53+01:00</published>
+    <updated>2022-11-05T17:38:53+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/luchttransportslang-l-7-6m-4-00-dag"/>
+    <title>Luchttransportslang L:7,6m</title>
+    <s:type></s:type>
+    <s:vendor>Bouwdrogerservice</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/products/SP-T-slang-457-mm_-7_6-m-68051-1507646194_jpg.webp?v=1667666443"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Bouwdrogerservice<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            4.00 - 137.00
+            <a href="https://www.bouwdrogerservice.be/products/luchttransportslang-l-7-6m-4-00-dag">(20 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>luchttransportslang</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">4.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">14.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">19.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">29.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>1 week / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">28.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>1 week / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">38.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>1 week / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">43.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>1 week / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">53.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>2 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">56.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>2 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">66.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>2 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">71.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>2 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">81.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>3 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">84.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>3 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">94.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>3 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">99.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>3 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">109.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">112.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">122.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">127.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/7986950996185</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">137.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+</feed>

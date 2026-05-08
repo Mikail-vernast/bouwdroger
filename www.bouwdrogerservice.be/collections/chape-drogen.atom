@@ -1,0 +1,2267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="nl" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://www.bouwdrogerservice.be/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://www.bouwdrogerservice.be/collections/chape-drogen.atom"/>
+  <title>Bouwdrogerservice</title>
+  <updated>2023-10-25T21:52:28+02:00</updated>
+  <author>
+    <name>Bouwdrogerservice</name>
+  </author>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868904282</id>
+    <published>2023-10-25T21:52:28+02:00</published>
+    <updated>2023-10-25T21:52:28+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/ruimte-kleiner-dan-40-m2-chapedikte-5cm"/>
+    <title>Ruimte kleiner dan 40 m2 - Chapedikte 5cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied1.png?v=1698691514"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            12.35 - 220.40
+            <a href="https://www.bouwdrogerservice.be/products/ruimte-kleiner-dan-40-m2-chapedikte-5cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>ruimte &lt; 40 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868904282</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">59.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868904282</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">40.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868904282</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">31.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868904282</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">12.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868904282</id>
+      <title>2 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">220.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868904282</id>
+      <title>2 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">201.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868904282</id>
+      <title>2 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">191.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868904282</id>
+      <title>2 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">172.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868838746</id>
+    <published>2023-10-25T21:52:25+02:00</published>
+    <updated>2023-10-25T21:52:25+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/ruimte-kleiner-dan-40-m2-chapedikte-6cm"/>
+    <title>Ruimte kleiner dan 40 m2 - Chapedikte 6cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied1_8b10a8a8-c498-4545-a8c4-70d5cd9a0c78.png?v=1698691521"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            12.35 - 306.85
+            <a href="https://www.bouwdrogerservice.be/products/ruimte-kleiner-dan-40-m2-chapedikte-6cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>ruimte &lt; 40 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868838746</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">59.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868838746</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">40.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868838746</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">31.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868838746</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">12.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868838746</id>
+      <title>3 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">306.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868838746</id>
+      <title>3 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">287.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868838746</id>
+      <title>3 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">278.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868838746</id>
+      <title>3 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">259.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868740442</id>
+    <published>2023-10-25T21:52:21+02:00</published>
+    <updated>2023-10-25T21:52:21+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/ruimte-kleiner-dan-40-m2-chapedikte-7cm"/>
+    <title>Ruimte kleiner dan 40 m2 - Chapedikte 7cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied1_0346b62b-c908-4311-ae40-adc69b201889.png?v=1698691528"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            12.35 - 393.30
+            <a href="https://www.bouwdrogerservice.be/products/ruimte-kleiner-dan-40-m2-chapedikte-7cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>ruimte &lt; 40 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868740442</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">59.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868740442</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">40.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868740442</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">31.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868740442</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">12.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868740442</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">393.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868740442</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">374.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868740442</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">364.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868740442</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">345.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868674906</id>
+    <published>2023-10-25T21:52:18+02:00</published>
+    <updated>2023-10-25T21:52:18+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-60-m2-chapedikte-5cm"/>
+    <title>Gebouw kleiner dan 60 m2 - Chapedikte 5cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied2.png?v=1699048534"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            16.15 - 297.35
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-60-m2-chapedikte-5cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 60 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868674906</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">87.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868674906</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">58.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868674906</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">44.65</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868674906</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">16.15</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868674906</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">297.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868674906</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">268.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868674906</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">254.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868674906</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">226.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868609370</id>
+    <published>2023-10-25T21:52:15+02:00</published>
+    <updated>2023-10-25T21:52:15+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-60-m2-chapedikte-6cm"/>
+    <title>Gebouw kleiner dan 60 m2 - Chapedikte 6cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied2_d7739738-1ebd-4ae4-aeee-d0ec2d80b973.png?v=1699048541"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            16.15 - 410.40
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-60-m2-chapedikte-6cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 60 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868609370</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">87.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868609370</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">58.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868609370</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">44.65</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868609370</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">16.15</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868609370</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">410.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868609370</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">381.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868609370</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">367.65</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868609370</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">339.15</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868543834</id>
+    <published>2023-10-25T21:52:11+02:00</published>
+    <updated>2023-10-25T21:52:11+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-60-m2-chapedikte-7cm"/>
+    <title>Gebouw kleiner dan 60 m2 - Chapedikte 7cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied3_cf462fdf-5566-4e28-81cf-46defe2f8911.png?v=1698691472"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            22.10 - 703.80
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-60-m2-chapedikte-7cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 60 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868543834</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">107.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868543834</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">73.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868543834</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">56.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868543834</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">22.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868543834</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">703.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868543834</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">669.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868543834</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">652.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868543834</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">618.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868412762</id>
+    <published>2023-10-25T21:52:08+02:00</published>
+    <updated>2023-10-25T21:52:08+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-100-m2-chapedikte-5cm"/>
+    <title>Gebouw kleiner dan 100 m2 - Chapedikte 5cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied4_19790bdb-0c00-4e7d-a608-af191b7da5ce.png?v=1698690744"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            27.20 - 480.80
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-100-m2-chapedikte-5cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 100 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868412762</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">127.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868412762</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">87.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868412762</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">67.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868412762</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">27.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868412762</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">480.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868412762</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">440.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868412762</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">420.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868412762</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">380.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868379994</id>
+    <published>2023-10-25T21:52:05+02:00</published>
+    <updated>2023-10-25T21:52:05+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-100-m2-chapedikte-6cm"/>
+    <title>Gebouw kleiner dan 100 m2 - Chapedikte 6cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied4_c18c0545-3100-417b-9018-8dc2d5187708.png?v=1698690762"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            27.20 - 671.20
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-100-m2-chapedikte-6cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 100 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868379994</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">127.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868379994</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">87.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868379994</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">67.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868379994</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">27.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868379994</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">671.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868379994</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">631.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868379994</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">611.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868379994</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">571.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868248922</id>
+    <published>2023-10-25T21:52:01+02:00</published>
+    <updated>2023-10-25T21:52:01+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-100-m2-chapedikte-7cm"/>
+    <title>Gebouw kleiner dan 100 m2 - Chapedikte 7cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied4_ea042025-c409-44b3-a71c-cd28d12e9ad2.png?v=1698690774"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            27.20 - 861.60
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-100-m2-chapedikte-7cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 100 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868248922</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">127.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868248922</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">87.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868248922</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">67.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868248922</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">27.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868248922</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">861.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868248922</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">821.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868248922</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">801.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868248922</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">761.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868150618</id>
+    <published>2023-10-25T21:51:58+02:00</published>
+    <updated>2023-10-25T21:51:58+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-140-m2-chapedikte-5cm"/>
+    <title>Gebouw kleiner dan 140 m2 - Chapedikte 5cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied4_321b0a6e-b929-4fa5-98ff-503a0d31dbdf.png?v=1698690845"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            27.20 - 480.80
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-140-m2-chapedikte-5cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 140 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868150618</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">127.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868150618</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">87.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868150618</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">67.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868150618</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">27.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868150618</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">480.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868150618</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">440.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868150618</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">420.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868150618</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">380.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578868052314</id>
+    <published>2023-10-25T21:51:55+02:00</published>
+    <updated>2023-10-25T21:51:55+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-140-m2-chapedikte-6cm"/>
+    <title>Gebouw kleiner dan 140 m2 - Chapedikte 6cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied5.png?v=1698690861"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            32.25 - 789.75
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-140-m2-chapedikte-6cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 140 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868052314</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">144.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868052314</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">99.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868052314</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">77.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868052314</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">32.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868052314</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">789.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868052314</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">744.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868052314</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">722.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578868052314</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">677.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867986778</id>
+    <published>2023-10-25T21:51:51+02:00</published>
+    <updated>2023-10-25T21:51:51+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-140-m2-chapedikte-7cm"/>
+    <title>Gebouw kleiner dan 140 m2 - Chapedikte 7cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied5_5f2786ba-bd6d-4714-bd81-cc9fd68f2a33.png?v=1698690874"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            32.25 - 1015.50
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-140-m2-chapedikte-7cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 140 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867986778</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">144.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867986778</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">99.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867986778</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">77.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867986778</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">32.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867986778</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1015.50</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867986778</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">970.50</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867986778</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">948.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867986778</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">903.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867921242</id>
+    <published>2023-10-25T21:51:48+02:00</published>
+    <updated>2023-10-25T21:51:48+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-180-m2-chapedikte-5cm"/>
+    <title>Gebouw kleiner dan 180 m2 - Chapedikte 5cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied6.png?v=1698691007"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            35.25 - 624.75
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-180-m2-chapedikte-5cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 180 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867921242</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">166.50</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867921242</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">114.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867921242</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">87.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867921242</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">35.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867921242</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">624.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867921242</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">572.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867921242</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">546.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867921242</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">493.50</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867855706</id>
+    <published>2023-10-25T21:51:45+02:00</published>
+    <updated>2023-10-25T21:51:45+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-220-m2-chapedikte-5cm"/>
+    <title>Gebouw kleiner dan 220 m2 - Chapedikte 5cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied7_655024f0-008a-4bd8-abdc-7cc6d32fe00e.png?v=1698691164"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            42.00 - 728.00
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-220-m2-chapedikte-5cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 220 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867855706</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">182.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867855706</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">126.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867855706</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">98.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867855706</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">42.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867855706</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">728.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867855706</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">672.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867855706</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">644.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867855706</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">588.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867790170</id>
+    <published>2023-10-25T21:51:41+02:00</published>
+    <updated>2023-10-25T21:51:41+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-260-m2-chapedikte-5cm"/>
+    <title>Gebouw kleiner dan 260 m2 - Chapedikte 5cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied12_e09185ed-dd5b-4aef-a2f9-3ae868bbab51.png?v=1699048463"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            51.10 - 872.90
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-260-m2-chapedikte-5cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 260 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867790170</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">208.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867790170</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">145.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867790170</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">114.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867790170</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">51.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867790170</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">872.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867790170</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">809.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867790170</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">778.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867790170</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">715.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867724634</id>
+    <published>2023-10-25T21:51:38+02:00</published>
+    <updated>2023-10-25T21:51:38+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-300-m2-chapedikte-5cm"/>
+    <title>Gebouw kleiner dan 300 m2 - Chapedikte 5cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied12_1.png?v=1699048508"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            53.90 - 929.60
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-300-m2-chapedikte-5cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 300 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867724634</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">228.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867724634</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">158.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867724634</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">123.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867724634</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">53.90</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867724634</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">929.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867724634</id>
+      <title>2 weken volgens ≤ 5 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">859.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867724634</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">824.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867724634</id>
+      <title>2 weken volgens ≤ 5 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">754.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867626330</id>
+    <published>2023-10-25T21:51:34+02:00</published>
+    <updated>2023-10-25T21:51:34+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-180-m2-chapedikte-6cm"/>
+    <title>Gebouw kleiner dan 180 m2 - Chapedikte 6cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied8.png?v=1698691021"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            42.00 - 1022.00
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-180-m2-chapedikte-6cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 180 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867626330</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">182.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867626330</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">126.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867626330</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">98.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867626330</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">42.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867626330</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1022.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867626330</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">966.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867626330</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">938.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867626330</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">882.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867560794</id>
+    <published>2023-10-25T21:51:31+02:00</published>
+    <updated>2023-10-25T21:51:31+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-220-m2-chapedikte-6cm"/>
+    <title>Gebouw kleiner dan 220 m2 - Chapedikte 6cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied7_23d5bb44-db3c-454a-a741-3e8f361d6f88.png?v=1698691173"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            42.00 - 1022.00
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-220-m2-chapedikte-6cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 220 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867560794</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">182.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867560794</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">126.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867560794</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">98.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867560794</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">42.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867560794</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1022.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867560794</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">966.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867560794</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">938.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867560794</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">882.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867528026</id>
+    <published>2023-10-25T21:51:27+02:00</published>
+    <updated>2023-10-25T21:51:27+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-260-m2-chapedikte-6cm"/>
+    <title>Gebouw kleiner dan 260 m2 - Chapedikte 6cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied12_ba149e1e-b78f-444b-bcfb-0472d2aedaae.png?v=1699048471"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            51.10 - 1230.60
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-260-m2-chapedikte-6cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 260 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867528026</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">208.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867528026</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">145.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867528026</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">114.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867528026</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">51.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867528026</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1230.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867528026</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1167.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867528026</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1136.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867528026</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1073.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867364186</id>
+    <published>2023-10-25T21:51:24+02:00</published>
+    <updated>2023-10-25T21:51:24+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-300-m2-chapedikte-6cm"/>
+    <title>Gebouw kleiner dan 300 m2 - Chapedikte 6cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied10.png?v=1698691366"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            60.20 - 1456.70
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-300-m2-chapedikte-6cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 300 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867364186</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">252.70</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867364186</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">175.70</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867364186</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">137.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867364186</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">60.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867364186</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1456.70</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867364186</id>
+      <title>3 weken volgens ≤ 6 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1379.70</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867364186</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1341.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867364186</id>
+      <title>3 weken volgens ≤ 6 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1264.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867233114</id>
+    <published>2023-10-25T21:51:20+02:00</published>
+    <updated>2023-10-25T21:51:20+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-180-m2-chapedikte-7cm"/>
+    <title>Gebouw kleiner dan 180 m2 - Chapedikte 7cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied8_84c65c2a-15b4-4f4f-aa62-75edacb7dde7.png?v=1698691037"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            51.10 - 1588.30
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-180-m2-chapedikte-7cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 180 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867233114</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">208.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867233114</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">145.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867233114</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">114.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867233114</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">51.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867233114</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1588.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867233114</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1525.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867233114</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1493.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867233114</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1430.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867134810</id>
+    <published>2023-10-25T21:51:16+02:00</published>
+    <updated>2023-10-25T21:51:16+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-220-m2-chapedikte-7cm"/>
+    <title>Gebouw kleiner dan 220 m2 - Chapedikte 7cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied12.png?v=1699048415"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            51.10 - 1588.30
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-220-m2-chapedikte-7cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 220 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867134810</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">208.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867134810</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">145.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867134810</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">114.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867134810</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">51.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867134810</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1588.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867134810</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1525.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867134810</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1493.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867134810</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1430.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867102042</id>
+    <published>2023-10-25T21:51:13+02:00</published>
+    <updated>2023-10-25T21:51:13+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-260-m2-chapedikte-7cm"/>
+    <title>Gebouw kleiner dan 260 m2 - Chapedikte 7cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied9.png?v=1698691269"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            57.40 - 1782.20
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-260-m2-chapedikte-7cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 260 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867102042</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">232.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867102042</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">162.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867102042</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">127.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867102042</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">57.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867102042</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1782.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867102042</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1712.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867102042</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1677.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867102042</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1607.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578867036506</id>
+    <published>2023-10-25T21:51:09+02:00</published>
+    <updated>2023-10-25T21:51:09+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-300-m2-chapedikte-7cm"/>
+    <title>Gebouw kleiner dan 300 m2 - Chapedikte 7cm</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied10_813fb4c0-2bf8-4102-a919-c6a1ba1fe748.png?v=1698691374"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            60.20 - 1878.10
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-300-m2-chapedikte-7cm">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken voor verdere afwerking, o.a. de installatie van binnendeuren, keukens, plinten, vloerafwerkingen en schilderwerken.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Ons deskundige team van bouwkundigen en vochtexperts heeft bij het samenstellen van deze pakketten rekening gehouden met diverse factoren. Dit omvat de omvang van uw project, het aantal ruimtes, de binnentemperatuur, de relatieve vochtigheid, de dikte van de muur- en vloerafwerking, en het type en uithardingstijd van het betreffende materiaal.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">De droogtijd en capaciteit van elke bouwdroger wordt nauwgezet berekend door onze specialisten. Door de capaciteit te verspreiden over verschillende units en deze op strategische punten te positioneren, verzekeren wij een superieure droogprestatie.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Het belang van voldoende luchtcirculatie tijdens het droogproces mag niet worden onderschat. Onze ventilatoren faciliteren de verplaatsing van waterdamp in uw gebouw, die vervolgens door onze drogers wordt geabsorbeerd en gecondenseerd.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Eveneens essentieel is de binnentemperatuur tijdens het drogen. Om de gewenste droogtijd te bereiken, moet de binnentemperatuur zich tussen de 17°C en 20°C bevinden. Dit zorgt ervoor dat het vocht uit het materiaal in de lucht vrijkomt en door de ventilatoren naar de bouwdrogers wordt geleid.</span></p>
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Onze pakketten garanderen een veilige vochtigheidsgraad van muren en vloeren aan het einde van de droogperiode, rond 20-30%. Dit wordt vastgesteld door onze nauwkeurige vochtmeting, die een diepte van 4,00 cm beslaat. Hierdoor kunt u erop vertrouwen dat uw afwerking op een veilige en solide basis zal worden uitgevoerd.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>chape drogen</s:tag>
+    <s:tag>Gebouw &lt; 300 m²</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867036506</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">252.70</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867036506</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">175.70</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867036506</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">137.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867036506</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">60.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867036506</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1878.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867036506</id>
+      <title>4 weken volgens ≥ 7 cm / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1801.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867036506</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1762.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578867036506</id>
+      <title>4 weken volgens ≥ 7 cm / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1685.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+</feed>

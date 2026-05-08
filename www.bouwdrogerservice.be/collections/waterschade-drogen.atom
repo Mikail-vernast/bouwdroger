@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="nl" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://www.bouwdrogerservice.be/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://www.bouwdrogerservice.be/collections/waterschade-drogen.atom"/>
+  <title>Bouwdrogerservice</title>
+  <updated>2023-10-25T22:34:31+02:00</updated>
+  <author>
+    <name>Bouwdrogerservice</name>
+  </author>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578919137626</id>
+    <published>2023-10-25T22:34:31+02:00</published>
+    <updated>2023-10-25T22:34:31+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-100-m2-waterschade-drogen"/>
+    <title>Gebouw kleiner dan 100 m2 - Waterschade drogen</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied4_f042b0d7-4cc5-4780-b77f-3f3e05d19ca3.png?v=1698690835"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            27.20 - 861.60
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-100-m2-waterschade-drogen">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Gebouw &lt; 100 m²</s:tag>
+    <s:tag>waterschade drogen</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578919137626</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">127.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578919137626</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">87.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578919137626</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">67.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578919137626</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">27.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578919137626</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">861.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578919137626</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">821.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578919137626</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">801.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578919137626</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">761.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578918089050</id>
+    <published>2023-10-25T22:33:52+02:00</published>
+    <updated>2023-10-25T22:33:52+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-140-m2-waterschade-drogen"/>
+    <title>Gebouw kleiner dan 140 m2 - Waterschade drogen</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied5_b0f35456-0b75-45be-86d6-f1cdba018a5b.png?v=1698690924"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            32.25 - 1015.50
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-140-m2-waterschade-drogen">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Gebouw &lt; 140 m²</s:tag>
+    <s:tag>waterschade drogen</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578918089050</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">144.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578918089050</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">99.75</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578918089050</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">77.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578918089050</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">32.25</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578918089050</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1015.50</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578918089050</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">970.50</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578918089050</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">948.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578918089050</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">903.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578916614490</id>
+    <published>2023-10-25T22:33:03+02:00</published>
+    <updated>2023-10-25T22:33:03+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-180-m2-waterschade-drogen"/>
+    <title>Gebouw kleiner dan 180 m2 - Waterschade drogen</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied7_8e1e10e1-1d66-4a17-8fc7-cda7d1baeb0d.png?v=1698691155"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            51.10 - 1588.30
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-180-m2-waterschade-drogen">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Gebouw &lt; 180 m²</s:tag>
+    <s:tag>waterschade drogen</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578916614490</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">208.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578916614490</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">145.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578916614490</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">114.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578916614490</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">51.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578916614490</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1588.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578916614490</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1525.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578916614490</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1493.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578916614490</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1430.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578915533146</id>
+    <published>2023-10-25T22:32:21+02:00</published>
+    <updated>2023-10-25T22:32:21+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-220-m2-waterschade-drogen"/>
+    <title>Gebouw kleiner dan 220 m2 - Waterschade drogen</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied12_87ff83b2-4e1c-473c-b5f4-3527349ba847.png?v=1699048453"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            51.10 - 1588.30
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-220-m2-waterschade-drogen">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Gebouw &lt; 220 m²</s:tag>
+    <s:tag>waterschade drogen</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915533146</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">208.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915533146</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">145.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915533146</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">114.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915533146</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">51.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915533146</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1588.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915533146</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1525.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915533146</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1493.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915533146</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1430.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578915074394</id>
+    <published>2023-10-25T22:31:52+02:00</published>
+    <updated>2023-10-25T22:31:52+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-260-m2-waterschade-drogen"/>
+    <title>Gebouw kleiner dan 260 m2 - Waterschade drogen</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied9_2c8e82ff-749c-4e97-9769-90bf60940823.png?v=1698691309"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            57.40 - 1782.20
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-260-m2-waterschade-drogen">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Gebouw &lt; 260 m²</s:tag>
+    <s:tag>waterschade drogen</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915074394</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">232.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915074394</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">162.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915074394</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">127.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915074394</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">57.40</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915074394</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1782.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915074394</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1712.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915074394</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1677.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578915074394</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1607.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578914222426</id>
+    <published>2023-10-25T22:31:15+02:00</published>
+    <updated>2023-10-25T22:31:15+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-300-m2-waterschade-drogen"/>
+    <title>Gebouw kleiner dan 300 m2 - Waterschade drogen</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied10_8210ac28-1bcc-4e12-8376-cce1ee9aa3cf.png?v=1698691423"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            60.20 - 1878.10
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-300-m2-waterschade-drogen">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Gebouw &lt; 300 m²</s:tag>
+    <s:tag>waterschade drogen</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578914222426</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">252.70</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578914222426</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">175.70</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578914222426</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">137.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578914222426</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">60.20</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578914222426</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1878.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578914222426</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">1801.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578914222426</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">1762.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578914222426</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">1685.60</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578911830362</id>
+    <published>2023-10-25T22:29:29+02:00</published>
+    <updated>2023-10-25T22:29:29+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-60-m2-waterschade-drogen"/>
+    <title>Gebouw kleiner dan 60 m2 - Waterschade drogen</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied3_d6d88fd0-7d2f-4f13-a456-7e1b1dfe9e3c.png?v=1698691504"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            22.10 - 703.80
+            <a href="https://www.bouwdrogerservice.be/products/gebouw-kleiner-dan-60-m2-waterschade-drogen">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Gebouw &lt; 60 m²</s:tag>
+    <s:tag>Waterschade drogen</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578911830362</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">107.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578911830362</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">73.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578911830362</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">56.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578911830362</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">22.10</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578911830362</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">703.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578911830362</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">669.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578911830362</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">652.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578911830362</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">618.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/products/8578909339994</id>
+    <published>2023-10-25T22:27:27+02:00</published>
+    <updated>2023-10-25T22:27:27+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/products/ruimte-kleiner-dan-40-m2-waterschade-drogen"/>
+    <title>Ruimte kleiner dan 40 m2 - Waterschade drogen</title>
+    <s:type></s:type>
+    <s:vendor>Vernast</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0611/4358/0889/files/Tekengebied1_fff2e9ca-e5db-4b9e-a091-2ffa73580e38.png?v=1701961078"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Verkoper: </strong>Vernast<br>
+        <strong>Type: </strong><br>
+        <strong>Prijs: </strong>
+            12.35 - 393.30
+            <a href="https://www.bouwdrogerservice.be/products/ruimte-kleiner-dan-40-m2-waterschade-drogen">(8 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><meta charset="utf-8">
+<p><span style="font-weight: 400;" data-mce-style="font-weight: 400;">Bij Vernast erkennen we de uitdagingen die het selecteren van de juiste bouwdroger met zich mee kan brengen. Wij bieden daarom een op maat gemaakte pakketoplossing aan, die is ontworpen om de optimale vochtigheidsgraad te bereiken.</span></p>
+<p> </p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ruimte &lt; 40 m²</s:tag>
+    <s:tag>waterschade drogen</s:tag>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578909339994</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">59.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578909339994</id>
+      <title>Vanaf / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">40.85</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578909339994</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">31.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578909339994</id>
+      <title>Vanaf / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">12.35</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578909339994</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">393.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578909339994</id>
+      <title>4 weken / Installatie € 15.00/toestel / Reinigen Door Klant</title>
+      <s:price currency="EUR">374.30</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578909339994</id>
+      <title>4 weken / Geen installatie / Reinigen Door Ons € 10.00/Toestel</title>
+      <s:price currency="EUR">364.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://www.bouwdrogerservice.be/products/8578909339994</id>
+      <title>4 weken / Geen installatie / Reinigen Door Klant</title>
+      <s:price currency="EUR">345.80</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+</feed>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="nl" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://www.bouwdrogerservice.be/blogs/succesverhalen.atom</id>
+  <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/blogs/succesverhalen"/>
+  <link rel="self" type="application/atom+xml" href="https://www.bouwdrogerservice.be/blogs/succesverhalen.atom"/>
+  <title>Bouwdrogerservice - Succesverhalen</title>
+  <updated>2022-11-28T18:30:02+01:00</updated>
+  <author>
+    <name>Bouwdrogerservice</name>
+  </author>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/blogs/succesverhalen/bang-olufsen-1</id>
+    <published>2022-11-28T18:30:02+01:00</published>
+    <updated>2022-12-12T17:57:58+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/blogs/succesverhalen/bang-olufsen-1"/>
+    <title>Bang &amp; Olufsen</title>
+    <author>
+      <name>Emre Isik</name>
+    </author>
+  </entry>
+  <entry>
+    <id>https://www.bouwdrogerservice.be/blogs/succesverhalen/levis</id>
+    <published>2022-10-24T11:53:53+02:00</published>
+    <updated>2022-12-12T17:53:56+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://www.bouwdrogerservice.be/blogs/succesverhalen/levis"/>
+    <title>Levi&apos;s®</title>
+    <author>
+      <name>Emre Isik</name>
+    </author>
+    <content type="html">
+      <![CDATA[<meta charset="UTF-8">
+<p><span></span><strong><span class="s2">Schimmelsanering in kledingwinkel </span></strong></p>
+<p><span>Kledingwinkel L</span><span>EVI’S </span><span>ontdekte een schimmelgroei in hun opslagruimte. Bouwdrogerservice werd gecontacteerd om de ruimte te saneren, zodat de producten veilig konden worden opgeslagen. </span></p>
+<p><strong><span class="s2">Projectoverzicht<br><br></span></strong><span>De schimmelvorming was te wijten aan een waterpijp die door de jaren heen begon te verslijten. Dit veroorzaakte een lekkage waardoor het water door de muur werd opgenomen. Dit resulteerde in schimmelvorming op verschillende plaatsen. </span></p>
+<p><strong><span class="s2">Schimmelsanering</span><span class="s2">s</span><span class="s2">proces</span></strong></p>
+<p><strong><span class="s2"><br></span><span class="s2">Resultaat</span></strong></p>
+<p><span>Na de behandeling hebben we geconstateerd dat de luchtvochtigheid van 88% naar 49% is gedaald. Dit is de ideale luchtvochtigheid in een ruimte. </span><span>Als u vragen heeft over schimmels of zich in een vergelijkbare situatie bevindt, aarzel dan niet om contact met ons op te nemen. Dit kunt u doen door op onderstaande knop te klikken.</span></p>]]>
+    </content>
+  </entry>
+</feed>

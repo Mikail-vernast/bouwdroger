@@ -1,0 +1,26 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Logs & local env
+*.log
+.env
+.env.*
+!.env.example
+
+# HTTrack cache & cookies (geen sessietokens commit'en)
+hts-cache/
+cookies.txt
+hts-log.txt
+
+# Build / dependency artefacten (voor de toekomst)
+node_modules/
+dist/
+build/
+.cache/
+.vercel
