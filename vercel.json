@@ -1,11 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": false,
-  "rewrites": [
-    { "source": "/", "destination": "/www.bouwdrogerservice.be/index.html" },
-    { "source": "/:path+/", "destination": "/www.bouwdrogerservice.be/:path+/index.html" },
-    { "source": "/:path+", "destination": "/www.bouwdrogerservice.be/:path+" }
-  ],
   "headers": [
     {
       "source": "/(.*)",
