@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Header Designs — Truck overloop</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --primary: #8E0B0B; --accent: #5E0707; --dark: #3B0404; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#e8e8e8; color:#141414; }
+  .page-header { background:var(--dark); padding:32px 20px; text-align:center; color:white; }
+  .page-header h1 { font-size:22px; font-weight:900; }
+  .page-header p { color:rgba(255,255,255,.6); font-size:13px; margin-top:4px; }
+  .wrap { max-width:1100px; margin:30px auto; padding:0 16px; }
+  .opt-label { display:inline-flex; background:var(--primary); color:white; font-size:12px; font-weight:700; padding:6px 16px; border-radius:20px; margin-bottom:8px; cursor:pointer; }
+  .opt-title { font-size:17px; font-weight:800; margin-bottom:4px; }
+  .opt-desc { font-size:13px; color:#6B7280; margin-bottom:16px; }
+  .mockup { border-radius:16px; overflow:hidden; box-shadow:0 2px 20px rgba(0,0,0,.08); border:3px solid transparent; cursor:pointer; transition:all .2s; background:#fff; }
+  .mockup:hover { border-color:var(--primary); }
+  .mockup.selected { border-color:var(--primary); box-shadow:0 4px 30px rgba(142,11,11,.15); }
+  .divider { height:1px; background:#ddd; max-width:1100px; margin:40px auto; }
+  .select-indicator { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--primary); color:white; padding:12px 28px; border-radius:30px; font-size:14px; font-weight:700; display:none; z-index:100; box-shadow:0 4px 20px rgba(0,0,0,.2); }
+  .select-indicator.show { display:block; }
+
+  /* Shared hero parts */
+  .hero { position:relative; overflow:visible; color:white; }
+  .hero-content { position:relative; z-index:10; padding:60px 40px 0; text-align:right; max-width:500px; margin-left:auto; }
+  .hero-content h1 { font-family:'Playfair Display',serif; font-size:38px; font-weight:900; line-height:1.1; margin-bottom:12px; }
+  .hero-content p { font-size:14px; color:rgba(255,255,255,.75); margin-bottom:20px; line-height:1.6; }
+  .hero-btns { display:flex; gap:10px; justify-content:flex-end; }
+  .btn-w { background:white; color:var(--dark); padding:10px 24px; border-radius:8px; font-size:13px; font-weight:700; border:none; }
+  .btn-g { background:transparent; border:2px solid rgba(255,255,255,.3); color:white; padding:10px 24px; border-radius:8px; font-size:13px; font-weight:600; }
+  .g-badge { display:inline-flex; align-items:center; gap:8px; background:white; border-radius:8px; padding:6px 14px; margin-bottom:16px; }
+  .g-badge .stars { color:#FBBF24; font-size:14px; }
+  .g-badge .score { font-size:13px; font-weight:700; color:#111; }
+  .g-badge .sub { font-size:10px; color:#888; }
+
+  /* White section below */
+  .next-section { background:white; padding:50px 40px; text-align:center; }
+  .next-section .badge { display:inline-block; background:#16A34A; color:white; font-size:10px; font-weight:700; padding:4px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+  .next-section h2 { font-size:26px; font-weight:900; }
+  .next-section p { font-size:13px; color:#6B7280; margin-top:4px; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Header Design — Truck overloop naar volgende sectie</h1>
+  <p>5 designs waar de truck PNG over de header heen naar de witte sectie eronder loopt</p>
+</div>
+
+<!-- ===== DESIGN A: Truck onderaan uitstekend, diagonale snede ===== -->
+<div class="wrap">
+  <div class="opt-label" onclick="sel('a')">A</div>
+  <div class="opt-title">Diagonale snede — Truck steekt uit over witte sectie</div>
+  <div class="opt-desc">Header stopt met een schuine lijn. De truck PNG hangt eronder uit zodat hij "op" de witte sectie lijkt te staan.</div>
+
+  <div class="mockup" id="option-a" onclick="sel('a')">
+    <div class="hero" style="background:var(--dark);padding-bottom:0;">
+      <!-- Decorative shapes -->
+      <div style="position:absolute;top:-60px;right:-40px;width:300px;height:300px;border-radius:50%;background:rgba(142,11,11,.3);"></div>
+      <div style="position:absolute;top:40px;right:120px;width:200px;height:200px;border-radius:50%;background:rgba(142,11,11,.15);"></div>
+
+      <div class="hero-content" style="padding-bottom:40px;">
+        <div class="g-badge"><span class="stars">★★★★★</span><span class="score">4.8</span><span class="sub">Google</span></div>
+        <h1>Uw expert<br>in een zorgeloze<br>bouwdroging</h1>
+        <p>Ontvang direct een <strong>droogplan op maat</strong> en een <strong>eerlijke prijs</strong>.</p>
+        <div class="hero-btns"><button class="btn-w">Bereken je prijs →</button><button class="btn-g">Zelf afhalen?</button></div>
+      </div>
+
+      <!-- Truck sticking out at bottom -->
+      <div style="position:relative;z-index:20;margin-top:-20px;">
+        <img src="http://localhost:5173/src/assets/hero-truck.png" style="width:65%;max-width:700px;display:block;margin-bottom:-80px;position:relative;z-index:20;" alt="Vernast truck">
+      </div>
+
+      <!-- Diagonal cut -->
+      <svg viewBox="0 0 1440 100" style="display:block;position:relative;z-index:5;margin-top:-20px;" preserveAspectRatio="none">
+        <path d="M0,40 L1440,100 L1440,100 L0,100 Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="next-section" style="padding-top:60px;">
+      <div class="badge">Nieuw in ons assortiment</div>
+      <h2>Ontdek onze ECO-machines</h2>
+      <p>Tot 40% minder energieverbruik dan traditionele industriële drogers</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ===== DESIGN B: Truck centered, hero split verticaal ===== -->
+<div class="wrap">
+  <div class="opt-label" onclick="sel('b')">B</div>
+  <div class="opt-title">Gecentreerde truck — Half op hero, half op wit</div>
+  <div class="opt-desc">De hero is korter. De truck staat precies op de grens: bovenkant in de bordeaux, wielen op de witte sectie.</div>
+
+  <div class="mockup" id="option-b" onclick="sel('b')">
+    <div class="hero" style="background:var(--dark);text-align:center;padding:50px 40px 0;">
+      <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:500px;height:500px;border-radius:50%;background:rgba(142,11,11,.2);"></div>
+
+      <div style="position:relative;z-index:10;max-width:600px;margin:0 auto;text-align:center;">
+        <div class="g-badge" style="justify-content:center;"><span class="stars">★★★★★</span><span class="score">4.8</span><span class="sub">Google</span></div>
+        <h1 style="text-align:center;font-size:36px;">Uw expert in een<br>zorgeloze bouwdroging</h1>
+        <p style="text-align:center;">Ontvang direct een <strong>droogplan op maat</strong> en een <strong>eerlijke prijs</strong>.</p>
+        <div class="hero-btns" style="justify-content:center;margin-bottom:30px;"><button class="btn-w">Bereken je prijs →</button><button class="btn-g">Zelf afhalen?</button></div>
+      </div>
+
+      <!-- Truck centered, sticking into white -->
+      <div style="position:relative;z-index:20;display:flex;justify-content:center;">
+        <img src="http://localhost:5173/src/assets/hero-truck.png" style="width:70%;max-width:750px;margin-bottom:-100px;" alt="Vernast truck">
+      </div>
+    </div>
+    <div class="next-section" style="padding-top:120px;">
+      <div class="badge">Nieuw in ons assortiment</div>
+      <h2>Ontdek onze ECO-machines</h2>
+      <p>Tot 40% minder energieverbruik dan traditionele industriële drogers</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ===== DESIGN C: Curved wave snede ===== -->
+<div class="wrap">
+  <div class="opt-label" onclick="sel('c')">C</div>
+  <div class="opt-title">Curved wave — Zachte golf met truck eroverheen</div>
+  <div class="opt-desc">Een zachte golf/curve scheidt hero van de witte sectie. De truck rijdt over de golf heen.</div>
+
+  <div class="mockup" id="option-c" onclick="sel('c')">
+    <div class="hero" style="background:var(--dark);">
+      <div style="position:absolute;top:-80px;right:-60px;width:350px;height:350px;border-radius:50%;background:rgba(142,11,11,.25);"></div>
+      <div style="position:absolute;bottom:100px;right:80px;width:180px;height:180px;border-radius:50%;background:rgba(142,11,11,.12);"></div>
+
+      <div class="hero-content" style="padding-bottom:30px;">
+        <div class="g-badge"><span class="stars">★★★★★</span><span class="score">4.8</span><span class="sub">Google</span></div>
+        <h1>Uw expert<br>in een zorgeloze<br>bouwdroging</h1>
+        <p>Ontvang direct een <strong>droogplan op maat</strong> en een <strong>eerlijke prijs</strong>.</p>
+        <div class="hero-btns"><button class="btn-w">Bereken je prijs →</button><button class="btn-g">Zelf afhalen?</button></div>
+      </div>
+
+      <!-- Truck over the wave -->
+      <div style="position:relative;z-index:20;">
+        <img src="http://localhost:5173/src/assets/hero-truck.png" style="width:60%;max-width:650px;display:block;margin-bottom:-90px;position:relative;z-index:20;" alt="Vernast truck">
+      </div>
+
+      <!-- Wave curve -->
+      <svg viewBox="0 0 1440 120" style="display:block;position:relative;z-index:5;" preserveAspectRatio="none">
+        <path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="next-section" style="padding-top:60px;">
+      <div class="badge">Nieuw in ons assortiment</div>
+      <h2>Ontdek onze ECO-machines</h2>
+      <p>Tot 40% minder energieverbruik dan traditionele industriële drogers</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ===== DESIGN D: Straight cut, truck large left ===== -->
+<div class="wrap">
+  <div class="opt-label" onclick="sel('d')">D</div>
+  <div class="opt-title">Rechte snede — Grote truck links, wielen op witte vlak</div>
+  <div class="opt-desc">Simpelste optie: de hero stopt recht. De truck is groot gepositioneerd links en steekt 80px uit over de grens.</div>
+
+  <div class="mockup" id="option-d" onclick="sel('d')">
+    <div class="hero" style="background:var(--dark);display:flex;align-items:flex-end;min-height:420px;">
+      <div style="position:absolute;top:-50px;right:-30px;width:250px;height:250px;border-radius:50%;background:rgba(142,11,11,.3);"></div>
+
+      <!-- Truck left, large -->
+      <div style="position:relative;z-index:20;flex:0 0 55%;display:flex;align-items:flex-end;">
+        <img src="http://localhost:5173/src/assets/hero-truck.png" style="width:100%;max-width:600px;margin-bottom:-80px;margin-left:20px;" alt="Vernast truck">
+      </div>
+
+      <!-- Text right -->
+      <div style="flex:1;position:relative;z-index:10;padding:40px 40px 60px 0;text-align:right;">
+        <div class="g-badge"><span class="stars">★★★★★</span><span class="score">4.8</span><span class="sub">Google</span></div>
+        <h1 style="font-size:34px;">Uw expert<br>in een zorgeloze<br>bouwdroging</h1>
+        <p>Ontvang direct een <strong>droogplan op maat</strong> en een <strong>eerlijke prijs</strong>.</p>
+        <div class="hero-btns"><button class="btn-w">Bereken je prijs →</button><button class="btn-g">Zelf afhalen?</button></div>
+      </div>
+    </div>
+    <div class="next-section" style="padding-top:100px;">
+      <div class="badge">Nieuw in ons assortiment</div>
+      <h2>Ontdek onze ECO-machines</h2>
+      <p>Tot 40% minder energieverbruik dan traditionele industriële drogers</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ===== DESIGN E: Angled split with shadow ===== -->
+<div class="wrap" style="padding-bottom:80px;">
+  <div class="opt-label" onclick="sel('e')">E</div>
+  <div class="opt-title">Schaduw-landing — Truck "landt" op witte sectie met dropshadow</div>
+  <div class="opt-desc">De hero heeft een rechte grens, maar de truck steekt eronder uit met een dramatische schaduw eronder. Alsof hij net is geland.</div>
+
+  <div class="mockup" id="option-e" onclick="sel('e')">
+    <div class="hero" style="background:var(--dark);position:relative;">
+      <div style="position:absolute;top:-40px;right:0;width:400px;height:400px;border-radius:50%;background:rgba(142,11,11,.2);"></div>
+      <div style="position:absolute;top:80px;right:200px;width:150px;height:150px;border-radius:50%;background:rgba(142,11,11,.1);"></div>
+
+      <div class="hero-content" style="padding-bottom:20px;">
+        <div class="g-badge"><span class="stars">★★★★★</span><span class="score">4.8</span><span class="sub">Google</span></div>
+        <h1>Uw expert<br>in een zorgeloze<br>bouwdroging</h1>
+        <p>Ontvang direct een <strong>droogplan op maat</strong> en een <strong>eerlijke prijs</strong>.</p>
+        <div class="hero-btns"><button class="btn-w">Bereken je prijs →</button><button class="btn-g">Zelf afhalen?</button></div>
+      </div>
+
+      <!-- Truck with dramatic shadow -->
+      <div style="position:relative;z-index:20;">
+        <img src="http://localhost:5173/src/assets/hero-truck.png" style="width:60%;max-width:650px;display:block;margin-bottom:-70px;position:relative;z-index:20;filter:drop-shadow(0 30px 40px rgba(0,0,0,0.35));" alt="Vernast truck">
+      </div>
+    </div>
+    <!-- White section with truck shadow visible -->
+    <div class="next-section" style="padding-top:90px;position:relative;">
+      <div class="badge">Nieuw in ons assortiment</div>
+      <h2>Ontdek onze ECO-machines</h2>
+      <p>Tot 40% minder energieverbruik dan traditionele industriële drogers</p>
+    </div>
+  </div>
+</div>
+
+<div id="indicator" class="select-indicator"></div>
+<script>
+function sel(c){
+  document.querySelectorAll('.mockup').forEach(m=>m.classList.remove('selected'));
+  document.getElementById('option-'+c).classList.add('selected');
+  var labels={a:'A — Diagonale snede',b:'B — Gecentreerde truck',c:'C — Curved wave',d:'D — Rechte snede groot',e:'E — Schaduw-landing'};
+  var ind=document.getElementById('indicator');
+  ind.textContent='✓ '+labels[c];
+  ind.classList.add('show');
+}
+</script>
+</body>
+</html>

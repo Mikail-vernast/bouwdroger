@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vergelijking — 3 Visuele Opties</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --primary: #8E0B0B; --accent: #3B0404; --green: #16A34A; --red: #DC2626; --muted: #6B7280; --border: #E5E7EB; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f0f0f0; color: #141414; }
+  .page-header { background: var(--accent); padding: 32px 20px; text-align: center; color: white; }
+  .page-header h1 { font-size: 22px; font-weight: 900; }
+  .page-header p { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 4px; }
+  .wrap { max-width: 960px; margin: 30px auto; padding: 0 16px; }
+  .label { display: inline-flex; background: var(--primary); color: white; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; margin-bottom: 10px; cursor: pointer; }
+  .title { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+  .desc { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  .mockup { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); border: 3px solid transparent; cursor: pointer; transition: all 0.2s; }
+  .mockup:hover { border-color: var(--primary); }
+  .mockup.selected { border-color: var(--primary); box-shadow: 0 4px 24px rgba(142,11,11,0.12); }
+  .divider { height: 1px; background: var(--border); max-width: 960px; margin: 36px auto; }
+
+  /* --- OPTION A: Side-by-side visual cards --- */
+  .split-a { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+  .side-a { border-radius: 14px; padding: 24px; }
+  .side-a.bad { background: #FEF2F2; border: 1px solid #FECACA; }
+  .side-a.good { background: #F0FDF4; border: 2px solid #86EFAC; }
+  .side-a h3 { font-size: 16px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .side-a h3 .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .side-a .item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
+  .side-a .item .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .side-a .item .text { font-size: 13px; line-height: 1.5; }
+  .side-a .item .text strong { display: block; font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+
+  /* Floorplan visual */
+  .floor-a { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+  .floor-card { border-radius: 12px; padding: 16px; text-align: center; }
+  .floor-card.bad { background: #FEF2F2; border: 1px solid #FECACA; }
+  .floor-card.good { background: #F0FDF4; border: 1px solid #86EFAC; }
+  .floor-card .rooms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 10px; }
+  .floor-card .room { height: 48px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; }
+  .floor-card .caption { font-size: 11px; color: var(--muted); }
+
+  /* --- OPTION B: Before/After slider style --- */
+  .ba-container { margin-top: 20px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
+  .ba-header { display: grid; grid-template-columns: 1fr 1fr; }
+  .ba-header div { padding: 14px 20px; font-size: 13px; font-weight: 700; text-align: center; }
+  .ba-header .h-bad { background: #FEF2F2; color: var(--red); }
+  .ba-header .h-good { background: #F0FDF4; color: var(--green); }
+  .ba-row { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
+  .ba-row:last-child { border-bottom: none; }
+  .ba-cell { padding: 14px 20px; font-size: 12px; line-height: 1.5; display: flex; align-items: center; gap: 8px; }
+  .ba-cell.bad { background: #FFFBFB; color: #7F1D1D; }
+  .ba-cell.good { background: #FAFFF7; color: #166534; }
+  .ba-cell .emoji { font-size: 16px; flex-shrink: 0; }
+  .ba-label { text-align: center; padding: 8px; background: #F9FAFB; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; border-top: 1px solid var(--border); }
+
+  /* Big stats */
+  .ba-stats { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--border); }
+  .ba-stat { padding: 20px; text-align: center; }
+  .ba-stat.bad { background: #FEF2F2; }
+  .ba-stat.good { background: #F0FDF4; }
+  .ba-stat .num { font-size: 28px; font-weight: 900; }
+  .ba-stat.bad .num { color: var(--red); }
+  .ba-stat.good .num { color: var(--green); }
+  .ba-stat .lbl { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+  /* --- OPTION C: Infographic / visual story --- */
+  .infographic { margin-top: 20px; }
+  .info-scene { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .info-panel { border-radius: 14px; padding: 20px; position: relative; overflow: hidden; }
+  .info-panel.bad { background: linear-gradient(135deg, #FEF2F2, #FFF); border: 1px solid #FECACA; }
+  .info-panel.good { background: linear-gradient(135deg, #F0FDF4, #FFF); border: 2px solid #86EFAC; }
+  .info-panel .tag { position: absolute; top: 12px; right: 12px; font-size: 9px; font-weight: 700; padding: 3px 10px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .info-panel.bad .tag { background: #FEE2E2; color: var(--red); }
+  .info-panel.good .tag { background: #DCFCE7; color: var(--green); }
+  .info-panel h4 { font-size: 14px; font-weight: 800; margin-bottom: 12px; }
+
+  /* House SVG */
+  .house-svg { display: flex; justify-content: center; margin-bottom: 16px; }
+  .room-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; width: 180px; }
+  .room { height: 52px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; gap: 2px; }
+  .room .machine { font-size: 14px; }
+
+  /* Metric bars */
+  .metric-row { margin-bottom: 12px; }
+  .metric-label { font-size: 11px; font-weight: 600; margin-bottom: 4px; display: flex; justify-content: space-between; }
+  .metric-bar { height: 8px; border-radius: 4px; background: #E5E7EB; overflow: hidden; }
+  .metric-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+  .metric-fill.bad { background: var(--red); }
+  .metric-fill.good { background: var(--green); }
+
+  .select-indicator { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 12px 28px; border-radius: 30px; font-size: 14px; font-weight: 700; display: none; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .select-indicator.show { display: block; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Vergelijkingssectie — Kies een stijl</h1>
+  <p>3 visuele manieren om "onze aanpak vs. de rest" te presenteren</p>
+</div>
+
+<!-- OPTION A: Side-by-side visual cards + floorplan -->
+<div class="wrap">
+  <div class="label" onclick="selectOption('a')">A</div>
+  <div class="title">Visuele kaarten + plattegrond</div>
+  <div class="desc">Twee kaarten naast elkaar (rood vs groen) met bullet-vergelijkingen + een plattegrond die het verschil toont.</div>
+
+  <div class="mockup" id="option-a" onclick="selectOption('a')">
+    <div style="text-align:center;margin-bottom:20px;">
+      <span style="display:inline-block;background:var(--primary);color:white;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;">Waarom wij anders zijn</span>
+      <h2 style="font-size:24px;font-weight:900;margin-top:8px;">Onze aanpak vs. de rest</h2>
+    </div>
+
+    <div class="split-a">
+      <div class="side-a bad">
+        <h3><span class="dot" style="background:var(--red);"></span> Traditionele aanpak</h3>
+        <div class="item"><span class="icon">⚡</span><div class="text"><strong>Strategie</strong>1 groot industrieel toestel (2100W) in de gang</div></div>
+        <div class="item"><span class="icon">🔊</span><div class="text"><strong>Geluid</strong>59 dB op één punt — als een luide wasmachine</div></div>
+        <div class="item"><span class="icon">💸</span><div class="text"><strong>Energie</strong>Draait continu door, ook als ruimte al droog is</div></div>
+        <div class="item"><span class="icon">⚠️</span><div class="text"><strong>Risico</strong>1 toestel defect = alles staat stil</div></div>
+      </div>
+      <div class="side-a good">
+        <h3><span class="dot" style="background:var(--green);"></span> Vernast aanpak</h3>
+        <div class="item"><span class="icon">✅</span><div class="text"><strong>Strategie</strong>Meerdere ECO-units, per ruimte afgestemd</div></div>
+        <div class="item"><span class="icon">🤫</span><div class="text"><strong>Geluid</strong>52 dB per unit, verspreid = minder overlast</div></div>
+        <div class="item"><span class="icon">🍃</span><div class="text"><strong>Energie</strong>Per kamer stopbaar zodra die droog is</div></div>
+        <div class="item"><span class="icon">🛡️</span><div class="text"><strong>Risico</strong>1 unit defect = rest draait gewoon door</div></div>
+      </div>
+    </div>
+
+    <!-- Floorplan -->
+    <div class="floor-a">
+      <div class="floor-card bad">
+        <div class="rooms">
+          <div class="room" style="background:#FCA5A5;">❌<br>Nat</div>
+          <div class="room" style="background:#FCA5A5;">❌<br>Nat</div>
+          <div class="room" style="background:#FDE68A;">⚠️<br>Half</div>
+        </div>
+        <div style="background:var(--red);color:white;border-radius:6px;padding:6px;font-size:10px;font-weight:700;margin-bottom:6px;">🔧 1× DF800 in de gang</div>
+        <div class="caption">Vocht bereikt niet alle kamers</div>
+      </div>
+      <div class="floor-card good">
+        <div class="rooms">
+          <div class="room" style="background:#86EFAC;">✅<br>Droog</div>
+          <div class="room" style="background:#86EFAC;">✅<br>Droog</div>
+          <div class="room" style="background:#86EFAC;">✅<br>Droog</div>
+        </div>
+        <div style="background:var(--green);color:white;border-radius:6px;padding:6px;font-size:10px;font-weight:700;margin-bottom:6px;">🌿 3× ECO Boost, per kamer</div>
+        <div class="caption">Elke ruimte optimaal gedroogd</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OPTION B: Clean comparison table with stats -->
+<div class="wrap">
+  <div class="label" onclick="selectOption('b')">B</div>
+  <div class="title">Vergelijkingstabel met grote cijfers</div>
+  <div class="desc">Strakke rij-voor-rij vergelijking met emoji's, eindigend met grote impact-statistieken onderaan.</div>
+
+  <div class="mockup" id="option-b" onclick="selectOption('b')">
+    <div style="text-align:center;margin-bottom:20px;">
+      <span style="display:inline-block;background:var(--primary);color:white;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;">Waarom wij anders zijn</span>
+      <h2 style="font-size:24px;font-weight:900;margin-top:8px;">Onze aanpak vs. de rest</h2>
+    </div>
+
+    <div class="ba-container">
+      <div class="ba-header">
+        <div class="h-bad">❌ Traditionele aanpak</div>
+        <div class="h-good">✅ Vernast aanpak</div>
+      </div>
+
+      <div class="ba-label">Strategie</div>
+      <div class="ba-row">
+        <div class="ba-cell bad"><span class="emoji">🏭</span> 1 groot toestel in de gang</div>
+        <div class="ba-cell good"><span class="emoji">🌿</span> Per ruimte het juiste toestel</div>
+      </div>
+
+      <div class="ba-label">Energieverbruik</div>
+      <div class="ba-row">
+        <div class="ba-cell bad"><span class="emoji">⚡</span> 2100W continu, altijd aan</div>
+        <div class="ba-cell good"><span class="emoji">💡</span> 500W per unit, per kamer stopbaar</div>
+      </div>
+
+      <div class="ba-label">Droogresultaat</div>
+      <div class="ba-row">
+        <div class="ba-cell bad"><span class="emoji">😟</span> Ongelijkmatig — verderop nat</div>
+        <div class="ba-cell good"><span class="emoji">😊</span> Gelijkmatig — elke ruimte droog</div>
+      </div>
+
+      <div class="ba-label">Geluid</div>
+      <div class="ba-row">
+        <div class="ba-cell bad"><span class="emoji">🔊</span> 59 dB op 1 punt</div>
+        <div class="ba-cell good"><span class="emoji">🤫</span> 52 dB verspreid</div>
+      </div>
+
+      <div class="ba-label">Uitval</div>
+      <div class="ba-row">
+        <div class="ba-cell bad"><span class="emoji">💀</span> 1 defect = alles stil</div>
+        <div class="ba-cell good"><span class="emoji">🛡️</span> 1 defect = rest draait door</div>
+      </div>
+
+      <div class="ba-stats">
+        <div class="ba-stat bad">
+          <div class="num">2100W</div>
+          <div class="lbl">Continu verbruik</div>
+        </div>
+        <div class="ba-stat good">
+          <div class="num">500W</div>
+          <div class="lbl">Per unit, stopbaar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OPTION C: Infographic with metrics bars + floorplan -->
+<div class="wrap" style="padding-bottom:80px;">
+  <div class="label" onclick="selectOption('c')">C</div>
+  <div class="title">Infographic — Plattegrond + statistiek-balken</div>
+  <div class="desc">Visueel verhaal: plattegrond bovenaan toont het probleem, daaronder metrieken met progressie-balken die het verschil kwantificeren.</div>
+
+  <div class="mockup" id="option-c" onclick="selectOption('c')">
+    <div style="text-align:center;margin-bottom:24px;">
+      <span style="display:inline-block;background:var(--primary);color:white;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;">Waarom wij anders zijn</span>
+      <h2 style="font-size:24px;font-weight:900;margin-top:8px;">Onze aanpak vs. de rest</h2>
+      <p style="font-size:13px;color:var(--muted);margin-top:4px;">Voorbeeld: 3 kamers, elk 40m²</p>
+    </div>
+
+    <div class="infographic">
+      <!-- Scene: Floorplan comparison -->
+      <div class="info-scene">
+        <div class="info-panel bad">
+          <span class="tag">Traditioneel</span>
+          <h4 style="color:var(--red);">1× groot toestel</h4>
+          <div class="house-svg">
+            <div class="room-grid">
+              <div class="room" style="background:#FEE2E2;color:var(--red);">
+                <span class="machine">🏭</span>
+                DF800
+              </div>
+              <div class="room" style="background:#FEF3C7;color:#92400E;">
+                <span class="machine">⚠️</span>
+                Half droog
+              </div>
+              <div class="room" style="background:#FEE2E2;color:var(--red);">
+                <span class="machine">❌</span>
+                Nat
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);text-align:center;">Gang → kamers: vocht bereikt niet overal</div>
+        </div>
+
+        <div class="info-panel good">
+          <span class="tag">Vernast</span>
+          <h4 style="color:var(--green);">3× ECO per kamer</h4>
+          <div class="house-svg">
+            <div class="room-grid">
+              <div class="room" style="background:#DCFCE7;color:var(--green);">
+                <span class="machine">🌿</span>
+                Droog
+              </div>
+              <div class="room" style="background:#DCFCE7;color:var(--green);">
+                <span class="machine">🌿</span>
+                Droog
+              </div>
+              <div class="room" style="background:#DCFCE7;color:var(--green);">
+                <span class="machine">🌿</span>
+                Droog
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);text-align:center;">Per kamer afgestemd = overal optimaal</div>
+        </div>
+      </div>
+
+      <!-- Metric bars -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--red);">❌ Traditioneel</h4>
+          <div class="metric-row">
+            <div class="metric-label"><span>Energieverbruik</span><span>2100W</span></div>
+            <div class="metric-bar"><div class="metric-fill bad" style="width:100%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Geluid</span><span>59 dB</span></div>
+            <div class="metric-bar"><div class="metric-fill bad" style="width:85%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Gelijkmatigheid</span><span>40%</span></div>
+            <div class="metric-bar"><div class="metric-fill bad" style="width:40%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Flexibiliteit</span><span>Laag</span></div>
+            <div class="metric-bar"><div class="metric-fill bad" style="width:20%;"></div></div>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--green);">✅ Vernast</h4>
+          <div class="metric-row">
+            <div class="metric-label"><span>Energieverbruik</span><span>1500W</span></div>
+            <div class="metric-bar"><div class="metric-fill good" style="width:71%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Geluid</span><span>52 dB</span></div>
+            <div class="metric-bar"><div class="metric-fill good" style="width:55%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Gelijkmatigheid</span><span>98%</span></div>
+            <div class="metric-bar"><div class="metric-fill good" style="width:98%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Flexibiliteit</span><span>Hoog</span></div>
+            <div class="metric-bar"><div class="metric-fill good" style="width:95%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="indicator" class="select-indicator"></div>
+<script>
+function selectOption(c) {
+  document.querySelectorAll('.mockup').forEach(m => m.classList.remove('selected'));
+  document.getElementById('option-' + c).classList.add('selected');
+  const labels = { a: 'A — Visuele kaarten + plattegrond', b: 'B — Tabel met grote cijfers', c: 'C — Infographic met metrieken' };
+  const ind = document.getElementById('indicator');
+  ind.textContent = '✓ ' + labels[c] + ' geselecteerd';
+  ind.classList.add('show');
+}
+</script>
+</body>
+</html>

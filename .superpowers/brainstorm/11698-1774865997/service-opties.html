@@ -1,0 +1,168 @@
+<h2>Calculator: 3 Service-opties</h2>
+<p class="subtitle">Na het berekenen van de prijs krijgt de klant deze 3 opties. Welke presentatie voelt het beste?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Optie A — Horizontale kaarten (naast elkaar)</h3>
+      <div style="display:flex;gap:12px;margin-top:12px;">
+
+        <!-- Afhalen -->
+        <div style="flex:1;border:2px solid #e5e7eb;border-radius:12px;padding:16px;background:#fafafa;">
+          <div style="font-size:11px;text-transform:uppercase;color:#888;letter-spacing:1px;">Voordeligst</div>
+          <h4 style="margin:6px 0 4px;font-size:16px;">Afhalen</h4>
+          <div style="font-size:22px;font-weight:800;color:#1a1a1a;">€389</div>
+          <ul style="font-size:12px;color:#666;list-style:none;padding:0;margin:10px 0 0;">
+            <li>&#10005; Geen levering</li>
+            <li>&#10005; Geen installatie</li>
+            <li>&#10005; Geen vochtmeting</li>
+            <li>&#10003; ECO-machines</li>
+          </ul>
+          <div style="margin-top:12px;padding:8px;background:#fff;border-radius:8px;font-size:11px;color:#888;text-align:center;">
+            Zelf ophalen in magazijn
+          </div>
+        </div>
+
+        <!-- Levering zonder installatie -->
+        <div style="flex:1;border:2px solid #e5e7eb;border-radius:12px;padding:16px;background:#fafafa;">
+          <div style="font-size:11px;text-transform:uppercase;color:#888;letter-spacing:1px;">Gemakkelijk</div>
+          <h4 style="margin:6px 0 4px;font-size:16px;">Levering</h4>
+          <div style="font-size:22px;font-weight:800;color:#1a1a1a;">€449</div>
+          <ul style="font-size:12px;color:#666;list-style:none;padding:0;margin:10px 0 0;">
+            <li>&#10003; Levering aan huis</li>
+            <li>&#10005; Geen installatie</li>
+            <li>&#10005; Geen vochtmeting</li>
+            <li>&#10003; ECO-machines</li>
+          </ul>
+          <div style="margin-top:12px;padding:8px;background:#fff;border-radius:8px;font-size:11px;color:#888;text-align:center;">
+            Afgezet aan de deur
+          </div>
+        </div>
+
+        <!-- All-in levering + installatie -->
+        <div style="flex:1;border:3px solid #f97316;border-radius:12px;padding:16px;background:#fff7ed;position:relative;">
+          <div style="position:absolute;top:-10px;right:12px;background:#f97316;color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">AANBEVOLEN</div>
+          <div style="font-size:11px;text-transform:uppercase;color:#f97316;letter-spacing:1px;font-weight:600;">All-in</div>
+          <h4 style="margin:6px 0 4px;font-size:16px;">Levering + Installatie</h4>
+          <div style="font-size:22px;font-weight:800;color:#1a1a1a;">€499</div>
+          <ul style="font-size:12px;color:#444;list-style:none;padding:0;margin:10px 0 0;">
+            <li>&#10003; Levering aan huis</li>
+            <li>&#10003; Professionele installatie</li>
+            <li>&#10003; Gratis vochtmeting</li>
+            <li>&#10003; ECO-machines</li>
+          </ul>
+          <div style="margin-top:12px;padding:8px;background:#f97316;border-radius:8px;font-size:11px;color:white;text-align:center;font-weight:600;">
+            Wij regelen alles voor u
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Optie B — Vergelijkingstabel (rijen)</h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:13px;">
+        <thead>
+          <tr style="border-bottom:2px solid #e5e7eb;">
+            <th style="text-align:left;padding:8px;color:#888;">Wat zit erin?</th>
+            <th style="text-align:center;padding:8px;">Afhalen</th>
+            <th style="text-align:center;padding:8px;">Levering</th>
+            <th style="text-align:center;padding:8px;background:#fff7ed;border-radius:8px 8px 0 0;color:#f97316;font-weight:700;">All-in ★</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:8px;">ECO-machines</td>
+            <td style="text-align:center;padding:8px;">&#10003;</td>
+            <td style="text-align:center;padding:8px;">&#10003;</td>
+            <td style="text-align:center;padding:8px;background:#fffbf5;">&#10003;</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:8px;">Levering aan huis</td>
+            <td style="text-align:center;padding:8px;color:#ccc;">&#10005;</td>
+            <td style="text-align:center;padding:8px;">&#10003;</td>
+            <td style="text-align:center;padding:8px;background:#fffbf5;">&#10003;</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:8px;">Professionele installatie</td>
+            <td style="text-align:center;padding:8px;color:#ccc;">&#10005;</td>
+            <td style="text-align:center;padding:8px;color:#ccc;">&#10005;</td>
+            <td style="text-align:center;padding:8px;background:#fffbf5;">&#10003;</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:8px;">Gratis vochtmeting</td>
+            <td style="text-align:center;padding:8px;color:#ccc;">&#10005;</td>
+            <td style="text-align:center;padding:8px;color:#ccc;">&#10005;</td>
+            <td style="text-align:center;padding:8px;background:#fffbf5;">&#10003;</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:8px;">Telefonische support</td>
+            <td style="text-align:center;padding:8px;">&#10003;</td>
+            <td style="text-align:center;padding:8px;">&#10003;</td>
+            <td style="text-align:center;padding:8px;background:#fffbf5;">&#10003;</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 8px;font-weight:700;">Prijs</td>
+            <td style="text-align:center;padding:10px 8px;font-weight:800;font-size:16px;">€389</td>
+            <td style="text-align:center;padding:10px 8px;font-weight:800;font-size:16px;">€449</td>
+            <td style="text-align:center;padding:10px 8px;font-weight:800;font-size:18px;background:#fff7ed;color:#f97316;border-radius:0 0 8px 8px;">€499</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Optie C — Stappen (eerst kiezen, dan prijs)</h3>
+      <p style="color:#666;font-size:13px;margin-bottom:12px;">De klant kiest eerst m², type, en datum. Dan verschijnt stap 2: kies je service-niveau. Pas daarna ziet de klant de prijs.</p>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;">
+        <div style="background:#f97316;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">1</div>
+        <div style="flex:1;height:2px;background:#f97316;"></div>
+        <div style="background:#f97316;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">2</div>
+        <div style="flex:1;height:2px;background:#e5e7eb;"></div>
+        <div style="background:#e5e7eb;color:#888;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">3</div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <div style="flex:1;border:2px solid #e5e7eb;border-radius:10px;padding:12px;text-align:center;cursor:pointer;">
+          <div style="font-size:20px;">📦</div>
+          <div style="font-size:13px;font-weight:600;margin-top:4px;">Afhalen</div>
+          <div style="font-size:11px;color:#888;">Goedkoopst</div>
+        </div>
+        <div style="flex:1;border:2px solid #e5e7eb;border-radius:10px;padding:12px;text-align:center;cursor:pointer;">
+          <div style="font-size:20px;">🚚</div>
+          <div style="font-size:13px;font-weight:600;margin-top:4px;">Levering</div>
+          <div style="font-size:11px;color:#888;">Aan de deur</div>
+        </div>
+        <div style="flex:1;border:3px solid #f97316;border-radius:10px;padding:12px;text-align:center;cursor:pointer;background:#fff7ed;">
+          <div style="font-size:20px;">🔧</div>
+          <div style="font-size:13px;font-weight:700;margin-top:4px;color:#f97316;">All-in</div>
+          <div style="font-size:11px;color:#888;">Wij regelen alles</div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:#999;margin-top:10px;text-align:center;">→ Stap 3: Prijs verschijnt pas na keuze</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px;">
+  <h3>Context: jouw 3 service-niveaus</h3>
+  <table style="width:100%;font-size:13px;border-collapse:collapse;">
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:6px 8px;font-weight:600;">1. Afhalen</td>
+      <td style="padding:6px 8px;color:#666;">Klant haalt zelf op in magazijn. Laagste prijs.</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e5e7eb;">
+      <td style="padding:6px 8px;font-weight:600;">2. Levering (zonder installatie)</td>
+      <td style="padding:6px 8px;color:#666;">Toestellen geleverd en afgezet aan de deur. Geen installatie.</td>
+    </tr>
+    <tr>
+      <td style="padding:6px 8px;font-weight:600;color:#f97316;">3. All-in (aanbevolen)</td>
+      <td style="padding:6px 8px;color:#666;">Levering + installatie + vochtmeting + support. Alles inbegrepen.</td>
+    </tr>
+  </table>
+</div>

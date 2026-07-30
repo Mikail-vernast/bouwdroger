@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Showcase — 3 Opties</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #8E0B0B;
+    --accent: #3B0404;
+    --bg: #FFFFFF;
+    --bg-sec: #F8F8F8;
+    --text: #141414;
+    --muted: #6B7280;
+    --border: #E5E7EB;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f0f0f0; color: var(--text); }
+
+  .page-header { background: var(--accent); padding: 32px 20px; text-align: center; color: white; }
+  .page-header h1 { font-size: 24px; font-weight: 900; }
+  .page-header p { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 4px; }
+
+  .option-wrapper { max-width: 1000px; margin: 30px auto; padding: 0 16px; }
+  .option-label { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; margin-bottom: 12px; cursor: pointer; }
+  .option-label:hover { opacity: 0.9; }
+  .option-title { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .option-desc { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+
+  .mockup { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 2px 20px rgba(0,0,0,0.06); border: 2px solid transparent; cursor: pointer; transition: all 0.2s; }
+  .mockup:hover { border-color: var(--primary); box-shadow: 0 4px 30px rgba(142,11,11,0.12); }
+  .mockup.selected { border-color: var(--primary); box-shadow: 0 4px 30px rgba(142,11,11,0.15); }
+
+  .section-header { text-align: center; margin-bottom: 24px; }
+  .badge { display: inline-block; background: var(--primary); color: white; font-size: 10px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .badge.new { background: #16A34A; }
+
+  /* Option A: Title → Price → Photo → Info → Button */
+  .card-a { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 8px; }
+  .card-a-item { flex: 0 0 220px; background: var(--bg-sec); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); transition: all 0.2s; }
+  .card-a-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .card-a-top { padding: 16px 16px 0; }
+  .card-a-name { font-size: 15px; font-weight: 800; }
+  .card-a-price { font-size: 22px; font-weight: 900; color: var(--primary); margin: 4px 0 12px; }
+  .card-a-img { width: 100%; height: 160px; object-fit: contain; background: white; padding: 12px; }
+  .card-a-info { padding: 12px 16px; }
+  .card-a-specs { font-size: 11px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .card-a-specs span { background: #f3f4f6; padding: 3px 8px; border-radius: 6px; }
+  .card-a-btn { width: calc(100% - 32px); margin: 0 16px 16px; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
+
+  /* Option B: Horizontal cards */
+  .card-b { display: flex; flex-direction: column; gap: 12px; }
+  .card-b-item { display: flex; align-items: center; gap: 20px; background: var(--bg-sec); border-radius: 14px; padding: 16px 20px; border: 1px solid var(--border); transition: all 0.2s; }
+  .card-b-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: var(--primary); }
+  .card-b-img { width: 100px; height: 100px; object-fit: contain; flex-shrink: 0; }
+  .card-b-content { flex: 1; }
+  .card-b-row { display: flex; align-items: center; justify-content: space-between; }
+  .card-b-name { font-size: 16px; font-weight: 800; }
+  .card-b-cap { font-size: 12px; color: var(--primary); font-weight: 600; }
+  .card-b-specs { font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .card-b-right { text-align: right; flex-shrink: 0; }
+  .card-b-price { font-size: 22px; font-weight: 900; color: var(--primary); }
+  .card-b-unit { font-size: 11px; color: var(--muted); }
+  .card-b-btn { margin-top: 8px; padding: 8px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
+  .card-b-new { background: #16A34A; color: white; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 8px; }
+
+  /* Option C: Featured + grid */
+  .card-c-featured { display: flex; gap: 24px; background: var(--bg-sec); border-radius: 16px; padding: 24px; border: 2px solid var(--primary); margin-bottom: 16px; align-items: center; }
+  .card-c-featured-img { width: 200px; height: 200px; object-fit: contain; flex-shrink: 0; }
+  .card-c-featured-content { flex: 1; }
+  .card-c-featured-name { font-size: 22px; font-weight: 900; }
+  .card-c-featured-price { font-size: 28px; font-weight: 900; color: var(--primary); margin: 4px 0; }
+  .card-c-featured-desc { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card-c-featured-specs { display: flex; gap: 16px; margin-bottom: 16px; }
+  .card-c-featured-spec { text-align: center; }
+  .card-c-featured-spec .val { font-size: 18px; font-weight: 800; }
+  .card-c-featured-spec .lbl { font-size: 10px; color: var(--muted); }
+  .card-c-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card-c-small { background: var(--bg-sec); border-radius: 12px; padding: 16px; text-align: center; border: 1px solid var(--border); transition: all 0.2s; }
+  .card-c-small:hover { border-color: var(--primary); }
+  .card-c-small img { height: 80px; object-fit: contain; margin-bottom: 8px; }
+  .card-c-small h4 { font-size: 13px; font-weight: 700; }
+  .card-c-small .price { font-size: 16px; font-weight: 900; color: var(--primary); }
+  .card-c-small .cap { font-size: 11px; color: var(--muted); }
+
+  .divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+  .select-indicator { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 12px 28px; border-radius: 30px; font-size: 14px; font-weight: 700; display: none; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .select-indicator.show { display: block; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Machine Showcase — Kies een stijl</h1>
+  <p>3 opties voor hoe de machines worden gepresenteerd. Klik op je favoriet.</p>
+</div>
+
+<!-- OPTION A -->
+<div class="option-wrapper">
+  <div class="option-label" onclick="selectOption('a')">A</div>
+  <div class="option-title">Verticale kaarten — Naam → Prijs → Foto → Specs → Knop</div>
+  <div class="option-desc">Zoals je beschreef: titel eerst, dan prijs, dan foto, info eronder, knop onderaan. Scroll horizontaal op mobiel.</div>
+
+  <div class="mockup" id="option-a" onclick="selectOption('a')">
+    <div class="section-header">
+      <div class="badge new">Nieuw in ons assortiment</div>
+      <h2 style="font-size:24px;font-weight:900;">Ontdek onze ECO-machines</h2>
+      <p style="font-size:13px;color:var(--muted);margin-top:4px;">Tot 40% minder energieverbruik dan traditionele industriële drogers</p>
+    </div>
+
+    <div class="card-a">
+      <div class="card-a-item">
+        <div class="card-a-top">
+          <div class="card-a-name">ECO Boost</div>
+          <div class="card-a-price">€9<span style="font-size:12px;color:var(--muted);font-weight:400;">/dag</span></div>
+        </div>
+        <img class="card-a-img" src="eco-boost-50.png" alt="ECO Boost">
+        <div class="card-a-info">
+          <div class="card-a-specs">
+            <span>50L/dag</span>
+            <span>~500W</span>
+            <span>450m³</span>
+          </div>
+        </div>
+        <button class="card-a-btn">Bekijk details</button>
+      </div>
+
+      <div class="card-a-item">
+        <div class="card-a-top">
+          <div class="card-a-name">ECO Performance</div>
+          <div class="card-a-price">€12<span style="font-size:12px;color:var(--muted);font-weight:400;">/dag</span></div>
+        </div>
+        <img class="card-a-img" src="eco-performance-80.png" alt="ECO Performance">
+        <div class="card-a-info">
+          <div class="card-a-specs">
+            <span>80L/dag</span>
+            <span>~900W</span>
+            <span>1000m³</span>
+          </div>
+        </div>
+        <button class="card-a-btn">Bekijk details</button>
+      </div>
+
+      <div class="card-a-item" style="border-color:var(--primary);position:relative;">
+        <div style="position:absolute;top:8px;right:8px;background:#16A34A;color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;">POPULAIR</div>
+        <div class="card-a-top">
+          <div class="card-a-name">ECO Ultimate</div>
+          <div class="card-a-price">€16<span style="font-size:12px;color:var(--muted);font-weight:400;">/dag</span></div>
+        </div>
+        <img class="card-a-img" src="eco-ultimate-150.png" alt="ECO Ultimate">
+        <div class="card-a-info">
+          <div class="card-a-specs">
+            <span>150L/dag</span>
+            <span>1470m³</span>
+          </div>
+        </div>
+        <button class="card-a-btn">Bekijk details</button>
+      </div>
+
+      <div class="card-a-item">
+        <div class="card-a-top">
+          <div class="card-a-name">ECO Revolution</div>
+          <div class="card-a-price">€25<span style="font-size:12px;color:var(--muted);font-weight:400;">/dag</span></div>
+        </div>
+        <img class="card-a-img" src="eco-revolution.jpg" alt="ECO Revolution">
+        <div class="card-a-info">
+          <div class="card-a-specs">
+            <span>Absorptie</span>
+            <span>Specialist</span>
+          </div>
+        </div>
+        <button class="card-a-btn">Bekijk details</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider" style="max-width:1000px;margin:30px auto;"></div>
+
+<!-- OPTION B -->
+<div class="option-wrapper">
+  <div class="option-label" onclick="selectOption('b')">B</div>
+  <div class="option-title">Horizontale rijen — Foto links, info midden, prijs + knop rechts</div>
+  <div class="option-desc">Geeft meer ruimte voor specs en beschrijving. Voelt als een professionele productlijst. "NIEUW" badges per toestel.</div>
+
+  <div class="mockup" id="option-b" onclick="selectOption('b')">
+    <div class="section-header">
+      <div class="badge new">Nieuw in ons assortiment</div>
+      <h2 style="font-size:24px;font-weight:900;">Ontdek onze ECO-machines</h2>
+      <p style="font-size:13px;color:var(--muted);margin-top:4px;">Zuiniger, stiller en effectiever dan traditionele industriële drogers</p>
+    </div>
+
+    <div class="card-b">
+      <div class="card-b-item">
+        <img class="card-b-img" src="eco-boost-50.png" alt="ECO Boost">
+        <div class="card-b-content">
+          <div class="card-b-row">
+            <div>
+              <span class="card-b-name">ECO Boost</span>
+              <span class="card-b-new">NIEUW</span>
+            </div>
+            <span class="card-b-cap">50L/dag</span>
+          </div>
+          <div class="card-b-specs">~500W | Tot 450m³ | Automatische ontdooiing | Robuuste stalen constructie</div>
+        </div>
+        <div class="card-b-right">
+          <div class="card-b-price">€9</div>
+          <div class="card-b-unit">per dag</div>
+          <button class="card-b-btn">Details →</button>
+        </div>
+      </div>
+
+      <div class="card-b-item">
+        <img class="card-b-img" src="eco-performance-80.png" alt="ECO Performance">
+        <div class="card-b-content">
+          <div class="card-b-row">
+            <div>
+              <span class="card-b-name">ECO Performance</span>
+              <span class="card-b-new">NIEUW</span>
+            </div>
+            <span class="card-b-cap">80L/dag</span>
+          </div>
+          <div class="card-b-specs">~900W | Tot 1000m³ | Rolzuigercompressor | Heetgasontdooiing</div>
+        </div>
+        <div class="card-b-right">
+          <div class="card-b-price">€12</div>
+          <div class="card-b-unit">per dag</div>
+          <button class="card-b-btn">Details →</button>
+        </div>
+      </div>
+
+      <div class="card-b-item" style="border-color:var(--primary);">
+        <img class="card-b-img" src="eco-ultimate-150.png" alt="ECO Ultimate">
+        <div class="card-b-content">
+          <div class="card-b-row">
+            <div>
+              <span class="card-b-name">ECO Ultimate</span>
+              <span style="background:var(--primary);color:white;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;">POPULAIR</span>
+            </div>
+            <span class="card-b-cap">150L/dag</span>
+          </div>
+          <div class="card-b-specs">Tot 1470m³ | Waterschade & nieuwbouw | 24/7 inzetbaar | Maximale capaciteit</div>
+        </div>
+        <div class="card-b-right">
+          <div class="card-b-price">€16</div>
+          <div class="card-b-unit">per dag</div>
+          <button class="card-b-btn">Details →</button>
+        </div>
+      </div>
+
+      <div class="card-b-item">
+        <img class="card-b-img" src="eco-revolution.jpg" alt="ECO Revolution">
+        <div class="card-b-content">
+          <div class="card-b-row">
+            <div><span class="card-b-name">ECO Revolution</span></div>
+            <span class="card-b-cap">Absorptiedroger</span>
+          </div>
+          <div class="card-b-specs">Gerichte droging | Waterschade specialist | Geavanceerde technologie</div>
+        </div>
+        <div class="card-b-right">
+          <div class="card-b-price">€25</div>
+          <div class="card-b-unit">per dag</div>
+          <button class="card-b-btn">Details →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider" style="max-width:1000px;margin:30px auto;"></div>
+
+<!-- OPTION C -->
+<div class="option-wrapper" style="padding-bottom:80px;">
+  <div class="option-label" onclick="selectOption('c')">C</div>
+  <div class="option-title">Featured + grid — Populairste groot uitgelicht, rest eronder</div>
+  <div class="option-desc">De ECO Ultimate krijgt de spotlight als meest populaire machine. De andere 3 staan in een compact grid eronder.</div>
+
+  <div class="mockup" id="option-c" onclick="selectOption('c')">
+    <div class="section-header">
+      <div class="badge new">Nieuw in ons assortiment</div>
+      <h2 style="font-size:24px;font-weight:900;">Ontdek onze ECO-machines</h2>
+      <p style="font-size:13px;color:var(--muted);margin-top:4px;">Zuiniger, stiller en effectiever — ontworpen voor optimale bouwdroging</p>
+    </div>
+
+    <!-- Featured -->
+    <div class="card-c-featured">
+      <img class="card-c-featured-img" src="eco-ultimate-150.png" alt="ECO Ultimate">
+      <div class="card-c-featured-content">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="background:var(--primary);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">MEEST GEKOZEN</span>
+          <span style="background:#16A34A;color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;">NIEUW</span>
+        </div>
+        <div class="card-c-featured-name">ECO Ultimate</div>
+        <div class="card-c-featured-price">€16<span style="font-size:14px;color:var(--muted);font-weight:400;">/dag</span></div>
+        <div class="card-c-featured-desc">Onze krachtigste ECO-droger. Ideaal voor nieuwbouw en waterschade. 24/7 inzetbaar met maximale capaciteit.</div>
+        <div class="card-c-featured-specs">
+          <div class="card-c-featured-spec">
+            <div class="val">150L</div>
+            <div class="lbl">per dag</div>
+          </div>
+          <div class="card-c-featured-spec">
+            <div class="val">1470</div>
+            <div class="lbl">m³ bereik</div>
+          </div>
+          <div class="card-c-featured-spec">
+            <div class="val">52</div>
+            <div class="lbl">kg</div>
+          </div>
+        </div>
+        <button style="padding:10px 28px;background:var(--primary);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">Bekijk details →</button>
+      </div>
+    </div>
+
+    <!-- Grid of 3 smaller -->
+    <div class="card-c-grid">
+      <div class="card-c-small">
+        <img src="eco-boost-50.png" alt="ECO Boost">
+        <h4>ECO Boost</h4>
+        <div class="cap">50L/dag | ~500W</div>
+        <div class="price">€9<span style="font-size:11px;color:var(--muted);">/dag</span></div>
+      </div>
+      <div class="card-c-small">
+        <img src="eco-performance-80.png" alt="ECO Performance">
+        <h4>ECO Performance</h4>
+        <div class="cap">80L/dag | ~900W</div>
+        <div class="price">€12<span style="font-size:11px;color:var(--muted);">/dag</span></div>
+      </div>
+      <div class="card-c-small">
+        <img src="eco-revolution.jpg" alt="ECO Revolution">
+        <h4>ECO Revolution</h4>
+        <div class="cap">Absorptiedroger</div>
+        <div class="price">€25<span style="font-size:11px;color:var(--muted);">/dag</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="indicator" class="select-indicator"></div>
+
+<script>
+let selected = null;
+function selectOption(choice) {
+  document.querySelectorAll('.mockup').forEach(m => m.classList.remove('selected'));
+  document.getElementById('option-' + choice).classList.add('selected');
+  selected = choice;
+  const labels = { a: 'Optie A — Verticale kaarten', b: 'Optie B — Horizontale rijen', c: 'Optie C — Featured + grid' };
+  const ind = document.getElementById('indicator');
+  ind.textContent = '✓ ' + labels[choice] + ' geselecteerd';
+  ind.classList.add('show');
+
+  // Write event
+  if (window.toggleSelect) {
+    window.toggleSelect(document.getElementById('option-' + choice));
+  }
+}
+</script>
+</body>
+</html>

@@ -1,81 +1,73 @@
-# bouwdroger
+# Welcome to your Lovable project
 
-Statische mirror van **www.bouwdrogerservice.be** — Vernast bouwdroogservice.
+## Project info
 
-Bron: HTTrack-mirror, gehost op Vercel.
+**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 
-## Structuur
+## How can I edit this code?
 
-- `index.html` — landingpagina (root)
-- `collections/`, `products/`, `pages/`, `policies/`, `blogs/` — gemirrorde content
-- `cdn/` — assets (afbeeldingen, fonts, JS)
-- `vercel.json` — security headers, cache-policy, CSP (report-only)
-- `.github/workflows/audit.yml` — audit log voor elk repo-event
-- `.github/dependabot.yml` — automatische updates van GitHub Actions
+There are several ways of editing your application.
 
-## Lokaal bekijken
+**Use Lovable**
 
-```bash
-python3 -m http.server 8000
-# → http://localhost:8000/
+Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+
+Changes made via Lovable will be committed automatically to this repo.
+
+**Use your preferred IDE**
+
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
 ```
 
-## Security (in code)
+**Edit a file directly in GitHub**
 
-Headers via `vercel.json` op elke response:
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-- `Strict-Transport-Security` — 2 jaar, includeSubDomains, preload
-- `X-Content-Type-Options: nosniff`
-- `X-Frame-Options: SAMEORIGIN`
-- `Referrer-Policy: strict-origin-when-cross-origin`
-- `Permissions-Policy` — camera, mic, geo, FLoC uit
-- `Cross-Origin-Opener-Policy: same-origin`
-- `Cross-Origin-Resource-Policy: same-site`
-- `Content-Security-Policy-Report-Only` — start in monitor-mode; later strikter zetten
+**Use GitHub Codespaces**
 
-Repo-niveau:
-- Dependabot alerts + security updates: aan
-- Secret scanning + push protection: aan
-- Branch protection op `main`
-- Audit workflow logt elk push/PR/delete event
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## Performance (in code)
+## What technologies are used for this project?
 
-Cache-Control via `vercel.json`:
+This project is built with:
 
-- Statische assets (jpg/png/webp/woff2/...): `max-age=31536000, immutable`
-- CSS/JS/maps: `max-age=604800, stale-while-revalidate=86400`
-- HTML: edge-cache `s-maxage=3600, stale-while-revalidate=86400`
-- `_vercel/*` telemetry-scripts: `max-age=300`
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-In elke `<head>` geïnjecteerd:
+## How can I deploy this project?
 
-```html
-<script defer src="/_vercel/speed-insights/script.js"></script>
-<script defer src="/_vercel/insights/script.js"></script>
-```
+Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
-→ Levert Core Web Vitals en pageviews zodra Speed Insights / Web Analytics in het dashboard aanstaan.
+## Can I connect a custom domain to my Lovable project?
 
-## Vercel-dashboard toggles (handmatig aanzetten)
+Yes, you can!
 
-Project: **bouwdroger** · Team: `brentceulemans-5711`
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-1. **Speed Insights** → Project → Speed Insights → *Enable*
-2. **Web Analytics** → Project → Analytics → *Enable*
-3. **Firewall (WAF)** → Project → Firewall:
-   - *Attack Challenge Mode*: aan bij verdacht verkeer
-   - *Bot Protection / BotID*: aan
-   - Custom rules: blok known-bad ASN's of geo's indien nodig
-4. **Log Drains** → Team → Log Drains: stuur runtime + edge logs naar je SIEM (optioneel — voor static site beperkte waarde, maar wel toggle)
-5. **Deployment Protection** → Project → Settings → Deployment Protection: *Vercel Authentication* op preview-deploys
-6. **Domains** → koppel `bouwdrogerservice.be` + `www.bouwdrogerservice.be` met automatische HTTPS
-7. **Build & Development Settings** → output dir = repo root (geen build step nodig)
-
-## Deploy
-
-```bash
-vercel --prod
-```
-
-Of automatisch via de GitHub-integratie: elke push naar `main` → production deploy, elke PR → preview URL.
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
