@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Header V2 — 3 Designs</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --dark:#3B0404; --primary:#8E0B0B; --accent:#5E0707; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#e8e8e8;color:#141414}
+  .page-header{background:var(--dark);padding:32px 20px;text-align:center;color:white}
+  .page-header h1{font-size:22px;font-weight:900}
+  .page-header p{color:rgba(255,255,255,.6);font-size:13px;margin-top:4px}
+  .wrap{max-width:1200px;margin:30px auto;padding:0 16px}
+  .opt-label{display:inline-flex;background:var(--primary);color:white;font-size:12px;font-weight:700;padding:6px 16px;border-radius:20px;margin-bottom:8px;cursor:pointer}
+  .opt-title{font-size:17px;font-weight:800;margin-bottom:4px}
+  .opt-desc{font-size:13px;color:#6B7280;margin-bottom:16px}
+  .mockup{border-radius:12px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08);border:3px solid transparent;cursor:pointer;transition:all .2s;background:white}
+  .mockup:hover{border-color:var(--primary)}
+  .mockup.selected{border-color:var(--primary);box-shadow:0 4px 30px rgba(142,11,11,.15)}
+  .divider{height:1px;background:#ddd;max-width:1200px;margin:40px auto}
+  .select-indicator{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--primary);color:white;padding:12px 28px;border-radius:30px;font-size:14px;font-weight:700;display:none;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+  .select-indicator.show{display:block}
+
+  /* Shared */
+  .hero-img{width:100%;height:auto;display:block}
+  .hero-wrap{position:relative;overflow:visible}
+  .hero-overlay{position:absolute;inset:0;display:flex;align-items:center}
+  .hero-text{max-width:480px;text-align:right}
+  .hero-text h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:white;line-height:1.1;margin-bottom:14px}
+  .hero-text p{font-size:14px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:20px}
+  .hero-text strong{color:white}
+  .btn-row{display:flex;gap:10px;justify-content:flex-end}
+  .btn-w{background:white;color:var(--dark);padding:11px 24px;border-radius:8px;font-size:13px;font-weight:700;border:none;cursor:pointer}
+  .btn-g{background:transparent;border:2px solid rgba(255,255,255,.35);color:white;padding:11px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+  .next-sec{background:white;padding:60px 40px;text-align:center}
+  .next-sec .badge{display:inline-block;background:#16A34A;color:white;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .next-sec h2{font-size:26px;font-weight:900}
+  .next-sec p{font-size:13px;color:#6B7280;margin-top:4px}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Header V2 — 3 Designs</h1>
+  <p>Gebaseerd op je screenshot. Betere spacing, geen Google badge bovenaan, tekst rechts.</p>
+</div>
+
+<!-- DESIGN A: USP-strip boven de titel -->
+<div class="wrap">
+  <div class="opt-label" onclick="sel('a')">A</div>
+  <div class="opt-title">USP-strip in plaats van Google badge</div>
+  <div class="opt-desc">Geen Google badge. In plaats daarvan 3 korte USPs bovenaan de tekst: "Gratis vochtmeting • ECO-machines • Levering in heel België"</div>
+
+  <div class="mockup" id="option-a" onclick="sel('a')">
+    <div class="hero-wrap">
+      <img class="hero-img" src="http://localhost:5173/src/assets/hero-banner.png" alt="">
+      <div class="hero-overlay">
+        <div style="width:100%;max-width:1200px;margin:0 auto;padding:0 40px;display:flex;justify-content:flex-end;">
+          <div class="hero-text" style="padding-top:20px;">
+            <!-- USP strip -->
+            <div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap;margin-bottom:20px;">
+              <span style="background:rgba(255,255,255,.12);backdrop-filter:blur(4px);color:white;font-size:11px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);">✓ Gratis vochtmeting</span>
+              <span style="background:rgba(255,255,255,.12);backdrop-filter:blur(4px);color:white;font-size:11px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);">✓ ECO-machines</span>
+              <span style="background:rgba(255,255,255,.12);backdrop-filter:blur(4px);color:white;font-size:11px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);">✓ Heel België</span>
+            </div>
+
+            <h1>Uw expert<br>in een zorgeloze<br>bouwdroging</h1>
+            <p>Ontvang direct een <strong>droogplan op maat</strong> en een <strong>eerlijke prijs</strong>. Geniet van voordelen zoals ECO-machines, professionele installatie en transparante tarieven.</p>
+            <div class="btn-row">
+              <button class="btn-w">Bereken je prijs →</button>
+              <button class="btn-g">Zelf afhalen?</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="next-sec">
+      <div class="badge">Nieuw in ons assortiment</div>
+      <h2>Ontdek onze ECO-machines</h2>
+      <p>Tot 40% minder energieverbruik dan traditionele industriële drogers</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- DESIGN B: Subtitel als tagline, meer ruimte -->
+<div class="wrap">
+  <div class="opt-label" onclick="sel('b')">B</div>
+  <div class="opt-title">Grote titel + korte tagline — Clean & ruim</div>
+  <div class="opt-desc">Geen badge of strip. Alleen de titel groot, een korte tagline eronder, en de knoppen. Maximale whitespace, laat de truck spreken.</div>
+
+  <div class="mockup" id="option-b" onclick="sel('b')">
+    <div class="hero-wrap">
+      <img class="hero-img" src="http://localhost:5173/src/assets/hero-banner.png" alt="">
+      <div class="hero-overlay">
+        <div style="width:100%;max-width:1200px;margin:0 auto;padding:0 40px;display:flex;justify-content:flex-end;align-items:center;">
+          <div class="hero-text" style="padding:0;">
+            <h1 style="font-size:clamp(32px,4.5vw,54px);margin-bottom:16px;">Uw expert<br>in een zorgeloze<br>bouwdroging</h1>
+            <p style="font-size:15px;margin-bottom:24px;max-width:400px;margin-left:auto;">Eén prijs. Alles erin. Levering, installatie en vochtmeting inbegrepen.</p>
+            <div class="btn-row">
+              <button class="btn-w" style="padding:13px 28px;font-size:14px;">Bereken je prijs →</button>
+              <button class="btn-g" style="padding:13px 28px;font-size:14px;">Zelf afhalen?</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="next-sec">
+      <div class="badge">Nieuw in ons assortiment</div>
+      <h2>Ontdek onze ECO-machines</h2>
+      <p>Tot 40% minder energieverbruik dan traditionele industriële drogers</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- DESIGN C: Stats strip + titel -->
+<div class="wrap" style="padding-bottom:80px;">
+  <div class="opt-label" onclick="sel('c')">C</div>
+  <div class="opt-title">Stats-balk + titel — Cijfers die overtuigen</div>
+  <div class="opt-desc">Bovenaan de tekst: "500+ klanten • 15+ jaar • 24u levering" als kleine stats. Dan titel, korte tekst, knoppen.</div>
+
+  <div class="mockup" id="option-c" onclick="sel('c')">
+    <div class="hero-wrap">
+      <img class="hero-img" src="http://localhost:5173/src/assets/hero-banner.png" alt="">
+      <div class="hero-overlay">
+        <div style="width:100%;max-width:1200px;margin:0 auto;padding:0 40px;display:flex;justify-content:flex-end;">
+          <div class="hero-text" style="padding-top:10px;">
+            <!-- Stats strip -->
+            <div style="display:flex;gap:20px;justify-content:flex-end;margin-bottom:24px;">
+              <div style="text-align:center;">
+                <div style="font-size:22px;font-weight:900;color:white;">500+</div>
+                <div style="font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;">Klanten</div>
+              </div>
+              <div style="width:1px;background:rgba(255,255,255,.15);"></div>
+              <div style="text-align:center;">
+                <div style="font-size:22px;font-weight:900;color:white;">15+</div>
+                <div style="font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;">Jaar</div>
+              </div>
+              <div style="width:1px;background:rgba(255,255,255,.15);"></div>
+              <div style="text-align:center;">
+                <div style="font-size:22px;font-weight:900;color:white;">24u</div>
+                <div style="font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;">Levering</div>
+              </div>
+              <div style="width:1px;background:rgba(255,255,255,.15);"></div>
+              <div style="text-align:center;">
+                <div style="font-size:22px;font-weight:900;color:white;">4.8</div>
+                <div style="font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;">★ Google</div>
+              </div>
+            </div>
+
+            <h1>Uw expert<br>in een zorgeloze<br>bouwdroging</h1>
+            <p>Ontvang direct een <strong>droogplan op maat</strong> en een <strong>eerlijke prijs</strong>. ECO-machines, professionele installatie en transparante tarieven.</p>
+            <div class="btn-row">
+              <button class="btn-w">Bereken je prijs →</button>
+              <button class="btn-g">Zelf afhalen?</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="next-sec">
+      <div class="badge">Nieuw in ons assortiment</div>
+      <h2>Ontdek onze ECO-machines</h2>
+      <p>Tot 40% minder energieverbruik dan traditionele industriële drogers</p>
+    </div>
+  </div>
+</div>
+
+<div id="indicator" class="select-indicator"></div>
+<script>
+function sel(c){
+  document.querySelectorAll('.mockup').forEach(m=>m.classList.remove('selected'));
+  document.getElementById('option-'+c).classList.add('selected');
+  var labels={a:'A — USP-strip',b:'B — Clean & ruim',c:'C — Stats-balk'};
+  var ind=document.getElementById('indicator');
+  ind.textContent='✓ '+labels[c];
+  ind.classList.add('show');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Woningtype Stap — 4 Opties</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #8E0B0B;
+    --accent: #3B0404;
+    --bg: #FFFFFF;
+    --muted: #6B7280;
+    --border: #E5E7EB;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f0f0f0; color: #141414; }
+
+  .page-header { background: var(--accent); padding: 32px 20px; text-align: center; color: white; }
+  .page-header h1 { font-size: 22px; font-weight: 900; }
+  .page-header p { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 4px; }
+
+  .option-wrapper { max-width: 900px; margin: 30px auto; padding: 0 16px; }
+  .option-label { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; margin-bottom: 10px; cursor: pointer; }
+  .option-title { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+  .option-desc { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+
+  .mockup { background: var(--accent); border-radius: 16px; padding: 32px; box-shadow: 0 2px 20px rgba(0,0,0,0.1); border: 3px solid transparent; cursor: pointer; transition: all 0.2s; color: white; }
+  .mockup:hover { border-color: var(--primary); }
+  .mockup.selected { border-color: white; box-shadow: 0 4px 30px rgba(255,255,255,0.15); }
+  .mockup h2 { font-size: 28px; font-weight: 900; margin-bottom: 6px; }
+  .mockup .sub { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 20px; }
+
+  /* Option A: Icon-based cards */
+  .grid-a { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card-a { background: rgba(255,255,255,0.08); border-radius: 16px; padding: 24px 20px; text-align: center; transition: all 0.2s; cursor: pointer; border: 2px solid transparent; }
+  .card-a:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); }
+  .card-a .icon { font-size: 48px; margin-bottom: 10px; display: block; }
+  .card-a .name { font-size: 15px; font-weight: 700; }
+  .card-a .size { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+  /* Option B: Illustration silhouettes */
+  .grid-b { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card-b { background: rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; transition: all 0.2s; cursor: pointer; border: 2px solid transparent; overflow: hidden; }
+  .card-b:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
+  .card-b .silhouette { height: 80px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 12px; }
+  .card-b .silhouette .house { background: rgba(255,255,255,0.15); border-radius: 4px 4px 0 0; }
+  .card-b .name { font-size: 14px; font-weight: 700; }
+  .card-b .size { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+  /* Option C: Text-only list */
+  .list-c { display: flex; flex-direction: column; gap: 10px; }
+  .card-c { background: rgba(255,255,255,0.08); border-radius: 16px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; transition: all 0.2s; cursor: pointer; border: 2px solid transparent; }
+  .card-c:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); }
+  .card-c .num { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; flex-shrink: 0; }
+  .card-c .info { flex: 1; }
+  .card-c .name { font-size: 15px; font-weight: 700; }
+  .card-c .desc { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .card-c .arrow { color: rgba(255,255,255,0.2); font-size: 18px; }
+
+  /* Option D: Visual diagram */
+  .grid-d { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card-d { background: rgba(255,255,255,0.08); border-radius: 16px; padding: 16px; transition: all 0.2s; cursor: pointer; border: 2px solid transparent; text-align: center; }
+  .card-d:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); }
+  .card-d .diagram { height: 90px; display: flex; align-items: flex-end; justify-content: center; gap: 2px; margin-bottom: 10px; }
+  .card-d .wall { background: rgba(255,255,255,0.2); border-radius: 2px 2px 0 0; }
+  .card-d .roof { width: 0; height: 0; border-left: solid transparent; border-right: solid transparent; border-bottom: solid rgba(255,255,255,0.25); margin: 0 auto 2px; }
+  .card-d .name { font-size: 14px; font-weight: 700; }
+  .card-d .size { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+  .divider { height: 1px; background: var(--border); max-width: 900px; margin: 30px auto; }
+
+  .select-indicator { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: white; color: var(--accent); padding: 12px 28px; border-radius: 30px; font-size: 14px; font-weight: 700; display: none; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .select-indicator.show { display: block; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>"Wat voor woning heeft u?" — Kies een stijl</h1>
+  <p>4 manieren om woningtype te presenteren zonder pakket-foto's. Klik op je favoriet.</p>
+</div>
+
+<!-- OPTION A: Emoji/Icon based -->
+<div class="option-wrapper">
+  <div class="option-label" onclick="selectOption('a')">A</div>
+  <div class="option-title">Grote iconen — Simpel & duidelijk</div>
+  <div class="option-desc">Herkenbare huisiconen, geen foto's nodig. Clean en snel te begrijpen.</div>
+
+  <div class="mockup" id="option-a" onclick="selectOption('a')">
+    <span style="display:inline-block;background:rgba(255,255,255,0.1);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:1px;">1 WONINGTYPE</span>
+    <h2>Wat voor woning heeft u?</h2>
+    <div class="sub">Dit helpt ons de juiste droogoplossing samen te stellen.</div>
+    <div class="grid-a">
+      <div class="card-a">
+        <span class="icon">🏡</span>
+        <div class="name">Vrijstaande woning</div>
+        <div class="size">180 – 300 m²</div>
+      </div>
+      <div class="card-a">
+        <span class="icon">🏘️</span>
+        <div class="name">Halfopen bebouwing</div>
+        <div class="size">140 – 220 m²</div>
+      </div>
+      <div class="card-a">
+        <span class="icon">🏠</span>
+        <div class="name">Rijwoning</div>
+        <div class="size">100 – 180 m²</div>
+      </div>
+      <div class="card-a">
+        <span class="icon">🏢</span>
+        <div class="name">Appartement</div>
+        <div class="size">60 – 140 m²</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OPTION B: Silhouette houses -->
+<div class="option-wrapper">
+  <div class="option-label" onclick="selectOption('b')">B</div>
+  <div class="option-title">Huis-silhouetten — Visueel zonder foto's</div>
+  <div class="option-desc">Abstracte huisvormen die het verschil tonen: vrijstaand = groot + ruimte, rijwoning = smal + aangebouwd, etc.</div>
+
+  <div class="mockup" id="option-b" onclick="selectOption('b')">
+    <span style="display:inline-block;background:rgba(255,255,255,0.1);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:1px;">1 WONINGTYPE</span>
+    <h2>Wat voor woning heeft u?</h2>
+    <div class="sub">Dit helpt ons de juiste droogoplossing samen te stellen.</div>
+    <div class="grid-b">
+      <!-- Vrijstaand: wide house, space around -->
+      <div class="card-b">
+        <div class="silhouette">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:0;height:0;border-left:50px solid transparent;border-right:50px solid transparent;border-bottom:25px solid rgba(255,255,255,0.2);"></div>
+            <div class="house" style="width:100px;height:50px;"></div>
+          </div>
+        </div>
+        <div class="name">Vrijstaande woning</div>
+        <div class="size">180 – 300 m²</div>
+      </div>
+      <!-- Halfopen: house with one wall shared -->
+      <div class="card-b">
+        <div class="silhouette">
+          <div style="display:flex;align-items:flex-end;">
+            <div style="display:flex;flex-direction:column;align-items:center;">
+              <div style="width:0;height:0;border-left:40px solid transparent;border-right:40px solid transparent;border-bottom:20px solid rgba(255,255,255,0.2);"></div>
+              <div class="house" style="width:80px;height:45px;"></div>
+            </div>
+            <div class="house" style="width:30px;height:35px;opacity:0.4;margin-left:-2px;border-radius:0;"></div>
+          </div>
+        </div>
+        <div class="name">Halfopen bebouwing</div>
+        <div class="size">140 – 220 m²</div>
+      </div>
+      <!-- Rijwoning: narrow, between two -->
+      <div class="card-b">
+        <div class="silhouette">
+          <div style="display:flex;align-items:flex-end;">
+            <div class="house" style="width:25px;height:40px;opacity:0.3;border-radius:0;"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;margin:0 -2px;">
+              <div style="width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:18px solid rgba(255,255,255,0.25);"></div>
+              <div class="house" style="width:60px;height:40px;background:rgba(255,255,255,0.25);"></div>
+            </div>
+            <div class="house" style="width:25px;height:40px;opacity:0.3;border-radius:0;"></div>
+          </div>
+        </div>
+        <div class="name">Rijwoning</div>
+        <div class="size">100 – 180 m²</div>
+      </div>
+      <!-- Appartement: tall block -->
+      <div class="card-b">
+        <div class="silhouette">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="house" style="width:70px;height:70px;border-radius:4px;">
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:8px;">
+                <div style="background:rgba(255,255,255,0.15);height:8px;border-radius:2px;"></div>
+                <div style="background:rgba(255,255,255,0.15);height:8px;border-radius:2px;"></div>
+                <div style="background:rgba(255,255,255,0.15);height:8px;border-radius:2px;"></div>
+                <div style="background:rgba(255,255,255,0.15);height:8px;border-radius:2px;"></div>
+                <div style="background:rgba(255,255,255,0.15);height:8px;border-radius:2px;"></div>
+                <div style="background:rgba(255,255,255,0.15);height:8px;border-radius:2px;"></div>
+                <div style="background:rgba(255,255,255,0.15);height:8px;border-radius:2px;"></div>
+                <div style="background:rgba(255,255,255,0.15);height:8px;border-radius:2px;"></div>
+                <div style="background:rgba(255,255,255,0.15);height:8px;border-radius:2px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="name">Appartement</div>
+        <div class="size">60 – 140 m²</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OPTION C: Text list with arrows -->
+<div class="option-wrapper">
+  <div class="option-label" onclick="selectOption('c')">C</div>
+  <div class="option-title">Compacte lijst — Snel kiezen, geen afleiding</div>
+  <div class="option-desc">Geen visuele elementen, puur tekst. Snelste manier om te kiezen. Focus op de vraag.</div>
+
+  <div class="mockup" id="option-c" onclick="selectOption('c')">
+    <span style="display:inline-block;background:rgba(255,255,255,0.1);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:1px;">1 WONINGTYPE</span>
+    <h2>Wat voor woning heeft u?</h2>
+    <div class="sub">Dit helpt ons de juiste droogoplossing samen te stellen.</div>
+    <div class="list-c">
+      <div class="card-c">
+        <div class="num">🏡</div>
+        <div class="info">
+          <div class="name">Vrijstaande woning</div>
+          <div class="desc">Alleenstaand huis met tuin — 180 – 300 m²</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="card-c">
+        <div class="num">🏘️</div>
+        <div class="info">
+          <div class="name">Halfopen bebouwing</div>
+          <div class="desc">Woning met één gemeenschappelijke muur — 140 – 220 m²</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="card-c">
+        <div class="num">🏠</div>
+        <div class="info">
+          <div class="name">Rijwoning</div>
+          <div class="desc">Tussengelegen woning in een rij — 100 – 180 m²</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="card-c">
+        <div class="num">🏢</div>
+        <div class="info">
+          <div class="name">Appartement</div>
+          <div class="desc">Flat of studio in een gebouw — 60 – 140 m²</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OPTION D: Minimal geometric -->
+<div class="option-wrapper" style="padding-bottom:80px;">
+  <div class="option-label" onclick="selectOption('d')">D</div>
+  <div class="option-title">Geometrische blokken — Modern & abstract</div>
+  <div class="option-desc">Simpele blokvormen die het type woning suggereren. Minimalistisch, geen emoji's of foto's.</div>
+
+  <div class="mockup" id="option-d" onclick="selectOption('d')">
+    <span style="display:inline-block;background:rgba(255,255,255,0.1);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:1px;">1 WONINGTYPE</span>
+    <h2>Wat voor woning heeft u?</h2>
+    <div class="sub">Dit helpt ons de juiste droogoplossing samen te stellen.</div>
+    <div class="grid-d">
+      <!-- Vrijstaand: big house alone -->
+      <div class="card-d">
+        <div class="diagram">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:0;height:0;border-left:45px solid transparent;border-right:45px solid transparent;border-bottom:22px solid rgba(255,255,255,0.3);"></div>
+            <div class="wall" style="width:90px;height:50px;"></div>
+            <div style="display:flex;gap:6px;margin-top:-20px;">
+              <div style="width:14px;height:18px;background:rgba(255,255,255,0.1);border-radius:2px;"></div>
+              <div style="width:18px;height:28px;background:rgba(255,255,255,0.1);border-radius:2px 2px 0 0;margin-top:-10px;"></div>
+              <div style="width:14px;height:18px;background:rgba(255,255,255,0.1);border-radius:2px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="name">Vrijstaande woning</div>
+        <div class="size">180 – 300 m²</div>
+      </div>
+      <!-- Halfopen -->
+      <div class="card-d">
+        <div class="diagram">
+          <div style="display:flex;align-items:flex-end;">
+            <div style="display:flex;flex-direction:column;align-items:center;">
+              <div style="width:0;height:0;border-left:35px solid transparent;border-right:35px solid transparent;border-bottom:18px solid rgba(255,255,255,0.3);"></div>
+              <div class="wall" style="width:70px;height:45px;"></div>
+            </div>
+            <div class="wall" style="width:35px;height:35px;opacity:0.5;margin-left:0;"></div>
+          </div>
+        </div>
+        <div class="name">Halfopen bebouwing</div>
+        <div class="size">140 – 220 m²</div>
+      </div>
+      <!-- Rijwoning -->
+      <div class="card-d">
+        <div class="diagram">
+          <div style="display:flex;align-items:flex-end;">
+            <div class="wall" style="width:28px;height:38px;opacity:0.35;"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;margin:0 -1px;">
+              <div style="width:0;height:0;border-left:28px solid transparent;border-right:28px solid transparent;border-bottom:14px solid rgba(255,255,255,0.35);"></div>
+              <div class="wall" style="width:56px;height:42px;background:rgba(255,255,255,0.3);"></div>
+            </div>
+            <div class="wall" style="width:28px;height:38px;opacity:0.35;"></div>
+          </div>
+        </div>
+        <div class="name">Rijwoning</div>
+        <div class="size">100 – 180 m²</div>
+      </div>
+      <!-- Appartement -->
+      <div class="card-d">
+        <div class="diagram">
+          <div class="wall" style="width:60px;height:75px;border-radius:3px;position:relative;">
+            <div style="position:absolute;inset:6px;display:grid;grid-template-columns:repeat(2,1fr);gap:4px;">
+              <div style="background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+              <div style="background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+              <div style="background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+              <div style="background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+              <div style="background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+              <div style="background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+              <div style="background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+              <div style="background:rgba(255,255,255,0.12);border-radius:1px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="name">Appartement</div>
+        <div class="size">60 – 140 m²</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="indicator" class="select-indicator"></div>
+
+<script>
+let selected = null;
+function selectOption(choice) {
+  document.querySelectorAll('.mockup').forEach(m => m.classList.remove('selected'));
+  document.getElementById('option-' + choice).classList.add('selected');
+  selected = choice;
+  const labels = { a: 'A — Grote iconen', b: 'B — Huis-silhouetten', c: 'C — Compacte lijst', d: 'D — Geometrische blokken' };
+  const ind = document.getElementById('indicator');
+  ind.textContent = '✓ ' + labels[choice] + ' geselecteerd';
+  ind.classList.add('show');
+}
+</script>
+</body>
+</html>

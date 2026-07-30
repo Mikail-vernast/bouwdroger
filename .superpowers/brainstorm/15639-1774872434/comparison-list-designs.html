@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vergelijkingslijst — 4 Designs</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --red: #DC2626; --green: #16A34A; --accent: #3B0404; --primary: #8E0B0B; --muted: #6B7280; --border: #E5E7EB; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f0f0f0; color: #141414; }
+  .page-header { background: var(--accent); padding: 32px 20px; text-align: center; color: white; }
+  .page-header h1 { font-size: 22px; font-weight: 900; }
+  .page-header p { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 4px; }
+  .wrap { max-width: 960px; margin: 30px auto; padding: 0 16px; }
+  .opt-label { display: inline-flex; background: var(--primary); color: white; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; margin-bottom: 10px; cursor: pointer; }
+  .opt-title { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+  .opt-desc { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  .mockup { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); border: 3px solid transparent; cursor: pointer; transition: all 0.2s; }
+  .mockup:hover { border-color: var(--primary); }
+  .mockup.selected { border-color: var(--primary); box-shadow: 0 4px 24px rgba(142,11,11,0.12); }
+  .divider { height: 1px; background: var(--border); max-width: 960px; margin: 36px auto; }
+  .select-indicator { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 12px 28px; border-radius: 30px; font-size: 14px; font-weight: 700; display: none; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .select-indicator.show { display: block; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Vergelijkingslijst — 4 Designs</h1>
+  <p>De rij-voor-rij lijst onder de plattegrond. Welke stijl werkt het best?</p>
+</div>
+
+<!-- ===== OPTION A: Oude tabel (origineel) ===== -->
+<div class="wrap">
+  <div class="opt-label" onclick="sel('a')">A</div>
+  <div class="opt-title">Originele tabel — Rijen met kolommen</div>
+  <div class="opt-desc">Het oude design: tabel met label links, concurrent midden, Vernast rechts. Compact.</div>
+
+  <div class="mockup" id="option-a" onclick="sel('a')">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr>
+          <th style="padding:12px;text-align:left;color:#9CA3AF;font-size:11px;text-transform:uppercase;letter-spacing:1px;width:20%;"></th>
+          <th style="padding:12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#9CA3AF;background:#F9FAFB;border-radius:8px 0 0 0;width:40%;">Traditionele aanpak</th>
+          <th style="padding:12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:white;background:var(--primary);border-radius:0 8px 0 0;width:40%;">Vernast aanpak</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #F3F4F6;">
+          <td style="padding:12px;"><div style="display:flex;align-items:center;gap:6px;"><span>⚡</span><strong>Energieverbruik</strong></div></td>
+          <td style="padding:12px;background:#FAFAFA;"><span style="color:var(--red);margin-right:6px;">✗</span> 2100W continu, ook als ruimte droog is</td>
+          <td style="padding:12px;background:rgba(142,11,11,0.03);"><span style="color:var(--green);margin-right:6px;">✓</span> <strong>500W per unit, per kamer stopbaar</strong></td>
+        </tr>
+        <tr style="border-bottom:1px solid #F3F4F6;">
+          <td style="padding:12px;"><div style="display:flex;align-items:center;gap:6px;"><span>🌡️</span><strong>Droogresultaat</strong></div></td>
+          <td style="padding:12px;background:#FAFAFA;"><span style="color:var(--red);margin-right:6px;">✗</span> Ongelijkmatig — verderop blijft het nat</td>
+          <td style="padding:12px;background:rgba(142,11,11,0.03);"><span style="color:var(--green);margin-right:6px;">✓</span> <strong>Gelijkmatig — elk vertrek eigen circuit</strong></td>
+        </tr>
+        <tr style="border-bottom:1px solid #F3F4F6;">
+          <td style="padding:12px;"><div style="display:flex;align-items:center;gap:6px;"><span>🔊</span><strong>Geluid</strong></div></td>
+          <td style="padding:12px;background:#FAFAFA;"><span style="color:var(--red);margin-right:6px;">✗</span> 59 dB op 1 punt (luide wasmachine)</td>
+          <td style="padding:12px;background:rgba(142,11,11,0.03);"><span style="color:var(--green);margin-right:6px;">✓</span> <strong>52 dB verspreid, minder overlast</strong></td>
+        </tr>
+        <tr style="border-bottom:1px solid #F3F4F6;">
+          <td style="padding:12px;"><div style="display:flex;align-items:center;gap:6px;"><span>🔋</span><strong>Flexibiliteit</strong></div></td>
+          <td style="padding:12px;background:#FAFAFA;"><span style="color:var(--red);margin-right:6px;">✗</span> Kamer droog? Machine draait door</td>
+          <td style="padding:12px;background:rgba(142,11,11,0.03);"><span style="color:var(--green);margin-right:6px;">✓</span> <strong>Per kamer stopbaar, bespaar direct</strong></td>
+        </tr>
+        <tr>
+          <td style="padding:12px;"><div style="display:flex;align-items:center;gap:6px;"><span>🛡️</span><strong>Uitvalrisico</strong></div></td>
+          <td style="padding:12px;background:#FAFAFA;"><span style="color:var(--red);margin-right:6px;">✗</span> 1 defect = alles staat stil</td>
+          <td style="padding:12px;background:rgba(142,11,11,0.03);"><span style="color:var(--green);margin-right:6px;">✓</span> <strong>Rest draait gewoon door</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ===== OPTION B: Side-by-side kaarten per rij ===== -->
+<div class="wrap">
+  <div class="opt-label" onclick="sel('b')">B</div>
+  <div class="opt-title">Naast-elkaar kaarten — Rood vs groen per punt</div>
+  <div class="opt-desc">Elke vergelijking als twee kaartjes naast elkaar. Visueler dan een tabel.</div>
+
+  <div class="mockup" id="option-b" onclick="sel('b')">
+    <div style="display:flex;flex-direction:column;gap:12px;">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#FEE2E2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">❌</div>
+          <div><div style="font-size:10px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">⚡ Energieverbruik</div><div style="font-size:12px;color:#7F1D1D;">2100W continu — draait door, ook als ruimte droog is</div></div>
+        </div>
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#DCFCE7;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">✅</div>
+          <div><div style="font-size:10px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">⚡ Energieverbruik</div><div style="font-size:12px;color:#166534;">500W per unit — per kamer stopbaar zodra droog</div></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#FEE2E2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">❌</div>
+          <div><div style="font-size:10px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">🌡️ Droogresultaat</div><div style="font-size:12px;color:#7F1D1D;">Ongelijkmatig — dichtbij droog, verderop nat</div></div>
+        </div>
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#DCFCE7;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">✅</div>
+          <div><div style="font-size:10px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">🌡️ Droogresultaat</div><div style="font-size:12px;color:#166534;">Gelijkmatig — elk vertrek eigen droogcircuit</div></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#FEE2E2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">❌</div>
+          <div><div style="font-size:10px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">🔊 Geluid</div><div style="font-size:12px;color:#7F1D1D;">59 dB op 1 punt — als een wasmachine</div></div>
+        </div>
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#DCFCE7;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">✅</div>
+          <div><div style="font-size:10px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">🔊 Geluid</div><div style="font-size:12px;color:#166534;">52 dB verspreid — merkbaar stiller</div></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#FEE2E2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">❌</div>
+          <div><div style="font-size:10px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">🔋 Flexibiliteit</div><div style="font-size:12px;color:#7F1D1D;">Kamer droog? Machine draait op vol vermogen door</div></div>
+        </div>
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#DCFCE7;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">✅</div>
+          <div><div style="font-size:10px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">🔋 Flexibiliteit</div><div style="font-size:12px;color:#166534;">Per kamer stopbaar — bespaar direct</div></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#FEE2E2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">❌</div>
+          <div><div style="font-size:10px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">🛡️ Uitvalrisico</div><div style="font-size:12px;color:#7F1D1D;">1 toestel defect = alles staat stil</div></div>
+        </div>
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:14px;display:flex;align-items:start;gap:10px;">
+          <div style="width:32px;height:32px;background:#DCFCE7;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">✅</div>
+          <div><div style="font-size:10px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">🛡️ Uitvalrisico</div><div style="font-size:12px;color:#166534;">1 unit defect = rest draait gewoon door</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ===== OPTION C: Verticale twee kolommen ===== -->
+<div class="wrap">
+  <div class="opt-label" onclick="sel('c')">C</div>
+  <div class="opt-title">Twee kolommen — Alles onder elkaar per kant</div>
+  <div class="opt-desc">Links alle nadelen, rechts alle voordelen. Niet per rij maar per kant.</div>
+
+  <div class="mockup" id="option-c" onclick="sel('c')">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <!-- Bad column -->
+      <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:16px;padding:24px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--red);"></div>
+          <div style="font-size:13px;font-weight:800;color:#991B1B;text-transform:uppercase;letter-spacing:1px;">Traditioneel</div>
+        </div>
+        <div style="space-y:12px;">
+          <div style="display:flex;align-items:start;gap:10px;margin-bottom:14px;">
+            <span style="font-size:18px;">⚡</span>
+            <div><div style="font-size:12px;font-weight:700;color:#991B1B;">Energieverbruik</div><div style="font-size:11px;color:#7F1D1D;margin-top:2px;">2100W continu — draait door, ook als ruimte droog is</div></div>
+          </div>
+          <div style="display:flex;align-items:start;gap:10px;margin-bottom:14px;">
+            <span style="font-size:18px;">🌡️</span>
+            <div><div style="font-size:12px;font-weight:700;color:#991B1B;">Droogresultaat</div><div style="font-size:11px;color:#7F1D1D;margin-top:2px;">Ongelijkmatig — dichtbij droog, verderop nat</div></div>
+          </div>
+          <div style="display:flex;align-items:start;gap:10px;margin-bottom:14px;">
+            <span style="font-size:18px;">🔊</span>
+            <div><div style="font-size:12px;font-weight:700;color:#991B1B;">Geluid</div><div style="font-size:11px;color:#7F1D1D;margin-top:2px;">59 dB geconcentreerd op 1 punt</div></div>
+          </div>
+          <div style="display:flex;align-items:start;gap:10px;margin-bottom:14px;">
+            <span style="font-size:18px;">🔋</span>
+            <div><div style="font-size:12px;font-weight:700;color:#991B1B;">Flexibiliteit</div><div style="font-size:11px;color:#7F1D1D;margin-top:2px;">Kamer droog? Machine draait door</div></div>
+          </div>
+          <div style="display:flex;align-items:start;gap:10px;">
+            <span style="font-size:18px;">🛡️</span>
+            <div><div style="font-size:12px;font-weight:700;color:#991B1B;">Uitvalrisico</div><div style="font-size:11px;color:#7F1D1D;margin-top:2px;">1 defect = alles staat stil</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Good column -->
+      <div style="background:#F0FDF4;border:2px solid #86EFAC;border-radius:16px;padding:24px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--green);"></div>
+          <div style="font-size:13px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:1px;">Vernast</div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:start;gap:10px;margin-bottom:14px;">
+            <span style="font-size:18px;">⚡</span>
+            <div><div style="font-size:12px;font-weight:700;color:#166534;">Energieverbruik</div><div style="font-size:11px;color:#166534;margin-top:2px;">500W per unit — per kamer stopbaar</div></div>
+          </div>
+          <div style="display:flex;align-items:start;gap:10px;margin-bottom:14px;">
+            <span style="font-size:18px;">🌡️</span>
+            <div><div style="font-size:12px;font-weight:700;color:#166534;">Droogresultaat</div><div style="font-size:11px;color:#166534;margin-top:2px;">Gelijkmatig — elk vertrek eigen circuit</div></div>
+          </div>
+          <div style="display:flex;align-items:start;gap:10px;margin-bottom:14px;">
+            <span style="font-size:18px;">🔊</span>
+            <div><div style="font-size:12px;font-weight:700;color:#166534;">Geluid</div><div style="font-size:11px;color:#166534;margin-top:2px;">52 dB verspreid — merkbaar stiller</div></div>
+          </div>
+          <div style="display:flex;align-items:start;gap:10px;margin-bottom:14px;">
+            <span style="font-size:18px;">🔋</span>
+            <div><div style="font-size:12px;font-weight:700;color:#166534;">Flexibiliteit</div><div style="font-size:11px;color:#166534;margin-top:2px;">Per kamer stopbaar — bespaar direct</div></div>
+          </div>
+          <div style="display:flex;align-items:start;gap:10px;">
+            <span style="font-size:18px;">🛡️</span>
+            <div><div style="font-size:12px;font-weight:700;color:#166534;">Uitvalrisico</div><div style="font-size:11px;color:#166534;margin-top:2px;">1 unit defect = rest draait door</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ===== OPTION D: Accordeon-stijl met grote emoji ===== -->
+<div class="wrap" style="padding-bottom:80px;">
+  <div class="opt-label" onclick="sel('d')">D</div>
+  <div class="opt-title">Grote emoji-kaarten — Visueel & makkelijk scanbaar</div>
+  <div class="opt-desc">Elke vergelijking als één brede kaart met groot emoji, rood/groen split. Pakt de aandacht.</div>
+
+  <div class="mockup" id="option-d" onclick="sel('d')">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+
+      <div style="border:1px solid #E5E7EB;border-radius:14px;overflow:hidden;display:grid;grid-template-columns:auto 1fr 1fr;">
+        <div style="background:#F9FAFB;padding:16px 20px;display:flex;align-items:center;gap:10px;border-right:1px solid #E5E7EB;min-width:160px;">
+          <span style="font-size:24px;">⚡</span>
+          <div style="font-size:13px;font-weight:800;">Energie-<br>verbruik</div>
+        </div>
+        <div style="background:#FEF2F2;padding:14px 16px;display:flex;align-items:center;gap:8px;border-right:1px solid #FECACA;">
+          <div style="font-size:20px;font-weight:900;color:var(--red);">2100W</div>
+          <div style="font-size:11px;color:#7F1D1D;">continu, altijd aan</div>
+        </div>
+        <div style="background:#F0FDF4;padding:14px 16px;display:flex;align-items:center;gap:8px;">
+          <div style="font-size:20px;font-weight:900;color:var(--green);">500W</div>
+          <div style="font-size:11px;color:#166534;">per unit, stopbaar</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid #E5E7EB;border-radius:14px;overflow:hidden;display:grid;grid-template-columns:auto 1fr 1fr;">
+        <div style="background:#F9FAFB;padding:16px 20px;display:flex;align-items:center;gap:10px;border-right:1px solid #E5E7EB;min-width:160px;">
+          <span style="font-size:24px;">🌡️</span>
+          <div style="font-size:13px;font-weight:800;">Droog-<br>resultaat</div>
+        </div>
+        <div style="background:#FEF2F2;padding:14px 16px;display:flex;align-items:center;gap:8px;border-right:1px solid #FECACA;">
+          <div style="font-size:11px;color:#7F1D1D;">Ongelijkmatig — verderop blijft nat</div>
+        </div>
+        <div style="background:#F0FDF4;padding:14px 16px;display:flex;align-items:center;gap:8px;">
+          <div style="font-size:11px;color:#166534;"><strong>Gelijkmatig</strong> — elk vertrek eigen circuit</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid #E5E7EB;border-radius:14px;overflow:hidden;display:grid;grid-template-columns:auto 1fr 1fr;">
+        <div style="background:#F9FAFB;padding:16px 20px;display:flex;align-items:center;gap:10px;border-right:1px solid #E5E7EB;min-width:160px;">
+          <span style="font-size:24px;">🔊</span>
+          <div style="font-size:13px;font-weight:800;">Geluid</div>
+        </div>
+        <div style="background:#FEF2F2;padding:14px 16px;display:flex;align-items:center;gap:8px;border-right:1px solid #FECACA;">
+          <div style="font-size:20px;font-weight:900;color:var(--red);">59 dB</div>
+          <div style="font-size:11px;color:#7F1D1D;">op 1 punt</div>
+        </div>
+        <div style="background:#F0FDF4;padding:14px 16px;display:flex;align-items:center;gap:8px;">
+          <div style="font-size:20px;font-weight:900;color:var(--green);">52 dB</div>
+          <div style="font-size:11px;color:#166534;">verspreid, stiller</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid #E5E7EB;border-radius:14px;overflow:hidden;display:grid;grid-template-columns:auto 1fr 1fr;">
+        <div style="background:#F9FAFB;padding:16px 20px;display:flex;align-items:center;gap:10px;border-right:1px solid #E5E7EB;min-width:160px;">
+          <span style="font-size:24px;">🔋</span>
+          <div style="font-size:13px;font-weight:800;">Flexibiliteit</div>
+        </div>
+        <div style="background:#FEF2F2;padding:14px 16px;display:flex;align-items:center;gap:8px;border-right:1px solid #FECACA;">
+          <div style="font-size:11px;color:#7F1D1D;">Draait door op vol vermogen</div>
+        </div>
+        <div style="background:#F0FDF4;padding:14px 16px;display:flex;align-items:center;gap:8px;">
+          <div style="font-size:11px;color:#166534;"><strong>Per kamer stopbaar</strong> — bespaar direct</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid #E5E7EB;border-radius:14px;overflow:hidden;display:grid;grid-template-columns:auto 1fr 1fr;">
+        <div style="background:#F9FAFB;padding:16px 20px;display:flex;align-items:center;gap:10px;border-right:1px solid #E5E7EB;min-width:160px;">
+          <span style="font-size:24px;">🛡️</span>
+          <div style="font-size:13px;font-weight:800;">Uitval-<br>risico</div>
+        </div>
+        <div style="background:#FEF2F2;padding:14px 16px;display:flex;align-items:center;gap:8px;border-right:1px solid #FECACA;">
+          <div style="font-size:11px;color:#7F1D1D;">1 defect = <strong>alles stil</strong></div>
+        </div>
+        <div style="background:#F0FDF4;padding:14px 16px;display:flex;align-items:center;gap:8px;">
+          <div style="font-size:11px;color:#166534;">1 defect = <strong>rest draait door</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="indicator" class="select-indicator"></div>
+<script>
+function sel(c) {
+  document.querySelectorAll('.mockup').forEach(m => m.classList.remove('selected'));
+  document.getElementById('option-' + c).classList.add('selected');
+  const labels = { a: 'A — Originele tabel', b: 'B — Naast-elkaar kaarten', c: 'C — Twee kolommen', d: 'D — Grote emoji-kaarten' };
+  const ind = document.getElementById('indicator');
+  ind.textContent = '✓ ' + labels[c];
+  ind.classList.add('show');
+}
+</script>
+</body>
+</html>

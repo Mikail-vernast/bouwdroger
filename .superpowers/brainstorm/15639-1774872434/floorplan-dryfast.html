@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plattegrond — Dryfast vs Vernast</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #fff; color: #141414; padding: 40px 20px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  h2 { font-size: 24px; font-weight: 900; text-align: center; margin-bottom: 6px; }
+  .sub { text-align: center; font-size: 13px; color: #6B7280; margin-bottom: 32px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* Traditional side */
+  .panel { border-radius: 16px; padding: 24px; }
+  .panel.bad { background: #FEF2F2; border: 1px solid #FECACA; }
+  .panel.good { background: #F0FDF4; border: 2px solid #86EFAC; }
+
+  .panel-header { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .panel-header .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .panel-header h3 { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Gang */
+  .gang { border-radius: 12px; padding: 12px; text-align: center; margin-bottom: 12px; }
+  .gang.bad { background: #FEE2E2; border: 1px solid #FECACA; }
+  .gang.good { background: #DCFCE7; border: 1px solid #BBF7D0; }
+  .gang-label { font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+
+  /* Dryfast badge */
+  .dryfast-badge { display: inline-flex; align-items: center; gap: 10px; background: #DC2626; color: white; border-radius: 10px; padding: 10px 16px; }
+  .dryfast-badge .icon { font-size: 28px; }
+  .dryfast-badge .info { text-align: left; }
+  .dryfast-badge .name { font-size: 14px; font-weight: 900; }
+  .dryfast-badge .specs { font-size: 10px; opacity: 0.8; }
+
+  /* Rooms grid */
+  .rooms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+  .room { border-radius: 12px; padding: 14px 8px; text-align: center; }
+  .room .emoji { font-size: 24px; margin-bottom: 4px; display: block; }
+  .room .name { font-size: 12px; font-weight: 700; }
+  .room .status { font-size: 10px; margin-top: 2px; }
+
+  .room.red { background: #FEE2E2; border: 1px solid #FCA5A5; }
+  .room.red .name { color: #991B1B; }
+  .room.red .status { color: #DC2626; }
+  .room.yellow { background: #FEF3C7; border: 1px solid #FDE68A; }
+  .room.yellow .name { color: #92400E; }
+  .room.yellow .status { color: #B45309; }
+  .room.green { background: #DCFCE7; border: 1px solid #86EFAC; }
+  .room.green .name { color: #166534; }
+  .room.green .status { color: #16A34A; }
+
+  /* ECO badge inside room */
+  .eco-badge { display: inline-block; background: #16A34A; color: white; border-radius: 6px; padding: 3px 8px; font-size: 10px; font-weight: 800; margin-top: 6px; }
+
+  /* Caption */
+  .caption { text-align: center; font-size: 12px; padding-top: 4px; }
+  .caption.bad { color: #DC2626; }
+  .caption.good { color: #16A34A; }
+
+  /* Label */
+  .label { text-align: center; font-size: 11px; font-weight: 600; color: #9CA3AF; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="label">Voorbeeld: 3 kamers, elk 40m²</div>
+  <h2>Onze aanpak vs. de rest</h2>
+  <div class="sub">Zo ziet het verschil eruit in de praktijk</div>
+
+  <div class="grid">
+    <!-- DRYFAST / TRADITIONEEL -->
+    <div class="panel bad">
+      <div class="panel-header">
+        <div class="dot" style="background:#DC2626;"></div>
+        <h3 style="color:#991B1B;">Traditionele aanpak</h3>
+      </div>
+
+      <div class="gang bad">
+        <div class="gang-label" style="color:#991B1B;">Gang</div>
+        <div class="dryfast-badge">
+          <div class="icon">🏭</div>
+          <div class="info">
+            <div class="name">Dryfast DF800</div>
+            <div class="specs">2100W • 59 dB • 150L/dag</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rooms">
+        <div class="room yellow">
+          <span class="emoji">⚠️</span>
+          <div class="name">Kamer 1</div>
+          <div class="status">Deels droog</div>
+        </div>
+        <div class="room red">
+          <span class="emoji">❌</span>
+          <div class="name">Kamer 2</div>
+          <div class="status">Nog nat</div>
+        </div>
+        <div class="room red">
+          <span class="emoji">❌</span>
+          <div class="name">Kamer 3</div>
+          <div class="status">Nog nat</div>
+        </div>
+      </div>
+
+      <div class="caption bad">Vocht bereikt niet alle kamers vanuit de gang</div>
+    </div>
+
+    <!-- VERNAST / ECO -->
+    <div class="panel good">
+      <div class="panel-header">
+        <div class="dot" style="background:#16A34A;"></div>
+        <h3 style="color:#166534;">Vernast aanpak</h3>
+      </div>
+
+      <div class="gang good">
+        <div class="gang-label" style="color:#166534;">Gang</div>
+        <div style="font-size:11px;color:#16A34A;">Vrij — geen obstakels</div>
+      </div>
+
+      <div class="rooms">
+        <div class="room green">
+          <span class="emoji">✅</span>
+          <div class="name">Kamer 1</div>
+          <div class="eco-badge">ECO Boost</div>
+        </div>
+        <div class="room green">
+          <span class="emoji">✅</span>
+          <div class="name">Kamer 2</div>
+          <div class="eco-badge">ECO Boost</div>
+        </div>
+        <div class="room green">
+          <span class="emoji">✅</span>
+          <div class="name">Kamer 3</div>
+          <div class="eco-badge">ECO Boost</div>
+        </div>
+      </div>
+
+      <div class="caption good">Elke ruimte optimaal gedroogd met eigen toestel</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

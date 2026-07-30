@@ -1,0 +1,281 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, ArrowRight, Home, CheckCircle2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { calculatePackages, getRoomTypeLabel, type RoomType, type PackageResult } from "@/lib/pricing";
+
+const SIZE_OPTIONS = [
+  { label: "Tot 50 m²", value: 50 },
+  { label: "51 – 100 m²", value: 100 },
+  { label: "101 – 150 m²", value: 150 },
+  { label: "151 – 200 m²", value: 200 },
+  { label: "201 – 250 m²", value: 250 },
+  { label: "251 – 300 m²", value: 300 },
+  { label: "301 – 400 m²", value: 400 },
+  { label: "401 – 500 m²", value: 500 },
+  { label: "Meer dan 500 m²", value: 600 },
+];
+
+const DRYING_OPTIONS: { label: string; value: RoomType }[] = [
+  { label: "Pleisterwerk", value: "pleisterwerk" },
+  { label: "Chape", value: "chape" },
+  { label: "Pleisterwerk & Chape", value: "beide" },
+  { label: "Waterschade", value: "waterschade" },
+];
+
+// Map sqm + roomType to the correct package image
+function getPackageImage(sqm: number, roomType: RoomType): string {
+  const needsHeating = roomType === "chape" || roomType === "beide" || roomType === "waterschade";
+  const prefix = needsHeating ? "/products/pakket-" : "/products/chape-pakket-";
+
+  if (sqm <= 50) return `${prefix}1.jpg`;
+  if (sqm <= 100) return `${prefix}2.jpg`;
+  if (sqm <= 150) return `${prefix}3.jpg`;
+  if (sqm <= 200) return `${prefix}4.jpg`;
+  if (sqm <= 250) return `${prefix}5.jpg`;
+  if (sqm <= 300) return `${prefix}6.jpg`;
+  if (sqm <= 400) return `${prefix}7.jpg`;
+  if (sqm <= 500) return `${prefix}8.jpg`;
+  return `${prefix}9.jpg`;
+}
+
+const CalculatorPage = () => {
+  const navigate = useNavigate();
+  const [step, setStep] = useState(0);
+  const [sqm, setSqm] = useState<number | null>(null);
+  const [roomType, setRoomType] = useState<RoomType | null>(null);
+
+  const handleSizeSelect = (value: number) => {
+    setSqm(value);
+    setTimeout(() => setStep(1), 300);
+  };
+
+  const handleTypeSelect = (value: RoomType) => {
+    setRoomType(value);
+    setTimeout(() => setStep(2), 300);
+  };
+
+  const pkg: PackageResult | null =
+    sqm && roomType ? calculatePackages(sqm, roomType, 14)[1] : null; // comfort = recommended
+
+  const handleBook = () => {
+    if (!pkg || !sqm || !roomType) return;
+    const selection = {
+      sqm,
+      roomType,
+      roomTypeLabel: getRoomTypeLabel(roomType),
+      startDate: null,
+      endDate: null,
+      durationDays: 14,
+      package: pkg,
+    };
+    localStorage.setItem("vernast_booking_selection", JSON.stringify(selection));
+    navigate("/booking");
+  };
+
+  const slideVariants = {
+    enter: { opacity: 0, y: 40 },
+    center: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -40 },
+  };
+
+  return (
+    <div className="min-h-screen bg-[hsl(var(--primary))] text-white flex flex-col">
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-6 py-4">
+        <button onClick={() => navigate("/")} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+          <Home className="h-5 w-5" />
+          <span className="text-sm font-semibold hidden sm:inline">Vernast</span>
+        </button>
+        {/* Progress dots */}
+        <div className="flex gap-2">
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i <= step ? "w-8 bg-white" : "w-2 bg-white/30"
+              }`}
+            />
+          ))}
+        </div>
+        <div className="w-16" />
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 flex items-center justify-center px-4">
+        <AnimatePresence mode="wait">
+          {/* Step 0: Size */}
+          {step === 0 && (
+            <motion.div
+              key="step-size"
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.4 }}
+              className="w-full max-w-lg"
+            >
+              <h1 className="text-2xl md:text-4xl font-black mb-2">
+                <span className="text-white/50 mr-2">1</span>
+                Hoe groot is uw woning?
+              </h1>
+              <p className="text-white/60 mb-8">Selecteer de oppervlakte van de te drogen ruimte</p>
+              <div className="space-y-3">
+                {SIZE_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.value}
+                    onClick={() => handleSizeSelect(opt.value)}
+                    className={`w-full text-left px-5 py-4 rounded-xl border transition-all duration-200 ${
+                      sqm === opt.value
+                        ? "bg-white text-primary border-white font-bold"
+                        : "bg-white/10 border-white/20 hover:bg-white/20 hover:border-white/40"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Step 1: Type */}
+          {step === 1 && (
+            <motion.div
+              key="step-type"
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.4 }}
+              className="w-full max-w-lg"
+            >
+              <button onClick={() => setStep(0)} className="flex items-center gap-1 text-white/60 hover:text-white mb-6 text-sm transition-colors">
+                <ArrowLeft className="h-4 w-4" /> Terug
+              </button>
+              <h1 className="text-2xl md:text-4xl font-black mb-2">
+                <span className="text-white/50 mr-2">2</span>
+                Wat wilt u drogen?
+              </h1>
+              <p className="text-white/60 mb-8">Kies het type werk dat gedroogd moet worden</p>
+              <div className="space-y-3">
+                {DRYING_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.value}
+                    onClick={() => handleTypeSelect(opt.value)}
+                    className={`w-full text-left px-5 py-4 rounded-xl border transition-all duration-200 ${
+                      roomType === opt.value
+                        ? "bg-white text-primary border-white font-bold"
+                        : "bg-white/10 border-white/20 hover:bg-white/20 hover:border-white/40"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Step 2: Result */}
+          {step === 2 && pkg && sqm && roomType && (
+            <motion.div
+              key="step-result"
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.4 }}
+              className="w-full max-w-4xl"
+            >
+              <button onClick={() => setStep(1)} className="flex items-center gap-1 text-white/60 hover:text-white mb-6 text-sm transition-colors">
+                <ArrowLeft className="h-4 w-4" /> Terug
+              </button>
+
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                {/* Image */}
+                <div className="rounded-2xl overflow-hidden shadow-2xl">
+                  <img
+                    src={getPackageImage(sqm, roomType)}
+                    alt="Aanbevolen pakket"
+                    className="w-full h-auto"
+                  />
+                </div>
+
+                {/* Details */}
+                <div>
+                  <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Aanbevolen pakket
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-black mb-2">
+                    {pkg.label} Pakket
+                  </h2>
+                  <p className="text-white/70 mb-6">
+                    {getRoomTypeLabel(roomType)} · {sqm} m²
+                  </p>
+
+                  <div className="bg-white/10 rounded-xl p-5 space-y-3 mb-6">
+                    <div className="flex justify-between">
+                      <span className="text-white/70">Bouwdrogers</span>
+                      <span className="font-bold">{pkg.equipment.drogers}x</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-white/70">Ventilatoren</span>
+                      <span className="font-bold">{pkg.equipment.ventilatoren}x</span>
+                    </div>
+                    {pkg.equipment.verwarming > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-white/70">Verwarming</span>
+                        <span className="font-bold">{pkg.equipment.verwarming}x</span>
+                      </div>
+                    )}
+                    <hr className="border-white/20" />
+                    <div className="flex justify-between">
+                      <span className="text-white/70">Prijs per dag</span>
+                      <span className="font-bold">€{pkg.pricePerDay.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-lg">
+                      <span className="font-bold">Totaal (14 dagen)</span>
+                      <span className="font-black text-xl">€{pkg.totalPrice.toFixed(2)}</span>
+                    </div>
+                    {pkg.discountPercentage > 0 && (
+                      <div className="text-sm text-green-300">
+                        ✓ {pkg.discountPercentage}% korting inbegrepen
+                      </div>
+                    )}
+                    <div className="text-sm text-green-300">
+                      ✓ Gratis levering & ophaling
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button
+                      size="lg"
+                      className="bg-white text-primary hover:bg-white/90 font-bold flex-1"
+                      onClick={handleBook}
+                    >
+                      Direct boeken <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-white/30 text-white hover:bg-white/10 font-bold"
+                      onClick={() => navigate("/calculator/detail")}
+                    >
+                      Meer opties
+                    </Button>
+                  </div>
+                  <p className="text-xs text-white/50 mt-4">
+                    Alle prijzen excl. 21% BTW. Gratis vochtmeting bij elke levering.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+};
+
+export default CalculatorPage;

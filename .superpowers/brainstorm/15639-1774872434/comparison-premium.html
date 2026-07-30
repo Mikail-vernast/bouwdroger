@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vernast Bouwdrogers — Vergelijking Premium Designs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #8E0B0B;
+    --accent: #3B0404;
+    --green: #16A34A;
+    --red: #DC2626;
+    --bg: #FAFAF9;
+    --card-bg: #FFFFFF;
+    --text: #1A1A1A;
+    --text-muted: #6B7280;
+    --border: #E5E7EB;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ HEADER ============ */
+  .page-header {
+    background: linear-gradient(135deg, var(--accent) 0%, #5A0A0A 40%, var(--primary) 100%);
+    padding: 48px 40px 40px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: -60%;
+    left: 10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .header-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+    max-width: 600px;
+  }
+
+  /* ============ DESIGN SELECTOR ============ */
+  .design-selector {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 40px 0;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .selector-btn {
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    background: white;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .selector-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 4px 12px rgba(142, 11, 11, 0.1);
+  }
+  .selector-btn.active {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    box-shadow: 0 4px 20px rgba(142, 11, 11, 0.3);
+  }
+  .selector-btn .btn-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.7;
+    margin-top: 2px;
+  }
+  .selector-btn.active .btn-label { opacity: 0.85; }
+
+  /* ============ SECTIONS ============ */
+  .design-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 40px 60px;
+    display: none;
+    animation: fadeUp 0.5s ease;
+  }
+  .design-section.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    max-width: 600px;
+  }
+
+  /* ============ FLOATING INDICATOR ============ */
+  .floating-indicator {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: white;
+    padding: 14px 28px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 32px rgba(59, 4, 4, 0.4);
+    z-index: 100;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .floating-indicator.visible {
+    transform: translateX(-50%) translateY(0);
+  }
+  .floating-indicator .check-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 11px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* ======================================================
+     DESIGN A — GAUGE DASHBOARD
+     ====================================================== */
+  .gauge-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .gauge-row {
+    background: white;
+    border-radius: 20px;
+    padding: 32px 40px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 40px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .gauge-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.06);
+  }
+  .gauge-side {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .gauge-side.left { justify-content: flex-end; text-align: right; }
+  .gauge-side.right { justify-content: flex-start; text-align: left; }
+
+  .gauge-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .gauge-circle svg {
+    width: 100px;
+    height: 100px;
+    transform: rotate(-90deg);
+  }
+  .gauge-circle .gauge-bg {
+    fill: none;
+    stroke: #F3F4F6;
+    stroke-width: 8;
+  }
+  .gauge-circle .gauge-fill {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease;
+  }
+  .gauge-circle .gauge-fill.red { stroke: var(--red); }
+  .gauge-circle .gauge-fill.green { stroke: var(--green); }
+  .gauge-circle .gauge-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .gauge-circle .gauge-value.red { color: var(--red); }
+  .gauge-circle .gauge-value.green { color: var(--green); }
+
+  .gauge-info .gauge-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .gauge-info .gauge-stat {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .gauge-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .gauge-divider-line {
+    width: 2px;
+    height: 20px;
+    background: var(--border);
+    border-radius: 1px;
+  }
+  .gauge-divider-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    background: linear-gradient(135deg, #FEF2F2, #FFF7ED);
+    padding: 6px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* ======================================================
+     DESIGN B — BEFORE/AFTER SLIDER
+     ====================================================== */
+  .slider-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .slider-card {
+    border-radius: 20px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .slider-card:hover { transform: translateY(-2px); }
+
+  .slider-left {
+    background: linear-gradient(135deg, #1F1215 0%, #2D1418 100%);
+    padding: 32px 36px;
+    color: white;
+    position: relative;
+  }
+  .slider-left::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.08));
+  }
+  .slider-right {
+    background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
+    padding: 32px 36px;
+    position: relative;
+  }
+  .slider-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(22, 163, 74, 0.06), transparent);
+  }
+
+  .slider-divider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--red), var(--primary), var(--green));
+    z-index: 2;
+  }
+  .slider-divider::before {
+    content: 'VS';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    line-height: 32px;
+    text-align: center;
+  }
+
+  .slider-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .slider-tag.bad {
+    background: rgba(220, 38, 38, 0.2);
+    color: #FCA5A5;
+  }
+  .slider-tag.good {
+    background: rgba(22, 163, 74, 0.15);
+    color: var(--green);
+  }
+  .slider-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .slider-left .slider-title { color: rgba(255,255,255,0.95); }
+  .slider-right .slider-title { color: var(--text); }
+  .slider-value {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .slider-left .slider-value { color: var(--red); }
+  .slider-right .slider-value { color: var(--green); }
+  .slider-detail {
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .slider-left .slider-detail { color: rgba(255,255,255,0.5); }
+  .slider-right .slider-detail { color: var(--text-muted); }
+
+  /* ======================================================
+     DESIGN C — FEATURE SCORECARD
+     ====================================================== */
+  .scorecard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .scorecard {
+    border-radius: 24px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .scorecard::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    opacity: 0.06;
+  }
+  .scorecard-bad {
+    background: linear-gradient(160deg, #1A0A0C 0%, #2A1215 50%, #1F0F11 100%);
+    color: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 16px 48px rgba(0,0,0,0.15);
+  }
+  .scorecard-bad::before { background: var(--red); }
+  .scorecard-good {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
+  }
+  .scorecard-good::before { background: var(--green); }
+
+  .scorecard-header {
+    margin-bottom: 32px;
+  }
+  .scorecard-icon-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .scorecard-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .scorecard-bad .scorecard-icon-circle {
+    background: rgba(220, 38, 38, 0.15);
+  }
+  .scorecard-good .scorecard-icon-circle {
+    background: rgba(22, 163, 74, 0.1);
+  }
+  .scorecard-tier {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .scorecard-bad .scorecard-tier { color: white; }
+  .scorecard-good .scorecard-tier { color: var(--text); }
+  .scorecard-tier-sub {
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .scorecard-bad .scorecard-tier-sub { color: rgba(255,255,255,0.45); }
+  .scorecard-good .scorecard-tier-sub { color: var(--text-muted); }
+
+  .scorecard-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .scorecard-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .scorecard-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .scorecard-bad .scorecard-item-icon {
+    background: rgba(220, 38, 38, 0.1);
+  }
+  .scorecard-good .scorecard-item-icon {
+    background: rgba(22, 163, 74, 0.08);
+  }
+  .scorecard-item-label {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+  }
+  .scorecard-bad .scorecard-item-label { color: rgba(255,255,255,0.4); }
+  .scorecard-good .scorecard-item-label { color: var(--text-muted); }
+  .scorecard-item-value {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .scorecard-bad .scorecard-item-value { color: #FCA5A5; }
+  .scorecard-good .scorecard-item-value { color: var(--green); }
+  .scorecard-item-desc {
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .scorecard-bad .scorecard-item-desc { color: rgba(255,255,255,0.35); }
+  .scorecard-good .scorecard-item-desc { color: var(--text-muted); }
+
+  /* ======================================================
+     DESIGN D — ANIMATED COUNTER BLOCKS
+     ====================================================== */
+  .counter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .counter-block {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 6px 20px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .counter-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--red), var(--green));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .counter-block:hover::before { opacity: 1; }
+  .counter-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.06);
+  }
+
+  .counter-emoji {
+    font-size: 40px;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F9FAFB;
+    border-radius: 16px;
+  }
+  .counter-label-area {
+    flex: 1;
+    min-width: 0;
+  }
+  .counter-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .counter-sublabel {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .counter-values {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .counter-old {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--red);
+    text-decoration: line-through;
+    text-decoration-thickness: 2.5px;
+    opacity: 0.7;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+  .counter-block:hover .counter-old {
+    opacity: 0.35;
+    transform: translateX(-6px) scale(0.9);
+  }
+  .counter-arrow {
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: all 0.4s ease;
+  }
+  .counter-block:hover .counter-arrow {
+    color: var(--green);
+    transform: translateX(2px);
+  }
+  .counter-new {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--green);
+    transition: all 0.4s ease;
+  }
+  .counter-block:hover .counter-new {
+    transform: scale(1.1);
+    text-shadow: 0 2px 12px rgba(22, 163, 74, 0.2);
+  }
+  .counter-unit {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .page-header { padding: 32px 20px; }
+    .header-title { font-size: 30px; }
+    .design-selector { padding: 24px 20px 0; }
+    .design-section { padding: 28px 20px 48px; }
+    .gauge-row { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+    .gauge-side.left, .gauge-side.right { justify-content: center; text-align: center; }
+    .gauge-divider { flex-direction: row; }
+    .gauge-divider-line { width: 20px; height: 2px; }
+    .scorecard-grid { grid-template-columns: 1fr; }
+    .slider-card { grid-template-columns: 1fr; }
+    .slider-divider { left: 0; width: 100%; height: 4px; top: auto; bottom: 50%; transform: none; }
+    .slider-divider::before { top: 50%; left: 50%; }
+    .counter-block { flex-wrap: wrap; padding: 20px 24px; gap: 16px; }
+    .counter-values { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== PAGE HEADER ========== -->
+<header class="page-header">
+  <div class="header-inner">
+    <div class="header-badge">Premium Design Mockups</div>
+    <h1 class="header-title">Waarom Vernast Bouwdrogers<br>de betere keuze is</h1>
+    <p class="header-sub">Vier unieke vergelijkingsontwerpen. Klik op een design om het te selecteren.</p>
+  </div>
+</header>
+
+<!-- ========== DESIGN SELECTOR ========== -->
+<nav class="design-selector">
+  <button class="selector-btn active" onclick="selectDesign('A', this)">
+    Design A
+    <span class="btn-label">Gauge Dashboard</span>
+  </button>
+  <button class="selector-btn" onclick="selectDesign('B', this)">
+    Design B
+    <span class="btn-label">Before/After Slider</span>
+  </button>
+  <button class="selector-btn" onclick="selectDesign('C', this)">
+    Design C
+    <span class="btn-label">Feature Scorecard</span>
+  </button>
+  <button class="selector-btn" onclick="selectDesign('D', this)">
+    Design D
+    <span class="btn-label">Animated Counter Blocks</span>
+  </button>
+</nav>
+
+<!-- ================================================================
+     DESIGN A — GAUGE DASHBOARD
+     ================================================================ -->
+<section class="design-section active" id="design-A">
+  <div class="section-label">Design A</div>
+  <p class="section-desc">Gauge Dashboard — Elke vergelijking als visuele meter, zoals een auto dashboard.</p>
+
+  <div class="gauge-grid">
+
+    <!-- Row 1: Energieverbruik -->
+    <div class="gauge-row">
+      <div class="gauge-side left">
+        <div class="gauge-info">
+          <div class="gauge-label">Concurrent</div>
+          <div class="gauge-stat">2100W continu draaiend</div>
+        </div>
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill red" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="40"/>
+          </svg>
+          <div class="gauge-value red">2100W</div>
+        </div>
+      </div>
+      <div class="gauge-divider">
+        <div class="gauge-divider-line"></div>
+        <div class="gauge-divider-label">Energieverbruik</div>
+        <div class="gauge-divider-line"></div>
+      </div>
+      <div class="gauge-side right">
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill green" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="201"/>
+          </svg>
+          <div class="gauge-value green">500W</div>
+        </div>
+        <div class="gauge-info">
+          <div class="gauge-label">Vernast</div>
+          <div class="gauge-stat">500W per unit, stopbaar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Droogresultaat -->
+    <div class="gauge-row">
+      <div class="gauge-side left">
+        <div class="gauge-info">
+          <div class="gauge-label">Concurrent</div>
+          <div class="gauge-stat">Ongelijkmatig resultaat</div>
+        </div>
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill red" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="132"/>
+          </svg>
+          <div class="gauge-value red" style="font-size:14px;">Slecht</div>
+        </div>
+      </div>
+      <div class="gauge-divider">
+        <div class="gauge-divider-line"></div>
+        <div class="gauge-divider-label">Droogresultaat</div>
+        <div class="gauge-divider-line"></div>
+      </div>
+      <div class="gauge-side right">
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill green" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="26"/>
+          </svg>
+          <div class="gauge-value green" style="font-size:12px;">Optimaal</div>
+        </div>
+        <div class="gauge-info">
+          <div class="gauge-label">Vernast</div>
+          <div class="gauge-stat">Gelijkmatig per vertrek</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Geluid -->
+    <div class="gauge-row">
+      <div class="gauge-side left">
+        <div class="gauge-info">
+          <div class="gauge-label">Concurrent</div>
+          <div class="gauge-stat">59 dB op 1 punt</div>
+        </div>
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill red" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="72"/>
+          </svg>
+          <div class="gauge-value red">59 dB</div>
+        </div>
+      </div>
+      <div class="gauge-divider">
+        <div class="gauge-divider-line"></div>
+        <div class="gauge-divider-label">Geluidsniveau</div>
+        <div class="gauge-divider-line"></div>
+      </div>
+      <div class="gauge-side right">
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill green" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="132"/>
+          </svg>
+          <div class="gauge-value green">52 dB</div>
+        </div>
+        <div class="gauge-info">
+          <div class="gauge-label">Vernast</div>
+          <div class="gauge-stat">52 dB verspreid</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4: Flexibiliteit -->
+    <div class="gauge-row">
+      <div class="gauge-side left">
+        <div class="gauge-info">
+          <div class="gauge-label">Concurrent</div>
+          <div class="gauge-stat">Draait continu door</div>
+        </div>
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill red" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="66"/>
+          </svg>
+          <div class="gauge-value red" style="font-size:14px;">Geen</div>
+        </div>
+      </div>
+      <div class="gauge-divider">
+        <div class="gauge-divider-line"></div>
+        <div class="gauge-divider-label">Flexibiliteit</div>
+        <div class="gauge-divider-line"></div>
+      </div>
+      <div class="gauge-side right">
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill green" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="26"/>
+          </svg>
+          <div class="gauge-value green" style="font-size:14px;">Vol</div>
+        </div>
+        <div class="gauge-info">
+          <div class="gauge-label">Vernast</div>
+          <div class="gauge-stat">Per kamer stopbaar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 5: Uitvalrisico -->
+    <div class="gauge-row">
+      <div class="gauge-side left">
+        <div class="gauge-info">
+          <div class="gauge-label">Concurrent</div>
+          <div class="gauge-stat">1 defect = alles stil</div>
+        </div>
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill red" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="26"/>
+          </svg>
+          <div class="gauge-value red" style="font-size:13px;">100%</div>
+        </div>
+      </div>
+      <div class="gauge-divider">
+        <div class="gauge-divider-line"></div>
+        <div class="gauge-divider-label">Uitvalrisico</div>
+        <div class="gauge-divider-line"></div>
+      </div>
+      <div class="gauge-side right">
+        <div class="gauge-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="gauge-bg" cx="50" cy="50" r="42"/>
+            <circle class="gauge-fill green" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="225"/>
+          </svg>
+          <div class="gauge-value green" style="font-size:13px;">Laag</div>
+        </div>
+        <div class="gauge-info">
+          <div class="gauge-label">Vernast</div>
+          <div class="gauge-stat">Rest draait gewoon door</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================================
+     DESIGN B — BEFORE/AFTER SLIDER
+     ================================================================ -->
+<section class="design-section" id="design-B">
+  <div class="section-label">Design B</div>
+  <p class="section-desc">Before/After Slider — Elke vergelijking als gesplitste kaart met visuele scheidslijn.</p>
+
+  <div class="slider-list">
+
+    <div class="slider-card">
+      <div class="slider-left">
+        <div class="slider-tag bad">Concurrent</div>
+        <div class="slider-title">Energieverbruik</div>
+        <div class="slider-value">2100W</div>
+        <div class="slider-detail">Continu draaiend, niet stopbaar</div>
+      </div>
+      <div class="slider-divider"></div>
+      <div class="slider-right">
+        <div class="slider-tag good">Vernast</div>
+        <div class="slider-title">Energieverbruik</div>
+        <div class="slider-value">500W</div>
+        <div class="slider-detail">Per unit, individueel stopbaar</div>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="slider-left">
+        <div class="slider-tag bad">Concurrent</div>
+        <div class="slider-title">Droogresultaat</div>
+        <div class="slider-value">Ongelijk</div>
+        <div class="slider-detail">Ongelijkmatig verspreid</div>
+      </div>
+      <div class="slider-divider"></div>
+      <div class="slider-right">
+        <div class="slider-tag good">Vernast</div>
+        <div class="slider-title">Droogresultaat</div>
+        <div class="slider-value">Gelijkmatig</div>
+        <div class="slider-detail">Per vertrek geoptimaliseerd</div>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="slider-left">
+        <div class="slider-tag bad">Concurrent</div>
+        <div class="slider-title">Geluidsniveau</div>
+        <div class="slider-value">59 dB</div>
+        <div class="slider-detail">Geconcentreerd op 1 punt</div>
+      </div>
+      <div class="slider-divider"></div>
+      <div class="slider-right">
+        <div class="slider-tag good">Vernast</div>
+        <div class="slider-title">Geluidsniveau</div>
+        <div class="slider-value">52 dB</div>
+        <div class="slider-detail">Verspreid over meerdere punten</div>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="slider-left">
+        <div class="slider-tag bad">Concurrent</div>
+        <div class="slider-title">Flexibiliteit</div>
+        <div class="slider-value">Geen</div>
+        <div class="slider-detail">Draait continu door</div>
+      </div>
+      <div class="slider-divider"></div>
+      <div class="slider-right">
+        <div class="slider-tag good">Vernast</div>
+        <div class="slider-title">Flexibiliteit</div>
+        <div class="slider-value">Volledig</div>
+        <div class="slider-detail">Per kamer individueel stopbaar</div>
+      </div>
+    </div>
+
+    <div class="slider-card">
+      <div class="slider-left">
+        <div class="slider-tag bad">Concurrent</div>
+        <div class="slider-title">Uitvalrisico</div>
+        <div class="slider-value">Totaal</div>
+        <div class="slider-detail">1 defect = alles stil</div>
+      </div>
+      <div class="slider-divider"></div>
+      <div class="slider-right">
+        <div class="slider-tag good">Vernast</div>
+        <div class="slider-title">Uitvalrisico</div>
+        <div class="slider-value">Minimaal</div>
+        <div class="slider-detail">Rest draait gewoon door</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================================
+     DESIGN C — FEATURE SCORECARD
+     ================================================================ -->
+<section class="design-section" id="design-C">
+  <div class="section-label">Design C</div>
+  <p class="section-desc">Feature Scorecard — Twee kaarten naast elkaar, zoals productprijslijsten.</p>
+
+  <div class="scorecard-grid">
+    <!-- Bad side -->
+    <div class="scorecard scorecard-bad">
+      <div class="scorecard-header">
+        <div class="scorecard-icon-row">
+          <div class="scorecard-icon-circle">&#x26A0;&#xFE0F;</div>
+        </div>
+        <div class="scorecard-tier">Traditionele Droger</div>
+        <div class="scorecard-tier-sub">De standaard aanpak bij concurrenten</div>
+      </div>
+      <ul class="scorecard-list">
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x26A1;</div>
+          <div>
+            <div class="scorecard-item-label">Energieverbruik</div>
+            <div class="scorecard-item-value">2100W continu</div>
+            <div class="scorecard-item-desc">Draait constant, niet stopbaar</div>
+          </div>
+        </li>
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x1F4A8;</div>
+          <div>
+            <div class="scorecard-item-label">Droogresultaat</div>
+            <div class="scorecard-item-value">Ongelijkmatig</div>
+            <div class="scorecard-item-desc">Niet verspreid over vertrekken</div>
+          </div>
+        </li>
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x1F50A;</div>
+          <div>
+            <div class="scorecard-item-label">Geluidsniveau</div>
+            <div class="scorecard-item-value">59 dB op 1 punt</div>
+            <div class="scorecard-item-desc">Geconcentreerd lawaai</div>
+          </div>
+        </li>
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x1F512;</div>
+          <div>
+            <div class="scorecard-item-label">Flexibiliteit</div>
+            <div class="scorecard-item-value">Draait door</div>
+            <div class="scorecard-item-desc">Geen controle per kamer</div>
+          </div>
+        </li>
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x1F6A8;</div>
+          <div>
+            <div class="scorecard-item-label">Uitvalrisico</div>
+            <div class="scorecard-item-value">1 defect = stil</div>
+            <div class="scorecard-item-desc">Complete uitval bij storing</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Good side -->
+    <div class="scorecard scorecard-good">
+      <div class="scorecard-header">
+        <div class="scorecard-icon-row">
+          <div class="scorecard-icon-circle">&#x2705;</div>
+        </div>
+        <div class="scorecard-tier">Vernast Aanpak</div>
+        <div class="scorecard-tier-sub">Slimmer, zuiniger, betrouwbaarder</div>
+      </div>
+      <ul class="scorecard-list">
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x26A1;</div>
+          <div>
+            <div class="scorecard-item-label">Energieverbruik</div>
+            <div class="scorecard-item-value">500W per unit</div>
+            <div class="scorecard-item-desc">Individueel stopbaar per droger</div>
+          </div>
+        </li>
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x1F4A8;</div>
+          <div>
+            <div class="scorecard-item-label">Droogresultaat</div>
+            <div class="scorecard-item-value">Gelijkmatig per vertrek</div>
+            <div class="scorecard-item-desc">Optimaal verspreid resultaat</div>
+          </div>
+        </li>
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x1F50A;</div>
+          <div>
+            <div class="scorecard-item-label">Geluidsniveau</div>
+            <div class="scorecard-item-value">52 dB verspreid</div>
+            <div class="scorecard-item-desc">Stiller en beter verdeeld</div>
+          </div>
+        </li>
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x1F513;</div>
+          <div>
+            <div class="scorecard-item-label">Flexibiliteit</div>
+            <div class="scorecard-item-value">Per kamer stopbaar</div>
+            <div class="scorecard-item-desc">Volledige controle per vertrek</div>
+          </div>
+        </li>
+        <li class="scorecard-item">
+          <div class="scorecard-item-icon">&#x1F6E1;&#xFE0F;</div>
+          <div>
+            <div class="scorecard-item-label">Uitvalrisico</div>
+            <div class="scorecard-item-value">Rest draait door</div>
+            <div class="scorecard-item-desc">Redundantie ingebouwd</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     DESIGN D — ANIMATED COUNTER BLOCKS
+     ================================================================ -->
+<section class="design-section" id="design-D">
+  <div class="section-label">Design D</div>
+  <p class="section-desc">Animated Counter Blocks — Hover voor de visuele transitie van oud naar nieuw.</p>
+
+  <div class="counter-list">
+
+    <div class="counter-block">
+      <div class="counter-emoji">&#x26A1;</div>
+      <div class="counter-label-area">
+        <div class="counter-label">Energieverbruik</div>
+        <div class="counter-sublabel">Wattage per droger-eenheid</div>
+      </div>
+      <div class="counter-values">
+        <div>
+          <div class="counter-old">2100W</div>
+          <div class="counter-unit">continu</div>
+        </div>
+        <div class="counter-arrow">&#x2192;</div>
+        <div>
+          <div class="counter-new">500W</div>
+          <div class="counter-unit">per unit, stopbaar</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="counter-block">
+      <div class="counter-emoji">&#x1F4A7;</div>
+      <div class="counter-label-area">
+        <div class="counter-label">Droogresultaat</div>
+        <div class="counter-sublabel">Verdeling over het gebouw</div>
+      </div>
+      <div class="counter-values">
+        <div>
+          <div class="counter-old">Ongelijk</div>
+          <div class="counter-unit">wisselend</div>
+        </div>
+        <div class="counter-arrow">&#x2192;</div>
+        <div>
+          <div class="counter-new">Gelijkmatig</div>
+          <div class="counter-unit">per vertrek</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="counter-block">
+      <div class="counter-emoji">&#x1F50A;</div>
+      <div class="counter-label-area">
+        <div class="counter-label">Geluidsniveau</div>
+        <div class="counter-sublabel">Decibel op de werkplek</div>
+      </div>
+      <div class="counter-values">
+        <div>
+          <div class="counter-old">59 dB</div>
+          <div class="counter-unit">1 punt</div>
+        </div>
+        <div class="counter-arrow">&#x2192;</div>
+        <div>
+          <div class="counter-new">52 dB</div>
+          <div class="counter-unit">verspreid</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="counter-block">
+      <div class="counter-emoji">&#x1F527;</div>
+      <div class="counter-label-area">
+        <div class="counter-label">Flexibiliteit</div>
+        <div class="counter-sublabel">Controle per ruimte</div>
+      </div>
+      <div class="counter-values">
+        <div>
+          <div class="counter-old">Draait door</div>
+          <div class="counter-unit">geen controle</div>
+        </div>
+        <div class="counter-arrow">&#x2192;</div>
+        <div>
+          <div class="counter-new">Stopbaar</div>
+          <div class="counter-unit">per kamer</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="counter-block">
+      <div class="counter-emoji">&#x1F6E1;&#xFE0F;</div>
+      <div class="counter-label-area">
+        <div class="counter-label">Uitvalrisico</div>
+        <div class="counter-sublabel">Wat gebeurt er bij een defect?</div>
+      </div>
+      <div class="counter-values">
+        <div>
+          <div class="counter-old">Alles stil</div>
+          <div class="counter-unit">1 defect = stop</div>
+        </div>
+        <div class="counter-arrow">&#x2192;</div>
+        <div>
+          <div class="counter-new">Draait door</div>
+          <div class="counter-unit">rest blijft werken</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== FLOATING INDICATOR ========== -->
+<div class="floating-indicator" id="floatingIndicator">
+  <span class="check-icon">&#x2713;</span>
+  <span id="indicatorText">Design A geselecteerd</span>
+</div>
+
+<!-- ========== SCRIPT ========== -->
+<script>
+  let indicatorTimeout;
+
+  function selectDesign(id, btn) {
+    // Update buttons
+    document.querySelectorAll('.selector-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Update sections
+    document.querySelectorAll('.design-section').forEach(s => s.classList.remove('active'));
+    const section = document.getElementById('design-' + id);
+    if (section) {
+      section.classList.remove('active');
+      // Force reflow for animation restart
+      void section.offsetWidth;
+      section.classList.add('active');
+    }
+
+    // Show floating indicator
+    const indicator = document.getElementById('floatingIndicator');
+    const indicatorText = document.getElementById('indicatorText');
+    const names = { A: 'Gauge Dashboard', B: 'Before/After Slider', C: 'Feature Scorecard', D: 'Animated Counter Blocks' };
+    indicatorText.textContent = 'Design ' + id + ' geselecteerd \u2014 ' + names[id];
+
+    clearTimeout(indicatorTimeout);
+    indicator.classList.add('visible');
+    indicatorTimeout = setTimeout(() => {
+      indicator.classList.remove('visible');
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>

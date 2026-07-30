@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vernast Homepage Redesign — Marktleider Plan</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  .header { background: linear-gradient(135deg, #f97316, #ea580c); padding: 40px 20px; text-align: center; }
+  .header h1 { font-size: 28px; font-weight: 900; color: white; margin-bottom: 8px; }
+  .header p { color: rgba(255,255,255,0.85); font-size: 15px; }
+
+  /* Section */
+  .section { padding: 32px 20px; border-bottom: 1px solid #1e293b; }
+  .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #f97316; font-weight: 700; margin-bottom: 8px; }
+  .section h2 { font-size: 22px; font-weight: 800; margin-bottom: 16px; color: #f8fafc; }
+  .section p { color: #94a3b8; font-size: 14px; margin-bottom: 12px; }
+
+  /* Wireframe blocks */
+  .wireframe { background: #1e293b; border-radius: 12px; padding: 20px; margin: 16px 0; border: 1px solid #334155; }
+  .wireframe-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #64748b; margin-bottom: 12px; }
+  .wireframe-row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .wireframe-box { background: #0f172a; border: 1px dashed #475569; border-radius: 8px; padding: 12px; flex: 1; min-width: 140px; text-align: center; font-size: 12px; color: #94a3b8; }
+  .wireframe-box.highlight { border-color: #f97316; background: rgba(249,115,22,0.08); color: #fb923c; }
+  .wireframe-box h4 { font-size: 13px; color: #e2e8f0; margin-bottom: 4px; }
+
+  /* Flow arrows */
+  .flow { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+  .flow-step { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #cbd5e1; text-align: center; }
+  .flow-step.active { border-color: #f97316; color: #f97316; font-weight: 600; }
+  .flow-arrow { color: #475569; font-size: 18px; }
+
+  /* Comparison table */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  th { text-align: left; padding: 10px; color: #64748b; border-bottom: 2px solid #334155; font-weight: 600; }
+  td { padding: 10px; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+  td.good { color: #22c55e; }
+  td.bad { color: #ef4444; }
+  td.vernast { background: rgba(249,115,22,0.06); }
+
+  /* Badge */
+  .badge { display: inline-block; background: #f97316; color: white; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
+  .badge.green { background: #22c55e; }
+  .badge.blue { background: #3b82f6; }
+
+  /* Numbers */
+  .stats { display: flex; gap: 16px; margin: 16px 0; flex-wrap: wrap; }
+  .stat { background: #1e293b; border-radius: 10px; padding: 16px; flex: 1; min-width: 120px; text-align: center; }
+  .stat .number { font-size: 28px; font-weight: 900; color: #f97316; }
+  .stat .label { font-size: 11px; color: #64748b; margin-top: 4px; }
+
+  /* Notes */
+  .note { background: rgba(249,115,22,0.08); border-left: 3px solid #f97316; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 13px; color: #fb923c; }
+
+  /* Divider */
+  hr { border: none; border-top: 2px solid #f97316; margin: 40px 0; opacity: 0.3; }
+
+  .nav-mockup { background: #1a2332; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; margin: 12px 0; }
+  .nav-mockup .logo { font-weight: 800; color: #f97316; font-size: 16px; }
+  .nav-mockup .links { display: flex; gap: 16px; font-size: 12px; color: #64748b; }
+  .nav-mockup .cta-btn { background: #f97316; color: white; padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>VERNAST HOMEPAGE REDESIGN</h1>
+  <p>Marktleider-niveau — Informatiearchitectuur & Sectie-voor-sectie plan</p>
+</div>
+
+<div class="container">
+
+<!-- CONCURRENTIE ANALYSE -->
+<div class="section">
+  <div class="section-label">Concurrentie-analyse</div>
+  <h2>Waarom Vernast marktleider wordt</h2>
+  <p>Na analyse van 9 Belgische concurrenten: niemand doet wat Vernast doet.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Concurrentie</th>
+        <th class="vernast">Vernast</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Online calculator</td>
+        <td class="bad">Geen (of alleen leadform)</td>
+        <td class="vernast good">Instant prijs op maat</td>
+      </tr>
+      <tr>
+        <td>Online boeken</td>
+        <td class="bad">Bellen / WhatsApp / email</td>
+        <td class="vernast good">Direct online reserveren</td>
+      </tr>
+      <tr>
+        <td>Transparante prijs</td>
+        <td class="bad">Verborgen of "op aanvraag"</td>
+        <td class="vernast good">Eerlijke prijs, alles zichtbaar</td>
+      </tr>
+      <tr>
+        <td>Toestel-strategie</td>
+        <td class="bad">1 groot toestel in de gang</td>
+        <td class="vernast good">Juiste toestel per ruimte</td>
+      </tr>
+      <tr>
+        <td>Website technologie</td>
+        <td class="bad">WordPress / Wix / Divi</td>
+        <td class="vernast good">Modern React platform</td>
+      </tr>
+      <tr>
+        <td>Pakketten</td>
+        <td class="bad">Max 3-5 opties</td>
+        <td class="vernast good">90+ configuraties op maat</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr>
+
+<!-- NAVIGATIE -->
+<div class="section">
+  <div class="section-label">Sectie 1</div>
+  <h2>Navigatie (Redesign)</h2>
+  <p>Huidige nav is te vlak: Levering | Afhalen | Shop | Over Ons | Realisaties | Contact. Geen duidelijke hiërarchie.</p>
+
+  <div class="note">Nieuw: navigatie georganiseerd rond wat de klant wil DOEN, niet rond interne pagina-namen.</div>
+
+  <div class="nav-mockup">
+    <div class="logo">VERNAST</div>
+    <div class="links">
+      <span style="color:#e2e8f0;font-weight:600;">Diensten ▾</span>
+      <span>Onze Aanpak</span>
+      <span>Machines</span>
+      <span>Realisaties</span>
+      <span>Over Ons</span>
+      <span>Contact</span>
+    </div>
+    <div class="cta-btn">Bereken je prijs →</div>
+  </div>
+
+  <p style="margin-top:12px;font-size:12px;color:#64748b;"><strong>Diensten dropdown:</strong></p>
+  <div class="wireframe-row" style="margin-top:8px;">
+    <div class="wireframe-box"><h4>Nieuwbouw</h4>Pleisterwerk & chape</div>
+    <div class="wireframe-box"><h4>Renovatie</h4>Vocht & schimmel</div>
+    <div class="wireframe-box"><h4>Waterschade</h4>24u noodservice</div>
+    <div class="wireframe-box"><h4>Aannemers</h4>B2B partnerschap</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="section">
+  <div class="section-label">Sectie 2</div>
+  <h2>Hero — Eerste indruk</h2>
+  <p>Huidige hero: "Start slim met jouw bouwdroging" + "volledig uitgekiend droogplan". Te vaag, vakjargon.</p>
+
+  <div class="note">Nieuw: directe boodschap die het verschil meteen duidelijk maakt.</div>
+
+  <div class="wireframe">
+    <div class="wireframe-label">Hero mockup</div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:280px;">
+        <div class="badge green">4.8 ★ Google Reviews</div>
+        <h3 style="font-size:26px;font-weight:900;color:#f8fafc;margin:12px 0;">Eén prijs.<br>Alles erin.<br>Geen gedoe.</h3>
+        <p style="font-size:14px;color:#94a3b8;margin-bottom:16px;">
+          Huur bouwdrogers met levering, installatie en vochtmeting inbegrepen.
+          Je betaalt voor wat je nodig hebt — niet meer.
+        </p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <div style="background:#f97316;color:white;padding:10px 24px;border-radius:24px;font-size:13px;font-weight:700;">Bereken je prijs →</div>
+          <div style="border:1px solid #475569;color:#94a3b8;padding:10px 24px;border-radius:24px;font-size:13px;">Zelf afhalen? Bekijk opties</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:200px;background:#0f172a;border-radius:12px;padding:20px;border:1px dashed #475569;text-align:center;">
+        <p style="color:#64748b;font-size:12px;">[ Hero afbeelding ]</p>
+        <p style="color:#64748b;font-size:11px;margin-top:8px;">Truck + technici bij klant<br>of machines in actie</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="section">
+  <div class="section-label">Sectie 3</div>
+  <h2>Trust Bar — Social proof in één blik</h2>
+
+  <div class="stats">
+    <div class="stat"><div class="number">500+</div><div class="label">Tevreden klanten</div></div>
+    <div class="stat"><div class="number">15+</div><div class="label">Jaar ervaring</div></div>
+    <div class="stat"><div class="number">50+</div><div class="label">Machines beschikbaar</div></div>
+    <div class="stat"><div class="number">24u</div><div class="label">Levering mogelijk</div></div>
+  </div>
+</div>
+
+<!-- HOE HET WERKT -->
+<div class="section">
+  <div class="section-label">Sectie 4</div>
+  <h2>Hoe het werkt — 3 stappen</h2>
+  <p>Verplaatst naar boven. Klant moet EERST begrijpen hoe simpel het is, VOOR de calculator.</p>
+
+  <div class="flow">
+    <div class="flow-step active">1. Bereken online<br><span style="font-size:10px;color:#64748b;">Vul m² en type in</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">2. Kies je service<br><span style="font-size:10px;color:#64748b;">Afhalen / Levering / All-in</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">3. Wij regelen de rest<br><span style="font-size:10px;color:#64748b;">Levering + installatie + meting</span></div>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="section">
+  <div class="section-label">Sectie 5 — Kernfeature</div>
+  <h2>Interactieve Calculator (Redesign)</h2>
+  <p>Huidige calculator toont 3 tiers (Basic/Comfort/Pro). Nieuw: eerst project invoeren, dan 3 SERVICE-opties kiezen.</p>
+
+  <div class="wireframe">
+    <div class="wireframe-label">Calculator flow</div>
+
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:12px;"><strong>Stap 1:</strong> Project gegevens</p>
+    <div class="wireframe-row">
+      <div class="wireframe-box"><h4>Oppervlakte</h4>m² slider</div>
+      <div class="wireframe-box"><h4>Type werk</h4>Pleister / Chape / Beide / Waterschade</div>
+      <div class="wireframe-box"><h4>Periode</h4>Start- en einddatum</div>
+    </div>
+
+    <p style="font-size:13px;color:#94a3b8;margin:16px 0 12px;"><strong>Stap 2:</strong> Kies je service-niveau</p>
+    <div class="wireframe-row">
+      <div class="wireframe-box">
+        <h4>📦 Afhalen</h4>
+        <div style="font-size:18px;font-weight:900;color:#e2e8f0;margin:8px 0;">€389</div>
+        <div style="font-size:11px;">Zelf ophalen in Aartselaar</div>
+        <div style="font-size:11px;color:#64748b;margin-top:4px;">Geen leveringskost</div>
+      </div>
+      <div class="wireframe-box">
+        <h4>🚚 Levering</h4>
+        <div style="font-size:18px;font-weight:900;color:#e2e8f0;margin:8px 0;">€449 <span style="font-size:11px;color:#64748b;">+ km</span></div>
+        <div style="font-size:11px;">Afgezet aan de deur</div>
+        <div style="font-size:11px;color:#64748b;margin-top:4px;">€X,XX/km vanaf Aartselaar</div>
+      </div>
+      <div class="wireframe-box highlight">
+        <div class="badge" style="margin-bottom:6px;">AANBEVOLEN</div>
+        <h4>🔧 All-in</h4>
+        <div style="font-size:18px;font-weight:900;color:#fb923c;margin:8px 0;">€499 <span style="font-size:11px;color:#64748b;">+ km</span></div>
+        <div style="font-size:11px;">Levering + installatie + vochtmeting</div>
+        <div style="font-size:11px;color:#fb923c;margin-top:4px;">Wij regelen alles</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:#94a3b8;margin:16px 0 12px;"><strong>Stap 3:</strong> Bevestig & reserveer online</p>
+    <div class="wireframe-box highlight" style="text-align:center;padding:16px;">
+      <h4>Overzicht + direct boeken</h4>
+      <div style="font-size:11px;margin-top:4px;">Geen bellen, geen wachten — direct online bevestigen</div>
+    </div>
+  </div>
+
+  <div class="note">Dit is wat GEEN ENKELE concurrent heeft: instant prijs + online boeken + keuze service-niveau.</div>
+</div>
+
+<!-- VERGELIJKINGSTABEL -->
+<div class="section">
+  <div class="section-label">Sectie 6 — USP differentiator</div>
+  <h2>Waarom meerdere kleine toestellen? (Vergelijkingstabel)</h2>
+  <p>DIT is de sectie die jullie strategie uitlegt. Eerlijk, educatief, overtuigend.</p>
+
+  <div class="wireframe">
+    <div class="wireframe-label">Vergelijkingstabel: Onze aanpak vs. de rest</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th style="color:#ef4444;">Concurrent</th>
+          <th style="color:#f97316;" class="vernast">Vernast</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Aanpak</strong></td>
+          <td>1× grote industriële droger<br>(bv. Dryfast DF800, 2100W)</td>
+          <td class="vernast">Meerdere ECO-drogers<br>per ruimte afgestemd</td>
+        </tr>
+        <tr>
+          <td><strong>Voorbeeld: 3 kamers</strong></td>
+          <td class="bad">1× DF800 in de gang<br>Vocht bereikt niet alle hoeken</td>
+          <td class="vernast good">3× ECO Boost, 1 per kamer<br>Elke ruimte optimaal gedroogd</td>
+        </tr>
+        <tr>
+          <td><strong>Energieverbruik</strong></td>
+          <td>2100W continu, ook als<br>ruimte al droger is</td>
+          <td class="vernast">500W per unit, totaal lager<br>bij juiste dimensionering</td>
+        </tr>
+        <tr>
+          <td><strong>Droogresultaat</strong></td>
+          <td class="bad">Ongelijkmatig — dichtbij<br>droger = droog, verderop = nat</td>
+          <td class="vernast good">Gelijkmatig — elke ruimte<br>heeft eigen droogcircuit</td>
+        </tr>
+        <tr>
+          <td><strong>Geluid</strong></td>
+          <td>59 dB (luid, 1 punt)</td>
+          <td class="vernast">52 dB per unit (stiller,<br>verspreid = minder overlast)</td>
+        </tr>
+        <tr>
+          <td><strong>Flexibiliteit</strong></td>
+          <td class="bad">Kamer droog? Machine<br>draait toch door</td>
+          <td class="vernast good">Kamer droog? Die unit<br>stoppen, bespaar energie</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>Visueel idee:</strong> Plattegrond van een huis. Links: 1 groot toestel in de gang met rode zones (niet bereikt).
+      Rechts: klein toestel per kamer, alles groen. Simpel, krachtig, direct duidelijk.
+    </div>
+  </div>
+</div>
+
+<!-- DIENSTEN -->
+<div class="section">
+  <div class="section-label">Sectie 7</div>
+  <h2>Diensten — Doorverwijzing naar subpagina's</h2>
+  <p>4 kaarten die elk naar hun eigen landingspagina linken.</p>
+
+  <div class="wireframe-row">
+    <div class="wireframe-box">
+      <h4>🏗️ Nieuwbouw</h4>
+      <div style="font-size:11px;">Pleisterwerk & chape drogen voor snellere afwerking</div>
+    </div>
+    <div class="wireframe-box">
+      <h4>🔨 Renovatie</h4>
+      <div style="font-size:11px;">Vocht & schimmel aanpakken bij verbouwing</div>
+    </div>
+    <div class="wireframe-box highlight">
+      <h4>💧 Waterschade</h4>
+      <div style="font-size:11px;">Noodservice — levering binnen 24u</div>
+    </div>
+    <div class="wireframe-box">
+      <h4>🤝 Aannemers</h4>
+      <div style="font-size:11px;">B2B tarieven & vaste samenwerking</div>
+    </div>
+  </div>
+</div>
+
+<!-- MACHINES -->
+<div class="section">
+  <div class="section-label">Sectie 8</div>
+  <h2>Onze Machines — ECO Fleet</h2>
+  <p>Kort overzicht van de 4 ECO-drogers + ventilatoren. Link naar volledige machine-pagina.</p>
+
+  <div class="wireframe-row">
+    <div class="wireframe-box"><h4>ECO Boost</h4>50L/dag | 500W<br><span style="font-size:11px;color:#64748b;">€9/dag</span></div>
+    <div class="wireframe-box"><h4>ECO Performance</h4>80L/dag | 900W<br><span style="font-size:11px;color:#64748b;">€12/dag</span></div>
+    <div class="wireframe-box"><h4>ECO Ultimate</h4>150L/dag<br><span style="font-size:11px;color:#64748b;">€16/dag</span></div>
+    <div class="wireframe-box"><h4>ECO Revolution</h4>Absorptie<br><span style="font-size:11px;color:#64748b;">€25/dag</span></div>
+  </div>
+</div>
+
+<!-- REALISATIES -->
+<div class="section">
+  <div class="section-label">Sectie 9</div>
+  <h2>Realisaties — Bewijs dat het werkt</h2>
+  <p>3-4 case studies met voor/na foto's, m², type project, en resultaat. Link naar volledige portfolio.</p>
+
+  <div class="wireframe-row">
+    <div class="wireframe-box">
+      <h4>Nieuwbouw Antwerpen</h4>
+      <div style="font-size:11px;">180m² | Chape | 3 weken<br>→ Vochtgehalte van 85% naar 2.1%</div>
+    </div>
+    <div class="wireframe-box">
+      <h4>Waterschade Gent</h4>
+      <div style="font-size:11px;">Badkamer 12m² | 5 dagen<br>→ Volledig droog, geen schimmel</div>
+    </div>
+    <div class="wireframe-box">
+      <h4>Renovatie Leuven</h4>
+      <div style="font-size:11px;">Kelder 60m² | 4 weken<br>→ Vloerlegger kon starten</div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section">
+  <div class="section-label">Sectie 10</div>
+  <h2>Reviews — Klanten aan het woord</h2>
+  <p>Carousel met echte Google Reviews. Prominenter dan nu — dit is je sterkste verkoopargument.</p>
+
+  <div class="wireframe">
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="font-size:36px;font-weight:900;color:#f97316;">4.8 / 5</div>
+      <div style="color:#fbbf24;font-size:20px;">★★★★★</div>
+      <div style="font-size:12px;color:#64748b;">op Google Reviews</div>
+    </div>
+    <div class="wireframe-row">
+      <div class="wireframe-box"><h4>"Top service"</h4><div style="font-size:11px;">Alles netjes geleverd en geïnstalleerd. Na 2 weken perfect droog. — Jan V.</div></div>
+      <div class="wireframe-box"><h4>"Eerlijke prijs"</h4><div style="font-size:11px;">Geen verrassingen, precies wat afgesproken. Aanrader! — Sarah M.</div></div>
+      <div class="wireframe-box"><h4>"Snelle noodservice"</h4><div style="font-size:11px;">Waterschade op zondag, maandag stonden ze er. — Pieter D.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section">
+  <div class="section-label">Sectie 11</div>
+  <h2>FAQ — Veelgestelde vragen</h2>
+  <p>Geherstructureerd rond de 3 vragen die klanten het meest stellen:</p>
+
+  <div class="wireframe">
+    <div style="margin-bottom:10px;padding:10px;background:#0f172a;border-radius:8px;">
+      <div style="font-size:13px;font-weight:600;color:#e2e8f0;">💰 Wat kost een bouwdroger huren?</div>
+      <div style="font-size:12px;color:#64748b;margin-top:4px;">Vanaf €9/dag. Gebruik onze calculator voor een exacte prijs op maat.</div>
+    </div>
+    <div style="margin-bottom:10px;padding:10px;background:#0f172a;border-radius:8px;">
+      <div style="font-size:13px;font-weight:600;color:#e2e8f0;">⏱️ Hoe lang duurt bouwdroging?</div>
+      <div style="font-size:12px;color:#64748b;margin-top:4px;">Gemiddeld 2-4 weken voor pleisterwerk, 4-8 weken voor chape.</div>
+    </div>
+    <div style="margin-bottom:10px;padding:10px;background:#0f172a;border-radius:8px;">
+      <div style="font-size:13px;font-weight:600;color:#e2e8f0;">📋 Heb ik een vochtmeting nodig?</div>
+      <div style="font-size:12px;color:#64748b;margin-top:4px;">Ja, je vloerlegger eist dit. Bij Vernast is dit gratis inbegrepen.</div>
+    </div>
+    <div style="padding:10px;background:#0f172a;border-radius:8px;">
+      <div style="font-size:13px;font-weight:600;color:#e2e8f0;">🚚 Leveren jullie in heel België?</div>
+      <div style="font-size:12px;color:#64748b;margin-top:4px;">Ja, vanuit Aartselaar. Vaste km-vergoeding, geen verrassingen.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="section">
+  <div class="section-label">Sectie 12</div>
+  <h2>CTA Banner — Afsluiter</h2>
+
+  <div class="wireframe" style="text-align:center;background:linear-gradient(135deg,rgba(249,115,22,0.15),rgba(234,88,12,0.08));border-color:#f97316;">
+    <h3 style="font-size:22px;font-weight:900;color:#f8fafc;margin-bottom:8px;">Klaar om te starten?</h3>
+    <p style="font-size:14px;color:#94a3b8;margin-bottom:16px;">Bereken in 30 seconden wat jouw bouwdroging kost. Eerlijke prijs, alles inbegrepen.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <div style="background:#f97316;color:white;padding:12px 28px;border-radius:24px;font-size:14px;font-weight:700;">Bereken je prijs →</div>
+      <div style="border:1px solid #475569;color:#94a3b8;padding:12px 28px;border-radius:24px;font-size:14px;">Bel ons: 03 XXX XX XX</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- VOLLEDIGE VOLGORDE -->
+<div class="section">
+  <div class="section-label">Samenvatting</div>
+  <h2>Volledige Homepage Volgorde (nieuw)</h2>
+
+  <div style="font-size:13px;color:#94a3b8;">
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">1.</span> <strong style="color:#e2e8f0;">Navigatie</strong> — Diensten dropdown + "Bereken je prijs" CTA</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">2.</span> <strong style="color:#e2e8f0;">Hero</strong> — "Eén prijs. Alles erin. Geen gedoe." + dubbele CTA</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">3.</span> <strong style="color:#e2e8f0;">Trust Bar</strong> — 500+ klanten | 15+ jaar | 50+ machines | 24u levering</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">4.</span> <strong style="color:#e2e8f0;">Hoe het werkt</strong> — 3 stappen (bereken → kies service → wij regelen)</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">5.</span> <strong style="color:#e2e8f0;">Calculator</strong> — Project input → 3 service-opties → direct boeken</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">6.</span> <strong style="color:#e2e8f0;">Vergelijkingstabel</strong> — Onze aanpak vs concurrent (klein vs groot toestel)</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">7.</span> <strong style="color:#e2e8f0;">Diensten</strong> — 4 kaarten: Nieuwbouw / Renovatie / Waterschade / Aannemers</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">8.</span> <strong style="color:#e2e8f0;">Machines</strong> — ECO fleet overzicht</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">9.</span> <strong style="color:#e2e8f0;">Realisaties</strong> — 3-4 cases met resultaten</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">10.</span> <strong style="color:#e2e8f0;">Reviews</strong> — Google Reviews carousel (4.8/5)</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">11.</span> <strong style="color:#e2e8f0;">FAQ</strong> — Top 6-8 vragen</div>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-bottom:8px;"><span style="color:#f97316;font-weight:700;min-width:24px;">12.</span> <strong style="color:#e2e8f0;">CTA Banner</strong> — "Bereken je prijs" + telefoonnummer</div>
+  </div>
+
+  <div class="note" style="margin-top:20px;">
+    <strong>Volgende stap:</strong> Na goedkeuring wordt dit plan doorgegeven aan de UX/UI agent die pixel-perfect mockups maakt van elke sectie.
+  </div>
+</div>
+
+</div>
+</body>
+</html>
