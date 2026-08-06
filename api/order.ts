@@ -1,18 +1,22 @@
 /**
- * Ontvangt een order van de site en zorgt dat hij op twee plaatsen belandt: in
- * ons eigen Supabase (de bron) en in het bouwdrogers-portaal van Vernast (de
- * werklijst).
+ * Ontvangt een order van de site en zet hem in het bouwdrogers-portaal van
+ * Vernast, via de edge function `bouwdroger-order-webhook`.
  *
- * De formulieren schreven vroeger rechtstreeks vanuit de browser naar Supabase.
- * Dat werkt, maar de anon-sleutel zit in de JS-bundle, dus iedereen kan er rijen
- * mee aanmaken — en er was geen plek om de order door te sturen. Nu loopt alles
- * langs deze route.
+ * Dit is de enige bestemming. Er stond hier eerder een tweede database naast —
+ * het Supabase-project uit de Lovable-periode — waar elke order eerst in ging
+ * en van waaruit hij dan werd doorgeduwd. Dat leverde twee kopieën van dezelfde
+ * order op zonder dat één van beide de waarheid was, en die database bleek
+ * bovendien met de publieke sleutel volledig leesbaar: klantnaam, e-mail,
+ * telefoon en adres. `bouwdroger_orders` in Vernast V2.0 heeft alle velden die
+ * we nodig hebben, staat achter RLS en is enkel zichtbaar voor admin en de rol
+ * `bouwdroger`. Daar hoort de order thuis.
  *
- * Belangrijke regel: als de push naar Vernast faalt, krijgt de bezoeker alsnog
- * succes. De order staat dan in ons Supabase; een storing aan onze kant mag de
- * boeking van een klant niet laten sneuvelen.
+ * Let op het omgekeerde vangnet. Zolang er twee opslagplaatsen waren, mocht een
+ * mislukte push stil blijven: de order stond immers al ergens. Nu is de push de
+ * enige opslag, dus een mislukking moet de bezoeker bereiken — anders denkt hij
+ * dat hij geboekt heeft terwijl er nergens iets staat.
  */
-import { createClient } from "@supabase/supabase-js";
+import { randomUUID } from "node:crypto";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync.js";
 import { bookingRow, reserveringRow } from "../src/lib/orderIntake.js";
 import { clientIp, rateLimit } from "../src/lib/rateLimit.js";
@@ -43,22 +47,6 @@ function num(value: unknown): number | null {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-/**
- * De service-key mag de RLS omzeilen; is die niet geconfigureerd, dan valt de
- * route terug op de publieke sleutel en werkt hij precies zoals de browser
- * vroeger deed. Zo is deze wijziging op zichzelf niet-brekend: de anon-insert
- * policy kan later dichtgezet worden zodra de service-key overal staat.
- */
-function supabaseClient() {
-  const url = process.env.VITE_SUPABASE_URL ?? process.env.SUPABASE_URL;
-  const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ??
-    process.env.VITE_SUPABASE_PUBLISHABLE_KEY ??
-    process.env.SUPABASE_PUBLISHABLE_KEY;
-
-  if (!url || !key) return null;
-  return createClient(url, key, { auth: { persistSession: false } });
-}
 
 /** bookings-rij → payload voor het Vernast-portaal. */
 function bookingToVernast(row: Record<string, unknown>, id: string): VernastOrderPayload {
@@ -152,35 +140,41 @@ export async function POST(request: Request): Promise<Response> {
     return json({ error: "Geen geldig e-mailadres opgegeven." }, 400);
   }
 
-  const supabase = supabaseClient();
-  if (!supabase) {
-    return json({ error: "Supabase is niet geconfigureerd op deze omgeving." }, 500);
-  }
-
-  const table = kind === "booking" ? "bookings" : "reserveringen";
-
   // Alleen de velden die het formulier hoort te sturen, met status en bedrag
   // door de server bepaald. Zie src/lib/orderIntake.ts.
   const row = kind === "booking" ? bookingRow(data) : reserveringRow(data);
 
-  const { data: inserted, error } = await supabase.from(table).insert(row).select("id").single();
+  /*
+    De idempotentiesleutel voor de webhook. Die kwam vroeger uit de rij-id van
+    de tussenliggende database; nu die weg is, maken we hem hier. De webhook is
+    idempotent op (source, external_id), dus een order die door een herhaalde
+    verzending twee keer aankomt, landt aan de andere kant één keer.
+  */
+  const id = randomUUID();
 
-  if (error) {
-    console.error(`[order] insert in ${table} mislukt:`, error);
-    return json({ error: "Er ging iets mis bij het bewaren van uw aanvraag." }, 500);
-  }
-
-  const id = String(inserted.id);
-  // Bewust `row` en niet `data`: het portaal moet exact krijgen wat er in de
-  // database staat. Met `data` zou het bedrag dat de bezoeker meestuurde alsnog
-  // op de werklijst belanden, ook al is het in onze tabel herrekend.
+  // Bewust `row` en niet `data`: met `data` zou het bedrag dat de bezoeker
+  // meestuurde alsnog op de werklijst belanden, ook al is het herrekend.
   const payload =
     kind === "booking" ? bookingToVernast(row, id) : reserveringToVernast(row, id);
 
   const sync = await pushOrderToVernast(payload);
   logSyncFailure(`${kind} ${id}`, sync);
 
-  // Bewust altijd 200 zodra de order in ons eigen Supabase staat: de bezoeker
-  // is klaar, ook als Vernast even niet bereikbaar was.
-  return json({ ok: true, id, synced: sync.ok });
+  /*
+    Mislukt de push, dan is er nergens iets bewaard en moet de bezoeker dat
+    weten. Vroeger mocht dit stil falen omdat de order dan nog in de tweede
+    database stond; die is er niet meer. Iemand "bedankt voor uw reservering"
+    tonen terwijl er niets is aangekomen, is de ergste uitkomst van de twee —
+    dan belt hij pas als de droger niet geleverd wordt.
+
+    De reden zelf blijft binnen: die staat in de logs, niet in het antwoord.
+  */
+  if (!sync.ok) {
+    return json(
+      { error: "Uw aanvraag kon niet doorgegeven worden. Probeer het opnieuw of bel ons." },
+      502
+    );
+  }
+
+  return json({ ok: true, id });
 }
