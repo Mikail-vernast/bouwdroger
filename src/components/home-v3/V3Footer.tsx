@@ -53,6 +53,10 @@ const V3Footer = () => (
           </ul>
         </div>
 
+        {/*
+          Het bedrijf en de zustersites in één kolom. De grid telt er vier; een
+          vijfde blok zou op een eigen rij vallen.
+        */}
         <div>
           <h4>Vernast</h4>
           <ul>
@@ -64,20 +68,11 @@ const V3Footer = () => (
             <li>
               <a href="/#faq">Veelgestelde vragen</a>
             </li>
-          </ul>
-        </div>
-
-        <div>
-          <h4>Vernast Groep</h4>
-          <ul>
             <li>
               <a href="https://www.vernast-vochtbestrijding.be/">Vernast Vochtbestrijding</a>
             </li>
             <li>
               <a href="https://www.vernast-schilderwerken.be/">Vernast Schilderwerken</a>
-            </li>
-            <li>
-              <Link to="/">Vernast Verhuur</Link>
             </li>
           </ul>
         </div>
