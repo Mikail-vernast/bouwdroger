@@ -23,9 +23,20 @@ GET /rest/v1/bookings   →  http 200
 first_name, last_name, email, phone, address, postal_code, city, company_name
 ```
 
-Er staat één echte klantboeking in. Schrijven bleek ook niet geblokkeerd: een
-insert-poging strandde op een NOT NULL-constraint en niet op een policy, wat
-betekent dat PostgREST tot de constraint-controle kwam en de policy dus doorliet.
+Schrijven bleek ook niet geblokkeerd: een insert-poging strandde op een NOT
+NULL-constraint en niet op een policy, wat betekent dat PostgREST tot de
+constraint-controle kwam en de policy dus doorliet.
+
+**Wat er níet gebeurd is.** De tabel bevatte één rij: `BDR-2026-E2E01`,
+"Eindtest Keten", aangemaakt op 2026-08-06 om 13:11 UTC. Dat is een
+end-to-end test van de orderketen, geen klant. De site had op dat moment nog
+geen echte boekingen. Het gat was dus reëel — met de sleutel uit de publieke
+repo kon iedereen de tabel lezen — maar er zijn geen persoonsgegevens van
+klanten blootgesteld. Geen datalek in de zin van de AVG, en dus geen
+meldingsplicht.
+
+Dat is een kwestie van timing, niet van opzet: was dit een week later ontdekt,
+met echte boekingen erin, dan was het antwoord anders geweest.
 
 De sleutel roteren helpt niet. Een anon-sleutel hoort publiek te zijn; hij zit
 per definitie in de JavaScript van elke bezoeker. Wat ontbreekt is Row Level
@@ -49,8 +60,9 @@ kolomcommentaren.
 
 ## Wat er nog moet gebeuren
 
-**1. De ene boeking veiligstellen.** Kijk of die order al in `bouwdroger_orders`
-staat. Zo niet, neem hem over voor je iets weggooit; het is een echte klant.
+**1. Niets veilig te stellen.** Nagekeken op 2026-08-06: de enige rij,
+`BDR-2026-E2E01`, staat al in `bouwdroger_orders` in Vernast V2.0. Er gaat niets
+verloren.
 
 **2. Het project verwijderen.** Dat is de schone oplossing: geen database, geen
 lek, geen tweede bron van waarheid. Log in op het account waar het project onder
