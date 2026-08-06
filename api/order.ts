@@ -14,6 +14,8 @@
  */
 import { createClient } from "@supabase/supabase-js";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync.js";
+import { bookingRow, reserveringRow } from "../src/lib/orderIntake.js";
+import { clientIp, rateLimit } from "../src/lib/rateLimit.js";
 
 type Kind = "booking" | "reservering";
 
@@ -113,6 +115,21 @@ function reserveringToVernast(row: Record<string, unknown>, id: string): Vernast
 }
 
 export async function POST(request: Request): Promise<Response> {
+  const limit = rateLimit(clientIp(request));
+  if (!limit.allowed) {
+    return new Response(
+      JSON.stringify({ error: "Te veel aanvragen. Probeer het over een minuut opnieuw." }),
+      {
+        status: 429,
+        headers: {
+          "content-type": "application/json",
+          "cache-control": "no-store",
+          "retry-after": String(limit.retryAfter),
+        },
+      }
+    );
+  }
+
   let body: OrderBody;
   try {
     body = (await request.json()) as OrderBody;
@@ -142,10 +159,9 @@ export async function POST(request: Request): Promise<Response> {
 
   const table = kind === "booking" ? "bookings" : "reserveringen";
 
-  // De browser stuurt de rij zoals de formulieren hem altijd al opbouwden. We
-  // forceren wel de status: een bezoeker mag geen order aanmaken die meteen als
-  // bevestigd of betaald geldt (zelfde regel als de RLS-policy).
-  const row = kind === "booking" ? { ...data, status: "pending", user_id: null } : { ...data };
+  // Alleen de velden die het formulier hoort te sturen, met status en bedrag
+  // door de server bepaald. Zie src/lib/orderIntake.ts.
+  const row = kind === "booking" ? bookingRow(data) : reserveringRow(data);
 
   const { data: inserted, error } = await supabase.from(table).insert(row).select("id").single();
 
@@ -155,8 +171,11 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const id = String(inserted.id);
+  // Bewust `row` en niet `data`: het portaal moet exact krijgen wat er in de
+  // database staat. Met `data` zou het bedrag dat de bezoeker meestuurde alsnog
+  // op de werklijst belanden, ook al is het in onze tabel herrekend.
   const payload =
-    kind === "booking" ? bookingToVernast(data, id) : reserveringToVernast(data, id);
+    kind === "booking" ? bookingToVernast(row, id) : reserveringToVernast(row, id);
 
   const sync = await pushOrderToVernast(payload);
   logSyncFailure(`${kind} ${id}`, sync);
