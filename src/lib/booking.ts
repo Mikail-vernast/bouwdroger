@@ -14,8 +14,8 @@ import {
   MAX_FLOORS,
   PUMP,
   type DeviceKey,
-} from "../data/verhuur";
-import { DEVICE_KEYS, allItems, deviceCount, packagePrice, type PackageConfig, type PackageItem } from "./verhuur";
+} from "../data/verhuur.js";
+import { DEVICE_KEYS, allItems, deviceCount, packagePrice, type PackageConfig, type PackageItem } from "./verhuur.js";
 
 export const MAX_EXTRA_DEVICES = 6;
 

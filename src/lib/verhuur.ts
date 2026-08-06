@@ -4,7 +4,7 @@
  */
 // Relatief geïmporteerd, niet via `@/`: de serverless functies in /api draaien
 // buiten de Vite-alias en gebruiken dezelfde rekenregels.
-import { BRACKET, CAT, WEEKS, WET_IMG, type DeviceKey } from "../data/verhuur";
+import { BRACKET, CAT, WEEKS, WET_IMG, type DeviceKey } from "../data/verhuur.js";
 
 export interface PackageConfig {
   /** oppervlaktebracket, als sleutel van BRACKET */
