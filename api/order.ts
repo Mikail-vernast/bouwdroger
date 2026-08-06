@@ -13,7 +13,7 @@
  * boeking van een klant niet laten sneuvelen.
  */
 import { createClient } from "@supabase/supabase-js";
-import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync";
+import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync.js";
 
 type Kind = "booking" | "reservering";
 

@@ -10,8 +10,8 @@
  * iedereen die de URL kent een "betaald"-melding sturen.
  */
 import Stripe from "stripe";
-import { isReference } from "../src/lib/booking";
-import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync";
+import { isReference } from "../src/lib/booking.js";
+import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync.js";
 
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {

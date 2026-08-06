@@ -6,8 +6,8 @@
  * niemand de prijs in de request aanpassen.
  */
 import Stripe from "stripe";
-import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking";
-import { configToQuery, packageSpecLine, packageTitle, parseConfig } from "../src/lib/verhuur";
+import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
+import { configToQuery, packageSpecLine, packageTitle, parseConfig } from "../src/lib/verhuur.js";
 
 interface CheckoutBody {
   config?: Record<string, string>;

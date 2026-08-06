@@ -11,7 +11,7 @@
  * beantwoord die door `POST /api/checkout` is aangemaakt.
  */
 import Stripe from "stripe";
-import { isReference } from "../src/lib/booking";
+import { isReference } from "../src/lib/booking.js";
 
 /** Stripe-sessie-ID's zijn `cs_` gevolgd door alfanumerieke tekens. */
 const SESSION_ID = /^cs_[A-Za-z0-9_]{1,255}$/;
