@@ -20,6 +20,12 @@
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 5;
 
+/**
+ * De ruime bovengrens op álle aanvragen van één IP, geldige en ongeldige door
+ * elkaar. Zie `gate()` voor waarom er twee grenzen zijn.
+ */
+const MAX_ATTEMPTS = 30;
+
 /** Boven dit aantal sleutels ruimen we op, zodat het geheugen niet volloopt. */
 const SWEEP_THRESHOLD = 5_000;
 
@@ -77,4 +83,59 @@ export function rateLimit(
     return { allowed: false, retryAfter: Math.ceil((current.resetAt - now) / 1000) };
   }
   return { allowed: true, retryAfter: 0 };
+}
+
+/**
+ * Een tweetrapsdrempel voor endpoints die iets aanmaken.
+ *
+ * Er stond één teller van vijf per minuut op álle aanvragen. Dat leek strak
+ * maar sloot de verkeerde mensen buiten: een bouwbedrijf zit met heel het
+ * kantoor achter één IP, en vijf keer een formulier verkeerd invullen — een
+ * typfout in het e-mailadres is genoeg — was voldoende om iedereen daar een
+ * minuut lang op 429 te zetten. Terwijl een aanvaller juist niets om die
+ * mislukte pogingen geeft.
+ *
+ * Vandaar twee grenzen op hetzelfde IP:
+ *
+ * - `attempt` telt élke aanvraag, ook de afgekeurde, tegen een ruime grens.
+ *   Dat is de bescherming tegen een script dat er honderden per minuut
+ *   doorheen jaagt, en tegen het verstoken van de Stripe-API.
+ * - `accept` telt enkel wat door de validatie kwam, tegen een strakke grens.
+ *   Dat is de bescherming tegen honderd échte orders op de werklijst.
+ *
+ * Een bezoeker die worstelt met het formulier raakt zo alleen de ruime grens,
+ * en die ligt ver genoeg om hem nooit tegen te komen.
+ */
+export interface Gate {
+  /** Telt een aanvraag; false zodra het IP door de ruime grens gaat. */
+  attempt(): RateLimitResult;
+  /** Telt een geslaagde aanvraag; false zodra het IP door de strakke grens gaat. */
+  accept(): RateLimitResult;
+}
+
+export function gate(
+  ip: string,
+  maxAccepted = MAX_REQUESTS,
+  maxAttempts = MAX_ATTEMPTS,
+  windowMs = WINDOW_MS
+): Gate {
+  return {
+    attempt: () => rateLimit(`poging:${ip}`, maxAttempts, windowMs),
+    accept: () => rateLimit(`geslaagd:${ip}`, maxAccepted, windowMs),
+  };
+}
+
+/** Het 429-antwoord; alle routes die een drempel hebben, geven hetzelfde terug. */
+export function tooManyRequests(retryAfter: number): Response {
+  return new Response(
+    JSON.stringify({ error: "Te veel aanvragen. Probeer het over een minuut opnieuw." }),
+    {
+      status: 429,
+      headers: {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+        "retry-after": String(retryAfter),
+      },
+    }
+  );
 }

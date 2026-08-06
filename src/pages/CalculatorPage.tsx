@@ -240,10 +240,16 @@ const CalculatorPage = () => {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 {/* Image */}
                 <div className="rounded-2xl overflow-hidden shadow-2xl">
+                  {/*
+                    De bron wisselt met de gekozen oppervlakte, maar het zijn
+                    allemaal vierkanten. `aspect-square` houdt de plek dus vrij
+                    ongeacht welke er geladen wordt — met vaste width/height
+                    zou een enkele afwijkende foto scheefgetrokken worden.
+                  */}
                   <img
                     src={getPackageImage(sqm, roomType)}
                     alt="Aanbevolen pakket"
-                    className="w-full h-auto" loading="lazy" decoding="async" />
+                    className="w-full aspect-square object-cover" loading="lazy" decoding="async" />
                 </div>
 
                 {/* Details */}

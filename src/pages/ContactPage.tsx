@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { enterInitial } from "@/lib/firstPaint";
 
 const ContactPage = () => {
   const [loading, setLoading] = useState(false);
@@ -50,7 +51,7 @@ const ContactPage = () => {
           </div>
           <div className="relative z-10 container mx-auto px-4 py-20 md:py-28">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={enterInitial({ opacity: 0, y: 30 })}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="max-w-2xl"

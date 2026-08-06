@@ -19,7 +19,7 @@
 import { randomUUID } from "node:crypto";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync.js";
 import { bookingRow, reserveringRow } from "../src/lib/orderIntake.js";
-import { clientIp, rateLimit } from "../src/lib/rateLimit.js";
+import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 
 type Kind = "booking" | "reservering";
 
@@ -103,20 +103,12 @@ function reserveringToVernast(row: Record<string, unknown>, id: string): Vernast
 }
 
 export async function POST(request: Request): Promise<Response> {
-  const limit = rateLimit(clientIp(request));
-  if (!limit.allowed) {
-    return new Response(
-      JSON.stringify({ error: "Te veel aanvragen. Probeer het over een minuut opnieuw." }),
-      {
-        status: 429,
-        headers: {
-          "content-type": "application/json",
-          "cache-control": "no-store",
-          "retry-after": String(limit.retryAfter),
-        },
-      }
-    );
-  }
+  // Twee drempels: een ruime op alles wat binnenkomt, en een strakke op wat er
+  // effectief een order van wordt. Zie src/lib/rateLimit.ts.
+  const limit = gate(clientIp(request));
+
+  const attempt = limit.attempt();
+  if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
 
   let body: OrderBody;
   try {
@@ -139,6 +131,12 @@ export async function POST(request: Request): Promise<Response> {
   if (!email || !/\S+@\S+\.\S+/.test(email)) {
     return json({ error: "Geen geldig e-mailadres opgegeven." }, 400);
   }
+
+  // Vanaf hier wordt het een echte order. Pas nu telt de strakke drempel mee,
+  // zodat een bezoeker die het formulier drie keer verkeerd invult zichzelf
+  // niet buitensluit.
+  const accepted = limit.accept();
+  if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
 
   // Alleen de velden die het formulier hoort te sturen, met status en bedrag
   // door de server bepaald. Zie src/lib/orderIntake.ts.

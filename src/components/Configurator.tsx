@@ -28,6 +28,7 @@ import {
   type HeatingOption,
   getPackageByAnswers,
 } from "@/data/packages";
+import { enterInitial } from "@/lib/firstPaint";
 
 type BuildingType = "vrijstaand" | "halfopen" | "rijwoning" | "appartement";
 type ServiceType = "afhalen" | "levering" | "allin";
@@ -227,7 +228,7 @@ const Configurator = () => {
           <div className="flex items-center gap-3">
             {step > 0 && (
               <motion.button
-                initial={{ opacity: 0, x: -10 }}
+                initial={enterInitial({ opacity: 0, x: -10 })}
                 animate={{ opacity: 1, x: 0 }}
                 onClick={goPrev}
                 className="flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground transition-colors text-sm font-medium"
@@ -265,7 +266,7 @@ const Configurator = () => {
               {/* STEP: Building Type — Geometric blocks (ready for real photos later) */}
               {currentStepKey === "buildingType" && (
                 <div>
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                  <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                     <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-4 uppercase tracking-widest">
                       <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                       Woningtype
@@ -284,7 +285,7 @@ const Configurator = () => {
                       return (
                         <motion.button
                           key={bt.value}
-                          initial={{ opacity: 0, y: 20 }}
+                          initial={enterInitial({ opacity: 0, y: 20 })}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.15 + i * 0.05 }}
                           onClick={() => handleSelectAndNext("buildingType", bt.value)}
@@ -361,7 +362,7 @@ const Configurator = () => {
                             </>
                           )}
                           {selected && (
-                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute top-3 right-3 w-7 h-7 rounded-full bg-primary-foreground flex items-center justify-center">
+                            <motion.div initial={enterInitial({ scale: 0 })} animate={{ scale: 1 }} className="absolute top-3 right-3 w-7 h-7 rounded-full bg-primary-foreground flex items-center justify-center">
                               <Check className="h-4 w-4 text-accent" />
                             </motion.div>
                           )}
@@ -375,7 +376,7 @@ const Configurator = () => {
               {/* STEP: Size */}
               {currentStepKey === "size" && (
                 <div>
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                  <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                     <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                       <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                       Oppervlakte
@@ -394,7 +395,7 @@ const Configurator = () => {
                       return (
                         <motion.button
                           key={opt.value}
-                          initial={{ opacity: 0, scale: 0.9 }}
+                          initial={enterInitial({ opacity: 0, scale: 0.9 })}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.1 + i * 0.04 }}
                           onClick={() => handleSelectAndNext("size", opt.value)}
@@ -407,7 +408,7 @@ const Configurator = () => {
                           <span className={`text-2xl md:text-3xl font-black block ${selected ? "text-accent" : ""}`}>{opt.sqm}</span>
                           <span className={`text-xs font-semibold block mt-1 ${selected ? "text-accent/70" : "text-primary-foreground/40"}`}>m²</span>
                           {selected && (
-                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center border-2 border-primary-foreground">
+                            <motion.div initial={enterInitial({ scale: 0 })} animate={{ scale: 1 }} className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center border-2 border-primary-foreground">
                               <Check className="h-3 w-3 text-primary-foreground" />
                             </motion.div>
                           )}
@@ -421,7 +422,7 @@ const Configurator = () => {
               {/* STEP: Drying type */}
               {currentStepKey === "dryingType" && (
                 <div>
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                  <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                     <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                       <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                       Type droging
@@ -440,7 +441,7 @@ const Configurator = () => {
                       return (
                         <motion.button
                           key={opt.value}
-                          initial={{ opacity: 0, x: -20 }}
+                          initial={enterInitial({ opacity: 0, x: -20 })}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.1 + i * 0.06 }}
                           onClick={() => {
@@ -469,7 +470,7 @@ const Configurator = () => {
               {/* STEP: Plaster thickness */}
               {currentStepKey === "plasterThickness" && (
                 <div>
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                  <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                     <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                       <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                       Pleisterwerk
@@ -489,14 +490,14 @@ const Configurator = () => {
                       return (
                         <motion.button
                           key={opt.value}
-                          initial={{ opacity: 0, y: 30 }}
+                          initial={enterInitial({ opacity: 0, y: 30 })}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.15 + i * 0.08 }}
                           onClick={() => handleSelectAndNext("plasterThickness", opt.value)}
                           className="flex-1 flex flex-col items-center gap-3 group"
                         >
                           <motion.div
-                            initial={{ height: 0 }}
+                            initial={enterInitial({ height: 0 })}
                             animate={{ height }}
                             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 + i * 0.1 }}
                             className={`w-full rounded-2xl transition-all duration-300 relative overflow-hidden ${
@@ -504,7 +505,7 @@ const Configurator = () => {
                             }`}
                           >
                             {selected && (
-                              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent flex items-center justify-center">
+                              <motion.div initial={enterInitial({ scale: 0 })} animate={{ scale: 1 }} className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent flex items-center justify-center">
                                 <Check className="h-3 w-3 text-primary-foreground" />
                               </motion.div>
                             )}
@@ -523,7 +524,7 @@ const Configurator = () => {
               {/* STEP: Screed thickness */}
               {currentStepKey === "screedThickness" && (
                 <div>
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                  <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                     <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                       <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                       Chape
@@ -543,14 +544,14 @@ const Configurator = () => {
                       return (
                         <motion.button
                           key={opt.value}
-                          initial={{ opacity: 0, y: 30 }}
+                          initial={enterInitial({ opacity: 0, y: 30 })}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.15 + i * 0.08 }}
                           onClick={() => handleSelectAndNext("screedThickness", opt.value)}
                           className="flex-1 flex flex-col items-center gap-3 group"
                         >
                           <motion.div
-                            initial={{ height: 0 }}
+                            initial={enterInitial({ height: 0 })}
                             animate={{ height }}
                             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 + i * 0.1 }}
                             className={`w-full rounded-2xl transition-all duration-300 relative overflow-hidden ${
@@ -558,7 +559,7 @@ const Configurator = () => {
                             }`}
                           >
                             {selected && (
-                              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent flex items-center justify-center">
+                              <motion.div initial={enterInitial({ scale: 0 })} animate={{ scale: 1 }} className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent flex items-center justify-center">
                                 <Check className="h-3 w-3 text-primary-foreground" />
                               </motion.div>
                             )}
@@ -577,7 +578,7 @@ const Configurator = () => {
               {/* STEP: Heating */}
               {currentStepKey === "heating" && (
                 <div>
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                  <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                     <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                       <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                       Verwarming
@@ -592,7 +593,7 @@ const Configurator = () => {
 
                   <div className="grid grid-cols-2 gap-4 max-w-md">
                     <motion.button
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={enterInitial({ opacity: 0, x: -20 })}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.15 }}
                       onClick={() => handleSelectAndNext("heating", "ja")}
@@ -607,7 +608,7 @@ const Configurator = () => {
                       <div className={`text-xs mt-1 ${answers.heating === "ja" ? "text-accent/60" : "text-primary-foreground/40"}`}>Ik heb eigen verwarming</div>
                     </motion.button>
                     <motion.button
-                      initial={{ opacity: 0, x: 20 }}
+                      initial={enterInitial({ opacity: 0, x: 20 })}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2 }}
                       onClick={() => handleSelectAndNext("heating", "nee")}
@@ -628,7 +629,7 @@ const Configurator = () => {
               {/* STEP: Service type */}
               {currentStepKey === "service" && (
                 <div>
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                  <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                     <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                       <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                       Laatste stap
@@ -648,7 +649,7 @@ const Configurator = () => {
                       return (
                         <motion.button
                           key={opt.value}
-                          initial={{ opacity: 0, x: -20 }}
+                          initial={enterInitial({ opacity: 0, x: -20 })}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.1 + i * 0.06 }}
                           onClick={() => handleFinish(opt.value)}

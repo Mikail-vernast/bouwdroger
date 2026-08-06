@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, productSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { enterInitial } from "@/lib/firstPaint";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -100,7 +101,7 @@ const ProductDetail = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Images */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={enterInitial({ opacity: 0, x: -20 })}
             animate={{ opacity: 1, x: 0 }}
             className="space-y-4"
           >
@@ -129,7 +130,7 @@ const ProductDetail = () => {
 
           {/* Info */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={enterInitial({ opacity: 0, x: 20 })}
             animate={{ opacity: 1, x: 0 }}
             className="space-y-6"
           >

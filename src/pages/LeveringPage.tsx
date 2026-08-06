@@ -9,6 +9,7 @@ import technicianImg from "@/assets/technician.png";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { enterInitial } from "@/lib/firstPaint";
 
 const benefits = [
   { icon: Truck, title: "Gratis levering & ophaling", desc: "Vanaf 2 weken huurperiode, in heel België" },
@@ -63,7 +64,7 @@ const LeveringPage = () => {
               {/* Left: text content */}
               <div className="py-16 md:py-24 lg:py-32 relative z-10">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={enterInitial({ opacity: 0, y: 20 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
@@ -112,7 +113,7 @@ const LeveringPage = () => {
               {/* Right: technician image */}
               <div className="relative hidden lg:flex items-end justify-center">
                 <motion.img
-                  initial={{ opacity: 0, x: 40 }}
+                  initial={enterInitial({ opacity: 0, x: 40 })}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                   src={technicianImg}
@@ -124,7 +125,7 @@ const LeveringPage = () => {
                 
                 {/* Floating product cards */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={enterInitial({ opacity: 0, y: 20 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                   className="absolute top-20 -left-4 bg-background/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl z-20"
@@ -139,7 +140,7 @@ const LeveringPage = () => {
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={enterInitial({ opacity: 0, y: 20 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
                   className="absolute top-52 -right-4 bg-background/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl z-20"

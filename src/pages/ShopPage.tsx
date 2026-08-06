@@ -9,6 +9,7 @@ import { useState } from "react";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { enterInitial } from "@/lib/firstPaint";
 
 type Category = "all" | "bouwdrogers" | "ventilatoren" | "verwarming";
 
@@ -78,7 +79,7 @@ const ShopPage = () => {
               {filtered.map((product, i) => (
                 <motion.div
                   key={product.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={enterInitial({ opacity: 0, y: 20 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                   className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden group cursor-pointer hover:shadow-md transition-shadow"

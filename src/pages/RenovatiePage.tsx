@@ -1,4 +1,5 @@
 import PageMeta from "@/components/PageMeta";
+import { enterInitial } from "@/lib/firstPaint";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -94,7 +95,7 @@ const RenovatiePage = () => {
         <section className="py-14 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
+              <motion.div initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={0}>
                 <Badge className="bg-primary/10 text-primary border-primary/20 mb-4 text-sm px-4 py-1.5">
                   🔨 Renovatie & vochtige kelders
                 </Badge>
@@ -117,7 +118,7 @@ const RenovatiePage = () => {
                   </Button>
                 </div>
               </motion.div>
-              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={2} className="hidden lg:flex items-center justify-center">
+              <motion.div initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={2} className="hidden lg:flex items-center justify-center">
                 <div className="w-full aspect-[4/3] bg-muted rounded-2xl flex items-center justify-center text-muted-foreground text-lg font-medium border border-border">
                   Foto vochtige kelder
                 </div>

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import logoWhite from "@/assets/logo-white.png";
+import { enterInitial } from "@/lib/firstPaint";
 
 const dienstenItems = [
   {
@@ -142,7 +143,7 @@ const Navbar = () => {
             <AnimatePresence>
               {isDienstenOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={enterInitial({ opacity: 0, y: 8 })}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
@@ -225,7 +226,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
+            initial={enterInitial({ height: 0, opacity: 0 })}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
@@ -254,7 +255,7 @@ const Navbar = () => {
               <AnimatePresence>
                 {isMobileDienstenOpen && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
+                    initial={enterInitial({ height: 0, opacity: 0 })}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}

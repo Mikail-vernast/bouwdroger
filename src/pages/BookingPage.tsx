@@ -23,6 +23,7 @@ import type { PackageResult } from "@/lib/pricing";
 import { useToast } from "@/hooks/use-toast";
 import PageMeta from "@/components/PageMeta";
 import { SEO } from "@/data/seo";
+import { enterInitial } from "@/lib/firstPaint";
 
 type CustomerType = "particulier" | "zakelijk";
 
@@ -172,7 +173,7 @@ const BookingPage = () => {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Form */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={enterInitial({ opacity: 0, y: 20 })}
             animate={{ opacity: 1, y: 0 }}
             className="lg:col-span-2"
           >
@@ -222,7 +223,7 @@ const BookingPage = () => {
               {/* Company fields */}
               {customerType === "zakelijk" && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
+                  initial={enterInitial({ opacity: 0, height: 0 })}
                   animate={{ opacity: 1, height: "auto" }}
                   className="grid sm:grid-cols-2 gap-4"
                 >
@@ -301,7 +302,7 @@ const BookingPage = () => {
 
           {/* Sidebar summary */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={enterInitial({ opacity: 0, y: 20 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="lg:sticky lg:top-28"

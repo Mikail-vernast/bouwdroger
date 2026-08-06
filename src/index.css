@@ -122,3 +122,30 @@
     font-family: ui-serif, Georgia, serif;
   }
 }
+
+/*
+  Overgang tussen routes. Bewust CSS en geen framer-motion: src/Layout.tsx zet
+  deze klasse pas ná mount, zodat de geprerenderde HTML zonder animatie — en dus
+  meteen zichtbaar — op het scherm komt. Zie de toelichting daar.
+
+  Wie "verminderde beweging" heeft staan, krijgt niets: een fade is versiering,
+  geen informatie.
+*/
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-enter {
+  animation: page-enter 0.2s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter {
+    animation: none;
+  }
+}

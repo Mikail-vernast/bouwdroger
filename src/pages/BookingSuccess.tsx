@@ -8,6 +8,7 @@ import { CheckCircle, Phone, Mail, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import PageMeta from "@/components/PageMeta";
 import { SEO } from "@/data/seo";
+import { enterInitial } from "@/lib/firstPaint";
 
 const BookingSuccess = () => {
   const location = useLocation();
@@ -24,7 +25,7 @@ const BookingSuccess = () => {
       <Navbar />
       <main className="container mx-auto px-4 py-16">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={enterInitial({ opacity: 0, scale: 0.95 })}
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-2xl mx-auto text-center"
         >

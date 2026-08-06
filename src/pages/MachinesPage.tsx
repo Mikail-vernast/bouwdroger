@@ -20,6 +20,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { products } from "@/data/products";
 import machinesHero from "@/assets/machines-hero.png";
 import { SEO } from "@/data/seo";
+import { enterInitial } from "@/lib/firstPaint";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -157,16 +158,27 @@ const MachinesPage = () => {
       <main>
         {/* Hero — banner image with text overlay, same style as homepage */}
         <section className="relative overflow-visible bg-white">
+          {/*
+            Breedte en hoogte staan erbij omdat de hoogte hier uit de
+            afbeelding zelf komt (`h-auto`). Zonder die twee kent de browser de
+            verhouding pas als het bestand binnen is en schuift alles eronder
+            alsnog naar beneden. Dit is bovendien de grootste afbeelding boven
+            de vouw op deze pagina, vandaar `fetchPriority`.
+          */}
           <img
             src={machinesHero}
             alt=""
             className="w-full h-auto block"
+            width={1400}
+            height={742}
             loading="eager"
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="absolute inset-0">
             <div className="container mx-auto px-4 h-full flex items-center justify-end">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={enterInitial({ opacity: 0, y: 20 })}
                 animate={{ opacity: 1, y: 0 }}
                 className="max-w-lg py-8 text-right"
               >

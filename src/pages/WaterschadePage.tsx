@@ -1,4 +1,5 @@
 import PageMeta from "@/components/PageMeta";
+import { enterInitial } from "@/lib/firstPaint";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -76,7 +77,7 @@ const WaterschadePage = () => {
         {/* 1. URGENCY HERO */}
         <section className="bg-[hsl(0,72%,51%)] text-white py-14 md:py-20">
           <div className="container mx-auto px-4 text-center max-w-3xl">
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
+            <motion.div initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={0}>
               <Badge className="bg-white/20 text-white border-white/30 text-sm px-4 py-1.5 mb-6 inline-flex items-center gap-2">
                 <span className="w-2.5 h-2.5 bg-white rounded-full animate-pulse" />
                 Spoedbezorging beschikbaar — bel nu
@@ -84,21 +85,21 @@ const WaterschadePage = () => {
             </motion.div>
 
             <motion.h1
-              initial="hidden" animate="visible" variants={fadeUp} custom={1}
+              initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={1}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4"
             >
               Waterschade of overstroming?
             </motion.h1>
 
             <motion.p
-              initial="hidden" animate="visible" variants={fadeUp} custom={2}
+              initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={2}
               className="text-lg md:text-xl text-white/85 mb-8 max-w-lg mx-auto"
             >
               Wij leveren uw bouwdroger vandaag nog.
             </motion.p>
 
             <motion.div
-              initial="hidden" animate="visible" variants={fadeUp} custom={3}
+              initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={3}
               className="flex flex-col sm:flex-row gap-3 justify-center"
             >
               <Button

@@ -4,16 +4,23 @@
  * Het bedrag wordt hier opnieuw berekend uit de pakketconfiguratie en de
  * gekozen opties; wat de browser als totaal meestuurt wordt genegeerd. Zo kan
  * niemand de prijs in de request aanpassen.
+ *
+ * De route heeft ook een drempel per IP. Ze stond er lang zonder: elke POST
+ * maakte een echte Checkout-sessie aan bij Stripe, ongeauthenticeerd en
+ * ongelimiteerd. Dat kost op zich niets, maar met genoeg volume loop je tegen
+ * de rate limits van Stripe zelf — en dan breekt het afrekenen voor de klanten
+ * die wél willen betalen.
  */
 import Stripe from "stripe";
 import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
+import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 import { configToQuery, packageSpecLine, packageTitle, parseConfig } from "../src/lib/verhuur.js";
 
 interface CheckoutBody {
-  config?: Record<string, string>;
+  config?: unknown;
   options?: unknown;
-  customer?: Record<string, string>;
-  delivery?: { date?: string; slot?: string };
+  customer?: unknown;
+  delivery?: unknown;
 }
 
 function json(body: unknown, status = 200): Response {
@@ -23,12 +30,33 @@ function json(body: unknown, status = 200): Response {
   });
 }
 
+/**
+ * Maakt van een willekeurige waarde uit de request een platte tekstmap. Alles
+ * wat geen object is, en elke waarde binnenin die geen tekst of getal is, valt
+ * weg — zo kan een payload met een array of een genest object hieronder geen
+ * `.slice` op iets anders dan een string laten stuklopen.
+ */
+function strings(value: unknown): Record<string, string> {
+  const out: Record<string, string> = {};
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return out;
+  for (const [key, raw] of Object.entries(value as Record<string, unknown>)) {
+    if (typeof raw === "string") out[key] = raw;
+    else if (typeof raw === "number" && Number.isFinite(raw)) out[key] = String(raw);
+  }
+  return out;
+}
+
 /** Alleen tekst die in Stripe-metadata past (max 500 tekens per waarde). */
 function trim(value: string | undefined, max = 480): string {
   return (value ?? "").slice(0, max);
 }
 
 export async function POST(request: Request): Promise<Response> {
+  const limit = gate(clientIp(request));
+
+  const attempt = limit.attempt();
+  if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
+
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) {
     return json({ error: "Stripe is nog niet geconfigureerd op deze omgeving." }, 500);
@@ -41,14 +69,28 @@ export async function POST(request: Request): Promise<Response> {
     return json({ error: "Ongeldige aanvraag." }, 400);
   }
 
-  const config = parseConfig(new URLSearchParams(body.config ?? {}));
+  /*
+    `config`, `customer` en `delivery` komen ongecontroleerd uit de browser.
+    `parseConfig` en `trim` gaan ervan uit dat ze met tekst te maken hebben;
+    stuurt iemand een array of een genest object, dan klapt dit eruit met een
+    500 in plaats van een nette afhandeling. `strings()` maakt er eerst een
+    platte tekstmap van.
+  */
+  const config = parseConfig(new URLSearchParams(strings(body.config)));
   const options = normalizeOptions(body.options);
   const summary = bookingSummary(config, options);
 
-  const email = trim(body.customer?.mail, 200);
+  const customer = strings(body.customer);
+  const delivery = strings(body.delivery);
+
+  const email = trim(customer.mail, 200);
   if (!/\S+@\S+\.\S+/.test(email)) {
     return json({ error: "Geen geldig e-mailadres opgegeven." }, 400);
   }
+
+  // Pas hier gaat er echt een sessie naar Stripe.
+  const accepted = limit.accept();
+  if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
 
   const reference = newReference();
   const origin = new URL(request.url).origin;
@@ -97,14 +139,14 @@ export async function POST(request: Request): Promise<Response> {
         nu_betaald: summary.payable.toFixed(2),
         saldo_bij_levering: (summary.netTotal - summary.payable).toFixed(2),
         regels: trim(summary.lines.map((l) => `${l.l}: ${l.inc ? "inbegrepen" : l.v}`).join(" | ")),
-        klant: trim(body.customer?.name, 120),
-        klanttype: trim(body.customer?.type, 20),
-        bedrijf: trim(body.customer?.company, 120),
-        btw_nummer: trim(body.customer?.vat, 40),
-        telefoon: trim(body.customer?.tel, 40),
-        werfadres: trim(`${body.customer?.addr ?? ""} ${body.customer?.post ?? ""}`.trim(), 200),
-        leverdatum: trim(body.delivery?.date, 20),
-        tijdslot: trim(body.delivery?.slot, 30),
+        klant: trim(customer.name, 120),
+        klanttype: trim(customer.type, 20),
+        bedrijf: trim(customer.company, 120),
+        btw_nummer: trim(customer.vat, 40),
+        telefoon: trim(customer.tel, 40),
+        werfadres: trim(`${customer.addr ?? ""} ${customer.post ?? ""}`.trim(), 200),
+        leverdatum: trim(delivery.date, 20),
+        tijdslot: trim(delivery.slot, 30),
       },
     });
 

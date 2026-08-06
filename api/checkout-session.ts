@@ -12,9 +12,18 @@
  */
 import Stripe from "stripe";
 import { isReference } from "../src/lib/booking.js";
+import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 
 /** Stripe-sessie-ID's zijn `cs_` gevolgd door alfanumerieke tekens. */
 const SESSION_ID = /^cs_[A-Za-z0-9_]{1,255}$/;
+
+/**
+ * Ruimer dan bij het aanmaken van een order: de boekingspagina kan dit bij het
+ * terugkomen van Stripe een paar keer na elkaar opvragen, en een bezoeker die
+ * ververst hoort geen 429 te zien. De grens is er om te beletten dat iemand
+ * deze route als onbeperkte doorgeefluik naar de Stripe-API gebruikt.
+ */
+const MAX_LOOKUPS = 20;
 
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -24,11 +33,20 @@ function json(body: unknown, status = 200): Response {
 }
 
 export async function GET(request: Request): Promise<Response> {
+  const limit = gate(clientIp(request), MAX_LOOKUPS);
+
+  const attempt = limit.attempt();
+  if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
+
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) return json({ error: "Stripe is nog niet geconfigureerd op deze omgeving." }, 500);
 
   const id = new URL(request.url).searchParams.get("id");
   if (!id || !SESSION_ID.test(id)) return json({ error: "Ongeldige sessie." }, 400);
+
+  // Pas een geldig ID kost een call naar Stripe.
+  const accepted = limit.accept();
+  if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
 
   const stripe = new Stripe(key);
 

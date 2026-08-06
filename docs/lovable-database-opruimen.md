@@ -53,6 +53,15 @@ formulier → /api/order → edge function bouwdroger-order-webhook → bouwdrog
 
 `bouwdroger_orders` in Vernast V2.0 heeft alle 41 velden die de payload nodig
 heeft, staat achter RLS en is enkel zichtbaar voor admin en de rol `bouwdroger`.
+Ook de `supabase/`-map is weg. Die bevatte een `config.toml` met
+`project_id = "xmyfedzvtjfpspriafza"` — het dode Lovable-project — en migraties
+die `public.bookings` en `public.reserveringen` aanmaken. Die twee tabellen
+bestaan niet in Vernast V2.0 en horen daar ook niet: orders landen in
+`bouwdroger_orders`, via de edge function. Zolang die map er stond, wees een
+`supabase db push` in deze repo ofwel naar de dode database, ofwel duwde hij
+twee vreemde tabellen het portaal in. Deze repo praat met geen enkele database
+rechtstreeks; alles gaat over `VERNAST_WEBHOOK_URL`.
+
 De Supabase-client, de dependency en de `VITE_SUPABASE_*`-variabelen zijn uit de
 codebase en uit Vercel verwijderd. Er is geen enkele verwijzing naar dit project
 meer in de code, en ook niet in het CRM — dat is nagekeken op functies en

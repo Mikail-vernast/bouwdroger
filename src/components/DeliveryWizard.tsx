@@ -27,6 +27,7 @@ import {
   type HeatingOption,
   getPackageByAnswers,
 } from "@/data/packages";
+import { enterInitial } from "@/lib/firstPaint";
 
 type BuildingType = "vrijstaand" | "halfopen" | "rijwoning" | "appartement";
 
@@ -275,7 +276,7 @@ const DeliveryWizard = () => {
         <div className="flex items-center gap-3">
           {step > 0 && (
             <motion.button
-              initial={{ opacity: 0, x: -10 }}
+              initial={enterInitial({ opacity: 0, x: -10 })}
               animate={{ opacity: 1, x: 0 }}
               onClick={goPrev}
               className="flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground transition-colors text-sm font-medium"
@@ -318,7 +319,7 @@ const DeliveryWizard = () => {
             {currentStepKey === "buildingType" && (
               <div>
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={enterInitial({ opacity: 0, y: 10 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
@@ -341,7 +342,7 @@ const DeliveryWizard = () => {
                     return (
                       <motion.button
                         key={bt.value}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={enterInitial({ opacity: 0, y: 20 })}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 + i * 0.05 }}
                         onClick={() =>
@@ -378,7 +379,7 @@ const DeliveryWizard = () => {
                           </div>
                           {selected && (
                             <motion.div
-                              initial={{ scale: 0 }}
+                              initial={enterInitial({ scale: 0 })}
                               animate={{ scale: 1 }}
                               className="absolute top-3 right-3 w-7 h-7 rounded-full bg-primary-foreground flex items-center justify-center"
                             >
@@ -397,7 +398,7 @@ const DeliveryWizard = () => {
             {currentStepKey === "size" && (
               <div>
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={enterInitial({ opacity: 0, y: 10 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
@@ -419,7 +420,7 @@ const DeliveryWizard = () => {
                     return (
                       <motion.button
                         key={opt.value}
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={enterInitial({ opacity: 0, scale: 0.9 })}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.1 + i * 0.04 }}
                         onClick={() => handleSelectAndNext("size", opt.value)}
@@ -437,7 +438,7 @@ const DeliveryWizard = () => {
                         </span>
                         {selected && (
                           <motion.div
-                            initial={{ scale: 0 }}
+                            initial={enterInitial({ scale: 0 })}
                             animate={{ scale: 1 }}
                             className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center border-2 border-primary-foreground"
                           >
@@ -455,7 +456,7 @@ const DeliveryWizard = () => {
             {currentStepKey === "dryingType" && (
               <div>
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={enterInitial({ opacity: 0, y: 10 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
@@ -478,7 +479,7 @@ const DeliveryWizard = () => {
                     return (
                       <motion.button
                         key={opt.value}
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={enterInitial({ opacity: 0, x: -20 })}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.1 + i * 0.06 }}
                         onClick={() => {
@@ -523,7 +524,7 @@ const DeliveryWizard = () => {
             {currentStepKey === "plasterThickness" && (
               <div>
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={enterInitial({ opacity: 0, y: 10 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
@@ -546,7 +547,7 @@ const DeliveryWizard = () => {
                     return (
                       <motion.button
                         key={opt.value}
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={enterInitial({ opacity: 0, y: 30 })}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 + i * 0.08 }}
                         onClick={() =>
@@ -555,7 +556,7 @@ const DeliveryWizard = () => {
                         className="flex-1 flex flex-col items-center gap-3 group"
                       >
                         <motion.div
-                          initial={{ height: 0 }}
+                          initial={enterInitial({ height: 0 })}
                           animate={{ height }}
                           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 + i * 0.1 }}
                           className={`w-full rounded-2xl transition-all duration-300 relative overflow-hidden ${
@@ -566,7 +567,7 @@ const DeliveryWizard = () => {
                         >
                           {selected && (
                             <motion.div
-                              initial={{ scale: 0 }}
+                              initial={enterInitial({ scale: 0 })}
                               animate={{ scale: 1 }}
                               className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent flex items-center justify-center"
                             >
@@ -591,7 +592,7 @@ const DeliveryWizard = () => {
             {currentStepKey === "screedThickness" && (
               <div>
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={enterInitial({ opacity: 0, y: 10 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
@@ -614,7 +615,7 @@ const DeliveryWizard = () => {
                     return (
                       <motion.button
                         key={opt.value}
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={enterInitial({ opacity: 0, y: 30 })}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 + i * 0.08 }}
                         onClick={() =>
@@ -623,7 +624,7 @@ const DeliveryWizard = () => {
                         className="flex-1 flex flex-col items-center gap-3 group"
                       >
                         <motion.div
-                          initial={{ height: 0 }}
+                          initial={enterInitial({ height: 0 })}
                           animate={{ height }}
                           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 + i * 0.1 }}
                           className={`w-full rounded-2xl transition-all duration-300 relative overflow-hidden ${
@@ -634,7 +635,7 @@ const DeliveryWizard = () => {
                         >
                           {selected && (
                             <motion.div
-                              initial={{ scale: 0 }}
+                              initial={enterInitial({ scale: 0 })}
                               animate={{ scale: 1 }}
                               className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent flex items-center justify-center"
                             >
@@ -659,7 +660,7 @@ const DeliveryWizard = () => {
             {currentStepKey === "heating" && (
               <div>
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={enterInitial({ opacity: 0, y: 10 })}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
@@ -677,7 +678,7 @@ const DeliveryWizard = () => {
 
                 <div className="grid grid-cols-2 gap-4 max-w-md">
                   <motion.button
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={enterInitial({ opacity: 0, x: -20 })}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.15 }}
                     onClick={() => {
@@ -697,7 +698,7 @@ const DeliveryWizard = () => {
                     </div>
                   </motion.button>
                   <motion.button
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={enterInitial({ opacity: 0, x: 20 })}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
                     onClick={() => {
@@ -737,7 +738,7 @@ const DeliveryWizard = () => {
       {/* Bottom CTA */}
       <div className="absolute bottom-6 left-0 right-0 z-10 flex justify-center">
         {canProceed && !isLastStep && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }}>
             <Button
               onClick={goNext}
               className="bg-primary-foreground text-accent hover:bg-primary-foreground/90 rounded-full px-8 font-bold gap-2 shadow-xl h-12"
@@ -748,7 +749,7 @@ const DeliveryWizard = () => {
           </motion.div>
         )}
         {isLastStep && canProceed && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }}>
             <Button
               onClick={handleFinish}
               className="bg-primary-foreground text-accent hover:bg-primary-foreground/90 rounded-full px-8 font-bold gap-2 shadow-xl h-12"

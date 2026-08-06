@@ -33,6 +33,7 @@ import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useSearchParams } from "react-router-dom";
 import { SEO } from "@/data/seo";
+import { enterInitial } from "@/lib/firstPaint";
 
 const situations = [
   { id: "nieuwbouw", icon: "🏗️", title: "Nieuwbouw / chape drogen", badge: null },
@@ -153,7 +154,7 @@ const ReserverenPage = () => {
         <PageMeta {...SEO.reserveren} />
         <Navbar />
         <main className="container mx-auto px-4 py-20 text-center max-w-lg">
-          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
+          <motion.div initial={enterInitial({ scale: 0.8, opacity: 0 })} animate={{ scale: 1, opacity: 1 }}>
             <div className="w-20 h-20 bg-[hsl(142,76%,96%)] rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 className="h-10 w-10 text-[hsl(142,71%,35%)]" />
             </div>
@@ -218,7 +219,7 @@ const ReserverenPage = () => {
               <AnimatePresence mode="wait">
                 {/* STEP 1 */}
                 {step === 1 && (
-                  <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
+                  <motion.div key="step1" initial={enterInitial({ opacity: 0, x: 20 })} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                     <div>
                       <h2 className="text-xl font-black mb-1">Wat is uw situatie?</h2>
                       <p className="text-sm text-muted-foreground mb-4">Selecteer wat het beste past.</p>
@@ -242,7 +243,7 @@ const ReserverenPage = () => {
                     </div>
 
                     {situatie && (
-                      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+                      <motion.div initial={enterInitial({ opacity: 0, y: 16 })} animate={{ opacity: 1, y: 0 }}>
                         <h2 className="text-xl font-black mb-1">Welke machine?</h2>
                         <p className="text-sm text-muted-foreground mb-4">Niet zeker? Bel ons voor advies.</p>
                         <div className="grid gap-3">
@@ -272,7 +273,7 @@ const ReserverenPage = () => {
                     )}
 
                     {machine && (
-                      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+                      <motion.div initial={enterInitial({ opacity: 0, y: 16 })} animate={{ opacity: 1, y: 0 }}>
                         <h2 className="text-xl font-black mb-1">Hoe lang?</h2>
                         <Select value={duur} onValueChange={setDuur}>
                           <SelectTrigger className="w-full">
@@ -288,7 +289,7 @@ const ReserverenPage = () => {
                     )}
 
                     {step1Valid && (
-                      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-muted/50 rounded-xl p-4 text-sm">
+                      <motion.div initial={enterInitial({ opacity: 0, y: 16 })} animate={{ opacity: 1, y: 0 }} className="bg-muted/50 rounded-xl p-4 text-sm">
                         <p className="font-bold text-foreground mb-1">Geselecteerd: {machine} — {duur}</p>
                         <p className="text-muted-foreground">Levering & ophaling: Inbegrepen | Vochtmeting: Gratis</p>
                       </motion.div>
@@ -302,7 +303,7 @@ const ReserverenPage = () => {
 
                 {/* STEP 2 */}
                 {step === 2 && (
-                  <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-5">
+                  <motion.div key="step2" initial={enterInitial({ opacity: 0, x: 20 })} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-5">
                     <h2 className="text-xl font-black mb-1">Uw leveringsgegevens</h2>
 
                     <div className="grid sm:grid-cols-2 gap-4">
@@ -383,7 +384,7 @@ const ReserverenPage = () => {
 
                 {/* STEP 3 */}
                 {step === 3 && (
-                  <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                  <motion.div key="step3" initial={enterInitial({ opacity: 0, x: 20 })} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
                     <h2 className="text-xl font-black mb-1">Bevestig uw reservering</h2>
 
                     <OrderSummary />

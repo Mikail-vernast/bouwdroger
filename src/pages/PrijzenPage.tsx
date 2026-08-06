@@ -1,4 +1,5 @@
 import PageMeta from "@/components/PageMeta";
+import { enterInitial } from "@/lib/firstPaint";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -74,10 +75,10 @@ const PrijzenPage = () => {
         {/* Hero */}
         <section className="py-14 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4 text-center max-w-3xl">
-            <motion.h1 initial="hidden" animate="visible" variants={fadeUp} custom={0} className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-4">
+            <motion.h1 initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={0} className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-4">
               Transparante prijzen — geen verrassingen
             </motion.h1>
-            <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={1} className="text-muted-foreground text-lg">
+            <motion.p initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={1} className="text-muted-foreground text-lg">
               Geen waarborg. Geen verborgen kosten. Wat u ziet is wat u betaalt.
             </motion.p>
           </div>
