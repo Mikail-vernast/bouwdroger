@@ -19,7 +19,7 @@ Vastgesteld op 2026-08-06, met de publieke sleutel die in de GitHub-repo stond:
 
 ```
 GET /rest/v1/bookings   →  http 200
-28 kolommen leesbaar, waaronder eight gevulde PII-velden:
+28 kolommen leesbaar, waaronder acht gevulde PII-velden:
 first_name, last_name, email, phone, address, postal_code, city, company_name
 ```
 
