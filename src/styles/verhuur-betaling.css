@@ -1,0 +1,19 @@
+/* ============================================================
+   Betaalstap van de boekingsflow.
+
+   De designfiles stoppen bij "Boeking bevestigen" — betalen zat er nog niet in.
+   Dit hoort dus niet in `verhuur.css` (transcriptie van het design) en ook niet
+   in `verhuur-fixes.css` (reparaties op het design), maar staat hier apart.
+   ============================================================ */
+
+/* Foutmelding wanneer Stripe niet bereikbaar is of de betaling afgebroken werd. */
+.vh-book .perr {
+  margin: 18px 0 0;
+  padding: 12px 15px;
+  border-radius: 11px;
+  background: rgba(200, 16, 46, 0.09);
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}

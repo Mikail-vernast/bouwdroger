@@ -1,0 +1,102 @@
+/**
+ * Controleert de geprerenderde output op de dingen waar zoekmachines en
+ * AI-antwoordmachines op afgaan. Draait tegen dist/, dus tegen wat er
+ * werkelijk uitgeleverd wordt — niet tegen de broncode.
+ *
+ * Gebruik: npm run build && node scripts/audit-seo.mjs
+ */
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import { join, relative, sep } from "node:path";
+
+const DIST = "dist";
+/** Aantal zichtbare tekens waaronder een pagina te dun is om te citeren. */
+const MIN_TEXT = 300;
+
+function htmlFiles(dir) {
+  return readdirSync(dir).flatMap((name) => {
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) return htmlFiles(full);
+    return name.endsWith(".html") ? [full] : [];
+  });
+}
+
+function tag(html, re) {
+  const m = html.match(re);
+  return m ? m[1].trim() : null;
+}
+
+/** Zichtbare tekst: markup en scripts eruit, dan pas tellen. */
+function visibleText(html) {
+  const body = html.split(/<body[^>]*>/)[1] ?? "";
+  return body
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const rows = [];
+const problems = [];
+const titles = new Map();
+
+for (const file of htmlFiles(DIST)) {
+  const html = readFileSync(file, "utf8");
+  const route = "/" + relative(DIST, file).split(sep).join("/").replace(/\.html$/, "").replace(/^index$/, "");
+
+  const title = tag(html, /<title[^>]*>([^<]*)<\/title>/i);
+  const description = tag(html, /<meta[^>]+name="description"[^>]+content="([^"]*)"/i);
+  const canonical = tag(html, /<link[^>]+rel="canonical"[^>]+href="([^"]*)"/i);
+  const robots = tag(html, /<meta[^>]+name="robots"[^>]+content="([^"]*)"/i) ?? "";
+  const h1 = (html.match(/<h1[\s>]/gi) || []).length;
+  const jsonLd = (html.match(/application\/ld\+json/gi) || []).length;
+  const titleCount = (html.match(/<title[\s>]/gi) || []).length;
+  const text = visibleText(html).length;
+  const noindex = robots.includes("noindex");
+
+  rows.push({ route, title, description, canonical, h1, jsonLd, text, noindex });
+
+  const fail = (msg) => problems.push(`${route}: ${msg}`);
+
+  if (!title) fail("geen <title>");
+  if (titleCount > 1) fail(`${titleCount} <title>-tags`);
+  if (title && (title.length < 25 || title.length > 65)) {
+    fail(`titel is ${title.length} tekens (streef 50–60): "${title}"`);
+  }
+  if (!description) fail("geen meta description");
+  // Lengte telt alleen op pagina's die in een zoekresultaat kunnen belanden;
+  // op een bevestigings- of checkoutpagina leest niemand die tekst ooit.
+  if (description && !noindex && (description.length < 90 || description.length > 175)) {
+    fail(`description is ${description.length} tekens (streef 120–160)`);
+  }
+  if (!canonical) fail("geen canonical");
+  if (h1 === 0 && !noindex) fail("geen <h1>");
+  if (h1 > 1) fail(`${h1} <h1>-tags`);
+  if (text < MIN_TEXT && !noindex) fail(`slechts ${text} tekens zichtbare tekst`);
+
+  if (title && !noindex) {
+    titles.set(title, [...(titles.get(title) ?? []), route]);
+  }
+}
+
+for (const [title, routes] of titles) {
+  if (routes.length > 1) problems.push(`dubbele titel op ${routes.length} pagina's: "${title}" → ${routes.join(", ")}`);
+}
+
+const indexable = rows.filter((r) => !r.noindex);
+console.log(`\nGecontroleerd: ${rows.length} pagina's (${indexable.length} indexeerbaar)`);
+console.log(`Met JSON-LD:   ${rows.filter((r) => r.jsonLd > 0).length}`);
+console.log(`Met canonical: ${rows.filter((r) => r.canonical).length}`);
+console.log(
+  `Zichtbare tekst: min ${Math.min(...indexable.map((r) => r.text))}, mediaan ${
+    indexable.map((r) => r.text).sort((a, b) => a - b)[Math.floor(indexable.length / 2)]
+  } tekens`
+);
+
+if (problems.length) {
+  console.log(`\n${problems.length} punt(en):`);
+  for (const p of problems) console.log("  •", p);
+  process.exitCode = 1;
+} else {
+  console.log("\nGeen problemen gevonden.");
+}

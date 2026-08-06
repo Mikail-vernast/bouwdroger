@@ -215,6 +215,17 @@ const PackageDetailPage = () => {
         description={`${pkg.shortTitle} droogpakket met ${equipmentSummary(pkg)}. € ${pkg.pricePerTwoWeeks} per 2 weken, inclusief levering, installatie en ophaling.`}
         path={`/levering/pakket/${pkg.id}`}
         ogType="product"
+        /*
+         * Uit de index gehouden. Deze pagina bestaat 46 keer, telkens met
+         * dezelfde tekst en een andere oppervlakte — gemeten 96 tot 97 procent
+         * woordoverlap. Zulke reeksen vallen onder wat Google "scaled content
+         * abuse" noemt, en ze zouden 64 procent van het indexeerbare oppervlak
+         * uitmaken. Ze blijven volledig werken als eindpunt van de calculator;
+         * `follow` zorgt dat de links erop hun waarde blijven doorgeven. De
+         * zoekwaarde hoort op /levering en /prijzen, waar het verhaal één keer
+         * goed verteld staat.
+         */
+        noindex
         jsonLd={[
           productSchema({
             name: pkg.title,
@@ -258,8 +269,7 @@ const PackageDetailPage = () => {
                   <img
                     src={gallery[activeImg]}
                     alt={pkg.title}
-                    className="w-full h-full object-cover"
-                  />
+                    className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   {/* USP badges overlay */}
                   <div className="absolute bottom-4 left-4 space-y-2">
                     {[
@@ -285,7 +295,7 @@ const PackageDetailPage = () => {
                         i === activeImg ? "border-primary shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
                       )}
                     >
-                      <img src={img} alt={`Foto ${i + 1}`} className="w-full h-full object-cover" />
+                      <img src={img} alt={`Foto ${i + 1}`} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                     </button>
                   ))}
                 </div>
@@ -349,7 +359,7 @@ const PackageDetailPage = () => {
                     return (
                       <div key={i} className="flex items-center gap-3 p-3">
                         {img ? (
-                          <img src={img} alt={item.name} className="w-10 h-10 object-contain rounded" />
+                          <img src={img} alt={item.name} className="w-10 h-10 object-contain rounded" loading="lazy" decoding="async" />
                         ) : (
                           <div className="w-10 h-10 bg-muted rounded flex items-center justify-center">
                             {(() => { const Icon = equipmentIcons[item.type] || Droplets; return <Icon className="h-5 w-5 text-primary" />; })()}

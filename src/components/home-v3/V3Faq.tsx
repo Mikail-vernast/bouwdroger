@@ -1,11 +1,17 @@
-const QUESTIONS: { q: string; a: string }[] = [
+import { PhoneIcon } from "./icons";
+
+/**
+ * Also feeds the FAQPage JSON-LD on the homepage, so the answers a visitor
+ * reads and the answers a search engine indexes can never drift apart.
+ */
+export const QUESTIONS: { q: string; a: string }[] = [
   {
     q: "Hoe weet ik welk toestel ik nodig heb?",
-    a: "Onze slimme calculator geeft een eerste berekening op basis van volume, toepassing en situatie. Zo kiest u gerichter en sneller — en komt u meteen op de pagina met het juiste pakket en de prijs.",
+    a: "Onze slimme calculator geeft een eerste berekening op basis van volume, toepassing en situatie. Zo kiest u gerichter en sneller, en komt u meteen op de pagina met het juiste pakket en de prijs.",
   },
   {
     q: "Hoelang duurt bouwdroging?",
-    a: "Dat hangt af van het volume, het materiaal, de beginsituatie, de temperatuur en de gewenste eindtoestand. Actieve droging verloopt doorgaans aanzienlijk sneller dan natuurlijke droging — de calculator geeft u een realistische inschatting.",
+    a: "Dat hangt af van het volume, het materiaal, de beginsituatie, de temperatuur en de gewenste eindtoestand. Actieve droging verloopt doorgaans aanzienlijk sneller dan natuurlijke droging, de calculator geeft u een realistische inschatting.",
   },
   {
     q: "Is levering inbegrepen?",
@@ -29,11 +35,11 @@ const QUESTIONS: { q: string; a: string }[] = [
   },
   {
     q: "Is bouwdroging nuttig bij schimmel?",
-    a: "Ja, bouwdroging speelt een belangrijke rol in het terugdringen van de vochtige omstandigheden die schimmelgroei bevorderen. Bij actieve schimmel moet uiteraard ook de oorzaak correct aangepakt worden — daarvoor staat Vernast Vochtbestrijding klaar.",
+    a: "Ja, bouwdroging speelt een belangrijke rol in het terugdringen van de vochtige omstandigheden die schimmelgroei bevorderen. Bij actieve schimmel moet uiteraard ook de oorzaak correct aangepakt worden, daarvoor staat Vernast Vochtbestrijding klaar.",
   },
   {
     q: "Werkt een klassieke ontvochtiger ook in een kelder of koude ruimte?",
-    a: "Dat hangt af van de temperatuur en de situatie. In koudere omstandigheden kan een andere techniek — zoals de ECO Revolution adsorptiedroger — of extra verwarming nodig zijn.",
+    a: "Dat hangt af van de temperatuur en de situatie. In koudere omstandigheden kan een andere techniek, zoals de ECO Revolution adsorptiedroger, of extra verwarming nodig zijn.",
   },
   {
     q: "Waarom moet een ruimte droog zijn voor afwerking?",
@@ -42,27 +48,30 @@ const QUESTIONS: { q: string; a: string }[] = [
 ];
 
 const V3Faq = () => (
-  <section className="faq" id="faq" aria-labelledby="faq-heading">
-    <img className="faq-worker" src="/design/worker-arrow-crop.png" alt="" />
-
+  <section className="faq" id="faq">
     <div className="wrap faq-grid">
-      <div className="sec-head">
-        <span className="kick">Veelgestelde vragen</span>
-        <h2 className="sec" id="faq-heading">
-          Alles wat u wilt weten.
-        </h2>
-        <p className="lede">
-          Staat uw vraag er niet bij? Bel{" "}
-          <a href="tel:+3236899065" style={{ color: "var(--red)", fontWeight: 600 }}>
-            03 689 90 65
-          </a>{" "}
-          — onze experts helpen u meteen verder.
-        </p>
+      <div className="faq-side">
+        <div className="sec-head" style={{ marginBottom: 0 }}>
+          <span className="kick">Veelgestelde vragen</span>
+          <h2 className="sec">Alles wat u wilt weten.</h2>
+        </div>
+        <div className="faq-help">
+          <h3>Staat uw vraag er niet bij?</h3>
+          <p>Onze droogexperts helpen u meteen verder, met advies op maat van uw situatie.</p>
+          <div className="fh-btns">
+            <a className="fh-call" href="tel:+3236899065">
+              <PhoneIcon /> Bel 03 689 90 65
+            </a>
+            <a className="fh-form" href="#contact">
+              Stel uw vraag online
+            </a>
+          </div>
+        </div>
       </div>
 
-      <div>
-        {QUESTIONS.map((item, index) => (
-          <details className="q" key={item.q} open={index === 0}>
+      <div className="faq-list">
+        {QUESTIONS.map((item, i) => (
+          <details className="q" key={item.q} open={i === 0}>
             <summary>
               {item.q} <span className="pl">+</span>
             </summary>

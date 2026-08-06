@@ -8,6 +8,9 @@ import { Phone, Mail, MapPin, Clock, Send, Warehouse, PhoneCall, ArrowRight } fr
 import { useState } from "react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
+import { SEO } from "@/data/seo";
 
 const ContactPage = () => {
   const [loading, setLoading] = useState(false);
@@ -24,6 +27,16 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageMeta
+        {...SEO.contact}
+        jsonLd={[
+          organizationSchema(),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         {/* Hero */}
@@ -32,8 +45,7 @@ const ContactPage = () => {
             <img
               src="/products/chape-drogen-3.jpg"
               alt="Vernast magazijn"
-              className="w-full h-full object-cover opacity-20"
-            />
+              className="w-full h-full object-cover opacity-20" loading="lazy" decoding="async" />
             <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/90 to-accent/60" />
           </div>
           <div className="relative z-10 container mx-auto px-4 py-20 md:py-28">
@@ -53,14 +65,14 @@ const ContactPage = () => {
                 Vragen over bouwdroging? Een offerte nodig? Of wil je materiaal afhalen? Wij staan voor je klaar.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="tel:+32123456789">
+                <a href="tel:+3236899065">
                   <Button className="bg-accent text-primary-foreground hover:bg-accent/90 rounded-full px-6 h-12 text-base font-semibold">
                     <PhoneCall className="mr-2 h-5 w-5" />
                     Bel Ons Direct
                   </Button>
                 </a>
                 <a href="mailto:info@vernast-verhuur.be">
-                  <Button variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full px-6 h-12 text-base font-semibold">
+                  <Button variant="outline" className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full px-6 h-12 text-base font-semibold">
                     <Mail className="mr-2 h-5 w-5" />
                     Stuur een E-mail
                   </Button>
@@ -122,7 +134,7 @@ const ContactPage = () => {
               <div className="lg:col-span-2 space-y-5">
                 {/* Telefoon */}
                 <motion.a
-                  href="tel:+32123456789"
+                  href="tel:+3236899065"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -135,7 +147,7 @@ const ContactPage = () => {
                     </div>
                     <div>
                       <p className="font-bold text-foreground text-base">Telefoon</p>
-                      <p className="text-sm text-muted-foreground">+32 (0)3 123 45 67</p>
+                      <p className="text-sm text-muted-foreground">03 689 90 65</p>
                     </div>
                     <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                   </div>
@@ -280,10 +292,10 @@ const ContactPage = () => {
                   Ons team staat klaar om al uw vragen te beantwoorden.
                 </p>
               </div>
-              <a href="tel:+32123456789">
+              <a href="tel:+3236899065">
                 <Button className="bg-primary-foreground text-accent hover:bg-primary-foreground/90 rounded-full px-8 h-14 text-lg font-bold shadow-xl hover:shadow-2xl transition-all">
                   <PhoneCall className="mr-2 h-5 w-5" />
-                  +32 (0)3 123 45 67
+                  03 689 90 65
                 </Button>
               </a>
             </div>

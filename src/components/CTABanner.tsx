@@ -39,9 +39,9 @@ const CTABanner = () => {
               asChild
               className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 font-bold text-base rounded-full px-10"
             >
-              <a href="tel:+32123456789">
+              <a href="tel:+3236899065">
                 <Phone className="mr-2 h-4 w-4" />
-                Bel ons: +32 (0)3 123 45 67
+                Bel ons: 03 689 90 65
               </a>
             </Button>
           </div>

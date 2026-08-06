@@ -6,6 +6,9 @@ import { products } from "@/data/products";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
+import { SEO } from "@/data/seo";
 
 type Category = "all" | "bouwdrogers" | "ventilatoren" | "verwarming";
 
@@ -26,6 +29,19 @@ const ShopPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageMeta
+        {...SEO.shop}
+        jsonLd={[
+          itemListSchema(
+            "Volledig verhuuraanbod",
+            products.map((p) => ({ name: p.name, path: `/product/${p.id}` }))
+          ),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Shop", path: "/shop" },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         <PageHero
@@ -72,8 +88,7 @@ const ShopPage = () => {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform"
-                    />
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform" loading="lazy" decoding="async" />
                   </div>
                   <div className="p-5">
                     <span className="text-xs font-semibold text-accent uppercase tracking-wider">

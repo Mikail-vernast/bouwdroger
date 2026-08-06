@@ -1,14 +1,8 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ChecklistIcon, RefreshIcon, SupportIcon, TruckIcon } from "./icons";
+import { ArrowRightIcon, ChecklistIcon, RefreshIcon, SupportIcon, TruckIcon } from "./icons";
 
-interface Included {
-  icon: ReactNode;
-  title: string;
-  body: string;
-}
-
-const INCLUDED: Included[] = [
+const INCLUDED: { icon: ReactNode; title: string; body: string }[] = [
   {
     icon: <TruckIcon />,
     title: "Levering & ophaling",
@@ -50,14 +44,12 @@ const OPTIONS = [
   },
 ];
 
-const V3Pricing = () => (
-  <section className="incl" id="prijzen" aria-labelledby="prijzen-heading">
+const V3Included = () => (
+  <section className="incl" id="prijzen">
     <div className="wrap">
       <div className="sec-head">
         <span className="kick">Prijzen &amp; voorwaarden</span>
-        <h2 className="sec" id="prijzen-heading">
-          Eén duidelijke prijs. Meer inbegrepen dan u denkt.
-        </h2>
+        <h2 className="sec">Eén duidelijke prijs. Meer inbegrepen dan u denkt.</h2>
         <p className="lede">
           Bouwdroging moet duidelijk zijn. Daarom werken wij met transparante huurvoorwaarden en een
           serviceformule die u ontzorgt — u ziet de prijs bij het berekenen en boekt tegen exact dat
@@ -85,17 +77,30 @@ const V3Pricing = () => (
         ))}
       </div>
 
-      <div className="incl-note" style={{ marginTop: 26 }}>
-        <p>
-          <strong>Korting bij langere huur.</strong> Vanaf een week betaalt u ± 10 % minder per dag,
-          vanaf een maand tot 30 % minder. De calculator rekent het automatisch mee.
-        </p>
-        <Link className="btn btn-red" to="/calculator">
-          Bereken mijn prijs
-        </Link>
+      <div className="ontzorgbar">
+        <img
+          className="ob-man"
+          src="/vernast/man-klembord.webp"
+          alt="Vernast technicus met klembord"
+          loading="lazy"
+        />
+        <div className="ob-body">
+          <h3>Bij levering volledig ontzorgd. En 100% droog, gegarandeerd.*</h3>
+          <p>
+            Wij berekenen, leveren, installeren en volgen op — u hoeft niets te sjouwen of in te
+            stellen. Niet droog binnen de berekende periode? Dan verlengt u maximaal kosteloos.
+          </p>
+          <Link className="ob-btn" to="/verhuur/calculator">
+            Start uw droging
+            <ArrowRightIcon size={14} />
+          </Link>
+          <span className="ob-note">
+            * Garantie geldt wanneer de externe omstandigheden aan onze richtlijnen voldoen.
+          </span>
+        </div>
       </div>
     </div>
   </section>
 );
 
-export default V3Pricing;
+export default V3Included;

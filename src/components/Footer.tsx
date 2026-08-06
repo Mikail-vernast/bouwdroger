@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, Facebook } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BEDRIJF, KIEZEN, SERVICE, TOEPASSINGEN } from "@/data/navigation";
 import logoWhite from "@/assets/logo-white.png";
 
 const Footer = () => {
@@ -16,14 +17,14 @@ const Footer = () => {
           {/* Contact */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <img src={logoWhite} alt="Vernast Verhuur" className="h-7 w-auto" />
+              <img src={logoWhite} alt="Vernast Verhuur" className="h-7 w-auto" loading="lazy" decoding="async" />
             </div>
             <div className="space-y-3 text-sm">
               <a
-                href="tel:+3231234567"
+                href="tel:+3236899065"
                 className="flex items-center gap-2 hover:text-primary-foreground transition-colors"
               >
-                <Phone className="h-4 w-4" /> +32 (0)3 123 45 67
+                <Phone className="h-4 w-4" /> 03 689 90 65
               </a>
               <a
                 href="mailto:info@vernast-verhuur.be"
@@ -44,31 +45,16 @@ const Footer = () => {
               Nuttige Links
             </h4>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/over-ons" className="hover:text-primary-foreground transition-colors">
-                  Over Ons
-                </Link>
-              </li>
-              <li>
-                <Link to="/over-ons" className="hover:text-primary-foreground transition-colors">
-                  Onze Aanpak
-                </Link>
-              </li>
-              <li>
-                <Link to="/realisaties" className="hover:text-primary-foreground transition-colors">
-                  Realisaties
-                </Link>
-              </li>
-              <li>
-                <Link to="/machines" className="hover:text-primary-foreground transition-colors">
-                  Machines
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-primary-foreground transition-colors">
-                  Contact
-                </Link>
-              </li>
+              {[...KIEZEN, ...BEDRIJF].map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="hover:text-primary-foreground transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -78,21 +64,16 @@ const Footer = () => {
               Diensten
             </h4>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/nieuwbouw" className="hover:text-primary-foreground transition-colors">
-                  Nieuwbouw
-                </Link>
-              </li>
-              <li>
-                <Link to="/renovatie" className="hover:text-primary-foreground transition-colors">
-                  Renovatie
-                </Link>
-              </li>
-              <li>
-                <Link to="/waterschade" className="hover:text-primary-foreground transition-colors">
-                  Waterschade
-                </Link>
-              </li>
+              {[...TOEPASSINGEN, ...SERVICE].map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="hover:text-primary-foreground transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

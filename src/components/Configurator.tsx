@@ -298,7 +298,7 @@ const Configurator = () => {
                             /* When real photos are added, show them */
                             <>
                               <div className="absolute inset-0">
-                                <img src={bt.image} alt="" className="w-full h-full object-cover" />
+                                <img src={bt.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
                                 <div className="absolute inset-0 bg-accent/60" />
                               </div>
                               <div className="relative">

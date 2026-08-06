@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Package, CheckCircle2, Car } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { SEO } from "@/data/seo";
 
 const steps = [
   { icon: Package, title: "1. Reserveer online", desc: "Kies je apparatuur en reserveer online. Je ontvangt direct een bevestiging." },
@@ -18,6 +21,22 @@ const AfhalenPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageMeta
+        {...SEO.afhalen}
+        jsonLd={[
+          serviceSchema({
+            name: "Bouwdroger afhalen in Aartselaar",
+            description:
+              "Zelf uw droogpakket ophalen op Boomsesteenweg 12 in Aartselaar, elke werkdag van 08:00 tot 17:00, met uitleg bij afhaling en 25 euro korting op de huurprijs.",
+            path: "/afhalen",
+            serviceType: "Verhuur bouwdrogers",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Afhalen", path: "/afhalen" },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         <PageHero

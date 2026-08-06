@@ -25,8 +25,8 @@ export const PhoneIcon = ({ size = 15 }: IconProps) => (
   </svg>
 );
 
-export const MailIcon = ({ size = 15 }: IconProps) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={2} {...strokeProps}>
+export const MailIcon = ({ size = 15, strokeWidth = 2 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
     <rect x="2" y="4" width="20" height="16" rx="2" />
     <path d="m2 7 10 6 10-6" />
   </svg>
@@ -46,8 +46,8 @@ export const ArrowRightIcon = ({ size = 15, strokeWidth = 2.4 }: IconProps) => (
   </svg>
 );
 
-export const CheckIcon = ({ size = 13 }: IconProps) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={2.6} {...strokeProps}>
+export const CheckIcon = ({ size = 13, strokeWidth = 2.6 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
     <path d="M20 6 9 17l-5-5" />
   </svg>
 );
@@ -156,5 +156,58 @@ export const HouseSmallIcon = ({ size = 16 }: IconProps) => (
   <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={1.9} {...strokeProps}>
     <path d="M3 21V9l9-6 9 6v12" />
     <path d="M9 21v-6h6v6" />
+  </svg>
+);
+
+/** The leaf that marks an eco device on a product chip. */
+export const LeafIcon = ({ size = 10 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={2.2} {...strokeProps}>
+    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+  </svg>
+);
+
+export const InfoIcon = ({ size = 17 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={2} {...strokeProps}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 16v-4M12 8h.01" />
+  </svg>
+);
+
+export const CardIcon = ({ size = 21 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={1.8} {...strokeProps}>
+    <rect x="2" y="5" width="20" height="14" rx="2" />
+    <path d="M2 10h20" />
+  </svg>
+);
+
+/** Calendar with a check — the design draws it at two sizes and two heights. */
+export const CalendarCheckIcon = ({ size = 21, height = 17 }: IconProps & { height?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={1.8} {...strokeProps}>
+    <rect x="3" y="4" width="18" height={height} rx="2" />
+    {height === 17 ? <path d="M8 2v4M16 2v4M3 10h18" /> : <path d="M3 10h18" />}
+    <path d="m9 15 2 2 4-4" />
+  </svg>
+);
+
+export const PinIcon = ({ size = 19 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={1.8} {...strokeProps}>
+    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
+export const UploadIcon = ({ size = 20 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={1.9} {...strokeProps}>
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+    <path d="m17 8-5-5-5 5" />
+    <path d="M12 3v12" />
+  </svg>
+);
+
+/** The document chip in the contact form's file list; the design strokes it red. */
+export const FileIcon = ({ size = 14 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#C81F2F" strokeWidth={2}>
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <path d="M14 2v6h6" />
   </svg>
 );

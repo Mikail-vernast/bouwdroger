@@ -1,4 +1,5 @@
 import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { products } from "@/data/products";
 import machinesHero from "@/assets/machines-hero.png";
+import { SEO } from "@/data/seo";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -139,8 +141,17 @@ const MachinesPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <PageMeta
-        title="Ons productgamma — Bouwdrogers, Ventilatoren & Verwarming | Vernast"
-        description="Ontdek ons volledige assortiment: ECO bouwdrogers, turbo ventilatoren, elektrische kachels en dieselheaters. Vanaf €3/dag."
+        {...SEO.machines}
+        jsonLd={[
+          itemListSchema(
+            "Gamma bouwdrogers, ventilatoren en bouwkachels",
+            products.map((p) => ({ name: p.name, path: `/product/${p.id}` }))
+          ),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Machines", path: "/machines" },
+          ]),
+        ]}
       />
       <Navbar />
       <main>
@@ -254,8 +265,7 @@ const MachinesPage = () => {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="h-36 w-full object-contain"
-                    />
+                      className="h-36 w-full object-contain" loading="lazy" decoding="async" />
                   </div>
 
                   <div className="px-5 pb-2">
@@ -333,8 +343,7 @@ const MachinesPage = () => {
                           <img
                             src={product.image}
                             alt={product.name}
-                            className="h-28 object-contain"
-                          />
+                            className="h-28 object-contain" loading="lazy" decoding="async" />
                         </div>
                       )}
                       <h3 className="font-bold text-foreground mb-1">
@@ -418,8 +427,7 @@ const MachinesPage = () => {
                           <img
                             src={product.image}
                             alt={product.name}
-                            className="h-24 object-contain"
-                          />
+                            className="h-24 object-contain" loading="lazy" decoding="async" />
                         </div>
                       )}
                       <h3 className="font-bold text-foreground mb-1">
@@ -542,7 +550,7 @@ const MachinesPage = () => {
                 className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8"
                 asChild
               >
-                <a href="tel:+32123456789">
+                <a href="tel:+3236899065">
                   <Phone className="h-4 w-4" /> Bel ons
                 </a>
               </Button>

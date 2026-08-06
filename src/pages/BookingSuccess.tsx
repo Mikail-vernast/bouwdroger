@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Phone, Mail, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import PageMeta from "@/components/PageMeta";
+import { SEO } from "@/data/seo";
 
 const BookingSuccess = () => {
   const location = useLocation();
@@ -17,6 +19,7 @@ const BookingSuccess = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageMeta {...SEO.bookingSuccess} />
       <TopBar />
       <Navbar />
       <main className="container mx-auto px-4 py-16">
