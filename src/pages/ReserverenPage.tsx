@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -29,9 +30,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 import { cn } from "@/lib/utils";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useSearchParams } from "react-router-dom";
+import { SEO } from "@/data/seo";
 
 const situations = [
   { id: "nieuwbouw", icon: "🏗️", title: "Nieuwbouw / chape drogen", badge: null },
@@ -85,22 +86,31 @@ const ReserverenPage = () => {
     if (!step2Valid || !step1Valid) return;
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.from("reserveringen" as any).insert({
-        situatie,
-        machine,
-        duur,
-        voornaam,
-        achternaam,
-        telefoon,
-        email,
-        adres,
-        gemeente,
-        postcode,
-        leveringsdatum: format(leveringsdatum!, "yyyy-MM-dd"),
-        bericht: bericht || null,
-      } as any);
+      // Via /api/order — die route bewaart de reservering én stuurt hem door
+      // naar het bouwdrogers-portaal in Vernast.
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          kind: "reservering",
+          data: {
+            situatie,
+            machine,
+            duur,
+            voornaam,
+            achternaam,
+            telefoon,
+            email,
+            adres,
+            gemeente,
+            postcode,
+            leveringsdatum: format(leveringsdatum!, "yyyy-MM-dd"),
+            bericht: bericht || null,
+          },
+        }),
+      });
 
-      if (error) {
+      if (!response.ok) {
         toast({ title: "Er ging iets mis", description: "Controleer uw verbinding en probeer het opnieuw.", variant: "destructive" });
         setIsSubmitting(false);
         return;
@@ -124,8 +134,7 @@ const ReserverenPage = () => {
         {adres && <div className="flex justify-between"><span className="text-muted-foreground">Adres</span><span className="font-semibold">{adres}, {postcode} {gemeente}</span></div>}
       </div>
       <div className="border-t border-border pt-3 space-y-1.5">
-        <div className="flex justify-between font-bold"><span>Prijs</span><span>€XX excl. BTW</span></div>
-        <p className="text-xs text-muted-foreground">€XX incl. 21% BTW</p>
+        <p className="text-xs text-muted-foreground">Wij bevestigen de huurprijs telefonisch binnen één werkdag, voor u iets betaalt.</p>
       </div>
       <div className="border-t border-border pt-3 space-y-1.5">
         {["Levering & ophaling", "Gratis vochtmeting", "Gratis verlengsnoer 10m", "Uitleg bij plaatsing"].map(t => (
@@ -141,7 +150,7 @@ const ReserverenPage = () => {
   if (isDone) {
     return (
       <div className="min-h-screen bg-background">
-        <PageMeta title="Reserveer uw bouwdroger online | Vernast" description="Reserveer uw bouwdroger in 3 stappen. Kies machine, vul uw gegevens in en bevestig. Levering binnen 24 uur." />
+        <PageMeta {...SEO.reserveren} />
         <Navbar />
         <main className="container mx-auto px-4 py-20 text-center max-w-lg">
           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
@@ -152,7 +161,7 @@ const ReserverenPage = () => {
             <p className="text-muted-foreground text-lg mb-6">Wij contacteren u zo snel mogelijk om de levering te bevestigen.</p>
             <div className="bg-muted/50 rounded-xl p-4 mb-6">
               <p className="text-sm text-muted-foreground">Bel ons als het urgent is:</p>
-              <a href="tel:0499000000" className="text-lg font-bold text-primary hover:underline">0499 XX XX XX</a>
+              <a href="tel:+3236899065" className="text-lg font-bold text-primary hover:underline">03 689 90 65</a>
             </div>
             <OrderSummary />
           </motion.div>
@@ -164,10 +173,27 @@ const ReserverenPage = () => {
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
-      <PageMeta title="Reserveer uw bouwdroger online | Vernast" description="Reserveer uw bouwdroger in 3 stappen. Kies machine, vul uw gegevens in en bevestig. Levering binnen 24 uur." />
+      <PageMeta
+        {...SEO.reserveren}
+        jsonLd={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Reserveren", path: "/reserveren" },
+        ])}
+      />
       <Navbar />
       <main className="container mx-auto px-4 py-10 md:py-14">
         <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-black text-foreground mb-3">
+              Bouwdroger online reserveren
+            </h1>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Kies uw situatie, uw toestel en uw huurperiode. Geen voorschot, dagelijks opzegbaar en
+              levering binnen 24 uur in heel Vlaanderen. Wij bellen u binnen één werkdag na om de
+              levering af te spreken.
+            </p>
+          </div>
+
           {/* Progress */}
           <div className="flex items-center justify-center gap-3 mb-2">
             {[1, 2, 3].map((s) => (
@@ -238,8 +264,7 @@ const ReserverenPage = () => {
                                 <span className="font-bold text-foreground">{m.id}</span>
                                 <span className="text-sm text-muted-foreground ml-2">{m.volume}</span>
                               </div>
-                              <span className="font-bold text-foreground">€XX/week</span>
-                              {m.badge && <Badge className="absolute -top-2 right-4 bg-primary text-primary-foreground text-xs">{m.badge}</Badge>}
+                                                            {m.badge && <Badge className="absolute -top-2 right-4 bg-primary text-primary-foreground text-xs">{m.badge}</Badge>}
                             </button>
                           ))}
                         </div>
@@ -264,7 +289,7 @@ const ReserverenPage = () => {
 
                     {step1Valid && (
                       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-muted/50 rounded-xl p-4 text-sm">
-                        <p className="font-bold text-foreground mb-1">Geselecteerd: {machine} — {duur} — €XX excl. BTW</p>
+                        <p className="font-bold text-foreground mb-1">Geselecteerd: {machine} — {duur}</p>
                         <p className="text-muted-foreground">Levering & ophaling: Inbegrepen | Vochtmeting: Gratis</p>
                       </motion.div>
                     )}

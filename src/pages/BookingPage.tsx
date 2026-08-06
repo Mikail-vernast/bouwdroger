@@ -20,8 +20,9 @@ import { Droplets, Wind, Flame, ArrowLeft, Building2, User, Check } from "lucide
 import { motion } from "framer-motion";
 import { products } from "@/data/products";
 import type { PackageResult } from "@/lib/pricing";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import PageMeta from "@/components/PageMeta";
+import { SEO } from "@/data/seo";
 
 type CustomerType = "particulier" | "zakelijk";
 
@@ -64,7 +65,10 @@ const BookingPage = () => {
     if (stored) {
       try {
         setSelection(JSON.parse(stored));
-      } catch {}
+      } catch {
+        // Onleesbare selectie uit een oudere versie: weggooien en opnieuw laten kiezen.
+        localStorage.removeItem("vernast_booking_selection");
+      }
     }
 
     // Check for direct product booking
@@ -120,10 +124,17 @@ const BookingPage = () => {
         equipment_verwarming: selection?.package?.equipment?.verwarming || null,
       };
 
-      const { error } = await supabase.from("bookings").insert(bookingData);
+      // Loopt via /api/order zodat de boeking meteen ook in het bouwdrogers-
+      // portaal van Vernast belandt. Rechtstreeks naar Supabase schrijven zou
+      // die stap overslaan.
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ kind: "booking", data: bookingData }),
+      });
 
-      if (error) {
-        console.error("Booking error:", error);
+      if (!response.ok) {
+        console.error("Booking error:", await response.text().catch(() => response.status));
         toast({ title: "Er ging iets mis", description: "Probeer het opnieuw of contacteer ons.", variant: "destructive" });
         setIsSubmitting(false);
         return;
@@ -150,6 +161,7 @@ const BookingPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageMeta {...SEO.booking} />
       <TopBar />
       <Navbar />
       <main className="container mx-auto px-4 py-10">

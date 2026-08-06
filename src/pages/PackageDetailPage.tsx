@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { getPackageById } from "@/data/packages";
+import { equipmentSummary, getPackageById, packageMetaTitle } from "@/data/packages";
 import {
   CheckCircle2,
   ArrowLeft,
@@ -33,11 +33,13 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { format, addDays, differenceInDays } from "date-fns";
 import { nl } from "date-fns/locale";
 import { cn } from "@/lib/utils";
+import PageMeta from "@/components/PageMeta";
+import { SEO } from "@/data/seo";
+import { breadcrumbSchema, productSchema } from "@/lib/schema";
 
 type CustomerType = "particulier" | "zakelijk";
 
@@ -100,6 +102,7 @@ const PackageDetailPage = () => {
   if (!pkg) {
     return (
       <div className="min-h-screen bg-background">
+        <PageMeta {...SEO.notFound} />
         <Navbar />
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Pakket niet gevonden</h1>
@@ -155,7 +158,7 @@ const PackageDetailPage = () => {
       const totalVent = pkg.equipment.filter(e => e.type === "ventilator").reduce((s, e) => s + e.count, 0) + extraVentilatoren;
       const totalVerw = pkg.equipment.filter(e => e.type === "kachel").reduce((s, e) => s + e.count, 0);
 
-      const { error } = await supabase.from("bookings").insert({
+      const bookingData = {
         booking_number: bookingNumber,
         customer_type: customerType,
         first_name: firstName,
@@ -177,9 +180,17 @@ const PackageDetailPage = () => {
         equipment_drogers: totalDrogers,
         equipment_ventilatoren: totalVent,
         equipment_verwarming: totalVerw,
+      };
+
+      // Via /api/order — zie BookingPage: die route stuurt de boeking ook door
+      // naar het bouwdrogers-portaal in Vernast.
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ kind: "booking", data: bookingData }),
       });
 
-      if (error) {
+      if (!response.ok) {
         toast({ title: "Er ging iets mis", description: "Probeer het opnieuw.", variant: "destructive" });
         setIsSubmitting(false);
         return;
@@ -193,6 +204,33 @@ const PackageDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageMeta
+        /*
+         * De titel moet de variant benoemen, niet alleen de oppervlakte: drie
+         * pakketten voor dezelfde woning verschillen enkel in laagdikte, en met
+         * `shortTitle` kregen ze alle drie dezelfde titel — drie pagina's die
+         * op precies dezelfde zoekopdracht mikken.
+         */
+        title={`${packageMetaTitle(pkg)} | Vernast`}
+        description={`${pkg.shortTitle} droogpakket met ${equipmentSummary(pkg)}. € ${pkg.pricePerTwoWeeks} per 2 weken, inclusief levering, installatie en ophaling.`}
+        path={`/levering/pakket/${pkg.id}`}
+        ogType="product"
+        jsonLd={[
+          productSchema({
+            name: pkg.title,
+            description: pkg.description,
+            image: gallery[0],
+            path: `/levering/pakket/${pkg.id}`,
+            pricePerDay: pkg.pricePerDay,
+            category: pkg.category,
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Levering", path: "/levering" },
+            { name: pkg.shortTitle, path: `/levering/pakket/${pkg.id}` },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         {/* Breadcrumb */}
