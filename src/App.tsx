@@ -1,85 +1,158 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
-import { AnimatePresence, motion } from "framer-motion";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import ScrollToTop from "@/components/ScrollToTop";
-import Index from "./pages/Index";
-import CalculatorPage from "./pages/CalculatorPage";
-import CalculatorDetailPage from "./pages/CalculatorDetailPage";
-import ProductDetail from "./pages/ProductDetail";
-import BookingSuccess from "./pages/BookingSuccess";
-import LeveringPage from "./pages/LeveringPage";
-import PackageDetailPage from "./pages/PackageDetailPage";
-import AfhalenPage from "./pages/AfhalenPage";
-import ShopPage from "./pages/ShopPage";
-import OverOnsPage from "./pages/OverOnsPage";
-import RealisatiesPage from "./pages/RealisatiesPage";
-import ContactPage from "./pages/ContactPage";
-import NotFound from "./pages/NotFound";
-import NieuwbouwPage from "./pages/NieuwbouwPage";
-import WaterschadePage from "./pages/WaterschadePage";
-import RenovatiePage from "./pages/RenovatiePage";
-import MachinesPage from "./pages/MachinesPage";
-import PrijzenPage from "./pages/PrijzenPage";
-import ReserverenPage from "./pages/ReserverenPage";
+import type { RouteRecord } from "vite-react-ssg";
+import Layout from "./Layout";
+import { getAllPackages } from "./data/packages";
+import { products } from "./data/products";
+import { PRODUCT_ORDER } from "./data/verhuur";
 
-const queryClient = new QueryClient();
+/**
+ * De routes als data-array in plaats van als <Routes>-JSX. Dat is wat
+ * vite-react-ssg nodig heeft om elke pagina bij de build als volledige HTML
+ * weg te schrijven — zonder dat kunnen zoekmachines die geen JavaScript
+ * uitvoeren (alle AI-antwoordmachines) niets van deze site lezen.
+ *
+ * Elke pagina wordt lui geladen, zodat een bezoeker alleen de code van de
+ * route krijgt die hij opvraagt in plaats van de volledige app.
+ *
+ * `getStaticPaths` bepaalt welke varianten van een dynamische route
+ * geprerenderd worden.
+ */
+export const routes: RouteRecord[] = [
+  {
+    path: "/",
+    element: <Layout />,
+    entry: "src/Layout.tsx",
+    children: [
+      { index: true, lazy: async () => ({ Component: (await import("./pages/Index")).default }) },
+      {
+        path: "levering",
+        lazy: async () => ({ Component: (await import("./pages/LeveringPage")).default }),
+      },
+      {
+        path: "levering/pakket/:packageId",
+        lazy: async () => ({ Component: (await import("./pages/PackageDetailPage")).default }),
+        getStaticPaths: () => getAllPackages().map((p) => `/levering/pakket/${p.id}`),
+      },
+      {
+        path: "afhalen",
+        lazy: async () => ({ Component: (await import("./pages/AfhalenPage")).default }),
+      },
+      {
+        path: "shop",
+        lazy: async () => ({ Component: (await import("./pages/ShopPage")).default }),
+      },
+      {
+        path: "over-ons",
+        lazy: async () => ({ Component: (await import("./pages/OverOnsPage")).default }),
+      },
+      {
+        path: "realisaties",
+        lazy: async () => ({ Component: (await import("./pages/RealisatiesPage")).default }),
+      },
+      {
+        path: "contact",
+        lazy: async () => ({ Component: (await import("./pages/ContactPage")).default }),
+      },
+      {
+        path: "calculator",
+        lazy: async () => ({ Component: (await import("./pages/CalculatorPage")).default }),
+      },
+      {
+        path: "calculator/detail",
+        lazy: async () => ({ Component: (await import("./pages/CalculatorDetailPage")).default }),
+      },
+      {
+        path: "product/:id",
+        lazy: async () => ({ Component: (await import("./pages/ProductDetail")).default }),
+        getStaticPaths: () => products.map((p) => `/product/${p.id}`),
+      },
+      {
+        path: "booking",
+        lazy: async () => ({ Component: (await import("./pages/BookingPage")).default }),
+      },
+      {
+        path: "booking/success",
+        lazy: async () => ({ Component: (await import("./pages/BookingSuccess")).default }),
+      },
+      {
+        path: "nieuwbouw",
+        lazy: async () => ({ Component: (await import("./pages/NieuwbouwPage")).default }),
+      },
+      {
+        path: "waterschade",
+        lazy: async () => ({ Component: (await import("./pages/WaterschadePage")).default }),
+      },
+      {
+        path: "renovatie",
+        lazy: async () => ({ Component: (await import("./pages/RenovatiePage")).default }),
+      },
+      {
+        path: "machines",
+        lazy: async () => ({ Component: (await import("./pages/MachinesPage")).default }),
+      },
+      {
+        path: "prijzen",
+        lazy: async () => ({ Component: (await import("./pages/PrijzenPage")).default }),
+      },
+      {
+        path: "reserveren",
+        lazy: async () => ({ Component: (await import("./pages/ReserverenPage")).default }),
+      },
 
-const AnimatedRoutes = () => {
-  const location = useLocation();
-  return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={location.pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-      >
-        <Routes location={location}>
-          <Route path="/" element={<Index />} />
-          <Route path="/levering" element={<LeveringPage />} />
-          <Route path="/levering/pakket/:packageId" element={<PackageDetailPage />} />
-          <Route path="/afhalen" element={<AfhalenPage />} />
-          <Route path="/shop" element={<ShopPage />} />
-          <Route path="/over-ons" element={<OverOnsPage />} />
-          <Route path="/realisaties" element={<RealisatiesPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/calculator" element={<CalculatorPage />} />
-          <Route path="/calculator/detail" element={<CalculatorDetailPage />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/booking/success" element={<BookingSuccess />} />
-          <Route path="/nieuwbouw" element={<NieuwbouwPage />} />
-          <Route path="/waterschade" element={<WaterschadePage />} />
-          <Route path="/renovatie" element={<RenovatiePage />} />
-          <Route path="/machines" element={<MachinesPage />} />
-          <Route path="/prijzen" element={<PrijzenPage />} />
-          <Route path="/reserveren" element={<ReserverenPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </motion.div>
-    </AnimatePresence>
-  );
-};
+      /* Verhuurplatform — de conversie-funnel uit de Claude Design handoff */
+      {
+        path: "verhuur/calculator",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurCalculatorPage")).default,
+        }),
+      },
+      {
+        path: "verhuur/pakket",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurPakketPage")).default,
+        }),
+      },
+      {
+        path: "verhuur/afhalen",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurAfhalenPage")).default,
+        }),
+      },
+      {
+        path: "verhuur/boeking",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurBoekingPage")).default,
+        }),
+      },
+      {
+        path: "verhuur/toestel/:model",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurToestelPage")).default,
+        }),
+        getStaticPaths: () => PRODUCT_ORDER.map((m) => `/verhuur/toestel/${m}`),
+      },
 
-const App = () => (
-  <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <FloatingWhatsApp />
-          <AnimatedRoutes />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
-);
+      /*
+       * Twee routes naar dezelfde pagina, met een verschillende taak.
+       *
+       * `/404` bestaat alleen om bij de build `dist/404.html` op te leveren.
+       * Vercel serveert dat bestand voor elke URL die niet bestaat, mét status
+       * 404. Zonder dat bestand zou de host op een onbekende URL de homepage
+       * met status 200 teruggeven — een soft 404, en dus een indexeerbare
+       * kopie van de homepage op elke typfout en elke kapotte backlink.
+       *
+       * `*` vangt hetzelfde geval op nadat de app in de browser draait, want
+       * dan is er geen server meer die kan antwoorden.
+       */
+      {
+        path: "404",
+        lazy: async () => ({ Component: (await import("./pages/NotFound")).default }),
+      },
+      {
+        path: "*",
+        lazy: async () => ({ Component: (await import("./pages/NotFound")).default }),
+      },
+    ],
+  },
+];
 
-export default App;
+export default routes;

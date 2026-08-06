@@ -364,7 +364,7 @@ const BookingPage = () => {
                 ) : selectedProduct ? (
                   <>
                     <div className="bg-secondary rounded-lg p-4 flex items-center justify-center">
-                      <img src={selectedProduct.image} alt={selectedProduct.name} className="h-24 object-contain" />
+                      <img src={selectedProduct.image} alt={selectedProduct.name} className="h-24 object-contain" loading="lazy" decoding="async" />
                     </div>
                     <h3 className="font-bold">{selectedProduct.name}</h3>
                     <p className="text-sm text-muted-foreground">{selectedProduct.capacity}</p>

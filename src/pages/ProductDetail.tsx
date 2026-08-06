@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Check, Phone } from "lucide-react";
 import { motion } from "framer-motion";
+import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema, productSchema } from "@/lib/schema";
+import { SEO } from "@/data/seo";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -18,6 +21,7 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="min-h-screen bg-background">
+        <PageMeta {...SEO.notFound} />
         <TopBar />
         <Navbar />
         <div className="container mx-auto px-4 py-20 text-center">
@@ -41,6 +45,44 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageMeta
+        title={`${product.name} huren — ${product.capacity} | Vernast`}
+        description={`${product.name} huren aan € ${product.pricePerDay} per dag. ${product.suitableFor} Levering, installatie en ophaling inbegrepen, binnen 24 uur in heel Vlaanderen.`}
+        path={`/product/${product.id}`}
+        image={product.image}
+        ogType="product"
+        /*
+         * Uit de index gehouden ten gunste van /verhuur/toestel/*.
+         *
+         * Het zijn dezelfde toestellen onder twee namen — de ECO-reeks hier,
+         * de fabrikantcodes daar; /vernast/eco-boost.webp hoort zowel bij
+         * ECO Boost als bij TTK 170 S. Deze pagina's halen zo'n 130 woorden,
+         * de toestelpagina's ruim 1.100. Erger: de opgegeven capaciteiten
+         * lopen tussen beide reeksen uiteen, en twee tegenstrijdige specs voor
+         * één machine is precies wat een AI-antwoord onbetrouwbaar maakt.
+         *
+         * Geen canonical, want daarvoor moeten de pagina's gelijkwaardig zijn
+         * en dat zijn ze pas als de cijfers kloppen. Zodra de ECO-reeks en de
+         * toestelpagina's samengevoegd zijn, kan dit weg.
+         */
+        noindex
+        jsonLd={[
+          productSchema({
+            name: product.name,
+            description: `${product.capacity}. ${product.suitableFor}`,
+            image: product.image,
+            path: `/product/${product.id}`,
+            pricePerDay: product.pricePerDay,
+            category: categoryLabels[product.category],
+            specs: Object.entries(product.specs ?? {}),
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Machines", path: "/machines" },
+            { name: product.name, path: `/product/${product.id}` },
+          ]),
+        ]}
+      />
       <TopBar />
       <Navbar />
       <main className="container mx-auto px-4 py-10">
@@ -66,8 +108,7 @@ const ProductDetail = () => {
               <img
                 src={allImages[activeImage]}
                 alt={product.name}
-                className="max-h-full max-w-full object-contain"
-              />
+                className="max-h-full max-w-full object-contain" loading="lazy" decoding="async" />
             </div>
             {allImages.length > 1 && (
               <div className="flex gap-3 overflow-x-auto pb-2">
@@ -79,7 +120,7 @@ const ProductDetail = () => {
                       activeImage === i ? "border-primary" : "border-border hover:border-primary/30"
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>

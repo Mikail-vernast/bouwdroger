@@ -30,22 +30,18 @@ const V3Difference = () => (
   <section
     className="dif"
     id="anders"
-    aria-labelledby="anders-heading"
-    style={{ background: "url('/design/bg-red.jpg') center / cover no-repeat" }}
+    style={{ background: "url('/vernast/bg-anders.webp') center / cover no-repeat" }}
   >
     <div className="wrap">
       <div className="sec-head">
         <span className="kick">Waarom Vernast anders is</span>
-        <h2 className="sec" id="anders-heading">
-          Waarom klanten niet meer willen gokken op bouwdroging.
-        </h2>
+        <h2 className="sec">Waarom klanten niet meer willen gokken op bouwdroging.</h2>
         <p className="lede">
           In bouwdroging gaat het vaak fout op drie punten: het verkeerde toestel, een fout
           ingeschatte huurtermijn en onverwachte extra kosten. Vernast pakt net die pijnpunten aan:
           berekenen, correct dimensioneren, professioneel plaatsen en helder communiceren.
         </p>
       </div>
-
       <div className="dif-grid">
         {POINTS.map((point) => (
           <div className="df" key={point.n}>

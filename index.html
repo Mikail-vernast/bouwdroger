@@ -1,31 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="nl-BE">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Vernast Bouwdrogers</title>
-    <meta name="description" content="Huur professionele bouwdrogers, ventilatoren en verwarmingstoestellen voor nieuwbouw, renovatie of waterschade. Snel geleverd, deskundig advies.">
-    <meta name="author" content="Lovable" />
 
-    <!-- TODO: Update og:title to match your application name -->
-    
-    
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2a45e358-8cfc-44a1-8037-326713a9250e/id-preview-63b31637--52440a88-bed2-42b7-b52e-318bc46b6402.lovable.app-1772102992383.png">
+    <!--
+      Hier staan bewust géén title, description, canonical of OG-tags. Die zet
+      elke route zelf via src/components/PageMeta.tsx en ze worden bij de build
+      in de HTML van die route geprerenderd (vite-react-ssg). Zou hier ook een
+      title staan, dan kreeg elke pagina er twee.
+    -->
+    <meta name="theme-color" content="#6E1212" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2a45e358-8cfc-44a1-8037-326713a9250e/id-preview-63b31637--52440a88-bed2-42b7-b52e-318bc46b6402.lovable.app-1772102992383.png">
-    
-  
-  
-  
-  <meta property="og:title" content="Vernast Bouwdrogers">
-  <meta name="twitter:title" content="Vernast Bouwdrogers">
-  <meta property="og:description" content="Huur professionele bouwdrogers, ventilatoren en verwarmingstoestellen voor nieuwbouw, renovatie of waterschade. Snel geleverd, deskundig advies.">
-  <meta name="twitter:description" content="Huur professionele bouwdrogers, ventilatoren en verwarmingstoestellen voor nieuwbouw, renovatie of waterschade. Snel geleverd, deskundig advies.">
-</head>
+    <!--
+      De fonts komen van onze eigen origin (public/fonts, aangeroepen vanuit
+      src/styles/fonts.css). Daarom staat hier geen preconnect meer naar
+      Google: er valt geen verbinding met een derde partij vooruit te leggen.
+    -->
+  </head>
 
   <body>
     <div id="root"></div>

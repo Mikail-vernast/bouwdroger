@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   const isWaterschade = pathname === "/waterschade";
 
   useEffect(() => {
@@ -14,10 +14,18 @@ const ScrollToTop = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scroll to top on route change
+  // Scroll to top on route change — unless the link targets a section, in which
+  // case honour the hash (the browser does not do this for client-side routing).
   useEffect(() => {
+    if (hash) {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+    }
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-  }, [pathname]);
+  }, [pathname, hash]);
 
   if (!visible) return null;
 

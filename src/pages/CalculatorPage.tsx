@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Home, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { calculatePackages, getRoomTypeLabel, type RoomType, type PackageResult } from "@/lib/pricing";
+import PageMeta from "@/components/PageMeta";
+import { SEO } from "@/data/seo";
+import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 const SIZE_OPTIONS = [
   { label: "Tot 50 m²", value: 50 },
@@ -15,6 +18,39 @@ const SIZE_OPTIONS = [
   { label: "301 – 400 m²", value: 400 },
   { label: "401 – 500 m²", value: 500 },
   { label: "Meer dan 500 m²", value: 600 },
+];
+
+/**
+ * Vragen die bezoekers stellen vóór ze de rekenhulp vertrouwen. Ze staan
+ * zichtbaar onderaan de pagina én als FAQ-schema in de head — dat laatste mag
+ * alleen zolang beide uit deze ene lijst komen.
+ */
+const CALCULATOR_FAQ = [
+  {
+    question: "Hoeveel liter vochtafvoer heb ik per dag nodig?",
+    answer:
+      "Voor een gewone nieuwbouwwoning rekenen wij met ongeveer 0,5 liter per m² per dag tijdens de eerste week, daarna minder. Een woning van 150 m² zit dus rond de 70 tot 90 liter per dag — dat is één toestel van 90 l/dag of twee kleinere. Bij waterschade ligt dat de eerste dagen twee tot drie keer hoger.",
+  },
+  {
+    question: "Hoe lang moet een bouwdroger blijven staan?",
+    answer:
+      "Pleisterwerk is doorgaans na 7 tot 10 dagen droog, een chape van 6 cm na 2 tot 3 weken. Wij meten bij levering en bij ophaling het vochtgehalte, zodat u niet op gevoel hoeft te beslissen wanneer het toestel weg mag.",
+  },
+  {
+    question: "Heb ik ook ventilatoren nodig?",
+    answer:
+      "Meestal wel. Een bouwdroger haalt het vocht uit de lucht, maar hij verplaatst die lucht nauwelijks. Zonder ventilatoren droogt de ruimte rond het toestel en blijft de verste hoek nat. Reken op één ventilator per 40 tot 50 m².",
+  },
+  {
+    question: "Werkt een bouwdroger in een onverwarmde ruimte?",
+    answer:
+      "Onder 15 °C valt de opbrengst van een condensontvochtiger sterk terug en onder 5 °C stopt hij vrijwel. In een onverwarmde woning of kelder in de winter zet u er daarom een elektrische bouwkachel bij; die zit standaard in onze chape- en waterschadepakketten.",
+  },
+  {
+    question: "Hoeveel stroom verbruikt een bouwdroger?",
+    answer:
+      "Een toestel van 50 l/dag verbruikt ongeveer 0,7 kW, een van 90 l/dag ongeveer 1,3 kW. Over twee weken continu draaien komt dat neer op grofweg 230 tot 440 kWh. Dat verbruik is voor uw rekening en zit niet in de huurprijs.",
+  },
 ];
 
 const DRYING_OPTIONS: { label: string; value: RoomType }[] = [
@@ -82,6 +118,16 @@ const CalculatorPage = () => {
 
   return (
     <div className="min-h-screen bg-[hsl(var(--primary))] text-white flex flex-col">
+      <PageMeta
+        {...SEO.calculator}
+        jsonLd={[
+          faqSchema(CALCULATOR_FAQ),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Capaciteit berekenen", path: "/calculator" },
+          ]),
+        ]}
+      />
       {/* Top bar */}
       <div className="flex items-center justify-between px-6 py-4">
         <button onClick={() => navigate("/")} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
@@ -197,8 +243,7 @@ const CalculatorPage = () => {
                   <img
                     src={getPackageImage(sqm, roomType)}
                     alt="Aanbevolen pakket"
-                    className="w-full h-auto"
-                  />
+                    className="w-full h-auto" loading="lazy" decoding="async" />
                 </div>
 
                 {/* Details */}
@@ -274,6 +319,36 @@ const CalculatorPage = () => {
           )}
         </AnimatePresence>
       </div>
+
+      {/*
+        De rekenhulp zelf toont per stap maar één vraag, dus een crawler ziet
+        vrijwel geen tekst. Deze uitleg staat er voor de bezoeker die eerst wil
+        begrijpen waarop de berekening stoelt — en zorgt er meteen voor dat de
+        pagina genoeg inhoud heeft om op "welke bouwdroger heb ik nodig"
+        gevonden en geciteerd te worden. Dezelfde vragen en antwoorden zitten
+        in de FAQ-schema hierboven; die twee moeten gelijk blijven lopen.
+      */}
+      <section className="bg-white text-foreground py-16 px-4">
+        <div className="max-w-3xl mx-auto prose-sm">
+          <h2 className="text-2xl md:text-3xl font-black mb-4">
+            Waarop is deze berekening gebaseerd?
+          </h2>
+          <p className="text-muted-foreground mb-8">
+            De capaciteit van een bouwdroger wordt uitgedrukt in liter vochtafvoer per dag. Hoeveel
+            u nodig heeft hangt af van drie dingen: het volume van de ruimte (oppervlakte maal
+            plafondhoogte), hoeveel vocht er in het bouwmateriaal zit, en de temperatuur. Een
+            condensontvochtiger werkt namelijk pas goed vanaf zo'n 15 °C — daaronder daalt de
+            opbrengst snel, en dan zet u er beter een bouwkachel bij.
+          </p>
+
+          {CALCULATOR_FAQ.map((item) => (
+            <div key={item.question} className="mb-6">
+              <h3 className="font-bold mb-1">{item.question}</h3>
+              <p className="text-muted-foreground text-sm">{item.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };

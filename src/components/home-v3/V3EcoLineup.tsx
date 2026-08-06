@@ -1,87 +1,83 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRightIcon } from "./icons";
+import { ArrowRightIcon, CheckIcon } from "./icons";
 
-interface Unit {
+interface Hotspot {
   id: string;
-  title: string;
-  subtitle: string;
+  model: string;
+  /** Position of the "+" button over the line-up photo. */
+  dot: CSSProperties;
+  /** Position of the spec card that button opens. */
+  card: CSSProperties;
+  name: string;
+  context: string;
   rows: [string, string][];
-  to: string;
-  /**
-   * Hotspot placement, and where its card opens, as percentages of the stage.
-   * These track the three dryers in `lineup-dryers.png` and come straight from
-   * the design — they only line up against that exact artwork.
-   */
-  hotspot: { left: string; top: string };
-  card: { left?: string; right?: string; top: string };
 }
 
-const UNITS: Unit[] = [
+const HOTSPOTS: Hotspot[] = [
   {
-    id: "eco-boost",
-    title: "ECO Boost – 50l /dag",
-    subtitle: "Kleine ruimtes · tot 250 m³",
+    id: "h1",
+    model: "ttk170",
+    dot: { left: "24%", top: "56%" },
+    card: { left: "calc(24% + 46px)", top: "38%" },
+    name: "ECO Boost – 50l /dag",
+    context: "Kleine ruimtes · tot 250 m³",
     rows: [
       ["Vochtafvoer", "50 L/dag"],
       ["Luchtdebiet", "300 m³/u"],
       ["Verbruik", "0,75 kW"],
     ],
-    to: "/product/bd-1",
-    hotspot: { left: "24%", top: "56%" },
-    card: { left: "calc(24% + 46px)", top: "38%" },
   },
   {
-    id: "eco-performance",
-    title: "ECO Performance – 80l /dag",
-    subtitle: "Meest gehuurd · tot 400 m³",
+    id: "h2",
+    model: "ttk350",
+    dot: { left: "49%", top: "46%" },
+    card: { left: "calc(49% + 46px)", top: "28%" },
+    name: "ECO Performance – 80l /dag",
+    context: "Meest gehuurd · tot 400 m³",
     rows: [
       ["Vochtafvoer", "80 l/dag"],
       ["Luchtdebiet", "550 m³/u"],
       ["Verbruik", "1,1 kW"],
     ],
-    to: "/product/bd-2",
-    hotspot: { left: "49%", top: "46%" },
-    card: { left: "calc(49% + 46px)", top: "28%" },
   },
   {
-    id: "eco-ultimate",
-    title: "ECO Ultimate – 150l /dag",
-    subtitle: "Grote volumes · tot 600 m³",
+    id: "h3",
+    model: "ttk650",
+    dot: { left: "72%", top: "34%" },
+    card: { left: "auto", right: "2%", top: "16%" },
+    name: "ECO Ultimate – 150l /dag",
+    context: "Grote volumes · tot 600 m³",
     rows: [
       ["Vochtafvoer", "150 l/dag"],
       ["Luchtdebiet", "700 m³/u"],
       ["Verbruik", "1,4 kW"],
     ],
-    to: "/product/bd-3",
-    hotspot: { left: "72%", top: "34%" },
-    card: { right: "2%", top: "16%" },
   },
 ];
 
-const V3EcoLineup = () => {
-  const [openId, setOpenId] = useState<string | null>(null);
+const TRUSTED = ["Architecten", "Verzekeringskantoren", "Bouwkundigen", "Aannemers"];
 
-  // Any click outside a hotspot or its card dismisses the open card.
+const V3EcoLineup = () => {
+  const [open, setOpen] = useState<string | null>(null);
+
+  // A click anywhere outside a hotspot closes the open spec card.
   useEffect(() => {
-    if (!openId) return;
-    const onDocClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (target?.closest(".hs") || target?.closest(".hs-card")) return;
-      setOpenId(null);
+    if (!open) return;
+    const close = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".hs-card") && !target.closest(".hs")) setOpen(null);
     };
-    document.addEventListener("click", onDocClick);
-    return () => document.removeEventListener("click", onDocClick);
-  }, [openId]);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, [open]);
 
   return (
-    <section className="eco" id="eco" aria-labelledby="eco-heading">
+    <section className="eco" id="eco">
       <div className="wrap">
         <div className="sec-head mid">
           <span className="kick">Eco Bouwdrogers</span>
-          <h2 className="sec" id="eco-heading">
-            Onze beste eco bouwdrogers op een rij.
-          </h2>
+          <h2 className="sec">Onze beste eco bouwdrogers op een rij.</h2>
           <p className="lede">
             Drie formaten, één familie. Klik op de punten voor de technische informatie per toestel.
           </p>
@@ -89,43 +85,59 @@ const V3EcoLineup = () => {
 
         <div className="eco-stage">
           <img
-            src="/design/lineup-dryers.png"
-            alt="Vernast eco bouwdrogers — drie formaten"
+            src="/vernast/lineup-dryers.webp"
+            alt="Vernast eco bouwdrogers, drie formaten"
+            loading="lazy"
           />
-
-          {UNITS.map((unit) => (
+          {HOTSPOTS.map((spot) => (
             <button
-              key={`hs-${unit.id}`}
+              key={`dot-${spot.id}`}
               type="button"
               className="hs"
-              style={{ left: unit.hotspot.left, top: unit.hotspot.top }}
-              aria-label={`Specificaties ${unit.title}`}
-              aria-expanded={openId === unit.id}
-              onClick={() => setOpenId((current) => (current === unit.id ? null : unit.id))}
+              style={spot.dot}
+              aria-label={spot.name}
+              onClick={(event) => {
+                event.stopPropagation();
+                setOpen((current) => (current === spot.id ? null : spot.id));
+              }}
             >
               +
             </button>
           ))}
-
-          {UNITS.map((unit) => (
+          {HOTSPOTS.map((spot) => (
             <div
-              key={`card-${unit.id}`}
-              className={`hs-card${openId === unit.id ? " on" : ""}`}
-              style={{ left: unit.card.left, right: unit.card.right, top: unit.card.top }}
+              className={`hs-card${open === spot.id ? " on" : ""}`}
+              id={spot.id}
+              key={spot.id}
+              style={spot.card}
             >
-              <div className="hn">{unit.title}</div>
-              <div className="hc">{unit.subtitle}</div>
-              {unit.rows.map(([key, value]) => (
-                <div className="hrow" key={key}>
-                  <span>{key}</span>
+              <div className="hn">{spot.name}</div>
+              <div className="hc">{spot.context}</div>
+              {spot.rows.map(([label, value]) => (
+                <div className="hrow" key={label}>
+                  <span>{label}</span>
                   <span>{value}</span>
                 </div>
               ))}
-              <Link to={unit.to}>
+              <Link to={`/verhuur/toestel/${spot.model}`}>
                 Bekijken <ArrowRightIcon size={12} strokeWidth={2.6} />
               </Link>
             </div>
           ))}
+        </div>
+
+        <div className="trustbar">
+          <div className="tb-l">
+            <span className="tb-k">Vertrouwd door wie het moet weten</span>
+            <h3>Vertrouwd door professionals in de bouw.</h3>
+          </div>
+          <div className="tb-chips">
+            {TRUSTED.map((who) => (
+              <span key={who}>
+                <CheckIcon size={15} strokeWidth={2.4} /> {who}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

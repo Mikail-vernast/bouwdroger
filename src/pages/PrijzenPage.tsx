@@ -1,4 +1,5 @@
 import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { SEO } from "@/data/seo";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -51,7 +53,22 @@ const PrijzenPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageMeta title="Transparante prijzen bouwdroger verhuur | Vernast" description="Geen waarborg, geen verborgen kosten. Bekijk onze transparante prijzen voor bouwdroger verhuur." />
+      <PageMeta
+        {...SEO.prijzen}
+        jsonLd={[
+          serviceSchema({
+            name: "Verhuur van bouwdrogers, ventilatoren en bouwkachels",
+            description:
+              "Een dagprijs per toestel, zonder waarborg en zonder verborgen kosten, met korting bij langere huurperiodes. Levering, installatie en vochtmeting inbegrepen.",
+            path: "/prijzen",
+            serviceType: "Verhuur bouwdrogers",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Prijzen", path: "/prijzen" },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         {/* Hero */}
@@ -171,8 +188,8 @@ const PrijzenPage = () => {
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-bold gap-2 px-8" onClick={() => navigate("/reserveren")}>
                 Reserveer nu <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8" asChild>
-                <a href="tel:0499000000"><Phone className="h-4 w-4" /> Bel ons</a>
+              <Button size="lg" variant="outline" className="bg-transparent border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8" asChild>
+                <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel ons</a>
               </Button>
             </div>
           </div>

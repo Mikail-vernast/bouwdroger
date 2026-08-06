@@ -104,8 +104,7 @@ const MachineShowcase = () => {
                 <img
                   src={machine.image}
                   alt={machine.name}
-                  className="h-32 md:h-44 w-full object-contain"
-                />
+                  className="h-32 md:h-44 w-full object-contain" loading="lazy" decoding="async" />
               </div>
 
               <div className="px-4 md:px-5 pb-2">

@@ -24,6 +24,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { SEO } from "@/data/seo";
+import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -96,7 +98,22 @@ const NieuwbouwPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageMeta title="Bouwdroger huren voor chape of pleisterwerk | Vernast" description="Chape gelegd? Droog 4x sneller met een professionele bouwdroger. Levering aan huis, gratis vochtmeting." />
+      <PageMeta
+        {...SEO.nieuwbouw}
+        jsonLd={[
+          serviceSchema({
+            name: "Chape en pleisterwerk drogen",
+            description:
+              "Actieve droging van verse chape en pleisterwerk in nieuwbouw, zodat vloerder en schilder weken vroeger kunnen starten.",
+            path: "/nieuwbouw",
+            serviceType: "Bouwdroging",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Nieuwbouw", path: "/nieuwbouw" },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         {/* 1. HERO */}
@@ -127,7 +144,7 @@ const NieuwbouwPage = () => {
                     className="rounded-full font-bold text-base gap-2 px-8"
                     asChild
                   >
-                    <a href="tel:0499000000"><Phone className="h-4 w-4" /> Bel voor advies</a>
+                    <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel voor advies</a>
                   </Button>
                 </div>
               </motion.div>
@@ -235,8 +252,8 @@ const NieuwbouwPage = () => {
 
             <p className="text-center text-sm text-muted-foreground mt-8">
               Niet zeker welk pakket? 👉{" "}
-              <a href="tel:0499000000" className="font-semibold text-primary hover:underline">
-                Bel ons voor gratis advies: 0499 XX XX XX
+              <a href="tel:+3236899065" className="font-semibold text-primary hover:underline">
+                Bel ons voor gratis advies: 03 689 90 65
               </a>
             </p>
           </div>
@@ -371,7 +388,7 @@ const NieuwbouwPage = () => {
                 className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8"
                 asChild
               >
-                <a href="tel:0499000000"><Phone className="h-4 w-4" /> Bel voor advies</a>
+                <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel voor advies</a>
               </Button>
             </div>
           </div>

@@ -1,0 +1,110 @@
+/* ============================================================
+   Verhuurplatform — responsive correcties op de designfiles
+
+   `src/styles/verhuur.css` is een letterlijke transcriptie van de
+   designbestanden en blijft dat. Dit bestand staat er los naast en repareert
+   drie punten die in het design zelf ontbreken of niet werken. Elke regel
+   hieronder hoort bij een concreet gat in de bron — voeg hier niets toe wat
+   ook in het design opgelost kan worden.
+
+   1. De mobiele media queries van de designfiles richten zich op
+      klassen die in die markup niet bestaan (`.bar1`, `.bar2`, `.util`).
+      Daardoor loopt het nav-menu onder ~1340px over het logo heen. Product.html
+      doet het wél goed (`.nav-menu{display:none}`) — dat patroon volgen we.
+      Een echt mobiel menu zit niet in de handoff en moet nog ontworpen worden.
+   2. De vaste header rekent met 146–170px aanloop bovenaan. Zodra de topbalk
+      op smalle schermen over meerdere regels valt, klopt dat niet meer en
+      schuift de eerste sectie onder de header. Onder 900px zetten we de header
+      daarom in de normale flow.
+   3. Op de pakketpagina blijven `.pgrid` (galerij + infokaart) en `.spane`
+      (spec-tabs) tweekoloms tot in mobiel; er is geen media query voor.
+   ============================================================ */
+
+/* 1 — nav-menu past pas vanaf ~1340px; daaronder verbergen. */
+@media (max-width: 1340px) {
+  .vh-calc .nav-menu,
+  .vh-pkg .nav-menu,
+  .vh-book .nav-menu,
+  .vh-prod .nav-menu,
+  .vh-pick .nav-menu {
+    display: none;
+  }
+}
+
+/* 2 — header in de flow zodra de topbalk begint te wikkelen. */
+@media (max-width: 900px) {
+  .vh-calc .hdr,
+  .vh-pkg .hdr,
+  .vh-book .hdr,
+  .vh-prod .hdr,
+  .vh-pick .hdr {
+    position: static;
+    transform: none;
+  }
+  .vh-calc .fstage {
+    padding-top: 18px;
+  }
+  /* De maroon band van 150px hoort achter de vaste header te zitten; staat die
+     in de flow, dan sneed hij dwars door het kruimelpad en de titel. */
+  .vh-pkg .lead {
+    padding-top: 24px;
+    background: var(--page);
+  }
+  .vh-book .rail {
+    margin-top: 0;
+  }
+}
+
+/* 5 — `.ex .ext b{display:block}` raakt ook de `<b>` binnen de uitleg-`<small>`,
+   waardoor "U heeft 4 bouwdrogers in dit pakket" over drie regels breekt. */
+.vh-book .ex .ext small b {
+  display: inline;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* 6 — "Boeking bevestigen" start uitgeschakeld tot het formulier klopt, maar het
+   design geeft `.btn:disabled` geen eigen staat: de knop ziet er klikbaar uit. */
+.vh-book .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.vh-book .btn:disabled:hover {
+  transform: none;
+}
+
+/* 3 — pakketpagina: productgrid en spec-panelen één kolom op smalle schermen. */
+@media (max-width: 900px) {
+  .vh-pkg .pgrid,
+  .vh-pkg .spane.on {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .vh-pkg .spane {
+    padding: 24px 22px;
+  }
+  .vh-pkg .sgrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 7 — Zelfde specificiteitsprobleem als op de homepage: de mobiele query van de
+   designfiles wil de contactregel verbergen (`.tl-left{display:none}`), maar de
+   basisregel staat op `.hdr .tl-left`. Zonder deze regel blijft de telefoon- en
+   e-mailregel staan en valt de nav-pil er overheen. */
+@media (max-width: 660px) {
+  .vh-calc .hdr .tl-left,
+  .vh-pkg .hdr .tl-left,
+  .vh-book .hdr .tl-left,
+  .vh-prod .hdr .tl-left,
+  .vh-pick .hdr .tl-left {
+    display: none;
+  }
+  .vh-calc .hdr .tl-right,
+  .vh-pkg .hdr .tl-right,
+  .vh-book .hdr .tl-right,
+  .vh-prod .hdr .tl-right,
+  .vh-pick .hdr .tl-right {
+    margin: 0 auto;
+  }
+}

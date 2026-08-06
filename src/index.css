@@ -1,6 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap');
-/* Home V3 type stack: DM Sans (body) + Plus Jakarta Sans (display) */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+/*
+  De lettertypes staan lokaal in plaats van bij Google.
+
+  Hier stonden twee @import-regels naar fonts.googleapis.com. Een @import in de
+  app-CSS betekent dat de browser die tweede stylesheet pas ontdekt nadat hij
+  onze eigen CSS heeft binnengehaald én geparsed — en de woff2-bestanden pas
+  daarna. Drie stappen op het kritieke pad vóór de eerste letter verschijnt,
+  waar `preconnect` niets aan verandert: die versnelt een verbinding die nog
+  niet gelegd wordt.
+
+  Dit bestand is lokaal, dus Vite bundelt het in dezelfde app-CSS. De
+  @font-face-regels staan daarmee in het bestand dat de browser toch al ophaalt,
+  en de fonts komen van onze eigen origin. Meteen ook het AVG-punt opgelost:
+  Google Fonts stuurt bij elke bezoeker het IP-adres naar een derde partij.
+
+  Playfair Display is geschrapt. De enige gebruiker was `.font-display` in
+  ComparisonTable, en die component wordt nergens gerenderd — een hele familie
+  ophalen voor dode code.
+
+  Bijwerken: node scripts/fetch-fonts.mjs
+*/
+@import './styles/fonts.css';
 
 @tailwind base;
 @tailwind components;
@@ -98,7 +117,8 @@
 }
 
 @layer utilities {
+  /* Playfair Display is niet meer geladen; valt terug op de systeem-serif. */
   .font-display {
-    font-family: 'Playfair Display', serif;
+    font-family: ui-serif, Georgia, serif;
   }
 }

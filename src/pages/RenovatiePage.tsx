@@ -22,6 +22,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { SEO } from "@/data/seo";
+import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -70,7 +72,22 @@ const RenovatiePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageMeta title="Bouwdroger voor vochtige kelder of schimmel | Vernast" description="Vochtige muren of schimmel? Pak het definitief aan met een professionele bouwdroger. Verhuur met levering en gratis vochtmeting." />
+      <PageMeta
+        {...SEO.renovatie}
+        jsonLd={[
+          serviceSchema({
+            name: "Kelder- en renovatiedroging",
+            description:
+              "Drogen van vochtige kelders, muren en renovatieruimtes met ontvochtigers en bouwkachels, inclusief vochtmeting voor en na.",
+            path: "/renovatie",
+            serviceType: "Bouwdroging",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Renovatie", path: "/renovatie" },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         {/* 1. HERO */}
@@ -96,7 +113,7 @@ const RenovatiePage = () => {
                     Bekijk onze pakketten <ArrowRight className="h-4 w-4" />
                   </Button>
                   <Button size="lg" variant="outline" className="rounded-full font-bold text-base gap-2 px-8" asChild>
-                    <a href="tel:0499000000"><Phone className="h-4 w-4" /> Bel voor gratis advies</a>
+                    <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel voor gratis advies</a>
                   </Button>
                 </div>
               </motion.div>
@@ -151,7 +168,7 @@ const RenovatiePage = () => {
               <div className="border-t border-border pt-4 mt-4">
                 <p className="text-sm text-muted-foreground mb-3">Herkent u één of meer situaties?</p>
                 <Button className="rounded-full font-semibold gap-2" asChild>
-                  <a href="tel:0499000000"><Phone className="h-4 w-4" /> Bel ons voor gratis advies</a>
+                  <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel ons voor gratis advies</a>
                 </Button>
               </div>
             </motion.div>
@@ -273,7 +290,7 @@ const RenovatiePage = () => {
                 className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8"
                 asChild
               >
-                <a href="tel:0499000000"><Phone className="h-4 w-4" /> Bel voor advies</a>
+                <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel voor advies</a>
               </Button>
             </div>
           </div>

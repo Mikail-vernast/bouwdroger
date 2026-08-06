@@ -6,6 +6,9 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import technicianImg from "@/assets/technician.png";
+import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { SEO } from "@/data/seo";
 
 const benefits = [
   { icon: Truck, title: "Gratis levering & ophaling", desc: "Vanaf 2 weken huurperiode, in heel België" },
@@ -35,6 +38,22 @@ const LeveringPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageMeta
+        {...SEO.levering}
+        jsonLd={[
+          serviceSchema({
+            name: "Bouwdroger leveren en installeren",
+            description:
+              "Levering van het droogpakket op de werf binnen 24 uur, plaatsing van elk toestel, aansluiting van de condensafvoer en ophaling zodra de ruimte droog is.",
+            path: "/levering",
+            serviceType: "Levering en installatie",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Levering", path: "/levering" },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         {/* Hero with technician */}
@@ -111,7 +130,7 @@ const LeveringPage = () => {
                   className="absolute top-20 -left-4 bg-background/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl z-20"
                 >
                   <div className="flex items-center gap-3">
-                    <img src="/products/dim-eco-boost.png" alt="Bouwdroger" className="w-12 h-12 object-contain" />
+                    <img src="/products/dim-eco-boost.png" alt="Bouwdroger" className="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                     <div>
                       <p className="text-xs font-bold text-foreground">ECO Boost 50L</p>
                       <p className="text-[10px] text-muted-foreground">Professionele bouwdroger</p>
@@ -126,7 +145,7 @@ const LeveringPage = () => {
                   className="absolute top-52 -right-4 bg-background/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl z-20"
                 >
                   <div className="flex items-center gap-3">
-                    <img src="/products/dim-axiaal-ventilator.png" alt="Ventilator" className="w-12 h-12 object-contain" />
+                    <img src="/products/dim-axiaal-ventilator.png" alt="Ventilator" className="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                     <div>
                       <p className="text-xs font-bold text-foreground">Axiaal Ventilator</p>
                       <p className="text-[10px] text-muted-foreground">4.500 m³/u luchtdebiet</p>
@@ -296,7 +315,7 @@ const LeveringPage = () => {
         {/* Delivery area + CTA */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
-            <img src="/products/chape-drogen-3.jpg" alt="" className="w-full h-full object-cover" />
+            <img src="/products/chape-drogen-3.jpg" alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
             <div className="absolute inset-0 bg-accent/90" />
           </div>
           <div className="relative container mx-auto px-4 py-20 md:py-28">

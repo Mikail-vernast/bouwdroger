@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { SEO } from "@/data/seo";
+import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -53,7 +55,22 @@ const WaterschadePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageMeta title="Bouwdroger bij waterschade — Spoedbezorging | Vernast" description="Waterschade? Wij leveren uw bouwdroger vandaag nog. Spoedbezorging beschikbaar. Gratis vochtmeting na afloop." />
+      <PageMeta
+        {...SEO.waterschade}
+        jsonLd={[
+          serviceSchema({
+            name: "Bouwdroging na waterschade",
+            description:
+              "Snelle droging van vloeren, muren en isolatie na een waterlek of overstroming, met bouwdrogers en ventilatoren geleverd binnen 24 uur.",
+            path: "/waterschade",
+            serviceType: "Waterschadeherstel",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Waterschade", path: "/waterschade" },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         {/* 1. URGENCY HERO */}
@@ -89,9 +106,9 @@ const WaterschadePage = () => {
                 className="bg-white text-[hsl(0,72%,51%)] hover:bg-white/90 rounded-full font-bold text-base gap-2 w-full sm:w-auto px-8"
                 asChild
               >
-                <a href="tel:0499000000">
+                <a href="tel:+3236899065">
                   <Phone className="h-5 w-5" />
-                  Bel direct: 0499 XX XX XX
+                  Bel direct: 03 689 90 65
                 </a>
               </Button>
               <Button
@@ -100,7 +117,7 @@ const WaterschadePage = () => {
                 className="border-2 border-white/40 text-white hover:bg-white/10 rounded-full font-bold text-base gap-2 w-full sm:w-auto px-8"
                 asChild
               >
-                <a href="https://wa.me/32499000000" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/3236899065" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="h-5 w-5" />
                   WhatsApp ons
                 </a>
@@ -288,7 +305,7 @@ const WaterschadePage = () => {
                 className="bg-[hsl(0,72%,51%)] hover:bg-[hsl(0,72%,45%)] text-white rounded-full font-bold gap-2 px-8"
                 asChild
               >
-                <a href="tel:0499000000"><Phone className="h-5 w-5" /> Bel direct</a>
+                <a href="tel:+3236899065"><Phone className="h-5 w-5" /> Bel direct</a>
               </Button>
               <Button
                 size="lg"
@@ -296,7 +313,7 @@ const WaterschadePage = () => {
                 className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8"
                 asChild
               >
-                <a href="https://wa.me/32499000000" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/3236899065" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="h-5 w-5" /> WhatsApp ons
                 </a>
               </Button>
@@ -312,10 +329,10 @@ const WaterschadePage = () => {
           </div>
           <div className="flex gap-2">
             <Button size="sm" className="rounded-full font-bold gap-1 bg-primary min-h-[44px] min-w-[44px]" asChild>
-              <a href="tel:0499000000"><Phone className="h-4 w-4" /></a>
+              <a href="tel:+3236899065"><Phone className="h-4 w-4" /></a>
             </Button>
             <Button size="sm" className="rounded-full font-bold gap-1 bg-[hsl(142,71%,45%)] hover:bg-[hsl(142,71%,38%)] text-white min-h-[44px] min-w-[44px]" asChild>
-              <a href="https://wa.me/32499000000" target="_blank" rel="noopener noreferrer"><MessageCircle className="h-4 w-4" /></a>
+              <a href="https://wa.me/3236899065" target="_blank" rel="noopener noreferrer"><MessageCircle className="h-4 w-4" /></a>
             </Button>
           </div>
         </div>

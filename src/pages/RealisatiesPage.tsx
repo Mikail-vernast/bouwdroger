@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, Droplets, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema } from "@/lib/schema";
+import { SEO } from "@/data/seo";
 
 const projects = [
   {
@@ -68,6 +71,13 @@ const RealisatiesPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageMeta
+        {...SEO.realisaties}
+        jsonLd={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Realisaties", path: "/realisaties" },
+        ])}
+      />
       <Navbar />
       <main>
         <PageHero

@@ -1,9 +1,11 @@
 import PageMeta from "@/components/PageMeta";
+import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { Shield, Award, Users, Leaf, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { SEO } from "@/data/seo";
 
 const values = [
   { icon: Shield, title: "Betrouwbaarheid", desc: "Wij staan klaar wanneer jij ons nodig hebt. 24/7 bereikbaar voor urgente projecten." },
@@ -22,7 +24,16 @@ const stats = [
 const OverOnsPage = () => {
   return (
     <div className="min-h-screen bg-background">
-      <PageMeta title="Over Vernast Bouwdrogers | Belgisch familiebedrijf" description="Vernast Bouwdrogers is een Belgisch familiebedrijf met jarenlange ervaring in professionele bouwdroger verhuur." />
+      <PageMeta
+        {...SEO.overOns}
+        jsonLd={[
+          organizationSchema(),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Over ons", path: "/over-ons" },
+          ]),
+        ]}
+      />
       <Navbar />
       <main>
         <PageHero

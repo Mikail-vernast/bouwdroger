@@ -109,7 +109,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
-          <img src={logoWhite} alt="Vernast Bouwdrogers" className="h-7 md:h-8 w-auto" />
+          <img src={logoWhite} alt="Vernast Bouwdrogers" className="h-7 md:h-8 w-auto" loading="lazy" decoding="async" />
         </Link>
 
         {/* Desktop nav links - center */}

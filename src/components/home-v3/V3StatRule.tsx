@@ -1,103 +1,92 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { REVIEWS } from "@/lib/site";
 
-interface Stat {
-  /** Numeric target for the count-up, written the way it should read in nl-BE. */
-  target: string;
-  suffix: string;
-  label: string;
-}
-
-const STATS: Stat[] = [
-  { target: "450", suffix: "+", label: "Woningen en werven ondersteund" },
-  { target: "24", suffix: "u", label: "Levering én installatie aan huis" },
-  { target: "4,8", suffix: "/5", label: "Gemiddeld op 412 beoordelingen" },
-  { target: "0", suffix: "€", label: "Voorschot · geen verborgen kosten" },
+/**
+ * The red band under the hero. Each figure counts up from zero the first time
+ * it scrolls into view; the design eases that over 1,3 s and staggers the four
+ * blocks 90 ms apart.
+ */
+const STATS = [
+  { count: "450", suffix: "+", label: "Woningen en werven ondersteund" },
+  { count: "24", suffix: "u", label: "Levering én installatie aan huis" },
+  {
+    count: REVIEWS.display,
+    suffix: `/${REVIEWS.best}`,
+    label: `Gemiddeld op ${REVIEWS.reviewCount} beoordelingen`,
+  },
+  { count: "0", suffix: "€", label: "Voorschot · geen verborgen kosten" },
 ];
 
-const COUNT_DURATION_MS = 1300;
-const STAGGER_MS = 90;
+const DURATION = 1300;
 
-/** Runs the entrance transition plus a one-shot count-up, once, on first view. */
-const useCountUp = (target: string) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const [display, setDisplay] = useState("0");
+const V3StatRule = () => {
+  const bandRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const blocks = Array.from(bandRef.current?.querySelectorAll<HTMLElement>(".st") ?? []);
+    if (!blocks.length) return;
 
-    const hasDecimal = target.includes(",");
-    const value = parseFloat(target.replace(",", "."));
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      setVisible(true);
-      setDisplay(target);
+    if (!("IntersectionObserver" in window)) {
+      blocks.forEach((el) => el.classList.add("vis"));
       return;
     }
 
-    let frame = 0;
-    const observer = new IntersectionObserver(
+    const io = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0];
-        if (!entry?.isIntersecting) return;
-        observer.unobserve(el);
-        setVisible(true);
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          el.classList.add("vis");
 
-        const start = performance.now();
-        const tick = (now: number) => {
-          const linear = Math.min(1, (now - start) / COUNT_DURATION_MS);
-          const eased = 1 - Math.pow(1 - linear, 3);
-          const current = value * eased;
-          setDisplay(
-            hasDecimal ? current.toFixed(1).replace(".", ",") : String(Math.round(current)),
-          );
-          if (linear < 1) frame = requestAnimationFrame(tick);
-        };
-        frame = requestAnimationFrame(tick);
+          const num = el.querySelector<HTMLElement>("[data-count]");
+          if (num && !num.dataset.done) {
+            num.dataset.done = "1";
+            const raw = num.dataset.count ?? "0";
+            const decimal = raw.includes(",");
+            const target = parseFloat(raw.replace(",", "."));
+            const start = performance.now();
+
+            const tick = (now: number) => {
+              const linear = Math.min(1, (now - start) / DURATION);
+              const eased = 1 - Math.pow(1 - linear, 3);
+              const value = target * eased;
+              num.textContent = decimal
+                ? value.toFixed(1).replace(".", ",")
+                : String(Math.round(value));
+              if (linear < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          }
+          io.unobserve(el);
+        });
       },
       { threshold: 0.4 },
     );
 
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(frame);
-    };
-  }, [target]);
-
-  return { ref, visible, display };
-};
-
-const StatBlock = ({ stat, index }: { stat: Stat; index: number }) => {
-  const { ref, visible, display } = useCountUp(stat.target);
+    blocks.forEach((el, i) => {
+      el.style.transitionDelay = `${i * 90}ms`;
+      io.observe(el);
+    });
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <div
-      ref={ref}
-      className={`st${visible ? " vis" : ""}`}
-      style={{ transitionDelay: `${index * STAGGER_MS}ms` }}
-    >
-      <div className="n">
-        <span>{display}</span>
-        <em>{stat.suffix}</em>
+    <div className="statrule">
+      <div className="wrap">
+        <div className="band" ref={bandRef}>
+          {STATS.map((stat) => (
+            <div className="st" key={stat.label}>
+              <div className="n">
+                <span data-count={stat.count}>0</span>
+                <em>{stat.suffix}</em>
+              </div>
+              <div className="l">{stat.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="l">{stat.label}</div>
     </div>
   );
 };
-
-const V3StatRule = () => (
-  <div className="statrule">
-    <div className="wrap">
-      <div className="band">
-        {STATS.map((stat, index) => (
-          <StatBlock key={stat.label} stat={stat} index={index} />
-        ))}
-      </div>
-    </div>
-  </div>
-);
 
 export default V3StatRule;

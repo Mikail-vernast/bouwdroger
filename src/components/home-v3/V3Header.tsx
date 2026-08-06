@@ -2,85 +2,60 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 
-/** Below this offset the header is always pinned, regardless of direction. */
-const ALWAYS_VISIBLE_UNTIL = 90;
-/** Ignore scroll jitter smaller than this before hiding/showing the bar. */
-const DIRECTION_DEADZONE = 6;
-/** Fallback threshold for the light/dark swap if the hero cannot be measured. */
-const FALLBACK_LIGHT_THRESHOLD = 560;
+/**
+ * The site header from the design: a top line with the contact details and a
+ * floating glass nav pill with two dropdowns and one mega-menu.
+ *
+ * Above the dark hero the pill is transparent glass with white text; past
+ * `lightAfter` pixels of scroll it flips to the white variant and the logo
+ * swaps to the black lockup. That is the design's `data-light` mechanism —
+ * every page sets its own threshold because every hero has its own height.
+ */
+interface V3HeaderProps {
+  /** Scroll offset (px) at which the header turns light. */
+  lightAfter?: number;
+}
 
-const V3Header = () => {
+const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
   const [tucked, setTucked] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [onLight, setOnLight] = useState(false);
   const lastY = useRef(0);
-  const ticking = useRef(false);
-  const headerRef = useRef<HTMLElement>(null);
-  /**
-   * Scroll offset at which the header leaves the dark hero. Measured rather than
-   * hardcoded: the swap must track the hero's real height, which varies with the
-   * hero artwork's aspect ratio and the viewport width.
-   */
-  const lightThreshold = useRef(FALLBACK_LIGHT_THRESHOLD);
 
   useEffect(() => {
-    const measure = () => {
-      const hero = document.querySelector<HTMLElement>(".v3 .hero");
-      const headerHeight = headerRef.current?.offsetHeight ?? 0;
-      lightThreshold.current = hero
-        ? Math.max(0, hero.offsetTop + hero.offsetHeight - headerHeight)
-        : FALLBACK_LIGHT_THRESHOLD;
-    };
+    let ticking = false;
 
     const onScroll = () => {
       const y = window.scrollY;
+      // Hide on the way down, show again on the way up — but never within the
+      // first 90px, where the header still belongs to the hero.
+      if (y < 90) setTucked(false);
+      else if (y > lastY.current + 6) setTucked(true);
+      else if (y < lastY.current - 6) setTucked(false);
 
-      setTucked((wasTucked) => {
-        if (y < ALWAYS_VISIBLE_UNTIL) return false;
-        if (y > lastY.current + DIRECTION_DEADZONE) return true;
-        if (y < lastY.current - DIRECTION_DEADZONE) return false;
-        return wasTucked;
-      });
-      setOnLight(y > lightThreshold.current);
-
+      setScrolled(y > 60);
+      setOnLight(lightAfter < 0 || y > lightAfter);
       lastY.current = y;
-      ticking.current = false;
+      ticking = false;
     };
 
-    const onScrollRaf = () => {
-      if (ticking.current) return;
-      ticking.current = true;
+    const handler = () => {
+      if (ticking) return;
+      ticking = true;
       requestAnimationFrame(onScroll);
     };
 
-    const onResize = () => {
-      measure();
-      onScroll();
-    };
-
-    measure();
     onScroll();
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, [lightAfter]);
 
-    // The hero image settles after decode, which changes the hero's height.
-    const heroImg = document.querySelector<HTMLImageElement>(".v3 .hero-art");
-    if (heroImg && !heroImg.complete) heroImg.addEventListener("load", onResize, { once: true });
-
-    window.addEventListener("scroll", onScrollRaf, { passive: true });
-    window.addEventListener("resize", onResize);
-    return () => {
-      window.removeEventListener("scroll", onScrollRaf);
-      window.removeEventListener("resize", onResize);
-      heroImg?.removeEventListener("load", onResize);
-    };
-  }, []);
-
-  const logo = onLight ? "/design/logo-horizontal-black.png" : "/design/logo-horizontal-white.png";
+  const cls = ["hdr", tucked && "tucked", scrolled && "scrolled", onLight && "onlight"]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <header
-      ref={headerRef}
-      className={`hdr${tucked ? " tucked" : ""}${onLight ? " onlight" : ""}`}
-      id="top"
-    >
+    <header className={cls} id="top">
       <div className="wrap topline">
         <div className="tl-left">
           <a href="tel:+3236899065">
@@ -99,10 +74,16 @@ const V3Header = () => {
       <div className="wrap navrow">
         <div className="navpill">
           <Link className="nav-logo" to="/">
-            <img src={logo} alt="Vernast" />
+            <img
+              src={onLight ? "/vernast/logo-horizontal-black.webp" : "/vernast/logo-horizontal-white.webp"}
+              alt="Vernast"
+              width={1600}
+              height={268}
+              decoding="async"
+            />
           </Link>
 
-          <nav className="nav-menu" aria-label="Hoofdnavigatie">
+          <div className="nav-menu">
             <div className="item has-sub">
               Vernast Group
               <CaretIcon className="caret" />
@@ -128,19 +109,19 @@ const V3Header = () => {
                     <span className="mlab">Pakketten</span>
                     <ul>
                       <li>
-                        <Link to="/calculator">Pleisterwerk drogen</Link>
+                        <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
                       </li>
                       <li>
-                        <Link to="/calculator">Chape drogen</Link>
+                        <Link to="/verhuur/calculator">Chape drogen</Link>
                       </li>
                       <li>
-                        <Link to="/calculator">Pleisterwerk + chape</Link>
+                        <Link to="/verhuur/calculator">Pleisterwerk + chape</Link>
                       </li>
                       <li>
-                        <Link to="/waterschade">Waterschade drogen</Link>
+                        <Link to="/verhuur/calculator">Waterschade drogen</Link>
                       </li>
                       <li>
-                        <Link to="/levering">Alles in één Droogservice</Link>
+                        <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
                       </li>
                     </ul>
                   </div>
@@ -148,19 +129,19 @@ const V3Header = () => {
                     <span className="mlab">Toestellen</span>
                     <ul>
                       <li>
-                        <Link to="/product/bd-1">Small bouwdroger</Link>
+                        <Link to="/verhuur/toestel/ttk170">Small bouwdroger</Link>
                       </li>
                       <li>
-                        <Link to="/product/bd-2">Medium bouwdroger</Link>
+                        <Link to="/verhuur/toestel/ttk350">Medium bouwdroger</Link>
                       </li>
                       <li>
-                        <Link to="/product/vt-1">Turbo axiaalventilator</Link>
+                        <Link to="/verhuur/toestel/ttv4500">Turbo axiaalventilator</Link>
                       </li>
                       <li>
-                        <Link to="/product/vt-2">Turbo radiaalventilator</Link>
+                        <Link to="/verhuur/toestel/ttv4500">Turbo radiaalventilator</Link>
                       </li>
                       <li>
-                        <Link to="/product/vw-1">Elektrische kachel</Link>
+                        <Link to="/verhuur/toestel/teddh30">Elektrische kachel 3,30 kW</Link>
                       </li>
                     </ul>
                   </div>
@@ -168,19 +149,19 @@ const V3Header = () => {
                     <span className="mlab">Service</span>
                     <ul>
                       <li>
-                        <Link to="/levering">Levering &amp; installatie</Link>
+                        <Link to="/verhuur/afhalen">Levering &amp; installatie</Link>
                       </li>
                       <li>
-                        <Link to="/afhalen">Afhalen in Aartselaar</Link>
+                        <Link to="/verhuur/afhalen">Afhalen in Aartselaar</Link>
                       </li>
                       <li>
-                        <Link to="/levering">Vochtmeting inbegrepen</Link>
+                        <Link to="/verhuur/pakket">Vochtmeting inbegrepen</Link>
                       </li>
                       <li>
-                        <Link to="/reserveren">Dekking &amp; eigen risico</Link>
+                        <Link to="/verhuur/boeking">Dekking &amp; eigen risico</Link>
                       </li>
                       <li>
-                        <Link to="/reserveren">Verlengen of stoppen</Link>
+                        <Link to="/verhuur/boeking">Verlengen of stoppen</Link>
                       </li>
                     </ul>
                   </div>
@@ -188,19 +169,19 @@ const V3Header = () => {
                     <span className="mlab">Alles over drogen</span>
                     <ul>
                       <li>
-                        <a href="#techniek">Hoe drogen werkt</a>
+                        <a href="/#natuurlijk-actief">Hoe drogen werkt</a>
                       </li>
                       <li>
-                        <a href="#voordelen">Waarom bouwdroging</a>
+                        <a href="/#voordelen">Waarom bouwdroging</a>
                       </li>
                       <li>
-                        <a href="#prijzen">Prijzen &amp; voorwaarden</a>
+                        <a href="/#prijzen">Prijzen &amp; voorwaarden</a>
                       </li>
                       <li>
-                        <a href="#toepassingen">Toepassingen</a>
+                        <a href="/#toepassingen">Toepassingen</a>
                       </li>
                       <li>
-                        <a href="#faq">Veelgestelde vragen</a>
+                        <a href="/#faq">Veelgestelde vragen</a>
                       </li>
                     </ul>
                   </div>
@@ -212,7 +193,7 @@ const V3Header = () => {
                       Onze calculator bepaalt in 5 vragen de juiste toestellen, droogtijd en prijs.
                     </span>
                   </div>
-                  <Link className="btn-offerte" to="/calculator">
+                  <Link className="btn-offerte" to="/verhuur/calculator">
                     Gratis offerte
                   </Link>
                 </div>
@@ -223,42 +204,41 @@ const V3Header = () => {
               Alles over drogen
               <CaretIcon className="caret" />
               <div className="submenu">
-                <a href="#techniek">
+                <a href="/#natuurlijk-actief">
                   Hoe drogen werkt<small>Capaciteit · circulatie · warmte</small>
                 </a>
-                <a href="#voordelen">
+                <a href="/#voordelen">
                   Waarom bouwdroging<small>Wat vocht u kost</small>
                 </a>
-                <a href="#levering">
+                <a href="/#regio">
                   Levering &amp; installatie<small>Binnen 24 uur geplaatst</small>
                 </a>
-                <a href="#prijzen">
+                <a href="/#prijzen">
                   Prijzen &amp; voorwaarden<small>Eén dagprijs, alles erin</small>
                 </a>
               </div>
             </div>
 
-            <Link className="item" to="/realisaties">
+            <a className="item" href="/#toepassingen">
               Realisaties
-            </Link>
-            <Link className="item" to="/over-ons">
+            </a>
+            <a className="item" href="/#voordelen">
               Over ons
-            </Link>
-            <a className="item" href="#faq">
+            </a>
+            <a className="item" href="/#faq">
               Klantenservice
             </a>
-            <Link className="item" to="/contact">
+            <a className="item" href="/#contact">
               Contact
-            </Link>
-          </nav>
+            </a>
+          </div>
         </div>
 
-        <Link className="cart" to="/reserveren" aria-label="Winkelwagen">
+        <Link className="cart" to="/verhuur/calculator" aria-label="Winkelwagen">
           <CartIcon />
-          <i>1</i>
+          <i id="cartCount">1</i>
         </Link>
-
-        <Link className="btn-offerte" to="/calculator">
+        <Link className="btn-offerte" to="/verhuur/calculator">
           Gratis offerte
         </Link>
       </div>

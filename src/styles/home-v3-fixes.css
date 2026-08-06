@@ -1,0 +1,24 @@
+/* ============================================================
+   Home V3 — correcties op de designfile
+
+   `src/styles/home-v3.css` is een letterlijke transcriptie van "Home V3.html"
+   en blijft dat. Dit bestand staat er los naast en repareert wat in de bron
+   zelf niet werkt. Voeg hier niets toe wat ook in het design opgelost kan
+   worden.
+
+   1. De mobiele query van het design wil de contactregel verbergen
+      (`.tl-left{display:none}` onder 660px), maar de basisregel staat op
+      `.hdr .tl-left` — twee klassen tegenover één. De query verliest dus op
+      specificiteit en de telefoon/e-mailregel blijft staan, waarna de nav-pil
+      er dwars overheen valt. Dezelfde regel, met de specificiteit die het
+      design bedoeld heeft.
+   ============================================================ */
+
+@media (max-width: 660px) {
+  .v3 .hdr .tl-left {
+    display: none;
+  }
+  .v3 .hdr .tl-right {
+    margin: 0 auto;
+  }
+}
