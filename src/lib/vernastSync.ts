@@ -9,6 +9,7 @@
  * Bewust server-only: het secret mag nooit in de browserbundle belanden.
  */
 
+import { withRetry } from "./retry.js";
 import type { DeviceLine } from "./verhuur.js";
 
 export type VernastOrderSource = "booking" | "reservering" | "stripe";
@@ -61,7 +62,17 @@ export interface VernastOrderPayload {
   paid_at?: string | null;
 }
 
-const TIMEOUT_MS = 8000;
+/*
+  Ruimer dan bij de beschikbaarheidscontrole. Die laat een bezoeker wachten, dus
+  daar telt elke seconde; dit draait in de Stripe-webhook waar niemand naar een
+  scherm zit te kijken. Beter twintig seconden geduld dan een order die pas bij
+  de volgende poging van Stripe binnenkomt.
+*/
+const TIMEOUT_MS = 20000;
+
+/** Drie pogingen: de meeste storingen bij het portaal duren maar even. */
+const TRIES = 3;
+const DELAYS_MS = [500, 2000];
 
 export interface SyncResult {
   ok: boolean;
@@ -75,14 +86,30 @@ export interface SyncResult {
  * plat ligt: de order staat dan al in ons eigen Supabase, en een mislukte push
  * is een probleem van later, niet van de klant die staat af te rekenen.
  */
-export async function pushOrderToVernast(payload: VernastOrderPayload): Promise<SyncResult> {
+export function pushOrderToVernast(payload: VernastOrderPayload): Promise<SyncResult> {
   const url = process.env.VERNAST_WEBHOOK_URL;
   const secret = process.env.VERNAST_WEBHOOK_SECRET;
 
   if (!url || !secret) {
-    return { ok: false, reason: "VERNAST_WEBHOOK_URL of VERNAST_WEBHOOK_SECRET ontbreekt" };
+    return Promise.resolve({
+      ok: false,
+      reason: "VERNAST_WEBHOOK_URL of VERNAST_WEBHOOK_SECRET ontbreekt",
+    });
   }
 
+  /*
+    Het portaal maakt van dezelfde order geen tweede boeking — de webhook aan de
+    andere kant is idempotent — dus een herhaling na een timeout is veilig, ook
+    als de eerste poging alsnog is aangekomen.
+  */
+  return withRetry(() => postOrder(url, secret, payload), { tries: TRIES, delaysMs: DELAYS_MS });
+}
+
+async function postOrder(
+  url: string,
+  secret: string,
+  payload: VernastOrderPayload,
+): Promise<SyncResult> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 

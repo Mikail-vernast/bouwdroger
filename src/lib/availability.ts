@@ -8,9 +8,18 @@
  *
  * Zie `docs/plan-beschikbaarheid.md` voor het waarom.
  */
+import { withRetry } from "./retry.js";
 import type { DeviceLine } from "./verhuur.js";
 
-const TIMEOUT_MS = 6000;
+/*
+  Krapper dan bij de order-webhook, want hier staat een bezoeker te wachten. Met
+  twee pogingen van vier seconden duurt het slechtste geval ongeveer even lang
+  als de enkele poging van zes die hier eerst stond, maar vangen we de
+  uitschieters van het portaal wél op in plaats van er hard op te falen.
+*/
+const TIMEOUT_MS = 4000;
+const TRIES = 2;
+const DELAYS_MS = [300];
 
 export interface AvailabilityAnswer {
   capacity: Record<string, number>;
@@ -39,13 +48,24 @@ function endpoint(): string | null {
   return base.replace(/\/bouwdroger-order-webhook\/?$/, "/bouwdroger-availability");
 }
 
-async function call(body: Record<string, unknown>): Promise<AvailabilityResult> {
+function call(body: Record<string, unknown>): Promise<AvailabilityResult> {
   const url = endpoint();
   const secret = process.env.VERNAST_WEBHOOK_SECRET;
   if (!url || !secret) {
-    return { ok: false, reason: "VERNAST_WEBHOOK_URL of VERNAST_WEBHOOK_SECRET ontbreekt" };
+    return Promise.resolve({
+      ok: false,
+      reason: "VERNAST_WEBHOOK_URL of VERNAST_WEBHOOK_SECRET ontbreekt",
+    });
   }
 
+  return withRetry(() => post(url, secret, body), { tries: TRIES, delaysMs: DELAYS_MS });
+}
+
+async function post(
+  url: string,
+  secret: string,
+  body: Record<string, unknown>,
+): Promise<AvailabilityResult> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
