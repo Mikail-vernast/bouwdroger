@@ -67,6 +67,8 @@ const STEP_PAY = 5;
 const STEP_DONE = 6;
 const RENTAL_DAYS = FIXED_WEEKS * 7;
 const SLOTS = ["08:00 – 10:00", "10:00 – 12:00", "13:00 – 15:00", "15:00 – 17:00"];
+/** Moet gelijk lopen met `HORIZON_DAYS` in `api/availability.ts`. */
+const AVAILABILITY_HORIZON_DAYS = 60;
 
 const NEXT_LABEL: Record<number, string> = {
   1: "Verder naar extra's",
@@ -259,16 +261,37 @@ const VerhuurBoekingPage = () => {
 
   const dateBlocked = blockedDates.includes(startDate);
 
-  /** Eerstvolgende dag waarop dit pakket wél vrij is, om te kunnen voorstellen. */
+  /**
+   * Eerstvolgende dag waarop dit pakket wél vrij is. Zoekt niet verder dan de
+   * horizon van `api/availability`: daarbuiten staat een datum niet in de lijst
+   * omdat we het niet weten, niet omdat hij vrij is.
+   */
   const nextFreeDate = useMemo(() => {
     if (!dateBlocked || !startDate) return null;
     const from = new Date(startDate);
-    for (let i = 1; i <= 60; i++) {
+    const horizon = isoDate(addDays(new Date(), AVAILABILITY_HORIZON_DAYS));
+    for (let i = 1; i <= AVAILABILITY_HORIZON_DAYS; i++) {
       const candidate = isoDate(addDays(from, i));
+      if (candidate > horizon) return null;
       if (!blockedDates.includes(candidate)) return candidate;
     }
     return null;
   }, [dateBlocked, startDate, blockedDates]);
+
+  /*
+    Een volle dag hoeft de bezoeker niet zelf op te lossen: we schuiven de
+    levering meteen naar de eerstvolgende vrije dag en zeggen dat erbij. Alleen
+    als er binnen de horizon niets vrij is blijft de stap dicht — dan valt er
+    niets te kiezen en moet er gebeld worden.
+  */
+  const [shiftedDate, setShiftedDate] = useState<{ from: string; to: string } | null>(null);
+
+  useEffect(() => {
+    if (step !== 3 || loadingDates || datesError) return;
+    if (!dateBlocked || !nextFreeDate) return;
+    setShiftedDate({ from: startDate, to: nextFreeDate });
+    setStartDate(nextFreeDate);
+  }, [step, loadingDates, datesError, dateBlocked, nextFreeDate, startDate]);
 
   const sessionId = searchParams.get("session_id");
   const cancelled = searchParams.get("betaling") === "geannuleerd";
@@ -783,22 +806,20 @@ const VerhuurBoekingPage = () => {
                     <WarnIcon />
                     <div className="pt2">
                       Op <b>{start ? formatLongDate(start) : startDate}</b> staan onze toestellen voor
-                      dit pakket al ingepland.{" "}
-                      {nextFreeDate ? (
-                        <>
-                          De eerstvolgende vrije leverdag is{" "}
-                          <b>{formatLongDate(new Date(nextFreeDate))}</b>.{" "}
-                          <button
-                            type="button"
-                            className="lnk"
-                            onClick={() => setStartDate(nextFreeDate)}
-                          >
-                            Neem die datum
-                          </button>
-                        </>
-                      ) : (
-                        <>Kies een latere datum, of bel ons op 03 689 90 65 — vaak kunnen we schuiven.</>
-                      )}
+                      dit pakket al ingepland, en de komende {AVAILABILITY_HORIZON_DAYS} dagen komt er
+                      niets vrij. Bel ons op 03 689 90 65 — vaak kunnen we schuiven.
+                    </div>
+                  </div>
+                )}
+
+                {!dateBlocked && shiftedDate && shiftedDate.to === startDate && (
+                  <div className="plan pw" role="status">
+                    <WarnIcon />
+                    <div className="pt2">
+                      Op <b>{formatLongDate(new Date(shiftedDate.from))}</b> staan onze toestellen voor
+                      dit pakket al ingepland. Wij hebben uw leverdatum daarom verzet naar de
+                      eerstvolgende vrije dag: <b>{formatLongDate(new Date(shiftedDate.to))}</b>. Een
+                      andere dag kiezen kan gewoon hierboven.
                     </div>
                   </div>
                 )}
