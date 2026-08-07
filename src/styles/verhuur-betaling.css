@@ -19,19 +19,19 @@
 }
 
 /* ------------------------------------------------------------
-   Het ingebedde Checkout-formulier van Stripe.
+   Het betaalformulier.
 
-   Stripe rendert dat in een iframe waarvan wij de binnenkant niet kunnen
-   stylen; de branding daarvan staat in het Stripe-dashboard. Wat hier gebeurt
-   is het kader eromheen laten aansluiten op de rest van de wizard, zodat het
-   niet als een ingeplakt blok aanvoelt.
+   De velden zelf zitten in iframes van Stripe en zijn van hieruit niet te
+   stylen — dat gebeurt via de Appearance API in `VerhuurBoekingPage.tsx`. Wat
+   hier staat is het kader eromheen en alles wat wél van ons is: de
+   scheidingslijn tussen de wallets en het formulier, en de betaalknop.
    ------------------------------------------------------------ */
 .vh-book .paybox {
-  /* Stripe rendert een kolom van ~460 px en centreert die zelf. Het kader
-     eromheen meegeven, anders staat er een halve meter wit naast. */
+  /* Een betaalformulier over de volle breedte leest slecht; deze kolom loopt
+     gelijk met de rest van de wizard. */
   max-width: 620px;
   margin: 20px auto 0;
-  padding: 6px;
+  padding: 22px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: #fff;
@@ -40,8 +40,47 @@
   min-height: 460px;
 }
 
-.vh-book .paybox-frame {
+/* Melding zolang Stripe de sessie ophaalt. Even hoog als het formulier dat erop
+   volgt, zodat de knop eronder niet verspringt. */
+.vh-book .payload {
+  margin: 0;
+  padding: 40px 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--txt-mid);
+}
+
+/* Scheiding tussen de wallet-knoppen en het gewone formulier. */
+.vh-book .paysplit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--txt-dim);
+}
+
+.vh-book .paysplit::before,
+.vh-book .paysplit::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.vh-book .paysubmit {
   width: 100%;
+  margin-top: 22px;
+}
+
+/* De knop verschuiven bij hover werkt in de wizard, maar niet op een knop die
+   tijdens het betalen even blijft staan — dan oogt het als een haperende klik. */
+.vh-book .paysubmit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+  transform: none;
 }
 
 /* Wat er ná de betaling gebeurt, vlak bij de knop waar het over gaat. */

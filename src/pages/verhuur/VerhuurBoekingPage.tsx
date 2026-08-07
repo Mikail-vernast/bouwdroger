@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
-import type { Stripe as StripeJs } from "@stripe/stripe-js";
+import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
+import type { Appearance, Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
+import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import {
@@ -37,12 +38,14 @@ import {
   euro,
   formatLongDate,
   isoDate,
+  allItems,
   packageImage,
   packageTitle,
   parseConfig,
 } from "@/lib/verhuur";
 import {
   MAX_EXTRA_DEVICES,
+  bookingFingerprint,
   bookingSummary,
   type Access,
   type BookingOptions,
@@ -65,6 +68,24 @@ const EXTRA_ICONS: Record<string, (props: { size?: number }) => JSX.Element> = {
 const TOTAL_STEPS = 6;
 const STEP_PAY = 5;
 const STEP_DONE = 6;
+
+/**
+ * Stripe rendert zijn velden in eigen iframes, dus onze stylesheet raakt er niet
+ * aan; dit is de enige weg om ze op de rest van de wizard te laten lijken. De
+ * waarden komen uit de tokens bovenaan `verhuur.css` — staan die daar ooit
+ * anders, dan hoort dit mee te schuiven.
+ */
+const STRIPE_APPEARANCE: Appearance = {
+  theme: "stripe",
+  variables: {
+    colorPrimary: "#C8102E",
+    colorText: "#141414",
+    colorDanger: "#C8102E",
+    fontFamily: "'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif",
+    borderRadius: "11px",
+    spacingUnit: "4px",
+  },
+};
 const RENTAL_DAYS = FIXED_WEEKS * 7;
 const SLOTS = ["08:00 – 10:00", "10:00 – 12:00", "13:00 – 15:00", "15:00 – 17:00"];
 /** Moet gelijk lopen met `HORIZON_DAYS` in `api/availability.ts`. */
@@ -169,16 +190,29 @@ const VerhuurBoekingPage = () => {
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
 
-  // Het betaalformulier van Stripe leeft in stap 5. De sleutel wordt pas
-  // opgehaald wanneer de bezoeker daar aankomt, zodat stripe.js niet meelaadt
-  // voor wie enkel aan het configureren is.
-  const [clientSecret, setClientSecret] = useState("");
+  /*
+    Het betaalformulier van Stripe leeft in stap 5. De sleutel wordt pas
+    opgehaald wanneer de bezoeker daar aankomt, zodat stripe.js niet meelaadt
+    voor wie enkel aan het configureren is.
+
+    De sessie blijft bewaard wanneer hij terugkeert naar zijn gegevens, samen met
+    een vingerafdruk van de boeking waarvoor ze gemaakt is. Verandert er niets,
+    dan gaat hij terug naar dezelfde sessie in plaats van een tweede aan te
+    maken — zie `bookingFingerprint` voor waarom dat belangrijk is.
+  */
+  const [session, setSession] = useState<{
+    id: string;
+    clientSecret: string;
+    fingerprint: string;
+  } | null>(null);
   const [stripeJs, setStripeJs] = useState<Promise<StripeJs | null> | null>(null);
 
   const options: BookingOptions = useMemo(
     () => ({
       cover,
-      extras: Object.keys(extras).filter((k) => extras[k]),
+      // Gesorteerd: anders leest het om- en weer aanzetten van een extra als een
+      // gewijzigde boeking, puur door de volgorde in het object.
+      extras: Object.keys(extras).filter((k) => extras[k]).sort(),
       pumps,
       dev,
       floors,
@@ -329,6 +363,14 @@ const VerhuurBoekingPage = () => {
     };
   }, [sessionId, cancelled]);
 
+  /**
+   * De sessie is niet meer bruikbaar om naar terug te keren — de server kan haar
+   * bij deze poging al hebben laten vervallen. Het ID blijft wel staan, zodat een
+   * volgende poging de bijbehorende hold alsnog kan laten opruimen.
+   */
+  const staleSession = () =>
+    setSession((prev) => (prev ? { ...prev, clientSecret: "", fingerprint: "" } : null));
+
   /** Maakt een Stripe-sessie aan en toont het betaalformulier in stap 5. */
   const payAndConfirm = async () => {
     setPaying(true);
@@ -339,19 +381,37 @@ const VerhuurBoekingPage = () => {
     } catch {
       // Privémodus zonder sessionStorage: de betaling kan gewoon doorgaan.
     }
+
+    const payload = {
+      config: Object.fromEntries(new URLSearchParams(configToQuery(config))),
+      options,
+      customer: { ...customer, type: customerType },
+      delivery: { date: startDate, slot },
+    };
+    const fingerprint = bookingFingerprint(payload);
+
+    /*
+      Niets gewijzigd sinds de vorige keer: terug naar het betaalformulier dat er
+      al staat. Een tweede sessie zou een tweede hold op dezelfde toestellen
+      leggen, en dan blokkeert de bezoeker zijn eigen leverdatum.
+    */
+    if (session && session.fingerprint === fingerprint && stripeJs) {
+      setPaying(false);
+      goTo(STEP_PAY);
+      return;
+    }
+
     try {
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          config: Object.fromEntries(new URLSearchParams(configToQuery(config))),
-          options,
-          customer: { ...customer, type: customerType },
-          delivery: { date: startDate, slot },
-        }),
+        // De vorige sessie gaat mee zodat de server haar laat vervallen en de
+        // toestellen teruggeeft vóór hij opnieuw kijkt wat er vrij is.
+        body: JSON.stringify({ ...payload, previousSessionId: session?.id }),
       });
       const data = (await response.json()) as {
         clientSecret?: string;
+        sessionId?: string;
         publishableKey?: string;
         error?: string;
         code?: string;
@@ -367,19 +427,21 @@ const VerhuurBoekingPage = () => {
         setBlockedDates(data.blocked_start_dates ?? [startDate]);
         setPayError("");
         setPaying(false);
+        staleSession();
         goTo(3);
         return;
       }
-      if (!response.ok || !data.clientSecret || !data.publishableKey) {
+      if (!response.ok || !data.clientSecret || !data.publishableKey || !data.sessionId) {
         setPayError(data.error ?? "De betaling kon niet gestart worden.");
         setPaying(false);
+        staleSession();
         return;
       }
       // Stripe.js pas hier binnenhalen: het is een externe bundel die niets
       // toevoegt zolang er geen betaalformulier op het scherm staat.
       const { loadStripe } = await import("@stripe/stripe-js");
       setStripeJs(loadStripe(data.publishableKey));
-      setClientSecret(data.clientSecret);
+      setSession({ id: data.sessionId, clientSecret: data.clientSecret, fingerprint });
       setPaying(false);
       goTo(STEP_PAY);
     } catch {
@@ -388,12 +450,12 @@ const VerhuurBoekingPage = () => {
     }
   };
 
-  /** Terug naar de gegevens: de openstaande sessie vervalt vanzelf bij Stripe. */
-  const cancelPayment = () => {
-    setClientSecret("");
-    setStripeJs(null);
-    goTo(4);
-  };
+  /**
+   * Terug naar de gegevens. De sessie blijft staan: komt de bezoeker zonder
+   * wijzigingen terug, dan gebruikt `payAndConfirm` haar opnieuw in plaats van
+   * een tweede reservatie op hetzelfde materieel te leggen.
+   */
+  const cancelPayment = () => goTo(4);
 
   return (
     <div className="vh-book">
@@ -1055,19 +1117,22 @@ const VerhuurBoekingPage = () => {
                   <h2>Betaal uw boeking</h2>
                 </div>
                 <p className="bsub">
-                  U betaalt <b>{euro(summary.payable)}</b> met Bancontact, kaart, iDEAL of Klarna. De
-                  betaling loopt beveiligd via Stripe — wij zien uw kaartgegevens nooit.
+                  U betaalt <b>{euro(summary.payable)}</b> met Apple Pay, Bancontact, kaart, iDEAL of
+                  Klarna. De betaling loopt beveiligd via Stripe — wij zien uw kaartgegevens nooit.
                 </p>
 
                 <div className="paybox">
-                  {step === STEP_PAY && clientSecret && stripeJs && (
-                    <EmbeddedCheckoutProvider
-                      key={clientSecret}
+                  {step === STEP_PAY && session?.clientSecret && stripeJs && (
+                    <CheckoutElementsProvider
+                      key={session.clientSecret}
                       stripe={stripeJs}
-                      options={{ clientSecret }}
+                      options={{
+                        clientSecret: session.clientSecret,
+                        elementsOptions: { appearance: STRIPE_APPEARANCE },
+                      }}
                     >
-                      <EmbeddedCheckout className="paybox-frame" />
-                    </EmbeddedCheckoutProvider>
+                      <BoekingBetaalformulier bedrag={euro(summary.payable)} />
+                    </CheckoutElementsProvider>
                   )}
                 </div>
 
@@ -1120,7 +1185,14 @@ const VerhuurBoekingPage = () => {
           <div>
             <div className="sum">
               <div className="sh">
-                <img src={packageImage(config)} alt="Uw droogpakket" loading="lazy" decoding="async" />
+                {/* Met de bijgezette toestellen erbij: de banner draagt zijn
+                    tellingen in het beeld, dus die moet meebewegen. */}
+                <img
+                  src={packageImage(config, allItems(config, dev))}
+                  alt="Uw droogpakket"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <div className="st">
                 <div className="sl">Uw pakket</div>

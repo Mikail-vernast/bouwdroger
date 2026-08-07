@@ -12,8 +12,8 @@
  * die wél willen betalen.
  */
 import Stripe from "stripe";
-import { checkOne, holdForSession, logAvailabilityFailure } from "../src/lib/availability.js";
-import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
+import { checkOne, holdForSession, logAvailabilityFailure, releaseHold } from "../src/lib/availability.js";
+import { bookingSummary, isReference, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 import {
   configToQuery,
@@ -29,6 +29,8 @@ interface CheckoutBody {
   options?: unknown;
   customer?: unknown;
   delivery?: unknown;
+  /** De sessie van een vorige poging van dezelfde bezoeker; zie `dropPrevious`. */
+  previousSessionId?: unknown;
 }
 
 function json(body: unknown, status = 200): Response {
@@ -73,11 +75,13 @@ const INTEGRATION_ID = "vernast-verhuur-boeking-kwtdrmzp";
 const HOLD_MINUTES = 30;
 
 /**
- * Harde spatie (U+00A0) als productnaam. Stripe eist een niet-lege `name` op
- * elke line item, maar rendert deze als niets — zo blijft er in het blokje
- * boven het betaalformulier enkel het logo en het bedrag over.
+ * Voorvoegsel van de productnaam op de line item. Die naam is niet langer
+ * zichtbaar in het betaalformulier — dat rendert nu onze eigen pagina — maar
+ * komt wel op het Stripe-ontvangstbewijs en de factuur terecht. Daar hoort iets
+ * leesbaars te staan in plaats van het lege label dat embedded Checkout nodig
+ * had om zijn eigen kop te verbergen.
  */
-const NO_LABEL = " ";
+const PRODUCT_PREFIX = "Droogservice";
 
 /**
  * Hosts die de terugkeer-URL na het betalen mogen bepalen.
@@ -102,6 +106,53 @@ function safeOrigin(request: Request): string {
   const url = new URL(request.url);
   const known = ALLOWED_HOSTS.some((pattern) => pattern.test(url.hostname));
   return known ? url.origin : CANONICAL_ORIGIN;
+}
+
+/** Stripe-sessie-ID's zijn `cs_` gevolgd door alfanumerieke tekens. */
+const SESSION_ID = /^cs_[A-Za-z0-9_]{1,255}$/;
+
+/**
+ * Ruimt de sessie van een vorige poging van dezelfde bezoeker op.
+ *
+ * Dit is de kern van een bug die zich voordeed als "soms werkt het niet". Wie
+ * vanuit het betaalscherm terugging en opnieuw op betalen klikte, kreeg een
+ * tweede sessie mét een tweede hold op precies hetzelfde materieel. De
+ * beschikbaarheidscontrole hieronder zag die eerste hold, telde hem mee, en
+ * meldde dat de toestellen op die dag al ingepland stonden — door de bezoeker
+ * zelf. De wizard stuurde hem daarop terug naar de datumstap. Pas na een half
+ * uur, wanneer de hold verliep, was de oorspronkelijke datum weer vrij.
+ *
+ * Vandaar: eerst de oude sessie laten vervallen en de toestellen teruggeven,
+ * dan pas kijken wat er nog vrij is.
+ *
+ * Wie een sessie-ID meestuurt dat niet van onze checkout komt, of dat bij een
+ * ander e-mailadres hoort, krijgt hier niets: dan blijft de hold gewoon staan
+ * tot hij vanzelf verloopt, zoals voordien. Zo kan een sessie-ID dat ergens
+ * opgevangen is niet gebruikt worden om andermans reservatie weg te halen.
+ */
+async function dropPrevious(stripe: Stripe, raw: unknown, email: string): Promise<void> {
+  if (typeof raw !== "string" || !SESSION_ID.test(raw)) return;
+
+  try {
+    const previous = await stripe.checkout.sessions.retrieve(raw);
+    if (!isReference(previous.client_reference_id) || !isReference(previous.metadata?.referentie)) {
+      return;
+    }
+    if (previous.customer_email?.toLowerCase() !== email.toLowerCase()) return;
+    // Een betaalde sessie hoort bij een echte boeking; die hold laat de webhook
+    // los zodra de order in het portaal staat, niet wij.
+    if (previous.payment_status === "paid") return;
+
+    logAvailabilityFailure(`release ${raw} (nieuwe poging)`, await releaseHold(raw));
+
+    // De sessie zelf mag ook weg: ze is vervangen, en zolang ze openstaat blijft
+    // Stripe hem als betaalbaar aanbieden.
+    if (previous.status === "open") await stripe.checkout.sessions.expire(raw);
+  } catch (error: unknown) {
+    // Niet fataal: zonder opruiming valt de bezoeker terug op het oude gedrag.
+    const message = error instanceof Error ? error.message : "onbekende fout";
+    console.error(`[checkout] vorige sessie ${raw} niet opgeruimd: ${message}`);
+  }
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -176,6 +227,14 @@ export async function POST(request: Request): Promise<Response> {
     return json({ error: "Kies eerst een geldige leverdatum." }, 400);
   }
 
+  const stripe = new Stripe(key);
+
+  /*
+    Eerst de vorige poging van deze bezoeker opruimen, dan pas kijken wat vrij
+    is — anders staat hij zichzelf in de weg. Zie `dropPrevious`.
+  */
+  await dropPrevious(stripe, body.previousSessionId, email);
+
   /*
     De harde controle. De wizard schakelt volle datums al uit, maar dat is
     comfort: tussen het kiezen van een datum en het klikken op betalen kan iemand
@@ -200,17 +259,18 @@ export async function POST(request: Request): Promise<Response> {
   }
   logAvailabilityFailure(`checkout ${reference}`, availability);
 
-  const stripe = new Stripe(key);
-
   try {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       /*
-        Ingebed in plaats van gehost: het formulier verschijnt als stap in de
-        boekingspagina zelf, met de samenvatting en de huisstijl er nog omheen.
-        Stripe blijft de betaling afhandelen, wij zien nooit kaartgegevens.
+        Elements in plaats van het ingebedde formulier van Stripe. Beide draaien
+        binnen onze eigen boekingspagina en bij beide zien wij nooit
+        kaartgegevens, maar `embedded_page` toont Apple Pay uitsluitend in
+        Safari 17+ — de knop zelf verscheen wel in Chrome en liep dan dood op
+        Apple. Met Elements bouwen wij de knoppenrij zelf en werkt Apple Pay ook
+        in Chrome, Edge en Firefox via de scanflow met de iPhone.
       */
-      ui_mode: "embedded_page",
+      ui_mode: "elements",
       customer_email: email,
       client_reference_id: reference,
       locale: "nl",
@@ -226,24 +286,18 @@ export async function POST(request: Request): Promise<Response> {
             unit_amount: toCents(summary.payable),
             product_data: {
               /*
-                Het blokje bovenaan het betaalformulier is van Stripe; wij vullen
-                enkel de line item die het toont. Daar stond eerst de volledige
-                pakketnaam en de specificatie onder de prijs — allebei woordelijk
-                hetzelfde als het overzicht dat rechts naast het formulier staat.
-                Wat overblijft is het logo en het bedrag.
-
-                `name` is verplicht en mag niet leeg zijn; Stripe weigert een
-                gewone spatie expliciet. Een harde spatie komt er wel door en
-                rendert als niets. Zonder dat foefje is er geen manier om die
-                regel weg te krijgen binnen embedded Checkout.
+                Het bedrag en de samenvatting staan al in onze eigen pagina; deze
+                naam is wat de klant terugziet op het ontvangstbewijs van Stripe
+                en in het dashboard. Daar helpt de pakketnaam, en niets anders.
               */
-              name: NO_LABEL,
+              name: trim(`${PRODUCT_PREFIX} — ${packageTitle(config)}`, 250),
               /*
                 Eigen bestand, los van de logo's die de site zelf gebruikt. Die
                 staan als webp in de repo en Stripe haalt de afbeelding op met
                 een eigen client — van webp is niet zeker dat die verwerkt wordt,
-                dus hier blijft het bewust een PNG. Wordt dit ooit opgeruimd of
-                omgezet, dan verdwijnt het logo uit het betaalformulier.
+                dus hier blijft het bewust een PNG. Sinds het betaalformulier van
+                ons is, staat dit logo niet meer op het scherm van de klant maar
+                nog wel bij de sessie in het Stripe-dashboard.
               */
               images: [`${origin}/verhuur/checkout-merk.png`],
               /*
@@ -310,7 +364,18 @@ export async function POST(request: Request): Promise<Response> {
     });
     logAvailabilityFailure(`hold ${session.id}`, hold);
 
-    return json({ clientSecret: session.client_secret, publishableKey, reference });
+    /*
+      Het sessie-ID gaat mee terug zodat de pagina het bij een volgende poging
+      kan meesturen en deze sessie dan opgeruimd wordt. Het zit sowieso al in de
+      `client_secret` hieronder, dus dit geeft niets prijs wat de browser niet
+      al heeft.
+    */
+    return json({
+      clientSecret: session.client_secret,
+      sessionId: session.id,
+      publishableKey,
+      reference,
+    });
   } catch (error: unknown) {
     /*
       De reden blijft binnen. Stripe zet in zijn foutmeldingen dingen als welke

@@ -148,6 +148,40 @@ export function newReference(): string {
   return REFERENCE_PREFIX + out;
 }
 
+/**
+ * JSON met gesorteerde sleutels, zodat dezelfde inhoud altijd dezelfde tekst
+ * oplevert — ook als de velden in een andere volgorde in het object staan.
+ */
+function stable(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(stable).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    const entries = Object.entries(value as Record<string, unknown>)
+      .filter(([, v]) => v !== undefined)
+      .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0));
+    return `{${entries.map(([k, v]) => `${JSON.stringify(k)}:${stable(v)}`).join(",")}}`;
+  }
+  return JSON.stringify(value) ?? "null";
+}
+
+/**
+ * Vingerafdruk van alles wat een boeking bepaalt: het pakket, de opties, de
+ * klant en de leverdatum.
+ *
+ * Elke klik op "Naar de betaling" maakte tot nu toe een nieuwe Stripe-sessie én
+ * legde een nieuwe hold op de toestellen. Wie vanuit het betaalscherm terugging
+ * om iets na te kijken en daarna gewoon opnieuw doorklikte, reserveerde zo een
+ * tweede keer hetzelfde materieel — en botste dan op zijn eigen reservatie: "op
+ * deze leverdatum zijn onze toestellen al ingepland", terwijl hij ze zelf een
+ * minuut eerder had vastgezet. De wizard schoof hem daarop terug naar de
+ * datumstap, met een leverdatum twee weken verder.
+ *
+ * Hiermee ziet de pagina dat er niets veranderd is en gebruikt ze de sessie die
+ * er al staat, in plaats van er een tweede naast te zetten.
+ */
+export function bookingFingerprint(payload: unknown): string {
+  return stable(payload);
+}
+
 /** Herkent een referentie die door `newReference` is aangemaakt. */
 export function isReference(value: unknown): boolean {
   if (typeof value !== "string" || !value.startsWith(REFERENCE_PREFIX)) return false;
