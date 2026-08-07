@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
+import type { Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -59,7 +61,10 @@ const EXTRA_ICONS: Record<string, (props: { size?: number }) => JSX.Element> = {
   stroom: BoltIcon,
 };
 
-const TOTAL_STEPS = 5;
+/** 1 dekking · 2 extra's · 3 datum · 4 gegevens · 5 betaling · 6 bevestiging. */
+const TOTAL_STEPS = 6;
+const STEP_PAY = 5;
+const STEP_DONE = 6;
 const RENTAL_DAYS = FIXED_WEEKS * 7;
 const SLOTS = ["08:00 – 10:00", "10:00 – 12:00", "13:00 – 15:00", "15:00 – 17:00"];
 
@@ -162,6 +167,12 @@ const VerhuurBoekingPage = () => {
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
 
+  // Het betaalformulier van Stripe leeft in stap 5. De sleutel wordt pas
+  // opgehaald wanneer de bezoeker daar aankomt, zodat stripe.js niet meelaadt
+  // voor wie enkel aan het configureren is.
+  const [clientSecret, setClientSecret] = useState("");
+  const [stripeJs, setStripeJs] = useState<Promise<StripeJs | null> | null>(null);
+
   const options: BookingOptions = useMemo(
     () => ({
       cover,
@@ -195,6 +206,70 @@ const VerhuurBoekingPage = () => {
       [k]: Math.max(0, Math.min(MAX_EXTRA_DEVICES, prev[k] + delta)),
     }));
 
+  /*
+    Volle leverdatums. Wordt opgehaald zodra de bezoeker bij de datumstap komt,
+    zodat een dag waarop de toestellen al ingepland staan meteen zichtbaar is in
+    plaats van pas bij het afrekenen. De harde controle staat in
+    `api/checkout.ts`; dit is er om die 409 te voorkomen, niet om hem te vervangen.
+  */
+  const [blockedDates, setBlockedDates] = useState<string[]>([]);
+  const [datesError, setDatesError] = useState("");
+  const [loadingDates, setLoadingDates] = useState(false);
+
+  useEffect(() => {
+    if (step !== 3) return;
+    let active = true;
+    setLoadingDates(true);
+    setDatesError("");
+
+    fetch("/api/availability", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ config, options }),
+    })
+      .then(async (r) => {
+        const data = (await r.json()) as { blocked_start_dates?: string[]; error?: string };
+        if (!r.ok) throw new Error(data.error ?? "onbereikbaar");
+        return data;
+      })
+      .then((data) => {
+        if (!active) return;
+        setBlockedDates(data.blocked_start_dates ?? []);
+      })
+      .catch(() => {
+        if (!active) return;
+        /*
+          Bewust geen lege lijst bij een fout: dat leest als "alles is vrij" en is
+          precies de stille fout die deze wijziging moest wegnemen. De bezoeker
+          krijgt te zien dat we het niet weten, en de knop blijft dicht.
+        */
+        setBlockedDates([]);
+        setDatesError(
+          "We kunnen op dit moment niet nakijken welke datums nog vrij zijn. Probeer het zo opnieuw, of bel ons op 03 689 90 65."
+        );
+      })
+      .finally(() => {
+        if (active) setLoadingDates(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [step, config, options]);
+
+  const dateBlocked = blockedDates.includes(startDate);
+
+  /** Eerstvolgende dag waarop dit pakket wél vrij is, om te kunnen voorstellen. */
+  const nextFreeDate = useMemo(() => {
+    if (!dateBlocked || !startDate) return null;
+    const from = new Date(startDate);
+    for (let i = 1; i <= 60; i++) {
+      const candidate = isoDate(addDays(from, i));
+      if (!blockedDates.includes(candidate)) return candidate;
+    }
+    return null;
+  }, [dateBlocked, startDate, blockedDates]);
+
   const sessionId = searchParams.get("session_id");
   const cancelled = searchParams.get("betaling") === "geannuleerd";
 
@@ -214,7 +289,7 @@ const VerhuurBoekingPage = () => {
         if (!active) return;
         if (data.paid && data.reference) {
           setReference(data.reference);
-          setStep(5);
+          setStep(STEP_DONE);
           sessionStorage.removeItem(STORAGE_KEY);
         } else {
           setStep(4);
@@ -231,7 +306,7 @@ const VerhuurBoekingPage = () => {
     };
   }, [sessionId, cancelled]);
 
-  /** Stuurt de boeking naar Stripe Checkout. */
+  /** Maakt een Stripe-sessie aan en toont het betaalformulier in stap 5. */
   const payAndConfirm = async () => {
     setPaying(true);
     setPayError("");
@@ -252,17 +327,49 @@ const VerhuurBoekingPage = () => {
           delivery: { date: startDate, slot },
         }),
       });
-      const data = (await response.json()) as { url?: string; error?: string };
-      if (!response.ok || !data.url) {
+      const data = (await response.json()) as {
+        clientSecret?: string;
+        publishableKey?: string;
+        error?: string;
+        code?: string;
+        blocked_start_dates?: string[];
+      };
+      /*
+        Iemand is ons voor geweest tussen het kiezen van de datum en het klikken
+        op betalen. Terug naar de datumstap met de verse lijst, anders staat de
+        bezoeker naar een foutmelding te kijken zonder te zien wat hij eraan kan
+        doen.
+      */
+      if (response.status === 409 && data.code === "niet_beschikbaar") {
+        setBlockedDates(data.blocked_start_dates ?? [startDate]);
+        setPayError("");
+        setPaying(false);
+        goTo(3);
+        return;
+      }
+      if (!response.ok || !data.clientSecret || !data.publishableKey) {
         setPayError(data.error ?? "De betaling kon niet gestart worden.");
         setPaying(false);
         return;
       }
-      window.location.href = data.url;
+      // Stripe.js pas hier binnenhalen: het is een externe bundel die niets
+      // toevoegt zolang er geen betaalformulier op het scherm staat.
+      const { loadStripe } = await import("@stripe/stripe-js");
+      setStripeJs(loadStripe(data.publishableKey));
+      setClientSecret(data.clientSecret);
+      setPaying(false);
+      goTo(STEP_PAY);
     } catch {
       setPayError("Geen verbinding met de betaalserver. Probeer het opnieuw.");
       setPaying(false);
     }
+  };
+
+  /** Terug naar de gegevens: de openstaande sessie vervalt vanzelf bij Stripe. */
+  const cancelPayment = () => {
+    setClientSecret("");
+    setStripeJs(null);
+    goTo(4);
   };
 
   return (
@@ -664,7 +771,39 @@ const VerhuurBoekingPage = () => {
                   </div>
                 </div>
 
-                {start && end && (
+                {datesError && (
+                  <div className="plan pw" role="status">
+                    <WarnIcon />
+                    <div className="pt2">{datesError}</div>
+                  </div>
+                )}
+
+                {dateBlocked && (
+                  <div className="plan pw" role="status">
+                    <WarnIcon />
+                    <div className="pt2">
+                      Op <b>{start ? formatLongDate(start) : startDate}</b> staan onze toestellen voor
+                      dit pakket al ingepland.{" "}
+                      {nextFreeDate ? (
+                        <>
+                          De eerstvolgende vrije leverdag is{" "}
+                          <b>{formatLongDate(new Date(nextFreeDate))}</b>.{" "}
+                          <button
+                            type="button"
+                            className="lnk"
+                            onClick={() => setStartDate(nextFreeDate)}
+                          >
+                            Neem die datum
+                          </button>
+                        </>
+                      ) : (
+                        <>Kies een latere datum, of bel ons op 03 689 90 65 — vaak kunnen we schuiven.</>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {start && end && !dateBlocked && (
                   <div className="plan">
                     <CalendarCheckIcon />
                     <div className="pt2">
@@ -699,8 +838,13 @@ const VerhuurBoekingPage = () => {
                 <button className="btn btn-o" type="button" onClick={() => goTo(2)}>
                   Terug
                 </button>
-                <button className="btn btn-d" type="button" onClick={() => goTo(4)}>
-                  Verder naar gegevens
+                <button
+                  className="btn btn-d"
+                  type="button"
+                  disabled={loadingDates || dateBlocked || !!datesError}
+                  onClick={() => goTo(4)}
+                >
+                  {loadingDates ? "Beschikbaarheid nakijken…" : "Verder naar gegevens"}
                   <ArrowRightIcon />
                 </button>
               </div>
@@ -876,15 +1020,55 @@ const VerhuurBoekingPage = () => {
                   onClick={payAndConfirm}
                 >
                   {paying
-                    ? "Bezig met doorsturen…"
-                    : `Betalen en bevestigen · ${euro(summary.payable)}`}
-                  <CheckIcon />
+                    ? "Betaling voorbereiden…"
+                    : `Naar de betaling · ${euro(summary.payable)}`}
+                  <ArrowRightIcon />
                 </button>
               </div>
             </div>
 
-            {/* STAP 5 — bevestiging */}
-            <div className={`pane${step === 5 ? " on" : ""}`}>
+            {/* STAP 5 — betaling, formulier van Stripe binnen onze eigen pagina */}
+            <div className={`pane${step === STEP_PAY ? " on" : ""}`}>
+              <div className="blk">
+                <div className="blkh">
+                  <h2>Betaal uw boeking</h2>
+                </div>
+                <p className="bsub">
+                  U betaalt <b>{euro(summary.payable)}</b> met Bancontact, kaart, iDEAL of Klarna. De
+                  betaling loopt beveiligd via Stripe — wij zien uw kaartgegevens nooit.
+                </p>
+
+                <div className="paybox">
+                  {step === STEP_PAY && clientSecret && stripeJs && (
+                    <EmbeddedCheckoutProvider
+                      key={clientSecret}
+                      stripe={stripeJs}
+                      options={{ clientSecret }}
+                    >
+                      <EmbeddedCheckout className="paybox-frame" />
+                    </EmbeddedCheckoutProvider>
+                  )}
+                </div>
+
+                <p className="paynote">
+                  <CheckIcon size={13} strokeWidth={3} />
+                  {/* De tekst hoort in één span: los in de flexbox wordt elk
+                      stukje een eigen kolom zodra de ruimte krap wordt. */}
+                  <span>
+                    Uw levering op <b>{start ? formatLongDate(start) : ""}</b> tussen <b>{slot}</b>{" "}
+                    wordt vastgelegd zodra de betaling bevestigd is.
+                  </span>
+                </p>
+              </div>
+              <div className="fnav">
+                <button className="btn btn-o" type="button" onClick={cancelPayment}>
+                  Terug naar mijn gegevens
+                </button>
+              </div>
+            </div>
+
+            {/* STAP 6 — bevestiging */}
+            <div className={`pane${step === STEP_DONE ? " on" : ""}`}>
               <div className="done">
                 <div className="dic">
                   <CheckIcon size={30} strokeWidth={2.6} />

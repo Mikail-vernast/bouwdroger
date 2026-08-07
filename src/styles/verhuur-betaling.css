@@ -17,3 +17,46 @@
   font-weight: 600;
   line-height: 1.5;
 }
+
+/* ------------------------------------------------------------
+   Het ingebedde Checkout-formulier van Stripe.
+
+   Stripe rendert dat in een iframe waarvan wij de binnenkant niet kunnen
+   stylen; de branding daarvan staat in het Stripe-dashboard. Wat hier gebeurt
+   is het kader eromheen laten aansluiten op de rest van de wizard, zodat het
+   niet als een ingeplakt blok aanvoelt.
+   ------------------------------------------------------------ */
+.vh-book .paybox {
+  /* Stripe rendert een kolom van ~460 px en centreert die zelf. Het kader
+     eromheen meegeven, anders staat er een halve meter wit naast. */
+  max-width: 620px;
+  margin: 20px auto 0;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 18px 38px -30px rgba(20, 20, 20, 0.6);
+  /* Ruimte vasthouden terwijl stripe.js laadt, anders springt de pagina. */
+  min-height: 460px;
+}
+
+.vh-book .paybox-frame {
+  width: 100%;
+}
+
+/* Wat er ná de betaling gebeurt, vlak bij de knop waar het over gaat. */
+.vh-book .paynote {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--txt-mid);
+}
+
+.vh-book .paynote svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #2e9e5b;
+}

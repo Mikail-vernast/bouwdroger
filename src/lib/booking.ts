@@ -15,9 +15,10 @@ import {
   PUMP,
   type DeviceKey,
 } from "../data/verhuur.js";
+import { TARIEVEN } from "../data/tarieven.js";
 import { DEVICE_KEYS, allItems, deviceCount, packagePrice, type PackageConfig, type PackageItem } from "./verhuur.js";
 
-export const MAX_EXTRA_DEVICES = 6;
+export const MAX_EXTRA_DEVICES = Number(TARIEVEN.pricing.max_extra_devices);
 
 export type Access = "trap" | "ladder";
 
@@ -30,10 +31,10 @@ export type Access = "trap" | "ladder";
 export type PaymentChoice = "online" | "levering";
 
 /** Korting bij volledig online betalen. */
-export const ONLINE_DISCOUNT = 0.05;
+export const ONLINE_DISCOUNT = Number(TARIEVEN.pricing.online_discount);
 
 /** Orderbevestiging wanneer de klant de rest bij levering betaalt. */
-export const DEPOSIT = 50;
+export const DEPOSIT = Number(TARIEVEN.pricing.deposit);
 
 export interface BookingOptions {
   /** sleutel uit COVER */

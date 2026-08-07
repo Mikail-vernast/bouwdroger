@@ -1,73 +1,97 @@
-# Welcome to your Lovable project
+# Bouwdrogerservice — website
 
-## Project info
+De publieke website van **Vernast Bouwdroogservice** (bouwdrogerservice.be): een
+statisch geprerenderde React-app met een handvol serverless routes voor
+bestellingen en Stripe-betalingen.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Dit is niet de financiële applicatie van Vernast — die staat apart. Deze repo is
+enkel de website en wat er nodig is om een boeking van de site tot in het
+Vernast-portaal te krijgen.
 
-## How can I edit this code?
+## Stack
 
-There are several ways of editing your application.
+| Onderdeel | Keuze |
+|---|---|
+| Build | Vite + `vite-react-ssg` (prerender naar statische HTML) |
+| UI | React 18, TypeScript, Tailwind CSS, shadcn/ui (Radix) |
+| Routing | React Router |
+| Serverless | Vercel Functions (`api/`) |
+| Betalingen | Stripe Checkout |
+| Hosting | Vercel, regio `fra1` |
+| Tests | Vitest + Testing Library |
 
-**Use Lovable**
+Er is geen CMS en geen webshop-platform: alle content en productdata staan in
+`src/data/` en worden mee geprerenderd.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Aan de slag
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm install
+npm run dev          # Vite dev-server op http://localhost:8080
 ```
 
-**Edit a file directly in GitHub**
+De `api/`-routes draaien niet mee onder `vite dev`. Wie die nodig heeft:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run dev:api      # laadt .env.local en start `vercel dev`
+```
 
-**Use GitHub Codespaces**
+## Scripts
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+| Script | Doet |
+|---|---|
+| `npm run dev` | dev-server (poort 8080) |
+| `npm run dev:api` | `vercel dev` met `.env.local` ingeladen, voor de API-routes |
+| `npm run build` | prerender naar `dist/` + genereert sitemap/robots |
+| `npm run preview` | serveert de gebouwde `dist/` |
+| `npm run lint` | ESLint |
+| `npm test` | Vitest (eenmalig); `npm run test:watch` voor watch-modus |
+| `npm run fonts` | haalt de webfonts lokaal binnen (self-hosted, geen Google Fonts) |
+| `npm run images` | comprimeert de afbeeldingen in `public/` |
 
-## What technologies are used for this project?
+## Structuur
 
-This project is built with:
+```
+api/         serverless routes (order, checkout, checkout-session, stripe-webhook)
+src/pages/   één bestand per route
+src/components/
+  home-v3/   secties van de homepage
+  verhuur/   de verhuur-flow
+  ui/        shadcn/ui-primitieven
+src/data/    productdata, pakketten, prijzen
+src/lib/     gedeelde logica (ook door de api-routes gebruikt)
+scripts/     build- en onderhoudsscripts (SEO, fonts, afbeeldingen)
+docs/        losse notities over openstaande punten
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+`src/lib/` wordt zowel door de browser als door de serverless routes
+geïmporteerd. Vandaar de expliciete `.js`-extensies in de imports vanuit `api/`.
 
-## How can I deploy this project?
+## API-routes
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+| Route | Doet |
+|---|---|
+| `POST /api/order` | duwt een boeking of reservering naar het Vernast-portaal |
+| `POST /api/checkout` | maakt een Stripe Checkout-sessie aan |
+| `GET /api/checkout-session` | controleert of een sessie effectief betaald is |
+| `POST /api/stripe-webhook` | verwerkt Stripe-events |
 
-## Can I connect a custom domain to my Lovable project?
+Alle routes zitten achter rate limiting; prijzen worden server-side bepaald,
+nooit uit de request overgenomen.
 
-Yes, you can!
+## Omgevingsvariabelen
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Beheerd via `vercel env` — niet in de repo. Lokaal in `.env.local` (gitignored).
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+| Variabele | Waarvoor |
+|---|---|
+| `STRIPE_SECRET_KEY` | Stripe API (live op production/preview, sandbox op development) |
+| `STRIPE_WEBHOOK_SECRET` | handtekening van de Stripe-webhook |
+| `VERNAST_WEBHOOK_URL` | edge function `bouwdroger-order-webhook` in Vernast V2.0 |
+| `VERNAST_WEBHOOK_SECRET` | gedeeld geheim voor die webhook |
+| `VITE_SITE_URL` | canonieke site-URL (sitemap, canonicals, Stripe-redirects) |
+
+## Deploy
+
+Vercel bouwt met `npm run build` en serveert `dist/`. Security headers, CSP en
+cache-control staan in `vercel.json`.

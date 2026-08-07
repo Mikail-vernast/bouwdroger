@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 .vercel
 .env*
+
+# Lokale Supabase-CLI-state, hoort niet in een publieke repo
+supabase/.temp/

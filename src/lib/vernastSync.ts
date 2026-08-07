@@ -9,6 +9,8 @@
  * Bewust server-only: het secret mag nooit in de browserbundle belanden.
  */
 
+import type { DeviceLine } from "./verhuur.js";
+
 export type VernastOrderSource = "booking" | "reservering" | "stripe";
 
 export interface VernastOrderPayload {
@@ -43,6 +45,13 @@ export interface VernastOrderPayload {
   equipment_drogers?: number | null;
   equipment_ventilatoren?: number | null;
   equipment_verwarming?: number | null;
+  /**
+   * Welke toestelsoorten en hoeveel, met de sleutels van `bouwdroger_equipment`.
+   * De webhook aan de Vernast-kant legt hiermee de koppelingen in
+   * `bouwdroger_order_equipment`, zodat een webshop-order meteen meetelt voor de
+   * beschikbaarheid in plaats van pas nadat iemand hem met de hand inplant.
+   */
+  order_lines?: DeviceLine[] | null;
   customer_note?: string | null;
 
   total_price?: number | null;

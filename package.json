@@ -1,20 +1,21 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "bouwdroger",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "dev:api": "set -a && . ./.env.local && set +a && vercel dev",
-    "build": "vite-react-ssg build && node scripts/generate-seo-files.mjs",
-    "build:dev": "vite-react-ssg build --mode development",
+    "build": "node scripts/fetch-tarieven.mjs && vite-react-ssg build && node scripts/generate-seo-files.mjs",
+    "build:dev": "node scripts/fetch-tarieven.mjs && vite-react-ssg build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "build:csr": "vite build",
     "fonts": "node scripts/fetch-fonts.mjs",
-    "images": "node scripts/shrink-images.mjs"
+    "images": "node scripts/shrink-images.mjs",
+    "tarieven": "node scripts/fetch-tarieven.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -45,6 +46,8 @@
     "@radix-ui/react-toggle": "^1.1.9",
     "@radix-ui/react-toggle-group": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@stripe/react-stripe-js": "^6.8.0",
+    "@stripe/stripe-js": "^9.13.0",
     "@tanstack/react-query": "^5.83.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -85,7 +88,6 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
     "jsdom": "^20.0.3",
-    "lovable-tagger": "^1.1.13",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",

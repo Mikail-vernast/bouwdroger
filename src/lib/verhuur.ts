@@ -116,6 +116,74 @@ export function deviceCount(items: PackageItem[]): number {
   return items.reduce((a, it) => a + it.q, 0);
 }
 
+/**
+ * Eén toestelsoort met het gevraagde aantal. `device_key` is bewust dezelfde
+ * naam als de kolom in `bouwdroger_equipment` aan de Vernast-kant: de sleutels
+ * `small` / `medium` / `axiaal` / `kachel` lopen daar één op één mee gelijk, en
+ * dat is precies wat een beschikbaarheidscontrole nodig heeft.
+ */
+export interface DeviceLine {
+  device_key: DeviceKey;
+  qty: number;
+}
+
+export function toDeviceLines(items: PackageItem[]): DeviceLine[] {
+  return items.filter((it) => it.q > 0).map((it) => ({ device_key: it.k, qty: it.q }));
+}
+
+/**
+ * Compacte notatie voor Stripe-metadata: `"small:2,medium:2,axiaal:4"`.
+ * Waarden daar mogen maar 500 tekens zijn, dus JSON is verspilling.
+ */
+export function serializeDeviceLines(lines: DeviceLine[]): string {
+  return lines.map((l) => `${l.device_key}:${l.qty}`).join(",");
+}
+
+/** Tegenhanger van `serializeDeviceLines`; onbekende sleutels vallen weg. */
+export function parseDeviceLines(raw: string | null | undefined): DeviceLine[] {
+  if (!raw) return [];
+  const out: DeviceLine[] = [];
+  for (const part of raw.split(",")) {
+    const [key, count] = part.split(":");
+    const qty = Number(count);
+    if (!DEVICE_KEYS.includes(key as DeviceKey) || !Number.isFinite(qty) || qty <= 0) continue;
+    out.push({ device_key: key as DeviceKey, qty: Math.floor(qty) });
+  }
+  return out;
+}
+
+export interface RentalWindow {
+  start: string;
+  end: string;
+}
+
+/**
+ * De huurperiode die bij een leverdatum hoort. Tot nu toe rekende alleen de
+ * boekingspagina dit uit, waardoor orders via Stripe zonder begin- en einddatum
+ * in het portaal belandden — en dus onzichtbaar waren voor elke controle op
+ * dubbele boekingen.
+ *
+ * Geeft `null` terug bij een onbruikbare datum in plaats van iets te verzinnen:
+ * een verkeerde huurperiode is schadelijker dan geen.
+ */
+export function rentalWindow(deliveryDate: string, days: number): RentalWindow | null {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(deliveryDate)) return null;
+  const start = new Date(`${deliveryDate}T00:00:00`);
+  if (Number.isNaN(start.getTime())) return null;
+  if (!Number.isFinite(days) || days <= 0) return null;
+  return { start: isoDate(start), end: isoDate(addDays(start, Math.floor(days))) };
+}
+
+/**
+ * Overlappen twee huurperiodes? De grens is **exclusief**: Vernast haalt op en
+ * levert op dezelfde dag, dus een huur die eindigt op 22 augustus laat een huur
+ * die start op 22 augustus gewoon toe. Met `<=` zou je per verhuur stilzwijgend
+ * een dag capaciteit weggooien.
+ */
+export function periodsOverlap(a: RentalWindow, b: RentalWindow): boolean {
+  return a.start < b.end && a.end > b.start;
+}
+
 /** Totale vochtafvoer in liter per 24 u. */
 export function totalCapacity(items: PackageItem[]): number {
   return items.reduce((a, it) => a + CAT[it.k].cap * it.q, 0);
@@ -134,7 +202,7 @@ export function packagePrice(items: PackageItem[], weeks: number): number {
 
 export function dryingDays(c: PackageConfig): number {
   if (isWaterDamage(c)) return 10;
-  return Number(c.size) >= 180 ? 16 : 12;
+  return (BRACKET[c.size] || BRACKET["180"]).dry;
 }
 
 /** Productnaamconventie: "Gebouw kleiner dan 180 m2 – Pleisterdikte 3 cm – …". */

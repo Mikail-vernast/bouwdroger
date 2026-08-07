@@ -10,7 +10,9 @@
  * iedereen die de URL kent een "betaald"-melding sturen.
  */
 import Stripe from "stripe";
+import { logAvailabilityFailure, releaseHold } from "../src/lib/availability.js";
 import { isReference } from "../src/lib/booking.js";
+import { parseDeviceLines } from "../src/lib/verhuur.js";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync.js";
 
 function json(body: unknown, status = 200): Response {
@@ -53,6 +55,13 @@ function sessionToVernast(session: Stripe.Checkout.Session): VernastOrderPayload
     package_tier: meta(session, "pakket"),
     delivery_date: meta(session, "leverdatum"),
     delivery_slot: meta(session, "tijdslot"),
+    // Zie `api/checkout.ts`: deze drie zijn de basis voor de controle op dubbele
+    // boekingen. Ontbreken ze — bij een sessie van vóór die wijziging — dan
+    // blijft de order gewoon geldig, hij telt alleen niet mee voor beschikbaarheid.
+    rental_start_date: meta(session, "huur_start"),
+    rental_end_date: meta(session, "huur_eind"),
+    duration_days: Number(meta(session, "huurdagen")) || null,
+    order_lines: parseDeviceLines(meta(session, "toestellen")),
     customer_note: meta(session, "regels"),
     total_price: totaal ? Number(totaal) : (session.amount_total ?? 0) / 100,
     currency: (session.currency ?? "eur").toUpperCase(),
@@ -88,8 +97,20 @@ export async function POST(request: Request): Promise<Response> {
     return json({ error: "Ongeldige signature." }, 400);
   }
 
-  // Alleen afgeronde checkouts zijn interessant. De rest bevestigen we stil,
-  // anders blijft Stripe events herhalen die we toch niet gaan gebruiken.
+  /*
+    Een vervallen sessie betekent dat de bezoeker niet betaald heeft. De
+    toestellen die tijdens het afrekenen apart lagen moeten dan meteen weer vrij,
+    anders blijven ze tot het verlooptijdstip onnodig geblokkeerd voor iemand
+    anders. De hold zelf verloopt ook vanzelf; dit maakt het alleen sneller.
+  */
+  if (event.type === "checkout.session.expired") {
+    const expired = event.data.object as Stripe.Checkout.Session;
+    logAvailabilityFailure(`release ${expired.id}`, await releaseHold(expired.id));
+    return json({ received: true });
+  }
+
+  // Alleen afgeronde checkouts zijn verder interessant. De rest bevestigen we
+  // stil, anders blijft Stripe events herhalen die we toch niet gaan gebruiken.
   if (event.type !== "checkout.session.completed" && event.type !== "checkout.session.async_payment_succeeded") {
     return json({ received: true });
   }
@@ -105,6 +126,19 @@ export async function POST(request: Request): Promise<Response> {
 
   const sync = await pushOrderToVernast(sessionToVernast(session));
   logSyncFailure(`stripe ${session.id}`, sync);
+
+  /*
+    De order neemt het nu over van de hold: die staat als echte boeking in het
+    portaal en telt vanaf daar mee voor de beschikbaarheid. Blijft de hold
+    staan, dan zou dezelfde huur dubbel geteld worden en zou de eerstvolgende
+    bezoeker ten onrechte een volle datum zien.
+
+    Alleen vrijgeven als de push gelukt is — anders is er nog niets dat de
+    toestellen vasthoudt, en Stripe biedt het event straks opnieuw aan.
+  */
+  if (sync.ok) {
+    logAvailabilityFailure(`release ${session.id}`, await releaseHold(session.id));
+  }
 
   // Faalt de push, dan een 500 zodat Stripe het event opnieuw aanbiedt — de
   // webhook aan de andere kant is idempotent, dus een herhaling is ongevaarlijk.

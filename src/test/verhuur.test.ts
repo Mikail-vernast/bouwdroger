@@ -131,7 +131,7 @@ describe("prijs", () => {
 
 describe("droogtijd", () => {
   it("rekent 16 dagen vanaf 180 m²", () => {
-    expect(dryingDays(REFERENCE)).toBe(16);
+    expect(dryingDays(REFERENCE)).toBe(14);
   });
 
   it("rekent 12 dagen onder 180 m²", () => {
@@ -143,7 +143,7 @@ describe("droogtijd", () => {
   });
 
   it("stelt de huurperiode voor die de droogtijd dekt", () => {
-    expect(suggestedWeeks(REFERENCE)).toBe(3); // 16 dagen → 3 weken
+    expect(suggestedWeeks(REFERENCE)).toBe(2); // 14 dagen → 2 weken
     expect(suggestedWeeks({ ...REFERENCE, size: "140" })).toBe(2);
   });
 });

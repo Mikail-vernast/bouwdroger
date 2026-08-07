@@ -5,6 +5,8 @@
  * 2 weken"); zodra de echte tarieflijst er is, hoeft enkel dit bestand mee.
  */
 
+import { TARIEVEN } from "./tarieven.js";
+
 export type DeviceKey = "small" | "medium" | "axiaal" | "kachel";
 
 export interface Device {
@@ -19,64 +21,59 @@ export interface Device {
   air: number;
 }
 
-export const CAT: Record<DeviceKey, Device> = {
-  small: {
-    name: "Small Bouwdroger, 50 l / 24 u",
-    sub: "Automatische werking · laag geluidsniveau · waterreservoir",
-    img: "/verhuur/ttk-170.png",
-    w2: 80,
-    cap: 50,
-    air: 0,
-  },
-  medium: {
-    name: "Medium Bouwdroger, 80 l / 24 u",
-    sub: "Krachtig bij overgang naar hogere vochtbelasting",
-    img: "/verhuur/ttk-350.png",
-    w2: 105,
-    cap: 80,
-    air: 0,
-  },
-  axiaal: {
-    name: "Turbo Axiaalventilator, 5 300 m³/u",
-    sub: "Spatwaterdicht (IP55) · 3 standen · 0,25 kW",
-    img: "/verhuur/ttv-4500.png",
-    w2: 44,
-    cap: 0,
-    air: 5300,
-  },
-  kachel: {
-    name: "Elektrische kachel, 3,30 kW",
-    sub: "Ingebouwde thermostaat · gelijkmatige verdeling",
-    img: "/verhuur/teddh-30.png",
-    w2: 35,
-    cap: 0,
-    air: 0,
-  },
-};
+/**
+ * De verkoopcatalogus komt uit het portaal (tab Pakketten). Vroeger stond ze
+ * hier als letterlijke lijst; prijzen aanpassen vroeg toen een codewijziging.
+ */
+export const CAT: Record<DeviceKey, Device> = Object.fromEntries(
+  Object.entries(TARIEVEN.devices).map(([key, d]) => [
+    key,
+    { name: d.name, sub: d.sub, img: d.img, w2: Number(d.w2), cap: Number(d.cap), air: Number(d.air) },
+  ])
+) as Record<DeviceKey, Device>;
 
 export interface Bracket {
   small: number;
   medium: number;
   axiaal: number;
   kachel: number;
+  /**
+   * Verwachte droogtijd in dagen. Stond eerder als `size >= 180 ? 16 : 12` in
+   * `dryingDays()`, waardoor het 180-pakket 16 dagen beloofde terwijl de
+   * huurperiode vast op 14 staat — de pagina sprak zichzelf tegen en de
+   * boekingswizard waarschuwde er ook nog eens over.
+   *
+   * Per bracket in de data omdat het een verkoopcijfer is, geen rekenregel: het
+   * hoort bewerkbaar te zijn zonder dat er iemand aan een `if` moet komen.
+   */
+  dry: number;
   img: string;
 }
 
 /** Aantal toestellen per oppervlaktebracket — komt overeen met de pakketfoto's. */
-export const BRACKET: Record<string, Bracket> = {
-  40: { small: 1, medium: 0, axiaal: 1, kachel: 1, img: "/verhuur/pkg-1.jpg" },
-  60: { small: 1, medium: 0, axiaal: 2, kachel: 1, img: "/verhuur/pkg-2.jpg" },
-  100: { small: 1, medium: 1, axiaal: 3, kachel: 1, img: "/verhuur/pkg-3.jpg" },
-  140: { small: 1, medium: 2, axiaal: 3, kachel: 2, img: "/verhuur/pkg-4.jpg" },
-  180: { small: 2, medium: 2, axiaal: 4, kachel: 2, img: "/verhuur/pkg-5.jpg" },
-  220: { small: 2, medium: 3, axiaal: 4, kachel: 2, img: "/verhuur/pkg-7.jpg" },
-  260: { small: 3, medium: 3, axiaal: 4, kachel: 3, img: "/verhuur/pkg-8.jpg" },
-};
+export const BRACKET: Record<string, Bracket> = Object.fromEntries(
+  Object.entries(TARIEVEN.packages).map(([size, p]) => [
+    size,
+    {
+      small: Number(p.small),
+      medium: Number(p.medium),
+      axiaal: Number(p.axiaal),
+      kachel: Number(p.kachel),
+      dry: Number(p.dry),
+      img: p.img,
+    },
+  ])
+);
 
 export const WET_IMG = "/verhuur/pkg-9.jpg";
 
 /** Langer huren is goedkoper per week. */
-export const WEEKS: Record<number, number> = { 1: 0.62, 2: 1, 3: 1.35, 4: 1.62 };
+export const WEEKS: Record<number, number> = {
+  1: Number(TARIEVEN.pricing.weeks_multiplier_1),
+  2: Number(TARIEVEN.pricing.weeks_multiplier_2),
+  3: Number(TARIEVEN.pricing.weeks_multiplier_3),
+  4: Number(TARIEVEN.pricing.weeks_multiplier_4),
+};
 
 export const ROLE: Record<DeviceKey, { tag: string; txt: string }> = {
   small: {
@@ -308,44 +305,18 @@ export interface CoverTier {
   off: string[];
 }
 
-export const COVER: CoverTier[] = [
-  {
-    k: "basis",
-    name: "Standaard",
-    price: 0,
-    badge: "",
-    sub: "Zit standaard bij elke huur. U draagt zelf het eigen risico.",
-    inc: ["Wettelijke aansprakelijkheid", "Technische storing gedekt", "Normale gebruiksslijtage"],
-    off: ["Eigen risico € 1.000 bij schade", "Diefstal niet gedekt", "Geen vervangtoestel"],
-  },
-  {
-    k: "comfort",
-    name: "Eigen risico € 250",
-    price: 29,
-    badge: "Meest gekozen",
-    sub: "Verlaagt uw eigen risico van € 1.000 naar € 250 en dekt diefstal.",
-    inc: ["Eigen risico verlaagd tot € 250", "Diefstal gedekt", "Vervangtoestel binnen 24 u"],
-    off: ["Bij schade betaalt u de eerste € 250"],
-  },
-  {
-    k: "zorgeloos",
-    name: "Geen eigen risico",
-    price: 59,
-    badge: "",
-    sub: "Volledig zonder eigen risico — bij schade, defect én diefstal.",
-    inc: [
-      "Géén eigen risico bij schade",
-      "Diefstal volledig gedekt",
-      "Defect toestel direct vervangen",
-      "Vervangtoestel binnen 12 u",
-      "Voorrang bij planning en verlenging",
-    ],
-    off: [],
-  },
-];
+export const COVER: CoverTier[] = TARIEVEN.cover.map((c) => ({
+  k: c.k,
+  name: c.name,
+  price: Number(c.price),
+  badge: c.badge,
+  sub: c.sub,
+  inc: [...c.inc],
+  off: [...c.off],
+}));
 
 export const PUMP = {
-  price: 2,
+  price: Number(TARIEVEN.pricing.pump_price_per_day),
   name: "Condenspomp per bouwdroger",
   sub: "Geen reservoir of kuip legen: de pomp voert het condenswater rechtstreeks en automatisch af, ook naar een hoger gelegen afvoer. Het is zuiver condenswater en mag gewoon in de afvoer.",
 };
@@ -354,13 +325,13 @@ export const PUMP = {
  * De huurperiode ligt vast op twee weken: die zit in de pakketprijs en bepaalt
  * ook de automatisch ingeplande ophaaldatum.
  */
-export const FIXED_WEEKS = 2;
+export const FIXED_WEEKS = Number(TARIEVEN.pricing.fixed_weeks);
 
 /** Eenmalig draagwerk wanneer de toestellen via een ladder naar boven moeten. */
-export const LADDER_FEE = 39;
+export const LADDER_FEE = Number(TARIEVEN.pricing.ladder_fee);
 
 /** Hoogste verdieping die het formulier laat kiezen. */
-export const MAX_FLOORS = 5;
+export const MAX_FLOORS = Number(TARIEVEN.pricing.max_floors);
 
 export interface Extra {
   k: string;
@@ -371,23 +342,14 @@ export interface Extra {
   perWeek?: boolean;
 }
 
-export const EXTRAS: Extra[] = [
-  {
-    k: "rapport",
-    name: "Officieel vochtrapport",
-    sub: "Verslag nodig voor uw verzekeraar, huisbaas of bouwdossier? Wij werken de standaard voor- en nameting uit tot een ondertekend rapport met alle meetwaarden.",
-    price: 49,
-    unit: "eenmalig",
-  },
-  {
-    k: "stroom",
-    name: "Werfstroomkast (paddestoel)",
-    sub: "Nog geen elektriciteitskast op de werf? Wij verhuren een werfstroomverdeler mee, zodat alle toestellen meteen veilig kunnen draaien.",
-    price: 25,
-    unit: "per week",
-    perWeek: true,
-  },
-];
+export const EXTRAS: Extra[] = TARIEVEN.extras.map((x) => ({
+  k: x.k,
+  name: x.name,
+  sub: x.sub,
+  price: Number(x.price),
+  unit: x.unit,
+  perWeek: x.perWeek,
+}));
 
 /**
  * Pakketten worden altijd geleverd en geplaatst — zelf afhalen kan enkel bij
