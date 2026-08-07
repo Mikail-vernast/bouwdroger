@@ -238,7 +238,14 @@ export async function POST(request: Request): Promise<Response> {
                 regel weg te krijgen binnen embedded Checkout.
               */
               name: NO_LABEL,
-              images: [`${origin}/verhuur/logo-horizontal-black.png`],
+              /*
+                Eigen bestand, los van de logo's die de site zelf gebruikt. Die
+                staan als webp in de repo en Stripe haalt de afbeelding op met
+                een eigen client — van webp is niet zeker dat die verwerkt wordt,
+                dus hier blijft het bewust een PNG. Wordt dit ooit opgeruimd of
+                omgezet, dan verdwijnt het logo uit het betaalformulier.
+              */
+              images: [`${origin}/verhuur/checkout-logo.png`],
               /*
                 Eén uitzondering: kiest de klant om bij levering te betalen, dan
                 is het bedrag in beeld niet het totaal. Dat verschil hoort hij te
