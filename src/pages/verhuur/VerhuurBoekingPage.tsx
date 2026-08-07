@@ -66,6 +66,7 @@ const EXTRA_ICONS: Record<string, (props: { size?: number }) => JSX.Element> = {
 
 /** 1 dekking · 2 extra's · 3 datum · 4 gegevens · 5 betaling · 6 bevestiging. */
 const TOTAL_STEPS = 6;
+const STEP_DETAILS = 4;
 const STEP_PAY = 5;
 const STEP_DONE = 6;
 
@@ -231,6 +232,26 @@ const VerhuurBoekingPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  /*
+    Stripe.js alvast binnenhalen zodra de bezoeker zijn gegevens invult.
+
+    Zonder dit liep het serieel: eerst `POST /api/checkout` (ruim een seconde,
+    want daar zitten de beschikbaarheidscontrole en het aanmaken van de sessie
+    in), en pas als die terug was begon js.stripe.com te downloaden. Gemeten op
+    productie duurde het daardoor bijna vier seconden voor de betaalknoppen
+    bruikbaar waren.
+
+    Het gewone ingangspunt van `@stripe/stripe-js` injecteert het script als
+    neveneffect van de import — `loadStripe` hoeft daar niet voor aangeroepen te
+    worden, en de sleutel is hier dus nog niet nodig. Wie het formulier invult,
+    heeft die tijd toch nodig; tegen de tijd dat hij op betalen klikt staat
+    Stripe klaar. (`/pure` zou dit juist uitschakelen — niet gebruiken.)
+  */
+  useEffect(() => {
+    if (step !== STEP_DETAILS) return;
+    void import("@stripe/stripe-js");
+  }, [step]);
+
   const days = dryingDays(config);
   const start = startDate ? new Date(startDate) : null;
   const end = start ? addDays(start, RENTAL_DAYS) : null;
@@ -248,9 +269,23 @@ const VerhuurBoekingPage = () => {
     plaats van pas bij het afrekenen. De harde controle staat in
     `api/checkout.ts`; dit is er om die 409 te voorkomen, niet om hem te vervangen.
   */
-  const [blockedDates, setBlockedDates] = useState<string[]>([]);
+  const [horizonDates, setHorizonDates] = useState<string[]>([]);
   const [datesError, setDatesError] = useState("");
   const [loadingDates, setLoadingDates] = useState(false);
+
+  /*
+    Datums die `api/checkout` hard heeft afgewezen. Die horen apart van de lijst
+    hierboven: die reikt maar 60 dagen ver, en de fetch bij het terugkeren naar
+    deze stap overschreef de afwijzing meteen. Gevolg: de bezoeker belandde na een
+    409 op de datumstap zonder één woord uitleg, met de knop gewoon open — en liep
+    zo opnieuw tegen dezelfde volle dag aan.
+  */
+  const [rejectedDates, setRejectedDates] = useState<string[]>([]);
+
+  const blockedDates = useMemo(
+    () => [...new Set([...horizonDates, ...rejectedDates])],
+    [horizonDates, rejectedDates]
+  );
 
   useEffect(() => {
     if (step !== 3) return;
@@ -270,7 +305,7 @@ const VerhuurBoekingPage = () => {
       })
       .then((data) => {
         if (!active) return;
-        setBlockedDates(data.blocked_start_dates ?? []);
+        setHorizonDates(data.blocked_start_dates ?? []);
       })
       .catch(() => {
         if (!active) return;
@@ -279,7 +314,7 @@ const VerhuurBoekingPage = () => {
           precies de stille fout die deze wijziging moest wegnemen. De bezoeker
           krijgt te zien dat we het niet weten, en de knop blijft dicht.
         */
-        setBlockedDates([]);
+        setHorizonDates([]);
         setDatesError(
           "We kunnen op dit moment niet nakijken welke datums nog vrij zijn. Probeer het zo opnieuw, of bel ons op 03 689 90 65."
         );
@@ -294,6 +329,16 @@ const VerhuurBoekingPage = () => {
   }, [step, config, options]);
 
   const dateBlocked = blockedDates.includes(startDate);
+
+  /**
+   * Ligt de gekozen dag binnen het bereik dat `api/availability` nakijkt? Zo niet,
+   * dan weten we alleen wat de harde controle bij het afrekenen ons vertelde en
+   * kunnen we niets zeggen over de dagen eromheen.
+   */
+  const withinHorizon = useMemo(
+    () => startDate <= isoDate(addDays(new Date(), AVAILABILITY_HORIZON_DAYS)),
+    [startDate]
+  );
 
   /**
    * Eerstvolgende dag waarop dit pakket wél vrij is. Zoekt niet verder dan de
@@ -424,7 +469,16 @@ const VerhuurBoekingPage = () => {
         doen.
       */
       if (response.status === 409 && data.code === "niet_beschikbaar") {
-        setBlockedDates(data.blocked_start_dates ?? [startDate]);
+        /*
+          Onthouden dat déze dag geweigerd is, los van de horizonlijst — die wordt
+          bij het terugkeren naar stap 3 opnieuw opgehaald en zou de afwijzing
+          anders meteen wegvegen. Zo ziet de bezoeker wél waarom hij terug is, en
+          schuift de wizard hem naar de eerstvolgende vrije dag.
+        */
+        const geweigerd = data.blocked_start_dates?.length
+          ? data.blocked_start_dates
+          : [startDate];
+        setRejectedDates((prev) => [...new Set([...prev, ...geweigerd])]);
         setPayError("");
         setPaying(false);
         staleSession();
@@ -868,8 +922,18 @@ const VerhuurBoekingPage = () => {
                     <WarnIcon />
                     <div className="pt2">
                       Op <b>{start ? formatLongDate(start) : startDate}</b> staan onze toestellen voor
-                      dit pakket al ingepland, en de komende {AVAILABILITY_HORIZON_DAYS} dagen komt er
-                      niets vrij. Bel ons op 03 689 90 65 — vaak kunnen we schuiven.
+                      dit pakket al ingepland
+                      {/*
+                        Alleen zeggen dat er niets vrijkomt wanneer we dat ook echt
+                        nagekeken hebben. Buiten de horizon van `api/availability`
+                        weten we het niet, en dan is "er komt niets vrij" gewoon
+                        onwaar — zeker voor een datum een jaar verderop.
+                      */}
+                      {withinHorizon
+                        ? `, en de komende ${AVAILABILITY_HORIZON_DAYS} dagen komt er niets vrij`
+                        : ""}
+                      . Kies een andere dag hierboven, of bel ons op 03 689 90 65 — vaak kunnen we
+                      schuiven.
                     </div>
                   </div>
                 )}
