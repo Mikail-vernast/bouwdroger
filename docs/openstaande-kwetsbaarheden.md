@@ -1,9 +1,39 @@
 # Openstaande kwetsbaarheden
 
-Wat `npm audit` blijft melden, waarom het er nog staat, en waar de grens ligt.
-Bijwerken zodra een van de twee opgelost raakt.
+Wat er nog open staat, waarom, en waar de grens ligt. Bijwerken zodra er iets
+opgelost raakt.
 
-## react-router 6.30.4 — twee moderate meldingen
+## Gelekte Supabase-sleutel — twee acties open
+
+De anon-key van het Lovable-project stond in `.env`, meegecommit in `bbda355`
+en `6465e80`. Daarmee was `public.bookings` in dat project volledig leesbaar én
+schrijfbaar: naam, e-mail, telefoon, adres, btw-nummer.
+
+`main` is gepurged (`git filter-repo --invert-paths --path .env`, force-gepusht
+op 2026-08-06) en bevat de sleutel nul keer. Wat nog open staat:
+
+**1. GitHub bewaart de PR-refs.** `refs/pull/1..5/head` bevatten de sleutel nog.
+Die refs overleven het sluiten van de PR én het verwijderen van de branch, en er
+is geen API om ze te wissen. De repo verwijderen en opnieuw aanmaken is de enige
+self-service route; dat vraagt de `delete_repo`-scope:
+
+```
+gh auth refresh -h github.com -s delete_repo
+```
+
+Zet de repo *niet* private als tussenoplossing. Op een gratis account kost dat
+de secret scanning, de push protection, de Dependabot security updates én de
+branch protection op `main` — je ruilt de bescherming tegen de vólgende lek in
+voor het verbergen van de vorige. Geprobeerd en teruggedraaid op 2026-08-07.
+
+**2. Het Lovable-project pauzeren of verwijderen.** Supabase-project
+`xmyfedzvtjfpspriafza`. Dit is de belangrijkste van de twee: de sleutel is
+maanden publiek geweest en kan gescraped zijn, dus opruimen bij GitHub is
+opruimen achteraf. Het project pauzeren maakt de sleutel waardeloos ongeacht wie
+hem heeft. Het hangt aan het Lovable-account, niet aan de Supabase-org van
+Vernast — `supabase projects list` toont daar enkel Vernast V2.0.
+
+## react-router 6.30.4 — twee moderate meldingen uit npm audit
 
 | Advisory | Wat het is |
 |---|---|
