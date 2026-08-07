@@ -388,15 +388,13 @@ export interface Product {
   faq: [string, string][];
 }
 
-export const PRODUCTS: Record<string, Product> = {
+/**
+ * De toestelpagina's. Naam, dagprijs, badge, samenvatting en foto's komen uit
+ * het portaal (tab Pakketten → Tarieven bewerken); de lange teksten, specs en
+ * FAQ blijven hier staan — die zijn redactioneel en horen niet in een prijsveld.
+ */
+const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "badge" | "day" | "img" | "sum">> = {
   ttk170: {
-    name: "Ontvochtiger TTK 170 S",
-    short: "TTK 170 S",
-    type: "Condensontvochtiger",
-    badge: "Kleine ruimtes",
-    day: 18,
-    img: ["/vernast/eco-boost.webp", "/vernast/lineup-dryers.webp"],
-    sum: "Compacte, verrijdbare condensontvochtiger. De juiste keuze voor één kamer, een appartement of een kleinere renovatie.",
     key: [
       ["Vochtafvoer", "50", "L/dag"],
       ["Bereik", "250", "m³"],
@@ -444,13 +442,6 @@ export const PRODUCTS: Record<string, Product> = {
     ],
   },
   ttk350: {
-    name: "Ontvochtiger TTK 350 S",
-    short: "TTK 350 S",
-    type: "Condensontvochtiger",
-    badge: "Meest gehuurd",
-    day: 24,
-    img: ["/vernast/eco-performance.webp", "/vernast/lineup-dryers.webp"],
-    sum: "Ons meest gehuurde toestel en de standaard voor nieuwbouw. Droogt chape en pleisterwerk betrouwbaar binnen enkele dagen.",
     key: [
       ["Vochtafvoer", "70", "L/dag"],
       ["Bereik", "400", "m³"],
@@ -502,13 +493,6 @@ export const PRODUCTS: Record<string, Product> = {
     ],
   },
   ttk650: {
-    name: "Ontvochtiger TTK 650 S",
-    short: "TTK 650 S",
-    type: "Condensontvochtiger",
-    badge: "Grote volumes",
-    day: 34,
-    img: ["/vernast/eco-ultimate.webp", "/vernast/lineup-dryers.webp"],
-    sum: "Het zwaarste toestel in het gamma. Voor grote werven, kelders en waterschade waar elke dag telt.",
     key: [
       ["Vochtafvoer", "90", "L/dag"],
       ["Bereik", "600", "m³"],
@@ -560,13 +544,6 @@ export const PRODUCTS: Record<string, Product> = {
     ],
   },
   ttv4500: {
-    name: "Ventilator TTV 4500",
-    short: "TTV 4500",
-    type: "Bouwventilator · luchtcirculatie",
-    badge: "Versnelt elke droging",
-    day: 9,
-    img: ["/vernast/vent-axiaal.webp"],
-    sum: "Krachtige bouwventilator met 4 500 m³/u luchtverzet. Zorgt dat de droge lucht ook effectief langs muren en vloeren strijkt.",
     key: [
       ["Luchtverzet", "4 500", "m³/u"],
       ["Standen", "3", ""],
@@ -613,13 +590,6 @@ export const PRODUCTS: Record<string, Product> = {
     ],
   },
   teddh30: {
-    name: "Elektrische kachel TEddH 30 T",
-    short: "TEddH 30 T",
-    type: "Elektrische bouwkachel",
-    badge: "Voor koude ruimtes",
-    day: 29,
-    img: ["/vernast/kachel-30.webp"],
-    sum: "Elektrische bouwkachel van 30 kW met ingebouwde thermostaat. Brengt koude ruimtes op temperatuur zodat droging effectief wordt.",
     key: [
       ["Vermogen", "30", "kW"],
       ["Aansluiting", "400", "V"],
@@ -670,6 +640,30 @@ export const PRODUCTS: Record<string, Product> = {
     ],
   },
 };
+
+/**
+ * De volledige toestelpagina: bewerkbare velden uit het portaal, samengevoegd
+ * met de redactionele tekst hierboven.
+ */
+export const PRODUCTS: Record<string, Product> = Object.fromEntries(
+  Object.entries(PRODUCT_COPY).map(([key, copy]) => {
+    const t = TARIEVEN.products[key as keyof typeof TARIEVEN.products];
+    return [
+      key,
+      {
+        ...copy,
+        name: t.name,
+        short: t.short,
+        type: t.type,
+        badge: t.badge,
+        day: Number(t.day),
+        img: [...t.img],
+        sum: t.sum,
+      },
+    ];
+  })
+);
+
 
 export const PRODUCT_ORDER = ["ttk170", "ttk350", "ttk650", "ttv4500", "teddh30"];
 
