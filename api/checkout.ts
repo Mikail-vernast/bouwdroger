@@ -72,6 +72,38 @@ const INTEGRATION_ID = "vernast-verhuur-boeking-kwtdrmzp";
  */
 const HOLD_MINUTES = 30;
 
+/**
+ * Harde spatie (U+00A0) als productnaam. Stripe eist een niet-lege `name` op
+ * elke line item, maar rendert deze als niets — zo blijft er in het blokje
+ * boven het betaalformulier enkel het logo en het bedrag over.
+ */
+const NO_LABEL = " ";
+
+/**
+ * Hosts die de terugkeer-URL na het betalen mogen bepalen.
+ *
+ * `new URL(request.url).origin` komt uit de Host-header. Vercel routeert enkel
+ * domeinen die aan het project hangen, dus er valt hier weinig binnen te
+ * smokkelen — maar de URL waar Stripe de betaler naartoe stuurt is nu eenmaal
+ * niets om op een header te bouwen. Wat niet in de lijst staat, valt terug op
+ * het canonieke domein.
+ */
+const ALLOWED_HOSTS = [
+  // Preview-deploys draaien op een wisselende naam onder dit domein en moeten
+  // naar zichzelf terugkeren, anders test je de boeking op productie.
+  /^([a-z0-9-]+\.)*vercel\.app$/,
+  /^([a-z0-9-]+\.)*bouwdrogerservice\.be$/,
+];
+
+/** Waar we op terugvallen als de Host-header niet herkend wordt. */
+const CANONICAL_ORIGIN = "https://bouwdroger.vercel.app";
+
+function safeOrigin(request: Request): string {
+  const url = new URL(request.url);
+  const known = ALLOWED_HOSTS.some((pattern) => pattern.test(url.hostname));
+  return known ? url.origin : CANONICAL_ORIGIN;
+}
+
 export async function POST(request: Request): Promise<Response> {
   const limit = gate(clientIp(request));
 
@@ -121,7 +153,7 @@ export async function POST(request: Request): Promise<Response> {
   if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
 
   const reference = newReference();
-  const origin = new URL(request.url).origin;
+  const origin = safeOrigin(request);
   const query = configToQuery(config);
 
   /*
@@ -193,28 +225,31 @@ export async function POST(request: Request): Promise<Response> {
             // bij levering.
             unit_amount: toCents(summary.payable),
             product_data: {
-              name:
-                options.payment === "online"
-                  ? packageTitle(config)
-                  : `Orderbevestiging — ${packageTitle(config)}`,
               /*
-                Het blokje bovenaan het betaalformulier is van Stripe; wij
-                bepalen enkel wat erin staat. De volledige specificatie stond er
-                eerst als omschrijving onder, maar die herhaalt woordelijk het
-                overzicht dat rechts naast het formulier al staat. Wat overblijft
-                is logo, pakketnaam en bedrag.
+                Het blokje bovenaan het betaalformulier is van Stripe; wij vullen
+                enkel de line item die het toont. Daar stond eerst de volledige
+                pakketnaam en de specificatie onder de prijs — allebei woordelijk
+                hetzelfde als het overzicht dat rechts naast het formulier staat.
+                Wat overblijft is het logo en het bedrag.
 
-                Alleen bij betalen-bij-levering blijft er tekst staan: dan is het
-                bedrag in beeld niet het totaal, en dat verschil hoort de klant
-                te zien vóór hij afrekent.
+                `name` is verplicht en mag niet leeg zijn; Stripe weigert een
+                gewone spatie expliciet. Een harde spatie komt er wel door en
+                rendert als niets. Zonder dat foefje is er geen manier om die
+                regel weg te krijgen binnen embedded Checkout.
               */
+              name: NO_LABEL,
               images: [`${origin}/verhuur/logo-horizontal-black.png`],
+              /*
+                Eén uitzondering: kiest de klant om bij levering te betalen, dan
+                is het bedrag in beeld niet het totaal. Dat verschil hoort hij te
+                zien vóór hij afrekent, niet op de factuur erna.
+              */
               ...(options.payment === "online"
                 ? {}
                 : {
-                    description: `Saldo ${(summary.netTotal - summary.payable).toFixed(
-                      2,
-                    )} EUR te betalen bij levering`,
+                    description: `Orderbevestiging — saldo ${(
+                      summary.netTotal - summary.payable
+                    ).toFixed(2)} EUR bij levering`,
                   }),
             },
           },
@@ -270,7 +305,17 @@ export async function POST(request: Request): Promise<Response> {
 
     return json({ clientSecret: session.client_secret, publishableKey, reference });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Onbekende fout bij Stripe.";
-    return json({ error: `Betaling kon niet gestart worden: ${message}` }, 502);
+    /*
+      De reden blijft binnen. Stripe zet in zijn foutmeldingen dingen als welke
+      betaalmethodes op het account aan staan of welke parameter geweigerd werd;
+      dat is configuratie van ons, geen informatie waar een bezoeker iets mee
+      kan. In de logs staat ze wel, want daar moet ze te vinden zijn.
+    */
+    const message = error instanceof Error ? error.message : "onbekende fout";
+    console.error(`[checkout] sessie ${reference} niet aangemaakt bij Stripe: ${message}`);
+    return json(
+      { error: "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65." },
+      502,
+    );
   }
 }
