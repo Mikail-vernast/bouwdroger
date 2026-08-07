@@ -245,7 +245,7 @@ export async function POST(request: Request): Promise<Response> {
                 dus hier blijft het bewust een PNG. Wordt dit ooit opgeruimd of
                 omgezet, dan verdwijnt het logo uit het betaalformulier.
               */
-              images: [`${origin}/verhuur/checkout-logo.png`],
+              images: [`${origin}/verhuur/checkout-merk.png`],
               /*
                 Eén uitzondering: kiest de klant om bij levering te betalen, dan
                 is het bedrag in beeld niet het totaal. Dat verschil hoort hij te
