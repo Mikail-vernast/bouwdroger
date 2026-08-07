@@ -17,7 +17,6 @@ import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 import {
   configToQuery,
-  packageSpecLine,
   packageTitle,
   parseConfig,
   rentalWindow,
@@ -198,12 +197,25 @@ export async function POST(request: Request): Promise<Response> {
                 options.payment === "online"
                   ? packageTitle(config)
                   : `Orderbevestiging — ${packageTitle(config)}`,
-              description:
-                options.payment === "online"
-                  ? `${packageSpecLine(config)} · ${summary.weeks} weken huur`
-                  : `${packageSpecLine(config)} · ${summary.weeks} weken huur · saldo ${(
-                      summary.netTotal - summary.payable
-                    ).toFixed(2)} EUR bij levering`,
+              /*
+                Het blokje bovenaan het betaalformulier is van Stripe; wij
+                bepalen enkel wat erin staat. De volledige specificatie stond er
+                eerst als omschrijving onder, maar die herhaalt woordelijk het
+                overzicht dat rechts naast het formulier al staat. Wat overblijft
+                is logo, pakketnaam en bedrag.
+
+                Alleen bij betalen-bij-levering blijft er tekst staan: dan is het
+                bedrag in beeld niet het totaal, en dat verschil hoort de klant
+                te zien vóór hij afrekent.
+              */
+              images: [`${origin}/verhuur/logo-horizontal-black.png`],
+              ...(options.payment === "online"
+                ? {}
+                : {
+                    description: `Saldo ${(summary.netTotal - summary.payable).toFixed(
+                      2,
+                    )} EUR te betalen bij levering`,
+                  }),
             },
           },
         },
