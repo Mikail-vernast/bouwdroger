@@ -52,7 +52,13 @@ export async function GET(request: Request): Promise<Response> {
   const stripe = new Stripe(key);
 
   try {
-    const session = await stripe.checkout.sessions.retrieve(id);
+    // De charge komt mee omdat `deliverOrder` hieronder de betaalmethode
+    // (Apple Pay, iDEAL, …) doorstuurt naar het portaal. Zonder deze expand
+    // haalt die functie de sessie zelf een tweede keer op, midden in de
+    // bevestigingspagina van de klant.
+    const session = await stripe.checkout.sessions.retrieve(id, {
+      expand: ["payment_intent.latest_charge"],
+    });
     const reference = session.client_reference_id;
 
     // Geen boeking van deze site: behandel het als onbestaand, zodat dit

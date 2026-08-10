@@ -54,11 +54,16 @@ async function onlinePaymentMethod(
   if (session.payment_status !== "paid") return null;
 
   try {
-    const full = await stripe.checkout.sessions.retrieve(session.id, {
-      expand: ["payment_intent.latest_charge"],
-    });
+    // De terugkeerroute haalt de sessie al mét charge op; die hoeft niet nog
+    // eens over de lijn. Het webhook-event bevat alleen de ID's, dus daar wel.
+    const expanded =
+      typeof session.payment_intent === "object" && session.payment_intent?.latest_charge
+        ? session
+        : await stripe.checkout.sessions.retrieve(session.id, {
+            expand: ["payment_intent.latest_charge"],
+          });
 
-    const intent = full.payment_intent;
+    const intent = expanded.payment_intent;
     if (!intent || typeof intent === "string") return null;
 
     const charge = intent.latest_charge;
