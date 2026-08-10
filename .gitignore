@@ -27,3 +27,6 @@ dist-ssr
 
 # Lokale Supabase-CLI-state, hoort niet in een publieke repo
 supabase/.temp/
+
+# tsc --noEmit laat deze achter; ze horen bij de machine, niet bij de repo.
+*.tsbuildinfo
