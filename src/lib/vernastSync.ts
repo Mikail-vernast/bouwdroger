@@ -55,9 +55,36 @@ export interface VernastOrderPayload {
   order_lines?: DeviceLine[] | null;
   customer_note?: string | null;
 
+  /**
+   * Wat de klant in totaal voor deze order betaalt, inclusief btw. Het portaal
+   * toont dit als "Ordertotaal · incl. btw" en trekt er `amount_paid` van af.
+   */
   total_price?: number | null;
+  /**
+   * De btw in `total_price`. Het portaal toont de bestelling als factuur —
+   * catalogusregels excl. btw, dan deze regel, dan het brutototaal — en kan
+   * zonder dit veld de twee niet uit elkaar houden.
+   */
+  vat_amount?: number | null;
   currency?: string | null;
   payment_status?: "unpaid" | "paid" | "refunded";
+  /**
+   * Welke betaalkeuze de klant maakte: alles vooraf (`online`, met korting) of
+   * enkel de orderbevestiging waarna de chauffeur de rest int (`levering`).
+   */
+  payment_choice?: "online" | "levering" | null;
+  /**
+   * Wat er effectief geïnd is, inclusief btw — niet wat de order kost. Bij een
+   * voorschot is dat enkel de orderbevestiging.
+   *
+   * Zonder dit veld leidt het portaal het bedrag af uit `payment_status`, en
+   * dan ziet een voorschot eruit als een volledig betaalde order.
+   */
+  amount_paid?: number | null;
+  /** Wat er na `amount_paid` nog openstaat, inclusief btw. */
+  balance_due?: number | null;
+  /** De online-korting, inclusief btw zodat ze bij `total_price` past. */
+  discount_amount?: number | null;
   stripe_session_id?: string | null;
   paid_at?: string | null;
   /**

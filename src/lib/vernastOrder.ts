@@ -81,13 +81,68 @@ async function onlinePaymentMethod(
   }
 }
 
+/** Bedragen blijven op de cent; anders kruipt er drift in het saldo. */
+function round2(value: number): number {
+  return Math.round(value * 100) / 100;
+}
+
+/** Een metadata-bedrag als getal, of `null` als de sleutel er niet staat. */
+function amount(session: Stripe.Checkout.Session, key: string): number | null {
+  const raw = meta(session, key);
+  if (raw === null) return null;
+  const value = Number(raw);
+  return Number.isFinite(value) ? value : null;
+}
+
 export function sessionToVernast(
   session: Stripe.Checkout.Session,
   onlineMethod: string | null = null,
 ): VernastOrderPayload {
   const { first, last } = splitName(meta(session, "klant"));
-  const totaal = meta(session, "totaal");
   const paid = session.payment_status === "paid";
+
+  /*
+    Alle bedragen naar het portaal zijn bruto. Dat is wat er in en uit de kassa
+    gaat: de chauffeur int een brutobedrag, Stripe boekt een brutobedrag, en het
+    portaal zet ze naast elkaar. De btw-opsplitsing hoort thuis op de factuur,
+    niet in een werklijst.
+
+    Tot nu ging hier `totaal` naartoe — het bedrag excl. btw — terwijl het
+    portaal het als "incl. btw" toont. Zelfs mét het effectief betaalde bedrag
+    erbij kwam daar dan een saldo uit dat niemand ooit gaat innen.
+  */
+  const grossTotal = amount(session, "totaal_incl_btw");
+  // Sessies van vóór de btw-wijziging kennen enkel het nettobedrag. Dat is dan
+  // het beste dat we hebben; beter iets dan een order zonder totaal.
+  const total = grossTotal ?? amount(session, "totaal") ?? (session.amount_total ?? 0) / 100;
+
+  /*
+    Wat Stripe effectief geïncasseerd heeft. Bewust de sessie en niet de
+    metadata: die laatste zegt wat het had moeten zijn, `amount_total` zegt wat
+    het geworden is.
+
+    Zolang de betaling nog loopt — Bancontact of iDEAL waarbij de betaler hier
+    al passeert — is er nog niets binnen en staat het volledige bedrag open.
+  */
+  const amountPaid = paid ? round2((session.amount_total ?? 0) / 100) : 0;
+  const balanceDue = paid
+    ? (amount(session, "saldo_bij_levering") ?? round2(Math.max(0, total - amountPaid)))
+    : total;
+
+  /*
+    De btw apart erbij, zodat het portaal de bestelling nog steeds als factuur
+    kan tonen: catalogusregels excl. btw, één btw-regel, en daaronder het
+    brutototaal hierboven. Zonder dit veld zou de btw stilzwijgend in de
+    pakketregel verdwijnen en klopte geen enkele regel meer met de
+    bevestigingsmail van de klant.
+  */
+  const vat = amount(session, "btw");
+
+  // Netto, net als de catalogusprijzen waar ze op slaat en net als in de
+  // bevestigingsmail — de btw-regel eronder rekent er alsnog mee af.
+  const discount = amount(session, "korting");
+
+  const choice = meta(session, "betaalwijze");
 
   return {
     source: "stripe",
@@ -117,9 +172,14 @@ export function sessionToVernast(
     duration_days: Number(meta(session, "huurdagen")) || null,
     order_lines: parseDeviceLines(meta(session, "toestellen")),
     customer_note: meta(session, "regels"),
-    total_price: totaal ? Number(totaal) : (session.amount_total ?? 0) / 100,
+    total_price: total,
     currency: (session.currency ?? "eur").toUpperCase(),
     payment_status: paid ? "paid" : "unpaid",
+    vat_amount: vat,
+    payment_choice: choice === "online" || choice === "levering" ? choice : null,
+    amount_paid: amountPaid,
+    balance_due: balanceDue,
+    discount_amount: discount,
     stripe_session_id: session.id,
     // Stripe geeft seconden, Postgres wil ISO.
     paid_at: paid ? new Date((session.created ?? 0) * 1000).toISOString() : null,
