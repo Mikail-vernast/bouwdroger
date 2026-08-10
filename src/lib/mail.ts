@@ -33,8 +33,12 @@ export type MailKey =
   | "aanvraag_ontvangen"
   /** Klant: contactformulier binnen. */
   | "contact_ontvangen"
+  /** Klant: afhaalreservatie bevestigd (betaald of op factuur). */
+  | "afhaal_bevestigd"
   /** Team: nieuwe betaalde boeking. */
   | "intern_boeking"
+  /** Team: nieuwe afhaalreservatie. */
+  | "intern_afhaal"
   /** Team: nieuwe aanvraag, actie vereist. */
   | "intern_aanvraag"
   /** Team: bericht via het contactformulier. */
@@ -52,7 +56,9 @@ export const TEMPLATE_ENV: Record<MailKey, string> = {
   ophaling_verlengen: "BREVO_TPL_OPHALING_VERLENGEN",
   aanvraag_ontvangen: "BREVO_TPL_AANVRAAG_ONTVANGEN",
   contact_ontvangen: "BREVO_TPL_CONTACT_ONTVANGEN",
+  afhaal_bevestigd: "BREVO_TPL_AFHAAL_BEVESTIGD",
   intern_boeking: "BREVO_TPL_INTERN_BOEKING",
+  intern_afhaal: "BREVO_TPL_INTERN_AFHAAL",
   intern_aanvraag: "BREVO_TPL_INTERN_AANVRAAG",
   intern_contact: "BREVO_TPL_INTERN_CONTACT",
   intern_alarm: "BREVO_TPL_INTERN_ALARM",
@@ -93,6 +99,7 @@ const INTERNAL_SUBJECT: Partial<Record<MailKey, (p: Record<string, unknown>) => 
   intern_contact: (p) => `Bericht via het contactformulier — ${plain(p.naam) || "onbekend"}`,
   intern_aanvraag: (p) => `Nieuwe aanvraag — ${plain(p.referentie)}`,
   intern_boeking: (p) => `Nieuwe betaalde boeking — ${plain(p.referentie)}`,
+  intern_afhaal: (p) => `Afhaalreservatie — ${plain(p.referentie)} (${plain(p.leverdatum)})`,
   intern_alarm: (p) => `ORDER NIET DOORGEKOMEN — ${plain(p.referentie)}`,
 };
 
@@ -100,6 +107,63 @@ function plain(value: unknown): string {
   if (value === null || value === undefined) return "";
   return String(value).trim();
 }
+
+/** Waar een klant ons bereikt als hij op zo'n tekstmail wil reageren. */
+const TELEFOON = "03 689 90 65";
+
+/**
+ * De twee ontvangstbevestigingen die als kale tekstmail mogen vertrekken zolang
+ * hun sjabloon niet ingesteld staat, met een eigen tekst in plaats van de
+ * parameterdump van `paramsToText` — een klant hoort geen veldnamen te lezen.
+ *
+ * Waarom deze uitzondering op "klantmail is sjabloon-only": in productie stonden
+ * `BREVO_TPL_AANVRAAG_ONTVANGEN` en `BREVO_TPL_CONTACT_ONTVANGEN` niet
+ * ingesteld, dus `send()` sloeg ze over. Wie het contactformulier invulde kreeg
+ * dus niets terug — exact het gedrag dat het formulier vóór `api/contact.ts` al
+ * had, alleen nu een laag dieper. Een ontvangstbevestiging bestaat om te zeggen
+ * "het is aangekomen"; die boodschap overleeft het verlies van opmaak prima.
+ *
+ * De andere klantmails blijven wél sjabloon-only. `boeking_betaald`,
+ * `levering_morgen` en `ophaling_verlengen` dragen bedragen, datums en een
+ * knop — zonder opmaak worden dat regels tekst die de klant verkeerd leest, en
+ * daar is geen mail beter dan een lelijke.
+ */
+const CUSTOMER_FALLBACK: Partial<
+  Record<MailKey, (p: Record<string, unknown>) => { subject: string; text: string }>
+> = {
+  contact_ontvangen: (p) => ({
+    subject: "Wij hebben uw bericht goed ontvangen",
+    text: [
+      `Dag ${plain(p.naam) || "klant"},`,
+      "",
+      "Wij hebben uw bericht goed ontvangen en nemen zo snel mogelijk contact met u op.",
+      "",
+      "Uw bericht:",
+      plain(p.bericht),
+      "",
+      "Met vriendelijke groeten,",
+      `Vernast Bouwdrogers — ${TELEFOON}`,
+    ].join("\n"),
+  }),
+  aanvraag_ontvangen: (p) => ({
+    subject: `Wij hebben uw aanvraag goed ontvangen — ${plain(p.referentie)}`,
+    text: [
+      `Dag ${plain(p.klant_naam) || "klant"},`,
+      "",
+      "Wij hebben uw aanvraag goed ontvangen. Dit is nog geen bevestiging: wij kijken",
+      "de beschikbaarheid na en bellen u terug om alles vast te leggen.",
+      "",
+      `Referentie: ${plain(p.referentie)}`,
+      plain(p.toestellen) ? `Toestellen: ${plain(p.toestellen)}` : "",
+      plain(p.leverdatum) ? `Gewenste leverdatum: ${plain(p.leverdatum)}` : "",
+      "",
+      "Met vriendelijke groeten,",
+      `Vernast Bouwdrogers — ${TELEFOON}`,
+    ]
+      .filter((line, i, all) => line !== "" || all[i - 1] !== "")
+      .join("\n"),
+  }),
+};
 
 /** De parameters als leesbare regels, voor een mail zonder sjabloon. */
 function paramsToText(params: Record<string, unknown>): string {
@@ -133,6 +197,29 @@ async function send(
     bleek.
   */
   if (!id) {
+    /*
+      Eerst de klantbevestigingen: die krijgen een geschreven tekst mee, niet de
+      parameterdump waar de interne meldingen genoeg aan hebben.
+    */
+    const forCustomer = CUSTOMER_FALLBACK[key];
+    if (forCustomer) {
+      const { subject, text } = forCustomer(params);
+      console.warn(
+        `[mail] ${key}: ${TEMPLATE_ENV[key]} staat niet ingesteld, verstuurd als tekstmail.`,
+      );
+      const plainResult = await sendPlain({
+        to,
+        subject,
+        text,
+        replyTo,
+        tags: [key, "zonder-sjabloon"],
+      });
+      if (!plainResult.ok) {
+        console.error(`[mail] ${key} naar ${to.email} mislukt: ${plainResult.reason}`);
+      }
+      return;
+    }
+
     const subject = INTERNAL_SUBJECT[key];
     if (!subject) {
       console.warn(`[mail] ${key} overgeslagen: ${TEMPLATE_ENV[key]} staat niet ingesteld.`);
@@ -493,6 +580,8 @@ export interface DeliveryReminderFacts {
   zip: string;
   city: string;
   orderUrl: string;
+  /** Extra info bij het adres; zelfde blok als in sjabloon 198. */
+  deliveryNotes?: string;
 }
 
 /**
@@ -584,6 +673,34 @@ export async function sendPaidBookingMails(facts: PaidBookingFacts): Promise<voi
   await Promise.all([
     send("boeking_betaald", to, forCustomer),
     send("intern_boeking", teamRecipient(), { ...orderParams(facts.payload), ...forCustomer }, to ?? undefined),
+  ]);
+}
+
+/**
+ * Afhaalreservatie: bevestiging aan de klant én een melding aan het team.
+ *
+ * Bewust niet `boeking_betaald`: dat sjabloon belooft een chauffeur, een
+ * leveradres en een installatie. Bij afhalen komt niemand langs — daar telt waar
+ * het magazijn ligt en wanneer het openstaat. Eén verkeerde bevestigingsmail en
+ * de klant staat thuis te wachten op iets wat hij zelf moet komen halen.
+ */
+export async function sendPickupMails(payload: VernastOrderPayload): Promise<void> {
+  const to = customer(payload);
+  const params = {
+    ...orderParams(payload),
+    afhaaldatum: formatWeekday(payload.delivery_date ?? payload.rental_start_date),
+    afhaalmoment: payload.delivery_slot ?? "",
+    afhaalpunt: "Boomsesteenweg 12, Unit 11, 2630 Aartselaar",
+    terugbrengen: formatWeekday(payload.rental_end_date),
+    betaald_bedrag: euro(payload.amount_paid ?? 0),
+    openstaand: euro(payload.balance_due ?? 0),
+  };
+
+  await Promise.all([
+    // Het adres komt uit het formulier, dus langs dezelfde drempel als de andere
+    // bevestigingen die iemand op een willekeurig slachtoffer kan richten.
+    sendToSelfChosenAddress("afhaal_bevestigd", to, params),
+    send("intern_afhaal", teamRecipient(), params, to ?? undefined),
   ]);
 }
 

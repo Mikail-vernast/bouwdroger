@@ -19,6 +19,15 @@
  */
 import { getPackageById } from "../data/packages.js";
 import { products } from "../data/products.js";
+import {
+  normalizeDays,
+  normalizeSlot,
+  parseSelection,
+  pickupSummary,
+  type PickupLine,
+  type PickupSummary,
+} from "./afhalen.js";
+import { isoDate } from "./verhuur.js";
 
 /** Velden die het boekingsformulier legitiem invult. */
 const BOOKING_FIELDS = [
@@ -146,4 +155,91 @@ export function bookingRow(data: Row): Row {
 /** Idem voor een reservering; die kent geen bedrag in het formulier. */
 export function reserveringRow(data: Row): Row {
   return pickAllowed(data, RESERVERING_FIELDS);
+}
+
+/* ============================================================
+   Afhaalreservatie — losse toestellen, zelf ophalen
+   ============================================================ */
+
+/** Wat een klant maximaal kan huren zonder dat wij eerst bellen. */
+const MAX_PICKUP_UNITS = 20;
+
+export interface AfhaalOrder {
+  lines: PickupLine[];
+  summary: PickupSummary;
+  days: number;
+  /** ISO-afhaaldatum, of `null` als er geen bruikbare datum meegestuurd is. */
+  date: string | null;
+  slot: string;
+  customerType: "particulier" | "zakelijk";
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  company: string;
+  vatNumber: string;
+  notes: string;
+}
+
+function text(value: unknown, max: number): string {
+  if (value === null || value === undefined) return "";
+  return String(value).trim().slice(0, max);
+}
+
+/**
+ * Een afhaaldatum die vandaag of later valt. Een datum in het verleden is geen
+ * vergissing die we stilzwijgend rechtzetten: dan staat er straks een order in
+ * het portaal voor een dag die al voorbij is.
+ */
+function pickupDate(value: unknown): string | null {
+  const raw = text(value, 20);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return null;
+  const date = new Date(`${raw}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return null;
+  return raw >= isoDate(new Date()) ? raw : null;
+}
+
+/**
+ * De afhaalreservatie zoals de server hem leest: alleen bekende toestellen,
+ * alleen een periode en een afhaalmoment uit de lijst, en een bedrag dat hier
+ * berekend wordt uit de gepubliceerde tarieven. Wat de browser als totaal
+ * meestuurt, komt er niet eens in.
+ */
+export function afhaalOrder(data: Row): AfhaalOrder {
+  const lines = capUnits(parseSelection(text(data.lines, 300)));
+  const days = normalizeDays(data.days);
+  const name = text(data.name, 200);
+  const space = name.indexOf(" ");
+
+  return {
+    lines,
+    summary: pickupSummary(lines, days),
+    days,
+    date: pickupDate(data.date),
+    slot: normalizeSlot(data.slot),
+    customerType: data.customer_type === "zakelijk" ? "zakelijk" : "particulier",
+    firstName: space > 0 ? name.slice(0, space) : name,
+    lastName: space > 0 ? name.slice(space + 1) : "",
+    email: text(data.email, 200),
+    phone: text(data.phone, 40),
+    address: text(data.address, 250),
+    company: text(data.company_name, 200),
+    vatNumber: text(data.vat_number, 40),
+    notes: text(data.notes, 2000),
+  };
+}
+
+/** Kapt de bestelling af op wat wij zonder overleg kunnen klaarzetten. */
+function capUnits(lines: PickupLine[]): PickupLine[] {
+  const out: PickupLine[] = [];
+  let units = 0;
+  for (const line of lines) {
+    const room = MAX_PICKUP_UNITS - units;
+    if (room <= 0) break;
+    const qty = Math.min(line.qty, room);
+    out.push({ ...line, qty });
+    units += qty;
+  }
+  return out;
 }

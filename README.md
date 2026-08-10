@@ -111,7 +111,9 @@ sjabloon klaar is.
 | `BREVO_TPL_LEVERING_MORGEN` | klant: wij leveren morgen (sjabloon 199, dagelijkse cron) |
 | `BREVO_TPL_AANVRAAG_ONTVANGEN` | klant: aanvraag binnen, nog geen bevestiging |
 | `BREVO_TPL_CONTACT_ONTVANGEN` | klant: kopie van zijn contactbericht |
+| `BREVO_TPL_AFHAAL_BEVESTIGD` | klant: afhaalreservatie bevestigd — magazijnadres en afhaalmoment, geen levering |
 | `BREVO_TPL_INTERN_BOEKING` | team: nieuwe betaalde boeking |
+| `BREVO_TPL_INTERN_AFHAAL` | team: nieuwe afhaalreservatie (valt terug op tekstmail zonder sjabloon) |
 | `BREVO_TPL_INTERN_AANVRAAG` | team: nieuwe aanvraag, actie vereist |
 | `BREVO_TPL_INTERN_CONTACT` | team: bericht uit het contactformulier |
 | `BREVO_TPL_INTERN_ALARM` | team: een order raakte niet in het portaal |

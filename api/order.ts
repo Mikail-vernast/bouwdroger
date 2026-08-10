@@ -17,12 +17,16 @@
  * dat hij geboekt heeft terwijl er nergens iets staat.
  */
 import { randomUUID } from "node:crypto";
-import { alertSyncFailure, sendRequestMails } from "../src/lib/mail.js";
+import { checkOne, logAvailabilityFailure } from "../src/lib/availability.js";
+import { pickupCounts, pickupDeviceLines, pickupLabel } from "../src/lib/afhalen.js";
+import { newReference } from "../src/lib/booking.js";
+import { alertSyncFailure, sendPickupMails, sendRequestMails } from "../src/lib/mail.js";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync.js";
-import { bookingRow, reserveringRow } from "../src/lib/orderIntake.js";
+import { afhaalOrder, bookingRow, reserveringRow, type AfhaalOrder } from "../src/lib/orderIntake.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
+import { rentalWindow } from "../src/lib/verhuur.js";
 
-type Kind = "booking" | "reservering";
+type Kind = "booking" | "reservering" | "afhaal";
 
 interface OrderBody {
   kind?: Kind;
@@ -103,6 +107,74 @@ function reserveringToVernast(row: Record<string, unknown>, id: string): Vernast
   };
 }
 
+/**
+ * Afhaalreservatie → payload voor het Vernast-portaal.
+ *
+ * Een afhaling is geen levering, en dat verschil moet in het portaal meteen te
+ * zien zijn: de chauffeur rijdt hier niet. Vandaar `situatie: "afhaling"`, een
+ * afhaalmoment in `delivery_slot` en het adres van het magazijn nergens — het
+ * adresveld blijft dat van de klant, voor de factuur.
+ *
+ * `order_lines` draagt de toestelsoorten waarmee de webhook aan de andere kant
+ * automatisch materieel vastlegt. Zonder die regels zou een afhaalorder de
+ * voorraad niet bezetten en dus twee keer verhuurd kunnen worden.
+ */
+function afhaalToVernast(
+  order: AfhaalOrder,
+  id: string,
+  reference: string,
+): VernastOrderPayload {
+  const period = order.date ? rentalWindow(order.date, order.days) : null;
+  const counts = pickupCounts(order.lines);
+  const devices = pickupLabel(order.lines);
+
+  return {
+    source: "booking",
+    external_id: id,
+    order_number: reference,
+    customer_type: order.customerType,
+    first_name: order.firstName,
+    last_name: order.lastName,
+    email: order.email,
+    phone: order.phone,
+    address: order.address,
+    company_name: order.company || null,
+    vat_number: order.vatNumber || null,
+    product_id: order.lines[0]?.product.key ?? null,
+    machine: devices,
+    situatie: "afhaling",
+    duration_days: order.days,
+    duration_label: `${order.days} dagen`,
+    rental_start_date: period?.start ?? order.date,
+    rental_end_date: period?.end ?? null,
+    delivery_date: order.date,
+    delivery_slot: `Afhalen ${order.slot}`,
+    equipment_drogers: counts.drogers,
+    equipment_ventilatoren: counts.ventilatoren,
+    equipment_verwarming: counts.verwarming,
+    order_lines: pickupDeviceLines(order.lines),
+    customer_note: [
+      `AFHALING in het magazijn (geen levering) — ${order.slot}.`,
+      `Toestellen: ${devices}.`,
+      order.notes,
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    /*
+      Bruto, zoals bij een pakket sinds 10-08-2026: het portaal toont
+      `total_price` als "Ordertotaal · incl. btw" en haalt de btw uit
+      `vat_amount`. Er is niets vooruitbetaald — bij afhalen volgt de factuur na
+      de huurperiode — dus staat het volledige bedrag open.
+    */
+    total_price: order.summary.gross,
+    vat_amount: order.summary.vat,
+    currency: "EUR",
+    payment_status: "unpaid",
+    amount_paid: 0,
+    balance_due: order.summary.gross,
+  };
+}
+
 export async function POST(request: Request): Promise<Response> {
   // Twee drempels: een ruime op alles wat binnenkomt, en een strakke op wat er
   // effectief een order van wordt. Zie src/lib/rateLimit.ts.
@@ -119,7 +191,7 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const kind = body.kind;
-  if (kind !== "booking" && kind !== "reservering") {
+  if (kind !== "booking" && kind !== "reservering" && kind !== "afhaal") {
     return json({ error: "Onbekend ordertype." }, 400);
   }
 
@@ -139,6 +211,8 @@ export async function POST(request: Request): Promise<Response> {
   const accepted = limit.accept();
   if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
 
+  if (kind === "afhaal") return afhaal(data);
+
   // Alleen de velden die het formulier hoort te sturen, met status en bedrag
   // door de server bepaald. Zie src/lib/orderIntake.ts.
   const row = kind === "booking" ? bookingRow(data) : reserveringRow(data);
@@ -156,22 +230,34 @@ export async function POST(request: Request): Promise<Response> {
   const payload =
     kind === "booking" ? bookingToVernast(row, id) : reserveringToVernast(row, id);
 
+  return deliver(payload, `${kind} ${id}`, { id });
+}
+
+/**
+ * Duwt de order naar het portaal, verwittigt klant en team, en bepaalt wat de
+ * bezoeker te zien krijgt.
+ *
+ * Mislukt de push, dan is er nergens iets bewaard en moet de bezoeker dat weten.
+ * Vroeger mocht dit stil falen omdat de order dan nog in een tweede database
+ * stond; die is er niet meer. Iemand "bedankt voor uw reservering" tonen terwijl
+ * er niets is aangekomen, is de ergste uitkomst van de twee — dan belt hij pas
+ * als de droger er niet is.
+ *
+ * De reden zelf blijft binnen: die staat in de logs, niet in het antwoord.
+ */
+async function deliver(
+  payload: VernastOrderPayload,
+  context: string,
+  extra: Record<string, unknown>,
+  mails: (payload: VernastOrderPayload) => Promise<void> = sendRequestMails,
+): Promise<Response> {
   const sync = await pushOrderToVernast(payload);
-  logSyncFailure(`${kind} ${id}`, sync);
+  logSyncFailure(context, sync);
 
-  /*
-    Mislukt de push, dan is er nergens iets bewaard en moet de bezoeker dat
-    weten. Vroeger mocht dit stil falen omdat de order dan nog in de tweede
-    database stond; die is er niet meer. Iemand "bedankt voor uw reservering"
-    tonen terwijl er niets is aangekomen, is de ergste uitkomst van de twee —
-    dan belt hij pas als de droger niet geleverd wordt.
-
-    De reden zelf blijft binnen: die staat in de logs, niet in het antwoord.
-  */
   if (!sync.ok) {
     // Zichtbaar maken wat anders alleen in de Vercel-logs staat: hier gaat een
-    // aanvraag verloren van iemand die op een levering rekent.
-    await alertSyncFailure(`${kind} ${id}`, sync.reason, payload);
+    // aanvraag verloren van iemand die op een levering of afhaling rekent.
+    await alertSyncFailure(context, sync.reason, payload);
     return json(
       { error: "Uw aanvraag kon niet doorgegeven worden. Probeer het opnieuw of bel ons." },
       502
@@ -186,7 +272,60 @@ export async function POST(request: Request): Promise<Response> {
     Mail is nooit een reden om de bezoeker een fout te tonen — de aanvraag staat
     dan al in het portaal. `sendRequestMails` gooit niet en logt zelf.
   */
-  await sendRequestMails(payload);
+  await mails(payload);
 
-  return json({ ok: true, id });
+  return json({ ok: true, ...extra });
+}
+
+/**
+ * Een afhaalreservatie van de pagina met losse toestellen.
+ *
+ * Die pagina bevestigde tot nu toe met een verzonnen referentienummer en stuurde
+ * niets door: de bezoeker las "uw afhaalreservatie staat vast" terwijl er
+ * nergens iets stond. Vandaar dat elke controle hier hard is — zonder toestel,
+ * datum of naam valt er niets klaar te zetten, en dan is een foutmelding beter
+ * dan een order die niemand ziet.
+ */
+async function afhaal(data: Record<string, unknown>): Promise<Response> {
+  const order = afhaalOrder(data);
+
+  if (!order.lines.length) return json({ error: "Kies eerst minstens één toestel." }, 400);
+  if (!order.date) return json({ error: "Kies een afhaaldatum vanaf vandaag." }, 400);
+  if (!order.firstName) return json({ error: "Vul uw naam in." }, 400);
+  if (!order.phone) return json({ error: "Vul uw telefoonnummer in." }, 400);
+  if (order.customerType === "zakelijk" && (!order.company || !order.vatNumber)) {
+    return json({ error: "Vul uw bedrijfsnaam en btw-nummer in." }, 400);
+  }
+
+  /*
+    Dezelfde controle als bij een pakket: een afhaling legt echte toestellen
+    vast. Faalt de oproep zelf, dan gaat de reservatie door — de planner ziet ze
+    in het portaal en kan bijsturen. Wat geen `device_key` heeft (de TTK 650)
+    valt buiten de controle; daar is aan de andere kant nog geen soort voor.
+  */
+  const devices = pickupDeviceLines(order.lines);
+  if (devices.length) {
+    const availability = await checkOne(order.date, order.days, devices);
+    if (availability.answer?.available === false) {
+      return json(
+        {
+          error:
+            "Op die datum staan deze toestellen al ingepland. Kies een andere afhaaldatum, of bel ons op 03 689 90 65 — vaak kunnen we alsnog schuiven.",
+          code: "niet_beschikbaar",
+        },
+        409,
+      );
+    }
+    logAvailabilityFailure(`afhaal ${order.date}`, availability);
+  }
+
+  const id = randomUUID();
+  const reference = newReference();
+
+  return deliver(
+    afhaalToVernast(order, id, reference),
+    `afhaal ${id}`,
+    { id, reference },
+    sendPickupMails,
+  );
 }

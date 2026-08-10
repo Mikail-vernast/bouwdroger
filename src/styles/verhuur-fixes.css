@@ -108,3 +108,40 @@
     margin: 0 auto;
   }
 }
+
+/* 8 — Afhaalpagina: de knop "Reserveer voor afhaling" stond in het design uit
+   zodra er iets ontbrak, zonder te zeggen wát. Wie alles ingevuld dacht te
+   hebben, bleef tegen een dode knop duwen. De knop blijft nu klikbaar en de
+   pagina toont de openstaande punten en fouten hieronder — in de donkere
+   zijkolom, dus licht op rood. */
+.vh-pick .side .bf .miss,
+.vh-pick .side .bf .err {
+  margin: 12px 0 0;
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+.vh-pick .side .bf .miss {
+  list-style: none;
+}
+
+.vh-pick .side .bf .miss li {
+  padding-left: 15px;
+  position: relative;
+}
+
+.vh-pick .side .bf .miss li + li {
+  margin-top: 5px;
+}
+
+.vh-pick .side .bf .miss li::before {
+  content: "!";
+  position: absolute;
+  left: 0;
+  font-weight: 800;
+}

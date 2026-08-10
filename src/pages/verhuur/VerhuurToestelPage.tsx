@@ -12,15 +12,14 @@ import {
   SC_LABEL,
   type Product,
 } from "@/data/verhuur";
+import { PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
+import { serializeSelection } from "@/lib/afhalen";
 import { addDays, euroInt, isoDate } from "@/lib/verhuur";
 import { breadcrumbSchema, faqSchema, productSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 
 const MAX_QTY = 12;
-/** Kortingsdrempels: vanaf een week − 10 %, vanaf een maand − 30 %. */
-/** Afhaalmomenten in het magazijn, zoals in het design. */
-const PICKUP_SLOTS = ["08:00 – 10:00", "10:00 – 12:00", "13:00 – 15:00", "15:00 – 17:00"];
 
 /**
  * Vragen die op elke toestelpagina onder de toestelspecifieke FAQ komen: ze
@@ -64,13 +63,12 @@ const PICKUP_STEPS = [
   },
 ];
 
-const PERIODS: [number, string][] = [
-  [3, "3 dagen"],
-  [7, "1 week"],
-  [14, "2 weken"],
-  [30, "1 maand"],
-  [60, "2 maanden"],
-];
+/*
+  Periodes en afhaalmomenten komen uit `data/afhalen.ts`, dezelfde lijst als de
+  afhaal-checkout. Stonden ze hier apart, dan kon een keuze onderweg stilzwijgend
+  iets anders worden — en die pagina weigert nu wat ze niet kent.
+*/
+const PERIODS = PICKUP_PERIODS;
 
 const NAV_MODELS: [string, string][] = [
   ["ttk170", "Ontvochtiger TTK 170 S"],
@@ -112,6 +110,19 @@ const VerhuurToestelPage = () => {
   // De afhaalpagina rekent geen week- of maandkorting: de afhaalprijzen liggen
   // al lager dan de pakketprijs.
   const total = base + addTotal;
+
+  /*
+    Wat de bezoeker hier instelt, gaat mee naar de afhaal-checkout. Zonder deze
+    parameters landde hij daar met een leeg formulier en moest hij toestel,
+    aantal, periode en afhaalmoment opnieuw kiezen — terwijl hij dat net had
+    gedaan. De pagina aan de andere kant leest ze met `parseSelection`.
+  */
+  const pickupQuery = new URLSearchParams({
+    d: serializeSelection({ [key]: qty, ...Object.fromEntries(chosenAddons.map((k) => [k, 1])) }),
+    days: String(days),
+    date: startDate,
+    slot,
+  }).toString();
 
   const cross = PRODUCT_ORDER.filter((k) => k !== key);
   const vol = searchParams.get("vol");
@@ -348,7 +359,7 @@ const VerhuurToestelPage = () => {
                   </div>
                 </div>
                 <div className="bf">
-                  <Link className="btn btn-red" to="/verhuur/afhalen">
+                  <Link className="btn btn-red" to={`/verhuur/afhalen?${pickupQuery}`}>
                     Reserveer voor afhaling — {euroInt(total)}
                     <ArrowRightIcon strokeWidth={2.4} />
                   </Link>

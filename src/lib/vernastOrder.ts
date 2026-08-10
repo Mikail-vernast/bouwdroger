@@ -15,7 +15,7 @@
  */
 import type Stripe from "stripe";
 import { logAvailabilityFailure, releaseHold } from "./availability.js";
-import { alertSyncFailure, sendPaidBookingMails } from "./mail.js";
+import { alertSyncFailure, sendPaidBookingMails, sendPickupMails } from "./mail.js";
 import { parseDeviceLines } from "./verhuur.js";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "./vernastSync.js";
 
@@ -144,6 +144,14 @@ export function sessionToVernast(
 
   const choice = meta(session, "betaalwijze");
 
+  /*
+    Een afhaalreservatie is geen levering. Zonder dit onderscheid komt ze in het
+    portaal binnen als een gewone boeking: een pakketnaam die er niet is, en een
+    tijdslot dat een chauffeur naar een werf stuurt waar niemand hem verwacht.
+    Zie `api/afhaal-checkout.ts` voor waar deze sleutel gezet wordt.
+  */
+  const pickup = meta(session, "type") === "afhaal";
+
   return {
     source: "stripe",
     external_id: session.id,
@@ -161,9 +169,14 @@ export function sessionToVernast(
     city: meta(session, "werf_gemeente"),
     company_name: meta(session, "bedrijf"),
     vat_number: meta(session, "btw_nummer"),
-    package_tier: meta(session, "pakket"),
+    package_tier: pickup ? null : meta(session, "pakket"),
+    machine: pickup ? meta(session, "machine") : null,
+    situatie: pickup ? "afhaling" : null,
     delivery_date: meta(session, "leverdatum"),
     delivery_slot: meta(session, "tijdslot"),
+    equipment_drogers: Number(meta(session, "drogers")) || null,
+    equipment_ventilatoren: Number(meta(session, "ventilatoren")) || null,
+    equipment_verwarming: Number(meta(session, "verwarming")) || null,
     // Zie `api/checkout.ts`: deze drie zijn de basis voor de controle op dubbele
     // boekingen. Ontbreken ze — bij een sessie van vóór die wijziging — dan
     // blijft de order gewoon geldig, hij telt alleen niet mee voor beschikbaarheid.
@@ -283,7 +296,21 @@ export async function deliverOrder(
     al passeren terwijl de betaling nog loopt. Die krijgt zijn bevestiging
     wanneer `checkout.session.async_payment_succeeded` binnenkomt.
   */
-  if (payload.payment_status === "paid" && (await claimBookingMail(stripe, session.id))) {
+  if (payload.payment_status !== "paid" || !(await claimBookingMail(stripe, session.id))) {
+    return true;
+  }
+
+  /*
+    Een afhaling krijgt zijn eigen bevestiging. Sjabloon 198 belooft een
+    chauffeur en een installatie op het werfadres; wie zelf komt halen, heeft
+    het magazijnadres en zijn afhaalmoment nodig.
+  */
+  if (meta(session, "type") === "afhaal") {
+    await sendPickupMails(payload);
+    return true;
+  }
+
+  {
     await sendPaidBookingMails({
       payload,
       // Wat er effectief geïncasseerd is. Bij "betalen bij levering" is dat
