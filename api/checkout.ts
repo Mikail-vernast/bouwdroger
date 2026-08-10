@@ -12,8 +12,9 @@
  * die wél willen betalen.
  */
 import Stripe from "stripe";
-import { checkOne, holdForSession, logAvailabilityFailure, releaseHold } from "../src/lib/availability.js";
-import { bookingSummary, isReference, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
+import { checkOne, holdForSession, logAvailabilityFailure } from "../src/lib/availability.js";
+import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
+import { releaseSession } from "../src/lib/checkoutSession.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 import {
   configToQuery,
@@ -102,57 +103,27 @@ const ALLOWED_HOSTS = [
 /** Waar we op terugvallen als de Host-header niet herkend wordt. */
 const CANONICAL_ORIGIN = "https://bouwdroger.vercel.app";
 
+/**
+ * `vercel dev` op de machine van een developer.
+ *
+ * Zonder deze uitzondering viel localhost terug op het canonieke domein, en
+ * stuurde Stripe je na een Bancontact- of iDEAL-betaling naar productie in
+ * plaats van naar je eigen server. Daardoor was de laatste helft van de
+ * boekingsflow lokaal niet te testen: je kwam nooit op je eigen
+ * bevestigingsscherm uit.
+ *
+ * Alleen buiten een echte deploy: daar staat `VERCEL_ENV` op `production` of
+ * `preview`, dus een vervalste Host-header komt hier niet doorheen.
+ */
+const LOCAL_HOSTS = /^(localhost|127\.0\.0\.1|\[::1\])$/;
+const DEPLOYED = new Set(["production", "preview"]);
+
 function safeOrigin(request: Request): string {
   const url = new URL(request.url);
+  const deployed = DEPLOYED.has(process.env.VERCEL_ENV ?? "");
+  if (!deployed && LOCAL_HOSTS.test(url.hostname)) return url.origin;
   const known = ALLOWED_HOSTS.some((pattern) => pattern.test(url.hostname));
   return known ? url.origin : CANONICAL_ORIGIN;
-}
-
-/** Stripe-sessie-ID's zijn `cs_` gevolgd door alfanumerieke tekens. */
-const SESSION_ID = /^cs_[A-Za-z0-9_]{1,255}$/;
-
-/**
- * Ruimt de sessie van een vorige poging van dezelfde bezoeker op.
- *
- * Dit is de kern van een bug die zich voordeed als "soms werkt het niet". Wie
- * vanuit het betaalscherm terugging en opnieuw op betalen klikte, kreeg een
- * tweede sessie mét een tweede hold op precies hetzelfde materieel. De
- * beschikbaarheidscontrole hieronder zag die eerste hold, telde hem mee, en
- * meldde dat de toestellen op die dag al ingepland stonden — door de bezoeker
- * zelf. De wizard stuurde hem daarop terug naar de datumstap. Pas na een half
- * uur, wanneer de hold verliep, was de oorspronkelijke datum weer vrij.
- *
- * Vandaar: eerst de oude sessie laten vervallen en de toestellen teruggeven,
- * dan pas kijken wat er nog vrij is.
- *
- * Wie een sessie-ID meestuurt dat niet van onze checkout komt, of dat bij een
- * ander e-mailadres hoort, krijgt hier niets: dan blijft de hold gewoon staan
- * tot hij vanzelf verloopt, zoals voordien. Zo kan een sessie-ID dat ergens
- * opgevangen is niet gebruikt worden om andermans reservatie weg te halen.
- */
-async function dropPrevious(stripe: Stripe, raw: unknown, email: string): Promise<void> {
-  if (typeof raw !== "string" || !SESSION_ID.test(raw)) return;
-
-  try {
-    const previous = await stripe.checkout.sessions.retrieve(raw);
-    if (!isReference(previous.client_reference_id) || !isReference(previous.metadata?.referentie)) {
-      return;
-    }
-    if (previous.customer_email?.toLowerCase() !== email.toLowerCase()) return;
-    // Een betaalde sessie hoort bij een echte boeking; die hold laat de webhook
-    // los zodra de order in het portaal staat, niet wij.
-    if (previous.payment_status === "paid") return;
-
-    logAvailabilityFailure(`release ${raw} (nieuwe poging)`, await releaseHold(raw));
-
-    // De sessie zelf mag ook weg: ze is vervangen, en zolang ze openstaat blijft
-    // Stripe hem als betaalbaar aanbieden.
-    if (previous.status === "open") await stripe.checkout.sessions.expire(raw);
-  } catch (error: unknown) {
-    // Niet fataal: zonder opruiming valt de bezoeker terug op het oude gedrag.
-    const message = error instanceof Error ? error.message : "onbekende fout";
-    console.error(`[checkout] vorige sessie ${raw} niet opgeruimd: ${message}`);
-  }
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -231,9 +202,11 @@ export async function POST(request: Request): Promise<Response> {
 
   /*
     Eerst de vorige poging van deze bezoeker opruimen, dan pas kijken wat vrij
-    is — anders staat hij zichzelf in de weg. Zie `dropPrevious`.
+    is — anders staat hij zichzelf in de weg: de beschikbaarheidscontrole
+    hieronder zou zijn eigen hold meetellen en melden dat de toestellen op die
+    dag al ingepland staan. Zie `releaseSession`.
   */
-  await dropPrevious(stripe, body.previousSessionId, email);
+  await releaseSession(stripe, body.previousSessionId, email, "nieuwe poging");
 
   /*
     De harde controle. De wizard schakelt volle datums al uit, maar dat is

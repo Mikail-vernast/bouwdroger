@@ -16,9 +16,17 @@
  * meteen; die twee sluiten elkaar niet uit.
  */
 
-/** Tijdvenster en het aantal aanvragen dat daarbinnen mag. */
+/**
+ * Tijdvenster en het aantal aanvragen dat daarbinnen mag.
+ *
+ * Vijf was te krap. Een bezoeker die vanuit het betaalscherm terugging om zijn
+ * betaalwijze of leverdatum aan te passen, verbruikte per keer een plaats — en
+ * zag na de vijfde poging "te veel aanvragen" op het scherm waar hij net wilde
+ * afrekenen. Tien laat dat heen en weer toe en houdt de grens ver onder wat een
+ * script nodig heeft om de werklijst vol te zetten.
+ */
 const WINDOW_MS = 60_000;
-const MAX_REQUESTS = 5;
+const MAX_REQUESTS = 10;
 
 /**
  * De ruime bovengrens op álle aanvragen van één IP, geldige en ongeldige door

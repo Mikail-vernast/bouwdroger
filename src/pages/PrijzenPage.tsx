@@ -1,6 +1,6 @@
 import PageMeta from "@/components/PageMeta";
 import { enterInitial } from "@/lib/firstPaint";
-import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { breadcrumbSchema, faqSchema, offerCatalogSchema, serviceSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -14,18 +14,65 @@ import {
   ClipboardList,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SEO } from "@/data/seo";
+import {
+  DROGERS,
+  RENTAL_WEEKS,
+  TARIEVEN_PUBLIEK,
+  euro,
+  priceForWeeks,
+} from "@/data/tarieflijst";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
 };
 
-const pricingRows = [
-  { machine: "DF 200", w1: "XX", w2: "XX", w4: "XX" },
-  { machine: "DF 400", w1: "XX", w2: "XX", w4: "XX" },
-  { machine: "DF 800", w1: "XX", w2: "XX", w4: "XX" },
+/**
+ * De ventilator en de kachel — het "extra" naast de ontvochtiger zelf.
+ * Ze staan apart omdat ze de droging versnellen maar geen vocht afvoeren; de
+ * tabel hierboven gaat over capaciteit, deze rij over ondersteuning.
+ */
+const EXTRA_DEVICES = TARIEVEN_PUBLIEK.filter((t) => t.litersPerDay === 0);
+
+/**
+ * De prijsvragen die mensen letterlijk intikken. Ze staan zichtbaar onderaan de
+ * pagina én als FAQ-schema in de head — die twee moeten gelijk blijven lopen.
+ */
+const FAQ = [
+  {
+    question: "Wat kost een bouwdroger huren per dag?",
+    answer: `Een bouwdroger huren kost bij Vernast tussen ${euro(
+      DROGERS[0].perDay
+    )} en ${euro(
+      DROGERS[DROGERS.length - 1].perDay
+    )} per dag, exclusief btw. De prijs hangt af van de capaciteit: de ${
+      DROGERS[0].short
+    } voert ${DROGERS[0].litersPerDay} liter vocht per 24 uur af, de ${
+      DROGERS[DROGERS.length - 1].short
+    } tot ${DROGERS[DROGERS.length - 1].litersPerDay} liter. Levering, installatie, vochtmeting en ophaling zitten in die prijs.`,
+  },
+  {
+    question: "Moet ik een waarborg betalen?",
+    answer:
+      "Nee. Wij vragen geen waarborg voor het toestel. U betaalt enkel de huurprijs voor de dagen dat u het toestel gebruikt, plus eventuele extra opties die u zelf kiest.",
+  },
+  {
+    question: "Zijn levering en ophaling inbegrepen?",
+    answer:
+      "Levering en ophaling zijn gratis vanaf een huurperiode van vier weken. Bij kortere periodes rekenen wij een leveringskost aan; wie zelf afhaalt in ons magazijn in Aartselaar krijgt € 25 korting op de huurprijs.",
+  },
+  {
+    question: "Zijn de prijzen inclusief btw?",
+    answer:
+      "Nee, alle vermelde prijzen zijn exclusief btw. Op verhuur van bouwdrogers is het standaardtarief van 21 % btw van toepassing. Op uw factuur staat het btw-bedrag apart vermeld, zodat u het kunt indienen bij uw verzekeraar of boekhouder.",
+  },
+  {
+    question: "Wordt het goedkoper als ik langer huur?",
+    answer:
+      "De dagprijs blijft dezelfde, hoe lang u ook huurt — er komt geen toeslag bij voor een korte periode. Wat u wint bij langer huren, is de levering: vanaf vier weken zijn levering en ophaling gratis.",
+  },
 ];
 
 const included = [
@@ -37,11 +84,6 @@ const included = [
   "Geen waarborg vereist",
 ];
 
-const extras = [
-  { name: "Ventilator", price: "XX", unit: "/week" },
-  { name: "Elektrische kachel", price: "XX", unit: "/week" },
-  { name: "Spoedlevering zelfde dag", price: "XX", unit: " supplement" },
-];
 
 const guarantees = [
   { emoji: "🔧", title: "Toestel defect?", desc: "Wij vervangen de volgende dag. Geen discussie." },
@@ -64,6 +106,16 @@ const PrijzenPage = () => {
             path: "/prijzen",
             serviceType: "Verhuur bouwdrogers",
           }),
+          offerCatalogSchema(
+            "Huurtarieven bouwdrogers, ventilatoren en bouwkachels",
+            TARIEVEN_PUBLIEK.map((t) => ({
+              name: t.name,
+              description: t.summary,
+              path: t.path,
+              pricePerDay: t.perDay,
+            }))
+          ),
+          faqSchema(FAQ),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Prijzen", path: "/prijzen" },
@@ -89,27 +141,73 @@ const PrijzenPage = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-                <div className="bg-card border border-border rounded-2xl overflow-hidden">
-                  {/* Header */}
-                  <div className="grid grid-cols-4 bg-accent text-primary-foreground font-bold text-sm">
-                    <div className="px-5 py-4">Machine</div>
-                    <div className="px-5 py-4 text-center">1 week</div>
-                    <div className="px-5 py-4 text-center">2 weken</div>
-                    <div className="px-5 py-4 text-center">4 weken</div>
-                  </div>
-                  {/* Rows */}
-                  {pricingRows.map((row, i) => (
-                    <div key={row.machine} className={`grid grid-cols-4 text-sm ${i % 2 === 0 ? "bg-background" : "bg-muted/30"} ${i < pricingRows.length - 1 ? "border-b border-border" : ""}`}>
-                      <div className="px-5 py-4 font-bold text-foreground">{row.machine}</div>
-                      <div className="px-5 py-4 text-center text-foreground">€{row.w1}</div>
-                      <div className="px-5 py-4 text-center text-foreground">€{row.w2}</div>
-                      <div className="px-5 py-4 text-center font-bold text-foreground">€{row.w4}</div>
-                    </div>
-                  ))}
+                {/*
+                  Een echte <table>. De prijzen stonden hier eerder in een
+                  grid van div's met "€ XX" erin; zowel de bedragen als het
+                  tabelverband ontbraken dus. Een AI-antwoord op "wat kost een
+                  bouwdroger huren" komt uit precies deze cellen — die moeten
+                  leesbaar aan elkaar hangen.
+                */}
+                <div className="bg-card border border-border rounded-2xl overflow-x-auto">
+                  <table className="w-full text-sm border-collapse">
+                    <caption className="sr-only">
+                      Huurprijzen per bouwdroger en per huurperiode, exclusief btw
+                    </caption>
+                    <thead>
+                      <tr className="bg-accent text-primary-foreground font-bold">
+                        <th scope="col" className="px-5 py-4 text-left font-bold">
+                          Bouwdroger
+                        </th>
+                        <th scope="col" className="px-5 py-4 text-center font-bold whitespace-nowrap">
+                          Per dag
+                        </th>
+                        {RENTAL_WEEKS.map((w) => (
+                          <th
+                            key={w}
+                            scope="col"
+                            className="px-5 py-4 text-center font-bold whitespace-nowrap"
+                          >
+                            {w} {w === 1 ? "week" : "weken"}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {DROGERS.map((t, i) => (
+                        <tr
+                          key={t.key}
+                          className={`${i % 2 === 0 ? "bg-background" : "bg-muted/30"} ${
+                            i < DROGERS.length - 1 ? "border-b border-border" : ""
+                          }`}
+                        >
+                          <th scope="row" className="px-5 py-4 text-left font-bold text-foreground">
+                            <Link to={t.path} className="hover:text-primary transition-colors">
+                              {t.short}
+                            </Link>
+                            <span className="block font-normal text-xs text-muted-foreground">
+                              {t.litersPerDay} L/dag · tot {t.volume} m³
+                            </span>
+                          </th>
+                          <td className="px-5 py-4 text-center font-bold text-foreground whitespace-nowrap">
+                            {euro(t.perDay)}
+                          </td>
+                          {RENTAL_WEEKS.map((w) => (
+                            <td
+                              key={w}
+                              className="px-5 py-4 text-center text-foreground whitespace-nowrap"
+                            >
+                              {euro(priceForWeeks(t, w))}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
 
                 <p className="text-xs text-muted-foreground mt-3 text-center">
-                  Prijzen excl. BTW — 21% BTW van toepassing
+                  Prijzen excl. btw — 21 % btw van toepassing. De weekbedragen zijn de dagprijs maal
+                  het aantal dagen; er komt geen toeslag bij voor een korte huurperiode.
                 </p>
 
                 <div className="flex justify-center mt-4">
@@ -146,13 +244,30 @@ const PrijzenPage = () => {
         {/* Extra options */}
         <section className="py-14 md:py-20">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">Extra opties (tegen meerprijs)</h2>
+            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-4">
+              Ventilator en kachel — sneller droog
+            </h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-10">
+              Een ontvochtiger haalt het vocht uit de lucht; een ventilator zorgt dat er ook droge
+              lucht bij de natte bouwmassa komt, en een kachel houdt de ruimte op temperatuur.
+              Samen winnen ze dagen.
+            </p>
             <div className="max-w-2xl mx-auto">
               <div className="bg-card border border-border rounded-2xl divide-y divide-border">
-                {extras.map((extra) => (
-                  <div key={extra.name} className="flex items-center justify-between px-6 py-4">
-                    <span className="font-medium text-foreground">{extra.name}</span>
-                    <span className="font-bold text-foreground">€{extra.price}<span className="text-sm font-normal text-muted-foreground">{extra.unit}</span></span>
+                {EXTRA_DEVICES.map((t) => (
+                  <div key={t.key} className="flex items-center justify-between gap-4 px-6 py-4">
+                    <span className="font-medium text-foreground">
+                      <Link to={t.path} className="hover:text-primary transition-colors">
+                        {t.name}
+                      </Link>
+                      <span className="block text-xs font-normal text-muted-foreground">
+                        {t.type}
+                      </span>
+                    </span>
+                    <span className="font-bold text-foreground whitespace-nowrap">
+                      {euro(t.perDay)}
+                      <span className="text-sm font-normal text-muted-foreground">/dag</span>
+                    </span>
                   </div>
                 ))}
               </div>
@@ -177,6 +292,30 @@ const PrijzenPage = () => {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/*
+          Veelgestelde vragen — zichtbaar, niet ingeklapt.
+
+          Dit is de sectie waaruit een AI-assistent citeert wanneer iemand
+          "wat kost een bouwdroger huren" vraagt. Dezelfde tekst staat als
+          FAQ-schema in de head; schema voor onzichtbare inhoud is een
+          overtreding, dus die twee mogen niet uit elkaar lopen.
+        */}
+        <section className="py-14 md:py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">
+              Veelgestelde vragen over de prijs
+            </h2>
+            <dl className="max-w-2xl mx-auto space-y-6">
+              {FAQ.map((item) => (
+                <div key={item.question} className="bg-card border border-border rounded-2xl p-6">
+                  <dt className="font-bold text-foreground mb-2">{item.question}</dt>
+                  <dd className="text-sm text-muted-foreground leading-relaxed">{item.answer}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 

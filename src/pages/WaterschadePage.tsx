@@ -21,17 +21,14 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { DROGER_KAARTEN } from "@/data/tarieflijst";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
 };
 
-const packages = [
-  { name: "DF 200", volume: "Tot 200 m³", desc: "Kleine kelder of 1 kamer", price: "XX", badge: null },
-  { name: "DF 400", volume: "Tot 400 m³", desc: "Woning of meerdere kamers", price: "XX", badge: "Aanbevolen" },
-  { name: "DF 800", volume: "Tot 800 m³", desc: "Groot huis of meerdere kamers", price: "XX", badge: null },
-];
+
 
 const steps = [
   { num: "1", title: "Bel of WhatsApp ons", desc: "Beschrijf uw situatie, wij sturen direct de juiste machine." },
@@ -217,15 +214,15 @@ const WaterschadePage = () => {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {packages.map((pkg, i) => (
+              {DROGER_KAARTEN.map((pkg, i) => (
                 <MachineCard
-                  key={pkg.name}
+                  key={pkg.key}
                   name={pkg.name}
                   volume={pkg.volume}
                   desc={pkg.desc}
-                  price={pkg.price}
+                  price={pkg.weekPrice}
                   badge={pkg.badge}
-                  highlight={!!pkg.badge}
+                  highlight={pkg.highlight}
                   index={i}
                   ctaLabel="Reserveer nu"
                 />

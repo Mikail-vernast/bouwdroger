@@ -382,7 +382,7 @@ const VerhuurToestelPage = () => {
               <div className="bl" key={title}>
                 <CheckIcon size={17} strokeWidth={2.4} />
                 <div>
-                  <h4>{title}</h4>
+                  <h3>{title}</h3>
                   <p>{body}</p>
                 </div>
               </div>
@@ -430,7 +430,7 @@ const VerhuurToestelPage = () => {
             {PICKUP_STEPS.map((step, i) => (
               <div className="astep" key={step.title}>
                 <div className="an">{i + 1}</div>
-                <h4>{step.title}</h4>
+                <h3>{step.title}</h3>
                 <p>{step.body}</p>
               </div>
             ))}

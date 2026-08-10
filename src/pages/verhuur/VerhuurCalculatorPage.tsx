@@ -4,48 +4,83 @@ import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import Ruler, { type RulerConfig } from "@/components/verhuur/Ruler";
-import { configToQuery, type PackageConfig } from "@/lib/verhuur";
+import {
+  CD_VALUES,
+  DEFAULT_CD,
+  DEFAULT_PD,
+  DEFAULT_SIZE,
+  PD_VALUES,
+  SIZE_VALUES,
+  configToQuery,
+  type PackageConfig,
+} from "@/lib/verhuur";
 import { SEO } from "@/data/seo";
+import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 
 /** The design waits this long after a card is picked before advancing. */
 const ADVANCE_DELAY = 240;
 
+/*
+  De linialen worden uit de catalogus opgebouwd, niet uit een lijst hier.
+
+  Ze stonden hardgecodeerd op 40–260 m², pleister 1,5/2/3 cm en chape 5/6/8 cm.
+  Dat week op drie punten af van wat Vernast verkoopt — de shop gaat tot 300 m²,
+  heeft pleister 1/2/3 en chape 5/6/7 — dus kon een bezoeker een combinatie
+  samenstellen waarvoor geen enkel pakket bestond. Nu bepaalt de catalogus welke
+  standen er zijn: wat de shop niet verkoopt, is niet te kiezen.
+*/
+const SIZES = SIZE_VALUES.map(Number);
+const PLASTERS = PD_VALUES.map((v) => Number(v.replace(",", ".")));
+const SCREEDS = CD_VALUES.map((v) => Number(v.replace(",", ".")));
+
+const grootste = (reeks: number[]) => reeks[reeks.length - 1] ?? 0;
+const middelste = (reeks: number[]) => reeks[Math.floor(reeks.length / 2)] ?? 0;
+
 const SIZE: RulerConfig = {
-  min: 20,
-  max: 320,
-  snaps: [40, 60, 100, 140, 180, 220, 260],
+  min: Math.max(0, SIZES[0] - 20),
+  max: grootste(SIZES) + 20,
+  snaps: SIZES,
   custom: true,
   unit: " m²",
   format: (v) => String(v),
-  label: (v) => (Number.isNaN(v) ? "Meer dan 260 m², maatwerkofferte" : `Gebouw kleiner dan ${v} m²`),
+  label: (v) =>
+    Number.isNaN(v)
+      ? `Meer dan ${grootste(SIZES)} m², maatwerkofferte`
+      : `Gebouw kleiner dan ${v} m²`,
   bigEvery: 40,
   tick: 10,
 };
 
 const PLASTER: RulerConfig = {
-  min: 1,
-  max: 3.5,
-  snaps: [1.5, 2, 3],
-  unknown: 2,
-  unknownLabel: "Wij rekenen met een gemiddelde van 2 cm",
+  min: Math.max(0, PLASTERS[0] - 0.5),
+  max: grootste(PLASTERS) + 0.5,
+  snaps: PLASTERS,
+  unknown: middelste(PLASTERS),
+  unknownLabel: `Wij rekenen met een gemiddelde van ${middelste(PLASTERS)} cm`,
   unit: " cm",
   format: (v) => String(v).replace(".", ","),
-  label: (v) => (v <= 1.5 ? "Dun pleisterwerk" : v >= 3 ? "Dik pleisterwerk" : "Gangbare pleisterdikte"),
+  label: (v) =>
+    v <= PLASTERS[0]
+      ? "Dun pleisterwerk"
+      : v >= grootste(PLASTERS)
+        ? "Dik pleisterwerk"
+        : "Gangbare pleisterdikte",
   bigEvery: 0.5,
   tick: 0.1,
 };
 
 const SCREED: RulerConfig = {
-  min: 4,
-  max: 9,
-  snaps: [5, 6, 8],
-  unknown: 6,
-  unknownLabel: "Wij rekenen met een gemiddelde van 6 cm",
+  min: Math.max(0, SCREEDS[0] - 1),
+  max: grootste(SCREEDS) + 1,
+  snaps: SCREEDS,
+  unknown: middelste(SCREEDS),
+  unknownLabel: `Wij rekenen met een gemiddelde van ${middelste(SCREEDS)} cm`,
   unit: " cm",
   format: (v) => String(v),
-  label: (v) => (v <= 5 ? "Dunne chape" : v >= 8 ? "Dikke chape" : "Gangbare chapedikte"),
+  label: (v) =>
+    v <= SCREEDS[0] ? "Dunne chape" : v >= grootste(SCREEDS) ? "Dikke chape" : "Gangbare chapedikte",
   bigEvery: 1,
   tick: 0.25,
 };
@@ -75,7 +110,13 @@ interface Answers {
   heat: string | null;
 }
 
-const START: Answers = { size: "180", wat: null, pd: "2", cd: "6", heat: null };
+const START: Answers = {
+  size: DEFAULT_SIZE,
+  wat: null,
+  pd: DEFAULT_PD,
+  cd: DEFAULT_CD,
+  heat: null,
+};
 
 const needsPlaster = (wat: string | null) => wat === "pleister" || wat === "beide";
 const needsScreed = (wat: string | null) => wat === "chape" || wat === "beide";
@@ -106,8 +147,8 @@ const VerhuurCalculatorPage = () => {
     const config: PackageConfig = {
       size: next.size,
       wat: next.wat ?? "beide",
-      pd: next.pd === "onbekend" ? "2" : next.pd,
-      cd: next.cd === "onbekend" ? "6" : next.cd,
+      pd: next.pd === "onbekend" ? DEFAULT_PD : next.pd,
+      cd: next.cd === "onbekend" ? DEFAULT_CD : next.cd,
       // "nee" means: the visitor does not heat, so the package carries heaters.
       heat: next.heat === "nee",
       weeks: 2,
@@ -132,7 +173,27 @@ const VerhuurCalculatorPage = () => {
 
   return (
     <div className="vh-calc">
-      <PageMeta {...SEO.verhuurCalculator} />
+      {/*
+        Ook hier ontbrak alle gestructureerde data, terwijl deze pagina met 75
+        interne links de best gelinkte van de site is. Zonder kruimelpad staat
+        ze voor een crawler los van de rest.
+      */}
+      <PageMeta
+        {...SEO.verhuurCalculator}
+        jsonLd={[
+          serviceSchema({
+            name: "Droogpakket samenstellen",
+            description:
+              "Bereken in vijf vragen welke toestellen uw woning nodig heeft, hoe lang het drogen duurt en wat het kost.",
+            path: "/verhuur/calculator",
+            serviceType: "Bouwdroging",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Droogpakket samenstellen", path: "/verhuur/calculator" },
+          ]),
+        ]}
+      />
       {/*
         De designfile zet hier `data-light="320"`, maar deze pagina heeft geen
         rode hero: de header staat vanaf de eerste pixel op de lichte

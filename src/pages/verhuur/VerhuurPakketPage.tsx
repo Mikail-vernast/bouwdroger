@@ -19,8 +19,10 @@ import {
   deviceCount,
   dryingDays,
   euro,
+  packageGallery,
   packageImage,
-  packagePrice,
+  configPrice,
+  configWeeks,
   packageSpecLine,
   parseConfig,
   totalAirflow,
@@ -35,8 +37,8 @@ const VerhuurPakketPage = () => {
   const config = useMemo(() => parseConfig(searchParams), [searchParams]);
 
   const items = useMemo(() => allItems(config), [config]);
-  const lead = packageImage(config);
-  const gallery = [lead, "/verhuur/lineup-dryers.png", "/verhuur/ttv-4500.png", "/verhuur/teddh-30.png"];
+  const lead = packageImage(config, items);
+  const gallery = packageGallery(config, items);
 
   const [shot, setShot] = useState(0);
   const [tab, setTab] = useState(SPECS[0].k);
@@ -44,7 +46,13 @@ const VerhuurPakketPage = () => {
   const cap = totalCapacity(items);
   const air = totalAirflow(items);
   const days = dryingDays(config);
-  const total = packagePrice(items, config.weeks);
+  /*
+    De huurtermijn komt uit het pakket, niet uit de querystring: de shop verkoopt
+    elk pakket voor één termijn en leidt die af uit de materiaaldikte. Stond hier
+    nog `config.weeks`, dan toonde een pakket van vier weken de prijs van twee.
+  */
+  const weeks = configWeeks(config);
+  const total = configPrice(config, items);
   const bookingHref = `/verhuur/boeking?${configToQuery(config)}`;
 
   return (
@@ -165,7 +173,7 @@ const VerhuurPakketPage = () => {
                 <div>
                   <div className="pv">{euro(total)}</div>
                   <div className="pl">
-                    voor {config.weeks} {config.weeks === 1 ? "week" : "weken"} · alles inbegrepen
+                    voor {weeks} {weeks === 1 ? "week" : "weken"} · alles inbegrepen
                   </div>
                 </div>
               </div>
@@ -248,7 +256,7 @@ const VerhuurPakketPage = () => {
                         <span className="rtag">
                           {ROLE[it.k].tag} · {it.q}× in uw pakket
                         </span>
-                        <h4>{CAT[it.k].name}</h4>
+                        <h3>{CAT[it.k].name}</h3>
                         <p>{ROLE[it.k].txt}</p>
                       </span>
                     </div>
@@ -360,7 +368,7 @@ const VerhuurPakketPage = () => {
               <div className="rb-grid">
                 <div className="rb-c">
                   <div className="rb-n">01</div>
-                  <h4>Capaciteit</h4>
+                  <h3>Capaciteit</h3>
                   <p>
                     De bouwdrogers bepalen hoeveel liter vocht er per dag uit de lucht kan. Wij
                     dimensioneren op uw werkelijke volume — niet te klein, niet te groot.
@@ -368,7 +376,7 @@ const VerhuurPakketPage = () => {
                 </div>
                 <div className="rb-c">
                   <div className="rb-n">02</div>
-                  <h4>Circulatie</h4>
+                  <h3>Circulatie</h3>
                   <p>
                     Zonder luchtbeweging vormt zich een verzadigd laagje tegen chape en muur — daar
                     stopt de droging. De ventilatoren doorbreken dat en winnen dagen.
@@ -376,7 +384,7 @@ const VerhuurPakketPage = () => {
                 </div>
                 <div className="rb-c">
                   <div className="rb-n">03</div>
-                  <h4>Temperatuur</h4>
+                  <h3>Temperatuur</h3>
                   <p>
                     Onder 15 °C neemt lucht nauwelijks vocht op. De kachel brengt koude ruimtes op
                     werkingstemperatuur, zodat de drogers op volle kracht werken.
@@ -444,7 +452,7 @@ const VerhuurPakketPage = () => {
                 <div className="sgrid">
                   {s.g.map(([groupName, rows]) => (
                     <div className="sgrp2" key={groupName}>
-                      <h5>{groupName}</h5>
+                      <h4>{groupName}</h4>
                       <div className="stbl">
                         {rows.map(([label, value]) => (
                           <div key={label}>

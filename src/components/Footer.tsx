@@ -1,6 +1,7 @@
-import { Phone, Mail, MapPin, Facebook } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BEDRIJF, KIEZEN, SERVICE, TOEPASSINGEN } from "@/data/navigation";
+import { CONTACT, SITE_NAME } from "@/lib/site";
 import logoWhite from "@/assets/logo-white.png";
 
 const Footer = () => {
@@ -17,7 +18,7 @@ const Footer = () => {
           {/* Contact */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <img src={logoWhite} alt="Vernast Verhuur" className="h-7 w-auto" loading="lazy" decoding="async" />
+              <img src={logoWhite} alt={SITE_NAME} className="h-7 w-auto" loading="lazy" decoding="async" />
             </div>
             <div className="space-y-3 text-sm">
               <a
@@ -34,16 +35,24 @@ const Footer = () => {
               </a>
               <div className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>Boomsesteenweg 12/Unit 11, 2630 Aartselaar</span>
+                {/*
+                  Letterlijk hetzelfde adres als in `CONTACT` en dus als in de
+                  JSON-LD. Een lokaal bedrijf wordt herkend doordat naam, adres
+                  en telefoon overal identiek staan; een afwijkende schrijfwijze
+                  in de footer maakt van één vestiging twee onzekere.
+                */}
+                <span>
+                  {CONTACT.street}, {CONTACT.postalCode} {CONTACT.city}
+                </span>
               </div>
             </div>
           </div>
 
           {/* Nuttige Links */}
           <div>
-            <h4 className="font-bold text-primary-foreground text-sm mb-4 uppercase tracking-wider">
+            <h2 className="font-bold text-primary-foreground text-sm mb-4 uppercase tracking-wider">
               Nuttige Links
-            </h4>
+            </h2>
             <ul className="space-y-2 text-sm">
               {[...KIEZEN, ...BEDRIJF].map((link) => (
                 <li key={link.path}>
@@ -60,9 +69,9 @@ const Footer = () => {
 
           {/* Diensten */}
           <div>
-            <h4 className="font-bold text-primary-foreground text-sm mb-4 uppercase tracking-wider">
+            <h2 className="font-bold text-primary-foreground text-sm mb-4 uppercase tracking-wider">
               Diensten
-            </h4>
+            </h2>
             <ul className="space-y-2 text-sm">
               {[...TOEPASSINGEN, ...SERVICE].map((link) => (
                 <li key={link.path}>
@@ -79,37 +88,36 @@ const Footer = () => {
 
           {/* Openingsuren */}
           <div>
-            <h4 className="font-bold text-primary-foreground text-sm mb-4 uppercase tracking-wider">
+            <h2 className="font-bold text-primary-foreground text-sm mb-4 uppercase tracking-wider">
               Openingsuren
-            </h4>
+            </h2>
+            {/*
+              Dezelfde uren als `openingHoursSpecification` in de JSON-LD.
+              Hier stond eerder ook "Zaterdag 09:00 - 12:00" terwijl de schema
+              enkel Ma-Vr aangaf; wie beide leest — Google, een AI-assistent —
+              houdt aan zo'n tegenspraak geen openingsuur over.
+            */}
             <div className="text-sm space-y-1">
               <div className="flex justify-between">
                 <span>Ma - Vr</span>
                 <span>08:00 - 17:00</span>
               </div>
               <div className="flex justify-between">
-                <span>Zaterdag</span>
-                <span>09:00 - 12:00</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Zondag</span>
+                <span>Za - Zo</span>
                 <span>Gesloten</span>
               </div>
-            </div>
-            <div className="flex gap-3 mt-5">
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="w-9 h-9 bg-primary-foreground/10 rounded-lg flex items-center justify-center hover:bg-primary transition-colors"
-              >
-                <Facebook className="h-4 w-4" />
-              </a>
             </div>
           </div>
         </div>
 
         <div className="border-t border-primary-foreground/10 pt-6 text-center text-xs text-primary-foreground/40">
-          &copy; {new Date().getFullYear()} Vernast Vochtbestrijding. Alle rechten voorbehouden.
+          {/*
+            De naam van déze site, niet die van de zusteronderneming. Stond er
+            eerder als "Vernast Vochtbestrijding": de enige plek op de site waar
+            het bedrijf voluit staat, gaf zo een andere entiteit aan dan de
+            JSON-LD, de titels en llms.txt.
+          */}
+          &copy; {new Date().getFullYear()} {SITE_NAME}. Alle rechten voorbehouden.
         </div>
       </div>
     </footer>

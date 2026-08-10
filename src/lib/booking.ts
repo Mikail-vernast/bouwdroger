@@ -9,14 +9,21 @@ import {
   COVER,
   DELIVERY,
   EXTRAS,
-  FIXED_WEEKS,
   LADDER_FEE,
   MAX_FLOORS,
   PUMP,
   type DeviceKey,
 } from "../data/verhuur.js";
 import { TARIEVEN } from "../data/tarieven.js";
-import { DEVICE_KEYS, allItems, deviceCount, packagePrice, type PackageConfig, type PackageItem } from "./verhuur.js";
+import {
+  DEVICE_KEYS,
+  allItems,
+  configPrice,
+  configWeeks,
+  deviceCount,
+  type PackageConfig,
+  type PackageItem,
+} from "./verhuur.js";
 
 export const MAX_EXTRA_DEVICES = Number(TARIEVEN.pricing.max_extra_devices);
 
@@ -201,7 +208,15 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
   // Zonder eigen keuze staat er standaard één pomp per bouwdroger klaar.
   const pumps = Math.min(options.pumps ?? dryerCount, dryerCount);
 
-  const base = packagePrice(items, FIXED_WEEKS);
+  /*
+    De huurtermijn is niet meer voor iedereen twee weken: bij een vast pakket
+    ligt ze in de catalogus, want de shop leidt ze af uit de materiaaldikte
+    (chape 5/6/7 cm loopt 2/3/4 weken). Alles wat per week of per dag rekent —
+    de extra's, de condenspompen — moet die termijn volgen, anders staat er een
+    pakket van vier weken op het scherm met twee weken condenspomp eronder.
+  */
+  const weeks = configWeeks(config);
+  const base = configPrice(config, items);
   const lines: BookingLine[] = [];
 
   const coverTier = COVER.find((c) => c.k === options.cover) ?? COVER[0];
@@ -215,13 +230,13 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
   for (const x of EXTRAS) {
     if (!options.extras.includes(x.k)) continue;
     lines.push({
-      l: x.name + (x.perWeek ? ` · ${FIXED_WEEKS} wk` : ""),
-      v: x.perWeek ? x.price * FIXED_WEEKS : x.price,
+      l: x.name + (x.perWeek ? ` · ${weeks} wk` : ""),
+      v: x.perWeek ? x.price * weeks : x.price,
     });
   }
 
   if (pumps > 0) {
-    const days = FIXED_WEEKS * 7;
+    const days = weeks * 7;
     lines.push({ l: `${pumps}× condenspomp · ${days} dagen`, v: pumps * PUMP.price * days });
   }
 
@@ -255,7 +270,7 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
     discount,
     netTotal,
     payable,
-    weeks: FIXED_WEEKS,
-    days: FIXED_WEEKS * 7,
+    weeks,
+    days: weeks * 7,
   };
 }

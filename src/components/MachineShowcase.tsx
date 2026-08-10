@@ -10,7 +10,7 @@ const machines = [
     power: "~500W",
     volume: "450m³",
     price: 9,
-    image: "/products/eco-boost-50.png",
+    image: "/products/eco-boost-50.webp",
     tag: null,
   },
   {
@@ -19,7 +19,7 @@ const machines = [
     power: "~900W",
     volume: "1000m³",
     price: 12,
-    image: "/products/eco-performance-80.png",
+    image: "/products/eco-performance-80.webp",
     tag: "POPULAIR",
   },
   {
@@ -28,7 +28,7 @@ const machines = [
     power: null,
     volume: "1470m³",
     price: 16,
-    image: "/products/eco-ultimate-150.png",
+    image: "/products/eco-ultimate-150.webp",
     tag: null,
   },
   {
@@ -37,7 +37,7 @@ const machines = [
     power: null,
     volume: "Specialist",
     price: 25,
-    image: "/products/eco-revolution.jpg",
+    image: "/products/eco-revolution.webp",
     tag: null,
   },
 ];

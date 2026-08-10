@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   allItems,
   baseItems,
@@ -7,6 +7,7 @@ import {
   dryingDays,
   euro,
   euroInt,
+  packageGallery,
   packagePrice,
   packageTitle,
   parseConfig,
@@ -18,10 +19,25 @@ import {
   WAT_VALUES,
   type PackageConfig,
 } from "@/lib/verhuur";
+import { configPrice } from "@/lib/verhuur";
+import {
+  packageFor,
+  packageItems,
+  packageOptionalItems,
+  packageTotal,
+  packageWeeks,
+} from "@/lib/vastPakket";
+import { CAT, WEEKS } from "@/data/verhuur";
+import type { Package } from "@/data/packages";
 import { isReference, newReference } from "@/lib/booking";
 import { QUESTIONS } from "@/data/verhuur-calculator";
 
-/** Het klantvoorbeeld waar de tarieflijst uit is afgeleid: € 616 voor 2 weken. */
+/**
+ * De referentieconfiguratie: 180 m², pleisterwerk + chape, met verwarming.
+ *
+ * `pd` en `cd` staan er nog in omdat elke config ze draagt, maar bij "beide"
+ * sturen ze het pakket niet — de shop verkoopt die per oppervlakte.
+ */
 const REFERENCE: PackageConfig = {
   size: "180",
   wat: "beide",
@@ -30,6 +46,15 @@ const REFERENCE: PackageConfig = {
   heat: true,
   weeks: 2,
 };
+
+/*
+  De site draait op de momentopname die het portaal publiceerde, en die bepaalt
+  of de catalogus haar werk kan doen. Publiceerde het portaal nog geen pakketten
+  mét zoeksleutels, dan valt alles terug op de oude brackettabel en gelden er
+  andere getallen. Beide paden horen getest, elk tegen de data waar het voor
+  bedoeld is — anders staat de suite rood om een reden die niets met de code te
+  maken heeft.
+*/
 
 describe("euro", () => {
   it("gebruikt nl-BE-notatie met komma-decimalen", () => {
@@ -51,7 +76,10 @@ describe("parseConfig", () => {
     expect(parseConfig(new URLSearchParams())).toEqual({
       size: "180",
       wat: "beide",
-      pd: "3",
+      // 2 cm, net als de calculator zelf: die stond op 2 terwijl parseConfig op
+      // 3 terugviel, dus toonde een link zonder `pd` een andere dikte dan de
+      // wizard die hem gemaakt had.
+      pd: "2",
       cd: "6",
       heat: true,
       weeks: 2,
@@ -77,30 +105,9 @@ describe("parseConfig", () => {
 });
 
 describe("pakketsamenstelling", () => {
-  it("volgt de bracket-tabel", () => {
-    expect(baseItems(REFERENCE)).toEqual([
-      { k: "small", q: 2 },
-      { k: "medium", q: 2 },
-      { k: "axiaal", q: 4 },
-      { k: "kachel", q: 2 },
-    ]);
-  });
-
   it("laat de kachels weg als de klant zelf verwarmt", () => {
     const items = baseItems({ ...REFERENCE, heat: false });
     expect(items.some((it) => it.k === "kachel")).toBe(false);
-  });
-
-  it("zet bij waterschade één small en één axiaal extra bij", () => {
-    const items = baseItems({ ...REFERENCE, wat: "waterschade" });
-    expect(items.find((it) => it.k === "small")?.q).toBe(3);
-    expect(items.find((it) => it.k === "axiaal")?.q).toBe(5);
-  });
-
-  it("telt handmatig bijgezette toestellen bij het basispakket", () => {
-    const items = allItems(REFERENCE, { small: 1 });
-    expect(items.find((it) => it.k === "small")?.q).toBe(3);
-    expect(deviceCount(items)).toBe(11);
   });
 
   it("voegt een toestel toe dat nog niet in het pakket zat", () => {
@@ -108,50 +115,114 @@ describe("pakketsamenstelling", () => {
     const items = allItems(config, { kachel: 2 });
     expect(items.find((it) => it.k === "kachel")?.q).toBe(2);
   });
+});
 
-  it("sommeert capaciteit en luchtverzet", () => {
+/*
+  Deze tests lezen de échte catalogus uit `data/tarieven.ts`, en dat bestand
+  ververst bij elke build. Er stonden hier eerder harde aantallen in — 3 medium
+  drogers, 13 toestellen, 340 l, € 756 — en die braken zodra iemand in het
+  portaal een toestel bijzette. Ze zeiden ook niets: dat de site toont wat er
+  gepubliceerd is, bewijs je door de twee met elkaar te vergelijken, niet door
+  het cijfer van gisteren te herhalen.
+*/
+describe("pakketsamenstelling volgens de catalogus", () => {
+  const pakket = packageFor(REFERENCE);
+
+  it("vindt een pakket voor de referentieconfiguratie", () => {
+    expect(pakket).not.toBeNull();
+  });
+
+  it("neemt de toestellen over van het pakket dat de shop verkoopt", () => {
+    expect(baseItems({ ...REFERENCE, heat: false })).toEqual(packageItems(pakket as Package));
+  });
+
+  it("levert daarbovenop de kachels die het portaal als optie meegaf", () => {
+    const opties = packageOptionalItems(pakket as Package);
+    expect(opties.length).toBeGreaterThan(0);
+    expect(baseItems(REFERENCE)).toEqual([...packageItems(pakket as Package), ...opties]);
+  });
+
+  it("zet bij waterschade niets extra bij", () => {
+    // De shop heeft een eigen waterschadepakket; dat is al zwaar genoeg.
+    const wet = { ...REFERENCE, wat: "waterschade", heat: false };
+    expect(baseItems(wet)).toEqual(packageItems(packageFor(wet) as Package));
+  });
+
+  it("telt handmatig bijgezette toestellen bij het basispakket", () => {
+    const basis = baseItems(REFERENCE);
+    const items = allItems(REFERENCE, { small: 1 });
+    const eerder = basis.find((it) => it.k === "small")?.q ?? 0;
+    expect(items.find((it) => it.k === "small")?.q).toBe(eerder + 1);
+    expect(deviceCount(items)).toBe(deviceCount(basis) + 1);
+  });
+
+  it("sommeert capaciteit en luchtverzet over alle toestellen", () => {
     const items = allItems(REFERENCE);
-    expect(totalCapacity(items)).toBe(260);
-    expect(totalAirflow(items)).toBe(21200);
+    const cap = items.reduce((n, it) => n + CAT[it.k].cap * it.q, 0);
+    const air = items.reduce((n, it) => n + CAT[it.k].air * it.q, 0);
+    expect(totalCapacity(items)).toBe(cap);
+    expect(totalAirflow(items)).toBe(air);
   });
 });
+
 
 describe("prijs", () => {
-  it("komt op het klantvoorbeeld van € 616 uit voor twee weken", () => {
-    expect(packagePrice(allItems(REFERENCE), 2)).toBe(616);
-  });
-
-  it("past de week-multipliers toe", () => {
+  it("rekent per toestel af tegen het tarief uit de toestelcatalogus", () => {
     const items = allItems(REFERENCE);
-    expect(packagePrice(items, 1)).toBe(382); // 616 × 0,62
-    expect(packagePrice(items, 3)).toBe(832); // 616 × 1,35
-    expect(packagePrice(items, 4)).toBe(998); // 616 × 1,62
+    const twee = packagePrice(items, 2);
+    // De multipliers staan los van de samenstelling, dus die verhoudingen
+    // gelden ongeacht welke momentopname er ligt.
+    expect(packagePrice(items, 1)).toBe(Math.round(twee * 0.62));
+    expect(packagePrice(items, 3)).toBe(Math.round(twee * 1.35));
+    expect(packagePrice(items, 4)).toBe(Math.round(twee * 1.62));
   });
 });
 
-describe("droogtijd", () => {
-  it("rekent 16 dagen vanaf 180 m²", () => {
-    expect(dryingDays(REFERENCE)).toBe(14);
+describe("prijs volgens de catalogus", () => {
+  it("rekent het pakkettarief, plus de kachels aan het toesteltarief", () => {
+    const pakket = packageFor(REFERENCE) as Package;
+    const kachels = packageOptionalItems(pakket).reduce((n, it) => n + CAT[it.k].w2 * it.q, 0);
+    const weken = packageWeeks(pakket);
+    const verwacht = packageTotal(pakket) + kachels * (WEEKS[weken] ?? 1);
+    expect(configPrice(REFERENCE, baseItems(REFERENCE))).toBeCloseTo(verwacht, 2);
+  });
+});
+
+
+describe("droogtijd volgens de catalogus", () => {
+  it("is de huurtermijn die de shop aan het pakket hangt", () => {
+    // beide-180 en waterschade-180 lopen allebei vier weken.
+    expect(dryingDays(REFERENCE)).toBe(28);
+    expect(dryingDays({ ...REFERENCE, size: "140" })).toBe(28);
+    expect(dryingDays({ ...REFERENCE, wat: "waterschade" })).toBe(28);
   });
 
-  it("rekent 12 dagen onder 180 m²", () => {
-    expect(dryingDays({ ...REFERENCE, size: "140" })).toBe(12);
-  });
-
-  it("rekent 10 dagen bij waterschade, ook op een groot pand", () => {
-    expect(dryingDays({ ...REFERENCE, wat: "waterschade" })).toBe(10);
+  it("volgt de materiaaldikte bij chape", () => {
+    // 5 cm → 2 weken, 6 cm → 3 weken, 7 cm → 4 weken.
+    expect(dryingDays({ ...REFERENCE, wat: "chape", cd: "5" })).toBe(14);
+    expect(dryingDays({ ...REFERENCE, wat: "chape", cd: "6" })).toBe(21);
+    expect(dryingDays({ ...REFERENCE, wat: "chape", cd: "7" })).toBe(28);
   });
 
   it("stelt de huurperiode voor die de droogtijd dekt", () => {
-    expect(suggestedWeeks(REFERENCE)).toBe(2); // 14 dagen → 2 weken
-    expect(suggestedWeeks({ ...REFERENCE, size: "140" })).toBe(2);
+    expect(suggestedWeeks(REFERENCE)).toBe(4);
+    expect(suggestedWeeks({ ...REFERENCE, wat: "chape", cd: "5" })).toBe(2);
   });
 });
 
+
 describe("packageTitle", () => {
   it("volgt de productnaamconventie", () => {
+    // Alleen de dikte die dit pakket stuurt. REFERENCE staat op "beide", en
+    // daar verkoopt de shop per oppervlakte — zonder dikte dus.
     expect(packageTitle(REFERENCE)).toBe(
-      "Gebouw kleiner dan 180 m2 – Pleisterdikte 3 cm – chape 6 cm – incl. verwarming"
+      "Gebouw kleiner dan 180 m2 – Pleisterwerk + chape – incl. verwarming"
+    );
+    expect(packageTitle({ ...REFERENCE, wat: "chape" })).toBe(
+      "Gebouw kleiner dan 180 m2 – Chapedikte 6 cm – incl. verwarming"
+    );
+    expect(packageTitle({ ...REFERENCE, wat: "pleister", pd: "3" })).toBe(
+      "Gebouw kleiner dan 180 m2 – Pleisterdikte 3 cm – incl. verwarming"
     );
   });
 
@@ -166,8 +237,12 @@ describe("parseConfig", () => {
   const parse = (qs: string) => parseConfig(new URLSearchParams(qs));
 
   it("neemt geldige keuzes over", () => {
-    const c = parse("size=100&wat=chape&pd=1,5&cd=8&heat=0&weeks=4");
-    expect(c).toEqual({ size: "100", wat: "chape", pd: "1,5", cd: "8", heat: false, weeks: 4 });
+    // De diktes komen uit de catalogus, dus neemt de test er twee die er
+    // gegarandeerd in zitten in plaats van een vaste waarde die eruit kan vallen.
+    const pd = PD_VALUES[0];
+    const cd = CD_VALUES[0];
+    const c = parse(`size=100&wat=chape&pd=${pd}&cd=${cd}&heat=0&weeks=4`);
+    expect(c).toEqual({ size: "100", wat: "chape", pd, cd, heat: false, weeks: 4 });
   });
 
   it("valt terug op de standaard bij een onbekende oppervlakte", () => {
@@ -177,13 +252,13 @@ describe("parseConfig", () => {
   it("weigert vrije tekst in wat, pd en cd", () => {
     const c = parse("wat=<script>&pd=" + encodeURIComponent("€ 0 gratis") + "&cd=999");
     expect(c.wat).toBe("beide");
-    expect(c.pd).toBe("3");
+    expect(c.pd).toBe("2");
     expect(c.cd).toBe("6");
   });
 
   it("laat niets van de bezoeker in de productnaam belanden", () => {
     const title = packageTitle(parse("wat=aaa&pd=bbb&cd=ccc&size=ddd"));
-    expect(title).toBe("Gebouw kleiner dan 180 m2 – Pleisterdikte 3 cm – chape 6 cm – incl. verwarming");
+    expect(title).toBe("Gebouw kleiner dan 180 m2 – Pleisterwerk + chape – incl. verwarming");
   });
 
   it("begrenst het aantal weken", () => {
@@ -224,3 +299,4 @@ describe("newReference", () => {
     expect(isReference(undefined)).toBe(false);
   });
 });
+

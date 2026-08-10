@@ -41,7 +41,34 @@ export const CONTACT = {
   country: "BE",
   /** Openingsuren zoals ze op elke pagina in de topbalk staan. */
   openingHours: "Mo-Fr 08:00-17:00",
+  /**
+   * Coördinaten van het magazijn (OpenStreetMap, gebouw Boomsesteenweg 12).
+   *
+   * Zonder `geo` moet Google het adres zelf geolokaliseren, en "Boomsesteenweg"
+   * loopt door vier gemeenten. Voor een bedrijf dat het van "bouwdroger huren
+   * in de buurt" moet hebben, is dat het verschil tussen wel en niet in de
+   * lokale resultaten staan.
+   */
+  latitude: 51.13598,
+  longitude: 4.37512,
 } as const;
+
+/**
+ * Logo en gevelbeeld voor `Organization` / `LocalBusiness`.
+ *
+ * Google vraagt bij een LocalBusiness om minstens één `image`; zonder dat komt
+ * het bedrijf niet in aanmerking voor de rijke weergave. Het logo hoort apart
+ * omdat het knowledge panel dáár naar kijkt.
+ */
+export const ORGANIZATION_LOGO = "/vernast/logo-horizontal-black.webp";
+export const ORGANIZATION_IMAGE = "/vernast/lineup-dryers.webp";
+
+/**
+ * De goedkoopste en duurste dagprijs in het gamma, in het formaat dat
+ * schema.org voor `priceRange` verwacht. Dit is wat een AI-assistent citeert
+ * wanneer iemand vraagt "wat kost dat ongeveer".
+ */
+export const PRICE_RANGE = "€9–€34 per dag";
 
 /** Waar wij leveren — voedt `areaServed` in de LocalBusiness-schema. */
 export const SERVICE_AREA = [

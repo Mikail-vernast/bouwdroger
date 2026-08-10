@@ -24,6 +24,7 @@ import { useToast } from "@/hooks/use-toast";
 import PageMeta from "@/components/PageMeta";
 import { SEO } from "@/data/seo";
 import { enterInitial } from "@/lib/firstPaint";
+import { maskEmail, maskPhone } from "@/lib/inputMask";
 
 type CustomerType = "particulier" | "zakelijk";
 
@@ -254,11 +255,11 @@ const BookingPage = () => {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="email" className="font-semibold">E-mail *</Label>
-                    <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <Input id="email" type="email" inputMode="email" autoComplete="email" autoCapitalize="none" spellCheck={false} value={email} onChange={(e) => setEmail(maskEmail(e.target.value))} required />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="font-semibold">Telefoon *</Label>
-                    <Input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                    <Input id="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="0470 00 00 00" value={phone} onChange={(e) => setPhone(maskPhone(e.target.value))} required />
                   </div>
                 </div>
               </div>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { MailIcon, PhoneIcon } from "./icons";
+import { SITE_NAME } from "@/lib/site";
 
 /** Footer van het verhuurplatform (Calculator · Pakket · Boeking). */
 const VFooter = () => (
@@ -7,7 +8,7 @@ const VFooter = () => (
     <div className="wrap">
       <div className="fg">
         <div className="lc">
-          <img src="/verhuur/logo-horizontal-white.png" alt="Vernast Verhuur" loading="lazy" decoding="async" />
+          <img src="/verhuur/logo-horizontal-white.webp" alt="Vernast Verhuur" loading="lazy" decoding="async" />
           <p>
             Uw specialist in bouwdroging en verhuur van eco-bouwdrogers, ventilatoren en
             bouwkachels. Werkzaam in heel Vlaanderen, met levering binnen 24 uur.
@@ -77,7 +78,17 @@ const VFooter = () => (
         </div>
       </div>
       <div className="fb">
-        <div>© 2026 Vernast Verhuur · BTW BE 0123.456.789</div>
+        <div>
+          {/*
+            Hier stond "BTW BE 0123.456.789" — een voorbeeldnummer uit een
+            formulier-placeholder, gepubliceerd op elke pagina van de
+            verhuurfunnel. Een verzonnen ondernemingsnummer is erger dan geen:
+            het is onjuiste bedrijfsinformatie op een handelssite, en zowel
+            Google als een AI-assistent neemt het over als feit. Zodra het
+            echte nummer bekend is, hoort het hier terug.
+          */}
+          © {new Date().getFullYear()} {SITE_NAME}
+        </div>
         <div className="fl">
           <Link to="/contact">Algemene voorwaarden</Link>
           <Link to="/contact">Privacy</Link>

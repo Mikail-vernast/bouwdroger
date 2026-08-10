@@ -24,6 +24,12 @@ import { extname, join } from "node:path";
 /** Langste zijde in pixels, per map of bestandspatroon. Eerste treffer wint. */
 const RULES = [
   { match: /^public\/vernast\/logo-horizontal-.*\.webp$/, max: 400 },
+  /*
+    De pijlers op de homepage tonen deze op 34×34 px. Ze stonden er op 1440 px
+    in: 76 KB voor een icoontje, meer dan de foto ernaast. 96 px dekt zelfs een
+    scherm met drievoudige pixeldichtheid.
+  */
+  { match: /^public\/vernast\/icon-.*\.webp$/, max: 96 },
   { match: /^public\/vernast\/eco-.*\.webp$/, max: 600 },
   { match: /^public\/vernast\//, max: 1440 },
   { match: /^public\/products\//, max: 1000 },

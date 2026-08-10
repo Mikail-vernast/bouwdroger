@@ -121,7 +121,7 @@ const V3Intro = () => {
             <div className="fact" key={fact.n}>
               <div className="fn">{fact.n}</div>
               <div>
-                <h4>{fact.title}</h4>
+                <h3>{fact.title}</h3>
                 <p>{fact.body}</p>
               </div>
             </div>

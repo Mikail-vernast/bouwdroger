@@ -26,48 +26,15 @@ import {
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { SEO } from "@/data/seo";
-import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
+import { DROGER_KAARTEN } from "@/data/tarieflijst";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
 };
 
-const packages = [
-  {
-    name: "DF 200",
-    label: "Klein project",
-    volume: "Tot 200 m³",
-    desc: "1 à 2 kamers — Appartement of kleine woning",
-    week: "XX",
-    twoWeek: "XX",
-    fourWeek: "XX",
-    badge: null,
-    highlight: false,
-  },
-  {
-    name: "DF 400",
-    label: "Middelgroot project",
-    volume: "Tot 400 m³",
-    desc: "Standaard gezinswoning",
-    week: "XX",
-    twoWeek: "XX",
-    fourWeek: "XX",
-    badge: "Meest gekozen",
-    highlight: true,
-  },
-  {
-    name: "DF 800",
-    label: "Groot project",
-    volume: "Tot 800 m³",
-    desc: "Grote woning of meerdere verdiepingen",
-    week: "XX",
-    twoWeek: "XX",
-    fourWeek: "XX",
-    badge: null,
-    highlight: false,
-  },
-];
+
 
 const steps = [
   { num: "1", title: "Reserveer online of bel", desc: "Kies machine en leveringsdatum.", icon: Phone },
@@ -109,6 +76,13 @@ const NieuwbouwPage = () => {
             path: "/nieuwbouw",
             serviceType: "Bouwdroging",
           }),
+          /*
+            De vragen onderaan deze pagina, ook machineleesbaar. Ze stonden
+            enkel zichtbaar op de pagina; daardoor kon een AI-antwoord er wel
+            uit citeren, maar moest het de vraag-antwoordparen zelf uit de
+            HTML afleiden. Zelfde tekst, dus schema en pagina blijven gelijk.
+          */
+          faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Nieuwbouw", path: "/nieuwbouw" },
@@ -154,9 +128,21 @@ const NieuwbouwPage = () => {
                 initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={2}
                 className="hidden lg:flex items-center justify-center"
               >
-                <div className="w-full aspect-[4/3] bg-muted rounded-2xl flex items-center justify-center text-muted-foreground text-lg font-medium border border-border">
-                  Foto chape / machine
-                </div>
+                {/*
+                  Hier stond een grijs vak met de tekst "Foto chape / machine".
+                  Dat is een ontwerpnotitie, geen inhoud: hij werd meegeprerenderd
+                  en stond dus als zichtbare tekst in de pagina die Google en een
+                  AI-assistent lezen.
+                */}
+                <img
+                  src="/vernast/case-chape.webp"
+                  alt="Bouwdroger aan het werk op een verse chape in een nieuwbouwwoning"
+                  width={800}
+                  height={600}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full aspect-[4/3] object-cover rounded-2xl border border-border"
+                />
               </motion.div>
             </div>
           </div>
@@ -232,21 +218,17 @@ const NieuwbouwPage = () => {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {packages.map((pkg, i) => (
+              {DROGER_KAARTEN.map((pkg, i) => (
                 <MachineCard
-                  key={pkg.name}
+                  key={pkg.key}
                   name={pkg.name}
                   volume={pkg.volume}
                   desc={pkg.desc}
                   badge={pkg.badge}
                   highlight={pkg.highlight}
                   index={i}
-                  pricingTiers={[
-                    { label: "1 week", price: pkg.week },
-                    { label: "2 weken", price: pkg.twoWeek },
-                    { label: "4 weken", price: pkg.fourWeek },
-                  ]}
-                  ctaLabel="Dit pakket kiezen"
+                  pricingTiers={pkg.tiers}
+                  ctaLabel="Dit toestel kiezen"
                 />
               ))}
             </div>

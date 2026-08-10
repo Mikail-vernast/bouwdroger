@@ -4,10 +4,18 @@
  */
 // Relatief geïmporteerd, niet via `@/`: de serverless functies in /api draaien
 // buiten de Vite-alias en gebruiken dezelfde rekenregels.
-import { BRACKET, CAT, WEEKS, WET_IMG, type DeviceKey } from "../data/verhuur.js";
+import { CAT, FIXED_WEEKS, WEEKS, WET_IMG, type DeviceKey, type ImageRule } from "../data/verhuur.js";
+import { packageSizes, packageThicknesses } from "../data/packages.js";
+import {
+  packageFor,
+  packageItems,
+  packageOptionalItems,
+  packageTotal,
+  packageWeeks,
+} from "./vastPakket.js";
 
 export interface PackageConfig {
-  /** oppervlaktebracket, als sleutel van BRACKET */
+  /** de oppervlakte in m², zoals de catalogus ze verkoopt */
   size: string;
   /** pleister | chape | beide | waterschade */
   wat: string;
@@ -55,21 +63,38 @@ export function clampWeeks(raw: string | number | null | undefined): number {
  * vervangen door de standaardwaarde in plaats van doorgegeven.
  */
 export const WAT_VALUES = ["pleister", "chape", "beide", "waterschade"] as const;
-export const PD_VALUES = ["1,5", "2", "3"] as const;
-export const CD_VALUES = ["5", "6", "8"] as const;
+
+/**
+ * De maten en diktes komen uit de catalogus, niet uit een lijst hier.
+ *
+ * Ze stonden hier hardgecodeerd op 1,5/2/3 cm pleister en 5/6/8 cm chape, en dat
+ * liep uiteen met wat Vernast verkoopt: de shop heeft 1/2/3 en 5/6/7. Wie 8 cm
+ * chape koos vroeg dus een pakket dat niet bestaat. Nu kan dat niet meer — de
+ * lijst ís de catalogus.
+ */
+export const PD_VALUES: readonly string[] = packageThicknesses("pleister").map(String);
+export const CD_VALUES: readonly string[] = packageThicknesses("chape").map(String);
+export const SIZE_VALUES: readonly string[] = packageSizes().map(String);
+
+/** Het midden van een reeks — de stand waar de liniaal op begint. */
+function middle(values: readonly string[], fallback: string): string {
+  return values[Math.floor(values.length / 2)] ?? fallback;
+}
+
+export const DEFAULT_SIZE = SIZE_VALUES.includes("180") ? "180" : middle(SIZE_VALUES, "180");
+export const DEFAULT_PD = PD_VALUES.includes("2") ? "2" : middle(PD_VALUES, "2");
+export const DEFAULT_CD = CD_VALUES.includes("6") ? "6" : middle(CD_VALUES, "6");
 
 function pick(raw: string | null, allowed: readonly string[], fallback: string): string {
   return raw !== null && allowed.includes(raw) ? raw : fallback;
 }
 
 export function parseConfig(qs: URLSearchParams): PackageConfig {
-  let size = qs.get("size") || "180";
-  if (!BRACKET[size]) size = "180";
   return {
-    size,
+    size: pick(qs.get("size"), SIZE_VALUES, DEFAULT_SIZE),
     wat: pick(qs.get("wat"), WAT_VALUES, "beide"),
-    pd: pick(qs.get("pd"), PD_VALUES, "3"),
-    cd: pick(qs.get("cd"), CD_VALUES, "6"),
+    pd: pick(qs.get("pd"), PD_VALUES, DEFAULT_PD),
+    cd: pick(qs.get("cd"), CD_VALUES, DEFAULT_CD),
     heat: qs.get("heat") !== "0",
     weeks: clampWeeks(qs.get("weeks")),
   };
@@ -90,16 +115,58 @@ export function isWaterDamage(c: PackageConfig): boolean {
   return c.wat === "waterschade";
 }
 
-/** Toestellen die standaard in het pakket zitten, vóór eventuele extra's. */
+/**
+ * Hoeveel kachels er bij een pakket horen als de klant niet zelf verwarmt en het
+ * portaal er zelf geen aantal bij zette.
+ *
+ * De shop verkoopt geen verwarmingspakketten — kachels zijn daar een los
+ * toestel — dus stond dit aantal aanvankelijk nergens in de catalogus. Eén
+ * kachel per twee bouwdrogers komt overeen met wat de oude brackets
+ * voorschreven, op 220 m² na (die stond op twee waar deze regel er drie geeft).
+ * Zet iemand in het portaal een kachel als optie in het pakket, dan telt dát
+ * aantal en komt deze regel er niet meer aan te pas.
+ */
+function heaterCount(items: PackageItem[]): number {
+  const drogers = items
+    .filter((it) => it.k === "small" || it.k === "medium")
+    .reduce((n, it) => n + it.q, 0);
+  return Math.max(1, Math.ceil(drogers / 2));
+}
+
+/** Twee toestellijsten samentellen, met de volgorde van de eerste voorop. */
+function samenvoegen(basis: PackageItem[], bij: PackageItem[]): PackageItem[] {
+  const uit = basis.map((it) => ({ ...it }));
+  for (const item of bij) {
+    const bestaand = uit.find((it) => it.k === item.k);
+    if (bestaand) bestaand.q += item.q;
+    else uit.push({ ...item });
+  }
+  return uit;
+}
+
+/**
+ * Toestellen die standaard in het pakket zitten, vóór eventuele extra's.
+ *
+ * De catalogus bepaalt de samenstelling. Waterschade krijgt hier géén extra
+ * toestellen bovenop: de shop heeft daar een eigen pakket voor, dat al zwaarder
+ * is dan het chape-pakket van dezelfde oppervlakte.
+ *
+ * Vindt `packageFor` niets, dan bestaat de combinatie niet en valt er ook niets
+ * te leveren. Dat kan alleen als iemand de query-string omzeilt: `parseConfig`
+ * kiest uit dezelfde catalogus.
+ */
 export function baseItems(c: PackageConfig): PackageItem[] {
-  const b = BRACKET[c.size] || BRACKET["180"];
-  const wet = isWaterDamage(c);
-  const out: PackageItem[] = [];
-  if (b.small) out.push({ k: "small", q: b.small + (wet ? 1 : 0) });
-  if (b.medium) out.push({ k: "medium", q: b.medium });
-  out.push({ k: "axiaal", q: b.axiaal + (wet ? 1 : 0) });
-  if (c.heat) out.push({ k: "kachel", q: b.kachel });
-  return out;
+  const vast = packageFor(c);
+  if (!vast) return [];
+
+  const items = packageItems(vast);
+  if (!c.heat) return items;
+
+  // Wat het portaal als optie in het pakket zette gaat vóór op de vuistregel:
+  // daar staat per pakket hoeveel kachels erbij horen.
+  const opties = packageOptionalItems(vast);
+  if (opties.length > 0) return samenvoegen(items, opties);
+  return [...items, { k: "kachel" as DeviceKey, q: heaterCount(items) }];
 }
 
 /** Basispakket plus de handmatig bijgezette toestellen. */
@@ -200,37 +267,158 @@ export function packagePrice(items: PackageItem[], weeks: number): number {
   return Math.round(perTwoWeeks * (WEEKS[weeks] ?? 1));
 }
 
-export function dryingDays(c: PackageConfig): number {
-  if (isWaterDamage(c)) return 10;
-  return (BRACKET[c.size] || BRACKET["180"]).dry;
+/**
+ * De huurtermijn die bij deze configuratie hoort.
+ *
+ * Bij een vast pakket ligt ze vast in de catalogus, want de shop leidt haar af
+ * uit de materiaaldikte. Zonder pakket blijft het de vaste termijn van twee
+ * weken die de site altijd al hanteerde.
+ */
+export function configWeeks(c: PackageConfig): number {
+  const vast = packageFor(c);
+  return vast ? packageWeeks(vast) : FIXED_WEEKS;
 }
 
-/** Productnaamconventie: "Gebouw kleiner dan 180 m2 – Pleisterdikte 3 cm – …". */
-export function packageTitle(c: PackageConfig): string {
-  const parts = [`Gebouw kleiner dan ${c.size} m2`];
-  if (isWaterDamage(c)) parts.push("Waterschade");
-  else {
-    parts.push(`Pleisterdikte ${c.pd} cm`);
-    parts.push(`chape ${c.cd} cm`);
+/**
+ * De pakketprijs voor deze configuratie, inclusief wat er bovenop het vaste
+ * pakket gezet is.
+ *
+ * Het vaste pakket draagt zijn eigen totaal — dagprijs × dagen, zoals de shop
+ * het aanrekent. Alles wat de klant daarbovenop kiest (kachels, een extra
+ * droger) wordt per toestel bijgerekend aan het tarief uit de toestelcatalogus.
+ * Zonder vast pakket rekent de oude weg door.
+ */
+export function configPrice(c: PackageConfig, items: PackageItem[]): number {
+  const vast = packageFor(c);
+  if (!vast) return packagePrice(items, FIXED_WEEKS);
+
+  const inbegrepen = new Map<DeviceKey, number>();
+  for (const it of packageItems(vast)) inbegrepen.set(it.k, it.q);
+
+  const weeks = packageWeeks(vast);
+  const meerprijs = items.reduce((som, it) => {
+    const extra = Math.max(0, it.q - (inbegrepen.get(it.k) ?? 0));
+    return som + CAT[it.k].w2 * extra * (WEEKS[weeks] ?? 1);
+  }, 0);
+
+  return Math.round((packageTotal(vast) + meerprijs) * 100) / 100;
+}
+
+/**
+ * De droogtijd in dagen: de huurtermijn van het pakket. De shop leidt die af uit
+ * de materiaaldikte ("3 weken volgens ≤ 6 cm"), dus is het precies de tijd
+ * waarvoor het pakket ontworpen is.
+ */
+export function dryingDays(c: PackageConfig): number {
+  const vast = packageFor(c);
+  return vast ? packageWeeks(vast) * 7 : FIXED_WEEKS * 7;
+}
+
+/**
+ * De materiaaldiktes die dit pakket werkelijk bepalen.
+ *
+ * Beide diktes noemen was misleidend: een chape-pakket stond er als
+ * "pleisterdikte 2 cm · chape 6 cm" terwijl die eerste waarde er niets aan
+ * verandert — de klant heeft ze bij "chape drogen" niet eens ingevuld. Bij
+ * waterschade en "pleisterwerk + chape" stuurt geen enkele dikte het pakket;
+ * de shop verkoopt die per oppervlakte.
+ */
+function thicknessBits(c: PackageConfig, hoofdletter: boolean): string[] {
+  if (isWaterDamage(c)) return [hoofdletter ? "Waterschade" : "waterschade"];
+  if (c.wat === "chape") return [`${hoofdletter ? "Chapedikte" : "chapedikte"} ${c.cd} cm`];
+  if (c.wat === "pleister") {
+    return [`${hoofdletter ? "Pleisterdikte" : "pleisterdikte"} ${c.pd} cm`];
   }
+  return [hoofdletter ? "Pleisterwerk + chape" : "pleisterwerk + chape"];
+}
+
+/** Productnaamconventie: "Gebouw kleiner dan 180 m2 – Chapedikte 6 cm – …". */
+export function packageTitle(c: PackageConfig): string {
+  const parts = [`Gebouw kleiner dan ${c.size} m2`, ...thicknessBits(c, true)];
   parts.push(c.heat ? "incl. verwarming" : "excl. verwarming");
   return parts.join(" – ");
 }
 
 /** Zelfde opsomming, maar als lopende zin onder de titel. */
 export function packageSpecLine(c: PackageConfig): string {
-  const bits = [`Woning tot ${c.size} m²`];
-  if (isWaterDamage(c)) bits.push("waterschade");
-  else {
-    bits.push(`pleisterdikte ${c.pd} cm`);
-    bits.push(`chape ${c.cd} cm`);
-  }
+  const bits = [`Woning tot ${c.size} m²`, ...thicknessBits(c, false)];
   bits.push(c.heat ? "inclusief verwarming" : "exclusief verwarming");
   return bits.join(" · ");
 }
 
-export function packageImage(c: PackageConfig): string {
-  return isWaterDamage(c) ? WET_IMG : (BRACKET[c.size] || BRACKET["180"]).img;
+/**
+ * Hoeveel er van een toestelsoort in het pakket zit, extra's meegerekend.
+ * `droger` telt small + medium op, `totaal` alles.
+ */
+function aantalVan(items: PackageItem[], device: ImageRule["device"]): number {
+  const som = (k: DeviceKey) => items.find((it) => it.k === k)?.q ?? 0;
+  if (device === "droger") return som("small") + som("medium");
+  if (device === "totaal") return items.reduce((n, it) => n + it.q, 0);
+  return som(device);
+}
+
+/**
+ * Waar de beelden van deze configuratie vandaan komen.
+ *
+ * Heeft het vaste pakket eigen foto's, dan beslist dát pakket — foto én regels.
+ * Anders blijven de brackets de bron, zoals altijd. Die volgorde is nodig omdat
+ * "een andere hoofdfoto per samenstelling" op een vast pakket anders nergens
+ * zou uitkomen: de pakketpagina toont geen samenstelling, alleen de calculator
+ * doet dat.
+ */
+function beeldbron(c: PackageConfig): { basis: string; regels: ImageRule[]; galerij: string[] } {
+  const vast = packageFor(c);
+  if (vast && vast.images.length > 0) {
+    return { basis: vast.images[0], regels: vast.imgRules, galerij: vast.images };
+  }
+  // Heeft het pakket nog geen eigen foto's, dan blijft er één neutraal beeld
+  // over. Beter dan een lege plek, maar het hoort in het portaal ingevuld te
+  // worden — daar staat de galerij per pakket.
+  const regels = vast?.imgRules ?? [];
+  return { basis: WET_IMG, regels, galerij: [] };
+}
+
+/**
+ * De hoofdfoto van een pakket.
+ *
+ * Zonder samenstelling is dat de standaardfoto. Geef je de werkelijke toestellen
+ * mee — inclusief wat de klant bijzette — dan winnen de regels uit het portaal:
+ * die bestaan juist omdat de banner zijn tellingen in het beeld draagt en dus
+ * liegt zodra er een kachel of droger bijkomt.
+ */
+export function packageImage(c: PackageConfig, items?: PackageItem[]): string {
+  const { basis, regels } = beeldbron(c);
+  if (!items) return basis;
+
+  const regel = regels.find((r) => r.image && aantalVan(items, r.device) >= r.min);
+  return regel ? regel.image : basis;
+}
+
+/** De drie beelden die naast de pakketfoto stonden toen die nog vastlag in code. */
+const FALLBACK_GALLERY = ["/verhuur/lineup-dryers.webp", "/verhuur/ttv-4500.webp", "/verhuur/teddh-30.webp"];
+
+/**
+ * De fotogalerij van een pakket. Sinds de tarieven uit het Vernast-portaal komen
+ * hangt die per bracket in de data; publiceerde nog niemand een galerij, dan
+ * blijft het bij de pakketfoto plus de drie toestelbeelden van vroeger.
+ */
+export function packageGallery(c: PackageConfig, items?: PackageItem[]): string[] {
+  const bron = beeldbron(c);
+  const lead = packageImage(c, items);
+  const uit = bron.galerij;
+  if (!uit.length) return [lead, ...FALLBACK_GALLERY];
+
+  /*
+    De pakketfoto en de beelden uit de regels zijn varianten van hetzelfde
+    tafereel: dezelfde banner, andere tellingen erin. Er hoort er dus precies
+    één in de galerij te staan — die van de werkelijke samenstelling. Lieten we
+    de andere staan, dan zag een klant die kachels bijbestelt naast zijn eigen
+    pakket ook de versie zonder kachels, en omgekeerd.
+  */
+  const varianten = new Set(
+    [bron.basis, ...bron.regels.map((r) => r.image)].filter(Boolean),
+  );
+  return [lead, ...uit.filter((foto) => foto !== lead && !varianten.has(foto))];
 }
 
 /** Huurperiode die standaard bij de droogtijd van dit pakket past. */

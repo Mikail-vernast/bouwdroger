@@ -32,38 +32,12 @@ export const CAT: Record<DeviceKey, Device> = Object.fromEntries(
   ])
 ) as Record<DeviceKey, Device>;
 
-export interface Bracket {
-  small: number;
-  medium: number;
-  axiaal: number;
-  kachel: number;
-  /**
-   * Verwachte droogtijd in dagen. Stond eerder als `size >= 180 ? 16 : 12` in
-   * `dryingDays()`, waardoor het 180-pakket 16 dagen beloofde terwijl de
-   * huurperiode vast op 14 staat — de pagina sprak zichzelf tegen en de
-   * boekingswizard waarschuwde er ook nog eens over.
-   *
-   * Per bracket in de data omdat het een verkoopcijfer is, geen rekenregel: het
-   * hoort bewerkbaar te zijn zonder dat er iemand aan een `if` moet komen.
-   */
-  dry: number;
-  img: string;
+/** `droger` telt small + medium op, `totaal` alle toestellen. */
+export interface ImageRule {
+  device: DeviceKey | "droger" | "totaal";
+  min: number;
+  image: string;
 }
-
-/** Aantal toestellen per oppervlaktebracket — komt overeen met de pakketfoto's. */
-export const BRACKET: Record<string, Bracket> = Object.fromEntries(
-  Object.entries(TARIEVEN.packages).map(([size, p]) => [
-    size,
-    {
-      small: Number(p.small),
-      medium: Number(p.medium),
-      axiaal: Number(p.axiaal),
-      kachel: Number(p.kachel),
-      dry: Number(p.dry),
-      img: p.img,
-    },
-  ])
-);
 
 export const WET_IMG = "/verhuur/pkg-9.jpg";
 
@@ -141,7 +115,7 @@ export const SPECS: SpecSheet[] = [
         "Afmetingen",
         [
           ["b × d × h [cm]", "43 × 43 × 65"],
-          ["Gewicht [kg]", "27"],
+          ["Gewicht [kg]", "32"],
           ["Waterreservoir", "met continu-afvoer"],
         ],
       ],
@@ -178,7 +152,7 @@ export const SPECS: SpecSheet[] = [
         "Afmetingen",
         [
           ["b × d × h [cm]", "50 × 50 × 87"],
-          ["Gewicht [kg]", "38"],
+          ["Gewicht [kg]", "50"],
           ["Waterreservoir", "met continu-afvoer"],
         ],
       ],
@@ -246,7 +220,7 @@ export const SPECS: SpecSheet[] = [
         "Afmetingen",
         [
           ["b × d × h [cm]", "48 × 39 × 45"],
-          ["Gewicht [kg]", "11"],
+          ["Gewicht [kg]", "15"],
           ["Stapelbaar", "ja"],
         ],
       ],
@@ -284,7 +258,7 @@ export const SPECS: SpecSheet[] = [
         [
           ["Beveiliging", "overhittingsbeveiliging"],
           ["Behuizing", "staal, gepoedercoat"],
-          ["Gewicht [kg]", "5,2"],
+          ["Gewicht [kg]", "10"],
         ],
       ],
     ],
@@ -423,7 +397,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ["Reservoir", "met continu-afvoeroptie"],
       ["Hygrostaat", "ingebouwd"],
       ["Afmetingen (b × d × h)", "ca. 43 × 43 × 65 cm"],
-      ["Gewicht", "ca. 27 kg"],
+      ["Gewicht", "ca. 32 kg"],
       ["Mobiliteit", "wielen + duwbeugel"],
     ],
     faq: [
@@ -470,7 +444,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ["Reservoir", "met continu-afvoeroptie"],
       ["Hygrostaat", "ingebouwd"],
       ["Afmetingen (b × d × h)", "ca. 50 × 50 × 87 cm"],
-      ["Gewicht", "ca. 38 kg"],
+      ["Gewicht", "ca. 50 kg"],
       ["Mobiliteit", "wielen + duwbeugel"],
     ],
     faq: [
@@ -521,7 +495,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ["Reservoir", "met continu-afvoeroptie"],
       ["Hygrostaat", "ingebouwd"],
       ["Afmetingen (b × d × h)", "ca. 55 × 55 × 95 cm"],
-      ["Gewicht", "ca. 48 kg"],
+      ["Gewicht", "ca. 52 kg"],
       ["Mobiliteit", "wielen + duwbeugel"],
     ],
     faq: [
@@ -571,7 +545,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ["Behuizing", "kunststof, stapelbaar"],
       ["Richtbaar", "ja, kantelbaar frame"],
       ["Afmetingen (b × d × h)", "ca. 56 × 30 × 62 cm"],
-      ["Gewicht", "ca. 11 kg"],
+      ["Gewicht", "ca. 15 kg"],
       ["Toepassing", "bouwdroging, waterschade, ventilatie werf"],
     ],
     faq: [

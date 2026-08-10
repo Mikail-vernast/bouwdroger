@@ -7,7 +7,19 @@
  * lopende tekst. Wat hier staat, moet dus ook echt op de pagina staan —
  * schema voor onzichtbare content is een overtreding, geen truc.
  */
-import { CONTACT, REVIEWS, SAME_AS, SERVICE_AREA, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
+import {
+  CONTACT,
+  ORGANIZATION_IMAGE,
+  ORGANIZATION_LOGO,
+  PRICE_RANGE,
+  REVIEWS,
+  SAME_AS,
+  SERVICE_AREA,
+  SITE_LANG,
+  SITE_NAME,
+  SITE_URL,
+  absoluteUrl,
+} from "./site";
 
 /** Vaste @id's, zodat losse blokken naar dezelfde entiteit verwijzen. */
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
@@ -28,8 +40,25 @@ export function organizationSchema(): Json {
     url: SITE_URL,
     description:
       "Verhuur van professionele bouwdrogers, ventilatoren en bouwkachels voor nieuwbouw, renovatie en waterschade in Vlaanderen, inclusief levering, installatie en vochtmeting.",
+    /*
+      `image` is bij Google de voorwaarde om als LocalBusiness überhaupt in
+      aanmerking te komen voor een rijke weergave; `logo` is wat het knowledge
+      panel toont. Beide ontbraken.
+    */
+    image: [absoluteUrl(ORGANIZATION_IMAGE)],
+    logo: absoluteUrl(ORGANIZATION_LOGO),
     telephone: CONTACT.phoneE164,
     email: CONTACT.email,
+    priceRange: PRICE_RANGE,
+    currenciesAccepted: "EUR",
+    paymentAccepted: "Bancontact, Kredietkaart, Overschrijving",
+    knowsLanguage: [SITE_LANG],
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: CONTACT.latitude,
+      longitude: CONTACT.longitude,
+    },
+    hasMap: `https://www.google.com/maps/search/?api=1&query=${CONTACT.latitude},${CONTACT.longitude}`,
     address: {
       "@type": "PostalAddress",
       streetAddress: CONTACT.street,
@@ -130,6 +159,13 @@ export function productSchema(p: ProductSchemaInput): Json {
     offers: {
       "@type": "Offer",
       url: absoluteUrl(p.path),
+      /*
+        `price` staat hier náást `priceSpecification`. De specificatie zegt wat
+        het cijfer betekent (per dag, huur), maar Google's validator verwacht
+        het kale bedrag op de Offer zelf; zonder dat valt de prijs uit het
+        zoekresultaat weg.
+      */
+      price: p.pricePerDay,
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       businessFunction: "https://purl.org/goodrelations/v1#LeaseOut",
@@ -178,6 +214,52 @@ export function itemListSchema(name: string, items: { name: string; path: string
       position: i + 1,
       name: item.name,
       url: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export interface OfferCatalogItem {
+  name: string;
+  description: string;
+  path: string;
+  /** Huurprijs per dag in euro. */
+  pricePerDay: number;
+}
+
+/**
+ * De volledige tarieflijst als machineleesbaar blok.
+ *
+ * "Wat kost een bouwdroger huren" is de vraag waarmee dit bedrijf gevonden
+ * wordt, en het antwoord is een rij bedragen. In lopende tekst moet een
+ * AI-assistent die uit een tabel puzzelen; hier staan ze eenduidig, elk met
+ * hun eenheid (per dag) en hun toestel. Elk bedrag hier staat ook zichtbaar
+ * op /prijzen — anders zou het schema iets anders beweren dan de pagina.
+ */
+export function offerCatalogSchema(name: string, items: OfferCatalogItem[]): Json {
+  return {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    name,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      "@type": "Offer",
+      position: i + 1,
+      name: item.name,
+      description: item.description,
+      url: absoluteUrl(item.path),
+      price: item.pricePerDay,
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      businessFunction: "https://purl.org/goodrelations/v1#LeaseOut",
+      seller: { "@id": ORGANIZATION_ID },
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: item.pricePerDay,
+        priceCurrency: "EUR",
+        unitCode: "DAY",
+        valueAddedTaxIncluded: false,
+        referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "DAY" },
+      },
     })),
   };
 }

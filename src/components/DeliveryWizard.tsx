@@ -54,7 +54,7 @@ const buildingTypes: {
     icon: Castle,
     desc: "Alleenstaand huis met tuin",
     typicalSize: "180 – 300 m²",
-    image: "/products/pakket-1.jpg",
+    image: "/products/pakket-1.webp",
   },
   {
     value: "halfopen",
@@ -62,7 +62,7 @@ const buildingTypes: {
     icon: Building,
     desc: "Woning met één gemeenschappelijke muur",
     typicalSize: "140 – 220 m²",
-    image: "/products/pakket-2.jpg",
+    image: "/products/pakket-2.webp",
   },
   {
     value: "rijwoning",
@@ -70,7 +70,7 @@ const buildingTypes: {
     icon: Hotel,
     desc: "Tussengelegen woning in een rij",
     typicalSize: "100 – 180 m²",
-    image: "/products/pakket-3.jpg",
+    image: "/products/pakket-3.webp",
   },
   {
     value: "appartement",
@@ -78,7 +78,7 @@ const buildingTypes: {
     icon: Building2,
     desc: "Flat of studio in een gebouw",
     typicalSize: "60 – 140 m²",
-    image: "/products/pakket-4.jpg",
+    image: "/products/pakket-4.webp",
   },
 ];
 

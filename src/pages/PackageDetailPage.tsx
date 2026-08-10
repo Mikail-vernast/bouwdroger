@@ -40,14 +40,15 @@ import { cn } from "@/lib/utils";
 import PageMeta from "@/components/PageMeta";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, productSchema } from "@/lib/schema";
+import { maskEmail, maskPhone } from "@/lib/inputMask";
 
 type CustomerType = "particulier" | "zakelijk";
 
 const equipmentImages: Record<string, string> = {
-  "Small Bouwdroger": "/products/eco-boost-50.png",
-  "Large Bouwdroger": "/products/eco-performance-80.png",
-  "Axiaal Ventilator": "/products/turbo-axiaal-5300.jpg",
-  "Elektrische Kachel": "/products/elektrische-kachel-2500.jpg",
+  "Small Bouwdroger": "/products/eco-boost-50.webp",
+  "Large Bouwdroger": "/products/eco-performance-80.webp",
+  "Axiaal Ventilator": "/products/turbo-axiaal-5300.webp",
+  "Elektrische Kachel": "/products/elektrische-kachel-2500.webp",
 };
 
 const equipmentIcons: Record<string, typeof Droplets> = {
@@ -57,16 +58,16 @@ const equipmentIcons: Record<string, typeof Droplets> = {
 };
 
 const categoryImages: Record<string, string[]> = {
-  "Chape drogen": ["/products/chape-drogen-1.jpg", "/products/chape-drogen-2.jpg", "/products/chape-drogen-3.jpg", "/products/chape-drogen-4.jpg", "/products/chape-drogen-5.jpg"],
-  "Pleister drogen": ["/products/pleister-1.jpg", "/products/pleister-2.jpg", "/products/pleister-3.jpg", "/products/pleister-4.jpg", "/products/pleister-5.jpg"],
-  "Chape & Pleister drogen": ["/products/pakket-1.jpg", "/products/pakket-2.jpg", "/products/pakket-3.jpg", "/products/chape-pakket-1.jpg", "/products/chape-pakket-2.jpg"],
-  "Chape & Verwarming": ["/products/chape-pakket-1.jpg", "/products/chape-pakket-2.jpg", "/products/chape-pakket-3.jpg", "/products/chape-pakket-4.jpg"],
-  "Chape & Pleister & Verwarming": ["/products/pakket-4.jpg", "/products/pakket-5.jpg", "/products/pakket-6.jpg", "/products/pakket-7.jpg"],
-  "Pleister & Verwarming": ["/products/pleister-10.jpg", "/products/pleister-11.jpg", "/products/pleister-12.jpg"],
-  "Waterschade": ["/products/pakket-1.jpg", "/products/extra-1.jpg", "/products/extra-2.jpg"],
+  "Chape drogen": ["/products/chape-drogen-1.webp", "/products/chape-drogen-2.webp", "/products/chape-drogen-3.webp", "/products/chape-drogen-4.webp", "/products/chape-drogen-5.webp"],
+  "Pleister drogen": ["/products/pleister-1.webp", "/products/pleister-2.webp", "/products/pleister-3.webp", "/products/pleister-4.webp", "/products/pleister-5.webp"],
+  "Chape & Pleister drogen": ["/products/pakket-1.webp", "/products/pakket-2.webp", "/products/pakket-3.webp", "/products/chape-pakket-1.webp", "/products/chape-pakket-2.webp"],
+  "Chape & Verwarming": ["/products/chape-pakket-1.webp", "/products/chape-pakket-2.webp", "/products/chape-pakket-3.webp", "/products/chape-pakket-4.webp"],
+  "Chape & Pleister & Verwarming": ["/products/pakket-4.webp", "/products/pakket-5.webp", "/products/pakket-6.webp", "/products/pakket-7.webp"],
+  "Pleister & Verwarming": ["/products/pleister-10.webp", "/products/pleister-11.webp", "/products/pleister-12.webp"],
+  "Waterschade": ["/products/pakket-1.webp", "/products/extra-1.webp", "/products/extra-2.webp"],
 };
 
-const defaultGallery = ["/products/pakket-1.jpg", "/products/extra-6.jpg", "/products/extra-7.jpg", "/products/extra-8.jpg"];
+const defaultGallery = ["/products/pakket-1.webp", "/products/extra-6.webp", "/products/extra-7.webp", "/products/extra-8.webp"];
 
 const PackageDetailPage = () => {
   const { packageId } = useParams<{ packageId: string }>();
@@ -115,7 +116,9 @@ const PackageDetailPage = () => {
     );
   }
 
-  const gallery = categoryImages[pkg.category] || defaultGallery;
+  // Beheerd in het Vernast-portaal; publiceerde nog niemand een galerij voor dit
+  // pakket, dan de vaste lijst per werksoort van vroeger.
+  const gallery = pkg.images.length ? pkg.images : categoryImages[pkg.category] || defaultGallery;
 
   // Duration calculation
   const rentalDays = startDate && endDate ? Math.max(1, differenceInDays(endDate, startDate)) : 14;
@@ -566,11 +569,11 @@ const PackageDetailPage = () => {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <Label className="text-sm font-semibold">E-mail *</Label>
-                      <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                      <Input type="email" inputMode="email" autoComplete="email" autoCapitalize="none" spellCheck={false} value={email} onChange={(e) => setEmail(maskEmail(e.target.value))} required />
                     </div>
                     <div className="space-y-1.5">
                       <Label className="text-sm font-semibold">Telefoon *</Label>
-                      <Input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                      <Input type="tel" inputMode="tel" autoComplete="tel" placeholder="0470 00 00 00" value={phone} onChange={(e) => setPhone(maskPhone(e.target.value))} required />
                     </div>
                   </div>
 

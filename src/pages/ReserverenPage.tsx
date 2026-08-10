@@ -33,7 +33,9 @@ import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useSearchParams } from "react-router-dom";
 import { SEO } from "@/data/seo";
+import { DROGER_KAARTEN } from "@/data/tarieflijst";
 import { enterInitial } from "@/lib/firstPaint";
+import { maskEmail, maskPhone } from "@/lib/inputMask";
 
 const situations = [
   { id: "nieuwbouw", icon: "🏗️", title: "Nieuwbouw / chape drogen", badge: null },
@@ -41,11 +43,22 @@ const situations = [
   { id: "renovatie", icon: "🔨", title: "Renovatie / vochtige kelder", badge: null },
 ];
 
-const machines = [
-  { id: "DF 200", volume: "Tot 200 m³", price: 0, badge: null, highlight: false },
-  { id: "DF 400", volume: "Tot 400 m³", price: 0, badge: "Meest gekozen", highlight: true },
-  { id: "DF 800", volume: "Tot 800 m³", price: 0, badge: null, highlight: false },
-];
+/*
+  Dezelfde toestellen als op /prijzen en de toepassingspagina's. Stond hier
+  eerder als "DF 200 / DF 400 / DF 800" — een reeks die in het gamma niet
+  bestaat, terwijl de kaarten op die pagina's wél naar deze stap doorlinken
+  met `?machine=<naam>`. Wie op "Reserveer nu" klikte, kwam dus aan met een
+  toestelnaam die dit formulier niet kende.
+*/
+const machines = DROGER_KAARTEN.map((t) => ({
+  id: t.name,
+  volume: t.volume,
+  badge: t.badge,
+  highlight: t.highlight,
+}));
+
+/** Het toestel dat vooraf aangevinkt staat: het meest gehuurde. */
+const DEFAULT_MACHINE = (machines.find((m) => m.highlight) ?? machines[0]).id;
 
 const durations = [
   { value: "1 week", label: "1 week" },
@@ -64,9 +77,9 @@ const ReserverenPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDone, setIsDone] = useState(false);
 
-  // Step 1 — pre-select DF 400 by default, and read URL params
+  // Step 1 — het meest gehuurde toestel staat vooraf aan; URL-params gaan voor
   const [situatie, setSituatie] = useState(searchParams.get("situatie") || "");
-  const [machine, setMachine] = useState(searchParams.get("machine") || "DF 400");
+  const [machine, setMachine] = useState(searchParams.get("machine") || DEFAULT_MACHINE);
   const [duur, setDuur] = useState("");
 
   // Step 2
@@ -320,11 +333,11 @@ const ReserverenPage = () => {
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
                         <Label className="text-sm font-semibold">Telefoonnummer *</Label>
-                        <Input value={telefoon} onChange={(e) => setTelefoon(e.target.value)} placeholder="04XX XX XX XX" required />
+                        <Input type="tel" inputMode="tel" autoComplete="tel" value={telefoon} onChange={(e) => setTelefoon(maskPhone(e.target.value))} placeholder="0470 00 00 00" required />
                       </div>
                       <div className="space-y-1.5">
                         <Label className="text-sm font-semibold">E-mailadres *</Label>
-                        <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        <Input type="email" inputMode="email" autoComplete="email" autoCapitalize="none" spellCheck={false} value={email} onChange={(e) => setEmail(maskEmail(e.target.value))} required />
                       </div>
                     </div>
 

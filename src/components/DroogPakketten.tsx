@@ -6,55 +6,55 @@ import { useNavigate } from "react-router-dom";
 type Category = "verwarming" | "chape" | "chapedrogen" | "pleister" | "pleisterverwarming";
 
 const verwarmingPackages = [
-  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/pakket-1.jpg", drogers: 1, ventilatoren: 1, verwarming: 1 },
-  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/pakket-2.jpg", drogers: 1, ventilatoren: 2, verwarming: 1 },
-  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/pakket-3.jpg", drogers: 2, ventilatoren: 3, verwarming: 1 },
-  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/pakket-4.jpg", drogers: 3, ventilatoren: 3, verwarming: 2 },
-  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/pakket-5.jpg", drogers: 4, ventilatoren: 4, verwarming: 2 },
-  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/pakket-6.jpg", drogers: 5, ventilatoren: 4, verwarming: 2 },
+  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/pakket-1.webp", drogers: 1, ventilatoren: 1, verwarming: 1 },
+  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/pakket-2.webp", drogers: 1, ventilatoren: 2, verwarming: 1 },
+  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/pakket-3.webp", drogers: 2, ventilatoren: 3, verwarming: 1 },
+  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/pakket-4.webp", drogers: 3, ventilatoren: 3, verwarming: 2 },
+  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/pakket-5.webp", drogers: 4, ventilatoren: 4, verwarming: 2 },
+  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/pakket-6.webp", drogers: 5, ventilatoren: 4, verwarming: 2 },
 ];
 
 const chapePackages = [
-  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/chape-pakket-1.jpg", drogers: 1, ventilatoren: 1, verwarming: 0 },
-  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/chape-pakket-2.jpg", drogers: 1, ventilatoren: 2, verwarming: 0 },
-  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/chape-pakket-3.jpg", drogers: 2, ventilatoren: 3, verwarming: 0 },
-  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/chape-pakket-4.jpg", drogers: 3, ventilatoren: 3, verwarming: 0 },
-  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/chape-pakket-5.jpg", drogers: 4, ventilatoren: 4, verwarming: 0 },
-  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/chape-pakket-6.jpg", drogers: 5, ventilatoren: 4, verwarming: 0 },
+  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/chape-pakket-1.webp", drogers: 1, ventilatoren: 1, verwarming: 0 },
+  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/chape-pakket-2.webp", drogers: 1, ventilatoren: 2, verwarming: 0 },
+  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/chape-pakket-3.webp", drogers: 2, ventilatoren: 3, verwarming: 0 },
+  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/chape-pakket-4.webp", drogers: 3, ventilatoren: 3, verwarming: 0 },
+  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/chape-pakket-5.webp", drogers: 4, ventilatoren: 4, verwarming: 0 },
+  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/chape-pakket-6.webp", drogers: 5, ventilatoren: 4, verwarming: 0 },
 ];
 
 const chapeDrogenPackages = [
-  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/chape-drogen-1.jpg", drogers: 1, ventilatoren: 1, verwarming: 0 },
-  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/chape-drogen-2.jpg", drogers: 1, ventilatoren: 2, verwarming: 0 },
-  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/chape-drogen-3.jpg", drogers: 2, ventilatoren: 3, verwarming: 0 },
-  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/chape-drogen-4.jpg", drogers: 3, ventilatoren: 3, verwarming: 0 },
-  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/chape-drogen-5.jpg", drogers: 4, ventilatoren: 4, verwarming: 0 },
-  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/chape-drogen-6.jpg", drogers: 5, ventilatoren: 4, verwarming: 0 },
+  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/chape-drogen-1.webp", drogers: 1, ventilatoren: 1, verwarming: 0 },
+  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/chape-drogen-2.webp", drogers: 1, ventilatoren: 2, verwarming: 0 },
+  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/chape-drogen-3.webp", drogers: 2, ventilatoren: 3, verwarming: 0 },
+  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/chape-drogen-4.webp", drogers: 3, ventilatoren: 3, verwarming: 0 },
+  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/chape-drogen-5.webp", drogers: 4, ventilatoren: 4, verwarming: 0 },
+  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/chape-drogen-6.webp", drogers: 5, ventilatoren: 4, verwarming: 0 },
 ];
 
 const pleisterPackages = [
-  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/pleister-1.jpg", drogers: 1, ventilatoren: 1, verwarming: 0 },
-  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/pleister-2.jpg", drogers: 1, ventilatoren: 2, verwarming: 0 },
-  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/pleister-3.jpg", drogers: 2, ventilatoren: 3, verwarming: 0 },
-  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/pleister-4.jpg", drogers: 3, ventilatoren: 3, verwarming: 0 },
-  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/pleister-5.jpg", drogers: 4, ventilatoren: 4, verwarming: 0 },
-  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/pleister-6.jpg", drogers: 5, ventilatoren: 4, verwarming: 0 },
-  { id: 7, title: "Pakket 4XL", subtitle: "Tot 350 m²", image: "/products/pleister-7.jpg", drogers: 5, ventilatoren: 4, verwarming: 0 },
-  { id: 8, title: "Pakket 5XL", subtitle: "Tot 400 m²", image: "/products/pleister-8.jpg", drogers: 6, ventilatoren: 5, verwarming: 0 },
-  { id: 9, title: "Pakket 6XL", subtitle: "Tot 450 m²", image: "/products/pleister-9.jpg", drogers: 6, ventilatoren: 5, verwarming: 0 },
+  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/pleister-1.webp", drogers: 1, ventilatoren: 1, verwarming: 0 },
+  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/pleister-2.webp", drogers: 1, ventilatoren: 2, verwarming: 0 },
+  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/pleister-3.webp", drogers: 2, ventilatoren: 3, verwarming: 0 },
+  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/pleister-4.webp", drogers: 3, ventilatoren: 3, verwarming: 0 },
+  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/pleister-5.webp", drogers: 4, ventilatoren: 4, verwarming: 0 },
+  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/pleister-6.webp", drogers: 5, ventilatoren: 4, verwarming: 0 },
+  { id: 7, title: "Pakket 4XL", subtitle: "Tot 350 m²", image: "/products/pleister-7.webp", drogers: 5, ventilatoren: 4, verwarming: 0 },
+  { id: 8, title: "Pakket 5XL", subtitle: "Tot 400 m²", image: "/products/pleister-8.webp", drogers: 6, ventilatoren: 5, verwarming: 0 },
+  { id: 9, title: "Pakket 6XL", subtitle: "Tot 450 m²", image: "/products/pleister-9.webp", drogers: 6, ventilatoren: 5, verwarming: 0 },
 ];
 
 const pleisterVerwarmingPackages = [
-  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/pleister-10.jpg", drogers: 1, ventilatoren: 1, verwarming: 1 },
-  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/pleister-11.jpg", drogers: 1, ventilatoren: 2, verwarming: 1 },
-  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/pleister-12.jpg", drogers: 2, ventilatoren: 3, verwarming: 1 },
-  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/pleister-13.jpg", drogers: 3, ventilatoren: 3, verwarming: 2 },
-  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/pleister-14.jpg", drogers: 4, ventilatoren: 4, verwarming: 2 },
-  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/pleister-15.jpg", drogers: 5, ventilatoren: 4, verwarming: 2 },
-  { id: 7, title: "Pakket 4XL", subtitle: "Tot 350 m²", image: "/products/pleister-16.jpg", drogers: 5, ventilatoren: 4, verwarming: 2 },
-  { id: 8, title: "Pakket 5XL", subtitle: "Tot 400 m²", image: "/products/pleister-17.jpg", drogers: 6, ventilatoren: 4, verwarming: 2 },
-  { id: 9, title: "Pakket 6XL", subtitle: "Tot 450 m²", image: "/products/pleister-18.jpg", drogers: 6, ventilatoren: 5, verwarming: 3 },
-  { id: 10, title: "Pakket 7XL", subtitle: "Tot 500 m²", image: "/products/pleister-19.jpg", drogers: 2, ventilatoren: 3, verwarming: 2 },
+  { id: 1, title: "Pakket S", subtitle: "Tot 50 m²", image: "/products/pleister-10.webp", drogers: 1, ventilatoren: 1, verwarming: 1 },
+  { id: 2, title: "Pakket M", subtitle: "Tot 100 m²", image: "/products/pleister-11.webp", drogers: 1, ventilatoren: 2, verwarming: 1 },
+  { id: 3, title: "Pakket L", subtitle: "Tot 150 m²", image: "/products/pleister-12.webp", drogers: 2, ventilatoren: 3, verwarming: 1 },
+  { id: 4, title: "Pakket XL", subtitle: "Tot 200 m²", image: "/products/pleister-13.webp", drogers: 3, ventilatoren: 3, verwarming: 2 },
+  { id: 5, title: "Pakket XXL", subtitle: "Tot 250 m²", image: "/products/pleister-14.webp", drogers: 4, ventilatoren: 4, verwarming: 2 },
+  { id: 6, title: "Pakket 3XL", subtitle: "Tot 300 m²", image: "/products/pleister-15.webp", drogers: 5, ventilatoren: 4, verwarming: 2 },
+  { id: 7, title: "Pakket 4XL", subtitle: "Tot 350 m²", image: "/products/pleister-16.webp", drogers: 5, ventilatoren: 4, verwarming: 2 },
+  { id: 8, title: "Pakket 5XL", subtitle: "Tot 400 m²", image: "/products/pleister-17.webp", drogers: 6, ventilatoren: 4, verwarming: 2 },
+  { id: 9, title: "Pakket 6XL", subtitle: "Tot 450 m²", image: "/products/pleister-18.webp", drogers: 6, ventilatoren: 5, verwarming: 3 },
+  { id: 10, title: "Pakket 7XL", subtitle: "Tot 500 m²", image: "/products/pleister-19.webp", drogers: 2, ventilatoren: 3, verwarming: 2 },
 ];
 
 const DroogPakketten = () => {

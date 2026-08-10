@@ -131,7 +131,7 @@ const LeveringPage = () => {
                   className="absolute top-20 -left-4 bg-background/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl z-20"
                 >
                   <div className="flex items-center gap-3">
-                    <img src="/products/dim-eco-boost.png" alt="Bouwdroger" className="w-12 h-12 object-contain" loading="lazy" decoding="async" />
+                    <img src="/products/dim-eco-boost.webp" alt="Bouwdroger" className="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                     <div>
                       <p className="text-xs font-bold text-foreground">ECO Boost 50L</p>
                       <p className="text-[10px] text-muted-foreground">Professionele bouwdroger</p>
@@ -146,7 +146,7 @@ const LeveringPage = () => {
                   className="absolute top-52 -right-4 bg-background/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl z-20"
                 >
                   <div className="flex items-center gap-3">
-                    <img src="/products/dim-axiaal-ventilator.png" alt="Ventilator" className="w-12 h-12 object-contain" loading="lazy" decoding="async" />
+                    <img src="/products/dim-axiaal-ventilator.webp" alt="Ventilator" className="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                     <div>
                       <p className="text-xs font-bold text-foreground">Axiaal Ventilator</p>
                       <p className="text-[10px] text-muted-foreground">4.500 m³/u luchtdebiet</p>
@@ -284,10 +284,10 @@ const LeveringPage = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
               {[
-                { name: "ECO Boost 50L", desc: "Bouwdroger", image: "/products/dim-eco-boost.png" },
-                { name: "ECO Performance 80L", desc: "Bouwdroger", image: "/products/dim-eco-performance.png" },
-                { name: "Axiaal Ventilator", desc: "4.500 m³/u", image: "/products/dim-axiaal-ventilator.png" },
-                { name: "Elektrische Kachel", desc: "2.500W", image: "/products/dim-elektrische-kachel.png" },
+                { name: "ECO Boost 50L", desc: "Bouwdroger", image: "/products/dim-eco-boost.webp" },
+                { name: "ECO Performance 80L", desc: "Bouwdroger", image: "/products/dim-eco-performance.webp" },
+                { name: "Axiaal Ventilator", desc: "4.500 m³/u", image: "/products/dim-axiaal-ventilator.webp" },
+                { name: "Elektrische Kachel", desc: "2.500W", image: "/products/dim-elektrische-kachel.webp" },
               ].map((product, i) => (
                 <motion.div
                   key={product.name}
@@ -316,7 +316,7 @@ const LeveringPage = () => {
         {/* Delivery area + CTA */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
-            <img src="/products/chape-drogen-3.jpg" alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <img src="/products/chape-drogen-3.webp" alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
             <div className="absolute inset-0 bg-accent/90" />
           </div>
           <div className="relative container mx-auto px-4 py-20 md:py-28">

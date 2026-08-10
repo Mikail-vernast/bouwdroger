@@ -44,7 +44,7 @@ const ContactPage = () => {
         <section className="relative bg-accent overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src="/products/chape-drogen-3.jpg"
+              src="/products/chape-drogen-3.webp"
               alt="Vernast magazijn"
               className="w-full h-full object-cover opacity-20" loading="lazy" decoding="async" />
             <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/90 to-accent/60" />
@@ -118,7 +118,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-bold text-foreground text-base">Vernast Magazijn</p>
-                    <p className="text-sm text-muted-foreground">Boomsesteenweg 12/Unit 11</p>
+                    <p className="text-sm text-muted-foreground">Boomsesteenweg 12, Unit 11</p>
                     <p className="text-sm text-muted-foreground">2630 Aartselaar</p>
                   </div>
                 </div>
@@ -133,6 +133,13 @@ const ContactPage = () => {
             <div className="grid lg:grid-cols-5 gap-10">
               {/* Links: contact info kaarten */}
               <div className="lg:col-span-2 space-y-5">
+                {/*
+                  Deze kolom had geen eigen kop, waardoor de pagina van de h1
+                  meteen naar de h3 van "Afhalen bij ons magazijn" sprong. Dat
+                  is precies de kop waar contactgegevens onder horen te hangen —
+                  ook voor een crawler die de NAP-gegevens wil terugvinden.
+                */}
+                <h2 className="text-2xl font-extrabold text-foreground mb-1">Zo bereikt u ons</h2>
                 {/* Telefoon */}
                 <motion.a
                   href="tel:+3236899065"
@@ -184,12 +191,12 @@ const ContactPage = () => {
                   className="bg-gradient-to-br from-accent to-accent/80 rounded-2xl p-6 text-primary-foreground shadow-lg"
                 >
                   <Warehouse className="h-8 w-8 mb-3 opacity-80" />
-                  <h4 className="font-bold text-lg mb-2">Afhalen bij ons magazijn</h4>
+                  <h3 className="font-bold text-lg mb-2">Afhalen bij ons magazijn</h3>
                   <p className="text-sm text-primary-foreground/80 mb-4">
                     Haal je materiaal zelf op aan ons magazijn in Antwerpen. Snel, eenvoudig en zonder levertijd.
                   </p>
                   <div className="text-sm font-medium text-primary-foreground/90">
-                    Boomsesteenweg 12/Unit 11, 2630 Aartselaar
+                    Boomsesteenweg 12, Unit 11, 2630 Aartselaar
                   </div>
                 </motion.div>
 
@@ -205,7 +212,7 @@ const ContactPage = () => {
                     <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center">
                       <Clock className="h-5 w-5 text-accent" />
                     </div>
-                    <h4 className="font-bold text-foreground">Openingsuren</h4>
+                    <h3 className="font-bold text-foreground">Openingsuren</h3>
                   </div>
                   <div className="space-y-3 text-sm">
                     <div className="flex justify-between items-center py-2 border-b border-border">
@@ -232,7 +239,7 @@ const ContactPage = () => {
                 viewport={{ once: true }}
               >
                 <div className="bg-card rounded-2xl border border-border shadow-lg p-7 md:p-10">
-                  <h3 className="text-2xl font-extrabold text-foreground mb-2">Stuur ons een bericht</h3>
+                  <h2 className="text-2xl font-extrabold text-foreground mb-2">Stuur ons een bericht</h2>
                   <p className="text-muted-foreground mb-8">Vul het formulier in en wij reageren binnen 24 uur.</p>
                   
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -286,9 +293,9 @@ const ContactPage = () => {
           <div className="container mx-auto px-4 py-12 md:py-16">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
               <div>
-                <h3 className="text-2xl md:text-3xl font-extrabold text-primary-foreground mb-2">
+                <h2 className="text-2xl md:text-3xl font-extrabold text-primary-foreground mb-2">
                   Liever direct bellen?
-                </h3>
+                </h2>
                 <p className="text-primary-foreground/70 text-lg">
                   Ons team staat klaar om al uw vragen te beantwoorden.
                 </p>

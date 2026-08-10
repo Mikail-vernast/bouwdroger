@@ -35,7 +35,7 @@ function endpoint() {
  */
 function usable(data) {
   if (!data || typeof data !== "object") return "geen object";
-  if (!data.packages || Object.keys(data.packages).length === 0) return "geen pakketten";
+  if (!Array.isArray(data.fixed) || data.fixed.length === 0) return "geen pakketten";
   if (!data.devices || Object.keys(data.devices).length === 0) return "geen toestellen";
   if (!data.pricing || Object.keys(data.pricing).length === 0) return "geen instellingen";
   return null;
@@ -99,7 +99,7 @@ try {
   );
   console.log(
     `[tarieven] versie ${data.version} opgehaald ` +
-      `(${Object.keys(data.packages).length} pakketten, ${Object.keys(data.devices).length} toestellen).`
+      `(${data.fixed.length} pakketten, ${Object.keys(data.devices).length} toestellen).`
   );
 } catch (error) {
   keepExisting(`Ophalen mislukt: ${error instanceof Error ? error.message : "onbekende fout"}`);

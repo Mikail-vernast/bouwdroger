@@ -64,8 +64,62 @@ bereikbaar:
 uit de URL, een formulier of een API-antwoord overneemt. Dat tweede is de
 gevaarlijke: het maakt de eerste melding in één commit wél bereikbaar.
 
+## `script-src 'unsafe-inline'` — bewust blijven staan
+
+De CSP laat inline scripts toe. Dat is de zwakste plek in de header, en het is
+geen slordigheid: `vite-react-ssg` zet twee inline blokjes in elke pagina
+(`window.__staticRouterHydrationData` en `__VITE_REACT_SSG_HASH__`), en de drie
+JSON-LD-blokken zijn er ook. Zonder `'unsafe-inline'` blokkeert Chrome die.
+
+Hashes zijn het alternatief, maar de hydration-data verschilt per route én per
+build, dus dat wordt een set hashes per pagina — terwijl de CSP in `vercel.json`
+één header voor de hele site is. Dat is niet in te passen zonder per-route
+headers te genereren.
+
+**Waarom dat hier draaglijk is.** Er is nauwelijks XSS-oppervlak om te
+beschermen: drie keer `dangerouslySetInnerHTML` (`VerhuurToestelPage`,
+`VerhuurPakketPage`, `components/ui/chart.tsx`), alle drie met vaste designtekst
+uit de repo. Geen enkele daarvan raakt aan invoer van een bezoeker of aan een
+antwoord van het portaal.
+
+**Wanneer dit opnieuw bekeken moet worden.** Zodra er een
+`dangerouslySetInnerHTML` bijkomt die tekst toont die niet uit de repo komt —
+uit het portaal, uit een formulier, uit een URL. Dan is `'unsafe-inline'` niet
+langer gratis.
+
+## Rate limiting — WAF-regel staat klaar als concept
+
+De teller in `src/lib/rateLimit.ts` staat in het geheugen van één
+functie-instantie. Draaien er meerdere naast elkaar, dan heeft elk zijn eigen
+teller en ligt de echte grens navenant hoger — en `/api/order` duwt rechtstreeks
+naar de werklijst in het portaal.
+
+De WAF telt wél over alle instanties heen. De regel `orderspam-drempel`
+(20 aanvragen per 60 s per IP op `/api/order` en `/api/checkout`, daarboven
+`deny`) staat **gestaged, niet gepubliceerd**:
+
+```
+vercel firewall diff       # tonen wat er klaarstaat
+vercel firewall publish    # live zetten
+vercel firewall discard    # weggooien
+```
+
+`/api/availability` staat er bewust niet in: de wizard bevraagt die route vaker,
+daar geldt de ruimere grens van 120 per minuut uit de code.
+
 ## Opgelost
 
+- **CSP miste `https://*.js.stripe.com` in `script-src`.** Stripe.js start zijn
+  frames op wisselende subdomeinen; die scripts werden geblokkeerd. `frame-src`
+  en `connect-src` hadden de wildcard al. Ook `maps.googleapis.com` toegevoegd,
+  zoals `docs.stripe.com/security/guide` voorschrijft.
+- **Stripe-foutmelding lekte naar de bezoeker.** `api/checkout.ts` gaf de ruwe
+  tekst van Stripe mee in het antwoord — daar staat in welke betaalmethodes op
+  het account aan staan en welke parameter geweigerd werd. Gaat nu naar de logs,
+  de bezoeker krijgt een vaste zin met het telefoonnummer.
+- **Host-header bepaalde de `return_url` naar Stripe.** `api/checkout.ts` leidde
+  het origin af uit `request.url`. Nu langs een allowlist, met het canonieke
+  domein als terugval.
 - **vite / esbuild (high, GHSA-67mh-4wv8-2f99).** Ging over de dev-server, niet
   over productie, maar stond wel als `high` in de lijst. Opgelost door vite 5 →
   7 samen met `vite-react-ssg` 0.8.9 → 0.9.2.

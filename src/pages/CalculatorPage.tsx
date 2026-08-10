@@ -65,15 +65,15 @@ function getPackageImage(sqm: number, roomType: RoomType): string {
   const needsHeating = roomType === "chape" || roomType === "beide" || roomType === "waterschade";
   const prefix = needsHeating ? "/products/pakket-" : "/products/chape-pakket-";
 
-  if (sqm <= 50) return `${prefix}1.jpg`;
-  if (sqm <= 100) return `${prefix}2.jpg`;
-  if (sqm <= 150) return `${prefix}3.jpg`;
-  if (sqm <= 200) return `${prefix}4.jpg`;
-  if (sqm <= 250) return `${prefix}5.jpg`;
-  if (sqm <= 300) return `${prefix}6.jpg`;
-  if (sqm <= 400) return `${prefix}7.jpg`;
-  if (sqm <= 500) return `${prefix}8.jpg`;
-  return `${prefix}9.jpg`;
+  if (sqm <= 50) return `${prefix}1.webp`;
+  if (sqm <= 100) return `${prefix}2.webp`;
+  if (sqm <= 150) return `${prefix}3.webp`;
+  if (sqm <= 200) return `${prefix}4.webp`;
+  if (sqm <= 250) return `${prefix}5.webp`;
+  if (sqm <= 300) return `${prefix}6.webp`;
+  if (sqm <= 400) return `${prefix}7.webp`;
+  if (sqm <= 500) return `${prefix}8.webp`;
+  return `${prefix}9.webp`;
 }
 
 const CalculatorPage = () => {
@@ -148,6 +148,18 @@ const CalculatorPage = () => {
         <div className="w-16" />
       </div>
 
+      {/*
+        De <h1> van deze pagina.
+
+        Hier stond er geen; de eerste wizardstap droeg hem ("1 Hoe groot is uw
+        woning?"). Die kop verandert bij elke klik en begint met een los
+        stapnummer, dus de enige kop die Google en een AI-assistent te zien
+        kregen, zei niets over waar de pagina voor dient. De stappen zijn nu
+        h2 — waar ze horen — en dit is de kop van de pagina zelf. Visueel
+        verborgen omdat het scherm de wizard is, niet een titelbalk.
+      */}
+      <h1 className="sr-only">Welke bouwdroger heb ik nodig? Bereken uw capaciteit</h1>
+
       {/* Content */}
       <div className="flex-1 flex items-center justify-center px-4">
         <AnimatePresence mode="wait">
@@ -162,10 +174,10 @@ const CalculatorPage = () => {
               transition={{ duration: 0.4 }}
               className="w-full max-w-lg"
             >
-              <h1 className="text-2xl md:text-4xl font-black mb-2">
+              <h2 className="text-2xl md:text-4xl font-black mb-2">
                 <span className="text-white/50 mr-2">1</span>
                 Hoe groot is uw woning?
-              </h1>
+              </h2>
               <p className="text-white/60 mb-8">Selecteer de oppervlakte van de te drogen ruimte</p>
               <div className="space-y-3">
                 {SIZE_OPTIONS.map((opt) => (
@@ -199,10 +211,10 @@ const CalculatorPage = () => {
               <button onClick={() => setStep(0)} className="flex items-center gap-1 text-white/60 hover:text-white mb-6 text-sm transition-colors">
                 <ArrowLeft className="h-4 w-4" /> Terug
               </button>
-              <h1 className="text-2xl md:text-4xl font-black mb-2">
+              <h2 className="text-2xl md:text-4xl font-black mb-2">
                 <span className="text-white/50 mr-2">2</span>
                 Wat wilt u drogen?
-              </h1>
+              </h2>
               <p className="text-white/60 mb-8">Kies het type werk dat gedroogd moet worden</p>
               <div className="space-y-3">
                 {DRYING_OPTIONS.map((opt) => (

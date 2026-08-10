@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
 import type { Appearance, Stripe as StripeJs } from "@stripe/stripe-js";
@@ -6,6 +6,7 @@ import PageMeta from "@/components/PageMeta";
 import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
+import { isValidEmail, isValidPhone, maskEmail, maskPhone } from "@/lib/inputMask";
 import {
   ArrowRightIcon,
   BoltIcon,
@@ -24,7 +25,6 @@ import {
   COVER,
   DELIVERY,
   EXTRAS,
-  FIXED_WEEKS,
   LADDER_FEE,
   MAX_FLOORS,
   PUMP,
@@ -34,6 +34,7 @@ import {
   DEVICE_KEYS,
   addDays,
   configToQuery,
+  configWeeks,
   dryingDays,
   euro,
   formatLongDate,
@@ -87,7 +88,7 @@ const STRIPE_APPEARANCE: Appearance = {
     spacingUnit: "4px",
   },
 };
-const RENTAL_DAYS = FIXED_WEEKS * 7;
+
 const SLOTS = ["08:00 – 10:00", "10:00 – 12:00", "13:00 – 15:00", "15:00 – 17:00"];
 /** Moet gelijk lopen met `HORIZON_DAYS` in `api/availability.ts`. */
 const AVAILABILITY_HORIZON_DAYS = 60;
@@ -108,6 +109,19 @@ interface StoredBooking {
   customerType: CustomerType;
   startDate: string;
   slot: string;
+  /**
+   * De Stripe-sessie van de vorige poging, en dus de hold die daarbij hoort.
+   *
+   * Dit stond eerst alleen in React-state, en dat was precies één pagina-lading
+   * te kort. Wie via Bancontact, iDEAL of Apple Pay betaalt, verlaat de pagina
+   * en komt terug op een verse React-boom: het sessie-ID was dan weg, ging niet
+   * meer mee als `previousSessionId`, en dus liet de server de oude hold staan.
+   * De beschikbaarheidscontrole zag daarop zijn eigen reservatie, gaf een 409,
+   * en de wizard schoof de bezoeker terug naar de datumstap — een half uur lang,
+   * tot de hold vanzelf verliep. Hetzelfde gold na een refresh of een klik op
+   * "terug" in de browser.
+   */
+  sessionId?: string;
 }
 
 const STORAGE_KEY = "vernast-boeking";
@@ -119,6 +133,15 @@ function readStored(): StoredBooking | null {
     return raw ? (JSON.parse(raw) as StoredBooking) : null;
   } catch {
     return null;
+  }
+}
+
+function writeStored(booking: StoredBooking): void {
+  if (typeof sessionStorage === "undefined") return;
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(booking));
+  } catch {
+    // Privémodus zonder sessionStorage: de betaling kan gewoon doorgaan.
   }
 }
 
@@ -148,8 +171,8 @@ function isComplete(c: Customer, type: CustomerType): boolean {
   const proOk = type !== "pro" || (c.company.trim().length > 1 && c.vat.trim().length > 8);
   return (
     c.name.trim().length > 1 &&
-    /\S+@\S+\.\S+/.test(c.mail) &&
-    c.tel.trim().length > 5 &&
+    isValidEmail(c.mail) &&
+    isValidPhone(c.tel) &&
     c.addr.trim().length > 3 &&
     proOk &&
     c.ok
@@ -157,7 +180,7 @@ function isComplete(c: Customer, type: CustomerType): boolean {
 }
 
 const VerhuurBoekingPage = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const config = useMemo(() => parseConfig(searchParams), [searchParams]);
 
   // Na de omweg langs Stripe is de React-state weg; wat de bezoeker koos komt
@@ -200,12 +223,18 @@ const VerhuurBoekingPage = () => {
     een vingerafdruk van de boeking waarvoor ze gemaakt is. Verandert er niets,
     dan gaat hij terug naar dezelfde sessie in plaats van een tweede aan te
     maken — zie `bookingFingerprint` voor waarom dat belangrijk is.
+
+    Na een pagina-lading — terug van Bancontact, een refresh, de terugknop — komt
+    alleen het ID terug uit sessionStorage. Het betaalformulier is dan niet meer
+    te heropenen (`clientSecret` leeg), maar het ID is genoeg om de server de
+    bijbehorende hold te laten lossen voor hij opnieuw kijkt wat vrij is. Zonder
+    dat blokkeert de bezoeker zijn eigen leverdatum; zie `StoredBooking`.
   */
   const [session, setSession] = useState<{
     id: string;
     clientSecret: string;
     fingerprint: string;
-  } | null>(null);
+  } | null>(() => (stored?.sessionId ? { id: stored.sessionId, clientSecret: "", fingerprint: "" } : null));
   const [stripeJs, setStripeJs] = useState<Promise<StripeJs | null> | null>(null);
 
   const options: BookingOptions = useMemo(
@@ -233,6 +262,37 @@ const VerhuurBoekingPage = () => {
   };
 
   /*
+    Deze pagina is opnieuw geladen terwijl er nog een betaalpoging openstond:
+    een refresh, de terugknop, of een omweg langs Bancontact die niet op een
+    betaling uitliep. De bezoeker staat dus niet meer op het betaalscherm, en de
+    toestellen die daarvoor apart lagen horen terug in de pot.
+
+    Zonder dit botst hij op zijn eigen reservatie: de datumstap ziet zijn hold
+    als een volle dag en schuift zijn levering weken vooruit, en het afrekenen
+    loopt op een 409 vast — een half uur lang, tot de hold vanzelf verliep.
+
+    Niet wanneer Stripe hem terugstuurt met een `session_id`: dan gaat het net
+    om die sessie en kan er zelfs betaald zijn. De server weigert een betaalde
+    sessie los te laten, maar we hoeven er ook niet naar te vragen.
+  */
+  useEffect(() => {
+    const staleId = stored?.sessionId;
+    const email = stored?.customer.mail;
+    if (!staleId || !email || searchParams.get("session_id")) return;
+    void fetch("/api/booking-release", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ sessionId: staleId, email }),
+    }).catch(() => {
+      // Lukt het niet, dan valt de bezoeker terug op het oude gedrag: de hold
+      // verloopt binnen het half uur vanzelf.
+    });
+    // Eén keer, bij het laden van de pagina: `stored` komt uit een useMemo zonder
+    // afhankelijkheden en verandert dus niet meer.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /*
     Stripe.js alvast binnenhalen zodra de bezoeker zijn gegevens invult.
 
     Zonder dit liep het serieel: eerst `POST /api/checkout` (ruim een seconde,
@@ -253,9 +313,17 @@ const VerhuurBoekingPage = () => {
   }, [step]);
 
   const days = dryingDays(config);
+  /*
+    De huurperiode is niet meer voor elk pakket twee weken: bij een vast pakket
+    ligt ze in de catalogus, afgeleid uit de materiaaldikte. Stond hier nog de
+    vaste `FIXED_WEEKS`, dan beloofde de boekingspagina veertien dagen terwijl er
+    eenentwintig aangerekend werden.
+  */
+  const rentalWeeks = configWeeks(config);
+  const rentalDays = rentalWeeks * 7;
   const start = startDate ? new Date(startDate) : null;
-  const end = start ? addDays(start, RENTAL_DAYS) : null;
-  const tooShort = RENTAL_DAYS < days;
+  const end = start ? addDays(start, rentalDays) : null;
+  const tooShort = rentalDays < days;
 
   const bump = (k: DeviceKey, delta: number) =>
     setDev((prev) => ({
@@ -375,12 +443,32 @@ const VerhuurBoekingPage = () => {
   const sessionId = searchParams.get("session_id");
   const cancelled = searchParams.get("betaling") === "geannuleerd";
 
+  /**
+   * Haalt `session_id` en `betaling` uit de adresbalk zodra we ze verwerkt
+   * hebben. Blijven ze staan, dan draait deze hele afhandeling opnieuw bij elke
+   * refresh of terugknop — en een sessie die intussen vervallen is, of die uit
+   * een andere Stripe-omgeving komt, zet de bezoeker dan telkens weer op de
+   * gegevensstap met een foutmelding die nergens meer op slaat.
+   */
+  const clearReturnParams = useCallback(() => {
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete("session_id");
+        next.delete("betaling");
+        return next;
+      },
+      { replace: true }
+    );
+  }, [setSearchParams]);
+
   // Terug van Stripe: pas de bevestiging tonen als Stripe zegt dat er betaald is.
   useEffect(() => {
     if (!sessionId) {
       if (cancelled) {
         setStep(4);
         setPayError("De betaling is geannuleerd. Uw keuzes staan nog klaar.");
+        clearReturnParams();
       }
       return;
     }
@@ -397,16 +485,18 @@ const VerhuurBoekingPage = () => {
           setStep(4);
           setPayError(data.error ?? "De betaling is nog niet bevestigd door Stripe.");
         }
+        clearReturnParams();
       })
       .catch(() => {
         if (!active) return;
         setStep(4);
         setPayError("De betaalstatus kon niet opgehaald worden. Probeer opnieuw.");
+        clearReturnParams();
       });
     return () => {
       active = false;
     };
-  }, [sessionId, cancelled]);
+  }, [sessionId, cancelled, clearReturnParams]);
 
   /**
    * De sessie is niet meer bruikbaar om naar terug te keren — de server kan haar
@@ -420,12 +510,15 @@ const VerhuurBoekingPage = () => {
   const payAndConfirm = async () => {
     setPaying(true);
     setPayError("");
-    const booking: StoredBooking = { options, customer, customerType, startDate, slot };
-    try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(booking));
-    } catch {
-      // Privémodus zonder sessionStorage: de betaling kan gewoon doorgaan.
-    }
+    const booking: StoredBooking = {
+      options,
+      customer,
+      customerType,
+      startDate,
+      slot,
+      sessionId: session?.id,
+    };
+    writeStored(booking);
 
     const payload = {
       config: Object.fromEntries(new URLSearchParams(configToQuery(config))),
@@ -496,6 +589,10 @@ const VerhuurBoekingPage = () => {
       const { loadStripe } = await import("@stripe/stripe-js");
       setStripeJs(loadStripe(data.publishableKey));
       setSession({ id: data.sessionId, clientSecret: data.clientSecret, fingerprint });
+      // Meteen wegschrijven, niet pas bij een volgende poging: vanaf hier ligt er
+      // een hold, en na de omweg langs Stripe is dit ID de enige weg om die weer
+      // los te krijgen.
+      writeStored({ ...booking, sessionId: data.sessionId });
       setPaying(false);
       goTo(STEP_PAY);
     } catch {
@@ -905,7 +1002,7 @@ const VerhuurBoekingPage = () => {
                       type="text"
                       id="dWeeks"
                       readOnly
-                      value={`${RENTAL_DAYS} dagen, inbegrepen in de pakketprijs`}
+                      value={`${rentalDays} dagen, inbegrepen in de pakketprijs`}
                     />
                   </div>
                 </div>
@@ -955,7 +1052,7 @@ const VerhuurBoekingPage = () => {
                     <CalendarCheckIcon />
                     <div className="pt2">
                       Wij leveren en installeren op <b>{formatLongDate(start)}</b> tussen{" "}
-                      <b>{slot}</b>. Uw vaste huurperiode van <b>{RENTAL_DAYS} dagen</b> loopt tot{" "}
+                      <b>{slot}</b>. Uw vaste huurperiode van <b>{rentalDays} dagen</b> loopt tot{" "}
                       <b>{formatLongDate(end)}</b>, de ophaling staat automatisch ingepland op die
                       dag, tussen <b>{slot}</b>. Verwachte droogtijd van dit pakket:{" "}
                       <b>{days} dagen</b>.
@@ -1040,9 +1137,11 @@ const VerhuurBoekingPage = () => {
                     <input
                       type="tel"
                       id="fTel"
+                      inputMode="tel"
+                      autoComplete="tel"
                       placeholder="0470 00 00 00"
                       value={customer.tel}
-                      onChange={(e) => setCustomer({ ...customer, tel: e.target.value })}
+                      onChange={(e) => setCustomer({ ...customer, tel: maskPhone(e.target.value) })}
                     />
                   </div>
                 </div>
@@ -1053,9 +1152,13 @@ const VerhuurBoekingPage = () => {
                     <input
                       type="email"
                       id="fMail"
+                      inputMode="email"
+                      autoComplete="email"
+                      autoCapitalize="none"
+                      spellCheck={false}
                       placeholder="jan@voorbeeld.be"
                       value={customer.mail}
-                      onChange={(e) => setCustomer({ ...customer, mail: e.target.value })}
+                      onChange={(e) => setCustomer({ ...customer, mail: maskEmail(e.target.value) })}
                     />
                   </div>
                 </div>
@@ -1265,7 +1368,7 @@ const VerhuurBoekingPage = () => {
               <div className="sb">
                 <div className="sline">
                   <span>
-                    Pakket · {summary.deviceCount} toestellen · {FIXED_WEEKS} weken
+                    Pakket · {summary.deviceCount} toestellen · {summary.weeks} weken
                   </span>
                   <b>{euro(base)}</b>
                 </div>
@@ -1297,7 +1400,7 @@ const VerhuurBoekingPage = () => {
                     <span className="tlv">{euro(netTotal)}</span>
                   </div>
                   <div className="vat">
-                    excl. btw · {euro(Math.round((netTotal / FIXED_WEEKS) * 100) / 100)} per week
+                    excl. btw · {euro(Math.round((netTotal / summary.weeks) * 100) / 100)} per week
                   </div>
                 </div>
               </div>

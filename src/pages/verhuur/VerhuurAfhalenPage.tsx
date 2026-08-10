@@ -4,6 +4,8 @@ import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import { CheckIcon, InfoIcon, PinIcon } from "@/components/home-v3/icons";
 import { SEO } from "@/data/seo";
+import { breadcrumbSchema, offerCatalogSchema } from "@/lib/schema";
+import { isValidEmail, isValidPhone, maskEmail, maskPhone } from "@/lib/inputMask";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 
@@ -216,8 +218,8 @@ const VerhuurAfhalenPage = () => {
     units > 0 &&
     date !== "" &&
     name.trim() !== "" &&
-    phone.trim() !== "" &&
-    mail.trim() !== "" &&
+    isValidPhone(phone) &&
+    isValidEmail(mail) &&
     professionalReady &&
     agreed;
 
@@ -242,7 +244,31 @@ const VerhuurAfhalenPage = () => {
 
   return (
     <div className="vh-pick">
-      <PageMeta {...SEO.verhuurAfhalen} />
+      {/*
+        Deze pagina had als enige indexeerbare pagina van de verhuurfunnel
+        géén gestructureerde data — geen kruimelpad, geen prijzen. Terwijl ze
+        precies het antwoord bevat op "waar kan ik een bouwdroger afhalen":
+        een adres, openingsuren en een tarieflijst. De afhaalprijzen hieronder
+        zijn die van deze pagina zelf, niet de leverprijzen.
+      */}
+      <PageMeta
+        {...SEO.verhuurAfhalen}
+        jsonLd={[
+          offerCatalogSchema(
+            "Afhaaltarieven losse toestellen, Aartselaar",
+            PRODUCTS.map((product) => ({
+              name: product.name,
+              description: product.sub,
+              path: "/verhuur/afhalen",
+              pricePerDay: product.day,
+            }))
+          ),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Toestellen", path: "/verhuur/afhalen" },
+          ]),
+        ]}
+      />
       <V3Header />
 
       <header className="top">
@@ -428,9 +454,11 @@ const VerhuurAfhalenPage = () => {
                 <input
                   type="tel"
                   id="cTel"
-                  placeholder="04.."
+                  inputMode="tel"
+                  autoComplete="tel"
+                  placeholder="0470 00 00 00"
                   value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
+                  onChange={(event) => setPhone(maskPhone(event.target.value))}
                 />
               </div>
             </div>
@@ -440,9 +468,13 @@ const VerhuurAfhalenPage = () => {
                 <input
                   type="email"
                   id="cMail"
+                  inputMode="email"
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  spellCheck={false}
                   placeholder="naam@voorbeeld.be"
                   value={mail}
-                  onChange={(event) => setMail(event.target.value)}
+                  onChange={(event) => setMail(maskEmail(event.target.value))}
                 />
               </div>
               <div className="fld">

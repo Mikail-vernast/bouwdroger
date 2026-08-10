@@ -7,6 +7,7 @@
  * 404) vallen er automatisch uit. Zo kan de sitemap niet uit de pas lopen met
  * de site.
  */
+import { execFileSync } from "node:child_process";
 import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 
@@ -77,13 +78,64 @@ const routes = htmlPages
 
 const today = new Date().toISOString().slice(0, 10);
 
+/**
+ * `lastmod` uit de git-historie in plaats van de builddatum.
+ *
+ * Stond hier eerder voor élke URL de dag van de build. Dat betekent dat de
+ * hele sitemap bij elke deploy beweert dat alle 21 pagina's veranderd zijn —
+ * ook de contactpagina die al maanden stilstaat. Google leert daaruit dat het
+ * veld niets zegt en negeert het, precies op het moment dat je het nodig hebt
+ * omdat er écht iets is aangepast.
+ *
+ * De datum komt van de laatste commit die het bronbestand van de route raakte.
+ * Onbekend of buiten git? Dan valt hij terug op vandaag.
+ */
+const ROUTE_SOURCES = {
+  "/": "src/pages/Index.tsx",
+  "/afhalen": "src/pages/AfhalenPage.tsx",
+  "/calculator": "src/pages/CalculatorPage.tsx",
+  "/contact": "src/pages/ContactPage.tsx",
+  "/levering": "src/pages/LeveringPage.tsx",
+  "/machines": "src/pages/MachinesPage.tsx",
+  "/nieuwbouw": "src/pages/NieuwbouwPage.tsx",
+  "/over-ons": "src/pages/OverOnsPage.tsx",
+  "/prijzen": "src/pages/PrijzenPage.tsx",
+  "/realisaties": "src/pages/RealisatiesPage.tsx",
+  "/renovatie": "src/pages/RenovatiePage.tsx",
+  "/reserveren": "src/pages/ReserverenPage.tsx",
+  "/waterschade": "src/pages/WaterschadePage.tsx",
+  "/verhuur/afhalen": "src/pages/verhuur/VerhuurAfhalenPage.tsx",
+  "/verhuur/calculator": "src/pages/verhuur/VerhuurCalculatorPage.tsx",
+  "/verhuur/pakket": "src/pages/verhuur/VerhuurPakketPage.tsx",
+};
+
+/** Toestelpagina's komen alle vijf uit hetzelfde sjabloon en dezelfde data. */
+const TOESTEL_SOURCES = ["src/pages/verhuur/VerhuurToestelPage.tsx", "src/data/verhuur.ts"];
+
+function lastCommitDate(paths) {
+  try {
+    const out = execFileSync("git", ["log", "-1", "--format=%cs", "--", ...paths], {
+      encoding: "utf8",
+    }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(out) ? out : today;
+  } catch {
+    return today;
+  }
+}
+
+function lastmodFor(route) {
+  if (route.startsWith("/verhuur/toestel/")) return lastCommitDate(TOESTEL_SOURCES);
+  const source = ROUTE_SOURCES[route];
+  return source ? lastCommitDate([source]) : today;
+}
+
 const urls = routes
   .map((route) => {
     const rule = PRIORITY.find((r) => r.test(route));
     return [
       "  <url>",
       `    <loc>${SITE_URL}${route === "/" ? "/" : route}</loc>`,
-      `    <lastmod>${today}</lastmod>`,
+      `    <lastmod>${lastmodFor(route)}</lastmod>`,
       `    <changefreq>${rule?.changefreq ?? "yearly"}</changefreq>`,
       `    <priority>${rule?.priority ?? "0.5"}</priority>`,
       "  </url>",
@@ -196,6 +248,34 @@ const title = (route) => {
   return html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1]?.replace(/\s*\|.*$/, "").trim() ?? route;
 };
 
+/**
+ * De tarieflijst, gelezen uit de geprerenderde /prijzen.
+ *
+ * Niet overgetypt maar uit de `OfferCatalog` van die pagina gehaald, zodat
+ * llms.txt onmogelijk een ander bedrag kan noemen dan de site zelf. Wie hier
+ * iets zou verzinnen, geeft een AI-assistent een prijs mee die de klant nooit
+ * te zien krijgt.
+ */
+function priceLines() {
+  const file = join(DIST, "prijzen.html");
+  const html = readFileSync(file, "utf8");
+  for (const match of html.matchAll(
+    /<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi
+  )) {
+    let block;
+    try {
+      block = JSON.parse(match[1]);
+    } catch {
+      continue;
+    }
+    if (block?.["@type"] !== "OfferCatalog") continue;
+    return block.itemListElement.map(
+      (offer) => `- ${offer.name}: € ${offer.price} per dag (excl. btw) — ${offer.url}`
+    );
+  }
+  return [];
+}
+
 /** De pagina's waar een AI-antwoord daadwerkelijk iets aan heeft. */
 const KEY_PAGES = [
   "/prijzen",
@@ -226,6 +306,14 @@ const llms = `# Vernast Bouwdrogers
 - Levering: binnen 24 uur, installatie inbegrepen
 - Afhalen: mogelijk in Aartselaar, € 25 korting
 - Voorwaarden: één dagprijs, geen waarborg, dagelijks opzegbaar
+- Btw: alle prijzen exclusief btw; 21 % van toepassing op verhuur
+
+## Huurprijzen per toestel
+
+${priceLines().join("\n")}
+
+De weekprijs is de dagprijs maal het aantal dagen; er is geen toeslag voor een
+korte huurperiode. Levering en ophaling zijn gratis vanaf vier weken huur.
 
 ## Belangrijkste pagina's
 

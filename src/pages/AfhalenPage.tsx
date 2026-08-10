@@ -101,7 +101,7 @@ const AfhalenPage = () => {
                     <MapPin className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-semibold text-foreground">Adres</p>
-                      <p className="text-muted-foreground">Boomsesteenweg 12/Unit 11, 2630 Aartselaar</p>
+                      <p className="text-muted-foreground">Boomsesteenweg 12, Unit 11, 2630 Aartselaar</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">

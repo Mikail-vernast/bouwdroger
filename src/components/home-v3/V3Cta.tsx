@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent } from "react";
 import { ArrowRightIcon, FileIcon, UploadIcon } from "./icons";
+import { isValidEmail, isValidPhone, maskEmail, maskPhone } from "@/lib/inputMask";
 
 /**
  * The closing contact block: address details first, question second.
@@ -43,19 +44,27 @@ const EMPTY: Details = {
 const fileSize = (bytes: number) =>
   bytes / 1024 > 999 ? `${(bytes / 1048576).toFixed(1)} MB` : `${Math.round(bytes / 1024)} kB`;
 
+/** Phone and e-mail run through their mask; the rest is typed as-is. */
+const MASKS: Partial<Record<keyof Details, (value: string) => string>> = {
+  tel: maskPhone,
+  mail: maskEmail,
+};
+
 const V3Cta = () => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [details, setDetails] = useState<Details>(EMPTY);
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState<File[]>([]);
 
-  const set = (key: keyof Details) => (event: ChangeEvent<HTMLInputElement>) =>
-    setDetails((current) => ({ ...current, [key]: event.target.value }));
+  const set = (key: keyof Details) => (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setDetails((current) => ({ ...current, [key]: MASKS[key]?.(value) ?? value }));
+  };
 
   const detailsComplete =
     details.voornaam.trim().length > 1 &&
     details.naam.trim().length > 1 &&
-    (details.tel.trim().length > 5 || /\S+@\S+\.\S+/.test(details.mail)) &&
+    (isValidPhone(details.tel) || isValidEmail(details.mail)) &&
     details.post.trim().length > 3 &&
     details.gemeente.trim().length > 1;
 
@@ -117,7 +126,8 @@ const V3Cta = () => {
                       type="tel"
                       id="ctTel"
                       autoComplete="tel"
-                      placeholder="04.."
+                      inputMode="tel"
+                      placeholder="0470 00 00 00"
                       value={details.tel}
                       onChange={set("tel")}
                     />
@@ -128,6 +138,9 @@ const V3Cta = () => {
                       type="email"
                       id="ctMail"
                       autoComplete="email"
+                      inputMode="email"
+                      autoCapitalize="none"
+                      spellCheck={false}
                       placeholder="naam@voorbeeld.be"
                       value={details.mail}
                       onChange={set("mail")}

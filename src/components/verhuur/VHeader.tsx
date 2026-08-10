@@ -61,7 +61,7 @@ const VHeader = () => {
       <div className="wrap navrow">
         <div className="navpill">
           <Link className="nav-logo" to="/">
-            <img src="/verhuur/logo-horizontal-black.png" alt="Vernast" />
+            <img src="/verhuur/logo-horizontal-black.webp" alt="Vernast" />
           </Link>
 
           <nav className="nav-menu" aria-label="Hoofdnavigatie">

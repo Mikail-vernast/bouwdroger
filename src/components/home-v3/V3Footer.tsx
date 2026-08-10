@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { BEDRIJF, KIEZEN, SERVICE, TOEPASSINGEN } from "@/data/navigation";
 import { MailIcon, PhoneIcon } from "./icons";
+import { SITE_NAME } from "@/lib/site";
 
 const V3Footer = () => (
   <footer className="site">
@@ -29,7 +30,7 @@ const V3Footer = () => (
           aan de rest van de site doorgeeft.
         */}
         <div>
-          <h4>Toepassingen</h4>
+          <h2>Toepassingen</h2>
           <ul>
             {TOEPASSINGEN.map((link) => (
               <li key={link.path}>
@@ -43,7 +44,7 @@ const V3Footer = () => (
         </div>
 
         <div>
-          <h4>Kiezen en boeken</h4>
+          <h2>Kiezen en boeken</h2>
           <ul>
             {[...KIEZEN, ...SERVICE].map((link) => (
               <li key={link.path}>
@@ -58,7 +59,7 @@ const V3Footer = () => (
           vijfde blok zou op een eigen rij vallen.
         */}
         <div>
-          <h4>Vernast</h4>
+          <h2>Vernast</h2>
           <ul>
             {BEDRIJF.map((link) => (
               <li key={link.path}>
@@ -79,7 +80,17 @@ const V3Footer = () => (
       </div>
 
       <div className="fb">
-        <div>© 2026 Vernast Verhuur · BTW BE 0123.456.789</div>
+        <div>
+          {/*
+            Hier stond "BTW BE 0123.456.789" — een voorbeeldnummer uit een
+            formulier-placeholder, gepubliceerd op elke pagina van de
+            verhuurfunnel. Een verzonnen ondernemingsnummer is erger dan geen:
+            het is onjuiste bedrijfsinformatie op een handelssite, en zowel
+            Google als een AI-assistent neemt het over als feit. Zodra het
+            echte nummer bekend is, hoort het hier terug.
+          */}
+          © {new Date().getFullYear()} {SITE_NAME}
+        </div>
         <div className="fl">
           <a href="/#prijzen">Algemene voorwaarden</a>
           <a href="/#contact">Privacy</a>

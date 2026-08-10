@@ -89,6 +89,15 @@ const RealisatiesPage = () => {
         {/* Projects */}
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4">
+            {/*
+              De projectkaarten dragen een h3. Zonder deze h2 sprong de pagina
+              van h1 rechtstreeks naar h3, en dan leest een crawler — net als een
+              schermlezer — de kaarten als losse fragmenten in plaats van als één
+              lijst realisaties.
+            */}
+            <h2 className="text-2xl md:text-3xl font-black text-foreground mb-10">
+              Uitgevoerde droogprojecten
+            </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map((project, i) => (
                 <motion.div

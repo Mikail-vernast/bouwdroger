@@ -12,7 +12,12 @@ export interface RulerConfig {
   max: number;
   /** The values a release snaps to, ascending. */
   snaps: number[];
-  /** Offers a "260+ · maatwerk" button that parks the needle at the far end. */
+  /**
+   * Offers a "boven de grootste stand" button that parks the needle at the far
+   * end. The label is derived from the last snap instead of being spelled out:
+   * it read "260+" while the catalogue had grown to 300 m², so the biggest
+   * package on offer looked like custom work.
+   */
   custom?: boolean;
   /** Offers a "Weet ik niet" button that falls back to this average. */
   unknown?: number;
@@ -93,7 +98,7 @@ const Ruler = ({ config, onChange }: RulerProps) => {
 
   const shown = Math.round(value * 10) / 10;
   const displayValue =
-    mode === "custom" ? "260+" : mode === "unknown" ? `± ${config.format(shown)}` : config.format(shown);
+    mode === "custom" ? `${config.snaps[config.snaps.length - 1]}+` : mode === "unknown" ? `± ${config.format(shown)}` : config.format(shown);
   const caption =
     mode === "custom"
       ? config.label(NaN)
@@ -165,7 +170,7 @@ const Ruler = ({ config, onChange }: RulerProps) => {
             className={marked === "custom" ? "on" : undefined}
             onClick={chooseCustom}
           >
-            260+ m² · maatwerk
+            {config.snaps[config.snaps.length - 1]}+{config.unit} · maatwerk
           </button>
         )}
         {config.unknown !== undefined && (

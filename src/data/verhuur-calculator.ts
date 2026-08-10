@@ -1,8 +1,13 @@
 /**
  * De vragenreeks van de verhuurcalculator. Staat los van de pagina zodat een
- * test kan bewaken dat elk antwoord `parseConfig` overleeft — de waarden hier
- * moeten overeenkomen met WAT_VALUES, PD_VALUES en CD_VALUES in lib/verhuur.
+ * test kan bewaken dat elk antwoord `parseConfig` overleeft.
+ *
+ * De maten en diktes worden uit de catalogus opgebouwd in plaats van hier
+ * opgesomd. Ze stonden er als vaste lijst en liepen uiteen met wat Vernast
+ * verkoopt — 1,5 cm pleister en 8 cm chape bestonden nergens als pakket — en
+ * die drift is met een gedeelde bron niet meer mogelijk.
  */
+import { CD_VALUES, PD_VALUES, SIZE_VALUES } from "../lib/verhuur.js";
 export type QuestionKey = "size" | "wat" | "pleisterdikte" | "chapedikte" | "verwarming";
 
 export interface Option {
@@ -20,21 +25,20 @@ export interface Question {
   options: Option[];
 }
 
+/** De dikte waar "Dat weet ik niet" op uitkomt: de middelste die bestaat. */
+const GEMIDDELDE_PD = PD_VALUES[Math.floor(PD_VALUES.length / 2)];
+const GEMIDDELDE_CD = CD_VALUES[Math.floor(CD_VALUES.length / 2)];
+
 export const QUESTIONS: Question[] = [
   {
     key: "size",
     title: "Hoe groot is uw woning",
     required: true,
     sub: "Kies de oppervlakte die het best bij uw project past. Wij rekenen daarmee het te drogen volume uit.",
-    options: [
-      { v: "40", label: "Ruimte kleiner dan 40 m²" },
-      { v: "60", label: "Gebouw kleiner dan 60 m²" },
-      { v: "100", label: "Gebouw kleiner dan 100 m²" },
-      { v: "140", label: "Gebouw kleiner dan 140 m²" },
-      { v: "180", label: "Gebouw kleiner dan 180 m²" },
-      { v: "220", label: "Gebouw kleiner dan 220 m²" },
-      { v: "260", label: "Gebouw kleiner dan 260 m²" },
-    ],
+    options: SIZE_VALUES.map((v) => ({
+      v,
+      label: Number(v) <= 40 ? `Ruimte kleiner dan ${v} m²` : `Gebouw kleiner dan ${v} m²`,
+    })),
   },
   {
     key: "wat",
@@ -54,10 +58,8 @@ export const QUESTIONS: Question[] = [
     required: true,
     sub: "Dikker pleisterwerk bevat meer water en vraagt meer droogtijd.",
     options: [
-      { v: "1,5", label: "Pleisterdikte 1,5 cm" },
-      { v: "2", label: "Pleisterdikte 2 cm" },
-      { v: "3", label: "Pleisterdikte 3 cm" },
-      { v: "onbekend", label: "Dat weet ik niet", sub: "Wij rekenen met een gemiddelde van 2 cm" },
+      ...PD_VALUES.map((v) => ({ v, label: `Pleisterdikte ${v} cm` })),
+      { v: "onbekend", label: "Dat weet ik niet", sub: `Wij rekenen met een gemiddelde van ${GEMIDDELDE_PD} cm` },
     ],
   },
   {
@@ -66,10 +68,8 @@ export const QUESTIONS: Question[] = [
     required: true,
     sub: "Chape is meestal de grootste vochtbron in een nieuwbouw.",
     options: [
-      { v: "5", label: "Chape 5 cm" },
-      { v: "6", label: "Chape 6 cm" },
-      { v: "8", label: "Chape 8 cm" },
-      { v: "onbekend", label: "Dat weet ik niet", sub: "Wij rekenen met een gemiddelde van 6 cm" },
+      ...CD_VALUES.map((v) => ({ v, label: `Chape ${v} cm` })),
+      { v: "onbekend", label: "Dat weet ik niet", sub: `Wij rekenen met een gemiddelde van ${GEMIDDELDE_CD} cm` },
     ],
   },
   {

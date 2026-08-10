@@ -24,18 +24,15 @@ import {
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { SEO } from "@/data/seo";
-import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
+import { DROGER_KAARTEN } from "@/data/tarieflijst";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
 };
 
-const packages = [
-  { name: "DF 200", desc: "Kleine kelder of berging", volume: "Tot 200 m³", price: "XX", badge: null, highlight: false },
-  { name: "DF 400", desc: "Standaard kelder of meerdere ruimtes", volume: "Tot 400 m³", price: "XX", badge: "Meest gekozen", highlight: true },
-  { name: "DF 800", desc: "Grote ruimtes", volume: "Tot 800 m³", price: "XX", badge: null, highlight: false },
-];
+
 
 const warnings = [
   { icon: "🦠", title: "Schimmelsporen in de lucht", desc: "Veroorzaakt luchtwegproblemen, hoofdpijn en allergie. Gevaarlijk voor kinderen en ouderen." },
@@ -83,6 +80,13 @@ const RenovatiePage = () => {
             path: "/renovatie",
             serviceType: "Bouwdroging",
           }),
+          /*
+            De vragen onderaan deze pagina, ook machineleesbaar. Ze stonden
+            enkel zichtbaar op de pagina; daardoor kon een AI-antwoord er wel
+            uit citeren, maar moest het de vraag-antwoordparen zelf uit de
+            HTML afleiden. Zelfde tekst, dus schema en pagina blijven gelijk.
+          */
+          faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Renovatie", path: "/renovatie" },
@@ -119,9 +123,16 @@ const RenovatiePage = () => {
                 </div>
               </motion.div>
               <motion.div initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={2} className="hidden lg:flex items-center justify-center">
-                <div className="w-full aspect-[4/3] bg-muted rounded-2xl flex items-center justify-center text-muted-foreground text-lg font-medium border border-border">
-                  Foto vochtige kelder
-                </div>
+                {/* Zie /nieuwbouw: ook hier stond een ontwerpnotitie als zichtbare tekst. */}
+                <img
+                  src="/vernast/case-kelder.webp"
+                  alt="Ontvochtiger in een vochtige kelder tijdens een renovatie"
+                  width={800}
+                  height={600}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full aspect-[4/3] object-cover rounded-2xl border border-border"
+                />
               </motion.div>
             </div>
           </div>
@@ -181,13 +192,13 @@ const RenovatiePage = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">Kies uw pakket</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {packages.map((pkg, i) => (
+              {DROGER_KAARTEN.map((pkg, i) => (
                 <MachineCard
-                  key={pkg.name}
+                  key={pkg.key}
                   name={pkg.name}
                   volume={pkg.volume}
                   desc={pkg.desc}
-                  price={pkg.price}
+                  price={pkg.weekPrice}
                   badge={pkg.badge}
                   highlight={pkg.highlight}
                   index={i}

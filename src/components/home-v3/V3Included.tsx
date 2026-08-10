@@ -61,7 +61,7 @@ const V3Included = () => (
         {INCLUDED.map((item) => (
           <div className="ic" key={item.title}>
             <div className="ii">{item.icon}</div>
-            <h4>{item.title}</h4>
+            <h3>{item.title}</h3>
             <p>{item.body}</p>
           </div>
         ))}
@@ -71,7 +71,7 @@ const V3Included = () => (
         {OPTIONS.map((option) => (
           <div className="ix" key={option.title}>
             <div className="xt">Optie</div>
-            <h4>{option.title}</h4>
+            <h3>{option.title}</h3>
             <p>{option.body}</p>
           </div>
         ))}

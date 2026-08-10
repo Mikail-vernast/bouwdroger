@@ -50,6 +50,33 @@ describe("rateLimit", () => {
   });
 });
 
+describe("standaardgrenzen", () => {
+  /*
+    De grenzen staan als constante in de module en zijn van buitenaf niet te
+    lezen; deze test legt ze vast via het gedrag. Ze stonden op vijf geslaagde
+    per minuut, wat een bezoeker raakte die vanuit het betaalscherm een paar keer
+    terugging om zijn keuzes aan te passen. Wie dit getal weer verlaagt, haalt
+    die bug terug.
+  */
+  test("laat tien geslaagde aanvragen per minuut door", () => {
+    const limit = gate(freshIp());
+
+    for (let i = 0; i < 10; i += 1) {
+      expect(limit.accept().allowed).toBe(true);
+    }
+    expect(limit.accept().allowed).toBe(false);
+  });
+
+  test("laat dertig pogingen per minuut door, geldig of niet", () => {
+    const limit = gate(freshIp());
+
+    for (let i = 0; i < 30; i += 1) {
+      expect(limit.attempt().allowed).toBe(true);
+    }
+    expect(limit.attempt().allowed).toBe(false);
+  });
+});
+
 describe("gate", () => {
   test("mislukte pogingen verbruiken de strakke grens niet", () => {
     const limit = gate(freshIp(), 2, 10);
