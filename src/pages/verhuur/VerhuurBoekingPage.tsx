@@ -51,7 +51,7 @@ import {
   type Access,
   type BookingOptions,
   type PaymentChoice,
-  DEPOSIT,
+  DEPOSIT_GROSS,
   ONLINE_DISCOUNT,
   withVat,
 } from "@/lib/booking";
@@ -1277,9 +1277,9 @@ const VerhuurBoekingPage = () => {
                     className={`payopt${payment === "levering" ? " sel" : ""}`}
                     onClick={() => setPayment("levering")}
                   >
-                    <b>{euro(withVat(DEPOSIT))} nu, rest bij levering</b>
+                    <b>{euro(DEPOSIT_GROSS)} nu, rest bij levering</b>
                     <span>
-                      Bevestig uw boeking met {euro(withVat(DEPOSIT))}. Het saldo betaalt u ter
+                      Bevestig uw boeking met {euro(DEPOSIT_GROSS)}. Het saldo betaalt u ter
                       plaatse bij levering, via Bancontact of QR-code.
                     </span>
                     <span className="pos">Factuur na volledige betaling</span>
@@ -1371,7 +1371,7 @@ const VerhuurBoekingPage = () => {
                 <p>
                   Wij bevestigen uw levering telefonisch binnen één werkdag. Betaalde u volledig
                   online, dan staat uw factuur meteen in uw mailbox — met 5% korting. Koos u voor
-                  {" "}{euro(withVat(DEPOSIT))} bevestiging, dan betaalt u het saldo bij levering.
+                  {" "}{euro(DEPOSIT_GROSS)} bevestiging, dan betaalt u het saldo bij levering.
                 </p>
                 <div className="dref">
                   <span>Referentie</span>

@@ -31,7 +31,7 @@ export type Access = "trap" | "ladder";
 
 /**
  * Betalen kan volledig online — dat levert 5% korting op en de factuur volgt
- * meteen — of met € 50 orderbevestiging waarna het saldo bij levering betaald
+ * meteen — of met een vaste orderbevestiging waarna het saldo bij levering betaald
  * wordt. De keuze bepaalt dus zowel de korting als het bedrag dat nú door
  * Stripe gaat.
  */
@@ -40,8 +40,12 @@ export type PaymentChoice = "online" | "levering";
 /** Korting bij volledig online betalen. */
 export const ONLINE_DISCOUNT = Number(TARIEVEN.pricing.online_discount);
 
-/** Orderbevestiging wanneer de klant de rest bij levering betaalt. */
-export const DEPOSIT = Number(TARIEVEN.pricing.deposit);
+/**
+ * Orderbevestiging wanneer de klant de rest bij levering betaalt. Dit bedrag
+ * is inclusief btw en staat vast: bij elk pakket rekent de klant exact dit af,
+ * niet een percentage en niet het bedrag plus btw.
+ */
+export const DEPOSIT_GROSS = Number(TARIEVEN.pricing.deposit);
 
 /** Btw-tarief op verhuur in België. */
 export const VAT_RATE = 0.21;
@@ -88,7 +92,10 @@ export interface BookingSummary {
   discount: number;
   /** het totaal zoals de samenvatting het toont */
   netTotal: number;
-  /** wat er nú door Stripe gaat: het hele bedrag, of de € 50 bevestiging */
+  /**
+   * Het netto equivalent van wat er nú door Stripe gaat. Bij een voorschot is
+   * dat `DEPOSIT_GROSS` zonder btw — Stripe int `payableGross`.
+   */
   payable: number;
   /** btw over `netTotal`, dus over het bedrag ná korting */
   vat: number;
@@ -277,8 +284,15 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
   const discount =
     options.payment === "online" ? Math.round(total * ONLINE_DISCOUNT * 100) / 100 : 0;
   const netTotal = Math.round((total - discount) * 100) / 100;
-  const payable = options.payment === "online" ? netTotal : DEPOSIT;
   const vat = Math.round(netTotal * VAT_RATE * 100) / 100;
+  const grossTotal = Math.round((netTotal + vat) * 100) / 100;
+  // Het voorschot is een vast brutobedrag; het netto equivalent volgt daaruit,
+  // niet andersom. Zo staat er bij elk pakket dezelfde € 50 op de knop.
+  const payableGross = options.payment === "online" ? grossTotal : DEPOSIT_GROSS;
+  const payable =
+    options.payment === "online"
+      ? netTotal
+      : Math.round((DEPOSIT_GROSS / (1 + VAT_RATE)) * 100) / 100;
 
   return {
     items,
@@ -292,8 +306,8 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
     netTotal,
     payable,
     vat,
-    grossTotal: Math.round((netTotal + vat) * 100) / 100,
-    payableGross: Math.round(payable * (1 + VAT_RATE) * 100) / 100,
+    grossTotal,
+    payableGross,
     weeks,
     days: weeks * 7,
   };

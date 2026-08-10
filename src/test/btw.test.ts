@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { DEPOSIT, EMPTY_OPTIONS, bookingSummary, toCents, withVat } from "../lib/booking.js";
-import { DEFAULT_CD, DEFAULT_PD, DEFAULT_SIZE } from "../lib/verhuur.js";
+import { DEPOSIT_GROSS, EMPTY_OPTIONS, bookingSummary, toCents, withVat } from "../lib/booking.js";
+import { DEFAULT_CD, DEFAULT_PD, DEFAULT_SIZE, SIZE_VALUES } from "../lib/verhuur.js";
 import type { PackageConfig } from "../lib/verhuur.js";
 
 const CONFIG: PackageConfig = {
@@ -32,11 +32,26 @@ describe("btw op de boeking", () => {
     expect(summary.payableGross).toBe(summary.grossTotal);
   });
 
-  it("laat bij betalen-bij-levering enkel de bevestiging incl. btw door Stripe gaan", () => {
+  it("laat bij betalen-bij-levering enkel de bevestiging door Stripe gaan", () => {
     const summary = bookingSummary(CONFIG, { ...EMPTY_OPTIONS, payment: "levering" });
-    expect(summary.payable).toBe(DEPOSIT);
-    expect(summary.payableGross).toBe(withVat(DEPOSIT));
+    // Het voorschot is een vast brutobedrag: er komt geen btw meer bovenop.
+    expect(summary.payableGross).toBe(DEPOSIT_GROSS);
+    expect(withVat(summary.payable)).toBe(DEPOSIT_GROSS);
     expect(summary.payableGross).toBeLessThan(summary.grossTotal);
+  });
+
+  it("vraagt bij elk pakket precies hetzelfde voorschot", () => {
+    const klein = bookingSummary(
+      { ...CONFIG, size: SIZE_VALUES[0], weeks: 1, heat: false },
+      { ...EMPTY_OPTIONS, payment: "levering" }
+    );
+    const groot = bookingSummary(
+      { ...CONFIG, size: SIZE_VALUES[SIZE_VALUES.length - 1], weeks: 6, heat: true },
+      { ...EMPTY_OPTIONS, payment: "levering" }
+    );
+    expect(groot.grossTotal).toBeGreaterThan(klein.grossTotal);
+    expect(klein.payableGross).toBe(DEPOSIT_GROSS);
+    expect(groot.payableGross).toBe(DEPOSIT_GROSS);
   });
 
   it("geeft geen korting wanneer er bij levering betaald wordt", () => {
