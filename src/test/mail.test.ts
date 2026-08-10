@@ -201,12 +201,24 @@ describe("sjabloon 198 — boeking betaald", () => {
     ).toBe("Apple Pay");
   });
 
-  it("laat delivery_notes weg zolang er geen opmerking is", () => {
+  it("toont delivery_notes alleen wanneer er een echte adresnotitie is", () => {
     expect(paidBookingParams(FACTS)).not.toHaveProperty("delivery_notes");
-    expect(
-      paidBookingParams({ ...FACTS, payload: { ...BASE, customer_note: "via de poort" } })
-        .delivery_notes,
-    ).toBe("via de poort");
+    expect(paidBookingParams({ ...FACTS, deliveryNotes: "via de poort" }).delivery_notes).toBe(
+      "via de poort",
+    );
+  });
+
+  it("zet de pakketsamenvatting niet als adresnotitie in de mail", () => {
+    /*
+      `customer_note` bevat bij een Stripe-boeking de regels van het pakket —
+      "Dekking Eigen risico € 250: 29 | Vochtmeting: inbegrepen | …". Dat onder
+      het leveradres tonen leest als een fout.
+    */
+    const params = paidBookingParams({
+      ...FACTS,
+      payload: { ...BASE, customer_note: "Dekking Eigen risico € 250: 29 | Vochtmeting: inbegrepen" },
+    });
+    expect(params).not.toHaveProperty("delivery_notes");
   });
 
   it("vult een ontbrekend tijdslot met een ruim venster in plaats van niets", () => {

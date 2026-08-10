@@ -293,7 +293,17 @@ export interface PaidBookingFacts {
   city: string;
   /** Waar de knop "Bekijk uw bestelling" heen wijst. */
   orderUrl: string;
+  /** Extra info bij het adres, bv. "achteraan via de poort". Zie `deliveryNotes`. */
+  deliveryNotes?: string;
 }
+
+/*
+  Waarom `deliveryNotes` apart staat en niet uit `customer_note` komt: dat veld
+  bevat bij een Stripe-boeking de samenvatting van het pakket — "Dekking Eigen
+  risico € 250: 29 | Vochtmeting bij start & oplevering: inbegrepen | …". Als
+  adresnotitie in de mail leest dat als een fout. De wizard vraagt (nog) niet om
+  een toelichting bij het adres, dus het blok blijft voorlopig weg.
+*/
 
 /**
  * De parameters van sjabloon 198, één op één met de namen in Brevo.
@@ -364,7 +374,7 @@ export function paidBookingParams(facts: PaidBookingFacts): Record<string, unkno
       : { balance_due: formatAmount(Math.max(0, inclVat - facts.paidAmount)) }),
 
     // Optioneel in het sjabloon: staat er niets, dan valt het blok weg.
-    ...(payload.customer_note ? { delivery_notes: payload.customer_note } : {}),
+    ...(facts.deliveryNotes ? { delivery_notes: facts.deliveryNotes } : {}),
   };
 }
 
@@ -428,7 +438,7 @@ export function deliveryReminderParams(facts: DeliveryReminderFacts): Record<str
     ...(facts.paymentType === "full"
       ? {}
       : { balance_due: formatAmount(Math.max(0, facts.balanceDue)) }),
-    ...(payload.customer_note ? { delivery_notes: payload.customer_note } : {}),
+    ...(facts.deliveryNotes ? { delivery_notes: facts.deliveryNotes } : {}),
   };
 }
 
