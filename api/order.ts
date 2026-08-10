@@ -17,6 +17,7 @@
  * dat hij geboekt heeft terwijl er nergens iets staat.
  */
 import { randomUUID } from "node:crypto";
+import { alertSyncFailure, sendRequestMails } from "../src/lib/mail.js";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "../src/lib/vernastSync.js";
 import { bookingRow, reserveringRow } from "../src/lib/orderIntake.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
@@ -168,11 +169,24 @@ export async function POST(request: Request): Promise<Response> {
     De reden zelf blijft binnen: die staat in de logs, niet in het antwoord.
   */
   if (!sync.ok) {
+    // Zichtbaar maken wat anders alleen in de Vercel-logs staat: hier gaat een
+    // aanvraag verloren van iemand die op een levering rekent.
+    await alertSyncFailure(`${kind} ${id}`, sync.reason, payload);
     return json(
       { error: "Uw aanvraag kon niet doorgegeven worden. Probeer het opnieuw of bel ons." },
       502
     );
   }
+
+  /*
+    Ontvangstbevestiging aan de klant en een actiemail naar het team. Bewust ná
+    de push en bewust afgewacht: op Vercel stopt de functie zodra het antwoord
+    verstuurd is, dus werk dat na de `return` begint, wordt afgekapt.
+
+    Mail is nooit een reden om de bezoeker een fout te tonen — de aanvraag staat
+    dan al in het portaal. `sendRequestMails` gooit niet en logt zelf.
+  */
+  await sendRequestMails(payload);
 
   return json({ ok: true, id });
 }

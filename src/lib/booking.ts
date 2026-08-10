@@ -43,6 +43,14 @@ export const ONLINE_DISCOUNT = Number(TARIEVEN.pricing.online_discount);
 /** Orderbevestiging wanneer de klant de rest bij levering betaalt. */
 export const DEPOSIT = Number(TARIEVEN.pricing.deposit);
 
+/** Btw-tarief op verhuur in België. */
+export const VAT_RATE = 0.21;
+
+/** Een bedrag excl. btw naar het bedrag dat de klant effectief betaalt. */
+export function withVat(amount: number): number {
+  return Math.round(amount * (1 + VAT_RATE) * 100) / 100;
+}
+
 export interface BookingOptions {
   /** sleutel uit COVER */
   cover: string;
@@ -82,6 +90,18 @@ export interface BookingSummary {
   netTotal: number;
   /** wat er nú door Stripe gaat: het hele bedrag, of de € 50 bevestiging */
   payable: number;
+  /** btw over `netTotal`, dus over het bedrag ná korting */
+  vat: number;
+  /** `netTotal` mét btw — wat een particulier uiteindelijk betaalt */
+  grossTotal: number;
+  /**
+   * `payable` mét btw: het bedrag dat effectief door Stripe gaat.
+   *
+   * De prijzen in de catalogus staan excl. btw en dat is jarenlang ook zo
+   * afgerekend — de klant betaalde dus 21% te weinig en elke factuur moest
+   * achteraf rechtgezet worden. Stripe krijgt vanaf nu het brutobedrag.
+   */
+  payableGross: number;
   weeks: number;
   days: number;
 }
@@ -258,6 +278,7 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
     options.payment === "online" ? Math.round(total * ONLINE_DISCOUNT * 100) / 100 : 0;
   const netTotal = Math.round((total - discount) * 100) / 100;
   const payable = options.payment === "online" ? netTotal : DEPOSIT;
+  const vat = Math.round(netTotal * VAT_RATE * 100) / 100;
 
   return {
     items,
@@ -270,6 +291,9 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
     discount,
     netTotal,
     payable,
+    vat,
+    grossTotal: Math.round((netTotal + vat) * 100) / 100,
+    payableGross: Math.round(payable * (1 + VAT_RATE) * 100) / 100,
     weeks,
     days: weeks * 7,
   };

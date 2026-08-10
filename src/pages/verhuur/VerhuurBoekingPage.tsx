@@ -53,6 +53,7 @@ import {
   type PaymentChoice,
   DEPOSIT,
   ONLINE_DISCOUNT,
+  withVat,
 } from "@/lib/booking";
 import { SEO } from "@/data/seo";
 import "@/styles/verhuur.css";
@@ -153,6 +154,12 @@ interface Customer {
   vat: string;
   addr: string;
   post: string;
+  /**
+   * De gemeente van de werf. Stond er lang niet bij, omdat het portaal genoeg
+   * had aan straat en postcode. De bevestigingsmail toont het leveradres wél
+   * volledig, en een adres zonder gemeente leest daar als een fout.
+   */
+  city: string;
   ok: boolean;
 }
 
@@ -164,6 +171,7 @@ const EMPTY_CUSTOMER: Customer = {
   vat: "",
   addr: "",
   post: "",
+  city: "",
   ok: false,
 };
 
@@ -174,6 +182,8 @@ function isComplete(c: Customer, type: CustomerType): boolean {
     isValidEmail(c.mail) &&
     isValidPhone(c.tel) &&
     c.addr.trim().length > 3 &&
+    c.post.trim().length === 4 &&
+    c.city.trim().length > 1 &&
     proOk &&
     c.ok
   );
@@ -209,7 +219,14 @@ const VerhuurBoekingPage = () => {
   const [slot, setSlot] = useState(stored?.slot ?? SLOTS[1]);
   const [customerType, setCustomerType] = useState<CustomerType>(stored?.customerType ?? "part");
   const [payment, setPayment] = useState<PaymentChoice>(stored?.options.payment ?? "online");
-  const [customer, setCustomer] = useState<Customer>(stored?.customer ?? EMPTY_CUSTOMER);
+  /*
+    Samengevoegd en niet zomaar overgenomen: wie tijdens een betaling in
+    sessionStorage staat met een boeking van vóór het gemeenteveld, mist die
+    sleutel. Zonder deze merge komt dat veld als `undefined` terug — een input
+    die van ongecontroleerd naar gecontroleerd springt, en een `.trim()` die
+    eruit klapt.
+  */
+  const [customer, setCustomer] = useState<Customer>({ ...EMPTY_CUSTOMER, ...stored?.customer });
   const [reference, setReference] = useState("");
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
@@ -1198,7 +1215,7 @@ const VerhuurBoekingPage = () => {
                 )}
 
                 <div className="frow" style={{ marginTop: 14 }}>
-                  <div className="fld" style={{ gridColumn: "span 2" }}>
+                  <div className="fld" style={{ gridColumn: "span 3" }}>
                     <label htmlFor="fAddr">Adres werf</label>
                     <input
                       type="text"
@@ -1208,15 +1225,30 @@ const VerhuurBoekingPage = () => {
                       onChange={(e) => setCustomer({ ...customer, addr: e.target.value })}
                     />
                   </div>
+                </div>
+                <div className="frow" style={{ marginTop: 14 }}>
                   <div className="fld">
                     <label htmlFor="fPost">Postcode</label>
                     <input
                       type="text"
                       id="fPost"
+                      inputMode="numeric"
                       placeholder="2630"
                       maxLength={4}
                       value={customer.post}
-                      onChange={(e) => setCustomer({ ...customer, post: e.target.value })}
+                      onChange={(e) =>
+                        setCustomer({ ...customer, post: e.target.value.replace(/\D/g, "") })
+                      }
+                    />
+                  </div>
+                  <div className="fld" style={{ gridColumn: "span 2" }}>
+                    <label htmlFor="fCity">Gemeente</label>
+                    <input
+                      type="text"
+                      id="fCity"
+                      placeholder="Aartselaar"
+                      value={customer.city}
+                      onChange={(e) => setCustomer({ ...customer, city: e.target.value })}
                     />
                   </div>
                 </div>
@@ -1237,7 +1269,7 @@ const VerhuurBoekingPage = () => {
                       en uw factuur staat meteen in uw mailbox.
                     </span>
                     <span className="pos">
-                      U bespaart {euro(Math.round(total * ONLINE_DISCOUNT * 100) / 100)}
+                      U bespaart {euro(withVat(Math.round(total * ONLINE_DISCOUNT * 100) / 100))}
                     </span>
                   </button>
                   <button
@@ -1245,10 +1277,10 @@ const VerhuurBoekingPage = () => {
                     className={`payopt${payment === "levering" ? " sel" : ""}`}
                     onClick={() => setPayment("levering")}
                   >
-                    <b>{euro(DEPOSIT)} nu, rest bij levering</b>
+                    <b>{euro(withVat(DEPOSIT))} nu, rest bij levering</b>
                     <span>
-                      Bevestig uw boeking met {euro(DEPOSIT)}. Het saldo betaalt u ter plaatse bij
-                      levering, via Bancontact of QR-code.
+                      Bevestig uw boeking met {euro(withVat(DEPOSIT))}. Het saldo betaalt u ter
+                      plaatse bij levering, via Bancontact of QR-code.
                     </span>
                     <span className="pos">Factuur na volledige betaling</span>
                   </button>
@@ -1280,7 +1312,7 @@ const VerhuurBoekingPage = () => {
                 >
                   {paying
                     ? "Betaling voorbereiden…"
-                    : `Naar de betaling · ${euro(summary.payable)}`}
+                    : `Naar de betaling · ${euro(summary.payableGross)}`}
                   <ArrowRightIcon />
                 </button>
               </div>
@@ -1293,7 +1325,7 @@ const VerhuurBoekingPage = () => {
                   <h2>Betaal uw boeking</h2>
                 </div>
                 <p className="bsub">
-                  U betaalt <b>{euro(summary.payable)}</b> met Apple Pay, Bancontact, kaart, iDEAL of
+                  U betaalt <b>{euro(summary.payableGross)}</b> met Apple Pay, Bancontact, kaart, iDEAL of
                   Klarna. De betaling loopt beveiligd via Stripe — wij zien uw kaartgegevens nooit.
                 </p>
 
@@ -1307,7 +1339,7 @@ const VerhuurBoekingPage = () => {
                         elementsOptions: { appearance: STRIPE_APPEARANCE },
                       }}
                     >
-                      <BoekingBetaalformulier bedrag={euro(summary.payable)} />
+                      <BoekingBetaalformulier bedrag={euro(summary.payableGross)} />
                     </CheckoutElementsProvider>
                   )}
                 </div>
@@ -1339,7 +1371,7 @@ const VerhuurBoekingPage = () => {
                 <p>
                   Wij bevestigen uw levering telefonisch binnen één werkdag. Betaalde u volledig
                   online, dan staat uw factuur meteen in uw mailbox — met 5% korting. Koos u voor
-                  {" "}{euro(DEPOSIT)} bevestiging, dan betaalt u het saldo bij levering.
+                  {" "}{euro(withVat(DEPOSIT))} bevestiging, dan betaalt u het saldo bij levering.
                 </p>
                 <div className="dref">
                   <span>Referentie</span>
@@ -1393,7 +1425,19 @@ const VerhuurBoekingPage = () => {
                     </div>
                   ))}
                 </div>
+                {/*
+                  Zelfde volgorde als de bevestigingsmail: huurprijs, dan de
+                  korting eraf, dan de btw over wat overblijft. Stond de korting
+                  boven een subtotaal dat ze al bevatte, dan leek ze twee keer
+                  afgetrokken.
+                */}
                 <div className="stot">
+                  <div className="tl" style={{ fontSize: 13 }}>
+                    <span className="tll" style={{ fontWeight: 400 }}>
+                      Huurprijs excl. btw
+                    </span>
+                    <span className="tlv" style={{ fontSize: 14 }}>{euro(total)}</span>
+                  </div>
                   {discount > 0 && (
                     <div className="tl" style={{ fontSize: 13 }}>
                       <span className="tll" style={{ fontWeight: 400 }}>
@@ -1404,12 +1448,25 @@ const VerhuurBoekingPage = () => {
                       </span>
                     </div>
                   )}
+                  <div className="tl" style={{ fontSize: 13 }}>
+                    <span className="tll" style={{ fontWeight: 400 }}>
+                      Btw 21%
+                    </span>
+                    <span className="tlv" style={{ fontSize: 14 }}>{euro(summary.vat)}</span>
+                  </div>
+                  {/*
+                    Het brutobedrag is wat er effectief afgerekend wordt, dus dat
+                    is het bedrag dat groot mag staan. Stond hier lang het bedrag
+                    excl. btw, terwijl een particulier de prijs incl. btw hoort te
+                    zien — en Stripe rekende datzelfde te lage bedrag af.
+                  */}
                   <div className="tl">
-                    <span className="tll">Totaal</span>
-                    <span className="tlv">{euro(netTotal)}</span>
+                    <span className="tll">Totaal incl. btw</span>
+                    <span className="tlv">{euro(summary.grossTotal)}</span>
                   </div>
                   <div className="vat">
-                    excl. btw · {euro(Math.round((netTotal / summary.weeks) * 100) / 100)} per week
+                    {euro(Math.round((summary.grossTotal / summary.weeks) * 100) / 100)} per week
+                    incl. btw
                   </div>
                 </div>
               </div>

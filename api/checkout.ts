@@ -253,10 +253,17 @@ export async function POST(request: Request): Promise<Response> {
           quantity: 1,
           price_data: {
             currency: "eur",
-            // Volledig online betalen rekent het pakket met 5% korting af; de
-            // andere keuze rekent enkel de orderbevestiging af, de rest volgt
-            // bij levering.
-            unit_amount: toCents(summary.payable),
+            /*
+              Volledig online betalen rekent het pakket met 5% korting af; de
+              andere keuze rekent enkel de orderbevestiging af, de rest volgt
+              bij levering.
+
+              Bruto, dus mét btw. De catalogusprijzen staan excl. btw en tot nu
+              toe ging exact dat bedrag naar Stripe — de klant betaalde dan 21%
+              te weinig en de bevestigingsmail beloofde "volledig betaald" voor
+              een bedrag waar de btw nog naast stond.
+            */
+            unit_amount: toCents(summary.payableGross),
             product_data: {
               /*
                 Het bedrag en de samenvatting staan al in onze eigen pagina; deze
@@ -282,8 +289,8 @@ export async function POST(request: Request): Promise<Response> {
                 ? {}
                 : {
                     description: `Orderbevestiging — saldo ${(
-                      summary.netTotal - summary.payable
-                    ).toFixed(2)} EUR bij levering`,
+                      summary.grossTotal - summary.payableGross
+                    ).toFixed(2)} EUR incl. btw bij levering`,
                   }),
             },
           },
@@ -298,15 +305,32 @@ export async function POST(request: Request): Promise<Response> {
         betaalwijze: options.payment,
         totaal: summary.netTotal.toFixed(2),
         korting: summary.discount.toFixed(2),
-        nu_betaald: summary.payable.toFixed(2),
-        saldo_bij_levering: (summary.netTotal - summary.payable).toFixed(2),
+        // Bruto, zoals ze effectief afgerekend worden. `totaal` en `korting`
+        // hierboven blijven excl. btw: dat is wat het portaal noteert en wat de
+        // bevestigingsmail als huurprijs toont, met de btw als aparte regel.
+        btw: summary.vat.toFixed(2),
+        totaal_incl_btw: summary.grossTotal.toFixed(2),
+        nu_betaald: summary.payableGross.toFixed(2),
+        saldo_bij_levering: (summary.grossTotal - summary.payableGross).toFixed(2),
         regels: trim(summary.lines.map((l) => `${l.l}: ${l.inc ? "inbegrepen" : l.v}`).join(" | ")),
         klant: trim(customer.name, 120),
         klanttype: trim(customer.type, 20),
         bedrijf: trim(customer.company, 120),
         btw_nummer: trim(customer.vat, 40),
         telefoon: trim(customer.tel, 40),
-        werfadres: trim(`${customer.addr ?? ""} ${customer.post ?? ""}`.trim(), 200),
+        werfadres: trim(
+          `${customer.addr ?? ""} ${customer.post ?? ""} ${customer.city ?? ""}`.trim(),
+          200,
+        ),
+        /*
+          Dezelfde gegevens nog eens los. Het portaal heeft genoeg aan één
+          adresregel, maar de bevestigingsmail zet straat, postcode en gemeente
+          op aparte regels — en uit een samengevoegde string valt dat niet
+          betrouwbaar terug te halen.
+        */
+        werf_straat: trim(customer.addr, 150),
+        werf_postcode: trim(customer.post, 10),
+        werf_gemeente: trim(customer.city, 100),
         leverdatum: trim(delivery.date, 20),
         tijdslot: trim(delivery.slot, 30),
         huur_start: period.start,

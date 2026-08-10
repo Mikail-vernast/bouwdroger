@@ -15,6 +15,7 @@
  */
 import type Stripe from "stripe";
 import { logAvailabilityFailure, releaseHold } from "./availability.js";
+import { alertSyncFailure, sendPaidBookingMails } from "./mail.js";
 import { parseDeviceLines } from "./verhuur.js";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "./vernastSync.js";
 
@@ -98,6 +99,11 @@ export function sessionToVernast(
     email: session.customer_email ?? session.customer_details?.email ?? null,
     phone: meta(session, "telefoon"),
     address: meta(session, "werfadres"),
+    // Sinds de wizard de gemeente apart vraagt, kan het portaal het leveradres
+    // in kolommen tonen in plaats van als één regel. Sessies van vóór die
+    // wijziging hebben deze sleutels niet; dan blijft het bij `address`.
+    postal_code: meta(session, "werf_postcode"),
+    city: meta(session, "werf_gemeente"),
     company_name: meta(session, "bedrijf"),
     vat_number: meta(session, "btw_nummer"),
     package_tier: meta(session, "pakket"),
@@ -122,6 +128,64 @@ export function sessionToVernast(
 }
 
 /**
+ * Metadata-sleutel die onthoudt dat de bevestigingsmail al vertrokken is.
+ *
+ * Nodig omdat dezelfde betaling langs twee wegen binnenkomt — de webhook en de
+ * terugkeer van de betaler. Voor het portaal maakt dat niets uit, dat is
+ * idempotent aan de andere kant, maar een mail is dat niet: zonder deze vlag
+ * krijgt elke klant zijn bevestiging twee keer.
+ */
+const MAIL_FLAG = "mail_bevestiging";
+
+/** Waar de site staat als de sessie zelf het niet meer weet. */
+const CANONICAL_ORIGIN = "https://bouwdroger.vercel.app";
+
+/**
+ * De link in de bevestigingsmail: de boekingspagina met deze sessie erbij,
+ * hetzelfde scherm dat de betaler na Stripe te zien krijgt.
+ *
+ * Bij voorkeur uit de sessie zelf, want daar staat het origin waar de bezoeker
+ * vandaan kwam — inclusief een preview-deploy of localhost. Stripe bewaart de
+ * `{CHECKOUT_SESSION_ID}`-plaatshouder letterlijk, dus die moet er nog uit.
+ */
+function confirmationUrl(session: Stripe.Checkout.Session): string {
+  const url = session.return_url;
+  if (url) return url.replace("{CHECKOUT_SESSION_ID}", session.id);
+
+  const base = (process.env.VITE_SITE_URL || CANONICAL_ORIGIN).replace(/\/$/, "");
+  return `${base}/verhuur/boeking?session_id=${session.id}`;
+}
+
+/**
+ * Claimt het recht om de bevestigingsmail te versturen. Geeft `true` aan wie
+ * er als eerste is.
+ *
+ * De metadata uit een webhook-event is een momentopname van bij de betaling;
+ * vandaar dat de sessie hier vers wordt opgehaald in plaats van het meegegeven
+ * object te vertrouwen — anders ziet de webhook de vlag niet die de terugkeer
+ * een seconde eerder zette.
+ *
+ * Lukt de claim niet omdat Stripe niet antwoordt, dan mailen we alsnog. Van de
+ * twee mogelijke fouten is een dubbele bevestiging de onschuldigste: geen
+ * bevestiging laat een klant achter die betaald heeft en niets hoort.
+ */
+async function claimBookingMail(stripe: Stripe, sessionId: string): Promise<boolean> {
+  try {
+    const fresh = await stripe.checkout.sessions.retrieve(sessionId);
+    if (fresh.metadata?.[MAIL_FLAG]) return false;
+
+    // Alleen deze sleutel meesturen: Stripe voegt hem samen met de bestaande
+    // metadata, waar de volledige boeking in zit.
+    await stripe.checkout.sessions.update(sessionId, { metadata: { [MAIL_FLAG]: "1" } });
+    return true;
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "onbekende fout";
+    console.error(`[vernast-order] mailclaim voor ${sessionId} mislukt: ${message}`);
+    return true;
+  }
+}
+
+/**
  * Levert de order af en geeft de hold vrij.
  *
  * De order neemt het van de hold over: die staat als echte boeking in het
@@ -137,13 +201,47 @@ export async function deliverOrder(
   session: Stripe.Checkout.Session,
   context: string,
 ): Promise<boolean> {
-  const sync = await pushOrderToVernast(
-    sessionToVernast(session, await onlinePaymentMethod(stripe, session)),
-  );
+  const payload = sessionToVernast(session, await onlinePaymentMethod(stripe, session));
+  const sync = await pushOrderToVernast(payload);
   logSyncFailure(`${context} ${session.id}`, sync);
 
-  if (sync.ok) {
-    logAvailabilityFailure(`release ${session.id}`, await releaseHold(session.id));
+  if (!sync.ok) {
+    // De klant heeft betaald en er staat nergens een order. Dat mag niet in een
+    // logregel blijven hangen: iemand moet hem met de hand kunnen ingeven.
+    await alertSyncFailure(`${context} ${session.id}`, sync.reason, payload);
+    return false;
   }
-  return sync.ok;
+
+  logAvailabilityFailure(`release ${session.id}`, await releaseHold(session.id));
+
+  /*
+    Pas mailen als de order effectief genoteerd staat. Een bevestiging die zegt
+    dat de boeking vastligt terwijl er niets is doorgekomen, is precies de
+    situatie die deze module moest oplossen.
+
+    Alleen bij een betaalde sessie: bij Bancontact of iDEAL kan de betaler hier
+    al passeren terwijl de betaling nog loopt. Die krijgt zijn bevestiging
+    wanneer `checkout.session.async_payment_succeeded` binnenkomt.
+  */
+  if (payload.payment_status === "paid" && (await claimBookingMail(stripe, session.id))) {
+    await sendPaidBookingMails({
+      payload,
+      // Wat er effectief geïncasseerd is. Bij "betalen bij levering" is dat
+      // enkel de orderbevestiging, niet het volledige huurbedrag.
+      paidAmount: (session.amount_total ?? 0) / 100,
+      /*
+        `betaalwijze` staat op `online` wanneer de klant alles vooraf betaalt —
+        dat is de keuze met 5% korting. Elke andere waarde betekent dat enkel de
+        orderbevestiging afgerekend is en de rest bij levering volgt.
+      */
+      paymentType: meta(session, "betaalwijze") === "online" ? "full" : "deposit",
+      discount: Number(meta(session, "korting")) || 0,
+      street: meta(session, "werf_straat") ?? payload.address ?? "",
+      zip: meta(session, "werf_postcode") ?? "",
+      city: meta(session, "werf_gemeente") ?? "",
+      orderUrl: confirmationUrl(session),
+    });
+  }
+
+  return true;
 }

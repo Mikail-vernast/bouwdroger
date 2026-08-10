@@ -16,14 +16,45 @@ import { enterInitial } from "@/lib/firstPaint";
 const ContactPage = () => {
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  /*
+    Dit formulier deed lang niets: een seconde wachten, "Bericht verzonden!"
+    tonen en de tekst weggooien. Alles wat hier ooit ingevuld is, is verloren.
+    Nu gaat het naar `/api/contact`, die er een mail van maakt.
+  */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          voornaam: data.get("voornaam"),
+          achternaam: data.get("achternaam"),
+          email: data.get("email"),
+          telefoon: data.get("telefoon"),
+          onderwerp: data.get("onderwerp"),
+          bericht: data.get("bericht"),
+          website: data.get("website"),
+        }),
+      });
+
+      if (!response.ok) {
+        const body = (await response.json().catch(() => ({}))) as { error?: string };
+        toast.error(body.error ?? "Versturen lukte niet. Bel ons gerust op 03 689 90 65.");
+        return;
+      }
+
       toast.success("Bericht verzonden! Wij nemen zo snel mogelijk contact op.");
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+      form.reset();
+    } catch {
+      toast.error("Versturen lukte niet. Bel ons gerust op 03 689 90 65.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -246,31 +277,45 @@ const ContactPage = () => {
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div className="space-y-2">
                         <Label htmlFor="firstName" className="text-foreground font-semibold">Voornaam *</Label>
-                        <Input id="firstName" required placeholder="Jan" className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
+                        <Input id="firstName" name="voornaam" required placeholder="Jan" className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName" className="text-foreground font-semibold">Achternaam *</Label>
-                        <Input id="lastName" required placeholder="Janssens" className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
+                        <Input id="lastName" name="achternaam" required placeholder="Janssens" className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
                       </div>
                     </div>
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div className="space-y-2">
                         <Label htmlFor="email" className="text-foreground font-semibold">E-mail *</Label>
-                        <Input id="email" type="email" required placeholder="jan@voorbeeld.be" className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
+                        <Input id="email" name="email" type="email" required placeholder="jan@voorbeeld.be" className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="phone" className="text-foreground font-semibold">Telefoon</Label>
-                        <Input id="phone" type="tel" placeholder="+32 ..." className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
+                        <Input id="phone" name="telefoon" type="tel" placeholder="+32 ..." className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="subject" className="text-foreground font-semibold">Onderwerp *</Label>
-                      <Input id="subject" required placeholder="Offerte, technische vraag, afhaling ..." className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
+                      <Input id="subject" name="onderwerp" required placeholder="Offerte, technische vraag, afhaling ..." className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message" className="text-foreground font-semibold">Bericht *</Label>
-                      <Textarea id="message" required rows={5} placeholder="Beschrijf uw vraag of project..." className="rounded-xl bg-muted/50 border-border focus:border-accent min-h-[140px]" />
+                      <Textarea id="message" name="bericht" required rows={5} placeholder="Beschrijf uw vraag of project..." className="rounded-xl bg-muted/50 border-border focus:border-accent min-h-[140px]" />
                     </div>
+                    {/*
+                      Honeypot: onzichtbaar voor een bezoeker, ingevuld door een
+                      bot. `tabIndex={-1}` en `autoComplete="off"` houden ook
+                      toetsenbordnavigatie en wachtwoordmanagers weg; het veld
+                      is `aria-hidden` zodat een schermlezer het niet voorleest.
+                    */}
+                    <input
+                      type="text"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      style={{ position: "absolute", left: "-9999px", width: 1, height: 1 }}
+                    />
                     <Button
                       type="submit"
                       size="lg"

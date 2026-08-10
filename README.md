@@ -91,6 +91,33 @@ Beheerd via `vercel env` — niet in de repo. Lokaal in `.env.local` (gitignored
 | `VERNAST_WEBHOOK_SECRET` | gedeeld geheim voor die webhook |
 | `VITE_SITE_URL` | canonieke site-URL (sitemap, canonicals, Stripe-redirects) |
 
+### Mail (Brevo)
+
+De transactionele mails lopen via Brevo, met de opmaak in Brevo-sjablonen en
+enkel parameters vanuit deze code. Zie `src/lib/mail.ts` voor welke parameters
+elke mail meestuurt.
+
+Staat er voor een mail geen sjabloon-ID, dan wordt die mail overgeslagen met een
+logregel — niets breekt. Zo kan elke mail apart aangezet worden zodra zijn
+sjabloon klaar is.
+
+| Variabele | Waarvoor |
+|---|---|
+| `BREVO_API_KEY` | API-sleutel van Brevo (server-only) |
+| `BREVO_SENDER_EMAIL` | afzender; moet in Brevo geverifieerd zijn (SPF/DKIM) |
+| `BREVO_SENDER_NAME` | naam van de afzender, standaard "Vernast Bouwdrogers" |
+| `BREVO_TEAM_EMAIL` | waar de interne meldingen heen gaan |
+| `BREVO_TPL_BOEKING_BETAALD` | klant: betaling gelukt, boeking staat vast (sjabloon 198) |
+| `BREVO_TPL_AANVRAAG_ONTVANGEN` | klant: aanvraag binnen, nog geen bevestiging |
+| `BREVO_TPL_CONTACT_ONTVANGEN` | klant: kopie van zijn contactbericht |
+| `BREVO_TPL_INTERN_BOEKING` | team: nieuwe betaalde boeking |
+| `BREVO_TPL_INTERN_AANVRAAG` | team: nieuwe aanvraag, actie vereist |
+| `BREVO_TPL_INTERN_CONTACT` | team: bericht uit het contactformulier |
+| `BREVO_TPL_INTERN_ALARM` | team: een order raakte niet in het portaal |
+| `MAIL_CALL_NOTICE` | hoe lang op voorhand gebeld wordt, standaard "1 werkdag" |
+| `MAIL_CANCELLATION_HOURS` | kosteloos annuleren tot, standaard 48 |
+| `MAIL_DEFAULT_TIJDSLOT` | venster als er geen tijdslot gekozen is |
+
 ## Deploy
 
 Vercel bouwt met `npm run build` en serveert `dist/`. Security headers, CSP en
