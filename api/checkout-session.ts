@@ -82,7 +82,7 @@ export async function GET(request: Request): Promise<Response> {
       betaling gewoon geldig — de logs vangen het op en Stripe biedt zijn event
       alsnog opnieuw aan.
     */
-    if (paid) await deliverOrder(session, "terugkeer");
+    if (paid) await deliverOrder(stripe, session, "terugkeer");
 
     return json({ paid, reference });
   } catch {

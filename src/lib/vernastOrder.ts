@@ -31,7 +31,54 @@ function splitName(full: string | null): { first: string | null; last: string | 
   return { first: parts[0], last: parts.slice(1).join(" ") };
 }
 
-export function sessionToVernast(session: Stripe.Checkout.Session): VernastOrderPayload {
+/**
+ * Waarmee de klant online betaald heeft — `apple_pay`, `ideal`, `bancontact`,
+ * `card`, … in de sleutels van Stripe zelf.
+ *
+ * Stripe hangt dit niet aan de sessie maar aan de charge eronder, en die zit
+ * noch in het webhook-event noch in een gewone `retrieve`. Vandaar één extra
+ * call met `expand`.
+ *
+ * Apple Pay en Google Pay komen binnen als een kaartbetaling met een
+ * `wallet.type` erbij. Die wallet is wat het portaal wil tonen — "card" zegt
+ * niets over hoe de klant het scherm bediend heeft — dus die wint.
+ *
+ * Lukt de call niet, dan blijft de order gewoon geldig; hij toont dan enkel
+ * niet waarmee er betaald is. Dat is nooit een reden om de aflevering te laten
+ * mislukken en Stripe zijn event te laten herhalen.
+ */
+async function onlinePaymentMethod(
+  stripe: Stripe,
+  session: Stripe.Checkout.Session,
+): Promise<string | null> {
+  if (session.payment_status !== "paid") return null;
+
+  try {
+    const full = await stripe.checkout.sessions.retrieve(session.id, {
+      expand: ["payment_intent.latest_charge"],
+    });
+
+    const intent = full.payment_intent;
+    if (!intent || typeof intent === "string") return null;
+
+    const charge = intent.latest_charge;
+    if (!charge || typeof charge === "string") return null;
+
+    const details = charge.payment_method_details;
+    if (!details?.type) return null;
+
+    return details.card?.wallet?.type ?? details.type;
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "onbekende fout";
+    console.error(`[vernast-order] betaalmethode van ${session.id} ophalen mislukt: ${message}`);
+    return null;
+  }
+}
+
+export function sessionToVernast(
+  session: Stripe.Checkout.Session,
+  onlineMethod: string | null = null,
+): VernastOrderPayload {
   const { first, last } = splitName(meta(session, "klant"));
   const totaal = meta(session, "totaal");
   const paid = session.payment_status === "paid";
@@ -65,6 +112,7 @@ export function sessionToVernast(session: Stripe.Checkout.Session): VernastOrder
     stripe_session_id: session.id,
     // Stripe geeft seconden, Postgres wil ISO.
     paid_at: paid ? new Date((session.created ?? 0) * 1000).toISOString() : null,
+    online_payment_method: onlineMethod,
   };
 }
 
@@ -80,10 +128,13 @@ export function sessionToVernast(session: Stripe.Checkout.Session): VernastOrder
  * toestellen vasthoudt.
  */
 export async function deliverOrder(
+  stripe: Stripe,
   session: Stripe.Checkout.Session,
   context: string,
 ): Promise<boolean> {
-  const sync = await pushOrderToVernast(sessionToVernast(session));
+  const sync = await pushOrderToVernast(
+    sessionToVernast(session, await onlinePaymentMethod(stripe, session)),
+  );
   logSyncFailure(`${context} ${session.id}`, sync);
 
   if (sync.ok) {

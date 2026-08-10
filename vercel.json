@@ -5,7 +5,9 @@
   "outputDirectory": "dist",
   "trailingSlash": false,
   "cleanUrls": true,
-  "regions": ["fra1"],
+  "regions": [
+    "fra1"
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -96,6 +98,12 @@
           "value": "public, max-age=0, must-revalidate"
         }
       ]
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/reconcile-orders",
+      "schedule": "0 4 * * *"
     }
   ]
 }

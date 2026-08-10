@@ -79,7 +79,7 @@ export async function POST(request: Request): Promise<Response> {
     de webhook aan de Vernast-kant is idempotent op `(source, external_id)`.
     Zie `src/lib/vernastOrder.ts` voor waarom er twee wegen zijn.
   */
-  const delivered = await deliverOrder(session, "stripe");
+  const delivered = await deliverOrder(stripe, session, "stripe");
 
   // Faalt de push, dan een 500 zodat Stripe het event opnieuw aanbiedt — de
   // webhook aan de andere kant is idempotent, dus een herhaling is ongevaarlijk.

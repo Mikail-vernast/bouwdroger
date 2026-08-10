@@ -60,6 +60,13 @@ export interface VernastOrderPayload {
   payment_status?: "unpaid" | "paid" | "refunded";
   stripe_session_id?: string | null;
   paid_at?: string | null;
+  /**
+   * Waarmee er online afgerekend is, in de sleutels van Stripe: `apple_pay`,
+   * `ideal`, `bancontact`, `card`, … Los van `payment_method` aan de andere
+   * kant: dat veld noteert wat de chauffeur bij levering int, en dat mag deze
+   * niet overschrijven.
+   */
+  online_payment_method?: string | null;
 }
 
 /*
