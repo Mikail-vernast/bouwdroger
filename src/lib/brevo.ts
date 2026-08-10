@@ -167,3 +167,62 @@ export async function sendTemplate(mail: BrevoMail): Promise<Attempted> {
 
   return withRetry(() => post(apiKey, from, mail), { tries: TRIES, delaysMs: DELAYS_MS });
 }
+
+/**
+ * Een kale tekstmail, zonder sjabloon.
+ *
+ * Alleen voor interne meldingen. Die hebben geen opmaak nodig, maar wel de
+ * zekerheid dat ze aankomen: een aanvraag die verdwijnt omdat er nog geen
+ * sjabloon in Brevo staat, is erger dan een lelijke mail. Wat naar de klant
+ * gaat blijft een sjabloon, want daar telt de opmaak wél.
+ */
+export async function sendPlain(options: {
+  to: BrevoRecipient;
+  subject: string;
+  text: string;
+  replyTo?: BrevoRecipient;
+  tags?: string[];
+}): Promise<Attempted> {
+  const apiKey = process.env.BREVO_API_KEY?.trim();
+  if (!apiKey) return { ok: false, reason: "BREVO_API_KEY ontbreekt" };
+
+  const from = sender();
+  if (!from) return { ok: false, reason: "BREVO_SENDER_EMAIL ontbreekt" };
+
+  const send = async (): Promise<Attempted> => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+    try {
+      const response = await fetch(`${API}/smtp/email`, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "api-key": apiKey,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          sender: from,
+          to: [{ email: options.to.email, ...(options.to.name ? { name: options.to.name } : {}) }],
+          subject: options.subject,
+          textContent: options.text,
+          ...(options.replyTo ? { replyTo: options.replyTo } : {}),
+          ...(options.tags?.length ? { tags: options.tags } : {}),
+        }),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        const body = await response.text().catch(() => "");
+        return { ok: false, reason: `HTTP ${response.status}: ${body.slice(0, 200)}` };
+      }
+      return { ok: true };
+    } catch (error: unknown) {
+      return { ok: false, reason: error instanceof Error ? error.message : "onbekende fout" };
+    } finally {
+      clearTimeout(timer);
+    }
+  };
+
+  return withRetry(send, { tries: TRIES, delaysMs: DELAYS_MS });
+}

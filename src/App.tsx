@@ -124,6 +124,13 @@ export const routes: RouteRecord[] = [
         }),
       },
       {
+        // Alleen bereikbaar via de link in de verlengmail; staat op noindex.
+        path: "verhuur/verlengen",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurVerlengenPage")).default,
+        }),
+      },
+      {
         path: "verhuur/toestel/:model",
         lazy: async () => ({
           Component: (await import("./pages/verhuur/VerhuurToestelPage")).default,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { tomorrowInBrussels } from "../../api/delivery-reminders.js";
+import { tomorrowInBrussels } from "../../api/reminders.js";
 
 describe("welke leverdatum is morgen", () => {
   it("neemt de dag ná vandaag in Belgische tijd", () => {

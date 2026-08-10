@@ -17,7 +17,11 @@
  * ongevraagd mail verstuurt en Brevo-credits opstookt.
  */
 import { describe, it } from "vitest";
-import { sendDeliveryReminderMail, sendPaidBookingMails } from "../lib/mail.js";
+import {
+  sendDeliveryReminderMail,
+  sendExtensionOfferMail,
+  sendPaidBookingMails,
+} from "../lib/mail.js";
 import type { VernastOrderPayload } from "../lib/vernastSync.js";
 
 const ONTVANGER = process.env.TESTMAIL_TO ?? "";
@@ -35,7 +39,7 @@ const payload: VernastOrderPayload = {
   city: "Antwerpen",
   package_tier: "Gebouw kleiner dan 180 m2 – Pleisterwerk + chape – incl. verwarming",
   delivery_date: "2026-08-17",
-  delivery_slot: "tussen 10u en 12u",
+  delivery_slot: "10:00 – 12:00",
   rental_start_date: "2026-08-17",
   rental_end_date: "2026-09-14",
   duration_days: 28,
@@ -63,6 +67,16 @@ describe("verzendtest sjabloon 198", () => {
       zip: "2018",
       city: "Antwerpen",
       orderUrl: "https://bouwdrogerservice.be/verhuur/boeking?session_id=cs_test_verzendtest",
+    });
+  });
+});
+
+describe("verzendtest sjabloon 200", () => {
+  it.skipIf(!ONTVANGER)("stuurt de verlengmail naar TESTMAIL_TO", async () => {
+    await sendExtensionOfferMail({
+      payload,
+      extensionUrl:
+        "https://bouwdrogerservice.be/verhuur/verlengen?session_id=cs_test_verzendtest",
     });
   });
 });

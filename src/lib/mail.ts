@@ -15,7 +15,7 @@
  * Server-only, net als `brevo.ts`.
  */
 
-import { sendTemplate, type BrevoRecipient } from "./brevo.js";
+import { sendPlain, sendTemplate, type BrevoRecipient } from "./brevo.js";
 import type { DeviceKey } from "../data/verhuur.js";
 import { euro } from "./verhuur.js";
 import type { VernastOrderPayload } from "./vernastSync.js";
@@ -26,6 +26,8 @@ export type MailKey =
   | "boeking_betaald"
   /** Klant: wij leveren morgen. */
   | "levering_morgen"
+  /** Klant: de huur loopt af, verlengen kan nog. */
+  | "ophaling_verlengen"
   /** Klant: aanvraag binnen, nog geen bevestiging. */
   | "aanvraag_ontvangen"
   /** Klant: contactformulier binnen. */
@@ -46,6 +48,7 @@ export type MailKey =
 export const TEMPLATE_ENV: Record<MailKey, string> = {
   boeking_betaald: "BREVO_TPL_BOEKING_BETAALD",
   levering_morgen: "BREVO_TPL_LEVERING_MORGEN",
+  ophaling_verlengen: "BREVO_TPL_OPHALING_VERLENGEN",
   aanvraag_ontvangen: "BREVO_TPL_AANVRAAG_ONTVANGEN",
   contact_ontvangen: "BREVO_TPL_CONTACT_ONTVANGEN",
   intern_boeking: "BREVO_TPL_INTERN_BOEKING",
@@ -443,6 +446,37 @@ export function deliveryReminderParams(facts: DeliveryReminderFacts): Record<str
 }
 
 /* ============================================================
+   Sjabloon 200 — de huur loopt af
+   ============================================================ */
+
+/** Wat sjabloon 200 nodig heeft bovenop de order zelf. */
+export interface ExtensionOfferFacts {
+  payload: VernastOrderPayload;
+  /** Waar de knop "Verlengen" heen wijst. */
+  extensionUrl: string;
+}
+
+/**
+ * De parameters van sjabloon 200. Alle zes verplicht: dit sjabloon heeft geen
+ * voorwaardelijke blokken, dus een ontbrekende waarde is meteen een gat in de
+ * mail.
+ */
+export function extensionOfferParams(facts: ExtensionOfferFacts): Record<string, unknown> {
+  const { payload } = facts;
+  // Vernast haalt op in dezelfde ronde als de levering, dus hetzelfde venster.
+  const slot = splitSlot(payload.delivery_slot);
+
+  return {
+    customer_name: fullName(payload),
+    order_number: payload.order_number ?? payload.external_id,
+    pickup_date: formatWeekday(payload.rental_end_date),
+    pickup_time_from: slot.from,
+    pickup_time_to: slot.to,
+    extension_url: facts.extensionUrl,
+  };
+}
+
+/* ============================================================
    De mails zelf
    ============================================================ */
 
@@ -476,6 +510,68 @@ export async function sendPaidBookingMails(facts: PaidBookingFacts): Promise<voi
  */
 export async function sendDeliveryReminderMail(facts: DeliveryReminderFacts): Promise<void> {
   await send("levering_morgen", customer(facts.payload), deliveryReminderParams(facts));
+}
+
+/**
+ * Twee dagen vóór het einde van de huur: de klant kan nog verlengen.
+ *
+ * Alleen naar de klant. Wie verlengt, komt vanzelf binnen als aanvraag via
+ * `api/extension.ts`.
+ */
+export async function sendExtensionOfferMail(facts: ExtensionOfferFacts): Promise<void> {
+  await send("ophaling_verlengen", customer(facts.payload), extensionOfferParams(facts));
+}
+
+/**
+ * Verlengaanvraag vanaf de verlengpagina: naar het team, met de klant in
+ * `replyTo` zodat antwoorden vanuit de mailbox kan.
+ *
+ * Bewust platte tekst en geen sjabloon: een aanvraag mag niet verdwijnen omdat
+ * er in Brevo nog niets klaarstaat. Iemand rekent erop dat zijn droger langer
+ * blijft staan.
+ */
+export async function sendExtensionRequest(request: {
+  referentie: string;
+  naam: string;
+  email: string;
+  telefoon: string;
+  extraDagen: number;
+  huidigEinde: string;
+  nieuwEinde: string;
+  opmerking: string;
+}): Promise<void> {
+  const to = teamRecipient();
+  if (!to) {
+    console.error("[mail] verlengaanvraag niet verstuurd: BREVO_TEAM_EMAIL ontbreekt.");
+    return;
+  }
+
+  const regels = [
+    `Verlenging aangevraagd voor ${request.referentie}`,
+    "",
+    `Klant:      ${request.naam}`,
+    `E-mail:     ${request.email}`,
+    `Telefoon:   ${request.telefoon}`,
+    "",
+    `Huur loopt nu tot:  ${formatWeekday(request.huidigEinde)}`,
+    `Gevraagd tot:       ${formatWeekday(request.nieuwEinde)}  (+${request.extraDagen} dagen)`,
+    "",
+    request.opmerking ? `Opmerking van de klant:\n${request.opmerking}` : "Geen opmerking.",
+    "",
+    "Controleer de beschikbaarheid in het portaal en bel de klant terug.",
+  ];
+
+  const result = await sendPlain({
+    to,
+    subject: `Verlenging aangevraagd — ${request.referentie} (+${request.extraDagen} dagen)`,
+    text: regels.join("\n"),
+    replyTo: { email: request.email, name: request.naam || null },
+    tags: ["verlenging"],
+  });
+
+  if (!result.ok) {
+    console.error(`[mail] verlengaanvraag ${request.referentie} mislukt: ${result.reason}`);
+  }
 }
 
 /**

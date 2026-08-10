@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   deliveryReminderParams,
+  extensionOfferParams,
   formatAmount,
   formatDate,
   formatDevices,
@@ -21,7 +22,7 @@ const BASE: VernastOrderPayload = {
   email: "jan@voorbeeld.be",
   package_tier: "Pakket Droog Snel 3",
   delivery_date: "2026-08-17",
-  delivery_slot: "tussen 8u en 12u",
+  delivery_slot: "10:00 – 12:00",
   rental_start_date: "2026-08-17",
   rental_end_date: "2026-08-21",
   duration_days: 5,
@@ -291,6 +292,40 @@ describe("sjabloon 199 — wij leveren morgen", () => {
     });
     expect(params.payment_type).toBe("deposit");
     expect(params.balance_due).toBe("289,50");
+  });
+});
+
+describe("sjabloon 200 — de huur loopt af", () => {
+  const OFFER = {
+    payload: BASE,
+    extensionUrl: "https://bouwdrogerservice.be/verhuur/verlengen?session_id=cs_test_123",
+  };
+
+  it("levert alle zes parameters ingevuld aan", () => {
+    const params = extensionOfferParams(OFFER);
+    // Dit sjabloon heeft geen voorwaardelijke blokken: elke lege waarde is
+    // meteen een zichtbaar gat in de mail.
+    for (const key of [
+      "customer_name",
+      "order_number",
+      "pickup_date",
+      "pickup_time_from",
+      "pickup_time_to",
+      "extension_url",
+    ]) {
+      expect(params[key], `${key} is leeg`).toBeTruthy();
+    }
+    expect(Object.keys(params)).toHaveLength(6);
+  });
+
+  it("gebruikt de einddatum van de huur als ophaaldatum", () => {
+    expect(extensionOfferParams(OFFER).pickup_date).toBe("vrijdag 21 augustus");
+  });
+
+  it("haalt op in hetzelfde venster als de levering", () => {
+    const params = extensionOfferParams(OFFER);
+    expect(params.pickup_time_from).toBe("10:00");
+    expect(params.pickup_time_to).toBe("12:00");
   });
 });
 

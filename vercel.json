@@ -106,7 +106,7 @@
       "schedule": "0 4 * * *"
     },
     {
-      "path": "/api/delivery-reminders",
+      "path": "/api/reminders",
       "schedule": "0 13 * * *"
     }
   ]

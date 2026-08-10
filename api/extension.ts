@@ -1,0 +1,151 @@
+/**
+ * De verlengpagina: huurgegevens ophalen en een verlenging aanvragen.
+ *
+ * De knop in de verlengmail (sjabloon 200) wijst hierheen met het sessie-ID van
+ * de oorspronkelijke boeking. Dat ID is de sleutel: lang genoeg om niet te
+ * raden, en het bespaart de klant dat hij gegevens moet intikken die hij al
+ * gegeven heeft.
+ *
+ * `GET` geeft alleen wat de pagina moet tonen — referentie, datums, wat er
+ * staat. Bewust geen naam, adres of e-mailadres: dit endpoint is publiek, en
+ * wie een sessie-ID te pakken krijgt hoort daar geen klantgegevens mee te
+ * kunnen opvragen.
+ *
+ * `POST` maakt er een aanvraag van. Een verlenging kan niet automatisch
+ * bevestigd worden — de toestellen kunnen voor de volgende klant ingepland
+ * staan — dus dit gaat als mail naar het team, dat de beschikbaarheid nakijkt
+ * en terugbelt.
+ */
+import Stripe from "stripe";
+import { isReference } from "../src/lib/booking.js";
+import { sendExtensionRequest } from "../src/lib/mail.js";
+import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
+import { addDays, isoDate } from "../src/lib/verhuur.js";
+
+const SESSION_ID = /^cs_[A-Za-z0-9_]{1,255}$/;
+
+/** Hoeveel dagen een klant in één keer kan bijvragen. */
+const MAX_EXTRA_DAGEN = 56;
+
+function json(body: unknown, status = 200): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "content-type": "application/json", "cache-control": "no-store" },
+  });
+}
+
+function meta(session: Stripe.Checkout.Session, key: string): string {
+  return session.metadata?.[key]?.trim() ?? "";
+}
+
+async function loadSession(id: string): Promise<Stripe.Checkout.Session | null> {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) return null;
+
+  try {
+    const session = await new Stripe(key).checkout.sessions.retrieve(id);
+    // Zelfde afscherming als elders: alleen boekingen van deze site.
+    if (!isReference(session.client_reference_id) || !isReference(session.metadata?.referentie)) {
+      return null;
+    }
+    return session.payment_status === "paid" ? session : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function GET(request: Request): Promise<Response> {
+  const limit = gate(clientIp(request), 20);
+
+  const attempt = limit.attempt();
+  if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
+
+  const id = new URL(request.url).searchParams.get("session_id");
+  if (!id || !SESSION_ID.test(id)) return json({ error: "Ongeldige sessie." }, 400);
+
+  const accepted = limit.accept();
+  if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
+
+  const session = await loadSession(id);
+  if (!session) return json({ error: "Boeking niet gevonden." }, 404);
+
+  return json({
+    referentie: meta(session, "referentie") || session.client_reference_id,
+    pakket: meta(session, "pakket"),
+    toestellen: meta(session, "toestellen"),
+    huur_start: meta(session, "huur_start"),
+    huur_eind: meta(session, "huur_eind"),
+    tijdslot: meta(session, "tijdslot"),
+  });
+}
+
+interface ExtensionBody {
+  sessionId?: unknown;
+  extraDagen?: unknown;
+  telefoon?: unknown;
+  opmerking?: unknown;
+  /** Honeypot, zie `api/contact.ts`. */
+  website?: unknown;
+}
+
+function str(value: unknown, max: number): string {
+  if (value === null || value === undefined) return "";
+  return String(value).trim().slice(0, max);
+}
+
+export async function POST(request: Request): Promise<Response> {
+  const limit = gate(clientIp(request));
+
+  const attempt = limit.attempt();
+  if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
+
+  let body: ExtensionBody;
+  try {
+    body = (await request.json()) as ExtensionBody;
+  } catch {
+    return json({ error: "Ongeldige aanvraag." }, 400);
+  }
+
+  if (str(body.website, 200)) return json({ ok: true });
+
+  const id = str(body.sessionId, 300);
+  if (!SESSION_ID.test(id)) return json({ error: "Ongeldige sessie." }, 400);
+
+  const extraDagen = Math.floor(Number(body.extraDagen));
+  if (!Number.isFinite(extraDagen) || extraDagen < 1 || extraDagen > MAX_EXTRA_DAGEN) {
+    return json({ error: "Kies hoeveel langer u de toestellen wilt houden." }, 400);
+  }
+
+  const telefoon = str(body.telefoon, 40);
+  if (telefoon.replace(/\D/g, "").length < 8) {
+    return json({ error: "Vul een telefoonnummer in waarop wij u kunnen bereiken." }, 400);
+  }
+
+  const accepted = limit.accept();
+  if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
+
+  const session = await loadSession(id);
+  if (!session) return json({ error: "Boeking niet gevonden." }, 404);
+
+  const huidigEinde = meta(session, "huur_eind");
+  const nieuwEinde = huidigEinde ? isoDate(addDays(new Date(huidigEinde), extraDagen)) : "";
+
+  /*
+    Afgewacht en niet na het antwoord: op Vercel stopt de functie zodra het
+    antwoord verstuurd is. En het is hier de enige opslag — mislukt de mail, dan
+    bestaat de aanvraag nergens, dus dat hoort in de logs te staan vóór wij de
+    bezoeker succes tonen.
+  */
+  await sendExtensionRequest({
+    referentie: meta(session, "referentie") || (session.client_reference_id ?? id),
+    naam: meta(session, "klant"),
+    email: session.customer_email ?? session.customer_details?.email ?? "",
+    telefoon,
+    extraDagen,
+    huidigEinde,
+    nieuwEinde,
+    opmerking: str(body.opmerking, 2000),
+  });
+
+  return json({ ok: true, nieuw_einde: nieuwEinde });
+}
