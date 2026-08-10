@@ -108,6 +108,7 @@ sjabloon klaar is.
 | `BREVO_SENDER_NAME` | naam van de afzender, standaard "Vernast Bouwdrogers" |
 | `BREVO_TEAM_EMAIL` | waar de interne meldingen heen gaan |
 | `BREVO_TPL_BOEKING_BETAALD` | klant: betaling gelukt, boeking staat vast (sjabloon 198) |
+| `BREVO_TPL_LEVERING_MORGEN` | klant: wij leveren morgen (sjabloon 199, dagelijkse cron) |
 | `BREVO_TPL_AANVRAAG_ONTVANGEN` | klant: aanvraag binnen, nog geen bevestiging |
 | `BREVO_TPL_CONTACT_ONTVANGEN` | klant: kopie van zijn contactbericht |
 | `BREVO_TPL_INTERN_BOEKING` | team: nieuwe betaalde boeking |

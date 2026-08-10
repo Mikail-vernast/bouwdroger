@@ -1,11 +1,13 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  deliveryReminderParams,
   formatAmount,
   formatDate,
   formatDevices,
   formatWeekday,
   orderParams,
   paidBookingParams,
+  splitSlot,
   type PaidBookingFacts,
 } from "../lib/mail.js";
 import type { VernastOrderPayload } from "../lib/vernastSync.js";
@@ -218,6 +220,65 @@ describe("sjabloon 198 — boeking betaald", () => {
     const params = paidBookingParams(FACTS);
     expect(params.call_notice).toBe("2 werkdagen");
     expect(params.cancellation_hours).toBe(24);
+  });
+});
+
+describe("sjabloon 199 — wij leveren morgen", () => {
+  const REMINDER = {
+    payload: BASE,
+    paymentType: "full" as const,
+    balanceDue: 0,
+    street: "Ballaarstraat 99",
+    zip: "2018",
+    city: "Antwerpen",
+    orderUrl: "https://bouwdrogerservice.be/verhuur/boeking?session_id=cs_test_123",
+  };
+
+  it("levert elke verplichte parameter ingevuld aan", () => {
+    const params = deliveryReminderParams(REMINDER);
+    for (const key of [
+      "customer_name",
+      "order_number",
+      "order_url",
+      "delivery_date",
+      "delivery_time_from",
+      "delivery_time_to",
+      "delivery_street",
+      "delivery_zip",
+      "delivery_city",
+      "payment_type",
+    ]) {
+      expect(params[key], `${key} is leeg`).toBeTruthy();
+    }
+  });
+
+  it("splitst het tijdslot in een begin- en einduur", () => {
+    expect(splitSlot("10:00 – 12:00")).toEqual({ from: "10:00", to: "12:00" });
+    expect(splitSlot("8:00 - 12:00")).toEqual({ from: "08:00", to: "12:00" });
+    expect(splitSlot("13u00 — 15u00")).toEqual({ from: "13:00", to: "15:00" });
+  });
+
+  it("valt terug op een ruim venster in plaats van lege uren", () => {
+    expect(splitSlot(null)).toEqual({ from: "08:00", to: "17:00" });
+    expect(splitSlot("in de voormiddag")).toEqual({ from: "08:00", to: "17:00" });
+  });
+
+  it("stuurt payment_type altijd mee, ook bij een volledige betaling", () => {
+    // Ontbreekt hij, dan is `!= "full"` waar en toont het sjabloon een
+    // saldoblok met een leeg bedrag aan iemand die al betaald heeft.
+    const params = deliveryReminderParams(REMINDER);
+    expect(params.payment_type).toBe("full");
+    expect(params).not.toHaveProperty("balance_due");
+  });
+
+  it("stuurt bij een voorschot het saldo mee", () => {
+    const params = deliveryReminderParams({
+      ...REMINDER,
+      paymentType: "deposit",
+      balanceDue: 289.5,
+    });
+    expect(params.payment_type).toBe("deposit");
+    expect(params.balance_due).toBe("289,50");
   });
 });
 

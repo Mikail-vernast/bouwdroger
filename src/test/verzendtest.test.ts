@@ -16,8 +16,8 @@
  * Zonder `TESTMAIL_TO` slaat de test zichzelf over, zodat `npm test` niet
  * ongevraagd mail verstuurt en Brevo-credits opstookt.
  */
-import { describe, expect, it } from "vitest";
-import { sendPaidBookingMails } from "../lib/mail.js";
+import { describe, it } from "vitest";
+import { sendDeliveryReminderMail, sendPaidBookingMails } from "../lib/mail.js";
 import type { VernastOrderPayload } from "../lib/vernastSync.js";
 
 const ONTVANGER = process.env.TESTMAIL_TO ?? "";
@@ -59,6 +59,20 @@ describe("verzendtest sjabloon 198", () => {
       paidAmount: 2065.88,
       paymentType: "full",
       discount: 89.86,
+      street: "Ballaarstraat 99",
+      zip: "2018",
+      city: "Antwerpen",
+      orderUrl: "https://bouwdrogerservice.be/verhuur/boeking?session_id=cs_test_verzendtest",
+    });
+  });
+});
+
+describe("verzendtest sjabloon 199", () => {
+  it.skipIf(!ONTVANGER)("stuurt de leverherinnering naar TESTMAIL_TO", async () => {
+    await sendDeliveryReminderMail({
+      payload,
+      paymentType: "deposit",
+      balanceDue: 2005.38,
       street: "Ballaarstraat 99",
       zip: "2018",
       city: "Antwerpen",

@@ -104,6 +104,10 @@
     {
       "path": "/api/reconcile-orders",
       "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/delivery-reminders",
+      "schedule": "0 13 * * *"
     }
   ]
 }

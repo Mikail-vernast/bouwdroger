@@ -24,6 +24,8 @@ import type { VernastOrderPayload } from "./vernastSync.js";
 export type MailKey =
   /** Klant: betaling gelukt, boeking staat vast. */
   | "boeking_betaald"
+  /** Klant: wij leveren morgen. */
+  | "levering_morgen"
   /** Klant: aanvraag binnen, nog geen bevestiging. */
   | "aanvraag_ontvangen"
   /** Klant: contactformulier binnen. */
@@ -43,6 +45,7 @@ export type MailKey =
  */
 export const TEMPLATE_ENV: Record<MailKey, string> = {
   boeking_betaald: "BREVO_TPL_BOEKING_BETAALD",
+  levering_morgen: "BREVO_TPL_LEVERING_MORGEN",
   aanvraag_ontvangen: "BREVO_TPL_AANVRAAG_ONTVANGEN",
   contact_ontvangen: "BREVO_TPL_CONTACT_ONTVANGEN",
   intern_boeking: "BREVO_TPL_INTERN_BOEKING",
@@ -366,6 +369,70 @@ export function paidBookingParams(facts: PaidBookingFacts): Record<string, unkno
 }
 
 /* ============================================================
+   Sjabloon 199 — wij leveren morgen
+   ============================================================ */
+
+/**
+ * Het tijdslot als twee losse uren. De wizard bewaart het als "10:00 – 12:00";
+ * sjabloon 199 zet begin en einde apart in beeld.
+ *
+ * Zonder bruikbaar slot een ruim venster in plaats van lege velden: de mail
+ * belooft dan een dag in plaats van een uur, en dat is nog altijd beter dan
+ * "wij zijn er tussen  en ".
+ */
+export function splitSlot(slot: string | null | undefined): { from: string; to: string } {
+  const match = slot?.match(/(\d{1,2})[:u.](\d{2})\s*[–—-]\s*(\d{1,2})[:u.](\d{2})/);
+  if (!match) return { from: "08:00", to: "17:00" };
+  const pad = (value: string) => value.padStart(2, "0");
+  return { from: `${pad(match[1])}:${match[2]}`, to: `${pad(match[3])}:${match[4]}` };
+}
+
+/** Wat sjabloon 199 nodig heeft bovenop de order zelf. */
+export interface DeliveryReminderFacts {
+  payload: VernastOrderPayload;
+  paymentType: "full" | "deposit";
+  /** Wat de technieker morgen int; alleen van belang bij een voorschot. */
+  balanceDue: number;
+  street: string;
+  zip: string;
+  city: string;
+  orderUrl: string;
+}
+
+/**
+ * De parameters van sjabloon 199.
+ *
+ * `payment_type` gaat altijd mee, ook bij een volledige betaling: het sjabloon
+ * toont het saldoblok bij `!= "full"`, en een ontbrekende waarde is dat ook —
+ * dan verschijnt er een saldoblok met een leeg bedrag bij iemand die al betaald
+ * heeft.
+ */
+export function deliveryReminderParams(facts: DeliveryReminderFacts): Record<string, unknown> {
+  const { payload } = facts;
+  const slot = splitSlot(payload.delivery_slot);
+
+  return {
+    customer_name: fullName(payload),
+    order_number: payload.order_number ?? payload.external_id,
+    order_url: facts.orderUrl,
+
+    delivery_date: formatWeekday(payload.delivery_date ?? payload.rental_start_date),
+    delivery_time_from: slot.from,
+    delivery_time_to: slot.to,
+
+    delivery_street: facts.street,
+    delivery_zip: facts.zip,
+    delivery_city: facts.city,
+
+    payment_type: facts.paymentType,
+    ...(facts.paymentType === "full"
+      ? {}
+      : { balance_due: formatAmount(Math.max(0, facts.balanceDue)) }),
+    ...(payload.customer_note ? { delivery_notes: payload.customer_note } : {}),
+  };
+}
+
+/* ============================================================
    De mails zelf
    ============================================================ */
 
@@ -391,6 +458,14 @@ export async function sendPaidBookingMails(facts: PaidBookingFacts): Promise<voi
     send("boeking_betaald", to, forCustomer),
     send("intern_boeking", teamRecipient(), { ...orderParams(facts.payload), ...forCustomer }, to ?? undefined),
   ]);
+}
+
+/**
+ * Herinnering de dag vóór de levering. Alleen naar de klant: het team ziet de
+ * planning in het portaal en heeft geen kopie nodig van elke rit.
+ */
+export async function sendDeliveryReminderMail(facts: DeliveryReminderFacts): Promise<void> {
+  await send("levering_morgen", customer(facts.payload), deliveryReminderParams(facts));
 }
 
 /**
