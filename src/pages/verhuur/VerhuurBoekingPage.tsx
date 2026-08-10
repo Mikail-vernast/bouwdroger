@@ -482,8 +482,17 @@ const VerhuurBoekingPage = () => {
           setStep(STEP_DONE);
           sessionStorage.removeItem(STORAGE_KEY);
         } else {
+          /*
+            De reden van Stripe hoort in de console, niet op het scherm: "Sessie
+            niet gevonden" zegt een klant niets en klinkt alsof zijn boeking weg
+            is, terwijl zijn keuzes gewoon klaarstaan. Dit overkomt onder meer
+            wie een oude boekings-URL uit zijn geschiedenis opent.
+          */
+          if (data.error) console.warn(`[boeking] betaalstatus: ${data.error}`);
           setStep(4);
-          setPayError(data.error ?? "De betaling is nog niet bevestigd door Stripe.");
+          setPayError(
+            "We konden deze betaling niet terugvinden bij Stripe. Uw keuzes staan nog klaar — probeer gerust opnieuw af te rekenen, of bel ons op 03 689 90 65."
+          );
         }
         clearReturnParams();
       })
