@@ -76,6 +76,16 @@ export async function GET(request: Request): Promise<Response> {
     huur_start: meta(session, "huur_start"),
     huur_eind: meta(session, "huur_eind"),
     tijdslot: meta(session, "tijdslot"),
+    /*
+      Het telefoonnummer van de boeking, zodat het formulier het kan
+      voorinvullen — de klant heeft het ons al gegeven.
+
+      Dit is het enige klantgegeven dat hier buitengaat, en bewust: zonder
+      nummer moet iemand het overtikken op een scherm waar hij net op een knop
+      uit zijn eigen mailbox geklikt heeft. Naam, adres en e-mailadres blijven
+      binnen, want die heeft dit formulier niet nodig.
+    */
+    telefoon: meta(session, "telefoon"),
   });
 }
 
@@ -121,6 +131,17 @@ export async function POST(request: Request): Promise<Response> {
     return json({ error: "Vul een telefoonnummer in waarop wij u kunnen bereiken." }, 400);
   }
 
+  /*
+    De toelichting is verplicht. Een verlenging wordt met de hand ingepland en
+    de planner moet weten waaróm: een chape die nog niet droog is vraagt iets
+    anders dan een werf die een week stilligt. Zonder die zin belt hij toch
+    terug om precies dat te vragen.
+  */
+  const opmerking = str(body.opmerking, 2000);
+  if (opmerking.length < 5) {
+    return json({ error: "Vertel kort waarom u wilt verlengen." }, 400);
+  }
+
   const accepted = limit.accept();
   if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
 
@@ -144,7 +165,7 @@ export async function POST(request: Request): Promise<Response> {
     extraDagen,
     huidigEinde,
     nieuwEinde,
-    opmerking: str(body.opmerking, 2000),
+    opmerking,
   });
 
   return json({ ok: true, nieuw_einde: nieuwEinde });
