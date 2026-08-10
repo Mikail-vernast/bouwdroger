@@ -28,7 +28,12 @@ interface Huur {
   huur_start: string;
   huur_eind: string;
   tijdslot: string;
+  /** Het nummer uit de boeking; het formulier vult het alvast in. */
+  telefoon: string;
 }
+
+/** Kort genoeg om niemand op te houden, lang genoeg om iets te zeggen. */
+const MIN_TOELICHTING = 5;
 
 /** De keuzes die de klant krijgt; in weken, want zo verhuren wij. */
 const KEUZES = [
@@ -73,6 +78,8 @@ const VerhuurVerlengenPage = () => {
       .then((data: Huur) => {
         if (afgebroken) return;
         setHuur(data);
+        // Wat hij bij het boeken opgaf staat er alvast in; overtypen mag.
+        if (data.telefoon) setTelefoon(maskPhone(data.telefoon));
         setStatus("klaar");
       })
       .catch(() => {
@@ -100,7 +107,12 @@ const VerhuurVerlengenPage = () => {
     return isoDate(addDays(new Date(huur.huur_eind), dagen));
   }, [huur?.huur_eind, dagen]);
 
-  const kanVersturen = isValidPhone(telefoon) && !bezig;
+  /*
+    De toelichting telt mee: de planner moet weten waarom er verlengd wordt,
+    anders belt hij toch terug om precies dat te vragen.
+  */
+  const kanVersturen =
+    isValidPhone(telefoon) && opmerking.trim().length >= MIN_TOELICHTING && !bezig;
 
   const verstuur = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -281,7 +293,7 @@ const VerhuurVerlengenPage = () => {
 
                 <div className="frow" style={{ marginTop: 14 }}>
                   <div className="fld" style={{ gridColumn: "span 3" }}>
-                    <label htmlFor="vNote">Iets dat wij moeten weten? (optioneel)</label>
+                    <label htmlFor="vNote">Waarom wilt u verlengen?</label>
                     <textarea
                       id="vNote"
                       rows={3}
@@ -323,7 +335,8 @@ const VerhuurVerlengenPage = () => {
                 <p style={{ marginTop: 18, fontSize: 13.5, lineHeight: 1.6, color: "var(--txt-mid)" }}>
                   Dit is een aanvraag, nog geen bevestiging: wij kijken eerst na of de toestellen
                   langer bij u kunnen blijven. U hoort binnen één werkdag van ons, en de extra
-                  dagen komen op uw volgende factuur.
+                  dagen komen op uw volgende factuur. Uw toelichting helpt ons meteen inschatten
+                  of één week volstaat.
                 </p>
 
                 <div className="fnav" style={{ marginTop: 20 }}>
