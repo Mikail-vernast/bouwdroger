@@ -16,6 +16,7 @@
  */
 
 import { sendPlain, sendTemplate, type BrevoRecipient } from "./brevo.js";
+import { mailAllowed } from "./rateLimit.js";
 import type { DeviceKey } from "../data/verhuur.js";
 import { euro } from "./verhuur.js";
 import type { VernastOrderPayload } from "./vernastSync.js";
@@ -71,6 +72,45 @@ function templateId(key: MailKey): number | null {
 }
 
 /**
+ * Het onderwerp van elke interne melding, voor wanneer er geen sjabloon staat.
+ *
+ * Deze vier gaan naar het team en niet naar een klant. Ze dienen alle vier als
+ * melding — er is een bericht, een aanvraag, een boeking, of er is iets
+ * misgelopen — en daar telt aankomen, niet opmaak.
+ *
+ * Waarom dit er staat: `send()` sloeg een mail zonder sjabloon-ID stil over. Dat
+ * was bedoeld als "we zetten ze één voor één aan", maar in productie stonden
+ * alleen de drie klantsjablonen ingesteld. Gevolg: het contactformulier gooide
+ * zijn berichten opnieuw weg — nu niet in de front-end maar hier — en
+ * `intern_alarm` ging niet af op precies het moment waarop dat moet, namelijk
+ * wanneer een klant betaald heeft en zijn order het portaal niet haalt.
+ *
+ * Dezelfde afweging als bij `sendExtensionRequest`: een kale tekstmail is beter
+ * dan een verdwenen melding. Klantmails blijven wél sjabloon-only — daar is een
+ * onopgemaakte mail erger dan geen mail.
+ */
+const INTERNAL_SUBJECT: Partial<Record<MailKey, (p: Record<string, unknown>) => string>> = {
+  intern_contact: (p) => `Bericht via het contactformulier — ${plain(p.naam) || "onbekend"}`,
+  intern_aanvraag: (p) => `Nieuwe aanvraag — ${plain(p.referentie)}`,
+  intern_boeking: (p) => `Nieuwe betaalde boeking — ${plain(p.referentie)}`,
+  intern_alarm: (p) => `ORDER NIET DOORGEKOMEN — ${plain(p.referentie)}`,
+};
+
+function plain(value: unknown): string {
+  if (value === null || value === undefined) return "";
+  return String(value).trim();
+}
+
+/** De parameters als leesbare regels, voor een mail zonder sjabloon. */
+function paramsToText(params: Record<string, unknown>): string {
+  return Object.entries(params)
+    .map(([label, value]) => [label, plain(value)] as const)
+    .filter(([, value]) => value !== "")
+    .map(([label, value]) => `${label.replace(/_/g, " ")}: ${value}`)
+    .join("\n");
+}
+
+/**
  * Verstuurt de mail en logt de afloop. Geeft niets terug: geen enkele
  * aanroeper mag zijn eigen afloop laten afhangen van een mail.
  */
@@ -80,14 +120,38 @@ async function send(
   params: Record<string, unknown>,
   replyTo?: BrevoRecipient,
 ): Promise<void> {
-  const id = templateId(key);
-  if (!id) {
-    console.warn(`[mail] ${key} overgeslagen: ${TEMPLATE_ENV[key]} staat niet ingesteld.`);
+  if (!to?.email) {
+    console.warn(`[mail] ${key} overgeslagen: geen ontvanger.`);
     return;
   }
 
-  if (!to?.email) {
-    console.warn(`[mail] ${key} overgeslagen: geen ontvanger.`);
+  const id = templateId(key);
+
+  /*
+    Geen sjabloon, maar wel een interne melding: dan gaat hij als tekst buiten.
+    Zie `INTERNAL_SUBJECT` voor waarom stil overslaan hier de verkeerde keuze
+    bleek.
+  */
+  if (!id) {
+    const subject = INTERNAL_SUBJECT[key];
+    if (!subject) {
+      console.warn(`[mail] ${key} overgeslagen: ${TEMPLATE_ENV[key]} staat niet ingesteld.`);
+      return;
+    }
+
+    console.warn(
+      `[mail] ${key}: ${TEMPLATE_ENV[key]} staat niet ingesteld, verstuurd als tekstmail.`,
+    );
+    const fallback = await sendPlain({
+      to,
+      subject: subject(params),
+      text: paramsToText(params),
+      replyTo,
+      tags: [key, "zonder-sjabloon"],
+    });
+    if (!fallback.ok) {
+      console.error(`[mail] ${key} naar ${to.email} mislukt: ${fallback.reason}`);
+    }
     return;
   }
 
@@ -95,6 +159,25 @@ async function send(
   if (!result.ok) {
     console.error(`[mail] ${key} naar ${to.email} mislukt: ${result.reason}`);
   }
+}
+
+/**
+ * Idem, maar voor een mail naar een adres dat de afzender van de request zelf
+ * heeft opgegeven — de ontvangstbevestiging van het contactformulier en van een
+ * aanvraag. Dat zijn de twee mails die iemand op een willekeurig slachtoffer
+ * kan richten, dus die gaan langs `mailAllowed`. Zie `src/lib/rateLimit.ts`.
+ */
+async function sendToSelfChosenAddress(
+  key: MailKey,
+  to: BrevoRecipient | null,
+  params: Record<string, unknown>,
+  replyTo?: BrevoRecipient,
+): Promise<void> {
+  if (to?.email && !mailAllowed(to.email)) {
+    console.warn(`[mail] ${key} overgeslagen: te veel mail naar ${to.email} in het laatste uur.`);
+    return;
+  }
+  return send(key, to, params, replyTo);
 }
 
 /* ============================================================
@@ -582,7 +665,7 @@ export async function sendExtensionRequest(request: {
 export async function sendRequestMails(payload: VernastOrderPayload): Promise<void> {
   const params = orderParams(payload);
   await Promise.all([
-    send("aanvraag_ontvangen", customer(payload), params),
+    sendToSelfChosenAddress("aanvraag_ontvangen", customer(payload), params),
     send("intern_aanvraag", teamRecipient(), params, customer(payload) ?? undefined),
   ]);
 }
@@ -606,8 +689,14 @@ export async function sendContactMails(message: ContactMessage): Promise<void> {
   };
   const from: BrevoRecipient = { email: message.email, name: message.naam || null };
 
+  /*
+    De kopie naar de afzender is begrensd, de mail naar het team niet. Wie het
+    formulier misbruikt om iemand anders vol te mailen, loopt zo tegen de
+    drempel — maar het bericht zelf komt nog altijd bij ons binnen, en dat is
+    hier de enige opslag.
+  */
   await Promise.all([
-    send("contact_ontvangen", from, params),
+    sendToSelfChosenAddress("contact_ontvangen", from, params),
     send("intern_contact", teamRecipient(), params, from),
   ]);
 }

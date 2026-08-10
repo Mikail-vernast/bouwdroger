@@ -33,6 +33,19 @@ opruimen achteraf. Het project pauzeren maakt de sleutel waardeloos ongeacht wie
 hem heeft. Het hangt aan het Lovable-account, niet aan de Supabase-org van
 Vernast — `supabase projects list` toont daar enkel Vernast V2.0.
 
+**Gemeten op 2026-08-10, en het is nog steeds open.** De sleutel is met één
+`git fetch origin '+refs/pull/*/head:refs/remotes/pr/*'` uit de publieke repo te
+halen, en werkt:
+
+| Wat | Antwoord |
+|---|---|
+| `GET /auth/v1/health` | `200` — het project draait |
+| `GET /rest/v1/bookings?limit=0` met `Prefer: count=exact` | `206`, `content-range: */1` |
+| `GET /rest/v1/reserveringen?limit=0` | `206`, `content-range: */0` |
+
+Eén boekingsrij dus, met naam, e-mail, telefoon en adres. Klein, maar leesbaar
+voor iedereen die de repo vindt — en pauzeren is één klik.
+
 ## react-router 6.30.4 — twee moderate meldingen uit npm audit
 
 | Advisory | Wat het is |
@@ -87,25 +100,62 @@ antwoord van het portaal.
 uit het portaal, uit een formulier, uit een URL. Dan is `'unsafe-inline'` niet
 langer gratis.
 
-## Rate limiting — WAF-regel staat klaar als concept
+## Brevo-sjablonen — nooit `{% autoescape off %}` op een formulierveld
+
+Geen open gat, maar een voorwaarde die stil kan sneuvelen.
+
+Het contactformulier en het aanvraagformulier zetten tekst van een anonieme
+bezoeker als `{{ params.x }}` in een Brevo-sjabloon. Dat is veilig omdat de
+sjabloontaal van Brevo (Pongo2, een Django-herimplementatie in Go) **standaard
+escaped**: `<b>` komt als letterlijke tekst in de mailbox, niet als opmaak.
+
+Die veiligheid hangt dus volledig aan een instelling die in Brevo staat en niet
+in deze repo. Zet iemand `{% autoescape off %}` of een `|safe`-filter op een veld
+dat uit een formulier komt, dan wordt de mail meteen een phishing-drager: hij
+vertrekt vanaf een domein met SPF en DKIM op orde, dus hij komt aan ook.
+
+**Regel:** `{% autoescape off %}` mag alleen op waarden die de server zelf
+opbouwt (bedragen, datums, URL's uit `mail.ts`), nooit op `bericht`, `naam`,
+`onderwerp`, `opmerking` of `ruwe_order`.
+
+**Nog na te kijken.** De drie live sjablonen (198, 199, 200) zijn hier niet op
+gecontroleerd — `vercel env pull` maskeert `BREVO_API_KEY`, dus dat kan alleen
+vanuit de Brevo-UI of met de sleutel bij de hand.
+
+## Rate limiting — de WAF-regel staat live
 
 De teller in `src/lib/rateLimit.ts` staat in het geheugen van één
 functie-instantie. Draaien er meerdere naast elkaar, dan heeft elk zijn eigen
 teller en ligt de echte grens navenant hoger — en `/api/order` duwt rechtstreeks
 naar de werklijst in het portaal.
 
-De WAF telt wél over alle instanties heen. De regel `orderspam-drempel`
-(20 aanvragen per 60 s per IP op `/api/order` en `/api/checkout`, daarboven
-`deny`) staat **gestaged, niet gepubliceerd**:
-
-```
-vercel firewall diff       # tonen wat er klaarstaat
-vercel firewall publish    # live zetten
-vercel firewall discard    # weggooien
-```
+De WAF telt wél over alle instanties heen. De regel `orderspam-drempel` staat
+sinds 2026-08-10 **gepubliceerd**: 20 aanvragen per 60 s per IP, daarboven
+`deny`, op `/api/order`, `/api/checkout`, `/api/contact` en `/api/extension` —
+elke route die iets aanmaakt of mail verstuurt. Geverifieerd met 26 opeenvolgende
+requests: de eerste 20 kwamen door, de rest kreeg een 403.
 
 `/api/availability` staat er bewust niet in: de wizard bevraagt die route vaker,
 daar geldt de ruimere grens van 120 per minuut uit de code.
+
+## Opgelost sinds de eerste ronde
+
+- **Mailrelay op `/api/contact` en `/api/order`.** Beide sturen een kopie naar
+  het adres uit de request, en dat adres kiest de afzender zelf — een gratis
+  manier om iemand anders vol te mailen vanaf ons domein. Er staat nu een
+  drempel per ontvangeradres (`mailAllowed`, vijf per uur). Bewust alleen op de
+  kopie naar de bezoeker: de mail naar het team gaat altijd door, want bij het
+  contactformulier is die de enige opslag.
+- **Onbetaalde holds konden de kalender volzetten.** Elke POST op
+  `/api/checkout` legt echte toestellen 30 minuten apart zonder dat er betaald
+  wordt. Met enkel de drempel per minuut kon één IP er een paar honderd laten
+  staan. Nu maximaal tien per half uur (`MAX_HOLDS_PER_IP`), geteld ná de
+  beschikbaarheidscontrole zodat een volle datum geen plaats kost.
+- **Interne meldingen verdwenen stil zonder sjabloon.** In productie stonden
+  alleen de drie klantsjablonen ingesteld; `send()` sloeg de rest over met een
+  logregel. Daardoor gooide het contactformulier zijn berichten opnieuw weg en
+  ging `intern_alarm` niet af wanneer een betaalde order het portaal niet haalde.
+  De vier interne mails vallen nu terug op een kale tekstmail.
 
 ## Opgelost
 

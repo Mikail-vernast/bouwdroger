@@ -133,6 +133,36 @@ export function gate(
   };
 }
 
+/**
+ * Hoeveel mails één adres binnen een uur van ons mag krijgen.
+ *
+ * De drempels hierboven tellen per IP. Dat beschermt ons — de werklijst, de
+ * Stripe-API — maar niet de buitenwereld: het contactformulier en het
+ * aanvraagformulier sturen een kopie naar het adres dat in de request staat, en
+ * dat adres kiest de afzender zelf. Zonder deze teller is dit een gratis manier
+ * om iemand anders zijn mailbox vol te zetten vanaf een domein dat SPF en DKIM
+ * netjes op orde heeft — en dat kost ons de reputatie van dat domein.
+ *
+ * Vijf per uur ligt ver boven wat een echte bezoeker haalt (die vult één
+ * formulier in) en ver onder wat als bombardement telt.
+ *
+ * Dezelfde eerlijkheid als hierboven: de teller staat in het geheugen van één
+ * instantie. Het is een drempel, geen slot.
+ */
+const MAIL_WINDOW_MS = 3_600_000;
+const MAX_MAILS_PER_ADDRESS = 5;
+
+/**
+ * Mag er nog een mail naar dit adres? Alleen voor mail die naar een
+ * zelfopgegeven adres gaat; interne meldingen naar het eigen team tellen niet
+ * mee — die wil je juist altijd hebben.
+ */
+export function mailAllowed(email: string): boolean {
+  const key = email.trim().toLowerCase();
+  if (!key) return false;
+  return rateLimit(`mail:${key}`, MAX_MAILS_PER_ADDRESS, MAIL_WINDOW_MS).allowed;
+}
+
 /** Het 429-antwoord; alle routes die een drempel hebben, geven hetzelfde terug. */
 export function tooManyRequests(retryAfter: number): Response {
   return new Response(

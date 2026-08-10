@@ -15,7 +15,7 @@ import Stripe from "stripe";
 import { checkOne, holdForSession, logAvailabilityFailure } from "../src/lib/availability.js";
 import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
 import { releaseSession } from "../src/lib/checkoutSession.js";
-import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
+import { clientIp, gate, rateLimit, tooManyRequests } from "../src/lib/rateLimit.js";
 import {
   configToQuery,
   packageTitle,
@@ -76,6 +76,21 @@ const INTEGRATION_ID = "vernast-verhuur-boeking-kwtdrmzp";
 const HOLD_MINUTES = 30;
 
 /**
+ * Hoeveel holds één IP binnen die termijn mag laten staan.
+ *
+ * Een hold legt echte toestellen apart en kost de aanvrager niets: er komt geen
+ * betaling aan te pas, alleen een POST. Met enkel de drempel per minuut kon één
+ * afzender er dus een paar honderd tegelijk laten staan en zo de kalender voor
+ * weken dichtzetten — de wizard toont die datums dan als vol en de boekingen
+ * lopen mis zonder dat er iets in de logs opvalt.
+ *
+ * Tien over een half uur is ruim voor wie heen en weer gaat tussen de
+ * betaalwijze en de leverdatum, en begrenst wat er tegelijk vast kan staan tot
+ * iets wat de planner met de hand rechtzet in plaats van een lege agenda.
+ */
+const MAX_HOLDS_PER_IP = 10;
+
+/**
  * Voorvoegsel van de productnaam op de line item. Die naam is niet langer
  * zichtbaar in het betaalformulier — dat rendert nu onze eigen pagina — maar
  * komt wel op het Stripe-ontvangstbewijs en de factuur terecht. Daar hoort iets
@@ -127,7 +142,8 @@ function safeOrigin(request: Request): string {
 }
 
 export async function POST(request: Request): Promise<Response> {
-  const limit = gate(clientIp(request));
+  const ip = clientIp(request);
+  const limit = gate(ip);
 
   const attempt = limit.attempt();
   if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
@@ -231,6 +247,14 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
   logAvailabilityFailure(`checkout ${reference}`, availability);
+
+  /*
+    Pas hier telt de holdteller mee. Bewust ná de beschikbaarheidscontrole: wie
+    op een volle datum uitkomt krijgt geen hold, dus die poging hoort ook geen
+    plaats te kosten. Zie `MAX_HOLDS_PER_IP`.
+  */
+  const holds = rateLimit(`hold:${ip}`, MAX_HOLDS_PER_IP, HOLD_MINUTES * 60_000);
+  if (!holds.allowed) return tooManyRequests(holds.retryAfter);
 
   try {
     const session = await stripe.checkout.sessions.create({
