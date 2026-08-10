@@ -13,6 +13,7 @@
 import Stripe from "stripe";
 import { isReference } from "../src/lib/booking.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
+import { deliverOrder } from "../src/lib/vernastOrder.js";
 
 /** Stripe-sessie-ID's zijn `cs_` gevolgd door alfanumerieke tekens. */
 const SESSION_ID = /^cs_[A-Za-z0-9_]{1,255}$/;
@@ -60,7 +61,30 @@ export async function GET(request: Request): Promise<Response> {
       return json({ error: "Sessie niet gevonden." }, 404);
     }
 
-    return json({ paid: session.payment_status === "paid", reference });
+    const paid = session.payment_status === "paid";
+
+    /*
+      Hier gaat de order ook naar het portaal, niet alleen vanuit de
+      Stripe-webhook.
+
+      Die webhook was lang de enige weg, en als hij niet reed kwam de order
+      nergens aan terwijl de klant al "Uw boeking staat vast" op zijn scherm had.
+      In testmodus gebeurde dat bij élke betaling — daar bestond geen
+      webhook-endpoint — maar evengoed bij een gemiste levering of een endpoint
+      dat na een domeinwissel naar het verkeerde adres wijst.
+
+      Dubbel afleveren bestaat niet: de webhook aan de Vernast-kant is idempotent
+      op `(source, external_id)`. Wie er eerst is wint, de tweede is een no-op.
+      Zie `src/lib/vernastOrder.ts`.
+
+      Bewust vóór het antwoord, niet erna: pas als de order echt genoteerd staat
+      mag dit scherm zeggen dat de boeking vastligt. Mislukt het, dan blijft de
+      betaling gewoon geldig — de logs vangen het op en Stripe biedt zijn event
+      alsnog opnieuw aan.
+    */
+    if (paid) await deliverOrder(session, "terugkeer");
+
+    return json({ paid, reference });
   } catch {
     return json({ error: "Sessie niet gevonden." }, 404);
   }
