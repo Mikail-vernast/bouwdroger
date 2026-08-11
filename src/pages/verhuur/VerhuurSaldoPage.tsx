@@ -196,7 +196,18 @@ const VerhuurSaldoPage = () => {
                   </p>
                 )}
 
-                <button className="btn" type="button" disabled={bezig} onClick={() => void betaal()}>
+                {/*
+                  `btn-r` erbij: `btn` alleen zet de vorm, de kleur komt van de
+                  variant. Zonder die tweede klasse staat de belangrijkste knop
+                  van de pagina er als kale tekst bij.
+                */}
+                <button
+                  className="btn btn-r"
+                  type="button"
+                  style={{ width: '100%' }}
+                  disabled={bezig}
+                  onClick={() => void betaal()}
+                >
                   {bezig ? "Even geduld…" : `${euro(saldo.saldo)} betalen`}
                 </button>
 
