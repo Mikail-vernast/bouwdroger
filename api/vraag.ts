@@ -15,6 +15,7 @@ import {
   sendContactRequest,
   type ContactSubject,
 } from "../src/lib/vernastContact.js";
+import { sendQuestionFallback } from "../src/lib/mail.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 
 const SUBJECTS: ContactSubject[] = [
@@ -123,28 +124,40 @@ export async function POST(request: Request): Promise<Response> {
     });
   } catch (error: unknown) {
     const reason = error instanceof Error ? error.message : "onbekende fout";
+    const limited = error instanceof RateLimitedError;
+
+    if (limited) console.warn(`[vraag] geweigerd door rate limit: ${reason}`);
+    else console.error(`[vraag] niet doorgestuurd naar Vernast: ${reason}`);
 
     /*
-      Te veel aanvragen van hetzelfde adres binnen het uur. "Verzenden lukte
-      niet" is dan een leugen die iemand aan het herladen zet: de eerdere vraag
-      staat er wél. Zeg dat, in plaats van een storing te suggereren.
-    */
-    if (error instanceof RateLimitedError) {
-      console.warn(`[vraag] geweigerd door rate limit: ${reason}`);
-      return json(
-        {
-          error:
-            "U stuurde net al een vraag — die is goed aangekomen. Wilt u iets aanvullen, " +
-            "bel dan 03 689 90 65 of mail info@vernast.be.",
-        },
-        429,
-      );
-    }
+      Het portaal nam de vraag niet aan. Vroeger eindigde het hier: bij een 429
+      las de bezoeker "die is goed aangekomen" en bij een storing "probeer het
+      opnieuw" — in beide gevallen stond zijn vraag nergens.
 
-    console.error(`[vraag] niet doorgestuurd naar Vernast: ${reason}`);
+      Dat eerste antwoord was bovendien niet te onderbouwen. De drempel van
+      `contact-submission` telt per IP, en dat IP is dat van deze functie, niet
+      dat van de bezoeker: één uitgaand adres voor de hele site. Een 429 kan dus
+      even goed van iemand anders komen als van deze bezoeker zelf.
+
+      Dus eerst het vangnet: de vraag als mail naar het team. Lukt dat, dan is ze
+      wél aangekomen en mag het scherm dat zeggen.
+    */
+    const rescued = await sendQuestionFallback({
+      naam,
+      email,
+      telefoon,
+      onderwerp: subject,
+      bericht,
+      adres: [adres, str(body.postcode, 20), str(body.gemeente, 120)].filter(Boolean).join(" "),
+      reden: limited ? `rate limit portaal: ${reason}` : reason,
+    });
+
+    if (rescued) return json({ ok: true, via: "mail" });
+
+    // Ook de mail ging niet weg. Nu is het eerlijk om het te zeggen.
     return json(
       { error: "Verzenden lukte niet. Probeer het opnieuw of bel 03 689 90 65." },
-      502,
+      limited ? 429 : 502,
     );
   }
 

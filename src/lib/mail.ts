@@ -781,6 +781,71 @@ export async function sendExtensionRequest(request: {
 }
 
 /**
+ * De vraag van de homepage alsnog bij het team krijgen wanneer het portaal ze
+ * weigert.
+ *
+ * `contact-submission` telt zijn drempel per IP, en het IP dat die function
+ * ziet is niet dat van de bezoeker maar dat van deze Vercel-functie — één
+ * uitgaand adres voor de hele site. Twintig vragen per uur is dus een grens op
+ * álle bezoekers samen, niet op één afzender, en wie die grens opstookt zet de
+ * volgende bezoeker op een 429. Zonder deze mail was dat een vraag die stil
+ * verdwijnt terwijl het scherm "goed aangekomen" toont — precies het gedrag dat
+ * `api/vraag.ts` moest wegnemen.
+ *
+ * Bewust platte tekst en geen sjabloon: hetzelfde argument als bij
+ * `sendExtensionRequest`. Een vraag mag niet verloren gaan omdat er in Brevo
+ * nog niets klaarstaat.
+ *
+ * Geeft terug of de mail vertrokken is: alleen dán mag de bezoeker een
+ * bevestiging zien.
+ */
+export async function sendQuestionFallback(vraag: {
+  naam: string;
+  email: string;
+  telefoon: string;
+  onderwerp: string;
+  bericht: string;
+  adres: string;
+  /** Waarom het portaal ze niet aannam — voor wie de logs erbij zoekt. */
+  reden: string;
+}): Promise<boolean> {
+  const to = teamRecipient();
+  if (!to) {
+    console.error("[mail] vraag-vangnet niet verstuurd: BREVO_TEAM_EMAIL ontbreekt.");
+    return false;
+  }
+
+  const regels = [
+    "Deze vraag is niet in het portaal aangekomen en staat dus nergens als",
+    "ticket. Zet ze met de hand op de werklijst en bel of mail de klant terug.",
+    "",
+    `Reden:      ${vraag.reden}`,
+    "",
+    `Klant:      ${vraag.naam}`,
+    `E-mail:     ${vraag.email}`,
+    vraag.telefoon ? `Telefoon:   ${vraag.telefoon}` : "",
+    vraag.adres ? `Adres:      ${vraag.adres}` : "",
+    vraag.onderwerp ? `Onderwerp:  ${vraag.onderwerp}` : "",
+    "",
+    "Vraag van de klant:",
+    vraag.bericht,
+  ].filter((line, i, all) => line !== "" || all[i - 1] !== "");
+
+  const result = await sendPlain({
+    to,
+    subject: `VRAAG NIET IN PORTAAL — ${vraag.naam || vraag.email}`,
+    text: regels.join("\n"),
+    replyTo: { email: vraag.email, name: vraag.naam || null },
+    tags: ["vraag", "vangnet"],
+  });
+
+  if (!result.ok) {
+    console.error(`[mail] vraag-vangnet voor ${vraag.email} mislukt: ${result.reason}`);
+  }
+  return result.ok;
+}
+
+/**
  * Onbetaalde aanvraag (boekingsformulier of reservering): ontvangstbevestiging
  * aan de klant en een actiemail aan het team. De klantmail mag nooit als
  * bevestiging klinken — er is nog niets ingepland.
