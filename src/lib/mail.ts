@@ -801,6 +801,44 @@ export interface ContactMessage {
   bericht: string;
 }
 
+/**
+ * De ontvangstbevestiging draait op sjabloon 96 — dezelfde die vernast.be en
+ * vernast-vochtbestrijding voor hún contactformulier gebruiken
+ * (`supabase/functions/contact-submission`). Dat is een vrije Vernast-schil:
+ * `title` wordt de kop, `subject` het onderwerp en `beschrijving` de body, en
+ * verder staat er niets in het sjabloon. Vandaar dat de tekst hier wordt
+ * opgebouwd in plaats van in Brevo te staan.
+ *
+ * De body mag gerust regelafbrekingen bevatten: het sjabloon zet
+ * `white-space: pre-line` op dat blok.
+ *
+ * De afzender blijft van ons — `sendTemplate` zet altijd `BREVO_SENDER_EMAIL`
+ * en negeert de afzender die in het sjabloon staat (jari@vernast.be).
+ */
+function contactConfirmationParams(message: ContactMessage): Record<string, unknown> {
+  const voornaam = message.naam.trim().split(/\s+/)[0] || "";
+  const beschrijving = [
+    `Beste ${voornaam || "klant"},`,
+    "",
+    "Bedankt voor uw bericht. We hebben het goed ontvangen en nemen zo snel " +
+      "mogelijk contact met u op.",
+    "",
+    "Uw bericht:",
+    message.bericht.trim(),
+    "",
+    `Heeft u ondertussen nog vragen? U mag ons gerust bereiken op ${TELEFOON}.`,
+    "",
+    "Met vriendelijke groeten,",
+    "Team Vernast Bouwdrogers",
+  ].join("\n");
+
+  return {
+    title: "Bedankt voor uw bericht",
+    subject: "We hebben uw bericht goed ontvangen",
+    beschrijving,
+  };
+}
+
 /** Contactformulier: kopie aan de klant, het bericht zelf naar het team. */
 export async function sendContactMails(message: ContactMessage): Promise<void> {
   const params: Record<string, unknown> = {
@@ -819,7 +857,10 @@ export async function sendContactMails(message: ContactMessage): Promise<void> {
     hier de enige opslag.
   */
   await Promise.all([
-    sendToSelfChosenAddress("contact_ontvangen", from, params),
+    sendToSelfChosenAddress("contact_ontvangen", from, {
+      ...params,
+      ...contactConfirmationParams(message),
+    }),
     send("intern_contact", teamRecipient(), params, from),
   ]);
 }

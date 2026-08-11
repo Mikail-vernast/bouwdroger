@@ -174,4 +174,30 @@ describe("ontvangstbevestiging zonder sjabloon", () => {
       ),
     ).toHaveLength(1);
   });
+
+  /*
+    Sjabloon 96 is een lege Vernast-schil: het toont `title`, `subject` en
+    `beschrijving` en verder niets. Stuurt de code die drie niet mee, dan
+    vertrekt er een mail met een leeg onderwerp en een lege body — erger dan de
+    tekstmail-fallback die we hiermee vervangen. Vandaar deze test.
+  */
+  it("vult de velden die sjabloon 96 nodig heeft", async () => {
+    process.env.BREVO_TPL_CONTACT_ONTVANGEN = "96";
+    const email = freshAddress();
+
+    await sendContactMails({
+      naam: "Jan Peeters",
+      email,
+      bericht: "Mijn kelder staat onder water.",
+    });
+
+    const [mail] = sendTemplate.mock.calls
+      .map(([call]) => call as { to: { email: string }; params: Record<string, unknown> })
+      .filter((call) => call.to.email === email);
+
+    expect(mail.params.title).toBe("Bedankt voor uw bericht");
+    expect(mail.params.subject).toBe("We hebben uw bericht goed ontvangen");
+    expect(mail.params.beschrijving).toContain("Beste Jan,");
+    expect(mail.params.beschrijving).toContain("Mijn kelder staat onder water.");
+  });
 });
