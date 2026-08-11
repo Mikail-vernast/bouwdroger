@@ -189,7 +189,7 @@ const Configurator = () => {
         ...answers,
         service: serviceType,
         packageId: pkg.id,
-        packageName: pkg.name,
+        packageName: pkg.title,
       };
       localStorage.setItem("vernast_booking_selection", JSON.stringify(selection));
       navigate(`/levering/pakket/${pkg.id}`);

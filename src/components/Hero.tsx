@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Star, ArrowRight, Users, TrendingUp, Truck } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Link } from "react-router-dom";
 import heroBanner from "@/assets/hero-banner.png";
 
@@ -12,12 +12,19 @@ const stagger = {
   },
 };
 
-const fadeUp = (y = 24) => ({
+/*
+  Expliciet als tuple getypeerd. Een kale `[0.22, 1, 0.36, 1]` leidt TypeScript
+  af als `number[]`, en dat past niet op framer-motions `Easing` — die wil vier
+  vaste waarden. Het draaide wel, maar `tsc` struikelde erover.
+*/
+const EASE_OUT_EXPO: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const fadeUp = (y = 24): Variants => ({
   hidden: { opacity: 0, y },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.6, ease: EASE_OUT_EXPO },
   },
 });
 

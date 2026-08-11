@@ -33,9 +33,15 @@ opruimen achteraf. Het project pauzeren maakt de sleutel waardeloos ongeacht wie
 hem heeft. Het hangt aan het Lovable-account, niet aan de Supabase-org van
 Vernast — `supabase projects list` toont daar enkel Vernast V2.0.
 
-**Gemeten op 2026-08-10, en het is nog steeds open.** De sleutel is met één
+**Opnieuw gemeten op 2026-08-10 (tweede ronde), en het is nog steeds open.** Dit
+is het enige punt uit de audit dat niet vanuit deze repo op te lossen valt: het
+project hangt aan het Lovable-account, en `list_projects` op de Supabase-org van
+Vernast toont enkel Vernast V2.0. Iemand met toegang tót dat account moet het
+pauzeren.
+
+De sleutel is met één
 `git fetch origin '+refs/pull/*/head:refs/remotes/pr/*'` uit de publieke repo te
-halen, en werkt:
+halen (hij staat in `refs/pull/1..5/head:.env`), en werkt:
 
 | Wat | Antwoord |
 |---|---|
@@ -137,6 +143,59 @@ requests: de eerste 20 kwamen door, de rest kreeg een 403.
 
 `/api/availability` staat er bewust niet in: de wizard bevraagt die route vaker,
 daar geldt de ruimere grens van 120 per minuut uit de code.
+
+## Brevo-sjablonen die niet ingesteld staan — deels gedicht
+
+`vercel env ls production` toont enkel `BREVO_TPL_BOEKING_BETAALD`,
+`BREVO_TPL_LEVERING_MORGEN` en `BREVO_TPL_OPHALING_VERLENGEN`. De vier interne
+sjablonen én de twee ontvangstbevestigingen aan de klant staan er niet.
+
+Voor de interne meldingen was dat al opgevangen met een tekstmail. Voor de klant
+niet: `send()` sloeg een mail zonder sjabloon-ID over, en klantmail was
+sjabloon-only. Wie het contactformulier invulde kreeg dus **niets** terug — exact
+het gedrag dat `api/contact.ts` moest wegnemen, alleen een laag dieper.
+
+`contact_ontvangen` en `aanvraag_ontvangen` vallen nu terug op een geschreven
+tekstmail (`CUSTOMER_FALLBACK` in `src/lib/mail.ts`), niet op de parameterdump
+die de interne meldingen krijgen — een klant hoort geen veldnamen te lezen.
+`boeking_betaald`, `levering_morgen` en `ophaling_verlengen` blijven wél
+sjabloon-only: die dragen bedragen, datums en een knop, en die worden zonder
+opmaak verkeerd gelezen.
+
+**Wat nog open staat.** De twee sjablonen alsnog in Brevo zetten en hun ID's als
+env var invullen. `vercel env pull` maskeert `BREVO_API_KEY` als `[SENSITIVE]`,
+dus of ze daar al bestaan is enkel vanuit de Brevo-UI na te gaan.
+
+## Deployment protection — stond uit, staat nu aan voor preview
+
+`passwordProtection`, `ssoProtection` en `trustedIps` stonden alle drie op
+`false`. Elke preview-deploy was dus publiek bereikbaar en draait met
+`BREVO_API_KEY`, `VERNAST_WEBHOOK_SECRET` en `CRON_SECRET` in de omgeving — een
+deploy van vóór een securityfix is daarmee een levende, ongepatchte kopie van
+dezelfde API. Geverifieerd op een deploy van vijf uur oud, die gewoon antwoordde.
+
+`ssoProtection` staat nu aan met `deploymentType: "preview"`. Geverifieerd:
+preview-URL's geven 302 naar de Vercel-login en hun API-routes 401; de live site,
+de productie-deploy-URL's en `/api/stripe-webhook` geven onveranderd 200/400.
+
+**Bewust alleen preview.** `prod_deployment_urls_and_all_previews` sluit ook de
+oude productie-deploy-URL's af, maar de Vercel-docs geven geen uitsluitsel of de
+crons daar dan nog langs komen — en `reconcile-orders` en `reminders` stilzwijgend
+laten falen weegt zwaarder dan een oude productie-URL die bereikbaar blijft.
+
+**Goed nieuws:** de WAF-regel geldt óók op preview-URL's. Geverifieerd met 26
+POSTs op `/api/order` van een preview-deploy: 19× 400, daarna 403.
+
+## Rate limiting — de drift is nu ook gemeten
+
+De doc hieronder zegt dat de teller per functie-instantie staat. Dat is bevestigd:
+35 opeenvolgende aanvragen op `/api/checkout-session` gaven 30× 400, dan vier
+429's, en dan opnieuw een 400 — dat laatste is een tweede instantie met een eigen
+teller.
+
+Ook getest, en wél in orde: `x-forwarded-for` valt niet te vervalsen. Dezelfde 35
+aanvragen met een rotererend adres in die header liepen op precies dezelfde 429
+als zonder. Vercel overschrijft de header aan de rand, dus `clientIp()` klopt.
 
 ## Opgelost sinds de eerste ronde
 

@@ -15,8 +15,8 @@ import {
   useCheckoutElements,
 } from "@stripe/react-stripe-js/checkout";
 import type {
+  StripeCheckoutExpressCheckoutElementOptions,
   StripeExpressCheckoutElementConfirmEvent,
-  StripeExpressCheckoutElementOptions,
 } from "@stripe/stripe-js";
 
 interface BoekingBetaalformulierProps {
@@ -35,7 +35,12 @@ interface BoekingBetaalformulierProps {
  * zien en loopt vast op de scanstap. Google Pay blijft daarom bewust op `auto`
  * — daar is geen vraag naar en het zou hetzelfde probleem omgekeerd opleveren.
  */
-const EXPRESS_OPTIONS: StripeExpressCheckoutElementOptions = {
+/*
+  Bewust het `Checkout`-type en niet `StripeExpressCheckoutElementOptions`: het
+  element draait hier binnen `useCheckoutElements`, en die variant eist
+  `buttonHeight`. Met het algemene type compileerde dit bestand niet.
+*/
+const EXPRESS_OPTIONS: StripeCheckoutExpressCheckoutElementOptions = {
   paymentMethods: {
     applePay: "always",
     googlePay: "auto",
@@ -44,6 +49,13 @@ const EXPRESS_OPTIONS: StripeExpressCheckoutElementOptions = {
   buttonHeight: 48,
   // Eén knop per rij: naast elkaar worden ze op mobiel te smal voor hun label.
   layout: { maxColumns: 1, maxRows: 2 },
+  /*
+    Dit type eist álle zes de sleutels, ook die we niet invullen. Expliciet
+    `undefined` houdt Stripe's eigen standaard aan — het label op de knop en de
+    volgorde van de wallets blijven dus precies zoals ze nu op het scherm staan.
+  */
+  buttonType: undefined,
+  paymentMethodOrder: undefined,
 };
 
 export default function BoekingBetaalformulier({ bedrag }: BoekingBetaalformulierProps) {

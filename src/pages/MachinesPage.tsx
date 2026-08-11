@@ -362,7 +362,13 @@ const MachinesPage = () => {
                         {product.name}
                       </h3>
                       <div className="text-xl font-black text-primary mb-2">
-                        €{isFromData ? product.pricePerDay : product.price}
+                        {/*
+                          De `in`-controle staat hier, niet achter `isFromData`:
+                          een losse boolean vertelt TypeScript niets over welke
+                          van de twee vormen `product` heeft, dus dan bestaat
+                          `price` volgens de compiler niet.
+                        */}
+                        €{"pricePerDay" in product ? product.pricePerDay : product.price}
                         <span className="text-xs font-normal text-muted-foreground">
                           /dag
                         </span>
@@ -446,7 +452,13 @@ const MachinesPage = () => {
                         {product.name}
                       </h3>
                       <div className="text-xl font-black text-primary mb-2">
-                        €{isFromData ? product.pricePerDay : product.price}
+                        {/*
+                          De `in`-controle staat hier, niet achter `isFromData`:
+                          een losse boolean vertelt TypeScript niets over welke
+                          van de twee vormen `product` heeft, dus dan bestaat
+                          `price` volgens de compiler niet.
+                        */}
+                        €{"pricePerDay" in product ? product.pricePerDay : product.price}
                         <span className="text-xs font-normal text-muted-foreground">
                           /dag
                         </span>

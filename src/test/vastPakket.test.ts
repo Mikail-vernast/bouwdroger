@@ -19,6 +19,9 @@ const CHAPE_100_6 = {
   pricePerDay: 27.2,
   includes: [],
   images: [],
+  // Leeg, maar wel aanwezig: `Package` eist het veld, en zonder deze regel
+  // compileert de hele test niet meer.
+  imgRules: [],
   sqm: 100,
   workType: "chape" as const,
   thicknessCm: 6,
