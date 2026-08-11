@@ -15,11 +15,42 @@
  * meer over /verhuur/calculator dan "Meer info", en dezelfde tekst hoort niet
  * naar twee verschillende URL's te wijzen.
  */
+import { PRODUCTS, PRODUCT_ORDER } from "./verhuur.js";
+
 export interface NavLinkItem {
   label: string;
   /** Intern pad; externe URL's horen hier niet. */
   path: string;
 }
+
+/**
+ * De namen waarmee bezoekers de toestellen zoeken, en niet de modelcodes uit de
+ * tarieven: iemand zoekt "radiaalventilator huren", niet "Radiaal 2250".
+ * Ontbreekt een naam, dan valt het menu terug op de korte naam uit het portaal.
+ */
+const TOESTEL_LABEL: Record<string, string> = {
+  ttk170: "Small bouwdroger",
+  ttk350: "Medium bouwdroger",
+  ttk650: "Large bouwdroger",
+  ttv4500: "Turbo axiaalventilator",
+  radiaal2250: "Turbo radiaalventilator",
+  teddh30: "Elektrische kachel 30 kW",
+  teddh20: "Elektrische kachel 20 kW",
+};
+
+/**
+ * Het gamma in de menu's van beide headers.
+ *
+ * Stond eerder twee keer met de hand overgetypt, en liep daardoor uit de pas:
+ * "Turbo radiaalventilator" linkte naar de pagina van de axiaalventilator en de
+ * kachel stond er met een vermogen dat nergens anders voorkwam. Nu volgt de
+ * lijst de gepubliceerde tarieven — een toestel dat in het portaal uit de
+ * verhuur gaat, verdwijnt hier vanzelf mee.
+ */
+export const TOESTELLEN: NavLinkItem[] = PRODUCT_ORDER.map((key) => ({
+  label: TOESTEL_LABEL[key] ?? PRODUCTS[key].short,
+  path: `/verhuur/toestel/${key}`,
+}));
 
 /** Waarvoor mensen drogen — elk een eigen zoekintentie en eigen pagina. */
 export const TOEPASSINGEN: NavLinkItem[] = [

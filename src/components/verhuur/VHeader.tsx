@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
+import { TOESTELLEN } from "@/data/navigation";
 
 /** Onder deze offset blijft de balk altijd staan, ongeacht de scrollrichting. */
 const ALWAYS_VISIBLE_UNTIL = 90;
@@ -109,21 +110,11 @@ const VHeader = () => {
                   <div className="mcol">
                     <span className="mlab">Toestellen</span>
                     <ul>
-                      <li>
-                        <Link to="/verhuur/toestel/ttk170">Small bouwdroger</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttk350">Medium bouwdroger</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttv4500">Turbo axiaalventilator</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttv4500">Turbo radiaalventilator</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/teddh30">Elektrische kachel 3,30 kW</Link>
-                      </li>
+                      {TOESTELLEN.map((item) => (
+                        <li key={item.path}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                   <div className="mcol">

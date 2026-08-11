@@ -12,7 +12,7 @@ import {
   SC_LABEL,
   type Product,
 } from "@/data/verhuur";
-import { PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
+import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
 import { serializeSelection } from "@/lib/afhalen";
 import { addDays, euroInt, isoDate } from "@/lib/verhuur";
 import { breadcrumbSchema, faqSchema, productSchema } from "@/lib/schema";
@@ -70,24 +70,36 @@ const PICKUP_STEPS = [
 */
 const PERIODS = PICKUP_PERIODS;
 
-const NAV_MODELS: [string, string][] = [
-  ["ttk170", "Ontvochtiger TTK 170 S"],
-  ["ttk350", "Ontvochtiger TTK 350 S"],
-  ["ttk650", "Ontvochtiger TTK 650 S"],
-  ["ttv4500", "Ventilator TTV 4500"],
-  ["teddh30", "Elektrische kachel TEddH 30 T"],
-];
-
 const VerhuurToestelPage = () => {
   const { model } = useParams();
   const [searchParams] = useSearchParams();
 
-  const key = model && PRODUCTS[model] ? model : "ttk350";
+  // Valt terug op het eerste toestel uit het gamma: "ttk350" hardcoderen breekt
+  // zodra dat toestel in het portaal uit de verhuur gehaald wordt.
+  const key = model && PRODUCTS[model] ? model : PRODUCT_ORDER[0];
   const prod: Product = PRODUCTS[key];
   // De afhaalvragen gelden voor elk toestel en staan onder de specifieke FAQ.
   const questions: [string, string][] = [...prod.faq, ...PICKUP_FAQ];
 
-  const [qty, setQty] = useState(() => Math.max(1, parseInt(searchParams.get("units") || "1", 10) || 1));
+  /*
+    Hoeveel stuks deze bezoeker mag kiezen. Van sommige toestellen hebben we er
+    één; liet de teller hier tot twaalf lopen, dan rekende de pagina een totaal
+    voor dat de afhaal-checkout meteen weer naar beneden bijstelt.
+  */
+  const maxQty = Math.min(MAX_QTY, PICKUP_BY_KEY[key]?.max ?? MAX_QTY);
+
+  /*
+    Het cijfer waarmee dit toestel zich in de paginatitel voorstelt:
+    "vochtafvoer 50 L/dag". Draagt de eerste fiche-regel geen eenheid — bij de
+    adsorptiedroger staat er "techniek adsorptie" — dan levert dat een titel op
+    die halverwege stilvalt, en blijft "ECO Revolution huren | Vernast" over.
+  */
+  const [specLabel, specValue, specUnit] = prod.key[0];
+  const headline = specUnit ? ` — ${specLabel.toLowerCase()} ${specValue} ${specUnit}` : "";
+
+  const [qty, setQty] = useState(() =>
+    Math.max(1, Math.min(maxQty, parseInt(searchParams.get("units") || "1", 10) || 1))
+  );
   const [days, setDays] = useState(7);
   const [addons, setAddons] = useState<Record<string, boolean>>({});
   const [shot, setShot] = useState(0);
@@ -131,7 +143,7 @@ const VerhuurToestelPage = () => {
   return (
     <div className="vh-prod">
       <PageMeta
-        title={`${prod.short} huren — ${prod.key[0][0].toLowerCase()} ${prod.key[0][1]} ${prod.key[0][2]} | Vernast`}
+        title={`${prod.short} huren${headline} | Vernast`}
         description={prod.sum}
         path={`/verhuur/toestel/${key}`}
         image={prod.img[0]}
@@ -289,7 +301,8 @@ const VerhuurToestelPage = () => {
                         <button
                           type="button"
                           aria-label="Meer"
-                          onClick={() => setQty((q) => Math.min(MAX_QTY, q + 1))}
+                          disabled={qty >= maxQty}
+                          onClick={() => setQty((q) => Math.min(maxQty, q + 1))}
                         >
                           +
                         </button>

@@ -37,10 +37,20 @@ export interface PickupProduct {
    */
   device: DeviceKey | null;
   kind: PickupKind;
+  /**
+   * Het hoogste aantal dat iemand van dit toestel kan reserveren: onze vloot,
+   * afgetopt op {@link MAX_PER_PRODUCT}.
+   *
+   * De beschikbaarheidscontrole in `api/afhaal-checkout.ts` rekent op
+   * `device_key`, en precies de toestellen zonder pakketrol (radiaal, kleine
+   * kachel, adsorptiedroger) glippen daar dus doorheen. Van de ECO Revolution
+   * hebben we er één — zonder dit plafond kon een bezoeker er acht bestellen.
+   */
+  max: number;
 }
 
 /** Wat niet uit de tarieven komt: indeling, specs en de koppeling met het depot. */
-const META: Record<string, Omit<PickupProduct, "key" | "name" | "short" | "sub" | "image" | "day">> = {
+const META: Record<string, Omit<PickupProduct, "key" | "name" | "short" | "sub" | "image" | "day" | "max">> = {
   ttk170: {
     group: "Bouwdrogers",
     specs: ["50 l / 24 u", "tot 250 m³", "0,75 kW", "reservoir"],
@@ -71,13 +81,64 @@ const META: Record<string, Omit<PickupProduct, "key" | "name" | "short" | "sub" 
     device: "kachel",
     kind: "verwarming",
   },
+  /*
+    De radiaalventilator en de kachel van 20 kW dragen geen `device_key`: die
+    sleutel zegt welke rol een toestel invult in een pakket, en auto-toewijzing
+    zou dan even goed de axiaalventilator of de kachel van 30 kW mogen sturen.
+    Wie hier expliciet een radiaal of de kleine kachel reserveert, moet net dat
+    toestel krijgen — de planner wijst het met de hand toe.
+  */
+  radiaal2250: {
+    group: "Ventilatoren",
+    specs: ["2 250 m³/u", "3 standen", "IP55"],
+    device: null,
+    kind: "ventilator",
+  },
+  teddh20: {
+    group: "Elektrische kachels",
+    specs: ["20 kW", "thermostaat", "400 V"],
+    device: null,
+    kind: "verwarming",
+  },
+  revolution: {
+    group: "Bouwdrogers",
+    specs: ["adsorptie", "via slangen", "koude ruimtes"],
+    device: null,
+    kind: "droger",
+  },
 };
 
-/** De volgorde waarin de afhaalpagina de toestellen toont. */
-export const PICKUP_ORDER = ["ttk170", "ttk350", "ttk650", "ttv4500", "teddh30"] as const;
+/**
+ * De volgorde waarin de afhaalpagina de toestellen toont — enkel wat het
+ * portaal publiceert. Zet iemand daar een toestel op "niet te huur", dan
+ * verdwijnt het hier mee in plaats van als lege kaart te blijven staan.
+ */
+export const PICKUP_ORDER = [
+  "ttk170",
+  "ttk350",
+  "ttk650",
+  "revolution",
+  "ttv4500",
+  "radiaal2250",
+  "teddh30",
+  "teddh20",
+].filter((key) => TARIEVEN.products[key as keyof typeof TARIEVEN.products]);
+
+/**
+ * Het algemene plafond per toestelsoort op één afhaalreservatie. Wie er meer
+ * nodig heeft, belt ons — dan kijken we of het logistiek haalbaar is.
+ * Staan er minder in de vloot, dan wint dat aantal (zie `PickupProduct.max`).
+ */
+export const MAX_PER_PRODUCT = 8;
 
 export const PICKUP_PRODUCTS: PickupProduct[] = PICKUP_ORDER.map((key) => {
   const t = TARIEVEN.products[key as keyof typeof TARIEVEN.products];
+  /*
+    `stock` kwam er pas bij in augustus 2026. Draait de build op een oudere
+    momentopname, dan ontbreekt het veld en geldt gewoon het algemene plafond —
+    dat is precies hoe de pagina zich daarvoor gedroeg.
+  */
+  const stock = "stock" in t ? Number((t as { stock: number }).stock) : MAX_PER_PRODUCT;
   return {
     key,
     ...META[key],
@@ -86,6 +147,7 @@ export const PICKUP_PRODUCTS: PickupProduct[] = PICKUP_ORDER.map((key) => {
     sub: t.sum,
     image: t.img[0],
     day: Number(t.day),
+    max: Math.max(0, Math.min(MAX_PER_PRODUCT, stock)),
   };
 });
 
@@ -94,9 +156,6 @@ export const PICKUP_BY_KEY: Record<string, PickupProduct> = Object.fromEntries(
 );
 
 export const PICKUP_GROUPS = [...new Set(PICKUP_PRODUCTS.map((p) => p.group))];
-
-/** De grens per toestelsoort op één afhaalreservatie. */
-export const MAX_PER_PRODUCT = 8;
 
 /**
  * Huurperiodes. Gelijk aan die van de toestelpagina, zodat een keuze daar

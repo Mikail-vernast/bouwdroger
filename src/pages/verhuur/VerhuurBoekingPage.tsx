@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
-import type { Appearance, Stripe as StripeJs } from "@stripe/stripe-js";
+import type { Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
 import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
+import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { isValidEmail, isValidPhone, maskEmail, maskPhone } from "@/lib/inputMask";
@@ -71,24 +72,6 @@ const TOTAL_STEPS = 6;
 const STEP_DETAILS = 4;
 const STEP_PAY = 5;
 const STEP_DONE = 6;
-
-/**
- * Stripe rendert zijn velden in eigen iframes, dus onze stylesheet raakt er niet
- * aan; dit is de enige weg om ze op de rest van de wizard te laten lijken. De
- * waarden komen uit de tokens bovenaan `verhuur.css` — staan die daar ooit
- * anders, dan hoort dit mee te schuiven.
- */
-const STRIPE_APPEARANCE: Appearance = {
-  theme: "stripe",
-  variables: {
-    colorPrimary: "#C8102E",
-    colorText: "#141414",
-    colorDanger: "#C8102E",
-    fontFamily: "'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif",
-    borderRadius: "11px",
-    spacingUnit: "4px",
-  },
-};
 
 const SLOTS = ["08:00 – 10:00", "10:00 – 12:00", "13:00 – 15:00", "15:00 – 17:00"];
 /** Moet gelijk lopen met `HORIZON_DAYS` in `api/availability.ts`. */

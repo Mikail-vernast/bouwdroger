@@ -10,15 +10,17 @@
  * mee), de toestellen worden vastgehouden zolang de betaling loopt, en de
  * beschikbaarheid wordt gecontroleerd vóór er een sessie ontstaat.
  *
- * Verschil met een pakket: dit is een hosted Checkout-pagina in plaats van een
- * betaalformulier in onze eigen pagina. Een afhaalreservatie is een korte,
- * losse aankoop; daar weegt een tweede eigen betaalscherm niet op tegen wat het
- * kost om het te onderhouden.
+ * En sinds kort ook hetzelfde betaalscherm. Dit was een hosted Checkout-pagina:
+ * de bezoeker verliet de site, zag een tweede huisstijl en een tweede
+ * samenvatting van zijn bestelling, en Apple Pay verscheen daar enkel in Safari.
+ * Nu draait ook deze betaling op `ui_mode: "elements"` binnen onze eigen pagina,
+ * met dezelfde knoppenrij en hetzelfde overzicht als een pakketboeking.
  */
 import Stripe from "stripe";
 import { checkOne, holdForSession, logAvailabilityFailure } from "../src/lib/availability.js";
 import { pickupDeviceLines, pickupLabel, pickupCounts } from "../src/lib/afhalen.js";
 import { newReference, ONLINE_DISCOUNT, VAT_RATE, toCents } from "../src/lib/booking.js";
+import { releaseSession } from "../src/lib/checkoutSession.js";
 import { afhaalOrder, type AfhaalOrder } from "../src/lib/orderIntake.js";
 import { clientIp, gate, rateLimit, tooManyRequests } from "../src/lib/rateLimit.js";
 import { rentalWindow, serializeDeviceLines } from "../src/lib/verhuur.js";
@@ -86,13 +88,19 @@ export async function POST(request: Request): Promise<Response> {
   if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
 
   const key = process.env.STRIPE_SECRET_KEY;
-  if (!key) {
+  /*
+    De publiceerbare sleutel gaat mee in het antwoord in plaats van via een
+    VITE_-variabele de bundel in — zo hoort ze altijd bij dezelfde omgeving als
+    de geheime sleutel hierboven. Zie `api/checkout.ts`.
+  */
+  const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
+  if (!key || !publishableKey) {
     return json({ error: "Stripe is nog niet geconfigureerd op deze omgeving." }, 500);
   }
 
-  let body: { data?: unknown };
+  let body: { data?: unknown; previousSessionId?: unknown };
   try {
-    body = (await request.json()) as { data?: unknown };
+    body = (await request.json()) as { data?: unknown; previousSessionId?: unknown };
   } catch {
     return json({ error: "Ongeldige aanvraag." }, 400);
   }
@@ -123,6 +131,16 @@ export async function POST(request: Request): Promise<Response> {
   if (!period) return json({ error: "Kies een geldige afhaaldatum." }, 400);
 
   const devices = pickupDeviceLines(order.lines);
+  const stripe = new Stripe(key);
+
+  /*
+    Eerst de vorige poging van deze bezoeker opruimen, dan pas kijken wat vrij
+    is. Sinds het betaalformulier in onze eigen pagina staat, kan hij zonder
+    pagina-lading terug naar zijn selectie en opnieuw op betalen klikken; zonder
+    dit legt elke poging een tweede hold op dezelfde toestellen en meldt de
+    controle hieronder dat zijn eigen reservatie in de weg staat.
+  */
+  await releaseSession(stripe, body.previousSessionId, order.email, "nieuwe poging");
 
   /*
     De harde controle. Faalt de oproep zelf, dan gaat de reservatie door: een
@@ -152,11 +170,31 @@ export async function POST(request: Request): Promise<Response> {
   const origin = safeOrigin(request);
   const counts = pickupCounts(order.lines);
   const label = pickupLabel(order.lines);
-  const stripe = new Stripe(key);
+
+  /*
+    De selectie gaat mee terug in de URL waar Stripe de betaler naartoe stuurt.
+    Loopt de betaling mis, dan staat de afhaalpagina er weer met dezelfde
+    toestellen, periode en datum in plaats van leeg — precies de velden die
+    `parseSelection` en de presets van die pagina lezen.
+  */
+  const selection = order.lines.map((line) => `${line.product.key}:${line.qty}`).join(",");
+  const query = new URLSearchParams({
+    d: selection,
+    days: String(order.days),
+    date: order.date,
+    slot: order.slot,
+  });
 
   try {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      /*
+        Zelfde keuze als bij een pakket: wij plaatsen de knoppenrij en het
+        formulier binnen onze eigen pagina. Kaartgegevens blijven in de iframes
+        van Stripe — die zien wij nooit — maar Apple Pay werkt hierdoor ook
+        buiten Safari, en de klant blijft op bouwdrogerservice.be.
+      */
+      ui_mode: "elements",
       customer_email: order.email,
       client_reference_id: reference,
       locale: "nl",
@@ -169,6 +207,13 @@ export async function POST(request: Request): Promise<Response> {
             // Bruto, net als bij een pakket: de catalogusprijzen staan excl.
             // btw en Stripe int wat de klant effectief betaalt.
             unit_amount: toCents(totals.gross),
+            /*
+              Sinds het betaalformulier in onze eigen pagina staat, ziet de klant
+              deze naam, omschrijving en afbeelding niet meer op zijn scherm —
+              het overzicht rechts op de afhaalpagina doet dat werk. Ze komen wel
+              op het ontvangstbewijs van Stripe en in het dashboard terecht, en
+              daar hoort iets leesbaars te staan.
+            */
             product_data: {
               name: trim(`Afhaalreservatie — ${label}`, 250),
               description: trim(
@@ -180,8 +225,9 @@ export async function POST(request: Request): Promise<Response> {
           },
         },
       ],
-      success_url: `${origin}/verhuur/afhalen?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/verhuur/afhalen`,
+      // Bancontact, iDEAL en Klarna sturen de bezoeker even naar hun eigen app
+      // of bank; hierlangs komt die terug op de afhaalpagina.
+      return_url: `${origin}/verhuur/afhalen?${query}&session_id={CHECKOUT_SESSION_ID}`,
       /*
         Wat de webhook en de terugkeerpagina nodig hebben om hier een order van
         te maken. `type: afhaal` is het onderscheid: zonder die sleutel zou
@@ -236,7 +282,17 @@ export async function POST(request: Request): Promise<Response> {
       logAvailabilityFailure(`hold ${session.id}`, hold);
     }
 
-    return json({ url: session.url, sessionId: session.id, reference });
+    /*
+      Het sessie-ID gaat mee terug zodat de pagina het bij een volgende poging
+      kan meesturen en deze hold dan opgeruimd wordt. Het zit sowieso al in de
+      `client_secret`, dus dit geeft niets prijs wat de browser niet al heeft.
+    */
+    return json({
+      clientSecret: session.client_secret,
+      sessionId: session.id,
+      publishableKey,
+      reference,
+    });
   } catch (error: unknown) {
     // De reden blijft binnen: Stripe zet er configuratie van ons in.
     const message = error instanceof Error ? error.message : "onbekende fout";

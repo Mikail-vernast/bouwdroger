@@ -19,6 +19,7 @@ const TARIEF_KEY: Record<string, string> = {
   "bd-2": "ttk350",
   "bd-3": "ttk650",
   "vt-1": "ttv4500",
+  "vt-2": "radiaal2250",
   "vw-1": "teddh30",
 };
 

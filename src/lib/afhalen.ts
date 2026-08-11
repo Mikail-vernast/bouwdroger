@@ -36,17 +36,23 @@ export function parseSelection(raw: string | null | undefined): PickupLine[] {
     const product = PICKUP_BY_KEY[(key ?? "").trim()];
     const qty = Math.floor(Number(count));
     if (!product || !Number.isFinite(qty) || qty <= 0) continue;
-    const total = Math.min(MAX_PER_PRODUCT, (seen.get(product.key) ?? 0) + qty);
+    // Het plafond komt van het toestel zelf: onze vloot, afgetopt op het
+    // algemene maximum. Van de ECO Revolution hebben we er één — dan is één
+    // ook het hoogste dat de server aanvaardt, wat de URL ook beweert.
+    const total = Math.min(product.max, (seen.get(product.key) ?? 0) + qty);
     seen.set(product.key, total);
   }
-  return [...seen].map(([key, qty]) => ({ product: PICKUP_BY_KEY[key], qty }));
+  return [...seen]
+    .filter(([, qty]) => qty > 0)
+    .map(([key, qty]) => ({ product: PICKUP_BY_KEY[key], qty }));
 }
 
 /** Tegenhanger van `parseSelection`, voor de URL en de request. */
 export function serializeSelection(quantities: Record<string, number>): string {
   return Object.entries(quantities)
     .filter(([key, qty]) => PICKUP_BY_KEY[key] && qty > 0)
-    .map(([key, qty]) => `${key}:${Math.min(MAX_PER_PRODUCT, Math.floor(qty))}`)
+    .map(([key, qty]) => `${key}:${Math.min(PICKUP_BY_KEY[key].max, Math.floor(qty))}`)
+    .filter((part) => !part.endsWith(":0"))
     .join(",");
 }
 

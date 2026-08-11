@@ -32,6 +32,68 @@ describe("afhaalcatalogus — één prijs per toestel", () => {
     expect(PICKUP_BY_KEY.ttv4500.device).toBe("axiaal");
     expect(PICKUP_BY_KEY.teddh30.device).toBe("kachel");
   });
+
+  /*
+    De radiaalventilator en de kachel van 20 kW zijn bewust géén pakketrol: die
+    sleutel laat het portaal automatisch een toestel kiezen, en dan kan een
+    reservatie voor een radiaal met een axiaalventilator beantwoord worden.
+  */
+  test("wat maar in één model bestaat, wijst het portaal met de hand toe", () => {
+    expect(PICKUP_BY_KEY.radiaal2250.device).toBeNull();
+    expect(PICKUP_BY_KEY.teddh20.device).toBeNull();
+  });
+
+  /*
+    De beschikbaarheidscontrole in de checkout rekent op `device_key` en ziet
+    de toestellen zonder pakketrol dus niet. Het voorraadplafond uit de
+    gepubliceerde tarieven is voor die toestellen de enige rem.
+  */
+  test("je kunt er niet meer reserveren dan er in het rek staan", () => {
+    expect(PICKUP_BY_KEY.revolution.max).toBe(1);
+    expect(PICKUP_BY_KEY.teddh20.max).toBe(1);
+    // Vier TTK 650 in de vloot, dus het algemene plafond van acht geldt niet.
+    expect(PICKUP_BY_KEY.ttk650.max).toBe(4);
+    // Tweeëntwintig TTK 170: daar wint het algemene plafond.
+    expect(PICKUP_BY_KEY.ttk170.max).toBe(8);
+  });
+
+  test("een te grote selectie zakt naar de voorraad, in de URL én op de server", () => {
+    expect(parseSelection("revolution:5")[0].qty).toBe(1);
+    expect(serializeSelection({ revolution: 5 })).toBe("revolution:1");
+    expect(afhaalOrder({ lines: "revolution:5", days: 7 }).summary.units).toBe(1);
+  });
+
+  test("elk toestel in de lijst is bestelbaar: eigen sleutel, echte prijs", () => {
+    const keys = PICKUP_PRODUCTS.map((p) => p.key);
+    expect(new Set(keys).size).toBe(keys.length);
+    for (const product of PICKUP_PRODUCTS) {
+      expect(product.day).toBeGreaterThan(0);
+      expect(product.name).not.toBe("");
+      expect(product.image).not.toBe("");
+    }
+  });
+});
+
+/*
+  Een toestel verschijnt pas op de site als het portaal het publiceert én er
+  redactionele tekst voor bestaat. Loopt dat uit elkaar, dan staat er een prijs
+  in een lijst waar geen pagina achter zit — of omgekeerd een pagina zonder
+  prijs, en die rekent dan met `undefined`.
+*/
+describe("gamma — tarieven en toestelpagina's lopen gelijk", () => {
+  test("elke afhaalbare sleutel heeft een toestelpagina", async () => {
+    const { PRODUCTS } = await import("@/data/verhuur");
+    for (const product of PICKUP_PRODUCTS) {
+      expect(PRODUCTS[product.key], `pagina ontbreekt voor ${product.key}`).toBeDefined();
+    }
+  });
+
+  test("elke toestelpagina heeft een gepubliceerde dagprijs", async () => {
+    const { PRODUCTS, PRODUCT_ORDER } = await import("@/data/verhuur");
+    for (const key of PRODUCT_ORDER) {
+      expect(PRODUCTS[key].day, `dagprijs ontbreekt voor ${key}`).toBeGreaterThan(0);
+    }
+  });
 });
 
 describe("parseSelection", () => {

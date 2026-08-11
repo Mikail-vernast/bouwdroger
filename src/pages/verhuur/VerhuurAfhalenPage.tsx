@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
+import type { Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
+import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
 import { CheckIcon, InfoIcon, PinIcon } from "@/components/home-v3/icons";
 import {
-  MAX_PER_PRODUCT,
+  PICKUP_BY_KEY,
   PICKUP_GROUPS,
   PICKUP_PERIODS,
   PICKUP_PRODUCTS,
@@ -18,12 +21,14 @@ import {
   pickupSummary,
   serializeSelection,
 } from "@/lib/afhalen";
-import { ONLINE_DISCOUNT, VAT_RATE } from "@/lib/booking";
+import { bookingFingerprint, ONLINE_DISCOUNT, VAT_RATE } from "@/lib/booking";
 import { breadcrumbSchema, offerCatalogSchema } from "@/lib/schema";
 import { isValidEmail, isValidPhone, maskEmail, maskPhone } from "@/lib/inputMask";
+import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
 import { isoDate } from "@/lib/verhuur";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
+import "@/styles/verhuur-betaling.css";
 
 /**
  * Zelf afhalen — losse toestellen huren en ophalen in Aartselaar.
@@ -37,13 +42,54 @@ import "@/styles/verhuur-fixes.css";
  * toestelpagina's (zie `data/afhalen.ts`) en gaat de reservatie via
  * `/api/order` naar het portaal, met een referentie die van de server komt.
  *
- * Betaald wordt er nog altijd niets vooraf: bij afhalen volgt de factuur na de
- * huurperiode.
+ * Wie kiest voor de factuur achteraf betaalt nog altijd niets vooraf. Wie
+ * online betaalt, doet dat sinds kort in deze pagina zelf: hetzelfde
+ * Stripe-formulier als bij een pakketboeking, in plaats van een doorverwijzing
+ * naar een hosted Checkout-pagina met een andere huisstijl.
  */
 const euro = (n: number) =>
   `€ ${n.toLocaleString("nl-BE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 const shortDate = (d: Date) => d.toLocaleDateString("nl-BE", { day: "numeric", month: "short" });
+
+const longDate = (d: Date) =>
+  d.toLocaleDateString("nl-BE", { weekday: "long", day: "numeric", month: "long" });
+
+/**
+ * Waar de openstaande betaalpoging blijft staan tijdens de omweg langs
+ * Bancontact, iDEAL of Klarna.
+ *
+ * Die omweg verlaat de pagina, dus React-state overleeft hem niet. Zonder dit
+ * kwam de bezoeker terug op een verse pagina en bleef de hold op zijn toestellen
+ * een half uur staan — waar hij bij een tweede poging zelf op botste. Zie
+ * `api/booking-release.ts`.
+ */
+const STORAGE_KEY = "vernast-afhaal";
+
+interface StoredPickup {
+  sessionId: string;
+  /** Het e-mailadres van de sessie; zonder dat laat de server niets los. */
+  email: string;
+}
+
+function readStored(): StoredPickup | null {
+  if (typeof sessionStorage === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as StoredPickup) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeStored(value: StoredPickup): void {
+  if (typeof sessionStorage === "undefined") return;
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+  } catch {
+    // Privémodus zonder sessionStorage: de betaling kan gewoon doorgaan.
+  }
+}
 
 /** Tomorrow, as the pickup date the page starts on. */
 function tomorrow(): string {
@@ -103,6 +149,20 @@ const VerhuurAfhalenPage = () => {
   const [showMissing, setShowMissing] = useState(false);
   const [checking, setChecking] = useState(() => searchParams.has("session_id"));
 
+  /*
+    De betaalstap. `clientSecret` is wat het formulier van Stripe nodig heeft;
+    de vingerafdruk zegt voor welke reservatie de sessie gemaakt is, zodat een
+    bezoeker die terugkeert naar zijn gegevens en niets verandert hetzelfde
+    formulier terugkrijgt in plaats van een tweede hold op dezelfde toestellen.
+  */
+  const [session, setSession] = useState<{
+    id: string;
+    clientSecret: string;
+    fingerprint: string;
+  } | null>(null);
+  const [stripeJs, setStripeJs] = useState<Promise<StripeJs | null> | null>(null);
+  const [payOpen, setPayOpen] = useState(false);
+
   const minDate = useMemo(() => isoDate(new Date()), []);
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -110,10 +170,13 @@ const VerhuurAfhalenPage = () => {
   const groupCount = (group: string) =>
     PICKUP_PRODUCTS.filter((p) => p.group === group).reduce((total, p) => total + qty(p.key), 0);
 
+  // Het plusje stopt bij wat er in het rek staat: van sommige toestellen hebben
+  // we er één, en een teller die tot acht doorloopt belooft dan iets dat we niet
+  // kunnen klaarzetten.
   const step = (key: string, delta: number) =>
     setQuantities((current) => ({
       ...current,
-      [key]: Math.max(0, Math.min(MAX_PER_PRODUCT, (current[key] ?? 0) + delta)),
+      [key]: Math.max(0, Math.min(PICKUP_BY_KEY[key]?.max ?? 0, (current[key] ?? 0) + delta)),
     }));
 
   const selection = useMemo(() => serializeSelection(quantities), [quantities]);
@@ -165,10 +228,46 @@ const VerhuurAfhalenPage = () => {
     return { start, end };
   }, [date, days]);
 
-  // Na een geslaagde reservatie staat de bevestiging bovenaan.
+  // Na een geslaagde reservatie staat de bevestiging bovenaan, net als het
+  // betaalformulier wanneer dat opengaat.
   useEffect(() => {
-    if (reference) window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [reference]);
+    if (reference || payOpen) window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [reference, payOpen]);
+
+  /*
+    Stripe.js alvast binnenhalen zodra iemand online wil betalen en toestellen
+    gekozen heeft. Zonder dit liep het serieel: eerst de checkout-call met de
+    beschikbaarheidscontrole erin, en pas daarna begon js.stripe.com te
+    downloaden — samen goed voor enkele seconden voor de betaalknoppen bruikbaar
+    waren. Het gewone ingangspunt injecteert het script al bij de import;
+    `loadStripe` en de sleutel zijn hier dus nog niet nodig.
+  */
+  useEffect(() => {
+    if (payment !== "online" || summary.units === 0) return;
+    void import("@stripe/stripe-js");
+  }, [payment, summary.units]);
+
+  /*
+    Deze pagina is opnieuw geladen terwijl er nog een betaalpoging openstond: een
+    refresh, de terugknop, of een omweg langs Bancontact die niet op een betaling
+    uitliep. De toestellen die daarvoor apart lagen horen terug in de pot.
+
+    Niet wanneer Stripe hem terugstuurt met een `session_id`: dan gaat het net om
+    die sessie en kan er zelfs betaald zijn.
+  */
+  useEffect(() => {
+    const stale = readStored();
+    if (!stale?.sessionId || !stale.email || searchParams.has("session_id")) return;
+    void fetch("/api/booking-release", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ sessionId: stale.sessionId, email: stale.email }),
+    }).catch(() => {
+      // Lukt het niet, dan verloopt de hold binnen het half uur vanzelf.
+    });
+    // Eén keer, bij het laden van de pagina.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /*
     Terug van Stripe. De betaling zelf wordt hier niet geloofd op basis van de
@@ -218,7 +317,7 @@ const VerhuurAfhalenPage = () => {
     setBusy(true);
     setError(null);
 
-    const order = {
+    const order: Record<string, string | number> = {
       lines: selection,
       days,
       date,
@@ -233,23 +332,44 @@ const VerhuurAfhalenPage = () => {
       notes: note.trim(),
     };
 
+    /*
+      Online betalen loopt via Stripe (met 5% korting), de andere keuze zet de
+      reservatie meteen in het portaal en factureert achteraf. Beide routes
+      herrekenen het bedrag zelf — wat hier op het scherm staat, is een
+      weergave, geen invoer.
+    */
+    const online = payment === "online";
+    const fingerprint = bookingFingerprint(order);
+
+    /*
+      Niets gewijzigd sinds de vorige poging: terug naar het formulier dat er al
+      staat. Een tweede sessie zou een tweede hold op dezelfde toestellen leggen,
+      en dan blokkeert de bezoeker zijn eigen afhaaldatum.
+    */
+    if (online && session?.clientSecret && session.fingerprint === fingerprint && stripeJs) {
+      setBusy(false);
+      setPayOpen(true);
+      return;
+    }
+
     try {
-      /*
-        Online betalen loopt via Stripe (met 5% korting), de andere keuze zet de
-        reservatie meteen in het portaal en factureert achteraf. Beide routes
-        herrekenen het bedrag zelf — wat hier op het scherm staat, is een
-        weergave, geen invoer.
-      */
-      const online = payment === "online";
       const response = await fetch(online ? "/api/afhaal-checkout" : "/api/order", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(online ? { data: order } : { kind: "afhaal", data: order }),
+        body: JSON.stringify(
+          online
+            ? // De vorige sessie gaat mee zodat de server haar laat vervallen en
+              // de toestellen teruggeeft vóór hij opnieuw kijkt wat vrij is.
+              { data: order, previousSessionId: session?.id }
+            : { kind: "afhaal", data: order }
+        ),
       });
 
       const result = (await response.json().catch(() => ({}))) as {
         reference?: string;
-        url?: string;
+        clientSecret?: string;
+        sessionId?: string;
+        publishableKey?: string;
         error?: string;
       };
 
@@ -258,16 +378,29 @@ const VerhuurAfhalenPage = () => {
           result.error ??
             "Uw reservatie kon niet doorgegeven worden. Probeer het opnieuw of bel ons op 03 689 90 65."
         );
+        /*
+          De sessie is niet meer bruikbaar om naar terug te keren — de server kan
+          haar bij deze poging al hebben laten vervallen. Het ID blijft staan,
+          zodat een volgende poging de bijbehorende hold alsnog laat opruimen.
+        */
+        setSession((prev) => (prev ? { ...prev, clientSecret: "", fingerprint: "" } : null));
         return;
       }
 
       if (online) {
-        if (!result.url) {
+        if (!result.clientSecret || !result.publishableKey || !result.sessionId) {
           setError("Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65.");
           return;
         }
-        // Blijft "bezig" staan tot de browser weg is: geen tweede klik.
-        window.location.href = result.url;
+        // Stripe.js pas hier écht initialiseren: het script staat al klaar door
+        // de import hierboven, de sleutel komt van de server.
+        const { loadStripe } = await import("@stripe/stripe-js");
+        setStripeJs(loadStripe(result.publishableKey));
+        setSession({ id: result.sessionId, clientSecret: result.clientSecret, fingerprint });
+        // Vanaf hier ligt er een hold, en na de omweg langs Bancontact is dit ID
+        // de enige weg om die weer los te krijgen.
+        writeStored({ sessionId: result.sessionId, email: mail });
+        setPayOpen(true);
         return;
       }
 
@@ -343,7 +476,7 @@ const VerhuurAfhalenPage = () => {
         <div
           className="main"
           ref={formRef}
-          style={reference || checking ? { display: "none" } : undefined}
+          style={reference || checking || payOpen ? { display: "none" } : undefined}
         >
           <div className="blk">
             <h2>1. Kies uw toestellen</h2>
@@ -386,6 +519,14 @@ const VerhuurAfhalenPage = () => {
                             <span className="px">
                               {euro(product.day)} <i>per dag</i>
                             </span>
+                            {/*
+                              Staat het laatste exemplaar in onderhoud, dan is
+                              de voorraad nul. Een teller die dan op nul blijft
+                              hangen laat de bezoeker raden waarom; dit zegt het.
+                            */}
+                            {product.max === 0 ? (
+                              <span className="stp-uit">Tijdelijk niet beschikbaar</span>
+                            ) : (
                             <span className="stp">
                               <button
                                 type="button"
@@ -398,11 +539,18 @@ const VerhuurAfhalenPage = () => {
                               <button
                                 type="button"
                                 aria-label={`Meer ${product.short}`}
+                                disabled={qty(product.key) >= product.max}
+                                title={
+                                  qty(product.key) >= product.max
+                                    ? `Wij hebben er ${product.max} — bel ons voor meer`
+                                    : undefined
+                                }
                                 onClick={() => step(product.key, 1)}
                               >
                                 +
                               </button>
                             </span>
+                            )}
                           </span>
                         </div>
                       ))}
@@ -614,6 +762,60 @@ const VerhuurAfhalenPage = () => {
           </div>
         </div>
 
+        {/*
+          De betaalstap. Hetzelfde formulier als bij een pakketboeking: wij
+          plaatsen de knoppenrij en het veldenblok, Stripe houdt de
+          kaartgegevens binnen zijn eigen iframes. De samenvatting rechts blijft
+          staan, zodat de klant tijdens het betalen ziet waarvoor hij betaalt.
+        */}
+        {payOpen && !reference && !checking && (
+          <div className="main">
+            <div className="blk">
+              <h2>Betaal uw afhaalreservatie</h2>
+              <p className="bs">
+                U betaalt <b>{euro(payable.gross)}</b> met Apple Pay, Bancontact, kaart, iDEAL of
+                Klarna. De betaling loopt beveiligd via Stripe — wij zien uw kaartgegevens nooit.
+              </p>
+
+              <div className="paybox">
+                {session?.clientSecret && stripeJs && (
+                  <CheckoutElementsProvider
+                    key={session.clientSecret}
+                    stripe={stripeJs}
+                    options={{
+                      clientSecret: session.clientSecret,
+                      elementsOptions: { appearance: STRIPE_APPEARANCE },
+                    }}
+                  >
+                    <BoekingBetaalformulier bedrag={euro(payable.gross)} />
+                  </CheckoutElementsProvider>
+                )}
+              </div>
+
+              <p className="paynote">
+                <CheckIcon size={13} />
+                {/* De tekst hoort in één span: los in de flexbox wordt elk
+                    stukje een eigen kolom zodra de ruimte krap wordt. */}
+                <span>
+                  Uw toestellen liggen klaar in Aartselaar op{" "}
+                  <b>{returnDate ? longDate(returnDate.start) : ""}</b> tussen <b>{slot}</b> zodra
+                  de betaling bevestigd is.
+                </span>
+              </p>
+
+              {error && <p className="perr">{error}</p>}
+
+              <button
+                className="btn payback"
+                type="button"
+                onClick={() => setPayOpen(false)}
+              >
+                Terug naar mijn gegevens
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className={`done${reference || checking ? " on" : ""}`}>
           {checking && !reference ? (
             <>
@@ -683,22 +885,36 @@ const VerhuurAfhalenPage = () => {
               <small>{payment === "online" ? "incl. btw" : "excl. btw"}</small>
             </span>
           </div>
+          {/*
+            Tijdens het betalen verdwijnt deze knop: het formulier links heeft
+            er zelf een, en twee knoppen met hetzelfde bedrag erop laten de
+            klant raden welke van de twee zijn betaling start.
+          */}
           <div className="bf">
-            <button className="btn" type="button" disabled={busy || reference !== null} onClick={reserve}>
-              {busy
-                ? "Even geduld…"
-                : payment === "online"
-                  ? `Betalen — ${euro(payable.gross)}`
-                  : "Reserveer voor afhaling"}
-            </button>
-            {showMissing && missing.length > 0 && (
-              <ul className="miss">
-                {missing.map((item) => (
-                  <li key={item.field}>{item.text}</li>
-                ))}
-              </ul>
+            {!payOpen && (
+              <>
+                <button
+                  className="btn"
+                  type="button"
+                  disabled={busy || reference !== null}
+                  onClick={reserve}
+                >
+                  {busy
+                    ? "Even geduld…"
+                    : payment === "online"
+                      ? `Betalen — ${euro(payable.gross)}`
+                      : "Reserveer voor afhaling"}
+                </button>
+                {showMissing && missing.length > 0 && (
+                  <ul className="miss">
+                    {missing.map((item) => (
+                      <li key={item.field}>{item.text}</li>
+                    ))}
+                  </ul>
+                )}
+                {error && <div className="err">{error}</div>}
+              </>
             )}
-            {error && <div className="err">{error}</div>}
             <div className="nt">
               {payment === "online"
                 ? `Huur ${euro(payable.net)} excl. btw · veilig betalen via Stripe`
