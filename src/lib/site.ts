@@ -63,12 +63,11 @@ export const CONTACT = {
 export const ORGANIZATION_LOGO = "/vernast/logo-horizontal-black.webp";
 export const ORGANIZATION_IMAGE = "/vernast/lineup-dryers.webp";
 
-/**
- * De goedkoopste en duurste dagprijs in het gamma, in het formaat dat
- * schema.org voor `priceRange` verwacht. Dit is wat een AI-assistent citeert
- * wanneer iemand vraagt "wat kost dat ongeveer".
+/*
+ * `PRICE_RANGE` staat bewust niet meer hier maar in `src/data/tarieflijst.ts`:
+ * het is een afgeleide van de tarieven, geen bedrijfsgegeven. Als vaste tekst
+ * liep het achter op het gamma.
  */
-export const PRICE_RANGE = "€9–€34 per dag";
 
 /** Waar wij leveren — voedt `areaServed` in de LocalBusiness-schema. */
 export const SERVICE_AREA = [

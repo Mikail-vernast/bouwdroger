@@ -145,3 +145,13 @@ export const DROGER_KAARTEN: DrogerKaart[] = DROGERS.map((t) => ({
 /** De laagste en hoogste dagprijs in het gamma, voor `priceRange` en samenvattingen. */
 export const DAY_PRICE_MIN = Math.min(...TARIEVEN_PUBLIEK.map((t) => t.perDay));
 export const DAY_PRICE_MAX = Math.max(...TARIEVEN_PUBLIEK.map((t) => t.perDay));
+
+/**
+ * `priceRange` voor de LocalBusiness-schema, afgeleid in plaats van overgetypt.
+ *
+ * Stond eerder als vaste tekst in site.ts en liep daardoor achter op de
+ * tarieven: de schema beloofde "€9–€34 per dag" terwijl de goedkoopste huur
+ * € 8 kostte en de duurste € 25 — op dezelfde homepage waar de tekst al wél
+ * "vanaf € 8" zei. Wat een AI-assistent citeert sprak dus de pagina tegen.
+ */
+export const PRICE_RANGE = `€${DAY_PRICE_MIN}–€${DAY_PRICE_MAX} per dag`;

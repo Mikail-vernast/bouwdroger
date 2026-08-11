@@ -20,7 +20,13 @@ import {
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { SEO } from "@/data/seo";
-import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { DROGER_KAARTEN } from "@/data/tarieflijst";
 
 const fadeUp = {
@@ -48,6 +54,37 @@ const reviews = [
   { name: "An V.", text: "Gratis vochtmeting na afloop gaf ons zekerheid. Verzekering regelde de rest.", rating: 5 },
 ];
 
+/**
+ * De vragen die iemand met een ondergelopen kelder daadwerkelijk stelt.
+ *
+ * Deze pagina had als enige van de vier commerciële landingspagina's geen
+ * FAQ — terwijl waterschade de meest urgente en meest gezochte situatie is.
+ * Wie in paniek "hoe lang duurt drogen na waterschade" vraagt aan een
+ * assistent, kreeg hier niets te citeren; nieuwbouw en renovatie wel.
+ */
+const faqs = [
+  {
+    q: "Hoe snel moet ik beginnen met drogen na waterschade?",
+    a: "Binnen 24 tot 48 uur. Daarna begint schimmelvorming en dringt het vocht dieper in chape, isolatie en pleisterwerk. Wij leveren daarom bij waterschade nog dezelfde dag.",
+  },
+  {
+    q: "Hoe lang duurt drogen na een waterlek of overstroming?",
+    a: "Meestal 1 tot 3 weken, afhankelijk van hoeveel water er stond en of het onder de vloer of in de isolatie zit. Onze vochtmeting bevestigt wanneer het effectief droog is — u huurt dus niet langer dan nodig.",
+  },
+  {
+    q: "Betaalt mijn verzekering de huur van een bouwdroger?",
+    a: "Bij een gedekt schadegeval nemen brandverzekeraars de droogkosten doorgaans op in het dossier. U krijgt van ons een factuur op naam en de vochtmetingen voor en na, zodat uw expert de droging kan staven.",
+  },
+  {
+    q: "Hoeveel toestellen heb ik nodig bij een ondergelopen kelder?",
+    a: "Voor een gemiddelde kelder volstaat één TTK 350 S met een ventilator. Staat er water in meerdere ruimtes of is de ruimte koud, dan komt er een kachel bij. Onze calculator rekent het voor u uit.",
+  },
+  {
+    q: "Kan ik drogen terwijl er nog water staat?",
+    a: "Nee — pomp of zuig eerst het staande water weg. Een bouwdroger haalt vocht uit de lucht en uit materialen, niet uit een plas. Zodra de vloer waterloos is, plaatsen wij de toestellen.",
+  },
+];
+
 const WaterschadePage = () => {
   const navigate = useNavigate();
 
@@ -63,6 +100,7 @@ const WaterschadePage = () => {
             path: "/waterschade",
             serviceType: "Waterschadeherstel",
           }),
+          faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Waterschade", path: "/waterschade" },
@@ -284,6 +322,29 @@ const WaterschadePage = () => {
                   <p className="text-foreground font-semibold text-sm">{r.name}</p>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-14 md:py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">
+              Veelgestelde vragen bij waterschade
+            </h2>
+            <div className="max-w-2xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-3">
+                {faqs.map((faq, i) => (
+                  <AccordionItem key={i} value={`faq-${i}`} className="bg-card border border-border rounded-xl px-5">
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-4">
+                      {faq.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-4">
+                      {faq.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </div>
         </section>
