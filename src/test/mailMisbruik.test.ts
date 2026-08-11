@@ -207,25 +207,26 @@ describe("ontvangstbevestiging zonder sjabloon", () => {
   });
 
   /*
-    Het sjabloon zet geen `white-space: pre-line` op het berichtblok, dus de
-    regelafbrekingen van de klant moeten als `<br />` mee. Wat de klant zelf
-    typte mag daarbij geen opmaak worden: Brevo vult een parameter ongefilterd
-    in, dus een `<b>` uit het formulier hoort als tekst aan te komen.
+    Het bericht gaat onbewerkt mee. Brevo escapet een parameter zelf, dus een
+    `<br />` van ons komt als leesbare tekst aan en zelf escapen levert
+    `&lt;b&gt;` op in de mailbox van de klant — allebei in productie gemeten.
+    De regelafbrekingen overleven omdat het berichtblok in sjabloon 202
+    `white-space: pre-line` draagt.
   */
-  it("behoudt regelafbrekingen en neutraliseert opmaak in het bericht", async () => {
+  it("stuurt het bericht onbewerkt mee, met regelafbrekingen", async () => {
     process.env.BREVO_TPL_CONTACT_ONTVANGEN = "202";
     const email = freshAddress();
 
     await sendContactMails({
       naam: "Jan Peeters",
       email,
-      bericht: "Regel een\nRegel <b>twee</b>",
+      bericht: "  Regel een\nRegel <b>twee</b>  ",
     });
 
     const [mail] = sendTemplate.mock.calls
       .map(([call]) => call as { to: { email: string }; params: Record<string, unknown> })
       .filter((call) => call.to.email === email);
 
-    expect(mail.params.bericht).toBe("Regel een<br />Regel &lt;b&gt;twee&lt;/b&gt;");
+    expect(mail.params.bericht).toBe("Regel een\nRegel <b>twee</b>");
   });
 });

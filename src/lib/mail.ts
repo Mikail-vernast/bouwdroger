@@ -827,27 +827,17 @@ function contactConfirmationParams(message: ContactMessage): Record<string, unkn
     email: message.email.trim(),
     telefoon: plain(message.telefoon),
     onderwerp: plain(message.onderwerp),
-    bericht: toHtmlLines(message.bericht),
+    /*
+      Onbewerkt, met de regelafbrekingen van de klant erin. Brevo escapet een
+      parameter zelf voor hij in het sjabloon belandt — een `<br />` die wij
+      erin zetten komt als leesbare tekst aan, en wie de tekens vooraf zelf
+      neutraliseert krijgt `&lt;b&gt;` in de mailbox van de klant. Beide zijn
+      hier eerst in productie gemeten. De regelafbrekingen overleven doordat
+      het berichtblok in sjabloon 202 `white-space: pre-line` draagt.
+    */
+    bericht: message.bericht.trim(),
     verzonden_op: formatDateTime(new Date()),
   };
-}
-
-/**
- * Het bericht van de klant komt in een gewone `<div>` terecht: sjabloon 202
- * zet er geen `white-space: pre-line` op, dus zonder `<br>` wordt elk bericht
- * één lange lap tekst. Brevo vult een parameter ongefilterd in het sjabloon,
- * vandaar dat de tekens van de klant eerst geneutraliseerd worden — anders
- * bepaalt een bezoeker met een `<` in zijn bericht mee hoe onze mail eruitziet.
- */
-function toHtmlLines(text: string): string {
-  return text
-    .trim()
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/\r\n?/g, "\n")
-    .replace(/\n/g, "<br />");
 }
 
 /** "11 augustus 2026 om 14:32" — het moment waarop het formulier binnenkwam. */
