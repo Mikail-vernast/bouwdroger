@@ -11,33 +11,39 @@ Laatste ronde: **2026-08-11**. Vorige: 2026-08-07.
 
 ## Blokkerend
 
-### 1. Canonicals wijzen naar een domein dat de oude Shopify-site uitlevert
+### 1. Domeinverhuizing — nog te doen
 
-`VITE_SITE_URL` staat op productie op `https://www.bouwdrogerservice.be`, maar
-dat domein is niet aan het Vercel-project gekoppeld: de DNS wijst naar Shopify
-(`shops.myshopify.com`) en daar draait nog de oude winkel. Gevolg op de live
-site vandaag:
+**Opgelost op 2026-08-11:** `VITE_SITE_URL` stond op productie op
+`https://www.bouwdrogerservice.be` terwijl dat domein niet aan het
+Vercel-project hangt — de DNS wijst naar Shopify (`shops.myshopify.com`) en
+daar draait nog de oude winkel. Gevolg: 23 van de 24 indexeerbare pagina's
+zetten een canonical naar een URL die daar **404** geeft, de sitemap somde 24
+onbereikbare URL's op, en `llms.txt` gaf een AI-assistent acht dode links.
 
-- 23 van de 24 indexeerbare pagina's zetten een canonical naar een URL die op
-  dat domein **404** geeft. Alleen `/` bestaat daar.
-- `sitemap.xml` somt 24 URL's van dat domein op — geen enkele daarvan is door
-  Google op te halen vanaf deze deploy.
-- `llms.txt` geeft een AI-assistent acht dode productlinks mee.
+Het raakte niet alleen zoekmachines. `VITE_SITE_URL` bouwt óók de links in de
+bevestigings- en herinneringsmails (`src/lib/vernastOrder.ts`,
+`api/reminders.ts`): een klant die net betaald had, kreeg een link naar het
+Shopify-domein waar zijn boekingspagina niet bestaat.
 
-Een pagina die zichzelf tot kopie van een niet-bestaande URL verklaart, wordt
-niet geïndexeerd. Zolang het domein niet verhuisd is, is de site dus voor
-zoekmachines onzichtbaar — en dat is niet zichtbaar in de build, want beide
-kanten zijn op zichzelf geldig.
+De variabele staat nu weer op `https://bouwdroger.vercel.app`. Zet ze pas om
+naar het echte domein op het moment dat de DNS mee verhuist — niet
+vooruitlopend. Voortaan gedekt door `node scripts/audit-seo.mjs --live`.
 
-Twee uitwegen, allebei een beslissing van Brent:
+**Wat de verhuizing zelf nog vraagt** (2026-08-11, Brent pakt dit zelf op):
 
-- **Domein nu verhuizen** — `bouwdrogerservice.be` bij one.com naar Vercel
-  laten wijzen en aan het project koppelen. Dan kloppen de canonicals meteen.
-- **Terugzetten tot de verhuizing** — `VITE_SITE_URL` op productie weghalen of
-  op `https://bouwdroger.vercel.app` zetten, en pas omzetten op het moment dat
-  de DNS mee verhuist.
+| Waar | Nu | Moet worden |
+| --- | --- | --- |
+| one.com, `bouwdrogerservice.be` A | `23.227.38.65` (Shopify) | `76.76.21.21` |
+| one.com, `www` CNAME | `shops.myshopify.com` | `cname.vercel-dns.com` |
+| Vercel | domein niet gekoppeld | toevoegen aan project `vrnst/bouwdroger` |
 
-Voortaan gedekt door `node scripts/audit-seo.mjs --live`.
+De exacte waarden bevestigt `vercel domains inspect bouwdrogerservice.be`
+zodra het domein aan het project hangt. **MX en SPF blijven ongemoeid** — die
+staan al bij one.com (`mailpod11-cph3`), niet bij Shopify, dus de mail loopt
+door de verhuizing niet in gevaar.
+
+De redirects van de oude Shopify-URL's staan al klaar in `vercel.json`; zie
+"Opgelost". Daarna kan het Shopify-abonnement opgezegd worden.
 
 ### 2. Geen Search Console-property
 
@@ -155,3 +161,19 @@ verzwakt wel de eigenheid van elke pagina.
   vragen toegevoegd, zichtbaar én als `FAQPage`. Het auditscript eist er nu
   een op de vijf landingspagina's.
 - Meta description van `/verhuur/afhalen` was 172 tekens; ingekort tot 160.
+- **Redirects voor de 222 oude Shopify-URL's** staan in `vercel.json` (50
+  regels). De winkel op `www.bouwdrogerservice.be` heeft 107 producten, 81
+  collecties, 30 pagina's en 4 blogposts in haar sitemap; zonder redirects
+  vallen die allemaal op 404 zodra de DNS omgaat, en is alles wat daar ooit
+  aan autoriteit is opgebouwd weg. Nu gaat `/collections/kelder-drogen` naar
+  `/renovatie`, `/pages/faq-waterschade` naar `/waterschade`,
+  `/pages/welke-bouwdroger-heb-ik-nodig` naar `/calculator`, de
+  technische-detailpagina's naar `/machines`, `/blogs/*` naar `/realisaties`,
+  en er staan catch-alls onder `/collections/*`, `/products/*` en `/pages/*`
+  zodat er niets doorheen valt. Winkelmandje, checkout en account gaan
+  tijdelijk (307) naar de homepage. Geverifieerd op een preview-deploy: alle
+  regels vuren en de bestemming geeft 200.
+
+  De redirects doen nu nog niets — ze worden pas actief wanneer het domein
+  daadwerkelijk naar Vercel wijst. Ze staan er dus vóór de verhuizing, niet
+  erna, want een gat van een paar dagen is precies waar rankings sneuvelen.
