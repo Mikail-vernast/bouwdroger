@@ -184,13 +184,26 @@ export function deviceCount(items: PackageItem[]): number {
 }
 
 /**
- * Eén toestelsoort met het gevraagde aantal. `device_key` is bewust dezelfde
- * naam als de kolom in `bouwdroger_equipment` aan de Vernast-kant: de sleutels
- * `small` / `medium` / `axiaal` / `kachel` lopen daar één op één mee gelijk, en
- * dat is precies wat een beschikbaarheidscontrole nodig heeft.
+ * Eén gevraagde toestelsoort, in de taal van `bouwdroger_equipment`.
+ *
+ * Twee sleutels, met een verschil dat er toe doet:
+ *
+ * - `device_key` is de **rol in een pakket** — `small` / `medium` / `axiaal` /
+ *   `kachel`. Een pakket vraagt "een kachel", niet één bepaald model, en het
+ *   depot mag zelf kiezen welke eruit gaat.
+ * - `product_key` is de **verhuurpagina** waar de klant op geklikt heeft
+ *   (`revolution`, `teddh20`, …). Wie los een adsorptiedroger reserveert, moet
+ *   net dát toestel krijgen; een condensontvochtiger van dezelfde rol is geen
+ *   vervanging.
+ *
+ * Een pakketregel draagt de eerste, een losse reservatie de tweede. Vernast
+ * wijst toe op `product_key` wanneer die er staat, en valt anders terug op de
+ * rol — zo blijft het depot vrij in wat het uit een pakketrol haalt, en krijgt
+ * een losse huurder toch precies zijn toestel toegewezen.
  */
 export interface DeviceLine {
-  device_key: DeviceKey;
+  device_key?: DeviceKey;
+  product_key?: string;
   qty: number;
 }
 
@@ -199,22 +212,36 @@ export function toDeviceLines(items: PackageItem[]): DeviceLine[] {
 }
 
 /**
- * Compacte notatie voor Stripe-metadata: `"small:2,medium:2,axiaal:4"`.
- * Waarden daar mogen maar 500 tekens zijn, dus JSON is verspilling.
+ * Compacte notatie voor Stripe-metadata: `"small:2,medium:2,axiaal:4"`, en
+ * `"p:revolution:1"` voor een regel die één bepaald product vraagt. Waarden
+ * daar mogen maar 500 tekens zijn, dus JSON is verspilling.
  */
 export function serializeDeviceLines(lines: DeviceLine[]): string {
-  return lines.map((l) => `${l.device_key}:${l.qty}`).join(",");
+  return lines
+    .map((l) => (l.product_key ? `p:${l.product_key}:${l.qty}` : `${l.device_key}:${l.qty}`))
+    .join(",");
 }
 
-/** Tegenhanger van `serializeDeviceLines`; onbekende sleutels vallen weg. */
+/**
+ * Tegenhanger van `serializeDeviceLines`; onbekende sleutels vallen weg.
+ *
+ * Productsleutels worden hier niet tegen een lijst gehouden: welke producten
+ * bestaan, weet het portaal. Wat het niet kent, wijst het niet toe — en de
+ * enige die deze string schrijft is onze eigen checkout.
+ */
 export function parseDeviceLines(raw: string | null | undefined): DeviceLine[] {
   if (!raw) return [];
   const out: DeviceLine[] = [];
   for (const part of raw.split(",")) {
-    const [key, count] = part.split(":");
-    const qty = Number(count);
-    if (!DEVICE_KEYS.includes(key as DeviceKey) || !Number.isFinite(qty) || qty <= 0) continue;
-    out.push({ device_key: key as DeviceKey, qty: Math.floor(qty) });
+    const bits = part.split(":");
+    const product = bits[0] === "p";
+    const key = product ? bits[1] : bits[0];
+    const qty = Number(product ? bits[2] : bits[1]);
+    if (!key || !Number.isFinite(qty) || qty <= 0) continue;
+    if (product) out.push({ product_key: key, qty: Math.floor(qty) });
+    else if (DEVICE_KEYS.includes(key as DeviceKey)) {
+      out.push({ device_key: key as DeviceKey, qty: Math.floor(qty) });
+    }
   }
   return out;
 }

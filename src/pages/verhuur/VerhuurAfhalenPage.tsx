@@ -26,6 +26,7 @@ import { breadcrumbSchema, offerCatalogSchema } from "@/lib/schema";
 import { isValidEmail, isValidPhone, maskEmail, maskPhone } from "@/lib/inputMask";
 import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
 import { isoDate } from "@/lib/verhuur";
+import { firstFreeDate, usePickupAvailability } from "@/hooks/usePickupAvailability";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 import "@/styles/verhuur-betaling.css";
@@ -183,6 +184,16 @@ const VerhuurAfhalenPage = () => {
   const summary = useMemo(() => pickupSummary(parseSelection(selection), days), [selection, days]);
 
   /*
+    Welke afhaaldatums al vol zitten voor déze selectie. Zonder dit koos iemand
+    een datum, vulde het hele formulier in en kreeg pas bij het afrekenen te
+    horen dat er niets vrij was — bij een toestel waarvan we er één hebben is dat
+    het normale geval, niet de uitzondering.
+  */
+  const { blocked, horizonDays } = usePickupAvailability(selection, days);
+  const dateBlocked = Boolean(date) && blocked.includes(date);
+  const suggestion = dateBlocked ? firstFreeDate(date, blocked, horizonDays) : null;
+
+  /*
     Wat er effectief afgerekend wordt. Online betalen geeft dezelfde korting als
     bij een pakket; die staat in de gepubliceerde tarieven, niet hier. De server
     rekent hetzelfde uit — dit is enkel wat de bezoeker ziet.
@@ -203,6 +214,8 @@ const VerhuurAfhalenPage = () => {
   const missing: Missing[] = [];
   if (summary.units === 0) missing.push({ field: "toestellen", text: "Kies minstens één toestel." });
   if (!date) missing.push({ field: "aDate", text: "Kies een afhaaldatum." });
+  if (dateBlocked)
+    missing.push({ field: "aDate", text: "Op die datum zijn deze toestellen niet vrij." });
   if (!name.trim()) missing.push({ field: "cNaam", text: "Vul uw naam in." });
   if (!isValidPhone(phone))
     missing.push({ field: "cTel", text: "Vul een geldig telefoonnummer in." });
@@ -586,8 +599,11 @@ const VerhuurAfhalenPage = () => {
                 <input
                   type="date"
                   id="aDate"
+                  className={dateBlocked ? "bezet" : undefined}
                   min={minDate}
                   value={date}
+                  aria-invalid={dateBlocked}
+                  aria-describedby={dateBlocked ? "aDateWarn" : undefined}
                   onChange={(event) => setDate(event.target.value)}
                 />
               </div>
@@ -600,6 +616,33 @@ const VerhuurAfhalenPage = () => {
                 </select>
               </div>
             </div>
+            {dateBlocked && (
+              <div className="datewarn" id="aDateWarn" role="status">
+                <b>
+                  Op{" "}
+                  {new Date(`${date}T00:00:00`).toLocaleDateString("nl-BE", {
+                    day: "numeric",
+                    month: "long",
+                  })}{" "}
+                  is deze samenstelling al ingepland.
+                </b>
+                {suggestion ? (
+                  <>
+                    {" "}
+                    De eerstvolgende vrije afhaaldatum is{" "}
+                    <button type="button" onClick={() => setDate(suggestion)}>
+                      {new Date(`${suggestion}T00:00:00`).toLocaleDateString("nl-BE", {
+                        day: "numeric",
+                        month: "long",
+                      })}
+                    </button>
+                    .
+                  </>
+                ) : (
+                  " De komende weken is er niets vrij — bel ons op 03 689 90 65."
+                )}
+              </div>
+            )}
             <div className="adres">
               <PinIcon size={17} />
               <span>

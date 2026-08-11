@@ -14,6 +14,7 @@ import {
 } from "@/data/verhuur";
 import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
 import { serializeSelection } from "@/lib/afhalen";
+import { firstFreeDate, usePickupAvailability } from "@/hooks/usePickupAvailability";
 import { addDays, euroInt, isoDate } from "@/lib/verhuur";
 import { breadcrumbSchema, faqSchema, productSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
@@ -129,12 +130,27 @@ const VerhuurToestelPage = () => {
     aantal, periode en afhaalmoment opnieuw kiezen — terwijl hij dat net had
     gedaan. De pagina aan de andere kant leest ze met `parseSelection`.
   */
+  const selection = serializeSelection({
+    [key]: qty,
+    ...Object.fromEntries(chosenAddons.map((k) => [k, 1])),
+  });
+
   const pickupQuery = new URLSearchParams({
-    d: serializeSelection({ [key]: qty, ...Object.fromEntries(chosenAddons.map((k) => [k, 1])) }),
+    d: selection,
     days: String(days),
     date: startDate,
     slot,
   }).toString();
+
+  /*
+    Van sommige toestellen hebben we er één. Zonder deze controle stelde de
+    pagina "Direct beschikbaar" en een startdatum voor die al verhuurd was, en
+    liep de bezoeker pas bij het afrekenen tegen een weigering aan.
+  */
+  const { blocked, loading: checkingDates, failed: checkFailed, horizonDays } =
+    usePickupAvailability(selection, days);
+  const dateBlocked = blocked.includes(startDate);
+  const suggestion = dateBlocked ? firstFreeDate(startDate, blocked, horizonDays) : null;
 
   const cross = PRODUCT_ORDER.filter((k) => k !== key);
   const vol = searchParams.get("vol");
@@ -247,8 +263,20 @@ const VerhuurToestelPage = () => {
               <div className="book">
                 <div className="bh">
                   <span className="bt">Afhaalreservatie</span>
-                  <span className="stock">
-                    <span className="d" /> Direct beschikbaar
+                  {/*
+                    Geen belofte die we niet kunnen waarmaken: antwoordt de
+                    controle niet, dan zegt de badge dat eerlijk in plaats van
+                    "Direct beschikbaar" te blijven tonen.
+                  */}
+                  <span className={`stock${dateBlocked || checkFailed ? " op" : ""}`}>
+                    <span className="d" />{" "}
+                    {checkingDates
+                      ? "Beschikbaarheid nakijken…"
+                      : checkFailed
+                        ? "Beschikbaarheid onbekend"
+                        : dateBlocked
+                          ? "Bezet op deze datum"
+                          : "Direct beschikbaar"}
                   </span>
                 </div>
                 <div className="bb">
@@ -265,8 +293,11 @@ const VerhuurToestelPage = () => {
                       <input
                         type="date"
                         id="startDate"
+                        className={dateBlocked ? "bezet" : undefined}
                         value={startDate}
                         min={isoDate(new Date())}
+                        aria-invalid={dateBlocked}
+                        aria-describedby={dateBlocked ? "dateWarn" : undefined}
                         onChange={(e) => setStartDate(e.target.value)}
                       />
                     </div>
@@ -317,6 +348,33 @@ const VerhuurToestelPage = () => {
                       </select>
                     </div>
                   </div>
+
+                  {dateBlocked && (
+                    <div className="datewarn" id="dateWarn" role="status">
+                      <b>
+                        Op {new Date(`${startDate}T00:00:00`).toLocaleDateString("nl-BE", {
+                          day: "numeric",
+                          month: "long",
+                        })}{" "}
+                        staat {qty > 1 ? "dit aantal" : "dit toestel"} al ingepland.
+                      </b>
+                      {suggestion ? (
+                        <>
+                          {" "}
+                          De eerstvolgende vrije startdatum is{" "}
+                          <button type="button" onClick={() => setStartDate(suggestion)}>
+                            {new Date(`${suggestion}T00:00:00`).toLocaleDateString("nl-BE", {
+                              day: "numeric",
+                              month: "long",
+                            })}
+                          </button>
+                          .
+                        </>
+                      ) : (
+                        " De komende weken is er niets vrij — bel ons op 03 689 90 65."
+                      )}
+                    </div>
+                  )}
 
                   {addonKeys.length > 0 && (
                     <div className="addons">
@@ -372,10 +430,22 @@ const VerhuurToestelPage = () => {
                   </div>
                 </div>
                 <div className="bf">
-                  <Link className="btn btn-red" to={`/verhuur/afhalen?${pickupQuery}`}>
-                    Reserveer voor afhaling — {euroInt(total)}
-                    <ArrowRightIcon strokeWidth={2.4} />
-                  </Link>
+                  {/*
+                    Een bezette datum stopt hier, niet pas op de afhaalpagina: die
+                    zou dezelfde datum overnemen en pas bij het afrekenen weigeren.
+                    Faalt de controle zelf, dan blijft de knop gewoon werken — de
+                    server kijkt het daar hoe dan ook opnieuw na.
+                  */}
+                  {dateBlocked ? (
+                    <button className="btn btn-red" type="button" disabled>
+                      Niet beschikbaar op deze datum
+                    </button>
+                  ) : (
+                    <Link className="btn btn-red" to={`/verhuur/afhalen?${pickupQuery}`}>
+                      Reserveer voor afhaling — {euroInt(total)}
+                      <ArrowRightIcon strokeWidth={2.4} />
+                    </Link>
+                  )}
                   <div className="note">
                     Geen voorschot · lagere afhaalprijzen · liever geleverd én geïnstalleerd? Dat kan{" "}
                     <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 700 }}>

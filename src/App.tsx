@@ -1,5 +1,6 @@
 import type { RouteRecord } from "vite-react-ssg";
 import Layout from "./Layout";
+import ErrorPage from "./pages/ErrorPage";
 import { getAllPackages } from "./data/packages";
 import { products } from "./data/products";
 import { PRODUCT_ORDER } from "./data/verhuur";
@@ -21,6 +22,15 @@ export const routes: RouteRecord[] = [
     path: "/",
     element: <Layout />,
     entry: "src/Layout.tsx",
+    /*
+     * Vangt elke fout in een onderliggende route op. Zonder dit toont
+     * react-router zijn eigen scherm met een stacktrace en "Hey developer 👋"
+     * — aan een klant midden in een boeking.
+     *
+     * Bewust niet lazy: als de app al struikelt, mag het vangnet niet
+     * afhangen van een chunk die dan nog moet binnenkomen.
+     */
+    errorElement: <ErrorPage />,
     children: [
       { index: true, lazy: async () => ({ Component: (await import("./pages/Index")).default }) },
       {
@@ -150,6 +160,23 @@ export const routes: RouteRecord[] = [
        * `*` vangt hetzelfde geval op nadat de app in de browser draait, want
        * dan is er geen server meer die kan antwoorden.
        */
+      /*
+       * Een route die met opzet crasht, zodat de foutpagina te bekijken is
+       * zonder er eerst een echte bug voor te moeten maken. Staat achter
+       * `import.meta.env.DEV`: bij de build is die constante `false`, dus de
+       * hele tak valt weg en er komt geen `/__fout` in dist terecht.
+       */
+      ...(import.meta.env.DEV
+        ? [
+            {
+              path: "__fout",
+              Component: () => {
+                throw new Error("Testfout — /__fout bestaat alleen om de foutpagina te tonen.");
+              },
+            } satisfies RouteRecord,
+          ]
+        : []),
+
       {
         path: "404",
         lazy: async () => ({ Component: (await import("./pages/NotFound")).default }),

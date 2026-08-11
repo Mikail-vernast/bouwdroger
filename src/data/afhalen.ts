@@ -9,17 +9,20 @@
  * sleutels (`corov`, `haspel`, …) bestaan niet in `bouwdroger_equipment`.
  *
  * Daarom staat hier geen prijs meer. Alles komt uit `TARIEVEN.products`, precies
- * dezelfde bron als de toestelpagina's, en elke regel draagt de `device_key`
+ * dezelfde bron als de toestelpagina's, en `key` is tegelijk de `product_key`
  * waarmee het portaal materieel toewijst.
  */
 import { TARIEVEN } from "./tarieven.js";
-import type { DeviceKey } from "./verhuur.js";
 
 /** Waar het toestel op de order als aantal meetelt. */
 export type PickupKind = "droger" | "ventilator" | "verwarming";
 
 export interface PickupProduct {
-  /** Sleutel uit de gepubliceerde tarieven — ook wat in de URL staat. */
+  /**
+   * Sleutel uit de gepubliceerde tarieven — wat in de URL staat, en tegelijk de
+   * `product_key` in `bouwdroger_equipment`. Daarmee wijst het portaal precies
+   * het toestel toe dat de klant gekozen heeft.
+   */
   key: string;
   group: string;
   name: string;
@@ -29,22 +32,11 @@ export interface PickupProduct {
   specs: string[];
   /** Afhaalprijs per dag, excl. btw. Komt uit het portaal. */
   day: number;
-  /**
-   * De soort in `bouwdroger_equipment`. `null` betekent dat het portaal deze
-   * soort nog niet als sleutel kent (de TTK 650 staat er als "Large Bouwdroger"
-   * zonder `device_key`): de order komt gewoon binnen, maar de planner wijst het
-   * toestel met de hand toe in plaats van automatisch.
-   */
-  device: DeviceKey | null;
   kind: PickupKind;
   /**
    * Het hoogste aantal dat iemand van dit toestel kan reserveren: onze vloot,
-   * afgetopt op {@link MAX_PER_PRODUCT}.
-   *
-   * De beschikbaarheidscontrole in `api/afhaal-checkout.ts` rekent op
-   * `device_key`, en precies de toestellen zonder pakketrol (radiaal, kleine
-   * kachel, adsorptiedroger) glippen daar dus doorheen. Van de ECO Revolution
-   * hebben we er één — zonder dit plafond kon een bezoeker er acht bestellen.
+   * afgetopt op {@link MAX_PER_PRODUCT}. Van de adsorptiedroger hebben we er
+   * één — zonder dit plafond kon een bezoeker er acht bestellen.
    */
   max: number;
 }
@@ -54,56 +46,48 @@ const META: Record<string, Omit<PickupProduct, "key" | "name" | "short" | "sub" 
   ttk170: {
     group: "Bouwdrogers",
     specs: ["50 l / 24 u", "tot 250 m³", "0,75 kW", "reservoir"],
-    device: "small",
     kind: "droger",
   },
   ttk350: {
     group: "Bouwdrogers",
     specs: ["70 l / 24 u", "tot 400 m³", "1,1 kW", "pompklaar"],
-    device: "medium",
     kind: "droger",
   },
   ttk650: {
     group: "Bouwdrogers",
     specs: ["90 l / 24 u", "tot 600 m³", "1,4 kW", "pompklaar"],
-    device: null,
     kind: "droger",
   },
   ttv4500: {
     group: "Ventilatoren",
     specs: ["4 500 m³/u", "3 standen", "0,2 kW"],
-    device: "axiaal",
     kind: "ventilator",
   },
   teddh30: {
     group: "Elektrische kachels",
     specs: ["30 kW", "thermostaat", "400 V"],
-    device: "kachel",
     kind: "verwarming",
   },
   /*
-    De radiaalventilator en de kachel van 20 kW dragen geen `device_key`: die
-    sleutel zegt welke rol een toestel invult in een pakket, en auto-toewijzing
-    zou dan even goed de axiaalventilator of de kachel van 30 kW mogen sturen.
-    Wie hier expliciet een radiaal of de kleine kachel reserveert, moet net dat
-    toestel krijgen — de planner wijst het met de hand toe.
+    De radiaalventilator en de kachel van 20 kW vullen geen pakketrol in: op die
+    rol toewijzen zou even goed de axiaalventilator of de kachel van 30 kW mogen
+    sturen. Wie hier expliciet een radiaal of de kleine kachel reserveert, moet
+    net dat toestel krijgen — vandaar dat een afhaalregel op `product_key` gaat
+    en niet op `device_key`. Zie `pickupDeviceLines`.
   */
   radiaal2250: {
     group: "Ventilatoren",
     specs: ["2 250 m³/u", "3 standen", "IP55"],
-    device: null,
     kind: "ventilator",
   },
   teddh20: {
     group: "Elektrische kachels",
     specs: ["20 kW", "thermostaat", "400 V"],
-    device: null,
     kind: "verwarming",
   },
   revolution: {
     group: "Bouwdrogers",
     specs: ["adsorptie", "via slangen", "koude ruimtes"],
-    device: null,
     kind: "droger",
   },
 };

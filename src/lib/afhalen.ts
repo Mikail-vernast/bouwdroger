@@ -96,18 +96,21 @@ export function pickupSummary(lines: PickupLine[], days: number): PickupSummary 
 }
 
 /**
- * De toestelsoorten zoals het depot ze kent. Wat geen `device_key` heeft valt
- * weg: liever geen regel dan een verzonnen soort waarop de
- * beschikbaarheidscontrole en de automatische toewijzing gaan rekenen.
+ * De toestellen zoals het depot ze kent — één regel per gekozen product.
+ *
+ * Bewust op `product_key` en niet op de pakketrol: wie hier een adsorptiedroger
+ * of de kachel van 20 kW kiest, heeft die pagina gezien en verwacht dat toestel.
+ * Op de rol toewijzen zou een condensontvochtiger of de kachel van 30 kW mogen
+ * sturen. Toestellen zonder rol (adsorptiedroger, radiaal, TTK 650) vielen hier
+ * vroeger helemaal weg — dan bleef er niets over om automatisch toe te wijzen,
+ * en telde de reservatie ook niet mee voor de beschikbaarheid.
  */
 export function pickupDeviceLines(lines: PickupLine[]): DeviceLine[] {
   const out = new Map<string, DeviceLine>();
   for (const line of lines) {
-    const key = line.product.device;
-    if (!key) continue;
-    const existing = out.get(key);
+    const existing = out.get(line.product.key);
     if (existing) existing.qty += line.qty;
-    else out.set(key, { device_key: key, qty: line.qty });
+    else out.set(line.product.key, { product_key: line.product.key, qty: line.qty });
   }
   return [...out.values()];
 }

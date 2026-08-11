@@ -16,6 +16,7 @@
 import type Stripe from "stripe";
 import { logAvailabilityFailure, releaseHold } from "./availability.js";
 import { alertSyncFailure, sendPaidBookingMails, sendPickupMails } from "./mail.js";
+import { notifyNewOrder, notifySyncFailure } from "./slack.js";
 import { parseDeviceLines } from "./verhuur.js";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "./vernastSync.js";
 
@@ -210,6 +211,16 @@ export function sessionToVernast(
  */
 const MAIL_FLAG = "mail_bevestiging";
 
+/**
+ * Dezelfde bescherming voor de Slack-melding, maar met een eigen sleutel.
+ *
+ * Bewust niet dezelfde vlag als de mail: het zijn twee onafhankelijke kanalen.
+ * Deelden ze er één, dan zou een mail die om zijn eigen reden niet vertrekt de
+ * Slack-melding meesleuren — en omgekeerd zou het toevoegen van Slack aan een
+ * betaalstroom die al maanden draait, de bevestigingsmail kunnen breken.
+ */
+const SLACK_FLAG = "slack_melding";
+
 /** Waar de site staat als de sessie zelf het niet meer weet. */
 const CANONICAL_ORIGIN = "https://bouwdroger.vercel.app";
 
@@ -230,30 +241,31 @@ function confirmationUrl(session: Stripe.Checkout.Session): string {
 }
 
 /**
- * Claimt het recht om de bevestigingsmail te versturen. Geeft `true` aan wie
- * er als eerste is.
+ * Claimt het recht om één keer iets te versturen. Geeft `true` aan wie er als
+ * eerste is.
  *
  * De metadata uit een webhook-event is een momentopname van bij de betaling;
  * vandaar dat de sessie hier vers wordt opgehaald in plaats van het meegegeven
  * object te vertrouwen — anders ziet de webhook de vlag niet die de terugkeer
  * een seconde eerder zette.
  *
- * Lukt de claim niet omdat Stripe niet antwoordt, dan mailen we alsnog. Van de
- * twee mogelijke fouten is een dubbele bevestiging de onschuldigste: geen
- * bevestiging laat een klant achter die betaald heeft en niets hoort.
+ * Lukt de claim niet omdat Stripe niet antwoordt, dan versturen we alsnog. Van
+ * de twee mogelijke fouten is een dubbele melding de onschuldigste: geen
+ * bevestiging laat een klant achter die betaald heeft en niets hoort, en een
+ * gemiste Slack-melding is een order die niemand ziet binnenkomen.
  */
-async function claimBookingMail(stripe: Stripe, sessionId: string): Promise<boolean> {
+async function claimOnce(stripe: Stripe, sessionId: string, flag: string): Promise<boolean> {
   try {
     const fresh = await stripe.checkout.sessions.retrieve(sessionId);
-    if (fresh.metadata?.[MAIL_FLAG]) return false;
+    if (fresh.metadata?.[flag]) return false;
 
     // Alleen deze sleutel meesturen: Stripe voegt hem samen met de bestaande
     // metadata, waar de volledige boeking in zit.
-    await stripe.checkout.sessions.update(sessionId, { metadata: { [MAIL_FLAG]: "1" } });
+    await stripe.checkout.sessions.update(sessionId, { metadata: { [flag]: "1" } });
     return true;
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "onbekende fout";
-    console.error(`[vernast-order] mailclaim voor ${sessionId} mislukt: ${message}`);
+    console.error(`[vernast-order] claim ${flag} voor ${sessionId} mislukt: ${message}`);
     return true;
   }
 }
@@ -281,7 +293,12 @@ export async function deliverOrder(
   if (!sync.ok) {
     // De klant heeft betaald en er staat nergens een order. Dat mag niet in een
     // logregel blijven hangen: iemand moet hem met de hand kunnen ingeven.
-    await alertSyncFailure(`${context} ${session.id}`, sync.reason, payload);
+    // Bewust langs beide kanalen en zonder claim — deze melding twee keer zien
+    // is oneindig veel beter dan ze één keer missen.
+    await Promise.all([
+      alertSyncFailure(`${context} ${session.id}`, sync.reason, payload),
+      notifySyncFailure(`${context} ${session.id}`, sync.reason, payload),
+    ]);
     return false;
   }
 
@@ -296,39 +313,53 @@ export async function deliverOrder(
     al passeren terwijl de betaling nog loopt. Die krijgt zijn bevestiging
     wanneer `checkout.session.async_payment_succeeded` binnenkomt.
   */
-  if (payload.payment_status !== "paid" || !(await claimBookingMail(stripe, session.id))) {
-    return true;
-  }
+  if (payload.payment_status !== "paid") return true;
+
+  const pickup = meta(session, "type") === "afhaal";
+  const orderUrl = confirmationUrl(session);
+
+  /*
+    Twee claims tegelijk in plaats van na elkaar: elke claim kost Stripe een
+    `retrieve` plus een `update`, en dit draait in de webhook waar Stripe op
+    antwoord wacht. Ze zitten elkaar niet in de weg — een `update` van metadata
+    voegt samen met wat er al staat, dus beide sleutels overleven.
+  */
+  const [slackFirst, mailFirst] = await Promise.all([
+    claimOnce(stripe, session.id, SLACK_FLAG),
+    claimOnce(stripe, session.id, MAIL_FLAG),
+  ]);
+
+  if (slackFirst) await notifyNewOrder({ payload, pickup, orderUrl });
+
+  if (!mailFirst) return true;
 
   /*
     Een afhaling krijgt zijn eigen bevestiging. Sjabloon 198 belooft een
     chauffeur en een installatie op het werfadres; wie zelf komt halen, heeft
     het magazijnadres en zijn afhaalmoment nodig.
   */
-  if (meta(session, "type") === "afhaal") {
+  if (pickup) {
     await sendPickupMails(payload);
     return true;
   }
 
-  {
-    await sendPaidBookingMails({
-      payload,
-      // Wat er effectief geïncasseerd is. Bij "betalen bij levering" is dat
-      // enkel de orderbevestiging, niet het volledige huurbedrag.
-      paidAmount: (session.amount_total ?? 0) / 100,
-      /*
-        `betaalwijze` staat op `online` wanneer de klant alles vooraf betaalt —
-        dat is de keuze met 5% korting. Elke andere waarde betekent dat enkel de
-        orderbevestiging afgerekend is en de rest bij levering volgt.
-      */
-      paymentType: meta(session, "betaalwijze") === "online" ? "full" : "deposit",
-      discount: Number(meta(session, "korting")) || 0,
-      street: meta(session, "werf_straat") ?? payload.address ?? "",
-      zip: meta(session, "werf_postcode") ?? "",
-      city: meta(session, "werf_gemeente") ?? "",
-      orderUrl: confirmationUrl(session),
-    });
-  }
+  await sendPaidBookingMails({
+    payload,
+    // Wat er effectief geïncasseerd is. Bij "betalen bij levering" is dat
+    // enkel de orderbevestiging, niet het volledige huurbedrag.
+    paidAmount: (session.amount_total ?? 0) / 100,
+    /*
+      `betaalwijze` staat op `online` wanneer de klant alles vooraf betaalt —
+      dat is de keuze met 5% korting. Elke andere waarde betekent dat enkel de
+      orderbevestiging afgerekend is en de rest bij levering volgt.
+    */
+    paymentType: meta(session, "betaalwijze") === "online" ? "full" : "deposit",
+    discount: Number(meta(session, "korting")) || 0,
+    street: meta(session, "werf_straat") ?? payload.address ?? "",
+    zip: meta(session, "werf_postcode") ?? "",
+    city: meta(session, "werf_gemeente") ?? "",
+    orderUrl,
+  });
 
   return true;
 }
