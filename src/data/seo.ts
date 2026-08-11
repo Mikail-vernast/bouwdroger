@@ -106,6 +106,11 @@ export const SEO = {
     description:
       "Vragen over bouwdroging of een dringende levering nodig? Bel 03 689 90 65 op werkdagen tussen 08:00 en 17:00, of stuur ons een bericht.",
   },
+  klantservice: {
+    title: "Klantenservice: hulp bij bestelling, levering en toestel | Vernast",
+    description:
+      "Onze klantenservice helpt u met bestellingen, levering, retour en het bedienen van uw bouwdroger. Bel, mail of vind meteen antwoord op de veelgestelde vragen.",
+  },
   realisaties: {
     title: "Realisaties: droogprojecten in heel Vlaanderen | Vernast",
     description:

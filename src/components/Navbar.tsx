@@ -51,6 +51,7 @@ const navLinks = [
   { label: "Machines", href: "/machines" },
   { label: "Realisaties", href: "/realisaties" },
   { label: "Over Ons", href: "/over-ons" },
+  { label: "Klantenservice", href: "/klantservice" },
   { label: "Contact", href: "/contact" },
 ];
 
