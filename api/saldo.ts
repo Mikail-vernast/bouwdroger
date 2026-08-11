@@ -114,7 +114,15 @@ async function loadBooking(
       return null;
     }
     return session.payment_status === "paid" ? session : null;
-  } catch {
+  } catch (error: unknown) {
+    /*
+      Naar buiten blijft het "boeking niet gevonden", maar in de logs staat de
+      reden. Een QR die "deze link werkt niet" toont is anders blind zoeken,
+      terwijl het meestal dezelfde oorzaak heeft: een `cs_test_`-boeking van de
+      dev-omgeving die op de live sleutel van productie belandt.
+    */
+    const message = error instanceof Error ? error.message : "onbekende fout";
+    console.error(`[saldo] boeking ${id} niet op te halen bij Stripe: ${message}`);
     return null;
   }
 }
