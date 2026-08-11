@@ -4891,7 +4891,7 @@ export const TARIEVEN = {
     "weeks_multiplier_3": 1.35,
     "weeks_multiplier_4": 1.62
   },
-  "version": 87,
+  "version": 89,
   "products": {
     "ttk170": {
       "day": 9,
@@ -4903,7 +4903,8 @@ export const TARIEVEN = {
       "name": "Ontvochtiger TTK 170 S",
       "type": "Condensontvochtiger",
       "badge": "Kleine ruimtes",
-      "short": "TTK 170 S"
+      "short": "TTK 170 S",
+      "stock": 22
     },
     "ttk350": {
       "day": 12,
@@ -4915,7 +4916,8 @@ export const TARIEVEN = {
       "name": "Ontvochtiger TTK 350 S",
       "type": "Condensontvochtiger",
       "badge": "Meest gehuurd",
-      "short": "TTK 350 S"
+      "short": "TTK 350 S",
+      "stock": 16
     },
     "ttk650": {
       "day": 16,
@@ -4927,7 +4929,20 @@ export const TARIEVEN = {
       "name": "Ontvochtiger TTK 650 S",
       "type": "Condensontvochtiger",
       "badge": "Grote volumes",
-      "short": "TTK 650 S"
+      "short": "TTK 650 S",
+      "stock": 4
+    },
+    "teddh20": {
+      "day": 9,
+      "img": [
+        "/vernast/kachel-20.webp"
+      ],
+      "sum": "Elektrische bouwkachel van 20 kW met thermostaat. Brengt kleinere koude ruimtes op temperatuur zodat de droging blijft doorlopen.",
+      "name": "Elektrische kachel TEddH 20 T",
+      "type": "Elektrische bouwkachel",
+      "badge": "Kleinere ruimtes",
+      "short": "TEddH 20 T",
+      "stock": 1
     },
     "teddh30": {
       "day": 12,
@@ -4938,7 +4953,8 @@ export const TARIEVEN = {
       "name": "Elektrische kachel TEddH 30 T",
       "type": "Elektrische bouwkachel",
       "badge": "Voor koude ruimtes",
-      "short": "TEddH 30 T"
+      "short": "TEddH 30 T",
+      "stock": 8
     },
     "ttv4500": {
       "day": 9,
@@ -4949,8 +4965,34 @@ export const TARIEVEN = {
       "name": "Ventilator TTV 4500",
       "type": "Bouwventilator · luchtcirculatie",
       "badge": "Versnelt elke droging",
-      "short": "TTV 4500"
+      "short": "TTV 4500",
+      "stock": 19
+    },
+    "revolution": {
+      "day": 25,
+      "img": [
+        "/vernast/eco-revolution.webp"
+      ],
+      "sum": "Droogt gericht via slangen: onder vloeren, in wanden en op moeilijk bereikbare plekken. Werkt ook bij lage temperaturen.",
+      "name": "Adsorptiedroger Revolution",
+      "type": "Adsorptiedroger · gericht drogen",
+      "badge": "Plaatselijk drogen",
+      "short": "Adsorptiedroger Revolution",
+      "stock": 1
+    },
+    "radiaal2250": {
+      "day": 8,
+      "img": [
+        "/vernast/vent-radiaal.webp",
+        "/products/dim-radiaal-ventilator.webp"
+      ],
+      "sum": "Blaast de lucht gericht over vloeren en chape, ook onder kasten en in hoeken. De vaste partner van een ontvochtiger bij vloerdroging.",
+      "name": "Radiaalventilator 2 250 m³/u",
+      "type": "Bouwventilator · gericht drogen",
+      "badge": "Gericht drogen",
+      "short": "Radiaal 2250",
+      "stock": 8
     }
   },
-  "published_at": "2026-08-11T07:47:57.629744+00:00"
+  "published_at": "2026-08-11T08:56:57.253874+00:00"
 } as const;
