@@ -21,6 +21,7 @@ import {
   sendDeliveryReminderMail,
   sendExtensionOfferMail,
   sendPaidBookingMails,
+  sendPickupMails,
 } from "../lib/mail.js";
 import type { VernastOrderPayload } from "../lib/vernastSync.js";
 
@@ -91,6 +92,31 @@ describe("verzendtest sjabloon 199", () => {
       zip: "2018",
       city: "Antwerpen",
       orderUrl: "https://bouwdrogerservice.be/verhuur/boeking?session_id=cs_test_verzendtest",
+    });
+  });
+});
+
+describe("verzendtest sjabloon 201", () => {
+  it.skipIf(!ONTVANGER)("stuurt de afhaalbevestiging naar TESTMAIL_TO", async () => {
+    await sendPickupMails({
+      ...payload,
+      source: "booking",
+      package_tier: null,
+      machine: "2× TTK 170 S + 1× TTV 4500",
+      situatie: "afhaling",
+      delivery_slot: "Afhalen 10:00 – 12:00",
+      duration_days: 7,
+      rental_end_date: "2026-08-24",
+      order_lines: [
+        { device_key: "small", qty: 2 },
+        { device_key: "axiaal", qty: 1 },
+      ],
+      total_price: 512.82,
+      vat_amount: 88.98,
+      amount_paid: 512.82,
+      balance_due: 0,
+      discount_amount: 21.6,
+      payment_choice: "online",
     });
   });
 });

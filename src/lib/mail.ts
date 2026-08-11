@@ -688,6 +688,12 @@ export async function sendPickupMails(payload: VernastOrderPayload): Promise<voi
   const to = customer(payload);
   const params = {
     ...orderParams(payload),
+    /*
+      De toestellen zoals de klant ze op de site koos ("2× TTK 170 S"), niet de
+      depotnamen die `formatDevices` uit `order_lines` haalt ("2× Small
+      Bouwdroger"). Wie een TTK 170 S bestelde, hoort dat terug te lezen.
+    */
+    toestellen: payload.machine || formatDevices(payload),
     afhaaldatum: formatWeekday(payload.delivery_date ?? payload.rental_start_date),
     afhaalmoment: payload.delivery_slot ?? "",
     afhaalpunt: "Boomsesteenweg 12, Unit 11, 2630 Aartselaar",
