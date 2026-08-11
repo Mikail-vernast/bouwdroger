@@ -72,6 +72,18 @@ const TOTAL_STEPS = 6;
 const STEP_DETAILS = 4;
 const STEP_PAY = 5;
 const STEP_DONE = 6;
+/**
+ * Terug van Stripe, terwijl we bij Stripe navragen of er effectief betaald is.
+ *
+ * Geen echte stap in de wizard — vandaar het nummer buiten de reeks — maar hij
+ * moet er wel zijn. Zonder deze tussenstand kwam de bezoeker na het betalen
+ * eerst op stap 1 terecht ("Kies uw dekking"), omdat de wizard nu eenmaal daar
+ * start en de bevestiging pas volgt als het antwoord van Stripe binnen is. Wie
+ * net afgerekend heeft, ziet dan een halve seconde lang de vraag of hij een
+ * dekking wil kiezen — precies het moment waarop je twijfelt of je betaling wel
+ * door is.
+ */
+const STEP_VERIFY = 0;
 
 const SLOTS = ["08:00 – 10:00", "10:00 – 12:00", "13:00 – 15:00", "15:00 – 17:00"];
 /** Moet gelijk lopen met `HORIZON_DAYS` in `api/availability.ts`. */
@@ -180,7 +192,13 @@ const VerhuurBoekingPage = () => {
   // dan terug uit sessionStorage.
   const stored = useMemo(readStored, []);
 
-  const [step, setStep] = useState(1);
+  /*
+    Staat er een `session_id` in de adresbalk, dan komt de bezoeker net van de
+    betaalpagina en start de wizard op de controlestand in plaats van op stap 1.
+    Bewust in de initializer: één render later is te laat, dan heeft hij de
+    dekkingsstap al zien staan.
+  */
+  const [step, setStep] = useState(() => (searchParams.get("session_id") ? STEP_VERIFY : 1));
   const [cover, setCover] = useState(stored?.options.cover ?? "comfort");
   const [extras, setExtras] = useState<Record<string, boolean>>(() =>
     Object.fromEntries((stored?.options.extras ?? []).map((k) => [k, true]))
@@ -624,7 +642,12 @@ const VerhuurBoekingPage = () => {
 
       <div className="rail">
         <div className="rwrap">
-          <i style={{ width: `${Math.round((step / TOTAL_STEPS) * 100)}%` }} />
+          {/* Tijdens de controle staat de balk vol: er valt niets meer te doen. */}
+          <i
+            style={{
+              width: `${step === STEP_VERIFY ? 100 : Math.round((step / TOTAL_STEPS) * 100)}%`,
+            }}
+          />
         </div>
       </div>
 
@@ -1345,6 +1368,19 @@ const VerhuurBoekingPage = () => {
             </div>
 
             {/* STAP 6 — bevestiging */}
+            {/*
+              De tussenstand tussen betalen en bevestigd. Ze duurt zolang de
+              navraag bij Stripe duurt — meestal een fractie van een seconde —
+              maar ze moet iets zeggen, want de bezoeker heeft net geld
+              overgemaakt en kijkt naar een scherm dat nog niets bevestigt.
+            */}
+            <div className={`pane${step === STEP_VERIFY ? " on" : ""}`}>
+              <div className="done">
+                <h2>Even geduld</h2>
+                <p>We bevestigen uw betaling. Sluit dit venster niet.</p>
+              </div>
+            </div>
+
             <div className={`pane${step === STEP_DONE ? " on" : ""}`}>
               <div className="done">
                 <div className="dic">
@@ -1454,7 +1490,12 @@ const VerhuurBoekingPage = () => {
                 </div>
               </div>
               <div className="sf">
-                {step < 4 && (
+                {/*
+                  Niet tijdens de controle na het betalen: een "Verder"-knop
+                  naast een afgeronde betaling nodigt uit tot een tweede ronde
+                  door de wizard.
+                */}
+                {step >= 1 && step < 4 && (
                   <button className="btn btn-r" type="button" onClick={() => goTo(step + 1)}>
                     {NEXT_LABEL[step] ?? "Verder"}
                   </button>
