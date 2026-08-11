@@ -22,6 +22,7 @@ import { pickupDeviceLines, pickupLabel, pickupCounts } from "../src/lib/afhalen
 import { newReference, ONLINE_DISCOUNT, VAT_RATE, toCents } from "../src/lib/booking.js";
 import { releaseSession } from "../src/lib/checkoutSession.js";
 import { afhaalOrder, type AfhaalOrder } from "../src/lib/orderIntake.js";
+import { safeOrigin } from "../src/lib/origin.js";
 import { clientIp, gate, rateLimit, tooManyRequests } from "../src/lib/rateLimit.js";
 import { rentalWindow, serializeDeviceLines } from "../src/lib/verhuur.js";
 
@@ -41,23 +42,15 @@ const HOLD_MINUTES = 30;
 /** Hoeveel holds één IP binnen die termijn mag laten staan; zie api/checkout.ts. */
 const MAX_HOLDS_PER_IP = 10;
 
-const ALLOWED_HOSTS = [
-  /^([a-z0-9-]+\.)*vercel\.app$/,
-  /^([a-z0-9-]+\.)*bouwdrogerservice\.be$/,
-];
+/*
+  Waar Stripe de betaler naartoe mag terugsturen: `safeOrigin` uit
+  `src/lib/origin.ts`, dezelfde die `api/checkout.ts` gebruikt.
 
-const CANONICAL_ORIGIN = "https://bouwdroger.vercel.app";
-const LOCAL_HOSTS = /^(localhost|127\.0\.0\.1|\[::1\])$/;
-const DEPLOYED = new Set(["production", "preview"]);
-
-/** Waar Stripe de betaler naartoe mag terugsturen; zie api/checkout.ts. */
-function safeOrigin(request: Request): string {
-  const url = new URL(request.url);
-  const deployed = DEPLOYED.has(process.env.VERCEL_ENV ?? "");
-  if (!deployed && LOCAL_HOSTS.test(url.hostname)) return url.origin;
-  const known = ALLOWED_HOSTS.some((pattern) => pattern.test(url.hostname));
-  return known ? url.origin : CANONICAL_ORIGIN;
-}
+  Hier stond een eigen kopie van die functie mét een eigen hostlijst. Twee
+  allowlists voor hetzelfde oordeel is er één te veel: wie er straks een domein
+  aan toevoegt of juist uit haalt, doet dat aan één van de twee, en dan keert de
+  ene betaalflow terug naar een adres dat de andere niet meer vertrouwt.
+*/
 
 function round(amount: number): number {
   return Math.round(amount * 100) / 100;
