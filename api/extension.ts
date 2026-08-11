@@ -21,6 +21,7 @@ import { isReference } from "../src/lib/booking.js";
 import { sendExtensionRequest } from "../src/lib/mail.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 import { addDays, isoDate } from "../src/lib/verhuur.js";
+import { pushExtensionToVernast } from "../src/lib/vernastExtension.js";
 
 const SESSION_ID = /^cs_[A-Za-z0-9_]{1,255}$/;
 
@@ -151,22 +152,46 @@ export async function POST(request: Request): Promise<Response> {
   const huidigEinde = meta(session, "huur_eind");
   const nieuwEinde = huidigEinde ? isoDate(addDays(new Date(huidigEinde), extraDagen)) : "";
 
+  const referentie = meta(session, "referentie") || (session.client_reference_id ?? id);
+  const naam = meta(session, "klant");
+  const email = session.customer_email ?? session.customer_details?.email ?? "";
+
   /*
-    Afgewacht en niet na het antwoord: op Vercel stopt de functie zodra het
-    antwoord verstuurd is. En het is hier de enige opslag — mislukt de mail, dan
-    bestaat de aanvraag nergens, dus dat hoort in de logs te staan vóór wij de
-    bezoeker succes tonen.
+    Twee bestemmingen, allebei afgewacht en niet na het antwoord: op Vercel stopt
+    de functie zodra het antwoord verstuurd is.
+
+    De rij in het portaal is de opslag — daar staat de aanvraag op de tab
+    Verlengingen tot iemand ze goedkeurt of weigert. De mail is de melding, zodat
+    niemand op een tabblad hoeft te zitten wachten. Vroeger was de mail allebei
+    tegelijk, en verdween de aanvraag spoorloos als ze niet aankwam.
   */
-  await sendExtensionRequest({
-    referentie: meta(session, "referentie") || (session.client_reference_id ?? id),
-    naam: meta(session, "klant"),
-    email: session.customer_email ?? session.customer_details?.email ?? "",
-    telefoon,
-    extraDagen,
-    huidigEinde,
-    nieuwEinde,
-    opmerking,
-  });
+  const [push] = await Promise.all([
+    pushExtensionToVernast({
+      stripe_session_id: id,
+      order_number: referentie,
+      customer_name: naam,
+      customer_email: email,
+      customer_phone: telefoon,
+      extra_days: extraDagen,
+      current_end_date: huidigEinde,
+      requested_end_date: nieuwEinde,
+      customer_note: opmerking,
+    }),
+    sendExtensionRequest({
+      referentie,
+      naam,
+      email,
+      telefoon,
+      extraDagen,
+      huidigEinde,
+      nieuwEinde,
+      opmerking,
+    }),
+  ]);
+
+  if (!push.ok) {
+    console.error(`[extension] push naar Vernast mislukt voor ${referentie}: ${push.reason}`);
+  }
 
   return json({ ok: true, nieuw_einde: nieuwEinde });
 }

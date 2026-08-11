@@ -145,3 +145,143 @@
   left: 0;
   font-weight: 800;
 }
+
+/* 9 — Verlengpagina (`.vh-ext`, bovenop `.vh-book`): een rode contactbalk.
+
+   De header van het design rekent op een donkere hero: de contactregel bovenaan
+   staat wit en draait pas mee naar donkere tekst zodra de pagina voorbij
+   `lightAfter` gescrold is. De verlengpagina heeft geen hero — ze begint met een
+   witte kaart op een lichte achtergrond — dus stond die regel wit op wit en was
+   ze onleesbaar. De andere verhuurpagina's lossen dat op met `lightAfter={-1}`,
+   waardoor de hele header meteen licht is.
+
+   Hier gaat de contactregel een stap verder en krijgt ze haar eigen rode balk
+   over de volle breedte. Wit op rood leest, en het geeft een pagina die verder
+   uit één witte kaart bestaat meteen een merkrand bovenaan. De nav-pil eronder
+   volgt wél gewoon de lichte variant.
+
+   `max-width` valt weg zodat de balk tot aan de schermrand loopt; de horizontale
+   padding zet de inhoud terug op de `.wrap`-breedte (1280 − 2×28 = 1224). Bewust
+   in procenten van de header en niet in `vw`: `100vw` telt de scrollbar mee en
+   zou de tekst een paar pixels uit lijn zetten met de pil eronder. */
+.vh-ext .hdr .topline {
+  max-width: none;
+  padding: 11px max(28px, calc((100% - 1224px) / 2));
+  margin-bottom: 14px;
+  background: var(--red);
+  font-size: 13.5px;
+}
+
+/* Tekst wit houden ondanks `onlight`, dat haar juist donker maakt. Vandaar de
+   dubbele klasse `.vh-book.vh-ext`: één klasse zwaarder dan de designregel. */
+.vh-book.vh-ext .hdr.onlight .topline,
+.vh-book.vh-ext .hdr.onlight .topline a,
+.vh-book.vh-ext .hdr.onlight .topline span,
+.vh-book.vh-ext .hdr.onlight .tl-right {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.vh-book.vh-ext .hdr.onlight .topline a:hover {
+  color: #fff;
+}
+
+.vh-book.vh-ext .hdr.onlight .tl-left svg {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Bij het scrollen klapt de contactregel dicht; de balk en de ruimte eronder
+   horen mee weg te vallen, anders blijft er een rode streep boven de pil staan. */
+.vh-book.vh-ext .hdr.scrolled .topline {
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* De aanloop onder de vaste header. Stond eerst als inline `marginTop` op de
+   pagina, maar dan wint ze het altijd van punt 2 hieronder — en juist onder
+   900px staat de header in de flow en is die ruimte 96px leegte. */
+.vh-ext .main {
+  margin-top: clamp(96px, 12vw, 146px);
+}
+
+@media (max-width: 900px) {
+  .vh-ext .main {
+    margin-top: 22px;
+  }
+}
+
+/* De foutmelding onder het formulier. `.warn` bestaat nergens in de designfiles,
+   dus stond ze als kale tekst met het icoon op een eigen regel — precies de plek
+   waar iemand hoort te zien wat er nog mist. */
+.vh-ext .warn {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 11px;
+  border: 1px solid rgba(200, 16, 46, 0.24);
+  background: rgba(200, 16, 46, 0.06);
+  color: #8f0c21;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.vh-ext .warn svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* 10 — De nav-pil raakt de schermrand zodra het venster smaller is dan de
+   `.wrap` (1280px): het design zet `.hdr .navrow{padding:0 0 22px}` en gooit
+   daarmee de 28px zijkant van `.wrap` weg. Boven 1280px valt dat niet op, want
+   dan houdt `max-width` de rij vanzelf van de rand; daaronder plakt het logo
+   links tegen het glas en de offerteknop rechts. */
+@media (max-width: 1340px) {
+  .vh-calc .hdr .navrow,
+  .vh-pkg .hdr .navrow,
+  .vh-book .hdr .navrow,
+  .vh-prod .hdr .navrow,
+  .vh-pick .hdr .navrow,
+  .vh-calc .hdr .topline,
+  .vh-pkg .hdr .topline,
+  .vh-book .hdr .topline,
+  .vh-prod .hdr .topline,
+  .vh-pick .hdr .topline {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .vh-calc .hdr .navrow,
+  .vh-pkg .hdr .navrow,
+  .vh-book .hdr .navrow,
+  .vh-prod .hdr .navrow,
+  .vh-pick .hdr .navrow,
+  .vh-calc .hdr .topline,
+  .vh-pkg .hdr .topline,
+  .vh-book .hdr .topline,
+  .vh-prod .hdr .topline,
+  .vh-pick .hdr .topline {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .vh-calc .hdr .navrow,
+  .vh-pkg .hdr .navrow,
+  .vh-book .hdr .navrow,
+  .vh-prod .hdr .navrow,
+  .vh-pick .hdr .navrow {
+    gap: 10px;
+  }
+  /* De offerteknop is op deze breedte het derde element naast pil en winkelwagen;
+     zonder krappere padding duwt hij de rij alsnog tegen de rand. */
+  .vh-calc .hdr .navrow > .btn-offerte,
+  .vh-pkg .hdr .navrow > .btn-offerte,
+  .vh-book .hdr .navrow > .btn-offerte,
+  .vh-prod .hdr .navrow > .btn-offerte,
+  .vh-pick .hdr .navrow > .btn-offerte {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
