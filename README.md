@@ -61,7 +61,7 @@ src/components/
 src/data/    productdata, pakketten, prijzen
 src/lib/     gedeelde logica (ook door de api-routes gebruikt)
 scripts/     build- en onderhoudsscripts (SEO, fonts, afbeeldingen)
-docs/        losse notities over openstaande punten
+docs/        plannen en notities; security-bevindingen staan elders (docs/security.md)
 ```
 
 `src/lib/` wordt zowel door de browser als door de serverless routes
