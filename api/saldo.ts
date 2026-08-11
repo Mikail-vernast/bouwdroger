@@ -196,6 +196,13 @@ export async function POST(request: Request): Promise<Response> {
   const balance = readBalance(booking);
   if (balance.voldaan) return json({ error: "Deze boeking is al volledig betaald." }, 409);
 
+  /*
+    Blijft binnen: dit gaat naar Stripe, niet naar de browser. `customer_email`
+    staat op de sessie zoals de checkout ze aanmaakte; `customer_details` is wat
+    Stripe er zelf van maakte na het afrekenen.
+  */
+  const bookingEmail = booking.customer_email ?? booking.customer_details?.email ?? null;
+
   const origin = safeOrigin(request);
 
   try {
@@ -209,6 +216,14 @@ export async function POST(request: Request): Promise<Response> {
       */
       locale: "nl",
       client_reference_id: balance.referentie,
+      /*
+        Het e-mailadres van de boeking. De klant gaf het bij het bestellen al —
+        hem het op de werf laten intikken op een telefoonscherm is precies het
+        soort horde waar een betaling op stukloopt. Stripe toont het veld dan
+        ingevuld en stuurt zijn ontvangstbewijs naar hetzelfde adres als de
+        bevestiging.
+      */
+      ...(bookingEmail ? { customer_email: bookingEmail } : {}),
       line_items: [
         {
           quantity: 1,

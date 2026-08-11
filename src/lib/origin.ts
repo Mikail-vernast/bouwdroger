@@ -30,16 +30,22 @@ export const CANONICAL_ORIGIN = "https://bouwdroger.vercel.app";
  * boekingsflow lokaal niet te testen: je kwam nooit op je eigen
  * bevestigingsscherm uit.
  *
- * Alleen buiten een echte deploy: daar staat `VERCEL_ENV` op `production` of
- * `preview`, dus een vervalste Host-header komt hier niet doorheen.
+ * Buiten een deploy telt élke host waarop je server draait, niet enkel
+ * `localhost`. Een saldobetaling test je met je telefoon, en die opent de
+ * dev-server op het adres in het thuisnetwerk (`192.168.x.x:3000`). Dat viel
+ * hier eerst buiten, waardoor Stripe na het afrekenen naar productie stuurde —
+ * waar de pagina nog niet bestaat. Resultaat: een klant die betaald heeft en
+ * een 404 ziet, en een betaling die nooit bij de order aankomt.
+ *
+ * Dat dit veilig is, hangt aan één ding: `VERCEL_ENV` staat op `production` of
+ * `preview` zodra dit écht ergens draait, en dan geldt enkel de lijst hierboven.
+ * Een vervalste Host-header komt daar niet doorheen.
  */
-const LOCAL_HOSTS = /^(localhost|127\.0\.0\.1|\[::1\])$/;
 const DEPLOYED = new Set(["production", "preview"]);
 
 export function safeOrigin(request: Request): string {
   const url = new URL(request.url);
-  const deployed = DEPLOYED.has(process.env.VERCEL_ENV ?? "");
-  if (!deployed && LOCAL_HOSTS.test(url.hostname)) return url.origin;
+  if (!DEPLOYED.has(process.env.VERCEL_ENV ?? "")) return url.origin;
   const known = ALLOWED_HOSTS.some((pattern) => pattern.test(url.hostname));
   return known ? url.origin : CANONICAL_ORIGIN;
 }
