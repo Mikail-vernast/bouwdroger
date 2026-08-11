@@ -1,3 +1,27 @@
+import { PRODUCTS } from "./verhuur.js";
+
+/**
+ * Welke rij hier hetzelfde toestel is als op /verhuur/toestel/*.
+ *
+ * Deze lijst droeg haar eigen dagprijzen uit de eerste versie van de site: de
+ * ECO Boost stond hier op € 9 terwijl diezelfde TTK 170 in het portaal € 18 per
+ * dag kost, en de elektrische kachel op € 3 tegenover € 29. Dat is niet alleen
+ * een verkeerd getal op het scherm — `bookingPrice()` in `orderIntake.ts`
+ * rekent hiermee, dus een boeking via deze pagina's kwam voor de helft of
+ * minder in het portaal terecht.
+ *
+ * Wat een tegenhanger heeft, neemt voortaan de gepubliceerde dagprijs over.
+ * Wat er geen heeft (de ECO Revolution loopt via de webshop, de
+ * radiaalventilatoren staan niet in de tarieven) houdt zijn eigen waarde.
+ */
+const TARIEF_KEY: Record<string, string> = {
+  "bd-1": "ttk170",
+  "bd-2": "ttk350",
+  "bd-3": "ttk650",
+  "vt-1": "ttv4500",
+  "vw-1": "teddh30",
+};
+
 export interface Product {
   id: string;
   name: string;
@@ -11,7 +35,7 @@ export interface Product {
   specs?: Record<string, string>;
 }
 
-export const products: Product[] = [
+const CATALOGUS: Product[] = [
   // Bouwdrogers
   {
     id: "bd-1",
@@ -108,3 +132,10 @@ export const products: Product[] = [
     specs: { "Afmetingen": "28 × 26 × 30 cm", "Gewicht": "10 kg", "Vermogen": "2,50 kW", "Type": "Elektrisch" },
   },
 ];
+
+/** De catalogus met de dagprijzen van het portaal erover. */
+export const products: Product[] = CATALOGUS.map((product) => {
+  const key = TARIEF_KEY[product.id];
+  const published = key ? PRODUCTS[key] : undefined;
+  return published ? { ...product, pricePerDay: published.day } : product;
+});

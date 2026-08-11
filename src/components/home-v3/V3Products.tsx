@@ -1,13 +1,54 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon, InfoIcon, LeafIcon } from "./icons";
+import { PRODUCTS } from "@/data/verhuur";
+import { DAY_PRICE_MIN } from "@/data/tarieflijst";
+
+/**
+ * Prijs en specs van één kaart, uit de gepubliceerde tarieven.
+ *
+ * De kaarten droegen hun eigen bedragen uit de designhandoff: "vanaf € 9,00 per
+ * dag" op de ECO Boost, terwijl diezelfde TTK 170 op de pagina waar de kaart
+ * naartoe linkt € 18 per dag kost. Wie doorklikte zag zijn prijs verdubbelen.
+ * Hetzelfde gold voor de specs (80 l/dag op een toestel dat er 70 haalt) en
+ * voor een doorgestreepte "− 8% korting" die nergens op sloeg.
+ *
+ * Alles wat een bedrag of een cijfer is, komt nu uit `PRODUCTS` — dezelfde bron
+ * als de detailpagina en de boekingsmodule. De kaart houdt enkel haar eigen
+ * beeld en tekst.
+ */
+function tariff(key: string | undefined) {
+  const product = key ? PRODUCTS[key] : undefined;
+  if (!product) return null;
+
+  const label = ([name, value, unit]: [string, string, string]): string => {
+    if (name === "Vochtafvoer") return `${value} liter per dag`;
+    if (name === "Bereik") return `tot ${value} m³`;
+    if (unit) return `${value} ${unit}`;
+    // "Standen 3" → "3 standen"; "Thermostaat ja" → gewoon "thermostaat".
+    return /^\d/.test(value) ? `${value} ${name.toLowerCase()}` : name.toLowerCase();
+  };
+
+  return {
+    price: `€ ${product.day.toLocaleString("nl-BE", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`,
+    chips: product.key.slice(0, 2).map(label),
+  };
+}
 
 interface ProductCard {
   /** Internal device route, or an absolute URL for the shop-hosted model. */
   href: string;
+  /**
+   * Sleutel in `PRODUCTS`: waar prijs en specs vandaan komen. Ontbreekt hij,
+   * dan staat het toestel niet in onze tarieven en houdt de kaart wat er hier
+   * staat — dat geldt alleen voor het model dat via de webshop verhuurd wordt.
+   */
+  key?: string;
   external?: boolean;
   tag: string;
-  discount?: string;
   hot?: boolean;
   image: string;
   alt: string;
@@ -16,13 +57,12 @@ interface ProductCard {
   eco?: boolean;
   chips: string[];
   price: string;
-  /** Price the design strikes through next to the discounted day rate. */
-  was?: string;
 }
 
 const MAIN: ProductCard[] = [
   {
     href: "/verhuur/toestel/ttk170",
+    key: "ttk170",
     tag: "Kleine ruimtes",
     image: "/vernast/eco-boost.webp",
     alt: "ECO Boost",
@@ -35,8 +75,8 @@ const MAIN: ProductCard[] = [
   },
   {
     href: "/verhuur/toestel/ttk350",
+    key: "ttk350",
     tag: "Meest gehuurd",
-    discount: "− 8% korting",
     hot: true,
     image: "/vernast/eco-performance.webp",
     alt: "ECO Performance",
@@ -46,10 +86,10 @@ const MAIN: ProductCard[] = [
     eco: true,
     chips: ["80 liter per dag", "tot 400 m³"],
     price: "€ 12,00",
-    was: "€ 13,00",
   },
   {
     href: "/verhuur/toestel/ttk650",
+    key: "ttk650",
     tag: "Grote volumes",
     image: "/vernast/eco-ultimate.webp",
     alt: "ECO Ultimate",
@@ -73,9 +113,17 @@ const MAIN: ProductCard[] = [
   },
 ];
 
+/*
+  Enkel toestellen die wij zelf verhuren en die een eigen pagina hebben. De
+  radiaalventilator en de kachel van 2 kW stonden hier ook, met een verzonnen
+  prijs en een link naar de pagina van een ánder toestel — wie op "Turbo
+  Radiaalventilator € 8" klikte, kwam op de axiaalventilator uit. Zodra ze in
+  het portaal als product gepubliceerd worden, horen ze hier weer thuis.
+*/
 const SUPPORT: ProductCard[] = [
   {
     href: "/verhuur/toestel/ttv4500",
+    key: "ttv4500",
     tag: "Luchtcirculatie",
     image: "/vernast/vent-axiaal.webp",
     alt: "Turbo Axiaalventilator",
@@ -85,17 +133,8 @@ const SUPPORT: ProductCard[] = [
     price: "€ 9,00",
   },
   {
-    href: "/verhuur/toestel/ttv4500",
-    tag: "Gericht drogen",
-    image: "/vernast/vent-radiaal.webp",
-    alt: "Turbo Radiaalventilator",
-    name: "Turbo Radiaalventilator",
-    blurb: "Blaast gericht over vloeren en chape, ideaal in combinatie met een droger.",
-    chips: ["2 250 m³/u", "vloeren & chape"],
-    price: "€ 8,00",
-  },
-  {
     href: "/verhuur/toestel/teddh30",
+    key: "teddh30",
     tag: "Verwarming",
     image: "/vernast/kachel-30.webp",
     alt: "Elektrische kachel 30",
@@ -104,24 +143,15 @@ const SUPPORT: ProductCard[] = [
     chips: ["3,30 kW", "thermostaat"],
     price: "€ 12,00",
   },
-  {
-    href: "/verhuur/toestel/teddh30",
-    tag: "Verwarming",
-    image: "/vernast/kachel-20.webp",
-    alt: "Elektrische kachel 20",
-    name: "Elektrische kachel 20",
-    blurb: "Compacte verwarming voor kleinere ruimtes tijdens de droogperiode.",
-    chips: ["2,00 kW", "compact"],
-    price: "€ 9,00",
-  },
 ];
 
 /** The card body is identical for internal and external links. */
-const CardBody = ({ card }: { card: ProductCard }) => (
+const CardBody = ({ card }: { card: ProductCard }) => {
+  const live = tariff(card.key);
+  return (
   <>
     <div className="pm">
       <span className="pt">{card.tag}</span>
-      {card.discount && <span className="pk">{card.discount}</span>}
       <img src={card.image} alt={card.alt} loading="lazy" />
     </div>
     <div className="pb">
@@ -133,7 +163,7 @@ const CardBody = ({ card }: { card: ProductCard }) => (
             <LeafIcon /> Eco
           </span>
         )}
-        {card.chips.map((chip) => (
+        {(live?.chips ?? card.chips).map((chip) => (
           <span className="chip" key={chip}>
             {chip}
           </span>
@@ -144,15 +174,14 @@ const CardBody = ({ card }: { card: ProductCard }) => (
           Product huren <ArrowRightIcon size={13} strokeWidth={2.6} />
         </span>
         <span className="pr">
-          vanaf<b>{card.price}</b>
-          <small>
-            /dag excl. btw{card.was && <> · <s>{card.was}</s></>}
-          </small>
+          vanaf<b>{live?.price ?? card.price}</b>
+          <small>/dag excl. btw</small>
         </span>
       </div>
     </div>
   </>
-);
+  );
+};
 
 const Card = ({ card }: { card: ProductCard }): ReactNode =>
   card.external ? (
@@ -174,8 +203,8 @@ const V3Products = () => (
           <h2 className="sec">Professionele toestellen voor elke droogsituatie.</h2>
           <p className="lede">
             Van één kamer tot grotere werven, van nieuwbouw tot waterschade: u kiest geen toestel,
-            maar een oplossing die past bij uw ruimte en droogdoel. Prijzen vanaf € 9 per dag, excl.
-            btw.
+            maar een oplossing die past bij uw ruimte en droogdoel. Prijzen vanaf € {DAY_PRICE_MIN} per
+            dag, excl. btw.
           </p>
           <div className="pnote">
             <InfoIcon />
