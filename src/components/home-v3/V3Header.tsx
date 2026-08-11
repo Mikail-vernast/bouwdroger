@@ -152,7 +152,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                         <Link to="/verhuur/boeking">Dekking &amp; eigen risico</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/boeking">Verlengen of stoppen</Link>
+                        <Link to="/klantservice#verlengen">Verlengen of stoppen</Link>
                       </li>
                     </ul>
                   </div>
@@ -216,9 +216,9 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
             <a className="item" href="/#voordelen">
               Over ons
             </a>
-            <a className="item" href="/#faq">
+            <Link className="item" to="/klantservice">
               Klantenservice
-            </a>
+            </Link>
             <a className="item" href="/#contact">
               Contact
             </a>

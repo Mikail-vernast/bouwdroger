@@ -63,6 +63,10 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/ContactPage")).default }),
       },
       {
+        path: "klantservice",
+        lazy: async () => ({ Component: (await import("./pages/KlantservicePage")).default }),
+      },
+      {
         path: "calculator",
         lazy: async () => ({ Component: (await import("./pages/CalculatorPage")).default }),
       },
