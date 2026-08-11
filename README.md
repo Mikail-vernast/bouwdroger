@@ -121,6 +121,42 @@ sjabloon klaar is.
 | `MAIL_CANCELLATION_HOURS` | kosteloos annuleren tot, standaard 48 |
 | `MAIL_DEFAULT_TIJDSLOT` | venster als er geen tijdslot gekozen is |
 
+### Kopie in de map Verzonden
+
+Brevo verstuurt vanaf zijn eigen servers. De mail draagt ons adres als afzender,
+maar Google ziet hem nooit — er staat dus niets van in Verzonden. Wie wil
+nakijken wat een klant precies gekregen heeft, moet daarvoor in Brevo duiken.
+
+`src/lib/sentCopy.ts` sluit dat gat op dezelfde manier als het portaal
+(`supabase/functions/_shared/archive-sent-copy.ts` in Vernast v2.0): een
+Workspace-service-account met domain-wide delegation zet het bericht met
+`users.messages.insert` en het label `SENT` rechtstreeks in de mailbox van de
+afzender. `insert` — niet `import` — slaat routing en spamcontrole over, dus de
+klant krijgt geen tweede mail.
+
+Een tekstmail gaat er meteen in. Bij een sjabloonmail zit de opmaak bij Brevo en
+wordt de gerenderde HTML daar opgehaald (`GET /v3/smtp/emails/{uuid}`, in
+productie zo'n twintig seconden na het versturen beschikbaar). Dat wachten valt
+buiten het antwoord van de functie — geen bezoeker en geen webhook wacht erop.
+
+De kopie draagt de `Message-ID` van Brevo, dus het is hetzelfde bericht als wat
+de klant ontving en niet een tweede mail die erop lijkt; Gmail hangt het antwoord
+van de klant aan hetzelfde gesprek.
+
+Ontbreekt de sleutel — een preview-deploy bijvoorbeeld — dan gebeurt er niets.
+Een kopie die niet lukt, blijft een logregel: de mail zelf is dan al vertrokken.
+
+| Variabele | Waarvoor |
+|---|---|
+| `GOOGLE_SERVICE_ACCOUNT_KEY` | de service-account-JSON; dezelfde als in het portaal |
+| `SENT_COPY_MAILBOX` | in welke mailbox de kopie belandt, standaard `BREVO_SENDER_EMAIL` |
+
+De scopes staan al in Google Workspace Admin → Security → API Controls →
+Domain-wide delegation, want het portaal gebruikt ze al. Voor deze site is
+`https://www.googleapis.com/auth/gmail.insert` de enige die telt. Delegatie werkt
+alleen binnen het eigen domein: een afzender buiten `@vernast.be` krijgt geen
+kopie.
+
 ### Slack
 
 Elke betaalde order valt binnen in een Slack-kanaal (`#bouwdroger-orders`), zodat

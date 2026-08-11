@@ -18,6 +18,7 @@
  */
 
 import { withRetry, type Attempted } from "./retry.js";
+import { scheduleSentCopy } from "./sentCopy.js";
 
 const API = "https://api.brevo.com/v3";
 
@@ -47,6 +48,21 @@ export interface BrevoMail {
 interface Sender {
   email: string;
   name: string;
+}
+
+/**
+ * Wat Brevo teruggaf toen het lukte. De `messageId` is de enige greep die we op
+ * een verstuurde mail hebben: `sentCopy.ts` haalt er de opgemaakte inhoud mee op
+ * en zet die als `Message-ID` in de kopie in Verzonden.
+ */
+interface Sent extends Attempted {
+  messageId?: string;
+}
+
+/** De `messageId` uit een antwoord van Brevo, als hij er staat. */
+function messageIdOf(body: unknown): string | undefined {
+  const id = (body as { messageId?: unknown } | null)?.messageId;
+  return typeof id === "string" && id ? id : undefined;
 }
 
 /**
@@ -107,7 +123,7 @@ async function templateExists(apiKey: string, templateId: number): Promise<boole
   }
 }
 
-async function post(apiKey: string, from: Sender, mail: BrevoMail): Promise<Attempted> {
+async function post(apiKey: string, from: Sender, mail: BrevoMail): Promise<Sent> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
@@ -135,7 +151,7 @@ async function post(apiKey: string, from: Sender, mail: BrevoMail): Promise<Atte
       return { ok: false, reason: `HTTP ${response.status}: ${body.slice(0, 200)}` };
     }
 
-    return { ok: true };
+    return { ok: true, messageId: messageIdOf(await response.json().catch(() => null)) };
   } catch (error: unknown) {
     return { ok: false, reason: error instanceof Error ? error.message : "onbekende fout" };
   } finally {
@@ -165,7 +181,27 @@ export async function sendTemplate(mail: BrevoMail): Promise<Attempted> {
     return { ok: false, reason: `sjabloon ${mail.templateId} bestaat niet bij Brevo` };
   }
 
-  return withRetry(() => post(apiKey, from, mail), { tries: TRIES, delaysMs: DELAYS_MS });
+  const result = await withRetry(() => post(apiKey, from, mail), {
+    tries: TRIES,
+    delaysMs: DELAYS_MS,
+  });
+
+  /*
+    Geen `subject` en geen `text`: de opmaak zit in het sjabloon bij Brevo, dus
+    `sentCopy.ts` haalt de gerenderde mail daar op. Zie de uitleg daar over
+    waarom dat pas een halve minuut later kan.
+  */
+  if (result.ok && result.messageId) {
+    scheduleSentCopy({
+      messageId: result.messageId,
+      from,
+      to: mail.to,
+      replyTo: mail.replyTo,
+      templateId: mail.templateId,
+    });
+  }
+
+  return result;
 }
 
 /**
@@ -189,7 +225,7 @@ export async function sendPlain(options: {
   const from = sender();
   if (!from) return { ok: false, reason: "BREVO_SENDER_EMAIL ontbreekt" };
 
-  const send = async (): Promise<Attempted> => {
+  const send = async (): Promise<Sent> => {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
@@ -216,7 +252,7 @@ export async function sendPlain(options: {
         const body = await response.text().catch(() => "");
         return { ok: false, reason: `HTTP ${response.status}: ${body.slice(0, 200)}` };
       }
-      return { ok: true };
+      return { ok: true, messageId: messageIdOf(await response.json().catch(() => null)) };
     } catch (error: unknown) {
       return { ok: false, reason: error instanceof Error ? error.message : "onbekende fout" };
     } finally {
@@ -224,5 +260,22 @@ export async function sendPlain(options: {
     }
   };
 
-  return withRetry(send, { tries: TRIES, delaysMs: DELAYS_MS });
+  const result = await withRetry(send, { tries: TRIES, delaysMs: DELAYS_MS });
+
+  /*
+    Onderwerp en inhoud kennen we hier zelf, dus deze kopie hoeft niet op Brevo
+    te wachten en gaat meteen de mailbox in.
+  */
+  if (result.ok && result.messageId) {
+    scheduleSentCopy({
+      messageId: result.messageId,
+      from,
+      to: options.to,
+      replyTo: options.replyTo,
+      subject: options.subject,
+      text: options.text,
+    });
+  }
+
+  return result;
 }
