@@ -702,7 +702,11 @@ html { scroll-behavior: smooth; }
 .v3 .cf-files .cfile{display:flex;align-items:center;gap:10px;font-size:13px;background:var(--bg-alt);border-radius:9px;padding:9px 13px}
 .v3 .cf-files .cfile b{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .v3 .cf-files .cfile button{border:0;background:none;color:var(--txt-dim);cursor:pointer;font-size:15px}
+.v3 .cf-note{font-size:12.5px;color:var(--txt-dim);line-height:1.55;margin:0 0 12px}
+.v3 .cf-note a{color:var(--red);font-weight:700}
+.v3 .cf-error{font-size:13px;color:#b3261e;background:#fdeceb;border-radius:9px;padding:10px 13px;line-height:1.5;margin:0 0 12px}
 .v3 .cf-nav{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.v3 .cf-nav .btn:disabled,.v3 .cf-back:disabled{opacity:.55;cursor:not-allowed}
 .v3 .cf-back{border:0;background:none;font-family:var(--fb);font-weight:700;font-size:14px;color:var(--txt-mid);cursor:pointer}
 .v3 .cf-done{text-align:center;padding:26px 10px}
 .v3 .cf-done span{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#0e7a3d;color:#fff;font-size:26px;margin-bottom:14px}
