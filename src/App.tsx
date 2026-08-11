@@ -134,6 +134,13 @@ export const routes: RouteRecord[] = [
         }),
       },
       {
+        // De QR die de technieker bij de installatie toont; staat op noindex.
+        path: "verhuur/saldo",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurSaldoPage")).default,
+        }),
+      },
+      {
         // Alleen bereikbaar via de link in de verlengmail; staat op noindex.
         path: "verhuur/verlengen",
         lazy: async () => ({

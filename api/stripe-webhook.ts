@@ -12,7 +12,7 @@
 import Stripe from "stripe";
 import { logAvailabilityFailure, releaseHold } from "../src/lib/availability.js";
 import { isReference } from "../src/lib/booking.js";
-import { deliverOrder } from "../src/lib/vernastOrder.js";
+import { BALANCE_TYPE, deliverBalancePayment, deliverOrder } from "../src/lib/vernastOrder.js";
 
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -70,6 +70,17 @@ export async function POST(request: Request): Promise<Response> {
   // onze eigen checkout zijn aangemaakt, zodat deze route geen venster wordt op
   // de rest van het Stripe-account.
   if (!isReference(session.client_reference_id) || !isReference(session.metadata?.referentie)) {
+    return json({ received: true });
+  }
+
+  /*
+    Het saldo dat de klant bij de installatie afrekent. Dat is een tweede sessie
+    voor een boeking die al bestaat: ze werkt de order bij in plaats van er een
+    nieuwe te maken, en dát moment maakt in het portaal de factuur.
+  */
+  if (session.metadata?.type === BALANCE_TYPE) {
+    const settled = await deliverBalancePayment(stripe, session, "stripe-saldo");
+    if (!settled) return json({ error: "Doorsturen naar Vernast mislukt." }, 500);
     return json({ received: true });
   }
 
