@@ -5,7 +5,7 @@ import { PRODUCTS } from "@/data/verhuur";
 import { DAY_PRICE_MIN } from "@/data/tarieflijst";
 
 /**
- * Prijs en specs van één kaart, uit de gepubliceerde tarieven.
+ * Naam, tekst, prijs en specs van één kaart, uit de gepubliceerde tarieven.
  *
  * De kaarten droegen hun eigen bedragen uit de designhandoff: "vanaf € 9,00 per
  * dag" op de ECO Boost, terwijl diezelfde TTK 170 op de pagina waar de kaart
@@ -13,9 +13,12 @@ import { DAY_PRICE_MIN } from "@/data/tarieflijst";
  * Hetzelfde gold voor de specs (80 l/dag op een toestel dat er 70 haalt) en
  * voor een doorgestreepte "− 8% korting" die nergens op sloeg.
  *
- * Alles wat een bedrag of een cijfer is, komt nu uit `PRODUCTS` — dezelfde bron
- * als de detailpagina en de boekingsmodule. De kaart houdt enkel haar eigen
- * beeld en tekst.
+ * Ook de naam kwam hier vandaan, en dus bleef een toestel dat in het portaal
+ * hernoemd werd op de homepage zijn oude naam dragen — terwijl de detailpagina
+ * waar de kaart naartoe linkt de nieuwe droeg. Alles wat in het portaal
+ * bewerkbaar is, komt nu uit `PRODUCTS`; de kaart houdt enkel haar eigen beeld
+ * en haar eco-label. Wat hier nog als tekst staat, geldt als terugval voor een
+ * toestel dat (nog) niet te huur staat.
  */
 function tariff(key: string | undefined) {
   const product = key ? PRODUCTS[key] : undefined;
@@ -25,11 +28,15 @@ function tariff(key: string | undefined) {
     if (name === "Vochtafvoer") return `${value} liter per dag`;
     if (name === "Bereik") return `tot ${value} m³`;
     if (unit) return `${value} ${unit}`;
-    // "Standen 3" → "3 standen"; "Thermostaat ja" → gewoon "thermostaat".
-    return /^\d/.test(value) ? `${value} ${name.toLowerCase()}` : name.toLowerCase();
+    if (/^\d/.test(value)) return `${value} ${name.toLowerCase()}`; // "Standen 3" → "3 standen"
+    // "Thermostaat ja" → "thermostaat", maar "Techniek adsorptie" → "adsorptie".
+    return value === "ja" ? name.toLowerCase() : value;
   };
 
   return {
+    name: product.short,
+    tag: product.badge,
+    blurb: product.sum,
     price: `€ ${product.day.toLocaleString("nl-BE", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
@@ -54,6 +61,7 @@ interface ProductCard {
   alt: string;
   name: string;
   blurb: string;
+  /** Enkel de condensontvochtigers uit de ECO-lijn; de adsorptiedroger niet. */
   eco?: boolean;
   chips: string[];
   price: string;
@@ -99,26 +107,46 @@ const MAIN: ProductCard[] = [
     chips: ["150 liter per dag", "tot 600 m³"],
     price: "€ 16,00",
   },
-  {
-    href: "https://www.bouwdrogerservice.be/collections/bouwdrogers/products/eco-revolution",
-    external: true,
-    tag: "Plaatselijk drogen",
-    image: "/vernast/eco-revolution.webp",
-    alt: "ECO Revolution",
-    name: "ECO Revolution",
-    blurb: "Droogt gericht via slangen: onder vloeren, in wanden en op moeilijk bereikbare plekken.",
-    eco: true,
-    chips: ["Adsorptie", "gericht drogen"],
-    price: "€ 25,00",
-  },
+  /*
+    De ECO Revolution staat nog niet in ons depot, dus zolang het portaal hem
+    niet te huur zet, blijft deze kaart naar de webshop wijzen. Zodra de
+    schakelaar daar aan gaat, bestaat `PRODUCTS.revolution` en verwijst de kaart
+    naar onze eigen pagina — met de prijs die in het portaal staat.
+  */
+  PRODUCTS.revolution
+    ? {
+        href: "/verhuur/toestel/revolution",
+        key: "revolution",
+        tag: "Plaatselijk drogen",
+        image: "/vernast/eco-revolution.webp",
+        alt: "ECO Revolution",
+        name: "ECO Revolution",
+        blurb:
+          "Droogt gericht via slangen: onder vloeren, in wanden en op moeilijk bereikbare plekken.",
+        chips: ["Adsorptie", "gericht drogen"],
+        price: "€ 25,00",
+      }
+    : {
+        href: "https://www.bouwdrogerservice.be/collections/bouwdrogers/products/eco-revolution",
+        external: true,
+        tag: "Plaatselijk drogen",
+        image: "/vernast/eco-revolution.webp",
+        alt: "ECO Revolution",
+        name: "ECO Revolution",
+        blurb:
+          "Droogt gericht via slangen: onder vloeren, in wanden en op moeilijk bereikbare plekken.",
+        chips: ["Adsorptie", "gericht drogen"],
+        price: "€ 25,00",
+      },
 ];
 
 /*
   Enkel toestellen die wij zelf verhuren en die een eigen pagina hebben. De
-  radiaalventilator en de kachel van 2 kW stonden hier ook, met een verzonnen
+  radiaalventilator en de kleine kachel stonden hier eerder met een verzonnen
   prijs en een link naar de pagina van een ánder toestel — wie op "Turbo
-  Radiaalventilator € 8" klikte, kwam op de axiaalventilator uit. Zodra ze in
-  het portaal als product gepubliceerd worden, horen ze hier weer thuis.
+  Radiaalventilator € 8" klikte, kwam op de axiaalventilator uit. Nu zijn het
+  echte producten in het portaal, met een eigen pagina en een prijs uit de
+  gepubliceerde tarieven, dus staan ze hier weer.
 */
 const SUPPORT: ProductCard[] = [
   {
@@ -133,6 +161,17 @@ const SUPPORT: ProductCard[] = [
     price: "€ 9,00",
   },
   {
+    href: "/verhuur/toestel/radiaal2250",
+    key: "radiaal2250",
+    tag: "Gericht drogen",
+    image: "/vernast/vent-radiaal.webp",
+    alt: "Turbo Radiaalventilator",
+    name: "Turbo Radiaalventilator",
+    blurb: "Blaast gericht over vloeren en chape, ideaal in combinatie met een droger.",
+    chips: ["2 250 m³/u", "vloeren & chape"],
+    price: "€ 8,00",
+  },
+  {
     href: "/verhuur/toestel/teddh30",
     key: "teddh30",
     tag: "Verwarming",
@@ -143,6 +182,17 @@ const SUPPORT: ProductCard[] = [
     chips: ["3,30 kW", "thermostaat"],
     price: "€ 12,00",
   },
+  {
+    href: "/verhuur/toestel/teddh20",
+    key: "teddh20",
+    tag: "Verwarming",
+    image: "/vernast/kachel-20.webp",
+    alt: "Elektrische kachel 20",
+    name: "Elektrische kachel 20",
+    blurb: "Compacte verwarming voor kleinere ruimtes tijdens de droogperiode.",
+    chips: ["20 kW", "thermostaat"],
+    price: "€ 9,00",
+  },
 ];
 
 /** The card body is identical for internal and external links. */
@@ -151,12 +201,12 @@ const CardBody = ({ card }: { card: ProductCard }) => {
   return (
   <>
     <div className="pm">
-      <span className="pt">{card.tag}</span>
+      <span className="pt">{live?.tag ?? card.tag}</span>
       <img src={card.image} alt={card.alt} loading="lazy" />
     </div>
     <div className="pb">
-      <h3>{card.name}</h3>
-      <p>{card.blurb}</p>
+      <h3>{live?.name ?? card.name}</h3>
+      <p>{live?.blurb ?? card.blurb}</p>
       <div className="chips">
         {card.eco && (
           <span className="chip eco">

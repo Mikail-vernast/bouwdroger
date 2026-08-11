@@ -36,17 +36,23 @@ export function parseSelection(raw: string | null | undefined): PickupLine[] {
     const product = PICKUP_BY_KEY[(key ?? "").trim()];
     const qty = Math.floor(Number(count));
     if (!product || !Number.isFinite(qty) || qty <= 0) continue;
-    const total = Math.min(MAX_PER_PRODUCT, (seen.get(product.key) ?? 0) + qty);
+    // Het plafond komt van het toestel zelf: onze vloot, afgetopt op het
+    // algemene maximum. Van de ECO Revolution hebben we er één — dan is één
+    // ook het hoogste dat de server aanvaardt, wat de URL ook beweert.
+    const total = Math.min(product.max, (seen.get(product.key) ?? 0) + qty);
     seen.set(product.key, total);
   }
-  return [...seen].map(([key, qty]) => ({ product: PICKUP_BY_KEY[key], qty }));
+  return [...seen]
+    .filter(([, qty]) => qty > 0)
+    .map(([key, qty]) => ({ product: PICKUP_BY_KEY[key], qty }));
 }
 
 /** Tegenhanger van `parseSelection`, voor de URL en de request. */
 export function serializeSelection(quantities: Record<string, number>): string {
   return Object.entries(quantities)
     .filter(([key, qty]) => PICKUP_BY_KEY[key] && qty > 0)
-    .map(([key, qty]) => `${key}:${Math.min(MAX_PER_PRODUCT, Math.floor(qty))}`)
+    .map(([key, qty]) => `${key}:${Math.min(PICKUP_BY_KEY[key].max, Math.floor(qty))}`)
+    .filter((part) => !part.endsWith(":0"))
     .join(",");
 }
 
@@ -90,18 +96,21 @@ export function pickupSummary(lines: PickupLine[], days: number): PickupSummary 
 }
 
 /**
- * De toestelsoorten zoals het depot ze kent. Wat geen `device_key` heeft valt
- * weg: liever geen regel dan een verzonnen soort waarop de
- * beschikbaarheidscontrole en de automatische toewijzing gaan rekenen.
+ * De toestellen zoals het depot ze kent — één regel per gekozen product.
+ *
+ * Bewust op `product_key` en niet op de pakketrol: wie hier een adsorptiedroger
+ * of de kachel van 20 kW kiest, heeft die pagina gezien en verwacht dat toestel.
+ * Op de rol toewijzen zou een condensontvochtiger of de kachel van 30 kW mogen
+ * sturen. Toestellen zonder rol (adsorptiedroger, radiaal, TTK 650) vielen hier
+ * vroeger helemaal weg — dan bleef er niets over om automatisch toe te wijzen,
+ * en telde de reservatie ook niet mee voor de beschikbaarheid.
  */
 export function pickupDeviceLines(lines: PickupLine[]): DeviceLine[] {
   const out = new Map<string, DeviceLine>();
   for (const line of lines) {
-    const key = line.product.device;
-    if (!key) continue;
-    const existing = out.get(key);
+    const existing = out.get(line.product.key);
     if (existing) existing.qty += line.qty;
-    else out.set(key, { device_key: key, qty: line.qty });
+    else out.set(line.product.key, { product_key: line.product.key, qty: line.qty });
   }
   return [...out.values()];
 }

@@ -12,8 +12,9 @@ import {
   SC_LABEL,
   type Product,
 } from "@/data/verhuur";
-import { PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
+import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
 import { serializeSelection } from "@/lib/afhalen";
+import { firstFreeDate, usePickupAvailability } from "@/hooks/usePickupAvailability";
 import { addDays, euroInt, isoDate } from "@/lib/verhuur";
 import { breadcrumbSchema, faqSchema, productSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
@@ -70,24 +71,36 @@ const PICKUP_STEPS = [
 */
 const PERIODS = PICKUP_PERIODS;
 
-const NAV_MODELS: [string, string][] = [
-  ["ttk170", "Ontvochtiger TTK 170 S"],
-  ["ttk350", "Ontvochtiger TTK 350 S"],
-  ["ttk650", "Ontvochtiger TTK 650 S"],
-  ["ttv4500", "Ventilator TTV 4500"],
-  ["teddh30", "Elektrische kachel TEddH 30 T"],
-];
-
 const VerhuurToestelPage = () => {
   const { model } = useParams();
   const [searchParams] = useSearchParams();
 
-  const key = model && PRODUCTS[model] ? model : "ttk350";
+  // Valt terug op het eerste toestel uit het gamma: "ttk350" hardcoderen breekt
+  // zodra dat toestel in het portaal uit de verhuur gehaald wordt.
+  const key = model && PRODUCTS[model] ? model : PRODUCT_ORDER[0];
   const prod: Product = PRODUCTS[key];
   // De afhaalvragen gelden voor elk toestel en staan onder de specifieke FAQ.
   const questions: [string, string][] = [...prod.faq, ...PICKUP_FAQ];
 
-  const [qty, setQty] = useState(() => Math.max(1, parseInt(searchParams.get("units") || "1", 10) || 1));
+  /*
+    Hoeveel stuks deze bezoeker mag kiezen. Van sommige toestellen hebben we er
+    één; liet de teller hier tot twaalf lopen, dan rekende de pagina een totaal
+    voor dat de afhaal-checkout meteen weer naar beneden bijstelt.
+  */
+  const maxQty = Math.min(MAX_QTY, PICKUP_BY_KEY[key]?.max ?? MAX_QTY);
+
+  /*
+    Het cijfer waarmee dit toestel zich in de paginatitel voorstelt:
+    "vochtafvoer 50 L/dag". Draagt de eerste fiche-regel geen eenheid — bij de
+    adsorptiedroger staat er "techniek adsorptie" — dan levert dat een titel op
+    die halverwege stilvalt, en blijft "ECO Revolution huren | Vernast" over.
+  */
+  const [specLabel, specValue, specUnit] = prod.key[0];
+  const headline = specUnit ? ` — ${specLabel.toLowerCase()} ${specValue} ${specUnit}` : "";
+
+  const [qty, setQty] = useState(() =>
+    Math.max(1, Math.min(maxQty, parseInt(searchParams.get("units") || "1", 10) || 1))
+  );
   const [days, setDays] = useState(7);
   const [addons, setAddons] = useState<Record<string, boolean>>({});
   const [shot, setShot] = useState(0);
@@ -117,12 +130,27 @@ const VerhuurToestelPage = () => {
     aantal, periode en afhaalmoment opnieuw kiezen — terwijl hij dat net had
     gedaan. De pagina aan de andere kant leest ze met `parseSelection`.
   */
+  const selection = serializeSelection({
+    [key]: qty,
+    ...Object.fromEntries(chosenAddons.map((k) => [k, 1])),
+  });
+
   const pickupQuery = new URLSearchParams({
-    d: serializeSelection({ [key]: qty, ...Object.fromEntries(chosenAddons.map((k) => [k, 1])) }),
+    d: selection,
     days: String(days),
     date: startDate,
     slot,
   }).toString();
+
+  /*
+    Van sommige toestellen hebben we er één. Zonder deze controle stelde de
+    pagina "Direct beschikbaar" en een startdatum voor die al verhuurd was, en
+    liep de bezoeker pas bij het afrekenen tegen een weigering aan.
+  */
+  const { blocked, loading: checkingDates, failed: checkFailed, horizonDays } =
+    usePickupAvailability(selection, days);
+  const dateBlocked = blocked.includes(startDate);
+  const suggestion = dateBlocked ? firstFreeDate(startDate, blocked, horizonDays) : null;
 
   const cross = PRODUCT_ORDER.filter((k) => k !== key);
   const vol = searchParams.get("vol");
@@ -131,7 +159,7 @@ const VerhuurToestelPage = () => {
   return (
     <div className="vh-prod">
       <PageMeta
-        title={`${prod.short} huren — ${prod.key[0][0].toLowerCase()} ${prod.key[0][1]} ${prod.key[0][2]} | Vernast`}
+        title={`${prod.short} huren${headline} | Vernast`}
         description={prod.sum}
         path={`/verhuur/toestel/${key}`}
         image={prod.img[0]}
@@ -235,8 +263,20 @@ const VerhuurToestelPage = () => {
               <div className="book">
                 <div className="bh">
                   <span className="bt">Afhaalreservatie</span>
-                  <span className="stock">
-                    <span className="d" /> Direct beschikbaar
+                  {/*
+                    Geen belofte die we niet kunnen waarmaken: antwoordt de
+                    controle niet, dan zegt de badge dat eerlijk in plaats van
+                    "Direct beschikbaar" te blijven tonen.
+                  */}
+                  <span className={`stock${dateBlocked || checkFailed ? " op" : ""}`}>
+                    <span className="d" />{" "}
+                    {checkingDates
+                      ? "Beschikbaarheid nakijken…"
+                      : checkFailed
+                        ? "Beschikbaarheid onbekend"
+                        : dateBlocked
+                          ? "Bezet op deze datum"
+                          : "Direct beschikbaar"}
                   </span>
                 </div>
                 <div className="bb">
@@ -253,8 +293,11 @@ const VerhuurToestelPage = () => {
                       <input
                         type="date"
                         id="startDate"
+                        className={dateBlocked ? "bezet" : undefined}
                         value={startDate}
                         min={isoDate(new Date())}
+                        aria-invalid={dateBlocked}
+                        aria-describedby={dateBlocked ? "dateWarn" : undefined}
                         onChange={(e) => setStartDate(e.target.value)}
                       />
                     </div>
@@ -289,7 +332,8 @@ const VerhuurToestelPage = () => {
                         <button
                           type="button"
                           aria-label="Meer"
-                          onClick={() => setQty((q) => Math.min(MAX_QTY, q + 1))}
+                          disabled={qty >= maxQty}
+                          onClick={() => setQty((q) => Math.min(maxQty, q + 1))}
                         >
                           +
                         </button>
@@ -304,6 +348,33 @@ const VerhuurToestelPage = () => {
                       </select>
                     </div>
                   </div>
+
+                  {dateBlocked && (
+                    <div className="datewarn" id="dateWarn" role="status">
+                      <b>
+                        Op {new Date(`${startDate}T00:00:00`).toLocaleDateString("nl-BE", {
+                          day: "numeric",
+                          month: "long",
+                        })}{" "}
+                        staat {qty > 1 ? "dit aantal" : "dit toestel"} al ingepland.
+                      </b>
+                      {suggestion ? (
+                        <>
+                          {" "}
+                          De eerstvolgende vrije startdatum is{" "}
+                          <button type="button" onClick={() => setStartDate(suggestion)}>
+                            {new Date(`${suggestion}T00:00:00`).toLocaleDateString("nl-BE", {
+                              day: "numeric",
+                              month: "long",
+                            })}
+                          </button>
+                          .
+                        </>
+                      ) : (
+                        " De komende weken is er niets vrij — bel ons op 03 689 90 65."
+                      )}
+                    </div>
+                  )}
 
                   {addonKeys.length > 0 && (
                     <div className="addons">
@@ -359,10 +430,22 @@ const VerhuurToestelPage = () => {
                   </div>
                 </div>
                 <div className="bf">
-                  <Link className="btn btn-red" to={`/verhuur/afhalen?${pickupQuery}`}>
-                    Reserveer voor afhaling — {euroInt(total)}
-                    <ArrowRightIcon strokeWidth={2.4} />
-                  </Link>
+                  {/*
+                    Een bezette datum stopt hier, niet pas op de afhaalpagina: die
+                    zou dezelfde datum overnemen en pas bij het afrekenen weigeren.
+                    Faalt de controle zelf, dan blijft de knop gewoon werken — de
+                    server kijkt het daar hoe dan ook opnieuw na.
+                  */}
+                  {dateBlocked ? (
+                    <button className="btn btn-red" type="button" disabled>
+                      Niet beschikbaar op deze datum
+                    </button>
+                  ) : (
+                    <Link className="btn btn-red" to={`/verhuur/afhalen?${pickupQuery}`}>
+                      Reserveer voor afhaling — {euroInt(total)}
+                      <ArrowRightIcon strokeWidth={2.4} />
+                    </Link>
+                  )}
                   <div className="note">
                     Geen voorschot · lagere afhaalprijzen · liever geleverd én geïnstalleerd? Dat kan{" "}
                     <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 700 }}>

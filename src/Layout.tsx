@@ -1,11 +1,14 @@
 import { useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import ScrollToTop from "@/components/ScrollToTop";
+import { useRoutePattern } from "@/hooks/useRoutePattern";
 import { markFirstPaintDone } from "@/lib/firstPaint";
 
 const queryClient = new QueryClient();
@@ -34,6 +37,7 @@ const queryClient = new QueryClient();
  */
 const Layout = () => {
   const location = useLocation();
+  const route = useRoutePattern();
 
   /*
     Het pad waarmee dit document geopend werd. Dát is de pagina die niet mag
@@ -68,6 +72,8 @@ const Layout = () => {
         <Sonner />
         <ScrollToTop />
         <FloatingWhatsApp />
+        <Analytics route={route} />
+        <SpeedInsights route={route} />
         <div key={location.pathname} className={navigated.current ? "page-enter" : undefined}>
           <Outlet />
         </div>

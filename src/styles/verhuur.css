@@ -1324,6 +1324,19 @@
 .vh-prod .book .bh .bt{font-family:var(--fb);font-weight:600;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim)}
 .vh-prod .book .bh .stock{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#0f8a4a}
 .vh-prod .book .bh .stock .d{width:7px;height:7px;border-radius:50%;background:#12a558}
+/* Bezet op de gekozen datum: hetzelfde bolletje, andere boodschap. */
+.vh-prod .book .bh .stock.op{color:#b4551a}
+.vh-prod .book .bh .stock.op .d{background:#e0821f}
+
+/*
+  Waarschuwing bij een datum die al vol zit. Staat op beide pagina's die een
+  afhaaldatum vragen, dus de opmaak hangt niet aan .vh-prod.
+*/
+.datewarn{margin:0 0 16px;padding:11px 13px;border:1px solid #f0d3a8;border-radius:9px;background:#fdf6ec;font-family:var(--fb);font-size:13px;line-height:1.5;color:#7a4a12}
+.datewarn b{font-weight:700;color:#663d0d}
+.datewarn button{border:0;background:none;padding:0;font:inherit;font-weight:700;color:var(--red);text-decoration:underline;cursor:pointer}
+.datewarn button:hover{opacity:.8}
+.fld input.bezet{border-color:#e0a45c;background:#fffaf3}
 .vh-prod .book .bb{padding:22px 20px 20px}
 .vh-prod .brow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .vh-prod .fld label{display:block;font-family:var(--fb);font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:7px}
@@ -1572,6 +1585,11 @@
 .vh-pick .stp button{width:32px;height:32px;border-radius:50%;border:0;background:#fff;font-size:16px;font-weight:700;cursor:pointer;color:var(--txt);box-shadow:0 2px 6px rgba(0,0,0,.08)}
 .vh-pick .stp button:hover{color:var(--red)}
 .vh-pick .stp span{width:34px;text-align:center;font-weight:700;font-size:14px}
+/* De plusknop op zijn maximum: klikbaar houden zou niets meer doen. */
+.vh-pick .stp button:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+.vh-pick .stp button:disabled:hover{color:var(--txt)}
+/* Alles van dit toestel staat in onderhoud of is uit dienst. */
+.vh-pick .stp-uit{display:inline-block;padding:6px 12px;border-radius:99px;background:var(--page);color:var(--txt-mid);font-size:12px;font-weight:700;white-space:nowrap}
 .vh-pick .frow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .vh-pick .frow.two{grid-template-columns:1fr 1fr}
 .vh-pick .fld label{display:block;font-size:12.5px;font-weight:700;margin-bottom:7px}

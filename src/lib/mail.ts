@@ -801,6 +801,59 @@ export interface ContactMessage {
   bericht: string;
 }
 
+/**
+ * De ontvangstbevestiging draait op sjabloon 202 ("contact formulier
+ * bevestiging") — dezelfde die vernast.be en vernast-vochtbestrijding voor hún
+ * contactformulier gebruiken (`supabase/functions/contact-submission`).
+ *
+ * Anders dan de vorige schil (96) draagt 202 zijn eigen tekst én zijn eigen
+ * onderwerp. Er gaat dus geen geschreven body meer mee: het sjabloon vult
+ * alleen nog de velden van de klant in — `voornaam`, `klant_naam`, `email`,
+ * `telefoon`, `onderwerp`, `bericht` en `verzonden_op`. `onderwerp` en
+ * `verzonden_op` staan er in het sjabloon achter een `{% if %}`, dus leeg
+ * laten is veilig; de rest niet, want die blokken staan er altijd.
+ *
+ * Het telefoonnummer dat de klant te zien krijgt, staat vast in het sjabloon
+ * en is hetzelfde nummer als `TELEFOON`.
+ *
+ * De afzender blijft van ons — `sendTemplate` zet altijd `BREVO_SENDER_EMAIL`
+ * en negeert de afzender die in het sjabloon staat (info@vernast.be).
+ */
+function contactConfirmationParams(message: ContactMessage): Record<string, unknown> {
+  const naam = message.naam.trim();
+  return {
+    voornaam: naam.split(/\s+/)[0] || "klant",
+    klant_naam: naam,
+    email: message.email.trim(),
+    telefoon: plain(message.telefoon),
+    onderwerp: plain(message.onderwerp),
+    /*
+      Onbewerkt, met de regelafbrekingen van de klant erin. Brevo escapet een
+      parameter zelf voor hij in het sjabloon belandt — een `<br />` die wij
+      erin zetten komt als leesbare tekst aan, en wie de tekens vooraf zelf
+      neutraliseert krijgt `&lt;b&gt;` in de mailbox van de klant. Beide zijn
+      hier eerst in productie gemeten. De regelafbrekingen overleven doordat
+      het berichtblok in sjabloon 202 `white-space: pre-line` draagt.
+    */
+    bericht: message.bericht.trim(),
+    verzonden_op: formatDateTime(new Date()),
+  };
+}
+
+/** "11 augustus 2026 om 14:32" — het moment waarop het formulier binnenkwam. */
+function formatDateTime(date: Date): string {
+  return new Intl.DateTimeFormat("nl-BE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Brussels",
+  })
+    .format(date)
+    .replace(/,\s*/, " om ");
+}
+
 /** Contactformulier: kopie aan de klant, het bericht zelf naar het team. */
 export async function sendContactMails(message: ContactMessage): Promise<void> {
   const params: Record<string, unknown> = {
@@ -819,7 +872,10 @@ export async function sendContactMails(message: ContactMessage): Promise<void> {
     hier de enige opslag.
   */
   await Promise.all([
-    sendToSelfChosenAddress("contact_ontvangen", from, params),
+    sendToSelfChosenAddress("contact_ontvangen", from, {
+      ...params,
+      ...contactConfirmationParams(message),
+    }),
     send("intern_contact", teamRecipient(), params, from),
   ]);
 }

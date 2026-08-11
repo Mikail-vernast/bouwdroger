@@ -1,0 +1,341 @@
+/* ============================================================
+   Foutpagina — de schil die react-router toont wanneer een route
+   crasht. Staat bewust op eigen CSS in plaats van op de tokens van
+   verhuur.css/home-v3.css: deze pagina moet ook overeind blijven als
+   juist die pagina's de fout veroorzaakten.
+
+   Palet en typografie volgen wel dezelfde huisstijl (rood #C8102E,
+   maroon #6B0F13, papier #F1EFEF, Plus Jakarta Sans) zodat een
+   bezoeker niet het gevoel krijgt op een vreemde site te zijn beland.
+   ============================================================ */
+
+.err {
+  --err-red: #c8102e;
+  --err-maroon: #6b0f13;
+  --err-ink: #141414;
+  --err-mid: rgba(20, 20, 20, 0.62);
+  --err-dim: rgba(20, 20, 20, 0.42);
+  --err-line: rgba(20, 20, 20, 0.1);
+  --err-line-2: rgba(20, 20, 20, 0.18);
+  --err-page: #f1efef;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--err-page);
+  color: var(--err-ink);
+  font-family: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.err *,
+.err *::before,
+.err *::after {
+  box-sizing: border-box;
+}
+
+.err a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --- Merkbalk: klein, zodat de boodschap zelf de aandacht krijgt --- */
+.err-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 26px 28px;
+  border-bottom: 1px solid var(--err-line);
+}
+
+.err-mark {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.err-mark span {
+  color: var(--err-red);
+}
+
+.err-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--err-dim);
+  padding-left: 12px;
+  border-left: 1px solid var(--err-line-2);
+}
+
+/* --- Hoofdblok --- */
+.err-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: clamp(40px, 7vw, 96px) 28px;
+}
+
+.err-wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+/*
+  De statuscode als beeldelement in plaats van als tekstregel. Hij is
+  aria-hidden: de leesbare boodschap staat in de kop ernaast.
+*/
+.err-code {
+  position: relative;
+  min-width: 0;
+  font-size: clamp(120px, 20vw, 240px);
+  line-height: 0.82;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--err-line-2);
+  user-select: none;
+}
+
+.err-code::after {
+  /* Rode veeg over de onderste helft — geeft diepte zonder extra node. */
+  content: attr(data-code);
+  position: absolute;
+  inset: 0;
+  color: var(--err-red);
+  -webkit-text-stroke: 0;
+  clip-path: polygon(0 62%, 100% 62%, 100% 100%, 0 100%);
+  opacity: 0.92;
+}
+
+.err-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--err-ink);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 99px;
+  margin-bottom: 22px;
+}
+
+.err-pill i {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--err-red);
+  animation: err-pulse 1.9s ease-in-out infinite;
+}
+
+@keyframes err-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.72);
+  }
+}
+
+.err-title {
+  margin: 0 0 16px;
+  overflow-wrap: break-word;
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+.err-lead {
+  margin: 0 0 30px;
+  max-width: 46ch;
+  font-size: clamp(16px, 1.6vw, 18px);
+  line-height: 1.6;
+  color: var(--err-mid);
+}
+
+/* --- Knoppen --- */
+.err-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 34px;
+}
+
+.err-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 15px 28px;
+  border-radius: 99px;
+  border: 0;
+  cursor: pointer;
+  transition:
+    transform 0.16s,
+    background 0.16s,
+    border-color 0.16s,
+    box-shadow 0.16s;
+}
+
+.err-btn-r {
+  background: var(--err-red);
+  color: #fff;
+}
+
+.err-btn-r:hover {
+  background: #a80d26;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -14px rgba(200, 16, 46, 0.7);
+}
+
+.err-btn-o {
+  background: transparent;
+  color: var(--err-ink);
+  border: 1.5px solid var(--err-line-2);
+}
+
+.err-btn-o:hover {
+  border-color: var(--err-ink);
+  transform: translateY(-2px);
+}
+
+.err-btn:focus-visible {
+  outline: 2px solid var(--err-maroon);
+  outline-offset: 3px;
+}
+
+/* --- Hulplijn --- */
+.err-help {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  padding-top: 22px;
+  border-top: 1px solid var(--err-line);
+  font-size: 14px;
+  color: var(--err-mid);
+}
+
+.err-help a {
+  font-weight: 600;
+  color: var(--err-ink);
+  border-bottom: 1px solid var(--err-line-2);
+  padding-bottom: 1px;
+  transition: color 0.16s, border-color 0.16s;
+}
+
+.err-help a:hover {
+  color: var(--err-red);
+  border-color: var(--err-red);
+}
+
+/* --- Technische details: alleen in ontwikkeling --- */
+.err-dev {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 28px clamp(40px, 6vw, 72px);
+  width: 100%;
+}
+
+.err-dev details {
+  background: #fff;
+  border: 1px solid var(--err-line);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.err-dev summary {
+  cursor: pointer;
+  padding: 16px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--err-mid);
+  list-style: none;
+}
+
+.err-dev summary::-webkit-details-marker {
+  display: none;
+}
+
+.err-dev summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 10px;
+  color: var(--err-red);
+  transition: transform 0.16s;
+}
+
+.err-dev details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.err-dev pre {
+  margin: 0;
+  padding: 0 22px 22px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--err-ink);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+}
+
+.err-dev .err-dev-msg {
+  padding: 0 22px 14px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--err-red);
+  word-break: break-word;
+}
+
+@media (max-width: 860px) {
+  /*
+    `1fr` is `minmax(auto, 1fr)`: de track kan dan nooit smaller worden dan de
+    min-content van de statuscode, en dat cijfer duwde op een telefoon de hele
+    kolom — kop, tekst én knoppen — buiten het scherm. `minmax(0, 1fr)` laat de
+    track wél krimpen.
+  */
+  .err-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .err-main {
+    padding: 40px 22px;
+  }
+
+  .err-code {
+    font-size: clamp(88px, 24vw, 150px);
+  }
+
+  .err-dev {
+    padding: 0 22px 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .err-pill i {
+    animation: none;
+  }
+
+  .err-btn:hover {
+    transform: none;
+  }
+}

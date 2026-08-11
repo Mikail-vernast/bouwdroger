@@ -121,6 +121,32 @@ sjabloon klaar is.
 | `MAIL_CANCELLATION_HOURS` | kosteloos annuleren tot, standaard 48 |
 | `MAIL_DEFAULT_TIJDSLOT` | venster als er geen tijdslot gekozen is |
 
+### Slack
+
+Elke betaalde order valt binnen in een Slack-kanaal (`#bouwdroger-orders`), zodat
+het team een boeking ziet zonder in een gedeelde mailbox of in het portaal te
+moeten kijken. Een order die het portaal *niet* haalt, komt daar ook binnen —
+dat is de melding waarop meteen iemand moet reageren.
+
+Loopt over een **incoming webhook** op de bestaande Vernast Slack-app — dezelfde
+app die het portaal gebruikt, geen tweede app. Toevoegen via `api.slack.com/apps`
+→ de Vernast-app → *Incoming Webhooks* → *Add New Webhook to Workspace* →
+`#bouwdroger-orders`. De URL is een geheim: wie hem heeft, kan in dat kanaal
+posten.
+
+Bewust een webhook en niet de `SLACK_BOT_TOKEN` van het portaal, ook al staat die
+er al. Die token draagt `channels:manage`, `groups:history` en `users:read.email`
+— hij kan de hele workspace beheren en meelezen. Deze repo is publiek en dit
+project heeft precies één ding nodig: berichten in één kanaal. Een webhook kan
+niets meer dan dat, dus een lek hier blijft beperkt tot dat kanaal.
+
+Staat de variabele niet ingesteld, dan blijft er een logregel achter en breekt
+er niets — net als bij een mail zonder sjabloon-ID.
+
+| Variabele | Waarvoor |
+|---|---|
+| `SLACK_ORDER_WEBHOOK_URL` | incoming webhook van het orderkanaal (server-only) |
+
 ## Deploy
 
 Vercel bouwt met `npm run build` en serveert `dist/`. Security headers, CSP en

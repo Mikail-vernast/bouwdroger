@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
+import { TOESTELLEN } from "@/data/navigation";
 
 /**
  * The site header from the design: a top line with the contact details and a
@@ -128,21 +129,11 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                   <div className="mcol">
                     <span className="mlab">Toestellen</span>
                     <ul>
-                      <li>
-                        <Link to="/verhuur/toestel/ttk170">Small bouwdroger</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttk350">Medium bouwdroger</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttv4500">Turbo axiaalventilator</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttv4500">Turbo radiaalventilator</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/teddh30">Elektrische kachel 3,30 kW</Link>
-                      </li>
+                      {TOESTELLEN.map((item) => (
+                        <li key={item.path}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                   <div className="mcol">

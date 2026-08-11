@@ -108,15 +108,26 @@ const VerhuurVerlengenPage = () => {
   }, [huur?.huur_eind, dagen]);
 
   /*
-    De toelichting telt mee: de planner moet weten waarom er verlengd wordt,
-    anders belt hij toch terug om precies dat te vragen.
+    Wat er nog ontbreekt, en niet of de knop aan mag. De toelichting telt mee:
+    de planner moet weten waaróm er verlengd wordt, anders belt hij toch terug
+    om precies dat te vragen.
+
+    Zelfde keuze als op de afhaalpagina: de knop blijft klikbaar en zegt wat er
+    mist. Een dode knop zonder uitleg laat wie alles ingevuld dacht te hebben
+    tegen niets duwen.
   */
-  const kanVersturen =
-    isValidPhone(telefoon) && opmerking.trim().length >= MIN_TOELICHTING && !bezig;
+  const ontbreekt = [
+    !isValidPhone(telefoon) && "een telefoonnummer waarop wij u kunnen bereiken",
+    opmerking.trim().length < MIN_TOELICHTING && "een korte reden waarom u wilt verlengen",
+  ].filter((item): item is string => Boolean(item));
 
   const verstuur = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!kanVersturen) return;
+    if (bezig) return;
+    if (ontbreekt.length) {
+      setFout(`Wij missen nog ${ontbreekt.join(" en ")}.`);
+      return;
+    }
 
     setBezig(true);
     setFout("");
@@ -147,20 +158,28 @@ const VerhuurVerlengenPage = () => {
   };
 
   return (
-    <div className="vh-book">
+    <div className="vh-book vh-ext">
       <PageMeta
         title="Uw huur verlengen | Vernast Verhuur"
         description="Vraag aan om uw bouwdrogers langer te houden."
         noindex
       />
-      <V3Header />
+      {/*
+        `lightAfter={-1}`, net als de andere verhuurpagina's: deze pagina heeft
+        geen donkere hero, dus de nav-pil moet meteen in zijn lichte variant
+        staan. De contactregel erboven blijft wit, maar krijgt in
+        verhuur-fixes.css een eigen rode balk om op te staan.
+      */}
+      <V3Header lightAfter={-1} />
 
       {/*
         `main` en `wrap` zijn dezelfde bouwstenen als de boekingspagina, met de
         marge bovenaan die daar van de stappenbalk komt — zonder die ruimte
-        schuift de vaste header over de inhoud heen.
+        schuift de vaste header over de inhoud heen. Die marge staat in
+        verhuur-fixes.css, want onder 900px staat de header in de flow en moet
+        ze juist weg.
       */}
-      <section className="main" style={{ marginTop: "clamp(96px, 12vw, 146px)" }}>
+      <section className="main">
         <div className="wrap" style={{ maxWidth: 760 }}>
           <div className="blk">
             {status === "laden" && (
@@ -286,7 +305,10 @@ const VerhuurVerlengenPage = () => {
                       id="vTel"
                       placeholder="0470 00 00 00"
                       value={telefoon}
-                      onChange={(e) => setTelefoon(maskPhone(e.target.value))}
+                      onChange={(e) => {
+                        setTelefoon(maskPhone(e.target.value));
+                        setFout("");
+                      }}
                     />
                   </div>
                 </div>
@@ -299,7 +321,10 @@ const VerhuurVerlengenPage = () => {
                       rows={3}
                       placeholder="Bijvoorbeeld: de chape is nog niet droog op de kelderverdieping."
                       value={opmerking}
-                      onChange={(e) => setOpmerking(e.target.value)}
+                      onChange={(e) => {
+                        setOpmerking(e.target.value);
+                        setFout("");
+                      }}
                       style={{
                         width: "100%",
                         padding: "13px 14px",
@@ -340,7 +365,7 @@ const VerhuurVerlengenPage = () => {
                 </p>
 
                 <div className="fnav" style={{ marginTop: 20 }}>
-                  <button className="btn btn-r" type="submit" disabled={!kanVersturen}>
+                  <button className="btn btn-r" type="submit" disabled={bezig}>
                     {bezig ? "Versturen…" : "Verlenging aanvragen"}
                   </button>
                 </div>

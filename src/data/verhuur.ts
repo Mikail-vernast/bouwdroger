@@ -613,41 +613,193 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
     ],
   },
+  teddh20: {
+    key: [
+      ["Vermogen", "20", "kW"],
+      ["Aansluiting", "400", "V"],
+      ["Thermostaat", "ja", ""],
+    ],
+    aboutTitle: "Wanneer kiest u de TEddH 20 T?",
+    about: [
+      "Dezelfde rol als de <strong>TEddH 30 T</strong>, maar een maat kleiner. Deze kachel brengt een <strong>kelder, garage, appartement of afgesloten verdieping</strong> op werkingstemperatuur zodat uw ontvochtiger weer op volle capaciteit kan werken.",
+      "Onder 15 °C neemt lucht nauwelijks vocht op en geeft de bouwmassa haar water traag af. In een onverwarmde ruimte is verwarmen dus geen comfortkeuze maar de voorwaarde om überhaupt te drogen — zonder kachel loopt uw huurperiode simpelweg langer.",
+      "Met <strong>20 kW</strong> verwarmt dit toestel ruimtes waarvoor de 30 kW-versie overgedimensioneerd is. Ook dit model vraagt <strong>400 V krachtstroom</strong>; is die er niet, laat het ons dan vooraf weten.",
+    ],
+    bullets: [
+      ["20 kW verwarmingsvermogen", "Genoeg voor een kelder, garage of afgesloten verdieping."],
+      ["De maat onder de TEddH 30 T", "Kleiner en lichter, voor ruimtes waar 30 kW te veel is."],
+      ["Ingebouwde thermostaat", "Houdt de streeftemperatuur aan zonder dat u erbij moet blijven."],
+      ["400 V krachtstroom", "Controleer vooraf of uw werf een driefasige aansluiting heeft."],
+    ],
+    specs: [
+      ["Type", "Elektrische bouwkachel met ventilator"],
+      ["Verwarmingsvermogen", "20 kW"],
+      ["Standen", "meerdere vermogensstanden"],
+      ["Voedingsspanning", "400 V / 3~ / 50 Hz"],
+      ["Thermostaat", "ingebouwd, instelbaar"],
+      ["Behuizing", "staal, gepoedercoat"],
+      ["Beveiliging", "overhittingsbeveiliging"],
+      ["Toepassing", "kelders, garages, appartementen, winterwerven"],
+    ],
+    faq: [
+      [
+        "Wat is het verschil met de TEddH 30 T?",
+        "Enkel het vermogen: 20 kW tegenover 30 kW. Voor een kelder, garage of appartement volstaat deze versie ruimschoots. Gaat het om een volledige woning in aanbouw of een grote werf, kies dan de 30 kW-versie.",
+      ],
+      [
+        "Heb ik krachtstroom nodig?",
+        "Ja, ook dit toestel vraagt een 400 V driefasige aansluiting. Beschikt u daar niet over, laat het ons weten bij uw reservatie — dan bekijken we samen een alternatief.",
+      ],
+      [
+        "Volstaat een kachel alleen om te drogen?",
+        "Nee. Warmte maakt het vocht los uit de bouwmassa, maar voert het niet af. Combineer altijd met een ontvochtiger, anders slaat datzelfde vocht elders in de ruimte weer neer.",
+      ],
+    ],
+  },
+  radiaal2250: {
+    key: [
+      ["Luchtverzet", "2 250", "m³/u"],
+      ["Standen", "3", ""],
+      ["Bescherming", "IP55", ""],
+    ],
+    aboutTitle: "Axiaal of radiaal — wat kiest u?",
+    about: [
+      "Een <strong>axiaalventilator</strong> zet een hele ruimte in beweging. Een <strong>radiaalventilator</strong> doet iets anders: die perst de lucht in een smalle, krachtige straal vlak over het oppervlak. Precies wat u nodig heeft bij <strong>vloeren en chape</strong>.",
+      "Door die gerichte straal blaast het toestel de verzadigde luchtlaag weg die tegen een natte vloer blijft hangen. U kunt hem ook onder kasten, tegen een plint of in een hoek richten — plekken waar een axiaalventilator niet bij komt.",
+      "Met <strong>2 250 m³/u</strong>, drie standen en een <strong>spatwaterdichte behuizing (IP55)</strong> is dit het toestel dat wij standaard bijzetten bij chapedroging en na waterschade. Combineer hem met een ontvochtiger: de ventilator maakt het vocht los, de ontvochtiger haalt het uit de lucht.",
+    ],
+    bullets: [
+      ["Gerichte luchtstraal", "Blaast vlak over vloeren en chape in plaats van door de ruimte."],
+      ["Komt waar u niet bij kunt", "Onder kasten, tegen plinten en in hoeken, dankzij het kantelbare frame."],
+      ["Spatwaterdicht (IP55)", "Blijft veilig draaien op een natte vloer na waterschade."],
+      ["Doorlusbaar", "Extra stopcontact op het toestel zodat u meerdere units kunt koppelen."],
+    ],
+    specs: [
+      ["Type", "Radiale bouwventilator"],
+      ["Luchtverzet", "2 250 m³/u"],
+      ["Snelheidsstanden", "3"],
+      ["Beschermingsgraad", "IP55"],
+      ["Voedingsspanning", "230 V / 50 Hz"],
+      ["Doorvoerstopcontact", "ja, 6 A"],
+      ["Behuizing", "kunststof, stapelbaar"],
+      ["Richtbaar", "ja, meerdere blaashoeken"],
+      ["Afmetingen (b × d × h)", "ca. 54,5 × 51,5 × 49 cm"],
+      ["Gewicht", "ca. 15 kg"],
+      ["Toepassing", "vloer- en chapedroging, waterschade"],
+    ],
+    faq: [
+      [
+        "Wanneer kies ik radiaal in plaats van axiaal?",
+        "Zit het vocht in de vloer of de chape, dan is radiaal de betere keuze: de luchtstraal strijkt vlak over het oppervlak. Gaat het om een volledige ruimte of om muren, dan zet u beter een axiaalventilator in. Bij waterschade combineren wij vaak beide.",
+      ],
+      [
+        "Hoeveel toestellen heb ik nodig?",
+        "Als richtlijn één radiaalventilator per natte zone of per kamer. Voor een volledige verdieping na waterschade zetten we er meestal twee of drie in, aangevuld met een ontvochtiger.",
+      ],
+      [
+        "Mag hij op een natte vloer staan?",
+        "Ja, de behuizing is spatwaterdicht (IP55). Zet het toestel wel op een vlakke ondergrond en nooit in staand water.",
+      ],
+    ],
+  },
+  /*
+    Nog niet zichtbaar op de site: dit toestel staat in het portaal op "niet te
+    huur" omdat er geen exemplaar in het depot ligt. De pagina verschijnt zodra
+    die schakelaar aan gaat — de teksten hieronder staan klaar, de technische
+    fiche moet dan nog aangevuld worden met de cijfers van het gekozen model.
+  */
+  revolution: {
+    key: [
+      ["Techniek", "Adsorptie", ""],
+      ["Drogen", "via slangen", ""],
+      ["Koude ruimtes", "ja", ""],
+    ],
+    aboutTitle: "Wanneer kiest u deze adsorptiedroger?",
+    about: [
+      "Een condensontvochtiger droogt de lucht in een ruimte. Deze <strong>adsorptiedroger</strong> doet het omgekeerde: hij blaast droge lucht via <strong>slangen</strong> precies naar de plek waar het vocht zit — onder een zwevende vloer, in een wandopbouw of in een geïsoleerde constructie.",
+      "Daardoor droogt u <strong>gericht</strong> in plaats van de hele ruimte, wat na waterschade vaak het verschil maakt tussen uitbreken en drogen. Adsorptie werkt bovendien door bij <strong>lagere temperaturen</strong>, waar een condensontvochtiger rendement verliest.",
+      "Twijfelt u of dit het juiste toestel is voor uw situatie? Bel ons — dit is bij uitstek een toestel dat wij liever eerst samen met u inschatten.",
+    ],
+    bullets: [
+      ["Droogt gericht via slangen", "Onder vloeren, in wanden en op moeilijk bereikbare plekken."],
+      ["Werkt ook bij lage temperatuur", "Adsorptie verliest, anders dan condensatie, weinig rendement in de koude."],
+      ["Vermijdt uitbreken", "Vaak de manier om een zwevende vloer te redden na waterschade."],
+      ["Advies vooraf", "Wij bekijken samen of uw constructie zich hiervoor leent."],
+    ],
+    specs: [
+      ["Type", "Adsorptiedroger"],
+      ["Werking", "droge lucht via slangen naar de natte zone"],
+      ["Toepassing", "vloeropbouw, wanden, isolatie, koude ruimtes"],
+    ],
+    faq: [
+      [
+        "Wat is het verschil met een gewone bouwdroger?",
+        "Een condensontvochtiger droogt de lucht in de ruimte; dit toestel blaast droge lucht via slangen rechtstreeks in de constructie. Zit het vocht onder een vloer of in een wand, dan raakt een gewone bouwdroger er niet bij.",
+      ],
+      [
+        "Wanneer is dit de juiste keuze?",
+        "Vooral na waterschade waarbij water onder een zwevende vloer of in de isolatie is gelopen. Ook in onverwarmde ruimtes, waar een condensontvochtiger aan rendement inboet.",
+      ],
+    ],
+  },
 };
 
 /**
  * De volledige toestelpagina: bewerkbare velden uit het portaal, samengevoegd
  * met de redactionele tekst hierboven.
+ *
+ * Wat het portaal niet publiceert, bestaat hier niet. Een toestel dat daar op
+ * "niet te huur" gezet wordt, verdwijnt uit de gepubliceerde tarieven — zonder
+ * deze filter zou de build daarop stukvallen (`t.name` op undefined) en dus
+ * helemaal geen nieuwe site opleveren.
  */
 export const PRODUCTS: Record<string, Product> = Object.fromEntries(
-  Object.entries(PRODUCT_COPY).map(([key, copy]) => {
+  Object.entries(PRODUCT_COPY).flatMap(([key, copy]) => {
     const t = TARIEVEN.products[key as keyof typeof TARIEVEN.products];
+    if (!t) return [];
     return [
-      key,
-      {
-        ...copy,
-        name: t.name,
-        short: t.short,
-        type: t.type,
-        badge: t.badge,
-        day: Number(t.day),
-        img: [...t.img],
-        sum: t.sum,
-      },
+      [
+        key,
+        {
+          ...copy,
+          name: t.name,
+          short: t.short,
+          type: t.type,
+          badge: t.badge,
+          day: Number(t.day),
+          img: [...t.img],
+          sum: t.sum,
+        },
+      ],
     ];
   })
 );
 
+/** De gammavolgorde, beperkt tot wat het portaal vandaag te huur aanbiedt. */
+export const PRODUCT_ORDER = [
+  "ttk170",
+  "ttk350",
+  "ttk650",
+  "revolution",
+  "ttv4500",
+  "radiaal2250",
+  "teddh30",
+  "teddh20",
+].filter((key) => PRODUCTS[key]);
 
-export const PRODUCT_ORDER = ["ttk170", "ttk350", "ttk650", "ttv4500", "teddh30"];
-
-export const PRODUCT_ADDONS: Record<string, string[]> = {
-  ttk170: ["ttv4500"],
-  ttk350: ["ttv4500"],
-  ttk650: ["ttv4500", "teddh30"],
-  ttv4500: ["ttk350"],
-  teddh30: ["ttk650"],
-};
+/** Wat er op een toestelpagina bijgeboekt kan worden — enkel wat te huur staat. */
+export const PRODUCT_ADDONS: Record<string, string[]> = Object.fromEntries(
+  Object.entries({
+    ttk170: ["ttv4500"],
+    ttk350: ["ttv4500", "radiaal2250"],
+    ttk650: ["ttv4500", "teddh30"],
+    revolution: ["ttv4500"],
+    ttv4500: ["ttk350"],
+    radiaal2250: ["ttk350"],
+    teddh30: ["ttk650"],
+    teddh20: ["ttk350"],
+  }).map(([key, addons]) => [key, addons.filter((addon) => PRODUCTS[addon])])
+);
 
 export const SC_LABEL: Record<string, string> = {
   nieuwbouw: "nieuwbouw",

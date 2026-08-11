@@ -16,11 +16,23 @@
  */
 import { PRODUCTS } from "./verhuur.js";
 
-/** De toestellen die op de publieke pagina's getoond worden, in gamma-volgorde. */
-const PUBLIC_KEYS = ["ttk170", "ttk350", "ttk650", "ttv4500", "teddh30"] as const;
+/**
+ * De toestellen die op de publieke pagina's getoond worden, in gamma-volgorde.
+ * Wat het portaal niet meer verhuurt, hoort ook niet in een prijstabel.
+ */
+const PUBLIC_KEYS = [
+  "ttk170",
+  "ttk350",
+  "ttk650",
+  "revolution",
+  "ttv4500",
+  "radiaal2250",
+  "teddh30",
+  "teddh20",
+].filter((key) => PRODUCTS[key]);
 
 /** Enkel de ontvochtigers — dat is wat "een bouwdroger huren" betekent. */
-const DRYER_KEYS = ["ttk170", "ttk350", "ttk650"] as const;
+const DRYER_KEYS = ["ttk170", "ttk350", "ttk650"].filter((key) => PRODUCTS[key]);
 
 /** De huurperiodes die de prijstabel toont, in dagen. */
 export const RENTAL_WEEKS = [1, 2, 4] as const;

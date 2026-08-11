@@ -1,13 +1,20 @@
 /* ============================================================
-   Betaalstap van de boekingsflow.
+   Betaalstap van de boekings- en de afhaalflow.
 
    De designfiles stoppen bij "Boeking bevestigen" — betalen zat er nog niet in.
    Dit hoort dus niet in `verhuur.css` (transcriptie van het design) en ook niet
    in `verhuur-fixes.css` (reparaties op het design), maar staat hier apart.
+
+   Elke regel geldt voor twee pagina's: de boekingswizard (`.vh-book`) en de
+   afhaalpagina (`.vh-pick`). Die tweede rekende eerst af op een hosted pagina
+   van Stripe; sinds ze hetzelfde formulier toont, hoort ze ook hetzelfde kader
+   te krijgen. Beide scopes definiëren dezelfde tokens, dus de waarden hieronder
+   kloppen aan beide kanten.
    ============================================================ */
 
 /* Foutmelding wanneer Stripe niet bereikbaar is of de betaling afgebroken werd. */
-.vh-book .perr {
+.vh-book .perr,
+.vh-pick .perr {
   margin: 18px 0 0;
   padding: 12px 15px;
   border-radius: 11px;
@@ -22,11 +29,12 @@
    Het betaalformulier.
 
    De velden zelf zitten in iframes van Stripe en zijn van hieruit niet te
-   stylen — dat gebeurt via de Appearance API in `VerhuurBoekingPage.tsx`. Wat
-   hier staat is het kader eromheen en alles wat wél van ons is: de
+   stylen — dat gebeurt via de Appearance API in `BoekingBetaalformulier.tsx`.
+   Wat hier staat is het kader eromheen en alles wat wél van ons is: de
    scheidingslijn tussen de wallets en het formulier, en de betaalknop.
    ------------------------------------------------------------ */
-.vh-book .paybox {
+.vh-book .paybox,
+.vh-pick .paybox {
   /* Een betaalformulier over de volle breedte leest slecht; deze kolom loopt
      gelijk met de rest van de wizard. */
   max-width: 620px;
@@ -42,7 +50,8 @@
 
 /* Melding zolang Stripe de sessie ophaalt. Even hoog als het formulier dat erop
    volgt, zodat de knop eronder niet verspringt. */
-.vh-book .payload {
+.vh-book .payload,
+.vh-pick .payload {
   margin: 0;
   padding: 40px 0;
   text-align: center;
@@ -51,7 +60,8 @@
 }
 
 /* Scheiding tussen de wallet-knoppen en het gewone formulier. */
-.vh-book .paysplit {
+.vh-book .paysplit,
+.vh-pick .paysplit {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -63,28 +73,49 @@
 }
 
 .vh-book .paysplit::before,
-.vh-book .paysplit::after {
+.vh-book .paysplit::after,
+.vh-pick .paysplit::before,
+.vh-pick .paysplit::after {
   content: "";
   flex: 1;
   height: 1px;
   background: var(--line);
 }
 
-.vh-book .paysubmit {
+/*
+   Groen, niet het rood van de rest van de site.
+
+   Rood is hier de huisstijlkleur van élke knop — "Verder", "Terug", "Bereken uw
+   pakket" — en dan valt de enige knop die geld verplaatst niet meer op tussen
+   de rest. Groen leest bovendien mee met de wallet-knop erboven en met wat
+   mensen van een afrekenknop gewend zijn. De tint is `--ok` uit `verhuur.css`.
+*/
+.vh-book .paysubmit,
+.vh-pick .paysubmit {
   width: 100%;
   margin-top: 22px;
+  background: #12a558;
+  color: #fff;
+}
+
+.vh-book .paysubmit:hover,
+.vh-pick .paysubmit:hover {
+  background: #0e8b49;
+  color: #fff;
 }
 
 /* De knop verschuiven bij hover werkt in de wizard, maar niet op een knop die
    tijdens het betalen even blijft staan — dan oogt het als een haperende klik. */
-.vh-book .paysubmit:disabled {
+.vh-book .paysubmit:disabled,
+.vh-pick .paysubmit:disabled {
   opacity: 0.6;
   cursor: progress;
   transform: none;
 }
 
 /* Wat er ná de betaling gebeurt, vlak bij de knop waar het over gaat. */
-.vh-book .paynote {
+.vh-book .paynote,
+.vh-pick .paynote {
   display: flex;
   align-items: flex-start;
   gap: 9px;
@@ -94,8 +125,31 @@
   color: var(--txt-mid);
 }
 
-.vh-book .paynote svg {
+.vh-book .paynote svg,
+.vh-pick .paynote svg {
   flex-shrink: 0;
   margin-top: 3px;
   color: #2e9e5b;
+}
+
+/* ------------------------------------------------------------
+   Alleen de afhaalpagina.
+
+   De wizard heeft een voettekst met knoppen (`.fnav`) en een lichte knop
+   (`.btn-o`); die staan in de transcriptie van het design en bestaan enkel
+   binnen `.vh-book`. Op de afhaalpagina is `.btn` altijd rood, en een tweede
+   rode knop naast "Betaal € …" zou de betaalknop juist minder duidelijk maken.
+   ------------------------------------------------------------ */
+.vh-pick .payback {
+  display: block;
+  margin: 18px auto 0;
+  background: #fff;
+  color: #141414;
+  border: 1.5px solid var(--line-2);
+}
+
+.vh-pick .payback:hover {
+  background: #fff;
+  color: #141414;
+  border-color: #141414;
 }

@@ -174,4 +174,59 @@ describe("ontvangstbevestiging zonder sjabloon", () => {
       ),
     ).toHaveLength(1);
   });
+
+  /*
+    Sjabloon 202 draagt zijn eigen tekst, maar de blokken "Uw bericht" en "Zo
+    bereiken wij u" leunen volledig op parameters. Stuurt de code die niet mee,
+    dan vertrekt er een mail met lege vakken — erger dan de tekstmail-fallback
+    die we hiermee vervangen. Vandaar deze test.
+  */
+  it("vult de velden die sjabloon 202 nodig heeft", async () => {
+    process.env.BREVO_TPL_CONTACT_ONTVANGEN = "202";
+    const email = freshAddress();
+
+    await sendContactMails({
+      naam: "Jan Peeters",
+      email,
+      telefoon: "0470 12 34 56",
+      onderwerp: "Kelder",
+      bericht: "Mijn kelder staat onder water.",
+    });
+
+    const [mail] = sendTemplate.mock.calls
+      .map(([call]) => call as { to: { email: string }; params: Record<string, unknown> })
+      .filter((call) => call.to.email === email);
+
+    expect(mail.params.voornaam).toBe("Jan");
+    expect(mail.params.klant_naam).toBe("Jan Peeters");
+    expect(mail.params.email).toBe(email);
+    expect(mail.params.telefoon).toBe("0470 12 34 56");
+    expect(mail.params.onderwerp).toBe("Kelder");
+    expect(mail.params.bericht).toBe("Mijn kelder staat onder water.");
+    expect(mail.params.verzonden_op).toMatch(/\d{4} om \d{2}:\d{2}$/);
+  });
+
+  /*
+    Het bericht gaat onbewerkt mee. Brevo escapet een parameter zelf, dus een
+    `<br />` van ons komt als leesbare tekst aan en zelf escapen levert
+    `&lt;b&gt;` op in de mailbox van de klant — allebei in productie gemeten.
+    De regelafbrekingen overleven omdat het berichtblok in sjabloon 202
+    `white-space: pre-line` draagt.
+  */
+  it("stuurt het bericht onbewerkt mee, met regelafbrekingen", async () => {
+    process.env.BREVO_TPL_CONTACT_ONTVANGEN = "202";
+    const email = freshAddress();
+
+    await sendContactMails({
+      naam: "Jan Peeters",
+      email,
+      bericht: "  Regel een\nRegel <b>twee</b>  ",
+    });
+
+    const [mail] = sendTemplate.mock.calls
+      .map(([call]) => call as { to: { email: string }; params: Record<string, unknown> })
+      .filter((call) => call.to.email === email);
+
+    expect(mail.params.bericht).toBe("Regel een\nRegel <b>twee</b>");
+  });
 });
