@@ -4891,10 +4891,10 @@ export const TARIEVEN = {
     "weeks_multiplier_3": 1.35,
     "weeks_multiplier_4": 1.62
   },
-  "version": 86,
+  "version": 87,
   "products": {
     "ttk170": {
-      "day": 18,
+      "day": 9,
       "img": [
         "/vernast/eco-boost.webp",
         "/vernast/lineup-dryers.webp"
@@ -4906,7 +4906,7 @@ export const TARIEVEN = {
       "short": "TTK 170 S"
     },
     "ttk350": {
-      "day": 24,
+      "day": 12,
       "img": [
         "/vernast/eco-performance.webp",
         "/vernast/lineup-dryers.webp"
@@ -4918,7 +4918,7 @@ export const TARIEVEN = {
       "short": "TTK 350 S"
     },
     "ttk650": {
-      "day": 34,
+      "day": 16,
       "img": [
         "/vernast/eco-ultimate.webp",
         "/vernast/lineup-dryers.webp"
@@ -4930,7 +4930,7 @@ export const TARIEVEN = {
       "short": "TTK 650 S"
     },
     "teddh30": {
-      "day": 29,
+      "day": 12,
       "img": [
         "/vernast/kachel-30.webp"
       ],
@@ -4952,5 +4952,5 @@ export const TARIEVEN = {
       "short": "TTV 4500"
     }
   },
-  "published_at": "2026-08-10T09:51:06.540459+00:00"
+  "published_at": "2026-08-11T07:47:57.629744+00:00"
 } as const;
