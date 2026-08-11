@@ -16,11 +16,20 @@
       (`.tl-left{display:none}` onder 660px), maar de basisregel staat op
       `.hdr .tl-left` en wint op specificiteit. Dezelfde regel, met de
       specificiteit die het design bedoeld heeft. Zie home-v3-fixes.css.
+
+   3. `@tailwind base` (preflight) zet `list-style: none` op elke ol/ul. De
+      storingskaarten gebruiken genummerde stappen; zonder deze regel valt de
+      nummering weg en blijft er een lege inspringing over. Het design rekent
+      op de standaard decimale opsomming.
    ============================================================ */
 
 .ks-page .navpill .nav-logo img {
   height: 21px;
   width: auto;
+}
+
+.ks-page .fx ol {
+  list-style: decimal;
 }
 
 @media (max-width: 660px) {
