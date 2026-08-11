@@ -802,41 +802,66 @@ export interface ContactMessage {
 }
 
 /**
- * De ontvangstbevestiging draait op sjabloon 96 — dezelfde die vernast.be en
- * vernast-vochtbestrijding voor hún contactformulier gebruiken
- * (`supabase/functions/contact-submission`). Dat is een vrije Vernast-schil:
- * `title` wordt de kop, `subject` het onderwerp en `beschrijving` de body, en
- * verder staat er niets in het sjabloon. Vandaar dat de tekst hier wordt
- * opgebouwd in plaats van in Brevo te staan.
+ * De ontvangstbevestiging draait op sjabloon 202 ("contact formulier
+ * bevestiging") — dezelfde die vernast.be en vernast-vochtbestrijding voor hún
+ * contactformulier gebruiken (`supabase/functions/contact-submission`).
  *
- * De body mag gerust regelafbrekingen bevatten: het sjabloon zet
- * `white-space: pre-line` op dat blok.
+ * Anders dan de vorige schil (96) draagt 202 zijn eigen tekst én zijn eigen
+ * onderwerp. Er gaat dus geen geschreven body meer mee: het sjabloon vult
+ * alleen nog de velden van de klant in — `voornaam`, `klant_naam`, `email`,
+ * `telefoon`, `onderwerp`, `bericht` en `verzonden_op`. `onderwerp` en
+ * `verzonden_op` staan er in het sjabloon achter een `{% if %}`, dus leeg
+ * laten is veilig; de rest niet, want die blokken staan er altijd.
+ *
+ * Het telefoonnummer dat de klant te zien krijgt, staat vast in het sjabloon
+ * en is hetzelfde nummer als `TELEFOON`.
  *
  * De afzender blijft van ons — `sendTemplate` zet altijd `BREVO_SENDER_EMAIL`
- * en negeert de afzender die in het sjabloon staat (jari@vernast.be).
+ * en negeert de afzender die in het sjabloon staat (info@vernast.be).
  */
 function contactConfirmationParams(message: ContactMessage): Record<string, unknown> {
-  const voornaam = message.naam.trim().split(/\s+/)[0] || "";
-  const beschrijving = [
-    `Beste ${voornaam || "klant"},`,
-    "",
-    "Bedankt voor uw bericht. We hebben het goed ontvangen en nemen zo snel " +
-      "mogelijk contact met u op.",
-    "",
-    "Uw bericht:",
-    message.bericht.trim(),
-    "",
-    `Heeft u ondertussen nog vragen? U mag ons gerust bereiken op ${TELEFOON}.`,
-    "",
-    "Met vriendelijke groeten,",
-    "Team Vernast Bouwdrogers",
-  ].join("\n");
-
+  const naam = message.naam.trim();
   return {
-    title: "Bedankt voor uw bericht",
-    subject: "We hebben uw bericht goed ontvangen",
-    beschrijving,
+    voornaam: naam.split(/\s+/)[0] || "klant",
+    klant_naam: naam,
+    email: message.email.trim(),
+    telefoon: plain(message.telefoon),
+    onderwerp: plain(message.onderwerp),
+    bericht: toHtmlLines(message.bericht),
+    verzonden_op: formatDateTime(new Date()),
   };
+}
+
+/**
+ * Het bericht van de klant komt in een gewone `<div>` terecht: sjabloon 202
+ * zet er geen `white-space: pre-line` op, dus zonder `<br>` wordt elk bericht
+ * één lange lap tekst. Brevo vult een parameter ongefilterd in het sjabloon,
+ * vandaar dat de tekens van de klant eerst geneutraliseerd worden — anders
+ * bepaalt een bezoeker met een `<` in zijn bericht mee hoe onze mail eruitziet.
+ */
+function toHtmlLines(text: string): string {
+  return text
+    .trim()
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/\r\n?/g, "\n")
+    .replace(/\n/g, "<br />");
+}
+
+/** "11 augustus 2026 om 14:32" — het moment waarop het formulier binnenkwam. */
+function formatDateTime(date: Date): string {
+  return new Intl.DateTimeFormat("nl-BE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Brussels",
+  })
+    .format(date)
+    .replace(/,\s*/, " om ");
 }
 
 /** Contactformulier: kopie aan de klant, het bericht zelf naar het team. */

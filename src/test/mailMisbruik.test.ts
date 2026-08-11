@@ -176,18 +176,20 @@ describe("ontvangstbevestiging zonder sjabloon", () => {
   });
 
   /*
-    Sjabloon 96 is een lege Vernast-schil: het toont `title`, `subject` en
-    `beschrijving` en verder niets. Stuurt de code die drie niet mee, dan
-    vertrekt er een mail met een leeg onderwerp en een lege body — erger dan de
-    tekstmail-fallback die we hiermee vervangen. Vandaar deze test.
+    Sjabloon 202 draagt zijn eigen tekst, maar de blokken "Uw bericht" en "Zo
+    bereiken wij u" leunen volledig op parameters. Stuurt de code die niet mee,
+    dan vertrekt er een mail met lege vakken — erger dan de tekstmail-fallback
+    die we hiermee vervangen. Vandaar deze test.
   */
-  it("vult de velden die sjabloon 96 nodig heeft", async () => {
-    process.env.BREVO_TPL_CONTACT_ONTVANGEN = "96";
+  it("vult de velden die sjabloon 202 nodig heeft", async () => {
+    process.env.BREVO_TPL_CONTACT_ONTVANGEN = "202";
     const email = freshAddress();
 
     await sendContactMails({
       naam: "Jan Peeters",
       email,
+      telefoon: "0470 12 34 56",
+      onderwerp: "Kelder",
       bericht: "Mijn kelder staat onder water.",
     });
 
@@ -195,9 +197,35 @@ describe("ontvangstbevestiging zonder sjabloon", () => {
       .map(([call]) => call as { to: { email: string }; params: Record<string, unknown> })
       .filter((call) => call.to.email === email);
 
-    expect(mail.params.title).toBe("Bedankt voor uw bericht");
-    expect(mail.params.subject).toBe("We hebben uw bericht goed ontvangen");
-    expect(mail.params.beschrijving).toContain("Beste Jan,");
-    expect(mail.params.beschrijving).toContain("Mijn kelder staat onder water.");
+    expect(mail.params.voornaam).toBe("Jan");
+    expect(mail.params.klant_naam).toBe("Jan Peeters");
+    expect(mail.params.email).toBe(email);
+    expect(mail.params.telefoon).toBe("0470 12 34 56");
+    expect(mail.params.onderwerp).toBe("Kelder");
+    expect(mail.params.bericht).toBe("Mijn kelder staat onder water.");
+    expect(mail.params.verzonden_op).toMatch(/\d{4} om \d{2}:\d{2}$/);
+  });
+
+  /*
+    Het sjabloon zet geen `white-space: pre-line` op het berichtblok, dus de
+    regelafbrekingen van de klant moeten als `<br />` mee. Wat de klant zelf
+    typte mag daarbij geen opmaak worden: Brevo vult een parameter ongefilterd
+    in, dus een `<b>` uit het formulier hoort als tekst aan te komen.
+  */
+  it("behoudt regelafbrekingen en neutraliseert opmaak in het bericht", async () => {
+    process.env.BREVO_TPL_CONTACT_ONTVANGEN = "202";
+    const email = freshAddress();
+
+    await sendContactMails({
+      naam: "Jan Peeters",
+      email,
+      bericht: "Regel een\nRegel <b>twee</b>",
+    });
+
+    const [mail] = sendTemplate.mock.calls
+      .map(([call]) => call as { to: { email: string }; params: Record<string, unknown> })
+      .filter((call) => call.to.email === email);
+
+    expect(mail.params.bericht).toBe("Regel een<br />Regel &lt;b&gt;twee&lt;/b&gt;");
   });
 });
