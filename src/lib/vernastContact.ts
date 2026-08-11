@@ -98,6 +98,9 @@ export async function requestUploadTickets(
   return data.uploads ?? [];
 }
 
+/** De aanvraag is geweigerd omdat er al te veel kwamen — niet stukgelopen. */
+export class RateLimitedError extends Error {}
+
 /**
  * Verstuurt de vraag zelf. Gooit bij een fout: anders dan bij een order — waar de
  * bezoeker al betaald heeft en succes moet zien — is dit de enige opslag, dus
@@ -108,20 +111,38 @@ export async function sendContactRequest(payload: ContactPayload): Promise<void>
   const base = functionsBase();
   if (!base) throw new Error("VERNAST_WEBHOOK_URL ontbreekt");
 
+  /*
+    Alleen herhalen bij een hapering aan de andere kant. Bij 4xx ligt het aan
+    de aanvraag zelf, en herhalen maakt het daar erger: de teller van de
+    rate limiter loopt door, dus drie pogingen op een 429 verbranden het budget
+    van iemand die daarna wél iets nieuws wil vragen.
+  */
+  let status = 0;
   const result = await withRetry(
     async () => {
       const response = await postJson(`${base}/contact-submission`, null, {
         ...payload,
         site: "bouwdroger",
       });
+      status = response.status;
       if (!response.ok) {
         const detail = await response.text().catch(() => "");
-        return { ok: false as const, reason: `HTTP ${response.status}: ${detail.slice(0, 200)}` };
+        const reason = `HTTP ${response.status}: ${detail.slice(0, 200)}`;
+        // Een 4xx is definitief: meld hem als 'ok' zodat withRetry stopt, en
+        // laat de status hieronder bepalen wat de bezoeker leest.
+        return response.status < 500
+          ? { ok: true as const, reason }
+          : { ok: false as const, reason };
       }
       return { ok: true as const };
     },
     { tries: TRIES, delaysMs: DELAYS_MS },
   );
 
-  if (!result.ok) throw new Error(result.reason ?? "onbekende fout");
+  if (status === 429) {
+    throw new RateLimitedError(result.reason ?? "rate limited");
+  }
+  if (status >= 400 || !result.ok) {
+    throw new Error(result.reason ?? "onbekende fout");
+  }
 }

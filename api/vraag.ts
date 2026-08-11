@@ -10,7 +10,11 @@
  * de verzending, dan krijgt de bezoeker dat te zien. Stil falen is precies wat
  * dit formulier hiervóór deed.
  */
-import { sendContactRequest, type ContactSubject } from "../src/lib/vernastContact.js";
+import {
+  RateLimitedError,
+  sendContactRequest,
+  type ContactSubject,
+} from "../src/lib/vernastContact.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 
 const SUBJECTS: ContactSubject[] = [
@@ -119,6 +123,24 @@ export async function POST(request: Request): Promise<Response> {
     });
   } catch (error: unknown) {
     const reason = error instanceof Error ? error.message : "onbekende fout";
+
+    /*
+      Te veel aanvragen van hetzelfde adres binnen het uur. "Verzenden lukte
+      niet" is dan een leugen die iemand aan het herladen zet: de eerdere vraag
+      staat er wél. Zeg dat, in plaats van een storing te suggereren.
+    */
+    if (error instanceof RateLimitedError) {
+      console.warn(`[vraag] geweigerd door rate limit: ${reason}`);
+      return json(
+        {
+          error:
+            "U stuurde net al een vraag — die is goed aangekomen. Wilt u iets aanvullen, " +
+            "bel dan 03 689 90 65 of mail info@vernast.be.",
+        },
+        429,
+      );
+    }
+
     console.error(`[vraag] niet doorgestuurd naar Vernast: ${reason}`);
     return json(
       { error: "Verzenden lukte niet. Probeer het opnieuw of bel 03 689 90 65." },

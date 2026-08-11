@@ -808,7 +808,12 @@ html { scroll-behavior: smooth; }
 .v3 .cta-l{text-align:center;max-width:640px;margin-bottom:40px}
 .v3 .cta .kick{color:rgba(255,255,255,.75)}
 .v3 .cta h2{font-family:var(--fd);font-weight:800;font-size:clamp(26px,3vw,42px);line-height:1.06;letter-spacing:-.03em;color:#fff;margin:14px 0 16px;text-wrap:balance}
-.v3 .cta p{font-size:15px;line-height:1.62;color:rgba(255,255,255,.78);margin:0 auto;max-width:520px}
+/* Alleen de intro links van de kaart is wit. Stond dit op `.cta p`, dan kreeg
+   ook de tekst ín het witte formulier die kleur — en omdat deze regel later in
+   het bestand staat dan `.cf-done p`, won wit van wit: de bevestiging na het
+   versturen was onleesbaar. */
+.v3 .cta-l p{font-size:15px;line-height:1.62;color:rgba(255,255,255,.78);margin:0 auto;max-width:520px}
+.v3 .cform p{color:var(--txt-mid)}
 .v3 .cta-r{width:min(100%,680px)}
 .v3 .cta .cform{box-shadow:0 40px 90px -40px rgba(0,0,0,.55);border-color:transparent}
 /* ============ FOOTER ============ */

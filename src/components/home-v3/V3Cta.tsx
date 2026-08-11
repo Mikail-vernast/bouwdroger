@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent } from "react";
 import { ArrowRightIcon, FileIcon, UploadIcon } from "./icons";
 import { isValidEmail, maskEmail, maskPhone } from "@/lib/inputMask";
+import { resizeImageFile } from "@/lib/imageResize";
 
 /**
  * The closing contact block: address details first, question second.
@@ -35,7 +36,17 @@ const ACCEPTED_TYPES = new Set([
 ]);
 
 const MAX_FILES = 6;
-const MAX_FILE_BYTES = 10 * 1024 * 1024;
+
+/** Wat storage aanvaardt. Daarboven komt er een 413 terug. */
+const STORAGE_LIMIT_BYTES = 10 * 1024 * 1024;
+
+/*
+  Een foto mag groter binnenkomen dan storage aankan: die wordt hieronder eerst
+  verkleind. Een pdf of Word-document gaat ongewijzigd door en moet dus meteen
+  onder de grens blijven.
+*/
+const MAX_IMAGE_BYTES = 30 * 1024 * 1024;
+const MAX_DOCUMENT_BYTES = STORAGE_LIMIT_BYTES;
 
 interface UploadTicket {
   path: string;
@@ -48,35 +59,70 @@ interface UploadTicket {
  * meegaan. Wat niet lukt, wordt overgeslagen — de vraag zelf is belangrijker dan
  * de bijlage, en de bezoeker leest achteraf welke bestanden niet meekonden.
  */
-async function uploadFiles(files: File[]): Promise<{ paths: string[]; failed: string[] }> {
-  if (files.length === 0) return { paths: [], failed: [] };
+async function uploadFiles(originals: File[]): Promise<{ paths: string[]; failed: string[] }> {
+  if (originals.length === 0) return { paths: [], failed: [] };
+
+  // Eerst verkleinen: een telefoonfoto van 10 MB haalt de overkant niet.
+  const resized = await Promise.all(originals.map(resizeImageFile));
+
+  const failed: string[] = [];
+  const paths: string[] = [];
+
+  /*
+    De bezoeker kent alleen de naam die hij koos, niet die van het verkleinde
+    bestand — daarom reist de oorspronkelijke naam mee tot in de foutmelding.
+    Wat ook na verkleinen te groot blijft (een HEIC die de browser niet kon
+    decoderen, bijvoorbeeld) sturen we niet: storage weigert het toch.
+  */
+  const queue = resized
+    .map((file, index) => ({ file, label: originals[index]?.name ?? file.name }))
+    .filter(({ file, label }) => {
+      if (file.size <= STORAGE_LIMIT_BYTES) return true;
+      console.error(`[vraag] ${label} blijft te groot: ${Math.round(file.size / 1024)} kB`);
+      failed.push(label);
+      return false;
+    });
+
+  if (queue.length === 0) return { paths, failed };
 
   const response = await fetch("/api/vraag-uploads", {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ files: files.map((file) => ({ name: file.name, type: file.type })) }),
+    body: JSON.stringify({
+      files: queue.map(({ file }) => ({ name: file.name, type: file.type })),
+    }),
   });
   const data = (await response.json().catch(() => ({}))) as { uploads?: UploadTicket[] };
   const uploads = data.uploads ?? [];
-  if (uploads.length === 0) return { paths: [], failed: files.map((file) => file.name) };
-
-  const paths: string[] = [];
-  const failed: string[] = [];
+  if (uploads.length === 0) {
+    console.error('[vraag] geen upload-URL ontvangen');
+    return { paths, failed: [...failed, ...queue.map(({ label }) => label)] };
+  }
 
   await Promise.all(
     uploads.map(async (ticket, index) => {
-      const file = files[index];
-      if (!file) return;
+      const entry = queue[index];
+      if (!entry) return;
+      const { file, label } = entry;
       try {
         const put = await fetch(ticket.signed_url, {
-          method: "PUT",
-          headers: { "content-type": file.type || "application/octet-stream" },
+          method: 'PUT',
+          headers: { 'content-type': file.type || 'application/octet-stream' },
           body: file,
         });
-        if (put.ok) paths.push(ticket.path);
-        else failed.push(file.name);
-      } catch {
-        failed.push(file.name);
+        if (put.ok) {
+          paths.push(ticket.path);
+        } else {
+          // Zonder deze regel is een mislukte bijlage een raadsel: de bezoeker
+          // leest "kon niet mee" en wij weten niet waaróm.
+          console.error(
+            `[vraag] upload van ${label} (${Math.round(file.size / 1024)} kB) faalde: HTTP ${put.status}`,
+          );
+          failed.push(label);
+        }
+      } catch (error) {
+        console.error(`[vraag] upload van ${label} afgebroken:`, error);
+        failed.push(label);
       }
     }),
   );
@@ -148,7 +194,8 @@ const V3Cta = () => {
     const picked = Array.from(event.target.files ?? []);
     const rejected: string[] = [];
     const accepted = picked.filter((file) => {
-      const ok = ACCEPTED_TYPES.has(file.type) && file.size <= MAX_FILE_BYTES;
+      const limit = file.type.startsWith("image/") ? MAX_IMAGE_BYTES : MAX_DOCUMENT_BYTES;
+      const ok = ACCEPTED_TYPES.has(file.type) && file.size <= limit;
       if (!ok) rejected.push(file.name);
       return ok;
     });
@@ -391,8 +438,8 @@ const V3Cta = () => {
                 </div>
                 {skipped.length > 0 && (
                   <p className="cf-note" role="status">
-                    Niet toegevoegd: {skipped.join(", ")} — alleen jpg, png, webp, pdf of Word tot
-                    10 MB.
+                    Niet toegevoegd: {skipped.join(", ")} — alleen jpg, png, webp, pdf of Word;
+                    foto&apos;s tot 30 MB, documenten tot 10 MB.
                   </p>
                 )}
                 {error && (
