@@ -271,6 +271,86 @@ async function claimOnce(stripe: Stripe, sessionId: string, flag: string): Promi
 }
 
 /**
+ * Metadata-sleutel op de oorspronkelijke sessie: het saldo is afgerekend.
+ *
+ * De saldopagina leest hem om een tweede betaling te weigeren, en hij houdt de
+ * afhandeling enkelvoudig wanneer dezelfde betaling langs beide wegen
+ * binnenkomt — de Stripe-webhook en de terugkeer van de betaler.
+ */
+export const BALANCE_FLAG = "saldo_betaald";
+
+/** Wat de saldo-sessie meedraagt om de order te kunnen bijwerken. */
+export const BALANCE_TYPE = "saldo";
+
+/**
+ * De saldobetaling bij de installatie afleveren bij het portaal.
+ *
+ * Dit is een tweede Stripe-sessie voor een boeking die al bestaat: de klant
+ * rekende bij het bestellen de orderbevestiging af, de technieker laat hem ter
+ * plaatse de rest betalen. Die betaling mag dus geen nieuwe order maken —
+ * `external_id` blijft dat van de oorspronkelijke sessie.
+ *
+ * De payload draagt enkel wat er verandert. De webhook aan de Vernast-kant
+ * schrijft alleen de velden die meekomen, dus de werf, de datums, het pakket en
+ * het tijdslot blijven staan zoals ze stonden.
+ *
+ * Zodra de order daardoor volledig betaald is, maakt het portaal de factuur en
+ * mailt ze naar de klant (sjabloon 203). Dat is het moment waarop de klant zijn
+ * factuur hoort te krijgen — niet bij het voorschot.
+ */
+export async function deliverBalancePayment(
+  stripe: Stripe,
+  session: Stripe.Checkout.Session,
+  context: string,
+): Promise<boolean> {
+  const base = meta(session, "basis_sessie");
+  if (!base) {
+    console.error(`[vernast-saldo] sessie ${session.id} draagt geen basis_sessie`);
+    return false;
+  }
+
+  if (session.payment_status !== "paid") return true;
+
+  /*
+    Wat er in totaal op deze order betaald is: het voorschot uit de
+    oorspronkelijke sessie plus wat Stripe nu geïncasseerd heeft. Bewust niet
+    het ordertotaal uit de metadata — dan zou een saldo dat om welke reden ook
+    afwijkt, in het portaal als "volledig betaald" landen terwijl er nog geld
+    open staat.
+  */
+  const prepaid = Number(meta(session, "voorschot_betaald") ?? "0") || 0;
+  const collected = round2((session.amount_total ?? 0) / 100);
+  const total = Number(meta(session, "totaal_incl_btw") ?? "0") || 0;
+  const paidTotal = round2(prepaid + collected);
+
+  const payload: VernastOrderPayload = {
+    source: "stripe",
+    external_id: base,
+    payment_status: "paid",
+    amount_paid: paidTotal,
+    balance_due: round2(Math.max(0, total - paidTotal)),
+    online_payment_method: await onlinePaymentMethod(stripe, session),
+  };
+
+  const sync = await pushOrderToVernast(payload);
+  logSyncFailure(`${context} ${session.id}`, sync);
+
+  if (!sync.ok) {
+    // Geld binnen, portaal weet van niets. Zelfde afweging als bij een gewone
+    // order: dit hoort niet in een logregel te blijven hangen.
+    await Promise.all([
+      alertSyncFailure(`${context} ${session.id}`, sync.reason, payload),
+      notifySyncFailure(`${context} ${session.id}`, sync.reason, payload),
+    ]);
+    return false;
+  }
+
+  // Op de basis-sessie, niet op deze: de saldopagina kent alleen die eerste.
+  await claimOnce(stripe, base, BALANCE_FLAG);
+  return true;
+}
+
+/**
  * Levert de order af en geeft de hold vrij.
  *
  * De order neemt het van de hold over: die staat als echte boeking in het
