@@ -476,13 +476,13 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     about: [
       "Met <strong>90 liter per dag</strong> en een bereik tot <strong>600 m³</strong> is dit het toestel voor situaties waar volume of snelheid het probleem is: grote werven, industriële ruimtes, ruime kelders of acute waterschade.",
       "Bij <strong>waterschade</strong> is dit vaak de juiste keuze. Na een lek of overstroming zit het water niet alleen in de lucht maar diep in vloeren, muren en isolatie. Hoe sneller u de luchtvochtigheid omlaag brengt, hoe kleiner de kans op schimmel en structurele schade — de eerste 48 uur zijn beslissend.",
-      "Droogt u een <strong>kelder of onverwarmde ruimte</strong>? Combineer dit toestel met de <strong>elektrische kachel TEddH 30 T</strong>. Onder 15 °C werkt condensatiedroging traag; met de kachel brengt u de temperatuur op peil en komt het vocht wel los.",
+      "Droogt u een <strong>kelder of onverwarmde ruimte</strong>? Combineer dit toestel met de <strong>elektrische kachel TEH 30 T</strong>. Onder 15 °C werkt condensatiedroging traag; met de kachel brengt u de temperatuur op peil en komt het vocht wel los.",
     ],
     bullets: [
       ["Tot 600 m³", "Grote werven, industriële ruimtes en ruime kelders in één toestel."],
       ["90 L per dag", "De hoogste vochtafvoer in ons gamma — voor acute situaties."],
       ["Eerste keuze bij waterschade", "Snel de luchtvochtigheid omlaag om schimmel en rot te voorkomen."],
-      ["Combineer met kachel", "In koude ruimtes brengt de TEddH 30 T de temperatuur op werkingsniveau."],
+      ["Combineer met kachel", "In koude ruimtes brengt de TEH 30 T de temperatuur op werkingsniveau."],
     ],
     specs: [
       ["Type", "Condensontvochtiger"],
@@ -505,7 +505,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
       [
         "Werkt het in een koude kelder?",
-        "Beperkt. Onder 15 °C daalt het rendement van elke condensontvochtiger sterk. Voor kelders leveren we dit toestel samen met de elektrische kachel TEddH 30 T, zodat de temperatuur op werkingsniveau komt.",
+        "Beperkt. Onder 15 °C daalt het rendement van elke condensontvochtiger sterk. Voor kelders leveren we dit toestel samen met de elektrische kachel TEH 30 T, zodat de temperatuur op werkingsniveau komt.",
       ],
       [
         "Hoeveel stroom verbruikt het?",
@@ -572,7 +572,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     aboutTitle: "Waarom verwarmen bij het drogen?",
     about: [
       "Droging is temperatuurafhankelijk. Warme lucht kan veel meer vocht vasthouden dan koude lucht — en warme bouwmassa geeft haar vocht sneller af. <strong>Onder 15 °C daalt het rendement van een condensontvochtiger sterk</strong>; onder 10 °C wordt het proces echt traag.",
-      "Precies daar komt deze kachel in beeld. In een <strong>kelder, een onverwarmde nieuwbouw of een winterwerf</strong> brengt de TEddH 30 T de ruimte op werkingstemperatuur, waardoor de ontvochtiger weer op volle capaciteit kan werken. De combinatie levert een veel kortere droogtijd dan de ontvochtiger alleen.",
+      "Precies daar komt deze kachel in beeld. In een <strong>kelder, een onverwarmde nieuwbouw of een winterwerf</strong> brengt de TEH 30 T de ruimte op werkingstemperatuur, waardoor de ontvochtiger weer op volle capaciteit kan werken. De combinatie levert een veel kortere droogtijd dan de ontvochtiger alleen.",
       "Met <strong>30 kW</strong> en een ingebouwde thermostaat verwarmt het toestel ook grote volumes en houdt het de temperatuur stabiel zonder dat u erbij moet blijven. Aansluiting op <strong>400 V krachtstroom</strong> is vereist — onze technicus controleert dat bij de levering.",
     ],
     bullets: [
@@ -619,15 +619,15 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ["Aansluiting", "400", "V"],
       ["Thermostaat", "ja", ""],
     ],
-    aboutTitle: "Wanneer kiest u de TEddH 20 T?",
+    aboutTitle: "Wanneer kiest u de TEH 20 T?",
     about: [
-      "Dezelfde rol als de <strong>TEddH 30 T</strong>, maar een maat kleiner. Deze kachel brengt een <strong>kelder, garage, appartement of afgesloten verdieping</strong> op werkingstemperatuur zodat uw ontvochtiger weer op volle capaciteit kan werken.",
+      "Dezelfde rol als de <strong>TEH 30 T</strong>, maar een maat kleiner. Deze kachel brengt een <strong>kelder, garage, appartement of afgesloten verdieping</strong> op werkingstemperatuur zodat uw ontvochtiger weer op volle capaciteit kan werken.",
       "Onder 15 °C neemt lucht nauwelijks vocht op en geeft de bouwmassa haar water traag af. In een onverwarmde ruimte is verwarmen dus geen comfortkeuze maar de voorwaarde om überhaupt te drogen — zonder kachel loopt uw huurperiode simpelweg langer.",
       "Met <strong>20 kW</strong> verwarmt dit toestel ruimtes waarvoor de 30 kW-versie overgedimensioneerd is. Ook dit model vraagt <strong>400 V krachtstroom</strong>; is die er niet, laat het ons dan vooraf weten.",
     ],
     bullets: [
       ["20 kW verwarmingsvermogen", "Genoeg voor een kelder, garage of afgesloten verdieping."],
-      ["De maat onder de TEddH 30 T", "Kleiner en lichter, voor ruimtes waar 30 kW te veel is."],
+      ["De maat onder de TEH 30 T", "Kleiner en lichter, voor ruimtes waar 30 kW te veel is."],
       ["Ingebouwde thermostaat", "Houdt de streeftemperatuur aan zonder dat u erbij moet blijven."],
       ["400 V krachtstroom", "Controleer vooraf of uw werf een driefasige aansluiting heeft."],
     ],
@@ -643,7 +643,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
     faq: [
       [
-        "Wat is het verschil met de TEddH 30 T?",
+        "Wat is het verschil met de TEH 30 T?",
         "Enkel het vermogen: 20 kW tegenover 30 kW. Voor een kelder, garage of appartement volstaat deze versie ruimschoots. Gaat het om een volledige woning in aanbouw of een grote werf, kies dan de 30 kW-versie.",
       ],
       [
