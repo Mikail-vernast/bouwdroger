@@ -106,10 +106,19 @@ const AfhalenPage = () => {
                     <Clock className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-semibold text-foreground">Openingsuren voor afhaling</p>
+                      {/*
+                        Dezelfde uren als `openingHoursSpecification` in de
+                        JSON-LD en als de footer. Hier stond "Zaterdag: 09:00 -
+                        12:00" terwijl de schema, de footer en llms.txt alle
+                        drie enkel Ma-Vr aangaven. Drie versies van hetzelfde
+                        openingsuur op één site: wie ze samen leest — Google,
+                        een AI-assistent — houdt er geen antwoord aan over.
+                        Openen we wél op zaterdag, dan hoort de zaterdag in
+                        `CONTACT.openingHours` en in de schema, niet enkel hier.
+                      */}
                       <div className="text-sm text-muted-foreground space-y-1 mt-1">
                         <p>Maandag - Vrijdag: 08:00 - 17:00</p>
-                        <p>Zaterdag: 09:00 - 12:00</p>
-                        <p>Zondag: Gesloten</p>
+                        <p>Zaterdag en zondag: gesloten</p>
                       </div>
                     </div>
                   </div>

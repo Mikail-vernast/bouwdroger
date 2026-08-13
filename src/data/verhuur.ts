@@ -56,11 +56,24 @@ export const ROLE: Record<DeviceKey, { tag: string; txt: string }> = {
   },
   medium: {
     tag: "Extra capaciteit",
-    txt: "De Medium Bouwdroger haalt tot 80 liter per 24 uur uit de lucht. Wij zetten dit toestel bij zodra het volume of de vochtbelasting oploopt, bijvoorbeeld bij dikkere chape of een volledige woning in één keer.",
+    /*
+      70 liter, niet 80. De pakketpagina schreef 80 terwijl
+      /verhuur/toestel/ttk350 — hetzelfde toestel, zelfde foto, zelfde prijs —
+      70 L/dag opgaf. Beide pagina's staan in de index; wie ze naast elkaar
+      leest, weet niet wat hij huurt. De toestelpagina houdt de typespecificatie
+      en is dus de bron.
+    */
+    txt: "De Medium Bouwdroger haalt tot 70 liter per 24 uur uit de lucht. Wij zetten dit toestel bij zodra het volume of de vochtbelasting oploopt, bijvoorbeeld bij dikkere chape of een volledige woning in één keer.",
   },
   axiaal: {
     tag: "Circulatie",
-    txt: "Elke axiaalventilator verplaatst 5 300 m³ lucht per uur. Tegen een natte muur of chape vormt zich een dun laagje verzadigde lucht, daar stopt de droging. De ventilatoren doorbreken dat laagje zodat er telkens droge lucht in contact komt met het natte oppervlak.",
+    /*
+      4 500 is het cijfer dat de TTV 4500 op zijn eigen toestelpagina draagt en
+      dat ook in de modelnaam zit. De 5 300 hieronder in de specs is iets
+      anders — dat is het maximum vrij uitblazend — maar los in lopende tekst
+      leest het als een tweede, tegenstrijdig getal voor dezelfde ventilator.
+    */
+    txt: "Elke axiaalventilator verplaatst 4 500 m³ lucht per uur. Tegen een natte muur of chape vormt zich een dun laagje verzadigde lucht, daar stopt de droging. De ventilatoren doorbreken dat laagje zodat er telkens droge lucht in contact komt met het natte oppervlak.",
   },
   kachel: {
     tag: "Temperatuur",
@@ -126,7 +139,7 @@ export const SPECS: SpecSheet[] = [
     tab: "Medium Bouwdroger",
     h: "Krachtig bij hogere vochtbelasting",
     p: [
-      "Deze bouwdroger onttrekt tot <b>80 liter per 24 uur</b> en dekt volumes tot ongeveer 400 m³. Wij zetten het toestel bij zodra de vochtbelasting oploopt, dikkere chape, een volledige woning of een kortere deadline.",
+      "Deze bouwdroger onttrekt tot <b>70 liter per 24 uur</b> en dekt volumes tot ongeveer 400 m³. Wij zetten het toestel bij zodra de vochtbelasting oploopt, dikkere chape, een volledige woning of een kortere deadline.",
       "Ondanks het hogere vermogen blijft het geluidsniveau laag genoeg voor bewoonde ruimtes, en de <b>automatische werking</b> betekent dat u het toestel gewoon kunt laten staan.",
     ],
     h4: "Meer capaciteit, dezelfde eenvoud",
@@ -134,7 +147,7 @@ export const SPECS: SpecSheet[] = [
       [
         "Ontvochtiging",
         [
-          ["Capaciteit max. [l/24 u]", "80"],
+          ["Capaciteit max. [l/24 u]", "70"],
           ["Werkbereik [°C]", "5 – 32"],
           ["Werkbereik [% RV]", "30 – 90"],
         ],
@@ -163,7 +176,7 @@ export const SPECS: SpecSheet[] = [
     tab: "Axiaal Ventilatoren",
     h: "Robuuste ventilatiekracht",
     p: [
-      "Met een luchtverplaatsing tot <b>5.300 m³/u</b> is deze axiaalventilator ideaal om droogprocessen te versnellen of frisse lucht te circuleren. Compact van formaat, maar stevig gebouwd, u zet hem moeiteloos neer waar ventilatie het verschil maakt.",
+      "Met een luchtverplaatsing tot <b>4.500 m³/u</b> is deze axiaalventilator ideaal om droogprocessen te versnellen of frisse lucht te circuleren. Compact van formaat, maar stevig gebouwd, u zet hem moeiteloos neer waar ventilatie het verschil maakt.",
       "Deze ventilator draait op een gewone <b>230V-aansluiting</b>, is <b>spatwaterdicht (IP55)</b> en verbruikt slechts <b>0,25 kW</b>. Met <b>3 standen</b> en een luchtsnelheid tot <b>39,6 km/u</b> is hij klaar voor elke situatie, binnen én buiten.",
     ],
     h4: "Stil, zuinig en inzetbaar",

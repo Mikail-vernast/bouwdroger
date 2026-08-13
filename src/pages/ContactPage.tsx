@@ -234,17 +234,21 @@ const ContactPage = () => {
                     </div>
                     <h3 className="font-bold text-foreground">Openingsuren</h3>
                   </div>
+                  {/*
+                    Dezelfde uren als `openingHoursSpecification` in de JSON-LD
+                    van deze pagina. Hier stond "Zaterdag 09:00 - 12:00" naast
+                    een schema die enkel Ma-Vr aangeeft — een tegenspraak op
+                    dezelfde pagina, en precies het soort verschil waar een
+                    lokaal bedrijf zijn openingsuur in het zoekresultaat mee
+                    kwijtspeelt.
+                  */}
                   <div className="space-y-3 text-sm">
                     <div className="flex justify-between items-center py-2 border-b border-border">
                       <span className="text-foreground font-medium">Maandag - Vrijdag</span>
                       <span className="text-accent font-bold">08:00 - 17:00</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-border">
-                      <span className="text-foreground font-medium">Zaterdag</span>
-                      <span className="text-accent font-bold">09:00 - 12:00</span>
-                    </div>
                     <div className="flex justify-between items-center py-2">
-                      <span className="text-foreground font-medium">Zondag</span>
+                      <span className="text-foreground font-medium">Zaterdag en zondag</span>
                       <span className="text-muted-foreground">Gesloten</span>
                     </div>
                   </div>
