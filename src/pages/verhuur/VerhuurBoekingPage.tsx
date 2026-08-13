@@ -396,13 +396,17 @@ const VerhuurBoekingPage = () => {
       .catch(() => {
         if (!active) return;
         /*
-          Bewust geen lege lijst bij een fout: dat leest als "alles is vrij" en is
-          precies de stille fout die deze wijziging moest wegnemen. De bezoeker
-          krijgt te zien dat we het niet weten, en de knop blijft dicht.
+          Wel zeggen dat we het niet weten, niet de stap sluiten. Dat laatste
+          stond hier eerst, en op 13-08-2026 lag de boeking daardoor plat toen
+          de pooler aan de Vernast-kant een minuut hikte: de wizard had een lege
+          lijst, dus geen enkele datum kon nog verder. De harde controle in
+          `api/checkout.ts` staat er nog steeds en stuurt de bezoeker met een
+          409 terug naar deze stap — die mag deze route dus doorlaten, precies
+          zoals `usePickupAvailability` dat op de afhaalpagina doet.
         */
         setHorizonDates([]);
         setDatesError(
-          "We kunnen op dit moment niet nakijken welke datums nog vrij zijn. Probeer het zo opnieuw, of bel ons op 03 689 90 65."
+          "We kunnen op dit moment niet nakijken welke datums nog vrij zijn. U kunt gewoon verder — wij bevestigen uw leverdatum, of bel ons op 03 689 90 65."
         );
       })
       .finally(() => {
@@ -415,6 +419,16 @@ const VerhuurBoekingPage = () => {
   }, [step, config, options]);
 
   const dateBlocked = blockedDates.includes(startDate);
+
+  /**
+   * Waarom de stap naar de gegevens dicht blijft — of `null` als hij open mag.
+   *
+   * Eén bron voor beide "Verder"-knoppen. Ze liepen uiteen: onderaan ging de
+   * stap op slot zodra de beschikbaarheid ook maar hikte, terwijl dezelfde knop
+   * in de samenvatting rechts álles doorliet, ook een dag die vol stond. Wie de
+   * rechtse nam, kwam pas bij het afrekenen tegen een 409 aan.
+   */
+  const nextBlocked = step !== 3 ? null : loadingDates ? "laden" : dateBlocked ? "vol" : null;
 
   /**
    * Ligt de gekozen dag binnen het bereik dat `api/availability` nakijkt? Zo niet,
@@ -1117,10 +1131,10 @@ const VerhuurBoekingPage = () => {
                 <button
                   className="btn btn-d"
                   type="button"
-                  disabled={loadingDates || dateBlocked || !!datesError}
+                  disabled={nextBlocked !== null}
                   onClick={() => goTo(4)}
                 >
-                  {loadingDates ? "Beschikbaarheid nakijken…" : "Verder naar gegevens"}
+                  {nextBlocked === "laden" ? "Beschikbaarheid nakijken…" : "Verder naar gegevens"}
                   <ArrowRightIcon />
                 </button>
               </div>
@@ -1496,8 +1510,13 @@ const VerhuurBoekingPage = () => {
                   door de wizard.
                 */}
                 {step >= 1 && step < 4 && (
-                  <button className="btn btn-r" type="button" onClick={() => goTo(step + 1)}>
-                    {NEXT_LABEL[step] ?? "Verder"}
+                  <button
+                    className="btn btn-r"
+                    type="button"
+                    disabled={nextBlocked !== null}
+                    onClick={() => goTo(step + 1)}
+                  >
+                    {nextBlocked === "laden" ? "Beschikbaarheid nakijken…" : NEXT_LABEL[step] ?? "Verder"}
                   </button>
                 )}
                 <div className="note">Geen voorschot · dagelijks opzegbaar</div>
