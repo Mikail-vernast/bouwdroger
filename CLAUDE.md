@@ -48,6 +48,67 @@ AI-antwoordmachines geen JavaScript uitvoeren. Daarom staan de routes in `src/Ap
 **data-array** (`RouteRecord[]`), niet als `<Routes>`-JSX. Dynamische routes leveren hun
 varianten via `getStaticPaths`. Nieuwe pagina toevoegen = daar een entry bij, lazy geladen.
 
+Die `getStaticPaths`-functies draaien **alleen bij de build** en halen hun data daarom met
+een dynamische `import()` op. Zet je die import bovenaan `src/App.tsx`, dan belandt hij in
+de entry-chunk — en die laadt elke bezoeker op elke pagina. `src/data/tarieven.ts` alleen
+al is 173 kB.
+
+### Wat geprerenderd wordt, moet zichtbaar zijn
+
+Een animatie met een begintoestand wordt méé geprerenderd. Een framer-motion-element met
+`initial={{ opacity: 0 }}` leverde letterlijk `style="opacity:0"` op in
+`dist/<route>/index.html` — op /machines negentien blokken. Wie geen JavaScript uitvoert,
+en dat zijn precies de AI-antwoordmachines waarvoor we prerenderen, kreeg onzichtbare
+inhoud.
+
+Daarom draaien de scroll-animaties nu op `src/components/Reveal.tsx`: de HTML bevat géén
+begintoestand, en het component verbergt pas ná mount wat op dat moment nog buiten het
+scherm staat. Nieuwe binnenkomers horen daar bij, niet in een animatiebibliotheek. Om
+dezelfde reden staat de route-overgang in `src/Layout.tsx` op CSS.
+
+### Fonts hangen aan de schil, niet aan index.html
+
+`index.html` is de schil van élke route, dus daar hoort geen `<link rel="preload">` voor
+een font in dat maar de helft van de site gebruikt. `src/components/FontPreload.tsx` doet
+het per schil: `Navbar` haalt Inter vooruit, `V3Header` Plus Jakarta Sans en DM Sans.
+
+Zet daarom nooit een `font-family` op `h1, h2, h3` in `src/index.css`. Elke schil zet zijn
+font op zijn eigen root en de koppen erven dat; een globale koppenregel breekt door die
+schil heen. Drie `<h2>`'s in de v3-footer waren genoeg om élke pagina 47 kB Inter te laten
+ophalen.
+
+### Twee schillen op één site
+
+De homepage en de verhuurfunnel (`/verhuur/*`) draaien op de v3-vormtaal uit de Claude
+Design-handoff: `src/components/home-v3/` (`V3Header`/`V3Footer`) en
+`src/components/verhuur/` (`VHeader`/`VFooter`), met eigen CSS in `src/styles/`. De
+inhoudspagina's (`/levering`, `/machines`, `/prijzen`, `/contact`, …) hangen nog aan de
+oudere `Navbar`/`Footer` met shadcn/ui. Ze zijn uit elkaar gegroeid maar bestaan bewust
+naast elkaar; nieuw conversiewerk hoort in de verhuurfunnel.
+
+Daardoor zijn er ook twee wegen naar een bestelling: `/verhuur/boeking` → `api/checkout.ts`
+(Stripe) en `/verhuur/afhalen` → `api/afhaal-checkout.ts`, tegenover de oudere
+`/booking`- en `/afhalen`-pagina's die via `api/order.ts` gaan (order zonder online
+betaling). Verander je iets aan de prijs- of orderlogica, controleer dan beide.
+
+### SEO-metadata staat op één plek
+
+Titel en beschrijving van elke route staan in `src/data/seo.ts`, niet in de pagina zelf —
+zo is kannibalisatie tussen twee pagina's op dezelfde zoekintentie meteen zichtbaar. De
+pagina rendert ze via `<PageMeta>`, dat ook canonical, OG-tags en JSON-LD zet.
+
+`scripts/generate-seo-files.mjs` leidt na de build `sitemap.xml` en `robots.txt` af uit de
+HTML in `dist/`: wat geprerenderd is en niet op `noindex` staat, staat in de sitemap. Zet
+`noindex: true` in `seo.ts` voor bevestigings- en checkout-stappen. `node
+scripts/audit-seo.mjs` (na een build) controleert de output op dunne pagina's, ontbrekende
+canonicals en dubbele titels; `--live` checkt bovendien of het domein in de canonicals deze
+site uitlevert.
+
+Een pagina toevoegen raakt dus vier bestanden: route in `src/App.tsx`, metadata in
+`src/data/seo.ts`, link in `src/data/navigation.ts` (beide footers lezen die lijst — zonder
+entry wordt de pagina een wees die alleen via de sitemap bestaat) en eventueel een redirect
+in `vercel.json`.
+
 ### `src/lib/` draait aan beide kanten
 
 De modules in `src/lib/` worden zowel door de browser als door de serverless functies in
@@ -68,7 +129,10 @@ pakketconfiguratie en de gepubliceerde tarieven. `orderIntake.ts` gebruikt daarn
 of bedrag kan zetten.
 
 Prijzen op het scherm en prijzen bij Stripe komen uit dezelfde module (`src/lib/booking.ts`,
-`src/lib/verhuur.ts`), zodat ze per definitie gelijk zijn.
+`src/lib/verhuur.ts`), zodat ze per definitie gelijk zijn. Ook de publieke tarieflijst
+(`src/data/tarieflijst.ts`) en het toestellenmenu (`src/data/navigation.ts`) leiden af uit
+`PRODUCTS` in `src/data/verhuur.ts` — er stonden ooit verzonnen bedragen op /prijzen. Typ
+nooit een bedrag over in een pagina.
 
 Btw: de catalogus rekent **excl.**, Stripe int **bruto**. In de Stripe-metadata staat
 `totaal`/`korting` excl. en `totaal_incl_btw`/`nu_betaald` incl.
@@ -114,6 +178,14 @@ aangezet worden zodra zijn sjabloon klaar is. Houd dat patroon aan bij nieuwe me
 `src/lib/sentCopy.ts` zet achteraf een kopie in de map Verzonden via een Google
 service-account (`users.messages.insert`). Dat wachten op de gerenderde HTML bij Brevo valt
 buiten het antwoord van de functie.
+
+### Bijlagen gaan niet door de functie heen
+
+Het vraagformulier op de homepage (`V3Cta` → `api/vraag.ts`) laat foto's toe. De browser
+vraagt eerst upload-plekken aan bij `api/vraag-uploads.ts` en uploadt daarna rechtstreeks
+naar de signed URL. Reden: Vercel weigert een grote body nog vóór de handler start, en een
+foto van een ondergelopen kelder is zo 8 MB. Nieuwe uploads horen hetzelfde patroon te
+volgen.
 
 ### `src/data/tarieven.ts` is gegenereerd
 
@@ -163,5 +235,13 @@ daarom twee taken in één run. Een derde herinnering hoort daar bij, niet in ee
   tweede kopie van React ("Cannot read properties of null (reading 'useRef')").
 - `vercel.json` bevat ~50 redirects van de oude Shopify-URL's. Route hernoemen betekent daar
   een redirect bij.
+- **`experimentalMinChunkSize` niet aanzetten** in `vite.config.ts`. De dertig piepkleine
+  icoon-chunks samenvoegen lijkt gratis winst, maar rollup gooit daarbij de manifest door
+  elkaar waaruit vite-react-ssg zijn `modulepreload`-regels afleidt: /realisaties hield er
+  nog 2 over van de 13, en die chunks worden dan pas ná de entry ontdekt.
+- **Meet performance nooit tegen een gewone `node http`-server.** Die praat HTTP/1.1 zonder
+  compressie; de render-blokkerende CSS komt daar achter een rij JS-chunks te staan en elke
+  meting wijst de verkeerde kant op. Vercel serveert HTTP/2 met brotli — meet daartegen, of
+  tegen de live site.
 
 Omgevingsvariabelen, mail-sjablonen en de Slack-webhook staan uitgeschreven in `README.md`.
