@@ -1126,6 +1126,21 @@
 .vh-book .done p{font-size:16px;color:var(--txt-mid);line-height:1.62;max-width:520px;margin:0 auto 28px}
 .vh-book .done .dref{display:inline-block;background:var(--page);border-radius:12px;padding:14px 24px;font-family:var(--fd);font-weight:700;font-size:17px;margin-bottom:28px}
 .vh-book .done .dref span{display:block;font-family:var(--fb);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim);font-weight:600;margin-bottom:5px}
+/* Wat er besteld is. Links uitgelijnd binnen een gecentreerde kaart: dit is een
+   lijst om na te lezen — de knop in de bevestigingsmail brengt de klant hier
+   dagen later terug — en geen felicitatie. */
+.vh-book .done .dord{text-align:left;max-width:520px;margin:0 auto 28px;background:var(--page);border-radius:12px;padding:22px 24px}
+.vh-book .done .dord h3{font-family:var(--fd);font-weight:700;font-size:17px;line-height:1.4;margin:0 0 14px}
+.vh-book .done .dord ul{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.vh-book .done .dord li{background:#fff;border-radius:8px;padding:7px 12px;font-size:14px;font-weight:600;color:var(--txt-mid)}
+.vh-book .done .dord dl{display:grid;grid-template-columns:auto 1fr;gap:9px 18px;margin:0;font-size:14.5px}
+.vh-book .done .dord dt{color:var(--txt-dim)}
+.vh-book .done .dord dd{margin:0;font-weight:600;text-align:right}
+@media(max-width:560px){
+  .vh-book .done .dord{padding:18px 18px}
+  .vh-book .done .dord dl{grid-template-columns:1fr;gap:2px}
+  .vh-book .done .dord dd{text-align:left;margin-bottom:10px}
+}
 .vh-book footer.site{background:var(--maroon-dd);color:rgba(255,255,255,.62);padding:34px 0}
 .vh-book footer.site .in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:12.5px}
 .vh-book footer.site a{color:rgba(255,255,255,.7)}

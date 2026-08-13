@@ -158,6 +158,24 @@ interface Customer {
   ok: boolean;
 }
 
+/**
+ * De bestelling zoals `api/checkout-session` ze samenvat: wat er geleverd wordt
+ * en wanneer, zonder wie het besteld heeft. Alles kan leeg zijn — een sessie van
+ * vóór deze samenvatting draagt de metadata niet die ze uitleest.
+ */
+interface OrderSummary {
+  package: string;
+  devices: string[];
+  deliveryDate: string;
+  deliverySlot: string;
+  rentalStart: string;
+  rentalEnd: string;
+  rentalDays: number | null;
+  total: number | null;
+  paid: number | null;
+  balance: number | null;
+}
+
 const EMPTY_CUSTOMER: Customer = {
   name: "",
   tel: "",
@@ -169,6 +187,19 @@ const EMPTY_CUSTOMER: Customer = {
   city: "",
   ok: false,
 };
+
+/**
+ * "donderdag 10 september" uit een ISO-datum uit de sessie.
+ *
+ * Middaguur erbij: een kale datum leest als UTC-middernacht, en dat is in
+ * Brussel de dag ervoor — de klant zou zijn levering een dag te vroeg zien
+ * staan. Wat geen datum blijkt, tonen we onveranderd; onleesbaar is beter dan
+ * "Invalid Date" op een bevestiging.
+ */
+function longDate(iso: string): string {
+  const date = new Date(`${iso}T12:00:00`);
+  return Number.isNaN(date.getTime()) ? iso : formatLongDate(date);
+}
 
 function isComplete(c: Customer, type: CustomerType): boolean {
   const proOk = type !== "pro" || (c.company.trim().length > 1 && c.vat.trim().length > 8);
@@ -229,6 +260,13 @@ const VerhuurBoekingPage = () => {
   */
   const [customer, setCustomer] = useState<Customer>({ ...EMPTY_CUSTOMER, ...stored?.customer });
   const [reference, setReference] = useState("");
+  /*
+    Wat er effectief betaald is, zoals `api/checkout-session` het teruggeeft.
+    Niet af te leiden uit `config`: die staat in de adresbalk en is een wens,
+    geen bestelling. Blijft leeg zolang niemand van Stripe of uit de
+    bevestigingsmail terugkomt.
+  */
+  const [ordered, setOrdered] = useState<OrderSummary | null>(null);
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
 
@@ -507,10 +545,11 @@ const VerhuurBoekingPage = () => {
     let active = true;
     fetch(`/api/checkout-session?id=${encodeURIComponent(sessionId)}`)
       .then((r) => r.json())
-      .then((data: { paid?: boolean; reference?: string; error?: string }) => {
+      .then((data: { paid?: boolean; reference?: string; order?: OrderSummary; error?: string }) => {
         if (!active) return;
         if (data.paid && data.reference) {
           setReference(data.reference);
+          setOrdered(data.order ?? null);
           setStep(STEP_DONE);
           sessionStorage.removeItem(STORAGE_KEY);
         } else {
@@ -1410,6 +1449,65 @@ const VerhuurBoekingPage = () => {
                   <span>Referentie</span>
                   <span>{reference}</span>
                 </div>
+
+                {/*
+                  Wat er geleverd wordt, uit de betaalde sessie. De knop in de
+                  bevestigingsmail brengt de klant hier dagen later terug; zonder
+                  dit blok stond er alleen een referentie en moest hij de mail er
+                  weer bij zoeken om te zien hoeveel drogers er komen.
+                */}
+                {ordered && (
+                  <div className="dord">
+                    {ordered.package && <h3>{ordered.package}</h3>}
+
+                    {ordered.devices.length > 0 && (
+                      <ul>
+                        {ordered.devices.map((line) => (
+                          <li key={line}>{line}</li>
+                        ))}
+                      </ul>
+                    )}
+
+                    <dl>
+                      {ordered.deliveryDate && (
+                        <>
+                          <dt>Levering</dt>
+                          <dd>
+                            {longDate(ordered.deliveryDate)}
+                            {ordered.deliverySlot ? ` · ${ordered.deliverySlot}` : ""}
+                          </dd>
+                        </>
+                      )}
+                      {ordered.rentalStart && ordered.rentalEnd && (
+                        <>
+                          <dt>Huurperiode</dt>
+                          <dd>
+                            {longDate(ordered.rentalStart)} t.e.m. {longDate(ordered.rentalEnd)}
+                            {ordered.rentalDays ? ` · ${ordered.rentalDays} dagen` : ""}
+                          </dd>
+                        </>
+                      )}
+                      {ordered.paid !== null && (
+                        <>
+                          <dt>Betaald</dt>
+                          <dd>{euro(ordered.paid)}</dd>
+                        </>
+                      )}
+                      {/*
+                        Enkel bij een orderbevestiging: wie alles online betaalde
+                        heeft hier een nul staan, en "nog te betalen € 0,00" laat
+                        een afgeronde boeking lezen als een openstaande rekening.
+                      */}
+                      {ordered.balance !== null && ordered.balance > 0 && (
+                        <>
+                          <dt>Nog te betalen bij levering</dt>
+                          <dd>{euro(ordered.balance)}</dd>
+                        </>
+                      )}
+                    </dl>
+                  </div>
+                )}
+
                 <div className="fnav" style={{ justifyContent: "center" }}>
                   <Link className="btn btn-o" to={`/verhuur/pakket?${configToQuery(config)}`}>
                     Terug naar het pakket

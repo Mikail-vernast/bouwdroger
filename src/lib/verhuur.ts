@@ -4,7 +4,15 @@
  */
 // Relatief geïmporteerd, niet via `@/`: de serverless functies in /api draaien
 // buiten de Vite-alias en gebruiken dezelfde rekenregels.
-import { CAT, FIXED_WEEKS, WEEKS, WET_IMG, type DeviceKey, type ImageRule } from "../data/verhuur.js";
+import {
+  CAT,
+  FIXED_WEEKS,
+  PRODUCTS,
+  WEEKS,
+  WET_IMG,
+  type DeviceKey,
+  type ImageRule,
+} from "../data/verhuur.js";
 import { packageSizes, packageThicknesses } from "../data/packages.js";
 import {
   packageFor,
@@ -209,6 +217,32 @@ export interface DeviceLine {
 
 export function toDeviceLines(items: PackageItem[]): DeviceLine[] {
   return items.filter((it) => it.q > 0).map((it) => ({ device_key: it.k, qty: it.q }));
+}
+
+/**
+ * Hoe een rol heet tegen een klant. `small` zegt hem niets; "Small Bouwdroger"
+ * staat op het toestel dat voor zijn deur wordt gezet.
+ */
+export const DEVICE_LABEL: Record<DeviceKey, string> = {
+  small: "Small Bouwdroger",
+  medium: "Medium Bouwdroger",
+  axiaal: "Axiaalventilator",
+  kachel: "Elektrische kachel",
+};
+
+/**
+ * "2× Small Bouwdroger" — één besteldregel zoals de klant hem herkent.
+ *
+ * Een pakketregel draagt een rol, een losse reservatie een product; dat tweede
+ * heeft een eigen naam in de catalogus ("Ventilator TTV 4500"). Kent geen van
+ * beide de sleutel, dan blijft de sleutel zelf staan: onleesbaar, maar altijd
+ * beter dan een regel die verdwijnt uit het overzicht van wat er geleverd wordt.
+ */
+export function deviceLineLabel(line: DeviceLine): string {
+  const name = line.product_key
+    ? (PRODUCTS[line.product_key]?.short ?? PRODUCTS[line.product_key]?.name ?? line.product_key)
+    : (DEVICE_LABEL[line.device_key as DeviceKey] ?? line.device_key ?? "");
+  return `${line.qty}× ${name}`;
 }
 
 /**

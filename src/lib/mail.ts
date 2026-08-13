@@ -17,8 +17,7 @@
 
 import { sendPlain, sendTemplate, type BrevoRecipient } from "./brevo.js";
 import { mailAllowed } from "./rateLimit.js";
-import type { DeviceKey } from "../data/verhuur.js";
-import { euro } from "./verhuur.js";
+import { DEVICE_LABEL, euro } from "./verhuur.js";
 import type { VernastOrderPayload } from "./vernastSync.js";
 
 /** Elke mail die deze site kan versturen. */
@@ -270,13 +269,6 @@ async function sendToSelfChosenAddress(
 /* ============================================================
    Parameters
    ============================================================ */
-
-const DEVICE_LABEL: Record<DeviceKey, string> = {
-  small: "Small Bouwdroger",
-  medium: "Medium Bouwdroger",
-  axiaal: "Axiaalventilator",
-  kachel: "Elektrische kachel",
-};
 
 /**
  * Datums opgemaakt voor in de mail. Een Brevo-sjabloon kan niet formatteren,

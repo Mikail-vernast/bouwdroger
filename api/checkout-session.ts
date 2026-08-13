@@ -5,14 +5,16 @@
  * `session_id` in de URL te zetten.
  *
  * Het endpoint is publiek, dus het geeft niet meer terug dan de pagina nodig
- * heeft: betaald ja/nee en de referentie. Klantgegevens die Stripe wél bij de
- * sessie bewaart — e-mailadres, bedrag, adres — blijven hier binnen. En omdat
- * de Stripe-sleutel het volledige account ziet, wordt enkel een sessie
- * beantwoord die door `POST /api/checkout` is aangemaakt.
+ * heeft: betaald ja/nee, de referentie en — bij een betaalde sessie — wat er
+ * besteld is, voor het overzicht op de bevestigingspagina. Wie de klant is
+ * (naam, e-mail, adres, telefoon) blijft hier binnen. En omdat de
+ * Stripe-sleutel het volledige account ziet, wordt enkel een sessie beantwoord
+ * die door `POST /api/checkout` is aangemaakt.
  */
 import Stripe from "stripe";
 import { isReference } from "../src/lib/booking.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
+import { deviceLineLabel, parseDeviceLines } from "../src/lib/verhuur.js";
 import { deliverOrder } from "../src/lib/vernastOrder.js";
 
 /** Stripe-sessie-ID's zijn `cs_` gevolgd door alfanumerieke tekens. */
@@ -31,6 +33,45 @@ function json(body: unknown, status = 200): Response {
     status,
     headers: { "content-type": "application/json", "cache-control": "no-store" },
   });
+}
+
+function meta(session: Stripe.Checkout.Session, key: string): string {
+  const value = session.metadata?.[key];
+  return typeof value === "string" ? value : "";
+}
+
+/**
+ * Wat er besteld is, zoals de bevestigingspagina het toont.
+ *
+ * De knop in de bevestigingsmail brengt de klant hier dagen later terug, en dan
+ * stond er enkel "Uw boeking staat vast" met een referentie — wie wilde nakijken
+ * hoeveel drogers er komen, moest de mail er weer bij halen. De pagina kan dat
+ * niet zelf afleiden: de configuratie in de adresbalk is maar een wens van de
+ * bezoeker, terwijl dit uit de betaalde sessie komt.
+ *
+ * Bewust zonder naam, adres, e-mail of telefoon: die blijven hier binnen, ook al
+ * zit deze route achter een sessie-ID dat alleen de klant kent. Wat er in zijn
+ * kelder komt te staan is zijn eigen bestelling; wie hij is hoort daar niet bij.
+ */
+function orderSummary(session: Stripe.Checkout.Session): Record<string, unknown> {
+  const devices = parseDeviceLines(meta(session, "toestellen")).map(deviceLineLabel);
+  const number = (key: string): number | null => {
+    const parsed = Number(meta(session, key));
+    return Number.isFinite(parsed) ? parsed : null;
+  };
+
+  return {
+    package: meta(session, "pakket"),
+    devices,
+    deliveryDate: meta(session, "leverdatum"),
+    deliverySlot: meta(session, "tijdslot"),
+    rentalStart: meta(session, "huur_start"),
+    rentalEnd: meta(session, "huur_eind"),
+    rentalDays: number("huurdagen"),
+    total: number("totaal_incl_btw"),
+    paid: number("nu_betaald"),
+    balance: number("saldo_bij_levering"),
+  };
 }
 
 export async function GET(request: Request): Promise<Response> {
@@ -90,7 +131,10 @@ export async function GET(request: Request): Promise<Response> {
     */
     if (paid) await deliverOrder(stripe, session, "terugkeer");
 
-    return json({ paid, reference });
+    // De bestelling zelf hoort alleen bij een betaalde sessie: een afgebroken
+    // poging heeft niets om te tonen, en de pagina stuurt die bezoeker terug
+    // naar de gegevensstap.
+    return json({ paid, reference, ...(paid ? { order: orderSummary(session) } : {}) });
   } catch {
     return json({ error: "Sessie niet gevonden." }, 404);
   }
