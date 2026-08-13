@@ -6,12 +6,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Phone, Mail, MapPin, Clock, Send, Warehouse, PhoneCall, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
-import { motion } from "framer-motion";
+import { toast, Toaster } from "@/components/ui/sonner";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import { enterInitial } from "@/lib/firstPaint";
+import Reveal from "@/components/Reveal";
 
 const ContactPage = () => {
   const [loading, setLoading] = useState(false);
@@ -59,6 +58,7 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Toaster />
       <PageMeta
         {...SEO.contact}
         jsonLd={[
@@ -81,10 +81,7 @@ const ContactPage = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/90 to-accent/60" />
           </div>
           <div className="relative z-10 container mx-auto px-4 py-20 md:py-28">
-            <motion.div
-              initial={enterInitial({ opacity: 0, y: 30 })}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+            <div
               className="max-w-2xl"
             >
               <span className="inline-block bg-accent text-primary-foreground text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-6">
@@ -110,7 +107,7 @@ const ContactPage = () => {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -130,10 +127,8 @@ const ContactPage = () => {
           </div>
 
           {/* Overlay card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <Reveal
+            from="up"
             className="container mx-auto px-4"
           >
             <div className="relative -mt-20 md:-mt-24 z-10 max-w-md">
@@ -155,7 +150,7 @@ const ContactPage = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </Reveal>
         </section>
 
         {/* Contact cards + Formulier */}
@@ -172,12 +167,11 @@ const ContactPage = () => {
                 */}
                 <h2 className="text-2xl font-extrabold text-foreground mb-1">Zo bereikt u ons</h2>
                 {/* Telefoon */}
-                <motion.a
+                <Reveal
+                  as="a"
+                  from="left"
+                  delay={0}
                   href="tel:+3236899065"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0 }}
                   className="group block bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-lg hover:border-accent/30 transition-all duration-300"
                 >
                   <div className="flex items-center gap-4">
@@ -190,15 +184,14 @@ const ContactPage = () => {
                     </div>
                     <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                   </div>
-                </motion.a>
+                </Reveal>
 
                 {/* E-mail */}
-                <motion.a
+                <Reveal
+                  as="a"
+                  from="left"
+                  delay={0.1}
                   href="mailto:info@vernast-verhuur.be"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
                   className="group block bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-lg hover:border-accent/30 transition-all duration-300"
                 >
                   <div className="flex items-center gap-4">
@@ -211,14 +204,12 @@ const ContactPage = () => {
                     </div>
                     <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                   </div>
-                </motion.a>
+                </Reveal>
 
                 {/* Afhalen bij magazijn */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
+                <Reveal
+                  from="left"
+                  delay={0.2}
                   className="bg-gradient-to-br from-accent to-accent/80 rounded-2xl p-6 text-primary-foreground shadow-lg"
                 >
                   <Warehouse className="h-8 w-8 mb-3 opacity-80" />
@@ -229,14 +220,12 @@ const ContactPage = () => {
                   <div className="text-sm font-medium text-primary-foreground/90">
                     Boomsesteenweg 12, Unit 11, 2630 Aartselaar
                   </div>
-                </motion.div>
+                </Reveal>
 
                 {/* Openingsuren */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
+                <Reveal
+                  from="left"
+                  delay={0.3}
                   className="bg-card border border-border rounded-2xl p-6 shadow-sm"
                 >
                   <div className="flex items-center gap-3 mb-4">
@@ -259,15 +248,13 @@ const ContactPage = () => {
                       <span className="text-muted-foreground">Gesloten</span>
                     </div>
                   </div>
-                </motion.div>
+                </Reveal>
               </div>
 
               {/* Rechts: formulier */}
-              <motion.div
+              <Reveal
+                from="up"
                 className="lg:col-span-3"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
               >
                 <div className="bg-card rounded-2xl border border-border shadow-lg p-7 md:p-10">
                   <h2 className="text-2xl font-extrabold text-foreground mb-2">Stuur ons een bericht</h2>
@@ -328,7 +315,7 @@ const ContactPage = () => {
                     </Button>
                   </form>
                 </div>
-              </motion.div>
+              </Reveal>
             </div>
           </div>
         </section>

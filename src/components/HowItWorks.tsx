@@ -1,5 +1,5 @@
 import { Calculator, Settings2, CheckCircle, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 
 const steps = [
   {
@@ -26,19 +26,15 @@ const HowItWorks = () => {
   return (
     <section className="py-12 md:py-16 bg-secondary">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <Reveal
+          from="up"
           className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0"
         >
           {steps.map((s, index) => (
             <div key={s.step} className="flex items-center gap-0">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.12 }}
+              <Reveal
+                from="scale"
+                delay={index * 0.12}
                 className="flex items-center gap-3 bg-background rounded-xl px-5 py-4 border border-border shadow-sm"
               >
                 <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-accent text-primary-foreground flex-shrink-0">
@@ -53,14 +49,14 @@ const HowItWorks = () => {
                   </div>
                   <p className="text-xs text-muted-foreground mt-0.5">{s.description}</p>
                 </div>
-              </motion.div>
+              </Reveal>
 
               {index < steps.length - 1 && (
                 <ArrowRight className="hidden md:block h-4 w-4 text-muted-foreground/40 mx-3 flex-shrink-0" />
               )}
             </div>
           ))}
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

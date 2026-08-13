@@ -7,11 +7,9 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Check, Phone } from "lucide-react";
-import { motion } from "framer-motion";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, productSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import { enterInitial } from "@/lib/firstPaint";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -100,9 +98,7 @@ const ProductDetail = () => {
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Images */}
-          <motion.div
-            initial={enterInitial({ opacity: 0, x: -20 })}
-            animate={{ opacity: 1, x: 0 }}
+          <div
             className="space-y-4"
           >
             <div className="bg-secondary rounded-2xl p-8 flex items-center justify-center aspect-square">
@@ -126,12 +122,10 @@ const ProductDetail = () => {
                 ))}
               </div>
             )}
-          </motion.div>
+          </div>
 
           {/* Info */}
-          <motion.div
-            initial={enterInitial({ opacity: 0, x: 20 })}
-            animate={{ opacity: 1, x: 0 }}
+          <div
             className="space-y-6"
           >
             <div>
@@ -215,7 +209,7 @@ const ProductDetail = () => {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Back link */}

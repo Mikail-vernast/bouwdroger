@@ -1,5 +1,4 @@
 import PageMeta from "@/components/PageMeta";
-import { enterInitial } from "@/lib/firstPaint";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,6 @@ import {
   ArrowRight,
   Clock,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
@@ -28,13 +26,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { DROGER_KAARTEN } from "@/data/tarieflijst";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
-};
-
-
+import Reveal from "@/components/Reveal";
 
 const steps = [
   { num: "1", title: "Bel of WhatsApp ons", desc: "Beschrijf uw situatie, wij sturen direct de juiste machine." },
@@ -112,29 +104,26 @@ const WaterschadePage = () => {
         {/* 1. URGENCY HERO */}
         <section className="bg-[hsl(0,72%,51%)] text-white py-14 md:py-20">
           <div className="container mx-auto px-4 text-center max-w-3xl">
-            <motion.div initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={0}>
+            <div>
               <Badge className="bg-white/20 text-white border-white/30 text-sm px-4 py-1.5 mb-6 inline-flex items-center gap-2">
                 <span className="w-2.5 h-2.5 bg-white rounded-full animate-pulse" />
                 Spoedbezorging beschikbaar — bel nu
               </Badge>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={1}
+            <h1
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4"
             >
               Waterschade of overstroming?
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={2}
+            <p
               className="text-lg md:text-xl text-white/85 mb-8 max-w-lg mx-auto"
             >
               Wij leveren uw bouwdroger vandaag nog.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={3}
+            <div
               className="flex flex-col sm:flex-row gap-3 justify-center"
             >
               <Button
@@ -158,7 +147,7 @@ const WaterschadePage = () => {
                   WhatsApp ons
                 </a>
               </Button>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -172,15 +161,15 @@ const WaterschadePage = () => {
                 { icon: PhoneCall, text: "Altijd bereikbaar" },
                 { icon: CheckCircle2, text: "Gratis vochtmeting" },
               ].map((item, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={item.text}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="flex items-center gap-2.5 justify-center text-sm font-medium text-foreground"
                 >
                   <item.icon className="h-5 w-5 text-primary flex-shrink-0" />
                   <span>{item.text}</span>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -196,10 +185,10 @@ const WaterschadePage = () => {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {steps.map((step, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={step.num}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="relative bg-card border border-border rounded-2xl p-6 text-center"
                 >
                   <div className="w-10 h-10 bg-[hsl(0,72%,51%)] text-white rounded-full flex items-center justify-center text-lg font-black mx-auto mb-4">
@@ -210,7 +199,7 @@ const WaterschadePage = () => {
                   {i < steps.length - 1 && (
                     <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground/40 z-10" />
                   )}
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -219,9 +208,9 @@ const WaterschadePage = () => {
         {/* 4. VERZEKERING INFO */}
         <section className="py-10 md:py-14">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial="hidden" whileInView="visible" viewport={{ once: true }}
-              variants={fadeUp} custom={0}
+            <Reveal
+              from="up"
+              delay={(0) * 0.08}
               className="max-w-3xl mx-auto bg-[hsl(210,100%,96%)] border border-[hsl(210,80%,85%)] rounded-2xl p-8 md:p-10"
             >
               <div className="flex items-start gap-4">
@@ -239,7 +228,7 @@ const WaterschadePage = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </Reveal>
           </div>
         </section>
 
@@ -278,16 +267,16 @@ const WaterschadePage = () => {
 
             <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {warnings.map((w, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={w.title}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="bg-[hsl(0,100%,97%)] border border-[hsl(0,80%,90%)] rounded-2xl p-6 text-center"
                 >
                   <div className="text-3xl mb-3">{w.icon}</div>
                   <h3 className="font-bold text-foreground mb-2">{w.title}</h3>
                   <p className="text-sm text-muted-foreground">{w.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -307,10 +296,10 @@ const WaterschadePage = () => {
 
             <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
               {reviews.map((r, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={r.name}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="bg-card border border-border rounded-2xl p-6"
                 >
                   <div className="flex gap-1 mb-3">
@@ -320,7 +309,7 @@ const WaterschadePage = () => {
                   </div>
                   <p className="text-muted-foreground text-sm mb-4 italic">"{r.text}"</p>
                   <p className="text-foreground font-semibold text-sm">{r.name}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>

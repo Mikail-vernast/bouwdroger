@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import {
   Accordion,
   AccordionContent,
@@ -37,10 +37,8 @@ const FAQ = () => {
   return (
     <section id="faq" className="py-20 bg-secondary">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <Reveal
+          from="up"
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-black mb-4">
@@ -49,13 +47,11 @@ const FAQ = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Alles wat u moet weten over het huren van bouwdrogers bij Vernast.
           </p>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
+        <Reveal
+          from="up"
+          delay={0.1}
           className="max-w-3xl mx-auto"
         >
           <Accordion type="single" collapsible className="space-y-2">
@@ -74,7 +70,7 @@ const FAQ = () => {
               </AccordionItem>
             ))}
           </Accordion>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

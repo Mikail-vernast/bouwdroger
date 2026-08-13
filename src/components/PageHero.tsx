@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
 import { ReactNode } from "react";
-import { enterInitial } from "@/lib/firstPaint";
 
 interface PageHeroProps {
   badge?: string;
@@ -20,30 +18,22 @@ const PageHero = ({ badge, title, subtitle, children }: PageHeroProps) => {
 
       <div className="container mx-auto px-4 relative z-10">
         {badge && (
-          <motion.span
-            initial={enterInitial({ opacity: 0, y: -10 })}
-            animate={{ opacity: 1, y: 0 }}
+          <span
             className="inline-block bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider"
           >
             {badge}
-          </motion.span>
+          </span>
         )}
-        <motion.h1
-          initial={enterInitial({ opacity: 0, y: 20 })}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <h1
           className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4"
         >
           {title}
-        </motion.h1>
-        <motion.p
-          initial={enterInitial({ opacity: 0, y: 15 })}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+        </h1>
+        <p
           className="text-base md:text-lg text-primary-foreground/75 max-w-2xl mb-8"
         >
           {subtitle}
-        </motion.p>
+        </p>
         {children}
       </div>
     </section>

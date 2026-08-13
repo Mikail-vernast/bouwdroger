@@ -1,17 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useRoutePattern } from "@/hooks/useRoutePattern";
-import { markFirstPaintDone } from "@/lib/firstPaint";
-
-const queryClient = new QueryClient();
 
 /**
  * Applicatieschil rond elke route. Staat los van de router zelf omdat de
@@ -60,25 +53,27 @@ const Layout = () => {
     navigated.current = true;
   }
 
-  useEffect(() => {
-    // Vanaf hier mogen de hero's van volgende routes weer animeren.
-    markFirstPaintDone();
-  }, []);
+  /*
+    Hier stonden ook een QueryClientProvider, een TooltipProvider en de twee
+    toast-systemen. Geen enkele pagina roept `useQuery` aan en er staat nergens
+    een `<Tooltip>`, dus die twee providers waren puur gewicht: react-query en
+    radix-tooltip met floating-ui erachter, samen ~47 kB in de gedeelde bundle
+    die élke bezoeker op élke pagina ophaalt.
 
+    De toasts wél in gebruik, maar op vier pagina's — die renderen hun eigen
+    <Toaster/> nu zelf, zodat sonner en radix-toast in hun route-chunk zitten
+    in plaats van in de entry.
+  */
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <ScrollToTop />
-        <FloatingWhatsApp />
-        <Analytics route={route} />
-        <SpeedInsights route={route} />
-        <div key={location.pathname} className={navigated.current ? "page-enter" : undefined}>
-          <Outlet />
-        </div>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <>
+      <ScrollToTop />
+      <FloatingWhatsApp />
+      <Analytics route={route} />
+      <SpeedInsights route={route} />
+      <div key={location.pathname} className={navigated.current ? "page-enter" : undefined}>
+        <Outlet />
+      </div>
+    </>
   );
 };
 

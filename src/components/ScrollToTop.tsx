@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 import { useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
 
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
@@ -32,10 +31,17 @@ const ScrollToTop = () => {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className={cn(
-        "fixed right-4 z-40 w-10 h-10 rounded-full bg-muted border border-border text-muted-foreground hover:bg-foreground hover:text-background shadow-md transition-all duration-200 flex items-center justify-center animate-fade-in",
-        isWaterschade ? "bottom-[7.5rem] lg:bottom-20" : "bottom-20"
-      )}
+      /*
+        Bewust geen `cn()`. Deze component en FloatingWhatsApp waren de enige
+        twee in de gedeelde bundle die hem gebruikten, en `cn` sleept
+        tailwind-merge mee — 20 kB om klassen te ontdubbelen die hier niet
+        botsen: `bottom-*` staat alleen in de ternary. Zo blijft tailwind-merge
+        in de route-chunks waar de ui-componenten hem echt nodig hebben.
+      */
+      className={
+        "fixed right-4 z-40 w-10 h-10 rounded-full bg-muted border border-border text-muted-foreground hover:bg-foreground hover:text-background shadow-md transition-all duration-200 flex items-center justify-center animate-fade-in " +
+        (isWaterschade ? "bottom-[7.5rem] lg:bottom-20" : "bottom-20")
+      }
       aria-label="Scroll naar boven"
     >
       <ArrowUp className="h-4 w-4" />

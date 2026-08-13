@@ -1,5 +1,4 @@
 import PageMeta from "@/components/PageMeta";
-import { enterInitial } from "@/lib/firstPaint";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -23,18 +22,11 @@ import {
   Thermometer,
   Wind,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { DROGER_KAARTEN } from "@/data/tarieflijst";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
-};
-
-
+import Reveal from "@/components/Reveal";
 
 const steps = [
   { num: "1", title: "Reserveer online of bel", desc: "Kies machine en leveringsdatum.", icon: Phone },
@@ -95,7 +87,7 @@ const NieuwbouwPage = () => {
         <section className="py-14 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-              <motion.div initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={0}>
+              <div>
                 <Badge className="bg-primary/10 text-primary border-primary/20 mb-4 text-sm px-4 py-1.5">
                   🏗️ Nieuwbouw & verbouwing
                 </Badge>
@@ -122,10 +114,9 @@ const NieuwbouwPage = () => {
                     <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel voor advies</a>
                   </Button>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={2}
+              <div
                 className="hidden lg:flex items-center justify-center"
               >
                 {/*
@@ -143,7 +134,7 @@ const NieuwbouwPage = () => {
                   decoding="async"
                   className="w-full aspect-[4/3] object-cover rounded-2xl border border-border"
                 />
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -156,9 +147,9 @@ const NieuwbouwPage = () => {
             </h2>
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {/* Without */}
-              <motion.div
-                initial="hidden" whileInView="visible" viewport={{ once: true }}
-                variants={fadeUp} custom={0}
+              <Reveal
+                from="up"
+                delay={(0) * 0.08}
                 className="bg-[hsl(0,100%,97%)] border border-[hsl(0,80%,90%)] rounded-2xl p-6 md:p-8"
               >
                 <div className="flex items-center gap-2 mb-5">
@@ -178,12 +169,12 @@ const NieuwbouwPage = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </Reveal>
 
               {/* With */}
-              <motion.div
-                initial="hidden" whileInView="visible" viewport={{ once: true }}
-                variants={fadeUp} custom={1}
+              <Reveal
+                from="up"
+                delay={(1) * 0.08}
                 className="bg-[hsl(142,76%,96%)] border border-[hsl(142,60%,80%)] rounded-2xl p-6 md:p-8"
               >
                 <div className="flex items-center gap-2 mb-5">
@@ -203,7 +194,7 @@ const NieuwbouwPage = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -250,10 +241,10 @@ const NieuwbouwPage = () => {
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {steps.map((step, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={step.num}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="relative bg-card border border-border rounded-2xl p-6 text-center"
                 >
                   <div className="w-10 h-10 bg-accent text-primary-foreground rounded-full flex items-center justify-center text-lg font-black mx-auto mb-4">
@@ -264,7 +255,7 @@ const NieuwbouwPage = () => {
                   {i < steps.length - 1 && (
                     <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground/40 z-10" />
                   )}
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -278,16 +269,16 @@ const NieuwbouwPage = () => {
             </h2>
             <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {tips.map((tip, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={tip.title}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="bg-card border border-border rounded-2xl p-6 text-center"
                 >
                   <div className="text-3xl mb-3">{tip.emoji}</div>
                   <h3 className="font-bold text-foreground mb-2">{tip.title}</h3>
                   <p className="text-sm text-muted-foreground">{tip.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -306,10 +297,10 @@ const NieuwbouwPage = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
               {reviews.map((r, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={r.name}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="bg-card border border-border rounded-2xl p-6"
                 >
                   <div className="flex gap-1 mb-3">
@@ -319,7 +310,7 @@ const NieuwbouwPage = () => {
                   </div>
                   <p className="text-muted-foreground text-sm mb-4 italic">"{r.text}"</p>
                   <p className="text-foreground font-semibold text-sm">{r.name}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>

@@ -5,10 +5,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Phone, Mail, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import PageMeta from "@/components/PageMeta";
 import { SEO } from "@/data/seo";
-import { enterInitial } from "@/lib/firstPaint";
 
 const BookingSuccess = () => {
   const location = useLocation();
@@ -24,9 +22,7 @@ const BookingSuccess = () => {
       <TopBar />
       <Navbar />
       <main className="container mx-auto px-4 py-16">
-        <motion.div
-          initial={enterInitial({ opacity: 0, scale: 0.95 })}
-          animate={{ opacity: 1, scale: 1 }}
+        <div
           className="max-w-2xl mx-auto text-center"
         >
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 mb-6">
@@ -88,7 +84,7 @@ const BookingSuccess = () => {
               </a>
             </Button>
           </div>
-        </motion.div>
+        </div>
       </main>
       <Footer />
     </div>

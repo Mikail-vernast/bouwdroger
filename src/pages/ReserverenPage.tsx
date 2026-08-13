@@ -26,15 +26,14 @@ import {
   Phone,
   Zap,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 import { useSearchParams } from "react-router-dom";
 import { SEO } from "@/data/seo";
 import { DROGER_KAARTEN } from "@/data/tarieflijst";
-import { enterInitial } from "@/lib/firstPaint";
 import { maskEmail, maskPhone } from "@/lib/inputMask";
 
 const situations = [
@@ -167,7 +166,7 @@ const ReserverenPage = () => {
         <PageMeta {...SEO.reserveren} />
         <Navbar />
         <main className="container mx-auto px-4 py-20 text-center max-w-lg">
-          <motion.div initial={enterInitial({ scale: 0.8, opacity: 0 })} animate={{ scale: 1, opacity: 1 }}>
+          <div>
             <div className="w-20 h-20 bg-[hsl(142,76%,96%)] rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 className="h-10 w-10 text-[hsl(142,71%,35%)]" />
             </div>
@@ -178,7 +177,7 @@ const ReserverenPage = () => {
               <a href="tel:+3236899065" className="text-lg font-bold text-primary hover:underline">03 689 90 65</a>
             </div>
             <OrderSummary />
-          </motion.div>
+          </div>
         </main>
         <Footer />
       </div>
@@ -187,6 +186,7 @@ const ReserverenPage = () => {
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
+      <Toaster />
       <PageMeta
         {...SEO.reserveren}
         jsonLd={breadcrumbSchema([
@@ -229,10 +229,12 @@ const ReserverenPage = () => {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main content */}
             <div className="lg:col-span-2">
-              <AnimatePresence mode="wait">
                 {/* STEP 1 */}
                 {step === 1 && (
-                  <motion.div key="step1" initial={enterInitial({ opacity: 0, x: 20 })} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
+                  <div
+                    key="step1"
+                    className="enter-step space-y-8"
+                  >
                     <div>
                       <h2 className="text-xl font-black mb-1">Wat is uw situatie?</h2>
                       <p className="text-sm text-muted-foreground mb-4">Selecteer wat het beste past.</p>
@@ -256,7 +258,7 @@ const ReserverenPage = () => {
                     </div>
 
                     {situatie && (
-                      <motion.div initial={enterInitial({ opacity: 0, y: 16 })} animate={{ opacity: 1, y: 0 }}>
+                      <div>
                         <h2 className="text-xl font-black mb-1">Welke machine?</h2>
                         <p className="text-sm text-muted-foreground mb-4">Niet zeker? Bel ons voor advies.</p>
                         <div className="grid gap-3">
@@ -282,11 +284,11 @@ const ReserverenPage = () => {
                             </button>
                           ))}
                         </div>
-                      </motion.div>
+                      </div>
                     )}
 
                     {machine && (
-                      <motion.div initial={enterInitial({ opacity: 0, y: 16 })} animate={{ opacity: 1, y: 0 }}>
+                      <div>
                         <h2 className="text-xl font-black mb-1">Hoe lang?</h2>
                         <Select value={duur} onValueChange={setDuur}>
                           <SelectTrigger className="w-full">
@@ -298,25 +300,30 @@ const ReserverenPage = () => {
                             ))}
                           </SelectContent>
                         </Select>
-                      </motion.div>
+                      </div>
                     )}
 
                     {step1Valid && (
-                      <motion.div initial={enterInitial({ opacity: 0, y: 16 })} animate={{ opacity: 1, y: 0 }} className="bg-muted/50 rounded-xl p-4 text-sm">
+                      <div
+                        className="bg-muted/50 rounded-xl p-4 text-sm"
+                      >
                         <p className="font-bold text-foreground mb-1">Geselecteerd: {machine} — {duur}</p>
                         <p className="text-muted-foreground">Levering & ophaling: Inbegrepen | Vochtmeting: Gratis</p>
-                      </motion.div>
+                      </div>
                     )}
 
                     <Button size="lg" className="w-full rounded-xl font-bold gap-2" disabled={!step1Valid} onClick={() => setStep(2)}>
                       Volgende stap <ArrowRight className="h-4 w-4" />
                     </Button>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* STEP 2 */}
                 {step === 2 && (
-                  <motion.div key="step2" initial={enterInitial({ opacity: 0, x: 20 })} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-5">
+                  <div
+                    key="step2"
+                    className="enter-step space-y-5"
+                  >
                     <h2 className="text-xl font-black mb-1">Uw leveringsgegevens</h2>
 
                     <div className="grid sm:grid-cols-2 gap-4">
@@ -392,12 +399,15 @@ const ReserverenPage = () => {
                         Volgende stap <ArrowRight className="h-4 w-4" />
                       </Button>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* STEP 3 */}
                 {step === 3 && (
-                  <motion.div key="step3" initial={enterInitial({ opacity: 0, x: 20 })} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                  <div
+                    key="step3"
+                    className="enter-step space-y-6"
+                  >
                     <h2 className="text-xl font-black mb-1">Bevestig uw reservering</h2>
 
                     <OrderSummary />
@@ -419,9 +429,8 @@ const ReserverenPage = () => {
                         {isSubmitting ? "Bezig..." : "✓ Reservering bevestigen"}
                       </Button>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
-              </AnimatePresence>
             </div>
 
             {/* Sidebar — visible on step 2 and 3 desktop */}

@@ -2,14 +2,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DeliveryWizard from "@/components/DeliveryWizard";
 import { CheckCircle2, MapPin, Truck, Clock, Shield, Phone, Star, ArrowRight, Zap, ThumbsUp, Monitor, FileText } from "lucide-react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import technicianImg from "@/assets/technician.png";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import { enterInitial } from "@/lib/firstPaint";
+import Reveal from "@/components/Reveal";
 
 const benefits = [
   { icon: Truck, title: "Gratis levering & ophaling", desc: "Vanaf 2 weken huurperiode, in heel België" },
@@ -63,11 +62,7 @@ const LeveringPage = () => {
             <div className="grid lg:grid-cols-2 gap-8 items-end min-h-[500px] md:min-h-[600px]">
               {/* Left: text content */}
               <div className="py-16 md:py-24 lg:py-32 relative z-10">
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 20 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
+                <div>
                   <span className="inline-flex items-center gap-2 bg-primary-foreground/10 text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                     <Truck className="h-3.5 w-3.5" />
                     Levering in heel België
@@ -107,15 +102,12 @@ const LeveringPage = () => {
                       </div>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               {/* Right: technician image */}
               <div className="relative hidden lg:flex items-end justify-center">
-                <motion.img
-                  initial={enterInitial({ opacity: 0, x: 40 })}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
+                <img
                   src={technicianImg}
                   alt="Vernast technieker"
                   className="h-[520px] object-contain object-bottom relative z-10"
@@ -124,10 +116,7 @@ const LeveringPage = () => {
                 <div className="absolute bottom-0 right-1/2 translate-x-1/2 w-[400px] h-[400px] bg-primary/20 rounded-full blur-3xl" />
                 
                 {/* Floating product cards */}
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 20 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+                <div
                   className="absolute top-20 -left-4 bg-background/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl z-20"
                 >
                   <div className="flex items-center gap-3">
@@ -137,12 +126,9 @@ const LeveringPage = () => {
                       <p className="text-[10px] text-muted-foreground">Professionele bouwdroger</p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 20 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
+                <div
                   className="absolute top-52 -right-4 bg-background/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl z-20"
                 >
                   <div className="flex items-center gap-3">
@@ -152,7 +138,7 @@ const LeveringPage = () => {
                       <p className="text-[10px] text-muted-foreground">4.500 m³/u luchtdebiet</p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </div>
             </div>
           </div>
@@ -205,12 +191,10 @@ const LeveringPage = () => {
               {processSteps.map((item, i) => {
                 const StepIcon = item.icon;
                 return (
-                  <motion.div
+                  <Reveal
+                    from="up"
+                    delay={i * 0.12}
                     key={item.step}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.12 }}
                     className="relative text-center group"
                   >
                     {/* Step number + icon circle */}
@@ -224,7 +208,7 @@ const LeveringPage = () => {
                     </div>
                     <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                  </motion.div>
+                  </Reveal>
                 );
               })}
             </div>
@@ -247,12 +231,10 @@ const LeveringPage = () => {
               {benefits.map((b, i) => {
                 const Icon = b.icon;
                 return (
-                  <motion.div
+                  <Reveal
+                    from="up"
+                    delay={i * 0.08}
                     key={b.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
                     className="bg-card rounded-2xl p-6 shadow-sm border border-border hover:shadow-md transition-shadow group"
                   >
                     <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent group-hover:text-primary-foreground transition-colors">
@@ -260,7 +242,7 @@ const LeveringPage = () => {
                     </div>
                     <h3 className="font-bold text-foreground mb-1">{b.title}</h3>
                     <p className="text-sm text-muted-foreground">{b.desc}</p>
-                  </motion.div>
+                  </Reveal>
                 );
               })}
             </div>
@@ -289,12 +271,10 @@ const LeveringPage = () => {
                 { name: "Axiaal Ventilator", desc: "4.500 m³/u", image: "/products/dim-axiaal-ventilator.webp" },
                 { name: "Elektrische Kachel", desc: "2.500W", image: "/products/dim-elektrische-kachel.webp" },
               ].map((product, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.1}
                   key={product.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
                   className="bg-card rounded-2xl p-6 border border-border text-center group hover:shadow-lg transition-all hover:-translate-y-1"
                 >
                   <div className="aspect-square flex items-center justify-center mb-4">
@@ -307,7 +287,7 @@ const LeveringPage = () => {
                   </div>
                   <h3 className="font-bold text-foreground text-sm">{product.name}</h3>
                   <p className="text-xs text-muted-foreground mt-0.5">{product.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -350,10 +330,8 @@ const LeveringPage = () => {
                 </Button>
               </div>
               <div className="flex items-center justify-center">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
+                <Reveal
+                  from="scale"
                   className="bg-primary-foreground/10 backdrop-blur-md rounded-3xl p-8 md:p-10 border border-primary-foreground/10 max-w-sm w-full"
                 >
                   <Phone className="h-8 w-8 text-primary-foreground mb-4" />
@@ -368,7 +346,7 @@ const LeveringPage = () => {
                   >
                     <Phone className="h-4 w-4" /> Neem Contact Op
                   </Button>
-                </motion.div>
+                </Reveal>
               </div>
             </div>
           </div>

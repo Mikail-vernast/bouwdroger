@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { Shield, Award, Users, Leaf, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
 import { SEO } from "@/data/seo";
+import Reveal from "@/components/Reveal";
 
 const values = [
   { icon: Shield, title: "Betrouwbaarheid", desc: "Wij staan klaar wanneer jij ons nodig hebt. 24/7 bereikbaar voor urgente projecten." },
@@ -47,17 +47,15 @@ const OverOnsPage = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {stats.map((stat, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.1}
                   key={stat.label}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
                   className="text-center"
                 >
                   <p className="text-3xl md:text-4xl font-black text-accent">{stat.number}</p>
                   <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -126,12 +124,10 @@ const OverOnsPage = () => {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {values.map((v, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.1}
                   key={v.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
                   className="bg-card rounded-2xl p-6 shadow-sm border border-border text-center"
                 >
                   <div className="w-14 h-14 mx-auto bg-accent rounded-xl flex items-center justify-center mb-4">
@@ -139,7 +135,7 @@ const OverOnsPage = () => {
                   </div>
                   <h3 className="font-bold text-foreground mb-2">{v.title}</h3>
                   <p className="text-sm text-muted-foreground">{v.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>

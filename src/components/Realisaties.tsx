@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, MapPin, Clock, Ruler } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const cases = [
   {
@@ -39,11 +39,8 @@ const Realisaties = () => {
   return (
     <section className="py-16 md:py-24 bg-secondary">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <Reveal
+          from="up"
           className="text-center mb-14"
         >
           <span className="inline-block bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-4">
@@ -55,16 +52,14 @@ const Realisaties = () => {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Meer dan 500 projecten succesvol afgerond.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {cases.map((caseItem, index) => (
-            <motion.div
+            <Reveal
+              from="up"
+              delay={index * 0.1}
               key={caseItem.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
               className="bg-background rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
             >
               {/* Success top bar */}
@@ -107,15 +102,13 @@ const Realisaties = () => {
                   {caseItem.equipment}
                 </p>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.5 }}
+        <Reveal
+          from="up"
+          delay={0.3}
           className="text-center"
         >
           <Link
@@ -125,7 +118,7 @@ const Realisaties = () => {
             Bekijk alle realisaties
             <ArrowRight className="h-5 w-5" />
           </Link>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

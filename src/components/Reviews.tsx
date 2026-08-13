@@ -1,5 +1,5 @@
 import { Star } from "lucide-react";
-import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 
 const reviews = [
   {
@@ -26,10 +26,8 @@ const Reviews = () => {
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <Reveal
+          from="up"
           className="text-center mb-14"
         >
           <div className="mb-4">
@@ -41,16 +39,14 @@ const Reviews = () => {
             ))}
           </div>
           <p className="text-sm text-muted-foreground">op Google Reviews</p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {reviews.map((review, index) => (
-            <motion.div
+            <Reveal
+              from="up"
+              delay={index * 0.1}
               key={review.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="bg-secondary rounded-xl p-6"
             >
               <div className="flex items-center gap-0.5 mb-4">
@@ -77,7 +73,7 @@ const Reviews = () => {
                   <div className="text-muted-foreground text-xs">{review.type}</div>
                 </div>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>

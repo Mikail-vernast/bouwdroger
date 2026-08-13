@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { MessageCircle } from "lucide-react";
 import { useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
 
 const FloatingWhatsApp = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -33,12 +32,13 @@ const FloatingWhatsApp = () => {
       rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={cn(
+      /* Zie ScrollToTop: `cn()` zou tailwind-merge in de gedeelde bundle houden. */
+      className={[
         "fixed right-4 z-40 flex items-center gap-2 rounded-full bg-[hsl(142,70%,45%)] text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-[hsl(142,70%,40%)]",
         isHovered ? "px-5 py-3" : "p-3.5",
-        hideForFooter && "opacity-0 pointer-events-none",
-        isWaterschade ? "bottom-[4.5rem] lg:bottom-6" : "bottom-6"
-      )}
+        hideForFooter ? "opacity-0 pointer-events-none" : "",
+        isWaterschade ? "bottom-[4.5rem] lg:bottom-6" : "bottom-6",
+      ].join(" ")}
       aria-label="WhatsApp ons"
     >
       <MessageCircle className="h-6 w-6 flex-shrink-0" />

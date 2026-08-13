@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 import { TOESTELLEN } from "@/data/navigation";
+import FontPreload from "@/components/FontPreload";
 
 /**
  * The site header from the design: a top line with the contact details and a
@@ -56,6 +57,8 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
     .join(" ");
 
   return (
+    <>
+    <FontPreload set="v3" />
     <header className={cls} id="top">
       <div className="wrap topline">
         <div className="tl-left">
@@ -234,6 +237,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
         </Link>
       </div>
     </header>
+    </>
   );
 };
 

@@ -3,11 +3,11 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, Droplets, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import Reveal from "@/components/Reveal";
 
 const projects = [
   {
@@ -100,12 +100,10 @@ const RealisatiesPage = () => {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map((project, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.05}
                   key={project.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
                   className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden hover:shadow-md transition-shadow"
                 >
                   {/* Color strip header */}
@@ -136,7 +134,7 @@ const RealisatiesPage = () => {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>

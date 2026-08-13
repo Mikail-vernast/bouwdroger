@@ -41,13 +41,10 @@ export default defineConfig(() => ({
       "@radix-ui/react-tooltip",
       "@stripe/react-stripe-js",
       "@stripe/stripe-js",
-      "@tanstack/react-query",
       "class-variance-authority",
       "clsx",
       "date-fns",
-      "framer-motion",
       "lucide-react",
-      "next-themes",
       "react-day-picker",
       "sonner",
       "tailwind-merge",
@@ -58,4 +55,12 @@ export default defineConfig(() => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  /*
+    Niet doen: `build.rollupOptions.output.experimentalMinChunkSize`. De dertig
+    piepkleine icoon-chunks (`check` weegt 114 bytes) samenvoegen lijkt gratis
+    winst, maar vite-react-ssg leidt zijn `modulepreload`-regels af uit de
+    manifest die rollup daarbij door elkaar gooit: /realisaties hield er nog 2
+    over van de 13. De chunks worden dan pas ontdekt nadat de entry gedraaid
+    heeft — dertig parallelle verzoekjes ingeruild voor een waterval.
+  */
 }));

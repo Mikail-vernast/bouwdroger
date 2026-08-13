@@ -1,32 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Star, ArrowRight, Users, TrendingUp, Truck } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
 import { Link } from "react-router-dom";
 import heroBanner from "@/assets/hero-banner.png";
-
-const stagger = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
-};
-
-/*
-  Expliciet als tuple getypeerd. Een kale `[0.22, 1, 0.36, 1]` leidt TypeScript
-  af als `number[]`, en dat past niet op framer-motions `Easing` — die wil vier
-  vaste waarden. Het draaide wel, maar `tsc` struikelde erover.
-*/
-const EASE_OUT_EXPO: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const fadeUp = (y = 24): Variants => ({
-  hidden: { opacity: 0, y },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: EASE_OUT_EXPO },
-  },
-});
 
 const stats = [
   { icon: Users, value: "500+", label: "Klanten" },
@@ -48,15 +23,11 @@ const Hero = () => {
       {/* Text overlay — positioned on right half of the banner */}
       <div className="absolute inset-0">
         <div className="container mx-auto px-4 h-full flex items-center justify-end">
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate="visible"
+          <div
             className="max-w-md lg:max-w-lg py-8 text-right"
           >
             {/* Google Reviews badge */}
-            <motion.div
-              variants={fadeUp(-12)}
+            <div
               className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-2 mb-4"
             >
               <div className="flex items-center gap-0.5">
@@ -69,18 +40,19 @@ const Hero = () => {
               </div>
               <span className="text-sm font-bold text-white">4.8</span>
               <span className="text-xs text-white/60">op Google Reviews</span>
-            </motion.div>
+            </div>
 
             {/* Tagline badge */}
-            <motion.div variants={fadeUp(-8)} className="mb-5">
+            <div
+              className="mb-5"
+            >
               <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-2 text-xs font-semibold text-white/80">
                 🇧🇪 Uw #1 bouwdrogerservice in België
               </span>
-            </motion.div>
+            </div>
 
             {/* Headline */}
-            <motion.h1
-              variants={fadeUp(30)}
+            <h1
               className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.05] mb-5 text-white"
             >
               Uw expert
@@ -88,21 +60,19 @@ const Hero = () => {
               in een zorgeloze
               <br />
               bouwdroging
-            </motion.h1>
+            </h1>
 
             {/* Subtitle */}
-            <motion.p
-              variants={fadeUp(20)}
+            <p
               className="text-sm md:text-base text-white/65 mb-7 max-w-sm ml-auto leading-relaxed"
             >
               Ontvang direct een <strong className="text-white/90">droogplan op maat</strong>.
               Geniet van ECO-machines, professionele installatie
               en transparante tarieven — geen verrassingen.
-            </motion.p>
+            </p>
 
             {/* CTA Buttons */}
-            <motion.div
-              variants={fadeUp(20)}
+            <div
               className="flex flex-col sm:flex-row gap-3 mb-8 justify-end"
             >
               <Button
@@ -125,11 +95,10 @@ const Hero = () => {
               >
                 <Link to="/afhalen">Zelf afhalen?</Link>
               </Button>
-            </motion.div>
+            </div>
 
             {/* Stats row */}
-            <motion.div
-              variants={fadeUp(16)}
+            <div
               className="flex gap-8 justify-end"
             >
               {stats.map((stat) => (
@@ -145,8 +114,8 @@ const Hero = () => {
                   </div>
                 </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

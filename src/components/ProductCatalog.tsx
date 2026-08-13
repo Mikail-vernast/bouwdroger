@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { products } from "@/data/products";
-import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 
 const categories = [
   { value: "bouwdrogers", label: "Bouwdrogers" },
@@ -17,10 +17,8 @@ const ProductCatalog = () => {
   return (
     <section id="producten" className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <Reveal
+          from="up"
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
@@ -30,7 +28,7 @@ const ProductCatalog = () => {
             Professionele machines voor elk droog- en verwarmingsproject.
             Alle prijzen excl. btw.
           </p>
-        </motion.div>
+        </Reveal>
 
         <Tabs defaultValue="bouwdrogers" className="w-full">
           <TabsList className="w-full max-w-md mx-auto grid grid-cols-3 mb-10 h-12">
@@ -51,12 +49,10 @@ const ProductCatalog = () => {
                 {products
                   .filter((p) => p.category === cat.value)
                   .map((product, index) => (
-                    <motion.div
+                    <Reveal
+                      from="up"
+                      delay={index * 0.1}
                       key={product.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
                     >
                       <Card className="h-full flex flex-col hover:shadow-lg transition-shadow group">
                         <div className="aspect-[4/3] bg-secondary flex items-center justify-center overflow-hidden rounded-t-lg p-4">
@@ -102,7 +98,7 @@ const ProductCatalog = () => {
                           </Button>
                         </CardFooter>
                       </Card>
-                    </motion.div>
+                    </Reveal>
                   ))}
               </div>
             </TabsContent>

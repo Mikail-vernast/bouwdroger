@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
@@ -27,7 +26,6 @@ import {
   type HeatingOption,
   getPackageByAnswers,
 } from "@/data/packages";
-import { enterInitial } from "@/lib/firstPaint";
 
 type BuildingType = "vrijstaand" | "halfopen" | "rijwoning" | "appartement";
 
@@ -263,10 +261,8 @@ const DeliveryWizard = () => {
       {/* Progress bar */}
       <div className="absolute top-0 left-0 right-0 z-20">
         <div className="h-1 bg-primary-foreground/5">
-          <motion.div
+          <div
             className="h-full bg-gradient-to-r from-primary-foreground/60 to-primary-foreground rounded-r-full"
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
           />
         </div>
       </div>
@@ -275,15 +271,13 @@ const DeliveryWizard = () => {
       <div className="relative z-10 flex items-center justify-between px-6 pt-6 md:px-10 md:pt-8 max-w-3xl mx-auto w-full">
         <div className="flex items-center gap-3">
           {step > 0 && (
-            <motion.button
-              initial={enterInitial({ opacity: 0, x: -10 })}
-              animate={{ opacity: 1, x: 0 }}
+            <button
               onClick={goPrev}
               className="flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground transition-colors text-sm font-medium"
             >
               <ArrowLeft className="h-4 w-4" />
               Vorige
-            </motion.button>
+            </button>
           )}
         </div>
         <div className="flex items-center gap-2">
@@ -304,25 +298,14 @@ const DeliveryWizard = () => {
 
       {/* Content area */}
       <div className="relative z-10 max-w-3xl mx-auto w-full px-6 md:px-10 pt-8 md:pt-16 pb-20 min-h-[580px] lg:min-h-[680px] flex items-center">
-        <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
+          <div
             key={currentStepKey}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="w-full"
+            className="enter-step w-full"
           >
             {/* ────── STEP: Building Type ────── */}
             {currentStepKey === "buildingType" && (
               <div>
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 10 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
+                <div>
                   <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-4 uppercase tracking-widest">
                     <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                     Woningtype
@@ -333,18 +316,15 @@ const DeliveryWizard = () => {
                   <p className="text-primary-foreground/50 mb-6 text-sm max-w-md">
                     Dit helpt ons de juiste droogoplossing samen te stellen.
                   </p>
-                </motion.div>
+                </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   {buildingTypes.map((bt, i) => {
                     const Icon = bt.icon;
                     const selected = answers.buildingType === bt.value;
                     return (
-                      <motion.button
+                      <button
                         key={bt.value}
-                        initial={enterInitial({ opacity: 0, y: 20 })}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.15 + i * 0.05 }}
                         onClick={() =>
                           handleSelectAndNext("buildingType", bt.value)
                         }
@@ -378,16 +358,14 @@ const DeliveryWizard = () => {
                             {bt.typicalSize}
                           </div>
                           {selected && (
-                            <motion.div
-                              initial={enterInitial({ scale: 0 })}
-                              animate={{ scale: 1 }}
+                            <div
                               className="absolute top-3 right-3 w-7 h-7 rounded-full bg-primary-foreground flex items-center justify-center"
                             >
                               <Check className="h-4 w-4 text-accent" />
-                            </motion.div>
+                            </div>
                           )}
                         </div>
-                      </motion.button>
+                      </button>
                     );
                   })}
                 </div>
@@ -397,11 +375,7 @@ const DeliveryWizard = () => {
             {/* ────── STEP: Size ────── */}
             {currentStepKey === "size" && (
               <div>
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 10 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
+                <div>
                   <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                     <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                     Oppervlakte
@@ -412,17 +386,14 @@ const DeliveryWizard = () => {
                   <p className="text-primary-foreground/50 mb-8 text-base md:text-lg max-w-md">
                     Selecteer de oppervlakte — we berekenen direct uw pakket.
                   </p>
-                </motion.div>
+                </div>
 
                 <div className="grid grid-cols-3 gap-3 max-w-md">
                   {sizeOptions.map((opt, i) => {
                     const selected = answers.size === opt.value;
                     return (
-                      <motion.button
+                      <button
                         key={opt.value}
-                        initial={enterInitial({ opacity: 0, scale: 0.9 })}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.1 + i * 0.04 }}
                         onClick={() => handleSelectAndNext("size", opt.value)}
                         className={`relative rounded-2xl py-5 px-3 text-center transition-all duration-300 ${
                           selected
@@ -437,15 +408,13 @@ const DeliveryWizard = () => {
                           m²
                         </span>
                         {selected && (
-                          <motion.div
-                            initial={enterInitial({ scale: 0 })}
-                            animate={{ scale: 1 }}
+                          <div
                             className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center border-2 border-primary-foreground"
                           >
                             <Check className="h-3 w-3 text-primary-foreground" />
-                          </motion.div>
+                          </div>
                         )}
-                      </motion.button>
+                      </button>
                     );
                   })}
                 </div>
@@ -455,11 +424,7 @@ const DeliveryWizard = () => {
             {/* ────── STEP: Drying type ────── */}
             {currentStepKey === "dryingType" && (
               <div>
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 10 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
+                <div>
                   <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                     <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                     Type droging
@@ -470,18 +435,15 @@ const DeliveryWizard = () => {
                   <p className="text-primary-foreground/50 mb-8 text-base md:text-lg max-w-md">
                     Kies het type droging dat u nodig heeft.
                   </p>
-                </motion.div>
+                </div>
 
                 <div className="space-y-3 max-w-md">
                   {dryingOptions.map((opt, i) => {
                     const Icon = opt.icon;
                     const selected = answers.dryingType === opt.value;
                     return (
-                      <motion.button
+                      <button
                         key={opt.value}
-                        initial={enterInitial({ opacity: 0, x: -20 })}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 + i * 0.06 }}
                         onClick={() => {
                           setAnswers((prev) => ({
                             ...prev,
@@ -513,7 +475,7 @@ const DeliveryWizard = () => {
                         <ArrowRight className={`h-4 w-4 flex-shrink-0 transition-all ${
                           selected ? "text-accent/60" : "text-primary-foreground/20 group-hover:text-primary-foreground/40"
                         }`} />
-                      </motion.button>
+                      </button>
                     );
                   })}
                 </div>
@@ -523,11 +485,7 @@ const DeliveryWizard = () => {
             {/* ────── STEP: Plaster thickness ────── */}
             {currentStepKey === "plasterThickness" && (
               <div>
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 10 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
+                <div>
                   <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                     <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                     Pleisterwerk
@@ -538,27 +496,21 @@ const DeliveryWizard = () => {
                   <p className="text-primary-foreground/50 mb-10 text-base md:text-lg max-w-md">
                     De dikte bepaalt de hoeveelheid apparatuur die nodig is.
                   </p>
-                </motion.div>
+                </div>
 
                 <div className="flex gap-4 max-w-sm">
                   {plasterOptions.map((opt, i) => {
                     const selected = answers.plasterThickness === opt.value;
                     const height = 80 + parseInt(opt.value) * 30;
                     return (
-                      <motion.button
+                      <button
                         key={opt.value}
-                        initial={enterInitial({ opacity: 0, y: 30 })}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.15 + i * 0.08 }}
                         onClick={() =>
                           handleSelectAndNext("plasterThickness", opt.value)
                         }
                         className="flex-1 flex flex-col items-center gap-3 group"
                       >
-                        <motion.div
-                          initial={enterInitial({ height: 0 })}
-                          animate={{ height }}
-                          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 + i * 0.1 }}
+                        <div
                           className={`w-full rounded-2xl transition-all duration-300 relative overflow-hidden ${
                             selected
                               ? "bg-primary-foreground shadow-lg"
@@ -566,22 +518,20 @@ const DeliveryWizard = () => {
                           }`}
                         >
                           {selected && (
-                            <motion.div
-                              initial={enterInitial({ scale: 0 })}
-                              animate={{ scale: 1 }}
+                            <div
                               className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent flex items-center justify-center"
                             >
                               <Check className="h-3 w-3 text-primary-foreground" />
-                            </motion.div>
+                            </div>
                           )}
-                        </motion.div>
+                        </div>
                         <div className={`text-center transition-colors ${
                           selected ? "text-primary-foreground" : "text-primary-foreground/40 group-hover:text-primary-foreground/70"
                         }`}>
                           <span className="text-3xl font-black block">{opt.value}</span>
                           <span className="text-xs font-bold uppercase tracking-wider">cm</span>
                         </div>
-                      </motion.button>
+                      </button>
                     );
                   })}
                 </div>
@@ -591,11 +541,7 @@ const DeliveryWizard = () => {
             {/* ────── STEP: Screed thickness ────── */}
             {currentStepKey === "screedThickness" && (
               <div>
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 10 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
+                <div>
                   <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                     <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                     Chape
@@ -606,27 +552,21 @@ const DeliveryWizard = () => {
                   <p className="text-primary-foreground/50 mb-10 text-base md:text-lg max-w-md">
                     Dikkere chape vereist meer droogcapaciteit.
                   </p>
-                </motion.div>
+                </div>
 
                 <div className="flex gap-4 max-w-sm">
                   {screedOptions.map((opt, i) => {
                     const selected = answers.screedThickness === opt.value;
                     const height = 60 + parseInt(opt.value) * 20;
                     return (
-                      <motion.button
+                      <button
                         key={opt.value}
-                        initial={enterInitial({ opacity: 0, y: 30 })}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.15 + i * 0.08 }}
                         onClick={() =>
                           handleSelectAndNext("screedThickness", opt.value)
                         }
                         className="flex-1 flex flex-col items-center gap-3 group"
                       >
-                        <motion.div
-                          initial={enterInitial({ height: 0 })}
-                          animate={{ height }}
-                          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 + i * 0.1 }}
+                        <div
                           className={`w-full rounded-2xl transition-all duration-300 relative overflow-hidden ${
                             selected
                               ? "bg-primary-foreground shadow-lg"
@@ -634,22 +574,20 @@ const DeliveryWizard = () => {
                           }`}
                         >
                           {selected && (
-                            <motion.div
-                              initial={enterInitial({ scale: 0 })}
-                              animate={{ scale: 1 }}
+                            <div
                               className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent flex items-center justify-center"
                             >
                               <Check className="h-3 w-3 text-primary-foreground" />
-                            </motion.div>
+                            </div>
                           )}
-                        </motion.div>
+                        </div>
                         <div className={`text-center transition-colors ${
                           selected ? "text-primary-foreground" : "text-primary-foreground/40 group-hover:text-primary-foreground/70"
                         }`}>
                           <span className="text-3xl font-black block">{opt.value}</span>
                           <span className="text-xs font-bold uppercase tracking-wider">cm</span>
                         </div>
-                      </motion.button>
+                      </button>
                     );
                   })}
                 </div>
@@ -659,11 +597,7 @@ const DeliveryWizard = () => {
             {/* ────── STEP: Heating ────── */}
             {currentStepKey === "heating" && (
               <div>
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 10 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
+                <div>
                   <span className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
                     <span className="w-5 h-5 bg-primary-foreground/20 rounded-full flex items-center justify-center text-[10px]">{stepNumber}</span>
                     Laatste vraag
@@ -674,13 +608,10 @@ const DeliveryWizard = () => {
                   <p className="text-primary-foreground/50 mb-10 text-base md:text-lg max-w-md">
                     Indien niet, voorzien wij elektrische kachels bij uw pakket.
                   </p>
-                </motion.div>
+                </div>
 
                 <div className="grid grid-cols-2 gap-4 max-w-md">
-                  <motion.button
-                    initial={enterInitial({ opacity: 0, x: -20 })}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.15 }}
+                  <button
                     onClick={() => {
                       setAnswers((prev) => ({ ...prev, heating: "ja" }));
                       setTimeout(handleFinish, 400);
@@ -696,11 +627,8 @@ const DeliveryWizard = () => {
                     <div className={`text-xs mt-1 ${answers.heating === "ja" ? "text-accent/60" : "text-primary-foreground/40"}`}>
                       Ik heb eigen verwarming
                     </div>
-                  </motion.button>
-                  <motion.button
-                    initial={enterInitial({ opacity: 0, x: 20 })}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
+                  </button>
+                  <button
                     onClick={() => {
                       setAnswers((prev) => ({ ...prev, heating: "nee" }));
                       setTimeout(() => {
@@ -727,18 +655,17 @@ const DeliveryWizard = () => {
                     <div className={`text-xs mt-1 ${answers.heating === "nee" ? "text-accent/60" : "text-primary-foreground/40"}`}>
                       Voorzie kachels a.u.b.
                     </div>
-                  </motion.button>
+                  </button>
                 </div>
               </div>
             )}
-          </motion.div>
-        </AnimatePresence>
+          </div>
       </div>
 
       {/* Bottom CTA */}
       <div className="absolute bottom-6 left-0 right-0 z-10 flex justify-center">
         {canProceed && !isLastStep && (
-          <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }}>
+          <div>
             <Button
               onClick={goNext}
               className="bg-primary-foreground text-accent hover:bg-primary-foreground/90 rounded-full px-8 font-bold gap-2 shadow-xl h-12"
@@ -746,10 +673,10 @@ const DeliveryWizard = () => {
             >
               Volgende <ArrowRight className="h-4 w-4" />
             </Button>
-          </motion.div>
+          </div>
         )}
         {isLastStep && canProceed && (
-          <motion.div initial={enterInitial({ opacity: 0, y: 10 })} animate={{ opacity: 1, y: 0 }}>
+          <div>
             <Button
               onClick={handleFinish}
               className="bg-primary-foreground text-accent hover:bg-primary-foreground/90 rounded-full px-8 font-bold gap-2 shadow-xl h-12"
@@ -757,7 +684,7 @@ const DeliveryWizard = () => {
             >
               Bekijk Mijn Pakket <ArrowRight className="h-4 w-4" />
             </Button>
-          </motion.div>
+          </div>
         )}
       </div>
     </div>

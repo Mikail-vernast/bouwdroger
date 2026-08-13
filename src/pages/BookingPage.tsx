@@ -17,13 +17,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Droplets, Wind, Flame, ArrowLeft, Building2, User, Check } from "lucide-react";
-import { motion } from "framer-motion";
 import { products } from "@/data/products";
 import type { PackageResult } from "@/lib/pricing";
 import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 import PageMeta from "@/components/PageMeta";
 import { SEO } from "@/data/seo";
-import { enterInitial } from "@/lib/firstPaint";
 import { maskEmail, maskPhone } from "@/lib/inputMask";
 
 type CustomerType = "particulier" | "zakelijk";
@@ -163,6 +162,7 @@ const BookingPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Toaster />
       <PageMeta {...SEO.booking} />
       <TopBar />
       <Navbar />
@@ -173,9 +173,7 @@ const BookingPage = () => {
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Form */}
-          <motion.div
-            initial={enterInitial({ opacity: 0, y: 20 })}
-            animate={{ opacity: 1, y: 0 }}
+          <div
             className="lg:col-span-2"
           >
             <h1 className="text-3xl font-black mb-2">Boeking aanvragen</h1>
@@ -223,9 +221,7 @@ const BookingPage = () => {
 
               {/* Company fields */}
               {customerType === "zakelijk" && (
-                <motion.div
-                  initial={enterInitial({ opacity: 0, height: 0 })}
-                  animate={{ opacity: 1, height: "auto" }}
+                <div
                   className="grid sm:grid-cols-2 gap-4"
                 >
                   <div className="space-y-2">
@@ -236,7 +232,7 @@ const BookingPage = () => {
                     <Label htmlFor="vatNumber" className="font-semibold">BTW-nummer</Label>
                     <Input id="vatNumber" value={vatNumber} onChange={(e) => setVatNumber(e.target.value)} placeholder="BE0123.456.789" />
                   </div>
-                </motion.div>
+                </div>
               )}
 
               {/* Personal info */}
@@ -299,13 +295,10 @@ const BookingPage = () => {
                 {isSubmitting ? "Bezig met verzenden..." : "Boeking aanvragen"}
               </Button>
             </form>
-          </motion.div>
+          </div>
 
           {/* Sidebar summary */}
-          <motion.div
-            initial={enterInitial({ opacity: 0, y: 20 })}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+          <div
             className="lg:sticky lg:top-28"
           >
             <Card>
@@ -391,7 +384,7 @@ const BookingPage = () => {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         </div>
       </main>
       <Footer />

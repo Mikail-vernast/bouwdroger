@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Reveal from "@/components/Reveal";
 
 const machines = [
   {
@@ -46,11 +46,8 @@ const MachineShowcase = () => {
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <Reveal
+          from="up"
           className="text-center mb-14"
         >
           <span className="inline-block bg-green-600 text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-4">
@@ -62,16 +59,14 @@ const MachineShowcase = () => {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Tot 40% minder energieverbruik dan traditionele industriële drogers
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
           {machines.map((machine, index) => (
-            <motion.div
+            <Reveal
+              from="up"
+              delay={index * 0.1}
               key={machine.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
               className={`relative bg-secondary rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-1 hover:shadow-xl ${
                 machine.tag === "POPULAIR"
                   ? "border-primary shadow-md"
@@ -135,15 +130,13 @@ const MachineShowcase = () => {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.5 }}
+        <Reveal
+          from="up"
+          delay={0.4}
           className="text-center"
         >
           <Link
@@ -153,7 +146,7 @@ const MachineShowcase = () => {
             Bekijk alle machines
             <ArrowRight className="h-5 w-5" />
           </Link>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

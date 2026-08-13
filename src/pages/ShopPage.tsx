@@ -4,12 +4,10 @@ import PageHero from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import { enterInitial } from "@/lib/firstPaint";
 
 type Category = "all" | "bouwdrogers" | "ventilatoren" | "verwarming";
 
@@ -77,11 +75,8 @@ const ShopPage = () => {
           <div className="container mx-auto px-4">
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filtered.map((product, i) => (
-                <motion.div
+                <div
                   key={product.id}
-                  initial={enterInitial({ opacity: 0, y: 20 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
                   className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden group cursor-pointer hover:shadow-md transition-shadow"
                   onClick={() => navigate(`/product/${product.id}`)}
                 >
@@ -104,7 +99,7 @@ const ShopPage = () => {
                       </Button>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

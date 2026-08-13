@@ -1,5 +1,4 @@
 import PageMeta from "@/components/PageMeta";
-import { enterInitial } from "@/lib/firstPaint";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -21,18 +20,11 @@ import {
   Wind,
   ClipboardList,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { DROGER_KAARTEN } from "@/data/tarieflijst";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
-};
-
-
+import Reveal from "@/components/Reveal";
 
 const warnings = [
   { icon: "🦠", title: "Schimmelsporen in de lucht", desc: "Veroorzaakt luchtwegproblemen, hoofdpijn en allergie. Gevaarlijk voor kinderen en ouderen." },
@@ -99,7 +91,7 @@ const RenovatiePage = () => {
         <section className="py-14 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-              <motion.div initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={0}>
+              <div>
                 <Badge className="bg-primary/10 text-primary border-primary/20 mb-4 text-sm px-4 py-1.5">
                   🔨 Renovatie & vochtige kelders
                 </Badge>
@@ -121,8 +113,10 @@ const RenovatiePage = () => {
                     <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel voor gratis advies</a>
                   </Button>
                 </div>
-              </motion.div>
-              <motion.div initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={2} className="hidden lg:flex items-center justify-center">
+              </div>
+              <div
+                className="hidden lg:flex items-center justify-center"
+              >
                 {/* Zie /nieuwbouw: ook hier stond een ontwerpnotitie als zichtbare tekst. */}
                 <img
                   src="/vernast/case-kelder.webp"
@@ -133,7 +127,7 @@ const RenovatiePage = () => {
                   decoding="async"
                   className="w-full aspect-[4/3] object-cover rounded-2xl border border-border"
                 />
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -144,16 +138,16 @@ const RenovatiePage = () => {
             <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">Waarom is vocht gevaarlijk?</h2>
             <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {warnings.map((w, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={w.title}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="bg-[hsl(0,100%,97%)] border border-[hsl(0,80%,90%)] rounded-2xl p-6 text-center"
                 >
                   <div className="text-3xl mb-3">{w.icon}</div>
                   <h3 className="font-bold text-foreground mb-2">{w.title}</h3>
                   <p className="text-sm text-muted-foreground">{w.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -166,9 +160,9 @@ const RenovatiePage = () => {
               <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">Heeft u een bouwdroger nodig?</h2>
               <p className="text-muted-foreground mb-8">Check uw situatie:</p>
             </div>
-            <motion.div
-              initial="hidden" whileInView="visible" viewport={{ once: true }}
-              variants={fadeUp} custom={0}
+            <Reveal
+              from="up"
+              delay={(0) * 0.08}
               className="max-w-lg mx-auto bg-card border border-border rounded-2xl p-6 md:p-8 space-y-4"
             >
               {checklist.map((item) => (
@@ -183,7 +177,7 @@ const RenovatiePage = () => {
                   <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel ons voor gratis advies</a>
                 </Button>
               </div>
-            </motion.div>
+            </Reveal>
           </div>
         </section>
 
@@ -215,16 +209,16 @@ const RenovatiePage = () => {
             <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">Vocht voorgoed aanpakken</h2>
             <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {tips.map((tip, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={tip.title}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="bg-card border border-border rounded-2xl p-6 text-center"
                 >
                   <div className="text-3xl mb-3">{tip.emoji}</div>
                   <h3 className="font-bold text-foreground mb-2">{tip.title}</h3>
                   <p className="text-sm text-muted-foreground">{tip.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -243,10 +237,10 @@ const RenovatiePage = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
               {reviews.map((r, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={r.name}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="bg-card border border-border rounded-2xl p-6"
                 >
                   <div className="flex gap-1 mb-3">
@@ -256,7 +250,7 @@ const RenovatiePage = () => {
                   </div>
                   <p className="text-muted-foreground text-sm mb-4 italic">"{r.text}"</p>
                   <p className="text-foreground font-semibold text-sm">{r.name}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>

@@ -1,9 +1,6 @@
 import type { RouteRecord } from "vite-react-ssg";
 import Layout from "./Layout";
 import ErrorPage from "./pages/ErrorPage";
-import { getAllPackages } from "./data/packages";
-import { products } from "./data/products";
-import { PRODUCT_ORDER } from "./data/verhuur";
 
 /**
  * De routes als data-array in plaats van als <Routes>-JSX. Dat is wat
@@ -15,7 +12,11 @@ import { PRODUCT_ORDER } from "./data/verhuur";
  * route krijgt die hij opvraagt in plaats van de volledige app.
  *
  * `getStaticPaths` bepaalt welke varianten van een dynamische route
- * geprerenderd worden.
+ * geprerenderd worden. Die functies draaien **alleen bij de build**, dus
+ * halen ze hun data met een dynamische import op. Stonden die imports
+ * bovenaan dit bestand, dan belandden ze in de entry-chunk — en die laadt
+ * elke bezoeker op elke pagina. Alleen `data/tarieven.ts` is al 113 kB: de
+ * volledige prijstabel, meegestuurd naar iemand die de homepage opent.
  */
 export const routes: RouteRecord[] = [
   {
@@ -40,7 +41,8 @@ export const routes: RouteRecord[] = [
       {
         path: "levering/pakket/:packageId",
         lazy: async () => ({ Component: (await import("./pages/PackageDetailPage")).default }),
-        getStaticPaths: () => getAllPackages().map((p) => `/levering/pakket/${p.id}`),
+        getStaticPaths: async () =>
+          (await import("./data/packages")).getAllPackages().map((p) => `/levering/pakket/${p.id}`),
       },
       {
         path: "afhalen",
@@ -77,7 +79,8 @@ export const routes: RouteRecord[] = [
       {
         path: "product/:id",
         lazy: async () => ({ Component: (await import("./pages/ProductDetail")).default }),
-        getStaticPaths: () => products.map((p) => `/product/${p.id}`),
+        getStaticPaths: async () =>
+          (await import("./data/products")).products.map((p) => `/product/${p.id}`),
       },
       {
         path: "booking",
@@ -156,7 +159,8 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({
           Component: (await import("./pages/verhuur/VerhuurToestelPage")).default,
         }),
-        getStaticPaths: () => PRODUCT_ORDER.map((m) => `/verhuur/toestel/${m}`),
+        getStaticPaths: async () =>
+          (await import("./data/verhuur")).PRODUCT_ORDER.map((m) => `/verhuur/toestel/${m}`),
       },
 
       /*

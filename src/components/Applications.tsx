@@ -1,6 +1,6 @@
 import { Building2, Hammer, Droplets, HardHat, ArrowRight, ShieldCheck } from "lucide-react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Reveal from "@/components/Reveal";
 
 const diensten = [
   {
@@ -49,11 +49,8 @@ const Applications = () => {
   return (
     <section className="py-16 md:py-24 bg-secondary">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <Reveal
+          from="up"
           className="text-center mb-14"
         >
           <span className="inline-block bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-4">
@@ -66,32 +63,24 @@ const Applications = () => {
             Of het nu gaat om nieuwbouw, renovatie of waterschade — wij hebben
             de expertise en het materiaal.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {diensten.map((dienst, index) => (
             <Link key={dienst.title} to={dienst.href}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+              <Reveal
+                from="up"
+                delay={index * 0.1}
                 className={`relative bg-accent rounded-xl p-6 overflow-hidden group transition-all duration-200 hover:-translate-y-1 hover:shadow-xl cursor-pointer h-full ${
                   dienst.highlight ? "ring-2 ring-red-500/30" : ""
                 }`}
               >
                 {dienst.badge && (
-                  <motion.span
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
+                  <span
                     className="absolute top-3 right-3 z-10 inline-flex items-center gap-1 bg-[hsl(0,72%,51%)] text-white text-xs font-bold px-2.5 py-1 rounded-full"
                   >
                     {dienst.badge}
-                  </motion.span>
+                  </span>
                 )}
 
                 <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-primary/30 group-hover:bg-primary/50 transition-colors" />
@@ -108,7 +97,7 @@ const Applications = () => {
                   </p>
                   <ArrowRight className="h-5 w-5 text-primary-foreground/50 group-hover:text-primary-foreground group-hover:translate-x-1 transition-all" />
                 </div>
-              </motion.div>
+              </Reveal>
             </Link>
           ))}
         </div>

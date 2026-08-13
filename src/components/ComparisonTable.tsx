@@ -1,5 +1,5 @@
 import { Check, X, Zap, Volume2, Shield, Thermometer, BatteryCharging, ArrowDown } from "lucide-react";
-import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 
 const rows = [
   {
@@ -49,11 +49,8 @@ const ComparisonTable = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+        <Reveal
+          from="up"
           className="text-center mb-16"
         >
           <span className="inline-block bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-5">
@@ -66,14 +63,11 @@ const ComparisonTable = () => {
             Wij zetten het juiste toestel op de juiste plek — in plaats van één
             grote droger in de gang.
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Floorplan visual */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+        <Reveal
+          from="up"
           className="max-w-4xl mx-auto mb-20"
         >
           <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-widest mb-8">
@@ -82,8 +76,7 @@ const ComparisonTable = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Dryfast side */}
-            <motion.div
-              whileHover={{ scale: 1.01 }}
+            <div
               className="rounded-2xl border-2 border-red-200 bg-gradient-to-b from-red-50/80 to-white p-6 shadow-sm transition-shadow hover:shadow-lg"
             >
               <div className="flex items-center gap-2 mb-5">
@@ -125,11 +118,10 @@ const ComparisonTable = () => {
               <p className="text-xs text-red-600 text-center font-medium">
                 Vocht bereikt niet alle kamers vanuit de gang
               </p>
-            </motion.div>
+            </div>
 
             {/* Vernast side */}
-            <motion.div
-              whileHover={{ scale: 1.01 }}
+            <div
               className="rounded-2xl border-2 border-green-300 bg-gradient-to-b from-green-50/80 to-white p-6 shadow-sm transition-shadow hover:shadow-lg"
             >
               <div className="flex items-center gap-2 mb-5">
@@ -171,34 +163,29 @@ const ComparisonTable = () => {
               <p className="text-xs text-green-600 text-center font-medium">
                 Elke ruimte optimaal gedroogd met eigen toestel
               </p>
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Detailed comparison list */}
         <div className="max-w-4xl mx-auto mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <Reveal
+            from="up"
             className="text-center mb-8"
           >
             <ArrowDown className="h-5 w-5 text-muted-foreground/40 mx-auto animate-bounce" />
-          </motion.div>
+          </Reveal>
 
           <div className="space-y-4">
             {rows.map((row, index) => (
-              <motion.div
+              <Reveal
+                from="right"
+                delay={index * 0.08}
                 key={row.label}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="grid grid-cols-1 md:grid-cols-2 gap-3"
               >
                 {/* Competitor */}
-                <motion.div
-                  whileHover={{ scale: 1.01 }}
+                <div
                   className="flex items-start gap-3 bg-red-50/60 border border-red-100 rounded-xl p-5 transition-all duration-300 hover:shadow-md"
                 >
                   <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-red-100 flex-shrink-0 mt-0.5">
@@ -213,11 +200,10 @@ const ComparisonTable = () => {
                     </div>
                     <p className="text-sm text-red-700/80 leading-relaxed">{row.competitor}</p>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Vernast */}
-                <motion.div
-                  whileHover={{ scale: 1.01 }}
+                <div
                   className="flex items-start gap-3 bg-green-50/60 border border-green-200 rounded-xl p-5 transition-all duration-300 hover:shadow-md"
                 >
                   <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-green-100 flex-shrink-0 mt-0.5">
@@ -232,28 +218,23 @@ const ComparisonTable = () => {
                     </div>
                     <p className="text-sm text-green-700/80 leading-relaxed">{row.vernast}</p>
                   </div>
-                </motion.div>
-              </motion.div>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
 
         {/* Score summary — premium infographic blocks */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <Reveal
+          from="up"
           className="max-w-3xl mx-auto"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {scoreStats.map((stat, i) => (
-              <motion.div
+              <Reveal
+                from="scale"
+                delay={i * 0.1}
                 key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, type: "spring", stiffness: 200 }}
-                whileHover={{ y: -4 }}
                 className="relative bg-gradient-to-b from-secondary to-white rounded-2xl p-5 text-center border border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 group"
               >
                 {/* Icon */}
@@ -272,10 +253,10 @@ const ComparisonTable = () => {
                     {stat.good}
                   </span>
                 </div>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

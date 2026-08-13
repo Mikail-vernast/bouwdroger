@@ -3,9 +3,8 @@ import { Menu, X, ChevronDown, Building2, Hammer, Droplets, HardHat } from "luci
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
 import logoWhite from "@/assets/logo-white.png";
-import { enterInitial } from "@/lib/firstPaint";
+import FontPreload from "@/components/FontPreload";
 
 const dienstenItems = [
   {
@@ -102,6 +101,8 @@ const Navbar = () => {
   const isDienstenActive = dienstenItems.some((item) => location.pathname === item.href);
 
   return (
+    <>
+    <FontPreload set="inter" />
     <nav
       className={cn(
         "sticky top-0 z-50 transition-shadow duration-300 bg-accent",
@@ -141,15 +142,8 @@ const Navbar = () => {
               />
             </button>
 
-            <AnimatePresence>
-              {isDienstenOpen && (
-                <motion.div
-                  initial={enterInitial({ opacity: 0, y: 8 })}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[520px] bg-white rounded-xl shadow-2xl border border-gray-100 p-2 grid grid-cols-2 gap-2"
-                >
+            {isDienstenOpen && (
+              <div className="enter-pop absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[520px] bg-white rounded-xl shadow-2xl border border-gray-100 p-2 grid grid-cols-2 gap-2">
                   {dienstenItems.map((item) => (
                     <Link
                       key={item.label}
@@ -181,9 +175,8 @@ const Navbar = () => {
                       </div>
                     </Link>
                   ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+              </div>
+            )}
           </div>
 
           {/* Other nav links */}
@@ -224,15 +217,8 @@ const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      <AnimatePresence>
-        {isMobileOpen && (
-          <motion.div
-            initial={enterInitial({ height: 0, opacity: 0 })}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden bg-accent border-t border-white/10"
-          >
+      {isMobileOpen && (
+        <div className="enter-pop lg:hidden overflow-hidden bg-accent border-t border-white/10">
             <div className="py-3">
               {/* Mobile Diensten */}
               <button
@@ -253,15 +239,8 @@ const Navbar = () => {
                 />
               </button>
 
-              <AnimatePresence>
-                {isMobileDienstenOpen && (
-                  <motion.div
-                    initial={enterInitial({ height: 0, opacity: 0 })}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
+              {isMobileDienstenOpen && (
+                <div className="enter-pop overflow-hidden">
                     <div className="px-6 py-2 space-y-1">
                       {dienstenItems.map((item) => (
                         <Link
@@ -286,9 +265,8 @@ const Navbar = () => {
                         </Link>
                       ))}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                </div>
+              )}
 
               {/* Other mobile nav links */}
               {navLinks.map((item) => (
@@ -316,10 +294,10 @@ const Navbar = () => {
                 </Button>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </nav>
+    </>
   );
 };
 

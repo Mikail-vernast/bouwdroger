@@ -1,13 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap } from "lucide-react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
-};
+import Reveal from "@/components/Reveal";
 
 export interface MachineCardProps {
   name: string;
@@ -44,12 +39,9 @@ const MachineCard = ({
   const isHighlighted = highlight || badge === "Meest gekozen" || badge === "Aanbevolen";
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={fadeUp}
-      custom={index}
+    <Reveal
+      from="up"
+      delay={index * 0.08}
       className={`relative bg-card rounded-2xl p-6 text-center transition-shadow hover:shadow-xl ${
         isHighlighted
           ? "border-2 border-primary ring-2 ring-primary/10 bg-[hsl(30,100%,98%)]"
@@ -118,7 +110,7 @@ const MachineCard = ({
       >
         {ctaLabel || `Reserveer ${name.split(" ")[1]}`} <ArrowRight className="h-4 w-4" />
       </Button>
-    </motion.div>
+    </Reveal>
   );
 };
 

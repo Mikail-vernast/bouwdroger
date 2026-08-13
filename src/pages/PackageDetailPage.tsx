@@ -31,9 +31,9 @@ import {
   Check,
   CalendarIcon,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 import { format, addDays, differenceInDays } from "date-fns";
 import { nl } from "date-fns/locale";
 import { cn } from "@/lib/utils";
@@ -207,6 +207,7 @@ const PackageDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Toaster />
       <PageMeta
         /*
          * De titel moet de variant benoemen, niet alleen de oppervlakte: drie

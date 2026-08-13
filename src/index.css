@@ -100,9 +100,15 @@
     font-family: 'Inter', sans-serif;
   }
 
-  h1, h2, h3 {
-    font-family: 'Inter', sans-serif;
-  }
+  /*
+    Hier stond ook `h1, h2, h3 { font-family: 'Inter' }`. Overbodig — body
+    staat al op Inter en koppen erven dat gewoon — maar niet onschuldig: die
+    regel gold óók binnen de v3- en verhuurschil, die op de regel erboven hun
+    eigen font zetten. Drie <h2>'s in de footer waren genoeg om élke pagina,
+    de homepage incluis, 47 kB Inter te laten ophalen voor lettertjes die in
+    DM Sans horen te staan. Zonder de regel erft elke schil weer van zijn
+    eigen root.
+  */
 
   /* Prevent iOS zoom on form inputs */
   input, select, textarea {
@@ -146,6 +152,91 @@
 
 @media (prefers-reduced-motion: reduce) {
   .page-enter {
+    animation: none;
+  }
+}
+
+/*
+  De scroll-reveal van src/components/Reveal.tsx.
+
+  Alles hangt aan `data-rv`, en dat attribuut staat er bij de eerste tekening
+  niet: de geprerenderde HTML is meteen zichtbaar. Het component zet het pas ná
+  mount op wat nog buiten het scherm staat.
+
+  De overgang zit alléén op `[data-rv="in"]`. Zo springt het blok bij het
+  verbergen ineens weg in plaats van uit te faden — dat gebeurt toch onder de
+  vouw — en animeert het pas wanneer het in beeld komt.
+*/
+[data-rv="armed"] {
+  opacity: 0;
+}
+
+[data-rv="armed"][data-rv-from="up"] {
+  transform: translateY(24px);
+}
+
+[data-rv="armed"][data-rv-from="left"] {
+  transform: translateX(-20px);
+}
+
+[data-rv="armed"][data-rv-from="right"] {
+  transform: translateX(20px);
+}
+
+[data-rv="armed"][data-rv-from="scale"] {
+  transform: scale(0.92);
+}
+
+[data-rv="in"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+  transition-delay: var(--rv-delay, 0s);
+}
+
+/* Zie .page-enter: beweging is versiering, geen informatie. */
+@media (prefers-reduced-motion: reduce) {
+  [data-rv] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/*
+  De twee binnenkomers die framer-motion hier deed: een dropdown die openklapt
+  en een wizardstap die van rechts inschuift. Framer speelde ook een exit af,
+  maar daarvoor moet het element ná het sluiten nog even blijven staan — dat is
+  de enige reden dat `AnimatePresence` er stond. Voor een menu dat dichtklapt is
+  dat geen 121 kB waard; het verdwijnt nu meteen.
+*/
+@keyframes enter-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.enter-pop {
+  animation: enter-pop 0.2s ease-out both;
+}
+
+@keyframes enter-step {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+}
+
+.enter-step {
+  animation: enter-step 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-pop,
+  .enter-step {
     animation: none;
   }
 }

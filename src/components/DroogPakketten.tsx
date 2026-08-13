@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import Reveal from "@/components/Reveal";
 
 type Category = "verwarming" | "chape" | "chapedrogen" | "pleister" | "pleisterverwarming";
 
@@ -73,10 +73,8 @@ const DroogPakketten = () => {
   return (
     <section id="pakketten" className="py-16 md:py-24 bg-secondary">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <Reveal
+          from="up"
           className="text-center mb-8"
         >
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
@@ -140,16 +138,14 @@ const DroogPakketten = () => {
               Pleister & Verwarming
             </button>
           </div>
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {packages.map((pkg, index) => (
-            <motion.div
+            <Reveal
+              from="up"
+              delay={index * 0.1}
               key={`${category}-${pkg.id}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="group cursor-pointer"
               onClick={() => navigate("/booking")}
             >
@@ -172,7 +168,7 @@ const DroogPakketten = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 

@@ -4,11 +4,11 @@ import PageHero from "@/components/PageHero";
 import ProductCatalog from "@/components/ProductCatalog";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Package, CheckCircle2, Car } from "lucide-react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import Reveal from "@/components/Reveal";
 
 const steps = [
   { icon: Package, title: "1. Reserveer online", desc: "Kies je apparatuur en reserveer online. Je ontvangt direct een bevestiging." },
@@ -66,12 +66,10 @@ const AfhalenPage = () => {
             </div>
             <div className="grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {steps.map((step, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.1}
                   key={step.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
                   className="bg-card rounded-2xl p-6 shadow-sm border border-border text-center"
                 >
                   <div className="w-14 h-14 mx-auto bg-accent rounded-xl flex items-center justify-center mb-4">
@@ -79,7 +77,7 @@ const AfhalenPage = () => {
                   </div>
                   <h3 className="font-bold text-foreground mb-2">{step.title}</h3>
                   <p className="text-sm text-muted-foreground">{step.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>

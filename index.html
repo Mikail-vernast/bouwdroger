@@ -18,26 +18,14 @@
       src/styles/fonts.css). Daarom staat hier geen preconnect meer naar
       Google: er valt geen verbinding met een derde partij vooruit te leggen.
 
-      Wel worden de twee die bóven de vouw staan vooruit opgehaald. Ze worden
-      pas ontdekt wanneer de browser de CSS heeft gelezen, en die CSS blokkeert
-      zelf al het renderen — de titel kwam daardoor eerst in het systeemfont op
-      het scherm en wisselde daarna alsnog. Die tweede tekening telt als nieuwe
-      LCP, dus de meting bleef hangen op ruim drie seconden terwijl er allang
-      iets stond.
-
-      Alleen deze twee: 'Plus Jakarta Sans' is de titel, 'DM Sans' de lopende
-      tekst. De -ext-varianten dekken tekens die in het Nederlands nauwelijks
-      voorkomen en mogen gewoon later komen; alles vooruit halen zou de bandbreedte
-      juist wegnemen bij wat wél nodig is.
+      Hier stond ook een preload voor 'Plus Jakarta Sans' en 'DM Sans'. Dat
+      klopte voor de homepage, maar dit bestand is de schil van élke route, en
+      de inhoudspagina's zetten hun body en titels op Inter. Die kregen dus
+      63 kB font vooruit dat niets tekent, terwijl Inter zelf pas ná de titel
+      binnenkwam. Welk font vooruit gehaald wordt hangt dus af van de pagina;
+      dat regelt src/components/FontPreload.tsx, aangeroepen vanuit de twee
+      schillen.
     -->
-    <link
-      rel="preload"
-      href="/fonts/plus-jakarta-sans-latin.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
   </head>
 
   <body>

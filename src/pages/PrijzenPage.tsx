@@ -1,5 +1,5 @@
+import Reveal from "@/components/Reveal";
 import PageMeta from "@/components/PageMeta";
-import { enterInitial } from "@/lib/firstPaint";
 import { breadcrumbSchema, faqSchema, offerCatalogSchema, serviceSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -13,7 +13,6 @@ import {
   PhoneCall,
   ClipboardList,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { SEO } from "@/data/seo";
 import {
@@ -23,11 +22,6 @@ import {
   euro,
   priceForWeeks,
 } from "@/data/tarieflijst";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
-};
 
 /**
  * De ventilator en de kachel — het "extra" naast de ontvochtiger zelf.
@@ -127,12 +121,16 @@ const PrijzenPage = () => {
         {/* Hero */}
         <section className="py-14 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4 text-center max-w-3xl">
-            <motion.h1 initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={0} className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-4">
+            <h1
+              className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-4"
+            >
               Transparante prijzen — geen verrassingen
-            </motion.h1>
-            <motion.p initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={1} className="text-muted-foreground text-lg">
+            </h1>
+            <p
+              className="text-muted-foreground text-lg"
+            >
               Geen waarborg. Geen verborgen kosten. Wat u ziet is wat u betaalt.
-            </motion.p>
+            </p>
           </div>
         </section>
 
@@ -140,7 +138,10 @@ const PrijzenPage = () => {
         <section className="py-14 md:py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+              <Reveal
+                from="up"
+                delay={(0) * 0.08}
+              >
                 {/*
                   Een echte <table>. De prijzen stonden hier eerder in een
                   grid van div's met "€ XX" erin; zowel de bedragen als het
@@ -216,7 +217,7 @@ const PrijzenPage = () => {
                     Gratis levering & ophaling bij huur van 4 weken of meer
                   </Badge>
                 </div>
-              </motion.div>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -227,15 +228,15 @@ const PrijzenPage = () => {
             <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">Altijd inbegrepen</h2>
             <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
               {included.map((item, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={item}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="flex items-center gap-3 bg-card border border-border rounded-xl px-5 py-4"
                 >
                   <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
                   <span className="text-sm font-medium text-foreground">{item}</span>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -280,16 +281,16 @@ const PrijzenPage = () => {
           <div className="container mx-auto px-4">
             <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {guarantees.map((g, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={g.title}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }}
-                  variants={fadeUp} custom={i}
                   className="bg-card border border-border rounded-2xl p-6 text-center"
                 >
                   <div className="text-3xl mb-3">{g.emoji}</div>
                   <h3 className="font-bold text-foreground mb-2">{g.title}</h3>
                   <p className="text-sm text-muted-foreground">{g.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>

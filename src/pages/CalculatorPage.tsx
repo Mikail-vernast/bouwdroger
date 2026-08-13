@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Home, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { calculatePackages, getRoomTypeLabel, type RoomType, type PackageResult } from "@/lib/pricing";
 import PageMeta from "@/components/PageMeta";
+import FontPreload from "@/components/FontPreload";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 
@@ -118,6 +118,7 @@ const CalculatorPage = () => {
 
   return (
     <div className="min-h-screen bg-[hsl(var(--primary))] text-white flex flex-col">
+      <FontPreload set="inter" />
       <PageMeta
         {...SEO.calculator}
         jsonLd={[
@@ -162,17 +163,11 @@ const CalculatorPage = () => {
 
       {/* Content */}
       <div className="flex-1 flex items-center justify-center px-4">
-        <AnimatePresence mode="wait">
           {/* Step 0: Size */}
           {step === 0 && (
-            <motion.div
+            <div
               key="step-size"
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.4 }}
-              className="w-full max-w-lg"
+              className="enter-step w-full max-w-lg"
             >
               <h2 className="text-2xl md:text-4xl font-black mb-2">
                 <span className="text-white/50 mr-2">1</span>
@@ -194,19 +189,14 @@ const CalculatorPage = () => {
                   </button>
                 ))}
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Step 1: Type */}
           {step === 1 && (
-            <motion.div
+            <div
               key="step-type"
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.4 }}
-              className="w-full max-w-lg"
+              className="enter-step w-full max-w-lg"
             >
               <button onClick={() => setStep(0)} className="flex items-center gap-1 text-white/60 hover:text-white mb-6 text-sm transition-colors">
                 <ArrowLeft className="h-4 w-4" /> Terug
@@ -231,19 +221,14 @@ const CalculatorPage = () => {
                   </button>
                 ))}
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Step 2: Result */}
           {step === 2 && pkg && sqm && roomType && (
-            <motion.div
+            <div
               key="step-result"
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.4 }}
-              className="w-full max-w-4xl"
+              className="enter-step w-full max-w-4xl"
             >
               <button onClick={() => setStep(1)} className="flex items-center gap-1 text-white/60 hover:text-white mb-6 text-sm transition-colors">
                 <ArrowLeft className="h-4 w-4" /> Terug
@@ -333,9 +318,8 @@ const CalculatorPage = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
       </div>
 
       {/*

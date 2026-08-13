@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const CTABanner = () => {
   return (
@@ -11,10 +11,8 @@ const CTABanner = () => {
       </div>
 
       <div className="container mx-auto px-4 text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <Reveal
+          from="up"
         >
           <h2 className="text-3xl md:text-4xl font-black mb-4">
             Klaar om te starten?
@@ -45,7 +43,7 @@ const CTABanner = () => {
               </a>
             </Button>
           </div>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

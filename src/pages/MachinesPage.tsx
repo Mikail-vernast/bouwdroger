@@ -15,21 +15,11 @@ import {
   Cable,
   Snowflake,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { products } from "@/data/products";
 import machinesHero from "@/assets/machines-hero.png";
 import { SEO } from "@/data/seo";
-import { enterInitial } from "@/lib/firstPaint";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.5 },
-  }),
-};
+import Reveal from "@/components/Reveal";
 
 const categories = [
   { id: "bouwdrogers", label: "Bouwdrogers", icon: Droplets },
@@ -177,9 +167,7 @@ const MachinesPage = () => {
           />
           <div className="absolute inset-0">
             <div className="container mx-auto px-4 h-full flex items-center justify-end">
-              <motion.div
-                initial={enterInitial({ opacity: 0, y: 20 })}
-                animate={{ opacity: 1, y: 0 }}
+              <div
                 className="max-w-lg py-8 text-right"
               >
                 <span className="inline-block bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full mb-5">
@@ -206,7 +194,7 @@ const MachinesPage = () => {
                     </a>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -244,13 +232,10 @@ const MachinesPage = () => {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {bouwdrogers.map((product, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={product.id}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  custom={i}
                   className={`relative bg-secondary rounded-2xl overflow-hidden border transition-all hover:-translate-y-1 hover:shadow-xl ${
                     product.name === "ECO Performance"
                       ? "border-primary shadow-md"
@@ -313,7 +298,7 @@ const MachinesPage = () => {
                       <Link to={`/product/${product.id}`}>Bekijk details</Link>
                     </Button>
                   </div>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -341,13 +326,10 @@ const MachinesPage = () => {
                 (product, i) => {
                   const isFromData = "id" in product;
                   return (
-                    <motion.div
+                    <Reveal
+                      from="up"
+                      delay={i * 0.08}
                       key={isFromData ? product.id : product.name}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                      variants={fadeUp}
-                      custom={i}
                       className="bg-background rounded-2xl border border-border p-6 transition-all hover:-translate-y-1 hover:shadow-lg"
                     >
                       {isFromData && product.image && (
@@ -391,7 +373,7 @@ const MachinesPage = () => {
                           )
                         )}
                       </ul>
-                    </motion.div>
+                    </Reveal>
                   );
                 }
               )}
@@ -431,13 +413,10 @@ const MachinesPage = () => {
                 .map((product, i) => {
                   const isFromData = product && "id" in product;
                   return (
-                    <motion.div
+                    <Reveal
+                      from="up"
+                      delay={i * 0.08}
                       key={isFromData ? product.id : product.name}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                      variants={fadeUp}
-                      custom={i}
                       className="bg-secondary rounded-2xl border border-border p-6 transition-all hover:-translate-y-1 hover:shadow-lg"
                     >
                       {isFromData && product.image && (
@@ -466,7 +445,7 @@ const MachinesPage = () => {
                       <span className="bg-background text-muted-foreground text-xs px-2 py-1 rounded-md">
                         {isFromData ? product.capacity : product.capacity}
                       </span>
-                    </motion.div>
+                    </Reveal>
                   );
                 })}
             </div>
@@ -480,13 +459,10 @@ const MachinesPage = () => {
               {extraProducts
                 .filter((p) => p.name.startsWith("Dieselheater"))
                 .map((product, i) => (
-                  <motion.div
+                  <Reveal
+                    from="up"
+                    delay={i * 0.08}
                     key={product.name}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeUp}
-                    custom={i}
                     className="bg-secondary rounded-2xl border border-border p-6 transition-all hover:shadow-lg"
                   >
                     <h3 className="font-bold text-foreground mb-1">
@@ -511,7 +487,7 @@ const MachinesPage = () => {
                         </li>
                       ))}
                     </ul>
-                  </motion.div>
+                  </Reveal>
                 ))}
             </div>
           </div>
@@ -525,13 +501,10 @@ const MachinesPage = () => {
             </h2>
             <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {accessories.map((a, i) => (
-                <motion.div
+                <Reveal
+                  from="up"
+                  delay={i * 0.08}
                   key={a.name}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  custom={i}
                   className="bg-background border border-border rounded-2xl p-6 text-center"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
@@ -544,7 +517,7 @@ const MachinesPage = () => {
                   {a.free && (
                     <Badge className="bg-green-600 text-white">GRATIS</Badge>
                   )}
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
