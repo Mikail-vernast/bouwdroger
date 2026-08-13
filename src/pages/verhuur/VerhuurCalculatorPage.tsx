@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
@@ -162,10 +162,27 @@ const VerhuurCalculatorPage = () => {
     else finish(next);
   };
 
+  /*
+    De vertraging waarmee een gekozen kaart nog even oplicht, is ook het venster
+    waarin iemand zich bedenkt — en dat gebeurt: klikken op "pleisterwerk" en een
+    tel later op "beide" liet twee timers lopen, die elk een stap opschoven. De
+    bezoeker sloeg zo de vraag naar de pleisterdikte over, kwam op de chape uit
+    en zag de teller op "stap 4 / 5" springen. Wie dan op Terug drukte, kreeg de
+    vraag te zien die hij nooit gehad had.
+
+    Eén timer dus: een nieuwe keuze annuleert de vorige.
+  */
+  const advanceTimer = useRef<number | null>(null);
+
+  useEffect(() => () => {
+    if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current);
+  }, []);
+
   const answer = (patch: Partial<Answers>) => {
     const next = { ...answers, ...patch };
     setAnswers(next);
-    window.setTimeout(() => advance(next), ADVANCE_DELAY);
+    if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current);
+    advanceTimer.current = window.setTimeout(() => advance(next), ADVANCE_DELAY);
   };
 
   const step = (n: number, className = "astep") =>
