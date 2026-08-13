@@ -517,7 +517,16 @@ const VerhuurAfhalenPage = () => {
                           key={product.key}
                         >
                           <span className="ph">
-                            <img src={product.image} alt="" loading="lazy" />
+                            {/*
+                              Deze foto is de enige afbeelding van dit toestel
+                              op deze pagina, en de pagina wordt geïndexeerd met
+                              een volledige OfferCatalog erin. Leeg gelaten
+                              stond geen enkel toestel uit het afhaalgamma in
+                              de afbeeldingszoekresultaten. Bij de miniaturen
+                              elders blijft de alt wél leeg: daar draagt de
+                              knop al een `aria-label` en staat de naam ernaast.
+                            */}
+                            <img src={product.image} alt={product.name} loading="lazy" />
                           </span>
                           <span className="pi">
                             <b>{product.name}</b>

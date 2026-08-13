@@ -205,7 +205,7 @@ const VerhuurPakketPage = () => {
                   {items.map((it) => (
                     <div className="dev" key={it.k}>
                       <span className="dq">{it.q}×</span>
-                      <img src={CAT[it.k].img} alt="" loading="lazy" decoding="async" />
+                      <img src={CAT[it.k].img} alt={CAT[it.k].name} loading="lazy" decoding="async" />
                       <span className="dn">
                         <b>{CAT[it.k].name}</b>
                         <small>{CAT[it.k].sub}</small>
@@ -250,7 +250,7 @@ const VerhuurPakketPage = () => {
                   {items.map((it) => (
                     <div className="rrow" key={it.k}>
                       <span className="ri">
-                        <img src={CAT[it.k].img} alt="" loading="lazy" decoding="async" />
+                        <img src={CAT[it.k].img} alt={CAT[it.k].name} loading="lazy" decoding="async" />
                       </span>
                       <span className="rc2">
                         <span className="rtag">

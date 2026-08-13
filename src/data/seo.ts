@@ -34,7 +34,7 @@ export const SEO = {
       "Waterlek of overstroming? Wij leveren uw bouwdroger en ventilatoren vandaag nog. De eerste 48 uur bepalen of u schimmel en structurele schade voorblijft.",
   },
   renovatie: {
-    title: "Vochtige kelder of schimmel drogen met een bouwdroger | Vernast",
+    title: "Vochtige kelder of schimmel drogen | Vernast",
     description:
       "Vochtige muren, muffe geur of schimmel in kelder of renovatie? Pak het aan met een professionele bouwdroger. Verhuur met levering en gratis vochtmeting.",
   },
@@ -85,7 +85,7 @@ export const SEO = {
      capaciteit een ruimte nodig heeft, de verhuurcalculator stelt een compleet
      pakket samen. Overlappen ze in de praktijk toch, dan is er één te veel. */
   calculator: {
-    title: "Welke bouwdroger heb ik nodig? Bereken uw capaciteit | Vernast",
+    title: "Welke bouwdroger heb ik nodig? Bereken het | Vernast",
     description:
       "Geef uw oppervlakte en plafondhoogte in en zie meteen hoeveel liter vochtafvoer per dag u nodig heeft, welk toestel daarbij past en hoeveel units.",
   },
@@ -107,7 +107,7 @@ export const SEO = {
       "Vragen over bouwdroging of een dringende levering nodig? Bel 03 689 90 65 op werkdagen tussen 08:00 en 17:00, of stuur ons een bericht.",
   },
   klantservice: {
-    title: "Klantenservice: hulp bij bestelling, levering en toestel | Vernast",
+    title: "Klantenservice: bestelling, levering en toestel | Vernast",
     description:
       "Onze klantenservice helpt u met bestellingen, levering, retour en het bedienen van uw bouwdroger. Bel, mail of vind meteen antwoord op de veelgestelde vragen.",
   },
@@ -124,7 +124,7 @@ export const SEO = {
       "Beantwoord vijf vragen over uw woning, wat u droogt en uw verwarming. Wij berekenen automatisch de juiste toestellen, de droogtijd en de prijs.",
   },
   verhuurAfhalen: {
-    title: "Bouwdroger huren en zelf afhalen in Aartselaar | Vernast Verhuur",
+    title: "Losse toestellen huren en afhalen in Aartselaar | Vernast",
     description:
       "Huur losse bouwdrogers, ventilatoren en kachels tegen lagere afhaalprijzen en haal ze op in ons magazijn in Aartselaar. Online reserveren, niets vooraf betalen.",
   },

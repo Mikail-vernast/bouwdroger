@@ -32,7 +32,9 @@ const Index = () => {
       <PageMeta
         {...SEO.home}
         jsonLd={[
-          organizationSchema(),
+          // Enige pagina die "4,8" en "412" zichtbaar toont, dus de enige die de
+          // beoordeling in de schema mag zetten — zie `OrganizationOptions`.
+          organizationSchema({ withRating: true }),
           websiteSchema(),
           faqSchema(QUESTIONS.map((item) => ({ question: item.q, answer: item.a }))),
         ]}

@@ -153,6 +153,63 @@ const sitemap = [
 
 writeFileSync(join(DIST, "sitemap.xml"), sitemap);
 
+/**
+ * `dateModified` per pagina, uit dezelfde git-datum als de `lastmod` hierboven.
+ *
+ * De sitemap vertelde wanneer een pagina voor het laatst veranderde, de pagina
+ * zelf niet. Voor een AI-antwoordmachine is dat het verschil tussen een prijs
+ * citeren en durven zeggen van wanneer die prijs is: zonder datum is elke
+ * bewering even oud. Klassieke zoekmachines doen er voor een dienstpagina
+ * weinig mee, antwoordmachines wel.
+ *
+ * Het gebeurt hier en niet in `<PageMeta>` omdat de datum uit de git-historie
+ * komt, en die is er tijdens het renderen niet. Dezelfde reden waarom de
+ * charset hierboven pas na de build op zijn plaats gezet wordt.
+ */
+function injectDateModified(file, route) {
+  const html = readFileSync(file, "utf8");
+  /*
+    Niet `<link rel="canonical"`: vite-react-ssg zet er een `data-rh="true"`
+    tussen, zodat die vorm nergens matchte en het hele blok stil oversloeg.
+  */
+  const canonical = html.match(/<link[^>]*rel="canonical"[^>]*href="([^"]+)"/i)?.[1];
+  if (!canonical) return false;
+  /*
+    Bewust zonder `isPartOf` en `publisher`. Die zouden met een `@id` naar de
+    WebSite en de organisatie wijzen, en die knopen staan niet op elke pagina —
+    dan verwijst dit blok naar iets dat er niet is, precies het probleem dat
+    `withOrganization()` in src/lib/schema.ts oplost. Een WebPage met een datum
+    is op zichzelf compleet.
+  */
+  const node = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": canonical,
+    url: canonical,
+    inLanguage: "nl-BE",
+    dateModified: lastmodFor(route),
+  };
+  const tag = `<script type="application/ld+json">${JSON.stringify(node)}</script>`;
+  writeFileSync(file, html.replace("</head>", `${tag}</head>`));
+  return true;
+}
+
+/*
+  Alleen op wat geïndexeerd wordt. Een bevestigingspagina een wijzigingsdatum
+  geven zegt niets — die pagina hoort sowieso nergens in een antwoord.
+*/
+let dated = 0;
+for (const file of htmlPages.filter(isIndexable)) {
+  const route = toRoute(file);
+  if (route.includes("*") || route === "/404") continue;
+  // Tel wat er écht geschreven is, niet wat we geprobeerd hebben: de vorige
+  // versie meldde 25 pagina's terwijl er nul een datum kregen.
+  if (injectDateModified(file, route)) dated++;
+}
+if (dated !== routes.length) {
+  throw new Error(`[seo] dateModified op ${dated} van ${routes.length} pagina's — canonical niet gevonden?`);
+}
+
 const robots = `# Vernast Bouwdrogers — robots.txt (gegenereerd door scripts/generate-seo-files.mjs)
 #
 # Alles staat open. Voor een lokale dienstverlener is gevonden worden het hele
@@ -262,13 +319,22 @@ function priceLines() {
   for (const match of html.matchAll(
     /<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi
   )) {
-    let block;
+    let parsed;
     try {
-      block = JSON.parse(match[1]);
+      parsed = JSON.parse(match[1]);
     } catch {
       continue;
     }
-    if (block?.["@type"] !== "OfferCatalog") continue;
+    /*
+      De catalogus zit sinds de `@graph`-omslag niet meer bovenaan het blok maar
+      ernaast, samen met de organisatie waar `seller` naar verwijst. Zoek daarom
+      op beide plaatsen; bleef dit op de top-level kijken, dan viel de volledige
+      prijslijst stil uit llms.txt weg en had geen enkele AI-assistent nog een
+      tarief om te citeren.
+    */
+    const blocks = Array.isArray(parsed) ? parsed : [parsed, ...(parsed["@graph"] ?? [])];
+    const block = blocks.find((b) => b?.["@type"] === "OfferCatalog");
+    if (!block) continue;
     return block.itemListElement.map(
       (offer) => `- ${offer.name}: € ${offer.price} per dag (excl. btw) — ${offer.url}`
     );
@@ -329,5 +395,6 @@ ${KEY_PAGES.filter((p) => routes.includes(p))
 writeFileSync(join(DIST, "llms.txt"), llms);
 
 console.log(
-  `[seo] sitemap.xml met ${routes.length} URL's, robots.txt en llms.txt geschreven voor ${SITE_URL}`
+  `[seo] sitemap.xml met ${routes.length} URL's, robots.txt en llms.txt geschreven voor ${SITE_URL}` +
+    ` — dateModified op ${dated} pagina's`
 );

@@ -16,7 +16,7 @@ import {
   Snowflake,
 } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
-import { products } from "@/data/products";
+import { productPath, products } from "@/data/products";
 import machinesHero from "@/assets/machines-hero.png";
 import { SEO } from "@/data/seo";
 import Reveal from "@/components/Reveal";
@@ -136,7 +136,7 @@ const MachinesPage = () => {
         jsonLd={[
           itemListSchema(
             "Gamma bouwdrogers, ventilatoren en bouwkachels",
-            products.map((p) => ({ name: p.name, path: `/product/${p.id}` }))
+            products.map((p) => ({ name: p.name, path: productPath(p.id) }))
           ),
           breadcrumbSchema([
             { name: "Home", path: "/" },
@@ -295,7 +295,7 @@ const MachinesPage = () => {
                       className="w-full text-sm font-semibold"
                       size="sm"
                     >
-                      <Link to={`/product/${product.id}`}>Bekijk details</Link>
+                      <Link to={productPath(product.id)}>Bekijk details</Link>
                     </Button>
                   </div>
                 </Reveal>

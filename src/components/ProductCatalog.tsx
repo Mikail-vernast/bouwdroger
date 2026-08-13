@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { products } from "@/data/products";
+import { productPath, products } from "@/data/products";
 import Reveal from "@/components/Reveal";
 
 const categories = [
@@ -13,7 +13,6 @@ const categories = [
 ] as const;
 
 const ProductCatalog = () => {
-  const navigate = useNavigate();
   return (
     <section id="producten" className="py-16 md:py-24">
       <div className="container mx-auto px-4">
@@ -93,8 +92,17 @@ const ProductCatalog = () => {
                               /dag
                             </span>
                           </div>
-                          <Button size="sm" variant="outline" onClick={() => navigate(`/product/${product.id}`)}>
-                            Meer info
+                          {/*
+                            Een `<Link>`, geen knop met een `onClick`. Dit
+                            blok staat op /afhalen, dat wél geïndexeerd wordt,
+                            en een navigatie in een klik-handler is voor een
+                            crawler geen link: er stond hier acht keer een
+                            "Meer info" waar niets achter zat. En het doel was
+                            /product/:id, dat op noindex staat — nu de
+                            toestelpagina, zie `productPath`.
+                          */}
+                          <Button size="sm" variant="outline" asChild>
+                            <Link to={productPath(product.id)}>Meer info</Link>
                           </Button>
                         </CardFooter>
                       </Card>

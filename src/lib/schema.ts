@@ -28,10 +28,43 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 type Json = Record<string, unknown>;
 
 /**
+ * Zet een blok in een `@graph` samen met het bedrijf zelf.
+ *
+ * `seller` op een Offer en `provider` op een Service verwezen met
+ * `{"@id": ORGANIZATION_ID}` naar een knoop die op zestien geprerenderde
+ * pagina's helemaal niet bestond — alle acht toestelpagina's en elke
+ * dienstpagina. Een verwijzing naar niets: wie leest wie dit toestel verhuurt,
+ * krijgt een URL terug in plaats van een bedrijf. Op de homepage viel het niet
+ * op, want daar staat de organisatie wél in de head.
+ *
+ * Zonder beoordeling, want die hoort alleen op een pagina waar ze zichtbaar is
+ * — zie `OrganizationOptions`.
+ */
+function withOrganization(node: Json): Json {
+  const { "@context": _context, ...rest } = node;
+  const { "@context": _orgContext, ...org } = organizationSchema();
+  return { "@context": "https://schema.org", "@graph": [rest, org] };
+}
+
+export interface OrganizationOptions {
+  /**
+   * Neem `aggregateRating` mee.
+   *
+   * Standaard uit, en dat is geen voorzichtigheid maar beleid: Google eist dat
+   * een beoordeling overeenkomt met wat er **op die pagina** te zien is. Het
+   * cijfer stond mee op /contact, /klantservice en /over-ons, waar noch de
+   * score noch één review zichtbaar is — precies het geval waarvoor de rich
+   * results van een heel bedrijf onderdrukt worden. Alleen de homepage toont
+   * "4,8" en "412" in de hero en de statistiekbalk, dus alleen die zet het aan.
+   */
+  withRating?: boolean;
+}
+
+/**
  * Het bedrijf zelf. `HomeAndConstructionBusiness` is het specifieke subtype van
  * LocalBusiness dat bij bouwdienstverlening hoort.
  */
-export function organizationSchema(): Json {
+export function organizationSchema({ withRating = false }: OrganizationOptions = {}): Json {
   return {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
@@ -82,12 +115,16 @@ export function organizationSchema(): Json {
       in de zoekresultaten, maar AI-antwoordmachines citeren ze wél — en die
       lezen liever gestructureerde data dan een sterrenrij in HTML.
     */
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: REVIEWS.ratingValue,
-      reviewCount: REVIEWS.reviewCount,
-      bestRating: REVIEWS.best,
-    },
+    ...(withRating
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: REVIEWS.ratingValue,
+            reviewCount: REVIEWS.reviewCount,
+            bestRating: REVIEWS.best,
+          },
+        }
+      : {}),
     sameAs: [...SAME_AS],
     parentOrganization: { "@type": "Organization", name: "Vernast Group" },
   };
@@ -138,7 +175,7 @@ export interface ProductSchemaInput {
  * verkoopprijs, en wat AI-antwoorden correct laat citeren.
  */
 export function productSchema(p: ProductSchemaInput): Json {
-  return {
+  return withOrganization({
     "@context": "https://schema.org",
     "@type": "Product",
     name: p.name,
@@ -179,7 +216,7 @@ export function productSchema(p: ProductSchemaInput): Json {
         referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "DAY" },
       },
     },
-  };
+  });
 }
 
 /**
@@ -236,7 +273,7 @@ export interface OfferCatalogItem {
  * op /prijzen — anders zou het schema iets anders beweren dan de pagina.
  */
 export function offerCatalogSchema(name: string, items: OfferCatalogItem[]): Json {
-  return {
+  return withOrganization({
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
     name,
@@ -261,7 +298,7 @@ export function offerCatalogSchema(name: string, items: OfferCatalogItem[]): Jso
         referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "DAY" },
       },
     })),
-  };
+  });
 }
 
 export interface ServiceSchemaInput {
@@ -274,8 +311,7 @@ export interface ServiceSchemaInput {
 
 /** Een dienst die op een landingspagina wordt aangeboden. */
 export function serviceSchema(s: ServiceSchemaInput): Json {
-  return {
-    "@context": "https://schema.org",
+  return withOrganization({
     "@type": "Service",
     name: s.name,
     description: s.description,
@@ -288,5 +324,5 @@ export function serviceSchema(s: ServiceSchemaInput): Json {
       serviceUrl: absoluteUrl(s.path),
       servicePhone: CONTACT.phoneE164,
     },
-  };
+  });
 }
