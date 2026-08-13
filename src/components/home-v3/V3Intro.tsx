@@ -103,17 +103,30 @@ const V3Intro = () => {
             ))}
           </div>
 
-          {PANELS.map((panel, i) => (
-            <div className="vs-panel" data-vp={panel.key} key={panel.key} hidden={i !== active}>
-              {panel.rows.map(([label, text]) => (
-                <div className={`vs-row ${panel.tone}`} key={label}>
-                  <b>{label}</b>
-                  <span>{text}</span>
-                </div>
-              ))}
-              <div className={`vs-verdict${panel.verdictOk ? " ok" : ""}`}>{panel.verdict}</div>
-            </div>
-          ))}
+          {/*
+            De panelen liggen op elkaar in één grid-cel, zie `.vs-stage`. Ze
+            stonden op `hidden`, en omdat deze tabs vanzelf doordraaien
+            veranderde deze sectie elke wissel van hoogte — 43 px, met alles
+            eronder mee. `hidden` kan hier dus niet: dat is `display:none` en
+            dan telt het paneel niet meer mee voor de hoogte van de stapel.
+          */}
+          <div className="vs-stage">
+            {PANELS.map((panel, i) => (
+              <div
+                className={`vs-panel${i === active ? " active" : ""}`}
+                data-vp={panel.key}
+                key={panel.key}
+              >
+                {panel.rows.map(([label, text]) => (
+                  <div className={`vs-row ${panel.tone}`} key={label}>
+                    <b>{label}</b>
+                    <span>{text}</span>
+                  </div>
+                ))}
+                <div className={`vs-verdict${panel.verdictOk ? " ok" : ""}`}>{panel.verdict}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="factlist">

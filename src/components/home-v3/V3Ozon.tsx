@@ -34,6 +34,8 @@ const V3Ozon = () => (
             className="oa-photo"
             src="/vernast/schimmel-muur.webp"
             alt="Vochtschade op een muur"
+            width={1440}
+            height={1080}
             loading="lazy"
           />
           {SPORES.map((s) => (

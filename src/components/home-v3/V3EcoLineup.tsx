@@ -87,6 +87,8 @@ const V3EcoLineup = () => {
           <img
             src="/vernast/lineup-dryers.webp"
             alt="Vernast eco bouwdrogers, drie formaten"
+            width={1440}
+            height={1183}
             loading="lazy"
           />
           {HOTSPOTS.map((spot) => (

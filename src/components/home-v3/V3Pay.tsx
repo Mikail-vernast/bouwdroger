@@ -64,6 +64,8 @@ const V3Pay = () => (
           className="pay-couple"
           src="/vernast/koppel-digitaal.webp"
           alt="Ouder koppel regelt de droging online met laptop en bankkaart"
+          width={1440}
+          height={961}
           loading="lazy"
         />
       </div>

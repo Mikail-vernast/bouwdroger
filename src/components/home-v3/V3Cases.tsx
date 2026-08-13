@@ -80,7 +80,8 @@ const V3Cases = () => (
         {CASES.map((item) => (
           <div className="cs" key={item.id}>
             <div className="csimg">
-              <img src={item.image} alt={item.alt} loading="lazy" />
+              {/* Alle case-foto's zijn vierkant (1200×1200); zie V3Pickup voor waarom dit erbij hoort. */}
+              <img src={item.image} alt={item.alt} width={1200} height={1200} loading="lazy" />
             </div>
             <div className="csb">
               <div className="ct">{item.tag}</div>
@@ -99,6 +100,8 @@ const V3Cases = () => (
           className="sb-man"
           src="/vernast/man-schimmelpak.webp"
           alt="Vernast schimmelspecialist"
+          width={1440}
+          height={961}
           loading="lazy"
         />
         <div className="sb-t">

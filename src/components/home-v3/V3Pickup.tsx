@@ -65,10 +65,21 @@ const V3Pickup = () => (
               <ArrowRightIcon size={14} />
             </Link>
           </div>
+          {/*
+            `width`/`height` zijn hier geen opmaak maar de verhouding waarmee de
+            browser de plek vrijhoudt vóór de foto binnen is. Op mobiel valt de
+            `height: 330px` uit de desktopregel weg en bleef alleen
+            `max-height`, dus stond deze afbeelding op nul tot ze laadde — en
+            groeide de sectie op dat moment onder de vinger van de bezoeker weg.
+            Dit blok alleen was goed voor 0,057 van de CLS. De CSS blijft de
+            getekende maat bepalen; deze twee getallen alleen de verhouding.
+          */}
           <img
             className="wf-men"
             src="/vernast/oudere-man.webp"
             alt="Oudere man met rugpijn na het tillen van een zwaar toestel"
+            width={1360}
+            height={1440}
             loading="lazy"
           />
         </div>

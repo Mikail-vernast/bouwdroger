@@ -178,6 +178,15 @@ html { scroll-behavior: smooth; }
 .v3 .vs-tabs{display:flex;gap:8px;margin:24px 0 16px}
 .v3 .vs-tabs button{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:10px 20px;font-family:var(--fb);font-weight:700;font-size:13.5px;color:var(--txt-mid);cursor:pointer;transition:all .15s}
 .v3 .vs-tabs button.active{background:var(--red);border-color:var(--red);color:#fff}
+/*
+  Dezelfde stapel als `.hiw-stage`, en om dezelfde reden: deze tabs draaien
+  vanzelf door en de panelen zijn niet even hoog. Het verschil van 43 px liep
+  door tot onderaan de pagina — /machines en /afhalen, zonder carrousel, zaten
+  op CLS 0,000 terwijl de homepage op 0,159 stond.
+*/
+.v3 .vs-stage{display:grid}
+.v3 .vs-panel{grid-area:1/1;visibility:hidden;opacity:0}
+.v3 .vs-panel.active{visibility:visible;opacity:1}
 .v3 .vs-row{display:grid;grid-template-columns:128px 1fr;gap:14px;align-items:start;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
 .v3 .vs-row b{font-family:var(--fd);font-weight:700;font-size:13.5px;padding-left:22px;position:relative}
 .v3 .vs-row b::before{position:absolute;left:0;top:0;font-weight:800}
@@ -575,9 +584,23 @@ html { scroll-behavior: smooth; }
 .v3 .hiw-tabs button.active .tbar b{animation:tfill 5.2s linear forwards}
 .v3 .hiw-tabs.manual button.active .tbar b{width:100%;animation:none}
 @keyframes tfill{to{width:100%}}
-.v3 .hiw-stage{margin-top:18px;background:#fff;border:1.5px solid var(--line);border-radius:18px;overflow:hidden}
-.v3 .hiw-p{display:none;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center;padding:44px 46px}
-.v3 .hiw-p.active{display:grid;animation:hin .4s ease}
+/*
+  De vijf stappen liggen op elkaar in één grid-cel, niet één-voor-één in de
+  flow.
+
+  Ze stonden op `display:none` met `display:grid` op de actieve. De carrousel
+  wisselt vanzelf om de 5,2 s, en omdat de stappen niet even hoog zijn
+  veranderde deze sectie elke wissel van hoogte — 81 px — en schoof alles
+  eronder mee. Dat gebeurt buiten elke aanraking van de bezoeker om, dus het
+  telt onverkort mee: de homepage stond op CLS 0,159, ruim boven de 0,1.
+
+  Gestapeld houdt de hoogste stap de hoogte vast en beweegt er niets meer.
+  `visibility` in plaats van `display` zodat de verborgen stappen wél blijven
+  meetellen voor die hoogte, maar niet voor toetsenbordnavigatie.
+*/
+.v3 .hiw-stage{margin-top:18px;background:#fff;border:1.5px solid var(--line);border-radius:18px;overflow:hidden;display:grid}
+.v3 .hiw-p{grid-area:1/1;display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center;padding:44px 46px;visibility:hidden;opacity:0}
+.v3 .hiw-p.active{visibility:visible;opacity:1;animation:hin .4s ease}
 @keyframes hin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .v3 .hp-txt h3{font-family:var(--fd);font-weight:700;font-size:23px;margin:0 0 12px;letter-spacing:-.02em}
 .v3 .hp-txt p{font-size:14.5px;color:var(--txt-mid);line-height:1.7;margin:0 0 16px}

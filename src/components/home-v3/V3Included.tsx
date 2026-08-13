@@ -82,6 +82,8 @@ const V3Included = () => (
           className="ob-man"
           src="/vernast/man-klembord.webp"
           alt="Vernast technicus met klembord"
+          width={1440}
+          height={961}
           loading="lazy"
         />
         <div className="ob-body">

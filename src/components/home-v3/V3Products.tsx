@@ -67,6 +67,15 @@ interface ProductCard {
   price: string;
 }
 
+/*
+ * De chips herhalen de kerncijfers van de toestelpagina waar de kaart naartoe
+ * linkt. Ze liepen daar op vier kaarten van weg: 80 in plaats van 70 liter,
+ * 150 in plaats van 90, "3,30 kW" op de kaart die naar de kachel van 30 kW
+ * wijst, en 5 300 m³/u waar de TTV 4500 er 4 500 opgeeft. Zelfde toestel,
+ * zelfde prijs, ander getal — en de homepage is de pagina die het vaakst
+ * geciteerd wordt. Wijzigt een specificatie, wijzig ze op de toestelpagina en
+ * neem ze hier over, nooit omgekeerd.
+ */
 const MAIN: ProductCard[] = [
   {
     href: "/verhuur/toestel/ttk170",
@@ -92,7 +101,7 @@ const MAIN: ProductCard[] = [
     blurb:
       "Onze standaard voor nieuwbouw. Droogt chape en pleisterwerk betrouwbaar en energiezuinig.",
     eco: true,
-    chips: ["80 liter per dag", "tot 400 m³"],
+    chips: ["70 liter per dag", "tot 400 m³"],
     price: "€ 12,00",
   },
   {
@@ -104,7 +113,7 @@ const MAIN: ProductCard[] = [
     name: "ECO Ultimate",
     blurb: "Het zwaarste toestel in het gamma. Voor grote werven, kelders en zware waterschade.",
     eco: true,
-    chips: ["150 liter per dag", "tot 600 m³"],
+    chips: ["90 liter per dag", "tot 600 m³"],
     price: "€ 16,00",
   },
   /*
@@ -157,7 +166,7 @@ const SUPPORT: ProductCard[] = [
     alt: "Turbo Axiaalventilator",
     name: "Turbo Axiaalventilator",
     blurb: "Versnelt elke droging door de lucht continu in beweging te houden.",
-    chips: ["5 300 m³/u", "3 standen"],
+    chips: ["4 500 m³/u", "3 standen"],
     price: "€ 9,00",
   },
   {
@@ -179,7 +188,7 @@ const SUPPORT: ProductCard[] = [
     alt: "Elektrische kachel 30",
     name: "Elektrische kachel 30",
     blurb: "Houdt de ruimte op temperatuur zodat de droging effectief blijft.",
-    chips: ["3,30 kW", "thermostaat"],
+    chips: ["30 kW", "thermostaat"],
     price: "€ 12,00",
   },
   {
@@ -202,7 +211,8 @@ const CardBody = ({ card }: { card: ProductCard }) => {
   <>
     <div className="pm">
       <span className="pt">{live?.tag ?? card.tag}</span>
-      <img src={card.image} alt={card.alt} loading="lazy" />
+      {/* De toestelfoto's zijn vierkant (600² of 1440²); zie V3Pickup. */}
+      <img src={card.image} alt={card.alt} width={600} height={600} loading="lazy" />
     </div>
     <div className="pb">
       <h3>{live?.name ?? card.name}</h3>
@@ -296,6 +306,8 @@ const V3Products = () => (
           className="pkb-man"
           src="/vernast/man-zen-crop.webp"
           alt="Zorgeloos drogen met Vernast"
+          width={1225}
+          height={1440}
           loading="lazy"
         />
         <div>
