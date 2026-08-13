@@ -21,6 +21,12 @@
       storingskaarten gebruiken genummerde stappen; zonder deze regel valt de
       nummering weg en blijft er een lege inspringing over. Het design rekent
       op de standaard decimale opsomming.
+
+   4. Anker-sprongen (#betalingen, #storing, #verlengen, …) landen anders onder
+      de vaste header, waardoor de sectiekop verdwijnt en het lijkt alsof de
+      knop niet werkt. `scroll-margin-top` houdt ruimte vrij voor de header;
+      zowel de native hash-sprong als het `scrollIntoView` in ScrollToTop
+      respecteren deze marge.
    ============================================================ */
 
 .ks-page .navpill .nav-logo img {
@@ -30,6 +36,10 @@
 
 .ks-page .fx ol {
   list-style: decimal;
+}
+
+.ks-page section[id] {
+  scroll-margin-top: 104px;
 }
 
 @media (max-width: 660px) {
