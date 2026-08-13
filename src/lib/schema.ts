@@ -7,7 +7,7 @@
  * lopende tekst. Wat hier staat, moet dus ook echt op de pagina staan —
  * schema voor onzichtbare content is een overtreding, geen truc.
  */
-import { PRICE_RANGE } from "@/data/tarieflijst";
+import { PRICE_RANGE } from "../data/tarieflijst.js";
 import {
   CONTACT,
   ORGANIZATION_IMAGE,

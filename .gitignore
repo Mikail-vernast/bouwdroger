@@ -30,3 +30,6 @@ supabase/.temp/
 
 # tsc --noEmit laat deze achter; ze horen bij de machine, niet bij de repo.
 *.tsbuildinfo
+
+# Python-bytecode van de hooks in .claude/
+__pycache__/
