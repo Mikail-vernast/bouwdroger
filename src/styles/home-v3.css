@@ -132,7 +132,7 @@ html { scroll-behavior: smooth; }
 .v3 .hdr .cart:hover{background:rgba(255,255,255,.1);color:#fff}
 .v3 .hdr .cart i{position:absolute;top:1px;right:0;min-width:17px;height:17px;border-radius:99px;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;font-style:normal;padding:0 4px}
 /* ============ HERO (centraal, team-banner) ============ */
-.v3 .hero{position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;overflow:hidden;text-align:center}
+.v3 .hero{position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;overflow:hidden;text-align:center}
 .v3 .hero .wrap{position:relative;z-index:2;padding-top:235px;padding-bottom:0}
 .v3 .hero-art{position:relative;z-index:2;display:block;width:min(1240px,94%);margin:34px auto 0}
 .v3 .hero-inner{max-width:860px;margin:0 auto;color:#fff}
@@ -150,7 +150,7 @@ html { scroll-behavior: smooth; }
 /* ============ STAT RULE ============ */
 .v3 .statrule{background:var(--bg)}
 .v3 .statrule .wrap{padding-top:26px;padding-bottom:10px}
-.v3 .statrule .band{display:grid;grid-template-columns:repeat(4,1fr);background:var(--maroon-deep) url('/vernast/bg-red.webp') center/cover no-repeat;border-radius:20px;padding:14px 10px;overflow:hidden}
+.v3 .statrule .band{display:grid;grid-template-columns:repeat(4,1fr);background:var(--maroon-deep) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-radius:20px;padding:14px 10px;overflow:hidden}
 .v3 .statrule .st{position:relative;padding:24px 30px;color:#fff;opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.2,.7,.3,1),transform .6s cubic-bezier(.2,.7,.3,1)}
 .v3 .statrule .st.vis{opacity:1;transform:none}
 .v3 .statrule .st:not(:first-child)::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:rgba(255,255,255,.24)}
@@ -166,7 +166,7 @@ html { scroll-behavior: smooth; }
 .v3 .factlist{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .v3 .fact{background:var(--bg-alt);border:1px solid var(--line);border-radius:18px;padding:26px 24px;transition:transform .2s,box-shadow .2s}
 .v3 .fact:hover{transform:translateY(-4px);box-shadow:0 22px 44px -26px rgba(0,0,0,.25)}
-.v3 .fact.hot{background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;border-color:transparent}
+.v3 .fact.hot{background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;border-color:transparent}
 .v3 .fact.hot h3,.v3 .fact.hot h4{color:#fff}
 .v3 .fact.hot p{color:rgba(255,255,255,.78)}
 .v3 .fact.hot .fn{color:#fff}
@@ -196,7 +196,7 @@ html { scroll-behavior: smooth; }
 .v3 .vs-verdict{margin-top:16px;background:var(--bg-alt);border:1px solid var(--line);border-radius:13px;padding:14px 18px;font-size:13.5px;font-weight:600}
 .v3 .vs-verdict.ok{background:rgba(34,165,88,.08);border-color:rgba(34,165,88,.3)}
 /* ============ CONFIGURATOR (red band) ============ */
-.v3 .cfg{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red.webp') center/cover no-repeat;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.v3 .cfg{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .v3 .cfg .sec-head h2{color:#fff}
 .v3 .cfg .sec-head .lede{color:rgba(255,255,255,.78)}
 .v3 .cfg .kick{color:#fff}
@@ -265,7 +265,7 @@ html { scroll-behavior: smooth; }
 .v3 .hs-card{width:230px}}
 /* ============ OVER ONS (red band) ============ */
 .v3 .overons{padding:88px 0;background:#fff}
-.v3 .ov{position:relative;border-radius:24px;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red.webp') center/cover no-repeat;color:#fff;text-align:center;padding:64px 40px 0}
+.v3 .ov{position:relative;border-radius:24px;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red-2.webp') center/cover no-repeat;color:#fff;text-align:center;padding:64px 40px 0}
 .v3 .ov .ovpill{display:inline-block;background:#141414;color:#fff;font-size:13px;font-weight:600;padding:9px 20px;border-radius:8px;margin-bottom:22px}
 .v3 .ov h2{font-family:var(--fd);font-weight:700;font-size:clamp(24px,2.9vw,36px);letter-spacing:-.02em;color:#fff;margin:0 0 16px}
 .v3 .ov p{font-size:16px;line-height:1.65;color:rgba(255,255,255,.85);max-width:720px;margin:0 auto 30px}
@@ -287,7 +287,7 @@ html { scroll-behavior: smooth; }
 .v3 .wcard h3{font-family:var(--fd);font-weight:700;font-size:15.5px;margin:0 0 6px;line-height:1.25}
 .v3 .wcard p{font-size:13px;color:var(--txt-mid);line-height:1.55;margin:0;flex:1}
 .v3 .wcard .wtag{font-family:var(--fb);font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-dim);margin-top:12px;padding-top:10px;border-top:1px solid var(--line);display:block}
-.v3 .wcard.photo{padding:0;border:0;overflow:hidden;position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;min-height:340px;justify-content:flex-start}
+.v3 .wcard.photo{padding:0;border:0;overflow:hidden;position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;min-height:340px;justify-content:flex-start}
 .v3 .wcard.photo .wph{position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:72%;width:auto;max-width:none;z-index:1}
 .v3 .wcard.photo .wpt{position:relative;z-index:2;padding:26px 26px 0;color:#fff;text-align:left}
 .v3 .wcard.photo .wpt b{display:block;font-family:var(--fd);font-weight:700;font-size:18px;margin-bottom:5px}
@@ -297,7 +297,7 @@ html { scroll-behavior: smooth; }
 @media (max-width:660px){
 .v3 .why-grid{grid-template-columns:1fr}}
 /* ============ TECHNIEK ============ */
-.v3 .tech{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat}
+.v3 .tech{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat}
 .v3 .tflow{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:44px 0 56px}
 .v3 .tf{background:#fff;border-radius:16px;padding:24px 22px 26px}
 .v3 .tf .tn{font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.12em;color:var(--red);margin-bottom:14px}
@@ -342,7 +342,7 @@ html { scroll-behavior: smooth; }
 .v3 .incl-x{grid-template-columns:1fr 1fr}}
 @media (max-width:660px){
 .v3 .incl-x{grid-template-columns:1fr}}
-.v3 .cs.ctac{background:var(--maroon-deep) url('/vernast/bg-red.webp') center/cover no-repeat;border-color:transparent;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:26px 24px;grid-column:span 2}
+.v3 .cs.ctac{background:var(--maroon-deep) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-color:transparent;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:26px 24px;grid-column:span 2}
 .v3 .cs.ctac h3,
 .v3 .cs.ctac p{color:#fff}
 .v3 .cs.ctac p{color:rgba(255,255,255,.78)}
@@ -423,14 +423,14 @@ html { scroll-behavior: smooth; }
 .v3 .cs .cgo{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--fb);font-weight:600;font-size:13.5px;color:#fff;background:var(--red);border-radius:10px;padding:12px 18px;margin-top:auto;transition:background .18s,gap .18s}
 .v3 .cs .cgo:hover{background:var(--maroon-deep);gap:11px}
 /* schimmelbar */
-.v3 .schimmelbar{margin-top:40px;position:relative;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;border-radius:20px;padding:64px 42px 64px min(36%,460px);display:flex;align-items:center;gap:34px;flex-wrap:wrap}
+.v3 .schimmelbar{margin-top:40px;position:relative;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;border-radius:20px;padding:64px 42px 64px min(36%,460px);display:flex;align-items:center;gap:34px;flex-wrap:wrap}
 .v3 .schimmelbar .sb-man{position:absolute;left:26px;bottom:0;width:min(32%,420px);pointer-events:none;filter:drop-shadow(0 20px 26px rgba(0,0,0,.35))}
 .v3 .schimmelbar .sb-t{flex:1;min-width:280px}
 .v3 .schimmelbar .sb-k{font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65)}
 .v3 .schimmelbar h3{font-family:var(--fd);font-weight:800;font-size:clamp(20px,2.3vw,28px);letter-spacing:-.02em;color:#fff;margin:10px 0 10px}
 .v3 .schimmelbar p{font-size:14.5px;color:rgba(255,255,255,.82);line-height:1.6;margin:0;max-width:560px}
 /* ozon */
-.v3 .ozon{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat}
+.v3 .ozon{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat}
 .v3 .ozon .kick{color:rgba(255,255,255,.78)}
 .v3 .ozon .kick::before{background:#fff}
 .v3 .ozon .sec{color:#fff}
@@ -453,7 +453,7 @@ html { scroll-behavior: smooth; }
 .v3 .pkb-b{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
 .v3 .pkb-b .pkb-note{font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;max-width:460px;text-align:left}
 /* wcard form */
-.v3 .wcard.form{grid-column:span 2;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;border:0;padding:30px 34px 0;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;min-height:360px;align-items:end;overflow:hidden;position:relative}
+.v3 .wcard.form{grid-column:span 2;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;border:0;padding:30px 34px 0;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;min-height:360px;align-items:end;overflow:hidden;position:relative}
 .v3 .wcard.form .wf-l{color:#fff;align-self:center}
 .v3 .wcard.form .wf-l b{display:block;font-family:var(--fd);font-weight:800;font-size:20px;letter-spacing:-.02em;margin-bottom:5px}
 .v3 .wcard.form .wf-l>span{display:block;font-size:13.5px;color:rgba(255,255,255,.78);margin-bottom:16px}
@@ -529,7 +529,7 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce){
 .v3 .oa-stage *{animation:none!important}}
 /* online betalen */
-.v3 .pay{padding:88px 0;overflow:hidden;position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat}
+.v3 .pay{padding:88px 0;overflow:hidden;position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat}
 .v3 .pay .kick{color:#fff}
 .v3 .pay .kick::before{background:#fff}
 .v3 .pay .sec{color:#fff}
@@ -550,7 +550,7 @@ html { scroll-behavior: smooth; }
 @media (max-width:900px){
 .v3 .pay-grid{grid-template-columns:1fr}}
 /* ontzorgbar */
-.v3 .ontzorgbar{margin-top:26px;position:relative;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;border-radius:20px;padding:52px 42px 52px min(31%,410px)}
+.v3 .ontzorgbar{margin-top:26px;position:relative;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;border-radius:20px;padding:52px 42px 52px min(31%,410px)}
 .v3 .ontzorgbar .ob-man{position:absolute;left:30px;bottom:0;width:min(27%,350px);pointer-events:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.35))}
 .v3 .ob-body h3{font-family:var(--fd);font-weight:700;font-size:24px;color:#fff;margin:0 0 10px;letter-spacing:-.02em}
 .v3 .ob-body p{font-size:14.5px;color:rgba(255,255,255,.82);line-height:1.65;margin:0 0 20px;max-width:640px}
@@ -561,7 +561,7 @@ html { scroll-behavior: smooth; }
 .v3 .ontzorgbar{padding:36px 26px}
 .v3 .ontzorgbar .ob-man{display:none}}
 /* hoe het werkt tabs */
-.v3 .hiw{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat}
+.v3 .hiw{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat}
 .v3 .hiw .sec,
 .v3 .hiw .kick{color:#fff}
 .v3 .hiw .kick::before{background:#fff}
@@ -748,7 +748,7 @@ html { scroll-behavior: smooth; }
 .v3 .faq-grid{grid-template-columns:1fr}
 .v3 .faq-side{position:static}}
 /* ============ MARKT / DUURZAAM ============ */
-.v3 .mkt{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat}
+.v3 .mkt{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat}
 .v3 .mkt .kick{color:rgba(255,255,255,.75)}
 .v3 .mkt .sec{color:#fff}
 .v3 .mkt .lede{color:rgba(255,255,255,.78)}
@@ -759,7 +759,7 @@ html { scroll-behavior: smooth; }
 .v3 .mk h3{font-family:var(--fd);font-weight:700;font-size:18px;margin:0 0 9px}
 .v3 .mk p{font-size:14px;color:var(--txt-mid);line-height:1.65;margin:0;flex:1}
 .v3 .mk .mkf{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
-.v3 .trustbar{margin-top:44px;background:var(--maroon-deep) url('/vernast/bg-red.webp') center/cover no-repeat;border-radius:20px;padding:38px 40px;display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+.v3 .trustbar{margin-top:44px;background:var(--maroon-deep) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-radius:20px;padding:38px 40px;display:flex;align-items:center;gap:36px;flex-wrap:wrap}
 .v3 .trustbar .tb-l{flex:1;min-width:280px}
 .v3 .trustbar .tb-k{font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65)}
 .v3 .trustbar h3{font-family:var(--fd);font-weight:700;font-size:clamp(20px,2.2vw,27px);letter-spacing:-.02em;color:#fff;margin:10px 0 0;line-height:1.2}
@@ -769,7 +769,7 @@ html { scroll-behavior: smooth; }
 @media (max-width:1040px){
 .v3 .mkt-grid{grid-template-columns:1fr}}
 /* pakket-CTA onder producten */
-.v3 .pakketbar{margin-top:40px;position:relative;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red.webp') center/cover no-repeat;border-radius:20px;padding:52px 42px 52px min(26%,340px);display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+.v3 .pakketbar{margin-top:40px;position:relative;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-radius:20px;padding:52px 42px 52px min(26%,340px);display:flex;flex-direction:column;gap:22px;align-items:flex-start}
 .v3 .pakketbar .pkb-man{position:absolute;left:36px;bottom:0;width:min(19%,240px);pointer-events:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.35))}
 .v3 .pakketbar h3{font-family:var(--fd);font-weight:800;font-size:clamp(21px,2.4vw,30px);letter-spacing:-.02em;color:#fff;margin:0 0 10px}
 .v3 .pakketbar p{font-size:14.5px;color:rgba(255,255,255,.82);line-height:1.62;margin:0}
@@ -803,7 +803,7 @@ html { scroll-behavior: smooth; }
 .v3 .mini .mo .v small{font-size:11px;font-weight:600;color:var(--txt-mid)}
 .v3 .mini .btn-red{width:100%}
 /* ============ CTA ============ */
-.v3 .cta{position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;padding:96px 0 100px}
+.v3 .cta{position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;padding:96px 0 100px}
 .v3 .cta-grid{display:flex;flex-direction:column;align-items:center;gap:0;position:relative;z-index:2}
 .v3 .cta-l{text-align:center;max-width:640px;margin-bottom:40px}
 .v3 .cta .kick{color:rgba(255,255,255,.75)}

@@ -66,7 +66,7 @@ const V3Hero = () => (
     */}
     <img
       className="hero-art"
-      src="/vernast/team-cutout.webp"
+      src="/vernast/team-cutout-2.webp"
       alt="Het Vernast-team met het volledige toestellengamma"
       width={1440}
       height={399}

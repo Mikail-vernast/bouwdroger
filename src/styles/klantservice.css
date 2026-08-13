@@ -107,7 +107,7 @@
 .ks-page .hdr .cart{position:relative;width:38px;height:38px;display:grid;place-items:center;color:rgba(255,255,255,.85);border-radius:10px;transition:background .15s,color .15s;flex-shrink:0}
 .ks-page .hdr .cart:hover{background:rgba(255,255,255,.1);color:#fff}
 .ks-page .hdr .cart i{position:absolute;top:1px;right:0;min-width:17px;height:17px;border-radius:99px;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;font-style:normal;padding:0 4px}
-.ks-page .ks-hero{background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;padding:210px 0 74px;text-align:center}
+.ks-page .ks-hero{background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;padding:210px 0 74px;text-align:center}
 .ks-page .ks-hero .kick{color:rgba(255,255,255,.72)}
 .ks-page .ks-hero h1{font-family:var(--fd);font-weight:800;font-size:clamp(32px,4vw,52px);letter-spacing:-.025em;color:#fff;margin:14px 0 0;text-wrap:balance}
 .ks-page .ks-hero p{font-size:16.5px;line-height:1.6;color:rgba(255,255,255,.78);max-width:560px;margin:16px auto 0}
@@ -124,7 +124,7 @@
 .ks-page .tp h3{font-family:var(--fd);font-weight:700;font-size:17px;letter-spacing:-.01em}
 .ks-page .tp p{font-size:13.5px;color:var(--txt-mid);line-height:1.55;margin:0;flex:1}
 .ks-page .tp .tg{font-weight:600;font-size:13px;color:var(--red);display:inline-flex;align-items:center;gap:6px}
-.ks-page .pay-sec{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;position:relative;overflow:hidden}
+.ks-page .pay-sec{padding:88px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;position:relative;overflow:hidden}
 .ks-page .pay-sec .wrap{position:relative;z-index:2}
 .ks-page .pay-content{max-width:calc(100% - min(24%,300px))}
 .ks-page .pay-man{position:absolute;right:-60px;bottom:0;width:min(52%,740px);z-index:1;pointer-events:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.35))}
@@ -157,12 +157,12 @@
 .ks-page .fx ol li{margin-bottom:5px}
 .ks-page .fx p{font-size:13.5px;color:var(--txt-mid);line-height:1.6;margin:14px 0 0;padding-top:13px;border-top:1px solid var(--line)}
 .ks-page .fx p a{color:var(--red);font-weight:700;white-space:nowrap}
-.ks-page .fx.call{background:var(--maroon-deep) url('/vernast/bg-red.webp') center/cover no-repeat;border-color:transparent;justify-content:center}
+.ks-page .fx.call{background:var(--maroon-deep) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-color:transparent;justify-content:center}
 .ks-page .fx.call h3{color:#fff}
 .ks-page .fx.call h3 .fi{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);color:#fff}
 .ks-page .fx.call p{color:rgba(255,255,255,.82);border-top:0;padding-top:0;margin-top:4px}
 .ks-page .fx.call .btn{align-self:flex-start;margin-top:18px}
-.ks-page .fixbar{margin-top:34px;position:relative;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red.webp') center/cover no-repeat;border-radius:20px;padding:48px 42px 48px min(29%,380px);display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.ks-page .fixbar{margin-top:34px;position:relative;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-radius:20px;padding:48px 42px 48px min(29%,380px);display:flex;align-items:center;gap:28px;flex-wrap:wrap}
 .ks-page .fixbar .fb-man{position:absolute;left:34px;bottom:0;width:min(24%,300px);pointer-events:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.35))}
 .ks-page .fixbar h3{font-family:var(--fd);font-weight:700;font-size:23px;color:#fff;margin:0 0 8px;letter-spacing:-.02em}
 .ks-page .fixbar p{font-size:14.5px;color:rgba(255,255,255,.82);line-height:1.6;margin:0;max-width:520px}
@@ -181,7 +181,7 @@
 .ks-page .ext-note{margin-top:16px;font-size:12.5px;color:var(--txt-dim)}
 .ks-page #afhalen .ex-c{background:#F4F4F4;border:0}
 .ks-page #afhalen .exi2{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--red);margin-bottom:14px}
-.ks-page .digi{padding:76px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat}
+.ks-page .digi{padding:76px 0;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat}
 .ks-page .digi .kick{color:rgba(255,255,255,.75)}
 .ks-page .digi .sec{color:#fff}
 .ks-page .digi .lede{color:rgba(255,255,255,.78)}
@@ -196,7 +196,7 @@
 @media (max-width:660px){
   .ks-page .digi-grid{grid-template-columns:1fr}
 }
-.ks-page .cta{position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;padding:88px 0 92px}
+.ks-page .cta{position:relative;background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;padding:88px 0 92px}
 .ks-page .cta .sec-head .kick{color:rgba(255,255,255,.72)}
 .ks-page .cta .sec-head h2{color:#fff}
 .ks-page .cta .sec-head .lede{color:rgba(255,255,255,.78)}

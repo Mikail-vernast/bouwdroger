@@ -125,7 +125,7 @@ const KlantservicePage = () => {
 
       {/* ================= BETALINGEN ================= */}
       <section className="pay-sec" id="betalingen">
-        <img className="pay-man" src="/vernast/man-betaling.webp" alt="Klant betaalt eenvoudig online met kaart en gsm" loading="lazy" decoding="async" />
+        <img className="pay-man" src="/vernast/man-betaling-2.webp" alt="Klant betaalt eenvoudig online met kaart en gsm" loading="lazy" decoding="async" />
         <div className="wrap">
           <div className="pay-content">
             <div className="sec-head">
@@ -251,7 +251,7 @@ const KlantservicePage = () => {
       </section>
 
       {/* ================= LEVERING ================= */}
-      <section className="ext" id="levering" style={{ background: "var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat" }}>
+      <section className="ext" id="levering" style={{ background: "var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat" }}>
         <div className="wrap">
           <div className="sec-head">
             <span className="kick" style={{ color: "rgba(255,255,255,.75)" }}>Levering &amp; installatie</span>
