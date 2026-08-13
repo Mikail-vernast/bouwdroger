@@ -16,6 +16,7 @@ import { checkOne, holdForSession, logAvailabilityFailure } from "../src/lib/ava
 import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
 import { releaseSession } from "../src/lib/checkoutSession.js";
 import { safeOrigin } from "../src/lib/origin.js";
+import { customerType } from "../src/lib/orderIntake.js";
 import { clientIp, gate, rateLimit, tooManyRequests } from "../src/lib/rateLimit.js";
 import {
   configToQuery,
@@ -143,6 +144,23 @@ export async function POST(request: Request): Promise<Response> {
   const email = trim(customer.mail, 200);
   if (!/\S+@\S+\.\S+/.test(email)) {
     return json({ error: "Geen geldig e-mailadres opgegeven." }, 400);
+  }
+
+  /*
+    De wizard werkt met "part"/"pro"; het portaal kent alleen de lange vormen en
+    gooit de rest weg. Zonder deze vertaling kwam élke boeking daar binnen
+    zonder klanttype. De afhaalroute vertaalde al wél — vandaar één gedeelde
+    helper in plaats van de regel hier nog eens over te typen.
+  */
+  const type = customerType(customer.type);
+  const business = type === "zakelijk";
+  const company = trim(customer.company, 120);
+  const vatNumber = trim(customer.vat, 40);
+
+  // Dezelfde eis als in `api/afhaal-checkout.ts`: zonder btw-nummer valt er voor
+  // een bedrijf geen factuur te maken, en de wizard vraagt er al om.
+  if (business && (!company || !vatNumber)) {
+    return json({ error: "Vul uw bedrijfsnaam en btw-nummer in." }, 400);
   }
 
   // Pas hier gaat er echt een sessie naar Stripe.
@@ -297,9 +315,9 @@ export async function POST(request: Request): Promise<Response> {
         saldo_bij_levering: (summary.grossTotal - summary.payableGross).toFixed(2),
         regels: trim(summary.lines.map((l) => `${l.l}: ${l.inc ? "inbegrepen" : l.v}`).join(" | ")),
         klant: trim(customer.name, 120),
-        klanttype: trim(customer.type, 20),
-        bedrijf: trim(customer.company, 120),
-        btw_nummer: trim(customer.vat, 40),
+        klanttype: type,
+        bedrijf: company,
+        btw_nummer: vatNumber,
         telefoon: trim(customer.tel, 40),
         werfadres: trim(
           `${customer.addr ?? ""} ${customer.post ?? ""} ${customer.city ?? ""}`.trim(),

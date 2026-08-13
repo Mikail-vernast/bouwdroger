@@ -188,6 +188,21 @@ function text(value: unknown, max: number): string {
 }
 
 /**
+ * Het klanttype zoals het portaal het kent: `particulier` of `zakelijk`.
+ *
+ * De verhuurwizard werkt intern met `part`/`pro` en stuurde die woorden ook
+ * mee. `bouwdroger-order-webhook` laat alleen de twee lange vormen door en
+ * gooit al de rest weg, dus stond bij élke boeking uit die wizard het klanttype
+ * op leeg — een bedrijf kwam binnen als naamloze particulier, mét bedrijfsnaam
+ * en btw-nummer eronder. Alles wat niet zakelijk is valt bewust terug op
+ * particulier: dat is de veilige kant, want er hangt geen btw-verlegging aan.
+ */
+export function customerType(value: unknown): "particulier" | "zakelijk" {
+  const raw = String(value ?? "").trim().toLowerCase();
+  return raw === "zakelijk" || raw === "pro" ? "zakelijk" : "particulier";
+}
+
+/**
  * Een afhaaldatum die vandaag of later valt. Een datum in het verleden is geen
  * vergissing die we stilzwijgend rechtzetten: dan staat er straks een order in
  * het portaal voor een dag die al voorbij is.
@@ -218,7 +233,7 @@ export function afhaalOrder(data: Row): AfhaalOrder {
     days,
     date: pickupDate(data.date),
     slot: normalizeSlot(data.slot),
-    customerType: data.customer_type === "zakelijk" ? "zakelijk" : "particulier",
+    customerType: customerType(data.customer_type),
     firstName: space > 0 ? name.slice(0, space) : name,
     lastName: space > 0 ? name.slice(space + 1) : "",
     email: text(data.email, 200),
