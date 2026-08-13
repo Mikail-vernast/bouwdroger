@@ -6,7 +6,7 @@ const INCLUDED: { icon: ReactNode; title: string; body: string }[] = [
   {
     icon: <TruckIcon />,
     title: "Levering & ophaling",
-    body: "Binnen 24 uur bij u geleverd en opgehaald wanneer u klaar bent. Gratis in onze regio.",
+    body: "Geleverd op uw gekozen datum en opgehaald wanneer u klaar bent. Gratis in onze regio.",
   },
   {
     icon: <ChecklistIcon />,

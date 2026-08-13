@@ -22,7 +22,7 @@ const diensten = [
   {
     icon: Droplets,
     title: "Waterschade",
-    description: "Noodservice — levering binnen 24 uur. Minimaliseer schade.",
+    description: "Noodservice — levering met voorrang. Minimaliseer schade.",
     href: "/waterschade",
     highlight: true,
     badge: "24U SPOED",

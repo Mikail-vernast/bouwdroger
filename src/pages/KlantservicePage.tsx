@@ -256,12 +256,12 @@ const KlantservicePage = () => {
           <div className="sec-head">
             <span className="kick" style={{ color: "rgba(255,255,255,.75)" }}>Levering &amp; installatie</span>
             <h2 className="sec" style={{ color: "#fff" }}>Geleverd, geplaatst en afgesteld. U hoeft niets te tillen.</h2>
-            <p className="lede" style={{ color: "rgba(255,255,255,.78)" }}>Uw pakket wordt binnen 24 uur geleverd op het moment dat u bij de boeking koos. Onze technicus doet de volledige installatie en legt kort uit waar u op let.</p>
+            <p className="lede" style={{ color: "rgba(255,255,255,.78)" }}>Uw pakket wordt geleverd op het moment dat u bij de boeking koos. Onze technicus doet de volledige installatie en legt kort uit waar u op let.</p>
           </div>
           <div className="ext-grid" style={{ gridTemplateColumns: "repeat(4,1fr)" }}>
             <div className="ex-c">
               <div className="en">01</div>
-              <h3>Levering binnen 24 uur</h3>
+              <h3>Levering op uw gekozen datum</h3>
               <p>U kiest zelf uw leverdag en dagdeel. Transport, levering én ophaling zijn volledig inbegrepen in uw pakketprijs.</p>
             </div>
             <div className="ex-c">

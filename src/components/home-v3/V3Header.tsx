@@ -71,7 +71,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
           <span>Ma–Vr 08:00–17:00</span>
         </div>
         <div className="tl-right">
-          <span className="dot" /> Erkend droogspecialist · levering binnen 24 u
+          <span className="dot" /> Erkend droogspecialist · u kiest uw leverdatum
         </div>
       </div>
 
@@ -205,7 +205,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                   Waarom bouwdroging<small>Wat vocht u kost</small>
                 </a>
                 <a href="/#regio">
-                  Levering &amp; installatie<small>Binnen 24 uur geplaatst</small>
+                  Levering &amp; installatie<small>Geplaatst op uw gekozen datum</small>
                 </a>
                 <a href="/#prijzen">
                   Prijzen &amp; voorwaarden<small>Eén dagprijs, alles erin</small>

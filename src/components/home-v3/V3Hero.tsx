@@ -4,7 +4,7 @@ import { ArrowRightIcon, CheckIcon, GoogleIcon } from "./icons";
 
 const NOTES = [
   "Online berekenen, boeken & betalen",
-  "Installatie zelf ingepland, geleverd binnen 24 u",
+  "Installatie en leverdatum zelf ingepland",
   "Één all-in prijs, geen verborgen kosten",
   "100% droog-garantie",
 ];
@@ -26,7 +26,7 @@ const V3Hero = () => (
         <h1>Bouwdroging, volledig digitaal geregeld. Van berekening tot droge woning.</h1>
         <p>
           Bereken uw pakket, boek, betaal en plan de installatie, alles online, in enkele minuten.
-          Één all-in prijs, geleverd en geplaatst binnen 24 uur, met één garantie: 100% droog binnen
+          Één all-in prijs, geleverd en geplaatst op de datum die u kiest, met één garantie: 100% droog binnen
           de berekende periode, of u huurt kosteloos verder.
         </p>
         <div className="h-ctas">

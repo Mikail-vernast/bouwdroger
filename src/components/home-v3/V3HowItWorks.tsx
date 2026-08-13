@@ -95,12 +95,12 @@ const STEPS: HiwStep[] = [
     step: "Stap 03",
     tab: "Levering & installatie",
     heading: "Wij leveren, plaatsen en stellen af.",
-    body: "Binnen 24 uur geleverd. Onze technicus positioneert de toestellen, sluit de condensafvoer aan en stelt de streefvochtigheid in. U hoeft niets te tillen.",
+    body: "Geleverd op uw gekozen datum. Onze technicus positioneert de toestellen, sluit de condensafvoer aan en stelt de streefvochtigheid in. U hoeft niets te tillen.",
     linkLabel: "Alles over levering →",
     linkTo: "/verhuur/calculator",
     mock: mockCard(
       <>
-        <Step tone="s1" title="Geleverd binnen 24 u" sub="Track & trace tot aan uw deur" />
+        <Step tone="s1" title="Geleverd op uw datum" sub="Track & trace tot aan uw deur" />
         <Step tone="s2" title="Geplaatst & afgesteld" sub="Incl. condensafvoer, geen kuip" />
         <Step tone="s3" title="Uitleg ter plaatse" sub="Kort en duidelijk" />
       </>,

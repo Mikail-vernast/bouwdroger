@@ -11,7 +11,7 @@ const VFooter = () => (
           <img src="/verhuur/logo-horizontal-white.webp" alt="Vernast Verhuur" loading="lazy" decoding="async" />
           <p>
             Uw specialist in bouwdroging en verhuur van eco-bouwdrogers, ventilatoren en
-            bouwkachels. Werkzaam in heel Vlaanderen, met levering binnen 24 uur.
+            bouwkachels. Werkzaam in heel Vlaanderen, met levering op de datum die u kiest.
           </p>
           <div className="fc">
             <a href="tel:+3236899065">

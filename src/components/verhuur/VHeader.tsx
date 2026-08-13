@@ -55,7 +55,7 @@ const VHeader = () => {
           <span>Ma–Vr 08:00–17:00</span>
         </div>
         <div className="tl-right">
-          <span className="dot" /> Erkend droogspecialist · levering binnen 24 u
+          <span className="dot" /> Erkend droogspecialist · u kiest uw leverdatum
         </div>
       </div>
 
@@ -183,7 +183,7 @@ const VHeader = () => {
                   Waarom bouwdroging<small>Wat vocht u kost</small>
                 </Link>
                 <Link to="/#levering">
-                  Levering &amp; installatie<small>Binnen 24 uur geplaatst</small>
+                  Levering &amp; installatie<small>Geplaatst op uw gekozen datum</small>
                 </Link>
                 <Link to="/#prijzen">
                   Prijzen &amp; voorwaarden<small>Eén dagprijs, alles erin</small>
