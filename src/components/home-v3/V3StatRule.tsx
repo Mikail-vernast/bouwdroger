@@ -9,11 +9,19 @@ import { REVIEWS } from "@/lib/site";
 const STATS = [
   { count: "450", suffix: "+", label: "Woningen en werven ondersteund" },
   { count: "24", suffix: "u", label: "Levering én installatie aan huis" },
-  {
-    count: REVIEWS.display,
-    suffix: `/${REVIEWS.best}`,
-    label: `Gemiddeld op ${REVIEWS.reviewCount} beoordelingen`,
-  },
+  /*
+    Zolang er geen te verantwoorden beoordeling is (zie `REVIEWS` in
+    src/lib/site.ts) staat hier de droog-garantie. Die is van onszelf en dus wél
+    hard te maken, en houdt de balk op vier blokken — met drie valt het ritme
+    van de rode band uit elkaar.
+  */
+  REVIEWS
+    ? {
+        count: REVIEWS.display,
+        suffix: `/${REVIEWS.best}`,
+        label: `Gemiddeld op ${REVIEWS.reviewCount} beoordelingen`,
+      }
+    : { count: "100", suffix: "%", label: "Droog, of u huurt kosteloos verder" },
   { count: "0", suffix: "€", label: "Voorschot · geen verborgen kosten" },
 ];
 

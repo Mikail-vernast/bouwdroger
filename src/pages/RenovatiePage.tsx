@@ -13,7 +13,6 @@ import {
 import {
   Phone,
   ArrowRight,
-  Star,
   CheckCircle2,
   Zap,
   Search,
@@ -44,11 +43,6 @@ const tips = [
   { emoji: "🔍", title: "Vind de oorzaak", desc: "Een bouwdroger lost het symptoom op. Laat ook de oorzaak onderzoeken." },
   { emoji: "🌬️", title: "Ventileer dagelijks", desc: "Na het drogen: goede ventilatie voorkomt herhaling." },
   { emoji: "📋", title: "Gratis vochtmeting", desc: "Professioneel rapport na afloop." },
-];
-
-const reviews = [
-  { name: "Luc B.", text: "Vochtige kelder gedurende jaren. Na 3 weken: kurkdroog. Aanrader!", rating: 5 },
-  { name: "Hilde V.", text: "Vriendelijk en professioneel. Gaven ook advies over de oorzaak. Topservice.", rating: 5 },
 ];
 
 const faqs = [
@@ -224,37 +218,6 @@ const RenovatiePage = () => {
           </div>
         </section>
 
-        {/* 6. REVIEWS */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-10">
-              <div className="flex items-center justify-center gap-1 mb-2">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-6 w-6 fill-primary text-primary" />
-                ))}
-              </div>
-              <p className="text-lg font-bold text-foreground">Wat zeggen onze klanten?</p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              {reviews.map((r, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={r.name}
-                  className="bg-card border border-border rounded-2xl p-6"
-                >
-                  <div className="flex gap-1 mb-3">
-                    {Array.from({ length: r.rating }).map((_, j) => (
-                      <Star key={j} className="h-4 w-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground text-sm mb-4 italic">"{r.text}"</p>
-                  <p className="text-foreground font-semibold text-sm">{r.name}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* 7. FAQ */}
         <section className="py-14 md:py-20 bg-muted/30">

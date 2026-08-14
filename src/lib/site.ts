@@ -78,21 +78,34 @@ export const SERVICE_AREA = [
   "Limburg",
 ] as const;
 
-/**
- * De Google-beoordeling zoals ze in de hero en de statistiekbalk staat.
- *
- * Staat hier omdat drie plekken hetzelfde cijfer moeten tonen: de hero, de
- * statistiekbalk en `aggregateRating` in de schema. Zodra die uit elkaar lopen
- * claimt de gestructureerde data iets anders dan de pagina, en dat is precies
- * wat Google als misleidend aanmerkt. Bij een nieuwe telling: enkel hier.
- */
-export const REVIEWS = {
-  ratingValue: 4.8,
-  reviewCount: 412,
+export interface ReviewSummary {
+  ratingValue: number;
+  reviewCount: number;
   /** Zoals het in lopende tekst verschijnt — Belgisch decimaalteken. */
-  display: "4,8",
-  best: 5,
-} as const;
+  display: string;
+  best: number;
+}
+
+/**
+ * De Google-beoordeling in de hero, de statistiekbalk en `aggregateRating`.
+ *
+ * **Staat bewust uit.** Hier stond "4,8 uit 412 Google reviews", maar dat cijfer
+ * was van geen enkele bron hard te maken: Trustindex bevestigt enkel "boven
+ * 4,5" zonder aantal en Solvari toont 4,8 op **5** ervaringen. De 412 komt van
+ * de groep — dezelfde 412 staat op de vochtbestrijdingssite — terwijl de schema
+ * ze aan Vernast Bouwdrogers toeschreef, dat nog geen eigen Google Business
+ * Profile heeft.
+ *
+ * Twee risico's, en geen van beide theoretisch: Google rekent een rating die
+ * niet bij de gemarkeerde entiteit hoort af als spammy structured data, en een
+ * niet hard te maken cijfer op een handelssite is een misleidende
+ * handelspraktijk.
+ *
+ * Zodra het Google Business Profile er is: zet hier het werkelijke cijfer terug
+ * en alles — hero, statistiekbalk, schema — komt vanzelf mee. Alle drie de
+ * plekken guarden op `null`, dus dit is de enige regel die hoeft te wijzigen.
+ */
+export const REVIEWS: ReviewSummary | null = null;
 
 /** Zustersites binnen Vernast Group; `sameAs` verankert de entiteit. */
 export const SAME_AS = [

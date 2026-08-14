@@ -17,7 +17,6 @@ import {
   Shield,
   Phone,
   Clock,
-  Star,
   MapPin,
   ChevronRight,
   Droplets,
@@ -636,17 +635,14 @@ const PackageDetailPage = () => {
                   </div>
                 </div>
 
-                {/* Social proof */}
+                {/*
+                  Hier stond een sterrenrij met "4.9/5" en een quote van
+                  "Pieter D." — allebei verzonnen, en op élke pakketpagina
+                  geprerenderd. Wat overblijft zijn de vier punten hieronder:
+                  die staan in de voorwaarden en zijn dus na te gaan.
+                */}
                 <div className="bg-card border border-border rounded-2xl p-5">
-                  <div className="flex items-center gap-1 mb-3">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                    ))}
-                    <span className="text-sm font-bold ml-1">4.9/5</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground italic mb-2">"Snelle levering, alles perfect geïnstalleerd."</p>
-                  <p className="text-xs font-semibold">— Pieter D.</p>
-                  <div className="border-t border-border mt-4 pt-4 space-y-2">
+                  <div className="space-y-2">
                     {["Gratis levering & ophaling", "500+ projecten afgerond", "Vochtmeting inbegrepen", "Binnen 24u antwoord"].map((t) => (
                       <div key={t} className="flex items-center gap-2 text-xs text-muted-foreground">
                         <Check className="h-3 w-3 text-primary flex-shrink-0" />

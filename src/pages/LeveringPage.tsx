@@ -16,7 +16,13 @@ const benefits = [
   { icon: Zap, title: "Gratis vochtmeting", desc: "Bij levering én ophaling inbegrepen" },
   { icon: Clock, title: "Levering binnen 24 uur", desc: "Meestal volgende werkdag bij u" },
   { icon: ThumbsUp, title: "Vaste all-in prijzen", desc: "Geen verrassingen of extra kosten" },
-  { icon: Star, title: "500+ tevreden klanten", desc: "Beoordeeld met 4.9/5 sterren" },
+  /*
+    Hier stond "Beoordeeld met 4.9/5 sterren" — een vierde cijfer naast de 4,8
+    in de hero en de 412 in de schema, en geen van drieën van een bron te
+    voorzien. Vervangen door de garantie, want die staat in onze eigen
+    voorwaarden en is dus wél hard te maken. Zie `REVIEWS` in src/lib/site.ts.
+  */
+  { icon: Star, title: "100% droog-garantie", desc: "Of u huurt kosteloos verder" },
 ];
 
 const processSteps = [

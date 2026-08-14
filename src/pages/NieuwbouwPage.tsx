@@ -13,7 +13,6 @@ import {
 import {
   Phone,
   ArrowRight,
-  Star,
   CheckCircle2,
   XCircle,
   Zap,
@@ -39,11 +38,6 @@ const tips = [
   { icon: Wind, emoji: "💨", title: "Combineer met ventilator", desc: "Zorgt voor 30% sneller drogen. Wij verhuren ook ventilatoren." },
   { icon: Thermometer, emoji: "🌡️", title: "Verwarm de ruimte", desc: "Bij temperaturen onder 15°C werkt een kachel als aanvulling." },
   { icon: BarChart3, emoji: "📊", title: "Meet dagelijks", desc: "Controleer de wateropvang regelmatig." },
-];
-
-const reviews = [
-  { name: "Björn C.", text: "Chape begin mei gelegd, 6 weken later kurkvloer geplaatst. Chapeau!", rating: 5 },
-  { name: "Pieter M.", text: "Als aannemer gebruik ik Vernast voor al mijn werven. Altijd stipt en professioneel.", rating: 5 },
 ];
 
 const faqs = [
@@ -278,38 +272,6 @@ const NieuwbouwPage = () => {
                   <div className="text-3xl mb-3">{tip.emoji}</div>
                   <h3 className="font-bold text-foreground mb-2">{tip.title}</h3>
                   <p className="text-sm text-muted-foreground">{tip.desc}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 6. REVIEWS */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-10">
-              <div className="flex items-center justify-center gap-1 mb-2">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-6 w-6 fill-primary text-primary" />
-                ))}
-              </div>
-              <p className="text-lg font-bold text-foreground">Wat zeggen onze klanten?</p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              {reviews.map((r, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={r.name}
-                  className="bg-card border border-border rounded-2xl p-6"
-                >
-                  <div className="flex gap-1 mb-3">
-                    {Array.from({ length: r.rating }).map((_, j) => (
-                      <Star key={j} className="h-4 w-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground text-sm mb-4 italic">"{r.text}"</p>
-                  <p className="text-foreground font-semibold text-sm">{r.name}</p>
                 </Reveal>
               ))}
             </div>

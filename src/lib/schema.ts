@@ -54,8 +54,11 @@ export interface OrganizationOptions {
    * een beoordeling overeenkomt met wat er **op die pagina** te zien is. Het
    * cijfer stond mee op /contact, /klantservice en /over-ons, waar noch de
    * score noch één review zichtbaar is — precies het geval waarvoor de rich
-   * results van een heel bedrijf onderdrukt worden. Alleen de homepage toont
-   * "4,8" en "412" in de hero en de statistiekbalk, dus alleen die zet het aan.
+   * results van een heel bedrijf onderdrukt worden. Alleen de homepage toonde
+   * de score, dus alleen die zet het aan.
+   *
+   * Blijft zonder effect zolang `REVIEWS` `null` is: een `aggregateRating`
+   * zonder zichtbare score op de pagina is precies wat we hier vermijden.
    */
   withRating?: boolean;
 }
@@ -115,7 +118,7 @@ export function organizationSchema({ withRating = false }: OrganizationOptions =
       in de zoekresultaten, maar AI-antwoordmachines citeren ze wél — en die
       lezen liever gestructureerde data dan een sterrenrij in HTML.
     */
-    ...(withRating
+    ...(withRating && REVIEWS
       ? {
           aggregateRating: {
             "@type": "AggregateRating",

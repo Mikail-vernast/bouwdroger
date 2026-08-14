@@ -13,16 +13,23 @@ const V3Hero = () => (
   <section className="hero">
     <div className="wrap">
       <div className="hero-inner">
-        <div className="gsb">
-          <GoogleIcon />
-          <span className="stars">★★★★★</span>
-          <span className="gt">
-            <b>
-              {REVIEWS.display}/{REVIEWS.best}
-            </b>{" "}
-            · {REVIEWS.reviewCount} Google reviews
-          </span>
-        </div>
+        {/*
+          Verdwijnt zolang er geen te verantwoorden cijfer is; zie `REVIEWS` in
+          src/lib/site.ts. De badge is bewust niet vervangen door een andere
+          claim — de vier punten onder de knoppen dragen het vertrouwen al.
+        */}
+        {REVIEWS && (
+          <div className="gsb">
+            <GoogleIcon />
+            <span className="stars">★★★★★</span>
+            <span className="gt">
+              <b>
+                {REVIEWS.display}/{REVIEWS.best}
+              </b>{" "}
+              · {REVIEWS.reviewCount} Google reviews
+            </span>
+          </div>
+        )}
         <h1>Bouwdroging, volledig digitaal geregeld. Van berekening tot droge woning.</h1>
         <p>
           Bereken uw pakket, boek, betaal en plan de installatie, alles online, in enkele minuten.

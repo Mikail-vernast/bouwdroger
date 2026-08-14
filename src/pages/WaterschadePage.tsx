@@ -11,7 +11,6 @@ import {
   Shield,
   PhoneCall,
   CheckCircle2,
-  Star,
   AlertTriangle,
   ArrowRight,
   Clock,
@@ -39,11 +38,6 @@ const warnings = [
   { icon: "🦠", title: "Schimmel begint na 24–48u", desc: "Eenmaal schimmel aanwezig zijn de kosten veel hoger." },
   { icon: "🏚️", title: "Structuurschade", desc: "Langdurig vocht beschadigt muren, vloeren en plafonds." },
   { icon: "💸", title: "Hogere kosten later", desc: "Snel drogen bespaart tot 60% op herstelkosten." },
-];
-
-const reviews = [
-  { name: "Marc D.", text: "Kelder ondergelopen na storm. Binnen 4 uur was de bouwdroger geplaatst. Perfecte service!", rating: 5 },
-  { name: "An V.", text: "Gratis vochtmeting na afloop gaf ons zekerheid. Verzekering regelde de rest.", rating: 5 },
 ];
 
 /**
@@ -276,39 +270,6 @@ const WaterschadePage = () => {
                   <div className="text-3xl mb-3">{w.icon}</div>
                   <h3 className="font-bold text-foreground mb-2">{w.title}</h3>
                   <p className="text-sm text-muted-foreground">{w.desc}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 7. REVIEWS */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-10">
-              <div className="flex items-center justify-center gap-1 mb-2">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-6 w-6 fill-primary text-primary" />
-                ))}
-              </div>
-              <p className="text-lg font-bold text-foreground">Beoordeeld met 4.9/5 sterren</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              {reviews.map((r, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={r.name}
-                  className="bg-card border border-border rounded-2xl p-6"
-                >
-                  <div className="flex gap-1 mb-3">
-                    {Array.from({ length: r.rating }).map((_, j) => (
-                      <Star key={j} className="h-4 w-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground text-sm mb-4 italic">"{r.text}"</p>
-                  <p className="text-foreground font-semibold text-sm">{r.name}</p>
                 </Reveal>
               ))}
             </div>
