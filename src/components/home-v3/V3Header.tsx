@@ -213,9 +213,9 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
               </div>
             </div>
 
-            <a className="item" href="/#toepassingen">
+            <Link className="item" to="/realisaties">
               Realisaties
-            </a>
+            </Link>
             <a className="item" href="/#voordelen">
               Over ons
             </a>
