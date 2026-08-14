@@ -8,7 +8,7 @@ const V3Footer = () => (
     <div className="wrap">
       <div className="fg">
         <div className="lc">
-          <img src="/vernast/logo-horizontal-white.webp" alt="Vernast Verhuur" loading="lazy" decoding="async" />
+          <img src="/vernast/logo-horizontal-white.webp" alt="Vernast Bouwdrogers" loading="lazy" decoding="async" />
           <p>
             Uw specialist in bouwdroging en verhuur van eco-bouwdrogers, ventilatoren en
             bouwkachels. Werkzaam in heel Vlaanderen, met levering op de datum die u kiest.

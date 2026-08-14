@@ -149,7 +149,7 @@ const VerhuurSaldoPage = () => {
   return (
     <div className="vh-book vh-ext vh-saldo">
       <PageMeta
-        title="Uw saldo betalen | Vernast Verhuur"
+        title="Uw saldo betalen | Vernast"
         description="Reken het openstaande bedrag van uw huur af."
         noindex
       />

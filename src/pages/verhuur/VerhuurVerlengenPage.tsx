@@ -160,7 +160,7 @@ const VerhuurVerlengenPage = () => {
   return (
     <div className="vh-book vh-ext">
       <PageMeta
-        title="Uw huur verlengen | Vernast Verhuur"
+        title="Uw huur verlengen | Vernast"
         description="Vraag aan om uw bouwdrogers langer te houden."
         noindex
       />

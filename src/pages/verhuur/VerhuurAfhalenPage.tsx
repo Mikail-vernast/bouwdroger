@@ -477,7 +477,7 @@ const VerhuurAfhalenPage = () => {
       <header className="top">
         <div className="wrap in">
           <Link to="/">
-            <img src="/vernast/logo-horizontal-white.webp" alt="Vernast Verhuur" loading="lazy" decoding="async" />
+            <img src="/vernast/logo-horizontal-white.webp" alt="Vernast Bouwdrogers" loading="lazy" decoding="async" />
           </Link>
           <a className="bk" href="/#toestellen">
             ← Terug naar het gamma
@@ -674,7 +674,7 @@ const VerhuurAfhalenPage = () => {
             <div className="adres">
               <PinIcon size={17} />
               <span>
-                <b>Vernast Verhuur, magazijn</b>
+                <b>Vernast Bouwdrogers, magazijn</b>
                 <br />
                 Boomsesteenweg 12, Unit 11 · 2630 Aartselaar
                 <br />
@@ -1036,7 +1036,7 @@ const VerhuurAfhalenPage = () => {
 
       <footer className="site">
         <div className="wrap in">
-          <span>© 2026 Vernast Verhuur · Boomsesteenweg 12, Unit 11, Aartselaar</span>
+          <span>© 2026 Vernast Bouwdrogers · Boomsesteenweg 12, Unit 11, Aartselaar</span>
           <span>
             Liever geleverd én geïnstalleerd met droog-garantie?{" "}
             <Link to="/verhuur/calculator">Bereken uw pakket</Link>

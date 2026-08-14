@@ -119,7 +119,7 @@ export const SEO = {
 
   /* ---------- Verhuurfunnel ---------- */
   verhuurCalculator: {
-    title: "Stel uw droogpakket samen in 5 vragen | Vernast Verhuur",
+    title: "Stel uw droogpakket samen in 5 vragen | Vernast",
     description:
       "Beantwoord vijf vragen over uw woning, wat u droogt en uw verwarming. Wij berekenen automatisch de juiste toestellen, de droogtijd en de prijs.",
   },
@@ -129,7 +129,7 @@ export const SEO = {
       "Huur losse bouwdrogers, ventilatoren en kachels tegen lagere afhaalprijzen en haal ze op in ons magazijn in Aartselaar. Online reserveren met 5% korting of een voorschot.",
   },
   verhuurBoeking: {
-    title: "Uw boeking afronden | Vernast Verhuur",
+    title: "Uw boeking afronden | Vernast",
     description: "Kies uw dekking, extra's en leverdatum en rond uw boeking af.",
     noindex: true,
   },

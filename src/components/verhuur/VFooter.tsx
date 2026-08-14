@@ -8,7 +8,7 @@ const VFooter = () => (
     <div className="wrap">
       <div className="fg">
         <div className="lc">
-          <img src="/verhuur/logo-horizontal-white.webp" alt="Vernast Verhuur" loading="lazy" decoding="async" />
+          <img src="/verhuur/logo-horizontal-white.webp" alt="Vernast Bouwdrogers" loading="lazy" decoding="async" />
           <p>
             Uw specialist in bouwdroging en verhuur van eco-bouwdrogers, ventilatoren en
             bouwkachels. Werkzaam in heel Vlaanderen, met levering op de datum die u kiest.
@@ -72,7 +72,7 @@ const VFooter = () => (
               <a href="https://www.vernast-schilderwerken.be/">Vernast Schilderwerken</a>
             </li>
             <li>
-              <Link to="/">Vernast Verhuur</Link>
+              <Link to="/">Vernast Bouwdrogers</Link>
             </li>
           </ul>
         </div>
