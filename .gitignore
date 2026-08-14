@@ -28,6 +28,12 @@ dist-ssr
 # Lokale Supabase-CLI-state, hoort niet in een publieke repo
 supabase/.temp/
 
+# Snapshots en consolelogs van de Playwright MCP. Ze staan vol met de URL's die
+# tijdens het testen bezocht zijn, en op /verhuur/saldo en /verhuur/verlengen
+# staat het Stripe-sessie-ID ín die URL — het enige dat die pagina's afschermt.
+# Vandaar hier: deze repo is publiek en één `git add -A` is genoeg.
+.playwright-mcp/
+
 # tsc --noEmit laat deze achter; ze horen bij de machine, niet bij de repo.
 *.tsbuildinfo
 
