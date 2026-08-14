@@ -17,6 +17,7 @@ import {
   PICKUP_SLOTS,
   type PickupProduct,
 } from "../data/afhalen.js";
+import { DEPOSIT_GROSS, ONLINE_DISCOUNT } from "./booking.js";
 import type { DeviceLine } from "./verhuur.js";
 
 /** Btw-tarief op verhuur in België; gelijk aan `booking.ts`. */
@@ -93,6 +94,57 @@ export function pickupSummary(lines: PickupLine[], days: number): PickupSummary 
     vat,
     gross: round(net + vat),
   };
+}
+
+/**
+ * Betalen bij een afhaling: alles vooraf met korting, of de orderbevestiging nu
+ * en de rest wanneer de klant de toestellen komt halen.
+ *
+ * Dat tweede was hier lang "factuur na de huurperiode": reserveren zonder één
+ * euro vooruit. Een afhaalreservatie legt echte toestellen apart voor iemand
+ * die we niet gezien hebben, en wie niet kwam opdagen kostte ons een dag huur
+ * van elk toestel dat klaarstond. Nu geldt dezelfde regel als bij een pakket —
+ * eenzelfde vaste orderbevestiging, saldo bij de afhaling.
+ */
+export type PickupPayment = "online" | "afhaling";
+
+/** Een keuze uit de request; al de rest valt terug op vooruitbetalen. */
+export function normalizePickupPayment(raw: unknown): PickupPayment {
+  return raw === "afhaling" ? "afhaling" : "online";
+}
+
+export interface PickupTotals {
+  /** Korting bij volledig online betalen, excl. btw; nul bij een voorschot. */
+  discount: number;
+  /** Huurprijs na korting, excl. btw. */
+  net: number;
+  /** Btw over `net`. */
+  vat: number;
+  /** Wat de reservatie in totaal kost, incl. btw. */
+  gross: number;
+  /** Wat er nú door Stripe gaat, incl. btw. */
+  payableGross: number;
+  /** Wat er bij de afhaling nog te betalen valt, incl. btw. */
+  balance: number;
+}
+
+/**
+ * De bedragen van één afhaalreservatie. Zowel de afhaalpagina als
+ * `api/afhaal-checkout.ts` rekenen hiermee, zodat het bedrag op de knop en het
+ * bedrag bij Stripe per definitie hetzelfde zijn.
+ *
+ * Het voorschot is een vast brutobedrag, net als bij een pakket: bij elke
+ * reservatie staat er dezelfde € 50 op de knop, niet een percentage. Is de huur
+ * goedkoper dan het voorschot, dan betaalt de klant gewoon het volledige bedrag
+ * — een saldo dat negatief staat kan de saldopagina niet innen.
+ */
+export function pickupTotals(netBeforeDiscount: number, payment: PickupPayment): PickupTotals {
+  const discount = payment === "online" ? round(netBeforeDiscount * ONLINE_DISCOUNT) : 0;
+  const net = round(netBeforeDiscount - discount);
+  const vat = round(net * VAT_RATE);
+  const gross = round(net + vat);
+  const payableGross = payment === "online" ? gross : Math.min(DEPOSIT_GROSS, gross);
+  return { discount, net, vat, gross, payableGross, balance: round(gross - payableGross) };
 }
 
 /**

@@ -41,14 +41,14 @@ const PICKUP_FAQ: [string, string][] = [
   ],
   [
     "Waarom zijn afhaalprijzen lager?",
-    "U bespaart de transport- en installatiekost. Reserveren blijft gratis en zonder voorschot.",
+    "U bespaart de transport- en installatiekost. Reserveren doet u online: betaal alles vooraf met 5% korting, of bevestig met een voorschot en reken de rest af bij de afhaling.",
   ],
 ];
 
 const PICKUP_STEPS = [
   {
     title: "Reserveer online",
-    body: "Kies uw toestel, huurperiode en afhaalmoment. U betaalt niets vooraf.",
+    body: "Kies uw toestel, huurperiode en afhaalmoment. U betaalt vooraf met 5% korting of enkel het voorschot.",
   },
   {
     title: "Bevestiging binnen het uur",
@@ -56,11 +56,11 @@ const PICKUP_STEPS = [
   },
   {
     title: "Afhalen op de A12",
-    body: "Uw toestel staat klaar aan ons afhaalpunt. Wij laden mee in en geven korte uitleg. Breng een ruime koffer, break of aanhangwagen mee.",
+    body: "Uw toestel staat klaar aan ons afhaalpunt. Een openstaand saldo rekent u hier af met Bancontact of QR-code. Breng een ruime koffer, break of aanhangwagen mee.",
   },
   {
     title: "Terugbrengen, klaar",
-    body: "Breng het toestel terug op het afgesproken moment. Facturatie volgt na de huurperiode.",
+    body: "Breng het toestel terug op het afgesproken moment. Uw factuur staat dan al in uw mailbox.",
   },
 ];
 
@@ -447,7 +447,8 @@ const VerhuurToestelPage = () => {
                     </Link>
                   )}
                   <div className="note">
-                    Geen voorschot · lagere afhaalprijzen · liever geleverd én geïnstalleerd? Dat kan{" "}
+                    5% korting bij online betalen · lagere afhaalprijzen · liever geleverd én
+                    geïnstalleerd? Dat kan{" "}
                     <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 700 }}>
                       per pakket
                     </Link>

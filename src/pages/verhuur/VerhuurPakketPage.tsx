@@ -341,7 +341,7 @@ const VerhuurPakketPage = () => {
                   <p>
                     Duurt de droging langer, dan verlengt u online met één klik. Bent u vroeger
                     klaar, dan stopt u de huur en betaalt u enkel de dagen die u effectief gebruikt
-                    hebt. Geen voorschot bij reservatie.
+                    hebt.
                   </p>
                 </div>
               </div>

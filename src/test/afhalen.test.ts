@@ -1,13 +1,16 @@
 import { describe, expect, test } from "vitest";
 import { PICKUP_BY_KEY, PICKUP_PRODUCTS } from "@/data/afhalen";
 import {
+  normalizePickupPayment,
   parseSelection,
   pickupCounts,
   pickupDeviceLines,
   pickupLabel,
   pickupSummary,
+  pickupTotals,
   serializeSelection,
 } from "@/lib/afhalen";
+import { DEPOSIT_GROSS, ONLINE_DISCOUNT, VAT_RATE } from "@/lib/booking";
 import { afhaalOrder } from "@/lib/orderIntake";
 import { parseDeviceLines, serializeDeviceLines } from "@/lib/verhuur";
 import { firstFreeDate } from "@/hooks/usePickupAvailability";
@@ -249,5 +252,53 @@ describe("afhaalOrder — de server bepaalt het bedrag", () => {
     });
 
     expect(order.summary.units).toBe(20);
+  });
+});
+
+/*
+  De tweede betaalwijze bij een afhaling was "factuur na de huurperiode": de
+  bezoeker liet toestellen klaarzetten zonder één euro vooruit. Nu geldt
+  dezelfde orderbevestiging als bij een pakket, met het saldo bij de afhaling.
+*/
+describe("afhalen — voorschot en saldo", () => {
+  const net = 100;
+
+  test("volledig online betalen geeft de korting en laat niets openstaan", () => {
+    const totals = pickupTotals(net, "online");
+
+    expect(totals.discount).toBe(net * ONLINE_DISCOUNT);
+    expect(totals.net).toBe(net - net * ONLINE_DISCOUNT);
+    expect(totals.gross).toBe(Math.round(totals.net * (1 + VAT_RATE) * 100) / 100);
+    expect(totals.payableGross).toBe(totals.gross);
+    expect(totals.balance).toBe(0);
+  });
+
+  test("het voorschot is een vast brutobedrag, zonder korting, met saldo erna", () => {
+    const totals = pickupTotals(net, "afhaling");
+
+    expect(totals.discount).toBe(0);
+    expect(totals.net).toBe(net);
+    expect(totals.payableGross).toBe(DEPOSIT_GROSS);
+    expect(totals.balance).toBe(Math.round((totals.gross - DEPOSIT_GROSS) * 100) / 100);
+    // Wat de saldopagina int plus wat er nu binnenkomt, is het volledige bedrag.
+    expect(Math.round((totals.payableGross + totals.balance) * 100) / 100).toBe(totals.gross);
+  });
+
+  /*
+    Eén toestel voor één dag kan goedkoper zijn dan het voorschot. Rekende de
+    pagina dan toch € 50 af, dan stond er een negatief saldo open dat niemand
+    kan innen.
+  */
+  test("een reservatie onder het voorschot wordt gewoon volledig afgerekend", () => {
+    const totals = pickupTotals(10, "afhaling");
+
+    expect(totals.payableGross).toBe(totals.gross);
+    expect(totals.balance).toBe(0);
+  });
+
+  test("een onbekende betaalwijze valt terug op vooruitbetalen", () => {
+    expect(normalizePickupPayment("gratis")).toBe("online");
+    expect(normalizePickupPayment(undefined)).toBe("online");
+    expect(normalizePickupPayment("afhaling")).toBe("afhaling");
   });
 });

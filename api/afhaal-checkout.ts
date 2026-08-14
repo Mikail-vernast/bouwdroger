@@ -10,6 +10,12 @@
  * mee), de toestellen worden vastgehouden zolang de betaling loopt, en de
  * beschikbaarheid wordt gecontroleerd vóór er een sessie ontstaat.
  *
+ * Ook de tweede betaalwijze loopt nu langs hier. "Factuur na de huurperiode"
+ * betekende dat iemand toestellen kon laten klaarzetten zonder één euro vooruit;
+ * wie niet kwam opdagen kostte ons een dag huur van elk toestel dat apart lag.
+ * Nu geldt dezelfde regel als bij een pakket: een vaste orderbevestiging, en het
+ * saldo wanneer de klant de toestellen komt halen — via `api/saldo.ts`.
+ *
  * En sinds kort ook hetzelfde betaalscherm. Dit was een hosted Checkout-pagina:
  * de bezoeker verliet de site, zag een tweede huisstijl en een tweede
  * samenvatting van zijn bestelling, en Apple Pay verscheen daar enkel in Safari.
@@ -18,10 +24,16 @@
  */
 import Stripe from "stripe";
 import { checkOne, holdForSession, logAvailabilityFailure } from "../src/lib/availability.js";
-import { pickupDeviceLines, pickupLabel, pickupCounts } from "../src/lib/afhalen.js";
-import { newReference, ONLINE_DISCOUNT, VAT_RATE, toCents } from "../src/lib/booking.js";
+import {
+  normalizePickupPayment,
+  pickupDeviceLines,
+  pickupLabel,
+  pickupCounts,
+  pickupTotals,
+} from "../src/lib/afhalen.js";
+import { newReference, toCents } from "../src/lib/booking.js";
 import { releaseSession } from "../src/lib/checkoutSession.js";
-import { afhaalOrder, type AfhaalOrder } from "../src/lib/orderIntake.js";
+import { afhaalOrder } from "../src/lib/orderIntake.js";
 import { safeOrigin } from "../src/lib/origin.js";
 import { clientIp, gate, rateLimit, tooManyRequests } from "../src/lib/rateLimit.js";
 import { rentalWindow, serializeDeviceLines } from "../src/lib/verhuur.js";
@@ -52,25 +64,9 @@ const MAX_HOLDS_PER_IP = 10;
   ene betaalflow terug naar een adres dat de andere niet meer vertrouwt.
 */
 
-function round(amount: number): number {
-  return Math.round(amount * 100) / 100;
-}
-
 /** Alleen tekst die in Stripe-metadata past. */
 function trim(value: string | null | undefined, max = 480): string {
   return (value ?? "").slice(0, max);
-}
-
-/**
- * Wat de klant online betaalt: het volledige huurbedrag met 5% korting, bruto.
- * Bij afhalen is er geen voorschot en geen saldo achteraf — hij betaalt alles
- * ineens, of hij kiest voor de factuur en komt hier niet.
- */
-function pickupTotals(order: AfhaalOrder) {
-  const discount = round(order.summary.net * ONLINE_DISCOUNT);
-  const net = round(order.summary.net - discount);
-  const vat = round(net * VAT_RATE);
-  return { discount, net, vat, gross: round(net + vat) };
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -91,9 +87,13 @@ export async function POST(request: Request): Promise<Response> {
     return json({ error: "Stripe is nog niet geconfigureerd op deze omgeving." }, 500);
   }
 
-  let body: { data?: unknown; previousSessionId?: unknown };
+  let body: { data?: unknown; payment?: unknown; previousSessionId?: unknown };
   try {
-    body = (await request.json()) as { data?: unknown; previousSessionId?: unknown };
+    body = (await request.json()) as {
+      data?: unknown;
+      payment?: unknown;
+      previousSessionId?: unknown;
+    };
   } catch {
     return json({ error: "Ongeldige aanvraag." }, 400);
   }
@@ -158,7 +158,15 @@ export async function POST(request: Request): Promise<Response> {
   const holds = rateLimit(`hold:${ip}`, MAX_HOLDS_PER_IP, HOLD_MINUTES * 60_000);
   if (!holds.allowed) return tooManyRequests(holds.retryAfter);
 
-  const totals = pickupTotals(order);
+  /*
+    De betaalwijze staat bewust náást `data`: de allowlist van `afhaalOrder`
+    laat alleen klant- en reservatievelden door, en wat er betaald wordt hoort
+    daar niet bij. Onbekende waarden vallen terug op vooruitbetalen — de duurste
+    keuze voor de bezoeker kan zo nooit stilzwijgend de goedkoopste worden.
+  */
+  const payment = normalizePickupPayment(body.payment);
+  const totals = pickupTotals(order.summary.net, payment);
+  const online = payment === "online";
   const reference = newReference();
   const origin = safeOrigin(request);
   const counts = pickupCounts(order.lines);
@@ -197,9 +205,13 @@ export async function POST(request: Request): Promise<Response> {
           quantity: 1,
           price_data: {
             currency: "eur",
-            // Bruto, net als bij een pakket: de catalogusprijzen staan excl.
-            // btw en Stripe int wat de klant effectief betaalt.
-            unit_amount: toCents(totals.gross),
+            /*
+              Bruto, net als bij een pakket: de catalogusprijzen staan excl.
+              btw en Stripe int wat de klant effectief betaalt. Kiest de klant
+              voor het voorschot, dan gaat enkel dat bedrag nu door — de rest
+              rekent hij af wanneer hij de toestellen komt halen.
+            */
+            unit_amount: toCents(totals.payableGross),
             /*
               Sinds het betaalformulier in onze eigen pagina staat, ziet de klant
               deze naam, omschrijving en afbeelding niet meer op zijn scherm —
@@ -209,8 +221,15 @@ export async function POST(request: Request): Promise<Response> {
             */
             product_data: {
               name: trim(`Afhaalreservatie — ${label}`, 250),
+              /*
+                Bij een voorschot is het bedrag in beeld niet het totaal. Dat
+                verschil hoort de klant te zien vóór hij afrekent, niet pas op
+                het ontvangstbewijs. Zelfde regel als in `api/checkout.ts`.
+              */
               description: trim(
-                `${order.days} dagen · afhalen op ${order.date} (${order.slot}) in Aartselaar · 5% online korting`,
+                online
+                  ? `${order.days} dagen · afhalen op ${order.date} (${order.slot}) in Aartselaar · 5% online korting`
+                  : `${order.days} dagen · afhalen op ${order.date} (${order.slot}) in Aartselaar · orderbevestiging, saldo ${totals.balance.toFixed(2)} EUR incl. btw bij de afhaling`,
                 500,
               ),
               images: [`${origin}/verhuur/checkout-merk.png`],
@@ -230,14 +249,22 @@ export async function POST(request: Request): Promise<Response> {
       metadata: {
         type: "afhaal",
         referentie: reference,
-        betaalwijze: "online",
+        /*
+          Het portaal kent maar twee betaalwijzen: alles vooraf ("online") of
+          een voorschot met saldo achteraf ("levering"). Bij een afhaling wordt
+          dat saldo niet op de werf maar aan de balie geïnd; dat onderscheid
+          staat al in `type: afhaal` en in `situatie: afhaling`. Zie
+          `sessionToVernast` in `src/lib/vernastOrder.ts`.
+        */
+        betaalwijze: online ? "online" : "levering",
         machine: trim(label, 200),
         totaal: totals.net.toFixed(2),
         korting: totals.discount.toFixed(2),
         btw: totals.vat.toFixed(2),
         totaal_incl_btw: totals.gross.toFixed(2),
-        nu_betaald: totals.gross.toFixed(2),
-        saldo_bij_levering: "0.00",
+        // Waar de saldopagina op rekent: totaal min wat er nu binnenkomt.
+        nu_betaald: totals.payableGross.toFixed(2),
+        saldo_bij_levering: totals.balance.toFixed(2),
         klant: trim(`${order.firstName} ${order.lastName}`.trim(), 120),
         klanttype: order.customerType,
         bedrijf: trim(order.company, 120),
@@ -255,7 +282,16 @@ export async function POST(request: Request): Promise<Response> {
         verwarming: String(counts.verwarming),
         toestellen: trim(serializeDeviceLines(devices)),
         regels: trim(
-          [`AFHALING in het magazijn (geen levering) — ${order.slot}.`, `Toestellen: ${label}.`, order.notes]
+          [
+            `AFHALING in het magazijn (geen levering) — ${order.slot}.`,
+            `Toestellen: ${label}.`,
+            // Wie de toestellen meegeeft, moet weten dat er nog geld open
+            // staat: het saldo wordt aan de balie geïnd, niet gefactureerd.
+            online
+              ? "Volledig vooruitbetaald."
+              : `Saldo ${totals.balance.toFixed(2)} EUR incl. btw te innen bij de afhaling.`,
+            order.notes,
+          ]
             .filter(Boolean)
             .join(" "),
         ),

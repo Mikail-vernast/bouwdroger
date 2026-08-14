@@ -19,9 +19,11 @@ import {
   normalizeSlot,
   parseSelection,
   pickupSummary,
+  pickupTotals,
   serializeSelection,
+  type PickupPayment,
 } from "@/lib/afhalen";
-import { bookingFingerprint, ONLINE_DISCOUNT, VAT_RATE } from "@/lib/booking";
+import { bookingFingerprint, DEPOSIT_GROSS, ONLINE_DISCOUNT } from "@/lib/booking";
 import { breadcrumbSchema, offerCatalogSchema } from "@/lib/schema";
 import { isValidEmail, isValidPhone, maskEmail, maskPhone } from "@/lib/inputMask";
 import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
@@ -41,12 +43,18 @@ import "@/styles/verhuur-betaling.css";
  *
  * Nu komt de catalogus uit dezelfde gepubliceerde tarieven als de
  * toestelpagina's (zie `data/afhalen.ts`) en gaat de reservatie via
- * `/api/order` naar het portaal, met een referentie die van de server komt.
+ * `/api/afhaal-checkout` en de Stripe-webhook naar het portaal, met een
+ * referentie die van de server komt.
  *
- * Wie kiest voor de factuur achteraf betaalt nog altijd niets vooraf. Wie
- * online betaalt, doet dat sinds kort in deze pagina zelf: hetzelfde
- * Stripe-formulier als bij een pakketboeking, in plaats van een doorverwijzing
- * naar een hosted Checkout-pagina met een andere huisstijl.
+ * Betalen gaat sinds kort langs dezelfde twee wegen als bij een pakket:
+ * volledig vooruit met 5% korting, of een vaste orderbevestiging waarna het
+ * saldo bij de afhaling betaald wordt. De tweede keuze heette hier "factuur na
+ * de huurperiode" en kostte de klant vooraf niets — terwijl er wél toestellen
+ * voor hem apart gingen liggen.
+ *
+ * Beide keuzes rekenen af in deze pagina zelf: hetzelfde Stripe-formulier als
+ * bij een pakketboeking, in plaats van een doorverwijzing naar een hosted
+ * Checkout-pagina met een andere huisstijl.
  */
 const euro = (n: number) =>
   `€ ${n.toLocaleString("nl-BE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -143,8 +151,10 @@ const VerhuurAfhalenPage = () => {
   const [vat, setVat] = useState("");
   const [note, setNote] = useState("");
   const [agreed, setAgreed] = useState(false);
-  const [payment, setPayment] = useState<"online" | "factuur">("online");
+  const [payment, setPayment] = useState<PickupPayment>("online");
   const [reference, setReference] = useState<string | null>(null);
+  /** Wat de klant bij de afhaling nog betaalt; nul als hij alles vooruitbetaalde. */
+  const [balanceDue, setBalanceDue] = useState(0);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showMissing, setShowMissing] = useState(false);
@@ -194,17 +204,26 @@ const VerhuurAfhalenPage = () => {
   const suggestion = dateBlocked ? firstFreeDate(date, blocked, horizonDays) : null;
 
   /*
-    Wat er effectief afgerekend wordt. Online betalen geeft dezelfde korting als
-    bij een pakket; die staat in de gepubliceerde tarieven, niet hier. De server
-    rekent hetzelfde uit — dit is enkel wat de bezoeker ziet.
+    Wat er effectief afgerekend wordt. Korting en voorschot staan in de
+    gepubliceerde tarieven, niet hier, en `pickupTotals` is dezelfde functie die
+    `api/afhaal-checkout.ts` gebruikt — zo kan het bedrag op de knop niet
+    afwijken van het bedrag bij Stripe.
   */
-  const round = (amount: number) => Math.round(amount * 100) / 100;
-  const discount = payment === "online" ? round(summary.net * ONLINE_DISCOUNT) : 0;
-  const payable = useMemo(() => {
-    const net = round(summary.net - discount);
-    const vat = round(net * VAT_RATE);
-    return { net, vat, gross: round(net + vat) };
-  }, [summary.net, discount]);
+  const totals = useMemo(() => pickupTotals(summary.net, payment), [summary.net, payment]);
+
+  /*
+    Wat de kortingskaart belooft: het verschil tussen beide keuzes, bruto. De
+    korting zelf staat excl. btw in de tarieven, en dat is niet wat de klant
+    minder betaalt.
+  */
+  const savings = useMemo(
+    () =>
+      Math.round(
+        (pickupTotals(summary.net, "afhaling").gross - pickupTotals(summary.net, "online").gross) *
+          100,
+      ) / 100,
+    [summary.net],
+  );
 
   /*
     Waarom de knop nog niet kan. Vroeger stond hij simpelweg uit: alles ingevuld
@@ -256,9 +275,9 @@ const VerhuurAfhalenPage = () => {
     `loadStripe` en de sleutel zijn hier dus nog niet nodig.
   */
   useEffect(() => {
-    if (payment !== "online" || summary.units === 0) return;
+    if (summary.units === 0) return;
     void import("@stripe/stripe-js");
-  }, [payment, summary.units]);
+  }, [summary.units]);
 
   /*
     Deze pagina is opnieuw geladen terwijl er nog een betaalpoging openstond: een
@@ -295,10 +314,17 @@ const VerhuurAfhalenPage = () => {
     let cancelled = false;
     fetch(`/api/checkout-session?id=${encodeURIComponent(sessionId)}`)
       .then((response) => response.json())
-      .then((result: { paid?: boolean; reference?: string }) => {
+      .then((result: { paid?: boolean; reference?: string; order?: { balance?: number | null } }) => {
         if (cancelled) return;
-        if (result.paid && result.reference) setReference(result.reference);
-        else
+        if (result.paid && result.reference) {
+          setReference(result.reference);
+          /*
+            Wat er nog openstaat komt uit de betaalde sessie, niet uit de state:
+            na de omweg langs Bancontact staat deze pagina vers, en dan is de
+            betaalwijze die de bezoeker koos hier niet meer bekend.
+          */
+          setBalanceDue(Number(result.order?.balance) || 0);
+        } else
           setError(
             "Uw betaling is nog niet bevestigd. Duurt dit langer dan een paar minuten, bel ons dan op 03 689 90 65."
           );
@@ -346,36 +372,34 @@ const VerhuurAfhalenPage = () => {
     };
 
     /*
-      Online betalen loopt via Stripe (met 5% korting), de andere keuze zet de
-      reservatie meteen in het portaal en factureert achteraf. Beide routes
-      herrekenen het bedrag zelf — wat hier op het scherm staat, is een
-      weergave, geen invoer.
+      Beide betaalwijzen lopen via Stripe: de ene rekent het volledige bedrag
+      met korting af, de andere enkel de orderbevestiging. De server herrekent
+      allebei zelf — wat hier op het scherm staat, is een weergave, geen invoer.
+
+      De betaalwijze zit mee in de vingerafdruk. Zonder dat kreeg wie na de
+      betaalstap terugging en van voorschot naar volledig betalen wisselde, de
+      sessie van daarvoor terug — met het oude bedrag erop.
     */
-    const online = payment === "online";
-    const fingerprint = bookingFingerprint(order);
+    const fingerprint = bookingFingerprint({ ...order, payment });
 
     /*
       Niets gewijzigd sinds de vorige poging: terug naar het formulier dat er al
       staat. Een tweede sessie zou een tweede hold op dezelfde toestellen leggen,
       en dan blokkeert de bezoeker zijn eigen afhaaldatum.
     */
-    if (online && session?.clientSecret && session.fingerprint === fingerprint && stripeJs) {
+    if (session?.clientSecret && session.fingerprint === fingerprint && stripeJs) {
       setBusy(false);
       setPayOpen(true);
       return;
     }
 
     try {
-      const response = await fetch(online ? "/api/afhaal-checkout" : "/api/order", {
+      const response = await fetch("/api/afhaal-checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(
-          online
-            ? // De vorige sessie gaat mee zodat de server haar laat vervallen en
-              // de toestellen teruggeeft vóór hij opnieuw kijkt wat vrij is.
-              { data: order, previousSessionId: session?.id }
-            : { kind: "afhaal", data: order }
-        ),
+        // De vorige sessie gaat mee zodat de server haar laat vervallen en de
+        // toestellen teruggeeft vóór hij opnieuw kijkt wat vrij is.
+        body: JSON.stringify({ data: order, payment, previousSessionId: session?.id }),
       });
 
       const result = (await response.json().catch(() => ({}))) as {
@@ -400,24 +424,19 @@ const VerhuurAfhalenPage = () => {
         return;
       }
 
-      if (online) {
-        if (!result.clientSecret || !result.publishableKey || !result.sessionId) {
-          setError("Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65.");
-          return;
-        }
-        // Stripe.js pas hier écht initialiseren: het script staat al klaar door
-        // de import hierboven, de sleutel komt van de server.
-        const { loadStripe } = await import("@stripe/stripe-js");
-        setStripeJs(loadStripe(result.publishableKey));
-        setSession({ id: result.sessionId, clientSecret: result.clientSecret, fingerprint });
-        // Vanaf hier ligt er een hold, en na de omweg langs Bancontact is dit ID
-        // de enige weg om die weer los te krijgen.
-        writeStored({ sessionId: result.sessionId, email: mail });
-        setPayOpen(true);
+      if (!result.clientSecret || !result.publishableKey || !result.sessionId) {
+        setError("Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65.");
         return;
       }
-
-      setReference(result.reference ?? null);
+      // Stripe.js pas hier écht initialiseren: het script staat al klaar door
+      // de import hierboven, de sleutel komt van de server.
+      const { loadStripe } = await import("@stripe/stripe-js");
+      setStripeJs(loadStripe(result.publishableKey));
+      setSession({ id: result.sessionId, clientSecret: result.clientSecret, fingerprint });
+      // Vanaf hier ligt er een hold, en na de omweg langs Bancontact is dit ID
+      // de enige weg om die weer los te krijgen.
+      writeStored({ sessionId: result.sessionId, email: mail });
+      setPayOpen(true);
     } catch {
       setError(
         "Uw reservatie kon niet verstuurd worden. Controleer uw verbinding of bel ons op 03 689 90 65."
@@ -473,7 +492,7 @@ const VerhuurAfhalenPage = () => {
           <p>
             Stel zelf samen wat u nodig heeft, bouwdrogers, ventilatoren en kachels, en haal alles
             af in ons magazijn. Betaal online met {Math.round(ONLINE_DISCOUNT * 100)}% korting, of
-            laat achteraf factureren.
+            zet uw reservatie vast met {euro(DEPOSIT_GROSS)} en reken de rest af bij de afhaling.
           </p>
           <div className="note">
             <InfoIcon />
@@ -785,32 +804,45 @@ const VerhuurAfhalenPage = () => {
           </div>
 
           <div className="blk">
-            <h2>4. Betaling</h2>
+            <h2>4. Hoe wilt u betalen?</h2>
             <p className="bs">
-              Online betalen levert {Math.round(ONLINE_DISCOUNT * 100)}% korting op en uw factuur
-              komt meteen in uw mailbox. Liever achteraf? Dan factureren wij na de huurperiode.
+              Dezelfde twee keuzes als bij een pakket: alles vooraf met korting, of uw reservatie
+              vastzetten met {euro(DEPOSIT_GROSS)} en de rest afrekenen wanneer u de toestellen
+              komt halen.
             </p>
-            <div className="ktype">
+            {/*
+              Dit waren twee pilknoppen met "Factuur na de huurperiode" ernaast,
+              en daaronder de belofte dat u niets vooraf betaalde. Nu dezelfde
+              twee kaarten als de boekingspagina: het bedrag dat nú door Stripe
+              gaat staat op de kaart zelf, niet pas op de knop rechts.
+            */}
+            <div className="payopts">
               <button
                 type="button"
-                className={payment === "online" ? "active" : undefined}
+                className={`payopt${payment === "online" ? " sel" : ""}`}
                 onClick={() => setPayment("online")}
               >
-                Nu online betalen — {Math.round(ONLINE_DISCOUNT * 100)}% korting
+                <span className="pob">{Math.round(ONLINE_DISCOUNT * 100)}% korting</span>
+                <b>Volledig online betalen</b>
+                <span>
+                  Betaal nu met Bancontact of kaart. U krijgt {Math.round(ONLINE_DISCOUNT * 100)}%
+                  korting op uw hele reservatie en uw factuur staat meteen in uw mailbox.
+                </span>
+                {savings > 0 && <span className="pos">U bespaart {euro(savings)}</span>}
               </button>
               <button
                 type="button"
-                className={payment === "factuur" ? "active" : undefined}
-                onClick={() => setPayment("factuur")}
+                className={`payopt${payment === "afhaling" ? " sel" : ""}`}
+                onClick={() => setPayment("afhaling")}
               >
-                Factuur na de huurperiode
+                <b>{euro(DEPOSIT_GROSS)} nu, rest bij afhaling</b>
+                <span>
+                  Bevestig uw reservatie met {euro(DEPOSIT_GROSS)}. Het saldo betaalt u in ons
+                  magazijn wanneer u de toestellen komt halen, via Bancontact of QR-code.
+                </span>
+                <span className="pos">Factuur na volledige betaling</span>
               </button>
             </div>
-            <p className="bs" style={{ margin: "14px 0 0" }}>
-              {payment === "online"
-                ? "U rekent af met Bancontact, kaart of iDEAL. Uw toestellen liggen meteen vast."
-                : "U betaalt niets vooraf. Wij bevestigen uw afhaalmoment en factureren achteraf."}
-            </p>
           </div>
         </div>
 
@@ -825,8 +857,15 @@ const VerhuurAfhalenPage = () => {
             <div className="blk">
               <h2>Betaal uw afhaalreservatie</h2>
               <p className="bs">
-                U betaalt <b>{euro(payable.gross)}</b> met Apple Pay, Bancontact, kaart, iDEAL of
-                Klarna. De betaling loopt beveiligd via Stripe — wij zien uw kaartgegevens nooit.
+                U betaalt <b>{euro(totals.payableGross)}</b> met Apple Pay, Bancontact, kaart,
+                iDEAL of Klarna. De betaling loopt beveiligd via Stripe — wij zien uw kaartgegevens
+                nooit.
+                {totals.balance > 0 && (
+                  <>
+                    {" "}
+                    Het saldo van <b>{euro(totals.balance)}</b> rekent u af bij de afhaling.
+                  </>
+                )}
               </p>
 
               <div className="paybox">
@@ -839,7 +878,7 @@ const VerhuurAfhalenPage = () => {
                       elementsOptions: { appearance: STRIPE_APPEARANCE },
                     }}
                   >
-                    <BoekingBetaalformulier bedrag={euro(payable.gross)} />
+                    <BoekingBetaalformulier bedrag={euro(totals.payableGross)} />
                   </CheckoutElementsProvider>
                 )}
               </div>
@@ -884,6 +923,13 @@ const VerhuurAfhalenPage = () => {
               <p>
                 Alles ligt voor u klaar in ons magazijn in Aartselaar op het gekozen moment. U
                 ontvangt zo een bevestiging per e-mail met de afhaalinstructies en het adres.
+                {balanceDue > 0 && (
+                  <>
+                    {" "}
+                    Het saldo van <b>{euro(balanceDue)}</b> rekent u af bij de afhaling, met
+                    Bancontact of via de QR-code die wij tonen.
+                  </>
+                )}
               </p>
               <div className="ref">
                 <span>Referentie</span>
@@ -917,24 +963,34 @@ const VerhuurAfhalenPage = () => {
                 <b>-</b>
               </div>
             )}
-            {discount > 0 && (
+            {totals.discount > 0 && (
               <div className="srow">
                 <span>Korting online betalen ({Math.round(ONLINE_DISCOUNT * 100)}%)</span>
-                <b>− {euro(discount)}</b>
+                <b>− {euro(totals.discount)}</b>
               </div>
             )}
             {summary.units > 0 && (
               <div className="srow mut">
                 <span>Btw 21%</span>
-                <b>{euro(payable.vat)}</b>
+                <b>{euro(totals.vat)}</b>
+              </div>
+            )}
+            {/*
+              Bij een voorschot staat er onderaan het bedrag dat nú door Stripe
+              gaat. Zonder deze regel leek dat het hele plaatje, terwijl er nog
+              een saldo openstaat dat de klant aan de balie betaalt.
+            */}
+            {totals.balance > 0 && (
+              <div className="srow">
+                <span>Totaal reservatie incl. btw</span>
+                <b>{euro(totals.gross)}</b>
               </div>
             )}
           </div>
           <div className="tot">
-            <span className="l">{payment === "online" ? "Nu te betalen" : "Totaal excl. btw"}</span>
+            <span className="l">Nu te betalen</span>
             <span className="v">
-              {payment === "online" ? euro(payable.gross) : euro(payable.net)}{" "}
-              <small>{payment === "online" ? "incl. btw" : "excl. btw"}</small>
+              {euro(totals.payableGross)} <small>incl. btw</small>
             </span>
           </div>
           {/*
@@ -951,11 +1007,7 @@ const VerhuurAfhalenPage = () => {
                   disabled={busy || reference !== null}
                   onClick={reserve}
                 >
-                  {busy
-                    ? "Even geduld…"
-                    : payment === "online"
-                      ? `Betalen — ${euro(payable.gross)}`
-                      : "Reserveer voor afhaling"}
+                  {busy ? "Even geduld…" : `Betalen — ${euro(totals.payableGross)}`}
                 </button>
                 {showMissing && missing.length > 0 && (
                   <ul className="miss">
@@ -969,8 +1021,8 @@ const VerhuurAfhalenPage = () => {
             )}
             <div className="nt">
               {payment === "online"
-                ? `Huur ${euro(payable.net)} excl. btw · veilig betalen via Stripe`
-                : `${euro(payable.gross)} incl. btw · geen voorschot · factuur na de huurperiode`}
+                ? `Huur ${euro(totals.net)} excl. btw · veilig betalen via Stripe`
+                : `Reservatie ${euro(totals.gross)} incl. btw · saldo ${euro(totals.balance)} bij de afhaling`}
             </div>
           </div>
         </aside>

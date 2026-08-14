@@ -1617,7 +1617,9 @@ const VerhuurBoekingPage = () => {
                     {nextBlocked === "laden" ? "Beschikbaarheid nakijken…" : NEXT_LABEL[step] ?? "Verder"}
                   </button>
                 )}
-                <div className="note">Geen voorschot · dagelijks opzegbaar</div>
+                {/* "Geen voorschot" stond hier naast een betaalstap die om
+                    precies dat voorschot vraagt. */}
+                <div className="note">5% korting bij online betalen · dagelijks opzegbaar</div>
               </div>
             </div>
           </div>

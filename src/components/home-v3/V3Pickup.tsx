@@ -1,12 +1,17 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { DEPOSIT_GROSS } from "@/lib/booking";
+import { euroInt } from "@/lib/verhuur";
 import { ArrowRightIcon, CalendarCheckIcon, MailIcon, PinIcon, RefreshIcon } from "./icons";
 
 const STEPS: { icon: ReactNode; title: string; body: string; tag: string }[] = [
   {
     icon: <CalendarCheckIcon size={19} height={16} />,
     title: "Reserveer online",
-    body: "Kies uw toestel, huurperiode en afhaalmoment (bv. tussen 08:00 en 10:00). U betaalt niets vooraf en reserveren is gratis.",
+    // Reserveren kostte hier lang niets vooraf. Dat klopt niet meer: een
+    // afhaalreservatie legt echte toestellen apart, dus ze wordt bevestigd met
+    // hetzelfde voorschot als een pakket — of meteen volledig betaald.
+    body: `Kies uw toestel, huurperiode en afhaalmoment (bv. tussen 08:00 en 10:00). U betaalt volledig online met 5% korting, of ${euroInt(DEPOSIT_GROSS)} voorschot.`,
     tag: "Stap 01, reservatie",
   },
   {
@@ -18,13 +23,13 @@ const STEPS: { icon: ReactNode; title: string; body: string; tag: string }[] = [
   {
     icon: <PinIcon />,
     title: "Afhalen langs de A12",
-    body: "Uw toestel staat klaar aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar. Wij laden mee in en geven korte uitleg. Breng een ruime koffer of aanhangwagen mee.",
+    body: "Uw toestel staat klaar aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar. Betaalde u een voorschot, dan rekent u hier het saldo af met Bancontact of QR-code. Wij laden mee in en geven korte uitleg.",
     tag: "Stap 03, afhaling",
   },
   {
     icon: <RefreshIcon size={19} />,
     title: "Terugbrengen, klaar",
-    body: "Breng het toestel terug op het afgesproken moment, ma–vr tussen 08:00 en 17:00. De factuur volgt pas na de huurperiode.",
+    body: "Breng het toestel terug op het afgesproken moment, ma–vr tussen 08:00 en 17:00. Uw factuur staat dan al in uw mailbox.",
     tag: "Stap 04, retour",
   },
 ];
@@ -37,7 +42,7 @@ const V3Pickup = () => (
         <h2 className="sec">Liever zelf afhalen? Zo werkt het.</h2>
         <p className="lede">
           Losse toestellen haalt u zelf af aan ons afhaalpunt langs de A12 in Aartselaar — tegen
-          lagere afhaalprijzen. Reserveren gaat online, betalen doet u pas na de huurperiode.
+          lagere afhaalprijzen. Reserveren gaat online, betalen doet u vooraf of bij de afhaling.
         </p>
       </div>
 

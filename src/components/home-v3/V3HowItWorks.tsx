@@ -139,14 +139,17 @@ const STEPS: HiwStep[] = [
     step: "Stap 05",
     tab: "Ophaling of verlenging",
     heading: "Droog gemeten? Wij halen alles op.",
-    body: "De eindmeting bevestigt dat uw woning 100% droog is. Wij plannen de ophaling, u ontvangt de factuur pas na de huurperiode. Niet droog? Dan verlengt u maximaal kosteloos.",
+    body: "De eindmeting bevestigt dat uw woning 100% droog is. Wij plannen de ophaling en sluiten de huur af. Niet droog? Dan verlengt u maximaal kosteloos.",
     linkLabel: "Bereken uw pakket →",
     linkTo: "/verhuur/calculator",
     mock: mockCard(
       <>
         <Step tone="s1" title="Eindmeting: droog" sub="Restvocht ≤ 2%" />
         <Step tone="s2" title="Ophaling ingepland" sub="Vrijdag, 13:00–15:00" />
-        <Step tone="s3" title="Factuur na huurperiode" sub="Geen voorschot betaald" />
+        {/* "Geen voorschot betaald" beloofde iets wat de boekingspagina niet
+            waarmaakt: daar kiest de klant tussen alles vooraf en een vaste
+            orderbevestiging met saldo bij levering. */}
+        <Step tone="s3" title="Factuur na volledige betaling" sub="Geen verrassingen achteraf" />
       </>,
     ),
   },

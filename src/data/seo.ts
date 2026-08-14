@@ -126,7 +126,7 @@ export const SEO = {
   verhuurAfhalen: {
     title: "Losse toestellen huren en afhalen in Aartselaar | Vernast",
     description:
-      "Huur losse bouwdrogers, ventilatoren en kachels tegen lagere afhaalprijzen en haal ze op in ons magazijn in Aartselaar. Online reserveren, niets vooraf betalen.",
+      "Huur losse bouwdrogers, ventilatoren en kachels tegen lagere afhaalprijzen en haal ze op in ons magazijn in Aartselaar. Online reserveren met 5% korting of een voorschot.",
   },
   verhuurBoeking: {
     title: "Uw boeking afronden | Vernast Verhuur",

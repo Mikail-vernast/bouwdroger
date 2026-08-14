@@ -128,3 +128,52 @@ describe("wat het portaal over het geld te horen krijgt", () => {
     expect(payload.balance_due).toBe(222.6);
   });
 });
+
+/*
+  Een afhaling met voorschot. Die bestond niet: bij afhalen was het alles vooraf
+  of een factuur achteraf, en de metadata zette `saldo_bij_levering` daarom hard
+  op "0.00". Nu int de balie het saldo, dus het portaal moet zien dat er nog
+  geld openstaat — anders staat de reservatie er als volledig betaald terwijl de
+  klant met de toestellen buitenwandelt.
+*/
+describe("een afhaalreservatie met voorschot", () => {
+  const afhaling = {
+    id: "cs_test_afhaal_voorschot",
+    object: "checkout.session",
+    created: 1_754_832_770,
+    currency: "eur",
+    amount_total: 5000,
+    payment_status: "paid",
+    client_reference_id: "VRN-2026-AFHAAL22",
+    metadata: {
+      type: "afhaal",
+      referentie: "VRN-2026-AFHAAL22",
+      betaalwijze: "levering",
+      machine: "1× TEddH 30 T",
+      totaal: "84.00",
+      korting: "0.00",
+      btw: "17.64",
+      totaal_incl_btw: "101.64",
+      nu_betaald: "50.00",
+      saldo_bij_levering: "51.64",
+      huurdagen: "7",
+    },
+  } as unknown as Stripe.Checkout.Session;
+
+  it("laat het saldo openstaan dat aan de balie geïnd wordt", () => {
+    const payload = sessionToVernast(afhaling);
+
+    expect(payload.amount_paid).toBe(50);
+    expect(payload.balance_due).toBe(51.64);
+    expect(payload.total_price).toBe(101.64);
+    expect(payload.payment_choice).toBe("levering");
+  });
+
+  it("blijft een afhaling, geen levering met een pakket", () => {
+    const payload = sessionToVernast(afhaling);
+
+    expect(payload.situatie).toBe("afhaling");
+    expect(payload.package_tier).toBeNull();
+    expect(payload.machine).toBe("1× TEddH 30 T");
+  });
+});
