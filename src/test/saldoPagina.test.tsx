@@ -46,13 +46,33 @@ describe("VerhuurSaldoPage", () => {
   it("toont wat er nog te betalen is, niet het ordertotaal", async () => {
     renderAt("/verhuur/saldo?session_id=cs_test_boeking");
 
-    // Het bedrag op de knop is waar de klant op klikt: dat moet het saldo zijn.
+    // Het grote bedrag bovenaan is waar de klant op afgaat: dat moet het saldo
+    // zijn, niet het ordertotaal.
     await waitFor(() => {
-      expect(screen.getByRole("button", { name: /€ 292,55 betalen/ })).toBeInTheDocument();
+      expect(screen.getByText("€ 292,55")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("€ 342,55")).toBeInTheDocument();
-    expect(screen.getByText("− € 50,00")).toBeInTheDocument();
+    // En de twee getallen die dat verklaren staan eronder, in één regel.
+    expect(
+      screen.getByText(/van € 342,55 incl\. btw — € 50,00 is al voldaan/),
+    ).toBeInTheDocument();
+  });
+
+  it("vraagt meteen een betaalsessie aan zodra er iets openstaat", async () => {
+    renderAt("/verhuur/saldo?session_id=cs_test_boeking");
+
+    /*
+      Het betaalformulier staat sinds kort in de pagina zelf in plaats van achter
+      een knop naar Stripe. Blijft deze POST uit, dan ziet de klant een scherm
+      met een bedrag en geen enkele manier om het af te rekenen.
+    */
+    await waitFor(() => {
+      const calls = (fetch as unknown as { mock: { calls: unknown[][] } }).mock.calls;
+      const post = calls.find(([, init]) => (init as RequestInit | undefined)?.method === "POST");
+      expect(post).toBeTruthy();
+      expect(post?.[0]).toBe("/api/saldo");
+      expect((post?.[1] as RequestInit).body).toContain("cs_test_boeking");
+    });
   });
 
   it("stuurt het sessie-ID van de betaling mee terug van Stripe", async () => {

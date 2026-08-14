@@ -18,6 +18,12 @@
  * `POST` maakt de betaalsessie. Zodra ze betaald is, werkt
  * `deliverBalancePayment` de bestaande order in het portaal bij, en maakt dát
  * de factuur die naar de klant vertrekt.
+ *
+ * De betaling zelf gebeurt in onze eigen pagina (`ui_mode: "elements"`), net als
+ * bij een boeking. Dat was hier eerst een knop naar de gehoste pagina van
+ * Stripe: de klant scande op de werf een QR, kreeg ons scherm te zien, en werd
+ * daarna nog eens doorgestuurd naar een pagina in een andere vormtaal met een
+ * ander adres in de balk. Eén stap minder, en het blijft van ons.
  */
 import Stripe from "stripe";
 import { isReference } from "../src/lib/booking.js";
@@ -37,8 +43,23 @@ const SESSION_ID = /^cs_[A-Za-z0-9_]{1,255}$/;
  */
 const SESSION_MINUTES = 60;
 
-/** Zelfde drempel per IP als de verlengpagina; dit endpoint praat met Stripe. */
-const MAX_LOOKUPS = 20;
+/**
+ * Zelfde label als de boekingspagina gebruikt, zodat beide betaalstromen in het
+ * Stripe-dashboard onder dezelfde integratie vallen. Zie `api/checkout.ts`.
+ */
+const INTEGRATION_ID = "vernast-verhuur-boeking-kwtdrmzp";
+
+/**
+ * Drempel per IP; dit endpoint praat met Stripe.
+ *
+ * Ruimer dan de verlengpagina omdat één pagebezoek er hier twee kost: de GET
+ * die de bedragen ophaalt en de POST die de betaalsessie aanmaakt. Dat laatste
+ * gebeurde vroeger pas bij een klik op "betalen", maar het formulier staat nu in
+ * de pagina zelf en moet er dus meteen zijn. Met deze twee grenzen blijft het
+ * aantal toegelaten bezoeken gelijk aan wat het was.
+ */
+const MAX_LOOKUPS = 40;
+const MAX_ATTEMPTS = 60;
 
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -70,6 +91,14 @@ interface Balance {
   saldo: number;
   /** Er valt niets meer te betalen — alles vooraf voldaan of het saldo is net binnen. */
   voldaan: boolean;
+  /*
+    De huurperiode zoals ze op de bevestiging stond. Zegt de klant meteen waar
+    deze rekening over gaat; sessies van vóór de beschikbaarheidscontrole dragen
+    deze sleutels niet, en dan blijft de regel gewoon weg.
+  */
+  start: string;
+  eind: string;
+  dagen: number;
 }
 
 /**
@@ -93,6 +122,9 @@ function readBalance(session: Stripe.Checkout.Session): Balance {
     betaald: paid,
     saldo: outstanding,
     voldaan: outstanding <= 0 || Boolean(meta(session, BALANCE_FLAG)),
+    start: meta(session, "huur_start"),
+    eind: meta(session, "huur_eind"),
+    dagen: Number(meta(session, "huurdagen")) || 0,
   };
 }
 
@@ -131,7 +163,7 @@ export async function GET(request: Request): Promise<Response> {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) return json({ error: "Betalen is nog niet geconfigureerd op deze omgeving." }, 500);
 
-  const limit = gate(clientIp(request), MAX_LOOKUPS);
+  const limit = gate(clientIp(request), MAX_LOOKUPS, MAX_ATTEMPTS);
   const attempt = limit.attempt();
   if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
 
@@ -178,9 +210,17 @@ export async function GET(request: Request): Promise<Response> {
 
 export async function POST(request: Request): Promise<Response> {
   const key = process.env.STRIPE_SECRET_KEY;
-  if (!key) return json({ error: "Betalen is nog niet geconfigureerd op deze omgeving." }, 500);
+  /*
+    Zie `api/checkout.ts`: de publiceerbare sleutel gaat mee in het antwoord in
+    plaats van via een VITE_-variabele de bundel in, zodat ze altijd bij dezelfde
+    omgeving hoort als de geheime sleutel hierboven.
+  */
+  const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
+  if (!key || !publishableKey) {
+    return json({ error: "Betalen is nog niet geconfigureerd op deze omgeving." }, 500);
+  }
 
-  const limit = gate(clientIp(request), MAX_LOOKUPS);
+  const limit = gate(clientIp(request), MAX_LOOKUPS, MAX_ATTEMPTS);
   const attempt = limit.attempt();
   if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
 
@@ -217,12 +257,13 @@ export async function POST(request: Request): Promise<Response> {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       /*
-        De gehoste betaalpagina van Stripe, niet ons eigen formulier. De klant
-        opent deze link op zijn eigen telefoon nadat hij een QR gescand heeft;
-        daar is de pagina van Stripe — met Bancontact, Apple Pay en Google Pay
-        zonder dat wij iets bouwen — precies wat je wil.
+        Hetzelfde formulier als de boekingspagina, binnen ons eigen scherm. Zie
+        `api/checkout.ts` voor waarom het Elements is en niet `embedded_page`:
+        Apple Pay werkt zo ook buiten Safari.
       */
+      ui_mode: "elements",
       locale: "nl",
+      integration_identifier: INTEGRATION_ID,
       client_reference_id: balance.referentie,
       /*
         Het e-mailadres van de boeking. De klant gaf het bij het bestellen al —
@@ -250,9 +291,12 @@ export async function POST(request: Request): Promise<Response> {
       /*
         Terug naar deze pagina, met beide sessies erbij: de boeking om te tonen
         en de betaling om af te handelen. Stripe vult de tweede zelf in.
+
+        Eén `return_url` in plaats van success/cancel: Bancontact en de wallets
+        sturen de betaler even naar hun eigen app, en hierlangs komt hij terug op
+        het scherm waar hij vandaan kwam.
       */
-      success_url: `${origin}/verhuur/saldo?session_id=${id}&saldo_session={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/verhuur/saldo?session_id=${id}`,
+      return_url: `${origin}/verhuur/saldo?session_id=${id}&saldo_session={CHECKOUT_SESSION_ID}`,
       metadata: {
         /*
           Waaraan de webhook een saldobetaling herkent. Zonder deze twee zou de
@@ -269,12 +313,17 @@ export async function POST(request: Request): Promise<Response> {
       expires_at: Math.floor(Date.now() / 1000) + SESSION_MINUTES * 60,
     });
 
-    if (!session.url) {
-      console.error(`[saldo] sessie ${session.id} kwam zonder betaal-URL terug`);
+    if (!session.client_secret) {
+      console.error(`[saldo] sessie ${session.id} kwam zonder client_secret terug`);
       return json({ error: "Betaling kon niet gestart worden." }, 502);
     }
 
-    return json({ url: session.url, sessionId: session.id, bedrag: balance.saldo });
+    return json({
+      clientSecret: session.client_secret,
+      sessionId: session.id,
+      publishableKey,
+      bedrag: balance.saldo,
+    });
   } catch (error: unknown) {
     // De reden blijft binnen; in de logs staat ze wel. Zelfde afweging als in
     // `api/checkout.ts`: Stripe-foutteksten zeggen iets over onze configuratie.

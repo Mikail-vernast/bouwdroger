@@ -153,3 +153,69 @@
   color: #141414;
   border-color: #141414;
 }
+
+/* ------------------------------------------------------------
+   Alleen de saldopagina (`/verhuur/saldo`).
+
+   Die wordt bijna altijd geopend door iemand die net een QR gescand heeft en
+   met een telefoon in zijn hand op een werf staat. De eerste vraag is dan
+   "hoeveel", niet "welke referentie" — vandaar het bedrag bovenaan en groot, en
+   de rest eronder als rustige regels. Het formulier zelf is hetzelfde
+   `.paybox`-kader als in de wizard.
+   ------------------------------------------------------------ */
+.vh-saldo .sldtop {
+  margin: 0 0 18px;
+  padding: 22px 20px 20px;
+  border-radius: 16px;
+  background: var(--page);
+  text-align: center;
+}
+
+.vh-saldo .sldlabel {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.vh-saldo .sldsom {
+  margin-top: 6px;
+  font-size: clamp(38px, 9vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.vh-saldo .sldsub {
+  margin: 10px 0 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.vh-saldo .sldlines {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.vh-saldo .sldline {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  font-size: 14px;
+}
+
+.vh-saldo .sldline dt {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.vh-saldo .sldline dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}

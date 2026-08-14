@@ -9,16 +9,27 @@
  * De link draagt het sessie-ID van de boeking, net als de verlengpagina. Alles
  * wat hier op het scherm komt, komt van de server: het bedrag valt niet in de
  * URL te veranderen.
+ *
+ * Het betaalformulier staat in deze pagina zelf, hetzelfde als in de
+ * boekingswizard. Er stond hier eerst een knop naar de gehoste pagina van
+ * Stripe: iemand die op een werf net een QR gescand heeft, kreeg dan nóg een
+ * sprong naar een ander adres in een andere vormtaal. De betaalsessie wordt
+ * daarom meteen aangemaakt zodra blijkt dat er iets openstaat.
  */
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
+import type { Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
+import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
 import { CheckIcon } from "@/components/verhuur/icons";
+import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
 import { euro } from "@/lib/verhuur";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
+import "@/styles/verhuur-betaling.css";
 
 interface Saldo {
   referentie: string;
@@ -27,9 +38,21 @@ interface Saldo {
   betaald: number;
   saldo: number;
   voldaan: boolean;
+  /** Huurperiode zoals ze op de bevestiging stond; leeg bij oudere sessies. */
+  start?: string;
+  eind?: string;
+  dagen?: number;
 }
 
 type Status = "laden" | "open" | "voldaan" | "onbekend";
+
+/** "2026-09-09" → "9 sep 2026". Leeg als de sessie de datum niet draagt. */
+function datum(waarde: string | undefined): string {
+  if (!waarde) return "";
+  const parsed = new Date(`${waarde}T12:00:00`);
+  if (Number.isNaN(parsed.getTime())) return "";
+  return parsed.toLocaleDateString("nl-BE", { day: "numeric", month: "short", year: "numeric" });
+}
 
 const VerhuurSaldoPage = () => {
   const [searchParams] = useSearchParams();
@@ -43,8 +66,15 @@ const VerhuurSaldoPage = () => {
 
   const [status, setStatus] = useState<Status>("laden");
   const [saldo, setSaldo] = useState<Saldo | null>(null);
-  const [bezig, setBezig] = useState(false);
+  const [clientSecret, setClientSecret] = useState("");
+  const [stripeJs, setStripeJs] = useState<Promise<StripeJs | null> | null>(null);
   const [fout, setFout] = useState("");
+  /*
+    Eén betaalsessie per pagebezoek. Zonder deze vlag maakt elke her-render die
+    `saldo` aanraakt een nieuwe sessie bij Stripe aan — en elke sessie telt mee
+    voor de drempel per IP in `api/saldo.ts`.
+  */
+  const sessieGevraagd = useRef(false);
 
   const laad = useCallback(async () => {
     if (!sessionId) {
@@ -70,28 +100,54 @@ const VerhuurSaldoPage = () => {
     void laad();
   }, [laad]);
 
-  const betaal = async () => {
-    setFout("");
-    setBezig(true);
-    try {
-      const response = await fetch("/api/saldo", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ session_id: sessionId }),
-      });
-      const data = (await response.json()) as { url?: string; error?: string };
-      if (!response.ok || !data.url) throw new Error(data.error ?? "mislukt");
-      // Weg van onze pagina: vanaf hier staat Stripe aan het stuur.
-      window.location.href = data.url;
-    } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : "";
-      setFout(message || "Betalen lukte niet. Bel ons gerust op 03 689 90 65.");
-      setBezig(false);
-    }
-  };
+  /*
+    Stripe.js alvast binnenhalen terwijl de boeking opgehaald wordt. Zie
+    `VerhuurBoekingPage`: de import injecteert het script als neveneffect, zodat
+    het laden van js.stripe.com niet achter onze eigen aanvraag komt te staan.
+  */
+  useEffect(() => {
+    void import("@stripe/stripe-js");
+  }, []);
+
+  /* De betaalsessie zodra vaststaat dát er iets openstaat. */
+  useEffect(() => {
+    if (status !== "open" || sessieGevraagd.current) return;
+    sessieGevraagd.current = true;
+
+    const start = async () => {
+      try {
+        const response = await fetch("/api/saldo", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ session_id: sessionId }),
+        });
+        const data = (await response.json()) as {
+          clientSecret?: string;
+          publishableKey?: string;
+          error?: string;
+        };
+        if (!response.ok || !data.clientSecret || !data.publishableKey) {
+          throw new Error(data.error ?? "mislukt");
+        }
+        const { loadStripe } = await import("@stripe/stripe-js");
+        setStripeJs(loadStripe(data.publishableKey));
+        setClientSecret(data.clientSecret);
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : "";
+        setFout(message || "Betalen lukte niet. Bel ons gerust op 03 689 90 65.");
+      }
+    };
+
+    void start();
+  }, [status, sessionId]);
+
+  const periode =
+    saldo && datum(saldo.start) && datum(saldo.eind)
+      ? `${datum(saldo.start)} — ${datum(saldo.eind)}${saldo.dagen ? ` · ${saldo.dagen} dagen` : ""}`
+      : "";
 
   return (
-    <div className="vh-book vh-ext">
+    <div className="vh-book vh-ext vh-saldo">
       <PageMeta
         title="Uw saldo betalen | Vernast Verhuur"
         description="Reken het openstaande bedrag van uw huur af."
@@ -100,7 +156,7 @@ const VerhuurSaldoPage = () => {
       <V3Header lightAfter={-1} />
 
       <section className="main">
-        <div className="wrap" style={{ maxWidth: 640 }}>
+        <div className="wrap" style={{ maxWidth: 680 }}>
           <div className="blk">
             {status === "laden" && (
               <div className="blkh">
@@ -144,76 +200,57 @@ const VerhuurSaldoPage = () => {
 
             {status === "open" && saldo && (
               <>
-                <div className="blkh">
-                  <h2>Uw saldo betalen</h2>
+                {/*
+                  Het bedrag eerst en groot. Dit scherm wordt geopend met een
+                  telefoon in de hand op een werf: de eerste vraag is "hoeveel",
+                  niet "welke referentie".
+                */}
+                <div className="sldtop">
+                  <span className="sldlabel">Nu te betalen</span>
+                  <div className="sldsom">{euro(saldo.saldo)}</div>
+                  <p className="sldsub">
+                    van {euro(saldo.totaal)} incl. btw — {euro(saldo.betaald)} is al voldaan
+                  </p>
                 </div>
 
-                <dl
-                  style={{
-                    margin: "16px 0 24px",
-                    padding: "18px 20px",
-                    background: "var(--page)",
-                    borderRadius: 12,
-                    display: "grid",
-                    gap: 12,
-                  }}
-                >
+                <dl className="sldlines">
                   {[
+                    ["Uw huur", saldo.pakket],
+                    ["Periode", periode],
                     ["Referentie", saldo.referentie],
-                    ["Pakket", saldo.pakket],
-                    ["Totaal incl. btw", euro(saldo.totaal)],
-                    ["Reeds betaald", `− ${euro(saldo.betaald)}`],
                   ]
                     .filter(([, waarde]) => waarde)
                     .map(([label, waarde]) => (
-                      <div
-                        key={label}
-                        style={{ display: "flex", justifyContent: "space-between", gap: 16 }}
-                      >
-                        <dt style={{ color: "var(--muted)" }}>{label}</dt>
-                        <dd style={{ margin: 0, fontWeight: 600, textAlign: "right" }}>{waarde}</dd>
+                      <div key={label} className="sldline">
+                        <dt>{label}</dt>
+                        <dd>{waarde}</dd>
                       </div>
                     ))}
-
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: 16,
-                      borderTop: "1px solid rgba(0,0,0,.08)",
-                      paddingTop: 12,
-                      fontSize: 18,
-                    }}
-                  >
-                    <dt style={{ fontWeight: 700 }}>Nu te betalen</dt>
-                    <dd style={{ margin: 0, fontWeight: 800 }}>{euro(saldo.saldo)}</dd>
-                  </div>
                 </dl>
 
-                {fout && (
-                  <p style={{ color: "var(--red)", marginBottom: 16 }} role="alert">
-                    {fout}
-                  </p>
-                )}
+                <div className="paybox">
+                  {clientSecret && stripeJs ? (
+                    <CheckoutElementsProvider
+                      key={clientSecret}
+                      stripe={stripeJs}
+                      options={{ clientSecret, elementsOptions: { appearance: STRIPE_APPEARANCE } }}
+                    >
+                      <BoekingBetaalformulier bedrag={euro(saldo.saldo)} />
+                    </CheckoutElementsProvider>
+                  ) : fout ? (
+                    <p className="perr" role="alert">
+                      {fout}
+                    </p>
+                  ) : (
+                    <p className="payload">Betaalformulier laden…</p>
+                  )}
+                </div>
 
-                {/*
-                  `btn-r` erbij: `btn` alleen zet de vorm, de kleur komt van de
-                  variant. Zonder die tweede klasse staat de belangrijkste knop
-                  van de pagina er als kale tekst bij.
-                */}
-                <button
-                  className="btn btn-r"
-                  type="button"
-                  style={{ width: '100%' }}
-                  disabled={bezig}
-                  onClick={() => void betaal()}
-                >
-                  {bezig ? "Even geduld…" : `${euro(saldo.saldo)} betalen`}
-                </button>
-
-                <p style={{ marginTop: 14, fontSize: 13.5, color: "var(--muted)", lineHeight: 1.6 }}>
-                  U betaalt met Bancontact, kaart, Apple Pay of Google Pay. Zodra de betaling
-                  binnen is, sturen wij uw factuur automatisch per mail.
+                <p className="paynote">
+                  <CheckIcon size={13} strokeWidth={3} />
+                  <span>
+                    Zodra de betaling binnen is, sturen wij uw factuur automatisch per mail.
+                  </span>
                 </p>
               </>
             )}
