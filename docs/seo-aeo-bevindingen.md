@@ -56,52 +56,64 @@ redirects van de oude Shopify-URL's staan al klaar in `vercel.json`; zie
 blijven daar ongemoeid** — die staan al bij one.com (`mailpod11-cph3`), niet bij
 Shopify.
 
-### 2. Search Console-property — aangemaakt, nog niet geverifieerd
+### 2. Search Console-property — opgelost op 2026-08-14
 
-Op 2026-08-14 zijn er twee properties aangemaakt via de API:
-`sc-domain:vernast-bouwdrogers.be` en `https://vernast-bouwdrogers.be/`. Beide
-staan op **`siteUnverifiedUser`**, en zonder verificatie weigert de API zowel
-het indienen van de sitemap als elk dekkingsrapport.
+Twee properties, allebei `siteOwner`: `sc-domain:vernast-bouwdrogers.be` (de
+leidende — dekt apex, `www` en beide protocollen) en
+`https://vernast-bouwdrogers.be/`. De sitemap is op allebei ingediend en werd
+binnen twee seconden opgehaald: **25 URL's, 0 fouten, 0 waarschuwingen**.
 
-Verifiëren kan niet vanaf hier: het OAuth-token achter de `gsc`-MCP heeft enkel
-de scope `webmasters`, niet `siteverification`, en de OAuth-client staat geen
-loopback-redirect toe — een incrementele autorisatie vanaf deze machine loopt
-dus dood op `redirect_uri_mismatch`. Verificatie gebeurt in de UI: bij een
-`sc-domain`-property is een **DNS-TXT-record bij one.com** de enige methode.
+Twee dingen om te weten voor de volgende keer:
 
-Zolang dat openstaat is er nul indexeringsfeedback: geen dekkingsrapport, geen
-zoekwoorden. Dat blokkeert ook bevinding 9 — welke van twee overlappende
-pagina's moet wijken, valt zonder vertoningsdata niet te beslissen.
+- **De `gsc`-MCP kan geen `sc-domain:`-properties aan** — hij plakt er `https://`
+  voor en faalt op "not a valid Search Console site URL". Aanmaken, sitemaps en
+  alles wat de domain-property raakt gaat rechtstreeks tegen
+  `webmasters/v3`, met het OAuth-token uit
+  `~/.config/gsc/oauth-credentials.json`.
+- **Verifiëren kan niet vanaf hier.** Dat token heeft enkel de scope
+  `webmasters`, niet `siteverification`, en de OAuth-client weigert een
+  loopback-redirect (`redirect_uri_mismatch`), dus incrementele autorisatie
+  loopt dood. Een property *aanmaken* lukt wel via de API — die komt dan binnen
+  als `siteUnverifiedUser`; het verifiëren zelf is een handmatige stap in de UI.
 
-Zodra de property geverifieerd is: sitemap indienen op
-`https://vernast-bouwdrogers.be/sitemap.xml` (25 URL's).
+Vertoningsdata is er nog niet — een nieuw domein is bij Google eerst "URL is
+onbekend". Zodra die binnenloopt is bevinding 9 pas te beslissen.
 
 ---
 
 ## Feitelijke claims die nagekeken moeten worden
 
-### 3. `aggregateRating` 4,8 uit 412 Google reviews
+### 3. Beoordelingscijfers — opgelost op 2026-08-14
 
-Staat in de LocalBusiness-schema van `/`, `/contact` en `/over-ons`, en
-zichtbaar in de hero als "4,8 / 5 · 412 Google reviews". Niet te verifiëren:
-Trustindex bevestigt enkel "boven 4,5" zonder aantal, Solvari toont 4,8 op
-**5** ervaringen. Het cijfer komt van de groep (dezelfde 412 staat op de
-vochtbestrijdingssite), niet van een Google-profiel van Vernast Bouwdrogers —
-dat bestaat nog niet.
+Er stonden **drie verschillende cijfers** op de site, geen enkele met een bron:
+"4,8 / 5 · 412 Google reviews" in de hero, de statistiekbalk en de
+`aggregateRating` van `/`; "Beoordeeld met 4.9/5 sterren" op `/levering`; en
+"4.9/5" op élke pakketpagina. De 412 komt van de groep — dezelfde 412 staat op
+de vochtbestrijdingssite — terwijl de schema ze aan Vernast Bouwdrogers
+toeschreef, dat nog geen eigen Google Business Profile heeft. Trustindex
+bevestigt enkel "boven 4,5" zonder aantal; Solvari toont 4,8 op **5**
+ervaringen.
 
-Twee risico's: Google rekent een rating die niet bij de gemarkeerde entiteit
-hoort af als spammy structured data (handmatige maatregel), en een niet-hard
-te maken cijfer op een handelssite is een misleidende handelspraktijk.
+Alles eruit. `REVIEWS` in `src/lib/site.ts` staat nu op `null` en alle drie de
+verbruikers guarden erop, dus **één regel terugzetten brengt hero,
+statistiekbalk en schema tegelijk terug** zodra er een echt cijfer is. Waar het
+weghalen een gat liet, staat nu een belofte uit onze eigen voorwaarden (100%
+droog-garantie) in plaats van een claim over onszelf.
 
-Nodig: het werkelijke aantal uit het Google Business Profile, of het cijfer
-weghalen tot het profiel er is. Bron: `REVIEWS` in `src/lib/site.ts`.
+Gecontroleerd op de build: `aggregateRating`, `412 Google`, `4,8/5`, `4.9/5` en
+`Beoordeeld met` komen in **nul** van de 105 pagina's nog voor.
 
-### 4. Verzonnen klantenquotes staan live
+### 4. Verzonnen klantenquotes — opgelost op 2026-08-14
 
-`Marc D.` en `An V.` op `/waterschade`, `Luc B.` en `Hilde V.` op
-`/renovatie` — geprerenderd en zichtbaar. Zelfde categorie als bevinding 3.
-(`src/components/Reviews.tsx` bevat er nog drie, maar die component wordt
-nergens gerenderd — dode code.)
+Zes stuks, niet vier: `Marc D.` en `An V.` op `/waterschade`, `Luc B.` en
+`Hilde V.` op `/renovatie`, én `Björn C.` en `Pieter M.` op `/nieuwbouw`. Plus
+`Pieter D.` in het social-proof-blok van PackageDetailPage, dat op **elke**
+pakketpagina meeprerenderde. Alle reviewsecties zijn verwijderd; van het
+social-proof-blok blijven de vier punten over die in de voorwaarden staan.
+
+`src/components/Reviews.tsx` en `src/components/Hero.tsx` zijn geschrapt: allebei
+dode code (nergens geïmporteerd) met dezelfde soort claim erin — Hero.tsx had
+nog een vierde hardcoded "4.8 op Google Reviews".
 
 ### 5. Geen ondernemingsnummer
 
@@ -109,17 +121,36 @@ Wettelijk verplicht op een Belgische handelssite. Het verzonnen
 `BTW BE 0123.456.789` is er op 07-08 uitgehaald; het echte nummer staat er nog
 altijd niet in. Staat open sinds de vorige ronde.
 
+Op 14-08 opnieuw geprobeerd het zelf te vinden: het staat niet in deze repo,
+niet in de vault, en **ook niet op `vernast.be` zelf**. Een nummer uit een
+bedrijvenregister overtypen is hier het verkeerde soort zekerheid — een fout
+ondernemingsnummer op een handelssite is erger dan geen. Dit moet van Brent
+komen.
+
 ---
 
 ## Structureel
 
-### 6. Drie namen voor één bedrijf
+### 6. Drie namen voor één bedrijf — grotendeels opgelost op 2026-08-14
 
-De schema zegt `Vernast Bouwdrogers`, het logo in de navbar en footer zegt
-`Vernast Verhuur` (ook op de klassieke pagina's), twee paginatitels eindigen op
-`| Vernast Verhuur`, het e-mailadres is `info@vernast-verhuur.be` en het
-toekomstige domein is `bouwdrogerservice.be`. Voor een knowledge graph zijn dat
-vier entiteiten. Eén naam kiezen en overal doorvoeren.
+**`Vernast Bouwdrogers` is de naam**, en dat was geen smaakkwestie meer: de
+schema zei het al en het domein `vernast-bouwdrogers.be` bevestigt het. In de
+tekst is dat overal doorgevoerd — footers, alt-teksten, de magazijnvermelding en
+de copyrightregel op `/verhuur/afhalen`. De twee paginatitels op
+`| Vernast Verhuur` eindigen nu op `| Vernast`, gelijk aan de twintig andere.
+
+Twee dingen die code niet kan oplossen:
+
+- **`src/assets/logo-white.png` heeft "Verhuur" in het beeld gebrand.** Dat is
+  het logo van de klassieke `Navbar`, dus op `/levering`, `/machines`,
+  `/prijzen` en de pakketpagina's staat de oude naam nog letterlijk in het
+  plaatje. Vraagt een nieuw logobestand, geen commit.
+- **Het e-mailadres is `info@vernast-verhuur.be`.** Een vierde variant van de
+  naam, en die staat in `CONTACT` én in elke verstuurde mail.
+
+Kleinere inconsistentie die bij deze ronde opviel: de statistiekbalk op de
+homepage zegt "450+ woningen en werven", de pakketpagina's zeggen "500+
+projecten afgerond". Allebei plausibel, maar niet allebei waar.
 
 ### 7. Drie namen voor dezelfde machines
 
