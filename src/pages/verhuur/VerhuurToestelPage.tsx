@@ -56,7 +56,7 @@ const PICKUP_STEPS = [
   },
   {
     title: "Afhalen op de A12",
-    body: "Uw toestel staat klaar aan ons afhaalpunt. Een openstaand saldo rekent u hier af met Bancontact of QR-code. Breng een ruime koffer, break of aanhangwagen mee.",
+    body: "Uw toestel staat klaar aan ons afhaalpunt. Een openstaand saldo scant en betaalt u hier met Bancontact, kaart of Apple Pay. Breng een ruime koffer, break of aanhangwagen mee.",
   },
   {
     title: "Terugbrengen, klaar",

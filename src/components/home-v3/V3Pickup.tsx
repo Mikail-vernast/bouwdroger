@@ -23,7 +23,7 @@ const STEPS: { icon: ReactNode; title: string; body: string; tag: string }[] = [
   {
     icon: <PinIcon />,
     title: "Afhalen langs de A12",
-    body: "Uw toestel staat klaar aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar. Betaalde u een voorschot, dan rekent u hier het saldo af met Bancontact of QR-code. Wij laden mee in en geven korte uitleg.",
+    body: "Uw toestel staat klaar aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar. Betaalde u een voorschot, dan scant u hier onze QR-code en rekent u af met Bancontact, kaart of Apple Pay. Wij laden mee in.",
     tag: "Stap 03, afhaling",
   },
   {

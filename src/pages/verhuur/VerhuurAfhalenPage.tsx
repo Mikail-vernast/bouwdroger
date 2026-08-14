@@ -825,8 +825,9 @@ const VerhuurAfhalenPage = () => {
                 <span className="pob">{Math.round(ONLINE_DISCOUNT * 100)}% korting</span>
                 <b>Volledig online betalen</b>
                 <span>
-                  Betaal nu met Bancontact of kaart. U krijgt {Math.round(ONLINE_DISCOUNT * 100)}%
-                  korting op uw hele reservatie en uw factuur staat meteen in uw mailbox.
+                  Betaal nu met Bancontact, kaart, Apple Pay of iDEAL. U krijgt{" "}
+                  {Math.round(ONLINE_DISCOUNT * 100)}% korting op uw hele reservatie en uw factuur
+                  staat meteen in uw mailbox.
                 </span>
                 {savings > 0 && <span className="pos">U bespaart {euro(savings)}</span>}
               </button>
@@ -836,9 +837,14 @@ const VerhuurAfhalenPage = () => {
                 onClick={() => setPayment("afhaling")}
               >
                 <b>{euro(DEPOSIT_GROSS)} nu, rest bij afhaling</b>
+                {/*
+                  "via Bancontact of QR-code" zette de QR naast de betaalwijzen,
+                  terwijl die enkel de weg naar het betaalscherm is — daar staan
+                  dezelfde knoppen als hier.
+                */}
                 <span>
-                  Bevestig uw reservatie met {euro(DEPOSIT_GROSS)}. Het saldo betaalt u in ons
-                  magazijn wanneer u de toestellen komt halen, via Bancontact of QR-code.
+                  Bevestig uw reservatie met {euro(DEPOSIT_GROSS)}. Het saldo scant en betaalt u in
+                  ons magazijn wanneer u de toestellen komt halen: Bancontact, kaart of Apple Pay.
                 </span>
                 <span className="pos">Factuur na volledige betaling</span>
               </button>
@@ -926,8 +932,8 @@ const VerhuurAfhalenPage = () => {
                 {balanceDue > 0 && (
                   <>
                     {" "}
-                    Het saldo van <b>{euro(balanceDue)}</b> rekent u af bij de afhaling, met
-                    Bancontact of via de QR-code die wij tonen.
+                    Het saldo van <b>{euro(balanceDue)}</b> rekent u af bij de afhaling: u scant
+                    onze QR-code en betaalt met Bancontact, kaart of Apple Pay.
                   </>
                 )}
               </p>

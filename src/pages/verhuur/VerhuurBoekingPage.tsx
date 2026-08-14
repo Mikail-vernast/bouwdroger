@@ -1324,8 +1324,8 @@ const VerhuurBoekingPage = () => {
                     <span className="pob">5% korting</span>
                     <b>Volledig online betalen</b>
                     <span>
-                      Betaal nu met Bancontact of kaart. U krijgt 5% korting op uw volledige pakket
-                      en uw factuur staat meteen in uw mailbox.
+                      Betaal nu met Bancontact, kaart, Apple Pay of iDEAL. U krijgt 5% korting op
+                      uw volledige pakket en uw factuur staat meteen in uw mailbox.
                     </span>
                     <span className="pos">
                       U bespaart {euro(withVat(Math.round(total * ONLINE_DISCOUNT * 100) / 100))}
@@ -1337,9 +1337,11 @@ const VerhuurBoekingPage = () => {
                     onClick={() => setPayment("levering")}
                   >
                     <b>{euro(DEPOSIT_GROSS)} nu, rest bij levering</b>
+                    {/* De QR is de weg naar het betaalscherm, geen betaalwijze:
+                        daar staan dezelfde knoppen als hier. */}
                     <span>
-                      Bevestig uw boeking met {euro(DEPOSIT_GROSS)}. Het saldo betaalt u ter
-                      plaatse bij levering, via Bancontact of QR-code.
+                      Bevestig uw boeking met {euro(DEPOSIT_GROSS)}. Het saldo scant en betaalt u
+                      ter plaatse bij levering: Bancontact, kaart of Apple Pay.
                     </span>
                     <span className="pos">Factuur na volledige betaling</span>
                   </button>

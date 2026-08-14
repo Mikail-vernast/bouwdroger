@@ -928,10 +928,14 @@
 .vh-book .payopt,.vh-pick .payopt{position:relative;text-align:left;font-family:var(--fb);background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 16px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:6px}
 .vh-book .payopt:hover,.vh-pick .payopt:hover{border-color:rgba(200,16,46,.4);transform:translateY(-2px)}
 .vh-book .payopt.sel,.vh-pick .payopt.sel{border-color:var(--red);box-shadow:0 0 0 1.5px var(--red) inset;background:rgba(200,16,46,.03)}
-.vh-book .payopt .pob,.vh-pick .payopt .pob{position:absolute;top:-9px;right:12px;font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:99px;padding:4px 10px}
+/* Bewust het bodyfont en niet `--fm`: dat is JetBrains Mono, maar de .vh-book-schil
+   definieert die variabele als enige niet. Op de boekingspagina viel `var(--fm)`
+   dus stil terug op het geërfde font en op de afhaalpagina niet — twee keer
+   dezelfde kaart, twee lettertypes. */
+.vh-book .payopt .pob,.vh-pick .payopt .pob{position:absolute;top:-9px;right:12px;font-family:var(--fb);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:99px;padding:4px 10px}
 .vh-book .payopt b,.vh-pick .payopt b{font-size:14.5px;font-weight:700}
 .vh-book .payopt span,.vh-pick .payopt span{font-size:12.5px;color:var(--txt-mid);line-height:1.5}
-.vh-book .payopt .pos,.vh-pick .payopt .pos{font-family:var(--fm);font-size:11px;color:var(--red);font-weight:600}
+.vh-book .payopt .pos,.vh-pick .payopt .pos{font-family:var(--fb);font-size:11px;color:var(--red);font-weight:600}
 @media (max-width:640px){
 .vh-book .payopts,.vh-pick .payopts{grid-template-columns:1fr}}
 .vh-book .cok{display:flex;gap:11px;align-items:flex-start;margin-top:16px;font-size:12.5px;color:var(--txt-mid);line-height:1.55}
@@ -1085,10 +1089,10 @@
 .vh-book .payopt{position:relative;text-align:left;font-family:var(--fb);background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 16px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:6px}
 .vh-book .payopt:hover{border-color:rgba(200,16,46,.4);transform:translateY(-2px)}
 .vh-book .payopt.sel{border-color:var(--red);box-shadow:0 0 0 1.5px var(--red) inset;background:rgba(200,16,46,.03)}
-.vh-book .payopt .pob{position:absolute;top:-9px;right:12px;font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:99px;padding:4px 10px}
+.vh-book .payopt .pob{position:absolute;top:-9px;right:12px;font-family:var(--fb);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:99px;padding:4px 10px}
 .vh-book .payopt b{font-size:14.5px;font-weight:700}
 .vh-book .payopt span{font-size:12.5px;color:var(--txt-mid);line-height:1.5}
-.vh-book .payopt .pos{font-family:var(--fm);font-size:11px;color:var(--red);font-weight:600}
+.vh-book .payopt .pos{font-family:var(--fb);font-size:11px;color:var(--red);font-weight:600}
 @media (max-width:640px){
 .vh-book .payopts{grid-template-columns:1fr}}
 .vh-book .cok{display:flex;gap:11px;align-items:flex-start;margin-top:16px;font-size:12.5px;color:var(--txt-mid);line-height:1.55}
