@@ -61,6 +61,12 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/RealisatiesPage")).default }),
       },
       {
+        path: "realisaties/:slug",
+        lazy: async () => ({ Component: (await import("./pages/RealisatieDetailPage")).default }),
+        getStaticPaths: async () =>
+          (await import("./data/realisaties")).REALISATIES.map((r) => `/realisaties/${r.slug}`),
+      },
+      {
         path: "contact",
         lazy: async () => ({ Component: (await import("./pages/ContactPage")).default }),
       },

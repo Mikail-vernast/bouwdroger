@@ -352,6 +352,7 @@ const KEY_PAGES = [
   "/renovatie",
   "/levering",
   "/afhalen",
+  "/realisaties",
   "/over-ons",
   "/contact",
 ];

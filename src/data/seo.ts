@@ -112,9 +112,9 @@ export const SEO = {
       "Onze klantenservice helpt u met bestellingen, levering, retour en het bedienen van uw bouwdroger. Bel, mail of vind meteen antwoord op de veelgestelde vragen.",
   },
   realisaties: {
-    title: "Realisaties: droogprojecten in heel Vlaanderen | Vernast",
+    title: "Realisaties: 22 droogprojecten met werffoto's | Vernast",
     description:
-      "Van nieuwbouwwoning tot ondergelopen kelder: bekijk droogprojecten die wij uitvoerden, met de toestellen die er stonden en de behaalde droogtijd.",
+      "Van pleisterwerk in een nieuwbouwvilla tot een ondergelopen kelder: 22 droogprojecten die wij uitvoerden, elk met de foto's van de werf zelf.",
   },
 
   /* ---------- Verhuurfunnel ---------- */
