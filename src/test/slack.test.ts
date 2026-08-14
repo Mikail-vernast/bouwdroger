@@ -56,7 +56,7 @@ function flatten(message: Record<string, unknown>): string {
 const notice = (overrides: Partial<OrderNotice> = {}): OrderNotice => ({
   payload: PAYLOAD,
   pickup: false,
-  orderUrl: "https://bouwdroger.vercel.app/verhuur/boeking?session_id=cs_test_123",
+  orderUrl: "https://vernast-bouwdrogers.be/verhuur/boeking?session_id=cs_test_123",
   ...overrides,
 });
 

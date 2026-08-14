@@ -12,7 +12,7 @@ import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 
 const DIST = "dist";
-const SITE_URL = (process.env.VITE_SITE_URL || "https://bouwdroger.vercel.app").replace(/\/$/, "");
+const SITE_URL = (process.env.VITE_SITE_URL || "https://vernast-bouwdrogers.be").replace(/\/$/, "");
 
 /** Hoe vaak een sectie verandert, en hoe zwaar ze weegt binnen de site. */
 const PRIORITY = [

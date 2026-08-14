@@ -15,11 +15,12 @@ const ALLOWED_HOSTS = [
   // Preview-deploys draaien op een wisselende naam onder dit domein en moeten
   // naar zichzelf terugkeren, anders test je de boeking op productie.
   /^([a-z0-9-]+\.)*vercel\.app$/,
+  /^([a-z0-9-]+\.)*vernast-bouwdrogers\.be$/,
   /^([a-z0-9-]+\.)*bouwdrogerservice\.be$/,
 ];
 
 /** Waar we op terugvallen als de Host-header niet herkend wordt. */
-export const CANONICAL_ORIGIN = "https://bouwdroger.vercel.app";
+export const CANONICAL_ORIGIN = "https://vernast-bouwdrogers.be";
 
 /**
  * `vercel dev` op de machine van een developer.

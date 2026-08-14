@@ -4,14 +4,14 @@
  * servicegebied. Canonicals, og:url, sitemap.xml en de JSON-LD leiden hier
  * allemaal uit af.
  *
- * Het definitieve domein is nog niet gekocht. Zodra dat er is: zet
- * `VITE_SITE_URL` in Vercel (`vercel env add VITE_SITE_URL`) en alles — meta,
- * sitemap, schema — verhuist mee. Nergens anders staat een hardcoded domein.
+ * Het domein zit in `VITE_SITE_URL` in Vercel (`vercel env add VITE_SITE_URL`),
+ * zodat meta, sitemap en schema in één keer meeverhuizen. De fallback hieronder
+ * is het domein zoals het nu draait; nergens anders staat een hardcoded domein.
  */
 
 /** Zonder trailing slash, zodat `${SITE_URL}${pad}` altijd klopt. */
 export const SITE_URL = (
-  import.meta.env.VITE_SITE_URL || "https://bouwdroger.vercel.app"
+  import.meta.env.VITE_SITE_URL || "https://vernast-bouwdrogers.be"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "Vernast Bouwdrogers";

@@ -222,7 +222,7 @@ const MAIL_FLAG = "mail_bevestiging";
 const SLACK_FLAG = "slack_melding";
 
 /** Waar de site staat als de sessie zelf het niet meer weet. */
-const CANONICAL_ORIGIN = "https://bouwdroger.vercel.app";
+const CANONICAL_ORIGIN = "https://vernast-bouwdrogers.be";
 
 /**
  * De link in de bevestigingsmail: de boekingspagina met deze sessie erbij,
