@@ -1,0 +1,293 @@
+/* ============================================================
+   Realisaties — overzicht en projectpagina
+
+   Overgenomen van vernast-vochtbestrijding.be (assets/realisaties.css +
+   assets/realisatie.css, plus de bouwstenen die ze uit kelder.css en
+   verslag.css gebruiken). De opdracht was "1 op 1", dus de maten, kleuren en
+   verhoudingen staan hier zoals daar.
+
+   Alles hangt onder `.rz-page`. De klassenamen van de bron zijn generiek
+   (`.section`, `.wrap`, `.btn`, `.two`) en zouden zonder die scope dwars door
+   de rest van de site heen slaan — dezelfde reden waarom de klantenservice
+   onder `.ks-page` staat.
+
+   Twee dingen wijken bewust af van de bron:
+
+   - Het font. De bron haalt Urbanist bij Google Fonts met een @import
+     bovenaan zijn CSS. Dat is een render-blokkerende verbinding met een derde
+     partij op een site die zijn fonts juist zelf host en per schil vooruit
+     haalt (zie FontPreload). `--rz-font` erft daarom van de schil.
+   - De achtergrond van de hero. De bron laadt /assets/hero-bg-red.png; deze
+     site heeft dezelfde huisstijlvorm al als webp staan.
+   ============================================================ */
+
+.rz-page {
+  --rz-red: #9e000f;
+  --rz-red-dark: #7d000c;
+  --rz-red-soft: #fbe9ea;
+  --rz-ink: #131418;
+  --rz-text: #1c1c20;
+  --rz-text-mid: #5a5a62;
+  /* De bron koos #6c6c76 nadat #8a8a92 op 3,42:1 uitkwam — onder de 4,5:1 die
+     WCAG AA vraagt voor de 12px labels die deze kleur dragen. */
+  --rz-text-dim: #6c6c76;
+  --rz-line: rgba(0, 0, 0, 0.1);
+  --rz-bg-soft: #f6f5f4;
+  --rz-radius: 15px;
+  --rz-radius-lg: 22px;
+  --rz-pad: 40px;
+  --rz-maxw: 1240px;
+  --rz-font: inherit;
+  --rz-shadow: 0 18px 50px rgba(20, 8, 8, 0.1);
+  --rz-shadow-sm: 0 6px 24px rgba(20, 8, 8, 0.07);
+
+  color: var(--rz-text);
+  line-height: 1.6;
+}
+
+.rz-page h1,
+.rz-page h2,
+.rz-page h3,
+.rz-page h4 {
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--rz-ink);
+}
+.rz-page p { margin: 0; }
+.rz-page a { color: inherit; text-decoration: none; }
+.rz-page img { max-width: 100%; display: block; }
+
+.rz-page .rz-wrap { max-width: var(--rz-maxw); margin: 0 auto; padding: 0 var(--rz-pad); }
+.rz-page .section { padding: 104px 0; }
+/* De bron legt hier tech-bg-red.png onder; deze site heeft dezelfde
+   huisstijlvorm al als webp staan. */
+.rz-page .tech-section { position: relative; background: #6a000a url("/vernast/bg-red-wide.webp") center / cover no-repeat; color: #fff; }
+
+.rz-page .eyebrow {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--rz-red);
+}
+.rz-page .eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--rz-red); }
+.rz-page .shead { max-width: 760px; }
+.rz-page .shead.center { margin: 0 auto; text-align: center; }
+.rz-page .shead.center .eyebrow { justify-content: center; }
+.rz-page .shead h1,
+.rz-page .shead h2 { font-size: clamp(30px, 4vw, 46px); margin: 16px 0 0; text-wrap: balance; }
+.rz-page .shead p { font-size: 18px; color: var(--rz-text-mid); margin: 18px 0 0; }
+.rz-page .shead.center p { margin-left: auto; margin-right: auto; }
+.rz-page .shead.on-red h1,
+.rz-page .shead.on-red h2 { color: #fff; }
+.rz-page .shead.on-red p { color: rgba(255, 255, 255, 0.85); }
+.rz-page .shead.on-red .eyebrow { color: #ffb3ac; }
+.rz-page .shead.on-red .eyebrow::before { background: #ffb3ac; }
+
+.rz-page .rz-btn {
+  display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+  font-family: var(--rz-font); font-weight: 700; font-size: 15px;
+  padding: 15px 28px; border-radius: var(--rz-radius); border: 0;
+  transition: transform 0.15s, box-shadow 0.2s, background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.rz-page .rz-btn-red { background: var(--rz-red); color: #fff; }
+.rz-page .rz-btn-red:hover { background: var(--rz-red-dark); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(158, 0, 15, 0.3); }
+.rz-page .rz-btn-white { background: #fff; color: var(--rz-red); }
+.rz-page .rz-btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); }
+.rz-page .rz-btn .arr { width: 16px; height: 16px; transition: transform 0.2s; }
+.rz-page .rz-btn:hover .arr { transform: translateX(3px); }
+
+/* ---------- OVERZICHT: lijst + zijfilter ---------- */
+.rz-page .rl-layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 44px; align-items: start; }
+.rz-page .rl-side { position: sticky; top: 28px; display: grid; gap: 20px; }
+.rz-page .rl-filter { background: #fff; border: 1px solid var(--rz-line); border-radius: var(--rz-radius-lg); padding: 22px 20px; box-shadow: var(--rz-shadow-sm); }
+.rz-page .rl-filter .tt { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rz-text-dim); margin-bottom: 12px; }
+.rz-page .rl-filter .fl { display: grid; gap: 6px; }
+.rz-page .rl-filter button {
+  font-family: var(--rz-font); cursor: pointer; display: flex; align-items: center; gap: 10px;
+  width: 100%; text-align: left; background: none; border: 1px solid transparent;
+  border-radius: 10px; padding: 11px 13px; font-size: 14px; font-weight: 700; color: var(--rz-ink);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.rz-page .rl-filter button svg { width: 16px; height: 16px; flex: none; color: var(--rz-red); }
+.rz-page .rl-filter button .n { margin-left: auto; font-size: 11.5px; font-weight: 800; background: var(--rz-bg-soft); color: var(--rz-text-mid); border-radius: 9999px; padding: 3px 9px; min-width: 26px; text-align: center; }
+.rz-page .rl-filter button:hover { background: var(--rz-bg-soft); }
+.rz-page .rl-filter button.on { background: var(--rz-red); color: #fff; box-shadow: 0 8px 22px rgba(200, 20, 20, 0.3); }
+.rz-page .rl-filter button.on svg { color: #fff; }
+.rz-page .rl-filter button.on .n { background: rgba(255, 255, 255, 0.18); color: #fff; }
+
+.rz-page .rl-cta { background: linear-gradient(160deg, #8b1a2b, #6e1212); border-radius: var(--rz-radius-lg); padding: 24px 22px; color: #fff; box-shadow: 0 14px 36px rgba(110, 18, 18, 0.35); }
+.rz-page .rl-cta h2 { color: #fff; font-size: 17px; margin: 0 0 8px; }
+.rz-page .rl-cta p { color: rgba(255, 255, 255, 0.85); font-size: 13.5px; line-height: 1.6; margin: 0 0 16px; }
+.rz-page .rl-cta .rz-btn { width: 100%; justify-content: center; }
+
+.rz-page .rl-count { font-size: 13.5px; font-weight: 700; color: var(--rz-text-dim); margin: 0 0 18px; }
+.rz-page .rl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.rz-page .rl-card { background: #fff; border: 1px solid var(--rz-line); border-radius: var(--rz-radius-lg); overflow: hidden; box-shadow: var(--rz-shadow-sm); display: flex; flex-direction: column; transition: transform 0.25s, box-shadow 0.25s; }
+.rz-page .rl-card:hover { transform: translateY(-5px); box-shadow: var(--rz-shadow); }
+/* Vaste hoogte + object-fit: anders staat elke foto op zijn eigen verhouding
+   (liggend naast staand) en lopen de kaarthoogtes uiteen. */
+.rz-page .rl-card img { display: block; width: 100%; height: 230px; object-fit: cover; object-position: 50% 50%; background: var(--rz-bg-soft); }
+.rz-page .rl-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; gap: 10px; }
+.rz-page .rl-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.rz-page .rl-chip { display: inline-flex; align-items: center; background: var(--rz-red-soft); color: var(--rz-red); font-size: 10.5px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; padding: 5px 11px; border-radius: 9999px; }
+.rz-page .rl-card h3 { font-size: 17.5px; line-height: 1.3; margin: 0; }
+.rz-page .rl-card h3 a:hover { color: var(--rz-red); }
+.rz-page .rl-go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 700; color: var(--rz-red); }
+.rz-page .rl-go svg { width: 15px; height: 15px; transition: transform 0.2s; }
+.rz-page .rl-card:hover .rl-go svg { transform: translateX(4px); }
+
+/* ---------- PROJECTPAGINA: hero ---------- */
+/* 132px bij de bron, maar de <V3Header> van deze site is hoger: daar viel het
+   kruimelpad half achter de pil. */
+.rz-page .rz-hero { position: relative; background: var(--rz-red); color: #fff; overflow: hidden; padding: 172px 0 0; }
+.rz-page .rz-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(120deg, rgba(94, 0, 9, 0.8) 0%, rgba(158, 0, 15, 0.42) 62%), url("/vernast/bg-red-wide.webp");
+  background-size: cover; background-position: center;
+}
+/* Zonder deze z-index legt de ::before-overlay van de hero zich over het
+   kruimelpad, de titel en de lede heen: wel in de DOM, niet te zien. */
+.rz-page .rz-hero .rz-wrap { position: relative; z-index: 2; }
+.rz-page .rz-crumb { display: flex; align-items: center; gap: 9px; font-size: 13px; color: rgba(255, 255, 255, 0.72); flex-wrap: wrap; }
+.rz-page .rz-crumb a:hover { color: #fff; }
+.rz-page .rz-crumb .sep { opacity: 0.5; }
+.rz-page .rz-crumb .cur { color: #fff; font-weight: 600; }
+.rz-page .rz-head { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 44px; align-items: end; margin-top: 26px; }
+.rz-page .rz-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 20px; }
+.rz-page .rz-tag { display: inline-flex; align-items: center; gap: 7px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 9999px; padding: 7px 15px; font-size: 12.5px; font-weight: 600; backdrop-filter: blur(6px); }
+.rz-page .rz-tag svg { width: 14px; height: 14px; }
+.rz-page .rz-head h1 { font-size: clamp(36px, 5vw, 60px); line-height: 1.02; color: #fff; text-wrap: balance; }
+.rz-page .rz-loc { display: inline-flex; align-items: center; gap: 9px; margin-top: 20px; font-size: 16px; color: rgba(255, 255, 255, 0.85); }
+.rz-page .rz-loc svg { width: 18px; height: 18px; }
+.rz-page .rz-lede { font-size: 16.5px; line-height: 1.7; color: rgba(255, 255, 255, 0.86); }
+.rz-page .rz-hero-media { margin-top: 52px; position: relative; }
+.rz-page .rz-hero-media img { display: block; width: 100%; height: min(60vh, 560px); object-fit: cover; border-radius: 22px 22px 0 0; box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.35); }
+
+/* De feitenbalk zit half in de hero, half in de content eronder. */
+.rz-page .rz-facts-band { background: #f4f4f4; padding: 0 0 90px; }
+.rz-page .rz-facts { position: relative; z-index: 3; margin-top: -1px; background: #fff; border-radius: 0 0 22px 22px; box-shadow: var(--rz-shadow); display: grid; grid-template-columns: repeat(4, 1fr); }
+.rz-page .rz-fact { padding: 26px 30px; border-right: 1px solid var(--rz-line); }
+.rz-page .rz-fact:last-child { border-right: 0; }
+.rz-page .rz-fact .k { font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rz-text-dim); }
+.rz-page .rz-fact .v { font-size: 20px; font-weight: 800; color: var(--rz-ink); margin-top: 7px; line-height: 1.15; }
+.rz-page .rz-fact .v small { display: block; font-size: 13px; font-weight: 600; color: var(--rz-text-mid); margin-top: 3px; }
+
+/* ---------- PROJECTPAGINA: verhaal + projectfiche ---------- */
+.rz-page .rz-grid { display: grid; grid-template-columns: 1fr 340px; gap: 60px; align-items: start; }
+.rz-page .rz-body h2 { font-size: 34px; margin: 0 0 4px; }
+.rz-page .rz-body h3 { font-size: 22px; margin: 34px 0 12px; }
+.rz-page .rz-body p { font-size: 16.5px; line-height: 1.75; color: var(--rz-text-mid); margin: 16px 0 0; }
+.rz-page .rz-body .lead { font-size: 19px; line-height: 1.7; color: var(--rz-text); margin-top: 16px; }
+.rz-page .rz-problems { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 12px; }
+.rz-page .rz-problems li { display: flex; gap: 13px; align-items: flex-start; font-size: 15.5px; color: var(--rz-text); }
+.rz-page .rz-problems .x { width: 24px; height: 24px; border-radius: 50%; background: var(--rz-red-soft); color: var(--rz-red); display: inline-flex; align-items: center; justify-content: center; flex: none; margin-top: 1px; }
+.rz-page .rz-problems .x svg { width: 13px; height: 13px; }
+
+.rz-page .rz-meta { position: sticky; top: 96px; background: #fff; border: 1px solid var(--rz-line); border-radius: var(--rz-radius-lg); padding: 28px 26px; box-shadow: var(--rz-shadow-sm); }
+.rz-page .rz-meta h4 { font-size: 13px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--rz-text-dim); margin: 0 0 6px; }
+.rz-page .rz-meta dl { margin: 0; display: grid; gap: 0; }
+.rz-page .rz-mrow { display: flex; justify-content: space-between; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--rz-line); }
+.rz-page .rz-mrow:last-of-type { border-bottom: 0; }
+.rz-page .rz-mrow dt { font-size: 13.5px; color: var(--rz-text-mid); }
+.rz-page .rz-mrow dd { font-size: 14px; font-weight: 700; color: var(--rz-ink); margin: 0; text-align: right; }
+.rz-page .rz-meta .rz-btn { width: 100%; justify-content: center; margin-top: 20px; }
+.rz-page .rz-meta .m-note { font-size: 12.5px; color: var(--rz-text-dim); text-align: center; margin-top: 12px; line-height: 1.5; }
+
+.rz-page .svc-link { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.rz-page .svc-link a { display: inline-flex; align-items: center; gap: 9px; background: #fff; border: 1px solid var(--rz-line); border-radius: 9999px; padding: 11px 20px; font-size: 14.5px; font-weight: 700; color: var(--rz-ink); transition: border-color 0.2s, transform 0.2s; }
+.rz-page .svc-link a:hover { border-color: var(--rz-red); color: var(--rz-red); transform: translateY(-2px); }
+.rz-page .svc-link a svg { width: 16px; height: 16px; color: var(--rz-red); }
+
+/* ---------- PROJECTPAGINA: fotoalbum ---------- */
+.rz-page .album { margin-top: 50px; }
+.rz-page .alb-stage { position: relative; border-radius: var(--rz-radius-lg); overflow: hidden; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35); background: var(--rz-bg-soft); }
+.rz-page .alb-slide { display: none; margin: 0; position: relative; }
+.rz-page .alb-slide.on { display: block; }
+.rz-page .alb-slide img { display: block; width: 100%; height: 560px; object-fit: cover; cursor: zoom-in; }
+.rz-page .alb-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 26px 20px; background: linear-gradient(transparent, rgba(0, 0, 0, 0.72)); color: #fff; font-size: 15px; font-weight: 600; display: flex; align-items: baseline; gap: 14px; pointer-events: none; }
+.rz-page .alb-count { flex: none; white-space: nowrap; font-size: 12px; font-weight: 800; letter-spacing: 0.05em; background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.3); padding: 4px 11px; border-radius: 9999px; }
+.rz-page .alb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; border: 0; cursor: pointer; background: #fff; color: var(--rz-ink); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35); transition: transform 0.2s, background 0.2s; z-index: 3; }
+.rz-page .alb-nav:hover { background: var(--rz-red); color: #fff; transform: translateY(-50%) scale(1.06); }
+.rz-page .alb-nav svg { width: 24px; height: 24px; }
+.rz-page .alb-prev { left: 18px; }
+.rz-page .alb-next { right: 18px; }
+.rz-page .alb-thumbs { display: flex; gap: 10px; margin-top: 16px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+.rz-page .alb-thumb { flex: none; display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.85); font-family: var(--rz-font); font-size: 13px; font-weight: 600; padding: 10px 16px; border-radius: 9999px; cursor: pointer; white-space: nowrap; transition: background 0.2s, color 0.2s; }
+.rz-page .alb-thumb:hover { background: rgba(255, 255, 255, 0.16); }
+.rz-page .alb-thumb.on { background: #fff; color: var(--rz-ink); border-color: #fff; }
+.rz-page .alb-thumb .tno { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--rz-red); color: #fff; font-size: 11px; font-weight: 800; }
+
+/* ---------- PROJECTPAGINA: resultaat ---------- */
+.rz-page .rz-result { background: #f4f4f4; }
+.rz-page .zlead { max-width: 900px; margin: 0 auto; }
+.rz-page .zlead .two { margin-top: 34px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.rz-page .zlead .two .zc { background: #fff; border: 1px solid var(--rz-line); border-left: 4px solid var(--rz-red); border-radius: var(--rz-radius); padding: 24px 26px; box-shadow: var(--rz-shadow-sm); }
+.rz-page .zlead .two .zc .k { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rz-red); }
+.rz-page .zlead .two .zc h3 { font-size: 19px; margin: 10px 0 8px; }
+.rz-page .zlead .two .zc p { font-size: 14.5px; color: var(--rz-text-mid); line-height: 1.6; }
+
+/* ---------- PROJECTPAGINA: meer realisaties ---------- */
+.rz-page .rel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 52px; }
+.rz-page .rel-card { background: #fff; border: 1px solid var(--rz-line); border-radius: var(--rz-radius-lg); overflow: hidden; box-shadow: var(--rz-shadow-sm); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
+.rz-page .rel-card:hover { transform: translateY(-5px); box-shadow: var(--rz-shadow); }
+.rz-page .rel-card img { display: block; width: 100%; height: 220px; object-fit: cover; }
+.rz-page .rel-card .rc-body { padding: 22px 24px 24px; }
+.rz-page .rel-card .rc-tag { font-size: 11.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--rz-red); }
+.rz-page .rel-card h3 { font-size: 20px; margin: 9px 0 8px; }
+.rz-page .rel-card p { font-size: 14.5px; color: var(--rz-text-mid); line-height: 1.55; margin: 0; }
+.rz-page .rel-card .rc-more { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; font-weight: 700; color: var(--rz-red); }
+.rz-page .rel-card .rc-more svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.rz-page .rel-card:hover .rc-more svg { transform: translateX(4px); }
+
+/* ---------- LIGHTBOX ---------- */
+.rz-lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(8, 6, 6, 0.92); display: flex; align-items: center; justify-content: center; padding: 40px; }
+.rz-lightbox img { max-width: 92vw; max-height: 86vh; border-radius: 10px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); }
+.rz-lightbox .lb-close { position: absolute; top: 22px; right: 26px; width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.rz-lightbox .lb-close:hover { background: rgba(255, 255, 255, 0.22); }
+.rz-lightbox .lb-cap { position: absolute; bottom: 26px; left: 0; right: 0; text-align: center; color: rgba(255, 255, 255, 0.85); font-size: 14px; padding: 0 80px; }
+.rz-lightbox .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.rz-lightbox .lb-nav:hover { background: rgba(255, 255, 255, 0.22); }
+.rz-lightbox .lb-nav svg { width: 22px; height: 22px; }
+.rz-lightbox .lb-prev { left: 22px; }
+.rz-lightbox .lb-next { right: 22px; }
+
+@media (max-width: 1180px) { .rz-page .rl-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 1000px) {
+  .rz-page .rz-head { grid-template-columns: 1fr; gap: 24px; }
+  .rz-page .rz-grid { grid-template-columns: 1fr; gap: 40px; }
+  .rz-page .rz-meta { position: static; }
+  .rz-page .rz-facts { grid-template-columns: 1fr 1fr; }
+  .rz-page .rz-fact:nth-child(2) { border-right: 0; }
+  .rz-page .rz-fact:nth-child(1), .rz-page .rz-fact:nth-child(2) { border-bottom: 1px solid var(--rz-line); }
+  .rz-page .rel-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 960px) {
+  .rz-page .rl-layout { grid-template-columns: 1fr; gap: 28px; }
+  .rz-page .rl-side { position: static; }
+  .rz-page .rl-filter .fl { display: flex; flex-wrap: wrap; }
+  .rz-page .rl-filter button { width: auto; border: 1px solid var(--rz-line); border-radius: 9999px; padding: 9px 16px; }
+  .rz-page .rl-cta { display: none; }
+}
+@media (max-width: 760px) {
+  .rz-page .alb-slide img { height: 340px; }
+  .rz-page .alb-nav { width: 42px; height: 42px; }
+  .rz-page .alb-prev { left: 10px; }
+  .rz-page .alb-next { right: 10px; }
+  .rz-page .zlead .two { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .rz-page { --rz-pad: 22px; }
+  .rz-page .section { padding: 72px 0; }
+  .rz-page .rz-hero { padding-top: 148px; }
+  .rz-page .rz-facts { grid-template-columns: 1fr; }
+  .rz-page .rz-fact { border-right: 0; border-bottom: 1px solid var(--rz-line); }
+  .rz-page .rz-fact:last-child { border-bottom: 0; }
+  .rz-page .rel-grid { grid-template-columns: 1fr; }
+  .rz-page .rz-hero-media img { height: 52vh; }
+  .rz-page .alb-cap { font-size: 13.5px; padding: 40px 16px 16px; gap: 10px; }
+  .rz-lightbox { padding: 16px; }
+  .rz-lightbox .lb-cap { padding: 0 20px; bottom: 14px; }
+}
+@media (max-width: 620px) { .rz-page .rl-grid { grid-template-columns: 1fr; } }

@@ -1,33 +1,55 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import PageHero from "@/components/PageHero";
-import { Button } from "@/components/ui/button";
-import { MapPin, ArrowRight } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
+import V3Header from "@/components/home-v3/V3Header";
+import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import Reveal from "@/components/Reveal";
 import {
   REALISATIES,
   REALISATIE_SOORTEN,
   telPerSoort,
   type RealisatieSoort,
 } from "@/data/realisaties";
+import { ArrowRight, DropIcon, FlowIcon, GridIcon, ShieldIcon } from "@/components/realisaties/icons";
+// De gedeelde <V3Header>/<V3Footer> dragen hun eigen opmaak; zonder deze
+// twee bestanden staat de schil er kaal bij.
+import "@/styles/home-v3.css";
+import "@/styles/home-v3-fixes.css";
+import "@/styles/realisaties.css";
 
-const isSoort = (waarde: string | null): waarde is RealisatieSoort =>
-  REALISATIE_SOORTEN.some((s) => s.key === waarde);
+/** Het icoon per filterknop, in de volgorde van REALISATIE_SOORTEN. */
+const SOORT_ICOON = {
+  bouwvocht: DropIcon,
+  waterschade: ShieldIcon,
+  vochtbeheersing: FlowIcon,
+} as const;
+
+/**
+ * Realisaties — overgenomen van de gelijknamige pagina op
+ * vernast-vochtbestrijding.be: rode kop, zijfilter met tellers, sticky
+ * offerte-kaart en het kaartenraster. De markup en maten staan in
+ * src/styles/realisaties.css, gescoped onder `.rz-page`.
+ *
+ * Eén verschil met de bron, en dat is inhoudelijk onvermijdelijk: daar filtert
+ * de zijbalk op dienst (opstijgend vocht / kelderbekuiping / bouwdroging).
+ * Hier is élk project bouwdroging, dus zo'n filter zou één knop met alle 22
+ * projecten opleveren. De filter houdt dezelfde vorm maar deelt in op waar het
+ * vocht vandaan kwam.
+ */
+
+const isSoort = (w: string | null): w is RealisatieSoort =>
+  REALISATIE_SOORTEN.some((s) => s.key === w);
 
 const RealisatiesPage = () => {
-  const navigate = useNavigate();
   /*
-    De filter staat in de URL en niet in een useState. Een bezoeker die
-    "Waterschade" doorstuurt, stuurt dan ook waterschade door, en de
-    terugknop van de browser doet wat hij hoort te doen. De pagina zelf blijft
-    één geprerenderde route: ?soort= is een parameter, geen aparte HTML.
+    De keuze staat in de URL, niet in een useState: een doorgestuurde
+    ?soort=waterschade toont dan ook waterschade, en de terugknop van de
+    browser doet wat hij hoort te doen. De pagina blijft één geprerenderde
+    route — ?soort= is een parameter, geen tweede HTML-bestand.
   */
   const [params, setParams] = useSearchParams();
-  const gekozen = isSoort(params.get("soort")) ? (params.get("soort") as RealisatieSoort) : null;
+  const ruw = params.get("soort");
+  const gekozen = isSoort(ruw) ? ruw : null;
 
   const zichtbaar = gekozen ? REALISATIES.filter((r) => r.soort === gekozen) : REALISATIES;
 
@@ -39,11 +61,11 @@ const RealisatiesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="v3 rz-page">
       <PageMeta
         {...SEO.realisaties}
         path="/realisaties"
-        image={REALISATIES[0].cover}
+        image={REALISATIES[0].kaart}
         jsonLd={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
@@ -55,126 +77,91 @@ const RealisatiesPage = () => {
           ),
         ]}
       />
-      <Navbar />
+      <V3Header />
+
       <main>
-        <PageHero
-          badge="Realisaties"
-          title="Werven waar onze toestellen stonden"
-          subtitle={`${REALISATIES.length} droogprojecten die wij uitvoerden: bouwvocht na pleister- en chapewerken, waterschade na een lek, en ruimtes die gewoon te vochtig waren. Met de foto's van de werf zelf.`}
-        />
-
-        <section className="py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            {/*
-              De projectkaarten dragen een h3. Zonder deze h2 sprong de pagina
-              van h1 rechtstreeks naar h3, en dan leest een crawler — net als een
-              schermlezer — de kaarten als losse fragmenten in plaats van als één
-              lijst realisaties.
-            */}
-            <h2 className="text-2xl md:text-3xl font-black text-foreground mb-6">
-              Uitgevoerde droogprojecten
-            </h2>
-
-            <div className="flex flex-wrap gap-2 mb-10" role="group" aria-label="Filter op soort werk">
-              <button
-                type="button"
-                onClick={() => kies(null)}
-                aria-pressed={gekozen === null}
-                className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-                  gekozen === null
-                    ? "bg-accent text-primary-foreground border-accent"
-                    : "bg-card text-foreground border-border hover:border-accent"
-                }`}
-              >
-                Alle projecten
-                <span className="ml-2 text-xs opacity-60">{REALISATIES.length}</span>
-              </button>
-              {REALISATIE_SOORTEN.map((soort) => (
-                <button
-                  key={soort.key}
-                  type="button"
-                  onClick={() => kies(soort.key)}
-                  aria-pressed={gekozen === soort.key}
-                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-                    gekozen === soort.key
-                      ? "bg-accent text-primary-foreground border-accent"
-                      : "bg-card text-foreground border-border hover:border-accent"
-                  }`}
-                >
-                  {soort.label}
-                  <span className="ml-2 text-xs opacity-60">{telPerSoort(soort.key)}</span>
-                </button>
-              ))}
-            </div>
-
-            {/*
-              De vertraging loopt maar tot de zesde kaart: zonder grens stond de
-              22e op 0,9 s te wachten voor hij binnenkwam.
-            */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {zichtbaar.map((project, i) => (
-                <Reveal
-                  from="up"
-                  delay={Math.min(i, 5) * 0.04}
-                  key={project.slug}
-                  className="group bg-card rounded-2xl border border-border shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-                >
-                  <Link to={`/realisaties/${project.slug}`} className="block">
-                    <div className="aspect-[4/3] overflow-hidden bg-muted">
-                      <img
-                        src={project.cover}
-                        alt={`Bouwdroging bij ${project.titel}`}
-                        loading={i < 3 ? "eager" : "lazy"}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="p-5">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-                        {REALISATIE_SOORTEN.find((s) => s.key === project.soort)?.label}
-                      </span>
-                      <h3 className="font-bold text-foreground mt-1">{project.titel}</h3>
-                      {project.plaats && (
-                        <p className="flex items-center gap-1.5 text-sm text-muted-foreground mt-2">
-                          <MapPin className="h-3.5 w-3.5 text-accent" />
-                          {project.plaats}
-                        </p>
-                      )}
-                      <p className="text-sm text-muted-foreground mt-3 line-clamp-3">
-                        {project.heroLead}
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-sm font-semibold text-accent mt-4">
-                        Bekijk project
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              ))}
+        <section className="section tech-section" style={{ padding: "170px 0 90px" }}>
+          <div className="rz-wrap">
+            <div className="shead center on-red" style={{ marginBottom: 0 }}>
+              <span className="eyebrow center">Onze realisaties</span>
+              <h1>Echte werven, echte resultaten</h1>
+              <p>
+                Bekijk onze afgewerkte projecten: bouwvocht na pleister- en chapewerken, waterschade na
+                een lek en ruimtes die te vochtig stonden. Elk project toont het probleem, de aanpak en
+                het resultaat, met de foto&apos;s van de werf zelf.
+              </p>
             </div>
           </div>
         </section>
 
-        <section className="py-16 bg-accent text-primary-foreground relative overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute -top-20 -right-20 w-[300px] h-[300px] rounded-full bg-primary/20" />
-            <div className="absolute -bottom-16 -left-16 w-[200px] h-[200px] rounded-full bg-primary/15" />
-          </div>
-          <div className="container mx-auto px-4 text-center relative z-10">
-            <h2 className="text-2xl md:text-3xl font-black mb-4">Uw project als volgende?</h2>
-            <p className="text-primary-foreground/70 mb-8 max-w-lg mx-auto">
-              Laat ons een droogplan op maat opstellen voor uw project. Vrijblijvend en zonder verplichtingen.
-            </p>
-            <Button
-              size="lg"
-              className="bg-primary-foreground text-accent hover:bg-primary-foreground/90 font-semibold rounded-full px-8"
-              onClick={() => navigate("/contact")}
-            >
-              Neem Contact Op <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+        <section className="section" style={{ background: "#f4f4f4" }}>
+          <div className="rz-wrap">
+            <div className="rl-layout">
+              <aside className="rl-side">
+                <div className="rl-filter">
+                  <div className="tt">Filter op soort werk</div>
+                  <div className="fl" role="group" aria-label="Filter op soort werk">
+                    <button type="button" className={gekozen === null ? "on" : undefined} aria-pressed={gekozen === null} onClick={() => kies(null)}>
+                      <GridIcon />
+                      Alle projecten
+                      <span className="n">{REALISATIES.length}</span>
+                    </button>
+                    {REALISATIE_SOORTEN.map((s) => {
+                      const Icoon = SOORT_ICOON[s.key];
+                      return (
+                        <button key={s.key} type="button" className={gekozen === s.key ? "on" : undefined} aria-pressed={gekozen === s.key} onClick={() => kies(s.key)}>
+                          <Icoon />
+                          {s.label}
+                          <span className="n">{telPerSoort(s.key)}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="rl-cta">
+                  <h2>Zelf vocht weg te krijgen?</h2>
+                  <p>
+                    Bereken in vijf vragen welke toestellen u nodig heeft, met de droogtijd en de prijs
+                    erbij. Vrijblijvend.
+                  </p>
+                  <Link className="rz-btn rz-btn-white" to="/verhuur/calculator">
+                    Bereken uw droogpakket
+                  </Link>
+                </div>
+              </aside>
+
+              <div>
+                <p className="rl-count">
+                  {zichtbaar.length} {zichtbaar.length === 1 ? "project" : "projecten"}
+                </p>
+                <div className="rl-grid">
+                  {zichtbaar.map((r, i) => (
+                    <article className="rl-card" key={r.slug}>
+                      <Link to={`/realisaties/${r.slug}`} aria-label={r.titel}>
+                        <img src={r.kaart} alt={r.kaartAlt} loading={i < 3 ? "eager" : "lazy"} width={800} height={600} />
+                      </Link>
+                      <div className="rl-body">
+                        <div className="rl-chips">
+                          <span className="rl-chip">{r.chip}</span>
+                        </div>
+                        <h3>
+                          <Link to={`/realisaties/${r.slug}`}>{r.titel}</Link>
+                        </h3>
+                        <Link className="rl-go" to={`/realisaties/${r.slug}`}>
+                          Bekijk project <ArrowRight />
+                        </Link>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
-      <Footer />
+
+      <V3Footer />
     </div>
   );
 };

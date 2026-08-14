@@ -1,45 +1,87 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
-import { SEO } from "@/data/seo";
+import V3Header from "@/components/home-v3/V3Header";
+import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema } from "@/lib/schema";
-import Reveal from "@/components/Reveal";
-import { REALISATIES, getRealisatie, realisatieMeta, soortLabel } from "@/data/realisaties";
+import { SEO } from "@/data/seo";
+import {
+  REALISATIES,
+  getRealisatie,
+  realisatieMeta,
+  type Realisatie,
+} from "@/data/realisaties";
+import RealisatieAlbum from "@/components/realisaties/RealisatieAlbum";
+import { ArrowRight, DryIcon, HouseIcon, MeasureIcon, PinIcon, XIcon } from "@/components/realisaties/icons";
+// De gedeelde <V3Header>/<V3Footer> dragen hun eigen opmaak; zonder deze
+// twee bestanden staat de schil er kaal bij.
+import "@/styles/home-v3.css";
+import "@/styles/home-v3-fixes.css";
+import "@/styles/realisaties.css";
+
+/**
+ * Eén uitgevoerd project, overgenomen van vernast-vochtbestrijding.be: rode
+ * hero met kruimelpad en tags, de feitenbalk die half in die hero hangt, het
+ * verhaal met de sticky projectfiche ernaast, de fotoreportage en tot slot
+ * drie andere realisaties.
+ */
+
+/** De hero-tags dragen elk hun eigen tekening; op volgorde toegekend. */
+const TAG_ICONEN = [DryIcon, MeasureIcon, HouseIcon];
+
+/**
+ * Een alinea uit het projectverhaal. De bron zet de stapnamen vet ("<b>Analyse
+ * en droogplan (24 u).</b> We brachten…"), dus die opmaak moet mee.
+ *
+ * De tekst komt uit `src/data/realisaties.ts`, dat bij de overname gegenereerd
+ * is en waarin de extractie alles behalve b/strong/em/i al heeft weggegooid —
+ * er is geen weg waarlangs invoer van buiten hier binnenkomt. Deze tweede
+ * filter staat er omdat dat pas geldt zolang niemand die datafile met de hand
+ * bewerkt: alles wat geen van die vier tags is, gaat er hier alsnog uit.
+ */
+const TOEGESTAAN = /<(?!\/?(b|strong|em|i)>)[^>]*>/g;
+
+const Alinea = ({ html }: { html: string }) => (
+  <p dangerouslySetInnerHTML={{ __html: html.replace(TOEGESTAAN, "") }} />
+);
+
+const NietGevonden = () => {
+  const navigate = useNavigate();
+  return (
+    <div className="v3 rz-page">
+      <PageMeta {...SEO.notFound} />
+      <V3Header />
+      <div className="rz-wrap" style={{ padding: "160px 0 120px", textAlign: "center" }}>
+        <h1 style={{ fontSize: 28, marginBottom: 16 }}>Project niet gevonden</h1>
+        <button type="button" className="rz-btn rz-btn-red" onClick={() => navigate("/realisaties")}>
+          Terug naar de realisaties
+        </button>
+      </div>
+      <V3Footer />
+    </div>
+  );
+};
 
 const RealisatieDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
   const project = slug ? getRealisatie(slug) : undefined;
+  if (!project) return <NietGevonden />;
 
-  if (!project) {
-    return (
-      <div className="min-h-screen bg-background">
-        <PageMeta {...SEO.notFound} />
-        <Navbar />
-        <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Project niet gevonden</h1>
-          <Button onClick={() => navigate("/realisaties")} className="rounded-full">
-            <ArrowLeft className="h-4 w-4 mr-2" /> Terug naar de realisaties
-          </Button>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  const index = REALISATIES.findIndex((r) => r.slug === project.slug);
-  const vorige = REALISATIES[index - 1];
-  const volgende = REALISATIES[index + 1];
+  // De bron kiest zelf drie verwante projecten; wat daar niet bij hoort (de
+  // kelder- en injectieprojecten) valt hier weg, dus vullen we aan met de
+  // buren uit de lijst.
+  const meer: Realisatie[] = [
+    ...project.meer.slugs.map((s) => getRealisatie(s)).filter((r): r is Realisatie => !!r && r.slug !== project.slug),
+    ...REALISATIES.filter((r) => r.slug !== project.slug),
+  ]
+    .filter((r, i, lijst) => lijst.findIndex((x) => x.slug === r.slug) === i)
+    .slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="v3 rz-page">
       <PageMeta
         {...realisatieMeta(project)}
         path={`/realisaties/${project.slug}`}
-        image={project.cover}
+        image={project.hero}
         ogType="article"
         jsonLd={breadcrumbSchema([
           { name: "Home", path: "/" },
@@ -47,158 +89,176 @@ const RealisatieDetailPage = () => {
           { name: project.titel, path: `/realisaties/${project.slug}` },
         ])}
       />
-      <Navbar />
+      <V3Header />
+
       <main>
-        <section className="relative overflow-hidden bg-accent text-primary-foreground py-12 md:py-16">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-[200px] -right-[200px] w-[600px] h-[600px] rounded-full bg-primary/30" />
-            <div className="absolute -bottom-[200px] -left-[100px] w-[500px] h-[500px] rounded-full bg-primary/10" />
-          </div>
-          <div className="container mx-auto px-4 relative z-10">
-            <Link
-              to="/realisaties"
-              className="inline-flex items-center gap-1.5 text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors mb-6"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> Alle realisaties
-            </Link>
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="inline-block bg-primary-foreground/10 border border-primary-foreground/20 text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">
-                {soortLabel(project.soort)}
-              </span>
-              {project.plaats && (
-                <span className="inline-flex items-center gap-1.5 text-sm text-primary-foreground/75">
-                  <MapPin className="h-3.5 w-3.5" />
-                  {project.plaats}
+        <section className="rz-hero">
+          <div className="rz-wrap">
+            <nav className="rz-crumb" aria-label="Kruimelpad">
+              <Link to="/">Home</Link>
+              <span className="sep">›</span>
+              <Link to="/realisaties">Realisaties</Link>
+              <span className="sep">›</span>
+              <span className="cur">{project.titel}</span>
+            </nav>
+
+            <div className="rz-head">
+              <div>
+                <div className="rz-tags">
+                  {project.tags.map((t, i) => {
+                    const Icoon = TAG_ICONEN[i] ?? DryIcon;
+                    return (
+                      <span className="rz-tag" key={t}>
+                        <Icoon /> {t}
+                      </span>
+                    );
+                  })}
+                </div>
+                <h1>{project.titel}</h1>
+                <span className="rz-loc">
+                  <PinIcon /> {project.locatie}
                 </span>
-              )}
+              </div>
+              <p className="rz-lede">{project.lede}</p>
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4">
-              {project.heroTitel}
-            </h1>
-            <p className="text-base md:text-lg text-primary-foreground/75 max-w-2xl">
-              {project.heroLead}
-            </p>
+
+            {/* Het LCP-element van deze pagina: eager, niet lazy. */}
+            <div className="rz-hero-media">
+              <img src={project.hero} alt={project.heroAlt} loading="eager" width={1300} height={975} />
+            </div>
           </div>
         </section>
 
-        {/*
-          De coverfoto staat bewust buiten de hero en krijgt `eager` mee: dit is
-          het LCP-element van deze pagina, en een lazy hero-afbeelding kost een
-          hele seconde die niets oplevert.
-        */}
-        <section className="container mx-auto px-4 -mt-8 md:-mt-12 relative z-20 flex justify-center">
-          {/*
-            Geen vaste verhouding: de helft van deze foto's staat rechtop. Met een
-            uitsnede op 16/9 hield een gevelfoto twee rijen bakstenen over.
-          */}
-          <img
-            src={project.cover}
-            alt={`Bouwdroging bij ${project.titel}`}
-            loading="eager"
-            className="w-auto max-h-[560px] max-w-full rounded-2xl border border-border shadow-lg"
-          />
-        </section>
-
-        <section className="py-16 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl space-y-10">
-              {project.blokken.map((blok, i) => (
-                <Reveal from="up" delay={i * 0.05} key={blok.kop}>
-                  <h2 className="text-xl md:text-2xl font-black text-foreground mb-3">{blok.kop}</h2>
-                  <p className="text-muted-foreground leading-relaxed">{blok.tekst}</p>
-                </Reveal>
+        <section className="rz-facts-band">
+          <div className="rz-wrap">
+            <div className="rz-facts">
+              {project.facts.map((f) => (
+                <div className="rz-fact" key={f.label}>
+                  <div className="k">{f.label}</div>
+                  <div className="v">
+                    {f.waarde}
+                    {f.detail && <small>{f.detail}</small>}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {project.fotos.length > 0 && (
-          <section className="pb-16 md:pb-20">
-            <div className="container mx-auto px-4">
-              <h2 className="text-2xl md:text-3xl font-black text-foreground mb-8">Op de werf</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {project.fotos.map((foto, i) => (
-                  <Reveal
-                    from="up"
-                    delay={Math.min(i, 6) * 0.04}
-                    key={foto}
-                    className="aspect-[3/4] overflow-hidden rounded-xl border border-border bg-muted"
-                  >
-                    <img
-                      src={foto}
-                      alt={`Werfbeeld ${i + 1} van ${project.titel}`}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="rz-wrap">
+            <div className="rz-grid">
+              <div className="rz-body">
+                <span className="eyebrow">{project.verhaal.eyebrow}</span>
+                <h2>{project.verhaal.kop}</h2>
+                <p className="lead">{project.verhaal.lead}</p>
 
-        <section className="border-t border-border py-10">
-          <div className="container mx-auto px-4 flex flex-col sm:flex-row gap-4 justify-between">
-            {vorige ? (
-              <Link
-                to={`/realisaties/${vorige.slug}`}
-                className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors"
-              >
-                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                <span>
-                  <span className="block text-xs uppercase tracking-wider">Vorig project</span>
-                  <span className="font-semibold text-foreground">{vorige.titel}</span>
-                </span>
-              </Link>
-            ) : (
-              <span />
-            )}
-            {volgende && (
-              <Link
-                to={`/realisaties/${volgende.slug}`}
-                className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors sm:text-right"
-              >
-                <span>
-                  <span className="block text-xs uppercase tracking-wider">Volgend project</span>
-                  <span className="font-semibold text-foreground">{volgende.titel}</span>
-                </span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            )}
+                <ul className="rz-problems">
+                  {project.verhaal.problemen.map((p) => (
+                    <li key={p}>
+                      <span className="x">
+                        <XIcon />
+                      </span>
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+
+                {project.verhaal.blokken.map((b) => (
+                  <div key={b.kop}>
+                    <h3>{b.kop}</h3>
+                    {b.alineas.map((a, i) => (
+                      <Alinea html={a} key={i} />
+                    ))}
+                  </div>
+                ))}
+
+                <div className="svc-link">
+                  <Link to="/verhuur/calculator">
+                    <DryIcon /> Bereken uw droogpakket
+                  </Link>
+                  <Link to="/machines">
+                    <HouseIcon /> Ons gamma toestellen
+                  </Link>
+                </div>
+              </div>
+
+              <aside className="rz-meta">
+                <h4>Projectfiche</h4>
+                <dl>
+                  {project.fiche.map((f) => (
+                    <div className="rz-mrow" key={f.label}>
+                      <dt>{f.label}</dt>
+                      <dd>{f.waarde}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <Link className="rz-btn rz-btn-red" to="/contact">
+                  Vraag een droogplan aan <ArrowRight className="arr" />
+                </Link>
+                <p className="m-note">Vrijblijvend, met een vaste prijs vooraf.</p>
+              </aside>
+            </div>
           </div>
         </section>
 
-        <section className="py-16 bg-accent text-primary-foreground relative overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute -top-20 -right-20 w-[300px] h-[300px] rounded-full bg-primary/20" />
-            <div className="absolute -bottom-16 -left-16 w-[200px] h-[200px] rounded-full bg-primary/15" />
+        <section className="section tech-section">
+          <div className="rz-wrap">
+            <div className="shead center on-red">
+              <span className="eyebrow center">{project.album.eyebrow}</span>
+              <h2>{project.album.kop}</h2>
+              <p>{project.album.intro}</p>
+            </div>
+            <RealisatieAlbum fotos={project.album.fotos} titel={project.titel} />
           </div>
-          <div className="container mx-auto px-4 text-center relative z-10">
-            <h2 className="text-2xl md:text-3xl font-black mb-4">Zelf vocht weg te krijgen?</h2>
-            <p className="text-primary-foreground/70 mb-8 max-w-lg mx-auto">
-              Bereken in vijf vragen welke toestellen u nodig heeft, of vraag een droogplan op maat.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Button
-                size="lg"
-                className="bg-primary-foreground text-accent hover:bg-primary-foreground/90 font-semibold rounded-full px-8"
-                onClick={() => navigate("/verhuur/calculator")}
-              >
-                Bereken uw droogpakket <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-primary-foreground/30 bg-transparent hover:bg-primary-foreground/10 font-semibold rounded-full px-8"
-                onClick={() => navigate("/contact")}
-              >
-                Neem contact op
-              </Button>
+        </section>
+
+        <section className="section rz-result">
+          <div className="rz-wrap">
+            <div className="shead center">
+              <span className="eyebrow center">{project.resultaat.eyebrow}</span>
+              <h2>{project.resultaat.kop}</h2>
+            </div>
+            <div className="zlead" style={{ marginTop: 44 }}>
+              <div className="two">
+                {project.resultaat.kolommen.map((k) => (
+                  <div className="zc" key={k.label}>
+                    <div className="k">{k.label}</div>
+                    <h3>{k.kop}</h3>
+                    <p>{k.tekst}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section tech-section">
+          <div className="rz-wrap">
+            <div className="shead center on-red">
+              <span className="eyebrow center">{project.meer.eyebrow}</span>
+              <h2>{project.meer.kop}</h2>
+              <p>{project.meer.intro}</p>
+            </div>
+            <div className="rel-grid">
+              {meer.map((r) => (
+                <Link className="rel-card" to={`/realisaties/${r.slug}`} key={r.slug}>
+                  <img src={r.kaart} alt={r.kaartAlt} loading="lazy" width={800} height={600} />
+                  <div className="rc-body">
+                    <span className="rc-tag">{r.chip}</span>
+                    <h3>{r.titel}</h3>
+                    <span className="rc-more">
+                      Bekijk project <ArrowRight />
+                    </span>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>
       </main>
-      <Footer />
+
+      <V3Footer />
     </div>
   );
 };
