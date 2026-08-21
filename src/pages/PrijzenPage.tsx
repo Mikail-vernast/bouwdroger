@@ -76,7 +76,7 @@ const PrijzenPage = () => {
         <section className="py-14 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4 text-center max-w-3xl">
             <motion.h1 initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={0} className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-4">
-              Transparante prijzen — geen verrassingen
+              Transparante prijzen, geen verrassingen
             </motion.h1>
             <motion.p initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={1} className="text-muted-foreground text-lg">
               Geen waarborg. Geen verborgen kosten. Wat u ziet is wat u betaalt.
@@ -109,7 +109,7 @@ const PrijzenPage = () => {
                 </div>
 
                 <p className="text-xs text-muted-foreground mt-3 text-center">
-                  Prijzen excl. BTW — 21% BTW van toepassing
+                  Prijzen excl. BTW, 21% BTW van toepassing
                 </p>
 
                 <div className="flex justify-center mt-4">

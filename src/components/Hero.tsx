@@ -90,7 +90,7 @@ const Hero = () => {
             >
               Ontvang direct een <strong className="text-white/90">droogplan op maat</strong>.
               Geniet van ECO-machines, professionele installatie
-              en transparante tarieven — geen verrassingen.
+              en transparante tarieven, geen verrassingen.
             </motion.p>
 
             {/* CTA Buttons */}

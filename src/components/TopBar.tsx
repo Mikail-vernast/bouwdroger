@@ -22,7 +22,7 @@ const TopBar = () => {
             </a>
           </div>
           <Button size="sm" className="text-xs font-semibold tracking-wide uppercase">
-            Gratis Offerte
+            Start uw droging
           </Button>
         </div>
       </div>

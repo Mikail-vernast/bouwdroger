@@ -47,7 +47,7 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <PageMeta
-        title={`${product.name} huren — ${product.capacity} | Vernast`}
+        title={`${product.name} huren, ${product.capacity} | Vernast`}
         description={`${product.name} huren aan € ${product.pricePerDay} per dag. ${product.suitableFor} Levering, installatie en ophaling inbegrepen, binnen 24 uur in heel Vlaanderen.`}
         path={`/product/${product.id}`}
         image={product.image}

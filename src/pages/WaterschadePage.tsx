@@ -80,7 +80,7 @@ const WaterschadePage = () => {
             <motion.div initial={enterInitial("hidden")} animate="visible" variants={fadeUp} custom={0}>
               <Badge className="bg-white/20 text-white border-white/30 text-sm px-4 py-1.5 mb-6 inline-flex items-center gap-2">
                 <span className="w-2.5 h-2.5 bg-white rounded-full animate-pulse" />
-                Spoedbezorging beschikbaar — bel nu
+                Spoedbezorging beschikbaar, bel nu
               </Badge>
             </motion.div>
 
@@ -156,7 +156,7 @@ const WaterschadePage = () => {
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">Wat moet u nu doen?</h2>
-              <p className="text-muted-foreground">Volg deze stappen — wij regelen de rest.</p>
+              <p className="text-muted-foreground">Volg deze stappen, wij regelen de rest.</p>
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -213,7 +213,7 @@ const WaterschadePage = () => {
           <div className="container mx-auto px-4">
             <div className="text-center mb-10">
               <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">Welke machine heeft u nodig?</h2>
-              <p className="text-muted-foreground">Niet zeker? Bel ons — wij adviseren gratis.</p>
+              <p className="text-muted-foreground">Niet zeker? Bel ons, wij adviseren gratis.</p>
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">

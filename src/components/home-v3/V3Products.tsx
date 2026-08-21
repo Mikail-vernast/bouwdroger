@@ -85,7 +85,7 @@ const SUPPORT: ProductCard[] = [
     price: "€ 9,00",
   },
   {
-    href: "/verhuur/toestel/ttv4500",
+    href: "/verhuur/toestel/ttv-radiaal",
     tag: "Gericht drogen",
     image: "/vernast/vent-radiaal.webp",
     alt: "Turbo Radiaalventilator",

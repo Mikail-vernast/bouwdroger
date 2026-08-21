@@ -29,7 +29,7 @@ const CALCULATOR_FAQ = [
   {
     question: "Hoeveel liter vochtafvoer heb ik per dag nodig?",
     answer:
-      "Voor een gewone nieuwbouwwoning rekenen wij met ongeveer 0,5 liter per m² per dag tijdens de eerste week, daarna minder. Een woning van 150 m² zit dus rond de 70 tot 90 liter per dag — dat is één toestel van 90 l/dag of twee kleinere. Bij waterschade ligt dat de eerste dagen twee tot drie keer hoger.",
+      "Voor een gewone nieuwbouwwoning rekenen wij met ongeveer 0,5 liter per m² per dag tijdens de eerste week, daarna minder. Een woning van 150 m² zit dus rond de 70 tot 90 liter per dag, dat is één toestel van 90 l/dag of twee kleinere. Bij waterschade ligt dat de eerste dagen twee tot drie keer hoger.",
   },
   {
     question: "Hoe lang moet een bouwdroger blijven staan?",
@@ -243,7 +243,7 @@ const CalculatorPage = () => {
                   {/*
                     De bron wisselt met de gekozen oppervlakte, maar het zijn
                     allemaal vierkanten. `aspect-square` houdt de plek dus vrij
-                    ongeacht welke er geladen wordt — met vaste width/height
+                    ongeacht welke er geladen wordt, met vaste width/height
                     zou een enkele afwijkende foto scheefgetrokken worden.
                   */}
                   <img
@@ -329,7 +329,7 @@ const CalculatorPage = () => {
       {/*
         De rekenhulp zelf toont per stap maar één vraag, dus een crawler ziet
         vrijwel geen tekst. Deze uitleg staat er voor de bezoeker die eerst wil
-        begrijpen waarop de berekening stoelt — en zorgt er meteen voor dat de
+        begrijpen waarop de berekening stoelt, en zorgt er meteen voor dat de
         pagina genoeg inhoud heeft om op "welke bouwdroger heb ik nodig"
         gevonden en geciteerd te worden. Dezelfde vragen en antwoorden zitten
         in de FAQ-schema hierboven; die twee moeten gelijk blijven lopen.
@@ -343,7 +343,7 @@ const CalculatorPage = () => {
             De capaciteit van een bouwdroger wordt uitgedrukt in liter vochtafvoer per dag. Hoeveel
             u nodig heeft hangt af van drie dingen: het volume van de ruimte (oppervlakte maal
             plafondhoogte), hoeveel vocht er in het bouwmateriaal zit, en de temperatuur. Een
-            condensontvochtiger werkt namelijk pas goed vanaf zo'n 15 °C — daaronder daalt de
+            condensontvochtiger werkt namelijk pas goed vanaf zo'n 15 °C, daaronder daalt de
             opbrengst snel, en dan zet u er beter een bouwkachel bij.
           </p>
 

@@ -78,7 +78,7 @@ const LeveringPage = () => {
                     <span className="text-primary-foreground/60">U droogt.</span>
                   </h1>
                   <p className="text-primary-foreground/60 text-lg md:text-xl max-w-lg mb-8">
-                    Configureer uw droogpakket in 2 minuten. Wij regelen de rest — levering, installatie en ophaling inbegrepen.
+                    Configureer uw droogpakket in 2 minuten. Wij regelen de rest: levering, installatie en ophaling inbegrepen.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <Button

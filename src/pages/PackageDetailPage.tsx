@@ -596,7 +596,7 @@ const PackageDetailPage = () => {
                   </div>
 
                   <Button type="submit" size="lg" className="w-full font-bold text-base rounded-xl" disabled={isSubmitting}>
-                    {isSubmitting ? "Bezig met verzenden..." : `Boek Nu — €${totalPrice.toFixed(0)} excl. BTW`}
+                    {isSubmitting ? "Bezig met verzenden..." : `Boek Nu, €${totalPrice.toFixed(0)} excl. BTW`}
                   </Button>
                   <p className="text-xs text-muted-foreground text-center">Geen betaling vereist. Wij bevestigen binnen 24 uur.</p>
                 </form>
@@ -641,7 +641,7 @@ const PackageDetailPage = () => {
                     <span className="text-sm font-bold ml-1">4.9/5</span>
                   </div>
                   <p className="text-sm text-muted-foreground italic mb-2">"Snelle levering, alles perfect geïnstalleerd."</p>
-                  <p className="text-xs font-semibold">— Pieter D.</p>
+                  <p className="text-xs font-semibold">Pieter D.</p>
                   <div className="border-t border-border mt-4 pt-4 space-y-2">
                     {["Gratis levering & ophaling", "500+ projecten afgerond", "Vochtmeting inbegrepen", "Binnen 24u antwoord"].map((t) => (
                       <div key={t} className="flex items-center gap-2 text-xs text-muted-foreground">

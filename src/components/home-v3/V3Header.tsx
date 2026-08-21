@@ -92,7 +92,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                   Vochtbestrijding<small>Kelder · muren · gevel</small>
                 </a>
                 <Link to="/">
-                  Verhuur &amp; bouwdroging<small>Toestellen en pakketten</small>
+                  Verhuur &amp; bouwdroging<small>Toestellen &amp; droogservice</small>
                 </Link>
                 <a href="https://www.vernast-schilderwerken.be/">
                   Schilderwerken<small>Binnen &amp; buiten</small>
@@ -106,26 +106,6 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
               <div className="mega-panel">
                 <div className="mega-cols">
                   <div className="mcol">
-                    <span className="mlab">Pakketten</span>
-                    <ul>
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Chape drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk + chape</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Waterschade drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="mcol">
                     <span className="mlab">Toestellen</span>
                     <ul>
                       <li>
@@ -138,7 +118,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                         <Link to="/verhuur/toestel/ttv4500">Turbo axiaalventilator</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/toestel/ttv4500">Turbo radiaalventilator</Link>
+                        <Link to="/verhuur/toestel/ttv-radiaal">Turbo radiaalventilator</Link>
                       </li>
                       <li>
                         <Link to="/verhuur/toestel/teddh30">Elektrische kachel 3,30 kW</Link>
@@ -194,7 +174,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                     </span>
                   </div>
                   <Link className="btn-offerte" to="/verhuur/calculator">
-                    Gratis offerte
+                    Start uw droging
                   </Link>
                 </div>
               </div>
@@ -239,7 +219,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
           <i id="cartCount">1</i>
         </Link>
         <Link className="btn-offerte" to="/verhuur/calculator">
-          Gratis offerte
+          Start uw droging
         </Link>
       </div>
     </header>

@@ -17,9 +17,9 @@ export interface SeoEntry {
 
 export const SEO = {
   home: {
-    title: "Bouwdroger huren in Vlaanderen — geleverd in 24 u | Vernast",
+    title: "Bouwdroger huren in Vlaanderen, geleverd in 24 u | Vernast",
     description:
-      "Bereken exact welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie, vochtmeting en ophaling inbegrepen — binnen 24 uur in heel Vlaanderen.",
+      "Bereken exact welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie, vochtmeting en ophaling inbegrepen, binnen 24 uur in heel Vlaanderen.",
   },
 
   /* ---------- Toepassingen: elk een eigen zoekintentie ---------- */
@@ -29,7 +29,7 @@ export const SEO = {
       "Chape gelegd of net gepleisterd? Droog tot vier keer sneller met een professionele bouwdroger. Levering aan huis, installatie en gratis vochtmeting inbegrepen.",
   },
   waterschade: {
-    title: "Bouwdroger bij waterschade — vandaag nog geleverd | Vernast",
+    title: "Bouwdroger bij waterschade, vandaag nog geleverd | Vernast",
     description:
       "Waterlek of overstroming? Wij leveren uw bouwdroger en ventilatoren vandaag nog. De eerste 48 uur bepalen of u schimmel en structurele schade voorblijft.",
   },
@@ -70,7 +70,7 @@ export const SEO = {
       "Wij brengen uw droogpakket binnen 24 uur naar de werf, plaatsen elk toestel, sluiten de condensafvoer aan en halen alles weer op zodra u droog bent.",
   },
   afhalen: {
-    title: "Bouwdroger afhalen in Aartselaar — € 25 korting | Vernast",
+    title: "Bouwdroger afhalen in Aartselaar, € 25 korting | Vernast",
     description:
       "Zelf ophalen in Aartselaar, Boomsesteenweg 12? Dat kan elke werkdag van 08:00 tot 17:00, met uitleg bij afhaling en € 25 korting op uw huurprijs.",
   },
@@ -97,12 +97,12 @@ export const SEO = {
 
   /* ---------- Bedrijf ---------- */
   overOns: {
-    title: "Over Vernast — Belgisch familiebedrijf in bouwdroging",
+    title: "Over Vernast, Belgisch familiebedrijf in bouwdroging",
     description:
       "Vernast Bouwdrogers is een Belgisch familiebedrijf uit Aartselaar met jarenlange ervaring in bouwdroging, vochtbestrijding en schilderwerken.",
   },
   contact: {
-    title: "Contact — bel 03 689 90 65 of mail ons | Vernast",
+    title: "Contact, bel 03 689 90 65 of mail ons | Vernast",
     description:
       "Vragen over bouwdroging of een dringende levering nodig? Bel 03 689 90 65 op werkdagen tussen 08:00 en 17:00, of stuur ons een bericht.",
   },

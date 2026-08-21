@@ -38,7 +38,7 @@ const packages = [
     name: "DF 200",
     label: "Klein project",
     volume: "Tot 200 m³",
-    desc: "1 à 2 kamers — Appartement of kleine woning",
+    desc: "1 à 2 kamers, Appartement of kleine woning",
     week: "XX",
     twoWeek: "XX",
     fourWeek: "XX",

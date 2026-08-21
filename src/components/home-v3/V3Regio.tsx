@@ -12,7 +12,7 @@ interface Region {
 const REGIONS: Region[] = [
   {
     name: "West-Vlaanderen",
-    pin: { left: "8%", top: "34%" },
+    pin: { left: "10%", top: "27%" },
     towns: [
       "Brugge", "Kortrijk", "Oostende", "Roeselare", "Ieper", "Waregem", "Knokke-Heist", "Veurne",
       "Torhout", "Menen", "Izegem", "Diksmuide", "Blankenberge", "Poperinge", "Tielt", "Harelbeke",
@@ -20,7 +20,7 @@ const REGIONS: Region[] = [
   },
   {
     name: "Oost-Vlaanderen",
-    pin: { left: "24%", top: "25%" },
+    pin: { left: "30%", top: "26%" },
     towns: [
       "Gent", "Aalst", "Sint-Niklaas", "Dendermonde", "Lokeren", "Wetteren", "Deinze", "Eeklo",
       "Ninove", "Geraardsbergen", "Oudenaarde", "Ronse", "Zottegem", "Temse", "Beveren", "Zelzate",
@@ -28,7 +28,7 @@ const REGIONS: Region[] = [
   },
   {
     name: "Antwerpen",
-    pin: { left: "42%", top: "12%" },
+    pin: { left: "51%", top: "17%" },
     towns: [
       "Antwerpen", "Aartselaar", "Mechelen", "Turnhout", "Lier", "Boom", "Kontich", "Geel", "Mol",
       "Herentals", "Heist-op-den-Berg", "Brasschaat", "Schoten", "Wilrijk", "Edegem", "Duffel",
@@ -36,7 +36,7 @@ const REGIONS: Region[] = [
   },
   {
     name: "Vlaams-Brabant",
-    pin: { left: "44%", top: "40%" },
+    pin: { left: "55%", top: "37%" },
     towns: [
       "Leuven", "Vilvoorde", "Halle", "Aarschot", "Tienen", "Zaventem", "Dilbeek", "Grimbergen",
       "Diest", "Asse", "Overijse", "Tervuren", "Machelen", "Beersel", "Sint-Pieters-Leeuw", "Haacht",
@@ -44,7 +44,7 @@ const REGIONS: Region[] = [
   },
   {
     name: "Brussel",
-    pin: { left: "33%", top: "53%" },
+    pin: { left: "47%", top: "41%" },
     towns: [
       "Brussel-stad", "Schaarbeek", "Anderlecht", "Ukkel", "Elsene", "Etterbeek", "Jette", "Evere",
       "Vorst", "Sint-Gillis", "Molenbeek", "Laken", "Woluwe", "Oudergem", "Ganshoren", "Koekelberg",
@@ -52,7 +52,7 @@ const REGIONS: Region[] = [
   },
   {
     name: "Limburg",
-    pin: { left: "68%", top: "21%" },
+    pin: { left: "74%", top: "28%" },
     towns: [
       "Hasselt", "Genk", "Sint-Truiden", "Tongeren", "Beringen", "Lommel", "Bilzen", "Maasmechelen",
       "Houthalen", "Heusden-Zolder", "Diepenbeek", "Bree", "Peer", "Maaseik", "Lanaken",
@@ -105,7 +105,7 @@ const V3Regio = () => {
               ))}
             </div>
             <p className="rg-note">
-              Staat uw gemeente er niet bij? Wij leveren in heel Vlaanderen en Brussel — bel ons op
+              Staat uw gemeente er niet bij? Wij leveren in heel Vlaanderen en Brussel, bel ons op
               03 689 90 65 en we bekijken het meteen.
             </p>
             <Link className="btn btn-red" to="/verhuur/calculator">

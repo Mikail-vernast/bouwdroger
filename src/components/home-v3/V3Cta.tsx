@@ -72,7 +72,7 @@ const V3Cta = () => {
           <span className="kick">Klaar om te starten?</span>
           <h2>Uw woning drogen start hier.</h2>
           <p>
-            Stel hieronder meteen uw vraag — foto’s en documenten meesturen mag. Onze droogexperts
+            Stel hieronder meteen uw vraag, foto’s en documenten meesturen mag. Onze droogexperts
             antwoorden dezelfde werkdag.
           </p>
         </div>

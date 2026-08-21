@@ -27,7 +27,6 @@ const CARDS: { icon: ReactNode; title: string; body: ReactNode }[] = [
 const NOTES = [
   "5% korting bij volledig online betalen",
   "Factuur direct in uw mailbox",
-  "Of € 50 bevestiging + rest bij levering",
 ];
 
 const V3Pay = () => (

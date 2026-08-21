@@ -53,8 +53,8 @@ const Index = () => {
         <V3Regio />
         <V3Pay />
         <V3Pickup />
-        <V3Faq />
         <V3Cta />
+        <V3Faq />
       </main>
       <V3Footer />
     </div>

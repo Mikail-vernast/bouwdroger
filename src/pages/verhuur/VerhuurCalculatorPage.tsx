@@ -146,11 +146,11 @@ const VerhuurCalculatorPage = () => {
           {/*
             De wizard begint visueel meteen bij vraag 1; er is geen zichtbare
             paginakop. Zonder h1 weet een crawler niet waar deze pagina over
-            gaat — vandaar een kop die alleen voor schermlezers en crawlers
+            gaat, vandaar een kop die alleen voor schermlezers en crawlers
             bestaat.
           */}
           <h1 className="sr-only">
-            Droogpakket samenstellen — bereken uw toestellen, droogtijd en prijs
+            Droogpakket samenstellen, bereken uw toestellen, droogtijd en prijs
           </h1>
           <div className="acard">
             <img className="worker" src="/vernast/worker-carry.webp" alt="" loading="lazy" decoding="async" />

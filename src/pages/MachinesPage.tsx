@@ -545,7 +545,7 @@ const MachinesPage = () => {
               Twijfel over welke machine?
             </h2>
             <p className="text-primary-foreground/70 mb-8">
-              Bel ons voor gratis advies — wij helpen u de juiste keuze maken
+              Bel ons voor gratis advies, wij helpen u de juiste keuze maken
               voor uw project.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

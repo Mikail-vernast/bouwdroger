@@ -410,7 +410,7 @@ const DeliveryWizard = () => {
                     Hoeveel m² heeft<br />uw woning?
                   </h2>
                   <p className="text-primary-foreground/50 mb-8 text-base md:text-lg max-w-md">
-                    Selecteer de oppervlakte — we berekenen direct uw pakket.
+                    Selecteer de oppervlakte, we berekenen direct uw pakket.
                   </p>
                 </motion.div>
 

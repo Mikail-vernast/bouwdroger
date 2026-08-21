@@ -42,8 +42,8 @@ function variantLabel(pkg: Package): string | null {
 export function packageMetaTitle(pkg: Package): string {
   const variant = variantLabel(pkg);
   return variant
-    ? `${pkg.shortTitle} · ${variant.toLowerCase()} — droogpakket huren`
-    : `${pkg.shortTitle} — droogpakket huren`;
+    ? `${pkg.shortTitle} · ${variant.toLowerCase()}, droogpakket huren`
+    : `${pkg.shortTitle}, droogpakket huren`;
 }
 
 /**

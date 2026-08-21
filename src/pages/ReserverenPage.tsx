@@ -211,7 +211,7 @@ const ReserverenPage = () => {
               </div>
             ))}
           </div>
-          <p className="text-center text-sm text-muted-foreground mb-8">Stap {step} van 3 — {stepLabels[step - 1]}</p>
+          <p className="text-center text-sm text-muted-foreground mb-8">Stap {step} van 3, {stepLabels[step - 1]}</p>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main content */}
@@ -290,7 +290,7 @@ const ReserverenPage = () => {
 
                     {step1Valid && (
                       <motion.div initial={enterInitial({ opacity: 0, y: 16 })} animate={{ opacity: 1, y: 0 }} className="bg-muted/50 rounded-xl p-4 text-sm">
-                        <p className="font-bold text-foreground mb-1">Geselecteerd: {machine} — {duur}</p>
+                        <p className="font-bold text-foreground mb-1">Geselecteerd: {machine}, {duur}</p>
                         <p className="text-muted-foreground">Levering & ophaling: Inbegrepen | Vochtmeting: Gratis</p>
                       </motion.div>
                     )}

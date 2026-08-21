@@ -11,7 +11,7 @@ const INCLUDED: { icon: ReactNode; title: string; body: string }[] = [
   {
     icon: <ChecklistIcon />,
     title: "Installatie op gelijkvloers",
-    body: "Onze technicus plaatst het toestel, sluit de condensafvoer aan en stelt alles correct af — met basisuitleg bij plaatsing.",
+    body: "Onze technicus plaatst het toestel, sluit de condensafvoer aan en stelt alles correct af, met basisuitleg bij plaatsing.",
   },
   {
     icon: <RefreshIcon />,
@@ -36,7 +36,7 @@ const OPTIONS = [
   },
   {
     title: "Automatische waterafvoer",
-    body: "Bij langere trajecten pompt een afvoeroplossing het water automatisch weg — geen reservoirs ledigen.",
+    body: "Bij langere trajecten pompt een afvoeroplossing het water automatisch weg, geen reservoirs ledigen.",
   },
   {
     title: "Rapportage",
@@ -52,7 +52,7 @@ const V3Included = () => (
         <h2 className="sec">Eén duidelijke prijs. Meer inbegrepen dan u denkt.</h2>
         <p className="lede">
           Bouwdroging moet duidelijk zijn. Daarom werken wij met transparante huurvoorwaarden en een
-          serviceformule die u ontzorgt — u ziet de prijs bij het berekenen en boekt tegen exact dat
+          serviceformule die u ontzorgt. U ziet de prijs bij het berekenen en boekt tegen exact dat
           tarief.
         </p>
       </div>
@@ -87,7 +87,7 @@ const V3Included = () => (
         <div className="ob-body">
           <h3>Bij levering volledig ontzorgd. En 100% droog, gegarandeerd.*</h3>
           <p>
-            Wij berekenen, leveren, installeren en volgen op — u hoeft niets te sjouwen of in te
+            Wij berekenen, leveren, installeren en volgen op. U hoeft niets te sjouwen of in te
             stellen. Niet droog binnen de berekende periode? Dan verlengt u maximaal kosteloos.
           </p>
           <Link className="ob-btn" to="/verhuur/calculator">

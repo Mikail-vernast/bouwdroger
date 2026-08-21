@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     question: "Heb ik een vochtmeting nodig?",
-    answer: "Ja, uw vloerlegger eist een vochtrapport voordat hij kan starten. Bij onze all-in service is deze meting gratis inbegrepen — dat bespaart u €100-200.",
+    answer: "Ja, uw vloerlegger eist een vochtrapport voordat hij kan starten. Bij onze all-in service is deze meting gratis inbegrepen, dat bespaart u €100-200.",
   },
   {
     question: "Leveren jullie in heel België?",

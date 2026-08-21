@@ -36,7 +36,7 @@ const V3Pickup = () => (
         <span className="kick">Zelf afhalen</span>
         <h2 className="sec">Liever zelf afhalen? Zo werkt het.</h2>
         <p className="lede">
-          Losse toestellen haalt u zelf af aan ons afhaalpunt langs de A12 in Aartselaar — tegen
+          Losse toestellen haalt u zelf af aan ons afhaalpunt langs de A12 in Aartselaar, tegen
           lagere afhaalprijzen. Reserveren gaat online, betalen doet u pas na de huurperiode.
         </p>
       </div>
@@ -57,7 +57,7 @@ const V3Pickup = () => (
             <span>
               Een professionele bouwdroger weegt al snel 30 tot 50 kg. Zelf tillen, zeker op een
               trap, is niet zonder risico. Bent u wat ouder of fysiek minder sterk? Kies dan een
-              pakket met levering: wij dragen, plaatsen en stellen alles in — u hoeft niets te
+              pakket met levering: wij dragen, plaatsen en stellen alles in, u hoeft niets te
               tillen.
             </span>
             <Link className="btn btn-white" to="/verhuur/calculator">

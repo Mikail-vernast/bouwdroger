@@ -892,7 +892,7 @@ const VerhuurBoekingPage = () => {
                 <h2>Uw boeking staat vast</h2>
                 <p>
                   Wij bevestigen uw levering telefonisch binnen één werkdag. Betaalde u volledig
-                  online, dan staat uw factuur meteen in uw mailbox — met 5% korting. Koos u voor
+                  online, dan staat uw factuur meteen in uw mailbox, met 5% korting. Koos u voor
                   {" "}{euro(DEPOSIT)} bevestiging, dan betaalt u het saldo bij levering.
                 </p>
                 <div className="dref">

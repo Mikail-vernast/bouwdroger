@@ -332,7 +332,7 @@ export const COVER: CoverTier[] = [
     name: "Geen eigen risico",
     price: 59,
     badge: "",
-    sub: "Volledig zonder eigen risico — bij schade, defect én diefstal.",
+    sub: "Volledig zonder eigen risico, bij schade, defect én diefstal.",
     inc: [
       "Géén eigen risico bij schade",
       "Diefstal volledig gedekt",
@@ -442,12 +442,12 @@ export const PRODUCTS: Record<string, Product> = {
     ],
     aboutTitle: "Wanneer kiest u de TTK 170 S?",
     about: [
-      "Dit is ons instaptoestel — maar met 50 liter vochtafvoer per dag is het bepaald geen lichtgewicht. Voor ruimtes tot ongeveer <strong>250 m³</strong> (bijvoorbeeld een appartement of een verdieping van een woning) haalt dit toestel het bouwvocht er efficiënt uit.",
+      "Dit is ons instaptoestel, maar met 50 liter vochtafvoer per dag is het bepaald geen lichtgewicht. Voor ruimtes tot ongeveer <strong>250 m³</strong> (bijvoorbeeld een appartement of een verdieping van een woning) haalt dit toestel het bouwvocht er efficiënt uit.",
       "De TTK 170 S is verrijdbaar en compact genoeg om via een normale deur of trap binnen te krijgen. Hij draait stil genoeg om in een bewoonde ruimte te blijven staan, wat hem geschikt maakt voor renovaties waar u ondertussen woont.",
       "Werkt u in een grotere ruimte of gaat het om waterschade waarbij snelheid telt? Kijk dan naar de <strong>TTK 350 S</strong> of <strong>TTK 650 S</strong>.",
     ],
     bullets: [
-      ["Tot 250 m³", "Eén kamer, appartement of verdieping — het volume dat dit toestel comfortabel aankan."],
+      ["Tot 250 m³", "Eén kamer, appartement of verdieping, het volume dat dit toestel comfortabel aankan."],
       ["Stil genoeg voor bewoonde ruimtes", "U kunt blijven wonen of werken terwijl het toestel draait."],
       ["Verrijdbaar en compact", "Past door normale deuren en is met één persoon te verplaatsen."],
       ["Continu-afvoer mogelijk", "Wij sluiten standaard een condensslang aan zodat u niets moet legen."],
@@ -469,7 +469,7 @@ export const PRODUCTS: Record<string, Product> = {
     faq: [
       [
         "Is dit toestel groot genoeg voor mijn woning?",
-        "Voor één kamer, een appartement of een verdieping tot ongeveer 250 m³ volstaat de TTK 170 S. Voor een volledige nieuwbouwwoning raden we de TTK 350 S aan. Laat het gerust berekenen via de configurator — dan weet u het zeker.",
+        "Voor één kamer, een appartement of een verdieping tot ongeveer 250 m³ volstaat de TTK 170 S. Voor een volledige nieuwbouwwoning raden we de TTK 350 S aan. Laat het gerust berekenen via de configurator, dan weet u het zeker.",
       ],
       [
         "Kan ik het toestel zelf verplaatsen?",
@@ -497,7 +497,7 @@ export const PRODUCTS: Record<string, Product> = {
     aboutTitle: "Wanneer kiest u de TTK 350 S?",
     about: [
       "Dit is het toestel dat we het vaakst leveren, en met reden: met <strong>70 liter vochtafvoer per dag</strong> en een bereik tot <strong>400 m³</strong> dekt het een volledige nieuwbouwwoning of een grote renovatie in één keer.",
-      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af — natuurlijke droging duurt weken. De TTK 350 S verlaagt de luchtvochtigheid ver genoeg om dat proces terug te brengen tot <strong>doorgaans 5 tot 7 dagen</strong>, zodat uw vloerder en schilder kunnen starten.",
+      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af, natuurlijke droging duurt weken. De TTK 350 S verlaagt de luchtvochtigheid ver genoeg om dat proces terug te brengen tot <strong>doorgaans 5 tot 7 dagen</strong>, zodat uw vloerder en schilder kunnen starten.",
       "Voor het beste resultaat combineert u dit toestel met een <strong>ventilator TTV 4500</strong>. Zonder luchtbeweging droogt vooral de lucht en niet de bouwmassa; met circulatie wint u dagen.",
     ],
     bullets: [
@@ -527,7 +527,7 @@ export const PRODUCTS: Record<string, Product> = {
       ],
       [
         "Heb ik er een ventilator bij nodig?",
-        "Aangeraden, geen verplichting. Een ontvochtiger droogt de lucht; een ventilator zorgt dat die droge lucht ook effectief langs muren en vloeren strijkt. In de praktijk verkort die combinatie de droogtijd merkbaar — vooral bij dikke chape.",
+        "Aangeraden, geen verplichting. Een ontvochtiger droogt de lucht; een ventilator zorgt dat die droge lucht ook effectief langs muren en vloeren strijkt. In de praktijk verkort die combinatie de droogtijd merkbaar, vooral bij dikke chape.",
       ],
       [
         "Wat als mijn ruimte groter is dan 400 m³?",
@@ -555,12 +555,12 @@ export const PRODUCTS: Record<string, Product> = {
     aboutTitle: "Wanneer kiest u de TTK 650 S?",
     about: [
       "Met <strong>90 liter per dag</strong> en een bereik tot <strong>600 m³</strong> is dit het toestel voor situaties waar volume of snelheid het probleem is: grote werven, industriële ruimtes, ruime kelders of acute waterschade.",
-      "Bij <strong>waterschade</strong> is dit vaak de juiste keuze. Na een lek of overstroming zit het water niet alleen in de lucht maar diep in vloeren, muren en isolatie. Hoe sneller u de luchtvochtigheid omlaag brengt, hoe kleiner de kans op schimmel en structurele schade — de eerste 48 uur zijn beslissend.",
+      "Bij <strong>waterschade</strong> is dit vaak de juiste keuze. Na een lek of overstroming zit het water niet alleen in de lucht maar diep in vloeren, muren en isolatie. Hoe sneller u de luchtvochtigheid omlaag brengt, hoe kleiner de kans op schimmel en structurele schade, de eerste 48 uur zijn beslissend.",
       "Droogt u een <strong>kelder of onverwarmde ruimte</strong>? Combineer dit toestel met de <strong>elektrische kachel TEddH 30 T</strong>. Onder 15 °C werkt condensatiedroging traag; met de kachel brengt u de temperatuur op peil en komt het vocht wel los.",
     ],
     bullets: [
       ["Tot 600 m³", "Grote werven, industriële ruimtes en ruime kelders in één toestel."],
-      ["90 L per dag", "De hoogste vochtafvoer in ons gamma — voor acute situaties."],
+      ["90 L per dag", "De hoogste vochtafvoer in ons gamma, voor acute situaties."],
       ["Eerste keuze bij waterschade", "Snel de luchtvochtigheid omlaag om schimmel en rot te voorkomen."],
       ["Combineer met kachel", "In koude ruimtes brengt de TEddH 30 T de temperatuur op werkingsniveau."],
     ],
@@ -589,7 +589,7 @@ export const PRODUCTS: Record<string, Product> = {
       ],
       [
         "Hoeveel stroom verbruikt het?",
-        "1,4 kW bij volle werking — vergelijkbaar met een waterkoker die continu op halve kracht staat. Over een week is dat een beperkte kost tegenover de schade die u voorkomt.",
+        "1,4 kW bij volle werking, vergelijkbaar met een waterkoker die continu op halve kracht staat. Over een week is dat een beperkte kost tegenover de schade die u voorkomt.",
       ],
       [
         "Kan ik meerdere toestellen huren?",
@@ -612,14 +612,14 @@ export const PRODUCTS: Record<string, Product> = {
     ],
     aboutTitle: "Waarom een ventilator bij het drogen?",
     about: [
-      "Een ontvochtiger droogt de <strong>lucht</strong>. Maar het vocht zit in uw <strong>muren, chape en vloer</strong>. Zonder luchtbeweging vormt zich een dun laagje verzadigde lucht tegen die oppervlakken — en daar stopt de droging.",
+      "Een ontvochtiger droogt de <strong>lucht</strong>. Maar het vocht zit in uw <strong>muren, chape en vloer</strong>. Zonder luchtbeweging vormt zich een dun laagje verzadigde lucht tegen die oppervlakken, en daar stopt de droging.",
       "Een ventilator doorbreekt dat laagje. Door de lucht continu langs de bouwmassa te blazen blijft er telkens droge lucht in contact met het natte oppervlak, waardoor het vocht sneller vrijkomt. In de praktijk kan dat <strong>dagen verschil</strong> maken.",
       "Met <strong>4 500 m³/u</strong> en drie standen is dit toestel geschikt voor grote ruimtes. Het is licht, stapelbaar en richtbaar, zodat u de luchtstroom precies op de natte zone kunt zetten. Bij waterschade beschouwen wij een ventilator als <strong>essentieel</strong>, niet als optie.",
     ],
     bullets: [
       ["4 500 m³/u luchtverzet", "Genoeg debiet om een grote ruimte volledig in beweging te houden."],
       ["Onmisbaar bij waterschade", "Zonder circulatie droogt de lucht wel, de bouwmassa niet."],
-      ["Zeer zuinig", "0,2 kW — het goedkoopste toestel om uw droogtijd te verkorten."],
+      ["Zeer zuinig", "0,2 kW, het goedkoopste toestel om uw droogtijd te verkorten."],
       ["Richtbaar en stapelbaar", "Zet de luchtstroom precies waar het vocht zit; meerdere units combineerbaar."],
     ],
     specs: [
@@ -646,7 +646,60 @@ export const PRODUCTS: Record<string, Product> = {
       ],
       [
         "Kan ik hem alleen huren, zonder ontvochtiger?",
-        "Dat kan, bijvoorbeeld om een werf te ventileren of verf sneller te laten drogen. Voor bouwvocht raden we altijd de combinatie met een ontvochtiger aan — een ventilator alleen verplaatst het vocht, hij verwijdert het niet.",
+        "Dat kan, bijvoorbeeld om een werf te ventileren of verf sneller te laten drogen. Voor bouwvocht raden we altijd de combinatie met een ontvochtiger aan, een ventilator alleen verplaatst het vocht, hij verwijdert het niet.",
+      ],
+    ],
+  },
+  "ttv-radiaal": {
+    name: "Turbo Radiaalventilator",
+    short: "Radiaalventilator",
+    type: "Radiaalventilator · gerichte vloerdroging",
+    badge: "Onder chape en in hoeken",
+    day: 8,
+    img: ["/vernast/vent-radiaal.webp"],
+    sum: "Radiaalventilator die een smalle, krachtige straal net boven de vloer blaast. Komt onder chape, achter plinten en in hoeken waar een axiaalventilator niet bijraakt.",
+    key: [
+      ["Luchtverzet", "2 250", "m³/u"],
+      ["Standen", "3", ""],
+      ["Verbruik", "0,5", "kW"],
+    ],
+    aboutTitle: "Waarom een radiaalventilator?",
+    about: [
+      "Een axiaalventilator beweegt veel lucht, maar verspreid door de ruimte. Bij <strong>chape en vloeren</strong> zit het vocht net onderaan, achter plinten en in hoeken, precies waar een brede luchtstroom niet krachtig genoeg komt.",
+      "De radiaalventilator lost dat op. Hij blaast een <strong>smalle, krachtige straal</strong> net boven de vloer, zodat de droge lucht ook onder de chape en in de hoeken raakt waar het vocht het langst blijft zitten.",
+      "Met <strong>2 250 m³/u</strong>, drie standen en een <strong>extra stopcontact</strong> voor doorvoer is dit het toestel dat wij standaard bijzetten bij chape en na waterschade. Spatwaterdicht (IP55) en stapelbaar, dus u combineert er moeiteloos meerdere.",
+    ],
+    bullets: [
+      ["Gerichte vloerstraal", "Komt onder chape, achter plinten en in hoeken waar een axiaalventilator niet bij raakt."],
+      ["Standaard bij chape", "Ons vaste toestel om chape en dekvloeren gelijkmatig droog te krijgen."],
+      ["Spatwaterdicht (IP55)", "Veilig inzetbaar op natte werven en na waterschade."],
+      ["Extra stopcontact", "Doorvoer voor een volgend toestel; stapelbaar voor meerdere units samen."],
+    ],
+    specs: [
+      ["Type", "Radiaalventilator"],
+      ["Luchtverzet", "2 250 m³/u"],
+      ["Snelheidsstanden", "3"],
+      ["Opgenomen vermogen", "0,5 kW"],
+      ["Voedingsspanning", "230 V / 50 Hz"],
+      ["Beschermingsgraad", "IP55 (spatwaterdicht)"],
+      ["Extra stopcontact", "ja, doorvoer"],
+      ["Behuizing", "stapelbaar"],
+      ["Afmetingen (b × d × h)", "ca. 48 × 39 × 45 cm"],
+      ["Gewicht", "ca. 11 kg"],
+      ["Toepassing", "chape drogen, vloerdroging, waterschade"],
+    ],
+    faq: [
+      [
+        "Wat is het verschil met de axiaalventilator?",
+        "De axiaalventilator verplaatst meer lucht (5 300 m³/u) en is ideaal om een hele ruimte in beweging te houden. De radiaalventilator blaast een gerichte straal net boven de vloer en komt zo onder chape en in hoeken. Bij chape en vloerdroging zetten we vaak beide samen in.",
+      ],
+      [
+        "Wanneer kies ik voor een radiaalventilator?",
+        "Vooral bij het drogen van chape en dekvloeren, en na waterschade waar het vocht in de vloer zit. De smalle, krachtige straal raakt precies daar waar het vocht het langst blijft zitten.",
+      ],
+      [
+        "Kan ik meerdere toestellen combineren?",
+        "Ja. Dankzij het extra stopcontact en de stapelbare behuizing zet u eenvoudig meerdere ventilatoren samen. Onze technicus adviseert het juiste aantal voor uw oppervlakte.",
       ],
     ],
   },
@@ -665,14 +718,14 @@ export const PRODUCTS: Record<string, Product> = {
     ],
     aboutTitle: "Waarom verwarmen bij het drogen?",
     about: [
-      "Droging is temperatuurafhankelijk. Warme lucht kan veel meer vocht vasthouden dan koude lucht — en warme bouwmassa geeft haar vocht sneller af. <strong>Onder 15 °C daalt het rendement van een condensontvochtiger sterk</strong>; onder 10 °C wordt het proces echt traag.",
+      "Droging is temperatuurafhankelijk. Warme lucht kan veel meer vocht vasthouden dan koude lucht, en warme bouwmassa geeft haar vocht sneller af. <strong>Onder 15 °C daalt het rendement van een condensontvochtiger sterk</strong>; onder 10 °C wordt het proces echt traag.",
       "Precies daar komt deze kachel in beeld. In een <strong>kelder, een onverwarmde nieuwbouw of een winterwerf</strong> brengt de TEddH 30 T de ruimte op werkingstemperatuur, waardoor de ontvochtiger weer op volle capaciteit kan werken. De combinatie levert een veel kortere droogtijd dan de ontvochtiger alleen.",
-      "Met <strong>30 kW</strong> en een ingebouwde thermostaat verwarmt het toestel ook grote volumes en houdt het de temperatuur stabiel zonder dat u erbij moet blijven. Aansluiting op <strong>400 V krachtstroom</strong> is vereist — onze technicus controleert dat bij de levering.",
+      "Met <strong>30 kW</strong> en een ingebouwde thermostaat verwarmt het toestel ook grote volumes en houdt het de temperatuur stabiel zonder dat u erbij moet blijven. Aansluiting op <strong>400 V krachtstroom</strong> is vereist, onze technicus controleert dat bij de levering.",
     ],
     bullets: [
       ["30 kW verwarmingsvermogen", "Brengt ook grote, koude ruimtes snel op werkingstemperatuur."],
       ["Onmisbaar in kelders", "Onder 15 °C werkt een ontvochtiger alleen niet efficiënt genoeg."],
-      ["Ingebouwde thermostaat", "Houdt de streeftemperatuur automatisch aan — geen toezicht nodig."],
+      ["Ingebouwde thermostaat", "Houdt de streeftemperatuur automatisch aan, geen toezicht nodig."],
       ["400 V krachtstroom", "Wij controleren bij levering of uw aansluiting geschikt is."],
     ],
     specs: [
@@ -691,7 +744,7 @@ export const PRODUCTS: Record<string, Product> = {
     faq: [
       [
         "Waarom heb ik een kachel nodig bij een ontvochtiger?",
-        "Omdat droging temperatuurafhankelijk is. Onder 15 °C kan de lucht weinig vocht opnemen en geeft de bouwmassa haar water traag af. De kachel brengt de ruimte op temperatuur zodat de ontvochtiger op volle capaciteit werkt — samen droogt u aanzienlijk sneller.",
+        "Omdat droging temperatuurafhankelijk is. Onder 15 °C kan de lucht weinig vocht opnemen en geeft de bouwmassa haar water traag af. De kachel brengt de ruimte op temperatuur zodat de ontvochtiger op volle capaciteit werkt, samen droogt u aanzienlijk sneller.",
       ],
       [
         "Heb ik krachtstroom nodig?",
@@ -699,7 +752,7 @@ export const PRODUCTS: Record<string, Product> = {
       ],
       [
         "Verbruikt dit veel stroom?",
-        "Een kachel van 30 kW is geen zuinig toestel — maar in een koude ruimte is het de enige manier om de droging te doen werken. Zonder verwarming loopt de huurperiode van uw ontvochtiger véél langer op, wat uiteindelijk duurder uitkomt.",
+        "Een kachel van 30 kW is geen zuinig toestel, maar in een koude ruimte is het de enige manier om de droging te doen werken. Zonder verwarming loopt de huurperiode van uw ontvochtiger véél langer op, wat uiteindelijk duurder uitkomt.",
       ],
       [
         "Kan de kachel onbewaakt blijven staan?",
@@ -709,13 +762,14 @@ export const PRODUCTS: Record<string, Product> = {
   },
 };
 
-export const PRODUCT_ORDER = ["ttk170", "ttk350", "ttk650", "ttv4500", "teddh30"];
+export const PRODUCT_ORDER = ["ttk170", "ttk350", "ttk650", "ttv4500", "ttv-radiaal", "teddh30"];
 
 export const PRODUCT_ADDONS: Record<string, string[]> = {
   ttk170: ["ttv4500"],
   ttk350: ["ttv4500"],
   ttk650: ["ttv4500", "teddh30"],
   ttv4500: ["ttk350"],
+  "ttv-radiaal": ["ttk350"],
   teddh30: ["ttk650"],
 };
 

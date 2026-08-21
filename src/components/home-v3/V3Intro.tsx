@@ -20,7 +20,7 @@ const PANELS = [
       ["Schimmelrisico", "Hoog: vocht blijft wekenlang in muren en chape hangen."],
       [
         "Afwerken",
-        "Wachten — of te vroeg afwerken, met blazen en loskomende verf als gevolg.",
+        "Wachten, of te vroeg afwerken, met blazen en loskomende verf als gevolg.",
       ],
     ],
     verdict: "“Gratis” natuurlijk drogen betaalt u in tijd, stookkosten en risico op schade.",
@@ -31,12 +31,12 @@ const PANELS = [
     tab: "Actieve bouwdroging",
     tone: "good",
     rows: [
-      ["Droogtijd", "Dagen in plaats van weken — vooraf berekend en voorspelbaar."],
+      ["Droogtijd", "Dagen in plaats van weken, vooraf berekend en voorspelbaar."],
       ["Controle", "Volledig: vochtmeting voor en na bevestigt wanneer alles écht droog is."],
       ["Schimmelrisico", "Minimaal: vocht wordt continu afgevoerd voor schimmel kan groeien."],
       [
         "Afwerken",
-        "Afwerken zodra de meting het toelaat — zonder blazen of loskomende verf.",
+        "Afwerken zodra de meting het toelaat, zonder blazen of loskomende verf.",
       ],
     ],
     verdict: "Actief drogen verdient zichzelf terug in tijd, stookkosten en zekerheid.",
