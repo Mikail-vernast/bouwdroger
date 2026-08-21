@@ -1,35 +1,76 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Phone, Mail, MapPin, Clock, Send, Warehouse, PhoneCall, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
+import V3Header from "@/components/home-v3/V3Header";
+import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import { enterInitial } from "@/lib/firstPaint";
+import "@/styles/contact.css";
+import "@/styles/contact-fixes.css";
+
+/**
+ * Contact — 1:1 transcription of the Claude Design handoff (Contact.html).
+ * The design's own header/footer are replaced by the shared
+ * <V3Header>/<V3Footer>; everything else is the design's markup, scoped under
+ * `.contact-page` (see src/styles/contact.css). Assets resolve from
+ * /vernast/*.webp. The route illustration is kept as an inline SVG.
+ */
+
+/** The A12 route illustration reused in the hero and in the location map card. */
+const RouteMap = ({ ariaLabel }: { ariaLabel?: string }) => (
+  <svg viewBox="0 0 900 460" role="img" {...(ariaLabel ? { "aria-label": ariaLabel } : { "aria-hidden": true })}>
+    <rect width="900" height="460" fill="#F7F6F6" />
+    <rect x="810" y="0" width="90" height="460" fill="#ECEAEA" />
+    <text x="855" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#b3afaf" transform="rotate(-90 855 230)">A12</text>
+    <rect x="690" y="0" width="72" height="460" fill="#E3E1E1" />
+    <line x1="726" y1="0" x2="726" y2="460" stroke="#fff" strokeWidth="4" strokeDasharray="26 20" />
+    <text x="672" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" transform="rotate(-90 672 230)">N177 · BOOMSESTEENWEG</text>
+    <rect x="40" y="350" width="686" height="52" fill="#E3E1E1" />
+    <text x="420" y="383" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
+    <g>
+      <rect x="480" y="34" width="170" height="60" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
+      <text x="565" y="60" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="11.5" fontWeight="700" fill="#8a8686" letterSpacing="1.5">KIA VERMANT</text>
+      <text x="565" y="80" textAnchor="middle" fontFamily="system-ui" fontSize="11.5" fill="#b3afaf">herkenningspunt</text>
+    </g>
+    <g>
+      <rect x="480" y="128" width="170" height="72" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
+      <text x="565" y="160" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#3a3737" letterSpacing="2">TESLA</text>
+      <text x="565" y="182" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">u passeert eerst Tesla</text>
+    </g>
+    <g>
+      <rect x="462" y="236" width="188" height="86" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
+      <rect x="462" y="236" width="188" height="26" rx="10" fill="#C8102E" />
+      <text x="556" y="254" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="12" fontWeight="700" fill="#fff" letterSpacing="2">CARGLASS</text>
+      <text x="556" y="286" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">daarna Carglass,</text>
+      <text x="556" y="304" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">hier rechts indraaien</text>
+    </g>
+    <g>
+      <rect x="40" y="216" width="250" height="100" rx="12" fill="#C8102E" />
+      <text x="165" y="256" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="14" fontWeight="700" fill="#fff" letterSpacing="2">VERNAST · UNIT 11</text>
+      <text x="165" y="280" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="rgba(255,255,255,.85)">Hoofdkantoor + afhaalpoort</text>
+    </g>
+    <path className="route-alt" d="M855 16 L855 200 L740 288 L726 310" fill="none" stroke="#DE9AA5" strokeWidth="4" strokeLinecap="round" />
+    <circle cx="855" cy="16" r="7" fill="#DE9AA5" stroke="#fff" strokeWidth="3" />
+    <text x="838" y="26" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#b3afaf">of via de A12, afrit Aartselaar</text>
+    <path className="route-line" d="M726 16 L726 376 L96 376" fill="none" stroke="#C8102E" strokeWidth="5" strokeLinecap="round" />
+    <circle className="pin-pulse" cx="96" cy="376" r="10" fill="none" stroke="#C8102E" strokeWidth="3" />
+    <circle cx="96" cy="376" r="9" fill="#C8102E" stroke="#fff" strokeWidth="3" />
+    <circle className="car-dot" r="8" fill="#141414" stroke="#fff" strokeWidth="3" />
+    <g>
+      <circle cx="726" cy="16" r="8" fill="#3a3737" stroke="#fff" strokeWidth="3" />
+      <text x="700" y="26" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#8a8686">u komt van Antwerpen via de N177</text>
+    </g>
+  </svg>
+);
 
 const ContactPage = () => {
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Bericht verzonden! Wij nemen zo snel mogelijk contact op.");
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
-  };
+  const [sent, setSent] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="contact-page">
       <PageMeta
         {...SEO.contact}
+        path="/contact"
         jsonLd={[
           organizationSchema(),
           breadcrumbSchema([
@@ -38,272 +79,194 @@ const ContactPage = () => {
           ]),
         ]}
       />
-      <Navbar />
-      <main>
-        {/* Hero */}
-        <section className="relative bg-accent overflow-hidden">
-          <div className="absolute inset-0">
-            <img
-              src="/products/chape-drogen-3.jpg"
-              alt="Vernast magazijn"
-              className="w-full h-full object-cover opacity-20" loading="lazy" decoding="async" />
-            <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/90 to-accent/60" />
-          </div>
-          <div className="relative z-10 container mx-auto px-4 py-20 md:py-28">
-            <motion.div
-              initial={enterInitial({ opacity: 0, y: 30 })}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-2xl"
-            >
-              <span className="inline-block bg-accent text-primary-foreground text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-6">
-                Contact & Afhalen
-              </span>
-              <h1 className="text-3xl md:text-5xl font-extrabold text-primary-foreground leading-tight mb-5">
-                Bezoek Ons Magazijn of Neem Contact Op
-              </h1>
-              <p className="text-primary-foreground/70 text-lg mb-8 max-w-xl">
-                Vragen over bouwdroging? Een offerte nodig? Of wil je materiaal afhalen? Wij staan voor je klaar.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <a href="tel:+3236899065">
-                  <Button className="bg-accent text-primary-foreground hover:bg-accent/90 rounded-full px-6 h-12 text-base font-semibold">
-                    <PhoneCall className="mr-2 h-5 w-5" />
-                    Bel Ons Direct
-                  </Button>
-                </a>
-                <a href="mailto:info@vernast-verhuur.be">
-                  <Button variant="outline" className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full px-6 h-12 text-base font-semibold">
-                    <Mail className="mr-2 h-5 w-5" />
-                    Stuur een E-mail
-                  </Button>
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        </section>
 
-        {/* Map + Overlay */}
-        <section className="relative">
-          <div className="w-full h-[400px] md:h-[450px]">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2502.8!2d4.3836!3d51.1442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3f0a5a5a5a5a5%3A0x0!2sBoomsesteenweg%2012%2C%202630%20Aartselaar!5e0!3m2!1snl!2sbe!4v1700000000000!5m2!1snl!2sbe"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Vernast magazijn locatie"
-            />
-          </div>
+      <V3Header lightAfter={420} />
 
-          {/* Overlay card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="container mx-auto px-4"
-          >
-            <div className="relative -mt-20 md:-mt-24 z-10 max-w-md">
-              <div className="bg-card border border-border rounded-2xl shadow-xl p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="bg-green-500/10 text-green-600 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-green-500/20">
-                    ✓ Afhalen mogelijk!
-                  </span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-11 h-11 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-5 w-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-foreground text-base">Vernast Magazijn</p>
-                    <p className="text-sm text-muted-foreground">Boomsesteenweg 12/Unit 11</p>
-                    <p className="text-sm text-muted-foreground">2630 Aartselaar</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Contact cards + Formulier */}
-        <section className="py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-5 gap-10">
-              {/* Links: contact info kaarten */}
-              <div className="lg:col-span-2 space-y-5">
-                {/* Telefoon */}
-                <motion.a
-                  href="tel:+3236899065"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0 }}
-                  className="group block bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-lg hover:border-accent/30 transition-all duration-300"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all duration-300">
-                      <Phone className="h-5 w-5 text-accent group-hover:text-primary-foreground transition-colors" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-foreground text-base">Telefoon</p>
-                      <p className="text-sm text-muted-foreground">03 689 90 65</p>
-                    </div>
-                    <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                  </div>
-                </motion.a>
-
-                {/* E-mail */}
-                <motion.a
-                  href="mailto:info@vernast-verhuur.be"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="group block bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-lg hover:border-accent/30 transition-all duration-300"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all duration-300">
-                      <Mail className="h-5 w-5 text-accent group-hover:text-primary-foreground transition-colors" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-foreground text-base">E-mail</p>
-                      <p className="text-sm text-muted-foreground">info@vernast-verhuur.be</p>
-                    </div>
-                    <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                  </div>
-                </motion.a>
-
-                {/* Afhalen bij magazijn */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="bg-gradient-to-br from-accent to-accent/80 rounded-2xl p-6 text-primary-foreground shadow-lg"
-                >
-                  <Warehouse className="h-8 w-8 mb-3 opacity-80" />
-                  <h4 className="font-bold text-lg mb-2">Afhalen bij ons magazijn</h4>
-                  <p className="text-sm text-primary-foreground/80 mb-4">
-                    Haal je materiaal zelf op aan ons magazijn in Antwerpen. Snel, eenvoudig en zonder levertijd.
-                  </p>
-                  <div className="text-sm font-medium text-primary-foreground/90">
-                    Boomsesteenweg 12/Unit 11, 2630 Aartselaar
-                  </div>
-                </motion.div>
-
-                {/* Openingsuren */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  className="bg-card border border-border rounded-2xl p-6 shadow-sm"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center">
-                      <Clock className="h-5 w-5 text-accent" />
-                    </div>
-                    <h4 className="font-bold text-foreground">Openingsuren</h4>
-                  </div>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex justify-between items-center py-2 border-b border-border">
-                      <span className="text-foreground font-medium">Maandag - Vrijdag</span>
-                      <span className="text-accent font-bold">08:00 - 17:00</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2 border-b border-border">
-                      <span className="text-foreground font-medium">Zaterdag</span>
-                      <span className="text-accent font-bold">09:00 - 12:00</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2">
-                      <span className="text-foreground font-medium">Zondag</span>
-                      <span className="text-muted-foreground">Gesloten</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Rechts: formulier */}
-              <motion.div
-                className="lg:col-span-3"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                <div className="bg-card rounded-2xl border border-border shadow-lg p-7 md:p-10">
-                  <h3 className="text-2xl font-extrabold text-foreground mb-2">Stuur ons een bericht</h3>
-                  <p className="text-muted-foreground mb-8">Vul het formulier in en wij reageren binnen 24 uur.</p>
-                  
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName" className="text-foreground font-semibold">Voornaam *</Label>
-                        <Input id="firstName" required placeholder="Jan" className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName" className="text-foreground font-semibold">Achternaam *</Label>
-                        <Input id="lastName" required placeholder="Janssens" className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
-                      </div>
-                    </div>
-                    <div className="grid sm:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <Label htmlFor="email" className="text-foreground font-semibold">E-mail *</Label>
-                        <Input id="email" type="email" required placeholder="jan@voorbeeld.be" className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="phone" className="text-foreground font-semibold">Telefoon</Label>
-                        <Input id="phone" type="tel" placeholder="+32 ..." className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="subject" className="text-foreground font-semibold">Onderwerp *</Label>
-                      <Input id="subject" required placeholder="Offerte, technische vraag, afhaling ..." className="h-12 rounded-xl bg-muted/50 border-border focus:border-accent" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="message" className="text-foreground font-semibold">Bericht *</Label>
-                      <Textarea id="message" required rows={5} placeholder="Beschrijf uw vraag of project..." className="rounded-xl bg-muted/50 border-border focus:border-accent min-h-[140px]" />
-                    </div>
-                    <Button
-                      type="submit"
-                      size="lg"
-                      disabled={loading}
-                      className="bg-accent text-primary-foreground hover:bg-accent/90 font-bold rounded-full px-10 h-13 text-base w-full sm:w-auto shadow-lg hover:shadow-xl transition-all duration-300"
-                    >
-                      {loading ? "Verzenden..." : (
-                        <>Verstuur Bericht <Send className="ml-2 h-4 w-4" /></>
-                      )}
-                    </Button>
-                  </form>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Balk */}
-        <section className="bg-gradient-to-r from-accent to-accent/80">
-          <div className="container mx-auto px-4 py-12 md:py-16">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+      {/* ================= HERO ================= */}
+      <div className="redtop">
+        <section className="hero">
+          <div className="wrap">
+            <div className="hero-grid">
               <div>
-                <h3 className="text-2xl md:text-3xl font-extrabold text-primary-foreground mb-2">
-                  Liever direct bellen?
-                </h3>
-                <p className="text-primary-foreground/70 text-lg">
-                  Ons team staat klaar om al uw vragen te beantwoorden.
-                </p>
+                <span className="kick rv">Contact</span>
+                <h1 className="rv">Boekingen, vragen en afhalingen langs de A12.</h1>
+                <p className="rv d1">Bel, mail of kom langs in Aartselaar. Heeft u een vraag over een lopende huur? Dan helpt onze klantenservice u het snelst verder.</p>
+                <div className="hbadges rv d2">
+                  <a href="tel:+3236899065"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92V21a1 1 0 0 1-1.11 1A19.86 19.86 0 0 1 2 4.11 1 1 0 0 1 3 3h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.29 1L7 10.5a16 16 0 0 0 6.5 6.5l1.75-1.8a1 1 0 0 1 1-.29l4 1a1 1 0 0 1 .75 1Z" /></svg> 03 689 90 65</a>
+                  <a href="mailto:info@vernast-verhuur.be"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg> info@vernast-verhuur.be</a>
+                  <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg> Ma–Vr 08:00–17:00</span>
+                </div>
+                <div className="cta rv d3">
+                  <a className="btn btn-white" href="#formulier">Stel uw vraag<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+                  <Link className="btn btn-ghost" to="/klantservice">Naar de klantenservice</Link>
+                </div>
               </div>
-              <a href="tel:+3236899065">
-                <Button className="bg-primary-foreground text-accent hover:bg-primary-foreground/90 rounded-full px-8 h-14 text-lg font-bold shadow-xl hover:shadow-2xl transition-all">
-                  <PhoneCall className="mr-2 h-5 w-5" />
-                  03 689 90 65
-                </Button>
+              <a className="hero-map rv d2" href="#locatie" aria-label="Bekijk onze locatie langs de A12">
+                <RouteMap />
+                <div className="hm-cap"><i /> Ons afhaalpunt langs de A12 · bekijk de route</div>
               </a>
             </div>
           </div>
         </section>
-      </main>
-      <Footer />
+      </div>
+
+      {/* ================= KANALEN ================= */}
+      <section className="chan">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick rv">Hoe kunnen we helpen?</span>
+            <h2 className="sec rv">Kies het kanaal dat u het beste past.</h2>
+          </div>
+          <div className="ch-grid">
+            <a className="ch rv" href="tel:+3236899065">
+              <span className="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92V21a1 1 0 0 1-1.11 1A19.86 19.86 0 0 1 2 4.11 1 1 0 0 1 3 3h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.29 1L7 10.5a16 16 0 0 0 6.5 6.5l1.75-1.8a1 1 0 0 1 1-.29l4 1a1 1 0 0 1 .75 1Z" /></svg></span>
+              <h3>Bel ons</h3>
+              <p>Voor dringende vragen, storingen of advies over het juiste pakket. Ma–Vr van 08:00 tot 17:00.</p>
+              <span className="cl">03 689 90 65</span>
+            </a>
+            <a className="ch rv d1" href="mailto:info@vernast-verhuur.be">
+              <span className="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg></span>
+              <h3>Mail ons</h3>
+              <p>Algemene vragen, offertes op maat of documenten doorsturen. U krijgt binnen één werkdag antwoord.</p>
+              <span className="cl">info@vernast-verhuur.be</span>
+            </a>
+            <a className="ch rv d2" href="mailto:administratie@vernast.be">
+              <span className="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></span>
+              <h3>Facturatie</h3>
+              <p>Factuur niet ontvangen of een vraag over uw betaling? Onze administratie volgt het meteen op.</p>
+              <span className="cl">administratie@vernast.be</span>
+            </a>
+            <Link className="ch rv d3" to="/klantservice">
+              <span className="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a5 5 0 0 0-6.9 6.9L3 18v3h3l4.8-4.8a5 5 0 0 0 6.9-6.9L14 12l-2-2z" /></svg></span>
+              <h3>Huurt u al bij ons?</h3>
+              <p>Storing aan een toestel, verlengen, ophaling plannen: op de klantenservicepagina lost u het meteen op.</p>
+              <span className="cl">Naar klantenservice →</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= LOCATIE + KAART ================= */}
+      <section className="loc" id="locatie">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick rv">Onze locatie</span>
+            <h2 className="sec rv" style={{ color: "#fff" }}>Hoofdkantoor &amp; afhaalpunt, vlak langs de A12.</h2>
+            <p className="lede rv d1" style={{ color: "rgba(255,255,255,.78)" }}>Bewust gekozen: ons magazijn ligt pal langs de A12, <b style={{ color: "#fff" }}>halfweg tussen Antwerpen en Brussel</b>. U rijdt de snelweg af en staat één minuut later aan onze poort, geen centrum, geen zoekwerk, laden en meteen weer weg. De inrit van het KMO-park ligt <b style={{ color: "#fff" }}>naast Carglass</b>, op de hoek herkent u <b style={{ color: "#fff" }}>Tesla</b>.</p>
+          </div>
+          <div className="loc-grid2">
+            <div className="lc2 rv">
+              <div className="lt"><span className="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V7l7-4 7 4v14" /><path d="M9 21v-6h6v6" /></svg></span><h3>Hoofdkantoor</h3></div>
+              <p><b>Vernast Verhuur</b><br />Boomsesteenweg 12, Unit 11 · 2630 Aartselaar</p>
+              <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg><span><b>Kantoor:</b> Ma–Vr 08:00–17:00</span></div>
+              <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" /><circle cx="12" cy="10" r="3" /></svg><span>Parkeren kan vlak voor de unit.</span></div>
+              <a className="lgo" href="https://www.google.com/maps/search/?api=1&query=Boomsesteenweg+12+2630+Aartselaar" target="_blank" rel="noopener">Open in Google Maps<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+            </div>
+            <div className="lc2 rv d1">
+              <div className="lt"><span className="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg></span><h3>Afhaalpunt magazijn</h3></div>
+              <p>Zelfde site, aan de <b>poort van unit 11</b>. Wij zetten uw reservatie klaar en laden mee in.</p>
+              <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg><span><b>Afhalen &amp; retour:</b> enkel op afgesproken momenten</span></div>
+              <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg><span>Reserveer eerst online via <Link to="/verhuur/afhalen">zelf afhalen</Link>, dan ligt alles klaar.</span></div>
+              <Link className="lgo" to="/verhuur/afhalen">Zo werkt zelf afhalen<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></Link>
+            </div>
+            <div className="lc2 dark rv d2">
+              <span className="a12">A12</span>
+              <h3>Dé locatie voor snel afhalen</h3>
+              <p className="ldk">Via de A12 bent u er vanuit Antwerpen in 15 minuten, vanuit Brussel in 25. Zo herkent u de inrit:</p>
+              <div className="lstep"><i>1</i><span>U rijdt de N177 af en passeert eerst <b>Tesla</b>.</span></div>
+              <div className="lstep"><i>2</i><span>Vlak na <b>Carglass</b> draait u rechts het KMO-park in.</span></div>
+              <div className="lstep"><i>3</i><span>Volg Kleidaal rechtdoor tot <b>unit 11</b>, onze poort.</span></div>
+              <a className="lgo w" href="#route">Bekijk de route in foto's<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+            </div>
+          </div>
+          <div className="map-card rv d2">
+            <RouteMap ariaLabel="Kaartje: via de N177 langs Tesla en Carglass, dan rechts indraaien naar Vernast unit 11" />
+            <div className="map-leg">
+              <span><i style={{ background: "#C8102E" }} /> Vernast, unit 11</span>
+              <span><i style={{ background: "#3a3737" }} /> 1. U passeert Tesla</span>
+              <span><i style={{ background: "#C8102E" }} /> 2. Na Carglass rechts indraaien</span>
+              <span><i style={{ background: "#E3E1E1" }} /> 3. Kleidaal volgen tot unit 11</span>
+              <span><i style={{ background: "#DE9AA5" }} /> Alternatief: via de A12, afrit Aartselaar naar de N177</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= ROUTE FOTO'S ================= */}
+      <section className="route" id="route">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick rv">Zo vindt u ons</span>
+            <h2 className="sec rv">In vier stappen tot aan onze poort.</h2>
+          </div>
+          <div className="rt-grid">
+            <div className="rt rv">
+              <div className="im"><span className="n">1</span><img src="/vernast/route-1.webp" alt="Inrit Kleidaal naast Carglass" loading="lazy" decoding="async" /></div>
+              <p><b>Neem de inrit van het KMO-park</b> langs de A12, vlak naast Carglass. Op de hoek van de inrit staat Tesla.</p>
+            </div>
+            <div className="rt rv d1">
+              <div className="im"><span className="n">2</span><img src="/vernast/route-2.webp" alt="Weg het park in richting Arthrex" loading="lazy" decoding="async" /></div>
+              <p><b>Volg de weg rechtdoor</b> het park in, richting het zwarte Arthrex-gebouw.</p>
+            </div>
+            <div className="rt rv d2">
+              <div className="im"><span className="n">3</span><img src="/vernast/route-3.webp" alt="Units met laadkades" loading="lazy" decoding="async" /></div>
+              <p><b>Houd rechts aan</b> voorbij de eerste units en volg de nummering tot 11–12.</p>
+            </div>
+            <div className="rt rv d3">
+              <div className="im"><span className="n">4</span><img src="/vernast/route-4.webp" alt="Unit 11, poort van Vernast" loading="lazy" decoding="async" /></div>
+              <p><b>Unit 11 is onze poort.</b> Parkeer ervoor en meld u aan, wij laden mee in.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= FORMULIER ================= */}
+      <section className="cform" id="formulier">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick rv">Stel uw vraag</span>
+            <h2 className="sec rv">Liever schriftelijk? Stuur ons een bericht.</h2>
+            <p className="lede rv d1">U krijgt binnen één werkdag antwoord. Dringend? Bel dan 03 689 90 65.</p>
+          </div>
+          <div className="fshell rv d2">
+            <div id="formBody" style={{ display: sent ? "none" : undefined }}>
+              <div className="frow">
+                <div className="fld"><label htmlFor="fVoor">Voornaam</label><input type="text" id="fVoor" placeholder="Voornaam" /></div>
+                <div className="fld"><label htmlFor="fNaam">Naam</label><input type="text" id="fNaam" placeholder="Achternaam" /></div>
+              </div>
+              <div className="frow">
+                <div className="fld"><label htmlFor="fMail">E-mail</label><input type="email" id="fMail" placeholder="naam@voorbeeld.be" /></div>
+                <div className="fld"><label htmlFor="fTel">Telefoon</label><input type="tel" id="fTel" placeholder="04.." /></div>
+              </div>
+              <div className="frow one">
+                <div className="fld"><label htmlFor="fOnd">Onderwerp</label>
+                  <select id="fOnd">
+                    <option>Vraag over een pakket of offerte</option>
+                    <option>Lopende huur of verlenging</option>
+                    <option>Afhaling in Aartselaar</option>
+                    <option>Factuur of betaling</option>
+                    <option>Iets anders</option>
+                  </select>
+                </div>
+              </div>
+              <div className="frow one">
+                <div className="fld"><label htmlFor="fMsg">Uw bericht</label><textarea id="fMsg" rows={5} placeholder="Vertel kort waarmee we u kunnen helpen"></textarea></div>
+              </div>
+              <div className="fsend">
+                <small>Wij gebruiken uw gegevens enkel om uw vraag te beantwoorden.</small>
+                <button className="btn" type="button" id="fSend" onClick={() => setSent(true)}>Verstuur bericht<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
+              </div>
+            </div>
+            <div className={sent ? "fdone on" : "fdone"} id="formDone">
+              <div className="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg></div>
+              <h3>Bericht verzonden</h3>
+              <p>Bedankt! We nemen binnen één werkdag contact met u op.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <V3Footer />
     </div>
   );
 };

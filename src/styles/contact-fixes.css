@@ -1,0 +1,41 @@
+/* ============================================================
+   Contact — correcties op de designfile
+
+   `src/styles/contact.css` is een letterlijke transcriptie van
+   "Contact.html" en blijft dat. Dit bestand repareert wat in de bron zelf
+   niet werkt zodra de pagina de gedeelde <V3Header>/<V3Footer> gebruikt in
+   plaats van de eigen header/footer van het designbestand.
+
+   1. De gedeelde <V3Header> geeft zijn logo een `width={1600} height={268}`
+      attribuut (voor CLS). De designregel `.nav-logo img{height:21px}` zet
+      wel de hoogte, maar niet de breedte, dus het width-attribuut wint en
+      het logo wordt uitgerekt over de hele pil. `width:auto` herstelt de
+      verhouding — exact wat home-v3.css al doet.
+
+   2. Anker-sprongen (#locatie, #route, #formulier) landen anders onder de
+      vaste header, waardoor de sectiekop verdwijnt en het lijkt alsof de
+      knop niet werkt. `scroll-margin-top` houdt ruimte vrij voor de header.
+
+   3. De mobiele query van het design wil de contactregel verbergen
+      (`.tl-left{display:none}` onder 660px), maar de basisregel staat op
+      `.hdr .tl-left` en wint op specificiteit. Dezelfde regel, met de
+      specificiteit die het design bedoeld heeft.
+   ============================================================ */
+
+.contact-page .navpill .nav-logo img {
+  height: 21px;
+  width: auto;
+}
+
+.contact-page section[id] {
+  scroll-margin-top: 104px;
+}
+
+@media (max-width: 660px) {
+  .contact-page .hdr .tl-left {
+    display: none;
+  }
+  .contact-page .hdr .tl-right {
+    margin: 0 auto;
+  }
+}
