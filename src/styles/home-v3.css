@@ -125,7 +125,9 @@ html { scroll-behavior: smooth; }
 .v3 .mega-foot .mft b{display:block;font-size:14.5px;font-weight:600;margin-bottom:3px}
 .v3 .mega-foot .mft span{font-size:13.5px;color:var(--txt-mid)}
 .v3 .mega-foot .btn-offerte{padding:12px 24px;font-size:14px}
-.v3 .btn-offerte{display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;font-weight:600;font-size:15px;padding:13px 28px;border-radius:99px;white-space:nowrap;box-shadow:0 10px 26px -10px rgba(200,16,46,.85);transition:transform .16s,background .16s}
+.v3 .btn-offerte{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;font-weight:600;font-size:15px;padding:13px 28px;border-radius:99px;white-space:nowrap;box-shadow:0 10px 26px -10px rgba(200,16,46,.85);transition:transform .16s,background .16s}
+.v3 .btn-offerte::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-100%);animation:offShine 3.2s ease infinite;pointer-events:none}
+@keyframes offShine{45%,100%{transform:translateX(100%)}}
 .v3 .btn-offerte:hover{transform:translateY(-2px);color:#fff;background:#a80d26}
 .v3 .hdr .navrow>.cart{flex-shrink:0}
 .v3 .hdr .cart{position:relative;width:38px;height:38px;display:grid;place-items:center;color:rgba(255,255,255,.85);border-radius:10px;transition:background .15s,color .15s;flex-shrink:0}

@@ -149,16 +149,16 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                     <span className="mlab">Alles over drogen</span>
                     <ul>
                       <li>
-                        <a href="/#natuurlijk-actief">Hoe drogen werkt</a>
+                        <Link to="/hoe-drogen-werkt">Hoe drogen werkt</Link>
                       </li>
                       <li>
-                        <a href="/#voordelen">Waarom bouwdroging</a>
+                        <Link to="/waarom-bouwdroging">Waarom bouwdroging</Link>
                       </li>
                       <li>
-                        <a href="/#prijzen">Prijzen &amp; voorwaarden</a>
+                        <Link to="/drooggarantie">Drooggarantie</Link>
                       </li>
                       <li>
-                        <a href="/#toepassingen">Toepassingen</a>
+                        <Link to="/realisaties">Realisaties</Link>
                       </li>
                       <li>
                         <a href="/#faq">Veelgestelde vragen</a>
@@ -184,33 +184,33 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
               Alles over drogen
               <CaretIcon className="caret" />
               <div className="submenu">
-                <a href="/#natuurlijk-actief">
+                <Link to="/hoe-drogen-werkt">
                   Hoe drogen werkt<small>Capaciteit · circulatie · warmte</small>
-                </a>
-                <a href="/#voordelen">
+                </Link>
+                <Link to="/waarom-bouwdroging">
                   Waarom bouwdroging<small>Wat vocht u kost</small>
-                </a>
-                <a href="/#regio">
+                </Link>
+                <Link to="/levering">
                   Levering &amp; installatie<small>Binnen 24 uur geplaatst</small>
-                </a>
-                <a href="/#prijzen">
-                  Prijzen &amp; voorwaarden<small>Eén dagprijs, alles erin</small>
-                </a>
+                </Link>
+                <Link to="/drooggarantie">
+                  Drooggarantie<small>100% droog of kosteloos verder</small>
+                </Link>
               </div>
             </div>
 
-            <a className="item" href="/#toepassingen">
+            <Link className="item" to="/realisaties">
               Realisaties
-            </a>
-            <a className="item" href="/#voordelen">
+            </Link>
+            <Link className="item" to="/over-ons">
               Over ons
-            </a>
+            </Link>
             <Link className="item" to="/klantservice">
               Klantenservice
             </Link>
-            <a className="item" href="/#contact">
+            <Link className="item" to="/contact">
               Contact
-            </a>
+            </Link>
           </div>
         </div>
 
