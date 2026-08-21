@@ -117,6 +117,37 @@ export const SEO = {
       "Van pleisterwerk in een nieuwbouwvilla tot een ondergelopen kelder: 22 droogprojecten die wij uitvoerden, elk met de foto's van de werf zelf.",
   },
 
+  /* ---------- Alles over drogen: content/SEO-pagina's ---------- */
+  drooggarantie: {
+    title: "Drooggarantie: 100% droog of kosteloos verlengen | Vernast",
+    description:
+      "De Vernast Drooggarantie: uw woning is 100% droog binnen de berekende periode, bevestigd door een vochtmeting. Niet droog? Dan huurt u kosteloos verder. Bekijk de voorwaarden.",
+  },
+  hoeDrogenWerkt: {
+    title: "Hoe droogt een bouwdroger? Zo werkt bouwdroging | Vernast",
+    description:
+      "Hoe werkt een bouwdroger? Alles over temperatuur, relatieve luchtvochtigheid en luchtcirculatie: de volledige cyclus van nat pleisterwerk, chape of beton naar een droge constructie.",
+  },
+  waaromBouwdroging: {
+    title: "Waarom bouwdroging? Sneller, veiliger en zuiniger drogen | Vernast",
+    description:
+      "Waarom een bouwdroger huren? Natuurlijke droging is traag en onvoorspelbaar. Gecontroleerde bouwdroging beschermt uw afwerking, versnelt uw planning en is gemeten droog, met garantie.",
+  },
+
+  /* ---------- Juridisch ---------- */
+  algemeneVoorwaarden: {
+    title: "Algemene voorwaarden | Vernast Verhuur",
+    description:
+      "De algemene verhuurvoorwaarden van Vernast: huurperiode, levering en ophaling, prijzen, aansprakelijkheid, verzekeringen en privacybeleid.",
+    noindex: true,
+  },
+  privacy: {
+    title: "Privacybeleid | Vernast Verhuur",
+    description:
+      "Het privacybeleid van Vernast: welke persoonsgegevens wij verwerken, waarvoor, hoe lang we ze bewaren en welke rechten u heeft onder de AVG.",
+    noindex: true,
+  },
+
   /* ---------- Verhuurfunnel ---------- */
   verhuurCalculator: {
     title: "Stel uw droogpakket samen in 5 vragen | Vernast",

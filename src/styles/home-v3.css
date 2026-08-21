@@ -115,7 +115,7 @@ html { scroll-behavior: smooth; }
 .v3 .nav-menu>.item.mega:hover{background:rgba(255,255,255,.14)}
 .v3 .mega-panel{position:absolute;top:calc(100% + 12px);left:0;width:100%;background:#fff;border-radius:20px;padding:26px 30px 0;box-shadow:0 30px 70px -22px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .18s,transform .18s,visibility .18s;z-index:95}
 .v3 .nav-menu>.item.mega:hover .mega-panel{opacity:1;visibility:visible;transform:none}
-.v3 .mega-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:34px}
+.v3 .mega-cols{display:flex;flex-wrap:wrap;gap:28px 56px}
 .v3 .mcol .mlab{display:inline-block;background:var(--maroon);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;padding:9px 15px;border-radius:9px;margin-bottom:16px}
 .v3 .mcol ul{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:11px}
 .v3 .mcol ul:last-child{margin-bottom:0}

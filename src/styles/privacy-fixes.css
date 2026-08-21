@@ -1,0 +1,50 @@
+/* ============================================================
+   Privacy — correcties op de designfile
+
+   `src/styles/privacy.css` blijft een letterlijke transcriptie. Dit bestand
+   repareert wat pas breekt met de gedeelde <V3Header>/<V3Footer> en met
+   Tailwind preflight. Zie klantservice-fixes.css.
+
+   1. Logo van <V3Header>: `width:auto` herstelt de verhouding.
+   2. Preflight (`@tailwind base`) zet `list-style:none` op ol/ul; de
+      opsommingen in het privacybeleid worden binnen `article` hersteld, zodat
+      de artikel-navigatie (`.lnav`) ongemoeid blijft.
+   3. `scroll-margin-top` voor de anker-sprongen naar de artikelen (#p1 …).
+   4. Mobiel: contactregel verbergen onder 660px.
+   ============================================================ */
+
+.pv-page .navpill .nav-logo img {
+  height: 21px;
+  width: auto;
+}
+
+.pv-page article ol {
+  list-style: decimal;
+  padding-left: 1.4em;
+  margin: 12px 0;
+}
+.pv-page article ol[type="a"] {
+  list-style: lower-alpha;
+}
+.pv-page article ul {
+  list-style: disc;
+  padding-left: 1.4em;
+  margin: 12px 0;
+}
+.pv-page article li {
+  margin: 6px 0;
+}
+
+.pv-page section[id],
+.pv-page article[id] {
+  scroll-margin-top: 104px;
+}
+
+@media (max-width: 660px) {
+  .pv-page .hdr .tl-left {
+    display: none;
+  }
+  .pv-page .hdr .tl-right {
+    margin: 0 auto;
+  }
+}
