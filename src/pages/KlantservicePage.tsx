@@ -67,10 +67,16 @@ const KlantservicePage = () => {
           <h1>Hoe kunnen we u helpen?</h1>
           <p>Een vraag over uw betaling, een toestel dat niet doet wat het moet, of uw huurperiode verlengen? Hieronder vindt u meteen een antwoord, of u belt ons gewoon.</p>
           <div className="ks-quick">
-            <a className="hot" href="tel:+3236899065"><Phone /> Bel 03 689 90 65</a>
-            <a href="mailto:info@vernast-verhuur.be">Mail ons</a>
-            <a href="#storing">Storing melden</a>
-            <a href="#betalingen">Betalingen &amp; facturen</a>
+            <a className="btn-offerte" href="tel:+3236899065"><Phone /> Bel 03 689 90 65</a>
+          </div>
+          <div className="ks-hero-figure">
+            <img className="ks-hero-man" src="/vernast/man-zen-crop.webp" alt="Rustige, tevreden klant in meditatiehouding" loading="lazy" decoding="async" />
+            <div className="ks-hero-badge">
+              <span className="hb-ic">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+              </span>
+              <div className="hb-t"><b>Eindmeting bevestigd</b><span>Gemeten, niet geschat</span></div>
+            </div>
           </div>
         </div>
       </section>

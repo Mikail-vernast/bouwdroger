@@ -28,7 +28,7 @@ const REGIONS: Region[] = [
   },
   {
     name: "Antwerpen",
-    pin: { left: "51%", top: "17%" },
+    pin: { left: "55%", top: "20%" },
     towns: [
       "Antwerpen", "Aartselaar", "Mechelen", "Turnhout", "Lier", "Boom", "Kontich", "Geel", "Mol",
       "Herentals", "Heist-op-den-Berg", "Brasschaat", "Schoten", "Wilrijk", "Edegem", "Duffel",
@@ -36,7 +36,7 @@ const REGIONS: Region[] = [
   },
   {
     name: "Vlaams-Brabant",
-    pin: { left: "55%", top: "37%" },
+    pin: { left: "52%", top: "33%" },
     towns: [
       "Leuven", "Vilvoorde", "Halle", "Aarschot", "Tienen", "Zaventem", "Dilbeek", "Grimbergen",
       "Diest", "Asse", "Overijse", "Tervuren", "Machelen", "Beersel", "Sint-Pieters-Leeuw", "Haacht",
@@ -44,7 +44,7 @@ const REGIONS: Region[] = [
   },
   {
     name: "Brussel",
-    pin: { left: "47%", top: "41%" },
+    pin: { left: "48%", top: "38%" },
     towns: [
       "Brussel-stad", "Schaarbeek", "Anderlecht", "Ukkel", "Elsene", "Etterbeek", "Jette", "Evere",
       "Vorst", "Sint-Gillis", "Molenbeek", "Laken", "Woluwe", "Oudergem", "Ganshoren", "Koekelberg",

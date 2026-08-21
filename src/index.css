@@ -25,6 +25,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Shine-sweep over de header-CTA ("Start uw droging" / "Gratis offerte"). De
+  knop komt uit de gedeelde <V3Header> en staat op elke pagina, dus deze regel
+  staat globaal (niet onder .v3) zodat de animatie overal speelt, niet alleen
+  op de home. Volgt het design (.btn-offerte::after + offShine).
+*/
+.btn-offerte {
+  position: relative;
+  overflow: hidden;
+}
+.btn-offerte::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: offShine 3.2s ease infinite;
+  pointer-events: none;
+}
+@keyframes offShine {
+  45%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
