@@ -1,0 +1,53 @@
+/* ============================================================
+   Algemene Voorwaarden — correcties op de designfile
+
+   `src/styles/algemene-voorwaarden.css` blijft een letterlijke transcriptie.
+   Dit bestand repareert wat pas breekt met de gedeelde <V3Header>/<V3Footer>
+   en met Tailwind preflight. Zie klantservice-fixes.css.
+
+   1. Logo van <V3Header>: `width:auto` herstelt de verhouding (het
+      width-attribuut zou het anders uitrekken).
+   2. `@tailwind base` (preflight) zet `list-style:none` op elke ol/ul. De
+      juridische artikelen gebruiken genummerde en opgesomde lijsten; zonder
+      deze regels valt de opsomming weg. Alleen binnen `article` hersteld, zodat
+      de artikel-navigatie (`.lnav`) ongemoeid blijft.
+   3. Anker-sprongen naar de artikelen (#art1 …) landen onder de vaste header;
+      `scroll-margin-top` houdt ruimte vrij.
+   4. Mobiel: contactregel verbergen onder 660px.
+   ============================================================ */
+
+.av-page .navpill .nav-logo img {
+  height: 21px;
+  width: auto;
+}
+
+.av-page article ol {
+  list-style: decimal;
+  padding-left: 1.4em;
+  margin: 12px 0;
+}
+.av-page article ol[type="a"] {
+  list-style: lower-alpha;
+}
+.av-page article ul {
+  list-style: disc;
+  padding-left: 1.4em;
+  margin: 12px 0;
+}
+.av-page article li {
+  margin: 6px 0;
+}
+
+.av-page section[id],
+.av-page article[id] {
+  scroll-margin-top: 104px;
+}
+
+@media (max-width: 660px) {
+  .av-page .hdr .tl-left {
+    display: none;
+  }
+  .av-page .hdr .tl-right {
+    margin: 0 auto;
+  }
+}

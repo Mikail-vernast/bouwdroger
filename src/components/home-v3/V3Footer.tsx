@@ -81,9 +81,9 @@ const V3Footer = () => (
       <div className="fb">
         <div>© 2026 Vernast Verhuur · BTW BE 0123.456.789</div>
         <div className="fl">
-          <a href="/#prijzen">Algemene voorwaarden</a>
-          <a href="/#contact">Privacy</a>
-          <a href="/#toestellen">Sitemap</a>
+          <Link to="/algemene-voorwaarden">Algemene voorwaarden</Link>
+          <Link to="/privacy">Privacy</Link>
+          <a href="/sitemap.xml">Sitemap</a>
         </div>
       </div>
     </div>

@@ -135,6 +135,30 @@ export const routes: RouteRecord[] = [
         getStaticPaths: () => PRODUCT_ORDER.map((m) => `/verhuur/toestel/${m}`),
       },
 
+      /* Alles over drogen — content/SEO-pagina's uit de Claude Design-handoff */
+      {
+        path: "drooggarantie",
+        lazy: async () => ({ Component: (await import("./pages/DrooggarantiePage")).default }),
+      },
+      {
+        path: "hoe-drogen-werkt",
+        lazy: async () => ({ Component: (await import("./pages/HoeDrogenWerktPage")).default }),
+      },
+      {
+        path: "waarom-bouwdroging",
+        lazy: async () => ({ Component: (await import("./pages/WaaromBouwdrogingPage")).default }),
+      },
+
+      /* Juridisch */
+      {
+        path: "algemene-voorwaarden",
+        lazy: async () => ({ Component: (await import("./pages/AlgemeneVoorwaardenPage")).default }),
+      },
+      {
+        path: "privacy",
+        lazy: async () => ({ Component: (await import("./pages/PrivacyPage")).default }),
+      },
+
       /*
        * Twee routes naar dezelfde pagina, met een verschillende taak.
        *

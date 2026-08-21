@@ -1,0 +1,330 @@
+/* ============================================================
+   Waarom bouwdroging — generated from the Claude Design handoff
+   (Waarom Bouwdroging.html). 1:1 transcription of the design file's
+   <style> block, with the same mechanical transforms as the other
+   handoff pages:
+     - every rule scoped under `.wb-page` (`:root` and `body` fold onto
+       that scope root) so the page cannot leak into the rest of the app,
+     - `url(assets/...)` rewritten to `/vernast/....webp`,
+     - the reveal animation is neutralised: `.rv` shows immediately and the
+       delay classes are no-ops, since there is no IntersectionObserver here,
+     - the bare `html{...}` rule is dropped.
+
+   The header and footer markup comes from <V3Header>/<V3Footer>; their
+   chrome is copied verbatim from klantservice.css (re-prefixed to
+   `.wb-page`) so they render correctly inside this scope.
+
+   Do not hand-tune this file. Change the design, then re-import.
+   ============================================================ */
+
+.wb-page *,
+.wb-page *::before,
+.wb-page *::after{box-sizing:border-box}
+.wb-page{margin:0;padding:0}
+.wb-page{
+  --red:#C8102E;--maroon:#6B0F13;--maroon-d:#5A0C10;
+  --txt:#141414;--txt-mid:rgba(20,20,20,.62);--txt-dim:rgba(20,20,20,.42);
+  --line:rgba(20,20,20,.1);--line-2:rgba(20,20,20,.18);
+  --page:#fff;--bg-alt:#F4F4F4;--ok:#1E9E50;
+  --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
+  --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,monospace;
+  --wrap:1260px;
+}
+.wb-page{background:var(--page);color:var(--txt);font-family:var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wb-page h1,
+.wb-page h2,
+.wb-page h3,
+.wb-page h4{margin:0;letter-spacing:-.02em}
+.wb-page a{color:var(--red);text-decoration:none}
+.wb-page a:hover{color:#a80d26}
+.wb-page .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.wb-page .kick{display:inline-block;font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.wb-page .sec{font-family:var(--fd);font-weight:800;font-size:clamp(28px,3.2vw,42px);line-height:1.08;letter-spacing:-.025em;text-wrap:balance;color:var(--txt)}
+.wb-page .lede{font-size:15.5px;color:var(--txt-mid);line-height:1.7;max-width:640px;margin:14px 0 0}
+.wb-page .sec-head{max-width:760px;margin-bottom:40px}
+.wb-page .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--fb);font-weight:700;font-size:15px;padding:15px 28px;border-radius:99px;border:0;cursor:pointer;text-decoration:none;transition:all .15s;background:var(--red);color:#fff}
+.wb-page .btn:hover{background:#a80d26;color:#fff}
+.wb-page .btn-white{background:#fff;color:var(--red)}
+.wb-page .btn-white:hover{background:rgba(255,255,255,.88);color:#a80d26}
+.wb-page .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff}
+.wb-page .btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+
+/* Reveal neutralised — content is always visible, delays do nothing. */
+.wb-page .rv{opacity:1;transform:none}
+.wb-page .rv.d1,
+.wb-page .rv.d2,
+.wb-page .rv.d3{transition-delay:0s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* ============ HEADER (verbatim from klantservice.css, re-prefixed) ============ */
+.wb-page .hdr{position:fixed;top:0;left:0;right:0;z-index:80;background:transparent;transition:transform .34s cubic-bezier(.4,0,.2,1)}
+.wb-page .hdr.tucked{transform:translateY(-100%)}
+.wb-page .hdr.onlight .topline,
+.wb-page .hdr.onlight .topline a,
+.wb-page .hdr.onlight .topline span,
+.wb-page .hdr.onlight .tl-right{color:rgba(20,20,20,.78)}
+.wb-page .hdr.onlight .topline a:hover{color:#141414}
+.wb-page .hdr.onlight .tl-left svg{color:rgba(20,20,20,.5)}
+.wb-page .hdr.onlight .navpill{background:rgba(255,255,255,.74);border-color:rgba(20,20,20,.12);box-shadow:0 14px 38px -18px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.65)}
+.wb-page .hdr.onlight .nav-menu>.item{color:#141414}
+.wb-page .hdr.onlight .nav-menu>.item:hover{background:rgba(20,20,20,.07)}
+.wb-page .hdr.onlight .cart{color:#141414}
+.wb-page .hdr.onlight .cart:hover{background:rgba(20,20,20,.07);color:#141414}
+.wb-page .hdr .topline,
+.wb-page .hdr .navrow{position:relative;z-index:2}
+.wb-page .navpill{background:rgba(30,10,12,.34);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,255,255,.24);box-shadow:0 14px 38px -18px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.22)}
+.wb-page .hdr .topline{display:flex;align-items:center;justify-content:space-between;padding:34px 0 18px;font-size:14px;color:rgba(255,255,255,.72);flex-wrap:wrap;gap:10px;transition:opacity .3s,margin .3s,padding .3s;max-height:70px}
+.wb-page .hdr.scrolled .topline{opacity:0;max-height:0;padding-top:10px;padding-bottom:0;overflow:hidden;pointer-events:none}
+.wb-page .hdr .tl-left{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+.wb-page .hdr .tl-left a,
+.wb-page .hdr .tl-left span{display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.8)}
+.wb-page .hdr .tl-left a:hover{color:#fff}
+.wb-page .hdr .tl-left svg{color:rgba(255,255,255,.55)}
+.wb-page .hdr .tl-right{display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.86);font-size:14px}
+.wb-page .hdr .tl-right .dot{width:9px;height:9px;border-radius:50%;background:#3fbf63}
+.wb-page .hdr .navrow{padding:0 0 22px;display:flex;align-items:center;gap:14px}
+.wb-page .hdr .navrow .navpill{flex:1;min-width:0}
+.wb-page .navpill{display:flex;align-items:center;justify-content:space-between;gap:18px;border-radius:18px;padding:11px 11px 11px 24px;position:relative}
+.wb-page .navpill .nav-logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.wb-page .navpill .nav-logo img{height:21px}
+.wb-page .nav-menu{display:flex;align-items:center;gap:0;flex:1;min-width:0;justify-content:flex-end;position:static}
+.wb-page .nav-menu>.item{position:relative;display:inline-flex;align-items:center;gap:6px;padding:10px 11px;font-size:14.5px;font-weight:500;color:#fff;border-radius:10px;cursor:pointer;transition:background .15s;white-space:nowrap}
+.wb-page .nav-menu>.item:hover{background:rgba(255,255,255,.09)}
+.wb-page .nav-menu>.item .caret{width:11px;height:11px;opacity:.65;transition:transform .18s}
+.wb-page .nav-menu>.item.has-sub:hover .caret{transform:rotate(180deg)}
+.wb-page .submenu{position:absolute;top:calc(100% + 8px);left:0;min-width:250px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 24px 50px -18px rgba(0,0,0,.4);opacity:0;visibility:hidden;transform:translateY(7px);transition:opacity .16s,transform .16s,visibility .16s;z-index:90}
+.wb-page .nav-menu>.item:hover .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.wb-page .submenu a{display:flex;flex-direction:column;gap:2px;padding:10px 13px;font-size:14px;color:var(--txt);border-radius:9px;transition:background .15s,color .15s}
+.wb-page .submenu a:hover{background:var(--page);color:var(--red)}
+.wb-page .submenu a small{font-size:11.5px;color:var(--txt-dim)}
+.wb-page .nav-menu>.item.mega{position:static}
+.wb-page .nav-menu>.item.mega:hover{background:rgba(255,255,255,.14)}
+.wb-page .mega-panel{position:absolute;top:calc(100% + 12px);left:0;width:100%;background:#fff;border-radius:20px;padding:26px 30px 0;box-shadow:0 30px 70px -22px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .18s,transform .18s,visibility .18s;z-index:95}
+.wb-page .nav-menu>.item.mega:hover .mega-panel{opacity:1;visibility:visible;transform:none}
+.wb-page .mega-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:34px}
+.wb-page .mcol .mlab{display:inline-block;background:var(--maroon);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;padding:9px 15px;border-radius:9px;margin-bottom:16px}
+.wb-page .mcol ul{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:11px}
+.wb-page .mcol ul:last-child{margin-bottom:0}
+.wb-page .mcol ul a{font-size:14.5px;color:var(--txt);transition:color .14s,padding-left .14s;display:block}
+.wb-page .mcol ul a:hover{color:var(--red);padding-left:4px}
+.wb-page .mega-foot{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:24px;padding:20px 0 24px;border-top:1px solid var(--line)}
+.wb-page .mega-foot .mft b{display:block;font-size:14.5px;font-weight:600;margin-bottom:3px}
+.wb-page .mega-foot .mft span{font-size:13.5px;color:var(--txt-mid)}
+.wb-page .btn-offerte{display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;font-weight:600;font-size:15px;padding:13px 28px;border-radius:99px;white-space:nowrap;box-shadow:0 10px 26px -10px rgba(200,16,46,.85);transition:transform .16s,background .16s}
+.wb-page .btn-offerte:hover{transform:translateY(-2px);color:#fff;background:#a80d26}
+.wb-page .hdr .cart{position:relative;width:38px;height:38px;display:grid;place-items:center;color:rgba(255,255,255,.85);border-radius:10px;transition:background .15s,color .15s;flex-shrink:0}
+.wb-page .hdr .cart:hover{background:rgba(255,255,255,.1);color:#fff}
+.wb-page .hdr .cart i{position:absolute;top:1px;right:0;min-width:17px;height:17px;border-radius:99px;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;font-style:normal;padding:0 4px}
+
+/* ============ HERO ============ */
+.wb-page .redtop{background:var(--maroon-d) url('/vernast/bg-red-wide.webp') center/cover no-repeat;color:#fff;overflow:hidden}
+.wb-page .hero{padding:200px 0 0;position:relative}
+.wb-page .hero-copy{padding-bottom:84px}
+.wb-page .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:56px;align-items:end}
+.wb-page .hero .kick{color:rgba(255,255,255,.75)}
+.wb-page .hero h1{font-family:var(--fd);font-weight:800;font-size:clamp(32px,4vw,54px);line-height:1.05;letter-spacing:-.035em;color:#fff;text-wrap:balance}
+.wb-page .hero p{font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.8);max-width:640px;margin:18px 0 0}
+.wb-page .hbadges{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.wb-page .hbadges span{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--txt);font-size:13.5px;font-weight:700;padding:10px 16px;border-radius:99px}
+.wb-page .hbadges span svg{color:var(--ok)}
+.wb-page .hero .hcta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.wb-page .hero-vis{position:relative;display:flex;justify-content:center;align-items:flex-end;align-self:end}
+.wb-page .hero-vis img{display:block;width:min(100%,440px);margin-bottom:-1px;filter:drop-shadow(0 28px 36px rgba(0,0,0,.4))}
+.wb-page .fbadge{position:absolute;background:#fff;border-radius:14px;padding:13px 17px;box-shadow:0 22px 44px -18px rgba(0,0,0,.5);font-family:var(--fd);font-weight:800;font-size:13px;color:var(--txt);display:flex;align-items:center;gap:10px;animation:floaty 5s ease-in-out infinite}
+.wb-page .fbadge .ic{width:32px;height:32px;border-radius:10px;background:var(--ok);display:grid;place-items:center;color:#fff;flex-shrink:0}
+.wb-page .fbadge.rd .ic{background:var(--red)}
+.wb-page .fbadge small{display:block;font-family:var(--fb);font-weight:500;font-size:11px;color:var(--txt-mid)}
+
+/* ============ SECTION SHELLS ============ */
+.wb-page .sw{padding:88px 0;background:#fff}
+.wb-page .sw2{padding:88px 0;background:var(--bg-alt)}
+.wb-page .sr{padding:88px 0;background:var(--maroon-d) url('/vernast/bg-red-wide.webp') center/cover no-repeat;color:#fff;overflow:hidden}
+.wb-page .sr .kick{color:rgba(255,255,255,.75)}
+.wb-page .sr .sec{color:#fff}
+.wb-page .sr .lede{color:rgba(255,255,255,.78)}
+.wb-page .sw .lede a,
+.wb-page .sw p a,
+.wb-page .sw2 .lede a,
+.wb-page .sw2 p a{color:var(--red);font-weight:600;text-decoration:underline;text-decoration-color:rgba(200,16,46,.35);text-underline-offset:3px}
+.wb-page .sr .lede a,
+.wb-page .sr p a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
+.wb-page .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.wb-page .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.wb-page .kaart{background:var(--bg-alt);border-radius:18px;padding:26px 24px;transition:transform .2s,box-shadow .2s}
+.wb-page .kaart:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.25)}
+.wb-page .sw2 .kaart,
+.wb-page .sr .kaart{background:#fff;color:var(--txt)}
+.wb-page .kaart .ki{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--red);margin-bottom:13px}
+.wb-page .sw2 .kaart .ki,
+.wb-page .sr .kaart .ki{background:var(--bg-alt);border-color:transparent}
+.wb-page .kaart .num{width:38px;height:38px;border-radius:11px;background:var(--red);color:#fff;font-family:var(--fd);font-weight:800;font-size:16px;display:grid;place-items:center;margin-bottom:14px}
+.wb-page .kaart h3{font-family:var(--fd);font-weight:800;font-size:16.5px;margin-bottom:7px}
+.wb-page .kaart p{font-size:13.5px;color:var(--txt-mid);line-height:1.65;margin:0}
+.wb-page .kaart p b{color:var(--txt)}
+.wb-page .note{margin-top:26px;background:var(--bg-alt);border-radius:16px;padding:20px 24px;font-size:14.5px;line-height:1.7;color:var(--txt-mid)}
+.wb-page .note b{color:var(--txt)}
+.wb-page .note a{color:var(--red);font-weight:600}
+.wb-page .sw2 .note{background:#fff}
+.wb-page .sr .note{background:#fff;color:var(--txt-mid)}
+.wb-page .sr .note b{color:var(--txt)}
+.wb-page .sr .note a{color:var(--red)}
+.wb-page .split{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+.wb-page .split.rev{grid-template-columns:.95fr 1.05fr}
+.wb-page .split-vis{position:relative;display:flex;justify-content:center;align-items:flex-end}
+.wb-page .split-vis img{width:min(100%,420px);filter:drop-shadow(0 26px 34px rgba(0,0,0,.28))}
+.wb-page .sr .split-vis img{filter:drop-shadow(0 26px 34px rgba(0,0,0,.45))}
+.wb-page .seo{max-width:820px}
+.wb-page .seo p{font-size:15px;line-height:1.75;color:var(--txt-mid);margin:0 0 18px}
+.wb-page .seo p b{color:var(--txt)}
+.wb-page .sr .seo p{color:rgba(255,255,255,.8)}
+.wb-page .sr .seo p b{color:#fff}
+.wb-page .bq{margin:34px 0 0;background:#fff;border-left:5px solid var(--red);border-radius:16px;padding:24px 28px;font-family:var(--fd);font-weight:700;font-size:clamp(17px,1.7vw,21px);line-height:1.5;color:var(--txt);text-wrap:balance}
+
+/* ============ VRAAGFORMULIER ============ */
+.wb-page .oform{padding:88px 0;background:var(--maroon-d) url('/vernast/bg-red-wide.webp') center/cover no-repeat}
+.wb-page .oform .kick{color:rgba(255,255,255,.75)}
+.wb-page .oform .sec{color:#fff}
+.wb-page .oform .lede{color:rgba(255,255,255,.78)}
+.wb-page .fshell{max-width:760px;margin:0 auto;background:#fff;border-radius:20px;padding:34px;color:var(--txt)}
+.wb-page .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.wb-page .frow.one{grid-template-columns:1fr}
+.wb-page .fld label{display:block;font-size:12.5px;font-weight:700;margin-bottom:7px}
+.wb-page .fld input,
+.wb-page .fld select,
+.wb-page .fld textarea{width:100%;box-sizing:border-box;font-family:var(--fb);font-size:14.5px;padding:13px 15px;border:1.5px solid var(--line-2);border-radius:11px;background:#fff;color:var(--txt);outline:none;resize:vertical}
+.wb-page .fld input:focus,
+.wb-page .fld select:focus,
+.wb-page .fld textarea:focus{border-color:var(--red)}
+.wb-page .fsend{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:6px}
+.wb-page .fsend small{font-size:12.5px;color:var(--txt-dim)}
+.wb-page .fdone{display:none;text-align:center;padding:26px 10px}
+.wb-page .fdone.on{display:block}
+.wb-page .fdone .ic{width:60px;height:60px;border-radius:50%;background:rgba(30,158,80,.12);color:var(--ok);display:grid;place-items:center;margin:0 auto 16px}
+.wb-page .fdone h3{font-family:var(--fd);font-weight:800;font-size:22px;margin-bottom:8px}
+.wb-page .fdone p{font-size:14px;color:var(--txt-mid);margin:0}
+
+/* ============ MANBAND ============ */
+.wb-page .manband{position:relative;margin-top:44px;border-radius:20px;background:var(--maroon-d) url('/vernast/bg-red.webp') center/cover no-repeat;padding:44px 44px 0;display:flex;align-items:flex-end;gap:36px;overflow:hidden}
+.wb-page .manband .mb-t{flex:1;min-width:280px;padding-bottom:44px;color:#fff}
+.wb-page .manband .mb-t .mbk{font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);display:block;margin-bottom:10px}
+.wb-page .manband h3{font-family:var(--fd);font-weight:800;font-size:clamp(20px,2.2vw,28px);letter-spacing:-.02em;color:#fff;margin:0 0 10px;text-wrap:balance}
+.wb-page .manband p{font-size:14.5px;color:rgba(255,255,255,.82);line-height:1.65;margin:0;max-width:600px}
+.wb-page .manband p a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
+.wb-page .manband .mb-cta{display:inline-flex;margin-top:20px}
+.wb-page .manband img.mb-man{display:block;width:min(30%,290px);flex-shrink:0;margin:0;filter:drop-shadow(0 22px 28px rgba(0,0,0,.35))}
+
+/* ============ NATUURLIJK VS GECONTROLEERD ============ */
+.wb-page .vsg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:38px}
+.wb-page .vs{background:var(--bg-alt);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.wb-page .vs.hot{background:var(--maroon-d) url('/vernast/bg-red.webp') center/cover no-repeat;color:#fff}
+.wb-page .vs .vt{align-self:flex-start;font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:9px;background:#fff;color:var(--txt)}
+.wb-page .vs h3{font-family:var(--fd);font-weight:800;font-size:19px}
+.wb-page .vs ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.wb-page .vs li{display:flex;gap:9px;align-items:flex-start;font-size:14px;color:var(--txt-mid);line-height:1.55}
+.wb-page .vs.hot li{color:rgba(255,255,255,.88)}
+.wb-page .vs li svg{flex-shrink:0;margin-top:3px;color:var(--txt-dim)}
+.wb-page .vs.hot li svg{color:#7ee2a1}
+
+/* ============ PLANNING ============ */
+.wb-page .plan{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:38px}
+.wb-page .pl{background:#fff;border-radius:14px;padding:20px 22px;font-size:13.5px;line-height:1.6;color:var(--txt-mid);transition:transform .2s,box-shadow .2s}
+.wb-page .pl:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.4)}
+.wb-page .pl b{display:block;color:var(--txt);font-family:var(--fd);font-size:15px;margin-bottom:5px}
+
+/* ============ DROOGZONES ============ */
+.wb-page .radi{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:38px}
+.wb-page .rd{background:#fff;border-radius:18px;padding:26px;color:var(--txt)}
+.wb-page .rd h3{font-family:var(--fd);font-weight:800;font-size:17px;margin:14px 0 8px}
+.wb-page .rd p{font-size:13.5px;color:var(--txt-mid);line-height:1.65;margin:0}
+.wb-page .rd .zone{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.wb-page .rd .zone i{height:36px;border-radius:8px;background:var(--bg-alt);transition:background .5s}
+.wb-page .rd .zone i.on{background:var(--red)}
+.wb-page .rd .zone i.half{background:rgba(200,16,46,.3)}
+
+/* ============ WERKWIJZE ============ */
+.wb-page .wk{counter-reset:w;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
+.wb-page .wk .wi{display:flex;gap:14px;align-items:flex-start;background:var(--bg-alt);border-radius:14px;padding:17px 19px}
+.wb-page .wk .wi i{counter-increment:w;font-style:normal;flex-shrink:0;width:30px;height:30px;border-radius:9px;background:var(--red);color:#fff;font-family:var(--fd);font-weight:800;font-size:13px;display:grid;place-items:center}
+.wb-page .wk .wi i::before{content:counter(w)}
+.wb-page .wk .wi span{font-size:13.5px;line-height:1.55;color:var(--txt-mid)}
+.wb-page .wk .wi span b{color:var(--txt)}
+
+/* ============ VRAGEN ============ */
+.wb-page .vragen{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:30px;max-width:920px}
+.wb-page .vragen span{display:flex;gap:10px;align-items:flex-start;background:#fff;border-radius:12px;padding:14px 17px;font-size:13.5px;color:var(--txt-mid);line-height:1.5}
+.wb-page .vragen span svg{flex-shrink:0;margin-top:2px;color:var(--red)}
+
+/* ============ FOOTER (verbatim from klantservice.css, re-prefixed) ============ */
+.wb-page footer.site{background:#0d0a0a;color:rgba(255,255,255,.62);padding:64px 0 26px}
+.wb-page footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
+.wb-page footer.site .lc img{height:30px;margin-bottom:20px}
+.wb-page footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
+.wb-page footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
+.wb-page footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
+.wb-page footer.site .lc .fc a:hover{color:#fff}
+.wb-page footer.site .lc .fc svg{color:var(--red);flex-shrink:0}
+.wb-page footer.site h4{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
+.wb-page footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+.wb-page footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
+.wb-page footer.site ul a:hover{color:#fff}
+.wb-page footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
+.wb-page footer.site .fb a{color:rgba(255,255,255,.62)}
+.wb-page footer.site .fb a:hover{color:#fff}
+.wb-page footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
+
+/* ============ TRAILING CONTENT ============ */
+.wb-page .vs.hot h3{color:#fff}
+.wb-page .manband.lite{background:#fff}
+.wb-page .manband.lite .mbk{color:var(--txt-dim)}
+.wb-page .manband.lite h3{color:var(--txt)}
+.wb-page .manband.lite .mb-t{color:var(--txt)}
+.wb-page .manband.lite p{color:var(--txt-mid)}
+.wb-page .manband.lite p b{color:var(--txt)}
+.wb-page .manband.lite p a{color:var(--red);text-decoration-color:rgba(200,16,46,.35)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1080px){
+  .wb-page .nav-menu{display:none}
+}
+@media (max-width:1040px){
+  .wb-page .hero-grid{grid-template-columns:1fr}
+  .wb-page .hero-vis{display:none}
+  .wb-page .g3,
+  .wb-page .g4{grid-template-columns:1fr 1fr}
+  .wb-page .split,
+  .wb-page .split.rev{grid-template-columns:1fr}
+  .wb-page .split-vis{order:-1}
+  .wb-page .plan{grid-template-columns:1fr 1fr}
+}
+@media (max-width:960px){
+  .wb-page footer.site .fg{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .wb-page .manband{padding:32px 26px 0}
+  .wb-page .manband img.mb-man{display:none}
+  .wb-page .manband .mb-t{padding-bottom:32px}
+  .wb-page .vsg{grid-template-columns:1fr}
+  .wb-page .radi{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .wb-page .wk{grid-template-columns:1fr}
+  .wb-page .vragen{grid-template-columns:1fr}
+}
+@media (max-width:660px){
+  .wb-page .nav-menu,
+  .wb-page .tl-left{display:none}
+  .wb-page .tl-right{margin:0 auto}
+}
+@media (max-width:640px){
+  .wb-page .g3,
+  .wb-page .g4{grid-template-columns:1fr}
+  .wb-page .plan{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .wb-page .frow{grid-template-columns:1fr}
+  .wb-page .fshell{padding:26px 20px}
+}
+@media (max-width:600px){
+  .wb-page footer.site .fg{grid-template-columns:1fr}
+}
