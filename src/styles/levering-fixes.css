@@ -1,0 +1,37 @@
+/* ============================================================
+   Levering en installatie — correcties op de designfile
+
+   `src/styles/levering.css` blijft een letterlijke transcriptie van
+   "Levering En Installatie.html". Dit bestand repareert wat pas breekt zodra
+   de pagina de gedeelde <V3Header>/<V3Footer> gebruikt in plaats van de eigen
+   header van het designbestand. Zelfde correcties als klantservice-fixes.css.
+
+   1. <V3Header> geeft zijn logo een `width={1600} height={268}` attribuut
+      (tegen layout shift). De designregel `.nav-logo img{height:21px}` zet
+      alleen de hoogte, dus het width-attribuut wint en het logo wordt over de
+      hele navpijl uitgerekt. `width:auto` herstelt de verhouding.
+   2. Anker-sprongen (#stappen, #formulier) landen anders onder de vaste
+      header; `scroll-margin-top` houdt ruimte vrij zodat de sectiekop
+      zichtbaar blijft.
+   3. Onder 660px verbergt het design de contactregel; de basisregel staat op
+      `.hdr .tl-left` en wint op specificiteit, dus dezelfde regel opnieuw.
+   ============================================================ */
+
+.lev-page .navpill .nav-logo img {
+  height: 21px;
+  width: auto;
+}
+
+.lev-page section[id],
+.lev-page article[id] {
+  scroll-margin-top: 104px;
+}
+
+@media (max-width: 660px) {
+  .lev-page .hdr .tl-left {
+    display: none;
+  }
+  .lev-page .hdr .tl-right {
+    margin: 0 auto;
+  }
+}

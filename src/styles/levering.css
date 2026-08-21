@@ -1,0 +1,297 @@
+/* ============================================================
+   Levering en installatie — generated from the Claude Design handoff
+   (Levering En Installatie.html). 1:1 transcription of the design file's
+   <style> block, with the same mechanical transforms as klantservice.css:
+     - every rule scoped under `.lev-page` (`:root` and `body` fold onto
+       that scope root) so the page cannot leak into the rest of the app,
+     - `url(assets/...)` rewritten to `/vernast/....webp`,
+     - the bare `html{...}` rule is dropped; scroll-behaviour lives on the
+       document via src/styles/home-v3.css already,
+     - `.rv` reveal state neutralised (always visible), since the design's
+       IntersectionObserver script is not transcribed.
+
+   The header and footer markup comes from <V3Header>/<V3Footer>; their
+   chrome is copied verbatim from klantservice.css (re-prefixed to .lev-page)
+   so they render correctly inside .lev-page.
+
+   Do not hand-tune this file. Change the design, then re-import.
+   ============================================================ */
+
+.lev-page *,
+.lev-page *::before,
+.lev-page *::after{box-sizing:border-box}
+.lev-page{margin:0;padding:0}
+.lev-page{--red:#C8102E;--maroon:#6B0F13;--maroon-d:#5A0C10;--maroon-deep:#5A0C10;
+    --txt:#141414;--txt-mid:rgba(20,20,20,.62);--txt-dim:rgba(20,20,20,.42);
+    --line:rgba(20,20,20,.1);--line-2:rgba(20,20,20,.18);
+    --page:#fff;--bg:#fff;--bg-alt:#F4F4F4;--ok:#1E9E50;
+    --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
+    --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
+    --fm:'JetBrains Mono',ui-monospace,monospace;
+    --wrap:1260px;}
+.lev-page{background:var(--page);color:var(--txt);font-family:var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.lev-page h1,
+.lev-page h2,
+.lev-page h3,
+.lev-page h4{margin:0;letter-spacing:-.02em}
+.lev-page a{color:var(--red);text-decoration:none}
+.lev-page a:hover{color:#a80d26}
+.lev-page .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.lev-page .kick{display:inline-block;font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.lev-page .sec{font-family:var(--fd);font-weight:800;font-size:clamp(28px,3.2vw,42px);line-height:1.08;letter-spacing:-.025em;text-wrap:balance;color:var(--txt)}
+.lev-page .lede{font-size:15.5px;color:var(--txt-mid);line-height:1.7;max-width:640px;margin:14px 0 0}
+.lev-page .sec-head{max-width:760px;margin-bottom:40px}
+.lev-page .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--fb);font-weight:700;font-size:15px;padding:15px 28px;border-radius:99px;border:0;cursor:pointer;text-decoration:none;transition:all .15s;background:var(--red);color:#fff}
+.lev-page .btn:hover{background:#a80d26;color:#fff}
+.lev-page .btn-white{background:#fff;color:var(--red)}
+.lev-page .btn-white:hover{background:rgba(255,255,255,.88);color:#a80d26}
+.lev-page .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff}
+.lev-page .btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+.lev-page .rv{opacity:1;transform:none}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* ============ HEADER (copied verbatim from klantservice.css) ============ */
+.lev-page .hdr{position:fixed;top:0;left:0;right:0;z-index:80;background:transparent;transition:transform .34s cubic-bezier(.4,0,.2,1)}
+.lev-page .hdr.tucked{transform:translateY(-100%)}
+.lev-page .hdr.onlight .topline,
+.lev-page .hdr.onlight .topline a,
+.lev-page .hdr.onlight .topline span,
+.lev-page .hdr.onlight .tl-right{color:rgba(20,20,20,.78)}
+.lev-page .hdr.onlight .topline a:hover{color:#141414}
+.lev-page .hdr.onlight .tl-left svg{color:rgba(20,20,20,.5)}
+.lev-page .hdr.onlight .navpill{background:rgba(255,255,255,.74);border-color:rgba(20,20,20,.12);box-shadow:0 14px 38px -18px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.65)}
+.lev-page .hdr.onlight .nav-menu>.item{color:#141414}
+.lev-page .hdr.onlight .nav-menu>.item:hover{background:rgba(20,20,20,.07)}
+.lev-page .hdr.onlight .cart{color:#141414}
+.lev-page .hdr.onlight .cart:hover{background:rgba(20,20,20,.07);color:#141414}
+.lev-page .hdr .topline,
+.lev-page .hdr .navrow{position:relative;z-index:2}
+.lev-page .navpill{background:rgba(30,10,12,.34);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,255,255,.24);box-shadow:0 14px 38px -18px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.22)}
+.lev-page .hdr .topline{display:flex;align-items:center;justify-content:space-between;padding:34px 0 18px;font-size:14px;color:rgba(255,255,255,.72);flex-wrap:wrap;gap:10px;transition:opacity .3s,margin .3s,padding .3s;max-height:70px}
+.lev-page .hdr.scrolled .topline{opacity:0;max-height:0;padding-top:10px;padding-bottom:0;overflow:hidden;pointer-events:none}
+.lev-page .hdr .tl-left{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+.lev-page .hdr .tl-left a,
+.lev-page .hdr .tl-left span{display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.8)}
+.lev-page .hdr .tl-left a:hover{color:#fff}
+.lev-page .hdr .tl-left svg{color:rgba(255,255,255,.55)}
+.lev-page .hdr .tl-right{display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.86);font-size:14px}
+.lev-page .hdr .tl-right .dot{width:9px;height:9px;border-radius:50%;background:#3fbf63}
+.lev-page .hdr .navrow{padding:0 0 22px;display:flex;align-items:center;gap:14px}
+.lev-page .hdr .navrow .navpill{flex:1;min-width:0}
+.lev-page .navpill{display:flex;align-items:center;justify-content:space-between;gap:18px;border-radius:18px;padding:11px 11px 11px 24px;position:relative}
+.lev-page .navpill .nav-logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.lev-page .navpill .nav-logo img{height:21px}
+.lev-page .nav-menu{display:flex;align-items:center;gap:0;flex:1;min-width:0;justify-content:flex-end;position:static}
+.lev-page .nav-menu>.item{position:relative;display:inline-flex;align-items:center;gap:6px;padding:10px 11px;font-size:14.5px;font-weight:500;color:#fff;border-radius:10px;cursor:pointer;transition:background .15s;white-space:nowrap}
+.lev-page .nav-menu>.item:hover{background:rgba(255,255,255,.09)}
+.lev-page .nav-menu>.item .caret{width:11px;height:11px;opacity:.65;transition:transform .18s}
+.lev-page .nav-menu>.item.has-sub:hover .caret{transform:rotate(180deg)}
+.lev-page .submenu{position:absolute;top:calc(100% + 8px);left:0;min-width:250px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 24px 50px -18px rgba(0,0,0,.4);opacity:0;visibility:hidden;transform:translateY(7px);transition:opacity .16s,transform .16s,visibility .16s;z-index:90}
+.lev-page .nav-menu>.item:hover .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.lev-page .submenu a{display:flex;flex-direction:column;gap:2px;padding:10px 13px;font-size:14px;color:var(--txt);border-radius:9px;transition:background .15s,color .15s}
+.lev-page .submenu a:hover{background:var(--page);color:var(--red)}
+.lev-page .submenu a small{font-size:11.5px;color:var(--txt-dim)}
+.lev-page .nav-menu>.item.mega{position:static}
+.lev-page .nav-menu>.item.mega:hover{background:rgba(255,255,255,.14)}
+.lev-page .mega-panel{position:absolute;top:calc(100% + 12px);left:0;width:100%;background:#fff;border-radius:20px;padding:26px 30px 0;box-shadow:0 30px 70px -22px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .18s,transform .18s,visibility .18s;z-index:95}
+.lev-page .nav-menu>.item.mega:hover .mega-panel{opacity:1;visibility:visible;transform:none}
+.lev-page .mega-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:34px}
+.lev-page .mcol .mlab{display:inline-block;background:var(--maroon);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;padding:9px 15px;border-radius:9px;margin-bottom:16px}
+.lev-page .mcol ul{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:11px}
+.lev-page .mcol ul:last-child{margin-bottom:0}
+.lev-page .mcol ul a{font-size:14.5px;color:var(--txt);transition:color .14s,padding-left .14s;display:block}
+.lev-page .mcol ul a:hover{color:var(--red);padding-left:4px}
+.lev-page .mega-foot{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:24px;padding:20px 0 24px;border-top:1px solid var(--line)}
+.lev-page .mega-foot .mft b{display:block;font-size:14.5px;font-weight:600;margin-bottom:3px}
+.lev-page .mega-foot .mft span{font-size:13.5px;color:var(--txt-mid)}
+.lev-page .btn-offerte{display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;font-weight:600;font-size:15px;padding:13px 28px;border-radius:99px;white-space:nowrap;box-shadow:0 10px 26px -10px rgba(200,16,46,.85);transition:transform .16s,background .16s}
+.lev-page .btn-offerte:hover{transform:translateY(-2px);color:#fff;background:#a80d26}
+.lev-page .hdr .cart{position:relative;width:38px;height:38px;display:grid;place-items:center;color:rgba(255,255,255,.85);border-radius:10px;transition:background .15s,color .15s;flex-shrink:0}
+.lev-page .hdr .cart:hover{background:rgba(255,255,255,.1);color:#fff}
+.lev-page .hdr .cart i{position:absolute;top:1px;right:0;min-width:17px;height:17px;border-radius:99px;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;font-style:normal;padding:0 4px}
+
+/* ============ PAGE ============ */
+.lev-page .redtop{background:var(--maroon-d) url('/vernast/bg-red-wide.webp') center/cover no-repeat;color:#fff;overflow:hidden}
+.lev-page .hero{padding:200px 0 0;position:relative}
+.lev-page .hero-copy{padding-bottom:84px}
+.lev-page .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:56px;align-items:end}
+@media (max-width:1040px){.lev-page .hero-grid{grid-template-columns:1fr}.lev-page .hero-vis{display:none}}
+.lev-page .hero .kick{color:rgba(255,255,255,.75)}
+.lev-page .hero h1{font-family:var(--fd);font-weight:800;font-size:clamp(32px,4vw,54px);line-height:1.05;letter-spacing:-.035em;color:#fff;text-wrap:balance}
+.lev-page .hero p{font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.8);max-width:640px;margin:18px 0 0}
+.lev-page .hbadges{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.lev-page .hbadges span{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--txt);font-size:13.5px;font-weight:700;padding:10px 16px;border-radius:99px}
+.lev-page .hbadges span svg{color:var(--ok)}
+.lev-page .hero .hcta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.lev-page .hero-vis{position:relative;display:flex;justify-content:center;align-items:flex-end;align-self:end}
+.lev-page .hero-vis img{display:block;width:min(100%,440px);margin-bottom:-1px;filter:drop-shadow(0 28px 36px rgba(0,0,0,.4))}
+.lev-page .fbadge{position:absolute;background:#fff;border-radius:14px;padding:13px 17px;box-shadow:0 22px 44px -18px rgba(0,0,0,.5);font-family:var(--fd);font-weight:800;font-size:13px;color:var(--txt);display:flex;align-items:center;gap:10px;animation:floaty 5s ease-in-out infinite}
+.lev-page .fbadge .ic{width:32px;height:32px;border-radius:10px;background:var(--ok);display:grid;place-items:center;color:#fff;flex-shrink:0}
+.lev-page .fbadge.rd .ic{background:var(--red)}
+.lev-page .fbadge small{display:block;font-family:var(--fb);font-weight:500;font-size:11px;color:var(--txt-mid)}
+.lev-page .sw{padding:88px 0;background:#fff}
+.lev-page .sw2{padding:88px 0;background:var(--bg-alt)}
+.lev-page .sr{padding:88px 0;background:var(--maroon-d) url('/vernast/bg-red-wide.webp') center/cover no-repeat;color:#fff;overflow:hidden}
+.lev-page .sr .kick{color:rgba(255,255,255,.75)}
+.lev-page .sr .sec{color:#fff}
+.lev-page .sr .lede{color:rgba(255,255,255,.78)}
+.lev-page .sw .lede a,
+.lev-page .sw p a,
+.lev-page .sw2 .lede a,
+.lev-page .sw2 p a{color:var(--red);font-weight:600;text-decoration:underline;text-decoration-color:rgba(200,16,46,.35);text-underline-offset:3px}
+.lev-page .sr .lede a,
+.lev-page .sr p a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
+.lev-page .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.lev-page .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:1040px){.lev-page .g3,.lev-page .g4{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.lev-page .g3,.lev-page .g4{grid-template-columns:1fr}}
+.lev-page .kaart{background:var(--bg-alt);border-radius:18px;padding:26px 24px;transition:transform .2s,box-shadow .2s}
+.lev-page .kaart:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.25)}
+.lev-page .sw2 .kaart,
+.lev-page .sr .kaart{background:#fff;color:var(--txt)}
+.lev-page .kaart .ki{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--red);margin-bottom:13px}
+.lev-page .sw2 .kaart .ki,
+.lev-page .sr .kaart .ki{background:var(--bg-alt);border-color:transparent}
+.lev-page .kaart .num{width:38px;height:38px;border-radius:11px;background:var(--red);color:#fff;font-family:var(--fd);font-weight:800;font-size:16px;display:grid;place-items:center;margin-bottom:14px}
+.lev-page .kaart h3{font-family:var(--fd);font-weight:800;font-size:16.5px;margin-bottom:7px}
+.lev-page .kaart p{font-size:13.5px;color:var(--txt-mid);line-height:1.65;margin:0}
+.lev-page .kaart p b{color:var(--txt)}
+.lev-page .note{margin-top:26px;background:var(--bg-alt);border-radius:16px;padding:20px 24px;font-size:14.5px;line-height:1.7;color:var(--txt-mid)}
+.lev-page .note b{color:var(--txt)}
+.lev-page .note a{color:var(--red);font-weight:600}
+.lev-page .sw2 .note{background:#fff}
+.lev-page .sr .note{background:#fff;color:var(--txt-mid)}
+.lev-page .sr .note b{color:var(--txt)}
+.lev-page .sr .note a{color:var(--red)}
+.lev-page .split{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+.lev-page .split.rev{grid-template-columns:.95fr 1.05fr}
+@media (max-width:1040px){.lev-page .split,.lev-page .split.rev{grid-template-columns:1fr}.lev-page .split-vis{order:-1}}
+.lev-page .split-vis{position:relative;display:flex;justify-content:center;align-items:flex-end}
+.lev-page .split-vis img{width:min(100%,420px);filter:drop-shadow(0 26px 34px rgba(0,0,0,.28))}
+.lev-page .sr .split-vis img{filter:drop-shadow(0 26px 34px rgba(0,0,0,.45))}
+.lev-page .seo{max-width:820px}
+.lev-page .seo p{font-size:15px;line-height:1.75;color:var(--txt-mid);margin:0 0 18px}
+.lev-page .seo p b{color:var(--txt)}
+.lev-page .sr .seo p{color:rgba(255,255,255,.8)}
+.lev-page .sr .seo p b{color:#fff}
+.lev-page .bq{margin:34px 0 0;background:#fff;border-left:5px solid var(--red);border-radius:16px;padding:24px 28px;font-family:var(--fd);font-weight:700;font-size:clamp(17px,1.7vw,21px);line-height:1.5;color:var(--txt);text-wrap:balance}
+.lev-page .oform{padding:88px 0;background:var(--maroon-d) url('/vernast/bg-red.webp') center/cover no-repeat}
+.lev-page .oform .kick{color:rgba(255,255,255,.75)}
+.lev-page .oform .sec{color:#fff}
+.lev-page .oform .lede{color:rgba(255,255,255,.78)}
+.lev-page .fshell{max-width:760px;margin:0 auto;background:#fff;border-radius:20px;padding:34px;color:var(--txt)}
+.lev-page .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.lev-page .frow.one{grid-template-columns:1fr}
+.lev-page .fld label{display:block;font-size:12.5px;font-weight:700;margin-bottom:7px}
+.lev-page .fld input,
+.lev-page .fld select,
+.lev-page .fld textarea{width:100%;box-sizing:border-box;font-family:var(--fb);font-size:14.5px;padding:13px 15px;border:1.5px solid var(--line-2);border-radius:11px;background:#fff;color:var(--txt);outline:none;resize:vertical}
+.lev-page .fld input:focus,
+.lev-page .fld select:focus,
+.lev-page .fld textarea:focus{border-color:var(--red)}
+.lev-page .fsend{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:6px}
+.lev-page .fsend small{font-size:12.5px;color:var(--txt-dim)}
+.lev-page .fdone{display:none;text-align:center;padding:26px 10px}
+.lev-page .fdone.on{display:block}
+.lev-page .fdone .ic{width:60px;height:60px;border-radius:50%;background:rgba(30,158,80,.12);color:var(--ok);display:grid;place-items:center;margin:0 auto 16px}
+.lev-page .fdone h3{font-family:var(--fd);font-weight:800;font-size:22px;margin-bottom:8px}
+.lev-page .fdone p{font-size:14px;color:var(--txt-mid);margin:0}
+@media (max-width:620px){.lev-page .frow{grid-template-columns:1fr}.lev-page .fshell{padding:26px 20px}}
+.lev-page .manband{position:relative;margin-top:44px;border-radius:20px;background:var(--maroon-d) url('/vernast/bg-red.webp') center/cover no-repeat;padding:44px 44px 0;display:flex;align-items:flex-end;gap:36px;overflow:hidden}
+.lev-page .manband .mb-t{flex:1;min-width:280px;padding-bottom:44px;color:#fff}
+.lev-page .manband .mb-t .mbk{font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);display:block;margin-bottom:10px}
+.lev-page .manband h3{font-family:var(--fd);font-weight:800;font-size:clamp(20px,2.2vw,28px);letter-spacing:-.02em;color:#fff;margin:0 0 10px;text-wrap:balance}
+.lev-page .manband p{font-size:14.5px;color:rgba(255,255,255,.82);line-height:1.65;margin:0;max-width:600px}
+.lev-page .manband p a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
+.lev-page .manband .mb-cta{display:inline-flex;margin-top:20px}
+.lev-page .manband img.mb-man{display:block;width:min(30%,290px);flex-shrink:0;margin:0;filter:drop-shadow(0 22px 28px rgba(0,0,0,.35))}
+@media (max-width:860px){.lev-page .manband{padding:32px 26px 0}.lev-page .manband img.mb-man{display:none}.lev-page .manband .mb-t{padding-bottom:32px}}
+.lev-page .lvstrip{background:var(--bg);padding:26px 0;border-bottom:1px solid var(--line)}
+.lev-page .lvstrip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:1040px){.lev-page .lvstrip .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.lev-page .lvstrip .wrap{grid-template-columns:1fr}}
+.lev-page .lvs{display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 18px}
+.lev-page .lvs .i{flex-shrink:0;width:40px;height:40px;border-radius:11px;background:rgba(200,16,46,.08);display:grid;place-items:center;color:var(--red)}
+.lev-page .lvs b{display:block;font-family:var(--fd);font-size:13.5px;letter-spacing:-.01em}
+.lev-page .lvs small{font-size:11.5px;color:var(--txt-dim)}
+.lev-page .aank{display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:end;margin-top:8px}
+@media (max-width:1040px){.lev-page .aank{grid-template-columns:1fr}.lev-page .aank-vis{display:none}}
+.lev-page .aank-vis img{display:block;width:100%;max-width:300px;margin:0 auto;filter:drop-shadow(0 24px 30px rgba(0,0,0,.16))}
+.lev-page .chk2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:30px}
+@media (max-width:760px){.lev-page .chk2{grid-template-columns:1fr}}
+.lev-page .chk2>span{display:flex;gap:11px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px 18px;font-size:13.5px;color:var(--txt-mid);line-height:1.55}
+.lev-page .chk2>span>svg{flex-shrink:0;margin-top:2px;color:var(--ok)}
+.lev-page .chk2 b{color:var(--txt)}
+.lev-page .lvred{background:var(--maroon-d) url('/vernast/bg-red.webp') center/cover no-repeat;padding:96px 0}
+.lev-page .lvred .kick{color:rgba(255,255,255,.6)}
+.lev-page .lvred .sec{color:#fff}
+.lev-page .lvred .lede{color:rgba(255,255,255,.78)}
+.lev-page .stgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:40px}
+@media (max-width:1120px){.lev-page .stgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.lev-page .stgrid{grid-template-columns:1fr}}
+.lev-page .stp{position:relative;background:#fff;border-radius:16px;padding:24px 22px 22px;transition:transform .2s,box-shadow .2s}
+.lev-page .stp:hover{transform:translateY(-5px);box-shadow:0 28px 50px -26px rgba(0,0,0,.5)}
+.lev-page .stp .nr{position:absolute;top:20px;right:18px;font-family:var(--fd);font-weight:800;font-size:26px;color:var(--line);line-height:1}
+.lev-page .stp .si{width:42px;height:42px;border-radius:12px;background:rgba(200,16,46,.08);display:grid;place-items:center;color:var(--red);margin-bottom:14px}
+.lev-page .stp h3{font-family:var(--fd);font-weight:800;font-size:15.5px;letter-spacing:-.01em;margin-bottom:7px}
+.lev-page .stp p{font-size:12.5px;color:var(--txt-mid);line-height:1.6;margin:0}
+.lev-page .vsg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:38px}
+@media (max-width:860px){.lev-page .vsg{grid-template-columns:1fr}}
+.lev-page .vs{background:var(--bg-alt);border-radius:18px;padding:30px;display:flex;flex-direction:column;gap:14px}
+.lev-page .vs.hot{background:var(--maroon-d) url('/vernast/bg-red.webp') center/cover no-repeat;color:#fff}
+.lev-page .vs .vt{align-self:flex-start;font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:9px;background:#fff;color:var(--txt)}
+.lev-page .vs h3{font-family:var(--fd);font-weight:800;font-size:19px}
+.lev-page .vs.hot h3{color:#fff}
+.lev-page .vs ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.lev-page .vs li{display:flex;gap:9px;align-items:flex-start;font-size:14px;color:var(--txt-mid);line-height:1.55}
+.lev-page .vs.hot li{color:rgba(255,255,255,.88)}
+.lev-page .vs li svg{flex-shrink:0;margin-top:3px;color:var(--ok)}
+.lev-page .vs.hot li svg{color:#7ee2a1}
+.lev-page .vs .vf{font-size:12.5px;color:var(--txt-dim);margin-top:auto;padding-top:6px}
+.lev-page .vs.hot .vf{color:rgba(255,255,255,.6)}
+.lev-page .lvred .kaart{background:#fff}
+.lev-page .lvred .note{background:#fff;color:var(--txt-mid)}
+.lev-page .lvred .note b{color:var(--txt)}
+.lev-page .lvred .note a{color:var(--red)}
+.lev-page .chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:20px}
+.lev-page .chain span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:12px;font-weight:700;padding:8px 14px;border-radius:99px}
+.lev-page .chain svg{color:rgba(255,255,255,.5);flex-shrink:0}
+.lev-page .ldg{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:40px}
+@media (max-width:1040px){.lev-page .ldg{grid-template-columns:1fr}}
+.lev-page .ld{position:relative;background:#fff;border-radius:16px;padding:26px 24px;transition:transform .2s,box-shadow .2s}
+.lev-page .ld:hover{transform:translateY(-5px);box-shadow:0 28px 50px -26px rgba(0,0,0,.5)}
+.lev-page .ld .si{width:42px;height:42px;border-radius:12px;background:rgba(200,16,46,.08);display:grid;place-items:center;color:var(--red);margin-bottom:14px}
+.lev-page .ld h3{font-family:var(--fd);font-weight:800;font-size:16.5px;margin-bottom:7px}
+.lev-page .ld p{font-size:13px;color:var(--txt-mid);line-height:1.6;margin:0}
+.lev-page .ld .tag{position:absolute;top:22px;right:20px;font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:99px}
+.lev-page .ld .tag.ok{background:rgba(31,138,74,.1);color:var(--ok)}
+.lev-page .ld .tag.pay{background:rgba(200,16,46,.09);color:var(--red)}
+.lev-page .ld .prc{font-family:var(--fd);font-weight:800;font-size:22px;letter-spacing:-.02em;margin-top:14px}
+.lev-page .ld .prc small{font-size:12px;font-weight:600;color:var(--txt-dim)}
+
+/* ============ FOOTER (copied verbatim from klantservice.css) ============ */
+.lev-page footer.site{background:#0d0a0a;color:rgba(255,255,255,.62);padding:64px 0 26px}
+.lev-page footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
+.lev-page footer.site .lc img{height:30px;margin-bottom:20px}
+.lev-page footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
+.lev-page footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
+.lev-page footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
+.lev-page footer.site .lc .fc a:hover{color:#fff}
+.lev-page footer.site .lc .fc svg{color:var(--red);flex-shrink:0}
+.lev-page footer.site h4{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
+.lev-page footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+.lev-page footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
+.lev-page footer.site ul a:hover{color:#fff}
+.lev-page footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
+.lev-page footer.site .fb a{color:rgba(255,255,255,.62)}
+.lev-page footer.site .fb a:hover{color:#fff}
+.lev-page footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
+
+/* ============ RESPONSIVE (nav + footer chrome from klantservice.css) ============ */
+@media (max-width:960px){.lev-page footer.site .fg{grid-template-columns:1fr 1fr}}
+@media (max-width:660px){
+  .lev-page .nav-menu,
+  .lev-page .tl-left{display:none}
+  .lev-page .tl-right{margin:0 auto}
+}
+@media (max-width:600px){.lev-page footer.site .fg{grid-template-columns:1fr}}
