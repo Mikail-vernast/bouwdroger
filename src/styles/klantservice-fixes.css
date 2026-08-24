@@ -76,6 +76,17 @@
     width: min(240px, 66vw);
     margin-top: 30px;
   }
+  /* Minder dode ruimte bovenaan: 210px was op de desktop nodig voor de brede
+     header, maar liet op de telefoon een grote lege rode band boven de kop. */
+  .ks-page .ks-hero {
+    padding-top: 150px;
+  }
+  /* De storingsbalk zette een harde min-breedte van 280px op zijn tekstblok;
+     op smalle telefoons (≤ ~336px content) liep dat 14px buiten beeld. In één
+     kolom is die ondergrens niet meer nodig. */
+  .ks-page .fixbar .fb-b {
+    min-width: 0;
+  }
 }
 
 /* 6. Hero quick-links zonder glass-look — de doorschijnende melkwitte fill
