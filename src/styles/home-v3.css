@@ -142,7 +142,7 @@ html { scroll-behavior: smooth; }
 .v3 .hero .gsb{margin-left:auto;margin-right:auto}
 .v3 .hero h1{font-family:var(--fd);font-weight:800;font-size:clamp(32px,4.6vw,64px);line-height:1.0;letter-spacing:-.035em;color:#fff;margin:16px 0 20px;text-wrap:balance}
 .v3 .hero p{font-size:clamp(15px,1.2vw,18px);line-height:1.55;color:rgba(255,255,255,.82);margin:0 auto 30px;max-width:600px}
-.v3 .hero-art{position:relative;z-index:2;display:block;width:100%;margin:64px 0 0}
+.v3 .hero-art{position:relative;z-index:2;display:block;width:min(980px,88%);margin:32px auto 0}
 .v3 .gsb{display:inline-flex;align-items:center;gap:10px;background:#fff;border-radius:99px;padding:9px 18px;margin-bottom:20px;box-shadow:0 12px 30px -14px rgba(0,0,0,.45)}
 .v3 .gsb .stars{color:#FBBC05;font-size:14px;letter-spacing:1.5px}
 .v3 .gsb .gt{font-size:13px;color:var(--txt-mid)}
