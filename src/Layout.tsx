@@ -68,7 +68,17 @@ const Layout = () => {
     <>
       <ScrollToTop />
       <FloatingWhatsApp />
-      <Analytics route={route} />
+      {/*
+        `path` moet erbij, anders telt Web Analytics niets. De SDK zet bij een
+        gezette `route` intern `disableAutoTrack: true` — hij gaat ervan uit dat
+        wij de pageviews zelf sturen — maar stuurt er zelf pas één zodra
+        `route` én `path` allebei ingevuld zijn. Met alleen `route` staat de
+        automatische telling dus uit terwijl de handmatige nooit vuurt: nul
+        bezoekers, voor altijd, terwijl het script gewoon 200 geeft en
+        `window.va` bestaat. Speed Insights heeft die tweede prop niet nodig en
+        mat wél door — daaraan zie je dat het niet aan het verkeer lag.
+      */}
+      <Analytics route={route} path={location.pathname} />
       <SpeedInsights route={route} />
       <div key={location.pathname} className={navigated.current ? "page-enter" : undefined}>
         <Outlet />
