@@ -31,6 +31,19 @@ const RULES = [
   */
   { match: /^public\/vernast\/icon-.*\.webp$/, max: 96 },
   { match: /^public\/vernast\/eco-.*\.webp$/, max: 600 },
+  /*
+    De rode hero-achtergronden (bg-red*) zijn platte vectorvlakken. De lossy
+    stap (`-q 82`) op 1440 px gaf zichtbare banding in de grote verlopen; de
+    bron staat nu lossless op 1920 px. Een max gelijk aan die breedte laat de
+    resize-/hercompressiestap ze overslaan, zodat ze scherp blijven.
+  */
+  { match: /^public\/vernast\/bg-.*\.webp$/, max: 1920 },
+  /*
+    De hero-banner staat full-width bovenaan de homepage en moet scherp blijven
+    op brede en retina-schermen; 1440 px was zichtbaar te zacht. 2400 px houdt
+    hem scherp zonder de rest van de map groter te maken.
+  */
+  { match: /^public\/vernast\/hero-banner\.webp$/, max: 2400 },
   { match: /^public\/vernast\//, max: 1440 },
   { match: /^public\/products\//, max: 1000 },
   { match: /^public\/verhuur\//, max: 1200 },

@@ -289,7 +289,7 @@ const OverOnsPage = () => {
           </div>
           <div className="gr-grid">
             <a className="gr" href="https://www.vernast-vochtbestrijding.be/">
-              <div className="gphoto"><img src="/vernast/schimmel-muur.webp" alt="Vochtbestrijding" style={{ objectFit: "cover" }} /></div>
+              <div className="gphoto"><img src="/vernast/groep-vochtbestrijding.webp" alt="Team Vernast Vochtbestrijding" style={{ objectFit: "cover" }} /></div>
               <span className="gi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></span>
               <h3>Vernast Vochtbestrijding</h3>
               <p>Opstijgend vocht, kelderdichting en gevelbehandeling. Wanneer de oorzaak dieper zit dan bouwvocht, pakken we ze bij de bron aan.</p>
@@ -303,7 +303,7 @@ const OverOnsPage = () => {
               <span className="gl">Bereken uw pakket →</span>
             </Link>
             <a className="gr" href="https://www.vernast-schilderwerken.be/">
-              <div className="gphoto red"><img src="/vernast/man-spuitbus.webp" alt="Vernast schilder" style={{ height: "118%" }} /></div>
+              <div className="gphoto"><img src="/vernast/groep-schilderwerken.webp" alt="Team Vernast Schilderwerken" style={{ objectFit: "cover" }} /></div>
               <span className="gi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M19 3H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" /><path d="M12 11v4a2 2 0 0 1-2 2H8a2 2 0 0 0-2 2v2" /></svg></span>
               <h3>Vernast Schilderwerken</h3>
               <p>Afwerking binnen en buiten. De logische volgende stap zodra uw muren aantoonbaar droog zijn.</p>

@@ -13,17 +13,48 @@ const ScrollToTop = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // De browser mag bij client-side navigatie de vórige scrollpositie niet
+  // terugzetten. Deed hij dat wél, dan kwam je via een footerlink (bv. Privacy)
+  // terecht op de plek waar je stond — onderaan in de footer — in plaats van
+  // bovenaan de nieuwe, vaak kortere, pagina.
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
+
   // Scroll to top on route change — unless the link targets a section, in which
   // case honour the hash (the browser does not do this for client-side routing).
   useEffect(() => {
     if (hash) {
-      const target = document.querySelector(hash);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        return;
-      }
+      // Het anker kan er nog niet staan als de route lazy inlaadt; probeer een
+      // paar frames voordat we opgeven.
+      let raf = 0;
+      let tries = 0;
+      const jump = () => {
+        let target: Element | null = null;
+        try {
+          target = document.querySelector(hash);
+        } catch {
+          target = null; // onbruikbare hash — val terug op bovenaan
+        }
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else if (tries++ < 20) {
+          raf = requestAnimationFrame(jump);
+        }
+      };
+      jump();
+      return () => cancelAnimationFrame(raf);
     }
-    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+
+    // Geen hash: bovenaan beginnen. Eén keer meteen, en nog eens ná de eerste
+    // paint, zodat lazy geladen route-inhoud (die pas later hoog wordt) de
+    // positie niet alsnog verschuift.
+    const toTop = () => window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    toTop();
+    const raf = requestAnimationFrame(toTop);
+    return () => cancelAnimationFrame(raf);
   }, [pathname, hash]);
 
   if (!visible) return null;

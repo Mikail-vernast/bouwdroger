@@ -25,7 +25,7 @@
     --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
     --fb:'DM Sans','Inter',system-ui,sans-serif;
     --wrap:1220px;}
-.ov-page{background:var(--bg);color:var(--txt);font-family:var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.ov-page{background:var(--page);color:var(--txt);font-family:var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .ov-page h1,
 .ov-page h2,
 .ov-page h3,
@@ -127,7 +127,7 @@
 @media (max-width:860px){.ov-page .ov-chip{display:none}}
 
 /* ============ PRAKTIJK (wit) ============ */
-.ov-page .prak{padding:88px 0;background:var(--bg)}
+.ov-page .prak{padding:88px 0;background:var(--page)}
 .ov-page .prak-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:start;margin-top:8px}
 .ov-page .prak-copy p{font-size:15.5px;line-height:1.72;color:var(--txt-mid);margin:18px 0 0}
 .ov-page .prak-copy p b{color:var(--txt)}
@@ -161,7 +161,7 @@
 @media (max-width:1040px){.ov-page .cap-layout{grid-template-columns:1fr}.ov-page .cap-man{display:none}.ov-page .cap-grid{grid-template-columns:1fr}}
 
 /* ============ TEAM (wit) ============ */
-.ov-page section.team{padding:88px 0;background:var(--bg)}
+.ov-page section.team{padding:88px 0;background:var(--page)}
 .ov-page .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:42px}
 .ov-page .tm{background:var(--bg-alt);border-radius:20px;padding:0;overflow:hidden;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s}
 .ov-page .tm:hover{transform:translateY(-5px);box-shadow:0 26px 50px -28px rgba(0,0,0,.3)}
@@ -198,7 +198,7 @@
 @media (max-width:1040px){.ov-page .acad-grid{grid-template-columns:1fr}.ov-page .acad-vis{display:none}}
 
 /* ============ TECH MARQUEE (wit) ============ */
-.ov-page .tech{padding:88px 0;background:var(--bg)}
+.ov-page .tech{padding:88px 0;background:var(--page)}
 .ov-page .mq{overflow:hidden;margin-top:38px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .ov-page .mq + .mq{margin-top:14px}
 .ov-page .mq-track{display:flex;gap:14px;width:max-content;animation:mq 34s linear infinite}
@@ -267,7 +267,7 @@
 .ov-page .acy-mini{display:flex;gap:9px;flex-wrap:wrap}
 .ov-page .acy-mini span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.26);color:#fff;font-size:12.5px;font-weight:600;padding:9px 15px;border-radius:99px}
 @media (max-width:1040px){.ov-page .acy-grid{grid-template-columns:1fr}}
-.ov-page .groep{padding:88px 0;background:var(--bg)}
+.ov-page .groep{padding:88px 0;background:var(--page)}
 .ov-page .gr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
 .ov-page .gr{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 26px;display:flex;flex-direction:column;gap:11px;transition:transform .2s,box-shadow .2s}
 .ov-page .gr:hover{transform:translateY(-4px);box-shadow:0 24px 46px -26px rgba(0,0,0,.28);color:inherit}

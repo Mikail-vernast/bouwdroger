@@ -91,10 +91,10 @@ const V3Hero = () => (
     */}
     <img
       className="hero-art"
-      src="/vernast/team-cutout.webp"
+      src="/vernast/hero-banner.webp"
       alt="Het Vernast-team met het volledige toestellengamma"
-      width={1440}
-      height={399}
+      width={2400}
+      height={665}
       fetchPriority="high"
       decoding="async"
     />
