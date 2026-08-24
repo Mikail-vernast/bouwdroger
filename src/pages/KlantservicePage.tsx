@@ -73,6 +73,7 @@ const KlantservicePage = () => {
             <a href="#betalingen">Betalingen &amp; facturen</a>
           </div>
         </div>
+        <img className="ks-hero-man" src="/vernast/man-zen-crop.webp" alt="Rustige, tevreden klant van Vernast" width="1225" height="1440" loading="eager" decoding="async" />
       </section>
 
       {/* ================= TOPICS ================= */}
