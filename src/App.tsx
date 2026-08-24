@@ -75,6 +75,32 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/KlantservicePage")).default }),
       },
       {
+        path: "drooggarantie",
+        lazy: async () => ({ Component: (await import("./pages/DrooggarantiePage")).default }),
+      },
+      {
+        // Tijdelijke, niet-indexeerbare marketingvariant om naast de huidige
+        // Drooggarantie te kunnen lezen en beoordelen.
+        path: "drooggarantie-v2",
+        lazy: async () => ({ Component: (await import("./pages/DrooggarantieV2Page")).default }),
+      },
+      {
+        path: "hoe-drogen-werkt",
+        lazy: async () => ({ Component: (await import("./pages/HoeDrogenWerktPage")).default }),
+      },
+      {
+        path: "waarom-bouwdroging",
+        lazy: async () => ({ Component: (await import("./pages/WaaromBouwdrogingPage")).default }),
+      },
+      {
+        path: "privacy",
+        lazy: async () => ({ Component: (await import("./pages/PrivacyPage")).default }),
+      },
+      {
+        path: "algemene-voorwaarden",
+        lazy: async () => ({ Component: (await import("./pages/AlgemeneVoorwaardenPage")).default }),
+      },
+      {
         path: "calculator",
         lazy: async () => ({ Component: (await import("./pages/CalculatorPage")).default }),
       },

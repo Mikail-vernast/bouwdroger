@@ -1,0 +1,43 @@
+/* ============================================================
+   Over ons — correcties op de designfile
+
+   `src/styles/over-ons.css` is een letterlijke transcriptie van
+   "Over Ons.html" en blijft dat. Dit bestand repareert wat in de bron
+   zelf niet werkt zodra de pagina de gedeelde <V3Header>/<V3Footer>
+   gebruikt in plaats van de eigen header/footer van het designbestand.
+
+   1. De gedeelde <V3Header> geeft zijn logo een `width={1600} height={268}`
+      attribuut (voor CLS). De designregel `.nav-logo img{height:21px}` zet
+      wel de hoogte, maar niet de breedte, dus het width-attribuut wint en
+      het logo wordt uitgerekt over de hele pil. `width:auto` herstelt de
+      verhouding — exact wat home-v3.css al doet.
+
+   2. De secties dragen id's (#team, #vacatures, #academy, #formulier).
+      Een anker-sprong daarheen landt anders onder de vaste header, waardoor
+      de sectiekop verdwijnt. `scroll-margin-top` houdt ruimte vrij voor de
+      header; zowel de native hash-sprong als het `scrollIntoView` in
+      ScrollToTop respecteren deze marge.
+
+   3. De mobiele query van het design wil de contactregel verbergen
+      (`.tl-left{display:none}` onder 660px), maar de basisregel staat op
+      `.hdr .tl-left` en wint op specificiteit. Dezelfde regel, met de
+      specificiteit die het design bedoeld heeft. Zie home-v3-fixes.css.
+   ============================================================ */
+
+.ov-page .navpill .nav-logo img {
+  height: 21px;
+  width: auto;
+}
+
+.ov-page section[id] {
+  scroll-margin-top: 104px;
+}
+
+@media (max-width: 660px) {
+  .ov-page .hdr .tl-left {
+    display: none;
+  }
+  .ov-page .hdr .tl-right {
+    margin: 0 auto;
+  }
+}

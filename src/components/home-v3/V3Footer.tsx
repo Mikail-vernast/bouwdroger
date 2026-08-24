@@ -92,9 +92,9 @@ const V3Footer = () => (
           © {new Date().getFullYear()} {SITE_NAME}
         </div>
         <div className="fl">
-          <a href="/#prijzen">Algemene voorwaarden</a>
-          <a href="/#contact">Privacy</a>
-          <a href="/#toestellen">Sitemap</a>
+          <Link to="/algemene-voorwaarden">Algemene voorwaarden</Link>
+          <Link to="/privacy">Privacy</Link>
+          <a href="/sitemap.xml">Sitemap</a>
         </div>
       </div>
     </div>

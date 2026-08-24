@@ -50,3 +50,67 @@
     margin: 0 auto;
   }
 }
+
+/* 5. Hero-mannetje — de mediterende klant, gecentreerd onder de kop en met
+      de benen op de onderrand van de hero. Toegevoegd op vraag; staat niet in
+      de designbron, daarom hier en niet in de transcriptie. Geen zwevende
+      "Eindmeting"-badge zoals in de drooggarantie-hero: alleen het mannetje.
+      De onderpadding van de hero valt weg zodat de gekruiste benen de onderrand
+      raken (geen zwevende knieën). */
+.ks-page .ks-hero {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+.ks-page .ks-hero-man {
+  display: block;
+  margin: 40px auto 0;
+  width: min(340px, 60vw);
+  height: auto;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.34));
+}
+@media (max-width: 660px) {
+  .ks-page .ks-hero-man {
+    width: min(240px, 66vw);
+    margin-top: 30px;
+  }
+}
+
+/* 6. Hero quick-links zonder glass-look — de doorschijnende melkwitte fill
+      (rgba(255,255,255,.1)) leest als glas; die halen we weg. De "Bel"-pil
+      wordt de rode primaire actie met dezelfde shine-animatie als de
+      gratis-offerteknop (offShine staat in klantservice.css); de overige
+      links blijven strakke outline-knoppen. */
+.ks-page .ks-quick a:not(.hot) {
+  background: #fff;
+  color: var(--maroon);
+  border-color: #fff;
+}
+.ks-page .ks-quick a:not(.hot):hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--maroon);
+  border-color: #fff;
+}
+.ks-page .ks-quick a.hot {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+  box-shadow: 0 10px 26px -10px rgba(200, 16, 46, 0.85);
+  position: relative;
+  overflow: hidden;
+}
+.ks-page .ks-quick a.hot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: offShine 3.2s ease infinite;
+  pointer-events: none;
+}
+.ks-page .ks-quick a.hot:hover {
+  background: #a80d26;
+  color: #fff;
+}

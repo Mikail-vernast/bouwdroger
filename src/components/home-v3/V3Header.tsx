@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
-import { TOESTELLEN } from "@/data/navigation";
 import FontPreload from "@/components/FontPreload";
 
 /**
@@ -132,30 +131,40 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                   <div className="mcol">
                     <span className="mlab">Toestellen</span>
                     <ul>
-                      {TOESTELLEN.map((item) => (
-                        <li key={item.path}>
-                          <Link to={item.path}>{item.label}</Link>
-                        </li>
-                      ))}
+                      <li>
+                        <Link to="/verhuur/toestel/ttk170">Small bouwdroger</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/toestel/ttk350">Medium bouwdroger</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/toestel/ttv4500">Turbo axiaalventilator</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/toestel/ttv-radiaal">Turbo radiaalventilator</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/toestel/teddh30">Elektrische kachel 3,30 kW</Link>
+                      </li>
                     </ul>
                   </div>
                   <div className="mcol">
                     <span className="mlab">Service</span>
                     <ul>
                       <li>
-                        <Link to="/verhuur/afhalen">Levering &amp; installatie</Link>
+                        <Link to="/levering">Levering &amp; installatie</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/afhalen">Afhalen in Aartselaar</Link>
+                        <Link to="/afhalen">Afhalen in Aartselaar</Link>
                       </li>
                       <li>
                         <Link to="/verhuur/pakket">Vochtmeting inbegrepen</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/boeking">Dekking &amp; eigen risico</Link>
+                        <Link to="/klantservice">Dekking &amp; eigen risico</Link>
                       </li>
                       <li>
-                        <Link to="/klantservice#verlengen">Verlengen of stoppen</Link>
+                        <Link to="/verhuur/verlengen">Verlengen of stoppen</Link>
                       </li>
                     </ul>
                   </div>
@@ -163,16 +172,16 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                     <span className="mlab">Alles over drogen</span>
                     <ul>
                       <li>
-                        <a href="/#natuurlijk-actief">Hoe drogen werkt</a>
+                        <Link to="/hoe-drogen-werkt">Hoe drogen werkt</Link>
                       </li>
                       <li>
-                        <a href="/#voordelen">Waarom bouwdroging</a>
+                        <Link to="/waarom-bouwdroging">Waarom bouwdroging</Link>
                       </li>
                       <li>
-                        <a href="/#prijzen">Prijzen &amp; voorwaarden</a>
+                        <Link to="/drooggarantie">Drooggarantie</Link>
                       </li>
                       <li>
-                        <a href="/#toepassingen">Toepassingen</a>
+                        <Link to="/realisaties">Toepassingen</Link>
                       </li>
                       <li>
                         <a href="/#faq">Veelgestelde vragen</a>
@@ -198,33 +207,33 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
               Alles over drogen
               <CaretIcon className="caret" />
               <div className="submenu">
-                <a href="/#natuurlijk-actief">
+                <Link to="/hoe-drogen-werkt">
                   Hoe drogen werkt<small>Capaciteit · circulatie · warmte</small>
-                </a>
-                <a href="/#voordelen">
+                </Link>
+                <Link to="/waarom-bouwdroging">
                   Waarom bouwdroging<small>Wat vocht u kost</small>
-                </a>
-                <a href="/#regio">
+                </Link>
+                <Link to="/levering">
                   Levering &amp; installatie<small>Geplaatst op uw gekozen datum</small>
-                </a>
-                <a href="/#prijzen">
-                  Prijzen &amp; voorwaarden<small>Eén dagprijs, alles erin</small>
-                </a>
+                </Link>
+                <Link to="/drooggarantie">
+                  Drooggarantie<small>100% droog of kosteloos verder</small>
+                </Link>
               </div>
             </div>
 
             <Link className="item" to="/realisaties">
               Realisaties
             </Link>
-            <a className="item" href="/#voordelen">
+            <Link className="item" to="/over-ons">
               Over ons
-            </a>
+            </Link>
             <Link className="item" to="/klantservice">
               Klantenservice
             </Link>
-            <a className="item" href="/#contact">
+            <Link className="item" to="/contact">
               Contact
-            </a>
+            </Link>
           </div>
         </div>
 

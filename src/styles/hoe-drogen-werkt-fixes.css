@@ -1,0 +1,26 @@
+/* ============================================================
+   Hoe Drogen Werkt — correcties op de designfile
+
+   `src/styles/hoe-drogen-werkt.css` blijft een letterlijke transcriptie. Dit
+   bestand repareert wat pas breekt met de gedeelde <V3Header>/<V3Footer>.
+   Zie klantservice-fixes.css voor de uitleg per punt.
+   ============================================================ */
+
+.hdw-page .navpill .nav-logo img {
+  height: 21px;
+  width: auto;
+}
+
+.hdw-page section[id],
+.hdw-page article[id] {
+  scroll-margin-top: 104px;
+}
+
+@media (max-width: 660px) {
+  .hdw-page .hdr .tl-left {
+    display: none;
+  }
+  .hdw-page .hdr .tl-right {
+    margin: 0 auto;
+  }
+}
