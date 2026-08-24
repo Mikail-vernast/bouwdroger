@@ -109,7 +109,27 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
               <div className="mega-panel">
                 <div className="mega-cols">
                   <div className="mcol">
-                    <span className="mlab">Bouwdrogers</span>
+                    <span className="mlab">Pakketten</span>
+                    <ul>
+                      <li>
+                        <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/calculator">Chape drogen</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/calculator">Pleisterwerk + chape</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/calculator">Waterschade drogen</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="mcol">
+                    <span className="mlab">Toestellen</span>
                     <ul>
                       <li>
                         <Link to="/verhuur/toestel/ttk170">Small bouwdroger</Link>
@@ -118,34 +138,33 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                         <Link to="/verhuur/toestel/ttk350">Medium bouwdroger</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/toestel/ttk650">Large bouwdroger</Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="mcol">
-                    <span className="mlab">Ventilatoren</span>
-                    <ul>
-                      <li>
                         <Link to="/verhuur/toestel/ttv4500">Turbo axiaalventilator</Link>
                       </li>
                       <li>
                         <Link to="/verhuur/toestel/ttv-radiaal">Turbo radiaalventilator</Link>
                       </li>
-                    </ul>
-                  </div>
-                  <div className="mcol">
-                    <span className="mlab">Kachels</span>
-                    <ul>
                       <li>
                         <Link to="/verhuur/toestel/teddh30">Elektrische kachel 3,30 kW</Link>
                       </li>
                     </ul>
                   </div>
                   <div className="mcol">
-                    <span className="mlab">Toebehoren</span>
+                    <span className="mlab">Service</span>
                     <ul>
                       <li>
-                        <Link to="/verhuur/pakket">Condenspomp</Link>
+                        <Link to="/levering">Levering &amp; installatie</Link>
+                      </li>
+                      <li>
+                        <Link to="/afhalen">Afhalen in Aartselaar</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/pakket">Vochtmeting inbegrepen</Link>
+                      </li>
+                      <li>
+                        <Link to="/klantservice">Dekking &amp; eigen risico</Link>
+                      </li>
+                      <li>
+                        <Link to="/verhuur/verlengen">Verlengen of stoppen</Link>
                       </li>
                     </ul>
                   </div>
@@ -162,7 +181,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                         <Link to="/drooggarantie">Drooggarantie</Link>
                       </li>
                       <li>
-                        <Link to="/prijzen">Prijzen &amp; voorwaarden</Link>
+                        <Link to="/realisaties">Toepassingen</Link>
                       </li>
                       <li>
                         <a href="/#faq">Veelgestelde vragen</a>
@@ -206,15 +225,15 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
             <Link className="item" to="/realisaties">
               Realisaties
             </Link>
-            <a className="item" href="/#voordelen">
+            <Link className="item" to="/over-ons">
               Over ons
-            </a>
+            </Link>
             <Link className="item" to="/klantservice">
               Klantenservice
             </Link>
-            <a className="item" href="/#contact">
+            <Link className="item" to="/contact">
               Contact
-            </a>
+            </Link>
           </div>
         </div>
 

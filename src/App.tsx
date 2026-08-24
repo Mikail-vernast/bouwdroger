@@ -79,6 +79,12 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/DrooggarantiePage")).default }),
       },
       {
+        // Tijdelijke, niet-indexeerbare marketingvariant om naast de huidige
+        // Drooggarantie te kunnen lezen en beoordelen.
+        path: "drooggarantie-v2",
+        lazy: async () => ({ Component: (await import("./pages/DrooggarantieV2Page")).default }),
+      },
+      {
         path: "hoe-drogen-werkt",
         lazy: async () => ({ Component: (await import("./pages/HoeDrogenWerktPage")).default }),
       },

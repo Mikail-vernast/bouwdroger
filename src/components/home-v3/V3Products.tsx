@@ -266,6 +266,14 @@ const V3Products = () => (
             maar een oplossing die past bij uw ruimte en droogdoel. Prijzen vanaf € {DAY_PRICE_MIN} per
             dag, excl. btw.
           </p>
+        </div>
+        {/*
+          De pnote staat in het design rechts naast de kop (phead-right), niet
+          onder de lede. De knop "Niet zeker? Laat het berekenen" die hier ooit
+          stond, staat niet in het design — de calculator-CTA staat al in de
+          pakketbar onderaan de sectie.
+        */}
+        <div className="phead-right">
           <div className="pnote">
             <InfoIcon />
             <span>
@@ -279,9 +287,6 @@ const V3Products = () => (
             </span>
           </div>
         </div>
-        <Link className="btn btn-out" to="/verhuur/calculator">
-          Niet zeker? Laat het berekenen
-        </Link>
       </div>
 
       <div className="pgrid main">
