@@ -282,7 +282,10 @@ html { scroll-behavior: smooth; }
 .v3 .hs-card .hrow span:last-child{font-weight:600}
 .v3 .hs-card a{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;font-weight:600;color:var(--red)}
 @media (max-width:680px){
-.v3 .hs-card{width:230px}}
+/* De popover was absoluut gepositioneerd op 230px en viel bij aantikken deels
+   buiten beeld op smalle telefoons. Op mobiel tonen we hem als bottom-sheet,
+   altijd volledig in beeld. */
+.v3 .hs-card{position:fixed;left:14px;right:14px;bottom:14px;top:auto;width:auto;z-index:70}}
 /* ============ OVER ONS (red band) ============ */
 .v3 .overons{padding:88px 0;background:#fff}
 .v3 .ov{position:relative;border-radius:24px;overflow:hidden;background:var(--maroon-deep) url('/vernast/bg-red-2.webp') center/cover no-repeat;color:#fff;text-align:center;padding:64px 40px 0}
