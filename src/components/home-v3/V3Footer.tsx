@@ -21,6 +21,11 @@ const V3Footer = () => (
               <MailIcon size={16} /> info@vernast-verhuur.be
             </a>
           </div>
+          <p>
+            Boomsesteenweg 12 / Unit 11, 2630 Aartselaar
+            <br />
+            Ma–Vr 08:00–17:00
+          </p>
         </div>
 
         {/*
@@ -30,11 +35,14 @@ const V3Footer = () => (
         <div>
           <h2>Bouwdroging</h2>
           <ul>
-            {[...KIEZEN, ...TOEPASSINGEN].map((link) => (
-              <li key={link.path}>
-                <Link to={link.path}>{link.label}</Link>
-              </li>
-            ))}
+            {/* /machines (Ons volledige gamma) bewust weggelaten — nog niet af. */}
+            {[...KIEZEN, ...TOEPASSINGEN]
+              .filter((link) => link.path !== "/machines")
+              .map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path}>{link.label}</Link>
+                </li>
+              ))}
             <li>
               <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
             </li>
@@ -78,7 +86,8 @@ const V3Footer = () => (
                 )}
               </li>
             ))}
-            {BEDRIJF.map((link) => (
+            {/* /over-ons bewust weggelaten — nog niet af. */}
+            {BEDRIJF.filter((link) => link.path !== "/over-ons").map((link) => (
               <li key={link.path}>
                 <Link to={link.path}>{link.label}</Link>
               </li>
