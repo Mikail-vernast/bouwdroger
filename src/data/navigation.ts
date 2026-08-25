@@ -52,6 +52,19 @@ export const TOESTELLEN: NavLinkItem[] = PRODUCT_ORDER.map((key) => ({
   path: `/verhuur/toestel/${key}`,
 }));
 
+/**
+ * De pakketten zoals ze in het mega-menu staan. Stonden tot nu toe alleen daar,
+ * twee keer overgetypt (V3Header en VHeader); het mobiele menu is de derde
+ * plaats en dat is er één te veel om met de hand bij te houden.
+ */
+export const PAKKETTEN: NavLinkItem[] = [
+  { label: "Pleisterwerk drogen", path: "/verhuur/calculator" },
+  { label: "Chape drogen", path: "/verhuur/calculator" },
+  { label: "Pleisterwerk + chape", path: "/verhuur/calculator" },
+  { label: "Waterschade drogen", path: "/verhuur/calculator" },
+  { label: "Alles in één Droogservice", path: "/verhuur/pakket" },
+];
+
 /** Waarvoor mensen drogen — elk een eigen zoekintentie en eigen pagina. */
 export const TOEPASSINGEN: NavLinkItem[] = [
   { label: "Chape en pleisterwerk drogen", path: "/nieuwbouw" },

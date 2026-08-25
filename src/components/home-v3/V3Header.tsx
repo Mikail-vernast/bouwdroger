@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 import FontPreload from "@/components/FontPreload";
+import MobileNav, { MobileNavButton } from "@/components/MobileNav";
 
 /**
  * The site header from the design: a top line with the contact details and a
@@ -21,6 +22,8 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
   const [tucked, setTucked] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [onLight, setOnLight] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuGroep, setMenuGroep] = useState<string | null>(null);
   const lastY = useRef(0);
 
   useEffect(() => {
@@ -51,6 +54,11 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
     return () => window.removeEventListener("scroll", handler);
   }, [lightAfter]);
 
+  const sluitMenu = () => {
+    setMenuOpen(false);
+    setMenuGroep(null);
+  };
+
   const cls = ["hdr", tucked && "tucked", scrolled && "scrolled", onLight && "onlight"]
     .filter(Boolean)
     .join(" ");
@@ -70,7 +78,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
           <span>Ma–Vr 08:00–17:00</span>
         </div>
         <div className="tl-right">
-          <span className="dot" /> Erkend droogspecialist · u kiest uw leverdatum
+          <span className="dot" /> Droogpakket berekend op uw woning · u kiest zelf uw leverdatum
         </div>
       </div>
 
@@ -215,17 +223,26 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
               Contact
             </Link>
           </div>
+
+          <MobileNavButton open={menuOpen} onClick={() => (menuOpen ? sluitMenu() : setMenuOpen(true))} />
         </div>
 
-        <Link className="cart" to="/verhuur/calculator" aria-label="Winkelwagen">
+        <Link className="cart mnav-hide-sm" to="/verhuur/calculator" aria-label="Winkelwagen">
           <CartIcon />
           <i id="cartCount">1</i>
         </Link>
-        <Link className="btn-offerte" to="/verhuur/calculator">
+        <Link className="btn-offerte mnav-cta-sm" to="/verhuur/calculator">
           Gratis offerte
         </Link>
       </div>
     </header>
+
+    <MobileNav
+      open={menuOpen}
+      onClose={sluitMenu}
+      groep={menuGroep}
+      onGroep={setMenuGroep}
+    />
     </>
   );
 };

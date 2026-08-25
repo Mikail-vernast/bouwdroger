@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 import { TOESTELLEN } from "@/data/navigation";
+import MobileNav, { MobileNavButton } from "@/components/MobileNav";
 
 /** Onder deze offset blijft de balk altijd staan, ongeacht de scrollrichting. */
 const ALWAYS_VISIBLE_UNTIL = 90;
@@ -15,6 +16,8 @@ const DIRECTION_DEADZONE = 6;
  */
 const VHeader = () => {
   const [tucked, setTucked] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuGroep, setMenuGroep] = useState<string | null>(null);
   const lastY = useRef(0);
   const ticking = useRef(false);
 
@@ -42,7 +45,13 @@ const VHeader = () => {
     return () => window.removeEventListener("scroll", onScrollRaf);
   }, []);
 
+  const sluitMenu = () => {
+    setMenuOpen(false);
+    setMenuGroep(null);
+  };
+
   return (
+    <>
     <header className={`hdr onlight${tucked ? " tucked" : ""}`}>
       <div className="wrap topline">
         <div className="tl-left">
@@ -184,18 +193,29 @@ const VHeader = () => {
               Contact
             </Link>
           </nav>
+
+          <MobileNavButton open={menuOpen} onClick={() => (menuOpen ? sluitMenu() : setMenuOpen(true))} />
         </div>
 
-        <Link className="cart" to="/verhuur/boeking" aria-label="Winkelwagen">
+        <Link className="cart mnav-hide-sm" to="/verhuur/boeking" aria-label="Winkelwagen">
           <CartIcon />
           <i>1</i>
         </Link>
 
-        <Link className="btn-offerte" to="/verhuur/calculator">
+        <Link className="btn-offerte mnav-cta-sm" to="/verhuur/calculator">
           Gratis offerte
         </Link>
       </div>
     </header>
+
+    <MobileNav
+      open={menuOpen}
+      onClose={sluitMenu}
+      groep={menuGroep}
+      onGroep={setMenuGroep}
+      logo="/verhuur/logo-horizontal-black.webp"
+    />
+    </>
   );
 };
 
