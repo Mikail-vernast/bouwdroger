@@ -93,8 +93,8 @@ const V3Hero = () => (
       className="hero-art"
       src="/vernast/hero-banner.webp"
       alt="Het Vernast-team met het volledige toestellengamma"
-      width={2400}
-      height={665}
+      width={1915}
+      height={821}
       fetchPriority="high"
       decoding="async"
     />
