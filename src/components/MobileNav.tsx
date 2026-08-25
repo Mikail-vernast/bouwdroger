@@ -16,41 +16,51 @@ import "@/styles/mobile-nav.css";
  *
  * Onder 1160px zet elke pagina-stylesheet `.nav-menu{display:none}` — het
  * desktopmenu verdween daar zonder vervanging, en elf navigatie-items waren op
- * een telefoon alleen nog via de footer bereikbaar. Dit is de vervanging:
- * een lade die van rechts inschuift, met twee niveaus.
+ * een telefoon alleen nog via de footer bereikbaar.
  *
- * Twee niveaus in plaats van accordeons, omdat het gamma en de pakketten samen
- * ruim twintig links zijn. Uitgeklapt worden dat drie schermen scrollen; nu
- * past het hoofdniveau in één beeld en schuift een groep eróver zodra je erom
- * vraagt. Terug gaat met de knop bovenaan of met Escape.
+ * De vorm komt van vernast-vochtbestrijding.be, waar dit menu al draait: een
+ * schermvullend maroon paneel dat van onderaf omhoog schuift, genummerde
+ * koppen, uitklapbare groepen met categoriechips, en onderaan de offerteknop
+ * met het telefoonnummer. Zo herkent iemand die van de ene Vernast-site naar
+ * de andere gaat hetzelfde menu.
  *
  * Het paneel staat bewust búiten `<header>`: `.hdr.tucked` zet een `transform`,
  * en een transform maakt van het element het bevattingsblok voor `position:
- * fixed`-kinderen — de lade zou dan met de balk mee omhoog schuiven.
+ * fixed`-kinderen — het menu zou dan met de balk mee omhoog schuiven.
  */
 
-/** Groepen op het eerste niveau; elke groep opent een tweede scherm. */
 interface MenuLink {
   label: string;
-  sub?: string;
   /** Intern pad. */
   path?: string;
   /** Externe URL — de zusterbedrijven staan op een eigen domein. */
   href?: string;
 }
 
-interface Groep {
-  id: string;
-  label: string;
+/** Een categorie binnen één uitklapbare rij; de chip mag weg bij één groep. */
+interface Categorie {
+  chip?: string;
   items: MenuLink[];
 }
 
-const GROEPEN: Groep[] = [
-  { id: "pakketten", label: "Pakketten", items: PAKKETTEN },
-  { id: "toestellen", label: "Toestellen", items: TOESTELLEN },
-  { id: "service", label: "Levering & service", items: SERVICE },
-  { id: "drogen", label: "Alles over drogen", items: ONTDEK },
-  { id: "groep", label: "Vernast Group", items: VERNAST_GROEP },
+interface Rij {
+  id: string;
+  label: string;
+  categorieen: Categorie[];
+}
+
+const UITKLAPBAAR: Rij[] = [
+  {
+    id: "bouwdroging",
+    label: "Bouwdroging",
+    categorieen: [
+      { chip: "Pakketten", items: PAKKETTEN },
+      { chip: "Toestellen", items: TOESTELLEN },
+      { chip: "Levering & service", items: SERVICE },
+    ],
+  },
+  { id: "drogen", label: "Alles over drogen", categorieen: [{ items: ONTDEK }] },
+  { id: "groep", label: "Vernast Group", categorieen: [{ items: VERNAST_GROEP }] },
 ];
 
 const strokeProps = {
@@ -60,27 +70,22 @@ const strokeProps = {
   strokeLinejoin: "round" as const,
 };
 
-const BurgerIcon = () => (
-  <svg viewBox="0 0 24 24" strokeWidth={2} {...strokeProps}>
-    <path d="M4 7h16M4 12h16M4 17h16" />
-  </svg>
-);
-
 const CloseIcon = () => (
   <svg viewBox="0 0 24 24" strokeWidth={2} {...strokeProps}>
     <path d="M6 6l12 12M18 6L6 18" />
   </svg>
 );
 
-const ChevronRight = () => (
-  <svg viewBox="0 0 24 24" strokeWidth={2} {...strokeProps}>
-    <path d="M9 6l6 6-6 6" />
+const CaretDown = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" strokeWidth={2.2} {...strokeProps}>
+    <path d="M6 9l6 6 6-6" />
   </svg>
 );
 
-const ChevronLeft = () => (
-  <svg viewBox="0 0 24 24" strokeWidth={2.2} {...strokeProps}>
-    <path d="M15 6l-6 6 6 6" />
+const ArrowRight = () => (
+  <svg viewBox="0 0 24 24" strokeWidth={2.4} {...strokeProps}>
+    <path d="M5 12h14" />
+    <path d="m12 5 7 7-7 7" />
   </svg>
 );
 
@@ -106,17 +111,19 @@ export const MobileNavButton = ({
     aria-controls="mobiel-menu"
     onClick={onClick}
   >
-    {open ? <CloseIcon /> : <BurgerIcon />}
+    <i />
+    <i />
+    <i />
   </button>
 );
 
 interface MobileNavProps {
   open: boolean;
   onClose: () => void;
-  /** Welke groep openstaat, of `null` voor het hoofdniveau. */
+  /** Welke rij openstaat, of `null` als ze allemaal dicht zijn. */
   groep: string | null;
   onGroep: (id: string | null) => void;
-  /** Het zwarte logo van de schil waarin het menu draait. */
+  /** Het witte logo van de schil waarin het menu draait. */
   logo?: string;
 }
 
@@ -125,162 +132,146 @@ const MobileNav = ({
   onClose,
   groep,
   onGroep,
-  logo = "/vernast/logo-horizontal-black.webp",
+  logo = "/vernast/logo-horizontal-white.webp",
 }: MobileNavProps) => {
   const { pathname } = useLocation();
   const panelRef = useRef<HTMLDivElement>(null);
   const teruggeefFocus = useRef<HTMLElement | null>(null);
 
-  // Sluiten bij navigatie: de lade blijft anders over de nieuwe pagina staan.
-  // `pathname` en niet de hele location, zodat een anker binnen dezelfde pagina
-  // de lade ook sluit zonder dat een querystring dat dubbel doet.
+  // Sluiten bij navigatie: het paneel blijft anders over de nieuwe pagina staan.
   useEffect(() => {
     onClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // Scrollslot, focus en de breedtebewaking hangen alleen aan `open`. Zat
-  // `groep` er ook in, dan draaide dit blok bij elke doorklik opnieuw af en
-  // sprong de focus terug naar de hamburger.
   useEffect(() => {
     if (!open) return;
 
     teruggeefFocus.current = document.activeElement as HTMLElement | null;
     // De sluitknop is het eerste wat een screenreader tegenkomt; zonder deze
-    // sprong staat de focus nog achter de scrim, op de pagina eronder.
+    // sprong staat de focus nog op de pagina onder het paneel.
     panelRef.current?.querySelector<HTMLElement>(".mnav-close")?.focus();
 
     const vorigeOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+
     // Wie het venster breder sleept of zijn telefoon draait, krijgt boven
-    // 1160px het gewone menu terug; de lade wordt dan door CSS verborgen en
+    // 1160px het gewone menu terug; het paneel wordt dan door CSS verborgen en
     // moet ook echt dicht, anders blijft de scroll van de pagina op slot.
     const breed = window.matchMedia("(min-width: 1161px)");
     const onBreed = () => {
       if (breed.matches) onClose();
     };
+
+    document.addEventListener("keydown", onKey);
     breed.addEventListener("change", onBreed);
 
     return () => {
+      document.removeEventListener("keydown", onKey);
       breed.removeEventListener("change", onBreed);
       document.body.style.overflow = vorigeOverflow;
       teruggeefFocus.current?.focus?.();
     };
   }, [open, onClose]);
 
-  useEffect(() => {
-    if (!open) return;
+  /** 01, 02, … doorlopend over de uitklapbare én de losse rijen. */
+  const nummer = (i: number) => String(i + 1).padStart(2, "0");
 
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      // Escape gaat eerst één niveau terug, pas daarna dicht.
-      if (groep) onGroep(null);
-      else onClose();
-    };
-
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, groep, onClose, onGroep]);
-
-  const link = (item: MenuLink) =>
-    item.href ? (
-      <a href={item.href}>
-        {item.label}
-        {item.sub ? <small>{item.sub}</small> : null}
-      </a>
-    ) : (
-      <Link to={item.path ?? "/"}>
-        {item.label}
-        {item.sub ? <small>{item.sub}</small> : null}
-      </Link>
-    );
+  /** Bij het sluiten weer zonder vertraging, anders blijft het paneel hangen. */
+  const rise = (i: number) => ({ transitionDelay: open ? `${0.1 + i * 0.05}s` : "0s" });
 
   return (
     <div
       className={`mnav${open ? " is-open" : ""}`}
       id="mobiel-menu"
-      data-level={groep ? "1" : "0"}
+      ref={panelRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Hoofdmenu"
     >
-      <button
-        type="button"
-        className="mnav-scrim"
-        aria-label="Menu sluiten"
-        tabIndex={-1}
-        onClick={onClose}
-      />
+      <div className="mnav-h">
+        <Link to="/" aria-label="Naar de homepage">
+          <img src={logo} alt="Vernast" width={1600} height={268} decoding="async" />
+        </Link>
+        <button type="button" className="mnav-close" aria-label="Menu sluiten" onClick={onClose}>
+          <CloseIcon />
+        </button>
+      </div>
 
-      <div
-        className="mnav-panel"
-        ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Hoofdmenu"
-      >
-        <div className="mnav-top">
-          <Link to="/" aria-label="Naar de homepage">
-            <img src={logo} alt="Vernast" width={1600} height={268} decoding="async" />
-          </Link>
-          <button type="button" className="mnav-close" aria-label="Menu sluiten" onClick={onClose}>
-            <CloseIcon />
-          </button>
-        </div>
-
-        <div className="mnav-panes">
-          <div className="mnav-pane is-root">
-            {GROEPEN.map((g) => (
-              <button
-                key={g.id}
-                type="button"
-                className="mnav-row"
-                onClick={() => onGroep(g.id)}
-              >
-                {g.label}
-                <span className="mnav-tail">
-                  <span className="mnav-count">{g.items.length}</span>
-                  <ChevronRight />
-                </span>
-              </button>
-            ))}
-            {BEDRIJF.map((item) => (
-              <Link key={item.path} className="mnav-row" to={item.path}>
-                {item.label}
-                <ChevronRight />
-              </Link>
-            ))}
-          </div>
-
-          {GROEPEN.map((g) => (
-            <div
-              key={g.id}
-              className={`mnav-pane is-sub${groep === g.id ? " is-current" : ""}`}
-              aria-hidden={groep === g.id ? undefined : true}
+      <div className="mnav-list">
+        {UITKLAPBAAR.map((rij, i) => (
+          <div
+            key={rij.id}
+            className={`mnav-acc mnav-rise${groep === rij.id ? " is-on" : ""}`}
+            style={rise(i)}
+          >
+            <button
+              type="button"
+              className="mnav-ix"
+              aria-expanded={groep === rij.id}
+              onClick={() => onGroep(groep === rij.id ? null : rij.id)}
             >
-              <button type="button" className="mnav-back" onClick={() => onGroep(null)}>
-                <ChevronLeft />
-                Menu
-              </button>
-              <h2 className="mnav-h2">{g.label}</h2>
-              <ul className="mnav-list">
-                {/* Sleutel op het label, niet op het pad: vier pakketten wijzen
-                    naar dezelfde calculator. */}
-                {g.items.map((item) => (
-                  <li key={item.label}>{link(item)}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+              <span className="n">{nummer(i)}</span>
+              <span className="t">{rij.label}</span>
+              <CaretDown className="c" />
+            </button>
 
-        <div className="mnav-foot">
-          <Link className="mnav-cta" to="/verhuur/calculator">
-            Gratis offerte
-          </Link>
-          <a className="mnav-tel" href={`tel:${CONTACT.phoneE164}`}>
-            <PhoneGlyph />
-            {CONTACT.phone} · Ma–Vr 08:00–17:00
-          </a>
-        </div>
+            <div className="mnav-sub">
+              <div>
+                {rij.categorieen.map((cat) => (
+                  <div key={cat.chip ?? rij.id}>
+                    {cat.chip ? <span className="mnav-cat">{cat.chip}</span> : null}
+                    <ul>
+                      {/* Sleutel op het label, niet op het pad: vier pakketten
+                          wijzen naar dezelfde calculator. */}
+                      {cat.items.map((item) => (
+                        <li key={item.label}>
+                          {item.href ? (
+                            <a href={item.href}>{item.label}</a>
+                          ) : (
+                            <Link to={item.path ?? "/"}>{item.label}</Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+                <div className="sluit" />
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {BEDRIJF.map((item, i) => (
+          <div
+            key={item.path}
+            className="mnav-acc mnav-rise"
+            style={rise(UITKLAPBAAR.length + i)}
+          >
+            <Link className="mnav-ix" to={item.path}>
+              <span className="n">{nummer(UITKLAPBAAR.length + i)}</span>
+              <span className="t">{item.label}</span>
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      <div className="mnav-foot">
+        <Link className="mnav-cta mnav-rise" style={rise(6)} to="/verhuur/calculator">
+          Gratis offerte aanvragen
+          <ArrowRight />
+        </Link>
+        <a className="mnav-call mnav-rise" style={rise(7)} href={`tel:${CONTACT.phoneE164}`}>
+          <PhoneGlyph />
+          {CONTACT.phoneLocal}
+        </a>
+        <span className="mnav-hours mnav-rise" style={rise(8)}>
+          Ma–Vr 08:00–17:00 · {CONTACT.email}
+        </span>
       </div>
     </div>
   );

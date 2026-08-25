@@ -82,7 +82,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
         </div>
       </div>
 
-      <div className="wrap navrow">
+      <div className="wrap navrow mnav-row">
         <div className="navpill">
           <Link className="nav-logo" to="/">
             <img

@@ -33,6 +33,13 @@ export const CONTACT = {
   phone: "+32 3 689 90 65",
   /** E.164, voor `tel:`-links en schema.org. */
   phoneE164: "+3236899065",
+  /**
+   * Zoals het op het scherm staat. De internationale notatie hoort bij
+   * schema.org en bij bezoekers van buiten België; in de balk en het menu
+   * schrijft de site zelf het lokale nummer, en dat stond tot nu toe op elke
+   * plek apart overgetypt.
+   */
+  phoneLocal: "03 689 90 65",
   email: "info@vernast-verhuur.be",
   street: "Boomsesteenweg 12, Unit 11",
   postalCode: "2630",

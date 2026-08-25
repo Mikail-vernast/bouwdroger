@@ -1,27 +1,34 @@
 /* ============================================================
-   Mobiele navigatie — de zijlade uit ontwerprichting C.
+   Mobiele navigatie — overgenomen van vernast-vochtbestrijding.be.
+
+   De zusterssite heeft dit menu al: een schermvullend maroon paneel dat van
+   onderaf omhoog schuift, met genummerde koppen en uitklapbare groepen. Deze
+   stylesheet is de transcriptie daarvan, met de waarden die uit de live pagina
+   zijn afgelezen (gradient 160deg #6E1212 → #360808, rijen 24px/800, nummers
+   12px/800 in #FF8A80, categoriechips 10.5px/800 in #FFD6D1, voet op
+   rgba(0,0,0,.22), knop #E11D2A met radius 12px).
 
    Deze stylesheet staat bewust NIET onder een scope-root zoals `.v3` of
-   `.lv-page`. De headerstijlen zijn per pagina overgeschreven (elke
+   `.lv-page`. De headerstijlen zijn per pagina overgeschreven — elke
    pagina-stylesheet bevat een eigen kopie van `.hdr`, telkens onder een andere
-   root), en een menu dat op elf pagina's hetzelfde hoort te zijn kan niet elf
-   keer meegekopieerd worden. In plaats daarvan isoleert de `mnav-`-prefix, en
-   staan de kleuren als custom properties op `.mnav` zelf — buiten `.v3` bestaat
-   `var(--red)` niet.
+   root — en een menu dat op elf pagina's hetzelfde hoort te zijn kan niet elf
+   keer meegekopieerd worden. De `mnav-`-prefix isoleert, en de kleuren staan
+   als custom properties op `.mnav` zelf: buiten `.v3` bestaat `var(--red)` niet.
 
    Geïmporteerd door `MobileNav.tsx`, zodat de stijl meekomt waar het component
    meekomt en niet aan een pagina-import hangt.
    ============================================================ */
 
 .mnav {
-  --mnav-red: #c8102e;
-  --mnav-ink: #121011;
-  --mnav-mid: rgba(18, 16, 17, 0.62);
-  --mnav-dim: rgba(18, 16, 17, 0.42);
-  --mnav-line: rgba(18, 16, 17, 0.09);
-  --mnav-warm: #f7f4f3;
-  --mnav-fd: "Plus Jakarta Sans", "Outfit", system-ui, sans-serif;
-  --mnav-fb: "DM Sans", "Inter", system-ui, sans-serif;
+  --mnav-top: #6e1212;
+  --mnav-bot: #360808;
+  --mnav-red: #e11d2a;
+  --mnav-salmon: #ff8a80;
+  --mnav-chip: #ffd6d1;
+  --mnav-line: rgba(255, 255, 255, 0.14);
+  --mnav-sub: rgba(255, 255, 255, 0.82);
+  --mnav-dim: rgba(255, 255, 255, 0.55);
+  --mnav-fd: "Plus Jakarta Sans", "Outfit", system-ui, -apple-system, sans-serif;
 }
 
 /* ---------- de knop in de pill ---------- */
@@ -29,28 +36,39 @@
 /* Standaard verborgen: boven 1160px doet de gewone `.nav-menu` het werk. */
 .mnav-btn {
   display: none;
-  width: 38px;
+  width: 42px;
   height: 38px;
   border: 0;
   padding: 0;
-  background: none;
-  color: inherit;
-  border-radius: 10px;
+  border-radius: 200px;
+  background: rgba(255, 255, 255, 0.12);
   cursor: pointer;
   place-items: center;
-  transition: background 0.15s;
+  align-content: center;
+  justify-items: center;
+  gap: 5px;
+  transition: background 0.18s;
   flex-shrink: 0;
 }
 .mnav-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.2);
 }
-/* De lichte variant van de balk (`.hdr.onlight`) heeft zwarte iconen. */
+.mnav-btn i {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: #fff;
+}
+/* De lichte variant van de balk heeft geen wit om tegenaan te leggen. */
+.hdr.onlight .mnav-btn {
+  background: rgba(18, 16, 17, 0.08);
+}
 .hdr.onlight .mnav-btn:hover {
-  background: rgba(18, 16, 17, 0.07);
+  background: rgba(18, 16, 17, 0.14);
 }
-.mnav-btn svg {
-  width: 21px;
-  height: 21px;
+.hdr.onlight .mnav-btn i {
+  background: #121011;
 }
 
 @media (max-width: 1160px) {
@@ -62,308 +80,276 @@
 /* ---------- ruimte maken in de balk ----------
 
    Op 390px was de pill 171px breed terwijl logo (125) plus vulling (35) plus
-   hamburger (38) er 198 vragen: de knop stak eruit en verdween onder de
-   winkelwagen, die de tik dan opving. De navrow moet op een telefoon dus iets
-   inleveren — de winkelwagen gaat weg (met een statische badge en de calculator
-   als bestemming voegt hij daar niets toe) en de offerteknop wordt compacter.
+   knop (42) er 202 vragen: alles stond op elkaar gepropt. Op een telefoon
+   houden we de balk daarom leeg op logo + menu na — de winkelwagen gaat weg
+   (met een statische badge en de calculator als bestemming voegt hij niets toe)
+   én de offerteknop verdwijnt uit de balk. De 'Gratis offerte'-CTA staat al
+   prominent onderaan de menulade (`.mnav-cta`), dus de conversieweg blijft. Op
+   desktop blijft de knop gewoon in de balk staan.
 
    Vier klassen diep, omdat elke pagina-stylesheet zijn eigen kopie van deze
    regels heeft onder een eigen root (`.v3 .hdr .cart`, `.lv-page .hdr .cart`,
    …). Die wegen (0,3,0); wint deze het op volgorde, dan hangt het resultaat af
    van welke CSS-chunk toevallig laatst laadt. Met (0,4,0) niet. */
 @media (max-width: 900px) {
-  .hdr .navrow > .cart.mnav-hide-sm {
+  .hdr .navrow > .cart.mnav-hide-sm,
+  .hdr .navrow > .btn-offerte.mnav-cta-sm {
     display: none;
   }
-  .hdr .navrow > .btn-offerte.mnav-cta-sm {
-    padding: 11px 18px;
-    font-size: 13.5px;
+
+  /* `.hdr .navrow` zet de zijpadding van `.wrap` op 0, dus de pill raakte beide
+     schermranden. Dat viel niet op zolang hij smal was; nu hij de hele breedte
+     krijgt wel. Dezelfde 14px als op vernast-vochtbestrijding.be. */
+  .hdr .wrap.navrow.mnav-row {
+    padding-left: 14px;
+    padding-right: 14px;
   }
 }
 
-/* ---------- de lade ---------- */
+/* ---------- het paneel ---------- */
 
 .mnav {
   position: fixed;
   inset: 0;
   z-index: 200;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(160deg, var(--mnav-top), var(--mnav-bot));
+  font-family: var(--mnav-fd);
+  color: #fff;
+  transform: translateY(100%);
   visibility: hidden;
-  pointer-events: none;
-  font-family: var(--mnav-fb);
-  color: var(--mnav-ink);
+  transition: transform 0.5s cubic-bezier(0.5, 0, 0.15, 1), visibility 0.5s;
 }
 .mnav.is-open {
+  transform: none;
   visibility: visible;
-  pointer-events: auto;
 }
 
-/* Boven de breakpoint kan de lade niet bestaan: draait iemand zijn scherm of
-   sleept hij het venster breder terwijl het menu open staat, dan mag er geen
-   paneel blijven hangen. */
+/* Boven de breakpoint kan het menu niet bestaan: draait iemand zijn scherm of
+   sleept hij het venster breder terwijl het openstaat, dan mag er geen paneel
+   blijven hangen. */
 @media (min-width: 1161px) {
   .mnav {
     display: none;
   }
 }
 
-.mnav-scrim {
-  position: absolute;
-  inset: 0;
-  background: rgba(20, 8, 9, 0.5);
-  opacity: 0;
-  transition: opacity 0.28s ease;
-  border: 0;
-  padding: 0;
-  width: 100%;
-  cursor: pointer;
-}
-.mnav.is-open .mnav-scrim {
-  opacity: 1;
-}
-
-.mnav-panel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(86%, 380px);
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  box-shadow: -20px 0 50px -26px rgba(20, 8, 9, 0.5);
-  transform: translateX(103%);
-  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-}
-.mnav.is-open .mnav-panel {
-  transform: none;
-}
-
-.mnav-top {
+.mnav-h {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: calc(16px + env(safe-area-inset-top)) 16px 12px;
-  border-bottom: 1px solid var(--mnav-line);
+  padding: calc(18px + env(safe-area-inset-top)) 20px 18px;
 }
-.mnav-top img {
-  height: 20px;
+.mnav-h img {
+  height: 24px;
   width: auto;
   display: block;
 }
 .mnav-close {
-  width: 38px;
-  height: 38px;
-  border: 0;
-  padding: 0;
-  background: none;
-  border-radius: 10px;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--mnav-line);
+  border-radius: 200px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
   display: grid;
   place-items: center;
-  color: var(--mnav-ink);
   cursor: pointer;
-  transition: background 0.15s;
   flex-shrink: 0;
+  padding: 0;
+  transition: background 0.25s, border-color 0.25s;
 }
 .mnav-close:hover {
-  background: rgba(18, 16, 17, 0.07);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 .mnav-close svg {
   width: 20px;
   height: 20px;
 }
 
-/* ---------- de twee niveaus ---------- */
-
-.mnav-panes {
-  position: relative;
+.mnav-list {
   flex: 1 1 auto;
-  overflow: hidden;
-}
-.mnav-pane {
-  position: absolute;
-  inset: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: #fff;
-  padding-bottom: 14px;
-  transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-/* Het hoofdniveau schuift een stuk mee naar links in plaats van te verdwijnen:
-   dat laat zien dat het tweede scherm eróver komt en niet in de plaats komt. */
-.mnav-pane.is-root {
-  transform: none;
-}
-.mnav[data-level="1"] .mnav-pane.is-root {
-  transform: translateX(-24%);
-}
-
-.mnav-pane.is-sub {
-  transform: translateX(100%);
-  box-shadow: -8px 0 22px -14px rgba(20, 8, 9, 0.4);
-  /* Een inactief subpaneel mag geen tabstop opleveren. */
-  visibility: hidden;
-}
-.mnav-pane.is-sub.is-current {
-  visibility: visible;
-}
-.mnav[data-level="1"] .mnav-pane.is-sub.is-current {
-  transform: none;
+  padding: 4px 22px;
 }
 
 /* ---------- rijen ---------- */
 
-.mnav-row {
+/* De rijen komen na het openen één voor één op. `.is-open` staat op de wrapper,
+   dus de vertraging hoeft nergens in JS geteld te worden. */
+.mnav-rise {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mnav.is-open .mnav-rise {
+  opacity: 1;
+  transform: none;
+}
+
+.mnav-ix {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 14px 18px;
+  gap: 14px;
+  padding: 15px 0;
   border: 0;
   border-bottom: 1px solid var(--mnav-line);
   background: none;
+  color: #fff;
   text-align: left;
-  font-family: var(--mnav-fd);
-  font-weight: 600;
-  font-size: 15.5px;
-  color: var(--mnav-ink);
   text-decoration: none;
   cursor: pointer;
 }
-.mnav-row:hover {
-  background: #faf7f6;
-  color: var(--mnav-red);
-}
-.mnav-row .mnav-tail {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  flex-shrink: 0;
-}
-.mnav-count {
-  font-family: var(--mnav-fb);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--mnav-dim);
-  font-variant-numeric: tabular-nums;
-}
-.mnav-row svg {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-  color: rgba(18, 16, 17, 0.3);
-}
-.mnav-row:hover svg {
-  color: var(--mnav-red);
-}
-
-.mnav-back {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 18px;
-  border: 0;
-  border-bottom: 1px solid var(--mnav-line);
-  background: none;
-  font-family: var(--mnav-fb);
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--mnav-red);
-  cursor: pointer;
-}
-.mnav-back svg {
-  width: 15px;
-  height: 15px;
-}
-
-.mnav-h2 {
-  font-family: var(--mnav-fd);
+.mnav-ix .n {
+  font-size: 12px;
   font-weight: 800;
-  font-size: 19px;
-  letter-spacing: -0.015em;
-  margin: 0;
-  padding: 16px 18px 6px;
-  color: var(--mnav-ink);
+  letter-spacing: 0.05em;
+  color: var(--mnav-salmon);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.mnav-ix .t {
+  flex: 1 1 auto;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: #fff;
+}
+.mnav-ix .c {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.7);
+  transition: transform 0.3s;
+}
+.mnav-acc.is-on .mnav-ix .c {
+  transform: rotate(180deg);
+}
+.mnav-acc.is-on .mnav-ix .t {
+  color: #fff;
 }
 
-.mnav-list {
+/* ---------- uitklap ---------- */
+
+/* 0fr → 1fr in plaats van max-height: de hoogte hoeft dan niet geraden te
+   worden, en een groep met acht toestellen schuift even soepel open als een
+   met drie. */
+.mnav-sub {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mnav-acc.is-on .mnav-sub {
+  grid-template-rows: 1fr;
+}
+.mnav-sub > div {
+  overflow: hidden;
+}
+.mnav-cat {
+  display: inline-block;
+  /* Links uitgelijnd met de links eronder, niet met de kop erboven: de chip
+     hoort bij de lijst die hij aankondigt. */
+  margin: 16px 0 8px 40px;
+  padding: 6px 13px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--mnav-chip);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+.mnav-sub ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.mnav-list a {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 12px 18px;
-  border-bottom: 1px solid var(--mnav-line);
-  font-size: 14.5px;
-  color: var(--mnav-ink);
+.mnav-sub a {
+  display: block;
+  padding: 7px 0 7px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--mnav-sub);
   text-decoration: none;
+  transition: color 0.15s;
 }
-.mnav-list a:hover {
-  background: #faf7f6;
-  color: var(--mnav-red);
+.mnav-sub a:hover {
+  color: #fff;
 }
-.mnav-list a small {
-  font-size: 11.5px;
-  color: var(--mnav-dim);
+.mnav-sub .sluit {
+  height: 14px;
 }
 
 /* ---------- voet ---------- */
 
 .mnav-foot {
   flex: 0 0 auto;
-  border-top: 1px solid rgba(18, 16, 17, 0.11);
-  background: var(--mnav-warm);
-  padding: 13px 16px calc(16px + env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, 0.22);
+  padding: 16px 20px calc(24px + env(safe-area-inset-bottom));
   display: grid;
-  gap: 9px;
+  gap: 12px;
+  text-align: center;
 }
-.mnav-foot .mnav-cta {
+.mnav-cta {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   background: var(--mnav-red);
   color: #fff;
-  border-radius: 99px;
-  padding: 13px;
-  font-weight: 700;
-  font-size: 14.5px;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 800;
   text-decoration: none;
+  transition: background 0.16s;
 }
-.mnav-foot .mnav-cta:hover {
-  background: #a80d26;
+.mnav-cta:hover {
+  background: #c8102e;
   color: #fff;
 }
-.mnav-tel {
-  display: flex;
+.mnav-cta svg {
+  width: 17px;
+  height: 17px;
+}
+.mnav-call {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  font-size: 12.5px;
-  color: var(--mnav-mid);
+  gap: 9px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
   text-decoration: none;
 }
-.mnav-tel svg {
-  width: 14px;
-  height: 14px;
-  color: var(--mnav-red);
+.mnav-call svg {
+  width: 16px;
+  height: 16px;
+  color: var(--mnav-salmon);
+}
+.mnav-hours {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mnav-dim);
 }
 
 .mnav :focus-visible {
-  outline: 2px solid var(--mnav-red);
-  outline-offset: -2px;
+  outline: 2px solid var(--mnav-salmon);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mnav-panel,
-  .mnav-pane,
-  .mnav-scrim {
+  .mnav,
+  .mnav-rise,
+  .mnav-sub {
     transition-duration: 0.01ms;
   }
 }

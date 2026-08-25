@@ -68,7 +68,7 @@ const VHeader = () => {
         </div>
       </div>
 
-      <div className="wrap navrow">
+      <div className="wrap navrow mnav-row">
         <div className="navpill">
           <Link className="nav-logo" to="/">
             <img src="/verhuur/logo-horizontal-black.webp" alt="Vernast" />
@@ -213,7 +213,7 @@ const VHeader = () => {
       onClose={sluitMenu}
       groep={menuGroep}
       onGroep={setMenuGroep}
-      logo="/verhuur/logo-horizontal-black.webp"
+      logo="/verhuur/logo-horizontal-white.webp"
     />
     </>
   );
