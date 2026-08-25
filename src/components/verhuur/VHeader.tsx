@@ -137,26 +137,6 @@ const VHeader = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Alles over drogen</span>
-                    <ul>
-                      <li>
-                        <Link to="/#techniek">Hoe drogen werkt</Link>
-                      </li>
-                      <li>
-                        <Link to="/#voordelen">Waarom bouwdroging</Link>
-                      </li>
-                      <li>
-                        <Link to="/#prijzen">Prijzen &amp; voorwaarden</Link>
-                      </li>
-                      <li>
-                        <Link to="/#toepassingen">Toepassingen</Link>
-                      </li>
-                      <li>
-                        <Link to="/#faq">Veelgestelde vragen</Link>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
                 <div className="mega-foot">
                   <div className="mft">

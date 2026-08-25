@@ -168,26 +168,6 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                       </li>
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Alles over drogen</span>
-                    <ul>
-                      <li>
-                        <Link to="/hoe-drogen-werkt">Hoe drogen werkt</Link>
-                      </li>
-                      <li>
-                        <Link to="/waarom-bouwdroging">Waarom bouwdroging</Link>
-                      </li>
-                      <li>
-                        <Link to="/drooggarantie">Drooggarantie</Link>
-                      </li>
-                      <li>
-                        <Link to="/realisaties">Toepassingen</Link>
-                      </li>
-                      <li>
-                        <a href="/#faq">Veelgestelde vragen</a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
                 <div className="mega-foot">
                   <div className="mft">
