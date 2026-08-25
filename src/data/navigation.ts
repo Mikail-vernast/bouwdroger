@@ -80,3 +80,27 @@ export const BEDRIJF: NavLinkItem[] = [
   { label: "Realisaties", path: "/realisaties" },
   { label: "Contact", path: "/contact" },
 ];
+
+/**
+ * Uitleg- en servicepagina's die anders nergens vandaan gelinkt werden en zo
+ * een wees dreigden te worden: /klantservice, /drooggarantie, /hoe-drogen-werkt
+ * en /waarom-bouwdroging stonden wel in de sitemap, maar zonder interne link.
+ */
+export const ONTDEK: NavLinkItem[] = [
+  { label: "Klantenservice", path: "/klantservice" },
+  { label: "Drooggarantie", path: "/drooggarantie" },
+  { label: "Hoe drogen werkt", path: "/hoe-drogen-werkt" },
+  { label: "Waarom bouwdroging", path: "/waarom-bouwdroging" },
+];
+
+/**
+ * De Vernast-groep: de zusterbedrijven, elk op hun eigen domein. Externe URL's,
+ * dus bewust géén NavLinkItem (dat pad is intern). "Verhuur & bouwdroging" is
+ * deze site zelf en blijft daarom een interne link (path).
+ */
+export const VERNAST_GROEP: { label: string; sub: string; href?: string; path?: string }[] = [
+  { label: "Vernast.be", sub: "De groep", href: "https://www.vernast.be/" },
+  { label: "Verhuur & bouwdroging", sub: "Toestellen en pakketten", path: "/" },
+  { label: "Vochtbestrijding", sub: "Kelder · muren · gevel", href: "https://www.vernast-vochtbestrijding.be/" },
+  { label: "Schilderwerken", sub: "Binnen & buiten", href: "https://www.vernast-schilderwerken.be/" },
+];

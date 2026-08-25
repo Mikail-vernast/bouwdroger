@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BEDRIJF, KIEZEN, SERVICE, TOEPASSINGEN } from "@/data/navigation";
+import { BEDRIJF, KIEZEN, ONTDEK, SERVICE, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
 import { MailIcon, PhoneIcon } from "./icons";
 import { SITE_NAME } from "@/lib/site";
 
@@ -24,15 +24,13 @@ const V3Footer = () => (
         </div>
 
         {/*
-          Vier links die alle vier naar /verhuur/calculator wezen, is de
-          designfile letterlijk genomen. Ze wijzen nu naar de pagina die het
-          onderwerp ook echt behandelt — dat is waar de homepage haar sterkte
-          aan de rest van de site doorgeeft.
+          Kolom 2 — het aanbod: de rekenhulpen en het gamma (KIEZEN), waarvoor
+          mensen drogen (TOEPASSINGEN) en de alles-in-één service.
         */}
         <div>
-          <h2>Toepassingen</h2>
+          <h2>Bouwdroging</h2>
           <ul>
-            {TOEPASSINGEN.map((link) => (
+            {[...KIEZEN, ...TOEPASSINGEN].map((link) => (
               <li key={link.path}>
                 <Link to={link.path}>{link.label}</Link>
               </li>
@@ -43,25 +41,15 @@ const V3Footer = () => (
           </ul>
         </div>
 
-        <div>
-          <h2>Kiezen en boeken</h2>
-          <ul>
-            {[...KIEZEN, ...SERVICE].map((link) => (
-              <li key={link.path}>
-                <Link to={link.path}>{link.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {/*
-          Het bedrijf en de zustersites in één kolom. De grid telt er vier; een
-          vijfde blok zou op een eigen rij vallen.
+          Kolom 3 — service en uitleg. ONTDEK bundelt de pagina's die eerder
+          nergens vandaan gelinkt werden (Klantenservice, Drooggarantie,
+          Hoe drogen werkt, Waarom bouwdroging).
         */}
         <div>
-          <h2>Vernast</h2>
+          <h2>Service &amp; info</h2>
           <ul>
-            {BEDRIJF.map((link) => (
+            {[...SERVICE, ...ONTDEK].map((link) => (
               <li key={link.path}>
                 <Link to={link.path}>{link.label}</Link>
               </li>
@@ -69,12 +57,32 @@ const V3Footer = () => (
             <li>
               <a href="/#faq">Veelgestelde vragen</a>
             </li>
-            <li>
-              <a href="https://www.vernast-vochtbestrijding.be/">Vernast Vochtbestrijding</a>
-            </li>
-            <li>
-              <a href="https://www.vernast-schilderwerken.be/">Vernast Schilderwerken</a>
-            </li>
+          </ul>
+        </div>
+
+        {/*
+          Kolom 4 — de Vernast-groep: elk zusterbedrijf op zijn eigen domein,
+          gevolgd door de bedrijfspagina's van deze site.
+        */}
+        <div>
+          <h2>Vernast</h2>
+          <ul>
+            {VERNAST_GROEP.map((entiteit) => (
+              <li key={entiteit.label}>
+                {entiteit.href ? (
+                  <a href={entiteit.href} target="_blank" rel="noopener noreferrer">
+                    {entiteit.label}
+                  </a>
+                ) : (
+                  <Link to={entiteit.path!}>{entiteit.label}</Link>
+                )}
+              </li>
+            ))}
+            {BEDRIJF.map((link) => (
+              <li key={link.path}>
+                <Link to={link.path}>{link.label}</Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
