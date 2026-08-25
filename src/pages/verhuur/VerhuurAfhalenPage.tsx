@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
 import type { Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
-import { CheckIcon, InfoIcon, PinIcon } from "@/components/home-v3/icons";
+import { CheckIcon, PinIcon } from "@/components/home-v3/icons";
 import {
   PICKUP_BY_KEY,
   PICKUP_GROUPS,
@@ -507,20 +507,6 @@ const VerhuurAfhalenPage = () => {
               loading="lazy"
               decoding="async"
             />
-          </div>
-        </div>
-      </section>
-
-      {/* De droog-garantie-waarschuwing hoort niet in de rode hero: los daarvan
-          op de lichte strook, als kaart, net vóór de configurator. */}
-      <section className="leadnote">
-        <div className="wrap">
-          <div className="note">
-            <InfoIcon />
-            <span>
-              <b>Let op:</b> bij afhalen plaatst en volgt u zelf op, de 100% droog-garantie geldt
-              enkel bij onze <Link to="/verhuur/calculator">geleverde en geïnstalleerde pakketten</Link>.
-            </span>
           </div>
         </div>
       </section>

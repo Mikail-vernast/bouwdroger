@@ -1573,12 +1573,9 @@
   .vh-pick .lead .lh-vis{display:none}
   .vh-pick .lead .lh-copy{padding-bottom:40px}
 }
-/* De droog-garantie-waarschuwing zit onder de hero op de lichte strook. */
-.vh-pick .leadnote{padding:26px 0 0}
-.vh-pick .leadnote + .shell{padding-top:20px}
-.vh-pick .leadnote .note{display:flex;gap:11px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 17px;font-size:13.5px;color:var(--txt-mid);line-height:1.6;max-width:660px}
-.vh-pick .leadnote .note svg{flex-shrink:0;margin-top:2px;color:var(--red)}
-.vh-pick .leadnote .note b{color:var(--txt)}
+/* De hero grenst nu direct aan de configurator; de shell houdt zijn eigen
+   bovenruimte. */
+.vh-pick .lead + .shell{padding-top:34px}
 .vh-pick .shell{display:grid;grid-template-columns:1fr 340px;gap:26px;align-items:start;padding-bottom:80px}
 .vh-pick .main{display:flex;flex-direction:column;gap:18px}
 .vh-pick .blk{background:#fff;border-radius:20px;padding:28px 30px}
@@ -1670,6 +1667,27 @@
 .vh-pick .done p{font-size:14.5px;color:var(--txt-mid);line-height:1.65;max-width:480px;margin:0 auto 18px}
 .vh-pick .done .ref{display:inline-flex;gap:12px;background:var(--page);border-radius:11px;padding:13px 20px;font-family:var(--fm);font-size:13px}
 .vh-pick .done .ref span:first-child{color:var(--txt-dim)}
+/* Volledige V3Footer, gescopet op deze schil — zelfde uitkomst als de
+   boekingspagina. Toen de eigen mini-footer eruit ging, verdween ook alle
+   footeropmaak, waardoor de gedeelde V3Footer terugviel op kale HTML. */
+.vh-pick footer.site{background:var(--maroon-dd);color:rgba(255,255,255,.62);padding:34px 0}
+.vh-pick footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
+.vh-pick footer.site .lc img{height:30px;margin-bottom:20px}
+.vh-pick footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
+.vh-pick footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
+.vh-pick footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
+.vh-pick footer.site .lc .fc a:hover{color:#fff}
+.vh-pick footer.site .lc .fc svg{color:var(--red);flex-shrink:0}
+.vh-pick footer.site h2,.vh-pick footer.site h4{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
+.vh-pick footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+.vh-pick footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
+.vh-pick footer.site ul a:hover{color:#fff}
+.vh-pick footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
+.vh-pick footer.site .fb a{color:rgba(255,255,255,.62)}
+.vh-pick footer.site .fb a:hover{color:#fff}
+.vh-pick footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
+@media (max-width:960px){.vh-pick footer.site .fg{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.vh-pick footer.site .fg{grid-template-columns:1fr}}
 @media (max-width:960px){
 .vh-pick .shell{grid-template-columns:1fr}
 .vh-pick .side{position:static}
