@@ -89,12 +89,18 @@ const V3Hero = () => (
       De CSS bepaalt de werkelijke weergavegrootte; deze waarden dienen enkel
       als beeldverhouding.
     */}
+    {/*
+      team-cutout-2 heeft een transparante achtergrond (enkel het team, de
+      toestellen en de grijze vloer). hero-banner.webp had een dichte zwarte
+      studio-achtergrond die als een zwarte band over het rood viel — vooral
+      op mobiel. Met de cutout loopt het rood van de hero gewoon door.
+    */}
     <img
       className="hero-art"
-      src="/vernast/hero-banner.webp"
+      src="/vernast/team-cutout-2.webp"
       alt="Het Vernast-team met het volledige toestellengamma"
-      width={1915}
-      height={821}
+      width={1440}
+      height={617}
       fetchPriority="high"
       decoding="async"
     />
