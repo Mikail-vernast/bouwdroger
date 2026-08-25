@@ -1,6 +1,6 @@
 import PageMeta from "@/components/PageMeta";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import V3Footer from "@/components/home-v3/V3Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import MachineCard from "@/components/MachineCard";
@@ -346,7 +346,7 @@ const WaterschadePage = () => {
           </div>
         </div>
       </main>
-      <Footer />
+      <V3Footer />
     </div>
   );
 };

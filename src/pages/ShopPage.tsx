@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import V3Footer from "@/components/home-v3/V3Footer";
 import PageHero from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
@@ -105,7 +105,7 @@ const ShopPage = () => {
           </div>
         </section>
       </main>
-      <Footer />
+      <V3Footer />
     </div>
   );
 };

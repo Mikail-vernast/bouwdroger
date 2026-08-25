@@ -1,6 +1,6 @@
 import PageMeta from "@/components/PageMeta";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import V3Footer from "@/components/home-v3/V3Footer";
 import { Button } from "@/components/ui/button";
 import MachineCard from "@/components/MachineCard";
 import { Badge } from "@/components/ui/badge";
@@ -330,7 +330,7 @@ const NieuwbouwPage = () => {
           </div>
         </section>
       </main>
-      <Footer />
+      <V3Footer />
     </div>
   );
 };

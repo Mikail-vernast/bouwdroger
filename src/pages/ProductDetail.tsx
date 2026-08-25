@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { products } from "@/data/products";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import V3Footer from "@/components/home-v3/V3Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Check, Phone } from "lucide-react";
@@ -29,7 +29,7 @@ const ProductDetail = () => {
             <Link to="/#producten">Terug naar overzicht</Link>
           </Button>
         </div>
-        <Footer />
+        <V3Footer />
       </div>
     );
   }
@@ -220,7 +220,7 @@ const ProductDetail = () => {
           </Button>
         </div>
       </main>
-      <Footer />
+      <V3Footer />
     </div>
   );
 };

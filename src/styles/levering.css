@@ -8,8 +8,10 @@
      - `url(assets/...)` rewritten to `/vernast/....webp`,
      - the bare `html{...}` rule is dropped; its reset lives on `.lv-page`.
 
-   The header and footer markup comes from <V3Header>/<V3Footer>; their
-   rules are transcribed here too so they render correctly inside .lv-page.
+   De headermarkup komt van <V3Header>; die regels staan hier mee
+   getranscribeerd. De footeropmaak niet: die hangt sinds de opruiming aan
+   <V3Footer> zelf (src/styles/site-footer.css), zodat er niet elf kopieën
+   van dezelfde regels uiteen kunnen groeien.
 
    Do not hand-tune this file. Change the design, then re-import.
    ============================================================ */
@@ -358,22 +360,3 @@
 .lv-page .ngc b{display:block;font-family:var(--fd);font-size:14px;margin-bottom:4px}
 .lv-page .ngc p{font-size:12.5px;color:var(--txt-mid);line-height:1.6;margin:0}
 
-/* ============ FOOTER ============ */
-.lv-page footer.site{background:#0d0a0a;color:rgba(255,255,255,.62);padding:64px 0 26px}
-.lv-page footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
-.lv-page footer.site .lc img{height:30px;margin-bottom:20px}
-.lv-page footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
-.lv-page footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
-.lv-page footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
-.lv-page footer.site .lc .fc a:hover{color:#fff}
-.lv-page footer.site .lc .fc svg{color:var(--red);flex-shrink:0}
-.lv-page footer.site h4{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
-.lv-page footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
-.lv-page footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
-.lv-page footer.site ul a:hover{color:#fff}
-.lv-page footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
-.lv-page footer.site .fb a{color:rgba(255,255,255,.62)}
-.lv-page footer.site .fb a:hover{color:#fff}
-.lv-page footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
-@media (max-width:960px){.lv-page footer.site .fg{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){.lv-page footer.site .fg{grid-template-columns:1fr}}

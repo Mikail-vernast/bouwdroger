@@ -10,8 +10,10 @@
      - de `.rv`-scroll-reveals (opacity:0-begintoestand) zijn geschrapt:
        de pagina wordt geprerenderd en moet zonder JS zichtbaar zijn.
 
-   Header- en footermarkup komt van <V3Header>/<V3Footer>; hun regels
-   staan hier mee getranscribeerd zodat ze binnen .ct-page correct renderen.
+   De headermarkup komt van <V3Header>; die regels staan hier mee
+   getranscribeerd. De footeropmaak niet: die hangt sinds de opruiming aan
+   <V3Footer> zelf (src/styles/site-footer.css), zodat er niet elf kopieën
+   van dezelfde regels uiteen kunnen groeien.
 
    Niet met de hand bijtunen. Verander het design en importeer opnieuw.
    ============================================================ */
@@ -219,22 +221,3 @@
 .ct-page .fdone p{font-size:14px;color:var(--txt-mid);margin:0}
 @media (max-width:620px){.ct-page .frow{grid-template-columns:1fr}.ct-page .fshell{padding:26px 20px}}
 
-/* ============ FOOTER ============ */
-.ct-page footer.site{background:#0d0a0a;color:rgba(255,255,255,.62);padding:64px 0 26px}
-.ct-page footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
-.ct-page footer.site .lc img{height:30px;margin-bottom:20px}
-.ct-page footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
-.ct-page footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
-.ct-page footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
-.ct-page footer.site .lc .fc a:hover{color:#fff}
-.ct-page footer.site .lc .fc svg{color:var(--red);flex-shrink:0}
-.ct-page footer.site h4{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
-.ct-page footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
-.ct-page footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
-.ct-page footer.site ul a:hover{color:#fff}
-.ct-page footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
-.ct-page footer.site .fb a{color:rgba(255,255,255,.62)}
-.ct-page footer.site .fb a:hover{color:#fff}
-.ct-page footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
-@media (max-width:960px){.ct-page footer.site .fg{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){.ct-page footer.site .fg{grid-template-columns:1fr}}

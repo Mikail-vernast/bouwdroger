@@ -1,0 +1,50 @@
+/*
+  De opmaak van <V3Footer> stond in elk paginabestand opnieuw uitgeschreven
+  (`.v3 footer.site`, `.lv-page footer.site`, `.vh-calc footer.site`, …). Elf
+  kopieën van dezelfde regels: /levering miste daardoor de `h2`-regel — de
+  koppen van de footerkolommen stonden er als gewone tekst — en elke pagina die
+  nog op de oude schil draaide kreeg helemaal geen footeropmaak.
+
+  Daarom hangt de opmaak nu aan het component zelf en staat ze *niet* onder een
+  paginawortel: de footer neemt zijn eigen uiterlijk mee, in welke schil hij ook
+  landt. De variabelen krijgen een fallback omdat `--red`, `--wrap` en `--fb`
+  alleen op de v3-schil gedefinieerd zijn.
+
+  Het lettertype is bewust `var(--fb, inherit)` en geen harde stack: op de v3-
+  schil is dat DM Sans, op de oude schil erft de footer de Inter die daar toch
+  al geladen wordt. Drie <h2>'s in deze footer waren ooit genoeg om élke pagina
+  47 kB Inter te laten ophalen; een harde `font-family` doet hetzelfde in de
+  andere richting.
+*/
+footer.site{
+  background:#0d0a0a;
+  color:rgba(255,255,255,.62);
+  padding:64px 0 26px;
+  font-family:var(--fb, inherit);
+  text-align:left;
+}
+footer.site .wrap{max-width:var(--wrap,1220px);margin:0 auto;padding:0 28px}
+footer.site a{color:inherit;text-decoration:none}
+footer.site img{max-width:100%;display:block}
+footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
+footer.site .lc img{height:30px;width:auto;margin-bottom:20px}
+footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
+footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
+footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
+footer.site .lc .fc a:hover{color:#fff}
+footer.site .lc .fc svg{color:var(--red,#C8102E);flex-shrink:0}
+footer.site h2,
+footer.site h4{font-family:var(--fb, inherit);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
+footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
+footer.site ul a:hover{color:#fff}
+footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
+footer.site .fb a{color:rgba(255,255,255,.62)}
+footer.site .fb a:hover{color:#fff}
+footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
+@media (max-width:1040px){
+  footer.site .fg{grid-template-columns:1fr 1fr}
+}
+@media (max-width:660px){
+  footer.site .fg{grid-template-columns:1fr}
+}

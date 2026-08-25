@@ -1,7 +1,7 @@
 import { useLocation, Link } from "react-router-dom";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import V3Footer from "@/components/home-v3/V3Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Phone, Mail, ArrowRight } from "lucide-react";
@@ -86,7 +86,7 @@ const BookingSuccess = () => {
           </div>
         </div>
       </main>
-      <Footer />
+      <V3Footer />
     </div>
   );
 };

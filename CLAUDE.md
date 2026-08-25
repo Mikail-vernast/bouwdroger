@@ -83,8 +83,15 @@ De homepage en de verhuurfunnel (`/verhuur/*`) draaien op de v3-vormtaal uit de 
 Design-handoff: `src/components/home-v3/` (`V3Header`/`V3Footer`) en
 `src/components/verhuur/` (`VHeader`/`VFooter`), met eigen CSS in `src/styles/`. De
 inhoudspagina's (`/levering`, `/machines`, `/prijzen`, `/contact`, …) hangen nog aan de
-oudere `Navbar`/`Footer` met shadcn/ui. Ze zijn uit elkaar gegroeid maar bestaan bewust
-naast elkaar; nieuw conversiewerk hoort in de verhuurfunnel.
+oudere `Navbar` met shadcn/ui. Ze zijn uit elkaar gegroeid maar bestaan bewust naast
+elkaar; nieuw conversiewerk hoort in de verhuurfunnel.
+
+De **footer is wel één component voor de hele site**: `V3Footer`, met zijn opmaak in
+`src/styles/site-footer.css` — ongescoped, met fallbacks voor `--red`, `--wrap` en `--fb`,
+zodat hij in elke schil hetzelfde oogt. Die opmaak stond eerder in elf paginastylesheets
+overgeschreven (`.v3 footer.site`, `.lv-page footer.site`, …); /levering miste daardoor de
+`h2`-regel en de shadcn-pagina's droegen nog de oude `Footer`. Kopieer die regels niet
+terug naar een paginastylesheet.
 
 Daardoor zijn er ook twee wegen naar een bestelling: `/verhuur/boeking` → `api/checkout.ts`
 (Stripe) en `/verhuur/afhalen` → `api/afhaal-checkout.ts`, tegenover de oudere

@@ -289,7 +289,7 @@ const OverOnsPage = () => {
           </div>
           <div className="gr-grid">
             <Link className="gr" to="/">
-              <div className="gphoto light"><img src="/vernast/lineup-dryers.webp" alt="Vernast eco-bouwdrogers" /></div>
+              <div className="gphoto"><img src="/vernast/groep-bouwdroging.webp" alt="Team Vernast BouwDroging" style={{ objectFit: "cover" }} /></div>
               <span className="gi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v3" /><path d="M18.4 5.6l-2.1 2.1" /><path d="M21 12h-3" /><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" /></svg></span>
               <h3>Vernast BouwDroging</h3>
               <p>Waar u nu bent: berekende droogpakketten met garantie, losse toestellen en volledig digitale boeking en opvolging.</p>

@@ -2,7 +2,7 @@ import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import Configurator from "@/components/Configurator";
 import FAQ from "@/components/FAQ";
-import Footer from "@/components/Footer";
+import V3Footer from "@/components/home-v3/V3Footer";
 import PageMeta from "@/components/PageMeta";
 import { SEO } from "@/data/seo";
 
@@ -16,7 +16,7 @@ const CalculatorDetailPage = () => {
         <Configurator />
         <FAQ />
       </main>
-      <Footer />
+      <V3Footer />
     </div>
   );
 };

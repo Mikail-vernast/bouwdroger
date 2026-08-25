@@ -2,7 +2,7 @@ import { useState } from "react";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import V3Footer from "@/components/home-v3/V3Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -179,7 +179,7 @@ const ReserverenPage = () => {
             <OrderSummary />
           </div>
         </main>
-        <Footer />
+        <V3Footer />
       </div>
     );
   }
@@ -444,7 +444,7 @@ const ReserverenPage = () => {
           </div>
         </div>
       </main>
-      <Footer />
+      <V3Footer />
     </div>
   );
 };

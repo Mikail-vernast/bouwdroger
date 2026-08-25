@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { BEDRIJF, KIEZEN, ONTDEK, SERVICE, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
 import { MailIcon, PhoneIcon } from "./icons";
 import { SITE_NAME } from "@/lib/site";
+import "@/styles/site-footer.css";
 
 const V3Footer = () => (
   <footer className="site">

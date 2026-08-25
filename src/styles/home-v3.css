@@ -857,27 +857,6 @@ html { scroll-behavior: smooth; }
 .v3 .cform p{color:var(--txt-mid)}
 .v3 .cta-r{width:min(100%,680px)}
 .v3 .cta .cform{box-shadow:0 40px 90px -40px rgba(0,0,0,.55);border-color:transparent}
-/* ============ FOOTER ============ */
-.v3 footer.site{background:#0d0a0a;color:rgba(255,255,255,.62);padding:64px 0 26px}
-.v3 footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
-.v3 footer.site .lc img{height:30px;width:auto;margin-bottom:20px}
-.v3 footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
-.v3 footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
-.v3 footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
-.v3 footer.site .lc .fc a:hover{color:#fff}
-.v3 footer.site .lc .fc svg{color:var(--red);flex-shrink:0}
-.v3 footer.site h2,.v3 footer.site h4{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
-.v3 footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
-.v3 footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
-.v3 footer.site ul a:hover{color:#fff}
-.v3 footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
-.v3 footer.site .fb a{color:rgba(255,255,255,.62)}
-.v3 footer.site .fb a:hover{color:#fff}
-.v3 footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
-@media (max-width:960px){
-.v3 footer.site .fg{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){
-.v3 footer.site .fg{grid-template-columns:1fr}}
 /* ============ RESPONSIVE ============ */
 @media (max-width:1040px){
 .v3 .hero .wrap{padding-top:180px}
@@ -894,7 +873,6 @@ html { scroll-behavior: smooth; }
 .v3 .pgrid,
 .v3 .cgrid{grid-template-columns:1fr 1fr}
 .v3 .dlv-art{order:-1}
-.v3 footer.site .fg{grid-template-columns:1fr 1fr}
 .v3 .ctable{overflow-x:auto}
   }
 @media (max-width:660px){
@@ -911,5 +889,4 @@ html { scroll-behavior: smooth; }
 .v3 .seg{grid-template-columns:1fr}
 .v3 .cfg-form,
 .v3 .cfg-res{padding:26px 22px}
-.v3 footer.site .fg{grid-template-columns:1fr}
   }

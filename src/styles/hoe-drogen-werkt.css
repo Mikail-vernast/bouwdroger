@@ -11,9 +11,10 @@
      - the reveal-on-scroll `.rv` mechanism is neutralised so content is
        always visible without JavaScript.
 
-   The header and footer markup comes from <V3Header>/<V3Footer>; their
-   chrome rules are copied verbatim from src/styles/klantservice.css
-   (re-prefixed .ks-page -> .hdw-page) so they render correctly here.
+   De headermarkup komt van <V3Header>; die regels staan hier mee
+   getranscribeerd. De footeropmaak niet: die hangt sinds de opruiming aan
+   <V3Footer> zelf (src/styles/site-footer.css), zodat er niet elf kopieën
+   van dezelfde regels uiteen kunnen groeien.
 
    Do not hand-tune this file. Change the design, then re-import.
    ============================================================ */
@@ -253,22 +254,6 @@
 @media (max-width:1040px){.hdw-page .splitv{grid-template-columns:1fr}}
 
 /* ============ FOOTER (verbatim from klantservice.css chrome) ============ */
-.hdw-page footer.site{background:#0d0a0a;color:rgba(255,255,255,.62);padding:64px 0 26px}
-.hdw-page footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
-.hdw-page footer.site .lc img{height:30px;margin-bottom:20px}
-.hdw-page footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
-.hdw-page footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
-.hdw-page footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
-.hdw-page footer.site .lc .fc a:hover{color:#fff}
-.hdw-page footer.site .lc .fc svg{color:var(--red);flex-shrink:0}
-.hdw-page footer.site h4{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
-.hdw-page footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
-.hdw-page footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
-.hdw-page footer.site ul a:hover{color:#fff}
-.hdw-page footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
-.hdw-page footer.site .fb a{color:rgba(255,255,255,.62)}
-.hdw-page footer.site .fb a:hover{color:#fff}
-.hdw-page footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
 
 /* manband light variant (design) */
 .hdw-page .manband.lite{background:#fff}
@@ -280,12 +265,8 @@
 .hdw-page .manband.lite p a{color:var(--red);text-decoration-color:rgba(200,16,46,.35)}
 
 /* ============ RESPONSIVE CHROME (verbatim from klantservice.css) ============ */
-@media (max-width:1040px){
-  .hdw-page footer.site .fg{grid-template-columns:1fr 1fr}
-}
 @media (max-width:660px){
   .hdw-page .nav-menu,
   .hdw-page .tl-left{display:none}
   .hdw-page .tl-right{margin:0 auto}
-  .hdw-page footer.site .fg{grid-template-columns:1fr}
 }

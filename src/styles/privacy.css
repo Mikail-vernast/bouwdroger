@@ -9,9 +9,10 @@
        document via src/styles/home-v3.css already,
      - the reveal animation is neutralised so content is always visible.
 
-   The header and footer markup comes from <V3Header>/<V3Footer>; their
-   chrome is copied verbatim from klantservice.css so it renders correctly
-   inside .pv-page.
+   De headermarkup komt van <V3Header>; die regels staan hier mee
+   getranscribeerd. De footeropmaak niet: die hangt sinds de opruiming aan
+   <V3Footer> zelf (src/styles/site-footer.css), zodat er niet elf kopieën
+   van dezelfde regels uiteen kunnen groeien.
 
    Do not hand-tune this file. Change the design, then re-import.
    ============================================================ */
@@ -150,22 +151,6 @@
 .pv-page .legal .meta{font-family:var(--fm);font-size:12px;color:var(--txt-dim);margin:0 0 26px}
 
 /* ============ FOOTER (chrome from klantservice.css) ============ */
-.pv-page footer.site{background:#0d0a0a;color:rgba(255,255,255,.62);padding:64px 0 26px}
-.pv-page footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
-.pv-page footer.site .lc img{height:30px;margin-bottom:20px}
-.pv-page footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
-.pv-page footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
-.pv-page footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
-.pv-page footer.site .lc .fc a:hover{color:#fff}
-.pv-page footer.site .lc .fc svg{color:var(--red);flex-shrink:0}
-.pv-page footer.site h4{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
-.pv-page footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
-.pv-page footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
-.pv-page footer.site ul a:hover{color:#fff}
-.pv-page footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
-.pv-page footer.site .fb a{color:rgba(255,255,255,.62)}
-.pv-page footer.site .fb a:hover{color:#fff}
-.pv-page footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
 
 /* ============ REVEAL neutralised ============ */
 .pv-page .rv{opacity:1;transform:none}
@@ -177,9 +162,6 @@
 @media (max-width:1000px){
   .pv-page .legal .wrap{grid-template-columns:1fr}
   .pv-page .lnav{position:static;max-height:none}
-}
-@media (max-width:960px){
-  .pv-page footer.site .fg{grid-template-columns:1fr 1fr}
 }
 @media (max-width:900px){
   .pv-page .lh-grid{grid-template-columns:1fr}
@@ -194,5 +176,4 @@
 @media (max-width:660px){
   .pv-page .tl-left{display:none}
   .pv-page .tl-right{margin:0 auto}
-  .pv-page footer.site .fg{grid-template-columns:1fr}
 }

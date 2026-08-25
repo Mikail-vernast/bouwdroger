@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import V3Footer from "@/components/home-v3/V3Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -110,7 +110,7 @@ const PackageDetailPage = () => {
             <ArrowLeft className="h-4 w-4 mr-2" /> Terug naar configurator
           </Button>
         </div>
-        <Footer />
+        <V3Footer />
       </div>
     );
   }
@@ -671,7 +671,7 @@ const PackageDetailPage = () => {
           </Button>
         </div>
       </main>
-      <Footer />
+      <V3Footer />
     </div>
   );
 };
