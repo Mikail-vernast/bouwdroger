@@ -53,6 +53,12 @@
   .vh-book .rail {
     margin-top: 0;
   }
+  /* Zelfde reden als bij de pakketpagina: onder 900px staat de header in de
+     flow, dus de 150px vrije ruimte die de vaste header nodig had, moet weg —
+     anders gaapt er een groot gat boven de titel. */
+  .vh-pick .lead {
+    padding-top: 24px;
+  }
 }
 
 /* 5 — `.ex .ext b{display:block}` raakt ook de `<b>` binnen de uitleg-`<small>`,

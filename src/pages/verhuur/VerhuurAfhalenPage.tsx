@@ -4,6 +4,7 @@ import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
 import type { Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
+import V3Footer from "@/components/home-v3/V3Footer";
 import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
 import { CheckIcon, InfoIcon, PinIcon } from "@/components/home-v3/icons";
 import {
@@ -472,18 +473,13 @@ const VerhuurAfhalenPage = () => {
           ]),
         ]}
       />
-      <V3Header />
-
-      <header className="top">
-        <div className="wrap in">
-          <Link to="/">
-            <img src="/vernast/logo-horizontal-white.webp" alt="Vernast Bouwdrogers" loading="lazy" decoding="async" />
-          </Link>
-          <a className="bk" href="/#toestellen">
-            ← Terug naar het gamma
-          </a>
-        </div>
-      </header>
+      {/*
+        Eén schil, één menu. Deze pagina zette naast de gedeelde `V3Header` nog
+        een eigen maroon `header.top` met een tweede logo en "terug naar het
+        gamma" — samen twee menubalken boven elkaar. De boekings- en
+        calculatorpagina's dragen enkel de `V3Header`; deze hoort daarbij.
+      */}
+      <V3Header lightAfter={-1} />
 
       <section className="lead">
         <div className="wrap">
@@ -946,6 +942,22 @@ const VerhuurAfhalenPage = () => {
         </div>
 
         <aside className="side" style={reference || checking ? { display: "none" } : undefined}>
+          {/*
+            Net als de pakketsamenvatting draagt deze kaart nu de gekozen
+            toestellen in beeld: wie afrekent ziet meteen wát er klaarligt,
+            niet enkel een regel tekst. Bij één exemplaar blijft het aantal
+            weg — dan zegt de foto alles.
+          */}
+          {summary.lines.length > 0 && (
+            <div className="thumbs">
+              {summary.lines.map((line) => (
+                <span className="thumb" key={line.product.key}>
+                  <img src={line.product.image} alt={line.product.name} loading="lazy" decoding="async" />
+                  {line.qty > 1 && <i>{line.qty}×</i>}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="sh">
             <div className="l">Uw afhaalreservatie</div>
             <h3>{summaryTitle}</h3>
@@ -1034,15 +1046,7 @@ const VerhuurAfhalenPage = () => {
         </aside>
       </div>
 
-      <footer className="site">
-        <div className="wrap in">
-          <span>© 2026 Vernast Bouwdrogers · Boomsesteenweg 12, Unit 11, Aartselaar</span>
-          <span>
-            Liever geleverd én geïnstalleerd met droog-garantie?{" "}
-            <Link to="/verhuur/calculator">Bereken uw pakket</Link>
-          </span>
-        </div>
-      </footer>
+      <V3Footer />
     </div>
   );
 };
