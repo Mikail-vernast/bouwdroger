@@ -1557,13 +1557,28 @@
 /* De eigen `header.top` en `footer.site` van deze pagina zijn weg: ze
    verdubbelden de menubalk en de footer die `V3Header`/`V3Footer` al dragen.
    De bijbehorende regels zijn hier verwijderd. */
-.vh-pick .lead{padding:150px 0 26px}
+/* Kleine rode hero — dezelfde vormtaal als de juridische pagina's (`.lhero`):
+   rode achtergrond met bg-foto, witte titel en het team-cutout rechtsonder dat
+   op de onderrand van de band rust. */
+.vh-pick .lead{background:var(--maroon-d) url('/vernast/bg-red-2.webp') center/cover no-repeat;padding:170px 0 0;color:#fff}
+.vh-pick .lead .lh-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:end}
+.vh-pick .lead .lh-copy{padding-bottom:56px}
+.vh-pick .lead .lh-vis{display:flex;justify-content:center;align-items:flex-end}
+.vh-pick .lead .lh-vis img{display:block;width:min(100%,400px);margin-bottom:-1px;filter:drop-shadow(0 26px 34px rgba(0,0,0,.38))}
 .vh-pick .lead .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 16px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:16px}
-.vh-pick .lead h1{font-family:var(--fd);font-weight:800;font-size:clamp(27px,3.4vw,42px);line-height:1.08;margin-bottom:12px}
-.vh-pick .lead p{font-size:15.5px;color:var(--txt-mid);line-height:1.65;max-width:660px;margin:0}
-.vh-pick .lead .note{margin-top:16px;display:flex;gap:11px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 17px;font-size:13.5px;color:var(--txt-mid);line-height:1.6;max-width:660px}
-.vh-pick .lead .note svg{flex-shrink:0;margin-top:2px;color:var(--red)}
-.vh-pick .lead .note b{color:var(--txt)}
+.vh-pick .lead h1{font-family:var(--fd);font-weight:800;font-size:clamp(27px,3.6vw,46px);line-height:1.08;letter-spacing:-.03em;margin-bottom:12px;color:#fff}
+.vh-pick .lead p{font-size:15.5px;color:rgba(255,255,255,.82);line-height:1.6;max-width:600px;margin:0}
+@media (max-width:900px){
+  .vh-pick .lead .lh-grid{grid-template-columns:1fr}
+  .vh-pick .lead .lh-vis{display:none}
+  .vh-pick .lead .lh-copy{padding-bottom:40px}
+}
+/* De droog-garantie-waarschuwing zit onder de hero op de lichte strook. */
+.vh-pick .leadnote{padding:26px 0 0}
+.vh-pick .leadnote + .shell{padding-top:20px}
+.vh-pick .leadnote .note{display:flex;gap:11px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 17px;font-size:13.5px;color:var(--txt-mid);line-height:1.6;max-width:660px}
+.vh-pick .leadnote .note svg{flex-shrink:0;margin-top:2px;color:var(--red)}
+.vh-pick .leadnote .note b{color:var(--txt)}
 .vh-pick .shell{display:grid;grid-template-columns:1fr 340px;gap:26px;align-items:start;padding-bottom:80px}
 .vh-pick .main{display:flex;flex-direction:column;gap:18px}
 .vh-pick .blk{background:#fff;border-radius:20px;padding:28px 30px}

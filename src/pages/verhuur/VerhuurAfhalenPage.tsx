@@ -479,17 +479,42 @@ const VerhuurAfhalenPage = () => {
         gamma" — samen twee menubalken boven elkaar. De boekings- en
         calculatorpagina's dragen enkel de `V3Header`; deze hoort daarbij.
       */}
-      <V3Header lightAfter={-1} />
+      {/* Boven de rode hero staat de header donker (witte tekst) en flipt hij
+          naar licht zodra je eronder scrolt — net als de juridische pagina's. */}
+      <V3Header lightAfter={420} />
 
+      {/*
+        Kleine rode hero in dezelfde vormtaal als de juridische pagina's
+        (`.lhero`): rode achtergrond, witte titel en het team-cutout rechts.
+        Eigen copy — deze pagina verkoopt zelf afhalen, niet voorwaarden.
+      */}
       <section className="lead">
+        <div className="wrap lh-grid">
+          <div className="lh-copy">
+            <span className="chip">Zelf afhalen · Aartselaar</span>
+            <h1>Losse toestellen huren en zelf afhalen.</h1>
+            <p>
+              Stel zelf samen wat u nodig heeft, bouwdrogers, ventilatoren en kachels, en haal
+              alles af in ons magazijn. Betaal online met {Math.round(ONLINE_DISCOUNT * 100)}%
+              korting, of zet uw reservatie vast met {euro(DEPOSIT_GROSS)} en reken de rest af bij
+              de afhaling.
+            </p>
+          </div>
+          <div className="lh-vis">
+            <img
+              src="/vernast/team-tools.webp"
+              alt="Het Vernast-team met bouwdrogers en ventilatoren"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* De droog-garantie-waarschuwing hoort niet in de rode hero: los daarvan
+          op de lichte strook, als kaart, net vóór de configurator. */}
+      <section className="leadnote">
         <div className="wrap">
-          <span className="chip">Zelf afhalen · Aartselaar</span>
-          <h1>Losse toestellen huren en zelf afhalen.</h1>
-          <p>
-            Stel zelf samen wat u nodig heeft, bouwdrogers, ventilatoren en kachels, en haal alles
-            af in ons magazijn. Betaal online met {Math.round(ONLINE_DISCOUNT * 100)}% korting, of
-            zet uw reservatie vast met {euro(DEPOSIT_GROSS)} en reken de rest af bij de afhaling.
-          </p>
           <div className="note">
             <InfoIcon />
             <span>

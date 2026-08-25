@@ -54,8 +54,8 @@
     margin-top: 0;
   }
   /* Zelfde reden als bij de pakketpagina: onder 900px staat de header in de
-     flow, dus de 150px vrije ruimte die de vaste header nodig had, moet weg —
-     anders gaapt er een groot gat boven de titel. */
+     flow, dus de 170px vrije ruimte die de vaste header nodig had, moet weg —
+     anders gaapt er een groot gat boven de titel van de rode hero. */
   .vh-pick .lead {
     padding-top: 24px;
   }
