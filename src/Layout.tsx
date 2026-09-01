@@ -80,7 +80,18 @@ const Layout = () => {
       */}
       <Analytics route={route} path={location.pathname} />
       <SpeedInsights route={route} />
-      <div key={location.pathname} className={navigated.current ? "page-enter" : undefined}>
+      {/*
+        `page-shell` is de vaste haak waaraan src/styles/site-footer.css de
+        footer naar de onderkant van het scherm duwt: die stylesheet moet de
+        paginawortel kunnen aanspreken, en dat kan alleen via dit vaste
+        tussenniveau. De naam is bewust lelijk-specifiek — met `route` pakte
+        `.route > *` ook de `.wrap` in de <section class="route"> van /contact,
+        die daardoor 100dvh hoog werd.
+      */}
+      <div
+        key={location.pathname}
+        className={navigated.current ? "page-shell page-enter" : "page-shell"}
+      >
         <Outlet />
       </div>
     </>

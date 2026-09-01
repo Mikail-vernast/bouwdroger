@@ -48,3 +48,32 @@ footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
 @media (max-width:660px){
   footer.site .fg{grid-template-columns:1fr}
 }
+
+/*
+  Op een hoog scherm hield niets de footer tegen: de calculator is ~1650 px
+  hoog, dus op een scherm dat hoger is (of bij uitgezoomde browser) eindigde de
+  pagina halverwege en stond de footer met een witte strook eronder te zweven.
+  Wit, want de paginakleur staat op de paginawortel (`.vh-calc`, `.lv-page`, …)
+  en niet op <body>: onder die wortel valt de bezoeker terug op het wit van het
+  document.
+
+  Vandaar deze twee regels samen — losse helften lossen niets op:
+
+  - de paginawortel (het enige kind van `.page-shell` uit src/Layout.tsx, elke
+    pagina rendert er precies één) wordt minstens zo hoog als het scherm, zodat
+    de paginakleur doorloopt én de footer ruimte heeft om te zakken;
+  - `position:sticky` met `top:100vh` duwt de footer naar de onderrand van dat
+    blok zolang de pagina korter is dan het scherm. Is ze langer, dan zit de
+    footer al voorbij die 100vh en verandert de regel niets — hij is op elke
+    pagina het laatste kind, dus verder dan zijn eigen plek kan hij niet zakken.
+
+  Geen flexbox: de paginawortel tot flexcontainer maken zou op ~30 pagina's de
+  marges tussen secties niet meer laten samenvallen.
+*/
+.page-shell > * {
+  min-height: 100dvh;
+}
+footer.site {
+  position: sticky;
+  top: 100vh;
+}
