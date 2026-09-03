@@ -95,6 +95,9 @@ const ROUTE_SOURCES = {
   "/afhalen": "src/pages/AfhalenPage.tsx",
   "/calculator": "src/pages/CalculatorPage.tsx",
   "/contact": "src/pages/ContactPage.tsx",
+  "/drooggarantie": "src/pages/DrooggarantiePage.tsx",
+  "/hoe-drogen-werkt": "src/pages/HoeDrogenWerktPage.tsx",
+  "/klantservice": "src/pages/KlantservicePage.tsx",
   "/levering": "src/pages/LeveringPage.tsx",
   "/machines": "src/pages/MachinesPage.tsx",
   "/nieuwbouw": "src/pages/NieuwbouwPage.tsx",
@@ -104,6 +107,7 @@ const ROUTE_SOURCES = {
   "/renovatie": "src/pages/RenovatiePage.tsx",
   "/reserveren": "src/pages/ReserverenPage.tsx",
   "/waterschade": "src/pages/WaterschadePage.tsx",
+  "/waarom-bouwdroging": "src/pages/WaaromBouwdrogingPage.tsx",
   "/verhuur/afhalen": "src/pages/verhuur/VerhuurAfhalenPage.tsx",
   "/verhuur/calculator": "src/pages/verhuur/VerhuurCalculatorPage.tsx",
   "/verhuur/pakket": "src/pages/verhuur/VerhuurPakketPage.tsx",
@@ -111,6 +115,16 @@ const ROUTE_SOURCES = {
 
 /** Toestelpagina's komen alle vijf uit hetzelfde sjabloon en dezelfde data. */
 const TOESTEL_SOURCES = ["src/pages/verhuur/VerhuurToestelPage.tsx", "src/data/verhuur.ts"];
+/** Realisatiepagina's ook: één sjabloon, één datalijst. */
+const REALISATIE_SOURCES = ["src/pages/RealisatieDetailPage.tsx", "src/data/realisaties.ts"];
+
+/**
+ * Routes zonder bekende bron krijgen `vandaag` — en dat is precies wat we niet
+ * willen, want dan claimt de sitemap elke deploy een wijziging én pingt
+ * indexnow-ping.mjs die URL's elke keer opnieuw. Op 03-09-2026 waren dat er
+ * stil 26 van de 50. Daarom wordt elke onbekende route nu luid gemeld.
+ */
+const unmappedRoutes = new Set();
 
 function lastCommitDate(paths) {
   try {
@@ -125,8 +139,11 @@ function lastCommitDate(paths) {
 
 function lastmodFor(route) {
   if (route.startsWith("/verhuur/toestel/")) return lastCommitDate(TOESTEL_SOURCES);
+  if (route.startsWith("/realisaties/")) return lastCommitDate(REALISATIE_SOURCES);
   const source = ROUTE_SOURCES[route];
-  return source ? lastCommitDate([source]) : today;
+  if (source) return lastCommitDate([source]);
+  unmappedRoutes.add(route);
+  return today;
 }
 
 const urls = routes
@@ -399,3 +416,10 @@ console.log(
   `[seo] sitemap.xml met ${routes.length} URL's, robots.txt en llms.txt geschreven voor ${SITE_URL}` +
     ` — dateModified op ${dated} pagina's`
 );
+
+if (unmappedRoutes.size > 0) {
+  console.warn(
+    `[seo] ${unmappedRoutes.size} route(s) zonder bron in ROUTE_SOURCES — lastmod staat op vandaag ` +
+      `en IndexNow pingt ze elke deploy: ${[...unmappedRoutes].sort().join(", ")}`
+  );
+}
