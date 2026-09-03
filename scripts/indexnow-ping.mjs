@@ -21,6 +21,13 @@
  * Ownership is proven by public/<key>.txt, served from the site root; the key
  * is public by design (IndexNow spec), so it is committed, not a secret.
  *
+ * Mind the first ping of a NEW key: this script runs inside the Vercel build,
+ * i.e. before the deploy is live. Bing validates the key on first use and
+ * remembers a miss — on 2026-09-03 it fetched the key file 25 seconds before
+ * it existed and refused the host ("UserForbiddedToAccessSite") from then on.
+ * So when rotating the key, make sure that deploy pings nothing, then run
+ * `--all` by hand once the key file answers 200.
+ *
  * A failed ping is logged, never fatal: this is an accelerator, not a gate.
  */
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
