@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:api": "set -a && . ./.env.local && set +a && vercel dev",
-    "build": "npm run typecheck && node scripts/fetch-tarieven.mjs && vite-react-ssg build && node scripts/generate-seo-files.mjs",
+    "build": "npm run typecheck && node scripts/fetch-tarieven.mjs && vite-react-ssg build && node scripts/generate-seo-files.mjs && node scripts/indexnow-ping.mjs",
     "build:dev": "node scripts/fetch-tarieven.mjs && vite-react-ssg build --mode development",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "lint": "eslint .",
