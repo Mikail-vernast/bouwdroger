@@ -20,6 +20,7 @@ import {
   dryingDays,
   euro,
   packageGallery,
+  packageGalleryAlts,
   packageImage,
   configPrice,
   configWeeks,
@@ -39,6 +40,7 @@ const VerhuurPakketPage = () => {
   const items = useMemo(() => allItems(config), [config]);
   const lead = packageImage(config, items);
   const gallery = packageGallery(config, items);
+  const galleryAlts = packageGalleryAlts(config, items, gallery);
 
   const [shot, setShot] = useState(0);
   const [tab, setTab] = useState(SPECS[0].k);
@@ -112,7 +114,7 @@ const VerhuurPakketPage = () => {
             <div className="gal">
               <div className="gmain">
                 <span className="gtag">Alles in één Droogservice</span>
-                <img src={gallery[shot]} alt="Vernast droogpakket" loading="lazy" decoding="async" />
+                <img src={gallery[shot]} alt={galleryAlts[shot]} loading="lazy" decoding="async" />
               </div>
               <div className="gth">
                 {gallery.map((src, i) => (
@@ -123,7 +125,7 @@ const VerhuurPakketPage = () => {
                     onClick={() => setShot(i)}
                     aria-label={`Afbeelding ${i + 1}`}
                   >
-                    <img src={src} alt="" loading="lazy" decoding="async" />
+                    <img src={src} alt={galleryAlts[i]} loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>

@@ -14,6 +14,7 @@ import {
   type ImageRule,
 } from "../data/verhuur.js";
 import { packageSizes, packageThicknesses } from "../data/packages.js";
+import { altVoorBeeld } from "./altTekst.js";
 import {
   packageFor,
   packageItems,
@@ -480,6 +481,34 @@ export function packageGallery(c: PackageConfig, items?: PackageItem[]): string[
     [bron.basis, ...bron.regels.map((r) => r.image)].filter(Boolean),
   );
   return [lead, ...uit.filter((foto) => foto !== lead && !varianten.has(foto))];
+}
+
+/**
+ * De alt-teksten bij `packageGallery`, in dezelfde volgorde.
+ *
+ * De pakketfoto uit het portaal is de banner "Alles in één Droogservice" met
+ * de toestellen en hun aantallen erin; die beschrijven we vanuit de werkelijke
+ * samenstelling. De overige beelden zijn toestelfoto's met een vaste
+ * bestandsnaam — die kent `altVoorBeeld`. Een beeld dat we niet herkennen
+ * krijgt de pakketomschrijving mee, nooit een lege alt.
+ */
+export function packageGalleryAlts(c: PackageConfig, items: PackageItem[], gallery: string[]): string[] {
+  const samenstelling = items
+    .filter((it) => it.q > 0)
+    .map((it) => `${it.q}× ${CAT[it.k].name}`)
+    .join(", ");
+  const werk: Record<string, string> = {
+    pleister: "pleisterwerk",
+    chape: "chape",
+    beide: "pleisterwerk en chape",
+    waterschade: "waterschade",
+  };
+  const pakket = `Droogpakket voor ${werk[c.wat] ?? c.wat}, ${packageSpecLine(c).toLowerCase()}`;
+  return gallery.map((src, i) =>
+    i === 0
+      ? `Samenstelling van uw droogpakket: ${samenstelling || pakket}`
+      : altVoorBeeld(src, `${pakket}, foto ${i + 1}`),
+  );
 }
 
 /** Huurperiode die standaard bij de droogtijd van dit pakket past. */

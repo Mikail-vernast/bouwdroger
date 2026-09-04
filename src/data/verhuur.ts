@@ -6,6 +6,7 @@
  */
 
 import { TARIEVEN } from "./tarieven.js";
+import { altVoorBeeld } from "../lib/altTekst.js";
 
 export type DeviceKey = "small" | "medium" | "axiaal" | "kachel";
 
@@ -364,6 +365,12 @@ export interface Product {
   /** dagprijs in euro */
   day: number;
   img: string[];
+  /**
+   * Eén omschrijving per foto in `img`, in dezelfde volgorde. De foto's zelf
+   * komen uit het portaal; de omschrijving is redactioneel en staat hier.
+   * Lees ze via `productImageAlt`, die ook een nieuw portaalbeeld opvangt.
+   */
+  imgAlt: string[];
   sum: string;
   /** [label, waarde, eenheid] */
   key: [string, string, string][];
@@ -382,6 +389,10 @@ export interface Product {
  */
 const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "badge" | "day" | "img" | "sum">> = {
   ttk170: {
+    imgAlt: [
+      "Vernast ECO Boost, condensontvochtiger TTK 170 S van 50 liter per dag voor ruimtes tot 250 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de TTK 170 S is het kleinste model",
+    ],
     key: [
       ["Vochtafvoer", "50", "L/dag"],
       ["Bereik", "250", "m³"],
@@ -429,6 +440,10 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
   },
   ttk350: {
+    imgAlt: [
+      "Vernast ECO Performance, condensontvochtiger TTK 350 S van 70 liter per dag voor ruimtes tot 400 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de TTK 350 S is het middelste model",
+    ],
     key: [
       ["Vochtafvoer", "70", "L/dag"],
       ["Bereik", "400", "m³"],
@@ -480,6 +495,10 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
   },
   ttk650: {
+    imgAlt: [
+      "Vernast ECO Ultimate, condensontvochtiger TTK 650 S van 90 liter per dag voor ruimtes tot 600 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de TTK 650 S is het grootste model",
+    ],
     key: [
       ["Vochtafvoer", "90", "L/dag"],
       ["Bereik", "600", "m³"],
@@ -531,6 +550,9 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
   },
   ttv4500: {
+    imgAlt: [
+      "Vernast Turbo Axiaalventilator TTV 4500, bouwventilator met 4.500 m³/u luchtverzet",
+    ],
     key: [
       ["Luchtverzet", "4 500", "m³/u"],
       ["Standen", "3", ""],
@@ -577,6 +599,9 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
   },
   teddh30: {
+    imgAlt: [
+      "Vernast elektrische bouwkachel TEddH 30 T, 30 kW met ingebouwde thermostaat",
+    ],
     key: [
       ["Vermogen", "30", "kW"],
       ["Aansluiting", "400", "V"],
@@ -627,6 +652,9 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
   },
   teddh20: {
+    imgAlt: [
+      "Vernast elektrische bouwkachel TEddH 20 T, 20 kW met thermostaat voor kleinere ruimtes",
+    ],
     key: [
       ["Vermogen", "20", "kW"],
       ["Aansluiting", "400", "V"],
@@ -670,6 +698,10 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
   },
   radiaal2250: {
+    imgAlt: [
+      "Vernast Turbo Radiaalventilator van 2.250 m³/u, blaast gericht over vloeren en chape",
+      "Afmetingen van de Vernast radiaalventilator: 54,5 × 51,5 × 49 cm, 20 kg",
+    ],
     key: [
       ["Luchtverzet", "2 250", "m³/u"],
       ["Standen", "3", ""],
@@ -722,6 +754,9 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     fiche moet dan nog aangevuld worden met de cijfers van het gekozen model.
   */
   revolution: {
+    imgAlt: [
+      "Vernast ECO Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
+    ],
     key: [
       ["Techniek", "Adsorptie", ""],
       ["Drogen", "via slangen", ""],
@@ -787,6 +822,15 @@ export const PRODUCTS: Record<string, Product> = Object.fromEntries(
     ];
   })
 );
+
+/**
+ * De alt-tekst van foto `i` van een toestel. Publiceert het portaal een foto
+ * waar hier nog geen omschrijving voor staat, dan beschrijft `altVoorBeeld`
+ * die aan de hand van de bestandsnaam, en anders is het de toestelnaam.
+ */
+export function productImageAlt(product: Pick<Product, "name" | "img" | "imgAlt">, i: number): string {
+  return product.imgAlt[i] ?? altVoorBeeld(product.img[i] ?? "", product.name);
+}
 
 /** De gammavolgorde, beperkt tot wat het portaal vandaag te huur aanbiedt. */
 export const PRODUCT_ORDER = [

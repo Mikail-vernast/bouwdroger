@@ -35,6 +35,7 @@ const ProductDetail = () => {
   }
 
   const allImages = [product.image, ...(product.gallery || [])];
+  const allAlts = allImages.map((_, i) => (i === 0 ? product.imageAlt : product.galleryAlt?.[i - 1] ?? product.imageAlt));
 
   const categoryLabels: Record<string, string> = {
     bouwdrogers: "Bouwdroger",
@@ -104,7 +105,7 @@ const ProductDetail = () => {
             <div className="bg-secondary rounded-2xl p-8 flex items-center justify-center aspect-square">
               <img
                 src={allImages[activeImage]}
-                alt={product.name}
+                alt={allAlts[activeImage]}
                 className="max-h-full max-w-full object-contain" loading="lazy" decoding="async" />
             </div>
             {allImages.length > 1 && (
@@ -117,7 +118,7 @@ const ProductDetail = () => {
                       activeImage === i ? "border-primary" : "border-border hover:border-primary/30"
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <img src={img} alt={allAlts[i]} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>

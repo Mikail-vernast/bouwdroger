@@ -7,6 +7,7 @@ import { ArrowRightIcon, CaretIcon, CheckIcon } from "@/components/verhuur/icons
 import { PinIcon } from "@/components/home-v3/icons";
 import {
   PRODUCTS,
+  productImageAlt,
   PRODUCT_ADDONS,
   PRODUCT_ORDER,
   SC_LABEL,
@@ -197,7 +198,7 @@ const VerhuurToestelPage = () => {
             <div className="gal">
               <div className="main">
                 <span className="badge">{prod.badge}</span>
-                <img src={prod.img[shot]} alt={prod.name} loading="lazy" decoding="async" />
+                <img src={prod.img[shot]} alt={productImageAlt(prod, shot)} loading="lazy" decoding="async" />
               </div>
               {prod.img.length > 1 && (
                 <div className="thumbs">
@@ -209,7 +210,7 @@ const VerhuurToestelPage = () => {
                       onClick={() => setShot(i)}
                       aria-label={`Afbeelding ${i + 1}`}
                     >
-                      <img src={src} alt="" loading="lazy" decoding="async" />
+                      <img src={src} alt={productImageAlt(prod, i)} loading="lazy" decoding="async" />
                     </button>
                   ))}
                 </div>
@@ -391,7 +392,7 @@ const VerhuurToestelPage = () => {
                                   setAddons((p) => ({ ...p, [k]: e.target.checked }))
                                 }
                               />
-                              <img src={a.img[0]} alt="" loading="lazy" decoding="async" />
+                              <img src={a.img[0]} alt={productImageAlt(a, 0)} loading="lazy" decoding="async" />
                               <span className="at">
                                 {a.short}
                                 <small>{a.type}</small>
@@ -595,7 +596,7 @@ const VerhuurToestelPage = () => {
               return (
                 <Link className="cc" to={`/verhuur/toestel/${k}`} key={k}>
                   <div className="cm">
-                    <img src={c.img[0]} alt={c.name} loading="lazy" decoding="async" />
+                    <img src={c.img[0]} alt={productImageAlt(c, 0)} loading="lazy" decoding="async" />
                   </div>
                   <div className="cb">
                     <h3>{c.short}</h3>

@@ -45,6 +45,7 @@ const buildingTypes: {
   desc: string;
   typicalSize: string;
   image: string;
+  imageAlt: string;
 }[] = [
   {
     value: "vrijstaand",
@@ -53,6 +54,7 @@ const buildingTypes: {
     desc: "Alleenstaand huis met tuin",
     typicalSize: "180 – 300 m²",
     image: "/products/pakket-1.webp",
+    imageAlt: "Vernast droogpakket voor een vrijstaande woning: bouwdroger, ventilator en kachel",
   },
   {
     value: "halfopen",
@@ -61,6 +63,7 @@ const buildingTypes: {
     desc: "Woning met één gemeenschappelijke muur",
     typicalSize: "140 – 220 m²",
     image: "/products/pakket-2.webp",
+    imageAlt: "Vernast droogpakket voor een halfopen bebouwing: bouwdrogers, ventilatoren en kachel",
   },
   {
     value: "rijwoning",
@@ -69,6 +72,7 @@ const buildingTypes: {
     desc: "Tussengelegen woning in een rij",
     typicalSize: "100 – 180 m²",
     image: "/products/pakket-3.webp",
+    imageAlt: "Vernast droogpakket voor een rijwoning: bouwdroger, ventilatoren en kachel",
   },
   {
     value: "appartement",
@@ -77,6 +81,7 @@ const buildingTypes: {
     desc: "Flat of studio in een gebouw",
     typicalSize: "60 – 140 m²",
     image: "/products/pakket-4.webp",
+    imageAlt: "Vernast droogpakket voor een appartement: bouwdroger, ventilator en kachel",
   },
 ];
 
@@ -336,7 +341,7 @@ const DeliveryWizard = () => {
                       >
                         {/* Card background image */}
                         <div className="absolute inset-0">
-                          <img src={bt.image} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                          <img src={bt.image} alt={bt.imageAlt} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                           <div className={`absolute inset-0 transition-all duration-300 ${
                             selected
                               ? "bg-gradient-to-t from-accent/90 via-accent/60 to-accent/30"

@@ -86,17 +86,31 @@ const SCREED: RulerConfig = {
 };
 
 const WHAT = [
-  { v: "pleister", image: "/vernast/wat-pleister.webp", title: "Pleisterwerk", sub: "Muren drogen" },
-  { v: "chape", image: "/vernast/wat-chape.webp", title: "Vloer drogen", sub: "Chape" },
+  {
+    v: "pleister",
+    image: "/vernast/wat-pleister.webp",
+    alt: "Vers gepleisterde muren in een woning in afwerking",
+    title: "Pleisterwerk",
+    sub: "Muren drogen",
+  },
+  {
+    v: "chape",
+    image: "/vernast/wat-chape.webp",
+    alt: "Verse chapevloer in een nieuwbouwwoning",
+    title: "Vloer drogen",
+    sub: "Chape",
+  },
   {
     v: "beide",
     image: "/vernast/wat-beide.webp",
+    alt: "Leefruimte met vers pleisterwerk én een verse chapevloer",
     title: "Pleisterwerk + chape",
     sub: "Muren + vloer drogen",
   },
   {
     v: "waterschade",
     image: "/vernast/wat-waterschade.webp",
+    alt: "Muur met vochtschade en schimmel na waterschade",
     title: "Waterschade",
     sub: "Absorptiedroging, snel geleverd",
   },
@@ -231,7 +245,7 @@ const VerhuurCalculatorPage = () => {
             Droogpakket samenstellen — bereken uw toestellen, droogtijd en prijs
           </h1>
           <div className="acard">
-            <img className="worker" src="/vernast/worker-carry.webp" alt="" loading="lazy" decoding="async" />
+            <img className="worker" src="/vernast/worker-carry.webp" alt="Vernast technieker draagt een bouwdroger op zijn rug" loading="lazy" decoding="async" />
             <div className="inner">
               <div className="aptop">
                 <button
@@ -288,7 +302,7 @@ const VerhuurCalculatorPage = () => {
                         className={`wcard${answers.wat === option.v ? " sel" : ""}`}
                         onClick={() => answer({ wat: option.v })}
                       >
-                        <img src={option.image} alt="" loading="lazy" decoding="async" />
+                        <img src={option.image} alt={option.alt} loading="lazy" decoding="async" />
                         <span className="wb">
                           <span className="oc" />
                           <span>
