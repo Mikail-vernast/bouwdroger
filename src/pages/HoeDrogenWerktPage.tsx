@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
-import AnswerBlock from "@/components/AnswerBlock";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
@@ -55,7 +54,6 @@ const HoeDrogenWerktPage = () => (
       </section>
     </div>
 
-    <AnswerBlock path="/hoe-drogen-werkt" />
 
     {/* ================= HET PRINCIPE ================= */}
     <section className="sw">

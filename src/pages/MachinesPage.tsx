@@ -1,5 +1,4 @@
 import PageMeta from "@/components/PageMeta";
-import AnswerBlock from "@/components/AnswerBlock";
 import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -200,7 +199,6 @@ const MachinesPage = () => {
           </div>
         </section>
 
-        <AnswerBlock path="/machines" />
 
         {/* Always included strip */}
         <section className="py-5 border-b border-border bg-secondary">
