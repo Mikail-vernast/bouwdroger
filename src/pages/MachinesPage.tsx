@@ -157,7 +157,7 @@ const MachinesPage = () => {
           */}
           <img
             src={machinesHero}
-            alt=""
+            alt="Vernast technieker rolt een eco-bouwdroger naar de werf"
             className="w-full h-auto block"
             width={1400}
             height={742}
@@ -262,7 +262,7 @@ const MachinesPage = () => {
                   <div className="bg-white mx-4 my-4 rounded-xl p-4 flex items-center justify-center">
                     <img
                       src={product.image}
-                      alt={product.name}
+                      alt={product.imageAlt}
                       className="h-36 w-full object-contain" loading="lazy" decoding="async" />
                   </div>
 
@@ -337,7 +337,7 @@ const MachinesPage = () => {
                         <div className="bg-secondary rounded-xl p-3 mb-4 flex items-center justify-center">
                           <img
                             src={product.image}
-                            alt={product.name}
+                            alt={product.imageAlt}
                             className="h-28 object-contain" loading="lazy" decoding="async" />
                         </div>
                       )}
@@ -424,7 +424,7 @@ const MachinesPage = () => {
                         <div className="bg-white rounded-xl p-3 mb-4 flex items-center justify-center">
                           <img
                             src={product.image}
-                            alt={product.name}
+                            alt={product.imageAlt}
                             className="h-24 object-contain" loading="lazy" decoding="async" />
                         </div>
                       )}

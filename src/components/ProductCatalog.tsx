@@ -57,7 +57,7 @@ const ProductCatalog = () => {
                         <div className="aspect-[4/3] bg-secondary flex items-center justify-center overflow-hidden rounded-t-lg p-4">
                           <img
                             src={product.image}
-                            alt={product.name}
+                            alt={product.imageAlt}
                             className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform"
                             loading="lazy"
                           />

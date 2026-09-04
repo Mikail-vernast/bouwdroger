@@ -976,7 +976,7 @@ const VerhuurBoekingPage = () => {
                   {DEVICE_KEYS.map((k) => (
                     <div className="ex" key={k}>
                       <span className="exi">
-                        <img src={CAT[k].img} alt="" loading="lazy" decoding="async" />
+                        <img src={CAT[k].img} alt={CAT[k].name} loading="lazy" decoding="async" />
                       </span>
                       <span className="ext">
                         <b>{CAT[k].name}</b>

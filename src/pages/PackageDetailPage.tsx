@@ -40,6 +40,7 @@ import PageMeta from "@/components/PageMeta";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, productSchema } from "@/lib/schema";
 import { maskEmail, maskPhone } from "@/lib/inputMask";
+import { altVoorBeeld } from "@/lib/altTekst";
 
 type CustomerType = "particulier" | "zakelijk";
 
@@ -118,6 +119,18 @@ const PackageDetailPage = () => {
   // Beheerd in het Vernast-portaal; publiceerde nog niemand een galerij voor dit
   // pakket, dan de vaste lijst per werksoort van vroeger.
   const gallery = pkg.images.length ? pkg.images : categoryImages[pkg.category] || defaultGallery;
+  // De pakketfoto uit het portaal is de banner met de toestellen en hun
+  // aantallen; die beschrijven we vanuit de samenstelling. De rest kent
+  // `altVoorBeeld` aan zijn bestandsnaam, met de pakkettitel als terugval.
+  const samenstelling = pkg.equipment
+    .filter((item) => !item.optional)
+    .map((item) => `${item.count}× ${item.name}`)
+    .join(", ");
+  const galleryAlts = gallery.map((img, i) =>
+    i === 0
+      ? `Samenstelling van het pakket ${pkg.title}: ${samenstelling || pkg.description}`
+      : altVoorBeeld(img, `${pkg.title}, foto ${i + 1}`),
+  );
 
   // Duration calculation
   const rentalDays = startDate && endDate ? Math.max(1, differenceInDays(endDate, startDate)) : 14;
@@ -271,7 +284,7 @@ const PackageDetailPage = () => {
                 <div className="relative rounded-2xl overflow-hidden bg-muted/30 aspect-[4/3] mb-3">
                   <img
                     src={gallery[activeImg]}
-                    alt={pkg.title}
+                    alt={galleryAlts[activeImg]}
                     className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   {/* USP badges overlay */}
                   <div className="absolute bottom-4 left-4 space-y-2">
@@ -298,7 +311,7 @@ const PackageDetailPage = () => {
                         i === activeImg ? "border-primary shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
                       )}
                     >
-                      <img src={img} alt={`Foto ${i + 1}`} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                      <img src={img} alt={galleryAlts[i]} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                     </button>
                   ))}
                 </div>

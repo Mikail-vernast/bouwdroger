@@ -83,7 +83,7 @@ const ShopPage = () => {
                   <div className="aspect-square bg-muted/30 p-6 flex items-center justify-center">
                     <img
                       src={product.image}
-                      alt={product.name}
+                      alt={product.imageAlt}
                       className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform" loading="lazy" decoding="async" />
                   </div>
                   <div className="p-5">
