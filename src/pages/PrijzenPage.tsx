@@ -1,5 +1,6 @@
 import Reveal from "@/components/Reveal";
 import PageMeta from "@/components/PageMeta";
+import AnswerBlock from "@/components/AnswerBlock";
 import { breadcrumbSchema, faqSchema, offerCatalogSchema, serviceSchema } from "@/lib/schema";
 import Navbar from "@/components/Navbar";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -133,6 +134,8 @@ const PrijzenPage = () => {
             </p>
           </div>
         </section>
+
+        <AnswerBlock path="/prijzen" />
 
         {/* Pricing table */}
         <section className="py-14 md:py-20">
