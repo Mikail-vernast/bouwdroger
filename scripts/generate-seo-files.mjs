@@ -113,6 +113,13 @@ const ROUTE_SOURCES = {
   "/verhuur/pakket": "src/pages/verhuur/VerhuurPakketPage.tsx",
 };
 
+/**
+ * Pagina's met een AnswerBlock veranderen ook als de antwoordteksten of de
+ * tarievenlijst veranderen — die zinnen staan letterlijk op de pagina.
+ */
+const ANSWER_SOURCES = ["src/data/answers.ts", "src/data/tarieven.ts", "src/components/AnswerBlock.tsx"];
+const ANSWER_ROUTES = new Set(["/", "/prijzen", "/nieuwbouw", "/waterschade", "/renovatie", "/machines", "/hoe-drogen-werkt", "/waarom-bouwdroging", "/levering"]);
+
 /** Toestelpagina's komen alle vijf uit hetzelfde sjabloon en dezelfde data. */
 const TOESTEL_SOURCES = ["src/pages/verhuur/VerhuurToestelPage.tsx", "src/data/verhuur.ts"];
 /** Realisatiepagina's ook: één sjabloon, één datalijst. */
@@ -141,7 +148,7 @@ function lastmodFor(route) {
   if (route.startsWith("/verhuur/toestel/")) return lastCommitDate(TOESTEL_SOURCES);
   if (route.startsWith("/realisaties/")) return lastCommitDate(REALISATIE_SOURCES);
   const source = ROUTE_SOURCES[route];
-  if (source) return lastCommitDate([source]);
+  if (source) return lastCommitDate(ANSWER_ROUTES.has(route) ? [source, ...ANSWER_SOURCES] : [source]);
   unmappedRoutes.add(route);
   return today;
 }

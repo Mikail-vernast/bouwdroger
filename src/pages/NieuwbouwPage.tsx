@@ -1,4 +1,5 @@
 import PageMeta from "@/components/PageMeta";
+import AnswerBlock from "@/components/AnswerBlock";
 import Navbar from "@/components/Navbar";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { Button } from "@/components/ui/button";
@@ -132,6 +133,8 @@ const NieuwbouwPage = () => {
             </div>
           </div>
         </section>
+
+        <AnswerBlock path="/nieuwbouw" />
 
         {/* 2. PROBLEM VS SOLUTION */}
         <section className="py-14 md:py-20">

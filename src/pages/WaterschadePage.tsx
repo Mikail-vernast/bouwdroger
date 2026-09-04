@@ -1,4 +1,5 @@
 import PageMeta from "@/components/PageMeta";
+import AnswerBlock from "@/components/AnswerBlock";
 import Navbar from "@/components/Navbar";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { Button } from "@/components/ui/button";
@@ -144,6 +145,8 @@ const WaterschadePage = () => {
             </div>
           </div>
         </section>
+
+        <AnswerBlock path="/waterschade" />
 
         {/* 2. TRUST ROW */}
         <section className="bg-background py-6 border-b border-border">

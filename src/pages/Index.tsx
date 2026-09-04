@@ -1,4 +1,5 @@
 import PageMeta from "@/components/PageMeta";
+import AnswerBlock from "@/components/AnswerBlock";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Hero from "@/components/home-v3/V3Hero";
 import V3StatRule from "@/components/home-v3/V3StatRule";
@@ -42,6 +43,7 @@ const Index = () => {
       <V3Header />
       <main>
         <V3Hero />
+        <AnswerBlock path="/" />
         <V3StatRule />
         <V3Products />
         <V3HowItWorks />
