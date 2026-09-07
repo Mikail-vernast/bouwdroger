@@ -19,7 +19,7 @@ export const SEO = {
   home: {
     title: "Bouwdroger huren in Vlaanderen — geleverd in 24 u | Vernast",
     description:
-      "Bereken exact welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie, vochtmeting en ophaling inbegrepen — binnen 24 uur in heel Vlaanderen.",
+      "Bereken welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie, vochtmeting en ophaling inbegrepen — binnen 24 uur in heel Vlaanderen.",
   },
 
   /* ---------- Toepassingen: elk een eigen zoekintentie ---------- */
@@ -41,7 +41,7 @@ export const SEO = {
 
   /* ---------- Aanbod ---------- */
   machines: {
-    title: "Ons gamma: bouwdrogers, ventilatoren en bouwkachels | Vernast",
+    title: "Bouwdrogers, ventilatoren en bouwkachels huren | Vernast",
     description:
       "Bekijk alle toestellen die u bij ons huurt: condensontvochtigers van 50 tot 90 l per dag, axiaal- en radiaalventilatoren en elektrische bouwkachels.",
   },
@@ -121,17 +121,17 @@ export const SEO = {
   drooggarantie: {
     title: "Drooggarantie: 100% droog of kosteloos verlengen | Vernast",
     description:
-      "De Vernast Drooggarantie: uw woning is 100% droog binnen de berekende periode, bevestigd door een vochtmeting. Niet droog? Dan huurt u kosteloos verder. Bekijk de voorwaarden.",
+      "De Vernast Drooggarantie: uw woning is 100% droog binnen de berekende periode, bevestigd door een vochtmeting. Niet droog? Dan huurt u kosteloos verder.",
   },
   hoeDrogenWerkt: {
     title: "Hoe droogt een bouwdroger? Zo werkt bouwdroging | Vernast",
     description:
-      "Hoe werkt een bouwdroger? Alles over temperatuur, relatieve luchtvochtigheid en luchtcirculatie: de volledige cyclus van nat pleisterwerk, chape of beton naar een droge constructie.",
+      "Hoe werkt een bouwdroger? Over temperatuur, luchtvochtigheid en luchtcirculatie: de cyclus van nat pleisterwerk, chape of beton naar een droge constructie.",
   },
   waaromBouwdroging: {
-    title: "Waarom bouwdroging? Sneller, veiliger en zuiniger drogen | Vernast",
+    title: "Waarom bouwdroging? Sneller en veiliger drogen | Vernast",
     description:
-      "Waarom een bouwdroger huren? Natuurlijke droging is traag en onvoorspelbaar. Gecontroleerde bouwdroging beschermt uw afwerking, versnelt uw planning en is gemeten droog, met garantie.",
+      "Natuurlijke droging is traag en onvoorspelbaar. Gecontroleerde bouwdroging beschermt uw afwerking, versnelt uw planning en is gemeten droog, met garantie.",
   },
 
   /* ---------- Juridisch ---------- */
@@ -157,7 +157,7 @@ export const SEO = {
   verhuurAfhalen: {
     title: "Losse toestellen huren en afhalen in Aartselaar | Vernast",
     description:
-      "Huur losse bouwdrogers, ventilatoren en kachels tegen lagere afhaalprijzen en haal ze op in ons magazijn in Aartselaar. Online reserveren met 5% korting of een voorschot.",
+      "Huur losse bouwdrogers, ventilatoren en kachels tegen lagere afhaalprijzen en haal ze op in ons magazijn in Aartselaar. Online reserveren met 5% korting.",
   },
   verhuurBoeking: {
     title: "Uw boeking afronden | Vernast",

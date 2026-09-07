@@ -114,10 +114,28 @@ export interface ReviewSummary {
  */
 export const REVIEWS: ReviewSummary | null = null;
 
-/** Zustersites binnen Vernast Group; `sameAs` verankert de entiteit. */
+/**
+ * Wat Google en de AI-assistenten nodig hebben om deze host aan hetzelfde
+ * bedrijf te koppelen als de drie andere.
+ *
+ * Alleen de zustersites volstaat niet: dan staat deze site in de grafiek als
+ * een knoop die naar twee andere wijst en waar niets naar terugwijst. De
+ * hoofdsite en de sociale profielen horen er ook in, en in hun canonieke vorm --
+ * `https://www.vernast-vochtbestrijding.be/` stuurt een 308 naar de host zonder
+ * www, en een sameAs die eerst omleidt is een zwakker signaal dan een die direct
+ * aankomt.
+ *
+ * Het Google-Maps-adres van de andere drie staat hier bewust NIET bij: die delen
+ * Ballaarstraat 99 in Antwerpen, het magazijn hier is Aartselaar. Eén place-id
+ * op twee adressen plakken maakt de NAP-gegevens juist inconsistent.
+ */
 export const SAME_AS = [
-  "https://www.vernast-vochtbestrijding.be/",
+  "https://www.vernast.be/",
+  "https://vernast-vochtbestrijding.be/",
   "https://www.vernast-schilderwerken.be/",
+  "https://www.linkedin.com/company/vernast",
+  "https://www.facebook.com/people/Vernastbe/61559074829852/",
+  "https://www.instagram.com/vernast.be/",
 ] as const;
 
 export function absoluteUrl(path: string): string {

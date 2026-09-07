@@ -1586,7 +1586,7 @@ export const REALISATIES: Realisatie[] = [
   },
   {
     slug: "levis",
-    titel: "Schimmel in de kelderopslag gesaneerd bij Levi’s&reg;",
+    titel: "Schimmel in de kelderopslag gesaneerd bij Levi’s®",
     chip: "Bouwdroging · winkelpand",
     soort: "vochtbeheersing",
     locatie: "Schimmelsanering · winkelpand",
@@ -2161,13 +2161,62 @@ export const plaatsVan = (r: Realisatie): string | null => {
  */
 const TITEL_MAX = 60;
 
+/**
+ * Kapt af op de laatste woordgrens die nog past, niet op het teken.
+ *
+ * Een snede op tekenpositie levert "schimmelvr…" op: in een zoekresultaat leest
+ * dat als een fout, niet als een afkorting. Woordgrens gaat voor lengte, dus de
+ * uitkomst kan flink korter zijn dan het maximum — dat is beter dan een half
+ * woord. Alleen als het eerste woord al te lang is valt hij terug op de harde
+ * snede, want dan is er geen grens om op te kiezen.
+ */
+function kapAf(tekst: string, max: number): string {
+  if (tekst.length <= max) return tekst;
+  const ruimte = Math.max(0, max - 1);
+  const hard = tekst.slice(0, ruimte);
+  const grens = hard.lastIndexOf(" ");
+  const kort = (grens > 0 ? hard.slice(0, grens) : hard).replace(/[\s,;:–—-]+$/u, "");
+  return `${kort}…`;
+}
+
+/**
+ * Bouwt de beschrijving uit hele zinnen: neem er zoveel als er binnen `max`
+ * passen. Een snede middenin een zin leest in een zoekresultaat als een fout,
+ * een korte volledige zin niet. Alleen als de eerste zin al te lang is valt
+ * hij terug op de woordgrens.
+ */
+function uitHeleZinnen(tekst: string, max: number, min: number): string {
+  const zinnen = tekst.match(/[^.!?]+[.!?]+/g) ?? [];
+  let uit = "";
+  for (const zin of zinnen) {
+    const kandidaat = `${uit}${zin}`.trim();
+    if (kandidaat.length > max) break;
+    uit = `${kandidaat} `;
+  }
+  const heel = uit.trim();
+  // Eén korte openingszin ("Na het pleisteren zit er nog veel bouwvocht in de
+  // muren.", 56 tekens) vult het zoekresultaat niet en nodigt Google uit om
+  // zelf een snippet te verzinnen. Dan liever een langere, afgekapte tekst.
+  return heel.length >= min ? heel : kapAf(tekst, max - 2);
+}
+
 export function realisatieMeta(r: Realisatie): { title: string; description: string } {
   const plaats = plaatsVan(r);
-  const staart = `${plaats ? ` in ${plaats}` : ""} | Vernast`;
-  const ruimte = TITEL_MAX - staart.length;
-  const kop = r.titel.length > ruimte ? `${r.titel.slice(0, Math.max(0, ruimte - 1)).trimEnd()}…` : r.titel;
-  return {
-    title: `${kop}${staart}`,
-    description: r.lede.length > 158 ? `${r.lede.slice(0, 155).trimEnd()}…` : r.lede,
-  };
+  // In volgorde van voorkeur; de eerste die past wint. Plaats gaat vóór merk:
+  // "... in Brugge" zegt een lezer meer dan "| Vernast", en de merknaam zet
+  // Google er in het resultaat toch vaak zelf achter. Afkappen is de laatste
+  // uitweg, niet de eerste -- een titel met "schimmelvr…" erin kost meer dan
+  // een titel zonder plaats.
+  const kandidaten = [
+    `${r.titel}${plaats ? ` in ${plaats}` : ""} | Vernast`,
+    `${r.titel}${plaats ? ` in ${plaats}` : ""}`,
+    `${r.titel} | Vernast`,
+    r.titel,
+  ];
+  // Past zelfs de kale titel niet, dan gaat hij ongeknipt mee. Google kapt in
+  // het resultaat toch op pixelbreedte af, en zijn snede is beter dan een "…"
+  // die wij in de tag bakken -- die staat er ook in de deel-preview en in wat
+  // een AI-assistent citeert.
+  const title = kandidaten.find((k) => k.length <= TITEL_MAX) ?? r.titel;
+  return { title, description: uitHeleZinnen(r.lede, 160, 110) };
 }
