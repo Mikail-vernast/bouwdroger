@@ -149,7 +149,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
                         <Link to="/verhuur/toestel/ttv4500">Turbo axiaalventilator</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/toestel/ttv-radiaal">Turbo radiaalventilator</Link>
+                        <Link to="/verhuur/toestel/radiaal2250">Turbo radiaalventilator</Link>
                       </li>
                       <li>
                         <Link to="/verhuur/toestel/teddh30">Elektrische kachel 3,30 kW</Link>
