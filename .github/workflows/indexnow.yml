@@ -1,0 +1,65 @@
+name: IndexNow
+
+# Meldt na elke push naar main welke pagina's veranderd zijn bij Bing, zodat
+# ChatGPT search, Copilot en DuckDuckGo — die allemaal uit Bings index lezen —
+# het binnen uren oppikken in plaats van weken.
+#
+# Waarom juist op deze site: op 11-09-2026 stonden 48 van de 50 URL's niet in
+# Google, 25 daarvan als "URL is onbekend bij Google", en was de homepage voor
+# het laatst op 14 augustus gecrawld. Wachten tot een zoekmachine uit zichzelf
+# langskomt is hier geen strategie gebleken.
+#
+# De sitemap wordt tijdens de build geschreven, dus die build moet hier ook
+# draaien; de wachttijd geeft de Vercel-deploy een voorsprong zodat Bing niet
+# de vorige versie ophaalt.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      alles:
+        description: "Elke URL uit de sitemap melden in plaats van alleen de gewijzigde"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    name: Gewijzigde pagina's melden
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # lastmod komt uit de git-historie van het bronbestand; met een
+          # ondiepe checkout valt die datum terug op vandaag en zou elke deploy
+          # de hele sitemap melden.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build (schrijft dist/sitemap.xml met lastmod uit git)
+        run: npm run build
+
+      - name: Geef de Vercel-deploy een voorsprong
+        run: sleep 90
+
+      # De input is een boolean, maar hij gaat via env naar de shell in plaats
+      # van rechtstreeks in de run-regel: dat is de vorm die ook standhoudt als
+      # hier ooit een vrije-tekstinput bij komt.
+      - name: Ping IndexNow
+        env:
+          ALLES: ${{ inputs.alles }}
+        run: |
+          if [ "$ALLES" = "true" ]; then
+            node scripts/indexnow-ping.mjs --all
+          else
+            node scripts/indexnow-ping.mjs
+          fi
