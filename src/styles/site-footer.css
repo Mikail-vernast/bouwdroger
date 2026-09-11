@@ -49,6 +49,12 @@ footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
   footer.site .fg{grid-template-columns:1fr}
 }
 
+/* Werkgebied: de vijf regiopagina's als één regel boven de onderbalk. */
+footer.site .fw{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:18px 0;margin-bottom:28px;border-top:1px solid rgba(255,255,255,.1);font-size:14px}
+footer.site .fw span{color:rgba(255,255,255,.5);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;margin-right:6px}
+footer.site .fw a{color:rgba(255,255,255,.82)}
+footer.site .fw a:hover{color:#fff;text-decoration:underline}
+
 /*
   Op een hoog scherm hield niets de footer tegen: de calculator is ~1650 px
   hoog, dus op een scherm dat hoger is (of bij uitgezoomde browser) eindigde de

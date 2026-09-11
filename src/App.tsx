@@ -1,6 +1,7 @@
 import type { RouteRecord } from "vite-react-ssg";
 import Layout from "./Layout";
 import ErrorPage from "./pages/ErrorPage";
+import { REGIO_ROUTES } from "./data/regio-slugs";
 
 /**
  * De routes als data-array in plaats van als <Routes>-JSX. Dat is wat
@@ -146,6 +147,20 @@ export const routes: RouteRecord[] = [
         path: "reserveren",
         lazy: async () => ({ Component: (await import("./pages/ReserverenPage")).default }),
       },
+
+      /*
+       * Regiopagina's: /bouwdroger-huren-antwerpen enzovoort. Vijf vaste
+       * routes naar één sjabloon, want een parameter in react-router moet een
+       * heel segment zijn — `bouwdroger-huren-:regio` bestaat niet. De lijst
+       * komt uit regio-slugs.ts (een paar regels); de teksten zelf laadt de
+       * pagina pas als iemand ze opent.
+       */
+      ...REGIO_ROUTES.map(
+        (regio): RouteRecord => ({
+          path: regio.path.slice(1),
+          lazy: async () => ({ Component: (await import("./pages/RegioPage")).default }),
+        })
+      ),
 
       /* Verhuurplatform — de conversie-funnel uit de Claude Design handoff */
       {

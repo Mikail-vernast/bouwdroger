@@ -22,6 +22,7 @@ const PRIORITY = [
     priority: "0.9",
     changefreq: "monthly",
   },
+  { test: (p) => p.startsWith("/bouwdroger-huren-"), priority: "0.9", changefreq: "monthly" },
   { test: (p) => p.startsWith("/verhuur/"), priority: "0.8", changefreq: "monthly" },
   { test: (p) => p.startsWith("/product/"), priority: "0.7", changefreq: "monthly" },
   { test: (p) => p.startsWith("/levering/pakket/"), priority: "0.6", changefreq: "monthly" },
@@ -117,6 +118,8 @@ const ROUTE_SOURCES = {
 const TOESTEL_SOURCES = ["src/pages/verhuur/VerhuurToestelPage.tsx", "src/data/verhuur.ts"];
 /** Realisatiepagina's ook: één sjabloon, één datalijst. */
 const REALISATIE_SOURCES = ["src/pages/RealisatieDetailPage.tsx", "src/data/realisaties.ts"];
+/** De vijf regiopagina's: één sjabloon, de teksten in één databestand. */
+const REGIO_SOURCES = ["src/pages/RegioPage.tsx", "src/data/regios.ts"];
 
 /**
  * Routes zonder bekende bron krijgen `vandaag` — en dat is precies wat we niet
@@ -140,6 +143,7 @@ function lastCommitDate(paths) {
 function lastmodFor(route) {
   if (route.startsWith("/verhuur/toestel/")) return lastCommitDate(TOESTEL_SOURCES);
   if (route.startsWith("/realisaties/")) return lastCommitDate(REALISATIE_SOURCES);
+  if (route.startsWith("/bouwdroger-huren-")) return lastCommitDate(REGIO_SOURCES);
   const source = ROUTE_SOURCES[route];
   if (source) return lastCommitDate([source]);
   unmappedRoutes.add(route);
@@ -369,6 +373,11 @@ const KEY_PAGES = [
   "/renovatie",
   "/levering",
   "/afhalen",
+  "/bouwdroger-huren-antwerpen",
+  "/bouwdroger-huren-oost-vlaanderen",
+  "/bouwdroger-huren-vlaams-brabant",
+  "/bouwdroger-huren-west-vlaanderen",
+  "/bouwdroger-huren-limburg",
   "/realisaties",
   "/over-ons",
   "/contact",
@@ -382,7 +391,8 @@ const llms = `# Vernast Bouwdrogers
 
 ## Kerngegevens
 
-- Adres: Boomsesteenweg 12, Unit 11, 2630 Aartselaar, België
+- Magazijn en afhaalpunt: Boomsesteenweg 12, Unit 11, 2630 Aartselaar, België
+- Maatschappelijke zetel: Vernast, Ballaarstraat 99, 2018 Antwerpen, België
 - Telefoon: +32 3 689 90 65
 - E-mail: info@vernast-verhuur.be
 - Openingsuren: maandag t/m vrijdag, 08:00–17:00
