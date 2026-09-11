@@ -117,6 +117,36 @@ export const MobileNavButton = ({
   </button>
 );
 
+/**
+ * Belknop + hamburger, het rechterblok van de `.navpill` op een telefoon.
+ *
+ * Het telefoonnummer stond alleen in de contactregel bovenaan, en die valt op
+ * mobiel weg — bellen kon daar dus enkel via de menulade, twee tikken diep.
+ * Voor een dienst die per telefoon verkocht wordt is dat één tik te veel.
+ *
+ * Het blok zit in één wrapper omdat `.navpill` op `justify-content:
+ * space-between` staat: twee losse kinderen zouden over de balk uitwaaieren in
+ * plaats van naast elkaar rechts te blijven staan.
+ */
+export const MobileNavActions = ({
+  open,
+  onClick,
+}: {
+  open: boolean;
+  onClick: () => void;
+}) => (
+  <div className="mnav-acties">
+    <a
+      className="mnav-bel"
+      href={`tel:${CONTACT.phoneE164}`}
+      aria-label={`Bel ${CONTACT.phoneLocal}`}
+    >
+      <PhoneGlyph />
+    </a>
+    <MobileNavButton open={open} onClick={onClick} />
+  </div>
+);
+
 interface MobileNavProps {
   open: boolean;
   onClose: () => void;

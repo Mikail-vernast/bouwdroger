@@ -163,10 +163,12 @@
   .pv-page .legal .wrap{grid-template-columns:1fr}
   .pv-page .lnav{position:static;max-height:none}
 }
+/* Zie de afhaalpagina: het cutout hoort ook op een telefoon in beeld te staan,
+   onder de copy en op de onderrand van de band. */
 @media (max-width:900px){
-  .pv-page .lh-grid{grid-template-columns:1fr}
-  .pv-page .lh-vis{display:none}
-  .pv-page .lh-copy{padding-bottom:56px}
+  .pv-page .lh-grid{grid-template-columns:1fr;gap:0}
+  .pv-page .lh-copy{padding-bottom:26px}
+  .pv-page .lh-vis img{width:min(100%,290px)}
 }
 @media (max-width:700px){
   .pv-page .legal dl{grid-template-columns:1fr}

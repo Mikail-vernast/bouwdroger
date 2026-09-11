@@ -81,7 +81,7 @@
 
    Op 390px was de pill 171px breed terwijl logo (125) plus vulling (35) plus
    knop (42) er 202 vragen: alles stond op elkaar gepropt. Op een telefoon
-   houden we de balk daarom leeg op logo + menu na — de winkelwagen gaat weg
+   houden we de balk daarom leeg op logo + belknop + menu na — de winkelwagen gaat weg
    (met een statische badge en de calculator als bestemming voegt hij niets toe)
    én de offerteknop verdwijnt uit de balk. De 'Gratis offerte'-CTA staat al
    prominent onderaan de menulade (`.mnav-cta`), dus de conversieweg blijft. Op
@@ -351,5 +351,79 @@
   .mnav-rise,
   .mnav-sub {
     transition-duration: 0.01ms;
+  }
+}
+
+/* ---------- belknop naast de hamburger ----------
+
+   Het telefoonnummer staat alleen in de contactregel bovenaan (`.tl-left`), en
+   die verdwijnt op een telefoon. Bellen kon daar dus enkel via de menulade:
+   openen, naar beneden, tikken. Voor een dienst die grotendeels telefonisch
+   verkocht wordt hoort dat één tik te zijn, dus staat de knop nu in de balk.
+
+   Rood, niet glas: hij moet als handeling lezen naast de neutrale hamburger, en
+   op de lichte én de donkere variant van de balk werkt dezelfde kleur.
+
+   De wrapper is standaard weg — boven 1160px doet `.nav-menu` het werk en zou
+   een lege flex-cel de `space-between` van de pill uit elkaar trekken. */
+.mnav-acties {
+  display: none;
+}
+
+@media (max-width: 1160px) {
+  .hdr .navpill .mnav-acties {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+}
+
+.hdr .navpill .mnav-bel {
+  width: 42px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 200px;
+  background: #e11d2a;
+  color: #fff;
+  flex-shrink: 0;
+  transition: background 0.18s;
+}
+.hdr .navpill .mnav-bel:hover {
+  background: #c8102e;
+  color: #fff;
+}
+.hdr .navpill .mnav-bel svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* ---------- de contactregel op een telefoon ----------
+
+   `.tl-right` is één zin van ~60 tekens. Onder 660px verbergen de
+   paginastylesheets de linkerkolom en zetten ze die zin op `margin:0 auto`,
+   maar hij past daar niet op één regel: op 390px brak hij in tweeën, waarbij de
+   tweede regel ónder de nav-pil verdween en de groene stip alleen links in
+   beeld bleef staan.
+
+   Inkorten hielp niet genoeg — de regel blijft op een telefoon een losse zin
+   boven de balk waar niemand om vroeg. De hele contactregel gaat daarom weg:
+   het telefoonnummer staat nu in de balk zelf (`.mnav-bel`) en verder in de
+   menulade, dus er raakt niets verloren. De balk begint zo bovenaan het scherm.
+
+   `.mnav-topline` is een haakje in de markup, puur voor het gewicht: elke
+   paginastylesheet draagt zijn eigen `.x-page .hdr .topline{display:flex}` van
+   (0,3,0), en `.hdr .wrap.topline` weegt precies even zwaar — wie wint hangt
+   dan af van welke CSS-chunk toevallig laatst laadt. Met de vierde klasse
+   niet. */
+@media (max-width: 900px) {
+  .hdr .wrap.topline.mnav-topline {
+    display: none;
+  }
+  /* De 70px die de contactregel innam is weg; zonder deze aanloop plakt de pill
+     tegen de schermrand, en op een toestel met notch eronder. */
+  .hdr .wrap.navrow.mnav-row {
+    padding-top: calc(12px + env(safe-area-inset-top));
   }
 }

@@ -114,10 +114,12 @@
 /* ============ HERO ============ */
 .av-page .lhero{background:var(--maroon-d) url('/vernast/bg-red-2.webp') center/cover no-repeat;padding:170px 0 0;color:#fff}
 .av-page .lh-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:end}
+/* Zie de afhaalpagina: het cutout hoort ook op een telefoon in beeld te staan,
+   onder de copy en op de onderrand van de band. */
 @media (max-width:900px){
-  .av-page .lh-grid{grid-template-columns:1fr}
-  .av-page .lh-vis{display:none}
-  .av-page .lh-copy{padding-bottom:56px}
+  .av-page .lh-grid{grid-template-columns:1fr;gap:0}
+  .av-page .lh-copy{padding-bottom:26px}
+  .av-page .lh-vis img{width:min(100%,290px)}
 }
 .av-page .lh-copy{padding-bottom:64px}
 .av-page .lh-vis{display:flex;justify-content:center;align-items:flex-end}

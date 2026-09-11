@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 import FontPreload from "@/components/FontPreload";
-import MobileNav, { MobileNavButton } from "@/components/MobileNav";
+import MobileNav, { MobileNavActions } from "@/components/MobileNav";
+import "@/styles/offerte-shine.css";
 
 /**
  * The site header from the design: a top line with the contact details and a
@@ -16,9 +17,17 @@ import MobileNav, { MobileNavButton } from "@/components/MobileNav";
 interface V3HeaderProps {
   /** Scroll offset (px) at which the header turns light. */
   lightAfter?: number;
+  /**
+   * Viewportbreedte (px) waaronder de balk altijd licht staat, ongeacht de
+   * scrollpositie. Nodig waar `verhuur-fixes.css` de header onder 900px uit
+   * `position:fixed` haalt: hij hangt dan niet meer boven de donkere hero maar
+   * staat erboven op de lichte pagina-achtergrond, en witte tekst op #F1EFEF
+   * leest niet. Het logo wisselt in JS mee, dus CSS alleen kan dit niet.
+   */
+  alwaysLightBelow?: number;
 }
 
-const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
+const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
   const [tucked, setTucked] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [onLight, setOnLight] = useState(false);
@@ -38,7 +47,11 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
       else if (y < lastY.current - 6) setTucked(false);
 
       setScrolled(y > 60);
-      setOnLight(lightAfter < 0 || y > lightAfter);
+      setOnLight(
+        lightAfter < 0 ||
+          y > lightAfter ||
+          (alwaysLightBelow !== undefined && window.innerWidth <= alwaysLightBelow),
+      );
       lastY.current = y;
       ticking = false;
     };
@@ -51,8 +64,14 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
 
     onScroll();
     window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, [lightAfter]);
+    // Draaien van het scherm verandert de breedte zonder te scrollen; zonder
+    // deze luisteraar blijft de balk dan in de verkeerde variant staan.
+    window.addEventListener("resize", handler, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handler);
+      window.removeEventListener("resize", handler);
+    };
+  }, [lightAfter, alwaysLightBelow]);
 
   const sluitMenu = () => {
     setMenuOpen(false);
@@ -67,7 +86,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
     <>
     <FontPreload set="v3" />
     <header className={cls} id="top">
-      <div className="wrap topline">
+      <div className="wrap topline mnav-topline">
         <div className="tl-left">
           <a href="tel:+3236899065">
             <PhoneIcon /> 03 689 90 65
@@ -224,7 +243,7 @@ const V3Header = ({ lightAfter = 560 }: V3HeaderProps) => {
             </Link>
           </div>
 
-          <MobileNavButton open={menuOpen} onClick={() => (menuOpen ? sluitMenu() : setMenuOpen(true))} />
+          <MobileNavActions open={menuOpen} onClick={() => (menuOpen ? sluitMenu() : setMenuOpen(true))} />
         </div>
 
         <Link className="cart mnav-hide-sm" to="/verhuur/calculator" aria-label="Winkelwagen">

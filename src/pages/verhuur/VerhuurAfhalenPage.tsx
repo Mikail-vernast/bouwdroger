@@ -481,7 +481,10 @@ const VerhuurAfhalenPage = () => {
       */}
       {/* Boven de rode hero staat de header donker (witte tekst) en flipt hij
           naar licht zodra je eronder scrolt — net als de juridische pagina's. */}
-      <V3Header lightAfter={420} />
+      {/* Onder 900px haalt `verhuur-fixes.css` de header uit `position:fixed`:
+          hij staat dan boven de rode hero op de lichte pagina-achtergrond in
+          plaats van erover, dus daar hoort de lichte variant. */}
+      <V3Header lightAfter={420} alwaysLightBelow={900} />
 
       {/*
         Kleine rode hero in dezelfde vormtaal als de juridische pagina's

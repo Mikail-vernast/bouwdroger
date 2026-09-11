@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 import { TOESTELLEN } from "@/data/navigation";
-import MobileNav, { MobileNavButton } from "@/components/MobileNav";
+import MobileNav, { MobileNavActions } from "@/components/MobileNav";
 
 /** Onder deze offset blijft de balk altijd staan, ongeacht de scrollrichting. */
 const ALWAYS_VISIBLE_UNTIL = 90;
@@ -53,7 +53,7 @@ const VHeader = () => {
   return (
     <>
     <header className={`hdr onlight${tucked ? " tucked" : ""}`}>
-      <div className="wrap topline">
+      <div className="wrap topline mnav-topline">
         <div className="tl-left">
           <a href="tel:+3236899065">
             <PhoneIcon /> 03 689 90 65
@@ -194,7 +194,7 @@ const VHeader = () => {
             </Link>
           </nav>
 
-          <MobileNavButton open={menuOpen} onClick={() => (menuOpen ? sluitMenu() : setMenuOpen(true))} />
+          <MobileNavActions open={menuOpen} onClick={() => (menuOpen ? sluitMenu() : setMenuOpen(true))} />
         </div>
 
         <Link className="cart mnav-hide-sm" to="/verhuur/boeking" aria-label="Winkelwagen">

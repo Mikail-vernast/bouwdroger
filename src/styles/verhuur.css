@@ -1471,6 +1471,7 @@
 .vh-pick .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--fb);font-weight:700;font-size:15px;padding:15px 28px;border-radius:99px;border:0;cursor:pointer;text-decoration:none;transition:all .15s;background:var(--red);color:#fff}
 .vh-pick .btn:hover{background:#a80d26;color:#fff}
 .vh-pick .btn[disabled]{opacity:.45;cursor:default}
+/* De eigen `header.top` en `footer.site` van deze pagina zijn weg: ze
    verdubbelden de menubalk en de footer die `V3Header`/`V3Footer` al dragen.
    De bijbehorende regels zijn hier verwijderd. */
 /* Kleine rode hero — dezelfde vormtaal als de juridische pagina's (`.lhero`):
@@ -1484,10 +1485,14 @@
 .vh-pick .lead .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 16px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:16px}
 .vh-pick .lead h1{font-family:var(--fd);font-weight:800;font-size:clamp(27px,3.6vw,46px);line-height:1.08;letter-spacing:-.03em;margin-bottom:12px;color:#fff}
 .vh-pick .lead p{font-size:15.5px;color:rgba(255,255,255,.82);line-height:1.6;max-width:600px;margin:0}
+/* Het cutout stond hier op `display:none`: onder 900px bleef er een lege rode
+   rechthoek over, terwijl het team het enige beeld van deze band is. In één
+   kolom zakt het onder de copy en rust het net zo op de onderrand als op
+   desktop — alleen smaller, zodat het naast de titel niet gaat domineren. */
 @media (max-width:900px){
-  .vh-pick .lead .lh-grid{grid-template-columns:1fr}
-  .vh-pick .lead .lh-vis{display:none}
-  .vh-pick .lead .lh-copy{padding-bottom:40px}
+  .vh-pick .lead .lh-grid{grid-template-columns:1fr;gap:0}
+  .vh-pick .lead .lh-copy{padding-bottom:26px}
+  .vh-pick .lead .lh-vis img{width:min(100%,290px)}
 }
 /* De hero grenst nu direct aan de configurator; de shell houdt zijn eigen
    bovenruimte. */
