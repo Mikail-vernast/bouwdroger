@@ -1,0 +1,47 @@
+/*
+  De glans over de "Gratis offerte"-knop.
+
+  Net als bij de footer stond deze animatie in elke paginastylesheet opnieuw
+  uitgeschreven (`.v3 .btn-offerte::after`, `.lv-page .btn-offerte::after`, …).
+  Zes kopieën van dezelfde vier regels — en acht schillen die ze misten: de
+  volledige verhuurfunnel (`.vh-calc`, `.vh-book`, `.vh-pkg`, `.vh-prod`,
+  `.vh-pick`) plus /privacy, /hoe-drogen-werkt, /waarom-bouwdroging en
+  /algemene-voorwaarden. Dezelfde knop in dezelfde header blonk dus op de ene
+  pagina wel en op de andere niet.
+
+  Daarom hangt de animatie nu aan de knop zelf, ongescoped, geïmporteerd door
+  V3Header — hij neemt zijn glans mee in welke schil hij ook landt. De kopieën
+  in de paginastylesheets zetten exact hetzelfde en mogen blijven staan; ze
+  overschrijven niets. Kopieer deze regels niet terug naar een nieuwe
+  paginastylesheet.
+
+  `position:relative` en `overflow:hidden` horen erbij: zonder het eerste heeft
+  de ::after geen anker, zonder het tweede loopt de glans buiten de pil door.
+  Beide staan in de zes bestaande kopieën, dus dit verandert daar niets.
+*/
+.btn-offerte {
+  position: relative;
+  overflow: hidden;
+}
+.btn-offerte::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: offShine 3.2s ease infinite;
+  pointer-events: none;
+}
+@keyframes offShine {
+  45%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Beweging is versiering: wie er last van heeft, krijgt gewoon de rode knop. */
+@media (prefers-reduced-motion: reduce) {
+  .btn-offerte::after {
+    animation: none;
+  }
+}

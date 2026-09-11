@@ -86,6 +86,12 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/DrooggarantieV2Page")).default }),
       },
       {
+        // Losse leesversie van de voorgestelde copy voor de volledige website.
+        // De pagina wijzigt geen bestaande content en staat bewust op noindex.
+        path: "copy-v2",
+        lazy: async () => ({ Component: (await import("./pages/CopyV2Page")).default }),
+      },
+      {
         path: "hoe-drogen-werkt",
         lazy: async () => ({ Component: (await import("./pages/HoeDrogenWerktPage")).default }),
       },

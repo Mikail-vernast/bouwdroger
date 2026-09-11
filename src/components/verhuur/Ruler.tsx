@@ -142,7 +142,11 @@ const Ruler = ({ config, onChange }: RulerProps) => {
               className={`rt${tick.big ? " big" : ""}${
                 tick.left > 93 ? " edge-r" : tick.left < 7 ? " edge-l" : ""
               }`}
-              style={{ left: `${tick.left.toFixed(2)}%`, height: tick.big ? 34 : 18 }}
+              /* In procenten, niet in pixels: de trackhoogte schaalt op een
+                 groot scherm mee (verhuur-fixes.css punt 13) en de streepjes
+                 hoorden dan onderaan niet als een randje achter te blijven.
+                 40% en 21% is 34px en 18px op de 86px uit het design. */
+              style={{ left: `${tick.left.toFixed(2)}%`, height: tick.big ? "40%" : "21%" }}
             >
               {tick.big && <span className="lb">{tick.label}</span>}
             </span>

@@ -291,3 +291,175 @@
     padding-right: 18px;
   }
 }
+
+/* 11 — Boeking stap 2 ("Standaard inbegrepen & extra zekerheid"): de `.ex`- en
+   `.inc-row`-rijen zijn één platte flexregel (icoon · tekst · prijs · knop). Op
+   een telefoon passen die vier kolommen niet naast elkaar: de prijs en de
+   "Toevoegen"-knop kunnen niet krimpen, dus werd de hele kolom breder dan het
+   scherm. Gevolg: niet alleen de knoppen vielen weg, ook de titel en de
+   inleiding werden rechts afgesneden. Het design heeft hier geen mobiele query.
+
+   Onder 560px laten we de rij wrappen: icoon + tekst vullen de eerste regel, de
+   prijs en de knop/stepper zakken naar een tweede regel, ingesprongen tot onder
+   de tekst (46px icoon + 15px gap ≈ 61px; `.inc-row` heeft een 44px icoon). */
+@media (max-width: 560px) {
+  .vh-book .ex,
+  .vh-book .inc-row {
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+  .vh-book .ex .ext {
+    flex: 1 0 calc(100% - 61px);
+    min-width: 0;
+  }
+  .vh-book .inc-row .ext {
+    flex: 1 0 calc(100% - 59px);
+    min-width: 0;
+  }
+  .vh-book .ex .exp {
+    margin-left: 61px;
+    text-align: left;
+  }
+  .vh-book .ex .exadd,
+  .vh-book .ex .stp {
+    margin-left: auto;
+  }
+  .vh-book .inc-row .inc-tag {
+    margin-left: 59px;
+  }
+}
+
+/* 12 — Calculator, stap "Wat wilt u drogen": de vier keuzes (pleisterwerk,
+   chape, beide, waterschade) staan onder 560px in één kolom met een 132px hoge
+   foto per kaart. Op een telefoon zie je zo nog geen anderhalve kaart en moet je
+   ver scrollen om de vier te vergelijken. Ze horen als een 2×2-raster ineens in
+   beeld te staan. We houden daarom twee kolommen aan en maken de kaart compact —
+   lagere foto, krappere tekst — zodat het viertal samen op het scherm past. */
+@media (max-width: 560px) {
+  .vh-calc .wcards {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .vh-calc .wcard img {
+    height: 82px;
+  }
+  .vh-calc .wcard .wb {
+    padding: 10px 11px 12px;
+    gap: 8px;
+  }
+  .vh-calc .wcard .oc {
+    width: 16px;
+    height: 16px;
+  }
+  .vh-calc .wcard b {
+    font-size: 13.5px;
+  }
+  .vh-calc .wcard small {
+    font-size: 11px;
+    margin-top: 2px;
+  }
+}
+
+/* 13 — Calculator: de rode kaart stond met een lege onderhelft in beeld.
+
+   `.acard` is vast 900px hoog terwijl de langste vraag maar ~480px inhoud
+   heeft, en `.aq` hangt bovenaan. Op een groot scherm zag je dus een halve
+   kaart rode leegte onder de vraag — en sinds de footer netjes onderaan plakt
+   viel daar ook nog een lichte strook onder.
+
+   Drie dingen samen: de kaart vult de hoogte die het scherm geeft, de vraag
+   gaat verticaal in het midden staan in plaats van tegen de bovenrand, en de
+   vraag zelf wordt groter zodat hij die ruimte ook echt draagt. Alleen boven
+   1000px — daaronder verdwijnt de werker (regel in verhuur.css) en staat de
+   vraag over de volle breedte, waar het design al klopt. */
+@media (min-width: 1001px) {
+  /* 158px aanloop + 34px staart uit `.fstage`: de kaart is precies wat het
+     scherm onder de header overhoudt. Dat is óók naar beneden bedoeld — de
+     vaste 900px uit het design stak op een laptop van 900px onder de vouw uit,
+     dus de "Verder"-knop stond er half buiten. 640px blijft de bodem voor een
+     heel laag venster; is de inhoud groter, dan groeit de kaart gewoon mee. */
+  .vh-calc .acard {
+    min-height: max(640px, calc(100dvh - 192px));
+  }
+  /* De werker hangt aan de onderrand en schaalde niet mee met een kaart die nu
+     hoger of lager kan zijn; op de hoogste kaart stond hij als een klein poppetje
+     in de hoek. Hoogte in plaats van breedte, en de vraag schuift mee opzij. */
+  .vh-calc .acard .worker {
+    width: auto;
+    height: min(58%, 640px);
+  }
+  .vh-calc .aq {
+    padding-left: min(34%, 460px);
+  }
+  .vh-calc .aq {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .vh-calc .aqn {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    font-size: 14px;
+  }
+  /* Meegroeien met de breedte én de hoogte: op een breed maar laag venster
+     duwde alleen `vw` de vraag onder de vouw, en dan staat de Verder-knop
+     buiten beeld. De kleinste van de twee wint. */
+  .vh-calc .aqh h2 {
+    font-size: clamp(30px, min(3.2vw, 4.6vh), 50px);
+  }
+  .vh-calc .asub {
+    font-size: clamp(16px, min(1.15vw, 1.7vh), 19px);
+    max-width: 640px;
+    margin-bottom: 36px;
+  }
+
+  .vh-calc .ruler {
+    max-width: min(56vw, 860px);
+  }
+  .vh-calc .ruler .rv {
+    font-size: clamp(52px, min(4.6vw, 6.6vh), 84px);
+  }
+  .vh-calc .ruler .rv small {
+    font-size: clamp(20px, min(1.7vw, 2.4vh), 30px);
+  }
+  .vh-calc .ruler .rvl {
+    font-size: 15px;
+    margin-bottom: 26px;
+  }
+  /* De streepjes in de liniaal staan op procenten van de trackhoogte (zie
+     Ruler.tsx), dus ze groeien vanzelf mee. */
+  .vh-calc .rtrack {
+    height: clamp(96px, 11vh, 132px);
+  }
+  .vh-calc .rt .lb {
+    font-size: 12px;
+  }
+  .vh-calc .rsnaps {
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .vh-calc .rsnaps button {
+    font-size: 13px;
+    padding: 11px 20px;
+  }
+  .vh-calc .anext {
+    margin-top: 32px;
+  }
+
+  /* Stap 2 en 5 zijn kaartjes met een foto; die mogen dezelfde ruimte nemen. */
+  .vh-calc .wcard img {
+    height: clamp(132px, 15vh, 200px);
+  }
+  .vh-calc .wcard .wb {
+    padding: 15px 18px 17px;
+  }
+  .vh-calc .wcard b {
+    font-size: 17.5px;
+  }
+  .vh-calc .wcard small {
+    font-size: 12.5px;
+  }
+}

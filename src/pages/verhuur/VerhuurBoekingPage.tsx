@@ -754,7 +754,23 @@ const VerhuurBoekingPage = () => {
                           </li>
                         ))}
                       </ul>
-                      <button className="cvpick" type="button">
+                      {/*
+                        De knop koos vroeger alleen de dekking en bleef dan staan
+                        — op mobiel stond "Verder naar extra's" pas ná de drie
+                        kaarten én de samenvatting, dus wie op "Selecteer" duwde
+                        zag "Gekozen" verschijnen en dacht dat de wizard vastzat.
+                        De knop kiest nu én schuift meteen door naar stap 2; het
+                        kaartlichaam blijft louter selecteren, zodat vergelijken kan.
+                      */}
+                      <button
+                        className="cvpick"
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCover(c.k);
+                          goTo(2);
+                        }}
+                      >
                         {c.k === cover ? "Gekozen" : "Selecteer"}
                       </button>
                     </div>

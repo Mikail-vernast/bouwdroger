@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -5,6 +6,28 @@ import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
 import "@/styles/levering.css";
 import "@/styles/levering-fixes.css";
+
+/**
+ * De vijf installatie-tabs. Het design was een vanilla-JS-widget (`id="insTabs"`,
+ * `id="insStage"`) die bij de transcriptie statisch bleef: de knoppen kregen geen
+ * `onClick` en er draaide geen auto-advance, dus klikken op "Stap 02" deed niets
+ * en alleen stap 1 was ooit zichtbaar. De labels staan hier zodat de knoppenrij
+ * uit één lijst komt; de panelen zelf blijven inline (elk een eigen mock-animatie).
+ */
+const INS_TABS = [
+  { nr: "Stap 01", titel: "Controle & droogzones" },
+  { nr: "Stap 02", titel: "Plaatsing & circulatie" },
+  { nr: "Stap 03", titel: "Condensafvoer" },
+  { nr: "Stap 04", titel: "Stroom & luchtstroming" },
+  { nr: "Stap 05", titel: "Controle & opstart" },
+];
+
+/**
+ * Hoe lang een tab actief blijft voor de auto-advance doorschuift. Gelijk aan de
+ * `tbfill`-animatie (6,5s) in levering.css, zodat het voortgangsbalkje onder de
+ * actieve knop precies vol is op het moment dat de volgende stap verschijnt.
+ */
+const INS_INTERVAL = 6500;
 
 /**
  * Levering & installatie — 1:1 transcription of the Claude Design handoff
@@ -34,6 +57,23 @@ const Cross = () => (
 );
 
 const LeveringPage = () => {
+  /*
+    De actieve installatie-tab. Start op 0 zodat de geprerenderde HTML stap 1
+    toont (SSG-vereiste — de widget mag zonder JavaScript geen lege sectie zijn).
+    De auto-advance draait alleen in de browser: de setTimeout hangt aan `insStep`
+    en herstart dus bij elke wissel, of die nu vanzelf komt of door een klik. Zo
+    krijgt een aangeklikte stap opnieuw de volle 6,5s voor hij doorschuift.
+  */
+  const [insStep, setInsStep] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    const id = window.setTimeout(() => setInsStep((s) => (s + 1) % INS_TABS.length), INS_INTERVAL);
+    return () => window.clearTimeout(id);
+  }, [insStep]);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = e.currentTarget;
@@ -121,14 +161,27 @@ const LeveringPage = () => {
             <p className="lede">Niet zoveel mogelijk apparatuur plaatsen, maar de capaciteit zo efficiënt mogelijk inzetten. Klik door de stappen of kijk gewoon mee.</p>
           </div>
           <div className="ins-tabs" id="insTabs">
-            <button className="active"><i>Stap 01</i>Controle &amp; droogzones<span className="tb"><b></b></span></button>
-            <button><i>Stap 02</i>Plaatsing &amp; circulatie<span className="tb"><b></b></span></button>
-            <button><i>Stap 03</i>Condensafvoer<span className="tb"><b></b></span></button>
-            <button><i>Stap 04</i>Stroom &amp; luchtstroming<span className="tb"><b></b></span></button>
-            <button><i>Stap 05</i>Controle &amp; opstart<span className="tb"><b></b></span></button>
+            {INS_TABS.map((tab, i) => (
+              <button
+                key={tab.nr}
+                type="button"
+                className={insStep === i ? "active" : undefined}
+                aria-pressed={insStep === i}
+                onClick={() => setInsStep(i)}
+              >
+                <i>{tab.nr}</i>
+                {tab.titel}
+                {/* Het voortgangsbalkje: de tbfill-animatie in levering.css draait
+                    zolang de knop `.active` is en herstart vanzelf zodra een stap
+                    na een ronde opnieuw actief wordt. */}
+                <span className="tb">
+                  <b></b>
+                </span>
+              </button>
+            ))}
           </div>
           <div className="ins-stage" id="insStage">
-            <div className="ins-p active">
+            <div className={`ins-p${insStep === 0 ? " active" : ""}`}>
               <div>
                 <h3>Eerst kijken, dan plaatsen.</h3>
                 <p className="pt">We overlopen de woning en verdelen ze in droogzones: welke ruimtes moeten drogen, hoe zijn ze verbonden en waar zit het meeste vocht? Daarna controleren we elektriciteit, afvoermogelijkheden en omstandigheden. Wijkt de situatie sterk af van uw <a href="/verhuur/calculator" style={{ color: "#fff", fontWeight: 600 }}>berekening</a>, dan bespreken we dat eerst.</p>
@@ -136,7 +189,7 @@ const LeveringPage = () => {
               </div>
               <div className="mockc"><div className="mt">Capaciteit per droogzone</div><div className="zones"><i></i><i></i><i></i><i></i><i></i><i></i></div><div className="zlab"><span>Woonkamer · keuken · hal</span><span>Badkamer · slaapkamers</span></div></div>
             </div>
-            <div className="ins-p">
+            <div className={`ins-p${insStep === 1 ? " active" : ""}`}>
               <div>
                 <h3>De juiste plek, de juiste luchtstroom.</h3>
                 <p className="pt">Toestellen komen waar ze vrij kunnen aanzuigen en uitblazen, nooit strak tegen muren of obstakels. In plaats van één zwaar toestel centraal verdelen we meerdere toestellen en luchtverplaatsers over de zones, zodat elke ruimte gelijkmatig droogt.</p>
@@ -144,7 +197,7 @@ const LeveringPage = () => {
               </div>
               <div className="mockc"><div className="mt">Droge lucht bereikt de hele zone</div><div className="airm"><div className="dev"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10H3" /><path d="M21 6H3" /><path d="M21 14H3" /><path d="M21 18H3" /></svg></div><span className="wave"></span><span className="wave w2"></span><span className="wave w3"></span><div className="room"><span>verste hoek</span></div></div></div>
             </div>
-            <div className="ins-p">
+            <div className={`ins-p${insStep === 2 ? " active" : ""}`}>
               <div>
                 <h3>Water rechtstreeks naar de afvoer. <span style={{ display: "inline-block", verticalAlign: "middle", marginLeft: "6px", background: "#fff", color: "var(--red)", fontFamily: "var(--fm)", fontSize: "10.5px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 12px", borderRadius: "99px" }}>Optioneel · aangeraden</span></h3>
                 <p className="pt">Kiest u de condenspomp (€ 2 per bouwdroger per dag), dan sluiten we een continue condensafvoer aan naar een afvoer, douche, lavabo of vloerput. Zo hoeft u geen reservoirs te legen en draait het toestel dag en nacht door, ook in het weekend. Zonder pomp leegt u het reservoir zelf 2 à 3 keer per dag. Optioneel, maar aangeraden: u voegt de pomp toe tijdens het <a href="/verhuur/calculator" style={{ color: "#fff", fontWeight: 600 }}>berekenen van uw pakket</a>.</p>
@@ -152,7 +205,7 @@ const LeveringPage = () => {
               </div>
               <div className="mockc"><div className="mt">Continue condensafvoer</div><div className="drainm"><div className="dev"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></div><div className="hose"><b></b><b></b><b></b></div><div className="drain"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12h20" /><path d="M5 12v4" /><path d="M12 12v6" /><path d="M19 12v4" /></svg></div><div className="cap">Het condenswater loopt rechtstreeks weg. U kijkt ernaar, meer niet.</div></div></div>
             </div>
-            <div className="ins-p">
+            <div className={`ins-p${insStep === 3 ? " active" : ""}`}>
               <div>
                 <h3>Stabiele stroom, bewegende lucht.</h3>
                 <p className="pt">Bouwdrogers draaien lange periodes continu en vragen een stabiele voeding; bij meerdere toestellen verdelen we ze over verschillende stroomkringen. Luchtverplaatsers halen vochtige lucht uit moeilijk bereikbare zones. Temperatuur, circulatie en ontvochtiging bepalen samen de efficiëntie.</p>
@@ -160,7 +213,7 @@ const LeveringPage = () => {
               </div>
               <div className="mockc"><div className="mt">Circulatie in de zone</div><div className="fanm"><div className="fan"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M12 12c2-3.3 1-6.5-1.5-8C8 2.6 5.5 3.5 5 6c-.4 2 1.3 4.3 7 6z" /><path d="M12 12c3.8.6 6.5-1.4 7-4.3.4-2.6-1.4-4.6-3.9-4.2-2 .3-3.5 2.7-3.1 8.5z" transform="rotate(120 12 12)" /><path d="M12 12c3.8.6 6.5-1.4 7-4.3.4-2.6-1.4-4.6-3.9-4.2-2 .3-3.5 2.7-3.1 8.5z" transform="rotate(240 12 12)" /><circle cx="12" cy="12" r="1.6" fill="currentColor" /></svg></div><div className="volt"><span><Check /> Stabiele voeding gecontroleerd</span><span><Check /> Kringen verdeeld</span><span><Check /> Ventilator op de juiste stand</span></div></div></div>
             </div>
-            <div className="ins-p">
+            <div className={`ins-p${insStep === 4 ? " active" : ""}`}>
               <div>
                 <h3>Pas als alles draait, vertrekken we.</h3>
                 <p className="pt">We controleren de volledige opstelling, stellen de streefvochtigheid in en bespreken welke ramen en deuren open of dicht blijven. U krijgt een korte uitleg, en daarna doet de opstelling het werk. Vragen tijdens de huur? De <a href="/klantservice" style={{ color: "#fff", fontWeight: 600 }}>klantenservice</a> staat klaar.</p>
