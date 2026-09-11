@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { BEDRIJF, KIEZEN, ONTDEK, SERVICE, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
+import { REGIO_ROUTES } from "@/data/regio-slugs";
 import { MailIcon, PhoneIcon } from "./icons";
-import { SITE_NAME } from "@/lib/site";
+import { CONTACT, HEADQUARTERS, SITE_NAME } from "@/lib/site";
 import "@/styles/site-footer.css";
 
 const V3Footer = () => (
@@ -15,17 +16,26 @@ const V3Footer = () => (
             bouwkachels. Werkzaam in heel Vlaanderen, met levering op de datum die u kiest.
           </p>
           <div className="fc">
-            <a href="tel:+3236899065">
-              <PhoneIcon size={16} /> 03 689 90 65
+            <a href={`tel:${CONTACT.phoneE164}`}>
+              <PhoneIcon size={16} /> {CONTACT.phoneLocal}
             </a>
-            <a href="mailto:info@vernast-verhuur.be">
-              <MailIcon size={16} /> info@vernast-verhuur.be
+            <a href={`mailto:${CONTACT.email}`}>
+              <MailIcon size={16} /> {CONTACT.email}
             </a>
           </div>
+          {/*
+            Twee adressen, elk met zijn rol. Het magazijn is waar de klant
+            komt; de zetel is wat de drie zustersites en de JSON-LD voeren.
+            Zonder die tweede regel stond de zetel wél in de schema maar
+            nergens zichtbaar op de pagina.
+          */}
           <p>
-            Boomsesteenweg 12 / Unit 11, 2630 Aartselaar
+            Magazijn en afhaalpunt: {CONTACT.street}, {CONTACT.postalCode} {CONTACT.city}
             <br />
             Ma–Vr 08:00–17:00
+            <br />
+            Zetel: {HEADQUARTERS.name}, {HEADQUARTERS.street}, {HEADQUARTERS.postalCode}{" "}
+            {HEADQUARTERS.city}
           </p>
         </div>
 
@@ -96,6 +106,20 @@ const V3Footer = () => (
           </ul>
         </div>
       </div>
+
+      {/*
+        Werkgebied: één regel met de vijf regiopagina's, op elke pagina van de
+        site. Dat is wat ze interne links geeft; de kaart op de homepage toont
+        maar één provincie tegelijk.
+      */}
+      <nav className="fw" aria-label="Werkgebied">
+        <span>Bouwdroger huren in</span>
+        {REGIO_ROUTES.map((regio) => (
+          <Link key={regio.slug} to={regio.path}>
+            {regio.name}
+          </Link>
+        ))}
+      </nav>
 
       <div className="fb">
         <div>

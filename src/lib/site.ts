@@ -29,6 +29,11 @@ export const DEFAULT_OG_IMAGE = "/design/og-default.png";
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
 
+/**
+ * Waar het toestel staat: het magazijn en afhaalpunt in Aartselaar. Dit is wat
+ * op elke pagina zichtbaar is (footer, contact, afhalen) en waar een klant
+ * naartoe rijdt. De maatschappelijke zetel staat apart in `HEADQUARTERS`.
+ */
 export const CONTACT = {
   phone: "+32 3 689 90 65",
   /** E.164, voor `tel:`-links en schema.org. */
@@ -58,6 +63,28 @@ export const CONTACT = {
    */
   latitude: 51.13598,
   longitude: 4.37512,
+} as const;
+
+
+/**
+ * De maatschappelijke zetel — hetzelfde adres dat vernast.be, de vochtsite en
+ * de schildersite in hun JSON-LD voeren, letter voor letter en met dezelfde
+ * coördinaten. Tot 2026-09-11 stond op deze site enkel het magazijn in
+ * Aartselaar als bedrijfsadres, terwijl de drie zustersites Ballaarstraat 99
+ * voerden: vier domeinen, twee adressen, en Google die niet kon zien dat het
+ * één bedrijf is. Nu is de zetel het adres van de organisatie en Aartselaar de
+ * `location` (het depot) — beide waar, elk met zijn eigen rol.
+ */
+export const HEADQUARTERS = {
+  name: "Vernast",
+  url: "https://www.vernast.be/",
+  street: "Ballaarstraat 99",
+  postalCode: "2018",
+  city: "Antwerpen",
+  region: "Antwerpen",
+  country: "BE",
+  latitude: 51.2024,
+  longitude: 4.4018,
 } as const;
 
 /**
@@ -125,9 +152,11 @@ export const REVIEWS: ReviewSummary | null = null;
  * www, en een sameAs die eerst omleidt is een zwakker signaal dan een die direct
  * aankomt.
  *
- * Het Google-Maps-adres van de andere drie staat hier bewust NIET bij: die delen
- * Ballaarstraat 99 in Antwerpen, het magazijn hier is Aartselaar. Eén place-id
- * op twee adressen plakken maakt de NAP-gegevens juist inconsistent.
+ * Het Google-Maps-profiel van de andere drie staat hier bewust NIET bij: dat
+ * profiel hoort bij Vernast Vochtbestrijding op de Ballaarstraat, en deze site
+ * heeft nog geen eigen Google Business Profile. De zetel zelf staat sinds
+ * 2026-09-11 wél in de schema (`HEADQUARTERS`), zodat het adres, het nummer en
+ * de schrijfwijze op alle vier de domeinen gelijk zijn.
  */
 export const SAME_AS = [
   "https://www.vernast.be/",

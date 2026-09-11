@@ -10,6 +10,7 @@
 import { PRICE_RANGE } from "../data/tarieflijst.js";
 import {
   CONTACT,
+  HEADQUARTERS,
   ORGANIZATION_IMAGE,
   ORGANIZATION_LOGO,
   REVIEWS,
@@ -89,28 +90,28 @@ export function organizationSchema({ withRating = false }: OrganizationOptions =
     currenciesAccepted: "EUR",
     paymentAccepted: "Bancontact, Kredietkaart, Overschrijving",
     knowsLanguage: [SITE_LANG],
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: CONTACT.latitude,
-      longitude: CONTACT.longitude,
-    },
-    hasMap: `https://www.google.com/maps/search/?api=1&query=${CONTACT.latitude},${CONTACT.longitude}`,
+    /*
+      Het adres van de organisatie is de zetel, niet het magazijn. De drie
+      zustersites voeren Ballaarstraat 99; stond hier Aartselaar, dan had
+      hetzelfde bedrijf op vier domeinen twee verschillende adressen en kon
+      Google ze niet als één entiteit lezen. Het magazijn blijft bestaan als
+      `location`: dat is waar een klant afhaalt en waar de openingsuren gelden.
+    */
     address: {
       "@type": "PostalAddress",
-      streetAddress: CONTACT.street,
-      postalCode: CONTACT.postalCode,
-      addressLocality: CONTACT.city,
-      addressRegion: CONTACT.region,
-      addressCountry: CONTACT.country,
+      streetAddress: HEADQUARTERS.street,
+      postalCode: HEADQUARTERS.postalCode,
+      addressLocality: HEADQUARTERS.city,
+      addressRegion: HEADQUARTERS.region,
+      addressCountry: HEADQUARTERS.country,
     },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "08:00",
-        closes: "17:00",
-      },
-    ],
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: HEADQUARTERS.latitude,
+      longitude: HEADQUARTERS.longitude,
+    },
+    location: depotSchema(),
+    openingHoursSpecification: OPENING_HOURS,
     areaServed: SERVICE_AREA.map((name) => ({ "@type": "AdministrativeArea", name })),
     /*
       Hetzelfde cijfer dat in de hero en de statistiekbalk staat. Google toont
@@ -129,7 +130,59 @@ export function organizationSchema({ withRating = false }: OrganizationOptions =
         }
       : {}),
     sameAs: [...SAME_AS],
-    parentOrganization: { "@type": "Organization", name: "Vernast Group" },
+    parentOrganization: {
+      "@type": "Organization",
+      name: HEADQUARTERS.name,
+      url: HEADQUARTERS.url,
+      telephone: CONTACT.phoneE164,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: HEADQUARTERS.street,
+        postalCode: HEADQUARTERS.postalCode,
+        addressLocality: HEADQUARTERS.city,
+        addressCountry: HEADQUARTERS.country,
+      },
+    },
+  };
+}
+
+const OPENING_HOURS = [
+  {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "08:00",
+    closes: "17:00",
+  },
+];
+
+/**
+ * Het magazijn en afhaalpunt in Aartselaar, als `Place`.
+ *
+ * Dit is geen tweede vestiging met een eigen naam en nummer, maar de plek
+ * waar de toestellen staan en waar een klant ze komt halen. Vandaar een Place
+ * onder `location` en geen tweede LocalBusiness: twee bedrijfsknopen met
+ * hetzelfde telefoonnummer op twee adressen is precies de NAP-verwarring die
+ * we hier wegwerken.
+ */
+function depotSchema(): Json {
+  return {
+    "@type": "Place",
+    name: "Magazijn en afhaalpunt Vernast Bouwdrogers",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: CONTACT.street,
+      postalCode: CONTACT.postalCode,
+      addressLocality: CONTACT.city,
+      addressRegion: CONTACT.region,
+      addressCountry: CONTACT.country,
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: CONTACT.latitude,
+      longitude: CONTACT.longitude,
+    },
+    hasMap: `https://www.google.com/maps/search/?api=1&query=${CONTACT.latitude},${CONTACT.longitude}`,
+    openingHoursSpecification: OPENING_HOURS,
   };
 }
 
@@ -310,6 +363,12 @@ export interface ServiceSchemaInput {
   path: string;
   /** Bijvoorbeeld "Bouwdroging" of "Waterschadeherstel". */
   serviceType: string;
+  /**
+   * Eén gebied in plaats van heel Vlaanderen — voor de regiopagina's, die
+   * juist bestaan om per provincie gevonden te worden. Weglaten geeft het
+   * volledige servicegebied.
+   */
+  areaServed?: Json | Json[];
 }
 
 /** Een dienst die op een landingspagina wordt aangeboden. */
@@ -321,7 +380,8 @@ export function serviceSchema(s: ServiceSchemaInput): Json {
     serviceType: s.serviceType,
     url: absoluteUrl(s.path),
     provider: { "@id": ORGANIZATION_ID },
-    areaServed: SERVICE_AREA.map((name) => ({ "@type": "AdministrativeArea", name })),
+    areaServed:
+      s.areaServed ?? SERVICE_AREA.map((name) => ({ "@type": "AdministrativeArea", name })),
     availableChannel: {
       "@type": "ServiceChannel",
       serviceUrl: absoluteUrl(s.path),

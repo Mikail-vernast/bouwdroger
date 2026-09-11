@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
+import { REGIOS } from "@/data/regios";
 import { ArrowRightIcon } from "./icons";
 
 interface Region {
@@ -7,58 +8,37 @@ interface Region {
   /** Pin position over the map of Flanders. */
   pin: CSSProperties;
   towns: string[];
+  /** The region's own page, when it has one. Brussel has none (yet). */
+  path?: string;
 }
 
+/*
+  The five provinces come from the same data as their landing pages, so the
+  towns on the map and the towns on /bouwdroger-huren-<regio> cannot drift
+  apart. Brussel stays here only: we deliver there, but it has no page.
+*/
+const BRUSSEL: Region = {
+  name: "Brussel",
+  pin: { left: "33%", top: "53%" },
+  towns: [
+    "Brussel-stad", "Schaarbeek", "Anderlecht", "Ukkel", "Elsene", "Etterbeek", "Jette", "Evere",
+    "Vorst", "Sint-Gillis", "Molenbeek", "Laken", "Woluwe", "Oudergem", "Ganshoren", "Koekelberg",
+  ],
+};
+
+const bySlug = (slug: string): Region => {
+  const r = REGIOS.find((x) => x.slug === slug)!;
+  return { name: r.name, pin: r.pin, towns: r.towns, path: r.path };
+};
+
+/* Design order: west to east, Brussel between Vlaams-Brabant and Limburg. */
 const REGIONS: Region[] = [
-  {
-    name: "West-Vlaanderen",
-    pin: { left: "8%", top: "34%" },
-    towns: [
-      "Brugge", "Kortrijk", "Oostende", "Roeselare", "Ieper", "Waregem", "Knokke-Heist", "Veurne",
-      "Torhout", "Menen", "Izegem", "Diksmuide", "Blankenberge", "Poperinge", "Tielt", "Harelbeke",
-    ],
-  },
-  {
-    name: "Oost-Vlaanderen",
-    pin: { left: "24%", top: "25%" },
-    towns: [
-      "Gent", "Aalst", "Sint-Niklaas", "Dendermonde", "Lokeren", "Wetteren", "Deinze", "Eeklo",
-      "Ninove", "Geraardsbergen", "Oudenaarde", "Ronse", "Zottegem", "Temse", "Beveren", "Zelzate",
-    ],
-  },
-  {
-    name: "Antwerpen",
-    pin: { left: "42%", top: "12%" },
-    towns: [
-      "Antwerpen", "Aartselaar", "Mechelen", "Turnhout", "Lier", "Boom", "Kontich", "Geel", "Mol",
-      "Herentals", "Heist-op-den-Berg", "Brasschaat", "Schoten", "Wilrijk", "Edegem", "Duffel",
-    ],
-  },
-  {
-    name: "Vlaams-Brabant",
-    pin: { left: "44%", top: "40%" },
-    towns: [
-      "Leuven", "Vilvoorde", "Halle", "Aarschot", "Tienen", "Zaventem", "Dilbeek", "Grimbergen",
-      "Diest", "Asse", "Overijse", "Tervuren", "Machelen", "Beersel", "Sint-Pieters-Leeuw", "Haacht",
-    ],
-  },
-  {
-    name: "Brussel",
-    pin: { left: "33%", top: "53%" },
-    towns: [
-      "Brussel-stad", "Schaarbeek", "Anderlecht", "Ukkel", "Elsene", "Etterbeek", "Jette", "Evere",
-      "Vorst", "Sint-Gillis", "Molenbeek", "Laken", "Woluwe", "Oudergem", "Ganshoren", "Koekelberg",
-    ],
-  },
-  {
-    name: "Limburg",
-    pin: { left: "68%", top: "21%" },
-    towns: [
-      "Hasselt", "Genk", "Sint-Truiden", "Tongeren", "Beringen", "Lommel", "Bilzen", "Maasmechelen",
-      "Houthalen", "Heusden-Zolder", "Diepenbeek", "Bree", "Peer", "Maaseik", "Lanaken",
-      "Leopoldsburg",
-    ],
-  },
+  bySlug("west-vlaanderen"),
+  bySlug("oost-vlaanderen"),
+  bySlug("antwerpen"),
+  bySlug("vlaams-brabant"),
+  BRUSSEL,
+  bySlug("limburg"),
 ];
 
 /** The design opens on Antwerpen — the province the depot sits in. */
@@ -108,12 +88,34 @@ const V3Regio = () => {
               Staat uw gemeente er niet bij? Wij leveren in heel Vlaanderen en Brussel — bel ons op
               03 689 90 65 en we bekijken het meteen.
             </p>
-            <Link className="btn btn-red" to="/verhuur/calculator">
-              Bereken uw pakket
-              <ArrowRightIcon size={14} />
-            </Link>
+            <div className="rg-actions">
+              {region.path && (
+                <Link className="btn btn-red" to={region.path}>
+                  Bouwdroger huren in {region.name}
+                  <ArrowRightIcon size={14} />
+                </Link>
+              )}
+              <Link className="btn btn-out" to="/verhuur/calculator">
+                Bereken uw pakket
+                <ArrowRightIcon size={14} />
+              </Link>
+            </div>
           </div>
         </div>
+
+        {/*
+          Plain links to all five region pages, always in the HTML. The map
+          above shows one province at a time and only after a click, so a
+          crawler that never clicks would otherwise see a single region link.
+        */}
+        <nav className="rg-links" aria-label="Werkgebied">
+          <span>Bouwdroger huren in:</span>
+          {REGIONS.filter((r) => r.path).map((r) => (
+            <Link key={r.name} to={r.path!}>
+              {r.name}
+            </Link>
+          ))}
+        </nav>
       </div>
     </section>
   );

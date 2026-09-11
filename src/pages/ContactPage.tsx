@@ -167,10 +167,17 @@ const ContactPage = () => {
           <div className="loc-grid2">
             <div className="lc2">
               <div className="lt"><span className="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V7l7-4 7 4v14" /><path d="M9 21v-6h6v6" /></svg></span><h3>Hoofdkantoor</h3></div>
-              <p><b>Vernast Verhuur</b><br />Kleidaal 12, Unit 11 · 2630 Aartselaar</p>
+              {/*
+                Het postadres zoals overal op de site en in de JSON-LD (`CONTACT`
+                in src/lib/site.ts). Hier stond "Kleidaal 12" uit de designhandoff;
+                Kleidaal is de toegangsweg van het KMO-park (zie de routestappen
+                hieronder), het adres is Boomsesteenweg 12. Twee adressen voor één
+                magazijn is precies wat een NAP-check afstraft.
+              */}
+              <p><b>Vernast Bouwdrogers</b><br />Boomsesteenweg 12, Unit 11 · 2630 Aartselaar</p>
               <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg><span><b>Kantoor:</b> Ma–Vr 08:00–17:00</span></div>
               <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" /><circle cx="12" cy="10" r="3" /></svg><span>Parkeren kan vlak voor de unit.</span></div>
-              <a className="lgo" href="https://www.google.com/maps/search/?api=1&query=Kleidaal+12+2630+Aartselaar" target="_blank" rel="noopener">Open in Google Maps<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+              <a className="lgo" href="https://www.google.com/maps/search/?api=1&query=Boomsesteenweg+12+2630+Aartselaar" target="_blank" rel="noopener">Open in Google Maps<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
             </div>
             <div className="lc2">
               <div className="lt"><span className="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg></span><h3>Afhaalpunt magazijn</h3></div>
