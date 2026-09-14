@@ -28,7 +28,7 @@
  *    (`GET /v3/smtp/emails/{uuid}`). Die staat er pas als het bericht in het
  *    transactionele logboek zit: in productie gemeten zo'n twintig seconden.
  *    Vandaar het pollen hieronder, en vandaar dat dit werk buiten het antwoord
- *    van de functie valt (`waitUntil`) — geen bezoeker en geen webhook wacht erop.
+ *    van de functie valt (`keepAlive`) — geen bezoeker en geen webhook wacht erop.
  *
  * Niets hier gooit. Een kopie die niet lukt, is een logregel; de mail zelf is op
  * dat moment al vertrokken.
@@ -37,7 +37,7 @@
  */
 
 import { createSign } from "node:crypto";
-import { waitUntil } from "@vercel/functions";
+import { keepAlive } from "./platformWaitUntil.js";
 import type { BrevoRecipient } from "./brevo.js";
 
 const BREVO_API = "https://api.brevo.com/v3";
@@ -409,9 +409,10 @@ async function copy(mail: SentMail): Promise<void> {
 /**
  * Legt de kopie in Verzonden, buiten het antwoord van de functie om.
  *
- * `waitUntil` houdt de instance in leven tot de kopie klaar is zonder dat de
- * aanroeper wacht. Draait dit buiten Vercel — een test, een script — dan blijft
- * het gewoon een losse promise; ook dan mag niets erop wachten.
+ * `keepAlive` houdt de runtime in leven tot de kopie klaar is zonder dat de
+ * aanroeper wacht — op Vercel via `waitUntil`, op Cloudflare via `ctx.waitUntil`.
+ * Draait dit buiten een deploy — een test, een script — dan blijft het gewoon
+ * een losse promise; ook dan mag niets erop wachten.
  */
 export function scheduleSentCopy(mail: SentMail): void {
   if (!configured()) return;
@@ -421,9 +422,5 @@ export function scheduleSentCopy(mail: SentMail): void {
     console.error(`[verzonden] kopie van ${mail.messageId} mislukt: ${reason}`);
   });
 
-  try {
-    waitUntil(task);
-  } catch {
-    /* Buiten Vercel bestaat er geen request om aan te hangen. */
-  }
+  keepAlive(task);
 }

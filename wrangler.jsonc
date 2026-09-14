@@ -1,0 +1,76 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bouwdroger",
+  "main": "worker/index.ts",
+
+  // Workers met Static Assets, niet Cloudflare Pages: Pages krijgt geen nieuwe
+  // features meer en Cloudflare stuurt nieuwe projecten expliciet hierheen.
+  "compatibility_date": "2026-09-01",
+
+  // De routes in `api/` gebruiken `process.env`, `Buffer` en `node:crypto`
+  // (de RSA-signature voor Google's service-account in sentCopy.ts). Met
+  // nodejs_compat en een compatibility_date vanaf 2025-04-01 vult Cloudflare
+  // `process.env` met de vars en secrets; zonder die vlag is het leeg en falen
+  // de handlers pas op de eerste echte aanroep, niet bij het deployen.
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+
+    // Alleen `/api/*` door de Worker. Al het andere serveert de assetlaag
+    // rechtstreeks, en dat is gratis en ongelimiteerd — bij `true` was elk
+    // bestand van één paginalading een betaalde request. Een pad dat géén
+    // bestand is (een oude Shopify-URL, een 404) valt vanzelf door naar de
+    // Worker zodra de assetlaag niets vindt.
+    // `/api/*` moet altijd door de Worker. De twee andere patronen vangen de
+    // URL-vormen die genormaliseerd moeten worden (`/machines/`,
+    // `/machines.html`): Cloudflares eigen normalisatie stuurt daar een 307,
+    // en dat is voor Google een *tijdelijke* omleiding die de oude URL in de
+    // index houdt. De Worker maakt er een 308 van, net als Vercel.
+    //
+    // Dit kost bijna niets: een geldige interne link eindigt nooit op `/` of
+    // `.html`, dus hier komt alleen oud verkeer langs. Alle bestanden —
+    // afbeeldingen, JS, CSS — blijven rechtstreeks uit de gratis assetlaag
+    // komen.
+    "run_worker_first": ["/api/*", "/*/", "/*.html"],
+
+    // `/machines` moet `dist/machines.html` serveren — dat is `cleanUrls`.
+    // De bijbehorende redirects doet de Worker hierboven, met de 308 die
+    // Vercel ook stuurt.
+    "html_handling": "auto-trailing-slash",
+
+    // "none": een pad zonder bestand valt door naar de Worker, die er een
+    // redirect of de 404-pagina van maakt. Met "404-page" zou de assetlaag de
+    // 404 zelf afhandelen en zouden de 50 redirects nooit bereikt worden.
+    "not_found_handling": "none"
+  },
+
+  "observability": {
+    "enabled": true
+  },
+
+  "vars": {
+    // `src/lib/origin.ts` vertrouwt de Host-header alleen buiten een deploy.
+    // Vercel zet daarvoor zelf `VERCEL_ENV`; Cloudflare kent die niet, en
+    // zonder deze var zou de check stil overgeslagen worden — precies het gat
+    // dat die module moet dichten.
+    "DEPLOY_ENV": "production",
+
+    // Wie de twee vangnetten (`reconcile-orders`, `reminders`) draait. Zolang
+    // dit "vercel" is, slaat `scheduled()` het werk over — de crons hieronder
+    // draaien dan wel mee, maar doen niets. Zo staat het pad getest klaar
+    // zonder dat een klant zijn herinneringsmail dubbel krijgt.
+    //
+    // Bij de DNS-switch: deze vlag op "cloudflare" ÉN `crons` uit
+    // `vercel.json` halen. In die volgorde, met een deploy ertussen.
+    "CRON_OWNER": "vercel"
+  },
+
+  // Dezelfde twee expressies als in `vercel.json`. Ze mogen hier al staan
+  // omdat `CRON_OWNER` bepaalt of er iets gebeurt; zo is het cron-pad
+  // gedeployd en zichtbaar in de logs vóór het er echt toe doet.
+  "triggers": {
+    "crons": ["0 4 * * *", "0 13 * * *"]
+  }
+}

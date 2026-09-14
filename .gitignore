@@ -39,3 +39,10 @@ supabase/.temp/
 
 # Python-bytecode van de hooks in .claude/
 __pycache__/
+
+# Gegenereerd door `wrangler types` uit wrangler.jsonc — draai `npm run cf:types`
+# na elke wijziging daar. Niet committen: dan raakt hij gegarandeerd verouderd.
+worker-configuration.d.ts
+
+# Lokale wrangler-staat (dev-server, cache)
+.wrangler/

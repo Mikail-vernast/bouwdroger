@@ -15,6 +15,9 @@ const ALLOWED_HOSTS = [
   // Preview-deploys draaien op een wisselende naam onder dit domein en moeten
   // naar zichzelf terugkeren, anders test je de boeking op productie.
   /^([a-z0-9-]+\.)*vercel\.app$/,
+  // Hetzelfde voor de Cloudflare-kant, die tijdens de migratie naast Vercel
+  // draait op `bouwdroger.vernast-v2.workers.dev`.
+  /^([a-z0-9-]+\.)*workers\.dev$/,
   /^([a-z0-9-]+\.)*vernast-bouwdrogers\.be$/,
   /^([a-z0-9-]+\.)*bouwdrogerservice\.be$/,
 ];
@@ -38,15 +41,28 @@ export const CANONICAL_ORIGIN = "https://vernast-bouwdrogers.be";
  * waar de pagina nog niet bestaat. Resultaat: een klant die betaald heeft en
  * een 404 ziet, en een betaling die nooit bij de order aankomt.
  *
- * Dat dit veilig is, hangt aan één ding: `VERCEL_ENV` staat op `production` of
- * `preview` zodra dit écht ergens draait, en dan geldt enkel de lijst hierboven.
- * Een vervalste Host-header komt daar niet doorheen.
+ * Dat dit veilig is, hangt aan één ding: zodra dit écht ergens draait meldt de
+ * omgeving dat, en dan geldt enkel de lijst hierboven. Een vervalste
+ * Host-header komt daar niet doorheen.
  */
 const DEPLOYED = new Set(["production", "preview"]);
 
+/**
+ * Draait dit op een echte deploy?
+ *
+ * Vercel zet `VERCEL_ENV` zelf; Cloudflare kent die variabele niet en zou de
+ * check dus stil overslaan — met als gevolg dat daar élke Host-header vertrouwd
+ * wordt, precies wat deze module moet voorkomen. Vandaar `DEPLOY_ENV`, dat in
+ * `wrangler.jsonc` op `production` staat. Een ontbrekende waarde betekent
+ * "lokaal", en dat blijft de veilige uitkomst: daar valt niets te kapen.
+ */
+function deployEnv(): string {
+  return process.env.VERCEL_ENV ?? process.env.DEPLOY_ENV ?? "";
+}
+
 export function safeOrigin(request: Request): string {
   const url = new URL(request.url);
-  if (!DEPLOYED.has(process.env.VERCEL_ENV ?? "")) return url.origin;
+  if (!DEPLOYED.has(deployEnv())) return url.origin;
   const known = ALLOWED_HOSTS.some((pattern) => pattern.test(url.hostname));
   return known ? url.origin : CANONICAL_ORIGIN;
 }
