@@ -167,7 +167,19 @@ Bij de switch: `crons` toevoegen aan `wrangler.jsonc` én `crons` weghalen uit
 aanroept, en geeft de `Authorization: Bearer $CRON_SECRET` mee die de handlers
 zelf controleren.
 
-### 3. De Stripe-webhook omzetten
+### 3. De meting vervangen
+
+`@vercel/analytics` en `@vercel/speed-insights` renderen sinds de
+analytics-PR alleen nog op een Vercel-host: hun scripts komen van
+`/_vercel/...`, en dat pad bestaat buiten Vercel niet. Na de DNS-switch staat
+deze site dus zonder bezoekersmeting — er is geen GTM of GA4 als vangnet, zoals
+op de andere merksites wel.
+
+Cloudflare Web Analytics is de gratis opvolger en werkt pas als het domein bij
+Cloudflare draait. Zet die aan in dezelfde beweging als de switch, anders is de
+eerste week onmeetbaar.
+
+### 4. De Stripe-webhook omzetten
 
 De webhook-URL in het Stripe-dashboard wijst naar
 `vernast-bouwdrogers.be/api/stripe-webhook`. Zolang dat domein naar Vercel wijst
