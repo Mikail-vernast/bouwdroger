@@ -55,12 +55,22 @@
     // Vercel zet daarvoor zelf `VERCEL_ENV`; Cloudflare kent die niet, en
     // zonder deze var zou de check stil overgeslagen worden — precies het gat
     // dat die module moet dichten.
-    "DEPLOY_ENV": "production"
-  }
+    "DEPLOY_ENV": "production",
 
-  // BEWUST GEEN "triggers"/"crons". De twee vangnetten (`reconcile-orders`
-  // 04:00, `reminders` 13:00) draaien nu op Vercel. Ze hier óók aanzetten laat
-  // `reminders` twee keer per dag lopen en stuurt elke klant zijn
-  // herinneringsmail dubbel. De expressies gaan pas aan bij de DNS-switch —
-  // zie docs/cloudflare-migratie.md.
+    // Wie de twee vangnetten (`reconcile-orders`, `reminders`) draait. Zolang
+    // dit "vercel" is, slaat `scheduled()` het werk over — de crons hieronder
+    // draaien dan wel mee, maar doen niets. Zo staat het pad getest klaar
+    // zonder dat een klant zijn herinneringsmail dubbel krijgt.
+    //
+    // Bij de DNS-switch: deze vlag op "cloudflare" ÉN `crons` uit
+    // `vercel.json` halen. In die volgorde, met een deploy ertussen.
+    "CRON_OWNER": "vercel"
+  },
+
+  // Dezelfde twee expressies als in `vercel.json`. Ze mogen hier al staan
+  // omdat `CRON_OWNER` bepaalt of er iets gebeurt; zo is het cron-pad
+  // gedeployd en zichtbaar in de logs vóór het er echt toe doet.
+  "triggers": {
+    "crons": ["0 4 * * *", "0 13 * * *"]
+  }
 }

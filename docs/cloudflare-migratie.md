@@ -125,14 +125,11 @@ Tegen de live Vercel-site, op 14-09-2026:
   vier andere geven 500 in plaats van 400/401 omdat hun secret er nog niet is —
   dat is het gedrag dat de handlers zelf voorschrijven.
 
-## Wat nog moet — pas bij de DNS-switch
+## De secrets
 
-### 1. De secrets
-
-Zeventien variabelen. Op Vercel staan ze als **sensitive** opgeslagen en zijn
-ze per ontwerp niet uitleesbaar: `vercel env pull` schrijft er `[SENSITIVE]`
-voor in de plaats. Ze moeten dus uit een lokale kopie of opnieuw bij de bron
-opgehaald worden.
+Zeventien variabelen. Op Vercel staan ze als **sensitive** opgeslagen en zijn ze
+per ontwerp niet uitleesbaar: `vercel env pull` schrijft er `[SENSITIVE]` voor in
+de plaats.
 
 ```bash
 node scripts/cf-secrets.mjs .env.production          # controle, zet niets
@@ -143,46 +140,82 @@ Het script weigert placeholders en noemt per ontbrekend secret waar je het
 ophaalt. De waarden gaan via stdin naar wrangler, dus ze belanden niet in de
 shell-geschiedenis.
 
-**Let op welke sleutels je zet.** De lokale `.env.local` bevat
-`sk_test`-sleutels, maar `VERNAST_WEBHOOK_URL` wijst naar de échte Supabase: een
-testbestelling landt dan in de productiedatabase van Vernast. Voor een
-preview-worker wil je daar een testbestemming, voor de echte switch de
-productiesleutels.
+**Stand nu: veertien secrets staan gezet, met de TEST-sleutels uit `.env.local`.**
+Daarmee zijn alle veertien routes verifieerbaar op de workers.dev-URL zonder dat
+er een euro omgaat. Ontbreken nog: `BREVO_TPL_CONTACT_ONTVANGEN`,
+`GOOGLE_SERVICE_ACCOUNT_KEY` en `VITE_SITE_URL`.
 
-### 2. De crons
+### De sleutelmodus is vergrendeld
 
-`wrangler.jsonc` heeft **bewust geen** `triggers`-blok. De twee vangnetten
-(`reconcile-orders` 04:00, `reminders` 13:00) draaien nu op Vercel; ze hier óók
-aanzetten laat `reminders` twee keer per dag lopen en stuurt elke klant zijn
-herinneringsmail dubbel.
+Productie draait op `pk_live`/`sk_live`; hier staat `sk_test`. Zou iemand de DNS
+omzetten zonder eerst de sleutels te vervangen, dan rekenen echte klanten af in
+Stripes testmodus: de Checkout-pagina laadt, de betaling "slaagt", de
+bevestigingsmail vertrekt — en er is nooit geld overgemaakt. Dat merk je pas bij
+de bankafstemming, met orders die als betaald in het portaal staan.
 
-Bij de switch: `crons` toevoegen aan `wrangler.jsonc` én `crons` weghalen uit
-`vercel.json` — in die volgorde, en met een deploy ertussen.
+`worker/guardKeyMode.ts` koppelt daarom de sleutelmodus aan de hostname: op een
+productiedomein mag alleen `live`, daarbuiten alleen `test`. Klopt dat niet, dan
+geeft elke betaalroute een 503 in plaats van door te gaan. Een kapotte
+betaalknop valt binnen een uur op; een betaling die niet bestaat niet.
 
-```jsonc
-"triggers": { "crons": ["0 4 * * *", "0 13 * * *"] }
-```
+De omgekeerde fout wordt net zo goed gevangen: een `sk_live` op de
+migratie-URL zou echt geld incasseren van wie daar aan het testen is.
 
-`scheduled()` in `worker/index.ts` leidt uit de expressie af welke route hij
-aanroept, en geeft de `Authorization: Bearer $CRON_SECRET` mee die de handlers
-zelf controleren.
+Acht testgevallen in `src/test/guardKeyMode.test.ts`, inclusief de suffix-spoof
+(`vernast-bouwdrogers.be.evil.com` telt niet als productie).
 
-### 3. De meting vervangen
+## De crons
 
-`@vercel/analytics` en `@vercel/speed-insights` renderen sinds de
-analytics-PR alleen nog op een Vercel-host: hun scripts komen van
-`/_vercel/...`, en dat pad bestaat buiten Vercel niet. Na de DNS-switch staat
-deze site dus zonder bezoekersmeting — er is geen GTM of GA4 als vangnet, zoals
-op de andere merksites wel.
+`reconcile-orders` (04:00) en `reminders` (13:00). Dezelfde twee staan in
+`vercel.json`. Draaien ze tegelijk op beide platforms, dan krijgt elke klant zijn
+herinneringsmail dubbel — en dat valt niet op in een log, alleen bij de klant.
 
-Cloudflare Web Analytics is de gratis opvolger en werkt pas als het domein bij
-Cloudflare draait. Zet die aan in dezelfde beweging als de switch, anders is de
-eerste week onmeetbaar.
+Cloudflare kent geen "staat deze cron ook ergens anders aan"-check, dus die is
+zelfgemaakt: **`CRON_OWNER`** in `wrangler.jsonc`. Zolang die op `"vercel"` staat
+slaat `scheduled()` het werk over. De expressies staan daardoor nú al in
+`wrangler.jsonc`: het pad is gedeployd, zichtbaar in de logs, en getest — alleen
+het werk wordt overgeslagen.
 
-### 4. De Stripe-webhook omzetten
+Geverifieerd (14-09-2026) met `wrangler dev --test-scheduled`:
+
+| `CRON_OWNER` | uitkomst |
+|---|---|
+| `"vercel"` | `[cron] 0 13 * * * overgeslagen: CRON_OWNER staat op "vercel".` |
+| `"cloudflare"` | `89 sessies bekeken, 0 leveringsmails, 0 verlengmails` → `/api/reminders 200` |
+
+**Bij de DNS-switch**, in deze volgorde:
+
+1. `CRON_OWNER` op `"cloudflare"` in `wrangler.jsonc`, deployen.
+2. `crons` uit `vercel.json` halen, deployen.
+
+Andersom draaien ze even dubbel.
+
+## De Stripe-webhook
 
 De webhook-URL in het Stripe-dashboard wijst naar
 `vernast-bouwdrogers.be/api/stripe-webhook`. Zolang dat domein naar Vercel wijst
-komt de webhook daar aan. Na de DNS-switch komt hij vanzelf bij de Worker —
-maar het signing-secret moet dan wel gezet zijn, anders weigert de handler elke
-melding en blijft elke betaling op `pending` staan.
+komt de webhook daar aan; na de switch komt hij vanzelf bij de Worker.
+
+Het signing-secret moet dan gezet zijn, anders weigert de handler elke melding en
+blijft elke betaling op `pending` staan. **Let op:** het live-endpoint heeft een
+ander `whsec_` dan het test-endpoint. Wat nu op de Worker staat is de
+test-variant.
+
+De verificatie zelf is bewezen te werken op de Workers-runtime — dat was tot dan
+een aanname, want `stripe.webhooks.constructEvent` (synchroon) gebruikt Node's
+crypto rechtstreeks en werkt daar niet. Gemeten tegen de gedeployde Worker met
+een zelf ondertekende payload van een event-type dat de handler negeert, dus
+zonder neveneffect:
+
+| | |
+|---|---|
+| geldige signature | `200 {"received":true}` |
+| ongeldige signature | `400 {"error":"Ongeldige signature."}` |
+| geen signature | `400 {"error":"Geen signature."}` |
+| timestamp ouder dan 5 minuten | `400 {"error":"Ongeldige signature."}` |
+
+Die laatste is de replay-bescherming: een onderschepte payload is niet later
+opnieuw af te vuren.
+
+## Wat er bij de DNS-switch nog moet
+

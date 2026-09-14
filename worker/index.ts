@@ -21,6 +21,7 @@
  * ongelimiteerd. Alleen `/api/*` staat in `run_worker_first`.
  */
 
+import { controleerKeyMode } from './guardKeyMode';
 import { headersFor, matchRedirect } from './vercelRouting';
 import { setPlatformWaitUntil } from '../src/lib/platformWaitUntil';
 
@@ -88,6 +89,8 @@ const ROUTES: Record<string, RouteModule> = {
 export interface Env {
   ASSETS: Fetcher;
   CRON_SECRET?: string;
+  /** Welk platform de vangnetten draait. Zie `scheduled()`. */
+  CRON_OWNER?: string;
 }
 
 /**
@@ -154,6 +157,23 @@ export default {
     if (route) {
       const handler = route[request.method as keyof RouteModule];
       if (!handler) return methodNotAllowed(url.pathname);
+
+      // Testsleutels op een echt domein (of andersom) — zie guardKeyMode.ts.
+      const probleem = controleerKeyMode(url.hostname, url.pathname);
+      if (probleem) {
+        console.error(
+          `[stripe] sleutelmodus klopt niet op ${probleem.hostname}: ` +
+            `verwacht ${probleem.verwacht}, gevonden ${probleem.gevonden}. Route geweigerd.`,
+        );
+        return withPlatformHeaders(
+          new Response(JSON.stringify({ error: 'Betalingen zijn tijdelijk niet beschikbaar.' }), {
+            status: 503,
+            headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
+          }),
+          url.pathname,
+        );
+      }
+
       return withPlatformHeaders(await handler(request), url.pathname);
     }
 
@@ -161,15 +181,30 @@ export default {
   },
 
   /**
-   * De twee vangnetten die op Vercel cron-jobs zijn.
+   * De twee vangnetten: `reconcile-orders` (04:00) en `reminders` (13:00).
    *
-   * LET OP: in `wrangler.jsonc` staat nog geen enkele cron-expressie, en dat is
-   * opzettelijk. Zolang Vercel de site bedient draaien de crons dáár; ze hier
-   * ook aanzetten laat `reminders` twee keer per dag lopen en stuurt elke klant
-   * zijn herinneringsmail dubbel. De expressies gaan pas aan bij de DNS-switch.
+   * DE VLAG DIE ERVOOR ZORGT DAT ZE MAAR OP ÉÉN PLEK DRAAIEN
+   * Dezelfde twee taken staan óók in `vercel.json`. Draaien ze tegelijk op
+   * beide platforms, dan krijgt elke klant zijn herinneringsmail dubbel — en
+   * dat valt niet op in een log, alleen bij de klant. Cloudflare kent geen
+   * "staat deze cron ook ergens anders aan"-check, dus die maken we zelf:
+   * `CRON_OWNER` in `wrangler.jsonc` zegt wie aan zet is, en zolang die op
+   * `"vercel"` staat doet deze handler niets.
+   *
+   * De expressies mogen daardoor nú al in `wrangler.jsonc` staan: het pad is
+   * getest en draait mee, alleen het werk wordt overgeslagen. Bij de
+   * DNS-switch is het één vlag omzetten plus `crons` uit `vercel.json` halen.
+   * Zet je de vlag om en vergeet je Vercel, dan draaien ze dubbel — maar dan
+   * heb je het zelf gedaan, in plaats van dat het je overkomt bij een deploy.
    */
   async scheduled(event: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
     setPlatformWaitUntil((task) => ctx.waitUntil(task));
+
+    const eigenaar = env.CRON_OWNER ?? 'vercel';
+    if (eigenaar !== 'cloudflare') {
+      console.log(`[cron] ${event.cron} overgeslagen: CRON_OWNER staat op "${eigenaar}".`);
+      return;
+    }
 
     const secret = env.CRON_SECRET;
     if (!secret) {
