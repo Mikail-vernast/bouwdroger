@@ -1,0 +1,31 @@
+{
+  // De Worker apart type-checken, niet meeliften op `tsconfig.app.json`.
+  //
+  // Die config zet `lib: ["DOM", "DOM.Iterable"]` voor de React-kant. DOM
+  // levert een eigen `Headers` zonder `Symbol.iterator`, waarna
+  // `for (const [k, v] of response.headers)` in worker/index.ts niet meer
+  // compileert terwijl het runtime prima werkt. Die twee omgevingen horen dus
+  // niet in één project.
+  //
+  // De runtime-types komen uit `worker-configuration.d.ts`, dat `wrangler
+  // types` genereert uit wrangler.jsonc. Dat is niet hetzelfde als het losse
+  // `@cloudflare/workers-types`-pakket: dat laatste declareert `Buffer: any`
+  // en botst dan met `@types/node`, waardoor `Buffer.isBuffer(x)` faalt op
+  // "Expected 0 arguments". De gegenereerde variant weet dat `nodejs_compat`
+  // aanstaat en laat de Node-globals aan @types/node.
+  //
+  // `include` noemt alleen `worker` — tsc volgt de imports vandaar vanzelf
+  // naar `api/` en de `src/lib`-modules die de handlers echt gebruiken. Heel
+  // `src/lib` meenemen haalt ook de browsercode binnen (`imageResize.ts`,
+  // `import.meta.env`), en die hoort niet in een Worker-context.
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "noEmit": true
+  },
+  "include": ["worker", "worker-configuration.d.ts"]
+}
