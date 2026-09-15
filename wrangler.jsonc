@@ -74,7 +74,16 @@
     // `api/reminders.ts` valt hierop terug wanneer de Stripe-sessie geen
     // order-URL draagt: zonder deze waarde begint de verlenglink daar met
     // "/verhuur/verlengen" in plaats van met het domein.
-    "VITE_SITE_URL": "https://vernast-bouwdrogers.be"
+    "VITE_SITE_URL": "https://vernast-bouwdrogers.be",
+
+    // De publiceerbare Stripe-sleutel. Publiek, dus een var en geen secret —
+    // hij staat sowieso in elke betaalpagina die een klant opent.
+    //
+    // `api/checkout.ts` en `api/saldo.ts` lezen hem server-side en geven hem
+    // in hun antwoord mee in plaats van hem via een VITE_-variabele de bundel
+    // in te bakken. Zo hoort de publiceerbare sleutel altijd bij dezelfde
+    // omgeving als de geheime sleutel: één plek om van test naar live te gaan.
+    "STRIPE_PUBLISHABLE_KEY": "pk_live_51RadD0FwVMgjyASCzZyD4r0hZ59k8B6OmCu1GViAiKl7DrSyWi8McCXRIz38HWSzGCdAmTXlS5sfL56VeuCBCJEd00eQHTr643"
   },
 
   // Dezelfde twee expressies als in `vercel.json`. Ze mogen hier al staan
