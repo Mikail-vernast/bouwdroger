@@ -89,6 +89,9 @@
     // kale domein; bij schilderwerken is het net andersom. Die regel stond bij
     // Vercel in de domeininstellingen van het project en dus in geen enkel
     // bestand hier. `worker/index.ts` past hem als allereerste toe.
+    // Let op: in productie doet een Redirect Rule op de zone dit werk, niet de
+    // Worker — `/calculator` staat niet in `run_worker_first` en bereikt de
+    // Worker dus nooit. Zie de toelichting in `worker/normalizeHost.ts`.
     "CANONICAL_HOST": "vernast-bouwdrogers.be"
   },
 
