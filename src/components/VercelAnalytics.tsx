@@ -19,19 +19,25 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
  * conditie houdt de meting intact zolang Vercel de site bedient, en houdt de
  * console schoon op Cloudflare.
  *
- * WAT ER BIJ DE DNS-SWITCH MOET GEBEUREN
- * Dan stopt de meting vanzelf, want dan is er geen Vercel-host meer. Cloudflare
- * Web Analytics is de gratis opvolger en werkt pas als het domein daar draait,
- * dus dat is een aparte stap — zie docs/cloudflare-migratie.md.
+ * DE DNS-SWITCH IS GEBEURD (15-09-2026)
+ * `vernast-bouwdrogers.be` draait sindsdien op Cloudflare. Het stond hier nog
+ * in de lijst met Vercel-hosts, dus de conditie gaf `true` op het echte domein
+ * en de SDK's laadden alsnog. Resultaat, gemeten in een echte browser:
+ * `POST /_vercel/insights/view` → 404, met een console-error voor elke
+ * bezoeker — precies wat deze conditie moest voorkomen.
+ *
+ * Wat overblijft is `*.vercel.app`: de preview-deploys, waar de meting wél
+ * werkt. `bouwdrogerservice.be` stond er ook in maar wijst naar Shopify en
+ * heeft nooit een Vercel-deploy gehad.
+ *
+ * Deze site heeft nu dus géén meting meer. Cloudflare Web Analytics is de
+ * gratis opvolger — zie docs/cloudflare-migratie.md.
  */
 export default function VercelAnalytics({ route, path }: { route: string | null; path: string }) {
   // Runtime, niet build-time: dezelfde bundel draait op beide platforms, dus
   // `import.meta.env` kan dit onderscheid niet maken.
   const opVercel =
-    typeof window !== "undefined" &&
-    /(^|\.)vercel\.app$|(^|\.)vernast-bouwdrogers\.be$|(^|\.)bouwdrogerservice\.be$/.test(
-      window.location.hostname,
-    );
+    typeof window !== "undefined" && /(^|\.)vercel\.app$/.test(window.location.hostname);
 
   if (!opVercel) return null;
 
