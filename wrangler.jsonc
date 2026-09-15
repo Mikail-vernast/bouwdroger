@@ -64,7 +64,17 @@
     //
     // Bij de DNS-switch: deze vlag op "cloudflare" ÉN `crons` uit
     // `vercel.json` halen. In die volgorde, met een deploy ertussen.
-    "CRON_OWNER": "vercel"
+    "CRON_OWNER": "vercel",
+
+    // Het eigen domein, voor de links in mails die buiten een browserrequest
+    // om vertrekken. Op Vercel staat dit als env-var; hier hoort het in de
+    // config en niet bij de secrets — een publieke URL is geen geheim, en als
+    // secret zou een domeinwijziging buiten code review om gaan.
+    //
+    // `api/reminders.ts` valt hierop terug wanneer de Stripe-sessie geen
+    // order-URL draagt: zonder deze waarde begint de verlenglink daar met
+    // "/verhuur/verlengen" in plaats van met het domein.
+    "VITE_SITE_URL": "https://vernast-bouwdrogers.be"
   },
 
   // Dezelfde twee expressies als in `vercel.json`. Ze mogen hier al staan
