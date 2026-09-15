@@ -37,6 +37,7 @@ import * as reconcileOrders from '../api/reconcile-orders';
 import * as reminders from '../api/reminders';
 import * as saldo from '../api/saldo';
 import * as stripeWebhook from '../api/stripe-webhook';
+import { normalizeHost } from './normalizeHost';
 import * as vraag from '../api/vraag';
 import * as vraagUploads from '../api/vraag-uploads';
 
@@ -91,6 +92,8 @@ export interface Env {
   CRON_SECRET?: string;
   /** Welk platform de vangnetten draait. Zie `scheduled()`. */
   CRON_OWNER?: string;
+  /** De hostnaam waar deze site op hoort te staan. Zie `normalizeHost()`. */
+  CANONICAL_HOST?: string;
 }
 
 /**
@@ -131,6 +134,13 @@ export default {
     setPlatformWaitUntil((task) => ctx.waitUntil(task));
 
     const url = new URL(request.url);
+
+    // Stap 0: de hostnaam, vóór de padnormalisatie en vóór de redirects. Vercel
+    // doet deze in één hop met het pad onveranderd. Zie `normalizeHost`.
+    const canoniekeUrl = normalizeHost(url, env.CANONICAL_HOST);
+    if (canoniekeUrl) {
+      return new Response(null, { status: 308, headers: { Location: canoniekeUrl } });
+    }
 
     // Stap 1 van Vercels routering: de URL-vorm normaliseren, vóór de
     // redirects. `cleanUrls: true` + `trailingSlash: false` betekent dat

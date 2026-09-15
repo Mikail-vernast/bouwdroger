@@ -83,7 +83,13 @@
     // in hun antwoord mee in plaats van hem via een VITE_-variabele de bundel
     // in te bakken. Zo hoort de publiceerbare sleutel altijd bij dezelfde
     // omgeving als de geheime sleutel: één plek om van test naar live te gaan.
-    "STRIPE_PUBLISHABLE_KEY": "pk_live_51RadD0FwVMgjyASCzZyD4r0hZ59k8B6OmCu1GViAiKl7DrSyWi8McCXRIz38HWSzGCdAmTXlS5sfL56VeuCBCJEd00eQHTr643"
+    "STRIPE_PUBLISHABLE_KEY": "pk_live_51RadD0FwVMgjyASCzZyD4r0hZ59k8B6OmCu1GViAiKl7DrSyWi8McCXRIz38HWSzGCdAmTXlS5sfL56VeuCBCJEd00eQHTr643",
+
+    // Op welke hostnaam deze site hoort te staan. `www` stuurt door naar het
+    // kale domein; bij schilderwerken is het net andersom. Die regel stond bij
+    // Vercel in de domeininstellingen van het project en dus in geen enkel
+    // bestand hier. `worker/index.ts` past hem als allereerste toe.
+    "CANONICAL_HOST": "vernast-bouwdrogers.be"
   },
 
   // Dezelfde twee expressies als in `vercel.json`. Ze mogen hier al staan
