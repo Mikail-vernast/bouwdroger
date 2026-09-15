@@ -23,9 +23,21 @@ import { spawnSync } from 'node:child_process';
 
 /**
  * Wat de handlers uit `process.env` lezen. Gegrepen uit `api/` en `src/lib/`;
- * `VERCEL_ENV` staat er bewust niet bij (die vervangt `DEPLOY_ENV` uit
- * wrangler.jsonc) en `STRIPE_PUBLISHABLE_KEY` evenmin: die is publiek en zit
- * al in de gebouwde bundel.
+ * `VERCEL_ENV` staat er bewust niet bij — die vervangt `DEPLOY_ENV` uit
+ * wrangler.jsonc.
+ *
+ * `STRIPE_PUBLISHABLE_KEY` stond hier eerst níét bij, met als reden dat hij
+ * publiek is en al in de gebouwde bundel zit. Dat eerste klopt, het tweede
+ * niet: `api/checkout.ts` en `api/saldo.ts` lezen hem server-side uit
+ * `process.env` en geven hem in het antwoord mee, juist zodat hij altijd bij
+ * dezelfde omgeving hoort als de geheime sleutel. Ontbreekt hij, dan geven
+ * beide routes een 500 met "Betalen is nog niet geconfigureerd op deze
+ * omgeving" — een foutmelding die naar een ontbrekende geheime sleutel wijst
+ * terwijl die er wel is. Gebeurd op 15-09-2026, live op de bouwdroger.
+ *
+ * Hij staat in `wrangler.jsonc` bij de vars en niet hier bij de secrets: een
+ * publiceerbare sleutel is geen geheim, en als var komt een wijziging mee in
+ * code review.
  */
 const VERWACHT = [
   'BREVO_API_KEY',
