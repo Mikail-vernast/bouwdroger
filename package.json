@@ -17,9 +17,10 @@
     "fonts": "node scripts/fetch-fonts.mjs",
     "images": "node scripts/shrink-images.mjs",
     "tarieven": "node scripts/fetch-tarieven.mjs",
-    "deploy:cf": "npm run typecheck:worker && npm run build && node scripts/generate-cloudflare-routing.mjs && wrangler deploy",
+    "deploy:cf": "npm run typecheck:worker && npm run build && node scripts/generate-cloudflare-routing.mjs && wrangler deploy && node scripts/indexnow-ping.mjs",
     "cf:types": "wrangler types",
-    "typecheck:worker": "wrangler types && tsc --noEmit -p tsconfig.worker.json"
+    "typecheck:worker": "wrangler types && tsc --noEmit -p tsconfig.worker.json",
+    "indexnow": "node scripts/indexnow-ping.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",

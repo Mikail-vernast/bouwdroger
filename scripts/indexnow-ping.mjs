@@ -4,12 +4,15 @@
  * which pages changed, so they recrawl within hours instead of weeks. Bing's
  * index is what ChatGPT search, Copilot and DuckDuckGo read from.
  *
- * Runs at the end of `npm run build`, after generate-seo-files.mjs wrote
- * dist/sitemap.xml. It reads that sitemap so it pings exactly what we publish.
+ * Draait als laatste stap van de cf-release, na het uploaden, en leest
+ * dist/sitemap.xml -- precies wat er zojuist live is gezet. Die volgorde is
+ * geen smaak: Bing haalt de gemelde URL's binnen enkele minuten op, dus een
+ * ping die vooraf gaat meldt de vorige versie.
  *
- *   - Production builds only (VERCEL_ENV=production): previews share the same
- *     canonical URLs, so a ping from there would announce content that isn't
- *     live yet.
+ *   - Niet meer aan een build gekoppeld. Toen de site op Vercel stond hing dit
+ *     aan `npm run build` met een VERCEL_ENV-check tegen previews; op
+ *     Cloudflare bestaat er geen preview (wrangler.jsonc heeft geen env-blok,
+ *     elke release raakt productie) en is de aanroep zelf het signaal.
  *   - Only URLs whose <lastmod> is recent. That date comes from the git commit
  *     of the page's source (see lastmodFor in generate-seo-files.mjs), so a
  *     deploy that didn't touch a page does not re-announce it. Routes without
@@ -35,8 +38,15 @@ import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ENDPOINT = 'https://api.indexnow.org/indexnow';
-/** A lastmod this many days old or younger counts as "changed". */
-const RECENT_DAYS = 2;
+/**
+ * A lastmod this many days old or younger counts as "changed".
+ *
+ * Stond op 2 toen de ping in een build zat en dus binnen een minuut na de
+ * commit draaide. Sinds de site op Cloudflare staat is live zetten handwerk en
+ * gebeurt dat gerust een paar dagen na de commit -- met 2 dagen viel de
+ * wijziging dan buiten het venster en werd er niets gemeld.
+ */
+const RECENT_DAYS = 7;
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -49,7 +59,15 @@ const log = (msg) => console.log(`[indexnow] ${msg}`);
 /** The key file is the single source of truth: public/<32 hex>.txt. */
 function findKey() {
   const dir = join(root, 'public');
-  const file = readdirSync(dir).find((name) => /^[a-f0-9]{32}\.txt$/.test(name));
+  const files = readdirSync(dir).filter((name) => /^[a-f0-9]{32}\.txt$/.test(name));
+  // Twee sleutelbestanden naast elkaar is geen detail: readdir bepaalt dan welke
+  // we sturen, en een sleutel die nog niet live staat verbrandt de host bij Bing
+  // (die onthoudt de 404 en blijft daarna 403 geven). Liever hard stoppen.
+  if (files.length > 1) {
+    log(`meerdere sleutelbestanden in public/ (${files.join(', ')}) - laat er een staan`);
+    return null;
+  }
+  const file = files[0];
   if (!file) return null;
   const key = readFileSync(join(dir, file), 'utf8').trim();
   return key === basename(file, '.txt') ? key : null;
@@ -77,10 +95,6 @@ async function main() {
   const key = findKey();
   if (!key) {
     log('no valid public/<key>.txt — skipping');
-    return;
-  }
-  if (!sendAll && process.env.VERCEL_ENV !== 'production') {
-    log(`not a production build (VERCEL_ENV=${process.env.VERCEL_ENV ?? 'unset'}) — skipping`);
     return;
   }
 
