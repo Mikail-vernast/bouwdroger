@@ -1,0 +1,10 @@
+# Vernast Bouwdrogers — security contact
+# https://www.rfc-editor.org/rfc/rfc9116
+# Verlengd bij elke jaarlijkse security-audit; Expires moet in de toekomst liggen,
+# anders negeren scanners en onderzoekers dit bestand. Zelfde datum als op
+# vernast.be, zodat alle merken in één beweging verlengen.
+
+Contact: mailto:security@vernast.be
+Expires: 2027-07-30T00:00:00.000Z
+Preferred-Languages: nl, en, fr
+Canonical: https://vernast-bouwdrogers.be/.well-known/security.txt
