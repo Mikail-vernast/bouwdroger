@@ -3,6 +3,21 @@
   "name": "bouwdroger",
   "main": "worker/index.ts",
 
+
+  // `bouwdroger.vernast-v2.workers.dev` was een tweede, volledig publiek adres van
+  // deze site. Het stond aan als testingang tijdens de migratie naar Cloudflare;
+  // die rol is nu overgenomen door de preview-URL hieronder.
+  //
+  // Wat dat adres vooral deed: het zone-niveau omzeilen. WAF-regels,
+  // rate-limiting en botbescherming hangen aan de zone en gelden niet op
+  // workers.dev — elke maatregel die je daar instelt had dus een deur naast zich
+  // staan. Daar kwam bij dat het een volledige kopie van de site was: alleen
+  // `X-Robots-Tag: noindex` hield hem uit Google.
+  "workers_dev": false,
+
+  // Wél aan: dit is `<alias>-<naam>.<subdomein>.workers.dev`, de preview-URL van
+  // een losse versie. Andere sleutel dan workers_dev, dus los te schakelen.
+  "preview_urls": true,
   // Workers met Static Assets, niet Cloudflare Pages: Pages krijgt geen nieuwe
   // features meer en Cloudflare stuurt nieuwe projecten expliciet hierheen.
   "compatibility_date": "2026-09-01",
