@@ -154,15 +154,5 @@
         }
       ]
     }
-  ],
-  "crons": [
-    {
-      "path": "/api/reconcile-orders",
-      "schedule": "0 4 * * *"
-    },
-    {
-      "path": "/api/reminders",
-      "schedule": "0 13 * * *"
-    }
   ]
 }

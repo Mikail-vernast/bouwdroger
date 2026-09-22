@@ -57,14 +57,18 @@
     // dat die module moet dichten.
     "DEPLOY_ENV": "production",
 
-    // Wie de twee vangnetten (`reconcile-orders`, `reminders`) draait. Zolang
-    // dit "vercel" is, slaat `scheduled()` het werk over — de crons hieronder
-    // draaien dan wel mee, maar doen niets. Zo staat het pad getest klaar
-    // zonder dat een klant zijn herinneringsmail dubbel krijgt.
+    // Wie de twee vangnetten (`reconcile-orders`, `reminders`) draait. Stond
+    // tot 22-09-2026 op "vercel": `scheduled()` sloeg het werk dan over, zodat
+    // het pad getest klaarstond zonder dat een klant zijn herinneringsmail
+    // dubbel kreeg.
     //
-    // Bij de DNS-switch: deze vlag op "cloudflare" ÉN `crons` uit
-    // `vercel.json` halen. In die volgorde, met een deploy ertussen.
-    "CRON_OWNER": "vercel",
+    // Nu op "cloudflare", want het Vercel-project wordt opgezegd. De volgorde
+    // van die omschakeling ligt vast: eerst deze vlag om + deployen, pas
+    // daarna `crons` uit `vercel.json` halen. Andersom draait er een dag
+    // niets. In het venster ertussen draaien beide platforms; dat is
+    // opgevangen doordat `reminders.ts` een vlag in de Stripe-sessie zet zodra
+    // de mail vertrokken is, en `reconcile-orders.ts` alleen afleest.
+    "CRON_OWNER": "cloudflare",
 
     // Het eigen domein, voor de links in mails die buiten een browserrequest
     // om vertrekken. Op Vercel staat dit als env-var; hier hoort het in de
