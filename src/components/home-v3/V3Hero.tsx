@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Head } from "vite-react-ssg";
 import { REVIEWS } from "@/lib/site";
 import { ArrowRightIcon, GoogleIcon } from "./icons";
 
@@ -34,8 +35,19 @@ const NOTES = [
   },
 ];
 
+/**
+ * De achtergrond van de hero is het LCP-element van de homepage, maar hij staat
+ * als `background` in home-v3.css. De browser ontdekt hem dus pas nadat die CSS
+ * binnen is: op een trage gsm-lijn 2,3 s "load delay" voor een bestand van 6 kB
+ * (Lighthouse, 28-09-2026). De preload laat hem meteen met de HTML meekomen.
+ */
+const HERO_BG = "/vernast/bg-red-wide-2.webp";
+
 const V3Hero = () => (
   <section className="hero">
+    <Head>
+      <link rel="preload" href={HERO_BG} as="image" type="image/webp" fetchPriority="high" />
+    </Head>
     <div className="wrap">
       <div className="hero-inner">
         {/*
