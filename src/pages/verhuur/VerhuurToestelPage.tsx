@@ -17,6 +17,7 @@ import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
 import { serializeSelection } from "@/lib/afhalen";
 import { firstFreeDate, usePickupAvailability } from "@/hooks/usePickupAvailability";
 import { addDays, euroInt, isoDate } from "@/lib/verhuur";
+import { toestelTitel } from "@/lib/toestelTitel";
 import { breadcrumbSchema, faqSchema, productSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
@@ -90,14 +91,8 @@ const VerhuurToestelPage = () => {
   */
   const maxQty = Math.min(MAX_QTY, PICKUP_BY_KEY[key]?.max ?? MAX_QTY);
 
-  /*
-    Het cijfer waarmee dit toestel zich in de paginatitel voorstelt:
-    "vochtafvoer 50 L/dag". Draagt de eerste fiche-regel geen eenheid — bij de
-    adsorptiedroger staat er "techniek adsorptie" — dan levert dat een titel op
-    die halverwege stilvalt, en blijft "ECO Revolution huren | Vernast" over.
-  */
-  const [specLabel, specValue, specUnit] = prod.key[0];
-  const headline = specUnit ? ` — ${specLabel.toLowerCase()} ${specValue} ${specUnit}` : "";
+  // Soortwoord, kerncijfer en dagprijs — zie toestelTitel.ts voor het waarom.
+  const pageTitle = toestelTitel({ short: prod.short, type: prod.type, day: prod.day, spec: prod.key[0] });
 
   const [qty, setQty] = useState(() =>
     Math.max(1, Math.min(maxQty, parseInt(searchParams.get("units") || "1", 10) || 1))
@@ -160,7 +155,7 @@ const VerhuurToestelPage = () => {
   return (
     <div className="vh-prod">
       <PageMeta
-        title={`${prod.short} huren${headline} | Vernast`}
+        title={pageTitle}
         description={prod.sum}
         path={`/verhuur/toestel/${key}`}
         image={prod.img[0]}

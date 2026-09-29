@@ -452,7 +452,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     aboutTitle: "Wanneer kiest u de TTK 350 S?",
     about: [
       "Dit is het toestel dat we het vaakst leveren, en met reden: met <strong>70 liter vochtafvoer per dag</strong> en een bereik tot <strong>400 m³</strong> dekt het een volledige nieuwbouwwoning of een grote renovatie in één keer.",
-      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af — natuurlijke droging duurt weken. De TTK 350 S verlaagt de luchtvochtigheid ver genoeg om dat proces terug te brengen tot <strong>doorgaans 5 tot 7 dagen</strong>, zodat uw vloerder en schilder kunnen starten.",
+      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af — natuurlijke droging duurt weken. De TTK 350 S verlaagt de luchtvochtigheid ver genoeg om dat proces flink in te korten: <strong>twee tot vier weken</strong>, afhankelijk van de dikte van chape of pleister, zodat uw vloerder en schilder sneller kunnen starten.",
       "Voor het beste resultaat combineert u dit toestel met een <strong>ventilator TTV 4500</strong>. Zonder luchtbeweging droogt vooral de lucht en niet de bouwmassa; met circulatie wint u dagen.",
     ],
     bullets: [
