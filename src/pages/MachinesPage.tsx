@@ -87,7 +87,7 @@ const keuzes: Keuze[] = [
     key: "teddh30",
     titel: "Elektrische bouwkachel",
     wanneer:
-      "Voor kelders, winterwerven en onverwarmde nieuwbouw. Warmte maakt het vocht los en laat de condensdroger op volle capaciteit werken, maar voert zelf niets af. Onze bouwkachels vragen een aansluiting op 400 V krachtstroom.",
+      "Voor kelders, winterwerven en onverwarmde nieuwbouw. Warmte maakt het vocht los en laat de condensdroger op volle capaciteit werken, maar voert zelf niets af. De losse TEddH-kachels vragen een aansluiting op 400 V krachtstroom; de kachel in een droogpakket draait op 230 V.",
   },
 ].filter((k) => PRODUCTS[k.key]);
 

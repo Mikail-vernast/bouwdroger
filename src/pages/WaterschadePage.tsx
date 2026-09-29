@@ -90,7 +90,13 @@ const faqs = [
   },
   {
     q: "Hoe lang duurt drogen na een waterlek of overstroming?",
-    a: "Meestal 1 tot 3 weken, afhankelijk van hoeveel water er stond en of het onder de vloer of in de isolatie zit. Onze vochtmeting bevestigt wanneer het effectief droog is — u huurt dus niet langer dan nodig.",
+    // Uit de pakketcatalogus, niet overgetypt: hier stond "1 tot 3 weken" terwijl
+    // hetzelfde pakket verderop op de pagina met 4 weken rekent.
+    a: `${
+      WATER_TERMIJN
+        ? `Ons waterschadepakket rekent met een huurtermijn van ${termijnLabel(WATER_TERMIJN)}.`
+        : "Dat hangt af van de schade."
+    } Hoe snel het in de praktijk gaat, hangt af van hoeveel water er stond en of het onder de vloer of in de isolatie zit. Onze vochtmeting bij start en oplevering bevestigt wanneer het effectief droog is.`,
   },
   {
     q: "Betaalt mijn verzekering de huur van een bouwdroger?",

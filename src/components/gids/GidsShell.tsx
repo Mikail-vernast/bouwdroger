@@ -81,11 +81,14 @@ const GidsShell = ({
               path,
               datePublished: articlePublished,
             })
-          : organizationSchema(),
+          : // Een @graph uit withOrganization() draagt het bedrijf al mee.
+            jsonLd.some((blok) => Array.isArray(blok["@graph"]))
+            ? null
+            : organizationSchema(),
         breadcrumbSchema(crumbs),
         ...(faq.length ? [faqSchema(faq)] : []),
         ...jsonLd,
-      ]}
+      ].filter((blok): blok is Record<string, unknown> => blok !== null)}
     />
 
     <V3Header lightAfter={420} />

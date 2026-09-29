@@ -262,8 +262,9 @@ const StroomverbruikPage = () => (
           </li>
           <li>
             <b>De elektrische kring.</b> Een gewone kring van 16 A op 230 V kan ongeveer 3,6 kW aan. Tel het
-            vermogen op van alles wat erop hangt, zeker als er ook ander bouwgereedschap op draait. Onze
-            bouwkachels werken op 400 V krachtstroom en vragen hun eigen aansluiting.
+            vermogen op van alles wat erop hangt, zeker als er ook ander bouwgereedschap op draait. De losse
+            bouwkachels TEddH 20 T en 30 T werken op 400 V krachtstroom en vragen hun eigen aansluiting; de
+            kachel in een droogpakket draait op een gewoon stopcontact van 230 V.
           </li>
         </ul>
         <div className="note">
