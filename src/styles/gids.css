@@ -1,0 +1,61 @@
+/* ============================================================
+   Gidsen (/gids/*) en /luchtontvochtiger-huren
+
+   Deze pagina's lenen de opmaak van /hoe-drogen-werkt (`.hdw-page`, zie
+   hoe-drogen-werkt.css) zodat ze in dezelfde vormtaal staan als de rest van
+   "Alles over drogen". Wat die designfile niet kent — lopende tekst over
+   meerdere alinea's, tabellen, een kruimelpad en een FAQ-lijst — staat hier,
+   gescoped onder `.hdw-page.gids`. Bewust een apart bestand: de hdw-css is
+   een letterlijke transcriptie en wordt niet met de hand bijgewerkt.
+   ============================================================ */
+
+.hdw-page.gids .crumbs{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0 0 18px;padding:0;font-size:13px;color:rgba(255,255,255,.7)}
+.hdw-page.gids .crumbs li+li::before{content:"/";margin-right:6px;color:rgba(255,255,255,.45)}
+.hdw-page.gids .crumbs a{color:rgba(255,255,255,.85);text-decoration:underline;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:3px}
+.hdw-page.gids .crumbs [aria-current]{color:#fff;font-weight:600}
+
+/* Lopende tekst: leesbare regellengte, ruimte tussen alinea's. */
+.hdw-page.gids .prose{max-width:780px}
+.hdw-page.gids .prose h2{font-family:var(--fd);font-weight:800;font-size:clamp(24px,2.6vw,34px);line-height:1.12;letter-spacing:-.025em;color:var(--txt);margin:0 0 14px;text-wrap:balance}
+.hdw-page.gids .prose h3{font-family:var(--fd);font-weight:700;font-size:19px;line-height:1.3;color:var(--txt);margin:28px 0 8px}
+.hdw-page.gids .prose p,
+.hdw-page.gids .prose li{font-size:16px;line-height:1.75;color:var(--txt-mid)}
+.hdw-page.gids .prose p{margin:0 0 16px}
+.hdw-page.gids .prose ul,
+.hdw-page.gids .prose ol{margin:0 0 18px;padding-left:22px}
+.hdw-page.gids .prose li{margin-bottom:6px}
+.hdw-page.gids .prose b,
+.hdw-page.gids .prose strong{color:var(--txt)}
+.hdw-page.gids .prose a{color:var(--red);font-weight:600;text-decoration:underline;text-decoration-color:rgba(200,16,46,.35);text-underline-offset:3px}
+.hdw-page.gids .prose .note{margin:8px 0 22px}
+
+/* Tabellen: horizontaal scrollen binnen hun eigen kader, nooit de pagina. */
+.hdw-page.gids .tbl{overflow-x:auto;margin:6px 0 22px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.hdw-page.gids table{width:100%;border-collapse:collapse;font-size:15px;min-width:460px}
+.hdw-page.gids caption{text-align:left;padding:14px 16px 4px;font-size:13px;color:var(--txt-dim);caption-side:bottom}
+.hdw-page.gids th,
+.hdw-page.gids td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;color:var(--txt)}
+.hdw-page.gids thead th{background:var(--bg-alt);font-weight:700;font-size:13.5px}
+.hdw-page.gids tbody tr:last-child td{border-bottom:0}
+.hdw-page.gids td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* Kaarten met een link naar een toestel of gids. */
+.hdw-page.gids .kaart a.meer{display:inline-block;margin-top:12px;font-weight:700;font-size:14.5px}
+.hdw-page.gids .kaart .prijs{font-family:var(--fd);font-weight:800;font-size:22px;color:var(--txt);margin:6px 0 4px}
+.hdw-page.gids .kaart .prijs small{font-family:var(--fb);font-weight:500;font-size:13px;color:var(--txt-mid)}
+
+/* FAQ: vraag en antwoord staan allebei open in de HTML — het FAQPage-schema
+   moet exact overeenkomen met wat een bezoeker (en een crawler) leest. */
+.hdw-page.gids .faq{max-width:820px}
+.hdw-page.gids .faq-item{background:#fff;border-radius:16px;padding:22px 24px;margin-bottom:12px}
+.hdw-page.gids .faq-item h3{font-family:var(--fd);font-weight:700;font-size:17.5px;line-height:1.35;color:var(--txt);margin:0 0 8px}
+.hdw-page.gids .faq-item p{font-size:15.5px;line-height:1.7;color:var(--txt-mid);margin:0}
+
+.hdw-page.gids .lees-verder{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.hdw-page.gids .lees-verder a{display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line-2);border-radius:99px;padding:10px 16px;font-weight:600;font-size:14px;color:var(--txt);text-decoration:none}
+.hdw-page.gids .lees-verder a:hover{border-color:var(--red);color:var(--red)}
+
+@media (max-width:640px){
+  .hdw-page.gids .wrap{padding:0 16px}
+  .hdw-page.gids .hero{padding-top:150px}
+}

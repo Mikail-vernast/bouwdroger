@@ -206,6 +206,7 @@ const HoeDrogenWerktPage = () => (
           </div>
         </div>
         <div className="note rv"><b>Niet maximaal drogen. Optimaal drogen.</b> Overcapaciteit is geen kwaliteitskenmerk, de juiste capaciteit wel. Waarom dat zo is, leest u bij <Link to="/waarom-bouwdroging">waarom bouwdroging</Link>.</div>
+        <div className="note rv"><b>Lees verder in onze gidsen.</b> Hoeveel weken uw vloer nodig heeft, leest u in <Link to="/gids/hoe-lang-moet-chape-drogen">hoe lang moet chape drogen</Link>, met de droogtijden per dikte voor chape en pleisterwerk. Werkt u in een koude kelder of zit het water onder de vloer, dan legt <Link to="/gids/condensdroger-of-adsorptiedroger">condensdroger of adsorptiedroger</Link> het verschil uit. En wat een toestel dat dag en nacht draait aan stroom kost, rekenen we voor in <Link to="/gids/stroomverbruik-bouwdroger">stroomverbruik van een bouwdroger</Link>. Alle gidsen staan op één plek onder <Link to="/gids">gidsen over bouwdroging</Link>.</div>
       </div>
     </section>
 

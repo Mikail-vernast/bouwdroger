@@ -389,3 +389,39 @@ export function serviceSchema(s: ServiceSchemaInput): Json {
     },
   });
 }
+
+export interface ArticleSchemaInput {
+  headline: string;
+  description: string;
+  path: string;
+  /** ISO-datum (JJJJ-MM-DD) waarop de tekst voor het eerst online kwam. */
+  datePublished: string;
+  /** ISO-datum van de laatste inhoudelijke wijziging; standaard gelijk aan publicatie. */
+  dateModified?: string;
+  image?: string;
+}
+
+/**
+ * Een uitleggende gids (/gids/*).
+ *
+ * Auteur én uitgever zijn het bedrijf zelf, niet een verzonnen persoon: er
+ * staat geen naam onder de tekst, en schema dat een auteur opvoert die de
+ * pagina niet toont, is precies de onzichtbare inhoud waar dit bestand voor
+ * waarschuwt. Via `withOrganization` bestaat de knoop waarnaar `@id` wijst ook
+ * echt op de pagina.
+ */
+export function articleSchema(a: ArticleSchemaInput): Json {
+  return withOrganization({
+    "@type": "Article",
+    headline: a.headline,
+    description: a.description,
+    url: absoluteUrl(a.path),
+    mainEntityOfPage: absoluteUrl(a.path),
+    inLanguage: SITE_LANG,
+    datePublished: a.datePublished,
+    dateModified: a.dateModified ?? a.datePublished,
+    image: absoluteUrl(a.image ?? ORGANIZATION_IMAGE),
+    author: { "@id": ORGANIZATION_ID },
+    publisher: { "@id": ORGANIZATION_ID },
+  });
+}

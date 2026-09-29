@@ -99,6 +99,31 @@ export const routes: RouteRecord[] = [
         path: "waarom-bouwdroging",
         lazy: async () => ({ Component: (await import("./pages/WaaromBouwdrogingPage")).default }),
       },
+      /*
+       * Gidsen: elk één informatieve zoekvraag (droogtijd, toesteltype,
+       * verbruik). Vaste paden in plaats van `gids/:slug` — het zijn drie
+       * verschillende pagina's met een eigen opbouw, geen sjabloon met data.
+       */
+      {
+        path: "gids",
+        lazy: async () => ({ Component: (await import("./pages/gids/GidsIndexPage")).default }),
+      },
+      {
+        path: "gids/hoe-lang-moet-chape-drogen",
+        lazy: async () => ({ Component: (await import("./pages/gids/ChapeDroogtijdPage")).default }),
+      },
+      {
+        path: "gids/condensdroger-of-adsorptiedroger",
+        lazy: async () => ({ Component: (await import("./pages/gids/CondensAdsorptiePage")).default }),
+      },
+      {
+        path: "gids/stroomverbruik-bouwdroger",
+        lazy: async () => ({ Component: (await import("./pages/gids/StroomverbruikPage")).default }),
+      },
+      {
+        path: "luchtontvochtiger-huren",
+        lazy: async () => ({ Component: (await import("./pages/LuchtontvochtigerHurenPage")).default }),
+      },
       {
         path: "privacy",
         lazy: async () => ({ Component: (await import("./pages/PrivacyPage")).default }),
