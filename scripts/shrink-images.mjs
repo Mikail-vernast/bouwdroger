@@ -44,6 +44,19 @@ const RULES = [
     hem scherp zonder de rest van de map groter te maken.
   */
   { match: /^public\/vernast\/hero-banner\.webp$/, max: 2400 },
+  /*
+    Vier van de zes casefoto's staan alleen in V3Cases op de homepage, daar
+    hoogstens 375 px breed (desktop) en 354 px (gsm). 800 px is twee keer dat.
+    case-chape en case-kelder staan ook op /nieuwbouw en /renovatie op 556 px
+    en blijven daarom op 1200 px. Gemeten 01-10-2026.
+  */
+  { match: /^public\/vernast\/case-(nieuwbouw|keuken|waterschade|renovatie)\.webp$/, max: 800 },
+  /*
+    De kleine variant van de hero-cutout voor gsm (srcset in V3Hero.tsx). Hij
+    wordt niet door dit script gemaakt maar met de hand uit team-cutout-2.webp:
+      cwebp -q 82 -resize 800 0 team-cutout-2.webp -o team-cutout-2-800.webp
+  */
+  { match: /^public\/vernast\/team-cutout-2-800\.webp$/, max: 800 },
   { match: /^public\/vernast\//, max: 1440 },
   { match: /^public\/products\//, max: 1000 },
   { match: /^public\/verhuur\//, max: 1200 },

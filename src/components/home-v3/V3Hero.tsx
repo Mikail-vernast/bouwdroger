@@ -109,9 +109,19 @@ const V3Hero = () => (
       studio-achtergrond die als een zwarte band over het rood viel — vooral
       op mobiel. Met de cutout loopt het rood van de hero gewoon door.
     */}
+    {/*
+      Op gsm staat de cutout schermbreed: 360-412 px. Iedereen kreeg de versie
+      van 1440 px (93 KB); Lighthouse rekende 68 KB daarvan als overbodig.
+      `sizes` meldt op smalle schermen bewust 67vw in plaats van de echte
+      100vw. Zo kiest ook een toestel met pixeldichtheid 3 de variant van
+      800 px -- twee keer de weergavebreedte, wat voor deze foto scherp genoeg
+      is -- in plaats van weer de grote. Vanaf 768 px blijft het de 1440.
+    */}
     <img
       className="hero-art"
       src="/vernast/team-cutout-2.webp"
+      srcSet="/vernast/team-cutout-2-800.webp 800w, /vernast/team-cutout-2.webp 1440w"
+      sizes="(max-width: 767px) 67vw, 100vw"
       alt="Het Vernast-team met het volledige toestellengamma"
       width={1440}
       height={617}
