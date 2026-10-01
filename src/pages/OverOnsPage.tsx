@@ -295,7 +295,7 @@ const OverOnsPage = () => {
               <p>Waar u nu bent: berekende droogpakketten met garantie, losse toestellen en volledig digitale boeking en opvolging.</p>
               <span className="gl">Bereken uw pakket →</span>
             </Link>
-            <a className="gr hot" href="https://www.vernast-vochtbestrijding.be/">
+            <a className="gr hot" href="https://vernast-vochtbestrijding.be/">
               <div className="gphoto"><img src="/vernast/groep-vochtbestrijding.webp" alt="Vernast Vochtbestrijding" style={{ objectFit: "cover" }} /></div>
               <span className="gi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></span>
               <h3>Vernast Vochtbestrijding</h3>

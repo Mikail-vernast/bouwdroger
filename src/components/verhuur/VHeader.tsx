@@ -79,7 +79,7 @@ const VHeader = () => {
               Vernast Group
               <CaretIcon className="caret" />
               <div className="submenu">
-                <a href="https://www.vernast-vochtbestrijding.be/">
+                <a href="https://vernast-vochtbestrijding.be/">
                   Vochtbestrijding<small>Kelder · muren · gevel</small>
                 </a>
                 <Link to="/">
