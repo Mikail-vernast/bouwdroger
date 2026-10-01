@@ -69,15 +69,23 @@ export const SEO = {
     description:
       "Wij brengen uw droogpakket binnen 24 uur naar de werf, plaatsen elk toestel, sluiten de condensafvoer aan en halen alles weer op zodra u droog bent.",
   },
+  /*
+     /afhalen en /verhuur/afhalen bedienen dezelfde zoekvraag ("bouwdroger
+     afhalen Aartselaar"). Google haalde /afhalen in september 2026 nooit op,
+     /verhuur/afhalen stond wél in de index en heeft drie keer zoveel inhoud.
+     Deze blijft bereikbaar vanuit het menu, maar concurreert niet meer. */
   afhalen: {
     title: "Bouwdroger afhalen in Aartselaar — € 25 korting | Vernast",
     description:
       "Zelf ophalen in Aartselaar, Boomsesteenweg 12? Dat kan elke werkdag van 08:00 tot 17:00, met uitleg bij afhaling en € 25 korting op uw huurprijs.",
+    noindex: true,
   },
   reserveren: {
     title: "Bouwdroger online reserveren in 3 stappen | Vernast",
     description:
       "Kies uw toestel, vul uw gegevens in en bevestig. Geen voorschot, dagelijks opzegbaar en levering binnen 24 uur. Wij bellen u binnen één werkdag na.",
+    // Een formulier met 70 woorden eromheen: geen antwoord op een zoekvraag.
+    noindex: true,
   },
 
   /* ---------- Rekenhulpen ----------
@@ -132,6 +140,41 @@ export const SEO = {
     title: "Waarom bouwdroging? Sneller en veiliger drogen | Vernast",
     description:
       "Natuurlijke droging is traag en onvoorspelbaar. Gecontroleerde bouwdroging beschermt uw afwerking, versnelt uw planning en is gemeten droog, met garantie.",
+  },
+
+  /* ---------- Gidsen: informatieve vragen uit Search Console ----------
+     Elk één vraag die mensen letterlijk intikken ("hoelang moet chape drogen",
+     "bouwdroger verbruik", "adsorptiedroger huren") en waar deze site in
+     september 2026 op plek 40-90 stond zonder één pagina die de vraag
+     beantwoordde. Informatief, dus niet in concurrentie met /nieuwbouw of
+     /prijzen: die verkopen, deze leggen uit en verwijzen door. */
+  gids: {
+    title: "Gidsen over bouwdroging: droogtijd en verbruik | Vernast",
+    description:
+      "Praktische gidsen over bouwdroging: hoe lang chape en pleisterwerk drogen, condens- of adsorptiedroger kiezen en wat een bouwdroger aan stroom verbruikt.",
+  },
+  gidsChapeDrogen: {
+    title: "Hoe lang moet chape drogen? Droogtijd per cm | Vernast",
+    description:
+      "Hoe lang moet chape drogen? Droogtijd per dikte, natuurlijk en met bouwdroger, het verschil tussen cement- en anhydrietchape en wanneer u restvocht meet.",
+  },
+  gidsCondensAdsorptie: {
+    title: "Condensdroger of adsorptiedroger? Het verschil | Vernast",
+    description:
+      "Condensdroger of adsorptiedroger huren? Zo werken ze, waarom een condensdroger onder ongeveer 15 °C rendement verliest en welk toestel bij uw situatie past.",
+  },
+  gidsStroomverbruik: {
+    title: "Stroomverbruik bouwdroger: wat kost het per dag? | Vernast",
+    description:
+      "Hoeveel stroom verbruikt een bouwdroger? Het vermogen van onze toestellen, een rekenvoorbeeld per dag en per week, en waarom hij 's nachts mag doordraaien.",
+  },
+  /* "Luchtontvochtiger" en "ontvochtiger huren" stonden nergens op de site
+     behalve in de realisaties, terwijl de toestellen zelf condensontvochtigers
+     zijn. Commercieel, maar een ander woord dan /prijzen ("bouwdroger"). */
+  luchtontvochtigerHuren: {
+    title: "Luchtontvochtiger huren voor kelder en bouw | Vernast",
+    description:
+      "Luchtontvochtiger huren voor een vochtige kelder, na waterschade of in nieuwbouw. Condensontvochtigers van 50 tot 90 liter per dag, met dagprijs en levering.",
   },
 
   /* ---------- Juridisch ---------- */

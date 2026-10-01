@@ -70,6 +70,7 @@ export const TOEPASSINGEN: NavLinkItem[] = [
   { label: "Chape en pleisterwerk drogen", path: "/nieuwbouw" },
   { label: "Drogen na waterschade", path: "/waterschade" },
   { label: "Vochtige kelder of schimmel", path: "/renovatie" },
+  { label: "Luchtontvochtiger huren", path: "/luchtontvochtiger-huren" },
 ];
 
 /** Hoe het toestel bij de klant raakt, en wat het kost. */
@@ -95,6 +96,18 @@ export const BEDRIJF: NavLinkItem[] = [
 ];
 
 /**
+ * De gidsen onder /gids — elk één informatieve zoekvraag. Ook de hub
+ * (/gids) leest deze lijst, zodat een nieuwe gids niet op de ene plek wel en
+ * op de andere niet verschijnt. Het label is de vraag zoals mensen ze
+ * intikken, niet de paginatitel.
+ */
+export const GIDSEN: NavLinkItem[] = [
+  { label: "Hoe lang moet chape drogen?", path: "/gids/hoe-lang-moet-chape-drogen" },
+  { label: "Condensdroger of adsorptiedroger?", path: "/gids/condensdroger-of-adsorptiedroger" },
+  { label: "Stroomverbruik van een bouwdroger", path: "/gids/stroomverbruik-bouwdroger" },
+];
+
+/**
  * Uitleg- en servicepagina's die anders nergens vandaan gelinkt werden en zo
  * een wees dreigden te worden: /klantservice, /drooggarantie, /hoe-drogen-werkt
  * en /waarom-bouwdroging stonden wel in de sitemap, maar zonder interne link.
@@ -104,6 +117,8 @@ export const ONTDEK: NavLinkItem[] = [
   { label: "Drooggarantie", path: "/drooggarantie" },
   { label: "Hoe drogen werkt", path: "/hoe-drogen-werkt" },
   { label: "Waarom bouwdroging", path: "/waarom-bouwdroging" },
+  { label: "Gidsen over bouwdroging", path: "/gids" },
+  ...GIDSEN,
 ];
 
 /**

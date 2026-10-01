@@ -112,6 +112,11 @@ const ROUTE_SOURCES = {
   "/verhuur/afhalen": "src/pages/verhuur/VerhuurAfhalenPage.tsx",
   "/verhuur/calculator": "src/pages/verhuur/VerhuurCalculatorPage.tsx",
   "/verhuur/pakket": "src/pages/verhuur/VerhuurPakketPage.tsx",
+  "/luchtontvochtiger-huren": "src/pages/LuchtontvochtigerHurenPage.tsx",
+  "/gids": "src/pages/gids/GidsIndexPage.tsx",
+  "/gids/hoe-lang-moet-chape-drogen": "src/pages/gids/ChapeDroogtijdPage.tsx",
+  "/gids/condensdroger-of-adsorptiedroger": "src/pages/gids/CondensAdsorptiePage.tsx",
+  "/gids/stroomverbruik-bouwdroger": "src/pages/gids/StroomverbruikPage.tsx",
 };
 
 /** Toestelpagina's komen alle vijf uit hetzelfde sjabloon en dezelfde data. */
@@ -372,7 +377,13 @@ const KEY_PAGES = [
   "/waterschade",
   "/renovatie",
   "/levering",
-  "/afhalen",
+  // /afhalen staat op noindex; /verhuur/afhalen is de indexeerbare afhaalpagina.
+  "/verhuur/afhalen",
+  "/luchtontvochtiger-huren",
+  "/gids",
+  "/gids/hoe-lang-moet-chape-drogen",
+  "/gids/condensdroger-of-adsorptiedroger",
+  "/gids/stroomverbruik-bouwdroger",
   "/bouwdroger-huren-antwerpen",
   "/bouwdroger-huren-oost-vlaanderen",
   "/bouwdroger-huren-vlaams-brabant",

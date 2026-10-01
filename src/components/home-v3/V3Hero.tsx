@@ -67,7 +67,9 @@ const V3Hero = () => (
             </span>
           </div>
         )}
-        <h1>Bouwdroging op maat. Drooggarantie inbegrepen.</h1>
+        {/* "Bouwdroger huren" is de zoekvraag waarop deze pagina moet landen (Search
+            Console, sep 2026: pos. 45-68). Het stond in de titel, niet in de H1. */}
+        <h1>Bouwdroger huren op maat. Drooggarantie inbegrepen.</h1>
         <p>
           Geen standaard bouwdroger, maar een compleet droogpakket op maat van uw woning. Digitaal
           geboekt, energiezuinig gedimensioneerd, professioneel geïnstalleerd en één vaste all-in
