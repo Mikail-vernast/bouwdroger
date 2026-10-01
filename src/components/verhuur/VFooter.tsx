@@ -66,7 +66,7 @@ const VFooter = () => (
           <h4>Vernast Groep</h4>
           <ul>
             <li>
-              <a href="https://www.vernast-vochtbestrijding.be/">Vernast Vochtbestrijding</a>
+              <a href="https://vernast-vochtbestrijding.be/">Vernast Vochtbestrijding</a>
             </li>
             <li>
               <a href="https://www.vernast-schilderwerken.be/">Vernast Schilderwerken</a>

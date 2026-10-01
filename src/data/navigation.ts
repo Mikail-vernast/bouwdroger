@@ -129,6 +129,6 @@ export const ONTDEK: NavLinkItem[] = [
 export const VERNAST_GROEP: { label: string; sub: string; href?: string; path?: string }[] = [
   { label: "Vernast.be", sub: "De groep", href: "https://www.vernast.be/" },
   { label: "Verhuur & bouwdroging", sub: "Toestellen en pakketten", path: "/" },
-  { label: "Vochtbestrijding", sub: "Kelder · muren · gevel", href: "https://www.vernast-vochtbestrijding.be/" },
+  { label: "Vochtbestrijding", sub: "Kelder · muren · gevel", href: "https://vernast-vochtbestrijding.be/" },
   { label: "Schilderwerken", sub: "Binnen & buiten", href: "https://www.vernast-schilderwerken.be/" },
 ];
