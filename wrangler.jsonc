@@ -48,7 +48,12 @@
     // `.html`, dus hier komt alleen oud verkeer langs. Alle bestanden —
     // afbeeldingen, JS, CSS — blijven rechtstreeks uit de gratis assetlaag
     // komen.
-    "run_worker_first": ["/api/*", "/*/", "/*.html"],
+    //
+    // `/404` staat er om een andere reden: `dist/404.html` bestaat (de Worker
+    // serveert hem als body bij elke onbekende URL), dus zonder deze regel
+    // antwoordde de assetlaag op `/404` zelf, met status 200. Via de Worker
+    // valt het pad door naar `notFound()` en krijgt het een echte 404.
+    "run_worker_first": ["/api/*", "/*/", "/*.html", "/404"],
 
     // `/machines` moet `dist/machines.html` serveren — dat is `cleanUrls`.
     // De bijbehorende redirects doet de Worker hierboven, met de 308 die

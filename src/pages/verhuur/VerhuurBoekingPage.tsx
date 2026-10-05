@@ -1036,7 +1036,7 @@ const VerhuurBoekingPage = () => {
                 <p className="bsub">
                   Pakketten worden altijd door ons geleverd, geplaatst en afgesteld, alleen zo kunnen
                   wij de 100% droog-garantie waarmaken. Zelf afhalen kan enkel bij{" "}
-                  <Link to="/afhalen" style={{ color: "var(--red)", fontWeight: 600 }}>
+                  <Link to="/verhuur/afhalen" style={{ color: "var(--red)", fontWeight: 600 }}>
                     losse toestellen
                   </Link>
                   , tegen een lagere afhaalprijs.

@@ -9,6 +9,10 @@
     "fra1"
   ],
   "redirects": [
+    { "source": "/afhalen", "destination": "/verhuur/afhalen", "permanent": true },
+    { "source": "/reserveren", "destination": "/verhuur/calculator", "permanent": true },
+    { "source": "/shop", "destination": "/machines", "permanent": true },
+
     { "source": "/pages/contact", "destination": "/contact", "permanent": true },
     { "source": "/pages/klantenservice", "destination": "/contact", "permanent": true },
     { "source": "/pages/over-ons", "destination": "/over-ons", "permanent": true },

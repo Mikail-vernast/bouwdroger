@@ -20,8 +20,6 @@ const FloatingWhatsApp = () => {
     return () => observer.disconnect();
   }, [pathname]);
 
-  if (pathname === "/reserveren") return null;
-
   // On waterschade page, position above sticky bar on mobile
   const isWaterschade = pathname === "/waterschade";
 

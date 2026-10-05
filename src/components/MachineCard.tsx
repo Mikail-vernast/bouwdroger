@@ -106,7 +106,7 @@ const MachineCard = ({
       <Button
         className="w-full rounded-full font-semibold gap-2 min-h-[44px]"
         variant={isHighlighted ? "default" : "outline"}
-        onClick={() => navigate(`/reserveren?machine=${encodeURIComponent(name)}`)}
+        onClick={() => navigate("/verhuur/calculator")}
       >
         {ctaLabel || `Reserveer ${name.split(" ")[1]}`} <ArrowRight className="h-4 w-4" />
       </Button>

@@ -207,7 +207,7 @@ const RegioPage = () => {
                     ))}
                   </dl>
                   <Button className="rounded-full font-bold gap-2 px-6 mt-6" asChild>
-                    <Link to="/reserveren">
+                    <Link to="/verhuur/calculator">
                       Reserveer met levering <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
@@ -229,7 +229,7 @@ const RegioPage = () => {
                   </p>
                   <p className="text-sm text-muted-foreground mb-6">Ma–Vr 08:00–17:00, op afspraak</p>
                   <Button variant="outline" className="rounded-full font-bold gap-2 px-6" asChild>
-                    <Link to="/afhalen">
+                    <Link to="/verhuur/afhalen">
                       Zo werkt zelf afhalen <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
@@ -358,7 +358,7 @@ const RegioPage = () => {
                 className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8"
                 asChild
               >
-                <Link to="/reserveren">Online reserveren</Link>
+                <Link to="/verhuur/calculator">Online reserveren</Link>
               </Button>
             </div>
           </div>

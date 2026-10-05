@@ -2051,7 +2051,7 @@ export const REALISATIES: Realisatie[] = [
   },
   {
     slug: "bang-olufsen",
-    titel: "Versnelde bouwdroging binnen een strak bouwschema bij Bang & Olufsen",
+    titel: "Versnelde bouwdroging voor Bang & Olufsen",
     chip: "Bouwdroging · winkelpand",
     soort: "bouwvocht",
     locatie: "Bouwdroging · winkelpand",
@@ -2060,7 +2060,7 @@ export const REALISATIES: Realisatie[] = [
     hero: "/realisaties/bang-olufsen/hero.webp",
     heroAlt: "De gevel van de Bang & Olufsen-winkel waar Vernast een versnelde bouwdroging uitvoerde",
     kaart: "/realisaties/bang-olufsen/hero.webp",
-    kaartAlt: "Realisatie: Versnelde bouwdroging binnen een strak bouwschema bij Bang & Olufsen",
+    kaartAlt: "Realisatie: Versnelde bouwdroging voor Bang & Olufsen",
     facts: [
       { label: "Behandeling", waarde: "Bouwdroging", detail: "snel & doelgericht" },
       { label: "Voorbereiding", waarde: "24 uur", detail: "werf drooggezet" },
@@ -2144,10 +2144,15 @@ export const telPerSoort = (soort: RealisatieSoort): number =>
 export const getRealisatie = (slug: string): Realisatie | undefined =>
   REALISATIES.find((r) => r.slug === slug);
 
-/** De gemeente uit "Bouwdroging · Boom"; niet elk project noemt er een. */
+/**
+ * De gemeente uit "Bouwdroging · Boom"; niet elk project noemt er een.
+ *
+ * Een soort gebouw is geen plaats: "Bouwdroging · woning" gaf de titel
+ * "Woning grondig gedroogd na waterschade in woning".
+ */
 export const plaatsVan = (r: Realisatie): string | null => {
   const deel = r.chip.split("·")[1]?.trim();
-  return deel && !/^(bedrijfsgebouw|winkelpand)$/i.test(deel) ? deel : null;
+  return deel && !/^(bedrijfsgebouw|winkelpand|woning)$/i.test(deel) ? deel : null;
 };
 
 /**

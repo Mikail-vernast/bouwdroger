@@ -38,7 +38,7 @@ const HoeDrogenWerktPage = () => (
         <div className="wrap hero-grid">
           <div className="hero-copy">
             <span className="kick rv">Alles over drogen · de techniek</span>
-            <h1 className="rv">Een bouwdroger droogt uw woning niet. Het juiste klimaat wel.</h1>
+            <h1 className="rv">Bouwdroging: niet het toestel droogt uw woning, maar het juiste klimaat.</h1>
             <p className="rv d1">Tijdens bouwen en renoveren komen honderden liters water in uw woning terecht: in pleister, chape, mortel en beton. Professionele bouwdroging is niet "een toestel aanzetten", maar de combinatie van temperatuur, luchtvochtigheid en luchtbeweging zo sturen dat dat vocht gecontroleerd uit de constructie verdwijnt.</p>
 
             <div className="hcta rv d3">

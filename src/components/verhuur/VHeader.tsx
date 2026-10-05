@@ -133,7 +133,7 @@ const VHeader = () => {
                         <Link to="/#levering">Levering &amp; installatie</Link>
                       </li>
                       <li>
-                        <Link to="/afhalen">Afhalen in Aartselaar</Link>
+                        <Link to="/verhuur/afhalen">Afhalen in Aartselaar</Link>
                       </li>
                       <li>
                         <Link to="/verhuur/pakket">Vochtmeting inbegrepen</Link>

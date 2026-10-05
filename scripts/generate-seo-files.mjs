@@ -93,7 +93,6 @@ const today = new Date().toISOString().slice(0, 10);
  */
 const ROUTE_SOURCES = {
   "/": "src/pages/Index.tsx",
-  "/afhalen": "src/pages/AfhalenPage.tsx",
   "/calculator": "src/pages/CalculatorPage.tsx",
   "/contact": "src/pages/ContactPage.tsx",
   "/drooggarantie": "src/pages/DrooggarantiePage.tsx",
@@ -106,7 +105,6 @@ const ROUTE_SOURCES = {
   "/prijzen": "src/pages/PrijzenPage.tsx",
   "/realisaties": "src/pages/RealisatiesPage.tsx",
   "/renovatie": "src/pages/RenovatiePage.tsx",
-  "/reserveren": "src/pages/ReserverenPage.tsx",
   "/waterschade": "src/pages/WaterschadePage.tsx",
   "/waarom-bouwdroging": "src/pages/WaaromBouwdrogingPage.tsx",
   "/verhuur/afhalen": "src/pages/verhuur/VerhuurAfhalenPage.tsx",
