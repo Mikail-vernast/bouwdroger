@@ -19,8 +19,10 @@
  * onder — dezelfde suffix-val die `guardKeyMode` afvangt.
  *
  * IN PRODUCTIE DOET EEN REDIRECT RULE DIT WERK, NIET DEZE FUNCTIE
- * `run_worker_first` staat bewust op een korte lijst (`/api/*`, `/*/`,
- * `/*.html`), zodat bestanden gratis uit de assetlaag komen in plaats van via
+ * `run_worker_first` staat bewust op een korte lijst (`/api/*`, de vormen met
+ * een slash of `.html` op het eind, en `/404` — zie `wrangler.jsonc`; het
+ * patroon voor de slash-vorm staat hier niet letterlijk, want dat sluit deze
+ * commentaarblok af), zodat bestanden gratis uit de assetlaag komen in plaats van via
  * een betaalde Worker-request. Een clean-URL als `/calculator` staat niet in
  * die lijst en bereikt de Worker dus nooit — de host-redirect zou daar stil
  * overgeslagen worden.

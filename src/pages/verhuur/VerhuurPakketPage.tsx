@@ -61,7 +61,7 @@ const VerhuurPakketPage = () => {
     <div className="vh-pkg">
       <PageMeta
         title="Uw droogpakket: toestellen, droogtijd en prijs | Vernast"
-        description="Alles-in-één droogpakket op maat van uw woning: de juiste bouwdrogers, ventilatoren en kachels, met verwachte droogtijd en totaalprijs, geleverd binnen 24 uur."
+        description="Droogpakket op maat van uw woning: de juiste bouwdrogers, ventilatoren en kachels, met verwachte droogtijd en totaalprijs, geleverd binnen 24 uur."
         // Het pakket wordt bepaald door de querystring; die varianten zijn
         // configuratie van dezelfde pagina, geen aparte URL's om te indexeren.
         path="/verhuur/pakket"

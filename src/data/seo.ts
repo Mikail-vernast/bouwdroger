@@ -19,7 +19,7 @@ export const SEO = {
   home: {
     title: "Bouwdroger huren in Vlaanderen — geleverd in 24 u | Vernast",
     description:
-      "Bereken welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie, vochtmeting en ophaling inbegrepen — binnen 24 uur in heel Vlaanderen.",
+      "Bereken welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie, vochtmeting en ophaling inbegrepen, binnen 24 uur in heel Vlaanderen.",
   },
 
   /* ---------- Toepassingen: elk een eigen zoekintentie ---------- */
@@ -46,21 +46,9 @@ export const SEO = {
       "Bekijk alle toestellen die u bij ons huurt: condensontvochtigers van 50 tot 90 l per dag, axiaal- en radiaalventilatoren en elektrische bouwkachels.",
   },
   prijzen: {
-    title: "Wat kost een bouwdroger huren? Alle prijzen | Vernast",
+    title: "Bouwdroger huren: prijs per dag en per week | Vernast",
     description:
-      "Eén dagprijs, alles inbegrepen: geen waarborg, geen verborgen kosten. Bekijk de huurprijzen per toestel en per droogpakket, met korting bij langere huur.",
-  },
-  /*
-     De catalogus van de ECO-reeks. Uit de index gehouden zolang die reeks
-     naast /verhuur/toestel/* bestaat: /machines vertelt hetzelfde gamma met
-     meer inhoud, en deze pagina linkt enkel door naar /product/*, dat om
-     dezelfde reden op noindex staat. Een overzicht indexeren waarvan geen van
-     de bestemmingen indexeerbaar is, levert een doodlopende zoekingang op. */
-  shop: {
-    title: "Bouwdrogers, ventilatoren en toebehoren huren | Vernast",
-    description:
-      "Blader door het volledige verhuuraanbod: bouwdrogers, ventilatoren, bouwkachels, condenspompen en toebehoren. Direct beschikbaar met levering binnen 24 uur.",
-    noindex: true,
+      "Eén dagprijs, alles inbegrepen, geen waarborg. Bekijk de huurprijs per dag en per week, per toestel en per droogpakket, met korting bij langere huur.",
   },
 
   /* ---------- Service ---------- */
@@ -68,24 +56,6 @@ export const SEO = {
     title: "Bouwdroger laten leveren en installeren | Vernast",
     description:
       "Wij brengen uw droogpakket binnen 24 uur naar de werf, plaatsen elk toestel, sluiten de condensafvoer aan en halen alles weer op zodra u droog bent.",
-  },
-  /*
-     /afhalen en /verhuur/afhalen bedienen dezelfde zoekvraag ("bouwdroger
-     afhalen Aartselaar"). Google haalde /afhalen in september 2026 nooit op,
-     /verhuur/afhalen stond wél in de index en heeft drie keer zoveel inhoud.
-     Deze blijft bereikbaar vanuit het menu, maar concurreert niet meer. */
-  afhalen: {
-    title: "Bouwdroger afhalen in Aartselaar — € 25 korting | Vernast",
-    description:
-      "Zelf ophalen in Aartselaar, Boomsesteenweg 12? Dat kan elke werkdag van 08:00 tot 17:00, met uitleg bij afhaling en € 25 korting op uw huurprijs.",
-    noindex: true,
-  },
-  reserveren: {
-    title: "Bouwdroger online reserveren in 3 stappen | Vernast",
-    description:
-      "Kies uw toestel, vul uw gegevens in en bevestig. Geen voorschot, dagelijks opzegbaar en levering binnen 24 uur. Wij bellen u binnen één werkdag na.",
-    // Een formulier met 70 woorden eromheen: geen antwoord op een zoekvraag.
-    noindex: true,
   },
 
   /* ---------- Rekenhulpen ----------
@@ -132,7 +102,7 @@ export const SEO = {
       "De Vernast Drooggarantie: uw woning is 100% droog binnen de berekende periode, bevestigd door een vochtmeting. Niet droog? Dan huurt u kosteloos verder.",
   },
   hoeDrogenWerkt: {
-    title: "Hoe droogt een bouwdroger? Zo werkt bouwdroging | Vernast",
+    title: "Bouwdroging: hoe een bouwdroger uw woning droogt | Vernast",
     description:
       "Hoe werkt een bouwdroger? Over temperatuur, luchtvochtigheid en luchtcirculatie: de cyclus van nat pleisterwerk, chape of beton naar een droge constructie.",
   },

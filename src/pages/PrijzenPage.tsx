@@ -597,7 +597,7 @@ const PrijzenPage = () => {
             <h2 className="text-2xl md:text-3xl font-black text-primary-foreground mb-3">Klaar om te reserveren?</h2>
             <p className="text-primary-foreground/70 mb-8">Geen waarborg, geen verborgen kosten. Wij leveren binnen 24 uur.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-bold gap-2 px-8" onClick={() => navigate("/reserveren")}>
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-bold gap-2 px-8" onClick={() => navigate("/verhuur/calculator")}>
                 Reserveer nu <ArrowRight className="h-4 w-4" />
               </Button>
               <Button size="lg" variant="outline" className="bg-transparent border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8" asChild>

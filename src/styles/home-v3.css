@@ -342,6 +342,8 @@ html { scroll-behavior: smooth; }
 .v3 .dif{padding:88px 0;background:var(--maroon-deep);border-top:0}
 .v3 .dif h2.sec{color:#fff}
 .v3 .dif .lede{color:rgba(255,255,255,.78)}
+.v3 .dif .lede a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.v3 .dif .lede a:hover{color:#ff8a7a}
 .v3 .dif .kick{color:#ff8a7a}
 .v3 .dif-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}
 .v3 .df{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px 22px;transition:border-color .2s,transform .2s}

@@ -46,14 +46,6 @@ export const routes: RouteRecord[] = [
           (await import("./data/packages")).getAllPackages().map((p) => `/levering/pakket/${p.id}`),
       },
       {
-        path: "afhalen",
-        lazy: async () => ({ Component: (await import("./pages/AfhalenPage")).default }),
-      },
-      {
-        path: "shop",
-        lazy: async () => ({ Component: (await import("./pages/ShopPage")).default }),
-      },
-      {
         path: "over-ons",
         lazy: async () => ({ Component: (await import("./pages/OverOnsPage")).default }),
       },
@@ -78,18 +70,6 @@ export const routes: RouteRecord[] = [
       {
         path: "drooggarantie",
         lazy: async () => ({ Component: (await import("./pages/DrooggarantiePage")).default }),
-      },
-      {
-        // Tijdelijke, niet-indexeerbare marketingvariant om naast de huidige
-        // Drooggarantie te kunnen lezen en beoordelen.
-        path: "drooggarantie-v2",
-        lazy: async () => ({ Component: (await import("./pages/DrooggarantieV2Page")).default }),
-      },
-      {
-        // Losse leesversie van de voorgestelde copy voor de volledige website.
-        // De pagina wijzigt geen bestaande content en staat bewust op noindex.
-        path: "copy-v2",
-        lazy: async () => ({ Component: (await import("./pages/CopyV2Page")).default }),
       },
       {
         path: "hoe-drogen-werkt",
@@ -174,10 +154,6 @@ export const routes: RouteRecord[] = [
         path: "prijzen",
         lazy: async () => ({ Component: (await import("./pages/PrijzenPage")).default }),
       },
-      {
-        path: "reserveren",
-        lazy: async () => ({ Component: (await import("./pages/ReserverenPage")).default }),
-      },
 
       /*
        * Regiopagina's: /bouwdroger-huren-antwerpen enzovoort. Vijf vaste
@@ -259,6 +235,13 @@ export const routes: RouteRecord[] = [
        * `import.meta.env.DEV`: bij de build is die constante `false`, dus de
        * hele tak valt weg en er komt geen `/__fout` in dist terecht.
        */
+      /*
+       * Twee werkdocumenten, ook alleen onder `npm run dev`: een copydeck voor
+       * de volledige site (/copy-v2) en een conceptversie van de
+       * Drooggarantie (/drooggarantie-v2). Ze stonden tot oktober 2026 publiek
+       * met alleen noindex; een copydeck vol voorgestelde teksten hoort niet
+       * op het echte domein, en geen enkele pagina linkte ernaar.
+       */
       ...(import.meta.env.DEV
         ? [
             {
@@ -266,6 +249,14 @@ export const routes: RouteRecord[] = [
               Component: () => {
                 throw new Error("Testfout — /__fout bestaat alleen om de foutpagina te tonen.");
               },
+            } satisfies RouteRecord,
+            {
+              path: "drooggarantie-v2",
+              lazy: async () => ({ Component: (await import("./pages/DrooggarantieV2Page")).default }),
+            } satisfies RouteRecord,
+            {
+              path: "copy-v2",
+              lazy: async () => ({ Component: (await import("./pages/CopyV2Page")).default }),
             } satisfies RouteRecord,
           ]
         : []),

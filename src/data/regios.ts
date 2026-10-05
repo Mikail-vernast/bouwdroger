@@ -90,7 +90,7 @@ export const REGIOS: Regio[] = [
     ...route("antwerpen"),
     title: "Bouwdroger huren in Antwerpen — geleverd in 24 u | Vernast",
     description:
-      "Bouwdroger huren in Antwerpen en de rand: binnen 24 uur geleverd en geplaatst vanuit Aartselaar, of zelf afhalen met € 25 korting. Eén dagprijs, geen waarborg.",
+      "Bouwdroger huren in Antwerpen en de rand: binnen 24 uur geleverd en geplaatst vanuit Aartselaar, of zelf afhalen met € 25 korting. Geen waarborg.",
     h1: "Bouwdroger huren in Antwerpen",
     kicker: "Stad en rand · magazijn op 15 minuten",
     intro: [

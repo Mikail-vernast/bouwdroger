@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const POINTS = [
   {
     n: "01",
@@ -37,7 +39,11 @@ const V3Difference = () => (
         <span className="kick">Waarom Vernast anders is</span>
         <h2 className="sec">Waarom klanten niet meer willen gokken op bouwdroging.</h2>
         <p className="lede">
-          In bouwdroging gaat het vaak fout op drie punten: het verkeerde toestel, een fout
+          {/* De ankertekst "bouwdroging" wijst naar de ene pagina die op die term
+              moet ranken. In september 2026 verdeelden vier pagina's de
+              vertoningen op "bouwdroging" onder elkaar, geen enkele hoger dan
+              plek 25. */}
+          In <Link to="/hoe-drogen-werkt">bouwdroging</Link> gaat het vaak fout op drie punten: het verkeerde toestel, een fout
           ingeschatte huurtermijn en onverwachte extra kosten. Vernast pakt net die pijnpunten aan:
           berekenen, correct dimensioneren, professioneel plaatsen en helder communiceren.
         </p>

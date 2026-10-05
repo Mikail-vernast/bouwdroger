@@ -77,8 +77,7 @@ export const TOEPASSINGEN: NavLinkItem[] = [
 export const SERVICE: NavLinkItem[] = [
   { label: "Prijzen en voorwaarden", path: "/prijzen" },
   { label: "Levering en installatie", path: "/levering" },
-  { label: "Zelf afhalen in Aartselaar", path: "/afhalen" },
-  { label: "Online reserveren", path: "/reserveren" },
+  { label: "Zelf afhalen in Aartselaar", path: "/verhuur/afhalen" },
 ];
 
 /** De twee rekenhulpen en het gamma. */
