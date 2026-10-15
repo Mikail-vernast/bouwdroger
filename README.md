@@ -185,5 +185,7 @@ er niets — net als bij een mail zonder sjabloon-ID.
 
 ## Deploy
 
-Vercel bouwt met `npm run build` en serveert `dist/`. Security headers, CSP en
-cache-control staan in `vercel.json`.
+Cloudflare Worker, met de hand: `npm run deploy:cf` vanaf een schone checkout van
+`main` (bouwt, schrijft `dist/_headers`, deployt, pingt IndexNow). Security headers,
+CSP en cache-control staan in `vercel.json`; `scripts/generate-cloudflare-routing.mjs`
+zet ze om naar `dist/_headers`. Vercel bouwt niets meer (`git.deploymentEnabled: false`).
