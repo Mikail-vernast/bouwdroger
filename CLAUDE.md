@@ -209,9 +209,11 @@ slot. `gate()` heeft twee grenzen: `attempt()` vóór het parsen (ruim, alle aan
 
 ### Crons
 
-Vercel Hobby staat er **twee** toe, en beide zijn bezet (`vercel.json`):
-`/api/reconcile-orders` om 04:00, `/api/reminders` om 13:00. `reminders.ts` combineert
-daarom twee taken in één run. Een derde herinnering hoort daar bij, niet in een nieuwe cron.
+Twee Cloudflare Cron Triggers (`triggers.crons` in `wrangler.jsonc`, sinds #38 —
+voordien de twee Vercel Hobby-crons): `/api/reconcile-orders` om 04:00,
+`/api/reminders` om 13:00. `reminders.ts` combineert
+twee taken in één run — een erfenis van die Vercel-limiet. Een nieuwe cron kan nu wel, maar
+een derde herinnering past evengoed in die run.
 
 ## Conventies
 
