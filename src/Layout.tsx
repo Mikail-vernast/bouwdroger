@@ -1,9 +1,7 @@
 import { useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import VercelAnalytics from "@/components/VercelAnalytics";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import ScrollToTop from "@/components/ScrollToTop";
-import { useRoutePattern } from "@/hooks/useRoutePattern";
 
 /**
  * Applicatieschil rond elke route. Staat los van de router zelf omdat de
@@ -29,7 +27,6 @@ import { useRoutePattern } from "@/hooks/useRoutePattern";
  */
 const Layout = () => {
   const location = useLocation();
-  const route = useRoutePattern();
 
   /*
     Het pad waarmee dit document geopend werd. Dát is de pagina die niet mag
@@ -67,7 +64,6 @@ const Layout = () => {
     <>
       <ScrollToTop />
       <FloatingWhatsApp />
-      <VercelAnalytics route={route} path={location.pathname} />
       {/*
         `page-shell` is de vaste haak waaraan src/styles/site-footer.css de
         footer naar de onderkant van het scherm duwt: die stylesheet moet de
