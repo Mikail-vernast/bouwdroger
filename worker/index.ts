@@ -25,6 +25,7 @@ import { controleerKeyMode } from './guardKeyMode';
 import { headersFor, matchRedirect } from './vercelRouting';
 import { setPlatformWaitUntil } from '../src/lib/platformWaitUntil';
 
+import * as aanvraag from '../api/aanvraag';
 import * as afhaalCheckout from '../api/afhaal-checkout';
 import * as availability from '../api/availability';
 import * as bookingRelease from '../api/booking-release';
@@ -71,6 +72,7 @@ type RouteModule = Partial<Record<'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', H
  * `.html`.
  */
 const ROUTES: Record<string, RouteModule> = {
+  '/api/aanvraag': aanvraag,
   '/api/afhaal-checkout': afhaalCheckout,
   '/api/availability': availability,
   '/api/booking-release': bookingRelease,

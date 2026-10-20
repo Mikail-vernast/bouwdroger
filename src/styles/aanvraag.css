@@ -1,0 +1,15 @@
+/* Gedeelde toestanden van de aanvraagformulieren (contact, klantenservice,
+   levering) — zie src/components/AanvraagForm.tsx. De kleuren volgen de
+   variabelen van de pagina (--ok, --red, --txt-mid), met een terugval. */
+
+.aanv-hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none}
+
+.aanv-err{font-size:13.5px;color:#b3261e;background:#fdeceb;border-radius:9px;padding:10px 13px;line-height:1.55;margin:14px 0 0;text-align:left}
+.aanv-err a{color:#b3261e;font-weight:700;text-decoration:underline}
+
+.aanv-done{text-align:center;padding:26px 10px}
+.aanv-done-ic{width:60px;height:60px;border-radius:50%;background:rgba(30,158,80,.12);color:var(--ok,#1e9e50);display:grid;place-items:center;margin:0 auto 16px}
+.aanv-done h3{font-family:var(--fd,inherit);font-weight:800;font-size:22px;margin:0 0 8px}
+.aanv-done p{font-size:14px;color:var(--txt-mid,#555);margin:0;line-height:1.6}
+
+.aanv-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}

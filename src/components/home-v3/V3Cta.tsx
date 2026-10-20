@@ -6,8 +6,9 @@ import { resizeImageFile } from "@/lib/imageResize";
 /**
  * The closing contact block: address details first, question second.
  *
- * Submitting posts to `/api/vraag`, which forwards the question to the Vernast
- * inbox — a support ticket for admin plus a lead for the qualifier. Attachments
+ * Submitting posts to `/api/vraag`, which forwards the question to the
+ * bouwdroger portal in Vernast as a request with source `vraag` (decision of
+ * 15-10-2026; it used to become an admin lead via `contact-submission`). Attachments
  * go straight to storage over a signed URL handed out by `/api/vraag-uploads`,
  * so a 10 MB photo never travels through the serverless function.
  *

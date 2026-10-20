@@ -773,10 +773,14 @@ export async function sendExtensionRequest(request: {
 }
 
 /**
- * De vraag van de homepage alsnog bij het team krijgen wanneer het portaal ze
- * weigert.
+ * Een aanvraag van de site (vraagformulier op de homepage, contact,
+ * klantenservice, levering) alsnog bij het team krijgen wanneer het portaal ze
+ * weigert. Gebruikt door `api/vraag.ts` en `api/aanvraag.ts`.
  *
- * `contact-submission` telt zijn drempel per IP, en het IP dat die function
+ * Tot 15-10-2026 ging de vraag naar `contact-submission`; sinds dan naar
+ * `bouwdroger-request-webhook`. Het argument hieronder geldt voor allebei.
+ *
+ * `contact-submission` telde zijn drempel per IP, en het IP dat die function
  * ziet is niet dat van de bezoeker maar dat van deze Vercel-functie — één
  * uitgaand adres voor de hele site. Twintig vragen per uur is dus een grens op
  * álle bezoekers samen, niet op één afzender, en wie die grens opstookt zet de

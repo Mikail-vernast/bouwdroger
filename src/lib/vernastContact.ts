@@ -1,40 +1,14 @@
 /**
- * Stuurt een vraag van het homepage-formulier naar de Vernast-inbox.
+ * Upload-URL's voor de bijlagen van het vraagformulier op de homepage.
  *
- * Het formulier op de homepage deed jarenlang niets: het toonde een bevestiging
- * en gooide de vraag weg. Nu loopt het door dezelfde pijp als het formulier op
- * vernast-vochtbestrijding.be — de edge function `contact-submission` zet er een
- * `contact_submissions`-rij, een support-ticket (admin → Klantenservice) en, bij
- * een verkoopvraag, een lead in de Lead Planner van.
+ * Tot 15-10-2026 stuurde dit bestand ook de vraag zelf naar `contact-submission`
+ * (een lead bij admin). Sindsdien landt elke aanvraag in het bouwdrogers-portaal
+ * via `vernastRequest.ts`; de bijlagen gaan nog altijd naar dezelfde bucket, via
+ * `contact-attachment-url`, en hun `inbox/...`-paden reizen mee met de aanvraag.
  *
  * Bewust server-only: `contact-attachment-url` wil het gedeelde webhook-secret
  * zien, en dat mag nooit in de browserbundle belanden.
  */
-
-import { withRetry } from "./retry.js";
-
-/** Onderwerpsleutels zoals `contact-submission` ze kent. */
-export type ContactSubject =
-  | "droging_op_maat"
-  | "waterschade"
-  | "schimmel_geur"
-  | "offerte_prijs"
-  | "verzekeringsrapport"
-  | "andere_vraag";
-
-export interface ContactPayload {
-  name: string;
-  email: string;
-  phone?: string | null;
-  message: string;
-  subject: ContactSubject;
-  address?: string | null;
-  postal_code?: string | null;
-  city?: string | null;
-  page_url?: string | null;
-  /** Storage-paden uit `contact-attachment-url`, al geüpload door de browser. */
-  attachments?: string[];
-}
 
 export interface UploadTicket {
   path: string;
@@ -44,8 +18,6 @@ export interface UploadTicket {
 }
 
 const TIMEOUT_MS = 8_000;
-const TRIES = 3;
-const DELAYS_MS = [400, 1_200];
 
 /**
  * De basis-URL van de Vernast edge functions, afgeleid uit de webhook die deze
@@ -98,51 +70,5 @@ export async function requestUploadTickets(
   return data.uploads ?? [];
 }
 
-/** De aanvraag is geweigerd omdat er al te veel kwamen — niet stukgelopen. */
+/** De aanvraag is door het portaal geweigerd omdat er al te veel kwamen — niet stukgelopen. */
 export class RateLimitedError extends Error {}
-
-/**
- * Verstuurt de vraag zelf. Gooit bij een fout: anders dan bij een order — waar de
- * bezoeker al betaald heeft en succes moet zien — is dit de enige opslag, dus
- * een mislukking moet de bezoeker te zien krijgen in plaats van stil te
- * verdwijnen zoals vroeger.
- */
-export async function sendContactRequest(payload: ContactPayload): Promise<void> {
-  const base = functionsBase();
-  if (!base) throw new Error("VERNAST_WEBHOOK_URL ontbreekt");
-
-  /*
-    Alleen herhalen bij een hapering aan de andere kant. Bij 4xx ligt het aan
-    de aanvraag zelf, en herhalen maakt het daar erger: de teller van de
-    rate limiter loopt door, dus drie pogingen op een 429 verbranden het budget
-    van iemand die daarna wél iets nieuws wil vragen.
-  */
-  let status = 0;
-  const result = await withRetry(
-    async () => {
-      const response = await postJson(`${base}/contact-submission`, null, {
-        ...payload,
-        site: "bouwdroger",
-      });
-      status = response.status;
-      if (!response.ok) {
-        const detail = await response.text().catch(() => "");
-        const reason = `HTTP ${response.status}: ${detail.slice(0, 200)}`;
-        // Een 4xx is definitief: meld hem als 'ok' zodat withRetry stopt, en
-        // laat de status hieronder bepalen wat de bezoeker leest.
-        return response.status < 500
-          ? { ok: true as const, reason }
-          : { ok: false as const, reason };
-      }
-      return { ok: true as const };
-    },
-    { tries: TRIES, delaysMs: DELAYS_MS },
-  );
-
-  if (status === 429) {
-    throw new RateLimitedError(result.reason ?? "rate limited");
-  }
-  if (status >= 400 || !result.ok) {
-    throw new Error(result.reason ?? "onbekende fout");
-  }
-}
