@@ -10,9 +10,11 @@ export const MAX_FORM_BYTES = 64 * 1024;
  * Dezelfde regel als `bouwdroger-request-webhook` in Vernast. Was de site
  * soepeler, dan kwam een adres als `a<b>@x.be` hier door, weigerde het portaal
  * het, en belandde de aanvraag via de fallbackmail toch bij het team — met een
- * adres waar niemand op kan antwoorden.
+ * adres waar niemand op kan antwoorden. Het lokale deel laat alle tekens toe
+ * die RFC 5322 zonder aanhalingstekens kent (`o'connor@`, `sales%be@`): strenger
+ * zijn kost een echte aanvraag, want die krijgt een 400 vóór er iets vertrekt.
  */
-const EMAIL_RE = /^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+const EMAIL_RE = /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
 
 export function isValidEmail(email: string): boolean {
   return EMAIL_RE.test(email);

@@ -7,6 +7,9 @@ const post = (body: string) =>
 describe("isValidEmail", () => {
   test("volgt de regel van het Vernast-portaal", () => {
     expect(isValidEmail("jan.peeters+werf@bouw-bedrijf.be")).toBe(true);
+    expect(isValidEmail("sean.o'connor@example.be")).toBe(true);
+    expect(isValidEmail("sales%belgium@example.be")).toBe(true);
+    expect(isValidEmail("jan peeters@x.be")).toBe(false);
     expect(isValidEmail("a<b>@x.be")).toBe(false);
     expect(isValidEmail("jan@localhost")).toBe(false);
     expect(isValidEmail("jan@x.b")).toBe(false);
