@@ -4,6 +4,7 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { CONTACT } from "@/lib/site";
 import "@/styles/privacy.css";
 import "@/styles/privacy-fixes.css";
 
@@ -35,7 +36,7 @@ const PrivacyPage = () => (
         <div className="lh-copy">
           <span className="kick">Juridisch</span>
           <h1>Privacybeleid</h1>
-          <p>Vernast gaat zorgvuldig om met uw persoonsgegevens, conform de AVG (GDPR). Hier leest u welke gegevens wij verwerken, waarvoor en welke rechten u heeft. Vragen? Mail <a href="mailto:info@vernast.be" style={{ color: "#fff", fontWeight: 600 }}>info@vernast.be</a> of bel <a href="tel:+3236899065" style={{ color: "#fff", fontWeight: 600 }}>03 689 90 65</a>.</p>
+          <p>Vernast gaat zorgvuldig om met uw persoonsgegevens, conform de AVG (GDPR). Hier leest u welke gegevens wij verwerken, waarvoor en welke rechten u heeft. Vragen? Mail <a href={`mailto:${CONTACT.email}`} style={{ color: "#fff", fontWeight: 600 }}>{CONTACT.email}</a> of bel <a href="tel:+3236899065" style={{ color: "#fff", fontWeight: 600 }}>03 689 90 65</a>.</p>
         </div>
         <div className="lh-vis"><img src="/vernast/team-tools.webp" alt="Het Vernast-team" loading="lazy" decoding="async" /></div>
       </div>
@@ -65,7 +66,7 @@ const PrivacyPage = () => (
           <article id="p1">
             <h2><em>Artikel 1</em>Wie wij zijn</h2>
             <p>Vernast (VRNST) verhuurt bouwdrogers, ventilatoren, bouwkachels en toebehoren, en levert bijhorende droogdiensten. Vernast is verwerkingsverantwoordelijke voor de persoonsgegevens die via deze website, telefonisch, per e-mail of op locatie worden verzameld.</p>
-            <p>Contact: <a href="mailto:info@vernast.be">info@vernast.be</a> · <a href="tel:+3236899065">03 689 90 65</a>.</p>
+            <p>Contact: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> · <a href="tel:+3236899065">03 689 90 65</a>.</p>
           </article>
           <article id="p2">
             <h2><em>Artikel 2</em>Welke gegevens wij verwerken</h2>
@@ -128,11 +129,11 @@ const PrivacyPage = () => (
           <article id="p10">
             <h2><em>Artikel 10</em>Uw rechten</h2>
             <p>Onder de AVG heeft u het recht op inzage, verbetering, verwijdering, beperking van de verwerking, overdraagbaarheid van uw gegevens en bezwaar tegen verwerking op basis van gerechtvaardigd belang of voor direct marketing. Gaf u toestemming, dan kunt u die op elk moment intrekken.</p>
-            <p>Stuur uw verzoek naar <a href="mailto:info@vernast.be">info@vernast.be</a>. Wij reageren binnen 30 dagen en kunnen u vragen zich te identificeren.</p>
+            <p>Stuur uw verzoek naar <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>. Wij reageren binnen 30 dagen en kunnen u vragen zich te identificeren.</p>
           </article>
           <article id="p11">
             <h2><em>Artikel 11</em>Klachten</h2>
-            <p>Niet tevreden over hoe wij met uw gegevens omgaan? Laat het ons eerst weten via <a href="mailto:info@vernast.be">info@vernast.be</a>. U heeft daarnaast altijd het recht een klacht in te dienen bij de Gegevensbeschermingsautoriteit (Drukpersstraat 35, 1000 Brussel, <a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener">gegevensbeschermingsautoriteit.be</a>).</p>
+            <p>Niet tevreden over hoe wij met uw gegevens omgaan? Laat het ons eerst weten via <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>. U heeft daarnaast altijd het recht een klacht in te dienen bij de Gegevensbeschermingsautoriteit (Drukpersstraat 35, 1000 Brussel, <a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener">gegevensbeschermingsautoriteit.be</a>).</p>
           </article>
           <article id="p12">
             <h2><em>Artikel 12</em>Wijzigingen</h2>
@@ -140,7 +141,7 @@ const PrivacyPage = () => (
           </article>
           <article id="p13">
             <h2><em>Artikel 13</em>Contact</h2>
-            <p>Vragen over dit privacybeleid of over uw gegevens? Mail <a href="mailto:info@vernast.be">info@vernast.be</a>, bel <a href="tel:+3236899065">03 689 90 65</a>, of stel uw vraag via de <Link to="/klantservice">klantenservice</Link>.</p>
+            <p>Vragen over dit privacybeleid of over uw gegevens? Mail <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>, bel <a href="tel:+3236899065">03 689 90 65</a>, of stel uw vraag via de <Link to="/klantservice">klantenservice</Link>.</p>
           </article>
         </div>
       </div>

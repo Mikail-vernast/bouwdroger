@@ -12,7 +12,15 @@
  * die wél willen betalen.
  */
 import Stripe from "stripe";
-import { checkOne, holdForSession, logAvailabilityFailure } from "../src/lib/availability.js";
+import {
+  alarmAvailabilityFailure,
+  availabilityVerdict,
+  CHECK_UNAVAILABLE_CODE,
+  CHECK_UNAVAILABLE_ERROR,
+  checkOne,
+  holdForSession,
+  logAvailabilityFailure,
+} from "../src/lib/availability.js";
 import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
 import { releaseSession } from "../src/lib/checkoutSession.js";
 import { safeOrigin } from "../src/lib/origin.js";
@@ -206,13 +214,18 @@ export async function POST(request: Request): Promise<Response> {
     comfort: tussen het kiezen van een datum en het klikken op betalen kan iemand
     je voor zijn. Dit is de enige controle die echt telt.
 
-    Faalt de oproep zelf — Vernast onbereikbaar, secret verkeerd — dan gaat de
-    boeking door. Een bezoeker die niet kan afrekenen omdat een controle even
-    niet antwoordt kost meer dan het zeldzame geval dat twee boekingen elkaar
-    kruisen; de planner ziet dat in het portaal en kan bijsturen.
+    Faalt de oproep zelf — Vernast onbereikbaar, secret verkeerd — dan stopt de
+    boeking hier, met een alarm naar het team. Tot 20-10-2026 ging ze dan door;
+    zie `availabilityVerdict` voor waarom dat bij een storing iedereen blind liet
+    boeken.
   */
   const availability = await checkOne(period.start, summary.days, lines);
-  if (availability.answer?.available === false) {
+  const verdict = availabilityVerdict(availability);
+  if (verdict === "onbekend") {
+    alarmAvailabilityFailure(`checkout ${reference}`, availability);
+    return json({ error: CHECK_UNAVAILABLE_ERROR, code: CHECK_UNAVAILABLE_CODE }, 503);
+  }
+  if (verdict === "vol") {
     return json(
       {
         error:
@@ -223,7 +236,6 @@ export async function POST(request: Request): Promise<Response> {
       409,
     );
   }
-  logAvailabilityFailure(`checkout ${reference}`, availability);
 
   /*
     Pas hier telt de holdteller mee. Bewust ná de beschikbaarheidscontrole: wie

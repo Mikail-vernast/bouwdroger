@@ -23,7 +23,15 @@
  * met dezelfde knoppenrij en hetzelfde overzicht als een pakketboeking.
  */
 import Stripe from "stripe";
-import { checkOne, holdForSession, logAvailabilityFailure } from "../src/lib/availability.js";
+import {
+  alarmAvailabilityFailure,
+  availabilityVerdict,
+  CHECK_UNAVAILABLE_CODE,
+  CHECK_UNAVAILABLE_ERROR,
+  checkOne,
+  holdForSession,
+  logAvailabilityFailure,
+} from "../src/lib/availability.js";
 import {
   normalizePickupPayment,
   pickupDeviceLines,
@@ -136,13 +144,17 @@ export async function POST(request: Request): Promise<Response> {
   await releaseSession(stripe, body.previousSessionId, order.email, "nieuwe poging");
 
   /*
-    De harde controle. Faalt de oproep zelf, dan gaat de reservatie door: een
-    klant die niet kan afrekenen omdat een controle even niet antwoordt kost meer
-    dan het zeldzame geval dat twee reservaties elkaar kruisen.
+    De harde controle. Faalt de oproep zelf, dan stopt de reservatie hier, met
+    een alarm naar het team — zie `availabilityVerdict` en api/checkout.ts.
   */
   if (devices.length) {
     const availability = await checkOne(period.start, order.days, devices);
-    if (availability.answer?.available === false) {
+    const verdict = availabilityVerdict(availability);
+    if (verdict === "onbekend") {
+      alarmAvailabilityFailure(`afhaal-checkout ${period.start}`, availability);
+      return json({ error: CHECK_UNAVAILABLE_ERROR, code: CHECK_UNAVAILABLE_CODE }, 503);
+    }
+    if (verdict === "vol") {
       return json(
         {
           error:
@@ -152,7 +164,6 @@ export async function POST(request: Request): Promise<Response> {
         409,
       );
     }
-    logAvailabilityFailure(`afhaal-checkout ${period.start}`, availability);
   }
 
   const holds = rateLimit(`hold:${ip}`, MAX_HOLDS_PER_IP, HOLD_MINUTES * 60_000);
