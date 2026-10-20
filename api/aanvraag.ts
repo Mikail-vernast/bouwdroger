@@ -24,6 +24,7 @@ import {
 } from "../src/lib/vernastRequest.js";
 import { sendQuestionFallback } from "../src/lib/mail.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
+import { cleanText, isValidEmail, readJsonBody } from "../src/lib/formInput.js";
 
 /** De pagina's die via deze route gaan. `vraag` heeft zijn eigen route. */
 const SOURCES: readonly RequestSource[] = REQUEST_SOURCES.filter((source) => source !== "vraag");
@@ -44,8 +45,7 @@ function json(body: unknown, status = 200): Response {
 }
 
 function str(value: unknown, max: number): string {
-  if (value === null || value === undefined) return "";
-  return String(value).trim().slice(0, max);
+  return cleanText(value, max);
 }
 
 interface AanvraagBody {
@@ -66,12 +66,8 @@ export async function POST(request: Request): Promise<Response> {
   const attempt = limit.attempt();
   if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
 
-  let body: AanvraagBody;
-  try {
-    body = (await request.json()) as AanvraagBody;
-  } catch {
-    return json({ error: "Ongeldige aanvraag." }, 400);
-  }
+  const body = await readJsonBody<AanvraagBody>(request);
+  if (!body) return json({ error: "Ongeldige aanvraag." }, 400);
 
   // Een bot vult het verborgen veld in. Succes antwoorden, niets doorsturen.
   if (str(body.website, 200)) return json({ ok: true });
@@ -87,12 +83,12 @@ export async function POST(request: Request): Promise<Response> {
   const email = str(body.email, 200);
   const telefoon = str(body.telefoon, 40);
   const onderwerp = str(body.onderwerp, 200);
-  const bericht = str(body.bericht, 4000);
+  const bericht = cleanText(body.bericht, 4000, true);
 
   if (!naam || !bericht) {
     return json({ error: "Vul uw naam en uw vraag in." }, 400);
   }
-  if (!/\S+@\S+\.\S+/.test(email)) {
+  if (!isValidEmail(email)) {
     return json({ error: "Vul een geldig e-mailadres in, dan kunnen we u antwoorden." }, 400);
   }
 

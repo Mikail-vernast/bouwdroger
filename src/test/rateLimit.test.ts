@@ -119,6 +119,13 @@ describe("gate", () => {
 });
 
 describe("clientIp", () => {
+  test("vertrouwt cf-connecting-ip boven een meegestuurde x-forwarded-for", () => {
+    const request = new Request("https://example.test/", {
+      headers: { "cf-connecting-ip": "198.51.100.4", "x-forwarded-for": "1.2.3.4, 198.51.100.4" },
+    });
+    expect(clientIp(request)).toBe("198.51.100.4");
+  });
+
   test("neemt het eerste adres uit x-forwarded-for", () => {
     const request = new Request("https://example.test/", {
       headers: { "x-forwarded-for": "203.0.113.7, 70.41.3.18, 150.172.238.178" },
