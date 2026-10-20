@@ -6,12 +6,12 @@
  * Vernast, dus de rommel belandt meteen op de werklijst van iemand.
  *
  * Wees eerlijk over wat dit wel en niet is. De teller staat in het geheugen van
- * één functie-instantie. Vercel's Fluid Compute hergebruikt instanties, dus in
- * de praktijk vangt dit een script van één afzender op. Draaien er meerdere
+ * één Worker-isolate. Cloudflare hergebruikt isolates, dus in de praktijk
+ * vangt dit een script van één afzender op. Draaien er meerdere
  * instanties naast elkaar, dan heeft elk zijn eigen teller en ligt de echte
  * limiet navenant hoger. Het is een drempel, geen slot.
  *
- * Wie een harde garantie wil, zet rate limiting in de Vercel WAF: die telt vóór
+ * Wie een harde garantie wil, zet een Cloudflare rate-limiting rule: die telt vóór
  * de functie en dus over alle instanties heen. Dit hier kost niets en werkt
  * meteen; die twee sluiten elkaar niet uit.
  */
@@ -53,13 +53,18 @@ function sweep(now: number): void {
 }
 
 /**
- * Het IP van de bezoeker. Achter Vercel is `x-forwarded-for` een door het
- * platform gezette lijst waarvan het eerste adres de echte client is; die
- * header van een willekeurige bezoeker vertrouwen zou betekenen dat iemand zijn
- * eigen teller kan resetten door hem te vervalsen, maar Vercel overschrijft
- * hem aan de rand.
+ * Het IP van de bezoeker.
+ *
+ * De site draait achter Cloudflare, en daar is `cf-connecting-ip` de enige
+ * header die het platform zelf zet en die een bezoeker niet kan meesturen.
+ * `x-forwarded-for` geeft Cloudflare door zoals hij binnenkwam, met het echte
+ * adres pas achteraan: wie de teller wilde resetten, stuurde bij elke aanvraag
+ * een ander verzonnen eerste adres mee. De fallbacks blijven voor lokaal
+ * draaien en tests, waar er geen Cloudflare voor staat.
  */
 export function clientIp(request: Request): string {
+  const cloudflare = request.headers.get("cf-connecting-ip")?.trim();
+  if (cloudflare) return cloudflare;
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) return forwarded.split(",")[0].trim();
   return request.headers.get("x-real-ip")?.trim() || "onbekend";
