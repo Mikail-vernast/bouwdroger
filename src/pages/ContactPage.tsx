@@ -3,6 +3,8 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { AanvraagDone, AanvraagError, AanvraagHoneypot } from "@/components/AanvraagForm";
+import { useAanvraag } from "@/hooks/useAanvraag";
 import "@/styles/contact.css";
 import "@/styles/contact-fixes.css";
 
@@ -14,26 +16,16 @@ import "@/styles/contact-fixes.css";
  *
  * De `.rv`-scroll-reveals en het <script> uit de bron zijn geschrapt: de
  * pagina wordt geprerenderd en moet zonder JS zichtbaar zijn. Het
- * contactformulier opent een voorgevulde e-mail (mailto), net als op
- * KlantservicePage; er is bewust geen backend-call.
+ * contactformulier gaat via `/api/aanvraag` naar het bouwdrogers-portaal
+ * (bron `contact`); zie `useAanvraag`.
  */
 
 const ContactPage = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const f = e.currentTarget;
-    const val = (name: string) =>
-      (f.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)?.value ?? "";
-    const onderwerp = val("onderwerp");
-    const body =
-      `Naam: ${val("voornaam")} ${val("naam")}` +
-      `%0AE-mail: ${val("email")}` +
-      `%0ATelefoon: ${val("telefoon") || "-"}` +
-      `%0AOnderwerp: ${onderwerp}` +
-      `%0A%0A${encodeURIComponent(val("bericht"))}`;
-    window.location.href =
-      `mailto:info@vernast-verhuur.be?subject=${encodeURIComponent("Contact: " + onderwerp)}&body=${body}`;
-  };
+  const { status, error, mailto, sending, handleSubmit } = useAanvraag({
+    source: "contact",
+    messageField: "bericht",
+    mailSubject: "Contact",
+  });
 
   return (
     <div className="ct-page">
@@ -288,6 +280,9 @@ const ContactPage = () => {
             <p className="lede">U krijgt binnen één werkdag antwoord. Dringend? Bel dan 03 689 90 65.</p>
           </div>
           <form className="fshell" onSubmit={handleSubmit}>
+            {status === "done" ? (
+              <AanvraagDone text="Bedankt! U krijgt binnen één werkdag antwoord." />
+            ) : (
             <div id="formBody">
               <div className="frow">
                 <div className="fld"><label htmlFor="fVoor">Voornaam</label><input type="text" id="fVoor" name="voornaam" placeholder="Voornaam" required /></div>
@@ -313,9 +308,12 @@ const ContactPage = () => {
               </div>
               <div className="fsend">
                 <small>Wij gebruiken uw gegevens enkel om uw vraag te beantwoorden.</small>
-                <button className="btn" type="submit">Verstuur bericht<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
+                <button className="btn aanv-btn" type="submit" disabled={sending}>{sending ? "Versturen…" : "Verstuur bericht"}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
               </div>
+              <AanvraagHoneypot />
+              <AanvraagError error={error} mailto={mailto} />
             </div>
+            )}
           </form>
         </div>
       </section>

@@ -4,6 +4,8 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { AanvraagError, AanvraagHoneypot } from "@/components/AanvraagForm";
+import { useAanvraag } from "@/hooks/useAanvraag";
 import "@/styles/levering.css";
 import "@/styles/levering-fixes.css";
 
@@ -74,21 +76,11 @@ const LeveringPage = () => {
     return () => window.clearTimeout(id);
   }, [insStep]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const f = e.currentTarget;
-    const val = (name: string) =>
-      (f.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)?.value ?? "";
-    const onderwerp = val("onderwerp");
-    const body =
-      `Naam: ${val("voornaam")} ${val("naam")}` +
-      `%0AE-mail: ${val("email")}` +
-      `%0ATelefoon: ${val("telefoon") || "-"}` +
-      `%0AOnderwerp: ${onderwerp}` +
-      `%0A%0A${encodeURIComponent(val("situatie"))}`;
-    window.location.href =
-      `mailto:info@vernast-verhuur.be?subject=${encodeURIComponent("Levering & installatie: " + onderwerp)}&body=${body}`;
-  };
+  const { status, error, mailto, sending, handleSubmit } = useAanvraag({
+    source: "levering",
+    messageField: "situatie",
+    mailSubject: "Levering & installatie",
+  });
 
   return (
     <div className="lv-page">
@@ -307,7 +299,10 @@ const LeveringPage = () => {
             <p className="lede" style={{ marginLeft: "auto", marginRight: "auto" }}>Twijfelt u over de juiste aanpak voor uw project? Stel uw vraag, u krijgt binnen één werkdag antwoord van een specialist.</p>
           </div>
           <div className="fshell">
-            <form id="formBody" onSubmit={handleSubmit}>
+            {/* Het vraagformulier gaat via `/api/aanvraag` naar het bouwdrogers-
+                portaal (bron `levering`). Na verzenden neemt het `.fdone`-paneel
+                uit het design de plaats van het formulier in. */}
+            <form id="formBody" onSubmit={handleSubmit} hidden={status === "done"}>
               <div className="frow">
                 <div className="fld"><label htmlFor="fVoor">Voornaam</label><input type="text" id="fVoor" name="voornaam" placeholder="Voornaam" required /></div>
                 <div className="fld"><label htmlFor="fNaam">Naam</label><input type="text" id="fNaam" name="naam" placeholder="Achternaam" required /></div>
@@ -331,10 +326,12 @@ const LeveringPage = () => {
               </div>
               <div className="fsend">
                 <small>Wij gebruiken uw gegevens enkel om uw vraag te beantwoorden.</small>
-                <button className="btn" id="fSend" type="submit">Verstuur uw vraag<Arrow /></button>
+                <button className="btn aanv-btn" id="fSend" type="submit" disabled={sending}>{sending ? "Versturen…" : "Verstuur uw vraag"}<Arrow /></button>
               </div>
+              <AanvraagHoneypot />
+              <AanvraagError error={error} mailto={mailto} />
             </form>
-            <div className="fdone" id="formDone">
+            <div className={`fdone${status === "done" ? " on" : ""}`} id="formDone" role="status">
               <div className="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg></div>
               <h3>Vraag verzonden</h3>
               <p>Bedankt! Een droogspecialist neemt binnen één werkdag contact met u op.</p>

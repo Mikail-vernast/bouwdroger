@@ -4,6 +4,8 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { AanvraagDone, AanvraagError, AanvraagHoneypot } from "@/components/AanvraagForm";
+import { useAanvraag } from "@/hooks/useAanvraag";
 import "@/styles/klantservice.css";
 import "@/styles/klantservice-fixes.css";
 
@@ -12,7 +14,8 @@ import "@/styles/klantservice-fixes.css";
  * (Klantservice.html). The design's own header/footer are replaced by the
  * shared <V3Header>/<V3Footer>; everything else is the design's markup,
  * scoped under `.ks-page` (see src/styles/klantservice.css). Assets resolve
- * from /vernast/*.webp.
+ * from /vernast/*.webp. The question form posts to `/api/aanvraag` and lands
+ * in the bouwdroger portal (source `klantenservice`); see `useAanvraag`.
  */
 
 /** The check used in the payment option lists. */
@@ -30,20 +33,11 @@ const Phone = ({ size = 15 }: { size?: number }) => (
 );
 
 const KlantservicePage = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const f = e.currentTarget;
-    const val = (name: string) => (f.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)?.value ?? "";
-    const onderwerp = val("onderwerp");
-    const body =
-      `Naam: ${val("voornaam")} ${val("naam")}` +
-      `%0AE-mail: ${val("email")}` +
-      `%0ATelefoon: ${val("telefoon") || "-"}` +
-      `%0AOnderwerp: ${onderwerp}` +
-      `%0A%0A${encodeURIComponent(val("vraag"))}`;
-    window.location.href =
-      `mailto:info@vernast-verhuur.be?subject=${encodeURIComponent("Klantenservice: " + onderwerp)}&body=${body}`;
-  };
+  const { status, error, mailto, sending, handleSubmit } = useAanvraag({
+    source: "klantenservice",
+    messageField: "vraag",
+    mailSubject: "Klantenservice",
+  });
 
   return (
     <div className="ks-page">
@@ -397,6 +391,10 @@ const KlantservicePage = () => {
               </div>
             </div>
             <form className="cform" id="ksForm" onSubmit={handleSubmit}>
+              {status === "done" ? (
+                <AanvraagDone text="Bedankt! We antwoorden dezelfde werkdag. Dringend? Bel 03 689 90 65." />
+              ) : (
+              <>
               <h3>Stel uw vraag</h3>
               <div className="fr">
                 <div><label htmlFor="ksVoornaam">Voornaam</label><input id="ksVoornaam" name="voornaam" required /></div>
@@ -420,10 +418,14 @@ const KlantservicePage = () => {
               <div className="fr">
                 <div className="full"><label htmlFor="ksVraag">Uw vraag</label><textarea id="ksVraag" name="vraag" placeholder="Vermeld indien mogelijk uw boekingsnummer." required></textarea></div>
               </div>
-              <button className="btn btn-red" type="submit">Verstuur uw vraag
+              <AanvraagHoneypot />
+              <button className="btn btn-red aanv-btn" type="submit" disabled={sending}>{sending ? "Versturen…" : "Verstuur uw vraag"}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
               </button>
+              <AanvraagError error={error} mailto={mailto} />
               <div className="fnote">We antwoorden dezelfde werkdag. Dringend? Bel 03 689 90 65.</div>
+              </>
+              )}
             </form>
           </div>
         </div>
