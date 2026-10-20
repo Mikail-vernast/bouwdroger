@@ -166,7 +166,11 @@ sessie in `sessionStorage`.
 
 `api/availability.ts` is **comfort** — het schakelt volle datums uit in de wizard. De harde
 controle staat in de checkout-routes en geeft een 409. Faalt de controle zelf (Vernast
-onbereikbaar), dan gaat de boeking bewust door.
+onbereikbaar), dan weigert de route de boeking met een 503 (`controle_onbereikbaar`) en
+slaat ze alarm per mail en Slack, hoogstens één keer per kwartier — zie
+`availabilityVerdict` in `src/lib/availability.ts`. Tot 20-10-2026 ging de boeking dan
+door, en boekte iedereen tijdens een storing blind. Een mislukte hold blijft wél
+fail-soft.
 
 ### Betaalsplitsing
 

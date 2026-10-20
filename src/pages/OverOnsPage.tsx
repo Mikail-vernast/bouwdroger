@@ -5,6 +5,7 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { CONTACT } from "@/lib/site";
 import "@/styles/over-ons.css";
 import "@/styles/over-ons-fixes.css";
 
@@ -175,20 +176,20 @@ const OverOnsPage = () => {
             </div>
           </div>
           <div className="jobs">
-            <a className="job" href="mailto:info@vernast.be?subject=Sollicitatie%20technieker%20bouwdroging">
+            <a className="job" href={`mailto:${CONTACT.email}?subject=Sollicitatie%20technieker%20bouwdroging`}>
               <div className="jt"><h3>Technieker bouwdroging</h3><span className="jb">Voltijds</span></div>
               <p>Installatie, vochtmeting en ophaling bij klanten in heel Vlaanderen.</p>
               <span className="jl">Aartselaar · rijbewijs B <i>Solliciteer →</i></span>
             </a>
-            <a className="job" href="mailto:info@vernast.be?subject=Sollicitatie%20magazijnier">
+            <a className="job" href={`mailto:${CONTACT.email}?subject=Sollicitatie%20magazijnier`}>
               <div className="jt"><h3>Magazijnier / afhaalpunt</h3><span className="jb">Deeltijds kan</span></div>
               <p>Toestellen klaarzetten, testen en klanten helpen bij afhaling en retour.</p>
               <span className="jl">Aartselaar, langs de A12 <i>Solliciteer →</i></span>
             </a>
-            <a className="job spont" href="mailto:info@vernast.be?subject=Spontane%20sollicitatie">
+            <a className="job spont" href={`mailto:${CONTACT.email}?subject=Spontane%20sollicitatie`}>
               <div className="jt"><h3>Spontaan solliciteren</h3><span className="jb">Altijd welkom</span></div>
               <p>Geen passende rol? Vertel ons wat je goed kan, wij bekijken wat er mogelijk is.</p>
-              <span className="jl">Stuur je cv naar info@vernast.be <i>Mail ons →</i></span>
+              <span className="jl">Stuur je cv naar {CONTACT.email} <i>Mail ons →</i></span>
             </a>
           </div>
         </div>

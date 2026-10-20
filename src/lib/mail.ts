@@ -18,6 +18,7 @@
 import { sendPlain, sendTemplate, type BrevoRecipient } from "./brevo.js";
 import { mailAllowed } from "./rateLimit.js";
 import { DEVICE_LABEL, euro } from "./verhuur.js";
+import type { VernastExtensionPayload } from "./vernastExtension.js";
 import type { VernastOrderPayload } from "./vernastSync.js";
 
 /** Elke mail die deze site kan versturen. */
@@ -960,4 +961,99 @@ export async function alertSyncFailure(
     ...orderParams(payload),
     ruwe_order: JSON.stringify(payload, null, 2),
   });
+}
+
+/**
+ * Alarm wanneer de harde beschikbaarheidscontrole geen antwoord krijgt.
+ *
+ * Sinds 20-10-2026 weigert de checkout dan de boeking in plaats van blind door
+ * te laten (zie `availabilityVerdict`). Dat beschermt tegen dubbele boekingen,
+ * maar betekent ook: zolang het portaal plat ligt, kan niemand online boeken.
+ * Dat moet iemand weten vóór de eerste klant belt.
+ *
+ * Kale tekst, om dezelfde reden als `sendExtensionRequest`: een alarm mag niet
+ * afhangen van een sjabloon dat in Brevo nog moet bestaan. De drempel van één
+ * per kwartier staat bij de aanroeper, in `availability.ts`.
+ */
+export async function alertAvailabilityFailure(context: string, reason: string): Promise<void> {
+  const to = teamRecipient();
+  if (!to) {
+    console.error("[mail] beschikbaarheidsalarm niet verstuurd: BREVO_TEAM_EMAIL ontbreekt.");
+    return;
+  }
+
+  const result = await sendPlain({
+    to,
+    subject: "BESCHIKBAARHEID NIET TE CONTROLEREN — online boeken staat stil",
+    text: [
+      "De site kreeg geen antwoord van het portaal op de beschikbaarheidscontrole.",
+      "Bezoekers die nu willen afrekenen krijgen een foutmelding met de vraag later",
+      "opnieuw te proberen of te bellen — er gaat niets door tot het portaal weer antwoordt.",
+      "",
+      `Waar:   ${context}`,
+      `Reden:  ${reason}`,
+      `Wanneer: ${formatDateTime(new Date())}`,
+      "",
+      "Controleer of de edge function bouwdroger-availability draait en of",
+      "VERNAST_WEBHOOK_URL en VERNAST_WEBHOOK_SECRET kloppen.",
+      "Volgende melding ten vroegste over een kwartier.",
+    ].join("\n"),
+    tags: ["intern_alarm", "beschikbaarheid"],
+  });
+
+  if (!result.ok) {
+    console.error(`[mail] beschikbaarheidsalarm mislukt: ${result.reason}`);
+  }
+}
+
+/**
+ * Alarm wanneer een verlengaanvraag het portaal niet haalt.
+ *
+ * Tot 20-10-2026 bleef dat een `console.error`: de klant zag "Uw aanvraag staat
+ * genoteerd", de tab Verlengingen bleef leeg, en de enige sporen waren de gewone
+ * verlengmail en een logregel. Zelfde vangnet als `alertSyncFailure` bij een
+ * order: het team krijgt alles wat nodig is om de aanvraag met de hand in te
+ * geven. Geen drempel — elk alarm is een andere klant.
+ */
+export async function alertExtensionFailure(
+  reason: string | undefined,
+  payload: VernastExtensionPayload,
+): Promise<void> {
+  const to = teamRecipient();
+  if (!to) {
+    console.error("[mail] verlengalarm niet verstuurd: BREVO_TEAM_EMAIL ontbreekt.");
+    return;
+  }
+
+  const referentie = payload.order_number || payload.stripe_session_id;
+  const result = await sendPlain({
+    to,
+    subject: `VERLENGING NIET DOORGEKOMEN — ${referentie}`,
+    text: [
+      `De verlengaanvraag voor ${referentie} staat niet in het portaal.`,
+      "Geef ze met de hand in op de tab Verlengingen en bel de klant terug.",
+      "",
+      `Reden:      ${reason ?? "onbekend"}`,
+      "",
+      `Klant:      ${payload.customer_name ?? ""}`,
+      `E-mail:     ${payload.customer_email ?? ""}`,
+      `Telefoon:   ${payload.customer_phone ?? ""}`,
+      `Extra dagen: ${payload.extra_days}`,
+      `Huur loopt nu tot: ${formatWeekday(payload.current_end_date)}`,
+      `Gevraagd tot:      ${formatWeekday(payload.requested_end_date)}`,
+      "",
+      payload.customer_note ? `Opmerking van de klant:\n${payload.customer_note}` : "Geen opmerking.",
+      "",
+      "Ruwe aanvraag:",
+      JSON.stringify(payload, null, 2),
+    ].join("\n"),
+    replyTo: payload.customer_email
+      ? { email: payload.customer_email, name: payload.customer_name || null }
+      : undefined,
+    tags: ["intern_alarm", "verlenging"],
+  });
+
+  if (!result.ok) {
+    console.error(`[mail] verlengalarm ${referentie} mislukt: ${result.reason}`);
+  }
 }

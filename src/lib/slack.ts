@@ -20,6 +20,7 @@
 import { withRetry, type Attempted } from "./retry.js";
 import { formatDevices, formatWeekday } from "./mail.js";
 import { euro } from "./verhuur.js";
+import type { VernastExtensionPayload } from "./vernastExtension.js";
 import type { VernastOrderPayload } from "./vernastSync.js";
 
 /** De incoming-webhook-URL van het orderkanaal. Zie README.md. */
@@ -281,4 +282,98 @@ export async function notifySyncFailure(
   payload: VernastOrderPayload,
 ): Promise<void> {
   logSlackFailure(`alarm ${context}`, await postToSlack(failureMessage(context, reason, payload)));
+}
+
+/**
+ * Het bericht wanneer de beschikbaarheidscontrole geen antwoord krijgt.
+ *
+ * Zolang dat duurt kan niemand online boeken — de checkout weigert dan liever
+ * dan blind door te laten. Dat hoort in het kanaal en niet alleen in de
+ * mailbox: het is een storing die per minuut klanten kost.
+ */
+export function availabilityFailureMessage(context: string, reason: string): Record<string, unknown> {
+  const summary = "⚠️ BESCHIKBAARHEID NIET TE CONTROLEREN — online boeken staat stil";
+
+  return {
+    text: summary,
+    blocks: [
+      { type: "header", text: { type: "plain_text", text: summary.slice(0, 150), emoji: true } },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: [
+            "Het portaal antwoordt niet op de beschikbaarheidscontrole. Bezoekers die nu",
+            "willen afrekenen krijgen een foutmelding. Volgende melding ten vroegste over een kwartier.",
+          ].join(" "),
+        },
+      },
+      {
+        type: "context",
+        elements: [{ type: "mrkdwn", text: `${text(context)} — ${text(reason) || "onbekende fout"}` }],
+      },
+    ],
+  };
+}
+
+/**
+ * Het bericht wanneer een verlengaanvraag het portaal niet haalt. Zelfde
+ * afweging als `failureMessage`: de klant denkt dat het geregeld is.
+ */
+export function extensionFailureMessage(
+  reason: string | undefined,
+  payload: VernastExtensionPayload,
+): Record<string, unknown> {
+  const reference = text(payload.order_number || payload.stripe_session_id);
+  const summary = `⚠️ VERLENGING NIET DOORGEKOMEN — ${reference}`;
+
+  return {
+    text: summary,
+    blocks: [
+      { type: "header", text: { type: "plain_text", text: summary.slice(0, 150), emoji: true } },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: [
+            `De klant vroeg ${payload.extra_days} dagen extra, maar de aanvraag staat niet op de`,
+            "tab Verlengingen. Iemand moet ze met de hand ingeven en terugbellen.",
+          ].join(" "),
+        },
+      },
+      {
+        type: "section",
+        fields: [
+          field("Klant", text(payload.customer_name) || text(payload.customer_email)) ?? {
+            type: "mrkdwn",
+            text: "*Klant*\n—",
+          },
+          field("Telefoon", text(payload.customer_phone)) ?? { type: "mrkdwn", text: "*Telefoon*\n—" },
+        ],
+      },
+      {
+        type: "context",
+        elements: [{ type: "mrkdwn", text: `verlenging — ${text(reason) || "onbekende fout"}` }],
+      },
+    ],
+  };
+}
+
+/** Meldt dat de beschikbaarheidscontrole faalt. Gooit niet. */
+export async function notifyAvailabilityFailure(context: string, reason: string): Promise<void> {
+  logSlackFailure(
+    `alarm beschikbaarheid ${context}`,
+    await postToSlack(availabilityFailureMessage(context, reason)),
+  );
+}
+
+/** Meldt een verlenging die het portaal niet haalde. Gooit niet. */
+export async function notifyExtensionFailure(
+  reason: string | undefined,
+  payload: VernastExtensionPayload,
+): Promise<void> {
+  logSlackFailure(
+    `alarm verlenging ${payload.order_number ?? payload.stripe_session_id}`,
+    await postToSlack(extensionFailureMessage(reason, payload)),
+  );
 }

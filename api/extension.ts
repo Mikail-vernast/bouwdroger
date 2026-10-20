@@ -18,10 +18,14 @@
  */
 import Stripe from "stripe";
 import { isReference } from "../src/lib/booking.js";
-import { sendExtensionRequest } from "../src/lib/mail.js";
+import { alertExtensionFailure, sendExtensionRequest } from "../src/lib/mail.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 import { addDays, isoDate } from "../src/lib/verhuur.js";
-import { pushExtensionToVernast } from "../src/lib/vernastExtension.js";
+import { notifyExtensionFailure } from "../src/lib/slack.js";
+import {
+  pushExtensionToVernast,
+  type VernastExtensionPayload,
+} from "../src/lib/vernastExtension.js";
 
 const SESSION_ID = /^cs_[A-Za-z0-9_]{1,255}$/;
 
@@ -165,18 +169,20 @@ export async function POST(request: Request): Promise<Response> {
     niemand op een tabblad hoeft te zitten wachten. Vroeger was de mail allebei
     tegelijk, en verdween de aanvraag spoorloos als ze niet aankwam.
   */
+  const payload: VernastExtensionPayload = {
+    stripe_session_id: id,
+    order_number: referentie,
+    customer_name: naam,
+    customer_email: email,
+    customer_phone: telefoon,
+    extra_days: extraDagen,
+    current_end_date: huidigEinde,
+    requested_end_date: nieuwEinde,
+    customer_note: opmerking,
+  };
+
   const [push] = await Promise.all([
-    pushExtensionToVernast({
-      stripe_session_id: id,
-      order_number: referentie,
-      customer_name: naam,
-      customer_email: email,
-      customer_phone: telefoon,
-      extra_days: extraDagen,
-      current_end_date: huidigEinde,
-      requested_end_date: nieuwEinde,
-      customer_note: opmerking,
-    }),
+    pushExtensionToVernast(payload),
     sendExtensionRequest({
       referentie,
       naam,
@@ -191,6 +197,18 @@ export async function POST(request: Request): Promise<Response> {
 
   if (!push.ok) {
     console.error(`[extension] push naar Vernast mislukt voor ${referentie}: ${push.reason}`);
+    /*
+      Zelfde vangnet als bij een order (`alertSyncFailure` + `notifySyncFailure`):
+      tot 20-10-2026 bleef dit bij de logregel hierboven, en stond de aanvraag
+      dan alleen nog in de gewone verlengmail — een mailbox die niemand als
+      werklijst leest. Langs beide kanalen en afgewacht: na het antwoord stopt
+      de functie. De klant krijgt geen fout: zijn aanvraag staat in dit alarm, met
+      alles wat nodig is om ze met de hand in te geven.
+    */
+    await Promise.all([
+      alertExtensionFailure(push.reason, payload),
+      notifyExtensionFailure(push.reason, payload),
+    ]);
   }
 
   return json({ ok: true, nieuw_einde: nieuwEinde });

@@ -3,6 +3,7 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { CONTACT } from "@/lib/site";
 import "@/styles/algemene-voorwaarden.css";
 import "@/styles/algemene-voorwaarden-fixes.css";
 
@@ -39,8 +40,8 @@ const AlgemeneVoorwaardenPage = () => (
           <p>
             Deze Algemene Verhuurvoorwaarden zijn van toepassing op elke aanbieding, offerte en
             overeenkomst van Vernast. Vragen? Mail{" "}
-            <a href="mailto:info@vernast.be" style={{ color: "#fff", fontWeight: 600 }}>
-              info@vernast.be
+            <a href={`mailto:${CONTACT.email}`} style={{ color: "#fff", fontWeight: 600 }}>
+              {CONTACT.email}
             </a>{" "}
             of bel{" "}
             <a href="tel:+3236899065" style={{ color: "#fff", fontWeight: 600 }}>
@@ -445,7 +446,7 @@ const AlgemeneVoorwaardenPage = () => (
             <h3>Gebruik van Persoonsgegevens</h3>
             <p>De Huurder stemt ermee in dat Vernast persoonsgegevens gebruikt voor het aangaan en uitvoeren van de Overeenkomst, het innen van betalingen, fraudepreventie, en het nakomen van wettelijke verplichtingen.</p>
             <h3>Naleving van AVG</h3>
-            <p>Beide Partijen zullen zich houden aan hun verplichtingen onder de AVG. Vernasts privacybeleid is beschikbaar op de website en kan van tijd tot tijd wijzigen. Vragen of verzoeken omtrent privacy kunnen gericht worden aan <a href="mailto:info@vernast.be">info@vernast.be</a>.</p>
+            <p>Beide Partijen zullen zich houden aan hun verplichtingen onder de AVG. Vernasts privacybeleid is beschikbaar op de website en kan van tijd tot tijd wijzigen. Vragen of verzoeken omtrent privacy kunnen gericht worden aan <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.</p>
             <h3>Garanties Betreffende Persoonsgegevens</h3>
             <p>Beide Partijen garanderen dat de gedeelde persoonsgegevens correct, niet overmatig en rechtmatig zijn en geen inbreuk maken op de rechten van derden.</p>
             <h3>Informatieplicht Huurder</h3>

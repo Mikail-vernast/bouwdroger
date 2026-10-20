@@ -2,6 +2,7 @@ import { useState, type ChangeEvent } from "react";
 import { ArrowRightIcon, FileIcon, UploadIcon } from "./icons";
 import { isValidEmail, maskEmail, maskPhone } from "@/lib/inputMask";
 import { resizeImageFile } from "@/lib/imageResize";
+import { CONTACT } from "@/lib/site";
 
 /**
  * The closing contact block: address details first, question second.
@@ -493,7 +494,7 @@ const V3Cta = () => {
                   {skipped.length > 0 && (
                     <p className="cf-note">
                       Deze bijlagen konden niet mee: {skipped.join(", ")}. Mail ze gerust na naar{" "}
-                      <a href="mailto:info@vernast.be">info@vernast.be</a>.
+                      <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.
                     </p>
                   )}
                 </div>

@@ -17,7 +17,13 @@
  * dat hij geboekt heeft terwijl er nergens iets staat.
  */
 import { randomUUID } from "node:crypto";
-import { checkOne, logAvailabilityFailure } from "../src/lib/availability.js";
+import {
+  alarmAvailabilityFailure,
+  availabilityVerdict,
+  CHECK_UNAVAILABLE_CODE,
+  CHECK_UNAVAILABLE_ERROR,
+  checkOne,
+} from "../src/lib/availability.js";
 import { pickupCounts, pickupDeviceLines, pickupLabel } from "../src/lib/afhalen.js";
 import { newReference } from "../src/lib/booking.js";
 import { alertSyncFailure, sendPickupMails, sendRequestMails } from "../src/lib/mail.js";
@@ -299,14 +305,21 @@ async function afhaal(data: Record<string, unknown>): Promise<Response> {
 
   /*
     Dezelfde controle als bij een pakket: een afhaling legt echte toestellen
-    vast. Faalt de oproep zelf, dan gaat de reservatie door — de planner ziet ze
-    in het portaal en kan bijsturen. Wat geen `device_key` heeft (de TTK 650)
-    valt buiten de controle; daar is aan de andere kant nog geen soort voor.
+    vast. Faalt de oproep zelf, dan stopt de reservatie hier, met een alarm naar
+    het team — zie `availabilityVerdict`. Hier kost dat niets extra: is het
+    portaal onbereikbaar, dan faalt de push in `deliver` toch ook. Wat geen
+    `device_key` heeft (de TTK 650) valt buiten de controle; daar is aan de
+    andere kant nog geen soort voor.
   */
   const devices = pickupDeviceLines(order.lines);
   if (devices.length) {
     const availability = await checkOne(order.date, order.days, devices);
-    if (availability.answer?.available === false) {
+    const verdict = availabilityVerdict(availability);
+    if (verdict === "onbekend") {
+      alarmAvailabilityFailure(`afhaal ${order.date}`, availability);
+      return json({ error: CHECK_UNAVAILABLE_ERROR, code: CHECK_UNAVAILABLE_CODE }, 503);
+    }
+    if (verdict === "vol") {
       return json(
         {
           error:
@@ -316,7 +329,6 @@ async function afhaal(data: Record<string, unknown>): Promise<Response> {
         409,
       );
     }
-    logAvailabilityFailure(`afhaal ${order.date}`, availability);
   }
 
   const id = randomUUID();

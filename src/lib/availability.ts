@@ -8,7 +8,11 @@
  *
  * Zie `docs/plan-beschikbaarheid.md` voor het waarom.
  */
+import { alertAvailabilityFailure } from "./mail.js";
+import { keepAlive } from "./platformWaitUntil.js";
+import { rateLimit } from "./rateLimit.js";
 import { withRetry } from "./retry.js";
+import { notifyAvailabilityFailure } from "./slack.js";
 import type { DeviceLine } from "./verhuur.js";
 
 /*
@@ -141,3 +145,66 @@ export function logAvailabilityFailure(context: string, result: AvailabilityResu
   console.error(`[beschikbaarheid] ${context}: ${result.reason}`);
 }
 
+
+/**
+ * Wat de harde controle van een boeking zegt.
+ *
+ * - `vrij`: het portaal antwoordde en de toestellen passen.
+ * - `vol`: het portaal antwoordde en ze passen niet — de 409.
+ * - `onbekend`: er kwam geen bruikbaar antwoord. Vernast onbereikbaar, een
+ *   time-out, een verkeerd secret, of een antwoord zonder `available`.
+ *
+ * Die laatste ging tot 20-10-2026 als `vrij` door: "een bezoeker die niet kan
+ * afrekenen kost meer dan twee boekingen die elkaar kruisen". Maar bij een
+ * storing van het portaal kruisen niet twee boekingen elkaar, dan boekt iedereen
+ * blind — op een dag die misschien al vol staat, en de klant heeft dan al
+ * betaald. Een minuut niet kunnen afrekenen is herstelbaar; een betaalde
+ * levering die we niet kunnen waarmaken niet.
+ */
+export type AvailabilityVerdict = "vrij" | "vol" | "onbekend";
+
+export function availabilityVerdict(result: AvailabilityResult): AvailabilityVerdict {
+  const available = result.ok ? result.answer?.available : undefined;
+  if (available === true) return "vrij";
+  if (available === false) return "vol";
+  return "onbekend";
+}
+
+/** Wat de bezoeker ziet wanneer de controle zelf faalt. Zelfde tekst op elke route. */
+export const CHECK_UNAVAILABLE_ERROR =
+  "We kunnen de beschikbaarheid nu niet controleren. Probeer het over enkele minuten opnieuw of bel ons op 03 689 90 65.";
+
+/** De `code` naast die tekst, zodat de wizard hem kan onderscheiden van een volle dag. */
+export const CHECK_UNAVAILABLE_CODE = "controle_onbereikbaar";
+
+/*
+  Eén alarm per kwartier. Een storing van het portaal raakt elke bezoeker die op
+  dat moment wil afrekenen; zonder drempel krijgt het team per poging een mail
+  en een Slackbericht, en dan wordt het kanaal weggeklikt precies wanneer het
+  telt. De teller staat in het geheugen van één instantie (zie `rateLimit.ts`):
+  bij een lange storing kan elke instantie er één sturen. Dat is een handvol,
+  geen vloed — en liever dat dan een gemiste.
+*/
+const ALARM_KEY = "alarm:beschikbaarheid";
+const ALARM_WINDOW_MS = 15 * 60_000;
+
+/**
+ * Logt een mislukte harde controle en slaat alarm, begrensd tot één per
+ * kwartier. Het alarm loopt na het antwoord verder (`keepAlive`): de bezoeker
+ * heeft op dit punt al tot acht seconden op time-outs zitten wachten.
+ */
+export function alarmAvailabilityFailure(context: string, result: AvailabilityResult): void {
+  const reason = result.reason ?? "antwoord zonder beschikbaarheid";
+  console.error(`[beschikbaarheid] ${context}: controle mislukt, boeking geweigerd — ${reason}`);
+
+  if (!rateLimit(ALARM_KEY, 1, ALARM_WINDOW_MS).allowed) return;
+
+  keepAlive(
+    Promise.all([
+      alertAvailabilityFailure(context, reason),
+      notifyAvailabilityFailure(context, reason),
+    ]).catch((error: unknown) => {
+      console.error(`[beschikbaarheid] alarm niet verstuurd: ${String(error)}`);
+    }),
+  );
+}
