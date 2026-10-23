@@ -37,6 +37,7 @@ import * as order from '../api/order';
 import * as reconcileOrders from '../api/reconcile-orders';
 import * as reminders from '../api/reminders';
 import * as saldo from '../api/saldo';
+import * as saldoOrder from '../api/saldo-order';
 import * as stripeWebhook from '../api/stripe-webhook';
 import { normalizeHost } from './normalizeHost';
 import * as vraag from '../api/vraag';
@@ -84,6 +85,7 @@ const ROUTES: Record<string, RouteModule> = {
   '/api/reconcile-orders': reconcileOrders,
   '/api/reminders': reminders,
   '/api/saldo': saldo,
+  '/api/saldo-order': saldoOrder,
   '/api/stripe-webhook': stripeWebhook,
   '/api/vraag': vraag,
   '/api/vraag-uploads': vraagUploads,
