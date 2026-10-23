@@ -12,7 +12,13 @@
 import Stripe from "stripe";
 import { logAvailabilityFailure, releaseHold } from "../src/lib/availability.js";
 import { isReference } from "../src/lib/booking.js";
-import { BALANCE_TYPE, deliverBalancePayment, deliverOrder } from "../src/lib/vernastOrder.js";
+import {
+  BALANCE_TYPE,
+  deliverBalancePayment,
+  deliverOrder,
+  deliverOrderBalancePayment,
+  ORDER_BALANCE_TYPE,
+} from "../src/lib/vernastOrder.js";
 
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -65,6 +71,18 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
+
+  /*
+    Het saldo van een order die alleen in het portaal bestaat (reservering of
+    handmatige order), aangemaakt via `api/saldo-order.ts`. Moet vóór de
+    afscherming hieronder: die sessie draagt een ordernummer van Vernast, geen
+    webshopreferentie, en zou daar stil wegvallen — geld binnen, order open.
+  */
+  if (session.metadata?.type === ORDER_BALANCE_TYPE) {
+    const settled = await deliverOrderBalancePayment(stripe, session, "stripe-saldo-order");
+    if (!settled) return json({ error: "Doorsturen naar Vernast mislukt." }, 500);
+    return json({ received: true });
+  }
 
   // Zelfde afscherming als `api/checkout-session.ts`: alleen sessies die door
   // onze eigen checkout zijn aangemaakt, zodat deze route geen venster wordt op

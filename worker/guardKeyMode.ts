@@ -34,6 +34,7 @@ const BETAALROUTES = new Set([
   '/api/checkout',
   '/api/afhaal-checkout',
   '/api/saldo',
+  '/api/saldo-order',
   '/api/extension',
   '/api/checkout-session',
   '/api/stripe-webhook',

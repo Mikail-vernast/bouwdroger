@@ -18,6 +18,7 @@ import { logAvailabilityFailure, releaseHold } from "./availability.js";
 import { alertSyncFailure, sendPaidBookingMails, sendPickupMails } from "./mail.js";
 import { notifyNewOrder, notifySyncFailure } from "./slack.js";
 import { parseDeviceLines } from "./verhuur.js";
+import { pushSaldoPaidToVernast } from "./vernastSaldo.js";
 import { logSyncFailure, pushOrderToVernast, type VernastOrderPayload } from "./vernastSync.js";
 
 function meta(session: Stripe.Checkout.Session, key: string): string | null {
@@ -53,6 +54,26 @@ async function onlinePaymentMethod(
   stripe: Stripe,
   session: Stripe.Checkout.Session,
 ): Promise<string | null> {
+  return methodOf(await paidCharge(stripe, session, "betaalmethode"));
+}
+
+/** Wallet wint van "card" — zie `onlinePaymentMethod`. */
+function methodOf(charge: Stripe.Charge | null): string | null {
+  const details = charge?.payment_method_details;
+  if (!details?.type) return null;
+  return details.card?.wallet?.type ?? details.type;
+}
+
+/**
+ * De charge onder een betaalde sessie, of `null`. Gooit niet: wie dit nodig
+ * heeft, wil er de betaalmethode of het tijdstip uit halen, en geen van beide
+ * is een reden om een aflevering te laten mislukken.
+ */
+async function paidCharge(
+  stripe: Stripe,
+  session: Stripe.Checkout.Session,
+  what: string,
+): Promise<Stripe.Charge | null> {
   if (session.payment_status !== "paid") return null;
 
   try {
@@ -70,14 +91,10 @@ async function onlinePaymentMethod(
 
     const charge = intent.latest_charge;
     if (!charge || typeof charge === "string") return null;
-
-    const details = charge.payment_method_details;
-    if (!details?.type) return null;
-
-    return details.card?.wallet?.type ?? details.type;
+    return charge;
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "onbekende fout";
-    console.error(`[vernast-order] betaalmethode van ${session.id} ophalen mislukt: ${message}`);
+    console.error(`[vernast-order] ${what} van ${session.id} ophalen mislukt: ${message}`);
     return null;
   }
 }
@@ -347,6 +364,90 @@ export async function deliverBalancePayment(
 
   // Op de basis-sessie, niet op deze: de saldopagina kent alleen die eerste.
   await claimOnce(stripe, base, BALANCE_FLAG);
+  return true;
+}
+
+/**
+ * Het `metadata.type` van een saldosessie voor een order die nooit via een
+ * webshopsessie binnenkwam. Zie `api/saldo-order.ts`.
+ */
+export const ORDER_BALANCE_TYPE = "saldo_order";
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/**
+ * Het saldo van een portaal-order afleveren bij `bouwdroger-saldo-paid`.
+ *
+ * Anders dan `deliverBalancePayment` is er hier geen oorspronkelijke
+ * Stripe-sessie om bij te werken: de order bestaat enkel in het portaal, en
+ * de sleutel is zijn ID daar (`metadata.vernast_order_id`).
+ *
+ * Geeft `false` als het portaal de melding niet aannam, zodat de webhook een
+ * fout teruggeeft en Stripe het event opnieuw aanbiedt. Een sessie zonder
+ * geldige order-ID telt als afgehandeld — herhalen verandert daar niets aan —
+ * maar slaat wel alarm: dan staat er geld op Stripe dat aan geen order hangt.
+ */
+export async function deliverOrderBalancePayment(
+  stripe: Stripe,
+  session: Stripe.Checkout.Session,
+  context: string,
+): Promise<boolean> {
+  // Bancontact meldt `completed` vóór het geld binnen is; dan volgt
+  // `async_payment_succeeded` nog. Tot dan valt er niets te melden.
+  if (session.payment_status !== "paid") return true;
+
+  const orderId = meta(session, "vernast_order_id") ?? "";
+  const orderNumber = meta(session, "order_number") ?? session.client_reference_id;
+  const amount = round2((session.amount_total ?? 0) / 100);
+
+  const charge = await paidCharge(stripe, session, "charge");
+  const payment = {
+    order_id: orderId,
+    stripe_session_id: session.id,
+    amount,
+    payment_method: methodOf(charge),
+    // Het moment van de charge, niet dat van deze aanroep: een herhaalde
+    // webhook drie uur later is geen betaling van drie uur later.
+    paid_at: new Date(charge?.created ? charge.created * 1000 : Date.now()).toISOString(),
+  };
+
+  // Voor de alarmen, die een orderpayload verwachten; enkel wat iemand nodig
+  // heeft om de betaling met de hand op de juiste order te zetten.
+  const alarm: VernastOrderPayload = {
+    source: "stripe",
+    external_id: orderId || session.id,
+    order_number: orderNumber,
+    email: session.customer_email ?? session.customer_details?.email ?? null,
+    payment_status: "paid",
+    amount_paid: amount,
+    stripe_session_id: session.id,
+    paid_at: payment.paid_at,
+    online_payment_method: payment.payment_method,
+  };
+
+  if (!UUID.test(orderId)) {
+    const reason = "sessie draagt geen geldige vernast_order_id";
+    console.error(`[vernast-saldo-order] ${context} ${session.id}: ${reason}`);
+    await Promise.all([
+      alertSyncFailure(`${context} ${session.id}`, reason, alarm),
+      notifySyncFailure(`${context} ${session.id}`, reason, alarm),
+    ]);
+    return true;
+  }
+
+  const sync = await pushSaldoPaidToVernast(payment);
+  logSyncFailure(`${context} ${session.id}`, sync);
+
+  if (!sync.ok) {
+    // Geld binnen, portaal weet van niets. Zelfde alarm als bij
+    // `deliverBalancePayment`: iemand moet dit met de hand kunnen rechtzetten.
+    await Promise.all([
+      alertSyncFailure(`${context} ${session.id}`, sync.reason, alarm),
+      notifySyncFailure(`${context} ${session.id}`, sync.reason, alarm),
+    ]);
+    return false;
+  }
+
   return true;
 }
 

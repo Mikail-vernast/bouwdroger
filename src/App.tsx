@@ -202,6 +202,20 @@ export const routes: RouteRecord[] = [
         }),
       },
       {
+        // Terugkeer van Stripe na het saldo van een portaal-order
+        // (`api/saldo-order.ts`); beide op noindex.
+        path: "verhuur/saldo/betaald",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurSaldoUitkomstPage")).SaldoBetaaldPage,
+        }),
+      },
+      {
+        path: "verhuur/saldo/niet-betaald",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurSaldoUitkomstPage")).SaldoNietBetaaldPage,
+        }),
+      },
+      {
         // Alleen bereikbaar via de link in de verlengmail; staat op noindex.
         path: "verhuur/verlengen",
         lazy: async () => ({
