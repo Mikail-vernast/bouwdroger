@@ -193,6 +193,10 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                       <li>
                         <Link to="/verhuur/verlengen">Verlengen of stoppen</Link>
                       </li>
+                      <li>
+                        {/* Het klantaccount staat in de Vernast-app, niet op deze site. */}
+                        <a href="https://www.vernast.be/login">Mijn huur (inloggen)</a>
+                      </li>
                     </ul>
                   </div>
                 </div>

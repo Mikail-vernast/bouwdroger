@@ -198,6 +198,10 @@ const VerhuurVerlengenPage = () => {
                   twee dagen vóór het einde van uw huurperiode kreeg, of bel ons op{" "}
                   <a href="tel:+3236899065">03 689 90 65</a> — dan regelen wij het telefonisch.
                 </p>
+                <p style={{ lineHeight: 1.7, marginTop: 12 }}>
+                  Heeft u een account bij Vernast gekregen? Dan verlengt u ook via{" "}
+                  <a href="https://www.vernast.be/login">Mijn huur</a>.
+                </p>
                 <div className="fnav" style={{ marginTop: 20 }}>
                   <Link className="btn btn-o" to="/verhuur/calculator">
                     Terug naar de site

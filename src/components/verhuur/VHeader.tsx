@@ -144,6 +144,10 @@ const VHeader = () => {
                       <li>
                         <Link to="/verhuur/boeking">Verlengen of stoppen</Link>
                       </li>
+                      <li>
+                        {/* Het klantaccount staat in de Vernast-app, niet op deze site. */}
+                        <a href="https://www.vernast.be/login">Mijn huur (inloggen)</a>
+                      </li>
                     </ul>
                   </div>
                 </div>
