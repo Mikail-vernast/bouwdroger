@@ -149,13 +149,13 @@ export const SEO = {
 
   /* ---------- Juridisch ---------- */
   algemeneVoorwaarden: {
-    title: "Algemene voorwaarden | Vernast Verhuur",
+    title: "Algemene voorwaarden | Vernast Bouwdrogers",
     description:
       "De algemene verhuurvoorwaarden van Vernast: huurperiode, levering en ophaling, prijzen, aansprakelijkheid, verzekeringen en privacybeleid.",
     noindex: true,
   },
   privacy: {
-    title: "Privacybeleid | Vernast Verhuur",
+    title: "Privacybeleid | Vernast Bouwdrogers",
     description:
       "Het privacybeleid van Vernast: welke persoonsgegevens wij verwerken, waarvoor, hoe lang we ze bewaren en welke rechten u heeft onder de AVG.",
     noindex: true,

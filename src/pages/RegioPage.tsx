@@ -206,6 +206,15 @@ const RegioPage = () => {
                       </div>
                     ))}
                   </dl>
+                  {/*
+                    De gemeenten stonden alleen op de homepage-kaart, niet op de
+                    regiopagina zelf: Google stuurde "bouwdroger mechelen" daardoor
+                    naar de Limburg-pagina (Search Console, oktober 2026).
+                  */}
+                  <p className="text-sm text-muted-foreground mt-6">
+                    <span className="font-semibold text-foreground">Wij leveren onder meer in </span>
+                    {regio.towns.join(", ")}.
+                  </p>
                   <Button className="rounded-full font-bold gap-2 px-6 mt-6" asChild>
                     <Link to="/verhuur/calculator">
                       Reserveer met levering <ArrowRight className="h-4 w-4" />

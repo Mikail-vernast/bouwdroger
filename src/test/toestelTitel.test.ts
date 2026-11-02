@@ -9,7 +9,7 @@ describe("toestelTitel", () => {
     ).toBe("Bouwdroger TTK 350 S huren — 70 L/dag, € 14/dag | Vernast");
   });
 
-  it("herhaalt het soortwoord niet als de naam het al draagt", () => {
+  it("zet \"adsorptiedroger huren\" letterlijk vooraan als de naam met het soortwoord begint", () => {
     expect(
       toestelTitel({
         short: "Adsorptiedroger Revolution",
@@ -17,7 +17,7 @@ describe("toestelTitel", () => {
         day: 25,
         spec: ["Techniek", "Adsorptie", ""],
       })
-    ).toBe("Adsorptiedroger Revolution huren — € 25/dag | Vernast");
+    ).toBe("Adsorptiedroger huren — Revolution, € 25/dag | Vernast");
   });
 
   it("toont een dagprijs met centen als hij niet rond is", () => {
