@@ -195,13 +195,13 @@ const VerhuurToestelPage = () => {
               <div className="main">
                 <span className="badge">{prod.badge}</span>
                 {/*
-                  De hero-achtergrond staat in verhuur.css en wordt pas ontdekt als die CSS
-                  binnen is (2,1 s load delay); de productfoto stond op lazy. Allebei vooruit
-                  halen, zoals V3Hero doet.
+                  De hero-achtergrond is het LCP-element, maar staat in verhuur.css en wordt
+                  pas ontdekt als die CSS binnen is (2,1 s load delay): vooruit halen, zoals
+                  V3Hero doet. De productfoto niet ook preloaden — die concurreerde op een
+                  trage lijn om dezelfde bandbreedte. Ze is wel niet meer lazy.
                 */}
                 <Head>
                   <link rel="preload" href="/vernast/bg-red-wide-2.webp" as="image" type="image/webp" fetchPriority="high" />
-                  <link rel="preload" href={prod.img[0]} as="image" fetchPriority="high" />
                 </Head>
                 <img src={prod.img[shot]} alt={productImageAlt(prod, shot)} fetchPriority="high" decoding="async" />
               </div>

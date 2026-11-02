@@ -117,6 +117,8 @@ const VerhuurPakketPage = () => {
                 <span className="gtag">Alles in één Droogservice</span>
                 {/* LCP-beeld: eager en met voorrang. Op lazy stond het achteraan in de rij — 9,2 s op mobiel (Lighthouse, 02-11-2026). */}
                 <Head>
+                  {/* De foto's staan op Supabase Storage: de verbinding daarheen vooraf openen. */}
+                  <link rel="preconnect" href="https://zqzrdzpfxqlwrojxsqdl.supabase.co" />
                   <link rel="preload" href={gallery[0]} as="image" fetchPriority="high" />
                 </Head>
                 <img src={gallery[shot]} alt={galleryAlts[shot]} fetchPriority="high" decoding="async" />
