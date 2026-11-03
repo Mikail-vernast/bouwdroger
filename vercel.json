@@ -12,6 +12,7 @@
   "redirects": [
     { "source": "/afhalen", "destination": "/verhuur/afhalen", "permanent": true },
     { "source": "/reserveren", "destination": "/verhuur/calculator", "permanent": true },
+    { "source": "/verhuur", "destination": "/verhuur/calculator", "permanent": true },
     { "source": "/shop", "destination": "/machines", "permanent": true },
 
     { "source": "/pages/contact", "destination": "/contact", "permanent": true },
