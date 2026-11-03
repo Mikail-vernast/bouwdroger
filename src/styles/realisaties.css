@@ -159,8 +159,10 @@
 .rz-page .rz-tag { display: inline-flex; align-items: center; gap: 7px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 9999px; padding: 7px 15px; font-size: 12.5px; font-weight: 600; backdrop-filter: blur(6px); }
 .rz-page .rz-tag svg { width: 14px; height: 14px; }
 .rz-page .rz-head h1 { font-size: clamp(36px, 5vw, 60px); line-height: 1.02; color: #fff; text-wrap: balance; }
-.rz-page .rz-loc { display: inline-flex; align-items: center; gap: 9px; margin-top: 20px; font-size: 16px; color: rgba(255, 255, 255, 0.85); }
+.rz-page .rz-loc { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 9px; margin-top: 20px; font-size: 16px; color: rgba(255, 255, 255, 0.85); }
 .rz-page .rz-loc svg { width: 18px; height: 18px; }
+.rz-page .rz-loc-link { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.rz-page .rz-loc-link:hover { text-decoration-thickness: 2px; }
 .rz-page .rz-lede { font-size: 16.5px; line-height: 1.7; color: rgba(255, 255, 255, 0.86); }
 .rz-page .rz-hero-media { margin-top: 52px; position: relative; }
 .rz-page .rz-hero-media img { display: block; width: 100%; height: min(60vh, 560px); object-fit: cover; border-radius: 22px 22px 0 0; box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.35); }

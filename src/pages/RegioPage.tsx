@@ -9,6 +9,8 @@ import { CONTACT } from "@/lib/site";
 import { REGIO_BY_PATH, REGIO_ROUTES } from "@/data/regio-slugs";
 import { REGIO_BY_SLUG, realisatiesVoor, type Regio } from "@/data/regios";
 import { PRODUCTS, productImageAlt } from "@/data/verhuur";
+import { getRealisatie, type Realisatie } from "@/data/realisaties";
+import { realisatieSlugsIn } from "@/data/realisatie-regio";
 
 /**
  * Eén sjabloon voor de vijf regiopagina's (/bouwdroger-huren-<regio>).
@@ -30,6 +32,13 @@ const RegioPage = () => {
   const route = REGIO_BY_PATH[pathname.replace(/\/$/, "")] ?? REGIO_ROUTES[0];
   const regio: Regio = REGIO_BY_SLUG[route.slug];
   const realisaties = realisatiesVoor(regio);
+  // De drie kaarten hierboven zijn een keuze; de rest van de werven in deze
+  // provincie krijgt een gewone tekstlink, zodat elke realisatie vanaf zijn
+  // regiopagina bereikbaar is (indexatie, 03-11-2026).
+  const meerWerven = realisatieSlugsIn(regio.slug)
+    .filter((slug) => !regio.realisaties.slugs.includes(slug))
+    .map(getRealisatie)
+    .filter((r): r is Realisatie => !!r);
   const andere = REGIO_ROUTES.filter((r) => r.slug !== regio.slug);
 
   return (
@@ -284,6 +293,28 @@ const RegioPage = () => {
                     </Link>
                   ))}
                 </div>
+                {meerWerven.length > 0 && (
+                  <div className="mt-10">
+                    <h3 className="text-lg font-bold text-foreground text-center mb-4">
+                      Meer werven in {regio.name}
+                    </h3>
+                    <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2 max-w-3xl mx-auto">
+                      {meerWerven.map((r) => (
+                        <li key={r.slug}>
+                          <Link
+                            to={`/realisaties/${r.slug}`}
+                            className="inline-flex items-start gap-2 text-foreground hover:text-primary"
+                          >
+                            <ArrowRight className="w-4 h-4 mt-1 shrink-0 text-primary" aria-hidden="true" />
+                            <span>
+                              {r.titel} <span className="text-muted-foreground">· {r.locatie}</span>
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <p className="text-center text-sm text-muted-foreground mt-8">
                   <Link to="/realisaties" className="font-semibold text-primary hover:underline">
                     Alle realisaties bekijken

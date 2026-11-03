@@ -10,6 +10,7 @@ import {
   realisatieMeta,
   type Realisatie,
 } from "@/data/realisaties";
+import { realisatieSlugsIn, regioVanRealisatie } from "@/data/realisatie-regio";
 import RealisatieAlbum from "@/components/realisaties/RealisatieAlbum";
 import { ArrowRight, DryIcon, HouseIcon, MeasureIcon, PinIcon, XIcon } from "@/components/realisaties/icons";
 // De gedeelde <V3Header>/<V3Footer> dragen hun eigen opmaak; zonder deze
@@ -69,7 +70,16 @@ const RealisatieDetailPage = () => {
   // De bron kiest zelf drie verwante projecten; wat daar niet bij hoort (de
   // kelder- en injectieprojecten) valt hier weg, dus vullen we aan met de
   // buren uit de lijst.
+  // Werven uit dezelfde provincie gaan voor: zo linken de realisaties van één
+  // regio naar elkaar en terug naar hun regiopagina (indexatie, 03-11-2026).
+  const regio = regioVanRealisatie(project.slug);
+  // Begin bij de werf ná deze en draai rond: anders wijzen alle negen
+  // Antwerpse werven naar dezelfde eerste drie, en krijgt de rest niets.
+  const inRegio = regio ? realisatieSlugsIn(regio.slug) : [];
+  const plek = inRegio.indexOf(project.slug);
+  const buren = [...inRegio.slice(plek + 1), ...inRegio.slice(0, plek)];
   const meer: Realisatie[] = [
+    ...buren.map((s) => getRealisatie(s)).filter((r): r is Realisatie => !!r && r.slug !== project.slug),
     ...project.meer.slugs.map((s) => getRealisatie(s)).filter((r): r is Realisatie => !!r && r.slug !== project.slug),
     ...REALISATIES.filter((r) => r.slug !== project.slug),
   ]
@@ -117,6 +127,14 @@ const RealisatieDetailPage = () => {
                 <h1>{project.titel}</h1>
                 <span className="rz-loc">
                   <PinIcon /> {project.locatie}
+                  {regio && (
+                    <>
+                      {" · "}
+                      <Link to={regio.path} className="rz-loc-link">
+                        Bouwdroger huren in {regio.name}
+                      </Link>
+                    </>
+                  )}
                 </span>
               </div>
               <p className="rz-lede">{project.lede}</p>
