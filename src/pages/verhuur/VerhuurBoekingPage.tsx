@@ -245,9 +245,17 @@ const VerhuurBoekingPage = () => {
   const [floors, setFloors] = useState(stored?.options.floors ?? 0);
   const [access, setAccess] = useState<Access>(stored?.options.access ?? "trap");
   const [delivery, setDelivery] = useState(stored?.options.delivery ?? DELIVERY[0].k);
-  const [startDate, setStartDate] = useState(
-    () => stored?.startDate ?? isoDate(addDays(new Date(), 1))
-  );
+  /*
+    De standaarddatum (morgen) komt pas na mount: bij de prerender is "morgen"
+    de dag na de build, in de browser de dag na vandaag. Uit de initializer gaf
+    dat een hydratatiefout waarna React de hele pagina opnieuw opbouwde.
+  */
+  const [startDate, setStartDate] = useState(() => stored?.startDate ?? "");
+  const [today, setToday] = useState("");
+  useEffect(() => {
+    setToday(isoDate(new Date()));
+    setStartDate((current) => current || isoDate(addDays(new Date(), 1)));
+  }, []);
   const [slot, setSlot] = useState(stored?.slot ?? SLOTS[1]);
   const [customerType, setCustomerType] = useState<CustomerType>(stored?.customerType ?? "part");
   const [payment, setPayment] = useState<PaymentChoice>(stored?.options.payment ?? "online");
@@ -1083,7 +1091,7 @@ const VerhuurBoekingPage = () => {
                       type="date"
                       id="dStart"
                       value={startDate}
-                      min={isoDate(new Date())}
+                      min={today || undefined}
                       onChange={(e) => setStartDate(e.target.value)}
                     />
                   </div>

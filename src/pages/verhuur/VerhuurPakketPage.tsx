@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { Head } from "vite-react-ssg";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -114,7 +115,13 @@ const VerhuurPakketPage = () => {
             <div className="gal">
               <div className="gmain">
                 <span className="gtag">Alles in één Droogservice</span>
-                <img src={gallery[shot]} alt={galleryAlts[shot]} loading="lazy" decoding="async" />
+                {/* LCP-beeld: eager en met voorrang. Op lazy stond het achteraan in de rij — 9,2 s op mobiel (Lighthouse, 02-11-2026). */}
+                <Head>
+                  {/* De foto's staan op Supabase Storage: de verbinding daarheen vooraf openen. */}
+                  <link rel="preconnect" href="https://zqzrdzpfxqlwrojxsqdl.supabase.co" />
+                  <link rel="preload" href={gallery[0]} as="image" fetchPriority="high" />
+                </Head>
+                <img src={gallery[shot]} alt={galleryAlts[shot]} fetchPriority="high" decoding="async" />
               </div>
               <div className="gth">
                 {gallery.map((src, i) => (

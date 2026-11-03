@@ -138,10 +138,14 @@ const VerhuurAfhalenPage = () => {
 
   const [quantities, setQuantities] = useState<Record<string, number>>(preset.quantities);
   const [days, setDays] = useState(preset.days);
-  const [date, setDate] = useState(() => {
-    const min = isoDate(new Date());
-    return preset.date >= min ? preset.date : tomorrow();
-  });
+  /*
+    Leeg bij de prerender én bij de eerste render in de browser, pas na mount
+    ingevuld. "Vandaag" is bij de build een andere dag dan bij de bezoeker: een
+    datum uit de initializer gaf een hydratatiefout (React #418/#423), waarna
+    React de hele geprerenderde pagina weggooide en opnieuw opbouwde — met een
+    zichtbare verspringing (CLS 0,11) en een tragere LCP als gevolg.
+  */
+  const [date, setDate] = useState("");
   const [slot, setSlot] = useState(preset.slot);
   const [customerType, setCustomerType] = useState<"part" | "pro">("part");
   const [name, setName] = useState("");
@@ -175,7 +179,17 @@ const VerhuurAfhalenPage = () => {
   const [stripeJs, setStripeJs] = useState<Promise<StripeJs | null> | null>(null);
   const [payOpen, setPayOpen] = useState(false);
 
-  const minDate = useMemo(() => isoDate(new Date()), []);
+  const [minDate, setMinDate] = useState("");
+  useEffect(() => {
+    const min = isoDate(new Date());
+    setMinDate(min);
+    setDate((current) => {
+      const wanted = current || preset.date;
+      return wanted >= min ? wanted : tomorrow();
+    });
+    // Eén keer na mount; zie de uitleg bij `date`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const formRef = useRef<HTMLDivElement>(null);
 
   const qty = (key: string) => quantities[key] ?? 0;
@@ -507,7 +521,9 @@ const VerhuurAfhalenPage = () => {
             <img
               src="/vernast/team-tools.webp"
               alt="Het Vernast-team met bouwdrogers en ventilatoren"
-              loading="lazy"
+              width={1400}
+              height={859}
+              fetchPriority="high"
               decoding="async"
             />
           </div>
@@ -638,7 +654,7 @@ const VerhuurAfhalenPage = () => {
                   type="date"
                   id="aDate"
                   className={dateBlocked ? "bezet" : undefined}
-                  min={minDate}
+                  min={minDate || undefined}
                   value={date}
                   aria-invalid={dateBlocked}
                   aria-describedby={dateBlocked ? "aDateWarn" : undefined}

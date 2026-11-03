@@ -495,7 +495,8 @@
 .vh-pkg .phero{padding:0 0 26px}
 .vh-pkg .pgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
 .vh-pkg .gal .gmain{background:#fff;border-radius:20px;overflow:hidden;position:relative;display:block}
-.vh-pkg .gal .gmain img{width:100%;height:auto;display:block}
+/* Vaste verhouding: zonder afmetingen schoof .pinfo eronder op zodra de foto binnenkwam (CLS 0,11). De pakketfoto's zijn vierkant. */
+.vh-pkg .gal .gmain img{width:100%;height:auto;display:block;aspect-ratio:1/1;object-fit:contain}
 .vh-pkg .gal .gtag{position:absolute;top:16px;left:16px;z-index:2;background:var(--red);color:#fff;font-family:var(--fb);font-weight:600;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:99px}
 .vh-pkg .gal .gth{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
 .vh-pkg .gal .gth button{background:#fff;border:1.5px solid transparent;border-radius:12px;aspect-ratio:1;padding:10px;cursor:pointer;display:grid;place-items:stretch;overflow:hidden;transition:border-color .15s}

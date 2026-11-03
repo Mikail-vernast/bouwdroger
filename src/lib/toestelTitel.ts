@@ -41,6 +41,20 @@ export function toestelTitel({ short, type, day, spec }: ToestelTitelInput): str
   const naam =
     soort && !short.toLowerCase().includes(soort.toLowerCase()) ? `${soort} ${short}` : short;
 
+  /*
+    Begint de naam zelf met het soortwoord ("Adsorptiedroger Revolution"), dan
+    komt "huren" er meteen achter: "Adsorptiedroger huren — Revolution". Zo staat
+    de zoekopdracht letterlijk vooraan. "Adsorptiedroger Revolution huren" stond
+    in november 2026 op plaats 17 voor "adsorptiedroger huren", onze zoekterm met
+    de meeste vertoningen. Bouwdrogers krijgen dit bewust niet: acht pagina's die
+    met "Bouwdroger huren" beginnen zouden met de homepage concurreren.
+  */
+  if (soort === "Adsorptiedroger" && naam.toLowerCase().startsWith(soort.toLowerCase() + " ")) {
+    const rest = naam.slice(soort.length + 1);
+    const prijs = day > 0 ? `, ${dagprijs(day)}/dag` : "";
+    return `${soort} huren — ${rest}${prijs} | Vernast`;
+  }
+
   const delen: string[] = [];
   const [, waarde = "", eenheid = ""] = spec ?? [];
   // "Radiaal 2250" draagt zijn luchtverzet al in de naam; "2 250 m³/u" erachter

@@ -50,10 +50,6 @@ export interface Regio extends RegioRoute {
   kicker: string;
   /** De alinea's onder de H1. */
   intro: string[];
-  /** Een greep uit de gemeenten — ook op de homepage-kaart. */
-  towns: string[];
-  /** Positie van de speld op de kaart van Vlaanderen (homepage). */
-  pin: { left: string; top: string };
   /** Wat er in deze streek gebouwd en gedroogd wordt. */
   bouw: { kop: string; alineas: string[] };
   toestellen: { kop: string; items: RegioToestel[] };
@@ -88,20 +84,15 @@ export const REGIOS: Regio[] = [
   /* ------------------------------------------------------------------ */
   {
     ...route("antwerpen"),
-    title: "Bouwdroger huren in Antwerpen — geleverd in 24 u | Vernast",
+    title: "Bouwdroger huren in Antwerpen en Mechelen | Vernast",
     description:
-      "Bouwdroger huren in Antwerpen en de rand: binnen 24 uur geleverd en geplaatst vanuit Aartselaar, of zelf afhalen met € 25 korting. Geen waarborg.",
+      "Bouwdroger huren in Antwerpen, Mechelen, Lier en Mortsel: binnen 24 uur geleverd vanuit Aartselaar, of zelf afhalen met € 25 korting. Geen waarborg.",
     h1: "Bouwdroger huren in Antwerpen",
     kicker: "Stad en rand · magazijn op 15 minuten",
     intro: [
       "Ons magazijn staat in Aartselaar, langs de A12 — een kwartier van de Antwerpse ring. Dat maakt de provincie Antwerpen de streek waar we het snelst staan en het vaakst rijden: van een appartement in Zurenborg tot een nieuwbouwvilla in Schilde. Wie vóór de middag boekt, heeft de toestellen doorgaans de volgende werkdag draaien.",
       "U huurt geen losse machine maar een berekend droogpakket: onze technieker levert, plaatst, sluit de condensafvoer aan en stelt de streefvochtigheid in. Liever zelf rijden? Aartselaar ligt voor de meeste Antwerpenaren dichter dan de eerste wegenwerken.",
     ],
-    towns: [
-      "Antwerpen", "Aartselaar", "Mechelen", "Turnhout", "Lier", "Boom", "Kontich", "Geel", "Mol",
-      "Herentals", "Heist-op-den-Berg", "Brasschaat", "Schoten", "Wilrijk", "Edegem", "Duffel",
-    ],
-    pin: { left: "42%", top: "12%" },
     bouw: {
       kop: "Wat we in Antwerpen drogen: veel renovatie, weinig ruimte",
       alineas: [
@@ -186,11 +177,6 @@ export const REGIOS: Regio[] = [
       "Oost-Vlaanderen is de tweede provincie waar we het vaakst rijden, en de eerste waar Google ons al toonde voor we er een pagina over hadden: \"bouwdroger aalst\" en \"bouwdroger oost-vlaanderen\" waren zoekopdrachten waarop deze site verscheen zonder één regel tekst erover. Bij deze.",
       "Vanuit Aartselaar is het Waasland een halfuur, Gent en Aalst rond de vijftig minuten. Elk droogpakket komt geleverd, geplaatst en ingesteld; levering en ophaling zijn in de prijs begrepen. Wie in het Waasland woont, kan ook zelf afhalen — de A12 en de E17 brengen u in twintig minuten aan onze poort.",
     ],
-    towns: [
-      "Gent", "Aalst", "Sint-Niklaas", "Dendermonde", "Lokeren", "Wetteren", "Deinze", "Eeklo",
-      "Ninove", "Geraardsbergen", "Oudenaarde", "Ronse", "Zottegem", "Temse", "Beveren", "Zelzate",
-    ],
-    pin: { left: "24%", top: "25%" },
     bouw: {
       kop: "Wat we in Oost-Vlaanderen drogen: verkavelingen, Gentse rijhuizen en natte kelders langs Schelde en Dender",
       alineas: [
@@ -274,11 +260,6 @@ export const REGIOS: Regio[] = [
       "Vlaams-Brabant ligt voor ons letterlijk op de weg: de A12 vanuit Aartselaar komt in Vilvoorde uit, en vandaar is het een halfuur naar Leuven, Halle of Aarschot. De hele provincie, van het Pajottenland tot het Hageland, leveren we binnen 24 uur — de Brusselse rand meestal dezelfde dag als de aanvraag vóór de middag binnenkomt.",
       "Ook hier huurt u een berekend droogpakket, geen losse machine: onze technieker plaatst, sluit de afvoer aan en stelt de opstelling in. Levering en ophaling zijn inbegrepen; de dagprijs blijft dezelfde hoe lang u ook huurt.",
     ],
-    towns: [
-      "Leuven", "Vilvoorde", "Halle", "Aarschot", "Tienen", "Zaventem", "Dilbeek", "Grimbergen",
-      "Diest", "Asse", "Overijse", "Tervuren", "Machelen", "Beersel", "Sint-Pieters-Leeuw", "Haacht",
-    ],
-    pin: { left: "44%", top: "40%" },
     bouw: {
       kop: "Wat we in Vlaams-Brabant drogen: villa's in de rand, studentenkamers in Leuven, nieuwbouw in het Hageland",
       alineas: [
@@ -362,11 +343,6 @@ export const REGIOS: Regio[] = [
       "West-Vlaanderen is de verste provincie vanuit ons magazijn, en toch een van de drukste in onze planning. Dat komt door de kust: appartementen die in het naseizoen gerenoveerd worden, stormschade, en een luchtvochtigheid die er structureel hoger ligt dan in het binnenland. Google toonde ons al op \"bouwdroger west-vlaanderen\" op de vierde plaats; deze pagina is het antwoord dat daar nog ontbrak.",
       "We leveren in de hele provincie binnen 24 uur, geplaatst en ingesteld. De rit vanuit Aartselaar over de E17 en de E40 duurt een uur tot anderhalf, en die zit in de prijs van het droogpakket — net als de ophaling na afloop.",
     ],
-    towns: [
-      "Brugge", "Kortrijk", "Oostende", "Roeselare", "Ieper", "Waregem", "Knokke-Heist", "Veurne",
-      "Torhout", "Menen", "Izegem", "Diksmuide", "Blankenberge", "Poperinge", "Tielt", "Harelbeke",
-    ],
-    pin: { left: "8%", top: "34%" },
     bouw: {
       kop: "Wat we in West-Vlaanderen drogen: kustappartementen, Brugse kelders en polderwoningen",
       alineas: [
@@ -450,12 +426,6 @@ export const REGIOS: Regio[] = [
       "Limburg is de provincie van de ruime nieuwbouw: vrijstaande woningen op grote percelen, van het Maasland tot Haspengouw. Dat zijn grote volumes om droog te krijgen, en het zijn precies de werven waar een bouwdroger het meeste tijd uitspaart — een chape van 150 m² die zonder hulp een half jaar droogt, is met een pakket van drie toestellen in enkele weken klaar voor de vloerder.",
       "Vanuit ons magazijn in Aartselaar rijden we over de E313 in ongeveer een uur naar Hasselt en in anderhalf uur naar Maaseik. Elk droogpakket komt geleverd, geplaatst en ingesteld, en de levering en ophaling zijn in de prijs begrepen — Limburg betaalt geen kilometers.",
     ],
-    towns: [
-      "Hasselt", "Genk", "Sint-Truiden", "Tongeren", "Beringen", "Lommel", "Bilzen", "Maasmechelen",
-      "Houthalen", "Heusden-Zolder", "Diepenbeek", "Bree", "Peer", "Maaseik", "Lanaken",
-      "Leopoldsburg",
-    ],
-    pin: { left: "68%", top: "21%" },
     bouw: {
       kop: "Wat we in Limburg drogen: grote nieuwbouw, winterwerven en waterschade langs de Maas",
       alineas: [

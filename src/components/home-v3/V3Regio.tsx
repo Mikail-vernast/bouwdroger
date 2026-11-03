@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { REGIOS } from "@/data/regios";
+import { REGIO_ROUTES } from "@/data/regio-slugs";
 import { ArrowRightIcon } from "./icons";
 
 interface Region {
@@ -27,7 +27,7 @@ const BRUSSEL: Region = {
 };
 
 const bySlug = (slug: string): Region => {
-  const r = REGIOS.find((x) => x.slug === slug)!;
+  const r = REGIO_ROUTES.find((x) => x.slug === slug)!;
   return { name: r.name, pin: r.pin, towns: r.towns, path: r.path };
 };
 

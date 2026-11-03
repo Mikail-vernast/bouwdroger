@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Head } from "vite-react-ssg";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -193,7 +194,16 @@ const VerhuurToestelPage = () => {
             <div className="gal">
               <div className="main">
                 <span className="badge">{prod.badge}</span>
-                <img src={prod.img[shot]} alt={productImageAlt(prod, shot)} loading="lazy" decoding="async" />
+                {/*
+                  De hero-achtergrond is het LCP-element, maar staat in verhuur.css en wordt
+                  pas ontdekt als die CSS binnen is (2,1 s load delay): vooruit halen, zoals
+                  V3Hero doet. De productfoto niet ook preloaden — die concurreerde op een
+                  trage lijn om dezelfde bandbreedte. Ze is wel niet meer lazy.
+                */}
+                <Head>
+                  <link rel="preload" href="/vernast/bg-red-wide-2.webp" as="image" type="image/webp" fetchPriority="high" />
+                </Head>
+                <img src={prod.img[shot]} alt={productImageAlt(prod, shot)} fetchPriority="high" decoding="async" />
               </div>
               {prod.img.length > 1 && (
                 <div className="thumbs">
