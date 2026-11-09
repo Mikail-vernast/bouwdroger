@@ -90,17 +90,23 @@ const V3Hero = () => (
       als beeldverhouding.
     */}
     {/*
-      team-cutout-2 heeft een transparante achtergrond (enkel het team, de
+      De teamfoto heeft een transparante achtergrond (enkel het team, de
       toestellen en de grijze vloer). hero-banner.webp had een dichte zwarte
       studio-achtergrond die als een zwarte band over het rood viel — vooral
       op mobiel. Met de cutout loopt het rood van de hero gewoon door.
+
+      De afbeelding staat over de volle breedte. Eén bestand van 1440 px werd
+      op een retina-scherm tot bijna het dubbele opgerekt en zag er gepixeld
+      uit; daarom drie breedtes via srcset, gemaakt uit de bron van 4238 px.
     */}
     <img
       className="hero-art"
-      src="/vernast/team-cutout-2.webp"
+      src="/vernast/hero-team-2000.webp"
+      srcSet="/vernast/hero-team-1280.webp 1280w, /vernast/hero-team-2000.webp 2000w, /vernast/hero-team-2800.webp 2800w"
+      sizes="100vw"
       alt="Het Vernast-team met het volledige toestellengamma"
-      width={1440}
-      height={617}
+      width={2800}
+      height={775}
       fetchPriority="high"
       decoding="async"
     />
