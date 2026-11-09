@@ -43,6 +43,12 @@ const NOTES = [
  */
 const HERO_BG = "/vernast/bg-red-wide-2.webp";
 
+/* Breedtes van de teamfoto in public/vernast/ — zie het commentaar bij <picture>. */
+const HERO_WIDTHS = [800, 1280, 2000, 2800, 4238];
+const HERO_SIZES = "(min-width: 2120px) 2120px, 100vw";
+const heroSrcSet = (ext: "avif" | "webp") =>
+  HERO_WIDTHS.map((w) => `/vernast/hero-team-v2-${w}.${ext} ${w}w`).join(", ");
+
 const V3Hero = () => (
   <section className="hero">
     <Head>
@@ -104,30 +110,52 @@ const V3Hero = () => (
       als beeldverhouding.
     */}
     {/*
-      team-cutout-2 heeft een transparante achtergrond (enkel het team, de
+      De teamfoto heeft een transparante achtergrond (enkel het team, de
       toestellen en de grijze vloer). hero-banner.webp had een dichte zwarte
       studio-achtergrond die als een zwarte band over het rood viel — vooral
       op mobiel. Met de cutout loopt het rood van de hero gewoon door.
+
+      De halfdoorzichtige randpixels van de vorige uitsnede droegen nog het
+      wit van de studio-achtergrond, wat op het rood als een witte lijn rond
+      haar en armen lag. In hero-team-v2 kreeg elke randpixel de kleur van de
+      dichtstbijzijnde volle pixel en is de lichtste waas weggesneden.
     */}
     {/*
-      Op gsm staat de cutout schermbreed: 360-412 px. Iedereen kreeg de versie
-      van 1440 px (93 KB); Lighthouse rekende 68 KB daarvan als overbodig.
-      `sizes` meldt op smalle schermen bewust 67vw in plaats van de echte
-      100vw. Zo kiest ook een toestel met pixeldichtheid 3 de variant van
-      800 px -- twee keer de weergavebreedte, wat voor deze foto scherp genoeg
-      is -- in plaats van weer de grote. Vanaf 768 px blijft het de 1440.
+      Elke schermgrootte moet een variant krijgen die minstens zo breed is als
+      de weergave in schermpixels -- oprekken maakt deze foto meteen wazig.
+
+      Op gsm meldde `sizes` vroeger 67vw in plaats van de echte 100vw, om een
+      toestel met pixeldichtheid 3 de variant van 800 px te geven. Die moest
+      daar tot 1080 px opgerekt worden. Met AVIF kost de variant van 1280 px
+      44 kB, minder dan de 93 kB van de oude 1440, dus `sizes` zegt nu gewoon
+      wat waar is.
+
+      Op desktop staat de afbeelding over de volle breedte (tot 2120 px, zie
+      .hero-art in home-v3.css), en de 1440 werd op een retina-scherm tot
+      bijna het dubbele opgerekt en zag er gepixeld uit. Een reeks tot 2800 px bleek niet genoeg: een
+      scherm van 1720 px breed met pixeldichtheid 2 vraagt 3440 px, en ook
+      1,23× oprekken maakt deze foto wazig. Daarom loopt de reeks tot de
+      volle bron van 4238 px, zodat de browser alleen nog verkleint.
+
+      AVIF eerst, met 4:4:4: webp halveert altijd de kleurresolutie, en dat
+      maakte de grens tussen rode overall en wit T-shirt zacht. Bovendien is
+      de AVIF van 4238 px kleiner (300 kB) dan de webp (490 kB). Webp blijft
+      de terugval voor browsers zonder AVIF.
     */}
-    <img
-      className="hero-art"
-      src="/vernast/team-cutout-2.webp"
-      srcSet="/vernast/team-cutout-2-800.webp 800w, /vernast/team-cutout-2.webp 1440w"
-      sizes="(max-width: 767px) 67vw, 100vw"
-      alt="Het Vernast-team met het volledige toestellengamma"
-      width={1440}
-      height={617}
-      fetchPriority="high"
-      decoding="async"
-    />
+    <picture>
+      <source type="image/avif" srcSet={heroSrcSet("avif")} sizes={HERO_SIZES} />
+      <img
+        className="hero-art"
+        src="/vernast/hero-team-v2-2000.webp"
+        srcSet={heroSrcSet("webp")}
+        sizes={HERO_SIZES}
+        alt="Het Vernast-team met het volledige toestellengamma"
+        width={4238}
+        height={1173}
+        fetchPriority="high"
+        decoding="async"
+      />
+    </picture>
     {/* De drie zwevende kaartjes over de banner — zie NOTES en .h-note in home-v3.css. */}
     <div className="h-note">
       {NOTES.map((note) => (
