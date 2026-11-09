@@ -141,10 +141,22 @@ html { scroll-behavior: smooth; }
 /*
   2120 px is de helft van de bron (4238 px): breder en een retina-scherm moet
   de teamfoto weer oprekken, en dan wordt hij wazig. Op schermen die breder
-  zijn staat de foto dus gecentreerd, en lopen de uiteinden van de grijze
-  vloer zacht in het rood over in plaats van met een harde rand te stoppen.
+  zijn staat de foto dus gecentreerd.
+
+  Daar stopte dan ook de vloer, en op een ultrawide liep hij links en rechts
+  weg in het rood: het team stond op een eiland. Daarom loopt onder de foto
+  een vloerband over de volle breedte, en lopen de uiteinden van de foto daar
+  zacht in over. De band is 168 px hoog -- de vloer beslaat de onderste
+  336 van de 1173 bronpixels, op 2120 px breed. Twee tegels, want de vloer is
+  links donkerder dan rechts; elke tegel neemt het verloop van zijn eigen
+  fotorand over (hero-vloer-links/-rechts.webp).
 */
-@media (min-width:2121px){.v3 .hero-art{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}}
+@media (min-width:2121px){
+  .v3 .hero-art{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .v3 .hero::before,.v3 .hero::after{content:"";position:absolute;bottom:0;z-index:1;width:50%;height:168px;background-repeat:repeat-x;background-size:auto 100%;pointer-events:none}
+  .v3 .hero::before{left:0;background-image:url('/vernast/hero-vloer-links.webp');background-position:right bottom}
+  .v3 .hero::after{right:0;background-image:url('/vernast/hero-vloer-rechts.webp');background-position:left bottom}
+}
 .v3 .hero-inner{max-width:860px;margin:0 auto;color:#fff}
 .v3 .hero .gsb{margin-left:auto;margin-right:auto}
 .v3 .hero h1{font-family:var(--fd);font-weight:800;font-size:clamp(32px,4.6vw,64px);line-height:1.0;letter-spacing:-.035em;color:#fff;margin:16px 0 20px;text-wrap:balance}
