@@ -1,0 +1,132 @@
+/* ============================================================
+   Home V3 — reviewsectie (.revs)
+
+   Staat apart van home-v3.css omdat dat bestand 1:1 uit de Claude
+   Design-handoff komt en niet met de hand bijgewerkt mag worden. Deze
+   sectie is er later bij gekomen; ze leunt wel op dezelfde primitieven
+   (--maroon-deep, .wrap, .sec-head, .kick) zodat ze niet uit de rest van
+   de pagina loopt.
+   ============================================================ */
+
+.v3 .revs {
+  padding: 88px 0;
+  background: var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;
+}
+.v3 .revs .sec,
+.v3 .revs .lede { color: #fff; }
+.v3 .revs .lede { color: rgba(255, 255, 255, .78); }
+.v3 .revs .kick { color: rgba(255, 255, 255, .78); }
+/* Het streepje vóór de kicker; elders in het ontwerp zit het op dezelfde plek. */
+.v3 .revs .kick::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 1.5px;
+  margin: 0 10px 4px 0;
+  background: #fff;
+  vertical-align: middle;
+}
+
+/*
+  Drie kolommen: links de enige review die echt over een droger gaat (twee
+  rijen hoog), rechts vier vochtgerelateerde in een 2×2. Geen `auto-fit`:
+  die eerste kaart moet precies de hoogte van die twee rijen krijgen.
+*/
+.v3 .rv-grid {
+  display: grid;
+  grid-template-columns: .92fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 44px;
+  align-items: stretch;
+}
+
+.v3 .rv-card {
+  margin: 0;
+  background: #fff;
+  border-radius: 20px;
+  padding: 26px 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* De uitgelichte review: twee rijen hoog, grotere letter, citaat gecentreerd. */
+.v3 .rv-card.rv-big {
+  grid-row: span 2;
+  padding: 30px 28px 26px;
+}
+.v3 .rv-card.rv-big blockquote {
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: clamp(19px, 1.6vw, 23px);
+  line-height: 1.42;
+  letter-spacing: -.015em;
+  display: flex;
+  align-items: center;
+}
+
+.v3 .rv-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.v3 .rv-stars {
+  display: inline-flex;
+  gap: 2px;
+  color: #F5A623;
+}
+.v3 .rv-src {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--txt-dim);
+}
+.v3 .rv-card blockquote {
+  margin: 0;
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.66;
+  color: var(--txt);
+}
+.v3 .rv-card figcaption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.v3 .rv-av {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(200, 16, 46, .1);
+  color: var(--maroon);
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: 12.5px;
+}
+.v3 .rv-who { display: flex; flex-direction: column; }
+.v3 .rv-who b {
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--txt);
+}
+.v3 .rv-who small {
+  font-size: 12px;
+  color: var(--txt-dim);
+}
+
+@media (max-width: 1040px) {
+  .v3 .rv-grid { grid-template-columns: 1fr 1fr; }
+  /* Twee kolommen: de grote kaart spant de volle breedte en wordt weer plat. */
+  .v3 .rv-card.rv-big { grid-row: auto; grid-column: span 2; }
+  .v3 .rv-card.rv-big blockquote { flex: 0 0 auto; }
+}
+@media (max-width: 660px) {
+  .v3 .revs { padding: 64px 0; }
+  .v3 .rv-grid { grid-template-columns: 1fr; margin-top: 32px; }
+  .v3 .rv-card.rv-big { grid-column: auto; }
+}
