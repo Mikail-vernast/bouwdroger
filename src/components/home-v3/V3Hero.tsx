@@ -98,11 +98,17 @@ const V3Hero = () => (
       De afbeelding staat over de volle breedte. Eén bestand van 1440 px werd
       op een retina-scherm tot bijna het dubbele opgerekt en zag er gepixeld
       uit; daarom drie breedtes via srcset, gemaakt uit de bron van 4238 px.
+
+      De halfdoorzichtige randpixels van de uitsnede droegen nog het wit van
+      de studio-achtergrond, wat op het rood als een witte lijn rond haar en
+      armen lag. In v2 kreeg elke randpixel de kleur van de dichtstbijzijnde
+      volle pixel en is de lichtste waas weggesneden. Nieuwe bestandsnaam,
+      want webp staat in vercel.json een jaar op `immutable`.
     */}
     <img
       className="hero-art"
-      src="/vernast/hero-team-2000.webp"
-      srcSet="/vernast/hero-team-1280.webp 1280w, /vernast/hero-team-2000.webp 2000w, /vernast/hero-team-2800.webp 2800w"
+      src="/vernast/hero-team-v2-2000.webp"
+      srcSet="/vernast/hero-team-v2-1280.webp 1280w, /vernast/hero-team-v2-2000.webp 2000w, /vernast/hero-team-v2-2800.webp 2800w"
       sizes="100vw"
       alt="Het Vernast-team met het volledige toestellengamma"
       width={2800}
