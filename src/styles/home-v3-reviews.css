@@ -4,8 +4,8 @@
    Staat apart van home-v3.css omdat dat bestand 1:1 uit de Claude
    Design-handoff komt en niet met de hand bijgewerkt mag worden. Deze
    sectie is er later bij gekomen; ze leunt wel op dezelfde primitieven
-   (--maroon-deep, .wrap, .sec-head, .kick, .btn) zodat ze niet uit de rest
-   van de pagina loopt.
+   (--maroon-deep, .wrap, .sec-head, .kick) zodat ze niet uit de rest van
+   de pagina loopt.
    ============================================================ */
 
 .v3 .revs {
@@ -28,9 +28,9 @@
 }
 
 /*
-  Drie kolommen: links de kaart die vertelt waar de beoordelingen vandaan
-  komen (twee rijen hoog), rechts vier reviews in een 2×2. Geen `auto-fit`:
-  de linkerkaart moet precies de hoogte van die twee rijen krijgen.
+  Drie kolommen: links de enige review die echt over een droger gaat (twee
+  rijen hoog), rechts vier vochtgerelateerde in een 2×2. Geen `auto-fit`:
+  die eerste kaart moet precies de hoogte van die twee rijen krijgen.
 */
 .v3 .rv-grid {
   display: grid;
@@ -38,42 +38,6 @@
   gap: 16px;
   margin-top: 44px;
   align-items: stretch;
-}
-
-.v3 .rv-lead {
-  grid-row: span 2;
-  background: #fff;
-  border-radius: 20px;
-  padding: 30px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.v3 .rv-lead-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--fd);
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--txt);
-}
-.v3 .rv-lead p {
-  margin: 0;
-  font-size: 14.5px;
-  line-height: 1.66;
-  color: var(--txt-mid);
-  flex: 1;
-}
-.v3 .rv-lead .btn-white {
-  align-self: flex-start;
-  background: var(--maroon-deep);
-  color: #fff;
-}
-.v3 .rv-lead .btn-white:hover {
-  background: var(--maroon);
-  color: #fff;
-  transform: translateY(-1px);
 }
 
 .v3 .rv-card {
@@ -85,6 +49,21 @@
   flex-direction: column;
   gap: 16px;
 }
+/* De uitgelichte review: twee rijen hoog, grotere letter, citaat gecentreerd. */
+.v3 .rv-card.rv-big {
+  grid-row: span 2;
+  padding: 30px 28px 26px;
+}
+.v3 .rv-card.rv-big blockquote {
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: clamp(19px, 1.6vw, 23px);
+  line-height: 1.42;
+  letter-spacing: -.015em;
+  display: flex;
+  align-items: center;
+}
+
 .v3 .rv-head {
   display: flex;
   align-items: center;
@@ -142,11 +121,12 @@
 
 @media (max-width: 1040px) {
   .v3 .rv-grid { grid-template-columns: 1fr 1fr; }
-  /* De leeskaart spant dan de volle breedte en staat weer boven de reviews. */
-  .v3 .rv-lead { grid-row: auto; grid-column: span 2; }
+  /* Twee kolommen: de grote kaart spant de volle breedte en wordt weer plat. */
+  .v3 .rv-card.rv-big { grid-row: auto; grid-column: span 2; }
+  .v3 .rv-card.rv-big blockquote { flex: 0 0 auto; }
 }
 @media (max-width: 660px) {
   .v3 .revs { padding: 64px 0; }
   .v3 .rv-grid { grid-template-columns: 1fr; margin-top: 32px; }
-  .v3 .rv-lead { grid-column: auto; }
+  .v3 .rv-card.rv-big { grid-column: auto; }
 }
