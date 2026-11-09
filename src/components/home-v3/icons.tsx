@@ -211,3 +211,9 @@ export const FileIcon = ({ size = 14 }: IconProps) => (
     <path d="M14 2v6h6" />
   </svg>
 );
+
+export const StarIcon = ({ size = 14 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2.6l2.9 5.88 6.49.95-4.7 4.58 1.11 6.46L12 17.42l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.95L12 2.6Z" />
+  </svg>
+);

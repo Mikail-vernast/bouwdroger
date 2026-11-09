@@ -14,17 +14,22 @@ import V3Ozon from "@/components/home-v3/V3Ozon";
 import V3Regio from "@/components/home-v3/V3Regio";
 import V3Pay from "@/components/home-v3/V3Pay";
 import V3Pickup from "@/components/home-v3/V3Pickup";
+import V3Reviews from "@/components/home-v3/V3Reviews";
 import V3Faq, { QUESTIONS } from "@/components/home-v3/V3Faq";
 import V3Cta from "@/components/home-v3/V3Cta";
 import V3Footer from "@/components/home-v3/V3Footer";
 import "@/styles/home-v3.css";
 import "@/styles/home-v3-fixes.css";
+import "@/styles/home-v3-reviews.css";
 import { SEO } from "@/data/seo";
 import { faqSchema, organizationSchema, websiteSchema } from "@/lib/schema";
 
 /**
  * Home — "Home V3", imported from the Vernast Claude Design handoff.
- * Section order follows the design file exactly.
+ * Section order follows the design file exactly, met één toevoeging: <V3Reviews>
+ * staat tussen "Zelf afhalen" en de FAQ en komt niet uit de handoff — daarom
+ * heeft die sectie ook een eigen stylesheet in plaats van een regel in
+ * home-v3.css.
  */
 const Index = () => {
   return (
@@ -55,6 +60,7 @@ const Index = () => {
         <V3Regio />
         <V3Pay />
         <V3Pickup />
+        <V3Reviews />
         <V3Faq />
         <V3Cta />
       </main>
