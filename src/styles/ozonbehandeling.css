@@ -1,0 +1,679 @@
+/* ============================================================
+   Ozonbehandeling (/ozonbehandeling) — de ontschimmelingsdienst.
+
+   Alles scoped onder `.oz-page`, zodat deze pagina niet naar de rest van de
+   app lekt — dezelfde afspraak als bij de andere schillen.
+
+   Waarom een eigen stylesheet en niet de ozon-sectie uit home-v3.css: die
+   leeft binnen `.v3` en erft daar zijn tokens; losgetrokken naar een eigen
+   pagina zou elke `var(--red)` leeg zijn. De animaties hieronder zijn wél
+   familie van die sectie (sporen, geurslierten, O₃-sweep), opnieuw opgezet in
+   het rood-maroonpalet van deze site in plaats van het blauw-groen van de
+   zustersite.
+
+   Het headerblok hieronder is dezelfde transcriptie als in de tien andere
+   paginastylesheets, enkel opnieuw geprefixt. Dat is één kopie te veel in een
+   lange rij; de juiste oplossing is wat met de footer gebeurd is
+   (src/styles/site-footer.css: ongescoped, aan het component zelf). Zolang die
+   opruiming niet gebeurd is, wijkt deze pagina er niet alleen van af.
+   ============================================================ */
+
+.oz-page *,
+.oz-page *::before,
+.oz-page *::after{box-sizing:border-box}
+.oz-page{margin:0;padding:0}
+.oz-page{
+  --red:#C8102E;--red-hi:#E01E1E;--maroon:#6B0F13;--maroon-d:#5A0C10;--maroon-deep:#4a0c0c;
+  --txt:#141414;--txt-mid:rgba(20,20,20,.62);--txt-dim:rgba(20,20,20,.42);
+  --line:rgba(20,20,20,.1);--line-2:rgba(20,20,20,.18);
+  --page:#fff;--bg-alt:#F4F4F4;--bg-warm:#FAF6F6;--ok:#1E9E50;
+  --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
+  --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,monospace;
+  --wrap:1260px;
+}
+.oz-page{background:var(--page);color:var(--txt);font-family:var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.oz-page h1,
+.oz-page h2,
+.oz-page h3,
+.oz-page h4{margin:0;letter-spacing:-.02em;font-family:var(--fd)}
+.oz-page p{margin:0}
+.oz-page img{max-width:100%;display:block}
+.oz-page a{color:var(--red);text-decoration:none}
+.oz-page a:hover{color:#a80d26}
+.oz-page ::selection{background:var(--red);color:#fff}
+
+/*
+  `.wrap` hoort erbij, niet alleen `.oz-wrap`: de markup van <V3Header> gebruikt
+  die naam (`<div className="wrap topline">`). Stond hij er niet, dan liep de
+  bovenbalk tot tegen de vensterrand en viel "u kiest zelf uw leverdatum" rechts
+  weg. De footer heeft dit niet nodig — die scopet zijn eigen `.wrap` in
+  src/styles/site-footer.css.
+*/
+.oz-page .oz-wrap,
+.oz-page .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+
+/* type-primitieven */
+.oz-page .oz-kick{display:inline-flex;align-items:center;gap:7px;font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78);margin-bottom:14px}
+.oz-page .oz-kick.red{color:var(--red)}
+.oz-page .oz-kick.onred{color:rgba(255,255,255,.78)}
+.oz-page .oz-h2{font-weight:800;font-size:clamp(28px,3.2vw,42px);line-height:1.08;letter-spacing:-.025em;text-wrap:balance}
+.oz-page .oz-h3{font-weight:800;font-size:clamp(21px,2.1vw,27px);line-height:1.16;letter-spacing:-.02em;margin-bottom:14px}
+.oz-page .oz-lede{font-size:15.5px;color:var(--txt-mid);line-height:1.7;max-width:660px;margin:14px 0 0}
+.oz-page .oz-body{font-size:15px;color:var(--txt-mid);line-height:1.74;margin:16px 0 0}
+.oz-page .oz-head{max-width:760px;margin-bottom:42px}
+.oz-page .oz-head-mid{margin-left:auto;margin-right:auto;text-align:center}
+.oz-page .oz-head-mid .oz-lede{margin-left:auto;margin-right:auto}
+
+/* knoppen — eigen prefix, zodat ze niet botsen met de .btn van de v3-schil */
+.oz-page .ozbtn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--fb);font-weight:700;font-size:15px;padding:15px 28px;border-radius:99px;border:0;cursor:pointer;text-decoration:none;transition:background .16s,color .16s,transform .16s;background:var(--red);color:#fff;white-space:nowrap}
+.oz-page .ozbtn:hover{background:#a80d26;color:#fff;transform:translateY(-1px)}
+.oz-page .ozbtn-white{background:#fff;color:var(--red)}
+.oz-page .ozbtn-white:hover{background:rgba(255,255,255,.9);color:#a80d26}
+.oz-page .ozbtn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.34)}
+.oz-page .ozbtn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+.oz-page .ozbtn:disabled{opacity:.42;cursor:not-allowed;transform:none}
+
+/* sectie-ondergronden */
+.oz-page .oz-sec{padding:96px 0;position:relative}
+/*
+  Gebroken wit, niet wit. De kaarten in deze secties zijn zélf wit, en op een
+  witte ondergrond hingen ze als randloze vlakken in het niets — alleen hun
+  haarlijn hield ze nog bij elkaar. Met een warme gebroken-witte ondergrond
+  (--bg-warm, wit met een vleugje van het huisrood) staan ze er weer op in
+  plaats van erin.
+*/
+.oz-page .oz-light{background:var(--bg-warm)}
+.oz-page .oz-tint{background:var(--bg-alt)}
+/*
+  Rood en wit wisselen elkaar af van de hero tot de boeking. Er stond eerder een
+  grijze tussentint (`--bg-alt`) tussen de witte secties; drie bijna gelijke
+  grijstinten onder elkaar lazen als één lange lap, terwijl rood/wit de pagina
+  in blokken hakt die je al scrollend uit elkaar houdt.
+
+  `.oz-dark` blijft bestaan als alias: hij staat nergens meer in de markup, maar
+  een sectie die later alsnog donker moet, hoeft dan niet opnieuw uitgevonden te
+  worden.
+*/
+.oz-page .oz-red,
+.oz-page .oz-dark{background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;color:#fff}
+.oz-page .oz-red .oz-h2,
+.oz-page .oz-red h3,
+.oz-page .oz-dark .oz-h2,
+.oz-page .oz-dark h3{color:#fff}
+.oz-page .oz-red .oz-lede,
+.oz-page .oz-dark .oz-lede{color:rgba(255,255,255,.8)}
+/* Ook de vervolgalinea. Die stond op `--txt-mid` en werd op maroon
+   donkergrijs-op-donkerrood — onleesbaar, en alleen zichtbaar op een
+   schermafdruk. */
+.oz-page .oz-red .oz-body,
+.oz-page .oz-dark .oz-body{color:rgba(255,255,255,.74)}
+.oz-page .oz-red .oz-body b,
+.oz-page .oz-red .oz-split-copy b{color:#fff}
+
+/*
+  Wat binnen een rode sectie staat, moet zijn eigen witte vlak meebrengen: een
+  kaart met `border:1px solid rgba(20,20,20,.1)` werd op maroon een onzichtbaar
+  randje om niets. Hieronder staat per blok wat er op rood van wordt.
+*/
+/*
+  Gebroken wit, geen glas. Een doorschijnend vlak met `backdrop-filter` liet het
+  achtergrondbeeld door de tekst heen schemeren: waar de grote rode cirkel
+  achter een kaart langsliep, verschoof de leesbaarheid van regel tot regel.
+
+  En gebroken wit in plaats van zuiver wit: #fff op maroon is een harde,
+  blauwige vlek, terwijl --bg-warm dezelfde rode ondertoon heeft als de sectie
+  eromheen. Op de lichte secties is het net andersom — daar is de óndergrond
+  gebroken wit en blijven de kaarten wit, anders verdwijnen ze erin.
+*/
+.oz-page .oz-red .oz-card,
+.oz-page .oz-red .oz-use,
+.oz-page .oz-red .oz-review,
+.oz-page .oz-red .oz-specs-card,
+.oz-page .oz-red .oz-safe-card{background:var(--bg-warm);border-color:transparent;color:var(--txt)}
+.oz-page .oz-red .oz-card:hover,
+.oz-page .oz-red .oz-use:hover{border-color:transparent;box-shadow:0 26px 54px -26px rgba(0,0,0,.45)}
+/*
+  `.oz-red h3{color:#fff}` geldt voor de hele sectie, maar deze koppen staan op
+  een lichte kaart binnen die sectie. Wit op lichtgrijs was onleesbaar en viel
+  pas op een schermafdruk op.
+*/
+.oz-page .oz-red .oz-card h3,
+.oz-page .oz-red .oz-use h3,
+.oz-page .oz-red .oz-step h3{color:var(--txt)}
+.oz-page .oz-red .oz-step{background:var(--bg-warm)}
+.oz-page .oz-red .oz-step p{color:var(--txt-mid)}
+
+/*
+  De band "Eerst meten, dan drogen, dan ozon" is zelf rood, en hij hangt in de
+  rode sectie "De cirkel doorbreken": rood op rood, waarin de band verdween als
+  blok. Op wit staat hij er weer als band, met de tekst en de knop omgekeerd.
+  Zelfde truc als `.manband.lite` op /waarom-bouwdroging.
+*/
+.oz-page .oz-red .oz-band{background:var(--bg-warm);color:var(--txt)}
+.oz-page .oz-red .oz-band .oz-kick{color:var(--red)}
+.oz-page .oz-red .oz-band h3{color:var(--txt)}
+.oz-page .oz-red .oz-band p{color:var(--txt-mid)}
+.oz-page .oz-red .oz-band a{color:var(--red);text-decoration-color:rgba(200,16,46,.4)}
+.oz-page .oz-red .oz-band .ozbtn-white{background:var(--red);color:#fff}
+.oz-page .oz-red .oz-band .ozbtn-white:hover{background:#a80d26;color:#fff}
+.oz-page .oz-red .oz-card p,
+.oz-page .oz-red .oz-use p,
+.oz-page .oz-red .oz-review p{color:var(--txt-mid)}
+
+.oz-page .oz-red .oz-note{background:var(--page);border-color:transparent;border-left-color:var(--red);color:var(--txt-mid)}
+.oz-page .oz-red .oz-note b{color:var(--txt)}
+.oz-page .oz-red .oz-note a{color:var(--red)}
+
+.oz-page .oz-red .oz-q{background:var(--bg-warm);border-color:transparent}
+.oz-page .oz-red .oz-q summary{color:var(--txt)}
+.oz-page .oz-red .oz-q summary:hover{color:var(--red)}
+
+/* ankerlinks moeten onder de vaste header uitkomen */
+.oz-page section[id],
+.oz-page div[id]{scroll-margin-top:104px}
+
+/* ============ HEADER (verbatim uit waarom-bouwdroging.css, opnieuw geprefixt) ============ */
+.oz-page .hdr{position:fixed;top:0;left:0;right:0;z-index:80;background:transparent;transition:transform .34s cubic-bezier(.4,0,.2,1)}
+.oz-page .hdr.tucked{transform:translateY(-100%)}
+.oz-page .hdr.onlight .topline,
+.oz-page .hdr.onlight .topline a,
+.oz-page .hdr.onlight .topline span,
+.oz-page .hdr.onlight .tl-right{color:rgba(20,20,20,.78)}
+.oz-page .hdr.onlight .topline a:hover{color:#141414}
+.oz-page .hdr.onlight .tl-left svg{color:rgba(20,20,20,.5)}
+.oz-page .hdr.onlight .navpill{background:rgba(255,255,255,.74);border-color:rgba(20,20,20,.12);box-shadow:0 14px 38px -18px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.65)}
+.oz-page .hdr.onlight .nav-menu>.item{color:#141414}
+.oz-page .hdr.onlight .nav-menu>.item:hover{background:rgba(20,20,20,.07)}
+.oz-page .hdr.onlight .cart{color:#141414}
+.oz-page .hdr.onlight .cart:hover{background:rgba(20,20,20,.07);color:#141414}
+.oz-page .hdr .topline,
+.oz-page .hdr .navrow{position:relative;z-index:2}
+.oz-page .navpill{background:rgba(30,10,12,.34);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,255,255,.24);box-shadow:0 14px 38px -18px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.22)}
+.oz-page .hdr .topline{display:flex;align-items:center;justify-content:space-between;padding:34px 0 18px;font-size:14px;color:rgba(255,255,255,.72);flex-wrap:wrap;gap:10px;transition:opacity .3s,margin .3s,padding .3s;max-height:70px}
+.oz-page .hdr.scrolled .topline{opacity:0;max-height:0;padding-top:10px;padding-bottom:0;overflow:hidden;pointer-events:none}
+.oz-page .hdr .tl-left{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+.oz-page .hdr .tl-left a,
+.oz-page .hdr .tl-left span{display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.8)}
+.oz-page .hdr .tl-left a:hover{color:#fff}
+.oz-page .hdr .tl-left svg{color:rgba(255,255,255,.55)}
+.oz-page .hdr .tl-right{display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.86);font-size:14px}
+.oz-page .hdr .tl-right .dot{width:9px;height:9px;border-radius:50%;background:#3fbf63}
+.oz-page .hdr .navrow{padding:0 0 22px;display:flex;align-items:center;gap:14px}
+.oz-page .hdr .navrow .navpill{flex:1;min-width:0}
+.oz-page .navpill{display:flex;align-items:center;justify-content:space-between;gap:18px;border-radius:18px;padding:11px 11px 11px 24px;position:relative}
+.oz-page .navpill .nav-logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.oz-page .navpill .nav-logo img{height:21px}
+.oz-page .nav-menu{display:flex;align-items:center;gap:0;flex:1;min-width:0;justify-content:flex-end;position:static}
+.oz-page .nav-menu>.item{position:relative;display:inline-flex;align-items:center;gap:6px;padding:10px 11px;font-size:14.5px;font-weight:500;color:#fff;border-radius:10px;cursor:pointer;transition:background .15s;white-space:nowrap}
+.oz-page .nav-menu>.item:hover{background:rgba(255,255,255,.09)}
+.oz-page .nav-menu>.item .caret{width:11px;height:11px;opacity:.65;transition:transform .18s}
+.oz-page .nav-menu>.item.has-sub:hover .caret{transform:rotate(180deg)}
+.oz-page .submenu{position:absolute;top:calc(100% + 8px);left:0;min-width:250px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 24px 50px -18px rgba(0,0,0,.4);opacity:0;visibility:hidden;transform:translateY(7px);transition:opacity .16s,transform .16s,visibility .16s;z-index:90}
+.oz-page .nav-menu>.item:hover .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.oz-page .submenu a{display:flex;flex-direction:column;gap:2px;padding:10px 13px;font-size:14px;color:var(--txt);border-radius:9px;transition:background .15s,color .15s}
+.oz-page .submenu a:hover{background:var(--page);color:var(--red)}
+.oz-page .submenu a small{font-size:11.5px;color:var(--txt-dim)}
+.oz-page .nav-menu>.item.mega{position:static}
+.oz-page .nav-menu>.item.mega:hover{background:rgba(255,255,255,.14)}
+.oz-page .mega-panel{position:absolute;top:calc(100% + 12px);left:0;width:100%;background:#fff;border-radius:20px;padding:26px 30px 0;box-shadow:0 30px 70px -22px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .18s,transform .18s,visibility .18s;z-index:95}
+.oz-page .nav-menu>.item.mega:hover .mega-panel{opacity:1;visibility:visible;transform:none}
+.oz-page .mega-cols{display:flex;flex-wrap:wrap;gap:28px 56px}
+.oz-page .mcol .mlab{display:inline-block;background:var(--maroon);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;padding:9px 15px;border-radius:9px;margin-bottom:16px}
+.oz-page .mcol ul{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:11px}
+.oz-page .mcol ul:last-child{margin-bottom:0}
+.oz-page .mcol ul a{font-size:14.5px;color:var(--txt);transition:color .14s,padding-left .14s;display:block}
+.oz-page .mcol ul a:hover{color:var(--red);padding-left:4px}
+.oz-page .mega-foot{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:24px;padding:20px 0 24px;border-top:1px solid var(--line)}
+.oz-page .mega-foot .mft b{display:block;font-size:14.5px;font-weight:600;margin-bottom:3px}
+.oz-page .mega-foot .mft span{font-size:13.5px;color:var(--txt-mid)}
+.oz-page .btn-offerte{display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;font-weight:600;font-size:15px;padding:13px 28px;border-radius:99px;white-space:nowrap;box-shadow:0 10px 26px -10px rgba(200,16,46,.85);transition:transform .16s,background .16s}
+.oz-page .btn-offerte:hover{transform:translateY(-2px);color:#fff;background:#a80d26}
+.oz-page .hdr .cart{position:relative;width:38px;height:38px;display:grid;place-items:center;color:rgba(255,255,255,.85);border-radius:10px;transition:background .15s,color .15s;flex-shrink:0}
+.oz-page .hdr .cart:hover{background:rgba(255,255,255,.1);color:#fff}
+.oz-page .hdr .cart i{position:absolute;top:1px;right:0;min-width:17px;height:17px;border-radius:99px;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;font-style:normal;padding:0 4px}
+
+/* Het logo moet zijn hoogte-breedteverhouding houden; zonder `width:auto`
+   rekt de vaste hoogte het uit. Zie klantservice-fixes.css. */
+.oz-page .navpill .nav-logo img{height:21px;width:auto}
+
+/* ============ HERO ============ */
+.oz-page .oz-top{background:var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;color:#fff;overflow:hidden;position:relative}
+.oz-page .oz-hero{padding:196px 0 0;position:relative}
+.oz-page .oz-hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.oz-page .oz-hero-copy{padding:0 0 96px}
+/* Was clamp(32px,4.4vw,56px) en liep op een laptop over vier regels. Op drie
+   regels valt de kop in één blik te lezen en krijgt de animatie ernaast weer
+   lucht. */
+.oz-page .oz-hero h1{font-weight:800;font-size:clamp(30px,3.5vw,45px);line-height:1.06;letter-spacing:-.03em;color:#fff;text-wrap:balance}
+.oz-page .oz-hero-copy>p{font-size:16.5px;line-height:1.68;color:rgba(255,255,255,.82);margin:20px 0 0;max-width:600px}
+.oz-page .oz-hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 0}
+.oz-page .oz-hero-usp{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 24px}
+.oz-page .oz-hero-usp li{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;color:rgba(255,255,255,.74)}
+.oz-page .oz-hero-usp li::before{content:"";width:7px;height:7px;border-radius:50%;background:#3fbf63;box-shadow:0 0 0 3px rgba(63,191,99,.22);flex-shrink:0}
+
+/*
+  De O₃-animatie in de hero. Drie atomen om een kern, met twee ringen die naar
+  buiten pulsen — het beeld van een gas dat zich verspreidt. Alleen transform en
+  opacity, zodat het op de compositor draait en de hero niet laat haperen.
+*/
+.oz-page .oz-hero-vis{display:grid;place-items:center;padding:0 0 96px}
+/*
+  De generator in het midden, pulsen naar buiten, en zes sporen op de kring die
+  dichtklappen zodra hun deeltje aankomt.
+
+  `container-type:inline-size` staat erop zodat de straal in `cqi` kan: de kring
+  schaalt dan mee met de bak in plaats van met het scherm, en op een smal scherm
+  schuiven de sporen niet buiten beeld.
+*/
+.oz-page .oz-orbit{position:relative;width:min(100%,400px);aspect-ratio:1;container-type:inline-size;--r:36cqi}
+.oz-page .oz-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;width:104px;height:104px;border-radius:50%;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:27px;color:var(--red);background:#fff;box-shadow:0 0 48px 10px rgba(255,255,255,.26);animation:ozCore 6s ease-in-out infinite}
+@keyframes ozCore{0%,100%{transform:translate(-50%,-50%) scale(1)}8%{transform:translate(-50%,-50%) scale(1.07)}20%{transform:translate(-50%,-50%) scale(1)}}
+
+/* De pulsen: het gas dat zich in álle richtingen verspreidt. */
+.oz-page .oz-ring{position:absolute;left:50%;top:50%;width:104px;height:104px;margin:-52px 0 0 -52px;border-radius:50%;border:1px solid rgba(255,255,255,.45)}
+.oz-page .oz-ring.r1{animation:ozPulse 6s ease-out infinite}
+.oz-page .oz-ring.r2{animation:ozPulse 6s ease-out infinite;animation-delay:2s}
+.oz-page .oz-ring.r3{animation:ozPulse 6s ease-out infinite;animation-delay:4s}
+@keyframes ozPulse{0%{transform:scale(.9);opacity:.6}100%{transform:scale(2.9);opacity:0}}
+
+/*
+  Eén spaak = één richting. De spaak draait over `--a`, zodat het deeltje
+  erbinnen simpelweg naar rechts kan reizen: zonder die truc zou elk deeltje
+  zijn eigen hoek in de keyframes moeten hebben.
+
+  De `animation-delay` staat op de spaak en wordt door de twee kinderen geërfd,
+  zodat deeltje en spore gegarandeerd gelijk lopen. Zet je hem apart op allebei,
+  dan hoeft er maar één waarde te verschuiven en schiet het deeltje door een
+  spore die al weg is.
+*/
+.oz-page .oz-spoke{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(var(--a,0deg))}
+.oz-page .oz-target{position:absolute;left:var(--r);top:0;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b4e493,#5f9e3e 55%,#36621f);box-shadow:0 0 16px rgba(120,190,90,.45),inset 0 0 6px rgba(255,255,255,.22)}
+/* Dezelfde knobbels als in de ozonbak verderop, zodat het hetzelfde beestje is. */
+.oz-page .oz-target::before,
+.oz-page .oz-target::after{content:"";position:absolute;width:24%;height:24%;border-radius:50%;background:#5f9e3e}
+.oz-page .oz-target::before{left:-10%;top:28%}
+.oz-page .oz-target::after{right:-8%;bottom:4%}
+.oz-page .oz-shot{position:absolute;left:0;top:0;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff,#ffd4da 58%,#ff9aa7);box-shadow:0 0 14px rgba(255,255,255,.75);opacity:0}
+
+@media (prefers-reduced-motion:no-preference){
+  .oz-page .oz-target{animation:ozTargetHit 6s ease-in-out infinite;animation-delay:inherit}
+  .oz-page .oz-shot{animation:ozShot 6s ease-in-out infinite;animation-delay:inherit}
+}
+/* Het deeltje reist van de kern naar de spore en dooft daar uit. */
+@keyframes ozShot{
+  0%{transform:translateX(0) scale(.5);opacity:0}
+  6%{opacity:1}
+  26%{transform:translateX(var(--r)) scale(1);opacity:1}
+  34%{transform:translateX(var(--r)) scale(1.5);opacity:0}
+  100%{transform:translateX(var(--r)) scale(1.5);opacity:0}
+}
+/* En de spore klapt dicht op precies dat moment, en groeit daarna terug aan. */
+/*
+  De hersteltijd is kort gehouden. In de eerste versie bleef een spore van 40%
+  tot 86% van de cyclus weg; met zes sporen en een seconde ertussen stonden er
+  dan gemiddeld maar twee of drie in beeld en zag de kring er half leeg uit.
+  Nu verdwijnt er hooguit één tegelijk en blijft de kring vol.
+*/
+@keyframes ozTargetHit{
+  0%,22%{transform:scale(1);opacity:1;filter:none}
+  28%{transform:scale(1.2);opacity:1;filter:brightness(1.9) saturate(.45)}
+  38%{transform:scale(0);opacity:0;filter:brightness(2.6) saturate(0)}
+  52%{transform:scale(0);opacity:0}
+  62%{transform:scale(1);opacity:1;filter:none}
+  100%{transform:scale(1);opacity:1}
+}
+
+/* ============ HERKENBAAR: drie kaarten ============ */
+.oz-page .oz-three{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.oz-page .oz-card{background:var(--page);border:1px solid var(--line);border-radius:18px;padding:30px 26px;transition:border-color .18s,box-shadow .18s,transform .18s}
+.oz-page .oz-card:hover{border-color:var(--line-2);box-shadow:0 22px 48px -28px rgba(20,20,20,.3);transform:translateY(-2px)}
+.oz-page .oz-tint .oz-card{background:var(--page)}
+.oz-page .oz-num{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:11px;background:rgba(200,16,46,.1);color:var(--red);font-family:var(--fm);font-weight:700;font-size:13px;margin-bottom:18px}
+.oz-page .oz-card h3{font-size:17.5px;font-weight:700;margin-bottom:10px}
+.oz-page .oz-card p{font-size:14.5px;line-height:1.66;color:var(--txt-mid)}
+
+.oz-page .oz-note{margin:30px 0 0;background:var(--page);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:14px;padding:22px 26px;font-size:14.5px;line-height:1.7;color:var(--txt-mid)}
+.oz-page .oz-note b{color:var(--txt)}
+.oz-page .oz-tint .oz-note{background:var(--page)}
+
+/* ============ WAT IS OZON: O₂ → O₃ ============ */
+.oz-page .oz-split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+/*
+  Donkere bak, net als de ozonbak verderop. Dat is geen smaakkwestie: in die
+  animatie is wít de actieve zuurstof, en op een witte kaart kan dat niet. Stond
+  het O₃-molecuul hier in het rood, dan leerde de pagina de bezoeker twee keer
+  een andere kleur voor hetzelfde deeltje aan.
+*/
+.oz-page .oz-mol{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;background:radial-gradient(120% 120% at 30% 20%,#7a1418,#4a0c0c 58%,#300708);border-radius:20px;padding:48px 30px;min-height:300px;box-shadow:0 30px 70px -34px rgba(0,0,0,.55)}
+.oz-page .oz-mol-side{text-align:center}
+.oz-page .oz-mol-side b{display:block;font-family:var(--fd);font-weight:800;font-size:28px;margin:20px 0 6px;color:rgba(255,255,255,.72)}
+.oz-page .oz-mol-side small{font-size:12px;color:rgba(255,255,255,.5);line-height:1.4;display:block}
+.oz-page .oz-mol-side.hot b{color:#fff}
+.oz-page .oz-mol-side.hot small{color:rgba(255,255,255,.72)}
+.oz-page .oz-mol-atoms{display:flex;align-items:center;justify-content:center;gap:2px;height:76px}
+/* O₂ is de gewone, trage lucht: dof en zonder gloed. */
+.oz-page .oz-mol-atoms i{width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.4),rgba(255,255,255,.17) 60%,rgba(255,255,255,.1));flex-shrink:0}
+/* O₃ is dezelfde witte, oplichtende bol als in de animatie hieronder. */
+.oz-page .oz-mol-atoms.three i{background:radial-gradient(circle at 32% 30%,#fff,#ffe1e5 56%,#ffb9c2);box-shadow:0 0 18px rgba(255,255,255,.5),inset 0 0 8px rgba(200,16,46,.2)}
+/* Het derde atoom hangt er los bij — vandaar de ruimte ervóór. */
+.oz-page .oz-mol-atoms.three i.loose{margin-left:9px}
+/*
+  Het derde atoom is het hele punt van de uitleg: het zit er los bij en laat
+  makkelijk los. Daarom wiebelt alleen dát bolletje — zette je alle drie in
+  beweging, dan viel juist niet op welk atoom het verschil maakt.
+*/
+.oz-page .oz-mol-atoms i.loose{animation:ozLoose 2.6s ease-in-out infinite;box-shadow:0 0 18px rgba(255,255,255,.5),0 0 0 5px rgba(255,255,255,.14)}
+@keyframes ozLoose{0%,100%{transform:translate(0,0) scale(1)}35%{transform:translate(7px,-6px) scale(1.08)}70%{transform:translate(3px,4px) scale(.96)}}
+.oz-page .oz-mol-arrow{display:grid;place-items:center;gap:8px;color:rgba(255,255,255,.45);position:relative;padding:0 6px}
+.oz-page .oz-mol-arrow svg{width:40px;height:20px}
+.oz-page .oz-mol-arrow small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.7)}
+.oz-page .oz-spark{position:absolute;top:-4px;width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 12px rgba(255,255,255,.8);animation:ozSpark 2.6s ease-in-out infinite}
+@keyframes ozSpark{0%{transform:translateX(-22px) scale(.6);opacity:0}30%{opacity:1}100%{transform:translateX(22px) scale(.6);opacity:0}}
+
+/* ============ HOE WERKT HET: de ozonbak ============
+   Nagebouwd naar de hero-animatie van vernast-vochtbestrijding.be, in onze
+   kleuren. Daar is de bak marineblauw en is de actieve zuurstof blauw tegen
+   groene sporen; hier is de bak maroon en is de zuurstof wit met een rode kern.
+   Het mechanisme is hetzelfde, en dát is waarom het werkt: je ziet een deeltje
+   aankomen, raken, en de spore dichtklappen. */
+.oz-page .oz-stage-wrap{position:relative;margin-top:8px}
+.oz-page .oz-stage{position:relative;height:clamp(340px,40vw,460px);border-radius:22px;overflow:hidden;background:linear-gradient(180deg,rgba(74,12,12,.3),rgba(48,7,8,.58)),url('/vernast/ozon-schimmelmuur.webp') center 68%/cover no-repeat;box-shadow:0 30px 70px -30px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2)}
+.oz-page .oz-glow{position:absolute;inset:0;background:radial-gradient(58% 50% at 50% 55%,rgba(255,255,255,.14),transparent 70%)}
+
+/* ---- het O₃-molecuul: drie bollen met twee bindingen ---- */
+.oz-page .oz-mol3{position:absolute;width:var(--s,56px);height:var(--s,56px);will-change:transform}
+.oz-page .oz-at{position:absolute;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff,#ffe1e5 56%,#ffb9c2);box-shadow:0 0 18px rgba(255,255,255,.5),inset 0 0 8px rgba(200,16,46,.2)}
+.oz-page .oz-at.a1{width:46%;height:46%;left:0;top:26%}
+.oz-page .oz-at.a2{width:52%;height:52%;left:30%;top:0}
+.oz-page .oz-at.a3{width:46%;height:46%;left:56%;top:30%}
+.oz-page .oz-bond{position:absolute;height:5px;background:rgba(255,255,255,.42);top:42%;border-radius:3px}
+.oz-page .oz-bond.b1{left:16%;width:30%;transform:rotate(-24deg);transform-origin:left}
+.oz-page .oz-bond.b2{left:52%;width:30%;transform:rotate(24deg);transform-origin:left}
+
+/* ---- de spore, en het deeltje dat erop afgaat ---- */
+.oz-page .oz-spore{position:absolute;width:var(--ss,40px);height:var(--ss,40px)}
+/*
+  Groen blijft groen. "Maak het in onze kleuren" gaat over de bak en over de
+  actieve zuurstof; de spore rood of maroon maken zou hem laten samenvallen met
+  precies datgene wat hem opruimt, en dan zegt het beeld niets meer. Groen zit
+  trouwens al in dit palet — het is dezelfde tint als de bolletjes bij de USP's.
+*/
+.oz-page .oz-spore-body{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b4e493,#5f9e3e 55%,#36621f);box-shadow:0 0 16px rgba(120,190,90,.45),inset 0 0 6px rgba(255,255,255,.22)}
+/* Twee knobbels: een spore is geen perfecte bol, en dat verschil maakt hem
+   herkenbaar naast de gladde zuurstofatomen. */
+.oz-page .oz-spore-body::before,
+.oz-page .oz-spore-body::after{content:"";position:absolute;width:22%;height:22%;border-radius:50%;background:#5f9e3e;box-shadow:0 0 8px rgba(120,190,90,.45)}
+.oz-page .oz-spore-body::before{left:-12%;top:30%}
+.oz-page .oz-spore-body::after{right:-10%;bottom:6%}
+.oz-page .oz-zap{position:absolute;width:60%;height:60%;left:-90%;top:-70%;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff,#ffd4da 58%,#ff9aa7);box-shadow:0 0 16px rgba(255,255,255,.75);opacity:0}
+
+/*
+  De animaties hangen in `no-preference`, niet andersom. Zo is de basistoestand
+  de zichtbare: wie beweging uitzet, ziet gewoon de sporen en de moleculen
+  stilstaan in plaats van een lege bak. Dat is ook wat de geprerenderde HTML
+  oplevert — er staat nergens een `opacity:0` op de inhoud zelf.
+*/
+@media (prefers-reduced-motion:no-preference){
+  .oz-page .oz-mol3{animation:ozMolFloat var(--dur,10s) ease-in-out infinite alternate}
+  .oz-page .oz-spore-body{animation:ozSporeLife var(--sd,9s) ease-in-out infinite;animation-delay:inherit}
+  .oz-page .oz-zap{animation:ozZap var(--sd,9s) ease-in-out infinite;animation-delay:inherit}
+}
+@keyframes ozMolFloat{from{transform:translate(0,0) rotate(0)}to{transform:translate(var(--dx,20px),var(--dy,-24px)) rotate(var(--dr,40deg))}}
+/*
+  Eén cyclus: de spore komt op, staat er, krijgt de klap (helder, kleur valt
+  weg) en klapt dicht. `hue-rotate` deed op de zustersite het kleurverloop naar
+  cyaan; hier wordt hij uitgewassen naar wit, want dát is de kleur van de
+  zuurstof die hem opruimt.
+*/
+@keyframes ozSporeLife{
+  0%{opacity:0;transform:scale(.4)}
+  8%{opacity:1;transform:scale(1)}
+  38%{opacity:1;transform:scale(1.04);filter:none}
+  46%{opacity:1;transform:scale(1.16);filter:brightness(1.9) saturate(.45)}
+  58%{opacity:0;transform:scale(.1);filter:brightness(2.6) saturate(0)}
+  100%{opacity:0;transform:scale(.1)}
+}
+@keyframes ozZap{
+  0%,28%{opacity:0;transform:translate(0,0)}
+  36%{opacity:1}
+  44%{opacity:1;transform:translate(150%,120%) scale(1.05)}
+  56%{opacity:0;transform:translate(170%,140%) scale(1.5)}
+  100%{opacity:0}
+}
+
+/* ---- de legende: zonder dit raadt de bezoeker wat groen en wit betekenen ----
+   Hangt aan `.oz-stage-wrap`, dus niet in de bak met `overflow:hidden`. */
+.oz-page .oz-legend{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;background:rgba(48,7,8,.56);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.16);border-radius:99px;padding:10px 20px}
+.oz-page .oz-lg{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.84);white-space:nowrap}
+.oz-page .oz-lg b{font-family:var(--fd);font-weight:800;color:#fff}
+.oz-page .oz-lg i{width:13px;height:13px;border-radius:50%;flex-shrink:0}
+.oz-page .oz-lg.o3 i{background:radial-gradient(circle at 32% 30%,#fff,#ffd4da 60%,#ff9aa7);box-shadow:0 0 10px rgba(255,255,255,.6)}
+.oz-page .oz-lg.sp i{background:radial-gradient(circle at 35% 30%,#b4e493,#5f9e3e 60%,#36621f)}
+
+.oz-page .oz-after{margin:28px auto 0;max-width:760px;text-align:center}
+.oz-page .oz-after p{font-size:15px;line-height:1.72;color:var(--txt-mid)}
+/* Deze alinea staat onder de ozonbak, en die bak hangt in een rode sectie:
+   `--txt-mid` is daar bijna onleesbaar donkergrijs op maroon. */
+.oz-page .oz-red .oz-after p,
+.oz-page .oz-dark .oz-after p{color:rgba(255,255,255,.8)}
+
+/* ============ DE CIRKEL DOORBREKEN ============ */
+.oz-page .oz-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.oz-page .oz-step{position:relative;background:var(--bg-alt);border-radius:18px;padding:30px 26px}
+.oz-page .oz-tint .oz-step{background:var(--page)}
+.oz-page .oz-step-n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--red);color:#fff;font-family:var(--fd);font-weight:700;font-size:15px;margin-bottom:18px}
+.oz-page .oz-step h3{font-size:17px;font-weight:700;margin-bottom:10px}
+.oz-page .oz-step p{font-size:14.5px;line-height:1.66;color:var(--txt-mid)}
+
+/*
+  Flex, geen grid met een `auto`-kolom: die kolom werd gemeten op de natuurlijke
+  breedte van de foto (700px), zodat de tekst in een kolom van een kwart
+  overbleef en het mannetje midden-onder uitkwam. Zelfde opzet als `.manband`
+  op /waarom-bouwdroging, die dit al jaren goed doet.
+*/
+.oz-page .oz-band{position:relative;margin:30px 0 0;background:var(--maroon) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-radius:22px;padding:40px 40px 0;color:#fff;display:flex;align-items:flex-end;gap:36px;overflow:hidden}
+.oz-page .oz-band-t{flex:1;min-width:280px;padding-bottom:40px}
+.oz-page .oz-band-t h3{font-size:clamp(20px,2.1vw,26px);font-weight:800;color:#fff;margin-bottom:12px}
+.oz-page .oz-band-t p{font-size:14.8px;line-height:1.7;color:rgba(255,255,255,.82);margin-bottom:22px}
+.oz-page .oz-band-t a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.oz-page .oz-band-t a.ozbtn{text-decoration:none;color:var(--red)}
+/*
+  Groter dan de 260px waarmee hij begon: op de witte band was de technieker een
+  figuurtje in de hoek waarvan je het beschermpak — het hele punt van het beeld —
+  niet kon zien. De schaduw is meteen zachter, want op wit stak de harde
+  slagschaduw van de rode band er te hard tegen af.
+*/
+.oz-page .oz-band-man{width:min(36%,340px);flex-shrink:0;margin:0;filter:drop-shadow(0 18px 26px rgba(0,0,0,.22))}
+
+/* ============ WAARVOOR ============ */
+.oz-page .oz-grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.oz-page .oz-use{background:var(--page);border:1px solid var(--line);border-radius:18px;padding:28px 24px;transition:border-color .18s,transform .18s,box-shadow .18s}
+.oz-page .oz-use:hover{border-color:var(--line-2);transform:translateY(-2px);box-shadow:0 22px 48px -28px rgba(20,20,20,.28)}
+/*
+  Groen, niet rood. Rood zit al in de knoppen, de kickers en de achtergronden;
+  zes rode iconen in één raster daarbovenop gaven één rode vlek waarin geen
+  enkel icoon er nog uitsprong. Groen is dezelfde tint als de bolletjes bij de
+  USP's en de sporen in de animatie, dus hij valt niet uit de lucht.
+*/
+.oz-page .oz-use-ic{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:12px;background:rgba(30,158,80,.12);color:var(--ok);margin-bottom:16px}
+.oz-page .oz-use:hover .oz-use-ic{background:rgba(30,158,80,.18)}
+.oz-page .oz-use h3{font-size:16.5px;font-weight:700;margin-bottom:9px}
+.oz-page .oz-use p{font-size:14px;line-height:1.64;color:var(--txt-mid)}
+
+/* ============ ONZE TECHNIEK ============
+   Techniek en veiligheid stonden als twee panelen naast elkaar in één sectie.
+   Uit elkaar getrokken: het zijn twee vragen ("waarmee werken jullie" en "is
+   het veilig"), en sinds de pagina strikt wit en rood afwisselt kunnen twee
+   blokken in één sectie per definitie niet elk hun eigen ondergrond krijgen. */
+.oz-page .oz-specs-card{background:var(--bg-alt);border-radius:20px;padding:12px 30px}
+.oz-page .oz-specs{margin:0;display:grid;gap:0}
+.oz-page .oz-specs div{display:flex;justify-content:space-between;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.oz-page .oz-specs div:last-child{border-bottom:0}
+.oz-page .oz-specs dt{font-size:13.5px;color:var(--txt-mid);margin:0}
+.oz-page .oz-specs dd{font-family:var(--fd);font-weight:700;font-size:14.5px;margin:0;text-align:right}
+
+/* ============ VEILIG & VERANTWOORD ============ */
+.oz-page .oz-four{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+/* Wit met een haarlijn, net als de andere kaarten. Het lichtgrijs waarop ze
+   stonden valt op een gebroken-witte sectie bijna samen met de ondergrond. */
+.oz-page .oz-safe-card{background:var(--page);border:1px solid var(--line);border-radius:18px;padding:26px 22px}
+.oz-page .oz-safe-card b{display:block;font-family:var(--fd);font-weight:700;font-size:15.5px;margin-bottom:9px}
+.oz-page .oz-safe-card p{font-size:13.8px;line-height:1.64;color:var(--txt-mid)}
+
+/* ============ REVIEWS ============
+   Eigen opmaak en niet die van `V3Reviews`: die hangt onder `.v3` en erft daar
+   zijn tokens. De beoordelingen zelf komen uit dezelfde bron — zie de
+   toelichting bij `REVIEWS_OZON` in de pagina. */
+/* Even hoog, met de naam onderaan vastgezet: `align-items:start` liet de drie
+   kaarten op hun eigen hoogte eindigen en dan zweven de namen op drie
+   verschillende lijnen. */
+.oz-page .oz-reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.oz-page .oz-review{background:var(--page);border:1px solid var(--line);border-radius:18px;padding:26px 24px;display:grid;grid-template-rows:auto 1fr auto;gap:16px}
+.oz-page .oz-review-stars{display:flex;gap:3px;color:#F5A623}
+.oz-page .oz-review p{font-size:14.5px;line-height:1.68;color:var(--txt-mid)}
+.oz-page .oz-review-by{display:flex;align-items:center;gap:12px}
+.oz-page .oz-review-ini{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(30,158,80,.12);color:var(--ok);font-family:var(--fd);font-weight:700;font-size:13px;flex-shrink:0}
+.oz-page .oz-review-by b{display:block;font-family:var(--fd);font-weight:700;font-size:14.5px;color:var(--txt)}
+.oz-page .oz-review-by small{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--txt-dim);margin-top:2px}
+
+/* ============ FAQ ============
+   <details> in plaats van een JS-accordeon: de antwoorden staan zo volledig in
+   de geprerenderde HTML, ook voor wie geen JavaScript uitvoert. */
+.oz-page .oz-faq{max-width:860px;margin:0 auto;display:grid;gap:12px}
+.oz-page .oz-q{background:var(--page);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.oz-page .oz-q[open]{border-color:var(--line-2)}
+.oz-page .oz-q summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 24px;font-family:var(--fd);font-weight:700;font-size:16px;cursor:pointer;list-style:none;transition:color .15s}
+.oz-page .oz-q summary::-webkit-details-marker{display:none}
+.oz-page .oz-q summary:hover{color:var(--red)}
+.oz-page .oz-q-ic{position:relative;width:18px;height:18px;flex-shrink:0}
+.oz-page .oz-q-ic::before,
+.oz-page .oz-q-ic::after{content:"";position:absolute;background:var(--red);border-radius:2px;transition:transform .2s,opacity .2s}
+.oz-page .oz-q-ic::before{left:0;top:8px;width:18px;height:2px}
+.oz-page .oz-q-ic::after{left:8px;top:0;width:2px;height:18px}
+.oz-page .oz-q[open] .oz-q-ic::after{transform:rotate(90deg);opacity:0}
+.oz-page .oz-q>p{padding:0 24px 22px;font-size:14.8px;line-height:1.74;color:var(--txt-mid);max-width:72ch}
+
+/* ============ BOEKEN ============ */
+.oz-page .oz-book{background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;color:#fff}
+.oz-page .oz-book-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:52px;align-items:start}
+.oz-page .oz-book-l .oz-h2{color:#fff}
+.oz-page .oz-book-l>p{font-size:15.5px;line-height:1.7;color:rgba(255,255,255,.82);margin:16px 0 0}
+.oz-page .oz-book-usp{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:11px}
+.oz-page .oz-book-usp li{display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
+.oz-page .oz-book-usp li::before{content:"";width:7px;height:7px;margin-top:7px;border-radius:50%;background:#3fbf63;box-shadow:0 0 0 3px rgba(63,191,99,.22);flex-shrink:0}
+.oz-page .oz-book-call{margin:26px 0 0;font-size:14px;color:rgba(255,255,255,.7)}
+.oz-page .oz-book-call a{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+/* ---- het formulier zelf ---- */
+.oz-page .ozf{background:var(--page);border-radius:22px;padding:30px 30px 32px;color:var(--txt);box-shadow:0 40px 90px -40px rgba(0,0,0,.6)}
+.oz-page .ozf-steps{display:flex;gap:10px;margin-bottom:24px}
+.oz-page .ozf-steps span{flex:1;font-size:12.5px;font-weight:600;color:var(--txt-dim);padding-bottom:11px;border-bottom:2px solid var(--line);transition:color .18s,border-color .18s}
+.oz-page .ozf-steps span.on{color:var(--red);border-bottom-color:var(--red)}
+.oz-page .ozf-p{display:grid;gap:16px}
+.oz-page .ozf-row{display:grid;gap:14px}
+.oz-page .ozf-row.two{grid-template-columns:1fr 1fr}
+.oz-page .ozf-row.street{grid-template-columns:1.6fr .6fr}
+.oz-page .ozf-row.city{grid-template-columns:.6fr 1.6fr}
+.oz-page .ozf-f{display:grid;gap:7px;min-width:0}
+.oz-page .ozf-f label{font-size:12.5px;font-weight:600;color:var(--txt-mid)}
+.oz-page .ozf-f input,
+.oz-page .ozf-f select,
+.oz-page .ozf-f textarea{width:100%;font-family:var(--fb);font-size:14.5px;color:var(--txt);background:var(--bg-alt);border:1px solid var(--line);border-radius:10px;padding:13px 14px;transition:border-color .15s,background .15s}
+.oz-page .ozf-f input:focus,
+.oz-page .ozf-f select:focus,
+.oz-page .ozf-f textarea:focus{outline:0;border-color:var(--red);background:var(--page)}
+.oz-page .ozf-f textarea{resize:vertical;line-height:1.6}
+.oz-page .ozf-hint{font-size:11.5px;color:var(--txt-dim);line-height:1.45}
+.oz-page .ozf-drop{display:grid;justify-items:center;gap:5px;text-align:center;border:1.5px dashed var(--line-2);border-radius:14px;padding:24px 20px;cursor:pointer;color:var(--txt-mid);transition:border-color .16s,background .16s}
+.oz-page .ozf-drop:hover{border-color:var(--red);background:var(--bg-warm)}
+.oz-page .ozf-drop svg{color:var(--red);margin-bottom:4px}
+.oz-page .ozf-drop b{font-family:var(--fd);font-size:14.5px;color:var(--txt)}
+.oz-page .ozf-drop small{font-size:12px;color:var(--txt-dim)}
+.oz-page .ozf-drop input{display:none}
+.oz-page .ozf-files{display:grid;gap:8px}
+.oz-page .ozf-files:empty{display:none}
+.oz-page .ozfile{display:flex;align-items:center;gap:10px;background:var(--bg-alt);border-radius:10px;padding:10px 12px;font-size:13px}
+.oz-page .ozfile svg{color:var(--red);flex-shrink:0}
+.oz-page .ozfile b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1}
+.oz-page .ozfile span{color:var(--txt-dim);font-size:12px;flex-shrink:0}
+.oz-page .ozfile button{border:0;background:transparent;color:var(--txt-dim);font-size:18px;line-height:1;cursor:pointer;padding:0 2px;flex-shrink:0}
+.oz-page .ozfile button:hover{color:var(--red)}
+.oz-page .ozf-note{font-size:12.5px;line-height:1.55;color:var(--txt-mid)}
+.oz-page .ozf-error{font-size:13px;line-height:1.55;color:var(--red);font-weight:600}
+.oz-page .ozf-next{justify-self:start}
+.oz-page .ozf-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.oz-page .ozf-back{border:0;background:transparent;font-family:var(--fb);font-size:14px;font-weight:600;color:var(--txt-mid);cursor:pointer;padding:6px 0}
+.oz-page .ozf-back:hover{color:var(--red)}
+.oz-page .ozf-legal{font-size:11.5px;color:var(--txt-dim)}
+.oz-page .ozf-done{text-align:center;padding:18px 0 8px}
+.oz-page .ozf-done span{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:50%;background:rgba(30,158,80,.12);color:var(--ok);font-size:26px;font-weight:700;margin-bottom:18px}
+.oz-page .ozf-done h3{font-size:21px;font-weight:800;margin-bottom:10px}
+.oz-page .ozf-done p{font-size:14.5px;line-height:1.68;color:var(--txt-mid);max-width:44ch;margin:0 auto 10px}
+
+/* ============ RESPONSIEF ============ */
+@media (max-width:1080px){
+  .oz-page .nav-menu{display:none}
+}
+@media (max-width:1040px){
+  .oz-page .oz-hero-grid{grid-template-columns:1fr}
+  .oz-page .oz-hero-vis{display:none}
+  .oz-page .oz-hero{padding-top:168px}
+  .oz-page .oz-split{grid-template-columns:1fr}
+  .oz-page .oz-split-vis{order:-1}
+  .oz-page .oz-book-grid{grid-template-columns:1fr}
+  .oz-page .oz-duo{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .oz-page .oz-sec{padding:72px 0}
+  .oz-page .oz-three,
+  .oz-page .oz-steps,
+  .oz-page .oz-grid6,
+  .oz-page .oz-four,
+  .oz-page .oz-reviews{grid-template-columns:1fr 1fr}
+  .oz-page .oz-band{padding:32px 26px 0}
+  .oz-page .oz-band-man{display:none}
+  .oz-page .oz-band-t{padding-bottom:32px}
+}
+@media (max-width:660px){
+  .oz-page .nav-menu,
+  .oz-page .tl-left{display:none}
+  .oz-page .tl-right{margin:0 auto}
+  .oz-page .oz-three,
+  .oz-page .oz-steps,
+  .oz-page .oz-grid6,
+  .oz-page .oz-four,
+  .oz-page .oz-reviews{grid-template-columns:1fr}
+  .oz-page .oz-mol{grid-template-columns:1fr;gap:22px}
+  .oz-page .oz-mol-arrow svg{transform:rotate(90deg)}
+  .oz-page .ozf{padding:24px 20px 26px}
+  .oz-page .ozf-row.two,
+  .oz-page .ozf-row.street,
+  .oz-page .ozf-row.city{grid-template-columns:1fr}
+  .oz-page .oz-hero-cta{flex-direction:column;align-items:stretch}
+
+  /*
+    De deeltjes staan in px en krompen dus niet mee: op 390 breed vulden ze de
+    bak en kwam de legende over de onderste sporen te liggen. `--s` en `--ss`
+    staan inline op het element en winnen het van een stylesheet-regel, dus de
+    maat wordt hier rechtstreeks op `width`/`height` gezet — die staan alleen in
+    deze stylesheet en zijn dus wél te overschrijven.
+  */
+  .oz-page .oz-stage{height:300px}
+  .oz-page .oz-mol3{width:34px;height:34px}
+  .oz-page .oz-spore{width:26px;height:26px}
+  .oz-page .oz-legend{position:static;transform:none;margin:14px auto 0;width:max-content;max-width:100%;padding:9px 16px;gap:5px 14px;background:rgba(48,7,8,.4)}
+  .oz-page .oz-lg{font-size:11.5px;gap:6px}
+  .oz-page .oz-lg i{width:11px;height:11px}
+}
+
+/*
+  Wie bewegende beelden liever niet heeft, krijgt het stilstaande beeld: de
+  moleculen en de sporen staan er gewoon, met de legende eronder. De ozonbak
+  regelt dat zelf (zijn animaties hangen in `no-preference`); hier blijven de
+  hero-orbit en het O₂→O₃-schema over.
+*/
+@media (prefers-reduced-motion:reduce){
+  .oz-page .oz-orbit *,
+  .oz-page .oz-mol *{animation:none!important}
+}

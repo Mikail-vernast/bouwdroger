@@ -105,6 +105,7 @@ const ROUTE_SOURCES = {
   "/prijzen": "src/pages/PrijzenPage.tsx",
   "/realisaties": "src/pages/RealisatiesPage.tsx",
   "/renovatie": "src/pages/RenovatiePage.tsx",
+  "/ozonbehandeling": "src/pages/OzonbehandelingPage.tsx",
   "/waterschade": "src/pages/WaterschadePage.tsx",
   "/waarom-bouwdroging": "src/pages/WaaromBouwdrogingPage.tsx",
   "/verhuur/afhalen": "src/pages/verhuur/VerhuurAfhalenPage.tsx",

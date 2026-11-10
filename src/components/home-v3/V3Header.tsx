@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
+import { SCHIMMELS } from "@/data/navigation";
 import FontPreload from "@/components/FontPreload";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
 import "@/styles/offerte-shine.css";
@@ -193,6 +194,22 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                       <li>
                         <Link to="/verhuur/verlengen">Verlengen of stoppen</Link>
                       </li>
+                    </ul>
+                  </div>
+                  {/*
+                    Vierde kolom: schimmel en geur. Ozonbehandeling hoorde niet
+                    onder "Service" — dat zijn de afspraken rond een huur, en
+                    een ontschimmeling is een losse dienst. Wie met schimmel
+                    zoekt, komt niet kijken bij levering en verlengen.
+                  */}
+                  <div className="mcol">
+                    <span className="mlab">Schimmels</span>
+                    <ul>
+                      {SCHIMMELS.map((item) => (
+                        <li key={item.path}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>

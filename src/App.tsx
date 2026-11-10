@@ -146,6 +146,16 @@ export const routes: RouteRecord[] = [
         path: "renovatie",
         lazy: async () => ({ Component: (await import("./pages/RenovatiePage")).default }),
       },
+      /*
+       * Ozonbehandeling — de ontschimmeling. Een dienst, geen toestel: er staat
+       * geen dagprijs tegenover, dus de pagina boekt via een aanvraag in plaats
+       * van via de verhuurfunnel. Zelfde slug als op de zustersite, zodat beide
+       * domeinen dezelfde term op hetzelfde pad voeren.
+       */
+      {
+        path: "ozonbehandeling",
+        lazy: async () => ({ Component: (await import("./pages/OzonbehandelingPage")).default }),
+      },
       {
         path: "machines",
         lazy: async () => ({ Component: (await import("./pages/MachinesPage")).default }),

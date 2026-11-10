@@ -70,7 +70,22 @@ export const TOEPASSINGEN: NavLinkItem[] = [
   { label: "Chape en pleisterwerk drogen", path: "/nieuwbouw" },
   { label: "Drogen na waterschade", path: "/waterschade" },
   { label: "Vochtige kelder of schimmel", path: "/renovatie" },
+  { label: "Ozonbehandeling en ontschimmeling", path: "/ozonbehandeling" },
   { label: "Luchtontvochtiger huren", path: "/luchtontvochtiger-huren" },
+];
+
+/**
+ * Schimmel en geur — wat ná het drogen komt.
+ *
+ * Eigen groep in het mega-menu en niet onder "Service": een ozonbehandeling is
+ * geen onderdeel van een huur maar een losse dienst, en wie met schimmel zoekt
+ * komt niet kijken bij levering en verlengen. De groep is er al op voorzien dat
+ * er meer bij komt.
+ */
+export const SCHIMMELS: NavLinkItem[] = [
+  { label: "Ozonbehandeling", path: "/ozonbehandeling" },
+  { label: "Vochtige kelder of schimmel", path: "/renovatie" },
+  { label: "Drogen na waterschade", path: "/waterschade" },
 ];
 
 /** Hoe het toestel bij de klant raakt, en wat het kost. */

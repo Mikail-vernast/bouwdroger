@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "./icons";
 
 /** The spore, odour and O₃ particles are pure CSS keyframes in the design. */
@@ -23,9 +24,15 @@ const V3Ozon = () => (
             vochtoorzaak.
           </p>
         </div>
-        <a className="btn btn-red" href="tel:+3236899065">
-          Vraag een ozonbehandeling aan <ArrowRightIcon size={13} strokeWidth={2.6} />
-        </a>
+        {/*
+          Wijst naar de pagina, niet naar de telefoon. Deze knop belde meteen,
+          terwijl /ozonbehandeling sindsdien het volledige verhaal draagt én het
+          boekingsformulier. Wie toch liever belt, vindt het nummer daar bovenaan
+          naast dezelfde knop.
+        */}
+        <Link className="btn btn-red" to="/ozonbehandeling">
+          Bekijk de ozonbehandeling <ArrowRightIcon size={13} strokeWidth={2.6} />
+        </Link>
       </div>
 
       <div className="ozon-anim" aria-label="Animatie: ozon breekt schimmel en geuren af">
