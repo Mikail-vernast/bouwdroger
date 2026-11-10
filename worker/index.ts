@@ -34,6 +34,7 @@ import * as checkoutSession from '../api/checkout-session';
 import * as contact from '../api/contact';
 import * as extension from '../api/extension';
 import * as order from '../api/order';
+import * as ozon from '../api/ozon';
 import * as reconcileOrders from '../api/reconcile-orders';
 import * as reminders from '../api/reminders';
 import * as saldo from '../api/saldo';
@@ -71,6 +72,13 @@ type RouteModule = Partial<Record<'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', H
  * Pad → module. De sleutels zijn exact wat Vercel uit de bestandsnamen in
  * `api/` afleidt; `cleanUrls` speelt hier geen rol, want die geldt alleen voor
  * `.html`.
+ *
+ * **Deze lijst is handwerk.** Cloudflare kent geen bestandsgebaseerde routing:
+ * een nieuw bestand in `api/` wordt hier níet vanzelf opgepikt. Vergeet je de
+ * import en de regel hieronder, dan bouwt en deployt alles zonder één
+ * waarschuwing, en geeft de route in productie een 404 — precies wat er met
+ * `/api/ozon` gebeurde toen /ozonbehandeling live ging. Het formulier op de
+ * pagina werkte lokaal onder `vercel dev` en faalde alleen op het echte domein.
  */
 const ROUTES: Record<string, RouteModule> = {
   '/api/aanvraag': aanvraag,
@@ -82,6 +90,7 @@ const ROUTES: Record<string, RouteModule> = {
   '/api/contact': contact,
   '/api/extension': extension,
   '/api/order': order,
+  '/api/ozon': ozon,
   '/api/reconcile-orders': reconcileOrders,
   '/api/reminders': reminders,
   '/api/saldo': saldo,
