@@ -1,7 +1,12 @@
 import { useState, type ChangeEvent } from "react";
 import { ArrowRightIcon, FileIcon, UploadIcon } from "./icons";
 import { isValidEmail, maskEmail, maskPhone } from "@/lib/inputMask";
-import { resizeImageFile } from "@/lib/imageResize";
+import {
+  MAX_FILES,
+  filterAcceptable,
+  formatFileSize,
+  uploadFormFiles,
+} from "@/lib/formUploads";
 import { CONTACT } from "@/lib/site";
 
 /**
@@ -25,112 +30,11 @@ const SUBJECTS = [
   { value: "andere_vraag", label: "Andere vraag" },
 ] as const;
 
-/** Wat storage aanvaardt (zie de bucket `contact-attachments`). */
-const ACCEPTED_TYPES = new Set([
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/heic",
-  "image/heif",
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-]);
-
-const MAX_FILES = 6;
-
-/** Wat storage aanvaardt. Daarboven komt er een 413 terug. */
-const STORAGE_LIMIT_BYTES = 10 * 1024 * 1024;
-
 /*
-  Een foto mag groter binnenkomen dan storage aankan: die wordt hieronder eerst
-  verkleind. Een pdf of Word-document gaat ongewijzigd door en moet dus meteen
-  onder de grens blijven.
+  De bijlagen gaan via `src/lib/formUploads.ts` naar storage — dezelfde module
+  als het ozonformulier op /ozonbehandeling. De grenzen en de reden erachter
+  staan daar; ze hoorden niet twee keer in de app te staan.
 */
-const MAX_IMAGE_BYTES = 30 * 1024 * 1024;
-const MAX_DOCUMENT_BYTES = STORAGE_LIMIT_BYTES;
-
-interface UploadTicket {
-  path: string;
-  name: string;
-  signed_url: string;
-}
-
-/**
- * Zet de gekozen bestanden in storage en geeft de paden terug die met de vraag
- * meegaan. Wat niet lukt, wordt overgeslagen — de vraag zelf is belangrijker dan
- * de bijlage, en de bezoeker leest achteraf welke bestanden niet meekonden.
- */
-async function uploadFiles(originals: File[]): Promise<{ paths: string[]; failed: string[] }> {
-  if (originals.length === 0) return { paths: [], failed: [] };
-
-  // Eerst verkleinen: een telefoonfoto van 10 MB haalt de overkant niet.
-  const resized = await Promise.all(originals.map(resizeImageFile));
-
-  const failed: string[] = [];
-  const paths: string[] = [];
-
-  /*
-    De bezoeker kent alleen de naam die hij koos, niet die van het verkleinde
-    bestand — daarom reist de oorspronkelijke naam mee tot in de foutmelding.
-    Wat ook na verkleinen te groot blijft (een HEIC die de browser niet kon
-    decoderen, bijvoorbeeld) sturen we niet: storage weigert het toch.
-  */
-  const queue = resized
-    .map((file, index) => ({ file, label: originals[index]?.name ?? file.name }))
-    .filter(({ file, label }) => {
-      if (file.size <= STORAGE_LIMIT_BYTES) return true;
-      console.error(`[vraag] ${label} blijft te groot: ${Math.round(file.size / 1024)} kB`);
-      failed.push(label);
-      return false;
-    });
-
-  if (queue.length === 0) return { paths, failed };
-
-  const response = await fetch("/api/vraag-uploads", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      files: queue.map(({ file }) => ({ name: file.name, type: file.type })),
-    }),
-  });
-  const data = (await response.json().catch(() => ({}))) as { uploads?: UploadTicket[] };
-  const uploads = data.uploads ?? [];
-  if (uploads.length === 0) {
-    console.error('[vraag] geen upload-URL ontvangen');
-    return { paths, failed: [...failed, ...queue.map(({ label }) => label)] };
-  }
-
-  await Promise.all(
-    uploads.map(async (ticket, index) => {
-      const entry = queue[index];
-      if (!entry) return;
-      const { file, label } = entry;
-      try {
-        const put = await fetch(ticket.signed_url, {
-          method: 'PUT',
-          headers: { 'content-type': file.type || 'application/octet-stream' },
-          body: file,
-        });
-        if (put.ok) {
-          paths.push(ticket.path);
-        } else {
-          // Zonder deze regel is een mislukte bijlage een raadsel: de bezoeker
-          // leest "kon niet mee" en wij weten niet waaróm.
-          console.error(
-            `[vraag] upload van ${label} (${Math.round(file.size / 1024)} kB) faalde: HTTP ${put.status}`,
-          );
-          failed.push(label);
-        }
-      } catch (error) {
-        console.error(`[vraag] upload van ${label} afgebroken:`, error);
-        failed.push(label);
-      }
-    }),
-  );
-
-  return { paths, failed };
-}
 
 interface Details {
   voornaam: string;
@@ -153,10 +57,6 @@ const EMPTY: Details = {
   post: "",
   gemeente: "",
 };
-
-/** Formats a file size the way the design writes it: kB under a megabyte. */
-const fileSize = (bytes: number) =>
-  bytes / 1024 > 999 ? `${(bytes / 1048576).toFixed(1)} MB` : `${Math.round(bytes / 1024)} kB`;
 
 /** Phone and e-mail run through their mask; the rest is typed as-is. */
 const MASKS: Partial<Record<keyof Details, (value: string) => string>> = {
@@ -193,14 +93,7 @@ const V3Cta = () => {
     details.gemeente.trim().length > 1;
 
   const addFiles = (event: ChangeEvent<HTMLInputElement>) => {
-    const picked = Array.from(event.target.files ?? []);
-    const rejected: string[] = [];
-    const accepted = picked.filter((file) => {
-      const limit = file.type.startsWith("image/") ? MAX_IMAGE_BYTES : MAX_DOCUMENT_BYTES;
-      const ok = ACCEPTED_TYPES.has(file.type) && file.size <= limit;
-      if (!ok) rejected.push(file.name);
-      return ok;
-    });
+    const { accepted, rejected } = filterAcceptable(Array.from(event.target.files ?? []));
 
     setSkipped(rejected);
     setFiles((current) => [...current, ...accepted].slice(0, MAX_FILES));
@@ -213,7 +106,7 @@ const V3Cta = () => {
     setSkipped([]);
 
     try {
-      const { paths, failed } = await uploadFiles(files);
+      const { paths, failed } = await uploadFormFiles(files);
 
       const response = await fetch("/api/vraag", {
         method: "POST",
@@ -427,7 +320,7 @@ const V3Cta = () => {
                     <div className="cfile" key={`${file.name}-${i}`}>
                       <FileIcon />
                       <b>{file.name}</b>
-                      <span>{fileSize(file.size)}</span>
+                      <span>{formatFileSize(file.size)}</span>
                       <button
                         type="button"
                         aria-label="Verwijder"

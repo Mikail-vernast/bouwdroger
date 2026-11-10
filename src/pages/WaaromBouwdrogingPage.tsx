@@ -132,7 +132,7 @@ const WaaromBouwdrogingPage = () => (
           <div className="mb-t">
             <span className="mbk">Schimmel voorkomen</span>
             <h3>Te lang vochtig? Dan komt schimmel gratis mee.</h3>
-            <p>Een constructie die maanden vochtig blijft, is de ideale voedingsbodem voor schimmelsporen, vooral achter kasten, plinten en in slecht geventileerde hoeken. Ontstond er toch al schimmel, dan pakken we die aan met een <a href="/#ozon">ozonbehandeling</a>, altijd in combinatie met een correcte droging.</p>
+            <p>Een constructie die maanden vochtig blijft, is de ideale voedingsbodem voor schimmelsporen, vooral achter kasten, plinten en in slecht geventileerde hoeken. Ontstond er toch al schimmel, dan pakken we die aan met een <Link to="/ozonbehandeling">ozonbehandeling</Link>, altijd in combinatie met een correcte droging.</p>
           </div>
           <img className="mb-man" src="/vernast/man-schimmelpak.webp" alt="Vernast schimmelspecialist in beschermpak" style={{ width: "min(24%,240px)" }} />
         </div>

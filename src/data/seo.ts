@@ -38,6 +38,14 @@ export const SEO = {
     description:
       "Vochtige muren, muffe geur of schimmel in kelder of renovatie? Pak het aan met een professionele bouwdroger. Verhuur met levering en gratis vochtmeting.",
   },
+  /* Ontschimmeling. Mikt bewust op "ozonbehandeling" en "schimmel verwijderen",
+     niet op "schimmel drogen" — dat is /renovatie. Daar is de bouwdroger het
+     antwoord, hier de behandeling ná het drogen. */
+  ozonbehandeling: {
+    title: "Ozonbehandeling tegen schimmel en geur | Vernast",
+    description:
+      "Schimmel of muffe geur die blijft terugkomen? Een ozonbehandeling doodt de achtergebleven sporen in de hele ruimte. Boek online, uitvoering door onze ploeg.",
+  },
 
   /* ---------- Aanbod ---------- */
   machines: {
