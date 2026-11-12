@@ -872,13 +872,15 @@ function Scene(props: SceneProps) {
       ))}
 
       <Meshes geos={geo.vast} mats={sets.vast} />
-      <Meshes geos={geo.gevel} mats={sets.onder} />
+      {/* voor- en zijgevel staan aan de zonkant: hun schaduw valt alleen naar binnen, als een band over de vloer */}
+      <Meshes geos={geo.gevel} mats={sets.onder} schaduw={false} />
       <Meshes geos={geo.gevel} mats={sets.boven} schaduw={false} />
       <group ref={binnenRef} position={[0, yfAct, 0]}>
-        <Meshes geos={geo.binnen} mats={sets.vast} />
+        {/* binnenwanden en deuren werpen geen schaduw: in een opengewerkte laag lazen die als vlekken op de vloer */}
+        <Meshes geos={geo.binnen} mats={sets.vast} schaduw={false} />
       </group>
       <group ref={bladenRef} position={[0, yfAct, 0]}>
-        <Meshes geos={geo.bladen} mats={sets.vast} />
+        <Meshes geos={geo.bladen} mats={sets.vast} schaduw={false} />
       </group>
       <group ref={bovenRef}>
         <Meshes geos={geo.boven} mats={sets.vaag} />
