@@ -45,11 +45,6 @@ const M = {
   blad: std("#4a4848", { roughness: 0.5, metalness: 0.2 }),
   kachel: std("#3b3937", { roughness: 0.6, metalness: 0.3 }),
   ledUit: std("#7f8a80"),
-  meubel: std("#c9c2b7", { roughness: 0.8 }),
-  bank: std("#7d7369", { roughness: 0.9 }),
-  bed: std("#f4f1ec", { roughness: 0.9 }),
-  kast: std("#efebe4", { roughness: 0.5 }),
-  kastFront: std("#aaa196", { roughness: 0.6 }),
 };
 
 /** Een tijd in seconden, gedeeld door alle animaties: `werkend` uit = alles stil. */
@@ -202,44 +197,6 @@ function Kachel({ x, y, z, w, h, d, werkend }: Maat) {
       {werkend && <pointLight position={[0, h * 0.5, d / 2 + 0.4]} color="#ff8a3d" intensity={0.6} distance={2.2} decay={2} />}
     </group>
   );
-}
-
-/* ─────────────────────────── meubels ─────────────────────────── */
-
-export function Meubel3D({ kamer, y }: { kamer: Kamer; y: number }) {
-  const { x, z, w, l, naam } = kamer;
-  const blok = (x0: number, x1: number, y0: number, y1: number, z0: number, z1: number, m: MeshStandardMaterial, key: string) => (
-    <mesh key={key} position={[(x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2]} material={m} castShadow receiveShadow>
-      <boxGeometry args={[x1 - x0, y1 - y0, z1 - z0]} />
-    </mesh>
-  );
-  if (naam === "Leefruimte") {
-    const bx = Math.min(2.2, w * 0.4);
-    return (
-      <group>
-        {blok(x + 0.4, x + 0.4 + bx, y, y + 0.42, z + l - 1.3, z + l - 0.45, M.bank, "zit")}
-        {blok(x + 0.4, x + 0.4 + bx, y, y + 0.8, z + l - 0.62, z + l - 0.45, M.bank, "rug")}
-      </group>
-    );
-  }
-  if (naam === "Slaapkamer") {
-    const bw = Math.min(1.6, w * 0.5), bl = Math.min(2, l * 0.6);
-    return (
-      <group>
-        {blok(x + 0.3, x + 0.3 + bw, y, y + 0.45, z + 0.3, z + 0.3 + bl, M.bed, "bed")}
-        {blok(x + 0.3, x + 0.3 + bw, y, y + 0.9, z + 0.22, z + 0.3, M.meubel, "hoofd")}
-      </group>
-    );
-  }
-  if (naam === "Keuken") {
-    return (
-      <group>
-        {blok(x + 0.15, x + w - 0.15, y, y + 0.88, z + 0.15, z + 0.75, M.kastFront, "kast")}
-        {blok(x + 0.13, x + w - 0.13, y + 0.88, y + 0.92, z + 0.13, z + 0.77, M.kast, "blad")}
-      </group>
-    );
-  }
-  return null;
 }
 
 /* ─────────────────────────── lucht en vocht ─────────────────────────── */

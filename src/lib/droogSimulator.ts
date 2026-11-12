@@ -264,8 +264,10 @@ export const RUIMTES: Record<LaagSoort, RuimteOptie[]> = {
     opt("Keuken", "Aparte keuken", 0, 1, 1.6, "achter"),
     opt("Slaapkamer", "Slaapkamers", 0, 2, 1.4, "vrij"),
     opt("Bureau", "Bureau", 0, 1, 1.1, "voor"),
-    opt("Berging", "Berging", 0, 1, 0.8, "voor"),
-    opt("Wasplaats", "Wasplaats", 0, 1, 0.8, "voor"),
+    // Berging en wasplaats liggen achter, naast de keuken: daar komt de was en de
+    // voorraad binnen. Aan de straatkant liggen hal, toilet en bureau.
+    opt("Berging", "Berging", 0, 1, 0.8, "achter"),
+    opt("Wasplaats", "Wasplaats", 0, 1, 0.8, "achter"),
     opt("Badkamer", "Badkamer", 0, 1, 1, "voor"),
     opt("Toilet", "Toilet", 0, 1, 0.45, "voor"),
   ],
@@ -297,7 +299,8 @@ export const RUIMTES: Record<LaagSoort, RuimteOptie[]> = {
 
 /** De volgorde waarin ruimtes erbij komen als alleen een aantal gegeven is. */
 const VOLGORDE: Record<LaagSoort, string[]> = {
-  gelijkvloers: ["Leefruimte", "Keuken", "Berging", "Bureau", "Toilet", "Wasplaats"],
+  // Elke woning heeft beneden een toilet; een berging is pas de vijfde ruimte.
+  gelijkvloers: ["Leefruimte", "Keuken", "Toilet", "Bureau", "Berging", "Wasplaats"],
   boven: ["Slaapkamer", "Slaapkamer", "Badkamer", "Slaapkamer", "Bureau", "Toilet"],
   zolder: ["Zolder", "Slaapkamer", "Badkamer", "Berging", "Slaapkamer", "Bureau"],
   appartement: ["Leefruimte", "Keuken", "Slaapkamer", "Badkamer", "Slaapkamer", "Berging"],
@@ -445,14 +448,17 @@ function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma:
       r.kant === "achter" ? achter
       : r.kant === "voor" ? voor
       : som(achter) <= som(voor) ? achter : voor;
-    // Te scheef of vol: naar de andere kant.
+    // Vol, of — voor een ruimte zonder vaste kant — te scheef: naar de andere kant.
+    // Een berging hoort achter, ook als de tuinkant daardoor zwaarder weegt.
     const ander = band === achter ? voor : achter;
-    if (vol(band) || som(band) > som(ander) + 2.5 * r.gewicht) band = ander;
+    if (vol(band) || (r.kant === "vrij" && som(band) > som(ander) + 2.5 * r.gewicht)) band = ander;
     if (vol(band)) band = band === achter ? voor : achter;
     band.push(r);
   }
   // De tuinkant is nooit leeg: die heeft de diepte nodig.
   if (achter.length === 0 && voor.length > 1) achter.push(voor.shift()!);
+  // Het toilet ligt tegen de hal, bij de voordeur — niet achteraan een rij kamers.
+  if (metHal) voor.sort((a, b) => Number(b.naam === "Toilet") - Number(a.naam === "Toilet"));
   // De tweede verdieping spiegelt de volgorde: natte ruimtes komen dan aan de
   // andere kant van de overloop dan op de eerste.
   if (v >= 2) {

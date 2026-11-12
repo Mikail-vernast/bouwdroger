@@ -162,9 +162,10 @@ describe("plaatsToestellen", () => {
   });
 
   it("geeft elke kamer één droger voor er ergens een tweede bij komt", () => {
-    // Halfopen gelijkvloers: drie kamers. Drie drogers = één per kamer.
+    // Halfopen gelijkvloers: leefruimte, keuken en toilet. Een toilet krijgt geen
+    // droger (de lucht komt er via de open deur), dus twee drogers = één per kamer.
     const kamers = kamersVoor("halfopen", 1, "plat");
-    const echte = kamers.filter((k) => k.soort === "kamer");
+    const echte = kamers.filter((k) => k.soort === "kamer" && k.naam !== "Toilet");
     const plaatsing = plaatsToestellen([{ k: "small", q: echte.length }], kamers);
     const perKamer = new Set(plaatsing.map((p) => p.kamer));
     expect(perKamer.size).toBe(echte.length);
