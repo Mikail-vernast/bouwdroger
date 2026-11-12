@@ -23,9 +23,9 @@ export function fotoVoor(sleutel: FotoSleutel): string | null {
 }
 
 /**
- * The one house that matches dak × bouwlagen, for the big picture in step 2.
- * `lagen-n` is the series with a gable roof, `dak-x` the series with two
- * storeys, so together with the four `huis-*` corners every combination exists.
+ * Het ene huis dat past bij dak × bouwlagen, voor de grote foto in stap 2.
+ * `lagen-n` is de reeks met een zadeldak, `dak-x` de reeks met twee bouwlagen;
+ * samen met de vier `huis-*`-hoeken bestaat zo elke combinatie.
  */
 export function huisFoto(woning: Woning, dak: Dak, lagen: number): string {
   const n = Math.min(4, Math.max(1, lagen)) as 1 | 2 | 3 | 4;
@@ -33,21 +33,21 @@ export function huisFoto(woning: Woning, dak: Dak, lagen: number): string {
   const kandidaten: FotoSleutel[] = [
     ...(woning === "appartement" ? (["woning-appartement"] as const) : []),
     `huis-${dak}-${n}`,
-    // no photo for four storeys yet: show three
+    // nog geen foto met vier bouwlagen: toon er drie
     `huis-${dak}-${m}`,
     ...(dak === "zadeldak" ? ([`lagen-${m}`] as const) : []),
     ...(m === 2 ? ([`dak-${dak}`] as const) : []),
     `dak-${dak}`,
   ];
-  // The big picture uses the wide 3:1 strip of the same photo (breed-*), in
-  // which the whole building fits; the cards keep the 4:3 version.
+  // De grote foto gebruikt de brede 3:1-strook van dezelfde foto (breed-*),
+  // waarin het hele gebouw past; de kaarten houden de 4:3-versie.
   for (const k of kandidaten) {
     if (fotoVoor(k)) return `/simulator/breed-${k}.webp`;
   }
   return "/simulator/breed-lagen-2.webp";
 }
 
-/** Each photo exists twice: 640 px for the small cards, full size (1448 px) for the big picture on a retina screen. */
+/** Elke foto bestaat twee keer: 640 px voor de kleine kaarten, volle grootte (1448 px) voor de grote foto op een retinascherm. */
 export function fotoSrcSet(src: string): string {
   return `${src.replace(/\.webp$/, "-640.webp")} 640w, ${src} 1448w`;
 }

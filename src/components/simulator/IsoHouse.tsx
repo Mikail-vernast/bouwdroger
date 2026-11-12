@@ -251,23 +251,6 @@ function Toestel({ k, x, y, z, n, werkend, uid }: {
   );
 }
 
-/* ─────────────────────────── meubels ─────────────────────────── */
-
-function Meubel({ kamer, y }: { kamer: Kamer; y: number }) {
-  const { x, z, w, l, naam } = kamer;
-  const c: BlokKleur = { top: "#d9d4cc", px: "#b8b1a6", pz: "#c9c2b7", stroke: "#00000022" };
-  if (naam === "Leefruimte") {
-    return <Blok x0={x + 0.4} x1={x + 0.4 + Math.min(2.2, w * 0.4)} y0={y} y1={y + 0.42} z0={z + l - 1.3} z1={z + l - 0.45} c={{ ...c, top: "#8d8277", px: "#6f665c", pz: "#7d7369" }} />;
-  }
-  if (naam === "Slaapkamer") {
-    return <Blok x0={x + 0.3} x1={x + 0.3 + Math.min(1.6, w * 0.5)} y0={y} y1={y + 0.45} z0={z + 0.3} z1={z + 0.3 + Math.min(2, l * 0.6)} c={{ ...c, top: "#f4f1ec" }} />;
-  }
-  if (naam === "Keuken") {
-    return <Blok x0={x + 0.15} x1={x + w - 0.15} y0={y} y1={y + 0.9} z0={z + 0.15} z1={z + 0.75} c={{ ...c, top: "#efebe4", px: "#9a9187", pz: "#aaa196" }} />;
-  }
-  return null;
-}
-
 /* ─────────────────────────── de woning ─────────────────────────── */
 
 export interface IsoHouseProps {
@@ -385,18 +368,33 @@ export default function IsoHouse({
     </g>
   );
 
-  /** Ramen in de voorgevel: weinig en staand, zoals in een Vlaamse straat. */
+  /**
+   * Ramen in de voorgevel, op hetzelfde kolomraster als de 3D-woning: de ramen
+   * staan recht boven elkaar en zijn overal even breed. De deurkolom ligt vast
+   * (gelijkvloers de voordeur, erboven een smal raam); de andere kolommen
+   * verdelen de rest van de gevel gelijk.
+   */
   const ramenZ = (yb: number, v: number) => {
-    const deur = v === 0 && voordeur && woning !== "appartement" ? voordeur : null;
-    const n = w < 7 ? 2 : w < 9.5 ? 2 : 3;
-    const start = deur ? deur.tot + 0.5 : 0;
-    const aantal = deur ? Math.max(1, n - (w < 9.5 ? 1 : 1)) : n;
-    const stap = (w - start) / aantal;
-    const bw = Math.min(deur ? 1.6 : 1.15, stap * 0.6);
-    const ramen = Array.from({ length: aantal }, (_, i) => {
-      const cx = start + stap * (i + 0.5);
-      return raamZ(cx - bw / 2, cx + bw / 2, yb + 0.75, yb + 2.3, `z${i}`);
-    });
+    const deurKolom = voordeur && woning !== "appartement" ? voordeur : null;
+    const n = w < 7 ? 2 : w < 9.5 ? 3 : 4;
+    let kolommen: number[];
+    let stap: number;
+    if (deurKolom) {
+      const links = deurKolom.van - 0.3, rechts = w - (deurKolom.tot + 0.3);
+      const [s0, s1] = rechts >= links ? [deurKolom.tot + 0.3, w] : [0, deurKolom.van - 0.3];
+      stap = (s1 - s0) / (n - 1);
+      kolommen = Array.from({ length: n - 1 }, (_, i) => s0 + stap * (i + 0.5));
+    } else {
+      stap = w / n;
+      kolommen = Array.from({ length: n }, (_, i) => stap * (i + 0.5));
+    }
+    const bw = Math.min(1.3, stap * 0.58);
+    const ramen = kolommen.map((cx, i) => raamZ(cx - bw / 2, cx + bw / 2, yb + 0.75, yb + 2.3, `z${i}`));
+    if (deurKolom && v > 0) {
+      const dc = (deurKolom.van + deurKolom.tot) / 2, dw = Math.min(bw, deurKolom.tot - deurKolom.van + 0.12);
+      ramen.push(raamZ(dc - dw / 2, dc + dw / 2, yb + 0.75, yb + 2.3, "zd"));
+    }
+    const deur = v === 0 ? deurKolom : null;
     if (!deur) return ramen;
     return [
       ...ramen,
@@ -583,12 +581,6 @@ export default function IsoHouse({
           node: <Toestel k={p.k} x={x} y={yf} z={z} n={p.n + i} werkend={werkend && !reduced} uid={uid} />,
         });
       });
-
-    if (materiaal.meubels) {
-      laagKamers.forEach((k) => {
-        items.push({ key: `m-${k.id}`, diepte: k.x + k.z + 0.5, node: <Meubel kamer={k} y={yf} /> });
-      });
-    }
 
     items.sort((a, b) => a.diepte - b.diepte);
 
