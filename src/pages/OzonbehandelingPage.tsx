@@ -18,6 +18,7 @@ import {
 import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
 import { SEO } from "@/data/seo";
+import { eersteReviews } from "@/data/reviews";
 import "@/styles/ozonbehandeling.css";
 
 /**
@@ -161,53 +162,6 @@ const SPOREN: { id: string; style: CSSProperties }[] = [
   { id: "s4", style: { left: "70%", top: "76%", "--ss": "30px", "--sd": "9s", animationDelay: "4.5s" } as CSSProperties },
   { id: "s5", style: { left: "86%", top: "34%", "--ss": "38px", "--sd": "9s", animationDelay: "6s" } as CSSProperties },
   { id: "s6", style: { left: "12%", top: "76%", "--ss": "34px", "--sd": "9s", animationDelay: "7.5s" } as CSSProperties },
-];
-
-/**
- * De beoordelingen onder deze pagina.
- *
- * Overgenomen uit dezelfde bron als `V3Reviews` op de homepage: de reviewlijst
- * in het portaal, letterlijk, zonder herschrijven. De selectieregel is daar
- * uitgeschreven en geldt hier net zo — alleen reviews waarvan de tekst zelf
- * geen ander vak van de groep noemt, en geen dienstlabel tenzij de klant het
- * zelf schrijft.
- *
- * Bewust geen gemiddelde en geen aantal erboven. Dat cijfer is van geen bron
- * hard te maken; daarom staat `REVIEWS` in src/lib/site.ts op `null` en guarden
- * de hero en de statistiekbalk daarop.
- */
-const REVIEWS_OZON: {
-  name: string;
-  initials: string;
-  text: string;
-  rating: number;
-  date: string;
-  source: "Google" | "Solvari";
-}[] = [
-  {
-    name: "Matt Demyttenaere",
-    initials: "MD",
-    text: "Snelle respons en dezelfde dag nog een droger geïnstalleerd. Top service!",
-    rating: 5,
-    date: "okt 2023",
-    source: "Google",
-  },
-  {
-    name: "Ingrid Janssens",
-    initials: "IJ",
-    text: "Zeer goede service en flexibiliteit. Werken zijn uitstekend uitgevoerd. Vriendelijk personeel. Firma zeker aan te raden.",
-    rating: 5,
-    date: "mrt 2025",
-    source: "Google",
-  },
-  {
-    name: "Leo",
-    initials: "LO",
-    text: "We zijn bijzonder tevreden. Het personeel is professioneel én vriendelijk. Het werk is grondig uitgevoerd. Bovendien werd het achteraf goed opgevolgd.",
-    rating: 5,
-    date: "sep 2024",
-    source: "Solvari",
-  },
 ];
 
 /** Wat de generator doet, in de taal van de werf. */
@@ -678,7 +632,7 @@ const OzonbehandelingPage = () => (
           </p>
         </Reveal>
         <div className="oz-reviews">
-          {REVIEWS_OZON.map((review, i) => (
+          {eersteReviews(3).map((review, i) => (
             <Reveal className="oz-review" key={review.name} delay={(i % 3) * 0.07}>
               <div className="oz-review-stars" aria-label={`${review.rating} van 5 sterren`}>
                 {Array.from({ length: review.rating }, (_, star) => (

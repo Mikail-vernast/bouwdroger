@@ -207,11 +207,22 @@
 /* ============ NOTE ============ */
 .v3c .note{margin-top:26px;background:var(--bg-alt);border-radius:16px;padding:20px 24px;font-size:14.5px;line-height:1.7;color:var(--txt-mid)}
 .v3c .note b{color:var(--txt)}
-.v3c .note a{color:var(--red);font-weight:600}
+/*
+  Zwart en vet in plaats van rood. In een notitieblok staan vaak twee of drie
+  links in één zin; in het rood werd dat een gestreepte regel waarin het oog
+  nergens landde. Zwart vet tegen de grijze lopende tekst leest rustiger en
+  haalt de nadruk niet weg bij de rode knoppen eromheen.
+
+  De onderstreping blijft: zonder kleurverschil is dat wat de link nog als link
+  herkenbaar maakt, en vet alleen is daar te weinig voor.
+*/
+.v3c .note a{color:var(--txt);font-weight:700;text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px}
+.v3c .note a:hover{color:var(--red);text-decoration-color:var(--red)}
 .v3c .sw2 .note{background:#fff}
 .v3c .sr .note{background:#fff;color:var(--txt-mid)}
 .v3c .sr .note b{color:var(--txt)}
-.v3c .sr .note a{color:var(--red)}
+.v3c .sr .note a{color:var(--txt)}
+.v3c .sr .note a:hover{color:var(--red)}
 
 /* ============ SPLIT ============ */
 .v3c .split{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
@@ -504,9 +515,17 @@
 /* ============ SPLIT 3/2 ============
    Leveren krijgt meer ruimte dan afhalen: dat is ook de verhouding waarin
    mensen kiezen. */
-.v3c .split32{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:start}
+/*
+  `stretch`, niet `start`: met `start` kreeg elk paneel zijn eigen hoogte en
+  eindigde het rechterblok ("zelf afhalen") een flinke lap boven het linker,
+  wat las als een half afgewerkte kolom. De panelen zijn nu even hoog en de
+  knop zakt in allebei naar de onderrand (zie `.paneel` hieronder).
+*/
+.v3c .split32{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:stretch}
 @media (max-width:1040px){.v3c .split32{grid-template-columns:1fr}}
-.v3c .paneel{background:#fff;border-radius:20px;padding:32px}
+.v3c .paneel{background:#fff;border-radius:20px;padding:32px;display:flex;flex-direction:column}
+/* Duwt de knop naar de onderrand, zodat de twee knoppen op één lijn staan. */
+.v3c .paneel>.btn:last-child{margin-top:auto!important;align-self:flex-start}
 .v3c .sw .paneel{background:var(--bg-alt)}
 .v3c .paneel .phead{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .v3c .paneel .phead span{width:40px;height:40px;border-radius:11px;background:rgba(200,16,46,.1);color:var(--red);display:grid;place-items:center;flex-shrink:0}
@@ -755,3 +774,23 @@
 .v3c .vinkjes div:hover{transform:translateY(-3px);box-shadow:0 16px 34px -24px rgba(0,0,0,.3)}
 .v3c .vinkjes svg{animation:vinkpop .45s cubic-bezier(.2,.8,.3,1) both}
 @media (prefers-reduced-motion:reduce){.v3c .vinkjes svg{animation:none}}
+
+/* ============ BEOORDELINGEN ============
+   Eigen opmaak en niet die van `V3Reviews`: die hangt onder `.v3` en erft daar
+   zijn tokens, dus losgetrokken naar deze schil zou elke `var(--red)` leeg
+   zijn. De beoordelingen zelf komen wel uit dezelfde bron
+   (`src/data/reviews.ts`). */
+.v3c .rvs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.v3c .rvc{margin:0;background:var(--bg-alt);border-radius:18px;padding:26px 24px;display:flex;flex-direction:column;gap:16px}
+.v3c .sw .rvc{background:#fff;border:1px solid var(--line)}
+.v3c .rvc-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.v3c .rvc-st{display:flex;gap:3px;color:#F5A623}
+.v3c .rvc-src{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--txt-dim)}
+.v3c .rvc blockquote{margin:0;font-size:14.5px;line-height:1.68;color:var(--txt-mid);flex:1}
+/* De naam staat onderaan, ook als het ene citaat twee regels langer is. */
+.v3c .rvc figcaption{display:flex;align-items:center;gap:12px;margin-top:auto}
+.v3c .rvc-av{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(200,16,46,.1);color:var(--red);font-family:var(--fd);font-weight:700;font-size:13px;flex-shrink:0}
+.v3c .rvc figcaption b{display:block;font-family:var(--fd);font-weight:700;font-size:14.5px;color:var(--txt)}
+.v3c .rvc figcaption small{display:block;font-size:12px;color:var(--txt-dim);margin-top:2px}
+@media (max-width:900px){.v3c .rvs{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.v3c .rvs{grid-template-columns:1fr}}

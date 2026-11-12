@@ -9,8 +9,10 @@ import {
   BoltIcon,
   CalendarCheckIcon,
   CartIcon,
+  GoogleIcon,
   PhoneIcon,
   PinIcon,
+  StarIcon,
   TruckIcon,
 } from "@/components/home-v3/icons";
 import { GaugeIcon } from "@/components/content/icons";
@@ -19,6 +21,8 @@ import { CONTACT } from "@/lib/site";
 import { REGIO_BY_PATH, REGIO_ROUTES } from "@/data/regio-slugs";
 import { REGIO_BY_SLUG, realisatiesVoor, type Regio } from "@/data/regios";
 import { PRODUCTS, productImageAlt } from "@/data/verhuur";
+import { toestelLabel } from "@/data/navigation";
+import { eersteReviews } from "@/data/reviews";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { realisatieSlugsIn } from "@/data/realisatie-regio";
 import "@/styles/v3-content.css";
@@ -231,16 +235,28 @@ const RegioPage = () => {
                     />
                   </div>
                   {/*
-                    Alleen de naam waaronder het toestel verhuurd wordt. Het
-                    typenummer ("Ontvochtiger TTK 170 S") en het soortwoord
-                    ("Condensontvochtiger") stonden hier eerst allebei boven of
-                    onder de kop; niemand huurt een typenummer, en de rode
-                    kicker maakte er één rood accent te veel van.
+                    De naam waaronder het toestel verhuurd wordt, niet
+                    `p.short`. Dat veld komt uit het portaal en is de typecode
+                    van de fabrikant: hier stond letterlijk "TTK 170 S" boven de
+                    kaart en "Bekijk TEddH 30 T" op de knop, terwijl het menu,
+                    de footer en de toestelpagina zelf "Small bouwdroger"
+                    zeiden. `toestelLabel()` is dezelfde bron als die drie.
                   */}
-                  <h3>{p.short}</h3>
+                  <h3>{toestelLabel(item.key)}</h3>
                   <p className="pdesc" style={{ marginBottom: "18px" }}>{item.waarom}</p>
-                  <Link className="btn btn-line" to={`/verhuur/toestel/${item.key}`}>
-                    Bekijk {p.short}
+                  {/*
+                    Kort op het scherm, volledig voor een schermlezer. "Bekijk
+                    Highflow axiaalventilator" brak over twee regels en duwde de
+                    vier knoppen uit één lijn; "Bekijken" alleen zou vier
+                    identieke links opleveren in de linklijst van een
+                    schermlezer, zonder te zeggen waarheen.
+                  */}
+                  <Link
+                    className="btn btn-line"
+                    to={`/verhuur/toestel/${item.key}`}
+                    aria-label={`Bekijk ${toestelLabel(item.key)}`}
+                  >
+                    Bekijk dit toestel
                     <ArrowRightIcon size={13} />
                   </Link>
                 </Reveal>
@@ -308,7 +324,13 @@ const RegioPage = () => {
                 <br />
                 Ma–Vr 08:00–17:00, op afspraak
               </p>
-              <Link className="btn btn-line" to="/verhuur/afhalen" style={{ marginTop: "22px" }}>
+              {/*
+                Rood, net als "Reserveer met levering" ernaast. Als enige
+                omlijnde knop in een rij van twee las hij als de minder
+                belangrijke keuze, terwijl afhalen hier een volwaardig
+                alternatief is -- en goedkoper voor de klant.
+              */}
+              <Link className="btn" to="/verhuur/afhalen" style={{ marginTop: "22px" }}>
                 Zo werkt zelf afhalen
                 <ArrowRightIcon />
               </Link>
@@ -444,6 +466,57 @@ const RegioPage = () => {
               </span>
             ))}
             .
+          </div>
+        </div>
+      </section>
+
+      {/* ================= BEOORDELINGEN ================= */}
+      {/*
+        Een witte sectie tussen "Hoe het verloopt" en het contactblok, die
+        allebei rood zijn: twee rode blokken onder elkaar liepen in elkaar over
+        en de pagina verloor daar haar ritme. Dit is ook de juiste plek voor
+        wat klanten zeggen — vlak voor het formulier, nadat alles uitgelegd is.
+
+        De beoordelingen komen uit `src/data/reviews.ts`, dezelfde lijst als de
+        homepage en /ozonbehandeling. Geen van de vijf gaat over deze regio en
+        dat staat er niet bij gelogen: ze zeggen hoe deze ploeg werkt.
+      */}
+      <section className="sw">
+        <div className="wrap">
+          <div className="sec-head mid">
+            <span className="kick">Wat klanten zeggen</span>
+            <h2 className="sec">Beoordeeld door wie ons al liet komen.</h2>
+            <p className="lede">
+              Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over
+              snelheid, afspraken nakomen en opvolging — precies wat een werf in {regio.name}
+              {" "}van ons vraagt.
+            </p>
+          </div>
+          <div className="rvs">
+            {eersteReviews(3).map((review, i) => (
+              <Reveal from="up" delay={(i % 3) * 0.08} as="figure" className="rvc" key={review.name}>
+                <div className="rvc-top">
+                  <div className="rvc-st" role="img" aria-label={`${review.rating} van de 5 sterren`}>
+                    {Array.from({ length: review.rating }).map((_, star) => (
+                      <StarIcon key={star} size={14} />
+                    ))}
+                  </div>
+                  {review.source === "Google" ? (
+                    <GoogleIcon size={17} />
+                  ) : (
+                    <span className="rvc-src">{review.source}</span>
+                  )}
+                </div>
+                <blockquote>&ldquo;{review.text}&rdquo;</blockquote>
+                <figcaption>
+                  <span className="rvc-av" aria-hidden="true">{review.initials}</span>
+                  <span>
+                    <b>{review.name}</b>
+                    <small>{review.service ?? review.date}</small>
+                  </span>
+                </figcaption>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

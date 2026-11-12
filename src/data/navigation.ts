@@ -26,7 +26,13 @@ export interface NavLinkItem {
 /**
  * De namen waarmee bezoekers de toestellen zoeken, en niet de modelcodes uit de
  * tarieven: iemand zoekt "radiaalventilator huren", niet "Radiaal 2250".
- * Ontbreekt een naam, dan valt het menu terug op de korte naam uit het portaal.
+ * Ontbreekt een naam, dan valt het terug op de korte naam uit het portaal.
+ *
+ * Lees ze via `toestelLabel()` hieronder, nooit via `PRODUCTS[key].short`. Dat
+ * veld komt rechtstreeks uit het portaal en is de typecode van de fabrikant —
+ * "TTK 170 S", "TEddH 30 T". Die stonden tot 12-11-2026 op de regiopagina's als
+ * koptekst en op de knop ("Bekijk TTK 170 S"), terwijl het menu, de footer en de
+ * toestelpagina's al "Small bouwdroger" zeiden. Niemand huurt een typenummer.
  */
 const TOESTEL_LABEL: Record<string, string> = {
   ttk170: "Small bouwdroger",
@@ -49,8 +55,20 @@ const TOESTEL_LABEL: Record<string, string> = {
  * lijst de gepubliceerde tarieven — een toestel dat in het portaal uit de
  * verhuur gaat, verdwijnt hier vanzelf mee.
  */
+/**
+ * De naam van één toestel, zoals de klant hem kent.
+ *
+ * `Object.prototype.hasOwnProperty` en niet `TOESTEL_LABEL[key]`: met een
+ * sleutel als `"constructor"` geeft die laatste een functie terug in plaats van
+ * een naam.
+ */
+export function toestelLabel(key: string): string {
+  if (Object.prototype.hasOwnProperty.call(TOESTEL_LABEL, key)) return TOESTEL_LABEL[key];
+  return PRODUCTS[key]?.short ?? key;
+}
+
 export const TOESTELLEN: NavLinkItem[] = PRODUCT_ORDER.map((key) => ({
-  label: TOESTEL_LABEL[key] ?? PRODUCTS[key].short,
+  label: toestelLabel(key),
   path: `/verhuur/toestel/${key}`,
 }));
 
