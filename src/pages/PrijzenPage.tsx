@@ -3,6 +3,7 @@ import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
+import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
 import ContactBlok from "@/components/content/ContactBlok";
 import {
   ArrowRightIcon,
@@ -149,6 +150,40 @@ const inbegrepen = [
   "Uitleg bij de plaatsing",
   "Vochtmeting bij start en oplevering",
   "Geen waarborg vereist",
+];
+
+/*
+ * De interne links van deze pagina. Ze stonden hier al en verdwenen bij het
+ * herwerken van de pagina; daardoor had /prijzen geen enkele link meer naar een
+ * realisatie of een regiopagina. Dat is precies hoe een pagina een wees wordt:
+ * indexeerbaar en in de sitemap, maar zonder signaal dat ze ergens bij hoort.
+ * `src/test/inhoudspaginas.test.tsx` bewaakt dat elke inhoudspagina er minstens
+ * twee realisaties en één regio heeft.
+ */
+const verderLezen: LeesGroep[] = [
+  {
+    kop: "Wat onze klanten lieten drogen",
+    links: [
+      { to: "/realisaties/bang-olufsen", label: "Versnelde bouwdroging binnen een strak bouwschema" },
+      { to: "/realisaties/mnr-l-hasselt", label: "Pleister- en chapewerken versneld gedroogd in Hasselt" },
+      { to: "/realisaties/mnr-w-antwerpen", label: "Kelder en leefruimte drooggelegd na waterschade" },
+    ],
+  },
+  {
+    kop: "Kiezen en berekenen",
+    links: [
+      { to: "/verhuur/calculator", label: "Bereken de prijs van uw droogpakket" },
+      { to: "/machines", label: "Welk toestel heeft u nodig? Vergelijk het gamma" },
+      { to: "/nieuwbouw", label: "Droogtijden van chape en pleisterwerk" },
+    ],
+  },
+  {
+    kop: "Levering in uw regio",
+    links: [
+      { to: "/bouwdroger-huren-antwerpen", label: "Bouwdroger huren in de provincie Antwerpen" },
+      { to: "/bouwdroger-huren-oost-vlaanderen", label: "Bouwdroger huren in Oost-Vlaanderen" },
+    ],
+  },
 ];
 
 const garanties = [
@@ -692,6 +727,8 @@ const PrijzenPage = () => (
         </div>
       </div>
     </section>
+
+    <VerderLezen titel="Verder lezen over prijzen en pakketten" groepen={verderLezen} achtergrond="sr" />
 
     <ContactBlok
       kicker="Een vraag over de prijs?"
