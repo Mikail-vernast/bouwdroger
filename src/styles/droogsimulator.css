@@ -773,3 +773,69 @@
 .ds-labels3d{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .ds-kamerlabel3d{position:absolute;left:0;top:0;font-family:var(--fm);font-size:clamp(6px,calc(var(--zl,40) * .27px),11px);font-weight:600;letter-spacing:.12em;color:#1a1a1acc;white-space:nowrap;text-shadow:0 0 2px #f7f3ec,0 0 4px #f7f3ec,0 0 8px #f7f3ecaa;will-change:transform,opacity}
 .ds-kamerlabel3d--gang{color:#1a1a1a80;font-size:clamp(5px,calc(var(--zl,40) * .22px),9px)}
+/* ── v8b: alles op maat van het zwaarste geval (4 bouwlagen) ── */
+.ds-hkset--lagen{grid-template-columns:repeat(4,minmax(0,1fr))}
+.ds-body:has(> .ds-keuzerij){gap:clamp(8px,1.3cqh,14px)}
+.ds-held{height:clamp(80px,calc(30cqh - 111px),190px)}
+.ds-held ~ .ds-groei .ds-verdrij{padding-block:2px}
+.ds-held ~ .ds-groei .ds-tel button{width:26px;height:26px}
+.ds-held ~ .ds-opp .ds-opp-rij{padding:6px 16px 6px 14px}
+.ds-opp-waarde b{font-size:21px}
+@container paneel (min-height:820px){
+  .ds-hk{padding:8px 4px 7px;gap:4px}
+  .ds-hk-ico{width:38px;height:33px}
+  .ds-held ~ .ds-groei .ds-tel button{width:28px;height:28px}
+  .ds-held ~ .ds-groei .ds-verdrij{padding:5px 8px 5px 12px}
+  .ds-held ~ .ds-opp .ds-opp-rij{padding:9px 18px 9px 16px}
+  .ds-opp-waarde b{font-size:24px}
+}
+@container paneel (max-height:640px){
+  .ds-held{display:none}
+}
+.ds-held{height:clamp(80px,calc(30cqh - 116px),190px)}
+/* gsm: "Zadeldak", "3 lagen" spreken voor zich — de labels erboven mogen weg */
+@media (max-width:899px){
+  .ds-keuzerij > .ds-lbl{display:none}
+  .ds-held ~ .ds-groei .ds-verdrij{padding-block:1px}
+  .ds-held ~ .ds-groei .ds-tel button{width:24px;height:24px}
+}
+/* droogplan met 4 bouwlagen: vier verdiepingknoppen — de legende maakt plaats, de knoppen mogen krimpen */
+.ds-tabs{min-width:0}
+.ds-tabs button{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.ds-sfoot:has(.ds-tabs button:nth-child(4)) .ds-legend{display:none}
+@container paneel (max-height:420px){
+  .ds-held ~ .ds-groei .ds-verdrijen{gap:3px}
+  .ds-hkset{gap:4px}
+}
+/* De foto toont pas iets vanaf ~120 px hoog; daaronder (laptop van 900 px en lager) liever geen foto dan een strook baksteen. */
+.ds-held{height:clamp(120px,calc(30cqh - 116px),190px)}
+@container paneel (max-height:760px){
+  .ds-held{display:none}
+}
+/* ── v8c: het hele gebouw altijd in beeld ──
+   De foto's zijn 3:1-stroken waarin het huis (tot 4 lagen) volledig past. Het
+   kader houdt die verhouding: is er minder hoogte, dan wordt de foto kleiner
+   en staat hij gecentreerd — er wordt nooit iets afgesneden. De hoogte hangt
+   alleen van het paneel af, niet van het aantal verdiepingen. */
+.ds-held{aspect-ratio:3/1;height:clamp(110px,calc(100cqh - 660px),197px);width:auto;max-width:100%;align-self:center}
+.ds-held-foto{object-fit:cover;object-position:50% 50%}
+@container paneel (max-height:770px){
+  .ds-held{display:none}
+}
+@container paneel (min-height:770px){
+  .ds-held{display:block}
+}
+/* rechtopstaande tegels alleen als er echt plaats is */
+@container paneel (max-height:950px){
+  .ds-hk{flex-direction:row;gap:8px;padding:7px 6px}
+  .ds-hk-ico{width:30px;height:26px}
+  .ds-hk small{display:none}
+}
+@container paneel (max-height:640px){
+  .ds-hk{padding:5px 4px;gap:6px}
+  .ds-hk-ico{width:22px;height:19px}
+}
+@media (max-width:899px){
+  .ds-hk{padding:5px 4px;gap:6px}
+  .ds-hk-ico{width:22px;height:19px}
+}

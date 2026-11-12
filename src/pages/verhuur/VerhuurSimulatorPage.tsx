@@ -355,12 +355,12 @@ const VerhuurSimulatorPage = () => {
                   </div>
                   <div className="ds-keuzerij">
                     <div className="ds-lbl">Verdiepingen</div>
-                    <div className="ds-hkset" role="radiogroup" aria-label="Aantal verdiepingen">
-                      {[1, 2, 3].map((n) => (
+                    <div className="ds-hkset ds-hkset--lagen" role="radiogroup" aria-label="Aantal verdiepingen">
+                      {Array.from({ length: MAX_VERDIEPINGEN }, (_, i) => i + 1).map((n) => (
                         <button key={n} type="button" role="radio" aria-checked={lagen === n} disabled={n > maxLagen} className={`ds-hk${lagen === n ? " on" : ""}`} onClick={() => zetLagen(n)}>
                           <HuisIcoon dak={dak} lagen={n} />
                           <b><span className="ds-lang">{n} {n === 1 ? "bouwlaag" : "bouwlagen"}</span><span className="ds-kort">{n} {n === 1 ? "laag" : "lagen"}</span></b>
-                          <small>{n === 1 ? "Gelijkvloers" : n === 2 ? "+ 1 verdiep" : isZolder(2, 3, dak) ? "+ zolder" : "+ 2 verdiepen"}</small>
+                          <small>{lagenUitleg(n, dak)}</small>
                         </button>
                       ))}
                     </div>
@@ -665,6 +665,14 @@ const VerhuurSimulatorPage = () => {
 function Foto({ sleutel, children }: { sleutel: FotoSleutel; children: ReactNode }) {
   const src = fotoVoor(sleutel);
   return src ? <img className="ds-foto" src={src.replace(/\.webp$/, "-640.webp")} srcSet={fotoSrcSet(src)} sizes="(max-width: 899px) 45vw, 22vw" alt="" loading="lazy" decoding="async" /> : <>{children}</>;
+}
+
+/** "Gelijkvloers", "+ 1 verdiep", "+ 2 verdiepen + zolder" — what n bouwlagen mean under this roof. */
+function lagenUitleg(n: number, dak: Dak): string {
+  if (n === 1) return "Gelijkvloers";
+  const zolder = isZolder(n - 1, n, dak);
+  const verd = n - 1 - (zolder ? 1 : 0);
+  return [verd > 0 ? `+ ${verd} ${verd === 1 ? "verdiep" : "verdiepen"}` : "", zolder ? "+ zolder" : ""].filter(Boolean).join(" ");
 }
 
 /**

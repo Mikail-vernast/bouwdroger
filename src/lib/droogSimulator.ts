@@ -45,7 +45,7 @@ export interface SimAnswers {
   verwarmt: boolean;
 }
 
-export const MAX_VERDIEPINGEN = 3;
+export const MAX_VERDIEPINGEN = 4;
 
 /**
  * Footprint per woningtype in meter (breedte × diepte) en of er buren tegen de

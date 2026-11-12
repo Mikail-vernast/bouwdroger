@@ -9,7 +9,7 @@ import type { Dak, Woning } from "@/lib/droogSimulator";
   Alleen wat hier staat wordt getoond. Ontbreekt een foto, dan valt de code
   terug op de dichtste die er wel is — nooit een kapotte afbeelding of een 404.
 */
-export type FotoSleutel = `woning-${Woning}` | `dak-${Dak}` | `lagen-${1 | 2 | 3}` | `huis-${Dak}-${1 | 2 | 3}`;
+export type FotoSleutel = `woning-${Woning}` | `dak-${Dak}` | `lagen-${1 | 2 | 3}` | `huis-${Dak}-${1 | 2 | 3 | 4}`;
 
 const BESCHIKBAAR: FotoSleutel[] = [
   "woning-rijwoning", "woning-halfopen", "woning-open", "woning-appartement",
@@ -28,19 +28,23 @@ export function fotoVoor(sleutel: FotoSleutel): string | null {
  * storeys, so together with the four `huis-*` corners every combination exists.
  */
 export function huisFoto(woning: Woning, dak: Dak, lagen: number): string {
-  const n = Math.min(3, Math.max(1, lagen)) as 1 | 2 | 3;
+  const n = Math.min(4, Math.max(1, lagen)) as 1 | 2 | 3 | 4;
+  const m = Math.min(3, n) as 1 | 2 | 3;
   const kandidaten: FotoSleutel[] = [
     ...(woning === "appartement" ? (["woning-appartement"] as const) : []),
     `huis-${dak}-${n}`,
-    ...(dak === "zadeldak" ? ([`lagen-${n}`] as const) : []),
-    ...(n === 2 ? ([`dak-${dak}`] as const) : []),
+    // no photo for four storeys yet: show three
+    `huis-${dak}-${m}`,
+    ...(dak === "zadeldak" ? ([`lagen-${m}`] as const) : []),
+    ...(m === 2 ? ([`dak-${dak}`] as const) : []),
     `dak-${dak}`,
   ];
+  // The big picture uses the wide 3:1 strip of the same photo (breed-*), in
+  // which the whole building fits; the cards keep the 4:3 version.
   for (const k of kandidaten) {
-    const src = fotoVoor(k);
-    if (src) return src;
+    if (fotoVoor(k)) return `/simulator/breed-${k}.webp`;
   }
-  return "/simulator/dak-zadeldak.webp";
+  return "/simulator/breed-lagen-2.webp";
 }
 
 /** Each photo exists twice: 640 px for the small cards, full size (1448 px) for the big picture on a retina screen. */
