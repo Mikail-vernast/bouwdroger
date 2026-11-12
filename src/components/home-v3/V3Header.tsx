@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 import FontPreload from "@/components/FontPreload";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
-import { SCHIMMELS, TOESTELLEN } from "@/data/navigation";
+import { ALLES_OVER_DROGEN, SCHIMMELS, TOESTELLEN } from "@/data/navigation";
 import "@/styles/offerte-shine.css";
+import "@/styles/mega-kennis.css";
 
 /**
  * The site header from the design: a top line with the contact details and a
@@ -221,28 +222,49 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                     </span>
                   </div>
                   <Link className="btn-offerte" to="/verhuur/calculator">
-                    Gratis offerte
+                    Bereken uw pakket
                   </Link>
                 </div>
               </div>
             </div>
 
-            <div className="item has-sub">
+            <div className="item mega has-sub">
               Alles over drogen
               <CaretIcon className="caret" />
-              <div className="submenu">
-                <Link to="/hoe-drogen-werkt">
-                  Hoe drogen werkt<small>Capaciteit · circulatie · warmte</small>
-                </Link>
-                <Link to="/waarom-bouwdroging">
-                  Waarom bouwdroging<small>Wat vocht u kost</small>
-                </Link>
-                <Link to="/levering">
-                  Levering &amp; installatie<small>Geplaatst op uw gekozen datum</small>
-                </Link>
-                <Link to="/drooggarantie">
-                  Drooggarantie<small>100% droog of kosteloos verder</small>
-                </Link>
+              {/*
+                Ook dit is een mega-menu en geen uitklapper meer. Er stonden
+                vier vaste links in terwijl de gidsen, de toepassingen en
+                /prijzen er niet in zaten — "alles over drogen" gaf dus niet
+                alles. De kolommen komen uit src/data/navigation.ts, dezelfde
+                bron als de footer en het mobiele menu.
+              */}
+              <div className="mega-panel kennis">
+                <div className="mega-cols">
+                  {ALLES_OVER_DROGEN.map((groep) => (
+                    <div className="mcol" key={groep.titel}>
+                      <span className="mlab">{groep.titel}</span>
+                      <ul>
+                        {groep.items.map((item) => (
+                          <li key={item.path}>
+                            <Link to={item.path}>{item.label}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                <div className="mega-foot">
+                  <div className="mft">
+                    <b>Liever eerst weten wat het kost?</b>
+                    <span>
+                      De calculator rekent uw volume uit en zegt welk toestel en welke droogtijd erbij
+                      horen.
+                    </span>
+                  </div>
+                  <Link className="btn-offerte" to="/verhuur/calculator">
+                    Bereken uw pakket
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -268,7 +290,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
           <i id="cartCount">1</i>
         </Link>
         <Link className="btn-offerte mnav-cta-sm" to="/verhuur/calculator">
-          Gratis offerte
+          Bereken uw pakket
         </Link>
       </div>
     </header>
