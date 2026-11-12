@@ -26,7 +26,7 @@ import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { richIn } from "./inrichting";
-import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, Vocht3D, type Geplaatst } from "./onderdelen";
+import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { aankomst, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -390,21 +390,24 @@ function bouw(p: Woningplan) {
     const treden = 13;
     const echteTrap = (t: Trap, yb: number, leuning: boolean) => {
       const aan = t.w / treden, op = FH / treden;
-      const z0 = t.z, z1 = t.z + t.l;
-      // De trap klimt van de kijker weg (naar -x): zo kijk je op de treden en niet
-      // tegen de achterkant van het hoogste stuk.
+      const z0 = t.z, z1 = t.z + t.l, bd = 0.05;
+      // Een open trap die naar +x klimt: losse treden met een overstekende neus en
+      // een dun stootbord, tussen twee trapbomen. Geen massief blok eronder, zo
+      // ziet hij er vanuit elke hoek uit als een trap en niet als een wig.
       for (let i = 0; i < treden; i++) {
-        const x1 = t.x + t.w - aan * i, top = yb + op * (i + 1);
-        B.vast.blok("trapzij", x1 - aan, x1, yb, top - 0.035, z0, z1 - 0.05, { boven: null });
-        B.vast.blok("trede", x1 - aan, x1 + 0.025, top - 0.035, top, z0, z1 - 0.05);
+        const x0 = t.x + aan * i, top = yb + op * (i + 1);
+        B.vast.blok("trede", x0 - 0.025, x0 + aan, top - 0.035, top, z0 + bd, z1 - bd);
+        B.vast.blok("trapzij", x0, x0 + 0.018, top - op, top - 0.035, z0 + bd, z1 - bd, { boven: null });
       }
-      // Trapboom: een schuine plank langs de neuzen, aan de open kant.
-      const neus = (x: number) => yb + ((t.x + t.w - x) / t.w) * FH;
-      const xa = t.x, xb = t.x + t.w, zb0 = z1 - 0.05, zb1 = z1;
-      B.vast.hexa("trapzij", [
-        [xa, neus(xa) - 0.2, zb0], [xb, neus(xb) - 0.2, zb0], [xb, neus(xb) - 0.2, zb1], [xa, neus(xa) - 0.2, zb1],
-        [xa, neus(xa) + 0.08, zb0], [xb, neus(xb) + 0.08, zb0], [xb, neus(xb) + 0.08, zb1], [xa, neus(xa) + 0.08, zb1],
-      ]);
+      // Trapbomen: schuine planken langs de neuzen, aan beide kanten.
+      const neus = (x: number) => yb + ((x - t.x) / t.w) * FH;
+      const xa = t.x, xb = t.x + t.w;
+      for (const [zb0, zb1] of [[z0, z0 + bd], [z1 - bd, z1]]) {
+        B.vast.hexa("trapzij", [
+          [xa, neus(xa) - 0.24, zb0], [xb, neus(xb) - 0.24, zb0], [xb, neus(xb) - 0.24, zb1], [xa, neus(xa) - 0.24, zb1],
+          [xa, neus(xa) + 0.06, zb0], [xb, neus(xb) + 0.06, zb0], [xb, neus(xb) + 0.06, zb1], [xa, neus(xa) + 0.06, zb1],
+        ]);
+      }
       if (!leuning) return;
       // Leuning op 90 cm boven de neuzen, met een spijl op elke tweede trede.
       const lh = 0.9, rz0 = z1 - 0.045, rz1 = z1 - 0.005;
@@ -413,7 +416,7 @@ function bouw(p: Woningplan) {
         [xa, neus(xa) + lh + 0.05, rz0], [xb, neus(xb) + lh + 0.05, rz0], [xb, neus(xb) + lh + 0.05, rz1], [xa, neus(xa) + lh + 0.05, rz1],
       ]);
       for (let i = 0; i < treden; i += 2) {
-        const x = t.x + t.w - aan * (i + 0.5);
+        const x = t.x + aan * (i + 0.5);
         B.vast.blok("leuning", x - 0.015, x + 0.015, yb + op * (i + 1), neus(x) + lh, rz0 + 0.005, rz1 - 0.005);
       }
     };
@@ -572,13 +575,16 @@ function dakBouw(b: Bouwer, { dak, w, l, buren, lagen }: { dak: Dak; w: number; 
 
 /* ─────────────────────────── React ─────────────────────────── */
 
+/** Werpen geen schaduw: glas, en de trap (zijn treden en spijlen tekenden een rooster op de vloer). */
+const ZONDER_SCHADUW = new Set(["glas", "trede", "trapzij", "leuning"]);
+
 function Meshes({ geos, mats, schaduw = true }: { geos: Map<string, BufferGeometry>; mats: MatSet; schaduw?: boolean }) {
   return (
     <>
       {[...geos].map(([k, g]) => {
         const m = mats.get(k);
         if (!m) return null;
-        return <mesh key={k} geometry={g} material={m} castShadow={schaduw && k !== "glas"} receiveShadow />;
+        return <mesh key={k} geometry={g} material={m} castShadow={schaduw && !ZONDER_SCHADUW.has(k)} receiveShadow />;
       })}
     </>
   );
@@ -917,7 +923,6 @@ function Scene(props: SceneProps) {
 
       {actKamers.length > 0 && (
         <>
-          <Vocht3D kamers={actKamers} w={w} l={l} yf={yfAct} H={H} vocht={materiaal.vocht} muurNat={materiaal.muurNat} vloerNat={materiaal.vloerNat} droogt={droogt} cyclus={cyclus} film={film} />
           <group ref={inrichtingRef}>
             <Meshes geos={inrichting} mats={sets.vast} />
           </group>
