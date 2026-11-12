@@ -186,8 +186,8 @@ const verderLezen: LeesGroep[] = [
   {
     kop: "Toestellen voor kelders en vochtige ruimtes",
     links: [
-      { to: "/verhuur/toestel/ttk170", toestel: "ttk170", label: "Eco Boost", sub: "Compact, voor één kamer of een kleine kelder." },
-      { to: "/verhuur/toestel/ttk650", toestel: "ttk650", label: "Eco Ultimate", sub: "Voor ruime kelders en veel vocht." },
+      { to: "/verhuur/toestel/ttk170", toestel: "ttk170", label: "Boost", sub: "Compact, voor één kamer of een kleine kelder." },
+      { to: "/verhuur/toestel/ttk650", toestel: "ttk650", label: "Ultimate", sub: "Voor ruime kelders en veel vocht." },
       { to: "/verhuur/toestel/teddh20", toestel: "teddh20", label: "Bouwkachel voor een koude kelder of garage", sub: "Brengt de ruimte op werkingstemperatuur." },
     ],
   },

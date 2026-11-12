@@ -27,7 +27,10 @@ interface GidsShellProps {
   kick: string;
   h1: string;
   intro: ReactNode;
-  heroImg: { src: string; alt: string };
+  /** `width` overschrijft de standaardbreedte — een staande foto wil smaller. */
+  heroImg: { src: string; alt: string; width?: string };
+  /** Het zwevende kaartje naast de herofoto; weglaten = geen kaartje. */
+  heroBadge?: ReactNode;
   /**
    * Publicatiedatum voor het Article-schema. Weglaten = geen artikel (de
    * commerciële pagina en de hub), dan staat enkel de organisatie in de head.
@@ -63,6 +66,7 @@ const GidsShell = ({
   h1,
   intro,
   heroImg,
+  heroBadge,
   articlePublished,
   faq = [],
   jsonLd = [],
@@ -124,7 +128,12 @@ const GidsShell = ({
             </div>
           </div>
           <div className="hero-vis">
-            <img src={heroImg.src} alt={heroImg.alt} style={{ width: "min(100%,520px)" }} />
+            <img
+              src={heroImg.src}
+              alt={heroImg.alt}
+              style={{ width: heroImg.width ?? "min(100%,520px)", position: "relative", zIndex: 1 }}
+            />
+            {heroBadge}
           </div>
         </div>
       </section>

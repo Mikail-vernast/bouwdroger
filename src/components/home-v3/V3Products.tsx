@@ -9,7 +9,7 @@ import { VAT_RATE } from "@/lib/booking";
  * Naam, tekst, prijs en specs van één kaart, uit de gepubliceerde tarieven.
  *
  * De kaarten droegen hun eigen bedragen uit de designhandoff: "vanaf € 9,00 per
- * dag" op de ECO Boost, terwijl diezelfde TTK 170 op de pagina waar de kaart
+ * dag" op de Boost, terwijl diezelfde TTK 170 op de pagina waar de kaart
  * naartoe linkt € 18 per dag kost. Wie doorklikte zag zijn prijs verdubbelen.
  * Hetzelfde gold voor de specs (80 l/dag op een toestel dat er 70 haalt) en
  * voor een doorgestreepte "− 8% korting" die nergens op sloeg.
@@ -111,8 +111,8 @@ const MAIN: ProductCard[] = [
     key: "ttk170",
     tag: "Kleine ruimtes",
     image: "/vernast/eco-boost.webp",
-    alt: "Vernast ECO Boost bouwdroger, condensontvochtiger van 50 liter per dag voor ruimtes tot 250 m³",
-    name: "Eco Boost",
+    alt: "Vernast Boost bouwdroger, condensontvochtiger van 50 liter per dag voor ruimtes tot 250 m³",
+    name: "Boost",
     blurb:
       "Compact en verrijdbaar, past door elke deuropening. Ideaal voor één kamer of een appartement.",
     eco: true,
@@ -125,8 +125,8 @@ const MAIN: ProductCard[] = [
     tag: "Meest gehuurd",
     hot: true,
     image: "/vernast/eco-performance.webp",
-    alt: "Vernast ECO Performance bouwdroger, condensontvochtiger van 70 liter per dag voor ruimtes tot 400 m³",
-    name: "Eco Performance",
+    alt: "Vernast Performance bouwdroger, condensontvochtiger van 70 liter per dag voor ruimtes tot 400 m³",
+    name: "Performance",
     blurb:
       "Onze standaard voor nieuwbouw. Droogt chape en pleisterwerk betrouwbaar en energiezuinig.",
     eco: true,
@@ -138,15 +138,15 @@ const MAIN: ProductCard[] = [
     key: "ttk650",
     tag: "Grote volumes",
     image: "/vernast/eco-ultimate.webp",
-    alt: "Vernast ECO Ultimate bouwdroger, condensontvochtiger van 110 liter per dag voor ruimtes tot 600 m³",
-    name: "Eco Ultimate",
+    alt: "Vernast Ultimate bouwdroger, condensontvochtiger van 110 liter per dag voor ruimtes tot 600 m³",
+    name: "Ultimate",
     blurb: "Het zwaarste toestel in het gamma. Voor grote werven, kelders en zware waterschade.",
     eco: true,
     chips: ["110 liter per dag", "tot 600 m³"],
     day: 16,
   },
   /*
-    De ECO Revolution staat nog niet in ons depot, dus zolang het portaal hem
+    De Revolution staat nog niet in ons depot, dus zolang het portaal hem
     niet te huur zet, blijft deze kaart naar de webshop wijzen. Zodra de
     schakelaar daar aan gaat, bestaat `PRODUCTS.revolution` en verwijst de kaart
     naar onze eigen pagina — met de prijs die in het portaal staat.
@@ -157,7 +157,7 @@ const MAIN: ProductCard[] = [
         key: "revolution",
         tag: "Plaatselijk drogen",
         image: "/vernast/eco-revolution.webp",
-        alt: "Vernast ECO Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
+        alt: "Vernast Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
         name: "Revolution",
         blurb:
           "Droogt gericht via slangen: onder vloeren, in wanden en op moeilijk bereikbare plekken.",
@@ -169,7 +169,7 @@ const MAIN: ProductCard[] = [
         external: true,
         tag: "Plaatselijk drogen",
         image: "/vernast/eco-revolution.webp",
-        alt: "Vernast ECO Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
+        alt: "Vernast Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
         name: "Revolution",
         blurb:
           "Droogt gericht via slangen: onder vloeren, in wanden en op moeilijk bereikbare plekken.",
@@ -192,7 +192,7 @@ const SUPPORT: ProductCard[] = [
     key: "ttv4500",
     tag: "Luchtcirculatie",
     image: "/vernast/vent-axiaal.webp",
-    alt: "Vernast Turbo Axiaalventilator, bouwventilator met 4.500 m³/u luchtverzet",
+    alt: "Vernast Highflow, bouwventilator met 4.500 m³/u luchtverzet",
     name: "Highflow",
     blurb: "Versnelt elke droging door de lucht continu in beweging te houden.",
     chips: ["4 500 m³/u", "3 standen"],
@@ -203,7 +203,7 @@ const SUPPORT: ProductCard[] = [
     key: "radiaal2250",
     tag: "Gericht drogen",
     image: "/vernast/vent-radiaal.webp",
-    alt: "Vernast Turbo Radiaalventilator van 2.250 m³/u voor vloer- en muurdroging",
+    alt: "Vernast Turboflow van 2.250 m³/u voor vloer- en muurdroging",
     name: "Turbo",
     blurb: "Blaast gericht over vloeren en chape, ideaal in combinatie met een droger.",
     chips: ["2 250 m³/u", "vloeren & chape"],
@@ -214,7 +214,7 @@ const SUPPORT: ProductCard[] = [
     key: "teddh20",
     tag: "Verwarming",
     image: "/vernast/kachel-20.webp",
-    alt: "Vernast elektrische bouwkachel TEddH 20 T, 20 kW met thermostaat voor kleinere ruimtes",
+    alt: "Vernast Heatboost 20 elektrische bouwkachel, 20 kW met thermostaat voor kleinere ruimtes",
     name: "Heatboost 20",
     blurb: "Compacte verwarming voor kleinere ruimtes tijdens de droogperiode.",
     chips: ["20 kW", "400 V", "60 °C"],
@@ -225,7 +225,7 @@ const SUPPORT: ProductCard[] = [
     key: "teddh30",
     tag: "Verwarming",
     image: "/vernast/kachel-30.webp",
-    alt: "Vernast elektrische bouwkachel TEddH 30 T, 30 kW met ingebouwde thermostaat",
+    alt: "Vernast Heatpower 30 elektrische bouwkachel, 30 kW met ingebouwde thermostaat",
     name: "Heatpower 30",
     blurb: "Houdt de ruimte op temperatuur zodat de droging effectief blijft.",
     chips: ["30 kW", "400 V", "75 °C"],

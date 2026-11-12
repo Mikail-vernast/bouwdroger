@@ -26,7 +26,7 @@ const HOTSPOTS: Hotspot[] = [
     model: "ttk170",
     dot: { left: "24%", top: "56%" },
     card: { left: "calc(24% + 46px)", top: "38%" },
-    name: "ECO Boost – 50l /dag",
+    name: "Boost – 50l /dag",
     context: "Kleine ruimtes · tot 250 m³",
     rows: [
       ["Vochtafvoer", "50 L/dag"],
@@ -39,7 +39,7 @@ const HOTSPOTS: Hotspot[] = [
     model: "ttk350",
     dot: { left: "49%", top: "46%" },
     card: { left: "calc(49% + 46px)", top: "28%" },
-    name: "ECO Performance – 80l /dag",
+    name: "Performance – 80l /dag",
     context: "Meest gehuurd · tot 400 m³",
     rows: [
       ["Vochtafvoer", "80 l/dag"],
@@ -52,7 +52,7 @@ const HOTSPOTS: Hotspot[] = [
     model: "ttk650",
     dot: { left: "72%", top: "34%" },
     card: { left: "auto", right: "2%", top: "16%" },
-    name: "ECO Ultimate – 110l /dag",
+    name: "Ultimate – 110l /dag",
     context: "Grote volumes · tot 600 m³",
     rows: [
       ["Vochtafvoer", "110 l/dag"],

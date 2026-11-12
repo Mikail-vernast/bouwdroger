@@ -39,7 +39,7 @@ export const QUESTIONS: { q: string; a: string }[] = [
   },
   {
     q: "Werkt een klassieke ontvochtiger ook in een kelder of koude ruimte?",
-    a: "Dat hangt af van de temperatuur en de situatie. In koudere omstandigheden kan een andere techniek, zoals de ECO Revolution adsorptiedroger, of extra verwarming nodig zijn.",
+    a: "Dat hangt af van de temperatuur en de situatie. In koudere omstandigheden kan een andere techniek, zoals de Revolution adsorptiedroger, of extra verwarming nodig zijn.",
   },
   {
     q: "Waarom moet een ruimte droog zijn voor afwerking?",

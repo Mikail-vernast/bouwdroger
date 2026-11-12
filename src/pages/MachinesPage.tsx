@@ -197,7 +197,7 @@ const toebehoren = [
 /**
  * Eén toestel uit de catalogus als kaart.
  *
- * De kop is de naam waaronder het toestel verhuurd wordt ("Eco Boost"), niet
+ * De kop is de naam waaronder het toestel verhuurd wordt ("Boost"), niet
  * het typenummer: niemand huurt een "Ontvochtiger TTK 170 S". Dat nummer staat
  * op de toestelpagina zelf, voor wie offertes vergelijkt. Foto, prijs en specs
  * komen allemaal uit het portaal.

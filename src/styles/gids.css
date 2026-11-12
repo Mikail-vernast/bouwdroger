@@ -59,3 +59,223 @@
   .hdw-page.gids .wrap{padding:0 16px}
   .hdw-page.gids .hero{padding-top:150px}
 }
+
+/* ============================================================
+   Sectieritme rood–wit
+
+   De gidsen stonden tot november 2026 als één kolom lopende tekst op wit:
+   leesbaar, maar zonder ritme, en daardoor niet herkenbaar als dezelfde site
+   als /drooggarantie of /levering. Wat hieronder staat brengt dezelfde
+   afwisseling naar de gidsen: een rode statbalk onder de hero, volvlakke rode
+   secties tussen de witte in, en kaarten in plaats van opsommingen.
+
+   De rode blokken (`.statrule`, `.lvred`, `.vsg`) zijn dezelfde vormtaal als
+   op /drooggarantie, maar staan hier opnieuw uitgeschreven in plaats van
+   gedeeld: die opmaak zit in `drooggarantie.css` onder `.dg-page`, en dat
+   bestand is een letterlijke transcriptie van de designfile die niet met de
+   hand bijgewerkt wordt. Een gedeeld, ongescoped bestand zoals
+   `site-footer.css` is pas de moeite zodra een derde schil dezelfde blokken
+   nodig heeft.
+   ============================================================ */
+
+/* --- Rode statbalk direct onder de hero ----------------------------- */
+.hdw-page.gids .statrule{background:var(--page)}
+.hdw-page.gids .statrule .wrap{padding-top:34px;padding-bottom:34px}
+.hdw-page.gids .statrule .band{display:grid;grid-template-columns:repeat(4,1fr);background:var(--maroon-d) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-radius:20px;padding:14px 10px;overflow:hidden}
+.hdw-page.gids .statrule .st{position:relative;padding:24px 30px;color:#fff}
+.hdw-page.gids .statrule .st:not(:first-child)::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:rgba(255,255,255,.24)}
+.hdw-page.gids .statrule .st .n{font-family:var(--fd);font-weight:800;font-size:34px;letter-spacing:-.03em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.hdw-page.gids .statrule .st .n em{font-style:normal;font-size:.58em;color:rgba(255,255,255,.85);margin-left:3px}
+.hdw-page.gids .statrule .st .l{font-size:13px;color:rgba(255,255,255,.82);margin-top:8px;line-height:1.45}
+@media (max-width:1040px){.hdw-page.gids .statrule .band{grid-template-columns:1fr 1fr}.hdw-page.gids .statrule .st{padding:18px 22px}.hdw-page.gids .statrule .st:nth-child(3)::before{display:none}}
+@media (max-width:640px){.hdw-page.gids .statrule .band{grid-template-columns:1fr}.hdw-page.gids .statrule .st::before{display:none}}
+
+/* --- Volvlakke rode sectie ------------------------------------------ */
+.hdw-page.gids .lvred{background:var(--maroon-d) url('/vernast/bg-red-2.webp') center/cover no-repeat;padding:88px 0}
+.hdw-page.gids .lvred .kick{color:rgba(255,255,255,.62)}
+.hdw-page.gids .lvred .sec{color:#fff}
+.hdw-page.gids .lvred .lede{color:rgba(255,255,255,.8)}
+.hdw-page.gids .lvred .lede a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
+.hdw-page.gids .lvred .note{background:#fff;color:var(--txt-mid)}
+.hdw-page.gids .lvred .note b{color:var(--txt)}
+.hdw-page.gids .lvred .note a{color:var(--red)}
+/* Een blok lopende tekst over de volle 1260 px leest niet; de kaart blijft
+   smaller dan haar sectie. */
+.hdw-page.gids .lvred .note{max-width:900px}
+/* De tabel staat in haar eigen witte kaart; alleen de rand mag weg, anders
+   tekent ze een grijze lijn op het rood. */
+.hdw-page.gids .lvred .tbl{border-color:transparent;box-shadow:0 30px 60px -34px rgba(0,0,0,.6)}
+.hdw-page.gids tbody tr{transition:background .15s}
+.hdw-page.gids tbody tr:hover{background:rgba(200,16,46,.04)}
+
+/* --- Twee contrastkaarten: groen = doen, rood = opletten -------------
+   De kleuren zijn die van de site zelf (`--ok` en `--red`), niet een eigen
+   paar: groen is overal op de site "in orde", rood is Vernast. */
+.hdw-page.gids .vsg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:38px}
+@media (max-width:860px){.hdw-page.gids .vsg{grid-template-columns:1fr}}
+.hdw-page.gids .vs{background:#fff;border-radius:18px;padding:30px;display:flex;flex-direction:column;gap:14px}
+.hdw-page.gids .vs.groen{background:var(--ok)}
+.hdw-page.gids .vs.rood{background:var(--red)}
+.hdw-page.gids .vs.groen,
+.hdw-page.gids .vs.rood{color:#fff}
+.hdw-page.gids .vs .vt{align-self:flex-start;font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:9px;background:var(--bg-alt);color:var(--txt)}
+/* Gebroken wit, niet zuiver wit: op een volvlakke kleur knalt #fff eruit als
+   een lichtvlek. `--bg-alt` is de off-white die de rest van de site al
+   gebruikt, dus elk labelblokje staat op dezelfde ondergrond — of de kaart nu
+   groen, rood of neutraal is. */
+.hdw-page.gids .vs.groen .vt,
+.hdw-page.gids .vs.rood .vt{background:var(--bg-alt)}
+.hdw-page.gids .vs.groen .vt{color:#0f6b36}
+.hdw-page.gids .vs.rood .vt{color:var(--red)}
+.hdw-page.gids .vs h3{font-family:var(--fd);font-weight:800;font-size:19px;color:var(--txt);margin:0}
+.hdw-page.gids .vs.groen h3,
+.hdw-page.gids .vs.rood h3{color:#fff}
+.hdw-page.gids .vs ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.hdw-page.gids .vs li{display:flex;gap:9px;align-items:flex-start;font-size:14px;color:var(--txt-mid);line-height:1.55;margin:0}
+.hdw-page.gids .vs.groen li,
+.hdw-page.gids .vs.rood li{color:rgba(255,255,255,.9)}
+.hdw-page.gids .vs li svg{flex-shrink:0;margin-top:3px;color:var(--ok)}
+.hdw-page.gids .vs.groen li svg,
+.hdw-page.gids .vs.rood li svg{color:#fff;opacity:.85}
+.hdw-page.gids .vs li b{color:var(--txt)}
+.hdw-page.gids .vs.groen li b,
+.hdw-page.gids .vs.rood li b{color:#fff}
+.hdw-page.gids .vs li a{color:var(--red);font-weight:600}
+.hdw-page.gids .vs.groen li a,
+.hdw-page.gids .vs.rood li a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.5);text-underline-offset:3px}
+.hdw-page.gids .vs .vf{font-size:12.5px;color:var(--txt-dim);margin-top:auto;padding-top:6px}
+.hdw-page.gids .vs.groen .vf,
+.hdw-page.gids .vs.rood .vf{color:rgba(255,255,255,.7)}
+
+/* --- Split: tekst naast een visueel blok ---------------------------- */
+.hdw-page.gids .wsplit{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+@media (max-width:1040px){.hdw-page.gids .wsplit{grid-template-columns:1fr}}
+.hdw-page.gids .wsplit .prose{max-width:none}
+
+/* ============================================================
+   De stroommeter
+
+   Versiering, geen informatie: elk getal dat erin staat, staat ook in de
+   lopende tekst ernaast. Dat is hier geen stijlkwestie maar een eis — de
+   pagina wordt geprerenderd voor lezers zonder JavaScript, en een blok dat
+   alleen in beweging iets zegt, zegt hun niets.
+   ============================================================ */
+.hdw-page.gids .meter{background:var(--bg-alt);border-radius:20px;padding:28px;max-width:460px;width:100%;margin:0 auto}
+.hdw-page.gids .meter .mt-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.hdw-page.gids .meter .mt-h b{font-family:var(--fd);font-size:14px;color:var(--txt)}
+.hdw-page.gids .meter .mt-h span{font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:rgba(200,16,46,.08);padding:6px 11px;border-radius:99px;animation:mtPulse 2.6s ease-in-out infinite}
+@keyframes mtPulse{0%,100%{opacity:1}50%{opacity:.45}}
+.hdw-page.gids .meter .mt-dial{background:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px;text-align:center}
+.hdw-page.gids .meter .mt-kwh{font-family:var(--fd);font-weight:800;font-size:clamp(30px,3.4vw,40px);letter-spacing:-.03em;line-height:1;color:var(--txt);font-variant-numeric:tabular-nums}
+.hdw-page.gids .meter .mt-kwh em{font-style:normal;font-size:.5em;color:var(--txt-dim);margin-left:4px}
+.hdw-page.gids .meter .mt-kwh i{font-style:normal;display:inline-block;animation:mtTick 5.2s steps(1) infinite}
+@keyframes mtTick{0%,48%{opacity:1}52%,100%{opacity:.25}}
+.hdw-page.gids .meter .mt-sub{font-size:11.5px;color:var(--txt-dim);margin-top:8px}
+.hdw-page.gids .meter .mtrow{display:flex;justify-content:space-between;align-items:baseline;background:#fff;border-radius:12px;padding:12px 17px;margin-bottom:8px}
+.hdw-page.gids .meter .mtrow .k{font-size:12.5px;color:var(--txt-mid)}
+.hdw-page.gids .meter .mtrow .v{font-family:var(--fd);font-weight:800;font-size:15.5px;color:var(--txt);font-variant-numeric:tabular-nums}
+.hdw-page.gids .meter .mtrow .v small{font-size:11px;font-weight:600;color:var(--txt-dim);margin-left:2px}
+.hdw-page.gids .meter .mt-bar{height:9px;border-radius:99px;background:#fff;overflow:hidden;margin:16px 0 7px}
+.hdw-page.gids .meter .mt-bar b{display:block;height:100%;width:72%;border-radius:99px;background:var(--red);animation:mtDuty 5.2s cubic-bezier(.4,.1,.3,1) infinite}
+/* De hygrostaat: vol vermogen zolang er veel vocht vrijkomt, daarna terug. */
+@keyframes mtDuty{0%{width:96%}35%{width:96%}60%{width:54%}85%{width:28%}100%{width:96%}}
+.hdw-page.gids .meter .mt-f{display:flex;justify-content:space-between;font-family:var(--fm);font-size:10.5px;color:var(--txt-dim)}
+.hdw-page.gids .meter .mt-res{margin-top:16px;background:var(--red);color:#fff;border-radius:12px;padding:14px 17px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.hdw-page.gids .meter .mt-res b{font-family:var(--fd);font-size:14px}
+.hdw-page.gids .meter .mt-res span{font-size:11.5px;opacity:.85;white-space:nowrap}
+
+/* ============================================================
+   De rekensom als stappen, en de vergelijkingsbalken
+   ============================================================ */
+.hdw-page.gids .somrij{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:30px 0 8px}
+.hdw-page.gids .som{flex:1 1 180px;background:var(--bg-alt);border-radius:16px;padding:20px 22px}
+.hdw-page.gids .som .sk{font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--txt-dim);display:block;margin-bottom:9px}
+.hdw-page.gids .som .sv{font-family:var(--fd);font-weight:800;font-size:clamp(19px,2vw,24px);letter-spacing:-.025em;color:var(--txt);line-height:1.1;font-variant-numeric:tabular-nums}
+.hdw-page.gids .som .sv small{font-family:var(--fb);font-weight:600;font-size:12.5px;color:var(--txt-dim);margin-left:3px}
+.hdw-page.gids .som.uit{background:var(--red)}
+.hdw-page.gids .som.uit .sk{color:rgba(255,255,255,.7)}
+.hdw-page.gids .som.uit .sv{color:#fff}
+.hdw-page.gids .som.uit .sv small{color:rgba(255,255,255,.75)}
+.hdw-page.gids .somnoot{font-size:13.5px;line-height:1.7;color:var(--txt-dim);max-width:720px;margin:4px 0 0}
+.hdw-page.gids .somop{align-self:center;font-family:var(--fd);font-weight:800;font-size:17px;color:var(--txt-dim);padding:0 2px}
+/* Onder 860px staan de stappen onder elkaar. `flex:1 1 180px` slaat dan op de
+   hoogte — zonder `flex:0 0 auto` rekte elke kaart zich tot een leeg vlak van
+   een halve schermhoogte uit. */
+@media (max-width:860px){
+  .hdw-page.gids .somrij{flex-direction:column;gap:8px}
+  .hdw-page.gids .som{flex:0 0 auto;padding:18px 20px}
+  .hdw-page.gids .somop{align-self:flex-start;padding:0 0 0 22px;line-height:1}
+}
+
+.hdw-page.gids .vgl{margin:26px 0 6px;display:flex;flex-direction:column;gap:14px;max-width:620px}
+.hdw-page.gids .vgl .vrow .vl{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:var(--txt-mid);margin-bottom:7px}
+.hdw-page.gids .vgl .vrow .vl b{font-family:var(--fd);font-size:15px;color:var(--txt);font-variant-numeric:tabular-nums}
+.hdw-page.gids .vgl .vbar{height:12px;border-radius:99px;background:var(--bg-alt);overflow:hidden}
+.hdw-page.gids .vgl .vbar i{display:block;height:100%;border-radius:99px;background:var(--txt-dim);position:relative;overflow:hidden}
+.hdw-page.gids .vgl .vrow.rood .vbar i{background:var(--red)}
+/* Eén glans die over de balk trekt — de breedte zelf staat vast, zodat het
+   blok ook zonder JavaScript de juiste verhouding toont. */
+.hdw-page.gids .vgl .vbar i::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.45) 50%,transparent 80%);transform:translateX(-100%);animation:vglSheen 3.6s ease-in-out infinite}
+@keyframes vglSheen{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
+
+/* Beweging is versiering, geen informatie — zie src/index.css. */
+@media (prefers-reduced-motion: reduce){
+  .hdw-page.gids .meter .mt-h span,
+  .hdw-page.gids .meter .mt-kwh i,
+  .hdw-page.gids .meter .mt-bar b,
+  .hdw-page.gids .vgl .vbar i::after{animation:none}
+  .hdw-page.gids .meter .mt-kwh i{opacity:1}
+}
+
+/* ============================================================
+   Vergelijking met een toestel van de concurrentie
+
+   Groen is hier "ons toestel", grijs het vergelijkingstoestel. De maatstaf
+   die bovenaan elke kaart staat is **liter water per kWh**: een groter
+   toestel trekt vanzelf meer water én meer stroom, dus alleen de verhouding
+   tussen die twee zegt iets over zuinigheid. De bronvermelding onder de
+   kaarten is geen beleefdheid maar een eis — een vergelijking met een met
+   naam genoemd product moet controleerbaar zijn.
+   ============================================================ */
+.hdw-page.gids .ecog{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:38px}
+@media (max-width:860px){.hdw-page.gids .ecog{grid-template-columns:1fr}}
+.hdw-page.gids .eco{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.hdw-page.gids .eco:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.25)}
+.hdw-page.gids .eco.wij{background:var(--ok);border-color:transparent;color:#fff}
+.hdw-page.gids .eco .et{align-self:flex-start;font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:9px;background:var(--bg-alt);color:var(--txt);margin-bottom:16px}
+.hdw-page.gids .eco.wij .et{background:var(--bg-alt);color:#0f6b36}
+.hdw-page.gids .eco h3{font-family:var(--fd);font-weight:800;font-size:19px;color:var(--txt);margin:0 0 2px}
+.hdw-page.gids .eco.wij h3{color:#fff}
+.hdw-page.gids .eco .esub{font-size:12.5px;color:var(--txt-dim);margin:0 0 18px}
+.hdw-page.gids .eco.wij .esub{color:rgba(255,255,255,.72)}
+/* De eco-maatstaf, het grootste getal op de kaart. */
+.hdw-page.gids .eco .ekpi{font-family:var(--fd);font-weight:800;font-size:clamp(30px,3.4vw,40px);letter-spacing:-.03em;line-height:1;color:var(--txt);font-variant-numeric:tabular-nums}
+.hdw-page.gids .eco.wij .ekpi{color:#fff}
+.hdw-page.gids .eco .ekpi em{font-style:normal;font-size:.4em;font-weight:600;letter-spacing:normal;color:var(--txt-dim);margin-left:8px}
+.hdw-page.gids .eco.wij .ekpi em{color:rgba(255,255,255,.8)}
+.hdw-page.gids .eco .ekpil{font-size:13px;font-weight:600;color:var(--txt-mid);margin:10px 0 18px}
+.hdw-page.gids .eco.wij .ekpil{color:rgba(255,255,255,.85)}
+.hdw-page.gids .eco .erow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+.hdw-page.gids .eco.wij .erow{border-top-color:#ffffff33}
+.hdw-page.gids .eco .erow .k{font-size:13px;color:var(--txt-mid)}
+.hdw-page.gids .eco.wij .erow .k{color:rgba(255,255,255,.8)}
+.hdw-page.gids .eco .erow .v{font-family:var(--fd);font-weight:800;font-size:15.5px;color:var(--txt);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hdw-page.gids .eco.wij .erow .v{color:#fff}
+.hdw-page.gids .eco .emeer{margin-top:auto;padding-top:16px;font-weight:700;font-size:14px}
+.hdw-page.gids .eco.wij .emeer a{color:#fff;text-decoration:underline;text-decoration-color:#ffffff80;text-underline-offset:3px}
+.hdw-page.gids .ecobron{font-size:12.5px;line-height:1.65;color:var(--txt-dim);margin:16px 0 0;max-width:820px}
+.hdw-page.gids .ecobron a{color:var(--txt-mid);text-decoration:underline;text-underline-offset:2px}
+
+/* --- Het vraagformulier onderaan ------------------------------------
+   <ContactBlok> is geschreven voor de v3c-schil; dit zijn de drie regels
+   die deze schil nog mist. */
+.hdw-page.gids .sec-head.mid{max-width:760px;margin-left:auto;margin-right:auto;text-align:center}
+.hdw-page.gids .sec-head.mid .lede{margin-left:auto;margin-right:auto}
+.hdw-page.gids .fsend .fbtns{display:flex;gap:10px;flex-wrap:wrap}
+.hdw-page.gids .btn-line{background:transparent;border:1.5px solid var(--line-2);color:var(--txt)}
+.hdw-page.gids .btn-line:hover{background:var(--bg-alt);color:var(--txt)}
+.hdw-page.gids .fshell .fsend small a{color:var(--red);font-weight:600}
+
+/* De CTA-band sluit aan op het blok erboven in plaats van er een hele
+   sectiepadding tussen te laten. */
+.hdw-page.gids .manband.aansluitend{margin-top:28px}

@@ -299,7 +299,7 @@ const AfhalenPage = () => {
           <p className="lede">U kiest zelf de combinatie. Twijfelt u over capaciteit of aantallen, gebruik dan de calculator of kies levering met installatie.</p>
         </div>
         <div className="af-range-grid">
-          <article><img src="/vernast/eco-boost.webp" alt="Vernast Eco Boost condensbouwdroger, klaar voor afhaling" loading="lazy" /><div><span>Bouwdrogers</span><h3>50 tot 110 liter per dag</h3><p>Voor chape, pleisterwerk, renovatie en de meeste waterschade.</p></div></article>
+          <article><img src="/vernast/eco-boost.webp" alt="Vernast Boost condensbouwdroger, klaar voor afhaling" loading="lazy" /><div><span>Bouwdrogers</span><h3>50 tot 110 liter per dag</h3><p>Voor chape, pleisterwerk, renovatie en de meeste waterschade.</p></div></article>
           <article><img src="/vernast/eco-revolution.webp" alt="Vernast Revolution adsorptiedroger met slangaansluitingen, klaar voor afhaling" loading="lazy" /><div><span>Koude ruimtes</span><h3>Adsorptiedroger</h3><p>Voor lage temperaturen of gerichte droging via luchtslangen.</p></div></article>
           <article><img src="/vernast/vent-axiaal.webp" alt="Vernast Highflow axiaalventilator, klaar voor afhaling" loading="lazy" /><div><span>Luchtcirculatie</span><h3>Axiale en radiale ventilatoren</h3><p>Verspreiden droge lucht langs vloeren, muren en moeilijk bereikbare zones.</p></div></article>
           <article><img src="/vernast/kachel-30.webp" alt="Vernast Heatpower 30 elektrische bouwkachel, klaar voor afhaling" loading="lazy" /><div><span>Extra warmte</span><h3>Elektrische bouwkachels</h3><p>Voor koude werven waar een condensdroger anders rendement verliest.</p></div></article>

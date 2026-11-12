@@ -65,7 +65,7 @@ const LuchtontvochtigerHurenPage = () => (
         leveren en installeren, in heel Vlaanderen.
       </p>
     }
-    heroImg={{ src: "/vernast/eco-performance.webp", alt: "Vernast ECO Performance condensontvochtiger" }}
+    heroImg={{ src: "/vernast/eco-performance.webp", alt: "Vernast Performance condensontvochtiger" }}
     faq={FAQ}
     jsonLd={[
       offerCatalogSchema(

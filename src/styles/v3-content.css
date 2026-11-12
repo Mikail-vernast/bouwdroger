@@ -310,7 +310,9 @@
    Zichtbaar, niet ingeklapt: een dichte accordeon rendert zijn antwoord niet
    in de geprerenderde HTML, en dan belooft de FAQ-schema tekst die er niet
    staat. */
-.v3c .faqs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0}
+/* `align-items:start` zodat een opengeklapte vraag de kaart ernaast niet
+   meerekt tot dezelfde hoogte. */
+.v3c .faqs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0;align-items:start}
 @media (max-width:860px){.v3c .faqs{grid-template-columns:1fr}}
 .v3c .faq{background:#fff;border-radius:16px;padding:22px 24px;margin:0}
 .v3c .sw .faq{background:var(--bg-alt)}
@@ -794,3 +796,112 @@
 .v3c .rvc figcaption small{display:block;font-size:12px;color:var(--txt-dim);margin-top:2px}
 @media (max-width:900px){.v3c .rvs{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.v3c .rvs{grid-template-columns:1fr}}
+
+/* ============ VERTROUWENSRIJ: GROENE VINKJES ============
+   De vier beloftes stonden in het rood, naast een rode hero en een rode knop.
+   Groen zegt hier "dit is in orde" in plaats van "let op". */
+.v3c .trust svg{color:var(--ok)}
+
+/* ============ GENUMMERDE STAPKAART ============
+   De zes stappen van de eerste 48 uur. Ze stonden in de smalle `.sn`-rij uit de
+   vormtaal; dat las als een opsomming terwijl het een handleiding is. Dit is de
+   kaartvorm van de homepage: nummer groot in de hoek, titel, tekst, en een rode
+   lijn die bij hover uitloopt. */
+.v3c .stapkaarten{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:1040px){.v3c .stapkaarten{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.v3c .stapkaarten{grid-template-columns:1fr}}
+.v3c .stk{position:relative;background:#fff;border-radius:18px;padding:28px 26px 26px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.v3c .sw .stk{background:var(--bg-alt)}
+.v3c .stk:hover{transform:translateY(-4px);box-shadow:0 26px 48px -30px rgba(0,0,0,.3)}
+.v3c .stk .stknum{display:block;font-family:var(--fd);font-weight:800;font-size:40px;line-height:1;letter-spacing:-.04em;color:rgba(20,20,20,.1);margin-bottom:14px}
+.v3c .stk h3{font-family:var(--fd);font-weight:800;font-size:16.5px;margin-bottom:8px}
+.v3c .stk p{font-size:13.5px;line-height:1.65;color:var(--txt-mid);margin:0}
+.v3c .stk::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--red);transition:width .3s cubic-bezier(.2,.8,.3,1)}
+.v3c .stk:hover::after{width:100%}
+
+/* ============ SCHADETYPE MET FOTO ============
+   Vier soorten waterschade, elk met een eigen foto. Zolang die foto's er niet
+   zijn, staat er een neutraal kader met het onderwerp erin — zichtbaar een
+   plaatshouder, niet een gebroken afbeelding. */
+.v3c .schades{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:860px){.v3c .schades{grid-template-columns:1fr}}
+.v3c .schade{background:#fff;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.v3c .schade:hover{transform:translateY(-4px);box-shadow:0 28px 54px -32px rgba(0,0,0,.35)}
+.v3c .schade .sfoto{position:relative;aspect-ratio:16/9;background:var(--bg-alt);display:grid;place-items:center;overflow:hidden}
+.v3c .schade .sfoto img{width:100%;height:100%;object-fit:cover;display:block}
+.v3c .schade .splaats{display:grid;place-items:center;padding:20px;color:var(--txt-dim)}
+.v3c .schade .splaats svg{opacity:.3}
+.v3c .schade .stekst{padding:24px 26px 26px;flex:1;display:flex;flex-direction:column}
+.v3c .schade .slabel{font-family:var(--fm);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:8px}
+.v3c .schade h3{font-family:var(--fd);font-weight:800;font-size:18px;margin-bottom:9px;color:var(--txt)}
+.v3c .schade p{font-size:13.5px;line-height:1.7;color:var(--txt-mid);margin:0 0 14px}
+.v3c .schade .saanpak{margin-top:auto;display:flex;align-items:flex-start;gap:9px;background:var(--bg-alt);border-radius:12px;padding:12px 14px;font-size:12.5px;line-height:1.55;color:var(--txt)}
+.v3c .schade .saanpak svg{flex-shrink:0;margin-top:2px;color:var(--ok)}
+.v3c .schade .saanpak b{font-weight:700}
+
+/* ============ TIJDLIJN ============
+   Het volledige verloop van een schadegeval, van het moment dat de klant het
+   ziet tot het rapport. Zeven stappen is te veel voor een rij kaarten; als
+   tijdlijn leest de volgorde vanzelf. De lijn groeit mee terwijl de stappen
+   binnenkomen, zodat zichtbaar is dat het één doorlopend traject is. */
+.v3c .tijdlijn{position:relative;margin-top:44px;padding-left:46px}
+.v3c .tijdlijn::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:2px;background:var(--line-2)}
+.v3c .sr .tijdlijn::before{background:rgba(255,255,255,.22)}
+.v3c .tijdlijn::after{content:"";position:absolute;left:19px;top:8px;width:2px;height:0;background:var(--red);animation:tlgroei 2.4s .2s cubic-bezier(.3,.7,.3,1) forwards}
+.v3c .sr .tijdlijn::after{background:#fff}
+@keyframes tlgroei{to{height:calc(100% - 16px)}}
+.v3c .tl{position:relative;padding-bottom:30px}
+.v3c .tl:last-child{padding-bottom:0}
+.v3c .tl .tlpunt{position:absolute;z-index:1;left:-46px;top:0;width:40px;height:40px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:14px;box-shadow:0 0 0 6px var(--page)}
+.v3c .sw .tl .tlpunt{box-shadow:0 0 0 6px #fff}
+.v3c .sr .tl .tlpunt{background:#fff;color:var(--red);box-shadow:0 0 0 6px var(--maroon-d)}
+.v3c .tl .tlpunt.klant{background:var(--txt);color:#fff}
+.v3c .sr .tl .tlpunt.klant{background:rgba(255,255,255,.25);color:#fff}
+.v3c .tl h3{font-family:var(--fd);font-weight:800;font-size:16.5px;margin:7px 0 7px;color:var(--txt)}
+.v3c .sr .tl h3{color:#fff}
+.v3c .tl p{font-size:13.5px;line-height:1.7;color:var(--txt-mid);margin:0;max-width:720px}
+.v3c .sr .tl p{color:rgba(255,255,255,.8)}
+.v3c .tl .tlwie{display:inline-block;font-family:var(--fm);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--txt-dim);background:var(--bg-alt);padding:4px 10px;border-radius:7px}
+.v3c .sr .tl .tlwie{color:rgba(255,255,255,.75);background:rgba(255,255,255,.14)}
+.v3c .tl.vernast .tlwie{color:var(--red);background:rgba(200,16,46,.1)}
+.v3c .sr .tl.vernast .tlwie{color:#fff;background:rgba(255,255,255,.22)}
+@media (max-width:620px){
+  .v3c .tijdlijn{padding-left:38px}
+  .v3c .tijdlijn::before,.v3c .tijdlijn::after{left:15px}
+  .v3c .tl .tlpunt{left:-38px;width:32px;height:32px;font-size:12.5px}
+}
+@media (prefers-reduced-motion:reduce){.v3c .tijdlijn::after{animation:none;height:calc(100% - 16px)}}
+
+/* De pakketkaart (`.pkg`) hoorde niet in de lijst witte blokken die hun
+   tekstkleur terugzetten binnen een rode sectie. Gevolg: op /waterschade
+   stonden de toestelnaam en de prijs wit op wit. */
+.v3c .sr .pkg{color:var(--txt)}
+.v3c .sr .pkg h3,.v3c .sr .pkg .pprice b{color:var(--txt)}
+.v3c .sr .pkg .pdesc,.v3c .sr .pkg .pprice span,.v3c .sr .pkg .pprice small{color:var(--txt-mid)}
+
+/* ============ UITKLAPBARE FAQ ============
+   `<details>` en niet een JS-accordeon: een dichtgeklapte `<details>` houdt
+   zijn antwoord wél in de HTML, dus de FAQ-schema blijft eerlijk. Een
+   Radix-accordeon rendert de inhoud van een dichte vraag niet, en dan belooft
+   het schema tekst die niet op de pagina staat. */
+.v3c .faq.uitklap{padding:0}
+.v3c .faq.uitklap summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:22px 24px;font-family:var(--fd);font-weight:800;font-size:15px;color:var(--txt)}
+.v3c .faq.uitklap summary::-webkit-details-marker{display:none}
+.v3c .faq.uitklap summary::after{content:"";flex-shrink:0;width:11px;height:11px;margin-top:5px;border-right:2.4px solid var(--red);border-bottom:2.4px solid var(--red);transform:rotate(45deg);transition:transform .22s}
+.v3c .faq.uitklap[open] summary::after{transform:rotate(-135deg)}
+.v3c .faq.uitklap summary:hover{color:var(--red)}
+.v3c .faq.uitklap .faqbody{padding:0 24px 22px;font-size:13.5px;line-height:1.7;color:var(--txt-mid)}
+.v3c .faq.uitklap .faqbody p{margin:0}
+.v3c .faq.uitklap .faqbody p + p{margin-top:10px}
+.v3c .faq.uitklap .faqbody a{color:var(--red);font-weight:600}
+.v3c .faq.uitklap[open] .faqbody{animation:faqin .22s ease}
+@keyframes faqin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.v3c .faq.uitklap[open] .faqbody{animation:none}}
+
+/* ============ REFERENTIEKAARTEN ============
+   Echte werven in plaats van een linklijst. `.rz` bestaat al voor de
+   regiopagina's; dit zet er een raster van drie omheen dat ook in een witte
+   sectie werkt. */
+.v3c .refs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:980px){.v3c .refs{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.v3c .refs{grid-template-columns:1fr}}

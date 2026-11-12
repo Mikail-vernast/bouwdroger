@@ -9,16 +9,16 @@
  * die geeft de aanroeper mee en is nooit een lege string.
  */
 const BEKENDE_BEELDEN: [RegExp, string][] = [
-  [/lineup-dryers/, "De drie Vernast eco-bouwdrogers naast elkaar: ECO Boost, ECO Performance en ECO Ultimate"],
+  [/lineup-dryers/, "De drie Vernast eco-bouwdrogers naast elkaar: Boost, Performance en Ultimate"],
   [/teddh-30|kachel-30/, "Vernast elektrische bouwkachel Heatpower 30, 30 kW met ingebouwde thermostaat"],
   [/teddh-20|kachel-20/, "Vernast elektrische bouwkachel Heatboost 20, 20 kW met thermostaat"],
   [/ttv-4500|vent-axiaal/, "Vernast Turbo Highflow, bouwventilator met 4.500 m³/u luchtverzet"],
   [/dim-radiaal-ventilator/, "Afmetingen van de Vernast radiaalventilator: 54,5 × 51,5 × 49 cm, 20 kg"],
   [/vent-radiaal|radiaal/, "Vernast Turbo, 2.250 m³/u, blaast gericht over vloeren en chape"],
-  [/ttk-170|eco-boost/, "Vernast ECO Boost (TTK 170 S), condensontvochtiger van 50 liter per dag"],
-  [/ttk-350|eco-performance/, "Vernast ECO Performance (TTK 350 S), condensontvochtiger van 70 liter per dag"],
-  [/ttk-650|eco-ultimate/, "Vernast ECO Ultimate (TTK 650 S), condensontvochtiger van 110 liter per dag"],
-  [/eco-revolution|revolution/, "Vernast ECO Revolution, rode adsorptiedroger met slangaansluitingen voor gericht drogen"],
+  [/ttk-170|eco-boost/, "Vernast Boost (TTK 170 S), condensontvochtiger van 50 liter per dag"],
+  [/ttk-350|eco-performance/, "Vernast Performance (TTK 350 S), condensontvochtiger van 70 liter per dag"],
+  [/ttk-650|eco-ultimate/, "Vernast Ultimate (TTK 650 S), condensontvochtiger van 110 liter per dag"],
+  [/eco-revolution|revolution/, "Vernast Revolution, rode adsorptiedroger met slangaansluitingen voor gericht drogen"],
 ];
 
 /**

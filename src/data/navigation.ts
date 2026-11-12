@@ -51,7 +51,7 @@ const TOESTEL_LABEL: Record<string, string> = {
  * Het gamma in de menu's van beide headers.
  *
  * Stond eerder twee keer met de hand overgetypt, en liep daardoor uit de pas:
- * "Turbo radiaalventilator" linkte naar de pagina van de axiaalventilator en de
+ * "Turboflow" linkte naar de pagina van de axiaalventilator en de
  * kachel stond er met een vermogen dat nergens anders voorkwam. Nu volgt de
  * lijst de gepubliceerde tarieven — een toestel dat in het portaal uit de
  * verhuur gaat, verdwijnt hier vanzelf mee.

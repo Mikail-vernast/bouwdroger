@@ -98,3 +98,20 @@ export const GridIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
     <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6" />
   </svg>
 );
+
+/** Plaatshouder voor een foto die nog gemaakt moet worden. */
+export const FotoIcon = ({ size = 28, strokeWidth = 1.6 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <circle cx="8.5" cy="10" r="1.5" />
+    <path d="m4 17 4.5-4.5 3 3L15 12l5 5" />
+  </svg>
+);
+
+/** Druppel met een pijl omlaag — water dat dieper in de constructie trekt. */
+export const LekIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M12 2.5s5.5 6.3 5.5 10.2a5.5 5.5 0 0 1-11 0C6.5 8.8 12 2.5 12 2.5z" />
+    <path d="M12 9.5v5M9.8 12.3 12 14.5l2.2-2.2" />
+  </svg>
+);

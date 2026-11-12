@@ -390,19 +390,19 @@ export interface Product {
 const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "badge" | "day" | "img" | "sum">> = {
   ttk170: {
     imgAlt: [
-      "Vernast ECO Boost, condensontvochtiger Eco Boost van 50 liter per dag voor ruimtes tot 250 m³",
-      "De drie Vernast eco-bouwdrogers naast elkaar, de Eco Boost is het kleinste model",
+      "Vernast Boost, condensontvochtiger Boost van 50 liter per dag voor ruimtes tot 250 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de Boost is het kleinste model",
     ],
     key: [
       ["Vochtafvoer", "50", "L/dag"],
       ["Bereik", "250", "m³"],
       ["Verbruik", "0,75", "kW"],
     ],
-    aboutTitle: "Wanneer kiest u de Eco Boost?",
+    aboutTitle: "Wanneer kiest u de Boost?",
     about: [
       "Dit is ons instaptoestel — maar met 50 liter vochtafvoer per dag is het bepaald geen lichtgewicht. Voor ruimtes tot ongeveer <strong>250 m³</strong> (bijvoorbeeld een appartement of een verdieping van een woning) haalt dit toestel het bouwvocht er efficiënt uit.",
-      "De Eco Boost is verrijdbaar en compact genoeg om via een normale deur of trap binnen te krijgen. Hij draait stil genoeg om in een bewoonde ruimte te blijven staan, wat hem geschikt maakt voor renovaties waar u ondertussen woont.",
-      "Werkt u in een grotere ruimte of gaat het om waterschade waarbij snelheid telt? Kijk dan naar de <strong>Eco Performance</strong> of <strong>Eco Ultimate</strong>.",
+      "De Boost is verrijdbaar en compact genoeg om via een normale deur of trap binnen te krijgen. Hij draait stil genoeg om in een bewoonde ruimte te blijven staan, wat hem geschikt maakt voor renovaties waar u ondertussen woont.",
+      "Werkt u in een grotere ruimte of gaat het om waterschade waarbij snelheid telt? Kijk dan naar de <strong>Performance</strong> of <strong>Ultimate</strong>.",
     ],
     bullets: [
       ["Tot 250 m³", "Eén kamer, appartement of verdieping — het volume dat dit toestel comfortabel aankan."],
@@ -427,7 +427,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     faq: [
       [
         "Is dit toestel groot genoeg voor mijn woning?",
-        "Voor één kamer, een appartement of een verdieping tot ongeveer 250 m³ volstaat de Eco Boost. Voor een volledige nieuwbouwwoning raden we de Eco Performance aan. Laat het gerust berekenen via de configurator — dan weet u het zeker.",
+        "Voor één kamer, een appartement of een verdieping tot ongeveer 250 m³ volstaat de Boost. Voor een volledige nieuwbouwwoning raden we de Performance aan. Laat het gerust berekenen via de configurator — dan weet u het zeker.",
       ],
       [
         "Kan ik het toestel zelf verplaatsen?",
@@ -441,18 +441,18 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   ttk350: {
     imgAlt: [
-      "Vernast ECO Performance, condensontvochtiger Eco Performance van 70 liter per dag voor ruimtes tot 400 m³",
-      "De drie Vernast eco-bouwdrogers naast elkaar, de Eco Performance is het middelste model",
+      "Vernast Performance, condensontvochtiger Performance van 70 liter per dag voor ruimtes tot 400 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de Performance is het middelste model",
     ],
     key: [
       ["Vochtafvoer", "70", "L/dag"],
       ["Bereik", "400", "m³"],
       ["Verbruik", "1,1", "kW"],
     ],
-    aboutTitle: "Wanneer kiest u de Eco Performance?",
+    aboutTitle: "Wanneer kiest u de Performance?",
     about: [
       "Dit is het toestel dat we het vaakst leveren, en met reden: met <strong>70 liter vochtafvoer per dag</strong> en een bereik tot <strong>400 m³</strong> dekt het een volledige nieuwbouwwoning of een grote renovatie in één keer.",
-      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af — natuurlijke droging duurt weken. De Eco Performance verlaagt de luchtvochtigheid ver genoeg om dat proces flink in te korten: <strong>twee tot vier weken</strong>, afhankelijk van de dikte van chape of pleister, zodat uw vloerder en schilder sneller kunnen starten.",
+      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af — natuurlijke droging duurt weken. De Performance verlaagt de luchtvochtigheid ver genoeg om dat proces flink in te korten: <strong>twee tot vier weken</strong>, afhankelijk van de dikte van chape of pleister, zodat uw vloerder en schilder sneller kunnen starten.",
       "Voor het beste resultaat combineert u dit toestel met een <strong>ventilator Highflow</strong>. Zonder luchtbeweging droogt vooral de lucht en niet de bouwmassa; met circulatie wint u dagen.",
     ],
     bullets: [
@@ -486,7 +486,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
       [
         "Wat als mijn ruimte groter is dan 400 m³?",
-        "Dan plaatsen we ofwel de Eco Ultimate, ofwel meerdere toestellen. De configurator rekent automatisch uit hoeveel units u nodig heeft.",
+        "Dan plaatsen we ofwel de Ultimate, ofwel meerdere toestellen. De configurator rekent automatisch uit hoeveel units u nodig heeft.",
       ],
       [
         "Moet ik water aftappen?",
@@ -496,15 +496,15 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   ttk650: {
     imgAlt: [
-      "Vernast ECO Ultimate, condensontvochtiger Eco Ultimate van 110 liter per dag voor ruimtes tot 600 m³",
-      "De drie Vernast eco-bouwdrogers naast elkaar, de Eco Ultimate is het grootste model",
+      "Vernast Ultimate, condensontvochtiger Ultimate van 110 liter per dag voor ruimtes tot 600 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de Ultimate is het grootste model",
     ],
     key: [
       ["Vochtafvoer", "110", "L/dag"],
       ["Bereik", "600", "m³"],
       ["Verbruik", "1,4", "kW"],
     ],
-    aboutTitle: "Wanneer kiest u de Eco Ultimate?",
+    aboutTitle: "Wanneer kiest u de Ultimate?",
     about: [
       "Met <strong>110 liter per dag</strong> en een bereik tot <strong>600 m³</strong> is dit het toestel voor situaties waar volume of snelheid het probleem is: grote werven, industriële ruimtes, ruime kelders of acute waterschade.",
       "Bij <strong>waterschade</strong> is dit vaak de juiste keuze. Na een lek of overstroming zit het water niet alleen in de lucht maar diep in vloeren, muren en isolatie. Hoe sneller u de luchtvochtigheid omlaag brengt, hoe kleiner de kans op schimmel en structurele schade — de eerste 48 uur zijn beslissend.",
@@ -757,7 +757,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   */
   revolution: {
     imgAlt: [
-      "Vernast ECO Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
+      "Vernast Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
     ],
     key: [
       ["Techniek", "Adsorptie", ""],

@@ -27,9 +27,9 @@ const CHAPE_100_6 = {
   thicknessCm: 6,
   rentalWeeks: 3,
   equipment: [
-    { name: "ECO Boost", type: "bouwdroger", count: 1, specs: { Capaciteit: "50L/dag" } },
-    { name: "Turbo Axiaalventilator", type: "ventilator", count: 3, specs: {} },
-    { name: "ECO Performance", type: "bouwdroger", count: 1, specs: { Capaciteit: "80L/dag" } },
+    { name: "Boost", type: "bouwdroger", count: 1, specs: { Capaciteit: "50L/dag" } },
+    { name: "Highflow", type: "ventilator", count: 3, specs: {} },
+    { name: "Performance", type: "bouwdroger", count: 1, specs: { Capaciteit: "80L/dag" } },
   ],
 };
 
@@ -111,7 +111,7 @@ describe("packageTotal", () => {
 
 describe("deviceKeyFor", () => {
   it("herkent ventilator en kachel aan het type", () => {
-    expect(deviceKeyFor({ name: "Turbo Axiaalventilator", type: "ventilator" })).toBe("axiaal");
+    expect(deviceKeyFor({ name: "Highflow", type: "ventilator" })).toBe("axiaal");
     expect(deviceKeyFor({ name: "Elektrische Kachel", type: "kachel" })).toBe("kachel");
   });
 

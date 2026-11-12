@@ -141,21 +141,21 @@ const ComparisonTable = () => {
                   <div className="text-lg mb-1">✅</div>
                   <div className="text-xs font-bold text-green-800">Kamer 1</div>
                   <div className="inline-block bg-green-600 text-white rounded px-1.5 py-0.5 mt-1">
-                    <span className="text-[9px] font-bold">ECO Boost</span>
+                    <span className="text-[9px] font-bold">Boost</span>
                   </div>
                 </div>
                 <div className="bg-green-100 border border-green-300 rounded-xl p-3 text-center">
                   <div className="text-lg mb-1">✅</div>
                   <div className="text-xs font-bold text-green-800">Kamer 2</div>
                   <div className="inline-block bg-green-600 text-white rounded px-1.5 py-0.5 mt-1">
-                    <span className="text-[9px] font-bold">ECO Boost</span>
+                    <span className="text-[9px] font-bold">Boost</span>
                   </div>
                 </div>
                 <div className="bg-green-100 border border-green-300 rounded-xl p-3 text-center">
                   <div className="text-lg mb-1">✅</div>
                   <div className="text-xs font-bold text-green-800">Kamer 3</div>
                   <div className="inline-block bg-green-600 text-white rounded px-1.5 py-0.5 mt-1">
-                    <span className="text-[9px] font-bold">ECO Boost</span>
+                    <span className="text-[9px] font-bold">Boost</span>
                   </div>
                 </div>
               </div>

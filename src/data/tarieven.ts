@@ -87,7 +87,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -97,7 +97,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 1,
           "specs": {
@@ -154,7 +154,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -164,7 +164,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 1,
           "specs": {
@@ -221,7 +221,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -231,7 +231,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 1,
           "specs": {
@@ -288,7 +288,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -298,7 +298,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 1,
           "specs": {
@@ -355,7 +355,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -365,7 +365,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 1,
           "specs": {
@@ -422,7 +422,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -432,7 +432,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 1,
           "specs": {
@@ -489,7 +489,7 @@ export const TARIEVEN = {
       "workType": "beide",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -499,7 +499,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 1,
           "specs": {
@@ -556,7 +556,7 @@ export const TARIEVEN = {
       "workType": "waterschade",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -566,7 +566,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 1,
           "specs": {
@@ -623,7 +623,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -633,7 +633,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 2,
           "specs": {
@@ -690,7 +690,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -700,7 +700,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 2,
           "specs": {
@@ -757,7 +757,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -767,7 +767,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 2,
           "specs": {
@@ -824,7 +824,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -834,7 +834,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 2,
           "specs": {
@@ -891,7 +891,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -901,7 +901,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 2,
           "specs": {
@@ -958,7 +958,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -968,7 +968,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 2,
           "specs": {
@@ -1025,7 +1025,7 @@ export const TARIEVEN = {
       "workType": "beide",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1035,7 +1035,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 2,
           "specs": {
@@ -1092,7 +1092,7 @@ export const TARIEVEN = {
       "workType": "waterschade",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -1102,7 +1102,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 2,
           "specs": {
@@ -1159,7 +1159,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1169,7 +1169,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1179,7 +1179,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1236,7 +1236,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1246,7 +1246,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1256,7 +1256,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1313,7 +1313,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1323,7 +1323,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1333,7 +1333,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1390,7 +1390,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1400,7 +1400,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1410,7 +1410,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1467,7 +1467,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1477,7 +1477,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1487,7 +1487,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1544,7 +1544,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1554,7 +1554,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1564,7 +1564,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1621,7 +1621,7 @@ export const TARIEVEN = {
       "workType": "beide",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1631,7 +1631,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1641,7 +1641,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1698,7 +1698,7 @@ export const TARIEVEN = {
       "workType": "waterschade",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1708,7 +1708,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1718,7 +1718,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1775,7 +1775,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1785,7 +1785,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1795,7 +1795,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1852,7 +1852,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -1862,7 +1862,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1872,7 +1872,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -1929,7 +1929,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -1939,7 +1939,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -1949,7 +1949,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -2006,7 +2006,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -2016,7 +2016,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -2026,7 +2026,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -2083,7 +2083,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2093,7 +2093,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -2103,7 +2103,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -2160,7 +2160,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2170,7 +2170,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -2180,7 +2180,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -2237,7 +2237,7 @@ export const TARIEVEN = {
       "workType": "beide",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2247,7 +2247,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -2257,7 +2257,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -2314,7 +2314,7 @@ export const TARIEVEN = {
       "workType": "waterschade",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2324,7 +2324,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 3,
           "specs": {
@@ -2334,7 +2334,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 1,
           "specs": {
@@ -2391,7 +2391,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2401,7 +2401,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -2411,7 +2411,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2465,7 +2465,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2475,7 +2475,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -2485,7 +2485,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2542,7 +2542,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2552,7 +2552,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -2562,7 +2562,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -2619,7 +2619,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2629,7 +2629,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -2639,7 +2639,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2696,7 +2696,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2706,7 +2706,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -2716,7 +2716,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2773,7 +2773,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2783,7 +2783,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -2793,7 +2793,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2850,7 +2850,7 @@ export const TARIEVEN = {
       "workType": "beide",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2860,7 +2860,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -2870,7 +2870,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2927,7 +2927,7 @@ export const TARIEVEN = {
       "workType": "waterschade",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -2937,7 +2937,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -2947,7 +2947,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3004,7 +3004,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3014,7 +3014,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3024,7 +3024,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3081,7 +3081,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3091,7 +3091,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3101,7 +3101,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3158,7 +3158,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3168,7 +3168,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3178,7 +3178,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3235,7 +3235,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3245,7 +3245,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3255,7 +3255,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3312,7 +3312,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3322,7 +3322,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3332,7 +3332,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3389,7 +3389,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3399,7 +3399,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3409,7 +3409,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3466,7 +3466,7 @@ export const TARIEVEN = {
       "workType": "beide",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3476,7 +3476,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3486,7 +3486,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3543,7 +3543,7 @@ export const TARIEVEN = {
       "workType": "waterschade",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3553,7 +3553,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3563,7 +3563,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3620,7 +3620,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3630,7 +3630,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3640,7 +3640,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3697,7 +3697,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3707,7 +3707,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3717,7 +3717,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3774,7 +3774,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3784,7 +3784,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3794,7 +3794,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3851,7 +3851,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3861,7 +3861,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3871,7 +3871,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -3928,7 +3928,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 2,
           "specs": {
@@ -3938,7 +3938,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -3948,7 +3948,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4005,7 +4005,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4015,7 +4015,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -4025,7 +4025,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4082,7 +4082,7 @@ export const TARIEVEN = {
       "workType": "beide",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4092,7 +4092,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -4102,7 +4102,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4159,7 +4159,7 @@ export const TARIEVEN = {
       "workType": "waterschade",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4169,7 +4169,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 4,
           "specs": {
@@ -4179,7 +4179,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4236,7 +4236,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4246,7 +4246,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 5,
           "specs": {
@@ -4256,7 +4256,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4313,7 +4313,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4323,7 +4323,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 5,
           "specs": {
@@ -4333,7 +4333,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4390,7 +4390,7 @@ export const TARIEVEN = {
       "workType": "chape",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4400,7 +4400,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 5,
           "specs": {
@@ -4410,7 +4410,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4467,7 +4467,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4477,7 +4477,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 5,
           "specs": {
@@ -4487,7 +4487,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4544,7 +4544,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4554,7 +4554,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 5,
           "specs": {
@@ -4564,7 +4564,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4621,7 +4621,7 @@ export const TARIEVEN = {
       "workType": "pleister",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4631,7 +4631,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 5,
           "specs": {
@@ -4641,7 +4641,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4698,7 +4698,7 @@ export const TARIEVEN = {
       "workType": "beide",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4708,7 +4708,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 5,
           "specs": {
@@ -4718,7 +4718,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4775,7 +4775,7 @@ export const TARIEVEN = {
       "workType": "waterschade",
       "equipment": [
         {
-          "name": "ECO Boost",
+          "name": "Boost",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4785,7 +4785,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "Turbo Axiaalventilator",
+          "name": "Highflow",
           "type": "ventilator",
           "count": 5,
           "specs": {
@@ -4795,7 +4795,7 @@ export const TARIEVEN = {
           }
         },
         {
-          "name": "ECO Performance",
+          "name": "Performance",
           "type": "bouwdroger",
           "count": 3,
           "specs": {
@@ -4850,7 +4850,7 @@ export const TARIEVEN = {
       "cap": 50,
       "img": "/verhuur/ttk-170.png",
       "sub": "Automatische werking · laag geluidsniveau · waterreservoir",
-      "name": "Small Bouwdroger, 50 l / 24 u"
+      "name": "Boost, 50 l / 24 u"
     },
     "axiaal": {
       "w2": 44,
@@ -4858,7 +4858,7 @@ export const TARIEVEN = {
       "cap": 0,
       "img": "/verhuur/ttv-4500.png",
       "sub": "Spatwaterdicht (IP55) · 3 standen · 0,25 kW",
-      "name": "Turbo Axiaalventilator, 5 300 m³/u"
+      "name": "Highflow, 5 300 m³/u"
     },
     "kachel": {
       "w2": 35,
@@ -4874,7 +4874,7 @@ export const TARIEVEN = {
       "cap": 80,
       "img": "/verhuur/ttk-350.png",
       "sub": "Krachtig bij overgang naar hogere vochtbelasting",
-      "name": "Medium Bouwdroger, 80 l / 24 u"
+      "name": "Performance, 80 l / 24 u"
     }
   },
   "pricing": {
@@ -4891,7 +4891,7 @@ export const TARIEVEN = {
     "weeks_multiplier_3": 1.35,
     "weeks_multiplier_4": 1.62
   },
-  "version": 92,
+  "version": 94,
   "products": {
     "ttk170": {
       "day": 9.0,

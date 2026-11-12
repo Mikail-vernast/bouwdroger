@@ -144,7 +144,7 @@ const verderLezen: LeesGroep[] = [
   {
     kop: "De toestellen voor chape en pleister",
     links: [
-      { to: "/verhuur/toestel/ttk350", toestel: "ttk350", label: "Eco Performance", sub: "Het standaardtoestel voor een nieuwbouwwoning." },
+      { to: "/verhuur/toestel/ttk350", toestel: "ttk350", label: "Performance", sub: "Het standaardtoestel voor een nieuwbouwwoning." },
       { to: "/verhuur/toestel/radiaal2250", toestel: "radiaal2250", label: "Radiaalventilator voor chapedroging", sub: "Blaast vlak over de vloer." },
       { to: "/verhuur/toestel/teddh30", toestel: "teddh30", label: "Elektrische bouwkachel voor een koude werf", sub: "Onder 15 °C droogt het traag." },
     ],
@@ -425,7 +425,7 @@ const NieuwbouwPage = () => (
           <span className="kick">Welk toestel</span>
           <h2 className="sec">Kies het toestel dat bij uw woning past.</h2>
           <p className="lede">
-            Voor een standaard gezinswoning is de Eco Performance het toestel dat we het vaakst
+            Voor een standaard gezinswoning is de Performance het toestel dat we het vaakst
             leveren. Gaat het om een volledige woning, dan wordt het een droogpakket: de calculator
             rekent uw volume en chapedikte door naar de juiste combinatie, met ventilator en
             bouwkachel waar uw werf die nodig heeft.

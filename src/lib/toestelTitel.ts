@@ -71,7 +71,7 @@ export function toestelTitel({ short, type, day, spec }: ToestelTitelInput): str
   /*
     Google kapt een titel af rond 60 tekens, dus die grens is hard. Tot 11-2026
     paste alles omdat de toestellen hun typenummer droegen ("TTK 350 S"); met
-    de namen uit het portaal ("Eco Performance") liep diezelfde titel op 63 uit
+    de namen uit het portaal ("Performance") liep diezelfde titel op 63 uit
     en viel ", € 12/dag" buiten beeld -- juist het stuk waarvoor het in de titel
     staat.
 

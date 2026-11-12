@@ -56,7 +56,7 @@ const ProductDetail = () => {
          *
          * Het zijn dezelfde toestellen onder twee namen — de ECO-reeks hier,
          * de fabrikantcodes daar; /vernast/eco-boost.webp hoort zowel bij
-         * ECO Boost als bij TTK 170 S. Deze pagina's halen zo'n 130 woorden,
+         * Boost als bij TTK 170 S. Deze pagina's halen zo'n 130 woorden,
          * de toestelpagina's ruim 1.100. Erger: de opgegeven capaciteiten
          * lopen tussen beide reeksen uiteen, en twee tegenstrijdige specs voor
          * één machine is precies wat een AI-antwoord onbetrouwbaar maakt.
