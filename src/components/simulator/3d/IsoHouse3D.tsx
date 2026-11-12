@@ -26,8 +26,10 @@ import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { richIn } from "./inrichting";
-import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, Vocht3D, type Geplaatst } from "./onderdelen";
+import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, Vocht3D, type Geplaatst } from "./onderdelen";
 import { aankomst, type Film } from "../film";
+import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 /*
   De droogsimulator-woning in echte 3D.
@@ -46,12 +48,6 @@ import { aankomst, type Film } from "../film";
   getekend.
 */
 
-const H = 2.6; // vrije hoogte
-const SLAB = 0.3;
-const FH = H + SLAB;
-const T = 0.24; // buitenmuur
-const TI = 0.12; // binnenmuur
-const HC = 1.1; // snijhoogte opengewerkt
 const REV = 0.09; // hoe diep het schrijnwerk in de muur staat
 const OV = 0.35; // dakoversteek
 const DUUR = 900; // ms, zoals de SVG
@@ -172,18 +168,6 @@ function stap(tw: Tween, duur = DUUR) {
 
 interface Anim { o: Tween; cam: Tween; act: Tween }
 
-function useReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const on = () => setReduced(mq.matches);
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  return reduced;
-}
-
 /* ─────────────────────────── de woning als blokken ─────────────────────────── */
 
 type Gevel = "voor" | "zij";
@@ -206,10 +190,6 @@ interface Bouwers {
 interface Woningplan {
   woning: Woning; lagen: number; act: number; dak: Dak;
   kamers: Kamer[]; openingen: Opening[]; trappen: Trap[];
-}
-
-function nokHoogte(dak: Dak, l: number) {
-  return dak === "zadeldak" ? Math.min(l * 0.38, 4.2) : dak === "lessenaar" ? 2.4 : 0.4;
 }
 
 function bouw(p: Woningplan) {
@@ -790,7 +770,16 @@ function Scene(props: SceneProps) {
   const transparant = useRef(true);
   const frames = useRef(0);
 
-  useFrame(() => {
+  // Buiten het droogplan tekent het canvas alleen op vraag (frameloop "demand"):
+  // na elke render van de scène één frame, zodat een nieuwe tween vertrekt, en
+  // daarna zolang er nog iets beweegt. Zo draait een gsm geen 60 fps voor een
+  // stilstaand huis.
+  const invalidate = useThree((st) => st.invalidate);
+  useEffect(() => {
+    invalidate();
+  });
+
+  useFrame(({ invalidate: volgende }) => {
     // Na twee getekende frames staat alles (texturen, schaduw) er: de SVG mag weg.
     if (frames.current < 3 && ++frames.current === 2) props.onKlaar?.();
     if (import.meta.env.DEV) (window as unknown as { __sim3d?: unknown }).__sim3d = { scene, camera };
@@ -867,6 +856,9 @@ function Scene(props: SceneProps) {
       el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%)`;
       el.style.opacity = String(o * wg);
     });
+
+    const beweegt = [A.o, A.cam, A.act, G.bouw, G.wand].some((tw) => tw.start < 0 || tw.nu !== tw.naar);
+    if (beweegt || frames.current < 3) volgende();
   });
 
   const droogt = werkend && !reduced;
@@ -929,6 +921,7 @@ function Scene(props: SceneProps) {
           <group ref={inrichtingRef}>
             <Meshes geos={inrichting} mats={sets.vast} />
           </group>
+          <ToestelVangnet terugval={<FilmStart film={film} />}>
           <Suspense fallback={null}>
           <FilmStart film={film} />
           {laagPlaatsingen.map((p, i) => {
@@ -936,6 +929,7 @@ function Scene(props: SceneProps) {
             return <Toestel3D key={`${act}-${p.k}-${i}`} k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} cyclus={cyclus} />;
           })}
           </Suspense>
+          </ToestelVangnet>
           {droogt && <Luchtstroom3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} film={film} cyclus={cyclus} />}
           {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} film={film} cyclus={cyclus} />}
         </>
@@ -968,6 +962,8 @@ export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void
       aria-label={`3D-tekening van een ${WONING[woning].label.toLowerCase()} met ${lagen} bouwla${lagen === 1 ? "ag" : "gen"}`}
     >
       <Canvas
+        // het droogplan is een film (toestellen, ventilatoren, drogen): dan altijd tekenen
+        frameloop={props.werkend ? "always" : "demand"}
         orthographic
         shadows={{ type: PCFShadowMap }}
         dpr={[1, 2]}

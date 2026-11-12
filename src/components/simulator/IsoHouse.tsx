@@ -10,6 +10,8 @@ import {
 } from "@/lib/droogSimulator";
 import type { DeviceKey } from "@/data/verhuur";
 import type { Materiaal } from "./materiaal";
+import { FH, H, HC, SLAB, T, TI, nokHoogte } from "./maten";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 /*
   Isometrische woning voor de droogsimulator.
@@ -29,12 +31,6 @@ type V3 = [number, number, number];
 
 const S = 20; // px per meter
 const ISO = Math.sqrt(3) / 2;
-const H = 2.6; // vrije hoogte
-const SLAB = 0.3;
-const FH = H + SLAB;
-const T = 0.24; // buitenmuur
-const TI = 0.12; // binnenmuur
-const HC = 1.1; // snijhoogte opengewerkt
 const SEG = 0.6; // lengte van een wandsegment voor de tekenvolgorde
 
 function P([x, y, z]: V3): [number, number] {
@@ -78,18 +74,6 @@ function Blok({ x0, x1, y0, y1, z0, z1, c }: {
 /* ─────────────────────────── materialen ─────────────────────────── */
 
 /* ─────────────────────────── tween ─────────────────────────── */
-
-function useReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const on = () => setReduced(mq.matches);
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  return reduced;
-}
 
 /** Eén getal zacht naar zijn doel laten glijden (ease-out cubic). */
 function useTween(target: number, ms: number, reduced: boolean) {
@@ -308,7 +292,7 @@ export default function IsoHouse({
   const vloerband = (v: number): BlokKleur => (v === 0 ? ARDUIN : { ...PLAAT, px: gevel.px, pz: gevel.pz, stroke: "#00000022" });
 
   const daktop = lagen * FH;
-  const nok = dak === "zadeldak" ? Math.min(l * 0.38, 4.2) : dak === "lessenaar" ? 2.4 : 0.4;
+  const nok = nokHoogte(dak, l);
 
   // Camera: dicht = de hele woning, open = tot en met de actieve laag.
   const bbox = (topY: number) => {
@@ -712,14 +696,13 @@ export default function IsoHouse({
     >
       <defs>
         <linearGradient id={`${uid}-natmuur`} x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0" stopColor="#24557f" stopOpacity="0.85" />
-          <stop offset=".55" stopColor="#24557f" stopOpacity="0.3" />
-          <stop offset="1" stopColor="#24557f" stopOpacity="0" />
+          {/* Zelfde egale, iets donkerdere toon als de 3D: nat materiaal, geen blauwe sluier. */}
+          <stop offset="0" stopColor="#3c4042" stopOpacity="0.3" />
+          <stop offset="1" stopColor="#3c4042" stopOpacity="0.3" />
         </linearGradient>
         <radialGradient id={`${uid}-natvloer`} cx="50%" cy="55%" r="65%">
-          <stop offset="0" stopColor="#24557f" stopOpacity="0.85" />
-          <stop offset=".6" stopColor="#24557f" stopOpacity="0.45" />
-          <stop offset="1" stopColor="#24557f" stopOpacity="0.1" />
+          <stop offset="0" stopColor="#3c4042" stopOpacity="0.34" />
+          <stop offset="1" stopColor="#3c4042" stopOpacity="0.34" />
         </radialGradient>
         <linearGradient id={`${uid}-gloed`} x1="0" y1="1" x2="0" y2="0">
           <stop offset="0" stopColor="#ff7a1a" />
