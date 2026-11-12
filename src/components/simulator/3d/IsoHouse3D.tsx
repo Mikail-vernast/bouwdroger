@@ -149,8 +149,20 @@ function stuur(tw: Tween, doel: number, direct: boolean) {
   tw.naar = doel;
   tw.start = performance.now();
 }
-function stap(tw: Tween) {
-  const k = Math.min(1, (performance.now() - tw.start) / DUUR);
+/**
+ * Opnieuw van 0 naar 1 lopen (voor eenmalige bouw-animaties). De klok start pas
+ * bij de eerste getekende frame: het opbouwen van de nieuwe geometrie mag geen
+ * stuk van de animatie opeten.
+ */
+function herstart(tw: Tween, direct: boolean) {
+  tw.van = direct ? 1 : 0;
+  tw.nu = tw.van;
+  tw.naar = 1;
+  tw.start = -1;
+}
+function stap(tw: Tween, duur = DUUR) {
+  if (tw.start < 0) tw.start = performance.now();
+  const k = Math.min(1, (performance.now() - tw.start) / duur);
   const e = 1 - Math.pow(1 - k, 3);
   tw.nu = tw.van + (tw.naar - tw.van) * e;
   return tw.nu;
@@ -714,6 +726,27 @@ function Scene(props: SceneProps) {
 
   const dicht = useMemo(() => kader(w, l, 0, daktop + nok + 0.3, 1.3), [w, l, daktop, nok]);
   const v = useMemo(() => new Vector3(), []);
+
+  // Bouw-animaties. Een andere woning, een ander dak of meer/minder bouwlagen:
+  // de lagen erboven groeien (of krimpen) vanaf hun vloer, het dak rijdt mee naar
+  // zijn nieuwe hoogte of valt er van boven op, en de camera glijdt mee.
+  // Andere kamers op de actieve laag: de binnenwanden en de inrichting groeien
+  // uit de vloer. Zonder dit verspringt de tekening gewoon.
+  const groei = useRef({ bouw: tween(1), wand: tween(1), vanLagen: lagen, nieuwDak: false, vanKader: dicht, kaderNu: dicht });
+  const vorige = useRef({ lagen, dak, woning, binnen: geo.binnen });
+  useLayoutEffect(() => {
+    const p = vorige.current, G = groei.current;
+    vorige.current = { lagen, dak, woning, binnen: geo.binnen };
+    if (p.lagen !== lagen || p.dak !== dak || p.woning !== woning) {
+      // Ander woningtype: het huis bouwt zich vanaf de actieve laag opnieuw op.
+      G.vanLagen = p.woning !== woning ? act + 1 : p.lagen;
+      G.nieuwDak = p.dak !== dak || p.woning !== woning;
+      G.vanKader = G.kaderNu;
+      herstart(G.bouw, reduced);
+    }
+    if (p.binnen !== geo.binnen) herstart(G.wand, reduced);
+  }, [lagen, dak, woning, act, geo.binnen, reduced]);
+  const inrichtingRef = useRef<Group>(null);
   const vaagMats = useMemo(() => [...sets.vaag.values(), ...sets.boven.values()], [sets]);
   const transparant = useRef(true);
   const frames = useRef(0);
@@ -725,10 +758,16 @@ function Scene(props: SceneProps) {
     const A = anim.current;
     const o = stap(A.o), camT = stap(A.cam), camA = stap(A.act);
     const zicht = 1 - o;
+    const G = groei.current;
+    const b = stap(G.bouw, DUUR * 1.2), wg = stap(G.wand, DUUR * 0.8);
 
     // Camera: van de hele woning naar de actieve laag, zoals de viewBox in de SVG.
+    // Tijdens een bouw-animatie glijdt het kader van de oude naar de nieuwe woning.
+    const d0 = G.vanKader;
+    const dk = b < 1 ? { cx: d0.cx + (dicht.cx - d0.cx) * b, cy: d0.cy + (dicht.cy - d0.cy) * b, ex: d0.ex + (dicht.ex - d0.ex) * b, ey: d0.ey + (dicht.ey - d0.ey) * b } : dicht;
+    G.kaderNu = dk;
     const opn = kader(w, l, 0, camA * FH + SLAB + H + 0.4, 1.3);
-    const k = { cx: dicht.cx + (opn.cx - dicht.cx) * camT, cy: dicht.cy + (opn.cy - dicht.cy) * camT, ex: dicht.ex + (opn.ex - dicht.ex) * camT, ey: dicht.ey + (opn.ey - dicht.ey) * camT };
+    const k = { cx: dk.cx + (opn.cx - dk.cx) * camT, cy: dk.cy + (opn.cy - dk.cy) * camT, ex: dk.ex + (opn.ex - dk.ex) * camT, ey: dk.ey + (opn.ey - dk.ey) * camT };
     const cam = camera as OrthographicCamera;
     const doel = v.copy(RECHTS).multiplyScalar(k.cx).addScaledVector(OP, k.cy);
     cam.position.copy(doel).addScaledVector(KIJK, 60);
@@ -739,8 +778,21 @@ function Scene(props: SceneProps) {
 
     // Deksel eraf: de lagen erboven en het dak tillen en vervagen.
     const lift = (H + 3) * o;
-    if (bovenRef.current) { bovenRef.current.position.y = lift; bovenRef.current.visible = zicht > 0.01; }
-    if (dakRef.current) { dakRef.current.position.y = lift * 1.3; dakRef.current.visible = zicht > 0.01; }
+    // Lagen erboven: geschaald vanaf hun vloer, van de oude naar de nieuwe hoogte.
+    const nNu = lagen - act - 1, nVan = Math.max(0, G.vanLagen - act - 1);
+    const s0 = nNu > 0 ? Math.max(0.02, nVan / nNu) : 1;
+    const s = s0 + (1 - s0) * b;
+    const y0 = (act + 1) * FH;
+    if (bovenRef.current) {
+      bovenRef.current.scale.y = s;
+      bovenRef.current.position.y = lift + y0 * (1 - s);
+      bovenRef.current.visible = zicht > 0.01;
+    }
+    // Dak: rijdt van de oude dakhoogte naar de nieuwe met een sprongetje, of valt
+    // er van boven op als het een ander dak (of een andere woning) is.
+    const rit = (G.vanLagen - lagen) * FH * (1 - b);
+    const sprong = G.nieuwDak ? 6 * Math.pow(1 - b, 2) : Math.sin(Math.PI * b) * 1.4 * (G.vanLagen !== lagen ? 1 : 0);
+    if (dakRef.current) { dakRef.current.position.y = lift * 1.3 + rit + sprong; dakRef.current.visible = zicht > 0.01; }
     const nuTransparant = zicht < 0.999;
     for (const m of vaagMats) {
       m.opacity = zicht;
@@ -751,9 +803,15 @@ function Scene(props: SceneProps) {
     spook.lijn.opacity = 0.6 * zicht;
 
     // Binnenwanden zakken tot de snijhoogte, deurbladen met hen mee.
-    const wandH = HC + (H - HC) * zicht;
+    // Nieuwe kamers: wanden, deuren en inrichting groeien uit de vloer.
+    const wandH = (HC + (H - HC) * zicht) * Math.max(0.001, wg);
     if (binnenRef.current) binnenRef.current.scale.y = wandH / H;
     if (bladenRef.current) bladenRef.current.scale.y = Math.min(2.05, wandH) / 2.05;
+    if (inrichtingRef.current) {
+      const si = Math.max(0.001, wg);
+      inrichtingRef.current.scale.y = si;
+      inrichtingRef.current.position.y = yfAct * (1 - si);
+    }
 
     // Kamerlabels: HTML boven het canvas, op de geprojecteerde plek, en even groot
     // ten opzichte van de woning als in de SVG (daar schalen ze mee met de viewBox).
@@ -768,7 +826,7 @@ function Scene(props: SceneProps) {
       v.copy(p).project(cam);
       const x = ((v.x + 1) / 2) * size.width, y = ((1 - v.y) / 2) * size.height;
       el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%)`;
-      el.style.opacity = String(o);
+      el.style.opacity = String(o * wg);
     });
   });
 
@@ -813,7 +871,9 @@ function Scene(props: SceneProps) {
       {actKamers.length > 0 && (
         <>
           <Vocht3D kamers={actKamers} w={w} l={l} yf={yfAct} H={H} vocht={materiaal.vocht} muurNat={materiaal.muurNat} vloerNat={materiaal.vloerNat} droogt={droogt} cyclus={cyclus} />
-          <Meshes geos={inrichting} mats={sets.vast} />
+          <group ref={inrichtingRef}>
+            <Meshes geos={inrichting} mats={sets.vast} />
+          </group>
           {laagPlaatsingen.map((p, i) => {
             const k = actKamers.find((kk) => kk.id === p.kamer)!;
             return <Toestel3D key={`${p.k}-${i}`} k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} n={p.n + i} werkend={droogt} cyclus={cyclus} />;
