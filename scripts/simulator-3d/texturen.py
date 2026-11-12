@@ -6,7 +6,7 @@
 #
 # Zonder namen worden alle tegels gemaakt. Uitvoer: <naam>.png. Daarna naar webp:
 #   for f in <uitmap>/*.png; do cwebp -q 82 "$f" -o public/simulator/3d/$(basename "${f%.png}").webp; done
-# baksteen(-nat).webp en gras.webp komen uit de keldersimulator van Vernast (zelfde Blender-reeks).
+# baksteen.webp komt uit de keldersimulator van Vernast (bricks.webp, zelfde Blender-reeks).
 #
 # De lichtopstelling is bewust vlak (veel hemel, weinig zon): de tegel draagt kleur,
 # reliëf en contactschaduw, de richting van het licht komt pas in three.js.
