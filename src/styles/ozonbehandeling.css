@@ -538,21 +538,39 @@
 .oz-page .oz-review-by small{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--txt-dim);margin-top:2px}
 
 /* ============ FAQ ============
-   <details> in plaats van een JS-accordeon: de antwoorden staan zo volledig in
-   de geprerenderde HTML, ook voor wie geen JavaScript uitvoert. */
-.oz-page .oz-faq{max-width:860px;margin:0 auto;display:grid;gap:12px}
-.oz-page .oz-q{background:var(--page);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.oz-page .oz-q[open]{border-color:var(--line-2)}
-.oz-page .oz-q summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 24px;font-family:var(--fd);font-weight:700;font-size:16px;cursor:pointer;list-style:none;transition:color .15s}
-.oz-page .oz-q summary::-webkit-details-marker{display:none}
-.oz-page .oz-q summary:hover{color:var(--red)}
-.oz-page .oz-q-ic{position:relative;width:18px;height:18px;flex-shrink:0}
-.oz-page .oz-q-ic::before,
-.oz-page .oz-q-ic::after{content:"";position:absolute;background:var(--red);border-radius:2px;transition:transform .2s,opacity .2s}
-.oz-page .oz-q-ic::before{left:0;top:8px;width:18px;height:2px}
-.oz-page .oz-q-ic::after{left:8px;top:0;width:2px;height:18px}
-.oz-page .oz-q[open] .oz-q-ic::after{transform:rotate(90deg);opacity:0}
-.oz-page .oz-q>p{padding:0 24px 22px;font-size:14.8px;line-height:1.74;color:var(--txt-mid);max-width:72ch}
+   Overgenomen uit de homepage-FAQ in home-v3.css en opnieuw geprefixt: daar
+   hangen de regels onder `.v3` en erven ze hun tokens van die scope, dus
+   losgetrokken naar deze pagina zou elke `var(--red)` leeg zijn. De
+   klassenamen blijven gelijk (`faq-grid`, `q`, `pl`), zodat het bij een
+   volgende designronde herkenbaar één blok is. */
+.oz-page .faq-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:48px;align-items:start;margin-top:8px}
+/* De kop blijft staan terwijl je door de vragen scrolt. */
+.oz-page .faq-side{position:sticky;top:110px}
+.oz-page .faq-side .oz-h2{margin-bottom:0}
+.oz-page .faq-help{margin-top:26px;background:var(--maroon-deep);border-radius:20px;padding:26px 24px;color:#fff;position:relative;overflow:hidden}
+.oz-page .faq-help::before{content:"";position:absolute;right:-46px;top:-46px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.07)}
+.oz-page .faq-help h3{font-family:var(--fd);font-weight:700;font-size:18px;margin:0 0 8px;color:#fff}
+.oz-page .faq-help p{font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.6;margin:0 0 18px;position:relative}
+.oz-page .faq-help .fh-btns{display:flex;flex-direction:column;gap:9px;position:relative}
+.oz-page .faq-help .fh-btns a{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:14px;padding:13px 18px;border-radius:99px;transition:transform .16s,border-color .16s}
+.oz-page .faq-help .fh-call{background:#fff;color:var(--maroon)}
+.oz-page .faq-help .fh-call:hover{color:var(--maroon);transform:translateY(-2px)}
+.oz-page .faq-help .fh-form{border:1.5px solid rgba(255,255,255,.4);color:#fff}
+.oz-page .faq-help .fh-form:hover{border-color:#fff;color:#fff;transform:translateY(-2px)}
+
+.oz-page .faq-list{display:flex;flex-direction:column;gap:10px}
+.oz-page details.q{background:var(--page);border:1px solid var(--line);border-radius:15px;transition:border-color .18s,box-shadow .18s}
+.oz-page details.q:hover{border-color:var(--line-2)}
+.oz-page details.q[open]{border-color:rgba(200,16,46,.35);box-shadow:0 14px 30px -22px rgba(0,0,0,.35)}
+.oz-page details.q summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 22px;font-family:var(--fd);font-weight:600;font-size:15.5px;transition:color .15s}
+.oz-page details.q summary::-webkit-details-marker{display:none}
+.oz-page details.q summary:hover{color:var(--red)}
+.oz-page details.q[open] summary{color:var(--red)}
+/* Het plusje kantelt naar een kruis; vandaar een glyph en geen icoon. */
+.oz-page details.q .pl{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(200,16,46,.08);display:grid;place-items:center;font-size:15px;color:var(--red);transition:transform .2s,background .2s,color .2s}
+.oz-page details.q[open] .pl{transform:rotate(45deg);background:var(--red);color:#fff}
+.oz-page details.q .a{padding:0 22px 20px;font-size:14px;color:var(--txt-mid);line-height:1.7}
+.oz-page details.q .a p{margin:0}
 
 /* ============ BOEKEN ============ */
 .oz-page .oz-book{background:var(--maroon-deep) url('/vernast/bg-red-wide.webp') center/cover no-repeat;color:#fff}
@@ -616,6 +634,8 @@
   .oz-page .nav-menu{display:none}
 }
 @media (max-width:1040px){
+  .oz-page .faq-grid{grid-template-columns:1fr;gap:36px}
+  .oz-page .faq-side{position:static}
   .oz-page .oz-hero-grid{grid-template-columns:1fr}
   .oz-page .oz-hero-vis{display:none}
   .oz-page .oz-hero{padding-top:168px}
