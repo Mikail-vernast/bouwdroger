@@ -103,7 +103,8 @@ function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
     ["velux", s("#45484c", { metalness: 0.4, roughness: 0.4 })],
     ["pleister", s(m.muur, { map: t("pleister"), roughness: 0.95 })],
     ["vloer", s(m.parket ? "#ffffff" : m.vloer, { map: m.parket ? t("parket") : t("chape"), roughness: m.parket ? 0.55 : 0.9 })],
-    ["trede", s("#b59a7e", { roughness: 0.6 })],
+    ["trede", s("#c4a684", { roughness: 0.55 })],
+    ["trapzij", s("#7d6352", { roughness: 0.65 })],
     ["leuning", s("#2a2422", { roughness: 0.5 })],
     ["grind", s("#ffffff", { map: t("grind"), roughness: 0.95 })],
     // Inrichting (inrichting.ts)
@@ -374,19 +375,12 @@ function bouw(p: Woningplan) {
       const gaten = laagOpeningen
         .filter((o) => o.as === as && Math.abs(o.vast - vast) < 1e-6 && o.tot > a0 && o.van < a1)
         .map((o) => ({ a0: o.van, a1: o.tot, b0: 0, b1: H }));
-      // Langs de trap is de wand een open leuning: zo kijk je in de trapkoker.
+      // Langs een trap naar boven blijft de wand open: de trap heeft zijn eigen
+      // trapboom en schuine leuning (zie echteTrap), zo kijk je in de trapkoker.
       const laagTrap = laagTrappen.find((t) => as === "x" && Math.abs(vast - (t.z + t.l + 0.05)) < 0.12);
       if (laagTrap) {
         const l0 = Math.max(a0, laagTrap.x), l1 = Math.min(a1, laagTrap.x + laagTrap.w);
-        if (l1 > l0) {
-          gaten.push({ a0: l0, a1: l1, b0: 0, b1: H });
-          const n = Math.max(2, Math.round((l1 - l0) / 0.45));
-          for (let i = 0; i <= n; i++) {
-            const x = Math.min(l0 + ((l1 - l0) * i) / n, l1 - 0.04);
-            B.vast.blok("leuning", x, x + 0.04, yf, yf + 0.9, vast - 0.02, vast + 0.02);
-          }
-          B.vast.blok("leuning", l0, l1, yf + 0.88, yf + 0.94, vast - 0.03, vast + 0.03);
-        }
+        if (l1 > l0) gaten.push({ a0: l0, a1: l1, b0: 0, b1: H });
       }
       for (const r of muurMinGaten(a0, a1, 0, H, gaten)) {
         if (as === "x") B.binnen.blok("pleister", r.a0, r.a1, r.b0, r.b1, vast - TI / 2, vast + TI / 2, { boven: "snede" });
@@ -408,21 +402,46 @@ function bouw(p: Woningplan) {
       if (rechts < w - 1e-6) wand("z", rechts, k.z, front);
     }
 
-    // Trap naar boven: de treden tot de snijhoogte als blokken, de rest als lijnen.
+    // Een echte trap: losse treden met een overstekende neus, donkere stootborden,
+    // een trapboom aan de open kant en (naar boven) een meelopende leuning. Hij
+    // loopt door tot de volgende vloer: in een opengewerkte laag zie je hem zo
+    // omhoog lopen in plaats van als een plank op de snijhoogte te eindigen.
+    const treden = 13;
+    const echteTrap = (t: Trap, yb: number, leuning: boolean) => {
+      const aan = t.w / treden, op = FH / treden;
+      const z0 = t.z, z1 = t.z + t.l;
+      // De trap klimt van de kijker weg (naar -x): zo kijk je op de treden en niet
+      // tegen de achterkant van het hoogste stuk.
+      for (let i = 0; i < treden; i++) {
+        const x1 = t.x + t.w - aan * i, top = yb + op * (i + 1);
+        B.vast.blok("trapzij", x1 - aan, x1, yb, top - 0.035, z0, z1 - 0.05, { boven: null });
+        B.vast.blok("trede", x1 - aan, x1 + 0.025, top - 0.035, top, z0, z1 - 0.05);
+      }
+      // Trapboom: een schuine plank langs de neuzen, aan de open kant.
+      const neus = (x: number) => yb + ((t.x + t.w - x) / t.w) * FH;
+      const xa = t.x, xb = t.x + t.w, zb0 = z1 - 0.05, zb1 = z1;
+      B.vast.hexa("trapzij", [
+        [xa, neus(xa) - 0.2, zb0], [xb, neus(xb) - 0.2, zb0], [xb, neus(xb) - 0.2, zb1], [xa, neus(xa) - 0.2, zb1],
+        [xa, neus(xa) + 0.08, zb0], [xb, neus(xb) + 0.08, zb0], [xb, neus(xb) + 0.08, zb1], [xa, neus(xa) + 0.08, zb1],
+      ]);
+      if (!leuning) return;
+      // Leuning op 90 cm boven de neuzen, met een spijl op elke tweede trede.
+      const lh = 0.9, rz0 = z1 - 0.045, rz1 = z1 - 0.005;
+      B.vast.hexa("leuning", [
+        [xa, neus(xa) + lh, rz0], [xb, neus(xb) + lh, rz0], [xb, neus(xb) + lh, rz1], [xa, neus(xa) + lh, rz1],
+        [xa, neus(xa) + lh + 0.05, rz0], [xb, neus(xb) + lh + 0.05, rz0], [xb, neus(xb) + lh + 0.05, rz1], [xa, neus(xa) + lh + 0.05, rz1],
+      ]);
+      for (let i = 0; i < treden; i += 2) {
+        const x = t.x + t.w - aan * (i + 0.5);
+        B.vast.blok("leuning", x - 0.015, x + 0.015, yb + op * (i + 1), neus(x) + lh, rz0 + 0.005, rz1 - 0.005);
+      }
+    };
     for (const t of laagTrappen) {
-      const treden = 13, aan = t.w / treden, op = FH / treden;
       if (t.op) {
-        for (let i = 0; i < treden; i++) {
-          const top = op * (i + 1), x0 = t.x + aan * i;
-          if (top <= HC + 0.01) B.vast.blok("trede", x0, t.x + t.w, yf + top - op, yf + top, t.z, t.z + t.l);
-          else B.vast.blok("leuning", x0, x0 + 0.015, yf, yf + 0.006, t.z, t.z + t.l);
-        }
+        echteTrap(t, yf, true);
       } else {
         // Trapgat: de trap van de laag eronder loopt zichtbaar naar beneden.
-        for (let i = 0; i < treden; i++) {
-          const top = yf - FH + op * (i + 1), x0 = t.x + aan * i;
-          B.vast.blok("trede", x0, t.x + t.w, top - op, top, t.z, t.z + t.l);
-        }
+        echteTrap(t, yf - FH, false);
         const spijlen = Math.max(3, Math.round(t.w / 0.5));
         B.vast.blok("leuning", t.x, t.x + t.w, yf + 0.86, yf + 0.92, t.z + t.l - 0.05, t.z + t.l);
         for (let i = 0; i <= spijlen; i++) {
