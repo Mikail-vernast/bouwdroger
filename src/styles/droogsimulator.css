@@ -26,7 +26,11 @@
   waarde na het laden; dit is de standaard voor de geprerenderde HTML.
 */
 .ds-sim{--kop:161px;--kop-marge:161px}
-@media (max-width:900px){.ds-sim{--kop:96px;--kop-marge:0px}}
+/* gsm: de simulator is een conversiepagina — geen sitemenu en geen footer, alle hoogte voor huis en vraag */
+@media (max-width:899px){
+  .ds-sim{--kop:0px;--kop-marge:0px}
+  .ds-sim > header.hdr,.ds-sim > footer.site{display:none}
+}
 .ds-app{height:calc(100vh - var(--kop));height:calc(100dvh - var(--kop));margin-top:var(--kop-marge);display:grid;grid-template-rows:minmax(0,1fr);overflow:hidden}
 
 .ds-main{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;padding:16px 20px 20px;min-height:0;max-width:1600px;width:100%;margin:0 auto}
@@ -221,8 +225,9 @@
 
 /* ───── tablet staand en gsm: tekening boven, vraag eronder ───── */
 @media (max-width:899px){
-  /* het rode paneel is op elke stap even hoog — geen verspringen tussen de vragen */
-  .ds-main,.ds-sim[data-stap] .ds-main{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,var(--ds-stage-fr,50fr)) minmax(0,var(--ds-panel-fr,50fr));gap:10px;padding:10px 12px 12px}
+  /* het rode paneel is op elke stap even hoog — geen verspringen tussen de vragen. Zo hoog als
+     de zwaarste vraag nodig heeft (360–420 px), de tekening krijgt al de rest. */
+  .ds-main,.ds-sim[data-stap] .ds-main{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) var(--ds-panel-h,clamp(360px,calc(50dvh - 10px),420px));gap:10px;padding:10px 12px 12px}
   /* legende is te klein voor een gsm, en in het droogplan staat de prijs al groot in het paneel */
   .ds-cart{display:none}
   /* de doorsnede van muur en vloer past niet naast de tekening */
@@ -266,7 +271,7 @@
 }
 /* kleine gsm (SE, kleine Android): de tekening wordt een strook, de vraag krijgt de ruimte */
 @media (max-width:899px) and (max-height:740px){
-  .ds-main,.ds-sim[data-stap] .ds-main{grid-template-rows:minmax(0,24fr) minmax(0,76fr);gap:8px;padding:8px 10px 10px}
+  .ds-main,.ds-sim[data-stap] .ds-main{gap:8px;padding:8px 10px 10px}
   .ds-eyebrow{display:none}
   .ds-stitel{font-size:15px}
   .ds-stage{padding:8px 12px}
