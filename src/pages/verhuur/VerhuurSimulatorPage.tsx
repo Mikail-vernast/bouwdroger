@@ -4,6 +4,7 @@ import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import IsoHouse from "@/components/simulator/IsoHouse";
+import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
 import { materiaalVoor } from "@/components/simulator/materiaal";
 import { Doorsnede2 } from "@/components/simulator/PaneelArt";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
@@ -589,7 +590,7 @@ const VerhuurSimulatorPage = () => {
             </div>
 
             <div className="ds-canvas">
-              <IsoHouse
+              <IsoHouseAuto
                 woning={woning}
                 verdiepingen={lagen}
                 dak={dak}

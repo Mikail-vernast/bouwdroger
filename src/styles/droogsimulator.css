@@ -765,3 +765,11 @@
   .ds-hk small{display:none}
   .ds-hkset{gap:5px}
 }
+
+/* ───── 3D-woning (IsoHouse3D) ───── */
+.ds-iso3d{transition:opacity .4s ease}
+.ds-iso3d canvas{display:block}
+.ds-iso3d--laden{opacity:0}
+.ds-labels3d{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.ds-kamerlabel3d{position:absolute;left:0;top:0;font-family:var(--fm);font-size:clamp(6px,calc(var(--zl,40) * .27px),11px);font-weight:600;letter-spacing:.12em;color:#1a1a1acc;white-space:nowrap;text-shadow:0 0 2px #f7f3ec,0 0 4px #f7f3ec,0 0 8px #f7f3ecaa;will-change:transform,opacity}
+.ds-kamerlabel3d--gang{color:#1a1a1a80;font-size:clamp(5px,calc(var(--zl,40) * .22px),9px)}
