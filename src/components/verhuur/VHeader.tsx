@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 import { ALLES_OVER_DROGEN, TOESTELLEN } from "@/data/navigation";
-import "@/styles/mega-kennis.css";
+import "@/styles/mega-menu.css";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
 
 /** Onder deze offset blijft de balk altijd staan, ongeacht de scrollrichting. */
@@ -96,10 +96,10 @@ const VHeader = () => {
               Bouwdroging
               <CaretIcon className="caret" />
               <div className="mega-panel">
-                <div className="mega-cols">
-                  <div className="mcol">
-                    <span className="mlab">Pakketten</span>
-                    <ul>
+                <div className="mmv-cols">
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Pakketten</span>
+                    <ul className="mmv-lijst">
                       <li>
                         <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
                       </li>
@@ -117,9 +117,9 @@ const VHeader = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Toestellen</span>
-                    <ul>
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Toestellen</span>
+                    <ul className="mmv-lijst">
                       {TOESTELLEN.map((item) => (
                         <li key={item.path}>
                           <Link to={item.path}>{item.label}</Link>
@@ -127,9 +127,9 @@ const VHeader = () => {
                       ))}
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Service</span>
-                    <ul>
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Service</span>
+                    <ul className="mmv-lijst">
                       <li>
                         <Link to="/#levering">Levering &amp; installatie</Link>
                       </li>
@@ -173,11 +173,11 @@ const VHeader = () => {
                 bron als de footer en het mobiele menu.
               */}
               <div className="mega-panel kennis">
-                <div className="mega-cols">
+                <div className="mmv-cols">
                   {ALLES_OVER_DROGEN.map((groep) => (
-                    <div className="mcol" key={groep.titel}>
-                      <span className="mlab">{groep.titel}</span>
-                      <ul>
+                    <div className="mmv-groep" key={groep.titel}>
+                      <span className="mmv-kop">{groep.titel}</span>
+                      <ul className="mmv-lijst">
                         {groep.items.map((item) => (
                           <li key={item.path}>
                             <Link to={item.path}>{item.label}</Link>
