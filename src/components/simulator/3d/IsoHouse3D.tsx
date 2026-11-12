@@ -26,7 +26,8 @@ import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { richIn } from "./inrichting";
-import { Druppels3D, Luchtstroom3D, Toestel3D, Vocht3D } from "./onderdelen";
+import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, Vocht3D, type Geplaatst } from "./onderdelen";
+import { aankomst, type Film } from "../film";
 
 /*
   De droogsimulator-woning in echte 3D.
@@ -869,7 +870,21 @@ function Scene(props: SceneProps) {
   });
 
   const droogt = werkend && !reduced;
-  const laagPlaatsingen = plaatsingen.filter((p) => actKamers.some((k) => k.id === p.kamer));
+  // De toestellen van deze verdieping in de volgorde waarin ze neergezet worden:
+  // van achter naar voor, zodat de film over de vloer naar de kijker toe loopt.
+  const laagPlaatsingen = useMemo<Geplaatst[]>(() => {
+    const plek = (p: (typeof plaatsingen)[number]) => {
+      const k = actKamers.find((kk) => kk.id === p.kamer)!;
+      return k.z + p.z + (k.x + p.x) * 0.3;
+    };
+    const volgorde = plaatsingen.filter((p) => actKamers.some((k) => k.id === p.kamer)).sort((a, b) => plek(a) - plek(b));
+    return volgorde.map((p, i) => ({ ...p, a: aankomst(i, volgorde.length) }));
+  }, [plaatsingen, actKamers]);
+  // Filmklok: begint opnieuw bij elke verdieping (en elk nieuw pakket).
+  const film = useRef<Film>({ start: -1, vast: reduced });
+  useLayoutEffect(() => {
+    film.current = { start: -1, vast: reduced };
+  }, [act, werkend, laagPlaatsingen, reduced]);
 
   return (
     <>
@@ -910,16 +925,19 @@ function Scene(props: SceneProps) {
 
       {actKamers.length > 0 && (
         <>
-          <Vocht3D kamers={actKamers} w={w} l={l} yf={yfAct} H={H} vocht={materiaal.vocht} muurNat={materiaal.muurNat} vloerNat={materiaal.vloerNat} droogt={droogt} cyclus={cyclus} />
+          <Vocht3D kamers={actKamers} w={w} l={l} yf={yfAct} H={H} vocht={materiaal.vocht} muurNat={materiaal.muurNat} vloerNat={materiaal.vloerNat} droogt={droogt} cyclus={cyclus} film={film} />
           <group ref={inrichtingRef}>
             <Meshes geos={inrichting} mats={sets.vast} />
           </group>
+          <Suspense fallback={null}>
+          <FilmStart film={film} />
           {laagPlaatsingen.map((p, i) => {
             const k = actKamers.find((kk) => kk.id === p.kamer)!;
-            return <Toestel3D key={`${p.k}-${i}`} k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} n={p.n + i} werkend={droogt} cyclus={cyclus} />;
+            return <Toestel3D key={`${act}-${p.k}-${i}`} k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} cyclus={cyclus} />;
           })}
-          {droogt && <Luchtstroom3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} />}
-          {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} />}
+          </Suspense>
+          {droogt && <Luchtstroom3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} film={film} cyclus={cyclus} />}
+          {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} film={film} cyclus={cyclus} />}
         </>
       )}
     </>

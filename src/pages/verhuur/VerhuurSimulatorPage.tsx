@@ -5,6 +5,7 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import IsoHouse from "@/components/simulator/IsoHouse";
 import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
+import { FILM_START, droogVoortgang } from "@/components/simulator/film";
 import { materiaalVoor } from "@/components/simulator/materiaal";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
 import {
@@ -54,7 +55,7 @@ import "@/styles/droogsimulator.css";
 */
 
 /** Eén droogcyclus in de animatie, in seconden. */
-const CYCLUS = 10;
+const CYCLUS = 12;
 
 const STAPPEN = ["Woning", "Verdiepingen", "Materiaal", "Bouwfase", "Droogplan"];
 const WONINGEN: Woning[] = ["rijwoning", "halfopen", "open", "appartement"];
@@ -920,12 +921,19 @@ function DagTeller({ dagen, cyclus, vocht }: { dagen: number; cyclus: number; vo
       setT(1);
       return;
     }
-    const start = performance.now();
+    // Zelfde filmklok als de 3D-woning: eerst de toestellen neerzetten, dan drogen.
+    // De 3D meldt wanneer zijn film echt begint (na het laden van de modellen);
+    // zonder 3D (SVG) telt hij vanaf nu.
+    let start = performance.now();
+    const opStart = (e: Event) => { start = (e as CustomEvent<number>).detail; };
+    window.addEventListener(FILM_START, opStart);
     const id = window.setInterval(() => {
-      // De sluier droogt in de eerste 80% van de cyclus en blijft dan even staan.
-      setT(Math.min(1, ((performance.now() - start) % (cyclus * 1000)) / (cyclus * 800)));
+      setT(droogVoortgang(Math.max(0, (performance.now() - start) / 1000) % cyclus, cyclus));
     }, 120);
-    return () => window.clearInterval(id);
+    return () => {
+      window.clearInterval(id);
+      window.removeEventListener(FILM_START, opStart);
+    };
   }, [cyclus]);
   const dag = Math.max(1, Math.round(t * dagen));
   const rest = vocht * (1 - t);
