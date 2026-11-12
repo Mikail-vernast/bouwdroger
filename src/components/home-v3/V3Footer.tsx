@@ -116,10 +116,10 @@ const V3Footer = () => (
           vielen er vijf van de vijf over elkaar; nu een punt dat zijn naam
           toont zodra je hem aanwijst.
         */}
-        <div className="kaartkolom">
-          <div className="kaart" aria-hidden="true">
+        <div className="ft-kaartkolom">
+          <div className="ft-kaart" aria-hidden="true">
             {REGIO_ROUTES.map((regio) => (
-              <Link key={regio.slug} className="pin" to={regio.path} tabIndex={-1} style={regio.pin}>
+              <Link key={regio.slug} className="ft-pin" to={regio.path} tabIndex={-1} style={regio.pin}>
                 <span>{regio.name}</span>
               </Link>
             ))}
@@ -132,7 +132,7 @@ const V3Footer = () => (
         wegvalt tussen de rest. Elk gegeven met zijn eigen label — dat is ook
         wat een AI-antwoordmachine eruit moet kunnen halen.
       */}
-      <dl className="feiten">
+      <dl className="ft-feiten">
         <div>
           <dt>Bereikbaar</dt>
           <dd>
@@ -161,7 +161,7 @@ const V3Footer = () => (
         <div>
           <dt>Werkgebied</dt>
           <dd>
-            <nav className="prov" aria-label="Werkgebied">
+            <nav className="ft-prov" aria-label="Werkgebied">
               {REGIO_ROUTES.map((regio) => (
                 <Link key={regio.slug} to={regio.path}>
                   {regio.name}
