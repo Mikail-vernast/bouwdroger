@@ -944,3 +944,15 @@
   .ds-laagk-inh{gap:5px;padding:7px 9px}
 }
 @media (prefers-reduced-motion:reduce){.ds-laagk,.ds-laagk-foto img,.ds-ware-lat i{animation:none;transition:none}}
+
+/* ── lat op ware grootte = schuif ──
+   Een onzichtbare native range over de lat (slepen, toetsenbord, schermlezer);
+   het greepje aan het eind van de witte lat toont dat je hem kan verzetten. */
+.ds-ware-lat{overflow:visible}
+.ds-ware-schuif{position:absolute;inset:-8px 0;width:100%;height:calc(100% + 16px);margin:0;opacity:0;cursor:ew-resize;-webkit-appearance:none;appearance:none;background:transparent;touch-action:none}
+.ds-ware-schuif::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:46px;cursor:ew-resize}
+.ds-ware-schuif::-moz-range-thumb{width:32px;height:46px;border:0;cursor:ew-resize}
+.ds-ware-lat i::after{content:"";position:absolute;right:5px;top:50%;width:6px;height:52%;max-height:14px;transform:translateY(-50%);border-left:2px solid rgba(90,58,42,.35);border-right:2px solid rgba(90,58,42,.35)}
+.ds-ware-lat:has(.ds-ware-schuif:hover) i,.ds-ware-lat:has(.ds-ware-schuif:active) i{box-shadow:0 0 0 2px rgba(255,255,255,.35),0 6px 18px -8px rgba(0,0,0,.8)}
+.ds-ware-lat:has(.ds-ware-schuif:focus-visible){outline:2px solid #fff;outline-offset:3px}
+.ds-laagk.uit .ds-ware-schuif{pointer-events:none}

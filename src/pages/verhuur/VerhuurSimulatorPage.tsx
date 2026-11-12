@@ -787,7 +787,10 @@ function LaagKaart({ laag, gekozen, onKies }: { laag: "pd" | "cd"; gekozen: stri
         <p className="ds-laagk-wat">{L.wat}</p>
         <div className="ds-ware" style={{ "--max": max } as CSSProperties}>
           <em>≈ ware grootte, in cm</em>
-          <div className="ds-ware-lat"><i style={{ width: `calc(${cm}cm * var(--s))` }} /></div>
+          <div className="ds-ware-lat">
+            <i style={{ width: `calc(${cm}cm * var(--s))` }} />
+            <WareSchuif laag={laag} cm={cm} max={max} onKies={onKies} />
+          </div>
           <div className="ds-ware-schaal">{Array.from({ length: max + 1 }, (_, i) => <span key={i}>{i}</span>)}</div>
           <div className="ds-ware-droog" aria-hidden={!droog}>
             <span className="bol"><Vink grootte={14} /></span>
@@ -818,6 +821,42 @@ function LaagKaart({ laag, gekozen, onKies }: { laag: "pd" | "cd"; gekozen: stri
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * De lat op ware grootte als schuif: een onzichtbare native range erover, zodat
+ * slepen, toetsenbord en schermlezer gewoon werken. Hij springt naar "geen" of
+ * naar een catalogusmaat: andere diktes kent de berekening niet.
+ */
+function WareSchuif({ laag, cm, max, onKies }: { laag: "pd" | "cd"; cm: number; max: number; onKies: (v: string) => void }) {
+  const L = LAAG[laag];
+  const stops: { cm: number; v: string }[] = [{ cm: 0, v: "geen" }, ...L.waarden.map((v) => ({ cm: Number(v), v }))];
+  const dichtst = (x: number) => stops.reduce((b, s) => (Math.abs(s.cm - x) < Math.abs(b.cm - x) ? s : b), stops[0]);
+  const huidig = stops.findIndex((s) => s.cm === cm);
+  const naar = (i: number) => onKies(stops[Math.max(0, Math.min(stops.length - 1, i))].v);
+  return (
+    <input
+      type="range"
+      className="ds-ware-schuif"
+      min={0}
+      max={max}
+      step={0.05}
+      value={cm}
+      aria-label={`Dikte ${L.titel.toLowerCase()} in cm`}
+      aria-valuetext={cm === 0 ? "niet nat" : `${cm} cm`}
+      onChange={(e) => {
+        const s = dichtst(Number(e.target.value));
+        if (s.cm !== cm) onKies(s.v);
+      }}
+      onKeyDown={(e) => {
+        // Pijltjes: naar de vorige of volgende maat, niet per 0,05 cm.
+        const d = e.key === "ArrowRight" || e.key === "ArrowUp" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        naar((huidig < 0 ? stops.indexOf(dichtst(cm)) : huidig) + d);
+      }}
+    />
   );
 }
 

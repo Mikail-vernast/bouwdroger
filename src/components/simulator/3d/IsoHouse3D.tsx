@@ -242,17 +242,33 @@ function bouw(p: Woningplan) {
   const gevelGaten = (g: Gevel, v: number, yf: number) => {
     const gaten: (Gat & { soort: "raam" | "deur"; kalf: number; stijl: boolean })[] = [];
     if (g === "voor") {
-      const deur = v === 0 && voordeur && woning !== "appartement" ? voordeur : null;
-      const n = w < 9.5 ? 2 : 3;
-      const start = deur ? deur.tot + 0.5 : 0;
-      const aantal = deur ? Math.max(1, n - 1) : n;
-      const stapw = (w - start) / aantal;
-      const bw = Math.min(deur ? 1.6 : 1.15, stapw * 0.6);
-      for (let i = 0; i < aantal; i++) {
-        const cx = start + stapw * (i + 0.5);
+      // Eén kolomraster voor alle bouwlagen, zoals bij een echte gevel: de ramen
+      // staan recht boven elkaar en zijn overal even breed. De deurkolom ligt vast
+      // (gelijkvloers: de voordeur, erboven een smal raam); de andere kolommen
+      // verdelen de rest van de gevel gelijk.
+      const deurKolom = voordeur && woning !== "appartement" ? voordeur : null;
+      const n = w < 7 ? 2 : w < 9.5 ? 3 : 4;
+      let kolommen: number[];
+      let stapw: number;
+      if (deurKolom) {
+        const links = deurKolom.van - 0.3, rechts = w - (deurKolom.tot + 0.3);
+        const [s0, s1] = rechts >= links ? [deurKolom.tot + 0.3, w] : [0, deurKolom.van - 0.3];
+        stapw = (s1 - s0) / (n - 1);
+        kolommen = Array.from({ length: n - 1 }, (_, i) => s0 + stapw * (i + 0.5));
+      } else {
+        stapw = w / n;
+        kolommen = Array.from({ length: n }, (_, i) => stapw * (i + 0.5));
+      }
+      const bw = Math.min(1.3, stapw * 0.58);
+      for (const cx of kolommen) {
         gaten.push({ a0: cx - bw / 2, a1: cx + bw / 2, b0: yf + 0.75, b1: yf + 2.3, soort: "raam", kalf: 0.5, stijl: bw > 0.9 });
       }
-      if (deur) gaten.push({ a0: deur.van - 0.06, a1: deur.tot + 0.06, b0: yf, b1: yf + 2.3, soort: "deur", kalf: 0, stijl: false });
+      if (deurKolom && v === 0) {
+        gaten.push({ a0: deurKolom.van - 0.06, a1: deurKolom.tot + 0.06, b0: yf, b1: yf + 2.3, soort: "deur", kalf: 0, stijl: false });
+      } else if (deurKolom) {
+        const dc = (deurKolom.van + deurKolom.tot) / 2, dw = Math.min(bw, deurKolom.tot - deurKolom.van + 0.12);
+        gaten.push({ a0: dc - dw / 2, a1: dc + dw / 2, b0: yf + 0.75, b1: yf + 2.3, soort: "raam", kalf: 0.5, stijl: false });
+      }
     } else if (buren !== 2) {
       const n = l > 10.5 ? 2 : 1;
       for (let i = 0; i < n; i++) {
@@ -705,7 +721,9 @@ function Scene(props: SceneProps) {
     const c = zon.shadow.camera;
     c.left = -r; c.right = r; c.top = r; c.bottom = -r; c.near = 1; c.far = 80;
     c.updateProjectionMatrix();
-    zon.position.set(w / 2 - 7, 22, l / 2 + 13);
+    // Zon rechtsvoor en hoog: de binnenmuren die je in een opengewerkte laag ziet
+    // (achter en links) staan in het licht, en de slagschaduw valt achter de woning.
+    zon.position.set(w / 2 + 11, 24, l / 2 + 6);
     zon.target.position.set(w / 2, 0, l / 2);
     zon.target.updateMatrixWorld();
   }, [zon, w, l]);
