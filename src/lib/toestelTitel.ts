@@ -65,5 +65,26 @@ export function toestelTitel({ short, type, day, spec }: ToestelTitelInput): str
   if (eenheid && !zitInNaam) delen.push(`${waarde} ${eenheid}`);
   if (day > 0) delen.push(`${dagprijs(day)}/dag`);
 
-  return `${naam} huren${delen.length ? ` — ${delen.join(", ")}` : ""} | Vernast`;
+  const bouw = (stukken: string[]) =>
+    `${naam} huren${stukken.length ? ` — ${stukken.join(", ")}` : ""} | Vernast`;
+
+  /*
+    Google kapt een titel af rond 60 tekens, dus die grens is hard. Tot 11-2026
+    paste alles omdat de toestellen hun typenummer droegen ("TTK 350 S"); met
+    de namen uit het portaal ("Eco Performance") liep diezelfde titel op 63 uit
+    en viel ", € 12/dag" buiten beeld -- juist het stuk waarvoor het in de titel
+    staat.
+
+    Daarom kort hij zichzelf in: past hij niet, dan valt eerst de specificatie
+    weg en blijft de dagprijs staan. De prijs is de vraag van de zoeker; de
+    vochtafvoer staat even verderop op de pagina zelf. Past zelfs dat niet, dan
+    blijft de kale naam over -- dan is er een naam gepubliceerd die hier
+    sowieso niet in past, en is afkappen erger dan weglaten.
+  */
+  const MAX = 60;
+  for (const poging of [delen, delen.slice(-1), []]) {
+    const titel = bouw(poging);
+    if (titel.length <= MAX) return titel;
+  }
+  return bouw([]);
 }

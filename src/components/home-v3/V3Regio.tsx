@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "./icons";
 
 interface Region {
   name: string;
-  /** Pin position over the map of Flanders. */
+  /** Pin position over the map of all of Belgium. */
   pin: CSSProperties;
   towns: string[];
   /** The region's own page, when it has one. Brussel has none (yet). */
@@ -19,7 +19,10 @@ interface Region {
 */
 const BRUSSEL: Region = {
   name: "Brussel",
-  pin: { left: "33%", top: "53%" },
+  // Brussel ligt midden in Vlaams-Brabant, dus de twee spelden kunnen niet
+  // allebei exact staan zonder over elkaar te vallen. Deze staat net ten
+  // zuidwesten van die van de provincie, in de richting van Halle.
+  pin: { left: "43%", top: "41%" },
   towns: [
     "Brussel-stad", "Schaarbeek", "Anderlecht", "Ukkel", "Elsene", "Etterbeek", "Jette", "Evere",
     "Vorst", "Sint-Gillis", "Molenbeek", "Laken", "Woluwe", "Oudergem", "Ganshoren", "Koekelberg",

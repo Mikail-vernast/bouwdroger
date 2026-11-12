@@ -1,0 +1,757 @@
+/* ============================================================
+   De v3-vormtaal voor inhoudspagina's — één bestand, gescoped onder `.v3c`.
+
+   Waarom gedeeld en niet per pagina: elke pagina die uit de Claude
+   Design-handoff kwam (klantservice, contact, over-ons, drooggarantie,
+   hoe-drogen-werkt, waarom-bouwdroging, levering, privacy, …) draagt een
+   eigen kopie van exact dezelfde header-, knop- en sectieregels onder een
+   eigen wortel. Dat zijn elf kopieën die uiteen kunnen groeien, en dat gebeurde
+   ook: /levering miste de `h2`-regel van de footer tot die opmaak naar
+   <V3Footer> zelf verhuisde (zie src/styles/site-footer.css).
+
+   Die les geldt hier opnieuw. De pagina's die in november 2026 van de oude
+   shadcn-schil naar de v3-vormtaal gingen — /renovatie, /nieuwbouw,
+   /waterschade, /machines, /prijzen en de regiopagina's — delen daarom deze
+   ene stylesheet. Een pagina zet `className="v3c <eigen-wortel>"` en voegt in
+   een eigen bestand alleen toe wat echt nieuw is.
+
+   Wat hier staat:
+     1. tokens en basis
+     2. de headerchrome die <V3Header> nodig heeft (zijn markup is anders
+        kaal — de footer draagt zijn opmaak zelf, de header nog niet)
+     3. de secties en bouwblokken van de vormtaal
+
+   Niet hier: de scroll-animatie. Die hangt aan <Reveal> (src/index.css), want
+   de pagina's worden geprerenderd en een begintoestand in de HTML maakt de
+   inhoud onzichtbaar voor wie geen JavaScript uitvoert. Zie CLAUDE.md.
+   ============================================================ */
+
+.v3c *,
+.v3c *::before,
+.v3c *::after { box-sizing: border-box }
+
+.v3c {
+  --red:#C8102E;--maroon:#6B0F13;--maroon-d:#5A0C10;
+  --txt:#141414;--txt-mid:rgba(20,20,20,.62);--txt-dim:rgba(20,20,20,.42);
+  --line:rgba(20,20,20,.1);--line-2:rgba(20,20,20,.18);
+  --page:#fff;--bg-alt:#F4F4F4;--ok:#1E9E50;--warn:#B45309;
+  --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
+  --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,monospace;
+  --wrap:1260px;
+  margin:0;padding:0;
+  background:var(--page);color:var(--txt);font-family:var(--fb);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+
+.v3c h1,.v3c h2,.v3c h3,.v3c h4{margin:0;letter-spacing:-.02em}
+.v3c a{color:var(--red);text-decoration:none}
+.v3c a:hover{color:#a80d26}
+.v3c .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+
+/* ---- tekstprimitieven ---- */
+.v3c .kick{display:inline-block;font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.v3c .sec{font-family:var(--fd);font-weight:800;font-size:clamp(28px,3.2vw,42px);line-height:1.08;letter-spacing:-.025em;text-wrap:balance;color:var(--txt)}
+.v3c .lede{font-size:15.5px;color:var(--txt-mid);line-height:1.7;max-width:640px;margin:14px 0 0}
+.v3c .sec-head{max-width:760px;margin-bottom:40px}
+.v3c .sec-head.mid{max-width:760px;margin-left:auto;margin-right:auto;text-align:center}
+.v3c .sec-head.mid .lede{margin-left:auto;margin-right:auto}
+
+/* ---- knoppen ---- */
+.v3c .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--fb);font-weight:700;font-size:15px;padding:15px 28px;border-radius:99px;border:0;cursor:pointer;text-decoration:none;transition:all .15s;background:var(--red);color:#fff}
+.v3c .btn:hover{background:#a80d26;color:#fff}
+.v3c .btn-white{background:#fff;color:var(--red)}
+.v3c .btn-white:hover{background:rgba(255,255,255,.88);color:#a80d26}
+.v3c .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff}
+.v3c .btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+.v3c .btn-line{background:transparent;border:1.5px solid var(--line-2);color:var(--txt)}
+.v3c .btn-line:hover{background:var(--bg-alt);color:var(--txt)}
+
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* ============ HEADER ============
+   De markup komt van <V3Header>; zonder deze regels staat de balk kaal op de
+   pagina. Gelijk aan de kopie in hoe-drogen-werkt.css, inclusief de
+   `width:auto` op het logo: de <img> draagt `width={1600}`, en met alleen een
+   hoogte rekt dat attribuut het logo over de hele pil tot het menu overlapt. */
+.v3c .hdr{position:fixed;top:0;left:0;right:0;z-index:80;background:transparent;transition:transform .34s cubic-bezier(.4,0,.2,1)}
+.v3c .hdr.tucked{transform:translateY(-100%)}
+.v3c .hdr.onlight .topline,
+.v3c .hdr.onlight .topline a,
+.v3c .hdr.onlight .topline span,
+.v3c .hdr.onlight .tl-right{color:rgba(20,20,20,.78)}
+.v3c .hdr.onlight .topline a:hover{color:#141414}
+.v3c .hdr.onlight .tl-left svg{color:rgba(20,20,20,.5)}
+.v3c .hdr.onlight .navpill{background:rgba(255,255,255,.74);border-color:rgba(20,20,20,.12);box-shadow:0 14px 38px -18px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.65)}
+.v3c .hdr.onlight .nav-menu>.item{color:#141414}
+.v3c .hdr.onlight .nav-menu>.item:hover{background:rgba(20,20,20,.07)}
+.v3c .hdr.onlight .cart{color:#141414}
+.v3c .hdr.onlight .cart:hover{background:rgba(20,20,20,.07);color:#141414}
+.v3c .hdr .topline,
+.v3c .hdr .navrow{position:relative;z-index:2}
+.v3c .navpill{background:rgba(30,10,12,.34);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,255,255,.24);box-shadow:0 14px 38px -18px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.22)}
+.v3c .hdr .topline{display:flex;align-items:center;justify-content:space-between;padding:34px 0 18px;font-size:14px;color:rgba(255,255,255,.72);flex-wrap:wrap;gap:10px;transition:opacity .3s,margin .3s,padding .3s;max-height:70px}
+.v3c .hdr.scrolled .topline{opacity:0;max-height:0;padding-top:10px;padding-bottom:0;overflow:hidden;pointer-events:none}
+.v3c .hdr .tl-left{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+.v3c .hdr .tl-left a,
+.v3c .hdr .tl-left span{display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.8)}
+.v3c .hdr .tl-left a:hover{color:#fff}
+.v3c .hdr .tl-left svg{color:rgba(255,255,255,.55)}
+.v3c .hdr .tl-right{display:inline-flex;align-items:center;gap:9px;color:rgba(255,255,255,.86);font-size:14px}
+.v3c .hdr .tl-right .dot{width:9px;height:9px;border-radius:50%;background:#3fbf63}
+.v3c .hdr .navrow{padding:0 0 22px;display:flex;align-items:center;gap:14px}
+.v3c .hdr .navrow .navpill{flex:1;min-width:0}
+.v3c .navpill{display:flex;align-items:center;justify-content:space-between;gap:18px;border-radius:18px;padding:11px 11px 11px 24px;position:relative}
+.v3c .navpill .nav-logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.v3c .navpill .nav-logo img{height:21px;width:auto}
+.v3c .nav-menu{display:flex;align-items:center;gap:0;flex:1;min-width:0;justify-content:flex-end;position:static}
+.v3c .nav-menu>.item{position:relative;display:inline-flex;align-items:center;gap:6px;padding:10px 11px;font-size:14.5px;font-weight:500;color:#fff;border-radius:10px;cursor:pointer;transition:background .15s;white-space:nowrap}
+.v3c .nav-menu>.item:hover{background:rgba(255,255,255,.09)}
+.v3c .nav-menu>.item .caret{width:11px;height:11px;opacity:.65;transition:transform .18s}
+.v3c .nav-menu>.item.has-sub:hover .caret{transform:rotate(180deg)}
+.v3c .submenu{position:absolute;top:calc(100% + 8px);left:0;min-width:250px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 24px 50px -18px rgba(0,0,0,.4);opacity:0;visibility:hidden;transform:translateY(7px);transition:opacity .16s,transform .16s,visibility .16s;z-index:90}
+.v3c .nav-menu>.item:hover .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.v3c .submenu a{display:flex;flex-direction:column;gap:2px;padding:10px 13px;font-size:14px;color:var(--txt);border-radius:9px;transition:background .15s,color .15s}
+.v3c .submenu a:hover{background:var(--bg-alt);color:var(--red)}
+.v3c .submenu a small{font-size:11.5px;color:var(--txt-dim)}
+.v3c .nav-menu>.item.mega{position:static}
+.v3c .nav-menu>.item.mega:hover{background:rgba(255,255,255,.14)}
+.v3c .mega-panel{position:absolute;top:calc(100% + 12px);left:0;width:100%;background:#fff;border-radius:20px;padding:26px 30px 0;box-shadow:0 30px 70px -22px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .18s,transform .18s,visibility .18s;z-index:95}
+.v3c .nav-menu>.item.mega:hover .mega-panel{opacity:1;visibility:visible;transform:none}
+.v3c .mega-cols{display:flex;flex-wrap:wrap;gap:28px 56px}
+.v3c .mcol .mlab{display:inline-block;background:var(--maroon);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;padding:9px 15px;border-radius:9px;margin-bottom:16px}
+.v3c .mcol ul{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:11px}
+.v3c .mcol ul:last-child{margin-bottom:0}
+.v3c .mcol ul a{font-size:14.5px;color:var(--txt);transition:color .14s,padding-left .14s;display:block}
+.v3c .mcol ul a:hover{color:var(--red);padding-left:4px}
+.v3c .mega-foot{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:24px;padding:20px 0 24px;border-top:1px solid var(--line)}
+.v3c .mega-foot .mft b{display:block;font-size:14.5px;font-weight:600;margin-bottom:3px}
+.v3c .mega-foot .mft span{font-size:13.5px;color:var(--txt-mid)}
+.v3c .btn-offerte{display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;font-weight:600;font-size:15px;padding:13px 28px;border-radius:99px;white-space:nowrap;box-shadow:0 10px 26px -10px rgba(200,16,46,.85);transition:transform .16s,background .16s}
+.v3c .btn-offerte:hover{transform:translateY(-2px);color:#fff;background:#a80d26}
+.v3c .hdr .cart{position:relative;width:38px;height:38px;display:grid;place-items:center;color:rgba(255,255,255,.85);border-radius:10px;transition:background .15s,color .15s;flex-shrink:0}
+.v3c .hdr .cart:hover{background:rgba(255,255,255,.1);color:#fff}
+.v3c .hdr .cart i{position:absolute;top:1px;right:0;min-width:17px;height:17px;border-radius:99px;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;font-style:normal;padding:0 4px}
+
+@media (max-width:660px){
+  .v3c .nav-menu,
+  .v3c .hdr .tl-left{display:none}
+  .v3c .hdr .tl-right{margin:0 auto}
+}
+
+/* Een anker mag niet onder de vaste balk landen. */
+.v3c section[id],
+.v3c article[id],
+.v3c div[id]{scroll-margin-top:104px}
+
+/* ============ SECTIES ============ */
+.v3c .redtop{background:var(--maroon-d) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;color:#fff;overflow:hidden}
+.v3c .sw{padding:88px 0;background:#fff}
+.v3c .sw2{padding:88px 0;background:var(--bg-alt)}
+.v3c .sr{padding:88px 0;background:var(--maroon-d) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;color:#fff;overflow:hidden}
+.v3c .sr .kick{color:rgba(255,255,255,.75)}
+.v3c .sr .sec{color:#fff}
+.v3c .sr .lede{color:rgba(255,255,255,.78)}
+.v3c .sw .lede a,.v3c .sw p a,.v3c .sw2 .lede a,.v3c .sw2 p a{color:var(--red);font-weight:600;text-decoration:underline;text-decoration-color:rgba(200,16,46,.35);text-underline-offset:3px}
+.v3c .sr .lede a,.v3c .sr p a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
+
+/* ============ HERO ============ */
+.v3c .hero{padding:200px 0 0;position:relative}
+.v3c .hero-copy{padding-bottom:84px}
+.v3c .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:56px;align-items:end}
+@media (max-width:1040px){.v3c .hero-grid{grid-template-columns:1fr}.v3c .hero-vis{display:none}}
+.v3c .hero .kick{color:rgba(255,255,255,.75)}
+.v3c .hero h1{font-family:var(--fd);font-weight:800;font-size:clamp(32px,4vw,54px);line-height:1.05;letter-spacing:-.035em;color:#fff;text-wrap:balance}
+.v3c .hero p{font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.8);max-width:640px;margin:18px 0 0}
+.v3c .hbadges{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.v3c .hbadges span{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--txt);font-size:13.5px;font-weight:700;padding:10px 16px;border-radius:99px}
+.v3c .hbadges span svg{color:var(--ok)}
+.v3c .hero .hcta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.v3c .hero-vis{position:relative;display:flex;justify-content:center;align-items:flex-end;align-self:end}
+.v3c .hero-vis img{display:block;width:min(100%,440px);margin-bottom:-1px;filter:drop-shadow(0 28px 36px rgba(0,0,0,.4))}
+/* Een werffoto i.p.v. een uitgesneden toestel: die wil een kader, geen schaduw. */
+.v3c .hero-vis img.framed{border-radius:20px;object-fit:cover;aspect-ratio:4/3;width:min(100%,560px);margin-bottom:84px;filter:none;box-shadow:0 34px 70px -28px rgba(0,0,0,.6)}
+@media (max-width:1040px){.v3c .hero-vis img.framed{margin-bottom:0}}
+.v3c .fbadge{position:absolute;background:#fff;border-radius:14px;padding:13px 17px;box-shadow:0 22px 44px -18px rgba(0,0,0,.5);font-family:var(--fd);font-weight:800;font-size:13px;color:var(--txt);display:flex;align-items:center;gap:10px;animation:floaty 5s ease-in-out infinite}
+.v3c .fbadge .ic{width:32px;height:32px;border-radius:10px;background:var(--ok);display:grid;place-items:center;color:#fff;flex-shrink:0}
+.v3c .fbadge.rd .ic{background:var(--red)}
+.v3c .fbadge small{display:block;font-family:var(--fb);font-weight:500;font-size:11px;color:var(--txt-mid)}
+@media (max-width:1180px){.v3c .fbadge{display:none}}
+
+/* ============ RASTERS EN KAARTEN ============ */
+.v3c .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.v3c .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.v3c .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:1040px){.v3c .g3,.v3c .g4{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.v3c .g2{grid-template-columns:1fr}}
+@media (max-width:640px){.v3c .g3,.v3c .g4{grid-template-columns:1fr}}
+
+.v3c .kaart{background:var(--bg-alt);border-radius:18px;padding:26px 24px;transition:transform .2s,box-shadow .2s}
+.v3c .kaart:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.25)}
+.v3c .sw2 .kaart,.v3c .sr .kaart{background:#fff;color:var(--txt)}
+.v3c .kaart .ki{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--red);margin-bottom:13px}
+.v3c .sw2 .kaart .ki,.v3c .sr .kaart .ki{background:var(--bg-alt);border-color:transparent}
+.v3c .kaart .num{width:38px;height:38px;border-radius:11px;background:var(--red);color:#fff;font-family:var(--fd);font-weight:800;font-size:16px;display:grid;place-items:center;margin-bottom:14px}
+.v3c .kaart h3{font-family:var(--fd);font-weight:800;font-size:16.5px;margin-bottom:7px}
+.v3c .kaart p{font-size:13.5px;color:var(--txt-mid);line-height:1.65;margin:0}
+.v3c .kaart p b{color:var(--txt)}
+.v3c .kaart p + p{margin-top:10px}
+
+/* Verdict-pil: "een bouwdroger helpt" tegenover "eerst de oorzaak". De kleur
+   is het antwoord — wie de kaart scant moet niet eerst de alinea lezen. */
+.v3c .verdict{display:inline-flex;align-items:center;gap:7px;font-family:var(--fb);font-weight:700;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;padding:6px 12px;border-radius:99px;margin-bottom:11px}
+.v3c .verdict.ja{background:rgba(30,158,80,.12);color:#157A3D}
+.v3c .verdict.nee{background:rgba(200,16,46,.1);color:var(--red)}
+.v3c .verdict svg{flex-shrink:0}
+
+/* ============ NOTE ============ */
+.v3c .note{margin-top:26px;background:var(--bg-alt);border-radius:16px;padding:20px 24px;font-size:14.5px;line-height:1.7;color:var(--txt-mid)}
+.v3c .note b{color:var(--txt)}
+.v3c .note a{color:var(--red);font-weight:600}
+.v3c .sw2 .note{background:#fff}
+.v3c .sr .note{background:#fff;color:var(--txt-mid)}
+.v3c .sr .note b{color:var(--txt)}
+.v3c .sr .note a{color:var(--red)}
+
+/* ============ SPLIT ============ */
+.v3c .split{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+.v3c .split.rev{grid-template-columns:.95fr 1.05fr}
+@media (max-width:1040px){.v3c .split,.v3c .split.rev{grid-template-columns:1fr}.v3c .split-vis{order:-1}}
+.v3c .split-vis{position:relative;display:flex;justify-content:center;align-items:center}
+.v3c .split-vis img{width:min(100%,460px);border-radius:20px;filter:drop-shadow(0 26px 34px rgba(0,0,0,.28))}
+.v3c .split-vis img.cut{border-radius:0}
+.v3c .sr .split-vis img{filter:drop-shadow(0 26px 34px rgba(0,0,0,.45))}
+
+/* ============ GENUMMERDE STAPPEN ============ */
+.v3c .stapn{counter-reset:sn;display:grid;gap:12px;margin-top:38px}
+.v3c .stapn.twee{grid-template-columns:1fr 1fr}
+@media (max-width:860px){.v3c .stapn.twee{grid-template-columns:1fr}}
+.v3c .sn{display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:16px;padding:20px 22px;color:var(--txt);transition:transform .18s,box-shadow .18s}
+.v3c .sw .sn{background:var(--bg-alt)}
+.v3c .sn:hover{transform:translateX(5px);box-shadow:0 18px 40px -26px rgba(0,0,0,.28)}
+.v3c .sn i{counter-increment:sn;font-style:normal;flex-shrink:0;width:32px;height:32px;border-radius:10px;background:var(--red);color:#fff;font-family:var(--fd);font-weight:800;font-size:14px;display:grid;place-items:center}
+.v3c .sn i::before{content:counter(sn)}
+.v3c .sn h3{font-family:var(--fd);font-weight:800;font-size:15.5px;margin-bottom:5px}
+.v3c .sn p{font-size:13.5px;line-height:1.6;color:var(--txt-mid);margin:0}
+
+/* ============ CHECKLIST ============ */
+.v3c .checkcard{background:#fff;border-radius:20px;padding:30px;color:var(--txt)}
+.v3c .sw .checkcard{background:var(--bg-alt)}
+.v3c .checkcard ul{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+.v3c .checkcard li{display:flex;align-items:flex-start;gap:12px;font-size:14.5px;font-weight:600;line-height:1.45}
+.v3c .checkcard li svg{flex-shrink:0;color:var(--red);margin-top:1px}
+.v3c .checkcard .cfoot{margin-top:22px;padding-top:20px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.v3c .checkcard .cfoot p{font-size:13.5px;color:var(--txt-mid);margin:0;max-width:300px}
+
+/* ============ CHIPS ============ */
+.v3c .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.v3c .chips span{background:var(--bg-alt);color:var(--txt-mid);font-size:13px;font-weight:600;padding:9px 15px;border-radius:99px}
+.v3c .sr .chips span,.v3c .sw2 .chips span{background:#fff}
+
+/* ============ METER (richtwaarde-balk) ============ */
+.v3c .meter{background:#fff;border-radius:18px;padding:26px;color:var(--txt)}
+.v3c .sw .meter{background:var(--bg-alt)}
+.v3c .meter .t{font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.v3c .meter .big{font-family:var(--fd);font-weight:800;font-size:clamp(28px,3vw,38px);letter-spacing:-.03em}
+.v3c .meter .big small{font-size:.45em;font-weight:700;color:var(--txt-mid)}
+.v3c .meter .scale{position:relative;height:11px;border-radius:99px;margin:18px 0 10px;background:linear-gradient(90deg,#D97706 0%,#D97706 22%,var(--ok) 38%,var(--ok) 62%,var(--red) 80%,var(--red) 100%)}
+.v3c .meter .scale b{position:absolute;top:-5px;width:4px;height:21px;border-radius:99px;background:var(--txt);left:var(--at)}
+.v3c .meter .legend{display:flex;justify-content:space-between;font-size:11.5px;color:var(--txt-dim)}
+
+/* ============ PAKKETKAARTEN ============ */
+.v3c .pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:980px){.v3c .pkgs{grid-template-columns:1fr}}
+.v3c .pkg{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 26px;transition:transform .2s,box-shadow .2s}
+.v3c .sw2 .pkg,.v3c .sr .pkg{border-color:transparent}
+.v3c .pkg:hover{transform:translateY(-4px);box-shadow:0 26px 50px -28px rgba(0,0,0,.28)}
+.v3c .pkg.top{border:2px solid var(--red);box-shadow:0 26px 50px -30px rgba(200,16,46,.5)}
+.v3c .pkg .plab{position:absolute;top:-12px;left:26px;background:var(--red);color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 13px;border-radius:99px;white-space:nowrap}
+.v3c .pkg.top .plab{box-shadow:0 10px 24px -10px rgba(200,16,46,.9)}
+.v3c .pkg img{display:block;width:100%;max-width:150px;margin:4px auto 14px;filter:drop-shadow(0 16px 22px rgba(0,0,0,.22))}
+.v3c .pkg h3{font-family:var(--fd);font-weight:800;font-size:19px;margin-bottom:5px}
+.v3c .pkg .pvol{font-family:var(--fm);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}
+.v3c .pkg .pdesc{font-size:13.5px;color:var(--txt-mid);line-height:1.6;margin:12px 0 0}
+.v3c .pkg .pprice{margin-top:auto;padding-top:20px}
+.v3c .pkg .pprice b{font-family:var(--fd);font-weight:800;font-size:30px;letter-spacing:-.03em}
+.v3c .pkg .pprice span{font-size:13.5px;color:var(--txt-mid);margin-left:4px}
+.v3c .pkg .pprice small{display:block;font-size:12px;color:var(--txt-dim);margin-top:4px}
+.v3c .pkg .btn{width:100%;margin-top:16px;padding:14px 22px}
+
+/* ============ MANBAND (CTA-blok met uitgesneden vakman) ============ */
+.v3c .manband{position:relative;margin-top:44px;border-radius:20px;background:var(--maroon-d) url('/vernast/bg-red-2.webp') center/cover no-repeat;padding:44px 44px 0;display:flex;align-items:flex-end;gap:36px;overflow:hidden}
+.v3c .manband .mb-t{flex:1;min-width:280px;padding-bottom:44px;color:#fff}
+.v3c .manband .mb-t .mbk{font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);display:block;margin-bottom:10px}
+.v3c .manband h3{font-family:var(--fd);font-weight:800;font-size:clamp(20px,2.2vw,28px);letter-spacing:-.02em;color:#fff;margin:0 0 10px;text-wrap:balance}
+.v3c .manband p{font-size:14.5px;color:rgba(255,255,255,.82);line-height:1.65;margin:0;max-width:600px}
+.v3c .manband p a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
+.v3c .manband .mb-cta{display:inline-flex;margin-top:20px;gap:12px;flex-wrap:wrap}
+.v3c .manband img.mb-man{display:block;width:min(42%,420px);flex-shrink:0;margin:0;align-self:flex-end;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 22px 28px rgba(0,0,0,.35))}
+.v3c .manband img.mb-man.breed{width:min(52%,560px)}
+@media (max-width:860px){.v3c .manband{padding:32px 26px 0}.v3c .manband img.mb-man{display:none}.v3c .manband .mb-t{padding-bottom:32px}}
+.v3c .manband.lite{background:#fff}
+.v3c .manband.lite .mbk{color:var(--txt-dim)}
+.v3c .manband.lite h3,.v3c .manband.lite .mb-t{color:var(--txt)}
+.v3c .manband.lite p{color:var(--txt-mid)}
+.v3c .manband.lite p b{color:var(--txt)}
+.v3c .manband.lite p a{color:var(--red);text-decoration-color:rgba(200,16,46,.35)}
+
+/* ============ FAQ ============
+   Zichtbaar, niet ingeklapt: een dichte accordeon rendert zijn antwoord niet
+   in de geprerenderde HTML, en dan belooft de FAQ-schema tekst die er niet
+   staat. */
+.v3c .faqs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0}
+@media (max-width:860px){.v3c .faqs{grid-template-columns:1fr}}
+.v3c .faq{background:#fff;border-radius:16px;padding:22px 24px;margin:0}
+.v3c .sw .faq{background:var(--bg-alt)}
+.v3c .faq dt{font-family:var(--fd);font-weight:800;font-size:15px;color:var(--txt);margin-bottom:8px}
+.v3c .faq dd{margin:0;font-size:13.5px;line-height:1.65;color:var(--txt-mid)}
+.v3c .faq dd a{color:var(--red);font-weight:600}
+
+/* ============ VERDER LEZEN ============ */
+.v3c .vl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:980px){.v3c .vl{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.v3c .vl{grid-template-columns:1fr}}
+.v3c .vlcard{background:#fff;border-radius:18px;padding:26px 24px}
+.v3c .sw .vlcard{background:var(--bg-alt)}
+.v3c .vlcard h3{font-family:var(--fd);font-weight:800;font-size:15.5px;margin-bottom:16px}
+.v3c .vlcard ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.v3c .vlcard a{display:inline-flex;align-items:flex-start;gap:9px;font-size:13.5px;font-weight:600;color:var(--red);line-height:1.5}
+.v3c .vlcard a svg{flex-shrink:0;margin-top:3px;transition:transform .15s}
+.v3c .vlcard a:hover svg{transform:translateX(3px)}
+.v3c .vlcard li p{margin:4px 0 0 22px;font-size:12.5px;color:var(--txt-mid);line-height:1.5}
+
+/* De voetnoot onder de pakketkaarten staat ín het raster, dus spant ze alle
+   kolommen — anders wordt ze een vierde kaart. */
+.v3c .pkgs-foot{grid-column:1/-1;display:flex;align-items:flex-start;gap:10px;margin:10px 0 0;font-size:13.5px;line-height:1.65;color:var(--txt-mid)}
+.v3c .pkgs-foot svg{flex-shrink:0;margin-top:4px;color:var(--ok)}
+.v3c .pkgs-foot a{color:var(--red);font-weight:600;text-decoration:underline;text-decoration-color:rgba(200,16,46,.35);text-underline-offset:3px}
+.v3c .sr .pkgs-foot{color:rgba(255,255,255,.78)}
+.v3c .sr .pkgs-foot a{color:#fff;text-decoration-color:rgba(255,255,255,.45)}
+
+/* Een meter of ander blok in de rechterkolom van een split krijgt dezelfde
+   breedte als een foto daar zou krijgen. */
+.v3c .split-vis .meter{width:min(100%,440px)}
+
+/* ============ TABEL ============
+   Een echte <table> met een zichtbare kop, zodat een zoekmachine of
+   AI-assistent dikte en termijn aan elkaar kan koppelen. Scrollt in haar eigen
+   kader: op een telefoon mag de pagina zelf niet horizontaal schuiven. */
+.v3c .tblwrap{background:#fff;border-radius:18px;overflow:hidden;margin-top:28px}
+.v3c .sw .tblwrap{background:var(--bg-alt)}
+.v3c .tblscroll{overflow-x:auto}
+.v3c table.tbl{width:100%;min-width:480px;border-collapse:collapse;font-size:14px}
+.v3c table.tbl thead tr{background:#17171A}
+.v3c table.tbl th{font-family:var(--fd);font-weight:800;text-align:left;padding:15px 20px;color:#fff;font-size:13px}
+.v3c table.tbl thead th + th{text-align:center}
+.v3c table.tbl tbody th{color:var(--txt);font-size:14px;background:transparent}
+.v3c table.tbl td{padding:14px 20px;text-align:center;color:var(--txt-mid)}
+.v3c table.tbl td:first-of-type{color:var(--txt);font-weight:600}
+.v3c table.tbl tbody tr + tr{border-top:1px solid var(--line)}
+.v3c .tblnote{font-size:12.5px;line-height:1.65;color:var(--txt-dim);margin:14px 0 0}
+
+/* ============ ZONDER / MET ============ */
+.v3c .vs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:860px){.v3c .vs{grid-template-columns:1fr}}
+.v3c .vscard{background:#fff;border-radius:18px;padding:28px 26px;border:1px solid var(--line)}
+.v3c .sw .vscard{background:var(--bg-alt);border-color:transparent}
+.v3c .vscard.goed{border:2px solid var(--ok)}
+.v3c .vscard .vshead{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.v3c .vscard .vshead span{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;background:rgba(200,16,46,.1);color:var(--red)}
+.v3c .vscard.goed .vshead span{background:rgba(30,158,80,.12);color:#157A3D}
+.v3c .vscard h3{font-family:var(--fd);font-weight:800;font-size:17px;color:var(--red)}
+.v3c .vscard.goed h3{color:#157A3D}
+.v3c .vscard ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.v3c .vscard li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.55;color:var(--txt-mid)}
+.v3c .vscard li svg{flex-shrink:0;margin-top:2px;color:var(--red)}
+.v3c .vscard.goed li{color:var(--txt)}
+.v3c .vscard.goed li svg{color:#157A3D}
+
+/* ============ GENUMMERDE RIJ (het verloop in vier stappen) ============ */
+.v3c .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:980px){.v3c .flow{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.v3c .flow{grid-template-columns:1fr}}
+.v3c .fl{position:relative;background:#fff;border-radius:16px;padding:24px 22px;transition:transform .2s,box-shadow .2s}
+.v3c .sw .fl{background:var(--bg-alt)}
+.v3c .fl:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.25)}
+.v3c .fl i{position:absolute;top:18px;right:18px;font-style:normal;font-family:var(--fm);font-size:11px;font-weight:700;color:var(--txt-dim)}
+.v3c .fl .fi{width:40px;height:40px;border-radius:11px;background:var(--ok);color:#fff;display:grid;place-items:center;margin-bottom:14px}
+.v3c .fl h3{font-family:var(--fd);font-weight:800;font-size:15.5px;margin-bottom:6px}
+.v3c .fl p{font-size:13px;color:var(--txt-mid);line-height:1.6;margin:0}
+
+/* ============ VERTROUWENSRIJ ============
+   De strook vlak onder een hero: vier korte beloftes op één lijn. */
+.v3c .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:22px 0;border-bottom:1px solid var(--line)}
+@media (max-width:860px){.v3c .trust{grid-template-columns:1fr 1fr}}
+.v3c .trust div{display:flex;align-items:center;justify-content:center;gap:10px;font-size:13.5px;font-weight:700;color:var(--txt);text-align:left}
+.v3c .trust svg{flex-shrink:0;color:var(--red)}
+
+/* ============ INFOPANEEL ============
+   Eén blok dat afwijkt van de omringende sectie, voor een terzijde dat de
+   lezer echt moet zien (de verzekeringsuitleg op /waterschade). */
+.v3c .infopanel{display:flex;gap:22px;align-items:flex-start;background:#fff;border-left:5px solid var(--red);border-radius:18px;padding:30px 32px}
+.v3c .sw .infopanel{background:var(--bg-alt)}
+.v3c .infopanel .ii{width:48px;height:48px;border-radius:14px;background:rgba(200,16,46,.1);color:var(--red);display:grid;place-items:center;flex-shrink:0}
+.v3c .infopanel h3{font-family:var(--fd);font-weight:800;font-size:19px;margin-bottom:10px}
+.v3c .infopanel p{font-size:14px;line-height:1.7;color:var(--txt-mid);margin:0 0 12px;max-width:760px}
+.v3c .infopanel p:last-child{margin-bottom:0}
+.v3c .infopanel p b{color:var(--txt)}
+@media (max-width:620px){.v3c .infopanel{flex-direction:column;padding:26px 22px;gap:16px}}
+
+/* ============ SPOEDBALK ============
+   Alleen op /waterschade, en alleen op een telefoon: wie met een
+   ondergelopen kelder op zijn gsm zoekt, moet niet eerst terugscrollen naar
+   de hero om te kunnen bellen. */
+.v3c .urgbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-top:1px solid var(--line);padding:12px 18px calc(12px + env(safe-area-inset-bottom));box-shadow:0 -12px 30px -22px rgba(0,0,0,.5)}
+@media (max-width:900px){.v3c .urgbar{display:flex}}
+.v3c .urgbar b{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:800;color:var(--txt)}
+.v3c .urgbar b svg{color:var(--red);flex-shrink:0}
+.v3c .urgbar .ubtns{display:flex;gap:8px;flex-shrink:0}
+.v3c .urgbar .ubtn{width:46px;height:46px;border-radius:99px;display:grid;place-items:center;background:var(--red);color:#fff}
+.v3c .urgbar .ubtn.wa{background:#25D366}
+.v3c .urgbar .ubtn:hover{color:#fff;filter:brightness(.93)}
+/* De footer mag niet onder de balk verdwijnen. */
+@media (max-width:900px){.v3c.heeft-urgbar{padding-bottom:74px}}
+
+/* ============ PULSEREND PUNTJE ============ */
+.v3c .pulse{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:9px 16px;border-radius:99px;margin-bottom:16px}
+.v3c .pulse i{width:9px;height:9px;border-radius:50%;background:#fff;animation:pulsedot 1.6s ease-in-out infinite}
+@keyframes pulsedot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+@media (prefers-reduced-motion:reduce){
+  .v3c .pulse i,.v3c .fbadge{animation:none}
+}
+
+/* ============ PRODUCTKAARTEN ============
+   Het gamma op /machines: foto, dagprijs, twee chips en de kenmerken. */
+.v3c .cathead{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.v3c .cathead .ci{width:40px;height:40px;border-radius:11px;background:var(--red);color:#fff;display:grid;place-items:center;flex-shrink:0}
+.v3c .prods{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.v3c .prods.drie{grid-template-columns:repeat(3,1fr)}
+/* Twee kaarten in een raster van vier zouden uitrekken tot bijna dubbele
+   breedte; de maximumbreedte houdt ze even groot als elders. */
+.v3c .prods.twee{grid-template-columns:repeat(2,minmax(0,1fr));max-width:680px}
+@media (max-width:1100px){.v3c .prods,.v3c .prods.drie{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.v3c .prods,.v3c .prods.drie,.v3c .prods.twee{grid-template-columns:1fr}}
+.v3c .prod{position:relative;display:flex;flex-direction:column;background:var(--bg-alt);border:1px solid transparent;border-radius:18px;padding:20px;transition:transform .2s,box-shadow .2s}
+.v3c .sw2 .prod,.v3c .sr .prod{background:#fff}
+.v3c .prod:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.25)}
+.v3c .prod.top{border-color:var(--red)}
+.v3c .prod .plab{position:absolute;top:-11px;right:18px;background:var(--red);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:99px}
+.v3c .prod h3{font-family:var(--fd);font-weight:800;font-size:15.5px;margin-bottom:4px}
+.v3c .prod .pday{font-family:var(--fd);font-weight:800;font-size:22px;color:var(--red);letter-spacing:-.02em}
+.v3c .prod .pday span{font-family:var(--fb);font-size:12px;font-weight:500;color:var(--txt-dim);margin-left:2px}
+/* De foto vult het afgeronde kader. Met `contain` stond er een kleinere foto
+   middenin een lege box, en dat las als een plaatje dat er per ongeluk in
+   geplakt was. De portaalfoto's zijn allemaal werfbeelden, dus `cover` snijdt
+   niets weg wat ertoe doet. */
+.v3c .prod .pimg{background:var(--bg-alt);border-radius:14px;margin:0 0 16px;display:block;overflow:hidden}
+.v3c .prod .pimg img{display:block;width:100%;height:210px;object-fit:cover;object-position:50% 62%}
+@media (max-width:1100px){.v3c .prod .pimg img{height:230px}}
+.v3c .chipsm{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.v3c .chipsm span{background:#fff;color:var(--txt-mid);font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:8px}
+.v3c .sw2 .chipsm span,.v3c .sr .chipsm span{background:var(--bg-alt)}
+.v3c .feats{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:7px}
+.v3c .feats li{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;line-height:1.45;color:var(--txt-mid)}
+.v3c .feats li svg{flex-shrink:0;margin-top:2px;color:var(--ok)}
+.v3c .prod .plink{margin-top:auto;display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:var(--red)}
+.v3c .prod .plink svg{transition:transform .15s}
+.v3c .prod:hover .plink svg{transform:translateX(3px)}
+
+/* De strook "altijd inbegrepen" onder de hero van /machines en /prijzen. */
+.v3c .inbegrepen{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px;padding:20px 0;border-bottom:1px solid var(--line)}
+.v3c .inbegrepen span{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--txt)}
+.v3c .inbegrepen svg{flex-shrink:0;color:var(--ok)}
+
+/* Ankerknoppen in een hero: spring naar een sectie verderop. */
+.v3c .jump{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.v3c .jump a{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);color:#fff;font-size:13.5px;font-weight:600;padding:10px 16px;border-radius:10px;transition:background .15s}
+.v3c .jump a:hover{background:rgba(255,255,255,.22);color:#fff}
+
+/* Tailwind preflight strookt list-style van elke ul; een opsomming binnen een
+   note of een faq heeft haar bolletjes wel nodig. */
+.v3c .note ul,.v3c .faq dd ul{list-style:disc;padding-left:20px;margin:12px 0 0}
+.v3c .note ol,.v3c .faq dd ol{list-style:decimal;padding-left:20px;margin:12px 0 0}
+
+/* Een tabel zonder koprij waarin de bedragen rechts staan — het
+   rekenvoorbeeld op /prijzen leest als een factuur, niet als een vergelijking. */
+.v3c table.tbl.bon td{text-align:right;color:var(--txt-mid);font-weight:500}
+.v3c table.tbl.bon th[scope="row"]{font-family:var(--fb);font-weight:500;color:var(--txt-mid);font-size:13.5px}
+.v3c table.tbl.bon tr.totaal th[scope="row"],.v3c table.tbl.bon tr.totaal td{font-family:var(--fd);font-weight:800;color:var(--txt);font-size:15px}
+
+/* Een eenvoudige prijslijst: naam links, bedrag rechts. */
+.v3c .pricerows{background:#fff;border-radius:18px;overflow:hidden}
+.v3c .sw .pricerows{background:var(--bg-alt)}
+.v3c .pricerows > div{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 22px}
+.v3c .pricerows > div + div{border-top:1px solid var(--line)}
+.v3c .pricerows .pn{font-size:14.5px;font-weight:600;color:var(--txt)}
+.v3c .pricerows .pn small{display:block;font-size:12px;font-weight:400;color:var(--txt-dim);margin-top:2px}
+.v3c .pricerows .pv{font-family:var(--fd);font-weight:800;font-size:17px;white-space:nowrap}
+.v3c .pricerows .pv span{font-family:var(--fb);font-size:12.5px;font-weight:500;color:var(--txt-dim)}
+
+/* Een rij korte beloftes als vinklijst in twee kolommen. */
+.v3c .vinkjes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:760px){.v3c .vinkjes{grid-template-columns:1fr}}
+.v3c .vinkjes div{display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:15px 20px;font-size:14px;font-weight:600;color:var(--txt)}
+.v3c .sw .vinkjes div{background:var(--bg-alt)}
+.v3c .vinkjes svg{flex-shrink:0;color:var(--ok)}
+
+/* ============ KRUIMELPAD ============ */
+.v3c .kruimels{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:16px}
+.v3c .kruimels ol{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin:0;padding:0}
+.v3c .kruimels a{color:rgba(255,255,255,.78)}
+.v3c .kruimels a:hover{color:#fff}
+.v3c .kruimels [aria-current]{color:#fff}
+
+/* ============ SPLIT 3/2 ============
+   Leveren krijgt meer ruimte dan afhalen: dat is ook de verhouding waarin
+   mensen kiezen. */
+.v3c .split32{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:start}
+@media (max-width:1040px){.v3c .split32{grid-template-columns:1fr}}
+.v3c .paneel{background:#fff;border-radius:20px;padding:32px}
+.v3c .sw .paneel{background:var(--bg-alt)}
+.v3c .paneel .phead{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.v3c .paneel .phead span{width:40px;height:40px;border-radius:11px;background:rgba(200,16,46,.1);color:var(--red);display:grid;place-items:center;flex-shrink:0}
+.v3c .paneel h3{font-family:var(--fd);font-weight:800;font-size:19px}
+.v3c .paneel p{font-size:14px;line-height:1.7;color:var(--txt-mid);margin:0 0 12px}
+.v3c .paneel p:last-of-type{margin-bottom:0}
+.v3c .paneel p a{color:var(--red);font-weight:600}
+
+/* Feitenlijst: label links, waarde rechts. */
+.v3c .feiten{margin:22px 0 0;background:var(--bg-alt);border-radius:14px;overflow:hidden}
+.v3c .sw .feiten,.v3c .sw2 .paneel .feiten{background:#fff}
+.v3c .feiten > div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;padding:12px 18px;font-size:13.5px}
+.v3c .feiten > div + div{border-top:1px solid var(--line)}
+.v3c .feiten dt{color:var(--txt-mid)}
+.v3c .feiten dd{margin:0;font-weight:700;color:var(--txt);text-align:right}
+
+/* ============ REALISATIEKAARTEN ============ */
+.v3c .rzs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:980px){.v3c .rzs{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.v3c .rzs{grid-template-columns:1fr}}
+.v3c .rz{display:block;background:#fff;border-radius:18px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.v3c .sw .rz{background:var(--bg-alt)}
+.v3c .rz:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.3)}
+.v3c .rz img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.v3c .rz .rzt{padding:18px 20px}
+.v3c .rz .rzl{display:block;font-family:var(--fm);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:6px}
+.v3c .rz h3{font-family:var(--fd);font-weight:800;font-size:15px;line-height:1.35;color:var(--txt)}
+
+/* Een eenvoudige tweekoloms linklijst (de overige werven in een provincie). */
+.v3c .linklijst{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:9px 32px}
+@media (max-width:760px){.v3c .linklijst{grid-template-columns:1fr}}
+.v3c .linklijst a{display:inline-flex;align-items:flex-start;gap:9px;font-size:13.5px;font-weight:600;color:var(--red);line-height:1.5}
+.v3c .linklijst a svg{flex-shrink:0;margin-top:3px}
+.v3c .linklijst a small{font-weight:400;color:var(--txt-dim)}
+
+/* De andere provincies als chips onderaan een regiopagina. */
+.v3c .regiochips{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin:0;padding:0}
+.v3c .regiochips a{display:inline-block;background:#fff;border:1px solid var(--line);color:var(--txt);font-size:13.5px;font-weight:700;padding:10px 18px;border-radius:99px;transition:border-color .15s,color .15s}
+.v3c .sw .regiochips a{background:var(--bg-alt);border-color:transparent}
+.v3c .regiochips a:hover{border-color:var(--red);color:var(--red)}
+
+/* ============ KAART MET SPELD ============
+   De hero van een regiopagina: de kaart van België in wit lijnwerk met een
+   speld op de provincie. `belgie-kaart-rood.webp` is dieprood lijnwerk en
+   verdwijnt daarom volledig in de donkerrode hero; de filter maakt er wit van
+   (brightness(0) zet alles op zwart, invert(1) draait dat naar wit). */
+.v3c .kaartvis{position:relative;width:min(100%,460px);aspect-ratio:1200/980;margin:0 auto 70px;display:block}
+.v3c .kaartvis img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1);opacity:.6;margin:0}
+.v3c .kaartvis .speld{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:20px;height:20px}
+.v3c .kaartvis .speld::before{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;opacity:.3;animation:speldpuls 2.4s ease-out infinite}
+.v3c .kaartvis .speld::after{content:"";width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35)}
+/* De provincienaam naast de speld: zonder label is een stip op een kaart een
+   stip op een kaart. */
+.v3c .kaartvis .speld b{position:absolute;left:18px;top:-2px;font-family:var(--fd);font-weight:800;font-size:13.5px;letter-spacing:-.01em;color:#fff;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+.v3c .kaartvis .speld.links b{left:auto;right:18px}
+@keyframes speldpuls{0%{transform:scale(.7);opacity:.45}70%{transform:scale(2.1);opacity:0}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.v3c .kaartvis .speld::before{animation:none}}
+
+/* Een kicker met een icoontje ervoor: zonder flex valt de SVG op een eigen
+   regel boven de tekst, omdat `.kick` een inline-block met letterspacing is. */
+.v3c .kick.met-ic{display:inline-flex;align-items:center;gap:7px}
+
+/* ============ VRAAGFORMULIER ============
+   Hetzelfde blok als op /contact en /klantservice, maar in de v3-vormtaal van
+   deze schil. De verzendlogica hangt aan `useAanvraag`; dit is alleen de vorm.
+   (Op /hoe-drogen-werkt staat nog een formulier zónder handler — dat is een
+   overblijfsel van de designtranscriptie, niet het patroon om te volgen.) */
+.v3c .oform{padding:88px 0;background:var(--maroon-d) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat}
+.v3c .oform .kick{color:rgba(255,255,255,.75)}
+.v3c .oform .sec{color:#fff}
+.v3c .oform .lede{color:rgba(255,255,255,.78)}
+.v3c .fshell{max-width:760px;margin:0 auto;background:#fff;border-radius:20px;padding:34px;color:var(--txt)}
+.v3c .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.v3c .frow.one{grid-template-columns:1fr}
+.v3c .fld label{display:block;font-size:12.5px;font-weight:700;margin-bottom:7px}
+.v3c .fld input,.v3c .fld select,.v3c .fld textarea{width:100%;box-sizing:border-box;font-family:var(--fb);font-size:14.5px;padding:13px 15px;border:1.5px solid var(--line-2);border-radius:11px;background:#fff;color:var(--txt);outline:none;resize:vertical}
+.v3c .fld input:focus,.v3c .fld select:focus,.v3c .fld textarea:focus{border-color:var(--red)}
+.v3c .fsend{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:6px}
+.v3c .fsend small{font-size:12.5px;color:var(--txt-dim);max-width:340px}
+.v3c .fsend .fbtns{display:flex;gap:10px;flex-wrap:wrap}
+.v3c .fshell .btn[disabled]{opacity:.6;cursor:progress}
+@media (max-width:620px){.v3c .frow{grid-template-columns:1fr}.v3c .fshell{padding:26px 20px}}
+
+/* ============ PAKKET OF LOS TOESTEL ============
+   Twee panelen naast elkaar waarvan er één de aanbevolen keuze is. Het verschil
+   moet zichtbaar zijn zonder de tekst te lezen: de drooggarantie hangt aan het
+   pakket, niet aan een los toestel. */
+.v3c .keuze2{display:grid;grid-template-columns:1.08fr .92fr;gap:16px;align-items:start}
+@media (max-width:980px){.v3c .keuze2{grid-template-columns:1fr}}
+.v3c .kz{position:relative;background:var(--bg-alt);border:1px solid transparent;border-radius:20px;padding:32px}
+.v3c .sw2 .kz,.v3c .sr .kz{background:#fff}
+.v3c .kz.aanbevolen{border:2px solid var(--red);background:#fff;box-shadow:0 26px 54px -30px rgba(200,16,46,.45)}
+.v3c .sw .kz.aanbevolen{background:#fff}
+.v3c .kz .kzlab{position:absolute;top:-13px;left:30px;background:var(--red);color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:99px;box-shadow:0 10px 24px -10px rgba(200,16,46,.9)}
+.v3c .kz h3{font-family:var(--fd);font-weight:800;font-size:21px;margin-bottom:8px}
+.v3c .kz .kzsub{font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700;display:block;margin-bottom:12px}
+.v3c .kz p{font-size:14px;line-height:1.7;color:var(--txt-mid);margin:0 0 14px}
+.v3c .kz p a{color:var(--red);font-weight:600;text-decoration:underline;text-decoration-color:rgba(200,16,46,.35);text-underline-offset:3px}
+.v3c .kz ul{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:11px}
+.v3c .kz li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.5;color:var(--txt)}
+.v3c .kz li svg{flex-shrink:0;margin-top:2px;color:var(--ok)}
+.v3c .kz li.niet{color:var(--txt-mid)}
+.v3c .kz li.niet svg{color:var(--txt-dim)}
+.v3c .kz .btn{width:100%}
+
+/* Het infopaneel met een foto ernaast: tekst links, beeld rechts. */
+.v3c .infopanel.metfoto{padding:0;overflow:hidden;align-items:stretch;gap:0}
+.v3c .infopanel.metfoto .ip-t{flex:1;min-width:280px;padding:30px 32px;display:flex;gap:22px;align-items:flex-start}
+.v3c .infopanel.metfoto img{width:min(38%,380px);flex-shrink:0;object-fit:cover;display:block}
+@media (max-width:860px){
+  .v3c .infopanel.metfoto{flex-direction:column}
+  .v3c .infopanel.metfoto img{width:100%;height:220px;order:-1}
+}
+
+/* Een tabel of voetnoot in een rode sectie: de tabel zelf is wit, maar de
+   voetnoot eronder staat op rood en moet dus licht zijn. */
+.v3c .sr .tblnote{color:rgba(255,255,255,.62)}
+.v3c .sr .tblnote a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
+.v3c .sr .sec-head.mid .lede{color:rgba(255,255,255,.78)}
+
+/* ============ CONVERSIEBALK ONDER DE TOESTELKAARTEN ============
+   De drie kaarten tonen lósse toestellen, geen pakketten. Zonder deze balk las
+   de sectie als "kies hier uw pakket", terwijl een pakket pas in de calculator
+   ontstaat — en de drooggarantie hangt juist aan dát pakket. */
+.v3c .pkgcta{grid-column:1/-1;margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--maroon-d) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-radius:18px;padding:26px 30px;color:#fff}
+.v3c .pkgcta .pc-t{flex:1;min-width:260px}
+.v3c .pkgcta b{display:block;font-family:var(--fd);font-weight:800;font-size:18px;margin-bottom:6px}
+.v3c .pkgcta p{margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.82);max-width:620px}
+.v3c .pkgcta p a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
+.v3c .pkgcta .btn{flex-shrink:0}
+
+
+/* ============ WITTE BLOKKEN IN EEN RODE SECTIE ============
+   `.sr` zet `color:#fff` op de hele sectie. Elk blok dat daarbinnen een witte
+   achtergrond krijgt, moet zijn tekstkleur dus terugzetten — anders staat er
+   witte tekst op een witte kaart. Dat gebeurde: de toestelkaarten op een
+   regiopagina waren leeg op de link na. `.kaart` had die reset al; de rest
+   krijgt hem hier. */
+.v3c .sr .prod,
+.v3c .sr .kz,
+.v3c .sr .paneel,
+.v3c .sr .checkcard,
+.v3c .sr .meter,
+.v3c .sr .faq,
+.v3c .sr .vlcard,
+.v3c .sr .sn,
+.v3c .sr .fl,
+.v3c .sr .vscard,
+.v3c .sr .rz,
+.v3c .sr .infopanel,
+.v3c .sr .pricerows,
+.v3c .sr .vinkjes div,
+.v3c .sr .tblwrap{color:var(--txt)}
+.v3c .sr .prod .kick,
+.v3c .sr .kz .kzsub,
+.v3c .sr .vlcard h3,
+.v3c .sr .faq dt,
+.v3c .sr .sn h3,
+.v3c .sr .fl h3,
+.v3c .sr .prod h3,
+.v3c .sr .paneel h3,
+.v3c .sr .infopanel h3,
+.v3c .sr .meter .big{color:var(--txt)}
+.v3c .sr .prod .kick{color:var(--red)}
+.v3c .sr .prod .pdesc,
+.v3c .sr .sn p,
+.v3c .sr .fl p,
+.v3c .sr .paneel p,
+.v3c .sr .infopanel p,
+.v3c .sr .faq dd,
+.v3c .sr .kz p{color:var(--txt-mid)}
+/* Die blokken staan op wit, dus hun links zijn weer rood in plaats van wit. */
+.v3c .sr .prod .plink,
+.v3c .sr .kz p a,
+.v3c .sr .paneel p a,
+.v3c .sr .infopanel p a,
+.v3c .sr .faq dd a,
+.v3c .sr .vlcard a,
+.v3c .sr .pricerows a{color:var(--red)}
+.v3c .sr .prod .pimg{background:var(--bg-alt)}
+
+/* `.plink` was een tekstlink onderaan de kaart; de knop die er nu staat lijnt
+   uit op de onderrand, zodat vier kaarten met verschillend lange tekst toch
+   één lijn knoppen geven. */
+.v3c .prod .btn{margin-top:auto;width:100%;padding:13px 20px;font-size:14px}
+.v3c .prod .pdesc{flex:1}
+
+/* De omlijnde knop in een toestelkaart houdt zwarte tekst, ook in een rode
+   sectie: met een rode rand, rode tekst én een rode pijl werd de kaart één
+   rood accent te veel. */
+.v3c .prod .btn-line,
+.v3c .sr .prod .btn-line{color:var(--txt)}
+.v3c .prod .btn-line:hover{background:var(--bg-alt);color:var(--txt)}
+.v3c .sr .prod .btn-line:hover{background:var(--bg-alt);color:var(--txt)}
+
+/* De omschrijving onder de naam stond op dezelfde maat als de lopende tekst
+   van een sectie; in een kaart van 290px leest dat te groot. */
+.v3c .prod .pdesc{font-size:12.5px;line-height:1.6}
+
+/* ============ UITGESNEDEN VAKMAN MET LEGE ONDERRAND ============
+   `man-bestelwagen.webp` is 1440x960, maar de man en de bestelwagen eindigen
+   op y=826: er zit 13,9 % transparante ruimte onder. Daardoor zweefde het
+   tafereel boven de onderrand van het rode blok. Deze verhouding snijdt precies
+   die lege band weg, zodat de benen en de wielen op de rand staan.
+
+   Gemeten op de alfakanaal-bounding box per verticale strook: de broekzoom van
+   de man eindigt op y=815, het achterwiel van de bestelwagen op y=826. Snijden
+   op 827 zette dus het wiel precies op de rand en liet de man er net boven
+   zweven; op 800 lopen ze allebei een paar pixels over de rand. De andere
+   `man-*`-beelden hebben geen lege onderrand en missen deze klasse. */
+.v3c .manband img.mb-man.bijsnijden{aspect-ratio:1440/800;object-fit:cover;object-position:50% 0}
+
+/* ============ FORMULIER OP WIT ============
+   De rode variant staat op de pagina's waar het formulier het slotakkoord is;
+   op een regiopagina volgt het op een rode sectie en wordt wit rustiger. */
+.v3c .oform.licht{background:#fff;color:var(--txt)}
+.v3c .oform.licht .kick{color:var(--red)}
+.v3c .oform.licht .sec{color:var(--txt)}
+.v3c .oform.licht .lede{color:var(--txt-mid)}
+.v3c .oform.licht .fshell{background:var(--bg-alt)}
+.v3c .oform.licht .fld input,
+.v3c .oform.licht .fld select,
+.v3c .oform.licht .fld textarea{background:#fff}
+
+/* ============ ZWARTE NAMEN IN TABELLEN EN PRIJSLIJSTEN ============
+   De toestelnaam in de eerste kolom en in de prijslijst was een rode link. Naast
+   een rode sectie, rode bedragen en rode knoppen werd dat onleesbaar druk; de
+   naam is nu zwart en kleurt pas rood bij hover. */
+.v3c table.tbl tbody th a,
+.v3c .pricerows .pn a{color:var(--txt)}
+.v3c table.tbl tbody th a:hover,
+.v3c .pricerows .pn a:hover{color:var(--red)}
+.v3c .sr table.tbl tbody th a,
+.v3c .sr .pricerows .pn a{color:var(--txt)}
+.v3c .sr table.tbl tbody th a:hover,
+.v3c .sr .pricerows .pn a:hover{color:var(--red)}
+
+/* Een split waarin de rechterkolom een lange lijst is: de kop links hoort
+   bovenaan te beginnen en niet verticaal gecentreerd mee te zakken. */
+.v3c .split.boven{align-items:start}
+
+/* De vinkjesrij komt per stuk binnen in plaats van als blok; het vinkje zelf
+   wipt mee op zodra het blok er staat. */
+@keyframes vinkpop{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+.v3c .vinkjes div{transition:transform .18s,box-shadow .18s}
+.v3c .vinkjes div:hover{transform:translateY(-3px);box-shadow:0 16px 34px -24px rgba(0,0,0,.3)}
+.v3c .vinkjes svg{animation:vinkpop .45s cubic-bezier(.2,.8,.3,1) both}
+@media (prefers-reduced-motion:reduce){.v3c .vinkjes svg{animation:none}}

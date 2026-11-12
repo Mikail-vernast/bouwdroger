@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
-import { SCHIMMELS } from "@/data/navigation";
 import FontPreload from "@/components/FontPreload";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
+import { SCHIMMELS, TOESTELLEN } from "@/data/navigation";
 import "@/styles/offerte-shine.css";
 
 /**
@@ -158,22 +158,22 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                   </div>
                   <div className="mcol">
                     <span className="mlab">Toestellen</span>
+                    {/*
+                      Deze vijf stonden hier overgetypt, en liepen daardoor uit
+                      de pas met het gamma: de Large bouwdroger, de Revolution
+                      en de tweede kachel ontbraken, en bij de kachel van 30 kW
+                      stond "3,30 kW" -- dat is het vermogen van de kachel in
+                      een droogpakket, niet van dit toestel. Nu leest het menu
+                      `TOESTELLEN` uit src/data/navigation.ts, dezelfde lijst
+                      als de footer en het mobiele menu: een toestel dat in het
+                      portaal te huur gaat of eruit gaat, volgt vanzelf.
+                    */}
                     <ul>
-                      <li>
-                        <Link to="/verhuur/toestel/ttk170">Small bouwdroger</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttk350">Medium bouwdroger</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttv4500">Turbo axiaalventilator</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/radiaal2250">Turbo radiaalventilator</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/teddh30">Elektrische kachel 3,30 kW</Link>
-                      </li>
+                      {TOESTELLEN.map((toestel) => (
+                        <li key={toestel.path}>
+                          <Link to={toestel.path}>{toestel.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                   <div className="mcol">
@@ -183,7 +183,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                         <Link to="/levering">Levering &amp; installatie</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/afhalen">Afhalen in Aartselaar</Link>
+                        <Link to="/afhalen">Afhalen in Aartselaar</Link>
                       </li>
                       <li>
                         <Link to="/verhuur/pakket">Vochtmeting inbegrepen</Link>

@@ -93,7 +93,7 @@ const today = new Date().toISOString().slice(0, 10);
  */
 const ROUTE_SOURCES = {
   "/": "src/pages/Index.tsx",
-  "/calculator": "src/pages/CalculatorPage.tsx",
+  "/afhalen": "src/pages/AfhalenPage.tsx",
   "/contact": "src/pages/ContactPage.tsx",
   "/drooggarantie": "src/pages/DrooggarantiePage.tsx",
   "/hoe-drogen-werkt": "src/pages/HoeDrogenWerktPage.tsx",
@@ -371,12 +371,13 @@ function priceLines() {
 const KEY_PAGES = [
   "/prijzen",
   "/machines",
-  "/calculator",
   "/nieuwbouw",
   "/waterschade",
   "/renovatie",
   "/levering",
-  // /afhalen staat op noindex; /verhuur/afhalen is de indexeerbare afhaalpagina.
+  "/afhalen",
+  // De informatiepagina legt de logistiek uit; deze route toont het actuele
+  // gamma, de beschikbaarheid en de reservatieflow.
   "/verhuur/afhalen",
   "/luchtontvochtiger-huren",
   "/gids",

@@ -32,7 +32,9 @@ const TOESTEL_LABEL: Record<string, string> = {
   ttk170: "Small bouwdroger",
   ttk350: "Medium bouwdroger",
   ttk650: "Large bouwdroger",
-  ttv4500: "Turbo axiaalventilator",
+  // "Turbo" is sinds 11-2026 de naam van de radiaalventilator zelf, dus mag de
+  // axiaal die niet meer dragen: op de kaart heet hij Highflow.
+  ttv4500: "Highflow axiaalventilator",
   radiaal2250: "Turbo radiaalventilator",
   teddh30: "Elektrische kachel 30 kW",
   teddh20: "Elektrische kachel 20 kW",
@@ -77,10 +79,10 @@ export const TOEPASSINGEN: NavLinkItem[] = [
 /**
  * Schimmel en geur — wat ná het drogen komt.
  *
- * Eigen groep in het mega-menu en niet onder "Service": een ozonbehandeling is
- * geen onderdeel van een huur maar een losse dienst, en wie met schimmel zoekt
- * komt niet kijken bij levering en verlengen. De groep is er al op voorzien dat
- * er meer bij komt.
+ * Eigen groep in het mega-menu en niet onder "Service": ozonbehandeling is geen
+ * onderdeel van een huur maar een losse dienst, en wie met schimmel zoekt komt
+ * niet kijken bij levering en verlengen. De groep is er al op voorzien dat er
+ * meer bij komt (geurneutralisatie, ontschimmeling als aparte pagina).
  */
 export const SCHIMMELS: NavLinkItem[] = [
   { label: "Ozonbehandeling", path: "/ozonbehandeling" },
@@ -92,13 +94,21 @@ export const SCHIMMELS: NavLinkItem[] = [
 export const SERVICE: NavLinkItem[] = [
   { label: "Prijzen en voorwaarden", path: "/prijzen" },
   { label: "Levering en installatie", path: "/levering" },
-  { label: "Zelf afhalen in Aartselaar", path: "/verhuur/afhalen" },
+  { label: "Zelf afhalen in Aartselaar", path: "/afhalen" },
 ];
 
-/** De twee rekenhulpen en het gamma. */
+/**
+ * De rekenhulp en het gamma.
+ *
+ * Hier stonden twee rekenhulpen: "Bereken uw droogpakket" en "Welke capaciteit
+ * heb ik nodig?", die laatste naar /calculator. Die pagina is op 10-11-2026
+ * verwijderd omdat ze op dezelfde zoekintentie mikte als de verhuurcalculator.
+ * Twee regels naar hetzelfde pad is bovendien een dubbele link in de footer —
+ * en in dit bestand ook een dubbele React-sleutel, want de footer sleutelt op
+ * `path`.
+ */
 export const KIEZEN: NavLinkItem[] = [
   { label: "Bereken uw droogpakket", path: "/verhuur/calculator" },
-  { label: "Welke capaciteit heb ik nodig?", path: "/calculator" },
   { label: "Ons volledige gamma", path: "/machines" },
 ];
 

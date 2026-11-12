@@ -56,10 +56,6 @@ const ContactPage = () => {
                   <a href="mailto:info@vernast-verhuur.be"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg> info@vernast-verhuur.be</a>
                   <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg> Ma–Vr 08:00–17:00</span>
                 </div>
-                <div className="cta">
-                  <a className="btn btn-white" href="#formulier">Stel uw vraag<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
-                  <a className="btn btn-ghost" href="/klantservice">Naar de klantenservice</a>
-                </div>
               </div>
               <a className="hero-map" href="#locatie" aria-label="Bekijk onze locatie langs de A12">
                 <svg viewBox="0 0 900 460" role="img" aria-hidden="true">
@@ -70,7 +66,7 @@ const ContactPage = () => {
                   <line x1="726" y1="0" x2="726" y2="460" stroke="#fff" strokeWidth="4" strokeDasharray="26 20" />
                   <text x="672" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" transform="rotate(-90 672 230)">N177 · BOOMSESTEENWEG</text>
                   <rect x="40" y="350" width="686" height="52" fill="#E3E1E1" />
-                  <text x="420" y="383" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
+                  <text x="420" y="396" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
                   <g>
                     <rect x="480" y="34" width="170" height="60" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
                     <text x="565" y="60" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="11.5" fontWeight="700" fill="#8a8686" letterSpacing="1.5">KIA VERMANT</text>
@@ -95,7 +91,8 @@ const ContactPage = () => {
                   </g>
                   <path className="route-alt" d="M855 16 L855 200 L740 288 L726 310" fill="none" stroke="#DE9AA5" strokeWidth="4" strokeLinecap="round" />
                   <circle cx="855" cy="16" r="7" fill="#DE9AA5" stroke="#fff" strokeWidth="3" />
-                  <text x="838" y="26" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#b3afaf">of via de A12, afrit Aartselaar</text>
+                  <text x="838" y="20" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#b3afaf">of via de A12,</text>
+                  <text x="838" y="37" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#b3afaf">afrit Aartselaar</text>
                   <path className="route-line" d="M726 16 L726 376 L96 376" fill="none" stroke="#C8102E" strokeWidth="5" strokeLinecap="round" />
                   <circle className="pin-pulse" cx="96" cy="376" r="10" fill="none" stroke="#C8102E" strokeWidth="3" />
                   <circle cx="96" cy="376" r="9" fill="#C8102E" stroke="#fff" strokeWidth="3" />
@@ -176,7 +173,7 @@ const ContactPage = () => {
               <p>Zelfde site, aan de <b>poort van unit 11</b>. Wij zetten uw reservatie klaar en laden mee in.</p>
               <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg><span><b>Afhalen &amp; retour:</b> enkel op afgesproken momenten</span></div>
               <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg><span>Reserveer eerst online via <a href="/verhuur/afhalen">zelf afhalen</a>, dan ligt alles klaar.</span></div>
-              <a className="lgo" href="/verhuur/afhalen">Zo werkt zelf afhalen<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+              <a className="lgo" href="/afhalen">Zo werkt zelf afhalen<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
             </div>
             <div className="lc2 dark">
               <span className="a12">A12</span>
@@ -197,7 +194,7 @@ const ContactPage = () => {
               <line x1="726" y1="0" x2="726" y2="460" stroke="#fff" strokeWidth="4" strokeDasharray="26 20" />
               <text x="672" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" transform="rotate(-90 672 230)">N177 · BOOMSESTEENWEG</text>
               <rect x="40" y="350" width="686" height="52" fill="#E3E1E1" />
-              <text x="420" y="383" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
+              <text x="420" y="396" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
               <g>
                 <rect x="480" y="34" width="170" height="60" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
                 <text x="565" y="60" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="11.5" fontWeight="700" fill="#8a8686" letterSpacing="1.5">KIA VERMANT</text>
@@ -222,7 +219,8 @@ const ContactPage = () => {
               </g>
               <path className="route-alt" d="M855 16 L855 200 L740 288 L726 310" fill="none" stroke="#DE9AA5" strokeWidth="4" strokeLinecap="round" />
               <circle cx="855" cy="16" r="7" fill="#DE9AA5" stroke="#fff" strokeWidth="3" />
-              <text x="838" y="26" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#b3afaf">of via de A12, afrit Aartselaar</text>
+              <text x="838" y="20" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#b3afaf">of via de A12,</text>
+                  <text x="838" y="37" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#b3afaf">afrit Aartselaar</text>
               <path className="route-line" d="M726 16 L726 376 L96 376" fill="none" stroke="#C8102E" strokeWidth="5" strokeLinecap="round" />
               <circle className="pin-pulse" cx="96" cy="376" r="10" fill="none" stroke="#C8102E" strokeWidth="3" />
               <circle cx="96" cy="376" r="9" fill="#C8102E" stroke="#fff" strokeWidth="3" />

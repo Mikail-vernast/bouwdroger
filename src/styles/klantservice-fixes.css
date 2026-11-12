@@ -42,6 +42,22 @@
   scroll-margin-top: 104px;
 }
 
+/* 5. Betalingssectie — de bronafbeelding heeft brede transparante marges.
+      Met de oorspronkelijke 740px breedte begon het zichtbare figuur al boven
+      de laatste informatiekaart. Reserveer daarom een volwaardige rechterkolom
+      en maak de afbeelding iets kleiner, zodat man en kaarten los van elkaar
+      staan. */
+@media (min-width: 1041px) {
+  .ks-page .pay-content {
+    max-width: calc(100% - 360px);
+  }
+
+  .ks-page .pay-man {
+    right: -10px;
+    width: clamp(560px, 40vw, 650px);
+  }
+}
+
 @media (max-width: 660px) {
   .ks-page .hdr .tl-left {
     display: none;
@@ -51,7 +67,7 @@
   }
 }
 
-/* 5. Hero-mannetje — de mediterende klant, gecentreerd onder de kop en met
+/* 6. Hero-mannetje — de mediterende klant, gecentreerd onder de kop en met
       de benen op de onderrand van de hero. Toegevoegd op vraag; staat niet in
       de designbron, daarom hier en niet in de transcriptie. Geen zwevende
       "Eindmeting"-badge zoals in de drooggarantie-hero: alleen het mannetje.
@@ -89,7 +105,7 @@
   }
 }
 
-/* 6. Hero quick-links zonder glass-look — de doorschijnende melkwitte fill
+/* 7. Hero quick-links zonder glass-look — de doorschijnende melkwitte fill
       (rgba(255,255,255,.1)) leest als glas; die halen we weg. De "Bel"-pil
       wordt de rode primaire actie met dezelfde shine-animatie als de
       gratis-offerteknop (offShine staat in klantservice.css); de overige

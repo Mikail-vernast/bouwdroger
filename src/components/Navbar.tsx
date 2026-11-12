@@ -46,7 +46,7 @@ const dienstenItems = [
 
 const navLinks = [
   { label: "Levering", href: "/levering" },
-  { label: "Afhalen", href: "/verhuur/afhalen" },
+  { label: "Afhalen", href: "/afhalen" },
   { label: "Machines", href: "/machines" },
   { label: "Realisaties", href: "/realisaties" },
   { label: "Over Ons", href: "/over-ons" },

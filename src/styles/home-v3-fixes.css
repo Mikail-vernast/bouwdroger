@@ -30,3 +30,234 @@
 .v3 .rg-links span{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--txt-dim)}
 .v3 .rg-links a{font-weight:600;color:var(--txt);border-bottom:1px solid var(--line-2)}
 .v3 .rg-links a:hover{color:var(--red);border-color:var(--red)}
+
+/* 3. "Staat uw vraag er niet bij?" stond als donkerrood blok in een verder
+      lichte FAQ-sectie. Het trok daar meer aandacht dan de vragen zelf, terwijl
+      het maar een hulpkaart naast de lijst is. Nu wit, zoals de vraagkaarten
+      ernaast, met het rood op de belknop waar het wél stuurt. */
+.v3 .faq-help{background:#fff;border:1px solid var(--line);color:var(--txt)}
+/* De witte cirkel rechtsboven was contrast op donker; op wit is hij een vlek. */
+.v3 .faq-help::before{display:none}
+.v3 .faq-help h3{color:var(--txt)}
+.v3 .faq-help p{color:var(--txt-mid)}
+.v3 .faq-help .fh-call{background:var(--red);color:#fff}
+.v3 .faq-help .fh-call:hover{background:#a80d26;color:#fff}
+.v3 .faq-help .fh-form{border:1.5px solid var(--line-2);color:var(--txt)}
+.v3 .faq-help .fh-form:hover{border-color:var(--red);color:var(--red)}
+
+/* 4. De speldpunt op de kaart is het rode bolletje, niet het midden van de pil.
+      Het design centreerde de pil op het coordinaat (`translate(-50%,-50%)`),
+      waardoor het bolletje een halve pilbreedte te ver naar links wees: dat van
+      Oost-Vlaanderen stond in West-Vlaanderen. Het bolletje is 8px breed achter
+      13px padding, dus het hart ervan ligt 17px van de linkerrand. */
+.v3 .rm-panel .pin { transform: translate(-17px, -50%); }
+
+/* 5. Vertrouwensbalk: witte pillen en een zegel.
+
+      Eerst stond hier glas (`backdrop-filter`). Dat liet het cirkelmotief van
+      de achtergrond doorschijnen, maar daardoor had elke pil een andere tint --
+      de ene lag op de donkere rand, de andere op de lichte cirkel. Wit is
+      rustiger en leest op rood als een keurmerk in plaats van een vlek.
+
+      Het rood op wit is dezelfde `--red` als de knoppen, zodat de iconen bij de
+      rest van de pagina horen en niet als vierde kleur binnenkomen. */
+.v3 .trustbar .tb-chips span {
+  background: #fff;
+  border: 1px solid #fff;
+  color: var(--maroon);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 12px 26px -18px rgba(0, 0, 0, .7);
+  padding: 12px 19px;
+  transition: transform .16s, box-shadow .16s;
+}
+.v3 .trustbar .tb-chips span:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px -18px rgba(0, 0, 0, .8);
+}
+.v3 .trustbar .tb-chips svg {
+  color: var(--red);
+  flex-shrink: 0;
+}
+
+/* Het zegel links in de balk. De afbeelding is vierkant (360²); `width`/`height`
+   staan erop zodat de browser de plek vrijhoudt vóór ze binnen is -- anders
+   schuift de hele balk op het moment dat ze laadt. */
+.v3 .trustbar .tb-seal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.v3 .trustbar .tb-seal img {
+  width: 62px;
+  height: 62px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .45));
+}
+.v3 .trustbar .tb-seal span {
+  font-family: var(--fb);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .92);
+  white-space: nowrap;
+}
+@media (max-width: 660px) {
+  .v3 .trustbar .tb-seal { flex-direction: row; gap: 12px; }
+  .v3 .trustbar .tb-seal img { width: 46px; height: 46px; }
+}
+
+/* 6. De koppen op de toestelkaarten stonden op 15px in plaats van 22px.
+
+      Oorzaak: `.pc` bestaat twee keer in de designfile. Regel 390 e.v. is de
+      toestelkaart (grijs, radius 26, kop 22px/800); regel 567 e.v. is het
+      kaartje in "Boeken, betalen en plannen" (wit, radius 16, kop 15px/700).
+      Dat tweede blok is niet onder `.pay` gescoped, staat later in het bestand
+      en wint dus van het eerste -- op de toestelkaarten.
+
+      Hier alleen de kop rechtgezet, gescoped op de gamma-sectie zodat de
+      betaalkaartjes hun eigen maat houden. 19px in plaats van de 22 uit het
+      design: met "Eco Performance" naast een prijs van vijf tekens is 22 te
+      vol op een kaart van 279px. De rest van die botsing (achtergrond, radius,
+      binnenmarge) staat er nog -- zie de notitie in de PR. */
+.v3 .prods .pc h3 {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  margin: 0 0 2px;
+}
+
+/* 7. De vochtafvoer in het blauw, met een druppel.
+
+      Dat cijfer is waarop bouwdrogers vergeleken worden -- 50 tegenover 110
+      liter per dag bepaalt of een toestel bij de werf past -- maar het stond in
+      dezelfde grijze pil als "3 standen" en "tot 250 m3". Nu krijgt het de
+      behandeling die het Eco-label al had: eigen kleur, eigen icoon. Blauw
+      leest als water zonder dat er een woord bij hoeft, en botst niet met het
+      rood van de knop of het groen van Eco. */
+.v3 .pc .chip.water {
+  background: #E8F1FB;
+  color: #12528F;
+}
+.v3 .pc .chip.water svg {
+  width: 11px;
+  height: 11px;
+  color: #2B7FD1;
+}
+
+/* 8. De chips waren wit op een witte kaart.
+
+      Ze zijn getekend voor de grijze kaart uit de designfile (`#ECEAEA`), maar
+      die kaart is wit geworden doordat het betaalkaartje-blok `.pc` overschrijft
+      -- zie punt 6. Wit op wit liet alleen een schaduwrand over: "Adsorptie" en
+      "via slangen" waren nauwelijks te zien.
+
+      De kaart blijft wit. De chips nemen nu de tint van de paginaondergrond,
+      met een haarlijn eromheen, zodat elk een eigen vlakje is in plaats van een
+      lichte vlek. Eco en vochtafvoer houden hun eigen kleur en krijgen alleen de
+      rand erbij. */
+.v3 .prods .pc .chip {
+  border: 1px solid rgba(18, 16, 17, .09);
+  box-shadow: none;
+}
+.v3 .prods .pc .chip:not(.eco):not(.water) {
+  background: #F2F0F0;
+  color: var(--txt);
+}
+.v3 .prods .pc .chip.eco { border-color: rgba(11, 107, 51, .24); }
+.v3 .prods .pc .chip.water { border-color: rgba(18, 82, 143, .22); }
+
+/* 9. Het Eco-label las als nog een chip. Het is een keurmerk, geen specificatie:
+      hoofdletters, zwaarder, een blad dat groot genoeg is om een blad te zijn.
+      Het stond op 10px -- kleiner dan de punt op de i ernaast. */
+.v3 .prods .pc .chip.eco {
+  font-weight: 800;
+  font-size: 10.5px;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  background: #E3F2E8;
+  color: #0B6B33;
+}
+.v3 .prods .pc .chip.eco svg {
+  width: 13px;
+  height: 13px;
+  color: #15803D;
+}
+
+/* 10. "Meest gehuurd" krijgt dezelfde glans als "Gratis offerte".
+
+       Dat is letterlijk dezelfde animatie: `offShine` uit de designfile, met de
+       gradient, de 3,2s en de easing van `.btn-offerte`. Een tweede, eigen
+       beweging ernaast zou de pagina twee verschillende "kijk hier"-signalen
+       geven; nu is het er een die de bezoeker in de koptekst al gezien heeft.
+
+       `overflow:hidden` en `position` moeten erbij: zonder het eerste loopt de
+       glans buiten de pil door, en de badge stond al absoluut gepositioneerd
+       maar zonder eigen stapelcontext voor het pseudo-element.
+
+       `prefers-reduced-motion` zet hem uit -- de badge blijft dan gewoon rood. */
+.v3 .prods .pc.hot .pt {
+  position: absolute;
+  overflow: hidden;
+}
+.v3 .prods .pc.hot .pt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, .45) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  animation: offShine 3.2s ease infinite;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3 .prods .pc.hot .pt::after { animation: none; display: none; }
+}
+
+/* 11. De btw-schakelaar onder de inleiding van het gamma.
+
+       Twee knoppen in een omhulsel, de actieve wit met een schaduwtje zodat ze
+       ingedrukt lijkt. Bewust klein: het is een hulpmiddel bij het lezen van de
+       prijzen, geen call to action -- het rood blijft voor "Product huren". */
+.v3 .btw-switch {
+  display: inline-flex;
+  gap: 3px;
+  margin-top: 16px;
+  padding: 3px;
+  background: #ECEAEA;
+  border-radius: 99px;
+}
+.v3 .btw-switch button {
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  color: var(--txt-mid);
+  font-family: var(--fb);
+  font-weight: 600;
+  font-size: 12.5px;
+  padding: 8px 16px;
+  border-radius: 99px;
+  transition: background .15s, color .15s, box-shadow .15s;
+}
+.v3 .btw-switch button:hover { color: var(--txt); }
+.v3 .btw-switch button[aria-pressed="true"] {
+  background: #fff;
+  color: var(--txt);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+}
+
+/* 12. De schakelaar staat rechts, onder de afhaalnotitie -- niet links onder de
+       inleiding. Daar lijnt hij uit met de rechterkolom, zodat de kop en de
+       lede één blok blijven. `.phead-right` is een kolom, dus `align-self`
+       bepaalt de kant. */
+.v3 .phead-right .btw-switch {
+  align-self: flex-start;
+  margin-top: 14px;
+}

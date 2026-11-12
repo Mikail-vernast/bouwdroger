@@ -40,6 +40,10 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/LeveringPage")).default }),
       },
       {
+        path: "afhalen",
+        lazy: async () => ({ Component: (await import("./pages/AfhalenPage")).default }),
+      },
+      {
         path: "levering/pakket/:packageId",
         lazy: async () => ({ Component: (await import("./pages/PackageDetailPage")).default }),
         getStaticPaths: async () =>
@@ -111,14 +115,6 @@ export const routes: RouteRecord[] = [
       {
         path: "algemene-voorwaarden",
         lazy: async () => ({ Component: (await import("./pages/AlgemeneVoorwaardenPage")).default }),
-      },
-      {
-        path: "calculator",
-        lazy: async () => ({ Component: (await import("./pages/CalculatorPage")).default }),
-      },
-      {
-        path: "calculator/detail",
-        lazy: async () => ({ Component: (await import("./pages/CalculatorDetailPage")).default }),
       },
       {
         path: "product/:id",

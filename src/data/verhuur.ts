@@ -69,7 +69,7 @@ export const ROLE: Record<DeviceKey, { tag: string; txt: string }> = {
   axiaal: {
     tag: "Circulatie",
     /*
-      4 500 is het cijfer dat de TTV 4500 op zijn eigen toestelpagina draagt en
+      4 500 is het cijfer dat de Highflow op zijn eigen toestelpagina draagt en
       dat ook in de modelnaam zit. De 5 300 hieronder in de specs is iets
       anders — dat is het maximum vrij uitblazend — maar los in lopende tekst
       leest het als een tweede, tegenstrijdig getal voor dezelfde ventilator.
@@ -390,19 +390,19 @@ export interface Product {
 const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "badge" | "day" | "img" | "sum">> = {
   ttk170: {
     imgAlt: [
-      "Vernast ECO Boost, condensontvochtiger TTK 170 S van 50 liter per dag voor ruimtes tot 250 m³",
-      "De drie Vernast eco-bouwdrogers naast elkaar, de TTK 170 S is het kleinste model",
+      "Vernast ECO Boost, condensontvochtiger Eco Boost van 50 liter per dag voor ruimtes tot 250 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de Eco Boost is het kleinste model",
     ],
     key: [
       ["Vochtafvoer", "50", "L/dag"],
       ["Bereik", "250", "m³"],
       ["Verbruik", "0,75", "kW"],
     ],
-    aboutTitle: "Wanneer kiest u de TTK 170 S?",
+    aboutTitle: "Wanneer kiest u de Eco Boost?",
     about: [
       "Dit is ons instaptoestel — maar met 50 liter vochtafvoer per dag is het bepaald geen lichtgewicht. Voor ruimtes tot ongeveer <strong>250 m³</strong> (bijvoorbeeld een appartement of een verdieping van een woning) haalt dit toestel het bouwvocht er efficiënt uit.",
-      "De TTK 170 S is verrijdbaar en compact genoeg om via een normale deur of trap binnen te krijgen. Hij draait stil genoeg om in een bewoonde ruimte te blijven staan, wat hem geschikt maakt voor renovaties waar u ondertussen woont.",
-      "Werkt u in een grotere ruimte of gaat het om waterschade waarbij snelheid telt? Kijk dan naar de <strong>TTK 350 S</strong> of <strong>TTK 650 S</strong>.",
+      "De Eco Boost is verrijdbaar en compact genoeg om via een normale deur of trap binnen te krijgen. Hij draait stil genoeg om in een bewoonde ruimte te blijven staan, wat hem geschikt maakt voor renovaties waar u ondertussen woont.",
+      "Werkt u in een grotere ruimte of gaat het om waterschade waarbij snelheid telt? Kijk dan naar de <strong>Eco Performance</strong> of <strong>Eco Ultimate</strong>.",
     ],
     bullets: [
       ["Tot 250 m³", "Eén kamer, appartement of verdieping — het volume dat dit toestel comfortabel aankan."],
@@ -427,7 +427,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     faq: [
       [
         "Is dit toestel groot genoeg voor mijn woning?",
-        "Voor één kamer, een appartement of een verdieping tot ongeveer 250 m³ volstaat de TTK 170 S. Voor een volledige nieuwbouwwoning raden we de TTK 350 S aan. Laat het gerust berekenen via de configurator — dan weet u het zeker.",
+        "Voor één kamer, een appartement of een verdieping tot ongeveer 250 m³ volstaat de Eco Boost. Voor een volledige nieuwbouwwoning raden we de Eco Performance aan. Laat het gerust berekenen via de configurator — dan weet u het zeker.",
       ],
       [
         "Kan ik het toestel zelf verplaatsen?",
@@ -441,19 +441,19 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   ttk350: {
     imgAlt: [
-      "Vernast ECO Performance, condensontvochtiger TTK 350 S van 70 liter per dag voor ruimtes tot 400 m³",
-      "De drie Vernast eco-bouwdrogers naast elkaar, de TTK 350 S is het middelste model",
+      "Vernast ECO Performance, condensontvochtiger Eco Performance van 70 liter per dag voor ruimtes tot 400 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de Eco Performance is het middelste model",
     ],
     key: [
       ["Vochtafvoer", "70", "L/dag"],
       ["Bereik", "400", "m³"],
       ["Verbruik", "1,1", "kW"],
     ],
-    aboutTitle: "Wanneer kiest u de TTK 350 S?",
+    aboutTitle: "Wanneer kiest u de Eco Performance?",
     about: [
       "Dit is het toestel dat we het vaakst leveren, en met reden: met <strong>70 liter vochtafvoer per dag</strong> en een bereik tot <strong>400 m³</strong> dekt het een volledige nieuwbouwwoning of een grote renovatie in één keer.",
-      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af — natuurlijke droging duurt weken. De TTK 350 S verlaagt de luchtvochtigheid ver genoeg om dat proces flink in te korten: <strong>twee tot vier weken</strong>, afhankelijk van de dikte van chape of pleister, zodat uw vloerder en schilder sneller kunnen starten.",
-      "Voor het beste resultaat combineert u dit toestel met een <strong>ventilator TTV 4500</strong>. Zonder luchtbeweging droogt vooral de lucht en niet de bouwmassa; met circulatie wint u dagen.",
+      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af — natuurlijke droging duurt weken. De Eco Performance verlaagt de luchtvochtigheid ver genoeg om dat proces flink in te korten: <strong>twee tot vier weken</strong>, afhankelijk van de dikte van chape of pleister, zodat uw vloerder en schilder sneller kunnen starten.",
+      "Voor het beste resultaat combineert u dit toestel met een <strong>ventilator Highflow</strong>. Zonder luchtbeweging droogt vooral de lucht en niet de bouwmassa; met circulatie wint u dagen.",
     ],
     bullets: [
       ["Tot 400 m³", "Een volledige nieuwbouwwoning of grote renovatie in één toestel."],
@@ -486,7 +486,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
       [
         "Wat als mijn ruimte groter is dan 400 m³?",
-        "Dan plaatsen we ofwel de TTK 650 S, ofwel meerdere toestellen. De configurator rekent automatisch uit hoeveel units u nodig heeft.",
+        "Dan plaatsen we ofwel de Eco Ultimate, ofwel meerdere toestellen. De configurator rekent automatisch uit hoeveel units u nodig heeft.",
       ],
       [
         "Moet ik water aftappen?",
@@ -496,17 +496,17 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   ttk650: {
     imgAlt: [
-      "Vernast ECO Ultimate, condensontvochtiger TTK 650 S van 90 liter per dag voor ruimtes tot 600 m³",
-      "De drie Vernast eco-bouwdrogers naast elkaar, de TTK 650 S is het grootste model",
+      "Vernast ECO Ultimate, condensontvochtiger Eco Ultimate van 110 liter per dag voor ruimtes tot 600 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de Eco Ultimate is het grootste model",
     ],
     key: [
-      ["Vochtafvoer", "90", "L/dag"],
+      ["Vochtafvoer", "110", "L/dag"],
       ["Bereik", "600", "m³"],
       ["Verbruik", "1,4", "kW"],
     ],
-    aboutTitle: "Wanneer kiest u de TTK 650 S?",
+    aboutTitle: "Wanneer kiest u de Eco Ultimate?",
     about: [
-      "Met <strong>90 liter per dag</strong> en een bereik tot <strong>600 m³</strong> is dit het toestel voor situaties waar volume of snelheid het probleem is: grote werven, industriële ruimtes, ruime kelders of acute waterschade.",
+      "Met <strong>110 liter per dag</strong> en een bereik tot <strong>600 m³</strong> is dit het toestel voor situaties waar volume of snelheid het probleem is: grote werven, industriële ruimtes, ruime kelders of acute waterschade.",
       "Bij <strong>waterschade</strong> is dit vaak de juiste keuze. Na een lek of overstroming zit het water niet alleen in de lucht maar diep in vloeren, muren en isolatie. Hoe sneller u de luchtvochtigheid omlaag brengt, hoe kleiner de kans op schimmel en structurele schade — de eerste 48 uur zijn beslissend.",
       "Droogt u een <strong>kelder of onverwarmde ruimte</strong>? Combineer dit toestel met de <strong>elektrische kachel TEH 30 T</strong>. Onder 15 °C werkt condensatiedroging traag; met de kachel brengt u de temperatuur op peil en komt het vocht wel los.",
     ],
@@ -518,7 +518,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
     specs: [
       ["Type", "Condensontvochtiger"],
-      ["Vochtafvoer (30 °C / 80 % RV)", "90 L/dag"],
+      ["Vochtafvoer (30 °C / 80 % RV)", "110 L/dag"],
       ["Aanbevolen volume", "tot 600 m³"],
       ["Luchtdebiet", "700 m³/u"],
       ["Opgenomen vermogen", "1,4 kW"],
@@ -551,7 +551,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   ttv4500: {
     imgAlt: [
-      "Vernast Turbo Axiaalventilator TTV 4500, bouwventilator met 4.500 m³/u luchtverzet",
+      "Vernast Turbo Highflow, bouwventilator met 4.500 m³/u luchtverzet",
     ],
     key: [
       ["Luchtverzet", "4 500", "m³/u"],
@@ -600,11 +600,12 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   teddh30: {
     imgAlt: [
-      "Vernast elektrische bouwkachel TEddH 30 T, 30 kW met ingebouwde thermostaat",
+      "Vernast elektrische bouwkachel Heatpower 30, 30 kW met ingebouwde thermostaat",
     ],
     key: [
       ["Vermogen", "30", "kW"],
       ["Aansluiting", "400", "V"],
+      ["Max. temperatuur", "75", "°C"],
       ["Thermostaat", "ja", ""],
     ],
     aboutTitle: "Waarom verwarmen bij het drogen?",
@@ -653,11 +654,12 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   teddh20: {
     imgAlt: [
-      "Vernast elektrische bouwkachel TEddH 20 T, 20 kW met thermostaat voor kleinere ruimtes",
+      "Vernast elektrische bouwkachel Heatboost 20, 20 kW met thermostaat voor kleinere ruimtes",
     ],
     key: [
       ["Vermogen", "20", "kW"],
       ["Aansluiting", "400", "V"],
+      ["Max. temperatuur", "60", "°C"],
       ["Thermostaat", "ja", ""],
     ],
     aboutTitle: "Wanneer kiest u de TEH 20 T?",
@@ -699,7 +701,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   radiaal2250: {
     imgAlt: [
-      "Vernast Turbo Radiaalventilator van 2.250 m³/u, blaast gericht over vloeren en chape",
+      "Vernast Turbo van 2.250 m³/u, blaast gericht over vloeren en chape",
       "Afmetingen van de Vernast radiaalventilator: 54,5 × 51,5 × 49 cm, 20 kg",
     ],
     key: [

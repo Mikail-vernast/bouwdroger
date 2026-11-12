@@ -1,6 +1,12 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRightIcon, CheckIcon } from "./icons";
+import {
+  ArrowRightIcon,
+  ClipboardIcon,
+  HelmetIcon,
+  PlanIcon,
+  ShieldIcon,
+} from "./icons";
 
 interface Hotspot {
   id: string;
@@ -46,17 +52,27 @@ const HOTSPOTS: Hotspot[] = [
     model: "ttk650",
     dot: { left: "72%", top: "34%" },
     card: { left: "auto", right: "2%", top: "16%" },
-    name: "ECO Ultimate – 150l /dag",
+    name: "ECO Ultimate – 110l /dag",
     context: "Grote volumes · tot 600 m³",
     rows: [
-      ["Vochtafvoer", "150 l/dag"],
+      ["Vochtafvoer", "110 l/dag"],
       ["Luchtdebiet", "700 m³/u"],
       ["Verbruik", "1,4 kW"],
     ],
   },
 ];
 
-const TRUSTED = ["Architecten", "Verzekeringskantoren", "Bouwkundigen", "Aannemers"];
+/*
+ * Elk beroep zijn eigen icoon. Ze droegen alle vier hetzelfde groene vinkje:
+ * dat zei vier keer "ja" en nul keer wie, en in een rij naast elkaar werd het
+ * een streepjespatroon in plaats van vier herkenbare partijen.
+ */
+const TRUSTED: { who: string; icon: ReactNode }[] = [
+  { who: "Architecten", icon: <PlanIcon /> },
+  { who: "Verzekeringskantoren", icon: <ShieldIcon /> },
+  { who: "Bouwkundigen", icon: <ClipboardIcon /> },
+  { who: "Aannemers", icon: <HelmetIcon /> },
+];
 
 const V3EcoLineup = () => {
   const [open, setOpen] = useState<string | null>(null);
@@ -129,14 +145,30 @@ const V3EcoLineup = () => {
         </div>
 
         <div className="trustbar">
+          {/*
+            Het zegel staat vóór de tekst, niet ertussen: het is het eerste wat
+            het oog pakt op een rode balk, en daarna leest de bezoeker waarom.
+            `alt=""` omdat het woord ernaast al staat -- een schermlezer die
+            "gouden schild" hoort én "Gecertificeerd" leest, krijgt het twee keer.
+          */}
+          <div className="tb-seal">
+            <img
+              src="/vernast/schild-gecertificeerd.webp"
+              alt=""
+              width={360}
+              height={360}
+              loading="lazy"
+            />
+            <span>Gecertificeerd</span>
+          </div>
           <div className="tb-l">
             <span className="tb-k">Vertrouwd door wie het moet weten</span>
             <h3>Vertrouwd door professionals in de bouw.</h3>
           </div>
           <div className="tb-chips">
-            {TRUSTED.map((who) => (
-              <span key={who}>
-                <CheckIcon size={15} strokeWidth={2.4} /> {who}
+            {TRUSTED.map((item) => (
+              <span key={item.who}>
+                {item.icon} {item.who}
               </span>
             ))}
           </div>

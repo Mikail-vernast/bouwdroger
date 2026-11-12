@@ -65,21 +65,19 @@ export const SEO = {
     description:
       "Wij brengen uw droogpakket binnen 24 uur naar de werf, plaatsen elk toestel, sluiten de condensafvoer aan en halen alles weer op zodra u droog bent.",
   },
-
-  /* ---------- Rekenhulpen ----------
-     Twee calculators met een verschillende intentie: deze rekent uit hoeveel
-     capaciteit een ruimte nodig heeft, de verhuurcalculator stelt een compleet
-     pakket samen. Overlappen ze in de praktijk toch, dan is er één te veel. */
-  calculator: {
-    title: "Welke bouwdroger heb ik nodig? Bereken het | Vernast",
+  afhalen: {
+    title: "Bouwdroger zelf afhalen in Aartselaar | Vernast",
     description:
-      "Geef uw oppervlakte en plafondhoogte in en zie meteen hoeveel liter vochtafvoer per dag u nodig heeft, welk toestel daarbij past en hoeveel units.",
+      "Zo werkt een bouwdroger afhalen bij Vernast in Aartselaar: online reserveren, vervoer, tijdsloten, adres en route naar ons magazijn langs de A12.",
   },
-  calculatorDetail: {
-    title: "Uw berekende droogadvies | Vernast Bouwdrogers",
-    description: "Het resultaat van uw capaciteitsberekening, met de toestellen die daarbij passen.",
-    noindex: true,
-  },
+
+  /* ---------- Rekenhulp ----------
+     Er stonden hier twee calculators naast elkaar: /calculator rekende uit
+     hoeveel capaciteit een ruimte nodig heeft, /verhuur/calculator stelt een
+     compleet pakket samen. Die eerste is op 10-11-2026 verwijderd omdat de
+     twee in de praktijk op dezelfde zoekintentie mikten — en omdat alleen de
+     verhuurcalculator met de gepubliceerde tarieven rekent. /calculator en
+     /calculator/detail staan nu als 308 in vercel.json. */
 
   /* ---------- Bedrijf ---------- */
   overOns: {
@@ -152,7 +150,7 @@ export const SEO = {
   luchtontvochtigerHuren: {
     title: "Luchtontvochtiger huren voor kelder en bouw | Vernast",
     description:
-      "Luchtontvochtiger huren voor een vochtige kelder, na waterschade of in nieuwbouw. Condensontvochtigers van 50 tot 90 liter per dag, met dagprijs en levering.",
+      "Luchtontvochtiger huren voor een vochtige kelder, na waterschade of in nieuwbouw. Condensontvochtigers van 50 tot 110 liter per dag, met dagprijs en levering.",
   },
 
   /* ---------- Juridisch ---------- */

@@ -99,14 +99,14 @@ export function euro(amount: number): string {
 }
 
 /**
- * Kaartgegevens voor de drie ontvochtigers, zoals `MachineCard` ze verwacht.
+ * Kaartgegevens voor de drie ontvochtigers, zoals `Pakketkaarten` ze verwacht.
  *
  * Op /nieuwbouw, /waterschade en /renovatie stond hiervoor telkens een eigen,
  * met de hand onderhouden lijstje met dezelfde verzonnen toestellen erin. Nu
  * staat het één keer hier, zodat een prijswijziging in het portaal ook op die
  * pagina's doorloopt in plaats van er stil achter te blijven.
  *
- * `price` is bewust zonder euroteken: `MachineCard` zet dat er zelf voor.
+ * `weekPrice` is bewust zonder euroteken: de kaart zet dat er zelf voor.
  */
 export interface DrogerKaart {
   key: string;

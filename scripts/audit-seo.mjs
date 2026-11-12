@@ -26,7 +26,7 @@ const LIVE = process.argv.includes("--live");
  * antwoord dan lopende verkooptekst. /waterschade stond hier maandenlang
  * zonder, terwijl het de meest urgente zoekopdracht van de site is.
  */
-const FAQ_EXPECTED = ["/nieuwbouw", "/waterschade", "/renovatie", "/prijzen", "/calculator"];
+const FAQ_EXPECTED = ["/nieuwbouw", "/waterschade", "/renovatie", "/prijzen"];
 
 function htmlFiles(dir) {
   return readdirSync(dir).flatMap((name) => {

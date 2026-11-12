@@ -1,27 +1,42 @@
-import PageMeta from "@/components/PageMeta";
-import Navbar from "@/components/Navbar";
-import V3Footer from "@/components/home-v3/V3Footer";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import MachineCard from "@/components/MachineCard";
-import {
-  Phone,
-  MessageCircle,
-  Zap,
-  Shield,
-  PhoneCall,
-  CheckCircle2,
-  AlertTriangle,
-  ArrowRight,
-} from "lucide-react";
 import { Link } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import V3Header from "@/components/home-v3/V3Header";
+import V3Footer from "@/components/home-v3/V3Footer";
+import Reveal from "@/components/Reveal";
+import Pakketkaarten from "@/components/content/Pakketkaarten";
+import ContactBlok from "@/components/content/ContactBlok";
+import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
+import {
+  ArrowRightIcon,
+  BoltIcon,
+  CardIcon,
+  CheckIcon,
+  HouseIcon,
+  MoldIcon,
+  PhoneIcon,
+  ShieldIcon,
+  SupportIcon,
+  TruckIcon,
+} from "@/components/home-v3/icons";
+import { GaugeIcon, WarnIcon, WindIcon } from "@/components/content/icons";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
-import { DROGER_KAARTEN, euro } from "@/data/tarieflijst";
+import { euro } from "@/data/tarieflijst";
 import { EXTRAS } from "@/data/verhuur";
 import { termijnLabel, termijnZonderDikte } from "@/lib/droogtijden";
-import Reveal from "@/components/Reveal";
-import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
+import { CONTACT } from "@/lib/site";
+import "@/styles/v3-content.css";
+
+/**
+ * Waterschade — de meest urgente van de drie situatiepagina's, en daarom de
+ * enige met een vaste spoedbalk onderaan op een telefoon.
+ *
+ * Stond tot november 2026 op de oude shadcn-schil met de `Navbar`; nu in de
+ * v3-vormtaal, met <V3Header> en de gedeelde opmaak uit
+ * src/styles/v3-content.css. De voorzichtige formulering rond de verzekering
+ * is bewust ongewijzigd gebleven: hier stond ooit "uw verzekering betaalt dit",
+ * en dat kunnen wij niet weten.
+ */
 
 /** De huurtermijn van het vaste waterschadepakket, uit de catalogus. */
 const WATER_TERMIJN = termijnZonderDikte("waterschade");
@@ -29,6 +44,15 @@ const WATER_TERMIJN = termijnZonderDikte("waterschade");
 /** Het ondertekende vochtrapport is een betalende optie, geen standaard. */
 const RAPPORT = EXTRAS.find((x) => x.k === "rapport");
 const RAPPORT_PRIJS = RAPPORT ? ` voor ${euro(RAPPORT.price)} excl. btw` : "";
+
+const WHATSAPP = "https://wa.me/3236899065";
+
+/** WhatsApp staat niet in de v3-iconenset; dit is de enige plek waar hij hoort. */
+const WhatsAppIcon = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.13-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z" />
+  </svg>
+);
 
 /*
   Wat iemand zelf doet in de eerste twee dagen, los van ons. De vier stappen
@@ -62,17 +86,29 @@ const eersteUren = [
   },
 ];
 
-const steps = [
-  { num: "1", title: "Bel of WhatsApp ons", desc: "Beschrijf uw situatie, wij sturen direct de juiste machine." },
-  { num: "2", title: "Wij leveren vandaag", desc: "Onze expert plaatst de bouwdroger en geeft uitleg." },
-  { num: "3", title: "Bouwdroger doet zijn werk", desc: "Vocht verdwijnt, schimmel krijgt geen kans." },
-  { num: "4", title: "Gratis vochtmeting", desc: "Na afloop meten wij of alles droog is." },
+const stappen = [
+  { Icon: PhoneIcon, title: "Bel of WhatsApp ons", desc: "Beschrijf wat er gebeurd is en hoe groot de ruimte is. Wij bepalen meteen welke toestellen mee moeten." },
+  { Icon: TruckIcon, title: "Wij leveren vandaag", desc: "Bij waterschade rijden we dezelfde dag uit. Onze technieker plaatst alles en legt uit wat u moet opvolgen." },
+  { Icon: BoltIcon, title: "De toestellen draaien door", desc: "Dag en nacht, ook in het weekend. Het vocht verdwijnt uit vloer en muren voor schimmel kans krijgt." },
+  { Icon: GaugeIcon, title: "Meting bij de oplevering", desc: "Wij meten bij start en einde, en vergelijken met een droge plek in dezelfde woning. Dat is uw bewijs dat het droog is." },
 ];
 
-const warnings = [
-  { icon: "🦠", title: "Schimmel begint na 24–48u", desc: "Eenmaal schimmel aanwezig zijn de kosten veel hoger." },
-  { icon: "🏚️", title: "Structuurschade", desc: "Langdurig vocht beschadigt muren, vloeren en plafonds." },
-  { icon: "💸", title: "Hogere kosten later", desc: "Wat droog is voor schimmel toeslaat, hoeft vaak niet uitgebroken te worden." },
+const gevaren = [
+  {
+    Icon: MoldIcon,
+    title: "Schimmel na 24 tot 48 uur",
+    desc: "Op vochtig materiaal begint schimmel binnen twee dagen. Vanaf dat moment is drogen alleen niet meer genoeg: er moet gesaneerd worden, en dat kost een veelvoud.",
+  },
+  {
+    Icon: HouseIcon,
+    title: "Vocht dat dieper trekt",
+    desc: "Eerst de chape en de onderkant van de muren, daarna de isolatie en het pleisterwerk. Water dat in de vloeropbouw zit, krijgt u er niet meer zomaar uit.",
+  },
+  {
+    Icon: CardIcon,
+    title: "Uitbreken in plaats van drogen",
+    desc: "Wat droog is vóór schimmel toeslaat, hoeft meestal niet uitgebroken te worden. Een week wachten kan het verschil zijn tussen drogen en een vloer vervangen.",
+  },
 ];
 
 /**
@@ -104,11 +140,11 @@ const faqs = [
   },
   {
     q: "Hoeveel toestellen heb ik nodig bij een ondergelopen kelder?",
-    a: "Voor een gemiddelde kelder volstaat één TTK 350 S met een ventilator. Staat er water in meerdere ruimtes of is de ruimte koud, dan komt er een kachel bij. Onze calculator rekent het voor u uit.",
+    a: "Voor een gemiddelde kelder volstaat één Eco Performance met een ventilator. Staat er water in meerdere ruimtes of is de ruimte koud, dan komt er een kachel bij. Onze calculator rekent het voor u uit.",
   },
   {
     q: "Kan ik drogen terwijl er nog water staat?",
-    a: "Nee — pomp of zuig eerst het staande water weg. Een bouwdroger haalt vocht uit de lucht en uit materialen, niet uit een plas. Zodra de vloer waterloos is, plaatsen wij de toestellen.",
+    a: "Nee. Pomp of zuig eerst het staande water weg. Een bouwdroger haalt vocht uit de lucht en uit materialen, niet uit een plas. Zodra de vloer waterloos is, plaatsen wij de toestellen.",
   },
   {
     q: "Moet de chape eruit na waterschade?",
@@ -133,9 +169,9 @@ const verderLezen: LeesGroep[] = [
   {
     kop: "Toestellen voor waterschade",
     links: [
-      { to: "/verhuur/toestel/ttk650", toestel: "ttk650", label: "Ontvochtiger TTK 650 S", sub: "Onze grootste condensdroger, voor acute schade." },
+      { to: "/verhuur/toestel/ttk650", toestel: "ttk650", label: "Eco Ultimate", sub: "Onze grootste condensdroger, voor acute schade." },
       { to: "/verhuur/toestel/radiaal2250", toestel: "radiaal2250", label: "Radiaalventilator voor natte vloeren", sub: "Spatwaterdicht, blaast vlak over de vloer." },
-      { to: "/verhuur/toestel/ttv4500", toestel: "ttv4500", label: "Axiaalventilator TTV 4500", sub: "Houdt de hele ruimte in beweging." },
+      { to: "/verhuur/toestel/ttv4500", toestel: "ttv4500", label: "Highflow", sub: "Houdt de hele ruimte in beweging." },
       { to: "/verhuur/toestel/revolution", toestel: "revolution", label: "Adsorptiedroger voor vloeropbouw en isolatie", sub: "Droogt gericht via slangen." },
     ],
   },
@@ -150,382 +186,428 @@ const verderLezen: LeesGroep[] = [
   },
 ];
 
-const WaterschadePage = () => {
-  return (
-    <div className="min-h-screen bg-background">
-      <PageMeta
-        {...SEO.waterschade}
-        jsonLd={[
-          serviceSchema({
-            name: "Bouwdroging na waterschade",
-            description:
-              "Snelle droging van vloeren, muren en isolatie na een waterlek of overstroming, met bouwdrogers en ventilatoren geleverd binnen 24 uur.",
-            path: "/waterschade",
-            serviceType: "Waterschadeherstel",
-          }),
-          faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
-          breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Waterschade", path: "/waterschade" },
-          ]),
-        ]}
-      />
-      <Navbar />
-      <main>
-        {/* 1. URGENCY HERO */}
-        <section className="bg-[hsl(0,72%,51%)] text-white py-14 md:py-20">
-          <div className="container mx-auto px-4 text-center max-w-3xl">
-            <div>
-              <Badge className="bg-white/20 text-white border-white/30 text-sm px-4 py-1.5 mb-6 inline-flex items-center gap-2">
-                <span className="w-2.5 h-2.5 bg-white rounded-full animate-pulse" />
-                Spoedbezorging beschikbaar — bel nu
-              </Badge>
-            </div>
+const WaterschadePage = () => (
+  <div className="v3c ws-page heeft-urgbar">
+    <PageMeta
+      {...SEO.waterschade}
+      jsonLd={[
+        serviceSchema({
+          name: "Bouwdroging na waterschade",
+          description:
+            "Snelle droging van vloeren, muren en isolatie na een waterlek of overstroming, met bouwdrogers en ventilatoren geleverd binnen 24 uur.",
+          path: "/waterschade",
+          serviceType: "Waterschadeherstel",
+        }),
+        faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Waterschade", path: "/waterschade" },
+        ]),
+      ]}
+    />
 
-            <h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4"
-            >
-              Waterschade drogen met een bouwdroger
-            </h1>
+    <V3Header lightAfter={420} />
 
-            <p
-              className="text-lg md:text-xl text-white/85 mb-8 max-w-lg mx-auto"
-            >
-              Waterlek of overstroming? Wij leveren uw bouwdroger vandaag nog.
+    <main>
+
+    {/* ================= HERO ================= */}
+    <div className="redtop">
+      <section className="hero">
+        <div className="wrap hero-grid">
+          <div className="hero-copy">
+            <span className="pulse"><i /> Spoedlevering · bel ons nu</span>
+            <h1>Waterschade drogen. Vandaag geleverd, niet volgende week.</h1>
+            <p>
+              Een gesprongen leiding, een ondergelopen kelder, een badkamer die naar beneden lekte:
+              vanaf het moment dat het water weg is, loopt de klok. Binnen twee dagen begint
+              schimmel. Wij leveren bij waterschade dezelfde dag, meten bij de start en leveren een
+              factuur op naam voor uw verzekeringsdossier.
             </p>
-
-            <div
-              className="flex flex-col sm:flex-row gap-3 justify-center"
-            >
-              <Button
-                size="lg"
-                className="bg-white text-[hsl(0,72%,51%)] hover:bg-white/90 rounded-full font-bold text-base gap-2 w-full sm:w-auto px-8"
-                asChild
-              >
-                <a href="tel:+3236899065">
-                  <Phone className="h-5 w-5" />
-                  Bel direct: 03 689 90 65
-                </a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-white/40 text-white hover:bg-white/10 rounded-full font-bold text-base gap-2 w-full sm:w-auto px-8"
-                asChild
-              >
-                <a href="https://wa.me/3236899065" target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="h-5 w-5" />
-                  WhatsApp ons
-                </a>
-              </Button>
+            <div className="hcta">
+              <a className="btn btn-white" href={`tel:${CONTACT.phoneE164}`}>
+                <PhoneIcon /> Bel {CONTACT.phoneLocal}
+              </a>
+              <a className="btn btn-ghost" href={WHATSAPP} target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon size={16} /> WhatsApp ons
+              </a>
             </div>
           </div>
-        </section>
-
-
-        {/* 2. TRUST ROW */}
-        <section className="bg-background py-6 border-b border-border">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              {[
-                { icon: Zap, text: "Levering zelfde dag" },
-                { icon: Shield, text: "Factuur voor uw verzekeraar" },
-                { icon: PhoneCall, text: "Altijd bereikbaar" },
-                { icon: CheckCircle2, text: "Gratis vochtmeting" },
-              ].map((item, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={item.text}
-                  className="flex items-center gap-2.5 justify-center text-sm font-medium text-foreground"
-                >
-                  <item.icon className="h-5 w-5 text-primary flex-shrink-0" />
-                  <span>{item.text}</span>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 3. DE EERSTE 48 UUR */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-4">
-                Wat moet u doen in de eerste 48 uur?
-              </h2>
-              <p className="text-muted-foreground mb-8">
-                Na een lek of overstroming trekt het water snel dieper: eerst in de chape en de onderkant van
-                de muren, daarna in isolatie en pleisterwerk. Na een dag of twee krijgt schimmel kans op
-                vochtig materiaal. Hoe sneller u het water weghaalt en begint te drogen, hoe minder er
-                uitgebroken moet worden.
-              </p>
-              <ol className="space-y-4">
-                {eersteUren.map((stap, i) => (
-                  <li key={stap.title} className="flex gap-4 bg-card border border-border rounded-2xl p-5">
-                    <span className="w-8 h-8 bg-[hsl(0,72%,51%)] text-white rounded-full flex items-center justify-center text-sm font-black flex-shrink-0">
-                      {i + 1}
-                    </span>
-                    <div>
-                      <h3 className="font-bold text-foreground mb-1">{stap.title}</h3>
-                      <p className="text-sm text-muted-foreground">{stap.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </section>
-
-        {/* 4. STAPPENPLAN — zo werken wij */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">Zo werken wij</h2>
-              <p className="text-muted-foreground">Bel ons — wij regelen de toestellen.</p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-              {steps.map((step, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={step.num}
-                  className="relative bg-card border border-border rounded-2xl p-6 text-center"
-                >
-                  <div className="w-10 h-10 bg-[hsl(0,72%,51%)] text-white rounded-full flex items-center justify-center text-lg font-black mx-auto mb-4">
-                    {step.num}
-                  </div>
-                  <h3 className="font-bold text-foreground mb-2">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground">{step.desc}</p>
-                  {i < steps.length - 1 && (
-                    <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground/40 z-10" />
-                  )}
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/*
-          5. VERZEKERING — voorzichtig geformuleerd. Hier stond "Uw verzekering
-          betaalt dit" en "dekt in de meeste gevallen de volledige kost". Dat
-          kunnen wij niet weten: het hangt af van de polis en de oorzaak, en een
-          belofte die de verzekeraar daarna niet nakomt komt bij ons terug.
-        */}
-        <section className="py-10 md:py-14">
-          <div className="container mx-auto px-4">
-            <Reveal
-              from="up"
-              delay={(0) * 0.08}
-              className="max-w-3xl mx-auto bg-[hsl(210,100%,96%)] border border-[hsl(210,80%,85%)] rounded-2xl p-8 md:p-10"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-[hsl(210,80%,85%)] rounded-full flex items-center justify-center flex-shrink-0">
-                  <Shield className="h-6 w-6 text-[hsl(210,80%,45%)]" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-black text-foreground mb-2">Waterschade en uw verzekering</h2>
-                  <p className="text-muted-foreground mb-3">
-                    Waterschade valt vaak onder de brandverzekering van de woning, maar of en hoeveel er vergoed
-                    wordt, hangt af van uw polis en van de oorzaak. Vraag het uw verzekeraar of makelaar zo
-                    vroeg mogelijk, liefst voor u grote kosten maakt.
-                  </p>
-                  <p className="text-muted-foreground mb-3">
-                    Wat een verzekeraar doorgaans wil zien: een aangifte binnen de termijn uit uw polis, foto's
-                    van de schade, de facturen van wat u liet doen, en dat u de schade beperkt hebt. Snel
-                    drogen hoort bij dat laatste.
-                  </p>
-                  <p className="text-sm font-semibold text-foreground">
-                    Van ons krijgt u een factuur op naam en de metingen bij start en oplevering. Een
-                    ondertekend vochtrapport met alle meetwaarden kunt u bijnemen{RAPPORT_PRIJS}.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* 6. WELKE DROGER + HOE LANG */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              <div className="bg-card border border-border rounded-2xl p-6 md:p-8">
-                <h2 className="text-xl md:text-2xl font-black text-foreground mb-3">
-                  Condensdroger of adsorptiedroger?
-                </h2>
-                <p className="text-sm text-muted-foreground mb-3">
-                  De meeste waterschade droogt u met een <strong>condensontvochtiger</strong>: die zuigt de
-                  vochtige lucht aan, koelt ze af zodat het water condenseert, en blaast droge lucht terug.
-                  In een verwarmde woning werkt dat goed. Onder ongeveer 15 °C daalt het rendement sterk,
-                  en dan zet u er een bouwkachel bij.
-                </p>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Een <strong>adsorptiedroger</strong> werkt met een vochtopnemend materiaal in plaats van
-                  koude. Hij verliest in een koude kelder veel minder capaciteit, en hij kan droge lucht via
-                  slangen gericht in een vloeropbouw, een wand of isolatie blazen, waar een gewone droger
-                  niet bij komt.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Een <strong>ventilator</strong> hoort er bij waterschade altijd bij: zonder luchtbeweging
-                  droogt vooral de lucht, niet de vloer en de muren.
-                </p>
-              </div>
-              <div className="bg-card border border-border rounded-2xl p-6 md:p-8">
-                <h2 className="text-xl md:text-2xl font-black text-foreground mb-3">
-                  Hoe lang duurt drogen na waterschade?
-                </h2>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Dat hangt vooral af van hoe lang het water er stond en waar het in trok. Een natte
-                  tegelvloer op beton droogt veel sneller dan water dat onder een zwevende chape in de
-                  isolatie liep. Gipsplaat en pleister nemen snel water op, maar geven het ook redelijk vlot
-                  weer af; beton en chape houden het lang vast.
-                </p>
-                <p className="text-sm text-muted-foreground mb-3">
-                  {WATER_TERMIJN
-                    ? `Ons vaste waterschadepakket rekent met een huurtermijn van ${termijnLabel(WATER_TERMIJN)}, zodat er ruimte is voor vocht dat diep in de constructie zit.`
-                    : "Onze waterschadepakketten rekenen met een ruime huurtermijn, zodat er ruimte is voor vocht dat diep in de constructie zit."}{" "}
-                  Of het werk af is, beslist de meting: wij meten bij de start en bij de oplevering, en
-                  vergelijken met een droge plek in dezelfde woning.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Stop niet te vroeg omdat het oppervlak droog aanvoelt. Een vloer die bovenaan droog is,
-                  kan onderaan nog nat zijn — en dat vocht komt later terug als vlekken of schimmel.
-                </p>
+          <div className="hero-vis">
+            <img
+              className="framed"
+              src="/vernast/case-waterschade-v3.webp"
+              alt="Bouwdroger en ventilator aan het werk in een ruimte na waterschade"
+              width={800}
+              height={600}
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="fbadge rd" style={{ bottom: "60px", left: "-6%" }}>
+              <span className="ic"><WarnIcon size={15} /></span>
+              <div>
+                24 tot 48 uur
+                <small>daarna begint de schimmel</small>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* 7. PAKKET SECTIE */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">Welke machine heeft u nodig?</h2>
-              <p className="text-muted-foreground">
-                Niet zeker? Bel ons — wij adviseren gratis — of{" "}
-                <Link to="/verhuur/calculator" className="font-semibold text-primary hover:underline">
-                  bereken uw waterschadepakket
-                </Link>
-                .
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {DROGER_KAARTEN.map((pkg, i) => (
-                <MachineCard
-                  key={pkg.key}
-                  name={pkg.name}
-                  volume={pkg.volume}
-                  desc={pkg.desc}
-                  price={pkg.weekPrice}
-                  badge={pkg.badge}
-                  highlight={pkg.highlight}
-                  index={i}
-                  ctaLabel="Reserveer nu"
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 6. WHY ACT FAST */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">Waarom moet u snel handelen?</h2>
-            </div>
-
-            <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {warnings.map((w, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={w.title}
-                  className="bg-[hsl(0,100%,97%)] border border-[hsl(0,80%,90%)] rounded-2xl p-6 text-center"
-                >
-                  <div className="text-3xl mb-3">{w.icon}</div>
-                  <h3 className="font-bold text-foreground mb-2">{w.title}</h3>
-                  <p className="text-sm text-muted-foreground">{w.desc}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <VerderLezen titel="Verder lezen over waterschade drogen" groepen={verderLezen} />
-
-        {/*
-          FAQ — zichtbaar, niet ingeklapt. De Radix-accordeon die hier stond
-          rendert de inhoud van een dichte vraag niet, dus in de geprerenderde
-          HTML ontbraken alle antwoorden terwijl de FAQ-schema ze wel beloofde.
-        */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">
-              Veelgestelde vragen bij waterschade
-            </h2>
-            <dl className="max-w-2xl mx-auto space-y-4">
-              {faqs.map((faq) => (
-                <div key={faq.q} className="bg-card border border-border rounded-xl p-5">
-                  <dt className="font-semibold text-foreground mb-2">{faq.q}</dt>
-                  <dd className="text-sm text-muted-foreground leading-relaxed">{faq.a}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-
-        {/* CTA BANNER */}
-        <section className="bg-accent py-14 md:py-20">
-          <div className="container mx-auto px-4 text-center max-w-2xl">
-            <h2 className="text-2xl md:text-3xl font-black text-primary-foreground mb-3">
-              Wacht niet langer
-            </h2>
-            <p className="text-primary-foreground/70 mb-8">
-              Elke minuut telt bij waterschade. Bel ons nu en wij staan vandaag nog bij u.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button
-                size="lg"
-                className="bg-[hsl(0,72%,51%)] hover:bg-[hsl(0,72%,45%)] text-white rounded-full font-bold gap-2 px-8"
-                asChild
-              >
-                <a href="tel:+3236899065"><Phone className="h-5 w-5" /> Bel direct</a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8"
-                asChild
-              >
-                <a href="https://wa.me/3236899065" target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="h-5 w-5" /> WhatsApp ons
-                </a>
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* 8. STICKY MOBILE BAR */}
-        <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex items-center justify-between lg:hidden z-50">
-          <div className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-[hsl(0,72%,51%)]" />
-            <span className="text-sm font-bold text-foreground">Waterschade? Bel nu</span>
-          </div>
-          <div className="flex gap-2">
-            <Button size="sm" className="rounded-full font-bold gap-1 bg-primary min-h-[44px] min-w-[44px]" asChild>
-              <a href="tel:+3236899065"><Phone className="h-4 w-4" /></a>
-            </Button>
-            <Button size="sm" className="rounded-full font-bold gap-1 bg-[hsl(142,71%,45%)] hover:bg-[hsl(142,71%,38%)] text-white min-h-[44px] min-w-[44px]" asChild>
-              <a href="https://wa.me/3236899065" target="_blank" rel="noopener noreferrer"><MessageCircle className="h-4 w-4" /></a>
-            </Button>
           </div>
         </div>
-      </main>
-      <V3Footer />
+      </section>
     </div>
-  );
-};
+
+    {/* ================= VERTROUWENSRIJ ================= */}
+    <div className="wrap">
+      <div className="trust">
+        <div><BoltIcon size={19} /> Levering dezelfde dag</div>
+        <div><ShieldIcon size={19} /> Factuur voor uw verzekeraar</div>
+        <div><SupportIcon size={19} /> Altijd bereikbaar</div>
+        <div><CheckIcon size={17} strokeWidth={3} /> Vochtmeting voor én na</div>
+      </div>
+    </div>
+
+    {/* ================= DE EERSTE 48 UUR ================= */}
+    <section className="sw" id="eerste-48-uur">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Doe dit eerst</span>
+          <h2 className="sec">Wat u moet doen in de eerste 48 uur.</h2>
+          <p className="lede">
+            Na een lek of overstroming trekt het water snel dieper: eerst in de chape en de
+            onderkant van de muren, daarna in isolatie en pleisterwerk. Na een dag of twee krijgt
+            schimmel kans op vochtig materiaal. Hoe sneller u het water weghaalt en begint te
+            drogen, hoe minder er uitgebroken moet worden.
+          </p>
+        </div>
+        <div className="stapn twee">
+          {eersteUren.map((stap, i) => (
+            <Reveal from="up" delay={(i % 2) * 0.08} className="sn" key={stap.title}>
+              <i />
+              <div>
+                <h3>{stap.title}</h3>
+                <p>{stap.desc}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ================= WAAROM SNEL ================= */}
+    <section className="sr">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Waarom het nu moet</span>
+          <h2 className="sec">Elke dag wachten verdubbelt het werk.</h2>
+          <p className="lede">
+            Waterschade wordt niet geleidelijk erger. Er zijn drempels: het moment waarop schimmel
+            aanslaat, en het moment waarop vocht in de vloeropbouw zit. Daarvoor is het drogen,
+            daarna is het uitbreken.
+          </p>
+        </div>
+        <div className="g3">
+          {gevaren.map(({ Icon, title, desc }, i) => (
+            <Reveal from="up" delay={i * 0.08} className="kaart" key={title}>
+              <div className="ki"><Icon size={20} /></div>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ================= ZO WERKEN WIJ ================= */}
+    <section className="sw">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Zo werken wij</span>
+          <h2 className="sec">Eén telefoontje, en vandaag staan de toestellen er.</h2>
+        </div>
+        <div className="flow">
+          {stappen.map(({ Icon, title, desc }, i) => (
+            <Reveal from="up" delay={i * 0.08} className="fl" key={title}>
+              <i>{`0${i + 1}`}</i>
+              <div className="fi"><Icon size={19} /></div>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/*
+      VERZEKERING — voorzichtig geformuleerd. Hier stond "Uw verzekering
+      betaalt dit" en "dekt in de meeste gevallen de volledige kost". Dat
+      kunnen wij niet weten: het hangt af van de polis en de oorzaak, en een
+      belofte die de verzekeraar daarna niet nakomt komt bij ons terug.
+    */}
+    <section className="sr">
+      <div className="wrap">
+        <Reveal from="up" className="infopanel metfoto">
+          <div className="ip-t">
+          <div className="ii"><ShieldIcon size={22} /></div>
+          <div>
+            <h3>Waterschade en uw verzekering</h3>
+            <p>
+              Waterschade valt vaak onder de brandverzekering van de woning, maar of en hoeveel er
+              vergoed wordt, hangt af van uw polis en van de oorzaak. Vraag het uw verzekeraar of
+              makelaar zo vroeg mogelijk, liefst voor u grote kosten maakt.
+            </p>
+            <p>
+              Wat een verzekeraar doorgaans wil zien: een aangifte binnen de termijn uit uw polis,
+              foto's van de schade, de facturen van wat u liet doen, en dat u de schade beperkt
+              hebt. Snel drogen hoort bij dat laatste.
+            </p>
+            <p>
+              <b>
+                Van ons krijgt u een factuur op naam en de metingen bij start en oplevering. Een
+                ondertekend vochtrapport met alle meetwaarden kunt u bijnemen{RAPPORT_PRIJS}.
+              </b>
+            </p>
+          </div>
+          </div>
+          <img
+            src="/vernast/man-klembord.webp"
+            alt="Vernast technicus noteert de meetwaarden voor het schadedossier"
+            width={600}
+            height={700}
+            loading="lazy"
+            decoding="async"
+          />
+        </Reveal>
+      </div>
+    </section>
+
+    {/* ================= WELKE DROGER ================= */}
+    <section className="sw">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">De techniek</span>
+          <h2 className="sec">Condensdroger, adsorptiedroger of allebei?</h2>
+          <p className="lede">
+            Bij waterschade bepaalt niet het volume maar de temperatuur en de plek van het vocht
+            welk toestel werkt. Twee verschillende machines, twee verschillende taken.
+          </p>
+        </div>
+
+        {/*
+          Adsorptie krijgt een eigen blok, en niet alleen een kaart. Het is bij
+          waterschade vaak het verschil tussen drogen en uitbreken, en het is
+          precies het stuk waar een klant niet zelf op komt: water onder een
+          zwevende chape krijgt u met een gewone droger in de kamer niet weg.
+        */}
+        <div className="split" style={{ marginBottom: "44px" }}>
+          <div>
+            <span className="kick">Onze adsorptie-oplossing</span>
+            <h3 className="sec" style={{ fontSize: "clamp(22px,2.4vw,30px)", marginBottom: "14px" }}>
+              Gericht drogen waar een gewone droger niet bij komt.
+            </h3>
+            <p className="lede">
+              Liep het water onder een zwevende chape, in de isolatie, achter een voorzetwand of in
+              een houten vloeropbouw? Dan staat dat vocht buiten bereik van de lucht in de kamer.
+              Een condensdroger droogt dan de ruimte droog terwijl de constructie nat blijft, en
+              maanden later komen de vlekken en de geur alsnog terug.
+            </p>
+            <p className="lede">
+              Daarvoor zetten wij de <Link to="/verhuur/toestel/revolution">Revolution
+              adsorptiedroger</Link> in. Die haalt het vocht uit de lucht met een vochtopnemend
+              wiel in plaats van met koude, en blaast de droge lucht via slangen rechtstreeks in de
+              vloeropbouw, de spouw of de wand. Wij boren daarvoor kleine openingen op de juiste
+              plaatsen, zetten de slangen erop en laten de opstelling dag en nacht draaien tot de
+              meting in de constructie zelf droog zegt.
+            </p>
+            <p className="lede">
+              Twee bijkomende redenen om voor adsorptie te kiezen: hij verliest onder 15 °C
+              nauwelijks capaciteit, dus in een onverwarmde kelder blijft hij doorwerken waar een
+              condensdroger terugvalt. En hij droogt dieper, wat bij een gedekt schadegeval vaak
+              het verschil maakt tussen een droogdossier en een afbraakdossier.
+            </p>
+            <div className="chips">
+              <span>Vloeropbouw en isolatie</span>
+              <span>Spouw en voorzetwand</span>
+              <span>Koude kelders</span>
+              <span>Houten vloeren</span>
+            </div>
+          </div>
+          <Reveal from="up" className="split-vis">
+            <img
+              src="/vernast/eco-revolution.webp"
+              alt="Vernast Revolution adsorptiedroger met slangaansluiting voor gericht drogen"
+              width={700}
+              height={700}
+              loading="lazy"
+              decoding="async"
+              style={{ background: "#fff" }}
+            />
+          </Reveal>
+        </div>
+        <div className="g3">
+          <Reveal from="up" className="kaart">
+            <div className="ki"><BoltIcon size={20} /></div>
+            <h3>Condensontvochtiger</h3>
+            <p>
+              Zuigt de vochtige lucht aan, koelt ze af zodat het water condenseert, en blaast droge
+              lucht terug. In een verwarmde woning werkt dat goed.
+            </p>
+            <p>
+              Onder ongeveer 15 °C daalt het rendement sterk; dan zet u er een bouwkachel bij.
+            </p>
+          </Reveal>
+          <Reveal from="up" delay={0.08} className="kaart">
+            <div className="ki"><GaugeIcon size={20} /></div>
+            <h3>Adsorptiedroger</h3>
+            <p>
+              Werkt met een vochtopnemend materiaal in plaats van koude, en verliest in een koude
+              kelder veel minder capaciteit.
+            </p>
+            <p>
+              Hij kan droge lucht via slangen gericht in een vloeropbouw, een wand of isolatie
+              blazen, waar een gewone droger niet bij komt. Soms is dat het verschil tussen drogen en
+              uitbreken.
+            </p>
+          </Reveal>
+          <Reveal from="up" delay={0.16} className="kaart">
+            <div className="ki"><WindIcon size={20} /></div>
+            <h3>En altijd een ventilator</h3>
+            <p>
+              Bij waterschade hoort er altijd luchtbeweging bij: zonder ventilator droogt vooral de
+              lucht, niet de vloer en de muren.
+            </p>
+            <p>
+              Een radiaalventilator blaast vlak over een natte vloer; een axiale houdt de hele
+              ruimte in beweging.
+            </p>
+          </Reveal>
+        </div>
+        <div className="note">
+          <b>Hoe lang duurt het?</b> Dat hangt vooral af van hoe lang het water er stond en waar
+          het in trok. Een natte tegelvloer op beton droogt veel sneller dan water dat onder een
+          zwevende chape in de isolatie liep. Gipsplaat en pleister nemen snel water op maar geven
+          het ook vlot weer af; beton en chape houden het lang vast.{" "}
+          {WATER_TERMIJN
+            ? `Ons vaste waterschadepakket rekent daarom met een huurtermijn van ${termijnLabel(WATER_TERMIJN)}.`
+            : "Onze waterschadepakketten rekenen daarom met een ruime huurtermijn."}{" "}
+          Stop niet te vroeg omdat het oppervlak droog aanvoelt: een vloer die bovenaan droog is,
+          kan onderaan nog nat zijn, en dat vocht komt later terug als vlekken of schimmel.
+        </div>
+      </div>
+    </section>
+
+    {/* ================= PAKKETTEN ================= */}
+    <section className="sr" id="pakketten">
+      <div className="wrap">
+        <div className="sec-head mid">
+          <span className="kick">Welke machine</span>
+          <h2 className="sec">Voor een gemiddelde kelder volstaat er één.</h2>
+          <p className="lede">
+            Staat er water in meerdere ruimtes, of is het koud, dan komt er een ventilator of een
+            bouwkachel bij. De <Link to="/verhuur/calculator">calculator</Link> rekent uw situatie
+            door, of u belt ons en wij doen het aan de telefoon.
+          </p>
+        </div>
+        <Pakketkaarten />
+      </div>
+    </section>
+
+    <VerderLezen titel="Verder lezen over drogen na waterschade" groepen={verderLezen} />
+
+    {/* ================= FAQ ================= */}
+    <section className="sr">
+      <div className="wrap">
+        <div className="sec-head mid">
+          <span className="kick">Veelgestelde vragen</span>
+          <h2 className="sec">Wat mensen met waterschade ons vragen.</h2>
+        </div>
+        <div className="faqs">
+          {faqs.map((faq, i) => (
+            <Reveal from="up" delay={(i % 2) * 0.06} as="dl" className="faq" key={faq.q}>
+              <dt>{faq.q}</dt>
+              <dd>{faq.a}</dd>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ================= SLOT-CTA ================= */}
+    <section className="sw">
+      <div className="wrap">
+        <div className="manband">
+          <div className="mb-t">
+            <span className="mbk">Nu bellen</span>
+            <h3>Hoe sneller wij er staan, hoe minder er uitgebroken moet worden.</h3>
+            <p>
+              Beschrijf kort wat er gebeurd is en hoe groot de ruimte is. Wij zeggen meteen welke
+              toestellen mee moeten en wanneer we kunnen leveren: bij waterschade vandaag nog.
+            </p>
+            <div className="mb-cta">
+              <a className="btn btn-white" href={`tel:${CONTACT.phoneE164}`}>
+                <PhoneIcon /> Bel {CONTACT.phoneLocal}
+              </a>
+              <a className="btn btn-ghost" href={WHATSAPP} target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon size={16} /> WhatsApp ons
+              </a>
+              <Link className="btn btn-ghost" to="/verhuur/calculator">
+                Bereken zelf
+                <ArrowRightIcon />
+              </Link>
+            </div>
+          </div>
+          <img
+            className="mb-man"
+            src="/vernast/man-bestelwagen.webp"
+            alt="Vernast technicus laadt een bouwdroger in de bestelwagen"
+            width={600}
+            height={900}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </section>
+
+    <ContactBlok
+      kicker="Waterschade melden"
+      titel="Beschrijf uw situatie, wij bellen u terug."
+      lede="Bij waterschade telt elk uur. Belt u liever meteen? Doe dat gerust, dan rijden we vandaag nog uit. Via dit formulier krijgt u binnen één werkdag antwoord."
+      onderwerpen={[
+        "Waterschade, dit is dringend",
+        "Water onder de vloer of in de isolatie",
+        "Vraag over mijn verzekeringsdossier",
+        "Prijs van een waterschadepakket",
+        "Iets anders",
+      ]}
+      placeholder="Bv. kelder van 40 m² ondergelopen na een gesprongen leiding, water is weg, chape en onderkant van de muren zijn nat."
+    />
+
+    </main>
+
+    <V3Footer />
+
+    {/*
+      De spoedbalk, alleen op een telefoon. Wie met een ondergelopen kelder op
+      zijn gsm staat te zoeken, moet niet eerst terugscrollen naar de hero om
+      te kunnen bellen. Staat ná de footer in de DOM zodat de leesvolgorde van
+      de pagina klopt; CSS zet hem onderaan het scherm vast.
+    */}
+    <div className="urgbar">
+      <b><WarnIcon size={18} /> Waterschade? Bel nu</b>
+      <div className="ubtns">
+        <a className="ubtn" href={`tel:${CONTACT.phoneE164}`} aria-label={`Bel ${CONTACT.phoneLocal}`}>
+          <PhoneIcon size={18} />
+        </a>
+        <a
+          className="ubtn wa"
+          href={WHATSAPP}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp ons"
+        >
+          <WhatsAppIcon size={19} />
+        </a>
+      </div>
+    </div>
+  </div>
+);
 
 export default WaterschadePage;

@@ -217,3 +217,52 @@ export const StarIcon = ({ size = 14 }: IconProps) => (
     <path d="M12 2.6l2.9 5.88 6.49.95-4.7 4.58 1.11 6.46L12 17.42l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.95L12 2.6Z" />
   </svg>
 );
+
+/*
+ * De vier beroepen in de vertrouwensbalk. Ze droegen alle vier hetzelfde groene
+ * vinkje, wat vier keer "ja" zei en nul keer wie.
+ *
+ * De passer die hier eerst voor de architect stond, las als een hoofdletter A:
+ * twee schuine strepen met een dwarsbalk is nu eenmaal die letter. Vervangen
+ * door een plattegrond -- het ding dat een architect maakt, en op 15px nog
+ * herkenbaar omdat het alleen uit rechte hoeken bestaat.
+ *
+ * Alle vier volgen de stijl van de set hierboven: lijnwerk, viewBox 24, ronde
+ * uiteinden.
+ */
+
+/** Architect — een plattegrond: buitenmuur, binnenmuur, deuropening. */
+export const PlanIcon = ({ size = 15, strokeWidth = 1.9 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M3.4 4.4h17.2v15.2H3.4z" />
+    <path d="M10.2 4.4v6.1M10.2 14.1v5.5" />
+    <path d="M10.2 10.5h10.4" />
+  </svg>
+);
+
+/** Verzekeringskantoor — een schild met vinkje. */
+export const ShieldIcon = ({ size = 15, strokeWidth = 1.9 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M12 2.8 19.5 5.8v5.4c0 4.4-3.1 7.6-7.5 9.1-4.4-1.5-7.5-4.7-7.5-9.1V5.8L12 2.8Z" />
+    <path d="m9.2 11.8 2 2 3.6-3.8" />
+  </svg>
+);
+
+/** Bouwkundige — het keuringsverslag op een klembord. */
+export const ClipboardIcon = ({ size = 15, strokeWidth = 1.9 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M8.8 4.6H6.4A1.8 1.8 0 0 0 4.6 6.4v13.2a1.8 1.8 0 0 0 1.8 1.8h11.2a1.8 1.8 0 0 0 1.8-1.8V6.4a1.8 1.8 0 0 0-1.8-1.8h-2.4" />
+    <path d="M9.4 2.8h5.2v3.4H9.4z" />
+    <path d="m8.8 13.2 2.1 2.1 4.3-4.4" />
+  </svg>
+);
+
+/** Aannemer — een bouwhelm: brede rand, ronde koepel, nokrib. */
+export const HelmetIcon = ({ size = 15, strokeWidth = 1.9 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M2.6 17.6h18.8" />
+    <path d="M5.4 17.6v-3.1a6.6 6.6 0 0 1 13.2 0v3.1" />
+    <path d="M9.6 8.6V6.2a1.6 1.6 0 0 1 1.6-1.6h1.6a1.6 1.6 0 0 1 1.6 1.6v2.4" />
+    <path d="M12 8v9.6" />
+  </svg>
+);

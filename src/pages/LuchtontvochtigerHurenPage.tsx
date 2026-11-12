@@ -109,7 +109,7 @@ const LuchtontvochtigerHurenPage = () => (
           ))}
         </div>
         <div className="note">
-          <b>Niet zeker welk formaat?</b> De <Link to="/calculator">capaciteitscalculator</Link> rekent uit
+          <b>Niet zeker welk formaat?</b> De <Link to="/verhuur/calculator">droogcalculator</Link> rekent uit
           hoeveel liter per dag uw ruimte nodig heeft. Wil u meteen een volledig pakket met ventilatoren en
           levering, gebruik dan de <Link to="/verhuur/calculator">droogcalculator</Link>. Alle bedragen per
           periode staan op <Link to="/prijzen">onze prijspagina</Link>.

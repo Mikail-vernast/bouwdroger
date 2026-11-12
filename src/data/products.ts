@@ -123,7 +123,7 @@ const CATALOGUS: Product[] = [
     pricePerDay: 16,
     image: "/products/eco-ultimate-150.webp",
     gallery: ["/products/dim-eco-ultimate.webp"],
-    imageAlt: "Vernast ECO Ultimate bouwdroger, condensontvochtiger van 90 liter per dag voor ruimtes tot 600 m³",
+    imageAlt: "Vernast ECO Ultimate bouwdroger, condensontvochtiger van 110 liter per dag voor ruimtes tot 600 m³",
     galleryAlt: ["Afmetingen van de Vernast ECO Ultimate: 61,6 × 51,1 × 102,2 cm"],
     category: "bouwdrogers",
     features: ["Maximale capaciteit", "Waterschade & nieuwbouw", "24/7 inzetbaar"],
@@ -143,13 +143,13 @@ const CATALOGUS: Product[] = [
   // Ventilatoren
   {
     id: "vt-1",
-    name: "Turbo Axiaalventilator",
+    name: "Highflow",
     capacity: "4.500 m³/u",
     suitableFor: "Tot 200 m²",
     pricePerDay: 4,
     image: "/products/turbo-axiaal-5300.webp",
     gallery: ["/products/info-axiaal-ventilator.webp", "/products/dim-axiaal-ventilator.webp"],
-    imageAlt: "Vernast Turbo Axiaalventilator, bouwventilator met 4.500 m³/u luchtverzet",
+    imageAlt: "Vernast Highflow, bouwventilator met 4.500 m³/u luchtverzet",
     galleryAlt: ["Kenmerken van de Vernast axiaalventilator: hoge luchtopbrengst, spatwaterdicht IP55, 230 V, drie standen", "Afmetingen van de Vernast axiaalventilator: 35,8 × 51,5 × 52 cm, 15 kg"],
     category: "ventilatoren",
     features: ["Hoge luchtopbrengst", "Spatwaterdicht (IP55)", "Eenvoudige voeding 230V", "3 Ventilatorstanden"],
@@ -157,13 +157,13 @@ const CATALOGUS: Product[] = [
   },
   {
     id: "vt-2",
-    name: "Turbo Radiaalventilator",
+    name: "Turbo",
     capacity: "2.250 m³/u",
     suitableFor: "Vloer- en muurdroging",
     pricePerDay: 5,
     image: "/products/turbo-radiaal-2250.webp",
     gallery: ["/products/info-radiaal-ventilator.webp", "/products/dim-radiaal-ventilator.webp"],
-    imageAlt: "Vernast Turbo Radiaalventilator van 2.250 m³/u voor vloer- en muurdroging",
+    imageAlt: "Vernast Turbo van 2.250 m³/u voor vloer- en muurdroging",
     galleryAlt: ["Kenmerken van de Vernast radiaalventilator: hoge luchtopbrengst, spatwaterdicht IP55, drie standen, extra stopcontact", "Afmetingen van de Vernast radiaalventilator: 54,5 × 51,5 × 49 cm, 20 kg"],
     category: "ventilatoren",
     features: ["Hoge luchtopbrengst", "Spatwaterdicht (IP55)", "3 Ventilatorstanden", "Extra stopcontact 6A"],
@@ -171,12 +171,12 @@ const CATALOGUS: Product[] = [
   },
   {
     id: "vt-3",
-    name: "Turbo Radiaalventilator Compact",
+    name: "Turbo Compact",
     capacity: "1.250 m³/u",
     suitableFor: "Tot 100 m²",
     pricePerDay: 5,
     image: "/products/turbo-radiaal-1250.webp",
-    imageAlt: "Vernast Turbo Radiaalventilator Compact van 1.250 m³/u voor vloerdroging tot 100 m²",
+    imageAlt: "Vernast Turbo Compact van 1.250 m³/u voor vloerdroging tot 100 m²",
     category: "ventilatoren",
     features: ["Compact", "3 standen", "Vloerdroging"],
   },
@@ -194,12 +194,12 @@ const CATALOGUS: Product[] = [
     category: "verwarming",
     features: ["Ingebouwde thermostaat", "Gelijkmatige verdeling", "Direct warmte", "Veilig in gebruik"],
     /*
-      30 kW, want `TARIEF_KEY` haalt de dagprijs van deze rij bij de TEddH 30 T
+      30 kW, want `TARIEF_KEY` haalt de dagprijs van deze rij bij de Heatpower 30
       op: /machines toonde "2,50 kW" naast € 12 per dag, terwijl
       /verhuur/toestel/teddh30 voor diezelfde € 12 een toestel van 30 kW op
       400 V beschrijft. Afmetingen en gewicht hieronder komen nog uit de
       oorspronkelijke Shopify-fiche en horen bij een kleiner toestel — die
-      moeten nagekeken worden tegen de echte TEddH 30 T.
+      moeten nagekeken worden tegen de echte Heatpower 30.
     */
     specs: { "Afmetingen": "28 × 26 × 30 cm", "Gewicht": "10 kg", "Vermogen": "30 kW", "Type": "Elektrisch" },
   },
