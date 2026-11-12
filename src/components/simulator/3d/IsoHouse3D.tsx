@@ -30,6 +30,7 @@ import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, type G
 import { aankomst, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { TEXTUUR } from "./bestanden";
 
 /*
   De droogsimulator-woning in echte 3D.
@@ -55,18 +56,27 @@ const DUUR = 900; // ms, zoals de SVG
 /* ─────────────────────────── materialen ─────────────────────────── */
 
 const TEGELS = {
-  baksteen: { url: "/simulator/3d/baksteen.webp", periode: [16 * 0.202, 32 * 0.062] },
-  arduin: { url: "/simulator/3d/arduin.webp", periode: [1, 1] },
-  pannen: { url: "/simulator/3d/dakpannen.webp", periode: [8 * 0.27, 6 * 0.36] },
-  pleister: { url: "/simulator/3d/pleister.webp", periode: [1.5, 1.5] },
-  chape: { url: "/simulator/3d/chape.webp", periode: [1, 1] },
-  parket: { url: "/simulator/3d/parket.webp", periode: [8 * 0.18, 2.4] },
-  grind: { url: "/simulator/3d/grind.webp", periode: [0.5, 0.5] },
+  baksteen: { url: TEXTUUR.baksteen, periode: [16 * 0.202, 32 * 0.062] },
+  arduin: { url: TEXTUUR.arduin, periode: [1, 1] },
+  pannen: { url: TEXTUUR.pannen, periode: [8 * 0.27, 6 * 0.36] },
+  pleister: { url: TEXTUUR.pleister, periode: [1.5, 1.5] },
+  chape: { url: TEXTUUR.chape, periode: [1, 1] },
+  parket: { url: TEXTUUR.parket, periode: [8 * 0.18, 2.4] },
+  grind: { url: TEXTUUR.grind, periode: [0.5, 0.5] },
 } as const;
 type TegelNaam = keyof typeof TEGELS;
 const TEGEL_NAMEN = Object.keys(TEGELS) as TegelNaam[];
 
 type MatSet = Map<string, MeshStandardMaterial>;
+
+/*
+  Gsm of tablet: minder pixels en een kleinere schaduwmap. Een gsm met een
+  3×-scherm tekent op dpr 2 vier keer zoveel pixels als op dpr 1; op 1,5 is dat
+  ruim de helft minder, en op een klein scherm zie je het verschil niet. De
+  schaduw van 1024² is op die maat even scherp als 2048² op een laptop.
+*/
+const GSM = typeof window !== "undefined" && window.matchMedia("(max-width: 899px), (pointer: coarse)").matches;
+const ANISO = GSM ? 4 : 8;
 
 function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
   const t = (naam: TegelNaam) => {
@@ -75,7 +85,7 @@ function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
     c.wrapS = c.wrapT = RepeatWrapping;
     c.repeat.set(1 / pw, 1 / ph);
     c.colorSpace = SRGBColorSpace;
-    c.anisotropy = 8;
+    c.anisotropy = ANISO;
     c.needsUpdate = true;
     return c;
   };
@@ -651,7 +661,7 @@ function Scene(props: SceneProps) {
     const parket = texturen.parket.clone(), chape = texturen.chape.clone();
     for (const [t, naam] of [[parket, "parket"], [chape, "chape"]] as const) {
       const [pw, ph] = TEGELS[naam].periode;
-      t.wrapS = t.wrapT = RepeatWrapping; t.repeat.set(1 / pw, 1 / ph); t.colorSpace = SRGBColorSpace; t.anisotropy = 8; t.needsUpdate = true;
+      t.wrapS = t.wrapT = RepeatWrapping; t.repeat.set(1 / pw, 1 / ph); t.colorSpace = SRGBColorSpace; t.anisotropy = ANISO; t.needsUpdate = true;
     }
     for (const s of Object.values(sets)) {
       s.get("pleister")!.color.set(materiaal.muur);
@@ -717,7 +727,7 @@ function Scene(props: SceneProps) {
   const zon = useMemo(() => {
     const d = new DirectionalLight("#fff3e2", 2.6);
     d.castShadow = true;
-    d.shadow.mapSize.set(2048, 2048);
+    d.shadow.mapSize.set(GSM ? 1024 : 2048, GSM ? 1024 : 2048);
     d.shadow.bias = -0.0004;
     d.shadow.normalBias = 0.02;
     return d;
@@ -971,7 +981,7 @@ export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void
         frameloop={props.werkend ? "always" : "demand"}
         orthographic
         shadows={{ type: PCFShadowMap }}
-        dpr={[1, 2]}
+        dpr={[1, GSM ? 1.5 : 2]}
         camera={{ position: [60, 60, 60], near: 0.1, far: 300, zoom: 30 }}
         gl={{ antialias: true, alpha: true, toneMapping: NeutralToneMapping, preserveDrawingBuffer: false }}
         onCreated={({ gl }) => {

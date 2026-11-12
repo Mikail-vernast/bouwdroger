@@ -45,6 +45,7 @@ import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 import "@/styles/droogsimulator.css";
+import { MODEL, voorlaad } from "@/components/simulator/3d/bestanden";
 
 /*
   De simulator past altijd op één scherm onder de site-header — gsm, tablet en
@@ -133,6 +134,11 @@ function volledig(s: State): SimAnswers {
 const VerhuurSimulatorPage = () => {
   const [s, setS] = useState<State>(START);
   const [stap, setStap] = useState(0);
+  // Vanaf vraag 3 de 3D-toestellen al ophalen, zodat het droogplan meteen speelt.
+  // Eerder niet: wie bij vraag 1 afhaakt, hoeft geen ~0,4 MB aan modellen te laden.
+  useEffect(() => {
+    if (stap >= 2) voorlaad(Object.values(MODEL));
+  }, [stap]);
   const [actief, setActief] = useState(0);
   const [handmatig, setHandmatig] = useState(false);
   /** De droogfilm is helemaal afgespeeld: de woning staat droog en leeg. */
@@ -723,7 +729,10 @@ const VerhuurSimulatorPage = () => {
 /** Foto uit Astra als die er is, anders de tekening (`children`). Decoratief: de knop draagt de naam. */
 function Foto({ sleutel, children }: { sleutel: FotoSleutel; children: ReactNode }) {
   const src = fotoVoor(sleutel);
-  return src ? <img className="ds-foto" src={src.replace(/\.webp$/, "-640.webp")} srcSet={fotoSrcSet(src)} sizes="(max-width: 899px) 45vw, 22vw" alt="" loading="lazy" decoding="async" /> : <>{children}</>;
+  // De woningkaarten zijn het eerste wat je ziet: niet lazy (dat stelt ze uit tot na de
+  // layout, met lage prioriteit) maar meteen en met voorrang. React 18 kent
+  // fetchPriority nog niet als prop, vandaar de attribuutnaam in kleine letters.
+  return src ? <img className="ds-foto" src={src.replace(/\.webp$/, "-640.webp")} srcSet={fotoSrcSet(src)} sizes="(max-width: 899px) 45vw, 22vw" alt="" decoding="async" {...{ fetchpriority: "high" }} /> : <>{children}</>;
 }
 
 /** "Gelijkvloers", "+ 1 verdiep", "+ 2 verdiepen + zolder" — what n bouwlagen mean under this roof. */
