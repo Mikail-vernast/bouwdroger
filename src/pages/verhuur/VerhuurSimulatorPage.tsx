@@ -31,6 +31,7 @@ import {
   verdiepingNaam,
   type Dak,
   type Fase,
+  type Plaatsing,
   type Programma,
   type SimAnswers,
   type Wat,
@@ -56,6 +57,8 @@ import "@/styles/droogsimulator.css";
 
 /** Eén droogcyclus in de animatie, in seconden. */
 const CYCLUS = 12;
+/** Vaste lege lijst: een nieuwe [] bij elke render zou de film telkens herstarten. */
+const GEEN_PLAATSINGEN: Plaatsing[] = [];
 
 const STAPPEN = ["Woning", "Verdiepingen", "Materiaal", "Bouwfase", "Droogplan"];
 const WONINGEN: Woning[] = ["rijwoning", "halfopen", "open", "appartement"];
@@ -132,6 +135,10 @@ const VerhuurSimulatorPage = () => {
   const [stap, setStap] = useState(0);
   const [actief, setActief] = useState(0);
   const [handmatig, setHandmatig] = useState(false);
+  /** De droogfilm is helemaal afgespeeld: de woning staat droog en leeg. */
+  const [filmKlaar, setFilmKlaar] = useState(false);
+  /** Telt op bij "opnieuw afspelen", zodat de film van vooraf aan begint. */
+  const [ronde, setRonde] = useState(0);
   // Stap 2: het huis gaat open zodra de bezoeker aan de indeling werkt, en
   // weer dicht bij bouwlagen of dak — dan wil hij de woning zien.
   const [toonPlan, setToonPlan] = useState(false);
@@ -195,13 +202,38 @@ const VerhuurSimulatorPage = () => {
 
   const materiaal = materiaalVoor(stap >= 2 ? s.wat : null, stap >= 3 ? s.fase : null, FASE[antwoorden.fase].vocht);
 
-  // In het droogplan wisselt de tekening vanzelf van verdieping, tot de
-  // bezoeker er zelf een kiest.
+  // Het droogplan speelt als film: gelijkvloers, dan elke verdieping erboven,
+  // en daarna staat de woning droog en leeg (filmKlaar). Elke verdieping duurt
+  // CYCLUS seconden, gerekend vanaf het echte begin van de 3D-film (die meldt
+  // FILM_START na het laden van de modellen); zonder 3D vanaf nu. Kiest de
+  // bezoeker zelf een verdieping, dan blijft die staan.
   useEffect(() => {
-    if (stap !== 4 || handmatig || lagen < 2) return;
-    const id = window.setInterval(() => setActief((a) => (a + 1) % lagen), CYCLUS * 1000);
-    return () => window.clearInterval(id);
-  }, [stap, handmatig, lagen]);
+    if (stap !== 4 || handmatig || filmKlaar || !resultaat) return;
+    let id = 0;
+    const volgende = () => {
+      window.clearTimeout(id);
+      id = window.setTimeout(() => {
+        const nu = Math.min(actief, lagen - 1);
+        if (nu + 1 < lagen) setActief(nu + 1);
+        else {
+          setFilmKlaar(true);
+          setActief(0);
+        }
+      }, CYCLUS * 1000);
+    };
+    volgende();
+    window.addEventListener(FILM_START, volgende);
+    return () => {
+      window.clearTimeout(id);
+      window.removeEventListener(FILM_START, volgende);
+    };
+  }, [stap, handmatig, filmKlaar, resultaat, actief, lagen, ronde]);
+  const opnieuwAfspelen = () => {
+    setFilmKlaar(false);
+    setHandmatig(false);
+    setActief(0);
+    setRonde((r) => r + 1);
+  };
 
   const naar = (n: number) => {
     // Vraag 3 opent met de gangbare diktes al gekozen: dat is meteen een antwoord.
@@ -210,6 +242,7 @@ const VerhuurSimulatorPage = () => {
     setToonPlan(false);
     setActief(0);
     setHandmatig(false);
+    setFilmKlaar(false);
   };
 
   const kiesWoning = (w: Woning) =>
@@ -283,8 +316,8 @@ const VerhuurSimulatorPage = () => {
     { eyebrow: "Stap 3 · Materiaal", titel: s.wat ? `${WAT_LABEL[s.wat].label}: nog nat` : "Wat is er nat?" },
     { eyebrow: "Stap 4 · Bouwfase", titel: s.fase ? FASE[s.fase].label : "Hoe ver staat de werf?" },
     {
-      eyebrow: `Droogplan · ${verdiepingNaam(actief, lagen, dak)}`,
-      titel: resultaat ? `${resultaat.items.reduce((n, it) => n + it.q, 0)} toestellen aan het werk` : "Maatwerk",
+      eyebrow: filmKlaar ? "Droogplan · klaar" : `Droogplan · ${verdiepingNaam(actief, lagen, dak)}`,
+      titel: !resultaat ? "Maatwerk" : filmKlaar ? "Droog en klaar om af te werken" : `${resultaat.items.reduce((n, it) => n + it.q, 0)} toestellen aan het werk`,
     },
   ][stap];
 
@@ -613,16 +646,22 @@ const VerhuurSimulatorPage = () => {
                 kamers={kamers}
                 openingen={plan.openingen}
                 trappen={plan.trappen}
-                open={stap >= 2 || (stap === 1 && toonPlan)}
+                open={(stap >= 2 && !(stap === 4 && filmKlaar)) || (stap === 1 && toonPlan)}
                 actief={stap === 4 || stap === 1 ? verd : 0}
-                plaatsingen={plaatsingen}
-                werkend={stap === 4 && !!resultaat}
-                materiaal={materiaal}
+                plaatsingen={filmKlaar ? GEEN_PLAATSINGEN : plaatsingen}
+                werkend={stap === 4 && !!resultaat && !filmKlaar}
+                materiaal={stap === 4 && filmKlaar ? { ...materiaal, vocht: 0 } : materiaal}
                 cyclus={CYCLUS}
               />
               {stap === 2 && s.wat && <Doorsnede wat={s.wat} pd={antwoorden.pd} cd={antwoorden.cd} />}
               {stap === 4 && resultaat && (
-                <DagTeller key={`${actief}-${resultaat.dagen}`} dagen={resultaat.dagen} cyclus={CYCLUS} vocht={FASE[antwoorden.fase].vocht} />
+                <DagTeller key={`${actief}-${resultaat.dagen}-${ronde}-${filmKlaar}`} dagen={resultaat.dagen} cyclus={CYCLUS} vocht={FASE[antwoorden.fase].vocht} klaar={filmKlaar} />
+              )}
+              {stap === 4 && resultaat && filmKlaar && (
+                <button type="button" className="ds-herhaal" onClick={opnieuwAfspelen}>
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 1 0 1.7-4M2.5 2.5v3h3" /></svg>
+                  Opnieuw afspelen
+                </button>
               )}
             </div>
 
@@ -636,11 +675,12 @@ const VerhuurSimulatorPage = () => {
                         key={v}
                         type="button"
                         role="tab"
-                        aria-selected={actief === v}
-                        className={actief === v ? "on" : undefined}
+                        aria-selected={!filmKlaar && actief === v}
+                        className={!filmKlaar && actief === v ? "on" : undefined}
                         onClick={() => {
                           setActief(v);
                           setHandmatig(true);
+                          setFilmKlaar(false);
                         }}
                       >
                         {verdiepingNaam(v, lagen, dak)}
@@ -914,10 +954,10 @@ function Doorsnede({ wat, pd, cd }: { wat: Wat; pd: string; cd: string }) {
  * Teller "dag x van y" die gelijkloopt met de vochtsluier in de tekening. Hij
  * telt de huurtermijn uit de catalogus af, niet een eigen schatting.
  */
-function DagTeller({ dagen, cyclus, vocht }: { dagen: number; cyclus: number; vocht: number }) {
-  const [t, setT] = useState(0);
+function DagTeller({ dagen, cyclus, vocht, klaar }: { dagen: number; cyclus: number; vocht: number; klaar: boolean }) {
+  const [t, setT] = useState(klaar ? 1 : 0);
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (klaar || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setT(1);
       return;
     }
@@ -928,13 +968,13 @@ function DagTeller({ dagen, cyclus, vocht }: { dagen: number; cyclus: number; vo
     const opStart = (e: Event) => { start = (e as CustomEvent<number>).detail; };
     window.addEventListener(FILM_START, opStart);
     const id = window.setInterval(() => {
-      setT(droogVoortgang(Math.max(0, (performance.now() - start) / 1000) % cyclus, cyclus));
+      setT(droogVoortgang(Math.max(0, (performance.now() - start) / 1000), cyclus));
     }, 120);
     return () => {
       window.clearInterval(id);
       window.removeEventListener(FILM_START, opStart);
     };
-  }, [cyclus]);
+  }, [cyclus, klaar]);
   const dag = Math.max(1, Math.round(t * dagen));
   const rest = vocht * (1 - t);
   return (

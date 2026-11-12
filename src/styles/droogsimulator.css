@@ -993,3 +993,8 @@
 .ds-ware-lat:has(.ds-ware-schuif:hover) i,.ds-ware-lat:has(.ds-ware-schuif:active) i{box-shadow:0 0 0 2px rgba(255,255,255,.35),0 6px 18px -8px rgba(0,0,0,.8)}
 .ds-ware-lat:has(.ds-ware-schuif:focus-visible){outline:2px solid #fff;outline-offset:3px}
 .ds-laagk.uit .ds-ware-schuif{pointer-events:none}
+
+/* ── droogplan: knop "opnieuw afspelen" als de film klaar is ── */
+.ds-herhaal{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--ink,#1a1a1a);border-radius:99px;background:#fffdf9;color:var(--ink,#1a1a1a);font:600 12.5px/1 var(--fb,inherit);cursor:pointer;box-shadow:0 6px 18px -10px rgba(0,0,0,.45);animation:ds-held-in .4s ease-out both}
+.ds-herhaal:hover{background:#fff}
+.ds-herhaal:focus-visible{outline:2px solid var(--red,#c8102e);outline-offset:2px}

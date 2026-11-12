@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef, type MutableRefObject } from "react";
+import { Component, useLayoutEffect, useMemo, useRef, type MutableRefObject, type ReactNode } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
@@ -16,7 +16,7 @@ import {
 } from "three";
 import type { Kamer, Plaatsing } from "@/lib/droogSimulator";
 import type { DeviceKey } from "@/data/verhuur";
-import { FILM_START, VAL, droogVoortgang, filmTijd, stuit, type Film } from "../film";
+import { FILM_START, VAL, droogVoortgang, filmTijd, stuit, wegVoortgang, type Film } from "../film";
 
 /*
   De bewegende en losse onderdelen van de 3D-woning: de toestellen uit het
@@ -51,7 +51,8 @@ const stofGeo = new RingGeometry(0.42, 0.5, 36);
 /**
  * Eén toestel: valt op `aankomst` seconden in de film neer met een stuit, laat
  * een stofkringetje achter en slaat daarna aan (wieken draaien, led brandt,
- * kachel gloeit). De gloed is enkel emissive: een pointLight per kachel zou
+ * kachel gloeit). Is alles droog, dan valt het stil en wordt het weggehaald:
+ * omhoog en kleiner, één voor één. De gloed is enkel emissive: een pointLight per kachel zou
  * het aantal lichten (en dus de shaders) laten wisselen met het pakket.
  */
 export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
@@ -88,13 +89,16 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
   useFrame((_, dt) => {
     const t = filmTijd(film.current, cyclus);
     const p = Math.min(1, Math.max(0, (t - aankomst) / VAL));
+    const q = wegVoortgang(t, cyclus, aankomst);
+    const op = q * q * (3 - 2 * q);
     const g = groep.current;
     if (g) {
-      g.visible = t >= aankomst;
-      g.position.y = y + (1 - stuit(p)) * VALHOOGTE;
-      // Bij de eerste botsing even platgedrukt, daarna weer recht.
+      g.visible = t >= aankomst && q < 1;
+      g.position.y = y + (1 - stuit(p)) * VALHOOGTE + op * VALHOOGTE * 1.3;
+      // Bij de eerste botsing even platgedrukt, daarna weer recht; bij het weghalen kleiner.
       const plat = p > 0.33 && p < 0.55 ? Math.sin(((p - 0.33) / 0.22) * Math.PI) * 0.07 : 0;
-      g.scale.set(SCHAAL * (1 + plat * 0.6), SCHAAL * (1 - plat), SCHAAL * (1 + plat * 0.6));
+      const k = SCHAAL * (1 - op * 0.75);
+      g.scale.set(k * (1 + plat * 0.6), k * (1 - plat), k * (1 + plat * 0.6));
     }
     // Stofkringetje bij de landing.
     const s = (t - aankomst - VAL * 0.36) / 0.7;
@@ -103,8 +107,8 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
       stof.current.scale.setScalar(0.6 + s * 1.1);
       stofM.opacity = s > 0 && s < 1 ? 0.45 * (1 - s) : 0;
     }
-    // Aan zodra het toestel stilstaat; de wieken lopen op toeren.
-    const aan = werkend && t > aankomst + VAL + 0.15;
+    // Aan zodra het toestel stilstaat, uit zodra alles droog is; de wieken lopen op en af.
+    const aan = werkend && t > aankomst + VAL + 0.15 && droogVoortgang(t, cyclus) < 1;
     toeren.current += ((aan ? 1 : 0) - toeren.current) * Math.min(1, dt * 1.8);
     if (model.wieken) model.wieken.rotation.z -= dt * Math.PI * 2 * 2.2 * toeren.current;
     for (const m of model.licht) {
@@ -125,6 +129,23 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
 /** Welke toestellen staan al te werken: voor lucht en druppels. */
 function draait(t: number, aankomst: number) {
   return t > aankomst + VAL + 0.15;
+}
+
+/**
+ * Vangnet rond de toestellen: laadt een model niet (netwerk, 404), dan vallen
+ * alleen de toestellen weg. Zonder dit viel de hele 3D terug op de SVG.
+ */
+export class ToestelVangnet extends Component<{ children: ReactNode; terugval: ReactNode }, { fout: boolean }> {
+  state = { fout: false };
+  static getDerivedStateFromError() {
+    return { fout: true };
+  }
+  componentDidCatch(err: unknown) {
+    console.warn("[droogsimulator] toestellen niet geladen:", err);
+  }
+  render() {
+    return this.state.fout ? this.props.terugval : this.props.children;
+  }
 }
 
 /**
@@ -182,9 +203,11 @@ export function Luchtstroom3D({ kamers, plaatsingen, yf, film, cyclus }: { kamer
     if (!m) return;
     const t = clock.elapsedTime;
     const ft = filmTijd(film.current, cyclus);
+    // In het laatste tiende van het drogen valt de lucht stil.
+    const stilvallen = Math.min(1, (1 - droogVoortgang(ft, cyclus)) / 0.1);
     banen.forEach(([a, b, c, aank], i) => {
       // Pas lucht als deze ventilator staat en draait.
-      const aan = draait(ft, aank) ? Math.min(1, (ft - aank - VAL - 0.15) / 0.8) : 0;
+      const aan = draait(ft, aank) ? Math.min(1, (ft - aank - VAL - 0.15) / 0.8) * stilvallen : 0;
       for (let j = 0; j < PER; j++) {
         const f = fase(t, 1.6, (j / PER) * 1.6 + i * 0.3);
         bezier(a, b, c, f, p);
