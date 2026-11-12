@@ -725,6 +725,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ["Type", "Radiale bouwventilator"],
       ["Luchtverzet", "2 250 m³/u"],
       ["Snelheidsstanden", "3"],
+      ["Opgenomen vermogen", "max. 1,2 kW"],
       ["Beschermingsgraad", "IP55"],
       ["Voedingsspanning", "230 V / 50 Hz"],
       ["Doorvoerstopcontact", "ja, 6 A"],
@@ -779,6 +780,9 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     specs: [
       ["Type", "Adsorptiedroger"],
       ["Werking", "droge lucht via slangen naar de natte zone"],
+      ["Opgenomen vermogen (20 °C / 60 % RV)", "0,42 kW"],
+      ["Aansluitvermogen", "0,55 kW"],
+      ["Voedingsspanning", "230 V / 50 Hz"],
       ["Toepassing", "vloeropbouw, wanden, isolatie, koude ruimtes"],
     ],
     faq: [

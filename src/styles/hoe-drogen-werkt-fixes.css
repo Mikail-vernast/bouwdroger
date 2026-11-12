@@ -16,6 +16,28 @@
   scroll-margin-top: 104px;
 }
 
+/* De materiaalkaarten vormen één visuele reeks: nat pleisterwerk, vochtige
+   chape en een te snel gedroogde vloer. De foto's vervangen de losse iconen
+   en lopen over de volle kaartbreedte, terwijl de tekst dezelfde maat houdt. */
+.hdw-page .materiaalkaart {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.hdw-page .materiaalkaart .materiaalfoto {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.hdw-page .materiaalkaart .materiaaltekst {
+  padding: 24px;
+  flex: 1;
+}
+
 @media (max-width: 660px) {
   .hdw-page .hdr .tl-left {
     display: none;

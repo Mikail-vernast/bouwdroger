@@ -3,7 +3,6 @@ import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
-import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
 import ContactBlok from "@/components/content/ContactBlok";
 import {
   ArrowRightIcon,
@@ -156,32 +155,6 @@ const garanties = [
   { Icon: BoltIcon, title: "Toestel defect?", desc: "Wij vervangen het de volgende werkdag. Geen discussie, geen extra kost: u huurt een werkend toestel, niet een toestel." },
   { Icon: SupportIcon, title: "Altijd bereikbaar", desc: "Weekdagen, weekend en feestdagen. Een droging die stilvalt in het weekend is een week verlies." },
   { Icon: CardIcon, title: "Duidelijke factuur", desc: "Op naam, met de btw apart, en met de metingen erbij, klaar voor uw verzekeringsdossier of boekhouder." },
-];
-
-const verderLezen: LeesGroep[] = [
-  {
-    kop: "Wat onze klanten lieten drogen",
-    links: [
-      { to: "/realisaties/bang-olufsen", label: "Versnelde bouwdroging binnen een strak bouwschema" },
-      { to: "/realisaties/mnr-l-hasselt", label: "Pleister- en chapewerken versneld gedroogd in Hasselt" },
-      { to: "/realisaties/mnr-w-antwerpen", label: "Kelder en leefruimte drooggelegd na waterschade" },
-    ],
-  },
-  {
-    kop: "Kiezen en berekenen",
-    links: [
-      { to: "/verhuur/calculator", label: "Bereken de prijs van uw droogpakket" },
-      { to: "/machines", label: "Welk toestel heeft u nodig? Vergelijk het gamma" },
-      { to: "/nieuwbouw", label: "Droogtijden van chape en pleisterwerk" },
-    ],
-  },
-  {
-    kop: "Levering in uw regio",
-    links: [
-      { to: "/bouwdroger-huren-antwerpen", label: "Bouwdroger huren in de provincie Antwerpen" },
-      { to: "/bouwdroger-huren-oost-vlaanderen", label: "Bouwdroger huren in Oost-Vlaanderen" },
-    ],
-  },
 ];
 
 const PrijzenPage = () => (
@@ -719,8 +692,6 @@ const PrijzenPage = () => (
         </div>
       </div>
     </section>
-
-    <VerderLezen titel="Verder lezen over prijzen en pakketten" groepen={verderLezen} achtergrond="sr" />
 
     <ContactBlok
       kicker="Een vraag over de prijs?"

@@ -115,3 +115,55 @@ export const LekIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
     <path d="M12 9.5v5M9.8 12.3 12 14.5l2.2-2.2" />
   </svg>
 );
+
+/*
+  De zes iconen voor "Wat u moet doen in de eerste 48 uur" op /waterschade.
+
+  Daar stonden grote cijfers 01 tot 06 in lichtgrijs. Die vertelden alleen de
+  volgorde, en die staat al in de leesrichting van het raster; wie de kaarten
+  scant zag zes keer hetzelfde grijze blokje. Een icoon zegt in één oogopslag
+  waar de stap over gaat — stroom, kraan, foto, pomp, doos, droger.
+*/
+
+/** Bliksem met een streep erdoor — zet de stroom af in de natte zone. */
+export const StroomUitIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M13 2.6 4.4 13.4h7.2l-.9 7.4 8.6-10.8h-7.2z" />
+    <path d="M3.2 3.2 20.8 20.8" />
+  </svg>
+);
+
+/** Afsluitkraan op een leiding — draai de hoofdkraan dicht. */
+export const KraanIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M2.6 15h4.2M17.2 15h4.2" />
+    <rect x="6.8" y="11.6" width="10.4" height="6.8" rx="1.8" />
+    <path d="M12 11.6V6.4M8.8 6.4h6.4" />
+  </svg>
+);
+
+/** Golflijn met een pijl eruit — pomp of zuig het staande water weg. */
+export const PompIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M2.5 18.4c1.6 0 1.6 1.5 3.2 1.5s1.6-1.5 3.2-1.5 1.6 1.5 3.2 1.5 1.6-1.5 3.2-1.5 1.6 1.5 3.2 1.5" />
+    <path d="M12 15.2V4.2" />
+    <path d="m8.4 7.8 3.6-3.6 3.6 3.6" />
+  </svg>
+);
+
+/** Doos — tapijt, karton en losse meubels gaan de ruimte uit. */
+export const DoosIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M3.4 7.8 12 3.3l8.6 4.5v8.4L12 20.7l-8.6-4.5z" />
+    <path d="m3.4 7.8 8.6 4.5 8.6-4.5M12 12.3v8.4" />
+  </svg>
+);
+
+/** Toestel met luchtstromen — de droger die aan het werk gaat. */
+export const DrogerIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <rect x="2.8" y="5.4" width="11.4" height="13.2" rx="2.2" />
+    <circle cx="8.5" cy="12" r="2.7" />
+    <path d="M16.8 9.2h3.4M16.8 12.4h4.4M16.8 15.6h2.9" />
+  </svg>
+);

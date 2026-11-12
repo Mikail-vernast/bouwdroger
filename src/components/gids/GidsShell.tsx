@@ -37,6 +37,12 @@ interface GidsShellProps {
    */
   articlePublished?: string;
   faq?: GidsFaq[];
+  /**
+   * Laat de FAQ weg onderaan — de pagina plaatst <GidsFaqSectie> dan zelf,
+   * ergens tussen de andere secties. De `faq`-array blijft nodig: daaruit
+   * komt het FAQPage-schema, en dat mag niet van de zichtbare vragen afwijken.
+   */
+  faqZelfPlaatsen?: boolean;
   /** Extra JSON-LD, bv. een OfferCatalog of ItemList. */
   jsonLd?: Record<string, unknown>[];
   children: ReactNode;
@@ -47,6 +53,51 @@ const Arrow = () => (
     <path d="M5 12h14" />
     <path d="m12 5 7 7-7 7" />
   </svg>
+);
+
+/**
+ * De vragenlijst als eigen sectie, zodat een pagina haar ergens tussen de
+ * andere secties kan zetten in plaats van altijd onderaan.
+ *
+ * Het zijn `<details>`-elementen en geen eigen klapmechaniek: de antwoorden
+ * staan dan ook zonder JavaScript in de HTML — nodig, want deze pagina's
+ * worden geprerenderd voor lezers die geen scripts uitvoeren — en de browser
+ * regelt het open- en dichtklappen zelf, inclusief toetsenbord.
+ */
+export const GidsFaqSectie = ({
+  faq,
+  kick = "Veelgestelde vragen",
+  titel,
+  variant = "grijs",
+}: {
+  faq: GidsFaq[];
+  kick?: string;
+  titel: string;
+  variant?: "grijs" | "rood";
+}) => (
+  <section className={variant === "rood" ? "lvred faqsec" : "sw2 faqsec"} id="faq">
+    <div className="wrap">
+      <div className="sec-head mid">
+        <span className="kick">{kick}</span>
+        <h2 className="sec">{titel}</h2>
+      </div>
+      <div className="faq">
+        {faq.map((item, i) => (
+          <details className="faq-item" key={item.question} open={i === 0}>
+            <summary>
+              <h3>{item.question}</h3>
+              <span className="fx" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
 );
 
 /**
@@ -69,6 +120,7 @@ const GidsShell = ({
   heroBadge,
   articlePublished,
   faq = [],
+  faqZelfPlaatsen = false,
   jsonLd = [],
   children,
 }: GidsShellProps) => (
@@ -141,24 +193,7 @@ const GidsShell = ({
 
     {children}
 
-    {faq.length > 0 && (
-      <section className="sw2" id="faq">
-        <div className="wrap">
-          <div className="sec-head">
-            <span className="kick">Veelgestelde vragen</span>
-            <h2 className="sec">Kort beantwoord</h2>
-          </div>
-          <div className="faq">
-            {faq.map((item) => (
-              <div className="faq-item" key={item.question}>
-                <h3>{item.question}</h3>
-                <p>{item.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
+    {faq.length > 0 && !faqZelfPlaatsen && <GidsFaqSectie faq={faq} titel="Kort beantwoord" />}
 
     <V3Footer />
   </div>
