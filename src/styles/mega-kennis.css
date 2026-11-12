@@ -1,0 +1,48 @@
+/* ============================================================
+   Het mega-menu "Alles over drogen"
+
+   Ongescoped en met eigen fallbacks, net als site-footer.css, en dat is hier
+   geen luxe: `.mega-cols` staat in elf paginastylesheets apart gedefinieerd —
+   de ene schil als `grid-template-columns:repeat(3,1fr)`, de andere als
+   `flex-wrap:wrap`. Dit paneel heeft vier kolommen, dus in de flex-schillen
+   viel de vierde eronder en werd de uitklapper twee keer zo hoog. De header is
+   één component voor de hele site; zijn menu hoort dus ook maar één opmaak te
+   hebben, in plaats van in elke schil opnieuw te worden overgeschreven.
+
+   De regels staan bewust op `.mega-panel.kennis`, zodat het menu Bouwdroging
+   ernaast onaangeroerd blijft.
+   ============================================================ */
+
+.mega-panel.kennis .mega-cols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 26px 36px;
+}
+
+/* Onder 1120 px worden het er twee; vier kolommen met deze labels worden daar
+   te smal en breken de linkteksten middenin een woord. */
+@media (max-width: 1120px) {
+  .mega-panel.kennis .mega-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.mega-panel.kennis .mcol ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* De links breken binnen hun kolom af. Zonder deze regel erfden ze de
+   `white-space: nowrap` van de schil en liep "Condensdroger of
+   adsorptiedroger?" dwars over de kolom ernaast. */
+.mega-panel.kennis .mcol li,
+.mega-panel.kennis .mcol a {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.mega-panel.kennis .mcol li {
+  line-height: 1.35;
+  margin-bottom: 9px;
+}
