@@ -155,13 +155,46 @@ export const GIDSEN: NavLinkItem[] = [
  * een wees dreigden te worden: /klantservice, /drooggarantie, /hoe-drogen-werkt
  * en /waarom-bouwdroging stonden wel in de sitemap, maar zonder interne link.
  */
-export const ONTDEK: NavLinkItem[] = [
-  { label: "Klantenservice", path: "/klantservice" },
-  { label: "Drooggarantie", path: "/drooggarantie" },
+export const UITLEG: NavLinkItem[] = [
   { label: "Hoe drogen werkt", path: "/hoe-drogen-werkt" },
   { label: "Waarom bouwdroging", path: "/waarom-bouwdroging" },
+  { label: "Drooggarantie", path: "/drooggarantie" },
+  { label: "Klantenservice", path: "/klantservice" },
+];
+
+export const ONTDEK: NavLinkItem[] = [
+  ...UITLEG,
   { label: "Gidsen over bouwdroging", path: "/gids" },
   ...GIDSEN,
+];
+
+/** Eén kolom in een mega-menu: een kopje met de links eronder. */
+export interface NavGroep {
+  titel: string;
+  items: NavLinkItem[];
+}
+
+/**
+ * Het mega-menu "Alles over drogen".
+ *
+ * Dit was een uitklapper met vier vaste links, terwijl de helft van de
+ * inhoudelijke pagina's — de gidsen, de toepassingen, /prijzen — er niet in
+ * stond. Wie op "alles over drogen" klikte, kreeg dus niet alles. Nu leest het
+ * menu dezelfde lijsten als de footer en het mobiele menu, zodat een nieuwe
+ * informatiepagina op één plek wordt toegevoegd en overal verschijnt.
+ *
+ * De volgorde volgt de vraag van de bezoeker: eerst begrijpen, dan de gidsen
+ * met één concrete vraag, dan de situatie waarin hij zit, en pas daarna wat
+ * het kost.
+ */
+export const ALLES_OVER_DROGEN: NavGroep[] = [
+  { titel: "Uitleg", items: UITLEG },
+  {
+    titel: "Gidsen",
+    items: [{ label: "Alle gidsen", path: "/gids" }, ...GIDSEN],
+  },
+  { titel: "Toepassingen", items: TOEPASSINGEN },
+  { titel: "Prijzen & service", items: SERVICE },
 ];
 
 /**
