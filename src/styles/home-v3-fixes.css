@@ -261,3 +261,20 @@
   align-self: flex-start;
   margin-top: 14px;
 }
+
+/* 13. Niet elk cijfer in de vergelijkingssectie zegt hetzelfde.
+
+       Alle vier stonden in `--red`, terwijl ze verschillende dingen vertellen:
+       1 500 L en 48 u zijn het probleem, "≤ 2 %" is de drempel waar u op moet
+       letten en "60 %" is wat droging oplevert. Vier keer rood maakt van de
+       winst een waarschuwing.
+
+       Geel en groen komen uit dezelfde familie als het Eco-label elders op de
+       pagina, zodat er geen vijfde en zesde kleur bijkomt. */
+.v3 .fact.waarschuwing .fn { color: #B45309; }
+.v3 .fact.winst .fn { color: #15803D; }
+
+/* 14. De vertrouwensbalk staat nu bóven het gamma, niet eronder.
+       `margin-top:44px` uit de designfile duwde hem van de sectiekop af die er
+       nu onder staat; die marge hoort nu aan de andere kant. */
+.v3 .eco .trustbar { margin-top: 0; margin-bottom: 52px; }

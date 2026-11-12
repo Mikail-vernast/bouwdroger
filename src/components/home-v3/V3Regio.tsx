@@ -88,7 +88,7 @@ const V3Regio = () => {
               ))}
             </div>
             <p className="rg-note">
-              Staat uw gemeente er niet bij? Wij leveren in heel Vlaanderen en Brussel — bel ons op
+              Staat uw gemeente er niet bij? Wij leveren in heel Vlaanderen en Brussel. Bel ons op
               03 689 90 65 en we bekijken het meteen.
             </p>
             <div className="rg-actions">

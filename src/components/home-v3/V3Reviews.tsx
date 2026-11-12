@@ -48,7 +48,7 @@ const V3Reviews = () => (
         <span className="kick">Wat klanten zeggen</span>
         <h2 className="sec">Klanten gingen u voor.</h2>
         <p className="lede">
-          Echte beoordelingen van Vernast, bij Google en Solvari — onbewerkt, met naam en datum.
+          Echte beoordelingen van Vernast, bij Google en Solvari. Onbewerkt, met naam en datum.
         </p>
       </div>
 

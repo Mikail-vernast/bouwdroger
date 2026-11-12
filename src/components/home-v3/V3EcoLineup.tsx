@@ -91,6 +91,36 @@ const V3EcoLineup = () => {
   return (
     <section className="eco" id="eco">
       <div className="wrap">
+        <div className="trustbar">
+          {/*
+            Het zegel staat vóór de tekst, niet ertussen: het is het eerste wat
+            het oog pakt op een rode balk, en daarna leest de bezoeker waarom.
+            `alt=""` omdat het woord ernaast al staat -- een schermlezer die
+            "gouden schild" hoort én "Gecertificeerd" leest, krijgt het twee keer.
+          */}
+          <div className="tb-seal">
+            <img
+              src="/vernast/schild-gecertificeerd.webp"
+              alt=""
+              width={360}
+              height={360}
+              loading="lazy"
+            />
+            <span>Gecertificeerd</span>
+          </div>
+          <div className="tb-l">
+            <span className="tb-k">Vertrouwd door wie het moet weten</span>
+            <h3>Vertrouwd door professionals in de bouw.</h3>
+          </div>
+          <div className="tb-chips">
+            {TRUSTED.map((item) => (
+              <span key={item.who}>
+                {item.icon} {item.who}
+              </span>
+            ))}
+          </div>
+        </div>
+
         <div className="sec-head mid">
           <span className="kick">Eco Bouwdrogers</span>
           <h2 className="sec">Onze beste eco bouwdrogers op een rij.</h2>
@@ -142,36 +172,6 @@ const V3EcoLineup = () => {
               </Link>
             </div>
           ))}
-        </div>
-
-        <div className="trustbar">
-          {/*
-            Het zegel staat vóór de tekst, niet ertussen: het is het eerste wat
-            het oog pakt op een rode balk, en daarna leest de bezoeker waarom.
-            `alt=""` omdat het woord ernaast al staat -- een schermlezer die
-            "gouden schild" hoort én "Gecertificeerd" leest, krijgt het twee keer.
-          */}
-          <div className="tb-seal">
-            <img
-              src="/vernast/schild-gecertificeerd.webp"
-              alt=""
-              width={360}
-              height={360}
-              loading="lazy"
-            />
-            <span>Gecertificeerd</span>
-          </div>
-          <div className="tb-l">
-            <span className="tb-k">Vertrouwd door wie het moet weten</span>
-            <h3>Vertrouwd door professionals in de bouw.</h3>
-          </div>
-          <div className="tb-chips">
-            {TRUSTED.map((item) => (
-              <span key={item.who}>
-                {item.icon} {item.who}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </section>
