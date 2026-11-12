@@ -165,13 +165,39 @@ export const ONTDEK: NavLinkItem[] = [
 ];
 
 /**
+ * De sitemapkolom van de footer.
+ *
+ * De footer las eerder `SERVICE` en `ONTDEK` achter elkaar: dertien links in
+ * één kolom, waarvan zes naar een gids. Die gidsen staan op /gids en linken
+ * naar elkaar, en zijn elk al vanaf vijf andere pagina's bereikbaar — in de
+ * footer voegden ze niets toe behalve lengte.
+ *
+ * Deze lijst is wat er overblijft: de weg naar een bestelling, plus de drie
+ * pagina's waar de rest van de site op uitkomt. Eén regel per bestemming, in
+ * de volgorde waarin iemand ze nodig heeft.
+ */
+export const FOOTER_SITEMAP: NavLinkItem[] = [
+  { label: "Home", path: "/" },
+  KIEZEN[0],
+  ...SERVICE,
+  { label: "Realisaties", path: "/realisaties" },
+  { label: "Gidsen over bouwdroging", path: "/gids" },
+  { label: "Contact", path: "/contact" },
+];
+
+/**
  * De Vernast-groep: de zusterbedrijven, elk op hun eigen domein. Externe URL's,
  * dus bewust géén NavLinkItem (dat pad is intern). "Verhuur & bouwdroging" is
  * deze site zelf en blijft daarom een interne link (path).
  */
 export const VERNAST_GROEP: { label: string; sub: string; href?: string; path?: string }[] = [
   { label: "Vernast.be", sub: "De groep", href: "https://www.vernast.be/" },
-  { label: "Verhuur & bouwdroging", sub: "Toestellen en pakketten", path: "/" },
+  // "Verhuur & bouwdroging" heette deze site hier, maar de groep noemt haar
+  // overal elders bij haar merknaam — op vernast.be staat ze in de lijst als
+  // vernast-bouwdrogers.be. In de footerkolom "Vernast Groep" naast de twee
+  // zusterbedrijven las de oude omschrijving als een dienst in plaats van als
+  // het vierde merk.
+  { label: "Vernast Bouwdrogers", sub: "Toestellen en pakketten", path: "/" },
   { label: "Vochtbestrijding", sub: "Kelder · muren · gevel", href: "https://vernast-vochtbestrijding.be/" },
   { label: "Schilderwerken", sub: "Binnen & buiten", href: "https://www.vernast-schilderwerken.be/" },
 ];

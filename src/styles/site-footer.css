@@ -7,53 +7,142 @@
 
   Daarom hangt de opmaak nu aan het component zelf en staat ze *niet* onder een
   paginawortel: de footer neemt zijn eigen uiterlijk mee, in welke schil hij ook
-  landt. De variabelen krijgen een fallback omdat `--red`, `--wrap` en `--fb`
-  alleen op de v3-schil gedefinieerd zijn.
+  landt. De variabele `--wrap` krijgt een fallback omdat ze alleen op de
+  v3-schil gedefinieerd is.
 
-  Het lettertype is bewust `var(--fb, inherit)` en geen harde stack: op de v3-
-  schil is dat DM Sans, op de oude schil erft de footer de Inter die daar toch
-  al geladen wordt. Drie <h2>'s in deze footer waren ooit genoeg om élke pagina
-  47 kB Inter te laten ophalen; een harde `font-family` doet hetzelfde in de
-  andere richting.
+  Het lettertype is hier wél een harde stack, en dat is een bewuste omkering van
+  wat er eerder stond. Toen erfde de footer het font van zijn schil — DM Sans op
+  v3, Inter op de oude schil — en zag hij er op /levering dus anders uit dan op
+  de homepage. De drie zustersites (vernast.be, -vochtbestrijding, -schilderwerken)
+  draaien alle drie op Urbanist; de voet van deze site hoort daarbij. Het font
+  wordt bewust *niet* vooruit gehaald: de footer staat onder de vouw, en een
+  preload zou concurreren met het font dat de titel tekent.
 */
 footer.site{
-  background:#0d0a0a;
-  color:rgba(255,255,255,.62);
-  padding:64px 0 26px;
-  font-family:var(--fb, inherit);
+  background:#0a0a0c;
+  color:rgba(255,255,255,.7);
+  font-family:'Urbanist',system-ui,sans-serif;
   text-align:left;
 }
+/*
+  28 px en niet de 40 van de zustersites: élke schil hier zet zijn eigen
+  `.wrap` op `padding:0 28px`. Met 40 stond de footerinhoud twaalf pixels
+  verder naar binnen dan de sectie erboven, en dat zie je op de naad.
+*/
 footer.site .wrap{max-width:var(--wrap,1220px);margin:0 auto;padding:0 28px}
 footer.site a{color:inherit;text-decoration:none}
+footer.site a:hover{color:#fff}
+/* Stond in geen enkele eerdere versie: zonder dit is de footer met het
+   toetsenbord een rij onzichtbare stops. */
+footer.site a:focus-visible{outline:2px solid rgba(255,255,255,.85);outline-offset:3px;border-radius:2px}
 footer.site img{max-width:100%;display:block}
-footer.site .fg{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
-footer.site .lc img{height:30px;width:auto;margin-bottom:20px}
-footer.site .lc p{font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.6);margin:0 0 24px;max-width:300px}
-footer.site .lc .fc{display:flex;flex-direction:column;gap:13px}
-footer.site .lc .fc a{display:inline-flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.82)}
-footer.site .lc .fc a:hover{color:#fff}
-footer.site .lc .fc svg{color:var(--red,#C8102E);flex-shrink:0}
-footer.site h2,
-footer.site h4{font-family:var(--fb, inherit);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.5);margin:0 0 22px}
 footer.site ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
-footer.site ul a{font-size:14.5px;color:rgba(255,255,255,.72)}
-footer.site ul a:hover{color:#fff}
-footer.site .fb{border-top:1px solid rgba(255,255,255,.11);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:13.5px;color:rgba(255,255,255,.5)}
-footer.site .fb a{color:rgba(255,255,255,.62)}
-footer.site .fb a:hover{color:#fff}
-footer.site .fb .fl{display:flex;gap:26px;flex-wrap:wrap}
-@media (max-width:1040px){
-  footer.site .fg{grid-template-columns:1fr 1fr}
+footer.site ul a{font-size:14px;color:rgba(255,255,255,.7)}
+
+/*
+  Het raster. `align-content:start` houdt de kolommen aan de bovenlijn: zonder
+  die regel rekt de grid ze uit over de hoogte van de langste, en dan zweeft de
+  korte Vernast-kolom in het midden van zijn eigen leegte.
+*/
+footer.site .fg{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:44px;
+  align-content:start;
+  padding:66px 0 46px;
 }
-@media (max-width:660px){
-  footer.site .fg{grid-template-columns:1fr}
+footer.site .fg > nav{min-width:0}
+/* Werkgebied en Vernast Groep onder elkaar in de vierde kolom. */
+footer.site .stack{display:flex;flex-direction:column;gap:34px}
+
+footer.site h2{
+  font-family:inherit;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.24em;
+  line-height:1.08;
+  color:rgba(255,255,255,.48);
+  margin:0 0 22px;
 }
 
-/* Werkgebied: de vijf regiopagina's als één regel boven de onderbalk. */
-footer.site .fw{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:18px 0;margin-bottom:28px;border-top:1px solid rgba(255,255,255,.1);font-size:14px}
-footer.site .fw span{color:rgba(255,255,255,.5);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;margin-right:6px}
-footer.site .fw a{color:rgba(255,255,255,.82)}
-footer.site .fw a:hover{color:#fff;text-decoration:underline}
+/* Merkkolom */
+footer.site .lc img{height:26px;width:auto}
+footer.site .lc .pitch{font-size:14px;line-height:1.66;color:rgba(255,255,255,.62);margin:22px 0 0;max-width:33ch}
+/*
+  Het nummer is de belangrijkste actie van de site en stond hier op 14 px
+  tussen de gewone links. Nu het enige element in de footer dat uit de
+  basismaat springt.
+*/
+footer.site .lc .tel{
+  display:inline-block;
+  font-size:21px;
+  font-weight:600;
+  letter-spacing:-.025em;
+  color:#fff;
+  margin:26px 0 0;
+  font-variant-numeric:tabular-nums;
+}
+footer.site .lc .tel:hover{color:rgba(255,255,255,.76)}
+footer.site .lc .mail{
+  display:block;
+  width:fit-content;
+  margin:9px 0 0;
+  font-size:14.5px;
+  color:rgba(255,255,255,.78);
+  border-bottom:1px solid rgba(255,255,255,.24);
+  padding-bottom:1px;
+}
+footer.site .lc .mail:hover{color:#fff;border-color:rgba(255,255,255,.6)}
+footer.site .lc .adr{font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.52);margin:22px 0 0}
+footer.site .lc .adr b{display:block;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:2px}
+
+/*
+  Deze site zelf in de groepslijst: zichtbaar, maar geen link. Het bijschrift
+  staat op zijn eigen regel — achter de naam brak het midden in "u bent / hier"
+  zodra de kolom smaller werd dan de twee samen.
+*/
+footer.site .here{display:block;color:rgba(255,255,255,.44);font-size:14px}
+footer.site .here::after{
+  content:"u bent hier";
+  display:block;
+  margin-top:3px;
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+}
+
+footer.site .fb{
+  border-top:1px solid rgba(255,255,255,.12);
+  padding:22px 0 30px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px 28px;
+  font-size:13.5px;
+  color:rgba(255,255,255,.5);
+}
+footer.site .fb a{color:rgba(255,255,255,.62)}
+/*
+  Heette `.fl`, en dat is een naam die `src/styles/v3-content.css` al gebruikt
+  voor een witte kaart: `.v3c .fl{background:#fff;border-radius:16px;padding:…}`.
+  De footer staat binnen die paginawortel, dus op /prijzen, /machines en elke
+  andere v3c-pagina kregen de drie juridische links een witte kaartachtergrond
+  over de volle breedte van de onderbalk. De footerregel overschreef wel
+  `display` en `gap` maar niet `background`, dus viel het nooit als botsing op.
+  Een ongescopete footer moet klassenamen dragen die nergens anders voorkomen.
+*/
+footer.site .fb .ft-legal{display:flex;gap:26px;flex-wrap:wrap}
+
+@media (max-width:1040px){
+  footer.site .fg{grid-template-columns:1fr 1fr;gap:40px}
+}
+@media (max-width:620px){
+  footer.site .fg{grid-template-columns:1fr;gap:34px;padding:50px 0 38px}
+  footer.site .fb{flex-direction:column;gap:14px}
+}
 
 /*
   Op een hoog scherm hield niets de footer tegen: de calculator is ~1650 px
