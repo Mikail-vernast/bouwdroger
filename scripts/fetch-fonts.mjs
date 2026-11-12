@@ -16,6 +16,10 @@ const FAMILIES = [
     slug: "plus-jakarta-sans",
     range: "400 800",
   },
+  // De footer, en alleen de footer. Urbanist is het font van de drie
+  // zustersites; de voet van bouwdrogers hoort er hetzelfde uit te zien.
+  // Hij wordt bewust niet vooruit gehaald — zie FontPreload.
+  { css: "Urbanist:wght@400..700", family: "Urbanist", slug: "urbanist", range: "400 700" },
 ];
 
 /** Alleen deze subsets; Google's eigen unicode-range regelt de rest. */
