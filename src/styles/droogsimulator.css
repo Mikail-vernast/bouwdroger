@@ -728,7 +728,8 @@
 .ds-keuzerij{flex:none}
 .ds-hkset{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .ds-hk{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;padding:9px 6px 8px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;transition:background .15s,transform .15s,box-shadow .15s}
-.ds-hk:hover:not(.on):not(:disabled){background:rgba(255,255,255,.1);transform:translateY(-1px)}
+/* geen translateY bij hover: in Chrome herstartte dat telkens de infade van de foto erboven (flits) */
+.ds-hk:hover:not(.on):not(:disabled){background:rgba(255,255,255,.1)}
 .ds-hk.on{background:#fff;border-color:#fff;color:var(--ink);box-shadow:0 8px 24px -10px rgba(0,0,0,.65)}
 .ds-hk:disabled{opacity:.3;cursor:not-allowed}
 .ds-hk:focus-visible{outline:2px solid #fff;outline-offset:2px}

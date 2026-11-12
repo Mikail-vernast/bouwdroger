@@ -727,24 +727,25 @@ function Scene(props: SceneProps) {
   const dicht = useMemo(() => kader(w, l, 0, daktop + nok + 0.3, 1.3), [w, l, daktop, nok]);
   const v = useMemo(() => new Vector3(), []);
 
-  // Bouw-animaties. Een andere woning, een ander dak of meer/minder bouwlagen:
-  // de lagen erboven groeien (of krimpen) vanaf hun vloer, het dak rijdt mee naar
-  // zijn nieuwe hoogte of valt er van boven op, en de camera glijdt mee.
-  // Andere kamers op de actieve laag: de binnenwanden en de inrichting groeien
-  // uit de vloer. Zonder dit verspringt de tekening gewoon.
+  // Bouw-animaties. Een ander dak of meer/minder bouwlagen: de lagen erboven
+  // groeien (of krimpen) vanaf hun vloer, het dak rijdt mee naar zijn nieuwe
+  // hoogte of valt er van boven op, en de camera glijdt mee. Andere kamers op de
+  // actieve laag: de binnenwanden en de inrichting groeien uit de vloer.
+  // Een ander woningtype wisselt meteen, zonder animatie: daar vergelijk je
+  // types naast elkaar, en een huis dat telkens opnieuw opbouwt staat in de weg.
   const groei = useRef({ bouw: tween(1), wand: tween(1), vanLagen: lagen, nieuwDak: false, vanKader: dicht, kaderNu: dicht });
   const vorige = useRef({ lagen, dak, woning, binnen: geo.binnen });
   useLayoutEffect(() => {
     const p = vorige.current, G = groei.current;
     vorige.current = { lagen, dak, woning, binnen: geo.binnen };
-    if (p.lagen !== lagen || p.dak !== dak || p.woning !== woning) {
-      // Ander woningtype: het huis bouwt zich vanaf de actieve laag opnieuw op.
-      G.vanLagen = p.woning !== woning ? act + 1 : p.lagen;
-      G.nieuwDak = p.dak !== dak || p.woning !== woning;
+    const anderType = p.woning !== woning;
+    if (p.lagen !== lagen || p.dak !== dak || anderType) {
+      G.vanLagen = p.lagen;
+      G.nieuwDak = p.dak !== dak;
       G.vanKader = G.kaderNu;
-      herstart(G.bouw, reduced);
+      herstart(G.bouw, reduced || anderType);
     }
-    if (p.binnen !== geo.binnen) herstart(G.wand, reduced);
+    if (p.binnen !== geo.binnen) herstart(G.wand, reduced || anderType);
   }, [lagen, dak, woning, act, geo.binnen, reduced]);
   const inrichtingRef = useRef<Group>(null);
   const vaagMats = useMemo(() => [...sets.vaag.values(), ...sets.boven.values()], [sets]);
