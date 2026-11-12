@@ -5,7 +5,7 @@ import FontPreload from "@/components/FontPreload";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
 import { ALLES_OVER_DROGEN, SCHIMMELS, TOESTELLEN } from "@/data/navigation";
 import "@/styles/offerte-shine.css";
-import "@/styles/mega-kennis.css";
+import "@/styles/mega-menu.css";
 
 /**
  * The site header from the design: a top line with the contact details and a
@@ -136,10 +136,10 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
               Bouwdroging
               <CaretIcon className="caret" />
               <div className="mega-panel">
-                <div className="mega-cols">
-                  <div className="mcol">
-                    <span className="mlab">Pakketten</span>
-                    <ul>
+                <div className="mmv-cols">
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Pakketten</span>
+                    <ul className="mmv-lijst">
                       <li>
                         <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
                       </li>
@@ -157,8 +157,8 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                       </li>
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Toestellen</span>
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Toestellen</span>
                     {/*
                       Deze vijf stonden hier overgetypt, en liepen daardoor uit
                       de pas met het gamma: de Large bouwdroger, de Revolution
@@ -169,7 +169,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                       als de footer en het mobiele menu: een toestel dat in het
                       portaal te huur gaat of eruit gaat, volgt vanzelf.
                     */}
-                    <ul>
+                    <ul className="mmv-lijst">
                       {TOESTELLEN.map((toestel) => (
                         <li key={toestel.path}>
                           <Link to={toestel.path}>{toestel.label}</Link>
@@ -177,9 +177,9 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                       ))}
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Service</span>
-                    <ul>
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Service</span>
+                    <ul className="mmv-lijst">
                       <li>
                         <Link to="/levering">Levering &amp; installatie</Link>
                       </li>
@@ -203,9 +203,9 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                     een ontschimmeling is een losse dienst. Wie met schimmel
                     zoekt, komt niet kijken bij levering en verlengen.
                   */}
-                  <div className="mcol">
-                    <span className="mlab">Schimmels</span>
-                    <ul>
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Schimmels</span>
+                    <ul className="mmv-lijst">
                       {SCHIMMELS.map((item) => (
                         <li key={item.path}>
                           <Link to={item.path}>{item.label}</Link>
@@ -239,11 +239,11 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                 bron als de footer en het mobiele menu.
               */}
               <div className="mega-panel kennis">
-                <div className="mega-cols">
+                <div className="mmv-cols">
                   {ALLES_OVER_DROGEN.map((groep) => (
-                    <div className="mcol" key={groep.titel}>
-                      <span className="mlab">{groep.titel}</span>
-                      <ul>
+                    <div className="mmv-groep" key={groep.titel}>
+                      <span className="mmv-kop">{groep.titel}</span>
+                      <ul className="mmv-lijst">
                         {groep.items.map((item) => (
                           <li key={item.path}>
                             <Link to={item.path}>{item.label}</Link>
