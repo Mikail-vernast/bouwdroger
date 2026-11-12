@@ -2,8 +2,6 @@ import { Component, useLayoutEffect, useMemo, useRef, type MutableRefObject, typ
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
-  CanvasTexture,
-  DoubleSide,
   type Group,
   type InstancedMesh,
   type Mesh,
@@ -11,7 +9,6 @@ import {
   MeshStandardMaterial,
   Object3D,
   RingGeometry,
-  SRGBColorSpace,
   Vector3,
 } from "three";
 import type { Kamer, Plaatsing } from "@/lib/droogSimulator";
@@ -21,7 +18,8 @@ import { FILM_START, VAL, droogVoortgang, filmTijd, stuit, wegVoortgang, type Fi
 /*
   De bewegende en losse onderdelen van de 3D-woning: de toestellen uit het
   pakket (modellen uit Blender, scripts/simulator-3d/toestellen.py), de
-  luchtstroom, de vochtdeeltjes en de natte sluier op muren en vloer.
+  luchtstroom en de vochtdeeltjes. (Een natte sluier over muren en vloer las
+  als slagschaduw; vocht toont de doorsnede, het drogen de druppels.)
 
   Alles loopt op één filmklok per verdieping (zie ../film.ts): eerst vallen de
   toestellen één voor één op hun plek, dan slaan ze aan en trekt het vocht weg.
@@ -286,62 +284,5 @@ export function Druppels3D({ kamers, plaatsingen, yf, vocht, film, cyclus }: { k
     <instancedMesh ref={ref} args={[undefined, mat, banen.length]} frustumCulled={false}>
       <sphereGeometry args={[1, 10, 8]} />
     </instancedMesh>
-  );
-}
-
-/* De natte sluier: een egale, iets donkerdere toon op muren en vloer. */
-let verloopMuur: CanvasTexture | null = null;
-let verloopVloer: CanvasTexture | null = null;
-function gradient(soort: "muur" | "vloer"): CanvasTexture {
-  if (soort === "muur" && verloopMuur) return verloopMuur;
-  if (soort === "vloer" && verloopVloer) return verloopVloer;
-  const c = document.createElement("canvas");
-  c.width = c.height = 128;
-  const g = c.getContext("2d")!;
-  // Nat pleister en verse chape zijn egaal iets donkerder, niet blauw en niet
-  // vlekkerig: een verloop (donker onderaan, een vlek midden op de vloer) las in
-  // 3D als slagschaduw. Eén gelijkmatige toon leest als vochtig materiaal.
-  g.fillStyle = `rgba(60,64,66,${soort === "muur" ? 0.3 : 0.34})`;
-  g.fillRect(0, 0, 128, 128);
-  const t = new CanvasTexture(c);
-  t.colorSpace = SRGBColorSpace;
-  if (soort === "muur") verloopMuur = t; else verloopVloer = t;
-  return t;
-}
-
-/** Natte muren en vloeren; `droogt` laat de sluier wegtrekken op de filmklok. */
-export function Vocht3D({ kamers, w, l, yf, H, vocht, muurNat, vloerNat, droogt, cyclus, film }: {
-  kamers: Kamer[]; w: number; l: number; yf: number; H: number; vocht: number;
-  muurNat: boolean; vloerNat: boolean; droogt: boolean; cyclus: number; film: MutableRefObject<Film>;
-}) {
-  const muurMat = useMemo(() => new MeshBasicMaterial({ map: gradient("muur"), transparent: true, depthWrite: false, side: DoubleSide }), []);
-  const vloerMat = useMemo(() => new MeshBasicMaterial({ map: gradient("vloer"), transparent: true, depthWrite: false }), []);
-  useFrame(() => {
-    // Nat tot alle toestellen staan, dan trekt het vocht weg (zelfde klok als de dagteller).
-    const droog = droogt ? 1 - droogVoortgang(filmTijd(film.current, cyclus), cyclus) : 1;
-    const op = vocht * 0.7 * droog;
-    muurMat.opacity = op;
-    vloerMat.opacity = op;
-  });
-  if (vocht <= 0) return null;
-  return (
-    <group>
-      {muurNat && (
-        <>
-          <mesh position={[w / 2, yf + H / 2, 0.006]} material={muurMat} renderOrder={2}>
-            <planeGeometry args={[w, H]} />
-          </mesh>
-          <mesh position={[0.006, yf + H / 2, l / 2]} rotation={[0, Math.PI / 2, 0]} material={muurMat} renderOrder={2}>
-            <planeGeometry args={[l, H]} />
-          </mesh>
-        </>
-      )}
-      {vloerNat &&
-        kamers.map((k) => (
-          <mesh key={k.id} position={[k.x + k.w / 2, yf + 0.006, k.z + k.l / 2]} rotation={[-Math.PI / 2, 0, 0]} material={vloerMat} renderOrder={2}>
-            <planeGeometry args={[k.w, k.l]} />
-          </mesh>
-        ))}
-    </group>
   );
 }
