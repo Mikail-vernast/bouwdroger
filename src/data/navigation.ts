@@ -98,6 +98,7 @@ export const SERVICE: NavLinkItem[] = [
 /** De twee rekenhulpen en het gamma. */
 export const KIEZEN: NavLinkItem[] = [
   { label: "Bereken uw droogpakket", path: "/verhuur/calculator" },
+  { label: "Droogsimulator voor uw woning", path: "/verhuur/simulator" },
   { label: "Welke capaciteit heb ik nodig?", path: "/calculator" },
   { label: "Ons volledige gamma", path: "/machines" },
 ];

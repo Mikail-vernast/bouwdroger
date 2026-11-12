@@ -23,6 +23,11 @@ const FloatingWhatsApp = () => {
   // On waterschade page, position above sticky bar on mobile
   const isWaterschade = pathname === "/waterschade";
 
+  // De droogsimulator vult precies één scherm en zet zijn Volgende-knop
+  // rechtsonder — net waar deze knop zweeft. Zijn eigen kop heeft al een
+  // belknop, dus hier blijft hij weg.
+  if (pathname === "/verhuur/simulator") return null;
+
   return (
     <a
       href="https://wa.me/3236899065"

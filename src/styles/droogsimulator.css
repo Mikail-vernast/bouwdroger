@@ -1,0 +1,767 @@
+/*
+  Droogsimulator (/verhuur/simulator) — één scherm, nooit scrollen.
+
+  .ds-app is precies 100dvh hoog: een compacte kop en daaronder het vraagpaneel
+  en de tekening. Elk vak krimpt mee (min-height: 0) en de Volgende-knop staat
+  vast onderaan het paneel, zodat een klein scherm de vraag compacter maakt in
+  plaats van de knop onder de vouw te duwen. Getest op 1440×900 tot 360×640.
+
+  Links bordeaux zoals de calculator, rechts de tekening op bouwplanpapier zoals
+  de kelder-simulator van Vernast: rood alleen als accent, een cartouche onderaan.
+*/
+
+.ds-sim{
+  --red:#C8102E;--maroon:#6B0F13;--maroon-d:#5A0C10;--maroon-dd:#4A0A0D;
+  --ink:#141414;--mid:rgba(20,20,20,.62);--paper:#f7f3ec;--line:#1a1a1a;--wl:rgba(255,255,255,.16);
+  --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;--fm:'JetBrains Mono',ui-monospace,monospace;
+  --wrap:1280px;
+  background:#F1EFEF;color:var(--ink);font-family:var(--fd);-webkit-font-smoothing:antialiased
+}
+.ds-sim button{font:inherit;color:inherit}
+
+/*
+  --kop = waar de site-header eindigt. Desktop: vaste header van 161 px, dus de
+  simulator schuift eronder. Gsm/tablet staand: de header staat in de flow (96
+  px) en de simulator neemt de rest van het scherm. De pagina meet de echte
+  waarde na het laden; dit is de standaard voor de geprerenderde HTML.
+*/
+.ds-sim{--kop:161px;--kop-marge:161px}
+@media (max-width:900px){.ds-sim{--kop:96px;--kop-marge:0px}}
+.ds-app{height:calc(100vh - var(--kop));height:calc(100dvh - var(--kop));margin-top:var(--kop-marge);display:grid;grid-template-rows:minmax(0,1fr);overflow:hidden}
+
+.ds-main{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;padding:16px 20px 20px;min-height:0;max-width:1600px;width:100%;margin:0 auto}
+
+/* ───── vraagpaneel ───── */
+.ds-panel{container:paneel/size;position:relative;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;min-height:0;border-radius:24px;color:#fff;overflow:hidden;
+  background:radial-gradient(120% 80% at 100% 0%,#a3101f 0,transparent 55%),linear-gradient(160deg,var(--maroon) 0,var(--maroon-dd) 100%)}
+.ds-ptop{display:flex;align-items:center;justify-content:space-between;padding:20px 26px 0}
+.ds-bar{display:flex;gap:5px;list-style:none;margin:0;padding:0}
+.ds-bar li{width:22px;height:4px;border-radius:2px;background:rgba(255,255,255,.2)}
+.ds-bar li.done{background:rgba(255,255,255,.6)}
+.ds-bar li.on{background:#fff;width:34px}
+.ds-count{font-family:var(--fm);font-size:11px;letter-spacing:.12em;color:rgba(255,255,255,.6);text-transform:uppercase}
+.ds-body{padding:14px 26px 0;min-height:0;display:flex;flex-direction:column;gap:clamp(10px,1.8dvh,18px);animation:ds-in .4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ds-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ds-body h2{margin:0;font-weight:800;font-size:clamp(22px,3.4dvh,34px);line-height:1.1;letter-spacing:-.02em;text-wrap:balance;color:#fff}
+.ds-sub{margin:-4px 0 0;font-size:clamp(13px,1.7dvh,15px);line-height:1.45;color:rgba(255,255,255,.72)}
+.ds-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.82);margin-bottom:7px}
+.ds-foot{display:flex;align-items:center;gap:10px;padding:14px 26px 20px}
+.ds-back{background:rgba(255,255,255,.08);border:1px solid var(--wl);border-radius:99px;padding:11px 16px;font-weight:600;font-size:13.5px;cursor:pointer}
+.ds-back:hover{background:rgba(255,255,255,.15)}
+.ds-back[hidden]{display:none}
+.ds-back--rechts{margin-left:auto}
+.ds-next{margin-left:auto;background:#fff;color:var(--red)!important;border:0;border-radius:99px;padding:13px 24px;font-weight:800;font-size:15px;cursor:pointer;transition:transform .15s,opacity .15s}
+.ds-next:hover{transform:translateY(-1px)}
+.ds-next:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.ds-sim :focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ds-stage :focus-visible{outline-color:var(--red)}
+
+/* woningkaarten rekken mee met de beschikbare hoogte */
+.ds-cards{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:10px}
+.ds-card{display:grid;grid-template-rows:minmax(0,1fr) auto;min-height:0;padding:0;border:2px solid transparent;border-radius:16px;background:#fff;color:var(--ink)!important;text-align:left;cursor:pointer;overflow:hidden;transition:transform .15s,border-color .15s}
+.ds-card:hover{transform:translateY(-2px)}
+.ds-card.sel{border-color:var(--red);box-shadow:0 0 0 3px rgba(255,255,255,.35)}
+.ds-art{min-height:0;position:relative;background:linear-gradient(#8b1a1a10 1px,transparent 1px) 0 0/14px 14px,linear-gradient(90deg,#8b1a1a10 1px,transparent 1px) 0 0/14px 14px,var(--paper)}
+.ds-art svg{position:absolute;inset:0;width:100%;height:100%}
+.ds-t{padding:8px 12px 10px}
+.ds-card b{display:block;font-size:14.5px}
+.ds-card small{display:block;font-size:11.5px;color:var(--mid)}
+
+/* keuzeknoppen en tellers */
+.ds-chips{display:flex;flex-wrap:wrap;gap:6px}
+.ds-chip{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid var(--wl);font-weight:600;font-size:13.5px;cursor:pointer;color:#fff;text-decoration:none;transition:background .15s}
+.ds-chip:hover{background:rgba(255,255,255,.15);color:#fff}
+.ds-chip.on{background:#fff;color:var(--ink)!important;border-color:#fff}
+.ds-chip:disabled{opacity:.3;cursor:not-allowed}
+.ds-chip small{font-weight:500;opacity:.65;font-size:11.5px}
+.ds-ic{width:28px;height:18px;position:relative;flex:none}
+.ds-ic::before{content:"";position:absolute;left:4px;right:4px;bottom:0;height:9px;background:#e9e2d7;border:1px solid #8f8578}
+.ds-ic::after{content:"";position:absolute;left:0;right:0;bottom:9px;background:#4a4543}
+.ds-ic[data-dak="zadeldak"]::after{height:9px;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.ds-ic[data-dak="plat"]::after{height:3px}
+.ds-ic[data-dak="lessenaar"]::after{height:8px;clip-path:polygon(0 0,100% 70%,100% 100%,0 100%)}
+.ds-sw{width:28px;height:18px;border-radius:4px;flex:none}
+.ds-sw[data-wat="pleister"]{background:linear-gradient(90deg,#c9bfb2 0 40%,#9d978e 40%)}
+.ds-sw[data-wat="chape"]{background:linear-gradient(180deg,#e9e2d7 0 55%,#8d877e 55%)}
+.ds-sw[data-wat="beide"]{background:linear-gradient(180deg,transparent 0 55%,#8d877e 55%),linear-gradient(90deg,#c9bfb2 0 40%,#9d978e 40%)}
+
+.ds-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ds-seg .ds-chip{justify-content:center;flex-direction:column;gap:0;padding:8px}
+.ds-seg .ds-chip b{font-size:18px}
+
+.ds-rows{display:flex;flex-direction:column;gap:6px}
+.ds-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 6px 6px 14px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid var(--wl)}
+.ds-row>span:first-child{font-size:13.5px;font-weight:600}
+.ds-row>span:first-child small{display:block;font-weight:500;font-size:11px;opacity:.6}
+.ds-step{display:flex;align-items:center;gap:4px}
+.ds-step button{width:32px;height:32px;border-radius:9px;border:1px solid var(--wl);background:rgba(255,255,255,.1);cursor:pointer;font-size:17px;line-height:1;color:#fff}
+.ds-step button:hover:not(:disabled){background:rgba(255,255,255,.2)}
+.ds-step button:disabled{opacity:.3;cursor:default}
+.ds-step output{min-width:30px;text-align:center;font-weight:800;font-size:17px;font-variant-numeric:tabular-nums}
+.ds-step.breed output{min-width:88px;font-size:16px}
+.ds-twee{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(10px,1.8dvh,18px)}
+/* dak en materiaal: drie tegels naast elkaar, ook op desktop */
+.ds-chips--tegels{flex-wrap:nowrap}
+.ds-chips--tegels .ds-chip{flex:1 1 0;min-width:0;justify-content:center;text-align:center}
+
+/* bouwfase als tijdlijn */
+.ds-tl{position:relative;display:grid;grid-template-columns:repeat(5,1fr);padding-top:4px}
+.ds-tl::before{content:"";position:absolute;left:10%;right:10%;top:19px;height:2px;background:rgba(255,255,255,.2)}
+.ds-tl-fill{position:absolute;left:10%;top:19px;height:2px;background:#fff;transition:width .3s}
+.ds-tl button{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;cursor:pointer;padding:0;color:rgba(255,255,255,.7)}
+.ds-dot{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-family:var(--fm);font-size:12px;font-weight:600;background:var(--maroon-dd);border:2px solid rgba(255,255,255,.3);transition:all .2s}
+.ds-tl button.on{color:#fff}
+.ds-tl button.on .ds-dot{background:#fff;color:var(--red);border-color:#fff;box-shadow:0 0 0 5px rgba(255,255,255,.14)}
+.ds-tl button.past .ds-dot{border-color:#fff}
+.ds-tl small{font-size:11.5px;font-weight:600;text-align:center;line-height:1.2}
+.ds-advies{padding:11px 14px;border-left:3px solid #fff;background:rgba(0,0,0,.18);border-radius:0 12px 12px 0;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.88)}
+.ds-advies b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;color:#fff}
+.ds-advies.leeg{opacity:.6}
+
+/* droogplan */
+.ds-dev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;list-style:none;margin:0;padding:0}
+.ds-dev li{display:flex;align-items:center;gap:9px;padding:6px 10px 6px 6px;background:#fff;color:var(--ink);border-radius:12px;animation:ds-in .4s both}
+.ds-dev li:nth-child(2){animation-delay:.06s}.ds-dev li:nth-child(3){animation-delay:.12s}.ds-dev li:nth-child(4){animation-delay:.18s}
+.ds-dev img{width:36px;height:36px;border-radius:8px;object-fit:cover;background:#eee;flex:none}
+.ds-dev li>span{min-width:0}
+.ds-dev b,.ds-dev small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ds-dev b{font-size:13.5px}
+.ds-dev small{font-size:10.5px;color:var(--mid)}
+.ds-stats{display:flex;gap:6px;margin:0}
+.ds-stats div{flex:1;padding:8px 10px;border:1px solid var(--wl);border-radius:12px;background:rgba(255,255,255,.06)}
+.ds-stats dt{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
+.ds-stats dd{margin:2px 0 0;font-weight:800;font-size:18px}
+.ds-stats dd small{font-size:11px;opacity:.65}
+.ds-prijs{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;padding:12px 12px 12px 18px;background:#fff;color:var(--ink);border-radius:16px}
+.ds-prijs b{display:block;font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.ds-prijs small{font-size:11.5px;color:var(--mid)}
+.ds-book{display:inline-flex;align-items:center;background:var(--red);color:#fff!important;border-radius:99px;padding:12px 18px;font-weight:800;font-size:14px;white-space:nowrap;text-decoration:none}
+.ds-book:hover{background:#a80d26}
+
+/* ───── tekening op bouwplanpapier ───── */
+.ds-stage{position:relative;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;min-height:0;border-radius:24px;padding:20px 24px;overflow:hidden;color:#1a1a1a;
+  background:
+    radial-gradient(70% 65% at 50% 50%,transparent 45%,#f7f3ecd9 100%),
+    linear-gradient(#8b1a1a12 1px,transparent 1px) 0 0/120px 120px,
+    linear-gradient(90deg,#8b1a1a12 1px,transparent 1px) 0 0/120px 120px,
+    linear-gradient(#8b1a1a09 1px,transparent 1px) 0 0/24px 24px,
+    linear-gradient(90deg,#8b1a1a09 1px,transparent 1px) 0 0/24px 24px,
+    var(--paper);
+  box-shadow:inset 0 0 0 1px #e7dfd2}
+.ds-shead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.ds-eyebrow{margin:0 0 4px;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.ds-stitel{margin:0;font-size:clamp(17px,2.6dvh,26px);font-weight:800;letter-spacing:-.015em;line-height:1.15}
+.ds-badge{flex:none;padding:5px 9px;border:1.5px solid var(--line);background:#fbf8f2;font-family:var(--fm);font-size:10.5px;font-weight:600;white-space:nowrap}
+.ds-canvas{position:relative;min-height:0;overflow:hidden}
+.ds-iso{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+.ds-kamerlabel{font-family:var(--fm);font-size:5.6px;font-weight:600;letter-spacing:.12em;fill:#1a1a1acc;paint-order:stroke;stroke:#f7f3ecaa;stroke-width:2px}
+.ds-sfoot{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.ds-tabs{display:flex;gap:5px}
+.ds-tabs button{white-space:nowrap;padding:6px 11px;border:1.5px solid #1a1a1a33;background:#fbf8f2;font-weight:700;font-size:12px;cursor:pointer;text-align:left}
+.ds-tabs button small{display:block;font-family:var(--fm);font-weight:500;font-size:10px;color:#6b645b}
+.ds-tabs button.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.ds-tabs button.on small{color:#fffb}
+.ds-cart{display:flex;border:1.5px solid var(--line);background:#fbf8f2;margin-left:auto}
+.ds-cart>div{padding:7px 12px}
+.ds-cart>div+div{border-left:1.5px solid var(--line)}
+.ds-cart p{margin:0;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8a8680}
+.ds-cart-prijs b{font-size:17px;font-weight:800;white-space:nowrap}
+.ds-cart-prijs b.dim{font-size:13px;color:#8a8680}
+.ds-legend div{display:flex;gap:10px;font-size:10.5px;color:#5f584f;margin-top:3px}
+.ds-legend span{display:inline-flex;align-items:center;gap:4px}
+.ds-legend i{width:8px;height:8px;border-radius:2px;flex:none}
+.ds-l-droger{background:#f1f0ed;box-shadow:inset 0 0 0 1px #00000055,inset -3px 0 0 #2a2a2a}
+.ds-l-fan{background:#1c1b1b;border-radius:50%!important;box-shadow:inset 0 0 0 2px #c8102e}
+.ds-l-kachel{background:linear-gradient(#c8102e,#ff7a1a)}
+.ds-l-nat{background:#1f4f78aa}
+
+/* detail A en dagteller liggen over de tekening */
+.ds-detail{position:absolute;right:0;top:0;margin:0;width:180px;padding:8px 10px 6px;background:#fbf8f2;border:1.5px solid #1a1a1a;animation:ds-in .5s .2s both}
+.ds-detail figcaption{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a8680;margin-bottom:2px}
+.ds-detail svg{width:100%;height:auto;display:block}
+.ds-maat line{stroke:#c8102e;stroke-width:1}
+.ds-maat text{font-family:var(--fm);font-size:7.5px;fill:#1a1a1a;font-weight:600}
+.ds-teller{position:absolute;left:0;top:6px;width:170px;padding:8px 10px;background:#fbf8f2;border:1.5px solid var(--line);font-size:11.5px}
+.ds-teller b{font-size:18px;font-variant-numeric:tabular-nums}
+.ds-meter{height:5px;margin:5px 0 4px;background:#e7e0d4;overflow:hidden}
+.ds-meter i{display:block;height:100%;background:#1f4f78;transition:width .12s linear}
+.ds-teller small{font-family:var(--fm);font-size:10px;color:#6b645b}
+
+/* ───── animaties in de tekening ───── */
+.ds-vocht{opacity:var(--v)}
+.ds-droogt{animation:ds-droog 10s linear infinite}
+@keyframes ds-droog{0%{opacity:var(--v)}80%{opacity:0}100%{opacity:0}}
+.ds-led{fill:#7f8a80}
+.ds-led.on{fill:#12d36a;animation:ds-led 1.6s ease-in-out infinite}
+@keyframes ds-led{50%{opacity:.25}}
+.ds-tank{transform-box:fill-box;transform-origin:50% 100%;animation:ds-tank 10s linear infinite;opacity:.85}
+@keyframes ds-tank{0%{transform:scaleY(.05)}80%{transform:scaleY(1)}100%{transform:scaleY(1)}}
+.ds-druppels circle{fill:#3d8fd6;stroke:#fff;stroke-width:.5;opacity:0;animation:ds-drop 2.8s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes ds-drop{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}85%{opacity:.8}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+.ds-lucht path{fill:none;stroke:#7aa6c9;stroke-width:1.1;stroke-linecap:round;stroke-dasharray:4 7;opacity:.8;animation:ds-lucht .9s linear infinite}
+@keyframes ds-lucht{to{stroke-dashoffset:-11}}
+.ds-warmte{fill:none;stroke:#ff7a1a;stroke-width:1;stroke-linecap:round;opacity:0;animation:ds-warm 1.5s ease-out infinite}
+@keyframes ds-warm{0%{opacity:0;transform:translateY(2px)}30%{opacity:.8}100%{opacity:0;transform:translateY(-10px)}}
+.ds-gloei{animation:ds-gloei 2.4s ease-in-out infinite}
+@keyframes ds-gloei{50%{opacity:.75}}
+
+@media (prefers-reduced-motion:reduce){
+  .ds-body,.ds-detail,.ds-dev li{animation:none}
+}
+
+/* ───── smalle tweekoloms (tablet liggend) ───── */
+@media (min-width:900px) and (max-width:1180px){
+  /* drie verdiepingstabs en de cartouche passen niet naast elkaar */
+  .ds-legend{display:none}
+  .ds-chips--tegels .ds-chip small{display:none}
+}
+@media (max-height:720px){
+  .ds-detail{width:150px}
+}
+
+/* ───── tablet staand en gsm: tekening boven, vraag eronder ───── */
+@media (max-width:899px){
+  .ds-main{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,38fr) minmax(0,62fr);gap:10px;padding:10px 12px 12px}
+  /* stap 2: de indeling is compact, de tekening toont het plan — die krijgt plaats */
+  .ds-sim[data-stap="1"] .ds-main{grid-template-rows:minmax(0,34fr) minmax(0,66fr)}
+  .ds-sim[data-stap="4"] .ds-main{grid-template-rows:minmax(0,34fr) minmax(0,66fr)}
+  /* in het droogplan staat de prijs al groot in het paneel */
+  .ds-sim[data-stap="4"] .ds-cart{display:none}
+  .ds-stage{order:-1;padding:12px 14px;border-radius:20px}
+  .ds-badge,.ds-legend,.ds-advies--plan{display:none}
+  .ds-panel{border-radius:20px}
+  .ds-ptop{padding:14px 16px 0}
+  .ds-body{padding:10px 16px 0;gap:10px}
+  .ds-foot{padding:10px 16px 14px}
+  .ds-sub:not(.ds-sub--altijd){display:none}
+  .ds-cards{gap:8px}
+  .ds-t{padding:6px 10px 8px}
+  .ds-card b{font-size:13.5px}
+  .ds-card small{display:none}
+  .ds-twee{grid-template-columns:minmax(0,1fr);gap:10px}
+  .ds-teller{width:128px;padding:5px 8px;top:auto;bottom:0}
+  .ds-teller b{font-size:15px}
+  .ds-teller small{display:none}
+  .ds-detail{width:118px;padding:4px 6px 2px}
+  .ds-detail figcaption{display:none}
+  .ds-dev img{width:28px;height:28px}
+  .ds-prijs b{font-size:22px}
+  .ds-prijs{padding:10px 10px 10px 14px}
+  .ds-prijs small{display:block;font-size:11px;white-space:nowrap}
+  .ds-tabs button{padding:4px 8px;font-size:11px}
+  /* stap 2: kamers per verdieping naast elkaar, dak als drie tegels */
+  .ds-rows{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px}
+  .ds-rows .ds-row{flex-direction:column;align-items:stretch;gap:4px;padding:6px;text-align:center}
+  .ds-rows .ds-row>span:first-child{font-size:12px}
+  .ds-row>span:first-child small{display:none}
+  .ds-rows .ds-step{justify-content:space-between}
+  /* dak en materiaal: drie tegels naast elkaar */
+  .ds-chips--tegels{flex-wrap:nowrap}
+  .ds-chips--tegels .ds-chip{flex:1;flex-direction:column;gap:3px;padding:6px 4px;font-size:11.5px;justify-content:center;text-align:center}
+  .ds-chips--tegels .ds-chip small{display:none}
+  .ds-chips--dikte{flex-wrap:nowrap}
+  .ds-chips--dikte .ds-chip{flex:1 1 auto;justify-content:center;padding:8px 6px;white-space:nowrap}
+  .ds-seg .ds-chip{padding:5px}
+  .ds-seg .ds-chip b{font-size:16px}
+}
+/* kleine gsm (SE, kleine Android): de tekening wordt een strook, de vraag krijgt de ruimte */
+@media (max-width:899px) and (max-height:740px){
+  .ds-main,.ds-sim[data-stap] .ds-main{grid-template-rows:minmax(0,24fr) minmax(0,76fr);gap:8px;padding:8px 10px 10px}
+  .ds-eyebrow{display:none}
+  .ds-stitel{font-size:15px}
+  .ds-stage{padding:8px 12px}
+}
+@media (max-width:399px){
+  .ds-prijs b{font-size:20px}
+  .ds-book{padding:10px 13px;font-size:13px}
+  .ds-prijs small{white-space:normal}
+}
+/*
+  Compacter naarmate het paneel lager is — gemeten aan het paneel zelf, niet aan
+  het scherm: onder de site-header blijft op een laptop van 768 px maar ~570 px
+  over, op een gsm nog minder. Drie trappen, elk een stap strakker.
+*/
+@container paneel (max-height:640px){
+  .ds-body{gap:10px}
+  .ds-body h2{font-size:24px}
+  .ds-sub{font-size:13px}
+  .ds-chip{padding:7px 11px;font-size:12.5px}
+  .ds-row{padding:3px 4px 3px 12px}
+  .ds-row>span:first-child small{display:none}
+  .ds-step button{width:28px;height:28px}
+  .ds-seg .ds-chip{padding:5px}
+  .ds-seg .ds-chip b{font-size:16px}
+  .ds-dot{width:26px;height:26px}
+  .ds-tl::before,.ds-tl-fill{top:16px}
+  .ds-advies{padding:8px 12px;font-size:12.5px;line-height:1.45}
+  .ds-stats dd{font-size:15px}
+  .ds-dev li{padding:4px 8px 4px 4px}
+  .ds-dev img{width:30px;height:30px}
+  .ds-prijs b{font-size:24px}
+}
+@container paneel (max-height:520px){
+  .ds-ptop{padding-top:12px}
+  .ds-body{gap:8px;padding-top:8px}
+  .ds-foot{padding-top:8px;padding-bottom:12px}
+  .ds-body h2{font-size:19px}
+  .ds-sub{display:none}
+  .ds-lbl{margin-bottom:4px;font-size:10px}
+  .ds-seg .ds-chip small{display:none}
+  .ds-chips--tegels .ds-chip{padding:5px 4px}
+  .ds-chips--tegels .ds-chip small{display:none}
+  .ds-dev{gap:4px}
+  .ds-dev small{display:none}
+  .ds-stats div{padding:5px 8px}
+  .ds-stats dt{font-size:8.5px}
+  .ds-advies{font-size:12px;line-height:1.4;padding:6px 10px}
+  .ds-advies--plan{display:none}
+  .ds-dot{width:24px;height:24px;font-size:11px}
+  .ds-tl::before,.ds-tl-fill{top:15px}
+  .ds-tl small{font-size:10.5px}
+}
+@container paneel (max-height:420px){
+  .ds-body{gap:6px}
+  .ds-body h2{font-size:17px}
+  .ds-next{padding:10px 20px}
+  .ds-back{padding:8px 14px}
+  .ds-seg .ds-chip{padding:3px}
+  .ds-step button{width:26px;height:26px}
+  .ds-stats{display:none}
+  .ds-chip{padding:6px 9px}
+  .ds-chips--dikte .ds-chip{padding:6px 4px}
+  .ds-advies b{display:none}
+  .ds-rows .ds-row{padding:4px;gap:2px}
+  .ds-lbl{margin-bottom:3px}
+}
+
+/* ═════ stap 2 en 3: tegels met tekening die de rode ruimte vullen ═════
+   .ds-groei neemt de hoogte die overblijft; de tekeningen erin schalen mee en
+   verdwijnen pas als er echt geen plaats meer is (container queries onderaan). */
+.ds-groei{flex:1 1 0;min-height:0;display:flex;flex-direction:column}
+.ds-lbl span{font-weight:500;letter-spacing:.04em;text-transform:none;opacity:.6}
+.ds-lbl--rij{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.ds-schat{font-weight:500;letter-spacing:.02em;text-transform:none;opacity:.6;font-size:11px}
+.ds-hint{margin:0;font-size:12.5px;color:rgba(255,255,255,.55)}
+
+.ds-tegels{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px}
+.ds-tegel{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0;padding:8px 6px 9px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid var(--wl);cursor:pointer;color:#fff;transition:background .15s,transform .15s}
+.ds-tegel:hover:not(:disabled){background:rgba(255,255,255,.14);transform:translateY(-1px)}
+.ds-tegel.on,.ds-tegel.on:hover:not(:disabled){background:#fff;color:var(--ink)!important;border-color:#fff;box-shadow:0 10px 24px -14px #000c}
+.ds-tegel:disabled{opacity:.3;cursor:not-allowed}
+.ds-tegel b{font-size:16px;font-weight:800;line-height:1.15}
+.ds-tegel b.ds-tegel-naam{font-size:12px;font-weight:700;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ds-tegel small{font-size:11px;opacity:.65;line-height:1.2;text-align:center}
+.ds-tegel-art{display:block;width:100%;height:clamp(34px,9cqh,72px);margin-bottom:4px}
+.ds-tegel-art svg{display:block;width:100%;height:100%}
+
+/* gevel */
+.ds-gevel .ds-g-muur{fill:currentColor;fill-opacity:.1;stroke:currentColor;stroke-width:1.4}
+.ds-gevel .ds-g-raam{fill:currentColor;fill-opacity:.35}
+.ds-gevel .ds-g-dak{fill:currentColor;fill-opacity:.85}
+.ds-gevel .ds-g-grond{stroke:currentColor;stroke-opacity:.4;stroke-width:1.2}
+.ds-tegel.on .ds-g-dak{fill:var(--red);fill-opacity:1}
+
+/* plattegrond per verdieping */
+.ds-verd{flex:1;min-height:0;display:grid;gap:8px}
+.ds-vk{display:flex;flex-direction:column;gap:6px;min-width:0;min-height:0;padding:10px;border-radius:14px;background:rgba(0,0,0,.16);border:1px solid var(--wl)}
+.ds-vk-kop{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.ds-vk-kop b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ds-vk-kop small{font-family:var(--fm);font-size:10.5px;opacity:.6;white-space:nowrap}
+.ds-vk-plan{position:relative;flex:1;min-height:0}
+.ds-vk-plan svg{position:absolute;inset:0;width:100%;height:100%}
+.ds-plan rect{vector-effect:non-scaling-stroke}
+.ds-plan-kamer rect{fill:#fff;fill-opacity:.07;stroke:#fff;stroke-opacity:.55;stroke-width:1.2;transition:fill-opacity .15s}
+.ds-plan-kamer{animation:ds-kamer .35s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ds-kamer{from{opacity:0}to{opacity:1}}
+.ds-plan-kamer:hover rect{fill-opacity:.16}
+.ds-plan-kamer text{fill:#fff;fill-opacity:.85;font-family:var(--fm);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.ds-plan-gevel{fill:none;stroke:#fff;stroke-width:3}
+.ds-vk .ds-step{justify-content:space-between}
+.ds-vk .ds-step output{flex:1}
+
+/* oppervlakte als liniaal */
+
+/* materiaal: doorsnede-tegels */
+.ds-tegels--groot{flex:1;min-height:0}
+.ds-tegels--groot .ds-tegel{justify-content:center;padding:12px 10px 14px;border-radius:18px}
+.ds-tegels--groot .ds-tegel-art{flex:1;min-height:0;height:auto;margin-bottom:10px;position:relative}
+.ds-tegels--groot .ds-tegel-art svg{position:absolute;inset:0}
+.ds-tegels--groot .ds-tegel b{font-size:15px;text-align:center}
+.ds-snede .ds-s-steen{fill:currentColor;fill-opacity:.18;stroke:currentColor;stroke-opacity:.5;stroke-width:.8}
+.ds-snede .ds-s-voeg{stroke:currentColor;stroke-opacity:.35;stroke-width:.6}
+.ds-snede .ds-s-droog{fill:currentColor;fill-opacity:.08;stroke:currentColor;stroke-opacity:.3;stroke-width:.6}
+.ds-snede .ds-s-nat{fill:#8cc4f2;stroke:#cfe7fb;stroke-width:.6}
+.ds-tegel.on .ds-s-nat{fill:#2f6fa3;stroke:#1f4f78}
+.ds-s-drup{fill:#cfe7fb;animation:ds-snede-drup 1.8s ease-in-out infinite}
+.ds-tegel.on .ds-s-drup{fill:#2f6fa3}
+@keyframes ds-snede-drup{0%,100%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{transform:translateY(-4px)}}
+.ds-laag{display:inline-block;width:14px;border-radius:2px;background:#8cc4f2;flex:none}
+.ds-chip.on .ds-laag{background:#2f6fa3}
+.ds-chips--dikte .ds-chip{flex:1 1 0;justify-content:center;align-items:flex-end;padding:11px 8px}
+
+@media (prefers-reduced-motion:reduce){.ds-plan-kamer,.ds-s-drup{animation:none}}
+
+/* tablet liggend: smal paneel */
+@media (min-width:900px) and (max-width:1180px){
+  .ds-tegel b.ds-tegel-naam{font-size:10.5px}
+  .ds-schat{display:none}
+}
+/* gsm/tablet staand */
+@media (max-width:899px){
+  .ds-tegel{padding:5px 3px 6px;border-radius:11px}
+  .ds-tegel b{font-size:14px}
+  .ds-tegel b.ds-tegel-naam{font-size:11px}
+  .ds-tegel small{font-size:10px}
+  .ds-vk{padding:7px;gap:4px;border-radius:12px}
+  .ds-vk-kop b{font-size:11.5px}
+  .ds-vk-kop small{display:none}
+  .ds-schat{display:none}
+  .ds-lbl span{display:none}
+  .ds-tegels--groot .ds-tegel{padding:8px 6px 10px}
+  .ds-tegels--groot .ds-tegel b{font-size:13px}
+  .ds-tegels--groot .ds-tegel small{display:none}
+  .ds-chips--dikte .ds-chip{padding:8px 4px}
+}
+@container paneel (max-height:640px){
+  .ds-tegel-art{height:clamp(26px,7cqh,48px)}
+  .ds-vk{padding:7px}
+}
+@container paneel (max-height:520px){
+  .ds-hint{display:none}
+}
+@container paneel (max-height:420px){
+  .ds-vk-kop{display:none}
+}
+/* gsm: bouwlagen en dak elk een eigen rij, tekening naast de tekst */
+@media (max-width:899px){
+}
+
+/* ═════ indeling: verdiepingstabs, ruimtes en een echt bouwplan ═════ */
+
+.ds-plan line,.ds-plan path,.ds-plan rect{vector-effect:non-scaling-stroke}
+.ds-plan-kamer rect{stroke:none;fill:#fff;fill-opacity:.06}
+.ds-plan-kamer.gang rect{fill-opacity:.015}
+.ds-plan-kamer.gang text{fill-opacity:.5}
+.ds-plan-wand{stroke:#fff;stroke-width:1.6;stroke-linecap:square}
+.ds-plan-gevel{stroke:#fff;stroke-width:3.2;stroke-linecap:square}
+.ds-plan-deur{fill:none;stroke:#fff;stroke-opacity:.55;stroke-width:1}
+.ds-plan-trap rect{fill:none;stroke:#fff;stroke-opacity:.6;stroke-width:1}
+.ds-plan-trap line{stroke:#fff;stroke-opacity:.45;stroke-width:.8}
+.ds-plan-pijl{fill:none;stroke:#fff;stroke-width:1.2}
+.ds-plan-ingang{fill:#fff}
+.ds-plan-kant{fill:#fff;fill-opacity:.4;font-size:.42px;font-family:var(--fm);letter-spacing:.15em;text-transform:uppercase}
+.ds-kamerlabel--gang{fill:#1a1a1a80;font-size:4.6px}
+
+@media (max-width:899px){
+}
+@container paneel (max-height:640px){
+}
+/* Het bouwplan verdwijnt als er geen bruikbare hoogte voor is — gemeten aan
+   de indeling zelf; de grote tekening toont het plan dan al. */
+
+/* kleine gsm: bouwlagen en dak samen op één rij — cijfers en dakicoontjes */
+@media (max-width:899px) and (max-height:740px){
+  .ds-lbl--rij{display:none}
+}
+
+/* ═════ stap 2, v3: dak en verdiepingen als rijen, indeling als map met tabs ═════ */
+.ds-rijen{display:flex;flex-direction:column;gap:6px}
+.ds-rijkeuze{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:10px}
+.ds-rijkeuze .ds-lbl{margin:0}
+.ds-rijkeuze .ds-tegel{flex-direction:row;justify-content:flex-start;gap:8px;padding:5px 10px 5px 6px;border-radius:12px;text-align:left}
+.ds-rijkeuze .ds-tegel-art{width:36px;height:28px;margin:0;flex:none}
+.ds-rijkeuze .ds-tegel b{font-size:14px}
+.ds-rijkeuze .ds-tegel b.ds-tegel-naam{font-size:12.5px}
+.ds-rijkeuze .ds-tegel small{text-align:left;white-space:nowrap}
+
+/* het plan in de map: donkere lijnen op wit */
+.ds-opp{margin-top:auto}
+
+@container paneel (max-width:470px){
+}
+@media (max-width:899px){
+  .ds-rijkeuze{grid-template-columns:minmax(0,1fr);gap:3px}
+  .ds-rijkeuze .ds-tegel{padding:4px 6px 4px 4px;gap:5px}
+  .ds-rijkeuze .ds-tegel-art{width:26px;height:20px}
+  .ds-rijkeuze .ds-tegel small{display:none}
+  .ds-rijkeuze .ds-tegel b.ds-tegel-naam{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
+@media (max-width:899px) and (max-height:740px){
+  .ds-rijkeuze .ds-tegel-art{display:none}
+  .ds-rijkeuze .ds-tegel{justify-content:center;min-height:30px}
+}
+@media (max-width:899px){
+  /* de tabbladen zeggen al dat het over kamers per verdieping gaat */
+  .ds-groei > .ds-lbl--rij{display:none}
+}
+@media (max-width:899px) and (max-height:740px){
+  .ds-rijkeuze{grid-template-columns:72px minmax(0,1fr);gap:4px}
+  .ds-rijkeuze .ds-lbl{font-size:9px;letter-spacing:.06em}
+  .ds-rijkeuze .ds-tegel{min-height:28px;padding:3px 4px}
+}
+
+/* ═════ stap 2, v4: per verdieping één rij met een aantal ═════ */
+.ds-verdrijen{display:flex;flex-direction:column;gap:6px}
+.ds-verdrij{display:flex;align-items:center;gap:10px;padding:6px 6px 6px 4px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid var(--wl);transition:background .15s,border-color .15s}
+.ds-verdrij.on{background:#fff;border-color:#fff;color:var(--ink)}
+.ds-verdrij-naam{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:4px 8px;border:0;background:none;text-align:left;cursor:pointer;color:inherit}
+.ds-verdrij-naam b{font-size:14px}
+.ds-verdrij-naam small{font-size:11.5px;opacity:.65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ds-tel{display:flex;align-items:center;gap:2px;flex:none}
+.ds-tel button{width:34px;height:34px;border-radius:10px;border:0;background:rgba(255,255,255,.14);font-size:18px;line-height:1;color:inherit;cursor:pointer}
+.ds-tel button:hover:not(:disabled){background:rgba(255,255,255,.24)}
+.ds-verdrij.on .ds-tel button{background:#f1ece8}
+.ds-verdrij.on .ds-tel button:hover:not(:disabled){background:#e7dfd9}
+.ds-tel button:disabled{opacity:.3;cursor:default}
+.ds-tel output{min-width:30px;text-align:center;font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+.ds-groei:has(.ds-verdrijen){flex:0 1 auto}
+@media (max-width:899px){
+  .ds-verdrij{padding:3px 4px 3px 2px;gap:6px;border-radius:12px}
+  .ds-verdrij-naam{padding:3px 6px}
+  .ds-verdrij-naam b{font-size:12.5px}
+  .ds-verdrij-naam small{font-size:10.5px}
+  .ds-tel button{width:28px;height:28px;font-size:16px}
+  .ds-tel output{min-width:24px;font-size:16px}
+  .ds-groei:has(.ds-verdrijen) .ds-hint{display:none}
+}
+@media (max-width:899px) and (max-height:740px){
+  .ds-verdrij-naam small{display:none}
+}
+.ds-groei:has(.ds-verdrijen){flex:0 0 auto}
+@container paneel (max-height:640px){
+  .ds-groei:has(.ds-verdrijen) .ds-hint{display:none}
+  .ds-verdrij-naam{padding-block:2px}
+  .ds-tel button{width:30px;height:30px}
+}
+
+/* foto's uit Astra in de keuzetegels (zie components/simulator/fotos.ts) */
+.ds-foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%;display:block;background:#f7f3ec}
+.ds-art--foto{background:#d9d2c6}
+.ds-tegel-art--foto{position:relative;overflow:hidden;border-radius:7px;background:#d9d2c6}
+.ds-rijkeuze .ds-tegel-art--foto{width:62px;height:44px}
+.ds-rijkeuze .ds-tegel:has(.ds-tegel-art--foto){padding:4px 10px 4px 4px}
+.ds-tegel.on .ds-tegel-art--foto{box-shadow:0 0 0 2px var(--red)}
+@media (max-width:899px){.ds-rijkeuze .ds-tegel-art--foto{width:34px;height:26px}}
+@media (min-width:900px) and (max-width:1180px){
+  .ds-rijkeuze .ds-tegel-art--foto{width:44px;height:32px}
+  .ds-rijkeuze .ds-tegel:has(.ds-tegel-art--foto){padding:4px 6px 4px 4px}
+}
+.ds-rijkeuze .ds-tegel small{min-width:0;overflow:hidden;text-overflow:ellipsis}
+
+/* ═════ stap 2, v6 · "één huis, live" ═════
+   Eén grote foto die de keuze dak × bouwlagen toont, daaronder rustige
+   segmentknoppen en de kamerrijen. De foto neemt de hoogte die overblijft en
+   verdwijnt pas als ze te klein wordt om iets te zeggen. */
+.ds-held{position:relative;flex:1 1 0;min-height:0;margin:0;border-radius:16px;overflow:hidden;background:var(--paper);container:held/size}
+.ds-held-foto{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;animation:ds-held-in .35s ease-out both}
+@keyframes ds-held-in{from{opacity:0;transform:scale(1.015)}to{opacity:1;transform:none}}
+.ds-held-cap{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);padding:6px 11px;border-radius:99px;background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(4px)}
+.ds-held-cap i{font-style:normal;font-family:var(--fm);font-weight:500;opacity:.72}
+@container held (max-height:150px){.ds-held-cap{display:none}}
+@container held (max-height:64px){.ds-held-foto{display:none}}
+@media (prefers-reduced-motion:reduce){.ds-held-foto{animation:none}}
+
+.ds-segrij{flex:0 0 auto}
+.ds-segm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;border-radius:13px;background:rgba(0,0,0,.22)}
+.ds-segm button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:0;padding:9px 6px;border:0;border-radius:10px;background:none;color:rgba(255,255,255,.78);cursor:pointer;transition:background .15s,color .15s}
+.ds-segm button:hover:not(:disabled):not(.on){background:rgba(255,255,255,.1);color:#fff}
+.ds-segm button.on{background:#fff;color:var(--ink)}
+.ds-segm button:disabled{opacity:.3;cursor:not-allowed}
+.ds-segm button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ds-segm b{font-size:13.5px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ds-segm small{font-size:10.5px;opacity:.65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ds-segm button.on small{opacity:.6}
+@container paneel (max-height:640px){
+  .ds-segm button{padding:6px 4px}
+}
+@container paneel (max-height:520px){
+  .ds-segm small{display:none}
+  .ds-segm button{padding:5px 4px}
+  .ds-segm b{font-size:12.5px}
+}
+@media (max-width:899px){
+  .ds-segm{padding:3px;border-radius:11px}
+  .ds-segm button{padding:5px 3px;border-radius:8px}
+  .ds-segm b{font-size:12px}
+  .ds-segm small{display:none}
+  .ds-held{border-radius:12px}
+  .ds-groei:has(.ds-verdrijen) > .ds-lbl{display:none}
+  .ds-verdrijen{gap:4px}
+  .ds-tel button{width:26px;height:26px}
+}
+/* dak en verdiepingen naast elkaar zodra het paneel breed genoeg is */
+.ds-segduo{flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+@container paneel (min-width:440px){
+  .ds-segduo{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+/* kamerrijen op één regel: naam, wat erin zit, teller */
+.ds-held ~ .ds-groei .ds-verdrij-naam{flex-direction:row;align-items:baseline;gap:8px}
+.ds-held ~ .ds-groei .ds-verdrij-naam b{flex:none}
+.ds-held ~ .ds-groei .ds-verdrij-naam small{min-width:0}
+.ds-held ~ .ds-groei .ds-verdrij{padding-block:3px}
+.ds-held ~ .ds-groei .ds-tel button{width:30px;height:30px}
+.ds-held ~ .ds-groei .ds-tel output{font-size:17px}
+/* het hele huis blijft zichtbaar (contain); dezelfde foto, wazig, vult de rest */
+.ds-held-waas{position:absolute;inset:-24px;width:calc(100% + 48px);height:calc(100% + 48px);object-fit:cover;filter:blur(18px) saturate(.9) brightness(.92);animation:ds-held-in .35s ease-out both}
+@container held (max-height:64px){.ds-held-waas{display:none}}
+/* de foto's hebben veel lucht en straat: wat inzoomen zet het huis centraal, zonder dak of voordeur af te snijden */
+.ds-held-foto{scale:1.28;transform-origin:50% 56%}
+/* laag paneel (gsm, kleine laptop): geen strookje foto — de tekening erboven toont het huis al */
+@container paneel (max-height:520px){.ds-held{display:none}}
+
+/* ═════ vloeroppervlakte: groot getal + schuif, met een streepje waar de schatting ligt ═════ */
+.ds-opp-rij{display:flex;align-items:center;gap:16px;padding:10px 16px 10px 14px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid var(--wl)}
+.ds-opp-waarde{flex:none;display:flex;flex-direction:column;min-width:96px}
+.ds-opp-waarde b{font-size:24px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.ds-opp-waarde b span{font-size:14px;font-weight:600;opacity:.7}
+.ds-opp-waarde small{font-size:11px;opacity:.65;white-space:nowrap}
+.ds-opp-terug{padding:0;border:0;background:none;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:2px;cursor:pointer}
+.ds-opp-terug:hover{opacity:1;color:#fff}
+.ds-opp-schuif{position:relative;flex:1;min-width:0;padding:6px 0 16px}
+.ds-opp-schuif input{display:block;width:100%;height:22px;margin:0;background:none;-webkit-appearance:none;appearance:none;cursor:pointer}
+.ds-opp-schuif input::-webkit-slider-runnable-track{height:6px;border-radius:99px;background:linear-gradient(90deg,#fff var(--pos),rgba(255,255,255,.18) var(--pos))}
+.ds-opp-schuif input::-moz-range-track{height:6px;border-radius:99px;background:linear-gradient(90deg,#fff var(--pos),rgba(255,255,255,.18) var(--pos))}
+.ds-opp-schuif input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border-radius:50%;background:#fff;border:4px solid var(--red);box-shadow:0 2px 8px rgba(0,0,0,.3);transition:transform .12s}
+.ds-opp-schuif input::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:4px solid var(--red);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.ds-opp-schuif input:active::-webkit-slider-thumb{transform:scale(1.12)}
+.ds-opp-schuif input:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:99px}
+/* het streepje voor de schatting; 11px = halve duim, zodat het onder het midden van de duim valt */
+.ds-opp-tick{position:absolute;top:24px;left:calc(11px + (100% - 22px) * var(--schat) / 100%);width:2px;height:7px;margin-left:-1px;border-radius:1px;background:rgba(255,255,255,.7);pointer-events:none}
+.ds-opp-schaal{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;font-family:var(--fm);font-size:10px;opacity:.5;pointer-events:none}
+@media (max-width:899px){
+  .ds-opp-rij{padding:6px 12px 6px 10px;gap:12px;border-radius:12px}
+  .ds-opp-waarde{min-width:76px}
+  .ds-opp-waarde b{font-size:19px}
+  .ds-opp-waarde small{font-size:10px}
+  .ds-opp-schuif{padding:2px 0 12px}
+  .ds-opp-tick{top:20px}
+}
+@container paneel (max-height:520px){
+  .ds-opp > .ds-lbl{display:none}
+}
+.ds-opp-cap{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:2px}
+.ds-opp-rij{padding-block:8px}
+@container paneel (max-height:640px){
+  .ds-opp-rij{padding-block:6px}
+  .ds-opp-waarde b{font-size:21px}
+  .ds-opp-schuif{padding-bottom:4px}
+  .ds-opp-schaal{display:none}
+}
+@container paneel (max-height:420px){
+  .ds-opp-cap{display:none}
+  .ds-opp-waarde{flex-direction:row;align-items:baseline;gap:8px;min-width:0}
+  .ds-opp-rij{padding-block:3px}
+  .ds-opp-waarde b{font-size:17px}
+}
+/* heel laag (kleine gsm): "Zadeldak / Plat / Lessenaar" spreekt voor zich, het label mag weg */
+@container paneel (max-height:420px){
+  .ds-segrij:first-child > .ds-lbl{display:none}
+}
+
+/* ═════ stap 2, v7: lagere foto, en een rustiger onderste helft ═════ */
+/* de foto vult niet meer alles: hooguit een derde van het paneel */
+.ds-held{flex:1 1 0;max-height:min(250px,34cqh)}
+/* het gebouwtje: welke laag, in één oogopslag */
+.ds-lagen{flex:none;width:18px;height:24px;overflow:visible}
+.ds-lagen rect{fill:none;stroke:currentColor;stroke-width:1.2;opacity:.55}
+.ds-lagen rect.vol{fill:currentColor;opacity:1}
+.ds-lagen path{fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round;opacity:.8}
+.ds-segm b{display:inline-flex;align-items:center;gap:6px}
+.ds-segm b .ds-lagen{width:13px;height:17px}
+/* kamerrijen: icoon, naam, inhoud; teller als één capsule */
+.ds-held ~ .ds-groei .ds-verdrijen{gap:6px}
+.ds-held ~ .ds-groei .ds-verdrij{padding:5px 6px 5px 8px;border-radius:14px;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);transition:background .15s,border-color .15s,transform .15s}
+.ds-held ~ .ds-groei .ds-verdrij:hover:not(.on){background:rgba(255,255,255,.1)}
+.ds-held ~ .ds-groei .ds-verdrij-naam{align-items:center;gap:10px;padding:2px 4px}
+.ds-held ~ .ds-groei .ds-verdrij-naam b{font-size:14px}
+.ds-held ~ .ds-groei .ds-verdrij-naam small{font-size:11.5px;opacity:.6}
+.ds-held ~ .ds-groei .ds-tel{gap:0;padding:3px;border-radius:99px;background:rgba(0,0,0,.22)}
+.ds-held ~ .ds-groei .ds-tel button{width:28px;height:28px;border-radius:50%;background:transparent;font-size:17px}
+.ds-held ~ .ds-groei .ds-tel button:hover:not(:disabled){background:rgba(255,255,255,.16)}
+.ds-held ~ .ds-groei .ds-tel output{min-width:26px;font-size:16px}
+.ds-held ~ .ds-groei .ds-verdrij.on .ds-tel{background:#f1ece8}
+.ds-held ~ .ds-groei .ds-verdrij.on .ds-tel button{background:transparent}
+.ds-held ~ .ds-groei .ds-verdrij.on .ds-tel button:hover:not(:disabled){background:#e3dad3}
+.ds-held ~ .ds-groei .ds-verdrij.on .ds-lagen rect.vol{fill:var(--red);stroke:var(--red)}
+/* oppervlakte in dezelfde familie als de kamerrijen */
+.ds-held ~ .ds-opp .ds-opp-rij{border-radius:14px;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
+.ds-held ~ .ds-opp{margin-top:0}
+@media (max-width:899px){
+  .ds-held ~ .ds-groei .ds-verdrij{padding:3px 4px 3px 6px}
+  .ds-held ~ .ds-groei .ds-verdrij-naam{gap:7px}
+  .ds-held ~ .ds-groei .ds-verdrij-naam b{font-size:12.5px}
+  .ds-held ~ .ds-groei .ds-tel button{width:26px;height:26px}
+  .ds-lagen{width:14px;height:19px}
+}
+.ds-held ~ .ds-groei .ds-verdrij.on,.ds-held ~ .ds-groei .ds-verdrij.on:hover{background:#fff;border-color:#fff;color:var(--ink)}
+.ds-held ~ .ds-groei .ds-verdrij.on .ds-verdrij-naam small{opacity:.55}
+/* een hoog paneel: geen gat onderaan, maar alles een maat ruimer */
+.ds-held ~ .ds-opp{margin-top:auto}
+@container paneel (min-height:820px){
+  .ds-held ~ .ds-groei .ds-verdrijen{gap:8px}
+  .ds-held ~ .ds-groei .ds-verdrij{padding:9px 8px 9px 12px}
+  .ds-held ~ .ds-groei .ds-verdrij-naam b{font-size:15px}
+  .ds-held ~ .ds-groei .ds-verdrij-naam small{font-size:12.5px}
+  .ds-held ~ .ds-groei .ds-tel button{width:32px;height:32px}
+  .ds-held ~ .ds-groei .ds-tel output{font-size:18px;min-width:30px}
+  .ds-lagen{width:20px;height:27px}
+  .ds-segm button{padding:12px 6px}
+  .ds-segm b{font-size:14.5px}
+  .ds-held ~ .ds-opp .ds-opp-rij{padding:14px 18px 14px 16px}
+  .ds-opp-waarde b{font-size:28px}
+  .ds-held{max-height:min(290px,34cqh)}
+}
+/* laag paneel: het gebouwtje in de knop kleiner, de rijen strakker */
+@container paneel (max-height:640px){
+  .ds-segm b .ds-lagen{width:10px;height:13px}
+  .ds-held ~ .ds-groei .ds-verdrij{padding-block:2px}
+  .ds-held ~ .ds-groei .ds-tel{padding:2px}
+  .ds-held ~ .ds-groei .ds-verdrijen{gap:4px}
+}
+
+/* ═════ stap 2, v8 · variant A: iconentegels onder elkaar ═════ */
+/* De foto heeft een vaste hoogte die alleen van het paneel afhangt — niet van
+   het aantal verdiepingen. Echte brede foto, cover, geen waas. */
+.ds-held{flex:none;height:clamp(96px,calc(30cqh - 70px),210px);max-height:none;background:#c9d6df}
+.ds-held-foto{object-fit:cover;object-position:50% 58%;scale:1}
+.ds-held-waas{display:none}
+.ds-keuzerij{flex:none}
+.ds-hkset{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ds-hk{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;padding:9px 6px 8px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;transition:background .15s,transform .15s,box-shadow .15s}
+.ds-hk:hover:not(.on):not(:disabled){background:rgba(255,255,255,.1);transform:translateY(-1px)}
+.ds-hk.on{background:#fff;border-color:#fff;color:var(--ink);box-shadow:0 8px 24px -10px rgba(0,0,0,.65)}
+.ds-hk:disabled{opacity:.3;cursor:not-allowed}
+.ds-hk:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ds-hk b{font-size:13.5px;font-weight:700;line-height:1.2;white-space:nowrap}
+.ds-hk small{font-size:11px;opacity:.6;margin-top:-3px;white-space:nowrap}
+.ds-kort{display:none}
+.ds-hk-ico{display:block;width:46px;height:40px;overflow:visible;color:rgba(255,255,255,.82)}
+.ds-hk.on .ds-hk-ico{color:var(--red)}
+.ds-hk-ico .muur{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
+.ds-hk-ico .dak{fill:currentColor;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
+.ds-hk-ico .vloer{stroke:currentColor;stroke-width:1.2;opacity:.45}
+.ds-hk-ico .raam{fill:currentColor;opacity:.55}
+.ds-hk-ico .grond{stroke:currentColor;stroke-width:1.6;stroke-linecap:round;opacity:.5}
+/* minder hoogte: tegels worden liggend, icoon links van het woord */
+@container paneel (max-height:820px){
+  .ds-hk{flex-direction:row;gap:8px;padding:7px 6px}
+  .ds-hk-ico{width:30px;height:26px}
+  .ds-hk small{display:none}
+}
+@container paneel (max-height:640px){
+  .ds-hk{padding:5px 4px}
+  .ds-hk-ico{width:24px;height:21px}
+  .ds-hk b{font-size:12.5px}
+  .ds-hkset{gap:6px}
+}
+@container paneel (max-width:470px){
+  .ds-lang{display:none}
+  .ds-kort{display:inline}
+}
+@media (max-width:899px){
+  .ds-hk{flex-direction:row;gap:6px;padding:5px 4px;border-radius:11px}
+  .ds-hk-ico{width:22px;height:19px}
+  .ds-hk b{font-size:11.5px}
+  .ds-hk small{display:none}
+  .ds-hkset{gap:5px}
+}

@@ -111,6 +111,7 @@ const ROUTE_SOURCES = {
   "/verhuur/afhalen": "src/pages/verhuur/VerhuurAfhalenPage.tsx",
   "/verhuur/calculator": "src/pages/verhuur/VerhuurCalculatorPage.tsx",
   "/verhuur/pakket": "src/pages/verhuur/VerhuurPakketPage.tsx",
+  "/verhuur/simulator": "src/pages/verhuur/VerhuurSimulatorPage.tsx",
   "/luchtontvochtiger-huren": "src/pages/LuchtontvochtigerHurenPage.tsx",
   "/gids": "src/pages/gids/GidsIndexPage.tsx",
   "/gids/hoe-lang-moet-chape-drogen": "src/pages/gids/ChapeDroogtijdPage.tsx",
