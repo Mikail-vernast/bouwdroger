@@ -188,8 +188,8 @@ const VerhuurSimulatorPage = () => {
     [s.wat, s.size, s.pd, s.cd, s.fase, s.verwarmt, woning],
   );
   const plaatsingen = useMemo(
-    () => (resultaat && stap === 4 ? plaatsToestellen(resultaat.items, kamers) : []),
-    [resultaat, kamers, stap],
+    () => (resultaat && stap === 4 ? plaatsToestellen(resultaat.items, kamers, plan.trappen) : []),
+    [resultaat, kamers, plan.trappen, stap],
   );
 
   const materiaal = materiaalVoor(stap >= 2 ? s.wat : null, stap >= 3 ? s.fase : null, FASE[antwoorden.fase].vocht);

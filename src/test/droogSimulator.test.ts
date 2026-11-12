@@ -106,7 +106,9 @@ describe("kamersVoor", () => {
             // Boven het maximum wordt afgekapt, niet stil genegeerd. Hal, gang
             // en overloop komen erbij en tellen niet mee.
             expect(laag.filter((k) => k.soort === "kamer").length, `${woning} ${dak} laag ${v}`).toBe(Math.min(n, MAX_KAMERS));
-            expect(laag.some((k) => k.soort === "circulatie")).toBe(true);
+            // Een open zolder is één ruimte met de trap erin: daar is geen overloop.
+            const openZolder = laag.length === 1 && laag[0].naam === "Zolder";
+            expect(openZolder || laag.some((k) => k.soort === "circulatie")).toBe(true);
             const som = laag.reduce((s, k) => s + k.w * k.l, 0);
             expect(som, `${woning} ${dak} ${lagen} laag ${v}`).toBeCloseTo(w * l, 6);
             for (const k of laag) {
@@ -216,6 +218,8 @@ describe("planVoor", () => {
             }
             for (const k of plan.kamers.filter((kk) => kk.soort === "kamer")) {
               const laag = plan.kamers.filter((kk) => kk.verdieping === k.verdieping && kk.soort === "circulatie");
+              // open zolder: de trap komt in de kamer uit, er is geen gang om naar te openen
+              if (laag.length === 0 && k.naam === "Zolder") continue;
               const deur = plan.openingen.some((o) => o.verdieping === k.verdieping && o.soort === "deur" && laag.some((g) => raakt(k, g, o.as, o.vast, o.van, o.tot)));
               expect(deur, `${woning} ${dak} ${lagen}: ${k.naam} zonder deur naar de gang`).toBe(true);
             }
@@ -261,5 +265,20 @@ describe("planVoor", () => {
     const plan = planVoor("open", 3, "plat", [undefined, programmaVan("boven", 5), programmaVan("boven", 5)]);
     const vorm = (v: number) => plan.kamers.filter((k) => k.verdieping === v).map((k) => `${k.naam}@${k.x.toFixed(2)},${k.z.toFixed(2)},${k.w.toFixed(2)}`).join(";");
     expect(vorm(1)).not.toBe(vorm(2));
+  });
+
+  it("maakt van een open zolder één ruimte en zet geen toestel in het trapgat", () => {
+    const plan = planVoor("rijwoning", 3, "zadeldak");
+    const zolder = plan.kamers.filter((k) => k.verdieping === 2);
+    expect(zolder).toHaveLength(1);
+    expect(zolder[0].naam).toBe("Zolder");
+    const trap = plan.trappen.find((t) => t.verdieping === 2)!;
+    const plaatsing = plaatsToestellen([{ k: "medium", q: 2 }, { k: "axiaal", q: 1 }, { k: "kachel", q: 1 }], zolder, plan.trappen);
+    expect(plaatsing).toHaveLength(4);
+    for (const p of plaatsing) {
+      const ax = zolder[0].x + p.x, az = zolder[0].z + p.z;
+      const inTrap = ax > trap.x && ax < trap.x + trap.w && az > trap.z && az < trap.z + trap.l;
+      expect(inTrap).toBe(false);
+    }
   });
 });

@@ -427,6 +427,13 @@ function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma:
   const trapX0 = w - TRAP_L - 0.1, trapX1 = w - 0.1;
   if (lagen > 1) trappen.push({ verdieping: v, x: trapX0, z: zb + 0.05, w: TRAP_L, l: GANG - 0.1, op: v < lagen - 1 });
 
+  // Een open zolder is één ruimte: geen overloop ernaast, de trap komt erin uit.
+  // Met de trapkoker als aparte strook bleef er anders meer overloop dan zolder over.
+  if (soort === "zolder" && ruimtes.length === 1 && ruimtes[0].naam === "Zolder") {
+    kamers.push({ id: id(), naam: "Zolder", verdieping: v, x: 0, z: 0, w, l, soort: "kamer" });
+    return { kamers, openingen, trappen };
+  }
+
   // Boven de grond wisselt de indeling per verdieping: op de oneven lagen (en
   // als er maar één ruimte is) loopt de grootste kamer van tuin tot straat
   // langs de zijgevel, de rest ligt rond een kortere overloop. Zo ligt geen
@@ -573,7 +580,7 @@ export interface Plaatsing {
  * over de lagen. Het aantal komt altijd uit `items`; deze functie verplaatst
  * alleen.
  */
-export function plaatsToestellen(items: PackageItem[], kamers: Kamer[]): Plaatsing[] {
+export function plaatsToestellen(items: PackageItem[], kamers: Kamer[], trappen: Trap[] = []): Plaatsing[] {
   if (kamers.length === 0) return [];
   const opp = (k: Kamer) => k.w * k.l;
   const bezet = new Map<string, number>();
@@ -612,10 +619,31 @@ export function plaatsToestellen(items: PackageItem[], kamers: Kamer[]): Plaatsi
       const [fx, fz] = SLOTS[plek % SLOTS.length];
       const n = perSoort.get(k) ?? 0;
       perSoort.set(k, n + 1);
-      uit.push({ k, kamer: kamer.id, x: kamer.w * fx, z: kamer.l * fz, n });
+      const [x, z] = naastTrap(kamer, kamer.w * fx, kamer.l * fz, trappen);
+      uit.push({ k, kamer: kamer.id, x, z, n });
     }
   }
   return uit;
+}
+
+/**
+ * Valt een plek in een trapgat (een open zolder heeft de trap in de kamer), dan
+ * schuift het toestel naar de tuin- of straatkant van de trap, wat het verst
+ * binnen de kamer blijft. Coördinaten zijn relatief aan de kamer.
+ */
+function naastTrap(kamer: Kamer, x: number, z: number, trappen: Trap[]): [number, number] {
+  const marge = 0.6;
+  for (const t of trappen) {
+    if (t.verdieping !== kamer.verdieping) continue;
+    const ax = kamer.x + x, az = kamer.z + z;
+    if (ax < t.x - marge || ax > t.x + t.w + marge || az < t.z - marge || az > t.z + t.l + marge) continue;
+    const achter = t.z - marge - kamer.z;
+    const voor = t.z + t.l + marge - kamer.z;
+    const ruimAchter = achter >= marge, ruimVoor = voor <= kamer.l - marge;
+    if (ruimAchter && (!ruimVoor || achter >= kamer.l - voor)) return [x, achter];
+    if (ruimVoor) return [x, voor];
+  }
+  return [x, z];
 }
 
 /** Plekken binnen een kamer, als fracties: midden eerst, daarna de hoeken. */
