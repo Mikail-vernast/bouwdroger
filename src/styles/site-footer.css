@@ -138,7 +138,7 @@ footer.site .here::after{
   waar niets te klikken valt. De negatieve ondermarge haalt de ruimte weg die
   dat uitgedoofde deel anders nog inneemt.
 */
-footer.site .kaart{
+footer.site .ft-kaart{
   position:relative;
   width:100%;
   aspect-ratio:1200/980;
@@ -153,7 +153,7 @@ footer.site .kaart{
   met de naam erboven zodra je hem aanwijst. De namen staan ook als gewone
   links in de feitenbalk; dát is de lijst die telt.
 */
-footer.site .pin{
+footer.site .ft-pin{
   position:absolute;
   z-index:2;
   transform:translate(-50%,-50%);
@@ -164,12 +164,12 @@ footer.site .pin{
   box-shadow:0 0 0 4px rgba(232,56,79,.16);
   transition:transform .15s,box-shadow .15s,background .15s;
 }
-footer.site .pin:hover{
+footer.site .ft-pin:hover{
   background:#fff;
   transform:translate(-50%,-50%) scale(1.25);
   box-shadow:0 0 0 6px rgba(255,255,255,.18);
 }
-footer.site .pin span{
+footer.site .ft-pin span{
   position:absolute;
   left:50%;
   bottom:calc(100% + 9px);
@@ -186,20 +186,20 @@ footer.site .pin span{
   pointer-events:none;
   transition:opacity .14s;
 }
-footer.site .pin:hover span{opacity:1}
+footer.site .ft-pin:hover span{opacity:1}
 
 /* ── Feitenbalk ─────────────────────────────────────────────────────── */
-footer.site .feiten{
+footer.site .ft-feiten{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:0;
   margin:0;
   border-top:1px solid rgba(255,255,255,.1);
 }
-footer.site .feiten > div{padding:20px 26px 22px;border-left:1px solid rgba(255,255,255,.08)}
-footer.site .feiten > div:first-child{padding-left:0;border-left:0}
-footer.site .feiten > div:last-child{padding-right:0}
-footer.site .feiten dt{
+footer.site .ft-feiten > div{padding:20px 26px 22px;border-left:1px solid rgba(255,255,255,.08)}
+footer.site .ft-feiten > div:first-child{padding-left:0;border-left:0}
+footer.site .ft-feiten > div:last-child{padding-right:0}
+footer.site .ft-feiten dt{
   font-size:10.5px;
   font-weight:700;
   letter-spacing:.22em;
@@ -207,9 +207,9 @@ footer.site .feiten dt{
   color:rgba(255,255,255,.42);
   margin:0 0 9px;
 }
-footer.site .feiten dd{margin:0;font-size:13.5px;line-height:1.68;color:rgba(255,255,255,.76)}
-footer.site .prov{display:flex;flex-direction:column;gap:7px}
-footer.site .prov a{font-size:13.5px;color:rgba(255,255,255,.76)}
+footer.site .ft-feiten dd{margin:0;font-size:13.5px;line-height:1.68;color:rgba(255,255,255,.76)}
+footer.site .ft-prov{display:flex;flex-direction:column;gap:7px}
+footer.site .ft-prov a{font-size:13.5px;color:rgba(255,255,255,.76)}
 
 footer.site .fb{
   border-top:1px solid rgba(255,255,255,.1);
@@ -223,30 +223,37 @@ footer.site .fb{
 }
 footer.site .fb a{color:rgba(255,255,255,.58)}
 /*
-  Heette `.fl`, en dat is een naam die `src/styles/v3-content.css` al gebruikt
-  voor een witte kaart: `.v3c .fl{background:#fff;border-radius:16px;padding:…}`.
-  De footer staat binnen die paginawortel, dus op /prijzen, /machines en elke
-  andere v3c-pagina kregen de drie juridische links een witte kaartachtergrond
-  over de volle breedte van de onderbalk. De footerregel overschreef wel
-  `display` en `gap` maar niet `background`, dus viel het nooit als botsing op.
-  Een ongescopete footer moet klassenamen dragen die nergens anders voorkomen.
+  Alles wat deze footer zelf introduceert draagt een `ft-`-voorvoegsel, en dat
+  is met schade en schande zo gekomen.
+
+  De footer staat ongescopet binnen élke paginawortel, dus een korte klassenaam
+  botst vroeg of laat met een paginastylesheet — en die botsing valt niet op,
+  want de footerregel overschrijft wél wat ze declareert en niet wat ze
+  weglaat. Zo kregen de juridische links een witte kaartachtergrond van
+  `.v3c .fl` (achtergrond nooit overschreven), stond de feitenbalk op /prijzen
+  als witte kaart met rechts uitgelijnde tekst door `.v3c .feiten`, en erfden
+  de kaartspelden de pil-opmaak van `.v3 .pin` op de homepage. `.kaart` alleen
+  al staat in 55 regels verspreid over de paginastylesheets.
+
+  Controleer bij een nieuwe klasse hier eerst:
+  `grep -rn "\.naam[ ,{:.>]" src/styles/*.css | grep -v site-footer`
 */
 footer.site .fb .ft-legal{display:flex;gap:24px;flex-wrap:wrap}
 
 @media (max-width:1040px){
   footer.site .fg{grid-template-columns:1fr 1fr;gap:36px}
-  footer.site .kaartkolom{max-width:260px}
-  footer.site .feiten{grid-template-columns:1fr 1fr}
-  footer.site .feiten > div{padding:18px 22px;border-top:1px solid rgba(255,255,255,.08)}
-  footer.site .feiten > div:nth-child(-n+2){border-top:0}
-  footer.site .feiten > div:nth-child(odd){padding-left:0;border-left:0}
+  footer.site .ft-kaartkolom{max-width:260px}
+  footer.site .ft-feiten{grid-template-columns:1fr 1fr}
+  footer.site .ft-feiten > div{padding:18px 22px;border-top:1px solid rgba(255,255,255,.08)}
+  footer.site .ft-feiten > div:nth-child(-n+2){border-top:0}
+  footer.site .ft-feiten > div:nth-child(odd){padding-left:0;border-left:0}
 }
 @media (max-width:620px){
   footer.site .fg{grid-template-columns:1fr;gap:32px;padding:46px 0 26px}
-  footer.site .feiten{grid-template-columns:1fr}
-  footer.site .feiten > div{padding:16px 0;border-left:0;border-top:1px solid rgba(255,255,255,.08)}
-  footer.site .feiten > div:first-child{border-top:0}
-  footer.site .kaartkolom{max-width:240px}
+  footer.site .ft-feiten{grid-template-columns:1fr}
+  footer.site .ft-feiten > div{padding:16px 0;border-left:0;border-top:1px solid rgba(255,255,255,.08)}
+  footer.site .ft-feiten > div:first-child{border-top:0}
+  footer.site .ft-kaartkolom{max-width:240px}
   footer.site .fb{flex-direction:column;gap:14px}
 }
 
