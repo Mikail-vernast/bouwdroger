@@ -23,7 +23,14 @@ const PANELS = [
         "Wachten, of te vroeg afwerken met blazen en loskomende verf als gevolg.",
       ],
     ],
-    verdict: "“Gratis” natuurlijk drogen betaalt u in tijd, stookkosten en risico op schade.",
+    /*
+      Stond als: "«Gratis» natuurlijk drogen betaalt u in tijd, stookkosten en
+      risico op schade." Daarin is het drogen het onderwerp van "betaalt", dus
+      las de zin alsof het drogen ú iets betaalt. Nu staat de klant waar hij
+      hoort, en spiegelt de zin die van het andere tabblad ("verdient zichzelf
+      terug").
+    */
+    verdict: "Natuurlijk drogen is niet gratis: u betaalt in tijd, stookkosten en risico op schade.",
     verdictOk: false,
   },
   {

@@ -271,8 +271,15 @@
 
        Geel en groen komen uit dezelfde familie als het Eco-label elders op de
        pagina, zodat er geen vijfde en zesde kleur bijkomt. */
-.v3 .fact.waarschuwing .fn { color: #B45309; }
-.v3 .fact.winst .fn { color: #15803D; }
+.v3 .fact.waarschuwing .fn { color: #AD7F12; }
+.v3 .fact.winst .fn { color: #1D9D5C; }
+
+/*
+  Waarom niet geler en niet lichter: het getal staat op 40px vet, en daarvoor
+  geldt 3:1 als ondergrens. Een echt gele oker (#CA8A04) haalt 2,67:1 en een
+  pastelgroen (#35A570) 2,82:1 -- allebei te licht om op #F4F4F4 nog te lezen.
+  Deze twee zitten op 3,28:1 en 3,17:1: zo geel en zo zacht als het hier kan.
+*/
 
 /* 14. De vertrouwensbalk staat nu bóven het gamma, niet eronder.
 
