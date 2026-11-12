@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRightIcon, DropIcon, InfoIcon, LeafIcon } from "./icons";
+import { ArrowRightIcon, InfoIcon } from "./icons";
 import { PRODUCTS } from "@/data/verhuur";
 import { DAY_PRICE_MIN } from "@/data/tarieflijst";
 import { VAT_RATE } from "@/lib/booking";
@@ -247,14 +247,22 @@ const CardBody = ({ card, incl }: { card: ProductCard; incl: boolean }) => {
       <h3>{live?.name ?? card.name}</h3>
       <p>{live?.blurb ?? card.blurb}</p>
       <div className="chips">
+        {/*
+          Blaadje en druppel als afbeelding en niet als lijnicoon: ze dragen hun
+          eigen groen en blauw, waardoor de twee chips al aan hun vorm te
+          herkennen zijn. 96x96 webp van elk zo'n 1,8 kB; `width`/`height` staan
+          erop zodat de chip niet verspringt terwijl ze laden.
+        */}
         {card.eco && (
           <span className="chip eco">
-            <LeafIcon /> Eco
+            <img src="/vernast/icoon-eco.webp" alt="" width={96} height={96} loading="lazy" /> Eco
           </span>
         )}
         {(live?.chips ?? card.chips).map((chip) => (
           <span className={isVochtafvoer(chip) ? "chip water" : "chip"} key={chip}>
-            {isVochtafvoer(chip) && <DropIcon size={11} />}
+            {isVochtafvoer(chip) && (
+              <img src="/vernast/icoon-druppel.webp" alt="" width={96} height={96} loading="lazy" />
+            )}
             {chip}
           </span>
         ))}

@@ -61,6 +61,7 @@ const PANELS = [
 const FACTS = [
   {
     n: "1 500 L",
+    toon: "water",
     title: "Water in een gemiddelde nieuwbouw",
     body: "Chape, pleister en beton brengen samen honderden tot duizenden liters vocht binnen die eruit moeten voor u afwerkt.",
   },

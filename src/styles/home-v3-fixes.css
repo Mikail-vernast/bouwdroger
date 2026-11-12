@@ -371,3 +371,122 @@
   .v3 .df:hover .dfi-vink3,
   .v3 .df:hover .dfi-pijl { animation: none; transform: none; }
 }
+
+/* 16. Het waterblokje blauw.
+
+       "1 500 L" gaat over water dat uit de bouwmassa moet; blauw zegt dat
+       zonder woorden, net zoals de druppel op de toestelkaarten. De "48 u"
+       ernaast blijft rood: dat is de termijn waarbinnen schimmel begint, en
+       dus wél een waarschuwing. Zelfde opzet als de twee andere getinte
+       kaarten: zacht vlak, donkerder cijfer (#12528F op #E8F1FB is 7,4:1). */
+.v3 .fact.water {
+  background: #E8F1FB;
+  border-color: rgba(18, 82, 143, .16);
+}
+.v3 .fact.water .fn { color: #12528F; }
+
+/* 17. De gekleurde iconen op de chips.
+
+       Blaadje en druppel zijn nu afbeeldingen met hun eigen groen en blauw. Ze
+       komen binnen als 96x96 en moeten op chipformaat staan; zonder deze regel
+       drukt het width-attribuut de chip uit elkaar -- dezelfde valkuil als bij
+       het logo in V3Header. */
+.v3 .prods .pc .chip img {
+  width: 13px;
+  height: 13px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.v3 .prods .pc .chip.eco img { width: 14px; height: 14px; }
+
+/* 18. De btw-schakelaar rechts uitlijnen, onder de afhaalnotitie.
+       `.phead-right` is een kolom, dus `align-self` bepaalt de kant; hij stond
+       links uitgelijnd terwijl de kaart erboven tot de rechterrand loopt. */
+.v3 .phead-right .btw-switch { align-self: flex-end; }
+
+/* 19. Wat inbegrepen is, wordt groen. Wat een keuze is, blijft neutraal.
+
+       De sectie "Meer inbegrepen dan u denkt" had acht rode iconen naast
+       elkaar: de vier inbegrepen diensten én de vier opties. Rood is op deze
+       site de kleur van een knop en van een waarschuwing, dus las de hele rij
+       als "let op" in plaats van "dit krijgt u erbij".
+
+       De vier bovenste kleuren nu één voor één groen, van links naar rechts,
+       en gaan daarna samen terug. Dat leest als een lijstje dat wordt
+       afgevinkt. Het is traag (6s) en subtiel; valt stil bij reduced-motion. */
+.v3 .ic .ii {
+  transition: background .3s, color .3s;
+  animation: icGroen 6s ease-in-out infinite;
+}
+.v3 .incl-grid .ic:nth-child(1) .ii { animation-delay: 0s; }
+.v3 .incl-grid .ic:nth-child(2) .ii { animation-delay: .5s; }
+.v3 .incl-grid .ic:nth-child(3) .ii { animation-delay: 1s; }
+.v3 .incl-grid .ic:nth-child(4) .ii { animation-delay: 1.5s; }
+.v3 .incl-grid .ic:nth-child(5) .ii { animation-delay: 2s; }
+@keyframes icGroen {
+  0%, 6% { background: rgba(200, 16, 46, .09); color: var(--red); }
+  16%, 62% { background: rgba(21, 128, 61, .12); color: #15803D; }
+  76%, 100% { background: rgba(200, 16, 46, .09); color: var(--red); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3 .ic .ii {
+    animation: none;
+    background: rgba(21, 128, 61, .12);
+    color: #15803D;
+  }
+}
+
+/* 20. De optiekaarten: drie soorten, drie tonen.
+
+       Alle vier droegen hetzelfde rode "OPTIE". Bij rapportage las dat als een
+       foutmelding, terwijl er niets mis is met die optie -- ze is gewoon
+       beschikbaar. Nu draagt elke kaart een icoon dat zegt wát het is, en
+       alleen spoed houdt een alarmkleur. */
+.v3 .ix .xt {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--txt-mid);
+  background: #F2F0F0;
+}
+.v3 .ix .xt svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* Spoed: amber, want dit is voor wie haast heeft. Niet rood: rood is hier de
+   kleur van de knoppen, en een optie is geen alarm. */
+.v3 .ix.spoed .xt { color: #8A6D0B; background: #FBF3DC; }
+
+/* Waterafvoer: groen, want dit neemt werk weg. Met dezelfde glans als de
+   knop in de koptekst, zodat het oog er als eerste van de drie naartoe gaat. */
+.v3 .ix.winst { border-color: rgba(21, 128, 61, .24); }
+.v3 .ix.winst .xt {
+  position: relative;
+  overflow: hidden;
+  color: #15803D;
+  background: #E8F6EE;
+}
+/* Alleen de waterafvoer krijgt de glans: twee bewegende labels naast elkaar
+   heffen elkaar op, dan kijkt het oog nergens meer naar. */
+.v3 .ix.glans .xt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .75) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: offShine 3.2s ease infinite;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3 .ix.glans .xt::after { animation: none; display: none; }
+}
+
+/* 21. De drie betaalstappen en de drie vinkjes eronder in het groen.
+
+       De stappen (betalen, plannen, verlengen) zijn alle drie dingen die
+       gerégeld zijn, geen waarschuwingen. En de vinkjes in de balk eronder
+       waren rood op rood: een vinkje dat "ja, dit zit erbij" zegt hoort groen
+       te zijn, anders leest het als een kruisje. */
+.v3 .pay .pc .pci { background: rgba(21, 128, 61, .14); color: #37C77F; }
+.v3 .pay .pay-note span svg,
+.v3 .pay .pay-note svg { color: #37C77F; }
+
+/* Vier inbegrepen en vier opties, zoals het raster al stond. */
