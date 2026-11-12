@@ -72,24 +72,19 @@ const V3Footer = () => (
             <h2 id="ft-groep" className="later">
               Vernast Groep
             </h2>
+            {/*
+              Alleen de zusterdomeinen. Deze site stond hier even bij als
+              grijze regel met "u bent hier" eronder; dat las als een kapotte
+              link en zei niets wat de bezoeker niet al wist — hij is er.
+              `VERNAST_GROEP` houdt die entry wel, want het mobiele menu voert
+              dezelfde lijst en gebruikt hem als weg terug naar de homepage.
+            */}
             <ul>
-              {VERNAST_GROEP.map((entiteit) => (
+              {VERNAST_GROEP.filter((entiteit) => entiteit.href).map((entiteit) => (
                 <li key={entiteit.label}>
-                  {entiteit.href ? (
-                    <a href={entiteit.href} target="_blank" rel="noopener noreferrer">
-                      {entiteit.label}
-                    </a>
-                  ) : (
-                    /*
-                      Deze site zelf. Geen link: een verwijzing naar de pagina
-                      waar je al bent zegt niets, en met vier zusterdomeinen in
-                      één lijst is het juist nuttig te zien welk van de vier
-                      openstaat.
-                    */
-                    <span className="here" aria-current="page">
-                      {entiteit.label}
-                    </span>
-                  )}
+                  <a href={entiteit.href} target="_blank" rel="noopener noreferrer">
+                    {entiteit.label}
+                  </a>
                 </li>
               ))}
             </ul>
