@@ -5,25 +5,25 @@ const rows = [
   {
     label: "Energieverbruik",
     icon: Zap,
-    competitor: "2100W continu — draait door, ook als ruimte al droog is",
-    vernast: "500W per unit — per kamer stopbaar zodra droog",
+    competitor: "2100W continu, draait door, ook als ruimte al droog is",
+    vernast: "500W per unit, per kamer stopbaar zodra droog",
   },
   {
     label: "Droogresultaat",
     icon: Thermometer,
-    competitor: "Ongelijkmatig — dichtbij de droger is het droog, verderop blijft het nat",
-    vernast: "Gelijkmatig — elk vertrek heeft een eigen droogcircuit",
+    competitor: "Ongelijkmatig, dichtbij de droger is het droog, verderop blijft het nat",
+    vernast: "Gelijkmatig, elk vertrek heeft een eigen droogcircuit",
   },
   {
     label: "Geluid",
     icon: Volume2,
-    competitor: "59 dB geconcentreerd op 1 punt — vergelijkbaar met een draaiende wasmachine",
-    vernast: "52 dB per unit, verspreid over meerdere kamers — merkbaar stiller",
+    competitor: "59 dB geconcentreerd op 1 punt, vergelijkbaar met een draaiende wasmachine",
+    vernast: "52 dB per unit, verspreid over meerdere kamers, merkbaar stiller",
   },
   {
     label: "Flexibiliteit",
     icon: BatteryCharging,
-    competitor: "Kamer droog? Machine draait op vol vermogen door — geen controle per ruimte",
+    competitor: "Kamer droog? Machine draait op vol vermogen door, geen controle per ruimte",
     vernast: "Kamer droog? Die unit stoppen en direct besparen op energie",
   },
   {
@@ -60,7 +60,7 @@ const ComparisonTable = () => {
             Onze aanpak vs. de rest
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Wij zetten het juiste toestel op de juiste plek — in plaats van één
+            Wij zetten het juiste toestel op de juiste plek, in plaats van één
             grote droger in de gang.
           </p>
         </Reveal>
@@ -133,7 +133,7 @@ const ComparisonTable = () => {
 
               <div className="bg-green-50 border border-green-200 rounded-xl p-3 text-center mb-3">
                 <div className="text-xs font-bold text-green-800 mb-1">Gang</div>
-                <div className="text-[10px] text-green-600">Vrij — toestellen staan in de kamers</div>
+                <div className="text-[10px] text-green-600">Vrij, toestellen staan in de kamers</div>
               </div>
 
               <div className="grid grid-cols-3 gap-2 mb-4">

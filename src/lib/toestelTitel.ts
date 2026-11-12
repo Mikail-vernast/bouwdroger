@@ -52,7 +52,7 @@ export function toestelTitel({ short, type, day, spec }: ToestelTitelInput): str
   if (soort === "Adsorptiedroger" && naam.toLowerCase().startsWith(soort.toLowerCase() + " ")) {
     const rest = naam.slice(soort.length + 1);
     const prijs = day > 0 ? `, ${dagprijs(day)}/dag` : "";
-    return `${soort} huren — ${rest}${prijs} | Vernast`;
+    return `${soort} huren - ${rest}${prijs} | Vernast`;
   }
 
   const delen: string[] = [];
@@ -66,7 +66,7 @@ export function toestelTitel({ short, type, day, spec }: ToestelTitelInput): str
   if (day > 0) delen.push(`${dagprijs(day)}/dag`);
 
   const bouw = (stukken: string[]) =>
-    `${naam} huren${stukken.length ? ` — ${stukken.join(", ")}` : ""} | Vernast`;
+    `${naam} huren${stukken.length ? ` - ${stukken.join(", ")}` : ""} | Vernast`;
 
   /*
     Google kapt een titel af rond 60 tekens, dus die grens is hard. Tot 11-2026

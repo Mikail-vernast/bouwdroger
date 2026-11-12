@@ -32,7 +32,7 @@ const MAX_QTY = 12;
 const PICKUP_FAQ: [string, string][] = [
   [
     "Waar haal ik het toestel af?",
-    "Aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar — vlak langs de A12, vlot bereikbaar vanuit Antwerpen en Brussel. Open ma–vr van 08:00 tot 17:00.",
+    "Aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar, vlak langs de A12, vlot bereikbaar vanuit Antwerpen en Brussel. Open ma–vr van 08:00 tot 17:00.",
   ],
   [
     "Wat breng ik mee bij de afhaling?",
@@ -228,7 +228,7 @@ const VerhuurToestelPage = () => {
               <div className="promo-online">
                 <CheckIcon size={15} strokeWidth={2.4} />
                 <b>5% korting bij online betalen</b>
-                <span>&nbsp;— instant factuur in uw mailbox</span>
+                <span>&nbsp;· instant factuur in uw mailbox</span>
               </div>
               <p className="psum">{prod.sum}</p>
 
@@ -377,7 +377,7 @@ const VerhuurToestelPage = () => {
                           .
                         </>
                       ) : (
-                        " De komende weken is er niets vrij — bel ons op 03 689 90 65."
+                        " De komende weken is er niets vrij, bel ons op 03 689 90 65."
                       )}
                     </div>
                   )}
@@ -448,7 +448,7 @@ const VerhuurToestelPage = () => {
                     </button>
                   ) : (
                     <Link className="btn btn-red" to={`/verhuur/afhalen?${pickupQuery}`}>
-                      Reserveer voor afhaling — {euroInt(total)}
+                      Reserveer voor afhaling, {euroInt(total)}
                       <ArrowRightIcon strokeWidth={2.4} />
                     </Link>
                   )}
@@ -524,7 +524,7 @@ const VerhuurToestelPage = () => {
             <h2 className="sec">Zo werkt afhalen.</h2>
             <p className="lede">
               Losse toestellen huurt u tegen lagere afhaalprijzen via onze afhaal-checkout. U
-              reserveert online en haalt op wanneer het u past — wij zetten alles klaar.
+              reserveert online en haalt op wanneer het u past, wij zetten alles klaar.
             </p>
           </div>
           <div className="astep-grid">
@@ -540,7 +540,7 @@ const VerhuurToestelPage = () => {
           <div className="pickupbar">
             <PinIcon size={34} />
             <div className="pb-t">
-              <b>Afhaalpunt Vernast — Boomsesteenweg 12 / Unit 11, 2630 Aartselaar</b>
+              <b>Afhaalpunt Vernast, Boomsesteenweg 12 / Unit 11, 2630 Aartselaar</b>
               <span>
                 Vlak langs de A12, vlot bereikbaar vanuit Antwerpen en Brussel · Ma–Vr 08:00–17:00
               </span>
@@ -579,7 +579,7 @@ const VerhuurToestelPage = () => {
 
           <p className="af-note">
             Leveren en installeren doen wij uitsluitend{" "}
-            <Link to="/verhuur/calculator">per pakket</Link> — alleen zo kunnen wij onze 100%
+            <Link to="/verhuur/calculator">per pakket</Link>, alleen zo kunnen wij onze 100%
             droog-garantie waarmaken.
           </p>
         </div>

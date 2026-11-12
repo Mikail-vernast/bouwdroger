@@ -81,7 +81,7 @@ export const REVIEWS_LIST: Review[] = [
   {
     name: "Isabel De Maesschalck",
     initials: "IM",
-    text: "Professional company, good communication. Very friendly lady Sumeyye made a clear quote, explained well and the price was correct. Quote was done on the spot — this was very efficient.",
+    text: "Professional company, good communication. Very friendly lady Sumeyye made a clear quote, explained well and the price was correct. Quote was done on the spot, this was very efficient.",
     rating: 5,
     date: "mei 2025",
     source: "Google",

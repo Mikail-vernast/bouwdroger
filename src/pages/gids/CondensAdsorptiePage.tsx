@@ -87,7 +87,7 @@ const CondensAdsorptiePage = () => (
         <p>
           Dat principe is efficiënt zolang de lucht warm en vochtig is. Warme lucht bevat veel waterdamp,
           dus elke keer dat ze langs het koude element gaat, condenseert er veel. Daarom is de
-          condensdroger het standaardtoestel voor <Link to="/nieuwbouw">chape en pleisterwerk</Link> in een
+          condensdroger het standaardtoestel voor <Link to="/nieuwbouw-drogen">chape en pleisterwerk</Link> in een
           verwarmd gebouw en voor de meeste <Link to="/waterschade">waterschade</Link>.
         </p>
 

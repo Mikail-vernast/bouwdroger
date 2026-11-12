@@ -97,7 +97,7 @@ export function useAanvraag({ source, messageField, mailSubject }: Options) {
 
       setStatus("done");
     } catch {
-      fail("Verzenden lukte niet — controleer uw verbinding en probeer opnieuw.");
+      fail("Verzenden lukte niet, controleer uw verbinding en probeer opnieuw.");
     }
   };
 

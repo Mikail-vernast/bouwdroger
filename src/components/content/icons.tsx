@@ -3,7 +3,7 @@
  * v3-set (`src/components/home-v3/icons.tsx`) staan.
  *
  * Waarom hier en niet uit lucide-react: op de oude schil droegen /renovatie,
- * /nieuwbouw en /waterschade lucide-iconen én emoji's door elkaar — een 🦠
+ * /nieuwbouw-drogen en /waterschade lucide-iconen én emoji's door elkaar — een 🦠
  * naast een `<Thermometer>` naast een 💸. Emoji's tekenen per besturingssysteem
  * anders (en op een Mac in kleur), en de lijndikte van lucide wijkt genoeg af
  * van de designset om naast elkaar zichtbaar te vloeken. Deze volgen exact de
@@ -165,5 +165,32 @@ export const DrogerIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
     <rect x="2.8" y="5.4" width="11.4" height="13.2" rx="2.2" />
     <circle cx="8.5" cy="12" r="2.7" />
     <path d="M16.8 9.2h3.4M16.8 12.4h4.4M16.8 15.6h2.9" />
+  </svg>
+);
+
+/** Wereldbol — het productonderzoek loopt niet tot aan de landsgrens. */
+export const WereldIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3.2 9.6h17.6M3.2 14.4h17.6" />
+    <path d="M12 3a15 15 0 0 0 0 18 15 15 0 0 0 0-18z" />
+  </svg>
+);
+
+/** Vergrootglas met vinkje — het toestel dat onze test wél haalt. */
+export const KeuringIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <circle cx="10.5" cy="10.5" r="7" />
+    <path d="m15.6 15.6 5 5" />
+    <path d="m7.6 10.6 2 2 3.6-3.9" />
+  </svg>
+);
+
+/** Bankschroef-achtige proefopstelling — het toestel dat op de werf getest wordt. */
+export const WerfIcon = ({ size = 20, strokeWidth = 1.8 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" strokeWidth={strokeWidth} {...strokeProps}>
+    <path d="M3 20.5h18" />
+    <path d="M5.5 20.5V11l6.5-4.5 6.5 4.5v9.5" />
+    <path d="M9.6 20.5v-5.2h4.8v5.2" />
   </svg>
 );

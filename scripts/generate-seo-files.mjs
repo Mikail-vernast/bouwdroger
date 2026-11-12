@@ -18,7 +18,7 @@ const SITE_URL = (process.env.VITE_SITE_URL || "https://vernast-bouwdrogers.be")
 const PRIORITY = [
   { test: (p) => p === "/", priority: "1.0", changefreq: "weekly" },
   {
-    test: (p) => ["/nieuwbouw", "/waterschade", "/renovatie", "/prijzen", "/machines"].includes(p),
+    test: (p) => ["/nieuwbouw-drogen", "/waterschade", "/renovatie", "/prijzen", "/machines"].includes(p),
     priority: "0.9",
     changefreq: "monthly",
   },
@@ -100,12 +100,13 @@ const ROUTE_SOURCES = {
   "/klantservice": "src/pages/KlantservicePage.tsx",
   "/levering": "src/pages/LeveringPage.tsx",
   "/machines": "src/pages/MachinesPage.tsx",
-  "/nieuwbouw": "src/pages/NieuwbouwPage.tsx",
+  "/nieuwbouw-drogen": "src/pages/NieuwbouwPage.tsx",
   "/over-ons": "src/pages/OverOnsPage.tsx",
   "/prijzen": "src/pages/PrijzenPage.tsx",
   "/realisaties": "src/pages/RealisatiesPage.tsx",
   "/renovatie": "src/pages/RenovatiePage.tsx",
   "/ozonbehandeling": "src/pages/OzonbehandelingPage.tsx",
+  "/ontschimmeling": "src/pages/OntschimmelingPage.tsx",
   "/waterschade": "src/pages/WaterschadePage.tsx",
   "/waarom-bouwdroging": "src/pages/WaaromBouwdrogingPage.tsx",
   "/verhuur/afhalen": "src/pages/verhuur/VerhuurAfhalenPage.tsx",
@@ -124,6 +125,24 @@ const TOESTEL_SOURCES = ["src/pages/verhuur/VerhuurToestelPage.tsx", "src/data/v
 const REALISATIE_SOURCES = ["src/pages/RealisatieDetailPage.tsx", "src/data/realisaties.ts"];
 /** De vijf regiopagina's: één sjabloon, de teksten in één databestand. */
 const REGIO_SOURCES = ["src/pages/RegioPage.tsx", "src/data/regios.ts"];
+/**
+ * De gemeentepagina's, apart van de provincies.
+ *
+ * Beide liggen onder `/bouwdroger-huren-…`, dus zonder dit onderscheid kreeg
+ * een gemeentepagina de datum van `regios.ts` — en claimde ze een wijziging
+ * telkens als er aan een provincietekst gesleuteld werd, terwijl een echte
+ * wijziging aan `gemeenten.ts` juist onzichtbaar bleef. Dat is precies de fout
+ * waartegen `unmappedRoutes` hieronder bestaat.
+ */
+const GEMEENTE_SOURCES = ["src/pages/GemeentePage.tsx", "src/data/gemeenten.ts"];
+/** De slugs van de provinciepagina's; al de rest onder dat voorvoegsel is een gemeente. */
+const REGIO_SLUGS = [
+  "antwerpen",
+  "oost-vlaanderen",
+  "vlaams-brabant",
+  "west-vlaanderen",
+  "limburg",
+].map((slug) => `/bouwdroger-huren-${slug}`);
 
 /**
  * Routes zonder bekende bron krijgen `vandaag` — en dat is precies wat we niet
@@ -147,7 +166,8 @@ function lastCommitDate(paths) {
 function lastmodFor(route) {
   if (route.startsWith("/verhuur/toestel/")) return lastCommitDate(TOESTEL_SOURCES);
   if (route.startsWith("/realisaties/")) return lastCommitDate(REALISATIE_SOURCES);
-  if (route.startsWith("/bouwdroger-huren-")) return lastCommitDate(REGIO_SOURCES);
+  if (REGIO_SLUGS.includes(route)) return lastCommitDate(REGIO_SOURCES);
+  if (route.startsWith("/bouwdroger-huren-")) return lastCommitDate(GEMEENTE_SOURCES);
   const source = ROUTE_SOURCES[route];
   if (source) return lastCommitDate([source]);
   unmappedRoutes.add(route);
@@ -371,7 +391,7 @@ function priceLines() {
 const KEY_PAGES = [
   "/prijzen",
   "/machines",
-  "/nieuwbouw",
+  "/nieuwbouw-drogen",
   "/waterschade",
   "/renovatie",
   "/levering",

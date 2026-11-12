@@ -10,7 +10,7 @@
    <V3Footer> zelf verhuisde (zie src/styles/site-footer.css).
 
    Die les geldt hier opnieuw. De pagina's die in november 2026 van de oude
-   shadcn-schil naar de v3-vormtaal gingen — /renovatie, /nieuwbouw,
+   shadcn-schil naar de v3-vormtaal gingen — /renovatie, /nieuwbouw-drogen,
    /waterschade, /machines, /prijzen en de regiopagina's — delen daarom deze
    ene stylesheet. Een pagina zet `className="v3c <eigen-wortel>"` en voegt in
    een eigen bestand alleen toe wat echt nieuw is.
@@ -434,24 +434,22 @@
 }
 
 /* ============ PRODUCTKAARTEN ============
-   Het gamma op /machines: foto, dagprijs, twee chips en de kenmerken. */
+   De toestelkaart op een regiopagina: foto, naam, één regel uitleg en een
+   knop. Het gamma op /machines gebruikte deze kaart ook, maar draagt sinds
+   november 2026 de rijkere `.pc` hieronder — met de dagprijs en de
+   kerncijfers, zoals op de homepage. De varianten die alleen /machines nodig
+   had (`.prods.drie`, `.prods.twee`, `.plab`, `.pday`, `.chipsm`) zijn daarmee
+   verdwenen. */
 .v3c .cathead{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .v3c .cathead .ci{width:40px;height:40px;border-radius:11px;background:var(--red);color:#fff;display:grid;place-items:center;flex-shrink:0}
 .v3c .prods{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.v3c .prods.drie{grid-template-columns:repeat(3,1fr)}
-/* Twee kaarten in een raster van vier zouden uitrekken tot bijna dubbele
-   breedte; de maximumbreedte houdt ze even groot als elders. */
-.v3c .prods.twee{grid-template-columns:repeat(2,minmax(0,1fr));max-width:680px}
-@media (max-width:1100px){.v3c .prods,.v3c .prods.drie{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.v3c .prods,.v3c .prods.drie,.v3c .prods.twee{grid-template-columns:1fr}}
+@media (max-width:1100px){.v3c .prods{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.v3c .prods{grid-template-columns:1fr}}
 .v3c .prod{position:relative;display:flex;flex-direction:column;background:var(--bg-alt);border:1px solid transparent;border-radius:18px;padding:20px;transition:transform .2s,box-shadow .2s}
 .v3c .sw2 .prod,.v3c .sr .prod{background:#fff}
 .v3c .prod:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.25)}
 .v3c .prod.top{border-color:var(--red)}
-.v3c .prod .plab{position:absolute;top:-11px;right:18px;background:var(--red);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:99px}
 .v3c .prod h3{font-family:var(--fd);font-weight:800;font-size:15.5px;margin-bottom:4px}
-.v3c .prod .pday{font-family:var(--fd);font-weight:800;font-size:22px;color:var(--red);letter-spacing:-.02em}
-.v3c .prod .pday span{font-family:var(--fb);font-size:12px;font-weight:500;color:var(--txt-dim);margin-left:2px}
 /* De foto vult het afgeronde kader. Met `contain` stond er een kleinere foto
    middenin een lege box, en dat las als een plaatje dat er per ongeluk in
    geplakt was. De portaalfoto's zijn allemaal werfbeelden, dus `cover` snijdt
@@ -459,15 +457,68 @@
 .v3c .prod .pimg{background:var(--bg-alt);border-radius:14px;margin:0 0 16px;display:block;overflow:hidden}
 .v3c .prod .pimg img{display:block;width:100%;height:210px;object-fit:cover;object-position:50% 62%}
 @media (max-width:1100px){.v3c .prod .pimg img{height:230px}}
-.v3c .chipsm{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.v3c .chipsm span{background:#fff;color:var(--txt-mid);font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:8px}
-.v3c .sw2 .chipsm span,.v3c .sr .chipsm span{background:var(--bg-alt)}
 .v3c .feats{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:7px}
 .v3c .feats li{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;line-height:1.45;color:var(--txt-mid)}
 .v3c .feats li svg{flex-shrink:0;margin-top:2px;color:var(--ok)}
 .v3c .prod .plink{margin-top:auto;display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:var(--red)}
 .v3c .prod .plink svg{transition:transform .15s}
 .v3c .prod:hover .plink svg{transform:translateX(3px)}
+
+/* ============ GAMMAKAARTEN ============
+   De kaart van het gamma op /machines heeft de vorm van de productkaart op de
+   homepage (`.v3 .pc` in home-v3.css): vierkante foto met een zwevende
+   labelpil, de verhuurnaam groot, de kerncijfers als pillen en onderaan een
+   rode knop met de dagprijs ernaast. Dezelfde toestellen hoorden op de twee
+   pagina's die ze allebei tonen niet verschillend te ogen.
+
+   Waarom de regels hier opnieuw staan en niet hergebruikt worden: die opmaak
+   is gescoped onder `.v3` en bereikt deze schil niet, en home-v3.css hier
+   importeren zou 900 regels meebrengen waarvan geen enkele aanslaat. Zelfde
+   klassenamen en zelfde maten dus; wijzigt de vorm op de homepage, wijzig ze
+   hier mee. */
+.v3c .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.v3c .pgrid.twee{grid-template-columns:repeat(2,1fr)}
+@media (max-width:1040px){.v3c .pgrid,.v3c .pgrid.twee{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.v3c .pgrid,.v3c .pgrid.twee{grid-template-columns:1fr}}
+.v3c .pc{background:var(--bg-alt);border-radius:26px;padding:14px;overflow:hidden;display:flex;flex-direction:column;color:var(--txt);transition:transform .2s,box-shadow .2s}
+.v3c .pc:hover{transform:translateY(-5px);box-shadow:0 26px 50px -30px rgba(0,0,0,.35);color:var(--txt)}
+.v3c .pc .pm{aspect-ratio:1/1;position:relative;border-radius:18px;overflow:hidden;background:#fff}
+.v3c .pc .pm img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.v3c .pc .pt{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--fd);font-weight:600;font-size:12px;padding:7px 14px;border-radius:99px;background:rgba(255,255,255,.94);color:var(--txt);box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.v3c .pc.hot .pt{background:var(--red);color:#fff}
+.v3c .pc .pb{padding:18px 8px 10px;display:flex;flex-direction:column;flex:1}
+.v3c .pc h3{font-family:var(--fd);font-weight:800;font-size:22px;letter-spacing:-.02em;margin:0}
+/* Het typenummer van de fabrikant klein onder de verhuurnaam: niemand huurt
+   een "Ontvochtiger TTK 170 S", maar wie offertes vergelijkt zoekt er wel op. */
+.v3c .pc .ptype{display:block;font-size:11.5px;color:var(--txt-dim);margin:3px 0 8px}
+.v3c .pc .pdesc{font-size:13px;color:var(--txt-mid);line-height:1.6;margin:0 0 14px}
+.v3c .pc .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.v3c .pc .chip{display:inline-flex;align-items:center;gap:5px;background:#fff;border-radius:99px;padding:6px 12px;font-size:11.5px;font-weight:600;color:var(--txt-mid);white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.v3c .pc .chip.eco{background:#EAF5EE;color:#0e7a3d}
+/* Het blaadje komt binnen als 96x96 webp; zonder deze regel drukt het
+   width-attribuut de chip uit elkaar tot een postzegel met een woord ernaast.
+   Dezelfde valkuil als bij het logo in <V3Header>. */
+.v3c .pc .chip img{width:14px;height:14px;object-fit:contain;flex-shrink:0}
+.v3c .pc .pf{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(0,0,0,.06)}
+.v3c .pc .pf .bekijk{display:inline-flex;align-items:center;gap:7px;background:var(--red);color:#fff;font-family:var(--fd);font-weight:600;font-size:12.5px;padding:11px 18px;border-radius:99px;white-space:nowrap;transition:background .15s}
+.v3c .pc:hover .pf .bekijk{background:#a80d26}
+.v3c .pc .pf .pr{font-size:11px;color:var(--txt-dim);display:flex;flex-direction:column;align-items:flex-end;line-height:1.2;text-align:right;font-weight:500}
+.v3c .pc .pf .pr b{font-family:var(--fd);font-size:20px;font-weight:800;color:var(--txt);letter-spacing:-.02em;white-space:nowrap}
+.v3c .pc .pf .pr small{font-size:10.5px;color:var(--txt-dim)}
+
+/* De kop boven één groep van het gamma. Kleiner dan een `.sec`: de sectie
+   heeft al een h2, dit zijn de tussenstappen erbinnen. */
+.v3c .pcat + .pcat,.v3c .pcols{margin-top:44px}
+.v3c .pcat-kop{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.v3c .pcat-kop .ci{width:38px;height:38px;border-radius:11px;background:var(--red);color:#fff;display:grid;place-items:center;flex-shrink:0}
+.v3c .pcat-kop h3{font-family:var(--fd);font-weight:800;font-size:clamp(20px,2.1vw,26px);letter-spacing:-.025em}
+.v3c .pcat-lede{font-size:14.5px;color:var(--txt-mid);line-height:1.65;max-width:720px;margin:0 0 22px}
+/* Ventilatoren en verwarming staan naast elkaar: twee groepen van twee vullen
+   samen precies de rij van vier waarin de bouwdrogers erboven staan. Apart
+   onder elkaar lieten ze allebei een halve rij leeg. */
+.v3c .pcols{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.v3c .pcols .pcat + .pcat{margin-top:0}
+@media (max-width:1040px){.v3c .pcols{grid-template-columns:1fr;gap:44px}}
 
 /* De strook "altijd inbegrepen" onder de hero van /machines en /prijzen. */
 .v3c .inbegrepen{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px;padding:20px 0;border-bottom:1px solid var(--line)}
@@ -658,6 +709,15 @@
 .v3c .pkgcta p{margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.82);max-width:620px}
 .v3c .pkgcta p a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
 .v3c .pkgcta .btn{flex-shrink:0}
+/*
+  `.pkgcta` is een donkerrode plaat met exact de achtergrond van een rode
+  sectie (`--maroon-d` plus hetzelfde beeld). Dat viel niet op zolang het
+  toestelblok alleen in een witte sectie stond; sinds /nieuwbouw-drogen haar
+  toestellen op rood zet, loste de plaat op in de achtergrond en bleef er
+  losse tekst met een zwevende knop over. Op rood krijgt ze daarom een dieper
+  vlak en een haarlijn, zodat ze een plaat blijft.
+*/
+.v3c .sr .pkgcta{background-color:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.2)}
 
 
 /* ============ WITTE BLOKKEN IN EEN RODE SECTIE ============
@@ -665,7 +725,12 @@
    achtergrond krijgt, moet zijn tekstkleur dus terugzetten — anders staat er
    witte tekst op een witte kaart. Dat gebeurde: de toestelkaarten op een
    regiopagina waren leeg op de link na. `.kaart` had die reset al; de rest
-   krijgt hem hier. */
+   krijgt hem hier.
+
+   `.stk` kwam er in november 2026 bij: de stapkaarten stonden tot dan alleen
+   op /waterschade, en daar in een witte sectie. Op het rode stappenplan van
+   /renovatie bleef er van zes kaarten alleen het pictogram en de lopende
+   tekst over, want de titel stond wit op wit. */
 .v3c .sr .prod,
 .v3c .sr .kz,
 .v3c .sr .paneel,
@@ -680,12 +745,14 @@
 .v3c .sr .infopanel,
 .v3c .sr .pricerows,
 .v3c .sr .vinkjes div,
+.v3c .sr .stk,
 .v3c .sr .tblwrap{color:var(--txt)}
 .v3c .sr .prod .kick,
 .v3c .sr .kz .kzsub,
 .v3c .sr .vlcard h3,
 .v3c .sr .faq dt,
 .v3c .sr .sn h3,
+.v3c .sr .stk h3,
 .v3c .sr .fl h3,
 .v3c .sr .prod h3,
 .v3c .sr .paneel h3,
@@ -694,6 +761,7 @@
 .v3c .sr .prod .kick{color:var(--red)}
 .v3c .sr .prod .pdesc,
 .v3c .sr .sn p,
+.v3c .sr .stk p,
 .v3c .sr .fl p,
 .v3c .sr .paneel p,
 .v3c .sr .infopanel p,
@@ -906,22 +974,36 @@
    head blijft kloppen. Browsers zonder `:has()` tonen alles open: dat is de
    oude situatie, niet een kapotte.
    ============================================================ */
-.v3c .faq.uitklap{padding:0}
+.v3c .faq.uitklap{padding:0;overflow:hidden}
 .v3c .faq.uitklap dt{margin:0}
 .v3c .faq.uitklap .faqtoggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
-.v3c .faq.uitklap dt label{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;cursor:pointer;padding:22px 24px;font-family:var(--fd);font-weight:800;font-size:15px;color:var(--txt)}
-.v3c .faq.uitklap dt label::after{content:"";flex-shrink:0;width:11px;height:11px;margin-top:5px;border-right:2.4px solid var(--red);border-bottom:2.4px solid var(--red);transform:rotate(45deg);transition:transform .22s}
+.v3c .faq.uitklap dt label{display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;padding:20px 24px;font-family:var(--fd);font-weight:700;font-size:17.5px;line-height:1.35;color:var(--txt);transition:color .15s}
+/*
+  De pijl zit in een rond vlak, zoals op de gidspagina's. Hij stond hier als
+  kaal hoekje van twee randen: dat las als een detail van de kaart in plaats
+  van als de knop die hem opent, en de twee FAQ's op de site zagen er daardoor
+  verschillend uit. De pijl zelf is een SVG in de achtergrond en geen tweede
+  pseudo-element, want `::before` en `::after` zijn hier allebei al bezet en
+  een los element kan niet: de markup is een `<dl>`.
+*/
+.v3c .faq.uitklap dt label::after{
+  content:"";flex-shrink:0;width:30px;height:30px;border-radius:50%;
+  background:var(--bg-alt) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8102E' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/13px no-repeat;
+  transition:transform .2s;
+}
+.v3c .sr .faq.uitklap dt label::after,
+.v3c .sw2 .faq.uitklap dt label::after{background-color:var(--bg-alt)}
 .v3c .faq.uitklap dt label:hover{color:var(--red)}
 .v3c .faq.uitklap .faqtoggle:focus-visible + label{outline:2px solid var(--red);outline-offset:-4px;border-radius:16px}
-.v3c .faq.uitklap dd{margin:0;padding:0 24px 22px;font-size:13.5px;line-height:1.7;color:var(--txt-mid)}
+.v3c .faq.uitklap dd{margin:0;padding:0 24px 22px;font-size:15.5px;line-height:1.7;color:var(--txt-mid)}
 .v3c .faq.uitklap dd p{margin:0}
 .v3c .faq.uitklap dd a{color:var(--red);font-weight:600}
 @supports selector(:has(*)){
   .v3c .faq.uitklap:not(:has(.faqtoggle:checked)) dd{display:none}
-  .v3c .faq.uitklap:has(.faqtoggle:checked) dt label::after{transform:rotate(-135deg)}
+  .v3c .faq.uitklap:has(.faqtoggle:checked) dt label::after{transform:rotate(180deg)}
   .v3c .faq.uitklap:has(.faqtoggle:checked) dd{animation:faqin .22s ease}
   /* Open: de vraag dichter bij haar antwoord, anders hangt het antwoord los. */
-  .v3c .faq.uitklap:has(.faqtoggle:checked) dt label{padding-bottom:12px}
+  .v3c .faq.uitklap:has(.faqtoggle:checked) dt label{padding-bottom:14px}
 }
 @keyframes faqin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.v3c .faq.uitklap dd{animation:none}}
@@ -931,6 +1013,14 @@
    regiopagina's; dit zet er een raster van drie omheen dat ook in een witte
    sectie werkt. */
 .v3c .refs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+/*
+  De kaart moet de hoogte van zijn rij vullen: de `Reveal`-omhulling rekt wel
+  mee, maar `.rz` bleef zo hoog als zijn eigen tekst. Een titel van twee
+  regels naast een van één gaf daardoor kaarten die onderaan niet uitlijnden.
+*/
+.v3c .refs>*{display:flex}
+.v3c .refs .rz{flex:1;display:flex;flex-direction:column}
+.v3c .refs .rz .rzt{flex:1}
 @media (max-width:980px){.v3c .refs{grid-template-columns:1fr 1fr}}
 @media (max-width:620px){.v3c .refs{grid-template-columns:1fr}}
 
@@ -1073,7 +1163,7 @@
   kolom is de afstand tussen elke vraag gelijk en hoort het antwoord zichtbaar
   bij de vraag erboven.
 */
-.v3c .faqs.enkel{grid-template-columns:1fr;max-width:880px;margin-inline:auto;gap:12px}
+.v3c .faqs.enkel{grid-template-columns:1fr;max-width:900px;margin-inline:auto;gap:12px}
 
 /*
   De bestelwagen hoort tegen de rechterrand van het rode blok te staan, zoals
@@ -1082,3 +1172,52 @@
 */
 .v3c .manband img.mb-man.tegenrand{margin-right:-44px}
 @media (max-width:860px){.v3c .manband img.mb-man.tegenrand{margin-right:0}}
+
+/* ------------------------------------------------------------------
+   De gemeentelijst onderaan een regio- en gemeentepagina
+
+   Dezelfde linkrij als op de homepage, maar die opmaak stond alleen op
+   `.v3 .rg-links` (home-v3-fixes.css) en deze pagina's draaien op de
+   `.v3c`-schil. Zonder deze regels plakten zestien gemeentenamen aan elkaar
+   tot één woord: "AntwerpenAartselaarMechelen…".
+
+   Niet overgeschreven vanuit home-v3-fixes.css maar hier opnieuw gezet omdat
+   de twee schillen los van elkaar staan; zie de notitie over de footer in
+   CLAUDE.md voor waarom dat zo blijft.
+   ------------------------------------------------------------------ */
+.v3c .rg-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:28px;font-size:14px}
+.v3c .rg-links span{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--txt-dim)}
+.v3c .rg-links a{font-weight:600;color:var(--txt);border-bottom:1px solid var(--line-2);text-decoration:none}
+.v3c .rg-links a:hover{color:var(--red);border-color:var(--red)}
+
+/* ------------------------------------------------------------------
+   De gemeentenlijst per streek (provinciepagina)
+
+   Zes blokken met samen ruim zeventig gemeentenamen. Als platte opsomming
+   werd dat een muur; als grid van kaarten met een kolomlijst erin leest het
+   als een register, en dat is precies wat het is.
+
+   `columns` en niet `grid` binnen een blok: de lijsten zijn verschillend lang
+   (zes namen in de Rupelstreek, zesentwintig in de Kempen) en moeten alleen
+   maar netjes in kolommen vallen, niet uitlijnen met de buurkaart.
+   ------------------------------------------------------------------ */
+.v3c .strk{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:860px){.v3c .strk{grid-template-columns:1fr}}
+.v3c .strk-blok{background:var(--bg-alt);border-radius:18px;padding:24px 24px 20px}
+.v3c .sr .strk-blok{background:#fff}
+.v3c .strk-blok h3{font-family:var(--fd);font-weight:800;font-size:16.5px;margin:0 0 6px}
+.v3c .strk-blok > p{font-size:13.5px;color:var(--txt-mid);line-height:1.6;margin:0 0 14px}
+.v3c .strk-lijst{list-style:none;margin:0;padding:0;columns:3;column-gap:16px;font-size:13.5px}
+@media (max-width:1040px){.v3c .strk-lijst{columns:2}}
+@media (max-width:460px){.v3c .strk-lijst{columns:1}}
+.v3c .strk-lijst li{break-inside:avoid;line-height:1.75}
+/* Een gemeente mét eigen pagina is onderstreept, een zonder is gewone tekst.
+   Dat onderscheid draagt de notitie eronder ("de onderstreepte gemeenten"),
+   dus het mag niet alleen op kleur steunen. */
+.v3c .strk-lijst a{color:var(--txt);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px;font-weight:600}
+.v3c .strk-lijst a:hover{color:var(--red);text-decoration-color:var(--red)}
+.v3c .strk-lijst span{color:var(--txt-mid)}
+
+/* De kolom "met droogpakket" is waarom deze tabel bestaat; in het standaard
+   tabelgrijs las ze als de minst belangrijke van de drie. */
+.v3c .tbl td b{color:var(--txt);font-weight:700}

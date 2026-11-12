@@ -1,5 +1,9 @@
 /* ============================================================
-   Ozonbehandeling (/ozonbehandeling) — de ontschimmelingsdienst.
+   De behandelingspagina's: /ozonbehandeling en /ontschimmeling.
+
+   Twee pagina's, één schil. Ze delen `.oz-page` zodat ze herkenbaar één familie
+   zijn; de copy en de beeldtaal verschillen (ozon draagt de O₃-animatie, de
+   ontschimmelingspagina een foto van de werf).
 
    Alles scoped onder `.oz-page`, zodat deze pagina niet naar de rest van de
    app lekt — dezelfde afspraak als bij de andere schillen.
@@ -258,6 +262,12 @@
   opacity, zodat het op de compositor draait en de hero niet laat haperen.
 */
 .oz-page .oz-hero-vis{display:grid;place-items:center;padding:0 0 96px}
+/*
+  De hero-foto van /ontschimmeling, waar de zusterpagina haar O₃-animatie
+  draagt. Zelfde plek in het raster, dus dezelfde onderrand; de foto krijgt de
+  ronding en de schaduw van de panelen verderop zodat hij in de schil past.
+*/
+.oz-page .oz-hero-foto{width:min(100%,520px);border-radius:22px;box-shadow:0 34px 70px -34px rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.16)}
 /*
   De generator in het midden, pulsen naar buiten, en zes sporen op de kring die
   dichtklappen zodra hun deeltje aankomt.
@@ -520,6 +530,9 @@
 .oz-page .oz-safe-card{background:var(--page);border:1px solid var(--line);border-radius:18px;padding:26px 22px}
 .oz-page .oz-safe-card b{display:block;font-family:var(--fd);font-weight:700;font-size:15.5px;margin-bottom:9px}
 .oz-page .oz-safe-card p{font-size:13.8px;line-height:1.64;color:var(--txt-mid)}
+/* De stapkaarten op /ontschimmeling dragen een nummer boven de titel; de
+   veiligheidskaarten op beide pagina's niet. */
+.oz-page .oz-safe-card .oz-num{margin-bottom:14px}
 
 /* ============ REVIEWS ============
    Eigen opmaak en niet die van `V3Reviews`: die hangt onder `.v3` en erft daar

@@ -196,7 +196,7 @@ const VerhuurVerlengenPage = () => {
                 <p style={{ lineHeight: 1.7 }}>
                   Wij vinden geen lopende huur bij deze link. Gebruik de knop uit de mail die u
                   twee dagen vóór het einde van uw huurperiode kreeg, of bel ons op{" "}
-                  <a href="tel:+3236899065">03 689 90 65</a> — dan regelen wij het telefonisch.
+                  <a href="tel:+3236899065">03 689 90 65</a>, dan regelen wij het telefonisch.
                 </p>
                 <div className="fnav" style={{ marginTop: 20 }}>
                   <Link className="btn btn-o" to="/verhuur/calculator">

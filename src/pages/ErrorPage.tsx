@@ -42,7 +42,7 @@ function describe(error: unknown): ErrorCopy {
       code: String(error.status),
       badge: "Er ging iets mis",
       title: "We konden deze pagina niet laden",
-      lead: "Onze server gaf een fout terug. Probeer het zo dadelijk opnieuw — blijft het misgaan, bel of mail ons dan even, dan regelen we het manueel.",
+      lead: "Onze server gaf een fout terug. Probeer het zo dadelijk opnieuw, blijft het misgaan, bel of mail ons dan even, dan regelen we het manueel.",
     };
   }
 
@@ -50,7 +50,7 @@ function describe(error: unknown): ErrorCopy {
     code: "500",
     badge: "Er ging iets mis",
     title: "Er liep iets mis aan onze kant",
-    lead: "Dit ligt niet aan u. Probeer de pagina opnieuw te laden — lukt dat niet, bel of mail ons dan even, dan helpen we u meteen verder.",
+    lead: "Dit ligt niet aan u. Probeer de pagina opnieuw te laden, lukt dat niet, bel of mail ons dan even, dan helpen we u meteen verder.",
   };
 }
 

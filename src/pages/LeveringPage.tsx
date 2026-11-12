@@ -53,6 +53,17 @@ const Check = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
 );
 
+/*
+ * Het ventilator-icoon van stap 04. Het design tekende drie bladen door
+ * dezelfde `<path>` twee keer te herhalen met `transform="rotate(120|240)"`,
+ * maar dat draait om het midden van het viewBox terwijl het blad zelf uit het
+ * midden begint: de drie vielen half over elkaar en het resultaat was een vlek.
+ * Dit is één pad dat de drie bladen zelf beschrijft.
+ */
+const Fan = () => (
+  <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z" /><path d="M12 12v.01" /></svg>
+);
+
 /** Het kruis in de rode-kaart-blokken. */
 const Cross = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
@@ -106,8 +117,13 @@ const LeveringPage = () => {
               <h1>Geleverd én geïnstalleerd. Klaar om te drogen.</h1>
               <p>Een Vernast-technieker levert uw droogpakket en installeert de volledige opstelling, berekend op uw woning. <b style={{ color: "#fff" }}>U hoeft niets te tillen, te plaatsen of in te stellen.</b></p>
               <div className="hcta">
-                <a className="btn btn-white" href="/verhuur/calculator">Bereken uw droogpakket<Arrow /></a>
-                <a className="btn" href="#installatie" style={{ background: "#fff", color: "var(--red)" }}>Zo verloopt de installatie</a>
+                {/* Twee witte knoppen met rode tekst naast elkaar lazen als één
+                    blok; de hoofdactie viel niet op. Wit draagt nu de hoofdactie,
+                    zwart de verwijzing naar de uitleg. Opmaak in
+                    levering-fixes.css, niet inline — anders wint de inline-stijl
+                    van elke latere correctie. */}
+                <a className="btn btn-licht" href="/verhuur/calculator">Bereken uw droogpakket<Arrow /></a>
+                <a className="btn btn-zwart" href="#installatie">Zo verloopt de installatie</a>
               </div>
             </div>
             <div className="hero-vis">
@@ -203,7 +219,7 @@ const LeveringPage = () => {
                 <p className="pt">Bouwdrogers draaien lange periodes continu en vragen een stabiele voeding; bij meerdere toestellen verdelen we ze over verschillende stroomkringen. Luchtverplaatsers halen vochtige lucht uit moeilijk bereikbare zones. Temperatuur, circulatie en ontvochtiging bepalen samen de efficiëntie.</p>
                 <div className="pchips"><span>Aparte stroomkringen</span><span>Ventilatoren</span><span>Geen dode hoeken</span></div>
               </div>
-              <div className="mockc"><div className="mt">Circulatie in de zone</div><div className="fanm"><div className="fan"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M12 12c2-3.3 1-6.5-1.5-8C8 2.6 5.5 3.5 5 6c-.4 2 1.3 4.3 7 6z" /><path d="M12 12c3.8.6 6.5-1.4 7-4.3.4-2.6-1.4-4.6-3.9-4.2-2 .3-3.5 2.7-3.1 8.5z" transform="rotate(120 12 12)" /><path d="M12 12c3.8.6 6.5-1.4 7-4.3.4-2.6-1.4-4.6-3.9-4.2-2 .3-3.5 2.7-3.1 8.5z" transform="rotate(240 12 12)" /><circle cx="12" cy="12" r="1.6" fill="currentColor" /></svg></div><div className="volt"><span><Check /> Stabiele voeding gecontroleerd</span><span><Check /> Kringen verdeeld</span><span><Check /> Ventilator op de juiste stand</span></div></div></div>
+              <div className="mockc"><div className="mt">Circulatie in de zone</div><div className="fanm"><div className="fan"><Fan /></div><div className="volt"><span><Check /> Stabiele voeding gecontroleerd</span><span><Check /> Kringen verdeeld</span><span><Check /> Ventilator op de juiste stand</span></div></div></div>
             </div>
             <div className={`ins-p${insStep === 4 ? " active" : ""}`}>
               <div>
@@ -211,7 +227,7 @@ const LeveringPage = () => {
                 <p className="pt">We controleren de volledige opstelling, stellen de streefvochtigheid in en bespreken welke ramen en deuren open of dicht blijven. U krijgt een korte uitleg, en daarna doet de opstelling het werk. Vragen tijdens de huur? De <a href="/klantservice" style={{ color: "#fff", fontWeight: 600 }}>klantenservice</a> staat klaar.</p>
                 <div className="pchips"><span>Streefwaarde ingesteld</span><span>Korte uitleg</span><span>Droging gestart</span></div>
               </div>
-              <div className="mockc"><div className="mt">Laatste controle</div><div className="startm play" id="startm"><div className="row"><i>✓</i>Opstelling gecontroleerd</div><div className="row"><i><Check /></i>Alle toestellen draaien</div><div className="row"><i><Check /></i>Condensafvoer loopt</div><div className="row"><i><Check /></i>Instellingen juist</div><div className="row"><i><Check /></i>Uitleg gegeven · droging gestart</div></div></div>
+              <div className="mockc"><div className="mt">Laatste controle</div><div className="startm play" id="startm"><div className="row"><i><Check /></i>Opstelling gecontroleerd</div><div className="row"><i><Check /></i>Alle toestellen draaien</div><div className="row"><i><Check /></i>Condensafvoer loopt</div><div className="row"><i><Check /></i>Instellingen juist</div><div className="row"><i><Check /></i>Uitleg gegeven · droging gestart</div></div></div>
             </div>
           </div>
         </div>
@@ -275,17 +291,17 @@ const LeveringPage = () => {
           <div className="sec-head">
             <span className="kick">Rode kaart</span>
             <h2 className="sec">Dit doet u beter niet tijdens de droging.</h2>
-            <p className="lede">Goedbedoeld, maar nefast voor het droogproces — en soms zelfs voor het toestel. Deze klassiekers zien we vaak, en ze kosten u droogtijd:</p>
+            <p className="lede">Goedbedoeld, maar nefast voor het droogproces, en soms zelfs voor het toestel. Deze klassiekers zien we vaak, en ze kosten u droogtijd:</p>
           </div>
           <div className="ng">
             <div className="ngc"><span className="xi"><Cross /></span><div><b>Ramen of buitendeuren openzetten</b><p>U laat vochtige buitenlucht binnen en de installatie moet die extra vracht opnieuw verwerken. De woning blijft dicht tijdens de droging.</p></div></div>
             <div className="ngc"><span className="xi"><Cross /></span><div><b>Bouwdrogers zomaar afzetten</b><p>'s Nachts of "even tijdens het werken" uitschakelen legt de droging stil en verlengt de huurperiode. De toestellen zijn gemaakt om continu te draaien.</p></div></div>
             <div className="ngc"><span className="xi"><Cross /></span><div><b>Een bouwdroger plat leggen of kantelen</b><p>In het koelcircuit zit koelmiddel: plat leggen beschadigt de compressor. Toch plat vervoerd? Laat het toestel 24 uur rechtop staan vóór de opstart.</p></div></div>
-            <div className="ngc"><span className="xi"><Cross /></span><div><b>Toestellen verplaatsen of dicht tegen de muur schuiven</b><p>De opstelling is berekend per droogzone. Verplaatsen of de aanzuig blokkeren verstoort de circulatie — overleg eerst even met ons.</p></div></div>
+            <div className="ngc"><span className="xi"><Cross /></span><div><b>Toestellen verplaatsen of dicht tegen de muur schuiven</b><p>De opstelling is berekend per droogzone. Verplaatsen of de aanzuig blokkeren verstoort de circulatie, overleg eerst even met ons.</p></div></div>
             <div className="ngc"><span className="xi"><Cross /></span><div><b>Binnendeuren sluiten die open moeten blijven</b><p>Droge lucht moet elke ruimte bereiken. Onze technieker zegt bij de opstart welke deuren open of dicht horen.</p></div></div>
-            <div className="ngc"><span className="xi"><Cross /></span><div><b>Nieuwe natte materialen binnenbrengen</b><p>Vers pleisterwerk of een natte chape erbij betekent een nieuwe vochtvracht — en een langere droogtijd. Meld het, dan rekenen we het pakket bij.</p></div></div>
+            <div className="ngc"><span className="xi"><Cross /></span><div><b>Nieuwe natte materialen binnenbrengen</b><p>Vers pleisterwerk of een natte chape erbij betekent een nieuwe vochtvracht, en een langere droogtijd. Meld het, dan rekenen we het pakket bij.</p></div></div>
           </div>
-          <div className="note note3" style={{ marginTop: "14px" }}><b>Twijfelt u ergens over?</b> Eén belletje naar de <a href="/klantservice">klantenservice</a> voorkomt dagen vertraging — en zo blijft uw <a href="/drooggarantie">Drooggarantie</a> gewoon gelden.*</div>
+          <div className="note note3" style={{ marginTop: "14px" }}><b>Twijfelt u ergens over?</b> Eén belletje naar de <a href="/klantservice">klantenservice</a> voorkomt dagen vertraging, en zo blijft uw <a href="/drooggarantie">Drooggarantie</a> gewoon gelden.*</div>
         </div>
         <img className="rood-man" src="/vernast/man-rode-kaart.webp" alt="Rode kaart voor deze fouten tijdens de droging" />
       </section>

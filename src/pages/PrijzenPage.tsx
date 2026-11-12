@@ -5,6 +5,7 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
 import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
 import ContactBlok from "@/components/content/ContactBlok";
+import FaqBlok from "@/components/content/FaqBlok";
 import {
   ArrowRightIcon,
   BoltIcon,
@@ -139,7 +140,7 @@ const FAQ = [
   {
     question: "Kan ik verlengen als de werf uitloopt?",
     answer:
-      "Ja. Loopt de werf uit of is de meting nog niet goed, dan verlengt u per week tegen dezelfde dagprijs; u krijgt daarvoor een link per mail en hoeft niets te bellen. Huurt u een berekend droogpakket en is het ondanks correcte droogomstandigheden nog niet droog, dan verlengt u kosteloos — dat is de drooggarantie.",
+      "Ja. Loopt de werf uit of is de meting nog niet goed, dan verlengt u per week tegen dezelfde dagprijs; u krijgt daarvoor een link per mail en hoeft niets te bellen. Huurt u een berekend droogpakket en is het ondanks correcte droogomstandigheden nog niet droog, dan verlengt u kosteloos, dat is de drooggarantie.",
   },
 ];
 
@@ -174,7 +175,9 @@ const verderLezen: LeesGroep[] = [
     links: [
       { to: "/verhuur/calculator", label: "Bereken de prijs van uw droogpakket" },
       { to: "/machines", label: "Welk toestel heeft u nodig? Vergelijk het gamma" },
-      { to: "/nieuwbouw", label: "Droogtijden van chape en pleisterwerk" },
+      { to: "/gids/stroomverbruik-bouwdroger", label: "Gids: wat kost een bouwdroger aan stroom?" },
+      { to: "/gids/hoe-lang-moet-chape-drogen", label: "Gids: hoe lang moet een chape drogen?" },
+      { to: "/nieuwbouw-drogen", label: "Droogtijden van chape en pleisterwerk" },
     ],
   },
   {
@@ -682,51 +685,41 @@ const PrijzenPage = () => (
       FAQ-schema in de head; schema voor onzichtbare inhoud is een
       overtreding, dus die twee mogen niet uit elkaar lopen.
     */}
-    <section className="sw">
-      <div className="wrap">
-        <div className="sec-head mid">
-          <span className="kick">Veelgestelde vragen</span>
-          <h2 className="sec">Veelgestelde vragen over de prijs.</h2>
-        </div>
-        <div className="faqs">
-          {FAQ.map((item, i) => (
-            <Reveal from="up" delay={(i % 2) * 0.06} as="dl" className="faq" key={item.question}>
-              <dt>{item.question}</dt>
-              <dd>{item.answer}</dd>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="manband">
-          <div className="mb-t">
-            <span className="mbk">Klaar om te reserveren</span>
-            <h3>Geen waarborg, geen verborgen kosten, levering binnen 24 uur.</h3>
-            <p>
-              De calculator geeft u in een paar klikken de volledige prijs voor uw oppervlakte,
-              met {PROCENT_ONLINE} % korting als u meteen online betaalt.
-            </p>
-            <div className="mb-cta">
-              <Link className="btn btn-white" to="/verhuur/calculator">
-                Bereken uw prijs
-                <ArrowRightIcon />
-              </Link>
-              <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
-                <PhoneIcon /> {CONTACT.phoneLocal}
-              </a>
-            </div>
+    <FaqBlok
+      titel="Veelgestelde vragen over de prijs."
+      vragen={FAQ.map((item) => ({ q: item.question, a: item.answer }))}
+      sleutel="pr-faq"
+      variant="wit"
+    >
+      <div className="manband">
+        <div className="mb-t">
+          <span className="mbk">Klaar om te reserveren</span>
+          <h3>Geen waarborg, geen verborgen kosten, levering binnen 24 uur.</h3>
+          <p>
+            De calculator geeft u in een paar klikken de volledige prijs voor uw oppervlakte,
+            met {PROCENT_ONLINE} % korting als u meteen online betaalt.
+          </p>
+          <div className="mb-cta">
+            <Link className="btn btn-white" to="/verhuur/calculator">
+              Bereken uw prijs
+              <ArrowRightIcon />
+            </Link>
+            <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
+              <PhoneIcon /> {CONTACT.phoneLocal}
+            </a>
           </div>
-          <img
-            className="mb-man breed"
-            src="/vernast/man-betaling.webp"
-            alt="Vernast technicus met de betaalterminal"
-            width={600}
-            height={900}
-            loading="lazy"
-            decoding="async"
-          />
         </div>
+        <img
+          className="mb-man breed"
+          src="/vernast/man-betaling.webp"
+          alt="Vernast technicus met de betaalterminal"
+          width={600}
+          height={900}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
-    </section>
+    </FaqBlok>
 
     <VerderLezen titel="Verder lezen over prijzen en pakketten" groepen={verderLezen} achtergrond="sr" />
 

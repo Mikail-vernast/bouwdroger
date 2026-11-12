@@ -23,7 +23,7 @@ function tomorrow(): string {
   return d.toISOString().slice(0, 10);
 }
 
-describe("afhaalcatalogus — één prijs per toestel", () => {
+describe("afhaalcatalogus, één prijs per toestel", () => {
   test("de dagprijs komt uit de gepubliceerde tarieven, niet uit de pagina", () => {
     for (const product of PICKUP_PRODUCTS) {
       const published = TARIEVEN.products[product.key as keyof typeof TARIEVEN.products];
@@ -78,7 +78,7 @@ describe("afhaalcatalogus — één prijs per toestel", () => {
   in een lijst waar geen pagina achter zit — of omgekeerd een pagina zonder
   prijs, en die rekent dan met `undefined`.
 */
-describe("gamma — tarieven en toestelpagina's lopen gelijk", () => {
+describe("gamma, tarieven en toestelpagina's lopen gelijk", () => {
   test("elke afhaalbare sleutel heeft een toestelpagina", async () => {
     const { PRODUCTS } = await import("@/data/verhuur");
     for (const product of PICKUP_PRODUCTS) {
@@ -204,7 +204,7 @@ describe("eerstvolgende vrije afhaaldatum", () => {
   });
 });
 
-describe("afhaalOrder — de server bepaalt het bedrag", () => {
+describe("afhaalOrder, de server bepaalt het bedrag", () => {
   const base = {
     lines: "ttk170:2",
     days: 7,
@@ -260,7 +260,7 @@ describe("afhaalOrder — de server bepaalt het bedrag", () => {
   bezoeker liet toestellen klaarzetten zonder één euro vooruit. Nu geldt
   dezelfde orderbevestiging als bij een pakket, met het saldo bij de afhaling.
 */
-describe("afhalen — voorschot en saldo", () => {
+describe("afhalen, voorschot en saldo", () => {
   const net = 100;
 
   test("volledig online betalen geeft de korting en laat niets openstaan", () => {

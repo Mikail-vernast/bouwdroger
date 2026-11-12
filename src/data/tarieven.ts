@@ -52,7 +52,7 @@ export const TARIEVEN = {
         "Voorrang bij planning en verlenging"
       ],
       "off": [],
-      "sub": "Volledig zonder eigen risico — bij schade, defect én diefstal.",
+      "sub": "Volledig zonder eigen risico, bij schade, defect én diefstal.",
       "name": "Geen eigen risico",
       "badge": "",
       "price": 59
@@ -63,7 +63,7 @@ export const TARIEVEN = {
       "id": "chape-40-5",
       "sqm": 40,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786349096604-chape-drogen-1.jpg",
-      "title": "Ruimte tot 40 m² — chape 5 cm",
+      "title": "Ruimte tot 40 m², chape 5 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786349096604-chape-drogen-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786349416392-lineup-dryers.png",
@@ -130,7 +130,7 @@ export const TARIEVEN = {
       "id": "chape-40-6",
       "sqm": 40,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351044154-chape-drogen-1.jpg",
-      "title": "Ruimte tot 40 m² — chape 6 cm",
+      "title": "Ruimte tot 40 m², chape 6 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351044154-chape-drogen-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351048262-lineup-dryers.png",
@@ -197,7 +197,7 @@ export const TARIEVEN = {
       "id": "chape-40-7",
       "sqm": 40,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351088871-chape-drogen-1.jpg",
-      "title": "Ruimte tot 40 m² — chape 7 cm",
+      "title": "Ruimte tot 40 m², chape 7 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351088871-chape-drogen-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351091629-lineup-dryers.png",
@@ -264,7 +264,7 @@ export const TARIEVEN = {
       "id": "pleister-40-1",
       "sqm": 40,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352908234-pleisterdrogen-1-1.jpg",
-      "title": "Ruimte tot 40 m² — pleisterdikte 1 cm",
+      "title": "Ruimte tot 40 m², pleisterdikte 1 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352908234-pleisterdrogen-1-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352913901-lineup-dryers.png",
@@ -331,7 +331,7 @@ export const TARIEVEN = {
       "id": "pleister-40-2",
       "sqm": 40,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352967454-pleisterdrogen-1-1.jpg",
-      "title": "Ruimte tot 40 m² — pleisterdikte 2 cm",
+      "title": "Ruimte tot 40 m², pleisterdikte 2 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352967454-pleisterdrogen-1-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352970072-lineup-dryers.png",
@@ -398,7 +398,7 @@ export const TARIEVEN = {
       "id": "pleister-40-3",
       "sqm": 40,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353005039-pleisterdrogen-1-1.jpg",
-      "title": "Ruimte tot 40 m² — pleisterdikte 3 cm",
+      "title": "Ruimte tot 40 m², pleisterdikte 3 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353005039-pleisterdrogen-1-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353006992-lineup-dryers.png",
@@ -465,7 +465,7 @@ export const TARIEVEN = {
       "id": "beide-40",
       "sqm": 40,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354333465-chape-pleister-drogen-1.jpg",
-      "title": "Ruimte tot 40 m² — Pleisterwerk + chape drogen",
+      "title": "Ruimte tot 40 m², Pleisterwerk + chape drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354333465-chape-pleister-drogen-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354337010-lineup-dryers.png",
@@ -522,7 +522,7 @@ export const TARIEVEN = {
       ],
       "sizeLabel": "Ruimte tot 40 m²",
       "shortTitle": "Pleisterwerk + chape 40 m²",
-      "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
+      "description": "Muren en vloer in één keer drogen, pleisterwerk en chape samen.",
       "pricePerDay": 9.0,
       "rentalWeeks": 4,
       "thicknessCm": null,
@@ -532,7 +532,7 @@ export const TARIEVEN = {
       "id": "waterschade-40",
       "sqm": 40,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355030724-chape-drogen-1-1.jpg",
-      "title": "Ruimte tot 40 m² — Waterschade drogen",
+      "title": "Ruimte tot 40 m², Waterschade drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355030724-chape-drogen-1-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355032899-lineup-dryers.png",
@@ -599,7 +599,7 @@ export const TARIEVEN = {
       "id": "chape-60-5",
       "sqm": 60,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351142535-chape-drogen-2.jpg",
-      "title": "Gebouw tot 60 m² — chape 5 cm",
+      "title": "Gebouw tot 60 m², chape 5 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351142535-chape-drogen-2.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351147398-lineup-dryers.png",
@@ -666,7 +666,7 @@ export const TARIEVEN = {
       "id": "chape-60-6",
       "sqm": 60,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351179693-chape-drogen-2.jpg",
-      "title": "Gebouw tot 60 m² — chape 6 cm",
+      "title": "Gebouw tot 60 m², chape 6 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351179693-chape-drogen-2.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351182183-lineup-dryers.png",
@@ -733,7 +733,7 @@ export const TARIEVEN = {
       "id": "chape-60-7",
       "sqm": 60,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351272515-chape-drogen-2.jpg",
-      "title": "Gebouw tot 60 m² — chape 7 cm",
+      "title": "Gebouw tot 60 m², chape 7 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351272515-chape-drogen-2.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351276016-lineup-dryers.png",
@@ -800,7 +800,7 @@ export const TARIEVEN = {
       "id": "pleister-60-1",
       "sqm": 60,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353051008-pleisterdrogen-2.jpg",
-      "title": "Gebouw tot 60 m² — pleisterdikte 1 cm",
+      "title": "Gebouw tot 60 m², pleisterdikte 1 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353051008-pleisterdrogen-2.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353053041-lineup-dryers.png",
@@ -867,7 +867,7 @@ export const TARIEVEN = {
       "id": "pleister-60-2",
       "sqm": 60,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353094804-pleisterdrogen-2.jpg",
-      "title": "Gebouw tot 60 m² — pleisterdikte 2 cm",
+      "title": "Gebouw tot 60 m², pleisterdikte 2 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353094804-pleisterdrogen-2.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353097794-lineup-dryers.png",
@@ -934,7 +934,7 @@ export const TARIEVEN = {
       "id": "pleister-60-3",
       "sqm": 60,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353179807-pleisterdrogen-2.jpg",
-      "title": "Gebouw tot 60 m² — pleisterdikte 3 cm",
+      "title": "Gebouw tot 60 m², pleisterdikte 3 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353179807-pleisterdrogen-2.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353181805-lineup-dryers.png",
@@ -1001,7 +1001,7 @@ export const TARIEVEN = {
       "id": "beide-60",
       "sqm": 60,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354567453-chape-pleister-drogen-2.jpg",
-      "title": "Gebouw tot 60 m² — Pleisterwerk + chape drogen",
+      "title": "Gebouw tot 60 m², Pleisterwerk + chape drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354567453-chape-pleister-drogen-2.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354398584-lineup-dryers.png",
@@ -1058,7 +1058,7 @@ export const TARIEVEN = {
       ],
       "sizeLabel": "Gebouw tot 60 m²",
       "shortTitle": "Pleisterwerk + chape 60 m²",
-      "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
+      "description": "Muren en vloer in één keer drogen, pleisterwerk en chape samen.",
       "pricePerDay": 12.1,
       "rentalWeeks": 4,
       "thicknessCm": null,
@@ -1068,7 +1068,7 @@ export const TARIEVEN = {
       "id": "waterschade-60",
       "sqm": 60,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355090327-pakketen-extra-5.jpg",
-      "title": "Gebouw tot 60 m² — Waterschade drogen",
+      "title": "Gebouw tot 60 m², Waterschade drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355090327-pakketen-extra-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355092388-lineup-dryers.png",
@@ -1135,7 +1135,7 @@ export const TARIEVEN = {
       "id": "chape-100-5",
       "sqm": 100,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351368982-chape-drogen-3.jpg",
-      "title": "Gebouw tot 100 m² — chape 5 cm",
+      "title": "Gebouw tot 100 m², chape 5 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351368982-chape-drogen-3.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351372451-lineup-dryers.png",
@@ -1212,7 +1212,7 @@ export const TARIEVEN = {
       "id": "chape-100-6",
       "sqm": 100,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351424325-chape-drogen-3.jpg",
-      "title": "Gebouw tot 100 m² — chape 6 cm",
+      "title": "Gebouw tot 100 m², chape 6 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351424325-chape-drogen-3.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351427181-lineup-dryers.png",
@@ -1289,7 +1289,7 @@ export const TARIEVEN = {
       "id": "chape-100-7",
       "sqm": 100,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351489823-chape-drogen-3.jpg",
-      "title": "Gebouw tot 100 m² — chape 7 cm",
+      "title": "Gebouw tot 100 m², chape 7 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351489823-chape-drogen-3.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351495030-lineup-dryers.png",
@@ -1366,7 +1366,7 @@ export const TARIEVEN = {
       "id": "pleister-100-1",
       "sqm": 100,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353235234-pleisterdrogen-3-1.jpg",
-      "title": "Gebouw tot 100 m² — pleisterdikte 1 cm",
+      "title": "Gebouw tot 100 m², pleisterdikte 1 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353235234-pleisterdrogen-3-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353238377-lineup-dryers.png",
@@ -1443,7 +1443,7 @@ export const TARIEVEN = {
       "id": "pleister-100-2",
       "sqm": 100,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353312843-pleisterdrogen-3-1.jpg",
-      "title": "Gebouw tot 100 m² — pleisterdikte 2 cm",
+      "title": "Gebouw tot 100 m², pleisterdikte 2 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353312843-pleisterdrogen-3-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353315553-lineup-dryers.png",
@@ -1520,7 +1520,7 @@ export const TARIEVEN = {
       "id": "pleister-100-3",
       "sqm": 100,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353345111-pleisterdrogen-3-1.jpg",
-      "title": "Gebouw tot 100 m² — pleisterdikte 3 cm",
+      "title": "Gebouw tot 100 m², pleisterdikte 3 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353345111-pleisterdrogen-3-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353347049-lineup-dryers.png",
@@ -1597,7 +1597,7 @@ export const TARIEVEN = {
       "id": "beide-100",
       "sqm": 100,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354641528-chape-pleister-drogen-3.jpg",
-      "title": "Gebouw tot 100 m² — Pleisterwerk + chape drogen",
+      "title": "Gebouw tot 100 m², Pleisterwerk + chape drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354641528-chape-pleister-drogen-3.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354643619-lineup-dryers.png",
@@ -1664,7 +1664,7 @@ export const TARIEVEN = {
       ],
       "sizeLabel": "Gebouw tot 100 m²",
       "shortTitle": "Pleisterwerk + chape 100 m²",
-      "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
+      "description": "Muren en vloer in één keer drogen, pleisterwerk en chape samen.",
       "pricePerDay": 12.2,
       "rentalWeeks": 4,
       "thicknessCm": null,
@@ -1674,7 +1674,7 @@ export const TARIEVEN = {
       "id": "waterschade-100",
       "sqm": 100,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355170690-pleisterdrogen-3-2.jpg",
-      "title": "Gebouw tot 100 m² — Waterschade drogen",
+      "title": "Gebouw tot 100 m², Waterschade drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355170690-pleisterdrogen-3-2.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355174268-lineup-dryers.png",
@@ -1751,7 +1751,7 @@ export const TARIEVEN = {
       "id": "chape-140-5",
       "sqm": 140,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351567990-chape-drogen-3.jpg",
-      "title": "Gebouw tot 140 m² — chape 5 cm",
+      "title": "Gebouw tot 140 m², chape 5 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351567990-chape-drogen-3.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351570344-lineup-dryers.png",
@@ -1828,7 +1828,7 @@ export const TARIEVEN = {
       "id": "chape-140-6",
       "sqm": 140,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351615382-chape-drogen-3.jpg",
-      "title": "Gebouw tot 140 m² — chape 6 cm",
+      "title": "Gebouw tot 140 m², chape 6 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351615382-chape-drogen-3.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351618150-lineup-dryers.png",
@@ -1905,7 +1905,7 @@ export const TARIEVEN = {
       "id": "chape-140-7",
       "sqm": 140,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351660411-chape-drogen-3.jpg",
-      "title": "Gebouw tot 140 m² — chape 7 cm",
+      "title": "Gebouw tot 140 m², chape 7 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351660411-chape-drogen-3.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351664801-lineup-dryers.png",
@@ -1982,7 +1982,7 @@ export const TARIEVEN = {
       "id": "pleister-140-1",
       "sqm": 140,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353392122-pleisterdrogen-3-1.jpg",
-      "title": "Gebouw tot 140 m² — pleisterdikte 1 cm",
+      "title": "Gebouw tot 140 m², pleisterdikte 1 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353392122-pleisterdrogen-3-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353398772-lineup-dryers.png",
@@ -2059,7 +2059,7 @@ export const TARIEVEN = {
       "id": "pleister-140-2",
       "sqm": 140,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353501501-pleisterdrogen-4.jpg",
-      "title": "Gebouw tot 140 m² — pleisterdikte 2 cm",
+      "title": "Gebouw tot 140 m², pleisterdikte 2 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353501501-pleisterdrogen-4.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353505627-lineup-dryers.png",
@@ -2136,7 +2136,7 @@ export const TARIEVEN = {
       "id": "pleister-140-3",
       "sqm": 140,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353532303-pleisterdrogen-13-1.jpg",
-      "title": "Gebouw tot 140 m² — pleisterdikte 3 cm",
+      "title": "Gebouw tot 140 m², pleisterdikte 3 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353532303-pleisterdrogen-13-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353534986-lineup-dryers.png",
@@ -2213,7 +2213,7 @@ export const TARIEVEN = {
       "id": "beide-140",
       "sqm": 140,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354676242-chape-pleister-drogen-4.jpg",
-      "title": "Gebouw tot 140 m² — Pleisterwerk + chape drogen",
+      "title": "Gebouw tot 140 m², Pleisterwerk + chape drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354676242-chape-pleister-drogen-4.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354678284-lineup-dryers.png",
@@ -2280,7 +2280,7 @@ export const TARIEVEN = {
       ],
       "sizeLabel": "Gebouw tot 140 m²",
       "shortTitle": "Pleisterwerk + chape 140 m²",
-      "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
+      "description": "Muren en vloer in één keer drogen, pleisterwerk en chape samen.",
       "pricePerDay": 17.25,
       "rentalWeeks": 4,
       "thicknessCm": null,
@@ -2290,7 +2290,7 @@ export const TARIEVEN = {
       "id": "waterschade-140",
       "sqm": 140,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355222460-pleisterdrogen-4-1.jpg",
-      "title": "Gebouw tot 140 m² — Waterschade drogen",
+      "title": "Gebouw tot 140 m², Waterschade drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355222460-pleisterdrogen-4-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355224649-lineup-dryers.png",
@@ -2367,7 +2367,7 @@ export const TARIEVEN = {
       "id": "chape-180-5",
       "sqm": 180,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351789293-chape-drogen-5.jpg",
-      "title": "Gebouw tot 180 m² — chape 5 cm",
+      "title": "Gebouw tot 180 m², chape 5 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351789293-chape-drogen-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351794090-lineup-dryers.png",
@@ -2444,7 +2444,7 @@ export const TARIEVEN = {
       "id": "chape-180-6",
       "sqm": 180,
       "image": "/products/chape-drogen-5.jpg",
-      "title": "Gebouw tot 180 m² — chape 6 cm",
+      "title": "Gebouw tot 180 m², chape 6 cm",
       "images": [
         "/products/chape-drogen-5.jpg"
       ],
@@ -2518,7 +2518,7 @@ export const TARIEVEN = {
       "id": "chape-180-7",
       "sqm": 180,
       "image": "/products/chape-drogen-5.jpg",
-      "title": "Gebouw tot 180 m² — chape 7 cm",
+      "title": "Gebouw tot 180 m², chape 7 cm",
       "images": [
         "/products/chape-drogen-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786351862667-lineup-dryers.png",
@@ -2595,7 +2595,7 @@ export const TARIEVEN = {
       "id": "pleister-180-1",
       "sqm": 180,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353658589-pleisterdrogen-5.jpg",
-      "title": "Gebouw tot 180 m² — pleisterdikte 1 cm",
+      "title": "Gebouw tot 180 m², pleisterdikte 1 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353658589-pleisterdrogen-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353663966-lineup-dryers.png",
@@ -2672,7 +2672,7 @@ export const TARIEVEN = {
       "id": "pleister-180-2",
       "sqm": 180,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353705984-pleisterdrogen-5.jpg",
-      "title": "Gebouw tot 180 m² — pleisterdikte 2 cm",
+      "title": "Gebouw tot 180 m², pleisterdikte 2 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353705984-pleisterdrogen-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353708010-lineup-dryers.png",
@@ -2749,7 +2749,7 @@ export const TARIEVEN = {
       "id": "pleister-180-3",
       "sqm": 180,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353743434-pleisterdrogen-5.jpg",
-      "title": "Gebouw tot 180 m² — pleisterdikte 3 cm",
+      "title": "Gebouw tot 180 m², pleisterdikte 3 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353743434-pleisterdrogen-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353745820-lineup-dryers.png",
@@ -2826,7 +2826,7 @@ export const TARIEVEN = {
       "id": "beide-180",
       "sqm": 180,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354804299-chape-pleister-drogen-5.jpg",
-      "title": "Gebouw tot 180 m² — Pleisterwerk + chape drogen",
+      "title": "Gebouw tot 180 m², Pleisterwerk + chape drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354804299-chape-pleister-drogen-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354747181-lineup-dryers.png",
@@ -2893,7 +2893,7 @@ export const TARIEVEN = {
       ],
       "sizeLabel": "Gebouw tot 180 m²",
       "shortTitle": "Pleisterwerk + chape 180 m²",
-      "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
+      "description": "Muren en vloer in één keer drogen, pleisterwerk en chape samen.",
       "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": null,
@@ -2903,7 +2903,7 @@ export const TARIEVEN = {
       "id": "waterschade-180",
       "sqm": 180,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355310888-pleisterdrogen-6.jpg",
-      "title": "Gebouw tot 180 m² — Waterschade drogen",
+      "title": "Gebouw tot 180 m², Waterschade drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355310888-pleisterdrogen-6.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355312720-lineup-dryers.png",
@@ -2980,7 +2980,7 @@ export const TARIEVEN = {
       "id": "chape-220-5",
       "sqm": 220,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352068347-chape-drogen-7.jpg",
-      "title": "Gebouw tot 220 m² — chape 5 cm",
+      "title": "Gebouw tot 220 m², chape 5 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352068347-chape-drogen-7.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352071568-lineup-dryers.png",
@@ -3057,7 +3057,7 @@ export const TARIEVEN = {
       "id": "chape-220-6",
       "sqm": 220,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352144004-chape-drogen-7.jpg",
-      "title": "Gebouw tot 220 m² — chape 6 cm",
+      "title": "Gebouw tot 220 m², chape 6 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352144004-chape-drogen-7.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352146233-lineup-dryers.png",
@@ -3134,7 +3134,7 @@ export const TARIEVEN = {
       "id": "chape-220-7",
       "sqm": 220,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352187647-chape-drogen-7.jpg",
-      "title": "Gebouw tot 220 m² — chape 7 cm",
+      "title": "Gebouw tot 220 m², chape 7 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352187647-chape-drogen-7.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352190116-lineup-dryers.png",
@@ -3211,7 +3211,7 @@ export const TARIEVEN = {
       "id": "pleister-220-1",
       "sqm": 220,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353794433-pleisterdrogen-5.jpg",
-      "title": "Gebouw tot 220 m² — pleisterdikte 1 cm",
+      "title": "Gebouw tot 220 m², pleisterdikte 1 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353794433-pleisterdrogen-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353797111-lineup-dryers.png",
@@ -3288,7 +3288,7 @@ export const TARIEVEN = {
       "id": "pleister-220-2",
       "sqm": 220,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353826172-pleisterdrogen-5.jpg",
-      "title": "Gebouw tot 220 m² — pleisterdikte 2 cm",
+      "title": "Gebouw tot 220 m², pleisterdikte 2 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353826172-pleisterdrogen-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353829117-lineup-dryers.png",
@@ -3365,7 +3365,7 @@ export const TARIEVEN = {
       "id": "pleister-220-3",
       "sqm": 220,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353860399-pleisterdrogen-5.jpg",
-      "title": "Gebouw tot 220 m² — pleisterdikte 3 cm",
+      "title": "Gebouw tot 220 m², pleisterdikte 3 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353860399-pleisterdrogen-5.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353864462-lineup-dryers.png",
@@ -3442,7 +3442,7 @@ export const TARIEVEN = {
       "id": "beide-220",
       "sqm": 220,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354835670-chape-pleister-drogen-6.jpg",
-      "title": "Gebouw tot 220 m² — Pleisterwerk + chape drogen",
+      "title": "Gebouw tot 220 m², Pleisterwerk + chape drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354835670-chape-pleister-drogen-6.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354838600-lineup-dryers.png",
@@ -3509,7 +3509,7 @@ export const TARIEVEN = {
       ],
       "sizeLabel": "Gebouw tot 220 m²",
       "shortTitle": "Pleisterwerk + chape 220 m²",
-      "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
+      "description": "Muren en vloer in één keer drogen, pleisterwerk en chape samen.",
       "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": null,
@@ -3519,7 +3519,7 @@ export const TARIEVEN = {
       "id": "waterschade-220",
       "sqm": 220,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355339051-pleisterdrogen-6.jpg",
-      "title": "Gebouw tot 220 m² — Waterschade drogen",
+      "title": "Gebouw tot 220 m², Waterschade drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355339051-pleisterdrogen-6.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355340831-lineup-dryers.png",
@@ -3596,7 +3596,7 @@ export const TARIEVEN = {
       "id": "chape-260-5",
       "sqm": 260,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352308280-chape-drogen-8.jpg",
-      "title": "Gebouw tot 260 m² — chape 5 cm",
+      "title": "Gebouw tot 260 m², chape 5 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352308280-chape-drogen-8.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352223293-lineup-dryers.png",
@@ -3673,7 +3673,7 @@ export const TARIEVEN = {
       "id": "chape-260-6",
       "sqm": 260,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352374608-chape-drogen-8.jpg",
-      "title": "Gebouw tot 260 m² — chape 6 cm",
+      "title": "Gebouw tot 260 m², chape 6 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352374608-chape-drogen-8.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352376842-lineup-dryers.png",
@@ -3750,7 +3750,7 @@ export const TARIEVEN = {
       "id": "chape-260-7",
       "sqm": 260,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352406673-chape-drogen-8.jpg",
-      "title": "Gebouw tot 260 m² — chape 7 cm",
+      "title": "Gebouw tot 260 m², chape 7 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352406673-chape-drogen-8.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352408551-lineup-dryers.png",
@@ -3827,7 +3827,7 @@ export const TARIEVEN = {
       "id": "pleister-260-1",
       "sqm": 260,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354006705-pleisterdrogen-7.jpg",
-      "title": "Gebouw tot 260 m² — pleisterdikte 1 cm",
+      "title": "Gebouw tot 260 m², pleisterdikte 1 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354006705-pleisterdrogen-7.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786353972185-lineup-dryers.png",
@@ -3904,7 +3904,7 @@ export const TARIEVEN = {
       "id": "pleister-260-2",
       "sqm": 260,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354044628-pleisterdrogen-7.jpg",
-      "title": "Gebouw tot 260 m² — pleisterdikte 2 cm",
+      "title": "Gebouw tot 260 m², pleisterdikte 2 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354044628-pleisterdrogen-7.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354046940-lineup-dryers.png",
@@ -3981,7 +3981,7 @@ export const TARIEVEN = {
       "id": "pleister-260-3",
       "sqm": 260,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354093658-pleisterdrogen-8.jpg",
-      "title": "Gebouw tot 260 m² — pleisterdikte 3 cm",
+      "title": "Gebouw tot 260 m², pleisterdikte 3 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354093658-pleisterdrogen-8.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354096287-lineup-dryers.png",
@@ -4058,7 +4058,7 @@ export const TARIEVEN = {
       "id": "beide-260",
       "sqm": 260,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354906015-chape-pleister-drogen-8.jpg",
-      "title": "Gebouw tot 260 m² — Pleisterwerk + chape drogen",
+      "title": "Gebouw tot 260 m², Pleisterwerk + chape drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354906015-chape-pleister-drogen-8.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354908625-lineup-dryers.png",
@@ -4125,7 +4125,7 @@ export const TARIEVEN = {
       ],
       "sizeLabel": "Gebouw tot 260 m²",
       "shortTitle": "Pleisterwerk + chape 260 m²",
-      "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
+      "description": "Muren en vloer in één keer drogen, pleisterwerk en chape samen.",
       "pricePerDay": 37.4,
       "rentalWeeks": 4,
       "thicknessCm": null,
@@ -4135,7 +4135,7 @@ export const TARIEVEN = {
       "id": "waterschade-260",
       "sqm": 260,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355395462-pleisterdrogen-8-1.jpg",
-      "title": "Gebouw tot 260 m² — Waterschade drogen",
+      "title": "Gebouw tot 260 m², Waterschade drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355395462-pleisterdrogen-8-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355398592-lineup-dryers.png",
@@ -4212,7 +4212,7 @@ export const TARIEVEN = {
       "id": "chape-300-5",
       "sqm": 300,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352503766-chape-drogen-9.jpg",
-      "title": "Gebouw tot 300 m² — chape 5 cm",
+      "title": "Gebouw tot 300 m², chape 5 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352503766-chape-drogen-9.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352473569-lineup-dryers.png",
@@ -4289,7 +4289,7 @@ export const TARIEVEN = {
       "id": "chape-300-6",
       "sqm": 300,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352550564-chape-drogen-9.jpg",
-      "title": "Gebouw tot 300 m² — chape 6 cm",
+      "title": "Gebouw tot 300 m², chape 6 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352550564-chape-drogen-9.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352553336-lineup-dryers.png",
@@ -4366,7 +4366,7 @@ export const TARIEVEN = {
       "id": "chape-300-7",
       "sqm": 300,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352585050-chape-drogen-9.jpg",
-      "title": "Gebouw tot 300 m² — chape 7 cm",
+      "title": "Gebouw tot 300 m², chape 7 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352585050-chape-drogen-9.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786352587079-lineup-dryers.png",
@@ -4443,7 +4443,7 @@ export const TARIEVEN = {
       "id": "pleister-300-1",
       "sqm": 300,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354194580-pleisterdrogen-9.jpg",
-      "title": "Gebouw tot 300 m² — pleisterdikte 1 cm",
+      "title": "Gebouw tot 300 m², pleisterdikte 1 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354194580-pleisterdrogen-9.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354196783-lineup-dryers.png",
@@ -4520,7 +4520,7 @@ export const TARIEVEN = {
       "id": "pleister-300-2",
       "sqm": 300,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354230558-pleisterdrogen-9.jpg",
-      "title": "Gebouw tot 300 m² — pleisterdikte 2 cm",
+      "title": "Gebouw tot 300 m², pleisterdikte 2 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354230558-pleisterdrogen-9.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354233348-lineup-dryers.png",
@@ -4597,7 +4597,7 @@ export const TARIEVEN = {
       "id": "pleister-300-3",
       "sqm": 300,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354261881-pleisterdrogen-9.jpg",
-      "title": "Gebouw tot 300 m² — pleisterdikte 3 cm",
+      "title": "Gebouw tot 300 m², pleisterdikte 3 cm",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354261881-pleisterdrogen-9.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354266147-lineup-dryers.png",
@@ -4674,7 +4674,7 @@ export const TARIEVEN = {
       "id": "beide-300",
       "sqm": 300,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354939677-chape-pleister-drogen-9.jpg",
-      "title": "Gebouw tot 300 m² — Pleisterwerk + chape drogen",
+      "title": "Gebouw tot 300 m², Pleisterwerk + chape drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354939677-chape-pleister-drogen-9.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786354941639-lineup-dryers.png",
@@ -4741,7 +4741,7 @@ export const TARIEVEN = {
       ],
       "sizeLabel": "Gebouw tot 300 m²",
       "shortTitle": "Pleisterwerk + chape 300 m²",
-      "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
+      "description": "Muren en vloer in één keer drogen, pleisterwerk en chape samen.",
       "pricePerDay": 35.2,
       "rentalWeeks": 4,
       "thicknessCm": null,
@@ -4751,7 +4751,7 @@ export const TARIEVEN = {
       "id": "waterschade-300",
       "sqm": 300,
       "image": "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355454333-pleisterdrogen-9-1.jpg",
-      "title": "Gebouw tot 300 m² — Waterschade drogen",
+      "title": "Gebouw tot 300 m², Waterschade drogen",
       "images": [
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355454333-pleisterdrogen-9-1.jpg",
         "https://zqzrdzpfxqlwrojxsqdl.supabase.co/storage/v1/object/public/bouwdroger-fotos/1786355459761-lineup-dryers.png",

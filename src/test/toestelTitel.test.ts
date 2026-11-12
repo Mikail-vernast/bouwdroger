@@ -6,7 +6,7 @@ describe("toestelTitel", () => {
   it("zet het soortwoord vóór een typenummer", () => {
     expect(
       toestelTitel({ short: "TTK 350 S", type: "Condensontvochtiger", day: 14, spec: ["Vochtafvoer", "70", "L/dag"] })
-    ).toBe("Bouwdroger TTK 350 S huren — 70 L/dag, € 14/dag | Vernast");
+    ).toBe("Bouwdroger TTK 350 S huren - 70 L/dag, € 14/dag | Vernast");
   });
 
   it("zet \"adsorptiedroger huren\" letterlijk vooraan als de naam met het soortwoord begint", () => {
@@ -17,12 +17,12 @@ describe("toestelTitel", () => {
         day: 25,
         spec: ["Techniek", "Adsorptie", ""],
       })
-    ).toBe("Adsorptiedroger huren — Revolution, € 25/dag | Vernast");
+    ).toBe("Adsorptiedroger huren - Revolution, € 25/dag | Vernast");
   });
 
   it("toont een dagprijs met centen als hij niet rond is", () => {
     expect(toestelTitel({ short: "X", type: "Iets", day: 8.5, spec: undefined })).toBe(
-      "X huren — € 8,50/dag | Vernast"
+      "X huren - € 8,50/dag | Vernast"
     );
   });
 

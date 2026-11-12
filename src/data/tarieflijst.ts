@@ -1,7 +1,7 @@
 /**
  * De publieke tarieflijst — één rij bedragen die overal hetzelfde is.
  *
- * Op /prijzen, /nieuwbouw, /waterschade en /renovatie stond tot nu toe een
+ * Op /prijzen, /nieuwbouw-drogen, /waterschade en /renovatie stond tot nu toe een
  * verzonnen reeks ("DF 200", "DF 400", "DF 800") met `€ XX` als prijs. Dat zijn
  * vier indexeerbare pagina's die in hun titel een prijs beloven en er geen
  * geven — voor een zoekmachine dun, voor een AI-assistent onciteerbaar, en voor
@@ -101,7 +101,7 @@ export function euro(amount: number): string {
 /**
  * Kaartgegevens voor de drie ontvochtigers, zoals `Pakketkaarten` ze verwacht.
  *
- * Op /nieuwbouw, /waterschade en /renovatie stond hiervoor telkens een eigen,
+ * Op /nieuwbouw-drogen, /waterschade en /renovatie stond hiervoor telkens een eigen,
  * met de hand onderhouden lijstje met dezelfde verzonnen toestellen erin. Nu
  * staat het één keer hier, zodat een prijswijziging in het portaal ook op die
  * pagina's doorloopt in plaats van er stil achter te blijven.

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FOOTER_SITEMAP, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
+import { FOOTER_SITEMAP, REGIOS, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
 import { CONTACT, HEADQUARTERS, SITE_NAME } from "@/lib/site";
 import "@/styles/site-footer.css";
@@ -95,6 +95,21 @@ const V3Footer = () => (
           <h2 id="ft-sitemap">Sitemap</h2>
           <ul>
             {FOOTER_SITEMAP.map((link) => (
+              <li key={link.path}>
+                <Link to={link.path}>{link.label}</Link>
+              </li>
+            ))}
+          </ul>
+
+          {/*
+            De regiopagina's staan hiernaast ook als speld op de kaart, maar die
+            kaart is aria-hidden sierwerk: niet bereikbaar met de toetsenbord en
+            zonder zoekwoord in de ankertekst. Deze lijst is het echte signaal —
+            voor een bezoeker met een schermlezer én voor een crawler.
+          */}
+          <h2 id="ft-regios">Per regio</h2>
+          <ul aria-labelledby="ft-regios">
+            {REGIOS.map((link) => (
               <li key={link.path}>
                 <Link to={link.path}>{link.label}</Link>
               </li>

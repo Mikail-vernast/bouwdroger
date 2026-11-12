@@ -77,7 +77,7 @@ const VHeader = () => {
 
           <nav className="nav-menu" aria-label="Hoofdnavigatie">
             <div className="item has-sub">
-              Vernast Group
+              Group
               <CaretIcon className="caret" />
               <div className="submenu">
                 <a href="https://vernast-vochtbestrijding.be/">

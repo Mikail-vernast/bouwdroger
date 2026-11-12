@@ -65,7 +65,6 @@ const LuchtontvochtigerHurenPage = () => (
         leveren en installeren, in heel Vlaanderen.
       </p>
     }
-    heroImg={{ src: "/vernast/eco-performance.webp", alt: "Vernast Performance condensontvochtiger" }}
     faq={FAQ}
     jsonLd={[
       offerCatalogSchema(
@@ -147,7 +146,7 @@ const LuchtontvochtigerHurenPage = () => (
           Chape en pleisterwerk brengen honderden liters water in een woning. Zonder ontvochtiging droogt
           dat traag en kan de vloerlegger of schilder niet starten. Hoe lang dat duurt per dikte, staat in{" "}
           <Link to="/gids/hoe-lang-moet-chape-drogen">hoe lang moet chape drogen</Link>; wat we op de werf
-          doen, leest u op <Link to="/nieuwbouw">chape en pleisterwerk drogen</Link>.
+          doen, leest u op <Link to="/nieuwbouw-drogen">chape en pleisterwerk drogen</Link>.
         </p>
 
         <h2 style={{ marginTop: 40 }}>Professioneel of huishoudelijk?</h2>

@@ -4,6 +4,7 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
 import ContactBlok from "@/components/content/ContactBlok";
+import FaqBlok from "@/components/content/FaqBlok";
 import {
   ArrowRightIcon,
   BoltIcon,
@@ -16,9 +17,17 @@ import {
   TruckIcon,
 } from "@/components/home-v3/icons";
 import { GaugeIcon } from "@/components/content/icons";
-import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
+import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
 import { REGIO_BY_PATH, REGIO_ROUTES } from "@/data/regio-slugs";
+import { gemeentenInRegio, gemeenteVanPlaats } from "@/data/gemeente-slugs";
+import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
+import {
+  droogtermijnen,
+  natuurlijkeChapeWeken,
+  natuurlijkePleisterWeken,
+  termijnLabel,
+} from "@/lib/droogtijden";
 import { REGIO_BY_SLUG, realisatiesVoor, type Regio } from "@/data/regios";
 import { PRODUCTS, productImageAlt } from "@/data/verhuur";
 import { toestelLabel } from "@/data/navigation";
@@ -91,6 +100,15 @@ const RegioPage = () => {
       .filter((r): r is Realisatie => !!r),
   ];
   const andere = REGIO_ROUTES.filter((r) => r.slug !== regio.slug);
+  const gemeenten = gemeentenInRegio(regio.slug);
+  const streken = STREKEN_PER_REGIO[regio.slug] ?? [];
+  /*
+    De droogtermijnen komen uit de pakketcatalogus (`src/lib/droogtijden.ts`),
+    niet uit een overgetypte tabel: wijzigt het portaal een termijn, dan
+    wijzigt deze tabel mee. Zie de notitie bovenaan die module.
+  */
+  const chape = droogtermijnen("chape");
+  const pleister = droogtermijnen("pleister");
 
   return (
     <div className="v3c rg-page">
@@ -99,6 +117,13 @@ const RegioPage = () => {
         description={regio.description}
         path={regio.path}
         jsonLd={[
+          /*
+            De Organization hoort hier, niet alleen op de andere pagina's. De
+            Service hieronder verwijst met `provider: {"@id": ".../#organization"}`
+            naar deze node, en Google lost een @id alleen op binnen de graaf van
+            dezelfde pagina — zonder dit stond de provider dood te verwijzen.
+          */
+          organizationSchema(),
           serviceSchema({
             name: regio.h1,
             description: regio.description,
@@ -346,7 +371,20 @@ const RegioPage = () => {
             <div className="sec-head mid">
               <span className="kick">Uit de praktijk</span>
               <h2 className="sec">{regio.realisaties.kop}</h2>
-              <p className="lede">{regio.realisaties.intro}</p>
+              {/* De intro beschrijft de uitgelichte werven; sinds álle werven
+                  uit de provincie als kaart staan (zie `werven` hierboven)
+                  klopte "Drie projecten" niet meer met de negen kaarten
+                  eronder. De rest wordt nu geteld in plaats van verzwegen. */}
+              <p className="lede">
+                {regio.realisaties.intro}
+                {werven.length > regio.realisaties.slugs.length && (
+                  <>
+                    {" "}
+                    Daaronder volgt elke andere werf die we in {regio.name} droogden,{" "}
+                    {werven.length} in totaal.
+                  </>
+                )}
+              </p>
             </div>
             <div className="rzs">
               {werven.map((r, i) => (
@@ -376,56 +414,191 @@ const RegioPage = () => {
       )}
 
       {/* ================= FAQ ================= */}
-      <section className="sw">
-        <div className="wrap">
-          <div className="sec-head mid">
-            <span className="kick">Veelgestelde vragen</span>
-            <h2 className="sec">Bouwdrogers huren in {regio.name}.</h2>
+      {/* De titel luidde "Bouwdrogers huren in {regio.name}." — op één letter
+          na de H1 van deze pagina, dus twee koppen op dezelfde zoekintentie
+          binnen één document. */}
+      <FaqBlok
+        titel={`Wat klanten in ${regio.name} ons vragen.`}
+        vragen={regio.faq}
+        sleutel="regio-faq"
+        variant="wit"
+      >
+        {/*
+          De rode CTA-plaat staat bewust binnen de FAQ-sectie en niet in een
+          eigen sectie eronder: wie de vragen heeft gelezen is klaar om te
+          boeken, en met een lege witte strook ertussen viel dat moment weg.
+        */}
+        <div className="manband">
+          <div className="mb-t">
+            <span className="mbk">Bouwdroger nodig in {regio.name}</span>
+            <h3>Bereken uw pakket, reserveer online, en morgen staat het er.</h3>
+            <p>
+              Geplaatst en ingesteld door onze technieker, met een vochtmeting bij de start en
+              bij de oplevering. Liever eerst even overleggen? Bel ons gerust.
+            </p>
+            <div className="mb-cta">
+              <Link className="btn btn-white" to="/verhuur/calculator">
+                Bereken uw droogpakket
+                <ArrowRightIcon />
+              </Link>
+              <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
+                <PhoneIcon /> {CONTACT.phoneLocal}
+              </a>
+            </div>
           </div>
-          <div className="faqs">
-            {regio.faq.map((item, i) => (
-              <Reveal from="up" delay={(i % 2) * 0.06} as="dl" className="faq" key={item.q}>
-                <dt>{item.q}</dt>
-                <dd>{item.a}</dd>
-              </Reveal>
-            ))}
-          </div>
+          <img
+            className="mb-man breed bijsnijden"
+            src="/vernast/man-bestelwagen.webp"
+            alt="Vernast technicus bij de bestelwagen met een bouwdroger"
+            width={1440}
+            height={827}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </FaqBlok>
 
-          {/*
-            De rode CTA-plaat staat bewust binnen de FAQ-sectie en niet in een
-            eigen sectie eronder: wie de vragen heeft gelezen is klaar om te
-            boeken, en met een lege witte strook ertussen viel dat moment weg.
-          */}
-          <div className="manband">
-            <div className="mb-t">
-              <span className="mbk">Bouwdroger nodig in {regio.name}</span>
-              <h3>Bereken uw pakket, reserveer online, en morgen staat het er.</h3>
-              <p>
-                Geplaatst en ingesteld door onze technieker, met een vochtmeting bij de start en
-                bij de oplevering. Liever eerst even overleggen? Bel ons gerust.
+      {/* ================= DROOGTIJDEN ================= */}
+      {/*
+        Wat iemand na de prijs het vaakst wil weten: hoe lang staat dat ding
+        er dan? Die vraag werd op deze pagina nergens beantwoord -- ze stond
+        alleen in de gidsen, drie klikken verderop.
+
+        De cijfers komen uit de pakketcatalogus en niet uit deze JSX, zodat de
+        tabel niet uit elkaar loopt met wat de calculator aanrekent. De kolom
+        "zonder droger" is de vuistregel uit de bouwpraktijk; dat staat er
+        letterlijk bij, want het is een richtwaarde en geen belofte.
+      */}
+      {/*
+        Gekoppeld aan `streken`, niet alleen aan `chape`.
+
+        Deze tabel is op alle vijf de provinciepagina's identiek. Zette ze
+        alleen erbij, dan daalde het aandeel eigen tekst van 64% naar 53-56%
+        op de vier provincies die (nog) geen gemeentenlijst hebben -- gedeelde
+        tekst erbij zonder eigen tekst ertegenover. Daarom rollen beide
+        secties per provincie samen uit: zodra `provincie-gemeenten.ts` een
+        geverifieerde lijst voor een provincie heeft, krijgt die pagina ze
+        allebei. Antwerpen heeft er nu 61% eigen tekst mee.
+      */}
+      {chape.length > 0 && streken.length > 0 && (
+        <section className="sr">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="kick">Hoe lang duurt het</span>
+              <h2 className="sec">Droogtijden met en zonder bouwdroger.</h2>
+              <p className="lede">
+                De huurtermijnen hieronder zijn die van onze droogpakketten, dezelfde als de
+                calculator aanrekent. Ze gelden in heel {regio.name}: de droogtijd hangt af van
+                dikte, volume en temperatuur, niet van uw postcode.
               </p>
-              <div className="mb-cta">
-                <Link className="btn btn-white" to="/verhuur/calculator">
-                  Bereken uw droogpakket
-                  <ArrowRightIcon />
-                </Link>
-                <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
-                  <PhoneIcon /> {CONTACT.phoneLocal}
-                </a>
+            </div>
+
+            <div className="tblwrap">
+              <div className="tblscroll">
+                <table className="tbl">
+                  <caption className="sr-only">Droogtijden per materiaal en dikte</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Wat moet drogen</th>
+                      <th scope="col">Zonder droger</th>
+                      <th scope="col">Met droogpakket</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {chape.map((rij) => (
+                      <tr key={`chape-${rij.dikte}`}>
+                        <th scope="row">Cementchape {rij.dikte} cm</th>
+                        <td>± {natuurlijkeChapeWeken(rij.dikte)} weken</td>
+                        <td>
+                          <b>{termijnLabel(rij)}</b>
+                        </td>
+                      </tr>
+                    ))}
+                    {pleister.map((rij) => {
+                      const nat = natuurlijkePleisterWeken(rij.dikte);
+                      return (
+                        <tr key={`pleister-${rij.dikte}`}>
+                          <th scope="row">Pleisterwerk {rij.dikte} cm</th>
+                          <td>
+                            ± {nat.min === nat.max ? nat.min : `${nat.min} tot ${nat.max}`} weken
+                          </td>
+                          <td>
+                            <b>{termijnLabel(rij)}</b>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
             </div>
-            <img
-              className="mb-man breed bijsnijden"
-              src="/vernast/man-bestelwagen.webp"
-              alt="Vernast technicus bij de bestelwagen met een bouwdroger"
-              width={1440}
-              height={827}
-              loading="lazy"
-              decoding="async"
-            />
+
+            <p className="tblnote">
+              &ldquo;Zonder droger&rdquo; is de vuistregel uit de bouwpraktijk bij een goed
+              verluchte ruimte rond 20 &deg;C &mdash; een richtwaarde, geen meting. In een koude of
+              gesloten ruimte loopt ze flink op, en dat is precies waar een bouwdroger het verschil
+              maakt. Wat telt is de eindmeting: is het op de afgesproken datum niet droog, dan
+              huurt u kosteloos verder.{" "}
+              <Link to="/gids/hoe-lang-moet-chape-drogen">Hoe lang chape moet drogen</Link> legt het
+              per situatie uit.
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* ================= GEMEENTEN PER STREEK ================= */}
+      {/*
+        Elke gemeente van de provincie, gegroepeerd per streek.
+
+        De pagina noemde zeventien gemeenten en wekte daarmee de indruk dat we
+        alleen daar komen: wie "bouwdroger huren Hemiksem" of "bouwdroger
+        Westerlo" zocht, vond niets terwijl we er wel leveren. Per streek en
+        niet per arrondissement, want de streek zegt iets over de bouw en dus
+        over het drogen -- zandgrond en koude winterwerven in de Kempen,
+        kleigrond en arbeiderswoningen aan de Rupel.
+
+        Gemeenten met een eigen pagina worden vanzelf een link; de lijst in
+        `provincie-gemeenten.ts` weet daar niets van.
+      */}
+      {streken.length > 0 && (
+        <section className="sw">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="kick">Waar we leveren</span>
+              <h2 className="sec">De gemeenten van {regio.name}, per streek.</h2>
+              <p className="lede">
+                Wij leveren in de hele provincie, en de streek bepaalt mee welke opstelling erbij
+                hoort. Staat uw gemeente er niet bij, bel ons dan gerust &mdash; ook net over de
+                provinciegrens rijden we.
+              </p>
+            </div>
+            <div className="strk">
+              {streken.map((streek) => (
+                <Reveal from="up" as="article" className="strk-blok" key={streek.naam}>
+                  <h3>{streek.naam}</h3>
+                  <p>{streek.kenmerk}</p>
+                  <ul className="strk-lijst">
+                    {streek.gemeenten.map((naam) => {
+                      const eigen = gemeenteVanPlaats(naam);
+                      return (
+                        <li key={naam}>
+                          {eigen ? <Link to={eigen.path}>{naam}</Link> : <span>{naam}</span>}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Reveal>
+              ))}
+            </div>
+            <div className="note">
+              <b>De onderstreepte gemeenten hebben een eigen pagina</b> met de rijtijd vanaf ons
+              magazijn, de bebouwing ter plaatse en de vragen die daar spelen. De rest bedienen we
+              even goed &mdash; bel ons op {CONTACT.phoneLocal} of{" "}
+              <Link to="/verhuur/calculator">bereken meteen uw pakket</Link>.
+            </div>
+          </div>
+        </section>
+      )}
 
       {/*
         Hier stond alleen een kopje "Wij leveren in heel Vlaanderen en Brussel"
@@ -455,6 +628,25 @@ const RegioPage = () => {
               </Reveal>
             ))}
           </div>
+          {/*
+            De gemeenten van deze provincie die een eigen pagina hebben. Zonder
+            deze lijst hangt elke gemeentepagina aan één link vanaf de
+            homepage-kaart, en die kaart toont maar één provincie tegelijk —
+            precies de situatie waardoor 19 van de 22 realisaties ooit niet
+            geïndexeerd raakten (zie realisatie-regio.ts). De provinciepagina
+            is de natuurlijke ouder, dus die draagt ze.
+          */}
+          {gemeenten.length > 0 && (
+            <nav className="rg-links" aria-label={`Gemeenten in ${regio.name}`}>
+              <span>Bouwdroger huren per gemeente:</span>
+              {gemeenten.map((g) => (
+                <Link key={g.slug} to={g.path}>
+                  {g.name}
+                </Link>
+              ))}
+            </nav>
+          )}
+
           <div className="note">
             <b>Wij leveren in heel België.</b> Buiten de provincies hieronder rijden we ook, al
             telt de rit dan mee in de planning. Bel ons gerust voor een werf net over de
@@ -488,7 +680,7 @@ const RegioPage = () => {
             <h2 className="sec">Beoordeeld door wie ons al liet komen.</h2>
             <p className="lede">
               Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over
-              snelheid, afspraken nakomen en opvolging — precies wat een werf in {regio.name}
+              snelheid, afspraken nakomen en opvolging, precies wat een werf in {regio.name}
               {" "}van ons vraagt.
             </p>
           </div>

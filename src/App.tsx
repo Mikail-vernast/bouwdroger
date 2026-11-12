@@ -2,6 +2,7 @@ import type { RouteRecord } from "vite-react-ssg";
 import Layout from "./Layout";
 import ErrorPage from "./pages/ErrorPage";
 import { REGIO_ROUTES } from "./data/regio-slugs";
+import { GEMEENTE_ROUTES } from "./data/gemeente-slugs";
 
 /**
  * De routes als data-array in plaats van als <Routes>-JSX. Dat is wat
@@ -84,9 +85,10 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/WaaromBouwdrogingPage")).default }),
       },
       /*
-       * Gidsen: elk één informatieve zoekvraag (droogtijd, toesteltype,
-       * verbruik). Vaste paden in plaats van `gids/:slug` — het zijn drie
-       * verschillende pagina's met een eigen opbouw, geen sjabloon met data.
+       * Gidsen: elk één informatieve zoekvraag (droogtijd chape, droogtijd
+       * pleisterwerk, toesteltype, verbruik). Vaste paden in plaats van
+       * `gids/:slug` — het zijn aparte pagina's met een eigen opbouw, geen
+       * sjabloon met data.
        */
       {
         path: "gids",
@@ -95,6 +97,10 @@ export const routes: RouteRecord[] = [
       {
         path: "gids/hoe-lang-moet-chape-drogen",
         lazy: async () => ({ Component: (await import("./pages/gids/ChapeDroogtijdPage")).default }),
+      },
+      {
+        path: "gids/hoe-lang-moet-pleisterwerk-drogen",
+        lazy: async () => ({ Component: (await import("./pages/gids/PleisterwerkDroogtijdPage")).default }),
       },
       {
         path: "gids/condensdroger-of-adsorptiedroger",
@@ -131,7 +137,7 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/BookingSuccess")).default }),
       },
       {
-        path: "nieuwbouw",
+        path: "nieuwbouw-drogen",
         lazy: async () => ({ Component: (await import("./pages/NieuwbouwPage")).default }),
       },
       {
@@ -151,6 +157,15 @@ export const routes: RouteRecord[] = [
       {
         path: "ozonbehandeling",
         lazy: async () => ({ Component: (await import("./pages/OzonbehandelingPage")).default }),
+      },
+      /*
+       * Ontschimmeling — het handwerk vóór de ozonbehandeling. Eigen URL omdat
+       * het een eigen zoekvraag is; de twee pagina's linken naar elkaar en
+       * delen hun schil, niet hun copy.
+       */
+      {
+        path: "ontschimmeling",
+        lazy: async () => ({ Component: (await import("./pages/OntschimmelingPage")).default }),
       },
       {
         path: "machines",
@@ -172,6 +187,20 @@ export const routes: RouteRecord[] = [
         (regio): RouteRecord => ({
           path: regio.path.slice(1),
           lazy: async () => ({ Component: (await import("./pages/RegioPage")).default }),
+        })
+      ),
+
+      /*
+        De gemeentepagina's, op dezelfde manier: vaste routes in plaats van een
+        parameter, want `bouwdroger-huren-:gemeente` kan React Router niet —
+        een parameter moet een heel segment zijn. `gemeente-slugs.ts` is net als
+        `regio-slugs.ts` een paar regels zonder proza; de teksten (`gemeenten.ts`)
+        laadt de pagina pas als iemand ze opent.
+      */
+      ...GEMEENTE_ROUTES.map(
+        (gemeente): RouteRecord => ({
+          path: gemeente.path.slice(1),
+          lazy: async () => ({ Component: (await import("./pages/GemeentePage")).default }),
         })
       ),
 
@@ -267,7 +296,7 @@ export const routes: RouteRecord[] = [
             {
               path: "__fout",
               Component: () => {
-                throw new Error("Testfout — /__fout bestaat alleen om de foutpagina te tonen.");
+                throw new Error("Testfout, /__fout bestaat alleen om de foutpagina te tonen.");
               },
             } satisfies RouteRecord,
             {

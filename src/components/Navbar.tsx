@@ -9,7 +9,7 @@ import FontPreload from "@/components/FontPreload";
 const dienstenItems = [
   {
     label: "Nieuwbouw",
-    href: "/nieuwbouw",
+    href: "/nieuwbouw-drogen",
     description: "Pleisterwerk & chape drogen",
     icon: Building2,
     badge: null,

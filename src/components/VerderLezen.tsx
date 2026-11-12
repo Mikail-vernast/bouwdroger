@@ -7,7 +7,7 @@ import { PRODUCTS } from "@/data/verhuur";
  * Het blok "verder lezen" onderaan de inhoudspagina's: realisaties, toestellen,
  * de calculator en een provinciepagina.
  *
- * /nieuwbouw, /waterschade, /renovatie, /prijzen en /machines linkten nergens
+ * /nieuwbouw-drogen, /waterschade, /renovatie, /prijzen en /machines linkten nergens
  * heen behalve naar de telefoon. Voor een crawler waren het daardoor
  * doodlopende pagina's zonder context, en de realisaties die precies bewijzen
  * wat de tekst belooft stonden er los van. Eén component, zodat de vijf

@@ -1,0 +1,265 @@
+/* ============================================================
+   /renovatie — wat deze pagina bovenop de gedeelde v3-vormtaal heeft.
+
+   Alles wat op meer dan één inhoudspagina hoort staat in
+   src/styles/v3-content.css; hier staat alleen wat echt eigen is aan deze
+   pagina. Wortel: `.v3c.rn-page`.
+
+   Het grote stuk is de doorsnede van een keldermuur. De vijf oorzaken stonden
+   als vijf kaarten in een raster van drie: twee weesjes op de tweede rij, en
+   vijf keer dezelfde kaart waarin alleen de tekst verschilde. Terwijl het
+   verschil tussen die vijf nu net een plaats is — onderaan de muur, dwars
+   erdoor, op het koude oppervlak, uit de chape, van bovenaf. Dat laat zich
+   tekenen. De nummers in de tekening zijn dezelfde als die in de lijst
+   ernaast, zodat "doorslaand vocht" niet alleen een woord blijft.
+   ============================================================ */
+
+/* ---- de twee kolommen van de oorzakensectie ----
+   De tekening blijft staan terwijl de lijst ernaast doorscrollt: wie bij
+   oorzaak vier leest, ziet nog steeds waar in de muur dat zit. */
+.v3c.rn-page .vbron-kolom { position: sticky; top: 118px; align-self: start }
+@media (max-width: 1040px) {
+  .v3c.rn-page .vbron-kolom { position: static }
+}
+
+/* ---- de doorsnede zelf ----
+   Eén blok, alles erin absoluut geplaatst in procenten van het kader. De
+   maten hangen dus aan de breedte van de kolom en niet aan een vaste hoogte;
+   `aspect-ratio` houdt de verhouding gelijk. */
+.v3c.rn-page .vbron {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.12 / 1;
+  /* De achtergrond is de buitenlucht boven het maaiveld; alleen de hoek
+     linksboven laat ze zien. Met het grijs van een kaart leek die hoek een
+     gat in de tekening. */
+  background: #e7edf1;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* De grond buiten de kelder. Het streeppatroon is de bouwkundige notatie voor
+   aarde; het hoeft niet realistisch te zijn, wel herkenbaar anders dan de
+   muur ernaast. */
+.v3c.rn-page .vb-grond {
+  position: absolute; left: 0; top: 13%; bottom: 0; width: 24%;
+  background: repeating-linear-gradient(135deg, #ded5c9 0 7px, #d1c7b8 7px 14px);
+  /* Het maaiveld. Zonder die lijn leest de lege hoek erboven als een gat in
+     de tekening in plaats van als de buitenlucht. */
+  border-top: 2px solid rgba(20,20,20,.14);
+}
+/* De keldermuur: metselwerk in lagen. De lijnen staan in pixels en niet in
+   procenten, zodat de lagen even hoog blijven als het blok smaller wordt. */
+.v3c.rn-page .vb-muur {
+  position: absolute; left: 24%; top: 7%; bottom: 0; width: 13%;
+  background:
+    repeating-linear-gradient(0deg, rgba(20,20,20,.09) 0 1px, transparent 1px 15px),
+    linear-gradient(90deg, #ddd4c9, #e7dfd5);
+}
+/* Vloerplaat boven en chape onder: de twee kanten waar het vocht niet door kan. */
+.v3c.rn-page .vb-plafond {
+  position: absolute; left: 24%; right: 0; top: 0; height: 7%;
+  background: #ddd7d0;
+}
+.v3c.rn-page .vb-vloer {
+  position: absolute; left: 37%; right: 0; bottom: 0; height: 14%;
+  background: linear-gradient(#ebe5de, #ded7ce);
+  border-top: 2px solid rgba(20,20,20,.09);
+}
+/* De ruimte zelf. Wit, met een schaduw tegen de muur: dat is de koude kant
+   waar de condens op slaat, en meteen de reden dat nummer 1 daar staat. */
+.v3c.rn-page .vb-ruimte {
+  position: absolute; left: 37%; right: 0; top: 7%; bottom: 14%;
+  background: #fff;
+  box-shadow: inset 13px 0 20px -14px rgba(46,127,209,.55);
+}
+
+/* Twee stille labels, zodat de doorsnede niet uitgelegd hoeft te worden. */
+.v3c.rn-page .vb-tag {
+  position: absolute; z-index: 1;
+  font-family: var(--fm); font-size: 9px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--txt-dim);
+}
+.v3c.rn-page .vb-tag.buiten { left: 4%; bottom: 5% }
+.v3c.rn-page .vb-tag.binnen { left: 40%; top: 9.5% }
+
+/* De bouwdroger in de ruimte. Het rode blokje is het enige gekleurde vlak in
+   de tekening: daar hoort het oog te landen nadat het de vijf bronnen gezien
+   heeft. */
+.v3c.rn-page .vb-droger {
+  position: absolute; right: 9%; bottom: 14%; width: 12%; height: 19%;
+  border-radius: 4px 4px 1px 1px;
+  background: linear-gradient(165deg, var(--red), #9d0c23);
+  box-shadow: 0 9px 18px -11px rgba(200,16,46,.95);
+  z-index: 1;
+}
+/* Het bedieningspaneel bovenaan. */
+.v3c.rn-page .vb-droger::before {
+  content: ""; position: absolute; left: 20%; right: 20%; top: 13%; height: 11%;
+  border-radius: 1px; background: rgba(255,255,255,.9);
+}
+/* De aanzuigroosters eronder. */
+.v3c.rn-page .vb-droger::after {
+  content: ""; position: absolute; left: 24%; right: 24%; bottom: 22%; height: 34%;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.6) 0 2px, transparent 2px 8px);
+}
+
+/* De ring die uit de droger loopt. Hij zegt wat de vijf bronnen samen nodig
+   hebben: ergens in die ruimte staat iets dat het vocht er weer uit haalt. */
+.v3c.rn-page .vb-zuig {
+  position: absolute; right: 15%; bottom: 23.5%; width: 9%; aspect-ratio: 1;
+  border-radius: 50%; border: 1.5px solid var(--red);
+  opacity: 0;
+  animation: rnZuig 4.6s ease-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes rnZuig {
+  0%   { opacity: .5; transform: translate(50%, 50%) scale(.5) }
+  70%  { opacity: 0;  transform: translate(50%, 50%) scale(2.4) }
+  100% { opacity: 0;  transform: translate(50%, 50%) scale(2.4) }
+}
+
+/* ---- de bewegende delen ----
+   Elk deeltje krijgt zijn vertraging mee als `--d`, zodat dezelfde klasse
+   meerdere keren gebruikt kan worden zonder een reeks nth-child-regels.
+
+   De baan loopt via `top`, `bottom` of `left` in procenten en niet via
+   `translate` in pixels: het kader schaalt mee met de kolom, en een vaste
+   afstand in pixels zou op een smal scherm dwars door de muur schieten.
+   Vijftien stipjes is te weinig om dat op de compositor te hoeven houden. */
+.v3c.rn-page .vb-p {
+  position: absolute;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--red);
+  opacity: 0;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-delay: var(--d, 0s);
+}
+
+/* 1 · Condensatie: druppels die op het koude muuroppervlak naar beneden lopen.
+   Dezelfde baan voor alle drie; de vertraging maakt er een straaltje van. */
+.v3c.rn-page .vb-p.cond { left: 37.2%; animation: rnCond 3.6s infinite }
+@keyframes rnCond {
+  0%   { top: 16%; opacity: 0; transform: scale(.5) }
+  16%  { opacity: .9; transform: scale(1) }
+  84%  { opacity: .9 }
+  100% { top: 62%; opacity: 0; transform: scale(.8) }
+}
+
+/* 2 · Bouwvocht: damp die uit de verse chape omhoog komt. */
+.v3c.rn-page .vb-p.bouw {
+  width: 11px; height: 11px; background: rgba(200,16,46,.5);
+  animation: rnStijg 4.4s infinite;
+}
+@keyframes rnStijg {
+  0%   { bottom: 14%; opacity: 0; transform: scale(.5) }
+  18%  { opacity: .8 }
+  70%  { opacity: .4 }
+  100% { bottom: 52%; opacity: 0; transform: scale(1.3) }
+}
+
+/* 3 · Na een lek: één druppel van bovenaf, over de volle hoogte van de ruimte. */
+.v3c.rn-page .vb-p.lek { animation: rnLek 3.4s cubic-bezier(.5,0,.9,.4) infinite }
+@keyframes rnLek {
+  0%   { top: 7%; opacity: 0; transform: scale(.6) }
+  9%   { opacity: .95; transform: scale(1) }
+  88%  { opacity: .95 }
+  100% { top: 84%; opacity: 0; transform: scale(.7) }
+}
+
+/* 4 · Opstijgend vocht: in de muur zelf, van de grond omhoog. Verder dan een
+   meter of wat komt het niet, en dat is precies wat het blok moet laten zien. */
+.v3c.rn-page .vb-p.op { width: 8px; height: 8px; animation: rnOp 4.2s infinite }
+@keyframes rnOp {
+  0%   { bottom: 2%; opacity: 0 }
+  20%  { opacity: .85 }
+  75%  { opacity: .3 }
+  100% { bottom: 44%; opacity: 0 }
+}
+
+/* 5 · Doorslaand vocht: dwars door de muur naar binnen. */
+.v3c.rn-page .vb-p.door { width: 8px; height: 8px; animation: rnDoor 4.6s infinite }
+@keyframes rnDoor {
+  0%   { left: 13%; opacity: 0 }
+  18%  { opacity: .85 }
+  80%  { opacity: .35 }
+  100% { left: 40%; opacity: 0 }
+}
+
+/* De nummers. Ze staan boven de bewegende deeltjes en verwijzen naar de lijst
+   ernaast; zonder die koppeling is de tekening een plaatje. */
+.v3c.rn-page .vb-nr {
+  position: absolute; z-index: 2;
+  width: 21px; height: 21px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--red); color: #fff;
+  font-family: var(--fd); font-weight: 800; font-size: 11px;
+  box-shadow: 0 0 0 3px #fff;
+}
+.v3c.rn-page .vb-nr.n1 { left: 39%; top: 23% }
+.v3c.rn-page .vb-nr.n2 { left: 57%; bottom: 20% }
+.v3c.rn-page .vb-nr.n3 { right: 6%; top: 9% }
+.v3c.rn-page .vb-nr.n4 { left: 26.5%; bottom: 8% }
+.v3c.rn-page .vb-nr.n5 { left: 9%; top: 42% }
+
+.v3c.rn-page .vbijschrift {
+  margin: 16px 0 0;
+  font-size: 12.5px; line-height: 1.6; color: var(--txt-dim); text-align: center;
+}
+
+/* ---- de vijf oorzaken als lijst ----
+   Eén rij per oorzaak in plaats van een kaart: vijf kaarten in een raster van
+   drie laten er twee alleen achter op de tweede rij. */
+.v3c.rn-page .oorzlijst { display: grid; gap: 12px }
+.v3c.rn-page .oorz {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--bg-alt); border-radius: 16px; padding: 20px 22px;
+  transition: transform .18s, box-shadow .18s;
+}
+.v3c.rn-page .sr .oorz,
+.v3c.rn-page .sw2 .oorz { background: #fff; color: var(--txt) }
+.v3c.rn-page .oorz:hover { transform: translateX(5px); box-shadow: 0 18px 40px -26px rgba(0,0,0,.28) }
+/* Het pictogram van de oorzaak met zijn nummer in de hoek. Dat nummer is
+   hetzelfde als in de doorsnede ernaast, en heeft daarom dezelfde vorm als
+   `.vb-nr`: een rode cirkel van 21 px. */
+.v3c.rn-page .oorz .oic {
+  position: relative; flex-shrink: 0;
+  width: 44px; height: 44px; border-radius: 13px;
+  display: grid; place-items: center;
+  background: #fff; border: 1px solid var(--line); color: var(--red);
+}
+.v3c.rn-page .sr .oorz .oic,
+.v3c.rn-page .sw2 .oorz .oic { background: var(--bg-alt); border-color: transparent }
+.v3c.rn-page .oorz .oic i {
+  position: absolute; top: -8px; left: -8px;
+  width: 21px; height: 21px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--red); color: #fff;
+  font-style: normal; font-family: var(--fd); font-weight: 800; font-size: 11px;
+}
+.v3c.rn-page .oorz .okop {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 7px;
+}
+.v3c.rn-page .oorz h3 { font-family: var(--fd); font-weight: 800; font-size: 16px; color: var(--txt) }
+/* De verdictpil stond onder het icoon in een kaart en had daar zijn eigen
+   regel; naast de titel heeft hij die marge niet meer nodig. */
+.v3c.rn-page .oorz .verdict { margin-bottom: 0 }
+.v3c.rn-page .oorz p { font-size: 13.5px; line-height: 1.65; color: var(--txt-mid); margin: 0 }
+
+/* ---- de richtwaardemeter ----
+   Het streepje stond stil op 50 %. Laten wandelen zegt wat de meter doet: een
+   kelder begint rechts in het rood en zakt naar de groene zone. De
+   beginstand blijft `--at`, zodat hij zonder animatie op de juiste plek staat. */
+.v3c.rn-page .meter.wandelt .scale b { animation: rnWandel 7s ease-in-out infinite }
+@keyframes rnWandel {
+  0%, 8%   { left: 82% }
+  55%, 78% { left: 48% }
+  100%     { left: 82% }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3c.rn-page .vb-p { animation: none; opacity: .6 }
+  .v3c.rn-page .vb-zuig { animation: none; opacity: .35; transform: translate(50%, 50%) scale(1.6) }
+  .v3c.rn-page .meter.wandelt .scale b { animation: none }
+}

@@ -456,7 +456,7 @@ const OzonbehandelingPage = () => (
             <h3>Droog en ontschimmel eerst</h3>
             <p>
               De constructie droogt tot de vochtmeting het bevestigt en de zichtbare schimmel wordt
-              verwijderd. Het oppervlak oogt weer proper.
+              verwijderd — zie <Link to="/ontschimmeling">ontschimmeling</Link>. Het oppervlak oogt weer proper.
             </p>
           </Reveal>
           <Reveal className="oz-step" delay={0.08}>

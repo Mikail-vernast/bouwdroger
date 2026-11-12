@@ -41,3 +41,38 @@
     margin: 0 auto;
   }
 }
+
+/* ------------------------------------------------------------
+   4. De disciplinekaarten stonden op `--bg-alt` (#F4F4F4) terwijl de
+      sectie zelf op `--page` (#F1EFEF) staat: drie punten verschil, dus
+      onder de rode foto liep de kaart visueel gewoon door in de pagina
+      en leek de tekst los te zweven. Wit mét een rustschaduw zet de
+      kaart terug als kaart; de hover tilt hem vanaf daar verder op.
+   ------------------------------------------------------------ */
+
+.ov-page .tm {
+  background: #fff;
+  box-shadow: 0 10px 26px -18px rgba(0, 0, 0, .28);
+}
+
+.ov-page .tm:hover {
+  box-shadow: 0 26px 50px -28px rgba(0, 0, 0, .34);
+}
+
+/* ------------------------------------------------------------
+   5. `.cap` heeft bewust geen bodempadding: de man moet tegen de
+      onderrand van de sectie aanlopen. Maar `align-items:end` trekt
+      daardoor ook de glazen quote tegen die rand, zonder speling.
+      De padding hoort dus op de linkerkolom, niet op de sectie —
+      zo krijgt de quote lucht en blijft de foto doorlopen.
+   ------------------------------------------------------------ */
+
+.ov-page .cap-left {
+  padding-bottom: 56px;
+}
+
+@media (max-width: 1040px) {
+  .ov-page .cap-left {
+    padding-bottom: 72px;
+  }
+}

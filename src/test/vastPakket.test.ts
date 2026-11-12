@@ -10,7 +10,7 @@ import { describe, expect, it, vi } from "vitest";
 
 const CHAPE_100_6 = {
   id: "chape-100-6",
-  title: "Gebouw tot 100 m² — chape 6 cm",
+  title: "Gebouw tot 100 m², chape 6 cm",
   shortTitle: "Chape 100 m²",
   description: "",
   category: "Chape drogen",

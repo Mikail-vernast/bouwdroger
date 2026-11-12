@@ -1,10 +1,10 @@
 /**
- * Droogtijden per materiaaldikte, zoals /nieuwbouw ze in een tabel toont.
+ * Droogtijden per materiaaldikte, zoals /nieuwbouw-drogen ze in een tabel toont.
  *
  * De huurtermijn met bouwdroger komt uit de catalogus: de shop leidt ze af uit
  * de dikte (chape 5/6/7 cm, pleisterwerk 1/2/3 cm) en zet ze als `rentalWeeks`
  * op elk vast pakket. Een tabel met overgetypte weken zou weglopen zodra het
- * portaal een termijn aanpast — dan beloofde /nieuwbouw drie weken voor een
+ * portaal een termijn aanpast — dan beloofde /nieuwbouw-drogen drie weken voor een
  * pakket dat er vier aanrekent. Daarom wordt ze hier uit dezelfde pakketten
  * gelezen als waarmee de calculator en de checkout rekenen.
  */
@@ -64,4 +64,20 @@ export function termijnZonderDikte(soort: WorkType): DroogtermijnRij | null {
 export function natuurlijkeChapeWeken(dikteCm: number): number {
   if (dikteCm <= 4) return dikteCm;
   return 4 + (dikteCm - 4) * 2;
+}
+
+/**
+ * Dezelfde soort vuistregel voor binnenpleisterwerk: ongeveer één week per
+ * centimeter laagdikte, en in een gesloten, onverwarmde ruwbouw al snel het
+ * dubbele. Een gipspleister van 1 cm die in een verluchte, verwarmde woning in
+ * een week droog is, staat in een dichtgemaakte werf in december na een maand
+ * nog steeds vochtig.
+ *
+ * Net als bij chape is dit een richtwaarde uit de bouwpraktijk en geen
+ * belofte: ze staat op de pagina om het verschil met actief drogen te tonen,
+ * en alleen een meting beslist of de schilder mag beginnen. Het bereik is
+ * daarom bewust een bereik, en geen enkel getal.
+ */
+export function natuurlijkePleisterWeken(dikteCm: number): { min: number; max: number } {
+  return { min: dikteCm, max: dikteCm * 2 };
 }

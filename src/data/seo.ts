@@ -17,7 +17,7 @@ export interface SeoEntry {
 
 export const SEO = {
   home: {
-    title: "Bouwdroger huren in Vlaanderen — geleverd in 24 u | Vernast",
+    title: "Bouwdroger huren in Vlaanderen - geleverd in 24 u | Vernast",
     description:
       "Bereken welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie, vochtmeting en ophaling inbegrepen, binnen 24 uur in heel Vlaanderen.",
   },
@@ -29,7 +29,7 @@ export const SEO = {
       "Chape gelegd of net gepleisterd? Droog tot vier keer sneller met een professionele bouwdroger. Levering aan huis, installatie en gratis vochtmeting inbegrepen.",
   },
   waterschade: {
-    title: "Bouwdroger bij waterschade — vandaag nog geleverd | Vernast",
+    title: "Bouwdroger bij waterschade - vandaag nog geleverd | Vernast",
     description:
       "Waterlek of overstroming? Wij leveren uw bouwdroger en ventilatoren vandaag nog. De eerste 48 uur bepalen of u schimmel en structurele schade voorblijft.",
   },
@@ -45,6 +45,14 @@ export const SEO = {
     title: "Ozonbehandeling tegen schimmel en geur | Vernast",
     description:
       "Schimmel of muffe geur die blijft terugkomen? Een ozonbehandeling doodt de achtergebleven sporen in de hele ruimte. Boek online, uitvoering door onze ploeg.",
+  },
+  /* Zusterpagina van /ozonbehandeling, en bewust een eigen pagina: "schimmel
+     verwijderen" en "ozonbehandeling" zijn twee zoekvragen op twee momenten in
+     hetzelfde traject. Deze mikt op het handwerk, die andere op de afronding. */
+  ontschimmeling: {
+    title: "Ontschimmeling: schimmel verwijderen aan de bron | Vernast",
+    description:
+      "Schimmel laten verwijderen? Wij pakken de oorzaak aan, halen het aangetaste materiaal weg en drogen tot de meting het bevestigt. Gratis plaatsbezoek.",
   },
 
   /* ---------- Aanbod ---------- */
@@ -81,12 +89,12 @@ export const SEO = {
 
   /* ---------- Bedrijf ---------- */
   overOns: {
-    title: "Over Vernast — Belgisch familiebedrijf in bouwdroging",
+    title: "Over Vernast - Belgisch familiebedrijf in bouwdroging",
     description:
       "Vernast Bouwdrogers is een Belgisch familiebedrijf uit Aartselaar met jarenlange ervaring in bouwdroging, vochtbestrijding en schilderwerken.",
   },
   contact: {
-    title: "Contact — bel 03 689 90 65 of mail ons | Vernast",
+    title: "Contact - bel 03 689 90 65 of mail ons | Vernast",
     description:
       "Vragen over bouwdroging of een dringende levering nodig? Bel 03 689 90 65 op werkdagen tussen 08:00 en 17:00, of stuur ons een bericht.",
   },
@@ -122,7 +130,7 @@ export const SEO = {
      Elk één vraag die mensen letterlijk intikken ("hoelang moet chape drogen",
      "bouwdroger verbruik", "adsorptiedroger huren") en waar deze site in
      september 2026 op plek 40-90 stond zonder één pagina die de vraag
-     beantwoordde. Informatief, dus niet in concurrentie met /nieuwbouw of
+     beantwoordde. Informatief, dus niet in concurrentie met /nieuwbouw-drogen of
      /prijzen: die verkopen, deze leggen uit en verwijzen door. */
   gids: {
     title: "Gidsen over bouwdroging: droogtijd en verbruik | Vernast",
@@ -133,6 +141,14 @@ export const SEO = {
     title: "Hoe lang moet chape drogen? Droogtijd per cm | Vernast",
     description:
       "Hoe lang moet chape drogen? Droogtijd per dikte, natuurlijk en met bouwdroger, het verschil tussen cement- en anhydrietchape en wanneer u restvocht meet.",
+  },
+  /* Eigen pagina sinds november 2026. De vraag stond eerder als sectie op de
+     chapegids, en die twee vochten om dezelfde zoekvraag: wie "hoe lang moet
+     pleisterwerk drogen" zocht, kreeg een pagina met chape in de titel. */
+  gidsPleisterDrogen: {
+    title: "Hoe lang moet pleisterwerk drogen? | Vernast",
+    description:
+      "Hoe lang moet pleisterwerk drogen voor u schildert? Droogtijd per laagdikte, gipspleister of cementpleister, en waarom vocht in een dicht huis blijft hangen.",
   },
   gidsCondensAdsorptie: {
     title: "Condensdroger of adsorptiedroger? Het verschil | Vernast",

@@ -26,14 +26,25 @@ import { sendQuestionFallback } from "../src/lib/mail.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 import { cleanText, isValidEmail, readJsonBody } from "../src/lib/formInput.js";
 
+/**
+ * Welke dienst de bezoeker aanvroeg. Deze route bedient twee landingspagina's —
+ * /ozonbehandeling en /ontschimmeling — en zonder dit veld stond er bij allebei
+ * "Ozonbehandeling" in het onderwerp, zodat het verhuurteam in het portaal niet
+ * kon zien welke pagina de aanvraag opleverde.
+ */
+const DIENSTEN: Record<string, string> = {
+  ozon: "Ozonbehandeling",
+  ontschimmeling: "Ontschimmeling",
+};
+
 /** De situaties uit het formulier, met het label dat het portaal toont. */
 const SITUATIES: Record<string, string> = {
-  schimmel: "Ozonbehandeling na ontschimmeling",
+  schimmel: "Schimmel verwijderen",
   geur: "Hardnekkige geur neutraliseren",
   huisstofmijt: "Huisstofmijt en allergie",
   waterschade: "Ontsmetting na waterschade",
   overdracht: "Fris maken voor verhuur of verkoop",
-  advies: "Advies over een ozonbehandeling",
+  advies: "Advies over de aanpak",
 };
 
 /** Hoe dringend het is — bepaalt mee wanneer de technieker ingepland wordt. */
@@ -63,6 +74,8 @@ function label(map: Record<string, string>, key: string, fallback: string): stri
 }
 
 interface OzonBody {
+  /** `ozon` of `ontschimmeling` — welke landingspagina het formulier droeg. */
+  dienst?: unknown;
   voornaam?: unknown;
   achternaam?: unknown;
   email?: unknown;
@@ -113,6 +126,7 @@ export async function POST(request: Request): Promise<Response> {
     return json({ error: "Vul een geldig e-mailadres in, dan kunnen we u antwoorden." }, 400);
   }
 
+  const dienst = label(DIENSTEN, str(body.dienst, 40), DIENSTEN.ozon);
   const situatie = label(SITUATIES, str(body.situatie, 60), SITUATIES.advies);
   const termijn = label(TERMIJNEN, str(body.termijn, 60), TERMIJNEN.later);
   const ruimtes = str(body.ruimtes, 200);
@@ -156,7 +170,7 @@ export async function POST(request: Request): Promise<Response> {
   const accepted = limit.accept();
   if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
 
-  const subject = `Ozonbehandeling — ${situatie}`;
+  const subject = `${dienst}, ${situatie}`;
 
   let reason: string;
   let limited = false;

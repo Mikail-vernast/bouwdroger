@@ -110,20 +110,25 @@ const V3Hero = () => (
       op mobiel. Met de cutout loopt het rood van de hero gewoon door.
     */}
     {/*
-      Op gsm staat de cutout schermbreed: 360-412 px. Iedereen kreeg de versie
-      van 1440 px (93 KB); Lighthouse rekende 68 KB daarvan als overbodig.
-      `sizes` meldt op smalle schermen bewust 67vw in plaats van de echte
-      100vw. Zo kiest ook een toestel met pixeldichtheid 3 de variant van
-      800 px -- twee keer de weergavebreedte, wat voor deze foto scherp genoeg
-      is -- in plaats van weer de grote. Vanaf 768 px blijft het de 1440.
+      De vloer in de foto is aan beide kanten 280 px doorgetrokken (zie
+      scripts/ — de strook zuivere vloer naast de rand, gespiegeld uitgerekt en
+      naar buiten toe donkerder). Daardoor is het bestand 2000 px breed terwijl
+      het team 1440 px blijft. Dat is de hele truc: schermbreed uitgeleverd
+      blijft de vloer van rand tot rand lopen, maar neemt het team nog 72% van
+      de breedte in. Hem gewoon smaller maken kon niet -- dan wordt de grijze
+      studiovloer een losse plaat in het rood. In v2 zijn de twee overgangen
+      in de vloer lokaal vervaagd, zonder het team of de toestellen te wijzigen.
+
+      Op gsm staat de foto op 139% breed (zie home-v3.css) om de aangroei weer
+      buiten beeld te duwen -- vandaar die breedte ook in `sizes`.
     */}
     <img
       className="hero-art"
-      src="/vernast/team-cutout-2.webp"
-      srcSet="/vernast/team-cutout-2-800.webp 800w, /vernast/team-cutout-2.webp 1440w"
-      sizes="(max-width: 767px) 67vw, 100vw"
+      src="/vernast/team-hero-wide-v2.webp"
+      srcSet="/vernast/team-hero-wide-v2-1100.webp 1100w, /vernast/team-hero-wide-v2.webp 2000w"
+      sizes="(max-width: 767px) 139vw, 100vw"
       alt="Het Vernast-team met het volledige toestellengamma"
-      width={1440}
+      width={2000}
       height={617}
       fetchPriority="high"
       decoding="async"

@@ -26,7 +26,7 @@ const LIVE = process.argv.includes("--live");
  * antwoord dan lopende verkooptekst. /waterschade stond hier maandenlang
  * zonder, terwijl het de meest urgente zoekopdracht van de site is.
  */
-const FAQ_EXPECTED = ["/nieuwbouw", "/waterschade", "/renovatie", "/prijzen"];
+const FAQ_EXPECTED = ["/nieuwbouw-drogen", "/waterschade", "/renovatie", "/prijzen"];
 
 function htmlFiles(dir) {
   return readdirSync(dir).flatMap((name) => {
@@ -71,6 +71,16 @@ const PLACEHOLDERS = [
 const rows = [];
 const problems = [];
 const titles = new Map();
+/*
+  Ook de H1's, niet alleen de titels.
+  Op 12-11-2026 kregen /bouwdroger-huren-antwerpen (de provincie) en
+  /bouwdroger-huren-antwerpen-stad allebei de H1 "Bouwdroger huren in
+  Antwerpen". Hun <title> verschilde net genoeg, dus de controle hieronder
+  zweeg — terwijl twee pagina's wel degelijk om dezelfde zoekopdracht
+  vochten. De H1 zegt waar een pagina over gaat; twee dezelfde is per
+  definitie kannibalisatie.
+*/
+const h1s = new Map();
 const descriptions = new Map();
 /** Alle JSON-LD-knopen van de hele site, voor controles die pagina's kruisen. */
 const ldNodes = [];
@@ -84,6 +94,7 @@ for (const file of htmlFiles(DIST)) {
   const canonical = tag(html, /<link[^>]+rel="canonical"[^>]+href="([^"]*)"/i);
   const robots = tag(html, /<meta[^>]+name="robots"[^>]+content="([^"]*)"/i) ?? "";
   const h1 = (html.match(/<h1[\s>]/gi) || []).length;
+  const h1Text = tag(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i)?.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
   /* Kopniveaus in leesvolgorde — een sprong (h2 → h4) betekent dat er een
      tussenlaag ontbreekt, en dan valt de structuur van de pagina weg voor
      zowel een crawler als een schermlezer. */
@@ -163,11 +174,21 @@ for (const file of htmlFiles(DIST)) {
     fail("landingspagina zonder FAQPage — niets voor een assistent om te citeren");
   }
 
+  if (h1Text && !noindex) {
+    h1s.set(h1Text, [...(h1s.get(h1Text) ?? []), route]);
+  }
+
   if (title && !noindex) {
     titles.set(title, [...(titles.get(title) ?? []), route]);
   }
   if (description && !noindex) {
     descriptions.set(description, [...(descriptions.get(description) ?? []), route]);
+  }
+}
+
+for (const [h1Text, routes] of h1s) {
+  if (routes.length > 1) {
+    problems.push(`dubbele H1 op ${routes.length} pagina's: "${h1Text}" → ${routes.join(", ")}`);
   }
 }
 

@@ -3,6 +3,7 @@ import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
+import FaqBlok from "@/components/content/FaqBlok";
 import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
 import ContactBlok from "@/components/content/ContactBlok";
 import {
@@ -10,13 +11,24 @@ import {
   BoltIcon,
   CheckIcon,
   DropIcon,
-  LeafIcon,
   PhoneIcon,
 } from "@/components/home-v3/icons";
-import { ThermoIcon, WindIcon } from "@/components/content/icons";
+import {
+  KeuringIcon,
+  ThermoIcon,
+  WereldIcon,
+  WerfIcon,
+  WindIcon,
+} from "@/components/content/icons";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import { PRODUCTS, PRODUCT_ADDONS, PRODUCT_ORDER, productImageAlt } from "@/data/verhuur";
+import {
+  PRODUCTS,
+  PRODUCT_ADDONS,
+  PRODUCT_ORDER,
+  productImageAlt,
+  toestelChips,
+} from "@/data/verhuur";
 import { DROGERS, euro } from "@/data/tarieflijst";
 import { CONTACT } from "@/lib/site";
 import "@/styles/v3-content.css";
@@ -29,7 +41,15 @@ import "@/styles/v3-content.css";
  * De bannerhero met tekst in de afbeelding is vervangen door de gewone
  * v3-hero. Die banner was de grootste afbeelding boven de vouw van de hele
  * site, en de tekst erin moest telkens opnieuw tegen een foto uitgelijnd
- * worden; de v3-hero zet de kop in echte tekst naast een uitgesneden toestel.
+ * worden; de v3-hero zet de kop in echte tekst naast een uitgesneden beeld.
+ *
+ * Volgorde sinds november 2026: hero, dan meteen het volledige gamma, dan pas
+ * de uitleg. De pagina begon daarvoor met een keuzehulp en een capaciteitsles,
+ * en de toestellen zelf stonden drie schermen lager. Wie op /machines landt
+ * wil eerst zien wat er te huur is.
+ *
+ * De drie groepen staan samen in één witte sectie. Ze wisselden eerder wit en
+ * rood af, waardoor dezelfde kaart op dezelfde pagina twee keer anders oogde.
  */
 
 /*
@@ -137,8 +157,10 @@ const verderLezen: LeesGroep[] = [
     kop: "Kiezen en berekenen",
     links: [
       { to: "/verhuur/calculator", label: "Bereken welk pakket bij uw ruimte past" },
+      { to: "/gids/condensdroger-of-adsorptiedroger", label: "Gids: condensdroger of adsorptiedroger?" },
+      { to: "/gids/stroomverbruik-bouwdroger", label: "Gids: wat verbruikt een bouwdroger aan stroom?" },
       { to: "/prijzen", label: "Huurprijzen per dag en per week" },
-      { to: "/nieuwbouw", label: "Chape en pleisterwerk drogen" },
+      { to: "/nieuwbouw-drogen", label: "Chape en pleisterwerk drogen" },
       { to: "/waterschade", label: "Waterschade drogen" },
     ],
   },
@@ -188,6 +210,37 @@ const GAMMA = [
   },
 ].filter((g) => g.keys.length > 0);
 
+/*
+  De bouwdrogers vullen een rij van vier; ventilatoren en verwarming hebben er
+  elk twee en staan daarom naast elkaar, samen opnieuw een rij van vier. Elk
+  onder elkaar liet twee halve rijen leeg staan, en dat las als een gamma met
+  gaten erin. Valt er een groep weg omdat het portaal dat soort niet meer
+  verhuurt, dan krijgt wat overblijft gewoon de brede rij.
+*/
+const [eersteGroep, ...restGroepen] = GAMMA;
+
+/** Waarom hier acht toestellen staan en niet de catalogus van een leverancier. */
+const onderzoek = [
+  {
+    Icon: WereldIcon,
+    titel: "De wereldmarkt, niet één catalogus",
+    tekst:
+      "Wat in België te huur staat is maar een fractie van wat er gebouwd wordt. Wij volgen fabrikanten en vakbeurzen in Europa, Azië en Noord-Amerika en vragen toestellen op die hier door niemand verhuurd worden. Pas als zo'n toestel beter is dan wat we hebben, komt het in aanmerking.",
+  },
+  {
+    Icon: WerfIcon,
+    titel: "Eerst weken op onze eigen werf",
+    tekst:
+      "Een kandidaat draait eerst bij ons, naast het toestel dat hij zou vervangen. We kijken naar de liters per kilowattuur, het geluid in een bewoond huis, het gewicht in een trappenhal en of het toestel een nacht zonder toezicht doorkomt. Een folder zegt daar niets over.",
+  },
+  {
+    Icon: KeuringIcon,
+    titel: "Wat het niet haalt, komt er niet in",
+    tekst:
+      "Haalt een toestel zijn opgegeven cijfers niet, of liggen de onderdelen niet binnen de week hier, dan nemen we het niet op. Liever acht toestellen die wij door en door kennen dan een lijst vol namen die wij zelf nooit op een werf gezien hebben.",
+  },
+];
+
 const toebehoren = [
   { Icon: BoltIcon, name: "Verlengsnoer 10 m", desc: "Zit gratis bij elke bouwdroger. Vraag er gerust een tweede bij als het stopcontact ver zit.", gratis: true },
   { Icon: DropIcon, name: "Opvangbak", desc: "Ook gratis bij elke droger. Liever niets legen? Dan neemt u een condenspomp bij het pakket.", gratis: true },
@@ -199,45 +252,102 @@ const toebehoren = [
  *
  * De kop is de naam waaronder het toestel verhuurd wordt ("Boost"), niet
  * het typenummer: niemand huurt een "Ontvochtiger TTK 170 S". Dat nummer staat
- * op de toestelpagina zelf, voor wie offertes vergelijkt. Foto, prijs en specs
- * komen allemaal uit het portaal.
+ * er klein onder, voor wie offertes vergelijkt. Foto, prijs en specs komen
+ * allemaal uit het portaal.
+ *
+ * De vorm is die van de productkaart op de homepage (`.pc`): vierkante foto
+ * met labelpil, de kerncijfers als pillen en onderaan een rode knop met de
+ * dagprijs ernaast. Het zijn dezelfde acht toestellen als daar, en ze hoorden
+ * niet op twee pagina's verschillend te ogen. De hele kaart is de link, zodat
+ * de knop niet het enige klikbare stuk is.
  */
 const Toestelkaart = ({ sleutel, index }: { sleutel: string; index: number }) => {
   const p = PRODUCTS[sleutel];
   return (
-    <Reveal from="up" delay={(index % 4) * 0.06} className={`prod${p.badge === "Meest gehuurd" ? " top" : ""}`}>
-      {p.badge && <span className="plab">{p.badge}</span>}
-      <div className="pimg">
+    <Reveal
+      as={Link}
+      to={`/verhuur/toestel/${sleutel}`}
+      from="up"
+      delay={(index % 4) * 0.06}
+      className={`pc${p.badge === "Meest gehuurd" ? " hot" : ""}`}
+    >
+      <div className="pm">
+        {p.badge && <span className="pt">{p.badge}</span>}
         <img
           src={p.img[0]}
           alt={productImageAlt(p, 0)}
-          width={420}
-          height={420}
+          width={600}
+          height={600}
           loading="lazy"
           decoding="async"
         />
       </div>
-      <h3>{p.short}</h3>
-      <div className="pday">
-        {euro(p.day)}
-        <span>/dag</span>
-      </div>
-      <div className="chipsm">
-        {p.key.slice(0, 3).map(([label, waarde, eenheid]) => (
-          <span key={label}>
-            {waarde}
-            {eenheid ? ` ${eenheid}` : ""}
+      <div className="pb">
+        <h3>{p.short}</h3>
+        <span className="ptype">{p.name}</span>
+        <p className="pdesc">{p.sum}</p>
+        <div className="chips">
+          {/*
+            Het blaadje staat op de condensdrogers van de eco-lijn, niet op de
+            adsorptiedroger: die is geen eco-toestel en droeg het label hier
+            ooit wel. Als afbeelding en niet als lijnicoon, net als op de
+            homepage — het draagt zijn eigen groen.
+          */}
+          {p.type.startsWith("Condensontvochtiger") && (
+            <span className="chip eco">
+              <img src="/vernast/icoon-eco.webp" alt="" width={96} height={96} loading="lazy" /> Eco
+            </span>
+          )}
+          {toestelChips(p).map((chip) => (
+            <span className="chip" key={chip}>
+              {chip}
+            </span>
+          ))}
+        </div>
+        <div className="pf">
+          <span className="bekijk">
+            Bekijken
+            <ArrowRightIcon size={13} strokeWidth={2.6} />
           </span>
-        ))}
+          <span className="pr">
+            vanaf<b>{euro(p.day)}</b>
+            <small>/dag excl. btw</small>
+          </span>
+        </div>
       </div>
-      <p className="pdesc" style={{ margin: "0 0 16px" }}>{p.sum}</p>
-      <Link className="btn btn-line" to={`/verhuur/toestel/${sleutel}`}>
-        Bekijk de {p.short}
-        <ArrowRightIcon size={13} />
-      </Link>
     </Reveal>
   );
 };
+
+/**
+ * Eén soort toestel binnen het overzicht: een kop met pictogram, één regel
+ * uitleg en de kaarten eronder.
+ *
+ * De kop is een `h3` en geen `h2` meer: de drie groepen stonden eerder elk in
+ * een eigen sectie met een eigen `h2`, en de pagina had daardoor drie koppen
+ * van hetzelfde gewicht voor wat samen één overzicht is. `breed` zet de rij op
+ * vier kolommen, zonder op twee.
+ */
+const Gammagroep = ({
+  groep,
+  breed = false,
+}: {
+  groep: (typeof GAMMA)[number];
+  breed?: boolean;
+}) => (
+  <div className="pcat" id={groep.id}>
+    <div className="pcat-kop">
+      <span className="ci"><groep.Icon size={19} /></span>
+      <h3>{groep.kop}</h3>
+    </div>
+    <p className="pcat-lede">{groep.lede}</p>
+    <div className={breed ? "pgrid" : "pgrid twee"}>
+      {groep.keys.map((k, j) => (
+        <Toestelkaart sleutel={k} index={j} key={k} />
+      ))}
+    </div>
+  </div>
+);
 
 const MachinesPage = () => (
     <div className="v3c mc-page">
@@ -259,7 +369,7 @@ const MachinesPage = () => (
         ]}
       />
 
-      <V3Header lightAfter={420} />
+      <V3Header lightAfter={420} darkUntil=".redtop" />
 
       <main>
 
@@ -271,11 +381,11 @@ const MachinesPage = () => (
               <span className="kick">Ons productgamma</span>
               <h1>Bouwdrogers, ventilatoren en kachels huren.</h1>
               <p>
-                Drie soorten toestellen die elk iets anders doen: de ontvochtiger haalt het vocht
+                Acht toestellen, gekozen uit wat er wereldwijd gebouwd wordt en niet uit wat een
+                Belgische leverancier toevallig op voorraad had. De ontvochtiger haalt het vocht
                 uit de lucht, de ventilator brengt die droge lucht bij het natte materiaal, en de
-                kachel zorgt dat de ruimte warm genoeg is om het vocht los te laten. Van compacte
-                eco-drogers tot elektrische bouwkachels: hieronder staat het hele gamma met zijn
-                dagprijs.
+                kachel zorgt dat de ruimte warm genoeg is om het vocht los te laten. Hieronder
+                staat het hele gamma, elk toestel met zijn dagprijs.
               </p>
               <div className="jump">
                 <a href="#bouwdrogers"><DropIcon size={15} /> Bouwdrogers</a>
@@ -283,22 +393,29 @@ const MachinesPage = () => (
                 <a href="#verwarming"><ThermoIcon size={15} /> Verwarming</a>
               </div>
             </div>
+            {/*
+              De uitgesneden ploeg in plaats van de drie drogers die hier
+              stonden. Die foto zweefde boven de onderrand van het rode blok
+              alsof de toestellen vlogen; de mannen staan op die rand, zoals op
+              /hoe-drogen-werkt. Het gamma zelf staat een schermhoogte lager,
+              waar de kaarten het beter doen dan één productfoto.
+            */}
             <div className="hero-vis">
               <img
-                src="/vernast/lineup-dryers.webp"
-                alt="De drie Vernast eco-bouwdrogers naast elkaar"
-                width={900}
-                height={700}
+                src="/vernast/team-tools.webp"
+                alt="De Vernast vakmannen met hun materiaal"
+                width={1400}
+                height={859}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                style={{ width: "min(100%,520px)" }}
+                style={{ width: "min(100%,560px)" }}
               />
-              <div className="fbadge" style={{ top: "-20px", left: "2%" }}>
-                <span className="ic"><LeafIcon size={15} /></span>
+              <div className="fbadge rd" style={{ top: "-10px", left: "0" }}>
+                <span className="ic"><WereldIcon size={15} /></span>
                 <div>
-                  Eco-lijn
-                  <small>tot 40 % minder energie</small>
+                  Wereldwijd gezocht
+                  <small>op onze eigen werven getest</small>
                 </div>
               </div>
             </div>
@@ -306,16 +423,92 @@ const MachinesPage = () => (
         </section>
       </div>
 
-      {/* ================= KEUZEHULP ================= */}
-      <section className="sw">
+      {/* ================= HET GAMMA =================
+          Staat bewust meteen onder de hero: wie op /machines landt wil eerst
+          zien wát er te huur is. De keuzehulp die hier stond ("Welk toestel
+          kiest u?") was een tussenstap vóór het overzicht, en dat las als een
+          formulier voor de etalage. Ze staat nu een sectie lager, als uitleg
+          bij wat de bezoeker al gezien heeft.
+
+          Alle drie de groepen in één witte sectie. Ze wisselden eerder wit en
+          rood af, waardoor de ventilatoren op een rode achtergrond stonden en
+          dezelfde kaart er anders uitzag dan de kaart erboven. Het zijn
+          producten: ze horen op één ondergrond. */}
+      <section className="sw" id="gamma">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Keuzehulp</span>
-            <h2 className="sec">Welk toestel kiest u?</h2>
+            <span className="kick">Het gamma</span>
+            <h2 className="sec">Alle toestellen die wij verhuren, in één overzicht.</h2>
+            <p className="lede">
+              Acht toestellen, meer niet. Elk toestel hieronder staat in ons depot, heeft een eigen
+              pagina met zijn volledige specificaties en is vandaag te huur tegen de prijs die
+              erbij staat. Wat wij niet zelf plaatsen en onderhouden, staat er niet bij.
+            </p>
+          </div>
+
+          {eersteGroep && <Gammagroep groep={eersteGroep} breed />}
+          {restGroepen.length > 1 ? (
+            <div className="pcols">
+              {restGroepen.map((groep) => (
+                <Gammagroep groep={groep} key={groep.id} />
+              ))}
+            </div>
+          ) : (
+            restGroepen.map((groep) => <Gammagroep groep={groep} breed key={groep.id} />)
+          )}
+
+          <div className="note">
+            <b>Losse toestellen haalt u af in Aartselaar</b>, tegen lagere afhaalprijzen, via de{" "}
+            <Link to="/verhuur/afhalen">afhaal-checkout</Link>. Leveren, plaatsen en afstellen doen
+            wij enkel per pakket: alleen dan kunnen we de <Link to="/drooggarantie">drooggarantie</Link>{" "}
+            waarmaken. De <Link to="/verhuur/calculator">calculator</Link> stelt dat pakket samen.
+          </div>
+        </div>
+      </section>
+
+      {/* ================= WERELDWIJD GEZOCHT ================= */}
+      <section className="sr" id="onderzoek">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick">Productonderzoek</span>
+            <h2 className="sec">Wij zoeken het beste toestel ter wereld, niet het beste toestel in België.</h2>
+            <p className="lede">
+              De meeste verhuurders kopen wat hun Belgische leverancier die maand in de catalogus
+              heeft staan. Wij doen het omgekeerd. Ons productonderzoek loopt over de hele wereld:
+              we volgen fabrikanten en vakbeurzen in Europa, Azië en Noord-Amerika, laten
+              kandidaat-toestellen overkomen en zetten ze eerst op onze eigen werven. Een toestel
+              staat hier omdat het bij ons het best droogt, niet omdat het hier nu eenmaal te koop
+              was.
+            </p>
+          </div>
+          <div className="g3">
+            {onderzoek.map(({ Icon, titel, tekst }, i) => (
+              <Reveal from="up" delay={(i % 3) * 0.08} className="kaart" key={titel}>
+                <div className="ki"><Icon size={20} /></div>
+                <h3>{titel}</h3>
+                <p>{tekst}</p>
+              </Reveal>
+            ))}
+          </div>
+          <div className="note">
+            <b>Daarom dragen de toestellen een eigen naam.</b> Boost, Performance, Ultimate,
+            Highflow: zo noemen wij ze, omdat de keuze van ons komt en niet van een catalogus. Het
+            typenummer van de fabrikant staat op elke toestelpagina en in het overzicht hierboven,
+            zodat u een offerte van iemand anders ernaast kunt leggen.
+          </div>
+        </div>
+      </section>
+
+      {/* ================= WAT DOET WELK TOESTEL ================= */}
+      <section className="sw" id="verschillen">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick">De verschillen</span>
+            <h2 className="sec">Wat doet welk toestel?</h2>
             <p className="lede">
               In de meeste situaties werkt u met een combinatie: een ontvochtiger die het vocht
               afvoert, en een ventilator die de droge lucht bij de muren en de vloer brengt. Wat
-              elk toestel doet, en wanneer u het kiest.
+              elk soort toestel doet, en wanneer u het kiest.
             </p>
           </div>
           <div className="g3">
@@ -387,7 +580,7 @@ const MachinesPage = () => (
                       </th>
                       <td>{t.litersPerDay} L</td>
                       <td style={{ whiteSpace: "nowrap" }}>tot {t.volume} m³</td>
-                      <td style={{ whiteSpace: "nowrap" }}>{kerngegeven(t.key, "Verbruik") ?? "—"}</td>
+                      <td style={{ whiteSpace: "nowrap" }}>{kerngegeven(t.key, "Verbruik") ?? "n.v.t."}</td>
                       <td style={{ whiteSpace: "nowrap", fontWeight: 700, color: "var(--txt)" }}>
                         {euro(t.perDay)}
                       </td>
@@ -398,8 +591,10 @@ const MachinesPage = () => (
             </div>
           </div>
           <p className="tblnote">
-            Prijzen excl. btw. Meer over de prijsopbouw en het stroomverbruik op{" "}
-            <Link to="/prijzen">de prijzenpagina</Link>.
+            Prijzen excl. btw. Meer over de prijsopbouw op{" "}
+            <Link to="/prijzen">de prijzenpagina</Link>, en wat deze toestellen per dag aan stroom
+            kosten in de gids over het{" "}
+            <Link to="/gids/stroomverbruik-bouwdroger">stroomverbruik van een bouwdroger</Link>.
           </p>
 
           {combinaties.length > 0 && (
@@ -420,28 +615,8 @@ const MachinesPage = () => (
         </div>
       </section>
 
-      {/* ================= HET GAMMA ================= */}
-      {GAMMA.map((groep, i) => (
-        <section className={i % 2 === 0 ? "sw" : "sr"} id={groep.id} key={groep.id}>
-          <div className="wrap">
-            <div className="sec-head">
-              <div className="cathead">
-                <span className="ci"><groep.Icon size={19} /></span>
-                <h2 className="sec">{groep.kop}</h2>
-              </div>
-              <p className="lede">{groep.lede}</p>
-            </div>
-            <div className={`prods${groep.keys.length <= 2 ? " twee" : groep.keys.length === 3 ? " drie" : ""}`}>
-              {groep.keys.map((k, j) => (
-                <Toestelkaart sleutel={k} index={j} key={k} />
-              ))}
-            </div>
-          </div>
-        </section>
-      ))}
-
       {/* ================= TOEBEHOREN ================= */}
-      <section className="sr">
+      <section className="sw">
         <div className="wrap">
           <div className="sec-head">
             <span className="kick">Toebehoren</span>
@@ -464,25 +639,11 @@ const MachinesPage = () => (
         </div>
       </section>
 
-      <VerderLezen titel="Verder lezen over het materiaal" groepen={verderLezen} />
-
-      {/* FAQ — zichtbaar, en gelijk aan de FAQ-schema in de head. */}
-      <section className="sr">
-        <div className="wrap">
-          <div className="sec-head mid">
-            <span className="kick">Veelgestelde vragen</span>
-            <h2 className="sec">Veelgestelde vragen over het materiaal.</h2>
-          </div>
-          <div className="faqs">
-            {faqs.map((faq, i) => (
-              <Reveal from="up" delay={(i % 2) * 0.06} as="dl" className="faq" key={faq.q}>
-                <dt>{faq.q}</dt>
-                <dd>{faq.a}</dd>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqBlok
+        titel="Veelgestelde vragen over het materiaal."
+        vragen={faqs}
+        sleutel="mc-faq"
+      />
 
       {/* ================= SLOT-CTA ================= */}
       <section className="sw">
@@ -519,7 +680,14 @@ const MachinesPage = () => (
         </div>
       </section>
 
+      <VerderLezen
+        titel="Verder lezen over het materiaal"
+        groepen={verderLezen}
+        achtergrond="sr"
+      />
+
       <ContactBlok
+        achtergrond="wit"
         kicker="Welk toestel heeft u nodig?"
         titel="Niet zeker welk toestel bij uw werf past?"
         lede="Beschrijf kort de ruimte en wat er moet drogen. Een droogspecialist zegt u binnen één werkdag welk toestel of welke combinatie het wordt."

@@ -1,3 +1,4 @@
+import type { ComponentType } from "react";
 import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
@@ -5,6 +6,7 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
 import Pakketkaarten from "@/components/content/Pakketkaarten";
 import ContactBlok from "@/components/content/ContactBlok";
+import FaqBlok from "@/components/content/FaqBlok";
 import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
 import {
   ArrowRightIcon,
@@ -12,17 +14,28 @@ import {
   CardIcon,
   CellarIcon,
   CheckIcon,
+  ChecklistIcon,
   DropIcon,
   HouseIcon,
   MoldIcon,
   PhoneIcon,
   RefreshIcon,
-  ChecklistIcon,
+  SupportIcon,
+  TruckIcon,
 } from "@/components/home-v3/icons";
+import {
+  DoosIcon,
+  DrogerIcon,
+  GaugeIcon,
+  ThermoIcon,
+  WindIcon,
+} from "@/components/content/icons";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
+import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { CONTACT } from "@/lib/site";
 import "@/styles/v3-content.css";
+import "@/styles/renovatie.css";
 
 /**
  * Vochtige kelders en renovatievocht. Deze pagina stond tot november 2026 nog
@@ -34,9 +47,22 @@ import "@/styles/v3-content.css";
  * De kern van de pagina blijft ongewijzigd: wie "kelder drogen bouwdroger"
  * zoekt, moet weten dat een ontvochtiger opstijgend of doorslaand vocht niet
  * stopt. Een pagina die dat verzwijgt, verhuurt een toestel dat na de ophaling
- * niets heeft opgelost. Daarom staat die scheiding nu niet meer in een
- * grijze kaart onderaan, maar als eigen sectie met een verdict per oorzaak:
- * de kleur van de pil is het antwoord, nog voor de alinea gelezen is.
+ * niets heeft opgelost. Daarom staat die scheiding niet in een grijze kaart
+ * onderaan, maar in een eigen sectie met een verdict per oorzaak.
+ *
+ * In november 2026 is de vorm bijgetrokken naar die van /waterschade, de
+ * jongste van de drie situatiepagina's:
+ *
+ *   - de drie witte pillen in de hero zijn de vertrouwensrij eronder geworden
+ *     (`.trust`). Ze zweefden los op het rood, en de header schoof er bij het
+ *     scrollen half overheen;
+ *   - de vijf oorzaken stonden als vijf kaarten in een raster van drie, met
+ *     twee weesjes op de tweede rij. Nu een doorsnede van een keldermuur met
+ *     genummerde bronnen, en de lijst ernaast met diezelfde nummers;
+ *   - het stappenplan draagt de kaartvorm met pictogram (`.stapkaarten`);
+ *   - de FAQ klapt uit zonder JavaScript (`.faq.uitklap`), zoals daar;
+ *   - de kelders die we droogden staan als realisatiekaarten mét foto in
+ *     plaats van als drie regels in een linkkolom.
  */
 
 /** Wat vocht met een woning en met de mensen erin doet. */
@@ -71,6 +97,10 @@ const checklist = [
  * Waar vocht in een kelder of muur vandaan komt — en of een bouwdroger het
  * oplost. `helpt: false` betekent niet "wij kunnen niets voor u doen", maar
  * "eerst de oorzaak, dan drogen".
+ *
+ * De volgorde is die van de nummers in de doorsnede hiernaast: van het koude
+ * oppervlak binnen naar het vocht dat van buiten komt. Verander je de
+ * volgorde, verzet dan ook `.vb-nr` in src/styles/renovatie.css.
  */
 const oorzaken = [
   {
@@ -106,28 +136,34 @@ const oorzaken = [
 ];
 
 /** Zo pakt u een vochtige kelder aan, in deze volgorde. */
-const kelderStappen = [
+const kelderStappen: { Icon: ComponentType<{ size?: number }>; title: string; desc: string }[] = [
   {
+    Icon: GaugeIcon,
     title: "Meet eerst",
     desc: "Een eenvoudige hygrometer toont de relatieve luchtvochtigheid en de temperatuur. Noteer ze een paar dagen, dan weet u waar u vertrekt, en kunt u achteraf aantonen dat het gelukt is.",
   },
   {
+    Icon: ChecklistIcon,
     title: "Zoek de oorzaak",
     desc: "Condensatie, een lek, of vocht van buitenaf? Zie de vijf oorzaken hierboven. Bij opstijgend of doorslaand vocht laat u eerst de muur behandelen.",
   },
   {
+    Icon: DoosIcon,
     title: "Maak ruimte",
     desc: "Zet dozen, kasten en textiel weg van de muren. Achter een kast tegen een koude muur is het altijd het vochtigst, en daar begint de schimmel.",
   },
   {
+    Icon: DrogerIcon,
     title: "Plaats de droger centraal",
     desc: "Midden in de ruimte, deuren en kelderramen dicht: u droogt de kelder, niet de tuin. Met een condensslang naar een afvoer hoeft u geen reservoir te legen.",
   },
   {
+    Icon: ThermoIcon,
     title: "Warm bij onder 15 °C",
     desc: "Een koude kelder droogt traag met een condensdroger: koude lucht houdt nu eenmaal minder vocht vast. Een bouwkachel brengt de temperatuur op peil, of u kiest een adsorptiedroger.",
   },
   {
+    Icon: WindIcon,
     title: "Houd het daarna droog",
     desc: "Is de ruimte droog, verlucht dan regelmatig en houd de luchtvochtigheid in het oog. Anders staat u er over een paar maanden opnieuw.",
   },
@@ -151,6 +187,15 @@ const tips = [
     desc: "Blijft de luchtvochtigheid boven 60 % hangen, dan is het vocht aan het terugkomen. U ziet het aan de meter voor u het aan de muur ziet.",
   },
 ];
+
+/**
+ * De kelders die we zelf drooglegden, als kaart met foto in plaats van als
+ * drie regels in een linklijst. Wie twijfelt of drogen bij hém werkt, kijkt
+ * naar een kelder die op de zijne lijkt, niet naar een linktekst.
+ */
+const REFERENTIES = ["mancave-brugge", "dhr-d-c-antwerpen", "levis"]
+  .map(getRealisatie)
+  .filter((r): r is Realisatie => !!r);
 
 const faqs = [
   { q: "Hoe lang duurt het drogen van een vochtige kelder?", a: "Afhankelijk van de situatie 2 tot 6 weken. Onze vochtmeting bevestigt wanneer het klaar is." },
@@ -176,19 +221,21 @@ const faqs = [
 
 const verderLezen: LeesGroep[] = [
   {
-    kop: "Kelders die we droogden",
-    links: [
-      { to: "/realisaties/mancave-brugge", label: "Kelder-mancave in Brugge weer droog en schimmelvrij" },
-      { to: "/realisaties/dhr-d-c-antwerpen", label: "Muffe kelder met waterschade weer droog in Antwerpen" },
-      { to: "/realisaties/levis", label: "Schimmel in een kelderopslag gesaneerd" },
-    ],
-  },
-  {
     kop: "Toestellen voor kelders en vochtige ruimtes",
     links: [
       { to: "/verhuur/toestel/ttk170", toestel: "ttk170", label: "Boost", sub: "Compact, voor één kamer of een kleine kelder." },
       { to: "/verhuur/toestel/ttk650", toestel: "ttk650", label: "Ultimate", sub: "Voor ruime kelders en veel vocht." },
       { to: "/verhuur/toestel/teddh20", toestel: "teddh20", label: "Bouwkachel voor een koude kelder of garage", sub: "Brengt de ruimte op werkingstemperatuur." },
+    ],
+  },
+  {
+    kop: "Eerst begrijpen, dan huren",
+    links: [
+      { to: "/hoe-drogen-werkt", label: "Hoe drogen werkt: warmte, lucht en ontvochtiging" },
+      { to: "/gids/condensdroger-of-adsorptiedroger", label: "Gids: condensdroger of adsorptiedroger in een koude kelder?" },
+      { to: "/gids/stroomverbruik-bouwdroger", label: "Gids: wat verbruikt een bouwdroger aan stroom?" },
+      { to: "/waarom-bouwdroging", label: "Waarom bouwdroging en niet gewoon wachten" },
+      { to: "/ozonbehandeling", label: "Muffe geur die blijft hangen: ozonbehandeling" },
     ],
   },
   {
@@ -201,6 +248,62 @@ const verderLezen: LeesGroep[] = [
     ],
   },
 ];
+
+/**
+ * De doorsnede van een keldermuur: grond buiten, metselwerk, de ruimte met de
+ * droger erin. De vijf bronnen bewegen, de nummers verwijzen naar de lijst
+ * ernaast.
+ *
+ * `aria-hidden`, en dat is geen slordigheid: alles wat de tekening zegt staat
+ * voluit in die lijst. Deze pagina wordt geprerenderd voor lezers die geen
+ * JavaScript en soms geen CSS uitvoeren (zie CLAUDE.md), en een blok dat
+ * alleen in beweging iets zegt, zegt hun niets. De deeltjes zijn daarom
+ * versiering bovenop tekst die er sowieso staat.
+ */
+const Muurdoorsnede = () => (
+  <div className="vbron" aria-hidden="true">
+    <span className="vb-grond" />
+    <span className="vb-muur" />
+    <span className="vb-plafond" />
+    <span className="vb-ruimte" />
+    <span className="vb-vloer" />
+    <span className="vb-droger" />
+    <span className="vb-zuig" />
+    <span className="vb-zuig" style={{ "--d": "1.5s" } as React.CSSProperties} />
+    <span className="vb-zuig" style={{ "--d": "3s" } as React.CSSProperties} />
+
+    <span className="vb-tag buiten">Grond</span>
+    <span className="vb-tag binnen">Kelder</span>
+
+    {/* 1 · condens op het koude muuroppervlak */}
+    <span className="vb-p cond" />
+    <span className="vb-p cond" style={{ "--d": "1.2s" } as React.CSSProperties} />
+    <span className="vb-p cond" style={{ "--d": "2.4s" } as React.CSSProperties} />
+
+    {/* 2 · bouwvocht uit de chape */}
+    <span className="vb-p bouw" style={{ left: "52%", "--d": ".4s" } as React.CSSProperties} />
+    <span className="vb-p bouw" style={{ left: "63%", "--d": "1.6s" } as React.CSSProperties} />
+    <span className="vb-p bouw" style={{ left: "72%", "--d": "2.8s" } as React.CSSProperties} />
+
+    {/* 3 · een druppel van bovenaf */}
+    <span className="vb-p lek" style={{ right: "12%", "--d": ".8s" } as React.CSSProperties} />
+
+    {/* 4 · opstijgend vocht in de muur zelf */}
+    <span className="vb-p op" style={{ left: "27%" } as React.CSSProperties} />
+    <span className="vb-p op" style={{ left: "31%", "--d": "1.4s" } as React.CSSProperties} />
+    <span className="vb-p op" style={{ left: "34%", "--d": "2.6s" } as React.CSSProperties} />
+
+    {/* 5 · doorslaand vocht, dwars door de muur */}
+    <span className="vb-p door" style={{ top: "44%", "--d": ".2s" } as React.CSSProperties} />
+    <span className="vb-p door" style={{ top: "56%", "--d": "2.3s" } as React.CSSProperties} />
+
+    <span className="vb-nr n1">1</span>
+    <span className="vb-nr n2">2</span>
+    <span className="vb-nr n3">3</span>
+    <span className="vb-nr n4">4</span>
+    <span className="vb-nr n5">5</span>
+  </div>
+);
 
 const RenovatiePage = () => (
   <div className="v3c rn-page">
@@ -228,7 +331,15 @@ const RenovatiePage = () => (
       ]}
     />
 
-    <V3Header lightAfter={420} />
+    {/*
+      De balk wisselt naar zijn lichte variant zodra `.redtop` onder hem
+      ophoudt, en niet op een vast aantal pixels. Hij stond op 420: dan
+      wisselde hij al terwijl hij nog boven het rood zweefde, en schoof als
+      een melkwit vlak over de hero-tekst. Wie terugscrolde zag een menu dat
+      je niet kon lezen. Een ander vast getal lost dat niet op: het rood is
+      705 px hoog op een laptop en 1120 px op een telefoon.
+    */}
+    <V3Header lightAfter={660} darkUntil=".redtop" />
 
     <main>
 
@@ -245,11 +356,6 @@ const RenovatiePage = () => (
               muren en vloeren. En als er een blijvende oorzaak achter zit, leest u hieronder
               eerlijk welke dat is en in welke volgorde u ze aanpakt.
             </p>
-            <div className="hbadges">
-              <span><CheckIcon /> Vochtmeting voor én na</span>
-              <span><CheckIcon /> Binnen 24 uur geleverd</span>
-              <span><CheckIcon /> Advies vóór u huurt</span>
-            </div>
             <div className="hcta">
               <Link className="btn btn-white" to="/verhuur/calculator">
                 Bereken uw droogpakket
@@ -280,6 +386,20 @@ const RenovatiePage = () => (
           </div>
         </div>
       </section>
+    </div>
+
+    {/* ================= VERTROUWENSRIJ =================
+        Deze vier beloftes stonden als witte pillen in de hero zelf. Daar
+        zweefden ze los op het rood, en de header schoof er bij het scrollen
+        half overheen. Op wit, onder de vouw van de hero, horen ze bij de
+        pagina in plaats van bij het beeld. */}
+    <div className="wrap">
+      <div className="trust">
+        <div><GaugeIcon size={19} /> Vochtmeting voor én na</div>
+        <div><TruckIcon size={19} /> Binnen 24 uur geleverd</div>
+        <div><ChecklistIcon size={19} /> Levering en plaatsing inbegrepen</div>
+        <div><SupportIcon size={19} /> Advies vóór u huurt</div>
+      </div>
     </div>
 
     {/* ================= WAAROM NIET WACHTEN ================= */}
@@ -324,7 +444,7 @@ const RenovatiePage = () => (
             de combinatie van warmte, luchtbeweging en ontvochtiging het werk doet.
           </p>
         </div>
-        <Reveal from="up" className="checkcard">
+        <Reveal from="right" className="checkcard">
           <ul>
             {checklist.map((item) => (
               <li key={item}>
@@ -344,7 +464,7 @@ const RenovatiePage = () => (
     </section>
 
     {/* ================= OORZAAK OF SYMPTOOM ================= */}
-    <section className="sw">
+    <section className="sw" id="oorzaken">
       <div className="wrap">
         <div className="sec-head">
           <span className="kick">Oorzaak of symptoom</span>
@@ -356,18 +476,36 @@ const RenovatiePage = () => (
             deze vijf oorzaken is drogen het antwoord; bij twee komt er eerst iets anders.
           </p>
         </div>
-        <div className="g3">
-          {oorzaken.map(({ Icon, title, helpt, desc }, i) => (
-            <Reveal from="up" delay={(i % 3) * 0.08} className="kaart" key={title}>
-              <div className="ki"><Icon size={20} /></div>
-              <span className={`verdict ${helpt ? "ja" : "nee"}`}>
-                {helpt ? <CheckIcon size={12} /> : <DropIcon size={12} />}
-                {helpt ? "Een bouwdroger helpt" : "Eerst de oorzaak"}
-              </span>
-              <h3>{title}</h3>
-              <p>{desc}</p>
-            </Reveal>
-          ))}
+        <div className="split boven">
+          <Reveal from="left" className="vbron-kolom">
+            <Muurdoorsnede />
+            <p className="vbijschrift">
+              Doorsnede van een keldermuur: links de grond, rechts de ruimte met de droger erin.
+              De genummerde plekken zijn de vijf plaatsen waar vocht binnenkomt, en komen
+              overeen met de vijf oorzaken in de lijst.
+            </p>
+          </Reveal>
+          <div className="oorzlijst">
+            {oorzaken.map(({ Icon, title, helpt, desc }, i) => (
+              <Reveal from="up" delay={i * 0.06} className="oorz" key={title}>
+                <span className="oic">
+                  <Icon size={19} />
+                  {/* Hetzelfde nummer als in de doorsnede hiernaast. */}
+                  <i>{i + 1}</i>
+                </span>
+                <div>
+                  <div className="okop">
+                    <h3>{title}</h3>
+                    <span className={`verdict ${helpt ? "ja" : "nee"}`}>
+                      {helpt ? <CheckIcon size={12} /> : <DropIcon size={12} />}
+                      {helpt ? "Een bouwdroger helpt" : "Eerst de oorzaak"}
+                    </span>
+                  </div>
+                  <p>{desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
         <div className="note">
           <b>Zit de oorzaak in de muur zelf?</b> Opstijgend vocht, een lekkende keldermuur of een
@@ -404,8 +542,10 @@ const RenovatiePage = () => (
             <span>Meetrapport € 49</span>
           </div>
         </div>
-        <Reveal from="up" className="split-vis">
-          <div className="meter">
+        <Reveal from="right" className="split-vis">
+          {/* `wandelt`: het streepje loopt van een verzadigde kelder naar de
+              streefzone, zodat de meter toont wat drogen met hem doet. */}
+          <div className="meter wandelt">
             <div className="t">Relatieve luchtvochtigheid</div>
             <div className="big">40 – 60<small>% RV</small></div>
             <div className="scale" style={{ "--at": "50%" } as React.CSSProperties}>
@@ -428,7 +568,7 @@ const RenovatiePage = () => (
     {/* ================= SCHIMMEL ================= */}
     <section className="sw">
       <div className="wrap split rev">
-        <Reveal from="up" className="split-vis">
+        <Reveal from="left" className="split-vis">
           <img
             src="/vernast/schimmel-muur.webp"
             alt="Schimmelvorming op een vochtige binnenmuur"
@@ -467,14 +607,13 @@ const RenovatiePage = () => (
             Zes stappen, in deze volgorde. Wie stap twee overslaat, herhaalt stap vier elk jaar.
           </p>
         </div>
-        <div className="stapn twee">
-          {kelderStappen.map((stap, i) => (
-            <Reveal from="up" delay={(i % 2) * 0.08} className="sn" key={stap.title}>
-              <i />
-              <div>
-                <h3>{stap.title}</h3>
-                <p>{stap.desc}</p>
-              </div>
+        <div className="stapkaarten">
+          {kelderStappen.map(({ Icon, title, desc }, i) => (
+            <Reveal from="up" delay={(i % 3) * 0.08} className="stk" key={title}>
+              <div className="stkic"><Icon size={20} /></div>
+              <span className="stknr">Stap {i + 1}</span>
+              <h3>{title}</h3>
+              <p>{desc}</p>
             </Reveal>
           ))}
         </div>
@@ -496,8 +635,35 @@ const RenovatiePage = () => (
       </div>
     </section>
 
+    {/* ================= KELDERS DIE WE DROOGDEN ================= */}
+    <section className="sr" id="realisaties">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Uit de praktijk</span>
+          <h2 className="sec">Kelders die we droog kregen.</h2>
+          <p className="lede">
+            Drie werven met hun meetwaarden, hun duur en de toestellen die er stonden. Lijkt er
+            één op uw situatie, dan weet u meteen wat u mag verwachten.
+          </p>
+        </div>
+        <div className="refs">
+          {REFERENTIES.map((r, i) => (
+            <Reveal from="up" delay={(i % 3) * 0.08} key={r.slug}>
+              <Link className="rz" to={`/realisaties/${r.slug}`}>
+                <img src={r.kaart} alt={r.kaartAlt} width={640} height={420} loading="lazy" decoding="async" />
+                <div className="rzt">
+                  <span className="rzl">{r.locatie}</span>
+                  <h3>{r.titel}</h3>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
     {/* ================= DROOG HOUDEN ================= */}
-    <section className="sr">
+    <section className="sw">
       <div className="wrap">
         <div className="sec-head">
           <span className="kick">Na de ophaling</span>
@@ -522,26 +688,16 @@ const RenovatiePage = () => (
     <VerderLezen titel="Verder lezen over vochtige kelders" groepen={verderLezen} />
 
     {/*
-      FAQ — zichtbaar, niet ingeklapt. De Radix-accordeon die hier stond
-      rendert de inhoud van een dichte vraag niet, dus in de geprerenderde
-      HTML ontbraken de antwoorden die de FAQ-schema belooft.
+      De vragen in de vorm van de homepage: links de titel met het
+      hulpkaartje, rechts de vragen. Ze stonden hier als een raster van open
+      kaarten, en daarna kort als een eigen accordeon; dat waren drie vormen
+      van hetzelfde blok op één site. Zie src/components/content/FaqBlok.tsx.
     */}
-    <section className="sr">
-      <div className="wrap">
-        <div className="sec-head mid">
-          <span className="kick">Veelgestelde vragen</span>
-          <h2 className="sec">Wat klanten met een vochtige kelder ons vragen.</h2>
-        </div>
-        <div className="faqs">
-          {faqs.map((faq, i) => (
-            <Reveal from="up" delay={(i % 2) * 0.06} as="dl" className="faq" key={faq.q}>
-              <dt>{faq.q}</dt>
-              <dd>{faq.a}</dd>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
+    <FaqBlok
+      titel="Wat klanten met een vochtige kelder ons vragen."
+      vragen={faqs}
+      sleutel="rn-faq"
+    />
 
     {/* ================= SLOT-CTA ================= */}
     <section className="sw">

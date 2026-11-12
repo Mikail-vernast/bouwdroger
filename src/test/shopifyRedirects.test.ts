@@ -19,9 +19,9 @@ describe("Shopify-productredirects", () => {
   it.each([
     ["gebouw-kleiner-dan-100-m2-waterschade-drogen", "/waterschade"],
     ["ruimte-kleiner-dan-40-m2-waterschade-drogen", "/waterschade"],
-    ["gebouw-kleiner-dan-180-m2-chapedikte-7cm", "/nieuwbouw"],
-    ["ruimte-kleiner-dan-40-m2-pleisterdikte-1cm", "/nieuwbouw"],
-    ["gebouw-kleiner-dan-300-m2-pleisterwerk-chape-drogen", "/nieuwbouw"],
+    ["gebouw-kleiner-dan-180-m2-chapedikte-7cm", "/nieuwbouw-drogen"],
+    ["ruimte-kleiner-dan-40-m2-pleisterdikte-1cm", "/nieuwbouw-drogen"],
+    ["gebouw-kleiner-dan-300-m2-pleisterwerk-chape-drogen", "/nieuwbouw-drogen"],
     ["bouwdroger-huren-eco-boost-450-m3", "/verhuur/toestel/ttk170"],
     ["eco-revolution", "/verhuur/toestel/revolution"],
     ["turbo-axiaalventilator-4500-m-h-5-00-dag", "/verhuur/toestel/ttv4500"],
@@ -37,6 +37,16 @@ describe("Shopify-productredirects", () => {
     // Een eigen regex in een parameter (`:slug(.*)`) overspant wél een `/` —
     // daarom staat er `[^/]*` in vercel.json, niet `.*`.
     expect(bestemming("/products/gebouw-kleiner-dan-60-m2-chapedikte-5cm/extra")).toBe("/machines");
+  });
+
+  /*
+    Eigen URL's die hernoemd zijn. /nieuwbouw zei de bouwfase, niet de dienst,
+    en stond in het menu, in de sitemap en als bestemming van de Shopify-
+    redirects hierboven. Verdwijnt deze regel uit vercel.json, dan verliest de
+    pagina in één deploy alles wat ze had.
+  */
+  it("laat een hernoemde eigen pagina permanent doorverwijzen", () => {
+    expect(bestemming("/nieuwbouw")).toBe("/nieuwbouw-drogen");
   });
 
   it("stuurt de oude informatiepagina's naar hun eigen onderwerp", () => {

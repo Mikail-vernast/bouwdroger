@@ -5,6 +5,7 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
 import ContactBlok from "@/components/content/ContactBlok";
+import FaqBlok from "@/components/content/FaqBlok";
 import StappenCarrousel, { type VerloopStap } from "@/components/content/StappenCarrousel";
 import {
   ArrowRightIcon,
@@ -117,6 +118,7 @@ const SCHADETYPES: {
   tekst: string;
   aanpak: string;
   foto: string;
+  fotoHd: string;
   fotoAlt: string;
 }[] = [
   {
@@ -127,6 +129,7 @@ const SCHADETYPES: {
     aanpak:
       "Lek eerst laten herstellen, dan drogen. Wij meten hoe ver het vocht is gelopen en zetten de toestellen op de natste zone, niet op de plek waar u het lek zag.",
     foto: "/vernast/waterschade-leiding.webp",
+    fotoHd: "/vernast/waterschade-leiding-hd.webp",
     fotoAlt: "Natte muur onder een lekkende leiding in een woning",
   },
   {
@@ -137,6 +140,7 @@ const SCHADETYPES: {
     aanpak:
       "Staand water eerst weg, natte spullen eruit. In een koude kelder zetten we een bouwkachel of een adsorptiedroger in, omdat een condensdroger onder 15 °C sterk aan rendement verliest.",
     foto: "/vernast/waterschade-kelder.webp",
+    fotoHd: "/vernast/waterschade-kelder-hd.webp",
     fotoAlt: "Ondergelopen kelder met vochtlijn op de muur en een natte vloer",
   },
   {
@@ -147,6 +151,7 @@ const SCHADETYPES: {
     aanpak:
       "Dit is het geval waarvoor wij gericht drogen: droge lucht gaat via kleine openingen en slangen rechtstreeks in de vloeropbouw. Vaak maakt dat het verschil tussen drogen en uitbreken.",
     foto: "/vernast/waterschade-vloeropbouw.webp",
+    fotoHd: "/vernast/waterschade-vloeropbouw-hd.webp",
     fotoAlt: "Gerichte droging van natte vloerisolatie via luchtslangen",
   },
   {
@@ -157,6 +162,7 @@ const SCHADETYPES: {
     aanpak:
       "Eerst de bron dicht, daarna drogen vanaf de hoogste natte plek. Plafonds en gipswanden geven hun vocht vlot af; het metselwerk erachter heeft meer tijd nodig.",
     foto: "/vernast/waterschade-van-boven.webp",
+    fotoHd: "/vernast/waterschade-van-boven-hd.webp",
     fotoAlt: "Waterschade op het plafond en de bovenmuur door een lekkage van boven",
   },
 ];
@@ -417,6 +423,8 @@ const WaterschadePage = () => (
               <div className="sfoto">
                 <img
                   src={t.foto}
+                  srcSet={`${t.foto} 1672w, ${t.fotoHd} 3344w`}
+                  sizes="(max-width: 860px) calc(100vw - 40px), calc((100vw - 82px) / 2)"
                   alt={t.fotoAlt}
                   width={1672}
                   height={941}
@@ -656,9 +664,11 @@ const WaterschadePage = () => (
               Daarom boren wij kleine openingen op de juiste plaatsen en blazen we droge lucht via
               slangen rechtstreeks in de vloeropbouw, de spouw of de wand. Dat is wat een{" "}
               <Link to="/verhuur/toestel/revolution">adsorptiedroger</Link> kan en een gewone
-              droger niet, en onder 15 °C verliest hij nauwelijks capaciteit. Wij meten of de
-              constructie zelf droog is, niet alleen de lucht erboven — bij een gedekt schadegeval
-              vaak het verschil tussen een droogdossier en een afbraakdossier.
+              droger niet, en onder 15 °C verliest hij nauwelijks capaciteit. Hoe de twee
+              technieken verschillen, staat uitgewerkt in de gids{" "}
+              <Link to="/gids/condensdroger-of-adsorptiedroger">condensdroger of adsorptiedroger</Link>.
+              Wij meten of de constructie zelf droog is, niet alleen de lucht erboven, bij een
+              gedekt schadegeval vaak het verschil tussen een droogdossier en een afbraakdossier.
             </p>
             <div className="chips">
               <span>Vloeropbouw en isolatie</span>
@@ -781,76 +791,48 @@ const WaterschadePage = () => (
       </div>
     </section>
 
-    {/*
-      FAQ — uitklapbaar via <details>, niet via een JS-accordeon.
-
-      Het antwoord van een dichtgeklapte <details> staat wél in de HTML; een
-      Radix-accordeon rendert het niet, en dan belooft de FAQ-schema in de head
-      tekst die niet op de pagina staat. De eerste vraag staat open, zodat
-      zichtbaar is dat de rest ook opengaat.
-    */}
-    <section className="sw">
-      <div className="wrap">
-        <div className="sec-head mid">
-          <span className="kick">Veelgestelde vragen</span>
-          <h2 className="sec">Wat mensen met waterschade ons vragen.</h2>
-        </div>
-        <div className="faqs enkel">
-          {faqs.map((faq, i) => (
-            <Reveal from="up" delay={(i % 2) * 0.06} as="dl" className="faq uitklap" key={faq.q}>
-              <dt>
-                <input
-                  className="faqtoggle"
-                  type="checkbox"
-                  id={`ws-faq-${i}`}
-                  defaultChecked={i === 0}
-                />
-                <label htmlFor={`ws-faq-${i}`}>{faq.q}</label>
-              </dt>
-              <dd>
-                <p>{faq.a}</p>
-              </dd>
-            </Reveal>
-          ))}
-        </div>
-
-        {/*
-          De slotplaat staat binnen de FAQ-sectie: wie de vragen gelezen heeft
-          is klaar om te bellen, en een lege witte strook ertussen brak dat
-          moment. `bijsnijden` haalt de transparante onderrand van de foto weg,
-          zodat de technieker en de bestelwagen op de rand staan in plaats van
-          erboven te zweven.
-        */}
-        <div className="manband">
-          <div className="mb-t">
-            <span className="mbk">Nu bellen</span>
-            <h3>Hoe sneller wij er staan, hoe minder er uitgebroken moet worden.</h3>
-            <p>
-              Beschrijf kort wat er gebeurd is en hoe groot de ruimte is. Wij zeggen meteen welke
-              toestellen mee moeten en wanneer we kunnen leveren: bij waterschade vandaag nog.
-            </p>
-            <div className="mb-cta">
-              <a className="btn btn-white" href={`tel:${CONTACT.phoneE164}`}>
-                <PhoneIcon /> Bel {CONTACT.phoneLocal}
-              </a>
-              <a className="btn btn-ghost" href="#formulier">
-                Aanvraag doen
-                <ArrowRightIcon />
-              </a>
-            </div>
+    <FaqBlok
+      titel="Wat mensen met waterschade ons vragen."
+      vragen={faqs}
+      sleutel="ws-faq"
+      variant="wit"
+    >
+      {/*
+        De slotplaat staat binnen de FAQ-sectie: wie de vragen gelezen heeft
+        is klaar om te bellen, en een lege witte strook ertussen brak dat
+        moment. `bijsnijden` haalt de transparante onderrand van de foto weg,
+        zodat de technieker en de bestelwagen op de rand staan in plaats van
+        erboven te zweven.
+      */}
+      <div className="manband">
+        <div className="mb-t">
+          <span className="mbk">Nu bellen</span>
+          <h3>Hoe sneller wij er staan, hoe minder er uitgebroken moet worden.</h3>
+          <p>
+            Beschrijf kort wat er gebeurd is en hoe groot de ruimte is. Wij zeggen meteen welke
+            toestellen mee moeten en wanneer we kunnen leveren: bij waterschade vandaag nog.
+          </p>
+          <div className="mb-cta">
+            <a className="btn btn-white" href={`tel:${CONTACT.phoneE164}`}>
+              <PhoneIcon /> Bel {CONTACT.phoneLocal}
+            </a>
+            <a className="btn btn-ghost" href="#formulier">
+              Aanvraag doen
+              <ArrowRightIcon />
+            </a>
           </div>
-          <img
-            className="mb-man breed bijsnijden tegenrand"
-            src="/vernast/man-bestelwagen.webp"
-            alt="Vernast technicus bij de bestelwagen met een bouwdroger"
-            width={1440}
-            height={800}
-            loading="lazy"
-            decoding="async"
-          />
         </div>
+        <img
+          className="mb-man breed bijsnijden tegenrand"
+          src="/vernast/man-bestelwagen.webp"
+          alt="Vernast technicus bij de bestelwagen met een bouwdroger"
+          width={1440}
+          height={800}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
-    </section>
+    </FaqBlok>
 
     <ContactBlok
       kicker="Waterschade melden"

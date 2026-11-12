@@ -229,7 +229,7 @@ export async function POST(request: Request): Promise<Response> {
     return json(
       {
         error:
-          "Op deze leverdatum zijn onze toestellen al ingepland. Kies een andere datum, of bel ons op 03 689 90 65 — vaak kunnen we alsnog schuiven.",
+          "Op deze leverdatum zijn onze toestellen al ingepland. Kies een andere datum, of bel ons op 03 689 90 65. Vaak kunnen we alsnog schuiven.",
         code: "niet_beschikbaar",
         blocked_start_dates: availability.answer.blocked_start_dates,
       },
@@ -283,7 +283,7 @@ export async function POST(request: Request): Promise<Response> {
                 naam is wat de klant terugziet op het ontvangstbewijs van Stripe
                 en in het dashboard. Daar helpt de pakketnaam, en niets anders.
               */
-              name: trim(`${PRODUCT_PREFIX} — ${packageTitle(config)}`, 250),
+              name: trim(`${PRODUCT_PREFIX}, ${packageTitle(config)}`, 250),
               /*
                 Eigen bestand, los van de logo's die de site zelf gebruikt. Die
                 staan als webp in de repo en Stripe haalt de afbeelding op met
@@ -301,7 +301,7 @@ export async function POST(request: Request): Promise<Response> {
               ...(options.payment === "online"
                 ? {}
                 : {
-                    description: `Orderbevestiging — saldo ${(
+                    description: `Orderbevestiging, saldo ${(
                       summary.grossTotal - summary.payableGross
                     ).toFixed(2)} EUR incl. btw bij levering`,
                   }),

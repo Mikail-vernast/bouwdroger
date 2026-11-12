@@ -195,7 +195,7 @@ const ALARM_WINDOW_MS = 15 * 60_000;
  */
 export function alarmAvailabilityFailure(context: string, result: AvailabilityResult): void {
   const reason = result.reason ?? "antwoord zonder beschikbaarheid";
-  console.error(`[beschikbaarheid] ${context}: controle mislukt, boeking geweigerd — ${reason}`);
+  console.error(`[beschikbaarheid] ${context}: controle mislukt, boeking geweigerd, ${reason}`);
 
   if (!rateLimit(ALARM_KEY, 1, ALARM_WINDOW_MS).allowed) return;
 

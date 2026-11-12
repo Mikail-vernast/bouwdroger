@@ -1,6 +1,7 @@
 import { useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
+import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { ArrowRightIcon } from "./icons";
 
 interface Region {
@@ -59,33 +60,107 @@ const V3Regio = () => {
           <h2 className="sec">Wij leveren in heel Vlaanderen en Brussel.</h2>
           <p className="lede">
             Klik op uw provincie en zie meteen de gemeenten waar wij leveren, installeren en ophalen.
-            Twijfelt u? Bel ons even.
+            Klik op de naam om naar de pagina van die provincie te gaan. Twijfelt u? Bel ons even.
           </p>
         </div>
 
         <div className="regio-grid">
           <div className="rm-panel">
-            {REGIONS.map((item, i) => (
-              <button
-                key={item.name}
-                type="button"
-                className={`pin${i === active ? " active" : ""}`}
-                style={item.pin}
-                onClick={() => setActive(i)}
-              >
-                <b />
-                {item.name}
-              </button>
-            ))}
+            {/*
+              Twee dingen op één speld: de provincie kiezen, en naar haar
+              pagina gaan. Een speld die alleen de gemeentenlijst verwisselde
+              las als een knop die niets deed -- wie "Antwerpen" aandrukt
+              verwacht de Antwerpse pagina, niet een andere chiplijst.
+
+              Daarom is de *geselecteerde* speld een link en de rest een knop.
+              Antwerpen staat bij het laden al open, dus daar volstaat één
+              klik; bij een andere provincie kiest de eerste klik haar en gaat
+              de tweede naar haar pagina. Brussel blijft altijd een knop: we
+              leveren er wel, maar het heeft geen eigen pagina.
+            */}
+            {REGIONS.map((item, i) =>
+              i === active && item.path ? (
+                <Link
+                  key={item.name}
+                  className="pin active"
+                  style={item.pin}
+                  to={item.path}
+                  aria-label={`Bouwdroger huren in ${item.name}`}
+                >
+                  <b />
+                  {item.name}
+                  <ArrowRightIcon size={12} />
+                </Link>
+              ) : (
+                <button
+                  key={item.name}
+                  type="button"
+                  className={`pin${i === active ? " active" : ""}`}
+                  style={item.pin}
+                  onClick={() => setActive(i)}
+                >
+                  <b />
+                  {item.name}
+                </button>
+              )
+            )}
           </div>
 
           <div className="regio-info">
-            <h3 id="rgName">{region.name}</h3>
+            {/*
+              De provincienaam is de grootste "Antwerpen" op het scherm en
+              stond als dode kop boven een lijst links. Nu draagt hij dezelfde
+              bestemming als de rode knop onderaan het paneel.
+            */}
+            <h3 id="rgName">
+              {region.path ? (
+                <Link to={region.path}>
+                  {region.name}
+                  <ArrowRightIcon size={15} />
+                </Link>
+              ) : (
+                region.name
+              )}
+            </h3>
             <p className="rg-sub">Een greep uit de gemeenten waar wij leveren en installeren:</p>
+            {/*
+              De gemeenten zagen eruit als knoppen en waren dode <span>'s. Wie
+              "Antwerpen" of "Mechelen" aandrukte kreeg niets -- terwijl de
+              pagina die net die gemeente behandelt één klik verderop stond.
+
+              Elke chip gaat naar de regiopagina van haar provincie: die noemt
+              de gemeente bij naam en beschrijft wat we er doen. Een eigen
+              pagina per gemeente bestaat niet, en een chip die naar niets
+              leidt is precies het probleem dat we hier oplossen. Brussel heeft
+              geen pagina, dus blijven die chips wél gewone tekst.
+            */}
             <div className="rg-chips" id="rgChips">
-              {region.towns.map((town) => (
-                <span key={town}>{town}</span>
-              ))}
+              {region.towns.map((town) => {
+                /*
+                  Heeft de gemeente een eigen pagina, dan gaat de chip daarheen
+                  en niet naar de provincie. Tot 12-11-2026 wezen ze allemaal
+                  naar de provincie, en dan kwam je op "Mechelen" drukken uit
+                  op de Antwerpse pagina. Zolang de pilot loopt hebben alleen
+                  de Antwerpse gemeenten een eigen pagina; de rest valt terug
+                  op de provincie in plaats van dood te staan.
+                */
+                const eigen = gemeenteVanPlaats(town);
+                const doel = eigen?.path ?? region.path;
+                if (!doel) return <span key={town}>{town}</span>;
+                return (
+                  <Link
+                    key={town}
+                    to={doel}
+                    aria-label={
+                      eigen
+                        ? `Bouwdroger huren in ${town}`
+                        : `${town}, bouwdroger huren in ${region.name}`
+                    }
+                  >
+                    {town}
+                  </Link>
+                );
+              })}
             </div>
             <p className="rg-note">
               Staat uw gemeente er niet bij? Wij leveren in heel Vlaanderen en Brussel. Bel ons op

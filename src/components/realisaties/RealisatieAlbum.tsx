@@ -97,7 +97,7 @@ const RealisatieAlbum = ({ fotos, titel }: { fotos: RealisatieFoto[]; titel: str
       </div>
 
       {vergroot && (
-        <div className="rz-lightbox" role="dialog" aria-modal="true" aria-label={`${titel} — foto ${actief + 1}`} onClick={() => setVergroot(false)}>
+        <div className="rz-lightbox" role="dialog" aria-modal="true" aria-label={`${titel}, foto ${actief + 1}`} onClick={() => setVergroot(false)}>
           <button type="button" className="lb-close" onClick={() => setVergroot(false)} aria-label="Sluiten">
             ×
           </button>
@@ -113,7 +113,7 @@ const RealisatieAlbum = ({ fotos, titel }: { fotos: RealisatieFoto[]; titel: str
           )}
           <img src={huidig.src} alt={huidig.alt} onClick={(e) => e.stopPropagation()} />
           <p className="lb-cap">
-            {actief + 1} / {fotos.length} — {huidig.bijschrift}
+            {actief + 1} / {fotos.length}, {huidig.bijschrift}
           </p>
         </div>
       )}

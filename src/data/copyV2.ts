@@ -142,7 +142,7 @@ export const COPY_PAGES: CopyPage[] = [
     id: "nieuwbouw",
     group: "Situaties",
     name: "Nieuwbouw",
-    route: "/nieuwbouw",
+    route: "/nieuwbouw-drogen",
     purpose: "Bouwheren en aannemers overtuigen om chape en pleisterwerk gecontroleerd te drogen.",
     hero: {
       eyebrow: "Chape en pleisterwerk drogen",
@@ -386,7 +386,7 @@ export const COPY_PAGES: CopyPage[] = [
   {
     id: "toestel-template",
     group: "Aanbod",
-    name: "Toestelpagina — template",
+    name: "Toestelpagina (template)",
     route: "/verhuur/toestel/:model",
     purpose: "Elk toestel op dezelfde manier uitleggen: toepassing eerst, specificaties daarna.",
     hero: {
@@ -665,7 +665,7 @@ export const COPY_PAGES: CopyPage[] = [
   {
     id: "realisatie-template",
     group: "Vertrouwen & uitleg",
-    name: "Realisatie — template",
+    name: "Realisatie (template)",
     route: "/realisaties/:slug",
     purpose: "Elke case als controleerbaar bewijs presenteren in plaats van als algemeen succesverhaal.",
     hero: {
@@ -842,10 +842,10 @@ export const COPY_PAGES: CopyPage[] = [
         eyebrow: "Vraag 1",
         title: "Welke situatie past het best?",
         bullets: [
-          "Pleisterwerk — muren en plafonds na pleisterwerken",
-          "Chape — een nieuwe dekvloer vóór vloerafwerking",
-          "Pleisterwerk en chape — beide tegelijk in dezelfde woning",
-          "Waterschade — vocht na een lek, overstroming of bluswater",
+          "Pleisterwerk: muren en plafonds na pleisterwerken",
+          "Chape: een nieuwe dekvloer vóór vloerafwerking",
+          "Pleisterwerk en chape: beide tegelijk in dezelfde woning",
+          "Waterschade: vocht na een lek, overstroming of bluswater",
         ],
       },
       {

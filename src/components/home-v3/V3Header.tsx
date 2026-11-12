@@ -27,9 +27,31 @@ interface V3HeaderProps {
    * leest niet. Het logo wisselt in JS mee, dus CSS alleen kan dit niet.
    */
   alwaysLightBelow?: number;
+  /**
+   * CSS-selector van het donkere blok waar de balk boven zweeft, meestal
+   * `.redtop`. Staat die er, dan telt niet meer de vaste `lightAfter` maar de
+   * onderrand van dat blok: de balk wisselt precies wanneer het rood onder
+   * hem ophoudt.
+   *
+   * Waarom dit erbij kwam: `lightAfter` is één getal, en de hoogte van een
+   * hero is dat niet. Op /renovatie was het rood 705 px hoog op een laptop en
+   * 1120 px op een telefoon, waar de herofoto wegvalt en de titel over vier
+   * regels loopt. Met het getal dat op de laptop klopte, schoof op een
+   * telefoon een melkwitte balk over de rode hero en was het menu
+   * onleesbaar. `lightAfter` blijft de terugval voor wie geen selector
+   * meegeeft.
+   */
+  darkUntil?: string;
 }
 
-const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
+/**
+ * Onderrand van de nav-pil in gescrolde toestand (de bovenste regel is dan
+ * ingeklapt). Zodra het donkere blok daarboven eindigt, hoort de balk licht
+ * te staan.
+ */
+const PIL_ONDER = 80;
+
+const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderProps) => {
   const [tucked, setTucked] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [onLight, setOnLight] = useState(false);
@@ -49,10 +71,16 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
       else if (y < lastY.current - 6) setTucked(false);
 
       setScrolled(y > 60);
+      /*
+        Het donkere blok wordt elke keer opnieuw opgemeten in plaats van één
+        keer bij het aankoppelen: de herofoto laadt lui, en zijn hoogte komt
+        er dus pas later bij.
+      */
+      const donker = darkUntil ? document.querySelector(darkUntil) : null;
       setOnLight(
         lightAfter < 0 ||
-          y > lightAfter ||
-          (alwaysLightBelow !== undefined && window.innerWidth <= alwaysLightBelow),
+          (alwaysLightBelow !== undefined && window.innerWidth <= alwaysLightBelow) ||
+          (donker ? donker.getBoundingClientRect().bottom <= PIL_ONDER : y > lightAfter),
       );
       lastY.current = y;
       ticking = false;
@@ -73,7 +101,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
       window.removeEventListener("scroll", handler);
       window.removeEventListener("resize", handler);
     };
-  }, [lightAfter, alwaysLightBelow]);
+  }, [lightAfter, alwaysLightBelow, darkUntil]);
 
   const sluitMenu = () => {
     setMenuOpen(false);
@@ -117,7 +145,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
 
           <div className="nav-menu">
             <div className="item has-sub">
-              Vernast Group
+              Group
               <CaretIcon className="caret" />
               <div className="submenu">
                 <a href="https://vernast-vochtbestrijding.be/">

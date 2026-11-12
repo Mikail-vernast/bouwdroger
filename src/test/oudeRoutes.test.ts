@@ -46,7 +46,7 @@ describe("oude routes", () => {
     expect(redirect("/machines")).toBeNull();
   });
 
-  it("verwijst /afhalen niet door — daar staat sinds 11-2026 een eigen pagina", () => {
+  it("verwijst /afhalen niet door, daar staat sinds 11-2026 een eigen pagina", () => {
     expect(redirect("/afhalen")).toBeNull();
   });
 });

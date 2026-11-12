@@ -89,11 +89,20 @@ export const REGIOS: Regio[] = [
   /* ------------------------------------------------------------------ */
   {
     ...route("antwerpen"),
-    title: "Bouwdroger huren in Antwerpen en Mechelen | Vernast",
+    /*
+      "provincie Antwerpen", niet "Antwerpen" kaal, en zonder "en Mechelen" in
+      de titel. Sinds 12-11-2026 hebben de stad en Mechelen elk een eigen
+      pagina, en die stonden met dezelfde H1 op dezelfde zoekopdracht te
+      mikken als deze — twee pagina's op één intentie, precies waar `seo.ts`
+      voor bestaat. Deze pagina is de regionale: de hele provincie, van de
+      Kempen tot de Rupelstreek. De stadsintentie hoort op
+      /bouwdroger-huren-antwerpen-stad.
+    */
+    title: "Bouwdroger huren in provincie Antwerpen | Vernast",
     description:
-      "Bouwdroger huren in Antwerpen, Mechelen, Lier en Mortsel: binnen 24 uur geleverd vanuit Aartselaar, of zelf afhalen met € 25 korting. Geen waarborg.",
-    h1: "Bouwdroger huren in Antwerpen",
-    kicker: "Stad en rand · magazijn op 15 minuten",
+      "Bouwdroger huren in de provincie Antwerpen, van de Kempen tot de Rupelstreek: binnen 24 uur geleverd vanuit Aartselaar, geplaatst en ingesteld. Geen waarborg.",
+    h1: "Bouwdroger huren in de provincie Antwerpen",
+    kicker: "Hele provincie · magazijn in Aartselaar",
     intro: [
       "Ons magazijn staat in Aartselaar, langs de A12, een kwartier van de Antwerpse ring. Dat maakt de provincie Antwerpen de streek waar we het snelst staan en het vaakst rijden: van een appartement in Zurenborg tot een nieuwbouwvilla in Schilde. Wie vóór de middag boekt, heeft de toestellen doorgaans de volgende werkdag draaien.",
     ],
@@ -109,7 +118,7 @@ export const REGIOS: Regio[] = [
       alineas: [
         "Drie situaties zijn samen goed voor het grootste deel van onze ritten in de provincie Antwerpen: pleisterwerk drogen na een renovatie, chape drogen in een nieuwbouw, en een kelder of berging drogen na waterschade. Voor alle drie leveren we binnen 24 uur vanuit Aartselaar, van het centrum van Antwerpen tot Mechelen, Lier en Mortsel.",
         "In de stad overheerst renovatie. In de negentiende-eeuwse gordel van Berchem, Borgerhout en Zurenborg gaat het huis per huis: vers pleisterwerk in een bewoonde straat, een kelder die plots vochtig blijkt, een chape die moet drogen terwijl de buren thuis zijn. Daar hoort een compacte bouwdroger bij die op één stopcontact draait, stil genoeg is voor een bewoond gebouw en via een smalle trap naar boven kan.",
-        "In de rand is het omgekeerd: in Kontich, Edegem, Schilde, Brasschaat en Boom draaien meerdere bouwdrogers tegelijk op een volledige gelijkvloerse chape, verdeeld over droogzones, en gaat de vraag maar over één datum — wanneer kan de vloerder starten? In de Kempen, rond Turnhout, Geel, Mol en Herentals, zetten we er op een onverwarmde winterwerf een bouwkachel bij, want onder 15 °C haalt een condensdroger te weinig rendement. En bij waterschade telt elk uur: op vochtig materiaal begint schimmel na 24 tot 48 uur, en vanuit Aartselaar staan we er doorgaans dezelfde dag.",
+        "In de rand is het omgekeerd: in Kontich, Edegem, Schilde, Brasschaat en Boom draaien meerdere bouwdrogers tegelijk op een volledige gelijkvloerse chape, verdeeld over droogzones, en gaat de vraag maar over één datum, wanneer kan de vloerder starten? In de Kempen, rond Turnhout, Geel, Mol en Herentals, zetten we er op een onverwarmde winterwerf een bouwkachel bij, want onder 15 °C haalt een condensdroger te weinig rendement. En bij waterschade telt elk uur: op vochtig materiaal begint schimmel na 24 tot 48 uur, en vanuit Aartselaar staan we er doorgaans dezelfde dag.",
       ],
     },
     beeld: {

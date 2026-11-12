@@ -5,14 +5,16 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
 import Pakketkaarten from "@/components/content/Pakketkaarten";
 import ContactBlok from "@/components/content/ContactBlok";
+import FaqBlok from "@/components/content/FaqBlok";
 import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
-import { ArrowRightIcon, CalendarCheckIcon, CheckIcon, PhoneIcon } from "@/components/home-v3/icons";
+import { ArrowRightIcon, CalendarCheckIcon, CheckIcon, HouseIcon, PhoneIcon } from "@/components/home-v3/icons";
 import { GaugeIcon, LayersIcon, ThermoIcon, WindIcon, XIcon } from "@/components/content/icons";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { euro } from "@/data/tarieflijst";
 import { EXTRAS } from "@/data/verhuur";
 import { droogtermijnen, natuurlijkeChapeWeken, termijnLabel } from "@/lib/droogtijden";
+import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { CONTACT } from "@/lib/site";
 import "@/styles/v3-content.css";
 
@@ -20,6 +22,12 @@ import "@/styles/v3-content.css";
  * Chape en pleisterwerk drogen. Stond tot november 2026 op de oude
  * shadcn-schil met de `Navbar`; nu in de v3-vormtaal van /hoe-drogen-werkt,
  * met <V3Header> en de gedeelde opmaak uit src/styles/v3-content.css.
+ *
+ * De route heet sinds 12-11-2026 /nieuwbouw-drogen. /nieuwbouw noemde de
+ * bouwfase en niet de dienst: in een zoekresultaat stond onder een titel over
+ * chape en pleisterwerk een URL waar dat woord niet in voorkwam. De oude URL
+ * leidt permanent door (vercel.json); de redirect blijft nodig omdat alle
+ * Shopify-redirects voor chape- en pleisterpakketten hier uitkomen.
  *
  * De inhoud bleef: de twee droogtijdtabellen zijn de reden dat mensen hier
  * binnenkomen ("hoe lang chape drogen", "droogtijd pleisterwerk"), en ze
@@ -64,37 +72,50 @@ const met = [
 ];
 
 
+/*
+  Wat de droogtijd bepaalt, in één reeks van zes.
+
+  Hier stonden twee rode secties onder elkaar in de pagina: "Drie dingen die de
+  droogtijd echt bepalen" en, drie secties verder, "Drie dingen die dagen
+  schelen" — dezelfde vorm, dezelfde kaarten, en deels dezelfde inhoud:
+  ventileren en verwarmen kwamen in allebei terug. Wie de pagina afscrolde,
+  las twee keer hetzelfde met een ander opschrift.
+
+  Nu is het één genummerde reeks in de vorm van "de eerste 48 uur" op
+  /waterschade, in de volgorde waarin een bouwheer ze nodig heeft: van het
+  moment waarop hij mag beginnen tot de meting die beslist of hij klaar is.
+*/
 const praktijk = [
   {
     Icon: CalendarCheckIcon,
-    title: "Wanneer begint u met drogen?",
-    alineas: [
-      "Een verse zandcementchape moet eerst uitharden. Wie meteen hard begint te drogen, loopt het risico op krimpscheuren of een zwakke toplaag. Vraag uw chapeur vanaf wanneer u actief mag drogen; vaak is dat na enkele dagen tot een week.",
-      "Pleisterwerk kan meestal sneller aan de beurt, zodra het oppervlak hard is. Plant u beide, reserveer dan zo dat de toestellen er staan op de dag dat de chapeur groen licht geeft.",
-    ],
+    title: "Begin pas als de chape mag drogen",
+    desc: "Een verse zandcementchape moet eerst uitharden; wie meteen hard begint te drogen, riskeert krimpscheuren of een zwakke toplaag. Vraag uw chapeur vanaf wanneer u actief mag drogen — vaak na enkele dagen tot een week. Pleisterwerk kan meestal sneller aan de beurt, zodra het oppervlak hard is.",
+  },
+  {
+    Icon: HouseIcon,
+    title: "Houd de ruimte dicht",
+    desc: "Een condensdroger haalt het vocht uit de lucht in de ruimte. Staan ramen of deuren open, dan droogt hij de buitenlucht mee en schiet de droging nauwelijks op. Verlucht alleen kort als het echt nodig is, bijvoorbeeld na werken met lijm of verf.",
+  },
+  {
+    Icon: WindIcon,
+    title: "Zet er een ventilator bij",
+    desc: "Boven een verse chape hangt een laag verzadigde lucht. Een radiaalventilator blaast die weg, zodat er telkens droge lucht bij de vloer komt. Dat scheelt dagen op dezelfde huurtermijn.",
   },
   {
     Icon: ThermoIcon,
-    title: "Temperatuur en ventileren",
-    alineas: [
-      "Een condensdroger werkt het best tussen ongeveer 15 en 25 °C. Onder 15 °C neemt de lucht weinig vocht op en geeft de chape haar water traag af; dan zet u er een bouwkachel bij.",
-      "Houd ramen en deuren dicht terwijl de droger draait, anders droogt hij de buitenlucht mee. Een ventilator bínnen de ruimte helpt wél: die blaast de verzadigde luchtlaag vlak boven de vloer weg, zodat er telkens droge lucht bij de chape komt.",
-    ],
+    title: "Verwarm bij minder dan 15 °C",
+    desc: "Een condensdroger werkt het best tussen ongeveer 15 en 25 °C. Daaronder neemt de lucht weinig vocht op en geeft de chape haar water traag af. Een elektrische bouwkachel met thermostaat brengt de werf op temperatuur en houdt de droging op gang.",
+  },
+  {
+    Icon: GaugeIcon,
+    title: "Volg de wateropvang",
+    desc: "Hoeveel water er per dag uit het toestel komt, vertelt u waar u staat. Zakt de opbrengst, dan nadert de chape haar evenwicht — en dat is het moment om te laten meten.",
   },
   {
     Icon: LayersIcon,
-    title: "Restvocht meten vóór parket of tegels",
-    alineas: [
-      "Parket, pvc en tegels verdragen maar een beperkte hoeveelheid restvocht in de ondergrond. Te vroeg leggen kan uitzetten, loskomen of schimmel onder de vloer geven.",
-      "De gangbare meting is de CM-meting (carbidmethode). De toegelaten waarde verschilt per soort chape, per vloerbekleding en met of zonder vloerverwarming. Vraag uw vloerlegger naar de exacte grens die hij hanteert. Wij meten bij start en oplevering, zodat u het verloop ziet.",
-    ],
+    title: "Meet het restvocht vóór de vloer erop gaat",
+    desc: "Parket, pvc en tegels verdragen maar een beperkte hoeveelheid restvocht; te vroeg leggen kan uitzetten, loskomen of schimmel onder de vloer geven. De gangbare meting is de CM-meting (carbidmethode), en de toegelaten waarde verschilt per soort chape, per vloerbekleding en met of zonder vloerverwarming. Vraag uw vloerlegger welke grens hij hanteert; wij meten bij de start en bij de oplevering.",
   },
-];
-
-const tips = [
-  { Icon: WindIcon, title: "Zet er een ventilator bij", desc: "Boven een verse chape hangt een laag verzadigde lucht. Een radiaalventilator blaast die weg, zodat er telkens droge lucht bij de vloer komt. Dat scheelt dagen." },
-  { Icon: ThermoIcon, title: "Verwarm bij koud weer", desc: "Onder 15 °C droogt een condensdroger traag. Een elektrische bouwkachel met thermostaat brengt de werf op temperatuur en houdt de droging op gang." },
-  { Icon: GaugeIcon, title: "Volg de wateropvang", desc: "Hoeveel water er per dag uit komt, vertelt u waar u staat. Zakt de opbrengst, dan nadert de chape haar evenwicht, en dat is het moment om te laten meten." },
 ];
 
 /*
@@ -132,13 +153,29 @@ const faqs = [
   },
 ];
 
+/**
+ * De werven die we onder de vragen tonen: drie nieuwbouwdossiers waarin
+ * pleister- en chapewerk moest drogen. `getRealisatie` kan `undefined` geven
+ * wanneer een dossier uit de lijst verdwijnt; die valt dan stil weg in plaats
+ * van de pagina te breken.
+ */
+const REFERENTIES = ["mnr-l-hasselt", "mevr-j-j-kontich", "mnr-k-putte"]
+  .map(getRealisatie)
+  .filter((r): r is Realisatie => !!r);
+
 const verderLezen: LeesGroep[] = [
+  /*
+    Hier stond "Zo pakten we het aan" met dezelfde drie realisaties als
+    `REFERENTIES`. Die staan nu met hun foto onder de vragen; een tweede,
+    kale linklijst naar diezelfde drie pagina's voegde niets toe.
+  */
   {
-    kop: "Zo pakten we het aan",
+    kop: "Wat drogen kost en hoe lang het duurt",
     links: [
-      { to: "/realisaties/mnr-l-hasselt", label: "Pleister- en chapewerken versneld gedroogd in Hasselt" },
-      { to: "/realisaties/mevr-j-j-kontich", label: "Bouwvocht drooggelegd in een nieuwbouwwoning in Kontich" },
-      { to: "/realisaties/mnr-k-putte", label: "Bouwvocht na pleister en chape weggedroogd in Putte" },
+      { to: "/gids/hoe-lang-moet-chape-drogen", label: "Gids: hoe lang moet een chape drogen?" },
+      { to: "/gids/hoe-lang-moet-pleisterwerk-drogen", label: "Gids: hoe lang moet pleisterwerk drogen?" },
+      { to: "/hoe-drogen-werkt", label: "Hoe een bouwdroger het vocht uit een woning haalt" },
+      { to: "/drooggarantie", label: "Onze 100 % drooggarantie op een berekend pakket" },
     ],
   },
   {
@@ -169,7 +206,7 @@ const NieuwbouwPage = () => (
           name: "Chape en pleisterwerk drogen",
           description:
             "Actieve droging van verse chape en pleisterwerk in nieuwbouw, zodat vloerder en schilder weken vroeger kunnen starten.",
-          path: "/nieuwbouw",
+          path: "/nieuwbouw-drogen",
           serviceType: "Bouwdroging",
         }),
         /*
@@ -179,7 +216,7 @@ const NieuwbouwPage = () => (
         faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
         breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Nieuwbouw", path: "/nieuwbouw" },
+          { name: "Chape en pleisterwerk drogen", path: "/nieuwbouw-drogen" },
         ]),
       ]}
     />
@@ -393,33 +430,8 @@ const NieuwbouwPage = () => (
       </div>
     </section>
 
-    {/* ================= PRAKTIJK ================= */}
-    <section className="sr">
-      <div className="wrap">
-        <div className="sec-head">
-          <span className="kick">In de praktijk</span>
-          <h2 className="sec">Drie dingen die de droogtijd echt bepalen.</h2>
-          <p className="lede">
-            Het toestel is maar één factor. Wanneer u start, hoe warm het is en wat u uiteindelijk
-            meet, bepalen samen of die chape in twee of in vijf weken klaar is.
-          </p>
-        </div>
-        <div className="g3">
-          {praktijk.map(({ Icon, title, alineas }, i) => (
-            <Reveal from="up" delay={i * 0.08} className="kaart" key={title}>
-              <div className="ki"><Icon size={20} /></div>
-              <h3>{title}</h3>
-              {alineas.map((t) => (
-                <p key={t}>{t}</p>
-              ))}
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-
     {/* ================= PAKKETTEN ================= */}
-    <section className="sw" id="pakketten">
+    <section className="sr" id="pakketten">
       <div className="wrap">
         <div className="sec-head mid">
           <span className="kick">Welk toestel</span>
@@ -441,20 +453,28 @@ const NieuwbouwPage = () => (
       </div>
     </section>
 
-    {/* ================= TIPS ================= */}
-    <section className="sr">
+    {/*
+      IN DE PRAKTIJK — zes genummerde kaarten in de vorm van "de eerste 48 uur"
+      op /waterschade (`.stapkaarten`/`.stk`). Deze sectie staat vlak boven de
+      vragen omdat ze dezelfde rol speelt: wie tot hier las, weet wat het kost
+      en hoe lang het duurt, en wil nu weten wat hij zelf moet doen.
+    */}
+    <section className="sw" id="praktijk">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Sneller klaar</span>
-          <h2 className="sec">Drie dingen die dagen schelen.</h2>
+          <span className="kick">In de praktijk</span>
+          <h2 className="sec">Zes dingen die de droogtijd bepalen.</h2>
           <p className="lede">
-            Niet zwaarder drogen, slimmer drogen. Deze drie halen meer uit hetzelfde toestel.
+            Het toestel is maar één factor. Wanneer u start, of de ruimte dicht blijft, hoe warm
+            het is en wat u uiteindelijk meet, bepalen samen of die chape in twee of in vijf weken
+            klaar is. Hieronder staan ze in de volgorde waarin u ze nodig heeft.
           </p>
         </div>
-        <div className="g3">
-          {tips.map(({ Icon, title, desc }, i) => (
-            <Reveal from="up" delay={i * 0.08} className="kaart" key={title}>
-              <div className="ki"><Icon size={20} /></div>
+        <div className="stapkaarten">
+          {praktijk.map(({ Icon, title, desc }, i) => (
+            <Reveal from="up" delay={(i % 3) * 0.08} className="stk" key={title}>
+              <span className="stkic"><Icon size={21} /></span>
+              <span className="stknr">{String(i + 1).padStart(2, "0")}</span>
               <h3>{title}</h3>
               <p>{desc}</p>
             </Reveal>
@@ -463,33 +483,56 @@ const NieuwbouwPage = () => (
       </div>
     </section>
 
-    <VerderLezen titel="Verder lezen over chape en pleisterwerk drogen" groepen={verderLezen} />
+    <FaqBlok
+      titel="Wat bouwheren en aannemers ons vragen."
+      vragen={faqs}
+      sleutel="nb-faq"
+    />
 
     {/*
-      FAQ — zichtbaar, niet ingeklapt. Dit was een Radix-accordeon, en die
-      rendert de inhoud van een dichte vraag niet: in de geprerenderde HTML
-      stonden alleen de vragen, terwijl de FAQ-schema de antwoorden beloofde.
+      REFERENTIES — onder de vragen, in het wit.
+
+      De pagina wisselde rood en wit af tot aan de vragen en liep daarna leeg op
+      een linklijst. Drie werven met de foto van de werf zelf bewijzen wat de
+      tekst hierboven belooft, en de slotplaat staat in dezelfde witte sectie:
+      wie de vragen gelezen heeft en de werven gezien heeft, is klaar om te
+      rekenen. Een lege strook ertussen brak dat moment.
     */}
-    <section className="sr">
+    <section className="sw" id="referenties">
       <div className="wrap">
         <div className="sec-head mid">
-          <span className="kick">Veelgestelde vragen</span>
-          <h2 className="sec">Wat bouwheren en aannemers ons vragen.</h2>
+          <span className="kick">Uit de praktijk</span>
+          <h2 className="sec">Nieuwbouwwerven die we eerder droogden.</h2>
+          <p className="lede">
+            Drie dossiers met de foto's van de werf zelf: wat er moest drogen, welke toestellen er
+            stonden en hoe lang het duurde.
+          </p>
         </div>
-        <div className="faqs">
-          {faqs.map((faq, i) => (
-            <Reveal from="up" delay={(i % 2) * 0.06} as="dl" className="faq" key={faq.q}>
-              <dt>{faq.q}</dt>
-              <dd>{faq.a}</dd>
+        <div className="refs">
+          {REFERENTIES.map((r, i) => (
+            <Reveal from="up" delay={(i % 3) * 0.08} key={r.slug}>
+              <Link className="rz" to={`/realisaties/${r.slug}`}>
+                <img
+                  src={r.kaart}
+                  alt={r.kaartAlt}
+                  width={640}
+                  height={420}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="rzt">
+                  <span className="rzl">{r.locatie}</span>
+                  <h3>{r.titel}</h3>
+                </div>
+              </Link>
             </Reveal>
           ))}
         </div>
-      </div>
-    </section>
-
-    {/* ================= SLOT-CTA ================= */}
-    <section className="sw">
-      <div className="wrap">
+        <p className="tblnote" style={{ textAlign: "center" }}>
+          <Link to="/realisaties?soort=bouwvocht" style={{ fontWeight: 600 }}>
+            Alle nieuwbouwprojecten bekijken
+          </Link>
+        </p>
         <div className="manband">
           <div className="mb-t">
             <span className="mbk">Klaar om te starten</span>
@@ -521,6 +564,12 @@ const NieuwbouwPage = () => (
       </div>
     </section>
 
+    <VerderLezen
+      titel="Verder lezen over chape en pleisterwerk drogen"
+      groepen={verderLezen}
+      achtergrond="sr"
+    />
+
     <ContactBlok
       kicker="Een vraag over uw werf?"
       titel="Twijfelt u over de termijn of het pakket?"
@@ -533,6 +582,12 @@ const NieuwbouwPage = () => (
         "Iets anders",
       ]}
       placeholder="Bv. nieuwbouw 140 m², chape van 6 cm geplaatst op 3 november, vloerder komt begin december."
+      /*
+        Wit, niet rood: de sectie erboven ("verder lezen") is rood, en twee
+        rode blokken op elkaar laten de afwisseling van de hele pagina
+        stilvallen.
+      */
+      achtergrond="wit"
     />
 
     </main>

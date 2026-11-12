@@ -160,7 +160,7 @@ function afhaalToVernast(
     equipment_verwarming: counts.verwarming,
     order_lines: pickupDeviceLines(order.lines),
     customer_note: [
-      `AFHALING in het magazijn (geen levering) — ${order.slot}.`,
+      `AFHALING in het magazijn (geen levering), ${order.slot}.`,
       `Toestellen: ${devices}.`,
       order.notes,
     ]
@@ -323,7 +323,7 @@ async function afhaal(data: Record<string, unknown>): Promise<Response> {
       return json(
         {
           error:
-            "Op die datum staan deze toestellen al ingepland. Kies een andere afhaaldatum, of bel ons op 03 689 90 65 — vaak kunnen we alsnog schuiven.",
+            "Op die datum staan deze toestellen al ingepland. Kies een andere afhaaldatum, of bel ons op 03 689 90 65. Vaak kunnen we alsnog schuiven.",
           code: "niet_beschikbaar",
         },
         409,

@@ -280,7 +280,7 @@ export const REALISATIES: Realisatie[] = [
     chip: "Bouwdroging · Brussel",
     soort: "waterschade",
     locatie: "Waterschade · Brussel",
-    lede: "Na een waterincident in de badkamer had het vocht zich verspreid naar het tegelwerk, de vloeropbouw en de aangrenzende muren. Vernast legde de natte zones bloot, plaatste professionele bouwdrogers en volgde de droging op met vochtmetingen — zodat schimmel en blijvende schade werden voorkomen.",
+    lede: "Na een waterincident in de badkamer had het vocht zich verspreid naar het tegelwerk, de vloeropbouw en de aangrenzende muren. Vernast legde de natte zones bloot, plaatste professionele bouwdrogers en volgde de droging op met vochtmetingen, zodat schimmel en blijvende schade werden voorkomen.",
     tags: ["Waterschade", "Bouwdroging", "Schimmelsanering"],
     hero: "/realisaties/mnr-s-brussel/hero.webp",
     heroAlt: "Het gebouw in Brussel waar Vernast de waterschade in de badkamer aanpakte",
@@ -306,7 +306,7 @@ export const REALISATIES: Realisatie[] = [
         {
           kop: "Onze diagnose",
           alineas: [
-            "Onze inspecteur bracht met een <b>vochtmeter op verschillende hoogtes en dieptes</b> de omvang van de schade in kaart. De metingen toonden een sterk verzadigde vloeropbouw en aangetaste muurvoeten — het gevolg van <b>acute waterschade</b>, niet van een structureel vochtprobleem. De uitdaging lag dus niet in het injecteren van een waterkering, maar in het <b>zo snel mogelijk en gecontroleerd terugbrengen van het vochtgehalte</b> vóór schimmel kans kreeg.",
+            "Onze inspecteur bracht met een <b>vochtmeter op verschillende hoogtes en dieptes</b> de omvang van de schade in kaart. De metingen toonden een sterk verzadigde vloeropbouw en aangetaste muurvoeten, het gevolg van <b>acute waterschade</b>, niet van een structureel vochtprobleem. De uitdaging lag dus niet in het injecteren van een waterkering, maar in het <b>zo snel mogelijk en gecontroleerd terugbrengen van het vochtgehalte</b> vóór schimmel kans kreeg.",
           ],
         },
         {
@@ -360,7 +360,7 @@ export const REALISATIES: Realisatie[] = [
     meer: {
       eyebrow: "Meer projecten",
       kop: "Bekijk ook deze realisaties",
-      intro: "Elke woning is anders — bekijk hoe wij gelijkaardige vochtproblemen elders aanpakten.",
+      intro: "Elke woning is anders, bekijk hoe wij gelijkaardige vochtproblemen elders aanpakten.",
       slugs: ["mnr-w-antwerpen", "vernissage-boom", "bang-olufsen"],
     },
   },
@@ -450,7 +450,7 @@ export const REALISATIES: Realisatie[] = [
       eyebrow: "Het resultaat",
       kop: "Van bouwvocht naar een droge, gezonde basis",
       kolommen: [
-        { label: "Waarom klanten voor ons kiezen", kop: "Snelheid zonder in te boeten op kwaliteit", tekst: "Met eigen droogapparatuur en Vernast-gecertificeerde vochtexperten brengen we het bouwvocht gecontroleerd omlaag. Zo verliest u geen weken wachttijd en start de afwerking op een ondergrond die écht droog is — geen risico op schimmel of terugkerende problemen achteraf." },
+        { label: "Waarom klanten voor ons kiezen", kop: "Snelheid zonder in te boeten op kwaliteit", tekst: "Met eigen droogapparatuur en Vernast-gecertificeerde vochtexperten brengen we het bouwvocht gecontroleerd omlaag. Zo verliest u geen weken wachttijd en start de afwerking op een ondergrond die écht droog is, geen risico op schimmel of terugkerende problemen achteraf." },
         { label: "Na de werken", kop: "Een stabiel binnenklimaat, klaar om af te werken", tekst: "Na vier dagen was het vochtgehalte in de villa te Oostende teruggebracht tot een stabiel, droog niveau. De schilder- en vloerafwerking kon meteen veilig doorgaan. Dit project toont hoe een correcte diagnose en gerichte bouwdroging de basis leggen voor een gezonde, comfortabele woning aan de kust." },
       ],
     },
@@ -643,7 +643,7 @@ export const REALISATIES: Realisatie[] = [
     meer: {
       eyebrow: "Meer projecten",
       kop: "Bekijk ook deze realisaties",
-      intro: "Elke woning is anders — bekijk hoe wij gelijkaardige vochtproblemen elders aanpakten.",
+      intro: "Elke woning is anders, bekijk hoe wij gelijkaardige vochtproblemen elders aanpakten.",
       slugs: ["mnr-l-hasselt", "mnr-n-v-oostende", "mnr-s-brussel"],
     },
   },
@@ -778,7 +778,7 @@ export const REALISATIES: Realisatie[] = [
     verhaal: {
       eyebrow: "Het project",
       kop: "De situatie bij aankomst",
-      lead: "In dit bedrijfsgebouw telde elke dag: een waterlek had zich onopgemerkt verspreid en het water was diep in de muren en vloerconstructies getrokken. De ondernemer stond voor een dringende keuze — snel en gericht ingrijpen, of het risico lopen op langdurige stilstand, schimmel en blijvende structurele schade.",
+      lead: "In dit bedrijfsgebouw telde elke dag: een waterlek had zich onopgemerkt verspreid en het water was diep in de muren en vloerconstructies getrokken. De ondernemer stond voor een dringende keuze, snel en gericht ingrijpen, of het risico lopen op langdurige stilstand, schimmel en blijvende structurele schade.",
       problemen: [
         "Ernstige waterschade na een lek, verspreid over muren en vloeren",
         "Sterk verhoogde vochtwaarden in metselwerk en vloerconstructie",
@@ -789,7 +789,7 @@ export const REALISATIES: Realisatie[] = [
         {
           kop: "Onze diagnose",
           alineas: [
-            "Bij aankomst brachten onze technici met vochtmetingen op verschillende hoogtes en dieptes de omvang van de schade in kaart. Het beeld was duidelijk: <b>een acute waterinsijpeling na een lek</b>, geen structureel opstijgend vocht. Het overtollige water zat opgesloten in de muren en de vloeropbouw. Zonder snelle, gecontroleerde droging zou dat vocht schimmel voeden en de constructie verder aantasten — daarom moest de droogopstelling nog dezelfde dag draaien.",
+            "Bij aankomst brachten onze technici met vochtmetingen op verschillende hoogtes en dieptes de omvang van de schade in kaart. Het beeld was duidelijk: <b>een acute waterinsijpeling na een lek</b>, geen structureel opstijgend vocht. Het overtollige water zat opgesloten in de muren en de vloeropbouw. Zonder snelle, gecontroleerde droging zou dat vocht schimmel voeden en de constructie verder aantasten, daarom moest de droogopstelling nog dezelfde dag draaien.",
           ],
         },
         {
@@ -846,7 +846,7 @@ export const REALISATIES: Realisatie[] = [
     meer: {
       eyebrow: "Meer projecten",
       kop: "Bekijk ook deze realisaties",
-      intro: "Elk pand is anders — bekijk hoe wij vocht- en waterschade elders aanpakten.",
+      intro: "Elk pand is anders, bekijk hoe wij vocht- en waterschade elders aanpakten.",
       slugs: ["bang-olufsen", "mnr-j-bocholt", "mnr-l-hasselt"],
     },
   },
@@ -932,14 +932,14 @@ export const REALISATIES: Realisatie[] = [
       eyebrow: "Het resultaat",
       kop: "Van verzadigde ruwbouw naar een droge, stabiele woning",
       kolommen: [
-        { label: "Waarom klanten voor ons kiezen", kop: "Snelheid zonder de constructie te forceren", tekst: "Met professioneel drogingsmateriaal en de juiste opvolging krijgen we bouwvocht snel weg, maar altijd gecontroleerd. Zo vermijdt u vertraging in de planning én scheurvorming of schimmel door te bruusk of te traag drogen — uitgevoerd door ons eigen team van Vernast-experten." },
+        { label: "Waarom klanten voor ons kiezen", kop: "Snelheid zonder de constructie te forceren", tekst: "Met professioneel drogingsmateriaal en de juiste opvolging krijgen we bouwvocht snel weg, maar altijd gecontroleerd. Zo vermijdt u vertraging in de planning én scheurvorming of schimmel door te bruusk of te traag drogen, uitgevoerd door ons eigen team van Vernast-experten." },
         { label: "Na de werken", kop: "Klaar voor de verdere afwerking", tekst: "Bij oplevering waren muren, chape en dakruimte teruggebracht naar een stabiel vochtniveau, bevestigd met vochtmetingen. De woning in Wintam kon meteen verder afgewerkt worden, met een gezond binnenklimaat als vertrekpunt." },
       ],
     },
     meer: {
       eyebrow: "Meer projecten",
       kop: "Bekijk ook deze realisaties",
-      intro: "Elke woning is anders — bekijk hoe wij gelijkaardige vocht- en klimaatproblemen elders aanpakten.",
+      intro: "Elke woning is anders, bekijk hoe wij gelijkaardige vocht- en klimaatproblemen elders aanpakten.",
       slugs: ["mevr-v-mechelen", "mevr-v-brussel", "mnr-erdem-bedrijfsgebouw"],
     },
   },
@@ -984,7 +984,7 @@ export const REALISATIES: Realisatie[] = [
             "<b>Analyse en droogplan.</b> Binnen 24 uur legden we de meetwaarden vast en stelden we een droogplan op met de juiste plaatsing van bouwdrogers en ventilatoren per ruimte.",
             "<b>Schimmelsanering, 3 dagen.</b> De zones waar zich al schimmel begon te vormen, werden grondig behandeld zodat de woning met een schone basis kon verder drogen.",
             "<b>Bouwdroging en ventilatie.</b> Met professionele bouwdrogers en ventilatoren werd de vochtige lucht continu afgevoerd en het vochtgehalte gestaag teruggebracht naar een veilig niveau.",
-            "<b>Klimaatherstel, 4 dagen.</b> Tijdens de droogperiode volgden we de luchtvochtigheid op tot de woning droog en stabiel was — klaar voor een afwerking zonder risico op vochtproblemen.",
+            "<b>Klimaatherstel, 4 dagen.</b> Tijdens de droogperiode volgden we de luchtvochtigheid op tot de woning droog en stabiel was, klaar voor een afwerking zonder risico op vochtproblemen.",
           ],
         },
       ],
@@ -1025,14 +1025,14 @@ export const REALISATIES: Realisatie[] = [
       eyebrow: "Het resultaat",
       kop: "Van vochtige ruwbouw naar een droge, gezonde basis",
       kolommen: [
-        { label: "Waarom klanten voor ons kiezen", kop: "Snel droog, zonder bouwvertraging", tekst: "Met een gericht droog- en ventilatieplan brengen we het bouwvocht veel sneller omlaag dan bij natuurlijke droging. Zo blijft de planning van uw afwerking op schema en voorkomt u schimmel nog vóór die kan ontstaan — uitgevoerd door ons eigen team van Vernast-gecertificeerde vochtexperten." },
+        { label: "Waarom klanten voor ons kiezen", kop: "Snel droog, zonder bouwvertraging", tekst: "Met een gericht droog- en ventilatieplan brengen we het bouwvocht veel sneller omlaag dan bij natuurlijke droging. Zo blijft de planning van uw afwerking op schema en voorkomt u schimmel nog vóór die kan ontstaan, uitgevoerd door ons eigen team van Vernast-gecertificeerde vochtexperten." },
         { label: "Na de werken", kop: "Klaar voor een gezonde afwerking", tekst: "Met het bouwvocht op een veilig niveau en de aangetaste zones gesaneerd, kan de woning in Kontich zonder zorgen verder afgewerkt worden. Dit project toont hoe tijdige metingen en gerichte bouwdroging de basis leggen voor een blijvend droog en gezond binnenklimaat." },
       ],
     },
     meer: {
       eyebrow: "Meer projecten",
       kop: "Bekijk ook deze realisaties",
-      intro: "Elke woning is anders — bekijk hoe wij gelijkaardige vocht- en schimmelproblemen elders aanpakten.",
+      intro: "Elke woning is anders, bekijk hoe wij gelijkaardige vocht- en schimmelproblemen elders aanpakten.",
       slugs: ["mevr-k-wintam", "mevr-v-brussel", "mevr-v-mechelen"],
     },
   },
@@ -1242,7 +1242,7 @@ export const REALISATIES: Realisatie[] = [
     verhaal: {
       eyebrow: "Het project",
       kop: "De situatie bij aankomst",
-      lead: "Bij ons bezoek in Lokeren was de schade duidelijk: via een lek in de keldermuur was water binnengedrongen en had zich verspreid over de vloer en de onderste muurzones. Het metselwerk was verzadigd, de lucht voelde klam en er hing een muffe geur — het begin van een klassiek vochtprobleem als er niet snel wordt ingegrepen.",
+      lead: "Bij ons bezoek in Lokeren was de schade duidelijk: via een lek in de keldermuur was water binnengedrongen en had zich verspreid over de vloer en de onderste muurzones. Het metselwerk was verzadigd, de lucht voelde klam en er hing een muffe geur, het begin van een klassiek vochtprobleem als er niet snel wordt ingegrepen.",
       problemen: [
         "Water uit een lek in de keldermuur, verspreid over vloer en onderste muren",
         "Sterk verhoogde vochtwaarden in metselwerk en dekvloer",
@@ -1303,7 +1303,7 @@ export const REALISATIES: Realisatie[] = [
       eyebrow: "Het resultaat",
       kop: "Van waterschade naar een droge, gezonde basis",
       kolommen: [
-        { label: "Waarom klanten voor ons kiezen", kop: "Snel ingrijpen beperkt de schade", tekst: "Bij waterschade telt elke dag. Door meteen de bron te dichten en professioneel te drogen, hielden we in Lokeren de schade aan vloer en muren beperkt — uitgevoerd door ons eigen team van Vernast-gecertificeerde vochtexperten. Zo betaalt u nooit twee keer voor hetzelfde probleem." },
+        { label: "Waarom klanten voor ons kiezen", kop: "Snel ingrijpen beperkt de schade", tekst: "Bij waterschade telt elke dag. Door meteen de bron te dichten en professioneel te drogen, hielden we in Lokeren de schade aan vloer en muren beperkt, uitgevoerd door ons eigen team van Vernast-gecertificeerde vochtexperten. Zo betaalt u nooit twee keer voor hetzelfde probleem." },
         { label: "Na de werken", kop: "Droog, schimmelvrij en klaar voor afwerking", tekst: "Met het lek gedicht, het vocht gecontroleerd weggedroogd en de oppervlakken gesaneerd, kon de ruimte opnieuw droog en veilig worden opgeleverd. Dit project toont hoe een snelle diagnose en een grondige aanpak blijvende vochtproblemen voorkomen." },
       ],
     },
@@ -1396,14 +1396,14 @@ export const REALISATIES: Realisatie[] = [
       eyebrow: "Het resultaat",
       kop: "Van waterschade naar een droge, stabiele woning",
       kolommen: [
-        { label: "Waarom klanten voor ons kiezen", kop: "Snel schakelen én grondig meten", tekst: "Bij waterschade telt elke dag. Vernast bracht binnen 24 uur de volledige vochtomvang in kaart en zette meteen de juiste bouwdrogers in — uitgevoerd door ons eigen team van gecertificeerde vochtexperten, met metingen die geen enkele hoek onbekeken laten." },
+        { label: "Waarom klanten voor ons kiezen", kop: "Snel schakelen én grondig meten", tekst: "Bij waterschade telt elke dag. Vernast bracht binnen 24 uur de volledige vochtomvang in kaart en zette meteen de juiste bouwdrogers in, uitgevoerd door ons eigen team van gecertificeerde vochtexperten, met metingen die geen enkele hoek onbekeken laten." },
         { label: "Na de werken", kop: "Droog en klaar voor afwerking", tekst: "Met het vochtgehalte terug op peil en de kruipruimte gecontroleerd, staat de woning er opnieuw droog en gezond bij. Dit project toont hoe een snelle diagnose en een gerichte droogaanpak blijvende schade voorkomen en een veilige basis leggen voor de verdere afwerking." },
       ],
     },
     meer: {
       eyebrow: "Meer projecten",
       kop: "Bekijk ook deze realisaties",
-      intro: "Elke woning is anders — bekijk hoe wij gelijkaardige vochtproblemen elders aanpakten.",
+      intro: "Elke woning is anders, bekijk hoe wij gelijkaardige vochtproblemen elders aanpakten.",
       slugs: ["mevr-b-a-lokeren", "mevr-c-leuven", "mevr-g-b-sint-pieters-woluwe"],
     },
   },
@@ -1518,7 +1518,7 @@ export const REALISATIES: Realisatie[] = [
     verhaal: {
       eyebrow: "Het project",
       kop: "De situatie bij aankomst",
-      lead: "De mancave was prachtig afgewerkt onder een wit tongewelf, maar de lucht voelde klam en zwaar aan. Onze inspecteur mat op verschillende plaatsen te hoge relatieve vochtwaarden en zag de eerste vochtstrepen op het gewelf verschijnen — een duidelijk signaal dat ingrijpen nodig was voordat schimmel de dure afwerking zou aantasten.",
+      lead: "De mancave was prachtig afgewerkt onder een wit tongewelf, maar de lucht voelde klam en zwaar aan. Onze inspecteur mat op verschillende plaatsen te hoge relatieve vochtwaarden en zag de eerste vochtstrepen op het gewelf verschijnen, een duidelijk signaal dat ingrijpen nodig was voordat schimmel de dure afwerking zou aantasten.",
       problemen: [
         "Te hoge luchtvochtigheid in de ondergrondse mancave",
         "Vochtstrepen en verkleuring op het witte tongewelf",
@@ -1573,7 +1573,7 @@ export const REALISATIES: Realisatie[] = [
       eyebrow: "Het resultaat",
       kop: "Van klamme kelder naar een droge, gezonde mancave",
       kolommen: [
-        { label: "Waarom klanten voor ons kiezen", kop: "Oorzaak én comfort in één aanpak", tekst: "Wij drogen niet alleen de lucht, maar pakken de reden van de vochtophoping aan met betere ventilatie — uitgevoerd door ons eigen team van Vernast-gecertificeerde vochtexperten. Zo blijft de mancave droog en betaalt u nooit twee keer voor hetzelfde probleem." },
+        { label: "Waarom klanten voor ons kiezen", kop: "Oorzaak én comfort in één aanpak", tekst: "Wij drogen niet alleen de lucht, maar pakken de reden van de vochtophoping aan met betere ventilatie, uitgevoerd door ons eigen team van Vernast-gecertificeerde vochtexperten. Zo blijft de mancave droog en betaalt u nooit twee keer voor hetzelfde probleem." },
         { label: "Na de werken", kop: "Klaar voor jarenlang zorgeloos gebruik", tekst: "Met de luchtvochtigheid onder controle en de schimmelrisico’s weggewerkt, kan de kelderruimte in Brugge weer volop dienstdoen. Dit project toont hoe een correcte diagnose en een grondige aanpak de basis leggen voor een blijvend gezond binnenklimaat." },
       ],
     },
@@ -1590,7 +1590,7 @@ export const REALISATIES: Realisatie[] = [
     chip: "Bouwdroging · winkelpand",
     soort: "vochtbeheersing",
     locatie: "Schimmelsanering · winkelpand",
-    lede: "In de stockageruimte onder een Levi’s®-winkel tastte schimmel de opgeslagen collectie aan. De oorzaak was een jarenlange, onopgemerkte lekkage aan een versleten waterleiding. Vernast saneerde de schimmel en herstelde het binnenklimaat — volledig ingepland zodat de winkel gewoon open bleef.",
+    lede: "In de stockageruimte onder een Levi’s®-winkel tastte schimmel de opgeslagen collectie aan. De oorzaak was een jarenlange, onopgemerkte lekkage aan een versleten waterleiding. Vernast saneerde de schimmel en herstelde het binnenklimaat, volledig ingepland zodat de winkel gewoon open bleef.",
     tags: ["Schimmelsanering", "Luchtontvochtiging", "Geurneutralisatie"],
     hero: "/realisaties/levis/hero.webp",
     heroAlt: "Kelderopslag van de Levi’s®-winkel waar Vernast de schimmel- en vochtproblemen aanpakte",
@@ -1616,7 +1616,7 @@ export const REALISATIES: Realisatie[] = [
         {
           kop: "Onze diagnose",
           alineas: [
-            "Een grondige inspectie met vochtmetingen bracht de bron snel aan het licht: een <b>versleten waterleiding die al jaren onopgemerkt lekte</b>. Het vrijkomende vocht liet de luchtvochtigheid oplopen tot 88%, precies het klimaat waarin schimmel zich vestigt en geurhinder ontstaat. Zolang die bron blijft, keren schimmel en muffe lucht telkens terug — hoe vaak de ruimte ook wordt schoongemaakt.",
+            "Een grondige inspectie met vochtmetingen bracht de bron snel aan het licht: een <b>versleten waterleiding die al jaren onopgemerkt lekte</b>. Het vrijkomende vocht liet de luchtvochtigheid oplopen tot 88%, precies het klimaat waarin schimmel zich vestigt en geurhinder ontstaat. Zolang die bron blijft, keren schimmel en muffe lucht telkens terug, hoe vaak de ruimte ook wordt schoongemaakt.",
           ],
         },
         {
@@ -1625,7 +1625,7 @@ export const REALISATIES: Realisatie[] = [
             "<b>Dag 1, analyse en oplossing.</b> Binnen 24 uur werd de oorzaak vastgesteld en de lekkende leiding aangepakt, zodat er geen nieuw vocht meer bij kon komen.",
             "<b>Schimmelsanering.</b> Gedurende drie dagen behandelde Vernast alle aangetaste wanden en oppervlakken met professionele schimmelsaneringstechnieken, tot de ruimte volledig schimmelvrij en gereinigd was.",
             "<b>Klimaatherstel.</b> Vervolgens plaatsten we een krachtige luchtontvochtiger. Onder continue klimaatcontrole daalde de relatieve luchtvochtigheid van 88% naar een gezonde 49%.",
-            "<b>Zonder de winkel te verstoren.</b> De hele ingreep werd zo ingepland dat de commerciële werking gewoon doorliep — de winkel bleef open terwijl de kelderopslag opnieuw droog, veilig en geurvrij werd gemaakt.",
+            "<b>Zonder de winkel te verstoren.</b> De hele ingreep werd zo ingepland dat de commerciële werking gewoon doorliep, de winkel bleef open terwijl de kelderopslag opnieuw droog, veilig en geurvrij werd gemaakt.",
           ],
         },
       ],
@@ -1857,7 +1857,7 @@ export const REALISATIES: Realisatie[] = [
     meer: {
       eyebrow: "Meer projecten",
       kop: "Bekijk ook deze realisaties",
-      intro: "Elke woning is anders — bekijk hoe wij gelijkaardige vochtproblemen elders aanpakten.",
+      intro: "Elke woning is anders, bekijk hoe wij gelijkaardige vochtproblemen elders aanpakten.",
       slugs: ["dhr-m-brussel", "dhr-m-grimbergen", "dhr-p-merksem"],
     },
   },
@@ -1867,7 +1867,7 @@ export const REALISATIES: Realisatie[] = [
     chip: "Bouwdroging · Schilde",
     soort: "bouwvocht",
     locatie: "Bouwdroging · Schilde",
-    lede: "In deze nieuwbouwvilla in Schilde zorgde het verse pleisterwerk voor een hoog bouwvochtgehalte. Vernast bracht met professionele bouwdroging en gerichte luchtcirculatie het vocht snel omlaag, zodat de schilder- en vloerafwerking zonder risico op vlekken of krimpscheuren kon starten — en de bouwplanning perfect op schema bleef.",
+    lede: "In deze nieuwbouwvilla in Schilde zorgde het verse pleisterwerk voor een hoog bouwvochtgehalte. Vernast bracht met professionele bouwdroging en gerichte luchtcirculatie het vocht snel omlaag, zodat de schilder- en vloerafwerking zonder risico op vlekken of krimpscheuren kon starten, en de bouwplanning perfect op schema bleef.",
     tags: ["Bouwdroging", "Pleisterwerk", "Schimmelsanering"],
     hero: "/realisaties/dhr-e-schilde/hero.webp",
     heroAlt: "Nieuwbouwvilla in Schilde waar Vernast het bouwvocht met professionele bouwdroging aanpakte",
@@ -1901,7 +1901,7 @@ export const REALISATIES: Realisatie[] = [
           alineas: [
             "<b>Analyse en plan (24 u).</b> Na een grondige vochtmeting bepaalde Vernast het aantal en de opstelling van de bouwdrogers, afgestemd op het volume en de indeling van de villa.",
             "<b>Bouwdroging.</b> Krachtige luchtontvochtigers en ventilatoren werden strategisch verdeeld over de ruimtes. Zo werd het vocht uit het pleisterwerk onttrokken en de vochtige lucht continu afgevoerd, met dagelijkse opvolging van de meetwaarden.",
-            "<b>Schimmelsanering (3 d).</b> Door de ruimtes drooghoudend te behandelen kreeg schimmel geen kans om zich in het vochtige pleisterwerk te vestigen — een preventieve stap die latere problemen voorkomt.",
+            "<b>Schimmelsanering (3 d).</b> Door de ruimtes drooghoudend te behandelen kreeg schimmel geen kans om zich in het vochtige pleisterwerk te vestigen, een preventieve stap die latere problemen voorkomt.",
             "<b>Klimaatherstel (4 d).</b> Toen het vochtgehalte op een gezond niveau lag, werd het binnenklimaat gestabiliseerd. De wanden waren droog en egaal, klaar voor een vlekkeloze schilder- en vloerafwerking.",
           ],
         },
@@ -1954,7 +1954,7 @@ export const REALISATIES: Realisatie[] = [
     meer: {
       eyebrow: "Meer projecten",
       kop: "Bekijk ook deze realisaties",
-      intro: "Elke woning is anders — bekijk hoe wij gelijkaardige vocht- en droogproblemen elders aanpakten.",
+      intro: "Elke woning is anders, bekijk hoe wij gelijkaardige vocht- en droogproblemen elders aanpakten.",
       slugs: ["dhr-g-aartselaar", "dhr-h-brussel", "dhr-m-brussel"],
     },
   },
@@ -1964,7 +1964,7 @@ export const REALISATIES: Realisatie[] = [
     chip: "Bouwdroging · Antwerpen",
     soort: "waterschade",
     locatie: "Kelderdroging · Antwerpen",
-    lede: "In deze Antwerpse woning zorgde waterindringing voor een doorweekte, muffe kelder met beginnende schimmel. Vernast bracht het vochtgehalte met professionele bouwdrogers gecontroleerd naar beneden, saneerde de schimmel en dichtte de kelder af — zodat de ruimte weer droog, gezond en bruikbaar werd.",
+    lede: "In deze Antwerpse woning zorgde waterindringing voor een doorweekte, muffe kelder met beginnende schimmel. Vernast bracht het vochtgehalte met professionele bouwdrogers gecontroleerd naar beneden, saneerde de schimmel en dichtte de kelder af, zodat de ruimte weer droog, gezond en bruikbaar werd.",
     tags: ["Bouwdroging", "Schimmelsanering", "Kelderdichting"],
     hero: "/realisaties/dhr-d-c-antwerpen/hero.webp",
     heroAlt: "Kelder in Antwerpen na de vochtbehandeling door Vernast",
@@ -1990,7 +1990,7 @@ export const REALISATIES: Realisatie[] = [
         {
           kop: "Onze diagnose",
           alineas: [
-            "Met vochtmetingen op verschillende plaatsen brachten we de omvang van de <b>waterschade</b> in kaart. De ruimte was zo verzadigd dat schimmel en geurhinder onvermijdelijk terugkeren zolang het vocht niet volledig uit de bouwmaterialen verdwijnt. Enkel oppervlakkig reinigen zou hier geen blijvend resultaat geven — de kelder moest eerst tot in de kern gedroogd worden.",
+            "Met vochtmetingen op verschillende plaatsen brachten we de omvang van de <b>waterschade</b> in kaart. De ruimte was zo verzadigd dat schimmel en geurhinder onvermijdelijk terugkeren zolang het vocht niet volledig uit de bouwmaterialen verdwijnt. Enkel oppervlakkig reinigen zou hier geen blijvend resultaat geven, de kelder moest eerst tot in de kern gedroogd worden.",
           ],
         },
         {
@@ -2132,7 +2132,7 @@ export const REALISATIES: Realisatie[] = [
     meer: {
       eyebrow: "Meer projecten",
       kop: "Bekijk ook deze realisaties",
-      intro: "Elk pand is anders — bekijk hoe wij gelijkaardige uitdagingen elders aanpakten.",
+      intro: "Elk pand is anders, bekijk hoe wij gelijkaardige uitdagingen elders aanpakten.",
       slugs: ["mnr-erdem-bedrijfsgebouw", "levis", "dhr-b-brussel"],
     },
   },

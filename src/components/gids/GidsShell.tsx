@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
+import FaqBlok from "@/components/content/FaqBlok";
 import { articleSchema, breadcrumbSchema, faqSchema, organizationSchema } from "@/lib/schema";
 import type { SeoEntry } from "@/data/seo";
 import "@/styles/hoe-drogen-werkt.css";
@@ -27,8 +28,13 @@ interface GidsShellProps {
   kick: string;
   h1: string;
   intro: ReactNode;
-  /** `width` overschrijft de standaardbreedte — een staande foto wil smaller. */
-  heroImg: { src: string; alt: string; width?: string };
+  /**
+   * `width` overschrijft de standaardbreedte — een staande foto wil smaller.
+   * Weglaten = een hero zonder foto, over de volle breedte: niet elke pagina
+   * heeft een beeld dat haar vraag echt illustreert, en een toestelfoto naast
+   * een uitlegkop leest als een advertentie.
+   */
+  heroImg?: { src: string; alt: string; width?: string };
   /** Het zwevende kaartje naast de herofoto; weglaten = geen kaartje. */
   heroBadge?: ReactNode;
   /**
@@ -36,6 +42,12 @@ interface GidsShellProps {
    * commerciële pagina en de hub), dan staat enkel de organisatie in de head.
    */
   articlePublished?: string;
+  /**
+   * Datum van de laatste inhoudelijke herziening, voor `dateModified`. Zonder
+   * deze datum valt het schema terug op de publicatiedatum, en dan lijkt een
+   * gids die net is uitgebreid even oud als de dag dat hij online kwam.
+   */
+  articleModified?: string;
   faq?: GidsFaq[];
   /**
    * Laat de FAQ weg onderaan — de pagina plaatst <GidsFaqSectie> dan zelf,
@@ -75,29 +87,20 @@ export const GidsFaqSectie = ({
   titel: string;
   variant?: "grijs" | "rood";
 }) => (
-  <section className={variant === "rood" ? "lvred faqsec" : "sw2 faqsec"} id="faq">
-    <div className="wrap">
-      <div className="sec-head mid">
-        <span className="kick">{kick}</span>
-        <h2 className="sec">{titel}</h2>
-      </div>
-      <div className="faq">
-        {faq.map((item, i) => (
-          <details className="faq-item" key={item.question} open={i === 0}>
-            <summary>
-              <h3>{item.question}</h3>
-              <span className="fx" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </span>
-            </summary>
-            <p>{item.answer}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
+  /*
+    Hetzelfde vragenblok als op de homepage en op de inhoudspagina's. Hier
+    stond een eigen accordeon met een rond pijltje; dat was de derde vorm van
+    de FAQ op dezelfde site. Zie src/components/content/FaqBlok.tsx voor
+    waarom het één component is.
+  */
+  <FaqBlok
+    kicker={kick}
+    titel={titel}
+    vragen={faq.map((item) => ({ q: item.question, a: item.answer }))}
+    sleutel="gids-faq"
+    variant={variant === "rood" ? "rood" : "grijs"}
+    vraagHref="/contact"
+  />
 );
 
 /**
@@ -119,6 +122,7 @@ const GidsShell = ({
   heroImg,
   heroBadge,
   articlePublished,
+  articleModified,
   faq = [],
   faqZelfPlaatsen = false,
   jsonLd = [],
@@ -136,6 +140,7 @@ const GidsShell = ({
               description: seo.description,
               path,
               datePublished: articlePublished,
+              dateModified: articleModified,
             })
           : // Een @graph uit withOrganization() draagt het bedrijf al mee.
             jsonLd.some((blok) => Array.isArray(blok["@graph"]))
@@ -151,7 +156,7 @@ const GidsShell = ({
 
     <div className="redtop">
       <section className="hero">
-        <div className="wrap hero-grid">
+        <div className={heroImg ? "wrap hero-grid" : "wrap hero-grid nopic"}>
           <div className="hero-copy">
             <nav aria-label="Kruimelpad">
               <ol className="crumbs">
@@ -179,14 +184,16 @@ const GidsShell = ({
               </Link>
             </div>
           </div>
-          <div className="hero-vis">
-            <img
-              src={heroImg.src}
-              alt={heroImg.alt}
-              style={{ width: heroImg.width ?? "min(100%,520px)", position: "relative", zIndex: 1 }}
-            />
-            {heroBadge}
-          </div>
+          {heroImg && (
+            <div className="hero-vis">
+              <img
+                src={heroImg.src}
+                alt={heroImg.alt}
+                style={{ width: heroImg.width ?? "min(100%,520px)", position: "relative", zIndex: 1 }}
+              />
+              {heroBadge}
+            </div>
+          )}
         </div>
       </section>
     </div>

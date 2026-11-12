@@ -89,7 +89,7 @@ const DrooggarantieV2Page = () => (
   <div className="dg-page dg-v2">
     <PageMeta
       {...SEO.drooggarantie}
-      title="Concept V2 — Vernast Drooggarantie"
+      title="Concept V2, Vernast Drooggarantie"
       path="/drooggarantie-v2"
       noindex
     />

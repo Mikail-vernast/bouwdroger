@@ -231,7 +231,7 @@ export async function POST(request: Request): Promise<Response> {
               daar hoort iets leesbaars te staan.
             */
             product_data: {
-              name: trim(`Afhaalreservatie — ${label}`, 250),
+              name: trim(`Afhaalreservatie, ${label}`, 250),
               /*
                 Bij een voorschot is het bedrag in beeld niet het totaal. Dat
                 verschil hoort de klant te zien vóór hij afrekent, niet pas op
@@ -294,7 +294,7 @@ export async function POST(request: Request): Promise<Response> {
         toestellen: trim(serializeDeviceLines(devices)),
         regels: trim(
           [
-            `AFHALING in het magazijn (geen levering) — ${order.slot}.`,
+            `AFHALING in het magazijn (geen levering), ${order.slot}.`,
             `Toestellen: ${label}.`,
             // Wie de toestellen meegeeft, moet weten dat er nog geld open
             // staat: het saldo wordt aan de balie geïnd, niet gefactureerd.

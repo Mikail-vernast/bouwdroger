@@ -67,7 +67,7 @@ const UITKLAPBAAR: Rij[] = [
     // dezelfde pagina's tonen; de kop van elke kolom wordt hier de chip.
     categorieen: ALLES_OVER_DROGEN.map((groep) => ({ chip: groep.titel, items: groep.items })),
   },
-  { id: "groep", label: "Vernast Group", categorieen: [{ items: VERNAST_GROEP }] },
+  { id: "groep", label: "Group", categorieen: [{ items: VERNAST_GROEP }] },
 ];
 
 const strokeProps = {

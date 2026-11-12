@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon, InfoIcon } from "./icons";
-import { PRODUCTS } from "@/data/verhuur";
+import { PRODUCTS, toestelChips } from "@/data/verhuur";
 import { DAY_PRICE_MIN } from "@/data/tarieflijst";
 import { VAT_RATE } from "@/lib/booking";
 
@@ -25,15 +25,6 @@ function tariff(key: string | undefined) {
   const product = key ? PRODUCTS[key] : undefined;
   if (!product) return null;
 
-  const label = ([name, value, unit]: [string, string, string]): string => {
-    if (name === "Vochtafvoer") return `${value} liter per dag`;
-    if (name === "Bereik") return `tot ${value} m³`;
-    if (unit) return `${value} ${unit}`;
-    if (/^\d/.test(value)) return `${value} ${name.toLowerCase()}`; // "Standen 3" → "3 standen"
-    // "Thermostaat ja" → "thermostaat", maar "Techniek adsorptie" → "adsorptie".
-    return value === "ja" ? name.toLowerCase() : value;
-  };
-
   return {
     name: product.short,
     tag: product.badge,
@@ -44,7 +35,7 @@ function tariff(key: string | undefined) {
     // Bij de drogers levert het de stroomopname op, bij de ventilatoren het
     // verbruik -- allebei zinvol, en de chips lopen netjes door naar een
     // tweede regel.
-    chips: product.key.slice(0, 3).map(label),
+    chips: toestelChips(product),
   };
 }
 

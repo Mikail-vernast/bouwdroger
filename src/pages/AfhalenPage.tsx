@@ -126,11 +126,76 @@ const stappen = [
   ["04", "Breng op afspraak terug", "U brengt de toestellen aan het einde van de gekozen huurperiode terug naar hetzelfde magazijn."],
 ];
 
+/*
+  De vragen die aan de telefoon terugkomen bij een afhaling, en nergens anders
+  op deze pagina beantwoord worden. Ze staan hier langer dan één regel met
+  opzet: wie zelf komt halen heeft geen technieker die het ter plaatse uitlegt,
+  dus wat bij een levering mondeling gaat, moet hier staan.
+
+  Alle bedragen en periodes komen uit dezelfde bron als de reservatiepagina
+  (`src/data/afhalen.ts`, `src/lib/afhalen.ts`) -- typ er geen over.
+*/
 const faq = [
-  ["Kan ik zonder reservatie langskomen?", "Nee. Afhalen en terugbrengen gebeurt enkel op een afgesproken moment. Zo weten wij welke toestellen we voor u moeten klaarzetten en voorkomen we wachttijd."],
-  ["Wanneer kan ik afhalen?", "Op weekdagen tussen 08:00 en 17:00. Tijdens de online reservatie kiest u een beschikbare datum en een tijdslot."],
-  ["Past een bouwdroger in mijn auto?", "Voorzie een ruime koffer of aanhangwagen en vervoer een bouwdroger altijd rechtop. De toestellen wegen ongeveer 25 tot 40 kg; kom bij voorkeur met twee personen."],
-  ["Krijg ik uitleg bij het afhalen?", "Ja. We overlopen kort de plaatsing, bediening en aandachtspunten voordat u vertrekt. Voor een volledige berekening en installatie kiest u beter onze leveringsservice."],
+  [
+    "Kan ik zonder reservatie langskomen?",
+    "Nee. Afhalen en terugbrengen gebeurt enkel op een afgesproken moment. Wij houden geen balie open: de toestellen staan in het magazijn en worden per reservatie klaargezet, gecontroleerd en geladen. Komt u onaangekondigd, dan is de kans groot dat het toestel dat u zoekt net op een werf staat. Met een reservatie weet u vooraf dat het er is en staat het klaar wanneer u aankomt.",
+  ],
+  [
+    "Wanneer kan ik afhalen en terugbrengen?",
+    "Op weekdagen, in een van de tijdsloten 07:30–08:00, 08:00–10:00, 10:00–12:00, 13:00–15:00 of 15:00–17:00. U kiest het slot tijdens de online reservatie en u krijgt het samen met het adres in uw bevestiging. Terugbrengen gebeurt op dezelfde manier: op het einde van de gekozen huurperiode, binnen een van diezelfde tijdsloten. In het weekend is het magazijn gesloten.",
+  ],
+  [
+    "Hoe lang kan ik een toestel afhalen, en kan ik verlengen?",
+    "U kiest bij de reservatie 3 dagen, 1 week, 2 weken, 1 maand of 2 maanden. Is de ruimte op het einde nog niet droog, dan verlengt u online, u betaalt dan alleen de extra dagen aan hetzelfde dagtarief. Doe dat liefst vóór de einddatum: dan blijft het toestel voor u gereserveerd in plaats van naar de volgende klant te gaan.",
+  ],
+  [
+    "Moet ik een waarborg betalen?",
+    "Nee. Wij vragen geen waarborg, ook niet bij afhalen. U betaalt de huurprijs voor de gereserveerde periode, meer niet. Wat u wel ondertekent is de verplichting om het materieel schoon en in dezelfde staat terug te brengen; schade of vervuiling wordt achteraf doorgerekend, maar er staat vooraf geen bedrag geblokkeerd.",
+  ],
+  [
+    "Wat betaal ik op het moment van reserveren?",
+    "Twee mogelijkheden. Betaalt u de volledige huur meteen online, dan krijgt u 5% korting op de huurprijs. Of u betaalt een vaste orderbevestiging van € 50 en het saldo wanneer u de toestellen komt halen, dan rekent u ter plaatse af en vertrekt u met de factuur. Het bedrag staat in beide gevallen op het scherm vóór u bevestigt.",
+  ],
+  [
+    "Past een bouwdroger in mijn auto?",
+    "Een condensbouwdroger weegt 25 tot 40 kg en is ongeveer zo groot als een stevige koffer op wielen. In een break of een ruime kofferbak past hij; in een kleine stadswagen meestal niet, zeker niet samen met een ventilator. Voorzie een aanhangwagen zodra u twee of meer toestellen meeneemt, en kom bij voorkeur met twee personen, onze medewerker helpt bij het inladen, maar thuis staat u er alleen voor.",
+  ],
+  [
+    "Mag ik een bouwdroger liggend vervoeren?",
+    "Liever niet. In een condensdroger zit een compressor met koelmiddel en olie; ligt het toestel plat, dan kan die olie uit de compressor lopen. Vervoer hem dus rechtop en zet hem vast zodat hij niet omvalt. Is het toch liggend gegaan, laat het toestel dan minstens 24 uur rechtop staan vóór u het inschakelt, anders riskeert u de compressor.",
+  ],
+  [
+    "Welke stroom heb ik nodig?",
+    "De condensbouwdrogers en de ventilatoren draaien op een gewoon stopcontact van 230 V: 0,75 tot 1,4 kW voor een droger, ongeveer 0,2 kW voor een ventilator. De elektrische bouwkachels van 20 en 30 kW zijn iets anders, die vragen een krachtstroomaansluiting van 400 V. Controleer dat vóór u reserveert; zonder 400 V op de werf kunt u de kachel niet gebruiken.",
+  ],
+  [
+    "Moet ik het waterreservoir zelf leegmaken?",
+    "Ja. Bij een afhaling gaat het toestel mee zoals het is, met zijn reservoir, reken op 2 à 3 keer per dag legen, afhankelijk van hoe nat de ruimte is. Loopt het reservoir vol, dan schakelt de droger zichzelf uit en staat hij stil tot u hem leegt. Wilt u een continue condensafvoer naar een afvoer, douche of vloerput, dan hoort dat bij een geleverd pakket: de technieker sluit de pomp dan ter plaatse aan.",
+  ],
+  [
+    "Krijg ik uitleg bij het afhalen?",
+    "Ja. Aan de poort overlopen we kort waar u het toestel best zet, hoe u de streefvochtigheid instelt, wanneer u het reservoir leegt en waar u op let bij ramen en deuren. Dat duurt enkele minuten en volstaat voor een gewone droging. Wat er niet bij zit is de berekening: hoeveel toestellen uw ruimte nodig heeft en hoe lang, dat bepaalt u zelf met de calculator of u kiest levering met installatie.",
+  ],
+  [
+    "Geldt de Drooggarantie ook als ik zelf afhaal?",
+    "Nee. De Drooggarantie geldt uitsluitend voor droogpakketten die via de calculator berekend en met levering en installatie geboekt zijn. Ze steunt op een vochtmeting bij de start en bij de oplevering door onze technieker, en die meting gebeurt niet bij een afhaling. Huurt u los af te halen toestellen, dan bepaalt u zelf de opstelling en de duur.",
+  ],
+  [
+    "Hoeveel toestellen kan ik in één keer reserveren?",
+    "Tot acht per toestelsoort, en nooit meer dan er in de vloot staan, van de adsorptiedroger hebben we er bijvoorbeeld één. De reservatiepagina toont per toestel wat er op uw datum vrij is. Heeft u meer nodig voor een grote werf, bel ons dan: dan kijken we of het logistiek haalbaar is of dat levering de betere oplossing is.",
+  ],
+  [
+    "In welke staat moet ik de toestellen terugbrengen?",
+    "Schoon, compleet en in dezelfde staat als bij ontvangst, normale slijtage uitgezonderd, inclusief de slangen, kabels en accessoires die u meekreeg. Een droger die onder het chapestof zit mag u gewoon afvegen; wij controleren en onderhouden hem daarna zelf. Treffen we vervuiling of schade aan, dan laten we dat schriftelijk weten vóór er iets wordt doorgerekend.",
+  ],
+  [
+    "Wat als ik het toestel niet op tijd kan terugbrengen?",
+    "Bel of mail ons zodra u het weet. In de meeste gevallen verlengen we gewoon en betaalt u de extra dagen aan hetzelfde tarief. Het probleem is niet de dag zelf maar de planning: staat het toestel al ingepland voor een volgende klant, dan moeten wij dat omgooien. Een telefoontje op voorhand lost dat op; onaangekondigd te laat terugbrengen niet.",
+  ],
+  [
+    "Is afhalen goedkoper dan laten leveren?",
+    "Ja, u betaalt geen transport en geen installatie. Daar staat tegenover dat u zelf tilt, zelf de opstelling bepaalt, zelf het reservoir leegt en zelf terugrijdt, en dat er geen vochtmeting en geen Drooggarantie bij zitten. Voor één droger in een garage of kelder is afhalen vaak de logische keuze; voor een volledige chape of een waterschadedossier met verzekering is levering dat meestal.",
+  ],
 ];
 
 const AfhalenPage = () => {
@@ -348,7 +413,7 @@ const AfhalenPage = () => {
             <h3>Staat uw vraag er niet bij?</h3>
             <p>
               Onze medewerkers aan het afhaalpunt kennen de toestellen en uw reservatie. Bellen gaat
-              het snelst — op weekdagen tussen 08:00 en 17:00.
+              het snelst, op weekdagen tussen 08:00 en 17:00.
             </p>
             <div className="afh-btns">
               <a className="afh-call" href="tel:+3236899065">

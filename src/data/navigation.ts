@@ -16,6 +16,7 @@
  * naar twee verschillende URL's te wijzen.
  */
 import { PRODUCTS, PRODUCT_ORDER } from "./verhuur.js";
+import { REGIO_ROUTES } from "./regio-slugs.js";
 
 export interface NavLinkItem {
   label: string;
@@ -88,10 +89,11 @@ export const PAKKETTEN: NavLinkItem[] = [
 
 /** Waarvoor mensen drogen — elk een eigen zoekintentie en eigen pagina. */
 export const TOEPASSINGEN: NavLinkItem[] = [
-  { label: "Chape en pleisterwerk drogen", path: "/nieuwbouw" },
+  { label: "Chape en pleisterwerk drogen", path: "/nieuwbouw-drogen" },
   { label: "Drogen na waterschade", path: "/waterschade" },
   { label: "Vochtige kelder of schimmel", path: "/renovatie" },
-  { label: "Ozonbehandeling en ontschimmeling", path: "/ozonbehandeling" },
+  { label: "Ontschimmeling", path: "/ontschimmeling" },
+  { label: "Ozonbehandeling", path: "/ozonbehandeling" },
   { label: "Luchtontvochtiger huren", path: "/luchtontvochtiger-huren" },
 ];
 
@@ -104,6 +106,7 @@ export const TOEPASSINGEN: NavLinkItem[] = [
  * meer bij komt (geurneutralisatie, ontschimmeling als aparte pagina).
  */
 export const SCHIMMELS: NavLinkItem[] = [
+  { label: "Ontschimmeling", path: "/ontschimmeling" },
   { label: "Ozonbehandeling", path: "/ozonbehandeling" },
   { label: "Vochtige kelder of schimmel", path: "/renovatie" },
   { label: "Drogen na waterschade", path: "/waterschade" },
@@ -131,6 +134,32 @@ export const KIEZEN: NavLinkItem[] = [
   { label: "Ons volledige gamma", path: "/machines" },
 ];
 
+/**
+ * Het gamma als kolom in het menu "Alles over drogen".
+ *
+ * /machines zat in geen enkel menu van de header. Van de 32 links daarin was
+ * het de enige indexeerbare inhoudspagina die ontbrak: de toestelpagina's
+ * stonden er wel (menu Bouwdroging), de pagina die ze alle acht naast elkaar
+ * zet niet. Wie "alles over drogen" opende, kreeg de uitleg, de gidsen, de
+ * toepassingen en de prijzen — maar nergens het gamma zelf.
+ *
+ * Dezelfde controle leverde nog een gat op: /verhuur/afhalen stond in geen
+ * enkel menu én niet in de footer, terwijl het een eigen indexeerbare pagina
+ * is met een eigen zoekintentie ("losse toestellen huren en afhalen in
+ * Aartselaar"). Hij was alleen bereikbaar via links in lopende tekst. De
+ * verwante infopagina /afhalen staat bij Prijzen & service; dit is de
+ * reservering zelf.
+ *
+ * De volgorde is de ladder die een bezoeker afgaat: eerst zien wat er is, dan
+ * één toestel, dan een volledig pakket, dan het laten berekenen.
+ */
+export const GAMMA: NavLinkItem[] = [
+  { label: "Ons volledige gamma", path: "/machines" },
+  { label: "Losse toestellen afhalen", path: "/verhuur/afhalen" },
+  { label: "Alles in één Droogservice", path: "/verhuur/pakket" },
+  { label: "Bereken uw droogpakket", path: "/verhuur/calculator" },
+];
+
 /** Het bedrijf achter de toestellen. */
 export const BEDRIJF: NavLinkItem[] = [
   { label: "Over Vernast", path: "/over-ons" },
@@ -146,6 +175,7 @@ export const BEDRIJF: NavLinkItem[] = [
  */
 export const GIDSEN: NavLinkItem[] = [
   { label: "Hoe lang moet chape drogen?", path: "/gids/hoe-lang-moet-chape-drogen" },
+  { label: "Hoe lang moet pleisterwerk drogen?", path: "/gids/hoe-lang-moet-pleisterwerk-drogen" },
   { label: "Condensdroger of adsorptiedroger?", path: "/gids/condensdroger-of-adsorptiedroger" },
   { label: "Stroomverbruik van een bouwdroger", path: "/gids/stroomverbruik-bouwdroger" },
 ];
@@ -184,8 +214,12 @@ export interface NavGroep {
  * informatiepagina op één plek wordt toegevoegd en overal verschijnt.
  *
  * De volgorde volgt de vraag van de bezoeker: eerst begrijpen, dan de gidsen
- * met één concrete vraag, dan de situatie waarin hij zit, en pas daarna wat
- * het kost.
+ * met één concrete vraag, dan de situatie waarin hij zit, dan het gamma dat
+ * daarbij hoort, en pas daarna wat het kost.
+ *
+ * Met deze vijf kolommen is elke indexeerbare pagina vanuit de header
+ * bereikbaar, op de vijf regiopagina's na — die staan in de footer, met het
+ * volledige zoekwoord in de ankertekst.
  */
 export const ALLES_OVER_DROGEN: NavGroep[] = [
   { titel: "Uitleg", items: UITLEG },
@@ -194,8 +228,26 @@ export const ALLES_OVER_DROGEN: NavGroep[] = [
     items: [{ label: "Alle gidsen", path: "/gids" }, ...GIDSEN],
   },
   { titel: "Toepassingen", items: TOEPASSINGEN },
+  { titel: "Het gamma", items: GAMMA },
   { titel: "Prijzen & service", items: SERVICE },
 ];
+
+/**
+ * De vijf regiopagina's als gewone tekstlinks.
+ *
+ * Ze stonden alleen als spelden op de kaart in `V3Footer`, en die kaart draagt
+ * `aria-hidden="true"` met `tabIndex={-1}` op elke speld — expliciet sierwerk.
+ * Een crawler volgt zulke links doorgaans nog, maar ze dragen geen ankertekst
+ * (er staat enkel "Antwerpen") en met de toetsenbord of een schermlezer zijn ze
+ * onbereikbaar. Daarom staan ze nu óók als tekst in de sitemapkolom, met het
+ * volledige zoekwoord in de ankertekst: dat is waar deze pagina's op mikken.
+ *
+ * Afgeleid uit `REGIO_ROUTES`, zodat een zesde regio hier niet vergeten wordt.
+ */
+export const REGIOS: NavLinkItem[] = REGIO_ROUTES.map((regio) => ({
+  label: `Bouwdroger huren in ${regio.name}`,
+  path: regio.path,
+}));
 
 /**
  * De sitemapkolom van de footer.
@@ -211,7 +263,10 @@ export const ALLES_OVER_DROGEN: NavGroep[] = [
  */
 export const FOOTER_SITEMAP: NavLinkItem[] = [
   { label: "Home", path: "/" },
-  KIEZEN[0],
+  // De calculator en het gamma: de twee manieren waarop iemand aan een toestel
+  // komt. /machines ontbrak hier evengoed als in de header — de enige
+  // inhoudspagina die vanuit geen van beide bereikbaar was.
+  ...KIEZEN,
   ...SERVICE,
   { label: "Realisaties", path: "/realisaties" },
   { label: "Gidsen over bouwdroging", path: "/gids" },

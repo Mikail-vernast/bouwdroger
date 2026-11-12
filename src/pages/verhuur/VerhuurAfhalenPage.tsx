@@ -609,7 +609,7 @@ const VerhuurAfhalenPage = () => {
                                 disabled={qty(product.key) >= product.max}
                                 title={
                                   qty(product.key) >= product.max
-                                    ? `Wij hebben er ${product.max} — bel ons voor meer`
+                                    ? `Wij hebben er ${product.max}, bel ons voor meer`
                                     : undefined
                                 }
                                 onClick={() => step(product.key, 1)}
@@ -693,7 +693,7 @@ const VerhuurAfhalenPage = () => {
                     .
                   </>
                 ) : (
-                  " De komende weken is er niets vrij — bel ons op 03 689 90 65."
+                  " De komende weken is er niets vrij, bel ons op 03 689 90 65."
                 )}
               </div>
             )}
@@ -713,7 +713,7 @@ const VerhuurAfhalenPage = () => {
             <h2>3. Uw gegevens</h2>
             <p className="bs">
               Op naam van wie zetten we de reservatie en de factuur? Uw adres hebben we enkel voor
-              de facturatie nodig — afhalen doet u in ons magazijn.
+              de facturatie nodig, afhalen doet u in ons magazijn.
             </p>
             <div className="ktype">
               <button
@@ -890,7 +890,7 @@ const VerhuurAfhalenPage = () => {
               <h2>Betaal uw afhaalreservatie</h2>
               <p className="bs">
                 U betaalt <b>{euro(totals.payableGross)}</b> met Apple Pay, Bancontact, kaart,
-                iDEAL of Klarna. De betaling loopt beveiligd via Stripe — wij zien uw kaartgegevens
+                iDEAL of Klarna. De betaling loopt beveiligd via Stripe, wij zien uw kaartgegevens
                 nooit.
                 {totals.balance > 0 && (
                   <>
@@ -1055,7 +1055,7 @@ const VerhuurAfhalenPage = () => {
                   disabled={busy || reference !== null}
                   onClick={reserve}
                 >
-                  {busy ? "Even geduld…" : `Betalen — ${euro(totals.payableGross)}`}
+                  {busy ? "Even geduld…" : `Betalen, ${euro(totals.payableGross)}`}
                 </button>
                 {showMissing && missing.length > 0 && (
                   <ul className="miss">

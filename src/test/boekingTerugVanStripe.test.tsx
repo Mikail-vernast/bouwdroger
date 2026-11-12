@@ -12,7 +12,7 @@ import VerhuurBoekingPage from "@/pages/verhuur/VerhuurBoekingPage";
  * dekkingsstap staan — precies op het moment waarop je je afvraagt of je
  * betaling wel doorging.
  */
-describe("VerhuurBoekingPage — terug van Stripe", () => {
+describe("VerhuurBoekingPage, terug van Stripe", () => {
   beforeEach(() => {
     // De sessiecheck blijft hangen: we willen net de tussenstand zien, vóór het
     // antwoord binnen is.

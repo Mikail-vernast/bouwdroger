@@ -7,7 +7,7 @@ import "@/styles/copy-v2.css";
 const CopyV2Page = () => (
   <div className="copy-v2">
     <PageMeta
-      title="Copydeck V2 — volledige website"
+      title="Copydeck V2, volledige website"
       description="Lokale, niet-indexeerbare conceptcopy voor de volledige website van Vernast Verhuur."
       path="/copy-v2"
       noindex
