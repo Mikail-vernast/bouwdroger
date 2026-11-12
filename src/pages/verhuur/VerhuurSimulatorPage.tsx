@@ -209,7 +209,10 @@ const VerhuurSimulatorPage = () => {
   const kiesWoning = (w: Woning) =>
     setS((prev) => {
       const verdiepingen = w === "appartement" ? 1 : Math.max(2, prev.verdiepingen);
-      const d = WONING[w].dakToegelaten.includes(prev.dak) ? prev.dak : WONING[w].dakToegelaten[0];
+      // Een ander woningtype begint met zijn eigen standaarddak (zadeldak, plat bij
+      // een appartement); anders bleef het platte dak van een appartement hangen op
+      // elk huis dat je daarna koos. Hetzelfde type opnieuw kiezen houdt het dak.
+      const d = w === prev.woning ? prev.dak : WONING[w].dakToegelaten[0];
       // Een ander woningtype heeft een andere indeling: de kamers beginnen opnieuw.
       return { ...prev, woning: w, verdiepingen, dak: d, kamers: [], size: snapOppervlakte(geschatteOppervlakte(w, verdiepingen)) };
     });
