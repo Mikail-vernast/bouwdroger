@@ -144,7 +144,12 @@ const VerhuurSimulatorPage = () => {
     const kop = document.querySelector("header.hdr");
     if (!el || !kop) return;
     const meet = () => {
-      const hoogte = Math.ceil(kop.getBoundingClientRect().bottom);
+      // Niet getBoundingClientRect().bottom: die schuift mee met de scroll (gsm,
+      // header in de flow) en met een transform (ingeklapte header op desktop),
+      // en een resize tijdens het scrollen gaf dan een negatieve --kop.
+      let boven = 0;
+      for (let e: HTMLElement | null = kop as HTMLElement; e; e = e.offsetParent as HTMLElement | null) boven += e.offsetTop;
+      const hoogte = Math.ceil(boven + (kop as HTMLElement).offsetHeight);
       // Vast (desktop): de simulator schuift eronder. In de flow (gsm): de
       // header duwt hem al omlaag, een marge zou dubbel tellen.
       const vast = getComputedStyle(kop).position === "fixed";
@@ -208,6 +213,8 @@ const VerhuurSimulatorPage = () => {
 
   const kiesWoning = (w: Woning) =>
     setS((prev) => {
+      // Hetzelfde type opnieuw aanklikken verandert niets: de keuzes van stap 2 blijven staan.
+      if (w === prev.woning) return prev;
       const verdiepingen = w === "appartement" ? 1 : Math.max(2, prev.verdiepingen);
       // Een ander woningtype begint met zijn eigen standaarddak (zadeldak, plat bij
       // een appartement); anders bleef het platte dak van een appartement hangen op
@@ -220,7 +227,11 @@ const VerhuurSimulatorPage = () => {
   /** Bouwlagen of dak gewijzigd: een laag die van soort verandert (zolder wordt verdieping) begint opnieuw. */
   const herschik = (prev: State, n: number, d: Dak) =>
     prev.kamers.slice(0, n).map((k, v) =>
-      laagSoort(prev.woning ?? "halfopen", v, n, d) === laagSoort(prev.woning ?? "halfopen", v, prev.verdiepingen, prev.dak) ? k : undefined,
+      laagSoort(prev.woning ?? "halfopen", v, n, d) === laagSoort(prev.woning ?? "halfopen", v, prev.verdiepingen, prev.dak) &&
+      // naar of van één bouwlaag: het gelijkvloers krijgt (of verliest) de slaapkamers
+      !(v === 0 && (n === 1) !== (prev.verdiepingen === 1))
+        ? k
+        : undefined,
     );
 
   const zetLagen = (n: number) => {
@@ -244,7 +255,7 @@ const VerhuurSimulatorPage = () => {
     setActief(v);
     setS((prev) => {
       const k = Array.from({ length: lagen }, (_, i) => prev.kamers[i] ?? standaardProgramma(woning, i, lagen, dak));
-      k[v] = programmaVan(laagSoort(woning, v, lagen, dak), n);
+      k[v] = programmaVan(laagSoort(woning, v, lagen, dak), n, lagen);
       return { ...prev, kamers: k };
     });
   };

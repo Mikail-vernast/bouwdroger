@@ -30,6 +30,10 @@ export default defineConfig(() => ({
       "react/jsx-dev-runtime",
       "react-router-dom",
       "react-helmet-async",
+      // de 3D-woning van de droogsimulator (lazy route /verhuur/simulator)
+      "three",
+      "three/examples/jsm/environments/RoomEnvironment.js",
+      "@react-three/fiber",
       "vite-react-ssg",
       "@radix-ui/react-accordion",
       "@radix-ui/react-label",

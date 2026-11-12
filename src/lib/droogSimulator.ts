@@ -306,6 +306,9 @@ const VOLGORDE: Record<LaagSoort, string[]> = {
   appartement: ["Leefruimte", "Keuken", "Slaapkamer", "Badkamer", "Slaapkamer", "Berging"],
 };
 
+/** Een woning van één bouwlaag (bungalow) slaapt beneden: slaapkamer en badkamer komen vroeg. */
+const VOLGORDE_ENKEL = ["Leefruimte", "Keuken", "Slaapkamer", "Badkamer", "Toilet", "Slaapkamer"];
+
 /** Is deze bouwlaag de zolder: de bovenste laag onder een schuin dak, vanaf drie lagen. */
 export function isZolder(v: number, verdiepingen: number, dak: Dak): boolean {
   return v === verdiepingen - 1 && dak !== "plat" && verdiepingen > 2;
@@ -322,21 +325,23 @@ export function standaardKamers(woning: Woning, v: number, verdiepingen: number,
   if (isZolder(v, verdiepingen, dak)) return 1;
   const smal = WONING[woning].w < 7;
   if (woning === "appartement" && v === 0) return verdiepingen === 1 ? 4 : 3;
+  if (v === 0 && verdiepingen === 1) return smal ? 3 : 4; // bungalow: ook slaapkamer en badkamer beneden
   if (v === 0) return smal ? 2 : 3;
   return smal ? 3 : 4;
 }
 
 /** De eerste `n` ruimtes uit de standaardvolgorde, als programma. */
-export function programmaVan(soort: LaagSoort, n: number): Programma {
+export function programmaVan(soort: LaagSoort, n: number, lagen = 2): Programma {
   const p: Programma = {};
-  for (const naam of VOLGORDE[soort].slice(0, Math.min(MAX_KAMERS, Math.max(MIN_KAMERS, Math.round(n))))) {
+  const volgorde = soort === "gelijkvloers" && lagen === 1 ? VOLGORDE_ENKEL : VOLGORDE[soort];
+  for (const naam of volgorde.slice(0, Math.min(MAX_KAMERS, Math.max(MIN_KAMERS, Math.round(n))))) {
     p[naam] = (p[naam] ?? 0) + 1;
   }
   return geldig(soort, p);
 }
 
 export function standaardProgramma(woning: Woning, v: number, verdiepingen: number, dak: Dak): Programma {
-  return programmaVan(laagSoort(woning, v, verdiepingen, dak), standaardKamers(woning, v, verdiepingen, dak));
+  return programmaVan(laagSoort(woning, v, verdiepingen, dak), standaardKamers(woning, v, verdiepingen, dak), verdiepingen);
 }
 
 export function aantalKamers(p: Programma): number {
@@ -543,7 +548,7 @@ export function planVoor(woning: Woning, verdiepingen: number, dak: Dak, program
 export function kamersVoor(woning: Woning, verdiepingen: number, dak: Dak, aantallen: number[] = []): Kamer[] {
   const lagen = Math.min(MAX_VERDIEPINGEN, Math.max(1, verdiepingen));
   const programmas = Array.from({ length: lagen }, (_, v) =>
-    aantallen[v] === undefined ? undefined : programmaVan(laagSoort(woning, v, lagen, dak), aantallen[v]),
+    aantallen[v] === undefined ? undefined : programmaVan(laagSoort(woning, v, lagen, dak), aantallen[v], lagen),
   );
   return planVoor(woning, lagen, dak, programmas).kamers;
 }
