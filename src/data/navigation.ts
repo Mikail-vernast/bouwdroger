@@ -38,10 +38,11 @@ const TOESTEL_LABEL: Record<string, string> = {
   ttk170: "Small bouwdroger",
   ttk350: "Medium bouwdroger",
   ttk650: "Large bouwdroger",
-  // "Turbo" is sinds 11-2026 de naam van de radiaalventilator zelf, dus mag de
-  // axiaal die niet meer dragen: op de kaart heet hij Highflow.
+  // De twee ventilatoren heten sinds 11-2026 Highflow en Turboflow. Het
+  // soortwoord blijft erachter staan: niemand zoekt op "Turboflow huren", wel
+  // op "radiaalventilator huren".
   ttv4500: "Highflow axiaalventilator",
-  radiaal2250: "Turbo radiaalventilator",
+  radiaal2250: "Turboflow radiaalventilator",
   teddh30: "Elektrische kachel 30 kW",
   teddh20: "Elektrische kachel 20 kW",
 };

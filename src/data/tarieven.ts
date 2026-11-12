@@ -121,10 +121,10 @@ export const TARIEVEN = {
       "sizeLabel": "Ruimte tot 40 m²",
       "shortTitle": "Chape 40 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 12.35,
+      "pricePerDay": 9.0,
       "rentalWeeks": 2,
       "thicknessCm": 5,
-      "pricePerTwoWeeks": 172.9
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "chape-40-6",
@@ -188,10 +188,10 @@ export const TARIEVEN = {
       "sizeLabel": "Ruimte tot 40 m²",
       "shortTitle": "Chape 40 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 12.35,
+      "pricePerDay": 9.0,
       "rentalWeeks": 3,
       "thicknessCm": 6,
-      "pricePerTwoWeeks": 172.9
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "chape-40-7",
@@ -255,10 +255,10 @@ export const TARIEVEN = {
       "sizeLabel": "Ruimte tot 40 m²",
       "shortTitle": "Chape 40 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 12.35,
+      "pricePerDay": 9.0,
       "rentalWeeks": 4,
       "thicknessCm": 7,
-      "pricePerTwoWeeks": 172.9
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "pleister-40-1",
@@ -322,10 +322,10 @@ export const TARIEVEN = {
       "sizeLabel": "Ruimte tot 40 m²",
       "shortTitle": "Pleisterwerk 40 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 12.35,
+      "pricePerDay": 9.0,
       "rentalWeeks": 2,
       "thicknessCm": 1,
-      "pricePerTwoWeeks": 172.9
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "pleister-40-2",
@@ -389,10 +389,10 @@ export const TARIEVEN = {
       "sizeLabel": "Ruimte tot 40 m²",
       "shortTitle": "Pleisterwerk 40 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 12.35,
+      "pricePerDay": 9.0,
       "rentalWeeks": 3,
       "thicknessCm": 2,
-      "pricePerTwoWeeks": 172.9
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "pleister-40-3",
@@ -456,10 +456,10 @@ export const TARIEVEN = {
       "sizeLabel": "Ruimte tot 40 m²",
       "shortTitle": "Pleisterwerk 40 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 12.35,
+      "pricePerDay": 9.0,
       "rentalWeeks": 4,
       "thicknessCm": 3,
-      "pricePerTwoWeeks": 172.9
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "beide-40",
@@ -523,10 +523,10 @@ export const TARIEVEN = {
       "sizeLabel": "Ruimte tot 40 m²",
       "shortTitle": "Pleisterwerk + chape 40 m²",
       "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
-      "pricePerDay": 12.35,
+      "pricePerDay": 9.0,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 172.9
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "waterschade-40",
@@ -590,10 +590,10 @@ export const TARIEVEN = {
       "sizeLabel": "Ruimte tot 40 m²",
       "shortTitle": "Waterschade 40 m²",
       "description": "Absorptiedroging na waterschade, met voorrang op de planning.",
-      "pricePerDay": 12.35,
+      "pricePerDay": 9.0,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 172.9
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "chape-60-5",
@@ -657,10 +657,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 60 m²",
       "shortTitle": "Chape 60 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 16.15,
+      "pricePerDay": 9.0,
       "rentalWeeks": 2,
       "thicknessCm": 5,
-      "pricePerTwoWeeks": 226.1
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "chape-60-6",
@@ -724,10 +724,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 60 m²",
       "shortTitle": "Chape 60 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 16.15,
+      "pricePerDay": 9.0,
       "rentalWeeks": 3,
       "thicknessCm": 6,
-      "pricePerTwoWeeks": 226.1
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "chape-60-7",
@@ -791,10 +791,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 60 m²",
       "shortTitle": "Chape 60 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 22.1,
+      "pricePerDay": 12.1,
       "rentalWeeks": 4,
       "thicknessCm": 7,
-      "pricePerTwoWeeks": 309.4
+      "pricePerTwoWeeks": 169.4
     },
     {
       "id": "pleister-60-1",
@@ -858,10 +858,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 60 m²",
       "shortTitle": "Pleisterwerk 60 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 16.15,
+      "pricePerDay": 9.0,
       "rentalWeeks": 2,
       "thicknessCm": 1,
-      "pricePerTwoWeeks": 226.1
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "pleister-60-2",
@@ -925,10 +925,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 60 m²",
       "shortTitle": "Pleisterwerk 60 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 16.15,
+      "pricePerDay": 9.0,
       "rentalWeeks": 3,
       "thicknessCm": 2,
-      "pricePerTwoWeeks": 226.1
+      "pricePerTwoWeeks": 126.0
     },
     {
       "id": "pleister-60-3",
@@ -992,10 +992,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 60 m²",
       "shortTitle": "Pleisterwerk 60 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 22.1,
+      "pricePerDay": 12.1,
       "rentalWeeks": 4,
       "thicknessCm": 3,
-      "pricePerTwoWeeks": 309.4
+      "pricePerTwoWeeks": 169.4
     },
     {
       "id": "beide-60",
@@ -1059,10 +1059,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 60 m²",
       "shortTitle": "Pleisterwerk + chape 60 m²",
       "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
-      "pricePerDay": 22.1,
+      "pricePerDay": 12.1,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 309.4
+      "pricePerTwoWeeks": 169.4
     },
     {
       "id": "waterschade-60",
@@ -1126,10 +1126,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 60 m²",
       "shortTitle": "Waterschade 60 m²",
       "description": "Absorptiedroging na waterschade, met voorrang op de planning.",
-      "pricePerDay": 22.1,
+      "pricePerDay": 12.1,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 309.4
+      "pricePerTwoWeeks": 169.4
     },
     {
       "id": "chape-100-5",
@@ -1203,10 +1203,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 100 m²",
       "shortTitle": "Chape 100 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 2,
       "thicknessCm": 5,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "chape-100-6",
@@ -1280,10 +1280,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 100 m²",
       "shortTitle": "Chape 100 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 3,
       "thicknessCm": 6,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "chape-100-7",
@@ -1357,10 +1357,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 100 m²",
       "shortTitle": "Chape 100 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 4,
       "thicknessCm": 7,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "pleister-100-1",
@@ -1434,10 +1434,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 100 m²",
       "shortTitle": "Pleisterwerk 100 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 2,
       "thicknessCm": 1,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "pleister-100-2",
@@ -1511,10 +1511,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 100 m²",
       "shortTitle": "Pleisterwerk 100 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 3,
       "thicknessCm": 2,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "pleister-100-3",
@@ -1588,10 +1588,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 100 m²",
       "shortTitle": "Pleisterwerk 100 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 4,
       "thicknessCm": 3,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "beide-100",
@@ -1665,10 +1665,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 100 m²",
       "shortTitle": "Pleisterwerk + chape 100 m²",
       "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "waterschade-100",
@@ -1742,10 +1742,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 100 m²",
       "shortTitle": "Waterschade 100 m²",
       "description": "Absorptiedroging na waterschade, met voorrang op de planning.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "chape-140-5",
@@ -1819,10 +1819,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 140 m²",
       "shortTitle": "Chape 140 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 2,
       "thicknessCm": 5,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "chape-140-6",
@@ -1896,10 +1896,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 140 m²",
       "shortTitle": "Chape 140 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 32.25,
+      "pricePerDay": 17.25,
       "rentalWeeks": 3,
       "thicknessCm": 6,
-      "pricePerTwoWeeks": 451.5
+      "pricePerTwoWeeks": 241.5
     },
     {
       "id": "chape-140-7",
@@ -1973,10 +1973,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 140 m²",
       "shortTitle": "Chape 140 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 32.25,
+      "pricePerDay": 17.25,
       "rentalWeeks": 4,
       "thicknessCm": 7,
-      "pricePerTwoWeeks": 451.5
+      "pricePerTwoWeeks": 241.5
     },
     {
       "id": "pleister-140-1",
@@ -2050,10 +2050,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 140 m²",
       "shortTitle": "Pleisterwerk 140 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 27.2,
+      "pricePerDay": 12.2,
       "rentalWeeks": 2,
       "thicknessCm": 1,
-      "pricePerTwoWeeks": 380.8
+      "pricePerTwoWeeks": 170.8
     },
     {
       "id": "pleister-140-2",
@@ -2127,10 +2127,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 140 m²",
       "shortTitle": "Pleisterwerk 140 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 32.25,
+      "pricePerDay": 17.25,
       "rentalWeeks": 3,
       "thicknessCm": 2,
-      "pricePerTwoWeeks": 451.5
+      "pricePerTwoWeeks": 241.5
     },
     {
       "id": "pleister-140-3",
@@ -2204,10 +2204,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 140 m²",
       "shortTitle": "Pleisterwerk 140 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 32.25,
+      "pricePerDay": 17.25,
       "rentalWeeks": 4,
       "thicknessCm": 3,
-      "pricePerTwoWeeks": 451.5
+      "pricePerTwoWeeks": 241.5
     },
     {
       "id": "beide-140",
@@ -2281,10 +2281,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 140 m²",
       "shortTitle": "Pleisterwerk + chape 140 m²",
       "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
-      "pricePerDay": 32.25,
+      "pricePerDay": 17.25,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 451.5
+      "pricePerTwoWeeks": 241.5
     },
     {
       "id": "waterschade-140",
@@ -2358,10 +2358,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 140 m²",
       "shortTitle": "Waterschade 140 m²",
       "description": "Absorptiedroging na waterschade, met voorrang op de planning.",
-      "pricePerDay": 32.25,
+      "pricePerDay": 17.25,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 451.5
+      "pricePerTwoWeeks": 241.5
     },
     {
       "id": "chape-180-5",
@@ -2435,10 +2435,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 180 m²",
       "shortTitle": "Chape 180 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 35.25,
+      "pricePerDay": 15.25,
       "rentalWeeks": 2,
       "thicknessCm": 5,
-      "pricePerTwoWeeks": 493.5
+      "pricePerTwoWeeks": 213.5
     },
     {
       "id": "chape-180-6",
@@ -2509,10 +2509,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 180 m²",
       "shortTitle": "Chape 180 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 42,
+      "pricePerDay": 22.0,
       "rentalWeeks": 3,
       "thicknessCm": 6,
-      "pricePerTwoWeeks": 588
+      "pricePerTwoWeeks": 308.0
     },
     {
       "id": "chape-180-7",
@@ -2586,10 +2586,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 180 m²",
       "shortTitle": "Chape 180 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": 7,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "pleister-180-1",
@@ -2663,10 +2663,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 180 m²",
       "shortTitle": "Pleisterwerk 180 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 35.25,
+      "pricePerDay": 15.25,
       "rentalWeeks": 2,
       "thicknessCm": 1,
-      "pricePerTwoWeeks": 493.5
+      "pricePerTwoWeeks": 213.5
     },
     {
       "id": "pleister-180-2",
@@ -2740,10 +2740,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 180 m²",
       "shortTitle": "Pleisterwerk 180 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 42,
+      "pricePerDay": 22.0,
       "rentalWeeks": 3,
       "thicknessCm": 2,
-      "pricePerTwoWeeks": 588
+      "pricePerTwoWeeks": 308.0
     },
     {
       "id": "pleister-180-3",
@@ -2817,10 +2817,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 180 m²",
       "shortTitle": "Pleisterwerk 180 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": 3,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "beide-180",
@@ -2894,10 +2894,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 180 m²",
       "shortTitle": "Pleisterwerk + chape 180 m²",
       "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "waterschade-180",
@@ -2971,10 +2971,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 180 m²",
       "shortTitle": "Waterschade 180 m²",
       "description": "Absorptiedroging na waterschade, met voorrang op de planning.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "chape-220-5",
@@ -3048,10 +3048,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 220 m²",
       "shortTitle": "Chape 220 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 42,
+      "pricePerDay": 22.0,
       "rentalWeeks": 2,
       "thicknessCm": 5,
-      "pricePerTwoWeeks": 588
+      "pricePerTwoWeeks": 308.0
     },
     {
       "id": "chape-220-6",
@@ -3125,10 +3125,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 220 m²",
       "shortTitle": "Chape 220 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 42,
+      "pricePerDay": 22.0,
       "rentalWeeks": 3,
       "thicknessCm": 6,
-      "pricePerTwoWeeks": 588
+      "pricePerTwoWeeks": 308.0
     },
     {
       "id": "chape-220-7",
@@ -3202,10 +3202,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 220 m²",
       "shortTitle": "Chape 220 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": 7,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "pleister-220-1",
@@ -3279,10 +3279,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 220 m²",
       "shortTitle": "Pleisterwerk 220 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 42,
+      "pricePerDay": 22.0,
       "rentalWeeks": 2,
       "thicknessCm": 1,
-      "pricePerTwoWeeks": 588
+      "pricePerTwoWeeks": 308.0
     },
     {
       "id": "pleister-220-2",
@@ -3356,10 +3356,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 220 m²",
       "shortTitle": "Pleisterwerk 220 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 42,
+      "pricePerDay": 22.0,
       "rentalWeeks": 3,
       "thicknessCm": 2,
-      "pricePerTwoWeeks": 588
+      "pricePerTwoWeeks": 308.0
     },
     {
       "id": "pleister-220-3",
@@ -3433,10 +3433,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 220 m²",
       "shortTitle": "Pleisterwerk 220 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": 3,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "beide-220",
@@ -3510,10 +3510,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 220 m²",
       "shortTitle": "Pleisterwerk + chape 220 m²",
       "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "waterschade-220",
@@ -3587,10 +3587,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 220 m²",
       "shortTitle": "Waterschade 220 m²",
       "description": "Absorptiedroging na waterschade, met voorrang op de planning.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "chape-260-5",
@@ -3664,10 +3664,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 260 m²",
       "shortTitle": "Chape 260 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 2,
       "thicknessCm": 5,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "chape-260-6",
@@ -3741,10 +3741,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 260 m²",
       "shortTitle": "Chape 260 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 3,
       "thicknessCm": 6,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "chape-260-7",
@@ -3818,10 +3818,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 260 m²",
       "shortTitle": "Chape 260 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 57.4,
+      "pricePerDay": 37.4,
       "rentalWeeks": 4,
       "thicknessCm": 7,
-      "pricePerTwoWeeks": 803.6
+      "pricePerTwoWeeks": 523.6
     },
     {
       "id": "pleister-260-1",
@@ -3895,10 +3895,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 260 m²",
       "shortTitle": "Pleisterwerk 260 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 2,
       "thicknessCm": 1,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "pleister-260-2",
@@ -3972,10 +3972,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 260 m²",
       "shortTitle": "Pleisterwerk 260 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 51.1,
+      "pricePerDay": 31.1,
       "rentalWeeks": 3,
       "thicknessCm": 2,
-      "pricePerTwoWeeks": 715.4
+      "pricePerTwoWeeks": 435.4
     },
     {
       "id": "pleister-260-3",
@@ -4049,10 +4049,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 260 m²",
       "shortTitle": "Pleisterwerk 260 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 57.4,
+      "pricePerDay": 37.4,
       "rentalWeeks": 4,
       "thicknessCm": 3,
-      "pricePerTwoWeeks": 803.6
+      "pricePerTwoWeeks": 523.6
     },
     {
       "id": "beide-260",
@@ -4126,10 +4126,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 260 m²",
       "shortTitle": "Pleisterwerk + chape 260 m²",
       "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
-      "pricePerDay": 57.4,
+      "pricePerDay": 37.4,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 803.6
+      "pricePerTwoWeeks": 523.6
     },
     {
       "id": "waterschade-260",
@@ -4203,10 +4203,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 260 m²",
       "shortTitle": "Waterschade 260 m²",
       "description": "Absorptiedroging na waterschade, met voorrang op de planning.",
-      "pricePerDay": 57.4,
+      "pricePerDay": 37.4,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 803.6
+      "pricePerTwoWeeks": 523.6
     },
     {
       "id": "chape-300-5",
@@ -4280,10 +4280,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 300 m²",
       "shortTitle": "Chape 300 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 53.9,
+      "pricePerDay": 28.9,
       "rentalWeeks": 2,
       "thicknessCm": 5,
-      "pricePerTwoWeeks": 754.6
+      "pricePerTwoWeeks": 404.6
     },
     {
       "id": "chape-300-6",
@@ -4357,10 +4357,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 300 m²",
       "shortTitle": "Chape 300 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 60.2,
+      "pricePerDay": 35.2,
       "rentalWeeks": 3,
       "thicknessCm": 6,
-      "pricePerTwoWeeks": 842.8
+      "pricePerTwoWeeks": 492.8
     },
     {
       "id": "chape-300-7",
@@ -4434,10 +4434,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 300 m²",
       "shortTitle": "Chape 300 m²",
       "description": "Chape drogen tot een veilige restvochtigheid, klaar voor vloerafwerking.",
-      "pricePerDay": 60.2,
+      "pricePerDay": 35.2,
       "rentalWeeks": 4,
       "thicknessCm": 7,
-      "pricePerTwoWeeks": 842.8
+      "pricePerTwoWeeks": 492.8
     },
     {
       "id": "pleister-300-1",
@@ -4511,10 +4511,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 300 m²",
       "shortTitle": "Pleisterwerk 300 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 53.9,
+      "pricePerDay": 28.9,
       "rentalWeeks": 2,
       "thicknessCm": 1,
-      "pricePerTwoWeeks": 754.6
+      "pricePerTwoWeeks": 404.6
     },
     {
       "id": "pleister-300-2",
@@ -4588,10 +4588,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 300 m²",
       "shortTitle": "Pleisterwerk 300 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 60.2,
+      "pricePerDay": 35.2,
       "rentalWeeks": 3,
       "thicknessCm": 2,
-      "pricePerTwoWeeks": 842.8
+      "pricePerTwoWeeks": 492.8
     },
     {
       "id": "pleister-300-3",
@@ -4665,10 +4665,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 300 m²",
       "shortTitle": "Pleisterwerk 300 m²",
       "description": "Pleisterwerk drogen zodat schilderwerk en afwerking veilig kunnen starten.",
-      "pricePerDay": 60.2,
+      "pricePerDay": 35.2,
       "rentalWeeks": 4,
       "thicknessCm": 3,
-      "pricePerTwoWeeks": 842.8
+      "pricePerTwoWeeks": 492.8
     },
     {
       "id": "beide-300",
@@ -4742,10 +4742,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 300 m²",
       "shortTitle": "Pleisterwerk + chape 300 m²",
       "description": "Muren en vloer in één keer drogen — pleisterwerk en chape samen.",
-      "pricePerDay": 60.2,
+      "pricePerDay": 35.2,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 842.8
+      "pricePerTwoWeeks": 492.8
     },
     {
       "id": "waterschade-300",
@@ -4819,10 +4819,10 @@ export const TARIEVEN = {
       "sizeLabel": "Gebouw tot 300 m²",
       "shortTitle": "Waterschade 300 m²",
       "description": "Absorptiedroging na waterschade, met voorrang op de planning.",
-      "pricePerDay": 60.2,
+      "pricePerDay": 35.2,
       "rentalWeeks": 4,
       "thicknessCm": null,
-      "pricePerTwoWeeks": 842.8
+      "pricePerTwoWeeks": 492.8
     }
   ],
   "extras": [
@@ -4891,10 +4891,10 @@ export const TARIEVEN = {
     "weeks_multiplier_3": 1.35,
     "weeks_multiplier_4": 1.62
   },
-  "version": 89,
+  "version": 92,
   "products": {
     "ttk170": {
-      "day": 9,
+      "day": 9.0,
       "img": [
         "/vernast/eco-boost.webp",
         "/vernast/lineup-dryers.webp"
@@ -4903,11 +4903,11 @@ export const TARIEVEN = {
       "name": "Ontvochtiger TTK 170 S",
       "type": "Condensontvochtiger",
       "badge": "Kleine ruimtes",
-      "short": "TTK 170 S",
-      "stock": 22
+      "short": "Boost",
+      "stock": 14
     },
     "ttk350": {
-      "day": 12,
+      "day": 12.0,
       "img": [
         "/vernast/eco-performance.webp",
         "/vernast/lineup-dryers.webp"
@@ -4916,11 +4916,11 @@ export const TARIEVEN = {
       "name": "Ontvochtiger TTK 350 S",
       "type": "Condensontvochtiger",
       "badge": "Meest gehuurd",
-      "short": "TTK 350 S",
-      "stock": 16
+      "short": "Performance",
+      "stock": 9
     },
     "ttk650": {
-      "day": 16,
+      "day": 16.0,
       "img": [
         "/vernast/eco-ultimate.webp",
         "/vernast/lineup-dryers.webp"
@@ -4929,11 +4929,11 @@ export const TARIEVEN = {
       "name": "Ontvochtiger TTK 650 S",
       "type": "Condensontvochtiger",
       "badge": "Grote volumes",
-      "short": "TTK 650 S",
+      "short": "Ultimate",
       "stock": 4
     },
     "teddh20": {
-      "day": 9,
+      "day": 9.0,
       "img": [
         "/vernast/kachel-20.webp"
       ],
@@ -4941,11 +4941,11 @@ export const TARIEVEN = {
       "name": "Elektrische kachel TEddH 20 T",
       "type": "Elektrische bouwkachel",
       "badge": "Kleinere ruimtes",
-      "short": "TEddH 20 T",
+      "short": "Heatboost 20",
       "stock": 1
     },
     "teddh30": {
-      "day": 12,
+      "day": 12.0,
       "img": [
         "/vernast/kachel-30.webp"
       ],
@@ -4953,11 +4953,11 @@ export const TARIEVEN = {
       "name": "Elektrische kachel TEddH 30 T",
       "type": "Elektrische bouwkachel",
       "badge": "Voor koude ruimtes",
-      "short": "TEddH 30 T",
-      "stock": 8
+      "short": "Heatpower 30",
+      "stock": 2
     },
     "ttv4500": {
-      "day": 9,
+      "day": 4.0,
       "img": [
         "/vernast/vent-axiaal.webp"
       ],
@@ -4965,11 +4965,11 @@ export const TARIEVEN = {
       "name": "Ventilator TTV 4500",
       "type": "Bouwventilator · luchtcirculatie",
       "badge": "Versnelt elke droging",
-      "short": "TTV 4500",
-      "stock": 19
+      "short": "Highflow",
+      "stock": 14
     },
     "revolution": {
-      "day": 25,
+      "day": 25.0,
       "img": [
         "/vernast/eco-revolution.webp"
       ],
@@ -4977,11 +4977,11 @@ export const TARIEVEN = {
       "name": "Adsorptiedroger Revolution",
       "type": "Adsorptiedroger · gericht drogen",
       "badge": "Plaatselijk drogen",
-      "short": "Adsorptiedroger Revolution",
+      "short": "Revolution",
       "stock": 1
     },
     "radiaal2250": {
-      "day": 8,
+      "day": 5.0,
       "img": [
         "/vernast/vent-radiaal.webp",
         "/products/dim-radiaal-ventilator.webp"
@@ -4990,9 +4990,9 @@ export const TARIEVEN = {
       "name": "Radiaalventilator 2 250 m³/u",
       "type": "Bouwventilator · gericht drogen",
       "badge": "Gericht drogen",
-      "short": "Radiaal 2250",
+      "short": "Turboflow",
       "stock": 8
     }
   },
-  "published_at": "2026-08-11T08:56:57.253874+00:00"
+  "published_at": "2026-11-12T11:02:17.013599+00:00"
 } as const;

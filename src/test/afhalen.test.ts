@@ -164,7 +164,7 @@ describe("order voor het portaal", () => {
       { product_key: "teddh20", qty: 1 },
     ]);
     expect(pickupCounts(lines)).toEqual({ drogers: 2, ventilatoren: 1, verwarming: 1 });
-    expect(pickupLabel(lines)).toContain("1× TTK 650 S");
+    expect(pickupLabel(lines)).toContain("1× Ultimate");
   });
 
   test("de regels overleven de reis door de Stripe-metadata", () => {
