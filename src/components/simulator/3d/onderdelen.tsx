@@ -322,13 +322,15 @@ function gradient(soort: "muur" | "vloer"): CanvasTexture {
   const c = document.createElement("canvas");
   c.width = c.height = 128;
   const g = c.getContext("2d")!;
-  const blauw = (a: number) => `rgba(36,85,127,${a})`;
+  // Nat pleister en verse chape zijn donkerder, niet blauw: een koele, donkere
+  // vochtvlek. Het blauw van de SVG-legende las in 3D als een blauw geverfde kamer.
+  const nat = (a: number) => `rgba(52,58,62,${a})`;
   const grad = soort === "muur"
     ? g.createLinearGradient(0, 128, 0, 0)
     : g.createRadialGradient(64, 70, 0, 64, 64, 84);
-  grad.addColorStop(0, blauw(0.85));
-  grad.addColorStop(soort === "muur" ? 0.55 : 0.6, blauw(soort === "muur" ? 0.3 : 0.45));
-  grad.addColorStop(1, blauw(soort === "muur" ? 0 : 0.1));
+  grad.addColorStop(0, nat(0.6));
+  grad.addColorStop(soort === "muur" ? 0.55 : 0.6, nat(soort === "muur" ? 0.2 : 0.32));
+  grad.addColorStop(1, nat(soort === "muur" ? 0 : 0.06));
   g.fillStyle = grad;
   g.fillRect(0, 0, 128, 128);
   const t = new CanvasTexture(c);
