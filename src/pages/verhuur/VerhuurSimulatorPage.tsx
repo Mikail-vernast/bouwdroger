@@ -6,7 +6,6 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import IsoHouse from "@/components/simulator/IsoHouse";
 import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
 import { materiaalVoor } from "@/components/simulator/materiaal";
-import { Doorsnede2 } from "@/components/simulator/PaneelArt";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
 import {
   DAK_LABEL,
@@ -62,7 +61,6 @@ const WONINGEN: Woning[] = ["rijwoning", "halfopen", "open", "appartement"];
 const DAKEN: Dak[] = ["zadeldak", "plat", "lessenaar"];
 /** Short roof names for the segmented control, where three sit in half a panel. */
 const DAK_KORT: Record<Dak, string> = { zadeldak: "Zadeldak", plat: "Plat", lessenaar: "Lessenaar" };
-const WATTEN: Wat[] = ["pleister", "chape", "beide"];
 const MATEN = SIZE_VALUES.map(Number);
 /** The slider steps: the catalogue sizes, then "more than the largest". */
 const OPP_STAPPEN = [...MATEN.map(String), "custom"];
@@ -104,6 +102,13 @@ const TOESTEL_KORT: Record<DeviceKey, string> = {
   kachel: "Kachel",
 };
 
+/** Wat er nat is volgt uit de twee diktes: "geen" bij een laag laat die weg. */
+function watVan(pd: string, cd: string): Wat | null {
+  const muur = pd !== "geen";
+  const vloer = cd !== "geen";
+  return muur && vloer ? "beide" : muur ? "pleister" : vloer ? "chape" : null;
+}
+
 /** Antwoorden aanvullen tot een volledige set voor de rekenkern. */
 function volledig(s: State): SimAnswers {
   const fase = s.fase ?? "vers";
@@ -113,8 +118,9 @@ function volledig(s: State): SimAnswers {
     dak: s.dak,
     size: s.size,
     wat: s.wat ?? "beide",
-    pd: s.pd === "onbekend" ? DEFAULT_PD : s.pd,
-    cd: s.cd === "onbekend" ? DEFAULT_CD : s.cd,
+    // "geen" = that layer is dry; the wat above leaves it out, the value only has to be valid.
+    pd: s.pd === "onbekend" || s.pd === "geen" ? DEFAULT_PD : s.pd,
+    cd: s.cd === "onbekend" || s.cd === "geen" ? DEFAULT_CD : s.cd,
     fase,
     verwarmt: s.verwarmt ?? FASE[fase].verwarmtWaarschijnlijk,
   };
@@ -192,6 +198,8 @@ const VerhuurSimulatorPage = () => {
   }, [stap, handmatig, lagen]);
 
   const naar = (n: number) => {
+    // Vraag 3 opent met de gangbare diktes al gekozen: dat is meteen een antwoord.
+    if (n === 2) setS((p) => (p.wat ? p : { ...p, wat: watVan(p.pd, p.cd) }));
     setStap(n);
     setToonPlan(false);
     setActief(0);
@@ -266,9 +274,9 @@ const VerhuurSimulatorPage = () => {
   ][stap];
 
   /* ── de volgende-knop per stap ── */
-  const volgende =
+  const volgende: { ok: boolean; label: string; melding?: string } =
     stap === 0 ? { ok: !!s.woning, label: "Volgende →" }
-    : stap === 2 ? { ok: !!s.wat, label: "Volgende →" }
+    : stap === 2 ? { ok: !!s.wat, label: "Volgende →", melding: s.wat ? undefined : "Kies minstens één laag die nat is." }
     : stap === 3 ? { ok: !!s.fase, label: "Toon mijn droogplan →" }
     : { ok: true, label: "Volgende →" };
 
@@ -420,27 +428,19 @@ const VerhuurSimulatorPage = () => {
 
               {stap === 2 && (
                 <>
-                  <h2>Wat is er nat, en hoe dik?</h2>
-                  <p className="ds-sub">Elke centimeter houdt water vast dat eruit moet voor u kunt afwerken.</p>
-                  <div className="ds-groei">
-                    <div className="ds-lbl">Wat droogt u</div>
-                    <div className="ds-tegels ds-tegels--groot" role="radiogroup" aria-label="Wat droogt u">
-                      {WATTEN.map((w) => (
-                        <button key={w} type="button" role="radio" aria-checked={s.wat === w} className={`ds-tegel${s.wat === w ? " on" : ""}`} onClick={() => setS((p) => ({ ...p, wat: w }))}>
-                          <span className="ds-tegel-art"><Doorsnede2 wat={w} /></span>
-                          <b>{WAT_LABEL[w].label}</b>
-                          <small>{WAT_LABEL[w].sub}</small>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  {(s.wat === "pleister" || s.wat === "beide") && (
-                    <Dikte label="Dikte pleisterwerk" waarden={PD_VALUES} gekozen={s.pd} onKies={(v) => setS((p) => ({ ...p, pd: v }))} />
-                  )}
-                  {(s.wat === "chape" || s.wat === "beide") && (
-                    <Dikte label="Dikte chape" waarden={CD_VALUES} gekozen={s.cd} onKies={(v) => setS((p) => ({ ...p, cd: v }))} />
-                  )}
-                  {!s.wat && <p className="ds-hint">Kies wat er nat is; daarna vragen we hoe dik.</p>}
+                  <h2>Hoe dik is het nat?</h2>
+                  <p className="ds-sub">Kies per laag de dikte. Weet u het niet, dan rekenen wij met de gangbare maat.</p>
+                  {(["pd", "cd"] as const).map((laag) => (
+                    <LaagKaart
+                      key={laag}
+                      laag={laag}
+                      gekozen={s[laag]}
+                      onKies={(v) => setS((p) => {
+                        const volgend = { ...p, [laag]: v };
+                        return { ...volgend, wat: watVan(volgend.pd, volgend.cd) };
+                      })}
+                    />
+                  ))}
                 </>
               )}
 
@@ -558,6 +558,7 @@ const VerhuurSimulatorPage = () => {
               <button className="ds-back" type="button" hidden={stap === 0} onClick={() => naar(Math.max(0, stap - 1))}>
                 ← Terug
               </button>
+              {volgende.melding && <p className="ds-melding" role="status">{volgende.melding}</p>}
               {stap < 4 ? (
                 <button className="ds-next" type="button" disabled={!volgende.ok} onClick={() => naar(stap + 1)}>
                   {volgende.label}
@@ -717,26 +718,103 @@ function kamerNamen(namen: string[]): string {
   return delen.join(", ");
 }
 
-/** Keuzeknoppen voor een laagdikte, uit de catalogus, plus "weet ik niet". */
-function Dikte({ label, waarden, gekozen, onKies }: {
-  label: string; waarden: readonly string[]; gekozen: string; onKies: (v: string) => void;
-}) {
-  const grootste = Math.max(...waarden.map(Number));
+/** Wat de bezoeker per laag te zien krijgt: een echte foto, wat het is, waar hij het ziet. */
+const LAAG = {
+  pd: {
+    titel: "Pleisterwerk",
+    waarden: PD_VALUES,
+    standaard: DEFAULT_PD,
+    foto: "/simulator/dikte-pleister.webp",
+    fotoPositie: "48% 50%",
+    wat: "De gladde laag gips op uw muren en plafonds. Vers aangebracht zit ze vol water.",
+    onderschrift: "Gips op de muur, nog vochtig",
+    tip: "Waar zie ik dat? In een inbouwdoos of naast een deurlijst.",
+    // Vuistregel: ± 1 week per cm zonder droger.
+    weken: (cm: number) => cm,
+  },
+  cd: {
+    titel: "Chape",
+    waarden: CD_VALUES,
+    standaard: DEFAULT_CD,
+    foto: "/simulator/dikte-chape.webp",
+    fotoPositie: "22% 78%",
+    wat: "De dekvloer van zand en cement onder uw tegels of parket.",
+    onderschrift: "Zandcement op de isolatie",
+    tip: "Waar zie ik dat? Aan de dorpel, of vraag het aan uw chapeur.",
+    // Vuistregel: 1 week per cm tot 4 cm, daarboven 2 weken per extra cm.
+    weken: (cm: number) => (cm <= 4 ? cm : 4 + 2 * (cm - 4)),
+  },
+} as const;
+
+const Vink = ({ grootte = 10 }: { grootte?: number }) => (
+  <svg width={grootte} height={grootte} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M2.5 6.3l2.3 2.3 4.7-5" />
+  </svg>
+);
+
+/**
+ * Eén laag (pleisterwerk of chape): foto, de gekozen dikte op ware grootte, en
+ * de keuzes Geen / de catalogusmaten / weet niet. "Geen" is een antwoord, geen
+ * uitgeschakelde kaart: de laag is droog en telt niet mee.
+ */
+function LaagKaart({ laag, gekozen, onKies }: { laag: "pd" | "cd"; gekozen: string; onKies: (v: string) => void }) {
+  const L = LAAG[laag];
+  const droog = gekozen === "geen";
+  const onbekend = gekozen === "onbekend";
+  const cm = droog ? 0 : Number(onbekend ? L.standaard : gekozen);
+  const max = Math.max(...L.waarden.map(Number));
+  const weken = L.weken(cm);
+  const keuzes: { v: string; groot: ReactNode; klein: string }[] = [
+    { v: "geen", groot: "Geen", klein: droog ? "droog" : "niet nat" },
+    ...L.waarden.map((v) => ({ v, groot: <>{v}<small> cm</small></>, klein: v === L.standaard ? "meest" : "" })),
+    { v: "onbekend", groot: "?", klein: "weet niet" },
+  ];
   return (
-    <div>
-      <div className="ds-lbl">{label}</div>
-      <div className="ds-chips ds-chips--dikte" role="radiogroup" aria-label={label}>
-        {waarden.map((v) => (
-          <button key={v} type="button" role="radio" aria-checked={gekozen === v} className={`ds-chip${gekozen === v ? " on" : ""}`} onClick={() => onKies(v)}>
-            <i className="ds-laag" style={{ height: `${4 + (14 * Number(v)) / grootste}px` }} aria-hidden="true" />
-            {v.replace(".", ",")} cm
-          </button>
-        ))}
-        <button type="button" role="radio" aria-checked={gekozen === "onbekend"} className={`ds-chip${gekozen === "onbekend" ? " on" : ""}`} onClick={() => onKies("onbekend")}>
-          Weet ik niet
-        </button>
+    <section className={`ds-laagk${droog ? " uit" : ""}`} aria-label={L.titel}>
+      <figure className="ds-laagk-foto">
+        <img src={L.foto} alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
+        {droog && <span className="ds-laagk-badge">Niet nat</span>}
+        <figcaption><b>{L.titel}</b>{L.onderschrift}</figcaption>
+      </figure>
+      <div className="ds-laagk-inh">
+        <div className="ds-laagk-kop">
+          <h3>{L.titel}</h3>
+          <output>{droog ? <span className="ok">Droog</span> : <>{onbekend ? "± " : ""}{cm}<small> cm</small></>}</output>
+        </div>
+        <p className="ds-laagk-wat">{L.wat}</p>
+        <div className="ds-ware" style={{ "--max": max } as CSSProperties}>
+          <em>≈ ware grootte, in cm</em>
+          <div className="ds-ware-lat"><i style={{ width: `calc(${cm}cm * var(--s))` }} /></div>
+          <div className="ds-ware-schaal">{Array.from({ length: max + 1 }, (_, i) => <span key={i}>{i}</span>)}</div>
+          <div className="ds-ware-droog" aria-hidden={!droog}>
+            <span className="bol"><Vink grootte={14} /></span>
+            <span><b>{L.titel}: droog</b><small>Deze laag telt niet mee in uw droogplan.</small></span>
+          </div>
+        </div>
+        <div className="ds-dk" role="radiogroup" aria-label={`Dikte ${L.titel.toLowerCase()}`}>
+          {keuzes.map((k) => (
+            <button key={k.v} type="button" role="radio" aria-checked={gekozen === k.v} className={`${k.v === "geen" ? "geen" : ""}${gekozen === k.v ? " on" : ""}`} onClick={() => onKies(k.v)}>
+              {k.v === "geen" && <span className="vink"><Vink /></span>}
+              <b>{k.groot}</b>
+              <i>{k.klein || "\u00a0"}</i>
+            </button>
+          ))}
+        </div>
+        <div className="ds-laagk-info" aria-live="polite">
+          <span className="tijd">
+            {droog ? <span className="ok-bol"><Vink grootte={8} /></span> : (
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.5" /><path d="M8 4.5V8l2.4 1.6" /></svg>
+            )}
+            <span>
+              {droog
+                ? laag === "pd" ? "Geen nat pleisterwerk: niets te drogen." : "Geen natte chape: niets te drogen."
+                : <>± {weken} {weken === 1 ? "week" : "weken"} drogen zonder droger{onbekend && <em> · gerekend met {cm} cm</em>}</>}
+            </span>
+          </span>
+          <span className="tip">{L.tip}</span>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 

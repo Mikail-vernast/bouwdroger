@@ -743,7 +743,7 @@
 .ds-hk-ico .raam{fill:currentColor;opacity:.55}
 .ds-hk-ico .grond{stroke:currentColor;stroke-width:1.6;stroke-linecap:round;opacity:.5}
 /* minder hoogte: tegels worden liggend, icoon links van het woord */
-@container paneel (max-height:820px){
+@container paneel (max-height:820px) and (min-width:521px){
   .ds-hk{flex-direction:row;gap:8px;padding:7px 6px}
   .ds-hk-ico{width:30px;height:26px}
   .ds-hk small{display:none}
@@ -839,3 +839,107 @@
   .ds-hk{padding:5px 4px;gap:6px}
   .ds-hk-ico{width:22px;height:19px}
 }
+
+/* ───── vraag 3: hoe dik is het nat? ─────
+   Per laag een kaart: echte foto links, rechts de dikte op ware grootte (een lat
+   in echte centimeters) en de keuzes. "Geen" is een antwoord: de laag is droog,
+   de kaart zegt dat met een vinkje in plaats van grijs te worden. Beide kaarten
+   delen de hoogte van het paneel, zodat de vraag nooit scrolt. */
+.ds-sim{--groen:#2f9e5b}
+.ds-laagk{flex:1 1 0;min-height:0;display:grid;grid-template-columns:40% minmax(0,1fr);border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.11);overflow:hidden;animation:ds-laagk-in .6s cubic-bezier(.2,.8,.2,1) both}
+.ds-laagk + .ds-laagk{animation-delay:.08s}
+@keyframes ds-laagk-in{from{opacity:0;transform:translateY(10px)}}
+.ds-laagk-foto{position:relative;margin:0;overflow:hidden;background:#2a1a17}
+.ds-laagk-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 6s ease-out,filter .5s}
+.ds-laagk:hover .ds-laagk-foto img{transform:scale(1.1)}
+.ds-laagk.uit .ds-laagk-foto img{filter:grayscale(.85) brightness(.7)}
+.ds-laagk-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.6) 100%)}
+.ds-laagk-foto figcaption{position:absolute;left:12px;right:12px;bottom:10px;z-index:1;font-size:11.5px;line-height:1.35;color:rgba(255,255,255,.87);transition:opacity .3s}
+.ds-laagk-foto figcaption b{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#fff;margin-bottom:2px}
+.ds-laagk.uit .ds-laagk-foto figcaption{opacity:0}
+.ds-laagk-badge{position:absolute;top:10px;left:10px;z-index:2;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.9);color:var(--ink);font-size:10.5px;font-weight:700;line-height:1}
+
+.ds-laagk-inh{display:flex;flex-direction:column;justify-content:space-between;gap:9px;padding:16px 18px 14px;min-width:0;min-height:0}
+.ds-laagk-kop{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ds-laagk-kop h3{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;color:#fff}
+.ds-laagk-kop output{font-size:32px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.ds-laagk-kop output small{font-size:13px;font-weight:600;opacity:.7}
+.ds-laagk-kop output .ok{font-size:15px;color:#9fe0b4}
+.ds-laagk-wat{margin:-4px 0 0;font-size:13.5px;line-height:1.4;opacity:.68}
+
+.ds-ware{--s:1;position:relative;display:flex;flex-direction:column;gap:4px;padding:22px 12px 7px;border-radius:12px;background:rgba(0,0,0,.15)}
+.ds-ware em{position:absolute;top:6px;left:12px;font-style:normal;font-family:var(--fm);letter-spacing:.08em;text-transform:uppercase;font-size:9.5px;opacity:.7}
+.ds-ware-lat{position:relative;height:30px;width:calc(var(--max)*1cm*var(--s));max-width:100%;border-radius:5px;background-color:rgba(255,255,255,.08);
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.33) 0 1px,transparent 1px calc(1cm*var(--s)))}
+.ds-ware-lat::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.2) 0 1px,transparent 1px calc(.5cm*var(--s)));background-size:100% 40%;background-repeat:no-repeat;background-position:bottom;pointer-events:none}
+.ds-ware-lat i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(180deg,#fff,#f1e7dc);box-shadow:0 6px 18px -8px rgba(0,0,0,.8);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.ds-ware-schaal{display:flex;align-items:baseline;font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.63)}
+.ds-ware-schaal span{flex:none;width:calc(1cm*var(--s));transform:translateX(-3px)}
+.ds-ware-schaal span:last-child{width:auto}
+.ds-ware-lat,.ds-ware-schaal,.ds-ware em{transition:opacity .3s}
+.ds-ware-droog{position:absolute;inset:0;display:flex;align-items:center;gap:10px;padding:0 14px;border-radius:12px;background:rgba(255,255,255,.08);font-size:12.5px;line-height:1.3;opacity:0;pointer-events:none;transition:opacity .3s}
+.ds-ware-droog .bol{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--groen);color:#fff}
+.ds-ware-droog b{display:block;font-size:13px;font-weight:700}
+.ds-ware-droog small{display:block;font-size:11.5px;opacity:.7}
+.ds-laagk.uit .ds-ware-droog{opacity:1}
+.ds-laagk.uit .ds-ware-lat,.ds-laagk.uit .ds-ware-schaal,.ds-laagk.uit .ds-ware em{opacity:0}
+
+.ds-dk{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.ds-dk button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:10px 2px;border-radius:13px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);cursor:pointer;transition:background .15s,transform .15s}
+.ds-dk button:hover:not(.on){background:rgba(255,255,255,.11)}
+.ds-dk button:active{transform:scale(.96)}
+.ds-dk button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ds-dk button b{font-size:18px;font-weight:800;line-height:1.1}
+.ds-dk button b small{font-size:11px;font-weight:600;opacity:.7}
+.ds-dk button i{font-style:normal;font-size:10.5px;opacity:.6;white-space:nowrap}
+.ds-dk button.on{background:#fff;color:var(--ink)!important;border-color:#fff;box-shadow:0 8px 22px -10px rgba(0,0,0,.65)}
+.ds-dk .vink{position:absolute;top:-6px;right:-6px;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--groen);color:#fff;opacity:0;transform:scale(.4);transition:opacity .2s,transform .25s cubic-bezier(.2,.8,.2,1)}
+.ds-dk button.geen.on .vink{opacity:1;transform:scale(1)}
+.ds-dk button.geen.on i{color:var(--groen);opacity:1;font-weight:700}
+
+.ds-laagk-info{display:flex;align-items:flex-start;gap:14px;padding-top:9px;border-top:1px solid rgba(255,255,255,.1);font-size:12.5px;line-height:1.35}
+.ds-laagk-info .tijd{flex:1.1;display:flex;gap:7px;align-items:center;font-weight:600}
+.ds-laagk-info .tijd svg{flex:none;opacity:.8}
+.ds-laagk-info .tijd em{font-style:normal;font-weight:500;opacity:.65}
+.ds-laagk-info .ok-bol{flex:none;display:grid;place-items:center;width:14px;height:14px;border-radius:50%;background:var(--groen);color:#fff}
+.ds-laagk-info .tip{flex:1;opacity:.55}
+.ds-melding{flex:1;margin:0;font-size:12.5px;text-align:center;opacity:.8}
+
+/* Een smal of laag paneel (gsm, kleine laptop): kleinere foto, minder tekst. */
+@container paneel (max-width:520px){
+  .ds-laagk{grid-template-columns:86px minmax(0,1fr);border-radius:14px}
+  .ds-laagk-foto figcaption{display:none}
+  .ds-laagk-badge{top:6px;left:6px;padding:3px 6px;font-size:9px}
+  .ds-laagk-inh{padding:9px 10px;gap:6px}
+  .ds-laagk-kop h3{font-size:15px}.ds-laagk-kop output{font-size:19px}
+  .ds-laagk-wat,.ds-laagk-info .tip,.ds-ware em{display:none}
+  .ds-ware{--s:.62;padding:7px 8px 4px;gap:3px}
+  .ds-ware-lat{height:14px}
+  .ds-ware-schaal{font-size:8.5px}
+  .ds-ware-droog{padding:0 8px;gap:7px}.ds-ware-droog .bol{width:20px;height:20px}.ds-ware-droog small{display:none}
+  .ds-dk{gap:4px}.ds-dk button{padding:7px 1px;border-radius:9px}.ds-dk button b{font-size:13.5px}.ds-dk button i{font-size:8.5px}
+  .ds-dk .vink{width:15px;height:15px;top:-5px;right:-5px}
+  .ds-laagk-info{padding-top:6px;font-size:11px}
+  .ds-melding{font-size:11px}
+}
+/* Lager paneel (laptop, 900 px en minder): eerst de uitleg weg, de lat en knoppen compacter. */
+@container paneel (max-height:820px) and (min-width:521px){
+  .ds-laagk-wat,.ds-laagk-info .tip{display:none}
+  .ds-laagk-inh{gap:7px;padding:12px 14px 10px}
+  .ds-laagk-kop h3{font-size:19px}.ds-laagk-kop output{font-size:26px}
+  .ds-ware{padding:18px 10px 5px;gap:3px}.ds-ware em{top:4px;left:10px}
+  .ds-ware-lat{height:20px}
+  .ds-dk button{padding:7px 2px;border-radius:11px}.ds-dk button b{font-size:16px}.ds-dk button i{font-size:9.5px}
+  .ds-laagk-info{padding-top:7px}
+}
+/* Nog lager (gsm, kleine laptop): de droogtijd valt weg, de dikte zelf blijft. */
+@container paneel (max-height:640px){
+  .ds-laagk-info,.ds-ware em{display:none}
+  .ds-ware{padding:7px 8px 4px}
+  .ds-laagk-inh{justify-content:center}
+}
+@container paneel (max-height:640px) and (max-width:520px){
+  .ds-ware{padding:5px 8px 3px}.ds-ware-lat{height:12px}.ds-ware-schaal{font-size:8px}
+  .ds-laagk-inh{gap:5px;padding:7px 9px}
+}
+@media (prefers-reduced-motion:reduce){.ds-laagk,.ds-laagk-foto img,.ds-ware-lat i{animation:none;transition:none}}
