@@ -113,20 +113,6 @@ footer.site .lc .mail{
 footer.site .lc .mail:hover{color:#fff;border-color:rgba(255,255,255,.6)}
 footer.site .lc .claim{font-size:13.5px;line-height:1.72;color:rgba(255,255,255,.5);margin:20px 0 0;max-width:32ch}
 
-/* Deze site zelf in de groepslijst: zichtbaar, maar geen link. Het bijschrift
-   staat op zijn eigen regel — achter de naam brak het midden in "u bent /
-   hier" zodra de kolom smaller werd dan de twee samen. */
-footer.site .here{display:block;color:rgba(255,255,255,.44);font-size:14px}
-footer.site .here::after{
-  content:"u bent hier";
-  display:block;
-  margin-top:3px;
-  font-size:10.5px;
-  font-weight:700;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.3);
-}
 
 /* ── De kaart ───────────────────────────────────────────────────────── */
 /*
