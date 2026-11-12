@@ -221,12 +221,12 @@
 
 /* ───── tablet staand en gsm: tekening boven, vraag eronder ───── */
 @media (max-width:899px){
-  .ds-main{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,38fr) minmax(0,62fr);gap:10px;padding:10px 12px 12px}
-  /* stap 2: de indeling is compact, de tekening toont het plan — die krijgt plaats */
-  .ds-sim[data-stap="1"] .ds-main{grid-template-rows:minmax(0,34fr) minmax(0,66fr)}
-  .ds-sim[data-stap="4"] .ds-main{grid-template-rows:minmax(0,34fr) minmax(0,66fr)}
-  /* in het droogplan staat de prijs al groot in het paneel */
-  .ds-sim[data-stap="4"] .ds-cart{display:none}
+  /* het rode paneel is op elke stap even hoog — geen verspringen tussen de vragen */
+  .ds-main,.ds-sim[data-stap] .ds-main{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,var(--ds-stage-fr,50fr)) minmax(0,var(--ds-panel-fr,50fr));gap:10px;padding:10px 12px 12px}
+  /* legende is te klein voor een gsm, en in het droogplan staat de prijs al groot in het paneel */
+  .ds-cart{display:none}
+  /* de doorsnede van muur en vloer past niet naast de tekening */
+  .ds-detail{display:none}
   .ds-stage{order:-1;padding:12px 14px;border-radius:20px}
   .ds-badge,.ds-legend,.ds-advies--plan{display:none}
   .ds-panel{border-radius:20px}
@@ -839,6 +839,43 @@
 @media (max-width:899px){
   .ds-hk{padding:5px 4px;gap:6px}
   .ds-hk-ico{width:22px;height:19px}
+}
+/* ── v8d: gsm — compact, vaste ritmes, labels zoals op pc ──
+   Geen uitgerekte gaten: de groepen staan op een vaste afstand van elkaar, de
+   oppervlakte volgt meteen op de kamers. Het paneel is op elke stap even hoog
+   (zie .ds-main hierboven), dus wat overblijft gaat naar de tekening, niet naar rood. */
+@media (max-width:899px){
+  .ds-body:has(> .ds-keuzerij){gap:12px}
+  .ds-body:has(> .ds-keuzerij) > .ds-opp{margin-top:0}
+  .ds-keuzerij > .ds-lbl{display:block}
+  .ds-groei:has(.ds-verdrijen) > .ds-lbl{display:flex}
+  .ds-lbl span{display:inline}
+  .ds-body:has(> .ds-keuzerij) .ds-lbl{margin-bottom:5px;font-size:10px}
+  .ds-hk{min-height:40px;padding:5px 4px;border-radius:12px}
+  .ds-hk b{font-size:12.5px}
+  .ds-hk-ico{width:24px;height:21px}
+  .ds-verdrijen{gap:6px}
+  .ds-verdrij{min-height:40px;padding:3px 5px 3px 6px}
+  .ds-verdrij-naam{flex-direction:row;align-items:baseline;gap:8px}
+  .ds-verdrij-naam b{flex:none;font-size:13px}
+  .ds-verdrij-naam small{display:block;min-width:0;font-size:11px}
+  .ds-tel button{width:28px;height:28px}
+  .ds-tel output{font-size:16px}
+  /* 3 of 4 verdiepingen: twee kolommen, zodat het paneel niet hoger hoeft */
+  .ds-verdrijen:has(> :nth-child(3)){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+  .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij{min-height:36px;gap:2px;padding:2px 3px 2px 2px}
+  .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij-naam{padding:2px 2px 2px 6px}
+  .ds-verdrijen:has(> :nth-child(3)) .ds-tel{gap:0;padding:2px}
+  .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij-naam b{font-size:11.5px;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:0 1 auto;min-width:0}
+  .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij-naam small{display:none}
+  .ds-verdrijen:has(> :nth-child(3)) .ds-tel button{width:24px;height:24px}
+  .ds-verdrijen:has(> :nth-child(3)) .ds-tel output{min-width:14px;font-size:14px}
+  @media (max-width:374px){.ds-verdrijen:has(> :nth-child(3)) .ds-verdrij-naam b{font-size:10.5px}.ds-verdrijen:has(> :nth-child(3)) .ds-tel button{width:22px}}
+  /* lage gsm: labels wijken, kleiner ritme */
+  @container paneel (max-height:500px){
+    .ds-body:has(> .ds-keuzerij){gap:8px}
+    .ds-keuzerij > .ds-lbl,.ds-groei:has(.ds-verdrijen) > .ds-lbl{display:none}
+  }
 }
 
 /* ───── vraag 3: hoe dik is het nat? ─────

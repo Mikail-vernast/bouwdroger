@@ -650,10 +650,13 @@ const VerhuurSimulatorPage = () => {
                     <span><i className="ds-l-nat" />Vocht</span>
                   </div>
                 </div>
-                <div className="ds-cart-prijs">
-                  <p>Uw pakket</p>
-                  {resultaat && stap >= 2 ? <b>{euro(resultaat.prijs)}</b> : maatwerk ? <b className="dim">Maatwerk</b> : <b className="dim">Na stap 3</b>}
-                </div>
+                {/* De prijs pas in het droogplan: tijdens de vragen leidt hij af van het antwoorden. */}
+                {stap === 4 && (
+                  <div className="ds-cart-prijs">
+                    <p>Uw pakket</p>
+                    {resultaat ? <b>{euro(resultaat.prijs)}</b> : <b className="dim">Maatwerk</b>}
+                  </div>
+                )}
               </div>
             </div>
           </section>
