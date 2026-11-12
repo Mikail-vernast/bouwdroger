@@ -271,15 +271,28 @@
 
        Geel en groen komen uit dezelfde familie als het Eco-label elders op de
        pagina, zodat er geen vijfde en zesde kleur bijkomt. */
-.v3 .fact.waarschuwing .fn { color: #AD7F12; }
-.v3 .fact.winst .fn { color: #1D9D5C; }
+/* Het hele blokje kleurt mee, niet alleen het getal.
 
-/*
-  Waarom niet geler en niet lichter: het getal staat op 40px vet, en daarvoor
-  geldt 3:1 als ondergrens. Een echt gele oker (#CA8A04) haalt 2,67:1 en een
-  pastelgroen (#35A570) 2,82:1 -- allebei te licht om op #F4F4F4 nog te lezen.
-  Deze twee zitten op 3,28:1 en 3,17:1: zo geel en zo zacht als het hier kan.
-*/
+      Eerst stond alleen het cijfer in kleur op dezelfde grijze kaart als de
+      twee andere. Dat las als een accent, niet als "dit is iets anders". Nu
+      draagt de kaart een pastelvlak en staat het getal daar donkerder op: zo
+      kan het vlak zacht blijven en blijft het cijfer leesbaar.
+
+      Dat was de knoop. Een pastelgroen cijfer op grijs haalt 2,8:1 en valt
+      onder de 3:1 die voor groot vet nodig is. Op een pastelgroen vlak mag het
+      cijfer donkerder: #15803D haalt daar 4,50:1, ruim boven de grens, terwijl
+      het vlak eromheen precies de zachte tint draagt. */
+.v3 .fact.waarschuwing {
+  background: #FBF3DC;
+  border-color: rgba(138, 109, 11, .16);
+}
+.v3 .fact.waarschuwing .fn { color: #8A6D0B; }
+
+.v3 .fact.winst {
+  background: #E8F6EE;
+  border-color: rgba(21, 128, 61, .16);
+}
+.v3 .fact.winst .fn { color: #15803D; }
 
 /* 14. De vertrouwensbalk staat nu bóven het gamma, niet eronder.
 
