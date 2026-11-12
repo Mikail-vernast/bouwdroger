@@ -116,13 +116,7 @@ function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
     ["zwartglas", s("#121416", { roughness: 0.08, metalness: 0.2 })],
     ["kookzone", s("#3a3c40", { roughness: 0.2 })],
     ["hout", s("#a57a51", { roughness: 0.55 })],
-    ["stof", s("#6e7983", { roughness: 0.95 })],
-    ["stof2", s("#d9cfc1", { roughness: 0.95 })],
-    ["tapijt", s("#b7a58f", { roughness: 1 })],
     ["metaal", s("#55595e", { metalness: 0.6, roughness: 0.4 })],
-    ["bed", s("#f6f3ee", { roughness: 0.9 })],
-    ["boek", s("#8a4a3a", { roughness: 0.8 })],
-    ["karton", s("#b08a5e", { roughness: 0.9 })],
     ["sanitair", s("#f8f8f6", { roughness: 0.12 })],
     ["water", s("#9fc4d6", { roughness: 0.05, metalness: 0.1 })],
     ["spiegel", s("#cfd8dc", { roughness: 0.02, metalness: 0.9 })],
@@ -655,15 +649,13 @@ function Scene(props: SceneProps) {
     for (const m of Object.values(geo)) for (const g of m.values()) g.dispose();
   }, [geo]);
 
-  // Inrichting van de actieve laag. Losse meubels alleen als er geen natte werf
-  // getoond wordt: bij het tekenen van de indeling, en in de afgewerkte fases.
-  const los = materiaal.meubels || (!materiaal.muurNat && !materiaal.vloerNat);
+  // Vaste inrichting van de actieve laag (keuken, badkamer, toilet, wasplaats).
   const inrichting = useMemo(() => {
     const B = new Bouwer();
     const laag = kamers.filter((k) => k.verdieping === act);
-    if (laag.length) richIn(B, laag, openingen, act * FH + SLAB, { w, l }, los);
+    if (laag.length) richIn(B, laag, openingen, act * FH + SLAB, { w, l });
     return B.bouw();
-  }, [kamers, openingen, act, w, l, los]);
+  }, [kamers, openingen, act, w, l]);
   useEffect(() => () => { for (const g of inrichting.values()) g.dispose(); }, [inrichting]);
 
   // Buren en het gebouw onder een appartement: alleen een gestreepte contour.
