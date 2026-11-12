@@ -266,3 +266,65 @@ export const HelmetIcon = ({ size = 15, strokeWidth = 1.9 }: IconProps) => (
     <path d="M12 8v9.6" />
   </svg>
 );
+
+/*
+ * De vijf beloftes in "Waarom Vernast anders is". Ze droegen 01 t/m 05, maar
+ * dat is een volgorde en hier is geen volgorde: het zijn vijf losse redenen.
+ * Een nummer zegt bovendien niets over de belofte zelf. Elk icoon beweegt op
+ * het punt dat de kaart maakt -- de rekenmachine rekent, de prijs klikt vast,
+ * het gamma kiest het juiste toestel, de opvolging vinkt af, de termijn rekt op.
+ *
+ * Alle vijf vallen stil bij `prefers-reduced-motion`; zie `.df` in
+ * home-v3-fixes.css.
+ */
+
+/** Slimme droogcalculator: de uitkomst op het schermpje telt. */
+export const CalcIcon = ({ size = 26 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" strokeWidth={1.9} {...strokeProps}>
+    <rect x="7" y="3.5" width="18" height="25" rx="3" />
+    <rect className="dfi-scherm" x="10.5" y="7" width="11" height="5" rx="1.3" fill="currentColor" stroke="none" />
+    <circle cx="11.5" cy="17" r="1.3" fill="currentColor" stroke="none" />
+    <circle cx="16" cy="17" r="1.3" fill="currentColor" stroke="none" />
+    <circle cx="20.5" cy="17" r="1.3" fill="currentColor" stroke="none" />
+    <circle cx="11.5" cy="22" r="1.3" fill="currentColor" stroke="none" />
+    <circle cx="16" cy="22" r="1.3" fill="currentColor" stroke="none" />
+    <circle cx="20.5" cy="22" r="1.3" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+/** All-in prijs: het label valt op zijn plaats en blijft daar. */
+export const PrijsIcon = ({ size = 26 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" strokeWidth={1.9} {...strokeProps}>
+    <g className="dfi-label">
+      <path d="M16.6 3.6H27a1.4 1.4 0 0 1 1.4 1.4v10.4a1.4 1.4 0 0 1-.41.99L16.2 28.18a1.4 1.4 0 0 1-1.98 0L3.82 17.78a1.4 1.4 0 0 1 0-1.98L15.61 4.01a1.4 1.4 0 0 1 .99-.41Z" />
+      <circle cx="22.4" cy="9.6" r="2.1" />
+    </g>
+  </svg>
+);
+
+/** Afgestemd gamma: drie formaten, het passende licht op. */
+export const GammaIcon = ({ size = 26 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" strokeWidth={1.9} {...strokeProps}>
+    <rect x="3.5" y="19" width="7" height="9.5" rx="1.6" />
+    <rect className="dfi-kies" x="12.5" y="12" width="7" height="16.5" rx="1.6" />
+    <rect x="21.5" y="5" width="7" height="23.5" rx="1.6" />
+  </svg>
+);
+
+/** Praktische opvolging: de stappen worden een voor een afgevinkt. */
+export const OpvolgIcon = ({ size = 26 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" strokeWidth={1.9} {...strokeProps}>
+    <path d="M12 6.5h14M12 16h14M12 25.5h14" />
+    <path className="dfi-vink1" d="m4 6.5 2.2 2.2L10 4.6" />
+    <path className="dfi-vink2" d="m4 16 2.2 2.2L10 14.1" />
+    <path className="dfi-vink3" d="m4 25.5 2.2 2.2L10 23.6" />
+  </svg>
+);
+
+/** Flexibel verlengen: de termijn rekt uit en veert terug. */
+export const VerlengIcon = ({ size = 26 }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" strokeWidth={1.9} {...strokeProps}>
+    <path d="M5 9.5v13M27 9.5v13" />
+    <path className="dfi-pijl" d="M8 16h16M20.5 12.5 24 16l-3.5 3.5" />
+  </svg>
+);

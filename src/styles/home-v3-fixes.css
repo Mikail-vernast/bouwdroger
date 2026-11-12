@@ -275,6 +275,79 @@
 .v3 .fact.winst .fn { color: #15803D; }
 
 /* 14. De vertrouwensbalk staat nu bóven het gamma, niet eronder.
-       `margin-top:44px` uit de designfile duwde hem van de sectiekop af die er
-       nu onder staat; die marge hoort nu aan de andere kant. */
-.v3 .eco .trustbar { margin-top: 0; margin-bottom: 52px; }
+
+       Twee gevolgen. `margin-top:44px` uit de designfile duwde hem weg van de
+       sectiekop die er nu ónder staat, dus die marge gaat naar de andere kant.
+       En de balk kwam achter twee opgestapelde sectieranden te staan: 88px
+       onder de vergelijking plus 88px boven het gamma, samen 176px wit. De
+       bovenrand van deze sectie vervalt daarom; de balk draagt zelf genoeg
+       gewicht om de scheiding te maken. */
+.v3 .eco { padding-top: 0; }
+.v3 .eco .trustbar { margin-top: 0; margin-bottom: 56px; }
+
+/* 15. Vijf iconen in plaats van 01 t/m 05.
+
+       De nummers suggereerden een volgorde die er niet is: dit zijn vijf losse
+       redenen, niet vijf stappen. Elk icoon beweegt op het punt dat zijn kaart
+       maakt, en alleen bij hover -- vijf dingen die tegelijk en eeuwig bewegen
+       maakt van een argumentenrij een kermis. */
+.v3 .df .dfi {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  background: rgba(200, 16, 46, .09);
+  color: var(--red);
+  margin-bottom: 16px;
+  transition: background .18s, transform .18s;
+}
+.v3 .df:hover .dfi { background: rgba(200, 16, 46, .16); transform: translateY(-2px); }
+
+/* Rekenmachine: het schermpje licht op alsof er een uitkomst verschijnt. */
+.v3 .df:hover .dfi-scherm { animation: dfScherm 1.1s ease-in-out; }
+@keyframes dfScherm {
+  0%, 100% { opacity: 1; }
+  30% { opacity: .25; }
+  60% { opacity: 1; }
+}
+/* Prijslabel: valt op zijn plaats en blijft liggen. */
+.v3 .df:hover .dfi-label { animation: dfLabel 1s cubic-bezier(.34, 1.56, .64, 1); transform-origin: 22px 10px; }
+@keyframes dfLabel {
+  0% { transform: rotate(-14deg); }
+  55% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+/* Gamma: het middelste toestel is het passende, dus dat springt eruit. */
+.v3 .df:hover .dfi-kies { animation: dfKies 1.1s ease-in-out; transform-origin: 16px 28px; }
+@keyframes dfKies {
+  0%, 100% { transform: scaleY(1); }
+  45% { transform: scaleY(1.18); }
+}
+/* Opvolging: de drie stappen worden na elkaar afgevinkt. */
+.v3 .df .dfi-vink1,
+.v3 .df .dfi-vink2,
+.v3 .df .dfi-vink3 { stroke-dasharray: 14; stroke-dashoffset: 0; }
+.v3 .df:hover .dfi-vink1 { animation: dfVink .5s ease-out; }
+.v3 .df:hover .dfi-vink2 { animation: dfVink .5s ease-out .15s; }
+.v3 .df:hover .dfi-vink3 { animation: dfVink .5s ease-out .3s; }
+@keyframes dfVink {
+  from { stroke-dashoffset: 14; }
+  to { stroke-dashoffset: 0; }
+}
+/* Verlengen: de pijl rekt naar de einddatum en veert terug. */
+.v3 .df:hover .dfi-pijl { animation: dfRek 1.2s cubic-bezier(.34, 1.4, .64, 1); transform-origin: 8px 16px; }
+@keyframes dfRek {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(.62); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3 .df:hover .dfi,
+  .v3 .df:hover .dfi-scherm,
+  .v3 .df:hover .dfi-label,
+  .v3 .df:hover .dfi-kies,
+  .v3 .df:hover .dfi-vink1,
+  .v3 .df:hover .dfi-vink2,
+  .v3 .df:hover .dfi-vink3,
+  .v3 .df:hover .dfi-pijl { animation: none; transform: none; }
+}
