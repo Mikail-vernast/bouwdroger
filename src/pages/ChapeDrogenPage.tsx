@@ -376,12 +376,6 @@ const ChapeDrogenPage = () => (
           </p>
         </div>
         <Pakketkaarten />
-        <div className="note">
-          <b>Liever zelf ophalen?</b> Losse bouwdrogers, ventilatoren en bouwkachels haalt u aan
-          afhaalprijs op in ons <Link to="/verhuur/afhalen">afhaalpunt langs de A12 in
-          Aartselaar</Link>. De vochtmeting en de Drooggarantie horen dan niet bij de huur, maar het
-          toestel is hetzelfde.
-        </div>
       </div>
     </section>
 

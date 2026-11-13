@@ -711,13 +711,24 @@
 .v3c .pkgcta .btn{flex-shrink:0}
 /*
   `.pkgcta` is een donkerrode plaat met exact de achtergrond van een rode
-  sectie (`--maroon-d` plus hetzelfde beeld). Dat viel niet op zolang het
-  toestelblok alleen in een witte sectie stond; sinds /nieuwbouw-drogen haar
-  toestellen op rood zet, loste de plaat op in de achtergrond en bleef er
-  losse tekst met een zwevende knop over. Op rood krijgt ze daarom een dieper
-  vlak en een haarlijn, zodat ze een plaat blijft.
+  sectie (`--maroon-d` plus hetzelfde beeld). Op een witte sectie is dat een
+  accent dat werkt — /renovatie zet het blok daar. In een rode sectie loste de
+  plaat op in de achtergrond en bleef er losse tekst met een zwevende knop
+  over. Een donkerder vlak met een haarlijn loste dat niet op: het bleef rood
+  op rood, en op /chape-drogen was de plaat nauwelijks van de sectie te
+  onderscheiden.
+
+  Daarom in een rode sectie gewoon een witte kaart, zoals elk ander blok daar
+  (`.kaart`, `.note`, `.stk`). De tekstkleuren moeten dan mee terug — `.sr`
+  zet `color:#fff` op de hele sectie — en de knop ook: wit op wit is een
+  onzichtbare knop.
 */
-.v3c .sr .pkgcta{background-color:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.2)}
+.v3c .sr .pkgcta{background:#fff;border:0;color:var(--txt)}
+.v3c .sr .pkgcta b{color:var(--txt)}
+.v3c .sr .pkgcta p{color:var(--txt-mid)}
+.v3c .sr .pkgcta p a{color:var(--red);text-decoration-color:rgba(200,16,46,.35)}
+.v3c .sr .pkgcta .btn-white{background:var(--red);color:#fff}
+.v3c .sr .pkgcta .btn-white:hover{background:#a80d26;color:#fff}
 
 
 /* ============ WITTE BLOKKEN IN EEN RODE SECTIE ============
