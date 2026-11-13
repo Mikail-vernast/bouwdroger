@@ -850,9 +850,9 @@ function LaagKaart({ laag, gekozen, onKies }: { laag: "pd" | "cd"; gekozen: stri
         </div>
         <p className="ds-laagk-wat">{L.wat}</p>
         <div className="ds-ware" style={{ "--max": max } as CSSProperties}>
-          <em>≈ ware grootte, in cm</em>
+          <em>Dikte in cm · sleep of kies</em>
           <div className="ds-ware-lat">
-            <i style={{ width: `calc(${cm}cm * var(--s))` }} />
+            <i style={{ width: `${(cm / max) * 100}%` }} />
             <WareSchuif laag={laag} cm={cm} max={max} onKies={onKies} />
           </div>
           <div className="ds-ware-schaal">{Array.from({ length: max + 1 }, (_, i) => <span key={i}>{i}</span>)}</div>
