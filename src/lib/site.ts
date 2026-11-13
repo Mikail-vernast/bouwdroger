@@ -120,13 +120,20 @@ export const ORGANIZATION_IMAGE = "/vernast/lineup-dryers.webp";
  * liep het achter op het gamma.
  */
 
-/** Waar wij leveren — voedt `areaServed` in de LocalBusiness-schema. */
+/**
+ * Waar wij leveren — voedt `areaServed` in de LocalBusiness-schema.
+ *
+ * Het Brussels gewest stond er niet bij terwijl de site in haar koppen wel
+ * "heel Vlaanderen en Brussel" belooft en er drie gedroogde werven liggen.
+ * Aangevuld op 13-11-2026, samen met /bouwdroger-huren-brussel.
+ */
 export const SERVICE_AREA = [
   "Antwerpen",
   "Vlaams-Brabant",
   "Oost-Vlaanderen",
   "West-Vlaanderen",
   "Limburg",
+  "Brussels Hoofdstedelijk Gewest",
 ] as const;
 
 export interface ReviewSummary {
