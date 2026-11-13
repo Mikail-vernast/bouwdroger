@@ -11,7 +11,7 @@ import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/s
 import {
   DAK_LABEL,
   FASE,
-  MAX_KAMERS,
+  maxKamers,
   MAX_VERDIEPINGEN,
   MIN_KAMERS,
   WAT_LABEL,
@@ -149,7 +149,13 @@ const VerhuurSimulatorPage = () => {
   const woning = antwoorden.woning;
   const lagen = antwoorden.verdiepingen;
   const dak = antwoorden.dak;
-  const programma = (v: number) => s.kamers[v] ?? standaardProgramma(woning, v, lagen, dak);
+  // Wat de bezoeker koos, maar nooit meer kamers dan er op die bouwlaag passen
+  // (bv. na een wissel van open bebouwing naar rijwoning).
+  const maxPer = Array.from({ length: lagen }, (_, v) => maxKamers(woning, v, lagen, dak));
+  const programma = (v: number) => {
+    const p = s.kamers[v] ?? standaardProgramma(woning, v, lagen, dak);
+    return aantalKamers(p) > maxPer[v] ? programmaVan(laagSoort(woning, v, lagen, dak), maxPer[v], lagen) : p;
+  };
   const programmas = Array.from({ length: lagen }, (_, v) => programma(v));
   const aantallen = programmas.map(aantalKamers);
   const sleutelPlan = JSON.stringify(programmas);
@@ -412,7 +418,7 @@ const VerhuurSimulatorPage = () => {
                               <span className="ds-tel">
                                 <button type="button" aria-label={`Minder kamers ${naam.toLowerCase()}`} disabled={n <= MIN_KAMERS} onClick={() => zetAantal(v, n - 1)}>−</button>
                                 <output aria-live="polite">{n}</output>
-                                <button type="button" aria-label={`Meer kamers ${naam.toLowerCase()}`} disabled={n >= MAX_KAMERS} onClick={() => zetAantal(v, n + 1)}>+</button>
+                                <button type="button" aria-label={`Meer kamers ${naam.toLowerCase()}`} disabled={n >= maxPer[v]} onClick={() => zetAantal(v, n + 1)}>+</button>
                               </span>
                             </div>
                           );
