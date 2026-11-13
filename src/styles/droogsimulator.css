@@ -244,8 +244,10 @@
   .ds-card b{font-size:13.5px}
   .ds-card small{display:none}
   .ds-twee{grid-template-columns:minmax(0,1fr);gap:10px}
-  .ds-teller{width:128px;padding:5px 8px;top:auto;bottom:0}
-  .ds-teller b{font-size:15px}
+  /* One slim row in the top-right corner: the bottom-left sat over the house, and the replay button owns the bottom-right. */
+  .ds-teller{width:auto;display:flex;align-items:center;gap:7px;padding:3px 8px;top:0;bottom:auto;left:auto;right:0;line-height:1.2}
+  .ds-teller b{font-size:14px}
+  .ds-teller .ds-meter{width:44px;margin:0;flex:none}
   .ds-teller small{display:none}
   .ds-detail{width:118px;padding:4px 6px 2px}
   .ds-detail figcaption{display:none}
