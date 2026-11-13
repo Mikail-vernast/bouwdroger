@@ -26,7 +26,7 @@ import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { richIn } from "./inrichting";
-import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
+import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { aankomst, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -597,10 +597,10 @@ function Meshes({ geos, mats, schaduw = true }: { geos: Map<string, BufferGeomet
 
 const URLS = TEGEL_NAMEN.map((n) => TEGELS[n].url);
 
-/** Projectierichtingen van de isometrische camera (kijker aan de +x/+y/+z-kant). */
-/** Where a room label may go (fractions of the room), most preferred first. */
+/** Waar een kamernaam mag staan (fracties van de kamer), de liefste plek eerst. */
 const LABEL_PLEKKEN = [[0.5, 0.5], [0.5, 0.26], [0.28, 0.3], [0.72, 0.3], [0.5, 0.76], [0.28, 0.72], [0.72, 0.72]] as const;
 
+/** Projectierichtingen van de isometrische camera (kijker aan de +x/+y/+z-kant). */
 const RECHTS = new Vector3(1, 0, -1).normalize();
 const OP = new Vector3(-1, 2, -1).normalize();
 const KIJK = new Vector3(1, 1, 1).normalize();
@@ -620,7 +620,7 @@ function kader(w: number, l: number, y0: number, y1: number, pad: number): Kader
 interface SceneProps extends IsoHouseProps { anim: MutableRefObject<Anim>; labels: MutableRefObject<(HTMLDivElement | null)[]>; reduced: boolean; onKlaar?: () => void }
 
 function Scene(props: SceneProps) {
-  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, cyclus = 10, anim, labels, reduced } = props;
+  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, cyclus = 10, filmRonde = 0, anim, labels, reduced } = props;
   const materiaal = props.materiaal ?? STANDAARD_MATERIAAL;
   const { w, l, buren } = WONING[woning];
   const lagen = Math.max(1, verdiepingen);
@@ -774,8 +774,8 @@ function Scene(props: SceneProps) {
   const binnenRef = useRef<Group>(null);
   const bladenRef = useRef<Group>(null);
   const actKamers = useMemo(() => kamers.filter((k) => k.verdieping === act), [kamers, act]);
-  // Room labels sit in the middle of the room, unless a device stands there:
-  // then the free spot farthest from the devices, so a name never covers a dryer.
+  // Een kamernaam staat midden in de kamer, tenzij daar een toestel staat: dan
+  // op de vrije plek die het verst van de toestellen ligt, nooit over een droger.
   const labelPos = useMemo(() => actKamers.map((k) => {
     const hier = plaatsingen.filter((p) => p.kamer === k.id);
     const vrij = ([fx, fz]: readonly [number, number]) =>
@@ -924,7 +924,7 @@ function Scene(props: SceneProps) {
   const film = useRef<Film>({ start: -1, vast: reduced });
   useLayoutEffect(() => {
     film.current = { start: -1, vast: reduced };
-  }, [act, werkend, laagPlaatsingen, reduced]);
+  }, [act, werkend, laagPlaatsingen, reduced, filmRonde]);
 
   return (
     <>
@@ -968,15 +968,15 @@ function Scene(props: SceneProps) {
           <group ref={inrichtingRef} visible={inrichtingIn}>
             <Meshes geos={inrichting} mats={sets.vast} />
           </group>
-          <ToestelVangnet terugval={<FilmStart film={film} />}>
-          <Suspense fallback={null}>
+          {/* Zolang de modellen laden staat de film stil (FilmWacht); elk toestel heeft
+              zijn eigen vangnet, zodat één kapot model alleen zichzelf meeneemt. */}
+          <Suspense fallback={<FilmWacht />}>
           <FilmStart film={film} />
           {laagPlaatsingen.map((p, i) => {
             const k = actKamers.find((kk) => kk.id === p.kamer)!;
-            return <Toestel3D key={`${act}-${p.k}-${i}`} k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} cyclus={cyclus} />;
+            return <ToestelVangnet key={`${act}-${p.k}-${i}-${filmRonde}`}><Toestel3D k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} cyclus={cyclus} /></ToestelVangnet>;
           })}
           </Suspense>
-          </ToestelVangnet>
           {droogt && <Luchtstroom3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} film={film} cyclus={cyclus} />}
           {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} film={film} cyclus={cyclus} />}
         </>

@@ -255,6 +255,8 @@ export interface IsoHouseProps {
   mini?: boolean;
   /** duur van één droogcyclus in seconden, voor de vochtsluier */
   cyclus?: number;
+  /** telt op bij "opnieuw afspelen": de 3D-film van de verdieping begint dan opnieuw */
+  filmRonde?: number;
   className?: string;
 }
 

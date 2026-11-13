@@ -9,6 +9,13 @@
 
 /** Event op window wanneer de 3D-film van een verdieping echt begint (detail = start in ms). */
 export const FILM_START = "ds-film-start";
+/** Event op window wanneer de 3D-film op zijn modellen wacht: de verdiepingtimer houdt dan in. */
+export const FILM_WACHT = "ds-film-wacht";
+/**
+ * Wacht de 3D-film nu op zijn modellen? Een gedeelde vlag naast het event, want
+ * de wachtstand kan al gemeld zijn vóór de pagina zijn luisteraar aanzet.
+ */
+export const filmStatus = { wacht: false };
 
 /** Seconden waarin de toestellen van één verdieping neergezet worden. */
 export const PLAATSEN = 2.2;
@@ -24,6 +31,8 @@ export function aankomst(i: number, n: number): number {
 const DROOG = 0.78;
 /** Fracties van de cyclus waartussen de toestellen weggehaald worden. */
 const WEG_VAN = 0.82, WEG_TOT = 0.94;
+/** Eindbeeld zonder animatie (minder beweging): alles droog, de toestellen staan er nog. */
+const STILSTAND = (DROOG + WEG_VAN) / 2;
 
 /** Hoe ver het drogen staat (0 = nat, 1 = droog) op tijd `t` binnen een cyclus. */
 export function droogVoortgang(t: number, cyclus: number): number {
@@ -47,7 +56,7 @@ export function stuit(p: number): number {
   return n * (p -= 2.625 / d) * p + 0.984375;
 }
 
-/** De filmklok van de actieve verdieping: `start` in ms (-1 = wacht op de eerste frame), `vast` = meteen het eindbeeld. */
+/** De filmklok van de actieve verdieping: `start` in ms (-1 = wacht op de eerste frame), `vast` = meteen het stilstaande beeld. */
 export interface Film { start: number; vast: boolean }
 
 /**
@@ -55,7 +64,9 @@ export interface Film { start: number; vast: boolean }
  * cyclus blijft hij op het eindbeeld staan (droog, toestellen weg).
  */
 export function filmTijd(film: Film, cyclus: number): number {
-  if (film.vast) return cyclus;
+  // Bij minder beweging: droog, maar met de toestellen nog op hun plek. Het
+  // eindbeeld van de film (alles weggehaald) toonde anders een leeg huis.
+  if (film.vast) return cyclus * STILSTAND;
   // Nog niet gestart (modellen laden, eerste frame nog niet getekend): begin van de film.
   if (film.start < 0) return 0;
   return Math.min(cyclus, (performance.now() - film.start) / 1000);

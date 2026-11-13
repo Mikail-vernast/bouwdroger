@@ -1,4 +1,4 @@
-import { Component, useLayoutEffect, useMemo, useRef, type MutableRefObject, type ReactNode } from "react";
+import { Component, useEffect, useLayoutEffect, useMemo, useRef, type MutableRefObject, type ReactNode } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
@@ -14,7 +14,7 @@ import {
 import type { Kamer, Plaatsing } from "@/lib/droogSimulator";
 import type { DeviceKey } from "@/data/verhuur";
 import { TOESTEL_MODEL } from "./modellen";
-import { FILM_START, VAL, droogVoortgang, filmTijd, stuit, wegVoortgang, type Film } from "../film";
+import { FILM_START, FILM_WACHT, VAL, droogVoortgang, filmStatus, filmTijd, stuit, wegVoortgang, type Film } from "../film";
 
 /*
   De bewegende en losse onderdelen van de 3D-woning: de toestellen uit het
@@ -78,6 +78,8 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
   const groep = useRef<Group>(null);
   const stof = useRef<Mesh>(null);
   const stofM = useMemo(stofMat, []);
+  // Elk toestel wordt per verdieping en per herhaling opnieuw gemount: ruim op.
+  useLayoutEffect(() => () => stofM.dispose(), [stofM]);
   const toeren = useRef(0);
 
   useFrame((_, dt) => {
@@ -126,10 +128,11 @@ function draait(t: number, aankomst: number) {
 }
 
 /**
- * Vangnet rond de toestellen: laadt een model niet (netwerk, 404), dan vallen
- * alleen de toestellen weg. Zonder dit viel de hele 3D terug op de SVG.
+ * Vangnet rond één toestel: laadt zijn model niet (netwerk, 404), dan valt
+ * alleen dat toestel weg; de rest van de film en de andere toestellen blijven.
+ * Zonder dit viel de hele 3D terug op de SVG.
  */
-export class ToestelVangnet extends Component<{ children: ReactNode; terugval: ReactNode }, { fout: boolean }> {
+export class ToestelVangnet extends Component<{ children: ReactNode; terugval?: ReactNode }, { fout: boolean }> {
   state = { fout: false };
   static getDerivedStateFromError() {
     return { fout: true };
@@ -138,7 +141,7 @@ export class ToestelVangnet extends Component<{ children: ReactNode; terugval: R
     console.warn("[droogsimulator] toestellen niet geladen:", err);
   }
   render() {
-    return this.state.fout ? this.props.terugval : this.props.children;
+    return this.state.fout ? (this.props.terugval ?? null) : this.props.children;
   }
 }
 
@@ -151,9 +154,26 @@ export function FilmStart({ film }: { film: MutableRefObject<Film> }) {
   useFrame(() => {
     if (film.current.start >= 0) return;
     film.current.start = performance.now();
+    filmStatus.wacht = false;
     // De dagteller (buiten het canvas) loopt op dezelfde klok.
     window.dispatchEvent(new CustomEvent(FILM_START, { detail: film.current.start }));
   });
+  return null;
+}
+
+/**
+ * Staat in de Suspense-fallback zolang de modellen laden: meldt de pagina dat de
+ * film wacht, zodat de verdiepingtimer niet doorloopt (op 2G kan dat langer
+ * duren dan een hele verdieping).
+ */
+export function FilmWacht() {
+  useEffect(() => {
+    filmStatus.wacht = true;
+    window.dispatchEvent(new Event(FILM_WACHT));
+    return () => {
+      filmStatus.wacht = false;
+    };
+  }, []);
   return null;
 }
 
@@ -256,10 +276,12 @@ export function Druppels3D({ kamers, plaatsingen, yf, vocht, film, cyclus }: { k
     const m = ref.current;
     if (!m) return;
     const ft = filmTijd(film.current, cyclus);
-    // Hoe droger, hoe minder vocht er nog naar de drogers trekt.
-    const rest = 1 - 0.9 * droogVoortgang(ft, cyclus);
+    // Hoe droger, hoe minder vocht er nog naar de drogers trekt; droog is droog.
+    const rest = 1 - droogVoortgang(ft, cyclus);
     banen.forEach((b, i) => {
-      const aan = draait(ft, b.a) ? Math.min(1, (ft - b.a - VAL - 0.15) / 0.8) : 0;
+      // Geen druppels meer naar een droger die weggehaald wordt.
+      const weg = 1 - wegVoortgang(ft, cyclus, b.a);
+      const aan = draait(ft, b.a) ? Math.min(1, (ft - b.a - VAL - 0.15) / 0.8) * weg : 0;
       // cubic-bezier(.4,0,.6,1) benaderd met een smoothstep; verschijnen en
       // verdwijnen gebeurt via de grootte (per instantie bestaat geen opacity).
       const f = fase(clock.elapsedTime, 2.8, b.vertraging);

@@ -119,7 +119,7 @@ def exporteer(naam):
     pad = os.path.join(OUT, naam + '.glb')
     bpy.ops.export_scene.gltf(filepath=pad, export_format='GLB', export_apply=True, export_yup=True,
                               export_materials='EXPORT', export_cameras=False, export_lights=False,
-                              # Plain colours, no textures: UVs would be dead weight (a quarter of every vertex).
+                              # Effen kleuren, geen texturen: UV's zouden dood gewicht zijn (een kwart van elke vertex).
                               export_texcoords=False)
     print('GLB', pad, os.path.getsize(pad))
     if RENDER:
