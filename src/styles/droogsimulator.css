@@ -1311,3 +1311,9 @@
     .ds-sim[data-stap="2"] .ds-laagk-inh{gap:4px;padding-block:5px}
   }
 }
+/* gsm: no tips per phase (start / measure / watch out) — the photo and the drops already say it,
+   and the red panel keeps its fixed height for the heating question and the buttons. */
+@media (max-width:899px){ .ds-sim .ds-fr{display:none} }
+/* gsm, fixed panel: the "+ Kachels erbij" note gives way when a second question
+   (vloerverwarming) appears; the droogplan lists the heaters anyway. */
+@media (max-width:899px){ @container paneel (max-height:430px){ .ds-sim[data-stap="3"] .ds-vragen:has(> :nth-child(2)) .ds-gevolg{display:none} } }
