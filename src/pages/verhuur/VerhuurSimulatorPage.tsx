@@ -511,7 +511,7 @@ const VerhuurSimulatorPage = () => {
                       )}
                     </div>
                     <div className="ds-vraag ds-vraag--tempo">
-                      <span>Hoe snel moet het droog zijn?</span>
+                      <span>Hoe snel<span className="ds-lang"> moet het droog zijn</span>?</span>
                       <div className="ds-tempo" role="radiogroup" aria-label="Hoe snel moet het droog zijn?">
                         {TEMPO_ORDER.map((t) => (
                           <button key={t} type="button" role="radio" aria-checked={s.tempo === t} className={s.tempo === t ? "on" : undefined} onClick={() => setS((p) => ({ ...p, tempo: t }))}>

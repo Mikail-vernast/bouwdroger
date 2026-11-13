@@ -1354,3 +1354,23 @@
 }
 /* a very low film strip: the drops meter would sit under the play button */
 @container film (max-height:70px){ .ds-bf-meter{display:none} }
+/* gsm: the tempo question on one row, like "Is er verwarming?" — so the film photo gets the room. */
+@media (max-width:899px){
+  .ds-sim .ds-vraag--tempo{grid-template-columns:1fr auto}
+  .ds-sim .ds-vraag--tempo .ds-lang{display:none}
+  .ds-sim .ds-tempo{display:inline-grid;grid-template-columns:repeat(3,auto);gap:0}
+  .ds-sim .ds-tempo button{min-width:0;padding:4px 9px;gap:0}
+  .ds-sim .ds-tempo button b{font-size:12.5px}
+  .ds-sim .ds-tempo button small{font-size:9px}
+  @container paneel (max-height:430px){
+    .ds-sim[data-stap="3"] .ds-vraag{padding-block:5px}
+    .ds-sim[data-stap="3"] .ds-vraag--tempo{padding-bottom:5px}
+    .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:72px}
+  }
+}
+@media (max-width:374px){ .ds-sim .ds-tempo button{padding-inline:6px} .ds-sim .ds-tempo button b{font-size:11.5px} }
+@media (max-width:899px){ .ds-sim .ds-tempo button{padding:4px 8px} .ds-sim .ds-vraag--tempo{gap:6px 8px} }
+@media (max-width:899px){ @container paneel (max-height:430px){
+  .ds-sim[data-stap="3"] .ds-vragen .ds-vraag{padding-block:3px}
+  .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:80px}
+} }
