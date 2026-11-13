@@ -3,7 +3,7 @@ import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import {
   BoxGeometry,
   type BufferGeometry,
-  Color,
+  Vector4,
   DirectionalLight,
   EdgesGeometry,
   type Group,
@@ -28,7 +28,7 @@ import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { inrichtingsMuur, richIn } from "./inrichting";
 import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
-import { aankomst, droogVoortgang, filmTijd, type Film } from "../film";
+import { VAL, aankomst, droogVoortgang, filmTijd, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { TEXTUUR } from "./bestanden";
@@ -675,6 +675,98 @@ const RECHTS = new Vector3(1, 0, -1).normalize();
 const OP = new Vector3(-1, 2, -1).normalize();
 const KIJK = new Vector3(1, 1, 1).normalize();
 
+/* ─────────────────────────── natte muren en vloeren ─────────────────────────── */
+
+/*
+  Drying you can see: wet plaster and screed are darker, cooler and glossier.
+  Once a device stands, a dry patch grows around it with a ragged edge, over the
+  floor and up the walls, until it meets the next one and the floor is dry. A
+  shader does it per pixel, so the patches follow the real device positions on
+  every material that is plaster or floor, in each material set.
+*/
+const MAX_BRON = 16;
+interface NatUniforms {
+  bron: { value: Vector4[] };
+  n: { value: number };
+  r: { value: number };
+  muur: { value: number };
+  vloer: { value: number };
+}
+const maakNat = (): NatUniforms => ({
+  bron: { value: Array.from({ length: MAX_BRON }, () => new Vector4()) },
+  n: { value: 0 }, r: { value: 0 }, muur: { value: 0 }, vloer: { value: 0 },
+});
+const NAT_GLSL = /* glsl */ `
+uniform vec4 uNatBron[${MAX_BRON}];
+uniform int uNatN;
+uniform float uNatR;
+uniform float uNatAmt;
+uniform vec3 uNatTint;
+varying vec3 vNatPos;
+float natHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float natNoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(natHash(i), natHash(i + vec2(1.0, 0.0)), f.x), mix(natHash(i + vec2(0.0, 1.0)), natHash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+float natWet() {
+  if (uNatAmt <= 0.0) return 0.0;
+  float d = 1000.0;
+  float hoog = 0.0;
+  for (int i = 0; i < ${MAX_BRON}; i++) {
+    if (i >= uNatN) break;
+    vec4 b = uNatBron[i];
+    if (b.w < 0.5) continue;
+    float dy = vNatPos.y - b.y;
+    if (dy < -0.5 || dy > 3.2) continue;
+    float di = length(vNatPos.xz - b.xz);
+    if (di < d) { d = di; hoog = clamp(dy / 2.6, 0.0, 1.0); }
+  }
+  // Ragged edge, and the foot of a wall stays wet longest.
+  float n = natNoise(vNatPos.xz * 1.1 + vNatPos.y * 0.8) * 0.9 + natNoise(vNatPos.xz * 3.4 + vNatPos.y * 2.0) * 0.35;
+  d += n - 0.6 + (1.0 - hoog) * 0.5;
+  return (1.0 - smoothstep(-0.3, 0.3, uNatR - d)) * uNatAmt;
+}
+`;
+function natPatch(m: MeshStandardMaterial, u: NatUniforms, soort: "muur" | "vloer") {
+  const tint = soort === "muur" ? new Vector3(0.5, 0.53, 0.6) : new Vector3(0.46, 0.48, 0.54);
+  m.onBeforeCompile = (sh) => {
+    sh.uniforms.uNatBron = u.bron;
+    sh.uniforms.uNatN = u.n;
+    sh.uniforms.uNatR = u.r;
+    sh.uniforms.uNatAmt = u[soort];
+    sh.uniforms.uNatTint = { value: tint };
+    sh.vertexShader = "varying vec3 vNatPos;\n" + sh.vertexShader.replace(
+      "#include <project_vertex>",
+      "#include <project_vertex>\n  vNatPos = (modelMatrix * vec4(transformed, 1.0)).xyz;",
+    );
+    sh.fragmentShader = NAT_GLSL + sh.fragmentShader
+      .replace("#include <map_fragment>", "#include <map_fragment>\n  float natW = natWet();\n  diffuseColor.rgb *= mix(vec3(1.0), uNatTint, natW);")
+      .replace("#include <roughnessmap_fragment>", "#include <roughnessmap_fragment>\n  roughnessFactor = mix(roughnessFactor, 0.32, natW);");
+  };
+  m.customProgramCacheKey = () => `nat-${soort}`;
+  m.needsUpdate = true;
+}
+function natPatchSet(set: MatSet, u: NatUniforms) {
+  natPatch(set.get("pleister")!, u, "muur");
+  natPatch(set.get("vloer")!, u, "vloer");
+}
+
+/** All devices of the house in one sequence: ground floor first, back to front per floor. */
+function volgordeAlleLagen(kamers: Kamer[], plaatsingen: NonNullable<IsoHouseProps["plaatsingen"]>, lagen: number) {
+  const rij: (Geplaatst & { v: number })[] = [];
+  for (let v = 0; v < lagen; v++) {
+    const laag = kamers.filter((k) => k.verdieping === v);
+    const plek = (p: (typeof plaatsingen)[number]) => {
+      const k = laag.find((kk) => kk.id === p.kamer)!;
+      return k.z + p.z + (k.x + p.x) * 0.3;
+    };
+    const hier = plaatsingen.filter((p) => laag.some((k) => k.id === p.kamer)).sort((a, b) => plek(a) - plek(b));
+    for (const p of hier) rij.push({ ...p, a: 0, v });
+  }
+  return rij.map((p, i) => ({ ...p, a: aankomst(i, rij.length) }));
+}
+
 interface Kader { cx: number; cy: number; ex: number; ey: number }
 function kader(w: number, l: number, y0: number, y1: number, pad: number): Kader {
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
@@ -714,15 +806,18 @@ function Scene(props: SceneProps) {
   }, [snij, yfAct]);
 
   // Vier materiaalsets: vast, vervagend, onder de snede, boven de snede.
+  const nat = useMemo(maakNat, []);
   const sets = useMemo(() => {
     const vast = maakMaterialen(texturen, STANDAARD_MATERIAAL);
-    return {
+    const uit = {
       vast,
       vaag: afgeleid(vast, (m) => { m.transparent = true; }),
       onder: afgeleid(vast, (m) => { m.clippingPlanes = [snij.onder]; m.clipShadows = true; }),
       boven: afgeleid(vast, (m) => { m.clippingPlanes = [snij.boven]; m.clipShadows = true; m.transparent = true; }),
     };
-  }, [texturen, snij]);
+    for (const set of Object.values(uit)) natPatchSet(set, nat);
+    return uit;
+  }, [texturen, snij, nat]);
   useEffect(() => () => {
     for (const s of Object.values(sets)) for (const m of s.values()) m.dispose();
   }, [sets]);
@@ -883,12 +978,6 @@ function Scene(props: SceneProps) {
     herstart(G.modus, reduced);
   }, [uiteen, reduced]);
 
-  // Drying you can see: walls and floor start dark and wet and lighten as the
-  // day counter runs, on the same film clock. Only where this phase is wet.
-  const droogKleur = useMemo(() => {
-    const muur = new Color(materiaal.muur), vloer = new Color(materiaal.vloer);
-    return { muur, vloer, tmp: new Color() };
-  }, [materiaal.muur, materiaal.vloer]);
   const vorige = useRef({ lagen, dak, woning, binnen: geo.binnen });
   useLayoutEffect(() => {
     const p = vorige.current, G = groei.current;
@@ -939,13 +1028,22 @@ function Scene(props: SceneProps) {
     const k = mo < 1 ? { cx: vc.cx + (doelK.cx - vc.cx) * mo, cy: vc.cy + (doelK.cy - vc.cy) * mo, ex: vc.ex + (doelK.ex - vc.ex) * mo, ey: vc.ey + (doelK.ey - vc.ey) * mo } : doelK;
     G.camNu = k;
 
-    // Walls and floor dry along with the film.
-    const droog = werkend && !reduced ? droogVoortgang(filmTijd(film.current, cyclus), cyclus) : 1;
-    const nat = (1 - droog) * Math.min(1, materiaal.vocht);
-    for (const set of Object.values(sets)) {
-      if (materiaal.muurNat) set.get("pleister")!.color.copy(droogKleur.muur).multiplyScalar(1 - 0.45 * nat);
-      if (materiaal.vloerNat) set.get("vloer")!.color.copy(droogKleur.vloer).multiplyScalar(1 - 0.4 * nat);
+    // Walls and floor dry from the devices outward, on the film clock: a device
+    // starts drying once it has landed, and at the end the patches cover all.
+    const droogt = werkend && !reduced;
+    const tf = filmTijd(film.current, cyclus);
+    const droog = droogt ? droogVoortgang(tf, cyclus) : 1;
+    const bronnen = uiteen ? natAlle : natLaag;
+    nat.n.value = Math.min(MAX_BRON, bronnen.length);
+    for (let i = 0; i < nat.n.value; i++) {
+      const b = bronnen[i];
+      nat.bron.value[i].set(b.x, b.y, b.z, tf >= b.a + VAL ? 1 : 0);
     }
+    // About a room's reach from one device by the end; the last corners fade out.
+    nat.r.value = Math.pow(droog, 1.2) * 6.5;
+    const sterkte = (0.7 + 0.3 * Math.min(1, materiaal.vocht)) * (1 - Math.max(0, (droog - 0.85) / 0.15));
+    nat.muur.value = droogt && materiaal.muurNat ? sterkte : 0;
+    nat.vloer.value = droogt && materiaal.vloerNat ? sterkte : 0;
     const cam = camera as OrthographicCamera;
     const doel = v.copy(RECHTS).multiplyScalar(k.cx).addScaledVector(OP, k.cy);
     cam.position.copy(doel).addScaledVector(KIJK, 60);
@@ -1022,6 +1120,15 @@ function Scene(props: SceneProps) {
     const volgorde = plaatsingen.filter((p) => actKamers.some((k) => k.id === p.kamer)).sort((a, b) => plek(a) - plek(b));
     return volgorde.map((p, i) => ({ ...p, a: aankomst(i, volgorde.length) }));
   }, [plaatsingen, actKamers]);
+  // Where the drying starts: the devices on the open floor, or on every floor of the stack.
+  const natLaag = useMemo(() => laagPlaatsingen.map((p) => {
+    const k = actKamers.find((kk) => kk.id === p.kamer)!;
+    return { x: k.x + p.x, y: yfAct, z: k.z + p.z, a: p.a };
+  }), [laagPlaatsingen, actKamers, yfAct]);
+  const natAlle = useMemo(() => volgordeAlleLagen(kamers, plaatsingen, lagen).map((p) => {
+    const k = kamers.find((kk) => kk.id === p.kamer)!;
+    return { x: k.x + p.x, y: p.v * (FH + GAP) + SLAB, z: k.z + p.z, a: p.a };
+  }), [kamers, plaatsingen, lagen]);
   useLayoutEffect(() => {
     film.current = { start: -1, vast: reduced, voorsprong };
     // voorsprong only counts for the film it was given with
@@ -1043,6 +1150,7 @@ function Scene(props: SceneProps) {
         <Uiteen
           plan={{ woning, lagen, act: 0, dak, kamers, openingen, trappen }}
           sets={sets}
+          nat={nat}
           plaatsingen={plaatsingen}
           werkend={werkend}
           droogt={werkend && !reduced}
@@ -1112,8 +1220,8 @@ const GAP = 3.6;
  * 1.10 m, inner walls lowered, fittings in), with its own cutting plane; the
  * devices of all floors drop in one sequence, from the ground floor up.
  */
-function Uiteen({ plan, sets, plaatsingen, werkend, droogt, vocht, inrichtingIn, film, cyclus }: {
-  plan: Woningplan; sets: Record<"vast" | "vaag" | "onder" | "boven", MatSet>; plaatsingen: NonNullable<IsoHouseProps["plaatsingen"]>;
+function Uiteen({ plan, sets, nat, plaatsingen, werkend, droogt, vocht, inrichtingIn, film, cyclus }: {
+  plan: Woningplan; sets: Record<"vast" | "vaag" | "onder" | "boven", MatSet>; nat: NatUniforms; plaatsingen: NonNullable<IsoHouseProps["plaatsingen"]>;
   werkend: boolean; droogt: boolean; vocht: number; inrichtingIn: boolean; film: MutableRefObject<Film>; cyclus: number;
 }) {
   const { woning, lagen, dak, kamers, openingen, trappen } = plan;
@@ -1136,7 +1244,11 @@ function Uiteen({ plan, sets, plaatsingen, werkend, droogt, vocht, inrichtingIn,
 
   // A cut per floor needs its own material set; it follows the shared set each
   // frame (phase textures, the drying colour) so nothing has to be rebuilt.
-  const snijSets = useMemo(() => lagenData.map((d) => afgeleid(sets.vast, (m) => { m.clippingPlanes = [d.vlak]; m.clipShadows = true; })), [lagenData, sets.vast]);
+  const snijSets = useMemo(() => lagenData.map((d) => {
+    const set = afgeleid(sets.vast, (m) => { m.clippingPlanes = [d.vlak]; m.clipShadows = true; });
+    natPatchSet(set, nat);
+    return set;
+  }), [lagenData, sets.vast, nat]);
   useEffect(() => () => { for (const s of snijSets) for (const m of s.values()) m.dispose(); }, [snijSets]);
   useFrame(() => {
     for (const s of snijSets) {
@@ -1151,18 +1263,7 @@ function Uiteen({ plan, sets, plaatsingen, werkend, droogt, vocht, inrichtingIn,
   });
 
   // One sequence over the whole house: ground floor first, back to front per floor.
-  const perLaag = useMemo(() => {
-    const rij: (Geplaatst & { v: number })[] = [];
-    for (const d of lagenData) {
-      const plek = (p: (typeof plaatsingen)[number]) => {
-        const k = d.laag.find((kk) => kk.id === p.kamer)!;
-        return k.z + p.z + (k.x + p.x) * 0.3;
-      };
-      const hier = plaatsingen.filter((p) => d.laag.some((k) => k.id === p.kamer)).sort((a, b) => plek(a) - plek(b));
-      for (const p of hier) rij.push({ ...p, a: 0, v: d.v });
-    }
-    return rij.map((p, i) => ({ ...p, a: aankomst(i, rij.length) }));
-  }, [lagenData, plaatsingen]);
+  const perLaag = useMemo(() => volgordeAlleLagen(kamers, plaatsingen, lagen), [kamers, plaatsingen, lagen]);
 
   return (
     <>
