@@ -29,7 +29,7 @@ import type { DeviceKey } from "../data/verhuur.js";
 export type Woning = "rijwoning" | "halfopen" | "open" | "appartement";
 export type Dak = "zadeldak" | "plat" | "lessenaar";
 export type Wat = "pleister" | "chape" | "beide";
-export type Fase = "vers" | "weken" | "geschilderd" | "afgewerkt" | "bewoond";
+export type Fase = "ruwbouw" | "ramen" | "chape" | "gepleisterd" | "tegels" | "afgewerkt";
 
 export interface SimAnswers {
   woning: Woning;
@@ -41,7 +41,7 @@ export interface SimAnswers {
   pd: string;
   cd: string;
   fase: Fase;
-  /** true = de klant verwarmt zelf boven 15 °C */
+  /** true = er wordt al verwarmd, dus geen kachels in het pakket */
   verwarmt: boolean;
 }
 
@@ -74,58 +74,132 @@ export const WAT_LABEL: Record<Wat, { label: string; sub: string }> = {
   beide: { label: "Pleisterwerk + chape", sub: "Muren én vloer" },
 };
 
+export interface FaseInfo {
+  /** voluit, in de kop van de tekening en in het droogplan */
+  label: string;
+  /** op de keuzeknop */
+  kort: string;
+  /** beginstand van de vochtanimatie in het droogplan, 0–1 */
+  vocht: number;
+  /** standaardantwoord op "Is er verwarming?" zolang de bezoeker niets kiest */
+  verwarmtWaarschijnlijk: boolean;
+  /** de uitleg bij de fase, ook als "Let op" in het droogplan */
+  advies: string;
+  /** foto in /simulator/: dezelfde kamer, stap voor stap verder afgewerkt */
+  foto: string;
+  /** hoeveel water deze fase in huis brengt, 1–5 druppels (illustratief) */
+  druppels: number;
+  druppelsTekst: string;
+  /** waar het vocht zit op de foto, in procent van breedte en hoogte */
+  pin: { x: number; y: number; tekst: string };
+  starten: string;
+  meten: string;
+  letOp: string;
+  /** vraag naar vloerverwarming: alleen zolang de chape bloot ligt of net bedekt is */
+  vloerverwarming: boolean;
+}
+
 /**
- * De bouwfase. `vocht` is alleen de beginstand van de animatie (1 = kletsnat)
- * — het pakket verandert er niet door: de catalogus kent geen fase, en een
- * geschilderde muur met 3 cm pleister erachter bevat nog net zo goed water.
+ * De bouwfase, van ruwbouw tot afgewerkt: de klant kiest waar zijn werf nu
+ * staat. Het pakket verandert er niet door — de catalogus kent geen fase. Wat
+ * verandert, is wanneer de drogers starten, of er gemeten wordt en waar u op
+ * let. Starttijden en druppels zijn vuistregels voor de bezoeker, geen meting.
  */
-export const FASE: Record<
-  Fase,
-  { label: string; kort: string; vocht: number; verwarmtWaarschijnlijk: boolean; advies: string }
-> = {
-  vers: {
-    label: "Net gepleisterd of gegoten",
-    kort: "Vers",
+export const FASE: Record<Fase, FaseInfo> = {
+  ruwbouw: {
+    label: "Ruwbouw, ramen nog open",
+    kort: "Ruwbouw",
+    vocht: 0.85,
+    verwarmtWaarschijnlijk: false,
+    advies: "Metselwerk en vloerplaat zitten vol regenwater. Drogen kan pas als de openingen dicht zijn, anders droogt u de buitenlucht.",
+    foto: "/simulator/fase-ruwbouw.webp",
+    druppels: 3,
+    druppelsTekst: "regenwater",
+    pin: { x: 34, y: 70, tekst: "Regenwater op de vloerplaat" },
+    starten: "Na afsluiten met folie",
+    meten: "Nog niet",
+    letOp: "Openingen eerst dicht",
+    vloerverwarming: false,
+  },
+  ramen: {
+    label: "Ramen geplaatst",
+    kort: "Ramen geplaatst",
+    vocht: 0.75,
+    verwarmtWaarschijnlijk: false,
+    advies: "Het goede moment om metselwerk en vloerplaat uit te drogen, vóór de chape erop komt.",
+    foto: "/simulator/fase-ramen.webp",
+    druppels: 2,
+    druppelsTekst: "matig",
+    pin: { x: 22, y: 52, tekst: "Vocht in het metselwerk" },
+    starten: "Meteen",
+    meten: "Niet nodig",
+    letOp: "Regenwater op de vloerplaat",
+    vloerverwarming: false,
+  },
+  chape: {
+    label: "Chape gegoten",
+    kort: "Chape",
     vocht: 1,
     verwarmtWaarschijnlijk: false,
-    advies:
-      "Het ideale moment. Hoe vroeger de drogers staan, hoe korter de wachttijd tot u kunt schilderen of de vloer leggen.",
+    advies: "Een chape brengt het meeste water in huis: ongeveer een week per centimeter om te drogen.",
+    foto: "/simulator/fase-chape.webp",
+    druppels: 5,
+    druppelsTekst: "het meest",
+    pin: { x: 48, y: 68, tekst: "Water in de chape" },
+    starten: "Na ± 1 week uitharden",
+    meten: "Vóór tegels of parket",
+    letOp: "Niet te vroeg forceren",
+    vloerverwarming: true,
   },
-  weken: {
-    label: "Enkele weken oud, nog niet afgewerkt",
-    kort: "Enkele weken",
-    vocht: 0.8,
+  tegels: {
+    label: "Tegels gelegd",
+    kort: "Tegels",
+    vocht: 0.7,
     verwarmtWaarschijnlijk: false,
-    advies:
-      "Het oppervlak lijkt droog, maar de kern van de chape en het pleisterwerk is dat nog niet. Droog nu, vóór er verf of vloer op komt.",
+    advies: "Tegels sluiten het vocht in de chape op. Het kan enkel nog via de voegen en de muren weg.",
+    foto: "/simulator/fase-tegels.webp",
+    druppels: 4,
+    druppelsTekst: "opgesloten",
+    pin: { x: 42, y: 66, tekst: "Vocht onder de tegels" },
+    starten: "Meteen",
+    meten: "Chape onder de tegels",
+    letOp: "Vocht zit opgesloten",
+    vloerverwarming: true,
   },
-  geschilderd: {
-    label: "Juist geschilderd",
-    kort: "Geschilderd",
-    vocht: 0.65,
+  gepleisterd: {
+    label: "Net gepleisterd",
+    kort: "Gepleisterd",
+    vocht: 0.9,
     verwarmtWaarschijnlijk: true,
-    advies:
-      "Verf op nat pleisterwerk sluit het vocht in: kans op blazen en vlekken. Drogen kan nog, rustig en met de ruimtes verwarmd.",
+    advies: "Pleisterwerk droogt ongeveer een week per centimeter. Pas daarna kan er geschilderd worden.",
+    foto: "/simulator/fase-pleister.webp",
+    druppels: 4,
+    druppelsTekst: "veel",
+    pin: { x: 72, y: 34, tekst: "Nat pleisterwerk" },
+    starten: "Na 2 à 3 dagen",
+    meten: "Vóór het schilderen",
+    letOp: "Verf op nat pleister bladdert",
+    vloerverwarming: true,
   },
   afgewerkt: {
-    label: "Vloer gelegd, keuken geplaatst",
+    label: "Afgewerkt of bewoond",
     kort: "Afgewerkt",
-    vocht: 0.5,
+    vocht: 0.4,
     verwarmtWaarschijnlijk: true,
     advies:
-      "Parket en laminaat zwellen op een natte chape. Laat ons eerst het vochtgehalte meten; de drogers halen het vocht er gecontroleerd uit.",
-  },
-  bewoond: {
-    label: "Volledig af en bewoond",
-    kort: "Bewoond",
-    vocht: 0.35,
-    verwarmtWaarschijnlijk: true,
-    advies:
-      "Condens op de ramen of schimmel in de hoeken na een renovatie? De drogers werken ook terwijl u er woont, en ze zijn stil genoeg voor een slaapkamer.",
+      "Verf en vloer houden het laatste vocht vast: vochtplekken, condens of schimmel in de hoeken. De drogers werken ook terwijl u er woont, en ze zijn stil genoeg voor een slaapkamer.",
+    foto: "/simulator/fase-afgewerkt.webp",
+    druppels: 2,
+    druppelsTekst: "verborgen",
+    pin: { x: 14, y: 66, tekst: "Restvocht achter de verf" },
+    starten: "Meteen, rustig",
+    meten: "Eerst: waar zit het?",
+    letOp: "Stil genoeg voor een slaapkamer",
+    vloerverwarming: false,
   },
 };
 
-export const FASE_ORDER: Fase[] = ["vers", "weken", "geschilderd", "afgewerkt", "bewoond"];
+export const FASE_ORDER: Fase[] = ["ruwbouw", "ramen", "chape", "gepleisterd", "tegels", "afgewerkt"];
 
 /** Woonoppervlakte per bouwlaag, ruwweg footprint × 0,85 voor muren en trap. */
 export function geschatteOppervlakte(woning: Woning, verdiepingen: number): number {

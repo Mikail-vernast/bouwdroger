@@ -1,17 +1,15 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
-import V3Header from "@/components/home-v3/V3Header";
-import V3Footer from "@/components/home-v3/V3Footer";
 import IsoHouse from "@/components/simulator/IsoHouse";
 import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
-import { FILM_START, droogVoortgang } from "@/components/simulator/film";
 import { materiaalVoor } from "@/components/simulator/materiaal";
+import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
+import { FILM_START, droogVoortgang } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
 import {
   DAK_LABEL,
   FASE,
-  FASE_ORDER,
   MAX_KAMERS,
   MAX_VERDIEPINGEN,
   MIN_KAMERS,
@@ -69,19 +67,14 @@ const MATEN = SIZE_VALUES.map(Number);
 /** The slider steps: the catalogue sizes, then "more than the largest". */
 const OPP_STAPPEN = [...MATEN.map(String), "custom"];
 const GROOTSTE = MATEN[MATEN.length - 1] ?? 300;
-const FASE_KORT: Record<Fase, string> = {
-  vers: "Vers",
-  weken: "Weken",
-  geschilderd: "Geverfd",
-  afgewerkt: "Afgewerkt",
-  bewoond: "Bewoond",
-};
 
 interface State extends Omit<SimAnswers, "woning" | "wat" | "fase" | "verwarmt"> {
   woning: Woning | null;
   wat: Wat | null;
   fase: Fase | null;
   verwarmt: boolean | null;
+  /** alleen voor het advies: een vloer met verwarming volgt eerst zijn opstookprotocol */
+  vloerverwarming: boolean | null;
   /** welke ruimtes per bouwlaag; een lege plek = de standaardindeling */
   kamers: (Programma | undefined)[];
 }
@@ -96,6 +89,7 @@ const START: State = {
   cd: DEFAULT_CD,
   fase: null,
   verwarmt: null,
+  vloerverwarming: null,
   kamers: [],
 };
 
@@ -115,7 +109,7 @@ function watVan(pd: string, cd: string): Wat | null {
 
 /** Antwoorden aanvullen tot een volledige set voor de rekenkern. */
 function volledig(s: State): SimAnswers {
-  const fase = s.fase ?? "vers";
+  const fase = s.fase ?? "chape";
   return {
     woning: s.woning ?? "halfopen",
     verdiepingen: s.verdiepingen,
@@ -139,40 +133,12 @@ const VerhuurSimulatorPage = () => {
   const [filmKlaar, setFilmKlaar] = useState(false);
   /** Telt op bij "opnieuw afspelen", zodat de film van vooraf aan begint. */
   const [ronde, setRonde] = useState(0);
+  /** the phase the visitor points at in stap 4; the film shows it before it is chosen */
+  const [faseToon, setFaseToon] = useState<Fase | null>(null);
   // Stap 2: het huis gaat open zodra de bezoeker aan de indeling werkt, en
   // weer dicht bij bouwlagen of dak — dan wil hij de woning zien.
   const [toonPlan, setToonPlan] = useState(false);
   const root = useRef<HTMLDivElement>(null);
-
-  // Hoeveel van het scherm de site-header inneemt. De CSS heeft een standaard
-  // per breakpoint (voor de geprerenderde HTML); dit maakt het exact, ook als
-  // het menu door een lettertype net iets hoger uitvalt.
-  useEffect(() => {
-    const el = root.current;
-    const kop = document.querySelector("header.hdr");
-    if (!el || !kop) return;
-    const meet = () => {
-      // Niet getBoundingClientRect().bottom: die schuift mee met de scroll (gsm,
-      // header in de flow) en met een transform (ingeklapte header op desktop),
-      // en een resize tijdens het scrollen gaf dan een negatieve --kop.
-      let boven = 0;
-      for (let e: HTMLElement | null = kop as HTMLElement; e; e = e.offsetParent as HTMLElement | null) boven += e.offsetTop;
-      const hoogte = Math.ceil(boven + (kop as HTMLElement).offsetHeight);
-      // Vast (desktop): de simulator schuift eronder. In de flow (gsm): de
-      // header duwt hem al omlaag, een marge zou dubbel tellen.
-      const vast = getComputedStyle(kop).position === "fixed";
-      el.style.setProperty("--kop", `${hoogte}px`);
-      el.style.setProperty("--kop-marge", vast ? `${hoogte}px` : "0px");
-    };
-    meet();
-    const ro = new ResizeObserver(meet);
-    ro.observe(kop);
-    window.addEventListener("resize", meet);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", meet);
-    };
-  }, []);
 
   const antwoorden = volledig(s);
   const woning = antwoorden.woning;
@@ -245,6 +211,8 @@ const VerhuurSimulatorPage = () => {
     setFilmKlaar(false);
   };
 
+  const kiesFase = (f: Fase) => setS((p) => ({ ...p, fase: f }));
+
   const kiesWoning = (w: Woning) =>
     setS((prev) => {
       // Hetzelfde type opnieuw aanklikken verandert niets: de keuzes van stap 2 blijven staan.
@@ -308,11 +276,12 @@ const VerhuurSimulatorPage = () => {
   const schatting = geschatteOppervlakte(woning, lagen);
   const opIk = Math.max(0, OPP_STAPPEN.indexOf(maatwerk ? "custom" : s.size));
   const opSchat = Math.max(0, OPP_STAPPEN.indexOf(snapOppervlakte(schatting)));
-  const faseIndex = s.fase ? FASE_ORDER.indexOf(s.fase) : -1;
+  // Before a phase is chosen, neither answer is shown as picked.
+  const verwarmd = s.verwarmt ?? (s.fase ? FASE[s.fase].verwarmtWaarschijnlijk : null);
 
   const kop = [
     { eyebrow: "Stap 1 · Woning", titel: s.woning ? WONING[s.woning].label : "Welke woning droogt u?" },
-    { eyebrow: "Stap 2 · Verdiepingen", titel: `${lagen} ${lagen === 1 ? "bouwlaag" : "bouwlagen"}, ${totaalKamers} kamers` },
+    { eyebrow: "Stap 2 · Verdiepingen", titel: `${woningLagen(lagen, dak)}, ${totaalKamers} kamers` },
     { eyebrow: "Stap 3 · Materiaal", titel: s.wat ? `${WAT_LABEL[s.wat].label}: nog nat` : "Wat is er nat?" },
     { eyebrow: "Stap 4 · Bouwfase", titel: s.fase ? FASE[s.fase].label : "Hoe ver staat de werf?" },
     {
@@ -346,8 +315,7 @@ const VerhuurSimulatorPage = () => {
           ]),
         ]}
       />
-      {/* Geen rode hero: de header staat meteen in zijn lichte variant. */}
-      <V3Header lightAfter={-1} />
+      {/* Conversiepagina: geen sitemenu en geen footer, het hele scherm is de simulator. */}
 
       <div className="ds-app">
 
@@ -392,10 +360,10 @@ const VerhuurSimulatorPage = () => {
                 <>
                   <h2>Hoe ziet uw woning eruit?</h2>
                   <figure className="ds-held" aria-hidden="true">
-                    <img key={heldFoto} className="ds-held-foto" src={heldFoto} srcSet={fotoSrcSet(heldFoto)} sizes="(max-width: 899px) 100vw, 46vw" alt="" decoding="async" />
+                    <img key={heldFoto} className="ds-held-foto" onAnimationEnd={(e) => (e.currentTarget.style.animation = "none")} src={heldFoto} srcSet={fotoSrcSet(heldFoto)} sizes="(max-width: 899px) 100vw, 46vw" alt="" decoding="async" />
                     <figcaption className="ds-held-cap">
                       {DAK_LABEL[dak].label}
-                      <i> · {lagen} {lagen === 1 ? "bouwlaag" : "bouwlagen"} · {totaalKamers} kamers</i>
+                      <i> · {woningLagen(lagen, dak).toLowerCase()} · {totaalKamers} kamers</i>
                     </figcaption>
                   </figure>
                   <div className="ds-keuzerij">
@@ -410,36 +378,41 @@ const VerhuurSimulatorPage = () => {
                     </div>
                   </div>
                   <div className="ds-keuzerij">
-                    <div className="ds-lbl">Verdiepingen</div>
-                    <div className="ds-hkset ds-hkset--lagen" role="radiogroup" aria-label="Aantal verdiepingen">
+                    <div className="ds-lbl">Verdiepen boven het gelijkvloers</div>
+                    <div className="ds-hkset ds-hkset--lagen" role="radiogroup" aria-label="Verdiepen boven het gelijkvloers">
                       {Array.from({ length: MAX_VERDIEPINGEN }, (_, i) => i + 1).map((n) => (
-                        <button key={n} type="button" role="radio" aria-checked={lagen === n} disabled={n > maxLagen} className={`ds-hk${lagen === n ? " on" : ""}`} onClick={() => zetLagen(n)}>
+                        <button key={n} type="button" role="radio" aria-checked={lagen === n} aria-label={woningLagen(n, dak)} disabled={n > maxLagen} className={`ds-hk ds-hk--laag${lagen === n ? " on" : ""}`} onClick={() => zetLagen(n)}>
                           <HuisIcoon dak={dak} lagen={n} />
-                          <b><span className="ds-lang">{n} {n === 1 ? "bouwlaag" : "bouwlagen"}</span><span className="ds-kort">{n} {n === 1 ? "laag" : "lagen"}</span></b>
-                          <small>{lagenUitleg(n, dak)}</small>
+                          {n === 1 ? <b>Gelijkvloers</b> : <b>+{n - 1}<small>{n === 2 ? "verdiep" : "verdiepen"}</small></b>}
                         </button>
                       ))}
                     </div>
                   </div>
                   <div className="ds-groei">
-                    <div className="ds-lbl ds-lbl--rij">Kamers<span>{totaalKamers} in totaal</span></div>
-                    <div className="ds-verdrijen">
-                      {aantallen.map((n, v) => {
-                        const naam = verdiepingNaam(v, lagen, dak);
-                        return (
-                          <div key={v} className={`ds-verdrij${toonPlan && verd === v ? " on" : ""}`}>
-                            <button type="button" className="ds-verdrij-naam" onClick={() => kiesVerdieping(v)} aria-label={`Toon ${naam.toLowerCase()} in de tekening`}>
-                              <b>{naam}</b>
-                              <small>{kamerNamen(kamers.filter((k) => k.verdieping === v && k.soort === "kamer").map((k) => k.naam))}</small>
-                            </button>
-                            <span className="ds-tel">
-                              <button type="button" aria-label={`Minder kamers ${naam.toLowerCase()}`} disabled={n <= MIN_KAMERS} onClick={() => zetAantal(v, n - 1)}>−</button>
-                              <output aria-live="polite">{n}</output>
-                              <button type="button" aria-label={`Meer kamers ${naam.toLowerCase()}`} disabled={n >= MAX_KAMERS} onClick={() => zetAantal(v, n + 1)}>+</button>
-                            </span>
-                          </div>
-                        );
-                      })}
+                    <div className="ds-lbl ds-lbl--rij">Aantal kamers per verdieping<span>{totaalKamers} in totaal</span></div>
+                    {/* Een doorsnede van het huis: bovenste verdieping bovenaan, elk deurtje is een kamer. */}
+                    <div className={`ds-gebouw ds-gebouw--${dak}`}>
+                      <span className="ds-gebouw-dak" aria-hidden="true" />
+                      <div className="ds-verdrijen">
+                        {aantallen.map((n, v) => ({ n, v })).reverse().map(({ n, v }) => {
+                          const naam = verdiepingNaam(v, lagen, dak);
+                          return (
+                            <div key={v} className={`ds-verdrij${toonPlan && verd === v ? " on" : ""}`}>
+                              <button type="button" className="ds-verdrij-naam" onClick={() => kiesVerdieping(v)} aria-label={`Toon ${naam.toLowerCase()} in de tekening`}>
+                                <b>{naam}</b>
+                              </button>
+                              <span className="ds-deuren" aria-hidden="true">
+                                {Array.from({ length: n }, (_, k) => <i key={k} />)}
+                              </span>
+                              <span className="ds-tel">
+                                <button type="button" aria-label={`Minder kamers ${naam.toLowerCase()}`} disabled={n <= MIN_KAMERS} onClick={() => zetAantal(v, n - 1)}>−</button>
+                                <output aria-live="polite">{n}</output>
+                                <button type="button" aria-label={`Meer kamers ${naam.toLowerCase()}`} disabled={n >= MAX_KAMERS} onClick={() => zetAantal(v, n + 1)}>+</button>
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                   <div className="ds-opp">
@@ -495,30 +468,44 @@ const VerhuurSimulatorPage = () => {
               {stap === 3 && (
                 <>
                   <h2>Hoe ver staat de werf?</h2>
-                  <p className="ds-sub">Het pakket blijft hetzelfde; waar u op let verschilt.</p>
-                  <div className="ds-tl" role="radiogroup" aria-label="Bouwfase">
-                    <span className="ds-tl-fill" style={{ width: `${Math.max(0, faseIndex) * 20}%` }} />
-                    {FASE_ORDER.map((f, i) => (
-                      <button key={f} type="button" role="radio" aria-checked={s.fase === f} aria-label={FASE[f].label} className={i === faseIndex ? "on" : i < faseIndex ? "past" : undefined} onClick={() => setS((p) => ({ ...p, fase: f }))}>
-                        <span className="ds-dot">{i + 1}</span>
-                        <small>{FASE_KORT[f]}</small>
-                      </button>
-                    ))}
-                  </div>
-                  <div className={`ds-advies${s.fase ? "" : " leeg"}`} aria-live="polite">
-                    <b>{s.fase ? FASE[s.fase].label : "Kies een fase"}</b>
-                    {s.fase ? FASE[s.fase].advies : "Van net gepleisterd tot volledig bewoond."}
-                  </div>
+                  <p className="ds-sub">Kies hoe ver de werken staan. De foto toont waar het vocht zit.</p>
+                  <Bouwfilm fase={s.fase} toon={faseToon} onKies={kiesFase} />
                   <div>
-                    <div className="ds-lbl">Binnen al boven 15 °C?</div>
-                    <div className="ds-chips" role="radiogroup" aria-label="Verwarming">
-                      <button type="button" role="radio" aria-checked={antwoorden.verwarmt} className={`ds-chip${antwoorden.verwarmt ? " on" : ""}`} onClick={() => setS((p) => ({ ...p, verwarmt: true }))}>
-                        Ja, er wordt verwarmd
-                      </button>
-                      <button type="button" role="radio" aria-checked={!antwoorden.verwarmt} className={`ds-chip${!antwoorden.verwarmt ? " on" : ""}`} onClick={() => setS((p) => ({ ...p, verwarmt: false }))}>
-                        Nee, voeg kachels toe
-                      </button>
+                    <div className="ds-lbl">Kies uw fase</div>
+                    <FaseKnoppen fase={s.fase} onKies={kiesFase} onToon={setFaseToon} />
+                  </div>
+                  {s.fase && <FaseRegels key={s.fase} fase={s.fase} />}
+                  <div className="ds-vragen">
+                    <div className="ds-vraag">
+                      <span>Is er verwarming?</span>
+                      <div className="ds-jn" role="radiogroup" aria-label="Is er verwarming?">
+                        <button type="button" role="radio" aria-checked={verwarmd === true} className={verwarmd === true ? "on" : undefined} onClick={() => setS((p) => ({ ...p, verwarmt: true }))}>
+                          Ja
+                        </button>
+                        <button type="button" role="radio" aria-checked={verwarmd === false} className={verwarmd === false ? "on" : undefined} onClick={() => setS((p) => ({ ...p, verwarmt: false }))}>
+                          Nee
+                        </button>
+                      </div>
+                      {verwarmd === false && (
+                        <p className="ds-gevolg"><i>+</i><span><b>Kachels</b> erbij in uw pakket.</span></p>
+                      )}
                     </div>
+                    {s.fase && FASE[s.fase].vloerverwarming && (
+                      <div className="ds-vraag">
+                        <span>Is er vloerverwarming?</span>
+                        <div className="ds-jn" role="radiogroup" aria-label="Is er vloerverwarming?">
+                          <button type="button" role="radio" aria-checked={s.vloerverwarming === true} className={s.vloerverwarming === true ? "on" : undefined} onClick={() => setS((p) => ({ ...p, vloerverwarming: true }))}>
+                            Ja
+                          </button>
+                          <button type="button" role="radio" aria-checked={s.vloerverwarming === false} className={s.vloerverwarming === false ? "on" : undefined} onClick={() => setS((p) => ({ ...p, vloerverwarming: false }))}>
+                            Nee
+                          </button>
+                        </div>
+                        {s.vloerverwarming === true && (
+                          <p className="ds-gevolg let"><i>!</i><span><b>Eerst het opstookprotocol.</b> <small>De drogers helpen daarna, ze vervangen het niet.</small></span></p>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </>
               )}
@@ -529,7 +516,7 @@ const VerhuurSimulatorPage = () => {
                     {WONING[woning].label}, {maat}
                   </h2>
                   <p className="ds-sub">
-                    {WAT_LABEL[antwoorden.wat].label} · {FASE_KORT[antwoorden.fase].toLowerCase()} · {antwoorden.verwarmt ? "zelf verwarmd" : "met kachels"}
+                    {WAT_LABEL[antwoorden.wat].label} · {FASE[antwoorden.fase].kort.toLowerCase()} · {antwoorden.verwarmt ? "zelf verwarmd" : "met kachels"}
                   </p>
                   <ul className="ds-dev">
                     {resultaat.items
@@ -715,7 +702,6 @@ const VerhuurSimulatorPage = () => {
         </main>
       </div>
 
-      <V3Footer />
     </div>
   );
 };
@@ -727,6 +713,11 @@ function Foto({ sleutel, children }: { sleutel: FotoSleutel; children: ReactNode
 }
 
 /** "Gelijkvloers", "+ 1 verdiep", "+ 2 verdiepen + zolder" — what n bouwlagen mean under this roof. */
+/** "Alleen gelijkvloers", "Gelijkvloers + 1 verdiep + zolder" — the whole house in words. */
+function woningLagen(n: number, dak: Dak): string {
+  return n === 1 ? "Alleen gelijkvloers" : `Gelijkvloers ${lagenUitleg(n, dak)}`;
+}
+
 function lagenUitleg(n: number, dak: Dak): string {
   if (n === 1) return "Gelijkvloers";
   const zolder = isZolder(n - 1, n, dak);
@@ -763,17 +754,6 @@ function HuisIcoon({ dak, lagen }: { dak: Dak; lagen: number }) {
       <line className="grond" x1={2} x2={46} y1={y1 + 0.8} y2={y1 + 0.8} />
     </svg>
   );
-}
-
-/** "Leefruimte, keuken, berging" — of "3 slaapkamers, badkamer" — voor onder de naam van een verdieping. */
-function kamerNamen(namen: string[]): string {
-  const tel = new Map<string, number>();
-  for (const n of namen) tel.set(n, (tel.get(n) ?? 0) + 1);
-  const delen = [...tel].map(([n, q], i) => {
-    const woord = q > 1 ? `${q} ${n.toLowerCase()}s` : n.toLowerCase();
-    return i === 0 ? woord.charAt(0).toUpperCase() + woord.slice(1) : woord;
-  });
-  return delen.join(", ");
 }
 
 /** Wat de bezoeker per laag te zien krijgt: een echte foto, wat het is, waar hij het ziet. */

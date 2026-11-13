@@ -19,15 +19,8 @@
 }
 .ds-sim button{font:inherit;color:inherit}
 
-/*
-  --kop = waar de site-header eindigt. Desktop: vaste header van 161 px, dus de
-  simulator schuift eronder. Gsm/tablet staand: de header staat in de flow (96
-  px) en de simulator neemt de rest van het scherm. De pagina meet de echte
-  waarde na het laden; dit is de standaard voor de geprerenderde HTML.
-*/
-.ds-sim{--kop:161px;--kop-marge:161px}
-@media (max-width:900px){.ds-sim{--kop:96px;--kop-marge:0px}}
-.ds-app{height:calc(100vh - var(--kop));height:calc(100dvh - var(--kop));margin-top:var(--kop-marge);display:grid;grid-template-rows:minmax(0,1fr);overflow:hidden}
+/* Geen site-header of footer (conversiepagina): de simulator vult het hele scherm. */
+.ds-app{height:100vh;height:100dvh;display:grid;grid-template-rows:minmax(0,1fr);overflow:hidden}
 
 .ds-main{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;padding:16px 20px 20px;min-height:0;max-width:1600px;width:100%;margin:0 auto}
 
@@ -878,6 +871,29 @@
   }
 }
 
+/* ── v8e: gsm — hogere knoppen voor dak en verdiepingen ──
+   Bij 40 px voelden ze krap aan, en onder de oppervlakte bleef ruimte over.
+   Dak: 48 px, icoon naast het woord. Verdiepingen: vier smalle kolommen, dus
+   icoon boven het woord — dan toont het icoon ook echt de lagen. Op een lage
+   gsm vallen ze terug op de compacte maat. */
+@media (max-width:899px){
+  .ds-body:has(> .ds-keuzerij){gap:12px}
+  .ds-hk{min-height:48px;padding:6px 6px;gap:8px;border-radius:13px}
+  .ds-hk b{font-size:13px}
+  .ds-hk-ico{width:26px;height:23px}
+  .ds-hkset{gap:6px}
+  .ds-hkset--lagen .ds-hk{flex-direction:column;gap:3px;min-height:62px;padding:7px 4px 6px}
+  .ds-hkset--lagen .ds-hk-ico{width:30px;height:28px}
+  .ds-verdrij{min-height:46px}
+  @container paneel (max-height:430px){
+    .ds-body:has(> .ds-keuzerij){gap:10px}
+    .ds-hk{min-height:42px;padding:5px 4px}
+    .ds-hkset--lagen .ds-hk{flex-direction:row;gap:6px;min-height:42px;padding:5px 4px}
+    .ds-hkset--lagen .ds-hk-ico{width:24px;height:21px}
+    .ds-verdrij{min-height:40px}
+  }
+}
+
 /* ───── vraag 3: hoe dik is het nat? ─────
    Per laag een kaart: echte foto links, rechts de dikte op ware grootte (een lat
    in echte centimeters) en de keuzes. "Geen" is een antwoord: de laag is droog,
@@ -994,6 +1010,158 @@
 .ds-ware-lat:has(.ds-ware-schuif:focus-visible){outline:2px solid #fff;outline-offset:3px}
 .ds-laagk.uit .ds-ware-schuif{pointer-events:none}
 
+/* ───── stap 4 · bouwfase: bouwfilm boven de fase-knoppen in het paneel, het huis blijft in de tekening ───── */
+.ds-sim{--nat:#5aa6e8;--groen:#2f9e5b;--geel:#f2b84b}
+.ds-bf{position:relative;width:100%;border-radius:16px;overflow:hidden;background:#2a1a17;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;box-shadow:0 24px 50px -28px rgba(0,0,0,.6);animation:ds-in .4s cubic-bezier(.2,.8,.2,1) both}
+.ds-bf:active{cursor:grabbing}
+.ds-bf img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none}
+.ds-bf::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(0,0,0,.72) 100%);pointer-events:none}
+.ds-bf-cap{position:absolute;left:18px;right:18px;bottom:16px;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;color:#fff;pointer-events:none}
+.ds-bf-cap > div > span{display:block;font:600 10.5px var(--fm);letter-spacing:.12em;text-transform:uppercase;opacity:.82;margin-bottom:3px}
+.ds-bf-cap > div > b{display:block;font-size:24px;font-weight:800;line-height:1.05;letter-spacing:-.01em}
+.ds-bf-meter{display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:99px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)}
+.ds-bf-meter small{font:600 9.5px var(--fm);letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.ds-bf-meter b{font-size:12px;font-weight:700}
+.ds-bf-drup{display:flex;gap:3px}
+.ds-bf-drup svg{display:block;width:11px;height:14px}
+.ds-bf-drup path{fill:rgba(255,255,255,.22)}
+.ds-bf-drup .vol path{fill:var(--nat)}
+.ds-sim .ds-bf-speel{position:absolute;top:14px;right:14px;z-index:3;display:flex;align-items:center;gap:7px;padding:8px 13px 8px 10px;border:0;border-radius:99px;background:rgba(255,255,255,.92);color:var(--ink)!important;font-size:12.5px;font-weight:800;cursor:pointer;box-shadow:0 8px 20px -8px rgba(0,0,0,.6);transition:transform .2s,opacity .3s}
+.ds-sim .ds-bf-speel:hover{transform:scale(1.04)}
+.ds-sim .ds-bf-speel svg{width:14px;height:14px}
+.ds-sim .ds-bf-speel.weg{opacity:0;pointer-events:none}
+.ds-bf-veeg{position:absolute;top:14px;left:14px;z-index:3;padding:6px 11px;border-radius:99px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);color:#fff;font-size:11.5px;font-weight:700;pointer-events:none;transition:opacity .3s}
+.ds-bf-veeg.weg{opacity:0}
+.ds-bf-pin{position:absolute;z-index:2;width:0;height:0;transition:left .6s cubic-bezier(.2,.8,.2,1),top .6s cubic-bezier(.2,.8,.2,1),opacity .3s;pointer-events:none}
+.ds-bf-pin::before,.ds-bf-pin::after{content:"";position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%}
+.ds-bf-pin::before{background:var(--nat);box-shadow:0 0 0 3px #fff}
+.ds-bf-pin::after{border:2px solid var(--nat);animation:ds-puls 1.8s ease-out infinite}
+@keyframes ds-puls{from{transform:scale(1);opacity:.9}to{transform:scale(3.4);opacity:0}}
+.ds-bf-pin span{position:absolute;left:14px;top:-12px;white-space:nowrap;padding:5px 9px;border-radius:99px;background:#fff;color:var(--ink);font-size:11.5px;font-weight:700;box-shadow:0 6px 16px -6px rgba(0,0,0,.6)}
+.ds-bf-pin.links span{left:auto;right:14px}
+.ds-bf-pin.onder span{left:0;top:14px;transform:translateX(-50%)}
+.ds-bf-pin.weg{opacity:0}
+/* the film takes the height that is left in the panel, within bounds */
+.ds-sim[data-stap="3"] .ds-body > .ds-bf{flex:1 1 0;min-height:150px;max-height:380px}
+
+/* de zes fase-knoppen */
+.ds-fk-rij{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.ds-fk{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:5px 5px 9px;border:0;border-radius:14px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);color:#fff;cursor:pointer;
+  transition:background .2s,box-shadow .2s,transform .25s cubic-bezier(.34,1.56,.64,1),opacity .2s}
+.ds-fk:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.ds-fk:active{transform:scale(.96)}
+.ds-fk-tegel{display:grid;place-items:center;width:100%;aspect-ratio:3/2;border-radius:10px;background:rgba(255,255,255,.08);transition:background .25s,color .25s}
+.ds-fk-ic{width:40px;height:40px;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.ds-fk:hover .ds-fk-ic{transform:scale(1.1) rotate(-4deg)}
+.ds-fk b{font-size:12.5px;font-weight:800;line-height:1.15;text-align:center}
+.ds-fk-nr{position:absolute;top:9px;left:10px;font-size:10px;font-weight:800;opacity:.55}
+.ds-fk-vk{position:absolute;top:-7px;right:-7px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--groen);box-shadow:0 0 0 2.5px #fff;opacity:0;transform:scale(.3);transition:opacity .2s,transform .4s cubic-bezier(.34,1.56,.64,1)}
+.ds-fk.on{background:#fff;color:var(--ink)!important;box-shadow:0 14px 28px -12px rgba(0,0,0,.7);transform:translateY(-3px)}
+.ds-fk.on .ds-fk-tegel{background:var(--red);color:#fff}
+.ds-fk.on .ds-fk-vk{opacity:1;transform:none}
+.ds-fk-rij.gekozen .ds-fk:not(.on){opacity:.75}
+/* nothing chosen yet: the buttons light up one after the other, as an invitation */
+.ds-fk-rij.uitnodig .ds-fk{animation:ds-wink 2.8s ease-in-out infinite}
+@keyframes ds-wink{0%,70%,100%{box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}80%{box-shadow:inset 0 0 0 2px #fff,0 0 0 4px rgba(255,255,255,.14)}}
+
+.ds-bf-cap-pin{display:none}
+.ds-bf-cap-pin::before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:var(--nat);box-shadow:0 0 0 2px #fff;vertical-align:1px}
+/* children keep their height: when the step does not fit, it must show (and be measurable), not squash a block */
+.ds-sim[data-stap="3"] .ds-body > *{flex-shrink:0}
+
+/* Starten / Meten / Let op */
+.ds-fr{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:16px;background:#fff;color:var(--ink);animation:ds-in .35s cubic-bezier(.2,.8,.2,1) both}
+.ds-fr-tekst{margin:0;font-size:13px;line-height:1.42;color:#4d4740}
+.ds-fr-tekst b{color:var(--ink)}
+.ds-fr-regels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.ds-fr-regels > div{display:flex;flex-direction:column;gap:2px;padding:7px 9px;border-radius:10px;background:#f4efe9;font-size:12.5px;line-height:1.25}
+.ds-fr-regels span{font:600 8.5px var(--fm);letter-spacing:.1em;text-transform:uppercase;color:#8a8077}
+.ds-fr-regels .let{background:#fdf1dc}.ds-fr-regels .let b{color:#94570a}
+
+/* Is er verwarming? / Is er vloerverwarming? */
+.ds-vragen{display:flex;flex-direction:column;border-radius:16px;border:1px solid var(--wl);overflow:hidden;background:rgba(255,255,255,.04)}
+.ds-vraag{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px 12px;padding:10px 14px}
+.ds-vraag + .ds-vraag{border-top:1px solid rgba(255,255,255,.1)}
+.ds-vraag > span{font-size:15px;font-weight:700}
+.ds-jn{display:inline-flex;padding:3px;border-radius:11px;background:rgba(0,0,0,.22)}
+.ds-jn button{min-width:58px;padding:8px 14px;border:0;border-radius:8px;background:none;color:rgba(255,255,255,.75);font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s}
+.ds-jn button:hover{color:#fff}
+.ds-jn button.on{background:#fff;color:var(--ink)!important}
+.ds-gevolg{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:0;font-size:12.5px;line-height:1.35;animation:ds-in .3s cubic-bezier(.2,.8,.2,1) both}
+.ds-gevolg i{flex:none;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#fff;color:var(--red);font-style:normal;font-size:10px;font-weight:800}
+.ds-gevolg.let i{background:var(--geel);color:var(--ink)}
+
+/* laptop: minder hoogte */
+@container paneel (max-height:640px){
+  .ds-fk-tegel{aspect-ratio:2/1}
+  .ds-fk-ic{width:32px;height:32px}
+  .ds-fk{padding:4px 4px 7px;gap:4px}
+  .ds-fr{padding:9px;gap:6px}
+  .ds-fr-tekst{display:none}
+  .ds-vraag{padding:7px 12px}
+  .ds-jn button{padding:6px 12px}
+}
+/* gsm: drie op een rij, pictogram naast de naam */
+@container paneel (max-width:520px){
+  .ds-fk-rij{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .ds-fk{flex-direction:row;justify-content:flex-start;gap:7px;padding:3px 6px 3px 3px;border-radius:12px;min-height:40px}
+  .ds-fk:hover,.ds-fk.on{transform:none}
+  .ds-fk-tegel{width:34px;height:34px;aspect-ratio:auto;flex:none;border-radius:9px}
+  .ds-fk-ic{width:24px;height:24px}
+  .ds-fk b{font-size:12px;text-align:left}
+  .ds-fk-nr{display:none}
+  .ds-fk-vk{width:18px;height:18px;top:-6px;right:-6px}
+  .ds-fr{padding:7px;gap:5px;border-radius:13px}
+  .ds-fr-tekst{display:none}
+  .ds-fr-regels > div{padding:5px 7px;font-size:11px}
+  .ds-fr-regels span{font-size:7.5px}
+  .ds-vragen{border-radius:13px}
+  .ds-vraag{padding:5px 10px;gap:3px 8px}
+  .ds-vraag > span{font-size:13px}
+  .ds-jn button{min-width:46px;padding:5px 10px;font-size:12px}
+  .ds-gevolg{font-size:11px}
+  .ds-gevolg small{display:none}
+  .ds-fr{padding:5px}
+  .ds-fr-regels{gap:4px}
+  .ds-fr-regels > div{padding:4px 6px;font-size:10.5px}
+}
+@media (max-width:899px){
+  /* the question already stands above the film */
+  .ds-sim[data-stap="3"] .ds-body h2{display:none}
+  .ds-sim[data-stap="3"] .ds-body{gap:8px}
+  .ds-sim[data-stap="3"] .ds-lbl{margin-bottom:5px}
+  .ds-bf{border-radius:12px}
+  .ds-bf-cap{left:10px;right:10px;bottom:8px}
+  .ds-bf-cap > div > span{font-size:8.5px;letter-spacing:.08em;margin-bottom:1px}
+  .ds-bf-cap > div > b{font-size:17px}
+  .ds-bf-meter{padding:4px 8px;gap:5px}
+  .ds-bf-meter small{display:none}
+  .ds-bf-meter b{font-size:10px}
+  .ds-bf-drup svg{width:9px;height:11px}
+  .ds-sim .ds-bf-speel{top:8px;right:8px;padding:5px 9px 5px 7px;font-size:10.5px}
+  .ds-sim .ds-bf-speel svg{width:11px;height:11px}
+  .ds-bf-veeg{top:8px;left:8px;font-size:10px;padding:4px 8px}
+  .ds-bf-pin,.ds-bf-veeg,.ds-bf-cap-fase{display:none}
+  .ds-bf-cap-pin{display:inline!important}
+}
+@media (prefers-reduced-motion:reduce){.ds-bf,.ds-fr,.ds-gevolg,.ds-fk-rij.uitnodig .ds-fk,.ds-bf-pin::after{animation:none}.ds-fk,.ds-fk-ic,.ds-fk-vk{transition:none}}
+/* stap 4 met de film in het paneel: wie weinig hoogte heeft, geeft eerst de herhaalde vraag op, dan filmhoogte */
+/* safety net: if it still does not fit, the panel scrolls instead of running under the buttons */
+.ds-sim[data-stap="3"] .ds-body{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+@container paneel (max-height:800px){
+  .ds-sim[data-stap="3"] .ds-body > h2,.ds-sim[data-stap="3"] .ds-body > .ds-sub{display:none}
+  .ds-sim[data-stap="3"] .ds-fr-tekst{display:none}
+  .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:130px}
+}
+@container paneel (max-height:640px){
+  .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:110px}
+}
+@container paneel (max-width:520px){
+  .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:96px}
+  .ds-sim[data-stap="3"] .ds-lbl{display:none}
+}
+/* gsm: the house strip gets less room at this step, the film and the buttons more */
+
 /* ── droogplan: knop "opnieuw afspelen" als de film klaar is ── */
 .ds-herhaal{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--ink,#1a1a1a);border-radius:99px;background:#fffdf9;color:var(--ink,#1a1a1a);font:600 12.5px/1 var(--fb,inherit);cursor:pointer;box-shadow:0 6px 18px -10px rgba(0,0,0,.45);animation:ds-herhaal-in .4s ease-out both}
 .ds-herhaal{white-space:nowrap;width:max-content}
@@ -1003,3 +1171,103 @@
 @keyframes ds-herhaal-in{from{opacity:0}to{opacity:1}}
 @media (max-width:899px){.ds-herhaal{left:auto;right:10px;bottom:10px;transform:none;padding:6px 11px;font-size:11.5px}}
 .ds-herhaal:focus-visible{outline:2px solid var(--red,#c8102e);outline-offset:2px}
+@container paneel (max-height:800px){
+  .ds-sim[data-stap="3"] .ds-body{gap:7px}
+}
+@container paneel (max-height:640px){
+  .ds-sim[data-stap="3"] .ds-fk-tegel{aspect-ratio:5/2}
+  .ds-sim[data-stap="3"] .ds-fk b{font-size:11.5px}
+}
+@container paneel (max-width:520px){
+  .ds-sim[data-stap="3"] .ds-body{gap:5px}
+  .ds-sim[data-stap="3"] .ds-fk{min-height:36px}
+  .ds-sim[data-stap="3"] .ds-fk-tegel{width:30px;height:30px}
+}
+@container paneel (max-height:640px){.ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:104px}}
+@container paneel (max-width:520px){.ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:82px}}
+/* a low film (laptop, gsm) has no room for the floating label: the moisture spot moves into the caption */
+.ds-bf{container:film/size}
+@container film (max-height:220px){
+  .ds-bf-pin,.ds-bf-veeg,.ds-bf-cap-fase{display:none}
+  .ds-bf-cap-pin{display:inline}
+  .ds-bf-cap{left:12px;right:12px;bottom:9px}
+  .ds-bf-cap > div > b{font-size:19px}
+}
+@container paneel (max-width:520px){
+  .ds-sim[data-stap="3"] .ds-vraag{padding:3px 10px}
+  .ds-sim[data-stap="3"] .ds-fr-regels > div{padding:3px 6px}
+  .ds-sim[data-stap="3"] .ds-fr-regels b{line-height:1.15}
+}
+
+@media (max-width:899px){
+  /* woningkaarten: lager label, de foto neemt de rest */
+  .ds-sim[data-stap="0"] .ds-t{padding:5px 10px 6px}
+  .ds-sim[data-stap="0"] .ds-card{border-radius:14px}
+}
+
+/* ═════ stap 2, v9 · kamers als doorsnede van het huis ═════
+   De vraag "hoeveel kamers per verdieping" las als een opsomming van
+   kamertypes. Nu staan de verdiepingen op elkaar onder het gekozen dak,
+   bovenste verdieping bovenaan, en is elke kamer een deurtje. De knoppen
+   erboven tellen vanaf het gelijkvloers: "Gelijkvloers", "+1 verdiep", … */
+.ds-hk--laag b small{display:block;font-size:10.5px;font-weight:600;opacity:.65;margin-top:1px}
+.ds-hk--laag b{text-align:center;line-height:1.1}
+
+.ds-sim .ds-gebouw{display:flex;flex-direction:column}
+.ds-gebouw-dak{display:block;height:16px;margin:0 18px;background:rgba(255,255,255,.15);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.ds-gebouw--plat .ds-gebouw-dak{height:4px;margin:0 -3px;border-radius:2px;clip-path:none}
+.ds-gebouw--lessenaar .ds-gebouw-dak{margin:0 -3px;clip-path:polygon(0 0,100% 60%,100% 100%,0 100%)}
+.ds-sim .ds-gebouw::after{content:"";display:block;height:4px;margin:3px -6px 0;border-radius:2px;background:rgba(255,255,255,.25)}
+.ds-sim .ds-gebouw .ds-verdrijen,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)){display:flex;flex-direction:column;gap:0;border:1.5px solid rgba(255,255,255,.28);border-radius:4px 4px 12px 12px;overflow:hidden}
+.ds-sim .ds-gebouw .ds-verdrij,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij{min-height:0;gap:8px;padding:4px 6px 4px 4px;border:0;border-radius:0;background:rgba(255,255,255,.04)}
+.ds-sim .ds-gebouw .ds-verdrij + .ds-verdrij{border-top:1.5px solid rgba(255,255,255,.2)}
+.ds-sim .ds-gebouw .ds-verdrij.on{background:#fff}
+.ds-sim .ds-gebouw .ds-verdrij-naam,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij-naam{flex:0 0 auto;width:112px;padding:4px 8px}
+.ds-sim .ds-gebouw .ds-verdrij-naam b,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij-naam b{font-size:13px;white-space:nowrap}
+.ds-deuren{flex:1;min-width:0;display:flex;gap:3px;overflow:hidden}
+.ds-deuren i{flex:none;position:relative;width:12px;height:16px;border:1.5px solid currentColor;border-radius:3px 3px 1px 1px;opacity:.7;animation:ds-deur .25s cubic-bezier(.2,1.6,.4,1) both}
+.ds-deuren i::after{content:"";position:absolute;right:2px;top:6px;width:2px;height:2px;border-radius:50%;background:currentColor}
+@keyframes ds-deur{from{transform:scale(.3);opacity:0}}
+.ds-sim .ds-gebouw .ds-tel,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-tel{gap:0;padding:2px;border-radius:99px;background:rgba(0,0,0,.18)}
+.ds-sim .ds-gebouw .ds-verdrij.on .ds-tel{background:#f1ece8}
+.ds-sim .ds-gebouw .ds-tel button,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-tel button{width:28px;height:28px;border-radius:50%;background:none}
+.ds-sim .ds-gebouw .ds-tel button:hover:not(:disabled){background:rgba(255,255,255,.14)}
+.ds-sim .ds-gebouw .ds-tel output,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-tel output{min-width:20px;font-size:16px}
+@media (max-width:899px){
+  .ds-sim .ds-gebouw .ds-verdrij-naam,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij-naam{width:98px;padding:3px 6px}
+  .ds-sim .ds-gebouw .ds-verdrij-naam b,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij-naam b{font-size:12.5px}
+  .ds-sim .ds-gebouw .ds-verdrij,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij{padding:2px 4px 2px 2px}
+  .ds-sim .ds-gebouw .ds-tel button,.ds-sim .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-tel button{width:26px;height:26px}
+  .ds-hk--laag b small{font-size:10px}
+}
+@container paneel (max-height:640px){
+  .ds-gebouw-dak{height:10px}
+  .ds-sim .ds-gebouw .ds-tel button{width:24px;height:24px}
+}
+/* gsm met 3 of 4 verdiepingen: het gebouw wordt hoger, de rest maakt plaats */
+@media (max-width:899px){
+  .ds-body:has(.ds-gebouw .ds-verdrij:nth-child(3)){gap:8px}
+  .ds-body:has(.ds-gebouw .ds-verdrij:nth-child(3)) .ds-keuzerij > .ds-lbl{display:none}
+  .ds-body:has(.ds-gebouw .ds-verdrij:nth-child(3)) .ds-hk{min-height:42px}
+  .ds-body:has(.ds-gebouw .ds-verdrij:nth-child(3)) .ds-hkset--lagen .ds-hk{min-height:50px;padding:4px 4px 3px}
+  .ds-body:has(.ds-gebouw .ds-verdrij:nth-child(3)) .ds-hkset--lagen .ds-hk-ico{width:24px;height:22px}
+  .ds-body:has(.ds-gebouw .ds-verdrij:nth-child(3)) .ds-gebouw-dak{height:8px}
+  .ds-sim .ds-body .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-verdrij{padding-block:1px}
+  .ds-sim .ds-body .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-tel button{width:24px;height:24px}
+  .ds-sim .ds-body .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-tel output{font-size:15px}
+  .ds-sim .ds-body .ds-gebouw .ds-verdrijen:has(> :nth-child(3)) .ds-deuren i{width:10px;height:13px}
+}
+@container paneel (max-height:520px){
+  .ds-body:has(.ds-gebouw .ds-verdrij:nth-child(4)) .ds-groei > .ds-lbl{display:none}
+  .ds-body:has(.ds-gebouw .ds-verdrij:nth-child(4)) .ds-opp-rij{padding-block:4px}
+}
+/* de verdiepingstegels blijven altijd icoon boven tekst — "Gelijkvloers" past niet naast een icoon */
+.ds-sim .ds-hkset--lagen .ds-hk--laag{flex-direction:column;gap:2px}
+@container paneel (max-height:430px){
+  .ds-sim .ds-hkset--lagen .ds-hk--laag{min-height:44px;padding:3px 3px 2px}
+  .ds-sim .ds-hkset--lagen .ds-hk--laag .ds-hk-ico{width:22px;height:18px}
+  .ds-hk--laag b small{font-size:9.5px}
+  /* 4 verdiepingen op een kleine gsm: de vraag zelf wijkt, de keuzes blijven */
+  .ds-body:has(.ds-gebouw .ds-verdrij:nth-child(4)) > h2{display:none}
+}
+.ds-body:has(.ds-gebouw .ds-verdrij:nth-child(4)) .ds-gebouw-dak{height:9px}
