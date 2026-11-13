@@ -44,7 +44,7 @@ function Uitkomst({ geslaagd }: { geslaagd: boolean }) {
                 </div>
                 <h2>Bedankt, uw betaling is ontvangen</h2>
                 <p>
-                  Het saldo van uw huur is afgerekend. Stripe stuurt een ontvangstbewijs naar uw
+                  Uw betaling staat op uw huur. Stripe stuurt een ontvangstbewijs naar uw
                   mailbox; dat kan een paar minuten onderweg zijn.
                 </p>
               </div>
@@ -54,8 +54,8 @@ function Uitkomst({ geslaagd }: { geslaagd: boolean }) {
                   <h2>De betaling is niet afgerond</h2>
                 </div>
                 <p style={{ lineHeight: 1.7 }}>
-                  Er is niets aangerekend. Scan de code van onze technieker opnieuw om het nog eens
-                  te proberen, of bel ons op <a href="tel:+3236899065">03 689 90 65</a>.
+                  Er is niets aangerekend. Probeer het opnieuw via de knop in uw mail of de code van
+                  onze technieker, of bel ons op <a href="tel:+3236899065">03 689 90 65</a>.
                 </p>
               </>
             )}
