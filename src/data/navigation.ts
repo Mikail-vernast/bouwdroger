@@ -88,13 +88,25 @@ export const PAKKETTEN: NavLinkItem[] = [
   { label: "Alles in één Droogservice", path: "/verhuur/pakket" },
 ];
 
-/** Waarvoor mensen drogen — elk een eigen zoekintentie en eigen pagina. */
+/**
+ * Waarvoor mensen drogen — elk een eigen zoekintentie en eigen pagina.
+ *
+ * Twee van deze labels omschreven de situatie in plaats van ze te benoemen:
+ * /nieuwbouw-drogen heette "Chape en pleisterwerk samen" en /renovatie
+ * "Vochtige kelder of schimmel". Daardoor kwamen de woorden nieuwbouw en
+ * renovatie in geen enkel menu voor, niet in de footer en niet op /sitemap —
+ * wie de pagina zocht, vond haar niet terug in de lijst. Alle acht volgen nu
+ * hetzelfde patroon: de situatie plus "drogen".
+ *
+ * /renovatie mikt in `seo.ts` nog altijd op "vochtige kelder" en "schimmel";
+ * dat staat in de titel en de H1, waar het zwaarder weegt dan in ankertekst.
+ */
 export const TOEPASSINGEN: NavLinkItem[] = [
   { label: "Chape drogen", path: "/chape-drogen" },
   { label: "Pleisterwerk drogen", path: "/pleisterwerk-drogen" },
-  { label: "Chape en pleisterwerk samen", path: "/nieuwbouw-drogen" },
+  { label: "Nieuwbouw drogen", path: "/nieuwbouw-drogen" },
   { label: "Drogen na waterschade", path: "/waterschade" },
-  { label: "Vochtige kelder of schimmel", path: "/renovatie" },
+  { label: "Renovatie drogen", path: "/renovatie" },
   { label: "Ontschimmeling", path: "/ontschimmeling" },
   { label: "Ozonbehandeling", path: "/ozonbehandeling" },
   { label: "Luchtontvochtiger huren", path: "/luchtontvochtiger-huren" },
@@ -111,7 +123,7 @@ export const TOEPASSINGEN: NavLinkItem[] = [
 export const SCHIMMELS: NavLinkItem[] = [
   { label: "Ontschimmeling", path: "/ontschimmeling" },
   { label: "Ozonbehandeling", path: "/ozonbehandeling" },
-  { label: "Vochtige kelder of schimmel", path: "/renovatie" },
+  { label: "Renovatie drogen", path: "/renovatie" },
   { label: "Drogen na waterschade", path: "/waterschade" },
 ];
 
@@ -137,7 +149,7 @@ export const MENU_SITUATIES: NavLinkItem[] = [
 
 /** Hoe het toestel bij de klant raakt, en wat het kost. */
 export const SERVICE: NavLinkItem[] = [
-  { label: "Prijzen en voorwaarden", path: "/prijzen" },
+  { label: "Prijzen", path: "/prijzen" },
   { label: "Levering en installatie", path: "/levering" },
   { label: "Zelf afhalen in Aartselaar", path: "/afhalen" },
 ];

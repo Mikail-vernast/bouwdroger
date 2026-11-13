@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "@/components/home-v3/icons";
 import Reveal from "@/components/Reveal";
@@ -45,10 +46,20 @@ const VerderLezen = ({
    * in haar afwisseling past — de inhoudspagina's wisselen wit en rood af.
    */
   achtergrond = "sw",
+  /** De rode kop boven de titel. `null` laat hem weg. */
+  kicker = "Verder lezen",
+  children,
 }: {
   titel: string;
   groepen: LeesGroep[];
   achtergrond?: "sw" | "sw2" | "sr";
+  kicker?: string | null;
+  /**
+   * Blok dat ónder de kaarten in dezelfde sectie komt — op /renovatie de rode
+   * slotplaat. Die stond er als eigen witte sectie vlak achter deze, en twee
+   * witte stroken achter elkaar lezen als één sectie met een gat erin.
+   */
+  children?: ReactNode;
 }) => {
   const zichtbaar = groepen
     .map((g) => ({ ...g, links: g.links.filter((l) => !l.toestel || PRODUCTS[l.toestel]) }))
@@ -58,7 +69,7 @@ const VerderLezen = ({
     <section className={achtergrond}>
       <div className="wrap">
         <div className="sec-head mid">
-          <span className="kick">Verder lezen</span>
+          {kicker && <span className="kick">{kicker}</span>}
           <h2 className="sec">{titel}</h2>
         </div>
         <div className="vl">
@@ -79,6 +90,7 @@ const VerderLezen = ({
             </Reveal>
           ))}
         </div>
+        {children}
       </div>
     </section>
   );

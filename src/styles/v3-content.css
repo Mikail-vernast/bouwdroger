@@ -196,6 +196,15 @@
 .v3c .kaart p{font-size:13.5px;color:var(--txt-mid);line-height:1.65;margin:0}
 .v3c .kaart p b{color:var(--txt)}
 .v3c .kaart p + p{margin-top:10px}
+/*
+  Kaarten met tekst van ongelijke lengte: zonder dit hing de knop van de
+  kortste kaart tien regels hoger dan die van de langste, en las de rij als
+  drie losse blokken in plaats van als één keuze. De marge boven de knop zit
+  hier en niet op de alinea, want `auto` duwt alleen wat eronder nog komt.
+*/
+.v3c .kaart.gelijk{display:flex;flex-direction:column}
+.v3c .kaart.gelijk > .btn{margin-top:auto;align-self:flex-start;margin-bottom:0}
+.v3c .kaart.gelijk > p{margin-bottom:20px}
 
 /* Verdict-pil: "een bouwdroger helpt" tegenover "eerst de oorzaak". De kleur
    is het antwoord — wie de kaart scant moet niet eerst de alinea lezen. */
@@ -223,6 +232,14 @@
 .v3c .sr .note b{color:var(--txt)}
 .v3c .sr .note a{color:var(--txt)}
 .v3c .sr .note a:hover{color:var(--red)}
+/*
+  Een note draagt soms twee voorwaarden (Drooggarantie én waarborg). Stonden
+  die als twee losse blokken onder elkaar, dan leek de tweede een nieuwe sectie;
+  als één alinea liepen ze in elkaar. Dus samen in één note, gescheiden door
+  witruimte in plaats van door een rand.
+*/
+.v3c .note p{margin:0}
+.v3c .note p + p{margin-top:12px}
 
 /* ============ SPLIT ============ */
 .v3c .split{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
@@ -231,6 +248,7 @@
 .v3c .split-vis{position:relative;display:flex;justify-content:center;align-items:center}
 .v3c .split-vis img{width:min(100%,460px);border-radius:20px;filter:drop-shadow(0 26px 34px rgba(0,0,0,.28))}
 .v3c .split-vis img.cut{border-radius:0}
+.v3c .split-vis img.chape-vloerderfoto{aspect-ratio:4/3;object-fit:cover}
 .v3c .sr .split-vis img{filter:drop-shadow(0 26px 34px rgba(0,0,0,.45))}
 
 /* ============ GENUMMERDE STAPPEN ============ */
@@ -1201,6 +1219,13 @@
 .v3c .rg-links a{font-weight:600;color:var(--txt);border-bottom:1px solid var(--line-2);text-decoration:none}
 .v3c .rg-links a:hover{color:var(--red);border-color:var(--red)}
 
+/* West-Vlaanderen: twee praktijkvoorbeelden gecentreerd, bestelwagen tot de rand. */
+.v3c.rg-west .rzs.twee{grid-template-columns:repeat(2,minmax(0,1fr));max-width:1060px;margin-inline:auto}
+.v3c.rg-west .manband img.regio-wagen{margin-left:auto;margin-right:-44px;object-position:right bottom;filter:none}
+.v3c.rg-west .fq:not(.rood) .fq-help .fq-stel{color:#fff;border-color:rgba(255,255,255,.65)}
+.v3c.rg-west .fq:not(.rood) .fq-help .fq-bel{color:var(--maroon-d)}
+@media(max-width:620px){.v3c.rg-west .rzs.twee{grid-template-columns:1fr}}
+
 /* ------------------------------------------------------------------
    De gemeentenlijst per streek (provinciepagina)
 
@@ -1232,3 +1257,11 @@
 /* De kolom "met droogpakket" is waarom deze tabel bestaat; in het standaard
    tabelgrijs las ze als de minst belangrijke van de drie. */
 .v3c .tbl td b{color:var(--txt);font-weight:700}
+
+/*
+  Een rij knoppen onder een sectie. Eén knop alleen onder een brede sectie las
+  als een losse eindnoot; twee naast elkaar (de daad en het alternatief) geven
+  de sectie een afsluiting. Wrapt op smal scherm, want twee volle knoppen
+  passen daar niet naast elkaar.
+*/
+.v3c .prijsknoppen{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}

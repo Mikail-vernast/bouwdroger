@@ -59,8 +59,8 @@ const VHeader = () => {
           <a href="tel:+3236899065">
             <PhoneIcon /> 03 689 90 65
           </a>
-          <a href="mailto:info@vernast-verhuur.be">
-            <MailIcon /> info@vernast-verhuur.be
+          <a href="mailto:info@vernast-bouwdrogers.be">
+            <MailIcon /> info@vernast-bouwdrogers.be
           </a>
           <span>Ma–Vr 08:00–17:00</span>
         </div>

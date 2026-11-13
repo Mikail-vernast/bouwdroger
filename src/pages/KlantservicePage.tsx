@@ -62,7 +62,7 @@ const KlantservicePage = () => {
           <p>Een vraag over uw betaling, een toestel dat niet doet wat het moet, of uw huurperiode verlengen? Hieronder vindt u meteen een antwoord, of u belt ons gewoon.</p>
           <div className="ks-quick">
             <a className="hot" href="tel:+3236899065"><Phone /> Bel 03 689 90 65</a>
-            <a href="mailto:info@vernast-verhuur.be">Mail ons</a>
+            <a href="mailto:info@vernast-bouwdrogers.be">Mail ons</a>
             <a href="#storing">Storing melden</a>
             <a href="#betalingen">Betalingen &amp; facturen</a>
           </div>
@@ -393,7 +393,7 @@ const KlantservicePage = () => {
               </div>
               <div className="ci">
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg>
-                <div><b>Mail ons</b><a href="mailto:info@vernast-verhuur.be">info@vernast-verhuur.be</a> · <span>antwoord binnen 4 werkuren</span></div>
+                <div><b>Mail ons</b><a href="mailto:info@vernast-bouwdrogers.be">info@vernast-bouwdrogers.be</a> · <span>antwoord binnen 4 werkuren</span></div>
               </div>
               <div className="ci">
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>

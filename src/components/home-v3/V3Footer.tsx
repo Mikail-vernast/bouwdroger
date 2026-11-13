@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FOOTER_SITEMAP, REGIOS, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
-import { CONTACT, HEADQUARTERS, SITE_NAME } from "@/lib/site";
+import { CONTACT, HEADQUARTERS, MAPS_URL, SITE_NAME } from "@/lib/site";
 import "@/styles/site-footer.css";
 
 /**
@@ -100,21 +100,6 @@ const V3Footer = () => (
               </li>
             ))}
           </ul>
-
-          {/*
-            De regiopagina's staan hiernaast ook als speld op de kaart, maar die
-            kaart is aria-hidden sierwerk: niet bereikbaar met de toetsenbord en
-            zonder zoekwoord in de ankertekst. Deze lijst is het echte signaal —
-            voor een bezoeker met een schermlezer én voor een crawler.
-          */}
-          <h2 id="ft-regios" className="later">Per regio</h2>
-          <ul aria-labelledby="ft-regios">
-            {REGIOS.map((link) => (
-              <li key={link.path}>
-                <Link to={link.path}>{link.label}</Link>
-              </li>
-            ))}
-          </ul>
         </nav>
 
         {/*
@@ -134,6 +119,26 @@ const V3Footer = () => (
               </Link>
             ))}
           </div>
+
+          {/*
+            Deze lijst stond onder de sitemapkolom, en daardoor liep de voet aan
+            de linkerkant door tot ver onder de kaart terwijl de kaartkolom zo'n
+            300 px leeg bleef staan. Onder de kaart vult ze die ruimte én staat
+            ze waar ze hoort: de spelden tonen dezelfde vijf regio's, maar de
+            kaart is aria-hidden sierwerk — niet bereikbaar met het toetsenbord
+            en zonder zoekwoord in de ankertekst. Dit is het echte signaal, voor
+            een bezoeker met een schermlezer én voor een crawler.
+          */}
+          <nav className="ft-regios" aria-labelledby="ft-regios">
+            <h2 id="ft-regios">Per regio</h2>
+            <ul>
+              {REGIOS.map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </div>
 
@@ -153,10 +158,17 @@ const V3Footer = () => (
         </div>
         <div>
           <dt>Magazijn en afhaalpunt</dt>
+          {/*
+            Het adres is een route, niet een gegeven om te onthouden: wie het
+            hier leest wil erheen rijden. Hetzelfde doel als de knop op
+            /afhalen en /contact, dus dezelfde `MAPS_URL`.
+          */}
           <dd>
-            {CONTACT.street}
-            <br />
-            {CONTACT.postalCode} {CONTACT.city}
+            <a className="ft-adres" href={MAPS_URL} target="_blank" rel="noopener noreferrer">
+              {CONTACT.street}
+              <br />
+              {CONTACT.postalCode} {CONTACT.city}
+            </a>
           </dd>
         </div>
         <div>
@@ -199,6 +211,18 @@ const V3Footer = () => (
         <div>
           © {new Date().getFullYear()} {SITE_NAME} · Zetel: {HEADQUARTERS.street},{" "}
           {HEADQUARTERS.postalCode} {HEADQUARTERS.city}
+        </div>
+        {/*
+          De site is in huis gebouwd, en dat hoort er te staan waar een credit
+          hoort: bij het bouwjaar, niet in de sitemapkolom. De link gaat naar de
+          hoofdsite, die ook al in `SAME_AS` staat — vier domeinen die naar
+          elkaar wijzen is precies het signaal dat ze één bedrijf zijn.
+        */}
+        <div className="ft-credit">
+          Ontwerp en realisatie door{" "}
+          <a href={HEADQUARTERS.url} target="_blank" rel="noopener noreferrer">
+            {HEADQUARTERS.name}
+          </a>
         </div>
         <div className="ft-legal">
           <Link to="/algemene-voorwaarden">Algemene voorwaarden</Link>

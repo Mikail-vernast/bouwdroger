@@ -436,7 +436,7 @@ const llms = `# Vernast Bouwdrogers
 - Magazijn en afhaalpunt: Boomsesteenweg 12, Unit 11, 2630 Aartselaar, België
 - Maatschappelijke zetel: Vernast, Ballaarstraat 99, 2018 Antwerpen, België
 - Telefoon: +32 3 689 90 65
-- E-mail: info@vernast-verhuur.be
+- E-mail: info@vernast-bouwdrogers.be
 - Openingsuren: maandag t/m vrijdag, 08:00–17:00
 - Servicegebied: Antwerpen, Vlaams-Brabant, Oost-Vlaanderen, West-Vlaanderen, Limburg
 - Levering: binnen 24 uur, installatie inbegrepen

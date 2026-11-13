@@ -3,6 +3,7 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { MAPS_URL } from "@/lib/site";
 import { AanvraagDone, AanvraagError, AanvraagHoneypot } from "@/components/AanvraagForm";
 import { useAanvraag } from "@/hooks/useAanvraag";
 import "@/styles/contact.css";
@@ -53,7 +54,7 @@ const ContactPage = () => {
                 <p>Bel, mail of kom langs in Aartselaar. Heeft u een vraag over een lopende huur? Dan helpt onze klantenservice u het snelst verder.</p>
                 <div className="hbadges">
                   <a href="tel:+3236899065"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92V21a1 1 0 0 1-1.11 1A19.86 19.86 0 0 1 2 4.11 1 1 0 0 1 3 3h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.29 1L7 10.5a16 16 0 0 0 6.5 6.5l1.75-1.8a1 1 0 0 1 1-.29l4 1a1 1 0 0 1 .75 1Z" /></svg> 03 689 90 65</a>
-                  <a href="mailto:info@vernast-verhuur.be"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg> info@vernast-verhuur.be</a>
+                  <a href="mailto:info@vernast-bouwdrogers.be"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg> info@vernast-bouwdrogers.be</a>
                   <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg> Ma–Vr 08:00–17:00</span>
                 </div>
               </div>
@@ -123,11 +124,11 @@ const ContactPage = () => {
               <p>Voor dringende vragen, storingen of advies over het juiste pakket. Ma–Vr van 08:00 tot 17:00.</p>
               <span className="cl">03 689 90 65</span>
             </a>
-            <a className="ch" href="mailto:info@vernast-verhuur.be">
+            <a className="ch" href="mailto:info@vernast-bouwdrogers.be">
               <span className="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg></span>
               <h3>Mail ons</h3>
               <p>Algemene vragen, offertes op maat of documenten doorsturen. U krijgt binnen één werkdag antwoord.</p>
-              <span className="cl">info@vernast-verhuur.be</span>
+              <span className="cl">info@vernast-bouwdrogers.be</span>
             </a>
             <a className="ch" href="mailto:administratie@vernast.be">
               <span className="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></span>
@@ -166,7 +167,7 @@ const ContactPage = () => {
               <p><b>Vernast Bouwdrogers</b><br />Boomsesteenweg 12, Unit 11 · 2630 Aartselaar</p>
               <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg><span><b>Kantoor:</b> Ma–Vr 08:00–17:00</span></div>
               <div className="lrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" /><circle cx="12" cy="10" r="3" /></svg><span>Parkeren kan vlak voor de unit.</span></div>
-              <a className="lgo" href="https://www.google.com/maps/search/?api=1&query=Boomsesteenweg+12+2630+Aartselaar" target="_blank" rel="noopener">Open in Google Maps<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+              <a className="lgo" href={MAPS_URL} target="_blank" rel="noopener">Open in Google Maps<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
             </div>
             <div className="lc2">
               <div className="lt"><span className="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg></span><h3>Afhaalpunt magazijn</h3></div>

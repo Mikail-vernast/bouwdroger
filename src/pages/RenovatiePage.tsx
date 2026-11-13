@@ -686,8 +686,6 @@ const RenovatiePage = () => (
       </div>
     </section>
 
-    <VerderLezen titel="Verder lezen over vochtige kelders" groepen={verderLezen} />
-
     {/*
       De vragen in de vorm van de homepage: links de titel met het
       hulpkaartje, rechts de vragen. Ze stonden hier als een raster van open
@@ -700,39 +698,50 @@ const RenovatiePage = () => (
       sleutel="rn-faq"
     />
 
-    {/* ================= SLOT-CTA ================= */}
-    <section className="sw">
-      <div className="wrap">
-        <div className="manband">
-          <div className="mb-t">
-            <span className="mbk">Pak het nu aan</span>
-            <h3>Hoe langer het vocht er zit, hoe meer er droog gemaakt moet worden.</h3>
-            <p>
-              Laat uw situatie bekijken voor u iets huurt. Wij meten, rekenen het pakket uit en
-              leveren binnen 24 uur. En als drogen niet het antwoord is, zeggen we dat ook.
-            </p>
-            <div className="mb-cta">
-              <Link className="btn btn-white" to="/verhuur/calculator">
-                Bereken uw droogpakket
-                <ArrowRightIcon />
-              </Link>
-              <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
-                <PhoneIcon /> {CONTACT.phoneLocal}
-              </a>
-            </div>
+    {/* ================= VERDER LEZEN + SLOT-CTA =================
+      Eén witte sectie onder de vragen, geen twee.
+
+      De leeskaarten stonden boven de FAQ en de slotplaat eronder: twee witte
+      stroken met de rode vragen ertussen, en allebei met hun eigen lucht
+      erboven. Wie de vragen uit had, kreeg eerst een lege strook en dan pas
+      het aanbod. Nu staan ze samen, in de volgorde waarin ze gelezen worden:
+      eerst waar u verder kunt lezen, dan wat u kunt doen. De rode kop "Verder
+      lezen" valt daarbij weg — de sectie gaat niet meer over één ding.
+    */}
+    <VerderLezen
+      titel="Verder lezen over vochtige kelders"
+      groepen={verderLezen}
+      kicker={null}
+    >
+      <div className="manband">
+        <div className="mb-t">
+          <span className="mbk">Pak het nu aan</span>
+          <h3>Hoe langer het vocht er zit, hoe meer er droog gemaakt moet worden.</h3>
+          <p>
+            Laat uw situatie bekijken voor u iets huurt. Wij meten, rekenen het pakket uit en
+            leveren binnen 24 uur. En als drogen niet het antwoord is, zeggen we dat ook.
+          </p>
+          <div className="mb-cta">
+            <Link className="btn btn-white" to="/verhuur/calculator">
+              Bereken uw droogpakket
+              <ArrowRightIcon />
+            </Link>
+            <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
+              <PhoneIcon /> {CONTACT.phoneLocal}
+            </a>
           </div>
-          <img
-            className="mb-man"
-            src="/vernast/man-vochtmeter.webp"
-            alt="Vernast specialist meet het vochtgehalte van een muur"
-            width={600}
-            height={900}
-            loading="lazy"
-            decoding="async"
-          />
         </div>
+        <img
+          className="mb-man"
+          src="/vernast/man-vochtmeter.webp"
+          alt="Vernast specialist meet het vochtgehalte van een muur"
+          width={600}
+          height={900}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
-    </section>
+    </VerderLezen>
 
     <ContactBlok
       kicker="Een vraag over uw kelder?"

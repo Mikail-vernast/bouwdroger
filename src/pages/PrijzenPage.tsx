@@ -103,7 +103,7 @@ const FAQ = [
       DROGERS[0].short
     } voert ${DROGERS[0].litersPerDay} liter vocht per 24 uur af, de ${
       DROGERS[DROGERS.length - 1].short
-    } tot ${DROGERS[DROGERS.length - 1].litersPerDay} liter. Levering, installatie, vochtmeting en ophaling zitten in die prijs.`,
+    } tot ${DROGERS[DROGERS.length - 1].litersPerDay} liter. Dit zijn de huurprijzen van losse toestellen. Bij een berekend droogpakket zijn ook levering, installatie, vochtmetingen en ophaling inbegrepen.`,
   },
   {
     question: "Moet ik een waarborg betalen?",
@@ -142,9 +142,15 @@ const FAQ = [
     answer:
       "Ja. Loopt de werf uit of is de meting nog niet goed, dan verlengt u per week tegen dezelfde dagprijs; u krijgt daarvoor een link per mail en hoeft niets te bellen. Huurt u een berekend droogpakket en is het ondanks correcte droogomstandigheden nog niet droog, dan verlengt u kosteloos, dat is de drooggarantie.",
   },
+  {
+    question: "Wanneer is de Drooggarantie inbegrepen?",
+    answer:
+      "De Drooggarantie is inbegrepen bij een droogpakket dat Vernast voor uw situatie berekent, levert en installeert. Wij meten bij de start en bij de oplevering. Is het materiaal ondanks correcte droogomstandigheden niet droog binnen de berekende periode, dan huurt u de toestellen kosteloos verder. De garantie geldt niet voor losse toestellen die u zelf afhaalt of plaatst.",
+  },
 ];
 
 const inbegrepen = [
+  "100 % Drooggarantie op berekende droogpakketten",
   "Levering aan huis door een technieker",
   "Ophaling na gebruik",
   "Gratis verlengsnoer 10 m, 2,5 mm²",
@@ -203,7 +209,7 @@ const PrijzenPage = () => (
         serviceSchema({
           name: "Verhuur van bouwdrogers, ventilatoren en bouwkachels",
           description:
-            "Een dagprijs per toestel, zonder waarborg en zonder verborgen kosten, met korting bij langere huurperiodes. Levering, installatie en vochtmeting inbegrepen.",
+            "Transparante huurprijzen per dag, week en droogpakket, zonder waarborg. Berekende droogpakketten met levering en installatie zijn inclusief vochtmetingen en Drooggarantie.",
           path: "/prijzen",
           serviceType: "Verhuur bouwdrogers",
         }),
@@ -234,11 +240,11 @@ const PrijzenPage = () => (
         <div className="wrap hero-grid">
           <div className="hero-copy">
             <span className="kick">Tarieven</span>
-            <h1>Bouwdroger huren: prijzen per dag, per week en per pakket.</h1>
+            <h1>Bouwdroger huren: prijzen mét Drooggarantie.</h1>
             <p>
-              Geen waarborg, geen toeslag voor een korte periode, geen kosten die pas op de
-              factuur verschijnen. Eén dagprijs per toestel, en voor een volledige woning een
-              pakketprijs die de calculator uitrekent op uw oppervlakte.
+              Bekijk de huurprijs per dag of per week, of bereken een compleet droogpakket voor uw
+              werf. Geen waarborg en geen verborgen kosten. Kiest u voor een pakket dat wij
+              berekenen, leveren en installeren? Dan is onze 100 % Drooggarantie inbegrepen.
             </p>
             <div className="hcta">
               <Link className="btn btn-white" to="/verhuur/calculator">
@@ -268,8 +274,8 @@ const PrijzenPage = () => (
             <div className="fbadge" style={{ top: "11%", right: "-14%", left: "auto", zIndex: 0 }}>
               <span className="ic"><TagIcon size={15} /></span>
               <div>
-                Vanaf {euro(DROGERS[0].perDay)}/dag
-                <small>levering en vochtmeting inbegrepen</small>
+                100 % Drooggarantie
+                <small>bij berekende pakketten met plaatsing</small>
               </div>
             </div>
           </div>
@@ -289,11 +295,12 @@ const PrijzenPage = () => (
       <div className="wrap">
         <div className="sec-head">
           <span className="kick">Eerst dit</span>
-          <h2 className="sec">Een pakket of een los toestel?</h2>
+          <h2 className="sec">Drooggarantie of alleen een toestel huren?</h2>
           <p className="lede">
-            U kunt bij ons allebei huren. Het verschil zit niet alleen in de prijs: alleen op een
-            droogpakket dat wij berekenen, leveren en installeren geldt onze drooggarantie. Bij een
-            los toestel dat u zelf plaatst, kunnen wij het resultaat niet beloven.
+            U kunt bij ons allebei. Een los toestel heeft een eenvoudige dagprijs en plaatst u
+            zelf. Met een droogpakket koopt u meer zekerheid: wij berekenen de capaciteit en
+            droogtijd, plaatsen de toestellen en meten het resultaat. Daarom geldt alleen op dat
+            volledige pakket onze Drooggarantie.
           </p>
         </div>
         <div className="keuze2">
@@ -597,11 +604,11 @@ const PrijzenPage = () => (
     <section className="sw">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Altijd inbegrepen</span>
-          <h2 className="sec">Wat er zonder meerprijs bij zit.</h2>
+          <span className="kick">Inbegrepen bij een droogpakket</span>
+          <h2 className="sec">Niet alleen toestellen, maar zekerheid.</h2>
           <p className="lede">
-            Dit staat niet als optie in de checkout en verschijnt niet apart op de factuur. Het
-            hoort bij de huur van een droogpakket.
+            De pakketprijs omvat de volledige begeleiding van start tot oplevering. Deze diensten
+            staan niet als losse opties in de checkout en verschijnen niet onverwacht op de factuur.
           </p>
         </div>
         <div className="vinkjes" style={{ marginBottom: "44px" }}>
@@ -697,7 +704,8 @@ const PrijzenPage = () => (
           <h3>Geen waarborg, geen verborgen kosten, levering binnen 24 uur.</h3>
           <p>
             De calculator geeft u in een paar klikken de volledige prijs voor uw oppervlakte,
-            met {PROCENT_ONLINE} % korting als u meteen online betaalt.
+            inclusief Drooggarantie op een berekend pakket. U krijgt {PROCENT_ONLINE} % korting als
+            u meteen online betaalt.
           </p>
           <div className="mb-cta">
             <Link className="btn btn-white" to="/verhuur/calculator">
@@ -721,7 +729,14 @@ const PrijzenPage = () => (
       </div>
     </FaqBlok>
 
-    <VerderLezen titel="Verder lezen over prijzen en pakketten" groepen={verderLezen} achtergrond="sr" />
+    {/*
+      Verder lezen staat hier in het wit en niet in het rood: samen met het
+      rode contactformulier eronder was dit anders één rood vlak van bijna twee
+      schermen hoog, met witte kaarten als enige contrast. De kaarten houden
+      hun scheiding via `--bg-alt` (#F4F4F4) — dat zet `.sw .vlcard` al. Het
+      formulier eronder blijft wél rood, zodat de pagina op rood eindigt.
+    */}
+    <VerderLezen titel="Verder lezen over prijzen en pakketten" groepen={verderLezen} />
 
     <ContactBlok
       kicker="Een vraag over de prijs?"

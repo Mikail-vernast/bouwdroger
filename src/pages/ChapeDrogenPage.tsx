@@ -411,11 +411,11 @@ const ChapeDrogenPage = () => (
         </div>
         <div className="split-vis">
           <img
-            className="framed"
-            src="/vernast/man-vochtmeter.webp"
-            alt="Vernast technicus meet het restvocht van een chape"
-            width={700}
-            height={700}
+            className="chape-vloerderfoto"
+            src="/vernast/chape-vloerder-tegelen.webp"
+            alt="Vloerder plaatst de eerste tegels op een droge chape in een nieuwbouwwoning"
+            width={1448}
+            height={1086}
             loading="lazy"
             decoding="async"
           />

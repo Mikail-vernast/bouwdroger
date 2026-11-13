@@ -45,7 +45,7 @@ export const CONTACT = {
    * plek apart overgetypt.
    */
   phoneLocal: "03 689 90 65",
-  email: "info@vernast-verhuur.be",
+  email: "info@vernast-bouwdrogers.be",
   street: "Boomsesteenweg 12, Unit 11",
   postalCode: "2630",
   city: "Aartselaar",
@@ -64,6 +64,23 @@ export const CONTACT = {
   latitude: 51.13598,
   longitude: 4.37512,
 } as const;
+
+
+/**
+ * Het magazijn op Google Maps.
+ *
+ * Op het adres zoeken en niet op de coördinaten: Maps toont dan het gebouw met
+ * zijn straatnaam in plaats van een naamloze speld midden op de Boomsesteenweg.
+ * Deze URL stond letter voor letter overgetypt op /contact, /afhalen en de
+ * toestelpagina; één adreswijziging raakte dus drie bestanden.
+ *
+ * De unit gaat er bewust af: "Unit 11" is een deur binnen het gebouw en komt in
+ * het adresbestand van Maps niet voor — mét die toevoeging valt de zoekopdracht
+ * terug op een resultatenlijst in plaats van op het pand.
+ */
+export const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `${CONTACT.street.split(",")[0]}, ${CONTACT.postalCode} ${CONTACT.city}`,
+)}`;
 
 
 /**

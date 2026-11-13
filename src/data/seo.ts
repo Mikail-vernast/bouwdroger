@@ -76,9 +76,9 @@ export const SEO = {
       "Bekijk alle toestellen die u bij ons huurt: condensontvochtigers van 50 tot 90 l per dag, axiaal- en radiaalventilatoren en elektrische bouwkachels.",
   },
   prijzen: {
-    title: "Bouwdroger huren: prijs per dag en per week | Vernast",
+    title: "Bouwdroger huren: prijzen en Drooggarantie | Vernast",
     description:
-      "Eén dagprijs, alles inbegrepen, geen waarborg. Bekijk de huurprijs per dag en per week, per toestel en per droogpakket, met korting bij langere huur.",
+      "Bekijk de prijs van een bouwdroger per dag, week of droogpakket. Geen waarborg en 100% Drooggarantie op berekende pakketten met plaatsing.",
   },
 
   /* ---------- Service ---------- */

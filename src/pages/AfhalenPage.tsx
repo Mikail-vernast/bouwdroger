@@ -4,6 +4,7 @@ import { useAanvraag } from "@/hooks/useAanvraag";
 import V3Footer from "@/components/home-v3/V3Footer";
 import V3Header from "@/components/home-v3/V3Header";
 import { SEO } from "@/data/seo";
+import { MAPS_URL } from "@/lib/site";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 /*
  * contact-fixes.css hoort hierbij, niet alleen bij /contact: de pagina draagt
@@ -392,7 +393,7 @@ const AfhalenPage = () => {
           ))}
         </div>
         <div className="af-location-actions">
-          <a className="btn" href="https://www.google.com/maps/search/?api=1&query=Boomsesteenweg+12+2630+Aartselaar" target="_blank" rel="noopener noreferrer">Open in Google Maps <Arrow /></a>
+          <a className="btn" href={MAPS_URL} target="_blank" rel="noopener noreferrer">Open in Google Maps <Arrow /></a>
           <a className="af-text-link" href="/contact">Bekijk alle contactgegevens</a>
         </div>
       </div>
@@ -419,7 +420,7 @@ const AfhalenPage = () => {
               <a className="afh-call" href="tel:+3236899065">
                 Bel 03 689 90 65
               </a>
-              <a className="afh-mail" href="mailto:info@vernast-verhuur.be">
+              <a className="afh-mail" href="mailto:info@vernast-bouwdrogers.be">
                 Mail uw vraag
               </a>
             </div>

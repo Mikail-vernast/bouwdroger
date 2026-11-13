@@ -41,7 +41,7 @@ const BESTELLEN: NavLinkItem[] = [
   { label: "Losse toestellen afhalen", path: "/verhuur/afhalen" },
   { label: "Levering en installatie", path: "/levering" },
   { label: "Zelf afhalen in Aartselaar", path: "/afhalen" },
-  { label: "Prijzen en voorwaarden", path: "/prijzen" },
+  { label: "Prijzen", path: "/prijzen" },
 ];
 
 const JURIDISCH: NavLinkItem[] = [

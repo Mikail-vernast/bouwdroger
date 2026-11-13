@@ -17,6 +17,7 @@ import {
   type Product,
 } from "@/data/verhuur";
 import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
+import { MAPS_URL } from "@/lib/site";
 import { serializeSelection } from "@/lib/afhalen";
 import { firstFreeDate, usePickupAvailability } from "@/hooks/usePickupAvailability";
 import { addDays, euroInt, isoDate } from "@/lib/verhuur";
@@ -551,7 +552,7 @@ const VerhuurToestelPage = () => {
             </div>
             <a
               className="btn"
-              href="https://www.google.com/maps/search/?api=1&query=Boomsesteenweg+12+2630+Aartselaar"
+              href={MAPS_URL}
               target="_blank"
               rel="noopener"
             >

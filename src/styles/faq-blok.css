@@ -99,10 +99,16 @@
   font-weight: 600; font-size: 14px; padding: 13px 18px; border-radius: 99px;
   text-decoration: none; transition: transform .16s, border-color .16s, background .16s;
 }
-.fq-bel { background: #fff; color: var(--maroon, #6B0F13) }
-.fq-bel:hover { color: var(--maroon, #6B0F13); transform: translateY(-2px) }
-.fq-stel { border: 1.5px solid rgba(255,255,255,.4); color: #fff }
-.fq-stel:hover { border-color: #fff; color: #fff; transform: translateY(-2px) }
+/* Twee klassen diep, en dat is hier geen stijlkwestie maar noodzaak:
+   `.v3c a{color:var(--red)}` uit v3-content.css weegt (0,1,1) en won van een
+   losse `.fq-bel` (0,1,0). Op élke inhoudspagina stonden beide knoppen daardoor
+   in het rood — rood op een donkerrode kaart, en "Stel uw vraag online" was
+   zo goed als onleesbaar. De kaart is donkerrood, dus de knoppen zijn wit en
+   zwart: een wit pilletje met zwarte tekst, en een omlijnde knop in het wit. */
+.fq .fq-bel { background: #fff; color: var(--txt, #141414) }
+.fq .fq-bel:hover { color: var(--txt, #141414); transform: translateY(-2px) }
+.fq .fq-stel { border: 1.5px solid rgba(255,255,255,.4); color: #fff }
+.fq .fq-stel:hover { border-color: #fff; color: #fff; transform: translateY(-2px) }
 
 .fq.rood .fq-help { background: #fff }
 .fq.rood .fq-help::before { background: rgba(200,16,46,.045) }

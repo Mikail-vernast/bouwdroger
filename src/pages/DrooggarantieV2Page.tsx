@@ -289,7 +289,7 @@ const DrooggarantieV2Page = () => (
             <p>Nog een vraag over uw werf? Onze droogspecialisten bekijken uw situatie graag met u.</p>
             <div className="dgv2-contact-links">
               <a href="tel:+3236899065"><Phone size={16} /> 03 689 90 65</a>
-              <a href="mailto:info@vernast-verhuur.be"><Mail size={16} /> Stuur een e-mail</a>
+              <a href="mailto:info@vernast-bouwdrogers.be"><Mail size={16} /> Stuur een e-mail</a>
             </div>
           </div>
 

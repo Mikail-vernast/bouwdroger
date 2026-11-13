@@ -81,7 +81,7 @@ const SAMENVATTING: Record<string, string> = {
 
   /* Prijzen & service */
   "/prijzen":
-    "Eén dagprijs per toestel, zonder waarborg en zonder verborgen kosten, met korting bij langere periodes. Inclusief de tarieven per pakket en de voorwaarden in gewone taal.",
+    "Eén dagprijs per toestel, zonder waarborg en zonder verborgen kosten. Inclusief pakketprijzen, Drooggarantie en alle voorwaarden in gewone taal.",
   "/levering":
     "Binnen 24 uur geleverd, geplaatst en ingesteld door onze technieker, met een vochtmeting bij de start. Wat er inbegrepen zit, wat de condenspomp doet en hoe het ophalen verloopt.",
   "/afhalen":

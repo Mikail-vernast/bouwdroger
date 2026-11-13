@@ -17,7 +17,7 @@ import "@/styles/error-page.css";
 
 const PHONE = "+3236899065";
 const PHONE_LABEL = "03 689 90 65";
-const MAIL = "info@vernast-verhuur.be";
+const MAIL = "info@vernast-bouwdrogers.be";
 
 interface ErrorCopy {
   code: string;

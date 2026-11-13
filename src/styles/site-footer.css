@@ -174,6 +174,21 @@ footer.site .ft-pin span{
 }
 footer.site .ft-pin:hover span{opacity:1}
 
+/*
+  De regiolijst onder de kaart. Ze stond onder de sitemapkolom; daar liep ze
+  door tot ver onder de kaart, die zelf zo'n 300 px leegte achterliet.
+
+  De kop staat dichter op zijn lijst dan de kolomkoppen hierboven (20 px): de
+  uitgedoofde onderkant van de kaart doet hier al het werk van een scheiding.
+  De links mogen over twee regels lopen — "Bouwdroger huren in Oost-Vlaanderen"
+  past niet op 250 px — vandaar de kleinere regelafstand en de ruimere gap dan
+  de `ul` hierboven, zodat je nog ziet waar de ene link eindigt.
+*/
+footer.site .ft-regios{margin-top:22px}
+footer.site .ft-regios h2{margin-bottom:16px}
+footer.site .ft-regios ul{gap:11px}
+footer.site .ft-regios ul a{line-height:1.35;display:inline-block}
+
 /* ── Feitenbalk ─────────────────────────────────────────────────────── */
 footer.site .ft-feiten{
   display:grid;
@@ -196,6 +211,20 @@ footer.site .ft-feiten dt{
 footer.site .ft-feiten dd{margin:0;font-size:13.5px;line-height:1.68;color:rgba(255,255,255,.76)}
 footer.site .ft-prov{display:flex;flex-direction:column;gap:7px}
 footer.site .ft-prov a{font-size:13.5px;color:rgba(255,255,255,.76)}
+/*
+  Het adres gaat naar Google Maps en moet er ook naar uitzien: de kolommen
+  ernaast dragen allemaal links, dus een adres in dezelfde kleur zonder enig
+  teken van klikbaarheid leest als platte tekst. Streep onder de regels, niet
+  om het hele blok — bij twee regels is dat één kader te veel.
+*/
+footer.site .ft-adres{
+  display:inline-block;
+  text-decoration:underline;
+  text-decoration-color:rgba(255,255,255,.26);
+  text-decoration-thickness:1px;
+  text-underline-offset:3px;
+}
+footer.site .ft-adres:hover{text-decoration-color:rgba(255,255,255,.7)}
 
 footer.site .fb{
   border-top:1px solid rgba(255,255,255,.1);
@@ -225,6 +254,15 @@ footer.site .fb a{color:rgba(255,255,255,.58)}
   `grep -rn "\.naam[ ,{:.>]" src/styles/*.css | grep -v site-footer`
 */
 footer.site .fb .ft-legal{display:flex;gap:24px;flex-wrap:wrap}
+/*
+  De onderbalk staat op `space-between` met nu drie kinderen; zonder deze regel
+  duwt de credit de juridische links naar het midden en gaat de rechterkant van
+  de voet niet meer gelijk met de kolom erboven. De credit neemt de ruimte die
+  overblijft en blijft gecentreerd tussen de twee uitersten.
+*/
+footer.site .fb .ft-credit{flex:1 1 auto;text-align:center}
+footer.site .fb .ft-credit a{border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:1px}
+footer.site .fb .ft-credit a:hover{border-color:rgba(255,255,255,.6)}
 
 @media (max-width:1040px){
   footer.site .fg{grid-template-columns:1fr 1fr;gap:36px}
@@ -241,6 +279,9 @@ footer.site .fb .ft-legal{display:flex;gap:24px;flex-wrap:wrap}
   footer.site .ft-feiten > div:first-child{border-top:0}
   footer.site .ft-kaartkolom{max-width:240px}
   footer.site .fb{flex-direction:column;gap:14px}
+  /* Gestapeld hoort alles links; een gecentreerde regel tussen twee
+     linksuitgelijnde staat er los van. */
+  footer.site .fb .ft-credit{text-align:left}
 }
 
 /*

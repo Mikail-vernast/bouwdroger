@@ -93,7 +93,7 @@ describe.each(PAGINAS)("formulier op $pad", ({ pad, Pagina, source, tekstveld })
     const alert = await screen.findByRole("alert");
     expect(alert).toHaveTextContent("Verzenden lukte niet.");
     const link = alert.querySelector("a");
-    expect(link?.getAttribute("href")).toMatch(/^mailto:info@vernast-verhuur\.be\?subject=/);
+    expect(link?.getAttribute("href")).toMatch(/^mailto:info@vernast-bouwdrogers\.be\?subject=/);
     expect(decodeURIComponent(link?.getAttribute("href") ?? "")).toContain("Mijn toestel lekt.");
   });
 });

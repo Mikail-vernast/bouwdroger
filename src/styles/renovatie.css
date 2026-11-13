@@ -15,11 +15,26 @@
    ============================================================ */
 
 /* ---- de twee kolommen van de oorzakensectie ----
-   De tekening blijft staan terwijl de lijst ernaast doorscrollt: wie bij
-   oorzaak vier leest, ziet nog steeds waar in de muur dat zit. */
-.v3c.rn-page .vbron-kolom { position: sticky; top: 118px; align-self: start }
-@media (max-width: 1040px) {
-  .v3c.rn-page .vbron-kolom { position: static }
+   De tekening rekt mee met de lijst ernaast.
+
+   Ze stond op `sticky` met een vaste verhouding van 1.12:1, en was daardoor
+   540 px hoog naast een lijst van 808: ruim 200 px wit onder de doorsnede, en
+   oorzaak 5 uit de lijst had er niets meer naast staan. Terwijl de hele
+   bedoeling van die tekening is dat nummer 5 erin te vinden is zolang je
+   nummer 5 leest. De kolom strekt nu over de volle rijhoogte en de tekening
+   groeit mee; de verhouding laat ze daarbij los, want alles erin is in
+   procenten van het kader geplaatst en schaalt dus gewoon mee.
+
+   Daarmee vervalt ook de reden voor `sticky`: er scrollt niets meer weg
+   onder de lijst. `min-height` is de ondergrens voor als de lijst ooit korter
+   wordt dan de tekening breed is. */
+@media (min-width: 1041px) {
+  .v3c.rn-page .vbron-kolom {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+  }
+  .v3c.rn-page .vbron { flex: 1 1 auto; aspect-ratio: auto; min-height: 520px }
 }
 
 /* ---- de doorsnede zelf ----
