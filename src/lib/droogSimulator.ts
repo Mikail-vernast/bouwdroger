@@ -241,6 +241,8 @@ export interface SimResultaat {
   luchtverzet: number;
   /** the chosen tempo is faster than the material allows: this is the fastest possible */
   teSnel: boolean;
+  /** litres of water that leave the house */
+  water: number;
 }
 
 /**
@@ -277,6 +279,7 @@ export function simResultaat(a: SimAnswers): SimResultaat | null {
     capaciteit: t.capaciteit,
     luchtverzet: totalAirflow(items),
     teSnel: t.teSnel,
+    water: t.water,
   };
 }
 

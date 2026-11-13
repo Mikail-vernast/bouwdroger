@@ -3,6 +3,7 @@ import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import {
   BoxGeometry,
   type BufferGeometry,
+  Color,
   DirectionalLight,
   EdgesGeometry,
   type Group,
@@ -27,7 +28,7 @@ import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { inrichtingsMuur, richIn } from "./inrichting";
 import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
-import { aankomst, type Film } from "../film";
+import { aankomst, droogVoortgang, filmTijd, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { TEXTUUR } from "./bestanden";
@@ -205,10 +206,12 @@ interface Bouwers {
 interface Woningplan {
   woning: Woning; lagen: number; act: number; dak: Dak;
   kamers: Kamer[]; openingen: Opening[]; trappen: Trap[];
+  /** only the active floor, opened up, without the floors around it or the roof */
+  alleen?: boolean;
 }
 
 function bouw(p: Woningplan) {
-  const { woning, lagen, act, dak, kamers, openingen, trappen } = p;
+  const { woning, lagen, act, dak, kamers, openingen, trappen, alleen = false } = p;
   const { w, l, buren } = WONING[woning];
   const B: Bouwers = { vast: new Bouwer(), boven: new Bouwer(), dak: new Bouwer(), gevel: new Bouwer(), binnen: new Bouwer(), bladen: new Bouwer() };
 
@@ -491,7 +494,8 @@ function bouw(p: Woningplan) {
         echteTrap(t, yf, true);
       } else {
         // Trapgat: de trap van de laag eronder loopt zichtbaar naar beneden.
-        echteTrap(t, yf - FH, false);
+        // Uit elkaar getrokken zou hij in de lucht tussen twee lagen hangen.
+        if (!alleen) echteTrap(t, yf - FH, false);
         const spijlen = Math.max(3, Math.round(t.w / 0.5));
         B.vast.blok("leuning", t.x, t.x + t.w, yf + 0.86, yf + 0.92, t.z + t.l - 0.05, t.z + t.l);
         for (let i = 0; i <= spijlen; i++) {
@@ -504,6 +508,11 @@ function bouw(p: Woningplan) {
   };
 
   const heeftKamers = (v: number) => kamers.some((k) => k.verdieping === v);
+  if (alleen) {
+    if (heeftKamers(act)) actieveLaag(act);
+    else geslotenLaag(B.vast, act);
+    return B;
+  }
   for (let v = 0; v < lagen; v++) {
     if (v < act) geslotenLaag(B.vast, v);
     else if (v === act) {
@@ -681,7 +690,7 @@ function kader(w: number, l: number, y0: number, y1: number, pad: number): Kader
 interface SceneProps extends IsoHouseProps { anim: MutableRefObject<Anim>; labels: MutableRefObject<(HTMLDivElement | null)[]>; reduced: boolean; onKlaar?: () => void }
 
 function Scene(props: SceneProps) {
-  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, cyclus = 10, anim, labels, reduced } = props;
+  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, cyclus = 10, anim, labels, reduced, uiteen = false, voorsprong = 0 } = props;
   const materiaal = props.materiaal ?? STANDAARD_MATERIAAL;
   const { w, l, buren } = WONING[woning];
   const lagen = Math.max(1, verdiepingen);
@@ -693,6 +702,9 @@ function Scene(props: SceneProps) {
 
   const tex = useLoader(TextureLoader, URLS);
   const texturen = useMemo(() => Object.fromEntries(TEGEL_NAMEN.map((n, i) => [n, tex[i]])) as Record<TegelNaam, Texture>, [tex]);
+
+  // Filmklok: begint opnieuw bij elke verdieping (en elk nieuw pakket); zie onder.
+  const film = useRef<Film>({ start: -1, vast: reduced, voorsprong });
 
   // Snijvlakken van de actieve laag: onderhelft houden, bovenhelft houden.
   const snij = useMemo(() => ({ onder: new Plane(new Vector3(0, -1, 0), 0), boven: new Plane(new Vector3(0, 1, 0), 0) }), []);
@@ -860,7 +872,23 @@ function Scene(props: SceneProps) {
   // actieve laag: de binnenwanden en de inrichting groeien uit de vloer.
   // Een ander woningtype wisselt meteen, zonder animatie: daar vergelijk je
   // types naast elkaar, en een huis dat telkens opnieuw opbouwt staat in de weg.
-  const groei = useRef({ bouw: tween(1), wand: tween(1), vanLagen: lagen, nieuwDak: false, vanKader: dicht, kaderNu: dicht });
+  const groei = useRef({ bouw: tween(1), wand: tween(1), vanLagen: lagen, nieuwDak: false, vanKader: dicht, kaderNu: dicht, modus: tween(1), vanCam: dicht, camNu: dicht });
+  // Switching between the stack and a single floor: the camera glides from where it was.
+  const vorigUiteen = useRef(uiteen);
+  useLayoutEffect(() => {
+    if (vorigUiteen.current === uiteen) return;
+    vorigUiteen.current = uiteen;
+    const G = groei.current;
+    G.vanCam = G.camNu;
+    herstart(G.modus, reduced);
+  }, [uiteen, reduced]);
+
+  // Drying you can see: walls and floor start dark and wet and lighten as the
+  // day counter runs, on the same film clock. Only where this phase is wet.
+  const droogKleur = useMemo(() => {
+    const muur = new Color(materiaal.muur), vloer = new Color(materiaal.vloer);
+    return { muur, vloer, tmp: new Color() };
+  }, [materiaal.muur, materiaal.vloer]);
   const vorige = useRef({ lagen, dak, woning, binnen: geo.binnen });
   useLayoutEffect(() => {
     const p = vorige.current, G = groei.current;
@@ -904,7 +932,20 @@ function Scene(props: SceneProps) {
     const dk = b < 1 ? { cx: d0.cx + (dicht.cx - d0.cx) * b, cy: d0.cy + (dicht.cy - d0.cy) * b, ex: d0.ex + (dicht.ex - d0.ex) * b, ey: d0.ey + (dicht.ey - d0.ey) * b } : dicht;
     G.kaderNu = dk;
     const opn = kader(w, l, 0, camA * FH + SLAB + H + 0.4, 1.3);
-    const k = { cx: dk.cx + (opn.cx - dk.cx) * camT, cy: dk.cy + (opn.cy - dk.cy) * camT, ex: dk.ex + (opn.ex - dk.ex) * camT, ey: dk.ey + (opn.ey - dk.ey) * camT };
+    const enkel = { cx: dk.cx + (opn.cx - dk.cx) * camT, cy: dk.cy + (opn.cy - dk.cy) * camT, ex: dk.ex + (opn.ex - dk.ex) * camT, ey: dk.ey + (opn.ey - dk.ey) * camT };
+    const doelK = uiteen ? kader(w, l, 0, (lagen - 1) * (FH + GAP) + SLAB + H + 0.4, 1.1) : enkel;
+    const mo = stap(G.modus, DUUR * 1.4);
+    const vc = G.vanCam;
+    const k = mo < 1 ? { cx: vc.cx + (doelK.cx - vc.cx) * mo, cy: vc.cy + (doelK.cy - vc.cy) * mo, ex: vc.ex + (doelK.ex - vc.ex) * mo, ey: vc.ey + (doelK.ey - vc.ey) * mo } : doelK;
+    G.camNu = k;
+
+    // Walls and floor dry along with the film.
+    const droog = werkend && !reduced ? droogVoortgang(filmTijd(film.current, cyclus), cyclus) : 1;
+    const nat = (1 - droog) * Math.min(1, materiaal.vocht);
+    for (const set of Object.values(sets)) {
+      if (materiaal.muurNat) set.get("pleister")!.color.copy(droogKleur.muur).multiplyScalar(1 - 0.45 * nat);
+      if (materiaal.vloerNat) set.get("vloer")!.color.copy(droogKleur.vloer).multiplyScalar(1 - 0.4 * nat);
+    }
     const cam = camera as OrthographicCamera;
     const doel = v.copy(RECHTS).multiplyScalar(k.cx).addScaledVector(OP, k.cy);
     cam.position.copy(doel).addScaledVector(KIJK, 60);
@@ -963,10 +1004,10 @@ function Scene(props: SceneProps) {
       v.copy(p).project(cam);
       const x = ((v.x + 1) / 2) * size.width, y = ((1 - v.y) / 2) * size.height;
       el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%)`;
-      el.style.opacity = String(o * wg);
+      el.style.opacity = uiteen ? "0" : String(o * wg);
     });
 
-    const beweegt = [A.o, A.cam, A.act, G.bouw, G.wand].some((tw) => tw.start < 0 || tw.nu !== tw.naar);
+    const beweegt = [A.o, A.cam, A.act, G.bouw, G.wand, G.modus].some((tw) => tw.start < 0 || tw.nu !== tw.naar);
     if (beweegt || frames.current < 3) volgende();
   });
 
@@ -981,11 +1022,10 @@ function Scene(props: SceneProps) {
     const volgorde = plaatsingen.filter((p) => actKamers.some((k) => k.id === p.kamer)).sort((a, b) => plek(a) - plek(b));
     return volgorde.map((p, i) => ({ ...p, a: aankomst(i, volgorde.length) }));
   }, [plaatsingen, actKamers]);
-  // Filmklok: begint opnieuw bij elke verdieping (en elk nieuw pakket).
-  const film = useRef<Film>({ start: -1, vast: reduced });
   useLayoutEffect(() => {
-    film.current = { start: -1, vast: reduced };
-  }, [act, werkend, laagPlaatsingen, reduced]);
+    film.current = { start: -1, vast: reduced, voorsprong };
+    // voorsprong only counts for the film it was given with
+  }, [act, werkend, laagPlaatsingen, reduced, uiteen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -999,6 +1039,20 @@ function Scene(props: SceneProps) {
         <shadowMaterial opacity={0.16} color="#5a3a2a" />
       </mesh>
 
+      {uiteen && (
+        <Uiteen
+          plan={{ woning, lagen, act: 0, dak, kamers, openingen, trappen }}
+          sets={sets}
+          plaatsingen={plaatsingen}
+          werkend={werkend}
+          droogt={werkend && !reduced}
+          vocht={materiaal.vocht}
+          inrichtingIn={inrichtingIn}
+          film={film}
+          cyclus={cyclus}
+        />
+      )}
+      {!uiteen && <>
       {spook.delen.map((d, i) => (
         <group key={i}>
           <mesh geometry={d.box} material={spook.vlak} />
@@ -1042,6 +1096,107 @@ function Scene(props: SceneProps) {
           {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} film={film} cyclus={cyclus} />}
         </>
       )}
+      </>}
+    </>
+  );
+}
+
+/* ─────────────────────────── uit elkaar getrokken ─────────────────────────── */
+
+/** Air between two floors in the pulled-apart stack. */
+const GAP = 3.6;
+
+/**
+ * Every floor opened up at once, stacked with air in between, like an exploded
+ * drawing. Each floor is the same open floor as in the single view (cut at
+ * 1.10 m, inner walls lowered, fittings in), with its own cutting plane; the
+ * devices of all floors drop in one sequence, from the ground floor up.
+ */
+function Uiteen({ plan, sets, plaatsingen, werkend, droogt, vocht, inrichtingIn, film, cyclus }: {
+  plan: Woningplan; sets: Record<"vast" | "vaag" | "onder" | "boven", MatSet>; plaatsingen: NonNullable<IsoHouseProps["plaatsingen"]>;
+  werkend: boolean; droogt: boolean; vocht: number; inrichtingIn: boolean; film: MutableRefObject<Film>; cyclus: number;
+}) {
+  const { woning, lagen, dak, kamers, openingen, trappen } = plan;
+  const { w, l } = WONING[woning];
+  const lagenData = useMemo(() => Array.from({ length: lagen }, (_, v) => {
+    const B = bouw({ woning, lagen, act: v, dak, kamers, openingen, trappen, alleen: true });
+    const laag = kamers.filter((k) => k.verdieping === v);
+    const inr = new Bouwer();
+    if (laag.length) richIn(inr, laag, openingen, v * FH + SLAB, { w, l });
+    const snede = v * FH + SLAB + HC + v * GAP;
+    return {
+      v, laag, yf: v * FH + SLAB,
+      vast: B.vast.bouw(), gevel: B.gevel.bouw(), binnen: B.binnen.bouw(), bladen: B.bladen.bouw(), inrichting: inr.bouw(),
+      vlak: new Plane(new Vector3(0, -1, 0), snede),
+    };
+  }), [woning, lagen, dak, kamers, openingen, trappen, w, l]);
+  useEffect(() => () => {
+    for (const d of lagenData) for (const m of [d.vast, d.gevel, d.binnen, d.bladen, d.inrichting]) for (const g of m.values()) g.dispose();
+  }, [lagenData]);
+
+  // A cut per floor needs its own material set; it follows the shared set each
+  // frame (phase textures, the drying colour) so nothing has to be rebuilt.
+  const snijSets = useMemo(() => lagenData.map((d) => afgeleid(sets.vast, (m) => { m.clippingPlanes = [d.vlak]; m.clipShadows = true; })), [lagenData, sets.vast]);
+  useEffect(() => () => { for (const s of snijSets) for (const m of s.values()) m.dispose(); }, [snijSets]);
+  useFrame(() => {
+    for (const s of snijSets) {
+      for (const [k, m] of s) {
+        const b = sets.vast.get(k)!;
+        m.color.copy(b.color);
+        m.roughness = b.roughness;
+        m.visible = b.visible;
+        if (m.map !== b.map || m.bumpMap !== b.bumpMap) { m.map = b.map; m.bumpMap = b.bumpMap; m.needsUpdate = true; }
+      }
+    }
+  });
+
+  // One sequence over the whole house: ground floor first, back to front per floor.
+  const perLaag = useMemo(() => {
+    const rij: (Geplaatst & { v: number })[] = [];
+    for (const d of lagenData) {
+      const plek = (p: (typeof plaatsingen)[number]) => {
+        const k = d.laag.find((kk) => kk.id === p.kamer)!;
+        return k.z + p.z + (k.x + p.x) * 0.3;
+      };
+      const hier = plaatsingen.filter((p) => d.laag.some((k) => k.id === p.kamer)).sort((a, b) => plek(a) - plek(b));
+      for (const p of hier) rij.push({ ...p, a: 0, v: d.v });
+    }
+    return rij.map((p, i) => ({ ...p, a: aankomst(i, rij.length) }));
+  }, [lagenData, plaatsingen]);
+
+  return (
+    <>
+      {lagenData.map((d, i) => {
+        const hier = perLaag.filter((p) => p.v === d.v);
+        return (
+          <group key={d.v} position={[0, d.v * GAP, 0]}>
+            <Meshes geos={d.vast} mats={sets.vast} />
+            <Meshes geos={d.gevel} mats={snijSets[i]} schaduw={false} />
+            <group position={[0, d.yf, 0]} scale={[1, HC / H, 1]}>
+              <Meshes geos={d.binnen} mats={sets.vast} schaduw={false} />
+            </group>
+            <group position={[0, d.yf, 0]} scale={[1, HC / 2.05, 1]}>
+              <Meshes geos={d.bladen} mats={sets.vast} schaduw={false} />
+            </group>
+            <group visible={inrichtingIn}>
+              <Meshes geos={d.inrichting} mats={sets.vast} />
+            </group>
+            {hier.map((p, j) => {
+              const k = d.laag.find((kk) => kk.id === p.kamer)!;
+              return (
+                <ToestelVangnet key={`${d.v}-${p.k}-${j}`} terugval={null}>
+                  <Suspense fallback={null}>
+                    <Toestel3D k={p.k} x={k.x + p.x} y={d.yf} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} cyclus={cyclus} />
+                  </Suspense>
+                </ToestelVangnet>
+              );
+            })}
+            {droogt && hier.length > 0 && <Luchtstroom3D kamers={d.laag} plaatsingen={hier} yf={d.yf} film={film} cyclus={cyclus} />}
+            {droogt && hier.length > 0 && <Druppels3D kamers={d.laag} plaatsingen={hier} yf={d.yf} vocht={vocht} film={film} cyclus={cyclus} />}
+          </group>
+        );
+      })}
+      <FilmStart film={film} />
     </>
   );
 }

@@ -48,7 +48,7 @@ export function stuit(p: number): number {
 }
 
 /** De filmklok van de actieve verdieping: `start` in ms (-1 = wacht op de eerste frame), `vast` = meteen het eindbeeld. */
-export interface Film { start: number; vast: boolean }
+export interface Film { start: number; vast: boolean; voorsprong?: number }
 
 /**
  * Seconden sinds de film van deze verdieping begon. Speelt één keer: na de

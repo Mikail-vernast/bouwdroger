@@ -7,7 +7,7 @@ import { materiaalVoor } from "@/components/simulator/materiaal";
 import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
 import { TEMPO, TEMPO_ORDER, type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
-import { FILM_START, droogVoortgang } from "@/components/simulator/film";
+import { FILM_START, PLAATSEN, droogVoortgang } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
 import {
   DAK_LABEL,
@@ -57,6 +57,16 @@ import "@/styles/droogsimulator.css";
 
 /** Eén droogcyclus in de animatie, in seconden. */
 const CYCLUS = 12;
+/**
+ * Three ways to show a house with more than one floor, side by side for now so
+ * they can be compared (?film=a|b|c, or the switch on the stage in dev):
+ *   a  the film tours the floors one by one, the house stays large
+ *   b  all floors open at once, pulled apart into a stack
+ *   c  b as a short overview, then the tour of a
+ */
+type FilmVariant = "a" | "b" | "c";
+/** Seconds the overview of variant c stays up: the devices land, then a short look. */
+const INTRO = PLAATSEN + 1.8;
 /** Vaste lege lijst: een nieuwe [] bij elke render zou de film telkens herstarten. */
 const GEEN_PLAATSINGEN: Plaatsing[] = [];
 
@@ -140,6 +150,15 @@ const VerhuurSimulatorPage = () => {
   const [filmKlaar, setFilmKlaar] = useState(false);
   /** Telt op bij "opnieuw afspelen", zodat de film van vooraf aan begint. */
   const [ronde, setRonde] = useState(0);
+  const [variant, setVariant] = useState<FilmVariant>("a");
+  const [toonSchakelaar, setToonSchakelaar] = useState(false);
+  useEffect(() => {
+    const v = new URLSearchParams(window.location.search).get("film");
+    if (v === "a" || v === "b" || v === "c") setVariant(v);
+    setToonSchakelaar(import.meta.env.DEV || v !== null);
+  }, []);
+  /** variant c: the pulled-apart overview is up */
+  const [intro, setIntro] = useState(false);
   /** the phase the visitor points at in stap 4; the film shows it before it is chosen */
   const [faseToon, setFaseToon] = useState<Fase | null>(null);
   // Stap 2: het huis gaat open zodra de bezoeker aan de indeling werkt, en
@@ -195,18 +214,20 @@ const VerhuurSimulatorPage = () => {
   // FILM_START na het laden van de modellen); zonder 3D vanaf nu. Kiest de
   // bezoeker zelf een verdieping, dan blijft die staan.
   useEffect(() => {
-    if (stap !== 4 || handmatig || filmKlaar || !resultaat) return;
+    if (stap !== 4 || handmatig || filmKlaar || !resultaat || intro) return;
     let id = 0;
-    const volgende = () => {
+    // The film may start with a head start (variant c): count from its real start.
+    const volgende = (e?: Event) => {
       window.clearTimeout(id);
+      const start = e ? (e as CustomEvent<number>).detail : performance.now();
       id = window.setTimeout(() => {
         const nu = Math.min(actief, lagen - 1);
-        if (nu + 1 < lagen) setActief(nu + 1);
+        if (nu + 1 < lagen && variant !== "b") setActief(nu + 1);
         else {
           setFilmKlaar(true);
           setActief(0);
         }
-      }, CYCLUS * 1000);
+      }, Math.max(0, CYCLUS * 1000 - (performance.now() - start)));
     };
     volgende();
     window.addEventListener(FILM_START, volgende);
@@ -214,7 +235,38 @@ const VerhuurSimulatorPage = () => {
       window.clearTimeout(id);
       window.removeEventListener(FILM_START, volgende);
     };
-  }, [stap, handmatig, filmKlaar, resultaat, actief, lagen, ronde]);
+  }, [stap, handmatig, filmKlaar, resultaat, actief, lagen, ronde, intro, variant]);
+
+  // Variant c opens the drying plan with the overview, then hands over to the tour.
+  useEffect(() => {
+    setIntro(stap === 4 && variant === "c" && lagen > 1 && !!resultaat);
+  }, [stap, variant, lagen, ronde, resultaat]);
+  useEffect(() => {
+    if (!intro) return;
+    let id = 0;
+    const plan = (e?: Event) => {
+      window.clearTimeout(id);
+      const start = e ? (e as CustomEvent<number>).detail : performance.now();
+      id = window.setTimeout(() => setIntro(false), Math.max(0, INTRO * 1000 - (performance.now() - start)));
+    };
+    plan();
+    window.addEventListener(FILM_START, plan);
+    return () => {
+      window.clearTimeout(id);
+      window.removeEventListener(FILM_START, plan);
+    };
+  }, [intro]);
+  const uiteen = stap === 4 && !filmKlaar && lagen > 1 && (variant === "b" || intro);
+  const kiesVariant = (v: FilmVariant) => {
+    setVariant(v);
+    const u = new URL(window.location.href);
+    u.searchParams.set("film", v);
+    window.history.replaceState(null, "", u);
+    setFilmKlaar(false);
+    setHandmatig(false);
+    setActief(0);
+    setRonde((r) => r + 1);
+  };
   const opnieuwAfspelen = () => {
     setFilmKlaar(false);
     setHandmatig(false);
@@ -306,7 +358,7 @@ const VerhuurSimulatorPage = () => {
     { eyebrow: "Stap 3 · Materiaal", titel: s.wat ? `${WAT_LABEL[s.wat].label}: nog nat` : "Wat is er nat?" },
     { eyebrow: "Stap 4 · Bouwfase", titel: s.fase ? FASE[s.fase].label : "Hoe ver staat de werf?" },
     {
-      eyebrow: filmKlaar ? "Droogplan · klaar" : `Droogplan · ${verdiepingNaam(actief, lagen, dak)}`,
+      eyebrow: filmKlaar ? "Droogplan · klaar" : uiteen ? "Droogplan · alle verdiepingen" : `Droogplan · ${verdiepingNaam(actief, lagen, dak)}`,
       titel: !resultaat ? "Maatwerk" : filmKlaar ? "Droog en klaar om af te werken" : `${resultaat.items.reduce((n, it) => n + it.q, 0)} toestellen aan het werk`,
     },
   ][stap];
@@ -660,10 +712,27 @@ const VerhuurSimulatorPage = () => {
                 werkend={stap === 4 && !!resultaat && !filmKlaar}
                 materiaal={stap === 4 && filmKlaar ? { ...materiaal, vocht: 0 } : materiaal}
                 cyclus={CYCLUS}
+                uiteen={uiteen}
+                voorsprong={variant === "c" && stap === 4 && lagen > 1 && !intro && actief === 0 && !handmatig ? PLAATSEN : 0}
               />
               {stap === 2 && s.wat && <Doorsnede wat={s.wat} pd={antwoorden.pd} cd={antwoorden.cd} />}
-              {stap === 4 && resultaat && (
-                <DagTeller key={`${actief}-${resultaat.dagen}-${ronde}-${filmKlaar}`} dagen={resultaat.dagen} cyclus={CYCLUS} vocht={FASE[antwoorden.fase].vocht} klaar={filmKlaar} />
+              {stap === 4 && resultaat && !intro && (
+                <DagTeller key={`${actief}-${resultaat.dagen}-${ronde}-${filmKlaar}-${variant}`} dagen={resultaat.dagen} water={resultaat.water} cyclus={CYCLUS} vocht={FASE[antwoorden.fase].vocht} klaar={filmKlaar} />
+              )}
+              {stap === 4 && resultaat && intro && (
+                <div className="ds-overzicht" aria-live="polite">
+                  <b>{aantalToestellen} toestellen</b> op {lagen} verdiepingen
+                </div>
+              )}
+              {stap === 4 && toonSchakelaar && lagen > 1 && (
+                <div className="ds-variant" role="radiogroup" aria-label="Filmvariant">
+                  <span>Film</span>
+                  {(["a", "b", "c"] as FilmVariant[]).map((v) => (
+                    <button key={v} type="button" role="radio" aria-checked={variant === v} className={variant === v ? "on" : undefined} onClick={() => kiesVariant(v)}>
+                      {v.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
               )}
               {stap === 4 && resultaat && filmKlaar && (
                 <button type="button" className="ds-herhaal" onClick={opnieuwAfspelen}>
@@ -674,7 +743,7 @@ const VerhuurSimulatorPage = () => {
             </div>
 
             <div className="ds-sfoot">
-              {stap === 4 && lagen > 1 && (
+              {stap === 4 && lagen > 1 && !uiteen && (
                 <div className="ds-tabs" role="tablist" aria-label="Verdieping">
                   {Array.from({ length: lagen }, (_, v) => {
                     const n = plaatsingen.filter((p) => kamers.find((k) => k.id === p.kamer)?.verdieping === v).length;
@@ -960,7 +1029,7 @@ function Doorsnede({ wat, pd, cd }: { wat: Wat; pd: string; cd: string }) {
  * Teller "dag x van y" die gelijkloopt met de vochtsluier in de tekening. Hij
  * telt de huurtermijn uit de catalogus af, niet een eigen schatting.
  */
-function DagTeller({ dagen, cyclus, vocht, klaar }: { dagen: number; cyclus: number; vocht: number; klaar: boolean }) {
+function DagTeller({ dagen, water, cyclus, vocht, klaar }: { dagen: number; water: number; cyclus: number; vocht: number; klaar: boolean }) {
   const [t, setT] = useState(klaar ? 1 : 0);
   useEffect(() => {
     if (klaar || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -993,6 +1062,16 @@ function DagTeller({ dagen, cyclus, vocht, klaar }: { dagen: number; cyclus: num
         <i style={{ width: t >= 1 ? "100%" : `${Math.max(3, rest * 100)}%` }} />
       </div>
       <small>{t >= 1 ? "Alles droog" : "Vocht in muren en vloer"}</small>
+      {/* Litres pulled out of the house so far, on the same clock as the days. */}
+      <p className="ds-liter">
+        <b>{Math.round(t * water).toLocaleString("nl-BE")}</b> l water afgevoerd
+      </p>
+      {t >= 1 && !klaar && (
+        <div className="ds-stempel" aria-hidden="true">
+          Droog
+          <small>op dag {dagen}</small>
+        </div>
+      )}
     </div>
   );
 }

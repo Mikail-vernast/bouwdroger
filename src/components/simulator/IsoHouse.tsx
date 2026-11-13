@@ -255,6 +255,10 @@ export interface IsoHouseProps {
   mini?: boolean;
   /** duur van één droogcyclus in seconden, voor de vochtsluier */
   cyclus?: number;
+  /** 3D only: every floor open at once, pulled apart into a stack */
+  uiteen?: boolean;
+  /** 3D only: seconds the film starts ahead (the devices are already standing) */
+  voorsprong?: number;
   className?: string;
 }
 
