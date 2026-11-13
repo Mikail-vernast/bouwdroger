@@ -982,10 +982,11 @@ function DagTeller({ dagen, cyclus, vocht, klaar }: { dagen: number; cyclus: num
       <span>
         Dag <b>{dag}</b> van {dagen}
       </span>
-      <div className="ds-meter" aria-hidden="true">
-        <i style={{ width: `${Math.max(3, rest * 100)}%` }} />
+      {/* Blue = moisture left; once dry the bar turns full and green. */}
+      <div className={t >= 1 ? "ds-meter ds-meter--droog" : "ds-meter"} aria-hidden="true">
+        <i style={{ width: t >= 1 ? "100%" : `${Math.max(3, rest * 100)}%` }} />
       </div>
-      <small>{t >= 1 ? "Klaar om af te werken" : "Vocht in muren en vloer"}</small>
+      <small>{t >= 1 ? "Alles droog" : "Vocht in muren en vloer"}</small>
     </div>
   );
 }
