@@ -1,3 +1,4 @@
+import type { FilmPlan } from "./film";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import {
   WONING,
@@ -255,7 +256,9 @@ export interface IsoHouseProps {
   mini?: boolean;
   /** duur van één droogcyclus in seconden, voor de vochtsluier */
   cyclus?: number;
-  /** telt op bij "opnieuw afspelen": de 3D-film van de verdieping begint dan opnieuw */
+  /** 3D only: which segment of the drying film this floor plays (placing or drying, and how far) */
+  filmPlan?: FilmPlan;
+  /** telt op bij "opnieuw afspelen" of een tweede klik op een verdieping: de 3D-film begint dan opnieuw */
   filmRonde?: number;
   className?: string;
 }

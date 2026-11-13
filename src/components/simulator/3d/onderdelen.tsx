@@ -14,7 +14,7 @@ import {
 import type { Kamer, Plaatsing } from "@/lib/droogSimulator";
 import type { DeviceKey } from "@/data/verhuur";
 import { TOESTEL_MODEL } from "./modellen";
-import { FILM_START, FILM_WACHT, VAL, droogVoortgang, filmStatus, filmTijd, stuit, wegVoortgang, type Film } from "../film";
+import { FILM_START, FILM_WACHT, VAL, aanVoortgang, droogStand, filmStatus, stuit, toestelTijd, type Film } from "../film";
 
 /*
   De bewegende en losse onderdelen van de 3D-woning: de toestellen uit het
@@ -49,9 +49,9 @@ const stofGeo = new RingGeometry(0.42, 0.5, 36);
  * omhoog en kleiner, één voor één. De gloed is enkel emissive: een pointLight per kachel zou
  * het aantal lichten (en dus de shaders) laten wisselen met het pakket.
  */
-export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
+export function Toestel3D({ k, x, y, z, aankomst, werkend, film }: {
   k: DeviceKey; x: number; y: number; z: number; aankomst: number; werkend: boolean;
-  film: MutableRefObject<Film>; cyclus: number;
+  film: MutableRefObject<Film>;
 }) {
   const gltf = useLoader(GLTFLoader, MODEL[k]);
   // Eigen kopie per toestel, met eigen led- en gloedmateriaal (die gaan apart aan).
@@ -78,33 +78,33 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
   const groep = useRef<Group>(null);
   const stof = useRef<Mesh>(null);
   const stofM = useMemo(stofMat, []);
+  const toeren = useRef(0);
   // Elk toestel wordt per verdieping en per herhaling opnieuw gemount: ruim op.
   useLayoutEffect(() => () => stofM.dispose(), [stofM]);
-  const toeren = useRef(0);
 
   useFrame((_, dt) => {
-    const t = filmTijd(film.current, cyclus);
+    const t = toestelTijd(film.current);
     const p = Math.min(1, Math.max(0, (t - aankomst) / VAL));
-    const q = wegVoortgang(t, cyclus, aankomst);
-    const op = q * q * (3 - 2 * q);
     const g = groep.current;
     if (g) {
-      g.visible = t >= aankomst && q < 1;
-      g.position.y = y + (1 - stuit(p)) * VALHOOGTE + op * VALHOOGTE * 1.3;
-      // Bij de eerste botsing even platgedrukt, daarna weer recht; bij het weghalen kleiner.
+      // Before it falls the device is there but tiny, not hidden: three only
+      // compiles what is visible, and a first compile mid-drop made it stutter.
+      const er = t >= aankomst;
+      g.position.y = y + (1 - stuit(p)) * VALHOOGTE;
+      // Bij de eerste botsing even platgedrukt, daarna weer recht.
       const plat = p > 0.33 && p < 0.55 ? Math.sin(((p - 0.33) / 0.22) * Math.PI) * 0.07 : 0;
-      const k = SCHAAL * (1 - op * 0.75);
-      g.scale.set(k * (1 + plat * 0.6), k * (1 - plat), k * (1 + plat * 0.6));
+      const sk = er ? SCHAAL : 1e-4;
+      g.scale.set(sk * (1 + plat * 0.6), sk * (1 - plat), sk * (1 + plat * 0.6));
     }
-    // Stofkringetje bij de landing.
-    const s = (t - aankomst - VAL * 0.36) / 0.7;
+    // Stofkringetje bij de landing; niet opnieuw als het drogen begint.
+    const s = film.current.modus === "drogen" ? -1 : (t - aankomst - VAL * 0.36) / 0.7;
     if (stof.current) {
       stof.current.visible = s > 0 && s < 1;
       stof.current.scale.setScalar(0.6 + s * 1.1);
       stofM.opacity = s > 0 && s < 1 ? 0.45 * (1 - s) : 0;
     }
-    // Aan zodra het toestel stilstaat, uit zodra alles droog is; de wieken lopen op en af.
-    const aan = werkend && t > aankomst + VAL + 0.15 && droogVoortgang(t, cyclus) < 1;
+    // Aan zodra het drogen begint, uit zodra deze verdieping droog is; de wieken lopen op en af.
+    const aan = werkend && aanVoortgang(film.current, aankomst) > 0 && droogStand(film.current) < 1;
     toeren.current += ((aan ? 1 : 0) - toeren.current) * Math.min(1, dt * 1.8);
     if (model.wieken) model.wieken.rotation.z -= dt * Math.PI * 2 * 2.2 * toeren.current;
     for (const m of model.licht) {
@@ -114,7 +114,7 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
 
   return (
     <>
-      <group ref={groep} position={[x, y, z]} visible={false}>
+      <group ref={groep} position={[x, y, z]} scale={1e-4}>
         <primitive object={model.obj} />
       </group>
       <mesh ref={stof} geometry={stofGeo} material={stofM} position={[x, y + 0.01, z]} rotation={[-Math.PI / 2, 0, 0]} visible={false} />
@@ -122,15 +122,9 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
   );
 }
 
-/** Welke toestellen staan al te werken: voor lucht en druppels. */
-function draait(t: number, aankomst: number) {
-  return t > aankomst + VAL + 0.15;
-}
-
 /**
- * Vangnet rond één toestel: laadt zijn model niet (netwerk, 404), dan valt
- * alleen dat toestel weg; de rest van de film en de andere toestellen blijven.
- * Zonder dit viel de hele 3D terug op de SVG.
+ * Vangnet rond de toestellen: laadt een model niet (netwerk, 404), dan vallen
+ * alleen de toestellen weg. Zonder dit viel de hele 3D terug op de SVG.
  */
 export class ToestelVangnet extends Component<{ children: ReactNode; terugval?: ReactNode }, { fout: boolean }> {
   state = { fout: false };
@@ -151,10 +145,14 @@ export class ToestelVangnet extends Component<{ children: ReactNode; terugval?: 
  * het neerzetten niet al voorbij is als je het eerste beeld ziet.
  */
 export function FilmStart({ film }: { film: MutableRefObject<Film> }) {
+  // The clock starts on the third frame: the first frames compile the shaders of
+  // everything that just mounted, and that pause should not eat into the film.
+  const frames = useRef(0);
   useFrame(() => {
-    if (film.current.start >= 0) return;
-    film.current.start = performance.now();
+    if (film.current.start >= 0) { frames.current = 0; return; }
+    if (++frames.current < 3) return;
     filmStatus.wacht = false;
+    film.current.start = performance.now();
     // De dagteller (buiten het canvas) loopt op dezelfde klok.
     window.dispatchEvent(new CustomEvent(FILM_START, { detail: film.current.start }));
   });
@@ -163,8 +161,8 @@ export function FilmStart({ film }: { film: MutableRefObject<Film> }) {
 
 /**
  * Staat in de Suspense-fallback zolang de modellen laden: meldt de pagina dat de
- * film wacht, zodat de verdiepingtimer niet doorloopt (op 2G kan dat langer
- * duren dan een hele verdieping).
+ * film wacht, zodat de timer van de film niet doorloopt (op 2G kan dat langer
+ * duren dan een heel stuk van de film).
  */
 export function FilmWacht() {
   useEffect(() => {
@@ -193,7 +191,7 @@ const bezier = (a: Vector3, b: Vector3, c: Vector3, t: number, uit: Vector3) => 
 };
 
 /** Lucht van elke ventilator over de vloer, in de richting waarin hij blaast (+z). */
-export function Luchtstroom3D({ kamers, plaatsingen, yf, film, cyclus }: { kamers: Kamer[]; plaatsingen: Geplaatst[]; yf: number; film: MutableRefObject<Film>; cyclus: number }) {
+export function Luchtstroom3D({ kamers, plaatsingen, yf, film }: { kamers: Kamer[]; plaatsingen: Geplaatst[]; yf: number; film: MutableRefObject<Film> }) {
   const ref = useRef<InstancedMesh>(null);
   const PER = 6;
   const banen = useMemo(() => {
@@ -216,12 +214,11 @@ export function Luchtstroom3D({ kamers, plaatsingen, yf, film, cyclus }: { kamer
     const m = ref.current;
     if (!m) return;
     const t = clock.elapsedTime;
-    const ft = filmTijd(film.current, cyclus);
-    // In het laatste tiende van het drogen valt de lucht stil.
-    const stilvallen = Math.min(1, (1 - droogVoortgang(ft, cyclus)) / 0.1);
+    // Pas lucht als er gedroogd wordt; in het laatste tiende valt ze stil.
+    const stilvallen = film.current.modus === "drogen" ? Math.min(1, (1 - droogStand(film.current)) / 0.1) : 0;
     banen.forEach(([a, b, c, aank], i) => {
-      // Pas lucht als deze ventilator staat en draait.
-      const aan = draait(ft, aank) ? Math.min(1, (ft - aank - VAL - 0.15) / 0.8) * stilvallen : 0;
+      // Pas lucht als deze ventilator aanslaat.
+      const aan = aanVoortgang(film.current, aank) * stilvallen;
       for (let j = 0; j < PER; j++) {
         const f = fase(t, 1.6, (j / PER) * 1.6 + i * 0.3);
         bezier(a, b, c, f, p);
@@ -249,7 +246,7 @@ export function Luchtstroom3D({ kamers, plaatsingen, yf, film, cyclus }: { kamer
  * Vochtdeeltjes die uit muren en vloer opstijgen en naar de dichtstbijzijnde
  * droger drijven. Deterministisch, zoals in de SVG: geen Math.random.
  */
-export function Druppels3D({ kamers, plaatsingen, yf, vocht, film, cyclus }: { kamers: Kamer[]; plaatsingen: Geplaatst[]; yf: number; vocht: number; film: MutableRefObject<Film>; cyclus: number }) {
+export function Druppels3D({ kamers, plaatsingen, yf, vocht, film }: { kamers: Kamer[]; plaatsingen: Geplaatst[]; yf: number; vocht: number; film: MutableRefObject<Film> }) {
   const ref = useRef<InstancedMesh>(null);
   const banen = useMemo(() => {
     const uit: { van: Vector3; naar: Vector3; vertraging: number; a: number }[] = [];
@@ -275,13 +272,10 @@ export function Druppels3D({ kamers, plaatsingen, yf, vocht, film, cyclus }: { k
   useFrame(({ clock }) => {
     const m = ref.current;
     if (!m) return;
-    const ft = filmTijd(film.current, cyclus);
-    // Hoe droger, hoe minder vocht er nog naar de drogers trekt; droog is droog.
-    const rest = 1 - droogVoortgang(ft, cyclus);
+    // Hoe droger, hoe minder vocht er nog naar de drogers trekt; niets zolang er nog geplaatst wordt.
+    const rest = film.current.modus === "drogen" ? 1 - droogStand(film.current) : 0;
     banen.forEach((b, i) => {
-      // Geen druppels meer naar een droger die weggehaald wordt.
-      const weg = 1 - wegVoortgang(ft, cyclus, b.a);
-      const aan = draait(ft, b.a) ? Math.min(1, (ft - b.a - VAL - 0.15) / 0.8) * weg : 0;
+      const aan = aanVoortgang(film.current, b.a);
       // cubic-bezier(.4,0,.6,1) benaderd met een smoothstep; verschijnen en
       // verdwijnen gebeurt via de grootte (per instantie bestaat geen opacity).
       const f = fase(clock.elapsedTime, 2.8, b.vertraging);

@@ -1,5 +1,6 @@
 import { Component, lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import IsoHouse, { type IsoHouseProps } from "./IsoHouse";
+import { TEXTUUR, budget3D, voorlaad } from "./3d/bestanden";
 
 /*
   Kiest tussen de SVG-tekening en de 3D-woning.
@@ -13,16 +14,36 @@ import IsoHouse, { type IsoHouseProps } from "./IsoHouse";
   `?weergave=svg` in de URL forceert de SVG, om beide te vergelijken.
 */
 
-const IsoHouse3D = lazy(() => import("./3d/IsoHouse3D"));
+const laad3D = () => import("./3d/IsoHouse3D");
+const IsoHouse3D = lazy(laad3D);
 
 function webglMogelijk(): boolean {
   try {
     if (new URLSearchParams(window.location.search).get("weergave") === "svg") return false;
     const c = document.createElement("canvas");
-    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+    const gl = (c.getContext("webgl2") || c.getContext("webgl")) as WebGLRenderingContext | null;
+    // De testcontext meteen vrijgeven: browsers laten maar een handvol tegelijk toe.
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
+    return !!gl;
   } catch {
     return false;
   }
+}
+
+/**
+ * Wacht tot de browser even niets te doen heeft. three.js en het opbouwen van
+ * de 3D kosten op een gsm seconden rekenwerk; doen we dat meteen bij het laden,
+ * dan reageert de pagina traag op de eerste tik. De SVG staat er al, dus de 3D
+ * mag wachten.
+ */
+function opRustigMoment(fn: () => void): () => void {
+  const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+  if (w.requestIdleCallback) {
+    const id = w.requestIdleCallback(fn, { timeout: 2500 });
+    return () => w.cancelIdleCallback?.(id);
+  }
+  const t = window.setTimeout(fn, 1200);
+  return () => window.clearTimeout(t);
 }
 
 class Vangnet extends Component<{ onFout: () => void; children: ReactNode }, { fout: boolean }> {
@@ -45,7 +66,32 @@ export default function IsoHouseAuto(props: IsoHouseProps) {
   const [fout, setFout] = useState(false);
 
   useEffect(() => {
-    if (!props.mini) setKan3d(webglMogelijk());
+    if (props.mini || !webglMogelijk()) return;
+    const budget = budget3D();
+    if (budget === "geen") return; // data saver / 2G / little memory: the SVG house stays
+    // Fetch the 3D chunk and textures together, not one after the other. On a
+    // fast line that starts right away; on 3G it waits for the load event, so
+    // the question photos are not slowed down. The heavy build always waits
+    // for the load plus an idle moment.
+    const haal = () => {
+      voorlaad(Object.values(TEXTUUR), "image");
+      return laad3D();
+    };
+    let chunk = budget === "meteen" ? haal() : null;
+    let weg = () => {};
+    const start = () => {
+      chunk ??= haal();
+      const c = chunk;
+      weg = opRustigMoment(() => {
+        c.then(() => setKan3d(true), () => setFout(true));
+      });
+    };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+    return () => {
+      window.removeEventListener("load", start);
+      weg();
+    };
   }, [props.mini]);
 
   const toon3d = kan3d && !fout;

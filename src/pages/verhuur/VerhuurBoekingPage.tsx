@@ -47,6 +47,8 @@ import {
 } from "@/lib/verhuur";
 import {
   MAX_EXTRA_DEVICES,
+  extraNaarQuery,
+  extraUitQuery,
   bookingFingerprint,
   bookingSummary,
   type Access,
@@ -234,12 +236,13 @@ const VerhuurBoekingPage = () => {
   const [extras, setExtras] = useState<Record<string, boolean>>(() =>
     Object.fromEntries((stored?.options.extras ?? []).map((k) => [k, true]))
   );
-  const [dev, setDev] = useState<Record<DeviceKey, number>>(() => ({
-    small: stored?.options.dev.small ?? 0,
-    medium: stored?.options.dev.medium ?? 0,
-    axiaal: stored?.options.dev.axiaal ?? 0,
-    kachel: stored?.options.dev.kachel ?? 0,
-  }));
+  // Extra toestellen die de bezoeker op de pakketpagina al zag (uit de
+  // droogsimulator) gaan voor; anders wat er na Stripe bewaard was.
+  const [dev, setDev] = useState<Record<DeviceKey, number>>(() => {
+    const uitLink = extraUitQuery(searchParams);
+    const bron = Object.keys(uitLink).length > 0 ? uitLink : (stored?.options.dev ?? {});
+    return { small: bron.small ?? 0, medium: bron.medium ?? 0, axiaal: bron.axiaal ?? 0, kachel: bron.kachel ?? 0 };
+  });
   // null = de klant liet het standaardaantal staan: één pomp per bouwdroger.
   const [pumps, setPumps] = useState<number | null>(stored?.options.pumps ?? null);
   const [floors, setFloors] = useState(stored?.options.floors ?? 0);
@@ -786,7 +789,7 @@ const VerhuurBoekingPage = () => {
                 </div>
               </div>
               <div className="fnav">
-                <Link className="btn btn-o" to={`/verhuur/pakket?${configToQuery(config)}`}>
+                <Link className="btn btn-o" to={`/verhuur/pakket?${configToQuery(config)}${extraNaarQuery(dev)}`}>
                   Terug naar het pakket
                 </Link>
                 <button className="btn btn-d" type="button" onClick={() => goTo(2)}>
@@ -1535,7 +1538,7 @@ const VerhuurBoekingPage = () => {
                 )}
 
                 <div className="fnav" style={{ justifyContent: "center" }}>
-                  <Link className="btn btn-o" to={`/verhuur/pakket?${configToQuery(config)}`}>
+                  <Link className="btn btn-o" to={`/verhuur/pakket?${configToQuery(config)}${extraNaarQuery(dev)}`}>
                     Terug naar het pakket
                   </Link>
                   <Link className="btn btn-d" to="/">

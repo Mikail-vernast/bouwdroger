@@ -30,7 +30,8 @@ import {
   type Woning,
   WONING,
 } from "../lib/droogSimulator";
-import { SIZE_VALUES, baseItems, configPrice } from "../lib/verhuur";
+import { SIZE_VALUES, baseItems, configPrice, configToQuery, parseConfig } from "../lib/verhuur";
+import { EMPTY_OPTIONS, bookingSummary, extraNaarQuery, extraUitQuery } from "../lib/booking";
 
 const BASIS: SimAnswers = {
   woning: "halfopen",
@@ -61,16 +62,36 @@ describe("toPackageConfig", () => {
 });
 
 describe("simResultaat", () => {
-  it("rekent exact wat de calculator rekent voor dezelfde configuratie", () => {
-    for (const wat of ["pleister", "chape", "beide"] as const) {
-      for (const verwarmt of [true, false]) {
-        const r = simResultaat({ ...BASIS, wat, verwarmt });
-        expect(r).not.toBeNull();
-        const config = toPackageConfig({ ...BASIS, wat, verwarmt });
-        expect(r!.items).toEqual(baseItems(config));
-        expect(r!.prijs).toBe(configPrice(config, baseItems(config)));
+  it("toont exact wat de klant boekt: dezelfde toestellen, termijn en prijs als de boeking", () => {
+    for (const size of SIZE_VALUES) {
+      for (const wat of ["pleister", "chape", "beide"] as const) {
+        for (const verwarmt of [true, false]) {
+          for (const tempo of ["snel", "gemiddeld", "traag"] as const) {
+            const r = simResultaat({ ...BASIS, size, wat, verwarmt, tempo });
+            if (!r) continue;
+            // Wat de checkout server-side rekent: het pakket uit de link, met de
+            // extra toestellen die de link meedraagt.
+            const qs = new URLSearchParams(configToQuery(r.config) + extraNaarQuery(r.extra));
+            const boeking = bookingSummary(parseConfig(qs), { ...EMPTY_OPTIONS, dev: extraUitQuery(qs) });
+            expect(r.prijs).toBe(boeking.base);
+            expect(r.weken).toBe(boeking.weeks);
+            expect(r.items).toEqual(boeking.items);
+          }
+        }
       }
     }
+  });
+
+  it("zet bij 'snel' één droger bovenop het pakket, en verandert verder niets", () => {
+    const gem = simResultaat({ ...BASIS, tempo: "gemiddeld" })!;
+    const rustig = simResultaat({ ...BASIS, tempo: "traag" })!;
+    const snel = simResultaat({ ...BASIS, tempo: "snel" })!;
+    const drogers = (r: typeof snel) => r.items.filter((it) => it.k === "small" || it.k === "medium").reduce((n, it) => n + it.q, 0);
+    expect(gem.items).toEqual(baseItems(gem.config));
+    expect(rustig.prijs).toBe(gem.prijs);
+    expect(drogers(snel)).toBe(drogers(gem) + 1);
+    expect(snel.prijs).toBeGreaterThan(gem.prijs);
+    expect(snel.weken).toBe(gem.weken);
   });
 
   it("geeft geen pakket bij maatwerk", () => {

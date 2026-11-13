@@ -3,6 +3,7 @@ import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import {
   BoxGeometry,
   type BufferGeometry,
+  Vector4,
   DirectionalLight,
   EdgesGeometry,
   type Group,
@@ -25,11 +26,12 @@ import { WONING, type Dak, type Kamer, type Opening, type Trap, type Woning } fr
 import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
-import { richIn } from "./inrichting";
+import { inrichtingsMuur, richIn } from "./inrichting";
 import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
-import { aankomst, type Film } from "../film";
+import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { TEXTUUR } from "./bestanden";
 
 /*
   De droogsimulator-woning in echte 3D.
@@ -55,23 +57,32 @@ const DUUR = 900; // ms, zoals de SVG
 /* ─────────────────────────── materialen ─────────────────────────── */
 
 const TEGELS = {
-  baksteen: { url: "/simulator/3d/baksteen.webp", periode: [16 * 0.202, 32 * 0.062] },
-  arduin: { url: "/simulator/3d/arduin.webp", periode: [1, 1] },
-  pannen: { url: "/simulator/3d/dakpannen.webp", periode: [8 * 0.27, 6 * 0.36] },
-  pleister: { url: "/simulator/3d/pleister.webp", periode: [1.5, 1.5] },
-  chape: { url: "/simulator/3d/chape.webp", periode: [1, 1] },
-  parket: { url: "/simulator/3d/parket.webp", periode: [8 * 0.18, 2.4] },
-  grind: { url: "/simulator/3d/grind.webp", periode: [0.5, 0.5] },
+  baksteen: { url: TEXTUUR.baksteen, periode: [16 * 0.202, 32 * 0.062] },
+  arduin: { url: TEXTUUR.arduin, periode: [1, 1] },
+  pannen: { url: TEXTUUR.pannen, periode: [8 * 0.27, 6 * 0.36] },
+  pleister: { url: TEXTUUR.pleister, periode: [1.5, 1.5] },
+  chape: { url: TEXTUUR.chape, periode: [1, 1] },
+  parket: { url: TEXTUUR.parket, periode: [8 * 0.18, 2.4] },
+  grind: { url: TEXTUUR.grind, periode: [0.5, 0.5] },
   // Bouwfasen (stap 4): wat er op muur en vloer zit, van ruwbouw tot afgewerkt.
-  pleisternat: { url: "/simulator/3d/pleisternat.webp", periode: [2, 2] },
-  verf: { url: "/simulator/3d/verf.webp", periode: [1, 1] },
-  vloerplaat: { url: "/simulator/3d/vloerplaat.webp", periode: [2, 2] },
-  tegelvloer: { url: "/simulator/3d/tegelvloer.webp", periode: [2.4, 2.4] },
+  pleisternat: { url: TEXTUUR.pleisternat, periode: [2, 2] },
+  verf: { url: TEXTUUR.verf, periode: [1, 1] },
+  vloerplaat: { url: TEXTUUR.vloerplaat, periode: [2, 2] },
+  tegelvloer: { url: TEXTUUR.tegelvloer, periode: [2.4, 2.4] },
 } as const;
 type TegelNaam = keyof typeof TEGELS;
 const TEGEL_NAMEN = Object.keys(TEGELS) as TegelNaam[];
 
 type MatSet = Map<string, MeshStandardMaterial>;
+
+/*
+  Gsm of tablet: minder pixels en een kleinere schaduwmap. Een gsm met een
+  3×-scherm tekent op dpr 2 vier keer zoveel pixels als op dpr 1; op 1,5 is dat
+  ruim de helft minder, en op een klein scherm zie je het verschil niet. De
+  schaduw van 1024² is op die maat even scherp als 2048² op een laptop.
+*/
+const GSM = typeof window !== "undefined" && window.matchMedia("(max-width: 899px), (pointer: coarse)").matches;
+const ANISO = GSM ? 4 : 8;
 
 function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
   const t = (naam: TegelNaam) => {
@@ -80,7 +91,7 @@ function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
     c.wrapS = c.wrapT = RepeatWrapping;
     c.repeat.set(1 / pw, 1 / ph);
     c.colorSpace = SRGBColorSpace;
-    c.anisotropy = 8;
+    c.anisotropy = ANISO;
     c.needsUpdate = true;
     return c;
   };
@@ -175,7 +186,7 @@ interface Anim { o: Tween; cam: Tween; act: Tween }
 
 /* ─────────────────────────── de woning als blokken ─────────────────────────── */
 
-type Gevel = "voor" | "zij";
+type Gevel = "voor" | "zij" | "achter" | "links";
 
 interface Bouwers {
   /** altijd zichtbaar en vast */
@@ -203,7 +214,8 @@ function bouw(p: Woningplan) {
   const B: Bouwers = { vast: new Bouwer(), boven: new Bouwer(), dak: new Bouwer(), gevel: new Bouwer(), binnen: new Bouwer(), bladen: new Bouwer() };
 
   // Een punt op een gevel: `a` langs de gevel, `n` naar buiten vanaf het buitenvlak.
-  const punt = (g: Gevel, a: number, n: number, y: number): V3 => (g === "voor" ? [a, y, l + T + n] : [w + T + n, y, a]);
+  const punt = (g: Gevel, a: number, n: number, y: number): V3 =>
+    g === "voor" ? [a, y, l + T + n] : g === "zij" ? [w + T + n, y, a] : g === "achter" ? [a, y, -T - n] : [-T - n, y, a];
   const gblok = (b: Bouwer, mat: string, g: Gevel, a0: number, a1: number, n0: number, n1: number, y0: number, y1: number, opt: { boven?: string | null } = {}) => {
     const p0 = punt(g, a0, n0, y0), p1 = punt(g, a1, n1, y1);
     b.blok(mat, Math.min(p0[0], p1[0]), Math.max(p0[0], p1[0]), Math.min(p0[1], p1[1]), Math.max(p0[1], p1[1]), Math.min(p0[2], p1[2]), Math.max(p0[2], p1[2]), opt);
@@ -261,6 +273,41 @@ function bouw(p: Woningplan) {
       for (let i = 0; i < n; i++) {
         const cz = (l * (i + 1)) / (n + 1);
         gaten.push({ a0: cz - 0.45, a1: cz + 0.45, b0: yf + 0.9, b1: yf + 2.3, soort: "raam", kalf: 0.45, stijl: false });
+      }
+    }
+    return gaten;
+  };
+
+  /**
+   * Ramen in de achter- en linkergevel van de opengewerkte laag. Je ziet ze van
+   * binnenuit, dus ze volgen de kamers: één raam per kamer die tegen die gevel
+   * ligt. Waar de keuken tegen de gevel staat geen raam (bovenkasten); bij een
+   * badkamer, toilet of wasplaats een klein raam boven de toestellen. In de
+   * grootste kamer achteraan op het gelijkvloers een raamdeur naar de tuin.
+   * Links alleen bij een vrijstaande gevel: anders staat daar de buur.
+   */
+  const binnenRamen = (g: Gevel, v: number, yf: number, laag: Kamer[], laagOpeningen: Opening[]) => {
+    const gaten: (Gat & { kalf: number; stijl: boolean })[] = [];
+    if (g === "links" && buren !== 0) return gaten;
+    const tegen = laag.filter((k) => k.soort !== "circulatie" && (g === "achter" ? k.z < 1e-6 : k.x < 1e-6));
+    const breedte = (k: Kamer) => (g === "achter" ? k.w : k.l);
+    const tuin = g === "achter" && v === 0 ? tegen.filter((k) => !inrichtingsMuur(k, laagOpeningen, { w, l })).sort((p, q) => breedte(q) - breedte(p))[0] : undefined;
+    for (const k of tegen) {
+      const lang = breedte(k);
+      if (lang < 1.5) continue;
+      const mid = g === "achter" ? k.x + k.w / 2 : k.z + k.l / 2;
+      const muur = inrichtingsMuur(k, laagOpeningen, { w, l });
+      const bezet = muur === (g === "achter" ? "achter" : "links");
+      if (bezet && k.naam === "Keuken") continue;
+      if (k === tuin) {
+        const bw = Math.min(2.4, lang * 0.55);
+        gaten.push({ a0: mid - bw / 2, a1: mid + bw / 2, b0: yf + 0.02, b1: yf + 2.3, kalf: 0, stijl: true });
+      } else if (bezet) {
+        const bw = Math.min(0.7, lang * 0.4);
+        gaten.push({ a0: mid - bw / 2, a1: mid + bw / 2, b0: yf + 1.65, b1: yf + 2.25, kalf: 0, stijl: false });
+      } else {
+        const bw = Math.min(1.4, lang * 0.5);
+        gaten.push({ a0: mid - bw / 2, a1: mid + bw / 2, b0: yf + 0.9, b1: yf + 2.3, kalf: 0.45, stijl: bw > 0.9 });
       }
     }
     return gaten;
@@ -324,11 +371,26 @@ function bouw(p: Woningplan) {
         B.vast.quad("vloer", [r.a0, yf + 0.003, r.b0], [r.a1, yf + 0.003, r.b0], [r.a1, yf + 0.003, r.b1], [r.a0, yf + 0.003, r.b1], [0, 100, 0]);
       }
     }
-    // Achtergevels op volle hoogte, binnenkant gepleisterd.
-    B.vast.blok("baksteen", -T, w, yf, yf + H, -T, 0, { boven: "snede" });
-    B.vast.blok("baksteen", -T, 0, yf, yf + H, 0, l, { boven: "snede" });
-    B.vast.quad("pleister", [0, yf, 0.002], [w, yf, 0.002], [w, yf + H, 0.002], [0, yf + H, 0.002], [0, 0, 100]);
-    B.vast.quad("pleister", [0.002, yf, 0], [0.002, yf, l], [0.002, yf + H, l], [0.002, yf + H, 0], [100, 0, 0]);
+    // Achtergevels op volle hoogte, binnenkant gepleisterd, met de ramen die je
+    // van binnenuit ziet: per kamer één raam in het midden van zijn stuk muur.
+    for (const g of ["achter", "links"] as Gevel[]) {
+      const gaten = binnenRamen(g, v, yf, laagKamers, laagOpeningen);
+      const [a0, a1] = g === "achter" ? [-T, w] : [0, l];
+      for (const r of muurMinGaten(a0, a1, yf, yf + H, gaten)) {
+        // Bovenop een stuk onder een raam ligt de vensterbank, niet de snede.
+        gblok(B.vast, "baksteen", g, r.a0, r.a1, -T, 0, r.b0, r.b1, { boven: r.b1 > yf + H - 1e-4 ? "snede" : "arduin" });
+      }
+      for (const gt of gaten) raam(B.vast, g, gt.a0, gt.a1, gt.b0, gt.b1, gt.kalf, gt.stijl);
+      // Pleister op de binnenkant, en in de neggekanten tot aan het kader.
+      const lijn = (a: number, b: number, y0: number, y1: number, n0: number, n1: number) => gblok(B.vast, "pleister", g, a, b, n0, n1, y0, y1);
+      const ib = 0.002, kd = -REV - 0.06; // binnenvlak en achterkant van het kader, gemeten vanaf het buitenvlak
+      for (const r of muurMinGaten(Math.max(a0, 0), a1, yf, yf + H, gaten)) lijn(r.a0, r.a1, r.b0, r.b1, -T - ib, -T);
+      for (const gt of gaten) {
+        lijn(gt.a0, gt.a0 + 0.004, gt.b0, gt.b1, -T, kd);
+        lijn(gt.a1 - 0.004, gt.a1, gt.b0, gt.b1, -T, kd);
+        lijn(gt.a0, gt.a1, gt.b1 - 0.004, gt.b1, -T, kd);
+      }
+    }
 
     // Voor- en zijgevel: één geheel, getekend in twee helften rond de snede.
     for (const g of ["voor", "zij"] as Gevel[]) {
@@ -597,13 +659,91 @@ function Meshes({ geos, mats, schaduw = true }: { geos: Map<string, BufferGeomet
 
 const URLS = TEGEL_NAMEN.map((n) => TEGELS[n].url);
 
-/** Waar een kamernaam mag staan (fracties van de kamer), de liefste plek eerst. */
+/** Projectierichtingen van de isometrische camera (kijker aan de +x/+y/+z-kant). */
+/** Where a room label may go (fractions of the room), most preferred first. */
 const LABEL_PLEKKEN = [[0.5, 0.5], [0.5, 0.26], [0.28, 0.3], [0.72, 0.3], [0.5, 0.76], [0.28, 0.72], [0.72, 0.72]] as const;
 
-/** Projectierichtingen van de isometrische camera (kijker aan de +x/+y/+z-kant). */
 const RECHTS = new Vector3(1, 0, -1).normalize();
 const OP = new Vector3(-1, 2, -1).normalize();
 const KIJK = new Vector3(1, 1, 1).normalize();
+
+/* ─────────────────────────── natte muren en vloeren ─────────────────────────── */
+
+/*
+  Drying you can see: wet plaster and screed are darker, cooler and glossier.
+  Once a device stands, a dry patch grows around it with a ragged edge, over the
+  floor and up the walls, until it meets the next one and the floor is dry. A
+  shader does it per pixel, so the patches follow the real device positions on
+  every material that is plaster or floor, in each material set.
+*/
+const MAX_BRON = 16;
+interface NatUniforms {
+  bron: { value: Vector4[] };
+  n: { value: number };
+  r: { value: number };
+  muur: { value: number };
+  vloer: { value: number };
+}
+const maakNat = (): NatUniforms => ({
+  bron: { value: Array.from({ length: MAX_BRON }, () => new Vector4()) },
+  n: { value: 0 }, r: { value: 0 }, muur: { value: 0 }, vloer: { value: 0 },
+});
+const NAT_GLSL = /* glsl */ `
+uniform vec4 uNatBron[${MAX_BRON}];
+uniform int uNatN;
+uniform float uNatR;
+uniform float uNatAmt;
+uniform vec3 uNatTint;
+varying vec3 vNatPos;
+float natHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float natNoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(natHash(i), natHash(i + vec2(1.0, 0.0)), f.x), mix(natHash(i + vec2(0.0, 1.0)), natHash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+float natWet() {
+  if (uNatAmt <= 0.0) return 0.0;
+  float d = 1000.0;
+  float hoog = 0.0;
+  for (int i = 0; i < ${MAX_BRON}; i++) {
+    if (i >= uNatN) break;
+    vec4 b = uNatBron[i];
+    // w = how far this device has switched on: a patch grows in, it does not pop.
+    if (b.w < 0.01) continue;
+    float dy = vNatPos.y - b.y;
+    if (dy < -0.5 || dy > 3.2) continue;
+    float di = length(vNatPos.xz - b.xz) + (1.0 - b.w) * 2.5;
+    if (di < d) { d = di; hoog = clamp(dy / 2.6, 0.0, 1.0); }
+  }
+  // Ragged edge, and the foot of a wall stays wet longest.
+  float n = natNoise(vNatPos.xz * 1.1 + vNatPos.y * 0.8) * 0.9 + natNoise(vNatPos.xz * 3.4 + vNatPos.y * 2.0) * 0.35;
+  d += n - 0.6 + (1.0 - hoog) * 0.5;
+  return (1.0 - smoothstep(-0.3, 0.3, uNatR - d)) * uNatAmt;
+}
+`;
+function natPatch(m: MeshStandardMaterial, u: NatUniforms, soort: "muur" | "vloer") {
+  const tint = soort === "muur" ? new Vector3(0.5, 0.53, 0.6) : new Vector3(0.46, 0.48, 0.54);
+  m.onBeforeCompile = (sh) => {
+    sh.uniforms.uNatBron = u.bron;
+    sh.uniforms.uNatN = u.n;
+    sh.uniforms.uNatR = u.r;
+    sh.uniforms.uNatAmt = u[soort];
+    sh.uniforms.uNatTint = { value: tint };
+    sh.vertexShader = "varying vec3 vNatPos;\n" + sh.vertexShader.replace(
+      "#include <project_vertex>",
+      "#include <project_vertex>\n  vNatPos = (modelMatrix * vec4(transformed, 1.0)).xyz;",
+    );
+    sh.fragmentShader = NAT_GLSL + sh.fragmentShader
+      .replace("#include <map_fragment>", "#include <map_fragment>\n  float natW = natWet();\n  diffuseColor.rgb *= mix(vec3(1.0), uNatTint, natW);")
+      .replace("#include <roughnessmap_fragment>", "#include <roughnessmap_fragment>\n  roughnessFactor = mix(roughnessFactor, 0.32, natW);");
+  };
+  m.customProgramCacheKey = () => `nat-${soort}`;
+  m.needsUpdate = true;
+}
+function natPatchSet(set: MatSet, u: NatUniforms) {
+  natPatch(set.get("pleister")!, u, "muur");
+  natPatch(set.get("vloer")!, u, "vloer");
+}
 
 interface Kader { cx: number; cy: number; ex: number; ey: number }
 function kader(w: number, l: number, y0: number, y1: number, pad: number): Kader {
@@ -620,7 +760,7 @@ function kader(w: number, l: number, y0: number, y1: number, pad: number): Kader
 interface SceneProps extends IsoHouseProps { anim: MutableRefObject<Anim>; labels: MutableRefObject<(HTMLDivElement | null)[]>; reduced: boolean; onKlaar?: () => void }
 
 function Scene(props: SceneProps) {
-  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, cyclus = 10, filmRonde = 0, anim, labels, reduced } = props;
+  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, filmRonde = 0, anim, labels, reduced } = props;
   const materiaal = props.materiaal ?? STANDAARD_MATERIAAL;
   const { w, l, buren } = WONING[woning];
   const lagen = Math.max(1, verdiepingen);
@@ -633,6 +773,9 @@ function Scene(props: SceneProps) {
   const tex = useLoader(TextureLoader, URLS);
   const texturen = useMemo(() => Object.fromEntries(TEGEL_NAMEN.map((n, i) => [n, tex[i]])) as Record<TegelNaam, Texture>, [tex]);
 
+  // Filmklok: begint opnieuw bij elke verdieping (en elk nieuw pakket); zie onder.
+  const film = useRef<Film>({ ...filmPlan, start: -1, vast: reduced });
+
   // Snijvlakken van de actieve laag: onderhelft houden, bovenhelft houden.
   const snij = useMemo(() => ({ onder: new Plane(new Vector3(0, -1, 0), 0), boven: new Plane(new Vector3(0, 1, 0), 0) }), []);
   useLayoutEffect(() => {
@@ -641,15 +784,18 @@ function Scene(props: SceneProps) {
   }, [snij, yfAct]);
 
   // Vier materiaalsets: vast, vervagend, onder de snede, boven de snede.
+  const nat = useMemo(maakNat, []);
   const sets = useMemo(() => {
     const vast = maakMaterialen(texturen, STANDAARD_MATERIAAL);
-    return {
+    const uit = {
       vast,
       vaag: afgeleid(vast, (m) => { m.transparent = true; }),
       onder: afgeleid(vast, (m) => { m.clippingPlanes = [snij.onder]; m.clipShadows = true; }),
       boven: afgeleid(vast, (m) => { m.clippingPlanes = [snij.boven]; m.clipShadows = true; m.transparent = true; }),
     };
-  }, [texturen, snij]);
+    for (const set of Object.values(uit)) natPatchSet(set, nat);
+    return uit;
+  }, [texturen, snij, nat]);
   useEffect(() => () => {
     for (const s of Object.values(sets)) for (const m of s.values()) m.dispose();
   }, [sets]);
@@ -664,7 +810,7 @@ function Scene(props: SceneProps) {
     const kopie = (naam: TegelNaam) => {
       const t = texturen[naam].clone();
       const [pw, ph] = TEGELS[naam].periode;
-      t.wrapS = t.wrapT = RepeatWrapping; t.repeat.set(1 / pw, 1 / ph); t.colorSpace = SRGBColorSpace; t.anisotropy = 8; t.needsUpdate = true;
+      t.wrapS = t.wrapT = RepeatWrapping; t.repeat.set(1 / pw, 1 / ph); t.colorSpace = SRGBColorSpace; t.anisotropy = ANISO; t.needsUpdate = true;
       return t;
     };
     const muurTex = kopie(muurTegel), vloerTex = kopie(vloerTegel);
@@ -745,7 +891,7 @@ function Scene(props: SceneProps) {
   const zon = useMemo(() => {
     const d = new DirectionalLight("#fff3e2", 2.6);
     d.castShadow = true;
-    d.shadow.mapSize.set(2048, 2048);
+    d.shadow.mapSize.set(GSM ? 1024 : 2048, GSM ? 1024 : 2048);
     d.shadow.bias = -0.0004;
     d.shadow.normalBias = 0.02;
     return d;
@@ -774,8 +920,8 @@ function Scene(props: SceneProps) {
   const binnenRef = useRef<Group>(null);
   const bladenRef = useRef<Group>(null);
   const actKamers = useMemo(() => kamers.filter((k) => k.verdieping === act), [kamers, act]);
-  // Een kamernaam staat midden in de kamer, tenzij daar een toestel staat: dan
-  // op de vrije plek die het verst van de toestellen ligt, nooit over een droger.
+  // Room labels sit in the middle of the room, unless a device stands there:
+  // then the free spot farthest from the devices, so a name never covers a dryer.
   const labelPos = useMemo(() => actKamers.map((k) => {
     const hier = plaatsingen.filter((p) => p.kamer === k.id);
     const vrij = ([fx, fz]: readonly [number, number]) =>
@@ -800,6 +946,7 @@ function Scene(props: SceneProps) {
   // Een ander woningtype wisselt meteen, zonder animatie: daar vergelijk je
   // types naast elkaar, en een huis dat telkens opnieuw opbouwt staat in de weg.
   const groei = useRef({ bouw: tween(1), wand: tween(1), vanLagen: lagen, nieuwDak: false, vanKader: dicht, kaderNu: dicht });
+
   const vorige = useRef({ lagen, dak, woning, binnen: geo.binnen });
   useLayoutEffect(() => {
     const p = vorige.current, G = groei.current;
@@ -844,6 +991,24 @@ function Scene(props: SceneProps) {
     G.kaderNu = dk;
     const opn = kader(w, l, 0, camA * FH + SLAB + H + 0.4, 1.3);
     const k = { cx: dk.cx + (opn.cx - dk.cx) * camT, cy: dk.cy + (opn.cy - dk.cy) * camT, ex: dk.ex + (opn.ex - dk.ex) * camT, ey: dk.ey + (opn.ey - dk.ey) * camT };
+
+    // Walls and floor dry from the devices outward, on the film clock: a device
+    // starts drying once it has landed, and at the end the patches cover all.
+    // While the devices are being placed, everything is still wet; once drying
+    // starts they all run, and a lower floor starts where its progress already is.
+    const droogt = werkend && !reduced;
+    const droog = droogt ? droogStand(film.current) : 1;
+    const bronnen = natLaag;
+    nat.n.value = Math.min(MAX_BRON, bronnen.length);
+    for (let i = 0; i < nat.n.value; i++) {
+      const b = bronnen[i];
+      nat.bron.value[i].set(b.x, b.y, b.z, aanVoortgang(film.current, b.a));
+    }
+    // About a room's reach from one device by the end; the last corners fade out.
+    nat.r.value = Math.pow(droog, 1.2) * 6.5;
+    const sterkte = (0.7 + 0.3 * Math.min(1, materiaal.vocht)) * (1 - Math.max(0, (droog - 0.85) / 0.15));
+    nat.muur.value = droogt && materiaal.muurNat ? sterkte : 0;
+    nat.vloer.value = droogt && materiaal.vloerNat ? sterkte : 0;
     const cam = camera as OrthographicCamera;
     const doel = v.copy(RECHTS).multiplyScalar(k.cx).addScaledVector(OP, k.cy);
     cam.position.copy(doel).addScaledVector(KIJK, 60);
@@ -920,11 +1085,14 @@ function Scene(props: SceneProps) {
     const volgorde = plaatsingen.filter((p) => actKamers.some((k) => k.id === p.kamer)).sort((a, b) => plek(a) - plek(b));
     return volgorde.map((p, i) => ({ ...p, a: aankomst(i, volgorde.length) }));
   }, [plaatsingen, actKamers]);
-  // Filmklok: begint opnieuw bij elke verdieping (en elk nieuw pakket).
-  const film = useRef<Film>({ start: -1, vast: reduced });
+  // Where the drying starts: the devices on the open floor.
+  const natLaag = useMemo(() => laagPlaatsingen.map((p) => {
+    const k = actKamers.find((kk) => kk.id === p.kamer)!;
+    return { x: k.x + p.x, y: yfAct, z: k.z + p.z, a: p.a };
+  }), [laagPlaatsingen, actKamers, yfAct]);
   useLayoutEffect(() => {
-    film.current = { start: -1, vast: reduced };
-  }, [act, werkend, laagPlaatsingen, reduced, filmRonde]);
+    film.current = { ...filmPlan, start: -1, vast: reduced };
+  }, [act, werkend, laagPlaatsingen, reduced, filmRonde, filmPlan.modus, filmPlan.van, filmPlan.tot, filmPlan.duur]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -974,11 +1142,15 @@ function Scene(props: SceneProps) {
           <FilmStart film={film} />
           {laagPlaatsingen.map((p, i) => {
             const k = actKamers.find((kk) => kk.id === p.kamer)!;
-            return <ToestelVangnet key={`${act}-${p.k}-${i}-${filmRonde}`}><Toestel3D k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} cyclus={cyclus} /></ToestelVangnet>;
+            return (
+              <ToestelVangnet key={`${act}-${p.k}-${i}-${filmRonde}`}>
+                <Toestel3D k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} />
+              </ToestelVangnet>
+            );
           })}
           </Suspense>
-          {droogt && <Luchtstroom3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} film={film} cyclus={cyclus} />}
-          {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} film={film} cyclus={cyclus} />}
+          {droogt && <Luchtstroom3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} film={film} />}
+          {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} film={film} />}
         </>
       )}
     </>
@@ -1013,7 +1185,7 @@ export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void
         frameloop={props.werkend ? "always" : "demand"}
         orthographic
         shadows={{ type: PCFShadowMap }}
-        dpr={[1, 2]}
+        dpr={[1, GSM ? 1.5 : 2]}
         camera={{ position: [60, 60, 60], near: 0.1, far: 300, zoom: 30 }}
         gl={{ antialias: true, alpha: true, toneMapping: NeutralToneMapping, preserveDrawingBuffer: false }}
         onCreated={({ gl }) => {

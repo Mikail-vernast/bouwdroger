@@ -15,6 +15,7 @@ import {
   DEFAULT_PD,
   PD_VALUES,
   SIZE_VALUES,
+  allItems,
   baseItems,
   configPrice,
   configWeeks,
@@ -25,6 +26,7 @@ import {
   type PackageItem,
 } from "./verhuur.js";
 import type { DeviceKey } from "../data/verhuur.js";
+import { droogTempo, type Tempo } from "./droogTempo.js";
 
 export type Woning = "rijwoning" | "halfopen" | "open" | "appartement";
 export type Dak = "zadeldak" | "plat" | "lessenaar";
@@ -43,6 +45,10 @@ export interface SimAnswers {
   fase: Fase;
   /** true = er wordt al verwarmd, dus geen kachels in het pakket */
   verwarmt: boolean;
+  /** how fast it has to be dry; sets the number of driers and the rental term */
+  tempo?: Tempo;
+  /** rooms in total, from the floor plan; drives fans and inner-wall plaster */
+  ruimtes?: number;
 }
 
 export const MAX_VERDIEPINGEN = 4;
@@ -95,8 +101,6 @@ export interface FaseInfo {
   starten: string;
   meten: string;
   letOp: string;
-  /** vraag naar vloerverwarming: alleen zolang de chape bloot ligt of net bedekt is */
-  vloerverwarming: boolean;
 }
 
 /**
@@ -119,7 +123,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Na afsluiten met folie",
     meten: "Nog niet",
     letOp: "Openingen eerst dicht",
-    vloerverwarming: false,
   },
   ramen: {
     label: "Ramen geplaatst",
@@ -134,7 +137,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Meteen",
     meten: "Niet nodig",
     letOp: "Regenwater op de vloerplaat",
-    vloerverwarming: false,
   },
   chape: {
     label: "Chape gegoten",
@@ -149,7 +151,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Na ± 1 week uitharden",
     meten: "Vóór tegels of parket",
     letOp: "Niet te vroeg forceren",
-    vloerverwarming: true,
   },
   tegels: {
     label: "Tegels gelegd",
@@ -164,7 +165,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Meteen",
     meten: "Chape onder de tegels",
     letOp: "Vocht zit opgesloten",
-    vloerverwarming: true,
   },
   gepleisterd: {
     label: "Net gepleisterd",
@@ -179,7 +179,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Na 2 à 3 dagen",
     meten: "Vóór het schilderen",
     letOp: "Verf op nat pleister bladdert",
-    vloerverwarming: true,
   },
   afgewerkt: {
     label: "Afgewerkt of bewoond",
@@ -195,7 +194,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Meteen, rustig",
     meten: "Eerst: waar zit het?",
     letOp: "Stil genoeg voor een slaapkamer",
-    vloerverwarming: false,
   },
 };
 
@@ -242,22 +240,57 @@ export interface SimResultaat {
   dagen: number;
   capaciteit: number;
   luchtverzet: number;
+  /** toestellen bovenop het vaste pakket (bij "snel"); gaan mee naar de boeking */
+  extra: Partial<Record<DeviceKey, number>>;
+  /** liter water dat de woning verlaat: een schatting uit het rekenmodel, alleen voor de film */
+  water: number;
 }
 
-/** Het pakket voor deze antwoorden, of null bij maatwerk of een onbekende combinatie. */
+/**
+ * Het pakket voor deze antwoorden, of null bij maatwerk.
+ *
+ * De catalogus is leidend, net als op de pakket- en boekingspagina: toestellen,
+ * termijn en prijs zijn die van het vaste pakket dat de klant boekt. Een eigen
+ * rekenmodel gaf hier eerst andere toestellen en een andere prijs dan wat de
+ * checkout aanrekende (rijwoning "rustig": € 719,55 in de simulator, € 596,40
+ * bij het boeken).
+ *
+ * Het tempo kan de termijn niet verschuiven, die ligt per pakket vast. "Snel"
+ * zet er een droger bij, als extra toestel zoals de boekingspagina dat kent en
+ * de checkout server-side herrekent. Het rekenmodel (droogTempo) levert alleen
+ * nog de geschatte liters voor de film.
+ */
 export function simResultaat(a: SimAnswers): SimResultaat | null {
   if (isMaatwerk(a)) return null;
+  const opp = Number(a.size);
+  if (!Number.isFinite(opp) || opp <= 0) return null;
   const config = toPackageConfig(a);
-  const items = baseItems(config);
-  if (items.length === 0) return null;
+  const basis = baseItems(config);
+  const extra: Partial<Record<DeviceKey, number>> =
+    a.tempo === "snel" ? { [basis.some((it) => it.k === "medium") || !basis.some((it) => it.k === "small") ? "medium" : "small"]: 1 } : {};
+  const items = allItems(config, extra);
+  const weken = configWeeks(config);
+  const { water } = droogTempo({
+    type: a.woning,
+    opp,
+    verd: Math.max(1, a.verdiepingen),
+    ruim: Math.max(1, a.ruimtes ?? a.verdiepingen * 4),
+    wat: a.wat,
+    cd: Number(config.cd),
+    pd: Number(config.pd),
+    verwarmt: a.verwarmt,
+    tempo: "gemiddeld",
+  });
   return {
-    config,
+    config: { ...config, weeks: weken },
     items,
     prijs: configPrice(config, items),
-    weken: configWeeks(config),
+    weken,
     dagen: dryingDays(config),
     capaciteit: totalCapacity(items),
     luchtverzet: totalAirflow(items),
+    extra,
+    water,
   };
 }
 

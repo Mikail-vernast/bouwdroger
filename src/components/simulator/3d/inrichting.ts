@@ -12,7 +12,7 @@ import type { Bouwer } from "./geo";
   assenstelsel van die muur gezet: u langs de muur, n de kamer in.
 */
 
-type Kant = "achter" | "voor" | "links" | "rechts";
+export type Kant = "achter" | "voor" | "links" | "rechts";
 
 interface Muur {
   kant: Kant;
@@ -60,6 +60,14 @@ function kiesMuur(k: Kamer, openingen: Opening[], gevels: { w: number; l: number
   };
   const beste = kanten.reduce((b, kant) => (score(kant) > score(b) ? kant : b), kanten[0]);
   return muur(k, beste);
+}
+
+const INGERICHT = new Set(["Keuken", "Badkamer", "Toilet", "Wasplaats"]);
+
+/** The wall a room's fixed fittings stand against, or null when it has none. */
+export function inrichtingsMuur(k: Kamer, openingen: Opening[], gevels: { w: number; l: number }): Kant | null {
+  if (k.soort === "circulatie" || !INGERICHT.has(k.naam)) return null;
+  return kiesMuur(k, openingen, gevels).kant;
 }
 
 type Blok = (mat: string, u0: number, u1: number, n0: number, n1: number, y0: number, y1: number) => void;
