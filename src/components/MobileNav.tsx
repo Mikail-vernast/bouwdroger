@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import {
   BEDRIJF,
   ALLES_OVER_DROGEN,
+  MENU_SITUATIES,
   PAKKETTEN,
   SERVICE,
   TOESTELLEN,
@@ -57,6 +58,9 @@ const UITKLAPBAAR: Rij[] = [
     categorieen: [
       { chip: "Pakketten", items: PAKKETTEN },
       { chip: "Toestellen", items: TOESTELLEN },
+      // Dezelfde vierde kolom als op de desktop: wie het menu Bouwdroging
+      // opent, moet ook hier bij zijn eigen situatie kunnen.
+      { chip: "Toepassingen", items: MENU_SITUATIES },
       { chip: "Levering & service", items: SERVICE },
     ],
   },

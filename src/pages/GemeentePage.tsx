@@ -5,7 +5,18 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
 import ContactBlok from "@/components/content/ContactBlok";
 import FaqBlok from "@/components/content/FaqBlok";
-import { ArrowRightIcon, PhoneIcon, PinIcon, TruckIcon } from "@/components/home-v3/icons";
+import {
+  ArrowRightIcon,
+  BoltIcon,
+  CalendarCheckIcon,
+  CartIcon,
+  GoogleIcon,
+  PhoneIcon,
+  PinIcon,
+  StarIcon,
+  TruckIcon,
+} from "@/components/home-v3/icons";
+import { GaugeIcon } from "@/components/content/icons";
 import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
 import { GEMEENTE_BY_PATH, GEMEENTE_ROUTES, gemeentenInRegio } from "@/data/gemeente-slugs";
@@ -13,6 +24,15 @@ import { GEMEENTE_BY_SLUG, plaatsenVoor, routeVan, type Gemeente } from "@/data/
 import { REGIO_ROUTES } from "@/data/regio-slugs";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { realisatieSlugsIn } from "@/data/realisatie-regio";
+import { productImageAlt, PRODUCTS, toestelPad } from "@/data/verhuur";
+import { toestelLabel } from "@/data/navigation";
+import { eersteReviews } from "@/data/reviews";
+import {
+  droogtermijnen,
+  natuurlijkeChapeWeken,
+  natuurlijkePleisterWeken,
+  termijnLabel,
+} from "@/lib/droogtijden";
 import "@/styles/v3-content.css";
 
 /**
@@ -36,6 +56,33 @@ import "@/styles/v3-content.css";
  * heel segment zijn), dus App.tsx registreert vaste routes die allemaal hier
  * uitkomen — zelfde oplossing als bij de regiopagina's.
  */
+
+/**
+ * De vier stappen van een huur. Eén regel draagt de gemeentenaam, zodat deze
+ * sectie niet op zeventien pagina's woord voor woord dezelfde is.
+ */
+const verloop = (naam: string) => [
+  {
+    Icon: CalendarCheckIcon,
+    title: "U reserveert",
+    desc: "Online via de calculator of met één telefoontje. U kiest zelf de leverdag; twijfelt u over het volume, dan rekenen wij het door.",
+  },
+  {
+    Icon: TruckIcon,
+    title: `Wij rijden naar ${naam}`,
+    desc: "Binnen 24 uur. De technieker verdeelt de toestellen, sluit de condensafvoer aan en stelt de streefvochtigheid in.",
+  },
+  {
+    Icon: BoltIcon,
+    title: "De opstelling draait",
+    desc: "Dag en nacht, ook in het weekend. U laat ramen en deuren dicht en verplaatst niets; de rest gebeurt vanzelf.",
+  },
+  {
+    Icon: GaugeIcon,
+    title: "Wij meten en halen op",
+    desc: "De eindmeting bepaalt of het droog is, niet de kalender. Is het droog, dan halen we alles op; zo niet, dan huurt u kosteloos verder.",
+  },
+];
 
 const GemeentePage = () => {
   const { pathname } = useLocation();
@@ -62,6 +109,8 @@ const GemeentePage = () => {
 
   /* De andere gemeenten in dezelfde provincie, voor de lijst onderaan. */
   const andere = gemeentenInRegio(route.regio).filter((g) => g.slug !== route.slug);
+  const chape = droogtermijnen("chape");
+  const pleister = droogtermijnen("pleister");
 
   return (
     <div className="v3c rg-page">
@@ -228,6 +277,128 @@ const GemeentePage = () => {
           </div>
         </section>
 
+        {/* ================= TOESTELLEN ================= */}
+        {/*
+          Dezelfde opbouw als op de provinciepagina, maar de `waarom` onder
+          elke kaart is per gemeente geschreven: in Antwerpen staat de Small
+          er omdat hij door een draaitrap past, in Geel de TTK 650 omdat de
+          volumes groter zijn. Dezelfde drie kaarten met dezelfde tekst op
+          zeventien pagina's zou kopieerwerk zijn.
+
+          Naam, foto en prijs komen uit `PRODUCTS` en dus uit het portaal;
+          `toestelLabel()` geeft de verhuurnaam en niet de typecode van de
+          fabrikant.
+        */}
+        <section className="sr">
+          <div className="wrap">
+            <div className="sec-head mid">
+              <span className="kick">De toestellen</span>
+              <h2 className="sec">Wat er in {route.name} het vaakst staat</h2>
+            </div>
+            <div className="prods">
+              {gemeente.toestellen.map((item, i) => {
+                const prod = PRODUCTS[item.key];
+                if (!prod) return null;
+                return (
+                  <Reveal from="up" delay={(i % 3) * 0.08} as="article" className="prod" key={item.key}>
+                    <div className="pimg">
+                      <img
+                        src={prod.img[0]}
+                        alt={productImageAlt(prod, 0)}
+                        width={480}
+                        height={360}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <h3>{toestelLabel(item.key)}</h3>
+                    <p className="pdesc" style={{ marginBottom: "18px" }}>{item.waarom}</p>
+                    <Link
+                      className="btn btn-line"
+                      to={toestelPad(item.key)}
+                      aria-label={`Bekijk ${toestelLabel(item.key)}`}
+                    >
+                      Bekijk dit toestel
+                      <ArrowRightIcon size={13} />
+                    </Link>
+                  </Reveal>
+                );
+              })}
+            </div>
+            <div className="note">
+              Dit is wat hier het vaakst past, niet het volledige gamma.{" "}
+              <Link to="/verhuur/calculator">Bereken hoeveel liter per dag uw ruimte nodig heeft</Link>{" "}
+              of bekijk <Link to="/machines">alle toestellen</Link>.
+            </div>
+          </div>
+        </section>
+
+        {/* ================= AFHALEN OF LEVEREN ================= */}
+        <section className="sw">
+          <div className="wrap">
+            <div className="sec-head mid">
+              <span className="kick">Twee manieren</span>
+              <h2 className="sec">Afhalen of leveren in {route.name}?</h2>
+            </div>
+            <div className="split32">
+              <Reveal from="up" className="paneel">
+                <div className="phead">
+                  <span><TruckIcon size={19} /></span>
+                  <h3>{gemeente.levering.kop}</h3>
+                </div>
+                <p>{gemeente.levering.alinea}</p>
+                {/*
+                  De feiten die op provincieniveau noodgedwongen vaag blijven
+                  ("15 tot 40 minuten") kunnen hier exact: één gemeente, één
+                  rijtijd. Dat is het eigenlijke bestaansrecht van deze pagina.
+                */}
+                <dl className="feiten">
+                  <div>
+                    <dt>Vanaf ons magazijn</dt>
+                    <dd>
+                      {gemeente.rit.afstand}, {gemeente.rit.tijd}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Levertermijn</dt>
+                    <dd>Binnen 24 uur, meestal de volgende werkdag</dd>
+                  </div>
+                  <div>
+                    <dt>Transport en installatie</dt>
+                    <dd>Inbegrepen in het droogpakket</dd>
+                  </div>
+                  <div>
+                    <dt>Postcode</dt>
+                    <dd>{route.postcode}</dd>
+                  </div>
+                </dl>
+                <Link className="btn" to="/verhuur/calculator" style={{ marginTop: "22px" }}>
+                  Reserveer met levering
+                  <ArrowRightIcon />
+                </Link>
+              </Reveal>
+              <Reveal from="up" delay={0.08} className="paneel">
+                <div className="phead">
+                  <span><CartIcon size={19} /></span>
+                  <h3>{gemeente.afhalen.kop}</h3>
+                </div>
+                <p>{gemeente.afhalen.alinea}</p>
+                <p style={{ marginTop: "18px" }}>
+                  <b style={{ color: "var(--txt)" }}>
+                    {CONTACT.street}, {CONTACT.postalCode} {CONTACT.city}
+                  </b>
+                  <br />
+                  Ma&ndash;Vr 08:00&ndash;17:00, op afspraak
+                </p>
+                <Link className="btn" to="/verhuur/afhalen" style={{ marginTop: "22px" }}>
+                  Zo werkt zelf afhalen
+                  <ArrowRightIcon />
+                </Link>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
         {/* ================= WERVEN HIER ================= */}
         {werven.length > 0 && (
           <section className="sr">
@@ -270,6 +441,73 @@ const GemeentePage = () => {
           </section>
         )}
 
+        {/* ================= DROOGTIJDEN ================= */}
+        {/*
+          Dezelfde tabel als op de provinciepagina, en bewust zonder er een
+          lokaal verhaal omheen te verzinnen: een droogtijd hangt af van
+          dikte, volume en temperatuur, niet van een postcode. Dat staat er
+          dan ook letterlijk, zodat de pagina niets suggereert wat niet waar
+          is. De cijfers komen uit de pakketcatalogus (`src/lib/droogtijden.ts`).
+        */}
+        {chape.length > 0 && (
+          <section className="sw">
+            <div className="wrap">
+              <div className="sec-head">
+                <span className="kick">Hoe lang duurt het</span>
+                <h2 className="sec">Droogtijden met en zonder bouwdroger.</h2>
+                <p className="lede">
+                  De huurtermijnen hieronder zijn die van onze droogpakketten, dezelfde als de
+                  calculator aanrekent. Ze gelden in {route.name} zoals overal: de droogtijd hangt
+                  af van dikte, volume en temperatuur, niet van uw postcode.
+                </p>
+              </div>
+              <div className="tblwrap">
+                <div className="tblscroll">
+                  <table className="tbl">
+                    <caption className="sr-only">Droogtijden per materiaal en dikte</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Wat moet drogen</th>
+                        <th scope="col">Zonder droger</th>
+                        <th scope="col">Met droogpakket</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {chape.map((rij) => (
+                        <tr key={`chape-${rij.dikte}`}>
+                          <th scope="row">Cementchape {rij.dikte} cm</th>
+                          <td>&plusmn; {natuurlijkeChapeWeken(rij.dikte)} weken</td>
+                          <td><b>{termijnLabel(rij)}</b></td>
+                        </tr>
+                      ))}
+                      {pleister.map((rij) => {
+                        const nat = natuurlijkePleisterWeken(rij.dikte);
+                        return (
+                          <tr key={`pleister-${rij.dikte}`}>
+                            <th scope="row">Pleisterwerk {rij.dikte} cm</th>
+                            <td>
+                              &plusmn; {nat.min === nat.max ? nat.min : `${nat.min} tot ${nat.max}`} weken
+                            </td>
+                            <td><b>{termijnLabel(rij)}</b></td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <p className="tblnote">
+                &ldquo;Zonder droger&rdquo; is de vuistregel uit de bouwpraktijk bij een goed
+                verluchte ruimte rond 20 &deg;C &mdash; een richtwaarde, geen meting. Wat telt is
+                de eindmeting: is het op de afgesproken datum niet droog, dan huurt u kosteloos
+                verder.{" "}
+                <Link to="/gids/hoe-lang-moet-chape-drogen">Hoe lang chape moet drogen</Link> legt
+                het per situatie uit.
+              </p>
+            </div>
+          </section>
+        )}
+
         {/* ================= FAQ ================= */}
         <FaqBlok
           titel={`Wat klanten in ${route.name} ons vragen.`}
@@ -277,6 +515,78 @@ const GemeentePage = () => {
           sleutel="gemeente-faq"
           variant="wit"
         />
+
+        {/* ================= HOE HET VERLOOPT ================= */}
+        <section className="sr">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="kick">Hoe het verloopt</span>
+              <h2 className="sec">Van reservatie tot meetrapport in {route.name}.</h2>
+              <p className="lede">
+                Vier stappen, en u hoeft er zelf maar één te zetten. De rest doen wij, met een
+                vochtmeting als bewijs in plaats van een datum op een kalender.
+              </p>
+            </div>
+            <div className="flow">
+              {verloop(route.name).map(({ Icon, title, desc }, i) => (
+                <Reveal from="up" delay={i * 0.08} className="fl" key={title}>
+                  <i>{`0${i + 1}`}</i>
+                  <div className="fi"><Icon size={19} /></div>
+                  <h3>{title}</h3>
+                  <p>{desc}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ================= BEOORDELINGEN ================= */}
+        {/*
+          Dezelfde drie beoordelingen als op de homepage en de provinciepagina,
+          uit `src/data/reviews.ts`. Geen ervan gaat over deze gemeente en dat
+          staat er niet bij gelogen: ze zeggen hoe deze ploeg werkt. Een
+          verzonnen review met een lokale naam eronder zou de enige manier zijn
+          om dat anders te doen, en dat doen we niet.
+        */}
+        <section className="sw">
+          <div className="wrap">
+            <div className="sec-head mid">
+              <span className="kick">Wat klanten zeggen</span>
+              <h2 className="sec">Beoordeeld door wie ons al liet komen.</h2>
+              <p className="lede">
+                Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over
+                snelheid, afspraken nakomen en opvolging &mdash; precies wat een werf in{" "}
+                {route.name} van ons vraagt.
+              </p>
+            </div>
+            <div className="rvs">
+              {eersteReviews(3).map((review, i) => (
+                <Reveal from="up" delay={(i % 3) * 0.08} as="figure" className="rvc" key={review.name}>
+                  <div className="rvc-top">
+                    <div className="rvc-st" role="img" aria-label={`${review.rating} van de 5 sterren`}>
+                      {Array.from({ length: review.rating }).map((_, ster) => (
+                        <StarIcon key={ster} size={14} />
+                      ))}
+                    </div>
+                    {review.source === "Google" ? (
+                      <GoogleIcon size={17} />
+                    ) : (
+                      <span className="rvc-src">{review.source}</span>
+                    )}
+                  </div>
+                  <blockquote>&ldquo;{review.text}&rdquo;</blockquote>
+                  <figcaption>
+                    <span className="rvc-av" aria-hidden="true">{review.initials}</span>
+                    <span>
+                      <b>{review.name}</b>
+                      <small>{review.service ?? review.date}</small>
+                    </span>
+                  </figcaption>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* ================= BUURGEMEENTEN ================= */}
         {/*

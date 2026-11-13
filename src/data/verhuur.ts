@@ -870,6 +870,57 @@ export const PRODUCT_ORDER = [
   "teddh20",
 ].filter((key) => PRODUCTS[key]);
 
+/**
+ * De slug waaronder een toestel op /verhuur/toestel/<slug> staat.
+ *
+ * Tot 11-2026 was dat de sleutel zelf: /verhuur/toestel/ttk350. Een typenummer
+ * is geen zoekopdracht — niemand tikt "ttk350" in, mensen zoeken op het
+ * soortwoord plus de maat waarop ze vergelijken ("bouwdroger 70 liter",
+ * "bouwkachel 30 kW"). Dat staat nu in de URL, en daarmee ook in de blauwe
+ * link in de zoekresultaten en in elke gedeelde link.
+ *
+ * De sleutels zelf blijven ongemoeid: die staan in verstuurde orders, in de
+ * Stripe-metadata en in het portaal. Alleen de URL verandert.
+ *
+ * De getallen hier zijn met opzet bevroren en worden niet uit `PRODUCTS`
+ * afgeleid. Publiceert het portaal morgen 55 in plaats van 50 liter, dan hoort
+ * de URL niet mee te verspringen — een URL die wijzigt bij een prijspublicatie
+ * verliest zijn posities en breekt elke link die ernaar wijst.
+ */
+export const TOESTEL_SLUG: Record<string, string> = {
+  ttk170: "bouwdroger-50-liter",
+  ttk350: "bouwdroger-70-liter",
+  ttk650: "bouwdroger-110-liter",
+  revolution: "adsorptiedroger",
+  ttv4500: "axiaalventilator-4500-m3",
+  radiaal2250: "radiaalventilator-2250-m3",
+  teddh30: "bouwkachel-30-kw",
+  teddh20: "bouwkachel-20-kw",
+};
+
+const SLEUTEL_PER_SLUG: Record<string, string> = Object.fromEntries(
+  Object.entries(TOESTEL_SLUG).map(([key, slug]) => [slug, key])
+);
+
+/** Het pad naar de detailpagina van een toestel. Typ dit nergens over. */
+export function toestelPad(key: string): string {
+  return `/verhuur/toestel/${TOESTEL_SLUG[key] ?? key}`;
+}
+
+/**
+ * Van URL-segment naar sleutel in `PRODUCTS`.
+ *
+ * Aanvaardt ook nog de oude sleutel-URL. De redirects in vercel.json vangen die
+ * af vóór de pagina laadt, maar `vite dev` kent die redirects niet en een oude
+ * link in een e-mail of een bladwijzer hoort hoe dan ook niet op het eerste
+ * toestel uit te komen.
+ */
+export function toestelKey(slug: string | undefined): string | undefined {
+  if (!slug) return undefined;
+  const key = SLEUTEL_PER_SLUG[slug] ?? slug;
+  return PRODUCTS[key] ? key : undefined;
+}
+
 /** Wat er op een toestelpagina bijgeboekt kan worden — enkel wat te huur staat. */
 export const PRODUCT_ADDONS: Record<string, string[]> = Object.fromEntries(
   Object.entries({

@@ -107,7 +107,7 @@ const V3Footer = () => (
             zonder zoekwoord in de ankertekst. Deze lijst is het echte signaal —
             voor een bezoeker met een schermlezer én voor een crawler.
           */}
-          <h2 id="ft-regios">Per regio</h2>
+          <h2 id="ft-regios" className="later">Per regio</h2>
           <ul aria-labelledby="ft-regios">
             {REGIOS.map((link) => (
               <li key={link.path}>
@@ -203,7 +203,12 @@ const V3Footer = () => (
         <div className="ft-legal">
           <Link to="/algemene-voorwaarden">Algemene voorwaarden</Link>
           <Link to="/privacy">Privacy</Link>
-          <a href="/sitemap.xml">Sitemap</a>
+          {/*
+            De zichtbare sitemap (/sitemap), niet sitemap.xml. Dat XML-bestand
+            is voor crawlers; wie hier klikt is een mens en kreeg een scherm
+            vol ongeopmaakte XML. De crawler vindt zijn versie via robots.txt.
+          */}
+          <Link to="/sitemap">Sitemap</Link>
         </div>
       </div>
     </div>

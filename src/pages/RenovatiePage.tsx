@@ -36,6 +36,7 @@ import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { CONTACT } from "@/lib/site";
 import "@/styles/v3-content.css";
 import "@/styles/renovatie.css";
+import { toestelPad } from "@/data/verhuur";
 
 /**
  * Vochtige kelders en renovatievocht. Deze pagina stond tot november 2026 nog
@@ -223,9 +224,9 @@ const verderLezen: LeesGroep[] = [
   {
     kop: "Toestellen voor kelders en vochtige ruimtes",
     links: [
-      { to: "/verhuur/toestel/ttk170", toestel: "ttk170", label: "Boost", sub: "Compact, voor één kamer of een kleine kelder." },
-      { to: "/verhuur/toestel/ttk650", toestel: "ttk650", label: "Ultimate", sub: "Voor ruime kelders en veel vocht." },
-      { to: "/verhuur/toestel/teddh20", toestel: "teddh20", label: "Bouwkachel voor een koude kelder of garage", sub: "Brengt de ruimte op werkingstemperatuur." },
+      { to: toestelPad("ttk170"), toestel: "ttk170", label: "Boost", sub: "Compact, voor één kamer of een kleine kelder." },
+      { to: toestelPad("ttk650"), toestel: "ttk650", label: "Ultimate", sub: "Voor ruime kelders en veel vocht." },
+      { to: toestelPad("teddh20"), toestel: "teddh20", label: "Bouwkachel voor een koude kelder of garage", sub: "Brengt de ruimte op werkingstemperatuur." },
     ],
   },
   {

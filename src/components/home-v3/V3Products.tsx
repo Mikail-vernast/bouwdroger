@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon, InfoIcon } from "./icons";
-import { PRODUCTS, toestelChips } from "@/data/verhuur";
+import { PRODUCTS, toestelChips, toestelPad } from "@/data/verhuur";
 import { DAY_PRICE_MIN } from "@/data/tarieflijst";
 import { VAT_RATE } from "@/lib/booking";
 
@@ -98,7 +98,7 @@ interface ProductCard {
  */
 const MAIN: ProductCard[] = [
   {
-    href: "/verhuur/toestel/ttk170",
+    href: toestelPad("ttk170"),
     key: "ttk170",
     tag: "Kleine ruimtes",
     image: "/vernast/eco-boost.webp",
@@ -111,7 +111,7 @@ const MAIN: ProductCard[] = [
     day: 9,
   },
   {
-    href: "/verhuur/toestel/ttk350",
+    href: toestelPad("ttk350"),
     key: "ttk350",
     tag: "Meest gehuurd",
     hot: true,
@@ -125,7 +125,7 @@ const MAIN: ProductCard[] = [
     day: 12,
   },
   {
-    href: "/verhuur/toestel/ttk650",
+    href: toestelPad("ttk650"),
     key: "ttk650",
     tag: "Grote volumes",
     image: "/vernast/eco-ultimate.webp",
@@ -144,7 +144,7 @@ const MAIN: ProductCard[] = [
   */
   PRODUCTS.revolution
     ? {
-        href: "/verhuur/toestel/revolution",
+        href: toestelPad("revolution"),
         key: "revolution",
         tag: "Plaatselijk drogen",
         image: "/vernast/eco-revolution.webp",
@@ -179,7 +179,7 @@ const MAIN: ProductCard[] = [
 */
 const SUPPORT: ProductCard[] = [
   {
-    href: "/verhuur/toestel/ttv4500",
+    href: toestelPad("ttv4500"),
     key: "ttv4500",
     tag: "Luchtcirculatie",
     image: "/vernast/vent-axiaal.webp",
@@ -190,7 +190,7 @@ const SUPPORT: ProductCard[] = [
     day: 9,
   },
   {
-    href: "/verhuur/toestel/radiaal2250",
+    href: toestelPad("radiaal2250"),
     key: "radiaal2250",
     tag: "Gericht drogen",
     image: "/vernast/vent-radiaal.webp",
@@ -201,7 +201,7 @@ const SUPPORT: ProductCard[] = [
     day: 8,
   },
   {
-    href: "/verhuur/toestel/teddh20",
+    href: toestelPad("teddh20"),
     key: "teddh20",
     tag: "Verwarming",
     image: "/vernast/kachel-20.webp",
@@ -212,7 +212,7 @@ const SUPPORT: ProductCard[] = [
     day: 9,
   },
   {
-    href: "/verhuur/toestel/teddh30",
+    href: toestelPad("teddh30"),
     key: "teddh30",
     tag: "Verwarming",
     image: "/vernast/kachel-30.webp",

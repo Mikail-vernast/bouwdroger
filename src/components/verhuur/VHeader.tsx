@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
-import { ALLES_OVER_DROGEN, TOESTELLEN } from "@/data/navigation";
+import { ALLES_OVER_DROGEN, MENU_SITUATIES, PAKKETTEN, TOESTELLEN } from "@/data/navigation";
 import "@/styles/mega-menu.css";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
 
@@ -99,22 +99,14 @@ const VHeader = () => {
                 <div className="mmv-cols">
                   <div className="mmv-groep">
                     <span className="mmv-kop">Pakketten</span>
+                    {/* Dezelfde lijst als in V3Header en het mobiele menu:
+                        `PAKKETTEN` in src/data/navigation.ts. */}
                     <ul className="mmv-lijst">
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Chape drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk + chape</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Waterschade drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
-                      </li>
+                      {PAKKETTEN.map((item) => (
+                        <li key={item.label}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                   <div className="mmv-groep">
@@ -145,6 +137,23 @@ const VHeader = () => {
                       <li>
                         <Link to="/verhuur/boeking">Verlengen of stoppen</Link>
                       </li>
+                    </ul>
+                  </div>
+                  {/*
+                    De verhuurschil had geen situatiekolom: wie in de funnel zat
+                    kon vanuit "Bouwdroging" alleen naar pakketten, toestellen
+                    en service. Chape en pleisterwerk drogen, waterschade en de
+                    vochtige kelder stonden alleen in "Alles over drogen". Beide
+                    schillen tonen nu dezelfde vier kolommen.
+                  */}
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Toepassingen</span>
+                    <ul className="mmv-lijst">
+                      {MENU_SITUATIES.map((item) => (
+                        <li key={item.path}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>

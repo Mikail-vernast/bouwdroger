@@ -12,7 +12,7 @@ import { GaugeIcon, LayersIcon, ThermoIcon, WindIcon, XIcon } from "@/components
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { euro } from "@/data/tarieflijst";
-import { EXTRAS } from "@/data/verhuur";
+import { EXTRAS, toestelPad } from "@/data/verhuur";
 import { droogtermijnen, natuurlijkeChapeWeken, termijnLabel } from "@/lib/droogtijden";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { CONTACT } from "@/lib/site";
@@ -181,9 +181,9 @@ const verderLezen: LeesGroep[] = [
   {
     kop: "De toestellen voor chape en pleister",
     links: [
-      { to: "/verhuur/toestel/ttk350", toestel: "ttk350", label: "Performance", sub: "Het standaardtoestel voor een nieuwbouwwoning." },
-      { to: "/verhuur/toestel/radiaal2250", toestel: "radiaal2250", label: "Radiaalventilator voor chapedroging", sub: "Blaast vlak over de vloer." },
-      { to: "/verhuur/toestel/teddh30", toestel: "teddh30", label: "Elektrische bouwkachel voor een koude werf", sub: "Onder 15 °C droogt het traag." },
+      { to: toestelPad("ttk350"), toestel: "ttk350", label: "Performance", sub: "Het standaardtoestel voor een nieuwbouwwoning." },
+      { to: toestelPad("radiaal2250"), toestel: "radiaal2250", label: "Radiaalventilator voor chapedroging", sub: "Blaast vlak over de vloer." },
+      { to: toestelPad("teddh30"), toestel: "teddh30", label: "Elektrische bouwkachel voor een koude werf", sub: "Onder 15 °C droogt het traag." },
     ],
   },
   {

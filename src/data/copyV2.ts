@@ -387,7 +387,7 @@ export const COPY_PAGES: CopyPage[] = [
     id: "toestel-template",
     group: "Aanbod",
     name: "Toestelpagina (template)",
-    route: "/verhuur/toestel/:model",
+    route: "/verhuur/toestel/:toestel",
     purpose: "Elk toestel op dezelfde manier uitleggen: toepassing eerst, specificaties daarna.",
     hero: {
       eyebrow: "[Categorie] · [beste toepassing]",

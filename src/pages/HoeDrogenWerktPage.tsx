@@ -10,6 +10,7 @@ import { SEO } from "@/data/seo";
 import "@/styles/hoe-drogen-werkt.css";
 import "@/styles/hoe-drogen-werkt-fixes.css";
 import "@/styles/hoe-drogen-animaties.css";
+import { toestelPad } from "@/data/verhuur";
 
 /**
  * Hoe drogen werkt — 1:1 transcription of the Claude Design handoff
@@ -71,7 +72,7 @@ const HoeDrogenWerktPage = () => (
           <div className="kaart rv">
             <KlimaatMeter variant="temperatuur" volgorde={0} />
             <h3>1. Temperatuur</h3>
-            <p>Voldoende warmte verhoogt het verdampingspotentieel en ondersteunt het vochttransport uit het materiaal. In koude ruimtes zetten we daarom een <Link to="/verhuur/toestel/teddh30" style={{ color: "var(--red)", fontWeight: 600 }}>bouwkachel</Link> bij.</p>
+            <p>Voldoende warmte verhoogt het verdampingspotentieel en ondersteunt het vochttransport uit het materiaal. In koude ruimtes zetten we daarom een <Link to={toestelPad("teddh30")} style={{ color: "var(--red)", fontWeight: 600 }}>bouwkachel</Link> bij.</p>
           </div>
           <div className="kaart rv d1">
             <KlimaatMeter variant="vocht" volgorde={1} />
@@ -81,7 +82,7 @@ const HoeDrogenWerktPage = () => (
           <div className="kaart rv d2">
             <KlimaatMeter variant="lucht" volgorde={2} />
             <h3>3. Luchtbeweging</h3>
-            <p>Droge lucht moet álle vochtige oppervlakken bereiken; stilstaande lucht rond een wand of vloer remt het proces. Daarom horen bij veel pakketten <Link to="/verhuur/toestel/ttv4500" style={{ color: "var(--red)", fontWeight: 600 }}>ventilatoren</Link>.</p>
+            <p>Droge lucht moet álle vochtige oppervlakken bereiken; stilstaande lucht rond een wand of vloer remt het proces. Daarom horen bij veel pakketten <Link to={toestelPad("ttv4500")} style={{ color: "var(--red)", fontWeight: 600 }}>ventilatoren</Link>.</p>
           </div>
         </div>
         <div className="note rv"><b>Daarom berekenen wij eerst, en plaatsen we pas daarna.</b> De <Link to="/verhuur/calculator">droogcalculator</Link> vertaalt uw oppervlakte, plafondhoogte en situatie naar de juiste combinatie van toestellen, het hart van elk <Link to="/verhuur/pakket">Vernast-droogpakket</Link>.</div>

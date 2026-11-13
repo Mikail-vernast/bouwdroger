@@ -10,7 +10,7 @@
  * niet in elke build, maar het is de enige controle die de ergste faalmodus
  * vangt: canonicals die naar een domein wijzen dat iets anders serveert.
  */
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 
 const DIST = "dist";
@@ -274,6 +274,43 @@ console.log(
 const unsizedTotal = indexable.reduce((n, r) => n + r.unsized, 0);
 const imgTotal = indexable.reduce((n, r) => n + r.imgs, 0);
 console.log(`Afbeeldingen:  ${unsizedTotal} van ${imgTotal} zonder width/height (aandachtspunt, geen fout)`);
+
+/**
+ * Elke geïndexeerde pagina moet vanaf /sitemap te bereiken zijn.
+ *
+ * De zichtbare sitemap wordt opgebouwd uit `src/data/navigation.ts` en de
+ * datalijsten, dus hij loopt vanzelf mee. Vanzelf is niet hetzelfde als
+ * gegarandeerd: een nieuwe route die wél geprerenderd wordt maar in geen enkele
+ * navigatielijst staat, verschijnt in sitemap.xml en nergens anders. Dat is
+ * precies de wees waar navigation.ts tegen bestaat, en hier wordt hij zichtbaar.
+ */
+/* vite-react-ssg schrijft een route zonder kinderen weg als `<route>.html`,
+   niet als `<route>/index.html`. Allebei accepteren: welke vorm het wordt
+   hangt af van de routeboom, niet van deze pagina. */
+const sitemapFile = [join(DIST, "sitemap.html"), join(DIST, "sitemap", "index.html")].find(existsSync);
+if (sitemapFile) {
+  const html = readFileSync(sitemapFile, "utf8");
+  const gelinkt = new Set(
+    [...html.matchAll(/href="([^"]+)"/g)]
+      .map((m) => m[1].replace(/^https?:\/\/[^/]+/, "").replace(/[?#].*$/, ""))
+      .map((h) => (h.length > 1 ? h.replace(/\/$/, "") : h))
+  );
+  const ontbreekt = indexable
+    .map((r) => r.route)
+    .filter((route) => route !== "/" && !gelinkt.has(route))
+    // De kruimel en de voettekst dekken de homepage al; de funnelstappen
+    // (boeking, saldo, bevestigingen) staan op noindex en zitten hier dus niet.
+    .sort();
+  if (ontbreekt.length) {
+    problems.push(
+      `/sitemap linkt niet naar ${ontbreekt.length} geïndexeerde pagina('s): ${ontbreekt.join(", ")}`
+    );
+  } else {
+    console.log(`Sitemappagina: alle ${indexable.length} indexeerbare pagina's gelinkt`);
+  }
+} else {
+  problems.push("dist/sitemap/index.html ontbreekt — de zichtbare sitemap is niet geprerenderd");
+}
 
 if (problems.length) {
   console.log(`\n${problems.length} punt(en):`);

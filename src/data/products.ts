@@ -1,4 +1,5 @@
 import { PRODUCTS } from "./verhuur.js";
+import { toestelPad } from "./verhuur";
 
 /**
  * Welke rij hier hetzelfde toestel is als op /verhuur/toestel/*.
@@ -65,7 +66,7 @@ const TOESTEL_PAGE: Record<string, string> = {
 /** Het pad naar de detailpagina van een toestel uit deze catalogus. */
 export function productPath(id: string): string {
   const model = TOESTEL_PAGE[id];
-  return model ? `/verhuur/toestel/${model}` : `/product/${id}`;
+  return model ? toestelPad(model) : `/product/${id}`;
 }
 
 export interface Product {

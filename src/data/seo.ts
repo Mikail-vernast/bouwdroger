@@ -28,6 +28,20 @@ export const SEO = {
     description:
       "Chape gelegd of net gepleisterd? Droog tot vier keer sneller met een professionele bouwdroger. Levering aan huis, installatie en gratis vochtmeting inbegrepen.",
   },
+  /* Twee eigen dienstpagina's sinds 12-11-2026. "Chape drogen" en
+     "pleisterwerk drogen" zijn twee zoekvragen van twee verschillende mensen;
+     /nieuwbouw-drogen blijft voor wie beide samen droogt. De gidsen leggen de
+     materie uit, deze twee verkopen de dienst. */
+  chapeDrogen: {
+    title: "Chape drogen met een bouwdroger | Vernast",
+    description:
+      "Chape drogen met een droogpakket: huurtermijn per chapedikte, levering en installatie in heel Vlaanderen, vochtmeting voor en na en de drooggarantie.",
+  },
+  pleisterwerkDrogen: {
+    title: "Pleisterwerk drogen met een bouwdroger | Vernast",
+    description:
+      "Pleisterwerk drogen met een droogpakket: huurtermijn per laagdikte, levering en installatie, meting voor en na, en een datum waarop de schilder kan starten.",
+  },
   waterschade: {
     title: "Bouwdroger bij waterschade - vandaag nog geleverd | Vernast",
     description:
@@ -175,6 +189,15 @@ export const SEO = {
     description:
       "De algemene verhuurvoorwaarden van Vernast: huurperiode, levering en ophaling, prijzen, aansprakelijkheid, verzekeringen en privacybeleid.",
     noindex: true,
+  },
+  /*
+    De zichtbare sitemap. Staat bewust op index: hij is de kortste weg naar elke
+    pagina, ook voor een antwoordmachine die geen JavaScript draait.
+  */
+  sitemap: {
+    title: "Sitemap: alle pagina's | Vernast Bouwdrogers",
+    description:
+      "Alle pagina's van Vernast Bouwdrogers op één rij: droogpakketten, toestellen met hun capaciteit, gidsen, realisaties en elke gemeente waar wij leveren.",
   },
   privacy: {
     title: "Privacybeleid | Vernast Bouwdrogers",

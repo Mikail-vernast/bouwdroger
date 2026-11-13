@@ -7,6 +7,7 @@ import {
   PlanIcon,
   ShieldIcon,
 } from "./icons";
+import { toestelPad } from "@/data/verhuur";
 
 interface Hotspot {
   id: string;
@@ -167,7 +168,7 @@ const V3EcoLineup = () => {
                   <span>{value}</span>
                 </div>
               ))}
-              <Link to={`/verhuur/toestel/${spot.model}`}>
+              <Link to={toestelPad(spot.model)}>
                 Bekijken <ArrowRightIcon size={12} strokeWidth={2.6} />
               </Link>
             </div>

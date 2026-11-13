@@ -116,6 +116,20 @@ Een pagina toevoegen raakt dus vier bestanden: route in `src/App.tsx`, metadata 
 entry wordt de pagina een wees die alleen via de sitemap bestaat) en eventueel een redirect
 in `vercel.json`.
 
+Naast `sitemap.xml` staat er een **zichtbare sitemap** op `/sitemap`
+(`src/pages/SitemapPage.tsx`), opgebouwd uit `navigation.ts` en de datalijsten — dus niets
+om bij te houden. `audit-seo.mjs` faalt wanneer een geïndexeerde pagina er niet vanaf
+gelinkt wordt; dat is in de praktijk de controle of je `navigation.ts`-entry er is.
+
+### De URL van een toestelpagina is een slug, niet de sleutel
+
+`/verhuur/toestel/bouwdroger-70-liter`, niet `/verhuur/toestel/ttk350` — zie `TOESTEL_SLUG`
+in `src/data/verhuur.ts`. De sleutels (`ttk350`) blijven overal elders staan: in verstuurde
+orders, in de Stripe-metadata, in het portaal. Bouw een URL dus nooit zelf op maar gebruik
+`toestelPad(key)`, en vertaal een URL terug met `toestelKey(slug)`. De getallen in de slugs
+zijn met opzet bevroren: ze volgen niet wat het portaal publiceert, want een URL die bij
+een prijspublicatie verspringt verliest zijn posities.
+
 ### `src/lib/` draait aan beide kanten
 
 De modules in `src/lib/` worden zowel door de browser als door de serverless functies in

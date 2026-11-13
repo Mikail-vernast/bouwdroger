@@ -44,6 +44,10 @@ import {
 /** Wat elke pagina beantwoordt, in één of twee zinnen. */
 const SAMENVATTING: Record<string, string> = {
   /* Gidsen */
+  "/chape-drogen":
+    "Wat een chapedroging bij u kost en hoe ze verloopt: huurtermijn per chapedikte, levering en installatie, meting voor en na, en de drooggarantie op de einddatum.",
+  "/pleisterwerk-drogen":
+    "Pleisterwerk laten drogen met een droogpakket: termijn per laagdikte, wat de technieker doet, en wanneer de schilder of behanger kan starten.",
   "/gids/hoe-lang-moet-chape-drogen":
     "Droogtijden per dikte, natuurlijk en met een bouwdroger, het verschil tussen cement- en anhydrietchape, vloerverwarming opstoken en restvocht meten. Met een aparte sectie over pleisterwerk.",
   "/gids/hoe-lang-moet-pleisterwerk-drogen":
@@ -86,6 +90,8 @@ const SAMENVATTING: Record<string, string> = {
 
 /** Het pictogram per pagina; onbekend valt terug op {@link FileIcon}. */
 const PICTOGRAM: Record<string, ComponentType<{ size?: number }>> = {
+  "/chape-drogen": LayersIcon,
+  "/pleisterwerk-drogen": BrushIcon,
   "/gids/hoe-lang-moet-chape-drogen": ClockIcon,
   "/gids/hoe-lang-moet-pleisterwerk-drogen": BrushIcon,
   "/gids/condensdroger-of-adsorptiedroger": DrogerIcon,

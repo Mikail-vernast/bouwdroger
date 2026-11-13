@@ -12,6 +12,7 @@
  */
 import { describe, expect, it } from "vitest";
 import { matchRedirect } from "../../worker/vercelRouting";
+import { PRODUCT_ORDER, TOESTEL_SLUG, toestelKey } from "@/data/verhuur";
 
 const bestemming = (pad: string) => matchRedirect(new URL(`https://vernast-bouwdrogers.be${pad}`))?.location;
 
@@ -22,10 +23,10 @@ describe("Shopify-productredirects", () => {
     ["gebouw-kleiner-dan-180-m2-chapedikte-7cm", "/nieuwbouw-drogen"],
     ["ruimte-kleiner-dan-40-m2-pleisterdikte-1cm", "/nieuwbouw-drogen"],
     ["gebouw-kleiner-dan-300-m2-pleisterwerk-chape-drogen", "/nieuwbouw-drogen"],
-    ["bouwdroger-huren-eco-boost-450-m3", "/verhuur/toestel/ttk170"],
-    ["eco-revolution", "/verhuur/toestel/revolution"],
-    ["turbo-axiaalventilator-4500-m-h-5-00-dag", "/verhuur/toestel/ttv4500"],
-    ["turbo-radiaalventilator-2250-m-h-5-00-dag", "/verhuur/toestel/radiaal2250"],
+    ["bouwdroger-huren-eco-boost-450-m3", "/verhuur/toestel/bouwdroger-50-liter"],
+    ["eco-revolution", "/verhuur/toestel/adsorptiedroger"],
+    ["turbo-axiaalventilator-4500-m-h-5-00-dag", "/verhuur/toestel/axiaalventilator-4500-m3"],
+    ["turbo-radiaalventilator-2250-m-h-5-00-dag", "/verhuur/toestel/radiaalventilator-2250-m3"],
     // Geen tegenhanger in het huidige gamma: dan blijft het overzicht de beste landing.
     ["luchtontvochtiger-dh-30-vpr", "/machines"],
     ["oliekachel-bds-100-118-00-kw-28-00-dag", "/machines"],
@@ -47,6 +48,27 @@ describe("Shopify-productredirects", () => {
   */
   it("laat een hernoemde eigen pagina permanent doorverwijzen", () => {
     expect(bestemming("/nieuwbouw")).toBe("/nieuwbouw-drogen");
+  });
+
+  /*
+    De toestelpagina's droegen tot 11-2026 hun typenummer als URL. Die URL's
+    staan in verstuurde offertes en bevestigingsmails, dus ze mogen nooit op
+    een 404 uitkomen -- zie TOESTEL_SLUG in src/data/verhuur.ts.
+  */
+  it.each(Object.entries(TOESTEL_SLUG))(
+    "stuurt de oude typenummer-URL /verhuur/toestel/%s door",
+    (key, slug) => {
+      expect(bestemming(`/verhuur/toestel/${key}`)).toBe(`/verhuur/toestel/${slug}`);
+    }
+  );
+
+  it("heeft voor elk toestel in het gamma een geprerenderde URL", () => {
+    // Een slug vergeten betekent een pagina die alleen via de oude URL te
+    // bereiken is -- en die stuurt dan naar zichzelf door.
+    for (const key of PRODUCT_ORDER) {
+      expect(TOESTEL_SLUG[key], key).toBeTruthy();
+      expect(toestelKey(TOESTEL_SLUG[key])).toBe(key);
+    }
   });
 
   it("stuurt de oude informatiepagina's naar hun eigen onderwerp", () => {

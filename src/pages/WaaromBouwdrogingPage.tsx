@@ -6,6 +6,7 @@ import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
 import "@/styles/waarom-bouwdroging.css";
 import "@/styles/waarom-bouwdroging-fixes.css";
+import { toestelPad } from "@/data/verhuur";
 
 /**
  * Waarom bouwdroging — 1:1 transcription of the Claude Design handoff
@@ -178,7 +179,7 @@ const WaaromBouwdrogingPage = () => (
           <div className="rd rv d1">
             <div className="zone"><i className="on" /><i className="on" /><i className="on" /><i className="on" /></div>
             <h3>Capaciteit verdeeld over droogzones</h3>
-            <p>Dezelfde totale capaciteit, verdeeld waar ze nodig is, aangevuld met <Link to="/verhuur/toestel/ttv4500" style={{ color: "var(--red)", fontWeight: 600 }}>ventilatoren</Link> die de lucht beter laten circuleren. Een gelijkmatiger droogklimaat, een voorspelbaar resultaat en een lagere energiefactuur.</p>
+            <p>Dezelfde totale capaciteit, verdeeld waar ze nodig is, aangevuld met <Link to={toestelPad("ttv4500")} style={{ color: "var(--red)", fontWeight: 600 }}>ventilatoren</Link> die de lucht beter laten circuleren. Een gelijkmatiger droogklimaat, een voorspelbaar resultaat en een lagere energiefactuur.</p>
           </div>
         </div>
         <div className="note rv d2"><b>Niet maximaal drogen. Optimaal drogen.</b> Te agressief drogen kan krimp en scheurvorming bevorderen, daarom sturen we op relatieve luchtvochtigheid en is overcapaciteit geen kwaliteitskenmerk. Het doel is niet zo groot mogelijke machines plaatsen, maar <b>de benodigde capaciteit zo efficiënt mogelijk over het gebouw verdelen</b>. Hoe dat technisch zit, leest u bij <Link to="/hoe-drogen-werkt">hoe drogen werkt</Link>.</div>

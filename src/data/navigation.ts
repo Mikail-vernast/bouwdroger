@@ -17,6 +17,7 @@
  */
 import { PRODUCTS, PRODUCT_ORDER } from "./verhuur.js";
 import { REGIO_ROUTES } from "./regio-slugs.js";
+import { toestelPad } from "./verhuur";
 
 export interface NavLinkItem {
   label: string;
@@ -71,7 +72,7 @@ export function toestelLabel(key: string): string {
 
 export const TOESTELLEN: NavLinkItem[] = PRODUCT_ORDER.map((key) => ({
   label: toestelLabel(key),
-  path: `/verhuur/toestel/${key}`,
+  path: toestelPad(key),
 }));
 
 /**
@@ -89,7 +90,9 @@ export const PAKKETTEN: NavLinkItem[] = [
 
 /** Waarvoor mensen drogen — elk een eigen zoekintentie en eigen pagina. */
 export const TOEPASSINGEN: NavLinkItem[] = [
-  { label: "Chape en pleisterwerk drogen", path: "/nieuwbouw-drogen" },
+  { label: "Chape drogen", path: "/chape-drogen" },
+  { label: "Pleisterwerk drogen", path: "/pleisterwerk-drogen" },
+  { label: "Chape en pleisterwerk samen", path: "/nieuwbouw-drogen" },
   { label: "Drogen na waterschade", path: "/waterschade" },
   { label: "Vochtige kelder of schimmel", path: "/renovatie" },
   { label: "Ontschimmeling", path: "/ontschimmeling" },
@@ -110,6 +113,26 @@ export const SCHIMMELS: NavLinkItem[] = [
   { label: "Ozonbehandeling", path: "/ozonbehandeling" },
   { label: "Vochtige kelder of schimmel", path: "/renovatie" },
   { label: "Drogen na waterschade", path: "/waterschade" },
+];
+
+/**
+ * De situatiekolom van het menu "Bouwdroging".
+ *
+ * Die kolom heette "Schimmels" en toonde `SCHIMMELS`: ozon, /renovatie en
+ * /waterschade. Ze was intussen de situatiekolom geworden — twee van haar
+ * links waren toepassingspagina's — met één gat erin: /nieuwbouw-drogen, de
+ * grootste van de drie, stond er niet in. Wie het menu Bouwdroging opende kon
+ * wel naar waterschade en naar de vochtige kelder, maar niet naar chape en
+ * pleisterwerk.
+ *
+ * Daarom de twee lijsten samen, zonder dubbels: `TOEPASSINGEN` is de volgorde
+ * die ook "Alles over drogen", de footer, het mobiele menu en /gids tonen, en
+ * wat `SCHIMMELS` daarbovenop heeft (ontschimmeling) volgt vanzelf. Een nieuwe
+ * toepassing hoeft dus nog altijd maar op één plek bij.
+ */
+export const MENU_SITUATIES: NavLinkItem[] = [
+  ...TOEPASSINGEN,
+  ...SCHIMMELS.filter((item) => !TOEPASSINGEN.some((t) => t.path === item.path)),
 ];
 
 /** Hoe het toestel bij de klant raakt, en wat het kost. */
@@ -271,6 +294,9 @@ export const FOOTER_SITEMAP: NavLinkItem[] = [
   { label: "Realisaties", path: "/realisaties" },
   { label: "Gidsen over bouwdroging", path: "/gids" },
   { label: "Contact", path: "/contact" },
+  // De zichtbare sitemap staat bewust niet hier maar in de onderste balk van
+  // de voet, naast Privacy en de voorwaarden: een regel "Sitemap" ín de kolom
+  // die al "Sitemap" heet leest als een verwijzing naar zichzelf.
 ];
 
 /**

@@ -15,6 +15,7 @@
  * Alle bedragen zijn exclusief btw, net als in de boekingsmodule.
  */
 import { PRODUCTS } from "./verhuur.js";
+import { toestelPad } from "./verhuur";
 
 /**
  * De toestellen die op de publieke pagina's getoond worden, in gamma-volgorde.
@@ -73,7 +74,7 @@ function toTarief(key: string): Tarief {
     perDay: p.day,
     litersPerDay: Number(spec("Vochtafvoer").replace(/\s/g, "")),
     volume: Number(spec("Bereik").replace(/\s/g, "")),
-    path: `/verhuur/toestel/${key}`,
+    path: toestelPad(key),
   };
 }
 

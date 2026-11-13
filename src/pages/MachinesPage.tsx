@@ -22,13 +22,7 @@ import {
 } from "@/components/content/icons";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import {
-  PRODUCTS,
-  PRODUCT_ADDONS,
-  PRODUCT_ORDER,
-  productImageAlt,
-  toestelChips,
-} from "@/data/verhuur";
+import { PRODUCT_ADDONS, PRODUCT_ORDER, productImageAlt, PRODUCTS, toestelChips, toestelPad } from "@/data/verhuur";
 import { DROGERS, euro } from "@/data/tarieflijst";
 import { CONTACT } from "@/lib/site";
 import "@/styles/v3-content.css";
@@ -266,7 +260,7 @@ const Toestelkaart = ({ sleutel, index }: { sleutel: string; index: number }) =>
   return (
     <Reveal
       as={Link}
-      to={`/verhuur/toestel/${sleutel}`}
+      to={toestelPad(sleutel)}
       from="up"
       delay={(index % 4) * 0.06}
       className={`pc${p.badge === "Meest gehuurd" ? " hot" : ""}`}
@@ -358,7 +352,7 @@ const MachinesPage = () => (
             "Gamma bouwdrogers, ventilatoren en bouwkachels",
             PRODUCT_ORDER.map((k) => ({
               name: PRODUCTS[k].name,
-              path: `/verhuur/toestel/${k}`,
+              path: toestelPad(k),
             }))
           ),
           faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
@@ -519,7 +513,7 @@ const MachinesPage = () => (
                 <p>{k.wanneer}</p>
                 <Link
                   className="plink"
-                  to={`/verhuur/toestel/${k.key}`}
+                  to={toestelPad(k.key)}
                   style={{ marginTop: "14px", display: "inline-flex" }}
                 >
                   Bekijk de {PRODUCTS[k.key].short}

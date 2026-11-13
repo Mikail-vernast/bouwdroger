@@ -113,7 +113,10 @@ const ROUTE_SOURCES = {
   "/verhuur/calculator": "src/pages/verhuur/VerhuurCalculatorPage.tsx",
   "/verhuur/pakket": "src/pages/verhuur/VerhuurPakketPage.tsx",
   "/luchtontvochtiger-huren": "src/pages/LuchtontvochtigerHurenPage.tsx",
+  "/chape-drogen": "src/pages/ChapeDrogenPage.tsx",
+  "/pleisterwerk-drogen": "src/pages/PleisterwerkDrogenPage.tsx",
   "/gids": "src/pages/gids/GidsIndexPage.tsx",
+  "/gids/hoe-lang-moet-pleisterwerk-drogen": "src/pages/gids/PleisterwerkDroogtijdPage.tsx",
   "/gids/hoe-lang-moet-chape-drogen": "src/pages/gids/ChapeDroogtijdPage.tsx",
   "/gids/condensdroger-of-adsorptiedroger": "src/pages/gids/CondensAdsorptiePage.tsx",
   "/gids/stroomverbruik-bouwdroger": "src/pages/gids/StroomverbruikPage.tsx",
@@ -135,6 +138,12 @@ const REGIO_SOURCES = ["src/pages/RegioPage.tsx", "src/data/regios.ts"];
  * waartegen `unmappedRoutes` hieronder bestaat.
  */
 const GEMEENTE_SOURCES = ["src/pages/GemeentePage.tsx", "src/data/gemeenten.ts"];
+/**
+ * De zichtbare sitemap verandert mee met de navigatie waaruit hij opgebouwd
+ * wordt, niet alleen met zijn eigen sjabloon. Zou hier enkel de pagina staan,
+ * dan claimde hij "ongewijzigd" op de dag dat er een pagina bij kwam.
+ */
+const SITEMAP_SOURCES = ["src/pages/SitemapPage.tsx", "src/data/navigation.ts"];
 /** De slugs van de provinciepagina's; al de rest onder dat voorvoegsel is een gemeente. */
 const REGIO_SLUGS = [
   "antwerpen",
@@ -164,6 +173,7 @@ function lastCommitDate(paths) {
 }
 
 function lastmodFor(route) {
+  if (route === "/sitemap") return lastCommitDate(SITEMAP_SOURCES);
   if (route.startsWith("/verhuur/toestel/")) return lastCommitDate(TOESTEL_SOURCES);
   if (route.startsWith("/realisaties/")) return lastCommitDate(REALISATIE_SOURCES);
   if (REGIO_SLUGS.includes(route)) return lastCommitDate(REGIO_SOURCES);

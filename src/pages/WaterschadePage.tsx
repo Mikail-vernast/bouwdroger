@@ -29,7 +29,7 @@ import {
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { euro } from "@/data/tarieflijst";
-import { EXTRAS } from "@/data/verhuur";
+import { EXTRAS, toestelPad } from "@/data/verhuur";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { termijnLabel, termijnZonderDikte } from "@/lib/droogtijden";
 import { CONTACT } from "@/lib/site";
@@ -663,7 +663,7 @@ const WaterschadePage = () => (
             <p className="lede">
               Daarom boren wij kleine openingen op de juiste plaatsen en blazen we droge lucht via
               slangen rechtstreeks in de vloeropbouw, de spouw of de wand. Dat is wat een{" "}
-              <Link to="/verhuur/toestel/revolution">adsorptiedroger</Link> kan en een gewone
+              <Link to={toestelPad("revolution")}>adsorptiedroger</Link> kan en een gewone
               droger niet, en onder 15 °C verliest hij nauwelijks capaciteit. Hoe de twee
               technieken verschillen, staat uitgewerkt in de gids{" "}
               <Link to="/gids/condensdroger-of-adsorptiedroger">condensdroger of adsorptiedroger</Link>.

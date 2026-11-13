@@ -5,6 +5,7 @@ import { DROGERS, euro, priceForWeeks } from "@/data/tarieflijst";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
 import { CONTACT } from "@/lib/site";
 import { offerCatalogSchema } from "@/lib/schema";
+import { toestelPad } from "@/data/verhuur";
 
 const PATH = "/luchtontvochtiger-huren";
 
@@ -125,7 +126,7 @@ const LuchtontvochtigerHurenPage = () => (
           Kelders zijn koel en vaak slecht verlucht, waardoor de luchtvochtigheid hoog blijft en er een
           muffe geur of schimmel ontstaat. Een luchtontvochtiger haalt die vochtige lucht omlaag. Let op
           de temperatuur: onder ongeveer 15 °C werkt een condensontvochtiger duidelijk minder goed. In een
-          koude kelder zetten we daarom een <Link to="/verhuur/toestel/teddh20">elektrische bouwkachel</Link>{" "}
+          koude kelder zetten we daarom een <Link to={toestelPad("teddh20")}>elektrische bouwkachel</Link>{" "}
           bij. Meer over kelders en schimmel leest u op <Link to="/renovatie">vochtige kelder of
           schimmel drogen</Link>. Blijft een kelder telkens opnieuw nat, dan zit de oorzaak meestal in de
           muren zelf; ontvochtigen verhelpt dan het gevolg, niet de bron.

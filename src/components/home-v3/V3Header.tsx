@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 import FontPreload from "@/components/FontPreload";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
-import { ALLES_OVER_DROGEN, SCHIMMELS, TOESTELLEN } from "@/data/navigation";
+import { ALLES_OVER_DROGEN, MENU_SITUATIES, PAKKETTEN, TOESTELLEN } from "@/data/navigation";
 import "@/styles/offerte-shine.css";
 import "@/styles/mega-menu.css";
 
@@ -167,22 +167,19 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                 <div className="mmv-cols">
                   <div className="mmv-groep">
                     <span className="mmv-kop">Pakketten</span>
+                    {/*
+                      Deze vijf stonden hier én in VHeader én in het mobiele
+                      menu overgetypt, terwijl `PAKKETTEN` in
+                      src/data/navigation.ts al bestond om precies dat te
+                      voorkomen. Drie kopieën is er één te veel om met de hand
+                      gelijk te houden.
+                    */}
                     <ul className="mmv-lijst">
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Chape drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk + chape</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Waterschade drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
-                      </li>
+                      {PAKKETTEN.map((item) => (
+                        <li key={item.label}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                   <div className="mmv-groep">
@@ -226,15 +223,18 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                     </ul>
                   </div>
                   {/*
-                    Vierde kolom: schimmel en geur. Ozonbehandeling hoorde niet
-                    onder "Service" — dat zijn de afspraken rond een huur, en
-                    een ontschimmeling is een losse dienst. Wie met schimmel
-                    zoekt, komt niet kijken bij levering en verlengen.
+                    Vierde kolom: in welke situatie staat de bezoeker. Ze heette
+                    "Schimmels" en toonde ozon, /renovatie en /waterschade —
+                    twee toepassingspagina's onder een kop die er maar één dekt,
+                    en zonder /nieuwbouw-drogen, de grootste van de drie. Ze
+                    leest nu `MENU_SITUATIES`; ozonbehandeling staat daar gewoon
+                    in, en hoort nog altijd niet onder "Service", want dat zijn
+                    de afspraken rond een huur.
                   */}
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Schimmels</span>
+                    <span className="mmv-kop">Toepassingen</span>
                     <ul className="mmv-lijst">
-                      {SCHIMMELS.map((item) => (
+                      {MENU_SITUATIES.map((item) => (
                         <li key={item.path}>
                           <Link to={item.path}>{item.label}</Link>
                         </li>

@@ -7,11 +7,13 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import { ArrowRightIcon, CaretIcon, CheckIcon } from "@/components/verhuur/icons";
 import { PinIcon } from "@/components/home-v3/icons";
 import {
-  PRODUCTS,
-  productImageAlt,
   PRODUCT_ADDONS,
   PRODUCT_ORDER,
+  productImageAlt,
+  PRODUCTS,
   SC_LABEL,
+  toestelKey,
+  toestelPad,
   type Product,
 } from "@/data/verhuur";
 import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
@@ -75,12 +77,14 @@ const PICKUP_STEPS = [
 const PERIODS = PICKUP_PERIODS;
 
 const VerhuurToestelPage = () => {
-  const { model } = useParams();
+  const { toestel } = useParams();
   const [searchParams] = useSearchParams();
 
-  // Valt terug op het eerste toestel uit het gamma: "ttk350" hardcoderen breekt
-  // zodra dat toestel in het portaal uit de verhuur gehaald wordt.
-  const key = model && PRODUCTS[model] ? model : PRODUCT_ORDER[0];
+  // De URL draagt de slug ("bouwdroger-70-liter"), niet de sleutel ("ttk350");
+  // `toestelKey` vertaalt terug en aanvaardt onderweg ook nog de oude
+  // sleutel-URL. Valt terug op het eerste toestel uit het gamma: "ttk350"
+  // hardcoderen breekt zodra dat toestel in het portaal uit de verhuur gaat.
+  const key = toestelKey(toestel) ?? PRODUCT_ORDER[0];
   const prod: Product = PRODUCTS[key];
   // De afhaalvragen gelden voor elk toestel en staan onder de specifieke FAQ.
   const questions: [string, string][] = [...prod.faq, ...PICKUP_FAQ];
@@ -158,7 +162,7 @@ const VerhuurToestelPage = () => {
       <PageMeta
         title={pageTitle}
         description={prod.sum}
-        path={`/verhuur/toestel/${key}`}
+        path={toestelPad(key)}
         image={prod.img[0]}
         ogType="product"
         jsonLd={[
@@ -166,7 +170,7 @@ const VerhuurToestelPage = () => {
             name: prod.name,
             description: prod.sum,
             image: prod.img[0],
-            path: `/verhuur/toestel/${key}`,
+            path: toestelPad(key),
             pricePerDay: prod.day,
             category: prod.type,
             specs: prod.specs,
@@ -175,7 +179,7 @@ const VerhuurToestelPage = () => {
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Toestellen", path: "/machines" },
-            { name: prod.short, path: `/verhuur/toestel/${key}` },
+            { name: prod.short, path: toestelPad(key) },
           ]),
         ]}
       />
@@ -599,7 +603,7 @@ const VerhuurToestelPage = () => {
             {cross.map((k) => {
               const c = PRODUCTS[k];
               return (
-                <Link className="cc" to={`/verhuur/toestel/${k}`} key={k}>
+                <Link className="cc" to={toestelPad(k)} key={k}>
                   <div className="cm">
                     <img src={c.img[0]} alt={productImageAlt(c, 0)} loading="lazy" decoding="async" />
                   </div>

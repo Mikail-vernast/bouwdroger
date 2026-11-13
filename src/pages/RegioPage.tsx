@@ -29,7 +29,7 @@ import {
   termijnLabel,
 } from "@/lib/droogtijden";
 import { REGIO_BY_SLUG, realisatiesVoor, type Regio } from "@/data/regios";
-import { PRODUCTS, productImageAlt } from "@/data/verhuur";
+import { productImageAlt, PRODUCTS, toestelPad } from "@/data/verhuur";
 import { toestelLabel } from "@/data/navigation";
 import { eersteReviews } from "@/data/reviews";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
@@ -278,7 +278,7 @@ const RegioPage = () => {
                   */}
                   <Link
                     className="btn btn-line"
-                    to={`/verhuur/toestel/${item.key}`}
+                    to={toestelPad(item.key)}
                     aria-label={`Bekijk ${toestelLabel(item.key)}`}
                   >
                     Bekijk dit toestel

@@ -114,6 +114,15 @@ export const routes: RouteRecord[] = [
         path: "luchtontvochtiger-huren",
         lazy: async () => ({ Component: (await import("./pages/LuchtontvochtigerHurenPage")).default }),
       },
+      /*
+        De zichtbare sitemap. Hij wordt geprerenderd zoals elke andere pagina,
+        zodat een antwoordmachine zonder JavaScript hem gewoon kan uitlezen —
+        dat is de helft van zijn nut.
+      */
+      {
+        path: "sitemap",
+        lazy: async () => ({ Component: (await import("./pages/SitemapPage")).default }),
+      },
       {
         path: "privacy",
         lazy: async () => ({ Component: (await import("./pages/PrivacyPage")).default }),
@@ -135,6 +144,14 @@ export const routes: RouteRecord[] = [
       {
         path: "booking/success",
         lazy: async () => ({ Component: (await import("./pages/BookingSuccess")).default }),
+      },
+      {
+        path: "chape-drogen",
+        lazy: async () => ({ Component: (await import("./pages/ChapeDrogenPage")).default }),
+      },
+      {
+        path: "pleisterwerk-drogen",
+        lazy: async () => ({ Component: (await import("./pages/PleisterwerkDrogenPage")).default }),
       },
       {
         path: "nieuwbouw-drogen",
@@ -258,12 +275,14 @@ export const routes: RouteRecord[] = [
         }),
       },
       {
-        path: "verhuur/toestel/:model",
+        path: "verhuur/toestel/:toestel",
         lazy: async () => ({
           Component: (await import("./pages/verhuur/VerhuurToestelPage")).default,
         }),
-        getStaticPaths: async () =>
-          (await import("./data/verhuur")).PRODUCT_ORDER.map((m) => `/verhuur/toestel/${m}`),
+        getStaticPaths: async () => {
+          const { PRODUCT_ORDER, toestelPad } = await import("./data/verhuur");
+          return PRODUCT_ORDER.map(toestelPad);
+        },
       },
 
       /*
