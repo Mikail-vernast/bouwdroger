@@ -63,6 +63,11 @@ const TEGELS = {
   chape: { url: TEXTUUR.chape, periode: [1, 1] },
   parket: { url: TEXTUUR.parket, periode: [8 * 0.18, 2.4] },
   grind: { url: TEXTUUR.grind, periode: [0.5, 0.5] },
+  // Bouwfasen (stap 4): wat er op muur en vloer zit, van ruwbouw tot afgewerkt.
+  pleisternat: { url: TEXTUUR.pleisternat, periode: [2, 2] },
+  verf: { url: TEXTUUR.verf, periode: [1, 1] },
+  vloerplaat: { url: TEXTUUR.vloerplaat, periode: [2, 2] },
+  tegelvloer: { url: TEXTUUR.tegelvloer, periode: [2.4, 2.4] },
 } as const;
 type TegelNaam = keyof typeof TEGELS;
 const TEGEL_NAMEN = Object.keys(TEGELS) as TegelNaam[];
@@ -659,23 +664,43 @@ function Scene(props: SceneProps) {
     for (const s of Object.values(sets)) for (const m of s.values()) m.dispose();
   }, [sets]);
 
-  // Muur- en vloerkleur volgen de bouwfase.
+  // The build phase dresses the house: which tile on the inner walls and floors,
+  // whether the windows have glass yet, and the colour on top.
+  const muurTegel = materiaal.muurTegel ?? "pleister";
+  const vloerTegel = materiaal.vloerTegel ?? (materiaal.parket ? "parket" : "chape");
+  const glasIn = materiaal.glas ?? true;
+  const inrichtingIn = materiaal.inrichting ?? true;
   useEffect(() => {
-    const parket = texturen.parket.clone(), chape = texturen.chape.clone();
-    for (const [t, naam] of [[parket, "parket"], [chape, "chape"]] as const) {
+    const kopie = (naam: TegelNaam) => {
+      const t = texturen[naam].clone();
       const [pw, ph] = TEGELS[naam].periode;
       t.wrapS = t.wrapT = RepeatWrapping; t.repeat.set(1 / pw, 1 / ph); t.colorSpace = SRGBColorSpace; t.anisotropy = ANISO; t.needsUpdate = true;
-    }
+      return t;
+    };
+    const muurTex = kopie(muurTegel), vloerTex = kopie(vloerTegel);
+    const baksteen = muurTegel === "baksteen";
     for (const s of Object.values(sets)) {
-      s.get("pleister")!.color.set(materiaal.muur);
+      const m = s.get("pleister")!;
+      m.color.set(materiaal.muur);
+      m.map = muurTex;
+      m.bumpMap = baksteen ? muurTex : null;
+      m.bumpScale = 1.2;
+      m.roughness = baksteen ? 0.92 : muurTegel === "verf" ? 0.7 : 0.95;
+      m.needsUpdate = true;
       const v = s.get("vloer")!;
-      v.color.set(materiaal.parket ? "#ffffff" : materiaal.vloer);
-      v.map = materiaal.parket ? parket : chape;
-      v.roughness = materiaal.parket ? 0.55 : 0.9;
+      v.color.set(materiaal.vloer);
+      v.map = vloerTex;
+      v.bumpMap = vloerTegel === "tegelvloer" ? vloerTex : null;
+      v.roughness = vloerTegel === "tegelvloer" ? 0.35 : vloerTegel === "parket" ? 0.55 : 0.9;
       v.needsUpdate = true;
+      // Ruwbouw: no frames, no glass, the openings are holes.
+      s.get("glas")!.visible = glasIn;
+      s.get("kader")!.visible = glasIn;
+      // Inner doors are hung with the finishing, together with kitchen and bathroom.
+      s.get("deurblad")!.visible = inrichtingIn;
     }
-    return () => { parket.dispose(); chape.dispose(); };
-  }, [sets, texturen, materiaal.muur, materiaal.vloer, materiaal.parket]);
+    return () => { muurTex.dispose(); vloerTex.dispose(); };
+  }, [sets, texturen, materiaal.muur, materiaal.vloer, muurTegel, vloerTegel, glasIn, inrichtingIn]);
 
   // Omgevingslicht voor glas en zink: een neutrale studio, één keer berekend.
   useEffect(() => {
@@ -950,7 +975,7 @@ function Scene(props: SceneProps) {
 
       {actKamers.length > 0 && (
         <>
-          <group ref={inrichtingRef}>
+          <group ref={inrichtingRef} visible={inrichtingIn}>
             <Meshes geos={inrichting} mats={sets.vast} />
           </group>
           <ToestelVangnet terugval={<FilmStart film={film} />}>

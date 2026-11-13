@@ -221,7 +221,7 @@ def arduin():
     render(sc, 'arduin')
 
 
-def detail(naam, T, schaal, laag, hoog, px=256, ribbels=0.0):
+def detail(naam, T, schaal, laag, hoog, px=256, ribbels=0.0, band=(0.0, 1.0), grijs=False):
     """Bijna-witte detailtegel: three.js vermenigvuldigt hem met de kleur uit materiaal.ts,
     zodat dezelfde tegel nat, droog en geschilderd kan zijn."""
     sc = nieuwe_scene(T, T, px, samples=24)
@@ -233,12 +233,14 @@ def detail(naam, T, schaal, laag, hoog, px=256, ribbels=0.0):
     ramp = n.new('ShaderNodeValToRGB')
     ramp.color_ramp.elements[0].color = (laag, laag, laag, 1)
     ramp.color_ramp.elements[1].color = (hoog, hoog, hoog, 1)
+    # Noise sits around 0.5: a narrow band turns it into distinct patches.
+    ramp.color_ramp.elements[0].position, ramp.color_ramp.elements[1].position = band
     l.new(grof.outputs['Fac'], ramp.inputs[0])
     # Grove vlekken plus fijne korrel: de korrel draagt ook het reliëf (bumpMap in three).
     fijn = torus_ruis(n, l, tc.outputs['Object'], T, T, schaal * 8, detail=4)
     korrel = n.new('ShaderNodeMix'); korrel.data_type = 'RGBA'; korrel.blend_type = 'OVERLAY'
     korrel.inputs['Factor'].default_value = 0.35 + ribbels
-    l.new(ramp.outputs['Color'], rgba(korrel.inputs, 'A')); l.new(fijn.outputs['Color'], rgba(korrel.inputs, 'B'))
+    l.new(ramp.outputs['Color'], rgba(korrel.inputs, 'A')); l.new(fijn.outputs['Fac' if grijs else 'Color'], rgba(korrel.inputs, 'B'))
     als_kleur(m, rgba(korrel.outputs, 'Result'))
     vlak(sc, T, T, m)
     render(sc, naam)
@@ -311,6 +313,35 @@ def grind():
     render(sc, 'grind')
 
 
+def tegelvloer():
+    """Grijze keramische vloertegels van 60 × 60 cm met een voeg van 3 mm, recht gelegd.
+    Elke tegel een tikje anders van tint, zoals een echte partij."""
+    TB, N = 0.6, 4
+    P = TB * N
+    sc = nieuwe_scene(P, P, 200, samples=32)
+    vlak(sc, P, P, mat('voeg', (0.32, 0.32, 0.31), 0.9)).location.z = -0.004
+    tegel = mat('tegel', (0.56, 0.57, 0.58), rough=0.3, coat=0.15)
+    n = tegel.node_tree.nodes; l = tegel.node_tree.links
+    b = n['Principled BSDF']
+    tc = n.new('ShaderNodeTexCoord')
+    wolk = torus_ruis(n, l, tc.outputs['Object'], P, P, 3, detail=5)
+    ramp = n.new('ShaderNodeValToRGB')
+    ramp.color_ramp.elements[0].color = (0.5, 0.51, 0.52, 1)
+    ramp.color_ramp.elements[1].color = (0.6, 0.61, 0.62, 1)
+    l.new(wolk.outputs['Fac'], ramp.inputs[0]); l.new(ramp.outputs['Color'], b.inputs['Base Color'])
+    object_variatie(tegel, 0.05)
+    rnd = random.Random(7)
+    tint = {(c, r): rnd.random() for c in range(N) for r in range(N)}
+
+    def maak(dx, dy):
+        for c in range(N):
+            for r in range(N):
+                ob = blok(f't-{c}-{r}', dx + c * TB + TB / 2, dy + r * TB + TB / 2, 0, TB - 0.003, TB - 0.003, 0.008, tegel, bevel=0.0012)
+                ob['v'] = tint[(c, r)]
+    periodiek(sc, P, P, maak)
+    render(sc, 'tegelvloer')
+
+
 TEGELS = {
     'dakpannen': dakpannen,
     'arduin': arduin,
@@ -318,6 +349,14 @@ TEGELS = {
     'chape': lambda: detail('chape', 1.0, 4, 0.8, 0.96),
     'parket': parket,
     'grind': grind,
+    # Bouwfasen (stap 4): dezelfde detailtegel-aanpak, three.js kleurt ze per fase.
+    # Ruwe vloerplaat: grote natte vlekken van regenwater.
+    'vloerplaat': lambda: detail('vloerplaat', 2.0, 2.2, 0.3, 0.85, band=(0.42, 0.58), grijs=True),
+    # Vers pleisterwerk: wolkerig, natte en drogere plekken door elkaar.
+    'pleisternat': lambda: detail('pleisternat', 2.0, 2.4, 0.45, 0.92, ribbels=0.1, band=(0.4, 0.6), grijs=True),
+    # Geschilderd: bijna egaal.
+    'verf': lambda: detail('verf', 1.0, 3, 0.94, 0.99, grijs=True),
+    'tegelvloer': tegelvloer,
 }
 for naam, f in TEGELS.items():
     if not WANT or naam in WANT:

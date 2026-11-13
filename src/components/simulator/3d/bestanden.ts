@@ -14,6 +14,11 @@ export const TEXTUUR = {
   chape: "/simulator/3d/chape.webp",
   parket: "/simulator/3d/parket.webp",
   grind: "/simulator/3d/grind.webp",
+  // Bouwfasen (stap 4): wat er op muur en vloer zit, van ruwbouw tot afgewerkt.
+  pleisternat: "/simulator/3d/pleisternat.webp",
+  verf: "/simulator/3d/verf.webp",
+  vloerplaat: "/simulator/3d/vloerplaat.webp",
+  tegelvloer: "/simulator/3d/tegelvloer.webp",
 } as const;
 
 export const MODEL: Record<DeviceKey, string> = {

@@ -39,7 +39,7 @@ const BASIS: SimAnswers = {
   wat: "chape",
   pd: "2",
   cd: "6",
-  fase: "vers",
+  fase: "chape",
   verwarmt: false,
 };
 
