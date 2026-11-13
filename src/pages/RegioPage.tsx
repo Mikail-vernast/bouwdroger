@@ -7,6 +7,7 @@ import Reveal from "@/components/Reveal";
 import ContactBlok from "@/components/content/ContactBlok";
 import FaqBlok from "@/components/content/FaqBlok";
 import { nadruk } from "@/components/content/nadruk";
+import { beurt, hoofdKnop, tweedeKnop, type Kleur, type Sectie } from "@/components/content/ritme";
 import {
   ArrowRightIcon,
   BoltIcon,
@@ -16,6 +17,7 @@ import {
   GoogleIcon,
   PhoneIcon,
   PinIcon,
+  ShieldIcon,
   StarIcon,
   TruckIcon,
 } from "@/components/home-v3/icons";
@@ -59,37 +61,6 @@ import "@/styles/v3-content.css";
  * `bouwdroger-huren-:regio` (een parameter moet een heel segment zijn), dus
  * App.tsx registreert vijf vaste routes die allemaal hier uitkomen.
  */
-/**
- * Wit en rood wisselen strikt af, en die kleur komt uit de volgorde — niet uit
- * elke sectie apart.
- *
- * Met een vaste klasse per sectie klopte het ritme alleen zolang niemand iets
- * verplaatste of oversloeg, en dat was precies wat er gebeurde: de rode
- * slotplaat onderaan de witte FAQ werd op beide volgordes gevolgd door een
- * rode sectie, dus stonden daar twee rode vlakken tegen elkaar. Daar kwam bij
- * dat vier van de vijf provincies geen strekenlijst hebben: hun droogtijden-
- * en gemeentensectie vallen weg, en elke sectie erna stond vanaf dat punt op
- * de verkeerde kleur.
- *
- * Daarom krijgt elke sectie haar kleur als argument en bepaalt de lijst in
- * `RegioPage` de beurtrol. Een sectie die niet getoond wordt, staat niet in de
- * lijst en verbruikt dus ook geen beurt.
- */
-type Kleur = "sw" | "sr";
-type Sectie = (kleur: Kleur) => ReactNode;
-
-/** Wit, rood, wit, rood — geteld vanaf de eerste sectie na een rood vlak. */
-const beurt = (i: number): Kleur => (i % 2 === 0 ? "sw" : "sr");
-
-/*
-  Een knop die op een rode sectie staat heeft de omgekeerde vulling nodig van
-  dezelfde knop op wit. Nu de kleur uit de volgorde komt en niet meer vastligt,
-  kan een sectie van achtergrond wisselen zonder dat iemand eraan denkt — dus
-  volgen de knoppen mee in plaats van vast te staan.
-*/
-const hoofdKnop = (k: Kleur) => (k === "sr" ? "btn btn-white" : "btn");
-const tweedeKnop = (k: Kleur) => (k === "sr" ? "btn btn-ghost" : "btn btn-line");
-
 /** De vier stappen van een huur, voor de sectie onderaan elke regiopagina. */
 const VERLOOP = [
   {
@@ -256,8 +227,11 @@ const RegioPage = () => {
                     identieke links opleveren in de linklijst van een
                     schermlezer, zonder te zeggen waarheen.
                   */}
+                  {/* Rood met witte tekst, zoals de kaartknoppen in de
+                      pakkettensectie: omlijnd viel hij weg tegen de witte
+                      kaart. Gevraagd op 13-11-2026. */}
                   <Link
-                    className="btn btn-line"
+                    className="btn"
                     to={toestelPad(item.key)}
                     aria-label={`Bekijk ${toestelLabel(item.key)}`}
                   >
@@ -466,7 +440,7 @@ const RegioPage = () => {
               bellen het antwoord is.
             */}
             <div className="mb-cta">
-              <Link className="btn btn-white" to="/verhuur/calculator">
+              <Link className="btn btn-white glans" to="/verhuur/calculator">
                 Bereken uw droogpakket
                 <ArrowRightIcon />
               </Link>
@@ -519,14 +493,27 @@ const RegioPage = () => {
       */}
       <section className={kleur}>
         <div className="wrap">
-          <div className="sec-head">
-            <span className="kick">Hoe lang duurt het</span>
-            <h2 className="sec">Droogtijden met en zonder bouwdroger.</h2>
-            <p className="lede">
-              De huurtermijnen hieronder zijn die van onze droogpakketten,{" "}
-              <b>dezelfde als de Calculator aanrekent</b>. Ze gelden in heel {regio.name}: de
-              droogtijd hangt af van dikte, volume en temperatuur, <b>niet van uw postcode</b>.
-            </p>
+          {/*
+            De knop staat naast de kop en niet onder de tabel: wie zich afvraagt
+            hoe lang het duurt, vraagt zich meteen daarna af waaróm een
+            bouwdroger het sneller doet. Gevraagd op 13-11-2026.
+          */}
+          <div className="kop-rij">
+            <div className="sec-head">
+              <span className="kick">Hoe lang duurt het</span>
+              <h2 className="sec">Droogtijden met en zonder bouwdroger.</h2>
+              <p className="lede">
+                De huurtermijnen hieronder zijn die van onze droogpakketten,{" "}
+                <b>dezelfde als de Calculator aanrekent</b>. Ze gelden in heel {regio.name}: de
+                droogtijd hangt af van dikte, volume en temperatuur, <b>niet van uw postcode</b>.
+              </p>
+            </div>
+            <div className="prijsknoppen">
+              <Link className={tweedeKnop(kleur)} to="/waarom-bouwdroging">
+                Waarom bouwdrogen?
+                <ArrowRightIcon />
+              </Link>
+            </div>
           </div>
 
           <div className="tblwrap">
@@ -567,7 +554,7 @@ const RegioPage = () => {
           <p className="tblnote">
             &ldquo;Zonder droger&rdquo; is de vuistregel uit de bouwpraktijk, en daarom een bereik:
             de ondergrens geldt in een goed verluchte ruimte rond 20 &deg;C, de bovengrens op een
-            koude, dichtgemaakte werf in de winter. Een richtwaarde dus, geen meting &mdash; en
+            koude, dichtgemaakte werf in de winter. Een richtwaarde dus, geen meting, en
             precies waar een bouwdroger het verschil maakt. Wat telt is de eindmeting: is het op de
             afgesproken datum niet droog, dan huurt u kosteloos verder.{" "}
             <Link to="/gids/hoe-lang-moet-chape-drogen">Hoe lang chape moet drogen</Link> legt het
@@ -601,7 +588,7 @@ const RegioPage = () => {
             <h2 className="sec">De gemeenten van {regio.name}, per streek.</h2>
             <p className="lede">
               <b>Wij leveren in de hele provincie</b>, en de streek bepaalt mee welke opstelling
-              erbij hoort. Staat uw gemeente er niet bij, bel ons dan gerust &mdash; ook net over de
+              erbij hoort. Staat uw gemeente er niet bij, bel ons dan gerust. Ook net over de
               provinciegrens rijden we.
             </p>
           </div>
@@ -636,16 +623,16 @@ const RegioPage = () => {
               <>
                 <b>De onderstreepte gemeenten hebben een eigen pagina</b> met de rijtijd vanaf ons
                 magazijn, de bebouwing ter plaatse en de vragen die daar spelen. De rest bedienen we
-                even goed &mdash;{" "}
+                even goed. Hebt u een vraag,{" "}
               </>
             ) : (
               <>
                 <b>Wij leveren in elke gemeente hierboven</b>, en de streek bepaalt alleen welke
-                opstelling meegaat &mdash; niet of we komen. Twijfelt u over het aantal toestellen
+                opstelling meegaat, niet of we komen. Twijfelt u over het aantal toestellen
                 voor uw volume,{" "}
               </>
             )}
-            bel ons op {CONTACT.phoneLocal} of{" "}
+            bel ons op <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a> of{" "}
             <Link to="/verhuur/calculator">bereken meteen uw pakket</Link>.
           </div>
         </div>
@@ -809,7 +796,13 @@ const RegioPage = () => {
         sectie leeg was.
       */}
       <section className={kleur}>
-        <div className="wrap split">
+        {/*
+          Gespiegeld: het beeld links, de tekst rechts. Twee splitsecties onder
+          elkaar met de foto allebei rechts -- deze en "Waarvoor huren
+          Antwerpenaren een bouwdroger?" -- lezen als één lange kolom tekst met
+          een strook beeld ernaast. Gevraagd op 13-11-2026.
+        */}
+        <div className="wrap split omgekeerd">
           <div className="sec-head" style={{ marginBottom: 0 }}>
             <span className="kick">Eén aanspreekpunt voor uw werf</span>
             <h2 className="sec">Wat kost een bouwdroger huren in {regio.name}?</h2>
@@ -840,8 +833,13 @@ const RegioPage = () => {
                 <dt>Droogpakket op maat van uw werf</dt>
                 <dd>één vaste prijs, vooraf berekend</dd>
               </div>
+              {/*
+                De vochtmeting hoort in dezelfde regel als de levering: ze is
+                geen extra maar deel van wat elk pakket draagt, en het is het
+                verschil tussen een huurperiode en een gemeten einddatum.
+              */}
               <div>
-                <dt>Levering, plaatsing en ophaling</dt>
+                <dt>Levering, plaatsing, vochtmeting en ophaling</dt>
                 <dd>inbegrepen in elk pakket</dd>
               </div>
               <div>
@@ -871,7 +869,12 @@ const RegioPage = () => {
               decoding="async"
               style={prijsBeeld.uitsnede ? { width: "min(84%,380px)" } : undefined}
             />
-            <div className="fbadge" style={{ bottom: "-16px", right: "0" }}>
+            {/*
+              Linksonder, niet rechtsonder. Sinds het beeld in de linkerkolom
+              staat wijst "rechts" naar het midden van de pagina, en daar lag de
+              badge over de man heen.
+            */}
+            <div className="fbadge" style={{ bottom: "-16px", left: "0" }}>
               <span className="ic">
                 <CheckIcon size={15} strokeWidth={3} />
               </span>
@@ -900,22 +903,14 @@ const RegioPage = () => {
         in één rij.
       */}
       <section className={kleur} id="droogpakketten">
-        {/*
-          De kop van deze sectie is 760 px breed en de kaarten eronder vullen de
-          volle breedte; daartussen stond rechtsboven een halve sectie leeg
-          rood. Daar staat nu de technieker -- rechtop naast de belofte, zoals
-          gevraagd op 13-11-2026. Hij verdwijnt onder 1100 px, waar de kop zelf
-          al de volle breedte neemt.
-        */}
-        <div className="wrap pkt-man">
-          <img
-            src="/vernast/man-duim-kabels.webp"
-            alt="Vernast-technieker met kabels, klaar om het droogpakket te plaatsen"
-            width={1400}
-            height={950}
-            loading="lazy"
-            decoding="async"
-          />
+        <div className="wrap">
+          {/*
+            De kop links, de twee knoppen rechts ernaast. Ze stonden eerst
+            onderaan de sectie, voorbij de kaarten en de voorwaarden, en daarna
+            onder de inleiding -- maar daar duwden ze de kaarten weg terwijl de
+            halve sectie rechts van de kop leeg bleef. Gevraagd op 13-11-2026.
+          */}
+          <div className="kop-rij">
           <div className="sec-head">
             <span className="kick">Uw complete droogpakket</span>
             <h2 className="sec">Bouwdroging in {regio.name}, van plaatsing tot droog resultaat.</h2>
@@ -925,6 +920,23 @@ const RegioPage = () => {
               <b>vooraf de pakketprijs</b>, inclusief levering in {regio.name}, installatie, voor-
               en nameting en ophaling.
             </p>
+            {/*
+              De twee knoppen stonden onderaan de sectie, voorbij de kaarten en
+              de voorwaarden -- zes schermen ver van de belofte waar ze bij
+              horen. Ze staan nu onder de inleiding, links bij de kop, zoals
+              gevraagd op 13-11-2026.
+            */}
+          </div>
+            <div className="prijsknoppen">
+              <Link className={hoofdKnop(kleur)} to="/verhuur/calculator">
+                Bereken uw pakketprijs
+                <ArrowRightIcon />
+              </Link>
+              <Link className={tweedeKnop(kleur)} to="/prijzen">
+                Prijzen en wat inbegrepen is
+                <ArrowRightIcon />
+              </Link>
+            </div>
           </div>
           <div className="g3">
             {[
@@ -961,14 +973,26 @@ const RegioPage = () => {
                   "Meer over deze droging" onder elkaar zegt in een linklijst
                   niet waarheen.
                 */}
-                <Link className="btn btn-line" to={path} aria-label={label}>
+                {/*
+                  Rood met witte tekst, niet omlijnd: op een witte kaart in een
+                  rode sectie viel de omlijnde knop weg tegen de kaart zelf.
+                  Gevraagd op 13-11-2026.
+                */}
+                <Link className="btn" to={path} aria-label={label}>
                   Meer over deze droging
                   <ArrowRightIcon size={13} />
                 </Link>
               </Reveal>
             ))}
           </div>
-          <div className="note">
+          {/*
+            Met het schild ervoor. Twee alinea's over een garantie en een
+            waarborg lazen als kleine lettertjes; het icoon zegt op een halve
+            seconde dat hier een belofte staat en geen voorbehoud.
+          */}
+          <div className="note schild">
+            <span className="schild-ic" aria-hidden="true"><ShieldIcon size={22} strokeWidth={1.7} /></span>
+            <div>
             <p>
               <b>100 % Drooggarantie inbegrepen.</b> Is het materiaal ondanks correcte
               droogomstandigheden niet droog binnen de berekende periode? Dan huurt u de toestellen
@@ -982,16 +1006,7 @@ const RegioPage = () => {
               zelf kiest, zoals een condenspomp, bijkomende verwarming of een officieel
               vochtrapport.
             </p>
-          </div>
-          <div className="prijsknoppen">
-            <Link className={hoofdKnop(kleur)} to="/verhuur/calculator">
-              Bereken uw pakketprijs
-              <ArrowRightIcon />
-            </Link>
-            <Link className={tweedeKnop(kleur)} to="/prijzen">
-              Prijzen en wat inbegrepen is
-              <ArrowRightIcon />
-            </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -1137,7 +1152,7 @@ const RegioPage = () => {
                   </div>
                 )}
                 <div className="hcta">
-                  <Link className="btn btn-white" to="/verhuur/calculator">
+                  <Link className="btn btn-white glans" to="/verhuur/calculator">
                     Bereken uw droogpakket
                     <ArrowRightIcon />
                   </Link>
@@ -1157,13 +1172,12 @@ const RegioPage = () => {
                     decoding="async"
                   />
                   {/*
-                  Links van het midden hangt het label rechts van de speld en
-                  omgekeerd; anders valt "West-Vlaanderen" buiten de kaart.
+                  Het label hangt gecentreerd bóven de punt (zie `.speld b`),
+                  dus het maakt niet meer uit aan welke kant van de kaart de
+                  speld staat. Hier stond een klasse die het label naar links of
+                  rechts gooide naargelang `pin.left`.
                 */}
-                  <span
-                    className={`speld${parseInt(route.pin.left, 10) > 55 ? " links" : ""}`}
-                    style={{ left: route.pin.left, top: route.pin.top }}
-                  >
+                  <span className="speld" style={{ left: route.pin.left, top: route.pin.top }}>
                     <b>{regio.name}</b>
                   </span>
                 </div>

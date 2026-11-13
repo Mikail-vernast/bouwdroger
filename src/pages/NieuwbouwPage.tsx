@@ -89,7 +89,7 @@ const praktijk = [
   {
     Icon: CalendarCheckIcon,
     title: "Begin pas als de chape mag drogen",
-    desc: "Een verse zandcementchape moet eerst uitharden; wie meteen hard begint te drogen, riskeert krimpscheuren of een zwakke toplaag. Vraag uw chapeur vanaf wanneer u actief mag drogen — vaak na enkele dagen tot een week. Pleisterwerk kan meestal sneller aan de beurt, zodra het oppervlak hard is.",
+    desc: "Een verse zandcementchape moet eerst uitharden; wie meteen hard begint te drogen, riskeert krimpscheuren of een zwakke toplaag. Vraag uw chapeur vanaf wanneer u actief mag drogen, vaak na enkele dagen tot een week. Pleisterwerk kan meestal sneller aan de beurt, zodra het oppervlak hard is.",
   },
   {
     Icon: HouseIcon,
@@ -109,7 +109,7 @@ const praktijk = [
   {
     Icon: GaugeIcon,
     title: "Volg de wateropvang",
-    desc: "Hoeveel water er per dag uit het toestel komt, vertelt u waar u staat. Zakt de opbrengst, dan nadert de chape haar evenwicht — en dat is het moment om te laten meten.",
+    desc: "Hoeveel water er per dag uit het toestel komt, vertelt u waar u staat. Zakt de opbrengst, dan nadert de chape haar evenwicht, en dat is het moment om te laten meten.",
   },
   {
     Icon: LayersIcon,

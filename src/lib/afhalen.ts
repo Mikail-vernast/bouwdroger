@@ -11,6 +11,8 @@
  * Onbekende sleutels vallen overal stil weg.
  */
 import {
+  LONG_STAY_DAYS,
+  LONG_STAY_DISCOUNT,
   MAX_PER_PRODUCT,
   PICKUP_BY_KEY,
   PICKUP_DAYS,
@@ -73,7 +75,11 @@ export interface PickupSummary {
   lines: PickupLine[];
   /** Aantal toestellen samen. */
   units: number;
-  /** Huurprijs excl. btw. */
+  /** Huurprijs excl. btw, vóór de langhuurkorting. */
+  listNet: number;
+  /** Langhuurkorting excl. btw; nul onder vier weken. */
+  longStay: number;
+  /** Huurprijs excl. btw, na de langhuurkorting. */
   net: number;
   vat: number;
   /** Wat de klant uiteindelijk gefactureerd krijgt. */
@@ -84,12 +90,27 @@ function round(amount: number): number {
   return Math.round(amount * 100) / 100;
 }
 
+/**
+ * De langhuurkorting op een huurprijs excl. btw. Nul onder {@link LONG_STAY_DAYS}.
+ *
+ * Staat hier en niet in de pagina: `api/afhaal-checkout.ts` rekent het bedrag
+ * server-side opnieuw uit, en een korting die alleen in de browser bestaat
+ * verdwijnt dan stilzwijgend bij het afrekenen.
+ */
+export function longStayDiscount(net: number, days: number): number {
+  return days >= LONG_STAY_DAYS ? round(net * LONG_STAY_DISCOUNT) : 0;
+}
+
 export function pickupSummary(lines: PickupLine[], days: number): PickupSummary {
-  const net = round(lines.reduce((sum, l) => sum + l.product.day * l.qty * days, 0));
+  const listNet = round(lines.reduce((sum, l) => sum + l.product.day * l.qty * days, 0));
+  const longStay = longStayDiscount(listNet, days);
+  const net = round(listNet - longStay);
   const vat = round(net * VAT_RATE);
   return {
     lines,
     units: lines.reduce((sum, l) => sum + l.qty, 0),
+    listNet,
+    longStay,
     net,
     vat,
     gross: round(net + vat),

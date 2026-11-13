@@ -48,13 +48,12 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Stad Antwerpen en districten",
       kenmerk:
-        "Rijwoningen en appartementen, smalle trappen, kelders onder het maaiveld. Compacte toestellen op één stopcontact.",
+        "Rijwoningen en appartementen, smalle trappen, kelders onder het maaiveld. Compacte toestellen op één stopcontact. Berendrecht en Zandvliet staan er apart bij omdat mensen zo zoeken; bestuurlijk vormen ze samen met Lillo één district.",
       gemeenten: [
         "Antwerpen",
         "Berchem",
         "Berendrecht",
         "Zandvliet",
-        "Lillo",
         "Borgerhout",
         "Borsbeek",
         "Deurne",
@@ -68,23 +67,27 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
       naam: "Zuidrand en Scheldeboord",
       kenmerk:
         "Onze eigen streek: het magazijn staat in Aartselaar. Naoorlogse woningen en bungalows in renovatie, vaak dezelfde dag geleverd.",
-      gemeenten: [
-        "Aartselaar",
-        "Boechout",
-        "Edegem",
-        "Hemiksem",
-        "Hove",
-        "Kontich",
-        "Lint",
-        "Mortsel",
-        "Schelle",
-      ],
+      gemeenten: ["Aartselaar", "Boechout", "Edegem", "Hove", "Kontich", "Lint", "Mortsel"],
     },
+    /*
+      De Rupelstreek telt vijf gemeenten: Boom, Hemiksem, Niel, Rumst en
+      Schelle. Hemiksem en Schelle stonden hier onder de Zuidrand en Bornem,
+      Puurs-Sint-Amands en Willebroek stonden erbij, terwijl die tot
+      Klein-Brabant horen. Nagerekend tegen de officiële indeling op
+      13-11-2026; de streek zegt iets over de bodem en dus over het drogen, dus
+      een verkeerde indeling zegt iets verkeerds.
+    */
     {
       naam: "Rupelstreek",
       kenmerk:
-        "Kleigrond en de oude steenbakkersdorpen. Arbeiderswoningen zonder spouw, kelders met opstijgend vocht.",
-      gemeenten: ["Boom", "Niel", "Rumst", "Willebroek", "Puurs-Sint-Amands", "Bornem"],
+        "Kleigrond en de oude steenbakkersdorpen langs de Rupel. Arbeiderswoningen zonder spouw, kelders met opstijgend vocht.",
+      gemeenten: ["Boom", "Hemiksem", "Niel", "Rumst", "Schelle"],
+    },
+    {
+      naam: "Klein-Brabant en Willebroek",
+      kenmerk:
+        "Klei- en poldergrond tussen Schelde en kanaal, met oude dorpskernen en nieuwbouw op de rand. Na een natte periode water in kelders en bergingen.",
+      gemeenten: ["Bornem", "Puurs-Sint-Amands", "Willebroek"],
     },
     {
       naam: "Noordrand en Noorderkempen",
@@ -127,7 +130,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "De Kempen",
       kenmerk:
-        "Zandgrond, vrijstaande woningen en kruipruimtes. Winterwerven die nauwelijks verwarmd zijn — hier gaat vaak een bouwkachel of een adsorptiedroger mee.",
+        "Zandgrond, vrijstaande woningen en kruipruimtes. Winterwerven die nauwelijks verwarmd zijn. Hier gaat vaak een bouwkachel of een adsorptiedroger mee.",
       gemeenten: [
         "Turnhout",
         "Arendonk",
@@ -195,7 +198,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Scheldeland en de Dendermondse regio",
       kenmerk:
-        "Hoog grondwater langs Schelde, Durme en Dender. Kelders en bergingen die bij elke natte periode terugkomen — twee van onze werven hier zijn precies dat.",
+        "Hoog grondwater langs Schelde, Durme en Dender. Kelders en bergingen die bij elke natte periode terugkomen. Twee van onze werven hier zijn precies dat.",
       gemeenten: [
         "Dendermonde",
         "Hamme",
@@ -476,7 +479,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Noord-Limburg en de Limburgse Kempen",
       kenmerk:
-        "Zandgrond die goed draineert, dus weinig kelders — maar wel de koudste winterwerven van Vlaanderen. Tussen november en maart gaat hier bijna altijd een kachel mee.",
+        "Zandgrond die goed draineert, dus weinig kelders, maar wel de koudste winterwerven van Vlaanderen. Tussen november en maart gaat hier bijna altijd een kachel mee.",
       gemeenten: [
         "Beringen",
         "Heusden-Zolder",
@@ -523,3 +526,63 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
 export function aantalGemeenten(regioSlug: string): number {
   return (STREKEN_PER_REGIO[regioSlug] ?? []).reduce((n, s) => n + s.gemeenten.length, 0);
 }
+
+/**
+ * Het Brussels Hoofdstedelijk Gewest: de negentien gemeenten.
+ *
+ * Bewust **niet** in `STREKEN_PER_REGIO` maar apart, en dat verschil is de
+ * hele bedoeling: die record is de lijst per provinciepagina, en Brussel heeft
+ * er geen. De test `provincieGemeenten.test.ts` eist dat elke sleutel daarin
+ * een bestaande regiopagina heeft — een `brussel`-sleutel zou dus of de test
+ * breken, of een kop opleveren die naar een 404 linkt.
+ *
+ * Staat daarom alleen op /sitemap, als blok zonder link: het gewest hoort bij
+ * het werkgebied, de pagina erachter bestaat nog niet. Komt die er ooit, dan
+ * verhuist deze lijst naar de record erboven en wordt de kop vanzelf een link.
+ *
+ * De groepering volgt de bouw en niet de taalrol of het postnummer: de
+ * negentiende-eeuwse gordel, de kanaalzone in het westen en de ruimere
+ * woonwijken tegen het Zoniënwoud drogen elk anders.
+ */
+export const BRUSSEL_STREKEN: Streek[] = [
+  {
+    naam: "Brussel-centrum en de eerste kroon",
+    kenmerk:
+      "Herenhuizen en appartementen uit de negentiende-eeuwse gordel: hoge plafonds, kelders onder het trottoir en zelden een lift om een toestel mee naar boven te krijgen.",
+    gemeenten: [
+      "Brussel",
+      "Elsene",
+      "Etterbeek",
+      "Sint-Gillis",
+      "Sint-Joost-ten-Node",
+      "Schaarbeek",
+    ],
+  },
+  {
+    naam: "De kanaalzone en de westrand",
+    kenmerk:
+      "Arbeiderswoningen en nieuwe blokken langs het kanaal, waar het vocht meestal uit een kelder onder het maaiveld of een plat dak komt.",
+    gemeenten: [
+      "Anderlecht",
+      "Ganshoren",
+      "Jette",
+      "Koekelberg",
+      "Sint-Agatha-Berchem",
+      "Sint-Jans-Molenbeek",
+    ],
+  },
+  {
+    naam: "De zuid- en oostrand",
+    kenmerk:
+      "Ruimer gebouwde woonwijken tegen het Zoniënwoud, met diepe kelders en garages die bij een hevige bui het water van de helling erboven krijgen.",
+    gemeenten: [
+      "Evere",
+      "Oudergem",
+      "Sint-Lambrechts-Woluwe",
+      "Sint-Pieters-Woluwe",
+      "Ukkel",
+      "Vorst",
+      "Watermaal-Bosvoorde",
+    ],
+  },
+];

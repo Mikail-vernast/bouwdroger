@@ -110,11 +110,16 @@ describe("ritme van de regiopagina's", () => {
       verloopt" én als lijst per streek. Op Antwerpen waren dat zeventien
       dubbele links, waarvan de ene rij bovendien in een rode sectie stond waar
       ze nauwelijks te lezen was.
+
+      Op de naam en niet op het pad, want één pagina mag meerdere plaatsen
+      dekken: Berendrecht en Zandvliet liggen in dezelfde polder en delen er
+      één (zie `ookVoor` in gemeente-slugs.ts). Twee namen naar hetzelfde pad is
+      dus goed; dezelfde naam twee keer is de fout die deze test ving.
     */
-    const paden = Array.from(container.querySelectorAll("main a[href^='/bouwdroger-huren-']"))
-      .map((a) => a.getAttribute("href"))
-      .filter((h): h is string => !!h);
-    const dubbel = paden.filter((h, i) => paden.indexOf(h) !== i);
+    const namen = Array.from(container.querySelectorAll("main a[href^='/bouwdroger-huren-']"))
+      .map((a) => a.textContent?.trim() ?? "")
+      .filter(Boolean);
+    const dubbel = namen.filter((n, i) => namen.indexOf(n) !== i);
     expect(dubbel).toEqual([]);
   });
 

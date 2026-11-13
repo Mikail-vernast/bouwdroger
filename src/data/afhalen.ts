@@ -54,8 +54,14 @@ const META: Record<string, Omit<PickupProduct, "key" | "name" | "short" | "sub" 
     kind: "droger",
   },
   ttk650: {
+    /*
+      110 en niet 90. De toestelpagina van de Ultimate geeft 110 l/24 u op als
+      kerncijfer en in haar fiche; hier stond 90, en op de kaart van de
+      homepage opnieuw 110. Twee geïndexeerde pagina's die elkaar tegenspreken
+      over hetzelfde toestel -- de toestelpagina is de bron.
+    */
     group: "Bouwdrogers",
-    specs: ["90 l / 24 u", "tot 600 m³", "1,4 kW", "pompklaar"],
+    specs: ["110 l / 24 u", "tot 600 m³", "1,4 kW", "pompklaar"],
     kind: "droger",
   },
   ttv4500: {
@@ -144,16 +150,40 @@ export const PICKUP_GROUPS = [...new Set(PICKUP_PRODUCTS.map((p) => p.group))];
 /**
  * Huurperiodes. Gelijk aan die van de toestelpagina, zodat een keuze daar
  * ("1 maand") hier niet stilzwijgend iets anders wordt.
+ *
+ * Drie dagen stond hier als kortste keuze, maar zo kort verhuren wij niet: een
+ * toestel dat heen en weer rijdt kost ons een volle dag logistiek, en in drie
+ * dagen droogt er bij nieuwbouw niets dat het halen waard is. Een week is de
+ * ondergrens. Drie weken ontbrak daarentegen helemaal, terwijl dat net de stap
+ * is tussen twee weken en een maand -- wie zijn chape nog een week langer nodig
+ * had, moest een volle maand nemen.
  */
 export const PICKUP_PERIODS: [number, string][] = [
-  [3, "3 dagen"],
   [7, "1 week"],
   [14, "2 weken"],
+  [21, "3 weken"],
   [30, "1 maand"],
   [60, "2 maanden"],
 ];
 
 export const PICKUP_DAYS = PICKUP_PERIODS.map(([days]) => days);
+
+/**
+ * Vanaf vier weken zakt de dagprijs met 10%.
+ *
+ * Een lange huur kost ons per dag minder: één keer klaarzetten, één keer
+ * innemen, geen rek dat tussendoor leegstaat. Dat voordeel gaat naar de klant,
+ * en het maakt de stap van drie weken naar een maand een keuze in plaats van
+ * een drempel.
+ *
+ * De grens staat op dagen en niet op "een maand": 28 is vier volle weken, en de
+ * periode van 30 dagen haalt die grens dus ruim. Komt er ooit een keuze van
+ * precies 28 dagen bij, dan telt ze vanzelf mee.
+ */
+export const LONG_STAY_DAYS = 28;
+
+/** Hoeveel er dan af gaat, als fractie van de huurprijs excl. btw. */
+export const LONG_STAY_DISCOUNT = 0.1;
 
 export const PICKUP_SLOTS = [
   "07:30 – 08:00",

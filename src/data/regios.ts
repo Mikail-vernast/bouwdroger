@@ -163,7 +163,12 @@ export const REGIOS: Regio[] = [
       feiten: [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket" },
         { label: "Levertermijn", waarde: "Binnen 24 uur, meestal de volgende werkdag" },
-        { label: "Rijtijd vanuit ons magazijn", waarde: "15 tot 40 minuten (Aartselaar–stad–Kempen)" },
+        /*
+          20 en niet 15: de stadspagina rekent met twintig minuten vanuit
+          Aartselaar (`gemeenten.ts`, rit), en twee pagina's die dezelfde rit
+          anders begroten zijn er één te veel.
+        */
+        { label: "Rijtijd vanuit ons magazijn", waarde: "20 tot 40 minuten (Aartselaar–stad–Kempen)" },
         { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
         { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
       ],
@@ -231,7 +236,7 @@ export const REGIOS: Regio[] = [
       er is, geen antwoord op de vraag van wie ze opent.
     */
     intro: [
-      "Vanuit ons magazijn in Aartselaar is het Waasland een halfuur en zijn Gent en Aalst rond de vijftig minuten: na onze eigen provincie is Oost-Vlaanderen **de streek waar we het vaakst rijden**. **Elk droogpakket komt geleverd, geplaatst en ingesteld**, met de ophaling erbij in de prijs — en wie in het Waasland woont, staat over de E17 in twintig minuten aan onze poort om zelf af te halen.",
+      "Vanuit ons magazijn in Aartselaar is het Waasland een halfuur en zijn Gent en Aalst rond de vijftig minuten: na onze eigen provincie is Oost-Vlaanderen **de streek waar we het vaakst rijden**. **Elk droogpakket komt geleverd, geplaatst en ingesteld**, met de ophaling erbij in de prijs. En wie in het Waasland woont, staat over de E17 in twintig minuten aan onze poort om zelf af te halen.",
     ],
     bouw: {
       /*

@@ -165,9 +165,24 @@ html { scroll-behavior: smooth; }
    los van de toestellen waar ze bij horen. */
 .v3 .hero .h-note{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:78%;z-index:3;pointer-events:none}
 .v3 .hero .h-note > span{position:absolute;display:inline-flex;align-items:center;gap:11px;background:#fff;border-radius:14px;padding:11px 18px 11px 12px;box-shadow:0 18px 38px -20px rgba(0,0,0,.45);text-align:left;white-space:nowrap;animation:hnfloat 5.2s ease-in-out infinite}
-.v3 .hero .h-note > span:nth-child(1){left:5%;bottom:30%}
-.v3 .hero .h-note > span:nth-child(2){right:4%;bottom:36%;animation-delay:.9s}
-.v3 .hero .h-note > span:nth-child(3){right:7%;bottom:12%;animation-delay:1.8s}
+/*
+  De drie kaartjes staan in de rode lucht náást de ploeg, niet over de
+  toestellen. "100% droog-garantie" hing op bottom:12% en lag daardoor dwars
+  over de ventilatoren -- precies over het product dat de banner moet tonen,
+  en met zijn witte vlak over het witte toestel was ook het kaartje zelf
+  slechter leesbaar.
+
+  De vrije band ligt tussen de onderkant van de koppenrij en de bovenkant van
+  de toestellen: van ongeveer bottom 26% tot bottom 42%. Alle drie staan daar
+  nu in, twee links en één rechts, met de rechtse op halve hoogte tussen de
+  twee linkse. Dat leest als een driehoek in plaats van als drie kaartjes die
+  toevallig ergens liggen. De linkse twee staan bewust niet exact onder elkaar
+  (4% en 9%): een rechte kolom oogt als een lijst, een trapje als zwevende
+  kaartjes.
+*/
+.v3 .hero .h-note > span:nth-child(1){left:3%;bottom:34%}
+.v3 .hero .h-note > span:nth-child(2){right:4%;bottom:29.5%;animation-delay:.9s}
+.v3 .hero .h-note > span:nth-child(3){left:8%;bottom:25%;animation-delay:1.8s}
 @keyframes hnfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 @media (max-width:1080px){.v3 .hero .h-note{display:none}}
 .v3 .hero .h-note .hni{flex-shrink:0;width:34px;height:34px;border-radius:10px;background:#e8f6ec;color:#1e9e4a;display:grid;place-items:center}

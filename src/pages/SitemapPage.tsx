@@ -8,14 +8,13 @@ import {
   ALLES_OVER_DROGEN,
   BEDRIJF,
   GAMMA,
-  REGIOS,
   TOEPASSINGEN,
   TOESTELLEN,
   type NavLinkItem,
 } from "@/data/navigation";
 import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
-import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
+import { BRUSSEL_STREKEN, STREKEN_PER_REGIO, type Streek } from "@/data/provincie-gemeenten";
 import { REALISATIES } from "@/data/realisaties";
 import "@/styles/v3-content.css";
 import "@/styles/sitemap.css";
@@ -49,6 +48,29 @@ const BESTELLEN: NavLinkItem[] = [
 const JURIDISCH: NavLinkItem[] = [
   { label: "Privacybeleid", path: "/privacy" },
   { label: "Algemene voorwaarden", path: "/algemene-voorwaarden" },
+];
+
+/**
+ * De blokken van het werkgebied.
+ *
+ * De vijf provincies dragen hun eigen pagina en hun kop is dus een link.
+ * Brussel staat erbij zonder: het gewest hoort bij het werkgebied, maar
+ * /bouwdroger-huren-brussel bestaat nog niet en een kop die naar een 404
+ * wijst is erger dan een kop zonder link. Komt die pagina er, dan krijgt dit
+ * blok hier een `path` en verandert er verder niets.
+ */
+const GEBIEDEN: { sleutel: string; kop: string; path?: string; streken: Streek[] }[] = [
+  ...REGIO_ROUTES.map((regio) => ({
+    sleutel: regio.slug,
+    kop: `Bouwdroger huren in ${regio.name}`,
+    path: regio.path,
+    streken: STREKEN_PER_REGIO[regio.slug] ?? [],
+  })),
+  {
+    sleutel: "brussel",
+    kop: "Brussels Hoofdstedelijk Gewest",
+    streken: BRUSSEL_STREKEN,
+  },
 ];
 
 interface Blok {
@@ -165,7 +187,7 @@ const SitemapPage = () => {
                 <h1>Sitemap</h1>
                 <p>
                   Elke pagina van vernast-bouwdrogers.be op één rij, gegroepeerd per onderwerp.
-                  Zoekt u iets specifieks — een toestel, een gids, uw gemeente — dan staat het
+                  Zoekt u iets specifieks, een toestel, een gids of uw gemeente, dan staat het
                   hieronder.
                 </p>
               </div>
@@ -226,28 +248,34 @@ const SitemapPage = () => {
             <section className="sm-breed" aria-labelledby="sm-regio">
               <h2 id="sm-regio">Werkgebied</h2>
               <p className="sm-uit">
-                Vijf provinciepagina's en elke gemeente waar we leveren, per streek. De gemeenten
-                met een eigen pagina staan als link; de rest bedienen we even goed.
+                Vijf provinciepagina's, het Brussels gewest en elke plaats waar we leveren, per
+                streek. Wat een eigen pagina heeft staat als link; de rest bedienen we even goed.
               </p>
-              <ul className="sm-rij">
-                {REGIOS.map((item) => (
-                  <li key={item.path}>
-                    <Link to={item.path}>{item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-
-              {REGIO_ROUTES.map((regio) => {
-                const streken = STREKEN_PER_REGIO[regio.slug] ?? [];
-                const aantal = streken.reduce((n, s) => n + s.gemeenten.length, 0);
+              {/* Hier stond eerst nog een rij met dezelfde vijf
+                  provincielinks uit `REGIOS`. Die dateert van toen dit blok
+                  alleen die vijf links was; sinds elke provincie hieronder
+                  haar eigen kop heeft — en die kop ís de link naar de
+                  provinciepagina — stond elke provincie twee keer op dezelfde
+                  pagina, één keer als losse regel en vijf regels later als
+                  titel van haar eigen lijst. Twee links naar hetzelfde pad met
+                  dezelfde ankertekst zeggen een bezoeker niets extra. */}
+              {GEBIEDEN.map((gebied) => {
+                /*
+                  "Plaatsen" en niet "gemeenten". De provincie Antwerpen telt
+                  67 gemeenten, maar deze lijst noemt er 77: de districten van
+                  de stad staan er apart bij omdat mensen "bouwdroger huren
+                  Deurne" intikken. Het label "77 gemeenten" was dus gewoon
+                  onjuist. Nagerekend op 13-11-2026.
+                */
+                const aantal = gebied.streken.reduce((n, s) => n + s.gemeenten.length, 0);
                 return (
-                  <div className="sm-prov" key={regio.slug}>
+                  <div className="sm-prov" key={gebied.sleutel}>
                     <h3>
-                      <Link to={regio.path}>Bouwdroger huren in {regio.name}</Link>
-                      <span className="sm-telling">{aantal} gemeenten</span>
+                      {gebied.path ? <Link to={gebied.path}>{gebied.kop}</Link> : gebied.kop}
+                      <span className="sm-telling">{aantal} plaatsen</span>
                     </h3>
                     <div className="sm-streken">
-                      {streken.map((streek) => (
+                      {gebied.streken.map((streek) => (
                         <div className="sm-streek" key={streek.naam}>
                           <h4>{streek.naam}</h4>
                           <ul>

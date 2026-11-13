@@ -64,6 +64,11 @@
 .v3c .btn-white:hover{background:rgba(255,255,255,.88);color:#a80d26}
 .v3c .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff}
 .v3c .btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+/* De tweede knop op een rode sectie. Als dunne omlijning naast een volle witte
+   knop las hij nauwelijks als knop -- het is dezelfde zwart als de kop van de
+   droogtijdentabel, dus hij staat niet alleen in de vormtaal. */
+.v3c .btn-zwart{background:#17171A;color:#fff}
+.v3c .btn-zwart:hover{background:#000;color:#fff}
 .v3c .btn-line{background:transparent;border:1.5px solid var(--line-2);color:var(--txt)}
 .v3c .btn-line:hover{background:var(--bg-alt);color:var(--txt)}
 
@@ -244,6 +249,16 @@
 /* ============ SPLIT ============ */
 .v3c .split{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
 .v3c .split.rev{grid-template-columns:.95fr 1.05fr}
+/* Dezelfde split, gespiegeld: beeld links, tekst rechts. Alleen de volgorde
+   draait om, niet de markup -- de kop blijft vóór het beeld staan, zodat een
+   schermlezer en de geprerenderde HTML de tekst eerst krijgen. Onder 1040 px
+   staat het beeld sowieso bovenaan (de regel hieronder), dus daar verandert er
+   niets. */
+.v3c .split.omgekeerd{grid-template-columns:.95fr 1.05fr}
+/* En tegen de buitenrand in plaats van gecentreerd: in de linkerkolom staat
+   een gecentreerd beeld naar het midden van de pagina geduwd, weg van de marge
+   waar het hoort. Gevraagd op 13-11-2026 ("iets meer naar links"). */
+.v3c .split.omgekeerd .split-vis{order:-1;justify-content:flex-start}
 @media (max-width:1040px){.v3c .split,.v3c .split.rev{grid-template-columns:1fr}.v3c .split-vis{order:-1}}
 .v3c .split-vis{position:relative;display:flex;justify-content:center;align-items:center}
 .v3c .split-vis img{width:min(100%,460px);border-radius:20px;filter:drop-shadow(0 26px 34px rgba(0,0,0,.28))}
@@ -614,9 +629,20 @@
 .v3c .feiten dd{margin:0;font-weight:700;color:var(--txt);text-align:right}
 
 /* ============ REALISATIEKAARTEN ============ */
-.v3c .rzs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media (max-width:980px){.v3c .rzs{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.v3c .rzs{grid-template-columns:1fr}}
+/*
+  Flex en niet grid, met `justify-content:center`.
+
+  Drie kolommen in een grid zetten een onvolledige laatste rij links tegen de
+  rand: bij vier werven stond er één kaart met twee lege plaatsen ernaast, bij
+  één werf een kaart in de linkerhoek van een lege sectie. Met flex vult elke
+  volle rij zich precies zoals in een grid, maar wat overblijft komt in het
+  midden -- zonder dat we een werf hoeven weg te laten om het mooi te houden.
+  Gevraagd op 13-11-2026.
+*/
+.v3c .rzs{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.v3c .rzs > *{flex:0 1 calc((100% - 32px) / 3);min-width:0}
+@media (max-width:980px){.v3c .rzs > *{flex-basis:calc((100% - 16px) / 2)}}
+@media (max-width:620px){.v3c .rzs > *{flex-basis:100%}}
 .v3c .rz{display:block;background:#fff;border-radius:18px;overflow:hidden;transition:transform .2s,box-shadow .2s}
 .v3c .sw .rz{background:var(--bg-alt)}
 .v3c .rz:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.3)}
@@ -648,10 +674,20 @@
 .v3c .kaartvis .speld{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:20px;height:20px}
 .v3c .kaartvis .speld::before{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;opacity:.3;animation:speldpuls 2.4s ease-out infinite}
 .v3c .kaartvis .speld::after{content:"";width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35)}
-/* De provincienaam naast de speld: zonder label is een stip op een kaart een
-   stip op een kaart. */
-.v3c .kaartvis .speld b{position:absolute;left:18px;top:-2px;font-family:var(--fd);font-weight:800;font-size:13.5px;letter-spacing:-.01em;color:#fff;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,.45)}
-.v3c .kaartvis .speld.links b{left:auto;right:18px}
+/* De provincienaam in een wit pilletje bóven de speld.
+
+   Ze stond als witte tekst naast de punt, op een kaart die zelf wit lijnwerk
+   is op dieprood: witte letters op een witte lijn, met een schaduw als enige
+   scheiding. Onleesbaar, en bij elke nieuwe speld moest opnieuw bekeken worden
+   of het label links of rechts hoorde. Nu is het dezelfde pil als de spelden op
+   de homepagekaart (`.v3 .pin`): wit vlak, zwarte tekst, gecentreerd boven haar
+   eigen punt. Gevraagd op 13-11-2026. */
+.v3c .kaartvis .speld b{
+  position:absolute;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%);
+  background:#fff;color:var(--txt);border-radius:99px;padding:6px 13px;
+  font-family:var(--fd);font-weight:800;font-size:12.5px;letter-spacing:-.01em;
+  white-space:nowrap;box-shadow:0 12px 26px -12px rgba(0,0,0,.6);
+}
 @keyframes speldpuls{0%{transform:scale(.7);opacity:.45}70%{transform:scale(2.1);opacity:0}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.v3c .kaartvis .speld::before{animation:none}}
 
@@ -1218,11 +1254,21 @@
 .v3c .rg-links span{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--txt-dim)}
 .v3c .rg-links a{font-weight:600;color:var(--txt);border-bottom:1px solid var(--line-2);text-decoration:none}
 .v3c .rg-links a:hover{color:var(--red);border-color:var(--red)}
+/* Op een rode sectie. De lijst stond daar ooit in zijn gewone donkere kleur en
+   was dan nauwelijks te lezen -- dezelfde fout als eerder op de provinciepagina,
+   nu de gemeentelijst in de rode "Waar we leveren"-sectie staat. */
+.v3c .sr .rg-links span{color:rgba(255,255,255,.6)}
+.v3c .sr .rg-links a{color:#fff;border-bottom-color:rgba(255,255,255,.45)}
+.v3c .sr .rg-links a:hover{color:#fff;border-bottom-color:#fff}
 
 /* West-Vlaanderen: twee praktijkvoorbeelden gecentreerd, bestelwagen tot de rand. */
-.v3c.rg-west .rzs.twee{grid-template-columns:repeat(2,minmax(0,1fr));max-width:1060px;margin-inline:auto}
+/* West-Vlaanderen heeft er twee: die mogen breder dan een derde van de rij.
+   Sinds `.rzs` op flex staat volstaat een andere basisbreedte; het centreren
+   doet de rij zelf al. */
+.v3c.rg-west .rzs.twee{max-width:1060px;margin-inline:auto}
+.v3c.rg-west .rzs.twee > *{flex-basis:calc((100% - 16px) / 2)}
 .v3c.rg-west .manband img.regio-wagen{margin-left:auto;margin-right:-44px;object-position:right bottom;filter:none}
-@media(max-width:620px){.v3c.rg-west .rzs.twee{grid-template-columns:1fr}}
+@media(max-width:620px){.v3c.rg-west .rzs.twee > *{flex-basis:100%}}
 
 /* ------------------------------------------------------------------
    De gemeentenlijst per streek (provinciepagina)
@@ -1301,22 +1347,6 @@
 .v3c .sr .paneel p b,.v3c .sr .prod .pdesc b{color:var(--txt)}
 
 /*
-  De technieker rechtsboven in de pakkettensectie.
-
-  Die sectie heeft een kop van 760 px en kaarten over de volle breedte; rechts
-  van de kop bleef een halve sectie leeg rood. Absoluut gepositioneerd en niet
-  in de stroom, zodat hij de kop en de kaarten met rust laat: hij staat ernáást,
-  niet ertussen. Hij hangt met zijn voetstuk net boven de kaarten.
-
-  `pointer-events:none` omdat er niets te klikken valt en hij over de witruimte
-  van de kop heen kan komen. Onder 1100 px verdwijnt hij: daar neemt de kop de
-  volle breedte en zou hij over de tekst vallen.
-*/
-.v3c .wrap.pkt-man{position:relative}
-.v3c .wrap.pkt-man>img{position:absolute;right:28px;top:-26px;width:min(30%,320px);pointer-events:none;filter:drop-shadow(0 26px 34px rgba(0,0,0,.45))}
-@media (max-width:1100px){.v3c .wrap.pkt-man>img{display:none}}
-
-/*
   Een uitsnede in een split-sectie, zoals de gerustgestelde klant naast de
   prijsvraag. Hij is onderaan afgesneden -- in de hero van /prijzen valt dat
   niet op omdat de rand van de sectie er vlak onder ligt, maar midden in een
@@ -1328,3 +1358,39 @@
   -webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent 97%);
   mask-image:linear-gradient(to bottom,#000 72%,transparent 97%);
 }
+
+/*
+  Een sectiekop met de knoppen ernaast in plaats van eronder.
+
+  De kop is 760 px breed; in een sectie van 1260 px bleef de rechterhelft leeg
+  terwijl de knoppen onder de tekst de kaarten wegduwden. Ze lijnen uit op de
+  onderlijn van de kop, zodat de knoprij op dezelfde hoogte eindigt als de
+  laatste tekstregel. Wrapt op smal scherm, en dan staan ze weer eronder.
+*/
+.v3c .kop-rij{display:flex;align-items:flex-end;justify-content:space-between;gap:28px 72px;flex-wrap:wrap;margin-bottom:40px}
+.v3c .kop-rij .sec-head{margin-bottom:0;flex:1 1 520px}
+.v3c .kop-rij .prijsknoppen{margin-top:0}
+
+/* Het schild voor de garantienoot: twee alinea's over een garantie en een
+   waarborg lazen als kleine lettertjes. Het icoon staat ernaast en niet erin,
+   zodat de tekst één blok blijft. */
+.v3c .note.schild{display:flex;gap:18px;align-items:flex-start}
+.v3c .note.schild .schild-ic{width:46px;height:46px;border-radius:13px;background:rgba(200,16,46,.1);color:var(--red);display:grid;place-items:center;flex-shrink:0}
+.v3c .note.schild>div{min-width:0}
+.v3c .note.schild p+p{margin-top:10px}
+
+/*
+  De lichtveeg over de hoofdknop, dezelfde als over "Gratis Calculator" in de
+  header (`offShine` in home-v3.css). Die keyframes staan daar en deze pagina's
+  laden dat bestand niet, dus hier een eigen naam -- niet dezelfde naam onder
+  twee definities, want dan wint wie toevallig laatst geladen is.
+
+  Alleen op `.glans`, en die klasse zet `hoofdKnop()` (ritme.ts) op de ene knop
+  per sectie die de bezoeker moet zien. Beweegt alles, dan wijst niets de weg.
+*/
+.v3c .btn.glans{position:relative;overflow:hidden}
+.v3c .btn.glans::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-100%);animation:v3cGlans 3.2s ease infinite;pointer-events:none}
+/* Op de witte knop zou een witte veeg niets doen; daar is het de huiskleur. */
+.v3c .btn.btn-white.glans::after{background:linear-gradient(110deg,transparent 30%,rgba(200,16,46,.2) 50%,transparent 70%)}
+@keyframes v3cGlans{45%,100%{transform:translateX(100%)}}
+@media (prefers-reduced-motion:reduce){.v3c .btn.glans::after{animation:none}}
