@@ -156,6 +156,12 @@ const VerhuurSimulatorPage = () => {
     const v = new URLSearchParams(window.location.search).get("film");
     if (v === "a" || v === "b" || v === "c") setVariant(v);
     setToonSchakelaar(import.meta.env.DEV || v !== null);
+    // Dev only: ?demo opens straight on the drying plan of a fixed house, so the
+    // film variants can be compared side by side without clicking through.
+    if (import.meta.env.DEV && new URLSearchParams(window.location.search).has("demo")) {
+      setS({ ...START, woning: "open", size: snapOppervlakte(geschatteOppervlakte("open", 2)), wat: "beide", fase: "gepleisterd", verwarmt: false, tempo: "gemiddeld" });
+      setStap(4);
+    }
   }, []);
   /** variant c: the pulled-apart overview is up */
   const [intro, setIntro] = useState(false);
