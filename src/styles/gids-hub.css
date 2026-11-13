@@ -15,15 +15,20 @@
    een lijst en een overzicht: je ziet aan de kleur of je naar een gids, een
    toepassing of een prijspagina kijkt, nog voor je het label leest.
 
-   De kleuren staan als twee variabelen per onderwerp — vlak en inkt — zodat
-   een nieuw onderwerp één regel is en de knop, het blokje en het label
-   automatisch bij elkaar blijven. `--hub-lab` is de inkt op wit: geel haalt
-   op een witte kaart geen leesbaar contrast, daar schrijft het label in een
-   donkerder okertint.
+   Alle vijf de tinten komen uit de huisstijl: zwart, zand, donkerrood, wit en
+   het rood van het logo. Er stond eerst groen en geel bij; dat gaf wél
+   onderscheid, maar las als vijf losse merken op één pagina naast een site
+   die verder uit rood, zwart en gebroken wit bestaat.
+
+   Per onderwerp drie variabelen — vlak, inkt en label — zodat een nieuw
+   onderwerp één regel is en de knop, het blokje en het label automatisch bij
+   elkaar blijven. `--hub-lab` is apart omdat het label op de gebroken witte
+   kaart staat en niet op het vlak: zand haalt daar geen contrast, dus schrijft
+   dat label in de donkere tint van dezelfde kleurfamilie.
    ------------------------------------------------------------------- */
-.hdw-page.gids [data-kleur="zwart"]{--hub-vlak:#141414;--hub-inkt:#35C46A;--hub-lab:#141414}
-.hdw-page.gids [data-kleur="geel"]{--hub-vlak:#F3C44B;--hub-inkt:#141414;--hub-lab:#8A6A00}
-.hdw-page.gids [data-kleur="groen"]{--hub-vlak:#1E9E50;--hub-inkt:#fff;--hub-lab:#16773B}
+.hdw-page.gids [data-kleur="zwart"]{--hub-vlak:#141414;--hub-inkt:#fff;--hub-lab:#141414}
+.hdw-page.gids [data-kleur="zand"]{--hub-vlak:#E6DDD0;--hub-inkt:#141414;--hub-lab:#6E5B42}
+.hdw-page.gids [data-kleur="maroon"]{--hub-vlak:var(--maroon);--hub-inkt:#fff;--hub-lab:var(--maroon)}
 .hdw-page.gids [data-kleur="wit"]{--hub-vlak:#fff;--hub-inkt:#141414;--hub-lab:#141414}
 .hdw-page.gids [data-kleur="rood"]{--hub-vlak:var(--red);--hub-inkt:#fff;--hub-lab:var(--red)}
 
@@ -73,7 +78,7 @@
    blijven. */
 .hdw-page.gids .hubfilters button[data-kleur="wit"][aria-pressed="true"]{border-color:var(--line-2)}
 .hdw-page.gids .hubfilters button[data-kleur="wit"][aria-pressed="true"] .n,
-.hdw-page.gids .hubfilters button[data-kleur="geel"][aria-pressed="true"] .n{background:rgba(20,20,20,.1);color:#141414}
+.hdw-page.gids .hubfilters button[data-kleur="zand"][aria-pressed="true"] .n{background:rgba(20,20,20,.1);color:#141414}
 
 /* --- De teller onder de knoppen ------------------------------------- */
 .hdw-page.gids .hubtel{margin:0 0 26px}

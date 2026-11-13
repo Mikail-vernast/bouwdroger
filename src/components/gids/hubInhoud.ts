@@ -170,12 +170,17 @@ export const PICTOGRAM: Record<string, ComponentType<{ size?: number }>> = {
  * De kleur van het pictogram per onderwerp.
  *
  * De kaarten zijn gebroken wit en verder gelijk; het blokje met het pictogram
- * is wat ze uit elkaar houdt. Met negentien kaarten in één raster is dat het
- * verschil tussen een lijst en een overzicht: u ziet aan de kleur of u naar
- * een gids, een toepassing of een prijspagina kijkt, ook zonder het label te
- * lezen. Een groep zonder kleur valt terug op `wit`.
+ * is wat ze uit elkaar houdt. Met tweeëntwintig kaarten in één raster is dat
+ * het verschil tussen een lijst en een overzicht: u ziet aan de kleur of u
+ * naar een gids, een toepassing of een prijspagina kijkt, ook zonder het
+ * label te lezen.
+ *
+ * De vijf tinten komen allemaal uit de huisstijl — zwart, zand, donkerrood,
+ * wit en het rood van het logo. Een eerdere set met groen en geel erbij gaf
+ * wél onderscheid, maar las als vijf losse merken op één pagina. Een groep
+ * zonder kleur valt terug op `wit`.
  */
-export type Kleur = "zwart" | "geel" | "groen" | "wit" | "rood";
+export type Kleur = "zwart" | "zand" | "maroon" | "wit" | "rood";
 
 /**
  * De kop boven elke groep. De sleutel is de groepstitel uit
@@ -193,13 +198,13 @@ export const GROEPKOP: Record<string, { kop: string; lede: string; kort: string;
     kop: "Hoe drogen werkt, en waarom het niet vanzelf gaat",
     lede: "De achtergrond bij alles hierboven: de techniek, de reden om niet te wachten, en wat wij beloven wanneer u bij ons huurt.",
     kort: "De techniek erachter en wat wij beloven.",
-    kleur: "geel",
+    kleur: "zand",
   },
   Toepassingen: {
     kop: "Uw situatie",
     lede: "Een nieuwbouw, een lek, een vochtige kelder of een geur die blijft hangen, elk met een eigen aanpak, droogtijd en opstelling.",
     kort: "Nieuwbouw, waterschade, kelder of geur.",
-    kleur: "groen",
+    kleur: "maroon",
   },
   "Het gamma": {
     kop: "De toestellen zelf",
