@@ -15,14 +15,16 @@ export interface Materiaal {
 export function materiaalVoor(wat: Wat | null, fase: Fase | null, vochtStart: number): Materiaal {
   const muurNat = wat === "pleister" || wat === "beide";
   const vloerNat = wat === "chape" || wat === "beide";
+  // Without a phase (step 3) the house keeps its plain colours: choosing what is
+  // wet must not darken the rooms.
   const f = fase ?? "vers";
   const geschilderd = f === "geschilderd" || f === "afgewerkt" || f === "bewoond";
   const parket = f === "afgewerkt" || f === "bewoond";
   const pleister = { vers: "#9d978e", weken: "#b9b2a8" } as Record<string, string>;
   const chape = { vers: "#8d877e", weken: "#aaa398" } as Record<string, string>;
   return {
-    muur: geschilderd ? "#f2eee7" : muurNat ? pleister[f] ?? "#b9b2a8" : "#ddd6cb",
-    vloer: parket ? "#c99f6e" : vloerNat ? chape[f] ?? "#aaa398" : "#c9c2b6",
+    muur: geschilderd ? "#f2eee7" : muurNat && fase ? pleister[f] ?? "#b9b2a8" : "#ddd6cb",
+    vloer: parket ? "#c99f6e" : vloerNat && fase ? chape[f] ?? "#aaa398" : "#c9c2b6",
     vocht: wat ? vochtStart : 0,
     muurNat,
     vloerNat,

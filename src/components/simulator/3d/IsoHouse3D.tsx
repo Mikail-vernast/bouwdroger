@@ -603,6 +603,9 @@ function Meshes({ geos, mats, schaduw = true }: { geos: Map<string, BufferGeomet
 const URLS = TEGEL_NAMEN.map((n) => TEGELS[n].url);
 
 /** Projectierichtingen van de isometrische camera (kijker aan de +x/+y/+z-kant). */
+/** Where a room label may go (fractions of the room), most preferred first. */
+const LABEL_PLEKKEN = [[0.5, 0.5], [0.5, 0.26], [0.28, 0.3], [0.72, 0.3], [0.5, 0.76], [0.28, 0.72], [0.72, 0.72]] as const;
+
 const RECHTS = new Vector3(1, 0, -1).normalize();
 const OP = new Vector3(-1, 2, -1).normalize();
 const KIJK = new Vector3(1, 1, 1).normalize();
@@ -756,7 +759,21 @@ function Scene(props: SceneProps) {
   const binnenRef = useRef<Group>(null);
   const bladenRef = useRef<Group>(null);
   const actKamers = useMemo(() => kamers.filter((k) => k.verdieping === act), [kamers, act]);
-  const labelPos = useMemo(() => actKamers.map((k) => new Vector3(k.x + k.w * 0.5, yfAct + HC + 0.15, k.z + k.l * 0.5)), [actKamers, yfAct]);
+  // Room labels sit in the middle of the room, unless a device stands there:
+  // then the free spot farthest from the devices, so a name never covers a dryer.
+  const labelPos = useMemo(() => actKamers.map((k) => {
+    const hier = plaatsingen.filter((p) => p.kamer === k.id);
+    const vrij = ([fx, fz]: readonly [number, number]) =>
+      hier.reduce((m, p) => Math.min(m, Math.hypot(k.w * fx - p.x, k.l * fz - p.z)), Infinity);
+    let bx: number = LABEL_PLEKKEN[0][0], bz: number = LABEL_PLEKKEN[0][1];
+    let best = vrij(LABEL_PLEKKEN[0]);
+    for (const c of LABEL_PLEKKEN) {
+      if (best >= 1.1) break;
+      const d = vrij(c);
+      if (d > best + 0.05) { best = d; [bx, bz] = c; }
+    }
+    return new Vector3(k.x + k.w * bx, yfAct + HC + 0.15, k.z + k.l * bz);
+  }), [actKamers, yfAct, plaatsingen]);
 
   const dicht = useMemo(() => kader(w, l, 0, daktop + nok + 0.3, 1.3), [w, l, daktop, nok]);
   const v = useMemo(() => new Vector3(), []);

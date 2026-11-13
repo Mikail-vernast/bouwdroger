@@ -1000,6 +1000,11 @@
 .ds-laagk.uit .ds-ware-schuif{pointer-events:none}
 
 /* ── droogplan: knop "opnieuw afspelen" als de film klaar is ── */
-.ds-herhaal{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--ink,#1a1a1a);border-radius:99px;background:#fffdf9;color:var(--ink,#1a1a1a);font:600 12.5px/1 var(--fb,inherit);cursor:pointer;box-shadow:0 6px 18px -10px rgba(0,0,0,.45);animation:ds-held-in .4s ease-out both}
+.ds-herhaal{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--ink,#1a1a1a);border-radius:99px;background:#fffdf9;color:var(--ink,#1a1a1a);font:600 12.5px/1 var(--fb,inherit);cursor:pointer;box-shadow:0 6px 18px -10px rgba(0,0,0,.45);animation:ds-herhaal-in .4s ease-out both}
+.ds-herhaal{white-space:nowrap;width:max-content}
 .ds-herhaal:hover{background:#fff}
+.ds-meter--droog i{background:#10b981!important;transition:width .6s ease,background .6s ease}
+/* Fade only: a transform in the keyframes would undo the centring translate. */
+@keyframes ds-herhaal-in{from{opacity:0}to{opacity:1}}
+@media (max-width:899px){.ds-herhaal{left:auto;right:10px;bottom:10px;transform:none;padding:6px 11px;font-size:11.5px}}
 .ds-herhaal:focus-visible{outline:2px solid var(--red,#c8102e);outline-offset:2px}
