@@ -4,6 +4,7 @@ import PageMeta from "@/components/PageMeta";
 import IsoHouse from "@/components/simulator/IsoHouse";
 import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
 import { materiaalVoor } from "@/components/simulator/materiaal";
+import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
 import { FILM_START, droogVoortgang } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
@@ -127,6 +128,10 @@ function volledig(s: State): SimAnswers {
 const VerhuurSimulatorPage = () => {
   const [s, setS] = useState<State>(START);
   const [stap, setStap] = useState(0);
+  // While the visitor picks the build phase, warm the device models for the plan.
+  useEffect(() => {
+    if (stap === 3) voorlaadToestellen();
+  }, [stap]);
   const [actief, setActief] = useState(0);
   const [handmatig, setHandmatig] = useState(false);
   /** De droogfilm is helemaal afgespeeld: de woning staat droog en leeg. */
@@ -360,7 +365,7 @@ const VerhuurSimulatorPage = () => {
                 <>
                   <h2>Hoe ziet uw woning eruit?</h2>
                   <figure className="ds-held" aria-hidden="true">
-                    <img key={heldFoto} className="ds-held-foto" onAnimationEnd={(e) => (e.currentTarget.style.animation = "none")} src={heldFoto} srcSet={fotoSrcSet(heldFoto)} sizes="(max-width: 899px) 100vw, 46vw" alt="" decoding="async" />
+                    <img key={heldFoto} className="ds-held-foto" onAnimationEnd={(e) => (e.currentTarget.style.animation = "none")} src={heldFoto} srcSet={fotoSrcSet(heldFoto)} sizes="(max-width: 899px) 100vw, 46vw" alt="" loading="lazy" decoding="async" />
                     <figcaption className="ds-held-cap">
                       {DAK_LABEL[dak].label}
                       <i> · {woningLagen(lagen, dak).toLowerCase()} · {totaalKamers} kamers</i>
@@ -763,6 +768,7 @@ const LAAG = {
     waarden: PD_VALUES,
     standaard: DEFAULT_PD,
     foto: "/simulator/dikte-pleister.webp",
+    fotoKlein: "/simulator/dikte-pleister-360.webp",
     fotoPositie: "48% 50%",
     wat: "De gladde laag gips op uw muren en plafonds. Vers aangebracht zit ze vol water.",
     onderschrift: "Gips op de muur, nog vochtig",
@@ -775,6 +781,7 @@ const LAAG = {
     waarden: CD_VALUES,
     standaard: DEFAULT_CD,
     foto: "/simulator/dikte-chape.webp",
+    fotoKlein: "/simulator/dikte-chape-360.webp",
     fotoPositie: "22% 78%",
     wat: "De dekvloer van zand en cement onder uw tegels of parket.",
     onderschrift: "Zandcement op de isolatie",
@@ -810,7 +817,7 @@ function LaagKaart({ laag, gekozen, onKies }: { laag: "pd" | "cd"; gekozen: stri
   return (
     <section className={`ds-laagk${droog ? " uit" : ""}`} aria-label={L.titel}>
       <figure className="ds-laagk-foto">
-        <img src={L.foto} alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
+        <img src={L.fotoKlein} srcSet={`${L.fotoKlein} 360w, ${L.foto} 900w`} sizes="(max-width: 899px) 30vw, 260px" alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
         {droog && <span className="ds-laagk-badge">Niet nat</span>}
         <figcaption><b>{L.titel}</b>{L.onderschrift}</figcaption>
       </figure>
