@@ -13,8 +13,8 @@ import {
 } from "three";
 import type { Kamer, Plaatsing } from "@/lib/droogSimulator";
 import type { DeviceKey } from "@/data/verhuur";
+import { TOESTEL_MODEL } from "./modellen";
 import { FILM_START, VAL, droogVoortgang, filmTijd, stuit, wegVoortgang, type Film } from "../film";
-import { MODEL } from "./bestanden";
 
 /*
   De bewegende en losse onderdelen van de 3D-woning: de toestellen uit het
@@ -33,6 +33,7 @@ function fase(t: number, periode: number, vertraging = 0) {
 
 /* ─────────────────────────── toestellen ─────────────────────────── */
 
+const MODEL = TOESTEL_MODEL;
 /** De modellen zijn op ware grootte; in de tekening iets groter, anders is een droger een stipje. */
 const SCHAAL = 1.35;
 /** Hoogte waarvan een toestel neervalt. */

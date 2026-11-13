@@ -118,7 +118,9 @@ def samen(obs, naam):
 def exporteer(naam):
     pad = os.path.join(OUT, naam + '.glb')
     bpy.ops.export_scene.gltf(filepath=pad, export_format='GLB', export_apply=True, export_yup=True,
-                              export_materials='EXPORT', export_cameras=False, export_lights=False)
+                              export_materials='EXPORT', export_cameras=False, export_lights=False,
+                              # Plain colours, no textures: UVs would be dead weight (a quarter of every vertex).
+                              export_texcoords=False)
     print('GLB', pad, os.path.getsize(pad))
     if RENDER:
         controle(naam)
@@ -202,7 +204,7 @@ def ventilator():
     delen = []
     # behuizing = blok min cilinder
     kast = blok(WIT(), -Wd / 2, Wd / 2, -Dd / 2, Dd / 2, Z - Wd / 2, Z + Wd / 2, bevel=0.02)
-    bpy.ops.mesh.primitive_cylinder_add(vertices=48, radius=R, depth=Dd * 2, location=(0, 0, Z), rotation=(math.pi / 2, 0, 0))
+    bpy.ops.mesh.primitive_cylinder_add(vertices=32, radius=R, depth=Dd * 2, location=(0, 0, Z), rotation=(math.pi / 2, 0, 0))
     gat = bpy.context.object
     mod = kast.modifiers.new('gat', 'BOOLEAN')
     mod.object = gat
@@ -212,7 +214,7 @@ def ventilator():
     bpy.data.objects.remove(gat)
     delen.append(kast)
     # binnenring (zwart) zodat het gat diepte heeft
-    bpy.ops.mesh.primitive_cylinder_add(vertices=48, radius=R, depth=Dd * 0.96, location=(0, 0, Z), rotation=(math.pi / 2, 0, 0))
+    bpy.ops.mesh.primitive_cylinder_add(vertices=32, radius=R, depth=Dd * 0.96, location=(0, 0, Z), rotation=(math.pi / 2, 0, 0))
     ring = bpy.context.object
     bm = bmesh.new(); bm.from_mesh(ring.data)
     # de rotatie is nog niet toegepast: de deksels liggen in lokale Z
@@ -224,13 +226,13 @@ def ventilator():
     # roosters voor en achter: ringen + spaken
     for y in (-Dd / 2 + 0.01, Dd / 2 - 0.01):
         for rr in (R * 0.33, R * 0.55, R * 0.77, R * 0.98):
-            bpy.ops.mesh.primitive_torus_add(major_radius=rr, minor_radius=0.0035, major_segments=32, minor_segments=4,
+            bpy.ops.mesh.primitive_torus_add(major_radius=rr, minor_radius=0.0035, major_segments=24, minor_segments=3,
                                              location=(0, y, Z), rotation=(math.pi / 2, 0, 0))
             delen.append(toewijzen(bpy.context.object, ROOSTER()))
-        for i in range(12):
-            a = i * math.pi / 6
+        for i in range(8):
+            a = i * math.pi / 4
             delen.append(buis(ROOSTER(), (math.cos(a) * R * 0.12, y, Z + math.sin(a) * R * 0.12),
-                              (math.cos(a) * R * 0.99, y, Z + math.sin(a) * R * 0.99), 0.003, 6))
+                              (math.cos(a) * R * 0.99, y, Z + math.sin(a) * R * 0.99), 0.003, 4))
     # logo bovenaan en draagbeugel
     delen.append(blok(ROOD(), -Wd / 2 + 0.03, -Wd / 2 + 0.07, -Dd / 2 - 0.004, -Dd / 2, Z + Wd / 2 - 0.055, Z + Wd / 2 - 0.03))
     delen.append(buis(BUIS(), (-0.09, 0, Z + Wd / 2 + 0.04), (0.09, 0, Z + Wd / 2 + 0.04), 0.012))

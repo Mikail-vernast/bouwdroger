@@ -4,6 +4,7 @@ import PageMeta from "@/components/PageMeta";
 import IsoHouse from "@/components/simulator/IsoHouse";
 import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
 import { materiaalVoor } from "@/components/simulator/materiaal";
+import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
 import { FILM_START, droogVoortgang } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
@@ -43,7 +44,6 @@ import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 import "@/styles/droogsimulator.css";
-import { MODEL, voorlaad } from "@/components/simulator/3d/bestanden";
 
 /*
   De simulator past altijd op één scherm onder de site-header — gsm, tablet en
@@ -128,10 +128,10 @@ function volledig(s: State): SimAnswers {
 const VerhuurSimulatorPage = () => {
   const [s, setS] = useState<State>(START);
   const [stap, setStap] = useState(0);
-  // Vanaf vraag 3 de 3D-toestellen al ophalen, zodat het droogplan meteen speelt.
-  // Eerder niet: wie bij vraag 1 afhaakt, hoeft geen ~0,4 MB aan modellen te laden.
+  // From question 3 on, warm the device models so the drying plan plays at once.
+  // Not earlier: someone who leaves at question 1 should not pay ~0.3 MB of models.
   useEffect(() => {
-    if (stap >= 2) voorlaad(Object.values(MODEL));
+    if (stap === 2) voorlaadToestellen();
   }, [stap]);
   const [actief, setActief] = useState(0);
   const [handmatig, setHandmatig] = useState(false);
@@ -366,7 +366,7 @@ const VerhuurSimulatorPage = () => {
                 <>
                   <h2>Hoe ziet uw woning eruit?</h2>
                   <figure className="ds-held" aria-hidden="true">
-                    <img key={heldFoto} className="ds-held-foto" onAnimationEnd={(e) => (e.currentTarget.style.animation = "none")} src={heldFoto} srcSet={fotoSrcSet(heldFoto)} sizes="(max-width: 899px) 100vw, 46vw" alt="" decoding="async" />
+                    <img key={heldFoto} className="ds-held-foto" onAnimationEnd={(e) => (e.currentTarget.style.animation = "none")} src={heldFoto} srcSet={fotoSrcSet(heldFoto)} sizes="(max-width: 899px) 100vw, 46vw" alt="" loading="lazy" decoding="async" />
                     <figcaption className="ds-held-cap">
                       {DAK_LABEL[dak].label}
                       <i> · {woningLagen(lagen, dak).toLowerCase()} · {totaalKamers} kamers</i>
@@ -772,6 +772,7 @@ const LAAG = {
     waarden: PD_VALUES,
     standaard: DEFAULT_PD,
     foto: "/simulator/dikte-pleister.webp",
+    fotoKlein: "/simulator/dikte-pleister-360.webp",
     fotoPositie: "48% 50%",
     wat: "De gladde laag gips op uw muren en plafonds. Vers aangebracht zit ze vol water.",
     onderschrift: "Gips op de muur, nog vochtig",
@@ -784,6 +785,7 @@ const LAAG = {
     waarden: CD_VALUES,
     standaard: DEFAULT_CD,
     foto: "/simulator/dikte-chape.webp",
+    fotoKlein: "/simulator/dikte-chape-360.webp",
     fotoPositie: "22% 78%",
     wat: "De dekvloer van zand en cement onder uw tegels of parket.",
     onderschrift: "Zandcement op de isolatie",
@@ -819,7 +821,7 @@ function LaagKaart({ laag, gekozen, onKies }: { laag: "pd" | "cd"; gekozen: stri
   return (
     <section className={`ds-laagk${droog ? " uit" : ""}`} aria-label={L.titel}>
       <figure className="ds-laagk-foto">
-        <img src={L.foto} alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
+        <img src={L.fotoKlein} srcSet={`${L.fotoKlein} 360w, ${L.foto} 900w`} sizes="(max-width: 899px) 30vw, 260px" alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
         {droog && <span className="ds-laagk-badge">Niet nat</span>}
         <figcaption><b>{L.titel}</b>{L.onderschrift}</figcaption>
       </figure>

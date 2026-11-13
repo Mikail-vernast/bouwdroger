@@ -1,6 +1,6 @@
 import { Component, lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import IsoHouse, { type IsoHouseProps } from "./IsoHouse";
-import { TEXTUUR, voorlaad } from "./3d/bestanden";
+import { TEXTUUR, budget3D, voorlaad } from "./3d/bestanden";
 
 /*
   Kiest tussen de SVG-tekening en de 3D-woning.
@@ -67,15 +67,23 @@ export default function IsoHouseAuto(props: IsoHouseProps) {
 
   useEffect(() => {
     if (props.mini || !webglMogelijk()) return;
-    // Ophalen mag meteen (netwerk, de SVG staat er al): de 3D-chunk en de
-    // texturen tegelijk, niet na elkaar. Het zware opbouwen wacht op de load en
-    // een rustig moment.
-    const chunk = laad3D();
-    voorlaad(Object.values(TEXTUUR), "image");
+    const budget = budget3D();
+    if (budget === "geen") return; // data saver / 2G / little memory: the SVG house stays
+    // Fetch the 3D chunk and textures together, not one after the other. On a
+    // fast line that starts right away; on 3G it waits for the load event, so
+    // the question photos are not slowed down. The heavy build always waits
+    // for the load plus an idle moment.
+    const haal = () => {
+      voorlaad(Object.values(TEXTUUR), "image");
+      return laad3D();
+    };
+    let chunk = budget === "meteen" ? haal() : null;
     let weg = () => {};
     const start = () => {
+      chunk ??= haal();
+      const c = chunk;
       weg = opRustigMoment(() => {
-        chunk.then(() => setKan3d(true), () => setFout(true));
+        c.then(() => setKan3d(true), () => setFout(true));
       });
     };
     if (document.readyState === "complete") start();
