@@ -25,7 +25,7 @@ import { WONING, type Dak, type Kamer, type Opening, type Trap, type Woning } fr
 import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
-import { richIn } from "./inrichting";
+import { inrichtingsMuur, richIn } from "./inrichting";
 import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { aankomst, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
@@ -185,7 +185,7 @@ interface Anim { o: Tween; cam: Tween; act: Tween }
 
 /* ─────────────────────────── de woning als blokken ─────────────────────────── */
 
-type Gevel = "voor" | "zij";
+type Gevel = "voor" | "zij" | "achter" | "links";
 
 interface Bouwers {
   /** altijd zichtbaar en vast */
@@ -213,7 +213,8 @@ function bouw(p: Woningplan) {
   const B: Bouwers = { vast: new Bouwer(), boven: new Bouwer(), dak: new Bouwer(), gevel: new Bouwer(), binnen: new Bouwer(), bladen: new Bouwer() };
 
   // Een punt op een gevel: `a` langs de gevel, `n` naar buiten vanaf het buitenvlak.
-  const punt = (g: Gevel, a: number, n: number, y: number): V3 => (g === "voor" ? [a, y, l + T + n] : [w + T + n, y, a]);
+  const punt = (g: Gevel, a: number, n: number, y: number): V3 =>
+    g === "voor" ? [a, y, l + T + n] : g === "zij" ? [w + T + n, y, a] : g === "achter" ? [a, y, -T - n] : [-T - n, y, a];
   const gblok = (b: Bouwer, mat: string, g: Gevel, a0: number, a1: number, n0: number, n1: number, y0: number, y1: number, opt: { boven?: string | null } = {}) => {
     const p0 = punt(g, a0, n0, y0), p1 = punt(g, a1, n1, y1);
     b.blok(mat, Math.min(p0[0], p1[0]), Math.max(p0[0], p1[0]), Math.min(p0[1], p1[1]), Math.max(p0[1], p1[1]), Math.min(p0[2], p1[2]), Math.max(p0[2], p1[2]), opt);
@@ -271,6 +272,41 @@ function bouw(p: Woningplan) {
       for (let i = 0; i < n; i++) {
         const cz = (l * (i + 1)) / (n + 1);
         gaten.push({ a0: cz - 0.45, a1: cz + 0.45, b0: yf + 0.9, b1: yf + 2.3, soort: "raam", kalf: 0.45, stijl: false });
+      }
+    }
+    return gaten;
+  };
+
+  /**
+   * Ramen in de achter- en linkergevel van de opengewerkte laag. Je ziet ze van
+   * binnenuit, dus ze volgen de kamers: één raam per kamer die tegen die gevel
+   * ligt. Waar de keuken tegen de gevel staat geen raam (bovenkasten); bij een
+   * badkamer, toilet of wasplaats een klein raam boven de toestellen. In de
+   * grootste kamer achteraan op het gelijkvloers een raamdeur naar de tuin.
+   * Links alleen bij een vrijstaande gevel: anders staat daar de buur.
+   */
+  const binnenRamen = (g: Gevel, v: number, yf: number, laag: Kamer[], laagOpeningen: Opening[]) => {
+    const gaten: (Gat & { kalf: number; stijl: boolean })[] = [];
+    if (g === "links" && buren !== 0) return gaten;
+    const tegen = laag.filter((k) => k.soort !== "circulatie" && (g === "achter" ? k.z < 1e-6 : k.x < 1e-6));
+    const breedte = (k: Kamer) => (g === "achter" ? k.w : k.l);
+    const tuin = g === "achter" && v === 0 ? tegen.filter((k) => !inrichtingsMuur(k, laagOpeningen, { w, l })).sort((p, q) => breedte(q) - breedte(p))[0] : undefined;
+    for (const k of tegen) {
+      const lang = breedte(k);
+      if (lang < 1.5) continue;
+      const mid = g === "achter" ? k.x + k.w / 2 : k.z + k.l / 2;
+      const muur = inrichtingsMuur(k, laagOpeningen, { w, l });
+      const bezet = muur === (g === "achter" ? "achter" : "links");
+      if (bezet && k.naam === "Keuken") continue;
+      if (k === tuin) {
+        const bw = Math.min(2.4, lang * 0.55);
+        gaten.push({ a0: mid - bw / 2, a1: mid + bw / 2, b0: yf + 0.02, b1: yf + 2.3, kalf: 0, stijl: true });
+      } else if (bezet) {
+        const bw = Math.min(0.7, lang * 0.4);
+        gaten.push({ a0: mid - bw / 2, a1: mid + bw / 2, b0: yf + 1.65, b1: yf + 2.25, kalf: 0, stijl: false });
+      } else {
+        const bw = Math.min(1.4, lang * 0.5);
+        gaten.push({ a0: mid - bw / 2, a1: mid + bw / 2, b0: yf + 0.9, b1: yf + 2.3, kalf: 0.45, stijl: bw > 0.9 });
       }
     }
     return gaten;
@@ -334,11 +370,26 @@ function bouw(p: Woningplan) {
         B.vast.quad("vloer", [r.a0, yf + 0.003, r.b0], [r.a1, yf + 0.003, r.b0], [r.a1, yf + 0.003, r.b1], [r.a0, yf + 0.003, r.b1], [0, 100, 0]);
       }
     }
-    // Achtergevels op volle hoogte, binnenkant gepleisterd.
-    B.vast.blok("baksteen", -T, w, yf, yf + H, -T, 0, { boven: "snede" });
-    B.vast.blok("baksteen", -T, 0, yf, yf + H, 0, l, { boven: "snede" });
-    B.vast.quad("pleister", [0, yf, 0.002], [w, yf, 0.002], [w, yf + H, 0.002], [0, yf + H, 0.002], [0, 0, 100]);
-    B.vast.quad("pleister", [0.002, yf, 0], [0.002, yf, l], [0.002, yf + H, l], [0.002, yf + H, 0], [100, 0, 0]);
+    // Achtergevels op volle hoogte, binnenkant gepleisterd, met de ramen die je
+    // van binnenuit ziet: per kamer één raam in het midden van zijn stuk muur.
+    for (const g of ["achter", "links"] as Gevel[]) {
+      const gaten = binnenRamen(g, v, yf, laagKamers, laagOpeningen);
+      const [a0, a1] = g === "achter" ? [-T, w] : [0, l];
+      for (const r of muurMinGaten(a0, a1, yf, yf + H, gaten)) {
+        // Bovenop een stuk onder een raam ligt de vensterbank, niet de snede.
+        gblok(B.vast, "baksteen", g, r.a0, r.a1, -T, 0, r.b0, r.b1, { boven: r.b1 > yf + H - 1e-4 ? "snede" : "arduin" });
+      }
+      for (const gt of gaten) raam(B.vast, g, gt.a0, gt.a1, gt.b0, gt.b1, gt.kalf, gt.stijl);
+      // Pleister op de binnenkant, en in de neggekanten tot aan het kader.
+      const lijn = (a: number, b: number, y0: number, y1: number, n0: number, n1: number) => gblok(B.vast, "pleister", g, a, b, n0, n1, y0, y1);
+      const ib = 0.002, kd = -REV - 0.06; // binnenvlak en achterkant van het kader, gemeten vanaf het buitenvlak
+      for (const r of muurMinGaten(Math.max(a0, 0), a1, yf, yf + H, gaten)) lijn(r.a0, r.a1, r.b0, r.b1, -T - ib, -T);
+      for (const gt of gaten) {
+        lijn(gt.a0, gt.a0 + 0.004, gt.b0, gt.b1, -T, kd);
+        lijn(gt.a1 - 0.004, gt.a1, gt.b0, gt.b1, -T, kd);
+        lijn(gt.a0, gt.a1, gt.b1 - 0.004, gt.b1, -T, kd);
+      }
+    }
 
     // Voor- en zijgevel: één geheel, getekend in twee helften rond de snede.
     for (const g of ["voor", "zij"] as Gevel[]) {
