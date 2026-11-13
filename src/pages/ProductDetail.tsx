@@ -197,7 +197,7 @@ const ProductDetail = () => {
                 className="font-bold text-base"
                 onClick={() => navigate("/#configurator")}
               >
-                Gebruik de calculator
+                Gebruik de Calculator
               </Button>
             </div>
 

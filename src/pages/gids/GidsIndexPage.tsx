@@ -52,6 +52,8 @@ const SAMENVATTING: Record<string, string> = {
     "Droogtijden per dikte, natuurlijk en met een bouwdroger, het verschil tussen cement- en anhydrietchape, vloerverwarming opstoken en restvocht meten. Met een aparte sectie over pleisterwerk.",
   "/gids/hoe-lang-moet-pleisterwerk-drogen":
     "Droogtijd per laagdikte, het verschil tussen gips- en cementpleister, waarom het vocht in een dichtgemaakt huis blijft hangen en wanneer de schilder mag komen.",
+  "/gids/natuurlijk-drogen-of-bouwdroger":
+    "Moet u hier wel iets voor huren? Wat natuurlijk drogen van u vraagt, waarom het seizoen erover beslist, en het verschil met een droogpakket in weken.",
   "/gids/condensdroger-of-adsorptiedroger":
     "Hoe beide toestellen werken, waarom een condensdroger in de koude rendement verliest, en welk toestel past bij een kelder, een nieuwbouw of water onder de vloer.",
   "/gids/stroomverbruik-bouwdroger":
@@ -94,6 +96,7 @@ const PICTOGRAM: Record<string, ComponentType<{ size?: number }>> = {
   "/pleisterwerk-drogen": BrushIcon,
   "/gids/hoe-lang-moet-chape-drogen": ClockIcon,
   "/gids/hoe-lang-moet-pleisterwerk-drogen": BrushIcon,
+  "/gids/natuurlijk-drogen-of-bouwdroger": WindIcon,
   "/gids/condensdroger-of-adsorptiedroger": DrogerIcon,
   "/gids/stroomverbruik-bouwdroger": BoltIcon,
 

@@ -43,7 +43,7 @@ const PICKUP_FAQ: [string, string][] = [
   ],
   [
     "Kan dit toestel ook geleverd en geïnstalleerd worden?",
-    "Ja, maar uitsluitend als onderdeel van een berekend droogpakket. Alleen zo kunnen wij onze 100% droog-garantie waarmaken. Bereken uw pakket via de calculator.",
+    "Ja, maar uitsluitend als onderdeel van een berekend droogpakket. Alleen zo kunnen wij onze 100% droog-garantie waarmaken. Bereken uw pakket via de Calculator.",
   ],
   [
     "Waarom zijn afhaalprijzen lager?",

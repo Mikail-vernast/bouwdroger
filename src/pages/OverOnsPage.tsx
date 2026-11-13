@@ -140,7 +140,7 @@ const OverOnsPage = () => {
               <div className="tphoto"><img src="/vernast/koppel-digitaal.webp" alt="Softwareontwikkeling" /></div>
               <div className="tbody">
                 <h3>Softwareontwikkeling</h3>
-                <p>Vertaalt technische processen naar digitale systemen: calculator, reservatie, planning en opvolging.</p>
+                <p>Vertaalt technische processen naar digitale systemen: Calculator, reservatie, planning en opvolging.</p>
               </div>
             </div>
             <div className="tm">
@@ -294,7 +294,7 @@ const OverOnsPage = () => {
               <span className="gi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v3" /><path d="M18.4 5.6l-2.1 2.1" /><path d="M21 12h-3" /><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" /></svg></span>
               <h3>Vernast BouwDroging</h3>
               <p>Waar u nu bent: berekende droogpakketten met garantie, losse toestellen en volledig digitale boeking en opvolging.</p>
-              <span className="gl">Bereken uw pakket →</span>
+              <span className="gl">Gratis Calculator →</span>
             </Link>
             <a className="gr hot" href="https://vernast-vochtbestrijding.be/">
               <div className="gphoto"><img src="/vernast/groep-vochtbestrijding.webp" alt="Vernast Vochtbestrijding" style={{ objectFit: "cover" }} /></div>

@@ -621,7 +621,7 @@ const VerhuurSimulatorPage = () => {
                   <p className="ds-sub ds-sub--altijd">
                     {maatwerk
                       ? `Boven ${GROOTSTE} m² stellen wij het droogplan persoonlijk samen, met plaatsbezoek indien nodig. Wij nemen binnen één werkdag contact op.`
-                      : "Stel uw pakket samen in de calculator, of bel ons: we rekenen het samen uit."}
+                      : "Stel uw pakket samen in de Calculator, of bel ons: we rekenen het samen uit."}
                   </p>
                   <div className="ds-chips">
                     {maatwerk ? (
@@ -629,7 +629,7 @@ const VerhuurSimulatorPage = () => {
                         Vraag uw maatwerkofferte aan →
                       </a>
                     ) : (
-                      <Link className="ds-book" to="/verhuur/calculator">Naar de calculator →</Link>
+                      <Link className="ds-book" to="/verhuur/calculator">Naar de Calculator →</Link>
                     )}
                     <a className="ds-chip" href={`tel:${CONTACT.phoneE164}`}>Bel {CONTACT.phoneLocal}</a>
                   </div>

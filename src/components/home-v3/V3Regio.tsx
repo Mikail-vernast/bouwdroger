@@ -2,6 +2,7 @@ import { useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
 import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
+import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import { ArrowRightIcon } from "./icons";
 
 interface Region {
@@ -11,6 +12,8 @@ interface Region {
   towns: string[];
   /** The region's own page, when it has one. Brussel has none (yet). */
   path?: string;
+  /** Key into STREKEN_PER_REGIO; Brussel has none. */
+  slug?: string;
 }
 
 /*
@@ -32,7 +35,7 @@ const BRUSSEL: Region = {
 
 const bySlug = (slug: string): Region => {
   const r = REGIO_ROUTES.find((x) => x.slug === slug)!;
-  return { name: r.name, pin: r.pin, towns: r.towns, path: r.path };
+  return { name: r.name, pin: r.pin, towns: r.towns, path: r.path, slug };
 };
 
 /* Design order: west to east, Brussel between Vlaams-Brabant and Limburg. */
@@ -50,7 +53,32 @@ const DEFAULT_REGION = 2;
 
 const V3Regio = () => {
   const [active, setActive] = useState(DEFAULT_REGION);
+  /*
+    Welke streek binnen de gekozen provincie openstaat. Altijd de eerste bij
+    het laden en bij elke wissel van provincie: een paneel dat opent op
+    "De Kempen" omdat je dáár het laatst keek, verbergt de stad Antwerpen
+    zonder te zeggen dat er nog vijf streken onder zitten.
+  */
+  const [streek, setStreek] = useState(0);
   const region = REGIONS[active];
+  const streken = region.slug ? STREKEN_PER_REGIO[region.slug] ?? [] : [];
+  /*
+    `streek` kan na een provinciewissel buiten bereik vallen voor de nieuwe
+    lijst; dit vangt dat op zonder een extra effect.
+  */
+  const actieveStreek = streken[Math.min(streek, streken.length - 1)];
+  /*
+    Met een strekenlijst toont het paneel élke gemeente van de provincie,
+    verdeeld over die streken. Zonder lijst blijft het de greep uit de
+    gemeenten die er altijd stond -- vier van de vijf provincies wachten nog
+    op een geverifieerde lijst (zie provincie-gemeenten.ts).
+  */
+  const plaatsen = actieveStreek ? actieveStreek.gemeenten : region.towns;
+
+  const kiesRegio = (i: number) => {
+    setActive(i);
+    setStreek(0);
+  };
 
   return (
     <section className="regio" id="regio">
@@ -59,8 +87,9 @@ const V3Regio = () => {
           <span className="kick">Leveringsgebied</span>
           <h2 className="sec">Wij leveren in heel Vlaanderen en Brussel.</h2>
           <p className="lede">
-            Klik op uw provincie en zie meteen de gemeenten waar wij leveren, installeren en ophalen.
-            Klik op de naam om naar de pagina van die provincie te gaan. Twijfelt u? Bel ons even.
+            Klik op uw provincie, kies uw streek en zie meteen de gemeenten waar wij leveren,
+            installeren en ophalen. Klik op de naam om naar de pagina van die provincie te gaan.
+            Twijfelt u? Bel ons even.
           </p>
         </div>
 
@@ -97,7 +126,7 @@ const V3Regio = () => {
                   type="button"
                   className={`pin${i === active ? " active" : ""}`}
                   style={item.pin}
-                  onClick={() => setActive(i)}
+                  onClick={() => kiesRegio(i)}
                 >
                   <b />
                   {item.name}
@@ -122,7 +151,37 @@ const V3Regio = () => {
                 region.name
               )}
             </h3>
-            <p className="rg-sub">Een greep uit de gemeenten waar wij leveren en installeren:</p>
+            {streken.length > 0 ? (
+              <>
+                {/*
+                  De streken als keuzerij. De provincie telt 78 gemeenten;
+                  die allemaal onder elkaar als chip zetten maakte van dit
+                  paneel een muur waarin je je eigen gemeente niet terugvond.
+                  Per streek zijn het er hoogstens 26, en de streeknaam zegt
+                  bovendien iets over wat er daar gedroogd wordt.
+                */}
+                <p className="rg-sub">Kies uw streek binnen {region.name}:</p>
+                <div className="rg-streken" role="tablist" aria-label={`Streken in ${region.name}`}>
+                  {streken.map((st, i) => (
+                    <button
+                      key={st.naam}
+                      type="button"
+                      role="tab"
+                      id={`rgStreek-${i}`}
+                      aria-selected={i === Math.min(streek, streken.length - 1)}
+                      aria-controls="rgChips"
+                      className={i === Math.min(streek, streken.length - 1) ? "actief" : undefined}
+                      onClick={() => setStreek(i)}
+                    >
+                      {st.naam}
+                    </button>
+                  ))}
+                </div>
+                {actieveStreek && <p className="rg-kenmerk">{actieveStreek.kenmerk}</p>}
+              </>
+            ) : (
+              <p className="rg-sub">Een greep uit de gemeenten waar wij leveren en installeren:</p>
+            )}
             {/*
               De gemeenten zagen eruit als knoppen en waren dode <span>'s. Wie
               "Antwerpen" of "Mechelen" aandrukte kreeg niets -- terwijl de
@@ -134,8 +193,15 @@ const V3Regio = () => {
               leidt is precies het probleem dat we hier oplossen. Brussel heeft
               geen pagina, dus blijven die chips wél gewone tekst.
             */}
-            <div className="rg-chips" id="rgChips">
-              {region.towns.map((town) => {
+            <div
+              className="rg-chips"
+              id="rgChips"
+              role={streken.length > 0 ? "tabpanel" : undefined}
+              aria-labelledby={
+                streken.length > 0 ? `rgStreek-${Math.min(streek, streken.length - 1)}` : undefined
+              }
+            >
+              {plaatsen.map((town) => {
                 /*
                   Heeft de gemeente een eigen pagina, dan gaat de chip daarheen
                   en niet naar de provincie. Tot 12-11-2026 wezen ze allemaal
@@ -174,7 +240,7 @@ const V3Regio = () => {
                 </Link>
               )}
               <Link className="btn btn-out" to="/verhuur/calculator">
-                Bereken uw pakket
+                Gratis Calculator
                 <ArrowRightIcon size={14} />
               </Link>
             </div>
@@ -188,11 +254,21 @@ const V3Regio = () => {
         */}
         <nav className="rg-links" aria-label="Werkgebied">
           <span>Bouwdroger huren in:</span>
-          {REGIONS.filter((r) => r.path).map((r) => (
-            <Link key={r.name} to={r.path!}>
-              {r.name}
-            </Link>
-          ))}
+          {/*
+            Brussel stond hier niet tussen en wekte zo de indruk dat we er niet
+            komen. Het heeft geen eigen pagina, dus staat het er als tekst in
+            plaats van als link -- een link naar de provincie ernaast zou de
+            bezoeker op de verkeerde pagina zetten.
+          */}
+          {REGIONS.map((r) =>
+            r.path ? (
+              <Link key={r.name} to={r.path}>
+                {r.name}
+              </Link>
+            ) : (
+              <em key={r.name}>{r.name}</em>
+            )
+          )}
         </nav>
       </div>
     </section>

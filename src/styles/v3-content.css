@@ -1222,8 +1222,6 @@
 /* West-Vlaanderen: twee praktijkvoorbeelden gecentreerd, bestelwagen tot de rand. */
 .v3c.rg-west .rzs.twee{grid-template-columns:repeat(2,minmax(0,1fr));max-width:1060px;margin-inline:auto}
 .v3c.rg-west .manband img.regio-wagen{margin-left:auto;margin-right:-44px;object-position:right bottom;filter:none}
-.v3c.rg-west .fq:not(.rood) .fq-help .fq-stel{color:#fff;border-color:rgba(255,255,255,.65)}
-.v3c.rg-west .fq:not(.rood) .fq-help .fq-bel{color:var(--maroon-d)}
 @media(max-width:620px){.v3c.rg-west .rzs.twee{grid-template-columns:1fr}}
 
 /* ------------------------------------------------------------------
@@ -1241,7 +1239,12 @@
 @media (max-width:860px){.v3c .strk{grid-template-columns:1fr}}
 .v3c .strk-blok{background:var(--bg-alt);border-radius:18px;padding:24px 24px 20px}
 .v3c .sr .strk-blok{background:#fff}
-.v3c .strk-blok h3{font-family:var(--fd);font-weight:800;font-size:16.5px;margin:0 0 6px}
+/* De streeknaam krijgt expliciet zijn kleur. Het blok staat op een licht
+   vlak, ook binnen een rode sectie (`.sr .strk-blok` hierboven), maar de h3
+   erfde daar de witte tekstkleur van `.sr` — witte kop op een witte kaart.
+   Zichtbaar werd dat pas toen deze sectie op rood terechtkwam; de andere
+   regels in dit blok zetten hun kleur al wel zelf. */
+.v3c .strk-blok h3{font-family:var(--fd);font-weight:800;font-size:16.5px;margin:0 0 6px;color:var(--txt)}
 .v3c .strk-blok > p{font-size:13.5px;color:var(--txt-mid);line-height:1.6;margin:0 0 14px}
 .v3c .strk-lijst{list-style:none;margin:0;padding:0;columns:3;column-gap:16px;font-size:13.5px}
 @media (max-width:1040px){.v3c .strk-lijst{columns:2}}
@@ -1265,3 +1268,63 @@
   passen daar niet naast elkaar.
 */
 .v3c .prijsknoppen{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+
+/*
+  De twee cijferkolommen dragen de hele boodschap van de droogtijdentabel, en
+  die boodschap is een verschil. In hetzelfde grijs stond dat verschil er wel
+  maar zag niemand het: rood voor wachten, groen voor een datum.
+
+  Het groen is donkerder dan `--ok` (#1E9E50). Dat token is een vlakkleur
+  achter een wit vinkje; als tekst op wit haalt het de contrastdrempel niet.
+  #157A3D is dezelfde kleur een stap donkerder, en staat al op `.verdict.ja`.
+
+  Kleur alleen volstaat niet -- de koppen boven de kolommen zeggen letterlijk
+  "Zonder droger" en "Met droogpakket van Vernast", dus wie het verschil in
+  kleur niet ziet, leest het.
+*/
+.v3c table.tbl td.traag{color:var(--red);font-weight:600}
+.v3c table.tbl td.snel b{color:#157A3D;font-weight:800}
+
+/*
+  Vet in een lopende alinea.
+
+  De regioteksten zetten met `**…**` een paar woorden per alinea vast (zie
+  src/components/content/nadruk.tsx). Zonder deze regels erfde die `<b>` de
+  gedempte kleur van de alinea eromheen en viel het verschil met de rest weg --
+  juist het omgekeerde van wat vet moet doen. Op een rode sectie gaat hij naar
+  vol wit, op een witte naar de volle tekstkleur.
+*/
+.v3c .lede b,.v3c .paneel p b,.v3c .prod .pdesc b{color:var(--txt);font-weight:700}
+.v3c .hero p b,.v3c .sr .lede b{color:#fff;font-weight:700}
+/* De kaarten en panelen zijn zelf wit, ook op een rode sectie -- daar blijft
+   het vet dus donker. */
+.v3c .sr .paneel p b,.v3c .sr .prod .pdesc b{color:var(--txt)}
+
+/*
+  De technieker rechtsboven in de pakkettensectie.
+
+  Die sectie heeft een kop van 760 px en kaarten over de volle breedte; rechts
+  van de kop bleef een halve sectie leeg rood. Absoluut gepositioneerd en niet
+  in de stroom, zodat hij de kop en de kaarten met rust laat: hij staat ernáást,
+  niet ertussen. Hij hangt met zijn voetstuk net boven de kaarten.
+
+  `pointer-events:none` omdat er niets te klikken valt en hij over de witruimte
+  van de kop heen kan komen. Onder 1100 px verdwijnt hij: daar neemt de kop de
+  volle breedte en zou hij over de tekst vallen.
+*/
+.v3c .wrap.pkt-man{position:relative}
+.v3c .wrap.pkt-man>img{position:absolute;right:28px;top:-26px;width:min(30%,320px);pointer-events:none;filter:drop-shadow(0 26px 34px rgba(0,0,0,.45))}
+@media (max-width:1100px){.v3c .wrap.pkt-man>img{display:none}}
+
+/*
+  Een uitsnede in een split-sectie, zoals de gerustgestelde klant naast de
+  prijsvraag. Hij is onderaan afgesneden -- in de hero van /prijzen valt dat
+  niet op omdat de rand van de sectie er vlak onder ligt, maar midden in een
+  witte sectie zweeft een kaarsrechte afsnijding met een slagschaduw eronder.
+  Dus geen fotoschaduw maar een verloop dat de onderrand laat oplossen.
+*/
+.v3c .split-vis img.vervaagd{
+  filter:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent 97%);
+  mask-image:linear-gradient(to bottom,#000 72%,transparent 97%);
+}

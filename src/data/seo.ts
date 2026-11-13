@@ -169,6 +169,16 @@ export const SEO = {
     description:
       "Condensdroger of adsorptiedroger huren? Zo werken ze, waarom een condensdroger onder ongeveer 15 °C rendement verliest en welk toestel bij uw situatie past.",
   },
+  /* De vraag die vóór alle andere gidsen komt: moet ik hier eigenlijk iets voor
+     huren? Mikt op "nieuwbouw laten drogen" en "natuurlijk drogen", woorden die
+     nergens anders op de site in een titel staan. Niet in concurrentie met
+     /nieuwbouw-drogen (dat verkoopt de dienst) of met de twee droogtijdgidsen
+     (die rekenen per materiaal): deze vergelijkt de twee methodes. */
+  gidsNatuurlijkDrogen: {
+    title: "Nieuwbouw: natuurlijk drogen of bouwdroger? | Vernast",
+    description:
+      "Hoe lang duurt natuurlijk drogen van een nieuwbouw, en wat doet een bouwdroger anders? Het verschil per seizoen, per laag en in weken uitgelegd.",
+  },
   gidsStroomverbruik: {
     title: "Stroomverbruik bouwdroger: wat kost het per dag? | Vernast",
     description:

@@ -29,7 +29,8 @@ import { toestelLabel } from "@/data/navigation";
 import { eersteReviews } from "@/data/reviews";
 import {
   droogtermijnen,
-  natuurlijkeChapeWeken,
+  bereikLabel,
+  natuurlijkeChapeBereik,
   natuurlijkePleisterWeken,
   termijnLabel,
 } from "@/lib/droogtijden";
@@ -65,7 +66,7 @@ const verloop = (naam: string) => [
   {
     Icon: CalendarCheckIcon,
     title: "U reserveert",
-    desc: "Online via de calculator of met één telefoontje. U kiest zelf de leverdag; twijfelt u over het volume, dan rekenen wij het door.",
+    desc: "Online via de Calculator of met één telefoontje. U kiest zelf de leverdag; twijfelt u over het volume, dan rekenen wij het door.",
   },
   {
     Icon: TruckIcon,
@@ -457,7 +458,7 @@ const GemeentePage = () => {
                 <h2 className="sec">Droogtijden met en zonder bouwdroger.</h2>
                 <p className="lede">
                   De huurtermijnen hieronder zijn die van onze droogpakketten, dezelfde als de
-                  calculator aanrekent. Ze gelden in {route.name} zoals overal: de droogtijd hangt
+                  Calculator aanrekent. Ze gelden in {route.name} zoals overal: de droogtijd hangt
                   af van dikte, volume en temperatuur, niet van uw postcode.
                 </p>
               </div>
@@ -469,36 +470,32 @@ const GemeentePage = () => {
                       <tr>
                         <th scope="col">Wat moet drogen</th>
                         <th scope="col">Zonder droger</th>
-                        <th scope="col">Met droogpakket</th>
+                        <th scope="col">Met droogpakket van Vernast</th>
                       </tr>
                     </thead>
                     <tbody>
                       {chape.map((rij) => (
                         <tr key={`chape-${rij.dikte}`}>
                           <th scope="row">Cementchape {rij.dikte} cm</th>
-                          <td>&plusmn; {natuurlijkeChapeWeken(rij.dikte)} weken</td>
-                          <td><b>{termijnLabel(rij)}</b></td>
+                          <td className="traag">{bereikLabel(natuurlijkeChapeBereik(rij.dikte))}</td>
+                          <td className="snel"><b>{termijnLabel(rij)}</b></td>
                         </tr>
                       ))}
-                      {pleister.map((rij) => {
-                        const nat = natuurlijkePleisterWeken(rij.dikte);
-                        return (
-                          <tr key={`pleister-${rij.dikte}`}>
-                            <th scope="row">Pleisterwerk {rij.dikte} cm</th>
-                            <td>
-                              &plusmn; {nat.min === nat.max ? nat.min : `${nat.min} tot ${nat.max}`} weken
-                            </td>
-                            <td><b>{termijnLabel(rij)}</b></td>
-                          </tr>
-                        );
-                      })}
+                      {pleister.map((rij) => (
+                        <tr key={`pleister-${rij.dikte}`}>
+                          <th scope="row">Pleisterwerk {rij.dikte} cm</th>
+                          <td className="traag">{bereikLabel(natuurlijkePleisterWeken(rij.dikte))}</td>
+                          <td className="snel"><b>{termijnLabel(rij)}</b></td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
               </div>
               <p className="tblnote">
-                &ldquo;Zonder droger&rdquo; is de vuistregel uit de bouwpraktijk bij een goed
-                verluchte ruimte rond 20 &deg;C &mdash; een richtwaarde, geen meting. Wat telt is
+                &ldquo;Zonder droger&rdquo; is de vuistregel uit de bouwpraktijk, en daarom een
+                bereik: de ondergrens geldt in een goed verluchte ruimte rond 20 &deg;C, de
+                bovengrens op een koude, dichtgemaakte werf in de winter. Wat telt is
                 de eindmeting: is het op de afgesproken datum niet droog, dan huurt u kosteloos
                 verder.{" "}
                 <Link to="/gids/hoe-lang-moet-chape-drogen">Hoe lang chape moet drogen</Link> legt

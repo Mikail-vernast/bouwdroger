@@ -214,7 +214,7 @@ const HoeDrogenWerktPage = () => (
         <div className="sec-head">
           <span className="kick rv">Niet elk materiaal is gelijk</span>
           <h2 className="sec rv">Pleister, chape en beton drogen niet op dezelfde manier.</h2>
-          <p className="lede rv d1">Niet ieder bouwmateriaal bevat hetzelfde type vocht. Een professionele droogstrategie luidt daarom nooit "machine aan zodra het materiaal geplaatst is", materiaal, leeftijd, technische voorschriften en de gewenste afwerking bepalen mee de aanpak. De <Link to="/verhuur/calculator">calculator</Link> vraagt daarom ook wát u droogt.</p>
+          <p className="lede rv d1">Niet ieder bouwmateriaal bevat hetzelfde type vocht. Een professionele droogstrategie luidt daarom nooit "machine aan zodra het materiaal geplaatst is", materiaal, leeftijd, technische voorschriften en de gewenste afwerking bepalen mee de aanpak. De <Link to="/verhuur/calculator">Calculator</Link> vraagt daarom ook wát u droogt.</p>
         </div>
         <div className="g3">
           <div className="kaart materiaalkaart rv">

@@ -39,7 +39,7 @@ const FAQ: GidsFaq[] = [
   {
     question: "Welke luchtontvochtiger heb ik nodig voor mijn kelder?",
     answer:
-      "Dat hangt af van het volume van de kelder en hoe nat hij is. Kijk naar het bereik in m³ van elk toestel, of laat de calculator het uitrekenen. Is de kelder kouder dan ongeveer 15 °C, zet er dan een bouwkachel bij: in de koude verliest een condensontvochtiger veel rendement.",
+      "Dat hangt af van het volume van de kelder en hoe nat hij is. Kijk naar het bereik in m³ van elk toestel, of laat de Calculator het uitrekenen. Is de kelder kouder dan ongeveer 15 °C, zet er dan een bouwkachel bij: in de koude verliest een condensontvochtiger veel rendement.",
   },
   {
     question: "Kan ik een luchtontvochtiger zelf ophalen?",

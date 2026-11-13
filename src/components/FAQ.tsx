@@ -9,7 +9,7 @@ import {
 const faqs = [
   {
     question: "Wat kost een bouwdroger huren?",
-    answer: "Vanaf €9/dag. De exacte prijs hangt af van het type werk, de oppervlakte en de huurperiode. Gebruik onze calculator voor een directe berekening op maat.",
+    answer: "Vanaf €9/dag. De exacte prijs hangt af van het type werk, de oppervlakte en de huurperiode. Gebruik onze Calculator voor een directe berekening op maat.",
   },
   {
     question: "Hoe lang duurt bouwdroging?",

@@ -717,6 +717,16 @@ html { scroll-behavior: smooth; }
 .v3 .regio-info h3 a svg{opacity:.6;transition:transform .15s}
 .v3 .regio-info h3 a:hover svg{transform:translateX(3px);opacity:1}
 .v3 .rg-sub{font-size:14px;color:var(--txt-mid);margin:0 0 18px}
+/* De streekkiezer boven de gemeenten. Gevuld rood voor de open streek, want
+   als omlijnde pil tussen vijf andere omlijnde pillen was niet te zien welke
+   lijst eronder stond. De kenmerkregel eronder zegt in één zin wat er in die
+   streek gedroogd wordt -- dezelfde zin als op de provinciepagina. */
+.v3 .rg-streken{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.v3 .rg-streken button{font-family:inherit;font-size:12.5px;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 14px;color:var(--txt-mid);cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+.v3 .rg-streken button:hover{border-color:var(--red);color:var(--red)}
+.v3 .rg-streken button.actief{background:var(--red);border-color:var(--red);color:#fff}
+.v3 .rg-kenmerk{font-size:13px;color:var(--txt-mid);line-height:1.6;margin:0 0 16px}
+
 .v3 .rg-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
 .v3 .rg-chips span,.v3 .rg-chips a{font-size:13px;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 14px}
 /* De chips zijn links geworden; zonder deze regel droegen ze de rode kleur en de

@@ -112,7 +112,7 @@ export const REGIOS: Regio[] = [
     h1: "Bouwdroger huren in de provincie Antwerpen",
     kicker: "Hele provincie · magazijn in Aartselaar",
     intro: [
-      "Ons magazijn staat in Aartselaar, langs de A12, een kwartier van de Antwerpse ring. Dat maakt de provincie Antwerpen de streek waar we het snelst staan en het vaakst rijden: van een appartement in Zurenborg tot een nieuwbouwvilla in Schilde. Wie vóór de middag boekt, heeft de toestellen doorgaans de volgende werkdag draaien.",
+      "Ons magazijn staat in Aartselaar, langs de A12, een kwartier van de Antwerpse ring. Dat maakt de provincie Antwerpen **de streek waar we het snelst staan en het vaakst rijden**: van een appartement in Zurenborg tot een nieuwbouwvilla in Schilde. **Wie vóór de middag boekt, heeft de toestellen doorgaans de volgende werkdag draaien.**",
     ],
     bouw: {
       /*
@@ -124,9 +124,9 @@ export const REGIOS: Regio[] = [
       */
       kop: "Waarvoor huren Antwerpenaren een bouwdroger?",
       alineas: [
-        "Drie situaties zijn samen goed voor het grootste deel van onze ritten in de provincie Antwerpen: pleisterwerk drogen na een renovatie, chape drogen in een nieuwbouw, en een kelder of berging drogen na waterschade. Voor alle drie leveren we binnen 24 uur vanuit Aartselaar, van het centrum van Antwerpen tot Mechelen, Lier en Mortsel.",
-        "In de stad overheerst renovatie. In de negentiende-eeuwse gordel van Berchem, Borgerhout en Zurenborg gaat het huis per huis: vers pleisterwerk in een bewoonde straat, een kelder die plots vochtig blijkt, een chape die moet drogen terwijl de buren thuis zijn. Daar hoort een compacte bouwdroger bij die op één stopcontact draait, stil genoeg is voor een bewoond gebouw en via een smalle trap naar boven kan.",
-        "In de rand is het omgekeerd: in Kontich, Edegem, Schilde, Brasschaat en Boom draaien meerdere bouwdrogers tegelijk op een volledige gelijkvloerse chape, verdeeld over droogzones, en gaat de vraag maar over één datum, wanneer kan de vloerder starten? In de Kempen, rond Turnhout, Geel, Mol en Herentals, zetten we er op een onverwarmde winterwerf een bouwkachel bij, want onder 15 °C haalt een condensdroger te weinig rendement. En bij waterschade telt elk uur: op vochtig materiaal begint schimmel na 24 tot 48 uur, en vanuit Aartselaar staan we er doorgaans dezelfde dag.",
+        "Drie situaties zijn samen goed voor het grootste deel van onze ritten in de provincie Antwerpen: **pleisterwerk drogen** na een renovatie, **chape drogen** in een nieuwbouw, en **een kelder of berging drogen** na waterschade. Voor alle drie leveren we **binnen 24 uur** vanuit Aartselaar, van het centrum van Antwerpen tot Mechelen, Lier en Mortsel.",
+        "**In de stad overheerst renovatie.** In de negentiende-eeuwse gordel van Berchem, Borgerhout en Zurenborg gaat het huis per huis: vers pleisterwerk in een bewoonde straat, een kelder die plots vochtig blijkt, een chape die moet drogen terwijl de buren thuis zijn. Daar hoort **een compacte bouwdroger** bij die **op één stopcontact draait**, stil genoeg is voor een bewoond gebouw en via een smalle trap naar boven kan.",
+        "**In de rand is het omgekeerd**: in Kontich, Edegem, Schilde, Brasschaat en Boom draaien meerdere bouwdrogers tegelijk op een volledige gelijkvloerse chape, verdeeld over droogzones, en gaat de vraag maar over één datum: **wanneer kan de vloerder starten?** In de Kempen, rond Turnhout, Geel, Mol en Herentals, zetten we er op een onverwarmde winterwerf een bouwkachel bij, want onder 15 °C haalt een condensdroger te weinig rendement. En bij waterschade telt elk uur: **op vochtig materiaal begint schimmel na 24 tot 48 uur**, en vanuit Aartselaar staan we er doorgaans dezelfde dag.",
       ],
     },
     beeld: {
@@ -138,27 +138,27 @@ export const REGIOS: Regio[] = [
       items: [
         {
           key: "ttk170",
-          waarom: `Het toestel voor de stad: één kamer, een appartement of een badkamerrenovatie. Compact genoeg voor een Antwerpse trap en zuinig op een gewoon stopcontact. Vanaf ${dag("ttk170")} per dag.`,
+          waarom: `**Het toestel voor de stad**: één kamer, een appartement of een badkamerrenovatie. Compact genoeg voor een Antwerpse trap en zuinig op een gewoon stopcontact. Vanaf ${dag("ttk170")} per dag.`,
         },
         {
           key: "ttk350",
-          waarom: `Onze standaard voor een rijwoning of een nieuwbouw in de rand: 70 liter per dag en een bereik tot 400 m³, dus één toestel per bouwlaag volstaat meestal. Vanaf ${dag("ttk350")} per dag.`,
+          waarom: `**Onze standaard voor een rijwoning of een nieuwbouw in de rand**: 70 liter per dag en een bereik tot 400 m³, dus één toestel per bouwlaag volstaat meestal. Vanaf ${dag("ttk350")} per dag.`,
         },
         {
           key: "teddh30",
-          waarom: `Voor de Kempense winterwerf en de koude Antwerpse kelder. Onder 15 °C zakt het rendement van elke condensdroger; deze kachel brengt de ruimte op werkingstemperatuur. Vraagt 400 V. Vanaf ${dag("teddh30")} per dag.`,
+          waarom: `**Voor de Kempense winterwerf en de koude Antwerpse kelder.** **Onder 15 °C zakt het rendement van elke condensdroger**; deze kachel brengt de ruimte op werkingstemperatuur. Vraagt 400 V. Vanaf ${dag("teddh30")} per dag.`,
         },
         {
           key: "ttv4500",
-          waarom: `De ventilator die er in de stad bij hoort: in een rijhuis of appartement blijft de droge lucht anders in de kamer met het toestel hangen en blijft de achterste muur nat. Vanaf ${dag("ttv4500")} per dag.`,
+          waarom: `**De ventilator die er in de stad bij hoort**: in een rijhuis of appartement blijft de droge lucht anders in de kamer met het toestel hangen en blijft de achterste muur nat. Vanaf ${dag("ttv4500")} per dag.`,
         },
       ],
     },
     levering: {
       kop: "Leveren in Antwerpen: de volgende werkdag, geplaatst en ingesteld",
       alineas: [
-        "Levering, installatie en ophaling zitten in de prijs van elk droogpakket, ook in de stad. U krijgt een leverdatum en een tijdslot, de technieker stuurt een sms wanneer hij vertrekt, en bij aankomst meet hij eerst het startvochtgehalte. Pas als alles draait en u de korte uitleg hebt gehad, rijdt hij weg.",
-        `Antwerpen heeft één eigenheid: verdiepingen zonder trap. In een appartementsgebouw met lift of een woning met vaste trap is elke verdieping inbegrepen. Moeten de toestellen via een ladder naar boven, typisch bij een casco-verbouwing waar de trap nog niet zit, dan rekenen we ${euro(LADDER)} per verdieping en willen we dat vooraf weten, zodat we met twee man komen.`,
+        "**Levering, installatie en ophaling zitten in de prijs van elk droogpakket**, ook in de stad. U krijgt een leverdatum en een tijdslot, de technieker stuurt een sms wanneer hij vertrekt, en bij aankomst meet hij eerst het startvochtgehalte. Pas als alles draait en u de korte uitleg hebt gehad, rijdt hij weg.",
+        `Antwerpen heeft één eigenheid: verdiepingen zonder trap. In een appartementsgebouw met lift of een woning met vaste trap is **elke verdieping inbegrepen**. Moeten de toestellen via een ladder naar boven, typisch bij een casco-verbouwing waar de trap nog niet zit, dan rekenen we ${euro(LADDER)} per verdieping en willen we dat vooraf weten, zodat we met twee man komen.`,
       ],
       feiten: [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket" },
@@ -171,8 +171,8 @@ export const REGIOS: Regio[] = [
     afhalen: {
       kop: "Of zelf afhalen in Aartselaar, langs de A12",
       alineas: [
-        `Voor losse toestellen is afhalen in Antwerpen de logische keuze: ons afhaalpunt ligt aan de Boomsesteenweg 12, Unit 11 in Aartselaar, vlak aan de afrit van de A12. U reserveert online, kiest een afhaalmoment tussen 07:30 en 17:00, en de toestellen staan klaar aan de poort. Wie afhaalt krijgt ${euro(AFHAALKORTING)} korting op de huurprijs.`,
-        "Eén regel die in de stad vaak vergeten wordt: vervoer een bouwdroger rechtop. Plat in de koffer van een stadsauto beschadigt de compressor; toch plat vervoerd, laat het toestel dan 24 uur rechtop staan voor u het inschakelt.",
+        `Voor losse toestellen is afhalen in Antwerpen de logische keuze: ons afhaalpunt ligt aan de Boomsesteenweg 12, Unit 11 in Aartselaar, vlak aan de afrit van de A12. U reserveert online, kiest een afhaalmoment tussen 07:30 en 17:00, en de toestellen staan klaar aan de poort. **Wie afhaalt krijgt ${euro(AFHAALKORTING)} korting op de huurprijs.**`,
+        "Eén regel die in de stad vaak vergeten wordt: **vervoer een bouwdroger rechtop**. Plat in de koffer van een stadsauto beschadigt de compressor; toch plat vervoerd, laat het toestel dan 24 uur rechtop staan voor u het inschakelt.",
       ],
       feiten: [
         { label: "Rijtijd naar ons afhaalpunt", waarde: "15 min (Antwerpen) tot 25 min (Mechelen)" },
@@ -199,6 +199,14 @@ export const REGIOS: Regio[] = [
         q: "Werkt een bouwdroger ook in een koude Antwerpse kelder in de winter?",
         a: "Alleen als de kelder warm genoeg is. Onder 15 °C haalt een condensdroger nog maar een fractie van zijn capaciteit. Voor kelders en onverwarmde nieuwbouw in de Kempen combineren we de droger daarom met een elektrische kachel op 400 V, zodat de ruimte eerst op temperatuur komt. Onze technieker controleert de aansluiting bij de levering.",
       },
+      {
+        q: "Hoeveel stroom verbruikt een bouwdroger, en wat kost dat?",
+        a: "Een bouwdroger van 70 liter trekt ongeveer 0,7 kW en draait dag en nacht door. Reken op zo'n 15 kWh per etmaal per toestel, bij een gemiddeld tarief een paar euro per dag. Dat verbruik betaalt u aan uw netbeheerder, niet aan ons. Op een werf zonder werfkast vragen we wel vooraf of er een vrij stopcontact van 16 ampère is; twee toestellen op één verlengdraad is de meest voorkomende reden dat een zekering 's nachts uitvalt.",
+      },
+      {
+        q: "Mag ik tijdens de droging in mijn woning blijven wonen?",
+        a: "Dat kan, en in de negentiende-eeuwse gordel van Berchem, Borgerhout en Zurenborg is het eerder regel dan uitzondering. Een condensdroger blaast geen stof rond en geeft alleen warme, droge lucht af. Houd de ramen en deuren van de droogzone wel dicht, want anders droogt u de straat mee. Het toestel maakt ongeveer evenveel geluid als een koelkast; slaapt u er vlakbij, zet het dan in de gang en laat de deur op een kier.",
+      },
     ],
     realisaties: {
       kop: "Werven die we in en rond Antwerpen droogden",
@@ -216,16 +224,30 @@ export const REGIOS: Regio[] = [
       "Bouwdroger huren in Oost-Vlaanderen: Gent, Aalst, Sint-Niklaas en het Waasland. Binnen 24 uur geleverd en geplaatst, ophaling inbegrepen. Eén vaste dagprijs.",
     h1: "Bouwdroger huren in Oost-Vlaanderen",
     kicker: "Gent · Aalst · Sint-Niklaas · Dendermonde",
+    /*
+      Eén alinea, zoals op de Antwerpse pagina. Hier stonden er twee, en de
+      eerste ging over onszelf: dat Google de site al toonde op "bouwdroger
+      aalst" voor er een pagina over bestond. Dat is de reden dat deze pagina
+      er is, geen antwoord op de vraag van wie ze opent.
+    */
     intro: [
-      "Oost-Vlaanderen is de tweede provincie waar we het vaakst rijden, en de eerste waar Google ons al toonde voor we er een pagina over hadden: \"bouwdroger aalst\" en \"bouwdroger oost-vlaanderen\" waren zoekopdrachten waarop deze site verscheen zonder één regel tekst erover. Bij deze.",
-      "Vanuit Aartselaar is het Waasland een halfuur, Gent en Aalst rond de vijftig minuten. Elk droogpakket komt geleverd, geplaatst en ingesteld; levering en ophaling zijn in de prijs begrepen. Wie in het Waasland woont, kan ook zelf afhalen: de A12 en de E17 brengen u in twintig minuten aan onze poort.",
+      "Vanuit ons magazijn in Aartselaar is het Waasland een halfuur en zijn Gent en Aalst rond de vijftig minuten: na onze eigen provincie is Oost-Vlaanderen **de streek waar we het vaakst rijden**. **Elk droogpakket komt geleverd, geplaatst en ingesteld**, met de ophaling erbij in de prijs — en wie in het Waasland woont, staat over de E17 in twintig minuten aan onze poort om zelf af te halen.",
     ],
     bouw: {
-      kop: "Wat we in Oost-Vlaanderen drogen: verkavelingen, Gentse rijhuizen en natte kelders langs Schelde en Dender",
+      /*
+        Een vraag als kop met het antwoord in de eerste zin — hetzelfde
+        patroon als op de Antwerpse pagina, en om dezelfde reden: dit is de
+        vorm die een AI-assistent citeert. De vorige kop ("Wat we in
+        Oost-Vlaanderen drogen: verkavelingen, Gentse rijhuizen ...") noemde
+        "bouwdroger" noch "huren", en de eerste alinea begon met een streek in
+        plaats van met een antwoord.
+      */
+      kop: "Waarvoor huren Oost-Vlamingen een bouwdroger?",
       alineas: [
-        "Tussen Aalst, Dendermonde en Sint-Niklaas wordt meer nieuw gebouwd dan bijna overal in Vlaanderen: verkavelingen met halfopen en open woningen, waar de chape van het hele gelijkvloers in één keer gelegd wordt. Een gemiddelde nieuwbouw zet daarbij zo'n 1.500 liter water in de constructie. Zonder bouwdroger duurt het maanden vóór de vloerder mag starten; met een pakket van twee of drie toestellen zijn dat weken. Hier komt het meest gehuurde toestel van ons gamma bijna altijd in aanmerking.",
-        "Gent is een ander verhaal. De rijhuizen van de Brugse Poort, Ledeberg en Sint-Amandsberg worden verbouwd in smalle, diepe percelen met weinig daglicht en soms een kelder onder het straatniveau. Nieuw pleisterwerk droogt daar slecht op eigen kracht, en een kelder die na de verbouwing muf blijft, is er de regel. Kleinere toestellen per ruimte werken hier beter dan één grote in de gang.",
-        "Langs de Schelde, de Dender en de Durme, in Lokeren, Berlare, Wetteren en Temse, staat het grondwater hoog en komt waterschade in kelders en bergingen terug bij elke natte periode. Twee van onze Oost-Vlaamse realisaties hieronder zijn precies dat: een keldermuurlek in Lokeren en een berging in Berlare.",
+        "Drie werven keren terug in Oost-Vlaanderen: **chape drogen** in een nieuwbouw tussen Aalst en Sint-Niklaas, **pleisterwerk drogen** in een Gents rijhuis, en **een kelder leegdrogen** na hoogwater langs Schelde of Dender. Voor alle drie staan we er **binnen 24 uur**, van Zelzate tot Ronse.",
+        "Tussen Aalst, Dendermonde en Sint-Niklaas wordt meer nieuw gebouwd dan bijna overal in Vlaanderen: verkavelingen met halfopen en open woningen, waar de chape van het hele gelijkvloers in één keer gelegd wordt. Een gemiddelde nieuwbouw zet daarbij **zo'n 1.500 liter water in de constructie**. **Zonder bouwdroger duurt het maanden** vóór de vloerder mag starten; **met een pakket van twee of drie toestellen zijn dat weken**. Hier komt het meest gehuurde toestel van ons gamma bijna altijd in aanmerking.",
+        "**Gent is een ander verhaal.** De rijhuizen van de Brugse Poort, Ledeberg en Sint-Amandsberg worden verbouwd in smalle, diepe percelen met weinig daglicht en soms een kelder onder het straatniveau. Nieuw pleisterwerk droogt daar slecht op eigen kracht, en een kelder die na de verbouwing muf blijft, is er de regel. Kleinere toestellen per ruimte werken hier beter dan één grote in de gang.",
+        "Langs de Schelde, de Dender en de Durme, in Lokeren, Berlare, Wetteren en Temse, **staat het grondwater hoog** en komt waterschade in kelders en bergingen terug bij elke natte periode. Twee van onze Oost-Vlaamse realisaties hieronder zijn precies dat: een keldermuurlek in Lokeren en een berging in Berlare.",
       ],
     },
     beeld: {
@@ -237,27 +259,27 @@ export const REGIOS: Regio[] = [
       items: [
         {
           key: "ttk350",
-          waarom: `De standaard voor een nieuwbouwwoning in een verkaveling rond Aalst of Sint-Niklaas: 70 liter per dag, bereik tot 400 m³, en pompklaar zodat het condenswater rechtstreeks naar de afvoer loopt. Vanaf ${dag("ttk350")} per dag.`,
+          waarom: `**De standaard voor een nieuwbouwwoning** in een verkaveling rond Aalst of Sint-Niklaas: 70 liter per dag, bereik tot 400 m³, en pompklaar zodat het condenswater rechtstreeks naar de afvoer loopt. Vanaf ${dag("ttk350")} per dag.`,
         },
         {
           key: "ttk650",
-          waarom: `Voor de grote open bebouwing en voor waterschade waar het snel moet gaan: 110 liter per dag en een bereik tot 600 m³. Eén toestel dekt een volledig gelijkvloers. Vanaf ${dag("ttk650")} per dag.`,
+          waarom: `**Voor de grote open bebouwing en voor waterschade waar het snel moet gaan**: 110 liter per dag en een bereik tot 600 m³. Eén toestel dekt een volledig gelijkvloers. Vanaf ${dag("ttk650")} per dag.`,
         },
         {
           key: "ttv4500",
-          waarom: `De axiaalventilator die in een Gents rijhuis het verschil maakt: hij duwt de droge lucht tot in de achterbouw en de kelder, waar een droger alleen niet komt. Vanaf ${dag("ttv4500")} per dag.`,
+          waarom: `**De axiaalventilator die in een Gents rijhuis het verschil maakt**: hij duwt de droge lucht tot in de achterbouw en de kelder, waar een droger alleen niet komt. Vanaf ${dag("ttv4500")} per dag.`,
         },
         {
           key: "teddh30",
-          waarom: `Voor de onverwarmde ruwbouw in de verkavelingen rond Gent en Aalst. Onder 15 °C zakt het rendement van elke condensdroger; deze kachel houdt de ruimte op werkingstemperatuur. Vraagt 400 V. Vanaf ${dag("teddh30")} per dag.`,
+          waarom: `**Voor de onverwarmde ruwbouw** in de verkavelingen rond Gent en Aalst. **Onder 15 °C zakt het rendement van elke condensdroger**; deze kachel houdt de ruimte op werkingstemperatuur. Vraagt 400 V. Vanaf ${dag("teddh30")} per dag.`,
         },
       ],
     },
     levering: {
       kop: "Leveren in Oost-Vlaanderen: één rit, alles geplaatst",
       alineas: [
-        "Wij leveren in de hele provincie, van Zelzate tot Ronse, binnen 24 uur na uw boeking. De rit vanuit Aartselaar is langer dan in Antwerpen, dus we plannen Oost-Vlaamse leveringen in rondes: één technieker rijdt het Waasland en de Denderstreek af, een andere Gent en het Meetjesland. U merkt daar niets van behalve een precies tijdslot.",
-        "Bij de installatie verdelen we de toestellen over droogzones en sluiten we, als u de condenspomp koos, de afvoer aan. In een verkaveling is dat meestal een vloerput of de aansluiting van de toekomstige wasmachine; in een Gents rijhuis vaker een lavabo op de verdieping. Ophaling na de huurperiode zit in de prijs: u belt of mailt wanneer de vochtmeting goed zit, en wij komen de toestellen halen.",
+        "**Wij leveren in de hele provincie, van Zelzate tot Ronse, binnen 24 uur na uw boeking.** De rit vanuit Aartselaar is langer dan in Antwerpen, dus we plannen Oost-Vlaamse leveringen in rondes: één technieker rijdt het Waasland en de Denderstreek af, een andere Gent en het Meetjesland. U merkt daar niets van behalve een precies tijdslot.",
+        "Bij de installatie verdelen we de toestellen over droogzones en sluiten we, als u de condenspomp koos, de afvoer aan. In een verkaveling is dat meestal een vloerput of de aansluiting van de toekomstige wasmachine; in een Gents rijhuis vaker een lavabo op de verdieping. **Ophaling na de huurperiode zit in de prijs**: u belt of mailt wanneer de vochtmeting goed zit, en wij komen de toestellen halen.",
       ],
       feiten: [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket" },
@@ -270,7 +292,7 @@ export const REGIOS: Regio[] = [
     afhalen: {
       kop: "Afhalen vanuit het Waasland: twintig minuten over de E17 en de A12",
       alineas: [
-        `Woont u in Sint-Niklaas, Temse, Beveren of Lokeren, dan is ons magazijn in Aartselaar dichterbij dan Gent. Losse toestellen haalt u er zelf af tegen lagere afhaalprijzen, met ${euro(AFHAALKORTING)} korting op de huurprijs, elke werkdag op een gereserveerd moment tussen 07:30 en 17:00. Vanuit Gent of Aalst is het een uur rijden; dan is laten leveren doorgaans de betere rekensom, want die rit zit al in het pakket.`,
+        `Woont u in Sint-Niklaas, Temse, Beveren of Lokeren, dan is **ons magazijn in Aartselaar dichterbij dan Gent**. Losse toestellen haalt u er zelf af tegen lagere afhaalprijzen, met ${euro(AFHAALKORTING)} korting op de huurprijs, elke werkdag op een gereserveerd moment tussen 07:30 en 17:00. Vanuit Gent of Aalst is het een uur rijden; dan is laten leveren doorgaans de betere rekensom, want die rit zit al in het pakket.`,
       ],
       feiten: [
         { label: "Rijtijd naar ons afhaalpunt", waarde: "20 min (Waasland) tot 1 uur (Gent)" },
@@ -297,6 +319,14 @@ export const REGIOS: Regio[] = [
         q: "Wat als het vriest tijdens de droging van mijn chape?",
         a: "Dan verwarmen we mee. Een condensdroger verliest onder 15 °C het grootste deel van zijn rendement, dus in een onverwarmde nieuwbouw in de winter zetten we er een elektrische kachel bij die de ruimte op werkingstemperatuur houdt. Ramen dicht, kachel aan, droger aan: dat is de volgorde.",
       },
+      {
+        q: "Hoeveel bouwdrogers heb ik nodig voor een gelijkvloers van 120 m²?",
+        a: "Voor een gelijkvloers van die grootte in een verkaveling rond Aalst of Dendermonde zetten we doorgaans twee bouwdrogers in, met een ventilator per droogzone om de lucht te laten rondgaan. Het precieze aantal hangt af van de plafondhoogte en van wat er moet drogen: een chape zet meer water in de constructie dan vers pleisterwerk. De Calculator rekent dat uit op basis van uw volume; u hoeft niets zelf te combineren.",
+      },
+      {
+        q: "Kan de vloerder al starten zodra de huurtermijn om is?",
+        a: "Niet de kalender beslist dat, maar de eindmeting. Wij meten bij de ophaling het restvocht en geven u die waarde door, zodat uw vloerder weet waar hij aan toe is. Welke grens hij wil zien hangt af van het type chape, de vloerverwarming en de afwerking, dus vraag hem dat vooraf. Zit de waarde er nog boven, dan loopt de huur volgens de Drooggarantie kosteloos verder.",
+      },
     ],
     realisaties: {
       kop: "Werven die we in Oost-Vlaanderen droogden",
@@ -314,16 +344,21 @@ export const REGIOS: Regio[] = [
       "Bouwdroger huren in Vlaams-Brabant, van Leuven tot Halle en de Brusselse rand. Binnen 24 uur geleverd en geplaatst vanuit Aartselaar, ophaling inbegrepen.",
     h1: "Bouwdroger huren in Vlaams-Brabant",
     kicker: "Leuven · Vilvoorde · Halle · Aarschot · de Brusselse rand",
+    /*
+      De tweede alinea ("u huurt een berekend droogpakket, geen losse
+      machine") stond hier boven de vouw terwijl ze over de levering gaat;
+      ze staat nu in de leveringssectie, waar die vraag gesteld wordt.
+    */
     intro: [
-      "Vlaams-Brabant ligt voor ons letterlijk op de weg: de A12 vanuit Aartselaar komt in Vilvoorde uit, en vandaar is het een halfuur naar Leuven, Halle of Aarschot. De hele provincie, van het Pajottenland tot het Hageland, leveren we binnen 24 uur. De Brusselse rand halen we meestal dezelfde dag, als de aanvraag vóór de middag binnenkomt.",
-      "Ook hier huurt u een berekend droogpakket, geen losse machine: onze technieker plaatst, sluit de afvoer aan en stelt de opstelling in. Levering en ophaling zijn inbegrepen; de dagprijs blijft dezelfde hoe lang u ook huurt.",
+      "Vlaams-Brabant ligt voor ons letterlijk op de weg: de A12 vanuit Aartselaar komt in Vilvoorde uit, en vandaar is het een halfuur naar Leuven, Halle of Aarschot. De hele provincie, van het Pajottenland tot het Hageland, leveren we **binnen 24 uur**; de Brusselse rand **meestal dezelfde dag**, als de aanvraag vóór de middag binnenkomt.",
     ],
     bouw: {
-      kop: "Wat we in Vlaams-Brabant drogen: villa's in de rand, studentenkamers in Leuven, nieuwbouw in het Hageland",
+      kop: "Waarvoor huren Vlaams-Brabanders een bouwdroger?",
       alineas: [
-        "De Brusselse rand, van Zaventem en Tervuren tot Overijse, Dilbeek en Asse, is villagebied van de jaren zestig tot tachtig, en die villa's worden nu één voor één grondig gerenoveerd: nieuw pleisterwerk over drie bouwlagen, een nieuwe chape op het gelijkvloers en vaak een kelder die het hele volume van de woning beslaat. Dat zijn grote luchtvolumes; hier plaatsen we eerder twee middelgrote toestellen per bouwlaag dan één klein, en vrijwel altijd met een ventilator om de droge lucht tot in de verste kamer te krijgen.",
-        "Leuven bouwt in de hoogte en in de diepte: studentenhuizen die per kamer worden verbouwd, appartementsprojecten aan de Vaartkom en oude stadswoningen met een gewelfde kelder. Per ruimte een compact toestel is daar de regel, en de condenspomp is er geen luxe: een reservoir legen in een studentenhuis doet niemand.",
-        "Het Hageland (Aarschot, Diest, Tienen) en het Pajottenland (Halle, Ninove-kant) zijn de streken waar het meest nieuw gebouwd wordt, op leem- en zandleembodems die traag water afgeven. Een gelijkvloerse chape droogt er zonder hulp opvallend traag; met een bouwdroger volgt de vloerder weken vroeger. In de winter hoort daar bijverwarming bij.",
+        "Drie bouwtypes vullen onze Vlaams-Brabantse ritten: een villa uit de rand die grondig gerenoveerd wordt, een studentenhuis of stadswoning in Leuven, en een nieuwbouw op de leembodem van het Hageland of het Pajottenland. **Alle drie halen we binnen 24 uur**; de Brusselse rand vaak nog dezelfde dag.",
+        "De Brusselse rand, van Zaventem en Tervuren tot Overijse, Dilbeek en Asse, is villagebied van de jaren zestig tot tachtig, en die villa's worden nu één voor één grondig gerenoveerd: nieuw pleisterwerk over drie bouwlagen, een nieuwe chape op het gelijkvloers en vaak een kelder die het hele volume van de woning beslaat. Dat zijn grote luchtvolumes; hier plaatsen we **eerder twee middelgrote toestellen per bouwlaag dan één klein**, en vrijwel altijd met een ventilator om de droge lucht tot in de verste kamer te krijgen.",
+        "Leuven bouwt in de hoogte en in de diepte: studentenhuizen die per kamer worden verbouwd, appartementsprojecten aan de Vaartkom en oude stadswoningen met een gewelfde kelder. **Per ruimte een compact toestel** is daar de regel, en **de condenspomp is er geen luxe**: een reservoir legen in een studentenhuis doet niemand.",
+        "Het Hageland (Aarschot, Diest, Tienen) en het Pajottenland (Halle, Ninove-kant) zijn de streken waar het meest nieuw gebouwd wordt, op leem- en zandleembodems die traag water afgeven. Een gelijkvloerse chape droogt er zonder hulp opvallend traag; **met een bouwdroger volgt de vloerder weken vroeger**. In de winter hoort daar bijverwarming bij.",
       ],
     },
     beeld: {
@@ -335,27 +370,28 @@ export const REGIOS: Regio[] = [
       items: [
         {
           key: "ttk350",
-          waarom: `Per bouwlaag van een villa in de rand of per gelijkvloers van een Hagelandse nieuwbouw: 70 liter per dag, tot 400 m³. Dit is het toestel dat we het vaakst naar Vlaams-Brabant rijden. Vanaf ${dag("ttk350")} per dag.`,
+          waarom: `Per bouwlaag van een villa in de rand of per gelijkvloers van een Hagelandse nieuwbouw: 70 liter per dag, tot 400 m³. **Dit is het toestel dat we het vaakst naar Vlaams-Brabant rijden.** Vanaf ${dag("ttk350")} per dag.`,
         },
         {
           key: "ttk650",
-          waarom: `Voor de grote volumes: een kelder onder de hele villa, een open gelijkvloers met vide, of een appartementsproject waar meerdere units tegelijk drogen. 110 liter per dag, tot 600 m³. Vanaf ${dag("ttk650")} per dag.`,
+          waarom: `**Voor de grote volumes**: een kelder onder de hele villa, een open gelijkvloers met vide, of een appartementsproject waar meerdere units tegelijk drogen. 110 liter per dag, tot 600 m³. Vanaf ${dag("ttk650")} per dag.`,
         },
         {
           key: "radiaal2250",
-          waarom: `De radiaalventilator, in een villa met lange gangen en een verdieping onder het dak: hij blaast gericht en ver, waar de droger zelf niet komt. Vanaf ${dag("radiaal2250")} per dag.`,
+          waarom: `**De radiaalventilator**, in een villa met lange gangen en een verdieping onder het dak: hij blaast gericht en ver, waar de droger zelf niet komt. Vanaf ${dag("radiaal2250")} per dag.`,
         },
         {
           key: "ttk170",
-          waarom: `Het compacte toestel voor een studentenkamer in Leuven, een badkamer of één verdieping van een gerenoveerde villa. Draait op een gewoon stopcontact en gaat via de trap naar boven. Vanaf ${dag("ttk170")} per dag.`,
+          waarom: `**Het compacte toestel** voor een studentenkamer in Leuven, een badkamer of één verdieping van een gerenoveerde villa. Draait op een gewoon stopcontact en gaat via de trap naar boven. Vanaf ${dag("ttk170")} per dag.`,
         },
       ],
     },
     levering: {
       kop: "Leveren in Vlaams-Brabant: via de A12 en de ring, binnen 24 uur",
       alineas: [
-        "De technieker rijdt vanuit Aartselaar over de A12 naar Vilvoorde en verdeelt van daaruit: de rand en Leuven in een ochtendronde, Halle en het Pajottenland of het Hageland in de namiddag. U krijgt een tijdslot en een sms een halfuur vooraf, zodat u niet de hele dag hoeft te wachten.",
-        `In een villa met drie bouwlagen dragen we alles via de trap naar boven zonder meerkost. Zit de trap er nog niet, wat bij een casco-verbouwing voorkomt, dan geldt de laddertoeslag van ${euro(LADDER)} per verdieping; meld het bij de boeking, dan komen we met twee. Bij de opstart bespreken we welke ramen en deuren open of dicht blijven en hoe u de reservoirs leegt als u geen condenspomp nam.`,
+        "De technieker rijdt vanuit Aartselaar over de A12 naar Vilvoorde en verdeelt van daaruit: de rand en Leuven in een ochtendronde, Halle en het Pajottenland of het Hageland in de namiddag. **U krijgt een tijdslot en een sms een halfuur vooraf**, zodat u niet de hele dag hoeft te wachten.",
+        `In een villa met drie bouwlagen dragen we **alles via de trap naar boven zonder meerkost**. Zit de trap er nog niet, wat bij een casco-verbouwing voorkomt, dan geldt de laddertoeslag van ${euro(LADDER)} per verdieping; meld het bij de boeking, dan komen we met twee. Bij de opstart bespreken we welke ramen en deuren open of dicht blijven en hoe u de reservoirs leegt als u geen condenspomp nam.`,
+        "Wat u huurt is dus **een berekend droogpakket en geen losse machine**: de technieker plaatst het, sluit de afvoer aan en stelt de opstelling in. Levering en ophaling zijn inbegrepen, en **de dagprijs blijft dezelfde hoe lang u ook huurt**.",
       ],
       feiten: [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket" },
@@ -368,7 +404,7 @@ export const REGIOS: Regio[] = [
     afhalen: {
       kop: "Afhalen vanuit Vlaams-Brabant: halfweg tussen Brussel en Antwerpen",
       alineas: [
-        `Ons afhaalpunt in Aartselaar ligt aan de A12, precies halfweg tussen Antwerpen en Brussel. Vanuit Vilvoorde, Grimbergen of Machelen bent u er in twintig minuten, en dat maakt afhalen voor losse toestellen een reële optie: ${euro(AFHAALKORTING)} korting op de huurprijs, lagere afhaaltarieven en een gereserveerd afhaalmoment. Vanuit Leuven of het Hageland is het een uur; dan laat u beter leveren, die rit zit toch al in het pakket.`,
+        `Ons afhaalpunt in Aartselaar ligt aan de A12, **precies halfweg tussen Antwerpen en Brussel**. Vanuit Vilvoorde, Grimbergen of Machelen bent u er in twintig minuten, en dat maakt afhalen voor losse toestellen een reële optie: ${euro(AFHAALKORTING)} korting op de huurprijs, lagere afhaaltarieven en een gereserveerd afhaalmoment. Vanuit Leuven of het Hageland is het een uur; dan laat u beter leveren, die rit zit toch al in het pakket.`,
       ],
       feiten: [
         { label: "Rijtijd naar ons afhaalpunt", waarde: "20 min (Vilvoorde) tot 1 uur (Leuven)" },
@@ -389,11 +425,19 @@ export const REGIOS: Regio[] = [
       },
       {
         q: "Wie plaatst de bouwdrogers in een villa met drie verdiepingen?",
-        a: "Onze technieker, en hij draagt ze ook naar boven. Hij verdeelt de toestellen per bouwlaag, plaatst waar nodig een ventilator om de lange gangen te bereiken, sluit de condensafvoer aan en stelt elke droger in. Voor een villa met een grote kelder komt hij meestal met een groter pakket dan de calculator voor één bouwlaag berekent, en dat overlegt hij vooraf.",
+        a: "Onze technieker, en hij draagt ze ook naar boven. Hij verdeelt de toestellen per bouwlaag, plaatst waar nodig een ventilator om de lange gangen te bereiken, sluit de condensafvoer aan en stelt elke droger in. Voor een villa met een grote kelder komt hij meestal met een groter pakket dan de Calculator voor één bouwlaag berekent, en dat overlegt hij vooraf.",
       },
       {
         q: "Kan ik in de winter drogen in een onverwarmde nieuwbouw in het Hageland?",
         a: "Ja, met bijverwarming. Onder 15 °C werkt een condensdroger nauwelijks; op een winterwerf in Aarschot of Diest zetten we er een elektrische kachel op 400 V bij die de ruimte op temperatuur brengt, en pas dan haalt de droger zijn capaciteit. Onze technieker controleert bij de levering of uw werfkast krachtstroom heeft.",
+      },
+      {
+        q: "Hoe krijgen jullie de toestellen tot in een appartement in Vilvoorde of Zaventem?",
+        a: "Met de lift, en dat kost niets extra. Is de lift buiten dienst of te klein, dan dragen we via de trap, ook zonder meerkost; onze toestellen zijn verrijdbaar en gaan per stuk door een gewone deuropening. Alleen wanneer er geen trap of lift is en de toestellen via een ladder naar boven moeten, rekenen we een toeslag per verdieping. Meld dat vooraf, dan komen we met twee man.",
+      },
+      {
+        q: "Waar laat ik het condenswater naartoe lopen?",
+        a: "Elke bouwdroger vangt het water op in een reservoir dat u zelf zou moeten legen, meestal een paar keer per dag. Dat hoeft niet: onze technieker sluit standaard een slang aan op een afvoer, een douchebak of een putje. Ligt er geen afvoer in de buurt, dan zet hij er een condenspomp bij die het water tot twintig meter verder wegpompt. Zo draait de opstelling door zonder dat er iemand langs moet.",
       },
     ],
     realisaties: {
@@ -431,11 +475,12 @@ export const REGIOS: Regio[] = [
       "Drooggarantie op elk berekend pakket",
     ],
     bouw: {
-      kop: "Bouwdroger voor chape, pleisterwerk, kelders en waterschade in West-Vlaanderen",
+      kop: "Waarvoor huren West-Vlamingen een bouwdroger?",
       alineas: [
-        "Aan de kust leveren we bouwdrogers voor renovaties en waterschade in appartementen in Oostende, Knokke-Heist, Blankenberge, Nieuwpoort en De Panne. Vochtige buitenlucht maakt natuurlijk ventileren er minder voorspelbaar. Daarom blijven ramen en deuren tijdens de actieve droging dicht en combineren we voldoende ontvochtigingscapaciteit met luchtcirculatie tot in de verste kamer.",
-        "In Brugge en het Brugse Ommeland gaat het vaak om koude kelders, bergingen en historische panden. Onze realisatie in Brugge hieronder toont zo'n kelder na vocht- en schimmelproblemen. Onder ongeveer 15 °C verliest een condensdroger veel rendement; dan plaatsen we een adsorptiedroger of brengen we de ruimte eerst op temperatuur met een bouwkachel.",
-        "Rond Kortrijk, Roeselare, Waregem en Tielt drogen we vooral chape en pleisterwerk in nieuwbouwwoningen, renovaties en bedrijfsgebouwen. Grote vloeroppervlakken delen we op in droogzones met een correct berekende bouwdroger en ventilator per zone. Zo krijgt de vloerlegger of schilder een gemeten einddatum in plaats van een inschatting.",
+        "Vier situaties vullen bijna al onze West-Vlaamse ritten: chape drogen in een nieuwbouw rond Kortrijk of Roeselare, pleisterwerk drogen na een renovatie, een koude kelder in Brugge of het Ommeland, en waterschade in een appartement aan zee. **Voor alle vier rijden we de hele provincie af, van De Panne tot Avelgem, binnen 24 uur.**",
+        "Aan de kust leveren we bouwdrogers voor renovaties en waterschade in appartementen in Oostende, Knokke-Heist, Blankenberge, Nieuwpoort en De Panne. Vochtige buitenlucht maakt natuurlijk ventileren er minder voorspelbaar. Daarom blijven **ramen en deuren tijdens de actieve droging dicht** en combineren we voldoende ontvochtigingscapaciteit met luchtcirculatie tot in de verste kamer.",
+        "In Brugge en het Brugse Ommeland gaat het vaak om koude kelders, bergingen en historische panden. Onze realisatie in Brugge hieronder toont zo'n kelder na vocht- en schimmelproblemen. **Onder ongeveer 15 °C verliest een condensdroger veel rendement**; dan plaatsen we een adsorptiedroger of brengen we de ruimte eerst op temperatuur met een bouwkachel.",
+        "Rond Kortrijk, Roeselare, Waregem en Tielt drogen we vooral chape en pleisterwerk in nieuwbouwwoningen, renovaties en bedrijfsgebouwen. Grote vloeroppervlakken delen we op in droogzones met een correct berekende bouwdroger en ventilator per zone. Zo krijgt de vloerlegger of schilder **een gemeten einddatum in plaats van een inschatting**.",
       ],
     },
     beeld: {
@@ -447,27 +492,27 @@ export const REGIOS: Regio[] = [
       items: [
         {
           key: "ttk650",
-          waarom: `Voor een groot kustappartement, een volledige woning of een loods: 110 liter per dag en een bereik tot 600 m³. We combineren hem waar nodig met ventilatoren voor een gelijkmatige luchtverdeling. Vanaf ${dag("ttk650")} per dag.`,
+          waarom: `**Voor een groot kustappartement, een volledige woning of een loods**: 110 liter per dag en een bereik tot 600 m³. We combineren hem waar nodig met ventilatoren voor een gelijkmatige luchtverdeling. Vanaf ${dag("ttk650")} per dag.`,
         },
         {
           key: "revolution",
-          waarom: `De adsorptiedroger voor een koude Brugse kelder, een onverwarmde winterwerf of vocht onder een vloer. Hij blijft bij lage temperaturen werken en blaast droge lucht gericht via slangen. Vanaf ${dag("revolution")} per dag.`,
+          waarom: `**De adsorptiedroger** voor een koude Brugse kelder, een onverwarmde winterwerf of vocht onder een vloer. Hij blijft bij lage temperaturen werken en blaast droge lucht gericht via slangen. Vanaf ${dag("revolution")} per dag.`,
         },
         {
           key: "ttk350",
-          waarom: `Voor de gewone nieuwbouw in Roeselare of Tielt en voor een kleiner kustappartement: 70 liter per dag, tot 400 m³, pompklaar. Vanaf ${dag("ttk350")} per dag.`,
+          waarom: `**Voor de gewone nieuwbouw** in Roeselare of Tielt en voor een kleiner kustappartement: 70 liter per dag, tot 400 m³, pompklaar. Vanaf ${dag("ttk350")} per dag.`,
         },
         {
           key: "ttv4500",
-          waarom: `Voor woningen en appartementen met meerdere kamers: de ventilator brengt de droge lucht ook in gangen, hoeken en slaapkamers waar stilstaande lucht de droging anders vertraagt. Vanaf ${dag("ttv4500")} per dag.`,
+          waarom: `**Voor woningen en appartementen met meerdere kamers**: de ventilator brengt de droge lucht ook in gangen, hoeken en slaapkamers waar stilstaande lucht de droging anders vertraagt. Vanaf ${dag("ttv4500")} per dag.`,
         },
       ],
     },
     levering: {
       kop: "Leveren aan de kust en in het binnenland: binnen 24 uur, met de E40 als ruggengraat",
       alineas: [
-        "Voor West-Vlaanderen plannen we vaste ritten: de technieker vertrekt 's ochtends vanuit Aartselaar, rijdt over de E17 naar Kortrijk en Roeselare of over de E40 naar Brugge en de kust, en levert onderweg meerdere werven. U krijgt daardoor een tijdslot in plaats van een hele dag, en een sms wanneer hij bij de vorige klant vertrekt.",
-        `Aan de kust is de vraag altijd dezelfde: hoe krijgen we de toestellen op de zevende verdieping? Met de lift, zonder meerkost. In een appartementsgebouw in renovatie waar de lift buiten dienst is, dragen we via de trap, ook zonder meerkost; alleen als het via een ladder moet rekenen we ${euro(LADDER)} per verdieping. De condensafvoer sluiten we in een appartement meestal aan op de douche.`,
+        "Voor West-Vlaanderen plannen we vaste ritten: de technieker vertrekt 's ochtends vanuit Aartselaar, rijdt over de E17 naar Kortrijk en Roeselare of over de E40 naar Brugge en de kust, en levert onderweg meerdere werven. U krijgt daardoor **een tijdslot in plaats van een hele dag**, en een sms wanneer hij bij de vorige klant vertrekt.",
+        `Aan de kust is de vraag altijd dezelfde: hoe krijgen we de toestellen op de zevende verdieping? **Met de lift, zonder meerkost.** In een appartementsgebouw in renovatie waar de lift buiten dienst is, dragen we via de trap, ook zonder meerkost; alleen als het via een ladder moet rekenen we ${euro(LADDER)} per verdieping. De condensafvoer sluiten we in een appartement meestal aan op de douche.`,
       ],
       feiten: [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket" },
@@ -480,7 +525,7 @@ export const REGIOS: Regio[] = [
     afhalen: {
       kop: "Afhalen vanuit West-Vlaanderen: kan, maar laten leveren is meestal slimmer",
       alineas: [
-        `Ons afhaalpunt ligt in Aartselaar, aan de A12 bij Antwerpen. Vanuit Kortrijk is dat een uur, vanuit Oostende bijna twee. Voor één los toestel dat u een maand houdt kan dat lonen, met ${euro(AFHAALKORTING)} korting op de huurprijs en de lagere afhaaltarieven. Voor een volledig droogpakket zit de rit al in de prijs en plaatst onze technieker alles meteen. Haalt u toch af: vervoer de droger rechtop en laat hem 24 uur staan als hij toch plat gelegen heeft.`,
+        `Ons afhaalpunt ligt in Aartselaar, aan de A12 bij Antwerpen. Vanuit Kortrijk is dat een uur, vanuit Oostende bijna twee. Voor één los toestel dat u een maand houdt kan dat lonen, met ${euro(AFHAALKORTING)} korting op de huurprijs en de lagere afhaaltarieven. **Voor een volledig droogpakket zit de rit al in de prijs** en plaatst onze technieker alles meteen. Haalt u toch af: vervoer de droger rechtop en laat hem 24 uur staan als hij toch plat gelegen heeft.`,
       ],
       feiten: [
         { label: "Rijtijd naar ons afhaalpunt", waarde: "1 uur (Kortrijk) tot bijna 2 (Oostende)" },
@@ -493,7 +538,7 @@ export const REGIOS: Regio[] = [
     faq: [
       {
         q: "Wat kost een bouwdroger huren in West-Vlaanderen?",
-        a: `Een losse bouwdroger huurt u vanaf ${dag("ttk170")} per dag excl. btw. De prijs van een volledig droogpakket hangt af van het volume, het materiaal en de gewenste droogtermijn. In de calculator ziet u vóór het boeken één vaste pakketprijs, inclusief levering in West-Vlaanderen, plaatsing, vochtmeting bij start en oplevering en ophaling.`,
+        a: `Een losse bouwdroger huurt u vanaf ${dag("ttk170")} per dag excl. btw. De prijs van een volledig droogpakket hangt af van het volume, het materiaal en de gewenste droogtermijn. In de Calculator ziet u vóór het boeken één vaste pakketprijs, inclusief levering in West-Vlaanderen, plaatsing, vochtmeting bij start en oplevering en ophaling.`,
       },
       {
         q: "Rekenen jullie een leveringskost aan voor de kust of voor Kortrijk?",
@@ -510,6 +555,14 @@ export const REGIOS: Regio[] = [
       {
         q: "Droogt een bouwdroger wel bij zeelucht en in een koude Brugse kelder?",
         a: "Bij zeelucht ja, op voorwaarde dat de ramen dicht blijven en het toestel groot genoeg is; daarom kiezen we aan de kust vaker de grootste condensdroger. In een koude kelder onder 15 °C werkt een condensdroger slecht: daar zetten we de adsorptiedroger in, die ook bij lage temperaturen blijft drogen, of een kachel om de ruimte eerst op te warmen.",
+      },
+      {
+        q: "Hoeveel stroom gebruikt een droogpakket aan de kust?",
+        a: "Reken per bouwdroger op ongeveer 0,7 kW, dag en nacht. Voor een appartement in Oostende of Knokke-Heist met één toestel komt dat op een paar euro elektriciteit per dag, te betalen aan uw eigen netbeheerder. In een gebouw in renovatie vragen we vooraf of de werfkast of de meterkast genoeg vrije ampères heeft: twee toestellen op dezelfde kring is de meest voorkomende oorzaak van een zekering die 's nachts springt.",
+      },
+      {
+        q: "Hoe weet ik dat mijn chape of pleisterwerk echt droog is?",
+        a: "Door de meting, niet door de kalender. Onze technieker meet bij de plaatsing het beginvocht en bij de ophaling opnieuw, en u krijgt beide waarden. Uw vloerlegger of schilder bepaalt welke grens hij wil zien; vraag hem dat vooraf. Hebt u een ondertekend verslag nodig voor uw bouwdossier of voor een verzekeraar, dan neemt u een officieel vochtrapport bij.",
       },
     ],
     realisaties: {
@@ -528,16 +581,22 @@ export const REGIOS: Regio[] = [
       "Bouwdroger huren in Limburg: Hasselt, Genk, Sint-Truiden en het Maasland. Binnen 24 uur geleverd en geplaatst, ophaling inbegrepen. Ook op koude winterwerven.",
     h1: "Bouwdroger huren in Limburg",
     kicker: "Hasselt · Genk · Sint-Truiden · Tongeren · Maasland",
+    /*
+      De tweede alinea stond hier dubbel: de rijtijden staan in de
+      feitentabel van de leveringssectie en "Limburg betaalt geen kilometers"
+      is de eerste vraag van de FAQ. Wat ervan overblijft — dat de afstand
+      niet in de prijs komt — staat nu in de eerste alinea hieronder.
+    */
     intro: [
-      "Limburg is de provincie van de ruime nieuwbouw: vrijstaande woningen op grote percelen, van het Maasland tot Haspengouw. Dat zijn grote volumes om droog te krijgen, en het zijn precies de werven waar een bouwdroger het meeste tijd uitspaart: een chape van 150 m² die zonder hulp een half jaar droogt, is met een pakket van drie toestellen in enkele weken klaar voor de vloerder.",
-      "Vanuit ons magazijn in Aartselaar rijden we over de E313 in ongeveer een uur naar Hasselt en in anderhalf uur naar Maaseik. Elk droogpakket komt geleverd, geplaatst en ingesteld, en de levering en ophaling zijn in de prijs begrepen. Limburg betaalt geen kilometers.",
+      "Limburg is de provincie van de ruime nieuwbouw: vrijstaande woningen op grote percelen, van het Maasland tot Haspengouw. Dat zijn grote volumes om droog te krijgen, en het zijn precies de werven waar een bouwdroger het meeste tijd uitspaart: **een chape van 150 m² die zonder hulp een half jaar droogt, is met een pakket van drie toestellen in enkele weken klaar voor de vloerder**.",
     ],
     bouw: {
-      kop: "Wat we in Limburg drogen: grote nieuwbouw, winterwerven en waterschade langs de Maas",
+      kop: "Waarvoor huren Limburgers een bouwdroger?",
       alineas: [
-        "De Limburgse nieuwbouw is groter dan het Vlaamse gemiddelde: open bebouwing, een gelijkvloers van 120 tot 180 m², vaak met een aparte garage en een bijgebouw dat mee gepleisterd wordt. Rond Hasselt, Genk, Houthalen en Beringen komt daar de verkavelingsbouw op de zandgronden van de Kempen bij. Die zandbodem draineert goed, waardoor kelders er zeldzamer zijn, maar het bouwvocht in chape en pleisterwerk is er niet minder om. Hier vertrekt onze technieker zelden met minder dan drie toestellen.",
-        "Limburg heeft ook de koudste winters van Vlaanderen, en dat merken we op de werf. Een condensdroger in een ruwbouw van 5 °C haalt nog geen kwart van zijn capaciteit; de elektrische kachel op 400 V is in Limburg tussen november en maart dan ook vaker wel dan niet deel van het pakket. Onze realisatie in Hasselt hieronder, pleister- en chapewerken die op planning droog kwamen, is daar een typisch voorbeeld.",
-        "Langs de Maas, van Lanaken over Maasmechelen tot Maaseik en Kinrooi, en in het noorden rond Bocholt en Bree, komt waterschade terug bij elke hoge waterstand: kelders en bergingen die onderlopen, en een gelijkvloers waar het water via de vloer naar binnen komt. Onze realisatie in Bocholt is zo'n dossier, met de schimmelsanering die er na een week nat achteraan kwam.",
+        "Drie vragen brengen ons naar Limburg: een chape die droog moet voor de vloerder kan starten, pleisterwerk dat in een onverwarmde winterwerf blijft staan, en een kelder of gelijkvloers na hoogwater langs de Maas. Voor alle drie rijden we **binnen 24 uur** vanuit Aartselaar, van Sint-Truiden tot Maaseik, **zonder dat de afstand in de prijs komt**.",
+        "De Limburgse nieuwbouw is groter dan het Vlaamse gemiddelde: open bebouwing, een gelijkvloers van 120 tot 180 m², vaak met een aparte garage en een bijgebouw dat mee gepleisterd wordt. Rond Hasselt, Genk, Houthalen en Beringen komt daar de verkavelingsbouw op de zandgronden van de Kempen bij. Die zandbodem draineert goed, waardoor kelders er zeldzamer zijn, maar het bouwvocht in chape en pleisterwerk is er niet minder om. **Hier vertrekt onze technieker zelden met minder dan drie toestellen.**",
+        "Limburg heeft ook de koudste winters van Vlaanderen, en dat merken we op de werf. **Een condensdroger in een ruwbouw van 5 °C haalt nog geen kwart van zijn capaciteit**; de elektrische kachel op 400 V is in Limburg tussen november en maart dan ook vaker wel dan niet deel van het pakket. Onze realisatie in Hasselt hieronder, pleister- en chapewerken die op planning droog kwamen, is daar een typisch voorbeeld.",
+        "Langs de Maas, van Lanaken over Maasmechelen tot Maaseik en Kinrooi, en in het noorden rond Bocholt en Bree, **komt waterschade terug bij elke hoge waterstand**: kelders en bergingen die onderlopen, en een gelijkvloers waar het water via de vloer naar binnen komt. Onze realisatie in Bocholt is zo'n dossier, met de schimmelsanering die er na een week nat achteraan kwam.",
       ],
     },
     beeld: {
@@ -549,27 +608,27 @@ export const REGIOS: Regio[] = [
       items: [
         {
           key: "ttk650",
-          waarom: `Voor de ruime Limburgse nieuwbouw: 110 liter per dag en een bereik tot 600 m³, één toestel per groot gelijkvloers. Ook ons eerste toestel bij waterschade langs de Maas, waar het snel moet gaan. Vanaf ${dag("ttk650")} per dag.`,
+          waarom: `**Voor de ruime Limburgse nieuwbouw**: 110 liter per dag en een bereik tot 600 m³, één toestel per groot gelijkvloers. Ook ons eerste toestel bij waterschade langs de Maas, waar het snel moet gaan. Vanaf ${dag("ttk650")} per dag.`,
         },
         {
           key: "ttk350",
-          waarom: `De aanvulling voor de verdieping, de garage of het bijgebouw: 70 liter per dag, tot 400 m³, pompklaar. In een Limburgs pakket zitten er meestal twee. Vanaf ${dag("ttk350")} per dag.`,
+          waarom: `**De aanvulling voor de verdieping, de garage of het bijgebouw**: 70 liter per dag, tot 400 m³, pompklaar. In een Limburgs pakket zitten er meestal twee. Vanaf ${dag("ttk350")} per dag.`,
         },
         {
           key: "teddh30",
-          waarom: `De elektrische kachel van 30 kW die een Limburgse winterwerf op temperatuur brengt, zodat de drogers kunnen werken. Vraagt 400 V krachtstroom op de werfkast; wij controleren dat bij de levering. Vanaf ${dag("teddh30")} per dag.`,
+          waarom: `**De elektrische kachel van 30 kW** die een Limburgse winterwerf op temperatuur brengt, zodat de drogers kunnen werken. Vraagt 400 V krachtstroom op de werfkast; wij controleren dat bij de levering. Vanaf ${dag("teddh30")} per dag.`,
         },
         {
           key: "ttv4500",
-          waarom: `Bij de grote Limburgse gelijkvloerse oppervlaktes staat de droger zelden in de kamer die het natst is. De ventilator verdeelt de droge lucht over de hele bouwlaag. Vanaf ${dag("ttv4500")} per dag.`,
+          waarom: `Bij de grote Limburgse gelijkvloerse oppervlaktes **staat de droger zelden in de kamer die het natst is**. De ventilator verdeelt de droge lucht over de hele bouwlaag. Vanaf ${dag("ttv4500")} per dag.`,
         },
       ],
     },
     levering: {
       kop: "Leveren in Limburg: over de E313 en de E314, binnen 24 uur",
       alineas: [
-        "De rit naar Limburg is de langste in onze planning, en daarom plannen we hem als een ronde: de technieker vertrekt 's ochtends vanuit Aartselaar, rijdt over de E313 naar Hasselt en vandaar door naar het Maasland of via de E314 naar Genk en Noord-Limburg. Elke werf op de ronde krijgt een tijdslot en een sms een halfuur vooraf.",
-        `Op een Limburgse nieuwbouw is de installatie een kwestie van verdelen: drie of vier toestellen over het gelijkvloers, de verdieping en het bijgebouw, een ventilator waar de lucht anders blijft hangen, en de condensafvoer naar een vloerput of naar buiten. Via de trap naar de verdieping is inbegrepen; is er nog geen trap, dan geldt ${euro(LADDER)} per verdieping via de ladder. Op een winterwerf controleert de technieker eerst of de werfkast 400 V levert voor de kachel.`,
+        "De rit naar Limburg is de langste in onze planning, en daarom plannen we hem als een ronde: de technieker vertrekt 's ochtends vanuit Aartselaar, rijdt over de E313 naar Hasselt en vandaar door naar het Maasland of via de E314 naar Genk en Noord-Limburg. **Elke werf op de ronde krijgt een tijdslot en een sms een halfuur vooraf.**",
+        `Op een Limburgse nieuwbouw is de installatie een kwestie van verdelen: drie of vier toestellen over het gelijkvloers, de verdieping en het bijgebouw, een ventilator waar de lucht anders blijft hangen, en de condensafvoer naar een vloerput of naar buiten. **Via de trap naar de verdieping is inbegrepen**; is er nog geen trap, dan geldt ${euro(LADDER)} per verdieping via de ladder. Op een winterwerf controleert de technieker eerst of de werfkast 400 V levert voor de kachel.`,
       ],
       feiten: [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
@@ -582,7 +641,7 @@ export const REGIOS: Regio[] = [
     afhalen: {
       kop: "Afhalen vanuit Limburg: alleen zinvol voor één los toestel",
       alineas: [
-        `Ons afhaalpunt ligt in Aartselaar, aan de A12 bij Antwerpen: vanuit Hasselt een uur rijden, vanuit Genk of Maasmechelen langer. Voor een volledig droogpakket is dat nooit de betere keuze: de levering zit al in de prijs en de technieker plaatst meteen alles. Voor één losse droger of ventilator die u langere tijd houdt, kan het wel: ${euro(AFHAALKORTING)} korting op de huurprijs, lagere afhaaltarieven en een gereserveerd afhaalmoment op een werkdag tussen 07:30 en 17:00.`,
+        `Ons afhaalpunt ligt in Aartselaar, aan de A12 bij Antwerpen: vanuit Hasselt een uur rijden, vanuit Genk of Maasmechelen langer. **Voor een volledig droogpakket is dat nooit de betere keuze**: de levering zit al in de prijs en de technieker plaatst meteen alles. Voor één losse droger of ventilator die u langere tijd houdt, kan het wel: ${euro(AFHAALKORTING)} korting op de huurprijs, lagere afhaaltarieven en een gereserveerd afhaalmoment op een werkdag tussen 07:30 en 17:00.`,
       ],
       feiten: [
         { label: "Rijtijd naar ons afhaalpunt", waarde: "1 uur (Hasselt), langer vanuit Genk" },
@@ -609,6 +668,14 @@ export const REGIOS: Regio[] = [
         q: "Wat als het vriest op mijn Limburgse werf?",
         a: "Dan verwarmen we mee, want een condensdroger onder 15 °C droogt nauwelijks. Tussen november en maart nemen we voor een onverwarmde ruwbouw in Limburg standaard een elektrische kachel van 30 kW mee die de ruimte op werkingstemperatuur houdt. Voorwaarde is krachtstroom (400 V) op de werf; zonder kachel verlengt vorst de droogtijd met weken.",
       },
+      {
+        q: "Rijden jullie ook naar Voeren of de Maaskant?",
+        a: "Ja, tot aan de taalgrens en tot tegen de Maas. Vanuit Aartselaar is dat onze langste rit in Vlaanderen, dus plannen we die mee in een vaste toer en krijgt u een tijdslot in plaats van een hele dag. De afstand verrekenen we niet: levering, plaatsing en ophaling zitten in de prijs van het droogpakket, of de werf nu in Hasselt of in Maasmechelen ligt.",
+      },
+      {
+        q: "Wat doe ik als er geen stroom is op mijn werf?",
+        a: "Zonder stroom droogt geen enkel toestel, dus dat is de eerste vraag die we stellen. Op een ruwbouw zonder aansluiting volstaat een werfkast of de aansluiting van de buren met een deugdelijke verlengdraad. Per bouwdroger rekent u op ongeveer 0,7 kW en op een vrije kring van 16 ampère; staan er drie toestellen op één kring, dan valt de zekering 's nachts uit en staat de droging stil zonder dat iemand het ziet.",
+      },
     ],
     realisaties: {
       kop: "Werven die we in Limburg droogden",
@@ -628,6 +695,13 @@ export const REGIO_BY_SLUG: Record<string, Regio> = Object.fromEntries(REGIOS.ma
  * regio gelijk omdat de prijs dat is, en dat is geen kopie maar een feit.
  */
 export function regioTekst(regio: Regio): string {
+  /*
+    Zonder de nadrukmarkering. De teksten hierboven zetten met `**…**` een paar
+    woorden per alinea vet (zie src/components/content/nadruk.tsx); de test die
+    woorden telt en zinnen tussen twee provincies vergelijkt, hoort de tekst te
+    zien zoals de bezoeker ze leest.
+  */
+  const kaal = (t: string) => t.replace(/\*\*/g, "");
   return [
     regio.h1,
     ...regio.intro,
@@ -642,7 +716,9 @@ export function regioTekst(regio: Regio): string {
     ...regio.faq.flatMap((f) => [f.q, f.a]),
     regio.realisaties.kop,
     regio.realisaties.intro,
-  ].join("\n");
+  ]
+    .map(kaal)
+    .join("\n");
 }
 
 /** De projecten uit `REALISATIES` waar deze regio naar verwijst, in volgorde. */

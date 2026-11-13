@@ -228,7 +228,7 @@ const G: Gemeente[] = [
       },
       {
         q: "Hoeveel toestellen heb ik nodig voor een appartement van 90 m²?",
-        a: "Voor een gewone droging na chape of pleisterwerk volstaat meestal één Medium bouwdroger plus één ventilator die de droge lucht langs de vloer stuurt. De calculator rekent het door op volume, toepassing en situatie, en zegt meteen welke droogtijd en welke prijs erbij horen. Zit u ernaast, dan verlengt u online.",
+        a: "Voor een gewone droging na chape of pleisterwerk volstaat meestal één Medium bouwdroger plus één ventilator die de droge lucht langs de vloer stuurt. De Calculator rekent het door op volume, toepassing en situatie, en zegt meteen welke droogtijd en welke prijs erbij horen. Zit u ernaast, dan verlengt u online.",
       },
       {
         q: "Kunnen jullie in een leeg nieuwbouwproject leveren zonder dat ik erbij ben?",
@@ -499,7 +499,7 @@ const G: Gemeente[] = [
     faq: [
       {
         q: "Hoeveel bouwdrogers heb ik nodig voor een nieuwbouw van 200 m²?",
-        a: "Dat hangt af van het volume, niet van de oppervlakte alleen. Bij een normale plafondhoogte komt u voor 200 m² doorgaans uit op twee tot drie drogers plus ventilatoren; met een hoge open leefruimte wordt dat meer. De calculator rekent het door op uw eigen afmetingen en zegt meteen welke droogtijd en prijs erbij horen.",
+        a: "Dat hangt af van het volume, niet van de oppervlakte alleen. Bij een normale plafondhoogte komt u voor 200 m² doorgaans uit op twee tot drie drogers plus ventilatoren; met een hoge open leefruimte wordt dat meer. De Calculator rekent het door op uw eigen afmetingen en zegt meteen welke droogtijd en prijs erbij horen.",
       },
       {
         q: "Kunnen jullie ook in een schuur of landbouwloods leveren?",
@@ -511,7 +511,7 @@ const G: Gemeente[] = [
       },
       {
         q: "Hoeveel toestellen heb ik nodig voor een nieuwbouw van 200 m²?",
-        a: "Dat hangt af van het volume, niet van de oppervlakte: een open leefruimte met een hoog plafond bevat veel meer lucht dan dezelfde vierkante meters laag onder. Bij een normale plafondhoogte komt u voor 200 m² doorgaans op twee tot drie drogers plus ventilatoren. De calculator rekent het door op uw eigen afmetingen.",
+        a: "Dat hangt af van het volume, niet van de oppervlakte: een open leefruimte met een hoog plafond bevat veel meer lucht dan dezelfde vierkante meters laag onder. Bij een normale plafondhoogte komt u voor 200 m² doorgaans op twee tot drie drogers plus ventilatoren. De Calculator rekent het door op uw eigen afmetingen.",
       },
     ],
     realisaties: [],
@@ -727,7 +727,7 @@ const G: Gemeente[] = [
       },
       {
         q: "Hoeveel toestellen heb ik nodig voor een hele kelderverdieping?",
-        a: "Dat hangt af van het volume, niet van de oppervlakte: een kelder met een hoog plafond bevat veel meer lucht dan dezelfde vierkante meters laag onder. Voor een gangbare kelderverdieping onder een villa komt u doorgaans op twee tot drie toestellen plus ventilatoren. De calculator rekent het door op uw eigen afmetingen.",
+        a: "Dat hangt af van het volume, niet van de oppervlakte: een kelder met een hoog plafond bevat veel meer lucht dan dezelfde vierkante meters laag onder. Voor een gangbare kelderverdieping onder een villa komt u doorgaans op twee tot drie toestellen plus ventilatoren. De Calculator rekent het door op uw eigen afmetingen.",
       },
       {
         q: "Er zat water achter mijn wandbekleding. Moet die eraf?",
@@ -746,7 +746,7 @@ const G: Gemeente[] = [
     rit: { afstand: "circa 20 km", tijd: "ongeveer een halfuur" },
     intro: [
       "Schoten ligt in de noordrand aan het kanaal Dessel-Schoten, op een halfuur van ons magazijn. De gemeente is gemengd gebouwd: villawijken aan de ene kant, dichter bebouwde rijwoningen rond het centrum aan de andere.",
-      "Dat betekent dat we hier met twee heel verschillende opstellingen werken. In een villa draait het om volume en om kelders; in een rijwoning om een compact toestel dat door een smalle gang past en op één stopcontact draait. De calculator kiest op basis van uw eigen afmetingen, niet op basis van het type woning.",
+      "Dat betekent dat we hier met twee heel verschillende opstellingen werken. In een villa draait het om volume en om kelders; in een rijwoning om een compact toestel dat door een smalle gang past en op één stopcontact draait. De Calculator kiest op basis van uw eigen afmetingen, niet op basis van het type woning.",
     ],
     bouw: {
       kop: "Villawijken en rijwoningen naast elkaar",
@@ -892,11 +892,11 @@ const G: Gemeente[] = [
       },
       {
         q: "Wat als mijn ruimte na de huurperiode nog niet droog is?",
-        a: "Dan huurt u kosteloos verder. Dat is de Drooggarantie: wij meten bij de start en bij de oplevering, en is het op de afgesproken datum niet droog, dan blijven de toestellen staan tot het wel zo is, zonder bijkomende kosten. Ze geldt voor droogpakketten die via de calculator berekend en met levering geboekt zijn, niet voor losse toestellen die u zelf afhaalt.",
+        a: "Dan huurt u kosteloos verder. Dat is de Drooggarantie: wij meten bij de start en bij de oplevering, en is het op de afgesproken datum niet droog, dan blijven de toestellen staan tot het wel zo is, zonder bijkomende kosten. Ze geldt voor droogpakketten die via de Calculator berekend en met levering geboekt zijn, niet voor losse toestellen die u zelf afhaalt.",
       },
       {
         q: "Wat als mijn ruimte na de huurperiode nog niet droog is?",
-        a: "Dan huurt u kosteloos verder. Dat is de Drooggarantie: wij meten bij de start en bij de oplevering, en is het op de afgesproken datum niet droog, dan blijven de toestellen staan tot het wel zo is. Ze geldt voor droogpakketten die via de calculator berekend en met levering geboekt zijn, niet voor losse toestellen die u zelf afhaalt.",
+        a: "Dan huurt u kosteloos verder. Dat is de Drooggarantie: wij meten bij de start en bij de oplevering, en is het op de afgesproken datum niet droog, dan blijven de toestellen staan tot het wel zo is. Ze geldt voor droogpakketten die via de Calculator berekend en met levering geboekt zijn, niet voor losse toestellen die u zelf afhaalt.",
       },
     ],
     realisaties: [],
@@ -994,7 +994,7 @@ const G: Gemeente[] = [
     faq: [
       {
         q: "Eén droger voor een heel rijhuis, is dat genoeg?",
-        a: "Qua capaciteit vaak wel, qua verdeling meestal niet. In een smalle, diepe woning met gesloten kamers droogt het toestel vooral de ruimte waar het staat. Een ventilator erbij die de droge lucht naar achter stuurt, is doorgaans effectiever dan een tweede droger — en goedkoper. De calculator houdt daar rekening mee.",
+        a: "Qua capaciteit vaak wel, qua verdeling meestal niet. In een smalle, diepe woning met gesloten kamers droogt het toestel vooral de ruimte waar het staat. Een ventilator erbij die de droge lucht naar achter stuurt, is doorgaans effectiever dan een tweede droger — en goedkoper. De Calculator houdt daar rekening mee.",
       },
       {
         q: "Is een bouwdroger stil genoeg om in te blijven wonen?",

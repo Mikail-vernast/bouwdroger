@@ -20,6 +20,27 @@
    Eén kolom met een leesbare regellengte, zoals de hero er op mobiel al uit
    zag — daar staat `.hero-vis` sinds het begin op `display:none`.
    ------------------------------------------------------------------- */
+/*
+  Een foto in de hero, met `rond` op <GidsShell heroImg>. De basisregel in
+  hoe-drogen-werkt.css is geschreven voor de uitgesneden ploegfoto's: die
+  staan met een drop-shadow rond hun silhouet op de onderrand van het rood, en
+  scherpe hoeken zie je daar niet omdat de hoeken transparant zijn. Bij een
+  rechthoekige foto zie je ze wel, en dan ligt er een kale rechthoek op de
+  hero. Zelfde straal en schaduw als `.framed` op de inhoudspagina's.
+*/
+.hdw-page.gids .hero-vis img.rond{
+  border-radius:20px;
+  object-fit:cover;
+  filter:none;
+  box-shadow:0 34px 70px -28px rgba(0,0,0,.6);
+  /*
+    En los van de onderrand. De uitgesneden ploegfoto's staan er met opzet
+    tegenaan (`margin-bottom:-1px`): die lijken dan op de rand te staan. Een
+    foto in een kader doet dat niet, die wordt er door afgesneden, en met het
+    zwevende kaartje erover lijkt de onderste hoek te ontbreken.
+  */
+  margin-bottom:64px;
+}
 .hdw-page.gids .hero-grid.nopic{grid-template-columns:1fr}
 .hdw-page.gids .hero-grid.nopic .hero-copy{max-width:820px;padding-bottom:72px}
 

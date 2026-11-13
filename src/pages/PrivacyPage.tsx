@@ -73,7 +73,7 @@ const PrivacyPage = () => (
             <h3>Identificatie- en contactgegevens</h3>
             <p>Naam, voornaam, adres, e-mailadres, telefoonnummer en, voor professionele klanten, bedrijfsnaam en btw-nummer.</p>
             <h3>Boekings- en projectgegevens</h3>
-            <p>Gegevens die u invult in de calculator en tijdens het boeken: oppervlakte, plafondhoogte, situatie (nieuwbouw, waterschade, renovatie, kelder), leveradres, gewenste lever- en installatiemomenten, gekozen opties en toebehoren.</p>
+            <p>Gegevens die u invult in de Calculator en tijdens het boeken: oppervlakte, plafondhoogte, situatie (nieuwbouw, waterschade, renovatie, kelder), leveradres, gewenste lever- en installatiemomenten, gekozen opties en toebehoren.</p>
             <h3>Betaal- en facturatiegegevens</h3>
             <p>Factuurgegevens, betaalstatus en betaalmethode. Uw betaling verloopt via een externe, beveiligde betaalprovider; wij slaan zelf geen kaart- of rekeninggegevens op.</p>
             <h3>Metings- en servicegegevens</h3>

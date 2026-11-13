@@ -128,3 +128,124 @@
     columns: 1;
   }
 }
+
+/*
+  Het werkgebied per provincie en per streek.
+
+  Dezelfde indeling als de sectie "De gemeenten van <provincie>, per streek" op
+  de provinciepagina, maar zonder de streekomschrijving en zonder kaartvlak:
+  daar is het een leesbare sectie, hier een wegwijzer. De kolommen zijn dus
+  smaller en de namen kleiner dan in `.strk-lijst`.
+
+  De streken stonden in een raster van twee kolommen, en een raster lijnt rijen
+  uit: naast "De Kempen" met zijn dertig gemeenten bleef onder de Rupelstreek
+  een gat van tweehonderd pixels staan, en de volgende streek begon pas waar
+  De Kempen begon. Daardoor leek de linkerkolom af terwijl er nog twee streken
+  volgden. Nu stapelen ze in twee tekstkolommen: een streek die niet meer past
+  schuift naar boven in de volgende kolom in plaats van op een rij te wachten.
+  `break-inside: avoid` houdt kop en gemeenten daarbij bij elkaar.
+*/
+.v3c .sm-prov {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.v3c .sm-prov h3 {
+  font-family: var(--fd);
+  font-weight: 800;
+  font-size: 16.5px;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.v3c .sm-prov h3 a {
+  color: var(--txt);
+  text-decoration: none;
+  border-bottom: 2px solid var(--red);
+  padding-bottom: 2px;
+}
+
+.v3c .sm-prov h3 a:hover {
+  color: var(--red);
+}
+
+/* Hoeveel gemeenten er onder die provincie hangen. Zonder dat getal moet je
+   de lijst tellen om te weten of je werf erbij hoort; mét staat er meteen dat
+   het er geen handvol zijn. */
+.v3c .sm-prov .sm-telling {
+  font-family: var(--fb);
+  font-weight: 500;
+  font-size: 12.5px;
+  color: var(--txt-dim);
+}
+
+.v3c .sm-streken {
+  columns: 2;
+  column-gap: 44px;
+}
+
+.v3c .sm-streek {
+  break-inside: avoid;
+  margin: 0 0 22px;
+}
+
+/* De streeknaam in kapitalen, kleiner dan de provincie erboven: zo is in één
+   oogopslag te zien welke regel een kop is en welke een plaatsnaam. */
+.v3c .sm-streek h4 {
+  font-family: var(--fb);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--txt-dim);
+  margin: 0 0 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Een raster en geen tekstkolommen: dit staat zelf al in een kolom, en
+   kolommen in kolommen laten browsers de hoogte verkeerd schatten. */
+.v3c .sm-streek ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 2px 16px;
+  font-size: 13px;
+}
+
+.v3c .sm-streek li {
+  line-height: 1.7;
+}
+
+/* Een gemeente mét eigen pagina is onderstreept, een zonder is gewone tekst —
+   hetzelfde onderscheid als op de provinciepagina, zodat de zin erboven
+   ("de gemeenten met een eigen pagina staan als link") klopt zonder dat het
+   verschil alleen in de kleur zit. */
+.v3c .sm-streek a {
+  color: var(--txt);
+  text-decoration: underline;
+  text-decoration-color: var(--line-2);
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+
+.v3c .sm-streek a:hover {
+  color: var(--red);
+  text-decoration-color: var(--red);
+}
+
+.v3c .sm-streek span {
+  color: var(--txt-mid);
+}
+
+@media (max-width: 1040px) {
+  .v3c .sm-streken {
+    columns: 1;
+  }
+}

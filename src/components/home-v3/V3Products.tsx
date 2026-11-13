@@ -372,7 +372,7 @@ const V3Products = () => {
         <div>
           <h3>Liever niet zelf puzzelen? Bouw uw pakket op maat.</h3>
           <p>
-            Onze calculator stelt het exacte pakket samen voor uw woning, drogers, ventilatoren en
+            Onze Calculator stelt het exacte pakket samen voor uw woning, drogers, ventilatoren en
             verwarming in de juiste verhouding. Geleverd, geplaatst en afgesteld. En met één belofte:{" "}
             <b>100% droog binnen de berekende periode, of u huurt kosteloos verder.*</b>
           </p>

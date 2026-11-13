@@ -175,11 +175,11 @@ const faq = [
   ],
   [
     "Krijg ik uitleg bij het afhalen?",
-    "Ja. Aan de poort overlopen we kort waar u het toestel best zet, hoe u de streefvochtigheid instelt, wanneer u het reservoir leegt en waar u op let bij ramen en deuren. Dat duurt enkele minuten en volstaat voor een gewone droging. Wat er niet bij zit is de berekening: hoeveel toestellen uw ruimte nodig heeft en hoe lang, dat bepaalt u zelf met de calculator of u kiest levering met installatie.",
+    "Ja. Aan de poort overlopen we kort waar u het toestel best zet, hoe u de streefvochtigheid instelt, wanneer u het reservoir leegt en waar u op let bij ramen en deuren. Dat duurt enkele minuten en volstaat voor een gewone droging. Wat er niet bij zit is de berekening: hoeveel toestellen uw ruimte nodig heeft en hoe lang, dat bepaalt u zelf met de Calculator of u kiest levering met installatie.",
   ],
   [
     "Geldt de Drooggarantie ook als ik zelf afhaal?",
-    "Nee. De Drooggarantie geldt uitsluitend voor droogpakketten die via de calculator berekend en met levering en installatie geboekt zijn. Ze steunt op een vochtmeting bij de start en bij de oplevering door onze technieker, en die meting gebeurt niet bij een afhaling. Huurt u los af te halen toestellen, dan bepaalt u zelf de opstelling en de duur.",
+    "Nee. De Drooggarantie geldt uitsluitend voor droogpakketten die via de Calculator berekend en met levering en installatie geboekt zijn. Ze steunt op een vochtmeting bij de start en bij de oplevering door onze technieker, en die meting gebeurt niet bij een afhaling. Huurt u los af te halen toestellen, dan bepaalt u zelf de opstelling en de duur.",
   ],
   [
     "Hoeveel toestellen kan ik in één keer reserveren?",
@@ -362,7 +362,7 @@ const AfhalenPage = () => {
         <div className="sec-head">
           <span className="kick">Wat kunt u afhalen?</span>
           <h2 className="sec">Losse toestellen voor elke droogopstelling.</h2>
-          <p className="lede">U kiest zelf de combinatie. Twijfelt u over capaciteit of aantallen, gebruik dan de calculator of kies levering met installatie.</p>
+          <p className="lede">U kiest zelf de combinatie. Twijfelt u over capaciteit of aantallen, gebruik dan de Calculator of kies levering met installatie.</p>
         </div>
         <div className="af-range-grid">
           <article><img src="/vernast/eco-boost.webp" alt="Vernast Boost condensbouwdroger, klaar voor afhaling" loading="lazy" /><div><span>Bouwdrogers</span><h3>50 tot 110 liter per dag</h3><p>Voor chape, pleisterwerk, renovatie en de meeste waterschade.</p></div></article>

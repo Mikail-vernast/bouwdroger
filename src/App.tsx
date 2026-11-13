@@ -107,6 +107,10 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/gids/CondensAdsorptiePage")).default }),
       },
       {
+        path: "gids/natuurlijk-drogen-of-bouwdroger",
+        lazy: async () => ({ Component: (await import("./pages/gids/NatuurlijkDrogenPage")).default }),
+      },
+      {
         path: "gids/stroomverbruik-bouwdroger",
         lazy: async () => ({ Component: (await import("./pages/gids/StroomverbruikPage")).default }),
       },

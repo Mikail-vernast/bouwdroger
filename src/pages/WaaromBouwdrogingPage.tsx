@@ -143,7 +143,7 @@ const WaaromBouwdrogingPage = () => (
         <div className="sec-head">
           <span className="kick rv">Meer dan liters per dag</span>
           <h2 className="sec rv">Van "50 liter per 24 uur" naar een droogplan.</h2>
-          <p className="lede rv d1">Bouwdrogers worden vaak verhuurd op één getal. Maar de werkelijke wateronttrekking verandert sterk met temperatuur en luchtvochtigheid: een toestel dat in warme, vochtige testomstandigheden tientallen liters haalt, condenseert veel minder zodra het gebouw al gedeeltelijk droog is. Daarom dimensioneert onze <Link to="/verhuur/calculator">calculator</Link> nooit op het getal op de machine alleen, maar op:</p>
+          <p className="lede rv d1">Bouwdrogers worden vaak verhuurd op één getal. Maar de werkelijke wateronttrekking verandert sterk met temperatuur en luchtvochtigheid: een toestel dat in warme, vochtige testomstandigheden tientallen liters haalt, condenseert veel minder zodra het gebouw al gedeeltelijk droog is. Daarom dimensioneert onze <Link to="/verhuur/calculator">Calculator</Link> nooit op het getal op de machine alleen, maar op:</p>
         </div>
         <div className="wk">
           <div className="wi rv"><i></i><span><b>Het gebouw</b>, inhoud, aantal ruimtes, verdiepingen en hoe lucht er kan circuleren.</span></div>
@@ -155,7 +155,7 @@ const WaaromBouwdrogingPage = () => (
           <div className="mb-t">
             <span className="mbk">Vóór de machine wordt geplaatst</span>
             <h3>Een efficiënte bouwdroging begint op papier.</h3>
-            <p>De grootste bouwdroger kiezen is eenvoudig; de juiste droogstrategie bepalen vraagt meer. Welke materialen moeten drogen? Kan lucht vrij circuleren? Eén droogzone of meerdere? Pas daarna wordt de capaciteit bepaald en verdeeld, dat is <Link to="/waarom-bouwdroging">uw droogplan</Link>, en u krijgt het meteen uit de <Link to="/verhuur/calculator">calculator</Link>.</p>
+            <p>De grootste bouwdroger kiezen is eenvoudig; de juiste droogstrategie bepalen vraagt meer. Welke materialen moeten drogen? Kan lucht vrij circuleren? Eén droogzone of meerdere? Pas daarna wordt de capaciteit bepaald en verdeeld, dat is <Link to="/waarom-bouwdroging">uw droogplan</Link>, en u krijgt het meteen uit de <Link to="/verhuur/calculator">Calculator</Link>.</p>
           </div>
           <img className="mb-man" src="/vernast/man-klembord.webp" alt="Vernast technicus stelt het droogplan op" style={{ width: "min(24%,250px)" }} />
         </div>

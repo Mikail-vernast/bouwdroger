@@ -270,7 +270,7 @@ const DrooggarantieV2Page = () => (
           <div className="dgv2-fineprint">
             <strong>* Samengevat</strong>
             <p>
-              De Drooggarantie geldt voor droogpakketten die via de calculator zijn berekend en met
+              De Drooggarantie geldt voor droogpakketten die via de Calculator zijn berekend en met
               levering en installatie zijn geboekt. Losse toestellen en zelf afhalen vallen erbuiten.
               De opstelling moet ongewijzigd en continu hebben gewerkt. Actieve lekken, opstijgend
               grondvocht, nieuwe waterschade en nieuw aangebracht nat materiaal vallen buiten de

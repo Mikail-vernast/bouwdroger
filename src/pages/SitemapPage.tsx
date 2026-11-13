@@ -13,7 +13,9 @@ import {
   TOESTELLEN,
   type NavLinkItem,
 } from "@/data/navigation";
-import { GEMEENTE_ROUTES } from "@/data/gemeente-slugs";
+import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
+import { REGIO_ROUTES } from "@/data/regio-slugs";
+import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import { REALISATIES } from "@/data/realisaties";
 import "@/styles/v3-content.css";
 import "@/styles/sitemap.css";
@@ -122,11 +124,6 @@ const SitemapPage = () => {
     path: `/realisaties/${r.slug}`,
   }));
 
-  const gemeenten: NavLinkItem[] = GEMEENTE_ROUTES.map((g) => ({
-    label: g.name,
-    path: g.path,
-  }));
-
   const alles = blokken.flatMap((b) => b.items);
 
   return (
@@ -194,10 +191,43 @@ const SitemapPage = () => {
               ))}
             </div>
 
-            <nav className="sm-breed" aria-labelledby="sm-regio">
+            {/*
+              Het werkgebied staat per provincie en per streek, dezelfde
+              indeling als op de provinciepagina zelf.
+
+              Waarom niet gewoon de vijf provincielinks: wie op een sitemap
+              kijkt, zoekt zijn eigen gemeente. Die stonden hier als één rij
+              van zeventien namen — de zeventien met een eigen pagina — en
+              daarmee leek het werkgebied zeventien gemeenten groot in plaats
+              van de ruim 290 waar we effectief leveren.
+
+              De zeventien gemeenten met een eigen pagina stonden daarnaast
+              nog eens als losse rij onderaan. Die rij viel onder de streeklijst
+              van Limburg en las daardoor als "en dit zijn ook Limburgse
+              gemeenten", terwijl het Aartselaar en Mechelen waren. Ze is weg:
+              `provincieGemeenten.test.ts` bewaakt dat elke gemeentepagina hier
+              net zo gespeld staat als in `gemeente-slugs.ts` en dus hoe dan ook
+              een link krijgt — wat `audit-seo.mjs` na de build eist.
+
+              De districten van Antwerpen (Berchem, Deurne, Ekeren, …) staan in
+              de streek "Stad Antwerpen en districten" als gewone tekst, omdat
+              ze nog geen eigen pagina hebben. Krijgen ze er één, dan is hier
+              niets aan te passen: `gemeenteVanPlaats()` maakt er een link van
+              zodra de naam in `gemeente-slugs.ts` staat — precies zoals Wilrijk
+              nu al een link is.
+
+              De streekomschrijving uit `provincie-gemeenten.ts` blijft hier
+              weg, al staat ze op de provinciepagina wel bij elke streek: die
+              zinnen een tweede keer afdrukken maakt van deze pagina een
+              kopie van stukken provinciepagina, en dat is precies wat
+              `audit-seo.mjs` als dubbele inhoud aanrekent. Een sitemap is een
+              wegwijzer, geen tweede tekst.
+            */}
+            <section className="sm-breed" aria-labelledby="sm-regio">
               <h2 id="sm-regio">Werkgebied</h2>
               <p className="sm-uit">
-                Vijf provinciepagina's en de gemeenten waar we het vaakst leveren.
+                Vijf provinciepagina's en elke gemeente waar we leveren, per streek. De gemeenten
+                met een eigen pagina staan als link; de rest bedienen we even goed.
               </p>
               <ul className="sm-rij">
                 {REGIOS.map((item) => (
@@ -206,14 +236,47 @@ const SitemapPage = () => {
                   </li>
                 ))}
               </ul>
-              <ul className="sm-rij sm-klein">
-                {gemeenten.map((item) => (
-                  <li key={item.path}>
-                    <Link to={item.path}>{item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+
+              {REGIO_ROUTES.map((regio) => {
+                const streken = STREKEN_PER_REGIO[regio.slug] ?? [];
+                const aantal = streken.reduce((n, s) => n + s.gemeenten.length, 0);
+                return (
+                  <div className="sm-prov" key={regio.slug}>
+                    <h3>
+                      <Link to={regio.path}>Bouwdroger huren in {regio.name}</Link>
+                      <span className="sm-telling">{aantal} gemeenten</span>
+                    </h3>
+                    <div className="sm-streken">
+                      {streken.map((streek) => (
+                        <div className="sm-streek" key={streek.naam}>
+                          <h4>{streek.naam}</h4>
+                          <ul>
+                            {/* Alfabetisch, en niet in de volgorde van
+                              `provincie-gemeenten.ts`: op de provinciepagina
+                              leest die lijst als een opsomming in een zin,
+                              hier zoekt iemand één naam tussen dertig. */}
+                            {[...streek.gemeenten]
+                              .sort((a, b) => a.localeCompare(b, "nl"))
+                              .map((naam) => {
+                                const eigen = gemeenteVanPlaats(naam);
+                                return (
+                                  <li key={naam}>
+                                    {eigen ? (
+                                      <Link to={eigen.path}>{naam}</Link>
+                                    ) : (
+                                      <span>{naam}</span>
+                                    )}
+                                  </li>
+                                );
+                              })}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </section>
 
             <nav className="sm-breed" aria-labelledby="sm-real">
               <h2 id="sm-real">Realisaties</h2>

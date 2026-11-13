@@ -246,11 +246,11 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                   <div className="mft">
                     <b>Niet zeker welk pakket u nodig heeft?</b>
                     <span>
-                      Onze calculator bepaalt in 5 vragen de juiste toestellen, droogtijd en prijs.
+                      Onze Calculator bepaalt in 5 vragen de juiste toestellen, droogtijd en prijs.
                     </span>
                   </div>
                   <Link className="btn-offerte" to="/verhuur/calculator">
-                    Bereken uw pakket
+                    Gratis Calculator
                   </Link>
                 </div>
               </div>
@@ -285,12 +285,12 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                   <div className="mft">
                     <b>Liever eerst weten wat het kost?</b>
                     <span>
-                      De calculator rekent uw volume uit en zegt welk toestel en welke droogtijd erbij
+                      De Calculator rekent uw volume uit en zegt welk toestel en welke droogtijd erbij
                       horen.
                     </span>
                   </div>
                   <Link className="btn-offerte" to="/verhuur/calculator">
-                    Bereken uw pakket
+                    Gratis Calculator
                   </Link>
                 </div>
               </div>
@@ -318,7 +318,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
           <i id="cartCount">1</i>
         </Link>
         <Link className="btn-offerte mnav-cta-sm" to="/verhuur/calculator">
-          Bereken uw pakket
+          Gratis Calculator
         </Link>
       </div>
     </header>

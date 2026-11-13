@@ -126,7 +126,7 @@ const combinaties = DROGERS.map((t) => ({
 const faqs = [
   {
     q: "Hoeveel liter per dag heb ik nodig?",
-    a: `Reken eerst het volume van de ruimte uit: vloeroppervlakte maal plafondhoogte. Onze kleinste droger, de ${KLEINSTE.short}, is bedoeld voor ruimtes tot ${KLEINSTE.volume} m³; de ${GROOTSTE.short} gaat tot ${GROOTSTE.volume} m³. Veel nat materiaal, zoals een dikke chape of verse waterschade, vraagt meer capaciteit dan het volume alleen doet vermoeden. Twijfelt u, neem dan het grotere toestel of laat de calculator rekenen.`,
+    a: `Reken eerst het volume van de ruimte uit: vloeroppervlakte maal plafondhoogte. Onze kleinste droger, de ${KLEINSTE.short}, is bedoeld voor ruimtes tot ${KLEINSTE.volume} m³; de ${GROOTSTE.short} gaat tot ${GROOTSTE.volume} m³. Veel nat materiaal, zoals een dikke chape of verse waterschade, vraagt meer capaciteit dan het volume alleen doet vermoeden. Twijfelt u, neem dan het grotere toestel of laat de Calculator rekenen.`,
   },
   {
     q: "Wat is het verschil tussen een condensdroger en een adsorptiedroger?",
@@ -455,7 +455,7 @@ const MachinesPage = () => (
             <b>Losse toestellen haalt u af in Aartselaar</b>, tegen lagere afhaalprijzen, via de{" "}
             <Link to="/verhuur/afhalen">afhaal-checkout</Link>. Leveren, plaatsen en afstellen doen
             wij enkel per pakket: alleen dan kunnen we de <Link to="/drooggarantie">drooggarantie</Link>{" "}
-            waarmaken. De <Link to="/verhuur/calculator">calculator</Link> stelt dat pakket samen.
+            waarmaken. De <Link to="/verhuur/calculator">Calculator</Link> stelt dat pakket samen.
           </div>
         </div>
       </section>
@@ -647,7 +647,7 @@ const MachinesPage = () => (
               <span className="mbk">Twijfelt u nog</span>
               <h3>U hoeft niet zelf te kiezen welk toestel het wordt.</h3>
               <p>
-                Geef ons uw oppervlakte en uw situatie, dan rekent de calculator het volledige
+                Geef ons uw oppervlakte en uw situatie, dan rekent de Calculator het volledige
                 pakket uit: droger, ventilator en kachel in de juiste verhouding. Of u belt ons en
                 we doen het aan de telefoon.
               </p>
@@ -674,11 +674,11 @@ const MachinesPage = () => (
         </div>
       </section>
 
-      <VerderLezen
-        titel="Verder lezen over het materiaal"
-        groepen={verderLezen}
-        achtergrond="sr"
-      />
+      {/* Wit en niet rood, net als op /prijzen: de witte kaarten waren op dat
+          rode vlak het enige contrast, en drie kaarten op rood lezen als een
+          tweede slotplaat vlak achter de echte. De scheiding komt nu van
+          `--bg-alt` (#F4F4F4), dat `.sw .vlcard` op een witte sectie zet. */}
+      <VerderLezen titel="Verder lezen over het materiaal" groepen={verderLezen} />
 
       <ContactBlok
         achtergrond="wit"

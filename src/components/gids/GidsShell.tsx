@@ -34,7 +34,19 @@ interface GidsShellProps {
    * heeft een beeld dat haar vraag echt illustreert, en een toestelfoto naast
    * een uitlegkop leest als een advertentie.
    */
-  heroImg?: { src: string; alt: string; width?: string };
+  heroImg?: {
+    src: string;
+    alt: string;
+    width?: string;
+    /**
+     * Een echte foto in plaats van een uitgesneden beeld: afgeronde hoeken en
+     * een slagschaduw onder het kader. De andere gidsen tonen de ploeg als
+     * transparante uitsnede, en die staat met scherpe hoeken op de onderrand
+     * van het rood. Een rechthoekige foto leest zo als een losse rechthoek die
+     * op de hero geplakt is.
+     */
+    rond?: boolean;
+  };
   /** Het zwevende kaartje naast de herofoto; weglaten = geen kaartje. */
   heroBadge?: ReactNode;
   /**
@@ -187,6 +199,7 @@ const GidsShell = ({
           {heroImg && (
             <div className="hero-vis">
               <img
+                className={heroImg.rond ? "rond" : undefined}
                 src={heroImg.src}
                 alt={heroImg.alt}
                 style={{ width: heroImg.width ?? "min(100%,520px)", position: "relative", zIndex: 1 }}

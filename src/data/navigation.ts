@@ -45,6 +45,11 @@ const TOESTEL_LABEL: Record<string, string> = {
   // op "radiaalventilator huren".
   ttv4500: "Highflow axiaalventilator",
   radiaal2250: "Turboflow radiaalventilator",
+  // Het portaal kort dit toestel af tot "Revolution". Dat is de modelnaam en
+  // verder niets: in de footer, het menu en op /sitemap stond één regel
+  // tussen zeven bouwdrogers en ventilatoren waaraan niet te zien was wat ze
+  // is. Het soortwoord erachter, net als bij de twee ventilatoren hierboven.
+  revolution: "Revolution adsorptiedroger",
   teddh30: "Elektrische kachel 30 kW",
   teddh20: "Elektrische kachel 20 kW",
 };
@@ -186,14 +191,16 @@ export const KIEZEN: NavLinkItem[] = [
  * verwante infopagina /afhalen staat bij Prijzen & service; dit is de
  * reservering zelf.
  *
- * De volgorde is de ladder die een bezoeker afgaat: eerst zien wat er is, dan
- * één toestel, dan een volledig pakket, dan het laten berekenen.
+ * Twee links en niet vier: "Alles in één Droogservice" en "Bereken uw
+ * droogpakket" stonden er ook in, en dat zijn bestelstappen. In een menu dat
+ * "Alles over drogen" heet — naast Uitleg, Gidsen en Toepassingen — lezen ze
+ * als een aanbod tussen de informatie. Ze staan allebei in het menu
+ * Bouwdroging (`PAKKETTEN`), op /sitemap en in de voet, en de calculator
+ * bovendien als knop rechts in de balk; er gaat dus niets verloren.
  */
 export const GAMMA: NavLinkItem[] = [
   { label: "Ons volledige gamma", path: "/machines" },
   { label: "Losse toestellen afhalen", path: "/verhuur/afhalen" },
-  { label: "Alles in één Droogservice", path: "/verhuur/pakket" },
-  { label: "Bereken uw droogpakket", path: "/verhuur/calculator" },
 ];
 
 /** Het bedrijf achter de toestellen. */
@@ -212,6 +219,7 @@ export const BEDRIJF: NavLinkItem[] = [
 export const GIDSEN: NavLinkItem[] = [
   { label: "Hoe lang moet chape drogen?", path: "/gids/hoe-lang-moet-chape-drogen" },
   { label: "Hoe lang moet pleisterwerk drogen?", path: "/gids/hoe-lang-moet-pleisterwerk-drogen" },
+  { label: "Natuurlijk drogen of een bouwdroger?", path: "/gids/natuurlijk-drogen-of-bouwdroger" },
   { label: "Condensdroger of adsorptiedroger?", path: "/gids/condensdroger-of-adsorptiedroger" },
   { label: "Stroomverbruik van een bouwdroger", path: "/gids/stroomverbruik-bouwdroger" },
 ];

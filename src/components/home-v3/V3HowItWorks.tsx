@@ -51,8 +51,8 @@ const STEPS: HiwStep[] = [
     step: "Stap 01",
     tab: "Bereken uw pakket",
     heading: "U berekent, wij dimensioneren.",
-    body: "Geef uw oppervlakte, plafondhoogte en situatie in. De calculator berekent uw volume en stelt het exacte pakket samen: toestellen, droogtijd en één all-in prijs.",
-    linkLabel: "Start de calculator →",
+    body: "Geef uw oppervlakte, plafondhoogte en situatie in. De Calculator berekent uw volume en stelt het exacte pakket samen: toestellen, droogtijd en één all-in prijs.",
+    linkLabel: "Start de Calculator →",
     linkTo: "/verhuur/calculator",
     mock: mockCard(
       <>
@@ -140,7 +140,7 @@ const STEPS: HiwStep[] = [
     tab: "Ophaling of verlenging",
     heading: "Droog gemeten? Wij halen alles op.",
     body: "De eindmeting bevestigt dat uw woning 100% droog is. Wij plannen de ophaling en sluiten de huur af. Niet droog? Dan verlengt u maximaal kosteloos.",
-    linkLabel: "Bereken uw pakket →",
+    linkLabel: "Gratis Calculator →",
     linkTo: "/verhuur/calculator",
     mock: mockCard(
       <>

@@ -80,15 +80,15 @@ const V3Hero = () => (
             Bereken uw bouwdroging
             <ArrowRightIcon />
           </Link>
-          <Link
-            className="btn"
-            to="/drooggarantie"
-            style={{
-              background: "rgba(255,255,255,.14)",
-              color: "#fff",
-              border: "1.5px solid rgba(255,255,255,.4)",
-            }}
-          >
+          {/*
+            Zwart, niet doorschijnend wit. De glazen variant hing met 14 % wit
+            op een donkerrode grond: op een helder scherm las ze nog als een
+            knop, op een getemperd scherm als een kader met tekst erin. Zwart
+            staat los van de achtergrond en blijft de tweede knop, want de
+            witte ernaast blijft de eerste. `btn-dark` bestaat al in
+            home-v3.css, inclusief hover naar puur zwart.
+          */}
+          <Link className="btn btn-dark" to="/drooggarantie">
             Bekijk de drooggarantie
           </Link>
         </div>

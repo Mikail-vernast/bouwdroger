@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
@@ -5,6 +6,7 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
 import ContactBlok from "@/components/content/ContactBlok";
 import FaqBlok from "@/components/content/FaqBlok";
+import { nadruk } from "@/components/content/nadruk";
 import {
   ArrowRightIcon,
   BoltIcon,
@@ -24,8 +26,9 @@ import { REGIO_BY_PATH, REGIO_ROUTES } from "@/data/regio-slugs";
 import { gemeentenInRegio, gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import {
+  bereikLabel,
   droogtermijnen,
-  natuurlijkeChapeWeken,
+  natuurlijkeChapeBereik,
   natuurlijkePleisterWeken,
   termijnLabel,
 } from "@/lib/droogtijden";
@@ -56,12 +59,43 @@ import "@/styles/v3-content.css";
  * `bouwdroger-huren-:regio` (een parameter moet een heel segment zijn), dus
  * App.tsx registreert vijf vaste routes die allemaal hier uitkomen.
  */
+/**
+ * Wit en rood wisselen strikt af, en die kleur komt uit de volgorde — niet uit
+ * elke sectie apart.
+ *
+ * Met een vaste klasse per sectie klopte het ritme alleen zolang niemand iets
+ * verplaatste of oversloeg, en dat was precies wat er gebeurde: de rode
+ * slotplaat onderaan de witte FAQ werd op beide volgordes gevolgd door een
+ * rode sectie, dus stonden daar twee rode vlakken tegen elkaar. Daar kwam bij
+ * dat vier van de vijf provincies geen strekenlijst hebben: hun droogtijden-
+ * en gemeentensectie vallen weg, en elke sectie erna stond vanaf dat punt op
+ * de verkeerde kleur.
+ *
+ * Daarom krijgt elke sectie haar kleur als argument en bepaalt de lijst in
+ * `RegioPage` de beurtrol. Een sectie die niet getoond wordt, staat niet in de
+ * lijst en verbruikt dus ook geen beurt.
+ */
+type Kleur = "sw" | "sr";
+type Sectie = (kleur: Kleur) => ReactNode;
+
+/** Wit, rood, wit, rood — geteld vanaf de eerste sectie na een rood vlak. */
+const beurt = (i: number): Kleur => (i % 2 === 0 ? "sw" : "sr");
+
+/*
+  Een knop die op een rode sectie staat heeft de omgekeerde vulling nodig van
+  dezelfde knop op wit. Nu de kleur uit de volgorde komt en niet meer vastligt,
+  kan een sectie van achtergrond wisselen zonder dat iemand eraan denkt — dus
+  volgen de knoppen mee in plaats van vast te staan.
+*/
+const hoofdKnop = (k: Kleur) => (k === "sr" ? "btn btn-white" : "btn");
+const tweedeKnop = (k: Kleur) => (k === "sr" ? "btn btn-ghost" : "btn btn-line");
+
 /** De vier stappen van een huur, voor de sectie onderaan elke regiopagina. */
 const VERLOOP = [
   {
     Icon: CalendarCheckIcon,
     title: "U reserveert",
-    desc: "Online via de calculator of met één telefoontje. U kiest zelf de leverdag; twijfelt u over het volume, dan rekenen wij het door.",
+    desc: "Online via de Calculator of met één telefoontje. U kiest zelf de leverdag; twijfelt u over het volume, dan rekenen wij het door.",
   },
   {
     Icon: TruckIcon,
@@ -124,17 +158,37 @@ const RegioPage = () => {
   */
   const drogers = Object.values(PRODUCTS).filter((p) => /ontvochtiger|droger/i.test(p.type));
   const goedkoopsteDag = euroInt(Math.min(...drogers.map((p) => p.day)));
+  /*
+    De werffoto van deze provincie (`regio.beeld`) hangt aan "Waarvoor huren
+    Antwerpenaren een bouwdroger?" -- daar hoort ze, want ze toont een werf uit
+    déze streek. Op West-Vlaanderen staat die sectie niet in de volgorde en zou
+    de foto nergens getoond worden; daar draagt de prijssectie ze.
 
-  const localDryingSection = (<>
-{/* ================= WAT WE HIER DROGEN ================= */}
-      <section className="sw">
+    Elders zou dezelfde foto dan twee keer op één pagina staan. Daar staat de
+    gerustgestelde klant naast de prijs, dezelfde uitsnede als in de hero van
+    /prijzen -- gevraagd op 13-11-2026, met die pagina erbij als voorbeeld. Een
+    uitsnede, dus geen afgeronde hoeken: `cut` haalt de fotolijst weg en de
+    schaduw volgt vanzelf de omtrek.
+  */
+  const prijsBeeld = isWest
+    ? { ...regio.beeld, uitsnede: false }
+    : {
+        src: "/vernast/man-zen-crop.webp",
+        alt: "Zorgeloos huren bij Vernast: één prijs vooraf, geen waarborg",
+        uitsnede: true,
+      };
+
+  const localDryingSection: Sectie = (kleur) => (
+    <>
+      {/* ================= WAT WE HIER DROGEN ================= */}
+      <section className={kleur}>
         <div className="wrap split">
           <div className="sec-head" style={{ marginBottom: 0 }}>
             <span className="kick">Wat we hier drogen</span>
             <h2 className="sec">{regio.bouw.kop}</h2>
             {regio.bouw.alineas.map((alinea) => (
               <p className="lede" key={alinea}>
-                {alinea}
+                {nadruk(alinea)}
               </p>
             ))}
           </div>
@@ -150,11 +204,13 @@ const RegioPage = () => {
           </Reveal>
         </div>
       </section>
-  </>);
+    </>
+  );
 
-  const equipmentSection = (<>
-{/* ================= TOESTELLEN ================= */}
-      <section className="sr">
+  const equipmentSection: Sectie = (kleur) => (
+    <>
+      {/* ================= TOESTELLEN ================= */}
+      <section className={kleur}>
         <div className="wrap">
           <div className="sec-head mid">
             <span className="kick">De toestellen</span>
@@ -164,7 +220,13 @@ const RegioPage = () => {
             {regio.toestellen.items.map((item, i) => {
               const p = PRODUCTS[item.key];
               return (
-                <Reveal from="up" delay={(i % 3) * 0.08} as="article" className="prod" key={item.key}>
+                <Reveal
+                  from="up"
+                  delay={(i % 3) * 0.08}
+                  as="article"
+                  className="prod"
+                  key={item.key}
+                >
                   <div className="pimg">
                     <img
                       src={p.img[0]}
@@ -184,7 +246,9 @@ const RegioPage = () => {
                     zeiden. `toestelLabel()` is dezelfde bron als die drie.
                   */}
                   <h3>{toestelLabel(item.key)}</h3>
-                  <p className="pdesc" style={{ marginBottom: "18px" }}>{item.waarom}</p>
+                  <p className="pdesc" style={{ marginBottom: "18px" }}>
+                    {nadruk(item.waarom)}
+                  </p>
                   {/*
                     Kort op het scherm, volledig voor een schermlezer. "Bekijk
                     Highflow axiaalventilator" brak over twee regels en duwde de
@@ -206,29 +270,39 @@ const RegioPage = () => {
           </div>
           <div className="note">
             Twijfelt u tussen twee toestellen?{" "}
-            <Link to="/verhuur/calculator">Bereken hoeveel liter per dag uw ruimte nodig heeft</Link> of
-            bekijk <Link to="/machines">het volledige gamma</Link>.
+            <Link to="/verhuur/calculator">
+              Bereken hoeveel liter per dag uw ruimte nodig heeft
+            </Link>{" "}
+            of bekijk <Link to="/machines">het volledige gamma</Link>.
           </div>
         </div>
       </section>
-  </>);
+    </>
+  );
 
-  const deliverySection = (<>
-{/* ================= AFHALEN OF LEVEREN ================= */}
-      <section className="sw">
+  const deliverySection: Sectie = (kleur) => (
+    <>
+      {/* ================= AFHALEN OF LEVEREN ================= */}
+      <section className={kleur}>
         <div className="wrap">
           <div className="sec-head mid">
             <span className="kick">Twee manieren</span>
-            <h2 className="sec">{isWest ? "Leveren in West-Vlaanderen of afhalen bij Antwerpen?" : `Afhalen of leveren in ${regio.name}?`}</h2>
+            <h2 className="sec">
+              {isWest
+                ? "Leveren in West-Vlaanderen of afhalen bij Antwerpen?"
+                : `Afhalen of leveren in ${regio.name}?`}
+            </h2>
           </div>
           <div className="split32">
             <Reveal from="up" className="paneel">
               <div className="phead">
-                <span><TruckIcon size={19} /></span>
+                <span>
+                  <TruckIcon size={19} />
+                </span>
                 <h3>{regio.levering.kop}</h3>
               </div>
               {regio.levering.alineas.map((alinea) => (
-                <p key={alinea}>{alinea}</p>
+                <p key={alinea}>{nadruk(alinea)}</p>
               ))}
               <dl className="feiten">
                 {regio.levering.feiten.map((feit) => (
@@ -254,11 +328,15 @@ const RegioPage = () => {
             </Reveal>
             <Reveal from="up" delay={0.08} className="paneel">
               <div className="phead">
-                <span><CartIcon size={19} /></span>
-                <h3>{isWest ? "Zelf afhalen: Aartselaar, A12 bij Antwerpen" : regio.afhalen.kop}</h3>
+                <span>
+                  <CartIcon size={19} />
+                </span>
+                <h3>
+                  {isWest ? "Zelf afhalen: Aartselaar, A12 bij Antwerpen" : regio.afhalen.kop}
+                </h3>
               </div>
               {regio.afhalen.alineas.map((alinea) => (
-                <p key={alinea}>{alinea}</p>
+                <p key={alinea}>{nadruk(alinea)}</p>
               ))}
               <p style={{ marginTop: "18px" }}>
                 <b style={{ color: "var(--txt)" }}>
@@ -299,61 +377,65 @@ const RegioPage = () => {
           </div>
         </div>
       </section>
-  </>);
+    </>
+  );
 
-  const projectsSection = (<>
-{/* ================= REALISATIES ================= */}
-      {realisaties.length > 0 && (
-        <section className="sr">
-          <div className="wrap">
-            <div className="sec-head mid">
-              <span className="kick">Uit de praktijk</span>
-              <h2 className="sec">{regio.realisaties.kop}</h2>
-              {/* De intro beschrijft de uitgelichte werven; sinds álle werven
+  const projectsSection: Sectie = (kleur) => (
+    <>
+      {/* ================= REALISATIES ================= */}
+      <section className={kleur}>
+        <div className="wrap">
+          <div className="sec-head mid">
+            <span className="kick">Uit de praktijk</span>
+            <h2 className="sec">{regio.realisaties.kop}</h2>
+            {/* De intro beschrijft de uitgelichte werven; sinds álle werven
                   uit de provincie als kaart staan (zie `werven` hierboven)
                   klopte "Drie projecten" niet meer met de negen kaarten
                   eronder. De rest wordt nu geteld in plaats van verzwegen. */}
-              <p className="lede">
-                {regio.realisaties.intro}
-                {werven.length > regio.realisaties.slugs.length && (
-                  <>
-                    {" "}
-                    Daaronder volgt elke andere werf die we in {regio.name} droogden,{" "}
-                    {werven.length} in totaal.
-                  </>
-                )}
-              </p>
-            </div>
-            <div className={`rzs${isWest && werven.length === 2 ? " twee" : ""}`}>
-              {werven.map((r, i) => (
-                <Reveal from="up" delay={(i % 3) * 0.08} key={r.slug}>
-                  <Link className="rz" to={`/realisaties/${r.slug}`}>
-                    <img
-                      src={r.kaart}
-                      alt={r.kaartAlt}
-                      width={640}
-                      height={420}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="rzt">
-                      <span className="rzl">{r.locatie}</span>
-                      <h3>{r.titel}</h3>
-                    </div>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-            <p className="tblnote" style={{ textAlign: "center" }}>
-              <Link to="/realisaties" style={{ fontWeight: 600 }}>Alle realisaties bekijken</Link>
+            <p className="lede">
+              {regio.realisaties.intro}
+              {werven.length > regio.realisaties.slugs.length && (
+                <>
+                  {" "}
+                  Daaronder volgt elke andere werf die we in {regio.name} droogden, {werven.length}{" "}
+                  in totaal.
+                </>
+              )}
             </p>
           </div>
-        </section>
-      )}
-  </>);
+          <div className={`rzs${isWest && werven.length === 2 ? " twee" : ""}`}>
+            {werven.map((r, i) => (
+              <Reveal from="up" delay={(i % 3) * 0.08} key={r.slug}>
+                <Link className="rz" to={`/realisaties/${r.slug}`}>
+                  <img
+                    src={r.kaart}
+                    alt={r.kaartAlt}
+                    width={640}
+                    height={420}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="rzt">
+                    <span className="rzl">{r.locatie}</span>
+                    <h3>{r.titel}</h3>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+          <p className="tblnote" style={{ textAlign: "center" }}>
+            <Link to="/realisaties" style={{ fontWeight: 600 }}>
+              Alle realisaties bekijken
+            </Link>
+          </p>
+        </div>
+      </section>
+    </>
+  );
 
-  const faqSection = (<>
-{/* ================= FAQ ================= */}
+  const faqSection: Sectie = () => (
+    <>
+      {/* ================= FAQ ================= */}
       {/* De titel luidde "Bouwdrogers huren in {regio.name}." — op één letter
           na de H1 van deze pagina, dus twee koppen op dezelfde zoekintentie
           binnen één document. */}
@@ -373,21 +455,32 @@ const RegioPage = () => {
             <span className="mbk">Bouwdroger nodig in {regio.name}</span>
             <h3>Bereken uw pakket, reserveer online, en morgen staat het er.</h3>
             <p>
-              Geplaatst en ingesteld door onze technieker, met een vochtmeting bij de start en
-              bij de oplevering. Liever eerst even overleggen? Bel ons gerust.
+              Geplaatst en ingesteld door onze technieker, met een vochtmeting bij de start en bij
+              de oplevering. Liever eerst even overleggen? Bel ons gerust.
             </p>
+            {/*
+              Eén knop, niet twee. Het telefoonnummer stond hier als omlijnde
+              knop én twee blokken hoger als witte knop in het hulpkaartje van
+              de FAQ -- twee keer hetzelfde nummer binnen één schermhoogte. Het
+              kaartje is de betere plek: daar staat het naast de vraag waarop
+              bellen het antwoord is.
+            */}
             <div className="mb-cta">
               <Link className="btn btn-white" to="/verhuur/calculator">
                 Bereken uw droogpakket
                 <ArrowRightIcon />
               </Link>
-              <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
-                <PhoneIcon /> {CONTACT.phoneLocal}
-              </a>
             </div>
           </div>
+          {/*
+            `tegenrand` op allebei de varianten. De bestelwagen staat met zijn
+            rechterrand tegen de rand van het beeld, maar de band heeft 44px
+            binnenmarge -- op de provinciepagina's stopte de wagen daardoor
+            vier centimeter voor de rand van het rode blok en leek hij er
+            middenin te zweven. Op West-Vlaanderen stond die klasse er al.
+          */}
           <img
-            className={`mb-man breed ${isWest ? "tegenrand regio-wagen" : "bijsnijden"}`}
+            className={`mb-man breed tegenrand ${isWest ? "regio-wagen" : "bijsnijden"}`}
             src="/vernast/man-bestelwagen.webp"
             alt="Vernast technicus bij de bestelwagen met een bouwdroger"
             width={1440}
@@ -397,10 +490,12 @@ const RegioPage = () => {
           />
         </div>
       </FaqBlok>
-  </>);
+    </>
+  );
 
-  const dryingTimesSection = (<>
-{/* ================= DROOGTIJDEN ================= */}
+  const dryingTimesSection: Sectie = (kleur) => (
+    <>
+      {/* ================= DROOGTIJDEN ================= */}
       {/*
         Wat iemand na de prijs het vaakst wil weten: hoe lang staat dat ding
         er dan? Die vraag werd op deze pagina nergens beantwoord -- ze stond
@@ -422,75 +517,70 @@ const RegioPage = () => {
         geverifieerde lijst voor een provincie heeft, krijgt die pagina ze
         allebei. Antwerpen heeft er nu 61% eigen tekst mee.
       */}
-      {chape.length > 0 && streken.length > 0 && (
-        <section className={isWest ? "sw" : "sr"}>
-          <div className="wrap">
-            <div className="sec-head">
-              <span className="kick">Hoe lang duurt het</span>
-              <h2 className="sec">Droogtijden met en zonder bouwdroger.</h2>
-              <p className="lede">
-                De huurtermijnen hieronder zijn die van onze droogpakketten, dezelfde als de
-                calculator aanrekent. Ze gelden in heel {regio.name}: de droogtijd hangt af van
-                dikte, volume en temperatuur, niet van uw postcode.
-              </p>
-            </div>
-
-            <div className="tblwrap">
-              <div className="tblscroll">
-                <table className="tbl">
-                  <caption className="sr-only">Droogtijden per materiaal en dikte</caption>
-                  <thead>
-                    <tr>
-                      <th scope="col">Wat moet drogen</th>
-                      <th scope="col">Zonder droger</th>
-                      <th scope="col">Met droogpakket</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {chape.map((rij) => (
-                      <tr key={`chape-${rij.dikte}`}>
-                        <th scope="row">Cementchape {rij.dikte} cm</th>
-                        <td>± {natuurlijkeChapeWeken(rij.dikte)} weken</td>
-                        <td>
-                          <b>{termijnLabel(rij)}</b>
-                        </td>
-                      </tr>
-                    ))}
-                    {pleister.map((rij) => {
-                      const nat = natuurlijkePleisterWeken(rij.dikte);
-                      return (
-                        <tr key={`pleister-${rij.dikte}`}>
-                          <th scope="row">Pleisterwerk {rij.dikte} cm</th>
-                          <td>
-                            ± {nat.min === nat.max ? nat.min : `${nat.min} tot ${nat.max}`} weken
-                          </td>
-                          <td>
-                            <b>{termijnLabel(rij)}</b>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <p className="tblnote">
-              &ldquo;Zonder droger&rdquo; is de vuistregel uit de bouwpraktijk bij een goed
-              verluchte ruimte rond 20 &deg;C &mdash; een richtwaarde, geen meting. In een koude of
-              gesloten ruimte loopt ze flink op, en dat is precies waar een bouwdroger het verschil
-              maakt. Wat telt is de eindmeting: is het op de afgesproken datum niet droog, dan
-              huurt u kosteloos verder.{" "}
-              <Link to="/gids/hoe-lang-moet-chape-drogen">Hoe lang chape moet drogen</Link> legt het
-              per situatie uit.
+      <section className={kleur}>
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick">Hoe lang duurt het</span>
+            <h2 className="sec">Droogtijden met en zonder bouwdroger.</h2>
+            <p className="lede">
+              De huurtermijnen hieronder zijn die van onze droogpakketten,{" "}
+              <b>dezelfde als de Calculator aanrekent</b>. Ze gelden in heel {regio.name}: de
+              droogtijd hangt af van dikte, volume en temperatuur, <b>niet van uw postcode</b>.
             </p>
           </div>
-        </section>
-      )}
-  </>);
 
-  const townsSection = (<>
-{/* ================= GEMEENTEN PER STREEK ================= */}
+          <div className="tblwrap">
+            <div className="tblscroll">
+              <table className="tbl">
+                <caption className="sr-only">Droogtijden per materiaal en dikte</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Wat moet drogen</th>
+                    <th scope="col">Zonder droger</th>
+                    <th scope="col">Met droogpakket van Vernast</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {chape.map((rij) => (
+                    <tr key={`chape-${rij.dikte}`}>
+                      <th scope="row">Cementchape {rij.dikte} cm</th>
+                      <td className="traag">{bereikLabel(natuurlijkeChapeBereik(rij.dikte))}</td>
+                      <td className="snel">
+                        <b>{termijnLabel(rij)}</b>
+                      </td>
+                    </tr>
+                  ))}
+                  {pleister.map((rij) => (
+                    <tr key={`pleister-${rij.dikte}`}>
+                      <th scope="row">Pleisterwerk {rij.dikte} cm</th>
+                      <td className="traag">{bereikLabel(natuurlijkePleisterWeken(rij.dikte))}</td>
+                      <td className="snel">
+                        <b>{termijnLabel(rij)}</b>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <p className="tblnote">
+            &ldquo;Zonder droger&rdquo; is de vuistregel uit de bouwpraktijk, en daarom een bereik:
+            de ondergrens geldt in een goed verluchte ruimte rond 20 &deg;C, de bovengrens op een
+            koude, dichtgemaakte werf in de winter. Een richtwaarde dus, geen meting &mdash; en
+            precies waar een bouwdroger het verschil maakt. Wat telt is de eindmeting: is het op de
+            afgesproken datum niet droog, dan huurt u kosteloos verder.{" "}
+            <Link to="/gids/hoe-lang-moet-chape-drogen">Hoe lang chape moet drogen</Link> legt het
+            per situatie uit.
+          </p>
+        </div>
+      </section>
+    </>
+  );
+
+  const townsSection: Sectie = (kleur) => (
+    <>
+      {/* ================= GEMEENTEN PER STREEK ================= */}
       {/*
         Elke gemeente van de provincie, gegroepeerd per streek.
 
@@ -504,49 +594,68 @@ const RegioPage = () => {
         Gemeenten met een eigen pagina worden vanzelf een link; de lijst in
         `provincie-gemeenten.ts` weet daar niets van.
       */}
-      {streken.length > 0 && (
-        <section className={isWest ? "sr" : "sw"}>
-          <div className="wrap">
-            <div className="sec-head">
-              <span className="kick">Waar we leveren</span>
-              <h2 className="sec">De gemeenten van {regio.name}, per streek.</h2>
-              <p className="lede">
-                Wij leveren in de hele provincie, en de streek bepaalt mee welke opstelling erbij
-                hoort. Staat uw gemeente er niet bij, bel ons dan gerust &mdash; ook net over de
-                provinciegrens rijden we.
-              </p>
-            </div>
-            <div className="strk">
-              {streken.map((streek) => (
-                <Reveal from="up" as="article" className="strk-blok" key={streek.naam}>
-                  <h3>{streek.naam}</h3>
-                  <p>{streek.kenmerk}</p>
-                  <ul className="strk-lijst">
-                    {streek.gemeenten.map((naam) => {
-                      const eigen = gemeenteVanPlaats(naam);
-                      return (
-                        <li key={naam}>
-                          {eigen ? <Link to={eigen.path}>{naam}</Link> : <span>{naam}</span>}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </Reveal>
-              ))}
-            </div>
-            <div className="note">
-              <b>De onderstreepte gemeenten hebben een eigen pagina</b> met de rijtijd vanaf ons
-              magazijn, de bebouwing ter plaatse en de vragen die daar spelen. De rest bedienen we
-              even goed &mdash; bel ons op {CONTACT.phoneLocal} of{" "}
-              <Link to="/verhuur/calculator">bereken meteen uw pakket</Link>.
-            </div>
+      <section className={kleur}>
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick">Waar we leveren</span>
+            <h2 className="sec">De gemeenten van {regio.name}, per streek.</h2>
+            <p className="lede">
+              <b>Wij leveren in de hele provincie</b>, en de streek bepaalt mee welke opstelling
+              erbij hoort. Staat uw gemeente er niet bij, bel ons dan gerust &mdash; ook net over de
+              provinciegrens rijden we.
+            </p>
           </div>
-        </section>
-      )}
-  </>);
+          <div className="strk">
+            {streken.map((streek) => (
+              <Reveal from="up" as="article" className="strk-blok" key={streek.naam}>
+                <h3>{streek.naam}</h3>
+                <p>{streek.kenmerk}</p>
+                <ul className="strk-lijst">
+                  {streek.gemeenten.map((naam) => {
+                    const eigen = gemeenteVanPlaats(naam);
+                    return (
+                      <li key={naam}>
+                        {eigen ? <Link to={eigen.path}>{naam}</Link> : <span>{naam}</span>}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </Reveal>
+            ))}
+          </div>
+          {/*
+              De zin over de onderstreepte gemeenten alleen waar er ook
+              onderstreepte staan. De gemeentepagina's zijn een pilot en
+              bestaan voorlopig enkel voor Antwerpen (zie `gemeente-slugs.ts`);
+              op de vier andere provincies beloofde deze notitie een pagina per
+              gemeente die er niet is, naast een lijst waarin geen enkele naam
+              een link was.
+            */}
+          <div className="note">
+            {gemeenten.length > 0 ? (
+              <>
+                <b>De onderstreepte gemeenten hebben een eigen pagina</b> met de rijtijd vanaf ons
+                magazijn, de bebouwing ter plaatse en de vragen die daar spelen. De rest bedienen we
+                even goed &mdash;{" "}
+              </>
+            ) : (
+              <>
+                <b>Wij leveren in elke gemeente hierboven</b>, en de streek bepaalt alleen welke
+                opstelling meegaat &mdash; niet of we komen. Twijfelt u over het aantal toestellen
+                voor uw volume,{" "}
+              </>
+            )}
+            bel ons op {CONTACT.phoneLocal} of{" "}
+            <Link to="/verhuur/calculator">bereken meteen uw pakket</Link>.
+          </div>
+        </div>
+      </section>
+    </>
+  );
 
-  const processSection = (<>
-{/*
+  const processSection: Sectie = (kleur) => (
+    <>
+      {/*
         Hier stond alleen een kopje "Wij leveren in heel Vlaanderen en Brussel"
         met vier chips eronder. Twee problemen: het was geen sectie maar een
         linkrij, en de belofte was te krap — we rijden heel België. Nu staat er
@@ -554,21 +663,23 @@ const RegioPage = () => {
         de links naar de andere provincies eronder. Die links moeten blijven:
         ze vormen het cluster waarmee de vijf regiopagina's elkaar dragen.
       */}
-      <section className={isWest ? "sw" : "sr"}>
+      <section className={kleur}>
         <div className="wrap">
           <div className="sec-head">
             <span className="kick">Hoe het verloopt</span>
             <h2 className="sec">Van reservatie tot eindmeting in {regio.name}.</h2>
             <p className="lede">
-              Vier stappen, en u hoeft er zelf maar één te zetten. De rest doen wij, met een
-              vochtmeting als bewijs in plaats van een datum op een kalender.
+              <b>Vier stappen, en u hoeft er zelf maar één te zetten.</b> De rest doen wij, met een
+              <b> vochtmeting als bewijs</b> in plaats van een datum op een kalender.
             </p>
           </div>
           <div className="flow">
             {VERLOOP.map(({ Icon, title, desc }, i) => (
               <Reveal from="up" delay={i * 0.08} className="fl" key={title}>
                 <i>{`0${i + 1}`}</i>
-                <div className="fi"><Icon size={19} /></div>
+                <div className="fi">
+                  <Icon size={19} />
+                </div>
                 <h3>{title}</h3>
                 <p>{desc}</p>
               </Reveal>
@@ -581,8 +692,14 @@ const RegioPage = () => {
             precies de situatie waardoor 19 van de 22 realisaties ooit niet
             geïndexeerd raakten (zie realisatie-regio.ts). De provinciepagina
             is de natuurlijke ouder, dus die draagt ze.
+
+            Alleen wanneer deze provincie geen strekenlijst heeft. Heeft ze er
+            wel een, dan staat elke gemeente daar al als link en stond ze hier
+            een tweede keer -- op Antwerpen twee keer dezelfde zeventien namen,
+            de ene keer per streek en de andere als rij in een rode sectie waar
+            ze bovendien nauwelijks te lezen was.
           */}
-          {gemeenten.length > 0 && (
+          {gemeenten.length > 0 && streken.length === 0 && (
             <nav className="rg-links" aria-label={`Gemeenten in ${regio.name}`}>
               <span>Bouwdroger huren per gemeente:</span>
               {gemeenten.map((g) => (
@@ -594,9 +711,9 @@ const RegioPage = () => {
           )}
 
           <div className="note">
-            <b>Wij leveren in heel België.</b> Buiten de provincies hieronder rijden we ook, al
-            telt de rit dan mee in de planning. Bel ons gerust voor een werf net over de
-            provinciegrens. Ook bouwdrogers huren in:{" "}
+            <b>Wij leveren in heel België.</b> Buiten de provincies hieronder rijden we ook, al telt
+            de rit dan mee in de planning. Bel ons gerust voor een werf net over de provinciegrens.
+            Ook bouwdrogers huren in:{" "}
             {andere.map((r, i) => (
               <span key={r.slug}>
                 {i > 0 && (i === andere.length - 1 ? " en " : ", ")}
@@ -607,10 +724,12 @@ const RegioPage = () => {
           </div>
         </div>
       </section>
-  </>);
+    </>
+  );
 
-  const reviewsSection = (<>
-{/* ================= BEOORDELINGEN ================= */}
+  const reviewsSection: Sectie = (kleur) => (
+    <>
+      {/* ================= BEOORDELINGEN ================= */}
       {/*
         Een witte sectie tussen "Hoe het verloopt" en het contactblok, die
         allebei rood zijn: twee rode blokken onder elkaar liepen in elkaar over
@@ -621,22 +740,31 @@ const RegioPage = () => {
         homepage en /ozonbehandeling. Geen van de vijf gaat over deze regio en
         dat staat er niet bij gelogen: ze zeggen hoe deze ploeg werkt.
       */}
-      <section className={isWest ? "sr" : "sw"}>
+      <section className={kleur}>
         <div className="wrap">
           <div className="sec-head mid">
             <span className="kick">Wat klanten zeggen</span>
             <h2 className="sec">Beoordeeld door wie ons al liet komen.</h2>
             <p className="lede">
-              Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over
-              snelheid, afspraken nakomen en opvolging, precies wat een werf in {regio.name}
-              {" "}van ons vraagt.
+              Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over snelheid,
+              afspraken nakomen en opvolging, precies wat een werf in {regio.name} van ons vraagt.
             </p>
           </div>
           <div className="rvs">
             {eersteReviews(3).map((review, i) => (
-              <Reveal from="up" delay={(i % 3) * 0.08} as="figure" className="rvc" key={review.name}>
+              <Reveal
+                from="up"
+                delay={(i % 3) * 0.08}
+                as="figure"
+                className="rvc"
+                key={review.name}
+              >
                 <div className="rvc-top">
-                  <div className="rvc-st" role="img" aria-label={`${review.rating} van de 5 sterren`}>
+                  <div
+                    className="rvc-st"
+                    role="img"
+                    aria-label={`${review.rating} van de 5 sterren`}
+                  >
                     {Array.from({ length: review.rating }).map((_, star) => (
                       <StarIcon key={star} size={14} />
                     ))}
@@ -649,7 +777,9 @@ const RegioPage = () => {
                 </div>
                 <blockquote>&ldquo;{review.text}&rdquo;</blockquote>
                 <figcaption>
-                  <span className="rvc-av" aria-hidden="true">{review.initials}</span>
+                  <span className="rvc-av" aria-hidden="true">
+                    {review.initials}
+                  </span>
                   <span>
                     <b>{review.name}</b>
                     <small>{review.service ?? review.date}</small>
@@ -660,10 +790,12 @@ const RegioPage = () => {
           </div>
         </div>
       </section>
-  </>);
+    </>
+  );
 
-  const priceIntroSection = (<>
-{/* ================= WAT HET KOST ================= */}
+  const priceIntroSection: Sectie = (kleur) => (
+    <>
+      {/* ================= WAT HET KOST ================= */}
       {/*
         Dit was een kop, één alinea en een omlijnde knop in een volle
         sectiebreedte: de rechterhelft stond leeg en het blok droeg minder
@@ -676,23 +808,23 @@ const RegioPage = () => {
         stond dus in de data te verstoffen terwijl precies hier een halve
         sectie leeg was.
       */}
-      <section className="sw">
+      <section className={kleur}>
         <div className="wrap split">
           <div className="sec-head" style={{ marginBottom: 0 }}>
             <span className="kick">Eén aanspreekpunt voor uw werf</span>
             <h2 className="sec">Wat kost een bouwdroger huren in {regio.name}?</h2>
             <p className="lede">
-              De juiste prijs begint bij wat er moet drogen. Voor een volledige woning, natte chape
-              of pleisterwerk berekent u een compleet droogpakket; voor één ruimte volstaat een los
-              toestel. Wij leveren onder meer in {regio.towns.slice(0, 4).join(", ")}; zelf afhalen
-              kan in {CONTACT.city} bij Antwerpen.
+              <b>De juiste prijs begint bij wat er moet drogen.</b> Voor een volledige woning, natte
+              chape of pleisterwerk berekent u een compleet droogpakket; voor één ruimte volstaat
+              een los toestel. Wij leveren onder meer in {regio.towns.slice(0, 4).join(", ")}; zelf
+              afhalen kan in {CONTACT.city} bij Antwerpen.
             </p>
             <p className="lede">
-              U huurt geen los toestel op goed geluk, maar een droogpakket berekend op het volume,
-              het materiaal en de temperatuur van uw werf. De prijs is vooraf bekend en omvat de
-              levering, de installatie, de vochtmeting bij de start en bij de oplevering en de
-              ophaling. Niet droog binnen de berekende termijn? Dan loopt de huur volgens de
-              voorwaarden kosteloos verder.
+              U huurt <b>geen los toestel op goed geluk, maar een droogpakket</b> berekend op het
+              volume, het materiaal en de temperatuur van uw werf. <b>De prijs is vooraf bekend</b>{" "}
+              en omvat de levering, de installatie, de vochtmeting bij de start en bij de oplevering
+              en de ophaling. Niet droog binnen de berekende termijn? Dan loopt de huur volgens de
+              voorwaarden <b>kosteloos verder</b>.
             </p>
             {/*
               De bedragen komen uit `PRODUCTS` (het portaal), niet uit deze
@@ -718,11 +850,11 @@ const RegioPage = () => {
               </div>
             </dl>
             <div className="prijsknoppen">
-              <Link className="btn" to="/verhuur/calculator">
+              <Link className={hoofdKnop(kleur)} to="/verhuur/calculator">
                 Bereken uw pakketprijs
                 <ArrowRightIcon />
               </Link>
-              <Link className="btn btn-line" to="/prijzen">
+              <Link className={tweedeKnop(kleur)} to="/prijzen">
                 Bekijk alle huurprijzen
                 <ArrowRightIcon />
               </Link>
@@ -730,15 +862,19 @@ const RegioPage = () => {
           </div>
           <Reveal from="up" className="split-vis">
             <img
-              src={regio.beeld.src}
-              alt={regio.beeld.alt}
+              className={prijsBeeld.uitsnede ? "cut vervaagd" : undefined}
+              src={prijsBeeld.src}
+              alt={prijsBeeld.alt}
               width={800}
               height={600}
               loading="lazy"
               decoding="async"
+              style={prijsBeeld.uitsnede ? { width: "min(84%,380px)" } : undefined}
             />
             <div className="fbadge" style={{ bottom: "-16px", right: "0" }}>
-              <span className="ic"><CheckIcon size={15} strokeWidth={3} /></span>
+              <span className="ic">
+                <CheckIcon size={15} strokeWidth={3} />
+              </span>
               <div>
                 Prijs vooraf bekend
                 <small>geen waarborg, geen nacalculatie</small>
@@ -747,10 +883,12 @@ const RegioPage = () => {
           </Reveal>
         </div>
       </section>
-  </>);
+    </>
+  );
 
-  const packagesSection = (<>
-{/* ================= DROOGPAKKETTEN ================= */}
+  const packagesSection: Sectie = (kleur) => (
+    <>
+      {/* ================= DROOGPAKKETTEN ================= */}
       {/*
         Drie dingen zaten hier scheef. De kaarten droegen tekst van ongelijke
         lengte, dus stond elke knop op een andere hoogte -- `.kaart.gelijk`
@@ -761,17 +899,31 @@ const RegioPage = () => {
         De twee voorwaarden staan nu samen in de note, de twee knoppen samen
         in één rij.
       */}
-      <section className="sr" id="droogpakketten">
-        <div className="wrap">
+      <section className={kleur} id="droogpakketten">
+        {/*
+          De kop van deze sectie is 760 px breed en de kaarten eronder vullen de
+          volle breedte; daartussen stond rechtsboven een halve sectie leeg
+          rood. Daar staat nu de technieker -- rechtop naast de belofte, zoals
+          gevraagd op 13-11-2026. Hij verdwijnt onder 1100 px, waar de kop zelf
+          al de volle breedte neemt.
+        */}
+        <div className="wrap pkt-man">
+          <img
+            src="/vernast/man-duim-kabels.webp"
+            alt="Vernast-technieker met kabels, klaar om het droogpakket te plaatsen"
+            width={1400}
+            height={950}
+            loading="lazy"
+            decoding="async"
+          />
           <div className="sec-head">
             <span className="kick">Uw complete droogpakket</span>
-            <h2 className="sec">
-              Bouwdroging in {regio.name}, van plaatsing tot droog resultaat.
-            </h2>
+            <h2 className="sec">Bouwdroging in {regio.name}, van plaatsing tot droog resultaat.</h2>
             <p className="lede">
-              U hoeft zelf geen toestellen te combineren. Wij berekenen uw droogpakket op basis van
-              de oppervlakte, het materiaal en de laagdikte. U ziet vooraf de pakketprijs, inclusief
-              levering in {regio.name}, installatie, voor- en nameting en ophaling.
+              <b>U hoeft zelf geen toestellen te combineren.</b> Wij berekenen uw droogpakket op
+              basis van de oppervlakte, het materiaal en de laagdikte. U ziet{" "}
+              <b>vooraf de pakketprijs</b>, inclusief levering in {regio.name}, installatie, voor-
+              en nameting en ophaling.
             </p>
           </div>
           <div className="g3">
@@ -799,7 +951,9 @@ const RegioPage = () => {
               },
             ].map(({ Icon, title, desc, path, label }, i) => (
               <Reveal from="up" delay={i * 0.08} className="kaart gelijk" key={path}>
-                <div className="ki"><Icon size={20} /></div>
+                <div className="ki">
+                  <Icon size={20} />
+                </div>
                 <h3>{title}</h3>
                 <p>{desc}</p>
                 {/*
@@ -824,24 +978,96 @@ const RegioPage = () => {
               niet onder.
             </p>
             <p>
-              <b>Geen waarborg.</b> De calculator toont uw totaalprijs en de extra&rsquo;s die u
+              <b>Geen waarborg.</b> De Calculator toont uw totaalprijs en de extra&rsquo;s die u
               zelf kiest, zoals een condenspomp, bijkomende verwarming of een officieel
               vochtrapport.
             </p>
           </div>
           <div className="prijsknoppen">
-            <Link className="btn btn-white" to="/verhuur/calculator">
+            <Link className={hoofdKnop(kleur)} to="/verhuur/calculator">
               Bereken uw pakketprijs
               <ArrowRightIcon />
             </Link>
-            <Link className="btn btn-ghost" to="/prijzen">
+            <Link className={tweedeKnop(kleur)} to="/prijzen">
               Prijzen en wat inbegrepen is
               <ArrowRightIcon />
             </Link>
           </div>
         </div>
       </section>
-  </>);
+    </>
+  );
+
+  /*
+    De volgorde. De hero is rood, dus de eerste sectie is wit en vanaf daar
+    wisselt het af. De FAQ is altijd wit en eindigt met de rode slotplaat; die
+    plaat telt als de rode stap, dus daarna begint het weer bij wit.
+
+    Een sectie die niets te tonen heeft (geen realisaties, geen strekenlijst)
+    hoort hier niet in de lijst en verbruikt geen beurt -- dát was de fout die
+    het ritme op vier van de vijf provincies liet verspringen.
+
+    De FAQ is wit en moet dus op een rode sectie volgen: het aantal secties
+    vóór de FAQ hoort even te zijn. `src/test/regios.test.ts` bewaakt dat,
+    want aan deze lijst wordt vaker gesleuteld dan aan de kleuren.
+  */
+  /*
+    Eén volgorde voor de vijf pagina's.
+
+    West-Vlaanderen had er een eigen, en die sloeg `localDryingSection` over
+    -- de sectie die `regio.bouw` rendert. Gevolg: de drie alinea's over de
+    kust, Brugge en de Leiestreek stonden wel in `regios.ts` en telden mee in
+    de woordentest van `regios.test.ts`, maar kwamen op de pagina nergens
+    voor. Diezelfde rij miste ook de droogtijden en de gemeentenlijst, die er
+    nu voor élke provincie zijn (`provincie-gemeenten.ts`, 13-11-2026).
+  */
+  const voorFaq: Sectie[] = [
+    /*
+          Eerst het pakket, dan pas de toestellen.
+
+          De toestellensectie stond hier bovenaan, en dat is een antwoord op
+          een vraag die de bezoeker nog niet gesteld heeft: wie net uit Google
+          komt weet nog niet dat wij een berekend pakket leveren in plaats van
+          een machine te verhuren. Hij koos dus een toestel uit vier kaarten,
+          en de prijs- en pakketsectie kwam pas toen de keuze al gemaakt was.
+          Gevraagd op 13-11-2026 -- en het is dezelfde volgorde die
+          West-Vlaanderen al had.
+        */
+    priceIntroSection,
+    packagesSection,
+    localDryingSection,
+    equipmentSection,
+    deliverySection,
+    ...(realisaties.length > 0 ? [projectsSection] : []),
+    ...(chape.length > 0 && streken.length > 0 ? [dryingTimesSection] : []),
+    ...(streken.length > 0 ? [townsSection] : []),
+    processSection,
+    reviewsSection,
+  ];
+  /*
+    De FAQ staat zo laag mogelijk: als laatste sectie vóór het formulier, want
+    wie tot daar leest heeft zijn vraag al bijna gesteld. Ze stond ooit in het
+    midden van de pagina, tussen de werven en de droogtijden in.
+
+    Er komt niets meer achter. De beoordelingen stonden op West-Vlaanderen ná
+    de FAQ, puur om het aantal secties ervóór even te krijgen; nu de vijf
+    pagina's dezelfde rij delen klopt dat aantal uit zichzelf.
+    `regioRitme.test.tsx` meet het na op de gerenderde klassen.
+  */
+  const naFaq: Sectie[] = [];
+
+  const kop = voorFaq.map((sectie, i) => <Fragment key={`kop-${i}`}>{sectie(beurt(i))}</Fragment>);
+  const staart = naFaq.map((sectie, i) => (
+    <Fragment key={`staart-${i}`}>{sectie(beurt(i))}</Fragment>
+  ));
+  /*
+    Het formulier is altijd rood -- de pagina eindigt op rood, net als
+    /prijzen en de andere inhoudspagina's. Het stond op de beurt na de staart
+    en viel daardoor op de provinciepagina's zonder reviews-staart wit uit:
+    een licht formulier onder een witte FAQ, met alleen de rode slotplaat
+    ertussen. Gevraagd op 13-11-2026 ("kan je dit nog in het rood maken"),
+    net als eerder op /prijzen; reken het dus niet opnieuw uit.
+  */
 
   return (
     <div className={`v3c rg-page${isWest ? " rg-west" : ""}`}>
@@ -876,104 +1102,101 @@ const RegioPage = () => {
       <V3Header lightAfter={420} />
 
       <main>
-
-      {/* ================= HERO ================= */}
-      <div className="redtop">
-        <section className="hero">
-          <div className="wrap hero-grid">
-            <div className="hero-copy">
-              <nav aria-label="Kruimelpad" className="kruimels">
-                <ol>
-                  <li>
-                    <Link to="/">Home</Link>
-                    <span aria-hidden="true"> /</span>
-                  </li>
-                  <li>
-                    <a href="/#regio">Werkgebied</a>
-                    <span aria-hidden="true"> /</span>
-                  </li>
-                  <li aria-current="page">{regio.name}</li>
-                </ol>
-              </nav>
-              <span className="kick met-ic">
-                <PinIcon size={13} /> {regio.kicker}
-              </span>
-              <h1>{regio.h1}</h1>
-              {regio.intro.map((alinea) => (
-                <p key={alinea}>{alinea}</p>
-              ))}
-              {regio.heroFacts && (
-                <div className="hbadges" aria-label="Inbegrepen bij uw droogpakket">
-                  {regio.heroFacts.map((feit) => (
-                    <span key={feit}>
-                      <CheckIcon size={14} strokeWidth={3} /> {feit}
-                    </span>
-                  ))}
+        {/* ================= HERO ================= */}
+        <div className="redtop">
+          <section className="hero">
+            <div className="wrap hero-grid">
+              <div className="hero-copy">
+                <nav aria-label="Kruimelpad" className="kruimels">
+                  <ol>
+                    <li>
+                      <Link to="/">Home</Link>
+                      <span aria-hidden="true"> /</span>
+                    </li>
+                    <li>
+                      <a href="/#regio">Werkgebied</a>
+                      <span aria-hidden="true"> /</span>
+                    </li>
+                    <li aria-current="page">{regio.name}</li>
+                  </ol>
+                </nav>
+                <span className="kick met-ic">
+                  <PinIcon size={13} /> {regio.kicker}
+                </span>
+                <h1>{regio.h1}</h1>
+                {regio.intro.map((alinea) => (
+                  <p key={alinea}>{nadruk(alinea)}</p>
+                ))}
+                {regio.heroFacts && (
+                  <div className="hbadges" aria-label="Inbegrepen bij uw droogpakket">
+                    {regio.heroFacts.map((feit) => (
+                      <span key={feit}>
+                        <CheckIcon size={14} strokeWidth={3} /> {feit}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <div className="hcta">
+                  <Link className="btn btn-white" to="/verhuur/calculator">
+                    Bereken uw droogpakket
+                    <ArrowRightIcon />
+                  </Link>
+                  <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
+                    <PhoneIcon /> Bel {CONTACT.phoneLocal}
+                  </a>
                 </div>
-              )}
-              <div className="hcta">
-                <Link className="btn btn-white" to="/verhuur/calculator">
-                  Bereken uw droogpakket
-                  <ArrowRightIcon />
-                </Link>
-                <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
-                  <PhoneIcon /> Bel {CONTACT.phoneLocal}
-                </a>
               </div>
-            </div>
-            <div className="hero-vis">
-              <div className="kaartvis">
-                <img
-                  src="/vernast/belgie-kaart-rood.webp"
-                  alt={`Werkgebied van Vernast, met ${regio.name} aangeduid`}
-                  width={1200}
-                  height={980}
-                  loading="lazy"
-                  decoding="async"
-                />
-                {/*
+              <div className="hero-vis">
+                <div className="kaartvis">
+                  <img
+                    src="/vernast/belgie-kaart-rood.webp"
+                    alt={`Werkgebied van Vernast, met ${regio.name} aangeduid`}
+                    width={1200}
+                    height={980}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {/*
                   Links van het midden hangt het label rechts van de speld en
                   omgekeerd; anders valt "West-Vlaanderen" buiten de kaart.
                 */}
-                <span
-                  className={`speld${parseInt(route.pin.left, 10) > 55 ? " links" : ""}`}
-                  style={{ left: route.pin.left, top: route.pin.top }}
-                >
-                  <b>{regio.name}</b>
-                </span>
-              </div>
-              <div className="fbadge" style={{ bottom: "40px", left: "-4%" }}>
-                <span className="ic"><TruckIcon size={15} /></span>
-                <div>
-                  Levering binnen 24 uur
-                  <small>geplaatst en ingesteld door onze technieker</small>
+                  <span
+                    className={`speld${parseInt(route.pin.left, 10) > 55 ? " links" : ""}`}
+                    style={{ left: route.pin.left, top: route.pin.top }}
+                  >
+                    <b>{regio.name}</b>
+                  </span>
+                </div>
+                <div className="fbadge" style={{ bottom: "40px", left: "-4%" }}>
+                  <span className="ic">
+                    <TruckIcon size={15} />
+                  </span>
+                  <div>
+                    Levering binnen 24 uur
+                    <small>geplaatst en ingesteld door onze technieker</small>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      </div>
+          </section>
+        </div>
 
-      {isWest ? (<>
-        {priceIntroSection}{packagesSection}{processSection}{equipmentSection}{deliverySection}{projectsSection}{dryingTimesSection}{townsSection}{faqSection}{reviewsSection}
-      </>) : (<>
-        {localDryingSection}{equipmentSection}{deliverySection}{projectsSection}{faqSection}{dryingTimesSection}{townsSection}{processSection}{reviewsSection}
-      </>)}
+        {kop}
+        {faqSection("sw")}
+        {staart}
 
-      <ContactBlok
-        achtergrond={isWest ? "wit" : "rood"}
-        titel={`Een vraag over drogen in ${regio.name}?`}
-        lede="Beschrijf kort wat er moet drogen en hoe groot de ruimte is. U krijgt binnen één werkdag antwoord van een droogspecialist, met een voorstel voor het juiste pakket."
-        onderwerpen={[
-          `Advies voor een werf in ${regio.name}`,
-          "Levering en leverdatum",
-          "Prijs van een droogpakket",
-          "Waterschade, dit is dringend",
-          "Iets anders",
-        ]}
-        placeholder={`Bv. nieuwbouw 140 m² in ${regio.towns[0]}, chape vorige week geplaatst, wanneer kan de vloerder starten?`}
-      />
-
+        <ContactBlok
+          titel={`Een vraag over drogen in ${regio.name}?`}
+          lede="Beschrijf kort wat er moet drogen en hoe groot de ruimte is. U krijgt binnen één werkdag antwoord van een droogspecialist, met een voorstel voor het juiste pakket."
+          onderwerpen={[
+            `Advies voor een werf in ${regio.name}`,
+            "Levering en leverdatum",
+            "Prijs van een droogpakket",
+            "Waterschade, dit is dringend",
+            "Iets anders",
+          ]}
+          placeholder={`Bv. nieuwbouw 140 m² in ${regio.towns[0]}, chape vorige week geplaatst, wanneer kan de vloerder starten?`}
+        />
       </main>
       <V3Footer />
     </div>

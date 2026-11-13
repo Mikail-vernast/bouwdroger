@@ -79,7 +79,7 @@ export const COPY_PAGES: CopyPage[] = [
     group: "Merk & homepage",
     name: "Homepage",
     route: "/",
-    purpose: "In enkele seconden uitleggen wat Vernast oplost en bezoekers naar de calculator leiden.",
+    purpose: "In enkele seconden uitleggen wat Vernast oplost en bezoekers naar de Calculator leiden.",
     hero: {
       eyebrow: "Bouwdroging, berekend op uw woning",
       title: "Sneller verder met een droogplan dat klopt.",
@@ -164,7 +164,7 @@ export const COPY_PAGES: CopyPage[] = [
         eyebrow: "De aanpak",
         title: "Capaciteit, luchtcirculatie en temperatuur werken samen.",
         paragraphs: [
-          "De calculator bepaalt het basispakket op basis van oppervlakte, plafondhoogte, materiaal en omstandigheden. Ventilatoren verdelen de droge lucht door de woning; indien nodig ondersteunt verwarming het proces.",
+          "De Calculator bepaalt het basispakket op basis van oppervlakte, plafondhoogte, materiaal en omstandigheden. Ventilatoren verdelen de droge lucht door de woning; indien nodig ondersteunt verwarming het proces.",
         ],
       },
       {
@@ -354,7 +354,7 @@ export const COPY_PAGES: CopyPage[] = [
       eyebrow: "Professionele droogapparatuur",
       title: "Het juiste toestel hangt af van meer dan vierkante meters.",
       body:
-        "Volume, vochtbelasting, temperatuur en luchtcirculatie bepalen samen welke apparatuur nodig is. Vergelijk onze bouwdrogers, ventilatoren en verwarming of laat de calculator er één passend pakket van maken.",
+        "Volume, vochtbelasting, temperatuur en luchtcirculatie bepalen samen welke apparatuur nodig is. Vergelijk onze bouwdrogers, ventilatoren en verwarming of laat de Calculator er één passend pakket van maken.",
       primary: "Bereken mijn pakket",
       secondary: "Bekijk alle toestellen",
     },
@@ -379,7 +379,7 @@ export const COPY_PAGES: CopyPage[] = [
         paragraphs: [
           "Bij een te lage temperatuur verdampt vocht trager en daalt de capaciteit van een condensdroger. Gerichte verwarming kan dan nodig zijn, altijd in combinatie met ontvochtiging en luchtcirculatie.",
         ],
-        cta: "Laat de calculator combineren",
+        cta: "Laat de Calculator combineren",
       },
     ],
   },
@@ -438,7 +438,7 @@ export const COPY_PAGES: CopyPage[] = [
       eyebrow: "Prijzen voor bouwdroging",
       title: "Bekijk eerst wat u krijgt. Dan pas wat het kost.",
       body:
-        "De totaalprijs hangt af van de benodigde capaciteit, huurperiode, gekozen dekking en eventuele extra’s. De calculator toont vóór het boeken alle onderdelen in één overzicht.",
+        "De totaalprijs hangt af van de benodigde capaciteit, huurperiode, gekozen dekking en eventuele extra’s. De Calculator toont vóór het boeken alle onderdelen in één overzicht.",
       primary: "Bereken mijn exacte prijs",
       secondary: "Bekijk losse huurprijzen",
     },

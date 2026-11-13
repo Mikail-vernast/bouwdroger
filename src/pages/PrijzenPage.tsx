@@ -124,7 +124,7 @@ const FAQ = [
     question: "Wat kost een bouwdroger huren per week?",
     answer: `Per week kost een bouwdroger bij Vernast ${DROGERS.map(
       (t) => `${euro(priceForWeeks(t, 1))} voor de ${t.short}`
-    ).join(", ")}, exclusief btw. Dat is telkens de dagprijs maal zeven dagen. Een volledig droogpakket met ventilator rekent u uit in de calculator.`,
+    ).join(", ")}, exclusief btw. Dat is telkens de dagprijs maal zeven dagen. Een volledig droogpakket met ventilator rekent u uit in de Calculator.`,
   },
   {
     question: "Hoeveel stroom verbruikt een bouwdroger?",
@@ -309,7 +309,7 @@ const PrijzenPage = () => (
             <span className="kzsub">Droogpakket</span>
             <h3>Berekend, geleverd en gemeten</h3>
             <p>
-              De calculator vertaalt uw oppervlakte, plafondhoogte en situatie naar het juiste
+              De Calculator vertaalt uw oppervlakte, plafondhoogte en situatie naar het juiste
               aantal toestellen en een berekende droogperiode. Onze technieker plaatst alles, sluit
               de condensafvoer aan en meet het vochtgehalte bij start en oplevering.
             </p>
@@ -703,7 +703,7 @@ const PrijzenPage = () => (
           <span className="mbk">Klaar om te reserveren</span>
           <h3>Geen waarborg, geen verborgen kosten, levering binnen 24 uur.</h3>
           <p>
-            De calculator geeft u in een paar klikken de volledige prijs voor uw oppervlakte,
+            De Calculator geeft u in een paar klikken de volledige prijs voor uw oppervlakte,
             inclusief Drooggarantie op een berekend pakket. U krijgt {PROCENT_ONLINE} % korting als
             u meteen online betaalt.
           </p>

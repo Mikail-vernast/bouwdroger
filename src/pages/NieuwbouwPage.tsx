@@ -391,7 +391,7 @@ const NieuwbouwPage = () => (
           <p className="lede">
             Schildert of behangt u te vroeg, dan kan de verf bladderen of vlekken, en sluit u
             vocht in de muur op. Moeten pleisterwerk en chape samen drogen? Kies in de{" "}
-            <Link to="/verhuur/calculator">calculator</Link> "pleisterwerk + chape": dat pakket is
+            <Link to="/verhuur/calculator">Calculator</Link> "pleisterwerk + chape": dat pakket is
             berekend op muren en vloer tegelijk.
           </p>
           <div className="chips">
@@ -438,7 +438,7 @@ const NieuwbouwPage = () => (
           <h2 className="sec">Kies het toestel dat bij uw woning past.</h2>
           <p className="lede">
             Voor een standaard gezinswoning is de Performance het toestel dat we het vaakst
-            leveren. Gaat het om een volledige woning, dan wordt het een droogpakket: de calculator
+            leveren. Gaat het om een volledige woning, dan wordt het een droogpakket: de Calculator
             rekent uw volume en chapedikte door naar de juiste combinatie, met ventilator en
             bouwkachel waar uw werf die nodig heeft.
           </p>
@@ -538,7 +538,7 @@ const NieuwbouwPage = () => (
             <span className="mbk">Klaar om te starten</span>
             <h3>Geef ons uw oppervlakte en uw chapedikte, wij geven u een datum.</h3>
             <p>
-              De calculator rekent uw volume door naar een pakket met de juiste toestellen en de
+              De Calculator rekent uw volume door naar een pakket met de juiste toestellen en de
               juiste termijn. U kiest zelf de leverdag; wij plaatsen en meten.
             </p>
             <div className="mb-cta">

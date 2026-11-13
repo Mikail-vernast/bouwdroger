@@ -13,8 +13,9 @@
    het plusje dat naar een kruisje draait, de rode rand om de open vraag, en
    het hulpkaartje dat zegt wat te doen als het antwoord er niet bij staat.
 
-   Twee achtergronden: `licht` (grijs, zoals de homepage) en `rood` (het
-   donkerrode vlak van `.sr`). Verder niets verschillend.
+   Drie achtergronden: `wit`, `grijs` (zoals de homepage) en `rood` (het
+   donkerrode vlak van `.sr`). Het hulpkaartje is op alle drie licht; alleen
+   de vulling van de kaarten verschilt.
 
    De markup is bewust een `<dl>` met per vraag een `<div><dt><dd>`: een
    accordeon die zijn antwoord pas bij het openklappen rendert, haalt dat
@@ -43,16 +44,29 @@
   display: grid;
   grid-template-columns: .72fr 1.28fr;
   gap: 48px;
-  align-items: start;
+  /* `stretch` en niet `start`: de linkerkolom moet de hoogte van de vragen
+     krijgen om haar kaartje naar de onderrand te kunnen duwen. */
+  align-items: stretch;
 }
 @media (max-width: 1040px) {
   .fq-grid { grid-template-columns: 1fr; gap: 34px }
 }
 
-/* ---- de linkerkolom ---- */
-.fq-zij { position: sticky; top: 110px }
+/* ---- de linkerkolom ----
+   De kolom rekt mee met de vragenlijst ernaast en het hulpkaartje zakt naar de
+   onderrand. Het kaartje plakte eerder tegen de titel, met daaronder een gat
+   zo hoog als de kaart zelf: de sectie oogde half leeg terwijl ze vol stond.
+   Nu hangt de titel bovenaan en het kaartje onderaan, en vult de kolom de
+   hoogte van de vragen.
+
+   Sticky kan daardoor niet meer — een element dat de volle rijhoogte heeft,
+   heeft niets om in te schuiven. Dat was hier toch al geen winst: geen enkele
+   FAQ op deze site is lang genoeg om de kolom voorbij te scrollen. */
+.fq-zij { display: flex; flex-direction: column }
+.fq-zij .fq-help { margin-top: auto }
 @media (max-width: 1040px) {
-  .fq-zij { position: static }
+  .fq-zij { display: block }
+  .fq-zij .fq-help { margin-top: 26px }
 }
 .fq-kick {
   display: inline-block;
@@ -67,31 +81,43 @@
   font-weight: 800; font-size: clamp(28px, 3.2vw, 42px); line-height: 1.08;
   letter-spacing: -.025em; text-wrap: balance;
   color: var(--txt, #141414);
-  margin: 0;
+  /* Een echte ondermarge, geen `auto` alleen: het hulpkaartje zakt met
+     `margin-top:auto` naar de onderrand, en wanneer de kolom even hoog is als
+     de vragenlijst blijft daar niets van over -- dan plakte de kaart tegen de
+     titel. Deze marge is het minimum dat er altijd tussen staat. */
+  margin: 0 0 34px;
 }
 .fq.rood .fq-titel { color: #fff }
 
-/* Het hulpkaartje. Op een lichte sectie donkerrood, op een rode sectie wit:
-   een donkerrode kaart op een donkerrode achtergrond is geen kaart meer. */
+/* Het hulpkaartje is altijd licht, op elke variant. Het stond als donkerrood
+   blok in een verder lichte sectie en trok daar meer aandacht dan de vragen
+   zelf, terwijl het maar een hulpkaart naast de lijst is -- precies de reden
+   waarom de homepage haar eigen `.faq-help` al in 09-2026 wit maakte
+   (home-v3-fixes.css, punt 3). Het rood zit op de belknop, waar het wél
+   stuurt. Dit blok trekt die vorm door naar de rest van de site.
+
+   Op een witte sectie draagt de kaart hetzelfde grijs als de vraagkaarten
+   ernaast; op grijs en rood is ze wit. Zo staat ze op elke variant náást de
+   vragen in plaats van erbovenop. */
 .fq-help {
   margin-top: 26px;
-  background: var(--maroon-d, #5A0C10);
+  background: #fff;
+  border: 1px solid var(--line, rgba(20,20,20,.1));
   border-radius: 20px;
   padding: 26px 24px;
-  color: #fff;
+  color: var(--txt, #141414);
   position: relative;
   overflow: hidden;
 }
-.fq-help::before {
-  content: ""; position: absolute; right: -46px; top: -46px;
-  width: 150px; height: 150px; border-radius: 50%;
-  background: rgba(255,255,255,.07);
-}
+.fq.wit .fq-help { background: var(--bg-alt, #F4F4F4); border-color: transparent }
 .fq-help h3 {
   font-family: var(--fd, 'Plus Jakarta Sans', system-ui, sans-serif);
-  font-weight: 700; font-size: 18px; margin: 0 0 8px; color: #fff;
+  font-weight: 700; font-size: 18px; margin: 0 0 8px; color: var(--txt, #141414);
 }
-.fq-help p { font-size: 13.5px; color: rgba(255,255,255,.75); line-height: 1.6; margin: 0 0 18px }
+.fq-help p {
+  font-size: 13.5px; color: var(--txt-mid, rgba(20,20,20,.62));
+  line-height: 1.6; margin: 0 0 18px;
+}
 .fq-knoppen { display: flex; flex-direction: column; gap: 9px; position: relative }
 .fq-knoppen a {
   display: inline-flex; align-items: center; justify-content: center; gap: 9px;
@@ -101,23 +127,16 @@
 }
 /* Twee klassen diep, en dat is hier geen stijlkwestie maar noodzaak:
    `.v3c a{color:var(--red)}` uit v3-content.css weegt (0,1,1) en won van een
-   losse `.fq-bel` (0,1,0). Op élke inhoudspagina stonden beide knoppen daardoor
-   in het rood — rood op een donkerrode kaart, en "Stel uw vraag online" was
-   zo goed als onleesbaar. De kaart is donkerrood, dus de knoppen zijn wit en
-   zwart: een wit pilletje met zwarte tekst, en een omlijnde knop in het wit. */
-.fq .fq-bel { background: #fff; color: var(--txt, #141414) }
-.fq .fq-bel:hover { color: var(--txt, #141414); transform: translateY(-2px) }
-.fq .fq-stel { border: 1.5px solid rgba(255,255,255,.4); color: #fff }
-.fq .fq-stel:hover { border-color: #fff; color: #fff; transform: translateY(-2px) }
+   losse `.fq-bel` (0,1,0) -- dan kleurt ook de tekst van de omlijnde knop
+   rood en staat er twee keer hetzelfde op de kaart.
 
-.fq.rood .fq-help { background: #fff }
-.fq.rood .fq-help::before { background: rgba(200,16,46,.045) }
-.fq.rood .fq-help h3 { color: var(--txt, #141414) }
-.fq.rood .fq-help p { color: var(--txt-mid, rgba(20,20,20,.62)) }
-.fq.rood .fq-bel { background: var(--red, #C8102E); color: #fff }
-.fq.rood .fq-bel:hover { color: #fff }
-.fq.rood .fq-stel { border-color: var(--line-2, rgba(20,20,20,.18)); color: var(--txt, #141414) }
-.fq.rood .fq-stel:hover { border-color: var(--red, #C8102E); color: var(--red, #C8102E) }
+   Eén volle rode knop en één omlijnde, zoals op de homepage: bellen is de
+   snelste weg en krijgt dus het rood, het formulier staat ernaast als
+   tweede keuze. */
+.fq .fq-bel { background: var(--red, #C8102E); border: 1.5px solid transparent; color: #fff }
+.fq .fq-bel:hover { background: #a80d26; color: #fff; transform: translateY(-2px) }
+.fq .fq-stel { background: transparent; border: 1.5px solid var(--line-2, rgba(20,20,20,.18)); color: var(--txt, #141414) }
+.fq .fq-stel:hover { background: transparent; border-color: var(--red, #C8102E); color: var(--red, #C8102E); transform: translateY(-2px) }
 
 /* ---- de vragen ---- */
 .fq-lijst { display: flex; flex-direction: column; gap: 10px; margin: 0 }

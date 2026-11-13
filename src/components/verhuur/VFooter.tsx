@@ -49,7 +49,7 @@ const VFooter = () => (
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/verhuur/calculator">Bereken uw pakket</Link>
+              <Link to="/verhuur/calculator">Gratis Calculator</Link>
             </li>
             <li>
               <Link to="/#techniek">Alles over drogen</Link>

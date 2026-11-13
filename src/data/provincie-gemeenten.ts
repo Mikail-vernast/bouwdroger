@@ -18,11 +18,22 @@
  * naam hier automatisch een link — deze lijst hoeft dus niets te weten over
  * welke pagina's al bestaan.
  *
- * ⚠️ **Te verifiëren vóór publicatie.** Deze gemeentelijsten zijn met de hand
- * opgesteld en niet tegen een officiële bron (Statbel, Agentschap Binnenlands
- * Bestuur) gelegd. Fusies en herindelingen veranderen ze. Controleer ze per
- * provincie voor de pagina live gaat; een verzonnen of verdwenen gemeente op
- * een SEO-pagina is erger dan een onvolledige lijst.
+ * Aan deze lijst hangen twee secties van de provinciepagina: de gemeentenlijst
+ * zelf én de droogtijdentabel. Die tabel is op alle vijf de pagina's identiek,
+ * dus zonder eigen gemeententekst ertegenover zou ze het aandeel eigen tekst
+ * omlaag halen; ze rollen daarom samen uit (zie `RegioPage.tsx`). Een provincie
+ * die hier binnenkomt, wint er dus twee secties mee.
+ *
+ * **Geverifieerd op 13-11-2026** tegen de provincieartikelen op nl.wikipedia
+ * en het overzicht van de fusies die op 1 januari 2025 ingingen. Die fusies
+ * zaten nog niet in de Antwerpse lijst en kostten drie correcties: Borsbeek is
+ * sinds dan het tiende district van Antwerpen en geen zelfstandige gemeente
+ * meer, Zwijndrecht ging in Beveren-Kruibeke-Zwijndrecht op en ligt daarmee
+ * weer in Oost-Vlaanderen, en Meerhout stond er simpelweg niet bij. De
+ * aantallen hieronder kloppen met de officiële: 67 gemeenten in Antwerpen, 55
+ * in Oost-Vlaanderen, 63 in Vlaams-Brabant, 62 in West-Vlaanderen en 38 in
+ * Limburg. Komt er een fusie bij, controleer ze dan opnieuw — een verzonnen of
+ * verdwenen gemeente op een SEO-pagina is erger dan een onvolledige lijst.
  */
 export interface Streek {
   /** Zoals hij in een zin staat: "in de Kempen", "in de Rupelstreek". */
@@ -45,6 +56,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
         "Zandvliet",
         "Lillo",
         "Borgerhout",
+        "Borsbeek",
         "Deurne",
         "Ekeren",
         "Hoboken",
@@ -59,7 +71,6 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
       gemeenten: [
         "Aartselaar",
         "Boechout",
-        "Borsbeek",
         "Edegem",
         "Hemiksem",
         "Hove",
@@ -67,7 +78,6 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
         "Lint",
         "Mortsel",
         "Schelle",
-        "Zwijndrecht",
       ],
     },
     {
@@ -135,6 +145,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
         "Kasterlee",
         "Laakdal",
         "Lille",
+        "Meerhout",
         "Merksplas",
         "Mol",
         "Olen",
@@ -145,6 +156,364 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
         "Vorselaar",
         "Vosselaar",
         "Westerlo",
+      ],
+    },
+  ],
+
+  "oost-vlaanderen": [
+    {
+      naam: "Gent en de Gentse rand",
+      kenmerk:
+        "Smalle, diepe rijhuizen in de negentiende-eeuwse gordel en appartementen aan de Vaartkom. Per ruimte een compact toestel werkt er beter dan één groot in de gang.",
+      gemeenten: [
+        "Gent",
+        "Destelbergen",
+        "Lochristi",
+        "Merelbeke-Melle",
+        "Oosterzele",
+        "Sint-Martens-Latem",
+        "Nazareth-De Pinte",
+        "Gavere",
+        "Deinze",
+        "Zulte",
+      ],
+    },
+    {
+      naam: "Het Waasland",
+      kenmerk:
+        "Onze kortste rit buiten de provincie: twintig minuten over de E17. Veel nieuwbouw in verkavelingen, en daar drogen we vooral chape van een volledig gelijkvloers.",
+      gemeenten: [
+        "Sint-Niklaas",
+        "Beveren-Kruibeke-Zwijndrecht",
+        "Temse",
+        "Stekene",
+        "Sint-Gillis-Waas",
+        "Waasmunster",
+        "Lokeren",
+      ],
+    },
+    {
+      naam: "Scheldeland en de Dendermondse regio",
+      kenmerk:
+        "Hoog grondwater langs Schelde, Durme en Dender. Kelders en bergingen die bij elke natte periode terugkomen — twee van onze werven hier zijn precies dat.",
+      gemeenten: [
+        "Dendermonde",
+        "Hamme",
+        "Zele",
+        "Berlare",
+        "Buggenhout",
+        "Lebbeke",
+        "Wichelen",
+        "Laarne",
+        "Wetteren",
+      ],
+    },
+    {
+      naam: "De Denderstreek",
+      kenmerk:
+        "Tussen Aalst en Ninove wordt meer nieuw gebouwd dan bijna overal in Vlaanderen: open en halfopen woningen waar de chape in één keer gelegd wordt.",
+      gemeenten: [
+        "Aalst",
+        "Denderleeuw",
+        "Haaltert",
+        "Erpe-Mere",
+        "Lede",
+        "Ninove",
+        "Geraardsbergen",
+        "Herzele",
+        "Sint-Lievens-Houtem",
+      ],
+    },
+    {
+      naam: "Het Meetjesland",
+      kenmerk:
+        "Open bebouwing op zandgrond tussen Eeklo en de Nederlandse grens. Ruime volumes, en in de winter een onverwarmde ruwbouw die eerst op temperatuur moet.",
+      gemeenten: [
+        "Eeklo",
+        "Maldegem",
+        "Aalter",
+        "Assenede",
+        "Evergem",
+        "Kaprijke",
+        "Sint-Laureins",
+        "Lievegem",
+        "Zelzate",
+      ],
+    },
+    {
+      naam: "De Vlaamse Ardennen",
+      kenmerk:
+        "Heuvelland met oude hoeves en herenhuizen in renovatie. Dikke massieve muren geven hun vocht traag af; hier staat een pakket doorgaans langer dan het gemiddelde.",
+      gemeenten: [
+        "Oudenaarde",
+        "Ronse",
+        "Zottegem",
+        "Brakel",
+        "Kluisbergen",
+        "Kruisem",
+        "Horebeke",
+        "Lierde",
+        "Maarkedal",
+        "Wortegem-Petegem",
+        "Zwalm",
+      ],
+    },
+  ],
+
+  "vlaams-brabant": [
+    {
+      naam: "De Brusselse rand",
+      kenmerk:
+        "Villa's uit de jaren zestig tot tachtig die nu grondig gerenoveerd worden: drie bouwlagen vers pleisterwerk en een kelder onder het hele volume.",
+      gemeenten: [
+        "Vilvoorde",
+        "Zaventem",
+        "Machelen",
+        "Grimbergen",
+        "Meise",
+        "Wemmel",
+        "Steenokkerzeel",
+        "Kampenhout",
+        "Zemst",
+        "Kortenberg",
+        "Kraainem",
+        "Wezembeek-Oppem",
+        "Tervuren",
+        "Hoeilaart",
+        "Overijse",
+        "Sint-Genesius-Rode",
+        "Drogenbos",
+        "Linkebeek",
+      ],
+    },
+    {
+      naam: "Pajottenland en Zennevallei",
+      kenmerk:
+        "Oude dorpskernen en hoeves tussen Halle en Asse, met verkavelingen ertussen. Leembodem, en dus chape die zonder hulp opvallend traag droogt.",
+      gemeenten: [
+        "Halle",
+        "Beersel",
+        "Sint-Pieters-Leeuw",
+        "Dilbeek",
+        "Asse",
+        "Ternat",
+        "Liedekerke",
+        "Roosdaal",
+        "Lennik",
+        "Pepingen",
+        "Pajottegem",
+        "Bever",
+        "Affligem",
+        "Opwijk",
+        "Merchtem",
+        "Londerzeel",
+        "Kapelle-op-den-Bos",
+      ],
+    },
+    {
+      naam: "Leuven en het Dijleland",
+      kenmerk:
+        "Studentenhuizen die per kamer verbouwd worden en stadswoningen met een gewelfde kelder. De condenspomp is hier geen luxe: reservoirs legen doet niemand.",
+      gemeenten: [
+        "Leuven",
+        "Herent",
+        "Bertem",
+        "Oud-Heverlee",
+        "Huldenberg",
+        "Bierbeek",
+        "Boutersem",
+        "Lubbeek",
+        "Holsbeek",
+        "Rotselaar",
+        "Haacht",
+        "Boortmeerbeek",
+        "Keerbergen",
+        "Tremelo",
+        "Begijnendijk",
+      ],
+    },
+    {
+      naam: "Het Hageland",
+      kenmerk:
+        "Nieuwbouw op zandleem rond Aarschot en Diest. In de winter hoort hier bijverwarming bij: onder 15 °C haalt een condensdroger te weinig rendement.",
+      gemeenten: [
+        "Aarschot",
+        "Diest",
+        "Scherpenheuvel-Zichem",
+        "Bekkevoort",
+        "Tielt-Winge",
+        "Glabbeek",
+        "Kortenaken",
+        "Geetbets",
+      ],
+    },
+    {
+      naam: "Tienen en Vlaams-Haspengouw",
+      kenmerk:
+        "Vlak akkerland met grote hoeves in herbestemming. Ruime, hoge volumes waar de droge lucht met een ventilator verdeeld moet worden.",
+      gemeenten: ["Tienen", "Hoegaarden", "Landen", "Linter", "Zoutleeuw"],
+    },
+  ],
+
+  "west-vlaanderen": [
+    {
+      naam: "De kust",
+      kenmerk:
+        "Appartementen in renovatie en waterschade achter de zeedijk. Vochtige buitenlucht maakt ventileren onvoorspelbaar, dus blijven ramen en deuren hier dicht.",
+      gemeenten: [
+        "Knokke-Heist",
+        "Blankenberge",
+        "De Haan",
+        "Bredene",
+        "Oostende",
+        "Middelkerke",
+        "Nieuwpoort",
+        "Koksijde",
+        "De Panne",
+      ],
+    },
+    {
+      naam: "Brugge en het Brugse Ommeland",
+      kenmerk:
+        "Historische panden met koude kelders en bergingen. Onder 15 °C zetten we er een adsorptiedroger in of warmen we de ruimte eerst op.",
+      gemeenten: [
+        "Brugge",
+        "Damme",
+        "Zuienkerke",
+        "Jabbeke",
+        "Zedelgem",
+        "Oostkamp",
+        "Beernem",
+        "Torhout",
+        "Ichtegem",
+        "Gistel",
+        "Oudenburg",
+      ],
+    },
+    {
+      naam: "De Westhoek",
+      kenmerk:
+        "Onze verste rit, dus plannen we ze in een vaste toer. Veel hoeverenovatie met massieve muren en een gelijkvloers zonder isolatie onder de chape.",
+      gemeenten: [
+        "Ieper",
+        "Poperinge",
+        "Diksmuide",
+        "Veurne",
+        "Alveringem",
+        "Lo-Reninge",
+        "Vleteren",
+        "Heuvelland",
+        "Mesen",
+        "Langemark-Poelkapelle",
+        "Houthulst",
+        "Zonnebeke",
+        "Koekelare",
+        "Kortemark",
+      ],
+    },
+    {
+      naam: "Kortrijk en de Leiestreek",
+      kenmerk:
+        "Nieuwbouw en bedrijfsgebouwen met grote vloeroppervlakken. Die delen we op in droogzones, met een berekende droger en een ventilator per zone.",
+      gemeenten: [
+        "Kortrijk",
+        "Harelbeke",
+        "Kuurne",
+        "Wevelgem",
+        "Menen",
+        "Wervik",
+        "Zwevegem",
+        "Anzegem",
+        "Avelgem",
+        "Spiere-Helkijn",
+        "Deerlijk",
+        "Waregem",
+        "Lendelede",
+      ],
+    },
+    {
+      naam: "Midden-West-Vlaanderen",
+      kenmerk:
+        "Tussen Roeselare en Tielt: verkavelingen en renovaties waar chape en pleisterwerk samen moeten drogen voor de vloerlegger kan starten.",
+      gemeenten: [
+        "Roeselare",
+        "Izegem",
+        "Ingelmunster",
+        "Lichtervelde",
+        "Hooglede",
+        "Staden",
+        "Moorslede",
+        "Ledegem",
+        "Ardooie",
+        "Pittem",
+        "Tielt",
+        "Wingene",
+        "Dentergem",
+        "Oostrozebeke",
+        "Wielsbeke",
+      ],
+    },
+  ],
+
+  limburg: [
+    {
+      naam: "Hasselt, Genk en Midden-Limburg",
+      kenmerk:
+        "De drukste streek van de provincie voor ons: stadsrenovatie in Hasselt, ruime nieuwbouw eromheen, en de werven waar een pakket van drie toestellen de regel is.",
+      gemeenten: [
+        "Hasselt",
+        "Genk",
+        "Zonhoven",
+        "Diepenbeek",
+        "Alken",
+        "Zutendaal",
+        "Lummen",
+        "Herk-de-Stad",
+        "Halen",
+        "Nieuwerkerken",
+      ],
+    },
+    {
+      naam: "Noord-Limburg en de Limburgse Kempen",
+      kenmerk:
+        "Zandgrond die goed draineert, dus weinig kelders — maar wel de koudste winterwerven van Vlaanderen. Tussen november en maart gaat hier bijna altijd een kachel mee.",
+      gemeenten: [
+        "Beringen",
+        "Heusden-Zolder",
+        "Houthalen-Helchteren",
+        "Leopoldsburg",
+        "Tessenderlo-Ham",
+        "Hechtel-Eksel",
+        "Peer",
+        "Pelt",
+        "Lommel",
+        "Hamont-Achel",
+        "Bocholt",
+        "Bree",
+        "Oudsbergen",
+        "As",
+      ],
+    },
+    {
+      naam: "Het Maasland",
+      kenmerk:
+        "Langs de Maas komt waterschade terug bij elke hoge waterstand: kelders en bergingen die onderlopen, en water dat via de vloer naar binnen komt.",
+      gemeenten: ["Maaseik", "Kinrooi", "Dilsen-Stokkem", "Maasmechelen", "Lanaken"],
+    },
+    {
+      naam: "Haspengouw en de Voerstreek",
+      kenmerk:
+        "Vierkantshoeves en herenhuizen in renovatie op leembodem. Dikke muren geven hun vocht traag af, en de rit tot aan de taalgrens is onze langste in Vlaanderen.",
+      gemeenten: [
+        "Sint-Truiden",
+        "Tongeren-Borgloon",
+        "Bilzen-Hoeselt",
+        "Riemst",
+        "Wellen",
+        "Heers",
+        "Gingelom",
+        "Herstappe",
+        "Voeren",
       ],
     },
   ],

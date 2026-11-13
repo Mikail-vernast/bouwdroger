@@ -81,3 +81,28 @@ export function natuurlijkeChapeWeken(dikteCm: number): number {
 export function natuurlijkePleisterWeken(dikteCm: number): { min: number; max: number } {
   return { min: dikteCm, max: dikteCm * 2 };
 }
+
+/**
+ * Dezelfde vuistregel, maar als bereik: de bovengrens is de winterwerf.
+ *
+ * `natuurlijkeChapeWeken` geldt bij een goed verluchte ruimte rond 20 °C, en
+ * dat is precies de omstandigheid die er tussen november en maart niet is. Eén
+ * getal ("± 6 weken") leest dan als een belofte die in december niet gehaald
+ * wordt; de helft erbij is de marge die aannemers op een koude, dichtgemaakte
+ * werf in de praktijk aanhouden.
+ *
+ * Gevraagd op 13-11-2026: "maak het iets langer want het duurt ook langer in de
+ * winter". Het blijft een richtwaarde — alleen een restvochtmeting beslist.
+ */
+export function natuurlijkeChapeBereik(dikteCm: number): { min: number; max: number } {
+  const min = natuurlijkeChapeWeken(dikteCm);
+  return { min, max: Math.round(min * 1.5) };
+}
+
+/** "6 tot 9 weken", of "4 weken" als beide grenzen samenvallen. */
+export function bereikLabel(bereik: { min: number; max: number }): string {
+  const eenheid = (n: number) => (n === 1 ? "week" : "weken");
+  return bereik.min === bereik.max
+    ? `${bereik.min} ${eenheid(bereik.min)}`
+    : `${bereik.min} tot ${bereik.max} ${eenheid(bereik.max)}`;
+}

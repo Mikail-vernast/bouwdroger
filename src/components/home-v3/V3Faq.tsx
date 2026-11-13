@@ -7,11 +7,11 @@ import { PhoneIcon } from "./icons";
 export const QUESTIONS: { q: string; a: string }[] = [
   {
     q: "Hoe weet ik welk toestel ik nodig heb?",
-    a: "Onze slimme calculator geeft een eerste berekening op basis van volume, toepassing en situatie. Zo kiest u gerichter en sneller, en komt u meteen op de pagina met het juiste pakket en de prijs.",
+    a: "Onze slimme Calculator geeft een eerste berekening op basis van volume, toepassing en situatie. Zo kiest u gerichter en sneller, en komt u meteen op de pagina met het juiste pakket en de prijs.",
   },
   {
     q: "Hoelang duurt bouwdroging?",
-    a: "Dat hangt af van het volume, het materiaal, de beginsituatie, de temperatuur en de gewenste eindtoestand. Actieve droging verloopt doorgaans aanzienlijk sneller dan natuurlijke droging, de calculator geeft u een realistische inschatting.",
+    a: "Dat hangt af van het volume, het materiaal, de beginsituatie, de temperatuur en de gewenste eindtoestand. Actieve droging verloopt doorgaans aanzienlijk sneller dan natuurlijke droging, de Calculator geeft u een realistische inschatting.",
   },
   {
     q: "Is levering inbegrepen?",

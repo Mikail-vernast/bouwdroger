@@ -123,12 +123,12 @@ const faqs = [
     a: BEIDE
       ? `Ja, en in een nieuwbouw is dat ook de normale gang van zaken. Daarvoor bestaat een pakket dat vloer en muren samen droogt, met een huurtermijn van ${termijnLabel(
           BEIDE,
-        )}. U huurt dan één keer en meet één keer in plaats van twee droogrondes na elkaar. Samen drogen vraagt wel meer capaciteit, want er komt in dezelfde ruimte veel meer water vrij; de calculator rekent dat uit.`
-      : "Ja, en in een nieuwbouw is dat ook de normale gang van zaken. Samen drogen vraagt wel meer capaciteit dan een van de twee apart, want er komt in dezelfde ruimte veel meer water vrij. De calculator rekent uit welk pakket daarbij hoort.",
+        )}. U huurt dan één keer en meet één keer in plaats van twee droogrondes na elkaar. Samen drogen vraagt wel meer capaciteit, want er komt in dezelfde ruimte veel meer water vrij; de Calculator rekent dat uit.`
+      : "Ja, en in een nieuwbouw is dat ook de normale gang van zaken. Samen drogen vraagt wel meer capaciteit dan een van de twee apart, want er komt in dezelfde ruimte veel meer water vrij. De Calculator rekent uit welk pakket daarbij hoort.",
   },
   {
     q: "Wat als mijn muren op de einddatum nog niet droog zijn?",
-    a: "Dan verlengen wij kosteloos tot ze dat wel zijn. Dat is de Drooggarantie, en ze geldt op elk pakket dat via de calculator berekend en met levering en installatie geboekt is. Ze steunt op de meting bij de start en bij de oplevering: zonder die twee metingen is er niets om een einddatum aan af te toetsen.",
+    a: "Dan verlengen wij kosteloos tot ze dat wel zijn. Dat is de Drooggarantie, en ze geldt op elk pakket dat via de Calculator berekend en met levering en installatie geboekt is. Ze steunt op de meting bij de start en bij de oplevering: zonder die twee metingen is er niets om een einddatum aan af te toetsen.",
   },
   {
     q: "Kan ik de toestellen zelf afhalen?",
@@ -392,7 +392,7 @@ const PleisterwerkDrogenPage = () => (
           <h2 className="sec">Het toestel dat bij uw ruimte past.</h2>
           <p className="lede">
             Pleisterwerk beslaat alle muren en plafonds, dus telt het volume van de ruimte en niet
-            alleen het aantal vierkante meter muur. De calculator rekent dat volume door naar de
+            alleen het aantal vierkante meter muur. De Calculator rekent dat volume door naar de
             juiste combinatie, met een ventilator tegen stilstaande lucht en een bouwkachel als uw
             werf te koud staat.
           </p>
@@ -501,7 +501,7 @@ const PleisterwerkDrogenPage = () => (
             <span className="mbk">Klaar om te starten</span>
             <h3>Geef ons uw oppervlakte en uw laagdikte, wij geven u een datum.</h3>
             <p>
-              De calculator rekent uw volume door naar een pakket met de juiste toestellen en de
+              De Calculator rekent uw volume door naar een pakket met de juiste toestellen en de
               juiste termijn. U kiest zelf de leverdag; wij plaatsen en meten.
             </p>
             <div className="mb-cta">

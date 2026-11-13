@@ -114,11 +114,11 @@ const faqs = [
   },
   {
     q: "Hoeveel toestellen heb ik nodig voor mijn oppervlakte?",
-    a: "Dat hangt af van het volume, niet van het aantal vierkante meter alleen: een open woning met hoge plafonds vraagt meer dan dezelfde oppervlakte in afgesloten kamers. De calculator rekent uw volume door naar een pakket met het juiste aantal toestellen. Voor grote werven of een ongewone indeling belt u ons beter even; dan kijken we mee.",
+    a: "Dat hangt af van het volume, niet van het aantal vierkante meter alleen: een open woning met hoge plafonds vraagt meer dan dezelfde oppervlakte in afgesloten kamers. De Calculator rekent uw volume door naar een pakket met het juiste aantal toestellen. Voor grote werven of een ongewone indeling belt u ons beter even; dan kijken we mee.",
   },
   {
     q: "Wat als mijn chape op de einddatum nog niet droog is?",
-    a: "Dan verlengen wij kosteloos tot ze dat wel is. Dat is de Drooggarantie, en ze geldt op elk pakket dat via de calculator berekend en met levering en installatie geboekt is. Ze steunt op de meting bij de start en bij de oplevering: zonder die twee metingen is er niets om een einddatum aan af te toetsen.",
+    a: "Dan verlengen wij kosteloos tot ze dat wel is. Dat is de Drooggarantie, en ze geldt op elk pakket dat via de Calculator berekend en met levering en installatie geboekt is. Ze steunt op de meting bij de start en bij de oplevering: zonder die twee metingen is er niets om een einddatum aan af te toetsen.",
   },
   {
     q: "Kan ik de toestellen zelf afhalen?",
@@ -370,7 +370,7 @@ const ChapeDrogenPage = () => (
           <h2 className="sec">Het toestel dat bij uw vloer past.</h2>
           <p className="lede">
             Voor een gewone gezinswoning is de Performance het toestel dat we het vaakst leveren,
-            met een radiaalventilator erbij die vlak over de chape blaast. De calculator rekent uw
+            met een radiaalventilator erbij die vlak over de chape blaast. De Calculator rekent uw
             volume en chapedikte door naar de juiste combinatie, met een bouwkachel erbij als uw
             werf te koud staat.
           </p>
@@ -470,7 +470,7 @@ const ChapeDrogenPage = () => (
             <span className="mbk">Klaar om te starten</span>
             <h3>Geef ons uw oppervlakte en uw chapedikte, wij geven u een datum.</h3>
             <p>
-              De calculator rekent uw volume door naar een pakket met de juiste toestellen en de
+              De Calculator rekent uw volume door naar een pakket met de juiste toestellen en de
               juiste termijn. U kiest zelf de leverdag; wij plaatsen en meten.
             </p>
             <div className="mb-cta">

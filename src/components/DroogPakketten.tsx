@@ -82,7 +82,7 @@ const DroogPakketten = () => {
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
             Alles in één droogservice. Kies een pakket op maat van uw project of
-            gebruik de calculator voor een advies op maat.
+            gebruik de Calculator voor een advies op maat.
           </p>
 
           {/* Category tabs */}
@@ -178,7 +178,7 @@ const DroogPakketten = () => {
             className="font-bold"
             onClick={() => navigate("/verhuur/calculator")}
           >
-            Bereken uw pakket op maat
+            Gratis Calculator
           </Button>
         </div>
       </div>
