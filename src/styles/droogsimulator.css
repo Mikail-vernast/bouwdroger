@@ -1424,23 +1424,14 @@
 /* laptop height: the two stat boxes give way first, so total and button keep their room */
 @media (min-width:900px){ @container paneel (max-height:780px){ .ds-sim[data-stap="4"] .ds-stats{display:none} } }
 
-/* ── droogfilm: liters, stempel, overzicht en de A/B/C-schakelaar ── */
+/* ── droogfilm: liters en stempel ── */
 .ds-liter{margin:6px 0 0;padding-top:6px;border-top:1px dashed var(--line);font-size:11px;color:#3b4b5c}
 .ds-teller .ds-liter b{font-size:15px;color:#2d5f8a}
 .ds-stempel{position:absolute;left:calc(100% + 14px);top:2px;display:grid;place-items:center;padding:6px 14px 5px;border:2.5px solid #2f8a57;border-radius:6px;color:#2f8a57;font:800 20px/1 var(--fb,inherit);letter-spacing:.06em;text-transform:uppercase;background:rgba(251,248,242,.88);transform:rotate(-7deg);animation:ds-stempel-in .45s cubic-bezier(.2,1.6,.4,1) both;white-space:nowrap}
 .ds-stempel small{font:600 10px/1.2 var(--fm,monospace);letter-spacing:.04em;text-transform:none;color:#2f8a57;margin-top:3px}
 @keyframes ds-stempel-in{from{opacity:0;transform:rotate(-7deg) scale(1.9)}to{opacity:1;transform:rotate(-7deg) scale(1)}}
-.ds-overzicht{position:absolute;left:0;top:6px;padding:8px 12px;background:#fbf8f2;border:1.5px solid var(--line);font-size:12.5px;animation:ds-herhaal-in .4s ease-out both}
-.ds-overzicht b{font-size:16px}
-.ds-variant{position:absolute;right:0;top:6px;display:flex;align-items:center;gap:2px;padding:3px;background:#fbf8f2;border:1.5px dashed #b9ad9c;border-radius:8px;z-index:3}
-.ds-variant span{font:600 9.5px/1 var(--fm,monospace);letter-spacing:.08em;text-transform:uppercase;color:#8a7864;padding:0 6px 0 4px}
-.ds-variant button{min-width:28px;height:26px;border:0;border-radius:5px;background:transparent;font:700 12px/1 var(--fb,inherit);color:#5a5047;cursor:pointer}
-.ds-variant button.on{background:#1a1a1a;color:#fff}
 @media (max-width:899px){
   .ds-liter{margin:0;padding:0 0 0 7px;border:0;border-left:1px dashed var(--line)}
   .ds-teller .ds-liter b{font-size:13px}
   .ds-stempel{left:auto;right:4px;top:calc(100% + 10px);font-size:16px;padding:5px 10px 4px}
-  .ds-overzicht{top:0;right:0;left:auto;padding:4px 9px;font-size:11px}
-  .ds-overzicht b{font-size:13px}
-  .ds-variant{top:auto;bottom:6px;left:6px;right:auto}
 }

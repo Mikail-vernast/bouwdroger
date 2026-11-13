@@ -150,7 +150,7 @@ export class ToestelVangnet extends Component<{ children: ReactNode; terugval: R
 export function FilmStart({ film }: { film: MutableRefObject<Film> }) {
   useFrame(() => {
     if (film.current.start >= 0) return;
-    film.current.start = performance.now() - (film.current.voorsprong ?? 0) * 1000;
+    film.current.start = performance.now();
     // De dagteller (buiten het canvas) loopt op dezelfde klok.
     window.dispatchEvent(new CustomEvent(FILM_START, { detail: film.current.start }));
   });
