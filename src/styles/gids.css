@@ -878,3 +878,13 @@
 .hdw-page.gids .dk p{font-size:14px;line-height:1.7;color:var(--txt-mid);margin:0}
 .hdw-page.gids .dk .dkm{margin-top:auto;padding-top:8px;font-weight:700;font-size:14.5px;color:var(--txt)}
 .hdw-page.gids .dk:hover .dkm{color:var(--red)}
+
+/* --- De tweede heroknop ---------------------------------------------
+   `.btn-ghost` is een transparante knop met een witte rand: op het rood van
+   de hero leest die als een omlijnd stuk tekst naast een echte knop, niet als
+   een tweede keuze. Zwart met witte tekst zet hem als knop neer zonder met
+   de witte hoofdknop ("Bereken uw droogpakket") te concurreren. De regel
+   staat hier en niet in hoe-drogen-werkt.css: dat bestand is een letterlijke
+   transcriptie van de designfile en wordt niet met de hand bijgewerkt. */
+.hdw-page.gids .hcta .btn-ghost{background:#141414;border-color:#141414;color:#fff}
+.hdw-page.gids .hcta .btn-ghost:hover{background:#2b2b2b;border-color:#2b2b2b;color:#fff}

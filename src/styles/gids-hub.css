@@ -1,0 +1,88 @@
+/* ============================================================
+   De hub op /gids: filterknoppen boven één raster
+
+   De pagina toonde vier rasters onder elkaar, zes schermen lang. Nu staat
+   alles in één raster en kiest de bezoeker bovenaan waar zijn vraag over
+   gaat; het raster krimpt mee.
+
+   Alles staat gescoped onder `.hdw-page.gids`, net als gids.css, zodat de
+   tokens (--red, --fd, --bg-alt, …) uit hoe-drogen-werkt.css gelden.
+   ============================================================ */
+
+/* --- Eén kleur per onderwerp ----------------------------------------
+   De kaarten zijn verder gelijk; het blokje met het pictogram houdt ze uit
+   elkaar. Met tweeëntwintig kaarten in één raster is dat het verschil tussen
+   een lijst en een overzicht: je ziet aan de kleur of je naar een gids, een
+   toepassing of een prijspagina kijkt, nog voor je het label leest.
+
+   De kleuren staan als twee variabelen per onderwerp — vlak en inkt — zodat
+   een nieuw onderwerp één regel is en de knop, het blokje en het label
+   automatisch bij elkaar blijven. `--hub-lab` is de inkt op wit: geel haalt
+   op een witte kaart geen leesbaar contrast, daar schrijft het label in een
+   donkerder okertint.
+   ------------------------------------------------------------------- */
+.hdw-page.gids [data-kleur="zwart"]{--hub-vlak:#141414;--hub-inkt:#35C46A;--hub-lab:#141414}
+.hdw-page.gids [data-kleur="geel"]{--hub-vlak:#F3C44B;--hub-inkt:#141414;--hub-lab:#8A6A00}
+.hdw-page.gids [data-kleur="groen"]{--hub-vlak:#1E9E50;--hub-inkt:#fff;--hub-lab:#16773B}
+.hdw-page.gids [data-kleur="wit"]{--hub-vlak:#fff;--hub-inkt:#141414;--hub-lab:#141414}
+.hdw-page.gids [data-kleur="rood"]{--hub-vlak:var(--red);--hub-inkt:#fff;--hub-lab:var(--red)}
+
+/* --- De kaart --------------------------------------------------------
+   Gebroken wit, niet spierwit: de sectie eronder is al #fff, en een witte
+   kaart op een witte sectie bestaat alleen bij gratie van haar randje. */
+.hdw-page.gids .hubkaart{
+  display:flex;flex-direction:column;
+  background:#F7F6F2;border:1px solid rgba(20,20,20,.08);border-radius:18px;
+  padding:24px 22px;text-decoration:none;
+  transition:transform .18s,box-shadow .18s,border-color .18s,background .18s;
+}
+.hdw-page.gids .hubkaart:hover{transform:translateY(-3px);background:#FBFAF8;border-color:rgba(20,20,20,.18);box-shadow:0 24px 46px -30px rgba(0,0,0,.3)}
+.hdw-page.gids .hubkaart .kop{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.hdw-page.gids .hubkaart .ki{
+  flex:0 0 auto;width:40px;height:40px;border-radius:11px;
+  display:grid;place-items:center;
+  background:var(--hub-vlak,#fff);color:var(--hub-inkt,#141414);
+  /* Het witte blokje ("Het gamma") heeft op een gebroken witte kaart een rand
+     nodig, de gekleurde niet — daarom een rand die bij de rest wegvalt. */
+  border:1px solid rgba(20,20,20,.1);
+  box-shadow:0 8px 18px -12px rgba(0,0,0,.45);
+}
+.hdw-page.gids .hubkaart h3{font-family:var(--fd);font-weight:800;font-size:16.5px;line-height:1.25;color:var(--txt);margin:0}
+.hdw-page.gids .hubkaart p{font-size:13.5px;line-height:1.65;color:var(--txt-mid);margin:0 0 14px}
+.hdw-page.gids .hubkaart .meer{margin-top:auto;font-weight:700;font-size:14px;color:var(--red);display:inline-flex;align-items:center;gap:7px}
+.hdw-page.gids .hubkaart .meer svg{transition:transform .18s}
+.hdw-page.gids .hubkaart:hover .meer svg{transform:translateX(3px)}
+/* Het groepslabel op een kaart in het ongefilterde raster, in de kleur van
+   haar onderwerp: zonder dat label staan "Levering" en "Hoe lang moet chape
+   drogen?" naast elkaar zonder dat zichtbaar is dat de ene een dienst
+   beschrijft en de andere een vraag. */
+.hdw-page.gids .hubkaart .tag{align-self:flex-start;font-family:var(--fb);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--hub-lab,var(--txt-dim));margin-bottom:12px}
+
+/* --- De filterknoppen ----------------------------------------------- */
+.hdw-page.gids .hubfilters{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 16px}
+.hdw-page.gids .hubfilters button{display:inline-flex;align-items:center;gap:9px;font-family:var(--fb);font-weight:700;font-size:14.5px;color:var(--txt);background:#fff;border:1.5px solid var(--line-2);border-radius:99px;padding:11px 18px;cursor:pointer;transition:all .15s}
+.hdw-page.gids .hubfilters button .n{font-family:var(--fm);font-size:11.5px;font-weight:700;color:var(--txt-dim);background:var(--bg-alt);border-radius:99px;padding:3px 8px;transition:all .15s}
+.hdw-page.gids .hubfilters button:hover{border-color:var(--hub-vlak,var(--red));color:var(--hub-lab,var(--red))}
+/* De ingedrukte knop draagt de kleur van haar onderwerp, dezelfde die de
+   pictogrammen eronder dragen: zo is zonder lezen duidelijk welk deel van
+   het raster je voor je hebt. "Alles" heeft geen onderwerp en valt terug op
+   het rood van de huisstijl. */
+.hdw-page.gids .hubfilters button[aria-pressed="true"]{background:var(--hub-vlak,var(--red));border-color:var(--hub-vlak,var(--red));color:var(--hub-inkt,#fff)}
+.hdw-page.gids .hubfilters button[aria-pressed="true"] .n{background:rgba(255,255,255,.22);color:var(--hub-inkt,#fff)}
+/* Wit op wit: de ingedrukte gammaknop heeft haar rand nodig om knop te
+   blijven. */
+.hdw-page.gids .hubfilters button[data-kleur="wit"][aria-pressed="true"]{border-color:var(--line-2)}
+.hdw-page.gids .hubfilters button[data-kleur="wit"][aria-pressed="true"] .n,
+.hdw-page.gids .hubfilters button[data-kleur="geel"][aria-pressed="true"] .n{background:rgba(20,20,20,.1);color:#141414}
+
+/* --- De teller onder de knoppen ------------------------------------- */
+.hdw-page.gids .hubtel{margin:0 0 26px}
+.hdw-page.gids .hubtel p{font-size:13.5px;color:var(--txt-dim);margin:0}
+.hdw-page.gids .hubtel b{color:var(--txt)}
+.hdw-page.gids .hubtel .uitleg{margin-top:6px;font-size:14.5px;line-height:1.65;color:var(--txt-mid);max-width:720px}
+.hdw-page.gids .hubtel button{background:none;border:0;padding:0;margin-left:8px;font:inherit;font-weight:700;color:var(--red);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* --- Het raster ------------------------------------------------------ */
+.hdw-page.gids .hubgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:980px){.hdw-page.gids .hubgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.hdw-page.gids .hubgrid{grid-template-columns:1fr}}
