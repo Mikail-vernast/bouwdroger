@@ -30,6 +30,9 @@ type Params = Record<string, unknown>;
 
 const s = (v: unknown): string => (v === null || v === undefined ? "" : String(v).trim());
 const e = (v: unknown): string => escapeHtml(s(v));
+/** "label value", or "" when there is no value: a header never ends in a bare "tot". */
+const labelled = (label: string, value: string): string => (value ? `${label} ${value}` : "");
+const dotted = (parts: string[]): string => parts.filter(Boolean).join(" · ");
 
 /** One row; skipped when the value is empty so the cards never show "—" walls. */
 function row(name: string, html: string, last = false): string {
@@ -189,8 +192,11 @@ function pickup(subject: string, p: Params): string {
       badge: "Afhaalreservatie",
       reference: s(p.referentie),
       title: e(p.toestellen) || "Afhaling",
-      sub: `Afhalen ${e(p.afhaaldatum)}${s(p.afhaalmoment) ? `, ${e(String(p.afhaalmoment).replace(/^Afhalen\s*/i, ""))}` : ""} · terug ${e(p.terugbrengen)}`,
-      preheader: `${e(p.klant_naam)} haalt ${e(p.toestellen)} af op ${e(p.afhaaldatum)}.`,
+      sub: dotted([
+        labelled("Afhalen", [e(p.afhaaldatum), e(String(p.afhaalmoment ?? "").replace(/^Afhalen\s*/i, ""))].filter(Boolean).join(", ")),
+        labelled("terug", e(p.terugbrengen)),
+      ]) || "Afhaling aan het afhaalpunt",
+      preheader: `Afhaalreservatie${s(p.klant_naam) ? ` van ${e(p.klant_naam)}` : ""}${s(p.afhaaldatum) ? ` op ${e(p.afhaaldatum)}` : ""}.`,
     },
     buttons(p, openOrders),
     [
@@ -219,8 +225,11 @@ function booking(subject: string, p: Params): string {
       badge: "Nieuwe boeking · betaald",
       reference: s(p.referentie),
       title: e(p.toestellen) || e(p.pakket) || "Nieuwe boeking",
-      sub: `Levering ${e(p.leverdatum)}${s(p.tijdslot) ? `, ${e(p.tijdslot)}` : ""} · tot ${e(p.huur_eind)}`,
-      preheader: `${e(p.klant_naam)} boekte ${e(p.toestellen)}, levering ${e(p.leverdatum)}.`,
+      sub: dotted([
+        labelled("Levering", [e(p.leverdatum), e(p.tijdslot)].filter(Boolean).join(", ")),
+        labelled("tot", e(p.huur_eind)),
+      ]) || "Betaalde boeking",
+      preheader: `Nieuwe boeking${s(p.klant_naam) ? ` van ${e(p.klant_naam)}` : ""}${s(p.leverdatum) ? `, levering ${e(p.leverdatum)}` : ""}.`,
     },
     buttons(p, openOrders),
     [
