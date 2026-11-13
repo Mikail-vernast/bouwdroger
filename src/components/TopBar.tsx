@@ -10,9 +10,9 @@ const TopBar = () => {
             <Phone className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">03 689 90 65</span>
           </a>
-          <a href="mailto:info@vernast-verhuur.be" className="flex items-center gap-2 hover:text-primary transition-colors">
+          <a href="mailto:info@vernast-bouwdrogers.be" className="flex items-center gap-2 hover:text-primary transition-colors">
             <Mail className="h-3.5 w-3.5" />
-            <span className="hidden md:inline">info@vernast-verhuur.be</span>
+            <span className="hidden md:inline">info@vernast-bouwdrogers.be</span>
           </a>
         </div>
         <div className="flex items-center gap-4">

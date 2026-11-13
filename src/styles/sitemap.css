@@ -1,0 +1,130 @@
+/* Sitemap — de zichtbare pagina, zie src/pages/SitemapPage.tsx.
+   Hangt aan de gedeelde inhoudsschil `.v3c` (v3-content.css); hier staat
+   alleen wat deze pagina eigen is. */
+
+.v3c.sm-page .hero .hero-copy {
+  padding-bottom: 72px;
+}
+
+.v3c .sm-body {
+  background: #fff;
+  padding: 72px 0 96px;
+}
+
+/* Vier tot zes blokken naast elkaar op een breed scherm, en ze breken zelf af:
+   een vast aantal kolommen laat de kortste blokken met een gat eronder staan
+   zodra er een groep bijkomt in navigation.ts. */
+.v3c .sm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px 36px;
+}
+
+.v3c .sm-blok h2,
+.v3c .sm-breed h2 {
+  font-family: var(--fd);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.015em;
+  color: var(--txt);
+}
+
+.v3c .sm-uit {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--txt-mid);
+  margin: 7px 0 0;
+}
+
+.v3c .sm-blok ul {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.v3c .sm-blok a,
+.v3c .sm-rij a {
+  font-size: 14.5px;
+  line-height: 1.4;
+  color: var(--txt);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.v3c .sm-blok a:hover,
+.v3c .sm-rij a:hover {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+
+.v3c .sm-breed {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+}
+
+/* De brede lijsten (gemeenten, realisaties) lopen in kolommen door in plaats
+   van in een raster: met een raster begint de tweede rij pas onder het
+   langste item van de eerste, en dat gat is bij losse woorden meteen zichtbaar. */
+.v3c .sm-rij {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  columns: 3;
+  column-gap: 36px;
+}
+
+.v3c .sm-rij li {
+  break-inside: avoid;
+  margin-bottom: 9px;
+}
+
+.v3c .sm-rij.sm-klein {
+  columns: 4;
+}
+
+.v3c .sm-rij.sm-klein a {
+  font-size: 13.5px;
+  color: var(--txt-mid);
+}
+
+.v3c .sm-voet {
+  margin-top: 48px;
+}
+
+@media (max-width: 860px) {
+  .v3c .sm-rij,
+  .v3c .sm-rij.sm-klein {
+    columns: 2;
+  }
+  .v3c .sm-body {
+    padding: 52px 0 72px;
+  }
+}
+
+@media (max-width: 520px) {
+  .v3c .sm-rij,
+  .v3c .sm-rij.sm-klein {
+    columns: 1;
+  }
+}
+
+/* De realisatietitels zijn hele zinnen — in vier kolommen breekt elke titel
+   over drie regels en lees je er geen enkele. */
+.v3c .sm-rij.sm-breed-2 {
+  columns: 2;
+}
+
+.v3c .sm-rij.sm-breed-2 a {
+  font-size: 13.5px;
+  color: var(--txt-mid);
+}
+
+@media (max-width: 860px) {
+  .v3c .sm-rij.sm-breed-2 {
+    columns: 1;
+  }
+}

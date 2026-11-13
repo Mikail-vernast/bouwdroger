@@ -145,8 +145,10 @@ Twee dingen die code niet kan oplossen:
   het logo van de klassieke `Navbar`, dus op `/levering`, `/machines`,
   `/prijzen` en de pakketpagina's staat de oude naam nog letterlijk in het
   plaatje. Vraagt een nieuw logobestand, geen commit.
-- **Het e-mailadres is `info@vernast-verhuur.be`.** Een vierde variant van de
-  naam, en die staat in `CONTACT` én in elke verstuurde mail.
+- ~~**Het e-mailadres is `info@vernast-verhuur.be`.**~~ Opgelost op 13-11-2026:
+  overal `info@vernast-bouwdrogers.be`, gelijk aan het domein. Het adres stond
+  in twaalf bestanden letterlijk overgetypt in plaats van uit `CONTACT.email`
+  te komen — bij de volgende wijziging is dat de plek om het te halen.
 
 Kleinere inconsistentie die bij deze ronde opviel: de statistiekbalk op de
 homepage zegt "450+ woningen en werven", de pakketpagina's zeggen "500+

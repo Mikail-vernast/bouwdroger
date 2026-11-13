@@ -18,6 +18,7 @@ import {
 import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
 import { SEO } from "@/data/seo";
+import { eersteReviews } from "@/data/reviews";
 import "@/styles/ozonbehandeling.css";
 
 /**
@@ -163,53 +164,6 @@ const SPOREN: { id: string; style: CSSProperties }[] = [
   { id: "s6", style: { left: "12%", top: "76%", "--ss": "34px", "--sd": "9s", animationDelay: "7.5s" } as CSSProperties },
 ];
 
-/**
- * De beoordelingen onder deze pagina.
- *
- * Overgenomen uit dezelfde bron als `V3Reviews` op de homepage: de reviewlijst
- * in het portaal, letterlijk, zonder herschrijven. De selectieregel is daar
- * uitgeschreven en geldt hier net zo — alleen reviews waarvan de tekst zelf
- * geen ander vak van de groep noemt, en geen dienstlabel tenzij de klant het
- * zelf schrijft.
- *
- * Bewust geen gemiddelde en geen aantal erboven. Dat cijfer is van geen bron
- * hard te maken; daarom staat `REVIEWS` in src/lib/site.ts op `null` en guarden
- * de hero en de statistiekbalk daarop.
- */
-const REVIEWS_OZON: {
-  name: string;
-  initials: string;
-  text: string;
-  rating: number;
-  date: string;
-  source: "Google" | "Solvari";
-}[] = [
-  {
-    name: "Matt Demyttenaere",
-    initials: "MD",
-    text: "Snelle respons en dezelfde dag nog een droger geïnstalleerd. Top service!",
-    rating: 5,
-    date: "okt 2023",
-    source: "Google",
-  },
-  {
-    name: "Ingrid Janssens",
-    initials: "IJ",
-    text: "Zeer goede service en flexibiliteit. Werken zijn uitstekend uitgevoerd. Vriendelijk personeel. Firma zeker aan te raden.",
-    rating: 5,
-    date: "mrt 2025",
-    source: "Google",
-  },
-  {
-    name: "Leo",
-    initials: "LO",
-    text: "We zijn bijzonder tevreden. Het personeel is professioneel én vriendelijk. Het werk is grondig uitgevoerd. Bovendien werd het achteraf goed opgevolgd.",
-    rating: 5,
-    date: "sep 2024",
-    source: "Solvari",
-  },
-];
-
 /** Wat de generator doet, in de taal van de werf. */
 const TECHNIEK: [string, string][] = [
   ["Herkomst", "Duitse makelij"],
@@ -259,8 +213,8 @@ const OzonbehandelingPage = () => (
             <h1>Schimmel weggeschrobd en tóch terug? Dan zit het dieper dan de muur.</h1>
             <p>
               Een ozonbehandeling verspreidt actieve zuurstof (O₃) tot in elke kier van de ruimte,
-              doodt schimmelsporen, bacteriën en huisstofmijt, en breekt de muffe vochtgeur af —
-              ook daar waar borstel en verf niet raken.
+              doodt schimmelsporen, bacteriën en huisstofmijt, en breekt de muffe vochtgeur af, ook
+              daar waar borstel en verf niet raken.
             </p>
             <div className="oz-hero-cta">
               <a className="ozbtn ozbtn-white" href="#boeken">
@@ -351,7 +305,7 @@ const OzonbehandelingPage = () => (
         <Reveal className="oz-note" delay={0.1}>
           <b>Eerst droog, dan ozon.</b> Ozon doodt wat er is en doorbreekt de cirkel, maar zonder
           een droge constructie keert schimmel terug. Zit er nog vocht in muur of chape, dan drogen
-          we eerst — met{" "}
+          we eerst, met{" "}
           <Link to="/verhuur/calculator">een berekend droogpakket</Link>, bevestigd door een
           vochtmeting. Pas daarna heeft een behandeling zin.
         </Reveal>
@@ -417,7 +371,7 @@ const OzonbehandelingPage = () => (
           <p className="oz-lede">
             Een ozongenerator zet de zuurstof in de kamer om in ozon. Omdat het een gas is,
             verspreidt het zich vanzelf: tot in kieren, voegen, achter meubels, in textiel en in het
-            ventilatiekanaal — plekken die u met een borstel nooit bereikt.
+            ventilatiekanaal, plekken die u met een borstel nooit bereikt.
           </p>
         </Reveal>
 
@@ -502,15 +456,15 @@ const OzonbehandelingPage = () => (
             <h3>Droog en ontschimmel eerst</h3>
             <p>
               De constructie droogt tot de vochtmeting het bevestigt en de zichtbare schimmel wordt
-              verwijderd. Het oppervlak oogt weer proper.
+              verwijderd — zie <Link to="/ontschimmeling">ontschimmeling</Link>. Het oppervlak oogt weer proper.
             </p>
           </Reveal>
           <Reveal className="oz-step" delay={0.08}>
             <span className="oz-step-n">2</span>
             <h3>Ozon ruimt de rest op</h3>
             <p>
-              De behandeling doodt de achtergebleven sporen in de lucht, in kieren en in textiel —
-              in de hele ruimte, niet alleen op de muur.
+              De behandeling doodt de achtergebleven sporen in de lucht, in kieren en in textiel, in
+              de hele ruimte, niet alleen op de muur.
             </p>
           </Reveal>
           <Reveal className="oz-step" delay={0.16}>
@@ -557,7 +511,7 @@ const OzonbehandelingPage = () => (
           <h2 className="oz-h2">Meer dan alleen schimmel.</h2>
           <p className="oz-lede">
             Omdat ozon microben én geurmoleculen aanpakt, gebruiken we het voor uiteenlopende
-            situaties — altijd als aanvulling op een gezonde, droge ruimte.
+            situaties, altijd als aanvulling op een gezonde, droge ruimte.
           </p>
         </Reveal>
 
@@ -587,7 +541,7 @@ const OzonbehandelingPage = () => (
           <span className="oz-kick onred">Onze techniek</span>
           <h2 className="oz-h2">Professionele Duitse ozongeneratoren.</h2>
           <p className="oz-lede">
-            Wij werken met krachtige, professionele ozongeneratoren van Duitse makelij — geen
+            Wij werken met krachtige, professionele ozongeneratoren van Duitse makelij, geen
             hobbytoestellen. Ze produceren een hoog, regelbaar ozondebiet, afgestemd op het volume
             van de ruimte, zodat de behandeling grondig én gecontroleerd verloopt.
           </p>
@@ -674,11 +628,11 @@ const OzonbehandelingPage = () => (
           <h2 className="oz-h2">Hoe wij werken, in hun woorden.</h2>
           <p className="oz-lede">
             Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over snelheid,
-            opvolging en afspraken nakomen — want dat is wat een behandeling bij u thuis vraagt.
+            opvolging en afspraken nakomen, want dat is wat een behandeling bij u thuis vraagt.
           </p>
         </Reveal>
         <div className="oz-reviews">
-          {REVIEWS_OZON.map((review, i) => (
+          {eersteReviews(3).map((review, i) => (
             <Reveal className="oz-review" key={review.name} delay={(i % 3) * 0.07}>
               <div className="oz-review-stars" aria-label={`${review.rating} van 5 sterren`}>
                 {Array.from({ length: review.rating }, (_, star) => (
@@ -705,25 +659,52 @@ const OzonbehandelingPage = () => (
     </section>
 
     {/* ================= FAQ ================= */}
-    <section className="oz-sec oz-light">
-      <div className="oz-wrap">
-        <Reveal className="oz-head oz-head-mid">
+    {/*
+      Dezelfde opbouw als de FAQ op de homepage: een smalle linkerkolom met de
+      kop en een donkere hulpkaart, de vragen in een bredere kolom ernaast. Het
+      stond hier als één gecentreerde lijst over de volle breedte — dezelfde
+      inhoud, maar een ander blok dan de bezoeker twee pagina's eerder zag, en
+      zonder de uitweg ("staat uw vraag er niet bij?") die daar juist de
+      telefoon oplevert.
+
+      De klassenamen zijn die van de homepage (`faq`, `q`, `pl`), maar de regels
+      staan opnieuw onder `.oz-page`: de originelen leven binnen `.v3` en erven
+      daar hun tokens.
+
+      `<details>` blijft, met de eerste open — zo staat elk antwoord in de
+      geprerenderde HTML, ook voor wie geen JavaScript uitvoert.
+    */}
+    <section className="oz-sec oz-light" id="faq">
+      <div className="oz-wrap faq-grid">
+        <div className="faq-side">
           <span className="oz-kick red">Veelgestelde vragen</span>
           <h2 className="oz-h2">Uw vragen over ozonbehandeling.</h2>
-          <p className="oz-lede">
-            Twijfelt u of ozon iets voor u is? Wij bekijken uw situatie en zeggen eerlijk of een
-            behandeling zin heeft — en wat er eventueel eerst moet gebeuren.
-          </p>
-        </Reveal>
+          <div className="faq-help">
+            <h3>Staat uw vraag er niet bij?</h3>
+            <p>
+              Wij bekijken uw situatie en zeggen eerlijk of een behandeling zin heeft, en wat er
+              eventueel eerst moet gebeuren.
+            </p>
+            <div className="fh-btns">
+              <a className="fh-call" href={`tel:${CONTACT.phoneE164}`}>
+                <PhoneIcon /> Bel {CONTACT.phoneLocal}
+              </a>
+              <a className="fh-form" href="#boeken">
+                Stel uw vraag online
+              </a>
+            </div>
+          </div>
+        </div>
 
-        <div className="oz-faq">
-          {FAQ.map((item) => (
-            <details className="oz-q" key={item.question}>
+        <div className="faq-list">
+          {FAQ.map((item, i) => (
+            <details className="q" key={item.question} open={i === 0}>
               <summary>
-                {item.question}
-                <span className="oz-q-ic" aria-hidden="true" />
+                {item.question} <span className="pl">+</span>
               </summary>
-              <p>{item.answer}</p>
+              <div className="a">
+                <p>{item.answer}</p>
+              </div>
             </details>
           ))}
         </div>
@@ -739,7 +720,7 @@ const OzonbehandelingPage = () => (
           <p>
             Vul hieronder uw situatie in, dan belt een specialist u binnen één werkdag om de
             behandeling in te plannen. Wij pakken eerst de oorzaak aan en zetten ozon in als
-            grondige afronding — duidelijk, correct en zonder valse verwachtingen.
+            grondige afronding, duidelijk, correct en zonder valse verwachtingen.
           </p>
           <ul className="oz-book-usp">
             <li>Reactie binnen één werkdag</li>
@@ -748,7 +729,7 @@ const OzonbehandelingPage = () => (
           </ul>
           <p className="oz-book-call">
             Liever meteen bellen?{" "}
-            <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a> — {CONTACT.openingHours
+            <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a>, {CONTACT.openingHours
               .replace("Mo-Fr", "ma–vr")
               .replace(" 08:00-17:00", ", 8u–17u")}
           </p>

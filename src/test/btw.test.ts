@@ -22,7 +22,14 @@ describe("btw op de boeking", () => {
     const summary = bookingSummary(CONFIG, { ...EMPTY_OPTIONS, payment: "online" });
     expect(summary.discount).toBeGreaterThan(0);
     expect(summary.vat).toBe(Math.round(summary.netTotal * 21) / 100);
-    expect(summary.grossTotal).toBe(summary.netTotal + summary.vat);
+    /*
+      Op centen afgerond, zoals `bookingSummary` dat zelf doet. Een rauwe
+      optelling geeft hier 1422.1599999999999 waar de code 1422.16 oplevert.
+      Met de oude bedragen viel dat toevallig samen; sinds de tarieven van
+      11-2026 niet meer. De afronding is geen detail: hij staat er zodat het
+      bedrag op het scherm gelijk is aan wat Stripe int.
+    */
+    expect(summary.grossTotal).toBe(Math.round((summary.netTotal + summary.vat) * 100) / 100);
   });
 
   it("laat Stripe bij volledige betaling het volledige brutobedrag innen", () => {

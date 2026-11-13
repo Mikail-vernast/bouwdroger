@@ -91,7 +91,7 @@ describe("api/ozon", () => {
     expect((init.headers as Record<string, string>)["x-webhook-secret"]).toBe("geheim");
   });
 
-  it("houdt de bron op `vraag` — het portaal kent geen bron `ozon`", async () => {
+  it("houdt de bron op `vraag`, het portaal kent geen bron `ozon`", async () => {
     await ozon(request(boeking()));
 
     expect(sentPayload().source).toBe("vraag");
@@ -101,14 +101,14 @@ describe("api/ozon", () => {
     await ozon(request(boeking({ situatie: "geur" })));
 
     const payload = sentPayload();
-    expect(payload.subject).toBe("Ozonbehandeling — Hardnekkige geur neutraliseren");
+    expect(payload.subject).toBe("Ozonbehandeling, Hardnekkige geur neutraliseren");
     expect(payload.page_url).toBe("https://vernast-bouwdrogers.be/ozonbehandeling");
   });
 
   it("valt terug op advies bij een onbekende of gesmokkelde situatie", async () => {
     await ozon(request(boeking({ situatie: "constructor" })));
 
-    expect(sentPayload().subject).toBe("Ozonbehandeling — Advies over een ozonbehandeling");
+    expect(sentPayload().subject).toBe("Ozonbehandeling, Advies over de aanpak");
   });
 
   it("neemt termijn, ruimtes en ontschimmeling in het bericht op", async () => {

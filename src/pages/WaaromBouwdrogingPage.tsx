@@ -6,6 +6,7 @@ import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
 import "@/styles/waarom-bouwdroging.css";
 import "@/styles/waarom-bouwdroging-fixes.css";
+import { toestelPad } from "@/data/verhuur";
 
 /**
  * Waarom bouwdroging — 1:1 transcription of the Claude Design handoff
@@ -68,11 +69,8 @@ const WaaromBouwdrogingPage = () => (
             </div>
           </div>
           <div className="hero-vis rv d2">
-            <img src="/vernast/drie-vakmannen.webp" alt="De Vernast vakmannen met hun eco-bouwdrogers" style={{ width: "min(100%,560px)" }} />
-            <div className="fbadge" style={{ top: "-34px", left: "6%" }}>
-              <span className="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 12 2 2 4-4" /><circle cx="12" cy="12" r="10" /></svg></span>
-              <div>100% droog-garantie*<small>Of kosteloos verlengen</small></div>
-            </div>
+            <img src="/vernast/man-rode-kaart.webp" alt="Vernast-expert geeft een rode kaart aan drogen op goed weer" width="1440" height="1438" loading="eager" decoding="async" />
+            <div className="fbadge rd" style={{ top: "-28px", left: "2%" }}><span className="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></span><div>Wachten op de zon<small>Geen planning, wel risico</small></div></div>
           </div>
         </div>
       </section>
@@ -181,7 +179,7 @@ const WaaromBouwdrogingPage = () => (
           <div className="rd rv d1">
             <div className="zone"><i className="on" /><i className="on" /><i className="on" /><i className="on" /></div>
             <h3>Capaciteit verdeeld over droogzones</h3>
-            <p>Dezelfde totale capaciteit, verdeeld waar ze nodig is, aangevuld met <Link to="/verhuur/toestel/ttv4500" style={{ color: "var(--red)", fontWeight: 600 }}>ventilatoren</Link> die de lucht beter laten circuleren. Een gelijkmatiger droogklimaat, een voorspelbaar resultaat en een lagere energiefactuur.</p>
+            <p>Dezelfde totale capaciteit, verdeeld waar ze nodig is, aangevuld met <Link to={toestelPad("ttv4500")} style={{ color: "var(--red)", fontWeight: 600 }}>ventilatoren</Link> die de lucht beter laten circuleren. Een gelijkmatiger droogklimaat, een voorspelbaar resultaat en een lagere energiefactuur.</p>
           </div>
         </div>
         <div className="note rv d2"><b>Niet maximaal drogen. Optimaal drogen.</b> Te agressief drogen kan krimp en scheurvorming bevorderen, daarom sturen we op relatieve luchtvochtigheid en is overcapaciteit geen kwaliteitskenmerk. Het doel is niet zo groot mogelijke machines plaatsen, maar <b>de benodigde capaciteit zo efficiënt mogelijk over het gebouw verdelen</b>. Hoe dat technisch zit, leest u bij <Link to="/hoe-drogen-werkt">hoe drogen werkt</Link>.</div>

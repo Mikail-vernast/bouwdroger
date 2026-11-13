@@ -7,14 +7,17 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import { ArrowRightIcon, CaretIcon, CheckIcon } from "@/components/verhuur/icons";
 import { PinIcon } from "@/components/home-v3/icons";
 import {
-  PRODUCTS,
-  productImageAlt,
   PRODUCT_ADDONS,
   PRODUCT_ORDER,
+  productImageAlt,
+  PRODUCTS,
   SC_LABEL,
+  toestelKey,
+  toestelPad,
   type Product,
 } from "@/data/verhuur";
 import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
+import { MAPS_URL } from "@/lib/site";
 import { serializeSelection } from "@/lib/afhalen";
 import { firstFreeDate, usePickupAvailability } from "@/hooks/usePickupAvailability";
 import { addDays, euroInt, isoDate } from "@/lib/verhuur";
@@ -32,7 +35,7 @@ const MAX_QTY = 12;
 const PICKUP_FAQ: [string, string][] = [
   [
     "Waar haal ik het toestel af?",
-    "Aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar — vlak langs de A12, vlot bereikbaar vanuit Antwerpen en Brussel. Open ma–vr van 08:00 tot 17:00.",
+    "Aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar, vlak langs de A12, vlot bereikbaar vanuit Antwerpen en Brussel. Open ma–vr van 08:00 tot 17:00.",
   ],
   [
     "Wat breng ik mee bij de afhaling?",
@@ -75,12 +78,14 @@ const PICKUP_STEPS = [
 const PERIODS = PICKUP_PERIODS;
 
 const VerhuurToestelPage = () => {
-  const { model } = useParams();
+  const { toestel } = useParams();
   const [searchParams] = useSearchParams();
 
-  // Valt terug op het eerste toestel uit het gamma: "ttk350" hardcoderen breekt
-  // zodra dat toestel in het portaal uit de verhuur gehaald wordt.
-  const key = model && PRODUCTS[model] ? model : PRODUCT_ORDER[0];
+  // De URL draagt de slug ("bouwdroger-70-liter"), niet de sleutel ("ttk350");
+  // `toestelKey` vertaalt terug en aanvaardt onderweg ook nog de oude
+  // sleutel-URL. Valt terug op het eerste toestel uit het gamma: "ttk350"
+  // hardcoderen breekt zodra dat toestel in het portaal uit de verhuur gaat.
+  const key = toestelKey(toestel) ?? PRODUCT_ORDER[0];
   const prod: Product = PRODUCTS[key];
   // De afhaalvragen gelden voor elk toestel en staan onder de specifieke FAQ.
   const questions: [string, string][] = [...prod.faq, ...PICKUP_FAQ];
@@ -158,7 +163,7 @@ const VerhuurToestelPage = () => {
       <PageMeta
         title={pageTitle}
         description={prod.sum}
-        path={`/verhuur/toestel/${key}`}
+        path={toestelPad(key)}
         image={prod.img[0]}
         ogType="product"
         jsonLd={[
@@ -166,7 +171,7 @@ const VerhuurToestelPage = () => {
             name: prod.name,
             description: prod.sum,
             image: prod.img[0],
-            path: `/verhuur/toestel/${key}`,
+            path: toestelPad(key),
             pricePerDay: prod.day,
             category: prod.type,
             specs: prod.specs,
@@ -175,7 +180,7 @@ const VerhuurToestelPage = () => {
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Toestellen", path: "/machines" },
-            { name: prod.short, path: `/verhuur/toestel/${key}` },
+            { name: prod.short, path: toestelPad(key) },
           ]),
         ]}
       />
@@ -228,7 +233,7 @@ const VerhuurToestelPage = () => {
               <div className="promo-online">
                 <CheckIcon size={15} strokeWidth={2.4} />
                 <b>5% korting bij online betalen</b>
-                <span>&nbsp;— instant factuur in uw mailbox</span>
+                <span>&nbsp;· instant factuur in uw mailbox</span>
               </div>
               <p className="psum">{prod.sum}</p>
 
@@ -377,7 +382,7 @@ const VerhuurToestelPage = () => {
                           .
                         </>
                       ) : (
-                        " De komende weken is er niets vrij — bel ons op 03 689 90 65."
+                        " De komende weken is er niets vrij, bel ons op 03 689 90 65."
                       )}
                     </div>
                   )}
@@ -448,7 +453,7 @@ const VerhuurToestelPage = () => {
                     </button>
                   ) : (
                     <Link className="btn btn-red" to={`/verhuur/afhalen?${pickupQuery}`}>
-                      Reserveer voor afhaling — {euroInt(total)}
+                      Reserveer voor afhaling, {euroInt(total)}
                       <ArrowRightIcon strokeWidth={2.4} />
                     </Link>
                   )}
@@ -524,7 +529,7 @@ const VerhuurToestelPage = () => {
             <h2 className="sec">Zo werkt afhalen.</h2>
             <p className="lede">
               Losse toestellen huurt u tegen lagere afhaalprijzen via onze afhaal-checkout. U
-              reserveert online en haalt op wanneer het u past — wij zetten alles klaar.
+              reserveert online en haalt op wanneer het u past, wij zetten alles klaar.
             </p>
           </div>
           <div className="astep-grid">
@@ -540,14 +545,14 @@ const VerhuurToestelPage = () => {
           <div className="pickupbar">
             <PinIcon size={34} />
             <div className="pb-t">
-              <b>Afhaalpunt Vernast — Boomsesteenweg 12 / Unit 11, 2630 Aartselaar</b>
+              <b>Afhaalpunt Vernast, Boomsesteenweg 12 / Unit 11, 2630 Aartselaar</b>
               <span>
                 Vlak langs de A12, vlot bereikbaar vanuit Antwerpen en Brussel · Ma–Vr 08:00–17:00
               </span>
             </div>
             <a
               className="btn"
-              href="https://www.google.com/maps/search/?api=1&query=Boomsesteenweg+12+2630+Aartselaar"
+              href={MAPS_URL}
               target="_blank"
               rel="noopener"
             >
@@ -579,7 +584,7 @@ const VerhuurToestelPage = () => {
 
           <p className="af-note">
             Leveren en installeren doen wij uitsluitend{" "}
-            <Link to="/verhuur/calculator">per pakket</Link> — alleen zo kunnen wij onze 100%
+            <Link to="/verhuur/calculator">per pakket</Link>, alleen zo kunnen wij onze 100%
             droog-garantie waarmaken.
           </p>
         </div>
@@ -599,7 +604,7 @@ const VerhuurToestelPage = () => {
             {cross.map((k) => {
               const c = PRODUCTS[k];
               return (
-                <Link className="cc" to={`/verhuur/toestel/${k}`} key={k}>
+                <Link className="cc" to={toestelPad(k)} key={k}>
                   <div className="cm">
                     <img src={c.img[0]} alt={productImageAlt(c, 0)} loading="lazy" decoding="async" />
                   </div>

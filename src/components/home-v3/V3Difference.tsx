@@ -1,28 +1,40 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { CalcIcon, GammaIcon, OpvolgIcon, PrijsIcon, VerlengIcon } from "./icons";
 
-const POINTS = [
+/*
+ * De nummers 01 t/m 05 suggereerden een volgorde die er niet is: dit zijn
+ * vijf losse redenen, niet vijf stappen. Een icoon zegt bovendien meteen
+ * waar de kaart over gaat, een cijfer pas na het lezen van de kop.
+ */
+const POINTS: { id: string; icon: ReactNode; title: string; body: string }[] = [
   {
-    n: "01",
+    id: "calculator",
+    icon: <CalcIcon />,
     title: "Slimme droogcalculator",
     body: "Berekent op basis van volume, situatie en toepassing welke droogoplossing nodig is. Zo vermijdt u onder- én overcapaciteit.",
   },
   {
-    n: "02",
+    id: "prijs",
+    icon: <PrijsIcon />,
     title: "All-in prijs zonder verrassingen",
     body: "Levering, ophaling, installatie op gelijkvloers en standaard toebehoren zoals verlengkabels zijn inbegrepen.",
   },
   {
-    n: "03",
+    id: "gamma",
+    icon: <GammaIcon />,
     title: "Afgestemd gamma",
     body: "Geen overgedimensioneerde toestellen, maar eco-bouwdrogers afgestemd op uw ruimte: nieuwbouw, renovatie, waterschade of koude ruimtes.",
   },
   {
-    n: "04",
+    id: "opvolging",
+    icon: <OpvolgIcon />,
     title: "Praktische opvolging",
     body: "U boekt online, ontvangt snel bevestiging en duidelijke instructies, en wij plaatsen de toestellen correct op locatie.",
   },
   {
-    n: "05",
+    id: "verlengen",
+    icon: <VerlengIcon />,
     title: "Flexibel verlengen",
     body: "Niet op tijd droog? Met een beperkte verlengoptie loopt uw planning niet vast en houdt u uw project onder controle.",
   },
@@ -50,8 +62,8 @@ const V3Difference = () => (
       </div>
       <div className="dif-grid">
         {POINTS.map((point) => (
-          <div className="df" key={point.n}>
-            <div className="dn2">{point.n}</div>
+          <div className="df" key={point.id}>
+            <div className="dfi">{point.icon}</div>
             <h3>{point.title}</h3>
             <p>{point.body}</p>
           </div>

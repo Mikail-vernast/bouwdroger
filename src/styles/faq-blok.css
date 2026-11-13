@@ -1,0 +1,182 @@
+/* ============================================================
+   Het vragenblok van de homepage, overal op de site.
+
+   Ongescoped en met eigen terugvallen voor de variabelen, net als
+   site-footer.css en mega-menu.css. Dat is hier geen luxe: de FAQ stond in
+   drie verschillende vormen op de site. Op de homepage als twee kolommen met
+   een hulpkaartje ernaast, op de gidspagina's als een rij `<details>` met een
+   rond pijltje, en op de inhoudspagina's als een raster van open kaarten. Wie
+   van /renovatie naar /gids klikte, kreeg drie keer hetzelfde blok in een
+   andere vorm.
+
+   Dit is de vorm van de homepage, want die hoort bij de rest van de v3-taal:
+   het plusje dat naar een kruisje draait, de rode rand om de open vraag, en
+   het hulpkaartje dat zegt wat te doen als het antwoord er niet bij staat.
+
+   Twee achtergronden: `licht` (grijs, zoals de homepage) en `rood` (het
+   donkerrode vlak van `.sr`). Verder niets verschillend.
+
+   De markup is bewust een `<dl>` met per vraag een `<div><dt><dd>`: een
+   accordeon die zijn antwoord pas bij het openklappen rendert, haalt dat
+   antwoord uit de geprerenderde HTML, en dan belooft het FAQPage-schema in de
+   head tekst die er niet staat. Hier staat het antwoord er altijd; alleen
+   `display` verandert. Zie ook src/test/inhoudspaginas.test.tsx, dat per `dt`
+   een `dd` met inhoud eist.
+   ============================================================ */
+
+/* Drie achtergronden, omdat de drie schillen ze alle drie gebruiken: wit op
+   de inhoudspagina's, grijs op de gidsen, rood overal waar de sectie ervoor
+   wit is. De vormtaal wisselt wit en rood strikt af; grijs hoort alleen op de
+   gidspagina's. */
+.fq { padding: 88px 0; background: #fff }
+.fq.grijs { background: var(--bg-alt, #F4F4F4) }
+.fq.rood {
+  background: var(--maroon-d, #5A0C10) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;
+}
+
+.fq-wrap {
+  max-width: var(--wrap, 1260px);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+.fq-grid {
+  display: grid;
+  grid-template-columns: .72fr 1.28fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 1040px) {
+  .fq-grid { grid-template-columns: 1fr; gap: 34px }
+}
+
+/* ---- de linkerkolom ---- */
+.fq-zij { position: sticky; top: 110px }
+@media (max-width: 1040px) {
+  .fq-zij { position: static }
+}
+.fq-kick {
+  display: inline-block;
+  font-family: var(--fb, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 600; font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--red, #C8102E);
+  margin-bottom: 14px;
+}
+.fq.rood .fq-kick { color: rgba(255,255,255,.75) }
+.fq-titel {
+  font-family: var(--fd, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 800; font-size: clamp(28px, 3.2vw, 42px); line-height: 1.08;
+  letter-spacing: -.025em; text-wrap: balance;
+  color: var(--txt, #141414);
+  margin: 0;
+}
+.fq.rood .fq-titel { color: #fff }
+
+/* Het hulpkaartje. Op een lichte sectie donkerrood, op een rode sectie wit:
+   een donkerrode kaart op een donkerrode achtergrond is geen kaart meer. */
+.fq-help {
+  margin-top: 26px;
+  background: var(--maroon-d, #5A0C10);
+  border-radius: 20px;
+  padding: 26px 24px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.fq-help::before {
+  content: ""; position: absolute; right: -46px; top: -46px;
+  width: 150px; height: 150px; border-radius: 50%;
+  background: rgba(255,255,255,.07);
+}
+.fq-help h3 {
+  font-family: var(--fd, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 700; font-size: 18px; margin: 0 0 8px; color: #fff;
+}
+.fq-help p { font-size: 13.5px; color: rgba(255,255,255,.75); line-height: 1.6; margin: 0 0 18px }
+.fq-knoppen { display: flex; flex-direction: column; gap: 9px; position: relative }
+.fq-knoppen a {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  font-family: var(--fb, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 600; font-size: 14px; padding: 13px 18px; border-radius: 99px;
+  text-decoration: none; transition: transform .16s, border-color .16s, background .16s;
+}
+/* Twee klassen diep, en dat is hier geen stijlkwestie maar noodzaak:
+   `.v3c a{color:var(--red)}` uit v3-content.css weegt (0,1,1) en won van een
+   losse `.fq-bel` (0,1,0). Op élke inhoudspagina stonden beide knoppen daardoor
+   in het rood — rood op een donkerrode kaart, en "Stel uw vraag online" was
+   zo goed als onleesbaar. De kaart is donkerrood, dus de knoppen zijn wit en
+   zwart: een wit pilletje met zwarte tekst, en een omlijnde knop in het wit. */
+.fq .fq-bel { background: #fff; color: var(--txt, #141414) }
+.fq .fq-bel:hover { color: var(--txt, #141414); transform: translateY(-2px) }
+.fq .fq-stel { border: 1.5px solid rgba(255,255,255,.4); color: #fff }
+.fq .fq-stel:hover { border-color: #fff; color: #fff; transform: translateY(-2px) }
+
+.fq.rood .fq-help { background: #fff }
+.fq.rood .fq-help::before { background: rgba(200,16,46,.045) }
+.fq.rood .fq-help h3 { color: var(--txt, #141414) }
+.fq.rood .fq-help p { color: var(--txt-mid, rgba(20,20,20,.62)) }
+.fq.rood .fq-bel { background: var(--red, #C8102E); color: #fff }
+.fq.rood .fq-bel:hover { color: #fff }
+.fq.rood .fq-stel { border-color: var(--line-2, rgba(20,20,20,.18)); color: var(--txt, #141414) }
+.fq.rood .fq-stel:hover { border-color: var(--red, #C8102E); color: var(--red, #C8102E) }
+
+/* ---- de vragen ---- */
+.fq-lijst { display: flex; flex-direction: column; gap: 10px; margin: 0 }
+.fq-item {
+  background: #fff;
+  border: 1px solid var(--line, rgba(20,20,20,.1));
+  border-radius: 15px;
+  transition: border-color .18s, box-shadow .18s;
+}
+/* Op grijs en rood tekent de achtergrond zelf de rand van de kaart; op een
+   witte sectie draagt de kaart juist het grijs, anders zweeft ze nergens op. */
+.fq.grijs .fq-item,
+.fq.rood .fq-item { border-color: transparent }
+.fq.wit .fq-item { background: var(--bg-alt, #F4F4F4); border-color: transparent }
+.fq-item:hover { border-color: var(--line-2, rgba(20,20,20,.18)) }
+.fq-item dt { margin: 0 }
+/* De schakelaar zelf blijft bereikbaar voor het toetsenbord, maar onzichtbaar:
+   `display:none` haalt hem uit de tabvolgorde. */
+.fq-toggle { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none }
+.fq-item dt label {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  cursor: pointer; padding: 18px 22px;
+  font-family: var(--fd, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 600; font-size: 15.5px; line-height: 1.4;
+  color: var(--txt, #141414);
+  transition: color .15s;
+}
+.fq-item dt label:hover { color: var(--red, #C8102E) }
+.fq-toggle:focus-visible + label { outline: 2px solid var(--red, #C8102E); outline-offset: -4px; border-radius: 15px }
+.fq-pl {
+  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(200,16,46,.08);
+  display: grid; place-items: center;
+  font-size: 15px; line-height: 1; color: var(--red, #C8102E);
+  transition: transform .2s, background .2s, color .2s;
+}
+.fq-item dd {
+  margin: 0; padding: 0 22px 20px;
+  font-size: 14px; line-height: 1.7;
+  color: var(--txt-mid, rgba(20,20,20,.62));
+}
+.fq-item dd p { margin: 0 0 12px }
+.fq-item dd p:last-child { margin: 0 }
+.fq-item dd a { color: var(--red, #C8102E); font-weight: 600 }
+
+@supports selector(:has(*)) {
+  .fq-item:not(:has(.fq-toggle:checked)) dd { display: none }
+  .fq-item:has(.fq-toggle:checked) {
+    border-color: rgba(200,16,46,.35);
+    box-shadow: 0 14px 30px -22px rgba(0,0,0,.35);
+  }
+  .fq-item:has(.fq-toggle:checked) dt label { color: var(--red, #C8102E) }
+  .fq-item:has(.fq-toggle:checked) .fq-pl { transform: rotate(45deg); background: var(--red, #C8102E); color: #fff }
+  .fq-item:has(.fq-toggle:checked) dd { animation: fqIn .22s ease }
+}
+@keyframes fqIn {
+  from { opacity: 0; transform: translateY(-4px) }
+  to { opacity: 1; transform: none }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fq-item dd { animation: none }
+}

@@ -17,8 +17,8 @@ const VFooter = () => (
             <a href="tel:+3236899065">
               <PhoneIcon size={16} /> 03 689 90 65
             </a>
-            <a href="mailto:info@vernast-verhuur.be">
-              <MailIcon size={16} /> info@vernast-verhuur.be
+            <a href="mailto:info@vernast-bouwdrogers.be">
+              <MailIcon size={16} /> info@vernast-bouwdrogers.be
             </a>
           </div>
         </div>

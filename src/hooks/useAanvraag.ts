@@ -17,7 +17,7 @@ export type AanvraagSource = "contact" | "klantenservice" | "levering";
 export type AanvraagStatus = "idle" | "sending" | "done" | "error";
 
 /** Waar de mailto-uitweg naartoe gaat — dezelfde inbox als op de pagina's zelf. */
-export const MAIL_TO = "info@vernast-verhuur.be";
+export const MAIL_TO = "info@vernast-bouwdrogers.be";
 const FALLBACK_ERROR = "Verzenden lukte niet. Probeer het opnieuw of bel 03 689 90 65.";
 
 interface Options {
@@ -97,7 +97,7 @@ export function useAanvraag({ source, messageField, mailSubject }: Options) {
 
       setStatus("done");
     } catch {
-      fail("Verzenden lukte niet — controleer uw verbinding en probeer opnieuw.");
+      fail("Verzenden lukte niet, controleer uw verbinding en probeer opnieuw.");
     }
   };
 

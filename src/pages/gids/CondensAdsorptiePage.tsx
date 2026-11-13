@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import GidsShell, { type GidsFaq } from "@/components/gids/GidsShell";
 import { SEO } from "@/data/seo";
-import { PRODUCTS } from "@/data/verhuur";
+import { PRODUCTS, toestelPad } from "@/data/verhuur";
 import { TARIEVEN_PUBLIEK, euro } from "@/data/tarieflijst";
 import { itemListSchema } from "@/lib/schema";
 
@@ -87,7 +87,7 @@ const CondensAdsorptiePage = () => (
         <p>
           Dat principe is efficiënt zolang de lucht warm en vochtig is. Warme lucht bevat veel waterdamp,
           dus elke keer dat ze langs het koude element gaat, condenseert er veel. Daarom is de
-          condensdroger het standaardtoestel voor <Link to="/nieuwbouw">chape en pleisterwerk</Link> in een
+          condensdroger het standaardtoestel voor <Link to="/nieuwbouw-drogen">chape en pleisterwerk</Link> in een
           verwarmd gebouw en voor de meeste <Link to="/waterschade">waterschade</Link>.
         </p>
 
@@ -103,7 +103,7 @@ const CondensAdsorptiePage = () => (
         </p>
         <p>
           In een koude kelder of een onverwarmde winterwerf is er dus een keuze: verwarm de ruimte met een{" "}
-          <Link to="/verhuur/toestel/teddh30">elektrische bouwkachel</Link> zodat de condensdroger weer op
+          <Link to={toestelPad("teddh30")}>elektrische bouwkachel</Link> zodat de condensdroger weer op
           volle kracht werkt, of kies een toestel dat de koude niet erg vindt.
         </p>
 

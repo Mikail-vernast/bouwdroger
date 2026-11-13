@@ -54,7 +54,7 @@ describe("VerhuurSaldoPage", () => {
 
     // En de twee getallen die dat verklaren staan eronder, in één regel.
     expect(
-      screen.getByText(/van € 342,55 incl\. btw — € 50,00 is al voldaan/),
+      screen.getByText(/van € 342,55 incl\. btw, € 50,00 is al voldaan/),
     ).toBeInTheDocument();
   });
 
@@ -96,7 +96,7 @@ describe("VerhuurSaldoPage", () => {
     renderAt("/verhuur/saldo?session_id=cs_test_boeking&saldo_session=cs_test_saldo");
 
     await waitFor(() => {
-      expect(screen.getByText("Betaald — bedankt")).toBeInTheDocument();
+      expect(screen.getByText("Betaald, bedankt")).toBeInTheDocument();
     });
     expect(screen.getByText(/factuur vertrekt automatisch/)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /betalen/ })).not.toBeInTheDocument();

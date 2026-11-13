@@ -1,0 +1,483 @@
+/* Informatieve afhaalpagina. De basis (header, hero, kaart en routekaarten)
+   komt uit contact.css; hieronder staat alleen de eigen pagina-opbouw. */
+.af-page .hero{padding-bottom:78px}
+.af-page .hero-grid{align-items:center}
+.af-page .hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.af-page .hero-map{animation:none}
+.af-page .hero-map:hover{transform:translateY(-4px);color:inherit}
+.af-page section[id]{scroll-margin-top:108px}
+
+.af-page .af-steps,
+.af-page .af-range,
+.af-page .af-faq{padding:88px 0;background:#fff}
+.af-page .af-step-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.af-page .af-step{position:relative;background:var(--bg-alt);border-radius:18px;padding:28px 24px;overflow:hidden}
+.af-page .af-step>span{display:inline-flex;font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--red);margin-bottom:34px}
+.af-page .af-step::after{content:"";position:absolute;top:42px;left:24px;right:-16px;height:1px;background:var(--line)}
+.af-page .af-step:last-child::after{display:none}
+.af-page .af-step h3{font-family:var(--fd);font-weight:800;font-size:17px;margin-bottom:9px}
+.af-page .af-step p{font-size:13.5px;line-height:1.62;color:var(--txt-mid);margin:0}
+
+.af-page .af-transport{padding:88px 0;background:var(--maroon-d) url('/vernast/bg-red-wide.webp') center/cover no-repeat;color:#fff}
+.af-page .af-transport .kick{color:rgba(255,255,255,.72)}
+.af-page .af-transport .sec{color:#fff}
+.af-page .af-transport .lede{color:rgba(255,255,255,.78)}
+.af-page .af-transport-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.af-page .af-rule{background:#fff;color:var(--txt);border-radius:18px;padding:28px;min-height:250px}
+.af-page .af-rule.important{box-shadow:inset 0 5px 0 var(--red)}
+.af-page .af-rule-tag{display:inline-flex;background:var(--bg-alt);border-radius:8px;padding:7px 12px;font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:42px}
+.af-page .af-rule h3{font-family:var(--fd);font-size:19px;font-weight:800;margin-bottom:10px}
+.af-page .af-rule p{font-size:14px;line-height:1.68;color:var(--txt-mid);margin:0}
+.af-page .af-delivery-note{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-top:18px;padding:24px 26px;border:1px solid rgba(255,255,255,.18);border-radius:18px;background:rgba(255,255,255,.08)}
+.af-page .af-delivery-note div{display:flex;flex-direction:column;gap:5px}
+.af-page .af-delivery-note b{font-family:var(--fd);font-size:17px}
+.af-page .af-delivery-note span{font-size:13.5px;color:rgba(255,255,255,.72)}
+.af-page .af-delivery-note .btn{flex-shrink:0}
+
+.af-page .af-range{background:var(--bg-alt)}
+.af-page .af-range-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.af-page .af-range-grid article{display:grid;grid-template-columns:180px 1fr;background:#fff;border-radius:18px;overflow:hidden;min-height:210px}
+.af-page .af-range-grid img{width:100%;height:100%;object-fit:cover;background:#f3f1f1}
+.af-page .af-range-grid article>div{padding:28px 26px;align-self:center}
+.af-page .af-range-grid span{display:block;font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.af-page .af-range-grid h3{font-family:var(--fd);font-weight:800;font-size:18px;margin-bottom:8px}
+.af-page .af-range-grid p{font-size:13.5px;line-height:1.6;color:var(--txt-mid);margin:0}
+.af-page .af-center{text-align:center;margin-top:28px}
+
+.af-page .af-location{padding:88px 0;background:#fff}
+.af-page .af-location .sec-head{max-width:820px}
+.af-page .af-location .lede b{color:var(--txt)}
+.af-page .af-map-card{background:var(--bg-alt);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:18px}
+.af-page .af-map-card svg{display:block;width:100%;height:auto;border-radius:13px;background:#f7f6f6}
+.af-page .af-route-grid{margin-top:0}
+.af-page .af-location-actions{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:28px}
+.af-page .af-text-link{font-size:14px;font-weight:700;color:var(--red)}
+
+.af-page .af-faq{background:var(--bg-alt)}
+.af-page .af-faq-layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:70px;align-items:start}
+.af-page .af-faq-layout .sec-head{margin:0;position:sticky;top:120px}
+.af-page .af-faq-list{display:flex;flex-direction:column;gap:10px}
+.af-page .af-faq-list details{background:#fff;border-radius:15px;padding:0 22px}
+.af-page .af-faq-list summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 0;cursor:pointer;font-family:var(--fd);font-weight:700;font-size:15.5px}
+.af-page .af-faq-list summary::-webkit-details-marker{display:none}
+.af-page .af-faq-list summary span{width:28px;height:28px;border-radius:9px;background:var(--bg-alt);display:grid;place-items:center;color:var(--red);font-size:18px;transition:transform .18s}
+.af-page .af-faq-list details[open] summary span{transform:rotate(45deg)}
+.af-page .af-faq-list p{font-size:14px;line-height:1.68;color:var(--txt-mid);margin:0;padding:0 42px 22px 0}
+
+.af-page .af-final{padding:64px 0;background:var(--red);color:#fff}
+.af-page .af-final .wrap{display:flex;align-items:center;justify-content:space-between;gap:44px}
+.af-page .af-final .kick{color:rgba(255,255,255,.72);margin-bottom:8px}
+.af-page .af-final h2{font-family:var(--fd);font-weight:800;font-size:clamp(26px,3vw,40px);color:#fff}
+.af-page .af-final p{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.78);margin:10px 0 0}
+.af-page .af-final .btn{flex-shrink:0}
+
+@media (max-width:1040px){
+  .af-page .hero{padding-bottom:68px}
+  .af-page .af-step-grid{grid-template-columns:1fr 1fr}
+  .af-page .af-step:nth-child(2)::after{display:none}
+  .af-page .af-transport-grid{grid-template-columns:1fr}
+  .af-page .af-rule{min-height:0}
+  .af-page .af-rule-tag{margin-bottom:24px}
+  .af-page .af-faq-layout{grid-template-columns:1fr;gap:32px}
+  .af-page .af-faq-layout .sec-head{position:static}
+}
+@media (max-width:760px){
+  .af-page .af-steps,.af-page .af-transport,.af-page .af-range,.af-page .af-location,.af-page .af-faq{padding:68px 0}
+  .af-page .af-step-grid,.af-page .af-range-grid{grid-template-columns:1fr}
+  .af-page .af-step::after{display:none}
+  .af-page .af-range-grid article{grid-template-columns:125px 1fr;min-height:170px}
+  .af-page .af-range-grid article>div{padding:22px 20px}
+  .af-page .af-delivery-note,.af-page .af-final .wrap{align-items:flex-start;flex-direction:column}
+  .af-page .af-delivery-note .btn,.af-page .af-final .btn{width:100%}
+}
+@media (max-width:500px){
+  .af-page .af-range-grid article{grid-template-columns:1fr}
+  .af-page .af-range-grid img{height:190px}
+  .af-page .af-faq-list p{padding-right:0}
+}
+
+/* ── Praktisch-blok in de hero ───────────────────────────────────────────────
+   Vervangt de tweede routekaart. Wit op de rode hero, zoals de pillen eronder,
+   zodat het als één kaart leest en niet als een vlek op het verloop.
+   `dt`/`dd` in plaats van koppen met alinea's: het zijn drie labels met hun
+   waarde, en dat is letterlijk een definitielijst -- een schermlezer leest ze
+   dan als paren.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .hero-praktisch {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px 30px 26px;
+  align-self: center;
+}
+.af-page .hero-praktisch h2 {
+  font-family: var(--fb);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin: 0 0 20px;
+}
+.af-page .hero-praktisch dl { margin: 0; display: flex; flex-direction: column; gap: 18px; }
+.af-page .hero-praktisch dt {
+  font-family: var(--fb);
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--txt-dim);
+  margin-bottom: 5px;
+}
+.af-page .hero-praktisch dd {
+  margin: 0;
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--txt);
+}
+.af-page .hero-praktisch > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  width: 100%;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--red);
+}
+.af-page .hero-praktisch > a:hover { color: #a80d26; gap: 11px; }
+
+/* ── Pictogram "altijd rechtop" ──────────────────────────────────────────────
+   Het toestel kantelt naar liggend en veert terug; het kruis verschijnt precies
+   op het moment dat het ligt. `transform-origin` ligt op de onderste rand, want
+   een toestel kantelt om zijn voet, niet om zijn midden.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .af-upright { width: 120px; height: 96px; display: block; margin: 0 0 16px; }
+.af-page .afu-toestel {
+  transform-origin: 60px 82px;
+  animation: afuKantel 4.6s ease-in-out infinite;
+}
+.af-page .afu-kruis {
+  opacity: 0;
+  transform-origin: 94px 24px;
+  animation: afuKruis 4.6s ease-in-out infinite;
+}
+@keyframes afuKantel {
+  0%, 26% { transform: rotate(0deg); }
+  46%, 62% { transform: rotate(-78deg); }
+  82%, 100% { transform: rotate(0deg); }
+}
+@keyframes afuKruis {
+  0%, 36% { opacity: 0; transform: scale(.4); }
+  50%, 64% { opacity: 1; transform: scale(1); }
+  76%, 100% { opacity: 0; transform: scale(.4); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .af-page .afu-toestel, .af-page .afu-kruis { animation: none; }
+  .af-page .afu-kruis { opacity: 0; }
+}
+
+/* ── De tilbalk: wit in plaats van doorschijnend ─────────────────────────────
+   Stond op `rgba(255,255,255,.08)` met een dunne rand en verdween daardoor in
+   de rode achtergrond -- je zag alleen de witte knop zweven. Nu een echte witte
+   kaart met de foto links, zoals op de homepage.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .af-delivery-note {
+  background: #fff;
+  border: 0;
+  color: var(--txt);
+  padding: 0 30px 0 0;
+  gap: 26px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.af-page .af-delivery-note img {
+  width: 150px;
+  height: 100%;
+  max-height: 190px;
+  object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
+  background: var(--bg-alt);
+}
+.af-page .af-delivery-note b { color: var(--txt); font-size: 18px; }
+.af-page .af-delivery-note span { color: var(--txt-mid); max-width: 60ch; }
+.af-page .af-delivery-note div { padding: 24px 0; }
+.af-page .af-delivery-note .btn {
+  background: var(--red);
+  color: #fff;
+}
+.af-page .af-delivery-note .btn:hover { background: #a80d26; color: #fff; }
+@media (max-width: 760px) {
+  .af-page .af-delivery-note { padding: 0 22px 22px; }
+  .af-page .af-delivery-note img { width: 100%; max-height: 180px; object-position: center 20%; }
+  .af-page .af-delivery-note div { padding: 20px 0 0; }
+}
+
+/* ── Routekaart kleiner ──────────────────────────────────────────────────────
+   De kaart vulde bijna een volledig scherm: op 1440px werd ze 1160 px breed en
+   daarmee ruim 590 px hoog, terwijl er maar vier plaatsnamen op staan. Een
+   maximum van 760px houdt de tekst leesbaar en laat de vier foto's eronder
+   mee in beeld komen -- die horen bij dezelfde uitleg.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .af-map-card {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Hulpkaart in de FAQ-kolom ───────────────────────────────────────────────
+   Zelfde opbouw als `.faq-help` op de homepage: donkerrood blok, witte belknop,
+   omlijnde tweede knop. Hier wit, omdat de sectie zelf al wit-op-grijs is en een
+   donkerrood blok in deze kolom harder roept dan de vragen ernaast.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .af-faq-help {
+  margin-top: 26px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 26px 24px;
+}
+.af-page .af-faq-help h3 {
+  font-family: var(--fd);
+  font-weight: 800;
+  font-size: 17px;
+  margin: 0 0 8px;
+  color: var(--txt);
+}
+.af-page .af-faq-help p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--txt-mid);
+  margin: 0 0 18px;
+}
+.af-page .afh-btns { display: flex; flex-direction: column; gap: 9px; }
+.af-page .afh-btns a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 18px;
+  border-radius: 99px;
+  transition: background .16s, border-color .16s, color .16s, transform .16s;
+}
+.af-page .afh-call { background: var(--red); color: #fff; }
+.af-page .afh-call:hover { background: #a80d26; color: #fff; transform: translateY(-1px); }
+.af-page .afh-mail { border: 1.5px solid var(--line-2); color: var(--txt); }
+.af-page .afh-mail:hover { border-color: var(--red); color: var(--red); transform: translateY(-1px); }
+
+/* ── Transportsectie: tekst links, de man groot rechts ───────────────────────
+   Hij droeg eerst een blokje van 150px onderaan de sectie, terwijl zijn rug
+   het hele argument is. Nu de rechterhelft, onderaan uitgelijnd zodat hij op
+   de sectierand staat in plaats van erin te zweven.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .aft-split {
+  display: grid;
+  grid-template-columns: 1.12fr .88fr;
+  gap: 48px;
+  align-items: end;
+}
+.af-page .aft-body { padding-bottom: 8px; }
+.af-page .aft-man {
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  justify-self: center;
+  align-self: end;
+  filter: drop-shadow(0 26px 34px rgba(0, 0, 0, .34));
+}
+
+.af-page .aft-rules { list-style: none; margin: 34px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.af-page .aft-rules li {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 18px;
+  align-items: center;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+.af-page .aft-rules b {
+  display: block;
+  font-family: var(--fd);
+  font-weight: 800;
+  font-size: 16.5px;
+  color: var(--txt);
+  margin-bottom: 5px;
+}
+.af-page .aft-rules p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--txt-mid); }
+.af-page .af-anim, .af-page .af-upright { width: 72px; height: 58px; display: block; margin: 0; }
+
+.af-page .aft-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+.af-page .aft-cta b { font-family: var(--fd); font-weight: 700; font-size: 17px; color: #fff; }
+.af-page .aft-cta .btn { background: #fff; color: var(--maroon, #6E1212); }
+.af-page .aft-cta .btn:hover { background: rgba(255, 255, 255, .9); color: var(--maroon, #6E1212); }
+
+@media (max-width: 900px) {
+  .af-page .aft-split { grid-template-columns: 1fr; gap: 24px; }
+  .af-page .aft-man { max-width: 300px; }
+}
+
+/* ── De twee nieuwe pictogrammen ─────────────────────────────────────────────
+   Het toestel schuift de koffer in en krijgt een duw; de klokwijzer draait rond
+   en valt stil in de rode boog -- het gereserveerde kwartier.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .afl-doos { animation: aflSchuif 3.8s cubic-bezier(.4, 0, .2, 1) infinite; }
+@keyframes aflSchuif {
+  0%, 12% { transform: translateX(16px); opacity: 0; }
+  26% { opacity: 1; }
+  48%, 62% { transform: translateX(-46px); opacity: 1; }
+  74% { transform: translateX(-52px); }
+  88%, 100% { transform: translateX(16px); opacity: 0; }
+}
+.af-page .aft-wijzer {
+  transform-origin: 60px 48px;
+  animation: aftDraai 4.4s cubic-bezier(.45, 0, .2, 1) infinite;
+}
+@keyframes aftDraai {
+  0% { transform: rotate(-90deg); }
+  58%, 100% { transform: rotate(32deg); }
+}
+.af-page .aft-boog {
+  stroke-dasharray: 54;
+  stroke-dashoffset: 54;
+  animation: aftBoog 4.4s cubic-bezier(.45, 0, .2, 1) infinite;
+}
+@keyframes aftBoog {
+  0%, 42% { stroke-dashoffset: 54; }
+  62%, 100% { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .af-page .afl-doos, .af-page .aft-wijzer, .af-page .aft-boog { animation: none; }
+  .af-page .afl-doos { transform: translateX(-46px); }
+  .af-page .aft-boog { stroke-dashoffset: 0; }
+}
+
+/* ── Locatiesectie in het rood ───────────────────────────────────────────────
+   De pagina liep rood · wit · rood · grijs · wit · grijs · rood -- na de
+   transportsectie stonden er drie lichte secties op rij, waardoor het ritme
+   eruit viel. Deze sectie rood maken herstelt het om-en-om, en de kaart en de
+   vier foto's worden witte kaarten op rood, net als in de hero.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .af-location {
+  background: var(--maroon-d, #5A0C10) url('/vernast/bg-red-wide.webp') center/cover no-repeat;
+}
+.af-page .af-location .kick { color: rgba(255, 255, 255, .72); }
+.af-page .af-location .sec { color: #fff; }
+.af-page .af-location .lede,
+.af-page .af-location .lede b { color: rgba(255, 255, 255, .82); }
+.af-page .af-location .lede b { color: #fff; }
+
+/* De kaart was een grijze kaart met rand op wit; op rood hoort ze wit te zijn. */
+.af-page .af-map-card { background: #fff; border-color: transparent; }
+
+/* Dezelfde behandeling voor de vier routefoto's. */
+.af-page .af-location .rt { background: #fff; }
+.af-page .af-location .rt p { color: var(--txt-mid); }
+
+/* De knop was rood-op-wit; op rood wordt hij wit, de tekstlink erbij ook. */
+.af-page .af-location .btn { background: #fff; color: var(--maroon, #6E1212); }
+.af-page .af-location .btn:hover { background: rgba(255, 255, 255, .9); color: var(--maroon, #6E1212); }
+.af-page .af-location .af-text-link { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, .45); }
+.af-page .af-location .af-text-link:hover { color: #fff; border-color: #fff; }
+
+/* ── De vier stappen: de lijn tekent zich af ─────────────────────────────────
+   Tussen de nummers liep al een grijze streep (`::after`), maar die lag er
+   gewoon. Nu groeit ze van kaart naar kaart mee, met een vertraging per kaart,
+   zodat het oog de volgorde volgt in plaats van vier blokken tegelijk te zien.
+   De nummers komen er net voor binnen.
+
+   De streep groeit vanuit de kaart zelf, dus de kaarten blijven staan waar ze
+   staan: wie geen animaties krijgt, ziet gewoon de volledige lijn.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .af-step::after {
+  background: var(--red);
+  transform-origin: left center;
+  animation: afStap 5s ease-in-out infinite;
+}
+.af-page .af-step:nth-child(1)::after { animation-delay: 0s; }
+.af-page .af-step:nth-child(2)::after { animation-delay: .45s; }
+.af-page .af-step:nth-child(3)::after { animation-delay: .9s; }
+.af-page .af-step:nth-child(4)::after { animation-delay: 1.35s; }
+@keyframes afStap {
+  0%, 4% { transform: scaleX(0); opacity: .9; }
+  26%, 74% { transform: scaleX(1); opacity: .9; }
+  96%, 100% { transform: scaleX(1); opacity: .18; }
+}
+.af-page .af-step > span { animation: afNummer 5s ease-in-out infinite; }
+.af-page .af-step:nth-child(2) > span { animation-delay: .45s; }
+.af-page .af-step:nth-child(3) > span { animation-delay: .9s; }
+.af-page .af-step:nth-child(4) > span { animation-delay: 1.35s; }
+@keyframes afNummer {
+  0%, 4% { color: var(--txt-dim); }
+  22%, 74% { color: var(--red); }
+  96%, 100% { color: var(--txt-dim); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .af-page .af-step::after,
+  .af-page .af-step > span { animation: none; }
+  .af-page .af-step::after { background: var(--line); }
+}
+
+/* ── FAQ-rijen in lijn met de rest ───────────────────────────────────────────
+   De rijen waren witte balken met een grijs vierkantje als "+": het enige
+   vierkante element op een pagina vol pilvormen, en zonder enige reactie op
+   hover. Nu een rode ronde knop die naar een kruis draait, met dezelfde lift
+   als de kaarten elders.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .af-faq-list details {
+  border: 1px solid transparent;
+  transition: border-color .16s, box-shadow .16s, transform .16s;
+}
+.af-page .af-faq-list details:hover {
+  border-color: rgba(200, 16, 46, .22);
+  box-shadow: 0 16px 30px -24px rgba(0, 0, 0, .4);
+}
+.af-page .af-faq-list details[open] { border-color: rgba(200, 16, 46, .3); }
+.af-page .af-faq-list summary span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(200, 16, 46, .1);
+  color: var(--red);
+  font-size: 17px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.af-page .af-faq-list details:hover summary span { background: rgba(200, 16, 46, .18); }
+.af-page .af-faq-list details[open] summary span { background: var(--red); color: #fff; }
+
+/* ── De man staat op de sectierand, hij zweeft niet ──────────────────────────
+   Met `align-self:end` stond hij onderaan het raster, maar daaronder zat nog de
+   88px bodemmarge van de sectie -- waardoor hij in de lucht hing. Een negatieve
+   marge van exact die 88px zet zijn voeten op de rand; `overflow:hidden` op de
+   sectie houdt wat eronder uitsteekt uit de volgende sectie.
+   ─────────────────────────────────────────────────────────────────────────── */
+.af-page .af-transport { overflow: hidden; }
+.af-page .aft-man { margin-bottom: -88px; }
+@media (max-width: 1040px) {
+  /* Onder 1040px zakt de sectiemarge naar 68px; de man volgt. */
+  .af-page .aft-man { margin-bottom: -68px; }
+}
+@media (max-width: 900px) {
+  /* Eenkolomsweergave: hij staat onder de tekst, gecentreerd op de rand. */
+  .af-page .aft-man { margin-bottom: -68px; justify-self: center; }
+}
+
+/* De aanvraagsectie erft `.cform` uit contact.css; alleen de link in de lede
+   moet nog zichtbaar zijn op rood. */
+.af-page .af-form .lede a { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, .5); font-weight: 600; }
+.af-page .af-form .lede a:hover { color: #fff; border-color: #fff; }

@@ -30,7 +30,7 @@ describe("controleerKeyMode", () => {
     expect(controleerKeyMode("bouwdrogerservice.be", "/api/checkout")).toBeNull();
   });
 
-  it("weigert een testsleutel op het productiedomein — het scenario dat geld kost", () => {
+  it("weigert een testsleutel op het productiedomein, het scenario dat geld kost", () => {
     process.env.STRIPE_SECRET_KEY = TEST;
     expect(controleerKeyMode("vernast-bouwdrogers.be", "/api/checkout")).toEqual({
       hostname: "vernast-bouwdrogers.be",
@@ -39,7 +39,7 @@ describe("controleerKeyMode", () => {
     });
   });
 
-  it("weigert een livesleutel buiten productie — daar incasseert een test echt geld", () => {
+  it("weigert een livesleutel buiten productie, daar incasseert een test echt geld", () => {
     process.env.STRIPE_SECRET_KEY = LIVE;
     expect(controleerKeyMode("bouwdroger.vernast-v2.workers.dev", "/api/checkout")).toEqual({
       hostname: "bouwdroger.vernast-v2.workers.dev",

@@ -10,7 +10,7 @@
  * niet in elke build, maar het is de enige controle die de ergste faalmodus
  * vangt: canonicals die naar een domein wijzen dat iets anders serveert.
  */
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 
 const DIST = "dist";
@@ -26,7 +26,7 @@ const LIVE = process.argv.includes("--live");
  * antwoord dan lopende verkooptekst. /waterschade stond hier maandenlang
  * zonder, terwijl het de meest urgente zoekopdracht van de site is.
  */
-const FAQ_EXPECTED = ["/nieuwbouw", "/waterschade", "/renovatie", "/prijzen", "/calculator"];
+const FAQ_EXPECTED = ["/nieuwbouw-drogen", "/waterschade", "/renovatie", "/prijzen"];
 
 function htmlFiles(dir) {
   return readdirSync(dir).flatMap((name) => {
@@ -71,6 +71,16 @@ const PLACEHOLDERS = [
 const rows = [];
 const problems = [];
 const titles = new Map();
+/*
+  Ook de H1's, niet alleen de titels.
+  Op 12-11-2026 kregen /bouwdroger-huren-antwerpen (de provincie) en
+  /bouwdroger-huren-antwerpen-stad allebei de H1 "Bouwdroger huren in
+  Antwerpen". Hun <title> verschilde net genoeg, dus de controle hieronder
+  zweeg — terwijl twee pagina's wel degelijk om dezelfde zoekopdracht
+  vochten. De H1 zegt waar een pagina over gaat; twee dezelfde is per
+  definitie kannibalisatie.
+*/
+const h1s = new Map();
 const descriptions = new Map();
 /** Alle JSON-LD-knopen van de hele site, voor controles die pagina's kruisen. */
 const ldNodes = [];
@@ -84,6 +94,7 @@ for (const file of htmlFiles(DIST)) {
   const canonical = tag(html, /<link[^>]+rel="canonical"[^>]+href="([^"]*)"/i);
   const robots = tag(html, /<meta[^>]+name="robots"[^>]+content="([^"]*)"/i) ?? "";
   const h1 = (html.match(/<h1[\s>]/gi) || []).length;
+  const h1Text = tag(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i)?.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
   /* Kopniveaus in leesvolgorde — een sprong (h2 → h4) betekent dat er een
      tussenlaag ontbreekt, en dan valt de structuur van de pagina weg voor
      zowel een crawler als een schermlezer. */
@@ -163,11 +174,21 @@ for (const file of htmlFiles(DIST)) {
     fail("landingspagina zonder FAQPage — niets voor een assistent om te citeren");
   }
 
+  if (h1Text && !noindex) {
+    h1s.set(h1Text, [...(h1s.get(h1Text) ?? []), route]);
+  }
+
   if (title && !noindex) {
     titles.set(title, [...(titles.get(title) ?? []), route]);
   }
   if (description && !noindex) {
     descriptions.set(description, [...(descriptions.get(description) ?? []), route]);
+  }
+}
+
+for (const [h1Text, routes] of h1s) {
+  if (routes.length > 1) {
+    problems.push(`dubbele H1 op ${routes.length} pagina's: "${h1Text}" → ${routes.join(", ")}`);
   }
 }
 
@@ -253,6 +274,43 @@ console.log(
 const unsizedTotal = indexable.reduce((n, r) => n + r.unsized, 0);
 const imgTotal = indexable.reduce((n, r) => n + r.imgs, 0);
 console.log(`Afbeeldingen:  ${unsizedTotal} van ${imgTotal} zonder width/height (aandachtspunt, geen fout)`);
+
+/**
+ * Elke geïndexeerde pagina moet vanaf /sitemap te bereiken zijn.
+ *
+ * De zichtbare sitemap wordt opgebouwd uit `src/data/navigation.ts` en de
+ * datalijsten, dus hij loopt vanzelf mee. Vanzelf is niet hetzelfde als
+ * gegarandeerd: een nieuwe route die wél geprerenderd wordt maar in geen enkele
+ * navigatielijst staat, verschijnt in sitemap.xml en nergens anders. Dat is
+ * precies de wees waar navigation.ts tegen bestaat, en hier wordt hij zichtbaar.
+ */
+/* vite-react-ssg schrijft een route zonder kinderen weg als `<route>.html`,
+   niet als `<route>/index.html`. Allebei accepteren: welke vorm het wordt
+   hangt af van de routeboom, niet van deze pagina. */
+const sitemapFile = [join(DIST, "sitemap.html"), join(DIST, "sitemap", "index.html")].find(existsSync);
+if (sitemapFile) {
+  const html = readFileSync(sitemapFile, "utf8");
+  const gelinkt = new Set(
+    [...html.matchAll(/href="([^"]+)"/g)]
+      .map((m) => m[1].replace(/^https?:\/\/[^/]+/, "").replace(/[?#].*$/, ""))
+      .map((h) => (h.length > 1 ? h.replace(/\/$/, "") : h))
+  );
+  const ontbreekt = indexable
+    .map((r) => r.route)
+    .filter((route) => route !== "/" && !gelinkt.has(route))
+    // De kruimel en de voettekst dekken de homepage al; de funnelstappen
+    // (boeking, saldo, bevestigingen) staan op noindex en zitten hier dus niet.
+    .sort();
+  if (ontbreekt.length) {
+    problems.push(
+      `/sitemap linkt niet naar ${ontbreekt.length} geïndexeerde pagina('s): ${ontbreekt.join(", ")}`
+    );
+  } else {
+    console.log(`Sitemappagina: alle ${indexable.length} indexeerbare pagina's gelinkt`);
+  }
+} else {
+  problems.push("dist/sitemap/index.html ontbreekt — de zichtbare sitemap is niet geprerenderd");
+}
 
 if (problems.length) {
   console.log(`\n${problems.length} punt(en):`);

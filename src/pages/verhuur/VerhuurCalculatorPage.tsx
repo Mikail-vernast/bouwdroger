@@ -242,7 +242,7 @@ const VerhuurCalculatorPage = () => {
             bestaat.
           */}
           <h1 className="sr-only">
-            Droogpakket samenstellen — bereken uw toestellen, droogtijd en prijs
+            Droogpakket samenstellen, bereken uw toestellen, droogtijd en prijs
           </h1>
           <div className="acard">
             <img className="worker" src="/vernast/worker-carry.webp" alt="Vernast technieker draagt een bouwdroger op zijn rug" loading="lazy" decoding="async" />

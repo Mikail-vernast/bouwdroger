@@ -57,7 +57,7 @@ const Reveal = ({
       knipper op, en boven de vouw kost dat ook de LCP.
 
       De grens ligt precies op de onderrand van het scherm, niet iets erboven.
-      Met een marge van 10% werden op /nieuwbouw en /renovatie twee blokken
+      Met een marge van 10% werden op /nieuwbouw-drogen en /renovatie twee blokken
       verborgen die nog nét zichtbaar waren; ze kwamen meteen daarna terug,
       maar de bezoeker zag het knipperen.
     */

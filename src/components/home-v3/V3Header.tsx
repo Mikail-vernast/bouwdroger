@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
-import { SCHIMMELS } from "@/data/navigation";
 import FontPreload from "@/components/FontPreload";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
+import { ALLES_OVER_DROGEN, MENU_SITUATIES, PAKKETTEN, TOESTELLEN } from "@/data/navigation";
 import "@/styles/offerte-shine.css";
+import "@/styles/mega-menu.css";
 
 /**
  * The site header from the design: a top line with the contact details and a
@@ -26,9 +27,31 @@ interface V3HeaderProps {
    * leest niet. Het logo wisselt in JS mee, dus CSS alleen kan dit niet.
    */
   alwaysLightBelow?: number;
+  /**
+   * CSS-selector van het donkere blok waar de balk boven zweeft, meestal
+   * `.redtop`. Staat die er, dan telt niet meer de vaste `lightAfter` maar de
+   * onderrand van dat blok: de balk wisselt precies wanneer het rood onder
+   * hem ophoudt.
+   *
+   * Waarom dit erbij kwam: `lightAfter` is één getal, en de hoogte van een
+   * hero is dat niet. Op /renovatie was het rood 705 px hoog op een laptop en
+   * 1120 px op een telefoon, waar de herofoto wegvalt en de titel over vier
+   * regels loopt. Met het getal dat op de laptop klopte, schoof op een
+   * telefoon een melkwitte balk over de rode hero en was het menu
+   * onleesbaar. `lightAfter` blijft de terugval voor wie geen selector
+   * meegeeft.
+   */
+  darkUntil?: string;
 }
 
-const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
+/**
+ * Onderrand van de nav-pil in gescrolde toestand (de bovenste regel is dan
+ * ingeklapt). Zodra het donkere blok daarboven eindigt, hoort de balk licht
+ * te staan.
+ */
+const PIL_ONDER = 80;
+
+const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderProps) => {
   const [tucked, setTucked] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [onLight, setOnLight] = useState(false);
@@ -48,10 +71,16 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
       else if (y < lastY.current - 6) setTucked(false);
 
       setScrolled(y > 60);
+      /*
+        Het donkere blok wordt elke keer opnieuw opgemeten in plaats van één
+        keer bij het aankoppelen: de herofoto laadt lui, en zijn hoogte komt
+        er dus pas later bij.
+      */
+      const donker = darkUntil ? document.querySelector(darkUntil) : null;
       setOnLight(
         lightAfter < 0 ||
-          y > lightAfter ||
-          (alwaysLightBelow !== undefined && window.innerWidth <= alwaysLightBelow),
+          (alwaysLightBelow !== undefined && window.innerWidth <= alwaysLightBelow) ||
+          (donker ? donker.getBoundingClientRect().bottom <= PIL_ONDER : y > lightAfter),
       );
       lastY.current = y;
       ticking = false;
@@ -72,7 +101,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
       window.removeEventListener("scroll", handler);
       window.removeEventListener("resize", handler);
     };
-  }, [lightAfter, alwaysLightBelow]);
+  }, [lightAfter, alwaysLightBelow, darkUntil]);
 
   const sluitMenu = () => {
     setMenuOpen(false);
@@ -92,8 +121,8 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
           <a href="tel:+3236899065">
             <PhoneIcon /> 03 689 90 65
           </a>
-          <a href="mailto:info@vernast-verhuur.be">
-            <MailIcon /> info@vernast-verhuur.be
+          <a href="mailto:info@vernast-bouwdrogers.be">
+            <MailIcon /> info@vernast-bouwdrogers.be
           </a>
           <span>Ma–Vr 08:00–17:00</span>
         </div>
@@ -116,7 +145,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
 
           <div className="nav-menu">
             <div className="item has-sub">
-              Vernast Group
+              Group
               <CaretIcon className="caret" />
               <div className="submenu">
                 <a href="https://vernast-vochtbestrijding.be/">
@@ -135,55 +164,52 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
               Bouwdroging
               <CaretIcon className="caret" />
               <div className="mega-panel">
-                <div className="mega-cols">
-                  <div className="mcol">
-                    <span className="mlab">Pakketten</span>
-                    <ul>
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Chape drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk + chape</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Waterschade drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
-                      </li>
+                <div className="mmv-cols">
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Pakketten</span>
+                    {/*
+                      Deze vijf stonden hier én in VHeader én in het mobiele
+                      menu overgetypt, terwijl `PAKKETTEN` in
+                      src/data/navigation.ts al bestond om precies dat te
+                      voorkomen. Drie kopieën is er één te veel om met de hand
+                      gelijk te houden.
+                    */}
+                    <ul className="mmv-lijst">
+                      {PAKKETTEN.map((item) => (
+                        <li key={item.label}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Toestellen</span>
-                    <ul>
-                      <li>
-                        <Link to="/verhuur/toestel/ttk170">Small bouwdroger</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttk350">Medium bouwdroger</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/ttv4500">Turbo axiaalventilator</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/radiaal2250">Turbo radiaalventilator</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/toestel/teddh30">Elektrische kachel 3,30 kW</Link>
-                      </li>
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Toestellen</span>
+                    {/*
+                      Deze vijf stonden hier overgetypt, en liepen daardoor uit
+                      de pas met het gamma: de Large bouwdroger, de Revolution
+                      en de tweede kachel ontbraken, en bij de kachel van 30 kW
+                      stond "3,30 kW" -- dat is het vermogen van de kachel in
+                      een droogpakket, niet van dit toestel. Nu leest het menu
+                      `TOESTELLEN` uit src/data/navigation.ts, dezelfde lijst
+                      als de footer en het mobiele menu: een toestel dat in het
+                      portaal te huur gaat of eruit gaat, volgt vanzelf.
+                    */}
+                    <ul className="mmv-lijst">
+                      {TOESTELLEN.map((toestel) => (
+                        <li key={toestel.path}>
+                          <Link to={toestel.path}>{toestel.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Service</span>
-                    <ul>
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Service</span>
+                    <ul className="mmv-lijst">
                       <li>
                         <Link to="/levering">Levering &amp; installatie</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/afhalen">Afhalen in Aartselaar</Link>
+                        <Link to="/afhalen">Afhalen in Aartselaar</Link>
                       </li>
                       <li>
                         <Link to="/verhuur/pakket">Vochtmeting inbegrepen</Link>
@@ -197,15 +223,18 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                     </ul>
                   </div>
                   {/*
-                    Vierde kolom: schimmel en geur. Ozonbehandeling hoorde niet
-                    onder "Service" — dat zijn de afspraken rond een huur, en
-                    een ontschimmeling is een losse dienst. Wie met schimmel
-                    zoekt, komt niet kijken bij levering en verlengen.
+                    Vierde kolom: in welke situatie staat de bezoeker. Ze heette
+                    "Schimmels" en toonde ozon, /renovatie en /waterschade —
+                    twee toepassingspagina's onder een kop die er maar één dekt,
+                    en zonder /nieuwbouw-drogen, de grootste van de drie. Ze
+                    leest nu `MENU_SITUATIES`; ozonbehandeling staat daar gewoon
+                    in, en hoort nog altijd niet onder "Service", want dat zijn
+                    de afspraken rond een huur.
                   */}
-                  <div className="mcol">
-                    <span className="mlab">Schimmels</span>
-                    <ul>
-                      {SCHIMMELS.map((item) => (
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Toepassingen</span>
+                    <ul className="mmv-lijst">
+                      {MENU_SITUATIES.map((item) => (
                         <li key={item.path}>
                           <Link to={item.path}>{item.label}</Link>
                         </li>
@@ -221,28 +250,49 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
                     </span>
                   </div>
                   <Link className="btn-offerte" to="/verhuur/calculator">
-                    Gratis offerte
+                    Bereken uw pakket
                   </Link>
                 </div>
               </div>
             </div>
 
-            <div className="item has-sub">
+            <div className="item mega has-sub">
               Alles over drogen
               <CaretIcon className="caret" />
-              <div className="submenu">
-                <Link to="/hoe-drogen-werkt">
-                  Hoe drogen werkt<small>Capaciteit · circulatie · warmte</small>
-                </Link>
-                <Link to="/waarom-bouwdroging">
-                  Waarom bouwdroging<small>Wat vocht u kost</small>
-                </Link>
-                <Link to="/levering">
-                  Levering &amp; installatie<small>Geplaatst op uw gekozen datum</small>
-                </Link>
-                <Link to="/drooggarantie">
-                  Drooggarantie<small>100% droog of kosteloos verder</small>
-                </Link>
+              {/*
+                Ook dit is een mega-menu en geen uitklapper meer. Er stonden
+                vier vaste links in terwijl de gidsen, de toepassingen en
+                /prijzen er niet in zaten — "alles over drogen" gaf dus niet
+                alles. De kolommen komen uit src/data/navigation.ts, dezelfde
+                bron als de footer en het mobiele menu.
+              */}
+              <div className="mega-panel kennis">
+                <div className="mmv-cols">
+                  {ALLES_OVER_DROGEN.map((groep) => (
+                    <div className="mmv-groep" key={groep.titel}>
+                      <span className="mmv-kop">{groep.titel}</span>
+                      <ul className="mmv-lijst">
+                        {groep.items.map((item) => (
+                          <li key={item.path}>
+                            <Link to={item.path}>{item.label}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                <div className="mega-foot">
+                  <div className="mft">
+                    <b>Liever eerst weten wat het kost?</b>
+                    <span>
+                      De calculator rekent uw volume uit en zegt welk toestel en welke droogtijd erbij
+                      horen.
+                    </span>
+                  </div>
+                  <Link className="btn-offerte" to="/verhuur/calculator">
+                    Bereken uw pakket
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -268,7 +318,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow }: V3HeaderProps) => {
           <i id="cartCount">1</i>
         </Link>
         <Link className="btn-offerte mnav-cta-sm" to="/verhuur/calculator">
-          Gratis offerte
+          Bereken uw pakket
         </Link>
       </div>
     </header>

@@ -33,17 +33,36 @@ describe("regiopagina's", () => {
     expect(regio.description.length).toBeLessThanOrEqual(DESCR_MAX);
   });
 
+  /*
+    "bouwdroger huren" en de provincienaam, maar niet per se aaneengesloten.
+    De eis was letterlijk `bouwdroger huren in <naam>`, en dat botste zodra
+    Antwerpen een stadspagina kreeg (12-11-2026): die draagt nu de intentie
+    "bouwdroger huren Antwerpen", en de provinciepagina heet daarom
+    "Bouwdroger huren in de provincie Antwerpen" om er niet mee te vechten.
+    Google heeft die aaneensluiting niet nodig; twee pagina's op één intentie
+    is het echte risico, en dáár waakt `audit-seo.mjs` over met zijn controle
+    op dubbele titels en dubbele H1's.
+  */
   it.each(REGIOS)("$slug: H1 en titel bevatten het zoekwoord", (regio) => {
+    const naam = regio.name.toLowerCase();
     expect(regio.h1.toLowerCase()).toContain("bouwdroger huren in");
-    expect(regio.title.toLowerCase()).toContain(`bouwdroger huren in ${regio.name.toLowerCase()}`);
+    expect(regio.h1.toLowerCase()).toContain(naam);
+    expect(regio.title.toLowerCase()).toContain("bouwdroger huren");
+    expect(regio.title.toLowerCase()).toContain(naam);
   });
 
   it.each(REGIOS)("$slug: minstens 500 woorden eigen tekst", (regio) => {
     expect(woorden(regioTekst(regio))).toBeGreaterThanOrEqual(MIN_WOORDEN);
   });
 
-  it.each(REGIOS)("$slug: vier vragen, allemaal met een antwoord", (regio) => {
-    expect(regio.faq).toHaveLength(4);
+  /*
+    Minstens vier, niet precies vier. West-Vlaanderen kreeg er een vijfde bij
+    ("Wat kost een bouwdroger huren in West-Vlaanderen?") omdat dat de vraag is
+    die mensen intikken; de grens hoort te bewaken dat een regiopagina niet
+    mager blijft, niet dat er geen vraag bij mag.
+  */
+  it.each(REGIOS)("$slug: minstens vier vragen, allemaal met een antwoord", (regio) => {
+    expect(regio.faq.length).toBeGreaterThanOrEqual(4);
     for (const f of regio.faq) {
       expect(f.q.endsWith("?")).toBe(true);
       expect(woorden(f.a)).toBeGreaterThanOrEqual(20);

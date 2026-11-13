@@ -143,7 +143,7 @@ const VerhuurSaldoPage = () => {
 
   const periode =
     saldo && datum(saldo.start) && datum(saldo.eind)
-      ? `${datum(saldo.start)} — ${datum(saldo.eind)}${saldo.dagen ? ` · ${saldo.dagen} dagen` : ""}`
+      ? `${datum(saldo.start)}, ${datum(saldo.eind)}${saldo.dagen ? ` · ${saldo.dagen} dagen` : ""}`
       : "";
 
   return (
@@ -186,7 +186,7 @@ const VerhuurSaldoPage = () => {
                 <div className="dico">
                   <CheckIcon size={28} />
                 </div>
-                <h2>Betaald — bedankt</h2>
+                <h2>Betaald, bedankt</h2>
                 <p>
                   Uw huur is volledig afgerekend. De factuur vertrekt automatisch naar uw
                   mailbox; die kan een paar minuten onderweg zijn.
@@ -209,7 +209,7 @@ const VerhuurSaldoPage = () => {
                   <span className="sldlabel">Nu te betalen</span>
                   <div className="sldsom">{euro(saldo.saldo)}</div>
                   <p className="sldsub">
-                    van {euro(saldo.totaal)} incl. btw — {euro(saldo.betaald)} is al voldaan
+                    van {euro(saldo.totaal)} incl. btw, {euro(saldo.betaald)} is al voldaan
                   </p>
                 </div>
 

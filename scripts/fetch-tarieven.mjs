@@ -60,6 +60,26 @@ if (!url || !secret) {
   keepExisting("VERNAST_WEBHOOK_URL of VERNAST_WEBHOOK_SECRET ontbreekt");
 }
 
+/**
+ * Haalt het gedachtestreepje uit elke tekst die uit het portaal komt.
+ *
+ * Die titels staan letterlijk op de site ("Ruimte tot 40 m² — chape 5 cm"), en
+ * een lange streep leest daar als machinetekst. Hier normaliseren en niet op
+ * de pagina: dit bestand wordt vóór elke build opnieuw geschreven, dus een
+ * correctie met de hand in src/data/tarieven.ts is de volgende build weer weg.
+ * Wie de titel zelf wil wijzigen, doet dat in het portaal.
+ */
+function zonderGedachtestreepje(waarde) {
+  if (typeof waarde === "string") return waarde.replaceAll(" — ", ", ");
+  if (Array.isArray(waarde)) return waarde.map(zonderGedachtestreepje);
+  if (waarde && typeof waarde === "object") {
+    return Object.fromEntries(
+      Object.entries(waarde).map(([k, v]) => [k, zonderGedachtestreepje(v)])
+    );
+  }
+  return waarde;
+}
+
 const controller = new AbortController();
 const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
@@ -74,7 +94,7 @@ try {
     keepExisting(`Vernast antwoordde met HTTP ${response.status}`);
   }
 
-  const data = await response.json();
+  const data = zonderGedachtestreepje(await response.json());
   const problem = usable(data);
   if (problem) keepExisting(`Ontvangen tarieven onbruikbaar (${problem})`);
 

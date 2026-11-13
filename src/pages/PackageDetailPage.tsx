@@ -612,7 +612,7 @@ const PackageDetailPage = () => {
                   </div>
 
                   <Button type="submit" size="lg" className="w-full font-bold text-base rounded-xl" disabled={isSubmitting}>
-                    {isSubmitting ? "Bezig met verzenden..." : `Boek Nu — €${totalPrice.toFixed(0)} excl. BTW`}
+                    {isSubmitting ? "Bezig met verzenden..." : `Boek Nu, €${totalPrice.toFixed(0)} excl. BTW`}
                   </Button>
                   <p className="text-xs text-muted-foreground text-center">Geen betaling vereist. Wij bevestigen binnen 24 uur.</p>
                 </form>

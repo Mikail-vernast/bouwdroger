@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
+import FaqBlok from "@/components/content/FaqBlok";
 import { articleSchema, breadcrumbSchema, faqSchema, organizationSchema } from "@/lib/schema";
 import type { SeoEntry } from "@/data/seo";
 import "@/styles/hoe-drogen-werkt.css";
@@ -27,13 +28,33 @@ interface GidsShellProps {
   kick: string;
   h1: string;
   intro: ReactNode;
-  heroImg: { src: string; alt: string };
+  /**
+   * `width` overschrijft de standaardbreedte — een staande foto wil smaller.
+   * Weglaten = een hero zonder foto, over de volle breedte: niet elke pagina
+   * heeft een beeld dat haar vraag echt illustreert, en een toestelfoto naast
+   * een uitlegkop leest als een advertentie.
+   */
+  heroImg?: { src: string; alt: string; width?: string };
+  /** Het zwevende kaartje naast de herofoto; weglaten = geen kaartje. */
+  heroBadge?: ReactNode;
   /**
    * Publicatiedatum voor het Article-schema. Weglaten = geen artikel (de
    * commerciële pagina en de hub), dan staat enkel de organisatie in de head.
    */
   articlePublished?: string;
+  /**
+   * Datum van de laatste inhoudelijke herziening, voor `dateModified`. Zonder
+   * deze datum valt het schema terug op de publicatiedatum, en dan lijkt een
+   * gids die net is uitgebreid even oud als de dag dat hij online kwam.
+   */
+  articleModified?: string;
   faq?: GidsFaq[];
+  /**
+   * Laat de FAQ weg onderaan — de pagina plaatst <GidsFaqSectie> dan zelf,
+   * ergens tussen de andere secties. De `faq`-array blijft nodig: daaruit
+   * komt het FAQPage-schema, en dat mag niet van de zichtbare vragen afwijken.
+   */
+  faqZelfPlaatsen?: boolean;
   /** Extra JSON-LD, bv. een OfferCatalog of ItemList. */
   jsonLd?: Record<string, unknown>[];
   children: ReactNode;
@@ -44,6 +65,42 @@ const Arrow = () => (
     <path d="M5 12h14" />
     <path d="m12 5 7 7-7 7" />
   </svg>
+);
+
+/**
+ * De vragenlijst als eigen sectie, zodat een pagina haar ergens tussen de
+ * andere secties kan zetten in plaats van altijd onderaan.
+ *
+ * Het zijn `<details>`-elementen en geen eigen klapmechaniek: de antwoorden
+ * staan dan ook zonder JavaScript in de HTML — nodig, want deze pagina's
+ * worden geprerenderd voor lezers die geen scripts uitvoeren — en de browser
+ * regelt het open- en dichtklappen zelf, inclusief toetsenbord.
+ */
+export const GidsFaqSectie = ({
+  faq,
+  kick = "Veelgestelde vragen",
+  titel,
+  variant = "grijs",
+}: {
+  faq: GidsFaq[];
+  kick?: string;
+  titel: string;
+  variant?: "grijs" | "rood";
+}) => (
+  /*
+    Hetzelfde vragenblok als op de homepage en op de inhoudspagina's. Hier
+    stond een eigen accordeon met een rond pijltje; dat was de derde vorm van
+    de FAQ op dezelfde site. Zie src/components/content/FaqBlok.tsx voor
+    waarom het één component is.
+  */
+  <FaqBlok
+    kicker={kick}
+    titel={titel}
+    vragen={faq.map((item) => ({ q: item.question, a: item.answer }))}
+    sleutel="gids-faq"
+    variant={variant === "rood" ? "rood" : "grijs"}
+    vraagHref="/contact"
+  />
 );
 
 /**
@@ -63,8 +120,11 @@ const GidsShell = ({
   h1,
   intro,
   heroImg,
+  heroBadge,
   articlePublished,
+  articleModified,
   faq = [],
+  faqZelfPlaatsen = false,
   jsonLd = [],
   children,
 }: GidsShellProps) => (
@@ -80,6 +140,7 @@ const GidsShell = ({
               description: seo.description,
               path,
               datePublished: articlePublished,
+              dateModified: articleModified,
             })
           : // Een @graph uit withOrganization() draagt het bedrijf al mee.
             jsonLd.some((blok) => Array.isArray(blok["@graph"]))
@@ -95,7 +156,7 @@ const GidsShell = ({
 
     <div className="redtop">
       <section className="hero">
-        <div className="wrap hero-grid">
+        <div className={heroImg ? "wrap hero-grid" : "wrap hero-grid nopic"}>
           <div className="hero-copy">
             <nav aria-label="Kruimelpad">
               <ol className="crumbs">
@@ -123,33 +184,23 @@ const GidsShell = ({
               </Link>
             </div>
           </div>
-          <div className="hero-vis">
-            <img src={heroImg.src} alt={heroImg.alt} style={{ width: "min(100%,520px)" }} />
-          </div>
+          {heroImg && (
+            <div className="hero-vis">
+              <img
+                src={heroImg.src}
+                alt={heroImg.alt}
+                style={{ width: heroImg.width ?? "min(100%,520px)", position: "relative", zIndex: 1 }}
+              />
+              {heroBadge}
+            </div>
+          )}
         </div>
       </section>
     </div>
 
     {children}
 
-    {faq.length > 0 && (
-      <section className="sw2" id="faq">
-        <div className="wrap">
-          <div className="sec-head">
-            <span className="kick">Veelgestelde vragen</span>
-            <h2 className="sec">Kort beantwoord</h2>
-          </div>
-          <div className="faq">
-            {faq.map((item) => (
-              <div className="faq-item" key={item.question}>
-                <h3>{item.question}</h3>
-                <p>{item.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
+    {faq.length > 0 && !faqZelfPlaatsen && <GidsFaqSectie faq={faq} titel="Kort beantwoord" />}
 
     <V3Footer />
   </div>

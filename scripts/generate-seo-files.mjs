@@ -18,7 +18,7 @@ const SITE_URL = (process.env.VITE_SITE_URL || "https://vernast-bouwdrogers.be")
 const PRIORITY = [
   { test: (p) => p === "/", priority: "1.0", changefreq: "weekly" },
   {
-    test: (p) => ["/nieuwbouw", "/waterschade", "/renovatie", "/prijzen", "/machines"].includes(p),
+    test: (p) => ["/nieuwbouw-drogen", "/waterschade", "/renovatie", "/prijzen", "/machines"].includes(p),
     priority: "0.9",
     changefreq: "monthly",
   },
@@ -93,19 +93,20 @@ const today = new Date().toISOString().slice(0, 10);
  */
 const ROUTE_SOURCES = {
   "/": "src/pages/Index.tsx",
-  "/calculator": "src/pages/CalculatorPage.tsx",
+  "/afhalen": "src/pages/AfhalenPage.tsx",
   "/contact": "src/pages/ContactPage.tsx",
   "/drooggarantie": "src/pages/DrooggarantiePage.tsx",
   "/hoe-drogen-werkt": "src/pages/HoeDrogenWerktPage.tsx",
   "/klantservice": "src/pages/KlantservicePage.tsx",
   "/levering": "src/pages/LeveringPage.tsx",
   "/machines": "src/pages/MachinesPage.tsx",
-  "/nieuwbouw": "src/pages/NieuwbouwPage.tsx",
+  "/nieuwbouw-drogen": "src/pages/NieuwbouwPage.tsx",
   "/over-ons": "src/pages/OverOnsPage.tsx",
   "/prijzen": "src/pages/PrijzenPage.tsx",
   "/realisaties": "src/pages/RealisatiesPage.tsx",
   "/renovatie": "src/pages/RenovatiePage.tsx",
   "/ozonbehandeling": "src/pages/OzonbehandelingPage.tsx",
+  "/ontschimmeling": "src/pages/OntschimmelingPage.tsx",
   "/waterschade": "src/pages/WaterschadePage.tsx",
   "/waarom-bouwdroging": "src/pages/WaaromBouwdrogingPage.tsx",
   "/verhuur/afhalen": "src/pages/verhuur/VerhuurAfhalenPage.tsx",
@@ -113,7 +114,10 @@ const ROUTE_SOURCES = {
   "/verhuur/pakket": "src/pages/verhuur/VerhuurPakketPage.tsx",
   "/verhuur/simulator": "src/pages/verhuur/VerhuurSimulatorPage.tsx",
   "/luchtontvochtiger-huren": "src/pages/LuchtontvochtigerHurenPage.tsx",
+  "/chape-drogen": "src/pages/ChapeDrogenPage.tsx",
+  "/pleisterwerk-drogen": "src/pages/PleisterwerkDrogenPage.tsx",
   "/gids": "src/pages/gids/GidsIndexPage.tsx",
+  "/gids/hoe-lang-moet-pleisterwerk-drogen": "src/pages/gids/PleisterwerkDroogtijdPage.tsx",
   "/gids/hoe-lang-moet-chape-drogen": "src/pages/gids/ChapeDroogtijdPage.tsx",
   "/gids/condensdroger-of-adsorptiedroger": "src/pages/gids/CondensAdsorptiePage.tsx",
   "/gids/stroomverbruik-bouwdroger": "src/pages/gids/StroomverbruikPage.tsx",
@@ -125,6 +129,30 @@ const TOESTEL_SOURCES = ["src/pages/verhuur/VerhuurToestelPage.tsx", "src/data/v
 const REALISATIE_SOURCES = ["src/pages/RealisatieDetailPage.tsx", "src/data/realisaties.ts"];
 /** De vijf regiopagina's: één sjabloon, de teksten in één databestand. */
 const REGIO_SOURCES = ["src/pages/RegioPage.tsx", "src/data/regios.ts"];
+/**
+ * De gemeentepagina's, apart van de provincies.
+ *
+ * Beide liggen onder `/bouwdroger-huren-…`, dus zonder dit onderscheid kreeg
+ * een gemeentepagina de datum van `regios.ts` — en claimde ze een wijziging
+ * telkens als er aan een provincietekst gesleuteld werd, terwijl een echte
+ * wijziging aan `gemeenten.ts` juist onzichtbaar bleef. Dat is precies de fout
+ * waartegen `unmappedRoutes` hieronder bestaat.
+ */
+const GEMEENTE_SOURCES = ["src/pages/GemeentePage.tsx", "src/data/gemeenten.ts"];
+/**
+ * De zichtbare sitemap verandert mee met de navigatie waaruit hij opgebouwd
+ * wordt, niet alleen met zijn eigen sjabloon. Zou hier enkel de pagina staan,
+ * dan claimde hij "ongewijzigd" op de dag dat er een pagina bij kwam.
+ */
+const SITEMAP_SOURCES = ["src/pages/SitemapPage.tsx", "src/data/navigation.ts"];
+/** De slugs van de provinciepagina's; al de rest onder dat voorvoegsel is een gemeente. */
+const REGIO_SLUGS = [
+  "antwerpen",
+  "oost-vlaanderen",
+  "vlaams-brabant",
+  "west-vlaanderen",
+  "limburg",
+].map((slug) => `/bouwdroger-huren-${slug}`);
 
 /**
  * Routes zonder bekende bron krijgen `vandaag` — en dat is precies wat we niet
@@ -146,9 +174,11 @@ function lastCommitDate(paths) {
 }
 
 function lastmodFor(route) {
+  if (route === "/sitemap") return lastCommitDate(SITEMAP_SOURCES);
   if (route.startsWith("/verhuur/toestel/")) return lastCommitDate(TOESTEL_SOURCES);
   if (route.startsWith("/realisaties/")) return lastCommitDate(REALISATIE_SOURCES);
-  if (route.startsWith("/bouwdroger-huren-")) return lastCommitDate(REGIO_SOURCES);
+  if (REGIO_SLUGS.includes(route)) return lastCommitDate(REGIO_SOURCES);
+  if (route.startsWith("/bouwdroger-huren-")) return lastCommitDate(GEMEENTE_SOURCES);
   const source = ROUTE_SOURCES[route];
   if (source) return lastCommitDate([source]);
   unmappedRoutes.add(route);
@@ -372,12 +402,13 @@ function priceLines() {
 const KEY_PAGES = [
   "/prijzen",
   "/machines",
-  "/calculator",
-  "/nieuwbouw",
+  "/nieuwbouw-drogen",
   "/waterschade",
   "/renovatie",
   "/levering",
-  // /afhalen staat op noindex; /verhuur/afhalen is de indexeerbare afhaalpagina.
+  "/afhalen",
+  // De informatiepagina legt de logistiek uit; deze route toont het actuele
+  // gamma, de beschikbaarheid en de reservatieflow.
   "/verhuur/afhalen",
   "/luchtontvochtiger-huren",
   "/gids",
@@ -405,7 +436,7 @@ const llms = `# Vernast Bouwdrogers
 - Magazijn en afhaalpunt: Boomsesteenweg 12, Unit 11, 2630 Aartselaar, België
 - Maatschappelijke zetel: Vernast, Ballaarstraat 99, 2018 Antwerpen, België
 - Telefoon: +32 3 689 90 65
-- E-mail: info@vernast-verhuur.be
+- E-mail: info@vernast-bouwdrogers.be
 - Openingsuren: maandag t/m vrijdag, 08:00–17:00
 - Servicegebied: Antwerpen, Vlaams-Brabant, Oost-Vlaanderen, West-Vlaanderen, Limburg
 - Levering: binnen 24 uur, installatie inbegrepen

@@ -84,7 +84,7 @@ export function orderSummary({ payload, pickup }: OrderNotice): string {
   const what = pickup ? "Nieuwe afhaling" : "Nieuwe boeking";
   const when = formatWeekday(payload.delivery_date ?? payload.rental_start_date);
   const parts = [
-    `${what} — ${text(payload.order_number ?? payload.external_id)}`,
+    `${what} - ${text(payload.order_number ?? payload.external_id)}`,
     text(fullName(payload)) || text(payload.email),
     euro(payload.total_price ?? 0),
     when ? `${pickup ? "afhaling" : "levering"} ${escape(when)}` : "",
@@ -187,7 +187,7 @@ export function failureMessage(
   payload: VernastOrderPayload,
 ): Record<string, unknown> {
   const reference = text(payload.order_number ?? payload.external_id);
-  const summary = `⚠️ ORDER NIET DOORGEKOMEN — ${reference}`;
+  const summary = `⚠️ ORDER NIET DOORGEKOMEN - ${reference}`;
 
   return {
     text: summary,
@@ -208,14 +208,14 @@ export function failureMessage(
         fields: [
           field("Klant", text(fullName(payload)) || text(payload.email)) ?? {
             type: "mrkdwn",
-            text: "*Klant*\n—",
+            text: "*Klant*\nniet opgegeven",
           },
-          field("Telefoon", text(payload.phone)) ?? { type: "mrkdwn", text: "*Telefoon*\n—" },
+          field("Telefoon", text(payload.phone)) ?? { type: "mrkdwn", text: "*Telefoon*\nniet opgegeven" },
         ],
       },
       {
         type: "context",
-        elements: [{ type: "mrkdwn", text: `${text(context)} — ${text(reason) || "onbekende fout"}` }],
+        elements: [{ type: "mrkdwn", text: `${text(context)} - ${text(reason) || "onbekende fout"}` }],
       },
     ],
   };
@@ -292,7 +292,7 @@ export async function notifySyncFailure(
  * mailbox: het is een storing die per minuut klanten kost.
  */
 export function availabilityFailureMessage(context: string, reason: string): Record<string, unknown> {
-  const summary = "⚠️ BESCHIKBAARHEID NIET TE CONTROLEREN — online boeken staat stil";
+  const summary = "⚠️ BESCHIKBAARHEID NIET TE CONTROLEREN - online boeken staat stil";
 
   return {
     text: summary,
@@ -310,7 +310,7 @@ export function availabilityFailureMessage(context: string, reason: string): Rec
       },
       {
         type: "context",
-        elements: [{ type: "mrkdwn", text: `${text(context)} — ${text(reason) || "onbekende fout"}` }],
+        elements: [{ type: "mrkdwn", text: `${text(context)} - ${text(reason) || "onbekende fout"}` }],
       },
     ],
   };
@@ -325,7 +325,7 @@ export function extensionFailureMessage(
   payload: VernastExtensionPayload,
 ): Record<string, unknown> {
   const reference = text(payload.order_number || payload.stripe_session_id);
-  const summary = `⚠️ VERLENGING NIET DOORGEKOMEN — ${reference}`;
+  const summary = `⚠️ VERLENGING NIET DOORGEKOMEN - ${reference}`;
 
   return {
     text: summary,
@@ -346,14 +346,14 @@ export function extensionFailureMessage(
         fields: [
           field("Klant", text(payload.customer_name) || text(payload.customer_email)) ?? {
             type: "mrkdwn",
-            text: "*Klant*\n—",
+            text: "*Klant*\nniet opgegeven",
           },
-          field("Telefoon", text(payload.customer_phone)) ?? { type: "mrkdwn", text: "*Telefoon*\n—" },
+          field("Telefoon", text(payload.customer_phone)) ?? { type: "mrkdwn", text: "*Telefoon*\nniet opgegeven" },
         ],
       },
       {
         type: "context",
-        elements: [{ type: "mrkdwn", text: `verlenging — ${text(reason) || "onbekende fout"}` }],
+        elements: [{ type: "mrkdwn", text: `verlenging - ${text(reason) || "onbekende fout"}` }],
       },
     ],
   };

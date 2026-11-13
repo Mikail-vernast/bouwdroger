@@ -22,7 +22,7 @@ import { droogtermijnen, natuurlijkeChapeWeken, termijnLabel } from "@/lib/droog
 const MIN_WOORDEN = 800;
 
 const PAGINAS: { pad: string; Pagina: ComponentType; h1: RegExp }[] = [
-  { pad: "/nieuwbouw", Pagina: NieuwbouwPage, h1: /chape en pleisterwerk drogen/i },
+  { pad: "/nieuwbouw-drogen", Pagina: NieuwbouwPage, h1: /chape en pleisterwerk drogen/i },
   { pad: "/waterschade", Pagina: WaterschadePage, h1: /waterschade drogen/i },
   { pad: "/renovatie", Pagina: RenovatiePage, h1: /vochtige kelder/i },
   { pad: "/prijzen", Pagina: PrijzenPage, h1: /bouwdroger huren: prijzen/i },

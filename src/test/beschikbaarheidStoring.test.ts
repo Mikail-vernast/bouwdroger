@@ -171,7 +171,7 @@ describe("alarm bij een mislukte beschikbaarheidscontrole", () => {
   });
 });
 
-describe("api/order — afhaling terwijl het portaal plat ligt", () => {
+describe("api/order, afhaling terwijl het portaal plat ligt", () => {
   it("weigert de reservatie met een 503 en stuurt niets door", async () => {
     fetchMock.mockImplementation(async () => new Response("boom", { status: 500 }));
 
@@ -204,7 +204,7 @@ describe("api/order — afhaling terwijl het portaal plat ligt", () => {
   });
 });
 
-describe("api/extension — verlenging die het portaal niet haalt", () => {
+describe("api/extension, verlenging die het portaal niet haalt", () => {
   const body = {
     sessionId: SESSION.id,
     extraDagen: 7,

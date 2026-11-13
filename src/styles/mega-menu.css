@@ -1,0 +1,138 @@
+/* ============================================================
+   De twee mega-menu's: Bouwdroging en Alles over drogen.
+
+   Dit bestand verving `mega-kennis.css`, dat alleen het kennis-paneel
+   rechttrok. Beide menu's hangen in dezelfde navigatiebalk, dus ze horen
+   er ook hetzelfde uit te zien — en dat deden ze niet: Bouwdroging viel in
+   drie kolommen en Alles over drogen in vier, waardoor bij Bouwdroging de
+   vierde groep (Schimmels) eronder viel met twee lege kolommen ernaast.
+
+   Ongescoped en met eigen fallbacks, net als site-footer.css. Dat is hier
+   geen luxe: `.mega-cols` en `.mcol` staan in elf paginastylesheets apart
+   gedefinieerd — de ene schil als `grid-template-columns:repeat(3,1fr)`, de
+   andere als `flex-wrap:wrap`. Daarom dragen de klassen hieronder een eigen
+   `mmv-`-voorvoegsel en raken ze die oude namen niet meer aan: zo kan geen
+   enkele pagina er nog doorheen schrijven.
+
+   Controleer bij een nieuwe klasse hier eerst:
+   `grep -rn "\.naam[ ,{:.>]" src/styles/*.css | grep -v mega-menu`
+   ============================================================ */
+
+/*
+  Het paneel erfde zijn tekstkleur van de navigatiebalk. Boven de donkere
+  hero staat die op wit, en het paneel zet wel een witte achtergrond maar
+  geen kleur — dus stond "Liever eerst weten wat het kost?" in de voet van
+  beide menu's wit op wit. Onzichtbaar tot je voorbij `lightAfter` scrolde
+  en de balk omklapte. De links zelf hadden er geen last van: die zetten
+  hun eigen kleur.
+*/
+.mega-panel {
+  color: var(--txt, #121011);
+}
+
+/*
+  Twee kolommen waarin de groepen onafhankelijk doorlopen. Bewust
+  `columns` en geen raster: met een raster begint de tweede rij pas onder
+  de langste groep van de eerste, en precies daar zat het gat. Nu schuift
+  Service meteen onder Pakketten aan.
+*/
+.mega-panel .mmv-cols {
+  columns: 2;
+  column-gap: 52px;
+}
+
+.mega-panel .mmv-groep {
+  /* Zonder dit breekt een groep middenin over de kolomgrens. */
+  break-inside: avoid;
+  margin-bottom: 26px;
+}
+.mega-panel .mmv-groep:last-child {
+  margin-bottom: 0;
+}
+
+/*
+  De kop: klein kapitaal op een haarlijn over de volle kolombreedte, met
+  een rood streepje van 26 px op de lijn zelf. Dit verving de maroon pil —
+  vier donkere badges waren het zwaarste element van het paneel, terwijl
+  het maar kopjes zijn.
+*/
+.mega-panel .mmv-kop {
+  display: block;
+  font-family: inherit;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.08;
+  color: var(--txt-dim, rgba(18, 16, 17, 0.44));
+  margin: 0 0 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line, rgba(18, 16, 17, 0.12));
+  position: relative;
+}
+.mega-panel .mmv-kop::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 26px;
+  height: 1px;
+  background: var(--red, #c8102e);
+}
+
+/* De links van één groep in twee kolommen. Ook hier multicolumn: met een
+   raster lijnen de rijen van beide kolommen uit, en dan krijgt de kortste
+   een gat zodra een link over twee regels loopt. */
+.mega-panel .mmv-lijst {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: 24px;
+}
+.mega-panel .mmv-lijst li {
+  break-inside: avoid;
+  margin: 0;
+  line-height: 1.35;
+}
+.mega-panel .mmv-lijst a {
+  display: block;
+  font-size: 14.5px;
+  line-height: 1.35;
+  color: var(--txt, #121011);
+  padding: 7px 10px;
+  margin-left: -10px;
+  border-radius: 8px;
+  transition: background 0.14s, color 0.14s;
+  /* De links breken binnen hun kolom af. Zonder deze regel erven ze de
+     `white-space: nowrap` van de schil en loopt "Condensdroger of
+     adsorptiedroger?" dwars over de kolom ernaast. */
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+.mega-panel .mmv-lijst a:hover {
+  background: var(--bg-alt, #f7f5f5);
+  color: var(--red, #c8102e);
+}
+/* Stond er niet in: met het toetsenbord was het menu een rij onzichtbare
+   stops. */
+.mega-panel .mmv-lijst a:focus-visible {
+  outline: 2px solid var(--red, #c8102e);
+  outline-offset: 2px;
+}
+
+/*
+  Twee groepkolommen maal twee linkkolommen is vier kolommen tekst. Onder
+  1180 px worden de linkteksten daarin te smal en breken ze middenin een
+  woord, dus valt eerst de linkkolom weg en pas daarna de groepkolom.
+*/
+@media (max-width: 1180px) {
+  .mega-panel .mmv-lijst {
+    columns: 1;
+  }
+}
+@media (max-width: 860px) {
+  .mega-panel .mmv-cols {
+    columns: 1;
+  }
+}

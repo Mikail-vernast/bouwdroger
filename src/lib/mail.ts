@@ -96,11 +96,11 @@ function templateId(key: MailKey): number | null {
  * onopgemaakte mail erger dan geen mail.
  */
 const INTERNAL_SUBJECT: Partial<Record<MailKey, (p: Record<string, unknown>) => string>> = {
-  intern_contact: (p) => `Bericht via het contactformulier — ${plain(p.naam) || "onbekend"}`,
-  intern_aanvraag: (p) => `Nieuwe aanvraag — ${plain(p.referentie)}`,
-  intern_boeking: (p) => `Nieuwe betaalde boeking — ${plain(p.referentie)}`,
-  intern_afhaal: (p) => `Afhaalreservatie — ${plain(p.referentie)} (${plain(p.leverdatum)})`,
-  intern_alarm: (p) => `ORDER NIET DOORGEKOMEN — ${plain(p.referentie)}`,
+  intern_contact: (p) => `Bericht via het contactformulier - ${plain(p.naam) || "onbekend"}`,
+  intern_aanvraag: (p) => `Nieuwe aanvraag - ${plain(p.referentie)}`,
+  intern_boeking: (p) => `Nieuwe betaalde boeking - ${plain(p.referentie)}`,
+  intern_afhaal: (p) => `Afhaalreservatie - ${plain(p.referentie)} (${plain(p.leverdatum)})`,
+  intern_alarm: (p) => `ORDER NIET DOORGEKOMEN - ${plain(p.referentie)}`,
 };
 
 function plain(value: unknown): string {
@@ -142,11 +142,11 @@ const CUSTOMER_FALLBACK: Partial<
       plain(p.bericht),
       "",
       "Met vriendelijke groeten,",
-      `Vernast Bouwdrogers — ${TELEFOON}`,
+      `Vernast Bouwdrogers - ${TELEFOON}`,
     ].join("\n"),
   }),
   aanvraag_ontvangen: (p) => ({
-    subject: `Wij hebben uw aanvraag goed ontvangen — ${plain(p.referentie)}`,
+    subject: `Wij hebben uw aanvraag goed ontvangen - ${plain(p.referentie)}`,
     text: [
       `Dag ${plain(p.klant_naam) || "klant"},`,
       "",
@@ -158,7 +158,7 @@ const CUSTOMER_FALLBACK: Partial<
       plain(p.leverdatum) ? `Gewenste leverdatum: ${plain(p.leverdatum)}` : "",
       "",
       "Met vriendelijke groeten,",
-      `Vernast Bouwdrogers — ${TELEFOON}`,
+      `Vernast Bouwdrogers - ${TELEFOON}`,
     ]
       .filter((line, i, all) => line !== "" || all[i - 1] !== "")
       .join("\n"),
@@ -762,7 +762,7 @@ export async function sendExtensionRequest(request: {
 
   const result = await sendPlain({
     to,
-    subject: `Verlenging aangevraagd — ${request.referentie} (+${request.extraDagen} dagen)`,
+    subject: `Verlenging aangevraagd - ${request.referentie} (+${request.extraDagen} dagen)`,
     text: regels.join("\n"),
     replyTo: { email: request.email, name: request.naam || null },
     tags: ["verlenging"],
@@ -830,7 +830,7 @@ export async function sendQuestionFallback(vraag: {
 
   const result = await sendPlain({
     to,
-    subject: `VRAAG NIET IN PORTAAL — ${vraag.naam || vraag.email}`,
+    subject: `VRAAG NIET IN PORTAAL - ${vraag.naam || vraag.email}`,
     text: regels.join("\n"),
     replyTo: { email: vraag.email, name: vraag.naam || null },
     tags: ["vraag", "vangnet"],
@@ -984,11 +984,11 @@ export async function alertAvailabilityFailure(context: string, reason: string):
 
   const result = await sendPlain({
     to,
-    subject: "BESCHIKBAARHEID NIET TE CONTROLEREN — online boeken staat stil",
+    subject: "BESCHIKBAARHEID NIET TE CONTROLEREN - online boeken staat stil",
     text: [
       "De site kreeg geen antwoord van het portaal op de beschikbaarheidscontrole.",
       "Bezoekers die nu willen afrekenen krijgen een foutmelding met de vraag later",
-      "opnieuw te proberen of te bellen — er gaat niets door tot het portaal weer antwoordt.",
+      "opnieuw te proberen of te bellen - er gaat niets door tot het portaal weer antwoordt.",
       "",
       `Waar:   ${context}`,
       `Reden:  ${reason}`,
@@ -1028,7 +1028,7 @@ export async function alertExtensionFailure(
   const referentie = payload.order_number || payload.stripe_session_id;
   const result = await sendPlain({
     to,
-    subject: `VERLENGING NIET DOORGEKOMEN — ${referentie}`,
+    subject: `VERLENGING NIET DOORGEKOMEN - ${referentie}`,
     text: [
       `De verlengaanvraag voor ${referentie} staat niet in het portaal.`,
       "Geef ze met de hand in op de tab Verlengingen en bel de klant terug.",

@@ -252,7 +252,7 @@ const VerhuurPakketPage = () => {
                 </div>
                 <p className="bsub">
                   Drogen is een samenspel van capaciteit, circulatie en temperatuur. Ontbreekt er
-                  één, dan loopt de droogtijd op — daarom stellen wij pakketten samen in plaats van
+                  één, dan loopt de droogtijd op, daarom stellen wij pakketten samen in plaats van
                   losse toestellen te verhuren.
                 </p>
                 <div className="role">
@@ -298,7 +298,7 @@ const VerhuurPakketPage = () => {
                   <p>
                     Onze technicus meet bij plaatsing de vochtwaarden van chape, pleisterwerk en
                     lucht, en meet opnieuw bij ophaling. Zo weet u zwart op wit dat de ruimte droog
-                    is voor u afwerkt. Altijd inbegrepen — een ondertekend meetrapport voor uw
+                    is voor u afwerkt. Altijd inbegrepen, een ondertekend meetrapport voor uw
                     verzekeraar of dossier kunt u optioneel bijnemen.
                   </p>
                 </div>
@@ -369,7 +369,7 @@ const VerhuurPakketPage = () => {
                 <span className="rb-chip">Waarom een pakket werkt</span>
                 <h2>Drogen is capaciteit, circulatie én temperatuur.</h2>
                 <p>
-                  Ontbreekt er één van de drie, dan loopt de droogtijd op — of stopt het proces zelfs
+                  Ontbreekt er één van de drie, dan loopt de droogtijd op, of stopt het proces zelfs
                   helemaal. Daarom stellen wij complete pakketten samen in plaats van losse
                   toestellen te verhuren.
                 </p>
@@ -380,14 +380,14 @@ const VerhuurPakketPage = () => {
                   <h3>Capaciteit</h3>
                   <p>
                     De bouwdrogers bepalen hoeveel liter vocht er per dag uit de lucht kan. Wij
-                    dimensioneren op uw werkelijke volume — niet te klein, niet te groot.
+                    dimensioneren op uw werkelijke volume, niet te klein, niet te groot.
                   </p>
                 </div>
                 <div className="rb-c">
                   <div className="rb-n">02</div>
                   <h3>Circulatie</h3>
                   <p>
-                    Zonder luchtbeweging vormt zich een verzadigd laagje tegen chape en muur — daar
+                    Zonder luchtbeweging vormt zich een verzadigd laagje tegen chape en muur, daar
                     stopt de droging. De ventilatoren doorbreken dat en winnen dagen.
                   </p>
                 </div>
@@ -407,7 +407,7 @@ const VerhuurPakketPage = () => {
                 </div>
                 <div className="rb-s">
                   <b>48 u</b>
-                  <span>voor schimmel begint te groeien — snel starten loont</span>
+                  <span>voor schimmel begint te groeien, snel starten loont</span>
                 </div>
                 <div className="rb-s">
                   <b>≤ 2 %</b>

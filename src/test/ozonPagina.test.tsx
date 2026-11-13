@@ -47,14 +47,16 @@ describe("/ozonbehandeling", () => {
   });
 
   it("toont elk FAQ-antwoord in de HTML, niet pas na een klik", () => {
-    const vragen = toon().querySelectorAll("details.oz-q");
+    // `details.q` is de klassenaam van de homepage-FAQ; deze pagina gebruikt
+    // sinds 12-11-2026 hetzelfde blok, zodat beide er hetzelfde uitzien.
+    const vragen = toon().querySelectorAll("details.q");
     expect(vragen.length).toBeGreaterThanOrEqual(5);
     for (const vraag of vragen) {
       expect(woorden(vraag.querySelector("p")?.textContent ?? "")).toBeGreaterThan(20);
     }
   });
 
-  it("zet geen enkele blok op opacity:0 — dat zou onzichtbaar prerenderen", () => {
+  it("zet geen enkele blok op opacity:0, dat zou onzichtbaar prerenderen", () => {
     const verborgen = toon().querySelectorAll('[style*="opacity:0"], [style*="opacity: 0"]');
     expect(verborgen).toHaveLength(0);
   });

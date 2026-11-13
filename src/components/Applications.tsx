@@ -7,7 +7,7 @@ const diensten = [
     icon: Building2,
     title: "Nieuwbouw",
     description: "Pleisterwerk & chape sneller afwerken. Voorkom schimmel en vertraagde planning.",
-    href: "/nieuwbouw",
+    href: "/nieuwbouw-drogen",
     highlight: false,
     badge: null,
   },
@@ -22,7 +22,7 @@ const diensten = [
   {
     icon: Droplets,
     title: "Waterschade",
-    description: "Noodservice — levering met voorrang. Minimaliseer schade.",
+    description: "Noodservice, levering met voorrang. Minimaliseer schade.",
     href: "/waterschade",
     highlight: true,
     badge: "24U SPOED",
@@ -60,7 +60,7 @@ const Applications = () => {
             Voor elk project de juiste oplossing
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Of het nu gaat om nieuwbouw, renovatie of waterschade — wij hebben
+            Of het nu gaat om nieuwbouw, renovatie of waterschade, wij hebben
             de expertise en het materiaal.
           </p>
         </Reveal>

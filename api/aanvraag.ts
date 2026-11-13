@@ -128,7 +128,7 @@ export async function POST(request: Request): Promise<Response> {
     naam,
     email,
     telefoon,
-    onderwerp: [SOURCE_LABEL[source], onderwerp].filter(Boolean).join(" — "),
+    onderwerp: [SOURCE_LABEL[source], onderwerp].filter(Boolean).join(", "),
     bericht,
     adres: "",
     reden: limited ? `rate limit portaal: ${reason}` : reason,

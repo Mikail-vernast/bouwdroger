@@ -280,7 +280,7 @@ export async function POST(request: Request): Promise<Response> {
             currency: "eur",
             unit_amount: Math.round(balance.saldo * 100),
             product_data: {
-              name: `Saldo huur — ${balance.referentie}`,
+              name: `Saldo huur, ${balance.referentie}`,
               description: balance.pakket
                 ? `${balance.pakket} · voorschot van ${balance.betaald.toFixed(2)} EUR reeds betaald`
                 : `Voorschot van ${balance.betaald.toFixed(2)} EUR reeds betaald`,

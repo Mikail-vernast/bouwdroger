@@ -2,10 +2,15 @@ import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
+import KlimaatMeter from "@/components/hoe-drogen/KlimaatMeter";
+import VochtGrafiek from "@/components/hoe-drogen/VochtGrafiek";
+import InBeeld from "@/components/hoe-drogen/InBeeld";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
 import "@/styles/hoe-drogen-werkt.css";
 import "@/styles/hoe-drogen-werkt-fixes.css";
+import "@/styles/hoe-drogen-animaties.css";
+import { toestelPad } from "@/data/verhuur";
 
 /**
  * Hoe drogen werkt — 1:1 transcription of the Claude Design handoff
@@ -38,7 +43,7 @@ const HoeDrogenWerktPage = () => (
         <div className="wrap hero-grid">
           <div className="hero-copy">
             <span className="kick rv">Alles over drogen · de techniek</span>
-            <h1 className="rv">Bouwdroging: niet het toestel droogt uw woning, maar het juiste klimaat.</h1>
+            <h1 className="rv">Niet het toestel droogt uw woning, maar het klimaat dat het maakt.</h1>
             <p className="rv d1">Tijdens bouwen en renoveren komen honderden liters water in uw woning terecht: in pleister, chape, mortel en beton. Professionele bouwdroging is niet "een toestel aanzetten", maar de combinatie van temperatuur, luchtvochtigheid en luchtbeweging zo sturen dat dat vocht gecontroleerd uit de constructie verdwijnt.</p>
 
             <div className="hcta rv d3">
@@ -65,19 +70,19 @@ const HoeDrogenWerktPage = () => (
         </div>
         <div className="g3">
           <div className="kaart rv">
-            <div className="ki"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z" /></svg></div>
+            <KlimaatMeter variant="temperatuur" volgorde={0} />
             <h3>1. Temperatuur</h3>
-            <p>Voldoende warmte verhoogt het verdampingspotentieel en ondersteunt het vochttransport uit het materiaal. In koude ruimtes zetten we daarom een <Link to="/verhuur/toestel/teddh30" style={{ color: "var(--red)", fontWeight: 600 }}>bouwkachel</Link> bij.</p>
+            <p>Voldoende warmte verhoogt het verdampingspotentieel en ondersteunt het vochttransport uit het materiaal. In koude ruimtes zetten we daarom een <Link to={toestelPad("teddh30")} style={{ color: "var(--red)", fontWeight: 600 }}>bouwkachel</Link> bij.</p>
           </div>
           <div className="kaart rv d1">
-            <div className="ki"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></div>
+            <KlimaatMeter variant="vocht" volgorde={1} />
             <h3>2. Relatieve luchtvochtigheid</h3>
             <p>Door waterdamp actief uit de lucht te verwijderen, ontstaat telkens opnieuw ruimte voor vocht dat uit de materialen verdampt. Dat is het werk van de <Link to="/machines" style={{ color: "var(--red)", fontWeight: 600 }}>bouwdroger</Link>.</p>
           </div>
           <div className="kaart rv d2">
-            <div className="ki"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9.6 4.6A2 2 0 1 1 11 8H2" /><path d="M12.6 19.4A2 2 0 1 0 14 16H2" /><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" /></svg></div>
+            <KlimaatMeter variant="lucht" volgorde={2} />
             <h3>3. Luchtbeweging</h3>
-            <p>Droge lucht moet álle vochtige oppervlakken bereiken; stilstaande lucht rond een wand of vloer remt het proces. Daarom horen bij veel pakketten <Link to="/verhuur/toestel/ttv4500" style={{ color: "var(--red)", fontWeight: 600 }}>ventilatoren</Link>.</p>
+            <p>Droge lucht moet álle vochtige oppervlakken bereiken; stilstaande lucht rond een wand of vloer remt het proces. Daarom horen bij veel pakketten <Link to={toestelPad("ttv4500")} style={{ color: "var(--red)", fontWeight: 600 }}>ventilatoren</Link>.</p>
           </div>
         </div>
         <div className="note rv"><b>Daarom berekenen wij eerst, en plaatsen we pas daarna.</b> De <Link to="/verhuur/calculator">droogcalculator</Link> vertaalt uw oppervlakte, plafondhoogte en situatie naar de juiste combinatie van toestellen, het hart van elk <Link to="/verhuur/pakket">Vernast-droogpakket</Link>.</div>
@@ -95,15 +100,38 @@ const HoeDrogenWerktPage = () => (
         </div>
         <div className="rvh2">
           <div className="rvbox rv" style={{ "--w": "80%" } as React.CSSProperties}>
-            <div className="t">Koude ruimte</div>
+            <div className="rvkop">
+              <span className="rvb-ic ijs" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="m10 20-1.25-2.5L6 18" /><path d="M10 4 8.75 6.5 6 6" /><path d="m14 20 1.25-2.5L18 18" /><path d="m14 4 1.25 2.5L18 6" /><path d="m17 21-3-6h-4" /><path d="m17 3-3 6 1.5 3" /><path d="M2 12h6.5L10 9" /><path d="m20 10-1.5 2 1.5 2" /><path d="M22 12h-6.5L14 15" /><path d="m4 10 1.5 2L4 14" /><path d="m7 21 3-6-1.5-3" /><path d="m7 3 3 6h4" /></svg>
+              </span>
+              <div className="t">Koude ruimte</div>
+            </div>
             <div className="big">10 °C · 80<small>% RV</small></div>
-            <div className="bar"><b></b></div>
+            <div className="rvmeet">
+              <div className="bar"><b></b></div>
+            </div>
+            <div className="rvmeet rvwater">
+              <span className="rvlab"><b>6,2 g</b> water per kg lucht</span>
+              <div className="water" aria-hidden="true"><b></b><i></i><i></i><i></i><i></i></div>
+            </div>
             <div className="sub">vochtige binnenlucht</div>
           </div>
           <div className="rvbox rv d1" style={{ "--w": "42%" } as React.CSSProperties}>
-            <div className="t">Zelfde lucht, verwarmd</div>
+            <div className="rvkop">
+              <span className="rvb-ic vuur" aria-hidden="true">
+              <svg className="vlam" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" /></svg>
+              <svg className="kern" width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c.6 3 2.4 4.3 3.6 6.1C16.6 10.6 17 12 17 13.5a5 5 0 0 1-10 0c0-1.3.4-2.4 1.1-3.4.2 1 .8 1.8 1.6 2.2-.3-2.6.6-5.4 2.3-9.3z" /></svg>
+              </span>
+              <div className="t">Zelfde lucht, verwarmd</div>
+            </div>
             <div className="big">20 °C · 42<small>% RV</small></div>
-            <div className="bar"><b></b></div>
+            <div className="rvmeet">
+              <div className="bar"><b></b></div>
+            </div>
+            <div className="rvmeet rvwater">
+              <span className="rvlab"><b>6,2 g</b> water per kg lucht</span>
+              <div className="water" aria-hidden="true"><b></b><i></i><i></i><i></i><i></i></div>
+            </div>
             <div className="sub"><b style={{ color: "var(--red)" }}>exact evenveel water</b> in de lucht, enkel de verhouding veranderde</div>
           </div>
         </div>
@@ -122,7 +150,7 @@ const HoeDrogenWerktPage = () => (
             <span>Capillaire stroming</span><span>Verdamping</span><span>Damptransport</span><span>Diffusie</span>
           </div>
         </div>
-        <div className="rvimg rv d1"><img src="/vernast/lineup-dryers.webp" alt="Vernast eco-bouwdrogers in drie formaten" /></div>
+        <div className="rvimg rv d1"><VochtGrafiek /></div>
       </div>
     </section>
 
@@ -134,13 +162,13 @@ const HoeDrogenWerktPage = () => (
           <h2 className="sec rv">Hoe een condensbouwdroger water uit uw woning haalt.</h2>
           <p className="lede rv d1">Binnenin stroomt de vochtige lucht langs een koud oppervlak, koelt onder haar dauwpunt en geeft haar waterdamp af als vloeibaar water. De lucht verlaat de machine iets warmer én droger, en de kringloop begint opnieuw: <b>materiaal → lucht → bouwdroger → condenswater → afvoer</b>.</p>
         </div>
-        <div className="cyc">
-          <div className="cy rv"><i>01</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V7l7-4 7 4v14" /></svg></div><h3>Vocht in het materiaal</h3><p>Water migreert via poriën en capillairen naar het oppervlak en verdampt naar de lucht.</p></div>
-          <div className="cy rv d1"><i>02</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9.6 4.6A2 2 0 1 1 11 8H2" /><path d="M12.6 19.4A2 2 0 1 0 14 16H2" /></svg></div><h3>Aanzuigen</h3><p>De droger zuigt de vochtige binnenlucht met een krachtige ventilator door het toestel.</p></div>
-          <div className="cy rv d2" style={{ position: "relative" }}><i>03</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg><span className="drop" style={{ left: "14px", top: "44px" }}><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></span><span className="drop" style={{ left: "26px", top: "44px", animationDelay: "1.2s" }}><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></span></div><h3>Condenseren</h3><p>De lucht koelt langs een koud oppervlak onder haar dauwpunt; waterdamp wordt vloeibaar water.</p></div>
-          <div className="cy rv d3"><i>04</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v8" /><path d="M5 14h14v4a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z" /></svg></div><h3>Afvoeren</h3><p>Het condenswater gaat naar een reservoir of wordt met een condenspomp rechtstreeks weggepompt.</p></div>
-          <div className="cy rv d3"><i>05</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9" /><path d="M21 3v6h-6" /></svg></div><h3>Opnieuw de ruimte in</h3><p>Drogere, licht opgewarmde lucht wordt verdeeld en neemt opnieuw vocht op uit de materialen.</p></div>
-        </div>
+        <InBeeld className="cyc">
+          <div className="cy rv" data-stap="1"><i>01</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V7l7-4 7 4v14" /></svg><span className="cy-nat" /><span className="cy-nat" /><span className="cy-nat" /></div><h3>Vocht in het materiaal</h3><p>Water migreert via poriën en capillairen naar het oppervlak en verdampt naar de lucht.</p></div>
+          <div className="cy rv d1" data-stap="2"><i>02</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9.6 4.6A2 2 0 1 1 11 8H2" /><path d="M12.6 19.4A2 2 0 1 0 14 16H2" /></svg><span className="cy-zuig" /><span className="cy-zuig" /><span className="cy-zuig" /></div><h3>Aanzuigen</h3><p>De droger zuigt de vochtige binnenlucht met een krachtige ventilator door het toestel.</p></div>
+          <div className="cy rv d2" data-stap="3" style={{ position: "relative" }}><i>03</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg><span className="drop" style={{ left: "14px", top: "44px" }}><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></span><span className="drop" style={{ left: "26px", top: "44px", animationDelay: "1.2s" }}><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></span></div><h3>Condenseren</h3><p>De lucht koelt langs een koud oppervlak onder haar dauwpunt; waterdamp wordt vloeibaar water.</p></div>
+          <div className="cy rv d3" data-stap="4"><i>04</i><div className="ci2"><span className="cy-peil" /><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v8" /><path d="M5 14h14v4a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z" /></svg></div><h3>Afvoeren</h3><p>Het condenswater gaat naar een reservoir of wordt met een condenspomp rechtstreeks weggepompt.</p></div>
+          <div className="cy rv d3" data-stap="5"><i>05</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9" /><path d="M21 3v6h-6" /></svg></div><h3>Opnieuw de ruimte in</h3><p>Drogere, licht opgewarmde lucht wordt verdeeld en neemt opnieuw vocht op uit de materialen.</p></div>
+        </InBeeld>
         <div className="note rv"><b>Waar gaat al dat water naartoe?</b> Bij eenvoudige toestellen in een reservoir dat u regelmatig leegmaakt. Bij langdurige professionele droging verkiezen wij continue condensafvoer: een condenspomp (€ 2 per bouwdroger per dag) pompt het water dag en nacht rechtstreeks naar een afvoer, zodat de cyclus onafgebroken doorloopt, ook 's nachts en in het weekend. U voegt hem toe tijdens het <Link to="/verhuur/calculator">berekenen van uw pakket</Link>.</div>
       </div>
     </section>
@@ -189,20 +217,26 @@ const HoeDrogenWerktPage = () => (
           <p className="lede rv d1">Niet ieder bouwmateriaal bevat hetzelfde type vocht. Een professionele droogstrategie luidt daarom nooit "machine aan zodra het materiaal geplaatst is", materiaal, leeftijd, technische voorschriften en de gewenste afwerking bepalen mee de aanpak. De <Link to="/verhuur/calculator">calculator</Link> vraagt daarom ook wát u droogt.</p>
         </div>
         <div className="g3">
-          <div className="kaart rv">
-            <div className="ki"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 22 4 18 15 7l4 4L8 22z" /><path d="m14 4 6 6" /></svg></div>
-            <h3>Gipspleister</h3>
-            <p>Verliest zijn overtollige water vooral door verdamping. Laagdikte, temperatuur, luchtvochtigheid, ventilatie en de zuiging van de ondergrond bepalen de droogtijd van <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 600 }}>pleisterwerk drogen</Link>.</p>
+          <div className="kaart materiaalkaart rv">
+            <img className="materiaalfoto" src="/vernast/droogproces-nat-pleister.webp" alt="Vers nat gipspleister met zichtbare donkere vochtzones" width={1672} height={941} loading="lazy" decoding="async" />
+            <div className="materiaaltekst">
+              <h3>Gipspleister</h3>
+              <p>Verliest zijn overtollige water vooral door verdamping. Laagdikte, temperatuur, luchtvochtigheid, ventilatie en de zuiging van de ondergrond bepalen de droogtijd van <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 600 }}>pleisterwerk drogen</Link>.</p>
+            </div>
           </div>
-          <div className="kaart rv d1">
-            <div className="ki"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 12h18" /><path d="M12 3v18" /></svg></div>
-            <h3>Chape &amp; beton</h3>
-            <p>Cement heeft water nodig voor de hydratatiereactie waarmee het uithardt. Te vroeg agressief drogen verstoort dat, bij <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 600 }}>chape drogen</Link> starten we pas ná de noodzakelijke uithardingsfase.</p>
+          <div className="kaart materiaalkaart rv d1">
+            <img className="materiaalfoto" src="/vernast/droogproces-vochtige-chape.webp" alt="Vochtige chape tijdens de noodzakelijke uithardingsfase" width={1672} height={941} loading="lazy" decoding="async" />
+            <div className="materiaaltekst">
+              <h3>Chape &amp; beton</h3>
+              <p>Cement heeft water nodig voor de hydratatiereactie waarmee het uithardt. Te vroeg agressief drogen verstoort dat, bij <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 600 }}>chape drogen</Link> starten we pas ná de noodzakelijke uithardingsfase.</p>
+            </div>
           </div>
-          <div className="kaart rv d2">
-            <div className="ki"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg></div>
-            <h3>Te agressief drogen</h3>
-            <p>Grote vochtgradiënten tussen oppervlak en kern kunnen krimp en scheurvorming bevorderen. Daarom sturen we op RV en laten we die niet langdurig onder ±30% zakken.</p>
+          <div className="kaart materiaalkaart rv d2">
+            <img className="materiaalfoto" src="/vernast/droogproces-te-snel-droog.webp" alt="Droge chape met krimpscheuren door een te agressief droogproces" width={1672} height={941} loading="lazy" decoding="async" />
+            <div className="materiaaltekst">
+              <h3>Te agressief drogen</h3>
+              <p>Grote vochtgradiënten tussen oppervlak en kern kunnen krimp en scheurvorming bevorderen. Daarom sturen we op RV en laten we die niet langdurig onder ±30% zakken.</p>
+            </div>
           </div>
         </div>
         <div className="note rv"><b>Niet maximaal drogen. Optimaal drogen.</b> Overcapaciteit is geen kwaliteitskenmerk, de juiste capaciteit wel. Waarom dat zo is, leest u bij <Link to="/waarom-bouwdroging">waarom bouwdroging</Link>.</div>
