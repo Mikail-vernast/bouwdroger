@@ -229,6 +229,12 @@ export const routes: RouteRecord[] = [
         }),
       },
       {
+        path: "verhuur/simulator",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/VerhuurSimulatorPage")).default,
+        }),
+      },
+      {
         path: "verhuur/pakket",
         lazy: async () => ({
           Component: (await import("./pages/verhuur/VerhuurPakketPage")).default,

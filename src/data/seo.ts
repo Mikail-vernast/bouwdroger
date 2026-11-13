@@ -212,6 +212,11 @@ export const SEO = {
     description:
       "Beantwoord vijf vragen over uw woning, wat u droogt en uw verwarming. Wij berekenen automatisch de juiste toestellen, de droogtijd en de prijs.",
   },
+  verhuurSimulator: {
+    title: "Droogsimulator: zie uw bouwdrogers aan het werk | Vernast",
+    description:
+      "Kies uw woning, bouwlagen, chape of pleisterwerk en de bouwfase. Zie meteen welke bouwdrogers in welke kamer komen te staan en wat het droogpakket kost.",
+  },
   verhuurAfhalen: {
     title: "Losse toestellen huren en afhalen in Aartselaar | Vernast",
     description:
