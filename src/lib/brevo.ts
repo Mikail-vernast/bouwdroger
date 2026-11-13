@@ -216,6 +216,8 @@ export async function sendPlain(options: {
   to: BrevoRecipient;
   subject: string;
   text: string;
+  /** Optional HTML body; the text stays as the plain-text alternative. */
+  html?: string;
   replyTo?: BrevoRecipient;
   tags?: string[];
 }): Promise<Attempted> {
@@ -242,6 +244,7 @@ export async function sendPlain(options: {
           to: [{ email: options.to.email, ...(options.to.name ? { name: options.to.name } : {}) }],
           subject: options.subject,
           textContent: options.text,
+          ...(options.html ? { htmlContent: options.html } : {}),
           ...(options.replyTo ? { replyTo: options.replyTo } : {}),
           ...(options.tags?.length ? { tags: options.tags } : {}),
         }),

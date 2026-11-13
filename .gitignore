@@ -46,3 +46,6 @@ worker-configuration.d.ts
 
 # Lokale wrangler-staat (dev-server, cache)
 .wrangler/
+
+# Local wrangler dev secrets
+.dev.vars

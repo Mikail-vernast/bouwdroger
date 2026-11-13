@@ -16,6 +16,12 @@
  */
 
 import { sendPlain, sendTemplate, type BrevoRecipient } from "./brevo.js";
+import {
+  PORTAL_EXTENSIONS_URL,
+  extensionRequestHtml,
+  extensionRequestSubject,
+  extensionRequestText,
+} from "./extensionRequestMail.js";
 import { mailAllowed } from "./rateLimit.js";
 import { DEVICE_LABEL, euro } from "./verhuur.js";
 import type { VernastExtensionPayload } from "./vernastExtension.js";
@@ -725,9 +731,10 @@ export async function sendExtensionOfferMail(facts: ExtensionOfferFacts): Promis
  * Verlengaanvraag vanaf de verlengpagina: naar het team, met de klant in
  * `replyTo` zodat antwoorden vanuit de mailbox kan.
  *
- * Bewust platte tekst en geen sjabloon: een aanvraag mag niet verdwijnen omdat
- * er in Brevo nog niets klaarstaat. Iemand rekent erop dat zijn droger langer
- * blijft staan.
+ * Bewust geen Brevo-sjabloon: een aanvraag mag niet verdwijnen omdat er in
+ * Brevo nog niets klaarstaat. Iemand rekent erop dat zijn droger langer blijft
+ * staan. De opmaak wordt daarom in de code gebouwd (`extensionRequestMail.ts`)
+ * en gaat samen met de platte tekst mee.
  */
 export async function sendExtensionRequest(request: {
   referentie: string;
@@ -745,25 +752,18 @@ export async function sendExtensionRequest(request: {
     return;
   }
 
-  const regels = [
-    `Verlenging aangevraagd voor ${request.referentie}`,
-    "",
-    `Klant:      ${request.naam}`,
-    `E-mail:     ${request.email}`,
-    `Telefoon:   ${request.telefoon}`,
-    "",
-    `Huur loopt nu tot:  ${formatWeekday(request.huidigEinde)}`,
-    `Gevraagd tot:       ${formatWeekday(request.nieuwEinde)}  (+${request.extraDagen} dagen)`,
-    "",
-    request.opmerking ? `Opmerking van de klant:\n${request.opmerking}` : "Geen opmerking.",
-    "",
-    "Controleer de beschikbaarheid in het portaal en bel de klant terug.",
-  ];
+  const mail = {
+    ...request,
+    huidigEinde: formatWeekday(request.huidigEinde),
+    nieuwEinde: formatWeekday(request.nieuwEinde),
+    portalUrl: PORTAL_EXTENSIONS_URL,
+  };
 
   const result = await sendPlain({
     to,
-    subject: `Verlenging aangevraagd - ${request.referentie} (+${request.extraDagen} dagen)`,
-    text: regels.join("\n"),
+    subject: extensionRequestSubject(mail),
+    text: extensionRequestText(mail),
+    html: extensionRequestHtml(mail),
     replyTo: { email: request.email, name: request.naam || null },
     tags: ["verlenging"],
   });
