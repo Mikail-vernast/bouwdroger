@@ -61,14 +61,18 @@ describe("toPackageConfig", () => {
 });
 
 describe("simResultaat", () => {
-  it("rekent exact wat de calculator rekent voor dezelfde configuratie", () => {
+  it("rekent met het tempo: sneller drogen vraagt meer drogers en een kortere termijn", () => {
     for (const wat of ["pleister", "chape", "beide"] as const) {
       for (const verwarmt of [true, false]) {
-        const r = simResultaat({ ...BASIS, wat, verwarmt });
-        expect(r).not.toBeNull();
-        const config = toPackageConfig({ ...BASIS, wat, verwarmt });
-        expect(r!.items).toEqual(baseItems(config));
-        expect(r!.prijs).toBe(configPrice(config, baseItems(config)));
+        const [snel, gem, rustig] = (["snel", "gemiddeld", "traag"] as const).map((tempo) => simResultaat({ ...BASIS, wat, verwarmt, tempo })!);
+        const drogers = (r: typeof snel) => r.items.filter((it) => it.k === "small" || it.k === "medium").reduce((n, it) => n + it.q, 0);
+        expect(drogers(snel)).toBeGreaterThanOrEqual(drogers(gem));
+        expect(drogers(gem)).toBeGreaterThanOrEqual(drogers(rustig));
+        expect(snel.dagen).toBeLessThanOrEqual(gem.dagen);
+        expect(gem.dagen).toBeLessThanOrEqual(rustig.dagen);
+        expect(snel.config.weeks).toBe(snel.weken);
+        // kachels only when the client does not heat
+        expect(snel.items.some((it) => it.k === "kachel")).toBe(!verwarmt);
       }
     }
   });

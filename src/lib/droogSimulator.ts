@@ -25,6 +25,7 @@ import {
   type PackageItem,
 } from "./verhuur.js";
 import type { DeviceKey } from "../data/verhuur.js";
+import { droogTempo, type Tempo } from "./droogTempo.js";
 
 export type Woning = "rijwoning" | "halfopen" | "open" | "appartement";
 export type Dak = "zadeldak" | "plat" | "lessenaar";
@@ -43,6 +44,10 @@ export interface SimAnswers {
   fase: Fase;
   /** true = er wordt al verwarmd, dus geen kachels in het pakket */
   verwarmt: boolean;
+  /** how fast it has to be dry; sets the number of driers and the rental term */
+  tempo?: Tempo;
+  /** rooms in total, from the floor plan; drives fans and inner-wall plaster */
+  ruimtes?: number;
 }
 
 export const MAX_VERDIEPINGEN = 4;
@@ -95,8 +100,6 @@ export interface FaseInfo {
   starten: string;
   meten: string;
   letOp: string;
-  /** vraag naar vloerverwarming: alleen zolang de chape bloot ligt of net bedekt is */
-  vloerverwarming: boolean;
 }
 
 /**
@@ -119,7 +122,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Na afsluiten met folie",
     meten: "Nog niet",
     letOp: "Openingen eerst dicht",
-    vloerverwarming: false,
   },
   ramen: {
     label: "Ramen geplaatst",
@@ -134,7 +136,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Meteen",
     meten: "Niet nodig",
     letOp: "Regenwater op de vloerplaat",
-    vloerverwarming: false,
   },
   chape: {
     label: "Chape gegoten",
@@ -149,7 +150,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Na ± 1 week uitharden",
     meten: "Vóór tegels of parket",
     letOp: "Niet te vroeg forceren",
-    vloerverwarming: true,
   },
   tegels: {
     label: "Tegels gelegd",
@@ -164,7 +164,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Meteen",
     meten: "Chape onder de tegels",
     letOp: "Vocht zit opgesloten",
-    vloerverwarming: true,
   },
   gepleisterd: {
     label: "Net gepleisterd",
@@ -179,7 +178,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Na 2 à 3 dagen",
     meten: "Vóór het schilderen",
     letOp: "Verf op nat pleister bladdert",
-    vloerverwarming: true,
   },
   afgewerkt: {
     label: "Afgewerkt of bewoond",
@@ -195,7 +193,6 @@ export const FASE: Record<Fase, FaseInfo> = {
     starten: "Meteen, rustig",
     meten: "Eerst: waar zit het?",
     letOp: "Stil genoeg voor een slaapkamer",
-    vloerverwarming: false,
   },
 };
 
@@ -242,22 +239,44 @@ export interface SimResultaat {
   dagen: number;
   capaciteit: number;
   luchtverzet: number;
+  /** the chosen tempo is faster than the material allows: this is the fastest possible */
+  teSnel: boolean;
 }
 
-/** Het pakket voor deze antwoorden, of null bij maatwerk of een onbekende combinatie. */
+/**
+ * Het pakket voor deze antwoorden, of null bij maatwerk.
+ *
+ * Toestellen, termijn en prijs komen uit het tempo-model (droogTempo.ts, het
+ * rekenmodel van de Droogcatalogus): het gekozen tempo is een venster in dagen
+ * en het kleinste stel drogers dat daarin landt wint. `config` blijft de
+ * catalogusconfiguratie, met de termijn uit het model.
+ */
 export function simResultaat(a: SimAnswers): SimResultaat | null {
   if (isMaatwerk(a)) return null;
+  const opp = Number(a.size);
+  if (!Number.isFinite(opp) || opp <= 0) return null;
   const config = toPackageConfig(a);
-  const items = baseItems(config);
-  if (items.length === 0) return null;
+  const t = droogTempo({
+    type: a.woning,
+    opp,
+    verd: Math.max(1, a.verdiepingen),
+    ruim: Math.max(1, a.ruimtes ?? a.verdiepingen * 4),
+    wat: a.wat,
+    cd: Number(config.cd),
+    pd: Number(config.pd),
+    verwarmt: a.verwarmt,
+    tempo: a.tempo ?? "gemiddeld",
+  });
+  const items: PackageItem[] = t.items;
   return {
-    config,
+    config: { ...config, weeks: t.weken },
     items,
-    prijs: configPrice(config, items),
-    weken: configWeeks(config),
-    dagen: dryingDays(config),
-    capaciteit: totalCapacity(items),
+    prijs: t.prijs,
+    weken: t.weken,
+    dagen: t.dagen,
+    capaciteit: t.capaciteit,
     luchtverzet: totalAirflow(items),
+    teSnel: t.teSnel,
   };
 }
 

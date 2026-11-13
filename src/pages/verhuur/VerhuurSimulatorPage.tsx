@@ -5,6 +5,7 @@ import IsoHouse from "@/components/simulator/IsoHouse";
 import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
 import { materiaalVoor } from "@/components/simulator/materiaal";
 import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
+import { TEMPO, TEMPO_ORDER, type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
 import { FILM_START, droogVoortgang } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
@@ -69,13 +70,12 @@ const MATEN = SIZE_VALUES.map(Number);
 const OPP_STAPPEN = [...MATEN.map(String), "custom"];
 const GROOTSTE = MATEN[MATEN.length - 1] ?? 300;
 
-interface State extends Omit<SimAnswers, "woning" | "wat" | "fase" | "verwarmt"> {
+interface State extends Omit<SimAnswers, "woning" | "wat" | "fase" | "verwarmt" | "tempo" | "ruimtes"> {
   woning: Woning | null;
   wat: Wat | null;
   fase: Fase | null;
   verwarmt: boolean | null;
-  /** alleen voor het advies: een vloer met verwarming volgt eerst zijn opstookprotocol */
-  vloerverwarming: boolean | null;
+  tempo: Tempo | null;
   /** welke ruimtes per bouwlaag; een lege plek = de standaardindeling */
   kamers: (Programma | undefined)[];
 }
@@ -90,7 +90,7 @@ const START: State = {
   cd: DEFAULT_CD,
   fase: null,
   verwarmt: null,
-  vloerverwarming: null,
+  tempo: null,
   kamers: [],
 };
 
@@ -122,6 +122,7 @@ function volledig(s: State): SimAnswers {
     cd: s.cd === "onbekend" || s.cd === "geen" ? DEFAULT_CD : s.cd,
     fase,
     verwarmt: s.verwarmt ?? FASE[fase].verwarmtWaarschijnlijk,
+    tempo: s.tempo ?? "gemiddeld",
   };
 }
 
@@ -169,10 +170,17 @@ const VerhuurSimulatorPage = () => {
   );
   const kamers = plan.kamers;
   const resultaat = useMemo(
-    () => (s.wat ? simResultaat(antwoorden) : null),
+    () => (s.wat ? simResultaat({ ...antwoorden, ruimtes: aantallen.reduce((a, b) => a + b, 0) }) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [s.wat, s.size, s.pd, s.cd, s.fase, s.verwarmt, woning],
+    [s.wat, s.size, s.pd, s.cd, s.fase, s.verwarmt, s.tempo, woning, lagen, sleutelPlan],
   );
+  // Thick layers cannot dry in 2–3 weeks: the "Snel" button then says how fast it can.
+  const snelGrens = useMemo(() => {
+    if (!s.wat) return null;
+    const r = simResultaat({ ...antwoorden, tempo: "snel", ruimtes: aantallen.reduce((a, b) => a + b, 0) });
+    return r?.teSnel ? r.weken : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [s.wat, s.size, s.pd, s.cd, s.verwarmt, woning, lagen, sleutelPlan]);
   const plaatsingen = useMemo(
     () => (resultaat && stap === 4 ? plaatsToestellen(resultaat.items, kamers, plan.trappen) : []),
     [resultaat, kamers, plan.trappen, stap],
@@ -306,7 +314,7 @@ const VerhuurSimulatorPage = () => {
   const volgende: { ok: boolean; label: string; melding?: string } =
     stap === 0 ? { ok: !!s.woning, label: "Volgende →" }
     : stap === 2 ? { ok: !!s.wat, label: "Volgende →", melding: s.wat ? undefined : "Kies minstens één laag die nat is." }
-    : stap === 3 ? { ok: !!s.fase, label: "Toon mijn droogplan →" }
+    : stap === 3 ? { ok: !!s.fase && !!s.tempo, label: "Toon mijn droogplan →" }
     : { ok: true, label: "Volgende →" };
 
   return (
@@ -502,22 +510,17 @@ const VerhuurSimulatorPage = () => {
                         <p className="ds-gevolg"><i>+</i><span><b>Kachels</b> erbij in uw pakket.</span></p>
                       )}
                     </div>
-                    {s.fase && FASE[s.fase].vloerverwarming && (
-                      <div className="ds-vraag">
-                        <span>Is er vloerverwarming?</span>
-                        <div className="ds-jn" role="radiogroup" aria-label="Is er vloerverwarming?">
-                          <button type="button" role="radio" aria-checked={s.vloerverwarming === true} className={s.vloerverwarming === true ? "on" : undefined} onClick={() => setS((p) => ({ ...p, vloerverwarming: true }))}>
-                            Ja
+                    <div className="ds-vraag ds-vraag--tempo">
+                      <span>Hoe snel moet het droog zijn?</span>
+                      <div className="ds-tempo" role="radiogroup" aria-label="Hoe snel moet het droog zijn?">
+                        {TEMPO_ORDER.map((t) => (
+                          <button key={t} type="button" role="radio" aria-checked={s.tempo === t} className={s.tempo === t ? "on" : undefined} onClick={() => setS((p) => ({ ...p, tempo: t }))}>
+                            <b>{TEMPO[t].label}</b>
+                            <small>{t === "snel" && snelGrens ? `min. ${snelGrens} weken` : TEMPO[t].tekst}</small>
                           </button>
-                          <button type="button" role="radio" aria-checked={s.vloerverwarming === false} className={s.vloerverwarming === false ? "on" : undefined} onClick={() => setS((p) => ({ ...p, vloerverwarming: false }))}>
-                            Nee
-                          </button>
-                        </div>
-                        {s.vloerverwarming === true && (
-                          <p className="ds-gevolg let"><i>!</i><span><b>Eerst het opstookprotocol.</b> <small>De drogers helpen daarna, ze vervangen het niet.</small></span></p>
-                        )}
+                        ))}
                       </div>
-                    )}
+                    </div>
                   </div>
                 </>
               )}

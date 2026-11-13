@@ -1317,3 +1317,40 @@
 /* gsm, fixed panel: the "+ Kachels erbij" note gives way when a second question
    (vloerverwarming) appears; the droogplan lists the heaters anyway. */
 @media (max-width:899px){ @container paneel (max-height:430px){ .ds-sim[data-stap="3"] .ds-vragen:has(> :nth-child(2)) .ds-gevolg{display:none} } }
+
+/* ── tempo: hoe snel moet het droog zijn? ──
+   Three segments under the question; the choice sets the number of driers and the term. */
+.ds-vraag--tempo{grid-template-columns:1fr}
+.ds-tempo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;padding:3px;border-radius:11px;background:rgba(0,0,0,.22)}
+.ds-tempo button{display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 4px;border:0;border-radius:8px;background:none;color:rgba(255,255,255,.78);cursor:pointer;transition:background .2s,color .2s}
+.ds-tempo button b{font-size:13px;font-weight:800}
+.ds-tempo button small{font:500 10.5px var(--fm);opacity:.75;white-space:nowrap}
+.ds-tempo button:hover{color:#fff}
+.ds-tempo button.on{background:#fff;color:var(--ink)}
+.ds-tempo button.on small{opacity:.6}
+.ds-tempo button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media (max-width:899px){
+  .ds-sim[data-stap="3"] .ds-vraag--tempo{padding:6px 10px 8px;gap:5px}
+  .ds-sim[data-stap="3"] .ds-vraag--tempo > span{font-size:13px}
+  .ds-tempo button{padding:5px 2px}
+  .ds-tempo button b{font-size:12.5px}
+}
+@media (max-width:899px){
+  @container paneel (max-height:430px){
+    .ds-sim[data-stap="3"] .ds-vragen .ds-gevolg{display:none}
+    .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:58px}
+    .ds-sim[data-stap="3"] .ds-vraag{padding-block:5px}
+    .ds-sim[data-stap="3"] .ds-vraag--tempo{gap:4px}
+    .ds-sim[data-stap="3"] .ds-tempo button{padding:4px 2px;gap:0}
+    .ds-sim[data-stap="3"] .ds-jn button{padding-block:5px}
+  }
+}
+@media (max-width:899px){
+  @container paneel (max-height:430px){
+    .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:48px}
+    .ds-sim[data-stap="3"] .ds-vraag{padding-block:3px}
+    .ds-sim[data-stap="3"] .ds-vraag--tempo{padding-bottom:6px}
+  }
+}
+/* a very low film strip: the drops meter would sit under the play button */
+@container film (max-height:70px){ .ds-bf-meter{display:none} }
