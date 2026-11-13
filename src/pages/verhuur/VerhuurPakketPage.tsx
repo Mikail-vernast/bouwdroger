@@ -14,6 +14,7 @@ import {
   TruckIcon,
 } from "@/components/verhuur/icons";
 import { CAT, ROLE, SPECS } from "@/data/verhuur";
+import { extraNaarQuery, extraUitQuery } from "@/lib/booking";
 import {
   allItems,
   configToQuery,
@@ -38,7 +39,10 @@ const VerhuurPakketPage = () => {
   const [searchParams] = useSearchParams();
   const config = useMemo(() => parseConfig(searchParams), [searchParams]);
 
-  const items = useMemo(() => allItems(config), [config]);
+  // Extra toestellen uit de droogsimulator (bv. een droger extra bij "snel"):
+  // ze tellen hier mee in prijs en lijst, en gaan door naar de boeking.
+  const extra = useMemo(() => extraUitQuery(searchParams), [searchParams]);
+  const items = useMemo(() => allItems(config, extra), [config, extra]);
   const lead = packageImage(config, items);
   const gallery = packageGallery(config, items);
   const galleryAlts = packageGalleryAlts(config, items, gallery);
@@ -56,7 +60,7 @@ const VerhuurPakketPage = () => {
   */
   const weeks = configWeeks(config);
   const total = configPrice(config, items);
-  const bookingHref = `/verhuur/boeking?${configToQuery(config)}`;
+  const bookingHref = `/verhuur/boeking?${configToQuery(config)}${extraNaarQuery(extra)}`;
 
   return (
     <div className="vh-pkg">

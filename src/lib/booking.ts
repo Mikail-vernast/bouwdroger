@@ -226,6 +226,31 @@ export function isReference(value: unknown): boolean {
   );
 }
 
+/**
+ * Extra toestellen bovenop het vaste pakket, in de adresbalk: `extra=medium:1`.
+ *
+ * De droogsimulator stelt bij "snel" een extra droger voor; die moet tot in de
+ * boeking meegaan, anders boekt de klant iets anders dan hij zag. De waarde komt
+ * van de bezoeker, dus alleen bekende sleutels en aantallen binnen
+ * MAX_EXTRA_DEVICES — dezelfde grens die `normalizeOptions` server-side legt.
+ */
+export function extraUitQuery(qs: URLSearchParams): Partial<Record<DeviceKey, number>> {
+  const uit: Partial<Record<DeviceKey, number>> = {};
+  for (const deel of (qs.get("extra") ?? "").split(",")) {
+    const [k, n] = deel.split(":");
+    if (!DEVICE_KEYS.includes(k as DeviceKey)) continue;
+    const q = clampInt(Number(n), 0, MAX_EXTRA_DEVICES);
+    if (q > 0) uit[k as DeviceKey] = q;
+  }
+  return uit;
+}
+
+/** `&extra=medium:1`, of niets als er geen extra toestellen zijn. */
+export function extraNaarQuery(extra: Partial<Record<DeviceKey, number>>): string {
+  const delen = DEVICE_KEYS.filter((k) => (extra[k] ?? 0) > 0).map((k) => `${k}:${extra[k]}`);
+  return delen.length ? `&extra=${encodeURIComponent(delen.join(","))}` : "";
+}
+
 export function bookingSummary(config: PackageConfig, raw: BookingOptions): BookingSummary {
   const options = normalizeOptions(raw);
   const items = allItems(config, options.dev);

@@ -15,6 +15,7 @@ import {
   DEFAULT_PD,
   PD_VALUES,
   SIZE_VALUES,
+  allItems,
   baseItems,
   configPrice,
   configWeeks,
@@ -239,26 +240,37 @@ export interface SimResultaat {
   dagen: number;
   capaciteit: number;
   luchtverzet: number;
-  /** the chosen tempo is faster than the material allows: this is the fastest possible */
-  teSnel: boolean;
-  /** litres of water that leave the house */
+  /** toestellen bovenop het vaste pakket (bij "snel"); gaan mee naar de boeking */
+  extra: Partial<Record<DeviceKey, number>>;
+  /** liter water dat de woning verlaat: een schatting uit het rekenmodel, alleen voor de film */
   water: number;
 }
 
 /**
  * Het pakket voor deze antwoorden, of null bij maatwerk.
  *
- * Toestellen, termijn en prijs komen uit het tempo-model (droogTempo.ts, het
- * rekenmodel van de Droogcatalogus): het gekozen tempo is een venster in dagen
- * en het kleinste stel drogers dat daarin landt wint. `config` blijft de
- * catalogusconfiguratie, met de termijn uit het model.
+ * De catalogus is leidend, net als op de pakket- en boekingspagina: toestellen,
+ * termijn en prijs zijn die van het vaste pakket dat de klant boekt. Een eigen
+ * rekenmodel gaf hier eerst andere toestellen en een andere prijs dan wat de
+ * checkout aanrekende (rijwoning "rustig": € 719,55 in de simulator, € 596,40
+ * bij het boeken).
+ *
+ * Het tempo kan de termijn niet verschuiven, die ligt per pakket vast. "Snel"
+ * zet er een droger bij, als extra toestel zoals de boekingspagina dat kent en
+ * de checkout server-side herrekent. Het rekenmodel (droogTempo) levert alleen
+ * nog de geschatte liters voor de film.
  */
 export function simResultaat(a: SimAnswers): SimResultaat | null {
   if (isMaatwerk(a)) return null;
   const opp = Number(a.size);
   if (!Number.isFinite(opp) || opp <= 0) return null;
   const config = toPackageConfig(a);
-  const t = droogTempo({
+  const basis = baseItems(config);
+  const extra: Partial<Record<DeviceKey, number>> =
+    a.tempo === "snel" ? { [basis.some((it) => it.k === "medium") || !basis.some((it) => it.k === "small") ? "medium" : "small"]: 1 } : {};
+  const items = allItems(config, extra);
+  const weken = configWeeks(config);
+  const { water } = droogTempo({
     type: a.woning,
     opp,
     verd: Math.max(1, a.verdiepingen),
@@ -267,19 +279,18 @@ export function simResultaat(a: SimAnswers): SimResultaat | null {
     cd: Number(config.cd),
     pd: Number(config.pd),
     verwarmt: a.verwarmt,
-    tempo: a.tempo ?? "gemiddeld",
+    tempo: "gemiddeld",
   });
-  const items: PackageItem[] = t.items;
   return {
-    config: { ...config, weeks: t.weken },
+    config: { ...config, weeks: weken },
     items,
-    prijs: t.prijs,
-    weken: t.weken,
-    dagen: t.dagen,
-    capaciteit: t.capaciteit,
+    prijs: configPrice(config, items),
+    weken,
+    dagen: dryingDays(config),
+    capaciteit: totalCapacity(items),
     luchtverzet: totalAirflow(items),
-    teSnel: t.teSnel,
-    water: t.water,
+    extra,
+    water,
   };
 }
 

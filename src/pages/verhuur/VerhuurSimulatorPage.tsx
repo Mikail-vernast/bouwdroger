@@ -39,6 +39,7 @@ import {
 } from "@/lib/droogSimulator";
 import { CD_VALUES, DEFAULT_CD, DEFAULT_PD, PD_VALUES, SIZE_VALUES, configToQuery, euro } from "@/lib/verhuur";
 import { CAT, type DeviceKey } from "@/data/verhuur";
+import { extraNaarQuery } from "@/lib/booking";
 import { CONTACT } from "@/lib/site";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
@@ -195,13 +196,6 @@ const VerhuurSimulatorPage = () => {
     [s.wat, s.size, s.pd, s.cd, s.fase, s.verwarmt, s.tempo, woning, lagen, sleutelPlan],
   );
   const aantalToestellen = resultaat ? resultaat.items.reduce((n, it) => n + it.q, 0) : 0;
-  // Thick layers cannot dry in 2–3 weeks: the "Snel" button then says how fast it can.
-  const snelGrens = useMemo(() => {
-    if (!s.wat) return null;
-    const r = simResultaat({ ...antwoorden, tempo: "snel", ruimtes: aantallen.reduce((a, b) => a + b, 0) });
-    return r?.teSnel ? r.weken : null;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [s.wat, s.size, s.pd, s.cd, s.verwarmt, woning, lagen, sleutelPlan]);
   const plaatsingen = useMemo(
     () => (resultaat && stap === 4 ? plaatsToestellen(resultaat.items, kamers, plan.trappen) : []),
     [resultaat, kamers, plan.trappen, stap],
@@ -562,7 +556,8 @@ const VerhuurSimulatorPage = () => {
                         {TEMPO_ORDER.map((t) => (
                           <button key={t} type="button" role="radio" aria-checked={s.tempo === t} className={s.tempo === t ? "on" : undefined} onClick={() => setS((p) => ({ ...p, tempo: t }))}>
                             <b>{TEMPO[t].label}</b>
-                            <small>{t === "snel" && snelGrens ? `min. ${snelGrens} weken` : TEMPO[t].tekst}</small>
+                            {/* De termijn ligt per pakket vast; "snel" zet er een droger bij. */}
+                            <small>{t === "snel" ? "+1 droger" : resultaat ? `${resultaat.weken} weken` : TEMPO[t].tekst}</small>
                           </button>
                         ))}
                       </div>
@@ -657,7 +652,7 @@ const VerhuurSimulatorPage = () => {
                 </button>
               ) : resultaat ? (
                 <>
-                  <Link className="ds-boek" to={`/verhuur/pakket?${configToQuery({ ...resultaat.config, weeks: resultaat.weken })}`}>
+                  <Link className="ds-boek" to={`/verhuur/pakket?${configToQuery(resultaat.config)}${extraNaarQuery(resultaat.extra)}`}>
                     Boek dit pakket →
                   </Link>
                   <button className="ds-rond" type="button" aria-label="Opnieuw beginnen" title="Opnieuw" onClick={() => { setS(START); naar(0); }}>
