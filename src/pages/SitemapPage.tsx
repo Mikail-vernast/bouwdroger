@@ -15,7 +15,7 @@ import {
 } from "@/data/navigation";
 import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
-import { BRUSSEL_STREKEN, STREKEN_PER_REGIO, type Streek } from "@/data/provincie-gemeenten";
+import { STREKEN_PER_REGIO, type Streek } from "@/data/provincie-gemeenten";
 import { REALISATIES } from "@/data/realisaties";
 import "@/styles/v3-content.css";
 import "@/styles/sitemap.css";
@@ -54,25 +54,18 @@ const JURIDISCH: NavLinkItem[] = [
 /**
  * De blokken van het werkgebied.
  *
- * De vijf provincies dragen hun eigen pagina en hun kop is dus een link.
- * Brussel staat erbij zonder: het gewest hoort bij het werkgebied, maar
- * /bouwdroger-huren-brussel bestaat nog niet en een kop die naar een 404
- * wijst is erger dan een kop zonder link. Komt die pagina er, dan krijgt dit
- * blok hier een `path` en verandert er verder niets.
+ * Alle zes dragen hun eigen pagina en hun kop is dus een link. Brussel stond
+ * hier tot 13-11-2026 als blok zonder `path`, omdat een kop die naar een 404
+ * wijst erger is dan een kop zonder link; sinds /bouwdroger-huren-brussel
+ * bestaat, komt het gewest gewoon uit `REGIO_ROUTES` mee.
  */
-const GEBIEDEN: { sleutel: string; kop: string; path?: string; streken: Streek[] }[] = [
-  ...REGIO_ROUTES.map((regio) => ({
+const GEBIEDEN: { sleutel: string; kop: string; path?: string; streken: Streek[] }[] =
+  REGIO_ROUTES.map((regio) => ({
     sleutel: regio.slug,
     kop: `Bouwdroger huren in ${regio.name}`,
     path: regio.path,
     streken: STREKEN_PER_REGIO[regio.slug] ?? [],
-  })),
-  {
-    sleutel: "brussel",
-    kop: "Brussels Hoofdstedelijk Gewest",
-    streken: BRUSSEL_STREKEN,
-  },
-];
+  }));
 
 interface Blok {
   titel: string;
@@ -255,7 +248,7 @@ const SitemapPage = () => {
             <section className="sm-breed" aria-labelledby="sm-regio">
               <h2 id="sm-regio">Werkgebied</h2>
               <p className="sm-uit">
-                Vijf provinciepagina's, het Brussels gewest en elke plaats waar we leveren, per
+                Vijf provinciepagina's, de Brusselpagina en elke plaats waar we leveren, per
                 streek. Wat een eigen pagina heeft staat als link; de rest bedienen we even goed.
               </p>
               {/* Hier stond eerst nog een rij met dezelfde vijf

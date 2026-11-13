@@ -2,7 +2,12 @@ import { describe, expect, it } from "vitest";
 import { REALISATIES } from "@/data/realisaties";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
 import { REGIOS } from "@/data/regios";
-import { REALISATIE_REGIO, realisatieSlugsIn, regioVanRealisatie } from "@/data/realisatie-regio";
+import {
+  REALISATIE_REGIO,
+  leentVan,
+  realisatieSlugsIn,
+  regioVanRealisatie,
+} from "@/data/realisatie-regio";
 
 /**
  * De kaart realisatie → provincie draagt de interne links tussen regio- en
@@ -23,9 +28,17 @@ describe("realisatie → regio", () => {
     for (const r of REGIO_ROUTES) expect(realisatieSlugsIn(r.slug).length, r.slug).toBeGreaterThanOrEqual(2);
   });
 
+  /*
+    Of in het gebied waarvan ze haar werven leent. Dat is er één:
+    Vlaams-Brabant heeft nog geen eigen gefotografeerde werf en licht die van
+    Brussel uit, wat haar eigen kop ook zegt ("in Brussel en de rand").
+  */
   it("de uitgelichte werven van een regiopagina liggen in die regio", () => {
     for (const regio of REGIOS) {
-      for (const slug of regio.realisaties.slugs) expect(REALISATIE_REGIO[slug], slug).toBe(regio.slug);
+      const toegelaten = [regio.slug, leentVan(regio.slug)].filter(Boolean);
+      for (const slug of regio.realisaties.slugs) {
+        expect(toegelaten, `${regio.slug} → ${slug}`).toContain(REALISATIE_REGIO[slug]);
+      }
     }
   });
 

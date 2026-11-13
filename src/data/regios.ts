@@ -1,5 +1,5 @@
 /**
- * De inhoud van de vijf regiopagina's (/bouwdroger-huren-<regio>).
+ * De inhoud van de zes regiopagina's (/bouwdroger-huren-<regio>).
  *
  * Waarom deze pagina's bestaan: Search Console toonde in september 2026 dat de
  * site verschijnt op "bouwdroger aalst", "bouwdroger huren antwerpen" en
@@ -7,8 +7,8 @@
  * beantwoordt. De concurrenten die wél ranken hebben per regio een pagina.
  *
  * Elke regio heeft zijn eigen tekst. Dat is geen stijlkeuze maar de reden dat
- * zulke pagina's werken: vijf keer dezelfde tekst met een andere plaatsnaam
- * erin is voor Google één pagina met vier kopieën, en de kopieën worden
+ * zulke pagina's werken: zes keer dezelfde tekst met een andere plaatsnaam
+ * erin is voor Google één pagina met vijf kopieën, en de kopieën worden
  * weggefilterd. Wat verschilt is dus wat er in die streek gebouwd wordt, welk
  * toestel daar het vaakst past, hoe ver het van het magazijn is, en welke
  * werven we er al gedroogd hebben.
@@ -453,6 +453,148 @@ export const REGIOS: Regio[] = [
     areaServed: provincie("Vlaams-Brabant"),
   },
 
+  /* ------------------------------------------------------------------ */
+  {
+    ...route("brussel"),
+    /*
+      De zesde regiopagina, en de enige die geen provincie is. Ze bestaat sinds
+      13-11-2026 omdat Brussel tot dan als dode tekst tussen vijf links stond,
+      op de homepage en op /sitemap: wie daar keek, kon alleen besluiten dat we
+      er niet komen. De negentien gemeenten delen één pagina en krijgen er geen
+      elk een, om twee redenen. Ze zijn tweetalig, dus een Nederlandstalige
+      pagina per gemeente mist de helft van de zoekopdrachten; en het gewest
+      meet negentien op negentien kilometer, dus er is geen verschil in rit of
+      bodem te vertellen dat negentien pagina's zou dragen. Wat er wél te
+      vertellen valt, de bouw en het parkeren, verschilt per kroon en niet per
+      gemeente, en dat is precies hoe de streken hier ingedeeld staan.
+
+      De Franse namen staan erbij waar ze afwijken: iemand die "Ixelles"
+      intikt zoekt dezelfde droger als iemand die "Elsene" intikt.
+    */
+    title: "Bouwdroger huren in Brussel | Vernast",
+    description:
+      "Bouwdroger huren in Brussel: binnen 24 uur geleverd en geplaatst in de negentien gemeenten, ook zonder lift. Geen waarborg, ophaling inbegrepen.",
+    h1: "Bouwdroger huren in Brussel",
+    kicker: "Negentien gemeenten · magazijn op een halfuur",
+    intro: [
+      "Ons magazijn staat in Aartselaar, aan de A12: **een halfuur van de Brusselse ring** buiten de spits. Daarmee ligt het gewest dichter bij ons dan de helft van de Kempen, en dat merkt u aan de planning: **een aanvraag die voor de middag binnenkomt, staat doorgaans de volgende werkdag te draaien.**",
+      "Wat Brussel apart maakt is niet de bodem maar het gebouw en de straat: **hoge plafonds, geen lift, en zelden plaats om stil te staan**. Daar stemmen we het toestel en het tijdslot op af, en niet omgekeerd.",
+    ],
+    heroFacts: [
+      "Levering, plaatsing en ophaling inbegrepen",
+      "Geen waarborg",
+      "Ook in de negentien gemeenten binnen 24 uur",
+    ],
+    bouw: {
+      kop: "Waarvoor huurt men in Brussel een bouwdroger?",
+      alineas: [
+        "Bijna altijd voor **renovatie in een bewoond gebouw**. Een appartement waar de badkamer eruit is, een verdieping met vers pleisterwerk, een kelder die na een lekkage of een hevige bui vochtig blijkt: dat zijn samen het grootste deel van onze Brusselse ritten. Nieuwbouw op een lege kavel komt hier nauwelijks voor, en dat verandert de vraag. Het gaat niet om **hoeveel liter per dag**, maar om **welk toestel hier binnenkomt en stil genoeg is**.",
+        "**In de eerste kroon telt de hoogte.** Een herenhuis in Elsene, Sint-Gillis of Schaarbeek heeft plafonds van drie meter vijftig tot vier meter, en dat is geen detail: diezelfde kamer bevat anderhalf keer zoveel lucht als onder een gewoon plafond. Rekent u op vierkante meters, dan zet u te laag in en huurt u twee weken langer dan nodig. Wij rekenen daarom op **kubieke meter**, en in zo'n kamer staat er eerder een middelgroot toestel met een ventilator dan het kleinste model.",
+        "**En dan is er de trap.** Veel van die gebouwen hebben geen lift, en de trap draait. Onze compacte bouwdroger is veertig bij veertig centimeter aan de basis en weegt een vijfentwintigtal kilo, dus hij gaat door elke gangbare Brusselse draaitrap; de technieker draagt hem naar boven en dat kost niets extra. **Wat we vooraf willen weten is of er een lift is**, want dat bepaalt of een groter toestel überhaupt een optie is.",
+        "In de kanaalzone, van Molenbeek tot Anderlecht, zit het vocht vaker **onderaan dan boven**: kelders deels onder het trottoir, zonder buitenwaterdichting en zonder doorstroming. Zo'n ruimte komt in de winter zelden boven tien graden, en **onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**. Daar gaat een adsorptiedroger naartoe. Tegen het Zonienwoud, in Ukkel, Watermaal-Bosvoorde en de Woluwes, is het weer anders: daar krijgt een diepe kelder of garage bij een hevige bui het water van de helling erboven.",
+      ],
+    },
+    beeld: {
+      src: "/vernast/case-waterschade.webp",
+      alt: "Gedroogde badkamer na een lekkage in een Brussels appartement",
+    },
+    toestellen: {
+      kop: "Welke bouwdroger past in een Brussels appartement?",
+      items: [
+        {
+          key: "ttk170",
+          waarom: `**Het toestel voor de stad**: veertig bij veertig centimeter, een vijfentwintigtal kilo, en hij draait op een gewoon stopcontact. Gaat door een draaitrap en is stil genoeg om in de kamer ernaast te slapen. Vanaf ${dag("ttk170")} per dag.`,
+        },
+        {
+          key: "ttk350",
+          waarom: `**Voor een herenhuiskamer met een hoog plafond**: 70 liter per dag en bereik tot ongeveer 400 m³. Dat volume haalt het kleinste toestel niet, en dan droogt u weken te lang. Vanaf ${dag("ttk350")} per dag.`,
+        },
+        {
+          key: "revolution",
+          waarom: `**Voor de kelder onder het trottoir**: koud, gesloten en zonder doorstroming. Een adsorptiedroger bindt het vocht aan een droogwiel en werkt ook bij vijf graden door, waar een condensdroger stilvalt. Vanaf ${dag("revolution")} per dag.`,
+        },
+        {
+          key: "ttv4500",
+          waarom: `**De ventilator**, in een lange gang of een diepe kamer: hij brengt de droge lucht tot achteraan en blaast de verzadigde laag langs vloer en muur weg. Zonder hem droogt de voorkamer en blijft de keuken staan. Vanaf ${dag("ttv4500")} per dag.`,
+        },
+      ],
+    },
+    levering: {
+      kop: "Leveren in Brussel: binnen de venstertijd van uw straat",
+      alineas: [
+        "De rit gaat over de ring, en die staat tussen zeven en negen uur stil. **We plannen Brussel daarom buiten de spits**, met een tijdslot in de late voormiddag of de namiddag en een sms een halfuur vooraf. Dat is eerlijker dan een ochtenduur beloven dat we niet halen.",
+        "**Zeg bij de reservatie hoe uw straat werkt.** Een voetgangerszone, een venstertijd voor leveringen, een parkeerverbod dat om tien uur begint: daar plannen we binnen, en de technieker staat kort stil om uit te laden. Zonder die informatie staat hij voor een afgesloten straat, en dan verliest u een dag.",
+        `Is er een lift of een vaste trap, dan is **elke verdieping inbegrepen** en draagt de technieker de toestellen naar boven. Moet er een toestel via een ladder naar boven, wat bij een casco-verbouwing zonder trap voorkomt, dan geldt de laddertoeslag van ${euro(LADDER)} per verdieping; meld het vooraf, dan komen we met twee man. **De dagprijs blijft dezelfde hoe lang u ook huurt**, en levering en ophaling zitten in het pakket.`,
+      ],
+      feiten: [
+        { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket" },
+        { label: "Levertermijn", waarde: "Binnen 24 uur, met een tijdslot buiten de spits" },
+        { label: "Rijtijd vanuit ons magazijn", waarde: "30 minuten buiten de spits, langer tussen 07 en 09 uur" },
+        { label: "Verdieping met lift of trap", waarde: "Inbegrepen, de technieker draagt" },
+        { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
+        { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
+      ],
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Brussel: kan, maar zelden de betere keuze",
+      alineas: [
+        `Ons afhaalpunt in Aartselaar ligt **een halfuur boven de ring**, dus afhalen is vanuit Brussel een reële optie: ${euro(AFHAALKORTING)} korting op de huurprijs en een gereserveerd afhaalmoment op een werkdag tussen 07:30 en 17:00. Voor één losse droger die u langere tijd houdt, loont dat.`,
+        "Voor een volledig droogpakket is het dat niet, en in Brussel minder dan elders: **een droger weegt 25 tot 40 kg en moet rechtop vervoerd worden**, en die moet u vervolgens zelf een trap op krijgen in een gebouw zonder lift. De levering zit al in de prijs, de technieker draagt en plaatst, en hij meet bij de start en bij de ophaling hoe nat het echt is.",
+      ],
+      feiten: [
+        { label: "Rijtijd naar ons afhaalpunt", waarde: "30 minuten buiten de spits" },
+        { label: "Korting bij afhalen", waarde: `${euro(AFHAALKORTING)} op de huurprijs` },
+        { label: "Waarborg", waarde: "Geen" },
+        { label: "Vervoer", waarde: "Rechtop; plat vervoerd 24 uur laten staan" },
+        { label: "Zonder lift?", waarde: "Laat leveren: de technieker draagt naar boven" },
+      ],
+    },
+    faq: [
+      {
+        q: "Leveren jullie in de negentien gemeenten van het gewest?",
+        a: "Ja, in alle negentien, van Brussel-stad en Schaarbeek tot Ukkel, Anderlecht en de Woluwes. De prijs van het droogpakket is dezelfde als voor een werf naast ons magazijn: levering, plaatsing, de vochtmeting en de ophaling zitten erin, zonder afstandstoeslag. Het enige wat er wel bij komt is de laddertoeslag, en die geldt alleen als er geen trap en geen lift is en een toestel langs de buitenkant naar boven moet.",
+      },
+      {
+        q: "Hoe krijgen jullie een bouwdroger op de derde verdieping zonder lift?",
+        a: "Te voet, en dat kost niets extra. Onze compacte bouwdroger is veertig bij veertig centimeter aan de basis en weegt een vijfentwintigtal kilo; die gaat door elke gangbare Brusselse draaitrap. De technieker draagt hem naar boven en stelt hem daar in. Geef bij de reservatie door dat er geen lift is en op welke verdieping het moet, dan kiest hij het toestel daarop en komt hij bij een zwaar toestel met twee man.",
+      },
+      {
+        q: "Mag een bouwdroger draaien terwijl ik in het appartement woon?",
+        a: "Ja, en daarvoor is het compacte toestel bedoeld. Het verbruikt ongeveer 0,75 kW, dus het mag op een gewoon stopcontact, en het is stil genoeg om in de kamer ernaast te slapen. Houd de deur van de droogzone wel dicht: droge lucht die door het hele appartement trekt, droogt niets snel. En laat de technieker de afvoer naar een douchebak of een putje leggen, dan hoeft u geen reservoir te legen.",
+      },
+      {
+        q: "Hoeveel toestellen heb ik nodig in een kamer met een plafond van vier meter?",
+        a: "Meer dan de oppervlakte suggereert, want een droger droogt lucht en niet vloeren. Een kamer van dertig vierkante meter met een plafond van vier meter bevat honderdtwintig kubieke meter: ruim het dubbele van dezelfde kamer onder een plafond van twee meter veertig. In zo'n herenhuiskamer staat er daarom eerder een middelgroot toestel met een ventilator dan het kleinste model. De Calculator rekent op kubieke meter, dus geef de hoogte mee.",
+      },
+      {
+        q: "Mijn kelder onder het trottoir blijft vochtig. Lost drogen dat op?",
+        a: "Zolang het toestel draait, wordt de ruimte bruikbaar en krijgt schimmel geen kans. Of het daarna droog blijft, hangt af van waar het vocht vandaan komt. Is het bouwvocht na werken, dan verdwijnt het definitief. Komt het door de kelderwand naar binnen omdat er geen buitenwaterdichting zit, dan haalt een droger het uit de lucht maar niet uit de grond, en dan is drainage of waterdichting de echte oplossing. Onze technieker meet dat bij de levering en zegt het eerlijk.",
+      },
+      {
+        q: "Mijn straat is een voetgangerszone. Kunnen jullie daar leveren?",
+        a: "Ja, binnen de venstertijd die daar geldt. Geef uw straat door bij de reservatie en vermeld de zone of het uur waarop leveren mag, dan plannen we de rit daarbinnen in plaats van ervoor te staan met een bestelwagen die niet binnen mag. De technieker staat kort stil, laadt uit, brengt de toestellen naar boven en stelt ze in.",
+      },
+      {
+        q: "Kan ik in het Frans geholpen worden?",
+        a: "Ja. Onze techniekers en onze telefoon werken in het Nederlands, het Frans en het Engels, en u kiest zelf in welke taal we het gesprek voeren en de offerte opmaken. Deze pagina staat in het Nederlands omdat de rest van de site dat ook doet; zoekt u op Ixelles, Forest of Woluwe-Saint-Pierre, dan gaat het om dezelfde gemeenten en hetzelfde pakket.",
+      },
+    ],
+    realisaties: {
+      kop: "Werven die we in Brussel droogden",
+      intro: "Twee waterschades en een pleisterwerk in Sint-Pieters-Woluwe, met de foto's en de gemeten waarden van de werf.",
+      slugs: ["dhr-h-brussel", "mnr-s-brussel", "mevr-g-b-sint-pieters-woluwe"],
+    },
+    /*
+      Geen `provincie(...)`: Brussel is een gewest en geen provincie, en in de
+      schema zetten dat het "containedInPlace" van een provincie is zou
+      onwaar zijn.
+    */
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: "Brussels Hoofdstedelijk Gewest",
+      containedInPlace: { "@type": "Country", name: "België" },
+    },
+  },
   /* ------------------------------------------------------------------ */
   {
     ...route("west-vlaanderen"),

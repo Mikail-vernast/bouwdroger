@@ -1,5 +1,5 @@
 /**
- * De vijf regiopagina's, zonder hun inhoud.
+ * De zes regiopagina's, zonder hun inhoud.
  *
  * Ook de plaatsnamen en de speld op de kaart staan hier, niet in `regios.ts`:
  * de homepage-kaart (`V3Regio`) heeft ze nodig, en een import van `regios.ts`
@@ -12,6 +12,14 @@
  *
  * De slugs volgen de zoekopdracht ("bouwdroger huren antwerpen"), niet de
  * bestuurlijke naam: iemand zoekt "limburg", niet "provincie limburg".
+ *
+ * Brussel staat hier sinds 13-11-2026 bij. Het gewest hoort niet bij een
+ * provincie, maar het hoort wel bij het werkgebied, en tot die datum stond het
+ * op de homepage en op /sitemap als dode tekst tussen vijf links -- precies de
+ * indruk dat we er niet komen. De negentien gemeenten zijn tweetalig; de
+ * pagina is Nederlandstalig en noemt de Franse naam erbij waar die anders is,
+ * want iemand die "Ixelles" intikt zoekt dezelfde droger als iemand die
+ * "Elsene" intikt.
  */
 export interface RegioRoute {
   slug: string;
@@ -65,6 +73,25 @@ export const REGIO_ROUTES: RegioRoute[] = [
       "Diest", "Asse", "Overijse", "Tervuren", "Machelen", "Beersel", "Sint-Pieters-Leeuw", "Haacht",
     ],
     pin: { left: "58%", top: "32%" },
+  },
+  {
+    slug: "brussel",
+    name: "Brussel",
+    path: "/bouwdroger-huren-brussel",
+    towns: [
+      "Brussel", "Schaarbeek", "Elsene", "Anderlecht", "Sint-Gillis", "Sint-Jans-Molenbeek",
+      "Etterbeek", "Jette", "Vorst", "Ukkel", "Evere", "Oudergem", "Sint-Lambrechts-Woluwe",
+      "Sint-Pieters-Woluwe", "Watermaal-Bosvoorde", "Ganshoren", "Koekelberg",
+      "Sint-Agatha-Berchem", "Sint-Joost-ten-Node",
+    ],
+    /*
+      Brussel ligt midden in Vlaams-Brabant, dus de twee spelden kunnen niet
+      allebei exact staan zonder over elkaar te vallen. Deze staat net ten
+      zuidwesten van die van de provincie, in de richting van Halle. Stond
+      eerder hardgecodeerd in `V3Regio`; nu de gewestpagina bestaat hoort hij
+      hier, bij de vijf andere.
+    */
+    pin: { left: "43%", top: "41%" },
   },
   {
     slug: "west-vlaanderen",

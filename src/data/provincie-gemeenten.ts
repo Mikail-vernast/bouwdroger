@@ -31,8 +31,8 @@
  * meer, Zwijndrecht ging in Beveren-Kruibeke-Zwijndrecht op en ligt daarmee
  * weer in Oost-Vlaanderen, en Meerhout stond er simpelweg niet bij. De
  * aantallen hieronder kloppen met de officiële: 67 gemeenten in Antwerpen, 55
- * in Oost-Vlaanderen, 63 in Vlaams-Brabant, 62 in West-Vlaanderen en 38 in
- * Limburg. Komt er een fusie bij, controleer ze dan opnieuw — een verzonnen of
+ * in Oost-Vlaanderen, 63 in Vlaams-Brabant, 62 in West-Vlaanderen, 38 in
+ * Limburg en 19 in het Brussels gewest. Komt er een fusie bij, controleer ze dan opnieuw — een verzonnen of
  * verdwenen gemeente op een SEO-pagina is erger dan een onvolledige lijst.
  */
 export interface Streek {
@@ -42,6 +42,63 @@ export interface Streek {
   kenmerk: string;
   gemeenten: string[];
 }
+
+/**
+ * Het Brussels Hoofdstedelijk Gewest: de negentien gemeenten.
+ *
+ * Staat sinds 13-11-2026 gewoon in `STREKEN_PER_REGIO`, net als de vijf
+ * provincies, omdat /bouwdroger-huren-brussel vanaf dan bestaat. Daarvoor
+ * stond deze lijst er bewust buiten: de record is de lijst per regiopagina, en
+ * een `brussel`-sleutel zonder pagina leverde een kop op die naar een 404 wees.
+ * De aparte export blijft bestaan omdat ze leest wat ze is.
+ *
+ * De groepering volgt de bouw en niet de taalrol of het postnummer: de
+ * negentiende-eeuwse gordel, de kanaalzone in het westen en de ruimere
+ * woonwijken tegen het Zonienwoud drogen elk anders.
+ */
+export const BRUSSEL_STREKEN: Streek[] = [
+  {
+    naam: "Brussel-centrum en de eerste kroon",
+    kenmerk:
+      "Herenhuizen en appartementen uit de negentiende-eeuwse gordel: hoge plafonds, kelders onder het trottoir en zelden een lift om een toestel mee naar boven te krijgen.",
+    gemeenten: [
+      "Brussel",
+      "Elsene",
+      "Etterbeek",
+      "Sint-Gillis",
+      "Sint-Joost-ten-Node",
+      "Schaarbeek",
+    ],
+  },
+  {
+    naam: "De kanaalzone en de westrand",
+    kenmerk:
+      "Arbeiderswoningen en nieuwe blokken langs het kanaal, waar het vocht meestal uit een kelder onder het maaiveld of een plat dak komt.",
+    gemeenten: [
+      "Anderlecht",
+      "Ganshoren",
+      "Jette",
+      "Koekelberg",
+      "Sint-Agatha-Berchem",
+      "Sint-Jans-Molenbeek",
+    ],
+  },
+  {
+    naam: "De zuid- en oostrand",
+    kenmerk:
+      "Ruimer gebouwde woonwijken tegen het Zoniënwoud, met diepe kelders en garages die bij een hevige bui het water van de helling erboven krijgen.",
+    gemeenten: [
+      "Evere",
+      "Oudergem",
+      "Sint-Lambrechts-Woluwe",
+      "Sint-Pieters-Woluwe",
+      "Ukkel",
+      "Vorst",
+      "Watermaal-Bosvoorde",
+    ],
+  },
+];
+
 
 export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   antwerpen: [
@@ -458,6 +515,8 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     },
   ],
 
+  brussel: BRUSSEL_STREKEN,
+
   limburg: [
     {
       naam: "Hasselt, Genk en Midden-Limburg",
@@ -527,62 +586,3 @@ export function aantalGemeenten(regioSlug: string): number {
   return (STREKEN_PER_REGIO[regioSlug] ?? []).reduce((n, s) => n + s.gemeenten.length, 0);
 }
 
-/**
- * Het Brussels Hoofdstedelijk Gewest: de negentien gemeenten.
- *
- * Bewust **niet** in `STREKEN_PER_REGIO` maar apart, en dat verschil is de
- * hele bedoeling: die record is de lijst per provinciepagina, en Brussel heeft
- * er geen. De test `provincieGemeenten.test.ts` eist dat elke sleutel daarin
- * een bestaande regiopagina heeft — een `brussel`-sleutel zou dus of de test
- * breken, of een kop opleveren die naar een 404 linkt.
- *
- * Staat daarom alleen op /sitemap, als blok zonder link: het gewest hoort bij
- * het werkgebied, de pagina erachter bestaat nog niet. Komt die er ooit, dan
- * verhuist deze lijst naar de record erboven en wordt de kop vanzelf een link.
- *
- * De groepering volgt de bouw en niet de taalrol of het postnummer: de
- * negentiende-eeuwse gordel, de kanaalzone in het westen en de ruimere
- * woonwijken tegen het Zoniënwoud drogen elk anders.
- */
-export const BRUSSEL_STREKEN: Streek[] = [
-  {
-    naam: "Brussel-centrum en de eerste kroon",
-    kenmerk:
-      "Herenhuizen en appartementen uit de negentiende-eeuwse gordel: hoge plafonds, kelders onder het trottoir en zelden een lift om een toestel mee naar boven te krijgen.",
-    gemeenten: [
-      "Brussel",
-      "Elsene",
-      "Etterbeek",
-      "Sint-Gillis",
-      "Sint-Joost-ten-Node",
-      "Schaarbeek",
-    ],
-  },
-  {
-    naam: "De kanaalzone en de westrand",
-    kenmerk:
-      "Arbeiderswoningen en nieuwe blokken langs het kanaal, waar het vocht meestal uit een kelder onder het maaiveld of een plat dak komt.",
-    gemeenten: [
-      "Anderlecht",
-      "Ganshoren",
-      "Jette",
-      "Koekelberg",
-      "Sint-Agatha-Berchem",
-      "Sint-Jans-Molenbeek",
-    ],
-  },
-  {
-    naam: "De zuid- en oostrand",
-    kenmerk:
-      "Ruimer gebouwde woonwijken tegen het Zoniënwoud, met diepe kelders en garages die bij een hevige bui het water van de helling erboven krijgen.",
-    gemeenten: [
-      "Evere",
-      "Oudergem",
-      "Sint-Lambrechts-Woluwe",
-      "Sint-Pieters-Woluwe",
-      "Ukkel",
-      "Vorst",
-      "Watermaal-Bosvoorde",
-    ],
-  },
-];

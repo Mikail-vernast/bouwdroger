@@ -26,6 +26,7 @@ const VERWACHT: Record<string, number> = {
   "vlaams-brabant": 63,
   "west-vlaanderen": 62,
   limburg: 38,
+  brussel: 19,
 };
 
 describe("gemeenten per provincie", () => {
@@ -95,11 +96,12 @@ describe("gemeenten per provincie", () => {
 });
 
 /*
-  Brussel staat bewust buiten `STREKEN_PER_REGIO`: het gewest hoort bij het
-  werkgebied op /sitemap, maar heeft geen eigen pagina en mag die record dus
-  niet binnen (de eerste test hierboven zou er meteen op breken). Deze test
-  legt vast wat die uitzondering waard is: negentien gemeenten, en geen naam
-  die ook al onder een provincie staat.
+  Brussel zat tot 13-11-2026 bewust buiten `STREKEN_PER_REGIO`: die record is
+  de lijst per regiopagina, en het gewest had er geen, dus zou een
+  `brussel`-sleutel een kop opleveren die naar een 404 linkt. Sinds
+  /bouwdroger-huren-brussel bestaat, staat het er gewoon in. Deze test bewaakt
+  wat eraan bijzonder blijft: negentien gemeenten, en geen naam die ook onder
+  een provincie staat, want een gemeente hoort bij één gebied.
 */
 describe("het Brussels gewest", () => {
   const namen = BRUSSEL_STREKEN.flatMap((s) => s.gemeenten);
@@ -109,10 +111,16 @@ describe("het Brussels gewest", () => {
     expect(new Set(namen).size).toBe(19);
   });
 
-  it("staat niet in de provincielijst", () => {
-    expect(STREKEN_PER_REGIO.brussel).toBeUndefined();
+  it("staat in de provincielijst onder zijn eigen sleutel", () => {
+    expect(STREKEN_PER_REGIO.brussel).toBe(BRUSSEL_STREKEN);
+    expect(REGIO_ROUTES.some((r) => r.slug === "brussel")).toBe(true);
+  });
+
+  it("deelt geen gemeente met een provincie", () => {
     const vlaams = new Set(
-      Object.values(STREKEN_PER_REGIO).flatMap((streken) => streken.flatMap((s) => s.gemeenten))
+      Object.entries(STREKEN_PER_REGIO)
+        .filter(([slug]) => slug !== "brussel")
+        .flatMap(([, streken]) => streken.flatMap((s) => s.gemeenten))
     );
     expect(namen.filter((naam) => vlaams.has(naam))).toEqual([]);
   });

@@ -10,29 +10,18 @@ interface Region {
   /** Pin position over the map of all of Belgium. */
   pin: CSSProperties;
   towns: string[];
-  /** The region's own page, when it has one. Brussel has none (yet). */
-  path?: string;
-  /** Key into STREKEN_PER_REGIO; Brussel has none. */
-  slug?: string;
+  /** The region's own page. All six have one since 13-11-2026. */
+  path: string;
+  /** Key into STREKEN_PER_REGIO. */
+  slug: string;
 }
 
 /*
-  The five provinces come from the same data as their landing pages, so the
-  towns on the map and the towns on /bouwdroger-huren-<regio> cannot drift
-  apart. Brussel stays here only: we deliver there, but it has no page.
+  Alle zes komen uit dezelfde data als hun landingspagina, zodat de gemeenten
+  op de kaart en de gemeenten op /bouwdroger-huren-<regio> niet uiteen kunnen
+  lopen. Brussel stond hier tot 13-11-2026 hardgecodeerd omdat het geen pagina
+  had; nu die bestaat, hoort het bij de rest en is de uitzondering weg.
 */
-const BRUSSEL: Region = {
-  name: "Brussel",
-  // Brussel ligt midden in Vlaams-Brabant, dus de twee spelden kunnen niet
-  // allebei exact staan zonder over elkaar te vallen. Deze staat net ten
-  // zuidwesten van die van de provincie, in de richting van Halle.
-  pin: { left: "43%", top: "41%" },
-  towns: [
-    "Brussel-stad", "Schaarbeek", "Anderlecht", "Ukkel", "Elsene", "Etterbeek", "Jette", "Evere",
-    "Vorst", "Sint-Gillis", "Molenbeek", "Laken", "Woluwe", "Oudergem", "Ganshoren", "Koekelberg",
-  ],
-};
-
 const bySlug = (slug: string): Region => {
   const r = REGIO_ROUTES.find((x) => x.slug === slug)!;
   return { name: r.name, pin: r.pin, towns: r.towns, path: r.path, slug };
@@ -44,7 +33,7 @@ const REGIONS: Region[] = [
   bySlug("oost-vlaanderen"),
   bySlug("antwerpen"),
   bySlug("vlaams-brabant"),
-  BRUSSEL,
+  bySlug("brussel"),
   bySlug("limburg"),
 ];
 
@@ -61,17 +50,18 @@ const V3Regio = () => {
   */
   const [streek, setStreek] = useState(0);
   const region = REGIONS[active];
-  const streken = region.slug ? STREKEN_PER_REGIO[region.slug] ?? [] : [];
+  const streken = STREKEN_PER_REGIO[region.slug] ?? [];
   /*
     `streek` kan na een provinciewissel buiten bereik vallen voor de nieuwe
     lijst; dit vangt dat op zonder een extra effect.
   */
   const actieveStreek = streken[Math.min(streek, streken.length - 1)];
   /*
-    Met een strekenlijst toont het paneel élke gemeente van de provincie,
-    verdeeld over die streken. Zonder lijst blijft het de greep uit de
-    gemeenten die er altijd stond -- vier van de vijf provincies wachten nog
-    op een geverifieerde lijst (zie provincie-gemeenten.ts).
+    Met een strekenlijst toont het paneel élke gemeente van het gebied,
+    verdeeld over die streken. Alle zes hebben er sinds 13-11-2026 een; de
+    terugval op `region.towns` blijft staan voor het geval er een gebied
+    bijkomt waarvan de lijst nog niet nagerekend is (zie
+    provincie-gemeenten.ts).
   */
   const plaatsen = actieveStreek ? actieveStreek.gemeenten : region.towns;
 
@@ -103,12 +93,12 @@ const V3Regio = () => {
 
               Daarom is de *geselecteerde* speld een link en de rest een knop.
               Antwerpen staat bij het laden al open, dus daar volstaat één
-              klik; bij een andere provincie kiest de eerste klik haar en gaat
-              de tweede naar haar pagina. Brussel blijft altijd een knop: we
-              leveren er wel, maar het heeft geen eigen pagina.
+              klik; bij een ander gebied kiest de eerste klik het en gaat de
+              tweede naar zijn pagina. Dat geldt sinds 13-11-2026 ook voor
+              Brussel, dat tot dan een knop zonder bestemming was.
             */}
             {REGIONS.map((item, i) =>
-              i === active && item.path ? (
+              i === active ? (
                 <Link
                   key={item.name}
                   className="pin active"
@@ -142,14 +132,10 @@ const V3Regio = () => {
               bestemming als de rode knop onderaan het paneel.
             */}
             <h3 id="rgName">
-              {region.path ? (
-                <Link to={region.path}>
-                  {region.name}
-                  <ArrowRightIcon size={15} />
-                </Link>
-              ) : (
-                region.name
-              )}
+              <Link to={region.path}>
+                {region.name}
+                <ArrowRightIcon size={15} />
+              </Link>
             </h3>
             {streken.length > 0 ? (
               <>
@@ -190,8 +176,9 @@ const V3Regio = () => {
               Elke chip gaat naar de regiopagina van haar provincie: die noemt
               de gemeente bij naam en beschrijft wat we er doen. Een eigen
               pagina per gemeente bestaat niet, en een chip die naar niets
-              leidt is precies het probleem dat we hier oplossen. Brussel heeft
-              geen pagina, dus blijven die chips wél gewone tekst.
+              leidt is precies het probleem dat we hier oplossen. De Brusselse
+              gemeenten hebben er geen; die chips gaan naar de gewestpagina,
+              die ze bij naam noemt.
             */}
             <div
               className="rg-chips"
@@ -206,13 +193,13 @@ const V3Regio = () => {
                   Heeft de gemeente een eigen pagina, dan gaat de chip daarheen
                   en niet naar de provincie. Tot 12-11-2026 wezen ze allemaal
                   naar de provincie, en dan kwam je op "Mechelen" drukken uit
-                  op de Antwerpse pagina. Zolang de pilot loopt hebben alleen
-                  de Antwerpse gemeenten een eigen pagina; de rest valt terug
-                  op de provincie in plaats van dood te staan.
+                  op de Antwerpse pagina. Sinds 13-11-2026 heeft elke Vlaamse
+                  gemeente een eigen pagina; de negentien Brusselse niet, en
+                  die vallen terug op de gewestpagina in plaats van dood te
+                  staan.
                 */
                 const eigen = gemeenteVanPlaats(town);
                 const doel = eigen?.path ?? region.path;
-                if (!doel) return <span key={town}>{town}</span>;
                 return (
                   <Link
                     key={town}
@@ -233,12 +220,10 @@ const V3Regio = () => {
               03 689 90 65 en we bekijken het meteen.
             </p>
             <div className="rg-actions">
-              {region.path && (
-                <Link className="btn btn-red" to={region.path}>
-                  Bouwdroger huren in {region.name}
-                  <ArrowRightIcon size={14} />
-                </Link>
-              )}
+              <Link className="btn btn-red" to={region.path}>
+                Bouwdroger huren in {region.name}
+                <ArrowRightIcon size={14} />
+              </Link>
               <Link className="btn btn-out" to="/verhuur/calculator">
                 Gratis Calculator
                 <ArrowRightIcon size={14} />
@@ -248,27 +233,21 @@ const V3Regio = () => {
         </div>
 
         {/*
-          Plain links to all five region pages, always in the HTML. The map
-          above shows one province at a time and only after a click, so a
-          crawler that never clicks would otherwise see a single region link.
+          Platte links naar alle zes de gebiedspagina's, altijd in de HTML. De
+          kaart hierboven toont één gebied tegelijk en pas na een klik, dus een
+          crawler die nooit klikt zou anders maar één regiolink zien.
+
+          Brussel stond hier eerst als cursieve tekst tussen de vijf links,
+          omdat het geen pagina had -- en dat wekte de indruk dat we er niet
+          komen. Sinds het er een heeft, is het de zesde link.
         */}
         <nav className="rg-links" aria-label="Werkgebied">
           <span>Bouwdroger huren in:</span>
-          {/*
-            Brussel stond hier niet tussen en wekte zo de indruk dat we er niet
-            komen. Het heeft geen eigen pagina, dus staat het er als tekst in
-            plaats van als link -- een link naar de provincie ernaast zou de
-            bezoeker op de verkeerde pagina zetten.
-          */}
-          {REGIONS.map((r) =>
-            r.path ? (
-              <Link key={r.name} to={r.path}>
-                {r.name}
-              </Link>
-            ) : (
-              <em key={r.name}>{r.name}</em>
-            )
-          )}
+          {REGIONS.map((r) => (
+            <Link key={r.name} to={r.path}>
+              {r.name}
+            </Link>
+          ))}
         </nav>
       </div>
     </section>
