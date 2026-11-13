@@ -23,6 +23,7 @@ import {
   extensionRequestText,
 } from "./extensionRequestMail.js";
 import { mailAllowed } from "./rateLimit.js";
+import { isTeamMailKey, teamMailHtml } from "./teamMail.js";
 import { DEVICE_LABEL, euro } from "./verhuur.js";
 import type { VernastExtensionPayload } from "./vernastExtension.js";
 import type { VernastOrderPayload } from "./vernastSync.js";
@@ -235,10 +236,13 @@ async function send(
     console.warn(
       `[mail] ${key}: ${TEMPLATE_ENV[key]} staat niet ingesteld, verstuurd als tekstmail.`,
     );
+    const subjectLine = subject(params);
     const fallback = await sendPlain({
       to,
-      subject: subject(params),
+      subject: subjectLine,
       text: paramsToText(params),
+      // Designed HTML next to the text part, so the team no longer reads a raw parameter dump.
+      html: isTeamMailKey(key) ? teamMailHtml(key, subjectLine, params) : undefined,
       replyTo,
       tags: [key, "zonder-sjabloon"],
     });
