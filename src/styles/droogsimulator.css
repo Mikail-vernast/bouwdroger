@@ -1374,3 +1374,37 @@
   .ds-sim[data-stap="3"] .ds-vragen .ds-vraag{padding-block:3px}
   .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:80px}
 } }
+
+/* ── droogplan als kassabon ──
+   Head = when it is dry (with the chosen tempo), the devices as receipt lines,
+   the total bottom right, and "Boek dit pakket" as the big button in the footer. */
+.ds-tempo-label{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid var(--wl);font:600 10.5px var(--fm);letter-spacing:.08em;text-transform:uppercase}
+.ds-tempo-label::before{content:"";width:7px;height:7px;border-radius:50%;background:#9fd3ff}
+.ds-tempo-label--snel::before{background:#ffb27a}
+.ds-tempo-label--traag::before{background:#a6e3b8}
+.ds-body h2.ds-plan-kop{font-size:clamp(24px,3.2vw,32px);line-height:1.05;letter-spacing:-.025em}
+.ds-plan-kop em{font-style:normal;color:#ffd7cf}
+.ds-bon{list-style:none;margin:0;padding:0;border-top:1px dashed rgba(255,255,255,.25)}
+.ds-bon li{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.25);font-size:14.5px;animation:ds-in .4s both}
+.ds-bon li:nth-child(2){animation-delay:.06s}.ds-bon li:nth-child(3){animation-delay:.12s}.ds-bon li:nth-child(4){animation-delay:.18s}
+.ds-bon img{flex:none;width:30px;height:30px;border-radius:8px;background:#fff;object-fit:cover}
+.ds-bon .q{flex:none;width:28px;font:600 13.5px var(--fm);opacity:.85}
+.ds-bon b{font-weight:700;white-space:nowrap}
+.ds-bon small{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 10.5px var(--fm);opacity:.55;letter-spacing:.03em}
+.ds-tot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding-top:6px}
+.ds-tot span{display:block;font:500 10px var(--fm);letter-spacing:.12em;text-transform:uppercase;opacity:.65}
+.ds-tot small{font-size:12px;opacity:.72}
+.ds-tot b{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1;white-space:nowrap}
+.ds-boek{flex:1;display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:99px;background:#fff;color:var(--red)!important;font-weight:800;font-size:15.5px;text-decoration:none;white-space:nowrap;box-shadow:0 10px 24px -12px rgba(0,0,0,.6);transition:transform .15s}
+.ds-boek:hover{transform:translateY(-1px)}
+.ds-boek:focus-visible,.ds-rond:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.ds-rond{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.06);color:#fff;cursor:pointer}
+.ds-rond:hover{background:rgba(255,255,255,.14)}
+.ds-rond[hidden]{display:none}
+@media (max-width:899px){
+  .ds-sim[data-stap="4"] .ds-stats{display:none}
+  .ds-sim[data-stap="4"] .ds-body{gap:6px}
+  .ds-sim[data-stap="4"] .ds-bon li{padding:4px 0;font-size:14px}
+  .ds-sim[data-stap="4"] .ds-bon img{width:26px;height:26px;border-radius:7px}
+  .ds-tot b{font-size:28px}
+}

@@ -174,6 +174,7 @@ const VerhuurSimulatorPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [s.wat, s.size, s.pd, s.cd, s.fase, s.verwarmt, s.tempo, woning, lagen, sleutelPlan],
   );
+  const aantalToestellen = resultaat ? resultaat.items.reduce((n, it) => n + it.q, 0) : 0;
   // Thick layers cannot dry in 2–3 weeks: the "Snel" button then says how fast it can.
   const snelGrens = useMemo(() => {
     if (!s.wat) return null;
@@ -527,24 +528,22 @@ const VerhuurSimulatorPage = () => {
 
               {stap === 4 && resultaat && (
                 <>
-                  <h2>
-                    {WONING[woning].label}, {maat}
+                  <span className={`ds-tempo-label ds-tempo-label--${antwoorden.tempo}`}>{TEMPO[antwoorden.tempo ?? "gemiddeld"].label}</span>
+                  <h2 className="ds-plan-kop">
+                    Droog in <em>± {resultaat.weken} {resultaat.weken === 1 ? "week" : "weken"}</em>
                   </h2>
-                  <p className="ds-sub">
-                    {WAT_LABEL[antwoorden.wat].label} · {FASE[antwoorden.fase].kort.toLowerCase()} · {antwoorden.verwarmt ? "zelf verwarmd" : "met kachels"}
+                  <p className="ds-sub ds-sub--altijd">
+                    {WONING[woning].label} · {maat} · {aantalToestellen} toestellen
                   </p>
-                  <ul className="ds-dev">
+                  <ul className="ds-bon">
                     {resultaat.items
                       .filter((it) => it.q > 0)
                       .map((it) => (
                         <li key={it.k}>
                           <img src={CAT[it.k].img.replace(/\.png$/, ".webp")} alt="" loading="lazy" decoding="async" />
-                          <span>
-                            <b>
-                              {it.q}× {TOESTEL_KORT[it.k]}
-                            </b>
-                            <small>{CAT[it.k].name.split(", ")[1] ?? CAT[it.k].name}</small>
-                          </span>
+                          <span className="q">{it.q}×</span>
+                          <b>{TOESTEL_KORT[it.k]}</b>
+                          <small>{CAT[it.k].name.split(", ")[1] ?? ""}</small>
                         </li>
                       ))}
                   </ul>
@@ -561,23 +560,17 @@ const VerhuurSimulatorPage = () => {
                         <dd>{resultaat.luchtverzet.toLocaleString("nl-BE")} <small>m³/u</small></dd>
                       </div>
                     )}
-                    <div>
-                      <dt>Termijn</dt>
-                      <dd>{resultaat.weken} <small>{resultaat.weken === 1 ? "week" : "weken"}</small></dd>
-                    </div>
                   </dl>
                   <div className="ds-advies ds-advies--plan">
                     <b>Let op · {FASE[antwoorden.fase].label.toLowerCase()}</b>
                     {FASE[antwoorden.fase].advies}
                   </div>
-                  <div className="ds-prijs">
+                  <div className="ds-tot">
                     <div>
-                      <b>{euro(resultaat.prijs)}</b>
-                      <small>voor {resultaat.weken} {resultaat.weken === 1 ? "week" : "weken"} · alles inbegrepen</small>
+                      <span>Totaal, alles inbegrepen</span>
+                      <small>voor {resultaat.weken} {resultaat.weken === 1 ? "week" : "weken"} huur</small>
                     </div>
-                    <Link className="ds-book" to={`/verhuur/pakket?${configToQuery({ ...resultaat.config, weeks: resultaat.weken })}`}>
-                      Boek dit pakket →
-                    </Link>
+                    <b>{euro(resultaat.prijs)}</b>
                   </div>
                 </>
               )}
@@ -605,14 +598,27 @@ const VerhuurSimulatorPage = () => {
             </div>
 
             <div className="ds-foot">
-              <button className="ds-back" type="button" hidden={stap === 0} onClick={() => naar(Math.max(0, stap - 1))}>
-                ← Terug
+              <button className={stap === 4 && resultaat ? "ds-rond" : "ds-back"} type="button" hidden={stap === 0} aria-label="Terug" onClick={() => naar(Math.max(0, stap - 1))}>
+                {stap === 4 && resultaat ? (
+                  <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 4l-6 6 6 6" /></svg>
+                ) : (
+                  "← Terug"
+                )}
               </button>
               {volgende.melding && <p className="ds-melding" role="status">{volgende.melding}</p>}
               {stap < 4 ? (
                 <button className="ds-next" type="button" disabled={!volgende.ok} onClick={() => naar(stap + 1)}>
                   {volgende.label}
                 </button>
+              ) : resultaat ? (
+                <>
+                  <Link className="ds-boek" to={`/verhuur/pakket?${configToQuery({ ...resultaat.config, weeks: resultaat.weken })}`}>
+                    Boek dit pakket →
+                  </Link>
+                  <button className="ds-rond" type="button" aria-label="Opnieuw beginnen" title="Opnieuw" onClick={() => { setS(START); naar(0); }}>
+                    <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 10a6 6 0 1 0 2-4.5M4 3v3.5h3.5" /></svg>
+                  </button>
+                </>
               ) : (
                 <button
                   className="ds-back ds-back--rechts"
