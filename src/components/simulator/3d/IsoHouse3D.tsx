@@ -28,7 +28,7 @@ import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { inrichtingsMuur, richIn } from "./inrichting";
 import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
-import { GEEN_PLAN, aankomst, droogStand, type Film } from "../film";
+import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { TEXTUUR } from "./bestanden";
@@ -708,10 +708,11 @@ float natWet() {
   for (int i = 0; i < ${MAX_BRON}; i++) {
     if (i >= uNatN) break;
     vec4 b = uNatBron[i];
-    if (b.w < 0.5) continue;
+    // w = how far this device has switched on: a patch grows in, it does not pop.
+    if (b.w < 0.01) continue;
     float dy = vNatPos.y - b.y;
     if (dy < -0.5 || dy > 3.2) continue;
-    float di = length(vNatPos.xz - b.xz);
+    float di = length(vNatPos.xz - b.xz) + (1.0 - b.w) * 2.5;
     if (di < d) { d = di; hoog = clamp(dy / 2.6, 0.0, 1.0); }
   }
   // Ragged edge, and the foot of a wall stays wet longest.
@@ -997,12 +998,11 @@ function Scene(props: SceneProps) {
     // starts they all run, and a lower floor starts where its progress already is.
     const droogt = werkend && !reduced;
     const droog = droogt ? droogStand(film.current) : 1;
-    const loopt = film.current.modus === "drogen";
     const bronnen = natLaag;
     nat.n.value = Math.min(MAX_BRON, bronnen.length);
     for (let i = 0; i < nat.n.value; i++) {
       const b = bronnen[i];
-      nat.bron.value[i].set(b.x, b.y, b.z, loopt ? 1 : 0);
+      nat.bron.value[i].set(b.x, b.y, b.z, aanVoortgang(film.current, b.a));
     }
     // About a room's reach from one device by the end; the last corners fade out.
     nat.r.value = Math.pow(droog, 1.2) * 6.5;

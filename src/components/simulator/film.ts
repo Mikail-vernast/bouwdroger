@@ -64,7 +64,10 @@ export function filmTijd(film: Film): number {
 /** How far a segment is after `sec` seconds, 0..1. */
 export function voortgangNa(plan: FilmPlan, sec: number): number {
   // Placing is done when the last device has landed, not at the end of the segment.
-  return Math.min(1, Math.max(0, sec / (plan.modus === "plaatsen" ? PLAATSEN : plan.duur * DROOG_DEEL)));
+  if (plan.modus === "plaatsen") return Math.min(1, Math.max(0, sec / PLAATSEN));
+  // Drying eases in and out: the devices spin up, and the last corners take their time.
+  const k = Math.min(1, Math.max(0, sec / (plan.duur * DROOG_DEEL)));
+  return 0.5 - 0.5 * Math.cos(Math.PI * k);
 }
 
 /** How far this segment is, 0..1. */
@@ -76,6 +79,15 @@ export function segmentVoortgang(film: Film): number {
 export function droogStand(film: Film): number {
   if (film.modus === "plaatsen") return film.van;
   return film.van + (film.tot - film.van) * segmentVoortgang(film);
+}
+
+/**
+ * How far a device has switched on, 0..1. Only while drying, and one after the
+ * other in the order they landed, so the house starts up instead of switching on.
+ */
+export function aanVoortgang(film: Film, aankomst: number): number {
+  if (film.modus !== "drogen") return 0;
+  return Math.min(1, Math.max(0, (filmTijd(film) - (aankomst - 0.25) * 0.6) / 0.8));
 }
 
 /**
