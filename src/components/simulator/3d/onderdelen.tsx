@@ -1,4 +1,4 @@
-import { Component, useLayoutEffect, useMemo, useRef, type MutableRefObject, type ReactNode } from "react";
+import { Component, useEffect, useLayoutEffect, useMemo, useRef, type MutableRefObject, type ReactNode } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
@@ -14,7 +14,7 @@ import {
 import type { Kamer, Plaatsing } from "@/lib/droogSimulator";
 import type { DeviceKey } from "@/data/verhuur";
 import { TOESTEL_MODEL } from "./modellen";
-import { FILM_START, VAL, aanVoortgang, droogStand, stuit, toestelTijd, type Film } from "../film";
+import { FILM_START, FILM_WACHT, VAL, aanVoortgang, droogStand, filmStatus, stuit, toestelTijd, type Film } from "../film";
 
 /*
   De bewegende en losse onderdelen van de 3D-woning: de toestellen uit het
@@ -79,6 +79,8 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film }: {
   const stof = useRef<Mesh>(null);
   const stofM = useMemo(stofMat, []);
   const toeren = useRef(0);
+  // Elk toestel wordt per verdieping en per herhaling opnieuw gemount: ruim op.
+  useLayoutEffect(() => () => stofM.dispose(), [stofM]);
 
   useFrame((_, dt) => {
     const t = toestelTijd(film.current);
@@ -124,7 +126,7 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film }: {
  * Vangnet rond de toestellen: laadt een model niet (netwerk, 404), dan vallen
  * alleen de toestellen weg. Zonder dit viel de hele 3D terug op de SVG.
  */
-export class ToestelVangnet extends Component<{ children: ReactNode; terugval: ReactNode }, { fout: boolean }> {
+export class ToestelVangnet extends Component<{ children: ReactNode; terugval?: ReactNode }, { fout: boolean }> {
   state = { fout: false };
   static getDerivedStateFromError() {
     return { fout: true };
@@ -133,7 +135,7 @@ export class ToestelVangnet extends Component<{ children: ReactNode; terugval: R
     console.warn("[droogsimulator] toestellen niet geladen:", err);
   }
   render() {
-    return this.state.fout ? this.props.terugval : this.props.children;
+    return this.state.fout ? (this.props.terugval ?? null) : this.props.children;
   }
 }
 
@@ -149,10 +151,27 @@ export function FilmStart({ film }: { film: MutableRefObject<Film> }) {
   useFrame(() => {
     if (film.current.start >= 0) { frames.current = 0; return; }
     if (++frames.current < 3) return;
+    filmStatus.wacht = false;
     film.current.start = performance.now();
     // De dagteller (buiten het canvas) loopt op dezelfde klok.
     window.dispatchEvent(new CustomEvent(FILM_START, { detail: film.current.start }));
   });
+  return null;
+}
+
+/**
+ * Staat in de Suspense-fallback zolang de modellen laden: meldt de pagina dat de
+ * film wacht, zodat de timer van de film niet doorloopt (op 2G kan dat langer
+ * duren dan een heel stuk van de film).
+ */
+export function FilmWacht() {
+  useEffect(() => {
+    filmStatus.wacht = true;
+    window.dispatchEvent(new Event(FILM_WACHT));
+    return () => {
+      filmStatus.wacht = false;
+    };
+  }, []);
   return null;
 }
 
@@ -254,7 +273,7 @@ export function Druppels3D({ kamers, plaatsingen, yf, vocht, film }: { kamers: K
     const m = ref.current;
     if (!m) return;
     // Hoe droger, hoe minder vocht er nog naar de drogers trekt; niets zolang er nog geplaatst wordt.
-    const rest = film.current.modus === "drogen" ? 1 - 0.9 * droogStand(film.current) : 0;
+    const rest = film.current.modus === "drogen" ? 1 - droogStand(film.current) : 0;
     banen.forEach((b, i) => {
       const aan = aanVoortgang(film.current, b.a);
       // cubic-bezier(.4,0,.6,1) benaderd met een smoothstep; verschijnen en

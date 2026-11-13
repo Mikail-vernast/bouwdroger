@@ -6,6 +6,13 @@
 
 /** Event op window wanneer de 3D-film van een verdieping echt begint (detail = start in ms). */
 export const FILM_START = "ds-film-start";
+/** Event op window wanneer de 3D-film op zijn modellen wacht (Suspense-fallback). */
+export const FILM_WACHT = "ds-film-wacht";
+/**
+ * Wacht de 3D-film nu op zijn modellen? Een gedeelde vlag naast het event, want
+ * de wachtstand kan al gemeld zijn vóór de pagina zijn luisteraar aanzet.
+ */
+export const filmStatus = { wacht: false };
 
 /** Seconden waarin de toestellen van één verdieping neergezet worden. */
 export const PLAATSEN = 2.2;

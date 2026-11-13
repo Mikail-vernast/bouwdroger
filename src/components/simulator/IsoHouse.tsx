@@ -258,6 +258,8 @@ export interface IsoHouseProps {
   cyclus?: number;
   /** 3D only: which segment of the drying film this floor plays (placing or drying, and how far) */
   filmPlan?: FilmPlan;
+  /** telt op bij "opnieuw afspelen" of een tweede klik op een verdieping: de 3D-film begint dan opnieuw */
+  filmRonde?: number;
   className?: string;
 }
 

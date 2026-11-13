@@ -1,8 +1,8 @@
 import type { DeviceKey } from "@/data/verhuur";
 
 /*
-  The device models from Blender (scripts/simulator-3d/toestellen.py). Kept out of
-  onderdelen.tsx so the page can warm the cache without pulling in three.js.
+  De toestelmodellen uit Blender (scripts/simulator-3d/toestellen.py). Apart van
+  onderdelen.tsx, zodat de pagina ze vooraf kan laden zonder three.js binnen te halen.
 */
 export const TOESTEL_MODEL: Record<DeviceKey, string> = {
   small: "/simulator/3d/droger-small.glb",
@@ -12,16 +12,22 @@ export const TOESTEL_MODEL: Record<DeviceKey, string> = {
 };
 
 type Verbinding = { saveData?: boolean; effectiveType?: string };
+const al = new Set<string>();
 
 /**
- * Fetches the models into the HTTP cache while the visitor is still answering,
- * so the drying plan does not wait on them (≈ 5 s on 3G). Skipped when the
- * visitor saves data or is on 2G: there the plan loads them only when shown.
+ * Haalt de modellen van het pakket alvast in de HTTP-cache terwijl de bezoeker
+ * nog antwoordt, zodat het droogplan er niet op wacht (op 3G ± 5 s). Niet als er
+ * geen 3D getekend wordt (SVG), bij datasparen of op 2G: daar laadt het plan ze
+ * pas wanneer het ze toont. Elk model hoogstens één keer.
  */
-export function voorlaadToestellen(): void {
+export function voorlaadToestellen(toestellen: DeviceKey[]): void {
+  if (!document.querySelector(".ds-stage canvas")) return;
   const c = (navigator as Navigator & { connection?: Verbinding }).connection;
   if (c?.saveData || c?.effectiveType === "2g" || c?.effectiveType === "slow-2g") return;
-  for (const url of Object.values(TOESTEL_MODEL)) {
-    fetch(url, { priority: "low" } as RequestInit).catch(() => {});
+  for (const k of toestellen) {
+    const url = TOESTEL_MODEL[k];
+    if (al.has(url)) continue;
+    al.add(url);
+    fetch(url, { priority: "low" } as RequestInit).catch(() => al.delete(url));
   }
 }

@@ -27,7 +27,7 @@ import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { inrichtingsMuur, richIn } from "./inrichting";
-import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
+import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -760,7 +760,7 @@ function kader(w: number, l: number, y0: number, y1: number, pad: number): Kader
 interface SceneProps extends IsoHouseProps { anim: MutableRefObject<Anim>; labels: MutableRefObject<(HTMLDivElement | null)[]>; reduced: boolean; onKlaar?: () => void }
 
 function Scene(props: SceneProps) {
-  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, anim, labels, reduced } = props;
+  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, filmRonde = 0, anim, labels, reduced } = props;
   const materiaal = props.materiaal ?? STANDAARD_MATERIAAL;
   const { w, l, buren } = WONING[woning];
   const lagen = Math.max(1, verdiepingen);
@@ -1092,7 +1092,7 @@ function Scene(props: SceneProps) {
   }), [laagPlaatsingen, actKamers, yfAct]);
   useLayoutEffect(() => {
     film.current = { ...filmPlan, start: -1, vast: reduced };
-  }, [act, werkend, laagPlaatsingen, reduced, filmPlan.modus, filmPlan.van, filmPlan.tot, filmPlan.duur]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [act, werkend, laagPlaatsingen, reduced, filmRonde, filmPlan.modus, filmPlan.van, filmPlan.tot, filmPlan.duur]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -1136,15 +1136,19 @@ function Scene(props: SceneProps) {
           <group ref={inrichtingRef} visible={inrichtingIn}>
             <Meshes geos={inrichting} mats={sets.vast} />
           </group>
-          <ToestelVangnet terugval={<FilmStart film={film} />}>
-          <Suspense fallback={null}>
+          {/* Zolang de modellen laden staat de film stil (FilmWacht); elk toestel heeft
+              zijn eigen vangnet, zodat één kapot model alleen zichzelf meeneemt. */}
+          <Suspense fallback={<FilmWacht />}>
           <FilmStart film={film} />
           {laagPlaatsingen.map((p, i) => {
             const k = actKamers.find((kk) => kk.id === p.kamer)!;
-            return <Toestel3D key={`${act}-${p.k}-${i}`} k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} />;
+            return (
+              <ToestelVangnet key={`${act}-${p.k}-${i}-${filmRonde}`}>
+                <Toestel3D k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} />
+              </ToestelVangnet>
+            );
           })}
           </Suspense>
-          </ToestelVangnet>
           {droogt && <Luchtstroom3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} film={film} />}
           {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} film={film} />}
         </>

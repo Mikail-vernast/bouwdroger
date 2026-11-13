@@ -7,7 +7,7 @@ import { materiaalVoor } from "@/components/simulator/materiaal";
 import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
 import { TEMPO, TEMPO_ORDER, type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
-import { DROOG_DUUR, FILM_START, PLAATS_DUUR, voortgangNa, type FilmPlan } from "@/components/simulator/film";
+import { DROOG_DUUR, FILM_START, FILM_WACHT, PLAATS_DUUR, filmStatus, voortgangNa, type FilmPlan } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
 import {
   DAK_LABEL,
@@ -152,11 +152,6 @@ function volledig(s: State): SimAnswers {
 const VerhuurSimulatorPage = () => {
   const [s, setS] = useState<State>(START);
   const [stap, setStap] = useState(0);
-  // From question 3 on, warm the device models so the drying plan plays at once.
-  // Not earlier: someone who leaves at question 1 should not pay ~0.3 MB of models.
-  useEffect(() => {
-    if (stap === 2) voorlaadToestellen();
-  }, [stap]);
   const [actief, setActief] = useState(0);
   const [handmatig, setHandmatig] = useState(false);
   /** where the drying film is: an index into `droogfilm(...)` */
@@ -219,14 +214,22 @@ const VerhuurSimulatorPage = () => {
   // leeg (filmKlaar). Elk stuk telt vanaf het echte begin van de 3D-film (die meldt
   // FILM_START na het laden van de modellen); zonder 3D vanaf nu. Kiest de
   // bezoeker zelf een verdieping, dan toont die haar droogstuk en blijft ze staan.
+  // Terwijl de bezoeker zijn bouwfase kiest, de modellen van zijn pakket alvast laden.
+  useEffect(() => {
+    if (stap === 3 && resultaat) voorlaadToestellen([...new Set(resultaat.items.map((it) => it.k))]);
+  }, [stap, resultaat]);
+
   const segmenten = useMemo(() => (resultaat ? droogfilm(lagen, resultaat.dagen) : []), [resultaat, lagen]);
   useEffect(() => setSeg(0), [segmenten]);
   const segment = segmenten[Math.min(seg, segmenten.length - 1)];
   useEffect(() => {
     if (stap !== 4 || handmatig || filmKlaar || !segment) return;
     let id = 0;
+    const stop = () => window.clearTimeout(id);
+    // Zolang de 3D op zijn modellen wacht (FILM_WACHT) loopt de timer niet.
     const volgende = (e?: Event) => {
-      window.clearTimeout(id);
+      stop();
+      if (filmStatus.wacht) return;
       const start = e ? (e as CustomEvent<number>).detail : performance.now();
       id = window.setTimeout(() => {
         if (seg + 1 < segmenten.length) setSeg(seg + 1);
@@ -235,9 +238,11 @@ const VerhuurSimulatorPage = () => {
     };
     volgende();
     window.addEventListener(FILM_START, volgende);
+    window.addEventListener(FILM_WACHT, stop);
     return () => {
-      window.clearTimeout(id);
+      stop();
       window.removeEventListener(FILM_START, volgende);
+      window.removeEventListener(FILM_WACHT, stop);
     };
   }, [stap, handmatig, filmKlaar, seg, segment, segmenten, ronde]);
 
@@ -701,6 +706,7 @@ const VerhuurSimulatorPage = () => {
                 materiaal={stap === 4 && filmKlaar ? { ...materiaal, vocht: 0 } : materiaal}
                 cyclus={CYCLUS}
                 filmPlan={filmSeg}
+                filmRonde={ronde}
               />
               {stap === 2 && s.wat && <Doorsnede wat={s.wat} pd={antwoorden.pd} cd={antwoorden.cd} />}
               {stap === 4 && resultaat && (
@@ -738,6 +744,8 @@ const VerhuurSimulatorPage = () => {
                           setActief(v);
                           setHandmatig(true);
                           setFilmKlaar(false);
+                          // Een tweede klik op dezelfde verdieping speelt haar film opnieuw.
+                          setRonde((r) => r + 1);
                         }}
                       >
                         {verdiepingNaam(v, lagen, dak)}
@@ -1020,14 +1028,18 @@ function DagTeller({ segment, naam, geplaatst, dagen, water, klaar }: {
       setK(1);
       return;
     }
-    // Same clock as the 3D: it reports when its film really starts; without 3D, from now.
-    let start = performance.now();
+    // Zelfde klok als de 3D: die meldt wanneer zijn film echt begint; wacht hij nog
+    // op zijn modellen, dan staat de teller stil; zonder 3D telt hij vanaf nu.
+    let start = filmStatus.wacht ? Infinity : performance.now();
     const opStart = (e: Event) => { start = (e as CustomEvent<number>).detail; };
+    const opWacht = () => { start = Infinity; };
     window.addEventListener(FILM_START, opStart);
+    window.addEventListener(FILM_WACHT, opWacht);
     const id = window.setInterval(() => setK(voortgangNa(segment, Math.max(0, (performance.now() - start) / 1000))), 120);
     return () => {
       window.clearInterval(id);
       window.removeEventListener(FILM_START, opStart);
+      window.removeEventListener(FILM_WACHT, opWacht);
     };
   }, [segment, klaar]);
 
