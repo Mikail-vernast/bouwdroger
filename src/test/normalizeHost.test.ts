@@ -25,7 +25,7 @@ describe("normalizeHost", () => {
     );
   });
 
-  it("houdt de querystring vast — die draagt de gclid van een advertentieklik", () => {
+  it("houdt de querystring vast, die draagt de gclid van een advertentieklik", () => {
     expect(host("https://www.vernast-bouwdrogers.be/?utm_source=google&gclid=abc")).toBe(
       "https://vernast-bouwdrogers.be/?utm_source=google&gclid=abc",
     );

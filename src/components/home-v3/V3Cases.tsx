@@ -5,6 +5,7 @@ interface CaseCard {
   id: string;
   image: string;
   alt: string;
+  objectPosition?: string;
   tag: string;
   heading: string;
   body: string;
@@ -23,8 +24,8 @@ const CASES: CaseCard[] = [
   },
   {
     id: "case-chape",
-    image: "/vernast/case-chape.webp",
-    alt: "Chape drogen met een bouwdroger",
+    image: "/vernast/case-chape-v2.webp",
+    alt: "Verse chape met grote natte plekken tijdens het drogen",
     tag: "Chape drogen",
     heading: "Vloeren en parket op tijd geplaatst",
     body: "Wie sneller wil vloeren of de werfplanning wil respecteren, heeft baat bij gecontroleerde droging van de chape.",
@@ -41,8 +42,9 @@ const CASES: CaseCard[] = [
   },
   {
     id: "case-waterschade",
-    image: "/vernast/case-waterschade.webp",
-    alt: "Waterschade in een woning",
+    image: "/vernast/case-waterschade-v3.webp",
+    alt: "Waterschade vanaf het plafond met vochtstrepen op de muur",
+    objectPosition: "50% 22%",
     tag: "Waterschade",
     heading: "Snel drogen na een lek of overstroming",
     body: "Bij waterschade telt elke dag: binnen 48 uur starten met drogen voorkomt schimmel, geurhinder en schade aan vloeren, muren en meubels. Wij leveren binnen 24 uur een intensief droogpakket en begeleiden u bij het dossier voor uw verzekering.",
@@ -81,7 +83,14 @@ const V3Cases = () => (
           <div className="cs" key={item.id}>
             <div className="csimg">
               {/* Alle case-foto's zijn vierkant (1200×1200); zie V3Pickup voor waarom dit erbij hoort. */}
-              <img src={item.image} alt={item.alt} width={1200} height={1200} loading="lazy" />
+              <img
+                src={item.image}
+                alt={item.alt}
+                width={1200}
+                height={1200}
+                loading="lazy"
+                style={item.objectPosition ? { objectPosition: item.objectPosition } : undefined}
+              />
             </div>
             <div className="csb">
               <div className="ct">{item.tag}</div>

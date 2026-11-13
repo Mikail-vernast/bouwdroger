@@ -10,7 +10,7 @@ const pkg = getAllPackages()[0];
 const base = (type: string) =>
   pkg.equipment.filter((e) => e.type === type).reduce((s, e) => s + e.count, 0);
 
-describe("bookingRow — allowlist", () => {
+describe("bookingRow, allowlist", () => {
   test("laat onbekende velden vallen", () => {
     const row = bookingRow({ email: "a@b.be", is_admin: true, interne_notitie: "x" });
 
@@ -32,7 +32,7 @@ describe("bookingRow — allowlist", () => {
   });
 });
 
-describe("bookingPrice — de prijs komt van de server", () => {
+describe("bookingPrice, de prijs komt van de server", () => {
   test("negeert het totaal uit de request", () => {
     const row = bookingRow({
       email: "a@b.be",

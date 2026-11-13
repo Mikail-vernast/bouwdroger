@@ -69,7 +69,7 @@ export const ROLE: Record<DeviceKey, { tag: string; txt: string }> = {
   axiaal: {
     tag: "Circulatie",
     /*
-      4 500 is het cijfer dat de TTV 4500 op zijn eigen toestelpagina draagt en
+      4 500 is het cijfer dat de Highflow op zijn eigen toestelpagina draagt en
       dat ook in de modelnaam zit. De 5 300 hieronder in de specs is iets
       anders — dat is het maximum vrij uitblazend — maar los in lopende tekst
       leest het als een tweede, tegenstrijdig getal voor dezelfde ventilator.
@@ -390,22 +390,22 @@ export interface Product {
 const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "badge" | "day" | "img" | "sum">> = {
   ttk170: {
     imgAlt: [
-      "Vernast ECO Boost, condensontvochtiger TTK 170 S van 50 liter per dag voor ruimtes tot 250 m³",
-      "De drie Vernast eco-bouwdrogers naast elkaar, de TTK 170 S is het kleinste model",
+      "Vernast Boost, condensontvochtiger Boost van 50 liter per dag voor ruimtes tot 250 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de Boost is het kleinste model",
     ],
     key: [
       ["Vochtafvoer", "50", "L/dag"],
       ["Bereik", "250", "m³"],
       ["Verbruik", "0,75", "kW"],
     ],
-    aboutTitle: "Wanneer kiest u de TTK 170 S?",
+    aboutTitle: "Wanneer kiest u de Boost?",
     about: [
-      "Dit is ons instaptoestel — maar met 50 liter vochtafvoer per dag is het bepaald geen lichtgewicht. Voor ruimtes tot ongeveer <strong>250 m³</strong> (bijvoorbeeld een appartement of een verdieping van een woning) haalt dit toestel het bouwvocht er efficiënt uit.",
-      "De TTK 170 S is verrijdbaar en compact genoeg om via een normale deur of trap binnen te krijgen. Hij draait stil genoeg om in een bewoonde ruimte te blijven staan, wat hem geschikt maakt voor renovaties waar u ondertussen woont.",
-      "Werkt u in een grotere ruimte of gaat het om waterschade waarbij snelheid telt? Kijk dan naar de <strong>TTK 350 S</strong> of <strong>TTK 650 S</strong>.",
+      "Dit is ons instaptoestel, maar met 50 liter vochtafvoer per dag is het bepaald geen lichtgewicht. Voor ruimtes tot ongeveer <strong>250 m³</strong> (bijvoorbeeld een appartement of een verdieping van een woning) haalt dit toestel het bouwvocht er efficiënt uit.",
+      "De Boost is verrijdbaar en compact genoeg om via een normale deur of trap binnen te krijgen. Hij draait stil genoeg om in een bewoonde ruimte te blijven staan, wat hem geschikt maakt voor renovaties waar u ondertussen woont.",
+      "Werkt u in een grotere ruimte of gaat het om waterschade waarbij snelheid telt? Kijk dan naar de <strong>Performance</strong> of <strong>Ultimate</strong>.",
     ],
     bullets: [
-      ["Tot 250 m³", "Eén kamer, appartement of verdieping — het volume dat dit toestel comfortabel aankan."],
+      ["Tot 250 m³", "Eén kamer, appartement of verdieping: het volume dat dit toestel comfortabel aankan."],
       ["Stil genoeg voor bewoonde ruimtes", "U kunt blijven wonen of werken terwijl het toestel draait."],
       ["Verrijdbaar en compact", "Past door normale deuren en is met één persoon te verplaatsen."],
       ["Continu-afvoer mogelijk", "Wij sluiten standaard een condensslang aan zodat u niets moet legen."],
@@ -427,7 +427,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     faq: [
       [
         "Is dit toestel groot genoeg voor mijn woning?",
-        "Voor één kamer, een appartement of een verdieping tot ongeveer 250 m³ volstaat de TTK 170 S. Voor een volledige nieuwbouwwoning raden we de TTK 350 S aan. Laat het gerust berekenen via de configurator — dan weet u het zeker.",
+        "Voor één kamer, een appartement of een verdieping tot ongeveer 250 m³ volstaat de Boost. Voor een volledige nieuwbouwwoning raden we de Performance aan. Laat het gerust berekenen via de configurator, dan weet u het zeker.",
       ],
       [
         "Kan ik het toestel zelf verplaatsen?",
@@ -441,19 +441,19 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   ttk350: {
     imgAlt: [
-      "Vernast ECO Performance, condensontvochtiger TTK 350 S van 70 liter per dag voor ruimtes tot 400 m³",
-      "De drie Vernast eco-bouwdrogers naast elkaar, de TTK 350 S is het middelste model",
+      "Vernast Performance, condensontvochtiger Performance van 70 liter per dag voor ruimtes tot 400 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de Performance is het middelste model",
     ],
     key: [
       ["Vochtafvoer", "70", "L/dag"],
       ["Bereik", "400", "m³"],
       ["Verbruik", "1,1", "kW"],
     ],
-    aboutTitle: "Wanneer kiest u de TTK 350 S?",
+    aboutTitle: "Wanneer kiest u de Performance?",
     about: [
       "Dit is het toestel dat we het vaakst leveren, en met reden: met <strong>70 liter vochtafvoer per dag</strong> en een bereik tot <strong>400 m³</strong> dekt het een volledige nieuwbouwwoning of een grote renovatie in één keer.",
-      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af — natuurlijke droging duurt weken. De TTK 350 S verlaagt de luchtvochtigheid ver genoeg om dat proces flink in te korten: <strong>twee tot vier weken</strong>, afhankelijk van de dikte van chape of pleister, zodat uw vloerder en schilder sneller kunnen starten.",
-      "Voor het beste resultaat combineert u dit toestel met een <strong>ventilator TTV 4500</strong>. Zonder luchtbeweging droogt vooral de lucht en niet de bouwmassa; met circulatie wint u dagen.",
+      "Bij nieuwbouw zit het meeste vocht in de chape en het pleisterwerk. Die geven hun water traag af, natuurlijke droging duurt weken. De Performance verlaagt de luchtvochtigheid ver genoeg om dat proces flink in te korten: <strong>twee tot vier weken</strong>, afhankelijk van de dikte van chape of pleister, zodat uw vloerder en schilder sneller kunnen starten.",
+      "Voor het beste resultaat combineert u dit toestel met een <strong>ventilator Highflow</strong>. Zonder luchtbeweging droogt vooral de lucht en niet de bouwmassa; met circulatie wint u dagen.",
     ],
     bullets: [
       ["Tot 400 m³", "Een volledige nieuwbouwwoning of grote renovatie in één toestel."],
@@ -482,11 +482,11 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
       [
         "Heb ik er een ventilator bij nodig?",
-        "Aangeraden, geen verplichting. Een ontvochtiger droogt de lucht; een ventilator zorgt dat die droge lucht ook effectief langs muren en vloeren strijkt. In de praktijk verkort die combinatie de droogtijd merkbaar — vooral bij dikke chape.",
+        "Aangeraden, geen verplichting. Een ontvochtiger droogt de lucht; een ventilator zorgt dat die droge lucht ook effectief langs muren en vloeren strijkt. In de praktijk verkort die combinatie de droogtijd merkbaar, vooral bij dikke chape.",
       ],
       [
         "Wat als mijn ruimte groter is dan 400 m³?",
-        "Dan plaatsen we ofwel de TTK 650 S, ofwel meerdere toestellen. De configurator rekent automatisch uit hoeveel units u nodig heeft.",
+        "Dan plaatsen we ofwel de Ultimate, ofwel meerdere toestellen. De configurator rekent automatisch uit hoeveel units u nodig heeft.",
       ],
       [
         "Moet ik water aftappen?",
@@ -496,29 +496,29 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   ttk650: {
     imgAlt: [
-      "Vernast ECO Ultimate, condensontvochtiger TTK 650 S van 90 liter per dag voor ruimtes tot 600 m³",
-      "De drie Vernast eco-bouwdrogers naast elkaar, de TTK 650 S is het grootste model",
+      "Vernast Ultimate, condensontvochtiger Ultimate van 110 liter per dag voor ruimtes tot 600 m³",
+      "De drie Vernast eco-bouwdrogers naast elkaar, de Ultimate is het grootste model",
     ],
     key: [
-      ["Vochtafvoer", "90", "L/dag"],
+      ["Vochtafvoer", "110", "L/dag"],
       ["Bereik", "600", "m³"],
       ["Verbruik", "1,4", "kW"],
     ],
-    aboutTitle: "Wanneer kiest u de TTK 650 S?",
+    aboutTitle: "Wanneer kiest u de Ultimate?",
     about: [
-      "Met <strong>90 liter per dag</strong> en een bereik tot <strong>600 m³</strong> is dit het toestel voor situaties waar volume of snelheid het probleem is: grote werven, industriële ruimtes, ruime kelders of acute waterschade.",
-      "Bij <strong>waterschade</strong> is dit vaak de juiste keuze. Na een lek of overstroming zit het water niet alleen in de lucht maar diep in vloeren, muren en isolatie. Hoe sneller u de luchtvochtigheid omlaag brengt, hoe kleiner de kans op schimmel en structurele schade — de eerste 48 uur zijn beslissend.",
+      "Met <strong>110 liter per dag</strong> en een bereik tot <strong>600 m³</strong> is dit het toestel voor situaties waar volume of snelheid het probleem is: grote werven, industriële ruimtes, ruime kelders of acute waterschade.",
+      "Bij <strong>waterschade</strong> is dit vaak de juiste keuze. Na een lek of overstroming zit het water niet alleen in de lucht maar diep in vloeren, muren en isolatie. Hoe sneller u de luchtvochtigheid omlaag brengt, hoe kleiner de kans op schimmel en structurele schade, de eerste 48 uur zijn beslissend.",
       "Droogt u een <strong>kelder of onverwarmde ruimte</strong>? Combineer dit toestel met de <strong>elektrische kachel TEH 30 T</strong>. Onder 15 °C werkt condensatiedroging traag; met de kachel brengt u de temperatuur op peil en komt het vocht wel los.",
     ],
     bullets: [
       ["Tot 600 m³", "Grote werven, industriële ruimtes en ruime kelders in één toestel."],
-      ["90 L per dag", "De hoogste vochtafvoer in ons gamma — voor acute situaties."],
+      ["90 L per dag", "De hoogste vochtafvoer in ons gamma, voor acute situaties."],
       ["Eerste keuze bij waterschade", "Snel de luchtvochtigheid omlaag om schimmel en rot te voorkomen."],
       ["Combineer met kachel", "In koude ruimtes brengt de TEH 30 T de temperatuur op werkingsniveau."],
     ],
     specs: [
       ["Type", "Condensontvochtiger"],
-      ["Vochtafvoer (30 °C / 80 % RV)", "90 L/dag"],
+      ["Vochtafvoer (30 °C / 80 % RV)", "110 L/dag"],
       ["Aanbevolen volume", "tot 600 m³"],
       ["Luchtdebiet", "700 m³/u"],
       ["Opgenomen vermogen", "1,4 kW"],
@@ -541,7 +541,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
       [
         "Hoeveel stroom verbruikt het?",
-        "1,4 kW bij volle werking — vergelijkbaar met een waterkoker die continu op halve kracht staat. Over een week is dat een beperkte kost tegenover de schade die u voorkomt.",
+        "1,4 kW bij volle werking, vergelijkbaar met een waterkoker die continu op halve kracht staat. Over een week is dat een beperkte kost tegenover de schade die u voorkomt.",
       ],
       [
         "Kan ik meerdere toestellen huren?",
@@ -551,7 +551,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   ttv4500: {
     imgAlt: [
-      "Vernast Turbo Axiaalventilator TTV 4500, bouwventilator met 4.500 m³/u luchtverzet",
+      "Vernast Turbo Highflow, bouwventilator met 4.500 m³/u luchtverzet",
     ],
     key: [
       ["Luchtverzet", "4 500", "m³/u"],
@@ -560,14 +560,14 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
     aboutTitle: "Waarom een ventilator bij het drogen?",
     about: [
-      "Een ontvochtiger droogt de <strong>lucht</strong>. Maar het vocht zit in uw <strong>muren, chape en vloer</strong>. Zonder luchtbeweging vormt zich een dun laagje verzadigde lucht tegen die oppervlakken — en daar stopt de droging.",
+      "Een ontvochtiger droogt de <strong>lucht</strong>. Maar het vocht zit in uw <strong>muren, chape en vloer</strong>. Zonder luchtbeweging vormt zich een dun laagje verzadigde lucht tegen die oppervlakken, en daar stopt de droging.",
       "Een ventilator doorbreekt dat laagje. Door de lucht continu langs de bouwmassa te blazen blijft er telkens droge lucht in contact met het natte oppervlak, waardoor het vocht sneller vrijkomt. In de praktijk kan dat <strong>dagen verschil</strong> maken.",
       "Met <strong>4 500 m³/u</strong> en drie standen is dit toestel geschikt voor grote ruimtes. Het is licht, stapelbaar en richtbaar, zodat u de luchtstroom precies op de natte zone kunt zetten. Bij waterschade beschouwen wij een ventilator als <strong>essentieel</strong>, niet als optie.",
     ],
     bullets: [
       ["4 500 m³/u luchtverzet", "Genoeg debiet om een grote ruimte volledig in beweging te houden."],
       ["Onmisbaar bij waterschade", "Zonder circulatie droogt de lucht wel, de bouwmassa niet."],
-      ["Zeer zuinig", "0,2 kW — het goedkoopste toestel om uw droogtijd te verkorten."],
+      ["Zeer zuinig", "0,2 kW: het goedkoopste toestel om uw droogtijd te verkorten."],
       ["Richtbaar en stapelbaar", "Zet de luchtstroom precies waar het vocht zit; meerdere units combineerbaar."],
     ],
     specs: [
@@ -594,29 +594,30 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
       [
         "Kan ik hem alleen huren, zonder ontvochtiger?",
-        "Dat kan, bijvoorbeeld om een werf te ventileren of verf sneller te laten drogen. Voor bouwvocht raden we altijd de combinatie met een ontvochtiger aan — een ventilator alleen verplaatst het vocht, hij verwijdert het niet.",
+        "Dat kan, bijvoorbeeld om een werf te ventileren of verf sneller te laten drogen. Voor bouwvocht raden we altijd de combinatie met een ontvochtiger aan, een ventilator alleen verplaatst het vocht, hij verwijdert het niet.",
       ],
     ],
   },
   teddh30: {
     imgAlt: [
-      "Vernast elektrische bouwkachel TEddH 30 T, 30 kW met ingebouwde thermostaat",
+      "Vernast elektrische bouwkachel Heatpower 30, 30 kW met ingebouwde thermostaat",
     ],
     key: [
       ["Vermogen", "30", "kW"],
       ["Aansluiting", "400", "V"],
+      ["Max. temperatuur", "75", "°C"],
       ["Thermostaat", "ja", ""],
     ],
     aboutTitle: "Waarom verwarmen bij het drogen?",
     about: [
-      "Droging is temperatuurafhankelijk. Warme lucht kan veel meer vocht vasthouden dan koude lucht — en warme bouwmassa geeft haar vocht sneller af. <strong>Onder 15 °C daalt het rendement van een condensontvochtiger sterk</strong>; onder 10 °C wordt het proces echt traag.",
+      "Droging is temperatuurafhankelijk. Warme lucht kan veel meer vocht vasthouden dan koude lucht, en warme bouwmassa geeft haar vocht sneller af. <strong>Onder 15 °C daalt het rendement van een condensontvochtiger sterk</strong>; onder 10 °C wordt het proces echt traag.",
       "Precies daar komt deze kachel in beeld. In een <strong>kelder, een onverwarmde nieuwbouw of een winterwerf</strong> brengt de TEH 30 T de ruimte op werkingstemperatuur, waardoor de ontvochtiger weer op volle capaciteit kan werken. De combinatie levert een veel kortere droogtijd dan de ontvochtiger alleen.",
-      "Met <strong>30 kW</strong> en een ingebouwde thermostaat verwarmt het toestel ook grote volumes en houdt het de temperatuur stabiel zonder dat u erbij moet blijven. Aansluiting op <strong>400 V krachtstroom</strong> is vereist — onze technicus controleert dat bij de levering.",
+      "Met <strong>30 kW</strong> en een ingebouwde thermostaat verwarmt het toestel ook grote volumes en houdt het de temperatuur stabiel zonder dat u erbij moet blijven. Aansluiting op <strong>400 V krachtstroom</strong> is vereist, onze technicus controleert dat bij de levering.",
     ],
     bullets: [
       ["30 kW verwarmingsvermogen", "Brengt ook grote, koude ruimtes snel op werkingstemperatuur."],
       ["Onmisbaar in kelders", "Onder 15 °C werkt een ontvochtiger alleen niet efficiënt genoeg."],
-      ["Ingebouwde thermostaat", "Houdt de streeftemperatuur automatisch aan — geen toezicht nodig."],
+      ["Ingebouwde thermostaat", "Houdt de streeftemperatuur automatisch aan, geen toezicht nodig."],
       ["400 V krachtstroom", "Wij controleren bij levering of uw aansluiting geschikt is."],
     ],
     specs: [
@@ -635,7 +636,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     faq: [
       [
         "Waarom heb ik een kachel nodig bij een ontvochtiger?",
-        "Omdat droging temperatuurafhankelijk is. Onder 15 °C kan de lucht weinig vocht opnemen en geeft de bouwmassa haar water traag af. De kachel brengt de ruimte op temperatuur zodat de ontvochtiger op volle capaciteit werkt — samen droogt u aanzienlijk sneller.",
+        "Omdat droging temperatuurafhankelijk is. Onder 15 °C kan de lucht weinig vocht opnemen en geeft de bouwmassa haar water traag af. De kachel brengt de ruimte op temperatuur zodat de ontvochtiger op volle capaciteit werkt, samen droogt u aanzienlijk sneller.",
       ],
       [
         "Heb ik krachtstroom nodig?",
@@ -643,7 +644,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
       [
         "Verbruikt dit veel stroom?",
-        "Een kachel van 30 kW is geen zuinig toestel — maar in een koude ruimte is het de enige manier om de droging te doen werken. Zonder verwarming loopt de huurperiode van uw ontvochtiger véél langer op, wat uiteindelijk duurder uitkomt.",
+        "Een kachel van 30 kW is geen zuinig toestel, maar in een koude ruimte is het de enige manier om de droging te doen werken. Zonder verwarming loopt de huurperiode van uw ontvochtiger véél langer op, wat uiteindelijk duurder uitkomt.",
       ],
       [
         "Kan de kachel onbewaakt blijven staan?",
@@ -653,17 +654,18 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   teddh20: {
     imgAlt: [
-      "Vernast elektrische bouwkachel TEddH 20 T, 20 kW met thermostaat voor kleinere ruimtes",
+      "Vernast elektrische bouwkachel Heatboost 20, 20 kW met thermostaat voor kleinere ruimtes",
     ],
     key: [
       ["Vermogen", "20", "kW"],
       ["Aansluiting", "400", "V"],
+      ["Max. temperatuur", "60", "°C"],
       ["Thermostaat", "ja", ""],
     ],
     aboutTitle: "Wanneer kiest u de TEH 20 T?",
     about: [
       "Dezelfde rol als de <strong>TEH 30 T</strong>, maar een maat kleiner. Deze kachel brengt een <strong>kelder, garage, appartement of afgesloten verdieping</strong> op werkingstemperatuur zodat uw ontvochtiger weer op volle capaciteit kan werken.",
-      "Onder 15 °C neemt lucht nauwelijks vocht op en geeft de bouwmassa haar water traag af. In een onverwarmde ruimte is verwarmen dus geen comfortkeuze maar de voorwaarde om überhaupt te drogen — zonder kachel loopt uw huurperiode simpelweg langer.",
+      "Onder 15 °C neemt lucht nauwelijks vocht op en geeft de bouwmassa haar water traag af. In een onverwarmde ruimte is verwarmen dus geen comfortkeuze maar de voorwaarde om überhaupt te drogen, zonder kachel loopt uw huurperiode simpelweg langer.",
       "Met <strong>20 kW</strong> verwarmt dit toestel ruimtes waarvoor de 30 kW-versie overgedimensioneerd is. Ook dit model vraagt <strong>400 V krachtstroom</strong>; is die er niet, laat het ons dan vooraf weten.",
     ],
     bullets: [
@@ -689,7 +691,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
       [
         "Heb ik krachtstroom nodig?",
-        "Ja, ook dit toestel vraagt een 400 V driefasige aansluiting. Beschikt u daar niet over, laat het ons weten bij uw reservatie — dan bekijken we samen een alternatief.",
+        "Ja, ook dit toestel vraagt een 400 V driefasige aansluiting. Beschikt u daar niet over, laat het ons weten bij uw reservatie, dan bekijken we samen een alternatief.",
       ],
       [
         "Volstaat een kachel alleen om te drogen?",
@@ -699,7 +701,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   },
   radiaal2250: {
     imgAlt: [
-      "Vernast Turbo Radiaalventilator van 2.250 m³/u, blaast gericht over vloeren en chape",
+      "Vernast Turbo van 2.250 m³/u, blaast gericht over vloeren en chape",
       "Afmetingen van de Vernast radiaalventilator: 54,5 × 51,5 × 49 cm, 20 kg",
     ],
     key: [
@@ -707,10 +709,10 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ["Standen", "3", ""],
       ["Bescherming", "IP55", ""],
     ],
-    aboutTitle: "Axiaal of radiaal — wat kiest u?",
+    aboutTitle: "Axiaal of radiaal, wat kiest u?",
     about: [
       "Een <strong>axiaalventilator</strong> zet een hele ruimte in beweging. Een <strong>radiaalventilator</strong> doet iets anders: die perst de lucht in een smalle, krachtige straal vlak over het oppervlak. Precies wat u nodig heeft bij <strong>vloeren en chape</strong>.",
-      "Door die gerichte straal blaast het toestel de verzadigde luchtlaag weg die tegen een natte vloer blijft hangen. U kunt hem ook onder kasten, tegen een plint of in een hoek richten — plekken waar een axiaalventilator niet bij komt.",
+      "Door die gerichte straal blaast het toestel de verzadigde luchtlaag weg die tegen een natte vloer blijft hangen. U kunt hem ook onder kasten, tegen een plint of in een hoek richten, plekken waar een axiaalventilator niet bij komt.",
       "Met <strong>2 250 m³/u</strong>, drie standen en een <strong>spatwaterdichte behuizing (IP55)</strong> is dit het toestel dat wij standaard bijzetten bij chapedroging en na waterschade. Combineer hem met een ontvochtiger: de ventilator maakt het vocht los, de ontvochtiger haalt het uit de lucht.",
     ],
     bullets: [
@@ -723,6 +725,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ["Type", "Radiale bouwventilator"],
       ["Luchtverzet", "2 250 m³/u"],
       ["Snelheidsstanden", "3"],
+      ["Opgenomen vermogen", "max. 1,2 kW"],
       ["Beschermingsgraad", "IP55"],
       ["Voedingsspanning", "230 V / 50 Hz"],
       ["Doorvoerstopcontact", "ja, 6 A"],
@@ -755,7 +758,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   */
   revolution: {
     imgAlt: [
-      "Vernast ECO Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
+      "Vernast Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
     ],
     key: [
       ["Techniek", "Adsorptie", ""],
@@ -764,9 +767,9 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
     aboutTitle: "Wanneer kiest u deze adsorptiedroger?",
     about: [
-      "Een condensontvochtiger droogt de lucht in een ruimte. Deze <strong>adsorptiedroger</strong> doet het omgekeerde: hij blaast droge lucht via <strong>slangen</strong> precies naar de plek waar het vocht zit — onder een zwevende vloer, in een wandopbouw of in een geïsoleerde constructie.",
+      "Een condensontvochtiger droogt de lucht in een ruimte. Deze <strong>adsorptiedroger</strong> doet het omgekeerde: hij blaast droge lucht via <strong>slangen</strong> precies naar de plek waar het vocht zit, onder een zwevende vloer, in een wandopbouw of in een geïsoleerde constructie.",
       "Daardoor droogt u <strong>gericht</strong> in plaats van de hele ruimte, wat na waterschade vaak het verschil maakt tussen uitbreken en drogen. Adsorptie werkt bovendien door bij <strong>lagere temperaturen</strong>, waar een condensontvochtiger rendement verliest.",
-      "Twijfelt u of dit het juiste toestel is voor uw situatie? Bel ons — dit is bij uitstek een toestel dat wij liever eerst samen met u inschatten.",
+      "Twijfelt u of dit het juiste toestel is voor uw situatie? Bel ons, dit is bij uitstek een toestel dat wij liever eerst samen met u inschatten.",
     ],
     bullets: [
       ["Droogt gericht via slangen", "Onder vloeren, in wanden en op moeilijk bereikbare plekken."],
@@ -777,6 +780,9 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     specs: [
       ["Type", "Adsorptiedroger"],
       ["Werking", "droge lucht via slangen naar de natte zone"],
+      ["Opgenomen vermogen (20 °C / 60 % RV)", "0,42 kW"],
+      ["Aansluitvermogen", "0,55 kW"],
+      ["Voedingsspanning", "230 V / 50 Hz"],
       ["Toepassing", "vloeropbouw, wanden, isolatie, koude ruimtes"],
     ],
     faq: [
@@ -832,6 +838,26 @@ export function productImageAlt(product: Pick<Product, "name" | "img" | "imgAlt"
   return product.imgAlt[i] ?? altVoorBeeld(product.img[i] ?? "", product.name);
 }
 
+/**
+ * De kerngegevens van een toestel als leesbare pillen: ["70 liter per dag",
+ * "tot 400 m³", "1,1 kW"].
+ *
+ * Stond eerst alleen in `V3Products` op de homepage, terwijl /machines dezelfde
+ * cijfers als `waarde + eenheid` toonde — "70 L/dag" naast "70 liter per dag"
+ * voor hetzelfde toestel. Beide pagina's lezen nu dezelfde functie, zodat een
+ * hernoemd veld in het portaal op allebei hetzelfde oplevert.
+ */
+export function toestelChips(product: Pick<Product, "key">, aantal = 3): string[] {
+  return product.key.slice(0, aantal).map(([name, value, unit]) => {
+    if (name === "Vochtafvoer") return `${value} liter per dag`;
+    if (name === "Bereik") return `tot ${value} m³`;
+    if (unit) return `${value} ${unit}`;
+    if (/^\d/.test(value)) return `${value} ${name.toLowerCase()}`; // "Standen 3" → "3 standen"
+    // "Thermostaat ja" → "thermostaat", maar "Techniek adsorptie" → "adsorptie".
+    return value === "ja" ? name.toLowerCase() : value;
+  });
+}
+
 /** De gammavolgorde, beperkt tot wat het portaal vandaag te huur aanbiedt. */
 export const PRODUCT_ORDER = [
   "ttk170",
@@ -843,6 +869,57 @@ export const PRODUCT_ORDER = [
   "teddh30",
   "teddh20",
 ].filter((key) => PRODUCTS[key]);
+
+/**
+ * De slug waaronder een toestel op /verhuur/toestel/<slug> staat.
+ *
+ * Tot 11-2026 was dat de sleutel zelf: /verhuur/toestel/ttk350. Een typenummer
+ * is geen zoekopdracht — niemand tikt "ttk350" in, mensen zoeken op het
+ * soortwoord plus de maat waarop ze vergelijken ("bouwdroger 70 liter",
+ * "bouwkachel 30 kW"). Dat staat nu in de URL, en daarmee ook in de blauwe
+ * link in de zoekresultaten en in elke gedeelde link.
+ *
+ * De sleutels zelf blijven ongemoeid: die staan in verstuurde orders, in de
+ * Stripe-metadata en in het portaal. Alleen de URL verandert.
+ *
+ * De getallen hier zijn met opzet bevroren en worden niet uit `PRODUCTS`
+ * afgeleid. Publiceert het portaal morgen 55 in plaats van 50 liter, dan hoort
+ * de URL niet mee te verspringen — een URL die wijzigt bij een prijspublicatie
+ * verliest zijn posities en breekt elke link die ernaar wijst.
+ */
+export const TOESTEL_SLUG: Record<string, string> = {
+  ttk170: "bouwdroger-50-liter",
+  ttk350: "bouwdroger-70-liter",
+  ttk650: "bouwdroger-110-liter",
+  revolution: "adsorptiedroger",
+  ttv4500: "axiaalventilator-4500-m3",
+  radiaal2250: "radiaalventilator-2250-m3",
+  teddh30: "bouwkachel-30-kw",
+  teddh20: "bouwkachel-20-kw",
+};
+
+const SLEUTEL_PER_SLUG: Record<string, string> = Object.fromEntries(
+  Object.entries(TOESTEL_SLUG).map(([key, slug]) => [slug, key])
+);
+
+/** Het pad naar de detailpagina van een toestel. Typ dit nergens over. */
+export function toestelPad(key: string): string {
+  return `/verhuur/toestel/${TOESTEL_SLUG[key] ?? key}`;
+}
+
+/**
+ * Van URL-segment naar sleutel in `PRODUCTS`.
+ *
+ * Aanvaardt ook nog de oude sleutel-URL. De redirects in vercel.json vangen die
+ * af vóór de pagina laadt, maar `vite dev` kent die redirects niet en een oude
+ * link in een e-mail of een bladwijzer hoort hoe dan ook niet op het eerste
+ * toestel uit te komen.
+ */
+export function toestelKey(slug: string | undefined): string | undefined {
+  if (!slug) return undefined;
+  const key = SLEUTEL_PER_SLUG[slug] ?? slug;
+  return PRODUCTS[key] ? key : undefined;
+}
 
 /** Wat er op een toestelpagina bijgeboekt kan worden — enkel wat te huur staat. */
 export const PRODUCT_ADDONS: Record<string, string[]> = Object.fromEntries(

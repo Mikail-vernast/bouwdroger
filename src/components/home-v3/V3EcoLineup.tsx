@@ -1,6 +1,13 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRightIcon, CheckIcon } from "./icons";
+import {
+  ArrowRightIcon,
+  ClipboardIcon,
+  HelmetIcon,
+  PlanIcon,
+  ShieldIcon,
+} from "./icons";
+import { toestelPad } from "@/data/verhuur";
 
 interface Hotspot {
   id: string;
@@ -20,7 +27,7 @@ const HOTSPOTS: Hotspot[] = [
     model: "ttk170",
     dot: { left: "24%", top: "56%" },
     card: { left: "calc(24% + 46px)", top: "38%" },
-    name: "ECO Boost – 50l /dag",
+    name: "Boost – 50l /dag",
     context: "Kleine ruimtes · tot 250 m³",
     rows: [
       ["Vochtafvoer", "50 L/dag"],
@@ -33,7 +40,7 @@ const HOTSPOTS: Hotspot[] = [
     model: "ttk350",
     dot: { left: "49%", top: "46%" },
     card: { left: "calc(49% + 46px)", top: "28%" },
-    name: "ECO Performance – 80l /dag",
+    name: "Performance – 80l /dag",
     context: "Meest gehuurd · tot 400 m³",
     rows: [
       ["Vochtafvoer", "80 l/dag"],
@@ -46,17 +53,27 @@ const HOTSPOTS: Hotspot[] = [
     model: "ttk650",
     dot: { left: "72%", top: "34%" },
     card: { left: "auto", right: "2%", top: "16%" },
-    name: "ECO Ultimate – 150l /dag",
+    name: "Ultimate – 110l /dag",
     context: "Grote volumes · tot 600 m³",
     rows: [
-      ["Vochtafvoer", "150 l/dag"],
+      ["Vochtafvoer", "110 l/dag"],
       ["Luchtdebiet", "700 m³/u"],
       ["Verbruik", "1,4 kW"],
     ],
   },
 ];
 
-const TRUSTED = ["Architecten", "Verzekeringskantoren", "Bouwkundigen", "Aannemers"];
+/*
+ * Elk beroep zijn eigen icoon. Ze droegen alle vier hetzelfde groene vinkje:
+ * dat zei vier keer "ja" en nul keer wie, en in een rij naast elkaar werd het
+ * een streepjespatroon in plaats van vier herkenbare partijen.
+ */
+const TRUSTED: { who: string; icon: ReactNode }[] = [
+  { who: "Architecten", icon: <PlanIcon /> },
+  { who: "Verzekeringskantoren", icon: <ShieldIcon /> },
+  { who: "Bouwkundigen", icon: <ClipboardIcon /> },
+  { who: "Aannemers", icon: <HelmetIcon /> },
+];
 
 const V3EcoLineup = () => {
   const [open, setOpen] = useState<string | null>(null);
@@ -75,6 +92,36 @@ const V3EcoLineup = () => {
   return (
     <section className="eco" id="eco">
       <div className="wrap">
+        <div className="trustbar">
+          {/*
+            Het zegel staat vóór de tekst, niet ertussen: het is het eerste wat
+            het oog pakt op een rode balk, en daarna leest de bezoeker waarom.
+            `alt=""` omdat het woord ernaast al staat -- een schermlezer die
+            "gouden schild" hoort én "Gecertificeerd" leest, krijgt het twee keer.
+          */}
+          <div className="tb-seal">
+            <img
+              src="/vernast/schild-gecertificeerd.webp"
+              alt=""
+              width={360}
+              height={360}
+              loading="lazy"
+            />
+            <span>Gecertificeerd</span>
+          </div>
+          <div className="tb-l">
+            <span className="tb-k">Vertrouwd door wie het moet weten</span>
+            <h3>Vertrouwd door professionals in de bouw.</h3>
+          </div>
+          <div className="tb-chips">
+            {TRUSTED.map((item) => (
+              <span key={item.who}>
+                {item.icon} {item.who}
+              </span>
+            ))}
+          </div>
+        </div>
+
         <div className="sec-head mid">
           <span className="kick">Eco Bouwdrogers</span>
           <h2 className="sec">Onze beste eco bouwdrogers op een rij.</h2>
@@ -121,25 +168,11 @@ const V3EcoLineup = () => {
                   <span>{value}</span>
                 </div>
               ))}
-              <Link to={`/verhuur/toestel/${spot.model}`}>
+              <Link to={toestelPad(spot.model)}>
                 Bekijken <ArrowRightIcon size={12} strokeWidth={2.6} />
               </Link>
             </div>
           ))}
-        </div>
-
-        <div className="trustbar">
-          <div className="tb-l">
-            <span className="tb-k">Vertrouwd door wie het moet weten</span>
-            <h3>Vertrouwd door professionals in de bouw.</h3>
-          </div>
-          <div className="tb-chips">
-            {TRUSTED.map((who) => (
-              <span key={who}>
-                <CheckIcon size={15} strokeWidth={2.4} /> {who}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </section>

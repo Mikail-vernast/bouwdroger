@@ -2,7 +2,8 @@ import { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   BEDRIJF,
-  ONTDEK,
+  ALLES_OVER_DROGEN,
+  MENU_SITUATIES,
   PAKKETTEN,
   SERVICE,
   TOESTELLEN,
@@ -20,7 +21,8 @@ import "@/styles/mobile-nav.css";
  *
  * De vorm komt van vernast-vochtbestrijding.be, waar dit menu al draait: een
  * schermvullend maroon paneel dat van onderaf omhoog schuift, genummerde
- * koppen, uitklapbare groepen met categoriechips, en onderaan de offerteknop
+ * koppen, uitklapbare groepen met categoriechips, en onderaan de knop naar
+ * de calculator
  * met het telefoonnummer. Zo herkent iemand die van de ene Vernast-site naar
  * de andere gaat hetzelfde menu.
  *
@@ -56,11 +58,20 @@ const UITKLAPBAAR: Rij[] = [
     categorieen: [
       { chip: "Pakketten", items: PAKKETTEN },
       { chip: "Toestellen", items: TOESTELLEN },
+      // Dezelfde vierde kolom als op de desktop: wie het menu Bouwdroging
+      // opent, moet ook hier bij zijn eigen situatie kunnen.
+      { chip: "Toepassingen", items: MENU_SITUATIES },
       { chip: "Levering & service", items: SERVICE },
     ],
   },
-  { id: "drogen", label: "Alles over drogen", categorieen: [{ items: ONTDEK }] },
-  { id: "groep", label: "Vernast Group", categorieen: [{ items: VERNAST_GROEP }] },
+  {
+    id: "drogen",
+    label: "Alles over drogen",
+    // Dezelfde kolommen als in het mega-menu op de desktop, zodat beide
+    // dezelfde pagina's tonen; de kop van elke kolom wordt hier de chip.
+    categorieen: ALLES_OVER_DROGEN.map((groep) => ({ chip: groep.titel, items: groep.items })),
+  },
+  { id: "groep", label: "Group", categorieen: [{ items: VERNAST_GROEP }] },
 ];
 
 const strokeProps = {
@@ -292,7 +303,7 @@ const MobileNav = ({
 
       <div className="mnav-foot">
         <Link className="mnav-cta mnav-rise" style={rise(6)} to="/verhuur/calculator">
-          Gratis offerte aanvragen
+          Bereken uw droogpakket
           <ArrowRight />
         </Link>
         <a className="mnav-call mnav-rise" style={rise(7)} href={`tel:${CONTACT.phoneE164}`}>

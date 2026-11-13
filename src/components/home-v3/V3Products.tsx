@@ -1,14 +1,15 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRightIcon, InfoIcon, LeafIcon } from "./icons";
-import { PRODUCTS } from "@/data/verhuur";
+import { ArrowRightIcon, InfoIcon } from "./icons";
+import { PRODUCTS, toestelChips, toestelPad } from "@/data/verhuur";
 import { DAY_PRICE_MIN } from "@/data/tarieflijst";
+import { VAT_RATE } from "@/lib/booking";
 
 /**
  * Naam, tekst, prijs en specs van één kaart, uit de gepubliceerde tarieven.
  *
  * De kaarten droegen hun eigen bedragen uit de designhandoff: "vanaf € 9,00 per
- * dag" op de ECO Boost, terwijl diezelfde TTK 170 op de pagina waar de kaart
+ * dag" op de Boost, terwijl diezelfde TTK 170 op de pagina waar de kaart
  * naartoe linkt € 18 per dag kost. Wie doorklikte zag zijn prijs verdubbelen.
  * Hetzelfde gold voor de specs (80 l/dag op een toestel dat er 70 haalt) en
  * voor een doorgestreepte "− 8% korting" die nergens op sloeg.
@@ -24,26 +25,44 @@ function tariff(key: string | undefined) {
   const product = key ? PRODUCTS[key] : undefined;
   if (!product) return null;
 
-  const label = ([name, value, unit]: [string, string, string]): string => {
-    if (name === "Vochtafvoer") return `${value} liter per dag`;
-    if (name === "Bereik") return `tot ${value} m³`;
-    if (unit) return `${value} ${unit}`;
-    if (/^\d/.test(value)) return `${value} ${name.toLowerCase()}`; // "Standen 3" → "3 standen"
-    // "Thermostaat ja" → "thermostaat", maar "Techniek adsorptie" → "adsorptie".
-    return value === "ja" ? name.toLowerCase() : value;
-  };
-
   return {
     name: product.short,
     tag: product.badge,
     blurb: product.sum,
-    price: `€ ${product.day.toLocaleString("nl-BE", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`,
-    chips: product.key.slice(0, 2).map(label),
+    day: product.day,
+    // Drie in plaats van twee: de kachels dragen hun maximumtemperatuur als
+    // derde spec, en dat is naast het vermogen het cijfer waarop iemand kiest.
+    // Bij de drogers levert het de stroomopname op, bij de ventilatoren het
+    // verbruik -- allebei zinvol, en de chips lopen netjes door naar een
+    // tweede regel.
+    chips: toestelChips(product),
   };
 }
+
+/*
+ * De vochtafvoer is het cijfer waarop bouwdrogers vergeleken worden -- het
+ * verschil tussen 50 en 110 liter per dag bepaalt of een toestel bij de werf
+ * past. Het stond tussen de andere chips in dezelfde grijze pil en viel
+ * daardoor niet op. Herkenning op het achtervoegsel: zowel de chip uit de
+ * tarieven als de terugvaltekst hierboven eindigt op "liter per dag".
+ */
+/*
+ * De catalogus rekent excl. btw -- zo staan de bedragen in het portaal en zo
+ * rekent de checkout ze server-side opnieuw uit. Particulieren vergelijken
+ * echter brutobedragen, en wie "€ 9,00" leest en bij het afrekenen € 10,89
+ * betaalt, voelt zich beetgenomen. Vandaar de schakelaar: hetzelfde getal, de
+ * bezoeker kiest zelf in welke vorm.
+ *
+ * Alleen weergave. Er wordt hier niets doorgegeven aan een bestelling; de
+ * bedragen die werkelijk afgerekend worden komen uit `src/lib/booking.ts`.
+ */
+const euro = (bedrag: number) =>
+  `€ ${bedrag.toLocaleString("nl-BE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+const metBtw = (bedrag: number, incl: boolean) =>
+  incl ? Math.round(bedrag * (1 + VAT_RATE) * 100) / 100 : bedrag;
+
+const isVochtafvoer = (chip: string) => chip.endsWith("liter per dag");
 
 interface ProductCard {
   /** Internal device route, or an absolute URL for the shop-hosted model. */
@@ -64,7 +83,8 @@ interface ProductCard {
   /** Enkel de condensontvochtigers uit de ECO-lijn; de adsorptiedroger niet. */
   eco?: boolean;
   chips: string[];
-  price: string;
+  /** Dagprijs excl. btw; de weergave bepaalt of er btw op komt. */
+  day: number;
 }
 
 /*
@@ -78,74 +98,74 @@ interface ProductCard {
  */
 const MAIN: ProductCard[] = [
   {
-    href: "/verhuur/toestel/ttk170",
+    href: toestelPad("ttk170"),
     key: "ttk170",
     tag: "Kleine ruimtes",
     image: "/vernast/eco-boost.webp",
-    alt: "Vernast ECO Boost bouwdroger, condensontvochtiger van 50 liter per dag voor ruimtes tot 250 m³",
-    name: "ECO Boost",
+    alt: "Vernast Boost bouwdroger, condensontvochtiger van 50 liter per dag voor ruimtes tot 250 m³",
+    name: "Boost",
     blurb:
       "Compact en verrijdbaar, past door elke deuropening. Ideaal voor één kamer of een appartement.",
     eco: true,
     chips: ["50 liter per dag", "tot 250 m³"],
-    price: "€ 9,00",
+    day: 9,
   },
   {
-    href: "/verhuur/toestel/ttk350",
+    href: toestelPad("ttk350"),
     key: "ttk350",
     tag: "Meest gehuurd",
     hot: true,
     image: "/vernast/eco-performance.webp",
-    alt: "Vernast ECO Performance bouwdroger, condensontvochtiger van 70 liter per dag voor ruimtes tot 400 m³",
-    name: "ECO Performance",
+    alt: "Vernast Performance bouwdroger, condensontvochtiger van 70 liter per dag voor ruimtes tot 400 m³",
+    name: "Performance",
     blurb:
       "Onze standaard voor nieuwbouw. Droogt chape en pleisterwerk betrouwbaar en energiezuinig.",
     eco: true,
     chips: ["70 liter per dag", "tot 400 m³"],
-    price: "€ 12,00",
+    day: 12,
   },
   {
-    href: "/verhuur/toestel/ttk650",
+    href: toestelPad("ttk650"),
     key: "ttk650",
     tag: "Grote volumes",
     image: "/vernast/eco-ultimate.webp",
-    alt: "Vernast ECO Ultimate bouwdroger, condensontvochtiger van 90 liter per dag voor ruimtes tot 600 m³",
-    name: "ECO Ultimate",
+    alt: "Vernast Ultimate bouwdroger, condensontvochtiger van 110 liter per dag voor ruimtes tot 600 m³",
+    name: "Ultimate",
     blurb: "Het zwaarste toestel in het gamma. Voor grote werven, kelders en zware waterschade.",
     eco: true,
-    chips: ["90 liter per dag", "tot 600 m³"],
-    price: "€ 16,00",
+    chips: ["110 liter per dag", "tot 600 m³"],
+    day: 16,
   },
   /*
-    De ECO Revolution staat nog niet in ons depot, dus zolang het portaal hem
+    De Revolution staat nog niet in ons depot, dus zolang het portaal hem
     niet te huur zet, blijft deze kaart naar de webshop wijzen. Zodra de
     schakelaar daar aan gaat, bestaat `PRODUCTS.revolution` en verwijst de kaart
     naar onze eigen pagina — met de prijs die in het portaal staat.
   */
   PRODUCTS.revolution
     ? {
-        href: "/verhuur/toestel/revolution",
+        href: toestelPad("revolution"),
         key: "revolution",
         tag: "Plaatselijk drogen",
         image: "/vernast/eco-revolution.webp",
-        alt: "Vernast ECO Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
-        name: "ECO Revolution",
+        alt: "Vernast Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
+        name: "Revolution",
         blurb:
           "Droogt gericht via slangen: onder vloeren, in wanden en op moeilijk bereikbare plekken.",
         chips: ["Adsorptie", "gericht drogen"],
-        price: "€ 25,00",
+        day: 25,
       }
     : {
         href: "https://www.bouwdrogerservice.be/collections/bouwdrogers/products/eco-revolution",
         external: true,
         tag: "Plaatselijk drogen",
         image: "/vernast/eco-revolution.webp",
-        alt: "Vernast ECO Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
-        name: "ECO Revolution",
+        alt: "Vernast Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
+        name: "Revolution",
         blurb:
           "Droogt gericht via slangen: onder vloeren, in wanden en op moeilijk bereikbare plekken.",
         chips: ["Adsorptie", "gericht drogen"],
-        price: "€ 25,00",
+        day: 25,
       },
 ];
 
@@ -159,53 +179,53 @@ const MAIN: ProductCard[] = [
 */
 const SUPPORT: ProductCard[] = [
   {
-    href: "/verhuur/toestel/ttv4500",
+    href: toestelPad("ttv4500"),
     key: "ttv4500",
     tag: "Luchtcirculatie",
     image: "/vernast/vent-axiaal.webp",
-    alt: "Vernast Turbo Axiaalventilator, bouwventilator met 4.500 m³/u luchtverzet",
-    name: "Turbo Axiaalventilator",
+    alt: "Vernast Highflow, bouwventilator met 4.500 m³/u luchtverzet",
+    name: "Highflow",
     blurb: "Versnelt elke droging door de lucht continu in beweging te houden.",
     chips: ["4 500 m³/u", "3 standen"],
-    price: "€ 9,00",
+    day: 9,
   },
   {
-    href: "/verhuur/toestel/radiaal2250",
+    href: toestelPad("radiaal2250"),
     key: "radiaal2250",
     tag: "Gericht drogen",
     image: "/vernast/vent-radiaal.webp",
-    alt: "Vernast Turbo Radiaalventilator van 2.250 m³/u voor vloer- en muurdroging",
-    name: "Turbo Radiaalventilator",
+    alt: "Vernast Turboflow van 2.250 m³/u voor vloer- en muurdroging",
+    name: "Turbo",
     blurb: "Blaast gericht over vloeren en chape, ideaal in combinatie met een droger.",
     chips: ["2 250 m³/u", "vloeren & chape"],
-    price: "€ 8,00",
+    day: 8,
   },
   {
-    href: "/verhuur/toestel/teddh30",
-    key: "teddh30",
-    tag: "Verwarming",
-    image: "/vernast/kachel-30.webp",
-    alt: "Vernast elektrische bouwkachel TEddH 30 T, 30 kW met ingebouwde thermostaat",
-    name: "Elektrische kachel 30",
-    blurb: "Houdt de ruimte op temperatuur zodat de droging effectief blijft.",
-    chips: ["30 kW", "thermostaat"],
-    price: "€ 12,00",
-  },
-  {
-    href: "/verhuur/toestel/teddh20",
+    href: toestelPad("teddh20"),
     key: "teddh20",
     tag: "Verwarming",
     image: "/vernast/kachel-20.webp",
-    alt: "Vernast elektrische bouwkachel TEddH 20 T, 20 kW met thermostaat voor kleinere ruimtes",
-    name: "Elektrische kachel 20",
+    alt: "Vernast Heatboost 20 elektrische bouwkachel, 20 kW met thermostaat voor kleinere ruimtes",
+    name: "Heatboost 20",
     blurb: "Compacte verwarming voor kleinere ruimtes tijdens de droogperiode.",
-    chips: ["20 kW", "thermostaat"],
-    price: "€ 9,00",
+    chips: ["20 kW", "400 V", "60 °C"],
+    day: 9,
+  },
+  {
+    href: toestelPad("teddh30"),
+    key: "teddh30",
+    tag: "Verwarming",
+    image: "/vernast/kachel-30.webp",
+    alt: "Vernast Heatpower 30 elektrische bouwkachel, 30 kW met ingebouwde thermostaat",
+    name: "Heatpower 30",
+    blurb: "Houdt de ruimte op temperatuur zodat de droging effectief blijft.",
+    chips: ["30 kW", "400 V", "75 °C"],
+    day: 12,
   },
 ];
 
 /** The card body is identical for internal and external links. */
-const CardBody = ({ card }: { card: ProductCard }) => {
+const CardBody = ({ card, incl }: { card: ProductCard; incl: boolean }) => {
   const live = tariff(card.key);
   return (
   <>
@@ -218,13 +238,22 @@ const CardBody = ({ card }: { card: ProductCard }) => {
       <h3>{live?.name ?? card.name}</h3>
       <p>{live?.blurb ?? card.blurb}</p>
       <div className="chips">
+        {/*
+          Blaadje en druppel als afbeelding en niet als lijnicoon: ze dragen hun
+          eigen groen en blauw, waardoor de twee chips al aan hun vorm te
+          herkennen zijn. 96x96 webp van elk zo'n 1,8 kB; `width`/`height` staan
+          erop zodat de chip niet verspringt terwijl ze laden.
+        */}
         {card.eco && (
           <span className="chip eco">
-            <LeafIcon /> Eco
+            <img src="/vernast/icoon-eco.webp" alt="" width={96} height={96} loading="lazy" /> Eco
           </span>
         )}
         {(live?.chips ?? card.chips).map((chip) => (
-          <span className="chip" key={chip}>
+          <span className={isVochtafvoer(chip) ? "chip water" : "chip"} key={chip}>
+            {isVochtafvoer(chip) && (
+              <img src="/vernast/icoon-druppel.webp" alt="" width={96} height={96} loading="lazy" />
+            )}
             {chip}
           </span>
         ))}
@@ -234,8 +263,8 @@ const CardBody = ({ card }: { card: ProductCard }) => {
           Product huren <ArrowRightIcon size={13} strokeWidth={2.6} />
         </span>
         <span className="pr">
-          vanaf<b>{live?.price ?? card.price}</b>
-          <small>/dag excl. btw</small>
+          vanaf<b>{euro(metBtw(live?.day ?? card.day, incl))}</b>
+          <small>/dag {incl ? "incl." : "excl."} btw</small>
         </span>
       </div>
     </div>
@@ -243,18 +272,27 @@ const CardBody = ({ card }: { card: ProductCard }) => {
   );
 };
 
-const Card = ({ card }: { card: ProductCard }): ReactNode =>
+const Card = ({ card, incl }: { card: ProductCard; incl: boolean }): ReactNode =>
   card.external ? (
     <a className={`pc${card.hot ? " hot" : ""}`} href={card.href} target="_blank" rel="noopener">
-      <CardBody card={card} />
+      <CardBody card={card} incl={incl} />
     </a>
   ) : (
     <Link className={`pc${card.hot ? " hot" : ""}`} to={card.href}>
-      <CardBody card={card} />
+      <CardBody card={card} incl={incl} />
     </Link>
   );
 
-const V3Products = () => (
+const V3Products = () => {
+  /*
+    Begint op "excl. btw" -- hetzelfde als wat er in de geprerenderde HTML
+    staat. Zou de beginstand "incl." zijn, dan zag de bezoeker het bedrag
+    bij het laden onder zijn ogen verspringen, en citeerden de AI-antwoord-
+    machines die geen JavaScript uitvoeren de verkeerde prijs.
+  */
+  const [incl, setIncl] = useState(false);
+
+  return (
   <section className="prods" id="toestellen">
     <div className="wrap">
       <div className="phead-row">
@@ -263,8 +301,8 @@ const V3Products = () => (
           <h2 className="sec">Professionele toestellen voor elke droogsituatie.</h2>
           <p className="lede">
             Van één kamer tot grotere werven, van nieuwbouw tot waterschade: u kiest geen toestel,
-            maar een oplossing die past bij uw ruimte en droogdoel. Prijzen vanaf € {DAY_PRICE_MIN} per
-            dag, excl. btw.
+            maar een oplossing die past bij uw ruimte en droogdoel. Prijzen vanaf{" "}
+            {euro(metBtw(DAY_PRICE_MIN, incl))} per dag, {incl ? "incl." : "excl."} btw.
           </p>
         </div>
         {/*
@@ -286,23 +324,39 @@ const V3Products = () => (
               droog-garantie waarmaken.
             </span>
           </div>
+
+          {/*
+            Twee knoppen in plaats van een schuifje: bij een schuifje moet de
+            bezoeker raden welke kant "aan" is, twee knoppen tonen allebei de
+            toestanden met de actieve ingedrukt. `aria-pressed` zegt hetzelfde
+            tegen een schermlezer.
+          */}
+          <div className="btw-switch" role="group" aria-label="Prijzen tonen met of zonder btw">
+            <button type="button" aria-pressed={!incl} onClick={() => setIncl(false)}>
+              Excl. btw
+            </button>
+            <button type="button" aria-pressed={incl} onClick={() => setIncl(true)}>
+              Incl. btw
+            </button>
+          </div>
         </div>
       </div>
 
       <div className="pgrid main">
         {MAIN.map((card) => (
-          <Card card={card} key={card.name} />
+          <Card card={card} incl={incl} key={card.name} />
         ))}
       </div>
 
-      <div className="psub">
-        <span className="pst">Versnel de droging</span>
-        <span className="psl" />
-      </div>
-
+      {/*
+        Hier stond een tussenkopje "Versnel de droging" met een streep
+        (`.psub`/`.pst`/`.psl`). Geen van die drie klassen had ergens CSS, dus
+        het kwam eruit als losse kleine tekst tussen twee kaartrijen en de
+        streep tekende niets. De rijen lezen zonder tussenkop even goed.
+      */}
       <div className="pgrid two">
         {SUPPORT.map((card) => (
-          <Card card={card} key={card.name} />
+          <Card card={card} incl={incl} key={card.name} />
         ))}
       </div>
 
@@ -336,6 +390,7 @@ const V3Products = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default V3Products;

@@ -17,7 +17,7 @@ export interface SeoEntry {
 
 export const SEO = {
   home: {
-    title: "Bouwdroger huren in Vlaanderen — geleverd in 24 u | Vernast",
+    title: "Bouwdroger huren in Vlaanderen - geleverd in 24 u | Vernast",
     description:
       "Bereken welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie, vochtmeting en ophaling inbegrepen, binnen 24 uur in heel Vlaanderen.",
   },
@@ -28,8 +28,22 @@ export const SEO = {
     description:
       "Chape gelegd of net gepleisterd? Droog tot vier keer sneller met een professionele bouwdroger. Levering aan huis, installatie en gratis vochtmeting inbegrepen.",
   },
+  /* Twee eigen dienstpagina's sinds 12-11-2026. "Chape drogen" en
+     "pleisterwerk drogen" zijn twee zoekvragen van twee verschillende mensen;
+     /nieuwbouw-drogen blijft voor wie beide samen droogt. De gidsen leggen de
+     materie uit, deze twee verkopen de dienst. */
+  chapeDrogen: {
+    title: "Chape drogen met een bouwdroger | Vernast",
+    description:
+      "Chape drogen met een droogpakket: huurtermijn per chapedikte, levering en installatie in heel Vlaanderen, vochtmeting voor en na en de drooggarantie.",
+  },
+  pleisterwerkDrogen: {
+    title: "Pleisterwerk drogen met een bouwdroger | Vernast",
+    description:
+      "Pleisterwerk drogen met een droogpakket: huurtermijn per laagdikte, levering en installatie, meting voor en na, en een datum waarop de schilder kan starten.",
+  },
   waterschade: {
-    title: "Bouwdroger bij waterschade — vandaag nog geleverd | Vernast",
+    title: "Bouwdroger bij waterschade - vandaag nog geleverd | Vernast",
     description:
       "Waterlek of overstroming? Wij leveren uw bouwdroger en ventilatoren vandaag nog. De eerste 48 uur bepalen of u schimmel en structurele schade voorblijft.",
   },
@@ -45,6 +59,14 @@ export const SEO = {
     title: "Ozonbehandeling tegen schimmel en geur | Vernast",
     description:
       "Schimmel of muffe geur die blijft terugkomen? Een ozonbehandeling doodt de achtergebleven sporen in de hele ruimte. Boek online, uitvoering door onze ploeg.",
+  },
+  /* Zusterpagina van /ozonbehandeling, en bewust een eigen pagina: "schimmel
+     verwijderen" en "ozonbehandeling" zijn twee zoekvragen op twee momenten in
+     hetzelfde traject. Deze mikt op het handwerk, die andere op de afronding. */
+  ontschimmeling: {
+    title: "Ontschimmeling: schimmel verwijderen aan de bron | Vernast",
+    description:
+      "Schimmel laten verwijderen? Wij pakken de oorzaak aan, halen het aangetaste materiaal weg en drogen tot de meting het bevestigt. Gratis plaatsbezoek.",
   },
 
   /* ---------- Aanbod ---------- */
@@ -65,30 +87,28 @@ export const SEO = {
     description:
       "Wij brengen uw droogpakket binnen 24 uur naar de werf, plaatsen elk toestel, sluiten de condensafvoer aan en halen alles weer op zodra u droog bent.",
   },
-
-  /* ---------- Rekenhulpen ----------
-     Twee calculators met een verschillende intentie: deze rekent uit hoeveel
-     capaciteit een ruimte nodig heeft, de verhuurcalculator stelt een compleet
-     pakket samen. Overlappen ze in de praktijk toch, dan is er één te veel. */
-  calculator: {
-    title: "Welke bouwdroger heb ik nodig? Bereken het | Vernast",
+  afhalen: {
+    title: "Bouwdroger zelf afhalen in Aartselaar | Vernast",
     description:
-      "Geef uw oppervlakte en plafondhoogte in en zie meteen hoeveel liter vochtafvoer per dag u nodig heeft, welk toestel daarbij past en hoeveel units.",
+      "Zo werkt een bouwdroger afhalen bij Vernast in Aartselaar: online reserveren, vervoer, tijdsloten, adres en route naar ons magazijn langs de A12.",
   },
-  calculatorDetail: {
-    title: "Uw berekende droogadvies | Vernast Bouwdrogers",
-    description: "Het resultaat van uw capaciteitsberekening, met de toestellen die daarbij passen.",
-    noindex: true,
-  },
+
+  /* ---------- Rekenhulp ----------
+     Er stonden hier twee calculators naast elkaar: /calculator rekende uit
+     hoeveel capaciteit een ruimte nodig heeft, /verhuur/calculator stelt een
+     compleet pakket samen. Die eerste is op 10-11-2026 verwijderd omdat de
+     twee in de praktijk op dezelfde zoekintentie mikten — en omdat alleen de
+     verhuurcalculator met de gepubliceerde tarieven rekent. /calculator en
+     /calculator/detail staan nu als 308 in vercel.json. */
 
   /* ---------- Bedrijf ---------- */
   overOns: {
-    title: "Over Vernast — Belgisch familiebedrijf in bouwdroging",
+    title: "Over Vernast - Belgisch familiebedrijf in bouwdroging",
     description:
       "Vernast Bouwdrogers is een Belgisch familiebedrijf uit Aartselaar met jarenlange ervaring in bouwdroging, vochtbestrijding en schilderwerken.",
   },
   contact: {
-    title: "Contact — bel 03 689 90 65 of mail ons | Vernast",
+    title: "Contact - bel 03 689 90 65 of mail ons | Vernast",
     description:
       "Vragen over bouwdroging of een dringende levering nodig? Bel 03 689 90 65 op werkdagen tussen 08:00 en 17:00, of stuur ons een bericht.",
   },
@@ -124,7 +144,7 @@ export const SEO = {
      Elk één vraag die mensen letterlijk intikken ("hoelang moet chape drogen",
      "bouwdroger verbruik", "adsorptiedroger huren") en waar deze site in
      september 2026 op plek 40-90 stond zonder één pagina die de vraag
-     beantwoordde. Informatief, dus niet in concurrentie met /nieuwbouw of
+     beantwoordde. Informatief, dus niet in concurrentie met /nieuwbouw-drogen of
      /prijzen: die verkopen, deze leggen uit en verwijzen door. */
   gids: {
     title: "Gidsen over bouwdroging: droogtijd en verbruik | Vernast",
@@ -135,6 +155,14 @@ export const SEO = {
     title: "Hoe lang moet chape drogen? Droogtijd per cm | Vernast",
     description:
       "Hoe lang moet chape drogen? Droogtijd per dikte, natuurlijk en met bouwdroger, het verschil tussen cement- en anhydrietchape en wanneer u restvocht meet.",
+  },
+  /* Eigen pagina sinds november 2026. De vraag stond eerder als sectie op de
+     chapegids, en die twee vochten om dezelfde zoekvraag: wie "hoe lang moet
+     pleisterwerk drogen" zocht, kreeg een pagina met chape in de titel. */
+  gidsPleisterDrogen: {
+    title: "Hoe lang moet pleisterwerk drogen? | Vernast",
+    description:
+      "Hoe lang moet pleisterwerk drogen voor u schildert? Droogtijd per laagdikte, gipspleister of cementpleister, en waarom vocht in een dicht huis blijft hangen.",
   },
   gidsCondensAdsorptie: {
     title: "Condensdroger of adsorptiedroger? Het verschil | Vernast",
@@ -152,7 +180,7 @@ export const SEO = {
   luchtontvochtigerHuren: {
     title: "Luchtontvochtiger huren voor kelder en bouw | Vernast",
     description:
-      "Luchtontvochtiger huren voor een vochtige kelder, na waterschade of in nieuwbouw. Condensontvochtigers van 50 tot 90 liter per dag, met dagprijs en levering.",
+      "Luchtontvochtiger huren voor een vochtige kelder, na waterschade of in nieuwbouw. Condensontvochtigers van 50 tot 110 liter per dag, met dagprijs en levering.",
   },
 
   /* ---------- Juridisch ---------- */
@@ -161,6 +189,15 @@ export const SEO = {
     description:
       "De algemene verhuurvoorwaarden van Vernast: huurperiode, levering en ophaling, prijzen, aansprakelijkheid, verzekeringen en privacybeleid.",
     noindex: true,
+  },
+  /*
+    De zichtbare sitemap. Staat bewust op index: hij is de kortste weg naar elke
+    pagina, ook voor een antwoordmachine die geen JavaScript draait.
+  */
+  sitemap: {
+    title: "Sitemap: alle pagina's | Vernast Bouwdrogers",
+    description:
+      "Alle pagina's van Vernast Bouwdrogers op één rij: droogpakketten, toestellen met hun capaciteit, gidsen, realisaties en elke gemeente waar wij leveren.",
   },
   privacy: {
     title: "Privacybeleid | Vernast Bouwdrogers",

@@ -97,7 +97,7 @@ const DrooggarantiePage = () => {
             <div className="ca-h"><b>Uw droogplan</b><span>Wordt berekend</span></div>
             <div className="carow"><span className="k">Woonoppervlakte</span><span className="v canum">120 <small>m²</small></span></div>
             <div className="carow"><span className="k">Volume</span><span className="v canum">312 <small>m³</small></span></div>
-            <div className="carow"><span className="k">Aanbevolen pakket</span><span className="v">2× ECO Performance</span></div>
+            <div className="carow"><span className="k">Aanbevolen pakket</span><span className="v">2× Performance</span></div>
             <div className="cabar"><b /></div>
             <div className="ca-f"><span>Vocht in materiaal</span><span>Streefwaarde</span></div>
             <div className="ca-res"><b>Berekende droogtijd: <span className="canum">12 dagen</span></b><span>100% droog*</span></div>

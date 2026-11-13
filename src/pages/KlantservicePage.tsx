@@ -165,69 +165,83 @@ const KlantservicePage = () => {
           <div className="sec-head">
             <span className="kick">Storing aan een toestel</span>
             <h2 className="sec">Los de meeste problemen in 2 minuten zelf op.</h2>
-            <p className="lede">Onze toestellen zijn robuust, maar op een werf kan altijd iets gebeuren. Dit zijn de vijf meest voorkomende meldingen, met de oplossing erbij.</p>
+            <p className="lede">Onze toestellen zijn robuust, maar op een werf kan altijd iets gebeuren. Klap de melding open die bij uw situatie past, en u krijgt de oplossing stap voor stap.</p>
           </div>
           <div className="fix-grid">
-            <div className="fx">
-              <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z" /></svg></span>Bouwdroger start niet of valt uit</h3>
+            <details className="fx">
+              <summary>
+                <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z" /></svg></span>Bouwdroger start niet of valt uit<span className="fx-chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></h3>
+              </summary>
               <ol>
                 <li>Controleer of het stopcontact werkt (test met een ander toestel).</li>
                 <li>Kijk in de zekeringkast en schakel de automaat terug in.</li>
                 <li>Wacht 10 minuten: na een stroomonderbreking herstart het toestel automatisch.</li>
               </ol>
               <p>Blijft het toestel uitvallen? Bel <a href="tel:+3236899065">03 689 90 65</a>, wij wisselen het binnen 24 uur om.</p>
-            </div>
-            <div className="fx">
-              <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg></span>Zekering springt regelmatig</h3>
+            </details>
+            <details className="fx">
+              <summary>
+                <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg></span>Zekering springt regelmatig<span className="fx-chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></h3>
+              </summary>
               <ol>
                 <li>Sluit de bouwdroger aan op een aparte stroomgroep, niet samen met ander zwaar materieel.</li>
                 <li>Gebruik geen lichte huishoudverlengkabel: de meegeleverde kabels zijn berekend op het vermogen.</li>
               </ol>
               <p>Geen (werkende) elektriciteitskast op de werf? Wij verhuren een werfverdeelkast (paddenstoel). Bel <a href="tel:+3236899065">03 689 90 65</a>.</p>
-            </div>
-            <div className="fx">
-              <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></span>Bouwdroger overgelopen</h3>
+            </details>
+            <details className="fx">
+              <summary>
+                <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></span>Bouwdroger overgelopen<span className="fx-chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></h3>
+              </summary>
               <ol>
                 <li>Zet de bouwdroger uit.</li>
                 <li>Controleer of het reservoir en de afvoerdarm goed vastzitten en nergens loszitten of knikken.</li>
                 <li>Start het toestel terug op.</li>
               </ol>
               <p>Loopt het opnieuw over? Bel <a href="tel:+3236899065">03 689 90 65</a>, dan vervangen we de pomp of het toestel gratis.</p>
-            </div>
-            <div className="fx">
-              <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a5 5 0 0 0-6.9 6.9L3 18v3h3l4.8-4.8a5 5 0 0 0 6.9-6.9L14 12l-2-2z" /></svg></span>Condenspomp voert geen water af</h3>
+            </details>
+            <details className="fx">
+              <summary>
+                <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a5 5 0 0 0-6.9 6.9L3 18v3h3l4.8-4.8a5 5 0 0 0 6.9-6.9L14 12l-2-2z" /></svg></span>Condenspomp voert geen water af<span className="fx-chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></h3>
+              </summary>
               <ol>
                 <li>Controleer of de afvoerslang nergens geknikt of geplooid ligt.</li>
                 <li>De pomp overbrugt max. 4 m hoogte: leg de slang zo kort en recht mogelijk.</li>
                 <li>Koppel de slang even los. Loopt er water uit, dan zit de verstopping in de slang.</li>
               </ol>
               <p>Het condenswater is zuiver en mag in elke afvoer. Pomp defect? Bel <a href="tel:+3236899065">03 689 90 65</a>, wij vervangen ze gratis.</p>
-            </div>
-            <div className="fx">
-              <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 15h18" /><path d="M3 9h18" /><rect x="3" y="4" width="18" height="16" rx="2" /></svg></span>Reservoir-lampje brandt</h3>
+            </details>
+            <details className="fx">
+              <summary>
+                <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 15h18" /><path d="M3 9h18" /><rect x="3" y="4" width="18" height="16" rx="2" /></svg></span>Reservoir-lampje brandt<span className="fx-chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></h3>
+              </summary>
               <ol>
                 <li>Leeg het waterreservoir en schuif het correct terug tot het vastklikt.</li>
                 <li>Het toestel herneemt automatisch, u hoeft niets te herstarten.</li>
               </ol>
               <p>Beu om 2 à 3 keer per dag te legen? Voeg de condenspomp toe (€ 2 per bouwdroger per dag) en het water wordt dag en nacht automatisch afgevoerd.</p>
-            </div>
-            <div className="fx">
-              <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg></span>Het droogt trager dan verwacht</h3>
+            </details>
+            <details className="fx">
+              <summary>
+                <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg></span>Het droogt trager dan verwacht<span className="fx-chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></h3>
+              </summary>
               <ol>
                 <li>Houd ramen en deuren gesloten, anders droogt u de buitenlucht mee.</li>
                 <li>Hou de temperatuur boven 15 °C. In koude ruimtes werkt condensdroging trager.</li>
                 <li>Controleer of het toestel vrij staat: 50 cm ruimte rond de aanzuig- en uitblaaszijde.</li>
               </ol>
               <p>Twijfelt u? Bel <a href="tel:+3236899065">03 689 90 65</a>, wij meten mee en plaatsen indien nodig extra capaciteit. Binnen de garantie verlengt u kosteloos.*</p>
-            </div>
-            <div className="fx">
-              <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m2 12 5-3-5-3" /><path d="M12 3v18" /><path d="m22 12-5 3 5 3" /><path d="M12 8h.01M12 16h.01" /></svg></span>IJsvorming op het toestel</h3>
+            </details>
+            <details className="fx">
+              <summary>
+                <h3><span className="fi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m2 12 5-3-5-3" /><path d="M12 3v18" /><path d="m22 12-5 3 5 3" /><path d="M12 8h.01M12 16h.01" /></svg></span>IJsvorming op het toestel<span className="fx-chev" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></h3>
+              </summary>
               <ol>
                 <li>Zet het toestel uit en laat het 30 minuten ontdooien.</li>
                 <li>IJsvorming wijst op een te koude ruimte (&lt; 8 °C).</li>
               </ol>
               <p>In koude kelders of winterse werven is een adsorptiedroger of bijverwarming de juiste oplossing. Bel ons en wij wisselen de opstelling om.</p>
-            </div>
+            </details>
             <div className="fx call">
               <h3><span className="fi"><Phone size={16} /></span>Toestel defect of beschadigd?</h3>
               <p>Bel ons meteen. 9 op 10 storingen lossen we telefonisch op; lukt dat niet, dan staat er binnen 24 uur een technicus met een vervangtoestel op uw werf, zonder extra kosten.</p>

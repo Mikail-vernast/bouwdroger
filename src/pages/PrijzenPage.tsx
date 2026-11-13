@@ -1,19 +1,21 @@
-import Reveal from "@/components/Reveal";
+import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
-import { breadcrumbSchema, faqSchema, offerCatalogSchema, serviceSchema } from "@/lib/schema";
-import Navbar from "@/components/Navbar";
+import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import Reveal from "@/components/Reveal";
+import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
+import ContactBlok from "@/components/content/ContactBlok";
+import FaqBlok from "@/components/content/FaqBlok";
 import {
-  Phone,
-  ArrowRight,
-  CheckCircle2,
-  Wrench,
-  PhoneCall,
-  ClipboardList,
-} from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+  ArrowRightIcon,
+  BoltIcon,
+  CardIcon,
+  CheckIcon,
+  PhoneIcon,
+  SupportIcon,
+} from "@/components/home-v3/icons";
+import { TagIcon, XIcon } from "@/components/content/icons";
+import { breadcrumbSchema, faqSchema, offerCatalogSchema, serviceSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
 import {
   DROGERS,
@@ -26,16 +28,21 @@ import { COVER, EXTRAS, LADDER_FEE, PRODUCTS, PUMP } from "@/data/verhuur";
 import { findPackage } from "@/data/packages";
 import { DEPOSIT_GROSS, EMPTY_OPTIONS, ONLINE_DISCOUNT, VAT_RATE, bookingSummary } from "@/lib/booking";
 import { DEFAULT_CD, DEFAULT_SIZE, euro as euroCent, parseConfig } from "@/lib/verhuur";
-import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
+import { CONTACT } from "@/lib/site";
+import "@/styles/v3-content.css";
 
-/*
-  Alles wat hieronder als bedrag op de pagina komt, is afgeleid uit dezelfde
-  modules waarmee de boeking en Stripe rekenen: de dagprijzen uit PRODUCTS, de
-  opties uit verhuur.ts, en het rekenvoorbeeld uit `bookingSummary` zelf. Er
-  stond op /prijzen ooit een verzonnen tabel; een rekenvoorbeeld met
-  overgetypte getallen zou na de eerste prijswijziging in het portaal
-  hetzelfde worden.
-*/
+/**
+ * De prijzenpagina. Stond tot november 2026 op de oude shadcn-schil met de
+ * `Navbar`; nu in de v3-vormtaal, met <V3Header> en de gedeelde opmaak uit
+ * src/styles/v3-content.css.
+ *
+ * Alles wat hieronder als bedrag op de pagina komt, is afgeleid uit dezelfde
+ * modules waarmee de boeking en Stripe rekenen: de dagprijzen uit PRODUCTS, de
+ * opties uit verhuur.ts, en het rekenvoorbeeld uit `bookingSummary` zelf. Er
+ * stond op /prijzen ooit een verzonnen tabel; een rekenvoorbeeld met
+ * overgetypte getallen zou na de eerste prijswijziging in het portaal
+ * hetzelfde worden.
+ */
 const PROCENT_ONLINE = Math.round(ONLINE_DISCOUNT * 100);
 const PROCENT_BTW = Math.round(VAT_RATE * 100);
 const MIDDEN = DROGERS[Math.floor(DROGERS.length / 2)];
@@ -128,26 +135,32 @@ const FAQ = [
   {
     question: "Wordt het goedkoper als ik langer huur?",
     answer:
-      "De dagprijs blijft dezelfde, hoe lang u ook huurt — er komt geen toeslag bij voor een korte periode. Wat u wint bij langer huren, is de levering: vanaf vier weken zijn levering en ophaling gratis.",
+      "De dagprijs blijft dezelfde, hoe lang u ook huurt; er komt geen toeslag bij voor een korte periode. Wat u wint bij langer huren, is de levering: vanaf vier weken zijn levering en ophaling gratis.",
+  },
+  {
+    question: "Kan ik verlengen als de werf uitloopt?",
+    answer:
+      "Ja. Loopt de werf uit of is de meting nog niet goed, dan verlengt u per week tegen dezelfde dagprijs; u krijgt daarvoor een link per mail en hoeft niets te bellen. Huurt u een berekend droogpakket en is het ondanks correcte droogomstandigheden nog niet droog, dan verlengt u kosteloos, dat is de drooggarantie.",
   },
 ];
 
-const included = [
-  "Levering aan huis door expert",
+const inbegrepen = [
+  "Levering aan huis door een technieker",
   "Ophaling na gebruik",
-  "Gratis verlengsnoer 10m 2.5mm²",
-  "Uitleg bij plaatsing",
-  "Gratis vochtmeting na afloop",
+  "Gratis verlengsnoer 10 m, 2,5 mm²",
+  "Uitleg bij de plaatsing",
+  "Vochtmeting bij start en oplevering",
   "Geen waarborg vereist",
 ];
 
-
-const guarantees = [
-  { emoji: "🔧", title: "Toestel defect?", desc: "Wij vervangen de volgende dag. Geen discussie." },
-  { emoji: "📞", title: "Altijd bereikbaar", desc: "Weekdagen, weekend en feestdagen." },
-  { emoji: "📋", title: "Duidelijke factuur", desc: "Voor uw verzekeringsdossier." },
-];
-
+/*
+ * De interne links van deze pagina. Ze stonden hier al en verdwenen bij het
+ * herwerken van de pagina; daardoor had /prijzen geen enkele link meer naar een
+ * realisatie of een regiopagina. Dat is precies hoe een pagina een wees wordt:
+ * indexeerbaar en in de sitemap, maar zonder signaal dat ze ergens bij hoort.
+ * `src/test/inhoudspaginas.test.tsx` bewaakt dat elke inhoudspagina er minstens
+ * twee realisaties en één regio heeft.
+ */
 const verderLezen: LeesGroep[] = [
   {
     kop: "Wat onze klanten lieten drogen",
@@ -162,7 +175,9 @@ const verderLezen: LeesGroep[] = [
     links: [
       { to: "/verhuur/calculator", label: "Bereken de prijs van uw droogpakket" },
       { to: "/machines", label: "Welk toestel heeft u nodig? Vergelijk het gamma" },
-      { to: "/nieuwbouw", label: "Droogtijden van chape en pleisterwerk" },
+      { to: "/gids/stroomverbruik-bouwdroger", label: "Gids: wat kost een bouwdroger aan stroom?" },
+      { to: "/gids/hoe-lang-moet-chape-drogen", label: "Gids: hoe lang moet een chape drogen?" },
+      { to: "/nieuwbouw-drogen", label: "Droogtijden van chape en pleisterwerk" },
     ],
   },
   {
@@ -174,442 +189,558 @@ const verderLezen: LeesGroep[] = [
   },
 ];
 
-const PrijzenPage = () => {
-  const navigate = useNavigate();
+const garanties = [
+  { Icon: BoltIcon, title: "Toestel defect?", desc: "Wij vervangen het de volgende werkdag. Geen discussie, geen extra kost: u huurt een werkend toestel, niet een toestel." },
+  { Icon: SupportIcon, title: "Altijd bereikbaar", desc: "Weekdagen, weekend en feestdagen. Een droging die stilvalt in het weekend is een week verlies." },
+  { Icon: CardIcon, title: "Duidelijke factuur", desc: "Op naam, met de btw apart, en met de metingen erbij, klaar voor uw verzekeringsdossier of boekhouder." },
+];
 
-  return (
-    <div className="min-h-screen bg-background">
-      <PageMeta
-        {...SEO.prijzen}
-        jsonLd={[
-          serviceSchema({
-            name: "Verhuur van bouwdrogers, ventilatoren en bouwkachels",
-            description:
-              "Een dagprijs per toestel, zonder waarborg en zonder verborgen kosten, met korting bij langere huurperiodes. Levering, installatie en vochtmeting inbegrepen.",
-            path: "/prijzen",
-            serviceType: "Verhuur bouwdrogers",
-          }),
-          offerCatalogSchema(
-            "Huurtarieven bouwdrogers, ventilatoren en bouwkachels",
-            TARIEVEN_PUBLIEK.map((t) => ({
-              name: t.name,
-              description: t.summary,
-              path: t.path,
-              pricePerDay: t.perDay,
-            }))
-          ),
-          faqSchema(FAQ),
-          breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Prijzen", path: "/prijzen" },
-          ]),
-        ]}
-      />
-      <Navbar />
-      <main>
-        {/* Hero */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4 text-center max-w-3xl">
-            <h1
-              className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-4"
-            >
-              Bouwdroger huren: prijzen per dag, week en pakket
-            </h1>
-            <p
-              className="text-muted-foreground text-lg"
-            >
-              Geen waarborg. Geen verborgen kosten. Wat u ziet is wat u betaalt.
+const PrijzenPage = () => (
+  <div className="v3c pr-page">
+    <PageMeta
+      {...SEO.prijzen}
+      jsonLd={[
+        serviceSchema({
+          name: "Verhuur van bouwdrogers, ventilatoren en bouwkachels",
+          description:
+            "Een dagprijs per toestel, zonder waarborg en zonder verborgen kosten, met korting bij langere huurperiodes. Levering, installatie en vochtmeting inbegrepen.",
+          path: "/prijzen",
+          serviceType: "Verhuur bouwdrogers",
+        }),
+        offerCatalogSchema(
+          "Huurtarieven bouwdrogers, ventilatoren en bouwkachels",
+          TARIEVEN_PUBLIEK.map((t) => ({
+            name: t.name,
+            description: t.summary,
+            path: t.path,
+            pricePerDay: t.perDay,
+          }))
+        ),
+        faqSchema(FAQ),
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Prijzen", path: "/prijzen" },
+        ]),
+      ]}
+    />
+
+    <V3Header lightAfter={420} />
+
+    <main>
+
+    {/* ================= HERO ================= */}
+    <div className="redtop">
+      <section className="hero">
+        <div className="wrap hero-grid">
+          <div className="hero-copy">
+            <span className="kick">Tarieven</span>
+            <h1>Bouwdroger huren: prijzen per dag, per week en per pakket.</h1>
+            <p>
+              Geen waarborg, geen toeslag voor een korte periode, geen kosten die pas op de
+              factuur verschijnen. Eén dagprijs per toestel, en voor een volledige woning een
+              pakketprijs die de calculator uitrekent op uw oppervlakte.
             </p>
-          </div>
-        </section>
-
-
-        {/* Pricing table */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <Reveal
-                from="up"
-                delay={(0) * 0.08}
-              >
-                {/*
-                  Een echte <table>. De prijzen stonden hier eerder in een
-                  grid van div's met "€ XX" erin; zowel de bedragen als het
-                  tabelverband ontbraken dus. Een AI-antwoord op "wat kost een
-                  bouwdroger huren" komt uit precies deze cellen — die moeten
-                  leesbaar aan elkaar hangen.
-                */}
-                <div className="bg-card border border-border rounded-2xl overflow-x-auto">
-                  <table className="w-full text-sm border-collapse">
-                    <caption className="sr-only">
-                      Huurprijzen per bouwdroger en per huurperiode, exclusief btw
-                    </caption>
-                    <thead>
-                      <tr className="bg-accent text-primary-foreground font-bold">
-                        <th scope="col" className="px-5 py-4 text-left font-bold">
-                          Bouwdroger
-                        </th>
-                        <th scope="col" className="px-5 py-4 text-center font-bold whitespace-nowrap">
-                          Per dag
-                        </th>
-                        {RENTAL_WEEKS.map((w) => (
-                          <th
-                            key={w}
-                            scope="col"
-                            className="px-5 py-4 text-center font-bold whitespace-nowrap"
-                          >
-                            {w} {w === 1 ? "week" : "weken"}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {DROGERS.map((t, i) => (
-                        <tr
-                          key={t.key}
-                          className={`${i % 2 === 0 ? "bg-background" : "bg-muted/30"} ${
-                            i < DROGERS.length - 1 ? "border-b border-border" : ""
-                          }`}
-                        >
-                          <th scope="row" className="px-5 py-4 text-left font-bold text-foreground">
-                            <Link to={t.path} className="hover:text-primary transition-colors">
-                              {t.short}
-                            </Link>
-                            <span className="block font-normal text-xs text-muted-foreground">
-                              {t.litersPerDay} L/dag · tot {t.volume} m³
-                            </span>
-                          </th>
-                          <td className="px-5 py-4 text-center font-bold text-foreground whitespace-nowrap">
-                            {euro(t.perDay)}
-                          </td>
-                          {RENTAL_WEEKS.map((w) => (
-                            <td
-                              key={w}
-                              className="px-5 py-4 text-center text-foreground whitespace-nowrap"
-                            >
-                              {euro(priceForWeeks(t, w))}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <p className="text-xs text-muted-foreground mt-3 text-center">
-                  Prijzen excl. btw — 21 % btw van toepassing. De weekbedragen zijn de dagprijs maal
-                  het aantal dagen; er komt geen toeslag bij voor een korte huurperiode.
-                </p>
-
-                <div className="flex justify-center mt-4">
-                  <Badge variant="secondary" className="text-sm px-4 py-1.5 gap-1.5">
-                    <CheckCircle2 className="h-4 w-4 text-primary" />
-                    Gratis levering & ophaling bij huur van 4 weken of meer
-                  </Badge>
-                </div>
-              </Reveal>
+            <div className="hcta">
+              <Link className="btn btn-white" to="/verhuur/calculator">
+                Bereken uw prijs
+                <ArrowRightIcon />
+              </Link>
+              <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
+                <PhoneIcon /> {CONTACT.phoneLocal}
+              </a>
             </div>
           </div>
-        </section>
-
-        {/* Prijsopbouw */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-4">
-                Zo is de prijs opgebouwd
-              </h2>
-              <p className="text-muted-foreground text-center mb-8">
-                U huurt bij ons op twee manieren: een los toestel, of een droogpakket dat de calculator
-                samenstelt op uw oppervlakte en wat er moet drogen.
-              </p>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <h3 className="font-bold text-foreground mb-2">Losse toestellen: dagprijs × dagen</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Elk toestel heeft een dagprijs. De huurprijs is die dagprijs maal het aantal dagen, zonder
-                    toeslag voor een korte periode. Een {MIDDEN.short} aan {euro(MIDDEN.perDay)} per dag kost
-                    dus {euro(priceForWeeks(MIDDEN, 2))} voor twee weken. Losse toestellen kunt u ook zelf
-                    afhalen in ons magazijn.
-                  </p>
-                </div>
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <h3 className="font-bold text-foreground mb-2">Droogpakket: vaste prijs per situatie</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Een pakket combineert droger, ventilator en eventueel kachels voor een bepaalde
-                    oppervlakte, werksoort en dikte. De prijs is de dagprijs van het pakket maal de dagen van
-                    de huurtermijn, en die termijn volgt uit de dikte van de chape of het pleisterwerk.
-                    {VOORBEELD_PAKKET && VOORBEELD_PAKKET.includes.length > 0
-                      ? ` Inbegrepen: ${VOORBEELD_PAKKET.includes.join(", ").toLowerCase()}.`
-                      : ""}
-                  </p>
-                </div>
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <h3 className="font-bold text-foreground mb-2">{PROCENT_ONLINE} % korting bij online betalen</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Betaalt u de volledige huur online bij het reserveren, dan krijgt u {PROCENT_ONLINE} % korting
-                    op het hele bedrag. U kunt ook enkel een vaste orderbevestiging van{" "}
-                    {euroCent(DEPOSIT_GROSS)} incl. btw betalen en het saldo bij de installatie of de afhaling.
-                  </p>
-                </div>
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <h3 className="font-bold text-foreground mb-2">Opties die u zelf kiest</h3>
-                  <ul className="text-sm text-muted-foreground space-y-1">
-                    {COVER.filter((c) => c.price > 0).map((c) => (
-                      <li key={c.k}>
-                        Dekking "{c.name}": {euro(c.price)}
-                      </li>
-                    ))}
-                    <li>Condenspomp: {euro(PUMP.price)} per bouwdroger per dag</li>
-                    <li>Plaatsing op verdieping via ladder: {euro(LADDER_FEE)}</li>
-                    {RAPPORT && <li>{RAPPORT.name}: {euro(RAPPORT.price)} {RAPPORT.unit}</li>}
-                    {STROOMKAST && <li>{STROOMKAST.name}: {euro(STROOMKAST.price)} {STROOMKAST.unit}</li>}
-                  </ul>
-                </div>
+          <div className="hero-vis">
+            <img
+              src="/vernast/man-zen-crop.webp"
+              alt="Zorgeloos huren bij Vernast: één prijs, geen waarborg"
+              width={700}
+              height={760}
+              loading="lazy"
+              decoding="async"
+              style={{ width: "min(84%,380px)", position: "relative", zIndex: 2 }}
+            />
+            {/*
+              De badge zweeft (`floaty` in v3-content.css) en ligt áchter de man:
+              met een hogere z-index dekte hij zijn gezicht af. Zelfde opbouw als
+              op /drooggarantie.
+            */}
+            <div className="fbadge" style={{ top: "11%", right: "-14%", left: "auto", zIndex: 0 }}>
+              <span className="ic"><TagIcon size={15} /></span>
+              <div>
+                Vanaf {euro(DROGERS[0].perDay)}/dag
+                <small>levering en vochtmeting inbegrepen</small>
               </div>
-              <p className="text-xs text-muted-foreground mt-4 text-center">
-                Alle bedragen exclusief btw, tenzij anders vermeld. Op verhuur geldt {PROCENT_BTW} % btw.
-              </p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+    </div>
 
-        {/* Rekenvoorbeeld — rechtstreeks uit bookingSummary, zie boven. */}
-        {VOORBEELD && VOORBEELD_PAKKET && (
-          <section className="py-14 md:py-20">
-            <div className="container mx-auto px-4">
-              <div className="max-w-2xl mx-auto">
-                <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-4">
-                  Rekenvoorbeeld: {VOORBEELD_PAKKET.title.toLowerCase()}
-                </h2>
-                <p className="text-muted-foreground text-center mb-8">
-                  Een chapepakket zonder kachels, met een huurtermijn van {VOORBEELD.weeks}{" "}
-                  {VOORBEELD.weeks === 1 ? "week" : "weken"}, en de opties die bij het boeken standaard
-                  aangevinkt staan. Die opties kunt u uitzetten.
-                </p>
-                <div className="bg-card border border-border rounded-2xl overflow-x-auto">
-                  <table className="w-full text-sm border-collapse">
-                    <caption className="sr-only">Rekenvoorbeeld van een droogpakket voor chape</caption>
-                    <tbody>
-                      <tr className="border-b border-border">
-                        <th scope="row" className="px-5 py-3 text-left font-medium text-foreground">
-                          Pakket ({VOORBEELD.days} dagen)
-                        </th>
-                        <td className="px-5 py-3 text-right whitespace-nowrap">{euroCent(VOORBEELD.base)}</td>
-                      </tr>
-                      {VOORBEELD.lines.map((l) => (
-                        <tr key={l.l} className="border-b border-border">
-                          <th scope="row" className="px-5 py-3 text-left font-normal text-muted-foreground">{l.l}</th>
-                          <td className="px-5 py-3 text-right whitespace-nowrap text-muted-foreground">
-                            {l.inc ? "Inbegrepen" : euroCent(l.v)}
-                          </td>
-                        </tr>
-                      ))}
-                      <tr className="border-b border-border">
-                        <th scope="row" className="px-5 py-3 text-left font-normal text-muted-foreground">
-                          Korting online betalen ({PROCENT_ONLINE} %)
-                        </th>
-                        <td className="px-5 py-3 text-right whitespace-nowrap text-muted-foreground">
-                          {euroCent(-VOORBEELD.discount)}
-                        </td>
-                      </tr>
-                      <tr className="border-b border-border">
-                        <th scope="row" className="px-5 py-3 text-left font-bold text-foreground">Totaal excl. btw</th>
-                        <td className="px-5 py-3 text-right whitespace-nowrap font-bold">{euroCent(VOORBEELD.netTotal)}</td>
-                      </tr>
-                      <tr className="border-b border-border">
-                        <th scope="row" className="px-5 py-3 text-left font-normal text-muted-foreground">Btw {PROCENT_BTW} %</th>
-                        <td className="px-5 py-3 text-right whitespace-nowrap text-muted-foreground">{euroCent(VOORBEELD.vat)}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" className="px-5 py-3 text-left font-black text-foreground">Totaal incl. btw</th>
-                        <td className="px-5 py-3 text-right whitespace-nowrap font-black">{euroCent(VOORBEELD.grossTotal)}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div className="flex justify-center mt-6">
-                  <Button asChild className="rounded-full font-bold gap-2 px-8">
-                    <Link to="/verhuur/calculator">
-                      Bereken uw eigen pakket <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
+    {/*
+      PAKKET OF LOS TOESTEL — de belangrijkste keuze op deze pagina.
 
-        {/* Stroomverbruik */}
-        {VERBRUIK.length > 0 && (
-          <section className="py-14 md:py-20 bg-muted/30">
-            <div className="container mx-auto px-4">
-              <div className="max-w-3xl mx-auto">
-                <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-4">
-                  Wat verbruikt een bouwdroger aan stroom?
-                </h2>
-                <p className="text-muted-foreground mb-6">
-                  De stroom betaalt u zelf, want de toestellen draaien op uw aansluiting. Hieronder staat het
-                  opgenomen vermogen per toestel en wat dat op vol vermogen per dag en per week betekent. Dat
-                  is een bovengrens: de ingebouwde hygrostaat schakelt een ontvochtiger terug zodra de
-                  ingestelde vochtigheid bereikt is. Vermenigvuldig het aantal kWh met de prijs uit uw eigen
-                  contract.
-                </p>
-                <div className="bg-card border border-border rounded-2xl overflow-x-auto">
-                  <table className="w-full text-sm border-collapse">
-                    <caption className="sr-only">Stroomverbruik per toestel op vol vermogen</caption>
-                    <thead>
-                      <tr className="bg-accent text-primary-foreground">
-                        <th scope="col" className="px-5 py-4 text-left font-bold">Toestel</th>
-                        <th scope="col" className="px-5 py-4 text-center font-bold">Vermogen</th>
-                        <th scope="col" className="px-5 py-4 text-center font-bold whitespace-nowrap">Max. per dag</th>
-                        <th scope="col" className="px-5 py-4 text-center font-bold whitespace-nowrap">Max. per week</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {VERBRUIK.map(({ t, kw }, i) => (
-                        <tr key={t.key} className={i % 2 === 0 ? "bg-background" : "bg-muted/30"}>
-                          <th scope="row" className="px-5 py-3 text-left font-bold text-foreground">
-                            <Link to={t.path} className="hover:text-primary transition-colors">{t.short}</Link>
-                          </th>
-                          <td className="px-5 py-3 text-center whitespace-nowrap">{kw.toLocaleString("nl-BE")} kW</td>
-                          <td className="px-5 py-3 text-center whitespace-nowrap">{kwh(kw * 24)}</td>
-                          <td className="px-5 py-3 text-center whitespace-nowrap">{kwh(kw * 24 * 7)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <p className="text-sm text-muted-foreground mt-4">
-                  Een elektrische bouwkachel verbruikt veel meer dan een droger: zijn vermogen staat in
-                  kilowatt op de toestelpagina, en de thermostaat schakelt hem af zodra de ruimte op
-                  temperatuur is. In een koude ruimte loont dat toch, omdat de ontvochtiger anders veel
-                  langer moet draaien.
-                </p>
-              </div>
-            </div>
-          </section>
-        )}
+      We verhuren allebei, maar de Drooggarantie hangt uitsluitend aan een
+      berekend pakket mét levering en installatie (zie /drooggarantie). Stond die
+      scheiding er niet, dan leek een los toestel hetzelfde product voor minder
+      geld, en kwam de garantiediscussie pas bij de eindmeting.
+    */}
+    <section className="sw" id="pakket-of-los">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Eerst dit</span>
+          <h2 className="sec">Een pakket of een los toestel?</h2>
+          <p className="lede">
+            U kunt bij ons allebei huren. Het verschil zit niet alleen in de prijs: alleen op een
+            droogpakket dat wij berekenen, leveren en installeren geldt onze drooggarantie. Bij een
+            los toestel dat u zelf plaatst, kunnen wij het resultaat niet beloven.
+          </p>
+        </div>
+        <div className="keuze2">
+          <Reveal from="up" className="kz aanbevolen">
+            <span className="kzlab">Wat wij aanraden</span>
+            <span className="kzsub">Droogpakket</span>
+            <h3>Berekend, geleverd en gemeten</h3>
+            <p>
+              De calculator vertaalt uw oppervlakte, plafondhoogte en situatie naar het juiste
+              aantal toestellen en een berekende droogperiode. Onze technieker plaatst alles, sluit
+              de condensafvoer aan en meet het vochtgehalte bij start en oplevering.
+            </p>
+            <ul>
+              <li><CheckIcon size={14} strokeWidth={3} /> <span><b>100 % drooggarantie:</b> niet droog binnen de berekende periode? U huurt kosteloos verder.*</span></li>
+              <li><CheckIcon size={14} strokeWidth={3} /> Vochtmeting bij start én oplevering, zwart op wit</li>
+              <li><CheckIcon size={14} strokeWidth={3} /> Levering, plaatsing en ophaling inbegrepen</li>
+              <li><CheckIcon size={14} strokeWidth={3} /> Defect toestel binnen 24 uur vervangen</li>
+              <li><CheckIcon size={14} strokeWidth={3} /> {PROCENT_ONLINE} % korting bij volledig online betalen</li>
+            </ul>
+            <Link className="btn" to="/verhuur/calculator">
+              Bereken uw droogpakket
+              <ArrowRightIcon />
+            </Link>
+          </Reveal>
+          <Reveal from="up" delay={0.08} className="kz">
+            <span className="kzsub">Los toestel</span>
+            <h3>Zelf plaatsen, zelf opvolgen</h3>
+            <p>
+              Eén droger, ventilator of bouwkachel, per dag of per week. Handig voor een kleine
+              ruimte, een tweede toestel bij een pakket, of wie het drogen zelf in handen wil
+              houden. U haalt het af in Aartselaar of laat het leveren.
+            </p>
+            <ul>
+              <li><CheckIcon size={14} strokeWidth={3} /> Eén vaste dagprijs, geen waarborg</li>
+              <li><CheckIcon size={14} strokeWidth={3} /> Afhaalkorting in ons magazijn in Aartselaar</li>
+              <li><CheckIcon size={14} strokeWidth={3} /> Ook bij te boeken naast een pakket</li>
+              <li className="niet"><XIcon size={14} /> Geen drooggarantie: wij plaatsen en meten niet</li>
+              <li className="niet"><XIcon size={14} /> U volgt zelf op of het droog is</li>
+            </ul>
+            <Link className="btn btn-line" to="/machines">
+              Bekijk het gamma
+              <ArrowRightIcon />
+            </Link>
+          </Reveal>
+        </div>
+        <div className="note">
+          <b>Waarom die grens er is.</b> Een garantie kan alleen op een berekening rusten. Wij
+          dimensioneren het pakket op volume en situatie, installeren het zelf en leggen het
+          start- en eindpunt vast met een meting; daardoor is "droog" bij ons een meetresultaat en
+          geen gevoel. Bij een los toestel bepaalt u zelf de opstelling, en dan kunnen wij de
+          uitkomst niet beloven. De volledige voorwaarden leest u op{" "}
+          <Link to="/drooggarantie">de pagina over de drooggarantie</Link>.
+        </div>
+      </div>
+    </section>
 
-        {/* Included */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">Altijd inbegrepen</h2>
-            <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-              {included.map((item, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={item}
-                  className="flex items-center gap-3 bg-card border border-border rounded-xl px-5 py-4"
-                >
-                  <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                  <span className="text-sm font-medium text-foreground">{item}</span>
-                </Reveal>
+    {/* ================= PRIJSOPBOUW ================= */}
+    <section className="sr">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Prijsopbouw</span>
+          <h2 className="sec">Zo komt uw bedrag tot stand.</h2>
+          <p className="lede">
+            Vier dingen bepalen wat u betaalt: wat u huurt, hoe lang, hoe u betaalt, en welke
+            opties u zelf aanvinkt. Alle bedragen hieronder komen uit dezelfde prijslijst waarmee
+            de checkout rekent.
+          </p>
+        </div>
+        <div className="g2">
+          <Reveal from="up" className="kaart">
+            <div className="ki"><CheckIcon size={20} strokeWidth={2.4} /></div>
+            <h3>Droogpakket: vaste prijs per situatie</h3>
+            <p>
+              Een pakket combineert droger, ventilator en eventueel kachels voor een bepaalde
+              oppervlakte, werksoort en dikte. De prijs is de dagprijs van het pakket maal de dagen
+              van de huurtermijn, en die termijn volgt uit de dikte van de chape of het pleisterwerk.
+              {VOORBEELD_PAKKET && VOORBEELD_PAKKET.includes.length > 0
+                ? ` Inbegrepen: ${VOORBEELD_PAKKET.includes.join(", ").toLowerCase()}.`
+                : ""}
+            </p>
+          </Reveal>
+          <Reveal from="up" delay={0.08} className="kaart">
+            <div className="ki"><TagIcon size={20} /></div>
+            <h3>Losse toestellen: dagprijs × dagen</h3>
+            <p>
+              Elk toestel heeft een dagprijs. De huurprijs is die dagprijs maal het aantal dagen,
+              zonder toeslag voor een korte periode. Een {MIDDEN.short} aan {euro(MIDDEN.perDay)} per
+              dag kost dus {euro(priceForWeeks(MIDDEN, 2))} voor twee weken.
+            </p>
+          </Reveal>
+          <Reveal from="up" delay={0.16} className="kaart">
+            <div className="ki"><CardIcon size={20} /></div>
+            <h3>{PROCENT_ONLINE} % korting bij online betalen</h3>
+            <p>
+              Betaalt u de volledige huur online bij het reserveren, dan krijgt u {PROCENT_ONLINE} %
+              korting op het hele bedrag. U kunt ook enkel een vaste orderbevestiging van{" "}
+              {euroCent(DEPOSIT_GROSS)} incl. btw betalen en het saldo bij de installatie of de
+              afhaling.
+            </p>
+          </Reveal>
+          <Reveal from="up" delay={0.24} className="kaart">
+            <div className="ki"><BoltIcon size={20} /></div>
+            <h3>Opties die u zelf kiest</h3>
+            <ul className="feats" style={{ marginTop: "10px", marginBottom: 0 }}>
+              {COVER.filter((c) => c.price > 0).map((c) => (
+                <li key={c.k}>
+                  <CheckIcon size={12} strokeWidth={3} />
+                  Dekking "{c.name}": {euro(c.price)}
+                </li>
               ))}
+              <li>
+                <CheckIcon size={12} strokeWidth={3} />
+                Condenspomp: {euro(PUMP.price)} per bouwdroger per dag
+              </li>
+              <li>
+                <CheckIcon size={12} strokeWidth={3} />
+                Plaatsing op verdieping via ladder: {euro(LADDER_FEE)}
+              </li>
+              {RAPPORT && (
+                <li>
+                  <CheckIcon size={12} strokeWidth={3} />
+                  {RAPPORT.name}: {euro(RAPPORT.price)} {RAPPORT.unit}
+                </li>
+              )}
+              {STROOMKAST && (
+                <li>
+                  <CheckIcon size={12} strokeWidth={3} />
+                  {STROOMKAST.name}: {euro(STROOMKAST.price)} {STROOMKAST.unit}
+                </li>
+              )}
+            </ul>
+          </Reveal>
+        </div>
+        <p className="tblnote">
+          Alle bedragen exclusief btw, tenzij anders vermeld. Op verhuur geldt {PROCENT_BTW} % btw.
+        </p>
+      </div>
+    </section>
+
+    {/* Rekenvoorbeeld — rechtstreeks uit bookingSummary, zie boven. */}
+    {VOORBEELD && VOORBEELD_PAKKET && (
+      <section className="sw">
+        <div className="wrap split">
+          <div>
+            <span className="kick">Rekenvoorbeeld</span>
+            <h2 className="sec">{VOORBEELD_PAKKET.title}</h2>
+            <p className="lede">
+              Een chapepakket zonder kachels, met een huurtermijn van {VOORBEELD.weeks}{" "}
+              {VOORBEELD.weeks === 1 ? "week" : "weken"}, en de opties die bij het boeken standaard
+              aangevinkt staan. Die opties kunt u uitzetten.
+            </p>
+            <p className="lede">
+              Dit bedrag komt uit dezelfde module waarmee de boekingspagina en Stripe rekenen. Wat
+              hier staat, staat straks ook in de checkout: geen "vanaf"-prijs die achteraf hoger
+              uitvalt.
+            </p>
+            <div className="hcta" style={{ marginTop: "26px" }}>
+              <Link className="btn" to="/verhuur/calculator">
+                Bereken uw eigen pakket
+                <ArrowRightIcon />
+              </Link>
             </div>
           </div>
-        </section>
+          <div style={{ display: "block" }}>
+            <div className="tblwrap" style={{ marginTop: 0 }}>
+              <div className="tblscroll">
+                <table className="tbl bon">
+                  <caption className="sr-only">Rekenvoorbeeld van een droogpakket voor chape</caption>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Pakket ({VOORBEELD.days} dagen)</th>
+                      <td>{euroCent(VOORBEELD.base)}</td>
+                    </tr>
+                    {VOORBEELD.lines.map((l) => (
+                      <tr key={l.l}>
+                        <th scope="row">{l.l}</th>
+                        <td>{l.inc ? "Inbegrepen" : euroCent(l.v)}</td>
+                      </tr>
+                    ))}
+                    <tr>
+                      <th scope="row">Korting online betalen ({PROCENT_ONLINE} %)</th>
+                      <td>{euroCent(-VOORBEELD.discount)}</td>
+                    </tr>
+                    <tr className="totaal">
+                      <th scope="row">Totaal excl. btw</th>
+                      <td>{euroCent(VOORBEELD.netTotal)}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Btw {PROCENT_BTW} %</th>
+                      <td>{euroCent(VOORBEELD.vat)}</td>
+                    </tr>
+                    <tr className="totaal">
+                      <th scope="row">Totaal incl. btw</th>
+                      <td>{euroCent(VOORBEELD.grossTotal)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
 
-        {/* Extra options */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-4">
-              Ventilator en kachel — sneller droog
-            </h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-10">
+    {/*
+      HUURTARIEVEN — een echte <table>. De prijzen stonden hier eerder in een
+      grid van div's met "€ XX" erin; zowel de bedragen als het tabelverband
+      ontbraken dus. Een AI-antwoord op "wat kost een bouwdroger huren" komt uit
+      precies deze cellen — die moeten leesbaar aan elkaar hangen.
+    */}
+    <section className="sr" id="tarieven">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Losse toestellen</span>
+          <h2 className="sec">Wat kost een bouwdroger per dag en per week?</h2>
+          <p className="lede">
+            De weekbedragen zijn simpelweg de dagprijs maal het aantal dagen. Er komt geen toeslag
+            bij voor een korte huurperiode, en er is geen staffel die u pas bij het afrekenen ziet.
+          </p>
+        </div>
+
+        <div className="tblwrap" style={{ marginTop: 0 }}>
+          <div className="tblscroll">
+            <table className="tbl">
+              <caption className="sr-only">
+                Huurprijzen per bouwdroger en per huurperiode, exclusief btw
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Bouwdroger</th>
+                  <th scope="col">Per dag</th>
+                  {RENTAL_WEEKS.map((w) => (
+                    <th key={w} scope="col">
+                      {w} {w === 1 ? "week" : "weken"}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {DROGERS.map((t) => (
+                  <tr key={t.key}>
+                    <th scope="row">
+                      <Link to={t.path}>{t.short}</Link>
+                      <span style={{ display: "block", fontWeight: 400, fontSize: "11.5px", color: "var(--txt-dim)" }}>
+                        {t.litersPerDay} L/dag · tot {t.volume} m³
+                      </span>
+                    </th>
+                    <td style={{ whiteSpace: "nowrap", fontWeight: 700, color: "var(--txt)" }}>
+                      {euro(t.perDay)}
+                    </td>
+                    {RENTAL_WEEKS.map((w) => (
+                      <td key={w} style={{ whiteSpace: "nowrap" }}>
+                        {euro(priceForWeeks(t, w))}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p className="tblnote">
+          Prijzen excl. btw, {PROCENT_BTW} % btw van toepassing. Levering en ophaling zijn gratis
+          vanaf een huurperiode van vier weken.
+        </p>
+
+        <div className="split boven" style={{ marginTop: "44px" }}>
+          <div>
+            <span className="kick">Ventilator en kachel</span>
+            <h3 className="sec" style={{ fontSize: "clamp(22px,2.4vw,30px)" }}>
+              Sneller droog, apart te huren.
+            </h3>
+            <p className="lede">
               Een ontvochtiger haalt het vocht uit de lucht; een ventilator zorgt dat er ook droge
               lucht bij de natte bouwmassa komt, en een kachel houdt de ruimte op temperatuur.
-              Samen winnen ze dagen.
+              Samen winnen ze dagen. In een berekend pakket zitten ze er al bij waar uw situatie
+              ze nodig heeft.
             </p>
-            <div className="max-w-2xl mx-auto">
-              <div className="bg-card border border-border rounded-2xl divide-y divide-border">
-                {EXTRA_DEVICES.map((t) => (
-                  <div key={t.key} className="flex items-center justify-between gap-4 px-6 py-4">
-                    <span className="font-medium text-foreground">
-                      <Link to={t.path} className="hover:text-primary transition-colors">
-                        {t.name}
-                      </Link>
-                      <span className="block text-xs font-normal text-muted-foreground">
-                        {t.type}
-                      </span>
-                    </span>
-                    <span className="font-bold text-foreground whitespace-nowrap">
-                      {euro(t.perDay)}
-                      <span className="text-sm font-normal text-muted-foreground">/dag</span>
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
-        </section>
-
-        {/* Guarantees */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {guarantees.map((g, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={g.title}
-                  className="bg-card border border-border rounded-2xl p-6 text-center"
-                >
-                  <div className="text-3xl mb-3">{g.emoji}</div>
-                  <h3 className="font-bold text-foreground mb-2">{g.title}</h3>
-                  <p className="text-sm text-muted-foreground">{g.desc}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/*
-          Veelgestelde vragen — zichtbaar, niet ingeklapt.
-
-          Dit is de sectie waaruit een AI-assistent citeert wanneer iemand
-          "wat kost een bouwdroger huren" vraagt. Dezelfde tekst staat als
-          FAQ-schema in de head; schema voor onzichtbare inhoud is een
-          overtreding, dus die twee mogen niet uit elkaar lopen.
-        */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">
-              Veelgestelde vragen over de prijs
-            </h2>
-            <dl className="max-w-2xl mx-auto space-y-6">
-              {FAQ.map((item) => (
-                <div key={item.question} className="bg-card border border-border rounded-2xl p-6">
-                  <dt className="font-bold text-foreground mb-2">{item.question}</dt>
-                  <dd className="text-sm text-muted-foreground leading-relaxed">{item.answer}</dd>
+          <div style={{ display: "block" }}>
+            <div className="pricerows">
+              {EXTRA_DEVICES.map((t) => (
+                <div key={t.key}>
+                  <span className="pn">
+                    <Link to={t.path}>{t.name}</Link>
+                    <small>{t.type}</small>
+                  </span>
+                  <span className="pv">
+                    {euro(t.perDay)}
+                    <span>/dag</span>
+                  </span>
                 </div>
               ))}
-            </dl>
-          </div>
-        </section>
-
-        <VerderLezen titel="Verder lezen" groepen={verderLezen} />
-
-        {/* CTA */}
-        <section className="bg-accent py-14 md:py-20">
-          <div className="container mx-auto px-4 text-center max-w-2xl">
-            <h2 className="text-2xl md:text-3xl font-black text-primary-foreground mb-3">Klaar om te reserveren?</h2>
-            <p className="text-primary-foreground/70 mb-8">Geen waarborg, geen verborgen kosten. Wij leveren binnen 24 uur.</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-bold gap-2 px-8" onClick={() => navigate("/verhuur/calculator")}>
-                Reserveer nu <ArrowRight className="h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="bg-transparent border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8" asChild>
-                <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel ons</a>
-              </Button>
             </div>
           </div>
-        </section>
-      </main>
-      <V3Footer />
-    </div>
-  );
-};
+        </div>
+      </div>
+    </section>
+
+    {/* ================= INBEGREPEN EN GARANTIES ================= */}
+    <section className="sw">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Altijd inbegrepen</span>
+          <h2 className="sec">Wat er zonder meerprijs bij zit.</h2>
+          <p className="lede">
+            Dit staat niet als optie in de checkout en verschijnt niet apart op de factuur. Het
+            hoort bij de huur van een droogpakket.
+          </p>
+        </div>
+        <div className="vinkjes" style={{ marginBottom: "44px" }}>
+          {inbegrepen.map((item, i) => (
+            <Reveal from="left" delay={i * 0.07} key={item}>
+              <CheckIcon size={16} strokeWidth={3} />
+              <span>{item}</span>
+            </Reveal>
+          ))}
+        </div>
+        <div className="g3">
+          {garanties.map(({ Icon, title, desc }, i) => (
+            <Reveal from="up" delay={i * 0.08} className="kaart" key={title}>
+              <div className="ki"><Icon size={20} /></div>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ================= STROOMVERBRUIK ================= */}
+    {VERBRUIK.length > 0 && (
+      <section className="sr" id="stroomverbruik">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick">Stroom</span>
+            <h2 className="sec">Wat verbruikt een bouwdroger?</h2>
+            <p className="lede">
+              De stroom betaalt u zelf, want de toestellen draaien op uw aansluiting. Hieronder
+              staat het opgenomen vermogen per toestel en wat dat op vol vermogen per dag en per
+              week betekent. Dat is een bovengrens: de ingebouwde hygrostaat schakelt een
+              ontvochtiger terug zodra de ingestelde vochtigheid bereikt is. Vermenigvuldig het
+              aantal kWh met de prijs uit uw eigen contract.
+            </p>
+          </div>
+          <div className="tblwrap" style={{ marginTop: 0 }}>
+            <div className="tblscroll">
+              <table className="tbl">
+                <caption className="sr-only">Stroomverbruik per toestel op vol vermogen</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Toestel</th>
+                    <th scope="col">Vermogen</th>
+                    <th scope="col">Max. per dag</th>
+                    <th scope="col">Max. per week</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {VERBRUIK.map(({ t, kw }) => (
+                    <tr key={t.key}>
+                      <th scope="row">
+                        <Link to={t.path}>{t.short}</Link>
+                      </th>
+                      <td style={{ whiteSpace: "nowrap" }}>{kw.toLocaleString("nl-BE")} kW</td>
+                      <td style={{ whiteSpace: "nowrap" }}>{kwh(kw * 24)}</td>
+                      <td style={{ whiteSpace: "nowrap" }}>{kwh(kw * 24 * 7)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="note">
+            <b>En een bouwkachel?</b> Die verbruikt veel meer dan een droger: zijn vermogen staat in
+            kilowatt op de toestelpagina, en de thermostaat schakelt hem af zodra de ruimte op
+            temperatuur is. In een koude ruimte loont dat toch, omdat de ontvochtiger anders veel
+            langer moet draaien. Meer cijfers staan in de gids over{" "}
+            <Link to="/gids/stroomverbruik-bouwdroger">het stroomverbruik van een bouwdroger</Link>.
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/*
+      Veelgestelde vragen — zichtbaar, niet ingeklapt.
+
+      Dit is de sectie waaruit een AI-assistent citeert wanneer iemand
+      "wat kost een bouwdroger huren" vraagt. Dezelfde tekst staat als
+      FAQ-schema in de head; schema voor onzichtbare inhoud is een
+      overtreding, dus die twee mogen niet uit elkaar lopen.
+    */}
+    <FaqBlok
+      titel="Veelgestelde vragen over de prijs."
+      vragen={FAQ.map((item) => ({ q: item.question, a: item.answer }))}
+      sleutel="pr-faq"
+      variant="wit"
+    >
+      <div className="manband">
+        <div className="mb-t">
+          <span className="mbk">Klaar om te reserveren</span>
+          <h3>Geen waarborg, geen verborgen kosten, levering binnen 24 uur.</h3>
+          <p>
+            De calculator geeft u in een paar klikken de volledige prijs voor uw oppervlakte,
+            met {PROCENT_ONLINE} % korting als u meteen online betaalt.
+          </p>
+          <div className="mb-cta">
+            <Link className="btn btn-white" to="/verhuur/calculator">
+              Bereken uw prijs
+              <ArrowRightIcon />
+            </Link>
+            <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
+              <PhoneIcon /> {CONTACT.phoneLocal}
+            </a>
+          </div>
+        </div>
+        <img
+          className="mb-man breed"
+          src="/vernast/man-betaling.webp"
+          alt="Vernast technicus met de betaalterminal"
+          width={600}
+          height={900}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </FaqBlok>
+
+    <VerderLezen titel="Verder lezen over prijzen en pakketten" groepen={verderLezen} achtergrond="sr" />
+
+    <ContactBlok
+      kicker="Een vraag over de prijs?"
+      titel="Liever een prijs op maat van uw werf?"
+      lede="Geef ons uw oppervlakte en wat er moet drogen. U krijgt binnen één werkdag een voorstel met het juiste pakket en de juiste termijn."
+      onderwerpen={[
+        "Prijs van een droogpakket",
+        "Prijs van een los toestel",
+        "Vraag over de drooggarantie",
+        "Factuur en btw",
+        "Iets anders",
+      ]}
+      placeholder="Bv. nieuwbouw 160 m² met chape van 6 cm, levering half december, graag een prijsvoorstel."
+    />
+
+    </main>
+
+    <V3Footer />
+  </div>
+);
 
 export default PrijzenPage;

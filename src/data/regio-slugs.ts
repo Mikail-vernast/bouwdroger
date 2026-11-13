@@ -21,7 +21,16 @@ export interface RegioRoute {
   path: string;
   /** Een greep uit de gemeenten — op de regiopagina én op de homepage-kaart. */
   towns: string[];
-  /** Positie van de speld op de kaart van Vlaanderen (homepage). */
+  /**
+   * Positie van de speld op de kaart van **heel Belgie** (homepage).
+   *
+   * De achtergrond is `belgie-kaart-rood.webp`, het hele land. De percentages
+   * stonden hier nog voor een kaart van alleen Vlaanderen, waardoor alle zes
+   * de spelden linksboven samendrongen -- Brussel belandde zelfs boven
+   * Henegouwen. Ze zijn nu uit de landsgrenzen gerekend (2,54-6,41 OL en
+   * 49,50-51,51 NB), met een kleine verschuiving waar twee spelden elkaar
+   * anders overlappen.
+   */
   pin: { left: string; top: string };
 }
 
@@ -35,7 +44,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
       "Herentals", "Heist-op-den-Berg", "Brasschaat", "Schoten", "Wilrijk", "Edegem", "Duffel",
       "Mortsel",
     ],
-    pin: { left: "42%", top: "12%" },
+    pin: { left: "57%", top: "12%" },
   },
   {
     slug: "oost-vlaanderen",
@@ -45,7 +54,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
       "Gent", "Aalst", "Sint-Niklaas", "Dendermonde", "Lokeren", "Wetteren", "Deinze", "Eeklo",
       "Ninove", "Geraardsbergen", "Oudenaarde", "Ronse", "Zottegem", "Temse", "Beveren", "Zelzate",
     ],
-    pin: { left: "24%", top: "25%" },
+    pin: { left: "34%", top: "20%" },
   },
   {
     slug: "vlaams-brabant",
@@ -55,7 +64,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
       "Leuven", "Vilvoorde", "Halle", "Aarschot", "Tienen", "Zaventem", "Dilbeek", "Grimbergen",
       "Diest", "Asse", "Overijse", "Tervuren", "Machelen", "Beersel", "Sint-Pieters-Leeuw", "Haacht",
     ],
-    pin: { left: "44%", top: "40%" },
+    pin: { left: "58%", top: "32%" },
   },
   {
     slug: "west-vlaanderen",
@@ -65,7 +74,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
       "Brugge", "Kortrijk", "Oostende", "Roeselare", "Ieper", "Waregem", "Knokke-Heist", "Veurne",
       "Torhout", "Menen", "Izegem", "Diksmuide", "Blankenberge", "Poperinge", "Tielt", "Harelbeke",
     ],
-    pin: { left: "8%", top: "34%" },
+    pin: { left: "15%", top: "30%" },
   },
   {
     slug: "limburg",
@@ -76,7 +85,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
       "Houthalen", "Heusden-Zolder", "Diepenbeek", "Bree", "Peer", "Maaseik", "Lanaken",
       "Leopoldsburg",
     ],
-    pin: { left: "68%", top: "21%" },
+    pin: { left: "76%", top: "23%" },
   },
 ];
 

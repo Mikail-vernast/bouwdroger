@@ -47,7 +47,7 @@ const RULES = [
   /*
     Vier van de zes casefoto's staan alleen in V3Cases op de homepage, daar
     hoogstens 375 px breed (desktop) en 354 px (gsm). 800 px is twee keer dat.
-    case-chape en case-kelder staan ook op /nieuwbouw en /renovatie op 556 px
+    case-chape en case-kelder staan ook op /nieuwbouw-drogen en /renovatie op 556 px
     en blijven daarom op 1200 px. Gemeten 01-10-2026.
   */
   { match: /^public\/vernast\/case-(nieuwbouw|keuken|waterschade|renovatie)\.webp$/, max: 800 },

@@ -11,7 +11,7 @@ const cases = [
     category: "Chape",
     duration: "3 weken",
     result: "85% \u2192 2.1% vochtgehalte",
-    equipment: "4x ECO Performance",
+    equipment: "4x Performance",
   },
   {
     title: "Waterschade Gent",
@@ -21,7 +21,7 @@ const cases = [
     category: "Badkamer",
     duration: "5 dagen",
     result: "Volledig droog, geen schimmel",
-    equipment: "1x ECO Boost",
+    equipment: "1x Boost",
   },
   {
     title: "Renovatie Leuven",
@@ -31,7 +31,7 @@ const cases = [
     category: "Kelder",
     duration: "4 weken",
     result: "Vloerlegger kon starten",
-    equipment: "2x ECO Boost + ventilator",
+    equipment: "2x Boost + ventilator",
   },
 ];
 

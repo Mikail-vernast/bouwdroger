@@ -137,7 +137,7 @@ const V3Cta = () => {
       setSkipped(failed);
       setStep(3);
     } catch {
-      setError("Verzenden lukte niet — controleer uw verbinding en probeer opnieuw.");
+      setError("Verzenden lukte niet. Controleer uw verbinding en probeer opnieuw.");
     } finally {
       setSending(false);
     }
@@ -150,7 +150,7 @@ const V3Cta = () => {
           <span className="kick">Klaar om te starten?</span>
           <h2>Uw woning drogen start hier.</h2>
           <p>
-            Stel hieronder meteen uw vraag — foto’s en documenten meesturen mag. Onze droogexperts
+            Stel hieronder meteen uw vraag. Foto’s en documenten meesturen mag. Onze droogexperts
             antwoorden dezelfde werkdag.
           </p>
         </div>
@@ -333,7 +333,7 @@ const V3Cta = () => {
                 </div>
                 {skipped.length > 0 && (
                   <p className="cf-note" role="status">
-                    Niet toegevoegd: {skipped.join(", ")} — alleen jpg, png, webp, pdf of Word;
+                    Niet toegevoegd: {skipped.join(", ")}. Alleen jpg, png, webp, pdf of Word;
                     foto&apos;s tot 30 MB, documenten tot 10 MB.
                   </p>
                 )}

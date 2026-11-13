@@ -5,6 +5,7 @@ import { DROGERS, euro, priceForWeeks } from "@/data/tarieflijst";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
 import { CONTACT } from "@/lib/site";
 import { offerCatalogSchema } from "@/lib/schema";
+import { toestelPad } from "@/data/verhuur";
 
 const PATH = "/luchtontvochtiger-huren";
 
@@ -65,7 +66,6 @@ const LuchtontvochtigerHurenPage = () => (
         leveren en installeren, in heel Vlaanderen.
       </p>
     }
-    heroImg={{ src: "/vernast/eco-performance.webp", alt: "Vernast ECO Performance condensontvochtiger" }}
     faq={FAQ}
     jsonLd={[
       offerCatalogSchema(
@@ -109,7 +109,7 @@ const LuchtontvochtigerHurenPage = () => (
           ))}
         </div>
         <div className="note">
-          <b>Niet zeker welk formaat?</b> De <Link to="/calculator">capaciteitscalculator</Link> rekent uit
+          <b>Niet zeker welk formaat?</b> De <Link to="/verhuur/calculator">droogcalculator</Link> rekent uit
           hoeveel liter per dag uw ruimte nodig heeft. Wil u meteen een volledig pakket met ventilatoren en
           levering, gebruik dan de <Link to="/verhuur/calculator">droogcalculator</Link>. Alle bedragen per
           periode staan op <Link to="/prijzen">onze prijspagina</Link>.
@@ -126,7 +126,7 @@ const LuchtontvochtigerHurenPage = () => (
           Kelders zijn koel en vaak slecht verlucht, waardoor de luchtvochtigheid hoog blijft en er een
           muffe geur of schimmel ontstaat. Een luchtontvochtiger haalt die vochtige lucht omlaag. Let op
           de temperatuur: onder ongeveer 15 °C werkt een condensontvochtiger duidelijk minder goed. In een
-          koude kelder zetten we daarom een <Link to="/verhuur/toestel/teddh20">elektrische bouwkachel</Link>{" "}
+          koude kelder zetten we daarom een <Link to={toestelPad("teddh20")}>elektrische bouwkachel</Link>{" "}
           bij. Meer over kelders en schimmel leest u op <Link to="/renovatie">vochtige kelder of
           schimmel drogen</Link>. Blijft een kelder telkens opnieuw nat, dan zit de oorzaak meestal in de
           muren zelf; ontvochtigen verhelpt dan het gevolg, niet de bron.
@@ -147,7 +147,7 @@ const LuchtontvochtigerHurenPage = () => (
           Chape en pleisterwerk brengen honderden liters water in een woning. Zonder ontvochtiging droogt
           dat traag en kan de vloerlegger of schilder niet starten. Hoe lang dat duurt per dikte, staat in{" "}
           <Link to="/gids/hoe-lang-moet-chape-drogen">hoe lang moet chape drogen</Link>; wat we op de werf
-          doen, leest u op <Link to="/nieuwbouw">chape en pleisterwerk drogen</Link>.
+          doen, leest u op <Link to="/nieuwbouw-drogen">chape en pleisterwerk drogen</Link>.
         </p>
 
         <h2 style={{ marginTop: 40 }}>Professioneel of huishoudelijk?</h2>

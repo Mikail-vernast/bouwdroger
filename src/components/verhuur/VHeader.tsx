@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
-import { TOESTELLEN } from "@/data/navigation";
+import { ALLES_OVER_DROGEN, MENU_SITUATIES, PAKKETTEN, TOESTELLEN } from "@/data/navigation";
+import "@/styles/mega-menu.css";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
 
 /** Onder deze offset blijft de balk altijd staan, ongeacht de scrollrichting. */
@@ -76,7 +77,7 @@ const VHeader = () => {
 
           <nav className="nav-menu" aria-label="Hoofdnavigatie">
             <div className="item has-sub">
-              Vernast Group
+              Group
               <CaretIcon className="caret" />
               <div className="submenu">
                 <a href="https://vernast-vochtbestrijding.be/">
@@ -95,30 +96,22 @@ const VHeader = () => {
               Bouwdroging
               <CaretIcon className="caret" />
               <div className="mega-panel">
-                <div className="mega-cols">
-                  <div className="mcol">
-                    <span className="mlab">Pakketten</span>
-                    <ul>
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Chape drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Pleisterwerk + chape</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/calculator">Waterschade drogen</Link>
-                      </li>
-                      <li>
-                        <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
-                      </li>
+                <div className="mmv-cols">
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Pakketten</span>
+                    {/* Dezelfde lijst als in V3Header en het mobiele menu:
+                        `PAKKETTEN` in src/data/navigation.ts. */}
+                    <ul className="mmv-lijst">
+                      {PAKKETTEN.map((item) => (
+                        <li key={item.label}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Toestellen</span>
-                    <ul>
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Toestellen</span>
+                    <ul className="mmv-lijst">
                       {TOESTELLEN.map((item) => (
                         <li key={item.path}>
                           <Link to={item.path}>{item.label}</Link>
@@ -126,14 +119,14 @@ const VHeader = () => {
                       ))}
                     </ul>
                   </div>
-                  <div className="mcol">
-                    <span className="mlab">Service</span>
-                    <ul>
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Service</span>
+                    <ul className="mmv-lijst">
                       <li>
                         <Link to="/#levering">Levering &amp; installatie</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/afhalen">Afhalen in Aartselaar</Link>
+                        <Link to="/afhalen">Afhalen in Aartselaar</Link>
                       </li>
                       <li>
                         <Link to="/verhuur/pakket">Vochtmeting inbegrepen</Link>
@@ -146,6 +139,23 @@ const VHeader = () => {
                       </li>
                     </ul>
                   </div>
+                  {/*
+                    De verhuurschil had geen situatiekolom: wie in de funnel zat
+                    kon vanuit "Bouwdroging" alleen naar pakketten, toestellen
+                    en service. Chape en pleisterwerk drogen, waterschade en de
+                    vochtige kelder stonden alleen in "Alles over drogen". Beide
+                    schillen tonen nu dezelfde vier kolommen.
+                  */}
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Toepassingen</span>
+                    <ul className="mmv-lijst">
+                      {MENU_SITUATIES.map((item) => (
+                        <li key={item.path}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
                 <div className="mega-foot">
                   <div className="mft">
@@ -155,28 +165,49 @@ const VHeader = () => {
                     </span>
                   </div>
                   <Link className="btn-offerte" to="/verhuur/calculator">
-                    Gratis offerte
+                    Bereken uw pakket
                   </Link>
                 </div>
               </div>
             </div>
 
-            <div className="item has-sub">
+            <div className="item mega has-sub">
               Alles over drogen
               <CaretIcon className="caret" />
-              <div className="submenu">
-                <Link to="/#techniek">
-                  Hoe drogen werkt<small>Capaciteit · circulatie · warmte</small>
-                </Link>
-                <Link to="/#voordelen">
-                  Waarom bouwdroging<small>Wat vocht u kost</small>
-                </Link>
-                <Link to="/#levering">
-                  Levering &amp; installatie<small>Geplaatst op uw gekozen datum</small>
-                </Link>
-                <Link to="/#prijzen">
-                  Prijzen &amp; voorwaarden<small>Eén dagprijs, alles erin</small>
-                </Link>
+              {/*
+                Ook dit is een mega-menu en geen uitklapper meer. Er stonden
+                vier vaste links in terwijl de gidsen, de toepassingen en
+                /prijzen er niet in zaten — "alles over drogen" gaf dus niet
+                alles. De kolommen komen uit src/data/navigation.ts, dezelfde
+                bron als de footer en het mobiele menu.
+              */}
+              <div className="mega-panel kennis">
+                <div className="mmv-cols">
+                  {ALLES_OVER_DROGEN.map((groep) => (
+                    <div className="mmv-groep" key={groep.titel}>
+                      <span className="mmv-kop">{groep.titel}</span>
+                      <ul className="mmv-lijst">
+                        {groep.items.map((item) => (
+                          <li key={item.path}>
+                            <Link to={item.path}>{item.label}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                <div className="mega-foot">
+                  <div className="mft">
+                    <b>Liever eerst weten wat het kost?</b>
+                    <span>
+                      De calculator rekent uw volume uit en zegt welk toestel en welke droogtijd erbij
+                      horen.
+                    </span>
+                  </div>
+                  <Link className="btn-offerte" to="/verhuur/calculator">
+                    Bereken uw pakket
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -203,7 +234,7 @@ const VHeader = () => {
         </Link>
 
         <Link className="btn-offerte mnav-cta-sm" to="/verhuur/calculator">
-          Gratis offerte
+          Bereken uw pakket
         </Link>
       </div>
     </header>

@@ -49,3 +49,363 @@
     margin: 0 auto;
   }
 }
+
+/* ============================================================
+   5. De installatiewidget (#installatie)
+
+   De vijf mock-animaties kwamen 1:1 uit de designfile en hielden daar geen
+   stand: de luchtstroom was drie dunne lijntjes die naar rechts groeiden, de
+   condensafvoer een grijs streepje met twee blauwe bolletjes, en de ventilator
+   een SVG waarvan de drie bladen met `transform="rotate()"` boven op elkaar
+   vielen — in de browser een vlek, geen ventilator. Wat hieronder staat
+   vervangt die vier animaties; de markup blijft op twee punten na gelijk (de
+   ventilator-SVG en het vinkje van de eerste opstartregel, zie LeveringPage).
+
+   Drie keuzes die terugkomen in alle vier:
+
+   - **Stroming is een bewegende streepjesverloop, geen groeiende lijn.** Een
+     `repeating-linear-gradient` die zijn `background-position` opschuift leest
+     als doorlopende stroom en begint niet elke cyclus opnieuw bij nul. Aan de
+     uiteinden een `mask-image` zodat de streepjes vervagen in plaats van hard
+     af te snijden.
+   - **Eén verhaal per tab.** Een paneel staat 6,5s in beeld (INS_INTERVAL) en
+     begint opnieuw bij elke wissel — `display:none` herstart CSS-animaties.
+     Wat een keer hoort te gebeuren (zones die vollopen, vinkjes die vallen)
+     draait daarom met `both`/`forwards` en niet `infinite`: het loopt één keer
+     af en blijft staan, in plaats van halverwege te resetten.
+   - **Minder blauw.** Het water in de condensafvoer blijft blauw — dat is wat
+     het leesbaar maakt — maar zachter, en de rest van de widget is rood.
+   ------------------------------------------------------------------------ */
+
+/* --- 5a. De tabknoppen --------------------------------------------------
+   Klikken gaf de standaard blauwe focusring van de browser, dwars door de
+   rode sectie heen. En de niet-actieve knoppen hadden wel een
+   `transition:background` maar nergens een hover om naartoe te gaan. */
+.lv-page .ins-tabs button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.lv-page .ins-tabs button.active:focus-visible {
+  outline-color: var(--red);
+}
+.lv-page .ins-tabs button:not(.active):hover {
+  background: #6B0F13;
+}
+
+/* --- 5b. Stap 01 · droogzones -------------------------------------------
+   De zones liepen vol met een opacity-sprong, elk op een eigen 6s-lus met
+   een eigen vertraging: wie keek zag vier volle en twee lege blokjes zonder
+   verband. Nu gaat er één meetlijn over het raster en loopt elke zone vol op
+   het moment dat de lijn erover komt — de stap heet niet voor niets
+   "eerst kijken, dan plaatsen". */
+.lv-page .zones {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+/* Hoger, en met een randje: anders is het verschil tussen een zone van 54%
+   en een van 94% op 56px nauwelijks te zien, en valt de lege ruimte boven de
+   staaf weg tegen het wit van het kaartje. */
+.lv-page .zones i {
+  height: 68px;
+  background: #EFEDEC;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.lv-page .zones i::after {
+  inset: auto 0 0 0;
+  height: 100%;
+  background: linear-gradient(180deg, #E0173A, var(--red));
+  opacity: 1;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  border-radius: 10px;
+  animation: lvZoneFill .8s cubic-bezier(.2, .75, .3, 1) both;
+}
+/*
+  Elke zone loopt tot een eigen hoogte: het kaartje heet "capaciteit per
+  droogzone", en zes identieke volle blokken vertellen dat niet. De waarden
+  zijn illustratief — er hangt geen berekening aan — maar ze moeten onderling
+  verschillen, anders is het opnieuw één rood vlak.
+*/
+@keyframes lvZoneFill {
+  from { transform: scaleY(0) }
+  to   { transform: scaleY(var(--f, 1)) }
+}
+.lv-page .zones i:nth-child(1)::after { --f: .94; animation-delay: .35s }
+.lv-page .zones i:nth-child(2)::after { --f: .66; animation-delay: .70s }
+.lv-page .zones i:nth-child(3)::after { --f: .82; animation-delay: 1.05s }
+.lv-page .zones i:nth-child(4)::after { --f: .54; animation-delay: .60s }
+.lv-page .zones i:nth-child(5)::after { --f: .88; animation-delay: .95s }
+.lv-page .zones i:nth-child(6)::after { --f: .72; animation-delay: 1.30s }
+/* De meetlijn zelf: één keer links naar rechts, net vóór de zones vollopen. */
+.lv-page .zones::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 0;
+  width: 2px;
+  background: var(--red);
+  box-shadow: 0 0 18px 5px rgba(200, 16, 46, .35);
+  animation: lvScan 1.9s cubic-bezier(.4, 0, .25, 1) both;
+}
+@keyframes lvScan {
+  from { left: 0; opacity: 0 }
+  12%  { opacity: 1 }
+  85%  { opacity: 1 }
+  to   { left: 100%; opacity: 0 }
+}
+
+/* --- 5c. Stap 02 · plaatsing & circulatie -------------------------------
+   Drie lijnen die naar rechts groeien en weer verdwijnen lazen als laadbalken.
+   Nu zijn het drie banen met doorlopende streepjes die van het toestel naar de
+   verste hoek stromen, elk op een eigen tempo, en kleurt die hoek mee op. */
+.lv-page .airm .dev {
+  box-shadow: 0 14px 30px -14px rgba(20, 20, 20, .55);
+}
+.lv-page .airm .wave {
+  left: 94px;
+  right: 15%;
+  width: auto;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, var(--red) 0 15px, rgba(200, 16, 46, 0) 15px 38px);
+  background-size: 38px 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  opacity: .9;
+  animation: lvStream 1.45s linear infinite;
+}
+.lv-page .airm .wave.w2 { animation-duration: 1.75s; opacity: .72 }
+.lv-page .airm .wave.w3 { animation-duration: 2.05s; opacity: .55 }
+@keyframes lvStream {
+  from { background-position: 0 0 }
+  to   { background-position: 38px 0 }
+}
+.lv-page .airm .room {
+  animation: lvReach 2.6s ease-in-out infinite;
+}
+@keyframes lvReach {
+  0%, 100% { background: rgba(200, 16, 46, .03); border-color: var(--line-2) }
+  55%      { background: rgba(200, 16, 46, .09); border-color: rgba(200, 16, 46, .4) }
+}
+/* Het label stond midden in de hoek — precies op de hoogte van de bovenste
+   luchtbaan. Boven in de hoek houdt het de banen vrij. */
+.lv-page .airm .room span { top: 24%; color: var(--txt-mid) }
+
+/* --- 5d. Stap 03 · condensafvoer ----------------------------------------
+   Het slangetje was 4px grijs met drie blauwe bolletjes die er half buiten
+   staken, en eindigde 60px vóór de afvoer: water dat nergens heen liep. Nu is
+   het een slang van toestel tót in de afvoer, met doorlopend water erin en een
+   rimpeling in de put zelf. De bolletjes uit de designfile vallen weg — twee
+   effecten over dezelfde slang vechten met elkaar. */
+.lv-page .drainm .dev {
+  top: 34px;
+  height: 104px;
+  box-shadow: 0 14px 30px -14px rgba(20, 20, 20, .55);
+}
+.lv-page .drainm .hose {
+  top: 82px;
+  left: 80px;
+  right: 54px;
+  height: 8px;
+  background: var(--bg-alt);
+  box-shadow: inset 0 0 0 1px var(--line);
+  overflow: hidden;
+}
+.lv-page .drainm .hose::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, #4FA3E3 0 14px, rgba(79, 163, 227, .18) 14px 34px);
+  background-size: 34px 100%;
+  animation: lvWater 1.5s linear infinite;
+}
+@keyframes lvWater {
+  from { background-position: 0 0 }
+  to   { background-position: 34px 0 }
+}
+.lv-page .drainm .hose b { display: none }
+.lv-page .drainm .drain {
+  top: 54px;
+  right: 6px;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: rgba(79, 163, 227, .12);
+  color: #2E86D8;
+  overflow: hidden;
+}
+/* De rimpeling in de put: toont dat het water er echt aankomt. */
+.lv-page .drainm .drain::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(46, 134, 216, .55);
+  animation: lvRipple 1.5s ease-out infinite;
+}
+@keyframes lvRipple {
+  from { transform: scale(.4); opacity: .9 }
+  to   { transform: scale(3.2); opacity: 0 }
+}
+.lv-page .drainm .drain svg { width: 26px; height: 26px }
+.lv-page .drainm .cap { color: var(--txt-mid) }
+
+/* --- 5e. Stap 04 · stroom & luchtstroming -------------------------------
+   De ventilator-SVG is in de markup vervangen (zie LeveringPage); hier komt
+   de ring eromheen die de tegenovergestelde kant op draait, zodat het beeld
+   beweegt zonder dat de bladen een flikkerende stroboscoop worden. De drie
+   controleregels verschijnen nu na elkaar in plaats van alle drie ineens. */
+.lv-page .fanm .fan {
+  position: relative;
+  border: 2px dashed rgba(200, 16, 46, .28);
+  animation: lvRing 14s linear infinite;
+}
+@keyframes lvRing {
+  to { transform: rotate(-360deg) }
+}
+.lv-page .fanm .fan::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(200, 16, 46, .18);
+  animation: lvPulse 2.6s ease-out infinite;
+}
+@keyframes lvPulse {
+  0%   { transform: scale(.88); opacity: 0 }
+  35%  { opacity: .9 }
+  100% { transform: scale(1.12); opacity: 0 }
+}
+.lv-page .fanm .fan svg {
+  animation: spin 2.6s linear infinite;
+}
+.lv-page .fanm .volt span {
+  animation: lvLineIn .5s cubic-bezier(.2, .8, .3, 1) both;
+}
+.lv-page .fanm .volt span:nth-child(1) { animation-delay: .25s }
+.lv-page .fanm .volt span:nth-child(2) { animation-delay: .90s }
+.lv-page .fanm .volt span:nth-child(3) { animation-delay: 1.55s }
+@keyframes lvLineIn {
+  from { opacity: 0; transform: translateX(-10px) }
+  to   { opacity: 1; transform: none }
+}
+
+/* --- 5f. Stap 05 · controle & opstart -----------------------------------
+   De vinkjes vielen in een lege plek van 22px: tot ze verschenen stond er een
+   gat voor de tekst. Nu staat de ring er meteen en valt alleen het vinkje erin,
+   waarna de regel groen kleurt. */
+.lv-page .startm .row {
+  box-shadow: inset 0 0 0 1px transparent;
+}
+.lv-page .startm .row i {
+  opacity: 1;
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--line);
+}
+.lv-page .startm.play .row i {
+  animation: none;
+}
+.lv-page .startm .row i svg {
+  opacity: 0;
+  transform: scale(.4);
+}
+.lv-page .startm.play .row i svg {
+  animation: lvTick .45s cubic-bezier(.2, .9, .3, 1.5) forwards;
+}
+.lv-page .startm.play .row {
+  animation: lvRowOn .45s ease forwards;
+}
+.lv-page .startm.play .row:nth-child(1) i svg,
+.lv-page .startm.play .row:nth-child(1) { animation-delay: .2s }
+.lv-page .startm.play .row:nth-child(2) i svg,
+.lv-page .startm.play .row:nth-child(2) { animation-delay: 1.0s }
+.lv-page .startm.play .row:nth-child(3) i svg,
+.lv-page .startm.play .row:nth-child(3) { animation-delay: 1.8s }
+.lv-page .startm.play .row:nth-child(4) i svg,
+.lv-page .startm.play .row:nth-child(4) { animation-delay: 2.6s }
+.lv-page .startm.play .row:nth-child(5) i svg,
+.lv-page .startm.play .row:nth-child(5) { animation-delay: 3.4s }
+@keyframes lvTick {
+  from { opacity: 0; transform: scale(.4) }
+  to   { opacity: 1; transform: scale(1) }
+}
+@keyframes lvRowOn {
+  to {
+    background: rgba(30, 158, 80, .07);
+    box-shadow: inset 0 0 0 1px rgba(30, 158, 80, .2);
+    color: var(--txt);
+  }
+}
+
+/* --- 5g. Beperkte beweging ----------------------------------------------
+   `useEffect` in LeveringPage zet de auto-advance al stil bij
+   `prefers-reduced-motion`; dan hoort ook het paneel zelf stil te staan. Alles
+   springt naar zijn eindtoestand — niet naar zijn begintoestand, want dan
+   blijft een halve widget leeg achter. */
+@media (prefers-reduced-motion: reduce) {
+  .lv-page .ins-p.active,
+  .lv-page .zones::after,
+  .lv-page .airm .wave,
+  .lv-page .airm .room,
+  .lv-page .drainm .hose::after,
+  .lv-page .drainm .drain::after,
+  .lv-page .fanm .fan,
+  .lv-page .fanm .fan::after,
+  .lv-page .fanm .fan svg,
+  .lv-page .fanm .volt span,
+  .lv-page .startm .row,
+  .lv-page .startm .row i svg,
+  .lv-page .zones i::after {
+    animation: none !important;
+  }
+  .lv-page .zones::after,
+  .lv-page .fanm .fan::after { display: none }
+  .lv-page .zones i::after { transform: scaleY(1) }
+  .lv-page .fanm .volt span { opacity: 1; transform: none }
+  .lv-page .startm .row i svg { opacity: 1; transform: none }
+  .lv-page .startm .row {
+    background: rgba(30, 158, 80, .07);
+    box-shadow: inset 0 0 0 1px rgba(30, 158, 80, .2);
+  }
+}
+
+/* ============================================================
+   6. De twee heroknoppen
+
+   Het design zette ze allebei wit met rode tekst, naast elkaar: samen één wit
+   blok waarin de hoofdactie niet opvalt. Wit met zwarte tekst draagt nu de
+   hoofdactie — dat is het hoogste contrast tegen het donkerrood — en zwart de
+   verwijzing naar de uitleg verderop op de pagina.
+   ------------------------------------------------------------------------ */
+.lv-page .hero .btn-licht {
+  background: #fff;
+  color: var(--txt);
+}
+.lv-page .hero .btn-licht:hover {
+  background: rgba(255, 255, 255, .88);
+  color: var(--txt);
+}
+.lv-page .hero .btn-zwart {
+  background: #141414;
+  color: #fff;
+}
+.lv-page .hero .btn-zwart:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* ============================================================
+   7. De vakman bij de bestelwagen (.chkred)
+
+   Hij stond met zijn broekzoom exact op de onderrand van de rode sectie: geen
+   voeten, maar een afgesneden zoom op de scheidingslijn. Een stuk lager zakt
+   die zoom achter de rand weg en staat hij ín de sectie in plaats van erop.
+   ------------------------------------------------------------------------ */
+.lv-page .chkred-man {
+  transform: translateY(20%);
+}

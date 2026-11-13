@@ -452,7 +452,7 @@ const VerhuurBoekingPage = () => {
         */
         setHorizonDates([]);
         setDatesError(
-          "We kunnen op dit moment niet nakijken welke datums nog vrij zijn. U kunt gewoon verder — wij bevestigen uw leverdatum, of bel ons op 03 689 90 65."
+          "We kunnen op dit moment niet nakijken welke datums nog vrij zijn. U kunt gewoon verder, wij bevestigen uw leverdatum, of bel ons op 03 689 90 65."
         );
       })
       .finally(() => {
@@ -570,7 +570,7 @@ const VerhuurBoekingPage = () => {
           if (data.error) console.warn(`[boeking] betaalstatus: ${data.error}`);
           setStep(4);
           setPayError(
-            "We konden deze betaling niet terugvinden bij Stripe. Uw keuzes staan nog klaar — probeer gerust opnieuw af te rekenen, of bel ons op 03 689 90 65."
+            "We konden deze betaling niet terugvinden bij Stripe. Uw keuzes staan nog klaar, probeer gerust opnieuw af te rekenen, of bel ons op 03 689 90 65."
           );
         }
         clearReturnParams();
@@ -1138,7 +1138,7 @@ const VerhuurBoekingPage = () => {
                       {withinHorizon
                         ? `, en de komende ${AVAILABILITY_HORIZON_DAYS} dagen komt er niets vrij`
                         : ""}
-                      . Kies een andere dag hierboven, of bel ons op 03 689 90 65 — vaak kunnen we
+                      . Kies een andere dag hierboven, of bel ons op 03 689 90 65, vaak kunnen we
                       schuiven.
                     </div>
                   </div>
@@ -1411,7 +1411,7 @@ const VerhuurBoekingPage = () => {
                 </div>
                 <p className="bsub">
                   U betaalt <b>{euro(summary.payableGross)}</b> met Apple Pay, Bancontact, kaart, iDEAL of
-                  Klarna. De betaling loopt beveiligd via Stripe — wij zien uw kaartgegevens nooit.
+                  Klarna. De betaling loopt beveiligd via Stripe, wij zien uw kaartgegevens nooit.
                 </p>
 
                 <div className="paybox">
@@ -1468,7 +1468,7 @@ const VerhuurBoekingPage = () => {
                 <h2>Uw boeking staat vast</h2>
                 <p>
                   Wij bevestigen uw levering telefonisch binnen één werkdag. Betaalde u volledig
-                  online, dan staat uw factuur meteen in uw mailbox — met 5% korting. Koos u voor
+                  online, dan staat uw factuur meteen in uw mailbox, met 5% korting. Koos u voor
                   {" "}{euro(DEPOSIT_GROSS)} bevestiging, dan betaalt u het saldo bij levering.
                 </p>
                 <div className="dref">

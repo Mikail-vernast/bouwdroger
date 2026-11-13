@@ -371,7 +371,7 @@ const Configurator = () => {
                       Hoeveel m² heeft<br />uw woning?
                     </h2>
                     <p className="text-primary-foreground/50 mb-8 text-base md:text-lg max-w-md">
-                      Selecteer de oppervlakte — we berekenen direct uw pakket.
+                      Selecteer de oppervlakte, we berekenen direct uw pakket.
                     </p>
                   </div>
 
@@ -606,7 +606,7 @@ const Configurator = () => {
                       Hoe wilt u het<br />ontvangen?
                     </h2>
                     <p className="text-primary-foreground/50 mb-8 text-base md:text-lg max-w-md">
-                      Kies uw service-niveau. Wij bevelen all-in aan — alles inbegrepen.
+                      Kies uw service-niveau. Wij bevelen all-in aan, alles inbegrepen.
                     </p>
                   </div>
 

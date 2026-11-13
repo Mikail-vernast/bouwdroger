@@ -183,7 +183,7 @@ export async function POST(request: Request): Promise<Response> {
           price_data: {
             currency: "eur",
             unit_amount: Math.round(input.amountDue * 100),
-            product_data: { name: `Saldo huur — ${input.orderNumber}` },
+            product_data: { name: `Saldo huur, ${input.orderNumber}` },
           },
         },
       ],

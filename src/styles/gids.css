@@ -14,6 +14,15 @@
 .hdw-page.gids .crumbs a{color:rgba(255,255,255,.85);text-decoration:underline;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:3px}
 .hdw-page.gids .crumbs [aria-current]{color:#fff;font-weight:600}
 
+/* --- Hero zonder foto ----------------------------------------------
+   `.hero-grid` is twee kolommen met de foto rechts; zonder foto houdt de
+   tekst anders diezelfde 1.12fr en staat ze in een hero die halfleeg oogt.
+   Eén kolom met een leesbare regellengte, zoals de hero er op mobiel al uit
+   zag — daar staat `.hero-vis` sinds het begin op `display:none`.
+   ------------------------------------------------------------------- */
+.hdw-page.gids .hero-grid.nopic{grid-template-columns:1fr}
+.hdw-page.gids .hero-grid.nopic .hero-copy{max-width:820px;padding-bottom:72px}
+
 /* Lopende tekst: leesbare regellengte, ruimte tussen alinea's. */
 .hdw-page.gids .prose{max-width:780px}
 .hdw-page.gids .prose h2{font-family:var(--fd);font-weight:800;font-size:clamp(24px,2.6vw,34px);line-height:1.12;letter-spacing:-.025em;color:var(--txt);margin:0 0 14px;text-wrap:balance}
@@ -38,6 +47,12 @@
 .hdw-page.gids thead th{background:var(--bg-alt);font-weight:700;font-size:13.5px}
 .hdw-page.gids tbody tr:last-child td{border-bottom:0}
 .hdw-page.gids td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+/* De toestelnaam is de kop van haar rij, geen gewone verwijzing: vet en in
+   de kopletter, met de huidige gepubliceerde naam uit het portaal. De rode
+   onderstreping houdt zichtbaar dat je erop kunt klikken. */
+.hdw-page.gids td .tnaam{display:inline-block;font-family:var(--fd);font-weight:800;font-size:15px;color:var(--txt);text-decoration:none}
+.hdw-page.gids td .tnaam:hover{color:var(--red)}
+.hdw-page.gids td small{display:block;font-size:12px;color:var(--txt-dim);margin-top:4px}
 
 /* Kaarten met een link naar een toestel of gids. */
 .hdw-page.gids .kaart a.meer{display:inline-block;margin-top:12px;font-weight:700;font-size:14.5px}
@@ -52,10 +67,793 @@
 .hdw-page.gids .faq-item p{font-size:15.5px;line-height:1.7;color:var(--txt-mid);margin:0}
 
 .hdw-page.gids .lees-verder{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-.hdw-page.gids .lees-verder a{display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line-2);border-radius:99px;padding:10px 16px;font-weight:600;font-size:14px;color:var(--txt);text-decoration:none}
+.hdw-page.gids .lees-verder a{display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line-2);border-radius:99px;padding:10px 16px;font-weight:700;font-size:14px;color:var(--txt);text-decoration:none}
 .hdw-page.gids .lees-verder a:hover{border-color:var(--red);color:var(--red)}
 
 @media (max-width:640px){
   .hdw-page.gids .wrap{padding:0 16px}
   .hdw-page.gids .hero{padding-top:150px}
 }
+
+/* ============================================================
+   Sectieritme rood–wit
+
+   De gidsen stonden tot november 2026 als één kolom lopende tekst op wit:
+   leesbaar, maar zonder ritme, en daardoor niet herkenbaar als dezelfde site
+   als /drooggarantie of /levering. Wat hieronder staat brengt dezelfde
+   afwisseling naar de gidsen: een rode statbalk onder de hero, volvlakke rode
+   secties tussen de witte in, en kaarten in plaats van opsommingen.
+
+   De rode blokken (`.statrule`, `.lvred`, `.vsg`) zijn dezelfde vormtaal als
+   op /drooggarantie, maar staan hier opnieuw uitgeschreven in plaats van
+   gedeeld: die opmaak zit in `drooggarantie.css` onder `.dg-page`, en dat
+   bestand is een letterlijke transcriptie van de designfile die niet met de
+   hand bijgewerkt wordt. Een gedeeld, ongescoped bestand zoals
+   `site-footer.css` is pas de moeite zodra een derde schil dezelfde blokken
+   nodig heeft.
+   ============================================================ */
+
+/* --- Rode statbalk direct onder de hero ----------------------------- */
+.hdw-page.gids .statrule{background:var(--page)}
+.hdw-page.gids .statrule .wrap{padding-top:34px;padding-bottom:34px}
+.hdw-page.gids .statrule .band{display:grid;grid-template-columns:repeat(4,1fr);background:var(--maroon-d) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-radius:20px;padding:14px 10px;overflow:hidden}
+.hdw-page.gids .statrule .st{position:relative;padding:24px 30px;color:#fff}
+.hdw-page.gids .statrule .st:not(:first-child)::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:rgba(255,255,255,.24)}
+.hdw-page.gids .statrule .st .n{font-family:var(--fd);font-weight:800;font-size:34px;letter-spacing:-.03em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.hdw-page.gids .statrule .st .n em{font-style:normal;font-size:.58em;color:rgba(255,255,255,.85);margin-left:3px}
+.hdw-page.gids .statrule .st .l{font-size:13px;color:rgba(255,255,255,.82);margin-top:8px;line-height:1.45}
+@media (max-width:1040px){.hdw-page.gids .statrule .band{grid-template-columns:1fr 1fr}.hdw-page.gids .statrule .st{padding:18px 22px}.hdw-page.gids .statrule .st:nth-child(3)::before{display:none}}
+@media (max-width:640px){.hdw-page.gids .statrule .band{grid-template-columns:1fr}.hdw-page.gids .statrule .st::before{display:none}}
+
+/* --- Volvlakke rode sectie ------------------------------------------ */
+.hdw-page.gids .lvred{background:var(--maroon-d) url('/vernast/bg-red-2.webp') center/cover no-repeat;padding:88px 0}
+.hdw-page.gids .lvred .kick{color:rgba(255,255,255,.62)}
+.hdw-page.gids .lvred .sec{color:#fff}
+.hdw-page.gids .lvred .lede{color:rgba(255,255,255,.8)}
+.hdw-page.gids .lvred .lede a{color:#fff;font-weight:700;text-decoration:none}
+.hdw-page.gids .lvred .note{background:#fff;color:var(--txt-mid)}
+.hdw-page.gids .lvred .note b{color:var(--txt)}
+.hdw-page.gids .lvred .note a{color:var(--red)}
+/* De kaart loopt over de volle breedte van haar sectie, net als de tabel of
+   het stappenraster erboven. Hij stond op 900 px en links uitgelijnd, en hing
+   daardoor als een halve balk onder een blok dat wél de volle breedte had.
+   De regellengte blijft leesbaar doordat de tekst binnenin op 980 px staat. */
+.hdw-page.gids .lvred .note{max-width:none;padding:24px 28px}
+/* Het stappenraster erboven stond op 920 px en gecentreerd; samen met een
+   notitie over de volle breedte gaf dat twee linkerranden in één sectie. */
+.hdw-page.gids .lvred .stap8{max-width:none}
+/* De tabel staat in haar eigen witte kaart; alleen de rand mag weg, anders
+   tekent ze een grijze lijn op het rood. */
+.hdw-page.gids .lvred .tbl{border-color:transparent;box-shadow:0 30px 60px -34px rgba(0,0,0,.6)}
+.hdw-page.gids tbody tr{transition:background .15s}
+.hdw-page.gids tbody tr:hover{background:rgba(200,16,46,.04)}
+
+/* --- Twee kaarten, met de kleur in het label ----------------------
+   De kaarten zelf zijn gebroken wit; alleen het blokje bovenaan draagt de
+   kleur. Een volvlak groen en rood naast elkaar trok alle aandacht naar de
+   achtergrond in plaats van naar wat er staat, en maakte de tekst in de rode
+   kaart bovendien moeilijker te lezen. */
+.hdw-page.gids .vsg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:38px}
+@media (max-width:860px){.hdw-page.gids .vsg{grid-template-columns:1fr}}
+.hdw-page.gids .vs{background:var(--bg-alt);border:1px solid var(--line);border-radius:18px;padding:30px;display:flex;flex-direction:column;gap:14px;box-shadow:0 18px 38px -28px rgba(0,0,0,.35)}
+.hdw-page.gids .vs .vt{align-self:flex-start;font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:9px;background:var(--bg-alt);color:var(--txt)}
+.hdw-page.gids .vs.groen .vt{background:var(--ok);color:#fff}
+.hdw-page.gids .vs.rood .vt{background:var(--red);color:#fff}
+.hdw-page.gids .vs h3{font-family:var(--fd);font-weight:800;font-size:19px;color:var(--txt);margin:0}
+.hdw-page.gids .vs ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.hdw-page.gids .vs li{display:flex;gap:9px;align-items:flex-start;font-size:14px;color:var(--txt-mid);line-height:1.55;margin:0}
+.hdw-page.gids .vs li svg{flex-shrink:0;margin-top:3px}
+.hdw-page.gids .vs.groen li svg{color:var(--ok)}
+.hdw-page.gids .vs.rood li svg{color:var(--red)}
+.hdw-page.gids .vs li b{color:var(--txt)}
+.hdw-page.gids .vs li a{color:var(--txt);font-weight:700;text-decoration:none}
+.hdw-page.gids .vs .vf{font-size:12.5px;color:var(--txt-dim);margin-top:auto;padding-top:6px}
+
+/* --- Split: tekst naast een visueel blok ---------------------------- */
+.hdw-page.gids .wsplit{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+@media (max-width:1040px){.hdw-page.gids .wsplit{grid-template-columns:1fr}}
+.hdw-page.gids .wsplit .prose{max-width:none}
+
+/* ============================================================
+   De stroommeter
+
+   Versiering, geen informatie: elk getal dat erin staat, staat ook in de
+   lopende tekst ernaast. Dat is hier geen stijlkwestie maar een eis — de
+   pagina wordt geprerenderd voor lezers zonder JavaScript, en een blok dat
+   alleen in beweging iets zegt, zegt hun niets.
+   ============================================================ */
+.hdw-page.gids .meter{background:var(--bg-alt);border:1px solid var(--line);border-radius:20px;padding:28px;width:100%;margin:0}
+.hdw-page.gids .meter .mt-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.hdw-page.gids .meter .mt-h b{font-family:var(--fd);font-size:14px;color:var(--txt)}
+.hdw-page.gids .meter .mt-dial{background:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px;text-align:center}
+.hdw-page.gids .meter .mt-kwh{font-family:var(--fd);font-weight:800;font-size:clamp(30px,3.4vw,40px);letter-spacing:-.03em;line-height:1;color:var(--txt);font-variant-numeric:tabular-nums}
+.hdw-page.gids .meter .mt-kwh em{font-style:normal;font-size:.5em;color:var(--txt-dim);margin-left:4px}
+.hdw-page.gids .meter .mt-sub{font-size:11.5px;color:var(--txt-dim);margin-top:8px}
+.hdw-page.gids .meter .mtrow{display:flex;justify-content:space-between;align-items:baseline;background:#fff;border-radius:12px;padding:12px 17px;margin-bottom:8px}
+.hdw-page.gids .meter .mtrow .k{font-size:12.5px;color:var(--txt-mid)}
+.hdw-page.gids .meter .mtrow .v{font-family:var(--fd);font-weight:800;font-size:15.5px;color:var(--txt);font-variant-numeric:tabular-nums}
+.hdw-page.gids .meter .mtrow .v small{font-size:11px;font-weight:600;color:var(--txt-dim);margin-left:2px}
+.hdw-page.gids .meter .mt-res{margin-top:16px;background:var(--red);color:#fff;border-radius:12px;padding:14px 17px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.hdw-page.gids .meter .mt-res b{font-family:var(--fd);font-size:14px}
+.hdw-page.gids .meter .mt-res span{font-size:11.5px;opacity:.85;white-space:nowrap}
+
+/* ============================================================
+   De rekensom als stappen, en de vergelijkingsbalken
+   ============================================================ */
+.hdw-page.gids .somrij{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:30px 0 8px}
+/* Grijs op wit laat de rand van een kaart verdwijnen; een haarlijn plus een
+   zachte schaduw geeft haar weer vorm zonder dat het kader opvalt. */
+.hdw-page.gids .som{flex:1 1 180px;background:var(--bg-alt);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:0 14px 30px -22px rgba(0,0,0,.4)}
+.hdw-page.gids .som .sk{font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--txt-dim);display:block;margin-bottom:9px}
+.hdw-page.gids .som .sv{font-family:var(--fd);font-weight:800;font-size:clamp(19px,2vw,24px);letter-spacing:-.025em;color:var(--txt);line-height:1.1;font-variant-numeric:tabular-nums}
+.hdw-page.gids .som .sv small{font-family:var(--fb);font-weight:600;font-size:12.5px;color:var(--txt-dim);margin-left:3px}
+/* Groen = ons bedrag. Rood blijft in deze pagina voorbehouden aan wat de
+   bezoeker geld kost: het verbruik van een te groot toestel. */
+.hdw-page.gids .som.uit{background:var(--ok)}
+.hdw-page.gids .som.uit .sk{color:rgba(255,255,255,.7)}
+.hdw-page.gids .som.uit .sv{color:#fff}
+.hdw-page.gids .som.uit .sv small{color:rgba(255,255,255,.75)}
+.hdw-page.gids .somvs{background:var(--bg-alt);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 30px -22px rgba(0,0,0,.4);padding:16px 20px;margin:16px 0 0;font-size:14px;line-height:1.7;color:var(--txt-mid);max-width:720px}
+.hdw-page.gids .somvs b{color:var(--txt)}
+.hdw-page.gids .somvs b.hun{color:var(--txt)}
+.hdw-page.gids .somnoot{font-size:13.5px;line-height:1.7;color:var(--txt-dim);max-width:720px;margin:4px 0 0}
+.hdw-page.gids .somop{align-self:center;font-family:var(--fd);font-weight:800;font-size:17px;color:var(--txt-dim);padding:0 2px}
+/* Onder 860px staan de stappen onder elkaar. `flex:1 1 180px` slaat dan op de
+   hoogte — zonder `flex:0 0 auto` rekte elke kaart zich tot een leeg vlak van
+   een halve schermhoogte uit. */
+@media (max-width:860px){
+  .hdw-page.gids .somrij{flex-direction:column;gap:8px}
+  .hdw-page.gids .som{flex:0 0 auto;padding:18px 20px}
+  .hdw-page.gids .somop{align-self:flex-start;padding:0 0 0 22px;line-height:1}
+}
+
+.hdw-page.gids .vgl{margin:26px 0 6px;display:flex;flex-direction:column;gap:14px;max-width:620px}
+.hdw-page.gids .vgl .vrow .vl{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:var(--txt-mid);margin-bottom:7px}
+.hdw-page.gids .vgl .vrow .vl b{font-family:var(--fd);font-size:15px;color:var(--txt);font-variant-numeric:tabular-nums}
+.hdw-page.gids .vgl .vbar{height:12px;border-radius:99px;background:var(--bg-alt);overflow:hidden}
+.hdw-page.gids .vgl .vbar i{display:block;height:100%;border-radius:99px;background:var(--txt-dim);position:relative;overflow:hidden}
+.hdw-page.gids .vgl .vrow.groen .vbar i{background:var(--ok)}
+.hdw-page.gids .vgl .vrow.rood .vbar i{background:var(--red)}
+.hdw-page.gids .vgl .vrow.huur{margin-top:4px;padding-top:14px;border-top:1px solid var(--line)}
+.hdw-page.gids .vgl .vrow.huur .vbar i{background:var(--line-2)}
+.hdw-page.gids .vglnoot{font-size:13px;line-height:1.7;color:var(--txt-dim);max-width:720px;margin:18px 0 0}
+/* Eén glans die over de balk trekt — de breedte zelf staat vast, zodat het
+   blok ook zonder JavaScript de juiste verhouding toont. */
+.hdw-page.gids .vgl .vbar i::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.45) 50%,transparent 80%);transform:translateX(-100%);animation:vglSheen 3.6s ease-in-out infinite}
+@keyframes vglSheen{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
+
+/* Beweging is versiering, geen informatie — zie src/index.css. */
+@media (prefers-reduced-motion: reduce){
+  .hdw-page.gids .meterdek .meter,
+  .hdw-page.gids .vgl .vbar i::after{animation:none}
+}
+
+/* ============================================================
+   Vergelijking met een toestel van de concurrentie
+
+   Groen is hier "ons toestel", grijs het vergelijkingstoestel. De maatstaf
+   die bovenaan elke kaart staat is **liter water per kWh**: een groter
+   toestel trekt vanzelf meer water én meer stroom, dus alleen de verhouding
+   tussen die twee zegt iets over zuinigheid. De bronvermelding onder de
+   kaarten is geen beleefdheid maar een eis — een vergelijking met een met
+   naam genoemd product moet controleerbaar zijn.
+   ============================================================ */
+.hdw-page.gids .ecog{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:38px}
+@media (max-width:860px){.hdw-page.gids .ecog{grid-template-columns:1fr}}
+.hdw-page.gids .eco{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.hdw-page.gids .eco:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.25)}
+.hdw-page.gids .eco.wij{background:var(--ok);border-color:transparent;color:#fff}
+.hdw-page.gids .eco .et{align-self:flex-start;font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:9px;background:var(--bg-alt);color:var(--txt);margin-bottom:16px}
+.hdw-page.gids .eco.wij .et{background:var(--bg-alt);color:#0f6b36}
+.hdw-page.gids .eco h3{font-family:var(--fd);font-weight:800;font-size:19px;color:var(--txt);margin:0 0 2px}
+.hdw-page.gids .eco.wij h3{color:#fff}
+.hdw-page.gids .eco .esub{font-size:12.5px;color:var(--txt-dim);margin:0 0 18px}
+.hdw-page.gids .eco.wij .esub{color:rgba(255,255,255,.72)}
+/* De eco-maatstaf, het grootste getal op de kaart. */
+.hdw-page.gids .eco .ekpi{font-family:var(--fd);font-weight:800;font-size:clamp(30px,3.4vw,40px);letter-spacing:-.03em;line-height:1;color:var(--txt);font-variant-numeric:tabular-nums}
+.hdw-page.gids .eco.wij .ekpi{color:#fff}
+.hdw-page.gids .eco .ekpi em{font-style:normal;font-size:.4em;font-weight:600;letter-spacing:normal;color:var(--txt-dim);margin-left:8px}
+.hdw-page.gids .eco.wij .ekpi em{color:rgba(255,255,255,.8)}
+.hdw-page.gids .eco .ekpil{font-size:13px;font-weight:600;color:var(--txt-mid);margin:10px 0 18px}
+.hdw-page.gids .eco.wij .ekpil{color:rgba(255,255,255,.85)}
+.hdw-page.gids .eco .erow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+.hdw-page.gids .eco.wij .erow{border-top-color:#ffffff33}
+.hdw-page.gids .eco .erow .k{font-size:13px;color:var(--txt-mid)}
+.hdw-page.gids .eco.wij .erow .k{color:rgba(255,255,255,.8)}
+.hdw-page.gids .eco .erow .v{font-family:var(--fd);font-weight:800;font-size:15.5px;color:var(--txt);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hdw-page.gids .eco.wij .erow .v{color:#fff}
+.hdw-page.gids .eco .emeer{margin-top:auto;padding-top:16px;font-weight:700;font-size:14px}
+.hdw-page.gids .eco.wij .emeer a{color:#fff;text-decoration:underline;text-decoration-color:#ffffff80;text-underline-offset:3px}
+.hdw-page.gids .ecobron{font-size:12.5px;line-height:1.65;color:var(--txt-dim);margin:16px 0 0;max-width:820px}
+.hdw-page.gids .ecobron a{color:var(--txt-mid);text-decoration:underline;text-underline-offset:2px}
+
+/* --- Het vraagformulier onderaan ------------------------------------
+   <ContactBlok> is geschreven voor de v3c-schil; dit zijn de drie regels
+   die deze schil nog mist. */
+.hdw-page.gids .sec-head.mid{max-width:760px;margin-left:auto;margin-right:auto;text-align:center}
+.hdw-page.gids .sec-head.mid .lede{margin-left:auto;margin-right:auto}
+.hdw-page.gids .fsend .fbtns{display:flex;gap:10px;flex-wrap:wrap}
+.hdw-page.gids .btn-line{background:transparent;border:1.5px solid var(--line-2);color:var(--txt)}
+.hdw-page.gids .btn-line:hover{background:var(--bg-alt);color:var(--txt)}
+.hdw-page.gids .fshell .fsend small a{color:var(--red);font-weight:600}
+
+/* De CTA-band sluit aan op het blok erboven in plaats van er een hele
+   sectiepadding tussen te laten. */
+.hdw-page.gids .manband.aansluitend{margin-top:28px}
+
+
+/* ============================================================
+   Links in lopende tekst
+
+   Rood én vet trok te veel aandacht naar elke link: in een alinea met drie
+   verwijzingen las de tekst als een reeks knoppen. Er stond daarna een rode
+   onderstreping onder een zwarte letter, en dat was het omgekeerde probleem:
+   in een gids met tien verwijzingen werd de tekst een lappendeken van
+   streepjes. Het signaal is nu de vette zwarte letter, met rood op hover —
+   zo valt een link in de regel op zonder haar open te breken.
+   ============================================================ */
+.hdw-page.gids .prose a,
+.hdw-page.gids .sw p a,
+.hdw-page.gids .sw2 p a,
+.hdw-page.gids .note a,
+.hdw-page.gids .somvs a,
+.hdw-page.gids .vglnoot a{color:var(--txt);font-weight:700;text-decoration:none}
+.hdw-page.gids .prose a:hover,
+.hdw-page.gids .sw p a:hover,
+.hdw-page.gids .sw2 p a:hover,
+.hdw-page.gids .note a:hover,
+.hdw-page.gids .somvs a:hover,
+.hdw-page.gids .vglnoot a:hover{color:var(--red)}
+/* In de rode sectie staat de verwijzing in een wit kaartje: zelfde letter. */
+.hdw-page.gids .lvred .note a{color:var(--txt)}
+
+/* ============================================================
+   De vragenlijst: uitklapbaar, en rood als slotakkoord van het
+   rekenvoorbeeld
+   ============================================================ */
+/* De lijst staat gecentreerd onder de gecentreerde kop: links uitgelijnd liet
+   ze een half scherm rood leeg staan. */
+.hdw-page.gids .faqsec .faq{max-width:900px;margin:0 auto}
+.hdw-page.gids .faq-item{background:#fff;border-radius:16px;padding:0;margin-bottom:12px;overflow:hidden}
+.hdw-page.gids .faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;cursor:pointer;list-style:none;user-select:none}
+.hdw-page.gids .faq-item summary::-webkit-details-marker{display:none}
+.hdw-page.gids .faq-item summary:hover h3{color:var(--red)}
+.hdw-page.gids .faq-item h3{font-family:var(--fd);font-weight:700;font-size:17.5px;line-height:1.35;color:var(--txt);margin:0;transition:color .15s}
+.hdw-page.gids .faq-item .fx{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--bg-alt);display:grid;place-items:center;color:var(--red);transition:transform .2s}
+.hdw-page.gids .faq-item[open] .fx{transform:rotate(180deg)}
+.hdw-page.gids .faq-item p{font-size:15.5px;line-height:1.7;color:var(--txt-mid);margin:0;padding:0 24px 22px}
+.hdw-page.gids .faq-item summary:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+
+/* ============================================================
+   De twee meterkaarten als stapel
+
+   Eén plek op het scherm, twee kaarten: ons toestel en een gewone bouwdroger
+   uit het verhuurgamma. Ze liggen als een kaartspel op elkaar — de achterste
+   steekt met haar kop boven de voorste uit, zodat je altijd ziet welk toestel
+   er nog aankomt — en wisselen om de paar seconden van plaats.
+
+   Het wisselen is CSS en geen JavaScript, en beide kaarten staan voluit in de
+   HTML. Een lezer zonder scripts — de antwoordmachines waarvoor deze pagina
+   geprerenderd wordt — krijgt ze simpelweg onder elkaar te zien in plaats van
+   om beurten. Daarom staat kaart A in de normale stroom (zij bepaalt de
+   hoogte van het blok) en ligt kaart B er absoluut bovenop: zonder CSS zakt B
+   gewoon onder A.
+   ============================================================ */
+/* Geen eigen maximumbreedte: dan stond de stapel 460 px breed midden in een
+   kolom van 545, en liep ze niet gelijk met de balkenkaart in de sectie
+   eronder. Beide rechterblokken vullen nu hun kolom. */
+.hdw-page.gids .meterdek{position:relative;width:100%;margin:0;padding-top:var(--dek,52px)}
+/* `z-index` werkt alleen op een gepositioneerd element. Zonder deze regel
+   bleef kaart A statisch en schilderde de absolute kaart B er altijd
+   overheen — de stapel wisselde dan wel van plaats, maar nooit van volgorde. */
+.hdw-page.gids .meterdek .meter{margin:0;position:relative}
+.hdw-page.gids .meterdek .kaart-b{position:absolute;left:0;right:0;top:0}
+.hdw-page.gids .meterdek .kaart-a{animation:dekA 11s cubic-bezier(.4,.1,.25,1) infinite}
+.hdw-page.gids .meterdek .kaart-b{animation:dekB 11s cubic-bezier(.4,.1,.25,1) infinite}
+/* Vóór: op haar eigen plek, vol formaat, met schaduw.
+   Achter: een halve kop hoger en iets kleiner.
+
+   Geen `opacity` op de achterste kaart: dan schijnt de voorste eronder door
+   en zijn allebei de kaarten onleesbaar. Ze blijft volledig ondoorzichtig en
+   wordt alleen een tint doffer; de voorste kaart dekt haar lijf af, zodat er
+   precies één kop van uitsteekt. */
+@keyframes dekA{
+  0%,40%{transform:translateY(0) scale(1);z-index:2;filter:none;box-shadow:0 26px 54px -32px rgba(0,0,0,.5)}
+  50%,90%{transform:translateY(-52px) scale(.94);z-index:1;filter:brightness(.97) saturate(.75);box-shadow:none}
+  100%{transform:translateY(0) scale(1);z-index:2;filter:none;box-shadow:0 26px 54px -32px rgba(0,0,0,.5)}
+}
+@keyframes dekB{
+  0%,40%{transform:translateY(0) scale(.94);z-index:1;filter:brightness(.97) saturate(.75);box-shadow:none}
+  50%,90%{transform:translateY(52px) scale(1);z-index:2;filter:none;box-shadow:0 26px 54px -32px rgba(0,0,0,.5)}
+  100%{transform:translateY(0) scale(.94);z-index:1;filter:brightness(.97) saturate(.75);box-shadow:none}
+}
+.hdw-page.gids .meterdek .meter{transform-origin:50% 0}
+
+.hdw-page.gids .meter .mt-h b{font-family:var(--fd);font-size:13.5px;color:var(--txt)}
+.hdw-page.gids .meter .mt-h span{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 11px;border-radius:99px;white-space:nowrap}
+.hdw-page.gids .meter .mt-h span.ons{color:#0f6b36;background:rgba(30,158,80,.12)}
+.hdw-page.gids .meter .mt-h span.hun{color:var(--red);background:rgba(200,16,46,.08)}
+.hdw-page.gids .meter .mt-res.groen{background:var(--ok)}
+.hdw-page.gids .meter .mt-res.rood{background:var(--red)}
+@media (max-width:1040px){.hdw-page.gids .meterdek{--dek:46px}}
+
+/* ============================================================
+   De kaart van de concurrent
+
+   Ze schuift niet meer over de onze heen: die beweging dekte precies het
+   toestel af waar de vergelijking om draait. Het verschil zit nu in de kleur
+   van het kengetal en in de twee blokken eronder.
+   ============================================================ */
+.hdw-page.gids .eco.hun{border-color:var(--line-2)}
+.hdw-page.gids .eco.hun .ekpi{color:var(--red)}
+.hdw-page.gids .note b.ons{color:var(--ok)}
+
+/* De uitkomst en het kleine lettertje naast elkaar onder de kaarten, zodat
+   geen van beide een smalle kolom met een halve sectie wit ernaast wordt. */
+.hdw-page.gids .ecoslot{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;align-items:stretch}
+@media (max-width:860px){.hdw-page.gids .ecoslot{grid-template-columns:1fr}}
+.hdw-page.gids .ecoslot .note{margin:0;display:flex;flex-direction:column;justify-content:center}
+.hdw-page.gids .ecoslot .ecobron{margin:0;max-width:none;background:var(--bg-alt);border:1px solid var(--line);border-radius:16px;padding:20px 24px}
+
+
+/* Zonder beweging: de twee meterkaarten gewoon onder elkaar, allebei leesbaar. */
+@media (prefers-reduced-motion: reduce){
+  .hdw-page.gids .meterdek .kaart-a,
+  .hdw-page.gids .meterdek .kaart-b{animation:none;opacity:1;transform:none;position:relative;inset:auto}
+  .hdw-page.gids .meterdek .kaart-b{margin-top:14px}
+}
+
+/* De kop boven de uitgewerkte som krijgt lucht van het blok erboven. */
+.hdw-page.gids .somkop{margin-top:42px}
+.hdw-page.gids .somkop h3{margin-top:0}
+
+/* De balken staan naast de inleiding in plaats van eronder: in één kolom
+   bleef de halve sectie leeg. In hun eigen kaart houden ze dezelfde breedte
+   als de meter in de sectie erboven. */
+.hdw-page.gids .vglkaart{background:var(--bg-alt);border:1px solid var(--line);border-radius:20px;padding:26px 28px;width:100%}
+.hdw-page.gids .vglkaart .vgl{max-width:none;margin:0}
+.hdw-page.gids .vglkaart .vbar{background:#fff}
+.hdw-page.gids .vglkaart .vglnoot{margin:18px 0 0;font-size:12.5px;max-width:none}
+
+/* ============================================================
+   Links op een gekleurd vlak
+
+   De regel die links in lopende tekst zwart maakt, is gescoopt op `.sw p a`
+   en raakte daardoor ook de rode CTA-band die ín zo'n witte sectie ligt: daar
+   stond de verwijzing zwart met een rode onderstreping op rood. Op een
+   gekleurd vlak is wit en vet het signaal, en kan de streep weg.
+   ============================================================ */
+.hdw-page.gids .manband p a,
+.hdw-page.gids .eco.wij .emeer a,
+.hdw-page.gids .eco.wij a{color:#fff;font-weight:700;text-decoration:none}
+.hdw-page.gids .manband p a:hover,
+.hdw-page.gids .eco.wij a:hover{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.6);text-underline-offset:3px}
+
+/* ------------------------------------------------------------------
+   De kaarten van de inhoudshub (/gids)
+
+   De hele kaart is één <Link>, niet alleen de titel: het klikdoel was een
+   regel tekst van 17 px in een blok van 180 px hoog, en op een telefoon miste
+   je dat. Daarom ook `.meer` als `<span>` en niet als tweede link — twee
+   links naar dezelfde pagina in één kaart levert een schermlezer twee
+   identieke regels op in zijn linklijst.
+
+   De titel staat in het zwart. Hij erfde de rode linkkleur van de schil, en
+   met vijftien kaarten onder elkaar werd de pagina één rood blok waarin het
+   pictogram en het accent niets meer onderscheidden.
+   ------------------------------------------------------------------ */
+.hdw-page.gids .gidskaart{display:block;color:inherit;text-decoration:none}
+.hdw-page.gids .gidskaart h3{color:var(--txt)}
+.hdw-page.gids .gidskaart:hover h3{color:var(--red)}
+.hdw-page.gids .gidskaart .meer{display:inline-block;margin-top:12px;font-weight:700;font-size:14.5px;color:var(--red)}
+.hdw-page.gids .gidskaart .meer::after{content:" →";font-weight:700}
+
+/* Het pictogramblokje staat op `.sw` (gebroken wit) al op wit; in een rode of
+   witte sectie zou het wegvallen tegen zijn eigen achtergrond. */
+.hdw-page.gids .sr .gidskaart .ki{background:#fff;border-color:var(--line)}
+
+
+/* ============================================================
+   De doorsnede van de vloer
+
+   Waarom een centimeter chape erbij geen week maar twee weken kost, laat zich
+   tekenen in plaats van uitleggen: het vocht uit de onderste laag heeft maar
+   één uitweg — naar boven, door de volle dikte. Onder de chape zitten
+   isolatie en beton, en daar gaat niets doorheen.
+
+   De druppels bewegen, maar alles wat het blok zegt staat ook in de alinea
+   ernaast. Dat is hier geen stijlkwestie: deze pagina wordt geprerenderd voor
+   lezers die geen JavaScript en soms geen CSS uitvoeren, en een blok dat
+   alleen in beweging iets zegt, zegt hun niets.
+   ============================================================ */
+.hdw-page.gids .snede{background:var(--bg-alt);border:1px solid var(--line);border-radius:20px;padding:26px 28px;width:100%}
+.hdw-page.gids .snede .sn-h{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.hdw-page.gids .snede .sn-h b{font-family:var(--fd);font-size:13.5px;color:var(--txt)}
+.hdw-page.gids .snede .sn-h span{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:rgba(200,16,46,.08);padding:6px 11px;border-radius:99px;white-space:nowrap}
+.hdw-page.gids .snede .laag{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-radius:12px;padding:0 16px;margin-bottom:6px;min-height:46px;font-size:12.5px;color:var(--txt-mid)}
+.hdw-page.gids .snede .laag b{font-family:var(--fd);font-weight:800;font-size:14px;color:var(--txt);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hdw-page.gids .snede .laag em{font-style:normal;font-size:11.5px;color:var(--txt-dim);text-align:right}
+/* De luchtlaag is de ruimte zelf: daar stijgen de druppels in, en daar haalt
+   de bouwdroger ze weg. `overflow:hidden` houdt ze binnen het blok. */
+.hdw-page.gids .snede .laag.lucht{min-height:98px;align-items:flex-start;padding-top:14px;overflow:hidden}
+
+/* --- de chape ---
+   De chape blijft zandcement, dus blijft ze bruin. Het blauw ligt er als een
+   vochtlaag overheen, net zoals bij de muur op de pleistergids: `multiply`
+   tint de bruine ondergrond in plaats van hem af te dekken, zodat je ziet
+   dat het water ín het materiaal zit en niet dat er een blauwe balk ligt.
+
+   Donkerder naar onderen: bovenaan is de vloer al grotendeels droog, onderaan
+   zit het water nog, en de vlekken zijn de plassen die daar blijven staan.
+   Dat verloop is geen verfraaiing maar de kern van de uitleg, het is de reden
+   dat de laatste centimeters het traagst drogen.
+
+   De vlekken bewegen niet: een plas verplaatst zich niet, en een tweede
+   bewegend element naast de opstijgende druppels maakt het blok onrustig. */
+.hdw-page.gids .snede .laag.chape{
+  position:relative;min-height:112px;overflow:hidden;color:#3d3024;
+  background:
+    radial-gradient(circle at 24% 30%, rgba(96,74,52,.07) 1px, transparent 1.5px) 0 0/21px 17px,
+    radial-gradient(circle at 68% 72%, rgba(96,74,52,.05) 1.2px, transparent 1.7px) 11px 8px/27px 23px,
+    linear-gradient(180deg,#f2eade 0%,#e3d5c0 52%,#cfbb9e 100%);
+}
+/* De vochtlaag: wit laat de bruine chape ongemoeid, blauw tint haar nat. */
+.hdw-page.gids .snede .laag.chape::after{
+  content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;
+  background:
+    radial-gradient(ellipse 62px 15px at 21% 88%, rgba(108,170,222,1), rgba(255,255,255,0) 74%),
+    radial-gradient(ellipse 86px 17px at 58% 94%, rgba(108,170,222,1), rgba(255,255,255,0) 76%),
+    radial-gradient(ellipse 44px 13px at 87% 82%, rgba(130,186,230,1), rgba(255,255,255,0) 74%),
+    radial-gradient(ellipse 72px 18px at 38% 72%, rgba(176,212,240,1), rgba(255,255,255,0) 80%),
+    linear-gradient(180deg, rgba(255,255,255,1) 20%, rgba(219,236,250,1) 56%, rgba(159,201,233,1) 100%);
+}
+/* De maatlat, het cijfer en de druppels horen bóven die vochtlaag. */
+.hdw-page.gids .snede .laag.chape .sn-dikte,
+.hdw-page.gids .snede .laag.chape > span,
+.hdw-page.gids .snede .laag.chape .nat{position:relative;z-index:1}
+.hdw-page.gids .snede .laag.chape .nat{position:absolute}
+.hdw-page.gids .snede .laag.chape b{color:#23313d}
+
+/* --- de maatlat ---
+   Zonder schaal is een gekleurde balk geen 7 cm chape maar gewoon een balk.
+   Zeven streepjes van één centimeter tegen de zijkant, zoals een maatlat
+   tegen een doorsnede: zo is de dikte te zien en niet alleen te lezen. Het
+   aantal streepjes komt uit dezelfde dikte als het cijfer ernaast. */
+.hdw-page.gids .snede .sn-dikte{display:flex;align-items:center;gap:12px;align-self:stretch}
+.hdw-page.gids .snede .sn-maat{position:relative;align-self:stretch;flex:0 0 38px;display:flex;flex-direction:column;margin:9px 0}
+.hdw-page.gids .snede .sn-maat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(18,60,97,.38)}
+.hdw-page.gids .snede .sn-maat i{flex:1;border-bottom:1px solid rgba(18,60,97,.26)}
+/* De bovenste streep is de bovenkant van de vloer, de onderste de onderkant:
+   allebei iets steviger dan de centimeters ertussen. */
+.hdw-page.gids .snede .sn-maat i:first-child{border-top:1px solid rgba(18,60,97,.38)}
+.hdw-page.gids .snede .sn-maat i:last-child{border-bottom-color:rgba(18,60,97,.38)}
+
+/* --- de isolatie ---
+   Een isolatieplaat ziet eruit als schuim, niet als arcering: twee lagen
+   bolletjes in een verspringend raster geven de korrel van EPS. */
+.hdw-page.gids .snede .laag.iso{
+  min-height:34px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(20,20,20,.13) 2.3px, transparent 2.8px) 0 0/10px 10px,
+    radial-gradient(circle at 50% 50%, rgba(20,20,20,.08) 1.7px, transparent 2.2px) 5px 5px/10px 10px,
+    #f8f6f3;
+}
+
+/* --- de draagvloer ---
+   Grijs met spikkels: als beige balk leest beton als nog een laag chape. */
+.hdw-page.gids .snede .laag.beton{
+  min-height:40px;margin-bottom:0;color:rgba(20,20,20,.62);
+  background:
+    radial-gradient(circle at 20% 35%, rgba(20,20,20,.1) 1.1px, transparent 1.6px) 0 0/17px 13px,
+    radial-gradient(circle at 70% 70%, rgba(20,20,20,.08) 1.4px, transparent 1.9px) 8px 6px/23px 19px,
+    #c9ccce;
+}
+
+/* --- vocht in de lucht ---
+   Blauwe wolkjes die opstijgen, groter worden en vervagen: damp, niet water.
+   In het rood van de huisstijl las dit als lekwater boven de vloer, en dan
+   zegt het blok het omgekeerde van wat eronder staat. */
+.hdw-page.gids .snede .damp{
+  position:absolute;bottom:4px;width:19px;height:19px;border-radius:50%;
+  background:radial-gradient(circle at 34% 34%, rgba(46,127,209,.72), rgba(46,127,209,.26) 62%, rgba(46,127,209,0) 72%);
+  opacity:0;animation:snedeDamp 4.6s ease-in-out infinite;
+}
+@keyframes snedeDamp{
+  0%{opacity:0;transform:translateY(10px) scale(.5)}
+  22%{opacity:.95}
+  70%{opacity:.5}
+  100%{opacity:0;transform:translateY(-64px) scale(2.1)}
+}
+
+/* De lucht beweegt ook zijwaarts: dat is de ventilator in het verhaal. */
+.hdw-page.gids .snede .wind{
+  position:absolute;left:-16%;top:58%;width:64px;height:2px;border-radius:99px;
+  background:linear-gradient(90deg, transparent, rgba(46,127,209,.5), transparent);
+  opacity:0;animation:snedeWind 6.5s linear infinite;
+}
+@keyframes snedeWind{
+  0%{opacity:0;transform:translateX(0)}
+  12%,70%{opacity:.9}
+  100%{opacity:0;transform:translateX(640px)}
+}
+
+/* --- vocht in de chape ---
+   De druppels komen onderaan los en halen de bovenkant niet: boven de vierde
+   centimeter is de weg naar buiten simpelweg te lang. */
+/* Lichte druppels: blauw op blauw verdween in de natte onderkant. */
+.hdw-page.gids .snede .nat{
+  position:absolute;bottom:8px;color:rgba(247,252,255,.9);line-height:0;
+  opacity:0;animation:snedeNat 5.6s ease-in-out infinite;
+}
+@keyframes snedeNat{
+  0%{opacity:0;transform:translateY(6px)}
+  18%{opacity:.9}
+  72%{opacity:.45;transform:translateY(-26px)}
+  100%{opacity:0;transform:translateY(-38px)}
+}
+.hdw-page.gids .snede .sn-f{font-size:12.5px;line-height:1.7;color:var(--txt-dim);margin:16px 0 0}
+
+/* Een kaart zonder kleurlabel: `.vt` staat standaard grijs op grijs, en op een
+   witte sectie verdween het label daardoor in de kaart. Cementchape tegenover
+   anhydrietchape is geen goed-tegen-fout, dus hier hoort geen groen of rood. */
+.hdw-page.gids .vs:not(.groen):not(.rood) .vt{background:#fff;border:1px solid var(--line);color:var(--txt-mid)}
+.hdw-page.gids .vs:not(.groen):not(.rood) li svg{color:var(--red)}
+/* De verwijzing in de voetregel van een kaart kreeg alleen de rode letter uit
+   `.hdw-page a`, zonder streep: op dat formaat was niet te zien dat het een
+   link was. Dezelfde zwarte letter met rode streep als in de lopende tekst. */
+.hdw-page.gids .vs .vf a{color:var(--txt);font-weight:700;text-decoration:none}
+.hdw-page.gids .vs .vf a:hover{color:var(--red)}
+
+@media (prefers-reduced-motion: reduce){
+  .hdw-page.gids .snede .damp,
+  .hdw-page.gids .snede .nat{animation:none;opacity:.7;transform:none}
+  .hdw-page.gids .snede .wind{animation:none;opacity:0}
+}
+
+/* ============================================================
+   De doorsnede van een bepleisterde muur (/gids/hoe-lang-moet-pleisterwerk-drogen)
+
+   De vloerdoorsnede hierboven staat in lagen boven elkaar, want daar zit het
+   vocht gevangen tussen chape en isolatie. Een muur is het omgekeerde: het
+   water kan maar één kant op, de kamer in, en het legt daarbij de volle
+   dikte van de pleisterlaag af. Vandaar dezelfde kaart, maar liggend.
+
+   Wat het blok moet laten zien, en wat in de alinea ernaast ook met zoveel
+   woorden staat (de pagina wordt geprerenderd, en wie geen CSS uitvoert mag
+   niets missen): de buitenkant van de pleister is als eerste droog, terwijl de
+   kern nog nat is. Daarom is een lichte, harde muur geen bewijs.
+   ============================================================ */
+.hdw-page.gids .snede.muur .mlagen {
+  display: flex;
+  height: 232px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.hdw-page.gids .snede.muur .ml {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px 12px;
+}
+.hdw-page.gids .snede.muur .ml > span {
+  font-family: var(--fm);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--txt-dim);
+  white-space: nowrap;
+}
+/* Het metselwerk: de kant waar niets doorheen gaat. */
+.hdw-page.gids .snede.muur .ml.steen {
+  flex: 0 0 25%;
+  background:
+    repeating-linear-gradient(0deg, rgba(20,20,20,.09) 0 1px, transparent 1px 17px),
+    linear-gradient(90deg, #d9d0c4, #e5ddd2);
+}
+/* De pleisterlaag: nat vanbinnen, licht aan het oppervlak. Dat verloop ís de
+   uitleg, en niet alleen opmaak. */
+.hdw-page.gids .snede.muur .ml.pleister {
+  flex: 0 0 19%;
+  background: linear-gradient(90deg, #d7cabb 0%, #e9e1d7 55%, #faf8f5 100%);
+}
+/* Het dunne lichte randje aan de kamerzijde: wat u ziet als "al droog". */
+.hdw-page.gids .snede.muur .ml.pleister::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  width: 9px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), #fff);
+}
+.hdw-page.gids .snede.muur .ml.kamer { flex: 1; background: #fff }
+
+/* Het vocht in de pleister zelf: naar rechts, de enige open kant. Het haalt
+   het oppervlak, en traag, want het moet door de volle dikte. */
+.hdw-page.gids .snede.muur .pnat {
+  position: absolute;
+  left: 4%;
+  color: rgba(46,127,209,.8);
+  line-height: 0;
+  opacity: 0;
+  animation: pmNat 5.4s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes pmNat {
+  0%   { left: 4%; opacity: 0 }
+  16%  { opacity: .9 }
+  76%  { opacity: .55 }
+  100% { left: 86%; opacity: 0 }
+}
+
+/* En daarna hangt het in de kamer, waar de bouwdroger het weghaalt. */
+.hdw-page.gids .snede.muur .pdamp {
+  position: absolute;
+  bottom: 8px;
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 34%, rgba(46,127,209,.7), rgba(46,127,209,.24) 62%, rgba(46,127,209,0) 72%);
+  opacity: 0;
+  animation: pmDamp 4.8s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes pmDamp {
+  0%   { opacity: 0; transform: translateY(8px) scale(.5) }
+  22%  { opacity: .95 }
+  70%  { opacity: .5 }
+  100% { opacity: 0; transform: translateY(-120px) scale(2) }
+}
+
+/* De droger in de kamer: het enige rode vlak in de tekening. */
+.hdw-page.gids .snede.muur .pdroger {
+  position: absolute;
+  right: 11%; bottom: 0;
+  width: 42px; height: 66px;
+  border-radius: 5px 5px 1px 1px;
+  background: linear-gradient(165deg, var(--red), #9d0c23);
+  box-shadow: 0 10px 20px -12px rgba(200,16,46,.95);
+}
+.hdw-page.gids .snede.muur .pdroger::before {
+  content: "";
+  position: absolute; left: 22%; right: 22%; top: 13%; height: 9px;
+  border-radius: 2px; background: rgba(255,255,255,.9);
+}
+.hdw-page.gids .snede.muur .pdroger::after {
+  content: "";
+  position: absolute; left: 26%; right: 26%; bottom: 20%; height: 42%;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.6) 0 2px, transparent 2px 8px);
+}
+
+@media (max-width: 620px) {
+  .hdw-page.gids .snede.muur .mlagen { height: 196px }
+  .hdw-page.gids .snede.muur .ml > span { font-size: 8px; letter-spacing: .1em }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hdw-page.gids .snede.muur .pnat,
+  .hdw-page.gids .snede.muur .pdamp { animation: none; opacity: .65 }
+}
+
+
+/* ============================================================
+   De muur in doorsnede: de animatie van de pleistergids
+
+   De chapegids tekent een vloer in lagen boven elkaar. Een muur staat
+   rechtop, dus staat ze hier ook rechtop: baksteen in rijen, met de
+   pleisterlaag als dunne huid aan de kamerzijde.
+
+   Die pleisterlaag staat breder getekend dan ze in verhouding is. Op schaal
+   is 2 cm naast 25 cm steen een streep van dertig pixels, en dan is er van
+   het verloop droog-naar-nat niets meer te zien, terwijl dat juist is waar
+   het blok over gaat. De centimeters staan er daarom bij, in de band zelf en
+   in de legende.
+
+   Wat het blok moet zeggen: aan het oppervlak is de pleister al droog, en
+   juist daarom beslist niemand op het oog. Dieper zit het water nog, en de
+   steen erachter heeft er ook een deel van opgenomen. De damp die aan de
+   oppervlakte ontsnapt, beweegt; de zin eronder zegt hetzelfde, want deze
+   pagina wordt geprerenderd voor lezers zonder JavaScript of CSS.
+   ============================================================ */
+.hdw-page.gids .muur{background:var(--bg-alt);border:1px solid var(--line);border-radius:20px;padding:26px 28px;width:100%}
+.hdw-page.gids .muur .mu-h{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.hdw-page.gids .muur .mu-h b{font-family:var(--fd);font-size:13.5px;color:var(--txt)}
+.hdw-page.gids .muur .mu-h span{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:rgba(200,16,46,.08);padding:6px 11px;border-radius:99px;white-space:nowrap}
+.hdw-page.gids .muur .mu-vlak{display:flex;height:300px;border-radius:14px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+
+/* De kamer: hier ontsnapt de damp, en hier staat de schilder straks. */
+.hdw-page.gids .muur .mu-kamer{position:relative;flex:0 0 92px;background:linear-gradient(90deg,#fdfefe,#eef5fa);overflow:hidden}
+.hdw-page.gids .muur .mu-kamer .mu-lab{position:absolute;top:12px;left:12px;font-size:11.5px;color:var(--txt-dim)}
+.hdw-page.gids .muur .mu-damp{
+  position:absolute;right:2px;bottom:26%;width:22px;height:22px;border-radius:50%;
+  background:radial-gradient(circle at 34% 34%, rgba(46,127,209,.62), rgba(46,127,209,.2) 62%, rgba(46,127,209,0) 72%);
+  opacity:0;animation:muurDamp 5.4s ease-in-out infinite;
+}
+@keyframes muurDamp{
+  0%{opacity:0;transform:translate(0,0) scale(.5)}
+  22%{opacity:.95}
+  70%{opacity:.45}
+  100%{opacity:0;transform:translate(-56px,-78px) scale(1.9)}
+}
+
+/* De pleisterlaag: links het oppervlak en al droog, rechts tegen de steen en
+   nog nat. Die ene streep in het midden is de centimeter. */
+.hdw-page.gids .muur .mu-pleister{
+  position:relative;flex:0 0 76px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;
+  background:
+    linear-gradient(90deg,#f6fbfe 0%,#e4f0f9 26%,#bbd8ee 62%,#86b6dc 100%);
+  box-shadow:inset 2px 0 0 rgba(18,60,97,.32), inset -1px 0 0 rgba(18,60,97,.2);
+}
+/* De streep in het midden is de grens tussen de eerste en de tweede
+   centimeter: zo blijft zichtbaar dat de band 2 cm voorstelt. */
+.hdw-page.gids .muur .mu-pleister::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(18,60,97,.2)}
+.hdw-page.gids .muur .mu-pleister .mu-lab{position:relative;z-index:1;writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:600;color:#17486f;margin-bottom:14px;white-space:nowrap}
+/* Het droogfront trekt naar binnen: van het oppervlak naar de steen toe. */
+.hdw-page.gids .muur .mu-front{
+  position:absolute;top:0;bottom:0;left:0;width:60%;
+  background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.85), rgba(255,255,255,0));
+  opacity:0;animation:muurFront 9s ease-in-out infinite;
+}
+@keyframes muurFront{
+  0%{transform:translateX(-110%);opacity:0}
+  18%,62%{opacity:.8}
+  100%{transform:translateX(180%);opacity:0}
+}
+
+/* De snelbouwsteen: echte rijen, want een baksteenpatroon met halve verbanden
+   krijg je met achtergrondverlopen alleen niet staggered. */
+.hdw-page.gids .muur .mu-steen{position:relative;flex:25;display:flex;flex-direction:column;gap:3px;padding:3px;background:#efe7e1}
+.hdw-page.gids .muur .mu-steen .rij{flex:1;border-radius:2px;background-image:repeating-linear-gradient(90deg,#c17a58 0 56px,#efe7e1 56px 59px)}
+.hdw-page.gids .muur .mu-steen .rij:nth-child(even){background-position:30px 0}
+/* Vocht dat de steen heeft opgenomen: sterk tegen de pleister, weg naar
+   buiten toe. */
+/* `multiply` tint de steen blauw in plaats van er grijs overheen te leggen:
+   met een gewone dekkende laag leek de natte kant van de muur in de schaduw
+   te staan. */
+.hdw-page.gids .muur .mu-steen::after{
+  content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;
+  background:linear-gradient(90deg, rgba(138,189,232,1) 0%, rgba(205,228,247,1) 32%, rgba(255,255,255,1) 68%);
+}
+.hdw-page.gids .muur .mu-steen .mu-lab{position:absolute;right:14px;bottom:12px;z-index:1;font-size:11.5px;white-space:nowrap;color:#fff;background:rgba(32,24,20,.42);padding:5px 10px;border-radius:99px}
+/* Op een smal scherm brak het etiket over twee regels en werd het een vlek
+   over de onderste steenrij. */
+@media (max-width:640px){
+  .hdw-page.gids .muur .mu-vlak{height:260px}
+  .hdw-page.gids .muur .mu-kamer{flex:0 0 68px}
+  .hdw-page.gids .muur .mu-pleister{flex:0 0 58px}
+  .hdw-page.gids .muur .mu-steen .mu-lab{right:8px;bottom:8px;font-size:10.5px;padding:4px 8px}
+  .hdw-page.gids .muur .mu-steen .rij{background-image:repeating-linear-gradient(90deg,#c17a58 0 44px,#efe7e1 44px 47px)}
+  .hdw-page.gids .muur .mu-steen .rij:nth-child(even){background-position:24px 0}
+}
+
+/* De legende draagt de maten: in dertig pixels past geen tekst. */
+.hdw-page.gids .muur .mu-leg{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px}
+.hdw-page.gids .muur .mu-leg span{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt-mid)}
+.hdw-page.gids .muur .mu-leg b{color:var(--txt);font-family:var(--fd);font-size:12.5px}
+.hdw-page.gids .muur .mu-leg i{width:14px;height:14px;border-radius:4px;flex-shrink:0}
+.hdw-page.gids .muur .mu-leg i.l-droog{background:linear-gradient(135deg,#fdfefe,#dceaf6);box-shadow:inset 0 0 0 1px rgba(18,60,97,.18)}
+.hdw-page.gids .muur .mu-leg i.l-nat{background:linear-gradient(135deg,#8fbbdf,#4e8dc2)}
+.hdw-page.gids .muur .mu-leg i.l-steen{background:#c17a58}
+.hdw-page.gids .muur .mu-f{font-size:12.5px;line-height:1.7;color:var(--txt-dim);margin:14px 0 0}
+
+@media (prefers-reduced-motion: reduce){
+  .hdw-page.gids .muur .mu-damp,
+  .hdw-page.gids .muur .mu-front{animation:none;opacity:.6}
+}
+
+/* ============================================================
+   De doorverwijskaart onderaan een gids
+
+   De chapegids eindigde in een smalle kolom lopende tekst met een kale tabel
+   erin: leesbaar, maar het leek een ander sjabloon dan de negen secties
+   erboven. En die tabel stond intussen ook op de pleistergids, waar ze
+   thuishoort. Wat er nu staat is één kaart die de lezer doorstuurt, in
+   dezelfde vorm als de rest van de pagina.
+   ============================================================ */
+.hdw-page.gids .door{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:38px}
+@media (max-width:860px){.hdw-page.gids .door{grid-template-columns:1fr}}
+.hdw-page.gids .dk{display:flex;flex-direction:column;gap:10px;background:var(--bg-alt);border:1px solid var(--line);border-radius:18px;padding:28px;transition:transform .2s,box-shadow .2s}
+.hdw-page.gids .dk:hover{transform:translateY(-4px);box-shadow:0 24px 46px -28px rgba(0,0,0,.25)}
+.hdw-page.gids .dk .dki{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--red)}
+.hdw-page.gids .dk h3{font-family:var(--fd);font-weight:800;font-size:18px;color:var(--txt);margin:4px 0 0}
+.hdw-page.gids .dk p{font-size:14px;line-height:1.7;color:var(--txt-mid);margin:0}
+.hdw-page.gids .dk .dkm{margin-top:auto;padding-top:8px;font-weight:700;font-size:14.5px;color:var(--txt)}
+.hdw-page.gids .dk:hover .dkm{color:var(--red)}

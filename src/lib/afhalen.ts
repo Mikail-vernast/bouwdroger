@@ -38,7 +38,7 @@ export function parseSelection(raw: string | null | undefined): PickupLine[] {
     const qty = Math.floor(Number(count));
     if (!product || !Number.isFinite(qty) || qty <= 0) continue;
     // Het plafond komt van het toestel zelf: onze vloot, afgetopt op het
-    // algemene maximum. Van de ECO Revolution hebben we er één — dan is één
+    // algemene maximum. Van de Revolution hebben we er één — dan is één
     // ook het hoogste dat de server aanvaardt, wat de URL ook beweert.
     const total = Math.min(product.max, (seen.get(product.key) ?? 0) + qty);
     seen.set(product.key, total);

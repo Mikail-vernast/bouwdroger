@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 
 const machines = [
   {
-    name: "ECO Boost",
+    name: "Boost",
     capacity: "50L/dag",
     power: "~500W",
     volume: "450m³",
@@ -14,7 +14,7 @@ const machines = [
     tag: null,
   },
   {
-    name: "ECO Performance",
+    name: "Performance",
     capacity: "80L/dag",
     power: "~900W",
     volume: "1000m³",
@@ -23,7 +23,7 @@ const machines = [
     tag: "POPULAIR",
   },
   {
-    name: "ECO Ultimate",
+    name: "Ultimate",
     capacity: "150L/dag",
     power: null,
     volume: "1470m³",
@@ -32,7 +32,7 @@ const machines = [
     tag: null,
   },
   {
-    name: "ECO Revolution",
+    name: "Revolution",
     capacity: "Absorptiedroger",
     power: null,
     volume: "Specialist",

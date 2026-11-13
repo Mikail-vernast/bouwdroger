@@ -41,3 +41,60 @@
     margin: 0 auto;
   }
 }
+
+/* ── Contactpagina, ronde 11-2026 ────────────────────────────────────────────
+   Drie correcties op het ontwerp.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* 1. De drie gegevens in de hero stonden op glas (`rgba(255,255,255,.1)` op de
+      rode achtergrond). Daardoor had elk een andere tint, afhankelijk van waar
+      het verloop eronder lichter of donkerder liep. Wit, zoals de pillen in de
+      vertrouwensbalk op de homepage: één tint, en de telefoon en het mailadres
+      lezen meteen als iets waar je op klikt. */
+.ct-page .hbadges a,
+.ct-page .hbadges span {
+  background: #fff;
+  border: 1px solid #fff;
+  color: var(--maroon, #6E1212);
+  box-shadow: 0 12px 26px -18px rgba(0, 0, 0, .7);
+  padding: 11px 18px;
+  transition: transform .16s, box-shadow .16s;
+}
+.ct-page .hbadges a:hover {
+  background: #fff;
+  color: var(--maroon, #6E1212);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px -18px rgba(0, 0, 0, .8);
+}
+/* Het openingsuur is geen link; grijzer, zodat het verschil zichtbaar is. */
+.ct-page .hbadges span { color: rgba(18, 16, 17, .62); }
+.ct-page .hbadges svg { color: var(--red); }
+
+/* 2. De koppen van de vier kaarten stonden in het rood. Niet met opzet: de hele
+      kaart is één `<a>` en `.ct-page a{color:var(--red)}` kleurt alles wat
+      erbinnen erft. Vier rode koppen naast elkaar laten niets uitspringen --
+      en het rood hoort bij wat je aanklikt, niet bij een opschrift. */
+.ct-page .ch h3 { color: var(--txt); }
+
+/* 3. Het gegeven onderaan elke kaart was platte rode tekst. Het is de actie van
+      de kaart -- bellen, mailen, doorgaan -- dus hoort het eruit te zien als een
+      knop. `align-self:flex-start` houdt hem zo breed als zijn inhoud; over de
+      volle kaartbreedte zou hij met het lange mailadres gaan afbreken. */
+.ct-page .ch .cl {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 10px 17px;
+  border-radius: 99px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13.5px;
+  word-break: normal;
+  transition: background .16s, transform .16s;
+}
+.ct-page .ch:hover .cl { background: #a80d26; transform: translateY(-1px); }
+/* Het mailadres is langer dan de kaart op smalle schermen; daar mag hij wel
+   over de volle breedte en in het midden. */
+@media (max-width: 620px) {
+  .ct-page .ch .cl { align-self: stretch; text-align: center; }
+}

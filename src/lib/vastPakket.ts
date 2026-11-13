@@ -48,7 +48,7 @@ export function packageFor(c: PackageConfig): Package | null {
 /**
  * Welke toestelsleutel bij een regel uit de pakketlijst hoort.
  *
- * De catalogus draagt productnamen ("ECO Boost"), de beschikbaarheidscontrole en
+ * De catalogus draagt productnamen ("Boost"), de beschikbaarheidscontrole en
  * `bouwdroger_equipment` aan de Vernast-kant werken met sleutels. Het `type` uit
  * de catalogus dekt ventilator en kachel; bij een bouwdroger beslist de
  * capaciteit uit de fiche, want dát is wat de twee modellen onderscheidt — op de

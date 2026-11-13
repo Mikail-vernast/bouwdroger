@@ -25,7 +25,7 @@ const V3Ozon = () => (
           </p>
         </div>
         {/*
-          Wijst naar de pagina, niet naar de telefoon. Deze knop belde meteen,
+          Wees naar de pagina, niet naar de telefoon. Deze knop belde meteen,
           terwijl /ozonbehandeling sindsdien het volledige verhaal draagt én het
           boekingsformulier. Wie toch liever belt, vindt het nummer daar bovenaan
           naast dezelfde knop.

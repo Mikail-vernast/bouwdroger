@@ -20,10 +20,17 @@ const PANELS = [
       ["Schimmelrisico", "Hoog: vocht blijft wekenlang in muren en chape hangen."],
       [
         "Afwerken",
-        "Wachten — of te vroeg afwerken, met blazen en loskomende verf als gevolg.",
+        "Wachten, of te vroeg afwerken met blazen en loskomende verf als gevolg.",
       ],
     ],
-    verdict: "“Gratis” natuurlijk drogen betaalt u in tijd, stookkosten en risico op schade.",
+    /*
+      Stond als: "«Gratis» natuurlijk drogen betaalt u in tijd, stookkosten en
+      risico op schade." Daarin is het drogen het onderwerp van "betaalt", dus
+      las de zin alsof het drogen ú iets betaalt. Nu staat de klant waar hij
+      hoort, en spiegelt de zin die van het andere tabblad ("verdient zichzelf
+      terug").
+    */
+    verdict: "Natuurlijk drogen is niet gratis: u betaalt in tijd, stookkosten en risico op schade.",
     verdictOk: false,
   },
   {
@@ -31,12 +38,12 @@ const PANELS = [
     tab: "Actieve bouwdroging",
     tone: "good",
     rows: [
-      ["Droogtijd", "Dagen in plaats van weken — vooraf berekend en voorspelbaar."],
+      ["Droogtijd", "Dagen in plaats van weken, vooraf berekend en voorspelbaar."],
       ["Controle", "Volledig: vochtmeting voor en na bevestigt wanneer alles écht droog is."],
       ["Schimmelrisico", "Minimaal: vocht wordt continu afgevoerd voor schimmel kan groeien."],
       [
         "Afwerken",
-        "Afwerken zodra de meting het toelaat — zonder blazen of loskomende verf.",
+        "Afwerken zodra de meting het toelaat, zonder blazen of loskomende verf.",
       ],
     ],
     verdict: "Actief drogen verdient zichzelf terug in tijd, stookkosten en zekerheid.",
@@ -44,9 +51,17 @@ const PANELS = [
   },
 ];
 
+/*
+ * De vier cijfers dragen niet allemaal hetzelfde nieuws, dus niet allemaal
+ * dezelfde kleur. Rood is hier het probleem (het water dat eruit moet, de twee
+ * dagen tot schimmel), geel de drempel waar u op moet letten en groen de winst
+ * die droging oplevert. Zie `.fact.waarschuwing` en `.fact.winst` in
+ * home-v3-fixes.css.
+ */
 const FACTS = [
   {
     n: "1 500 L",
+    toon: "water",
     title: "Water in een gemiddelde nieuwbouw",
     body: "Chape, pleister en beton brengen samen honderden tot duizenden liters vocht binnen die eruit moeten voor u afwerkt.",
   },
@@ -57,11 +72,13 @@ const FACTS = [
   },
   {
     n: "≤ 2 %",
+    toon: "waarschuwing",
     title: "Restvocht voor u mag afwerken",
     body: "Vloerbekleding en verf vragen een droge ondergrond. Te vroeg afwerken betekent bladders, schimmel en opnieuw beginnen.",
   },
   {
     n: "60 %",
+    toon: "winst",
     title: "Tijdswinst met actieve droging",
     body: "Wat natuurlijk weken duurt, brengt een correct gedimensioneerd toestel terug tot een kwestie van dagen.",
   },
@@ -131,7 +148,7 @@ const V3Intro = () => {
 
         <div className="factlist">
           {FACTS.map((fact) => (
-            <div className="fact" key={fact.n}>
+            <div className={fact.toon ? `fact ${fact.toon}` : "fact"} key={fact.n}>
               <div className="fn">{fact.n}</div>
               <div>
                 <h3>{fact.title}</h3>

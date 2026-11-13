@@ -1,142 +1,214 @@
 import { Link } from "react-router-dom";
-import { BEDRIJF, KIEZEN, ONTDEK, SERVICE, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
+import { FOOTER_SITEMAP, REGIOS, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
-import { MailIcon, PhoneIcon } from "./icons";
 import { CONTACT, HEADQUARTERS, SITE_NAME } from "@/lib/site";
 import "@/styles/site-footer.css";
 
+/**
+ * De voet van de hele site.
+ *
+ * Grond, letter en maatvoering volgen de Vernast-groep — opgemeten op
+ * vernast-vochtbestrijding.be: #0a0a0c, Urbanist, kolomkoppen van 11 px met
+ * 0,24 em spatiëring op 48 % wit, links van 14 px op 70 %, rijafstand 15 px.
+ * Wie van vernast.be naar deze site klikt hoort dezelfde voet te zien.
+ *
+ * Wat deze site er bovenop doet, is de kaart: de vijf regiopagina's waren
+ * overal een rij links onderaan, en dat is precies de plek waar ze het minst
+ * uit halen. Nu staan ze als spelden op dezelfde kaart die /#regio gebruikt,
+ * én als gewone links in de feitenbalk — die lijst is wat telt, want een
+ * achtergrondafbeelding leest geen enkele zoekmachine.
+ *
+ * De footer droeg 36 links, waarvan dertien in één kolom "Service & info" —
+ * zes daarvan naar een gids. Dat is teruggebracht; zie de toelichting bij
+ * FOOTER_SITEMAP in src/data/navigation.ts voor wat eruit ging en waarom geen
+ * van die pagina's daardoor een wees wordt.
+ */
 const V3Footer = () => (
   <footer className="site">
     <div className="wrap">
       <div className="fg">
         <div className="lc">
-          <img src="/vernast/logo-horizontal-white.webp" alt="Vernast Bouwdrogers" loading="lazy" decoding="async" />
-          <p>
-            Uw specialist in bouwdroging en verhuur van eco-bouwdrogers, ventilatoren en
-            bouwkachels. Werkzaam in heel Vlaanderen, met levering op de datum die u kiest.
-          </p>
-          <div className="fc">
-            <a href={`tel:${CONTACT.phoneE164}`}>
-              <PhoneIcon size={16} /> {CONTACT.phoneLocal}
-            </a>
-            <a href={`mailto:${CONTACT.email}`}>
-              <MailIcon size={16} /> {CONTACT.email}
-            </a>
-          </div>
+          <img
+            src="/vernast/logo-horizontal-white.webp"
+            alt={SITE_NAME}
+            width={399}
+            height={66}
+            loading="lazy"
+            decoding="async"
+          />
           {/*
-            Twee adressen, elk met zijn rol. Het magazijn is waar de klant
-            komt; de zetel is wat de drie zustersites en de JSON-LD voeren.
-            Zonder die tweede regel stond de zetel wél in de schema maar
-            nergens zichtbaar op de pagina.
+            Het accent stond eerst op een opgelichte rode (#E8384F) die naast
+            het logo als roze las in plaats van als merkkleur. Omgedraaid: de
+            aanloop fijn en gedempt, de belofte vet wit. Rood blijft daarmee
+            van het logo en de spelden.
           */}
-          <p>
-            Magazijn en afhaalpunt: {CONTACT.street}, {CONTACT.postalCode} {CONTACT.city}
-            <br />
-            Ma–Vr 08:00–17:00
-            <br />
-            Zetel: {HEADQUARTERS.name}, {HEADQUARTERS.street}, {HEADQUARTERS.postalCode}{" "}
-            {HEADQUARTERS.city}
+          <p className="say">
+            Wij staan er. <em>In heel Vlaanderen.</em>
+          </p>
+          <a className="tel" href={`tel:${CONTACT.phoneE164}`}>
+            {CONTACT.phoneLocal}
+          </a>
+          <a className="mail" href={`mailto:${CONTACT.email}`}>
+            {CONTACT.email}
+          </a>
+          <p className="claim">
+            Drooggarantie inbegrepen. Levering op de datum die u kiest.
           </p>
         </div>
 
-        {/*
-          Kolom 2 — het aanbod: de rekenhulpen en het gamma (KIEZEN), waarvoor
-          mensen drogen (TOEPASSINGEN) en de alles-in-één service.
-        */}
         <div>
-          <h2>Bouwdroging</h2>
-          <ul>
-            {/* /machines (Ons volledige gamma) bewust weggelaten — nog niet af. */}
-            {[...KIEZEN, ...TOEPASSINGEN]
-              .filter((link) => link.path !== "/machines")
-              .map((link) => (
+          <nav aria-labelledby="ft-diensten">
+            <h2 id="ft-diensten">Diensten</h2>
+            <ul>
+              {TOEPASSINGEN.map((link) => (
                 <li key={link.path}>
                   <Link to={link.path}>{link.label}</Link>
                 </li>
               ))}
-            <li>
-              <Link to="/verhuur/pakket">Alles in één Droogservice</Link>
-            </li>
-          </ul>
-        </div>
+            </ul>
+          </nav>
 
-        {/*
-          Kolom 3 — service en uitleg. ONTDEK bundelt de pagina's die eerder
-          nergens vandaan gelinkt werden (Klantenservice, Drooggarantie,
-          Hoe drogen werkt, Waarom bouwdroging).
-        */}
-        <div>
-          <h2>Service &amp; info</h2>
-          <ul>
-            {[...SERVICE, ...ONTDEK].map((link) => (
-              <li key={link.path}>
-                <Link to={link.path}>{link.label}</Link>
-              </li>
-            ))}
-            <li>
-              <a href="/#faq">Veelgestelde vragen</a>
-            </li>
-          </ul>
-        </div>
-
-        {/*
-          Kolom 4 — de Vernast-groep: elk zusterbedrijf op zijn eigen domein,
-          gevolgd door de bedrijfspagina's van deze site.
-        */}
-        <div>
-          <h2>Vernast</h2>
-          <ul>
-            {VERNAST_GROEP.map((entiteit) => (
-              <li key={entiteit.label}>
-                {entiteit.href ? (
+          <nav aria-labelledby="ft-groep">
+            <h2 id="ft-groep" className="later">
+              Vernast Groep
+            </h2>
+            {/*
+              Alleen de zusterdomeinen. Deze site stond hier even bij als
+              grijze regel met "u bent hier" eronder; dat las als een kapotte
+              link en zei niets wat de bezoeker niet al wist — hij is er.
+              `VERNAST_GROEP` houdt die entry wel, want het mobiele menu voert
+              dezelfde lijst en gebruikt hem als weg terug naar de homepage.
+            */}
+            <ul>
+              {VERNAST_GROEP.filter((entiteit) => entiteit.href).map((entiteit) => (
+                <li key={entiteit.label}>
                   <a href={entiteit.href} target="_blank" rel="noopener noreferrer">
                     {entiteit.label}
                   </a>
-                ) : (
-                  <Link to={entiteit.path!}>{entiteit.label}</Link>
-                )}
-              </li>
-            ))}
-            {/* /over-ons bewust weggelaten — nog niet af. */}
-            {BEDRIJF.filter((link) => link.path !== "/over-ons").map((link) => (
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <nav aria-labelledby="ft-sitemap">
+          <h2 id="ft-sitemap">Sitemap</h2>
+          <ul>
+            {FOOTER_SITEMAP.map((link) => (
               <li key={link.path}>
                 <Link to={link.path}>{link.label}</Link>
               </li>
             ))}
           </ul>
+
+          {/*
+            De regiopagina's staan hiernaast ook als speld op de kaart, maar die
+            kaart is aria-hidden sierwerk: niet bereikbaar met de toetsenbord en
+            zonder zoekwoord in de ankertekst. Deze lijst is het echte signaal —
+            voor een bezoeker met een schermlezer én voor een crawler.
+          */}
+          <h2 id="ft-regios" className="later">Per regio</h2>
+          <ul aria-labelledby="ft-regios">
+            {REGIOS.map((link) => (
+              <li key={link.path}>
+                <Link to={link.path}>{link.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/*
+          De kaart is versiering met snelkoppelingen erop, niet de navigatie
+          zelf: `aria-hidden` en de spelden buiten de tabvolgorde. De echte
+          links staan in de feitenbalk hieronder.
+
+          De spelden droegen eerst hun provincienaam in een pil. Op deze maat
+          vielen er vijf van de vijf over elkaar; nu een punt dat zijn naam
+          toont zodra je hem aanwijst.
+        */}
+        <div className="ft-kaartkolom">
+          <div className="ft-kaart" aria-hidden="true">
+            {REGIO_ROUTES.map((regio) => (
+              <Link key={regio.slug} className="ft-pin" to={regio.path} tabIndex={-1} style={regio.pin}>
+                <span>{regio.name}</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
 
       {/*
-        Werkgebied: één regel met de vijf regiopagina's, op elke pagina van de
-        site. Dat is wat ze interne links geeft; de kaart op de homepage toont
-        maar één provincie tegelijk.
+        Vier afleesbare gegevens in plaats van één alinea waarin het adres
+        wegvalt tussen de rest. Elk gegeven met zijn eigen label — dat is ook
+        wat een AI-antwoordmachine eruit moet kunnen halen.
       */}
-      <nav className="fw" aria-label="Werkgebied">
-        <span>Bouwdroger huren in</span>
-        {REGIO_ROUTES.map((regio) => (
-          <Link key={regio.slug} to={regio.path}>
-            {regio.name}
-          </Link>
-        ))}
-      </nav>
+      <dl className="ft-feiten">
+        <div>
+          <dt>Bereikbaar</dt>
+          <dd>
+            <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a>
+            <br />
+            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          </dd>
+        </div>
+        <div>
+          <dt>Magazijn en afhaalpunt</dt>
+          <dd>
+            {CONTACT.street}
+            <br />
+            {CONTACT.postalCode} {CONTACT.city}
+          </dd>
+        </div>
+        <div>
+          <dt>Open</dt>
+          {/*
+            Alleen wat `CONTACT.openingHours` dekt. Hier stond even "Zaterdag
+            en zondag gesloten", en dat spreekt de algemene voorwaarden tegen:
+            die rekenen zaterdagochtend wél als werkdag.
+          */}
+          <dd>Ma–Vr 08:00–17:00</dd>
+        </div>
+        <div>
+          <dt>Werkgebied</dt>
+          <dd>
+            <nav className="ft-prov" aria-label="Werkgebied">
+              {REGIO_ROUTES.map((regio) => (
+                <Link key={regio.slug} to={regio.path}>
+                  {regio.name}
+                </Link>
+              ))}
+            </nav>
+          </dd>
+        </div>
+      </dl>
 
       <div className="fb">
+        {/*
+          Hier stond "BTW BE 0123.456.789" — een voorbeeldnummer uit een
+          formulier-placeholder, gepubliceerd op elke pagina van de
+          verhuurfunnel. Een verzonnen ondernemingsnummer is erger dan geen:
+          het is onjuiste bedrijfsinformatie op een handelssite, en zowel
+          Google als een AI-assistent neemt het over als feit. Zodra het
+          echte nummer bekend is, hoort het hier terug.
+
+          De zetel staat hier en niet in de feitenbalk: hij is wat de drie
+          zustersites en de JSON-LD voeren, maar niet waar een klant naartoe
+          rijdt. Zonder deze regel stond hij wél in de schema en nergens
+          zichtbaar op de pagina.
+        */}
         <div>
-          {/*
-            Hier stond "BTW BE 0123.456.789" — een voorbeeldnummer uit een
-            formulier-placeholder, gepubliceerd op elke pagina van de
-            verhuurfunnel. Een verzonnen ondernemingsnummer is erger dan geen:
-            het is onjuiste bedrijfsinformatie op een handelssite, en zowel
-            Google als een AI-assistent neemt het over als feit. Zodra het
-            echte nummer bekend is, hoort het hier terug.
-          */}
-          © {new Date().getFullYear()} {SITE_NAME}
+          © {new Date().getFullYear()} {SITE_NAME} · Zetel: {HEADQUARTERS.street},{" "}
+          {HEADQUARTERS.postalCode} {HEADQUARTERS.city}
         </div>
-        <div className="fl">
+        <div className="ft-legal">
           <Link to="/algemene-voorwaarden">Algemene voorwaarden</Link>
           <Link to="/privacy">Privacy</Link>
-          <a href="/sitemap.xml">Sitemap</a>
+          {/*
+            De zichtbare sitemap (/sitemap), niet sitemap.xml. Dat XML-bestand
+            is voor crawlers; wie hier klikt is een mens en kreeg een scherm
+            vol ongeopmaakte XML. De crawler vindt zijn versie via robots.txt.
+          */}
+          <Link to="/sitemap">Sitemap</Link>
         </div>
       </div>
     </div>

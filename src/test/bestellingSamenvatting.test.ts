@@ -23,7 +23,7 @@ describe("de toestellen uit een betaalde sessie leesbaar maken", () => {
     // `p:` markeert een regel die exact dít product vraagt — zie
     // serializeDeviceLines. De klant klikte op de toestelpagina, dus hij
     // verwacht de naam die daar stond.
-    expect(deviceLineLabel(parseDeviceLines("p:ttv4500:1")[0])).toBe("1× TTV 4500");
+    expect(deviceLineLabel(parseDeviceLines("p:ttv4500:1")[0])).toBe("1× Highflow");
   });
 
   test("de kachel heet gewoon kachel, niet 'kachel'", () => {

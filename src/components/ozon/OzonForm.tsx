@@ -30,7 +30,7 @@ const SITUATIES = [
   { value: "huisstofmijt", label: "Huisstofmijt of allergie" },
   { value: "waterschade", label: "Ontsmetting na waterschade" },
   { value: "overdracht", label: "Fris maken voor verhuur of verkoop" },
-  { value: "advies", label: "Ik weet het nog niet — graag advies" },
+  { value: "advies", label: "Ik weet het nog niet, graag advies" },
 ] as const;
 
 const TERMIJNEN = [
@@ -80,10 +80,28 @@ const MASKS: Partial<Record<keyof Details, (value: string) => string>> = {
   mail: maskEmail,
 };
 
-const OzonForm = () => {
+interface OzonFormProps {
+  /**
+   * Welke landingspagina het formulier draagt: `ozon` of `ontschimmeling`.
+   * Gaat mee naar `api/ozon.ts` en bepaalt daar het onderwerp in het portaal —
+   * zonder dit veld las elke aanvraag als "Ozonbehandeling", ook die van
+   * /ontschimmeling.
+   */
+  dienst?: "ozon" | "ontschimmeling";
+  /** Welke situatie vooraf aangevinkt staat. */
+  situatieStandaard?: string;
+  /** Tekst op de verstuurknop; de twee pagina's vragen iets anders. */
+  verstuurLabel?: string;
+}
+
+const OzonForm = ({
+  dienst = "ozon",
+  situatieStandaard,
+  verstuurLabel = "Vraag mijn ozonbehandeling aan",
+}: OzonFormProps) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [details, setDetails] = useState<Details>(EMPTY);
-  const [situatie, setSituatie] = useState<string>(SITUATIES[0].value);
+  const [situatie, setSituatie] = useState<string>(situatieStandaard ?? SITUATIES[0].value);
   const [termijn, setTermijn] = useState<string>(TERMIJNEN[0].value);
   const [ontschimmeld, setOntschimmeld] = useState<string>(ONTSCHIMMELD[2].value);
   const [ruimtes, setRuimtes] = useState("");
@@ -132,6 +150,7 @@ const OzonForm = () => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          dienst,
           voornaam: details.voornaam,
           achternaam: details.naam,
           email: details.mail,
@@ -160,7 +179,7 @@ const OzonForm = () => {
       setSkipped(failed);
       setStep(3);
     } catch {
-      setError("Verzenden lukte niet — controleer uw verbinding en probeer opnieuw.");
+      setError("Verzenden lukte niet, controleer uw verbinding en probeer opnieuw.");
     } finally {
       setSending(false);
     }
@@ -415,7 +434,7 @@ const OzonForm = () => {
               disabled={message.trim().length < 5 || sending}
               onClick={submit}
             >
-              {sending ? "Versturen…" : "Vraag mijn ozonbehandeling aan"}
+              {sending ? "Versturen…" : verstuurLabel}
             </button>
           </div>
           <p className="ozf-legal">

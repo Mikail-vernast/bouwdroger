@@ -42,6 +42,22 @@
   scroll-margin-top: 104px;
 }
 
+/* 5. Betalingssectie — de bronafbeelding heeft brede transparante marges.
+      Met de oorspronkelijke 740px breedte begon het zichtbare figuur al boven
+      de laatste informatiekaart. Reserveer daarom een volwaardige rechterkolom
+      en maak de afbeelding iets kleiner, zodat man en kaarten los van elkaar
+      staan. */
+@media (min-width: 1041px) {
+  .ks-page .pay-content {
+    max-width: calc(100% - 360px);
+  }
+
+  .ks-page .pay-man {
+    right: -10px;
+    width: clamp(560px, 40vw, 650px);
+  }
+}
+
 @media (max-width: 660px) {
   .ks-page .hdr .tl-left {
     display: none;
@@ -51,7 +67,7 @@
   }
 }
 
-/* 5. Hero-mannetje — de mediterende klant, gecentreerd onder de kop en met
+/* 6. Hero-mannetje — de mediterende klant, gecentreerd onder de kop en met
       de benen op de onderrand van de hero. Toegevoegd op vraag; staat niet in
       de designbron, daarom hier en niet in de transcriptie. Geen zwevende
       "Eindmeting"-badge zoals in de drooggarantie-hero: alleen het mannetje.
@@ -89,7 +105,7 @@
   }
 }
 
-/* 6. Hero quick-links zonder glass-look — de doorschijnende melkwitte fill
+/* 7. Hero quick-links zonder glass-look — de doorschijnende melkwitte fill
       (rgba(255,255,255,.1)) leest als glas; die halen we weg. De "Bel"-pil
       wordt de rode primaire actie met dezelfde shine-animatie als de
       gratis-offerteknop (offShine staat in klantservice.css); de overige
@@ -124,4 +140,115 @@
 .ks-page .ks-quick a.hot:hover {
   background: #a80d26;
   color: #fff;
+}
+
+/* ============================================================
+   5. De storingskaarten klappen open
+
+   Ze stonden alle zeven volledig open: acht kaarten van een halve
+   schermhoogte, waarin je de melding die jóú aangaat moest zoeken. Nu is
+   het een lijst die je opendrukt.
+
+   Bewust `<details>` en geen eigen accordeon in React: hij werkt zonder
+   JavaScript — en de pagina wordt geprerenderd — hij is van zichzelf met
+   het toetsenbord te bedienen, en de stappen blijven in de HTML staan,
+   ook dicht. Dat laatste is nodig: deze pagina moet vindbaar zijn op
+   precies die storingsvragen.
+   ============================================================ */
+
+/* `display:flex` op een <details> laat de inhoud in Safari uit het
+   boxmodel vallen; de kaart heeft die kolom ook niet meer nodig. */
+.ks-page details.fx {
+  display: block;
+  padding: 0;
+}
+
+.ks-page details.fx summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 26px;
+  border-radius: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ks-page details.fx summary::-webkit-details-marker {
+  display: none;
+}
+
+.ks-page details.fx summary h3 {
+  margin-bottom: 0;
+  transition: color .15s;
+}
+
+.ks-page details.fx summary:hover h3 {
+  color: var(--red);
+}
+
+.ks-page details.fx summary:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: -2px;
+}
+
+.ks-page details.fx .fx-chev {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: var(--txt-dim, rgba(20, 20, 20, .42));
+  display: grid;
+  place-items: center;
+  transition: transform .25s cubic-bezier(.2, .7, .3, 1), color .15s;
+}
+
+.ks-page details.fx[open] .fx-chev {
+  transform: rotate(180deg);
+  color: var(--red);
+}
+
+.ks-page details.fx ol,
+.ks-page details.fx > p {
+  margin-left: 26px;
+  margin-right: 26px;
+}
+
+.ks-page details.fx ol {
+  padding-left: 18px;
+}
+
+.ks-page details.fx > p {
+  padding-bottom: 22px;
+}
+
+.ks-page details.fx ol + p {
+  margin-top: 14px;
+}
+
+/* De open/dicht-overgang is een toegift voor browsers die
+   ::details-content kennen; elders klapt hij gewoon meteen open. */
+@supports selector(::details-content) {
+  .ks-page details.fx {
+    interpolate-size: allow-keywords;
+  }
+
+  .ks-page details.fx::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size .3s cubic-bezier(.2, .7, .3, 1), content-visibility .3s allow-discrete;
+  }
+
+  .ks-page details.fx[open]::details-content {
+    block-size: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-page details.fx .fx-chev,
+  .ks-page details.fx::details-content {
+    transition: none;
+  }
+}
+
+/* Zonder dit rekt de grid elke kaart uit tot de hoogte van de hoogste in
+   dezelfde rij: klap er één open en de kaart ernaast werd een leeg vak van
+   een halve schermhoogte. */
+.ks-page .fix-grid {
+  align-items: start;
 }

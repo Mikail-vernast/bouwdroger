@@ -1,28 +1,39 @@
-import PageMeta from "@/components/PageMeta";
-import Navbar from "@/components/Navbar";
-import V3Footer from "@/components/home-v3/V3Footer";
-import { Button } from "@/components/ui/button";
-import MachineCard from "@/components/MachineCard";
-import { Badge } from "@/components/ui/badge";
-import {
-  Phone,
-  ArrowRight,
-  CheckCircle2,
-  XCircle,
-  Zap,
-  Truck,
-  BarChart3,
-  Thermometer,
-  Wind,
-} from "lucide-react";
 import { Link } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import V3Header from "@/components/home-v3/V3Header";
+import V3Footer from "@/components/home-v3/V3Footer";
+import Reveal from "@/components/Reveal";
+import Pakketkaarten from "@/components/content/Pakketkaarten";
+import ContactBlok from "@/components/content/ContactBlok";
+import FaqBlok from "@/components/content/FaqBlok";
+import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
+import { ArrowRightIcon, CalendarCheckIcon, CheckIcon, HouseIcon, PhoneIcon } from "@/components/home-v3/icons";
+import { GaugeIcon, LayersIcon, ThermoIcon, WindIcon, XIcon } from "@/components/content/icons";
 import { SEO } from "@/data/seo";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
-import { DROGER_KAARTEN, euro } from "@/data/tarieflijst";
-import { EXTRAS } from "@/data/verhuur";
+import { euro } from "@/data/tarieflijst";
+import { EXTRAS, toestelPad } from "@/data/verhuur";
 import { droogtermijnen, natuurlijkeChapeWeken, termijnLabel } from "@/lib/droogtijden";
-import Reveal from "@/components/Reveal";
-import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
+import { getRealisatie, type Realisatie } from "@/data/realisaties";
+import { CONTACT } from "@/lib/site";
+import "@/styles/v3-content.css";
+
+/**
+ * Chape en pleisterwerk drogen. Stond tot november 2026 op de oude
+ * shadcn-schil met de `Navbar`; nu in de v3-vormtaal van /hoe-drogen-werkt,
+ * met <V3Header> en de gedeelde opmaak uit src/styles/v3-content.css.
+ *
+ * De route heet sinds 12-11-2026 /nieuwbouw-drogen. /nieuwbouw noemde de
+ * bouwfase en niet de dienst: in een zoekresultaat stond onder een titel over
+ * chape en pleisterwerk een URL waar dat woord niet in voorkwam. De oude URL
+ * leidt permanent door (vercel.json); de redirect blijft nodig omdat alle
+ * Shopify-redirects voor chape- en pleisterpakketten hier uitkomen.
+ *
+ * De inhoud bleef: de twee droogtijdtabellen zijn de reden dat mensen hier
+ * binnenkomen ("hoe lang chape drogen", "droogtijd pleisterwerk"), en ze
+ * blijven dus echte <table>'s met een koprij — zodat een zoekmachine of
+ * AI-assistent dikte en termijn aan elkaar kan koppelen.
+ */
 
 /*
   De huurtermijnen per dikte komen uit de catalogus (zie `lib/droogtijden.ts`).
@@ -46,17 +57,65 @@ const langsteTermijn = Math.max(...CHAPE.map((r) => r.max), ...PLEISTER.map((r) 
 /** Het ondertekende vochtrapport is een betalende optie, geen standaard. */
 const RAPPORT = EXTRAS.find((x) => x.k === "rapport");
 
-const steps = [
-  { num: "1", title: "Reserveer online of bel", desc: "Kies machine en leveringsdatum.", icon: Phone },
-  { num: "2", title: "Levering aan huis", desc: "Expert plaatst en legt uit.", icon: Truck },
-  { num: "3", title: "Machine doet zijn werk", desc: "Controleer dagelijks de wateropvang.", icon: Zap },
-  { num: "4", title: "Gratis vochtmeting", desc: "Bewijs voor uw vloerder.", icon: BarChart3 },
+const zonder = [
+  "Maanden wachten, zeker in herfst en winter",
+  "De vloerder kan niet starten en schuift uw plaats door",
+  "Risico op schimmel achter plinten en onder de isolatie",
+  "Eén uitgestelde fase schuift heel de afwerking op",
 ];
 
-const tips = [
-  { icon: Wind, emoji: "💨", title: "Combineer met ventilator", desc: "Zorgt voor 30% sneller drogen. Wij verhuren ook ventilatoren." },
-  { icon: Thermometer, emoji: "🌡️", title: "Verwarm de ruimte", desc: "Bij temperaturen onder 15°C werkt een kachel als aanvulling." },
-  { icon: BarChart3, emoji: "📊", title: "Meet dagelijks", desc: "Controleer de wateropvang regelmatig." },
+const met = [
+  `Huurtermijn van ${kortsteTermijn} tot ${langsteTermijn} weken, volgens de dikte`,
+  "De vloerder krijgt een datum waar hij op kan rekenen",
+  "De lucht blijft droog, dus schimmel krijgt geen kans",
+  "Vochtmeting bij de start en bij de oplevering",
+];
+
+
+/*
+  Wat de droogtijd bepaalt, in één reeks van zes.
+
+  Hier stonden twee rode secties onder elkaar in de pagina: "Drie dingen die de
+  droogtijd echt bepalen" en, drie secties verder, "Drie dingen die dagen
+  schelen" — dezelfde vorm, dezelfde kaarten, en deels dezelfde inhoud:
+  ventileren en verwarmen kwamen in allebei terug. Wie de pagina afscrolde,
+  las twee keer hetzelfde met een ander opschrift.
+
+  Nu is het één genummerde reeks in de vorm van "de eerste 48 uur" op
+  /waterschade, in de volgorde waarin een bouwheer ze nodig heeft: van het
+  moment waarop hij mag beginnen tot de meting die beslist of hij klaar is.
+*/
+const praktijk = [
+  {
+    Icon: CalendarCheckIcon,
+    title: "Begin pas als de chape mag drogen",
+    desc: "Een verse zandcementchape moet eerst uitharden; wie meteen hard begint te drogen, riskeert krimpscheuren of een zwakke toplaag. Vraag uw chapeur vanaf wanneer u actief mag drogen — vaak na enkele dagen tot een week. Pleisterwerk kan meestal sneller aan de beurt, zodra het oppervlak hard is.",
+  },
+  {
+    Icon: HouseIcon,
+    title: "Houd de ruimte dicht",
+    desc: "Een condensdroger haalt het vocht uit de lucht in de ruimte. Staan ramen of deuren open, dan droogt hij de buitenlucht mee en schiet de droging nauwelijks op. Verlucht alleen kort als het echt nodig is, bijvoorbeeld na werken met lijm of verf.",
+  },
+  {
+    Icon: WindIcon,
+    title: "Zet er een ventilator bij",
+    desc: "Boven een verse chape hangt een laag verzadigde lucht. Een radiaalventilator blaast die weg, zodat er telkens droge lucht bij de vloer komt. Dat scheelt dagen op dezelfde huurtermijn.",
+  },
+  {
+    Icon: ThermoIcon,
+    title: "Verwarm bij minder dan 15 °C",
+    desc: "Een condensdroger werkt het best tussen ongeveer 15 en 25 °C. Daaronder neemt de lucht weinig vocht op en geeft de chape haar water traag af. Een elektrische bouwkachel met thermostaat brengt de werf op temperatuur en houdt de droging op gang.",
+  },
+  {
+    Icon: GaugeIcon,
+    title: "Volg de wateropvang",
+    desc: "Hoeveel water er per dag uit het toestel komt, vertelt u waar u staat. Zakt de opbrengst, dan nadert de chape haar evenwicht — en dat is het moment om te laten meten.",
+  },
+  {
+    Icon: LayersIcon,
+    title: "Meet het restvocht vóór de vloer erop gaat",
+    desc: "Parket, pvc en tegels verdragen maar een beperkte hoeveelheid restvocht; te vroeg leggen kan uitzetten, loskomen of schimmel onder de vloer geven. De gangbare meting is de CM-meting (carbidmethode), en de toegelaten waarde verschilt per soort chape, per vloerbekleding en met of zonder vloerverwarming. Vraag uw vloerlegger welke grens hij hanteert; wij meten bij de start en bij de oplevering.",
+  },
 ];
 
 /*
@@ -69,7 +128,7 @@ const tips = [
 const faqs = [
   {
     q: "Hoe lang moet mijn chape drogen voor ik kan vloeren?",
-    a: `Zonder hulp rekent men bij zandcementchape als vuistregel ongeveer een week per centimeter voor de eerste vier centimeter, en daarna twee weken per extra centimeter — voor 6 cm dus zo'n ${natuurlijkeChapeWeken(6)} weken, onder goede omstandigheden. Met een bouwdroger lopen onze chapepakketten ${opsomming(CHAPE)}. Of u effectief kunt vloeren, beslist een restvochtmeting, niet de kalender.`,
+    a: `Zonder hulp rekent men bij zandcementchape als vuistregel ongeveer een week per centimeter voor de eerste vier centimeter, en daarna twee weken per extra centimeter, voor 6 cm dus zo'n ${natuurlijkeChapeWeken(6)} weken, onder goede omstandigheden. Met een bouwdroger lopen onze chapepakketten ${opsomming(CHAPE)}. Of u effectief kunt vloeren, beslist een restvochtmeting, niet de kalender.`,
   },
   {
     q: "Hoe lang moet pleisterwerk drogen voor ik kan schilderen?",
@@ -94,21 +153,37 @@ const faqs = [
   },
 ];
 
+/**
+ * De werven die we onder de vragen tonen: drie nieuwbouwdossiers waarin
+ * pleister- en chapewerk moest drogen. `getRealisatie` kan `undefined` geven
+ * wanneer een dossier uit de lijst verdwijnt; die valt dan stil weg in plaats
+ * van de pagina te breken.
+ */
+const REFERENTIES = ["mnr-l-hasselt", "mevr-j-j-kontich", "mnr-k-putte"]
+  .map(getRealisatie)
+  .filter((r): r is Realisatie => !!r);
+
 const verderLezen: LeesGroep[] = [
+  /*
+    Hier stond "Zo pakten we het aan" met dezelfde drie realisaties als
+    `REFERENTIES`. Die staan nu met hun foto onder de vragen; een tweede,
+    kale linklijst naar diezelfde drie pagina's voegde niets toe.
+  */
   {
-    kop: "Zo pakten we het aan",
+    kop: "Wat drogen kost en hoe lang het duurt",
     links: [
-      { to: "/realisaties/mnr-l-hasselt", label: "Pleister- en chapewerken versneld gedroogd in Hasselt" },
-      { to: "/realisaties/mevr-j-j-kontich", label: "Bouwvocht drooggelegd in een nieuwbouwwoning in Kontich" },
-      { to: "/realisaties/mnr-k-putte", label: "Bouwvocht na pleister en chape weggedroogd in Putte" },
+      { to: "/gids/hoe-lang-moet-chape-drogen", label: "Gids: hoe lang moet een chape drogen?" },
+      { to: "/gids/hoe-lang-moet-pleisterwerk-drogen", label: "Gids: hoe lang moet pleisterwerk drogen?" },
+      { to: "/hoe-drogen-werkt", label: "Hoe een bouwdroger het vocht uit een woning haalt" },
+      { to: "/drooggarantie", label: "Onze 100 % drooggarantie op een berekend pakket" },
     ],
   },
   {
     kop: "De toestellen voor chape en pleister",
     links: [
-      { to: "/verhuur/toestel/ttk350", toestel: "ttk350", label: "Ontvochtiger TTK 350 S", sub: "Het standaardtoestel voor een nieuwbouwwoning." },
-      { to: "/verhuur/toestel/radiaal2250", toestel: "radiaal2250", label: "Radiaalventilator voor chapedroging", sub: "Blaast vlak over de vloer." },
-      { to: "/verhuur/toestel/teddh30", toestel: "teddh30", label: "Elektrische bouwkachel voor een koude werf", sub: "Onder 15 °C droogt het traag." },
+      { to: toestelPad("ttk350"), toestel: "ttk350", label: "Performance", sub: "Het standaardtoestel voor een nieuwbouwwoning." },
+      { to: toestelPad("radiaal2250"), toestel: "radiaal2250", label: "Radiaalventilator voor chapedroging", sub: "Blaast vlak over de vloer." },
+      { to: toestelPad("teddh30"), toestel: "teddh30", label: "Elektrische bouwkachel voor een koude werf", sub: "Onder 15 °C droogt het traag." },
     ],
   },
   {
@@ -122,447 +197,403 @@ const verderLezen: LeesGroep[] = [
   },
 ];
 
-const NieuwbouwPage = () => {
-  return (
-    <div className="min-h-screen bg-background">
-      <PageMeta
-        {...SEO.nieuwbouw}
-        jsonLd={[
-          serviceSchema({
-            name: "Chape en pleisterwerk drogen",
-            description:
-              "Actieve droging van verse chape en pleisterwerk in nieuwbouw, zodat vloerder en schilder weken vroeger kunnen starten.",
-            path: "/nieuwbouw",
-            serviceType: "Bouwdroging",
-          }),
-          /*
-            De vragen onderaan deze pagina, ook machineleesbaar. Zelfde tekst
-            als wat zichtbaar staat, dus schema en pagina blijven gelijk.
-          */
-          faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
-          breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Nieuwbouw", path: "/nieuwbouw" },
-          ]),
-        ]}
-      />
-      <Navbar />
-      <main>
-        {/* 1. HERO */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-              <div>
-                <Badge className="bg-primary/10 text-primary border-primary/20 mb-4 text-sm px-4 py-1.5">
-                  🏗️ Nieuwbouw & verbouwing
-                </Badge>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground leading-tight mb-4">
-                  Chape en pleisterwerk drogen met een bouwdroger
-                </h1>
-                <p className="text-muted-foreground text-lg mb-8 max-w-lg">
-                  Verse chape en vers pleisterwerk zitten vol water. Een bouwdroger, een ventilator en
-                  bij koud weer een kachel halen dat vocht er gecontroleerd uit, zodat uw vloerder en
-                  schilder vroeger kunnen starten.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button
-                    size="lg"
-                    className="rounded-full font-bold text-base gap-2 px-8"
-                    onClick={() => document.getElementById("calculator")?.scrollIntoView({ behavior: "smooth" })}
-                  >
-                    Bereken mijn pakket <ArrowRight className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="rounded-full font-bold text-base gap-2 px-8"
-                    asChild
-                  >
-                    <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel voor advies</a>
-                  </Button>
-                </div>
-              </div>
+const NieuwbouwPage = () => (
+  <div className="v3c nb-page">
+    <PageMeta
+      {...SEO.nieuwbouw}
+      jsonLd={[
+        serviceSchema({
+          name: "Chape en pleisterwerk drogen",
+          description:
+            "Actieve droging van verse chape en pleisterwerk in nieuwbouw, zodat vloerder en schilder weken vroeger kunnen starten.",
+          path: "/nieuwbouw-drogen",
+          serviceType: "Bouwdroging",
+        }),
+        /*
+          De vragen onderaan deze pagina, ook machineleesbaar. Zelfde tekst
+          als wat zichtbaar staat, dus schema en pagina blijven gelijk.
+        */
+        faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Chape en pleisterwerk drogen", path: "/nieuwbouw-drogen" },
+        ]),
+      ]}
+    />
 
-              <div
-                className="hidden lg:flex items-center justify-center"
-              >
-                {/*
-                  Hier stond een grijs vak met de tekst "Foto chape / machine".
-                  Dat is een ontwerpnotitie, geen inhoud: hij werd meegeprerenderd
-                  en stond dus als zichtbare tekst in de pagina die Google en een
-                  AI-assistent lezen.
-                */}
+    <V3Header lightAfter={420} />
+
+    <main>
+
+    {/* ================= HERO ================= */}
+    <div className="redtop">
+      <section className="hero">
+        <div className="wrap hero-grid">
+          <div className="hero-copy">
+            <span className="kick">Nieuwbouw &amp; verbouwing</span>
+            <h1>Chape en pleisterwerk drogen in weken, niet in maanden.</h1>
+            <p>
+              In een nieuwbouwwoning zit al snel duizend liter water: in de chape, in het
+              pleisterwerk, in het metselwerk. Dat moet eruit voor de vloerder en de schilder
+              kunnen starten. Een bouwdroger, een ventilator en bij koud weer een bouwkachel
+              halen het er gecontroleerd uit, in weken in plaats van maanden.
+            </p>
+            <div className="hcta">
+              <Link className="btn btn-white" to="/verhuur/calculator">
+                Bereken uw droogpakket
+                <ArrowRightIcon />
+              </Link>
+              <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
+                <PhoneIcon /> {CONTACT.phoneLocal}
+              </a>
+            </div>
+          </div>
+          <div className="hero-vis">
+            <img
+              className="framed"
+              style={{ objectPosition: "50% 62%" }}
+              src="/vernast/case-chape-v2.webp"
+              alt="Bouwdroger aan het werk op een verse chape in een nieuwbouwwoning"
+              width={800}
+              height={600}
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="fbadge" style={{ bottom: "60px", left: "-6%" }}>
+              <span className="ic"><CheckIcon size={15} /></span>
+              <div>
+                {kortsteTermijn} tot {langsteTermijn} weken
+                <small>in plaats van ± {natuurlijkeChapeWeken(6)} weken natuurlijk</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    {/* ================= ZONDER / MET ================= */}
+    <section className="sw">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Het verschil</span>
+          <h2 className="sec">Natuurlijk drogen duurt zo lang als het weer beslist.</h2>
+          <p className="lede">
+            Een chape van 6 cm die op zichzelf droogt, doet daar onder goede omstandigheden zo'n{" "}
+            {natuurlijkeChapeWeken(6)} weken over. In november zijn die omstandigheden er niet, en
+            dan wordt het wachten tot het voorjaar. Actief drogen haalt die onzekerheid eruit.
+          </p>
+        </div>
+        <div className="vs">
+          <Reveal from="up" className="vscard">
+            <div className="vshead">
+              <span><XIcon size={17} /></span>
+              <h3>Zonder bouwdroger</h3>
+            </div>
+            <ul>
+              {zonder.map((item) => (
+                <li key={item}>
+                  <XIcon size={14} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+          <Reveal from="up" delay={0.08} className="vscard goed">
+            <div className="vshead">
+              <span><CheckIcon size={17} strokeWidth={3} /></span>
+              <h3>Met een Vernast-droogpakket</h3>
+            </div>
+            <ul>
+              {met.map((item) => (
+                <li key={item}>
+                  <CheckIcon size={14} strokeWidth={3} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+
+    {/*
+      DROOGTIJDEN — de vraag waarmee mensen hier binnenkomen ("hoe lang chape
+      drogen", "droogtijd pleisterwerk"). Een echte <table>, zodat een
+      zoekmachine of AI-assistent de dikte en de termijn aan elkaar kan
+      koppelen. De kolom "met bouwdroger" is de catalogus; de kolom "zonder" is
+      uitdrukkelijk een vuistregel.
+    */}
+    <section className="sr" id="droogtijden">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">Droogtijd per dikte</span>
+          <h2 className="sec">Hoe lang moet chape drogen?</h2>
+          <p className="lede">
+            Een zandcementchape wordt nat aangebracht: er zit meer water in dan het cement nodig
+            heeft om uit te harden, en dat overschot moet er via het oppervlak weer uit. Hoe dikker
+            de laag, hoe langer de weg voor het vocht onderin. Daarom groeit de droogtijd sneller
+            dan de dikte: de laatste centimeters duren het langst.
+          </p>
+          <p className="lede">
+            Met een bouwdroger houdt u de lucht boven de chape droog, zodat het vocht blijft
+            uittreden in plaats van te blijven hangen. Onze chapepakketten zijn opgebouwd op de
+            dikte van de laag; de huurtermijn hieronder is wat elk pakket voorziet.
+          </p>
+        </div>
+
+        <div className="tblwrap">
+          <div className="tblscroll">
+            <table className="tbl">
+              <caption className="sr-only">
+                Droogtijd van chape per dikte, met bouwdroger en zonder bouwdroger
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Chapedikte</th>
+                  <th scope="col">Met bouwdroger (huurtermijn pakket)</th>
+                  <th scope="col">Zonder bouwdroger (richtwaarde)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {CHAPE.map((r) => (
+                  <tr key={r.dikte}>
+                    <th scope="row">{r.dikte} cm</th>
+                    <td>{termijnLabel(r)}</td>
+                    <td>± {natuurlijkeChapeWeken(r.dikte)} weken</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p className="tblnote">
+          De richtwaarde zonder bouwdroger volgt de gangbare vuistregel voor zandcementchape:
+          ongeveer een week per centimeter voor de eerste vier centimeter, daarna twee weken per
+          extra centimeter, in een verluchte ruimte rond 20 °C. In een koude of vochtige periode
+          duurt het langer. Anhydriet- en gietvloeren volgen andere regels; volg daar de
+          richtlijn van de fabrikant. Geen van beide kolommen vervangt een meting.
+        </p>
+      </div>
+    </section>
+
+    {/* ================= PLEISTERWERK ================= */}
+    <section className="sw">
+      <div className="wrap split">
+        <div>
+          <span className="kick">En de muren</span>
+          <h2 className="sec">Hoe lang moet pleisterwerk drogen?</h2>
+          <p className="lede">
+            Pleisterwerk is dunner dan chape, maar het beslaat alle muren en plafonds. In een
+            nieuwbouw komt dat vocht bovenop wat de chape al afgeeft, en precies dan zit de lucht
+            in huis snel verzadigd: de muren drogen dan nauwelijks nog. Zeker in herfst en winter
+            kan natuurlijk drogen daardoor veel langer duren dan de dikte doet vermoeden.
+          </p>
+          <p className="lede">
+            Schildert of behangt u te vroeg, dan kan de verf bladderen of vlekken, en sluit u
+            vocht in de muur op. Moeten pleisterwerk en chape samen drogen? Kies in de{" "}
+            <Link to="/verhuur/calculator">calculator</Link> "pleisterwerk + chape": dat pakket is
+            berekend op muren en vloer tegelijk.
+          </p>
+          <div className="chips">
+            <span>Gipspleister</span>
+            <span>Cementpleister</span>
+            <span>Pleister + chape samen</span>
+          </div>
+        </div>
+        <div className="split-vis" style={{ alignItems: "stretch", display: "block" }}>
+          <div className="tblwrap" style={{ marginTop: 0 }}>
+            <div className="tblscroll">
+              <table className="tbl">
+                <caption className="sr-only">Huurtermijn van een pleisterpakket per pleisterdikte</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Pleisterdikte</th>
+                    <th scope="col">Huurtermijn pakket</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {PLEISTER.map((r) => (
+                    <tr key={r.dikte}>
+                      <th scope="row">{r.dikte} cm</th>
+                      <td>{termijnLabel(r)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p className="tblnote">
+            Pleisterwerk is droog als het overal gelijkmatig licht van kleur is en de meting dat
+            bevestigt. Vraag uw schilder welke vochtwaarde de verf verdraagt die hij gebruikt.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ================= PAKKETTEN ================= */}
+    <section className="sr" id="pakketten">
+      <div className="wrap">
+        <div className="sec-head mid">
+          <span className="kick">Welk toestel</span>
+          <h2 className="sec">Kies het toestel dat bij uw woning past.</h2>
+          <p className="lede">
+            Voor een standaard gezinswoning is de Performance het toestel dat we het vaakst
+            leveren. Gaat het om een volledige woning, dan wordt het een droogpakket: de calculator
+            rekent uw volume en chapedikte door naar de juiste combinatie, met ventilator en
+            bouwkachel waar uw werf die nodig heeft.
+          </p>
+        </div>
+        <Pakketkaarten />
+        <div className="note">
+          <b>Liever zelf ophalen?</b> Losse bouwdrogers, ventilatoren en bouwkachels haalt u aan
+          afhaalprijs op in ons <Link to="/verhuur/afhalen">afhaalpunt langs de A12 in
+          Aartselaar</Link>. De vochtmeting en de drooggarantie horen dan niet bij de huur, maar
+          het toestel is hetzelfde.
+        </div>
+      </div>
+    </section>
+
+    {/*
+      IN DE PRAKTIJK — zes genummerde kaarten in de vorm van "de eerste 48 uur"
+      op /waterschade (`.stapkaarten`/`.stk`). Deze sectie staat vlak boven de
+      vragen omdat ze dezelfde rol speelt: wie tot hier las, weet wat het kost
+      en hoe lang het duurt, en wil nu weten wat hij zelf moet doen.
+    */}
+    <section className="sw" id="praktijk">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick">In de praktijk</span>
+          <h2 className="sec">Zes dingen die de droogtijd bepalen.</h2>
+          <p className="lede">
+            Het toestel is maar één factor. Wanneer u start, of de ruimte dicht blijft, hoe warm
+            het is en wat u uiteindelijk meet, bepalen samen of die chape in twee of in vijf weken
+            klaar is. Hieronder staan ze in de volgorde waarin u ze nodig heeft.
+          </p>
+        </div>
+        <div className="stapkaarten">
+          {praktijk.map(({ Icon, title, desc }, i) => (
+            <Reveal from="up" delay={(i % 3) * 0.08} className="stk" key={title}>
+              <span className="stkic"><Icon size={21} /></span>
+              <span className="stknr">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <FaqBlok
+      titel="Wat bouwheren en aannemers ons vragen."
+      vragen={faqs}
+      sleutel="nb-faq"
+    />
+
+    {/*
+      REFERENTIES — onder de vragen, in het wit.
+
+      De pagina wisselde rood en wit af tot aan de vragen en liep daarna leeg op
+      een linklijst. Drie werven met de foto van de werf zelf bewijzen wat de
+      tekst hierboven belooft, en de slotplaat staat in dezelfde witte sectie:
+      wie de vragen gelezen heeft en de werven gezien heeft, is klaar om te
+      rekenen. Een lege strook ertussen brak dat moment.
+    */}
+    <section className="sw" id="referenties">
+      <div className="wrap">
+        <div className="sec-head mid">
+          <span className="kick">Uit de praktijk</span>
+          <h2 className="sec">Nieuwbouwwerven die we eerder droogden.</h2>
+          <p className="lede">
+            Drie dossiers met de foto's van de werf zelf: wat er moest drogen, welke toestellen er
+            stonden en hoe lang het duurde.
+          </p>
+        </div>
+        <div className="refs">
+          {REFERENTIES.map((r, i) => (
+            <Reveal from="up" delay={(i % 3) * 0.08} key={r.slug}>
+              <Link className="rz" to={`/realisaties/${r.slug}`}>
                 <img
-                  src="/vernast/case-chape.webp"
-                  alt="Bouwdroger aan het werk op een verse chape in een nieuwbouwwoning"
-                  width={800}
-                  height={600}
+                  src={r.kaart}
+                  alt={r.kaartAlt}
+                  width={640}
+                  height={420}
                   loading="lazy"
                   decoding="async"
-                  className="w-full aspect-[4/3] object-cover rounded-2xl border border-border"
                 />
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-        {/* 2. PROBLEM VS SOLUTION */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">
-              Drogen zonder vs. met bouwdroger
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {/* Without */}
-              <Reveal
-                from="up"
-                delay={(0) * 0.08}
-                className="bg-[hsl(0,100%,97%)] border border-[hsl(0,80%,90%)] rounded-2xl p-6 md:p-8"
-              >
-                <div className="flex items-center gap-2 mb-5">
-                  <XCircle className="h-6 w-6 text-destructive" />
-                  <h3 className="text-lg font-black text-destructive">Zonder bouwdroger</h3>
+                <div className="rzt">
+                  <span className="rzl">{r.locatie}</span>
+                  <h3>{r.titel}</h3>
                 </div>
-                <ul className="space-y-3">
-                  {[
-                    "Maanden wachten, zeker in herfst en winter",
-                    "Vloerder kan niet starten",
-                    "Risico op schimmel en vochtproblemen",
-                    "Vertraging in heel het afwerkingsproces",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                      <XCircle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-
-              {/* With */}
-              <Reveal
-                from="up"
-                delay={(1) * 0.08}
-                className="bg-[hsl(142,76%,96%)] border border-[hsl(142,60%,80%)] rounded-2xl p-6 md:p-8"
-              >
-                <div className="flex items-center gap-2 mb-5">
-                  <CheckCircle2 className="h-6 w-6 text-[hsl(142,71%,35%)]" />
-                  <h3 className="text-lg font-black text-[hsl(142,71%,35%)]">Met Vernast bouwdroger</h3>
-                </div>
-                <ul className="space-y-3">
-                  {[
-                    `Huurtermijn van ${kortsteTermijn} tot ${langsteTermijn} weken, volgens de dikte`,
-                    "Vloerder kan sneller beginnen",
-                    "Minder kans op schimmel en vochtplekken",
-                    "Vochtmeting bij start en oplevering",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-foreground">
-                      <CheckCircle2 className="h-4 w-4 text-[hsl(142,71%,35%)] flex-shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/*
-          3. DROOGTIJDEN — de vraag waarmee mensen hier binnenkomen ("hoe lang
-          chape drogen", "droogtijd pleisterwerk"). Een echte <table>, zodat een
-          zoekmachine of AI-assistent de dikte en de termijn aan elkaar kan
-          koppelen. De kolom "met bouwdroger" is de catalogus; de kolom
-          "zonder" is uitdrukkelijk een vuistregel.
-        */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-4">
-                Droogtijd van chape: met en zonder bouwdroger
-              </h2>
-              <p className="text-muted-foreground mb-4">
-                Een zandcementchape wordt nat aangebracht: er zit meer water in dan het cement nodig heeft
-                om uit te harden, en dat overschot moet er via het oppervlak weer uit. Hoe dikker de laag,
-                hoe langer de weg voor het vocht onderin. Daarom groeit de droogtijd sneller dan de dikte:
-                de laatste centimeters duren het langst.
-              </p>
-              <p className="text-muted-foreground mb-6">
-                Met een bouwdroger houdt u de lucht boven de chape droog, zodat het vocht blijft
-                uittreden in plaats van te blijven hangen. Onze chapepakketten zijn opgebouwd op de
-                dikte van de laag; de huurtermijn hieronder is wat elk pakket voorziet.
-              </p>
-
-              <div className="bg-card border border-border rounded-2xl overflow-x-auto">
-                <table className="w-full text-sm border-collapse">
-                  <caption className="sr-only">
-                    Droogtijd van chape per dikte, met bouwdroger en zonder bouwdroger
-                  </caption>
-                  <thead>
-                    <tr className="bg-accent text-primary-foreground">
-                      <th scope="col" className="px-5 py-4 text-left font-bold">Chapedikte</th>
-                      <th scope="col" className="px-5 py-4 text-center font-bold">Met bouwdroger (huurtermijn pakket)</th>
-                      <th scope="col" className="px-5 py-4 text-center font-bold">Zonder bouwdroger (richtwaarde)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {CHAPE.map((r, i) => (
-                      <tr key={r.dikte} className={i % 2 === 0 ? "bg-background" : "bg-muted/30"}>
-                        <th scope="row" className="px-5 py-4 text-left font-bold text-foreground">{r.dikte} cm</th>
-                        <td className="px-5 py-4 text-center text-foreground">{termijnLabel(r)}</td>
-                        <td className="px-5 py-4 text-center text-muted-foreground">
-                          ± {natuurlijkeChapeWeken(r.dikte)} weken
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <p className="text-xs text-muted-foreground mt-3">
-                De richtwaarde zonder bouwdroger volgt de gangbare vuistregel voor zandcementchape: ongeveer
-                een week per centimeter voor de eerste vier centimeter, daarna twee weken per extra
-                centimeter, in een verluchte ruimte rond 20 °C. In een koude of vochtige periode duurt het
-                langer. Anhydriet- en gietvloeren volgen andere regels — volg daar de richtlijn van de
-                fabrikant. Geen van beide kolommen vervangt een meting.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 4. PLEISTERWERK */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-4">
-                Hoe lang moet pleisterwerk drogen?
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                Pleisterwerk is dunner dan chape, maar het beslaat alle muren en plafonds. In een nieuwbouw
-                komt dat vocht bovenop wat de chape al afgeeft, en precies dan zit de lucht in huis snel
-                verzadigd: de muren drogen dan nauwelijks nog. Zeker in herfst en winter kan natuurlijk
-                drogen daardoor veel langer duren dan de dikte doet vermoeden. Schildert of behangt u te
-                vroeg, dan kan de verf bladderen of vlekken, en sluit u vocht in de muur op.
-              </p>
-              <div className="bg-card border border-border rounded-2xl overflow-x-auto">
-                <table className="w-full text-sm border-collapse">
-                  <caption className="sr-only">Huurtermijn van een pleisterpakket per pleisterdikte</caption>
-                  <thead>
-                    <tr className="bg-accent text-primary-foreground">
-                      <th scope="col" className="px-5 py-4 text-left font-bold">Pleisterdikte</th>
-                      <th scope="col" className="px-5 py-4 text-center font-bold">Met bouwdroger (huurtermijn pakket)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {PLEISTER.map((r, i) => (
-                      <tr key={r.dikte} className={i % 2 === 0 ? "bg-background" : "bg-muted/30"}>
-                        <th scope="row" className="px-5 py-4 text-left font-bold text-foreground">{r.dikte} cm</th>
-                        <td className="px-5 py-4 text-center text-foreground">{termijnLabel(r)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <p className="text-muted-foreground mt-6">
-                Moeten pleisterwerk en chape samen drogen? Dan kiest u in de{" "}
-                <Link to="/verhuur/calculator" className="font-semibold text-primary hover:underline">
-                  calculator
-                </Link>{" "}
-                "pleisterwerk + chape": dat pakket is berekend op muren en vloer tegelijk.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 5. PRAKTIJK: STARTEN, TEMPERATUUR, METEN */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              <div className="bg-card border border-border rounded-2xl p-6">
-                <h2 className="text-lg font-black text-foreground mb-3">Wanneer begint u met drogen?</h2>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Een verse zandcementchape moet eerst uitharden. Wie meteen hard begint te drogen, loopt
-                  het risico op krimpscheuren of een zwakke toplaag. Vraag uw chapeur vanaf wanneer u
-                  actief mag drogen; vaak is dat na enkele dagen tot een week.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Pleisterwerk kan meestal sneller aan de beurt, zodra het oppervlak hard is. Plant u beide,
-                  reserveer dan zo dat de toestellen er staan op de dag dat de chapeur groen licht geeft.
-                </p>
-              </div>
-              <div className="bg-card border border-border rounded-2xl p-6">
-                <h2 className="text-lg font-black text-foreground mb-3">Temperatuur en ventileren</h2>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Een condensdroger werkt het best in een ruimte tussen ongeveer 15 en 25 °C. Onder 15 °C
-                  neemt de lucht weinig vocht op en geeft de chape haar water traag af; dan zet u er een
-                  bouwkachel bij.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Houd ramen en deuren dicht terwijl de droger draait, anders droogt hij de buitenlucht
-                  mee. Een ventilator binnen de ruimte helpt wél: die blaast de verzadigde luchtlaag vlak
-                  boven de vloer weg, zodat er telkens droge lucht bij de chape komt.
-                </p>
-              </div>
-              <div className="bg-card border border-border rounded-2xl p-6">
-                <h2 className="text-lg font-black text-foreground mb-3">Restvocht meten vóór parket of tegels</h2>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Parket, pvc en tegels verdragen maar een beperkte hoeveelheid restvocht in de ondergrond.
-                  Te vroeg leggen kan uitzetten, loskomen of schimmel onder de vloer geven.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  De gangbare meting is de CM-meting (carbidmethode). De toegelaten waarde verschilt per
-                  soort chape, per vloerbekleding en met of zonder vloerverwarming — vraag uw vloerlegger
-                  naar de exacte grens die hij hanteert. Wij meten bij start en oplevering, zodat u het
-                  verloop ziet.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 6. PAKKET KEUZE */}
-        <section id="calculator" className="py-14 md:py-20 scroll-mt-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">
-                Kies het juiste pakket voor uw situatie
-              </h2>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {DROGER_KAARTEN.map((pkg, i) => (
-                <MachineCard
-                  key={pkg.key}
-                  name={pkg.name}
-                  volume={pkg.volume}
-                  desc={pkg.desc}
-                  badge={pkg.badge}
-                  highlight={pkg.highlight}
-                  index={i}
-                  pricingTiers={pkg.tiers}
-                  ctaLabel="Dit toestel kiezen"
-                />
-              ))}
-            </div>
-
-            <p className="text-center text-sm text-muted-foreground mt-8">
-              Liever een volledig pakket op maat van uw oppervlakte en chapedikte?{" "}
-              <Link to="/verhuur/calculator" className="font-semibold text-primary hover:underline">
-                Bereken het in de calculator
-              </Link>{" "}
-              of{" "}
-              <a href="tel:+3236899065" className="font-semibold text-primary hover:underline">
-                bel ons voor gratis advies: 03 689 90 65
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+        <p className="tblnote" style={{ textAlign: "center" }}>
+          <Link to="/realisaties?soort=bouwvocht" style={{ fontWeight: 600 }}>
+            Alle nieuwbouwprojecten bekijken
+          </Link>
+        </p>
+        <div className="manband">
+          <div className="mb-t">
+            <span className="mbk">Klaar om te starten</span>
+            <h3>Geef ons uw oppervlakte en uw chapedikte, wij geven u een datum.</h3>
+            <p>
+              De calculator rekent uw volume door naar een pakket met de juiste toestellen en de
+              juiste termijn. U kiest zelf de leverdag; wij plaatsen en meten.
+            </p>
+            <div className="mb-cta">
+              <Link className="btn btn-white" to="/verhuur/calculator">
+                Bereken uw droogpakket
+                <ArrowRightIcon />
+              </Link>
+              <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
+                <PhoneIcon /> {CONTACT.phoneLocal}
               </a>
-            </p>
-          </div>
-        </section>
-
-        {/* 7. HOW IT WORKS */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">
-              Hoe verloopt het?
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-              {steps.map((step, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={step.num}
-                  className="relative bg-card border border-border rounded-2xl p-6 text-center"
-                >
-                  <div className="w-10 h-10 bg-accent text-primary-foreground rounded-full flex items-center justify-center text-lg font-black mx-auto mb-4">
-                    {step.num}
-                  </div>
-                  <h3 className="font-bold text-foreground mb-2">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground">{step.desc}</p>
-                  {i < steps.length - 1 && (
-                    <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground/40 z-10" />
-                  )}
-                </Reveal>
-              ))}
             </div>
           </div>
-        </section>
+          <img
+            className="mb-man"
+            src="/vernast/man-klembord-pen.webp"
+            alt="Vernast technicus noteert de meetresultaten"
+            width={600}
+            height={900}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </section>
 
-        {/* 8. PRO TIPS */}
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">
-              Tips voor optimaal drogen
-            </h2>
-            <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {tips.map((tip, i) => (
-                <Reveal
-                  from="up"
-                  delay={i * 0.08}
-                  key={tip.title}
-                  className="bg-card border border-border rounded-2xl p-6 text-center"
-                >
-                  <div className="text-3xl mb-3">{tip.emoji}</div>
-                  <h3 className="font-bold text-foreground mb-2">{tip.title}</h3>
-                  <p className="text-sm text-muted-foreground">{tip.desc}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+    <VerderLezen
+      titel="Verder lezen over chape en pleisterwerk drogen"
+      groepen={verderLezen}
+      achtergrond="sr"
+    />
 
-        <VerderLezen titel="Verder lezen over chape en pleisterwerk drogen" groepen={verderLezen} />
+    <ContactBlok
+      kicker="Een vraag over uw werf?"
+      titel="Twijfelt u over de termijn of het pakket?"
+      lede="Geef ons uw oppervlakte, de chapedikte en wanneer de chapeur klaar is. U krijgt binnen één werkdag een voorstel van een droogspecialist."
+      onderwerpen={[
+        "Advies over chape drogen",
+        "Advies over pleisterwerk drogen",
+        "Pleisterwerk en chape samen",
+        "Prijs en leverdatum",
+        "Iets anders",
+      ]}
+      placeholder="Bv. nieuwbouw 140 m², chape van 6 cm geplaatst op 3 november, vloerder komt begin december."
+      /*
+        Wit, niet rood: de sectie erboven ("verder lezen") is rood, en twee
+        rode blokken op elkaar laten de afwisseling van de hele pagina
+        stilvallen.
+      */
+      achtergrond="wit"
+    />
 
-        {/*
-          9. FAQ — zichtbaar, niet ingeklapt. Dit was een Radix-accordeon, en
-          die rendert de inhoud van een dichte vraag niet: in de geprerenderde
-          HTML stonden alleen de vragen, terwijl de FAQ-schema de antwoorden
-          beloofde. Zelfde patroon als op /prijzen.
-        */}
-        <section className="py-14 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-black text-foreground text-center mb-10">
-              Veelgestelde vragen over chape en pleisterwerk drogen
-            </h2>
-            <dl className="max-w-2xl mx-auto space-y-4">
-              {faqs.map((faq) => (
-                <div key={faq.q} className="bg-card border border-border rounded-xl p-5">
-                  <dt className="font-semibold text-foreground mb-2">{faq.q}</dt>
-                  <dd className="text-sm text-muted-foreground leading-relaxed">{faq.a}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
+    </main>
 
-        {/* CTA */}
-        <section className="bg-accent py-14 md:py-20">
-          <div className="container mx-auto px-4 text-center max-w-2xl">
-            <h2 className="text-2xl md:text-3xl font-black text-primary-foreground mb-3">
-              Klaar om sneller te drogen?
-            </h2>
-            <p className="text-primary-foreground/70 mb-8">
-              Kies uw pakket en wij leveren binnen 24 uur.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-bold gap-2 px-8"
-                onClick={() => document.getElementById("calculator")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                Bereken mijn pakket <ArrowRight className="h-4 w-4" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full font-bold gap-2 px-8"
-                asChild
-              >
-                <a href="tel:+3236899065"><Phone className="h-4 w-4" /> Bel voor advies</a>
-              </Button>
-            </div>
-          </div>
-        </section>
-      </main>
-      <V3Footer />
-    </div>
-  );
-};
+    <V3Footer />
+  </div>
+);
 
 export default NieuwbouwPage;

@@ -54,7 +54,7 @@ describe("wat het portaal over het geld te horen krijgt", () => {
     expect(payload.payment_choice).toBe("levering");
   });
 
-  it("noteert het ordertotaal inclusief btw — dat is wat de klant samen betaalt", () => {
+  it("noteert het ordertotaal inclusief btw, dat is wat de klant samen betaalt", () => {
     const payload = sessionToVernast(session({ betaalwijze: "levering", amountTotal: 6050 }));
 
     // Het portaal labelt dit veld "incl. btw" en trekt er het betaalde bedrag

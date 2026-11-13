@@ -96,7 +96,7 @@ describe("toestellen samenvatten", () => {
   });
 });
 
-describe("sjabloon 198 — boeking betaald", () => {
+describe("sjabloon 198, boeking betaald", () => {
   it("levert elke verplichte parameter ingevuld aan", () => {
     const params = paidBookingParams(FACTS);
 
@@ -236,7 +236,7 @@ describe("sjabloon 198 — boeking betaald", () => {
   });
 });
 
-describe("sjabloon 199 — wij leveren morgen", () => {
+describe("sjabloon 199, wij leveren morgen", () => {
   const REMINDER = {
     payload: BASE,
     paymentType: "full" as const,
@@ -295,7 +295,7 @@ describe("sjabloon 199 — wij leveren morgen", () => {
   });
 });
 
-describe("sjabloon 200 — de huur loopt af", () => {
+describe("sjabloon 200, de huur loopt af", () => {
   const OFFER = {
     payload: BASE,
     extensionUrl: "https://bouwdrogerservice.be/verhuur/verlengen?session_id=cs_test_123",

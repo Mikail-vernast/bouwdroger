@@ -55,11 +55,11 @@ describe("buildMime", () => {
   });
 
   it("codeert een onderwerp met accenten als encoded-word", () => {
-    const raw = mime({ subject: "Uw boeking — €616,00" });
+    const raw = mime({ subject: "Uw boeking, €616,00" });
     const encoded = header(raw, "Subject") ?? "";
     expect(encoded).toMatch(/^=\?UTF-8\?B\?.+\?=$/);
     expect(Buffer.from(encoded.slice(10, -2), "base64").toString("utf8")).toBe(
-      "Uw boeking — €616,00",
+      "Uw boeking, €616,00",
     );
   });
 
@@ -72,7 +72,7 @@ describe("buildMime", () => {
   });
 
   it("bewaart de inhoud onbeschadigd, ook met accenten", () => {
-    const html = "<p>Dag Jan — uw droger komt op maandag. Prijs: €616,00</p>";
+    const html = "<p>Dag Jan, uw droger komt op maandag. Prijs: €616,00</p>";
     expect(body(mime({ body: html }))).toBe(html);
   });
 

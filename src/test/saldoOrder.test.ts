@@ -173,7 +173,7 @@ describe("POST /api/saldo-order", () => {
         price_data: {
           currency: "eur",
           unit_amount: 18750,
-          product_data: { name: "Saldo huur — BD-2026-0142" },
+          product_data: { name: "Saldo huur, BD-2026-0142" },
         },
       },
     ]);

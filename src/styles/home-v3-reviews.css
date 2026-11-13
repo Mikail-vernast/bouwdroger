@@ -12,8 +12,7 @@
   padding: 88px 0;
   background: var(--maroon-deep) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat;
 }
-.v3 .revs .sec,
-.v3 .revs .lede { color: #fff; }
+.v3 .revs .sec { color: #fff; }
 .v3 .revs .lede { color: rgba(255, 255, 255, .78); }
 .v3 .revs .kick { color: rgba(255, 255, 255, .78); }
 /* Het streepje vóór de kicker; elders in het ontwerp zit het op dezelfde plek. */
@@ -28,9 +27,9 @@
 }
 
 /*
-  Drie kolommen: links de enige review die echt over een droger gaat (twee
-  rijen hoog), rechts vier vochtgerelateerde in een 2×2. Geen `auto-fit`:
-  die eerste kaart moet precies de hoogte van die twee rijen krijgen.
+  Drie kolommen: links de enige review die over een droger gaat (twee rijen
+  hoog), rechts de vier andere in een 2×2. Geen `auto-fit`: die eerste kaart
+  moet precies de hoogte van die twee rijen krijgen.
 */
 .v3 .rv-grid {
   display: grid;
