@@ -16,7 +16,7 @@
  * `AbortSignal` dat Node's fetch weigert.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { isoDate } from "../lib/verhuur.js";
+import { earliestPickupDate } from "../lib/afhalen.js";
 
 const alertAvailabilityFailure = vi.fn(async (_context: string, _reason: string) => {});
 const notifyAvailabilityFailure = vi.fn(async (_context: string, _reason: string) => {});
@@ -80,14 +80,20 @@ function post(url: string, body: unknown): Request {
   });
 }
 
-/** Een afhaalreservatie van één toestel, morgen af te halen. */
+/**
+ * Een afhaalreservatie van één toestel, op de eerstvolgende afhaaldag.
+ *
+ * Niet "morgen": het magazijn is in het weekend dicht, dus op een vrijdag is
+ * morgen geen afhaaldag en weigert `pickupDate` de order met een 400 -- waarna
+ * deze test de 503 van de beschikbaarheidscontrole nooit bereikt.
+ */
 function afhaalBody() {
   return {
     kind: "afhaal",
     data: {
       lines: "ttk170:1",
       days: 7,
-      date: isoDate(new Date(Date.now() + 86_400_000)),
+      date: earliestPickupDate(),
       name: "Jan Peeters",
       email: "jan@voorbeeld.be",
       phone: "0470 12 34 56",

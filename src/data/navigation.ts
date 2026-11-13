@@ -17,6 +17,7 @@
  */
 import { PRODUCTS, PRODUCT_ORDER } from "./verhuur.js";
 import { REGIO_ROUTES } from "./regio-slugs.js";
+import { TOEBEHOREN, toebehorenPad } from "./toebehoren.js";
 import { toestelPad } from "./verhuur";
 
 export interface NavLinkItem {
@@ -30,19 +31,27 @@ export interface NavLinkItem {
  * tarieven: iemand zoekt "radiaalventilator huren", niet "Radiaal 2250".
  * Ontbreekt een naam, dan valt het terug op de korte naam uit het portaal.
  *
- * Lees ze via `toestelLabel()` hieronder, nooit via `PRODUCTS[key].short`. Dat
+ * Lees ze via `toestelLabel()` hieronder, nooit via `PRODUCTS[key].name`. Dat
  * veld komt rechtstreeks uit het portaal en is de typecode van de fabrikant —
- * "TTK 170 S", "TEddH 30 T". Die stonden tot 12-11-2026 op de regiopagina's als
- * koptekst en op de knop ("Bekijk TTK 170 S"), terwijl het menu, de footer en de
- * toestelpagina's al "Small bouwdroger" zeiden. Niemand huurt een typenummer.
+ * "Ontvochtiger TTK 170 S", "Elektrische kachel TEddH 30 T". Die stonden tot
+ * 12-11-2026 op de regiopagina's als koptekst en op de knop ("Bekijk TTK 170
+ * S"), en tot 13-11-2026 nog als <h1> op de toestelpagina zelf. Niemand huurt
+ * een typenummer.
+ *
+ * Het merk is wat het portaal als `short` publiceert: Boost, Performance,
+ * Ultimate, Highflow, Turboflow, Heatpower. Daar stond hier Small, Medium en
+ * Large tegenover — een tweede namenstelsel voor dezelfde drie machines, dat
+ * op /sitemap en in de footer onder elkaar stond terwijl de kaarten op de
+ * homepage, de kruisverkoop en de afrekenregels Boost, Performance en Ultimate
+ * zeiden. Eén stelsel: het merk, met het soortwoord erachter waarop gezocht
+ * wordt.
  */
 const TOESTEL_LABEL: Record<string, string> = {
-  ttk170: "Small bouwdroger",
-  ttk350: "Medium bouwdroger",
-  ttk650: "Large bouwdroger",
-  // De twee ventilatoren heten sinds 11-2026 Highflow en Turboflow. Het
-  // soortwoord blijft erachter staan: niemand zoekt op "Turboflow huren", wel
-  // op "radiaalventilator huren".
+  ttk170: "Boost bouwdroger",
+  ttk350: "Performance bouwdroger",
+  ttk650: "Ultimate bouwdroger",
+  // Het soortwoord blijft erachter staan: niemand zoekt op "Turboflow huren",
+  // wel op "radiaalventilator huren".
   ttv4500: "Highflow axiaalventilator",
   radiaal2250: "Turboflow radiaalventilator",
   // Het portaal kort dit toestel af tot "Revolution". Dat is de modelnaam en
@@ -50,8 +59,8 @@ const TOESTEL_LABEL: Record<string, string> = {
   // tussen zeven bouwdrogers en ventilatoren waaraan niet te zien was wat ze
   // is. Het soortwoord erachter, net als bij de twee ventilatoren hierboven.
   revolution: "Revolution adsorptiedroger",
-  teddh30: "Elektrische kachel 30 kW",
-  teddh20: "Elektrische kachel 20 kW",
+  teddh30: "Heatpower 30 elektrische kachel",
+  teddh20: "Heatboost 20 elektrische kachel",
 };
 
 /**
@@ -78,6 +87,19 @@ export function toestelLabel(key: string): string {
 export const TOESTELLEN: NavLinkItem[] = PRODUCT_ORDER.map((key) => ({
   label: toestelLabel(key),
   path: toestelPad(key),
+}));
+
+/**
+ * Toebehoren: wat bij een toestel hoort maar zelf geen toestel is.
+ *
+ * Afgeleid uit `TOEBEHOREN`, zodat een tweede fiche hier niet vergeten wordt.
+ * "huren" staat in de ankertekst omdat dat de zoekopdracht is waarop deze
+ * pagina's mikken — "Condenspomp" alleen zou evengoed naar een webshop kunnen
+ * wijzen.
+ */
+export const TOEBEHOREN_LINKS: NavLinkItem[] = TOEBEHOREN.map((toebehoren) => ({
+  label: `${toebehoren.naam} huren`,
+  path: toebehorenPad(toebehoren.slug),
 }));
 
 /**
@@ -201,6 +223,7 @@ export const KIEZEN: NavLinkItem[] = [
 export const GAMMA: NavLinkItem[] = [
   { label: "Ons volledige gamma", path: "/machines" },
   { label: "Losse toestellen afhalen", path: "/verhuur/afhalen" },
+  ...TOEBEHOREN_LINKS,
 ];
 
 /** Het bedrijf achter de toestellen. */

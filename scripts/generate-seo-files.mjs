@@ -125,6 +125,14 @@ const ROUTE_SOURCES = {
 
 /** Toestelpagina's komen alle vijf uit hetzelfde sjabloon en dezelfde data. */
 const TOESTEL_SOURCES = ["src/pages/verhuur/VerhuurToestelPage.tsx", "src/data/verhuur.ts"];
+/**
+ * Toebehoren-fiches. Hun teksten en cijfers staan in `data/toebehoren.ts`, dus
+ * een wijziging daar hoort de lastmod te verzetten — net als bij de toestellen.
+ */
+const TOEBEHOREN_SOURCES = [
+  "src/pages/verhuur/ToebehorenCondenspompPage.tsx",
+  "src/data/toebehoren.ts",
+];
 /** Realisatiepagina's ook: één sjabloon, één datalijst. */
 const REALISATIE_SOURCES = ["src/pages/RealisatieDetailPage.tsx", "src/data/realisaties.ts"];
 /** De vijf regiopagina's: één sjabloon, de teksten in één databestand. */
@@ -176,6 +184,7 @@ function lastCommitDate(paths) {
 function lastmodFor(route) {
   if (route === "/sitemap") return lastCommitDate(SITEMAP_SOURCES);
   if (route.startsWith("/verhuur/toestel/")) return lastCommitDate(TOESTEL_SOURCES);
+  if (route.startsWith("/verhuur/toebehoren/")) return lastCommitDate(TOEBEHOREN_SOURCES);
   if (route.startsWith("/realisaties/")) return lastCommitDate(REALISATIE_SOURCES);
   if (REGIO_SLUGS.includes(route)) return lastCommitDate(REGIO_SOURCES);
   if (route.startsWith("/bouwdroger-huren-")) return lastCommitDate(GEMEENTE_SOURCES);

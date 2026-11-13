@@ -27,6 +27,9 @@ describe("Shopify-productredirects", () => {
     ["eco-revolution", "/verhuur/toestel/adsorptiedroger"],
     ["turbo-axiaalventilator-4500-m-h-5-00-dag", "/verhuur/toestel/axiaalventilator-4500-m3"],
     ["turbo-radiaalventilator-2250-m-h-5-00-dag", "/verhuur/toestel/radiaalventilator-2250-m3"],
+    // Het enige toebehoren met een eigen fiche; de rest van /collections/toebehoren
+    // valt nog altijd op het overzicht.
+    ["condenspomp-extern", "/verhuur/toebehoren/condenspomp"],
     // Geen tegenhanger in het huidige gamma: dan blijft het overzicht de beste landing.
     ["luchtontvochtiger-dh-30-vpr", "/machines"],
     ["oliekachel-bds-100-118-00-kw-28-00-dag", "/machines"],

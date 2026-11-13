@@ -371,6 +371,16 @@ export interface Product {
    * Lees ze via `productImageAlt`, die ook een nieuw portaalbeeld opvangt.
    */
   imgAlt: string[];
+  /**
+   * Infobeelden uit de ontwerpmap (`Post voor pakketen`): een specificatieplaat
+   * en een afmetingenplaat per toestel, als `[bestand, alt]`.
+   *
+   * Ze staan los van `img` en niet erachter geplakt: `img` komt uit het portaal
+   * en `imgAlt` loopt daarmee op index gelijk. Publiceert iemand daar een foto
+   * bij, dan zou alles erachter van alt-tekst verschuiven. De galerij toont ze
+   * ná de portaalfoto's, met hun eigen omschrijving.
+   */
+  posts: [src: string, alt: string][];
   sum: string;
   /** [label, waarde, eenheid] */
   key: [string, string, string][];
@@ -383,15 +393,60 @@ export interface Product {
 }
 
 /**
+ * Infobeelden die op élke toestelpagina horen. Nu één plaat: de belofte over
+ * prijs en planning, die niet over een toestel gaat maar over de manier waarop
+ * wij verhuren.
+ */
+const GEDEELDE_POSTS: [string, string][] = [
+  [
+    "/vernast/post/transparantie.webp",
+    "Transparantie in prijs en planning: automatische berekening, geen onzekerheid over de duur, volledig gedroogd voor de volgende bouwfase",
+  ],
+];
+
+/**
  * De toestelpagina's. Naam, dagprijs, badge, samenvatting en foto's komen uit
  * het portaal (tab Pakketten → Tarieven bewerken); de lange teksten, specs en
  * FAQ blijven hier staan — die zijn redactioneel en horen niet in een prijsveld.
  */
-const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "badge" | "day" | "img" | "sum">> = {
+const PRODUCT_COPY: Record<
+  string,
+  Omit<Product, "name" | "short" | "type" | "badge" | "day" | "img" | "sum" | "posts"> & {
+    posts?: [string, string][];
+    extraPhotos?: [src: string, alt: string][];
+    photoReplacements?: Record<string, string>;
+    photoOrder?: string[];
+  }
+> = {
   ttk170: {
+    photoOrder: [
+      "/vernast/eco-boost.webp",
+      "/vernast/boost-vooraanzicht-werfruimte.webp",
+      "/vernast/boost-achteraanzicht-werfruimte.webp",
+      "/vernast/boost-zijaanzicht-vernast-werfruimte.webp",
+      "/vernast/boost-werf-nat-pleister-leefruimte.webp",
+      "/vernast/boost-werf-nat-pleister-kamer.webp",
+      "/vernast/boost-werf-keuken-aansluitingen-v3.webp",
+      "/vernast/lineup-dryers-werfruimte.webp",
+    ],
+    extraPhotos: [
+      ["/vernast/boost-werf-keuken-aansluitingen-v3.webp", "Boost bouwdroger naast een keukeneiland in opbouw in een lichte nieuwbouwwoning, met gedeeltelijk geplaatste keukenkasten"],
+      ["/vernast/boost-zijaanzicht-vernast-werfruimte.webp", "Boost bouwdroger in driekwartaanzicht met Vernast-opdruk in een lichte werfruimte"],
+      ["/vernast/boost-vooraanzicht-werfruimte.webp", "Boost TTK 170 S bouwdroger recht van voren in een lichte werfruimte, zonder uitstekende kabel"],
+      ["/vernast/boost-achteraanzicht-werfruimte.webp", "Achteraanzicht van de Boost TTK 170 S bouwdroger met ventilatieroosters in een lichte werfruimte, zonder uitstekende kabel"],
+      ["/vernast/boost-werf-nat-pleister-leefruimte.webp", "Boost bouwdroger in een nieuwbouwleefruimte met geplaatste ramen en zichtbaar nat pleisterwerk"],
+      ["/vernast/boost-werf-nat-pleister-kamer.webp", "Boost bouwdroger in een pas gepleisterde kamer met gesloten ramen en vochtige pleisterplekken"],
+    ],
+    photoReplacements: {
+      "/vernast/lineup-dryers.webp": "/vernast/lineup-dryers-werfruimte.webp",
+    },
     imgAlt: [
       "Vernast Boost, condensontvochtiger Boost van 50 liter per dag voor ruimtes tot 250 m³",
       "De drie Vernast eco-bouwdrogers naast elkaar, de Boost is het kleinste model",
+    ],
+    posts: [
+      ["/vernast/post/boost-info-poster.webp", "Vernast infoposter van de Small bouwdroger: automatische werking, geluidsniveau en waterreservoir"],
+      ["/vernast/post/boost-afmetingen.webp", "Afmetingen van de Vernast Boost: 54 × 49 × 96,3 cm"],
     ],
     key: [
       ["Vochtafvoer", "50", "L/dag"],
@@ -440,9 +495,32 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
   },
   ttk350: {
+    photoOrder: [
+      "/vernast/eco-performance.webp",
+      "/vernast/performance-vooraanzicht-werfruimte.webp",
+      "/vernast/performance-achteraanzicht-werfruimte.webp",
+      "/vernast/performance-zijaanzicht-vernast-werfruimte.webp",
+      "/vernast/performance-werf-nat-pleister.webp",
+      "/vernast/performance-werf-keuken-v2.webp",
+      "/vernast/lineup-dryers-werfruimte.webp",
+    ],
+    photoReplacements: {
+      "/vernast/lineup-dryers.webp": "/vernast/lineup-dryers-werfruimte.webp",
+    },
+    extraPhotos: [
+      ["/vernast/performance-vooraanzicht-werfruimte.webp", "Performance TTK 350 S bouwdroger recht van voren in een lichte werfruimte zonder uitstekende kabel"],
+      ["/vernast/performance-achteraanzicht-werfruimte.webp", "Achteraanzicht van de Performance TTK 350 S bouwdroger in een lichte werfruimte zonder uitstekende kabel"],
+      ["/vernast/performance-zijaanzicht-vernast-werfruimte.webp", "Performance bouwdroger in driekwartaanzicht met Vernast-opdruk in een lichte werfruimte"],
+      ["/vernast/performance-werf-nat-pleister.webp", "Performance bouwdroger in een nieuwbouwleefruimte met nat pleisterwerk en geplaatste ramen"],
+      ["/vernast/performance-werf-keuken-v2.webp", "Performance bouwdroger in een keukenuitbouw met gedeeltelijk geplaatste eiken kasten en grote tuinramen"],
+    ],
     imgAlt: [
       "Vernast Performance, condensontvochtiger Performance van 70 liter per dag voor ruimtes tot 400 m³",
       "De drie Vernast eco-bouwdrogers naast elkaar, de Performance is het middelste model",
+    ],
+    posts: [
+      ["/vernast/post/performance-info-poster.webp", "Vernast infoposter van de Medium bouwdroger: automatische werking, geluidsniveau en waterreservoir"],
+      ["/vernast/post/performance-afmetingen-v2.webp", "Afmetingen van de Vernast Performance: 53 × 50 × 96,5 cm, gewicht 39 kg volgens de aangeleverde poster"],
     ],
     key: [
       ["Vochtafvoer", "70", "L/dag"],
@@ -499,6 +577,9 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       "Vernast Ultimate, condensontvochtiger Ultimate van 110 liter per dag voor ruimtes tot 600 m³",
       "De drie Vernast eco-bouwdrogers naast elkaar, de Ultimate is het grootste model",
     ],
+    posts: [
+      ["/vernast/post/ultimate-afmetingen.webp", "Afmetingen van de Vernast Ultimate: 61,6 × 51,1 × 102,2 cm, 52 kg"],
+    ],
     key: [
       ["Vochtafvoer", "110", "L/dag"],
       ["Bereik", "600", "m³"],
@@ -508,13 +589,13 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     about: [
       "Met <strong>110 liter per dag</strong> en een bereik tot <strong>600 m³</strong> is dit het toestel voor situaties waar volume of snelheid het probleem is: grote werven, industriële ruimtes, ruime kelders of acute waterschade.",
       "Bij <strong>waterschade</strong> is dit vaak de juiste keuze. Na een lek of overstroming zit het water niet alleen in de lucht maar diep in vloeren, muren en isolatie. Hoe sneller u de luchtvochtigheid omlaag brengt, hoe kleiner de kans op schimmel en structurele schade, de eerste 48 uur zijn beslissend.",
-      "Droogt u een <strong>kelder of onverwarmde ruimte</strong>? Combineer dit toestel met de <strong>elektrische kachel TEH 30 T</strong>. Onder 15 °C werkt condensatiedroging traag; met de kachel brengt u de temperatuur op peil en komt het vocht wel los.",
+      "Droogt u een <strong>kelder of onverwarmde ruimte</strong>? Combineer dit toestel met de <strong>Heatpower 30</strong>. Onder 15 °C werkt condensatiedroging traag; met de kachel brengt u de temperatuur op peil en komt het vocht wel los.",
     ],
     bullets: [
       ["Tot 600 m³", "Grote werven, industriële ruimtes en ruime kelders in één toestel."],
-      ["90 L per dag", "De hoogste vochtafvoer in ons gamma, voor acute situaties."],
+      ["110 L per dag", "De hoogste vochtafvoer in ons gamma, voor acute situaties."],
       ["Eerste keuze bij waterschade", "Snel de luchtvochtigheid omlaag om schimmel en rot te voorkomen."],
-      ["Combineer met kachel", "In koude ruimtes brengt de TEH 30 T de temperatuur op werkingsniveau."],
+      ["Combineer met kachel", "In koude ruimtes brengt de Heatpower 30 de temperatuur op werkingsniveau."],
     ],
     specs: [
       ["Type", "Condensontvochtiger"],
@@ -537,7 +618,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
       ],
       [
         "Werkt het in een koude kelder?",
-        "Beperkt. Onder 15 °C daalt het rendement van elke condensontvochtiger sterk. Voor kelders leveren we dit toestel samen met de elektrische kachel TEH 30 T, zodat de temperatuur op werkingsniveau komt.",
+        "Beperkt. Onder 15 °C daalt het rendement van elke condensontvochtiger sterk. Voor kelders leveren we dit toestel samen met de Heatpower 30, zodat de temperatuur op werkingsniveau komt.",
       ],
       [
         "Hoeveel stroom verbruikt het?",
@@ -552,6 +633,13 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
   ttv4500: {
     imgAlt: [
       "Vernast Turbo Highflow, bouwventilator met 4.500 m³/u luchtverzet",
+    ],
+    extraPhotos: [
+      ["/vernast/vent-axiaal-vooraanzicht.webp", "Vernast TTV 4500 axiaalventilator recht van voren in een lichte werfruimte"],
+    ],
+    posts: [
+      ["/vernast/post/axiaal-specs.webp", "Kenmerken van de Vernast Highflow axiaalventilator: hoge luchtopbrengst, spatwaterdicht IP55, 230 V, drie standen"],
+      ["/vernast/post/axiaal-afmetingen.webp", "Afmetingen van de Vernast Highflow: 35,8 × 51,5 × 52 cm, 15 kg"],
     ],
     key: [
       ["Luchtverzet", "4 500", "m³/u"],
@@ -602,6 +690,10 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     imgAlt: [
       "Vernast elektrische bouwkachel Heatpower 30, 30 kW met ingebouwde thermostaat",
     ],
+    posts: [
+      ["/vernast/post/kachel-30-specs.webp", "Kenmerken van de Vernast Heatpower 30: ingebouwde thermostaat, gelijkmatige verdeling, directe warmte, oververhittingsbeveiliging"],
+      ["/vernast/post/kachel-30-afmetingen.webp", "Afmetingen van de Vernast Heatpower 30: 28 × 26 × 30 cm, 10 kg"],
+    ],
     key: [
       ["Vermogen", "30", "kW"],
       ["Aansluiting", "400", "V"],
@@ -611,7 +703,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     aboutTitle: "Waarom verwarmen bij het drogen?",
     about: [
       "Droging is temperatuurafhankelijk. Warme lucht kan veel meer vocht vasthouden dan koude lucht, en warme bouwmassa geeft haar vocht sneller af. <strong>Onder 15 °C daalt het rendement van een condensontvochtiger sterk</strong>; onder 10 °C wordt het proces echt traag.",
-      "Precies daar komt deze kachel in beeld. In een <strong>kelder, een onverwarmde nieuwbouw of een winterwerf</strong> brengt de TEH 30 T de ruimte op werkingstemperatuur, waardoor de ontvochtiger weer op volle capaciteit kan werken. De combinatie levert een veel kortere droogtijd dan de ontvochtiger alleen.",
+      "Precies daar komt deze kachel in beeld. In een <strong>kelder, een onverwarmde nieuwbouw of een winterwerf</strong> brengt de Heatpower 30 de ruimte op werkingstemperatuur, waardoor de ontvochtiger weer op volle capaciteit kan werken. De combinatie levert een veel kortere droogtijd dan de ontvochtiger alleen.",
       "Met <strong>30 kW</strong> en een ingebouwde thermostaat verwarmt het toestel ook grote volumes en houdt het de temperatuur stabiel zonder dat u erbij moet blijven. Aansluiting op <strong>400 V krachtstroom</strong> is vereist, onze technicus controleert dat bij de levering.",
     ],
     bullets: [
@@ -664,13 +756,13 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
     aboutTitle: "Wanneer kiest u de TEH 20 T?",
     about: [
-      "Dezelfde rol als de <strong>TEH 30 T</strong>, maar een maat kleiner. Deze kachel brengt een <strong>kelder, garage, appartement of afgesloten verdieping</strong> op werkingstemperatuur zodat uw ontvochtiger weer op volle capaciteit kan werken.",
+      "Dezelfde rol als de <strong>Heatpower 30</strong>, maar een maat kleiner. Deze kachel brengt een <strong>kelder, garage, appartement of afgesloten verdieping</strong> op werkingstemperatuur zodat uw ontvochtiger weer op volle capaciteit kan werken.",
       "Onder 15 °C neemt lucht nauwelijks vocht op en geeft de bouwmassa haar water traag af. In een onverwarmde ruimte is verwarmen dus geen comfortkeuze maar de voorwaarde om überhaupt te drogen, zonder kachel loopt uw huurperiode simpelweg langer.",
       "Met <strong>20 kW</strong> verwarmt dit toestel ruimtes waarvoor de 30 kW-versie overgedimensioneerd is. Ook dit model vraagt <strong>400 V krachtstroom</strong>; is die er niet, laat het ons dan vooraf weten.",
     ],
     bullets: [
       ["20 kW verwarmingsvermogen", "Genoeg voor een kelder, garage of afgesloten verdieping."],
-      ["De maat onder de TEH 30 T", "Kleiner en lichter, voor ruimtes waar 30 kW te veel is."],
+      ["De maat onder de Heatpower 30", "Kleiner en lichter, voor ruimtes waar 30 kW te veel is."],
       ["Ingebouwde thermostaat", "Houdt de streeftemperatuur aan zonder dat u erbij moet blijven."],
       ["400 V krachtstroom", "Controleer vooraf of uw werf een driefasige aansluiting heeft."],
     ],
@@ -686,7 +778,7 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     ],
     faq: [
       [
-        "Wat is het verschil met de TEH 30 T?",
+        "Wat is het verschil met de Heatpower 30?",
         "Enkel het vermogen: 20 kW tegenover 30 kW. Voor een kelder, garage of appartement volstaat deze versie ruimschoots. Gaat het om een volledige woning in aanbouw of een grote werf, kies dan de 30 kW-versie.",
       ],
       [
@@ -703,6 +795,10 @@ const PRODUCT_COPY: Record<string, Omit<Product, "name" | "short" | "type" | "ba
     imgAlt: [
       "Vernast Turbo van 2.250 m³/u, blaast gericht over vloeren en chape",
       "Afmetingen van de Vernast radiaalventilator: 54,5 × 51,5 × 49 cm, 20 kg",
+    ],
+    posts: [
+      ["/vernast/post/radiaal-specs.webp", "Kenmerken van de Vernast Turboflow radiaalventilator: 2 250 m³/u, spatwaterdicht IP55, drie standen, extra stopcontact"],
+      ["/vernast/post/radiaal-afmetingen.webp", "Afmetingen van de Vernast Turboflow: 54,5 × 51,5 × 49 cm, 20 kg"],
     ],
     key: [
       ["Luchtverzet", "2 250", "m³/u"],
@@ -811,17 +907,31 @@ export const PRODUCTS: Record<string, Product> = Object.fromEntries(
   Object.entries(PRODUCT_COPY).flatMap(([key, copy]) => {
     const t = TARIEVEN.products[key as keyof typeof TARIEVEN.products];
     if (!t) return [];
+    // Foto en beschrijving samen sorteren; infoplaten blijven apart achteraan.
+    const photos: [string, string][] = [
+      ...t.img.map((src, i): [string, string] => [
+        copy.photoReplacements?.[src] ?? src,
+        copy.imgAlt[i] ?? altVoorBeeld(src, t.name),
+      ]),
+      ...(copy.extraPhotos ?? []),
+    ];
+    if (copy.photoOrder) {
+      const rank = new Map(copy.photoOrder.map((src, i) => [src, i]));
+      photos.sort(([a], [b]) => (rank.get(a) ?? rank.size) - (rank.get(b) ?? rank.size));
+    }
     return [
       [
         key,
         {
           ...copy,
+          posts: [...(copy.posts ?? []), ...GEDEELDE_POSTS],
           name: t.name,
           short: t.short,
           type: t.type,
           badge: t.badge,
           day: Number(t.day),
-          img: [...t.img],
+          img: photos.map(([src]) => src),
+          imgAlt: photos.map(([, alt]) => alt),
           sum: t.sum,
         },
       ],

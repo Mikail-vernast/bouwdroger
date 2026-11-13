@@ -56,7 +56,15 @@ const INCLUDED: { icon: ReactNode; title: string; body: string }[] = [
  * rapportage is gewoon beschikbaar. Alle drie hetzelfde rode "OPTIE" las als
  * een waarschuwing -- zeker bij rapportage, waar niets mis mee is.
  */
-const OPTIONS: { icon: ReactNode; toon?: string; label?: string; title: string; body: string }[] = [
+const OPTIONS: {
+  icon: ReactNode;
+  toon?: string;
+  label?: string;
+  title: string;
+  body: string;
+  /* Alleen waar er een pagina achter zit die méér zegt dan deze drie regels. */
+  link?: { label: string; path: string };
+}[] = [
   {
     icon: <ShieldIcon size={18} />,
     toon: "winst",
@@ -80,7 +88,8 @@ const OPTIONS: { icon: ReactNode; toon?: string; label?: string; title: string; 
     icon: <AfvoerIcon />,
     toon: "winst glans",
     title: "Automatische waterafvoer",
-    body: "Bij langere trajecten pompt een afvoeroplossing het water automatisch weg, zodat u geen reservoirs hoeft te ledigen.",
+    body: "Bij langere trajecten pompt een condenspomp het water automatisch weg, zodat u geen reservoirs hoeft te ledigen.",
+    link: { label: "Zo werkt de condenspomp", path: "/verhuur/toebehoren/condenspomp" },
   },
   {
     icon: <ChecklistIcon size={18} />,
@@ -120,6 +129,12 @@ const V3Included = () => (
             </div>
             <h3>{option.title}</h3>
             <p>{option.body}</p>
+            {option.link && (
+              <Link className="ix-link" to={option.link.path}>
+                {option.link.label}
+                <ArrowRightIcon size={12} />
+              </Link>
+            )}
           </div>
         ))}
       </div>

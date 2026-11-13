@@ -497,3 +497,21 @@
 .v3 .pay .pay-note svg { color: #37C77F; }
 
 /* Vier inbegrepen en vier opties, zoals het raster al stond. */
+
+/* 22. De optie met een pagina erachter krijgt een link.
+
+       "Automatische waterafvoer" vertelt in drie regels wat de condenspomp
+       doet; de fiche vertelt waarom je hem nodig hebt, wat hij kost en hoe
+       hoog hij pompt. Zonder deze link was die pagina vanaf de homepage
+       nergens bereikbaar. */
+.v3 .ix .ix-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 11px;
+  font-family: var(--fb);
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--red);
+}
+.v3 .ix .ix-link:hover { text-decoration: underline; }

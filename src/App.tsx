@@ -294,6 +294,18 @@ export const routes: RouteRecord[] = [
           return PRODUCT_ORDER.map(toestelPad);
         },
       },
+      {
+        /*
+          Toebehoren staan náást de toestellen en niet eronder: de condenspomp
+          komt niet uit `TARIEVEN.products` maar hangt aan de dagprijs die het
+          portaal bij de pakketopties publiceert. Daarom een eigen pad en geen
+          negende slug onder /verhuur/toestel.
+        */
+        path: "verhuur/toebehoren/condenspomp",
+        lazy: async () => ({
+          Component: (await import("./pages/verhuur/ToebehorenCondenspompPage")).default,
+        }),
+      },
 
       /*
        * Twee routes naar dezelfde pagina, met een verschillende taak.

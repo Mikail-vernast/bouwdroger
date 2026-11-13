@@ -481,3 +481,11 @@
    moet nog zichtbaar zijn op rood. */
 .af-page .af-form .lede a { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, .5); font-weight: 600; }
 .af-page .af-form .lede a:hover { color: #fff; border-color: #fff; }
+
+/*
+  De condenspomp onder de vier toestelkaarten: over de volle breedte, want als
+  vijfde in een raster van twee kolommen hing ze alleen op een derde rij.
+*/
+.af-page .af-range-grid article.af-toebehoren{grid-column:1/-1}
+.af-page .af-range-grid article.af-toebehoren img{background:#fff;object-fit:contain;padding:14px}
+.af-page .af-range-grid article.af-toebehoren .af-text-link{display:inline-block;margin-top:8px}

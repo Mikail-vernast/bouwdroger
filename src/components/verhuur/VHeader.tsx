@@ -97,6 +97,26 @@ const VHeader = () => {
               <CaretIcon className="caret" />
               <div className="mega-panel">
                 <div className="mmv-cols">
+                  {/*
+                    De volgorde van deze vier: multicolumn vult eerst de linker
+                    kolom, dus de leesvolgorde op het scherm is Toestellen naast
+                    Toepassingen, met Pakketten en Service eronder. Het gamma en
+                    de situatie waarin de bezoeker staat zijn waar hij naar
+                    zoekt; wat een pakket kost en hoe de huur loopt, leest hij
+                    pas als hij weet wát hij nodig heeft. Verander je hier de
+                    volgorde, bedenk dan dat buur nummer twee onder nummer een
+                    komt te staan, niet ernaast.
+                  */}
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Toestellen</span>
+                    <ul className="mmv-lijst">
+                      {TOESTELLEN.map((item) => (
+                        <li key={item.path}>
+                          <Link to={item.path}>{item.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <div className="mmv-groep">
                     <span className="mmv-kop">Pakketten</span>
                     {/* Dezelfde lijst als in V3Header en het mobiele menu:
@@ -109,10 +129,17 @@ const VHeader = () => {
                       ))}
                     </ul>
                   </div>
+                  {/*
+                    De verhuurschil had geen situatiekolom: wie in de funnel zat
+                    kon vanuit "Bouwdroging" alleen naar pakketten, toestellen
+                    en service. Chape en pleisterwerk drogen, waterschade en de
+                    vochtige kelder stonden alleen in "Alles over drogen". Beide
+                    schillen tonen nu dezelfde vier kolommen.
+                  */}
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Toestellen</span>
+                    <span className="mmv-kop">Toepassingen</span>
                     <ul className="mmv-lijst">
-                      {TOESTELLEN.map((item) => (
+                      {MENU_SITUATIES.map((item) => (
                         <li key={item.path}>
                           <Link to={item.path}>{item.label}</Link>
                         </li>
@@ -137,23 +164,6 @@ const VHeader = () => {
                       <li>
                         <Link to="/verhuur/boeking">Verlengen of stoppen</Link>
                       </li>
-                    </ul>
-                  </div>
-                  {/*
-                    De verhuurschil had geen situatiekolom: wie in de funnel zat
-                    kon vanuit "Bouwdroging" alleen naar pakketten, toestellen
-                    en service. Chape en pleisterwerk drogen, waterschade en de
-                    vochtige kelder stonden alleen in "Alles over drogen". Beide
-                    schillen tonen nu dezelfde vier kolommen.
-                  */}
-                  <div className="mmv-groep">
-                    <span className="mmv-kop">Toepassingen</span>
-                    <ul className="mmv-lijst">
-                      {MENU_SITUATIES.map((item) => (
-                        <li key={item.path}>
-                          <Link to={item.path}>{item.label}</Link>
-                        </li>
-                      ))}
                     </ul>
                   </div>
                 </div>

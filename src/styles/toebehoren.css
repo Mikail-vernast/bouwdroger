@@ -1,0 +1,116 @@
+/*
+  De blokken die alleen op een toebehoren-fiche staan.
+
+  De rest van die pagina leent de klassen van de toestelpagina uit
+  `verhuur.css` (.phero, .pgrid, .keyspec, .stable, .astep ...). Hier staat
+  enkel wat daar geen tegenhanger heeft: de twee manieren om de pomp te
+  krijgen, en de vergelijking met en zonder.
+
+  Gescoped op `.vh-prod`, precies zoals verhuur.css, zodat deze regels niet
+  door een andere schil heen breken.
+*/
+
+/* De twee wegen, in de rode hero naast de foto. */
+.vh-prod .tb-wegen {
+  display: grid;
+  gap: 12px;
+}
+.vh-prod .tb-weg {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px 20px 22px;
+  box-shadow: 0 24px 50px -28px rgba(0, 0, 0, .45);
+}
+.vh-prod .tb-k {
+  display: inline-block;
+  font-family: var(--fb);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.vh-prod .tb-weg b {
+  display: block;
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -.015em;
+  margin-bottom: 7px;
+}
+.vh-prod .tb-weg p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--txt-mid);
+  margin: 0;
+}
+.vh-prod .tb-weg .btn {
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* Met en zonder pomp, onder de vier stappen. */
+.vh-prod .tb-zonder {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+}
+.vh-prod .tb-zonder > div {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px 24px 26px;
+  box-shadow: 0 14px 32px -22px rgba(0, 0, 0, .18);
+}
+.vh-prod .tb-zonder b {
+  display: block;
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -.015em;
+  margin-bottom: 7px;
+}
+.vh-prod .tb-zonder p {
+  font-size: 13.5px;
+  line-height: 1.62;
+  color: var(--txt-mid);
+  margin: 0;
+}
+/*
+  Het woordje tussen de twee kaarten is geen kaart: geen achtergrond, geen
+  schaduw, geen padding. Vandaar de eigen regel ná `.tb-zonder > div`.
+*/
+.vh-prod .tb-zonder .tb-of {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--txt-dim);
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .vh-prod .tb-zonder {
+    grid-template-columns: 1fr;
+  }
+  .vh-prod .tb-zonder .tb-of {
+    padding: 2px 0;
+  }
+}
+
+/*
+  De pil linksboven op de foto.
+
+  De toestelfoto's uit het portaal hebben een donkere werfachtergrond; daar
+  leest de witte pil van `verhuur.css` prima op. Een toebehoren staat op een
+  witte studioachtergrond, en dan verdwijnt diezelfde pil in de foto en blijft
+  er rode tekst over die nergens op staat. Vandaar rood op de fiche.
+*/
+.vh-prod.tb-page .gal .badge {
+  background: var(--red);
+  color: #fff;
+}

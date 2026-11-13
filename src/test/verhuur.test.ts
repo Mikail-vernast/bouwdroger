@@ -66,8 +66,11 @@ describe("euro", () => {
     expect(euro(-25)).toBe("− € 25,00");
   });
 
-  it("laat euroInt de decimalen weg", () => {
+  it("laat euroInt de decimalen weg, behalve wanneer er centen zijn", () => {
     expect(euroInt(1128)).toBe("€ 1.128");
+    // Sinds de langhuurkorting van 10% zijn niet alle bedragen nog rond.
+    expect(euroInt(302.4)).toBe("€ 302,40");
+    expect(euroInt(33.6)).toBe("€ 33,60");
   });
 });
 

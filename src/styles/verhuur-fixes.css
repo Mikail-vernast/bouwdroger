@@ -463,3 +463,13 @@
     font-size: 12.5px;
   }
 }
+
+/*
+  De hint onder het opmerkingenveld van de afhaalreservatie.
+
+  De condenspomp staat niet in de toestellenlijst erboven — ze komt niet uit
+  `TARIEVEN.products` — en zonder deze regel wist niemand die op /verhuur/afhalen
+  begint dat ze mee kan.
+*/
+.vh-pick .fld .pomphint{margin:7px 0 0;font-size:12px;line-height:1.5;color:var(--txt-dim)}
+.vh-pick .fld .pomphint a{color:var(--red);font-weight:700}

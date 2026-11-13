@@ -165,6 +165,36 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
               <CaretIcon className="caret" />
               <div className="mega-panel">
                 <div className="mmv-cols">
+                  {/*
+                    De volgorde van deze vier: multicolumn vult eerst de linker
+                    kolom, dus de leesvolgorde op het scherm is Toestellen naast
+                    Toepassingen, met Pakketten en Service eronder. Het gamma en
+                    de situatie waarin de bezoeker staat zijn waar hij naar
+                    zoekt; wat een pakket kost en hoe de huur loopt, leest hij
+                    pas als hij weet wát hij nodig heeft. Verander je hier de
+                    volgorde, bedenk dan dat buur nummer twee onder nummer een
+                    komt te staan, niet ernaast.
+                  */}
+                  <div className="mmv-groep">
+                    <span className="mmv-kop">Toestellen</span>
+                    {/*
+                      Deze vijf stonden hier overgetypt, en liepen daardoor uit
+                      de pas met het gamma: de Large bouwdroger, de Revolution
+                      en de tweede kachel ontbraken, en bij de kachel van 30 kW
+                      stond "3,30 kW" -- dat is het vermogen van de kachel in
+                      een droogpakket, niet van dit toestel. Nu leest het menu
+                      `TOESTELLEN` uit src/data/navigation.ts, dezelfde lijst
+                      als de footer en het mobiele menu: een toestel dat in het
+                      portaal te huur gaat of eruit gaat, volgt vanzelf.
+                    */}
+                    <ul className="mmv-lijst">
+                      {TOESTELLEN.map((toestel) => (
+                        <li key={toestel.path}>
+                          <Link to={toestel.path}>{toestel.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <div className="mmv-groep">
                     <span className="mmv-kop">Pakketten</span>
                     {/*
@@ -182,22 +212,21 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                       ))}
                     </ul>
                   </div>
+                  {/*
+                    Vierde kolom: in welke situatie staat de bezoeker. Ze heette
+                    "Schimmels" en toonde ozon, /renovatie en /waterschade —
+                    twee toepassingspagina's onder een kop die er maar één dekt,
+                    en zonder /nieuwbouw-drogen, de grootste van de drie. Ze
+                    leest nu `MENU_SITUATIES`; ozonbehandeling staat daar gewoon
+                    in, en hoort nog altijd niet onder "Service", want dat zijn
+                    de afspraken rond een huur.
+                  */}
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Toestellen</span>
-                    {/*
-                      Deze vijf stonden hier overgetypt, en liepen daardoor uit
-                      de pas met het gamma: de Large bouwdroger, de Revolution
-                      en de tweede kachel ontbraken, en bij de kachel van 30 kW
-                      stond "3,30 kW" -- dat is het vermogen van de kachel in
-                      een droogpakket, niet van dit toestel. Nu leest het menu
-                      `TOESTELLEN` uit src/data/navigation.ts, dezelfde lijst
-                      als de footer en het mobiele menu: een toestel dat in het
-                      portaal te huur gaat of eruit gaat, volgt vanzelf.
-                    */}
+                    <span className="mmv-kop">Toepassingen</span>
                     <ul className="mmv-lijst">
-                      {TOESTELLEN.map((toestel) => (
-                        <li key={toestel.path}>
-                          <Link to={toestel.path}>{toestel.label}</Link>
+                      {MENU_SITUATIES.map((item) => (
+                        <li key={item.path}>
+                          <Link to={item.path}>{item.label}</Link>
                         </li>
                       ))}
                     </ul>
@@ -220,25 +249,6 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                       <li>
                         <Link to="/verhuur/verlengen">Verlengen of stoppen</Link>
                       </li>
-                    </ul>
-                  </div>
-                  {/*
-                    Vierde kolom: in welke situatie staat de bezoeker. Ze heette
-                    "Schimmels" en toonde ozon, /renovatie en /waterschade —
-                    twee toepassingspagina's onder een kop die er maar één dekt,
-                    en zonder /nieuwbouw-drogen, de grootste van de drie. Ze
-                    leest nu `MENU_SITUATIES`; ozonbehandeling staat daar gewoon
-                    in, en hoort nog altijd niet onder "Service", want dat zijn
-                    de afspraken rond een huur.
-                  */}
-                  <div className="mmv-groep">
-                    <span className="mmv-kop">Toepassingen</span>
-                    <ul className="mmv-lijst">
-                      {MENU_SITUATIES.map((item) => (
-                        <li key={item.path}>
-                          <Link to={item.path}>{item.label}</Link>
-                        </li>
-                      ))}
                     </ul>
                   </div>
                 </div>

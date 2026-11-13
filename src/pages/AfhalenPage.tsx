@@ -4,6 +4,8 @@ import { useAanvraag } from "@/hooks/useAanvraag";
 import V3Footer from "@/components/home-v3/V3Footer";
 import V3Header from "@/components/home-v3/V3Header";
 import { SEO } from "@/data/seo";
+import { PUMP } from "@/data/verhuur";
+import { euro } from "@/lib/verhuur";
 import { MAPS_URL } from "@/lib/site";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 /*
@@ -147,7 +149,7 @@ const faq = [
   ],
   [
     "Hoe lang kan ik een toestel afhalen, en kan ik verlengen?",
-    "U kiest bij de reservatie 3 dagen, 1 week, 2 weken, 1 maand of 2 maanden. Is de ruimte op het einde nog niet droog, dan verlengt u online, u betaalt dan alleen de extra dagen aan hetzelfde dagtarief. Doe dat liefst vóór de einddatum: dan blijft het toestel voor u gereserveerd in plaats van naar de volgende klant te gaan.",
+    "U kiest bij de reservatie een periode in hele weken, van 1 tot 8 weken. Vanaf 4 weken zakt de huurprijs met 10%, oplopend tot 15% bij 8 weken. Is de ruimte op het einde nog niet droog, dan verlengt u online, u betaalt dan alleen de extra dagen aan hetzelfde dagtarief. Doe dat liefst vóór de einddatum: dan blijft het toestel voor u gereserveerd in plaats van naar de volgende klant te gaan.",
   ],
   [
     "Moet ik een waarborg betalen?",
@@ -171,7 +173,7 @@ const faq = [
   ],
   [
     "Moet ik het waterreservoir zelf leegmaken?",
-    "Ja. Bij een afhaling gaat het toestel mee zoals het is, met zijn reservoir, reken op 2 à 3 keer per dag legen, afhankelijk van hoe nat de ruimte is. Loopt het reservoir vol, dan schakelt de droger zichzelf uit en staat hij stil tot u hem leegt. Wilt u een continue condensafvoer naar een afvoer, douche of vloerput, dan hoort dat bij een geleverd pakket: de technieker sluit de pomp dan ter plaatse aan.",
+    `Alleen als u geen condenspomp meeneemt. Zonder pomp gaat het toestel mee zoals het is, met zijn reservoir: reken op 2 à 3 keer per dag legen, afhankelijk van hoe nat de ruimte is. Loopt het vol, dan schakelt de droger zichzelf uit en staat hij stil tot u hem leegt. Mét pomp (${euro(PUMP.price)} per bouwdroger per dag) loopt het condenswater continu weg naar een afvoer, douche of vloerput en hoeft u niets te legen. Vermeld de pomp bij uw reservatie, dan leggen wij hem klaar; aansluiten is een slang in de bak en een stekker in het stopcontact.`,
   ],
   [
     "Krijg ik uitleg bij het afhalen?",
@@ -369,6 +371,13 @@ const AfhalenPage = () => {
           <article><img src="/vernast/eco-revolution.webp" alt="Vernast Revolution adsorptiedroger met slangaansluitingen, klaar voor afhaling" loading="lazy" /><div><span>Koude ruimtes</span><h3>Adsorptiedroger</h3><p>Voor lage temperaturen of gerichte droging via luchtslangen.</p></div></article>
           <article><img src="/vernast/vent-axiaal.webp" alt="Vernast Highflow axiaalventilator, klaar voor afhaling" loading="lazy" /><div><span>Luchtcirculatie</span><h3>Axiale en radiale ventilatoren</h3><p>Verspreiden droge lucht langs vloeren, muren en moeilijk bereikbare zones.</p></div></article>
           <article><img src="/vernast/kachel-30.webp" alt="Vernast Heatpower 30 elektrische bouwkachel, klaar voor afhaling" loading="lazy" /><div><span>Extra warmte</span><h3>Elektrische bouwkachels</h3><p>Voor koude werven waar een condensdroger anders rendement verliest.</p></div></article>
+          {/*
+            De condenspomp staat over de volle breedte en niet als vijfde kaart
+            in een raster van twee kolommen: dan hing ze als enige op een derde
+            rij. Ze is bovendien het enige toebehoren in de rij — de vier
+            kaarten erboven zijn toestellen.
+          */}
+          <article className="af-toebehoren"><img src="/vernast/condenspomp-extern.webp" alt="Externe condenspomp met opvangbak en afvoerslang, klaar voor afhaling" loading="lazy" /><div><span>Toebehoren</span><h3>Condenspomp, {euro(PUMP.price)} per bouwdroger per dag</h3><p>Zodat u geen reservoir hoeft te legen: de pomp voert het condenswater continu af naar een afvoer, douche of vloerput, tot 3,90 m hoger dan het toestel staat. <a className="af-text-link" href="/verhuur/toebehoren/condenspomp">Zo werkt de condenspomp</a></p></div></article>
         </div>
         <div className="af-center"><a className="btn" href="/verhuur/afhalen">Bekijk beschikbaarheid en afhaalprijzen <Arrow /></a></div>
       </div>

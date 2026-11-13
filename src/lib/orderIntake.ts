@@ -20,6 +20,8 @@
 import { getPackageById } from "../data/packages.js";
 import { products } from "../data/products.js";
 import {
+  earliestPickupDate,
+  isPickupDay,
   normalizeDays,
   normalizeSlot,
   parseSelection,
@@ -27,7 +29,6 @@ import {
   type PickupLine,
   type PickupSummary,
 } from "./afhalen.js";
-import { isoDate } from "./verhuur.js";
 
 /** Velden die het boekingsformulier legitiem invult. */
 const BOOKING_FIELDS = [
@@ -203,16 +204,23 @@ export function customerType(value: unknown): "particulier" | "zakelijk" {
 }
 
 /**
- * Een afhaaldatum die vandaag of later valt. Een datum in het verleden is geen
- * vergissing die we stilzwijgend rechtzetten: dan staat er straks een order in
- * het portaal voor een dag die al voorbij is.
+ * Een afhaaldatum die morgen of later valt, op een dag dat het magazijn open
+ * is. Een datum in het verleden is geen vergissing die we stilzwijgend
+ * rechtzetten: dan staat er straks een order in het portaal voor een dag die
+ * al voorbij is.
+ *
+ * Vandaag mag evenmin, en het weekend ook niet: een afhaling vraagt dat het
+ * toestel klaarstaat, en op zaterdag staat er niemand. De kalender op de
+ * pagina zet die dagen uit, maar dat is geen controle -- een request komt hier
+ * ook zonder die pagina binnen. Zie `earliestPickupDate` en `isPickupDay`.
  */
 function pickupDate(value: unknown): string | null {
   const raw = text(value, 20);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return null;
   const date = new Date(`${raw}T00:00:00`);
   if (Number.isNaN(date.getTime())) return null;
-  return raw >= isoDate(new Date()) ? raw : null;
+  if (raw < earliestPickupDate()) return null;
+  return isPickupDay(date) ? raw : null;
 }
 
 /**

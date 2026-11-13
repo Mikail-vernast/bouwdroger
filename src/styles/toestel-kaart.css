@@ -1,0 +1,187 @@
+/*
+  De toestelkaart — één opmaak voor het hele gamma, in welke schil ze ook landt.
+
+  Op de homepage staat die kaart al sinds de designhandoff als `.pc`, maar die
+  naam is daar ondertussen door een tweede component bezet (het betaalkaartje
+  met `.pci`), en de regels die de kaart haar uiterlijk geven staan verspreid
+  over `home-v3.css`, `home-v3-fixes.css` en nog eens overgeschreven in
+  `v3-content.css`. De kruisverkoop onderaan de toestelpagina had daarnaast
+  haar eigen kaart (`.cc`): rode fotokader, geen chips, "BEKIJKEN" als kleine
+  rode tekst. Dezelfde zeven toestellen, twee uiterlijken, afhankelijk van op
+  welke pagina je ze tegenkwam.
+
+  Daarom een eigen naam (`tk-`) en géén paginawortel ervoor, net als bij
+  `site-footer.css`: de kaart neemt haar uiterlijk mee. De variabelen krijgen
+  een fallback omdat ze alleen op de v3-schil gedefinieerd zijn.
+*/
+.tk-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 34px;
+}
+@media (max-width: 1000px) {
+  .tk-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .tk-grid { grid-template-columns: 1fr; }
+}
+
+.tk {
+  background: #fff;
+  border: 1px solid rgba(18, 16, 17, .11);
+  border-radius: 16px;
+  padding: 20px 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: var(--txt, #121011);
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+}
+.tk:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 50px -30px rgba(0, 0, 0, .25);
+  color: var(--txt, #121011);
+}
+
+.tk-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+}
+.tk-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tk-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  font-family: var(--fd, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 7px 14px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, .94);
+  color: var(--txt, #121011);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .1);
+}
+.tk.hot .tk-tag { background: var(--red, #c8102e); color: #fff; }
+
+.tk-body {
+  padding: 20px 8px 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.tk-body h3 {
+  font-family: var(--fd, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -.02em;
+  margin: 0 0 2px;
+  color: var(--txt, #121011);
+}
+.tk-body > p {
+  font-size: 13.5px;
+  color: var(--txt-mid, rgba(18, 16, 17, .64));
+  line-height: 1.55;
+  margin: 6px 0 12px;
+  flex: 1;
+}
+
+.tk-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 14px;
+}
+.tk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #F2F0F0;
+  border: 1px solid rgba(18, 16, 17, .09);
+  border-radius: 99px;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--txt, #121011);
+  white-space: nowrap;
+}
+/*
+  De vochtafvoer is het cijfer waarop bouwdrogers vergeleken worden; het stond
+  in dezelfde grijze pil als "3 standen". Blauw leest als water zonder dat er
+  een woord bij hoeft, en botst niet met het rood van de knop.
+*/
+.tk-chip.water { background: #E8F1FB; border-color: rgba(18, 82, 143, .22); color: #12528F; }
+/* Eco is een keurmerk, geen specificatie: hoofdletters en zwaarder. */
+.tk-chip.eco {
+  background: #E3F2E8;
+  border-color: rgba(11, 107, 51, .24);
+  color: #0B6B33;
+  font-weight: 800;
+  font-size: 10.5px;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+/*
+  Blaadje en druppel komen binnen als 96×96; zonder deze regel drukt het
+  width-attribuut de chip uit elkaar.
+*/
+.tk-chip img { width: 13px; height: 13px; object-fit: contain; flex-shrink: 0; }
+.tk-chip.eco img { width: 14px; height: 14px; }
+
+.tk-foot {
+  margin-top: auto;
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid rgba(0, 0, 0, .06);
+}
+.tk-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--red, #c8102e);
+  color: #fff;
+  font-family: var(--fd, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 600;
+  font-size: 12.5px;
+  padding: 11px 18px;
+  border-radius: 99px;
+  white-space: nowrap;
+  transition: background .15s;
+}
+.tk:hover .tk-cta { background: #a80d26; }
+
+.tk-price {
+  font-size: 11px;
+  color: var(--txt-dim, rgba(18, 16, 17, .44));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+  text-align: right;
+  font-weight: 500;
+}
+.tk-price b {
+  font-family: var(--fd, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--txt, #121011);
+  letter-spacing: -.02em;
+  white-space: nowrap;
+}
+.tk-price small { font-size: 10.5px; color: var(--txt-dim, rgba(18, 16, 17, .44)); }

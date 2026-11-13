@@ -76,6 +76,7 @@
     { "source": "/products/eco-revolution", "destination": "/verhuur/toestel/adsorptiedroger", "permanent": true },
     { "source": "/products/turbo-axiaalventilator-4500-m-h-5-00-dag", "destination": "/verhuur/toestel/axiaalventilator-4500-m3", "permanent": true },
     { "source": "/products/turbo-radiaalventilator-2250-m-h-5-00-dag", "destination": "/verhuur/toestel/radiaalventilator-2250-m3", "permanent": true },
+    { "source": "/products/condenspomp-extern", "destination": "/verhuur/toebehoren/condenspomp", "permanent": true },
     { "source": "/products/:slug*", "destination": "/machines", "permanent": true },
     { "source": "/blogs/:slug*", "destination": "/realisaties", "permanent": true },
 

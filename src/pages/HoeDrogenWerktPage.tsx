@@ -7,6 +7,8 @@ import VochtGrafiek from "@/components/hoe-drogen/VochtGrafiek";
 import InBeeld from "@/components/hoe-drogen/InBeeld";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { PUMP } from "@/data/verhuur";
+import { euro } from "@/lib/verhuur";
 import "@/styles/hoe-drogen-werkt.css";
 import "@/styles/hoe-drogen-werkt-fixes.css";
 import "@/styles/hoe-drogen-animaties.css";
@@ -169,7 +171,7 @@ const HoeDrogenWerktPage = () => (
           <div className="cy rv d3" data-stap="4"><i>04</i><div className="ci2"><span className="cy-peil" /><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v8" /><path d="M5 14h14v4a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z" /></svg></div><h3>Afvoeren</h3><p>Het condenswater gaat naar een reservoir of wordt met een condenspomp rechtstreeks weggepompt.</p></div>
           <div className="cy rv d3" data-stap="5"><i>05</i><div className="ci2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9" /><path d="M21 3v6h-6" /></svg></div><h3>Opnieuw de ruimte in</h3><p>Drogere, licht opgewarmde lucht wordt verdeeld en neemt opnieuw vocht op uit de materialen.</p></div>
         </InBeeld>
-        <div className="note rv"><b>Waar gaat al dat water naartoe?</b> Bij eenvoudige toestellen in een reservoir dat u regelmatig leegmaakt. Bij langdurige professionele droging verkiezen wij continue condensafvoer: een condenspomp (€ 2 per bouwdroger per dag) pompt het water dag en nacht rechtstreeks naar een afvoer, zodat de cyclus onafgebroken doorloopt, ook 's nachts en in het weekend. U voegt hem toe tijdens het <Link to="/verhuur/calculator">berekenen van uw pakket</Link>.</div>
+        <div className="note rv"><b>Waar gaat al dat water naartoe?</b> Bij eenvoudige toestellen in een reservoir dat u regelmatig leegmaakt. Bij langdurige professionele droging verkiezen wij continue condensafvoer: een <Link to="/verhuur/toebehoren/condenspomp">condenspomp</Link> ({euro(PUMP.price)} per bouwdroger per dag) pompt het water dag en nacht rechtstreeks naar een afvoer, zodat de cyclus onafgebroken doorloopt, ook 's nachts en in het weekend. U voegt hem toe tijdens het <Link to="/verhuur/calculator">berekenen van uw pakket</Link>.</div>
       </div>
     </section>
 

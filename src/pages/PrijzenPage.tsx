@@ -413,7 +413,8 @@ const PrijzenPage = () => (
               ))}
               <li>
                 <CheckIcon size={12} strokeWidth={3} />
-                Condenspomp: {euro(PUMP.price)} per bouwdroger per dag
+                <Link to="/verhuur/toebehoren/condenspomp">Condenspomp</Link>:{" "}
+                {euro(PUMP.price)} per bouwdroger per dag
               </li>
               <li>
                 <CheckIcon size={12} strokeWidth={3} />

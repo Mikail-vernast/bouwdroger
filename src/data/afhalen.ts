@@ -154,36 +154,58 @@ export const PICKUP_GROUPS = [...new Set(PICKUP_PRODUCTS.map((p) => p.group))];
  * Drie dagen stond hier als kortste keuze, maar zo kort verhuren wij niet: een
  * toestel dat heen en weer rijdt kost ons een volle dag logistiek, en in drie
  * dagen droogt er bij nieuwbouw niets dat het halen waard is. Een week is de
- * ondergrens. Drie weken ontbrak daarentegen helemaal, terwijl dat net de stap
- * is tussen twee weken en een maand -- wie zijn chape nog een week langer nodig
- * had, moest een volle maand nemen.
+ * ondergrens.
+ *
+ * Daarboven loopt de lijst in hele weken door tot acht, en niet meer in
+ * "1 maand / 2 maanden". Drogen wordt in weken gepland -- de chape mag er zes
+ * op, de pleister drie -- en met maanden erbij ontbrak juist de stap die de
+ * klant nodig had: wie na drie weken nog één week tekortkwam, moest een volle
+ * maand nemen. Alles in dezelfde eenheid maakt de prijs bovendien
+ * vergelijkbaar van regel tot regel.
  */
 export const PICKUP_PERIODS: [number, string][] = [
   [7, "1 week"],
   [14, "2 weken"],
   [21, "3 weken"],
-  [30, "1 maand"],
-  [60, "2 maanden"],
+  [28, "4 weken"],
+  [35, "5 weken"],
+  [42, "6 weken"],
+  [49, "7 weken"],
+  [56, "8 weken"],
 ];
 
 export const PICKUP_DAYS = PICKUP_PERIODS.map(([days]) => days);
 
 /**
- * Vanaf vier weken zakt de dagprijs met 10%.
+ * De langhuurstaffel: vanaf hoeveel dagen welke korting, als fractie van de
+ * huurprijs excl. btw.
  *
- * Een lange huur kost ons per dag minder: één keer klaarzetten, één keer
- * innemen, geen rek dat tussendoor leegstaat. Dat voordeel gaat naar de klant,
- * en het maakt de stap van drie weken naar een maand een keuze in plaats van
- * een drempel.
+ * Een lange huur kost ons per dag minder -- één keer klaarzetten, één keer
+ * innemen, geen rek dat tussendoor leegstaat -- en dat voordeel loopt op
+ * naarmate de periode langer wordt. Daarom een staffel en geen enkel
+ * percentage: met één vast getal vanaf vier weken is de stap van vier naar
+ * acht weken voor de klant puur dubbel betalen, terwijl ze ons bijna niets
+ * extra kost. Nu wordt elke week erbij een beetje goedkoper.
  *
- * De grens staat op dagen en niet op "een maand": 28 is vier volle weken, en de
- * periode van 30 dagen haalt die grens dus ruim. Komt er ooit een keuze van
- * precies 28 dagen bij, dan telt ze vanzelf mee.
+ * Op dagen en niet op een label, zodat een periode die er later bij komt
+ * vanzelf in de juiste trede valt. Oplopend sorteren is hier geen smaak maar
+ * een voorwaarde: `langhuurKorting` neemt de laatste trede die gehaald wordt.
+ * En de percentages mogen nooit dalen -- dan zou een week langer huren
+ * goedkoper uitvallen dan een week korter.
  */
-export const LONG_STAY_DAYS = 28;
+export const LANGHUUR_STAFFEL: [dagen: number, fractie: number][] = [
+  [28, 0.1],
+  [35, 0.12],
+  [42, 0.12],
+  [49, 0.14],
+  [56, 0.15],
+];
 
-/** Hoeveel er dan af gaat, als fractie van de huurprijs excl. btw. */
-export const LONG_STAY_DISCOUNT = 0.1;
+/** De eerste trede: vanaf hier staat er überhaupt korting op. */
+export const LONG_STAY_DAYS = LANGHUUR_STAFFEL[0][0];
+
+/** De hoogste korting in de staffel — voor "oplopend tot 15%" in de teksten. */
+export const LONG_STAY_MAX = LANGHUUR_STAFFEL[LANGHUUR_STAFFEL.length - 1][1];
 
 export const PICKUP_SLOTS = [
   "07:30 – 08:00",

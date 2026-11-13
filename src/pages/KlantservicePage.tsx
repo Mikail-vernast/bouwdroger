@@ -4,6 +4,8 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { PUMP } from "@/data/verhuur";
+import { euro } from "@/lib/verhuur";
 import { AanvraagDone, AanvraagError, AanvraagHoneypot } from "@/components/AanvraagForm";
 import { useAanvraag } from "@/hooks/useAanvraag";
 import "@/styles/klantservice.css";
@@ -219,7 +221,7 @@ const KlantservicePage = () => {
                 <li>Leeg het waterreservoir en schuif het correct terug tot het vastklikt.</li>
                 <li>Het toestel herneemt automatisch, u hoeft niets te herstarten.</li>
               </ol>
-              <p>Beu om 2 à 3 keer per dag te legen? Voeg de condenspomp toe (€ 2 per bouwdroger per dag) en het water wordt dag en nacht automatisch afgevoerd.</p>
+              <p>Beu om 2 à 3 keer per dag te legen? Voeg de <Link to="/verhuur/toebehoren/condenspomp">condenspomp</Link> toe ({euro(PUMP.price)} per bouwdroger per dag) en het water wordt dag en nacht automatisch afgevoerd.</p>
             </details>
             <details className="fx">
               <summary>

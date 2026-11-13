@@ -232,6 +232,14 @@ export const SEO = {
     description:
       "Huur losse bouwdrogers, ventilatoren en kachels tegen lagere afhaalprijzen en haal ze op in ons magazijn in Aartselaar. Online reserveren met 5% korting.",
   },
+  /* De fiche van een toebehoren. Mikt op "condenspomp huren" en niet op
+     "bouwdroger huren": dat laatste is de homepage, en wie een pomp zoekt
+     heeft het toestel meestal al. */
+  toebehorenCondenspomp: {
+    title: "Condenspomp huren voor uw bouwdroger | Vernast",
+    description:
+      "Condenspomp huren zodat het condenswater automatisch wegloopt: 90 l/u, pompt tot 3,90 m hoog. Bij een geleverd pakket of mee met een afgehaald toestel.",
+  },
   verhuurBoeking: {
     title: "Uw boeking afronden | Vernast",
     description: "Kies uw dekking, extra's en leverdatum en rond uw boeking af.",

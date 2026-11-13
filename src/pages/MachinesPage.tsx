@@ -22,10 +22,12 @@ import {
 } from "@/components/content/icons";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import { PRODUCT_ADDONS, PRODUCT_ORDER, productImageAlt, PRODUCTS, toestelChips, toestelPad } from "@/data/verhuur";
+import { PRODUCT_ADDONS, PRODUCT_ORDER, productImageAlt, PRODUCTS, PUMP, toestelChips, toestelPad } from "@/data/verhuur";
+import { CONDENSPOMP } from "@/data/toebehoren";
 import { DROGERS, euro } from "@/data/tarieflijst";
 import { CONTACT } from "@/lib/site";
 import "@/styles/v3-content.css";
+import "@/styles/machines.css";
 
 /**
  * Het gamma: drogers, ventilatoren en kachels. Stond tot november 2026 op de
@@ -237,7 +239,7 @@ const onderzoek = [
 
 const toebehoren = [
   { Icon: BoltIcon, name: "Verlengsnoer 10 m", desc: "Zit gratis bij elke bouwdroger. Vraag er gerust een tweede bij als het stopcontact ver zit.", gratis: true },
-  { Icon: DropIcon, name: "Opvangbak", desc: "Ook gratis bij elke droger. Liever niets legen? Dan neemt u een condenspomp bij het pakket.", gratis: true },
+  { Icon: DropIcon, name: "Opvangbak", desc: "Ook gratis bij elke droger. Liever niets legen? Dan neemt u een condenspomp.", gratis: true },
   { Icon: ThermoIcon, name: "Airconditioner", desc: "Beschikbaar op aanvraag, bijvoorbeeld voor een serverruimte of een werf in de zomer.", gratis: false },
 ];
 
@@ -629,6 +631,36 @@ const MachinesPage = () => (
                 )}
               </Reveal>
             ))}
+          </div>
+          {/*
+            De condenspomp staat niet in het raster hierboven maar eronder, over
+            de volle breedte: die drie kaarten gaan over wat er gratis bij zit of
+            op aanvraag komt, de pomp is het enige toebehoren met een dagprijs én
+            een eigen fiche. Als vierde kaart had ze bovendien alleen op een
+            tweede rij gehangen.
+          */}
+          <div className="mc-pomp">
+            <img
+              src={CONDENSPOMP.img[0][0]}
+              alt={CONDENSPOMP.img[0][1]}
+              width={1000}
+              height={1000}
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <span className="mbk">Het meest gevraagde toebehoren</span>
+              <h3>Condenspomp, {euro(PUMP.price)} per bouwdroger per dag</h3>
+              <p>
+                Voert het condenswater continu af naar een lavabo, douche of vloerput, tot 3,90 m
+                hoger dan het toestel staat. Zo hoeft u geen opvangbak te legen en draait de droger
+                dag en nacht door.
+              </p>
+              <Link className="btn btn-red" to="/verhuur/toebehoren/condenspomp">
+                Bekijk de condenspomp
+                <ArrowRightIcon />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

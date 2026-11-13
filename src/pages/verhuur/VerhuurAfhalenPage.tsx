@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
 import type { Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
@@ -14,8 +14,11 @@ import {
   PICKUP_PRODUCTS,
   PICKUP_SLOTS,
 } from "@/data/afhalen";
+import Datumkiezer from "@/components/Datumkiezer";
 import { SEO } from "@/data/seo";
 import {
+  earliestPickupDate,
+  langhuurKorting,
   normalizeDays,
   normalizeSlot,
   parseSelection,
@@ -28,7 +31,6 @@ import { bookingFingerprint, DEPOSIT_GROSS, ONLINE_DISCOUNT } from "@/lib/bookin
 import { breadcrumbSchema, offerCatalogSchema } from "@/lib/schema";
 import { isValidEmail, isValidPhone, maskEmail, maskPhone } from "@/lib/inputMask";
 import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
-import { isoDate } from "@/lib/verhuur";
 import { firstFreeDate, usePickupAvailability } from "@/hooks/usePickupAvailability";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
@@ -101,17 +103,31 @@ function writeStored(value: StoredPickup): void {
   }
 }
 
-/** Tomorrow, as the pickup date the page starts on. */
-function tomorrow(): string {
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
-  return isoDate(d);
-}
-
 /** Wat er nog ontbreekt voor deze reservatie klaar is. */
 interface Missing {
   field: string;
   text: string;
+}
+
+/**
+ * De opmerking waarmee iemand van de condenspomp-fiche hier binnenkomt.
+ *
+ * De pomp zit niet in de toestellenlijst: ze staat niet in `TARIEVEN.products`
+ * en `parseSelection` zou een sleutel die het depot niet kent stilzwijgend laten
+ * vallen — de pagina zou dan een bedrag tonen dat `api/afhaal-checkout.ts`
+ * nooit aanrekent. Daarom reist de vraag mee als opmerking bij de reservatie:
+ * wij leggen de pomp klaar en rekenen haar af op de eindfactuur, net als de
+ * extra dagen die pas bij het terugbrengen vastliggen.
+ *
+ * De bezoeker kan de zin gewoon overschrijven; het is een voorstel, geen veld
+ * dat de pagina voor hem invult en bewaakt.
+ */
+function pompVraag(raw: string | null): string {
+  const aantal = Math.floor(Number(raw));
+  if (!Number.isFinite(aantal) || aantal <= 0) return "";
+  return aantal === 1
+    ? "Graag een condenspomp bij dit toestel."
+    : `Graag ${aantal} condenspompen bij deze toestellen.`;
 }
 
 const VerhuurAfhalenPage = () => {
@@ -131,6 +147,7 @@ const VerhuurAfhalenPage = () => {
       days: normalizeDays(searchParams.get("days")),
       slot: normalizeSlot(searchParams.get("slot")),
       date: searchParams.get("date") ?? "",
+      note: pompVraag(searchParams.get("pomp")),
     };
     // Eén keer, bij het openen van de pagina: daarna stuurt de bezoeker.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -154,7 +171,7 @@ const VerhuurAfhalenPage = () => {
   const [address, setAddress] = useState("");
   const [company, setCompany] = useState("");
   const [vat, setVat] = useState("");
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState(preset.note);
   const [agreed, setAgreed] = useState(false);
   const [payment, setPayment] = useState<PickupPayment>("online");
   const [reference, setReference] = useState<string | null>(null);
@@ -179,13 +196,19 @@ const VerhuurAfhalenPage = () => {
   const [stripeJs, setStripeJs] = useState<Promise<StripeJs | null> | null>(null);
   const [payOpen, setPayOpen] = useState(false);
 
+  /*
+    Morgen en niet vandaag: wij zetten een toestel minstens 24 uur op voorhand
+    klaar. De kiezer liet vandaag toe, en wie om 16.50 u voor dezelfde dag
+    reserveerde stond tien minuten later voor een deur waar niets klaarstond.
+    `pickupDate` in `orderIntake.ts` weigert diezelfde datum server-side.
+  */
   const [minDate, setMinDate] = useState("");
   useEffect(() => {
-    const min = isoDate(new Date());
+    const min = earliestPickupDate();
     setMinDate(min);
     setDate((current) => {
       const wanted = current || preset.date;
-      return wanted >= min ? wanted : tomorrow();
+      return wanted >= min ? wanted : min;
     });
     // Eén keer na mount; zie de uitleg bij `date`.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -641,24 +664,36 @@ const VerhuurAfhalenPage = () => {
                   value={days}
                   onChange={(event) => setDays(Number(event.target.value))}
                 >
-                  {PICKUP_PERIODS.map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
+                  {/*
+                    De langhuurkorting staat in de keuzelijst zelf: dit is het
+                    moment waarop de bezoeker de periode kiest, en een voordeel
+                    dat hij pas in het overzicht ziet stuurt die keuze niet.
+                  */}
+                  {PICKUP_PERIODS.map(([value, label]) => {
+                    const pct = Math.round(langhuurKorting(value) * 100);
+                    return (
+                      <option key={value} value={value}>
+                        {label}
+                        {pct > 0 ? ` · −${pct}%` : ""}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <div className="fld">
                 <label htmlFor="aDate">Afhaaldatum</label>
-                <input
-                  type="date"
+                {/* Zie `components/Datumkiezer.tsx`: weekend en volle dagen
+                    staan uit, en de kalender zegt onderaan waarom. */}
+                <Datumkiezer
                   id="aDate"
-                  className={dateBlocked ? "bezet" : undefined}
-                  min={minDate || undefined}
                   value={date}
-                  aria-invalid={dateBlocked}
-                  aria-describedby={dateBlocked ? "aDateWarn" : undefined}
-                  onChange={(event) => setDate(event.target.value)}
+                  min={minDate}
+                  blocked={blocked}
+                  rangeDays={days}
+                  rangeLabel={PICKUP_PERIODS.find(([v]) => v === days)?.[1]}
+                  invalid={dateBlocked}
+                  describedBy={dateBlocked ? "aDateWarn" : undefined}
+                  onChange={setDate}
                 />
               </div>
               <div className="fld">
@@ -816,6 +851,16 @@ const VerhuurAfhalenPage = () => {
                 value={note}
                 onChange={(event) => setNote(event.target.value)}
               />
+              {/*
+                De condenspomp staat niet in de toestellenlijst hierboven: ze
+                komt niet uit `TARIEVEN.products` en zou daar een sleutel
+                krijgen die het depot niet kent. Wie haar wil, vraagt ze hier —
+                zie `pompVraag`, dat deze zin invult voor wie van de fiche komt.
+              */}
+              <p className="pomphint">
+                Een condenspomp meenemen? Vraag het hier, dan leggen wij er een klaar.{" "}
+                <Link to="/verhuur/toebehoren/condenspomp">Wat doet een condenspomp?</Link>
+              </p>
             </div>
             <label className="chk">
               <input
@@ -1009,6 +1054,12 @@ const VerhuurAfhalenPage = () => {
                   {shortDate(returnDate.end)}
                 </span>
                 <b>-</b>
+              </div>
+            )}
+            {summary.longStay > 0 && (
+              <div className="srow">
+                <span>Langhuurkorting ({Math.round(langhuurKorting(days) * 100)}%)</span>
+                <b>− {euro(summary.longStay)}</b>
               </div>
             )}
             {totals.discount > 0 && (

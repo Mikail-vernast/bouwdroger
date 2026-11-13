@@ -1161,6 +1161,8 @@
 .vh-prod .btn-out:hover{border-color:var(--ink);color:var(--txt)}
 .vh-prod .btn-white{background:#fff;color:var(--maroon)}
 .vh-prod .btn-white:hover{background:rgba(255,255,255,.9);color:var(--maroon)}
+.vh-prod .btn-dark{background:var(--ink);color:#fff}
+.vh-prod .btn-dark:hover{background:#000;color:#fff}
 .vh-prod .btn-glass{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.32)}
 .vh-prod .btn-glass:hover{background:rgba(255,255,255,.2);color:#fff}
 /* ============ HEADER (vernast-vochtbestrijding.be pattern) ============ */
@@ -1385,18 +1387,14 @@
 .vh-prod .cross .sec{color:#fff}
 .vh-prod .cross .kick{color:rgba(255,255,255,.75)}
 .vh-prod .cross .lede{color:rgba(255,255,255,.78)}
-.vh-prod .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
-.vh-prod .cc{background:#fff;border:0;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;box-shadow:0 20px 44px -26px rgba(0,0,0,.5)}
-.vh-prod .cc:hover{transform:translateY(-4px);box-shadow:0 26px 52px -26px rgba(0,0,0,.6)}
-.vh-prod .cc .cm{aspect-ratio:1/1;background:var(--maroon) url('/vernast/bg-red-2.webp') center/cover no-repeat;border-bottom:0;display:grid;place-items:stretch;padding:0;overflow:hidden}
-.vh-prod .cc .cm img{width:100%;height:100%;min-height:0;object-fit:cover}
-.vh-prod .cc .cb{padding:18px;display:flex;flex-direction:column;flex:1}
-.vh-prod .cc h3{font-family:var(--fd);font-weight:700;font-size:15.5px;margin:0 0 4px}
-.vh-prod .cc .ccap{font-family:var(--fb);font-weight:600;font-size:11px;color:var(--red);margin-bottom:12px}
-.vh-prod .cc .cf{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--line)}
-.vh-prod .cc .cf .pr{font-family:var(--fd);font-weight:700;font-size:16px}
-.vh-prod .cc .cf .pr small{font-size:11px;color:var(--txt-dim);font-weight:500}
-.vh-prod .cc .cf .go{font-family:var(--fb);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+/*
+  De kruisverkoop tekende hier haar eigen kaart (`.cc`): rode fotokader, geen
+  chips, "BEKIJKEN" als klein rood woord. Dezelfde zeven toestellen stonden op
+  de homepage als witte kaart met chips en een rode knop, en wie doorklikte zag
+  het gamma dus twee keer in een ander jasje. Ze gebruikt nu `ToestelKaart`,
+  met haar opmaak in `styles/toestel-kaart.css` -- ongescoped, zodat de kaart
+  er in elke schil hetzelfde uitziet. Zet die regels hier niet terug.
+*/
 .vh-prod .faq{padding:80px 0}
 .vh-prod .faq-in{max-width:800px}
 .vh-prod details.q{border-bottom:1px solid var(--line)}
@@ -1423,8 +1421,7 @@
 @media (max-width:1040px){
 .vh-prod .pgrid,
 .vh-prod .about-grid{grid-template-columns:1fr;gap:40px}
-.vh-prod .igrid,
-.vh-prod .cgrid{grid-template-columns:1fr 1fr}
+.vh-prod .igrid{grid-template-columns:1fr 1fr}
 .vh-prod .ic{border-right:0;padding-left:0!important;padding-right:0}
 .vh-prod .ic:not(:first-child){border-top:1px solid var(--line)}
   }
@@ -1434,9 +1431,15 @@
 .vh-prod .tl-right{margin:0 auto}
 .vh-prod .keyspec,
 .vh-prod .brow,
-.vh-prod .igrid,
-.vh-prod .cgrid{grid-template-columns:1fr}
+.vh-prod .igrid{grid-template-columns:1fr}
   }
+/*
+  Van wanneer tot wanneer, onder de twee velden. Stond er niet: de bezoeker
+  koos een startdatum en "1 week" en moest zelf uitrekenen wanneer het toestel
+  terug moest.
+*/
+.vh-prod .retour{margin:10px 0 0;font-size:12.5px;color:var(--txt-mid);background:#F6F4F4;border-radius:9px;padding:9px 12px}
+.vh-prod .retour b{color:var(--txt);font-weight:700}
 .vh-prod .promo-online{display:inline-flex;align-items:center;gap:9px;margin-top:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:13.5px;padding:9px 16px;border-radius:99px}
 .vh-prod .promo-online svg{color:#7fe0a0}
 .vh-prod .promo-online span{color:rgba(255,255,255,.75)}

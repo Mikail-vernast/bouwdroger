@@ -8,6 +8,7 @@ import {
   ALLES_OVER_DROGEN,
   BEDRIJF,
   GAMMA,
+  TOEBEHOREN_LINKS,
   TOEPASSINGEN,
   TOESTELLEN,
   type NavLinkItem,
@@ -104,7 +105,13 @@ const BLOKKEN: Blok[] = [
   {
     titel: "Toestellen huren",
     uitleg: "Elk toestel met zijn capaciteit, dagprijs en volledige fiche.",
-    items: [...GAMMA.filter((item) => item.path === "/machines"), ...TOESTELLEN],
+    items: [
+      ...GAMMA.filter((item) => item.path === "/machines"),
+      ...TOESTELLEN,
+      // De toebehoren staan hier en niet in een eigen blok: één regel onder een
+      // eigen kopje leest als een categorie waar niets in zit.
+      ...TOEBEHOREN_LINKS,
+    ],
   },
   {
     titel: "Over Vernast",

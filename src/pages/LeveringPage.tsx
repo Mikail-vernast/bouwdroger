@@ -4,6 +4,8 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
+import { PUMP } from "@/data/verhuur";
+import { euro } from "@/lib/verhuur";
 import { AanvraagError, AanvraagHoneypot } from "@/components/AanvraagForm";
 import { useAanvraag } from "@/hooks/useAanvraag";
 import "@/styles/levering.css";
@@ -208,7 +210,7 @@ const LeveringPage = () => {
             <div className={`ins-p${insStep === 2 ? " active" : ""}`}>
               <div>
                 <h3>Water rechtstreeks naar de afvoer. <span style={{ display: "inline-block", verticalAlign: "middle", marginLeft: "6px", background: "#fff", color: "var(--red)", fontFamily: "var(--fm)", fontSize: "10.5px", fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", padding: "6px 12px", borderRadius: "99px" }}>Optioneel · aangeraden</span></h3>
-                <p className="pt">Kiest u de condenspomp (€ 2 per bouwdroger per dag), dan sluiten we een continue condensafvoer aan naar een afvoer, douche, lavabo of vloerput. Zo hoeft u geen reservoirs te legen en draait het toestel dag en nacht door, ook in het weekend. Zonder pomp leegt u het reservoir zelf 2 à 3 keer per dag. Optioneel, maar aangeraden: u voegt de pomp toe tijdens het <a href="/verhuur/calculator" style={{ color: "#fff", fontWeight: 600 }}>berekenen van uw pakket</a>.</p>
+                <p className="pt">Kiest u de <a href="/verhuur/toebehoren/condenspomp" style={{ color: "#fff", fontWeight: 600 }}>condenspomp</a> ({euro(PUMP.price)} per bouwdroger per dag), dan sluiten we een continue condensafvoer aan naar een afvoer, douche, lavabo of vloerput. Zo hoeft u geen reservoirs te legen en draait het toestel dag en nacht door, ook in het weekend. Zonder pomp leegt u het reservoir zelf 2 à 3 keer per dag. Optioneel, maar aangeraden: u voegt de pomp toe tijdens het <a href="/verhuur/calculator" style={{ color: "#fff", fontWeight: 600 }}>berekenen van uw pakket</a>.</p>
                 <div className="pchips"><span>Geen kuip legen</span><span>24/7 doorwerken</span><span>Proper condenswater</span></div>
               </div>
               <div className="mockc"><div className="mt">Continue condensafvoer</div><div className="drainm"><div className="dev"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg></div><div className="hose"><b></b><b></b><b></b></div><div className="drain"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12h20" /><path d="M5 12v4" /><path d="M12 12v6" /><path d="M19 12v4" /></svg></div><div className="cap">Het condenswater loopt rechtstreeks weg. U kijkt ernaar, meer niet.</div></div></div>

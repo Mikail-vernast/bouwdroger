@@ -6,19 +6,23 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { ArrowRightIcon, CaretIcon, CheckIcon } from "@/components/verhuur/icons";
 import { PinIcon } from "@/components/home-v3/icons";
+import Datumkiezer from "@/components/Datumkiezer";
+import ToestelKaart from "@/components/ToestelKaart";
 import {
   PRODUCT_ADDONS,
   PRODUCT_ORDER,
   productImageAlt,
   PRODUCTS,
   SC_LABEL,
+  toestelChips,
   toestelKey,
   toestelPad,
   type Product,
 } from "@/data/verhuur";
 import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
+import { toestelLabel } from "@/data/navigation";
 import { MAPS_URL } from "@/lib/site";
-import { serializeSelection } from "@/lib/afhalen";
+import { earliestPickupDate, langhuurKorting, longStayDiscount, serializeSelection } from "@/lib/afhalen";
 import { firstFreeDate, usePickupAvailability } from "@/hooks/usePickupAvailability";
 import { addDays, euroInt, isoDate } from "@/lib/verhuur";
 import { toestelTitel } from "@/lib/toestelTitel";
@@ -27,6 +31,12 @@ import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 
 const MAX_QTY = 12;
+
+/** `16/11/26` — dezelfde notatie als in de kalender, zie `Datumkiezer`. */
+const kortDatum = (d: Date) =>
+  `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(
+    d.getFullYear(),
+  ).slice(-2)}`;
 
 /**
  * Vragen die op elke toestelpagina onder de toestelspecifieke FAQ komen: ze
@@ -100,15 +110,59 @@ const VerhuurToestelPage = () => {
   // Soortwoord, kerncijfer en dagprijs — zie toestelTitel.ts voor het waarom.
   const pageTitle = toestelTitel({ short: prod.short, type: prod.type, day: prod.day, spec: prod.key[0] });
 
+  /*
+    De naam die de klant kent, en niet `prod.name`.
+
+    Dat veld komt rechtstreeks uit het portaal en draagt de typecode van de
+    fabrikant: deze pagina zette "Ontvochtiger TTK 350 S" als <h1> en in het
+    kruimelpad, terwijl de titel in het tabblad "Bouwdroger Performance huren"
+    zei, de kaart op de homepage "Performance", de footer "Medium bouwdroger"
+    en de kruisverkoop onderaan dezelfde pagina óók "Performance". Vier namen
+    voor één machine, waarvan de enige die niemand zoekt het grootst op het
+    scherm stond. `toestelLabel()` is de ene naam, site-breed.
+  */
+  const naam = toestelLabel(key);
+
+  /*
+    De galerij: eerst de foto's van het portaal, dan de infoplaten uit de
+    ontwerpmap (specificaties en afmetingen). Ze staan in `prod.posts` en niet
+    achteraan `prod.img` geplakt, zodat een foto die het portaal er later bij
+    publiceert de alt-teksten niet laat verschuiven.
+  */
+  const shots: { src: string; alt: string }[] = [
+    ...prod.img.map((src, i) => ({ src, alt: productImageAlt(prod, i) })),
+    ...prod.posts.map(([src, alt]) => ({ src, alt })),
+  ];
+
   const [qty, setQty] = useState(() =>
     Math.max(1, Math.min(maxQty, parseInt(searchParams.get("units") || "1", 10) || 1))
   );
   const [days, setDays] = useState(7);
   const [addons, setAddons] = useState<Record<string, boolean>>({});
   const [shot, setShot] = useState(0);
-  const [startDate, setStartDate] = useState(() => isoDate(addDays(new Date(), 1)));
   const [slot, setSlot] = useState(PICKUP_SLOTS[1]);
   const [openFaq, setOpenFaq] = useState(0);
+
+  /*
+    Leeg bij de prerender én bij de eerste render in de browser, pas na mount
+    ingevuld — dezelfde reden als op de afhaalpagina. "Morgen" is bij de build
+    een andere dag dan bij de bezoeker, en een datum uit de initializer gaf dus
+    een hydratatiefout waarna React de geprerenderde pagina weggooide en
+    opnieuw opbouwde.
+
+    `minDate` is morgen en niet vandaag: wij zetten een toestel minstens 24 uur
+    op voorhand klaar. De datumkiezer liet vandaag toe, en wie om 16.50 u voor
+    dezelfde dag reserveerde stond tien minuten later voor een deur waar niets
+    klaarstond. `pickupDate` in `orderIntake.ts` weigert diezelfde datum
+    server-side — een `min` in de browser is geen controle.
+  */
+  const [startDate, setStartDate] = useState("");
+  const [minDate, setMinDate] = useState("");
+  useEffect(() => {
+    const min = earliestPickupDate();
+    setMinDate(min);
+    setStartDate((current) => (current && current >= min ? current : min));
+  }, []);
 
   // Een ander toestel is een andere pagina: herstart de boekmodule.
   useEffect(() => {
@@ -122,9 +176,15 @@ const VerhuurToestelPage = () => {
 
   const chosenAddons = addonKeys.filter((k) => addons[k]);
   const addTotal = chosenAddons.reduce((s, k) => s + PRODUCTS[k].day * days, 0);
-  // De afhaalpagina rekent geen week- of maandkorting: de afhaalprijzen liggen
-  // al lager dan de pakketprijs.
-  const total = base + addTotal;
+  /*
+    Vanaf vier weken zakt de huurprijs met 10%. Hetzelfde `longStayDiscount`
+    dat `pickupSummary` gebruikt, zodat het bedrag op deze knop gelijk is aan
+    wat de afhaalpagina toont en aan wat `api/afhaal-checkout.ts` server-side
+    opnieuw uitrekent. De 5% voor online betalen komt daar op de afhaalpagina
+    nog bovenop; die keuze staat hier nog niet.
+  */
+  const longStay = longStayDiscount(base + addTotal, days);
+  const total = base + addTotal - longStay;
 
   /*
     Wat de bezoeker hier instelt, gaat mee naar de afhaal-checkout. Zonder deze
@@ -149,10 +209,20 @@ const VerhuurToestelPage = () => {
     pagina "Direct beschikbaar" en een startdatum voor die al verhuurd was, en
     liep de bezoeker pas bij het afrekenen tegen een weigering aan.
   */
-  const { blocked, loading: checkingDates, failed: checkFailed, horizonDays } =
-    usePickupAvailability(selection, days);
+  const { blocked, loading: checkingDates, horizonDays } = usePickupAvailability(selection, days);
   const dateBlocked = blocked.includes(startDate);
   const suggestion = dateBlocked ? firstFreeDate(startDate, blocked, horizonDays) : null;
+
+  /*
+    Van wanneer tot wanneer. Alle periodes zijn veelvouden van zeven dagen, dus
+    de terugbrengdag valt op dezelfde weekdag als de afhaaldag en nooit in het
+    weekend, wanneer het magazijn dicht is.
+  */
+  const terug = useMemo(() => {
+    const start = startDate ? new Date(`${startDate}T00:00:00`) : null;
+    if (!start || Number.isNaN(start.getTime())) return null;
+    return { start, eind: addDays(start, days) };
+  }, [startDate, days]);
 
   const cross = PRODUCT_ORDER.filter((k) => k !== key);
   const vol = searchParams.get("vol");
@@ -180,7 +250,7 @@ const VerhuurToestelPage = () => {
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Toestellen", path: "/machines" },
-            { name: prod.short, path: toestelPad(key) },
+            { name: naam, path: toestelPad(key) },
           ]),
         ]}
       />
@@ -192,7 +262,7 @@ const VerhuurToestelPage = () => {
           <div className="crumb">
             <Link to="/">Home</Link> <span>/</span>
             <Link to="/#toestellen">Toestellen</Link> <span>/</span>
-            <span className="cur">{prod.name}</span>
+            <span className="cur">{naam}</span>
           </div>
 
           <div className="pgrid">
@@ -208,19 +278,19 @@ const VerhuurToestelPage = () => {
                 <Head>
                   <link rel="preload" href="/vernast/bg-red-wide-2.webp" as="image" type="image/webp" fetchPriority="high" />
                 </Head>
-                <img src={prod.img[shot]} alt={productImageAlt(prod, shot)} fetchPriority="high" decoding="async" />
+                <img src={shots[shot]?.src} alt={shots[shot]?.alt ?? ""} fetchPriority="high" decoding="async" />
               </div>
-              {prod.img.length > 1 && (
+              {shots.length > 1 && (
                 <div className="thumbs">
-                  {prod.img.map((src, i) => (
+                  {shots.map((s, i) => (
                     <button
-                      key={src}
+                      key={s.src}
                       type="button"
                       className={i === shot ? "on" : undefined}
                       onClick={() => setShot(i)}
                       aria-label={`Afbeelding ${i + 1}`}
                     >
-                      <img src={src} alt={productImageAlt(prod, i)} loading="lazy" decoding="async" />
+                      <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
                     </button>
                   ))}
                 </div>
@@ -229,11 +299,19 @@ const VerhuurToestelPage = () => {
 
             <div className="pinfo" id="boeken">
               <div className="ptype">{prod.type}</div>
-              <h1>{prod.name}</h1>
+              <h1>{naam}</h1>
               <div className="promo-online">
                 <CheckIcon size={15} strokeWidth={2.4} />
                 <b>5% korting bij online betalen</b>
-                <span>&nbsp;· instant factuur in uw mailbox</span>
+                {/*
+                  Proforma, niet "factuur". Wat er na het reserveren vertrekt is
+                  een proforma: de huur loopt nog en de definitieve factuur
+                  volgt pas na de terugbreng, wanneer de periode en eventuele
+                  extra dagen vastliggen. "Instant factuur in uw mailbox" wekte
+                  de verwachting van een boekhoudkundig stuk dat er dan nog niet
+                  is.
+                */}
+                <span>&nbsp;· proforma factuur meteen in uw mailbox</span>
               </div>
               <p className="psum">{prod.sum}</p>
 
@@ -275,19 +353,22 @@ const VerhuurToestelPage = () => {
                 <div className="bh">
                   <span className="bt">Afhaalreservatie</span>
                   {/*
-                    Geen belofte die we niet kunnen waarmaken: antwoordt de
-                    controle niet, dan zegt de badge dat eerlijk in plaats van
-                    "Direct beschikbaar" te blijven tonen.
+                    Antwoordt de controle niet, dan staat er "Beschikbaar" en
+                    niet "Beschikbaarheid onbekend". Dat laatste stond er bij
+                    elke storing van het portaal, en bij een bezoeker die nog
+                    niets gekozen heeft stáát er ook geen selectie om na te
+                    kijken — de badge zei dan iets verontrustends over een
+                    toestel dat gewoon in het rek staat. De harde controle zit
+                    in `api/afhaal-checkout.ts` en geeft een 409; alleen een
+                    datum die écht bezet blijkt, houdt de knop hier tegen.
                   */}
-                  <span className={`stock${dateBlocked || checkFailed ? " op" : ""}`}>
+                  <span className={`stock${dateBlocked ? " op" : ""}`}>
                     <span className="d" />{" "}
                     {checkingDates
                       ? "Beschikbaarheid nakijken…"
-                      : checkFailed
-                        ? "Beschikbaarheid onbekend"
-                        : dateBlocked
-                          ? "Bezet op deze datum"
-                          : "Direct beschikbaar"}
+                      : dateBlocked
+                        ? "Bezet op deze datum"
+                        : "Beschikbaar"}
                   </span>
                 </div>
                 <div className="bb">
@@ -301,15 +382,22 @@ const VerhuurToestelPage = () => {
                   <div className="brow">
                     <div className="fld">
                       <label htmlFor="startDate">Startdatum</label>
-                      <input
-                        type="date"
+                      {/*
+                        Geen `<input type="date">` meer: die opent de kalender
+                        van de browser, en daarin is niet te zien dat het
+                        magazijn in het weekend dicht is of dat een dag volzit.
+                        Zie `components/Datumkiezer.tsx`.
+                      */}
+                      <Datumkiezer
                         id="startDate"
-                        className={dateBlocked ? "bezet" : undefined}
                         value={startDate}
-                        min={isoDate(new Date())}
-                        aria-invalid={dateBlocked}
-                        aria-describedby={dateBlocked ? "dateWarn" : undefined}
-                        onChange={(e) => setStartDate(e.target.value)}
+                        min={minDate}
+                        blocked={blocked}
+                        rangeDays={days}
+                        rangeLabel={PERIODS.find(([v]) => v === days)?.[1]}
+                        invalid={dateBlocked}
+                        describedBy={dateBlocked ? "dateWarn" : undefined}
+                        onChange={setStartDate}
                       />
                     </div>
                     <div className="fld">
@@ -319,14 +407,36 @@ const VerhuurToestelPage = () => {
                         value={days}
                         onChange={(e) => setDays(Number(e.target.value))}
                       >
-                        {PERIODS.map(([v, label]) => (
-                          <option key={v} value={v}>
-                            {label}
-                          </option>
-                        ))}
+                        {/*
+                          De korting staat in de keuzelijst zelf en niet alleen
+                          onderaan bij het totaal: dit is het moment waarop de
+                          bezoeker de periode kiest, en een voordeel dat hij pas
+                          ziet nadat hij gekozen heeft, stuurt zijn keuze niet.
+                        */}
+                        {PERIODS.map(([v, label]) => {
+                          const pct = Math.round(langhuurKorting(v) * 100);
+                          return (
+                            <option key={v} value={v}>
+                              {label}
+                              {pct > 0 ? ` · −${pct}%` : ""}
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
                   </div>
+
+                  {/*
+                    De terugbrengdatum staat hier en niet alleen in de kalender:
+                    wie de periode wisselt heeft die kalender meestal dicht, en
+                    moest "1 week" dan zelf omrekenen naar een dag.
+                  */}
+                  {terug && (
+                    <p className="retour">
+                      Afhalen op <b>{kortDatum(terug.start)}</b>, terugbrengen op{" "}
+                      <b>{kortDatum(terug.eind)}</b> — {days} dagen
+                    </p>
+                  )}
 
                   <div className="brow">
                     <div className="fld">
@@ -428,6 +538,12 @@ const VerhuurToestelPage = () => {
                           {chosenAddons.map((k) => PRODUCTS[k].short).join(" + ")} × {days} dagen
                         </span>
                         <span>{euroInt(addTotal)}</span>
+                      </div>
+                    )}
+                    {longStay > 0 && (
+                      <div className="tline">
+                        <span>Langhuurkorting ({Math.round(langhuurKorting(days) * 100)}%)</span>
+                        <span className="disc">− {euroInt(longStay)}</span>
                       </div>
                     )}
                     <div className="tline">
@@ -600,28 +716,29 @@ const VerhuurToestelPage = () => {
               toestellen versterken elkaar.
             </p>
           </div>
-          <div className="cgrid">
+          {/*
+            Dezelfde kaart als op de homepage, uit `ToestelKaart`. Hier stond
+            een eigen variant met een rode fotokader en "BEKIJKEN" als klein
+            rood woord; de bezoeker die van de homepage doorklikte, kreeg
+            hetzelfde gamma in een ander jasje te zien.
+          */}
+          <div className="tk-grid">
             {cross.map((k) => {
               const c = PRODUCTS[k];
               return (
-                <Link className="cc" to={toestelPad(k)} key={k}>
-                  <div className="cm">
-                    <img src={c.img[0]} alt={productImageAlt(c, 0)} loading="lazy" decoding="async" />
-                  </div>
-                  <div className="cb">
-                    <h3>{c.short}</h3>
-                    <div className="ccap">
-                      {c.key[0][0]} {c.key[0][1]} {c.key[0][2]}
-                    </div>
-                    <div className="cf">
-                      <span className="pr">
-                        € {c.day}
-                        <small> /dag</small>
-                      </span>
-                      <span className="go">Bekijken</span>
-                    </div>
-                  </div>
-                </Link>
+                <ToestelKaart
+                  key={k}
+                  href={toestelPad(k)}
+                  tag={c.badge}
+                  image={c.img[0]}
+                  alt={productImageAlt(c, 0)}
+                  name={toestelLabel(k)}
+                  blurb={c.sum}
+                  chips={toestelChips(c)}
+                  price={euroInt(c.day)}
+                  priceNote="/dag excl. btw"
+                  cta="Bekijken"
+                />
               );
             })}
           </div>
@@ -671,7 +788,13 @@ const VerhuurToestelPage = () => {
                 Naar de configurator
                 <ArrowRightIcon strokeWidth={2.4} />
               </Link>
-              <a className="btn btn-glass" href="tel:+3236899065">
+              {/*
+                Zwart en niet glazig. `btn-glass` is half doorschijnend met een
+                rand van 1 px, en naast de witte knop leest dat als een knop die
+                uit staat — met een rand die de hoeken net anders laat lopen.
+                De homepage zet hier `btn-dark` naast dezelfde witte knop.
+              */}
+              <a className="btn btn-dark" href="tel:+3236899065">
                 Bel 03 689 90 65
               </a>
             </div>

@@ -11,8 +11,7 @@
  * Onbekende sleutels vallen overal stil weg.
  */
 import {
-  LONG_STAY_DAYS,
-  LONG_STAY_DISCOUNT,
+  LANGHUUR_STAFFEL,
   MAX_PER_PRODUCT,
   PICKUP_BY_KEY,
   PICKUP_DAYS,
@@ -20,7 +19,7 @@ import {
   type PickupProduct,
 } from "../data/afhalen.js";
 import { DEPOSIT_GROSS, ONLINE_DISCOUNT } from "./booking.js";
-import type { DeviceLine } from "./verhuur.js";
+import { addDays, isoDate, type DeviceLine } from "./verhuur.js";
 
 /** Btw-tarief op verhuur in België; gelijk aan `booking.ts`. */
 export const VAT_RATE = 0.21;
@@ -59,10 +58,62 @@ export function serializeSelection(quantities: Record<string, number>): string {
     .join(",");
 }
 
+/**
+ * De periodes die de lijst tot 11-2026 droeg, met wat ze nu worden.
+ *
+ * Toen liep ze op 3, 7, 14, 30 en 60 dagen, nu in hele weken. Een link in een
+ * mailbox of een tabblad dat al openstond draagt dus een getal dat er niet meer
+ * in staat, en viel daarmee terug op één week: wie twee maanden had gekozen,
+ * kwam op de afhaalpagina met zeven dagen terecht en zag een bedrag dat niet
+ * klopte met wat hij net had afgesproken. Deze drie worden daarom vertaald naar
+ * de dichtstbijzijnde periode die wél bestaat.
+ *
+ * Een vaste lijst en geen "rond af naar de eerstvolgende": dan koopt `days=999`
+ * stilzwijgend acht weken, en dat is geen keuze die iemand gemaakt heeft.
+ */
+const OUDE_PERIODES: Record<number, number> = { 3: 7, 30: 28, 60: 56 };
+
 /** Een huurperiode die in de lijst staat; al de rest valt terug op een week. */
 export function normalizeDays(raw: unknown): number {
   const days = Math.floor(Number(raw));
-  return PICKUP_DAYS.includes(days) ? days : 7;
+  if (PICKUP_DAYS.includes(days)) return days;
+  const oud = OUDE_PERIODES[days];
+  return oud !== undefined && PICKUP_DAYS.includes(oud) ? oud : 7;
+}
+
+/**
+ * De vroegste dag waarop iemand kan afhalen: morgen.
+ *
+ * Een afhaling vraagt dat het toestel klaarstaat -- uit het rek gehaald,
+ * nagekeken, slang en handleiding erbij. Wie om 16.50 u reserveerde voor
+ * dezelfde dag, stond tien minuten later voor een deur waar niets klaarstond.
+ * Vierentwintig uur ertussen is de ondergrens, en die geldt op beide kanten:
+ * de kalender én `pickupDate` in `orderIntake.ts`, want een datumkiezer in de
+ * browser is geen controle.
+ */
+export const PICKUP_LEAD_DAYS = 1;
+
+/**
+ * Staat er iemand in het magazijn op deze dag?
+ *
+ * Boomsesteenweg is open van maandag tot vrijdag, 08:00--17:00; dat staat zo
+ * op elke toestelpagina en in de FAQ. De browserkalender liet zaterdag en
+ * zondag gewoon kiezen, en de server nam ze aan -- met een bevestiging voor
+ * een dag waarop de poort dicht is.
+ */
+export function isPickupDay(d: Date): boolean {
+  const dag = d.getDay();
+  return dag !== 0 && dag !== 6;
+}
+
+/**
+ * De eerste werkdag vanaf `PICKUP_LEAD_DAYS` na vandaag, als `YYYY-MM-DD`.
+ * Valt die op een zaterdag, dan schuift hij door naar maandag.
+ */
+export function earliestPickupDate(today: Date = new Date()): string {
+  let d = addDays(today, PICKUP_LEAD_DAYS);
+  while (!isPickupDay(d)) d = addDays(d, 1);
+  return isoDate(d);
 }
 
 /** Een afhaalmoment uit de lijst; al de rest valt terug op het eerste blok. */
@@ -91,14 +142,23 @@ function round(amount: number): number {
 }
 
 /**
- * De langhuurkorting op een huurprijs excl. btw. Nul onder {@link LONG_STAY_DAYS}.
+ * Welke trede van {@link LANGHUUR_STAFFEL} deze periode haalt, als fractie.
+ * Nul onder de eerste trede.
  *
  * Staat hier en niet in de pagina: `api/afhaal-checkout.ts` rekent het bedrag
  * server-side opnieuw uit, en een korting die alleen in de browser bestaat
  * verdwijnt dan stilzwijgend bij het afrekenen.
  */
+export function langhuurKorting(days: number): number {
+  let fractie = 0;
+  // De staffel loopt oplopend, dus de laatste trede die gehaald wordt, wint.
+  for (const [dagen, f] of LANGHUUR_STAFFEL) if (days >= dagen) fractie = f;
+  return fractie;
+}
+
+/** De langhuurkorting in euro op een huurprijs excl. btw. */
 export function longStayDiscount(net: number, days: number): number {
-  return days >= LONG_STAY_DAYS ? round(net * LONG_STAY_DISCOUNT) : 0;
+  return round(net * langhuurKorting(days));
 }
 
 export function pickupSummary(lines: PickupLine[], days: number): PickupSummary {

@@ -54,8 +54,23 @@ export function euro(n: number): string {
 }
 
 /** Hele getallen zonder decimalen — gebruikt op de productpagina. */
+/**
+ * Een bedrag zonder centen — tenzij er centen zijn.
+ *
+ * Alle dagprijzen zijn hele euro's, dus dit gaf altijd "€ 336". Sinds de
+ * langhuurkorting van 10% is dat niet meer zo, en toen toonde dezelfde functie
+ * "€ 33,6" en "€ 302,4": één decimaal, wat geen geld is. Nu vallen de centen
+ * alleen weg wanneer ze er niet zijn.
+ */
 export function euroInt(n: number): string {
-  return "€ " + n.toLocaleString("nl-BE");
+  const centen = Math.round(n * 100) % 100 !== 0;
+  return (
+    "€ " +
+    n.toLocaleString("nl-BE", {
+      minimumFractionDigits: centen ? 2 : 0,
+      maximumFractionDigits: 2,
+    })
+  );
 }
 
 export function clampWeeks(raw: string | number | null | undefined): number {

@@ -1,0 +1,209 @@
+/*
+  De afhaalkalender uit `components/Datumkiezer.tsx`.
+
+  Ongescoped, net als `site-footer.css` en `toestel-kaart.css`: de kiezer staat
+  in de v3-schil (toestelpagina) én in de verhuurschil (afhaalpagina), en moet
+  er op allebei hetzelfde uitzien. De variabelen krijgen een fallback omdat ze
+  alleen op de v3-schil gedefinieerd zijn.
+*/
+.dk {
+  position: relative;
+}
+
+/*
+  De knop neemt de maten van de velden ernaast over (`select`, `input`), zodat
+  de rij niet uit het lood loopt zodra de datumkiezer geen `input` meer is.
+*/
+.dk-knop {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 14px;
+  border: 1px solid var(--line-2, rgba(18, 16, 17, .18));
+  border-radius: 10px;
+  background: #fff;
+  color: var(--txt, #121011);
+  font-family: inherit;
+  font-size: 14.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s;
+}
+.dk-knop:hover { border-color: var(--txt-dim, rgba(18, 16, 17, .44)); }
+.dk-knop:focus-visible {
+  outline: none;
+  border-color: var(--red, #c8102e);
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, .14);
+}
+/* Dezelfde markering als een bezet veld elders in het formulier. */
+.dk-knop.bezet {
+  border-color: var(--red, #c8102e);
+  background: rgba(200, 16, 46, .04);
+}
+.dk-waarde { font-weight: 600; }
+.dk-waarde.leeg { font-weight: 500; color: var(--txt-dim, rgba(18, 16, 17, .44)); }
+.dk-icoon { width: 18px; height: 18px; flex-shrink: 0; color: var(--txt-dim, rgba(18, 16, 17, .44)); }
+
+.dk-paneel {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 304px;
+  max-width: calc(100vw - 32px);
+  padding: 14px;
+  background: #fff;
+  border: 1px solid rgba(18, 16, 17, .1);
+  border-radius: 16px;
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .3);
+  color: var(--txt, #121011);
+}
+/*
+  Tegen de rechterrand van een formulier zou het paneel anders buiten beeld
+  lopen; de kolom waarin de kiezer staat is smaller dan het paneel zelf.
+*/
+@media (max-width: 420px) {
+  .dk-paneel { left: 50%; transform: translateX(-50%); }
+}
+
+.dk-kop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.dk-kop strong {
+  font-family: var(--fd, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 700;
+  font-size: 14.5px;
+  text-transform: capitalize;
+}
+.dk-nav {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(18, 16, 17, .12);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--txt, #121011);
+  cursor: pointer;
+  transition: background .14s, border-color .14s;
+}
+.dk-nav svg { width: 15px; height: 15px; }
+.dk-nav:hover:not(:disabled) { background: #F6F4F4; border-color: rgba(18, 16, 17, .22); }
+.dk-nav:disabled { opacity: .3; cursor: default; }
+
+.dk-dagen,
+.dk-raster {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+.dk-dagen span {
+  padding: 4px 0 6px;
+  text-align: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--txt-dim, rgba(18, 16, 17, .44));
+}
+
+.dk-dag {
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--txt, #121011);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .12s, color .12s;
+}
+.dk-dag:hover:not(:disabled) { background: rgba(200, 16, 46, .1); color: var(--red, #c8102e); }
+.dk-dag:focus-visible { outline: 2px solid var(--red, #c8102e); outline-offset: -2px; }
+.dk-dag.buiten { cursor: default; }
+/* Te vroeg: hij bestaat, maar wij halen hem niet. Grijs en verder niets. */
+.dk-dag.vroeg { color: rgba(18, 16, 17, .22); cursor: default; }
+/*
+  Weekend en volzet krijgen elk hun eigen teken in plaats van allebei grijs:
+  "het magazijn is dicht" en "dit toestel is weg" zijn twee verschillende
+  antwoorden, en wie ze niet uit elkaar kan houden probeert de volgende dag
+  opnieuw in plaats van een ander toestel te nemen.
+*/
+.dk-dag.weekend {
+  color: rgba(18, 16, 17, .26);
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0 3px,
+    rgba(18, 16, 17, .055) 3px 6px
+  );
+  cursor: default;
+}
+.dk-dag.vol {
+  color: rgba(200, 16, 46, .42);
+  background: rgba(200, 16, 46, .07);
+  text-decoration: line-through;
+  cursor: default;
+}
+/*
+  De hele huurperiode in beeld, niet alleen de startdatum: wie "1 week" koos,
+  moest zelf uitrekenen wanneer het toestel terug moest. De dagen ertussen
+  krijgen een lichte baan, de laatste dag een omlijning -- dat is de dag waarop
+  hij terugbrengt, en die is iets anders dan de dagen die hij hem heeft.
+*/
+.dk-dag.reeks { background: rgba(200, 16, 46, .08); border-radius: 0; }
+.dk-dag.reeks.weekend { background: rgba(200, 16, 46, .05); }
+.dk-dag.eind {
+  background: rgba(200, 16, 46, .12);
+  box-shadow: inset 0 0 0 1.5px var(--red, #c8102e);
+  color: var(--red, #c8102e);
+}
+.dk-dag.aan,
+.dk-dag.aan:hover {
+  background: var(--red, #c8102e);
+  color: #fff;
+  box-shadow: none;
+}
+
+.dk-reeks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 12px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #F6F4F4;
+  font-size: 12px;
+  color: var(--txt-mid, rgba(18, 16, 17, .64));
+}
+.dk-reeks b { color: var(--txt, #121011); font-weight: 700; }
+
+.dk-legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(18, 16, 17, .08);
+  font-size: 11px;
+  color: var(--txt-mid, rgba(18, 16, 17, .64));
+}
+.dk-legende span { display: inline-flex; align-items: center; gap: 6px; }
+.dk-stip { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+.dk-stip.vol { background: rgba(200, 16, 46, .3); }
+.dk-stip.weekend {
+  background: repeating-linear-gradient(
+    -45deg,
+    #EFEDED 0 2px,
+    rgba(18, 16, 17, .16) 2px 4px
+  );
+}

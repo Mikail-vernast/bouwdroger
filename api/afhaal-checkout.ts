@@ -114,7 +114,7 @@ export async function POST(request: Request): Promise<Response> {
   const order = afhaalOrder(data as Record<string, unknown>);
 
   if (!order.lines.length) return json({ error: "Kies eerst minstens één toestel." }, 400);
-  if (!order.date) return json({ error: "Kies een afhaaldatum vanaf vandaag." }, 400);
+  if (!order.date) return json({ error: "Kies een afhaaldatum vanaf morgen: wij zetten uw toestel minstens 24 uur op voorhand klaar." }, 400);
   if (!order.firstName) return json({ error: "Vul uw naam in." }, 400);
   if (!order.phone) return json({ error: "Vul uw telefoonnummer in." }, 400);
   if (!/\S+@\S+\.\S+/.test(order.email)) {

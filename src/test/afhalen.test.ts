@@ -1,6 +1,16 @@
 import { describe, expect, test } from "vitest";
-import { PICKUP_BY_KEY, PICKUP_PRODUCTS } from "@/data/afhalen";
 import {
+  LANGHUUR_STAFFEL,
+  LONG_STAY_DAYS,
+  PICKUP_BY_KEY,
+  PICKUP_DAYS,
+  PICKUP_PRODUCTS,
+} from "@/data/afhalen";
+import {
+  earliestPickupDate,
+  isPickupDay,
+  langhuurKorting,
+  normalizeDays,
   normalizePickupPayment,
   parseSelection,
   pickupCounts,
@@ -22,6 +32,87 @@ function tomorrow(): string {
   d.setDate(d.getDate() + 1);
   return d.toISOString().slice(0, 10);
 }
+
+describe("huurperiodes", () => {
+  test("korter dan een week verhuren we niet, en de lijst loopt in weken tot acht", () => {
+    expect(PICKUP_DAYS).toEqual([7, 14, 21, 28, 35, 42, 49, 56]);
+  });
+
+  test("de oude periodes uit een bewaarde link landen op de dichtstbijzijnde", () => {
+    // 3 dagen bestaat niet meer, een maand werd vier weken, twee maanden acht.
+    expect(normalizeDays(3)).toBe(7);
+    expect(normalizeDays(30)).toBe(28);
+    expect(normalizeDays(60)).toBe(56);
+    // Onzin koopt geen acht weken.
+    expect(normalizeDays(999)).toBe(7);
+    expect(normalizeDays("zeven")).toBe(7);
+  });
+});
+
+describe("langhuurkorting vanaf vier weken", () => {
+  const lijn = parseSelection("ttk170:1");
+  const dag = PICKUP_BY_KEY.ttk170.day;
+
+  test("onder vier weken gaat er niets af", () => {
+    const summary = pickupSummary(lijn, 21);
+
+    expect(summary.longStay).toBe(0);
+    expect(summary.net).toBe(dag * 21);
+  });
+
+  test("de staffel loopt van 10% bij vier weken tot 15% bij acht", () => {
+    expect(langhuurKorting(21)).toBe(0);
+    expect(langhuurKorting(28)).toBe(0.1);
+    expect(langhuurKorting(35)).toBe(0.12);
+    expect(langhuurKorting(42)).toBe(0.12);
+    expect(langhuurKorting(49)).toBe(0.14);
+    expect(langhuurKorting(56)).toBe(0.15);
+  });
+
+  test("de staffel loopt op, nooit terug", () => {
+    // Daalt een trede, dan is een week langer huren ineens goedkoper dan een
+    // week korter -- en dan kiest niemand nog de kortere periode.
+    const fracties = LANGHUUR_STAFFEL.map(([, f]) => f);
+    const dagen = LANGHUUR_STAFFEL.map(([d]) => d);
+
+    expect([...fracties].sort((a, b) => a - b)).toEqual(fracties);
+    expect([...dagen].sort((a, b) => a - b)).toEqual(dagen);
+  });
+
+  test("vanaf vier weken gaat er 10% af, ook op de btw en het totaal", () => {
+    const summary = pickupSummary(lijn, LONG_STAY_DAYS);
+    const lijst = dag * LONG_STAY_DAYS;
+
+    expect(summary.listNet).toBe(lijst);
+    expect(summary.longStay).toBeCloseTo(lijst * 0.1, 2);
+    expect(summary.net).toBeCloseTo(lijst * 0.9, 2);
+    expect(summary.gross).toBeCloseTo(lijst * 0.9 * (1 + VAT_RATE), 2);
+  });
+
+  test("bij acht weken gaat er 15% af", () => {
+    const summary = pickupSummary(lijn, 56);
+
+    expect(summary.longStay).toBeCloseTo(dag * 56 * 0.15, 2);
+    expect(summary.net).toBeCloseTo(dag * 56 * 0.85, 2);
+  });
+
+  test("de 5% voor online betalen komt bovenop de langhuurkorting", () => {
+    const summary = pickupSummary(lijn, 56);
+    const totals = pickupTotals(summary.net, "online");
+
+    expect(totals.net).toBeCloseTo(dag * 56 * 0.85 * (1 - ONLINE_DISCOUNT), 2);
+  });
+
+  test("langer huren kost nooit minder dan korter huren", () => {
+    // De staffel mag het totaal afvlakken, maar niet omkeren: anders betaalt
+    // wie zes weken kiest meer dan wie er zeven neemt.
+    for (let i = 1; i < PICKUP_DAYS.length; i++) {
+      const korter = pickupSummary(lijn, PICKUP_DAYS[i - 1]).net;
+      const langer = pickupSummary(lijn, PICKUP_DAYS[i]).net;
+      expect(langer).toBeGreaterThan(korter);
+    }
+  });
+});
 
 describe("afhaalcatalogus, één prijs per toestel", () => {
   test("de dagprijs komt uit de gepubliceerde tarieven, niet uit de pagina", () => {
@@ -225,6 +316,32 @@ describe("afhaalOrder, de server bepaalt het bedrag", () => {
 
   test("weigert een huurperiode die niet bestaat", () => {
     expect(afhaalOrder({ ...base, days: 999 }).days).toBe(7);
+  });
+
+  test("weigert vandaag: een afhaling vraagt 24 uur voorbereiding", () => {
+    const vandaag = new Date().toISOString().slice(0, 10);
+
+    expect(afhaalOrder({ ...base, date: vandaag }).date).toBeNull();
+    expect(afhaalOrder({ ...base, date: earliestPickupDate() }).date).toBe(earliestPickupDate());
+  });
+
+  test("weigert een zaterdag of zondag: dan staat er niemand in het magazijn", () => {
+    // 14 en 15 november 2026 zijn een zaterdag en een zondag, 16 een maandag.
+    // Vaste datums en geen "de eerstvolgende zaterdag": zo zegt de test ook
+    // wát ze test wanneer ze ooit faalt.
+    expect(isPickupDay(new Date("2026-11-14T00:00:00"))).toBe(false);
+    expect(isPickupDay(new Date("2026-11-15T00:00:00"))).toBe(false);
+    expect(isPickupDay(new Date("2026-11-16T00:00:00"))).toBe(true);
+  });
+
+  test("de eerste afhaaldag slaat het weekend over", () => {
+    // Vrijdag: morgen is zaterdag, dus de eerste afhaaldag is maandag.
+    expect(earliestPickupDate(new Date("2026-11-13T09:00:00"))).toBe("2026-11-16");
+    // Zaterdag en zondag landen op diezelfde maandag.
+    expect(earliestPickupDate(new Date("2026-11-14T09:00:00"))).toBe("2026-11-16");
+    expect(earliestPickupDate(new Date("2026-11-15T09:00:00"))).toBe("2026-11-16");
+    // Doordeweeks is het gewoon morgen.
+    expect(earliestPickupDate(new Date("2026-11-16T09:00:00"))).toBe("2026-11-17");
   });
 
   test("weigert een afhaalmoment dat niet bestaat", () => {
