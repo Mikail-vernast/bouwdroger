@@ -96,6 +96,213 @@ export const GEMEENTE_ROUTES: GemeenteRoute[] = [
   gemeente("Borsbeek", "borsbeek", "2150"),
   gemeente("Aartselaar", "aartselaar", "2630"),
   /*
+    Haspengouw en de Voerstreek, en daarmee is Limburg rond en heel Vlaanderen
+    gedekt. Drie dingen die hier eigen zijn. De leembodem laat water traag door,
+    dus hangwater tegen een kelderwand is regel. Riemst en Voeren hebben
+    mergel in de ondergrond, met kelders en gangen die het hele jaar rond de
+    honderd procent luchtvochtigheid zitten: daar werkt alleen een
+    adsorptiedroger. En Voeren is met bijna twee uur onze verste rit in
+    Vlaanderen; dat staat op de pagina in plaats van een tijdslot dat we niet
+    halen.
+  */
+  gemeente("Sint-Truiden", "sint-truiden", "3800", "limburg"),
+  gemeente("Tongeren-Borgloon", "tongeren-borgloon", "3700", "limburg"),
+  gemeente("Bilzen-Hoeselt", "bilzen-hoeselt", "3740", "limburg"),
+  gemeente("Riemst", "riemst", "3770", "limburg"),
+  gemeente("Wellen", "wellen", "3830", "limburg"),
+  gemeente("Heers", "heers", "3870", "limburg"),
+  gemeente("Gingelom", "gingelom", "3890", "limburg"),
+  gemeente("Herstappe", "herstappe", "3717", "limburg"),
+  gemeente("Voeren", "voeren", "3798", "limburg"),
+  /*
+    Het Maasland. Eén ding bepaalt hier alle vijf de pagina's, en het is iets
+    wat elders niet bestaat: de ondergrond is grind, en grind laat water
+    razendsnel door. Staat de Maas hoog, dan stijgt het grondwater mee en komt
+    het water niet langs de muur maar *door de vloer* naar binnen. Een
+    dompelpomp en een droger houden dat beheersbaar, maar niemand stopt het,
+    en dat zeggen we hier op elke pagina.
+  */
+  gemeente("Maaseik", "maaseik", "3680", "limburg"),
+  gemeente("Kinrooi", "kinrooi", "3640", "limburg"),
+  gemeente("Dilsen-Stokkem", "dilsen-stokkem", "3650", "limburg"),
+  gemeente("Maasmechelen", "maasmechelen", "3630", "limburg"),
+  gemeente("Lanaken", "lanaken", "3620", "limburg"),
+  /*
+    Noord-Limburg, tweede helft: de grensgemeenten en de Limburgse Kempen.
+    Dezelfde zandbodem en dezelfde koude winters als hierboven, maar met een
+    ander gebouwtype: hier zijn het landbouwloodsen, stallen en hoeves die in
+    herbestemming gaan, en dat is een volumeverhaal in plaats van een
+    kelderverhaal.
+  */
+  gemeente("Peer", "peer", "3990", "limburg"),
+  gemeente("Pelt", "pelt", "3900", "limburg"),
+  gemeente("Hamont-Achel", "hamont-achel", "3930", "limburg"),
+  gemeente("Bocholt", "bocholt", "3950", "limburg"),
+  gemeente("Bree", "bree", "3960", "limburg"),
+  gemeente("Oudsbergen", "oudsbergen", "3670", "limburg"),
+  gemeente("As", "as", "3665", "limburg"),
+  /*
+    Noord-Limburg, eerste helft. Twee dingen bepalen hier elke pagina. Het zand
+    draineert, dus de kelder is zelden de klacht en het gesprek gaat over
+    ventilatie in plaats van over grondwater. En dit zijn de koudste
+    winterwerven van Vlaanderen: tussen november en maart gaat er bijna altijd
+    een kachel mee, en die vraagt 400 V. De mijngemeenten Beringen,
+    Heusden-Zolder en Houthalen-Helchteren hebben daarbij hun cités: dunne
+    muren, lichte constructie, dus kleiner toestel en langer drogen.
+  */
+  gemeente("Tessenderlo-Ham", "tessenderlo-ham", "3980", "limburg"),
+  gemeente("Beringen", "beringen", "3580", "limburg"),
+  gemeente("Heusden-Zolder", "heusden-zolder", "3550", "limburg"),
+  gemeente("Houthalen-Helchteren", "houthalen-helchteren", "3530", "limburg"),
+  gemeente("Leopoldsburg", "leopoldsburg", "3970", "limburg"),
+  gemeente("Hechtel-Eksel", "hechtel-eksel", "3940", "limburg"),
+  gemeente("Lommel", "lommel", "3920", "limburg"),
+  /*
+    Hasselt, Genk en Midden-Limburg: de drukste Limburgse streek voor ons. Twee
+    dingen die hier eigen zijn. Genk heeft de cité-woningen van het
+    mijnverleden, en die hebben dunne muren en een vloer op volle grond, dus ze
+    drogen sneller maar worden ook sneller weer vochtig. En de Demervallei van
+    Herk-de-Stad en Halen loopt bij een langere regenperiode vol; daar gaat de
+    pagina over waterschade en niet over chape.
+  */
+  gemeente("Hasselt", "hasselt", "3500", "limburg"),
+  gemeente("Genk", "genk", "3600", "limburg"),
+  gemeente("Zonhoven", "zonhoven", "3520", "limburg"),
+  gemeente("Diepenbeek", "diepenbeek", "3590", "limburg"),
+  gemeente("Alken", "alken", "3570", "limburg"),
+  gemeente("Zutendaal", "zutendaal", "3690", "limburg"),
+  gemeente("Lummen", "lummen", "3560", "limburg"),
+  gemeente("Herk-de-Stad", "herk-de-stad", "3540", "limburg"),
+  gemeente("Halen", "halen", "3545", "limburg"),
+  gemeente("Nieuwerkerken", "nieuwerkerken", "3850", "limburg"),
+  /*
+    Midden-West-Vlaanderen, tweede helft, en daarmee is West-Vlaanderen rond.
+    Tielt en Wingene zijn na Waregem en Beernem onze kortste West-Vlaamse
+    ritten: negentig kilometer. Wielsbeke en Oostrozebeke hebben de grootste
+    industriële vloeren van de streek; daar gaat het om droogzones en niet om
+    toestellen.
+  */
+  gemeente("Tielt", "tielt", "8700", "west-vlaanderen"),
+  gemeente("Wingene", "wingene", "8750", "west-vlaanderen"),
+  gemeente("Pittem", "pittem", "8740", "west-vlaanderen"),
+  gemeente("Ardooie", "ardooie", "8850", "west-vlaanderen"),
+  gemeente("Dentergem", "dentergem", "8720", "west-vlaanderen"),
+  gemeente("Oostrozebeke", "oostrozebeke", "8780", "west-vlaanderen"),
+  gemeente("Wielsbeke", "wielsbeke", "8710", "west-vlaanderen"),
+  /*
+    Midden-West-Vlaanderen, eerste helft. De streek waar chape en pleisterwerk
+    bijna altijd samen moeten drogen omdat de vloerlegger al in de agenda
+    staat; dat bepaalt de pakketten hier. Moorslede is de uitzondering: dat
+    ligt al op de Ieperse klei en krijgt daarom het hangwaterverhaal.
+  */
+  gemeente("Roeselare", "roeselare", "8800", "west-vlaanderen"),
+  gemeente("Izegem", "izegem", "8870", "west-vlaanderen"),
+  gemeente("Ingelmunster", "ingelmunster", "8770", "west-vlaanderen"),
+  gemeente("Lichtervelde", "lichtervelde", "8810", "west-vlaanderen"),
+  gemeente("Hooglede", "hooglede", "8830", "west-vlaanderen"),
+  gemeente("Staden", "staden", "8840", "west-vlaanderen"),
+  gemeente("Moorslede", "moorslede", "8890", "west-vlaanderen"),
+  gemeente("Ledegem", "ledegem", "8880", "west-vlaanderen"),
+  /*
+    Kortrijk en de Leiestreek, tweede helft: de grensgemeenten en de zuidrand
+    tegen de Schelde. Wervik heeft iets wat nergens anders bestaat, namelijk
+    tabaksdrogerijen in herbestemming: gebouwen die ontworpen zijn om lucht
+    door te laten, en dus het tegenovergestelde van wat een bouwdroger nodig
+    heeft. Avelgem en Spiere-Helkijn liggen in het winterbed van de Schelde.
+  */
+  gemeente("Menen", "menen", "8930", "west-vlaanderen"),
+  gemeente("Wervik", "wervik", "8940", "west-vlaanderen"),
+  gemeente("Zwevegem", "zwevegem", "8550", "west-vlaanderen"),
+  gemeente("Anzegem", "anzegem", "8570", "west-vlaanderen"),
+  gemeente("Avelgem", "avelgem", "8580", "west-vlaanderen"),
+  gemeente("Spiere-Helkijn", "spiere-helkijn", "8587", "west-vlaanderen"),
+  /*
+    Kortrijk en de Leiestreek, eerste helft. Wat deze streek van de rest van
+    West-Vlaanderen onderscheidt is de maat van de vloeren: bedrijfsgebouwen en
+    nieuwbouw met oppervlakken waar één droger in een hoek niets uithaalt. Op
+    deze pagina's staat daarom hoe we zo'n vloer in droogzones opdelen, met een
+    berekende droger en een ventilator per zone.
+  */
+  gemeente("Kortrijk", "kortrijk", "8500", "west-vlaanderen"),
+  gemeente("Harelbeke", "harelbeke", "8530", "west-vlaanderen"),
+  gemeente("Kuurne", "kuurne", "8520", "west-vlaanderen"),
+  gemeente("Deerlijk", "deerlijk", "8540", "west-vlaanderen"),
+  gemeente("Lendelede", "lendelede", "8860", "west-vlaanderen"),
+  gemeente("Waregem", "waregem", "8790", "west-vlaanderen"),
+  gemeente("Wevelgem", "wevelgem", "8560", "west-vlaanderen"),
+  /*
+    De Westhoek, noordelijke helft: de IJzervlakte en de rand van het Houtland.
+    Hier is de hoogte boven de zeespiegel het verhaal. De IJzerbroeken van
+    Diksmuide en Lo-Reninge zijn gecontroleerd overstromingsgebied, en de
+    Handzamevallei in Kortemark loopt bij elke langere regenperiode vol. Op die
+    pagina's staat waterschade voorop; op Houthulst en Koekelare, een rug hoger,
+    gewoon chape en renovatie.
+  */
+  gemeente("Diksmuide", "diksmuide", "8600", "west-vlaanderen"),
+  gemeente("Veurne", "veurne", "8630", "west-vlaanderen"),
+  gemeente("Alveringem", "alveringem", "8690", "west-vlaanderen"),
+  gemeente("Lo-Reninge", "lo-reninge", "8647", "west-vlaanderen"),
+  gemeente("Houthulst", "houthulst", "8650", "west-vlaanderen"),
+  gemeente("Kortemark", "kortemark", "8610", "west-vlaanderen"),
+  gemeente("Koekelare", "koekelare", "8680", "west-vlaanderen"),
+  /*
+    De Westhoek, zuidelijke helft. Twee dingen die hier en nergens anders
+    gelden. De Ieperiaanse klei in de ondergrond laat vrijwel geen water door,
+    dus hangwater tegen een kelderwand is hier regel en geen uitzondering. En
+    de bebouwing van Ieper, Zonnebeke, Langemark en Mesen is grotendeels
+    heropbouw uit de jaren twintig: massief baksteenwerk, vaak zonder
+    waterkering in de muurvoet, en dus opstijgend vocht dat geen bouwvocht is.
+  */
+  gemeente("Ieper", "ieper", "8900", "west-vlaanderen"),
+  gemeente("Zonnebeke", "zonnebeke", "8980", "west-vlaanderen"),
+  gemeente("Langemark-Poelkapelle", "langemark-poelkapelle", "8920", "west-vlaanderen"),
+  gemeente("Mesen", "mesen", "8957", "west-vlaanderen"),
+  gemeente("Heuvelland", "heuvelland", "8950", "west-vlaanderen"),
+  gemeente("Poperinge", "poperinge", "8970", "west-vlaanderen"),
+  gemeente("Vleteren", "vleteren", "8640", "west-vlaanderen"),
+  /*
+    Het Houtland: de zandstreek achter Brugge. Hier is de kelder zelden het
+    probleem omdat zand draineert, en dat maakt deze vijf pagina's inhoudelijk
+    het tegenovergestelde van de polderpagina's hierboven. Beernem is de
+    uitzondering: de kleirug van Oedelem gedraagt zich als polder.
+  */
+  gemeente("Jabbeke", "jabbeke", "8490", "west-vlaanderen"),
+  gemeente("Zedelgem", "zedelgem", "8210", "west-vlaanderen"),
+  gemeente("Oostkamp", "oostkamp", "8020", "west-vlaanderen"),
+  gemeente("Beernem", "beernem", "8730", "west-vlaanderen"),
+  gemeente("Torhout", "torhout", "8820", "west-vlaanderen"),
+  /*
+    Brugge en de polderrand errond. De historische binnenstad en de polder
+    delen hetzelfde probleem om een andere reden: in Brugge staat het water van
+    de reien vlak naast de keldermuur, in de polder houdt de klei het vast. Op
+    beide soorten pagina's staat daarom dat een droger vocht uit de lucht haalt
+    en niet uit de grond.
+  */
+  gemeente("Brugge", "brugge", "8000", "west-vlaanderen"),
+  gemeente("Damme", "damme", "8340", "west-vlaanderen"),
+  gemeente("Zuienkerke", "zuienkerke", "8377", "west-vlaanderen"),
+  gemeente("Oudenburg", "oudenburg", "8460", "west-vlaanderen"),
+  gemeente("Gistel", "gistel", "8470", "west-vlaanderen"),
+  gemeente("Ichtegem", "ichtegem", "8480", "west-vlaanderen"),
+  /*
+    De kust, en daarmee de eerste gemeentepagina's van West-Vlaanderen. Drie
+    dingen gelden hier en nergens anders, en ze staan daarom op alle negen:
+    de zeelucht is zo vochtig dat ventileren met open ramen tegen je werkt,
+    zeezout in een muur is hygroscopisch en houdt die muur vochtig ook nadat
+    het water weg is, en de rit duurt ruim een uur. Afhalen raden we hier dus
+    af in plaats van de korting te verkopen, en we plannen de provincie in een
+    vaste toer.
+  */
+  gemeente("Knokke-Heist", "knokke-heist", "8300", "west-vlaanderen"),
+  gemeente("Blankenberge", "blankenberge", "8370", "west-vlaanderen"),
+  gemeente("De Haan", "de-haan", "8420", "west-vlaanderen"),
+  gemeente("Bredene", "bredene", "8450", "west-vlaanderen"),
+  gemeente("Oostende", "oostende", "8400", "west-vlaanderen"),
+  gemeente("Middelkerke", "middelkerke", "8430", "west-vlaanderen"),
+  gemeente("Nieuwpoort", "nieuwpoort", "8620", "west-vlaanderen"),
+  gemeente("Koksijde", "koksijde", "8670", "west-vlaanderen"),
+  gemeente("De Panne", "de-panne", "8660", "west-vlaanderen"),
+  /*
     Tienen en Vlaams-Haspengouw, en daarmee is Vlaams-Brabant rond. Dit is de
     verste hoek van ons werkgebied in deze provincie: Landen ligt op ruim een
     uur. De grote hoeves in herbestemming bepalen hier het pakket, want in een

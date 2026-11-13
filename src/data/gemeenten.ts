@@ -10882,6 +10882,6206 @@ const G: Gemeente[] = [
     ],
     realisaties: [],
   },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "knokke-heist",
+    title: "Bouwdroger huren in Knokke-Heist | Vernast",
+    description:
+      "Bouwdroger huren in Knokke-Heist, Het Zoute en Duinbergen: appartementen en villa's aan zee, met zout in de muren. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Knokke-Heist",
+    kicker: "De kust · appartementen en villa's aan zee",
+    rit: { afstand: "circa 120 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Knokke-Heist is **appartement en villa door elkaar**: hoge blokken langs de Zeedijk, villa's in Het Zoute en Duinbergen, en achter de duinen de polder richting het Zwin.",
+      "Veel van die panden zijn **tweede verblijven**, en dat geeft een eigen probleem: een appartement dat een winter dicht heeft gestaan ruikt muf, niet omdat er een lek is maar omdat er maanden niet geventileerd werd.",
+    ],
+    bouw: {
+      kop: "Zeelucht, zeezout en panden die maanden dichtstaan",
+      alineas: [
+        "**Aan de kust werkt ventileren met open ramen tegen u.** De buitenlucht hier zit een groot deel van het jaar boven de 80 procent relatieve vochtigheid, dus haalt u met een open raam vochtige lucht binnen in plaats van vocht buiten te zetten. Daarom blijven bij ons **ramen en deuren dicht** terwijl de droger draait; hij ontvochtigt de lucht die in de ruimte zit.",
+        "Het tweede verschil is **zout**. Zeezout in een muur is **hygroscopisch**: het trekt vocht uit de lucht aan en houdt die muur vochtig, ook nadat het water zelf weg is. Een muur die na het drogen opnieuw vochtige vlekken geeft, is dus niet per se nog nat; vaak zit er zout in het pleisterwerk en moet dat eraf. **De technieker meet dat bij de levering** en zegt het eerlijk.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor een appartement**: 50 liter per dag, 0,75 kW op een gewoon stopcontact, en hij past door een deur van tachtig centimeter." },
+      { key: "ttk350", waarom: "De Medium voor een villa of een volledig gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor een onverwarmde kelder of garage in de polder**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en in een diepe plattegrond brengt ze droge lucht tot achteraan." },
+    ],
+    levering: {
+      kop: "Leveren in Knokke-Heist: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, dus **we plannen West-Vlaanderen in een vaste toer** in plaats van per rit. Geef bij de reservatie door wanneer het moet staan; binnen 24 uur lukt vaak, en valt uw datum in de volgende toer, dan zeggen we dat vooraf. Is er een lift of een vaste trap, dan is **elke verdieping inbegrepen**.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Knokke-Heist raden we afhalen af en leveren we gewoon.** De rit zit al in de prijs, en die prijs is dezelfde als voor iemand die naast ons magazijn woont.",
+    },
+    buren: ["blankenberge", "damme", "de-haan", "brugge"],
+    faq: [
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger draait?",
+        a: "Nee, en aan de kust is dat belangrijker dan elders. De zeelucht zit een groot deel van het jaar boven 80 procent relatieve vochtigheid, dus met een open raam haalt u vochtige lucht binnen en werkt de droger tegen de buitenlucht in. Houd ramen en deuren dicht; het toestel ontvochtigt de lucht die in de ruimte zit.",
+      },
+      {
+        q: "Mijn muur is droog gemeten maar geeft toch weer vlekken. Hoe kan dat?",
+        a: "Dan zit er waarschijnlijk zout in het pleisterwerk. Zeezout is hygroscopisch: het trekt vocht uit de lucht aan en houdt de muur vochtig, ook nadat het water weg is. Drogen alleen lost dat niet op; dat pleisterwerk moet eraf en er hoort een saneerpleister in de plaats. We zeggen het eerlijk als dat de situatie is.",
+      },
+      {
+        q: "Mijn appartement stond een winter dicht en ruikt muf. Helpt een droger?",
+        a: "Ja, en meestal snel. Een pand dat maanden niet geventileerd werd, heeft vochtige lucht die nergens heen kon. Een droger haalt dat er in een paar dagen uit. Blijft de geur daarna hangen, dan zit er schimmel en is dat de volgende stap.",
+      },
+      {
+        q: "Zit de verdieping in de prijs?",
+        a: "Is er een lift of een vaste trap, dan is elke verdieping inbegrepen. Moet een toestel via een ladder naar boven omdat de trap nog niet ligt, dan rekenen we een toeslag per verdieping, en die staat vooraf in uw offerte.",
+      },
+      {
+        q: "Hoe snel staan jullie in Knokke-Heist?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is of in de volgende toer valt.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "blankenberge",
+    title: "Bouwdroger huren in Blankenberge | Vernast",
+    description:
+      "Bouwdroger huren in Blankenberge en Uitkerke: dicht bebouwde appartementsblokken aan de dijk, vaak in renovatie. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Blankenberge",
+    kicker: "De kust · appartementsblokken aan de dijk",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Blankenberge is **dicht bebouwd met appartementen**, en een flink deel van die blokken staat er sinds de jaren zestig en zeventig. Die generatie gaat nu in **grondige renovatie**: nieuwe badkamers, nieuwe chape, nieuw pleisterwerk, en dat allemaal in een bewoond gebouw.",
+      "Achter de dijk ligt **Uitkerke en de polder**, met laaggelegen woningen op kleigrond. Twee verschillende werven in één gemeente.",
+    ],
+    bouw: {
+      kop: "Renovatie in een bewoond blok, en polder achter de dijk",
+      alineas: [
+        "In een **bewoond appartementsgebouw** moet het toestel via de lift of de trap naar boven, **op één gewoon stopcontact** draaien en **stil genoeg** zijn voor de buren. De Small bouwdroger is daarvoor gemaakt: 50 liter per dag, 0,75 kW, 25 kg. En hij moet **pompklaar** zijn, want een reservoir legen doet niemand in een appartement waar de eigenaar er niet woont.",
+        "**In de polder houdt de kleigrond water vast**, en een woning zonder waterkering in de muurvoet zuigt dat op via de baksteen. Binnen komt het terug als een vochtband onderaan de muur, vaak met een witte rand. Dat is geen bouwvocht, en **drogen lost het niet op**; de technieker meet het verschil bij de levering.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor het appartement**: compact, stil en zuinig op een gewoon stopcontact, en hij gaat door elke lift." },
+      { key: "ttk350", waarom: "De Medium voor een volledig gelijkvloers of een polderwoning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+      { key: "revolution", waarom: "**Voor een kelder of garage op kleigrond**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+    ],
+    levering: {
+      kop: "Leveren in Blankenberge: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, dus **we plannen West-Vlaanderen in een vaste toer**. **Geldt er in uw blok een tijdvenster voor de lift of de inrit, zeg dat dan bij de reservatie**, dan plannen we daarbinnen. Is er een lift of een vaste trap, dan is elke verdieping inbegrepen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Blankenberge leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["knokke-heist", "de-haan", "zuienkerke", "brugge"],
+    faq: [
+      {
+        q: "Mag een bouwdroger draaien in een bewoond appartementsgebouw?",
+        a: "Ja, en daarvoor is de Small bouwdroger bedoeld. Hij verbruikt 0,75 kW, dus hij mag op een gewoon stopcontact, en hij is stil genoeg om in de kamer ernaast te slapen. Houd de deur van de droogzone dicht, anders droogt u vooral de gang.",
+      },
+      {
+        q: "Moet iemand het reservoir legen?",
+        a: "Nee, en in een appartement waar de eigenaar er niet woont is dat precies het punt. Onze toestellen zijn pompklaar: de technieker legt de afvoerslang naar een gootsteen of een putje. Een vol reservoir zet het toestel stil, en dat merkt u dan dagen later.",
+      },
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger draait?",
+        a: "Nee. De zeelucht hier zit een groot deel van het jaar boven 80 procent relatieve vochtigheid, dus met een open raam haalt u vochtige lucht binnen en werkt de droger tegen de buitenlucht in. Ramen en deuren dicht.",
+      },
+      {
+        q: "Mijn muren blijven onderaan vochtig. Is dat bouwvocht?",
+        a: "In de polder is dat bijna altijd opstijgend vocht: een band tot ongeveer een halve meter hoog, vaak met een witte zoutrand en afbladderende verf. Bouwvocht zit gelijkmatig in de ruimte. Onze technieker meet het bij de levering.",
+      },
+      {
+        q: "Hoe snel staan jullie in Blankenberge?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "de-haan",
+    title: "Bouwdroger huren in De Haan | Vernast",
+    description:
+      "Bouwdroger huren in De Haan, Wenduine en Klemskerke: villa's in het duinzand en polder erachter. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in De Haan",
+    kicker: "De kust · villa's in het duinzand",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "De Haan is de kustgemeente met **de laagste bebouwing**: villa's tussen de bomen in de Concessie en in Wenduine, op **duinzand** in plaats van op polderklei.",
+      "Dat zand scheelt: het draineert goed, dus **kelders zijn hier minder vaak het probleem** dan in de polder van Middelkerke of Uitkerke. Wat blijft is de zeelucht, en die is overal aan de kust hetzelfde.",
+    ],
+    bouw: {
+      kop: "Villa's op duinzand, met de polder erachter",
+      alineas: [
+        "Op **duinzand draineert de ondergrond goed**, dus is grondwater hier zelden de oorzaak van een vochtige kelder. Blijft er toch een ruimte vochtig, dan gaat het meestal om **te weinig ventilatie**: vochtige lucht die nergens heen kan, vaak in een berging of een garage die maanden dicht staat. Dat lost een droger wel op.",
+        "De villa's hebben wel **meer capaciteit nodig dan hun vierkante meters suggereren**, want het gaat om volume. En aan de kust blijft gelden: **ventileren met open ramen werkt tegen u**, omdat de buitenlucht een groot deel van het jaar boven de 80 procent relatieve vochtigheid zit. Ramen en deuren dicht terwijl de droger draait.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium voor een villa of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "**Voor de grote open leefruimte**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttk170", waarom: "Voor één kamer, een badkamer of een appartement: 50 liter per dag en 0,75 kW op een gewoon stopcontact." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en in een ruim volume voorkomt ze dat één hoek achterblijft." },
+    ],
+    levering: {
+      kop: "Leveren in De Haan: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, dus **we plannen West-Vlaanderen in een vaste toer**. Geef bij de reservatie door wanneer het moet staan; binnen 24 uur lukt vaak, en valt uw datum in de volgende toer, dan zeggen we dat vooraf.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit De Haan leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["blankenberge", "bredene", "oudenburg", "jabbeke", "zuienkerke"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Minder dan in de polder. De Haan staat op duinzand, en zand draineert: het grondwater zakt weg in plaats van tegen de kelderwand te staan. Blijft een berging of garage toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger draait?",
+        a: "Nee. De zeelucht zit een groot deel van het jaar boven 80 procent relatieve vochtigheid, dus met een open raam haalt u vochtige lucht binnen. Ramen en deuren dicht; het toestel ontvochtigt de lucht die in de ruimte zit.",
+      },
+      {
+        q: "Hoeveel toestellen voor een villa?",
+        a: "Voor een gelijkvloers van 120 tot 150 m² rekenen we doorgaans op twee drogers met een ventilator per droogzone, en vaak een derde voor de verdieping. De Calculator rekent op volume in kubieke meter, niet op oppervlakte.",
+      },
+      {
+        q: "Betaal ik meer omdat ik aan de kust woon?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie in De Haan?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "bredene",
+    title: "Bouwdroger huren in Bredene | Vernast",
+    description:
+      "Bouwdroger huren in Bredene: vakantieverblijven en kleinere woningen achter de duinen, vaak na een winter leegstand.",
+    h1: "Bouwdroger huren in Bredene",
+    kicker: "De kust · vakantieverblijven achter de duinen",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Bredene is de kustgemeente van de **vakantieverblijven**: chalets, kleinere woningen en recreatiewoningen achter de duinen, naast de gewone woonwijken van Bredene-Dorp en Sas-Slijkens.",
+      "Die verblijven staan vaak **een winter leeg**, en daar komt het werk vandaan: niet een lek, maar maanden zonder ventilatie in een lichte constructie.",
+    ],
+    bouw: {
+      kop: "Lichte constructies die een winter dichtstaan",
+      alineas: [
+        "Een chalet of een recreatiewoning heeft **een lichte constructie**: dunne wanden, weinig thermische massa en een vloer vlak op de grond. Dat droogt sneller dan massief werk, maar het wordt ook sneller weer vochtig. Hier werkt **een kleiner toestel dat langer draait** beter dan een groot dat te snel droogt en krimpscheuren geeft in verse chape of pleisterwerk.",
+        "Staat zo'n verblijf **maanden dicht**, dan hangt er vochtige lucht die nergens heen kan, en dan slaat het neer op de koudste plekken: achter een kast, in een hoek, onder een matras. Een droger haalt dat er in een paar dagen uit. Blijft de geur daarna hangen, **dan zit er schimmel** en is dat de volgende stap, niet meer drogen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor de lichte constructie**: 50 liter per dag en 0,75 kW op een gewoon stopcontact. Kleiner en langer drogen geeft hier minder krimpscheuren." },
+      { key: "ttk350", waarom: "De Medium voor een volledige woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Vocht kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "revolution", waarom: "Voor een onverwarmde berging of kruipruimte: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Bredene: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, dus **we plannen West-Vlaanderen in een vaste toer**. **Ligt uw verblijf op een domein met een slagboom of een vast inrijuur, zeg dat dan bij de reservatie**, dan plant de technieker daarbinnen in plaats van voor een gesloten poort te staan.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Bredene leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["oostende", "de-haan", "oudenburg"],
+    faq: [
+      {
+        q: "Mijn vakantiewoning ruikt muf na de winter. Helpt een droger?",
+        a: "Ja, en meestal snel. Een verblijf dat maanden dicht stond heeft vochtige lucht die nergens heen kon, en die slaat neer op de koudste plekken. Een droger haalt dat er in een paar dagen uit. Blijft de geur daarna hangen, dan zit er schimmel en is dat de volgende stap.",
+      },
+      {
+        q: "Welk toestel voor een chalet of een lichte constructie?",
+        a: "Doorgaans de Small bouwdroger, en langer laten draaien. Een lichte constructie droogt snel, en te snel drogen geeft krimpscheuren in verse chape of pleisterwerk. De technieker stelt de hygrostaat daarop in.",
+      },
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger draait?",
+        a: "Nee. De zeelucht zit een groot deel van het jaar boven 80 procent relatieve vochtigheid, dus met een open raam haalt u vochtige lucht binnen. Ramen en deuren dicht.",
+      },
+      {
+        q: "Kunnen jullie op een vakantiedomein leveren?",
+        a: "Ja. Geef bij de reservatie door of er een slagboom, een vast inrijuur of een beheerder is die moet opendoen, dan plant de technieker daarbinnen.",
+      },
+      {
+        q: "Hoe snel staan jullie in Bredene?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "oostende",
+    title: "Bouwdroger huren in Oostende | Vernast",
+    description:
+      "Bouwdroger huren in Oostende: rijhuizen in de stad en hoge appartementen aan de Zeedijk, met zout in de muren.",
+    h1: "Bouwdroger huren in Oostende",
+    kicker: "De kust · stad aan de Zeedijk",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Oostende is **de enige echte stad aan de kust**, en dat is aan de werven te zien: **negentiende-eeuwse rijhuizen** in de binnenstad en in het Hazegras, **hoge appartementsblokken** aan de Zeedijk, en de wijken rond de haven.",
+      "In die oude rijhuizen zit **zout in de muren**, meegekomen met opstijgend vocht of met een oude waterschade. Zeezout is hygroscopisch, en dat verandert wat drogen oplost.",
+    ],
+    bouw: {
+      kop: "Rijhuizen met zout in de muur, en appartementen aan de dijk",
+      alineas: [
+        "**Zeezout in een muur trekt vocht uit de lucht aan.** Een muur die gemeten droog is, kan daardoor opnieuw vochtige vlekken geven: niet omdat er nog water in zit, maar omdat het zout in het pleisterwerk vocht blijft opnemen. **Drogen alleen lost dat niet op**; dat pleisterwerk moet eraf en er hoort een saneerpleister in de plaats. De technieker zegt het eerlijk als dat de situatie is.",
+        "Het Oostendse rijhuis is **smal en diep**, met vaak een kelder deels onder het maaiveld. Droge lucht gaat daar niet vanzelf van voor naar achter, dus hoort er **een ventilator bij de droger**. In een appartement aan de dijk speelt iets anders: lift, venstertijden en in het seizoen geen plaats om stil te staan.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium voor een rijhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "In een smal en diep rijhuis gaat droge lucht niet van voor naar achter. Deze ventilator doet dat wel, en **halveert vaak de droogtijd**." },
+      { key: "ttk170", waarom: "**Voor een appartement of één kamer**: 50 liter per dag en 0,75 kW op een gewoon stopcontact, stil genoeg voor een bewoond gebouw." },
+      { key: "revolution", waarom: "**Voor de kelder onder het maaiveld**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+    ],
+    levering: {
+      kop: "Leveren in Oostende: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, dus **we plannen West-Vlaanderen in een vaste toer**. **Ligt uw straat in een zone met venstertijden of is er in het seizoen geen plaats voor de deur, zeg dat dan bij de reservatie**, dan plant de technieker daarbinnen. Is er een lift of een vaste trap, dan is elke verdieping inbegrepen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Oostende leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["bredene", "middelkerke", "oudenburg", "gistel", "de-haan"],
+    faq: [
+      {
+        q: "Mijn muur is droog gemeten maar geeft toch weer vlekken. Hoe kan dat?",
+        a: "Dan zit er waarschijnlijk zout in het pleisterwerk. Zeezout is hygroscopisch: het trekt vocht uit de lucht aan en houdt de muur vochtig, ook nadat het water weg is. Drogen alleen lost dat niet op; dat pleisterwerk moet eraf en er hoort een saneerpleister in de plaats.",
+      },
+      {
+        q: "Past een bouwdroger door een Oostends trappenhuis?",
+        a: "De Small bouwdroger is 40 bij 40 centimeter aan de basis en weegt ongeveer 25 kg. Die gaat door elke gangbare trappenhal en door elke lift. Geef bij de reservatie door dat het om een smalle trap gaat, dan kiest de technieker het toestel daarop.",
+      },
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger draait?",
+        a: "Nee. De zeelucht zit een groot deel van het jaar boven 80 procent relatieve vochtigheid, dus met een open raam haalt u vochtige lucht binnen en werkt de droger tegen de buitenlucht in.",
+      },
+      {
+        q: "Kunnen jullie leveren in een straat met venstertijden?",
+        a: "Ja. Geef uw straat door bij de reservatie en vermeld de venstertijd of dat er in het seizoen geen plaats is voor de deur. De technieker staat kort stil, laadt uit, plaatst het toestel en stelt het in.",
+      },
+      {
+        q: "Hoe snel staan jullie in Oostende?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "middelkerke",
+    title: "Bouwdroger huren in Middelkerke | Vernast",
+    description:
+      "Bouwdroger huren in Middelkerke, Westende en Leffinge: dijkappartementen vooraan en polderklei erachter. De vochtmeting zit in de prijs van het pakket.",
+    h1: "Bouwdroger huren in Middelkerke",
+    kicker: "De kust · dijk vooraan, polder erachter",
+    rit: { afstand: "circa 120 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Middelkerke bestaat uit **twee verschillende werelden**: de appartementen langs de Zeedijk in Middelkerke en Westende, en de polderdorpen Leffinge, Wilskerke, Schore en Sint-Pieters-Kapelle erachter.",
+      "Dat verschil zit in de bodem. **Vooraan duinzand, erachter polderklei**, en klei houdt water vast. Twee straten verschil kan hier twee verschillende antwoorden geven op dezelfde kelderklacht.",
+    ],
+    bouw: {
+      kop: "Appartementen op het zand, polderwoningen op de klei",
+      alineas: [
+        "**In de polder houdt de kleigrond water vast** en staat het grondwater hoog. Een woning of hoeve zonder waterkering in de muurvoet zuigt dat op via de baksteen, en binnen komt het terug als een vochtband onderaan de muur, vaak met een witte zoutrand. **Dat is geen bouwvocht**: drogen haalt het uit de ruimte, de bron blijft. De technieker meet het verschil bij de levering.",
+        "Aan de dijk gaat het om **renovatie in een bewoond blok**: een toestel dat via de lift naar boven moet, op één stopcontact draait en stil genoeg is voor de buren. En overal aan de kust geldt: **ramen en deuren dicht**, want de buitenlucht zit hier een groot deel van het jaar boven de 80 procent relatieve vochtigheid.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium voor een polderwoning of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor een kelder op polderklei**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttk170", waarom: "**Voor het appartement aan de dijk**: compact, stil en zuinig op een gewoon stopcontact." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het oppervlak weg, en komt onder vloeren en achter plinten." },
+    ],
+    levering: {
+      kop: "Leveren in Middelkerke: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, dus **we plannen West-Vlaanderen in een vaste toer**. Gaat het om een kelder of een polderwoning, dan **meet de technieker eerst** of het om bouwvocht of om grondwater gaat, want dat bepaalt of drogen hier een oplossing is of een pleister.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Middelkerke leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["oostende", "nieuwpoort", "gistel", "diksmuide"],
+    faq: [
+      {
+        q: "Mijn muren blijven onderaan vochtig. Is dat bouwvocht?",
+        a: "In de polder is dat bijna altijd opstijgend vocht: een band tot ongeveer een halve meter hoog, vaak met een witte zoutrand en afbladderende verf. Bouwvocht zit gelijkmatig in de ruimte en verdwijnt naarmate het droogt. Onze technieker meet het bij de levering.",
+      },
+      {
+        q: "Helpt een bouwdroger tegen opstijgend vocht?",
+        a: "Hij houdt de ruimte bruikbaar en voorkomt schimmel, maar hij stopt de aanvoer niet. De duurzame oplossing is een waterkering in de muurvoet, bijvoorbeeld door injectie. Wij zeggen het eerlijk als drogen hier alleen symptomen aanpakt.",
+      },
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger draait?",
+        a: "Nee. De zeelucht zit een groot deel van het jaar boven 80 procent relatieve vochtigheid, dus met een open raam haalt u vochtige lucht binnen. Ramen en deuren dicht.",
+      },
+      {
+        q: "Betaal ik meer omdat ik aan de kust woon?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie in Middelkerke?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "nieuwpoort",
+    title: "Bouwdroger huren in Nieuwpoort | Vernast",
+    description:
+      "Bouwdroger huren in Nieuwpoort en Ramskapelle: woningen bij de havengeul en polder aan de IJzermonding. Geleverd en geplaatst, met vochtmeting inbegrepen.",
+    h1: "Bouwdroger huren in Nieuwpoort",
+    kicker: "De kust · havengeul en IJzermonding",
+    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Nieuwpoort ligt **waar de IJzer in de zee gaat**, met de jachthaven, de havengeul en de polder van Ramskapelle en Sint-Joris erachter.",
+      "Dat is **brak water en polderklei tegelijk**, en dat is in de muren te merken: naast bouwvocht en grondwater zit er hier vaak **zout** in de onderste halve meter, en zout verandert wat drogen oplost.",
+    ],
+    bouw: {
+      kop: "Polder bij brak water, met zout in de muurvoet",
+      alineas: [
+        "**Zout in een muur is hygroscopisch**: het trekt vocht uit de lucht aan en houdt die muur vochtig, ook nadat het water zelf weg is. Een muur die gemeten droog is en toch vlekken geeft, zit dus niet per se nog vol water. **Drogen alleen lost dat niet op**; dat pleisterwerk moet eraf en er hoort een saneerpleister in de plaats. De technieker zegt het eerlijk als dat de situatie is.",
+        "Daarnaast is dit **polder**: kleigrond die water vasthoudt, met een hoge grondwaterstand. Een kelder of een vloer op volle grond blijft hier zelden volledig droog, en dat is geen bouwvocht. Gaat het wél om bouwvocht uit een renovatie, dan verdwijnt het definitief, en dan hoort er bij massieve muren **een ventilator** bij.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor een kelder of garage op polderklei**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het oppervlak weg, en komt onder vloeren." },
+      { key: "ttk650", waarom: "Voor een groot gelijkvloers of een bedrijfsruimte bij de haven: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Nieuwpoort: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, dus **we plannen West-Vlaanderen in een vaste toer**. Gaat het om een vochtband onderaan een muur, dan **meet de technieker eerst** of het om bouwvocht, grondwater of zout gaat; die drie vragen drie verschillende oplossingen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Nieuwpoort leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["middelkerke", "koksijde", "diksmuide", "veurne"],
+    faq: [
+      {
+        q: "Mijn muur is droog gemeten maar geeft toch weer vlekken. Hoe kan dat?",
+        a: "Dan zit er waarschijnlijk zout in het pleisterwerk. Zout is hygroscopisch: het trekt vocht uit de lucht aan en houdt de muur vochtig, ook nadat het water weg is. Drogen alleen lost dat niet op; dat pleisterwerk moet eraf en er hoort een saneerpleister in de plaats.",
+      },
+      {
+        q: "Mijn kelder blijft vochtig na het drogen. Hoe kan dat?",
+        a: "Omdat een droger vocht uit de lucht haalt, niet uit de grond. In de polder staat het grondwater hoog en houdt de klei water vast. Drogen houdt de ruimte bruikbaar zolang het toestel draait, maar de bron blijft.",
+      },
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger draait?",
+        a: "Nee. De zeelucht zit een groot deel van het jaar boven 80 procent relatieve vochtigheid, dus met een open raam haalt u vochtige lucht binnen. Ramen en deuren dicht.",
+      },
+      {
+        q: "Kunnen jullie een bedrijfsruimte bij de haven drogen?",
+        a: "Ja, als ze dicht te krijgen is. Geef vooraf het volume in kubieke meter door en of poorten kunnen sluiten: een droger tegen een open poort werkt tegen de buitenlucht in, en die is onuitputtelijk.",
+      },
+      {
+        q: "Hoe snel staan jullie in Nieuwpoort?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "koksijde",
+    title: "Bouwdroger huren in Koksijde | Vernast",
+    description:
+      "Bouwdroger huren in Koksijde, Oostduinkerke en Wulpen: tweede verblijven in de duinen, vaak na leegstand. Geleverd en geplaatst, ook als u er zelf niet bent.",
+    h1: "Bouwdroger huren in Koksijde",
+    kicker: "De kust · tweede verblijven in de duinen",
+    rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en dertig minuten" },
+    intro: [
+      "Koksijde heeft met **Oostduinkerke en Sint-Idesbald** de hoogste verhouding tweede verblijven van de kust: appartementen en villa's in de duinen die een groot deel van het jaar dichtstaan.",
+      "Dat is waar het werk hier vandaan komt. Niet een lek, maar **maanden zonder ventilatie**: vochtige lucht die nergens heen kan en neerslaat op de koudste plek in de woning.",
+    ],
+    bouw: {
+      kop: "Panden die maanden dichtstaan, in duinzand",
+      alineas: [
+        "Staat een appartement of villa **maanden dicht**, dan hangt er vochtige lucht die nergens heen kan, en die slaat neer achter een kast, in een hoek of onder een matras. **Een droger haalt dat er in een paar dagen uit.** Blijft de geur daarna hangen, dan zit er schimmel en is dat de volgende stap, niet meer drogen.",
+        "De bodem is hier **duinzand** en dat draineert goed, dus is grondwater zelden de oorzaak van een vochtige garage of berging. En net als elders aan de kust: **ramen openzetten werkt tegen u**, want de buitenlucht zit een groot deel van het jaar boven de 80 procent relatieve vochtigheid.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor een appartement of een tweede verblijf**: 50 liter per dag, 0,75 kW op een gewoon stopcontact, stil genoeg voor een bewoond gebouw." },
+      { key: "ttk350", waarom: "De Medium voor een villa of een volledig gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Vocht kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "revolution", waarom: "Voor een onverwarmde garage of berging: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Koksijde: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Anderhalf uur rijden, dus **we plannen West-Vlaanderen in een vaste toer**. **Bent u er zelf niet, geef dan door wie binnenlaat**: iemand moet de technieker de ruimtes laten zien die moeten drogen. Daarna kan hij alleen verder.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **anderhalf uur, dus drie uur heen en terug**. **Vanuit Koksijde raden we afhalen af en leveren we gewoon.** De rit zit al in de prijs, en die prijs is dezelfde als voor iemand naast ons magazijn.",
+    },
+    buren: ["nieuwpoort", "de-panne", "veurne", "alveringem"],
+    faq: [
+      {
+        q: "Mijn tweede verblijf ruikt muf. Helpt een droger?",
+        a: "Ja, en meestal snel. Een pand dat maanden dicht stond heeft vochtige lucht die nergens heen kon, en die slaat neer op de koudste plekken. Een droger haalt dat er in een paar dagen uit. Blijft de geur daarna hangen, dan zit er schimmel en is dat de volgende stap.",
+      },
+      {
+        q: "Moet ik erbij zijn als jullie leveren?",
+        a: "Iemand moet de technieker binnenlaten en hem laten zien welke ruimtes moeten drogen. Daarna kan hij alleen verder. Bent u er zelf niet, geef dan bij de reservatie door wie er is, bijvoorbeeld een syndicus of een buur met een sleutel.",
+      },
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger draait?",
+        a: "Nee. De zeelucht zit een groot deel van het jaar boven 80 procent relatieve vochtigheid, dus met een open raam haalt u vochtige lucht binnen. Ramen en deuren dicht.",
+      },
+      {
+        q: "Betaal ik meer omdat Koksijde zo ver ligt?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie in Koksijde?",
+        a: "De rit duurt anderhalf uur en we plannen West-Vlaanderen in een vaste toer. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is of in de volgende toer valt.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "de-panne",
+    title: "Bouwdroger huren in De Panne | Vernast",
+    description:
+      "Bouwdroger huren in De Panne en Adinkerke: appartementen en villa's in de duinen, aan de Franse grens. Het verste punt van ons werkgebied, en toch zonder toeslag.",
+    h1: "Bouwdroger huren in De Panne",
+    kicker: "De kust · de westelijkste gemeente",
+    rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en dertig minuten" },
+    intro: [
+      "De Panne is **de westelijkste gemeente van het land**, met Adinkerke en de Westhoekduinen, en daarmee **het verste punt van ons werkgebied**. Anderhalf uur rijden, en dat zeggen we liever vooraf dan dat u een tijdslot verwacht dat we niet halen.",
+      "De bebouwing is **appartement en villa in de duinen**, met veel tweede verblijven die een groot deel van het jaar dichtstaan.",
+    ],
+    bouw: {
+      kop: "Duinzand, tweede verblijven en een rit van anderhalf uur",
+      alineas: [
+        "Een pand dat **maanden dichtstaat** heeft vochtige lucht die nergens heen kan, en die slaat neer op de koudste plekken. Een droger haalt dat er in een paar dagen uit. Omdat de rit hier anderhalf uur duurt, **zetten we liever één keer genoeg capaciteit neer** dan twee keer te komen: geef bij de reservatie door welke ruimtes mee moeten, ook een garage of een berging.",
+        "De bodem is **duinzand** en dat draineert, dus grondwater is hier zelden de oorzaak. Wat wel geldt is de zeelucht: **ramen en deuren dicht** terwijl de droger draait, want de buitenlucht zit een groot deel van het jaar boven de 80 procent relatieve vochtigheid.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor een appartement of een tweede verblijf**: 50 liter per dag, 0,75 kW op een gewoon stopcontact, stil genoeg voor een bewoond gebouw." },
+      { key: "ttk350", waarom: "De Medium voor een villa of een volledig gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en ze voorkomt dat één hoek achterblijft." },
+      { key: "revolution", waarom: "Voor een onverwarmde garage of berging: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in De Panne: het verste punt van ons werkgebied",
+      alinea:
+        "Anderhalf uur rijden: **het verste punt van ons werkgebied**. We plannen West-Vlaanderen daarom in een vaste toer. **Geef bij de reservatie door wanneer het moet staan en welke ruimtes mee moeten**, dan zetten we in één keer genoeg capaciteit neer in plaats van twee keer te komen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **anderhalf uur, dus drie uur heen en terug**. **Vanuit De Panne raden we afhalen af en leveren we gewoon.** De rit zit al in de prijs, en die prijs is dezelfde als voor iemand die naast ons magazijn woont.",
+    },
+    buren: ["koksijde", "veurne", "alveringem"],
+    faq: [
+      {
+        q: "Komen jullie tot in De Panne?",
+        a: "Ja, en zonder toeslag. Het is wel het verste punt van ons werkgebied: anderhalf uur rijden. We plannen West-Vlaanderen in een vaste toer, dus geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+      {
+        q: "Mijn tweede verblijf ruikt muf. Helpt een droger?",
+        a: "Ja, en meestal snel. Een pand dat maanden dicht stond heeft vochtige lucht die nergens heen kon. Een droger haalt dat er in een paar dagen uit. Blijft de geur daarna hangen, dan zit er schimmel en is dat de volgende stap.",
+      },
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger draait?",
+        a: "Nee. De zeelucht zit een groot deel van het jaar boven 80 procent relatieve vochtigheid, dus met een open raam haalt u vochtige lucht binnen. Ramen en deuren dicht.",
+      },
+      {
+        q: "Betaal ik meer omdat De Panne zo ver ligt?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur. Wat we wel vragen is dat u vooraf doorgeeft welke ruimtes mee moeten, zodat we in één keer genoeg capaciteit meebrengen.",
+      },
+      {
+        q: "Is afhalen vanuit De Panne de moeite?",
+        a: "Nee, en dat zeggen we liever eerlijk: u bent drie uur onderweg voor een toestel van 30 kg. De levering zit al in de prijs van het droogpakket, en de technieker plaatst alles en meet de vochtigheid.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "brugge",
+    title: "Bouwdroger huren in Brugge | Vernast",
+    description:
+      "Bouwdroger huren in Brugge, Assebroek en Sint-Kruis: historische panden met koude kelders naast de reien. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Brugge",
+    kicker: "Brugge · historische panden en koude kelders",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
+    intro: [
+      "In Brugge is bouwdroging bijna altijd **werk in oud patrimonium**. De binnenstad staat vol **panden met dikke muren en gewelfde kelders**, en de reien lopen daar vlak langs: het water staat soms nog geen meter van een keldermuur.",
+      "Daarbuiten is het gewone stad: **Assebroek, Sint-Michiels, Sint-Kruis en Sint-Andries** met woningen in renovatie, en Zeebrugge en Lissewege aan de haven.",
+    ],
+    bouw: {
+      kop: "Gewelfde kelders naast de reien, en dikke muren erboven",
+      alineas: [
+        "Een **gewelfde kelder in de binnenstad** is koud, gesloten en zonder doorstroming, en met de reien ernaast staat het grondwater er hoog. Zo'n ruimte droogt van nature nooit helemaal. **Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**, dus gaat er een adsorptiedroger naartoe: die bindt het vocht aan een droogwiel en werkt ook bij vijf graden door.",
+        "Erboven gaat het om **muren van een halve meter en dikker**. Die geven hun vocht zeer traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. **Een ventilator haalt dat weg.** Reken bij zulk werk op **twee keer de droogtijd** van een moderne wand, soms meer, en dat zegt de technieker liever vooraf dan dat u na twee weken verrast bent.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de gewelfde kelder**: koud, gesloten en vochtig, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Bij muren van een halve meter een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het oppervlak weg, en pas dan droogt de muur verder." },
+      { key: "ttk350", waarom: "De Medium per verdieping of per ruimte: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk170", waarom: "Voor een appartement, een kamer of een badkamer: 50 liter per dag en 0,75 kW op een gewoon stopcontact." },
+    ],
+    levering: {
+      kop: "Leveren in Brugge: binnen de venstertijd van uw straat",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Ligt uw pand in het autovrije gebied of in een zone met venstertijden, zeg dat dan bij de reservatie**, dan plannen we binnen dat venster in plaats van voor een afgesloten straat te staan. Is er een lift of een vaste trap, dan is elke verdieping inbegrepen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Brugge leveren we gewoon.** Bij oud patrimonium hangt het bovendien van de temperatuur af welk type droger werkt, en dat meet de technieker ter plaatse.",
+    },
+    buren: ["damme", "zuienkerke", "oostkamp", "jabbeke", "beernem", "blankenberge"],
+    faq: [
+      {
+        q: "Kunnen jullie een gewelfde kelder drogen?",
+        a: "Ja, en daarvoor zetten we een adsorptiedroger in. Een gewelfde kelder is koud en gesloten, en een condensdroger werkt daar slecht: onder 15 °C verliest hij het grootste deel van zijn rendement. Een adsorptiedroger bindt het vocht aan een droogwiel en blijft ook bij vijf graden doorwerken.",
+      },
+      {
+        q: "Mijn kelder in de binnenstad blijft vochtig. Waarom?",
+        a: "Met de reien vlak langs de panden staat het grondwater in de binnenstad hoog, en een gewelfde kelder zonder buitenwaterdichting zuigt dat op. Drogen houdt de ruimte bruikbaar zolang het toestel draait, maar de bron blijft. De technieker meet dat bij de levering en zegt het eerlijk.",
+      },
+      {
+        q: "Hoe lang duurt het drogen van een pand met dikke muren?",
+        a: "Langer dan u zou denken: reken op twee keer de droogtijd van een moderne wand, soms meer. Het vocht moet uit de kern naar buiten, en dat gaat traag. Onze technieker zegt bij de levering welke termijn realistisch is in plaats van twee weken te beloven.",
+      },
+      {
+        q: "Kunnen jullie leveren in het autovrije gebied?",
+        a: "Ja. Geef uw straat door bij de reservatie en vermeld dat ze in het autovrije gebied of in een venstertijdzone ligt. We plannen de levering dan binnen dat venster.",
+      },
+      {
+        q: "Hoe snel staan jullie in Brugge?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "damme",
+    title: "Bouwdroger huren in Damme | Vernast",
+    description:
+      "Bouwdroger huren in Damme, Oostkerke en Moerkerke: historische kern en polder met een hoge waterstand. Geleverd en geplaatst, met vochtmeting inbegrepen.",
+    h1: "Bouwdroger huren in Damme",
+    kicker: "Brugs Ommeland · historische kern in de polder",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Damme is **een historische kern in open polder**, met Oostkerke, Moerkerke, Lapscheure en Hoeke errond en de Damse Vaart erdoor.",
+      "Polder betekent **kleigrond die water vasthoudt** en een grondwaterstand die vlak onder het maaiveld zit. Dat bepaalt bijna elke vochtklacht hier, en het is in de meeste gevallen geen bouwvocht.",
+    ],
+    bouw: {
+      kop: "Polderklei, hoeves en een historische kern",
+      alineas: [
+        "**In de polder houdt de kleigrond water vast.** Een woning of hoeve zonder waterkering in de muurvoet zuigt dat op via de baksteen, en binnen komt het terug als een vochtband onderaan de muur, vaak met een witte zoutrand. **Drogen haalt het uit de ruimte, maar de bron blijft**, en de technieker meet dat verschil bij de levering in plaats van het te veronderstellen.",
+        "In de historische kern gaat het om **dikke massieve muren** die hun vocht traag afgeven. Tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt, en dat haalt een ventilator weg. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor een kelder op polderklei**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het oppervlak weg, en komt onder vloeren en achter plinten." },
+      { key: "ttk650", waarom: "Voor een hoeve of een schuur met grote volumes: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Damme: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Bij een hoeve vragen we **vooraf het volume in kubieke meter** en of de ruimte dicht te krijgen is, want een droger tegen een open poort werkt tegen de buitenlucht in.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Damme leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["brugge", "zuienkerke", "knokke-heist", "beernem"],
+    faq: [
+      {
+        q: "Mijn muren blijven onderaan vochtig. Is dat bouwvocht?",
+        a: "Op polderklei zonder waterkering is dat bijna altijd opstijgend vocht: een band tot ongeveer een halve meter hoog, vaak met een witte zoutrand en afbladderende verf. Bouwvocht zit gelijkmatig in de ruimte en verdwijnt naarmate het droogt. Onze technieker meet het bij de levering.",
+      },
+      {
+        q: "Helpt een bouwdroger tegen opstijgend vocht?",
+        a: "Hij houdt de ruimte bruikbaar en voorkomt schimmel, maar hij stopt de aanvoer niet. De duurzame oplossing is een waterkering in de muurvoet, bijvoorbeeld door injectie. Wij zeggen het eerlijk als drogen hier alleen symptomen aanpakt.",
+      },
+      {
+        q: "Kunnen jullie een hoeve of een schuur drogen?",
+        a: "Ja. We vragen vooraf het volume in kubieke meter, de vloeropbouw en of de ruimte dicht te krijgen is. Is ze niet te verwarmen, dan zetten we een adsorptiedroger in die ook bij lage temperatuur doorwerkt.",
+      },
+      {
+        q: "Waarom droogt een oud pand zo traag?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Hoe snel staan jullie in Damme?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "zuienkerke",
+    title: "Bouwdroger huren in Zuienkerke | Vernast",
+    description:
+      "Bouwdroger huren in Zuienkerke, Meetkerke en Houtave: hoeves in open polder, met het water vlak onder de vloer.",
+    h1: "Bouwdroger huren in Zuienkerke",
+    kicker: "Brugs Ommeland · hoeves in open polder",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Zuienkerke is **een van de kleinste gemeenten van West-Vlaanderen** en bijna volledig polder: Meetkerke, Houtave en Nieuwmunster, met weiland en hoeves tussen de kernen.",
+      "Hier staat het grondwater **vlak onder het maaiveld**, en de bodem is klei. Dat is de natste combinatie die er is, en het verandert wat drogen kan oplossen.",
+    ],
+    bouw: {
+      kop: "Hoeves op klei, met het grondwater vlak onder de vloer",
+      alineas: [
+        "Met het grondwater **vlak onder het maaiveld** staat een kelder of kruipruimte permanent in een vochtige omgeving. Zonder ventilatie blijft dat vocht hangen en komt het via de vloeropbouw in de woning. **Een droger lost de aanvoer niet op**, maar hij maakt de ruimte bruikbaar en voorkomt dat schimmel zich vastzet.",
+        "Bij de hoeves zelf gaat het om **klei die water vasthoudt**: zonder waterkering in de muurvoet zuigt de baksteen dat op. Een **schuur of stal in herbestemming** is daarnaast een groot, hoog en onverwarmd volume; wij rekenen op **volume in kubieke meter** en zetten luchtbeweging over de volle lengte in.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Het toestel voor deze polder**: koude, permanent vochtige kelders en kruipruimtes, waar een condensdroger stilvalt." },
+      { key: "ttk650", waarom: "Voor een schuur of een stal in herbestemming: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "Op een groot volume is luchtbeweging over de volle lengte de voorwaarde om overal even droog te krijgen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Zuienkerke: ook in open polder",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Staat uw hoeve aan een onverharde oprit of een smalle polderweg, zeg dat dan bij de reservatie**, dan weet de technieker dat hij verder moet uitladen en brengt hij het juiste materiaal mee.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Zuienkerke leveren we gewoon**; bij een hoeve hangt het resultaat bovendien af van hoe de toestellen verdeeld staan.",
+    },
+    buren: ["brugge", "damme", "blankenberge", "de-haan", "jabbeke"],
+    faq: [
+      {
+        q: "Kan een bouwdroger een kruipruimte drogen?",
+        a: "Hij kan de lucht erin droog maken, en dat helpt tegen schimmel en tegen vocht dat via de vloer naar boven komt. Maar zit het grondwater vlak onder het maaiveld, dan is permanente ventilatie van de kruipruimte de duurzame oplossing. Wij zeggen het eerlijk als drogen hier alleen symptomen aanpakt.",
+      },
+      {
+        q: "Kunnen jullie een stal drogen die woonruimte wordt?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Komen jullie ook naar een kleine gemeente?",
+        a: "Ja, en zonder toeslag. We plannen West-Vlaanderen in een vaste toer, dus Meetkerke, Houtave en Nieuwmunster liggen gewoon op de route. De prijs van het droogpakket is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Kan de bestelwagen tot bij mijn hoeve?",
+        a: "Meestal wel, maar aan een onverharde oprit of een smalle polderweg niet altijd. Geef dat door bij de reservatie, dan weet de technieker dat hij verder moet uitladen.",
+      },
+      {
+        q: "Hoe snel staan jullie hier?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "oudenburg",
+    title: "Bouwdroger huren in Oudenburg | Vernast",
+    description:
+      "Bouwdroger huren in Oudenburg, Ettelgem en Westkerke: woningen op de rand van polder en zandstreek. Twee bodems, twee antwoorden: we meten bij de levering.",
+    h1: "Bouwdroger huren in Oudenburg",
+    kicker: "Brugs Ommeland · op de rand van de polder",
+    rit: { afstand: "circa 108 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Oudenburg ligt **precies op de grens tussen de polder en de zandstreek**, met Ettelgem, Roksem en Westkerke erbij. Dat is geen detail: aan de ene kant van de gemeente houdt klei het water vast, aan de andere kant draineert zand het weg.",
+      "Twee straten verschil kan hier dus **twee verschillende antwoorden** geven op dezelfde kelderklacht, en daarom meet de technieker in plaats van te veronderstellen.",
+    ],
+    bouw: {
+      kop: "Klei aan de ene kant, zand aan de andere",
+      alineas: [
+        "**Op de kleikant** houdt de bodem water vast en staat het grondwater hoog: een kelder of een vloer op volle grond blijft daar zelden volledig droog, en dat is geen bouwvocht. **Op de zandkant** draineert de ondergrond en is grondwater zelden de oorzaak; blijft een ruimte daar toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+        "De vochtmeting bij de levering vertelt welke van de twee het is, en **die meting zit in de prijs van het pakket**. Gaat het om bouwvocht uit renovatie of nieuwbouw, dan verdwijnt het definitief: met droger en ventilator samen is een gelijkvloers in een tiental dagen beloopbaar en in twee à drie weken klaar voor de vloerder.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+      { key: "revolution", waarom: "**Voor een kelder op de kleikant**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot gelijkvloers: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Oudenburg: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Gaat het om een kelder, dan **meet de technieker eerst** of het om bouwvocht of om grondwater gaat: op de grens tussen polder en zandstreek is dat per straat anders.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Oudenburg leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["gistel", "oostende", "jabbeke", "ichtegem", "bredene", "de-haan"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Dat hangt van uw straat af. Oudenburg ligt op de grens tussen polder en zandstreek: op de kleikant staat het grondwater hoog en blijft een kelder zelden droog, op de zandkant draineert de bodem en gaat het meestal om te weinig ventilatie. De vochtmeting bij de levering vertelt welke van de twee het is.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder. De technieker meet bij de ophaling.",
+      },
+      {
+        q: "Zit de vochtmeting in de prijs?",
+        a: "Ja. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket. U krijgt de meting bij de ophaling ook op papier.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie in Oudenburg?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "gistel",
+    title: "Bouwdroger huren in Gistel | Vernast",
+    description:
+      "Bouwdroger huren in Gistel, Snaaskerke en Moere: polderdorpen met hoeves en lintbebouwing. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Gistel",
+    kicker: "Brugs Ommeland · polderdorpen en hoeves",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Gistel ligt **in de polder achter Oostende**, met Snaaskerke, Moere en Zevekote erbij: lintbebouwing langs de steenwegen en hoeves in het open land.",
+      "De bodem is **klei met veen eronder in de laagste delen**, en veen zakt. Dat zie je aan oudere woningen in de laagste straten: scheuren door zetting, en langs die scheuren komt vocht mee.",
+    ],
+    bouw: {
+      kop: "Polderklei, en zetting in de laagste straten",
+      alineas: [
+        "**In de polder houdt de kleigrond water vast** en staat het grondwater hoog. Een woning zonder waterkering in de muurvoet zuigt dat op via de baksteen, en binnen komt het terug als een vochtband onderaan de muur. **Dat is geen bouwvocht**, en drogen lost het niet op: de technieker meet het verschil bij de levering en zegt het eerlijk.",
+        "Bij een hoeve of een schuur gaat het om **volume**. Wij rekenen in kubieke meter, en een schuur met een hoge nok telt zwaarder dan haar vloeroppervlak suggereert. Is de ruimte **niet te verwarmen**, dan gaat er een adsorptiedroger naartoe, want onder 15 °C verliest een condensdroger het grootste deel van zijn rendement.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "Voor een hoeve of een schuur met grote volumes: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "revolution", waarom: "**Voor een onverwarmde schuur of kelder op klei**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het oppervlak weg, en komt onder vloeren." },
+    ],
+    levering: {
+      kop: "Leveren in Gistel: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Bij een hoeve vragen we **vooraf het volume in kubieke meter**, de vloeropbouw en of de poorten kunnen sluiten, zodat de technieker met het juiste toestel vertrekt.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Gistel leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["oudenburg", "middelkerke", "ichtegem", "oostende", "koekelare"],
+    faq: [
+      {
+        q: "Mijn muren blijven onderaan vochtig. Is dat bouwvocht?",
+        a: "In de polder is dat bijna altijd opstijgend vocht: een band tot ongeveer een halve meter hoog, vaak met een witte zoutrand en afbladderende verf. Bouwvocht zit gelijkmatig in de ruimte. Onze technieker meet het bij de levering.",
+      },
+      {
+        q: "Kunnen jullie een hoeve of een schuur drogen?",
+        a: "Ja. We vragen vooraf het volume in kubieke meter, de vloeropbouw en of de ruimte dicht te krijgen is: een droger tegen een open poort werkt tegen de buitenlucht in. Is ze niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Er zit vocht langs een scheur in mijn muur. Helpt drogen?",
+        a: "Drogen haalt het vocht uit de ruimte, maar niet de oorzaak weg. Komt er water binnen langs een scheur, dan moet die eerst dicht; anders staat u na elke regenperiode op hetzelfde punt. Onze technieker zegt het eerlijk als dat de situatie is.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Gistel?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "ichtegem",
+    title: "Bouwdroger huren in Ichtegem | Vernast",
+    description:
+      "Bouwdroger huren in Ichtegem, Eernegem en Bekegem: dorpen op de zandrug tussen polder en Houtland. Binnen onze vaste toer geleverd, geplaatst en opgehaald.",
+    h1: "Bouwdroger huren in Ichtegem",
+    kicker: "Brugs Ommeland · zandrug tussen polder en Houtland",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Ichtegem ligt met **Eernegem en Bekegem op de zandrug** die de polder van het Houtland scheidt. Hoger en droger dan de polder een paar kilometer noordelijker, en dat scheelt in de kelders.",
+      "Wat we hier drogen is dan ook vooral gewoon werk: **nieuwbouw in verkavelingen** en **renovatie van dorpswoningen en hoeves**.",
+    ],
+    bouw: {
+      kop: "Nieuwbouw en renovatie op de zandrug",
+      alineas: [
+        "Op **zand draineert de ondergrond goed**, dus is grondwater hier zelden de oorzaak van een vochtige kelder. Blijft er toch een ruimte vochtig, dan gaat het meestal om **te weinig ventilatie**: vochtige lucht die nergens heen kan. Dat lost een droger wel op, en dat is een ander gesprek dan in de polder.",
+        "Bij een verse chape geldt gewoon de rekenregel: **vijf tot tien liter water per dag per honderd vierkante meter** in de eerste weken. Met droger en ventilator samen is een gelijkvloers **in een tiental dagen beloopbaar en in twee à drie weken klaar voor de vloerder**, tegenover vijf à zeven weken zonder hulp.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De standaard voor een nieuwbouwwoning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot gelijkvloers: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Ichtegem: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. U krijgt een tijdslot en een sms een halfuur vooraf. Op een winterwerf controleert de technieker of **de werfkast 400 V levert** voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Ichtegem leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["gistel", "oudenburg", "torhout", "koekelare", "zedelgem"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Minder dan in de polder. Ichtegem ligt op de zandrug, en zand draineert: het grondwater zakt weg in plaats van tegen de kelderwand te staan. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw zetten we er een elektrische kachel bij. Die vraagt 400 V; de technieker controleert de werfkast bij de levering.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Ichtegem?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "jabbeke",
+    title: "Bouwdroger huren in Jabbeke | Vernast",
+    description:
+      "Bouwdroger huren in Jabbeke, Varsenare en Snellegem: verkavelingen op zand, met polder in Stalhille. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Jabbeke",
+    kicker: "Houtland · zand, met polder in Stalhille",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Jabbeke ligt **langs de E40 net voor Brugge**, met Varsenare, Snellegem en Zerkegem op de zandstreek en **Stalhille in de polder**.",
+      "Dat verschil in bodem bepaalt het gesprek. Op het zand draineert de ondergrond en is een kelder zelden het probleem; in Stalhield houdt de klei water vast en staat het grondwater hoog.",
+    ],
+    bouw: {
+      kop: "Verkavelingen op zand, polder in Stalhille",
+      alineas: [
+        "**Op zand draineert de ondergrond goed.** Blijft een kelder of berging hier toch vochtig, dan gaat het meestal om **te weinig ventilatie** en niet om grondwater, en dat lost een droger wel op. In **Stalhille** is het andersom: klei die water vasthoudt, een hoge grondwaterstand, en dan haalt een droger het vocht uit de lucht maar niet uit de grond.",
+        "Bij nieuwbouw geldt gewoon de rekenregel: een verse chape geeft **vijf tot tien liter water per dag per honderd vierkante meter** af. Met droger en ventilator samen is een gelijkvloers **in een tiental dagen beloopbaar en in twee à drie weken klaar voor de vloerder**.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De standaard voor een nieuwbouwwoning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+      { key: "ttk650", waarom: "Voor een groot gelijkvloers of een hoeve: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "revolution", waarom: "**Voor een kelder in de polder van Stalhille**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door." },
+    ],
+    levering: {
+      kop: "Leveren in Jabbeke: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Gaat het om een kelder, dan **meet de technieker eerst** of het om bouwvocht of om grondwater gaat: op het zand en in de polder is dat een ander antwoord.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Jabbeke leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["brugge", "zedelgem", "oudenburg", "zuienkerke", "ichtegem"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Dat hangt ervan af waar u woont. Op het zand van Jabbeke, Varsenare en Snellegem draineert de bodem en gaat het meestal om te weinig ventilatie; in de polder van Stalhille staat het grondwater hoog en blijft een kelder zelden droog. De vochtmeting bij de levering vertelt welke van de twee het is.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Hoeveel toestellen voor een gelijkvloers van 140 m²?",
+        a: "Doorgaans twee drogers met een ventilator per droogzone, en een derde als de verdieping meteen mee moet. De Calculator rekent op volume in kubieke meter, niet op oppervlakte.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Jabbeke?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "zedelgem",
+    title: "Bouwdroger huren in Zedelgem | Vernast",
+    description:
+      "Bouwdroger huren in Zedelgem, Aartrijke en Veldegem: verkavelingen en nieuwbouw op de zandstreek. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Zedelgem",
+    kicker: "Houtland · verkavelingen op zand",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Zedelgem bestaat uit **vier kernen op de zandstreek**: Zedelgem, Aartrijke, Veldegem en Loppem, met verkavelingen rond elke kern.",
+      "Dat maakt het werk hier voorspelbaar: **chape van een volledig gelijkvloers**, en in de winter een ruwbouw die eerst op temperatuur moet voor er iets droogt.",
+    ],
+    bouw: {
+      kop: "Nieuwbouw in verkavelingen, en de winter als beperking",
+      alineas: [
+        "Een verse chape geeft **vijf tot tien liter water per dag per honderd vierkante meter** af in de eerste weken, en dat moet eruit voor het pleisterwerk en de vloer komen. Met droger en ventilator samen is een gelijkvloers **in een tiental dagen beloopbaar en in twee à drie weken klaar voor de vloerder**, tegenover vijf à zeven weken zonder hulp.",
+        "In de winter is **temperatuur de beperkende factor**, en in West-Vlaanderen komt daar de vochtige zeewind bij. **Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**, en een ruwbouw zonder ramen komt daar niet boven. Dan gaat er een elektrische kachel mee, die **400 V** vraagt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De standaard voor een nieuwbouwwoning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+      { key: "teddh30", waarom: "**Voor de onverwarmde ruwbouw in de winter**: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+      { key: "ttk650", waarom: "Voor een groot gelijkvloers of een open leefruimte met een hoog plafond: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Zedelgem: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. U krijgt een tijdslot en een sms een halfuur vooraf. Op een winterwerf controleert de technieker eerst of **de werfkast 400 V levert** voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Zedelgem leveren we gewoon**; de rit zit al in de prijs en de technieker zet de droogzones meteen goed op.",
+    },
+    buren: ["jabbeke", "oostkamp", "torhout", "ichtegem", "brugge"],
+    faq: [
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder. De technieker meet bij de ophaling of de restvochtigheid laag genoeg is.",
+      },
+      {
+        q: "Wanneer start ik met drogen na het chaperen?",
+        a: "Niet meteen. Een chape moet eerst uitharden: reken op 48 tot 72 uur, en start dan voorzichtig. Te snel drogen geeft krimpscheuren, en daarom stelt de technieker de hygrostaat in op een streefwaarde.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw zetten we er een elektrische kachel bij. Die vraagt 400 V krachtstroom.",
+      },
+      {
+        q: "Hoeveel toestellen voor een gelijkvloers van 140 m²?",
+        a: "Doorgaans twee drogers met een ventilator per droogzone, en een derde als de verdieping meteen mee moet. De Calculator rekent op volume in kubieke meter, want een hoog plafond telt zwaarder dan extra vierkante meters.",
+      },
+      {
+        q: "Hoe snel staan jullie in Zedelgem?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "oostkamp",
+    title: "Bouwdroger huren in Oostkamp | Vernast",
+    description:
+      "Bouwdroger huren in Oostkamp, Ruddervoorde en Waardamme: woningen en bedrijfsruimtes aan het kanaal. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Oostkamp",
+    kicker: "Houtland · woningen en bedrijfsruimtes",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Oostkamp ligt **tussen Brugge en het kanaal Gent-Brugge**, met Ruddervoorde, Waardamme en Hertsberge erbij. Naast de woonkernen heeft de gemeente **een flinke bedrijvenzone**, en dat zie je in ons werk.",
+      "Twee soorten werven dus: **woningen in verkavelingen en renovaties**, en **bedrijfsruimtes waar een vloer klaar moet zijn voor de inrichter komt**.",
+    ],
+    bouw: {
+      kop: "Verkavelingen op zand, en bedrijfsruimtes met een datum",
+      alineas: [
+        "Bij een **bedrijfsruimte hangt er een datum aan**: de inrichter staat gepland, en een gietvloer op een te natte chape gaat loskomen. Daar drogen we tot **een gemeten waarde** en niet tot een datum, en zetten we **meerdere toestellen verdeeld over de ruimte** in met luchtbeweging over de volle lengte. Geef ons de datum, dan rekenen we terug hoeveel capaciteit nodig is.",
+        "In de woonkernen is het voorspelbaarder: **chape van een gelijkvloers** op zandgrond, en daar draineert de ondergrond goed. Blijft een kelder toch vochtig, dan gaat het meestal om **te weinig ventilatie** en niet om grondwater.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de bedrijfsruimte**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op een grote vloer zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "Op een grote vloer is luchtbeweging over de volle lengte de voorwaarde om overal even droog te krijgen, niet een extra." },
+      { key: "ttk350", waarom: "De Medium voor een woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "Voor een onverwarmde hal in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Oostkamp: met een datum om naar terug te rekenen",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Geef bij een bedrijfsruimte de datum van uw inrichter door**, dan rekenen we terug hoeveel capaciteit er nodig is om die te halen, in plaats van u achteraf te laten verlengen. We vragen ook het volume en de beschikbare stroom.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor een hal is dat nooit de bedoeling: daar gaan meerdere toestellen in één rit naartoe, en die levering zit al in de prijs.",
+    },
+    buren: ["brugge", "zedelgem", "beernem", "torhout", "wingene"],
+    faq: [
+      {
+        q: "Hoe snel kan een bedrijfsvloer droog zijn?",
+        a: "Dat hangt af van de dikte en van hoeveel capaciteit er staat. Een chape van vijf centimeter doet zonder hulp vijf à zeven weken; met voldoende drogers en luchtbeweging halen we dat naar twee à drie weken. Geef ons de datum van uw inrichter, dan rekenen we terug.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf dan achteraf.",
+      },
+      {
+        q: "Hoe droog moet een chape zijn voor een gietvloer?",
+        a: "Strenger dan voor tegels. Uw vloerder bepaalt de grens; wij drogen tot een gemeten waarde en niet tot een datum. De technieker meet bij de ophaling en u krijgt die meting op papier.",
+      },
+      {
+        q: "Hebben jullie 400 V nodig?",
+        a: "Alleen voor de elektrische kachel, die we in de winter bij een onverwarmde ruimte inzetten. De drogers en de ventilatoren draaien op 230 V. De technieker controleert de kast bij de levering.",
+      },
+      {
+        q: "Hoe snel staan jullie in Oostkamp?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "beernem",
+    title: "Bouwdroger huren in Beernem | Vernast",
+    description:
+      "Bouwdroger huren in Beernem, Oedelem en Sint-Joris: zandstreek met de kleirug van Oedelem erin. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Beernem",
+    kicker: "Houtland · zand, met de kleirug van Oedelem",
+    rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Beernem is **onze kortste rit in West-Vlaanderen**: negentig kilometer, ongeveer een uur. Met Oedelem en Sint-Joris erbij, en het kanaal Gent-Brugge erdoor.",
+      "Bijzonder is de **kleirug van Oedelem**: waar de rest van het Houtland op zand staat, zit hier klei in de ondergrond, de klei waarvan eeuwenlang bakstenen zijn gemaakt. Die rug gedraagt zich als polder in het midden van een zandstreek.",
+    ],
+    bouw: {
+      kop: "Zand rondom, klei op de rug van Oedelem",
+      alineas: [
+        "**Op de kleirug houdt de bodem water vast**, net als in de polder: een kelder of een vloer op volle grond blijft daar zelden volledig droog, en dat is geen bouwvocht. **Op het zand errond** draineert de ondergrond en gaat een vochtige berging meestal over te weinig ventilatie. Twee kilometer verschil, twee antwoorden, en daarom **meet de technieker bij de levering**.",
+        "Gaat het om **bouwvocht uit renovatie of nieuwbouw**, dan verdwijnt het definitief. Bij oudere woningen met massieve muren duurt dat langer: tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt, en dat haalt een ventilator weg.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor een kelder op de kleirug**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en bij massieve muren is hij een voorwaarde." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot gelijkvloers: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Beernem: onze kortste rit in West-Vlaanderen",
+      alinea:
+        "**Negentig kilometer, ongeveer een uur: de kortste rit van onze West-Vlaamse toer.** Boekt u voor de middag, dan lukt de volgende werkdag doorgaans. Gaat het om een kelder, dan meet de technieker eerst of het om bouwvocht of om grondwater gaat.",
+    },
+    afhalen: {
+      kop: "Afhalen loont ook hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Ook vanuit Beernem, onze kortste West-Vlaamse halte, weegt dat niet op tegen de korting op één toestel. **De rit zit al in de prijs van het pakket.**",
+    },
+    buren: ["oostkamp", "brugge", "damme", "wingene", "aalter"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Dat hangt ervan af waar u woont. Op de kleirug van Oedelem houdt de bodem water vast en blijft een kelder zelden droog; op het zand errond draineert de ondergrond en gaat het meestal om te weinig ventilatie. De vochtmeting bij de levering vertelt welke van de twee het is.",
+      },
+      {
+        q: "Hoe snel staan jullie in Beernem?",
+        a: "Beernem is de kortste halte van onze West-Vlaamse toer: ongeveer een uur rijden. Boekt u voor de middag, dan staat het doorgaans de volgende werkdag.",
+      },
+      {
+        q: "Waarom droogt een oude woning trager dan nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Is afhalen vanuit Beernem de moeite?",
+        a: "Nee, ook niet vanaf onze kortste West-Vlaamse halte: u bent twee uur onderweg voor een toestel van 30 kg. De levering zit al in de prijs van het droogpakket.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "torhout",
+    title: "Bouwdroger huren in Torhout | Vernast",
+    description:
+      "Bouwdroger huren in Torhout: stadskern en verkavelingen in het Houtland, op zandleem. Geleverd, geplaatst en opgehaald.",
+    h1: "Bouwdroger huren in Torhout",
+    kicker: "Houtland · stadskern en verkavelingen",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Torhout is **de stad van het Houtland**: een compacte kern met rijhuizen en handelspanden, en verkavelingen eromheen op **zandleem**.",
+      "Dat levert twee soorten werven op: **renovatie in de kern**, waar de panden smal en diep zijn, en **nieuwbouw aan de rand**, waar de chape van een volledig gelijkvloers moet drogen.",
+    ],
+    bouw: {
+      kop: "Smalle, diepe panden in de kern, nieuwbouw aan de rand",
+      alineas: [
+        "Een pand in de kern is **smal en diep**, met vaak een aanbouw achteraan. Droge lucht gaat daar niet vanzelf van voor naar achter, dus hoort er **een ventilator bij de droger**: die brengt droge lucht tot achteraan en blaast de verzadigde laag langs vloer en muur weg. Zonder dat laatste droogt de voorkamer en blijft de keuken staan.",
+        "Bij een **handelspand** komt er een datum bij: de heropening staat gepland, en tegelwerk of een gietvloer op een te natte chape komt los. Daar zetten we **meer capaciteit in één keer in** in plaats van langer te drogen met één toestel; minder huurweken is doorgaans ook goedkoper.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "In een smal en diep pand gaat droge lucht niet van voor naar achter. Deze ventilator doet dat wel, en **halveert vaak de droogtijd**." },
+      { key: "ttk650", waarom: "**Voor een handelspand of een groot gelijkvloers**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Torhout: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Hebt u een heropeningsdatum voor een pand, geef die dan bij de reservatie**: dan rekenen we terug hoeveel capaciteit er nodig is om die te halen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Torhout leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["zedelgem", "ichtegem", "lichtervelde", "wingene", "kortemark", "oostkamp"],
+    faq: [
+      {
+        q: "Hoort er een ventilator bij een smal, diep pand?",
+        a: "Ja. De droger maakt droge lucht, de ventilator brengt die tot achteraan en blaast de verzadigde laag langs vloer en muur weg. Zonder dat laatste droogt de voorkamer en blijft de keuken staan. Hij zit standaard in onze droogpakketten voor een rijwoning.",
+      },
+      {
+        q: "Ik heb een vaste heropeningsdatum. Kunnen jullie daarnaar werken?",
+        a: "Ja, en dat is de goede manier om dit te plannen. Geef de datum en het volume door, dan rekenen we terug hoeveel toestellen er nodig zijn. Meer capaciteit in één keer is vaak goedkoper dan langer huren met te weinig.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Torhout?",
+        a: "Vaak binnen 24 uur, maar de rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "ieper",
+    title: "Bouwdroger huren in Ieper | Vernast",
+    description:
+      "Bouwdroger huren in Ieper, Boezinge en Vlamertinge: heropbouw uit de jaren twintig op Ieperiaanse klei. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Ieper",
+    kicker: "Westhoek · heropbouw op Ieperse klei",
+    rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en een half" },
+    intro: [
+      "Ieper is bijna volledig **heropbouw uit de jaren twintig**, en dat bepaalt wat we hier tegenkomen: massief baksteenwerk, dikke muren en vaak **geen waterkering in de muurvoet**, want die was toen nog niet standaard.",
+      "Daaronder zit **Ieperiaanse klei**, de bodemlaag die naar deze stad genoemd is en die vrijwel geen water doorlaat. Dat maakt een natte kelder hier eerder regel dan uitzondering.",
+    ],
+    bouw: {
+      kop: "Heropbouw zonder waterkering, op klei die niets doorlaat",
+      alineas: [
+        "**Ieperiaanse klei laat vrijwel geen water door.** Regenwater zakt dus niet weg maar blijft in de bovenlaag staan en zoekt de laagste weg: tegen een kelderwand of tegen de muurvoet. Een woning uit de heropbouw **zonder waterkering in de muurvoet** zuigt dat op via de baksteen, en binnen komt het terug als een vochtband onderaan de muur, vaak met een witte zoutrand.",
+        "**Dat is geen bouwvocht, en drogen lost het niet op.** Een droger houdt de ruimte bruikbaar en voorkomt schimmel, maar hij stopt de aanvoer niet; de duurzame oplossing is een waterkering, bijvoorbeeld door injectie. Gaat het wél om bouwvocht uit een renovatie, dan verdwijnt het definitief, en dan hoort er bij massieve muren **een ventilator** bij.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de kelder op Ieperse klei**: koud en permanent vochtig, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Bij massief baksteenwerk een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg, en pas dan droogt de muur verder." },
+      { key: "ttk350", waarom: "De Medium voor een gelijkvloers of een verdieping: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "Voor een groot pand of een handelsruimte: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Ieper: in onze vaste Westhoektoer",
+      alinea:
+        "Anderhalf uur rijden, dus **de Westhoek plannen we in een vaste toer** in plaats van per rit. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is of in de volgende toer valt. **Ligt uw pand in een zone met venstertijden, zeg dat dan ook.**",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **anderhalf uur, dus drie uur heen en terug**. **Vanuit Ieper raden we afhalen af en leveren we gewoon.** De rit zit al in de prijs, en die prijs is dezelfde als voor iemand die naast ons magazijn woont.",
+    },
+    buren: ["zonnebeke", "langemark-poelkapelle", "poperinge", "heuvelland", "mesen", "vleteren"],
+    faq: [
+      {
+        q: "Waarom is mijn kelder hier altijd vochtig?",
+        a: "Omdat de ondergrond van Ieper uit klei bestaat die vrijwel geen water doorlaat. Regenwater zakt niet weg maar blijft in de bovenlaag staan en drukt tegen de kelderwand. Een droger houdt de ruimte bruikbaar zolang hij draait, maar hij haalt het water niet uit de grond. De duurzame oplossing is drainage of waterdichting aan de buitenzijde.",
+      },
+      {
+        q: "Mijn muren blijven onderaan vochtig. Is dat bouwvocht?",
+        a: "In de heropbouwwoningen hier is dat bijna altijd opstijgend vocht: die zijn gebouwd zonder waterkering in de muurvoet. U ziet een band tot ongeveer een halve meter hoog, vaak met een witte zoutrand en afbladderende verf. Bouwvocht zit gelijkmatig in de ruimte. Onze technieker meet het verschil bij de levering.",
+      },
+      {
+        q: "Helpt een bouwdroger tegen opstijgend vocht?",
+        a: "Hij houdt de ruimte bruikbaar en voorkomt schimmel, maar hij stopt de aanvoer niet. De duurzame oplossing is een waterkering in de muurvoet, bijvoorbeeld door injectie. Wij zeggen het eerlijk als drogen hier alleen symptomen aanpakt.",
+      },
+      {
+        q: "Hoe lang duurt het drogen van massief baksteenwerk?",
+        a: "Langer dan een moderne wand: reken op anderhalf tot twee keer de droogtijd. Het vocht moet uit de kern naar buiten, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg.",
+      },
+      {
+        q: "Hoe snel staan jullie in Ieper?",
+        a: "De rit duurt anderhalf uur en we plannen de Westhoek in een vaste toer. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is of in de volgende toer valt.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "zonnebeke",
+    title: "Bouwdroger huren in Zonnebeke | Vernast",
+    description:
+      "Bouwdroger huren in Zonnebeke, Passendale en Beselare: heropbouwwoningen op zware klei. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Zonnebeke",
+    kicker: "Westhoek · heropbouw op zware klei",
+    rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en een half" },
+    intro: [
+      "Zonnebeke bestaat uit **Passendale, Beselare, Geluveld en Zandvoorde** naast de hoofdkern, en net als Ieper is de bebouwing hier grotendeels **heropbouw uit de jaren twintig**.",
+      "De ondergrond is **zware klei op een lichte helling**, en die combinatie is lastig: klei laat vrijwel geen water door, dus op een helling blijft het in de bovenlaag staan en zakt het zijwaarts naar het eerste obstakel.",
+    ],
+    bouw: {
+      kop: "Zware klei op een helling, met heropbouwwoningen erop",
+      alineas: [
+        "**Hangwater is hier de regel.** Op zware klei zakt regenwater niet weg maar zijwaarts, en komt het tegen de bergzijde van een woning of tegen een kelderwand te staan. Dat komt na elke regenperiode terug, meestal op dezelfde plaats. **Een droger haalt vocht uit de lucht, niet uit de grond**: hij houdt de ruimte bruikbaar, drainage aan de buitenzijde lost het op.",
+        "De heropbouwwoningen hebben daarnaast **massief baksteenwerk zonder waterkering in de muurvoet**. Een vochtband onderaan de muur met een witte zoutrand is dus opstijgend vocht en geen bouwvocht. **De technieker meet dat verschil bij de levering** en zegt eerlijk wat drogen hier oplost.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de kelder in de klei**: koud en permanent vochtig, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Bij massief baksteenwerk een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg." },
+      { key: "ttk350", waarom: "De Medium voor een gelijkvloers of een verdieping: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot gelijkvloers: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Zonnebeke: in onze vaste Westhoektoer",
+      alinea:
+        "Anderhalf uur rijden, dus **de Westhoek plannen we in een vaste toer**. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is. Staat uw woning aan een onverharde oprit, zeg dat dan ook.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **anderhalf uur, dus drie uur heen en terug**. **Vanuit Zonnebeke leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["ieper", "langemark-poelkapelle", "moorslede", "heuvelland"],
+    faq: [
+      {
+        q: "Wat is hangwater, en waarom kan een droger er niets aan doen?",
+        a: "Hangwater is water dat niet wegzakt omdat de klei eronder vrijwel niets doorlaat. Het blijft in de bovenlaag staan en zakt zijwaarts tot het tegen een obstakel komt, vaak een kelderwand. Een droger haalt vocht uit de lucht, niet uit de grond: hij houdt de ruimte bruikbaar, maar het water blijft komen. De oplossing is drainage.",
+      },
+      {
+        q: "Mijn muren blijven onderaan vochtig. Is dat bouwvocht?",
+        a: "In een heropbouwwoning is dat bijna altijd opstijgend vocht, want die is gebouwd zonder waterkering in de muurvoet. U ziet een band tot ongeveer een halve meter hoog, vaak met een witte zoutrand. Bouwvocht zit gelijkmatig in de ruimte.",
+      },
+      {
+        q: "Hoe lang duurt het drogen van massief baksteenwerk?",
+        a: "Reken op anderhalf tot twee keer de droogtijd van een moderne wand, altijd met een ventilator erbij om de verzadigde luchtlaag tegen het muuroppervlak weg te halen.",
+      },
+      {
+        q: "Betaal ik meer omdat ik ver woon?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie in Zonnebeke?",
+        a: "De rit duurt anderhalf uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "langemark-poelkapelle",
+    title: "Bouwdroger huren in Langemark-Poelkapelle | Vernast",
+    description:
+      "Bouwdroger huren in Langemark-Poelkapelle en Bikschote: heropbouw en hoeves op kleigrond. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Langemark-Poelkapelle",
+    kicker: "Westhoek · heropbouw en hoeves",
+    rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en een half" },
+    intro: [
+      "Langemark-Poelkapelle is landelijk gebleven, met **Bikschote en Sint-Juliaan** erbij: open akkerland met hoeves, en kernen die net als in Ieper **heropbouw uit de jaren twintig** zijn.",
+      "De bodem is **klei**, en die laat vrijwel geen water door. Dat verklaart waarom een kelder of een vloer op volle grond hier zelden volledig droog blijft.",
+    ],
+    bouw: {
+      kop: "Hoeves op klei, en heropbouw in de kernen",
+      alineas: [
+        "Een **hoeve op klei** combineert twee trage eigenschappen: massief baksteenwerk dat zijn vocht traag afgeeft, en een ondergrond die water nauwelijks doorlaat. Een **schuur of stal in herbestemming** is daarnaast een groot, hoog en meestal onverwarmd volume; wij rekenen op **volume in kubieke meter** en zetten luchtbeweging over de volle lengte in.",
+        "In de kernen staat de **heropbouw zonder waterkering in de muurvoet**. Een vochtband onderaan de muur met een witte zoutrand is dus opstijgend vocht, geen bouwvocht, en **drogen lost dat niet op**. De technieker meet het verschil bij de levering en zegt het eerlijk.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de schuur of de stal in herbestemming**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "**Bij massief baksteenwerk een voorwaarde**, en op een groot volume de manier om overal even droog te krijgen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor de onverwarmde schuur of kelder op klei**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Langemark-Poelkapelle: in onze vaste Westhoektoer",
+      alinea:
+        "Anderhalf uur rijden, dus **de Westhoek plannen we in een vaste toer**. Bij een hoeve vragen we **vooraf het volume in kubieke meter** en of de ruimte dicht te krijgen is, want een droger tegen een open poort werkt tegen de buitenlucht in.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **anderhalf uur, dus drie uur heen en terug**. **Vanuit Langemark-Poelkapelle leveren we gewoon**; bij een hoeve hangt het resultaat bovendien af van hoe de toestellen verdeeld staan.",
+    },
+    buren: ["ieper", "zonnebeke", "houthulst", "staden", "poperinge"],
+    faq: [
+      {
+        q: "Kunnen jullie een schuur drogen die woonruimte wordt?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in die ook bij lage temperatuur doorwerkt.",
+      },
+      {
+        q: "Mijn muren blijven onderaan vochtig. Is dat bouwvocht?",
+        a: "In een heropbouwwoning is dat bijna altijd opstijgend vocht, want die is gebouwd zonder waterkering in de muurvoet. U ziet een band tot ongeveer een halve meter hoog, vaak met een witte zoutrand. Onze technieker meet het verschil bij de levering.",
+      },
+      {
+        q: "Hoeveel toestellen voor een schuur van 300 m³?",
+        a: "Doorgaans één toestel met voldoende capaciteit plus luchtbeweging over de volle lengte, en in de winter een kachel erbij. Eén droger in een hoek droogt die hoek; het gaat om verdeling even veel als om capaciteit.",
+      },
+      {
+        q: "Betaal ik meer omdat ik ver woon?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie hier?",
+        a: "De rit duurt anderhalf uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "mesen",
+    title: "Bouwdroger huren in Mesen | Vernast",
+    description:
+      "Bouwdroger huren in Mesen: de kleinste stad van het land, met heropbouwwoningen op de heuvelrug. Ook de kleinste gemeente ligt op onze vaste toer, zonder toeslag.",
+    h1: "Bouwdroger huren in Mesen",
+    kicker: "Westhoek · de kleinste stad van het land",
+    rit: { afstand: "circa 145 km", tijd: "ongeveer een uur en veertig minuten" },
+    intro: [
+      "Mesen is **de kleinste stad van België**: een duizendtal inwoners op de heuvelrug tegen de Franse grens. Klein, maar met dezelfde bebouwing als zijn buren, namelijk **heropbouw uit de jaren twintig**.",
+      "Het is ook een van **onze verste haltes**: bijna anderhalf uur rijden. We plannen de Westhoek daarom in een vaste toer, en daar hoort Mesen gewoon bij.",
+    ],
+    bouw: {
+      kop: "Heropbouw op een heuvelrug, zonder waterkering",
+      alineas: [
+        "Een woning uit de **heropbouw** is massief baksteenwerk, meestal **zonder waterkering in de muurvoet**: die was toen nog niet standaard. Een vochtband onderaan de muur met een witte zoutrand is dus opstijgend vocht en geen bouwvocht. **Drogen houdt de ruimte bruikbaar, maar stopt de aanvoer niet**; de technieker meet het verschil bij de levering.",
+        "Op de **heuvelrug** komt daar hangwater bij: op klei zakt regenwater niet weg maar zijwaarts, tot tegen de bergzijde van een gebouw. Gaat het wél om **bouwvocht uit een renovatie**, dan verdwijnt het definitief, en dan hoort er bij massief werk een ventilator bij om de verzadigde luchtlaag weg te blazen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Bij massief baksteenwerk een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg, en pas dan droogt de muur verder." },
+      { key: "revolution", waarom: "**Voor de kelder in de helling**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttk650", waarom: "Voor een groot gelijkvloers of een hoeve: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Mesen: ook in de kleinste stad van het land",
+      alinea:
+        "Bijna anderhalf uur rijden, en **we plannen de Westhoek in een vaste toer**: ook een stad van duizend inwoners ligt daar gewoon op. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **bijna anderhalf uur, dus drie uur heen en terug**. **Vanuit Mesen raden we afhalen af en leveren we gewoon.** De rit zit al in de prijs, en die prijs is dezelfde als voor iemand naast ons magazijn.",
+    },
+    buren: ["heuvelland", "ieper", "wervik"],
+    faq: [
+      {
+        q: "Komen jullie tot in Mesen?",
+        a: "Ja, en zonder toeslag. We plannen de Westhoek in een vaste toer, dus ook de kleinste stad van het land ligt daar gewoon op. De prijs van het droogpakket is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Mijn muren blijven onderaan vochtig. Is dat bouwvocht?",
+        a: "In een heropbouwwoning is dat bijna altijd opstijgend vocht, want die is gebouwd zonder waterkering in de muurvoet. U ziet een band tot ongeveer een halve meter hoog, vaak met een witte zoutrand. Onze technieker meet het verschil bij de levering.",
+      },
+      {
+        q: "Mijn muur aan de bergzijde blijft vochtig. Wat is dat?",
+        a: "Waarschijnlijk hangwater: op klei zakt regenwater niet weg maar zijwaarts, tot tegen die muur. Het komt na elke regenperiode terug. Drogen houdt de ruimte bruikbaar, drainage aan de buitenzijde lost het op.",
+      },
+      {
+        q: "Hoe lang duurt het drogen van massief baksteenwerk?",
+        a: "Reken op anderhalf tot twee keer de droogtijd van een moderne wand, altijd met een ventilator erbij om de verzadigde luchtlaag tegen het muuroppervlak weg te halen.",
+      },
+      {
+        q: "Hoe snel staan jullie in Mesen?",
+        a: "De rit duurt bijna anderhalf uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is of in de volgende toer valt.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "heuvelland",
+    title: "Bouwdroger huren in Heuvelland | Vernast",
+    description:
+      "Bouwdroger huren in Heuvelland, Kemmel en Westouter: hoeves op de steile leemhellingen aan de grens. Geleverd en geplaatst, ook aan een holle of onverharde weg.",
+    h1: "Bouwdroger huren in Heuvelland",
+    kicker: "Westhoek · hoeves op de hellingen",
+    rit: { afstand: "circa 145 km", tijd: "ongeveer een uur en veertig minuten" },
+    intro: [
+      "Heuvelland is genoemd naar zijn **heuvelrug**: de Kemmelberg, de Rodeberg en de Zwarteberg, met Westouter, Dranouter, Wijtschate en Kemmel errond.",
+      "Op die hellingen ligt **leem op klei**, en dat is de lastigste combinatie die er is: leem houdt water vast, de klei eronder laat het niet door, en op een helling zoekt het dus zijwaarts zijn weg.",
+    ],
+    bouw: {
+      kop: "Leem op klei, op een steile helling",
+      alineas: [
+        "**Hangwater is hier geen uitzondering maar de regel.** Een hoeve of woning op de flank heeft aan de bergzijde grond tegen de muur over de volle hoogte, en bij elke regenperiode perst het water daar tegenaan. Een droger haalt vocht uit de lucht, niet uit de grond: hij houdt de ruimte bruikbaar, maar het komt terug. **De technieker meet dat bij de levering** en zegt eerlijk dat drainage aan de buitenzijde de oplossing is.",
+        "Gaat het om **bouwvocht uit een renovatie**, dan verdwijnt het definitief. Bij de hoeves hier betekent dat massief werk: muren van veertig centimeter die hun vocht traag afgeven, met een verzadigd luchtlaagje tegen het oppervlak dat een ventilator moet wegblazen. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de kelder of ruimte in de helling**: koud en permanent vochtig, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Onmisbaar bij massieve muren**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg, en pas dan droogt de muur verder." },
+      { key: "ttk350", waarom: "De Medium als standaard bij renovatie: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "Voor een hoeve met grote, hoge volumes: 110 liter per dag en bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Heuvelland: ook aan een steile of onverharde weg",
+      alinea:
+        "Bijna anderhalf uur rijden, dus **de Westhoek plannen we in een vaste toer**. **Staat uw hoeve aan een steile, holle of onverharde weg, zeg dat dan bij de reservatie**, dan weet de technieker dat hij verder moet uitladen en brengt hij het juiste materiaal mee.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **bijna anderhalf uur, dus drie uur heen en terug**. **Vanuit Heuvelland raden we afhalen af en leveren we gewoon.** De rit zit al in de prijs van het pakket.",
+    },
+    buren: ["ieper", "mesen", "poperinge", "zonnebeke"],
+    faq: [
+      {
+        q: "Wat is hangwater, en waarom kan een droger er niets aan doen?",
+        a: "Hangwater is water dat niet wegzakt omdat de klei onder de leem vrijwel niets doorlaat. Op een helling zakt het zijwaarts tot het tegen de bergzijde van een gebouw komt te staan. Een droger haalt vocht uit de lucht, niet uit de grond: hij houdt de ruimte bruikbaar, maar het water blijft komen. De oplossing is drainage.",
+      },
+      {
+        q: "Hoe weet ik of het bouwvocht is of hangwater?",
+        a: "Bouwvocht zit gelijkmatig in de ruimte en neemt af naarmate het droogt. Hangwater geeft een natte plek of band die na elke regenperiode terugkomt, meestal op dezelfde plaats aan de bergzijde. Onze technieker meet dat bij de levering.",
+      },
+      {
+        q: "Kan de bestelwagen tot bij mijn hoeve?",
+        a: "Meestal wel, maar aan een steile, holle of onverharde weg niet altijd. Geef dat door bij de reservatie, dan weet de technieker dat hij verder moet uitladen in plaats van het ter plaatse te ontdekken.",
+      },
+      {
+        q: "Waarom droogt een hoeve zo veel trager?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, door veertig centimeter of meer, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Hoe snel staan jullie in Heuvelland?",
+        a: "De rit duurt bijna anderhalf uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "poperinge",
+    title: "Bouwdroger huren in Poperinge | Vernast",
+    description:
+      "Bouwdroger huren in Poperinge, Reningelst en Krombeke: hopschuren en hoeves in de Westhoek. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Poperinge",
+    kicker: "Westhoek · hopschuren en hoeves",
+    rit: { afstand: "circa 145 km", tijd: "ongeveer een uur en veertig minuten" },
+    intro: [
+      "Poperinge is **het hopland**, en dat heeft er iets achtergelaten dat we nergens anders tegenkomen: **hopschuren en droogasten**, hoge gebouwen die gemaakt zijn om lucht door te laten.",
+      "Precies die gebouwen komen in herbestemming, en dat is een ander verhaal dan een woning: **groot volume, veel luchtdoorlaat en zelden te verwarmen**.",
+    ],
+    bouw: {
+      kop: "Hopschuren in herbestemming, en hoeves errond",
+      alineas: [
+        "Een **hopschuur of droogast** is gebouwd om te ventileren: hoge volumes met openingen die bedoeld waren om lucht door te laten. **Een droger tegen zo'n constructie werkt tegen de buitenlucht in**, en die is onuitputtelijk. We vragen daarom vooraf of de ruimte **dicht te krijgen** is. Lukt dat niet, dan heeft drogen daar geen zin en zeggen we dat liever vooraf dan achteraf.",
+        "Lukt het wel, dan rekenen we op **volume in kubieke meter**: een gebouw met een nok van zes meter telt zwaarder dan zijn vloeroppervlak suggereert, en daarbij hoort **luchtbeweging over de volle lengte**. Is de ruimte niet te verwarmen, dan gaat er een adsorptiedroger naartoe die ook bij lage temperatuur doorwerkt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de hopschuur of de hoeve**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n volume zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**In een hoog volume de voorwaarde**: zonder luchtbeweging over de volle lengte blijft droge lucht hangen waar het toestel staat." },
+      { key: "revolution", waarom: "**Voor het deel dat niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Poperinge: in onze vaste Westhoektoer",
+      alinea:
+        "Bijna anderhalf uur rijden, dus **de Westhoek plannen we in een vaste toer**. Bij een schuur of een droogast vragen we **vooraf het volume in kubieke meter** en of de openingen dicht te krijgen zijn, zodat de technieker niet voor een onmogelijke opdracht staat.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **bijna anderhalf uur, dus drie uur heen en terug**. **Vanuit Poperinge raden we afhalen af en leveren we gewoon.** De rit zit al in de prijs van het pakket.",
+    },
+    buren: ["ieper", "heuvelland", "vleteren", "alveringem", "langemark-poelkapelle"],
+    faq: [
+      {
+        q: "Kunnen jullie een hopschuur of een droogast drogen?",
+        a: "Alleen als ze dicht te krijgen is. Zulke gebouwen zijn juist gemaakt om lucht door te laten, en een droger tegen openstaande verluchting werkt tegen de buitenlucht in. Geef vooraf het volume door en of de openingen kunnen sluiten, dan rekenen we uit of het zin heeft.",
+      },
+      {
+        q: "Hoeveel toestellen voor een schuur met een hoge nok?",
+        a: "Dat hangt van het volume af, niet van de oppervlakte. Een gebouw van zes meter hoog vraagt meer capaciteit dan u op basis van de vloer zou denken, en altijd luchtbeweging over de volle lengte. Eén droger in een hoek droogt die hoek.",
+      },
+      {
+        q: "Kunnen jullie een ruimte drogen die niet te verwarmen is?",
+        a: "Ja, met een adsorptiedroger. Die bindt het vocht aan een droogwiel en blijft ook bij vijf graden doorwerken, waar een condensdroger onder 15 °C het grootste deel van zijn rendement verliest.",
+      },
+      {
+        q: "Betaal ik meer omdat Poperinge zo ver ligt?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie in Poperinge?",
+        a: "De rit duurt bijna anderhalf uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "vleteren",
+    title: "Bouwdroger huren in Vleteren | Vernast",
+    description:
+      "Bouwdroger huren in Vleteren, Westvleteren en Oostvleteren: kleine kernen met hoeves in open land. Ook een kleine gemeente ligt gewoon op onze vaste toer.",
+    h1: "Bouwdroger huren in Vleteren",
+    kicker: "Westhoek · kleine kernen in open land",
+    rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en dertig minuten" },
+    intro: [
+      "Vleteren bestaat uit **Westvleteren, Oostvleteren en Woesten**: drie kleine kernen in open landbouwgebied tussen Poperinge en de IJzervlakte.",
+      "Wat we hier drogen is bijna altijd **renovatie van hoeves en dorpswoningen**: massieve muren, een vloer die opengebroken is, en vaak een schuur die mee wordt aangepakt.",
+    ],
+    bouw: {
+      kop: "Hoeves en dorpswoningen op kleigrond",
+      alineas: [
+        "Een hoeve op **klei** combineert twee trage eigenschappen: **massieve muren die hun vocht traag afgeven**, en een ondergrond die water nauwelijks doorlaat. Tegen het muuroppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt, en dat haalt een ventilator weg. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+        "Een **schuur of stal die mee wordt aangepakt** is een groot, hoog en onverwarmd volume. Wij rekenen op **volume in kubieke meter**, en daarbij hoort luchtbeweging over de volle lengte. Is de ruimte niet te verwarmen, dan gaat er een adsorptiedroger naartoe die ook bij lage temperatuur doorwerkt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard bij renovatie: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Onmisbaar bij massieve muren**, en op een groot volume de manier om overal even droog te krijgen." },
+      { key: "ttk650", waarom: "Voor een hoeve of een schuur met grote volumes: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "revolution", waarom: "**Voor de onverwarmde schuur of kelder**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Vleteren: in onze vaste Westhoektoer",
+      alinea:
+        "Anderhalf uur rijden, dus **de Westhoek plannen we in een vaste toer**: ook een kleine gemeente ligt daar gewoon op. Bij een hoeve vragen we vooraf **het volume in kubieke meter** en of de ruimte dicht te krijgen is.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **anderhalf uur, dus drie uur heen en terug**. **Vanuit Vleteren leveren we gewoon**; bij een hoeve hangt het resultaat bovendien af van hoe de toestellen verdeeld staan.",
+    },
+    buren: ["poperinge", "lo-reninge", "alveringem", "houthulst", "ieper"],
+    faq: [
+      {
+        q: "Komen jullie ook naar een kleine gemeente?",
+        a: "Ja, en zonder toeslag. We plannen de Westhoek in een vaste toer, dus Westvleteren, Oostvleteren en Woesten liggen daar gewoon op. De prijs van het droogpakket is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Kunnen jullie een schuur drogen die woonruimte wordt?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Betaal ik meer omdat ik ver woon?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie in Vleteren?",
+        a: "De rit duurt anderhalf uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "diksmuide",
+    title: "Bouwdroger huren in Diksmuide | Vernast",
+    description:
+      "Bouwdroger huren in Diksmuide, Woumen en Esen: de IJzervlakte, waar het water hoort te komen. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Diksmuide",
+    kicker: "Westhoek · de IJzervlakte",
+    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Diksmuide ligt **in de vlakte van de IJzer**, met Woumen, Esen, Beerst, Keiem en Lampernisse errond. De **IJzerbroeken** naast de stad zijn gecontroleerd overstromingsgebied: ze horen onder water te komen om de dorpen droog te houden.",
+      "Dat werkt, maar het betekent ook dat de woningen ertegenaan **een grondwaterstand hebben die met de rivier meebeweegt**. Een kelder of een vloer op volle grond blijft hier zelden volledig droog.",
+    ],
+    bouw: {
+      kop: "Woningen tegen het overstromingsgebied, op polderklei",
+      alineas: [
+        "Tegen de broeken is **het grondwater ondiep en beweegt het mee met de IJzer**. Een kelder die bij hoogwater vochtig wordt, is daarmee geen bouwvocht: **drogen haalt het uit de ruimte, de bron blijft**. Dat zeggen we liever vooraf dan dat u na drie weken huur hetzelfde probleem hebt.",
+        "Heeft er **water binnen gestaan**, dan is snelheid alles. Hoe langer water in een vloeropbouw en achter een plint staat, hoe groter de kans op schimmel en op isolatie die haar waarde verliest. We zetten dan **meer capaciteit in dan strikt nodig** en altijd luchtbeweging erbij, want water kruipt onder vloeren waar een droger alleen niet aan komt. Zet plinten los voor we komen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Diksmuide: bij waterschade zo snel als het kan",
+      alinea:
+        "Ruim een uur rijden, en we plannen de Westhoek in een vaste toer. **Bij waterschade bellen we u terug in plaats van u een formulier te laten afwachten**, want een dag vroeger drogen is hier het verschil tussen een vloer die blijft en een vloer die eruit moet.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. Bij waterschade is dat precies de tijd die u niet hebt: **dan leveren wij**, en de rit zit al in de prijs van het pakket.",
+    },
+    buren: ["lo-reninge", "houthulst", "kortemark", "veurne", "middelkerke", "koekelare"],
+    faq: [
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons. Hoe langer water in de vloeropbouw staat, hoe groter de kans op schimmel en op isolatie die haar waarde kwijt is.",
+      },
+      {
+        q: "Hoe lang duurt het drogen na hoogwater?",
+        a: "Voor een kelder of een gelijkvloers reken op twee tot vier weken, afhankelijk van hoe lang het water er stond en van de vloeropbouw. Een zwevende vloer op isolatie doet er langer over, want het water zit onder de afwerking.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt. Vraag het na bij uw verzekeraar voor u boekt.",
+      },
+      {
+        q: "Mijn kelder is altijd wat vochtig. Helpt drogen?",
+        a: "Zolang het toestel draait wel: de ruimte wordt bruikbaar en schimmel krijgt geen kans. Maar het grondwater beweegt hier mee met de IJzer, en dat stopt een droger niet. De vochtmeting bij de levering vertelt of het om bouwvocht of om grondwater gaat.",
+      },
+      {
+        q: "Hoe snel staan jullie in Diksmuide?",
+        a: "De rit duurt ruim een uur en we plannen de Westhoek in een vaste toer. Bij waterschade bellen we u terug om sneller te plannen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "veurne",
+    title: "Bouwdroger huren in Veurne | Vernast",
+    description:
+      "Bouwdroger huren in Veurne, Houtem en Bulskamp: polderstad met historische panden en hoeves errond. Met een realistische droogtermijn, vooraf gezegd.",
+    h1: "Bouwdroger huren in Veurne",
+    kicker: "Westhoek · polderstad met oude panden",
+    rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en dertig minuten" },
+    intro: [
+      "Veurne is **een polderstad met een historische kern**: trapgevels rond de markt, dikke muren en kelders die ouder zijn dan de meeste woningen errond, met Houtem, Bulskamp, Steenkerke en Avekapelle in de polder.",
+      "Die twee dingen bijten elkaar: **oud patrimonium wil langzaam drogen**, en **polderklei met een hoge grondwaterstand** maakt dat moeilijk.",
+    ],
+    bouw: {
+      kop: "Oude panden op polderklei, met een hoge grondwaterstand",
+      alineas: [
+        "Een kelder onder een oud pand in de polder is **koud, gesloten en omgeven door klei die water vasthoudt**. Zo'n ruimte droogt van nature nooit helemaal, en **onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**. Daar gaat een adsorptiedroger naartoe: die bindt het vocht aan een droogwiel en werkt ook bij vijf graden door.",
+        "Erboven gaat het om **muren van een halve meter en dikker**. Die geven hun vocht zeer traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. **Een ventilator haalt dat weg.** Reken bij zulk werk op **twee keer de droogtijd** van een moderne wand, en dat zegt de technieker liever vooraf.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de oude kelder in de polder**: koud, gesloten en vochtig, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Bij muren van een halve meter een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het oppervlak weg." },
+      { key: "ttk350", waarom: "De Medium per verdieping of per ruimte: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "Voor een groot pand of een hoeve: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Veurne: in onze vaste Westhoektoer",
+      alinea:
+        "Anderhalf uur rijden, dus **de Westhoek plannen we in een vaste toer**. Bij oud patrimonium zegt de technieker bij de levering **welke termijn realistisch is**, in plaats van u twee weken te beloven die niet gehaald worden. Ligt uw pand in een zone met venstertijden, zeg dat dan bij de reservatie.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **anderhalf uur, dus drie uur heen en terug**. **Vanuit Veurne raden we afhalen af en leveren we gewoon.** Bij oud patrimonium hangt het bovendien van de temperatuur af welk type droger werkt.",
+    },
+    buren: ["diksmuide", "alveringem", "koksijde", "nieuwpoort", "de-panne"],
+    faq: [
+      {
+        q: "Hoe lang duurt het drogen van een pand met dikke muren?",
+        a: "Langer dan u zou denken: reken op twee keer de droogtijd van een moderne wand, soms meer. Het vocht moet uit de kern naar buiten, en dat gaat traag. Onze technieker zegt bij de levering welke termijn realistisch is in plaats van twee weken te beloven.",
+      },
+      {
+        q: "Kunnen jullie een oude kelder drogen?",
+        a: "Ja, en daarvoor zetten we een adsorptiedroger in. Zo'n kelder is koud en gesloten, en een condensdroger werkt daar slecht: onder 15 °C verliest hij het grootste deel van zijn rendement. Een adsorptiedroger blijft ook bij vijf graden doorwerken.",
+      },
+      {
+        q: "Mijn kelder blijft vochtig, ook na het drogen. Hoe kan dat?",
+        a: "In de polder houdt de klei water vast en staat het grondwater hoog. Drogen houdt de ruimte bruikbaar zolang het toestel draait, maar de bron blijft. De vochtmeting bij de levering vertelt of het om bouwvocht of om grondwater gaat.",
+      },
+      {
+        q: "Kan ik verlengen als het niet droog is?",
+        a: "Ja, per week. De technieker meet bij de ophaling; is de restvochtigheid nog te hoog, dan blijft het pakket staan. Bij oud patrimonium is dat eerder regel dan uitzondering, en daarom zeggen we de termijn vooraf eerlijk.",
+      },
+      {
+        q: "Hoe snel staan jullie in Veurne?",
+        a: "De rit duurt anderhalf uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "alveringem",
+    title: "Bouwdroger huren in Alveringem | Vernast",
+    description:
+      "Bouwdroger huren in Alveringem, Leisele en Stavele: hoeves tussen polder en zandleemrug. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Alveringem",
+    kicker: "Westhoek · hoeves tussen polder en rug",
+    rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en dertig minuten" },
+    intro: [
+      "Alveringem is uitgestrekt en landelijk, met **Leisele, Stavele, Oeren en Hoogstade**: open akkerland tussen de polder en de zandleemrug van Izenberge.",
+      "Dat betekent dat de bodem hier **per dorp verschilt**: in de laagste delen polderklei met een hoge grondwaterstand, op de rug zandleem die beter draineert.",
+    ],
+    bouw: {
+      kop: "Hoeves op twee soorten bodem",
+      alineas: [
+        "**In de laagste delen** houdt polderklei water vast en staat het grondwater hoog: een kelder of een vloer op volle grond blijft daar zelden volledig droog, en dat is geen bouwvocht. **Op de zandleemrug** draineert de bodem beter en gaat een vochtige ruimte meestal over te weinig ventilatie. De vochtmeting bij de levering vertelt welke van de twee het is, en **die zit in de prijs**.",
+        "Bij de hoeves zelf gaat het om **massief werk en om volume**. Een muur van veertig centimeter geeft zijn vocht traag af, en een **schuur met een hoge nok** telt zwaarder dan haar vloeroppervlak suggereert. Wij rekenen in kubieke meter en zetten luchtbeweging over de volle lengte in.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de schuur of de hoeve**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "**Onmisbaar bij massieve muren**, en op een groot volume de manier om overal even droog te krijgen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor een kelder in de laagste delen**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door." },
+    ],
+    levering: {
+      kop: "Leveren in Alveringem: in onze vaste Westhoektoer",
+      alinea:
+        "Anderhalf uur rijden, dus **de Westhoek plannen we in een vaste toer**: ook de kleine dorpen liggen daar gewoon op. Bij een hoeve vragen we **vooraf het volume in kubieke meter** en of de ruimte dicht te krijgen is. Staat ze aan een onverharde oprit, zeg dat dan ook.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **anderhalf uur, dus drie uur heen en terug**. **Vanuit Alveringem raden we afhalen af en leveren we gewoon.** De rit zit al in de prijs van het pakket.",
+    },
+    buren: ["veurne", "lo-reninge", "vleteren", "poperinge", "koksijde", "de-panne"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Dat hangt van uw dorp af. In de laagste delen houdt polderklei water vast en staat het grondwater hoog; op de zandleemrug draineert de bodem beter en gaat het meestal om te weinig ventilatie. De vochtmeting bij de levering vertelt welke van de twee het is.",
+      },
+      {
+        q: "Kunnen jullie een schuur of een stal drogen?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten: een droger tegen een open poort werkt tegen de buitenlucht in. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Komen jullie ook naar een klein dorp?",
+        a: "Ja, en zonder toeslag. We plannen de Westhoek in een vaste toer, dus Leisele, Stavele, Oeren en Hoogstade liggen daar gewoon op.",
+      },
+      {
+        q: "Hoe snel staan jullie in Alveringem?",
+        a: "De rit duurt anderhalf uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "lo-reninge",
+    title: "Bouwdroger huren in Lo-Reninge | Vernast",
+    description:
+      "Bouwdroger huren in Lo-Reninge, Reninge en Pollinkhove: kleine kernen aan de IJzer, met hoog water. Bij waterschade bellen we u terug om snel te plannen.",
+    h1: "Bouwdroger huren in Lo-Reninge",
+    kicker: "Westhoek · aan de IJzer",
+    rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en dertig minuten" },
+    intro: [
+      "Lo-Reninge is **een van de kleinste steden van het land**: Lo, Reninge, Noordschote en Pollinkhove samen, met de IJzer er dwars door.",
+      "Die rivier bepaalt het werk. De **broeken langs de IJzer** zijn overstromingsgebied, en de woningen ertegenaan hebben een grondwaterstand die met de rivier meebeweegt.",
+    ],
+    bouw: {
+      kop: "Kernen aan de IJzer, met het water dat meebeweegt",
+      alineas: [
+        "Tegen de broeken is **het grondwater ondiep en volgt het de rivier**. Een kelder die bij hoogwater vochtig wordt is geen bouwvocht: **drogen haalt het uit de ruimte, de bron blijft**. Onze technieker meet dat bij de levering en zegt eerlijk wat drogen hier oplost en wat niet.",
+        "Heeft er **water binnen gestaan**, dan is snelheid alles: hoe langer water in een vloeropbouw en achter een plint staat, hoe groter de kans op schimmel en op isolatie die haar waarde verliest. Zet plinten los en haal wat nat is uit de ruimte voor we komen, dan kan de holle ruimte erachter meedrogen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Lo-Reninge: in onze vaste Westhoektoer",
+      alinea:
+        "Anderhalf uur rijden, dus **de Westhoek plannen we in een vaste toer**: ook een stad van drieduizend inwoners ligt daar gewoon op. **Bij waterschade bellen we u terug** in plaats van u een formulier te laten afwachten.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **anderhalf uur, dus drie uur heen en terug**. **Vanuit Lo-Reninge leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["diksmuide", "alveringem", "vleteren", "houthulst", "veurne"],
+    faq: [
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons. Hoe langer water in de vloeropbouw staat, hoe groter de kans op schimmel.",
+      },
+      {
+        q: "Mijn kelder is altijd wat vochtig. Helpt drogen?",
+        a: "Zolang het toestel draait wel: de ruimte wordt bruikbaar en schimmel krijgt geen kans. Maar het grondwater volgt hier de IJzer, en dat stopt een droger niet. De vochtmeting bij de levering vertelt of het om bouwvocht of om grondwater gaat.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt.",
+      },
+      {
+        q: "Komen jullie ook naar zo'n kleine stad?",
+        a: "Ja, en zonder toeslag. We plannen de Westhoek in een vaste toer, dus Lo, Reninge, Noordschote en Pollinkhove liggen daar gewoon op. De prijs is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Hoe snel staan jullie in Lo-Reninge?",
+        a: "De rit duurt anderhalf uur en we plannen de Westhoek in een vaste toer. Bij waterschade bellen we u terug om sneller te plannen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "houthulst",
+    title: "Bouwdroger huren in Houthulst | Vernast",
+    description:
+      "Bouwdroger huren in Houthulst, Merkem en Klerken: dorpen op de zandleemrug bij het bos. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Houthulst",
+    kicker: "Westhoek · op de rug bij het bos",
+    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Houthulst ligt met **Merkem, Klerken en Jonkershove** op de zandleemrug naast het Vrijbos, net boven de IJzervlakte.",
+      "Die paar meter hoogte maken verschil: **hier draineert de bodem beter** dan in de broeken ernaast, dus is een natte kelder minder vaak de klacht en gaat het werk over gewoon bouwvocht.",
+    ],
+    bouw: {
+      kop: "Renovatie en nieuwbouw op de rug, net boven de vlakte",
+      alineas: [
+        "Op de rug gaat het om **gewoon bouwvocht**: een verse chape geeft vijf tot tien liter water per dag per honderd vierkante meter af, en met droger en ventilator samen is een gelijkvloers **in een tiental dagen beloopbaar en in twee à drie weken klaar voor de vloerder**, tegenover vijf à zeven weken zonder hulp.",
+        "Bij de oudere woningen en hoeves hier is het **massief werk** dat de tijd bepaalt: muren van veertig centimeter geven hun vocht traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg; zonder hem staat de droger lucht te drogen die al droog is.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en bij massieve muren is hij een voorwaarde." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot gelijkvloers: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Houthulst: in onze vaste Westhoektoer",
+      alinea:
+        "Ruim een uur rijden, en we plannen de Westhoek in een vaste toer. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is. Op een winterwerf controleert de technieker of **de werfkast 400 V levert** voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Houthulst leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["diksmuide", "lo-reninge", "langemark-poelkapelle", "staden", "kortemark", "vleteren"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Minder dan in de IJzervlakte ernaast. Houthulst ligt op de zandleemrug en daar draineert de bodem beter. Blijft een kelder hier toch vochtig, dan gaat het vaak om te weinig ventilatie, en dat lost een droger wel op. De meting bij de levering vertelt het.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Waarom droogt een oude woning trager dan nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Hoe snel staan jullie in Houthulst?",
+        a: "De rit duurt ruim een uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "kortemark",
+    title: "Bouwdroger huren in Kortemark | Vernast",
+    description:
+      "Bouwdroger huren in Kortemark, Handzame en Zarren: woningen in de Handzamevallei, die geregeld volloopt. Bij waterschade bellen we u terug om snel te plannen.",
+    h1: "Bouwdroger huren in Kortemark",
+    kicker: "Westhoek · de Handzamevallei",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Kortemark bestaat uit **Handzame, Werken, Zarren en Kortemark**, en die liggen rond de **Handzamevallei**: een laaggelegen beekvallei die bij een langere regenperiode geregeld volloopt.",
+      "Dat is waar een deel van ons werk hier vandaan komt: **niet bouwvocht, maar water dat er niet hoort te zijn**, in kelders en op gelijkvloersen van de laagste straten.",
+    ],
+    bouw: {
+      kop: "Laaggelegen woningen in de beekvallei",
+      alineas: [
+        "Na hoogwater is **snelheid alles**. Hoe langer water in een vloeropbouw en achter een plint staat, hoe groter de kans op schimmel en op isolatie die haar waarde verliest. We zetten dan **meer capaciteit in dan strikt nodig** en altijd luchtbeweging erbij, want water kruipt onder vloeren en achter plinten waar een droger alleen niet aan komt.",
+        "Buiten die situaties is het hier gewoon werk: **renovatie en nieuwbouw** in de kernen. Met droger en ventilator samen is een gelijkvloers **in een tiental dagen beloopbaar en in twee à drie weken klaar voor de vloerder**.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Kortemark: bij waterschade zo snel als het kan",
+      alinea:
+        "Ruim een uur rijden, en we plannen de Westhoek in een vaste toer. **Bij waterschade bellen we u terug in plaats van u een formulier te laten afwachten**, want een dag vroeger drogen is hier het verschil tussen een vloer die blijft en een vloer die eruit moet.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. Bij waterschade is dat precies de tijd die u niet hebt: **dan leveren wij**, en de rit zit al in de prijs van het pakket.",
+    },
+    buren: ["diksmuide", "houthulst", "koekelare", "torhout", "lichtervelde", "staden"],
+    faq: [
+      {
+        q: "Mijn gelijkvloers stond onder water. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Zet plinten los zodat de holle ruimte erachter kan drogen, haal wat nat is uit de ruimte, en bel ons. Hoe langer water in de vloeropbouw staat, hoe groter de kans op schimmel.",
+      },
+      {
+        q: "Hoe lang duurt het drogen na hoogwater?",
+        a: "Voor een kelder of een gelijkvloers reken op twee tot vier weken, afhankelijk van hoe lang het water er stond en van de vloeropbouw. Een zwevende vloer op isolatie doet er langer over, want het water zit onder de afwerking.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt.",
+      },
+      {
+        q: "En voor een gewone renovatie?",
+        a: "Dan plannen we u in onze vaste Westhoektoer. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is of in de volgende toer valt.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "koekelare",
+    title: "Bouwdroger huren in Koekelare | Vernast",
+    description:
+      "Bouwdroger huren in Koekelare, Bovekerke en Zande: dorpen op de rand van het Houtland. Geleverd en geplaatst. Binnen onze vaste West-Vlaamse toer, met meting inbegrepen.",
+    h1: "Bouwdroger huren in Koekelare",
+    kicker: "Westhoek · op de rand van het Houtland",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Koekelare ligt met **Bovekerke en Zande op de rand van het Houtland**, tussen de polder en de zandstreek, net boven de IJzervlakte.",
+      "Wat we hier drogen is vooral gewoon werk: **nieuwbouw in verkavelingen** rond de kernen en **renovatie van dorpswoningen en hoeves** erin.",
+    ],
+    bouw: {
+      kop: "Nieuwbouw en renovatie, op zandleem",
+      alineas: [
+        "Een verse chape geeft **vijf tot tien liter water per dag per honderd vierkante meter** af in de eerste weken, en dat moet eruit voor het pleisterwerk en de vloer komen. Met droger en ventilator samen is een gelijkvloers **in een tiental dagen beloopbaar en in twee à drie weken klaar voor de vloerder**.",
+        "Bij een hoeve of een oudere dorpswoning bepaalt **massief werk** de tijd: muren van veertig centimeter geven hun vocht traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand, altijd met een ventilator erbij.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en bij massieve muren is hij een voorwaarde." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot gelijkvloers: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw of schuur in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V." },
+    ],
+    levering: {
+      kop: "Leveren in Koekelare: in onze vaste Westhoektoer",
+      alinea:
+        "Ruim een uur rijden, en we plannen de Westhoek in een vaste toer. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is. Bij een hoeve vragen we vooraf het volume in kubieke meter.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Koekelare leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["kortemark", "ichtegem", "gistel", "diksmuide", "torhout"],
+    faq: [
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder. De technieker meet bij de ophaling.",
+      },
+      {
+        q: "Waarom droogt een hoeve trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Kunnen jullie een schuur of een stal drogen?",
+        a: "Ja, als ze dicht te krijgen is. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Koekelare?",
+        a: "De rit duurt ruim een uur en we plannen de Westhoek in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "kortrijk",
+    title: "Bouwdroger huren in Kortrijk | Vernast",
+    description:
+      "Bouwdroger huren in Kortrijk, Heule en Marke: stadsrenovatie en bedrijfsgebouwen met grote vloeren. Grote vloeren delen we op in droogzones, met meting inbegrepen.",
+    h1: "Bouwdroger huren in Kortrijk",
+    kicker: "Leiestreek · stad met grote vloeren",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Kortrijk is **de motor van de Leiestreek**, en onze werven hier lopen van een rijhuis in de binnenstad tot een bedrijfshal op de zone. Met Heule, Bissegem, Marke en Aalbeke erbij.",
+      "Wat deze streek apart maakt is **de maat van de vloeren**. Op een oppervlak van vijfhonderd vierkante meter en meer haalt één droger in een hoek niets uit: daar hoort een **droogzone-aanpak** bij.",
+    ],
+    bouw: {
+      kop: "Rijhuizen in de kern, en vloeren van honderden vierkante meters",
+      alineas: [
+        "Op een **grote vloer delen we de ruimte op in droogzones**: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. Eén toestel in een hoek droogt die hoek, en dan staat u drie weken later nog te wachten op de andere kant. Geef ons **het volume in kubieke meter en de datum van uw inrichter**, dan rekenen we terug hoeveel zones er nodig zijn.",
+        "In de binnenstad is het omgekeerde waar: **smalle, diepe rijhuizen** waar droge lucht niet vanzelf van voor naar achter gaat. Daar hoort ook een ventilator bij, maar om een andere reden: niet om een oppervlak te bedekken, maar om de lucht tot achteraan te brengen en de verzadigde laag langs vloer en muur weg te blazen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de grote vloer**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op honderden vierkante meters zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte, en in een rijhuis brengt hij ze tot achteraan." },
+      { key: "ttk350", waarom: "De Medium voor een woning of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "Voor een onverwarmde hal in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Kortrijk: met een datum om naar terug te rekenen",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Geef bij een bedrijfsgebouw de datum van uw inrichter door**, dan rekenen we terug hoeveel droogzones er nodig zijn. Ligt uw pand in een zone met venstertijden, zeg dat dan bij de reservatie.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Kortrijk leveren we gewoon.** Voor een grote vloer is het trouwens nooit de bedoeling: daar gaan meerdere toestellen in één rit naartoe.",
+    },
+    buren: ["harelbeke", "kuurne", "wevelgem", "zwevegem", "menen", "lendelede"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een vloer van 500 m²?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen zo'n vloer op in droogzones: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. Geef ons het volume in kubieke meter en de opleverdatum, dan rekenen we het uit.",
+      },
+      {
+        q: "Is één groot toestel niet goedkoper dan drie kleine?",
+        a: "Op papier wel, in de praktijk niet. Eén toestel in een hoek droogt die hoek, en dan huurt u weken langer. Meer capaciteit in één keer verkort de totale huurperiode, en die weegt zwaarder dan het aantal toestellen.",
+      },
+      {
+        q: "Hoe droog moet een chape zijn voor een gietvloer?",
+        a: "Strenger dan voor tegels. Uw vloerder bepaalt de grens; wij drogen tot een gemeten waarde en niet tot een datum. De technieker meet bij de ophaling en u krijgt die meting op papier.",
+      },
+      {
+        q: "Hoort er een ventilator bij een rijhuis?",
+        a: "In een smalle, diepe plattegrond wel. De droger maakt droge lucht, de ventilator brengt die tot achteraan en blaast de verzadigde laag langs vloer en muur weg. Hij zit standaard in onze droogpakketten voor een rijwoning.",
+      },
+      {
+        q: "Hoe snel staan jullie in Kortrijk?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef bij de reservatie door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "harelbeke",
+    title: "Bouwdroger huren in Harelbeke | Vernast",
+    description:
+      "Bouwdroger huren in Harelbeke, Bavikhove en Hulste: woningen en bedrijfsgebouwen aan de Leie. Grote vloeren delen we op in droogzones, geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Harelbeke",
+    kicker: "Leiestreek · woningen en bedrijven aan het water",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Harelbeke ligt **aan de Leie tussen Kortrijk en Waregem**, met Bavikhove, Hulste en Stasegem erbij. De gemeente heeft een industrieel verleden en nog altijd een flinke bedrijvenzone.",
+      "Dat verdeelt het werk: **bedrijfsgebouwen met grote vloeren** aan de ene kant, en **woningrenovatie** in de dichtbebouwde kern aan de andere.",
+    ],
+    bouw: {
+      kop: "Grote vloeren op de zone, compacte woningen in de kern",
+      alineas: [
+        "Op een **grote vloer delen we de ruimte op in droogzones**: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. Eén toestel in een hoek droogt die hoek. We vragen vooraf **het volume in kubieke meter, de beschikbare stroom en of de poorten kunnen sluiten**, want een droger tegen een open poort werkt tegen de buitenlucht in.",
+        "In de kern gaat het om **compacte woningen met een aanbouw achteraan**. Die aanbouw is vaak het natte punt: een plat dak, een vloer op volle grond en een verbinding met het oude volume waar de isolatie ophoudt. Daar zetten we een **eigen droogzone** op in plaats van het mee te nemen in het geheel.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de bedrijfsvloer**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op een groot oppervlak zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+      { key: "ttk350", waarom: "De Medium voor een woning of een aanbouw: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "Voor een onverwarmde hal in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Harelbeke: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Geef bij een bedrijfsgebouw het volume en de datum van uw inrichter door**, dan rekenen we terug hoeveel droogzones er nodig zijn in plaats van u achteraf te laten verlengen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Harelbeke leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["kortrijk", "kuurne", "deerlijk", "waregem", "lendelede"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een bedrijfsvloer?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen zo'n vloer op in droogzones: per zone een droger met voldoende capaciteit en een ventilator die de lucht over de volle lengte verdeelt. Geef ons het volume in kubieke meter en de opleverdatum.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf dan achteraf.",
+      },
+      {
+        q: "Mijn aanbouw blijft vochtig terwijl de rest droog is. Waarom?",
+        a: "Omdat droge lucht niet vanzelf naar achteren gaat, en omdat een aanbouw vaak een andere vloeropbouw heeft dan het hoofdvolume. Daar hoort een eigen droogzone bij: een toestel in die ruimte, met de deur dicht en een ventilator erbij.",
+      },
+      {
+        q: "Hebben jullie 400 V nodig?",
+        a: "Alleen voor de elektrische kachel, die we in de winter bij een onverwarmde ruimte inzetten. De drogers en de ventilatoren draaien op 230 V. De technieker controleert de kast bij de levering.",
+      },
+      {
+        q: "Hoe snel staan jullie in Harelbeke?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "kuurne",
+    title: "Bouwdroger huren in Kuurne | Vernast",
+    description:
+      "Bouwdroger huren in Kuurne: dicht bebouwde gemeente naast Kortrijk, met kleine percelen. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Kuurne",
+    kicker: "Leiestreek · dicht bebouwd naast Kortrijk",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Kuurne is **klein van oppervlakte en dicht bebouwd**, vastgegroeid aan Kortrijk en Harelbeke. De percelen zijn beperkt, de woningen staan tegen elkaar, en er wordt **verdicht**: appartementen op de plaats van één woning.",
+      "Dat maakt onze werven hier **compact en vaak bewoond**: een toestel dat via de bestaande trap naar boven moet, op één stopcontact draait en stil genoeg is voor de buren.",
+    ],
+    bouw: {
+      kop: "Kleine percelen, verdichting en bewoonde werven",
+      alineas: [
+        "Bij een **renovatie op een klein perceel** is er geen plaats om materiaal te stapelen, en de werf is vaak bewoond. Het toestel moet dan **stil genoeg** zijn, **op 230 V** draaien en **door een gewone deur** passen. De Small bouwdroger is daarvoor gemaakt: 50 liter per dag, 0,75 kW en 25 kg.",
+        "Bij een **nieuw appartementsblok** moeten meerdere eenheden tegelijk drogen, achter elkaar in de agenda van de vloerder. Geef bij de reservatie door **hoeveel eenheden** het zijn, dan leveren we in één rit en zetten we per eenheid een droogzone op. Vanuit Aartselaar is dat hier extra belangrijk: de rit duurt een uur, en die willen we niet drie keer doen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Het toestel voor een bewoonde werf**: compact, stil en zuinig op een gewoon stopcontact. Voor één kamer, een badkamer of een appartement." },
+      { key: "ttk350", waarom: "De Medium voor een volledig gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "In een diepe plattegrond brengt deze ventilator de droge lucht tot achteraan, en bij een chape verdubbelt hij vaak de snelheid." },
+      { key: "ttk650", waarom: "Voor een groot gelijkvloers of een meergezinswoning in afwerking: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Kuurne: in één rit, ook voor meerdere eenheden",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Geef bij de reservatie door hoeveel eenheden er moeten drogen en of er plaats is om te parkeren**, dan komt alles in één rit mee en weet de technieker dat hij eventueel verder moet uitladen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Kuurne leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["kortrijk", "harelbeke", "lendelede"],
+    faq: [
+      {
+        q: "Mag een bouwdroger draaien in een bewoonde woning?",
+        a: "Ja, en daarvoor is de Small bouwdroger bedoeld. Hij verbruikt 0,75 kW, dus hij mag op een gewoon stopcontact, en hij is stil genoeg om in de kamer ernaast te slapen. Houd de deur van de droogzone dicht.",
+      },
+      {
+        q: "Kunnen jullie meerdere appartementen tegelijk doen?",
+        a: "Ja. Geef bij de reservatie door hoeveel eenheden er tegelijk moeten drogen, dan leveren we in één rit en zetten we per eenheid een droogzone op. Dat is goedkoper dan dezelfde rit drie keer, en uw vloerder kan achter elkaar doorwerken.",
+      },
+      {
+        q: "Er is geen plaats om te parkeren in mijn straat. Lukt dat?",
+        a: "Meestal wel: de technieker staat kort stil om uit te laden. Zeg bij de reservatie dat er geen plaats is voor de deur, dan weet hij dat hij verder moet uitladen en brengt hij het juiste materiaal mee.",
+      },
+      {
+        q: "Zit de verdieping in de prijs?",
+        a: "Is er een lift of een vaste trap, dan is elke verdieping inbegrepen. Moet een toestel via een ladder naar boven omdat de trap nog niet ligt, dan rekenen we een toeslag per verdieping, en die staat vooraf in uw offerte.",
+      },
+      {
+        q: "Hoe snel staan jullie in Kuurne?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "deerlijk",
+    title: "Bouwdroger huren in Deerlijk | Vernast",
+    description:
+      "Bouwdroger huren in Deerlijk: compacte woonkern tussen Harelbeke en Waregem, met renovatie en nieuwbouw. Binnen onze vaste toer geleverd, geplaatst en opgehaald.",
+    h1: "Bouwdroger huren in Deerlijk",
+    kicker: "Leiestreek · compacte woonkern",
+    rit: { afstand: "circa 98 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Deerlijk is een **compacte woongemeente** tussen Harelbeke en Waregem, met de Gaverbeek als laagste punt. Veel halfopen bebouwing, een dichtbebouwde kern en verkavelingen aan de rand.",
+      "Wat we hier drogen is daarom vooral **gewoon werk**: chape van een gelijkvloers, vers pleisterwerk, en af en toe een kelder in de laagste straten.",
+    ],
+    bouw: {
+      kop: "Halfopen woningen, en de laagste straten bij de beek",
+      alineas: [
+        "Een verse chape geeft **vijf tot tien liter water per dag per honderd vierkante meter** af in de eerste weken. Met droger en ventilator samen is een gelijkvloers **in een tiental dagen beloopbaar en in twee à drie weken klaar voor de vloerder**, tegenover vijf à zeven weken zonder hulp.",
+        "In de laagste straten bij de **Gaverbeek** staat het grondwater ondiep, en blijft een kelder zelden volledig droog. Dat is geen bouwvocht: **drogen haalt het uit de ruimte, de bron blijft**. De technieker meet dat verschil bij de levering in plaats van het te veronderstellen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+      { key: "revolution", waarom: "**Voor een kelder in de laagste straten**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttk650", waarom: "Voor een groot gelijkvloers of een bedrijfsruimte: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Deerlijk: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. U krijgt een tijdslot en een sms een halfuur vooraf. Gaat het om een kelder, dan meet de technieker eerst of het om bouwvocht of om grondwater gaat.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Deerlijk leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["harelbeke", "waregem", "anzegem", "zwevegem", "kortrijk"],
+    faq: [
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder. De technieker meet bij de ophaling.",
+      },
+      {
+        q: "Mijn kelder blijft vochtig na het drogen. Hoe kan dat?",
+        a: "Omdat een droger vocht uit de lucht haalt, niet uit de grond. In de laagste straten bij de beek is het grondwater ondiep. Drogen houdt de ruimte bruikbaar zolang het toestel draait, maar de bron blijft.",
+      },
+      {
+        q: "Wanneer start ik met drogen na het chaperen?",
+        a: "Niet meteen. Een chape moet eerst uitharden: reken op 48 tot 72 uur, en start dan voorzichtig. Te snel drogen geeft krimpscheuren, en daarom stelt de technieker de hygrostaat in op een streefwaarde.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Deerlijk?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "lendelede",
+    title: "Bouwdroger huren in Lendelede | Vernast",
+    description:
+      "Bouwdroger huren in Lendelede: kleine gemeente tussen Kortrijk en Izegem, met nieuwbouw en renovatie. Ook een kleine gemeente ligt gewoon op onze vaste toer.",
+    h1: "Bouwdroger huren in Lendelede",
+    kicker: "Leiestreek · kleine gemeente, dichte bebouwing",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Lendelede is **een van de kleinste gemeenten van de streek**, ingesloten tussen Kortrijk, Kuurne en Izegem. Eén kern, verkavelingen eromheen en lintbebouwing langs de steenwegen.",
+      "Wat we hier drogen is **gewoon werk**: chape van een gelijkvloers in nieuwbouw, en renovatie van halfopen woningen met een aanbouw achteraan.",
+    ],
+    bouw: {
+      kop: "Nieuwbouw en renovatie, in één kern",
+      alineas: [
+        "Een verse chape geeft **vijf tot tien liter water per dag per honderd vierkante meter** af in de eerste weken, en dat moet eruit voor het pleisterwerk en de vloer komen. Met droger en ventilator samen is een gelijkvloers **in een tiental dagen beloopbaar en in twee à drie weken klaar voor de vloerder**.",
+        "Bij een renovatie is **de aanbouw achteraan** vaak het natte punt: een plat dak, een vloer op volle grond en een verbinding met het oude volume waar de isolatie ophoudt. Daar zetten we **een eigen droogzone** op in plaats van het mee te nemen in het geheel, want anders droogt de voorkant en blijft de achterkant staan.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De standaard voor een woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en in een diepe plattegrond brengt ze droge lucht tot achteraan." },
+      { key: "ttk170", waarom: "Voor één kamer, een badkamer of een aanbouw: 50 liter per dag en 0,75 kW op een gewoon stopcontact." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Lendelede: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer: ook een kleine gemeente ligt daar gewoon op. U krijgt een tijdslot en een sms een halfuur vooraf.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Lendelede leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["kuurne", "harelbeke", "izegem", "ingelmunster", "kortrijk"],
+    faq: [
+      {
+        q: "Komen jullie ook naar een kleine gemeente?",
+        a: "Ja, en zonder toeslag. We plannen West-Vlaanderen in een vaste toer, dus Lendelede ligt daar gewoon op. De prijs van het droogpakket is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Mijn aanbouw blijft vochtig terwijl de rest droog is. Waarom?",
+        a: "Omdat droge lucht niet vanzelf naar achteren gaat, en omdat een aanbouw vaak een andere vloeropbouw heeft. Daar hoort een eigen droogzone bij: een toestel in die ruimte, met de deur dicht en een ventilator erbij.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Hoe snel staan jullie in Lendelede?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "waregem",
+    title: "Bouwdroger huren in Waregem | Vernast",
+    description:
+      "Bouwdroger huren in Waregem, Desselgem en Sint-Eloois-Vijve: bedrijfsgebouwen en nieuwbouw aan de Leie. Onze kortste rit in de Leiestreek, met meting inbegrepen.",
+    h1: "Bouwdroger huren in Waregem",
+    kicker: "Leiestreek · bedrijfsgebouwen aan de Leie",
+    rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Waregem is **onze kortste rit in de Leiestreek**: negentig kilometer, ongeveer een uur. Met Desselgem, Sint-Eloois-Vijve en Beveren-Leie erbij.",
+      "De stad leeft van **bedrijvigheid**, en dat is in ons werk te zien: naast woningrenovatie drogen we hier vooral **bedrijfsgebouwen met grote vloeren**, waar de inrichter al in de agenda staat.",
+    ],
+    bouw: {
+      kop: "Grote bedrijfsvloeren, en nieuwbouw errond",
+      alineas: [
+        "Op een **grote vloer delen we de ruimte op in droogzones**: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. Eén toestel in een hoek droogt die hoek, en dan haalt u de opleverdatum niet. Geef ons **het volume in kubieke meter en de datum**, dan rekenen we terug hoeveel zones er nodig zijn.",
+        "Een **gietvloer op een te natte chape komt los**, en dat kost een veelvoud van een week extra huur. Daarom drogen we tot **een gemeten waarde** en niet tot een datum: de technieker meet bij de ophaling en u krijgt die meting op papier, zodat uw inrichter weet waar hij aan toe is.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de bedrijfsvloer**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op een groot oppervlak zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+      { key: "ttk350", waarom: "De Medium voor een woning of een kleinere ruimte: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "Voor een onverwarmde hal in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Waregem: onze kortste rit in de Leiestreek",
+      alinea:
+        "**Negentig kilometer, ongeveer een uur: de kortste rit van onze Leiestreektoer.** Boekt u voor de middag, dan lukt de volgende werkdag doorgaans. **Geef bij een bedrijfsgebouw de datum van uw inrichter door**, dan rekenen we terug hoeveel droogzones er nodig zijn.",
+    },
+    afhalen: {
+      kop: "Afhalen loont ook hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor een bedrijfsvloer is dat nooit de bedoeling: daar gaan meerdere toestellen in één rit naartoe, en die levering zit al in de prijs.",
+    },
+    buren: ["deerlijk", "harelbeke", "anzegem", "zulte", "dentergem", "wielsbeke"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een vloer van 1000 m²?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen zo'n vloer op in droogzones: per zone een droger met voldoende capaciteit en een ventilator over de volle lengte. Geef ons het volume in kubieke meter en de opleverdatum, dan rekenen we het uit.",
+      },
+      {
+        q: "Hoe snel kan een bedrijfsvloer droog zijn?",
+        a: "Een chape van vijf centimeter doet zonder hulp vijf à zeven weken; met voldoende drogers en luchtbeweging halen we dat naar twee à drie weken. Geef ons de datum van uw inrichter, dan rekenen we terug hoeveel capaciteit daarvoor nodig is.",
+      },
+      {
+        q: "Hoe droog moet een chape zijn voor een gietvloer?",
+        a: "Strenger dan voor tegels. Uw vloerder bepaalt de grens; wij drogen tot een gemeten waarde en niet tot een datum. De technieker meet bij de ophaling en u krijgt die meting op papier.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf.",
+      },
+      {
+        q: "Hoe snel staan jullie in Waregem?",
+        a: "Waregem is de kortste halte van onze Leiestreektoer: ongeveer een uur rijden. Boekt u voor de middag, dan staat het doorgaans de volgende werkdag.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "wevelgem",
+    title: "Bouwdroger huren in Wevelgem | Vernast",
+    description:
+      "Bouwdroger huren in Wevelgem, Gullegem en Moorsele: bedrijvenzones en woonkernen aan de Leie. Grote vloeren delen we op in droogzones, geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Wevelgem",
+    kicker: "Leiestreek · bedrijvenzones en woonkernen",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Wevelgem ligt **aan de Leie tussen Kortrijk en Menen**, met Gullegem en Moorsele erbij, en heeft met de luchthaven en de bedrijvenzones een flink aandeel **bedrijfsgebouwen**.",
+      "Daarnaast is het een gewone woongemeente: **verkavelingen en halfopen bebouwing** rond de drie kernen, waar chape en pleisterwerk moeten drogen.",
+    ],
+    bouw: {
+      kop: "Bedrijfsvloeren en loodsen, en woningen in de kernen",
+      alineas: [
+        "Op een **grote vloer of in een loods delen we de ruimte op in droogzones**: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. We vragen vooraf **het volume in kubieke meter, de beschikbare stroom en of de poorten kunnen sluiten**, want een droger tegen een open poort werkt tegen de buitenlucht in.",
+        "In de woonkernen is het voorspelbaarder: een verse chape geeft **vijf tot tien liter water per dag per honderd vierkante meter** af, en met droger en ventilator samen is een gelijkvloers **in twee à drie weken klaar voor de vloerder**.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de loods of de bedrijfsvloer**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+      { key: "ttk350", waarom: "De Medium voor een woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "Voor een onverwarmde hal in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Wevelgem: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Geef bij een bedrijfsgebouw het volume en de datum van uw inrichter door**, dan rekenen we terug hoeveel droogzones er nodig zijn.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Wevelgem leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["kortrijk", "menen", "wervik", "ledegem", "moorslede"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een loods?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen de ruimte op in droogzones: per zone een droger met voldoende capaciteit en een ventilator over de volle lengte. Geef ons het volume in kubieke meter en de opleverdatum.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf dan achteraf.",
+      },
+      {
+        q: "Hoe lang moet een chape in een woning drogen?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Hebben jullie 400 V nodig?",
+        a: "Alleen voor de elektrische kachel, die we in de winter bij een onverwarmde ruimte inzetten. De drogers en de ventilatoren draaien op 230 V. De technieker controleert de kast bij de levering.",
+      },
+      {
+        q: "Hoe snel staan jullie in Wevelgem?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "menen",
+    title: "Bouwdroger huren in Menen | Vernast",
+    description:
+      "Bouwdroger huren in Menen, Lauwe en Rekkem: dicht bebouwde grensstad met veel renovatie. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Menen",
+    kicker: "Leiestreek · grensstad, dicht bebouwd",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Menen ligt **pal op de Franse grens**, met Lauwe en Rekkem erbij, en is dicht bebouwd: **rijhuizen en arbeiderswoningen** uit de textielperiode, met kleine percelen en smalle straten.",
+      "Die woningen gaan nu in **grondige renovatie**, en dat is waar ons werk hier vandaan komt: vers pleisterwerk en een nieuwe chape in een smal, diep huis waar vaak nog iemand woont.",
+    ],
+    bouw: {
+      kop: "Rijhuizen uit de textielperiode, smal en diep",
+      alineas: [
+        "Een rijhuis uit die periode is **smal en diep**, met een kelder deels onder het maaiveld en massieve muren **zonder waterkering in de muurvoet**. Een vochtband onderaan de muur met een witte zoutrand is dus opstijgend vocht en geen bouwvocht: **drogen houdt de ruimte bruikbaar, maar stopt de aanvoer niet**.",
+        "Droge lucht gaat in zo'n plattegrond **niet vanzelf van voor naar achter**. Daarom hoort er een ventilator bij de droger: die brengt de droge lucht tot achteraan en blaast de verzadigde laag langs vloer en muur weg. Zonder dat laatste droogt de voorkamer en blijft de keuken staan.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium voor een volledig rijhuis: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "In een smal en diep rijhuis gaat droge lucht niet van voor naar achter. Deze ventilator doet dat wel, en **halveert vaak de droogtijd**." },
+      { key: "ttk170", waarom: "**Voor een bewoonde werf of één kamer**: 50 liter per dag en 0,75 kW op een gewoon stopcontact, stil genoeg voor de buren." },
+      { key: "revolution", waarom: "**Voor de kelder onder het maaiveld**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+    ],
+    levering: {
+      kop: "Leveren in Menen: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Is er geen plaats om te parkeren voor de deur, zeg dat dan bij de reservatie**, dan weet de technieker dat hij verder moet uitladen en brengt hij het juiste materiaal mee.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Menen leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["wevelgem", "wervik", "kortrijk"],
+    faq: [
+      {
+        q: "Mijn muren blijven onderaan vochtig. Is dat bouwvocht?",
+        a: "In een woning uit de textielperiode is dat bijna altijd opstijgend vocht: die zijn gebouwd zonder waterkering in de muurvoet. U ziet een band tot ongeveer een halve meter hoog, vaak met een witte zoutrand en afbladderende verf. Bouwvocht zit gelijkmatig in de ruimte.",
+      },
+      {
+        q: "Hoort er een ventilator bij een rijhuis?",
+        a: "In een smalle, diepe plattegrond wel. De droger maakt droge lucht, de ventilator brengt die tot achteraan en blaast de verzadigde laag langs vloer en muur weg. Hij zit standaard in onze droogpakketten voor een rijwoning.",
+      },
+      {
+        q: "Mag een bouwdroger draaien terwijl wij er wonen?",
+        a: "Ja, en daarvoor is de Small bouwdroger bedoeld. Hij verbruikt 0,75 kW, dus hij mag op een gewoon stopcontact, en hij is stil genoeg om in de kamer ernaast te slapen. Houd de deur van de droogzone dicht.",
+      },
+      {
+        q: "Past een bouwdroger door een smalle gang?",
+        a: "De Small bouwdroger is 40 bij 40 centimeter aan de basis en weegt ongeveer 25 kg. Die gaat door elke gangbare gang en trap. Geef bij de reservatie door dat het om een smalle doorgang gaat.",
+      },
+      {
+        q: "Hoe snel staan jullie in Menen?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "wervik",
+    title: "Bouwdroger huren in Wervik | Vernast",
+    description:
+      "Bouwdroger huren in Wervik en Geluwe: tabaksdrogerijen in herbestemming en woningen aan de Leie. We vragen vooraf of de ruimte dicht te krijgen is.",
+    h1: "Bouwdroger huren in Wervik",
+    kicker: "Leiestreek · tabaksdrogerijen aan de Leie",
+    rit: { afstand: "circa 120 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Wervik is **de tabaksgemeente** van Vlaanderen, en dat heeft gebouwen achtergelaten die we nergens anders tegenkomen: **tabaksdrogerijen en asten**, hoge schuren met lamellen en luiken, gebouwd om lucht door te laten.",
+      "Die gebouwen komen nu in herbestemming, en daar zit een probleem in: **het zijn constructies die ontworpen zijn om te ventileren**, en dat is precies het tegenovergestelde van wat een bouwdroger nodig heeft.",
+    ],
+    bouw: {
+      kop: "Tabaksdrogerijen in herbestemming, en woningen in de kern",
+      alineas: [
+        "Een **tabaksdrogerij of ast** heeft lamellen, luiken en verluchtingsopeningen, want ze is gemaakt om lucht door het gebouw te laten trekken. **Een droger tegen zo'n constructie werkt tegen de buitenlucht in**, en die is onuitputtelijk. We vragen daarom vooraf of de ruimte **dicht te krijgen** is. Lukt dat niet, dan heeft drogen daar geen zin en zeggen we dat liever vooraf dan dat u drie weken huurt voor niets.",
+        "Lukt het wel, dan rekenen we op **volume in kubieke meter**: een gebouw met een hoge nok telt zwaarder dan zijn vloeroppervlak suggereert, en daarbij hoort **luchtbeweging over de volle lengte**. Is de ruimte niet te verwarmen, dan gaat er een adsorptiedroger naartoe die ook bij lage temperatuur doorwerkt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de drogerij of de schuur**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n volume zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**In een hoog volume de voorwaarde**: zonder luchtbeweging over de volle lengte blijft droge lucht hangen waar het toestel staat." },
+      { key: "revolution", waarom: "**Voor het deel dat niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor een woning of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Wervik: met het volume en de openingen vooraf",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Bij een drogerij of een ast vragen we **vooraf het volume in kubieke meter en of de lamellen en luiken dicht te krijgen zijn**, zodat de technieker niet voor een onmogelijke opdracht staat.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Wervik leveren we gewoon**; bij zo'n gebouw hangt het resultaat bovendien af van hoe de toestellen verdeeld staan.",
+    },
+    buren: ["menen", "wevelgem", "ieper", "mesen", "moorslede"],
+    faq: [
+      {
+        q: "Kunnen jullie een tabaksdrogerij of een ast drogen?",
+        a: "Alleen als ze dicht te krijgen is. Zulke gebouwen zijn juist gemaakt om lucht door te laten, en een droger tegen openstaande lamellen werkt tegen de buitenlucht in. Geef vooraf het volume door en of de openingen kunnen sluiten, dan rekenen we uit of het zin heeft.",
+      },
+      {
+        q: "Hoeveel toestellen voor een schuur met een hoge nok?",
+        a: "Dat hangt van het volume af, niet van de oppervlakte. Een gebouw van zes meter hoog vraagt meer capaciteit dan u op basis van de vloer zou denken, en altijd luchtbeweging over de volle lengte. Eén droger in een hoek droogt die hoek.",
+      },
+      {
+        q: "Kunnen jullie een ruimte drogen die niet te verwarmen is?",
+        a: "Ja, met een adsorptiedroger. Die bindt het vocht aan een droogwiel en blijft ook bij vijf graden doorwerken, waar een condensdroger onder 15 °C het grootste deel van zijn rendement verliest.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Wervik?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "zwevegem",
+    title: "Bouwdroger huren in Zwevegem | Vernast",
+    description:
+      "Bouwdroger huren in Zwevegem, Otegem en Sint-Denijs: woningen op de heuvels tussen Leie en Schelde. Geleverd en geplaatst, met vochtmeting inbegrepen.",
+    h1: "Bouwdroger huren in Zwevegem",
+    kicker: "Leiestreek · heuvels tussen Leie en Schelde",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Zwevegem loopt **van de Kortrijkse rand tot de heuvels bij de Schelde**, met Otegem, Heestert, Sint-Denijs, Moen en Sweveghem-dorp. Het kanaal Bossuit-Kortrijk snijdt er dwars door.",
+      "Die hoogteverschillen zijn het verhaal: op de flanken staat **grond tegen de muur** aan de bergzijde, en op leem perst hangwater daar tegenaan.",
+    ],
+    bouw: {
+      kop: "Woningen in de flank, met hangwater tegen de bergmuur",
+      alineas: [
+        "**Hangwater is geen bouwvocht.** Een woning die in de helling gebouwd is, heeft aan de bergzijde grond tegen de muur, en bij elke regenperiode perst het water daar tegenaan. Een droger haalt het uit de lucht maar niet uit de grond: het komt terug zodra het toestel weg is. **De technieker meet dat bij de levering** en zegt eerlijk dat drainage aan de buitenzijde de oplossing is.",
+        "In de kern en op de bedrijvenzone gaat het om **gewoon bouwvocht en om grote vloeren**: daar delen we de ruimte op in droogzones, met per zone een droger en een ventilator die de droge lucht over de volle lengte verdeelt.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de kelder in de helling**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**, en bij massieve muren een voorwaarde: hij blaast de verzadigde luchtlaag weg." },
+      { key: "ttk650", waarom: "Voor een grote vloer of een bedrijfsruimte: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Zwevegem: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Staat uw woning aan een steile oprit, zeg dat dan bij de reservatie**, dan weet de technieker dat hij verder moet uitladen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Zwevegem leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["kortrijk", "avelgem", "anzegem", "deerlijk", "spiere-helkijn"],
+    faq: [
+      {
+        q: "Mijn muur aan de bergzijde blijft vochtig. Wat is dat?",
+        a: "Waarschijnlijk hangwater: een waterlaag die door de leembodem zijwaarts zakt en tegen die muur komt te staan. Het komt na elke regenperiode terug, meestal op dezelfde plaats. Drogen houdt de ruimte bruikbaar, drainage aan de buitenzijde lost het op.",
+      },
+      {
+        q: "Hoe weet ik of het bouwvocht is of hangwater?",
+        a: "Bouwvocht zit gelijkmatig in de ruimte en neemt af naarmate het droogt. Hangwater geeft een natte plek of band die na elke regenperiode terugkomt. Onze technieker meet dat bij de levering, en die meting zit in de prijs.",
+      },
+      {
+        q: "Hoeveel toestellen voor een grote vloer?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen zo'n vloer op in droogzones: per zone een droger met voldoende capaciteit en een ventilator over de volle lengte.",
+      },
+      {
+        q: "Kan de bestelwagen tot bij mijn huis?",
+        a: "In de meeste straten wel. Is uw oprit steil of onverhard, zeg dat dan bij de reservatie, dan weet de technieker dat hij verder moet uitladen.",
+      },
+      {
+        q: "Hoe snel staan jullie in Zwevegem?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "anzegem",
+    title: "Bouwdroger huren in Anzegem | Vernast",
+    description:
+      "Bouwdroger huren in Anzegem, Vichte en Ingooigem: hoeves en woningen op de leemheuvels. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Anzegem",
+    kicker: "Leiestreek · leemheuvels bij Tiegem",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Anzegem bestaat uit **Vichte, Ingooigem, Kaster, Tiegem en Gijzelbrechtegem** naast de hoofdkern: golvend leemland op de rand van de Vlaamse Ardennen, met de Tiegemberg als hoogste punt.",
+      "Wat we hier drogen is vooral **renovatie van hoeves en dorpswoningen** op die hellingen, en daar hoort hetzelfde verhaal bij als in de Ardennen ernaast: massieve muren en hangwater tegen de bergmuur.",
+    ],
+    bouw: {
+      kop: "Hoeves op leem, op een helling",
+      alineas: [
+        "Een hoeve op **leem** combineert twee trage eigenschappen: **massieve muren die hun vocht traag afgeven**, en een ondergrond die water traag doorlaat. Tegen het muuroppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt, en dat haalt een ventilator weg. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+        "Staat het gebouw in de **helling**, dan heeft het aan de bergzijde grond tegen de muur, en perst hangwater daar bij elke regenperiode tegenaan. **Dat is geen bouwvocht**: een droger houdt de ruimte bruikbaar, maar het water blijft komen. De technieker meet het verschil bij de levering.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard bij renovatie: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Onmisbaar bij massieve muren**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg, en pas dan droogt de muur verder." },
+      { key: "revolution", waarom: "**Voor de kelder of schuur in de helling**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door." },
+      { key: "ttk650", waarom: "Voor een hoeve met grote, hoge volumes: 110 liter per dag en bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Anzegem: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Bij een hoeve vragen we **vooraf het volume in kubieke meter** en of de ruimte dicht te krijgen is. Staat ze aan een steile of onverharde oprit, zeg dat dan ook.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Anzegem leveren we gewoon**; bij massief werk hangt het resultaat bovendien af van waar de toestellen en de ventilatoren staan.",
+    },
+    buren: ["waregem", "deerlijk", "zwevegem", "avelgem", "kruisem", "wortegem-petegem"],
+    faq: [
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, door veertig centimeter of meer, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt. Reken op anderhalf tot twee keer de droogtijd, altijd met een ventilator erbij.",
+      },
+      {
+        q: "Mijn muur aan de bergzijde blijft vochtig. Wat is dat?",
+        a: "Waarschijnlijk hangwater: een waterlaag die door de leembodem zijwaarts zakt en tegen die muur komt te staan. Het komt na elke regenperiode terug. Drogen houdt de ruimte bruikbaar, drainage aan de buitenzijde lost het op.",
+      },
+      {
+        q: "Kunnen jullie een schuur drogen die woonruimte wordt?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Anzegem?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "avelgem",
+    title: "Bouwdroger huren in Avelgem | Vernast",
+    description:
+      "Bouwdroger huren in Avelgem, Outrijve en Waarmaarde: woningen in het winterbed van de Schelde. Bij waterschade bellen we u terug om snel te plannen.",
+    h1: "Bouwdroger huren in Avelgem",
+    kicker: "Leiestreek · in de Scheldevallei",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Avelgem ligt **in de Scheldevallei**, met Outrijve, Waarmaarde, Kerkhove en Bossuit erbij. De meersen langs de rivier zijn **winterbed**: ze horen onder water te komen als het water hoog staat, en dat doen ze ook.",
+      "Daarom gaat een deel van onze werven hier over **water dat er niet hoort te zijn**: een ondergelopen kelder, een gelijkvloers na hoogwater, een berging die bij elke natte periode terugkomt.",
+    ],
+    bouw: {
+      kop: "Kelders in het winterbed, en woningen op de flank",
+      alineas: [
+        "Na hoogwater is **snelheid alles**. Hoe langer water in een vloeropbouw en achter een plint staat, hoe groter de kans op schimmel en op isolatie die haar waarde verliest. We zetten dan **meer capaciteit in dan strikt nodig** en altijd luchtbeweging erbij, want water kruipt onder vloeren en achter plinten waar een droger alleen niet aan komt. Zet plinten los voor we komen.",
+        "Op de flank richting Kluisbergen gaat het om iets anders: **hangwater** uit de leembodem dat tegen de bergzijde van een woning perst, en **massieve muren** die hun vocht traag afgeven. Allebei iets anders dan bouwvocht, en de technieker meet het verschil bij de levering.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk350", waarom: "De Medium bij renovatie en bij een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Avelgem: bij waterschade zo snel als het kan",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Bij waterschade bellen we u terug in plaats van u een formulier te laten afwachten**, want een dag vroeger drogen is hier het verschil tussen een vloer die blijft en een vloer die eruit moet.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Bij waterschade is dat precies de tijd die u niet hebt: **dan leveren wij**, en de rit zit al in de prijs van het pakket.",
+    },
+    buren: ["zwevegem", "anzegem", "spiere-helkijn", "kluisbergen"],
+    faq: [
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons. Hoe langer water in de vloeropbouw staat, hoe groter de kans op schimmel.",
+      },
+      {
+        q: "Hoe lang duurt het drogen na hoogwater?",
+        a: "Voor een kelder of een gelijkvloers reken op twee tot vier weken, afhankelijk van hoe lang het water er stond en van de vloeropbouw. Een zwevende vloer op isolatie doet er langer over, want het water zit onder de afwerking.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt.",
+      },
+      {
+        q: "Ik woon op de flank en één muur blijft vochtig. Wat is dat?",
+        a: "Waarschijnlijk hangwater: een waterlaag die door de leembodem zijwaarts zakt en tegen de bergzijde van uw woning komt te staan. Het komt na elke regenperiode terug. Drainage aan de buitenzijde lost dat op.",
+      },
+      {
+        q: "Hoe snel staan jullie in Avelgem?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Bij waterschade bellen we u terug om sneller te plannen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "spiere-helkijn",
+    title: "Bouwdroger huren in Spiere-Helkijn | Vernast",
+    description:
+      "Bouwdroger huren in Spiere-Helkijn: de kleinste gemeente van West-Vlaanderen, aan de Schelde en de taalgrens. Ook hier leveren we, zonder toeslag.",
+    h1: "Bouwdroger huren in Spiere-Helkijn",
+    kicker: "Leiestreek · de kleinste gemeente van de provincie",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Spiere-Helkijn is **de kleinste gemeente van West-Vlaanderen**: tweeduizend inwoners in twee dorpen aan de Schelde, pal op de taalgrens.",
+      "Klein, maar met dezelfde ondergrond als zijn buren: **de Scheldevallei**, waar het grondwater ondiep staat en het water bij hoogwater in de laagste delen komt.",
+    ],
+    bouw: {
+      kop: "Twee dorpen in de Scheldevallei",
+      alineas: [
+        "In de vallei staat het **grondwater ondiep en beweegt het mee met de Schelde**. Een kelder of een vloer op volle grond blijft daar zelden volledig droog, en dat is geen bouwvocht: **drogen haalt het uit de ruimte, de bron blijft**. De technieker meet dat bij de levering en zegt eerlijk wat drogen hier oplost.",
+        "Heeft er **water binnen gestaan**, dan is snelheid alles: hoe langer water in een vloeropbouw en achter een plint staat, hoe groter de kans op schimmel en op isolatie die haar waarde verliest. Zet plinten los en haal wat nat is uit de ruimte voor we komen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Spiere-Helkijn: ook in de kleinste gemeente",
+      alinea:
+        "Ongeveer een uur rijden, en **we plannen West-Vlaanderen in een vaste toer**: ook een gemeente van tweeduizend inwoners ligt daar gewoon op. Bij waterschade bellen we u terug in plaats van u een formulier te laten afwachten.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Spiere-Helkijn leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["avelgem", "zwevegem", "kluisbergen"],
+    faq: [
+      {
+        q: "Komen jullie ook naar zo'n kleine gemeente?",
+        a: "Ja, en zonder toeslag. We plannen West-Vlaanderen in een vaste toer, dus Spiere en Helkijn liggen daar gewoon op. De prijs van het droogpakket is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons.",
+      },
+      {
+        q: "Mijn kelder is altijd wat vochtig. Helpt drogen?",
+        a: "Zolang het toestel draait wel: de ruimte wordt bruikbaar en schimmel krijgt geen kans. Maar het grondwater beweegt hier mee met de Schelde, en dat stopt een droger niet. De vochtmeting bij de levering vertelt of het om bouwvocht of om grondwater gaat.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt.",
+      },
+      {
+        q: "Hoe snel staan jullie hier?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "roeselare",
+    title: "Bouwdroger huren in Roeselare | Vernast",
+    description:
+      "Bouwdroger huren in Roeselare, Rumbeke en Beveren: stadsrenovatie en bedrijfsvloeren met een opleverdatum. Geleverd en geplaatst, met vochtmeting inbegrepen.",
+    h1: "Bouwdroger huren in Roeselare",
+    kicker: "Midden-West-Vlaanderen · stad met bedrijfsvloeren",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Roeselare is **de stad van Midden-West-Vlaanderen**, met Rumbeke, Beveren en Oekene erbij, en leeft van bedrijvigheid. Dat is in ons werk te zien: naast woningrenovatie drogen we hier veel **bedrijfsvloeren met een opleverdatum**.",
+      "In de binnenstad gaat het om iets anders: **compacte rijhuizen en handelspanden**, waar chape en pleisterwerk samen moeten drogen voor de vloerlegger kan starten.",
+    ],
+    bouw: {
+      kop: "Chape en pleisterwerk tegelijk, en vloeren met een datum",
+      alineas: [
+        "**Chape en pleisterwerk samen is hier de normale situatie**, en dat is zwaarder dan het lijkt: u droogt twee bronnen tegelijk in dezelfde ruimte. De chape geeft vijf tot tien liter per dag per honderd vierkante meter af, het pleisterwerk komt daar bovenop. Reken dus op **meer capaciteit dan voor chape alleen**, en op een ventilator per droogzone.",
+        "Bij een **bedrijfsvloer** hangt er een datum aan: een gietvloer op een te natte chape komt los. Daar delen we de ruimte op in **droogzones** en drogen we tot **een gemeten waarde** in plaats van tot een datum. Geef ons het volume in kubieke meter en de datum van uw inrichter, dan rekenen we terug.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de bedrijfsvloer of het handelspand**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+      { key: "ttk350", waarom: "De Medium voor een woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "Voor een onverwarmde hal in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Roeselare: met een datum om naar terug te rekenen",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Geef bij een bedrijfsvloer de datum van uw inrichter door**, dan rekenen we terug hoeveel droogzones er nodig zijn. Ligt uw pand in een zone met venstertijden, zeg dat dan bij de reservatie.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Roeselare leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["izegem", "hooglede", "staden", "ingelmunster", "lichtervelde", "moorslede"],
+    faq: [
+      {
+        q: "Chape en pleisterwerk moeten samen drogen. Kan dat?",
+        a: "Ja, en dat is hier eerder regel dan uitzondering. Houd er rekening mee dat u twee bronnen tegelijk droogt in dezelfde ruimte: de chape geeft vijf tot tien liter per dag per honderd vierkante meter af en het pleisterwerk komt daar bovenop. Dat vraagt meer capaciteit dan chape alleen.",
+      },
+      {
+        q: "Hoe snel kan een bedrijfsvloer droog zijn?",
+        a: "Een chape van vijf centimeter doet zonder hulp vijf à zeven weken; met voldoende drogers en luchtbeweging halen we dat naar twee à drie weken. Geef ons de datum van uw inrichter, dan rekenen we terug hoeveel capaciteit daarvoor nodig is.",
+      },
+      {
+        q: "Hoe droog moet een chape zijn voor een gietvloer?",
+        a: "Strenger dan voor tegels. Uw vloerder bepaalt de grens; wij drogen tot een gemeten waarde en niet tot een datum. De technieker meet bij de ophaling en u krijgt die meting op papier.",
+      },
+      {
+        q: "Krijg ik krimpscheuren van een bouwdroger?",
+        a: "Alleen als er te snel gedroogd wordt. Daarom stelt de technieker een streefwaarde in op de hygrostaat in plaats van het toestel vol open te zetten. Dat is extra belangrijk als chape en pleisterwerk samen drogen.",
+      },
+      {
+        q: "Hoe snel staan jullie in Roeselare?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "izegem",
+    title: "Bouwdroger huren in Izegem | Vernast",
+    description:
+      "Bouwdroger huren in Izegem, Emelgem en Kachtem: fabriekspanden in herbestemming en woningen aan de Mandel. Reken op volume en niet op oppervlakte: die ruimtes zijn hoog.",
+    h1: "Bouwdroger huren in Izegem",
+    kicker: "Midden-West-Vlaanderen · fabriekspanden in herbestemming",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Izegem heeft een industrieel verleden in schoenen en borstels, en dat heeft **fabriekspanden** achtergelaten die nu lofts, kantoren of appartementen worden. Met Emelgem en Kachtem erbij.",
+      "Zo'n pand droogt **anders dan een woning**: hoge ruimtes, een dikke betonvloer die jaren vochtigheid heeft opgenomen, en vaak geen verwarming tijdens de werken.",
+    ],
+    bouw: {
+      kop: "Fabriekspanden met hoge ruimtes en dikke vloeren",
+      alineas: [
+        "Een oud fabriekspand heeft **hoge volumes**, en wij rekenen op **volume in kubieke meter**: een ruimte van vijf meter hoog bevat anderhalf keer zoveel lucht als dezelfde oppervlakte onder een gewoon plafond. Daarbij hoort **luchtbeweging over de volle lengte**, want droge lucht blijft anders hangen waar het toestel staat.",
+        "De **betonvloer** is het trage deel: die heeft jaren vocht opgenomen en geeft het langzaam af, en er komt vaak een nieuwe chape bovenop. Is de ruimte **niet te verwarmen**, dan gaat er een adsorptiedroger naartoe, want onder 15 °C verliest een condensdroger het grootste deel van zijn rendement.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor het fabriekspand**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n volume zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**In een hoog volume de voorwaarde**: zonder luchtbeweging over de volle lengte blijft droge lucht hangen waar het toestel staat." },
+      { key: "revolution", waarom: "**Voor het deel dat niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium per eenheid of per woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Izegem: met het volume per ruimte vooraf",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Bij een fabriekspand vragen we **vooraf het volume per ruimte en de beschikbare stroom**: een kachel vraagt 400 V, en in een oud pand is dat niet altijd aanwezig.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor een fabriekspand is dat nooit de bedoeling: daar gaan meerdere toestellen in één rit naartoe, en die levering zit al in de prijs.",
+    },
+    buren: ["roeselare", "ingelmunster", "lendelede", "ledegem", "ardooie"],
+    faq: [
+      {
+        q: "Kunnen jullie een oud fabriekspand drogen?",
+        a: "Ja, dat doen we hier vaak. Geef vooraf het volume per ruimte in kubieke meter door, de vloeropbouw en of de ruimte dicht te krijgen is. Reken op meer capaciteit dan de vloeroppervlakte suggereert, want het gaat om volume en die ruimtes zijn hoog.",
+      },
+      {
+        q: "Mijn betonvloer blijft vochtig. Hoe kan dat?",
+        a: "Een oude betonvloer heeft jaren vocht opgenomen en geeft dat langzaam af, vooral als er geen dampremmende laag onder zit. Komt er een nieuwe chape bovenop, dan moet die eerst voldoende droog zijn. Onze technieker meet de restvochtigheid bij de ophaling.",
+      },
+      {
+        q: "Kunnen jullie een ruimte drogen die niet te verwarmen is?",
+        a: "Ja, met een adsorptiedroger. Die bindt het vocht aan een droogwiel en blijft ook bij vijf graden doorwerken, waar een condensdroger onder 15 °C het grootste deel van zijn rendement verliest.",
+      },
+      {
+        q: "Hebben jullie 400 V nodig?",
+        a: "Alleen voor de elektrische kachel. De drogers en de ventilatoren draaien op 230 V. In een oud pand is krachtstroom niet altijd aanwezig, dus controleert de technieker dat bij de levering.",
+      },
+      {
+        q: "Hoe snel staan jullie in Izegem?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "ingelmunster",
+    title: "Bouwdroger huren in Ingelmunster | Vernast",
+    description:
+      "Bouwdroger huren in Ingelmunster: laaggelegen kern aan de Mandel en het kanaal. Geleverd en geplaatst. Bij waterschade bellen we u terug om snel te plannen.",
+    h1: "Bouwdroger huren in Ingelmunster",
+    kicker: "Midden-West-Vlaanderen · aan de Mandel",
+    rit: { afstand: "circa 98 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Ingelmunster ligt **laag, waar de Mandel en het kanaal Roeselare-Leie samenkomen**. Eén kern, dicht bebouwd, met bedrijvigheid langs het water.",
+      "Die ligging is het verhaal: bij een langere regenperiode staat het water in de Mandel hoog, en dan **blijft een kelder in de laagste straten zelden droog**.",
+    ],
+    bouw: {
+      kop: "Laaggelegen kern, met kelders bij de Mandel",
+      alineas: [
+        "In de laagste straten staat het **grondwater ondiep en beweegt het mee met de Mandel**. Een kelder die bij hoogwater vochtig wordt is geen bouwvocht: **drogen haalt het uit de ruimte, de bron blijft**. De technieker meet dat bij de levering en zegt eerlijk wat drogen hier oplost.",
+        "Heeft er **water binnen gestaan**, dan is snelheid alles: hoe langer water in een vloeropbouw en achter een plint staat, hoe groter de kans op schimmel en op isolatie die haar waarde verliest. Zet plinten los en haal wat nat is uit de ruimte voor we komen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Ingelmunster: bij waterschade zo snel als het kan",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Bij waterschade bellen we u terug in plaats van u een formulier te laten afwachten**, want een dag vroeger drogen is hier het verschil.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Bij waterschade is dat precies de tijd die u niet hebt: **dan leveren wij**, en de rit zit al in de prijs van het pakket.",
+    },
+    buren: ["izegem", "roeselare", "oostrozebeke", "lendelede", "ardooie"],
+    faq: [
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons. Hoe langer water in de vloeropbouw staat, hoe groter de kans op schimmel.",
+      },
+      {
+        q: "Hoe lang duurt het drogen na hoogwater?",
+        a: "Voor een kelder of een gelijkvloers reken op twee tot vier weken, afhankelijk van hoe lang het water er stond en van de vloeropbouw. Een zwevende vloer op isolatie doet er langer over, want het water zit onder de afwerking.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt.",
+      },
+      {
+        q: "Mijn kelder is altijd wat vochtig. Helpt drogen?",
+        a: "Zolang het toestel draait wel: de ruimte wordt bruikbaar en schimmel krijgt geen kans. Maar het grondwater beweegt hier mee met de Mandel, en dat stopt een droger niet. De vochtmeting bij de levering vertelt het.",
+      },
+      {
+        q: "Hoe snel staan jullie in Ingelmunster?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Bij waterschade bellen we u terug om sneller te plannen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "lichtervelde",
+    title: "Bouwdroger huren in Lichtervelde | Vernast",
+    description:
+      "Bouwdroger huren in Lichtervelde: compacte kern op de zandleemrug, met nieuwbouw en renovatie. Chape en pleisterwerk samen vraagt meer capaciteit dan chape alleen.",
+    h1: "Bouwdroger huren in Lichtervelde",
+    kicker: "Midden-West-Vlaanderen · op de zandleemrug",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Lichtervelde is **een compacte gemeente op de zandleemrug** tussen Torhout en Roeselare, gegroeid rond het spoor, met lintbebouwing langs de steenwegen.",
+      "Wat we hier drogen is **gewoon werk**: chape van een gelijkvloers in nieuwbouw, en renovatie van halfopen woningen waar chape en pleisterwerk samen moeten drogen.",
+    ],
+    bouw: {
+      kop: "Chape en pleisterwerk samen, op de rug",
+      alineas: [
+        "**Chape en pleisterwerk samen drogen** is hier de normale situatie, en dat is zwaarder dan het lijkt: u droogt twee bronnen tegelijk in dezelfde ruimte. De chape geeft vijf tot tien liter per dag per honderd vierkante meter af, het pleisterwerk komt daarbovenop. Reken dus op **meer capaciteit dan voor chape alleen**.",
+        "Op de **zandleemrug** draineert de bodem redelijk, dus is een natte kelder hier minder vaak de klacht dan in de valleien errond. Blijft er toch een ruimte vochtig, dan gaat het meestal om **te weinig ventilatie**, en dat lost een droger wel op.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij chape en pleisterwerk samen verdeelt deze ventilator de droge lucht en voorkomt hij dat één hoek achterblijft." },
+      { key: "ttk650", waarom: "Voor een groot gelijkvloers of een bedrijfsruimte: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Lichtervelde: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. U krijgt een tijdslot en een sms een halfuur vooraf. Op een winterwerf controleert de technieker of **de werfkast 400 V levert** voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Lichtervelde leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["torhout", "hooglede", "roeselare", "ardooie", "kortemark", "wingene"],
+    faq: [
+      {
+        q: "Chape en pleisterwerk moeten samen drogen. Kan dat?",
+        a: "Ja, en dat is hier eerder regel dan uitzondering. Houd er rekening mee dat u twee bronnen tegelijk droogt in dezelfde ruimte, dus reken op meer capaciteit dan voor chape alleen. De Calculator rekent dat mee als u de situatie ingeeft.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Lichtervelde?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "hooglede",
+    title: "Bouwdroger huren in Hooglede | Vernast",
+    description:
+      "Bouwdroger huren in Hooglede en Gits: landelijke kernen op de hoogte, met hoeves en nieuwbouw. Binnen onze vaste toer geleverd, geplaatst en opgehaald.",
+    h1: "Bouwdroger huren in Hooglede",
+    kicker: "Midden-West-Vlaanderen · landelijk en hoog",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Hooglede en Gits liggen **op de hoogte boven Roeselare**, landelijk en ruim opgezet, met open akkerland tussen de twee kernen.",
+      "Wat we hier drogen is vooral **renovatie van hoeves en dorpswoningen**, en nieuwbouw in de verkavelingen aan de rand van de kernen.",
+    ],
+    bouw: {
+      kop: "Hoeves en nieuwbouw, hoog en droog",
+      alineas: [
+        "Omdat de gemeente **hoger ligt dan de valleien errond**, is een natte kelder hier minder vaak het probleem. Blijft er toch een ruimte vochtig, dan gaat het meestal om **te weinig ventilatie**: vochtige lucht die nergens heen kan, vaak in een kelder of berging die zelden open gaat. Dat lost een droger wel op.",
+        "Bij een hoeve is **massief werk** wat de tijd bepaalt: muren van veertig centimeter geven hun vocht traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg. Bij een **schuur of stal** rekenen we op volume in kubieke meter en zetten we luchtbeweging over de volle lengte in.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**, en op een groot volume de manier om overal even droog te krijgen." },
+      { key: "ttk650", waarom: "Voor een hoeve of een schuur met grote volumes: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw of schuur in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V." },
+    ],
+    levering: {
+      kop: "Leveren in Hooglede: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Bij een hoeve vragen we **vooraf het volume in kubieke meter** en of de ruimte dicht te krijgen is, want een droger tegen een open poort werkt tegen de buitenlucht in.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Hooglede leveren we gewoon**; bij een hoeve hangt het resultaat bovendien af van hoe de toestellen verdeeld staan.",
+    },
+    buren: ["roeselare", "lichtervelde", "staden", "kortemark"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Minder dan in de valleien errond. Hooglede ligt hoger, dus is grondwater zelden de oorzaak. Blijft een kelder of berging toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Kunnen jullie een schuur of een stal drogen?",
+        a: "Ja, als ze dicht te krijgen is. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Hooglede?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "staden",
+    title: "Bouwdroger huren in Staden | Vernast",
+    description:
+      "Bouwdroger huren in Staden, Oostnieuwkerke en Westrozebeke: hoeves en landbouwloodsen op de rug. We vragen vooraf het volume en of de poorten kunnen sluiten.",
+    h1: "Bouwdroger huren in Staden",
+    kicker: "Midden-West-Vlaanderen · hoeves en loodsen",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Staden ligt met **Oostnieuwkerke en Westrozebeke** op de rug tussen Roeselare en de IJzervlakte, en is sterk agrarisch: naast de woonkernen staan hier veel **landbouwloodsen en stallen**.",
+      "Precies die gebouwen komen in herbestemming of in verbouwing, en dat is een ander verhaal dan een woning: **groot volume, veel luchtdoorlaat en zelden verwarmd**.",
+    ],
+    bouw: {
+      kop: "Landbouwloodsen en stallen, in groot volume",
+      alineas: [
+        "Een **loods of stal** is een groot, hoog en meestal onverwarmd volume. Wij rekenen op **volume in kubieke meter**, en zo'n gebouw telt zwaarder dan zijn vloeroppervlak suggereert. Daarbij hoort **luchtbeweging over de volle lengte**, want droge lucht blijft anders hangen waar het toestel staat: één droger in een hoek droogt die hoek.",
+        "De poorten zijn het terugkerende punt. **Een droger tegen een open poort werkt tegen de buitenlucht in**, en die is onuitputtelijk. We vragen daarom vooraf of de ruimte dicht te krijgen is. Lukt dat niet, dan heeft drogen daar geen zin en zeggen we dat liever vooraf.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de loods of de stal**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n volume zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**In een groot volume de voorwaarde**: zonder luchtbeweging over de volle lengte blijft droge lucht hangen waar het toestel staat." },
+      { key: "revolution", waarom: "**Voor de onverwarmde loods in de winter**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Staden: met het volume en de poorten vooraf",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Bij een loods of een stal vragen we **vooraf het volume in kubieke meter, de vloeropbouw en of de poorten kunnen sluiten**, zodat de technieker met het juiste toestel vertrekt.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. Voor een loods is dat nooit de bedoeling: daar gaan meerdere toestellen in één rit naartoe, en die levering zit al in de prijs.",
+    },
+    buren: ["hooglede", "roeselare", "houthulst", "langemark-poelkapelle", "moorslede", "kortemark"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een loods van 800 m³?",
+        a: "Doorgaans twee tot drie drogers verdeeld over de ruimte, met luchtbeweging over de volle lengte, en in de winter een kachel of een adsorptiedroger erbij. Eén droger in een hoek droogt die hoek; het gaat om verdeling even veel als om capaciteit.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf dan achteraf.",
+      },
+      {
+        q: "Kunnen jullie een stal drogen die woonruimte wordt?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Staden?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "moorslede",
+    title: "Bouwdroger huren in Moorslede | Vernast",
+    description:
+      "Bouwdroger huren in Moorslede en Dadizele: woningen op de Ieperse klei, met hangwater tegen de muur. De vochtmeting bij de levering zit in de prijs.",
+    h1: "Bouwdroger huren in Moorslede",
+    kicker: "Midden-West-Vlaanderen · op de Ieperse klei",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Moorslede ligt met **Dadizele en Slypskapelle** op de overgang naar de Ieperse klei, en dat is in de kelders te merken: **die klei laat vrijwel geen water door**.",
+      "Regenwater zakt hier dus niet weg maar blijft in de bovenlaag staan en zoekt de laagste weg, meestal tegen een kelderwand of een muurvoet.",
+    ],
+    bouw: {
+      kop: "Klei die niets doorlaat, met hangwater als gevolg",
+      alineas: [
+        "**Hangwater is hier de regel.** Op klei die vrijwel niets doorlaat blijft regenwater in de bovenlaag staan en zakt het zijwaarts tot tegen het eerste obstakel. Dat komt na elke regenperiode terug, meestal op dezelfde plaats. **Een droger haalt vocht uit de lucht, niet uit de grond**: hij houdt de ruimte bruikbaar, drainage aan de buitenzijde lost het op.",
+        "Gaat het om **bouwvocht uit renovatie of nieuwbouw**, dan verdwijnt het definitief, en dan is het gewoon rekenwerk: chape en pleisterwerk samen drogen vraagt **meer capaciteit dan chape alleen**, want u droogt twee bronnen in dezelfde ruimte.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de kelder op de klei**: koud en permanent vochtig, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij chape en pleisterwerk samen verdeelt deze ventilator de droge lucht, en bij massieve muren is hij een voorwaarde." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot gelijkvloers: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Moorslede: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Gaat het om een kelder, dan **meet de technieker eerst** of het om bouwvocht of om hangwater gaat, want dat bepaalt of drogen hier een oplossing is of een pleister.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Moorslede leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["roeselare", "staden", "ledegem", "wervik", "zonnebeke", "wevelgem"],
+    faq: [
+      {
+        q: "Waarom is mijn kelder hier altijd vochtig?",
+        a: "Omdat de klei in de ondergrond vrijwel geen water doorlaat. Regenwater zakt niet weg maar blijft in de bovenlaag staan en drukt tegen de kelderwand. Een droger houdt de ruimte bruikbaar zolang hij draait, maar hij haalt het water niet uit de grond. De duurzame oplossing is drainage.",
+      },
+      {
+        q: "Hoe weet ik of het bouwvocht is of hangwater?",
+        a: "Bouwvocht zit gelijkmatig in de ruimte en neemt af naarmate het droogt. Hangwater geeft een natte plek of band die na elke regenperiode terugkomt, meestal op dezelfde plaats. Onze technieker meet dat bij de levering.",
+      },
+      {
+        q: "Chape en pleisterwerk moeten samen drogen. Kan dat?",
+        a: "Ja. Houd er rekening mee dat u twee bronnen tegelijk droogt in dezelfde ruimte, dus reken op meer capaciteit dan voor chape alleen. De Calculator rekent dat mee als u de situatie ingeeft.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Moorslede?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "ledegem",
+    title: "Bouwdroger huren in Ledegem | Vernast",
+    description:
+      "Bouwdroger huren in Ledegem, Sint-Eloois-Winkel en Rollegem-Kapelle: landelijke kernen met hoeves. Binnen onze vaste toer geleverd, geplaatst en opgehaald.",
+    h1: "Bouwdroger huren in Ledegem",
+    kicker: "Midden-West-Vlaanderen · drie landelijke kernen",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Ledegem bestaat uit **drie kernen**: Ledegem, Sint-Eloois-Winkel en Rollegem-Kapelle, met open landbouwgebied ertussen en lintbebouwing langs de steenwegen.",
+      "Wat we hier drogen is **renovatie van hoeves en dorpswoningen**, en nieuwbouw in de verkavelingen aan de rand van de kernen.",
+    ],
+    bouw: {
+      kop: "Hoeves en lintbebouwing, met een aanbouw achteraan",
+      alineas: [
+        "Een woning in lintbebouwing is doorgaans **halfopen en diep**, met een aanbouw achteraan uit een latere fase. Die aanbouw is vaak **het natte punt**: een plat dak, een vloer op volle grond en een verbinding met het oude volume waar de isolatie ophoudt. Daar zetten we **een eigen droogzone** op in plaats van het mee te nemen in het geheel.",
+        "Bij een hoeve bepaalt **massief werk** de tijd: muren van veertig centimeter geven hun vocht traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**, en in een diepe plattegrond brengt hij droge lucht tot achteraan." },
+      { key: "ttk650", waarom: "Voor een hoeve of een schuur met grote volumes: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw of schuur in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V." },
+    ],
+    levering: {
+      kop: "Leveren in Ledegem: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Geef bij de reservatie door in welke kern u woont**, dan plant de technieker zijn ronde daarop. Bij een hoeve vragen we vooraf het volume in kubieke meter.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Ledegem leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["moorslede", "wevelgem", "izegem", "roeselare", "lendelede"],
+    faq: [
+      {
+        q: "Mijn aanbouw blijft vochtig terwijl de rest droog is. Waarom?",
+        a: "Omdat droge lucht niet vanzelf naar achteren gaat, en omdat een aanbouw vaak een andere vloeropbouw heeft dan het hoofdvolume. Daar hoort een eigen droogzone bij: een toestel in die ruimte, met de deur dicht en een ventilator erbij.",
+      },
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Kunnen jullie een schuur of een stal drogen?",
+        a: "Ja, als ze dicht te krijgen is. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Ledegem?",
+        a: "De rit duurt ruim een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "tielt",
+    title: "Bouwdroger huren in Tielt | Vernast",
+    description:
+      "Bouwdroger huren in Tielt, Aarsele en Kanegem: stadskern en verkavelingen op zandleem. Geleverd en geplaatst. Een van onze kortste West-Vlaamse ritten.",
+    h1: "Bouwdroger huren in Tielt",
+    kicker: "Midden-West-Vlaanderen · stadskern op zandleem",
+    rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Tielt is **een van onze kortste West-Vlaamse ritten**: negentig kilometer, ongeveer een uur. Met Aarsele, Kanegem en Schuiferskapelle erbij.",
+      "De stad heeft **een compacte kern met handelspanden** en verkavelingen eromheen op zandleem. Twee soorten werven, en in beide moeten chape en pleisterwerk vaak samen drogen.",
+    ],
+    bouw: {
+      kop: "Chape en pleisterwerk samen, in kern en verkaveling",
+      alineas: [
+        "**Chape en pleisterwerk samen drogen** is hier de normale situatie, en dat is zwaarder dan het lijkt: u droogt twee bronnen tegelijk in dezelfde ruimte. De chape geeft vijf tot tien liter per dag per honderd vierkante meter af, het pleisterwerk komt daarbovenop. Reken dus op **meer capaciteit dan voor chape alleen**, en op een ventilator per droogzone.",
+        "Bij een **handelspand** komt er een datum bij: de heropening staat gepland, en tegelwerk of een gietvloer op een te natte chape komt los. Daar zetten we **meer capaciteit in één keer in** in plaats van langer te drogen met één toestel; minder huurweken is doorgaans ook goedkoper.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij chape en pleisterwerk samen verdeelt deze ventilator de droge lucht en voorkomt hij dat één hoek achterblijft." },
+      { key: "ttk650", waarom: "**Voor een handelspand of een groot gelijkvloers**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Tielt: een van onze kortste West-Vlaamse ritten",
+      alinea:
+        "**Negentig kilometer, ongeveer een uur.** Boekt u voor de middag, dan lukt de volgende werkdag doorgaans. Hebt u een heropeningsdatum voor een pand, geef die dan bij de reservatie: dan rekenen we terug hoeveel capaciteit er nodig is.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Ook vanaf een van onze kortste West-Vlaamse haltes weegt dat niet op tegen de korting op één toestel. **De rit zit al in de prijs van het pakket.**",
+    },
+    buren: ["pittem", "wingene", "ardooie", "dentergem", "aalter", "lichtervelde"],
+    faq: [
+      {
+        q: "Chape en pleisterwerk moeten samen drogen. Kan dat?",
+        a: "Ja, en dat is hier eerder regel dan uitzondering. Houd er rekening mee dat u twee bronnen tegelijk droogt in dezelfde ruimte, dus reken op meer capaciteit dan voor chape alleen. De Calculator rekent dat mee als u de situatie ingeeft.",
+      },
+      {
+        q: "Ik heb een vaste heropeningsdatum. Kunnen jullie daarnaar werken?",
+        a: "Ja, en dat is de goede manier om dit te plannen. Geef de datum en het volume door, dan rekenen we terug hoeveel toestellen er nodig zijn. Meer capaciteit in één keer is vaak goedkoper dan langer huren met te weinig.",
+      },
+      {
+        q: "Hoe snel staan jullie in Tielt?",
+        a: "Tielt is een van onze kortste West-Vlaamse ritten: ongeveer een uur. Boekt u voor de middag, dan staat het doorgaans de volgende werkdag.",
+      },
+      {
+        q: "Krijg ik krimpscheuren van een bouwdroger?",
+        a: "Alleen als er te snel gedroogd wordt. Daarom stelt de technieker een streefwaarde in op de hygrostaat in plaats van het toestel vol open te zetten. Dat is extra belangrijk als chape en pleisterwerk samen drogen.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "wingene",
+    title: "Bouwdroger huren in Wingene | Vernast",
+    description:
+      "Bouwdroger huren in Wingene en Zwevezele: ruime bebouwing op bosrijk zand. Geleverd, geplaatst en opgehaald. We rekenen op volume in kubieke meter, niet op oppervlakte.",
+    h1: "Bouwdroger huren in Wingene",
+    kicker: "Midden-West-Vlaanderen · ruim en bosrijk, op zand",
+    rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Wingene is met **Zwevezele** een van de uitgestrektste gemeenten van de streek: bosrijk, ruim opgezet en op **zandgrond**, op ongeveer een uur van ons magazijn.",
+      "Dat zand scheelt: het draineert goed, dus **kelders zijn hier minder vaak het probleem**. Wat hier telt is **volume**, want de woningen zijn groot en vaak vrijstaand.",
+    ],
+    bouw: {
+      kop: "Grote volumes op zand, met bijgebouwen",
+      alineas: [
+        "Een vrijstaande woning heeft **meer capaciteit nodig dan haar vierkante meters suggereren**, want het gaat om volume. Een open leefruimte met een plafond van drie meter telt zwaarder dan dezelfde oppervlakte onder een gewoon plafond, en daarom rekent onze Calculator op **kubieke meter**.",
+        "Veel werven hier bevatten **een bijgebouw, een veranda of een loods** die mee wordt afgewerkt. Die ruimtes zijn tijdens de werken zelden verwarmd, en **onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**. Dan gaat er een elektrische kachel mee, die 400 V vraagt, of meteen een adsorptiedroger.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de grote open leefruimte of de loods**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttk350", waarom: "De Medium per verdieping of per zone: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor het onverwarmde bijgebouw in de winter**: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en in een ruim volume voorkomt ze dat één hoek achterblijft." },
+    ],
+    levering: {
+      kop: "Leveren in Wingene: een van onze kortste West-Vlaamse ritten",
+      alinea:
+        "**Negentig kilometer, ongeveer een uur.** U krijgt een tijdslot en een sms een halfuur vooraf. **Geef bij de reservatie door welke ruimtes mee moeten drogen**, ook een veranda, een loods of een garage, dan brengt de technieker genoeg capaciteit mee.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Wingene leveren we gewoon**; bij een grote woning hangt het resultaat bovendien af van waar de toestellen staan.",
+    },
+    buren: ["tielt", "pittem", "lichtervelde", "torhout", "oostkamp", "beernem", "aalter"],
+    faq: [
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een vrijstaande woning?",
+        a: "Voor een gelijkvloers van 120 tot 150 m² rekenen we doorgaans op twee drogers met een ventilator per droogzone, en vaak een derde voor de verdieping of het bijgebouw. De Calculator rekent op volume in kubieke meter, niet op oppervlakte.",
+      },
+      {
+        q: "Waarom vraagt de Calculator naar volume en niet naar oppervlakte?",
+        a: "Omdat een droger lucht droogt. Een open leefruimte met een plafond van drie meter vijftig bevat anderhalf keer zoveel lucht als dezelfde oppervlakte onder een gewoon plafond, en heeft dus meer capaciteit nodig.",
+      },
+      {
+        q: "Kunnen jullie een veranda of een loods mee drogen?",
+        a: "Ja, als de ruimte dicht te krijgen is. Een droger met de deur naar buiten open droogt de buitenlucht. Geef bij de reservatie door welke ruimtes mee moeten, dan brengt de technieker genoeg capaciteit.",
+      },
+      {
+        q: "Is een kelder hier een probleem?",
+        a: "Minder dan in de valleien. Wingene staat op zand, en zand draineert. Blijft een kelder hier toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Hoe snel staan jullie in Wingene?",
+        a: "Wingene is een van onze kortste West-Vlaamse ritten: ongeveer een uur. Boekt u voor de middag, dan staat het doorgaans de volgende werkdag.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "pittem",
+    title: "Bouwdroger huren in Pittem | Vernast",
+    description:
+      "Bouwdroger huren in Pittem en Egem: kleine landelijke kernen met hoeves en nieuwbouw. Geleverd en geplaatst. Ook een kleine gemeente ligt gewoon op onze vaste toer.",
+    h1: "Bouwdroger huren in Pittem",
+    kicker: "Midden-West-Vlaanderen · kleine kernen",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Pittem en Egem zijn **twee kleine kernen in open landbouwgebied** tussen Tielt en Roeselare, op ongeveer een uur van ons magazijn.",
+      "Wat we hier drogen is **gewoon werk**: chape van een gelijkvloers in nieuwbouw, en renovatie van hoeves en dorpswoningen met massieve muren.",
+    ],
+    bouw: {
+      kop: "Nieuwbouw en hoeves, in twee kernen",
+      alineas: [
+        "Een verse chape geeft **vijf tot tien liter water per dag per honderd vierkante meter** af in de eerste weken. Moeten **chape en pleisterwerk samen drogen**, en dat is hier gebruikelijk, dan droogt u twee bronnen tegelijk in dezelfde ruimte: reken op meer capaciteit dan voor chape alleen.",
+        "Bij een hoeve bepaalt **massief werk** de tijd: muren van veertig centimeter geven hun vocht traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**, en bij chape en pleisterwerk samen de manier om de droge lucht te verdelen." },
+      { key: "ttk650", waarom: "Voor een hoeve of een schuur met grote volumes: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw of schuur in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V." },
+    ],
+    levering: {
+      kop: "Leveren in Pittem: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer: ook een kleine gemeente ligt daar gewoon op. Bij een hoeve vragen we **vooraf het volume in kubieke meter** en of de ruimte dicht te krijgen is.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Pittem leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["tielt", "ardooie", "wingene", "lichtervelde"],
+    faq: [
+      {
+        q: "Komen jullie ook naar een kleine gemeente?",
+        a: "Ja, en zonder toeslag. We plannen West-Vlaanderen in een vaste toer, dus Pittem en Egem liggen daar gewoon op. De prijs van het droogpakket is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Chape en pleisterwerk moeten samen drogen. Kan dat?",
+        a: "Ja. Houd er rekening mee dat u twee bronnen tegelijk droogt in dezelfde ruimte, dus reken op meer capaciteit dan voor chape alleen. De Calculator rekent dat mee als u de situatie ingeeft.",
+      },
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Pittem?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "ardooie",
+    title: "Bouwdroger huren in Ardooie | Vernast",
+    description:
+      "Bouwdroger huren in Ardooie en Koolskamp: hoeves, loodsen en nieuwbouw in open landbouwgebied. We vragen vooraf het volume en of de poorten kunnen sluiten.",
+    h1: "Bouwdroger huren in Ardooie",
+    kicker: "Midden-West-Vlaanderen · hoeves en loodsen",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Ardooie en Koolskamp liggen **in open landbouwgebied** tussen Tielt en Roeselare, en zijn sterk agrarisch: naast de woonkernen staan hier veel **loodsen en stallen**.",
+      "Precies die gebouwen komen in verbouwing of herbestemming, en dat is een ander verhaal dan een woning: **groot volume, veel luchtdoorlaat en zelden verwarmd**.",
+    ],
+    bouw: {
+      kop: "Loodsen en stallen, in groot volume",
+      alineas: [
+        "Een **loods of stal** is een groot, hoog en meestal onverwarmd volume. Wij rekenen op **volume in kubieke meter**, en zo'n gebouw telt zwaarder dan zijn vloeroppervlak suggereert. Daarbij hoort **luchtbeweging over de volle lengte**: één droger in een hoek droogt die hoek, en dan staat u drie weken later nog te wachten.",
+        "De poorten zijn het terugkerende punt. **Een droger tegen een open poort werkt tegen de buitenlucht in**, en die is onuitputtelijk. We vragen daarom vooraf of de ruimte dicht te krijgen is. Lukt dat niet, dan heeft drogen geen zin en zeggen we dat liever vooraf dan dat u voor niets huurt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de loods of de stal**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n volume zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**In een groot volume de voorwaarde**: zonder luchtbeweging over de volle lengte blijft droge lucht hangen waar het toestel staat." },
+      { key: "revolution", waarom: "**Voor de onverwarmde loods in de winter**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Ardooie: met het volume en de poorten vooraf",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Bij een loods of een stal vragen we **vooraf het volume in kubieke meter, de vloeropbouw en of de poorten kunnen sluiten**, zodat de technieker met het juiste toestel vertrekt.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor een loods is dat nooit de bedoeling: daar gaan meerdere toestellen in één rit naartoe, en die levering zit al in de prijs.",
+    },
+    buren: ["pittem", "tielt", "roeselare", "izegem", "ingelmunster", "lichtervelde"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een loods van 800 m³?",
+        a: "Doorgaans twee tot drie drogers verdeeld over de ruimte, met luchtbeweging over de volle lengte, en in de winter een kachel of een adsorptiedroger erbij. Eén droger in een hoek droogt die hoek; het gaat om verdeling even veel als om capaciteit.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf dan achteraf.",
+      },
+      {
+        q: "Kunnen jullie een stal drogen die woonruimte wordt?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Ardooie?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "dentergem",
+    title: "Bouwdroger huren in Dentergem | Vernast",
+    description:
+      "Bouwdroger huren in Dentergem, Wakken en Oeselgem: dorpen aan de Leie, met renovatie en nieuwbouw. Twee bodems, twee antwoorden: we meten bij de levering.",
+    h1: "Bouwdroger huren in Dentergem",
+    kicker: "Midden-West-Vlaanderen · dorpen aan de Leie",
+    rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Dentergem bestaat uit **vier dorpen aan de Leie**: Dentergem, Wakken, Oeselgem en Markegem, op ongeveer een uur van ons magazijn.",
+      "Dicht bij de rivier staat het **grondwater ondiep**; een paar straten hogerop is dat anders. Dat verschil bepaalt of een vochtige kelder hier een grondwaterprobleem is of niet.",
+    ],
+    bouw: {
+      kop: "Laag bij de Leie, hoger in de dorpskern",
+      alineas: [
+        "**Laag bij de Leie** staat het grondwater ondiep en blijft een kelder zelden volledig droog. Dat is geen bouwvocht: **drogen haalt het uit de ruimte, de bron blijft**. **Hogerop** draineert de bodem beter en gaat een vochtige ruimte meestal over te weinig ventilatie. De vochtmeting bij de levering vertelt welke van de twee het is, en **die zit in de prijs**.",
+        "Gaat het om bouwvocht, dan is het rekenwerk: **chape en pleisterwerk samen** vraagt meer capaciteit dan chape alleen, want u droogt twee bronnen in dezelfde ruimte. Met droger en ventilator samen is een gelijkvloers in twee à drie weken klaar voor de vloerder.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij chape en pleisterwerk samen verdeelt deze ventilator de droge lucht en voorkomt hij dat één hoek achterblijft." },
+      { key: "revolution", waarom: "**Voor een kelder laag bij de Leie**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot gelijkvloers: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Dentergem: in onze vaste West-Vlaamse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Geef bij de reservatie door in welk dorp u woont**, dan plant de technieker zijn ronde daarop. Gaat het om een kelder, dan meet hij eerst of het om bouwvocht of om grondwater gaat.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Dentergem leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["tielt", "oostrozebeke", "wielsbeke", "waregem", "zulte", "ardooie"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Dat hangt van uw straat af. Laag bij de Leie staat het grondwater ondiep en blijft een kelder zelden droog; hogerop draineert de bodem beter en gaat het meestal om te weinig ventilatie. De vochtmeting bij de levering vertelt welke van de twee het is.",
+      },
+      {
+        q: "Chape en pleisterwerk moeten samen drogen. Kan dat?",
+        a: "Ja. Houd er rekening mee dat u twee bronnen tegelijk droogt in dezelfde ruimte, dus reken op meer capaciteit dan voor chape alleen. De Calculator rekent dat mee als u de situatie ingeeft.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Dentergem?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "oostrozebeke",
+    title: "Bouwdroger huren in Oostrozebeke | Vernast",
+    description:
+      "Bouwdroger huren in Oostrozebeke: woningen en bedrijfsvloeren aan de Mandel en de Leie. Grote vloeren delen we op in droogzones, met meting inbegrepen.",
+    h1: "Bouwdroger huren in Oostrozebeke",
+    kicker: "Midden-West-Vlaanderen · woningen en bedrijfsvloeren",
+    rit: { afstand: "circa 92 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Oostrozebeke ligt **waar de Mandel in de Leie gaat**, op ongeveer een uur van ons magazijn. Eén kern, met bedrijvigheid langs het water: de streek leeft van de houtverwerking en de panelenindustrie.",
+      "Dat betekent dat we hier naast woningen vooral **bedrijfsvloeren** drogen, en die zijn groot.",
+    ],
+    bouw: {
+      kop: "Grote bedrijfsvloeren, en woningen in de kern",
+      alineas: [
+        "Op een **grote vloer delen we de ruimte op in droogzones**: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. Eén toestel in een hoek droogt die hoek. Geef ons **het volume in kubieke meter en de opleverdatum**, dan rekenen we terug hoeveel zones er nodig zijn.",
+        "Laag bij de **Mandel en de Leie** staat het grondwater ondiep: een kelder blijft daar zelden volledig droog, en dat is geen bouwvocht. **Drogen haalt het uit de ruimte, de bron blijft**; de technieker meet dat verschil bij de levering.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de bedrijfsvloer**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op een groot oppervlak zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+      { key: "ttk350", waarom: "De Medium voor een woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor een kelder laag bij het water**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door." },
+    ],
+    levering: {
+      kop: "Leveren in Oostrozebeke: met een datum om naar terug te rekenen",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. **Geef bij een bedrijfsvloer het volume en de opleverdatum door**, dan rekenen we terug hoeveel droogzones er nodig zijn in plaats van u achteraf te laten verlengen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor een bedrijfsvloer is dat nooit de bedoeling: daar gaan meerdere toestellen in één rit naartoe, en die levering zit al in de prijs.",
+    },
+    buren: ["wielsbeke", "dentergem", "ingelmunster", "izegem", "waregem"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een vloer van 1000 m²?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen zo'n vloer op in droogzones: per zone een droger met voldoende capaciteit en een ventilator over de volle lengte. Geef ons het volume in kubieke meter en de opleverdatum.",
+      },
+      {
+        q: "Hoe droog moet een chape zijn voor een gietvloer?",
+        a: "Strenger dan voor tegels. Uw vloerder bepaalt de grens; wij drogen tot een gemeten waarde en niet tot een datum. De technieker meet bij de ophaling en u krijgt die meting op papier.",
+      },
+      {
+        q: "Mijn kelder blijft vochtig na het drogen. Hoe kan dat?",
+        a: "Omdat een droger vocht uit de lucht haalt, niet uit de grond. Laag bij de Mandel en de Leie is het grondwater ondiep. Drogen houdt de ruimte bruikbaar zolang het toestel draait, maar de bron blijft.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf.",
+      },
+      {
+        q: "Hoe snel staan jullie in Oostrozebeke?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "wielsbeke",
+    title: "Bouwdroger huren in Wielsbeke | Vernast",
+    description:
+      "Bouwdroger huren in Wielsbeke, Ooigem en Sint-Baafs-Vijve: industriële vloeren aan de Leie. Op zo'n oppervlak gaat het om droogzones, niet om één toestel.",
+    h1: "Bouwdroger huren in Wielsbeke",
+    kicker: "Midden-West-Vlaanderen · industriële vloeren",
+    rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Wielsbeke ligt **aan de Leie**, met Ooigem en Sint-Baafs-Vijve erbij, en heeft voor zijn omvang **een uitzonderlijk aandeel industrie**: de panelen- en houtverwerking van de streek zit hier.",
+      "Daardoor zijn de vloeren die we hier drogen groot. **Op honderden tot duizenden vierkante meters gaat het niet om een toestel, maar om droogzones.**",
+    ],
+    bouw: {
+      kop: "Industriële vloeren, en woningen in de kernen",
+      alineas: [
+        "Op een **industriële vloer delen we de ruimte op in droogzones**: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. Eén toestel in een hoek droogt die hoek, en op zo'n oppervlak haalt u de opleverdatum dan niet. Geef ons **het volume in kubieke meter, de beschikbare stroom en de datum**, dan rekenen we terug.",
+        "Een **gietvloer op een te natte chape komt los**, en dat kost een veelvoud van een week extra huur. Daarom drogen we tot **een gemeten waarde** en niet tot een datum: de technieker meet bij de ophaling en u krijgt die meting op papier, zodat uw inrichter weet waar hij aan toe is.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de industriële vloer**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n oppervlak zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+      { key: "teddh30", waarom: "Voor een onverwarmde hal in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+      { key: "ttk350", waarom: "De Medium voor een woning of een kleinere ruimte: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Wielsbeke: meerdere toestellen in één rit",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen West-Vlaanderen in een vaste toer. Op een industriële vloer gaan **meerdere toestellen in één rit** mee; geef daarom vooraf het volume, de stroom en de opleverdatum door, dan staat alles in één keer goed.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor een industriële vloer is dat nooit de bedoeling: daar gaan meerdere toestellen in één rit naartoe, en die levering zit al in de prijs.",
+    },
+    buren: ["oostrozebeke", "dentergem", "waregem", "harelbeke", "izegem"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een hal van 2000 m²?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen zo'n vloer op in droogzones: per zone een droger met voldoende capaciteit en een ventilator over de volle lengte. Geef ons het volume in kubieke meter en de opleverdatum, dan rekenen we het uit.",
+      },
+      {
+        q: "Hoe snel kan een industriële vloer droog zijn?",
+        a: "Een chape van vijf centimeter doet zonder hulp vijf à zeven weken; met voldoende drogers en luchtbeweging halen we dat naar twee à drie weken. Meer capaciteit in één keer verkort de huurperiode, en die weegt zwaarder dan het aantal toestellen.",
+      },
+      {
+        q: "Hoe droog moet een chape zijn voor een gietvloer?",
+        a: "Strenger dan voor tegels. Uw vloerder bepaalt de grens; wij drogen tot een gemeten waarde en niet tot een datum. De technieker meet bij de ophaling en u krijgt die meting op papier.",
+      },
+      {
+        q: "Hebben jullie 400 V nodig?",
+        a: "Alleen voor de elektrische kachel, die we in de winter bij een onverwarmde hal inzetten. De drogers en de ventilatoren draaien op 230 V. De technieker controleert de kast bij de levering.",
+      },
+      {
+        q: "Hoe snel staan jullie in Wielsbeke?",
+        a: "De rit duurt ongeveer een uur en we plannen West-Vlaanderen in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "hasselt",
+    title: "Bouwdroger huren in Hasselt | Vernast",
+    description:
+      "Bouwdroger huren in Hasselt, Kuringen en Kermt: stadsrenovatie in de kern en ruime nieuwbouw errond. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Hasselt",
+    kicker: "Midden-Limburg · stad en ruime rand",
+    rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Hasselt is **de drukste gemeente van onze Limburgse planning**: stadsrenovatie binnen de Groene Boulevard, en daarbuiten in Kuringen, Kermt, Stevoort en Sint-Lambrechts-Herk **ruime nieuwbouw en verbouwing**.",
+      "Dat levert twee heel verschillende pakketten op. In de stad gaat het om **compact en stil**, in de rand om **volume**: daar is een pakket van drie toestellen eerder regel dan uitzondering.",
+    ],
+    bouw: {
+      kop: "Compacte stadswoningen, en ruime bebouwing in de rand",
+      alineas: [
+        "In de kern zijn de panden **smal en diep**, vaak bewoond tijdens de werken. Droge lucht gaat daar niet vanzelf van voor naar achter, dus hoort er **een ventilator bij de droger**: die brengt droge lucht tot achteraan en blaast de verzadigde laag langs vloer en muur weg.",
+        "In de rand staat **ruime bebouwing met een volledige kelder en drie bouwlagen**. Droge lucht blijft hangen waar het toestel staat, dus zetten we **per verdieping een droogzone** op in plaats van één groot toestel in de trappenhal. Dat is sneller én doorgaans goedkoper, want de huurperiode weegt zwaarder dan het aantal toestellen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium per verdieping of per zone: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk170", waarom: "**Voor een bewoonde stadswoning of een appartement**: 50 liter per dag en 0,75 kW op een gewoon stopcontact." },
+      { key: "ttv4500", waarom: "In een smal en diep pand brengt deze ventilator de droge lucht tot achteraan; bij een chape verdubbelt hij vaak de snelheid." },
+      { key: "ttk650", waarom: "Voor een groot gelijkvloers of een open leefruimte met een hoog plafond: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Hasselt: binnen 24 uur, ook in de kern",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen Limburg in een vaste toer. **Ligt uw pand in het autovrije gebied of in een zone met venstertijden, zeg dat dan bij de reservatie**, dan plannen we binnen dat venster. Is er een lift of een vaste trap, dan is elke verdieping inbegrepen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Hasselt leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["zonhoven", "diepenbeek", "alken", "lummen", "herk-de-stad", "genk"],
+    faq: [
+      {
+        q: "Kan ik een hele woning met één toestel drogen?",
+        a: "Beter niet. Droge lucht blijft hangen waar het toestel staat, en met open deuren droogt u vooral de gang. Per verdieping of per gesloten zone een toestel werkt sneller en komt doorgaans goedkoper uit, omdat de totale huurperiode korter is.",
+      },
+      {
+        q: "Mag een bouwdroger draaien terwijl wij er wonen?",
+        a: "Ja, en daarvoor is de Small bouwdroger bedoeld. Hij verbruikt 0,75 kW, dus hij mag op een gewoon stopcontact, en hij is stil genoeg om in de kamer ernaast te slapen. Houd de deur van de droogzone dicht.",
+      },
+      {
+        q: "Kunnen jullie leveren in het autovrije gebied?",
+        a: "Ja. Geef uw straat door bij de reservatie en vermeld dat ze in het autovrije gebied of in een venstertijdzone ligt. We plannen de levering dan binnen dat venster.",
+      },
+      {
+        q: "Hoe lang blijft een pakket staan?",
+        a: "Standaard twee weken voor een chape en één tot twee weken voor pleisterwerk, maar we meten bij de ophaling. Is het nog niet droog, dan verlengt u per week bij; is het eerder droog, dan halen we eerder op.",
+      },
+      {
+        q: "Hoe snel staan jullie in Hasselt?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer, dus boekt u voor de middag, dan staat het doorgaans de volgende werkdag.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "genk",
+    title: "Bouwdroger huren in Genk | Vernast",
+    description:
+      "Bouwdroger huren in Genk, Winterslag en Waterschei: cité-woningen uit het mijnverleden in renovatie. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Genk",
+    kicker: "Midden-Limburg · cités en mijnerfgoed",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Genk is gebouwd rond zijn mijnen, en dat is aan de woningen te zien: de **cités van Winterslag, Waterschei en Zwartberg** zijn aangelegd in de jaren twintig en dertig, als volledige wijken in één keer.",
+      "Die woningen gaan nu massaal in **renovatie**, en ze drogen anders dan modern werk: **dunne muren, een vloer op volle grond en geen waterkering in de muurvoet**.",
+    ],
+    bouw: {
+      kop: "Cité-woningen in renovatie, op zandgrond",
+      alineas: [
+        "Een cité-woning heeft **dunne muren en weinig thermische massa**: die droogt sneller dan massief werk, maar ze wordt ook sneller weer vochtig. Hier werkt **een kleiner toestel dat langer draait** beter dan een groot dat te snel droogt en krimpscheuren geeft in verse chape of pleisterwerk.",
+        "Wat vaak terugkomt is de **vloer op volle grond zonder dampremmende laag**: die zuigt vocht op uit de ondergrond, en binnen komt het terug. **Drogen maakt de ruimte bruikbaar, maar de bron blijft.** Bij een renovatie is de duurzame oplossing een nieuwe vloeropbouw; de technieker meet en zegt eerlijk wat drogen hier wel en niet oplost.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor de cité-woning**: 50 liter per dag en 0,75 kW op een gewoon stopcontact. Kleiner en langer drogen geeft hier minder krimpscheuren." },
+      { key: "ttk350", waarom: "De Medium voor een volledig gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Vocht kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk650", waarom: "Voor een groot project of een mijngebouw in herbestemming: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Genk: binnen 24 uur, geplaatst en ingesteld",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. Gaat het om **meerdere woningen in dezelfde wijk**, geef dat dan bij de reservatie door: dan leveren we in één rit in plaats van drie keer dezelfde rit te doen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Genk leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["hasselt", "zonhoven", "diepenbeek", "zutendaal", "as", "oudsbergen"],
+    faq: [
+      {
+        q: "Welk toestel voor een cité-woning?",
+        a: "Doorgaans de Small bouwdroger, en langer laten draaien. Zulke woningen hebben dunne muren en weinig thermische massa: ze drogen snel, en te snel drogen geeft krimpscheuren in verse chape of pleisterwerk. De technieker stelt de hygrostaat daarop in.",
+      },
+      {
+        q: "Mijn vloer op volle grond blijft koud en vochtig. Wat nu?",
+        a: "Zonder dampremmende laag zuigt zo'n vloer vocht uit de ondergrond op. Een droger houdt de ruimte bruikbaar, maar hij stopt de aanvoer niet. Bij een renovatie is de duurzame oplossing een nieuwe vloeropbouw. Onze technieker meet en zegt eerlijk wat drogen hier oplost.",
+      },
+      {
+        q: "Kunnen jullie meerdere woningen in dezelfde wijk doen?",
+        a: "Ja. Geef bij de reservatie door hoeveel woningen er tegelijk moeten drogen, dan leveren we in één rit en zetten we per woning een droogzone op. Dat is goedkoper dan dezelfde rit drie keer.",
+      },
+      {
+        q: "Krijg ik krimpscheuren van een bouwdroger?",
+        a: "Alleen als er te snel gedroogd wordt. Daarom stelt de technieker een streefwaarde in op de hygrostaat in plaats van het toestel vol open te zetten. In een lichte constructie is dat extra belangrijk.",
+      },
+      {
+        q: "Hoe snel staan jullie in Genk?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "zonhoven",
+    title: "Bouwdroger huren in Zonhoven | Vernast",
+    description:
+      "Bouwdroger huren in Zonhoven: zandgrond met vijvergebied, waar kelders zelden het probleem zijn. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Zonhoven",
+    kicker: "Midden-Limburg · zand en vijvers",
+    rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Zonhoven ligt **op zandgrond met vijvergebied erin**: de Wijvenheide en De Teut liggen binnen de gemeentegrenzen, en daar staat het water vlak onder het maaiveld.",
+      "Buiten die zones draineert het zand goed, en dan **is een kelder hier zelden het probleem**. Twee straten verschil kan dus twee verschillende antwoorden geven.",
+    ],
+    bouw: {
+      kop: "Zand dat draineert, en vijvergebied dat dat niet doet",
+      alineas: [
+        "**Op zand draineert de ondergrond goed.** Blijft een kelder of een berging hier toch vochtig, dan gaat het meestal om **te weinig ventilatie** en niet om grondwater, en dat lost een droger wel op. **Tegen het vijvergebied** is het omgekeerd: daar staat het water vlak onder het maaiveld en blijft een kelder of kruipruimte zelden volledig droog.",
+        "De winter is hier wel het punt: **Noord-Limburg heeft de koudste werven van Vlaanderen**. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, en een ruwbouw zonder ramen komt daar tussen november en maart niet boven. Dan gaat er **een kachel mee of een adsorptiedroger**.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "revolution", waarom: "**Voor een kelder of kruipruimte bij het vijvergebied**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+    ],
+    levering: {
+      kop: "Leveren in Zonhoven: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen Limburg in een vaste toer. Op een winterwerf controleert de technieker eerst of **de werfkast 400 V levert** voor de kachel; zonder bijverwarming haalt een condensdroger hier tussen november en maart te weinig rendement.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Zonhoven leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["hasselt", "genk", "houthalen-helchteren", "heusden-zolder", "diepenbeek"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Dat hangt van uw straat af. Op het zand draineert de bodem goed en gaat het meestal om te weinig ventilatie; tegen het vijvergebied staat het water vlak onder het maaiveld en blijft een kelder zelden droog. De vochtmeting bij de levering vertelt welke van de twee het is.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Limburg heeft de koudste winterwerven van Vlaanderen, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. We zetten er dan een elektrische kachel bij, die 400 V vraagt, of we gebruiken meteen een adsorptiedroger.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Zonhoven?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "diepenbeek",
+    title: "Bouwdroger huren in Diepenbeek | Vernast",
+    description:
+      "Bouwdroger huren in Diepenbeek: verkavelingen en studentenhuisvesting bij de campus. Geleverd en geplaatst. Pompklaar geleverd, dus niemand legt een reservoir.",
+    h1: "Bouwdroger huren in Diepenbeek",
+    kicker: "Midden-Limburg · campus en verkavelingen",
+    rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Diepenbeek ligt **tussen Hasselt en Genk**, met de campus op zijn grondgebied. Dat levert naast gewone verkavelingen ook **verbouwing voor studentenverhuur** op: woningen die per kamer worden aangepakt.",
+      "Daar hoort een ander toestel bij dan op een nieuwbouwwerf: **stil, op één stopcontact, en pompklaar**, want een reservoir legen doet niemand in een pand waar de eigenaar niet woont.",
+    ],
+    bouw: {
+      kop: "Verbouwing per kamer, en nieuwbouw in de verkavelingen",
+      alineas: [
+        "Bij een **verbouwing per kamer** is er geen plaats voor een reservoir dat iemand moet legen. Daarom zijn onze toestellen **pompklaar**: de technieker legt de afvoerslang naar een gootsteen of een putje. **Een vol reservoir zet het toestel stil**, en in een pand waar niemand permanent is merkt u dat pas dagen later.",
+        "In de verkavelingen is het voorspelbaarder: **chape van een gelijkvloers**, vijf tot tien liter per dag per honderd vierkante meter, en met droger en ventilator in twee à drie weken klaar voor de vloerder. In de winter hoort er bijverwarming bij, want **onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor de verbouwing per kamer**: compact, stil en zuinig op een gewoon stopcontact, en pompklaar." },
+      { key: "ttk350", waarom: "De standaard voor een nieuwbouwwoning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+      { key: "teddh30", waarom: "Voor de onverwarmde ruwbouw in de winter: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Diepenbeek: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen Limburg in een vaste toer. In een pand voor verhuur legt de technieker **de afvoer naar een putje** zodat niemand een reservoir moet legen, en op een winterwerf controleert hij of de kast 400 V levert.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Diepenbeek leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["hasselt", "genk", "zonhoven", "bilzen-hoeselt", "alken", "zutendaal"],
+    faq: [
+      {
+        q: "Moet iemand het reservoir legen?",
+        a: "Nee, en in een pand voor verhuur is dat precies het punt. Onze toestellen zijn pompklaar: de technieker legt de afvoerslang naar een gootsteen of een putje. Een vol reservoir zet het toestel stil, en dat merkt u dan dagen later.",
+      },
+      {
+        q: "Mag een bouwdroger draaien terwijl er huurders zijn?",
+        a: "Ja. De Small bouwdroger verbruikt 0,75 kW, dus hij mag op een gewoon stopcontact, en hij is stil genoeg om in de kamer ernaast te slapen. Houd de deur van de droogzone dicht.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Hoe snel staan jullie in Diepenbeek?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "alken",
+    title: "Bouwdroger huren in Alken | Vernast",
+    description:
+      "Bouwdroger huren in Alken: waar Haspengouw begint, met leembodem en fruitbedrijven. Geleverd en geplaatst. Op leem droogt een chape trager; wij rekenen daarop.",
+    h1: "Bouwdroger huren in Alken",
+    kicker: "Midden-Limburg · waar Haspengouw begint",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Alken ligt **op de overgang van de Limburgse zandstreek naar Haspengouw**: hier begint de leembodem, en met die leem beginnen ook de fruitbedrijven en de hoeves.",
+      "Dat verschil is niet academisch. **Leem laat water traag door**, dus een chape droogt hier merkbaar langzamer dan tien kilometer noordelijker op het zand.",
+    ],
+    bouw: {
+      kop: "Leembodem, hoeves en fruitbedrijven",
+      alineas: [
+        "Op **leem droogt een chape zonder hulp opvallend traag**, omdat de ondergrond onder de vloerplaat natter blijft dan op zand. Reken zonder droger op vijf à zeven weken voor vijf centimeter, en met droger en ventilator op **twee à drie weken** tot de vloerder kan starten.",
+        "Bij een hoeve of een **fruitloods** gaat het om volume: wij rekenen in kubieke meter, en een loods met een hoge nok telt zwaarder dan haar vloeroppervlak suggereert. Is de ruimte **niet te verwarmen**, dan gaat er een adsorptiedroger naartoe die ook bij lage temperatuur doorwerkt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Op leem een voorwaarde**: hij blaast de verzadigde laag vlak boven de chape weg, en bij massieve muren de laag tegen het oppervlak." },
+      { key: "ttk650", waarom: "Voor een hoeve of een loods met grote volumes: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "revolution", waarom: "**Voor de onverwarmde loods of kelder**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Alken: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. Bij een hoeve of een loods vragen we **vooraf het volume in kubieke meter** en of de ruimte dicht te krijgen is, want een droger tegen een open poort werkt tegen de buitenlucht in.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Alken leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["hasselt", "diepenbeek", "wellen", "nieuwerkerken", "sint-truiden"],
+    faq: [
+      {
+        q: "Waarom droogt een chape op leem zo traag?",
+        a: "Omdat leem water traag doorlaat, dus de ondergrond onder uw vloerplaat blijft natter dan op zand. Zonder hulp doet een chape van vijf centimeter hier vijf à zeven weken; met droger en ventilator ongeveer de helft.",
+      },
+      {
+        q: "Kunnen jullie een fruitloods of een koelruimte drogen?",
+        a: "Ja, als ze dicht te krijgen is. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Waarom droogt een hoeve trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Alken?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "zutendaal",
+    title: "Bouwdroger huren in Zutendaal | Vernast",
+    description:
+      "Bouwdroger huren in Zutendaal: ruime bebouwing op bosrijk zand, met koude winterwerven. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Zutendaal",
+    kicker: "Midden-Limburg · bosrijk zand, ruime percelen",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Zutendaal is **bosrijk en ruim opgezet**, op zandgrond tussen Genk en het Maasland. Grote percelen, veel vrijstaande bebouwing en bijgebouwen.",
+      "Op zand **draineert de ondergrond goed**, dus is een natte kelder hier zelden de klacht. Wat hier telt is **volume en, in de winter, temperatuur**.",
+    ],
+    bouw: {
+      kop: "Grote volumes op zand, en koude winterwerven",
+      alineas: [
+        "Een vrijstaande woning heeft **meer capaciteit nodig dan haar vierkante meters suggereren**, want het gaat om volume. Een open leefruimte met een plafond van drie meter telt zwaarder dan dezelfde oppervlakte onder een gewoon plafond, en daarom rekent onze Calculator op **kubieke meter**.",
+        "**Limburg heeft de koudste winterwerven van Vlaanderen.** Tussen november en maart komt een onverwarmde ruwbouw of een bijgebouw hier niet boven de 15 °C, en daaronder verliest een condensdroger het grootste deel van zijn rendement. Dan gaat er een **elektrische kachel** mee die 400 V vraagt, of meteen een adsorptiedroger.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de grote open leefruimte**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "ttk350", waarom: "De Medium per verdieping of per zone: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en in een ruim volume voorkomt ze dat één hoek achterblijft." },
+    ],
+    levering: {
+      kop: "Leveren in Zutendaal: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. **Geef bij de reservatie door welke ruimtes mee moeten drogen**, ook een bijgebouw of een garage, en op een winterwerf controleert de technieker of de kast 400 V levert voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Zutendaal leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["genk", "diepenbeek", "lanaken", "maasmechelen", "bilzen-hoeselt", "as"],
+    faq: [
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een vrijstaande woning?",
+        a: "Voor een gelijkvloers van 120 tot 150 m² rekenen we doorgaans op twee drogers met een ventilator per droogzone, en vaak een derde voor de verdieping of het bijgebouw. De Calculator rekent op volume in kubieke meter, niet op oppervlakte.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Limburg heeft de koudste winterwerven van Vlaanderen, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. We zetten er dan een elektrische kachel bij, die 400 V vraagt.",
+      },
+      {
+        q: "Is een kelder hier een probleem?",
+        a: "Zelden. Zutendaal staat op zand, en zand draineert: het grondwater zakt weg in plaats van tegen de kelderwand te staan. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Kunnen jullie een bijgebouw of garage mee drogen?",
+        a: "Ja, als de ruimte dicht te krijgen is. Geef bij de reservatie door welke ruimtes mee moeten, dan brengt de technieker genoeg capaciteit mee.",
+      },
+      {
+        q: "Hoe snel staan jullie in Zutendaal?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "lummen",
+    title: "Bouwdroger huren in Lummen | Vernast",
+    description:
+      "Bouwdroger huren in Lummen, Linkhout en Meldert: woningen en bedrijfsruimtes bij het verkeersknooppunt. Een van onze kortste Limburgse ritten, met meting inbegrepen.",
+    h1: "Bouwdroger huren in Lummen",
+    kicker: "Midden-Limburg · bij het knooppunt",
+    rit: { afstand: "circa 75 km", tijd: "ongeveer vijfenvijftig minuten" },
+    intro: [
+      "Lummen ligt **bij het knooppunt van de E313 en de E314**, met Linkhout en Meldert erbij, en is daarmee **een van onze kortste Limburgse ritten**: vijfenvijftig minuten.",
+      "Die ligging heeft bedrijvigheid aangetrokken, dus naast woningen drogen we hier **bedrijfsruimtes en loodsen** waar een vloer klaar moet zijn voor de inrichter komt.",
+    ],
+    bouw: {
+      kop: "Woningen in de kernen, bedrijfsruimtes bij de snelweg",
+      alineas: [
+        "Bij een **bedrijfsruimte hangt er een datum aan**: de inrichter staat gepland, en een gietvloer op een te natte chape gaat loskomen. Daar delen we de ruimte op in **droogzones** en drogen we tot **een gemeten waarde**. Geef ons het volume in kubieke meter, de beschikbare stroom en de datum, dan rekenen we terug.",
+        "In de woonkernen gaat het om **chape en pleisterwerk**, en in de winter om temperatuur: onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, en een onverwarmde ruwbouw komt daar in Limburg tussen november en maart niet boven.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de bedrijfsruimte of de loods**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+      { key: "ttk350", waarom: "De Medium voor een woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Lummen: een van onze kortste Limburgse ritten",
+      alinea:
+        "**Vijfenvijftig minuten rijden**, en daarmee een van onze kortste Limburgse ritten. Boekt u voor de middag, dan staat het doorgaans de volgende werkdag. **Geef bij een bedrijfsruimte de datum van uw inrichter door**, dan rekenen we terug hoeveel droogzones er nodig zijn.",
+    },
+    afhalen: {
+      kop: "Afhalen kan, voor één los toestel",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **vijfenvijftig minuten**. Voor één los toestel kan dat lonen, want u krijgt korting op de huurprijs. Voor een bedrijfsvloer niet: daar gaan meerdere toestellen in één rit naartoe.",
+    },
+    buren: ["herk-de-stad", "halen", "heusden-zolder", "beringen", "hasselt", "tessenderlo-ham"],
+    faq: [
+      {
+        q: "Hoe snel kan een bedrijfsvloer droog zijn?",
+        a: "Een chape van vijf centimeter doet zonder hulp vijf à zeven weken; met voldoende drogers en luchtbeweging halen we dat naar twee à drie weken. Geef ons de datum van uw inrichter, dan rekenen we terug hoeveel capaciteit daarvoor nodig is.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw of hal zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Is afhalen vanuit Lummen de moeite?",
+        a: "Voor één los toestel kan het: u bent in een kleine twee uur heen en terug, en u krijgt korting op de huurprijs. Voor een volledig pakket is leveren beter, want dan zit de rit al in de prijs.",
+      },
+      {
+        q: "Hoe snel staan jullie in Lummen?",
+        a: "Vaak binnen 24 uur, en de rit duurt maar vijfenvijftig minuten. Boekt u voor de middag, dan staat het doorgaans de volgende werkdag.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "herk-de-stad",
+    title: "Bouwdroger huren in Herk-de-Stad | Vernast",
+    description:
+      "Bouwdroger huren in Herk-de-Stad, Donk en Schulen: woningen in de Demervallei, die geregeld volloopt. Bij waterschade bellen we u terug om snel te plannen.",
+    h1: "Bouwdroger huren in Herk-de-Stad",
+    kicker: "Midden-Limburg · in de Demervallei",
+    rit: { afstand: "circa 70 km", tijd: "ongeveer vijfenvijftig minuten" },
+    intro: [
+      "Herk-de-Stad ligt **waar de Herk in de Demer gaat**, met Donk en Schulen erbij. De broeken langs die rivieren zijn **overstromingsgebied**: ze horen onder water te komen om de dorpen droog te houden.",
+      "Daarom gaat een deel van onze werven hier over **water dat er niet hoort te zijn**, en niet over bouwvocht. Met vijfenvijftig minuten is dit wel een van onze kortste Limburgse ritten.",
+    ],
+    bouw: {
+      kop: "Woningen tegen het overstromingsgebied",
+      alineas: [
+        "Na hoogwater is **snelheid alles**. Hoe langer water in een vloeropbouw en achter een plint staat, hoe groter de kans op schimmel en op isolatie die haar waarde verliest. We zetten dan **meer capaciteit in dan strikt nodig** en altijd luchtbeweging erbij, want water kruipt onder vloeren en achter plinten waar een droger alleen niet aan komt. Zet plinten los voor we komen.",
+        "Buiten die situaties blijft het grondwater tegen de broeken **ondiep en beweegt het mee met de rivier**. Een kelder die bij hoogwater vochtig wordt is geen bouwvocht: **drogen haalt het uit de ruimte, de bron blijft**. De technieker meet dat bij de levering.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Herk-de-Stad: bij waterschade zo snel als het kan",
+      alinea:
+        "**Vijfenvijftig minuten rijden**, een van onze kortste Limburgse ritten. **Bij waterschade bellen we u terug in plaats van u een formulier te laten afwachten**, want een dag vroeger drogen is hier het verschil tussen een vloer die blijft en een vloer die eruit moet.",
+    },
+    afhalen: {
+      kop: "Afhalen kan, maar niet bij waterschade",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **vijfenvijftig minuten**. Voor één los toestel bij een gewone renovatie kan dat lonen. Bij waterschade is het precies de tijd die u niet hebt: **dan leveren wij**.",
+    },
+    buren: ["halen", "lummen", "nieuwerkerken", "hasselt", "geetbets", "diest"],
+    faq: [
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons. Hoe langer water in de vloeropbouw staat, hoe groter de kans op schimmel.",
+      },
+      {
+        q: "Kunnen jullie dezelfde dag komen?",
+        a: "Bij waterschade proberen we dat: de rit duurt maar vijfenvijftig minuten. We bellen u terug om te plannen in plaats van u te laten afwachten.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt.",
+      },
+      {
+        q: "Hoe lang duurt het drogen na hoogwater?",
+        a: "Voor een kelder of een gelijkvloers reken op twee tot vier weken, afhankelijk van hoe lang het water er stond en van de vloeropbouw. Een zwevende vloer op isolatie doet er langer over.",
+      },
+      {
+        q: "En voor een gewone renovatie?",
+        a: "Vaak binnen 24 uur. De rit duurt vijfenvijftig minuten en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "halen",
+    title: "Bouwdroger huren in Halen | Vernast",
+    description:
+      "Bouwdroger huren in Halen, Loksbergen en Zelem: laaggelegen woningen waar Gete en Demer samenkomen. Bij waterschade staan we er vaak dezelfde dag.",
+    h1: "Bouwdroger huren in Halen",
+    kicker: "Midden-Limburg · waar Gete en Demer samenkomen",
+    rit: { afstand: "circa 70 km", tijd: "ongeveer vijfenvijftig minuten" },
+    intro: [
+      "In Halen **komen de Gete en de Demer samen**, met Loksbergen en Zelem erbij. Dat is het laagste punt van deze hoek, en bij een langere regenperiode is dat te merken.",
+      "Met vijfenvijftig minuten is dit **een van onze kortste Limburgse ritten**, en bij waterschade maakt dat verschil: we staan er dezelfde dag als u ons in de voormiddag bereikt.",
+    ],
+    bouw: {
+      kop: "Laaggelegen woningen bij twee rivieren",
+      alineas: [
+        "Na hoogwater is **snelheid alles**. Hoe langer water in een vloeropbouw en achter een plint staat, hoe groter de kans op schimmel en op isolatie die haar waarde verliest. We zetten dan **meer capaciteit in dan strikt nodig** en altijd luchtbeweging erbij, want water kruipt onder vloeren waar een droger alleen niet aan komt.",
+        "Buiten die situaties is het hier gewoon werk: **renovatie en nieuwbouw** in de kernen, met in de winter bijverwarming erbij. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, en een onverwarmde ruwbouw komt daar in Limburg niet boven.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "Voor de winterwerf: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Halen: bij waterschade vaak dezelfde dag",
+      alinea:
+        "**Vijfenvijftig minuten rijden.** Bij waterschade bellen we u terug om te plannen, en bereikt u ons in de voormiddag, dan staan we er vaak dezelfde dag. Bij een gewone werf krijgt u een tijdslot en een sms een halfuur vooraf.",
+    },
+    afhalen: {
+      kop: "Afhalen kan, voor één los toestel",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **vijfenvijftig minuten**. Voor één los toestel kan dat lonen. Bij waterschade is het precies de tijd die u niet hebt: **dan leveren wij**, en de rit zit al in de prijs.",
+    },
+    buren: ["herk-de-stad", "lummen", "diest", "geetbets", "scherpenheuvel-zichem"],
+    faq: [
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons.",
+      },
+      {
+        q: "Kunnen jullie dezelfde dag komen?",
+        a: "Bij waterschade vaak wel: de rit duurt maar vijfenvijftig minuten. Bereikt u ons in de voormiddag, dan lukt dezelfde dag doorgaans.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "nieuwerkerken",
+    title: "Bouwdroger huren in Nieuwerkerken | Vernast",
+    description:
+      "Bouwdroger huren in Nieuwerkerken, Binderveld en Kozen: hoeves en fruitbedrijven op leembodem. Binnen onze vaste Limburgse toer, met meting inbegrepen.",
+    h1: "Bouwdroger huren in Nieuwerkerken",
+    kicker: "Midden-Limburg · hoeves op leem",
+    rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Nieuwerkerken ligt **in Haspengouw bij Sint-Truiden**, met Binderveld, Kozen en Wijer erbij: leembodem, fruitplantages en hoeves.",
+      "Wat we hier drogen is bijna altijd **renovatie van hoeves en dorpswoningen**, en af en toe een loods of koelruimte van een fruitbedrijf.",
+    ],
+    bouw: {
+      kop: "Hoeves op leem, en loodsen van de fruitteelt",
+      alineas: [
+        "Een hoeve op **leem** combineert twee trage eigenschappen: **massieve muren die hun vocht traag afgeven**, en een ondergrond die water traag doorlaat. Tegen het muuroppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt, en dat haalt een ventilator weg. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+        "Een **loods of koelruimte** is een groot, hoog en meestal onverwarmd volume. Wij rekenen op **volume in kubieke meter** en zetten luchtbeweging over de volle lengte in. Is de ruimte niet te verwarmen, dan gaat er een adsorptiedroger naartoe, want onder 15 °C valt een condensdroger stil.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard bij renovatie: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Onmisbaar bij massieve muren**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg, en pas dan droogt de muur verder." },
+      { key: "ttk650", waarom: "Voor een hoeve of een loods met grote volumes: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "revolution", waarom: "**Voor de onverwarmde loods of kelder**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Nieuwerkerken: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen Limburg in een vaste toer. Bij een hoeve of een loods vragen we **vooraf het volume in kubieke meter** en of de ruimte dicht te krijgen is, zodat de technieker met het juiste toestel vertrekt.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Nieuwerkerken leveren we gewoon**; bij een hoeve hangt het resultaat bovendien af van hoe de toestellen verdeeld staan.",
+    },
+    buren: ["sint-truiden", "alken", "herk-de-stad", "geetbets", "wellen"],
+    faq: [
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand, altijd met een ventilator erbij.",
+      },
+      {
+        q: "Kunnen jullie een fruitloods of een koelruimte drogen?",
+        a: "Ja, als ze dicht te krijgen is. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Waarom droogt een chape op leem zo traag?",
+        a: "Omdat leem water traag doorlaat, dus de ondergrond onder uw vloerplaat blijft natter dan op zand. Zonder hulp doet een chape van vijf centimeter hier vijf à zeven weken; met droger en ventilator ongeveer de helft.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Nieuwerkerken?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "tessenderlo-ham",
+    title: "Bouwdroger huren in Tessenderlo-Ham | Vernast",
+    description:
+      "Bouwdroger huren in Tessenderlo-Ham: onze kortste Limburgse rit, met woningen en bedrijfsruimtes op zand. Vijfenveertig minuten rijden, dus vaak dezelfde dag.",
+    h1: "Bouwdroger huren in Tessenderlo-Ham",
+    kicker: "Noord-Limburg · onze kortste Limburgse rit",
+    rit: { afstand: "circa 55 km", tijd: "ongeveer vijfenveertig minuten" },
+    intro: [
+      "Tessenderlo en Ham vormen **sinds 1 januari 2025 één gemeente**, en samen zijn ze **onze kortste Limburgse rit**: vijfenveertig minuten, korter dan de helft van onze eigen Kempen.",
+      "De gemeente heeft naast haar woonkernen **een flink industrieel weefsel**, dus we drogen hier zowel woningen als bedrijfsruimtes en loodsen.",
+    ],
+    bouw: {
+      kop: "Woningen op zand, en bedrijfsruimtes met een datum",
+      alineas: [
+        "Op **zand draineert de ondergrond goed**, dus is een natte kelder hier zelden de klacht. Blijft een ruimte toch vochtig, dan gaat het meestal om **te weinig ventilatie**: vochtige lucht die nergens heen kan. Dat lost een droger wel op, en dat is een ander gesprek dan in een leem- of polderstreek.",
+        "Bij een **bedrijfsruimte hangt er een datum aan**: de inrichter staat gepland, en een gietvloer op een te natte chape gaat loskomen. Daar delen we de ruimte op in **droogzones** en drogen we tot **een gemeten waarde**. Geef ons het volume in kubieke meter, de stroom en de datum, dan rekenen we terug.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium voor een woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "**Voor de bedrijfsruimte of de loods**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+    ],
+    levering: {
+      kop: "Leveren in Tessenderlo-Ham: vijfenveertig minuten",
+      alinea:
+        "**Vijfenveertig minuten rijden: onze kortste Limburgse rit.** Bij een dringende werf lukt dezelfde dag vaak nog. **Geef bij een bedrijfsruimte de datum van uw inrichter door**, dan rekenen we terug hoeveel droogzones er nodig zijn.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier wél",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **vijfenveertig minuten**, dus u bent in een kleine twee uur heen en terug. Voor één of twee losse toestellen is dat de moeite, en u krijgt korting op de huurprijs. Vervoer de droger **rechtop**.",
+    },
+    buren: ["beringen", "lummen", "leopoldsburg", "laakdal", "meerhout", "balen"],
+    faq: [
+      {
+        q: "Hoe snel staan jullie in Tessenderlo-Ham?",
+        a: "Vaak binnen 24 uur, en soms dezelfde dag: dit is onze kortste Limburgse rit met vijfenveertig minuten. Boekt u in de voormiddag, dan lukt dezelfde dag vaak nog.",
+      },
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Zelden. De bodem is zand en dat draineert: het grondwater zakt weg in plaats van tegen de kelderwand te staan. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Hoe snel kan een bedrijfsvloer droog zijn?",
+        a: "Een chape van vijf centimeter doet zonder hulp vijf à zeven weken; met voldoende drogers en luchtbeweging halen we dat naar twee à drie weken. Geef ons de datum van uw inrichter, dan rekenen we terug.",
+      },
+      {
+        q: "Is afhalen de moeite?",
+        a: "Ja, voor één of twee losse toestellen: u bent in een kleine twee uur heen en terug en u krijgt korting op de huurprijs. Voor een volledig pakket is leveren beter, want dan zit de rit al in de prijs.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Limburg heeft de koudste winterwerven van Vlaanderen, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. We zetten er dan een elektrische kachel bij, die 400 V vraagt.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "beringen",
+    title: "Bouwdroger huren in Beringen | Vernast",
+    description:
+      "Bouwdroger huren in Beringen, Paal en Koersel: cité-woningen van de mijn in renovatie, op zandgrond. Lichte constructies drogen we kleiner en langer, zonder krimpscheuren.",
+    h1: "Bouwdroger huren in Beringen",
+    kicker: "Noord-Limburg · mijnsite en cités",
+    rit: { afstand: "circa 65 km", tijd: "ongeveer vijftig minuten" },
+    intro: [
+      "Beringen heeft **de grootste bewaarde mijnsite van het land**, en daarrond liggen de **cités**: woonwijken die in de jaren twintig en dertig in één keer zijn aangelegd, met Paal, Koersel en Beverlo erbij.",
+      "Die woningen gaan nu in **renovatie**, en ze drogen anders dan modern werk: **dunne muren, een vloer op volle grond en geen waterkering in de muurvoet**.",
+    ],
+    bouw: {
+      kop: "Cité-woningen in renovatie, en mijnerfgoed in herbestemming",
+      alineas: [
+        "Een cité-woning heeft **dunne muren en weinig thermische massa**: die droogt sneller dan massief werk, maar ze wordt ook sneller weer vochtig. Hier werkt **een kleiner toestel dat langer draait** beter dan een groot dat te snel droogt en krimpscheuren geeft in verse chape of pleisterwerk.",
+        "In de **mijngebouwen in herbestemming** is het omgekeerde waar: hoge, grote volumes met dikke betonvloeren die jaren vocht hebben opgenomen. Wij rekenen op **volume in kubieke meter** en zetten luchtbeweging over de volle lengte in; is de ruimte niet te verwarmen, dan gaat er een adsorptiedroger naartoe.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor de cité-woning**: 50 liter per dag en 0,75 kW op een gewoon stopcontact. Kleiner en langer drogen geeft hier minder krimpscheuren." },
+      { key: "ttk650", waarom: "**Voor een mijngebouw in herbestemming**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttk350", waarom: "De Medium voor een volledig gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "Voor de winterwerf: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Beringen: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer vijftig minuten rijden. Gaat het om **meerdere woningen in dezelfde wijk**, geef dat dan bij de reservatie door: dan leveren we in één rit in plaats van drie keer dezelfde rit te doen. Op een winterwerf controleert de technieker of de kast 400 V levert.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier wél",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer vijftig minuten**. Voor één of twee losse toestellen is dat de moeite, en u krijgt korting op de huurprijs. Voor een pakket is leveren beter: de rit en de vochtmeting zitten al in de prijs.",
+    },
+    buren: ["heusden-zolder", "tessenderlo-ham", "leopoldsburg", "lummen", "hechtel-eksel"],
+    faq: [
+      {
+        q: "Welk toestel voor een cité-woning?",
+        a: "Doorgaans de Small bouwdroger, en langer laten draaien. Zulke woningen hebben dunne muren en weinig thermische massa: ze drogen snel, en te snel drogen geeft krimpscheuren in verse chape of pleisterwerk. De technieker stelt de hygrostaat daarop in.",
+      },
+      {
+        q: "Mijn vloer op volle grond blijft koud en vochtig. Wat nu?",
+        a: "Zonder dampremmende laag zuigt zo'n vloer vocht uit de ondergrond op. Een droger houdt de ruimte bruikbaar, maar hij stopt de aanvoer niet. Bij een renovatie is de duurzame oplossing een nieuwe vloeropbouw.",
+      },
+      {
+        q: "Kunnen jullie meerdere woningen in dezelfde wijk doen?",
+        a: "Ja. Geef bij de reservatie door hoeveel woningen er tegelijk moeten drogen, dan leveren we in één rit en zetten we per woning een droogzone op.",
+      },
+      {
+        q: "Kunnen jullie een oud industriegebouw drogen?",
+        a: "Ja. Geef vooraf het volume per ruimte in kubieke meter door en of de ruimte dicht te krijgen is. Reken op meer capaciteit dan de vloeroppervlakte suggereert, want zulke gebouwen zijn hoog.",
+      },
+      {
+        q: "Hoe snel staan jullie in Beringen?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer vijftig minuten en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "heusden-zolder",
+    title: "Bouwdroger huren in Heusden-Zolder | Vernast",
+    description:
+      "Bouwdroger huren in Heusden-Zolder: cités en verkavelingen op zandgrond, met koude winterwerven. Twee generaties woningen, elk met een eigen pakket.",
+    h1: "Bouwdroger huren in Heusden-Zolder",
+    kicker: "Noord-Limburg · cités en verkavelingen",
+    rit: { afstand: "circa 70 km", tijd: "ongeveer vijfenvijftig minuten" },
+    intro: [
+      "Heusden-Zolder is gegroeid rond zijn mijn, en dat is aan de bebouwing te zien: **cité-woningen** uit de jaren twintig en dertig naast **verkavelingen** uit de decennia erna, op zandgrond.",
+      "Twee generaties woningen die elk anders drogen: de ene **licht en dun**, de andere **ruim met een volledige kelder**.",
+    ],
+    bouw: {
+      kop: "Lichte cité-woningen, en ruime verkavelingswoningen",
+      alineas: [
+        "Een cité-woning heeft **dunne muren en weinig thermische massa**, dus ze droogt snel maar wordt ook sneller weer vochtig. Hier werkt **een kleiner toestel dat langer draait** beter dan een groot dat te snel droogt en krimpscheuren geeft. In een verkavelingswoning met **drie bouwlagen** is het omgekeerd: daar zetten we per verdieping een droogzone op.",
+        "Op **zand draineert de ondergrond goed**, dus is een natte kelder hier zelden de klacht. Wat wel telt is de winter: **Limburg heeft de koudste werven van Vlaanderen**, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. Tussen november en maart gaat er daarom bijna altijd een kachel mee.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor de cité-woning**: 50 liter per dag en 0,75 kW op een gewoon stopcontact, en langer laten draaien." },
+      { key: "ttk350", waarom: "De Medium per verdieping in een ruimere woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+    ],
+    levering: {
+      kop: "Leveren in Heusden-Zolder: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer vijfenvijftig minuten rijden. U krijgt een tijdslot en een sms een halfuur vooraf. Op een winterwerf controleert de technieker eerst of **de werfkast 400 V levert** voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier wél",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer vijfenvijftig minuten**. Voor één of twee losse toestellen is dat de moeite, en u krijgt korting op de huurprijs. Voor een pakket is leveren beter: de rit en de vochtmeting zitten al in de prijs.",
+    },
+    buren: ["beringen", "zonhoven", "houthalen-helchteren", "lummen", "hasselt"],
+    faq: [
+      {
+        q: "Welk toestel voor een cité-woning?",
+        a: "Doorgaans de Small bouwdroger, en langer laten draaien. Zulke woningen hebben dunne muren en weinig thermische massa: ze drogen snel, en te snel drogen geeft krimpscheuren in verse chape of pleisterwerk.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Limburg heeft de koudste winterwerven van Vlaanderen, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. We zetten er dan een elektrische kachel bij, die 400 V vraagt.",
+      },
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Zelden. De bodem is zand en dat draineert. Blijft een kelder of berging toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Hoeveel toestellen voor een woning met drie bouwlagen?",
+        a: "Doorgaans een droogzone per verdieping, dus twee tot drie drogers met een ventilator per zone. De Calculator rekent op volume in kubieke meter, niet op oppervlakte.",
+      },
+      {
+        q: "Hoe snel staan jullie in Heusden-Zolder?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer vijfenvijftig minuten en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "houthalen-helchteren",
+    title: "Bouwdroger huren in Houthalen-Helchteren | Vernast",
+    description:
+      "Bouwdroger huren in Houthalen-Helchteren: cités, bos en bedrijvenzones op zandgrond. Geleverd en geplaatst. Grote vloeren delen we op in droogzones.",
+    h1: "Bouwdroger huren in Houthalen-Helchteren",
+    kicker: "Noord-Limburg · cités, bos en bedrijvigheid",
+    rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Houthalen-Helchteren is uitgestrekt en bosrijk, met **de cité van Meulenberg** uit het mijnverleden, ruime verkavelingen en **een van de grootste bedrijvenzones van Limburg**.",
+      "Dat levert drie soorten werven op: **lichte cité-woningen**, **ruime vrijstaande bebouwing** en **bedrijfsvloeren met een opleverdatum**.",
+    ],
+    bouw: {
+      kop: "Drie soorten werven, één bodem van zand",
+      alineas: [
+        "Op **zand draineert de ondergrond goed**, dus is een natte kelder hier zelden de klacht, en gaat het gesprek over **ventilatie in plaats van over grondwater**. Wat wel telt is de winter: tussen november en maart komt een onverwarmde ruwbouw hier niet boven de 15 °C, en daaronder verliest een condensdroger het grootste deel van zijn rendement.",
+        "Bij een **bedrijfsvloer** delen we de ruimte op in **droogzones**: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. Eén toestel in een hoek droogt die hoek. Geef ons het volume in kubieke meter, de stroom en de opleverdatum, dan rekenen we terug.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de bedrijfsvloer**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op een groot oppervlak zetten we er meerdere verdeeld." },
+      { key: "ttk350", waarom: "De Medium voor een woning of per verdieping: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+    ],
+    levering: {
+      kop: "Leveren in Houthalen-Helchteren: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer een uur rijden. **Geef bij een bedrijfsvloer het volume en de opleverdatum door**, dan rekenen we terug hoeveel droogzones er nodig zijn. Op een winterwerf controleert de technieker of de kast 400 V levert voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor één los toestel kan het lonen; voor een bedrijfsvloer nooit, want daar gaan meerdere toestellen in één rit naartoe.",
+    },
+    buren: ["heusden-zolder", "zonhoven", "hechtel-eksel", "peer", "oudsbergen", "genk"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een bedrijfsvloer?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen zo'n vloer op in droogzones: per zone een droger met voldoende capaciteit en een ventilator over de volle lengte. Geef ons het volume in kubieke meter en de opleverdatum.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Limburg heeft de koudste winterwerven van Vlaanderen, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. We zetten er dan een elektrische kachel bij, die 400 V vraagt.",
+      },
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Zelden. De bodem is zand en dat draineert. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Welk toestel voor een cité-woning?",
+        a: "Doorgaans de Small bouwdroger, en langer laten draaien. Zulke woningen hebben dunne muren: ze drogen snel, en te snel drogen geeft krimpscheuren.",
+      },
+      {
+        q: "Hoe snel staan jullie hier?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "leopoldsburg",
+    title: "Bouwdroger huren in Leopoldsburg | Vernast",
+    description:
+      "Bouwdroger huren in Leopoldsburg en Heppen: compacte kern bij het militair domein, op zandgrond. In de winter hoort er bijverwarming bij, op 400 V.",
+    h1: "Bouwdroger huren in Leopoldsburg",
+    kicker: "Noord-Limburg · compacte kern op zand",
+    rit: { afstand: "circa 65 km", tijd: "ongeveer vijftig minuten" },
+    intro: [
+      "Leopoldsburg is als **garnizoensgemeente** gegroeid: een compacte kern met een strak stratenplan, en Heppen erbij. De bebouwing is dichter dan in de bosrijke buurgemeenten.",
+      "De bodem is **zand**, en dat scheelt: het draineert goed, dus is een natte kelder hier zelden de klacht. Wat blijft is bouwvocht, en in de winter de temperatuur.",
+    ],
+    bouw: {
+      kop: "Compacte woningen op zand, met koude winterwerven",
+      alineas: [
+        "Op **zand draineert de ondergrond goed**. Blijft een kelder of een berging hier toch vochtig, dan gaat het meestal om **te weinig ventilatie**: vochtige lucht die nergens heen kan, vaak in een ruimte die zelden open gaat. Dat lost een droger wel op, en de technieker meet het bij de levering.",
+        "**Limburg heeft de koudste winterwerven van Vlaanderen.** Tussen november en maart komt een onverwarmde ruwbouw hier niet boven de 15 °C, en daaronder verliest een condensdroger het grootste deel van zijn rendement. Dan gaat er een **elektrische kachel** mee die 400 V vraagt, of meteen een adsorptiedroger.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+      { key: "ttk170", waarom: "Voor één kamer, een badkamer of een appartement: 50 liter per dag en 0,75 kW op een gewoon stopcontact." },
+    ],
+    levering: {
+      kop: "Leveren in Leopoldsburg: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer vijftig minuten rijden. U krijgt een tijdslot en een sms een halfuur vooraf. Op een winterwerf controleert de technieker eerst of **de werfkast 400 V levert** voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier wél",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer vijftig minuten**. Voor één of twee losse toestellen is dat de moeite, en u krijgt korting op de huurprijs. Vervoer de droger **rechtop**; heeft hij plat gelegen, laat hem dan 24 uur staan voor u hem inschakelt.",
+    },
+    buren: ["beringen", "hechtel-eksel", "tessenderlo-ham", "balen", "peer"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Zelden. De bodem is zand en dat draineert: het grondwater zakt weg in plaats van tegen de kelderwand te staan. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Limburg heeft de koudste winterwerven van Vlaanderen, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. We zetten er dan een elektrische kachel bij, die 400 V vraagt.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Is afhalen de moeite?",
+        a: "Ja, voor één of twee losse toestellen: u bent in een kleine twee uur heen en terug en u krijgt korting op de huurprijs.",
+      },
+      {
+        q: "Hoe snel staan jullie in Leopoldsburg?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer vijftig minuten en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "hechtel-eksel",
+    title: "Bouwdroger huren in Hechtel-Eksel | Vernast",
+    description:
+      "Bouwdroger huren in Hechtel-Eksel: ruime bebouwing in bosrijk zand, met de koudste winterwerven. In de winter hoort er bijverwarming bij, op 400 V.",
+    h1: "Bouwdroger huren in Hechtel-Eksel",
+    kicker: "Noord-Limburg · bosrijk zand",
+    rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Hechtel-Eksel is **bosrijk en ruim opgezet**, met grote percelen en veel vrijstaande bebouwing op zandgrond, tegen het militair domein en de Bosland-bossen.",
+      "Op zand **draineert de ondergrond goed**, dus is een kelder hier zelden het probleem. Wat hier telt is **volume**, en tussen november en maart **temperatuur**.",
+    ],
+    bouw: {
+      kop: "Grote volumes op zand, in de koudste hoek van Vlaanderen",
+      alineas: [
+        "Een vrijstaande woning heeft **meer capaciteit nodig dan haar vierkante meters suggereren**, want het gaat om volume. Een open leefruimte met een plafond van drie meter telt zwaarder dan dezelfde oppervlakte onder een gewoon plafond, en daarom rekent onze Calculator op **kubieke meter**.",
+        "**Dit is de koudste hoek van Vlaanderen voor onze werven.** Een onverwarmde ruwbouw of een bijgebouw komt hier tussen november en maart niet boven de 15 °C, en daaronder verliest een condensdroger het grootste deel van zijn rendement. Dan gaat er een **elektrische kachel** mee die 400 V vraagt, of meteen een adsorptiedroger die ook koud doorwerkt.",
+      ],
+    },
+    toestellen: [
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "ttk650", waarom: "**Voor de grote open leefruimte**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttk350", waarom: "De Medium per verdieping of per zone: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor wat niet te verwarmen is**: de adsorptiedroger blijft ook bij vijf graden vocht opnemen, waar een condensdroger stilvalt." },
+    ],
+    levering: {
+      kop: "Leveren in Hechtel-Eksel: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer een uur rijden. **Geef bij de reservatie door welke ruimtes mee moeten drogen**, ook een bijgebouw of een garage. Op een winterwerf controleert de technieker of de werfkast **400 V** levert voor de kachel, want zonder bijverwarming haalt een condensdroger hier te weinig rendement.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Hechtel-Eksel leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["leopoldsburg", "peer", "houthalen-helchteren", "pelt", "beringen"],
+    faq: [
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Dit is de koudste hoek van ons werkgebied: een onverwarmde ruwbouw komt hier tussen november en maart niet boven de 15 °C, en daaronder verliest een condensdroger het grootste deel van zijn rendement. We zetten er een elektrische kachel bij, die 400 V vraagt.",
+      },
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een vrijstaande woning?",
+        a: "Voor een gelijkvloers van 120 tot 150 m² rekenen we doorgaans op twee drogers met een ventilator per droogzone, en vaak een derde voor de verdieping of het bijgebouw. De Calculator rekent op volume in kubieke meter.",
+      },
+      {
+        q: "Waarom een adsorptiedroger en geen gewone bouwdroger?",
+        a: "Omdat een condensdroger lucht afkoelt om het water eruit te halen, en dat werkt slecht als de lucht al koud is. Een adsorptiedroger bindt het vocht aan een droogwiel en blijft ook bij vijf graden doorwerken.",
+      },
+      {
+        q: "Is een kelder hier een probleem?",
+        a: "Zelden. De bodem is zand en dat draineert. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Hoe snel staan jullie in Hechtel-Eksel?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "lommel",
+    title: "Bouwdroger huren in Lommel | Vernast",
+    description:
+      "Bouwdroger huren in Lommel: ruime bebouwing op stuifzand, met bedrijfsvloeren en koude winters. Op stuifzand is de kelder bijna nooit het probleem.",
+    h1: "Bouwdroger huren in Lommel",
+    kicker: "Noord-Limburg · stuifzand en industrie",
+    rit: { afstand: "circa 75 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Lommel ligt **op het zandigste stuk van Vlaanderen**: stuifzand, duinen en bos, met de Nederlandse grens erachter. De gemeente is uitgestrekt en ruim bebouwd, met daarnaast **een forse industriezone**.",
+      "Dat zand is de reden dat **een kelder hier bijna nooit het probleem is**. Wat hier telt is volume, bedrijfsvloeren en, tussen november en maart, temperatuur.",
+    ],
+    bouw: {
+      kop: "Zand dat alles doorlaat, en grote vloeren",
+      alineas: [
+        "**Op stuifzand draineert de ondergrond uitzonderlijk goed**: het grondwater zakt weg in plaats van tegen een kelderwand te staan. Blijft een ruimte hier toch vochtig, dan gaat het vrijwel altijd om **te weinig ventilatie**, en dat lost een droger wel op.",
+        "Bij een **bedrijfsvloer** delen we de ruimte op in **droogzones**: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. Eén toestel in een hoek droogt die hoek. In de winter hoort er bijverwarming bij, want **onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de bedrijfsvloer of de hal**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "ttk350", waarom: "De Medium voor een woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Lommel: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer een uur rijden. **Geef bij een bedrijfsvloer het volume, de stroom en de opleverdatum door**, dan rekenen we terug hoeveel droogzones er nodig zijn. Op een winterwerf controleert de technieker of de kast 400 V levert.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor één los toestel kan het lonen; voor een bedrijfsvloer nooit, want daar gaan meerdere toestellen in één rit naartoe.",
+    },
+    buren: ["pelt", "hechtel-eksel", "hamont-achel", "balen", "mol"],
+    faq: [
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Vrijwel nooit. Lommel staat op stuifzand en dat draineert uitzonderlijk goed: het grondwater zakt weg in plaats van tegen de kelderwand te staan. Blijft een ruimte toch vochtig, dan gaat het om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Hoeveel toestellen voor een bedrijfsvloer?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen zo'n vloer op in droogzones: per zone een droger met voldoende capaciteit en een ventilator over de volle lengte. Geef ons het volume en de opleverdatum.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Limburg heeft de koudste winterwerven van Vlaanderen, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. We zetten er dan een elektrische kachel bij, die 400 V vraagt.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf.",
+      },
+      {
+        q: "Hoe snel staan jullie in Lommel?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "peer",
+    title: "Bouwdroger huren in Peer | Vernast",
+    description:
+      "Bouwdroger huren in Peer, Wijchmaal en Grote-Brogel: landbouwloodsen en hoeves op zandgrond. We vragen vooraf het volume en of de poorten kunnen sluiten.",
+    h1: "Bouwdroger huren in Peer",
+    kicker: "Noord-Limburg · loodsen en hoeves op zand",
+    rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Peer is landelijk en uitgestrekt, met **Wijchmaal, Grote-Brogel en Kleine-Brogel** erbij: open landbouwgebied op zandgrond, met veel **loodsen en stallen** tussen de kernen.",
+      "Precies die gebouwen komen in verbouwing of herbestemming, en dat is een volumeverhaal: **groot, hoog en meestal onverwarmd**.",
+    ],
+    bouw: {
+      kop: "Landbouwloodsen en stallen, in groot volume",
+      alineas: [
+        "Een **loods of stal** is een groot, hoog en meestal onverwarmd volume. Wij rekenen op **volume in kubieke meter**, en zo'n gebouw telt zwaarder dan zijn vloeroppervlak suggereert. Daarbij hoort **luchtbeweging over de volle lengte**: één droger in een hoek droogt die hoek, en dan staat u weken later nog te wachten.",
+        "De poorten en de temperatuur zijn de twee punten. **Een droger tegen een open poort werkt tegen de buitenlucht in**, en **onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**. We vragen daarom vooraf of de ruimte dicht te krijgen is en of er verwarmd kan worden; zo niet, dan gaat er een adsorptiedroger naartoe.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de loods of de stal**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n volume zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**In een groot volume de voorwaarde**: zonder luchtbeweging over de volle lengte blijft droge lucht hangen waar het toestel staat." },
+      { key: "revolution", waarom: "**Voor de onverwarmde loods in de winter**: de adsorptiedroger blijft ook bij vijf graden vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Peer: met het volume en de poorten vooraf",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen Limburg in een vaste toer. Bij een loods of een stal vragen we **vooraf het volume in kubieke meter, de vloeropbouw en of de poorten kunnen sluiten**, zodat de technieker met het juiste toestel vertrekt.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor een loods is dat nooit de bedoeling: daar gaan meerdere toestellen in één rit naartoe, en die levering zit al in de prijs.",
+    },
+    buren: ["hechtel-eksel", "pelt", "bocholt", "bree", "oudsbergen", "leopoldsburg"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een loods van 800 m³?",
+        a: "Doorgaans twee tot drie drogers verdeeld over de ruimte, met luchtbeweging over de volle lengte, en in de winter een kachel of een adsorptiedroger erbij. Eén droger in een hoek droogt die hoek; het gaat om verdeling even veel als om capaciteit.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf dan dat u voor niets huurt.",
+      },
+      {
+        q: "Kunnen jullie een stal drogen die woonruimte wordt?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Limburg heeft de koudste winterwerven van Vlaanderen, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. De kachel vraagt 400 V.",
+      },
+      {
+        q: "Hoe snel staan jullie in Peer?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "pelt",
+    title: "Bouwdroger huren in Pelt | Vernast",
+    description:
+      "Bouwdroger huren in Pelt: Neerpelt en Overpelt samen, met woningen en bedrijfsvloeren aan de Dommel. Grote vloeren delen we op in droogzones, meting inbegrepen.",
+    h1: "Bouwdroger huren in Pelt",
+    kicker: "Noord-Limburg · Neerpelt en Overpelt samen",
+    rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Pelt is **de fusie van Neerpelt en Overpelt**, met de Dommel erdoor en het kanaal langs de rand. Zoekt u op een van die oude namen, dan komt u hier terecht.",
+      "De gemeente heeft naast haar woonkernen **een industrieel verleden en een forse bedrijvenzone**, dus we drogen hier zowel woningen als bedrijfsvloeren.",
+    ],
+    bouw: {
+      kop: "Woningen op zand, en bedrijfsvloeren met een datum",
+      alineas: [
+        "Op **zand draineert de ondergrond goed**, dus is een natte kelder hier zelden de klacht; het gesprek gaat over **ventilatie in plaats van over grondwater**. Vlak langs de **Dommel** is dat anders: daar staat het grondwater ondiep en blijft een kelder zelden volledig droog.",
+        "Bij een **bedrijfsvloer** delen we de ruimte op in **droogzones**: per zone een droger met voldoende capaciteit en een ventilator die de droge lucht over de volle lengte verdeelt. Geef ons het volume in kubieke meter, de stroom en de opleverdatum, dan rekenen we terug hoeveel zones er nodig zijn.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de bedrijfsvloer**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op een groot oppervlak zetten we er meerdere verdeeld." },
+      { key: "ttk350", waarom: "De Medium voor een woning: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "ttv4500", waarom: "**Per droogzone een ventilator**: hij verdeelt de droge lucht over de volle lengte en voorkomt dat één hoek achterblijft." },
+    ],
+    levering: {
+      kop: "Leveren in Pelt: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ongeveer een uur rijden. **Geef bij de reservatie door of u in Neerpelt of Overpelt zit**, dan plant de technieker zijn ronde daarop. Bij een bedrijfsvloer vragen we het volume, de stroom en de opleverdatum.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. Voor één los toestel kan het lonen; voor een bedrijfsvloer nooit, want daar gaan meerdere toestellen in één rit naartoe.",
+    },
+    buren: ["lommel", "hechtel-eksel", "peer", "hamont-achel", "bocholt"],
+    faq: [
+      {
+        q: "Ik woon in Neerpelt of Overpelt. Is dit mijn pagina?",
+        a: "Ja. Die twee gemeenten zijn gefuseerd tot Pelt, en deze pagina gaat over beide. Geef bij de reservatie door in welke kern u woont, dan plant de technieker zijn ronde daarop.",
+      },
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Dat hangt van uw straat af. Op het zand draineert de bodem goed en gaat het meestal om te weinig ventilatie; vlak langs de Dommel staat het grondwater ondiep en blijft een kelder zelden droog. De meting bij de levering vertelt het.",
+      },
+      {
+        q: "Hoeveel toestellen voor een bedrijfsvloer?",
+        a: "Dat hangt vooral af van de hoogte, want we rekenen op volume. We delen zo'n vloer op in droogzones: per zone een droger met voldoende capaciteit en een ventilator over de volle lengte.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw of hal zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Hoe snel staan jullie in Pelt?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "hamont-achel",
+    title: "Bouwdroger huren in Hamont-Achel | Vernast",
+    description:
+      "Bouwdroger huren in Hamont-Achel: kleine kernen tegen de Nederlandse grens, op zandgrond. Een van de koudste hoeken van ons werkgebied, en dus met kachel.",
+    h1: "Bouwdroger huren in Hamont-Achel",
+    kicker: "Noord-Limburg · tegen de Nederlandse grens",
+    rit: { afstand: "circa 90 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Hamont-Achel ligt **pal tegen de Nederlandse grens**, met twee kleine kernen en veel open zandgrond ertussen. Het is een van **onze noordelijkste haltes in Limburg**.",
+      "Op zand **draineert de ondergrond goed**, dus is een kelder hier zelden het probleem. Wat blijft is bouwvocht, en tussen november en maart de temperatuur.",
+    ],
+    bouw: {
+      kop: "Kleine kernen op zand, met koude winterwerven",
+      alineas: [
+        "Op **zand draineert de ondergrond goed**. Blijft een kelder of een berging hier toch vochtig, dan gaat het meestal om **te weinig ventilatie**: vochtige lucht die nergens heen kan. Dat lost een droger wel op, en de technieker meet het bij de levering.",
+        "**Dit is een van de koudste hoeken van ons werkgebied.** Een onverwarmde ruwbouw of een bijgebouw komt hier tussen november en maart niet boven de 15 °C, en daaronder verliest een condensdroger het grootste deel van zijn rendement. Dan gaat er een **elektrische kachel** mee die 400 V vraagt, of meteen een adsorptiedroger.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "revolution", waarom: "**Voor wat niet te verwarmen is**: de adsorptiedroger blijft ook bij vijf graden vocht opnemen, waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+    ],
+    levering: {
+      kop: "Leveren in Hamont-Achel: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer: ook een kleine grensgemeente ligt daar gewoon op. Op een winterwerf controleert de technieker of **de werfkast 400 V levert** voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Hamont-Achel leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["pelt", "lommel", "bocholt"],
+    faq: [
+      {
+        q: "Komen jullie ook tot aan de grens?",
+        a: "Ja, en zonder toeslag. We plannen Limburg in een vaste toer, dus Hamont en Achel liggen daar gewoon op. De prijs van het droogpakket is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Dit is een van de koudste hoeken van ons werkgebied, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. We zetten er dan een elektrische kachel bij, die 400 V vraagt.",
+      },
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Zelden. De bodem is zand en dat draineert. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Hoe snel staan jullie in Hamont-Achel?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "bocholt",
+    title: "Bouwdroger huren in Bocholt | Vernast",
+    description:
+      "Bouwdroger huren in Bocholt, Kaulille en Reppel: hoeves en loodsen langs de Zuid-Willemsvaart. We vragen vooraf het volume en of de poorten kunnen sluiten.",
+    h1: "Bouwdroger huren in Bocholt",
+    kicker: "Noord-Limburg · langs de Zuid-Willemsvaart",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Bocholt ligt **langs de Zuid-Willemsvaart**, met Kaulille, Reppel en Lozen erbij: landbouwgemeente op zandgrond, met loodsen en stallen tussen de kernen.",
+      "Wat we hier drogen is dan ook vooral **hoeves, loodsen en stallen in verbouwing**, naast gewone woningrenovatie in de kernen.",
+    ],
+    bouw: {
+      kop: "Hoeves en loodsen op zand, bij het kanaal",
+      alineas: [
+        "Een **loods of stal** is een groot, hoog en meestal onverwarmd volume. Wij rekenen op **volume in kubieke meter** en zetten **luchtbeweging over de volle lengte** in; één droger in een hoek droogt die hoek. We vragen vooraf of de poorten kunnen sluiten, want een droger tegen een open poort werkt tegen de buitenlucht in.",
+        "Bij een hoeve bepaalt **massief werk** de tijd: muren van veertig centimeter geven hun vocht traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de loods of de stal**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**, en in een groot volume de manier om overal even droog te krijgen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor de onverwarmde loods of kelder**: de adsorptiedroger blijft ook bij vijf graden vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Bocholt: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. Bij een hoeve of een loods vragen we **vooraf het volume in kubieke meter** en of de ruimte dicht te krijgen is. Staat ze aan een onverharde oprit, zeg dat dan ook.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Bocholt leveren we gewoon**; bij een loods hangt het resultaat bovendien af van hoe de toestellen verdeeld staan.",
+    },
+    buren: ["peer", "bree", "pelt", "hamont-achel", "kinrooi"],
+    faq: [
+      {
+        q: "Hoeveel toestellen voor een loods van 800 m³?",
+        a: "Doorgaans twee tot drie drogers verdeeld over de ruimte, met luchtbeweging over de volle lengte, en in de winter een kachel of een adsorptiedroger erbij. Eén droger in een hoek droogt die hoek.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf.",
+      },
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Betaal ik een kilometerkost?",
+        a: "Nee. Levering, plaatsing, de vochtmeting en de ophaling zitten in de prijs van het droogpakket.",
+      },
+      {
+        q: "Hoe snel staan jullie in Bocholt?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "bree",
+    title: "Bouwdroger huren in Bree | Vernast",
+    description:
+      "Bouwdroger huren in Bree, Opitter en Gerdingen: historische kern en woningen in de beekvallei. Met een realistische droogtermijn, vooraf gezegd.",
+    h1: "Bouwdroger huren in Bree",
+    kicker: "Noord-Limburg · historische kern en beekvallei",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Bree heeft **een historische kern met oude panden**, en daarrond Opitter, Gerdingen, Beek en Tongerlo. De Itterbeek loopt er door een vallei die in de laagste delen nat blijft.",
+      "Twee soorten werven dus: **oud patrimonium met dikke muren** in de kern, en gewone woningrenovatie en nieuwbouw errond.",
+    ],
+    bouw: {
+      kop: "Oude panden in de kern, en de vallei van de Itterbeek",
+      alineas: [
+        "Een pand in de oude kern heeft **dikke massieve muren** die hun vocht traag afgeven, met tegen het oppervlak een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg. Reken bij zulk werk op **anderhalf tot twee keer de droogtijd** van een moderne wand, en dat zegt de technieker liever vooraf.",
+        "In de **vallei van de Itterbeek** staat het grondwater in de laagste delen ondiep: een kelder blijft daar zelden volledig droog, en dat is geen bouwvocht. **Drogen haalt het uit de ruimte, de bron blijft.** Hogerop, op het zand, draineert de bodem goed en is een natte kelder zelden de klacht.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg, en pas dan droogt de muur verder." },
+      { key: "revolution", waarom: "**Voor een kelder laag in de vallei**: koud en vochtig tegelijk, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "teddh30", waarom: "Voor de winterwerf: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Bree: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. **Ligt uw pand in een straat met venstertijden, zeg dat dan bij de reservatie.** Bij een oud pand zegt de technieker bij de levering welke droogtermijn realistisch is.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Bree leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["bocholt", "peer", "oudsbergen", "kinrooi", "maaseik", "dilsen-stokkem"],
+    faq: [
+      {
+        q: "Hoe lang duurt het drogen van een pand met dikke muren?",
+        a: "Langer dan een moderne wand: reken op anderhalf tot twee keer de droogtijd. Het vocht moet uit de kern naar buiten, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg.",
+      },
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Dat hangt van uw straat af. Laag in de vallei van de Itterbeek staat het grondwater ondiep en blijft een kelder zelden droog; hogerop op het zand draineert de bodem goed. De vochtmeting bij de levering vertelt het.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruimte zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Kan ik verlengen als het niet droog is?",
+        a: "Ja, per week. De technieker meet bij de ophaling; is de restvochtigheid nog te hoog, dan blijft het pakket staan. Bij oud patrimonium is dat eerder regel dan uitzondering.",
+      },
+      {
+        q: "Hoe snel staan jullie in Bree?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "oudsbergen",
+    title: "Bouwdroger huren in Oudsbergen | Vernast",
+    description:
+      "Bouwdroger huren in Oudsbergen: Meeuwen-Gruitrode en Opglabbeek samen, met hoeves op bosrijk zand. We rekenen op volume in kubieke meter, niet op oppervlakte.",
+    h1: "Bouwdroger huren in Oudsbergen",
+    kicker: "Noord-Limburg · uitgestrekt en bosrijk",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Oudsbergen is **de fusie van Meeuwen-Gruitrode en Opglabbeek**, en daarmee een van de uitgestrektste gemeenten van Limburg: bosrijk zand, ruime percelen en veel open ruimte. Zoekt u op een van die oude namen, dan komt u hier terecht.",
+      "Wat we hier drogen is **ruime vrijstaande bebouwing en hoeves**, en dat is een volumeverhaal: op zand is de kelder zelden de klacht.",
+    ],
+    bouw: {
+      kop: "Grote volumes op bosrijk zand",
+      alineas: [
+        "Een vrijstaande woning of hoeve heeft **meer capaciteit nodig dan haar vierkante meters suggereren**, want het gaat om volume. Een open leefruimte met een plafond van drie meter telt zwaarder dan dezelfde oppervlakte onder een gewoon plafond, en daarom rekent onze Calculator op **kubieke meter**.",
+        "Op **zand draineert de ondergrond goed**, dus is een natte kelder hier zelden de klacht. Wat wel telt is de winter: tussen november en maart komt een onverwarmde ruwbouw of een bijgebouw niet boven de 15 °C, en daaronder **verliest een condensdroger het grootste deel van zijn rendement**.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de grote open leefruimte of een schuur**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttk350", waarom: "De Medium per verdieping of per zone: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid, en in een ruim volume voorkomt ze dat één hoek achterblijft." },
+    ],
+    levering: {
+      kop: "Leveren in Oudsbergen: binnen 24 uur, met de kern erbij",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. **Geef bij de reservatie door in welke kern u woont**, Meeuwen, Gruitrode, Ellikom, Wijshagen of Opglabbeek: de gemeente is na de fusie uitgestrekt.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Oudsbergen leveren we gewoon**; bij een grote woning hangt het resultaat bovendien af van waar de toestellen staan.",
+    },
+    buren: ["as", "peer", "bree", "houthalen-helchteren", "genk", "dilsen-stokkem"],
+    faq: [
+      {
+        q: "Ik woon in Meeuwen-Gruitrode of Opglabbeek. Is dit mijn pagina?",
+        a: "Ja. Die twee gemeenten zijn gefuseerd tot Oudsbergen, en deze pagina gaat over beide. Geef bij de reservatie door in welke kern u woont, dan plant de technieker zijn ronde daarop.",
+      },
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een vrijstaande woning?",
+        a: "Voor een gelijkvloers van 120 tot 150 m² rekenen we doorgaans op twee drogers met een ventilator per droogzone, en vaak een derde voor de verdieping of het bijgebouw. De Calculator rekent op volume in kubieke meter.",
+      },
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Zelden. De bodem is zand en dat draineert. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruwbouw zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Hoe snel staan jullie in Oudsbergen?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "as",
+    title: "Bouwdroger huren in As | Vernast",
+    description:
+      "Bouwdroger huren in As en Niel-bij-As: kleine gemeente op zandgrond, met ruime percelen. Ook een kleine gemeente ligt gewoon op onze vaste toer.",
+    h1: "Bouwdroger huren in As",
+    kicker: "Noord-Limburg · klein, op zandgrond",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "As is **een van de kleinste gemeenten van Limburg**: twee kernen, As en Niel-bij-As, op zandgrond tussen Genk en het Maasland, met het oude mijnspoor erdoor.",
+      "Op zand **draineert de ondergrond goed**, dus is een kelder hier zelden het probleem. Wat blijft is bouwvocht, en in de winter de temperatuur.",
+    ],
+    bouw: {
+      kop: "Ruime percelen op zand, met koude winterwerven",
+      alineas: [
+        "Op **zand draineert de ondergrond goed**. Blijft een kelder of een berging hier toch vochtig, dan gaat het meestal om **te weinig ventilatie**: vochtige lucht die nergens heen kan, vaak in een ruimte die zelden open gaat. Dat lost een droger wel op, en de technieker meet het bij de levering.",
+        "**Limburg heeft de koudste winterwerven van Vlaanderen.** Tussen november en maart komt een onverwarmde ruwbouw hier niet boven de 15 °C, en daaronder verliest een condensdroger het grootste deel van zijn rendement. Dan gaat er een **elektrische kachel** mee die 400 V vraagt, of meteen een adsorptiedroger.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "teddh30", waarom: "**Voor de winterwerf**: onder 15 °C zakt het rendement van elke condensdroger. Deze kachel haalt dat terug, en vraagt 400 V." },
+      { key: "ttk650", waarom: "Voor een groot gelijkvloers of een schuur: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "Bij een chape verdubbelt luchtbeweging vaak de snelheid: hij blaast de verzadigde laag vlak boven de vloer weg." },
+    ],
+    levering: {
+      kop: "Leveren in As: ook in een kleine gemeente",
+      alinea:
+        "Ruim een uur rijden, en **we plannen Limburg in een vaste toer**: ook een kleine gemeente ligt daar gewoon op. Op een winterwerf controleert de technieker of **de werfkast 400 V levert** voor de kachel.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit As leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["oudsbergen", "genk", "zutendaal", "maasmechelen", "dilsen-stokkem"],
+    faq: [
+      {
+        q: "Komen jullie ook naar een kleine gemeente?",
+        a: "Ja, en zonder toeslag. We plannen Limburg in een vaste toer, dus As en Niel-bij-As liggen daar gewoon op. De prijs van het droogpakket is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Is een vochtige kelder hier een grondwaterprobleem?",
+        a: "Zelden. De bodem is zand en dat draineert: het grondwater zakt weg in plaats van tegen de kelderwand te staan. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Limburg heeft de koudste winterwerven van Vlaanderen, en onder 15 °C verliest een condensdroger het grootste deel van zijn rendement. We zetten er dan een elektrische kachel bij, die 400 V vraagt.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen met een droger?",
+        a: "Reken op een week per centimeter dikte zonder hulp, en met droger en ventilator ongeveer de helft. Een chape van vijf centimeter is dan in twee à drie weken klaar voor de vloerder.",
+      },
+      {
+        q: "Hoe snel staan jullie in As?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "maaseik",
+    title: "Bouwdroger huren in Maaseik | Vernast",
+    description:
+      "Bouwdroger huren in Maaseik, Neeroeteren en Opoeteren: historische kern en kelders die met de Maas meestijgen.",
+    h1: "Bouwdroger huren in Maaseik",
+    kicker: "Maasland · historische kern aan de Maas",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Maaseik heeft **een historische kern met oude gevels** en daarnaast Neeroeteren en Opoeteren. De Maas loopt langs de stad, en dat is in de kelders te merken.",
+      "De ondergrond is hier **grind**, en grind laat water razendsnel door. Staat de Maas hoog, dan stijgt het grondwater mee en komt het water **door de vloer** naar binnen in plaats van langs de muur.",
+    ],
+    bouw: {
+      kop: "Grind onder de stad, en dikke muren erboven",
+      alineas: [
+        "**Water dat door een kelderplaat omhoog komt, stopt u niet met drogen.** Op grind volgt het grondwater de Maas bijna meteen: bij hoog water staat uw kelder nat, en als het water zakt, zakt het weer. Een dompelpomp en een droger houden dat **beheersbaar**, en ze voorkomen schimmel en schade, maar de bron blijft. Dat zeggen we liever vooraf dan dat u drie weken huurt in de verwachting dat het opgelost is.",
+        "In de historische kern gaat het daarnaast om **dikke massieve muren** die hun vocht traag afgeven, met tegen het oppervlak een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg. Reken bij zulk werk op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Maaseik: bij hoog water zo snel als het kan",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. **Bij waterschade bellen we u terug in plaats van u een formulier te laten afwachten.** Ligt uw pand in een straat met venstertijden, zeg dat dan bij de reservatie.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. Bij hoog water is dat precies de tijd die u niet hebt: **dan leveren wij**, en de rit zit al in de prijs van het pakket.",
+    },
+    buren: ["kinrooi", "dilsen-stokkem", "bree", "oudsbergen"],
+    faq: [
+      {
+        q: "Het water komt door mijn keldervloer omhoog. Helpt een droger?",
+        a: "Hij houdt het beheersbaar: samen met een dompelpomp blijft de ruimte bruikbaar en krijgt schimmel geen kans. Maar op grind volgt het grondwater de Maas, en dat stopt een droger niet. Zakt het water in de rivier, dan zakt het ook bij u. De duurzame oplossing ligt in de vloeropbouw, niet in een toestel.",
+      },
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt.",
+      },
+      {
+        q: "Hoe lang duurt het drogen van een oud pand?",
+        a: "Bij dikke massieve muren anderhalf tot twee keer de droogtijd van een moderne wand, altijd met een ventilator erbij. De technieker zegt bij de levering welke termijn realistisch is.",
+      },
+      {
+        q: "Hoe snel staan jullie in Maaseik?",
+        a: "De rit duurt ruim een uur en we plannen Limburg in een vaste toer. Bij waterschade bellen we u terug om sneller te plannen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "kinrooi",
+    title: "Bouwdroger huren in Kinrooi | Vernast",
+    description:
+      "Bouwdroger huren in Kinrooi, Molenbeersel en Kessenich: woningen bij de Maasplassen, op grindbodem. Bij hoog water bellen we u terug om snel te plannen.",
+    h1: "Bouwdroger huren in Kinrooi",
+    kicker: "Maasland · bij de Maasplassen",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Kinrooi ligt **tussen de Maas en de Maasplassen**, met Molenbeersel, Kessenich en Ophoven erbij. Die plassen zijn oude grindputten, en dat zegt iets over de ondergrond: **grind, tot vlak onder de woningen**.",
+      "Grind laat water razendsnel door. Daardoor **volgt het grondwater hier de waterstand van de Maas en van de plassen bijna meteen**, en komt water bij hoog water door de vloer omhoog.",
+    ],
+    bouw: {
+      kop: "Grind tot onder de vloer, met water dat meestijgt",
+      alineas: [
+        "**Water dat door een vloerplaat omhoog komt, stopt u niet met drogen.** Op grind volgt het grondwater de rivier en de plassen vrijwel onmiddellijk: staat het water hoog, dan staat uw kelder nat, en zakt het, dan zakt het bij u ook. Een dompelpomp en een droger houden het **beheersbaar** en voorkomen schade, maar de bron blijft, en dat zeggen we vooraf.",
+        "Veel bebouwing hier is **recreatief of uitgebreid vanuit een vakantieverblijf**: lichte constructies met dunne wanden en een vloer vlak op de grond. Die drogen sneller dan massief werk, maar worden ook sneller weer vochtig. Hier werkt **een kleiner toestel dat langer draait** beter dan een groot dat krimpscheuren geeft.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk170", waarom: "**Voor een lichte constructie of een vakantieverblijf**: 50 liter per dag en 0,75 kW op een gewoon stopcontact." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Kinrooi: bij hoog water zo snel als het kan",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. **Bij waterschade bellen we u terug** in plaats van u een formulier te laten afwachten. Ligt uw verblijf op een domein met een slagboom, geef dat dan bij de reservatie door.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. Bij hoog water is dat precies de tijd die u niet hebt: **dan leveren wij**, en de rit zit al in de prijs van het pakket.",
+    },
+    buren: ["maaseik", "bocholt", "bree"],
+    faq: [
+      {
+        q: "Het water komt door mijn keldervloer omhoog. Helpt een droger?",
+        a: "Hij houdt het beheersbaar: samen met een dompelpomp blijft de ruimte bruikbaar en krijgt schimmel geen kans. Maar op grind volgt het grondwater de Maas en de plassen, en dat stopt een droger niet. De duurzame oplossing ligt in de vloeropbouw, niet in een toestel.",
+      },
+      {
+        q: "Welk toestel voor een vakantieverblijf of een lichte constructie?",
+        a: "Doorgaans de Small bouwdroger, en langer laten draaien. Een lichte constructie droogt snel, en te snel drogen geeft krimpscheuren in verse chape of pleisterwerk. De technieker stelt de hygrostaat daarop in.",
+      },
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons.",
+      },
+      {
+        q: "Kunnen jullie op een recreatiedomein leveren?",
+        a: "Ja. Geef bij de reservatie door of er een slagboom, een vast inrijuur of een beheerder is die moet opendoen, dan plant de technieker daarbinnen.",
+      },
+      {
+        q: "Hoe snel staan jullie in Kinrooi?",
+        a: "De rit duurt ruim een uur en we plannen Limburg in een vaste toer. Bij waterschade bellen we u terug om sneller te plannen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "dilsen-stokkem",
+    title: "Bouwdroger huren in Dilsen-Stokkem | Vernast",
+    description:
+      "Bouwdroger huren in Dilsen-Stokkem, Lanklaar en Rotem: woningen op grind langs de Maas. Grind bij de rivier, zand tegen het park: we meten het verschil.",
+    h1: "Bouwdroger huren in Dilsen-Stokkem",
+    kicker: "Maasland · op grind langs de Maas",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Dilsen-Stokkem strekt zich uit **langs de Maas**, met Lanklaar, Rotem, Elen en Stokkem. De oostkant ligt in de riviervlakte, de westkant tegen het Nationaal Park op zandgrond.",
+      "Dat verschil is beslissend. **In de riviervlakte is de ondergrond grind** en volgt het grondwater de Maas; op het zand erachter draineert het weg.",
+    ],
+    bouw: {
+      kop: "Grind bij de rivier, zand tegen het park",
+      alineas: [
+        "**In de riviervlakte komt water bij hoog water door de vloer omhoog.** Grind laat water razendsnel door, dus het grondwater volgt de Maas bijna meteen. Een dompelpomp en een droger houden dat **beheersbaar**, maar niemand stopt het: zakt de rivier, dan zakt het bij u ook. Dat zeggen we vooraf, niet na drie weken huur.",
+        "**Tegen het Nationaal Park** is het omgekeerde waar: daar draineert het zand goed en is een natte kelder zelden de klacht. Blijft een ruimte daar toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op. **De technieker meet bij de levering** welke van de twee uw situatie is.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Dilsen-Stokkem: bij hoog water zo snel als het kan",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. **Bij waterschade bellen we u terug** in plaats van u een formulier te laten afwachten, want een dag vroeger drogen is hier het verschil.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. Bij hoog water is dat precies de tijd die u niet hebt: **dan leveren wij**, en de rit zit al in de prijs van het pakket.",
+    },
+    buren: ["maaseik", "maasmechelen", "as", "oudsbergen", "bree"],
+    faq: [
+      {
+        q: "Het water komt door mijn keldervloer omhoog. Helpt een droger?",
+        a: "Hij houdt het beheersbaar: samen met een dompelpomp blijft de ruimte bruikbaar en krijgt schimmel geen kans. Maar in de riviervlakte volgt het grondwater de Maas door de grindbodem, en dat stopt een droger niet. De duurzame oplossing ligt in de vloeropbouw.",
+      },
+      {
+        q: "Ik woon aan de parkkant. Is een vochtige kelder daar hetzelfde probleem?",
+        a: "Nee. Daar is de bodem zand en dat draineert: het grondwater zakt weg in plaats van tegen de kelderwand of door de vloer te komen. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op.",
+      },
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons.",
+      },
+      {
+        q: "Dekt mijn verzekering de huur van een bouwdroger?",
+        a: "Bij waterschade meestal wel, als onderdeel van de schadebeperking. Wij geven u een factuur met de vochtmetingen erbij, en dat is precies wat een expert vraagt.",
+      },
+      {
+        q: "Hoe snel staan jullie hier?",
+        a: "De rit duurt ruim een uur en we plannen Limburg in een vaste toer. Bij waterschade bellen we u terug om sneller te plannen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "maasmechelen",
+    title: "Bouwdroger huren in Maasmechelen | Vernast",
+    description:
+      "Bouwdroger huren in Maasmechelen, Eisden en Opgrimbie: cité-woningen en kelders die met de Maas meestijgen. Bij waterschade bellen we u terug om snel te plannen.",
+    h1: "Bouwdroger huren in Maasmechelen",
+    kicker: "Maasland · cités en de Maas",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Maasmechelen combineert twee dingen die we elders apart tegenkomen: **de cité van Eisden** uit het mijnverleden, en **de Maas** met haar grindbodem vlak ernaast.",
+      "Dat betekent twee verschillende werven. In de cité gaat het om **lichte, dunne constructies in renovatie**; in de riviervlakte om **water dat bij hoog water door de vloer omhoog komt**.",
+    ],
+    bouw: {
+      kop: "Cité-woningen in renovatie, en grind bij de rivier",
+      alineas: [
+        "Een cité-woning heeft **dunne muren en weinig thermische massa**: die droogt sneller dan massief werk, maar ze wordt ook sneller weer vochtig. Hier werkt **een kleiner toestel dat langer draait** beter dan een groot dat te snel droogt en krimpscheuren geeft. Vaak ligt er ook een **vloer op volle grond zonder dampremmende laag**, en die zuigt vocht op uit de ondergrond.",
+        "In de riviervlakte is de ondergrond **grind**, en grind laat water razendsnel door: het grondwater volgt de Maas bijna meteen. **Een dompelpomp en een droger houden dat beheersbaar**, maar niemand stopt het. Dat zeggen we liever vooraf dan dat u huurt in de verwachting dat het opgelost raakt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor de cité-woning**: 50 liter per dag en 0,75 kW op een gewoon stopcontact, en langer laten draaien." },
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "revolution", waarom: "**Voor de kelder die niet te verwarmen is**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Maasmechelen: bij hoog water zo snel als het kan",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. **Bij waterschade bellen we u terug** in plaats van u een formulier te laten afwachten. Gaat het om **meerdere woningen in dezelfde wijk**, geef dat dan door: dan leveren we in één rit.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Maasmechelen leveren we gewoon**; bij waterschade is die tijd precies wat u niet hebt.",
+    },
+    buren: ["dilsen-stokkem", "lanaken", "as", "zutendaal", "oudsbergen"],
+    faq: [
+      {
+        q: "Welk toestel voor een cité-woning?",
+        a: "Doorgaans de Small bouwdroger, en langer laten draaien. Zulke woningen hebben dunne muren en weinig thermische massa: ze drogen snel, en te snel drogen geeft krimpscheuren in verse chape of pleisterwerk.",
+      },
+      {
+        q: "Het water komt door mijn keldervloer omhoog. Helpt een droger?",
+        a: "Hij houdt het beheersbaar: samen met een dompelpomp blijft de ruimte bruikbaar en krijgt schimmel geen kans. Maar op grind volgt het grondwater de Maas, en dat stopt een droger niet. De duurzame oplossing ligt in de vloeropbouw.",
+      },
+      {
+        q: "Mijn vloer op volle grond blijft koud en vochtig. Wat nu?",
+        a: "Zonder dampremmende laag zuigt zo'n vloer vocht uit de ondergrond op. Een droger houdt de ruimte bruikbaar, maar hij stopt de aanvoer niet. Bij een renovatie is de duurzame oplossing een nieuwe vloeropbouw.",
+      },
+      {
+        q: "Kunnen jullie meerdere woningen in dezelfde wijk doen?",
+        a: "Ja. Geef bij de reservatie door hoeveel woningen er tegelijk moeten drogen, dan leveren we in één rit en zetten we per woning een droogzone op.",
+      },
+      {
+        q: "Hoe snel staan jullie in Maasmechelen?",
+        a: "De rit duurt ruim een uur en we plannen Limburg in een vaste toer. Bij waterschade bellen we u terug om sneller te plannen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "lanaken",
+    title: "Bouwdroger huren in Lanaken | Vernast",
+    description:
+      "Bouwdroger huren in Lanaken, Rekem en Neerharen: woningen tussen de Maas en het Nationaal Park. Twee bodems, twee antwoorden: we meten bij de levering.",
+    h1: "Bouwdroger huren in Lanaken",
+    kicker: "Maasland · tussen Maas en Nationaal Park",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Lanaken ligt **tussen de Maas en het Nationaal Park Hoge Kempen**, met Rekem, Neerharen, Gellik en Veldwezelt erbij, en de Nederlandse grens aan de oostkant.",
+      "Dat geeft twee bodems in één gemeente: **grind in de riviervlakte**, waar het grondwater de Maas volgt, en **zand op de Kempense rand**, waar het wegzakt.",
+    ],
+    bouw: {
+      kop: "Grind bij de rivier, zand op de Kempense rand",
+      alineas: [
+        "**In de riviervlakte komt water bij hoog water door de vloer omhoog.** Grind laat water razendsnel door, dus het grondwater volgt de Maas bijna meteen. Een dompelpomp en een droger houden dat **beheersbaar** en voorkomen schade, maar de bron blijft. Dat zeggen we vooraf.",
+        "**Op de zandrand** draineert de ondergrond goed en is een natte kelder zelden de klacht; daar gaat het gesprek over ventilatie. En in de winter geldt voor heel Limburg: **onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**, dus hoort er dan bijverwarming bij.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Bij waterschade**: 110 liter per dag, bereik tot ongeveer 600 m³. Hoe sneller het water eruit is, hoe minder er stuk gaat." },
+      { key: "ttk350", waarom: "De Medium voor een renovatie of een chape: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "Water kruipt onder vloeren en achter plinten. Zonder luchtbeweging droogt dat niet, met deze ventilator wel." },
+      { key: "teddh30", waarom: "Voor de winterwerf: onder 15 °C zakt het rendement van elke condensdroger. Vraagt 400 V krachtstroom." },
+    ],
+    levering: {
+      kop: "Leveren in Lanaken: binnen onze Limburgse toer",
+      alinea:
+        "Ruim een uur rijden, en daarmee een van onze verste Limburgse haltes. We plannen Limburg in een vaste toer; **bij waterschade bellen we u terug** in plaats van u een formulier te laten afwachten.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Lanaken leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["maasmechelen", "zutendaal", "bilzen-hoeselt", "riemst"],
+    faq: [
+      {
+        q: "Het water komt door mijn keldervloer omhoog. Helpt een droger?",
+        a: "Hij houdt het beheersbaar: samen met een dompelpomp blijft de ruimte bruikbaar en krijgt schimmel geen kans. Maar in de riviervlakte volgt het grondwater de Maas door de grindbodem, en dat stopt een droger niet. De duurzame oplossing ligt in de vloeropbouw.",
+      },
+      {
+        q: "Ik woon aan de parkkant. Is dat hetzelfde probleem?",
+        a: "Nee. Daar is de bodem zand en dat draineert: het grondwater zakt weg. Blijft een ruimte toch vochtig, dan gaat het meestal om te weinig ventilatie, en dat lost een droger wel op. De meting bij de levering vertelt welke van de twee het is.",
+      },
+      {
+        q: "Mijn kelder is ondergelopen. Wat doe ik eerst?",
+        a: "Eerst het staande water weg met een dompelpomp, dan zo snel mogelijk drogen. Haal wat nat is uit de ruimte, zet plinten los zodat de holle ruimte erachter kan drogen, en bel ons.",
+      },
+      {
+        q: "Wat als het vriest tijdens de droging?",
+        a: "Dan verwarmen we mee. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus in een onverwarmde ruimte zetten we er een elektrische kachel bij. Die vraagt 400 V.",
+      },
+      {
+        q: "Hoe snel staan jullie in Lanaken?",
+        a: "De rit duurt ruim een uur en we plannen Limburg in een vaste toer. Bij waterschade bellen we u terug om sneller te plannen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "sint-truiden",
+    title: "Bouwdroger huren in Sint-Truiden | Vernast",
+    description:
+      "Bouwdroger huren in Sint-Truiden: historische kern, fruitloodsen en koelcellen op leembodem. Een koelcel vraagt een adsorptiedroger, geen condensdroger.",
+    h1: "Bouwdroger huren in Sint-Truiden",
+    kicker: "Haspengouw · fruitstad op leem",
+    rit: { afstand: "circa 85 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Sint-Truiden is **de hoofdstad van de fruitstreek**, en dat bepaalt wat we hier drogen: naast de historische kern en de woonwijken vooral **loodsen, sorteerruimtes en koelcellen** van fruitbedrijven.",
+      "De bodem is **dikke leem**, en die laat water traag door. Een chape droogt hier merkbaar langzamer dan op zand, en een kelder krijgt hangwater tegen de wand.",
+    ],
+    bouw: {
+      kop: "Fruitloodsen en koelcellen, en leem onder alles",
+      alineas: [
+        "Een **koelcel of sorteerruimte** is een gesloten, koud volume: precies de omstandigheid waarin **een condensdroger het grootste deel van zijn rendement verliest**, want onder 15 °C koelt hij lucht af die al koud is. Daar gaat een **adsorptiedroger** naartoe, die het vocht aan een droogwiel bindt en ook bij vijf graden doorwerkt.",
+        "Op **leem droogt een chape zonder hulp opvallend traag**: reken op vijf à zeven weken voor vijf centimeter, en met droger en ventilator op **twee à drie weken**. En in een kelder op leem perst hangwater tegen de wand, want het regenwater zakt niet weg. **Dat is geen bouwvocht**, en de technieker meet het verschil bij de levering.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de koelcel of de kelder**: koud en gesloten, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttk650", waarom: "**Voor de loods of de sorteerruimte**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttk350", waarom: "De Medium voor een woning of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Op leem een voorwaarde bij een chape**, en in een groot volume de manier om overal even droog te krijgen." },
+    ],
+    levering: {
+      kop: "Leveren in Sint-Truiden: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. Bij een loods of koelcel vragen we **vooraf het volume in kubieke meter, de temperatuur en of de ruimte dicht te krijgen is**, zodat de technieker met het juiste type droger vertrekt.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Sint-Truiden leveren we gewoon**; welk type droger werkt hangt bovendien van de temperatuur af, en dat meet de technieker ter plaatse.",
+    },
+    buren: ["nieuwerkerken", "gingelom", "heers", "wellen", "alken", "tongeren-borgloon"],
+    faq: [
+      {
+        q: "Kunnen jullie een koelcel of een sorteerruimte drogen?",
+        a: "Ja, en daarvoor zetten we een adsorptiedroger in. Zo'n ruimte is koud en gesloten, en een condensdroger werkt daar slecht: onder 15 °C verliest hij het grootste deel van zijn rendement. Een adsorptiedroger blijft ook bij vijf graden doorwerken.",
+      },
+      {
+        q: "Waarom droogt een chape op leem zo traag?",
+        a: "Omdat leem water traag doorlaat, dus de ondergrond onder uw vloerplaat blijft natter dan op zand. Zonder hulp doet een chape van vijf centimeter hier vijf à zeven weken; met droger en ventilator ongeveer de helft.",
+      },
+      {
+        q: "Mijn kelderwand blijft vochtig. Wat is dat?",
+        a: "Op leem zakt regenwater niet weg maar blijft het in de bovenlaag staan en perst het tegen de kelderwand. Dat komt na elke regenperiode terug. Een droger houdt de ruimte bruikbaar, drainage aan de buitenzijde lost het op.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf.",
+      },
+      {
+        q: "Hoe snel staan jullie in Sint-Truiden?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "tongeren-borgloon",
+    title: "Bouwdroger huren in Tongeren-Borgloon | Vernast",
+    description:
+      "Bouwdroger huren in Tongeren-Borgloon: herenhuizen met oude kelders en fruitbedrijven op leem. Oude kelders vragen een adsorptiedroger en een ventilator.",
+    h1: "Bouwdroger huren in Tongeren-Borgloon",
+    kicker: "Haspengouw · Tongeren en Borgloon samen",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Tongeren en Borgloon vormen **sinds 1 januari 2025 één gemeente**. Zoekt u op een van die namen, dan komt u hier terecht: de oudste stad van het land en de fruitstreek errond.",
+      "In Tongeren gaat het om **herenhuizen met oude, diepe kelders**; in Borgloon om **hoeves en fruitbedrijven op leem**. Twee verschillende werven onder één naam.",
+    ],
+    bouw: {
+      kop: "Oude kelders in Tongeren, hoeves en fruit in Borgloon",
+      alineas: [
+        "Een **oude kelder onder een Tongers herenhuis** is diep, koud en gesloten, en de muren eromheen zijn een halve meter dik of meer. Zo'n ruimte droogt van nature nooit helemaal, en **onder 15 °C verliest een condensdroger het grootste deel van zijn rendement**. Daar gaat een adsorptiedroger naartoe, met een ventilator om de verzadigde luchtlaag tegen het muuroppervlak weg te blazen.",
+        "In Borgloon gaat het om **hoeves en loodsen op leem**: massieve muren die hun vocht traag afgeven, en een ondergrond die water traag doorlaat. Reken bij massief werk op **anderhalf tot twee keer de droogtijd** van een moderne wand, en bij een loods op volume in kubieke meter in plaats van op oppervlakte.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de oude kelder**: diep, koud en gesloten, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Bij muren van een halve meter een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het oppervlak weg." },
+      { key: "ttk350", waarom: "De Medium per verdieping of per ruimte: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "Voor een hoeve, een loods of een groot pand: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Tongeren-Borgloon: binnen onze Limburgse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. **Geef bij de reservatie door of u in Tongeren of in Borgloon zit**, dan plant de technieker zijn ronde daarop. Ligt uw pand in een straat met venstertijden, zeg dat dan ook.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Tongeren-Borgloon leveren we gewoon**; bij een oude kelder hangt het bovendien van de temperatuur af welk type droger werkt.",
+    },
+    buren: ["bilzen-hoeselt", "riemst", "heers", "wellen", "sint-truiden", "herstappe"],
+    faq: [
+      {
+        q: "Ik woon in Tongeren of in Borgloon. Is dit mijn pagina?",
+        a: "Ja. Die twee gemeenten zijn op 1 januari 2025 gefuseerd, en deze pagina gaat over beide. Geef bij de reservatie door in welke kern u woont, dan plant de technieker zijn ronde daarop.",
+      },
+      {
+        q: "Kunnen jullie een oude, diepe kelder drogen?",
+        a: "Ja, en daarvoor zetten we een adsorptiedroger in met een ventilator erbij. Zo'n kelder is koud en gesloten, en een condensdroger verliest onder 15 °C het grootste deel van zijn rendement. Een adsorptiedroger blijft ook bij vijf graden doorwerken.",
+      },
+      {
+        q: "Hoe lang duurt het drogen van een herenhuis?",
+        a: "Langer dan u zou denken: bij muren van een halve meter en dikker reken op twee keer de droogtijd van een moderne wand, soms meer. De technieker zegt bij de levering welke termijn realistisch is in plaats van twee weken te beloven.",
+      },
+      {
+        q: "Kunnen jullie een fruitloods of een koelruimte drogen?",
+        a: "Ja, als ze dicht te krijgen is. Geef vooraf het volume in kubieke meter door, de temperatuur en of de poorten kunnen sluiten. Is de ruimte koud, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Hoe snel staan jullie hier?",
+        a: "De rit duurt ruim een uur en we plannen Limburg in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "bilzen-hoeselt",
+    title: "Bouwdroger huren in Bilzen-Hoeselt | Vernast",
+    description:
+      "Bouwdroger huren in Bilzen-Hoeselt: vierkantshoeves en woningen op de leemheuvels van Haspengouw. Een vierkantshoeve krijgt een droogzone per volume.",
+    h1: "Bouwdroger huren in Bilzen-Hoeselt",
+    kicker: "Haspengouw · Bilzen en Hoeselt samen",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Bilzen en Hoeselt vormen **sinds 1 januari 2025 één gemeente**, op de overgang van de Kempense zandgrond naar de leemheuvels van Haspengouw. Zoekt u op een van die namen, dan komt u hier terecht.",
+      "Wat we hier drogen is vooral **renovatie van vierkantshoeves en dorpswoningen**, en dat is een ander verhaal dan een nieuwbouwwerf.",
+    ],
+    bouw: {
+      kop: "Vierkantshoeves op leem, met vier volumes rond een binnenplaats",
+      alineas: [
+        "Een **vierkantshoeve** is geen woning maar een verzameling volumes rond een binnenplaats: woonhuis, schuur, stallen en poortgebouw, elk met een eigen vloeropbouw en een eigen temperatuur. Daar werkt **één pakket voor het geheel niet**: we zetten per volume een droogzone op, met luchtbeweging over de volle lengte, en rekenen op **volume in kubieke meter** per deel.",
+        "Op **leem** komt daar hangwater bij: regenwater zakt niet weg maar perst tegen de muurvoet of de kelderwand. **Dat is geen bouwvocht**, en drogen lost het niet op. De technieker meet dat bij de levering en zegt eerlijk wat drogen hier oplost en wat drainage vraagt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de schuur of de stal**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n volume zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**Onmisbaar bij massieve muren**, en in een hoog volume de manier om overal even droog te krijgen." },
+      { key: "revolution", waarom: "**Voor het deel dat niet te verwarmen is**: de adsorptiedroger blijft ook bij vijf graden vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Bilzen-Hoeselt: met het volume per deel vooraf",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer. **Geef bij de reservatie door of u in Bilzen of Hoeselt zit**, en bij een hoeve het volume per deel: dan brengt de technieker in één keer genoeg capaciteit mee.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Bilzen-Hoeselt leveren we gewoon**; bij een hoeve hangt het resultaat bovendien af van hoe de toestellen per volume verdeeld staan.",
+    },
+    buren: ["tongeren-borgloon", "riemst", "diepenbeek", "zutendaal", "lanaken", "wellen"],
+    faq: [
+      {
+        q: "Ik woon in Bilzen of in Hoeselt. Is dit mijn pagina?",
+        a: "Ja. Die twee gemeenten zijn op 1 januari 2025 gefuseerd, en deze pagina gaat over beide. Geef bij de reservatie door in welke kern u woont, dan plant de technieker zijn ronde daarop.",
+      },
+      {
+        q: "Hoe pakken jullie een vierkantshoeve aan?",
+        a: "Niet met één pakket voor het geheel. Woonhuis, schuur, stallen en poortgebouw hebben elk een eigen vloeropbouw en een eigen temperatuur, dus zetten we per volume een droogzone op met luchtbeweging over de volle lengte. Geef het volume per deel door, dan rekenen we het uit.",
+      },
+      {
+        q: "Mijn muurvoet blijft vochtig. Is dat bouwvocht?",
+        a: "Op leem is dat vaak hangwater: regenwater dat niet wegzakt en tegen de muurvoet of de kelderwand perst. Het komt na elke regenperiode terug. Bouwvocht zit gelijkmatig in de ruimte en verdwijnt naarmate het droogt; de technieker meet het verschil.",
+      },
+      {
+        q: "Kunnen jullie een schuur drogen die woonruimte wordt?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Hoe snel staan jullie hier?",
+        a: "De rit duurt ruim een uur en we plannen Limburg in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "riemst",
+    title: "Bouwdroger huren in Riemst | Vernast",
+    description:
+      "Bouwdroger huren in Riemst, Kanne en Zichen: mergelkelders die het hele jaar vochtig zijn. Een mergelkelder brengen we naar een werkbaar niveau, niet kurkdroog.",
+    h1: "Bouwdroger huren in Riemst",
+    kicker: "Haspengouw · mergel in de ondergrond",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Riemst ligt **op de mergel**, met Kanne, Zichen-Zussen-Bolder en Vlijtingen erbij. Onder deze gemeente lopen **kilometers oude mergelgroeven**, en veel woningen hebben een kelder die in die mergel is uitgehakt.",
+      "Dat is een vochtsituatie die elders niet bestaat: **een mergelkelder zit het hele jaar rond de honderd procent luchtvochtigheid**, omdat de steen zelf water vasthoudt en afgeeft.",
+    ],
+    bouw: {
+      kop: "Mergelkelders, en leem op het plateau",
+      alineas: [
+        "**Een mergelkelder droogt u niet droog, en dat is ook niet de bedoeling.** Mergel is poreus en geeft permanent vocht af; zet u er een krachtige droger in, dan droogt u de steen zelf uit en kan die gaan verpoederen. Wat we hier wél doen is **de luchtvochtigheid naar een werkbaar niveau brengen** met een adsorptiedroger, zodat schimmel geen kans krijgt en u er materiaal kunt stallen. De technieker stelt daar een streefwaarde in.",
+        "Op het **plateau** gaat het om leem: regenwater zakt traag weg en perst tegen de muurvoet of de kelderwand. **Dat is geen bouwvocht**, en drogen lost het niet op. Gaat het om bouwvocht uit een renovatie, dan verdwijnt het wel definitief, en dan hoort er bij massieve muren een ventilator bij.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Het toestel voor een mergelkelder**: koud en permanent vochtig, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Bij massieve muren een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het oppervlak weg, en pas dan droogt de muur verder." },
+      { key: "ttk350", waarom: "De Medium voor een woning of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot gelijkvloers: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Riemst: met de kelder vooraf besproken",
+      alinea:
+        "Ruim een uur rijden, en daarmee een van onze verste Limburgse haltes. **Gaat het om een mergelkelder, zeg dat dan bij de reservatie**: dan brengt de technieker een adsorptiedroger mee en stelt hij een streefwaarde in in plaats van zo hard mogelijk te drogen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Riemst leveren we gewoon**; bij een mergelkelder is de instelling van het toestel bovendien belangrijker dan het toestel zelf.",
+    },
+    buren: ["tongeren-borgloon", "bilzen-hoeselt", "lanaken", "voeren", "herstappe"],
+    faq: [
+      {
+        q: "Kan een bouwdroger een mergelkelder droog maken?",
+        a: "Droog in de gewone zin: nee, en dat zou u ook niet willen. Mergel is poreus en geeft permanent vocht af; droogt u de steen uit, dan kan die verpoederen. Wat we wél doen is de luchtvochtigheid naar een werkbaar niveau brengen met een adsorptiedroger, zodat schimmel geen kans krijgt.",
+      },
+      {
+        q: "Waarom een adsorptiedroger en geen gewone bouwdroger?",
+        a: "Omdat een condensdroger lucht afkoelt om het water eruit te halen, en in een kelder van tien graden is die lucht al koud: onder 15 °C verliest hij het grootste deel van zijn rendement. Een adsorptiedroger bindt het vocht aan een droogwiel en werkt ook bij vijf graden door.",
+      },
+      {
+        q: "Mijn muurvoet blijft vochtig op het plateau. Wat is dat?",
+        a: "Op leem is dat vaak hangwater: regenwater dat traag wegzakt en tegen de muurvoet perst. Het komt na elke regenperiode terug. Drogen houdt de ruimte bruikbaar, drainage aan de buitenzijde lost het op.",
+      },
+      {
+        q: "Betaal ik meer omdat Riemst zo ver ligt?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie in Riemst?",
+        a: "De rit duurt ruim een uur en we plannen Limburg in een vaste toer. Geef door wanneer het moet staan, dan zeggen we vooraf of dat haalbaar is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "wellen",
+    title: "Bouwdroger huren in Wellen | Vernast",
+    description:
+      "Bouwdroger huren in Wellen en Herten: fruitbedrijven en hoeves op de leembodem van Haspengouw. Een koelruimte vraagt een adsorptiedroger, geen condensdroger.",
+    h1: "Bouwdroger huren in Wellen",
+    kicker: "Haspengouw · fruit en hoeves op leem",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Wellen is **een kleine fruitgemeente** in het hart van Haspengouw, met Berlingen en Herten erbij: leembodem, plantages en hoeves.",
+      "Wat we hier drogen is **renovatie van hoeves en dorpswoningen**, en de **loodsen en koelruimtes** van de fruitbedrijven.",
+    ],
+    bouw: {
+      kop: "Hoeves op leem, en koelruimtes van de fruitteelt",
+      alineas: [
+        "Een **koelruimte of sorteerloods** is een gesloten, koud volume, en dat is precies waar **een condensdroger stilvalt**: onder 15 °C verliest hij het grootste deel van zijn rendement. Daar gaat een **adsorptiedroger** naartoe, die het vocht aan een droogwiel bindt en ook bij vijf graden doorwerkt.",
+        "Bij een hoeve op **leem** bepaalt massief werk de tijd: muren van veertig centimeter geven hun vocht traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Een ventilator haalt dat weg. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de koelruimte of een koude kelder**: de adsorptiedroger blijft ook bij vijf graden vocht opnemen, waar een condensdroger stilvalt." },
+      { key: "ttk650", waarom: "**Voor de loods of de hoeve**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "**Onmisbaar bij massieve muren**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg." },
+      { key: "ttk350", waarom: "De Medium voor een woning of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Wellen: binnen 24 uur, in de Limburgse toer",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer: ook een kleine gemeente ligt daar gewoon op. Bij een loods of koelruimte vragen we **vooraf het volume, de temperatuur en of de ruimte dicht te krijgen is**.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Wellen leveren we gewoon**; welk type droger werkt hangt bovendien van de temperatuur af, en dat meet de technieker ter plaatse.",
+    },
+    buren: ["sint-truiden", "alken", "tongeren-borgloon", "heers", "nieuwerkerken"],
+    faq: [
+      {
+        q: "Kunnen jullie een koelruimte of een sorteerloods drogen?",
+        a: "Ja, en daarvoor zetten we een adsorptiedroger in. Zo'n ruimte is koud en gesloten, en een condensdroger verliest onder 15 °C het grootste deel van zijn rendement. Een adsorptiedroger blijft ook bij vijf graden doorwerken.",
+      },
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Waarom droogt een chape op leem zo traag?",
+        a: "Omdat leem water traag doorlaat, dus de ondergrond onder uw vloerplaat blijft natter dan op zand. Zonder hulp doet een chape van vijf centimeter hier vijf à zeven weken; met droger en ventilator ongeveer de helft.",
+      },
+      {
+        q: "Komen jullie ook naar een kleine gemeente?",
+        a: "Ja, en zonder toeslag. We plannen Limburg in een vaste toer, dus Wellen ligt daar gewoon op. De prijs van het droogpakket is dezelfde in heel ons werkgebied.",
+      },
+      {
+        q: "Hoe snel staan jullie in Wellen?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "heers",
+    title: "Bouwdroger huren in Heers | Vernast",
+    description:
+      "Bouwdroger huren in Heers, Heks en Veulen: vierkantshoeves op leem tegen de taalgrens. Een vierkantshoeve krijgt bij ons een droogzone per volume.",
+    h1: "Bouwdroger huren in Heers",
+    kicker: "Haspengouw · hoeves tegen de taalgrens",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Heers bestaat uit **een reeks kleine dorpen** in open akkerland tegen de taalgrens: Heks, Veulen, Mechelen-Bovelingen, Gutshoven en nog een handvol kernen.",
+      "Het is hier **dikke leem**, en wat we drogen is bijna altijd **renovatie van vierkantshoeves en dorpswoningen**.",
+    ],
+    bouw: {
+      kop: "Vierkantshoeves op dikke leem",
+      alineas: [
+        "Een **vierkantshoeve** is geen woning maar een verzameling volumes rond een binnenplaats, elk met een eigen vloeropbouw en temperatuur. Daar werkt **één pakket voor het geheel niet**: we zetten per volume een droogzone op, met luchtbeweging over de volle lengte, en rekenen op **volume in kubieke meter** per deel.",
+        "Op **dikke leem** zakt regenwater traag weg en perst het tegen de muurvoet of de kelderwand. **Dat is geen bouwvocht**, en drogen lost het niet op. De technieker meet dat bij de levering en zegt eerlijk wat drogen hier oplost; bij massief werk hoort er altijd een ventilator bij.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de schuur of de stal**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n volume zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**Onmisbaar bij massieve muren**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg, en pas dan droogt de muur verder." },
+      { key: "revolution", waarom: "**Voor het deel dat niet te verwarmen is**: de adsorptiedroger blijft ook bij vijf graden vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Heers: ook in de kleine kernen",
+      alinea:
+        "Ruim een uur rijden, en we plannen Limburg in een vaste toer: ook de kleine dorpen van Heers liggen daar gewoon op. Bij een hoeve vragen we **vooraf het volume per deel** en of de ruimtes dicht te krijgen zijn.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Heers leveren we gewoon**; bij een hoeve hangt het resultaat bovendien af van hoe de toestellen per volume verdeeld staan.",
+    },
+    buren: ["sint-truiden", "gingelom", "wellen", "tongeren-borgloon"],
+    faq: [
+      {
+        q: "Hoe pakken jullie een vierkantshoeve aan?",
+        a: "Niet met één pakket voor het geheel. Woonhuis, schuur, stallen en poortgebouw hebben elk een eigen vloeropbouw en een eigen temperatuur, dus zetten we per volume een droogzone op met luchtbeweging over de volle lengte.",
+      },
+      {
+        q: "Mijn muurvoet blijft vochtig. Is dat bouwvocht?",
+        a: "Op dikke leem is dat vaak hangwater: regenwater dat traag wegzakt en tegen de muurvoet perst. Het komt na elke regenperiode terug. Bouwvocht zit gelijkmatig in de ruimte; de technieker meet het verschil bij de levering.",
+      },
+      {
+        q: "Kunnen jullie een schuur drogen die woonruimte wordt?",
+        a: "Ja. Geef vooraf het volume in kubieke meter door, de vloeropbouw en of de poorten en verluchting kunnen sluiten. Is de ruimte niet te verwarmen, dan zetten we een adsorptiedroger in.",
+      },
+      {
+        q: "Komen jullie ook naar een klein dorp?",
+        a: "Ja, en zonder toeslag. We plannen Limburg in een vaste toer, dus Heks, Veulen en de andere kernen liggen daar gewoon op.",
+      },
+      {
+        q: "Hoe snel staan jullie in Heers?",
+        a: "Vaak binnen 24 uur. De rit duurt ruim een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "gingelom",
+    title: "Bouwdroger huren in Gingelom | Vernast",
+    description:
+      "Bouwdroger huren in Gingelom, Montenaken en Niel-bij-Sint-Truiden: hoeves op leem aan de taalgrens. Een droogzone per volume, want één pakket voor het geheel werkt niet.",
+    h1: "Bouwdroger huren in Gingelom",
+    kicker: "Haspengouw · vlak akkerland op leem",
+    rit: { afstand: "circa 90 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Gingelom ligt **in het vlakste deel van Haspengouw**, tegen de taalgrens, met Montenaken, Niel-bij-Sint-Truiden, Jeuk en Borlo erbij: open akkerland met grote hoeves.",
+      "Het is hier **dikke leem**, en de hoeves zijn groot: vierkantshoeven met vier volumes rond een binnenplaats.",
+    ],
+    bouw: {
+      kop: "Grote vierkantshoeven in open akkerland",
+      alineas: [
+        "Een **vierkantshoeve** vraagt een droogzone per volume: woonhuis, schuur, stallen en poortgebouw hebben elk een eigen vloeropbouw en een eigen temperatuur. Wij rekenen op **volume in kubieke meter per deel** en zetten luchtbeweging over de volle lengte in; één pakket voor het geheel werkt hier niet.",
+        "De schuren halen vijf à zes meter onder de nok en zijn **zelden te verwarmen**. Onder 15 °C verliest een condensdroger het grootste deel van zijn rendement, dus gaat daar een **adsorptiedroger** naartoe of een kachel op 400 V erbij. Dat bepaalt de technieker na de meting ter plaatse.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor de schuur of de stal**: 110 liter per dag en een bereik tot ongeveer 600 m³. Op zo'n volume zetten we er meerdere verdeeld." },
+      { key: "ttv4500", waarom: "**In een hoog volume de voorwaarde**: zonder luchtbeweging over de volle lengte blijft droge lucht hangen waar het toestel staat." },
+      { key: "revolution", waarom: "**Voor het deel dat niet te verwarmen is**: de adsorptiedroger blijft ook bij vijf graden vocht opnemen." },
+      { key: "ttk350", waarom: "De Medium voor het woonhuis of een gelijkvloers: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Gingelom: met het volume per deel vooraf",
+      alinea:
+        "Ongeveer een uur rijden, en we plannen Limburg in een vaste toer. Bij een hoeve vragen we **vooraf het volume per deel** en of de ruimtes dicht te krijgen zijn, zodat we in één rit genoeg capaciteit meebrengen in plaats van twee keer te komen.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur, dus twee uur heen en terug**. **Vanuit Gingelom leveren we gewoon**; bij een hoeve hangt het resultaat bovendien af van hoe de toestellen per volume verdeeld staan.",
+    },
+    buren: ["sint-truiden", "heers", "nieuwerkerken"],
+    faq: [
+      {
+        q: "Hoe pakken jullie een vierkantshoeve aan?",
+        a: "Niet met één pakket voor het geheel. Woonhuis, schuur, stallen en poortgebouw hebben elk een eigen vloeropbouw en een eigen temperatuur, dus zetten we per volume een droogzone op met luchtbeweging over de volle lengte. Geef het volume per deel door, dan rekenen we het uit.",
+      },
+      {
+        q: "Kunnen jullie een schuur drogen die niet te verwarmen is?",
+        a: "Ja, met een adsorptiedroger. Die bindt het vocht aan een droogwiel en blijft ook bij vijf graden doorwerken, waar een condensdroger onder 15 °C het grootste deel van zijn rendement verliest.",
+      },
+      {
+        q: "Moeten de poorten dicht tijdens het drogen?",
+        a: "Ja. Een droger tegen een open poort droogt de buitenlucht, en die is onuitputtelijk. Kunnen de poorten niet sluiten, dan heeft drogen geen zin en zeggen we dat liever vooraf.",
+      },
+      {
+        q: "Waarom droogt een chape op leem zo traag?",
+        a: "Omdat leem water traag doorlaat, dus de ondergrond onder uw vloerplaat blijft natter dan op zand. Zonder hulp doet een chape van vijf centimeter hier vijf à zeven weken; met droger en ventilator ongeveer de helft.",
+      },
+      {
+        q: "Hoe snel staan jullie in Gingelom?",
+        a: "Vaak binnen 24 uur. De rit duurt ongeveer een uur en we plannen Limburg in een vaste toer.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "herstappe",
+    title: "Bouwdroger huren in Herstappe | Vernast",
+    description:
+      "Bouwdroger huren in Herstappe: de kleinste gemeente van het land, met hoeves op leembodem. We plannen u mee in de ronde van Tongeren, zonder toeslag.",
+    h1: "Bouwdroger huren in Herstappe",
+    kicker: "Haspengouw · de kleinste gemeente van het land",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Herstappe is **de kleinste gemeente van België**: een tachtigtal inwoners, een handvol straten, en akkerland eromheen. Alles loopt hier via Tongeren, en zo plannen wij het ook.",
+      "De bebouwing is wat u verwacht in deze hoek van Haspengouw: **hoeves en dorpswoningen met massieve muren op leembodem**.",
+    ],
+    bouw: {
+      kop: "Hoeves op leem, in een gemeente van enkele straten",
+      alineas: [
+        "Een hoeve op **leem** combineert twee trage eigenschappen: **massieve muren die hun vocht traag afgeven**, en een ondergrond die water traag doorlaat. Tegen het muuroppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt, en dat haalt een ventilator weg. Reken op **anderhalf tot twee keer de droogtijd** van een moderne wand.",
+        "Op leem perst regenwater tegen de muurvoet of de kelderwand in plaats van weg te zakken. **Dat is geen bouwvocht**, en drogen lost het niet op; de technieker meet het verschil bij de levering en zegt eerlijk wat drogen hier oplost.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "De Medium als standaard bij renovatie: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttv4500", waarom: "**Onmisbaar bij massieve muren**: hij blaast de verzadigde luchtlaag tegen het muuroppervlak weg, en pas dan droogt de muur verder." },
+      { key: "ttk650", waarom: "Voor een hoeve of een schuur met grote volumes: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "revolution", waarom: "**Voor de onverwarmde schuur of kelder**: de adsorptiedroger blijft ook bij vijf graden vocht opnemen." },
+    ],
+    levering: {
+      kop: "Leveren in Herstappe: mee in de ronde van Tongeren",
+      alinea:
+        "Ruim een uur rijden. **We plannen Herstappe mee in de ronde van Tongeren**, want voor een gemeente van deze omvang rijden we geen aparte toer. Dat betekent in de praktijk dat u even snel geholpen bent als uw buren in Tongeren.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur, dus bijna drie uur heen en terug**. **Vanuit Herstappe leveren we gewoon**; de rit en de vochtmeting zitten al in de prijs van het pakket.",
+    },
+    buren: ["tongeren-borgloon", "riemst"],
+    faq: [
+      {
+        q: "Komen jullie echt tot in Herstappe?",
+        a: "Ja, en zonder toeslag. We plannen Herstappe mee in de ronde van Tongeren, want voor een gemeente van tachtig inwoners rijden we geen aparte toer. In de praktijk bent u even snel geholpen als uw buren in Tongeren.",
+      },
+      {
+        q: "Waarom droogt een hoeve zo veel trager dan een nieuwbouw?",
+        a: "Omdat het vocht uit de kern van een massieve muur naar buiten moet, en omdat zich tegen het oppervlak een verzadigd luchtlaagje vormt dat verdere droging afremt. Reken op anderhalf tot twee keer de droogtijd van een moderne wand.",
+      },
+      {
+        q: "Mijn muurvoet blijft vochtig. Is dat bouwvocht?",
+        a: "Op leem is dat vaak hangwater: regenwater dat traag wegzakt en tegen de muurvoet perst. Het komt na elke regenperiode terug. Bouwvocht zit gelijkmatig in de ruimte; de technieker meet het verschil.",
+      },
+      {
+        q: "Betaal ik meer omdat ik hier woon?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Hoe snel staan jullie hier?",
+        a: "Zo snel als in Tongeren, want u zit in dezelfde ronde. De rit duurt ruim een uur.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "voeren",
+    title: "Bouwdroger huren in Voeren | Vernast",
+    description:
+      "Bouwdroger huren in Voeren: onze verste rit in Vlaanderen, met bronnen en mergel in de heuvels. We spreken een dag af in plaats van een tijdslot te beloven.",
+    h1: "Bouwdroger huren in Voeren",
+    kicker: "Voerstreek · onze verste rit in Vlaanderen",
+    rit: { afstand: "circa 140 km", tijd: "ongeveer twee uur" },
+    intro: [
+      "Voeren is **onze verste rit in Vlaanderen**: bijna twee uur rijden, met de provincie Luik rondom en Nederland ernaast. Zes dorpen op steile heuvels: 's-Gravenvoeren, Moelingen, Sint-Martens-Voeren, Sint-Pieters-Voeren, Teuven en Remersdaal.",
+      "Dat zeggen we liever vooraf dan dat u een tijdslot verwacht dat we niet halen: **we plannen Voeren als een eigen rit**, niet als halte in een toer.",
+    ],
+    bouw: {
+      kop: "Bronnen en mergel in een steile helling",
+      alineas: [
+        "In de Voerense heuvels zitten **bronnen en waterlagen** in de mergel en de leem, en op een helling komen die tegen het eerste obstakel te staan: de bergmuur van een woning of een kelderwand. **Dat is geen bouwvocht**, en een droger stopt de aanvoer niet: hij houdt de ruimte bruikbaar, drainage aan de buitenzijde lost het op. De technieker meet dat bij de levering en zegt het eerlijk.",
+        "De gebouwen zelf zijn **oud en massief**, vaak met mergel- of natuursteenmuren van een halve meter. Die geven hun vocht zeer traag af, en tegen het oppervlak vormt zich een verzadigd luchtlaagje dat verdere droging afremt. Reken op **twee keer de droogtijd** van een moderne wand, soms meer.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor de kelder in de helling**: koud en permanent vochtig, en daar werkt een adsorptiedroger door waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "**Bij muren van een halve meter een voorwaarde**: hij blaast de verzadigde luchtlaag tegen het oppervlak weg." },
+      { key: "ttk350", waarom: "De Medium per verdieping of per ruimte: 70 liter per dag, bereik tot ongeveer 400 m³, pompklaar." },
+      { key: "ttk650", waarom: "Voor een hoeve of een groot pand: 110 liter per dag, bereik tot ongeveer 600 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Voeren: een eigen rit, en dus vooraf afgesproken",
+      alinea:
+        "**Bijna twee uur rijden: onze verste rit in Vlaanderen.** We plannen Voeren daarom als een eigen rit en niet als halte in een toer. **Geef bij de reservatie door wanneer het moet staan**, dan spreken we een dag af in plaats van u een tijdslot van 24 uur te beloven dat we niet halen. Staat uw woning aan een steile of onverharde weg, zeg dat dan ook.",
+    },
+    afhalen: {
+      kop: "Afhalen loont hier zeker niet",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **bijna twee uur, dus vier uur heen en terug**. **Vanuit Voeren raden we afhalen zonder meer af en leveren we gewoon.** De rit zit al in de prijs van het pakket, en die prijs is dezelfde als voor iemand die naast ons magazijn woont.",
+    },
+    buren: ["riemst", "tongeren-borgloon"],
+    faq: [
+      {
+        q: "Komen jullie tot in Voeren?",
+        a: "Ja, en zonder toeslag, maar het is onze verste rit in Vlaanderen: bijna twee uur. We plannen Voeren daarom als een eigen rit en spreken een dag met u af, in plaats van een tijdslot van 24 uur te beloven dat we niet halen.",
+      },
+      {
+        q: "Er komt water door mijn kelderwand. Helpt een droger?",
+        a: "Zolang hij draait, ja: de ruimte wordt bruikbaar en schimmel krijgt geen kans. Maar in deze heuvels zitten bronnen en waterlagen die tegen de muur persen, en dat stopt een droger niet. De duurzame oplossing is drainage of waterdichting aan de buitenzijde.",
+      },
+      {
+        q: "Hoe lang duurt het drogen van een oud natuurstenen pand?",
+        a: "Langer dan u zou denken: reken op twee keer de droogtijd van een moderne wand, soms meer. Het vocht moet uit de kern naar buiten, en dat gaat traag. Onze technieker zegt bij de levering welke termijn realistisch is.",
+      },
+      {
+        q: "Betaal ik meer omdat Voeren zo ver ligt?",
+        a: "Nee. De prijs van het droogpakket is dezelfde in heel ons werkgebied. De rit telt mee in onze planning, niet in uw factuur.",
+      },
+      {
+        q: "Kan de bestelwagen tot bij mijn huis?",
+        a: "In de meeste straten wel, maar aan een steile of onverharde weg niet altijd. Geef dat door bij de reservatie, dan weet de technieker dat hij verder moet uitladen en brengt hij het juiste materiaal mee.",
+      },
+    ],
+    realisaties: [],
+  },
   {
     slug: "aartselaar",
     title: "Bouwdroger huren in Aartselaar - ons magazijn | Vernast",
