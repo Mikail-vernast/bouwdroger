@@ -10,6 +10,8 @@
  * telefoon en opmerking komen rechtstreeks uit een publiek formulier.
  */
 
+import { MAIL_HEADER_CSS, mailHeaderRows } from "./mailHeader.js";
+
 export interface ExtensionRequestMail {
   referentie: string;
   naam: string;
@@ -32,8 +34,6 @@ const MUTED = "#6b7280";
 const LINE = "#eeeeee";
 const PAGE = "#f3f3f3";
 const FONT = "'Urbanist',Arial,Helvetica,sans-serif";
-const MONO = "'JetBrains Mono',Menlo,Consolas,monospace";
-const LOGO_URL = "https://vernast.be/images/vernast-logo-white.png";
 
 export function escapeHtml(value: string): string {
   return value
@@ -95,8 +95,7 @@ export function extensionRequestHtml(r: ExtensionRequestMail): string {
   @media (max-width:480px){
     .er-pad{padding-left:16px!important;padding-right:16px!important}
     .er-card{padding:18px!important}
-    .er-hero{font-size:26px!important}
-    .er-btn{display:block!important;margin:0 0 10px!important;text-align:center!important}
+    .er-btn{display:block!important;margin:0 0 10px!important;text-align:center!important}${MAIL_HEADER_CSS}
   }
 </style></head>
 <body style="margin:0;padding:0;background:${PAGE};font-family:${FONT};color:${INK};-webkit-text-size-adjust:100%;">
@@ -105,12 +104,12 @@ export function extensionRequestHtml(r: ExtensionRequestMail): string {
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
 
-        <tr><td class="er-pad" style="background:${BRAND};padding:28px 32px 32px;color:#ffffff;">
-          <img src="${LOGO_URL}" width="96" alt="Vernast" style="display:block;width:96px;height:auto;border:0;margin:0 0 20px;">
-          <span style="display:inline-block;background:#ffffff;color:${BRAND};border-radius:999px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;">Verlenging aangevraagd</span>
-          <div class="er-hero" style="font-size:30px;line-height:1.2;font-weight:700;padding-top:16px;">+${r.extraDagen} dagen, tot ${e(r.nieuwEinde)}</div>
-          <div style="font-size:14px;color:#f5dada;padding-top:8px;">Huur <strong style="color:#ffffff;font-family:${MONO};">${e(r.referentie)}</strong> · nu tot ${e(r.huidigEinde)}</div>
-        </td></tr>
+        ${mailHeaderRows({
+          badge: "Verlenging aangevraagd",
+          title: `+${r.extraDagen} dagen, tot ${e(r.nieuwEinde)}`,
+          sub: `Huur loopt nu tot ${e(r.huidigEinde)}${r.naam ? ` · ${e(r.naam)}` : ""}`,
+          reference: r.referentie,
+        })}
 
         <tr><td class="er-pad" style="padding:24px 32px 6px;">
           <a class="er-btn" href="${e(r.portalUrl)}" style="display:inline-block;background:${BRAND};color:#ffffff;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:700;text-decoration:none;margin-right:8px;">Behandelen in Vernast &rarr;</a>

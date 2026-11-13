@@ -11,6 +11,7 @@
  * through `escapeHtml`: it comes straight from a public form.
  */
 import { escapeHtml } from "./extensionRequestMail.js";
+import { MAIL_HEADER_CSS, mailHeaderRows } from "./mailHeader.js";
 
 export type TeamMailKey = "intern_boeking" | "intern_afhaal" | "intern_aanvraag" | "intern_contact" | "intern_alarm";
 
@@ -24,7 +25,6 @@ const LINE = "#eeeeee";
 const PAGE = "#f3f3f3";
 const FONT = "'Urbanist',Arial,Helvetica,sans-serif";
 const MONO = "'JetBrains Mono',Menlo,Consolas,monospace";
-const LOGO_URL = "https://vernast.be/images/vernast-logo-white.png";
 
 type Params = Record<string, unknown>;
 
@@ -125,6 +125,8 @@ interface Hero {
   title: string;
   sub: string;
   preheader: string;
+  /** Order reference for the label top right (plain text). */
+  reference?: string;
   color?: string;
 }
 
@@ -149,8 +151,7 @@ function shell(subject: string, hero: Hero, actions: string, body: string, footn
   @media (max-width:480px){
     .tm-pad{padding-left:16px!important;padding-right:16px!important}
     .tm-card{padding:18px!important}
-    .tm-hero{font-size:26px!important}
-    .tm-btn{display:block!important;margin:0 0 10px!important;text-align:center!important}
+    .tm-btn{display:block!important;margin:0 0 10px!important;text-align:center!important}${MAIL_HEADER_CSS}
   }
 </style></head>
 <body style="margin:0;padding:0;background:${PAGE};font-family:${FONT};color:${INK};-webkit-text-size-adjust:100%;">
@@ -159,12 +160,7 @@ function shell(subject: string, hero: Hero, actions: string, body: string, footn
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
 
-        <tr><td class="tm-pad" style="background:${color};padding:28px 32px 32px;color:#ffffff;">
-          <img src="${LOGO_URL}" width="96" alt="Vernast" style="display:block;width:96px;height:auto;border:0;margin:0 0 20px;">
-          <span style="display:inline-block;background:#ffffff;color:${color};border-radius:999px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;">${hero.badge}</span>
-          <div class="tm-hero" style="font-size:30px;line-height:1.2;font-weight:700;padding-top:16px;">${hero.title}</div>
-          ${hero.sub ? `<div style="font-size:14px;line-height:1.5;color:#f5dada;padding-top:8px;">${hero.sub}</div>` : ""}
-        </td></tr>
+        ${mailHeaderRows({ badge: hero.badge, title: hero.title, sub: hero.sub, reference: hero.reference, color })}
 
         ${actions}
 
@@ -181,7 +177,6 @@ function shell(subject: string, hero: Hero, actions: string, body: string, footn
 </body></html>`;
 }
 
-const ref = (p: Params) => `<strong style="color:#ffffff;font-family:${MONO};">${e(p.referentie)}</strong>`;
 const openOrders = { href: PORTAL_ORDERS_URL, label: "Openen in Vernast" };
 const REPLY = "Antwoorden op deze mail gaat rechtstreeks naar de klant.";
 
@@ -192,8 +187,9 @@ function pickup(subject: string, p: Params): string {
     subject,
     {
       badge: "Afhaalreservatie",
+      reference: s(p.referentie),
       title: e(p.toestellen) || "Afhaling",
-      sub: `${ref(p)} · afhalen ${e(p.afhaaldatum)}${s(p.afhaalmoment) ? `, ${e(String(p.afhaalmoment).replace(/^Afhalen\s*/i, ""))}` : ""} · terug ${e(p.terugbrengen)}`,
+      sub: `Afhalen ${e(p.afhaaldatum)}${s(p.afhaalmoment) ? `, ${e(String(p.afhaalmoment).replace(/^Afhalen\s*/i, ""))}` : ""} · terug ${e(p.terugbrengen)}`,
       preheader: `${e(p.klant_naam)} haalt ${e(p.toestellen)} af op ${e(p.afhaaldatum)}.`,
     },
     buttons(p, openOrders),
@@ -221,8 +217,9 @@ function booking(subject: string, p: Params): string {
     subject,
     {
       badge: "Nieuwe boeking · betaald",
+      reference: s(p.referentie),
       title: e(p.toestellen) || e(p.pakket) || "Nieuwe boeking",
-      sub: `${ref(p)} · levering ${e(p.leverdatum)}${s(p.tijdslot) ? `, ${e(p.tijdslot)}` : ""} · tot ${e(p.huur_eind)}`,
+      sub: `Levering ${e(p.leverdatum)}${s(p.tijdslot) ? `, ${e(p.tijdslot)}` : ""} · tot ${e(p.huur_eind)}`,
       preheader: `${e(p.klant_naam)} boekte ${e(p.toestellen)}, levering ${e(p.leverdatum)}.`,
     },
     buttons(p, openOrders),
@@ -258,8 +255,9 @@ function request(subject: string, p: Params): string {
     subject,
     {
       badge: "Nieuwe aanvraag",
+      reference: s(p.referentie),
       title: e(p.toestellen) || e(p.pakket) || "Nieuwe aanvraag",
-      sub: `${ref(p)} · nog niet bevestigd${s(p.leverdatum) ? ` · gewenst ${e(p.leverdatum)}` : ""}`,
+      sub: `Nog niet bevestigd${s(p.leverdatum) ? ` · gewenst ${e(p.leverdatum)}` : ""}`,
       preheader: `${e(p.klant_naam)} vraagt ${e(p.toestellen) || "een droogpakket"} aan. Bel terug om te bevestigen.`,
     },
     buttons(p, openOrders),
@@ -308,6 +306,7 @@ function alarm(subject: string, p: Params): string {
     subject,
     {
       badge: "Order niet doorgekomen",
+      reference: s(p.referentie),
       title: e(p.referentie) || "Order niet doorgekomen",
       sub: `${e(p.context)}${s(p.reden) ? ` · ${e(p.reden)}` : ""}`,
       preheader: `Order ${e(p.referentie)} haalde Vernast niet. Geef ze met de hand in.`,

@@ -78,6 +78,14 @@ export async function GET(request: Request): Promise<Response> {
     referentie: meta(session, "referentie") || session.client_reference_id,
     pakket: meta(session, "pakket"),
     toestellen: meta(session, "toestellen"),
+    /*
+      A pickup booking stores its devices as products ("p:ttk170:1"), which the
+      page cannot label from DEVICE_LABEL; `machine` is the readable line the
+      customer chose ("1× Boost"). `afhaal` switches the wording: the customer
+      brings the devices back, nobody comes to pick them up.
+    */
+    machine: meta(session, "machine"),
+    afhaal: meta(session, "type") === "afhaal",
     huur_start: meta(session, "huur_start"),
     huur_eind: meta(session, "huur_eind"),
     tijdslot: meta(session, "tijdslot"),

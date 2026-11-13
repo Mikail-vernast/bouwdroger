@@ -25,6 +25,10 @@ interface Huur {
   referentie: string;
   pakket: string;
   toestellen: string;
+  /** Readable device line ("1× Boost"); set for pickup bookings. */
+  machine?: string;
+  /** Pickup booking: the customer brings the devices back himself. */
+  afhaal?: boolean;
   huur_start: string;
   huur_eind: string;
   tijdslot: string;
@@ -93,9 +97,11 @@ const VerhuurVerlengenPage = () => {
 
   /** Wat de klant nu heeft staan, in leesbare vorm. */
   const toestellen = useMemo(() => {
-    const lines = parseDeviceLines(huur?.toestellen);
+    if (huur?.machine) return huur.machine;
+    // Product lines (pickup) have no device_key; never print "undefined".
+    const lines = parseDeviceLines(huur?.toestellen).filter((l) => l.device_key);
     return lines.map((l) => `${l.qty}× ${DEVICE_LABEL[l.device_key] ?? l.device_key}`).join(", ");
-  }, [huur?.toestellen]);
+  }, [huur?.toestellen, huur?.machine]);
 
   /*
     De einddatum die de klant zou krijgen. Onder voorbehoud, want pas de
@@ -214,8 +220,8 @@ const VerhuurVerlengenPage = () => {
                 <h2>Uw aanvraag staat genoteerd</h2>
                 <p>
                   Wij kijken na of de toestellen langer bij u kunnen blijven en bellen u binnen één
-                  werkdag terug op {telefoon}. Zolang u niets gehoord heeft, blijft de ophaling op
-                  de oorspronkelijke datum staan.
+                  werkdag terug op {telefoon}. Zolang u niets gehoord heeft, blijft{" "}
+                  {huur?.afhaal ? "het terugbrengen" : "de ophaling"} op de oorspronkelijke datum staan.
                 </p>
                 {nieuwEinde && (
                   <div className="dref">
@@ -250,9 +256,9 @@ const VerhuurVerlengenPage = () => {
                   {[
                     ["Referentie", huur.referentie],
                     ["Pakket", huur.pakket],
-                    ["Bij u geplaatst", toestellen],
+                    [huur.afhaal ? "Uw toestellen" : "Bij u geplaatst", toestellen],
                     [
-                      "Ophaling nu gepland op",
+                      huur.afhaal ? "Terugbrengen nu gepland op" : "Ophaling nu gepland op",
                       huur.huur_eind ? formatLongDate(new Date(huur.huur_eind)) : "",
                     ],
                   ]
