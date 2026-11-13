@@ -28,7 +28,7 @@ import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { inrichtingsMuur, richIn } from "./inrichting";
 import { Druppels3D, FilmStart, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
-import { VAL, aankomst, droogVoortgang, filmTijd, type Film } from "../film";
+import { GEEN_PLAN, aankomst, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { TEXTUUR } from "./bestanden";
@@ -759,7 +759,7 @@ function kader(w: number, l: number, y0: number, y1: number, pad: number): Kader
 interface SceneProps extends IsoHouseProps { anim: MutableRefObject<Anim>; labels: MutableRefObject<(HTMLDivElement | null)[]>; reduced: boolean; onKlaar?: () => void }
 
 function Scene(props: SceneProps) {
-  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, cyclus = 10, anim, labels, reduced } = props;
+  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, anim, labels, reduced } = props;
   const materiaal = props.materiaal ?? STANDAARD_MATERIAAL;
   const { w, l, buren } = WONING[woning];
   const lagen = Math.max(1, verdiepingen);
@@ -773,7 +773,7 @@ function Scene(props: SceneProps) {
   const texturen = useMemo(() => Object.fromEntries(TEGEL_NAMEN.map((n, i) => [n, tex[i]])) as Record<TegelNaam, Texture>, [tex]);
 
   // Filmklok: begint opnieuw bij elke verdieping (en elk nieuw pakket); zie onder.
-  const film = useRef<Film>({ start: -1, vast: reduced });
+  const film = useRef<Film>({ ...filmPlan, start: -1, vast: reduced });
 
   // Snijvlakken van de actieve laag: onderhelft houden, bovenhelft houden.
   const snij = useMemo(() => ({ onder: new Plane(new Vector3(0, -1, 0), 0), boven: new Plane(new Vector3(0, 1, 0), 0) }), []);
@@ -993,14 +993,16 @@ function Scene(props: SceneProps) {
 
     // Walls and floor dry from the devices outward, on the film clock: a device
     // starts drying once it has landed, and at the end the patches cover all.
+    // While the devices are being placed, everything is still wet; once drying
+    // starts they all run, and a lower floor starts where its progress already is.
     const droogt = werkend && !reduced;
-    const tf = filmTijd(film.current, cyclus);
-    const droog = droogt ? droogVoortgang(tf, cyclus) : 1;
+    const droog = droogt ? droogStand(film.current) : 1;
+    const loopt = film.current.modus === "drogen";
     const bronnen = natLaag;
     nat.n.value = Math.min(MAX_BRON, bronnen.length);
     for (let i = 0; i < nat.n.value; i++) {
       const b = bronnen[i];
-      nat.bron.value[i].set(b.x, b.y, b.z, tf >= b.a + VAL ? 1 : 0);
+      nat.bron.value[i].set(b.x, b.y, b.z, loopt ? 1 : 0);
     }
     // About a room's reach from one device by the end; the last corners fade out.
     nat.r.value = Math.pow(droog, 1.2) * 6.5;
@@ -1089,8 +1091,8 @@ function Scene(props: SceneProps) {
     return { x: k.x + p.x, y: yfAct, z: k.z + p.z, a: p.a };
   }), [laagPlaatsingen, actKamers, yfAct]);
   useLayoutEffect(() => {
-    film.current = { start: -1, vast: reduced };
-  }, [act, werkend, laagPlaatsingen, reduced]);
+    film.current = { ...filmPlan, start: -1, vast: reduced };
+  }, [act, werkend, laagPlaatsingen, reduced, filmPlan.modus, filmPlan.van, filmPlan.tot, filmPlan.duur]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -1139,12 +1141,12 @@ function Scene(props: SceneProps) {
           <FilmStart film={film} />
           {laagPlaatsingen.map((p, i) => {
             const k = actKamers.find((kk) => kk.id === p.kamer)!;
-            return <Toestel3D key={`${act}-${p.k}-${i}`} k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} cyclus={cyclus} />;
+            return <Toestel3D key={`${act}-${p.k}-${i}`} k={p.k} x={k.x + p.x} y={yfAct} z={k.z + p.z} aankomst={p.a} werkend={werkend} film={film} />;
           })}
           </Suspense>
           </ToestelVangnet>
-          {droogt && <Luchtstroom3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} film={film} cyclus={cyclus} />}
-          {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} film={film} cyclus={cyclus} />}
+          {droogt && <Luchtstroom3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} film={film} />}
+          {droogt && <Druppels3D kamers={actKamers} plaatsingen={laagPlaatsingen} yf={yfAct} vocht={materiaal.vocht} film={film} />}
         </>
       )}
     </>

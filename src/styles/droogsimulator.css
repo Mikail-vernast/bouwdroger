@@ -1435,3 +1435,4 @@
   .ds-teller .ds-liter b{font-size:13px}
   .ds-stempel{left:auto;right:4px;top:calc(100% + 10px);font-size:16px;padding:5px 10px 4px}
 }
+.ds-meter--plaats i{background:#c8102e}

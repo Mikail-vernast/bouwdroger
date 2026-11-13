@@ -7,7 +7,7 @@ import { materiaalVoor } from "@/components/simulator/materiaal";
 import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
 import { TEMPO, TEMPO_ORDER, type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
-import { FILM_START, droogVoortgang } from "@/components/simulator/film";
+import { DROOG_DUUR, FILM_START, PLAATS_DUUR, voortgangNa, type FilmPlan } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
 import {
   DAK_LABEL,
@@ -57,6 +57,29 @@ import "@/styles/droogsimulator.css";
 
 /** Eén droogcyclus in de animatie, in seconden. */
 const CYCLUS = 12;
+
+/** One step of the drying film: which floor, placing or drying, and the days it covers. */
+interface Segment extends FilmPlan { v: number; dagVan: number; dagTot: number }
+
+/**
+ * The drying film: first the devices go in, floor by floor from the bottom up;
+ * then the house dries from the top down. Upper floors are always dry first:
+ * the top floor is done at 60 % of the term, the ground floor at the end, the
+ * floors in between evenly spread. A lower floor's segment therefore starts
+ * partly dry, at the day the floor above finished.
+ */
+function droogfilm(lagen: number, dagen: number): Segment[] {
+  const uit: Segment[] = [];
+  for (let v = 0; v < lagen; v++) uit.push({ v, modus: "plaatsen", van: 0, tot: 0, duur: PLAATS_DUUR, dagVan: 0, dagTot: 0 });
+  const klaarOp = (v: number) => (lagen === 1 ? dagen : Math.round(dagen * (0.6 + (0.4 * (lagen - 1 - v)) / (lagen - 1))));
+  let vorige = 0;
+  for (let v = lagen - 1; v >= 0; v--) {
+    const dag = klaarOp(v);
+    uit.push({ v, modus: "drogen", van: vorige / dag, tot: 1, duur: DROOG_DUUR, dagVan: vorige, dagTot: dag });
+    vorige = dag;
+  }
+  return uit;
+}
 /** Vaste lege lijst: een nieuwe [] bij elke render zou de film telkens herstarten. */
 const GEEN_PLAATSINGEN: Plaatsing[] = [];
 
@@ -136,6 +159,8 @@ const VerhuurSimulatorPage = () => {
   }, [stap]);
   const [actief, setActief] = useState(0);
   const [handmatig, setHandmatig] = useState(false);
+  /** where the drying film is: an index into `droogfilm(...)` */
+  const [seg, setSeg] = useState(0);
   /** De droogfilm is helemaal afgespeeld: de woning staat droog en leeg. */
   const [filmKlaar, setFilmKlaar] = useState(false);
   /** Telt op bij "opnieuw afspelen", zodat de film van vooraf aan begint. */
@@ -189,26 +214,24 @@ const VerhuurSimulatorPage = () => {
 
   const materiaal = materiaalVoor(stap >= 2 ? s.wat : null, stap >= 3 ? s.fase : null, FASE[antwoorden.fase].vocht);
 
-  // Het droogplan speelt als film: gelijkvloers, dan elke verdieping erboven,
-  // en daarna staat de woning droog en leeg (filmKlaar). Elke verdieping duurt
-  // CYCLUS seconden, gerekend vanaf het echte begin van de 3D-film (die meldt
+  // Het droogplan speelt als film (zie droogfilm): eerst plaatsen van onder naar
+  // boven, dan drogen van boven naar beneden, en daarna staat de woning droog en
+  // leeg (filmKlaar). Elk stuk telt vanaf het echte begin van de 3D-film (die meldt
   // FILM_START na het laden van de modellen); zonder 3D vanaf nu. Kiest de
-  // bezoeker zelf een verdieping, dan blijft die staan.
+  // bezoeker zelf een verdieping, dan toont die haar droogstuk en blijft ze staan.
+  const segmenten = useMemo(() => (resultaat ? droogfilm(lagen, resultaat.dagen) : []), [resultaat, lagen]);
+  useEffect(() => setSeg(0), [segmenten]);
+  const segment = segmenten[Math.min(seg, segmenten.length - 1)];
   useEffect(() => {
-    if (stap !== 4 || handmatig || filmKlaar || !resultaat) return;
+    if (stap !== 4 || handmatig || filmKlaar || !segment) return;
     let id = 0;
-    // Count from the film's real start (the 3D reports it once the models are in).
     const volgende = (e?: Event) => {
       window.clearTimeout(id);
       const start = e ? (e as CustomEvent<number>).detail : performance.now();
       id = window.setTimeout(() => {
-        const nu = Math.min(actief, lagen - 1);
-        if (nu + 1 < lagen) setActief(nu + 1);
-        else {
-          setFilmKlaar(true);
-          setActief(0);
-        }
-      }, Math.max(0, CYCLUS * 1000 - (performance.now() - start)));
+        if (seg + 1 < segmenten.length) setSeg(seg + 1);
+        else setFilmKlaar(true);
+      }, Math.max(0, segment.duur * 1000 - (performance.now() - start)));
     };
     volgende();
     window.addEventListener(FILM_START, volgende);
@@ -216,11 +239,12 @@ const VerhuurSimulatorPage = () => {
       window.clearTimeout(id);
       window.removeEventListener(FILM_START, volgende);
     };
-  }, [stap, handmatig, filmKlaar, resultaat, actief, lagen, ronde]);
+  }, [stap, handmatig, filmKlaar, seg, segment, segmenten, ronde]);
 
   const opnieuwAfspelen = () => {
     setFilmKlaar(false);
     setHandmatig(false);
+    setSeg(0);
     setActief(0);
     setRonde((r) => r + 1);
   };
@@ -231,6 +255,7 @@ const VerhuurSimulatorPage = () => {
     setStap(n);
     setToonPlan(false);
     setActief(0);
+    setSeg(0);
     setHandmatig(false);
     setFilmKlaar(false);
   };
@@ -292,6 +317,10 @@ const VerhuurSimulatorPage = () => {
   };
 
   const verd = Math.min(actief, lagen - 1);
+  // In the drying plan the film picks the floor, unless the visitor chose one.
+  const handSeg = segmenten.find((sg) => sg.modus === "drogen" && sg.v === verd);
+  const filmSeg = stap === 4 ? (handmatig ? handSeg : segment) : undefined;
+  const toonVerd = stap === 4 && filmSeg ? filmSeg.v : verd;
   const maxLagen = woning === "appartement" ? 2 : MAX_VERDIEPINGEN;
   const maatwerk = isMaatwerk(antwoorden);
   const totaalKamers = aantallen.reduce((a, b) => a + b, 0);
@@ -309,8 +338,16 @@ const VerhuurSimulatorPage = () => {
     { eyebrow: "Stap 3 · Materiaal", titel: s.wat ? `${WAT_LABEL[s.wat].label}: nog nat` : "Wat is er nat?" },
     { eyebrow: "Stap 4 · Bouwfase", titel: s.fase ? FASE[s.fase].label : "Hoe ver staat de werf?" },
     {
-      eyebrow: filmKlaar ? "Droogplan · klaar" : `Droogplan · ${verdiepingNaam(actief, lagen, dak)}`,
-      titel: !resultaat ? "Maatwerk" : filmKlaar ? "Droog en klaar om af te werken" : `${resultaat.items.reduce((n, it) => n + it.q, 0)} toestellen aan het werk`,
+      eyebrow: filmKlaar
+        ? "Droogplan · klaar"
+        : `Droogplan · ${filmSeg?.modus === "plaatsen" ? "plaatsen" : "drogen"} · ${verdiepingNaam(toonVerd, lagen, dak)}`,
+      titel: !resultaat
+        ? "Maatwerk"
+        : filmKlaar
+          ? "Droog en klaar om af te werken"
+          : filmSeg?.modus === "plaatsen"
+            ? "De toestellen worden geplaatst"
+            : `${aantalToestellen} toestellen aan het werk`,
     },
   ][stap];
 
@@ -658,15 +695,24 @@ const VerhuurSimulatorPage = () => {
                 openingen={plan.openingen}
                 trappen={plan.trappen}
                 open={(stap >= 2 && !(stap === 4 && filmKlaar)) || (stap === 1 && toonPlan)}
-                actief={stap === 4 || stap === 1 ? verd : 0}
+                actief={stap === 4 ? toonVerd : stap === 1 ? verd : 0}
                 plaatsingen={filmKlaar ? GEEN_PLAATSINGEN : plaatsingen}
                 werkend={stap === 4 && !!resultaat && !filmKlaar}
                 materiaal={stap === 4 && filmKlaar ? { ...materiaal, vocht: 0 } : materiaal}
                 cyclus={CYCLUS}
+                filmPlan={filmSeg}
               />
               {stap === 2 && s.wat && <Doorsnede wat={s.wat} pd={antwoorden.pd} cd={antwoorden.cd} />}
               {stap === 4 && resultaat && (
-                <DagTeller key={`${actief}-${resultaat.dagen}-${ronde}-${filmKlaar}`} dagen={resultaat.dagen} water={resultaat.water} cyclus={CYCLUS} vocht={FASE[antwoorden.fase].vocht} klaar={filmKlaar} />
+                <DagTeller
+                  key={`${filmSeg?.modus}-${toonVerd}-${resultaat.dagen}-${ronde}-${filmKlaar}-${handmatig}`}
+                  segment={filmSeg}
+                  naam={verdiepingNaam(toonVerd, lagen, dak)}
+                  geplaatst={plaatsingen.filter((p) => kamers.find((k) => k.id === p.kamer)?.verdieping === toonVerd).length}
+                  dagen={resultaat.dagen}
+                  water={resultaat.water}
+                  klaar={filmKlaar}
+                />
               )}
               {stap === 4 && resultaat && filmKlaar && (
                 <button type="button" className="ds-herhaal" onClick={opnieuwAfspelen}>
@@ -686,8 +732,8 @@ const VerhuurSimulatorPage = () => {
                         key={v}
                         type="button"
                         role="tab"
-                        aria-selected={!filmKlaar && actief === v}
-                        className={!filmKlaar && actief === v ? "on" : undefined}
+                        aria-selected={!filmKlaar && toonVerd === v}
+                        className={!filmKlaar && toonVerd === v ? "on" : undefined}
                         onClick={() => {
                           setActief(v);
                           setHandmatig(true);
@@ -960,50 +1006,65 @@ function Doorsnede({ wat, pd, cd }: { wat: Wat; pd: string; cd: string }) {
 }
 
 /**
- * Teller "dag x van y" die gelijkloopt met de vochtsluier in de tekening. Hij
- * telt de huurtermijn uit de catalogus af, niet een eigen schatting.
+ * Teller bij de film. Tijdens het plaatsen: hoeveel toestellen op deze
+ * verdieping. Tijdens het drogen: "dag x van y" over de hele woning (de
+ * verdiepingen lopen na elkaar door, van boven naar beneden), de liters die al
+ * weg zijn, en een stempel zodra deze verdieping droog is.
  */
-function DagTeller({ dagen, water, cyclus, vocht, klaar }: { dagen: number; water: number; cyclus: number; vocht: number; klaar: boolean }) {
-  const [t, setT] = useState(klaar ? 1 : 0);
+function DagTeller({ segment, naam, geplaatst, dagen, water, klaar }: {
+  segment?: Segment; naam: string; geplaatst: number; dagen: number; water: number; klaar: boolean;
+}) {
+  const [k, setK] = useState(klaar || !segment ? 1 : 0);
   useEffect(() => {
-    if (klaar || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setT(1);
+    if (klaar || !segment || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setK(1);
       return;
     }
-    // Zelfde filmklok als de 3D-woning: eerst de toestellen neerzetten, dan drogen.
-    // De 3D meldt wanneer zijn film echt begint (na het laden van de modellen);
-    // zonder 3D (SVG) telt hij vanaf nu.
+    // Same clock as the 3D: it reports when its film really starts; without 3D, from now.
     let start = performance.now();
     const opStart = (e: Event) => { start = (e as CustomEvent<number>).detail; };
     window.addEventListener(FILM_START, opStart);
-    const id = window.setInterval(() => {
-      setT(droogVoortgang(Math.max(0, (performance.now() - start) / 1000), cyclus));
-    }, 120);
+    const id = window.setInterval(() => setK(voortgangNa(segment, Math.max(0, (performance.now() - start) / 1000))), 120);
     return () => {
       window.clearInterval(id);
       window.removeEventListener(FILM_START, opStart);
     };
-  }, [cyclus, klaar]);
-  const dag = Math.max(1, Math.round(t * dagen));
-  const rest = vocht * (1 - t);
+  }, [segment, klaar]);
+
+  if (!klaar && segment?.modus === "plaatsen") {
+    return (
+      <div className="ds-teller">
+        <span>
+          <b>{Math.round(k * geplaatst)}</b> van {geplaatst} geplaatst
+        </span>
+        <div className="ds-meter ds-meter--plaats" aria-hidden="true">
+          <i style={{ width: `${Math.max(3, k * 100)}%` }} />
+        </div>
+        <small>{naam}</small>
+      </div>
+    );
+  }
+  const dag = klaar || !segment ? dagen : Math.max(1, Math.round(segment.dagVan + (segment.dagTot - segment.dagVan) * k));
+  const alles = dag >= dagen;
+  const laagDroog = !klaar && !!segment && k >= 1;
   return (
     <div className="ds-teller">
       <span>
         Dag <b>{dag}</b> van {dagen}
       </span>
-      {/* Blue = moisture left; once dry the bar turns full and green. */}
-      <div className={t >= 1 ? "ds-meter ds-meter--droog" : "ds-meter"} aria-hidden="true">
-        <i style={{ width: t >= 1 ? "100%" : `${Math.max(3, rest * 100)}%` }} />
+      {/* Blue = moisture left in the house; once dry the bar turns full and green. */}
+      <div className={alles ? "ds-meter ds-meter--droog" : "ds-meter"} aria-hidden="true">
+        <i style={{ width: alles ? "100%" : `${Math.max(3, (1 - dag / dagen) * 100)}%` }} />
       </div>
-      <small>{t >= 1 ? "Alles droog" : "Vocht in muren en vloer"}</small>
+      <small>{alles ? "Alles droog" : `${naam} droogt`}</small>
       {/* Litres pulled out of the house so far, on the same clock as the days. */}
       <p className="ds-liter">
-        <b>{Math.round(t * water).toLocaleString("nl-BE")}</b> l water afgevoerd
+        <b>{Math.round((dag / dagen) * water).toLocaleString("nl-BE")}</b> l water afgevoerd
       </p>
-      {t >= 1 && !klaar && (
+      {laagDroog && (
         <div className="ds-stempel" aria-hidden="true">
           Droog
-          <small>op dag {dagen}</small>
+          <small>{naam} · dag {segment.dagTot}</small>
         </div>
       )}
     </div>

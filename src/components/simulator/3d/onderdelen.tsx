@@ -14,7 +14,7 @@ import {
 import type { Kamer, Plaatsing } from "@/lib/droogSimulator";
 import type { DeviceKey } from "@/data/verhuur";
 import { TOESTEL_MODEL } from "./modellen";
-import { FILM_START, VAL, droogVoortgang, filmTijd, stuit, wegVoortgang, type Film } from "../film";
+import { FILM_START, VAL, droogStand, stuit, toestelTijd, type Film } from "../film";
 
 /*
   De bewegende en losse onderdelen van de 3D-woning: de toestellen uit het
@@ -49,9 +49,9 @@ const stofGeo = new RingGeometry(0.42, 0.5, 36);
  * omhoog en kleiner, één voor één. De gloed is enkel emissive: een pointLight per kachel zou
  * het aantal lichten (en dus de shaders) laten wisselen met het pakket.
  */
-export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
+export function Toestel3D({ k, x, y, z, aankomst, werkend, film }: {
   k: DeviceKey; x: number; y: number; z: number; aankomst: number; werkend: boolean;
-  film: MutableRefObject<Film>; cyclus: number;
+  film: MutableRefObject<Film>;
 }) {
   const gltf = useLoader(GLTFLoader, MODEL[k]);
   // Eigen kopie per toestel, met eigen led- en gloedmateriaal (die gaan apart aan).
@@ -81,18 +81,15 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
   const toeren = useRef(0);
 
   useFrame((_, dt) => {
-    const t = filmTijd(film.current, cyclus);
+    const t = toestelTijd(film.current);
     const p = Math.min(1, Math.max(0, (t - aankomst) / VAL));
-    const q = wegVoortgang(t, cyclus, aankomst);
-    const op = q * q * (3 - 2 * q);
     const g = groep.current;
     if (g) {
-      g.visible = t >= aankomst && q < 1;
-      g.position.y = y + (1 - stuit(p)) * VALHOOGTE + op * VALHOOGTE * 1.3;
-      // Bij de eerste botsing even platgedrukt, daarna weer recht; bij het weghalen kleiner.
+      g.visible = t >= aankomst;
+      g.position.y = y + (1 - stuit(p)) * VALHOOGTE;
+      // Bij de eerste botsing even platgedrukt, daarna weer recht.
       const plat = p > 0.33 && p < 0.55 ? Math.sin(((p - 0.33) / 0.22) * Math.PI) * 0.07 : 0;
-      const k = SCHAAL * (1 - op * 0.75);
-      g.scale.set(k * (1 + plat * 0.6), k * (1 - plat), k * (1 + plat * 0.6));
+      g.scale.set(SCHAAL * (1 + plat * 0.6), SCHAAL * (1 - plat), SCHAAL * (1 + plat * 0.6));
     }
     // Stofkringetje bij de landing.
     const s = (t - aankomst - VAL * 0.36) / 0.7;
@@ -101,8 +98,8 @@ export function Toestel3D({ k, x, y, z, aankomst, werkend, film, cyclus }: {
       stof.current.scale.setScalar(0.6 + s * 1.1);
       stofM.opacity = s > 0 && s < 1 ? 0.45 * (1 - s) : 0;
     }
-    // Aan zodra het toestel stilstaat, uit zodra alles droog is; de wieken lopen op en af.
-    const aan = werkend && t > aankomst + VAL + 0.15 && droogVoortgang(t, cyclus) < 1;
+    // Aan zodra het drogen begint, uit zodra deze verdieping droog is; de wieken lopen op en af.
+    const aan = werkend && film.current.modus === "drogen" && t > aankomst + VAL + 0.15 && droogStand(film.current) < 1;
     toeren.current += ((aan ? 1 : 0) - toeren.current) * Math.min(1, dt * 1.8);
     if (model.wieken) model.wieken.rotation.z -= dt * Math.PI * 2 * 2.2 * toeren.current;
     for (const m of model.licht) {
@@ -173,7 +170,7 @@ const bezier = (a: Vector3, b: Vector3, c: Vector3, t: number, uit: Vector3) => 
 };
 
 /** Lucht van elke ventilator over de vloer, in de richting waarin hij blaast (+z). */
-export function Luchtstroom3D({ kamers, plaatsingen, yf, film, cyclus }: { kamers: Kamer[]; plaatsingen: Geplaatst[]; yf: number; film: MutableRefObject<Film>; cyclus: number }) {
+export function Luchtstroom3D({ kamers, plaatsingen, yf, film }: { kamers: Kamer[]; plaatsingen: Geplaatst[]; yf: number; film: MutableRefObject<Film> }) {
   const ref = useRef<InstancedMesh>(null);
   const PER = 6;
   const banen = useMemo(() => {
@@ -196,9 +193,9 @@ export function Luchtstroom3D({ kamers, plaatsingen, yf, film, cyclus }: { kamer
     const m = ref.current;
     if (!m) return;
     const t = clock.elapsedTime;
-    const ft = filmTijd(film.current, cyclus);
-    // In het laatste tiende van het drogen valt de lucht stil.
-    const stilvallen = Math.min(1, (1 - droogVoortgang(ft, cyclus)) / 0.1);
+    const ft = toestelTijd(film.current);
+    // Pas lucht als er gedroogd wordt; in het laatste tiende valt ze stil.
+    const stilvallen = film.current.modus === "drogen" ? Math.min(1, (1 - droogStand(film.current)) / 0.1) : 0;
     banen.forEach(([a, b, c, aank], i) => {
       // Pas lucht als deze ventilator staat en draait.
       const aan = draait(ft, aank) ? Math.min(1, (ft - aank - VAL - 0.15) / 0.8) * stilvallen : 0;
@@ -229,7 +226,7 @@ export function Luchtstroom3D({ kamers, plaatsingen, yf, film, cyclus }: { kamer
  * Vochtdeeltjes die uit muren en vloer opstijgen en naar de dichtstbijzijnde
  * droger drijven. Deterministisch, zoals in de SVG: geen Math.random.
  */
-export function Druppels3D({ kamers, plaatsingen, yf, vocht, film, cyclus }: { kamers: Kamer[]; plaatsingen: Geplaatst[]; yf: number; vocht: number; film: MutableRefObject<Film>; cyclus: number }) {
+export function Druppels3D({ kamers, plaatsingen, yf, vocht, film }: { kamers: Kamer[]; plaatsingen: Geplaatst[]; yf: number; vocht: number; film: MutableRefObject<Film> }) {
   const ref = useRef<InstancedMesh>(null);
   const banen = useMemo(() => {
     const uit: { van: Vector3; naar: Vector3; vertraging: number; a: number }[] = [];
@@ -255,9 +252,9 @@ export function Druppels3D({ kamers, plaatsingen, yf, vocht, film, cyclus }: { k
   useFrame(({ clock }) => {
     const m = ref.current;
     if (!m) return;
-    const ft = filmTijd(film.current, cyclus);
-    // Hoe droger, hoe minder vocht er nog naar de drogers trekt.
-    const rest = 1 - 0.9 * droogVoortgang(ft, cyclus);
+    const ft = toestelTijd(film.current);
+    // Hoe droger, hoe minder vocht er nog naar de drogers trekt; niets zolang er nog geplaatst wordt.
+    const rest = film.current.modus === "drogen" ? 1 - 0.9 * droogStand(film.current) : 0;
     banen.forEach((b, i) => {
       const aan = draait(ft, b.a) ? Math.min(1, (ft - b.a - VAL - 0.15) / 0.8) : 0;
       // cubic-bezier(.4,0,.6,1) benaderd met een smoothstep; verschijnen en
