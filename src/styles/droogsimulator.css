@@ -1408,3 +1408,18 @@
   .ds-sim[data-stap="4"] .ds-bon img{width:26px;height:26px;border-radius:7px}
   .ds-tot b{font-size:28px}
 }
+/* pc: the panel has room — the devices as large photo tiles, name and spec stacked. */
+@media (min-width:900px){
+  .ds-sim[data-stap="4"] .ds-bon li{gap:16px;padding:12px 0;font-size:17px}
+  .ds-sim[data-stap="4"] .ds-bon img{width:clamp(64px,7vh,88px);height:clamp(64px,7vh,88px);border-radius:14px;object-fit:contain;padding:6px;box-shadow:0 8px 20px -12px rgba(0,0,0,.6)}
+  .ds-sim[data-stap="4"] .ds-bon .q{width:auto;font-size:15px}
+  .ds-sim[data-stap="4"] .ds-bon b{font-size:18px}
+  .ds-sim[data-stap="4"] .ds-bon small{font-size:12px}
+  .ds-sim[data-stap="4"] .ds-body{gap:14px}
+}
+@container paneel (max-height:640px){
+  .ds-sim[data-stap="4"] .ds-bon li{padding-block:6px}
+  .ds-sim[data-stap="4"] .ds-bon img{width:48px;height:48px}
+}
+/* laptop height: the two stat boxes give way first, so total and button keep their room */
+@media (min-width:900px){ @container paneel (max-height:780px){ .ds-sim[data-stap="4"] .ds-stats{display:none} } }
