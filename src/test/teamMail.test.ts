@@ -64,6 +64,17 @@ describe("team mails", () => {
     expect(html).toContain("{&quot;a&quot;:1}");
   });
 
+  it("a missing date never leaves a bare 'tot' or 'terug' in the header", () => {
+    const booking = teamMailHtml("intern_boeking", "x", { ...pickup, huur_eind: "" });
+    expect(booking).toContain("Levering 14 november 2026");
+    expect(booking).not.toMatch(/· tot\s*</);
+    const bare = teamMailHtml("intern_afhaal", "x", { referentie: "VRN-X" });
+    expect(bare).not.toMatch(/Afhalen\s*·|· terug\s*</);
+    expect(bare).toContain("Afhaling aan het afhaalpunt");
+    const both = teamMailHtml("intern_boeking", "x", { ...pickup, huur_eind: "17 november 2026" });
+    expect(both).toContain("Levering 14 november 2026 · tot 17 november 2026");
+  });
+
   it("only the five internal keys get a design", () => {
     expect(isTeamMailKey("intern_afhaal")).toBe(true);
     expect(isTeamMailKey("boeking_betaald")).toBe(false);
