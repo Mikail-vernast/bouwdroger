@@ -176,9 +176,8 @@ const V3Regio = () => {
               Elke chip gaat naar de regiopagina van haar provincie: die noemt
               de gemeente bij naam en beschrijft wat we er doen. Een eigen
               pagina per gemeente bestaat niet, en een chip die naar niets
-              leidt is precies het probleem dat we hier oplossen. De Brusselse
-              gemeenten hebben er geen; die chips gaan naar de gewestpagina,
-              die ze bij naam noemt.
+              leidt is precies het probleem dat we hier oplossen. Sinds
+              14-11-2026 geldt dat ook voor de negentien Brusselse gemeenten.
             */}
             <div
               className="rg-chips"
@@ -193,10 +192,10 @@ const V3Regio = () => {
                   Heeft de gemeente een eigen pagina, dan gaat de chip daarheen
                   en niet naar de provincie. Tot 12-11-2026 wezen ze allemaal
                   naar de provincie, en dan kwam je op "Mechelen" drukken uit
-                  op de Antwerpse pagina. Sinds 13-11-2026 heeft elke Vlaamse
-                  gemeente een eigen pagina; de negentien Brusselse niet, en
-                  die vallen terug op de gewestpagina in plaats van dood te
-                  staan.
+                  op de Antwerpse pagina. Sinds 14-11-2026 heeft elke gemeente
+                  van Vlaanderen en Brussel er een; de terugval op de
+                  gebiedspagina blijft staan voor een naam die geen eigen
+                  pagina heeft omdat een buurgemeente haar dekt.
                 */
                 const eigen = gemeenteVanPlaats(town);
                 const doel = eigen?.path ?? region.path;

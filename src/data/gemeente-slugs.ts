@@ -15,10 +15,11 @@
  * *doorway pages* noemt en uitfiltert — en dat zou ook de vijf
  * provinciepagina's meeslepen die wél werken (64% eigen tekst, gemeten
  * 12-11-2026). Op 13-11-2026 uitgebreid tot heel Antwerpen, en daarna tot heel
- * Oost-Vlaanderen en Vlaams-Brabant: 194 pagina's. Die lat van eigen tekst
- * geldt voor elke nieuwe pagina, en `gemeenteTeksten.test.ts` controleert wat
- * daarvan te meten valt (eigen titel, eigen description, geen vraag twee keer).
- * West-Vlaanderen en Limburg hebben nog alleen hun provinciepagina.
+ * Oost-Vlaanderen en Vlaams-Brabant, en op 14-11-2026 tot West-Vlaanderen,
+ * Limburg en de negentien Brusselse gemeenten: 313 pagina's, één voor elke
+ * plaats waar we leveren. Die lat van eigen tekst geldt voor elke nieuwe
+ * pagina, en `gemeenteTeksten.test.ts` controleert wat daarvan te meten valt:
+ * eigen titel, eigen description, geen vraag twee keer, geen em-dash.
  *
  * Een gemeente toevoegen raakt drie bestanden: hier een entry, de tekst in
  * `gemeenten.ts`, en niets meer — de route, de sitemap, de chips op de
