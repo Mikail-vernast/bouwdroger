@@ -15,7 +15,12 @@ import {
 } from "@/data/navigation";
 import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
-import { STREKEN_PER_REGIO, type Streek } from "@/data/provincie-gemeenten";
+import {
+  NEDERLANDSE_STREKEN,
+  STREKEN_PER_REGIO,
+  WAALSE_STREKEN,
+  type Streek,
+} from "@/data/provincie-gemeenten";
 import { REALISATIES } from "@/data/realisaties";
 import "@/styles/v3-content.css";
 import "@/styles/sitemap.css";
@@ -52,7 +57,7 @@ const JURIDISCH: NavLinkItem[] = [
 ];
 
 /**
- * De blokken van het werkgebied.
+ * De blokken van het werkgebied waar we een pagina voor hebben.
  *
  * Alle zes dragen hun eigen pagina en hun kop is dus een link. Brussel stond
  * hier tot 13-11-2026 als blok zonder `path`, omdat een kop die naar een 404
@@ -66,6 +71,26 @@ const GEBIEDEN: { sleutel: string; kop: string; path?: string; streken: Streek[]
     path: regio.path,
     streken: STREKEN_PER_REGIO[regio.slug] ?? [],
   }));
+
+/**
+ * Wallonië en de Nederlandse grensstreek: wél in de lijst, nog zonder pagina.
+ *
+ * Bewust een apart blok met een eigen kop, en bewust zonder `path` en zonder
+ * levertermijn. Twee redenen. Een kop die naar een onbestaande pagina linkt is
+ * erger dan een kop zonder link, dat was de les van Brussel. En het ritme van
+ * de rest van de site, "binnen 24 uur geleverd", geldt hier niet: Virton ligt
+ * op drie uur en Eindhoven achter een grens, met andere btw-regels. Daarom
+ * staat er boven dit blok "op aanvraag" en geen belofte die we niet nakomen.
+ */
+const BUITEN: { sleutel: string; kop: string; streken: Streek[] }[] = [
+  { sleutel: "wallonie-waals-brabant", kop: "Waals-Brabant", streken: WAALSE_STREKEN["waals-brabant"] },
+  { sleutel: "wallonie-henegouwen", kop: "Henegouwen", streken: WAALSE_STREKEN.henegouwen },
+  { sleutel: "wallonie-luik", kop: "Luik", streken: WAALSE_STREKEN.luik },
+  { sleutel: "wallonie-namen", kop: "Namen", streken: WAALSE_STREKEN.namen },
+  { sleutel: "wallonie-luxemburg", kop: "Luxemburg", streken: WAALSE_STREKEN.luxemburg },
+  { sleutel: "nl-noord-brabant", kop: "Noord-Brabant (NL)", streken: NEDERLANDSE_STREKEN["noord-brabant"] },
+  { sleutel: "nl-zeeland", kop: "Zeeland (NL)", streken: NEDERLANDSE_STREKEN.zeeland },
+];
 
 interface Blok {
   titel: string;
@@ -248,8 +273,8 @@ const SitemapPage = () => {
             <section className="sm-breed" aria-labelledby="sm-regio">
               <h2 id="sm-regio">Werkgebied</h2>
               <p className="sm-uit">
-                Vijf provinciepagina's, de Brusselpagina en elke plaats waar we leveren, per
-                streek. Wat een eigen pagina heeft staat als link; de rest bedienen we even goed.
+                Zes gebiedspagina's en elke plaats in Vlaanderen en Brussel waar we leveren, per
+                streek. Elke plaats hier heeft haar eigen pagina, en haar naam is de link erheen.
               </p>
               {/* Hier stond eerst nog een rij met dezelfde vijf
                   provincielinks uit `REGIOS`. Die dateert van toen dit blok
@@ -297,6 +322,52 @@ const SitemapPage = () => {
                                   </li>
                                 );
                               })}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </section>
+
+            {/*
+              Wallonië en de Nederlandse grensstreek staan in een eigen sectie
+              en niet tussen de zes erboven, want ze zijn iets anders: een
+              gebied waar we komen als het gevraagd wordt, zonder pagina en
+              zonder de levertermijn van 24 uur die hierboven wél geldt. De
+              namen zijn daarom tekst en geen link, en de kop zegt "op
+              aanvraag" in plaats van iets te beloven.
+            */}
+            <section className="sm-breed" aria-labelledby="sm-buiten">
+              <h2 id="sm-buiten">Wallonië en de Nederlandse grensstreek, op aanvraag</h2>
+              <p className="sm-uit">
+                Buiten Vlaanderen en Brussel werken we op aanvraag: de 261 Waalse gemeenten en de
+                Nederlandse grensstreek van Noord-Brabant en Zeeland. Hier geldt geen levertermijn
+                van 24 uur, want de rit is langer en over de grens gelden andere btw-regels. Bel
+                ons op{" "}
+                <a href="tel:+3236899065">03 689 90 65</a> en we zeggen meteen wat er kan.
+              </p>
+              {BUITEN.map((gebied) => {
+                const aantal = gebied.streken.reduce((n, s) => n + s.gemeenten.length, 0);
+                return (
+                  <div className="sm-prov" key={gebied.sleutel}>
+                    <h3>
+                      {gebied.kop}
+                      <span className="sm-telling">{aantal} gemeenten</span>
+                    </h3>
+                    <div className="sm-streken">
+                      {gebied.streken.map((streek) => (
+                        <div className="sm-streek" key={streek.naam}>
+                          <h4>{streek.naam}</h4>
+                          <ul>
+                            {[...streek.gemeenten]
+                              .sort((a, b) => a.localeCompare(b, "nl"))
+                              .map((naam) => (
+                                <li key={naam}>
+                                  <span>{naam}</span>
+                                </li>
+                              ))}
                           </ul>
                         </div>
                       ))}

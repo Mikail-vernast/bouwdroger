@@ -581,6 +581,574 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   ],
 };
 
+/**
+ * Het werkgebied buiten Vlaanderen en Brussel: Wallonië en de Nederlandse
+ * grensstreek.
+ *
+ * **Waarom dit apart staat van `STREKEN_PER_REGIO`.** Die record is de lijst
+ * per gebiedspagina, en de test eist dat elke sleutel erin een bestaande
+ * pagina heeft. Deze gebieden hebben er nog geen; ze staan voorlopig alleen op
+ * /sitemap, zoals Brussel dat deed tot 13-11-2026. Komen die pagina's er, dan
+ * verhuizen deze lijsten naar de record erboven en worden de koppen vanzelf
+ * links.
+ *
+ * **Waar ze vandaan komen.** Niet uit het hoofd: de 261 Waalse gemeenten zijn
+ * op 14-11-2026 uit de lijst van het Waals Gewest gehaald en per arrondissement
+ * ingedeeld, en daarna nagerekend tegen de officiële aantallen (69 in
+ * Henegouwen, 84 in Luik, 43 in Luxemburg, 38 in Namen, 27 in Waals-Brabant).
+ * Dat Luxemburg er 43 heeft en geen 44 is het gevolg van de fusie van Bastenaken
+ * en Bertogne op 2 december 2024, waardoor Wallonië van 262 naar 261 gemeenten
+ * ging. De Nederlandse lijsten komen uit dezelfde controle: Noord-Brabant 56,
+ * Zeeland 13.
+ *
+ * **De naam staat er tweetalig in** waar hij afwijkt ("Bergen (Mons)"). Wie
+ * "Mons" intikt zoekt dezelfde droger als wie "Bergen" intikt, en een pagina
+ * die alleen de Nederlandse naam kent, mist de helft van zijn streek.
+ *
+ * **Wat hier nog niet in staat.** Nederlands Limburg (31 gemeenten) is bewust
+ * weggelaten: Maastricht ligt op een uur en twintig, maar Venlo en Roermond op
+ * anderhalf uur en meer, en dat is verder dan "de grensstreek".
+ */
+export const WAALSE_STREKEN: Record<string, Streek[]> = {
+  "waals-brabant": [
+    {
+      naam: "Arrondissement Nijvel",
+      kenmerk:
+        "Leembodem en villawijken in de zuidrand van Brussel, met nieuwbouw rond Waver, Nijvel en Ottignies.",
+      gemeenten: [
+        "Bevekom (Beauvechain)",
+        "Chastre",
+        "Chaumont-Gistoux",
+        "Court-Saint-Étienne",
+        "Eigenbrakel (Braine-l'Alleud)",
+        "Geldenaken (Jodoigne)",
+        "Genepiën (Genappe)",
+        "Graven (Grez-Doiceau)",
+        "Hélécine",
+        "Incourt",
+        "Itter",
+        "Kasteelbrakel (Braine-le-Château)",
+        "Lasne",
+        "Mont-Saint-Guibert",
+        "Nijvel (Nivelles)",
+        "Orp-Jauche",
+        "Ottignies-Louvain-la-Neuve",
+        "Perwijs (Perwez)",
+        "Ramillies",
+        "Rebecq",
+        "Rixensart",
+        "Terhulpen (La Hulpe)",
+        "Tubeke (Tubize)",
+        "Villers-la-Ville",
+        "Walhain",
+        "Waterloo",
+        "Waver (Wavre)",
+      ],
+    },
+  ],
+  "henegouwen": [
+    {
+      naam: "Arrondissement Zinnik",
+      kenmerk:
+        "Het land van de blauwe hardsteen, met groeven en dorpen in natuursteen rond Zinnik.",
+      gemeenten: [
+        "'s-Gravenbrakel (Braine-le-Comte)",
+        "Le Rœulx",
+        "Manage",
+        "Seneffe",
+        "Zinnik (Soignies)",
+        "Écaussinnes",
+      ],
+    },
+    {
+      naam: "Arrondissement La Louvière",
+      kenmerk:
+        "Kanaal- en industriestreek rond het hellend vlak van Ronquières, met dicht bebouwde kernen.",
+      gemeenten: [
+        "Binche",
+        "Estinnes",
+        "La Louvière",
+        "Morlanwelz",
+      ],
+    },
+    {
+      naam: "Arrondissement Charleroi",
+      kenmerk:
+        "Het industriebekken aan de Samber, met arbeiderswijken en fabrieksgebouwen die herbestemd worden.",
+      gemeenten: [
+        "Aiseau-Presles",
+        "Chapelle-lez-Herlaimont",
+        "Charleroi",
+        "Châtelet",
+        "Courcelles",
+        "Farciennes",
+        "Fleurus",
+        "Fontaine-l'Évêque",
+        "Gerpinnes",
+        "Les Bons Villers",
+        "Montigny-le-Tilleul",
+        "Pont-à-Celles",
+      ],
+    },
+    {
+      naam: "Arrondissement Bergen",
+      kenmerk:
+        "De Borinage: rijen arbeiderswoningen uit de negentiende eeuw, gebouwd zonder waterkering in de muurvoet.",
+      gemeenten: [
+        "Bergen (Mons)",
+        "Boussu",
+        "Colfontaine",
+        "Dour",
+        "Frameries",
+        "Hensies",
+        "Honnelles",
+        "Jurbeke",
+        "Lens",
+        "Quaregnon",
+        "Quiévrain",
+        "Quévy",
+        "Saint-Ghislain",
+      ],
+    },
+    {
+      naam: "Arrondissement Aat",
+      kenmerk:
+        "Landbouwgemeenten op leem tussen Doornik en Edingen, met hoeves en dorpskernen in baksteen.",
+      gemeenten: [
+        "Aat (Ath)",
+        "Belœil",
+        "Bernissart",
+        "Brugelette",
+        "Chièvres",
+        "Edingen (Enghien)",
+        "Elzele (Ellezelles)",
+        "Frasnes-lez-Anvaing",
+        "Lessen (Lessines)",
+        "Opzullik (Silly)",
+        "Vloesberg",
+      ],
+    },
+    {
+      naam: "Arrondissement Doornik-Moeskroen",
+      kenmerk:
+        "De Scheldevallei aan de Franse grens, met het textielverleden van Moeskroen en Komen-Waasten.",
+      gemeenten: [
+        "Antoing",
+        "Brunehaut",
+        "Celles",
+        "Doornik (Tournai)",
+        "Estaimpuis",
+        "Komen-Waasten (Comines-Warneton)",
+        "Leuze-en-Hainaut",
+        "Moeskroen (Mouscron)",
+        "Mont-de-l'Enclus",
+        "Pecq",
+        "Péruwelz",
+        "Rumes",
+      ],
+    },
+    {
+      naam: "Arrondissement Thuin",
+      kenmerk:
+        "De Samberstreek en de Botte du Hainaut: hoeves, bos en kalkbodem tot tegen Chimay.",
+      gemeenten: [
+        "Anderlues",
+        "Beaumont",
+        "Chimay",
+        "Erquelinnes",
+        "Froidchapelle",
+        "Ham-sur-Heure-Nalinnes",
+        "Lobbes",
+        "Merbes-le-Château",
+        "Momignies",
+        "Sivry-Rance",
+        "Thuin",
+      ],
+    },
+  ],
+  "luik": [
+    {
+      naam: "Arrondissement Borgworm",
+      kenmerk:
+        "Het Haspengouwse leemplateau met grote vierkantshoeven, vlak akkerland en weinig hoogteverschil.",
+      gemeenten: [
+        "Berloz",
+        "Borgworm (Waremme)",
+        "Braives",
+        "Crisnée",
+        "Donceel",
+        "Faimes",
+        "Fexhe-le-Haut-Clocher",
+        "Geer",
+        "Hannuit (Hannut)",
+        "Lijsem (Lincent)",
+        "Oerle (Oreye)",
+        "Remicourt",
+        "Saint-Georges-sur-Meuse",
+        "Wasseiges",
+      ],
+    },
+    {
+      naam: "Arrondissement Luik",
+      kenmerk:
+        "De Maasvallei en de stad zelf, met negentiende-eeuwse woningen, souterrains en industrieel erfgoed.",
+      gemeenten: [
+        "Ans",
+        "Awans",
+        "Aywaille",
+        "Beyne-Heusay",
+        "Bitsingen (Bassenge)",
+        "Blegny",
+        "Chaudfontaine",
+        "Comblain-au-Pont",
+        "Dalhem",
+        "Esneux",
+        "Flémalle",
+        "Fléron",
+        "Grâce-Hollogne",
+        "Herstal",
+        "Juprelle",
+        "Luik (Liège)",
+        "Neupré",
+        "Oupeye",
+        "Saint-Nicolas",
+        "Seraing",
+        "Soumagne",
+        "Sprimont",
+        "Trooz",
+        "Wezet (Visé)",
+      ],
+    },
+    {
+      naam: "Arrondissement Hoei",
+      kenmerk:
+        "De Condroz en de Maasvallei: kalkbodem, diepe kelders en hoeves op de hellingen.",
+      gemeenten: [
+        "Amay",
+        "Anthisnes",
+        "Burdinne",
+        "Clavier",
+        "Engis",
+        "Ferrières",
+        "Hamoir",
+        "Hoei (Huy)",
+        "Héron",
+        "Marchin",
+        "Modave",
+        "Nandrin",
+        "Ouffet",
+        "Tinlot",
+        "Verlaine",
+        "Villers-le-Bouillet",
+        "Wanze",
+      ],
+    },
+    {
+      naam: "Arrondissement Verviers",
+      kenmerk:
+        "De Hoge Venen en het Duitstalige oosten: het koudste stuk van het land voor een onverwarmde ruwbouw.",
+      gemeenten: [
+        "Amel",
+        "Aubel",
+        "Baelen",
+        "Burg-Reuland",
+        "Büllingen",
+        "Bütgenbach",
+        "Dison",
+        "Eupen",
+        "Herve",
+        "Jalhay",
+        "Kelmis",
+        "Lierneux",
+        "Limburg (Limbourg)",
+        "Lontzen",
+        "Malmedy",
+        "Olne",
+        "Pepinster",
+        "Plombières",
+        "Raeren",
+        "Sankt Vith (Saint-Vith)",
+        "Spa",
+        "Stavelot",
+        "Stoumont",
+        "Theux",
+        "Thimister-Clermont",
+        "Trois-Ponts",
+        "Verviers",
+        "Weismes (Waimes)",
+        "Welkenraedt",
+      ],
+    },
+  ],
+  "namen": [
+    {
+      naam: "Arrondissement Namen",
+      kenmerk:
+        "Waar Samber en Maas samenkomen: stadswoningen met gewelfde kelders en hoog water bij de oever.",
+      gemeenten: [
+        "Andenne",
+        "Assesse",
+        "Fernelmont",
+        "Floreffe",
+        "Fosses-la-Ville",
+        "Gembloers (Gembloux)",
+        "Gesves",
+        "Jemeppe-sur-Sambre",
+        "La Bruyère",
+        "Mettet",
+        "Namen",
+        "Ohey",
+        "Profondeville",
+        "Sambreville",
+        "Sombreffe",
+        "Éghezée",
+      ],
+    },
+    {
+      naam: "Arrondissement Dinant",
+      kenmerk:
+        "De Maasvallei tussen de kalkrotsen, met diepe kelders en gebouwen die tegen de helling staan.",
+      gemeenten: [
+        "Anhée",
+        "Beauraing",
+        "Bièvre",
+        "Ciney",
+        "Dinant",
+        "Gedinne",
+        "Hamois",
+        "Hastière",
+        "Havelange",
+        "Houyet",
+        "Onhaye",
+        "Rochefort",
+        "Somme-Leuze",
+        "Vresse-sur-Semois",
+        "Yvoir",
+      ],
+    },
+    {
+      naam: "Arrondissement Philippeville",
+      kenmerk:
+        "De Fagne met haar schist- en kalkbodem: open landbouwgebied met natuurstenen hoeves.",
+      gemeenten: [
+        "Cerfontaine",
+        "Couvin",
+        "Doische",
+        "Florennes",
+        "Philippeville",
+        "Viroinval",
+        "Walcourt",
+      ],
+    },
+  ],
+  "luxemburg": [
+    {
+      naam: "Arrondissement Marche-en-Famenne",
+      kenmerk:
+        "De Famenne, met kalk en schist in de ondergrond en hoeves in natuursteen.",
+      gemeenten: [
+        "Durbuy",
+        "Hotton",
+        "La Roche-en-Ardenne",
+        "Manhay",
+        "Marche-en-Famenne",
+        "Nassogne",
+        "Rendeux",
+        "Tenneville",
+        "Érezée",
+      ],
+    },
+    {
+      naam: "Arrondissement Bastenaken",
+      kenmerk:
+        "Het hoge Ardense plateau, waar een ruwbouw zonder bijverwarming de hele winter nat blijft.",
+      gemeenten: [
+        "Bastenaken (Bastogne)",
+        "Fauvillers",
+        "Gouvy",
+        "Houffalize",
+        "Sainte-Ode",
+        "Vaux-sur-Sûre",
+        "Vielsalm",
+      ],
+    },
+    {
+      naam: "Arrondissement Neufchâteau",
+      kenmerk:
+        "Bosrijke Ardennen rond Bouillon en Libramont, met natuurstenen gebouwen en veel hoogteverschil.",
+      gemeenten: [
+        "Bertrix",
+        "Bouillon",
+        "Daverdisse",
+        "Herbeumont",
+        "Libin",
+        "Libramont-Chevigny",
+        "Léglise",
+        "Neufchâteau",
+        "Paliseul",
+        "Saint-Hubert",
+        "Tellin",
+        "Wellin",
+      ],
+    },
+    {
+      naam: "Arrondissement Aarlen",
+      kenmerk:
+        "Het Gutland tegen de Luxemburgse grens, met zandsteen en de verste ritten van het land.",
+      gemeenten: [
+        "Aarlen (Arlon)",
+        "Attert",
+        "Aubange",
+        "Martelange",
+        "Messancy",
+      ],
+    },
+    {
+      naam: "Arrondissement Virton",
+      kenmerk:
+        "De Gaume, het zuidelijkste en warmste puntje van het land, met kalkrijke bodem en lichte hellingen.",
+      gemeenten: [
+        "Chiny",
+        "Florenville",
+        "Habay",
+        "Meix-devant-Virton",
+        "Musson",
+        "Rouvroy",
+        "Saint-Léger",
+        "Tintigny",
+        "Virton",
+        "Étalle",
+      ],
+    },
+  ],
+};
+
+export const NEDERLANDSE_STREKEN: Record<string, Streek[]> = {
+  "noord-brabant": [
+    {
+      naam: "West-Brabant",
+      kenmerk:
+        "Onze dichtste Nederlandse streek: Bergen op Zoom ligt op een halfuur van het magazijn, op zandgrond.",
+      gemeenten: [
+        "Alphen-Chaam",
+        "Altena",
+        "Baarle-Nassau",
+        "Bergen op Zoom",
+        "Breda",
+        "Drimmelen",
+        "Etten-Leur",
+        "Geertruidenberg",
+        "Halderberge",
+        "Moerdijk",
+        "Oosterhout",
+        "Roosendaal",
+        "Rucphen",
+        "Steenbergen",
+        "Woensdrecht",
+        "Zundert",
+      ],
+    },
+    {
+      naam: "Midden-Brabant",
+      kenmerk:
+        "Zandgrond rond Tilburg en Waalwijk, met naoorlogse woonwijken en veel bedrijfsruimte op de zones.",
+      gemeenten: [
+        "Dongen",
+        "Gilze en Rijen",
+        "Goirle",
+        "Heusden",
+        "Hilvarenbeek",
+        "Loon op Zand",
+        "Oisterwijk",
+        "Tilburg",
+        "Waalwijk",
+      ],
+    },
+    {
+      naam: "Noordoost-Brabant",
+      kenmerk:
+        "De Maaskant en de Meierij: kleigrond langs de Maas en zand daarachter, met grote hoeves.",
+      gemeenten: [
+        "'s-Hertogenbosch",
+        "Bernheze",
+        "Boekel",
+        "Boxtel",
+        "Gemert-Bakel",
+        "Land van Cuijk",
+        "Maashorst",
+        "Meierijstad",
+        "Oss",
+        "Sint-Michielsgestel",
+        "Vught",
+      ],
+    },
+    {
+      naam: "Zuidoost-Brabant",
+      kenmerk:
+        "De regio rond Eindhoven en Helmond: veel nieuwbouw en bedrijfshallen, alles op zandgrond.",
+      gemeenten: [
+        "Asten",
+        "Bergeijk",
+        "Best",
+        "Bladel",
+        "Cranendonck",
+        "Deurne",
+        "Eersel",
+        "Eindhoven",
+        "Geldrop-Mierlo",
+        "Heeze-Leende",
+        "Helmond",
+        "Laarbeek",
+        "Nuenen c.a.",
+        "Oirschot",
+        "Reusel-De Mierden",
+        "Someren",
+        "Son en Breugel",
+        "Valkenswaard",
+        "Veldhoven",
+        "Waalre",
+      ],
+    },
+  ],
+  "zeeland": [
+    {
+      naam: "Zeeuws-Vlaanderen",
+      kenmerk:
+        "Polderklei achter de dijken, bereikbaar over Antwerpen of door de Westerscheldetunnel.",
+      gemeenten: [
+        "Hulst",
+        "Sluis",
+        "Terneuzen",
+      ],
+    },
+    {
+      naam: "De Zeeuwse eilanden",
+      kenmerk:
+        "Zeekleipolders en zeelucht: net als aan de Belgische kust houdt zout in een muur het vocht vast.",
+      gemeenten: [
+        "Borsele",
+        "Goes",
+        "Kapelle",
+        "Middelburg",
+        "Noord-Beveland",
+        "Reimerswaal",
+        "Schouwen-Duiveland",
+        "Tholen",
+        "Veere",
+        "Vlissingen",
+      ],
+    },
+  ],
+};
+
+/** Hoeveel gemeenten een lijst buiten Vlaanderen telt. */
+export function aantalBuiten(lijst: Record<string, Streek[]>): number {
+  return Object.values(lijst).reduce(
+    (n, streken) => n + streken.reduce((m, s) => m + s.gemeenten.length, 0),
+    0
+  );
+}
+
 /** Hoeveel gemeenten een provincie in deze lijst heeft; 0 als ze er niet in staat. */
 export function aantalGemeenten(regioSlug: string): number {
   return (STREKEN_PER_REGIO[regioSlug] ?? []).reduce((n, s) => n + s.gemeenten.length, 0);
