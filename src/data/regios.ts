@@ -460,13 +460,16 @@ export const REGIOS: Regio[] = [
       De zesde regiopagina, en de enige die geen provincie is. Ze bestaat sinds
       13-11-2026 omdat Brussel tot dan als dode tekst tussen vijf links stond,
       op de homepage en op /sitemap: wie daar keek, kon alleen besluiten dat we
-      er niet komen. De negentien gemeenten delen één pagina en krijgen er geen
-      elk een, om twee redenen. Ze zijn tweetalig, dus een Nederlandstalige
-      pagina per gemeente mist de helft van de zoekopdrachten; en het gewest
-      meet negentien op negentien kilometer, dus er is geen verschil in rit of
-      bodem te vertellen dat negentien pagina's zou dragen. Wat er wél te
-      vertellen valt, de bouw en het parkeren, verschilt per kroon en niet per
-      gemeente, en dat is precies hoe de streken hier ingedeeld staan.
+      er niet komen. Deze pagina is de koepel over het gewest; sinds 14-11-2026
+      heeft elk van de negentien gemeenten er daarnaast een eigen, net zoals de
+      stad Antwerpen er een heeft naast haar provincie.
+
+      Wat hier staat hoort dus op gewestniveau: de rit, de hoogte van de
+      plafonds, de draaitrap, de venstertijd. Wat per gemeente verschilt, de
+      beekvallei onder Elsene, de Zennebodem van Anderlecht, de tuinwijk van
+      Watermaal-Bosvoorde, staat op die gemeentepagina en niet hier. Twee
+      pagina's die hetzelfde zeggen zijn voor Google één pagina met een kopie,
+      en de kopie wordt weggefilterd.
 
       De Franse namen staan erbij waar ze afwijken: iemand die "Ixelles"
       intikt zoekt dezelfde droger als iemand die "Elsene" intikt.

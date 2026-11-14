@@ -96,6 +96,58 @@ export const GEMEENTE_ROUTES: GemeenteRoute[] = [
   gemeente("Borsbeek", "borsbeek", "2150"),
   gemeente("Aartselaar", "aartselaar", "2630"),
   /*
+    De Brusselse zuid- en oostrand, en daarmee staan alle negentien gemeenten
+    van het gewest op de kaart. Het verhaal hier is hoogteverschil: deze
+    gemeenten liggen tegen het Zonienwoud op hellingen, en bij een hevige bui
+    krijgt een diepe kelder of garage het water van de helling erboven. In de
+    Woluwedal- en Vorstvallei komt daar een ondergrondse beek bij. Onze eigen
+    werf in Sint-Pieters-Woluwe staat op die pagina.
+  */
+  gemeente("Vorst", "vorst", "1190", "brussel"),
+  gemeente("Ukkel", "ukkel", "1180", "brussel"),
+  gemeente("Watermaal-Bosvoorde", "watermaal-bosvoorde", "1170", "brussel"),
+  gemeente("Oudergem", "oudergem", "1160", "brussel"),
+  gemeente("Sint-Pieters-Woluwe", "sint-pieters-woluwe", "1150", "brussel"),
+  gemeente("Sint-Lambrechts-Woluwe", "sint-lambrechts-woluwe", "1200", "brussel"),
+  gemeente("Evere", "evere", "1140", "brussel"),
+  /*
+    De Brusselse kanaalzone en de westrand. Hier zit het vocht vaker onderaan
+    dan boven: de Zennevallei loopt door Anderlecht en Molenbeek en is het
+    laagste punt van het gewest, met kelders half onder het maaiveld. Naar de
+    westrand toe wordt het ruimer en hoger, met tuinwijken uit het interbellum
+    die licht gebouwd zijn en dus anders drogen dan een herenhuis.
+  */
+  gemeente("Anderlecht", "anderlecht", "1070", "brussel"),
+  gemeente("Sint-Jans-Molenbeek", "sint-jans-molenbeek", "1080", "brussel"),
+  gemeente("Koekelberg", "koekelberg", "1081", "brussel"),
+  gemeente("Ganshoren", "ganshoren", "1083", "brussel"),
+  gemeente("Jette", "jette", "1090", "brussel"),
+  gemeente("Sint-Agatha-Berchem", "sint-agatha-berchem", "1082", "brussel"),
+  /*
+    De negentien Brusselse gemeenten, te beginnen met de eerste kroon.
+
+    Ze stonden tot 14-11-2026 als dode tekst op /sitemap terwijl elke Vlaamse
+    gemeente een link was, en dat is precies de indruk die we niet willen
+    wekken. /bouwdroger-huren-brussel blijft de koepel over het gewest; deze
+    pagina's gaan over één gemeente, zoals antwerpen-stad naast de provincie.
+
+    Twee dingen die alleen hier gelden. De Franse naam staat in elke intro,
+    want wie "Ixelles" of "Saint-Gilles" intikt zoekt dezelfde droger. En de
+    stad Brussel heet hier `brussel-stad`: de slug `brussel` is van de
+    gewestpagina, en twee pagina's met dezelfde titel vechten om dezelfde
+    zoekopdracht.
+  */
+  /*
+    `brussel-stad`, want `brussel` is de slug van de gewestpagina. Zelfde reden
+    als bij Antwerpen: het kruimelpad las anders "Home / Brussel / Brussel".
+  */
+  { ...gemeente("Brussel", "brussel-stad", "1000", "brussel"), kruimel: "Brussel stad" },
+  gemeente("Schaarbeek", "schaarbeek", "1030", "brussel"),
+  gemeente("Sint-Joost-ten-Node", "sint-joost-ten-node", "1210", "brussel"),
+  gemeente("Sint-Gillis", "sint-gillis", "1060", "brussel"),
+  gemeente("Elsene", "elsene", "1050", "brussel"),
+  gemeente("Etterbeek", "etterbeek", "1040", "brussel"),
+  /*
     Haspengouw en de Voerstreek, en daarmee is Limburg rond en heel Vlaanderen
     gedekt. Drie dingen die hier eigen zijn. De leembodem laat water traag door,
     dus hangwater tegen een kelderwand is regel. Riemst en Voeren hebben
