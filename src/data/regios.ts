@@ -960,6 +960,134 @@ export const REGIOS: Regio[] = [
     },
     areaServed: provincie("Waals-Brabant"),
   },
+  /* ------------------------------------------------------------------ */
+  {
+    ...route("henegouwen"),
+    /*
+      Henegouwen kreeg zijn pagina op 15-11-2026, als tweede Waalse provincie
+      na Waals-Brabant en met hetzelfde sjabloon, dezelfde prijs en hetzelfde
+      pakket.
+
+      Het verschil met Waals-Brabant is de afstand, en die staat er eerlijk:
+      Edingen ligt dichter bij Aartselaar dan Maaseik, de Botte du Hainaut
+      rond Chimay is de verste rit die we rijden. Een pagina die doet alsof
+      Chimay om de hoek ligt, levert een klant op die teleurgesteld belt.
+      Wat de provincie verder eigen maakt: blauwe hardsteen rond Zinnik, de
+      mijnwoningen van de Borinage, Doornikse kalksteen, drie rivieren en het
+      textielverleden van Moeskroen. Rijtijden zijn afgerond en te
+      verifiëren tegen de echte ritgegevens, net als in `gemeenten.ts`.
+
+      Werven heeft de provincie nog niet; de sectie leent de drie Brusselse,
+      die op de route naar Henegouwen liggen. Zie `LEENT_VAN`.
+    */
+    title: "Bouwdroger huren in Henegouwen | Vernast",
+    description:
+      "Bouwdroger huren in Henegouwen: Charleroi, Bergen, Doornik en Moeskroen. Geleverd, geplaatst en opgehaald vanuit Aartselaar, zonder waarborg.",
+    h1: "Bouwdroger huren in Henegouwen",
+    kicker: "Hainaut · 69 gemeenten · van Edingen tot Chimay",
+    intro: [
+      "Een bouwdroger huren in Henegouwen voor een renovatie, een nieuwe chape of een kelder na waterschade? Vernast levert en plaatst de toestellen op uw werf, van Edingen tot Charleroi en van Moeskroen tot Chimay. **Levering, plaatsing en ophaling zitten in uw droogpakket.** Henegouwen is wel de breedste provincie die we bedienen, en dat zeggen we liever vooraf: **Edingen en 's-Gravenbrakel liggen op ongeveer drie kwartier van ons magazijn**, Bergen en Charleroi op een uur tot vijf kwartier, en de Botte du Hainaut rond Chimay is onze verste rit.",
+    ],
+    heroFacts: [
+      "Levering, plaatsing en ophaling inbegrepen",
+      "Geen waarborg",
+      "Hulp in het Nederlands en het Frans",
+    ],
+    bouw: {
+      kop: "Waarvoor huurt men in Henegouwen een bouwdroger?",
+      alineas: [
+        "Henegouwen is geen nieuwbouwprovincie maar een renovatieprovincie. Het grootste deel van de woningen is gebouwd vóór de Tweede Wereldoorlog, en wie er vandaag een huis koopt, haalt pleister af, legt een nieuwe vloer en isoleert van binnenuit. **Al die werken brengen water in een huis dat al vocht in de muren had.** Daar komt de vraag naar een bouwdroger vandaan, meer dan van verkavelingen.",
+        "**Rond Zinnik, Écaussinnes en Lessen is blauwe hardsteen het bouwmateriaal.** De steen zelf neemt weinig water op, maar de muren erachter zijn vaak dik metselwerk met kalkmortel, en de voegen en de vulling houden het vocht wel vast. Een hoeve of een dorpswoning in natuursteen droogt daarom traag van binnenuit. In het westen, rond Doornik en Antoing, is het de Doornikse kalksteen die het beeld bepaalt, en ook die muren geven hun vocht pas na weken af.",
+        "**In de Borinage, rond Bergen, Frameries en Quaregnon, staan rijen mijnwoningen uit de negentiende eeuw.** Ze zijn gebouwd zonder waterkering in de muurvoet, zodat grondvocht ongehinderd in het metselwerk optrekt. Wie zo'n woning renoveert, plaatst vaak eerst een injectie tegen opstijgend vocht en moet de muur daarna nog laten uitdrogen. Een bouwdroger versnelt die tweede stap; de eerste lost hij niet op, en dat zegt de technieker er ook bij.",
+        "**Drie rivieren lopen door de provincie**: de Samber door Charleroi en Thuin, de Schelde door Doornik, en de Dender door Aat en Lessen. Bij hoog water lopen kelders en gelijkvloerse ruimtes in die valleien onder. In het westen ligt Moeskroen, met zijn textielverleden: oude weverijen en fabriekshallen die tot lofts of woningen worden verbouwd. Dat zijn grote, hoge ruimtes met betonvloeren en een nieuwe chape, waar een klein toestel weinig uithaalt.",
+      ],
+    },
+    beeld: {
+      src: "/vernast/case-renovatie.webp",
+      alt: "Renovatie van een oude woning met bouwdrogers tegen de pas gepleisterde muren",
+    },
+    toestellen: {
+      kop: "Welke bouwdroger past bij een werf in Henegouwen?",
+      items: [
+        {
+          key: "ttk350",
+          waarom: `**Voor de rijwoning of de dorpswoning in renovatie**: 70 liter per dag en een bereik tot ongeveer 400 m³, genoeg voor een bouwlaag van een gemiddelde Henegouwse woning. Meestal staat er één per verdieping. Vanaf ${dag("ttk350")} per dag.`,
+        },
+        {
+          key: "ttk650",
+          waarom: `**Voor de verbouwde fabriekshal of de ondergelopen kelder**: 110 liter per dag, tot ongeveer 600 m³. In een hoge loft in Moeskroen of een kelder in de Samberkant doet dit toestel het werk van twee kleinere. Vanaf ${dag("ttk650")} per dag.`,
+        },
+        {
+          key: "revolution",
+          waarom: `**De adsorptiedroger voor koude kelders en dikke muren**. Hij blaast droge lucht via slangen naar de plek waar het vocht zit en blijft werken bij lage temperatuur, waar een condensdroger stilvalt. Liever eerst samen bekijken. Vanaf ${dag("revolution")} per dag.`,
+        },
+        {
+          key: "teddh30",
+          waarom: `**De kachel van 30 kW voor een natuurstenen hoeve in de winter.** Dikke muren blijven koud, en zonder warmte in de ruimte rendeert geen enkele condensdroger. Vraagt krachtstroom (400 V) op de werf. Vanaf ${dag("teddh30")} per dag.`,
+        },
+      ],
+    },
+    levering: {
+      kop: "Leveren in Henegouwen: één provincie, drie afstanden",
+      alineas: [
+        "Vanuit Aartselaar rijden we over de Brusselse ring naar het zuiden, en daarna splitst de route. **Het noorden van de provincie, met Edingen, Opzullik en 's-Gravenbrakel, halen we in ongeveer drie kwartier.** Bergen en La Louvière over de E19, Charleroi over de A54 via Nijvel: dat is een uur tot vijf kwartier; Doornik en Moeskroen bereiken we via de E17 in ongeveer dezelfde tijd. Voor Thuin, Beaumont en de Botte du Hainaut rekenen we op rond de twee uur, en daar plannen we de rit samen met u in.",
+        `Op de werf meet de technieker het vocht in de muren en de vloer, zet de toestellen op de juiste plek en sluit de afvoer aan op een putje, een gootsteen of naar buiten. **De trap op naar de verdieping is inbegrepen**; staat er nog geen trap, dan geldt ${euro(LADDER)} per verdieping via de ladder. Voor de afstand rekenen we niets aan: een werf in Chimay kost hetzelfde pakket als een werf in Edingen.`,
+      ],
+      feiten: [
+        { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
+        { label: "Levertermijn", waarde: "Binnen 24 uur, in een ronde buiten de spits" },
+        { label: "Rijtijd vanuit ons magazijn", waarde: "45 minuten (Edingen) tot rond twee uur (Chimay)" },
+        { label: "Taal", waarde: "Nederlands of Frans, naar keuze" },
+        { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
+        { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
+      ],
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Henegouwen: haast nooit de moeite",
+      alineas: [
+        `Ons afhaalpunt ligt in Aartselaar, aan de A12 ten zuiden van Antwerpen. Vanuit Edingen is dat drie kwartier rijden, vanuit Charleroi of Doornik ruim een uur, en dat twee keer: bij het ophalen en bij het terugbrengen. **Omdat de levering al in het pakket zit, wint u daar voor een volledige droging niets mee.** Wie toch één losse droger of ventilator wil halen voor een lange periode, krijgt ${euro(AFHAALKORTING)} korting op de huurprijs en een vast afhaalmoment op een werkdag tussen 07:30 en 17:00.`,
+      ],
+      feiten: [
+        { label: "Rijtijd naar ons afhaalpunt", waarde: "Drie kwartier (Edingen) tot ruim een uur (Charleroi, Doornik)" },
+        { label: "Korting bij afhalen", waarde: `${euro(AFHAALKORTING)} op de huurprijs` },
+        { label: "Waarborg", waarde: "Geen" },
+        { label: "Vervoer", waarde: "Rechtop; plat vervoerd 24 uur laten staan" },
+        { label: "Liever laten leveren?", waarde: "De rit zit al in elke pakketprijs" },
+      ],
+    },
+    faq: [
+      {
+        q: "Leveren jullie ook in het zuiden van Henegouwen, rond Chimay?",
+        a: "Ja, ook in de Botte du Hainaut: Chimay, Momignies, Sivry-Rance en Froidchapelle. Het is wel onze langste rit, rond twee uur vanuit Aartselaar, dus spreken we het tijdstip met u af in plaats van u een willekeurig moment te geven. De prijs verandert niet: levering, plaatsing en ophaling zitten in het droogpakket.",
+      },
+      {
+        q: "Spreken jullie Frans met klanten in Henegouwen?",
+        a: "Ja. U kiest zelf of we Nederlands of Frans spreken, aan de telefoon, in de offerte en op de werf. Zoekt u op Mons, Tournai of Mouscron, dan gaat het om Bergen, Doornik en Moeskroen: dezelfde gemeenten, hetzelfde droogpakket en dezelfde technieker die het komt plaatsen.",
+      },
+      {
+        q: "Lost een bouwdroger het vocht in mijn mijnwoning op?",
+        a: "Niet alleen. In een woning zonder waterkering in de muurvoet trekt het grondvocht blijvend op, en dat stopt pas met een injectie of een andere vochtwering. Wat een bouwdroger wel doet, is de muur daarna sneller uitdrogen, zodat u eerder kunt pleisteren en schilderen. Zonder die eerste stap droogt hij de lucht, maar komt het vocht terug.",
+      },
+      {
+        q: "Hoe lang droogt een muur in natuursteen of hardsteen?",
+        a: "Langer dan een muur in baksteen, omdat het vocht in de kalkmortel en de vulling tussen de stenen zit en maar langzaam naar het oppervlak komt. Reken eerder op weken dan op dagen. De technieker meet bij de start hoe nat de muur is en bij de ophaling hoeveel er nog in zit, zodat u weet of de schilder kan beginnen.",
+      },
+      {
+        q: "Mijn kelder aan de Samber of de Dender liep onder. Wat nu?",
+        a: "Laat eerst het staande water wegpompen en haal natte spullen naar buiten. Daarna telt de tijd: na een dag of twee op vochtig materiaal begint schimmel. Bel ons zo vroeg mogelijk, dan kijken we wanneer de rit kan. In een koude kelder werkt een adsorptiedroger beter dan een condensdroger, en die nemen we dan mee.",
+      },
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een verbouwde fabriekshal?",
+        a: "Dat hangt af van het volume, niet van de vloeroppervlakte alleen: een loft van vijf meter hoog heeft dubbel zoveel lucht als een gewone woning met dezelfde oppervlakte. Geef in de Calculator de plafondhoogte mee, dan rekent hij het pakket uit op kubieke meter. Voor grote hallen komt het vaak neer op een groot toestel en een ventilator.",
+      },
+    ],
+    realisaties: {
+      kop: "Werven in de buurt van Henegouwen",
+      intro: "In Henegouwen zelf hebben we nog geen werf gefotografeerd. Deze drie liggen in Brussel, op de route van ons magazijn naar Edingen en 's-Gravenbrakel.",
+      slugs: ["dhr-h-brussel", "mnr-s-brussel", "mevr-g-b-sint-pieters-woluwe"],
+    },
+    areaServed: provincie("Henegouwen"),
+  },
 ];
 
 export const REGIO_BY_SLUG: Record<string, Regio> = Object.fromEntries(REGIOS.map((r) => [r.slug, r]));

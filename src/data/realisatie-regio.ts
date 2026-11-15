@@ -57,10 +57,13 @@ export const REALISATIE_REGIO: Record<string, RegioRoute["slug"]> = {
   Waals-Brabant leent ook van Brussel (15-11-2026): de provincie grenst aan het
   gewest, de werven liggen op een kwartier van Waterloo en Terhulpen, en de
   pagina noemt ze "werven in de buurt", niet werven in de provincie.
+  Henegouwen doet hetzelfde: Edingen en 's-Gravenbrakel liggen tegen Halle,
+  en van Brussel komen we er ook langs de ring en de E19 naartoe.
 */
 const LEENT_VAN: Record<string, string> = {
   "vlaams-brabant": "brussel",
   "waals-brabant": "brussel",
+  "henegouwen": "brussel",
 };
 
 /** Van welk gebied deze regio haar werven leent, als ze er zelf geen heeft. */

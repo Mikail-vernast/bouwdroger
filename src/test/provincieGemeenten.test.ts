@@ -28,6 +28,7 @@ const VERWACHT: Record<string, number> = {
   limburg: 38,
   brussel: 19,
   "waals-brabant": 27,
+  henegouwen: 69,
 };
 
 describe("gemeenten per provincie", () => {

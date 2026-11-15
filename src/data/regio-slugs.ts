@@ -134,6 +134,21 @@ export const REGIO_ROUTES: RegioRoute[] = [
     ],
     pin: { left: "53%", top: "44%" },
   },
+  /*
+    Henegouwen, sinds 15-11-2026. De speld staat tussen Bergen en Charleroi
+    (4,0 OL, 50,45 NB), het zwaartepunt van de provincie.
+  */
+  {
+    slug: "henegouwen",
+    name: "Henegouwen",
+    path: "/bouwdroger-huren-henegouwen",
+    towns: [
+      "Charleroi", "Bergen", "Doornik", "La Louvière", "Moeskroen", "Aat", "Edingen", "Zinnik",
+      "'s-Gravenbrakel", "Binche", "Lessen", "Komen-Waasten", "Fleurus", "Châtelet", "Thuin",
+      "Saint-Ghislain",
+    ],
+    pin: { left: "38%", top: "54%" },
+  },
 ];
 
 export const REGIO_BY_PATH: Record<string, RegioRoute> = Object.fromEntries(

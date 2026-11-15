@@ -146,6 +146,131 @@ export const WAALS_BRABANT_STREKEN: Streek[] = [
   },
 ];
 
+/**
+ * Henegouwen, de tweede Waalse provincie met een eigen pagina (15-11-2026).
+ * Net als Waals-Brabant één array op twee plaatsen.
+ */
+export const HENEGOUWEN_STREKEN: Streek[] = [
+  {
+    naam: "Arrondissement Zinnik",
+    kenmerk:
+      "Het land van de blauwe hardsteen, met groeven en dorpen in natuursteen rond Zinnik.",
+    gemeenten: [
+      "'s-Gravenbrakel (Braine-le-Comte)",
+      "Le Rœulx",
+      "Manage",
+      "Seneffe",
+      "Zinnik (Soignies)",
+      "Écaussinnes",
+    ],
+  },
+  {
+    naam: "Arrondissement La Louvière",
+    kenmerk:
+      "Kanaal- en industriestreek rond de oude scheepsliften van het Centrumkanaal, met dicht bebouwde kernen.",
+    gemeenten: [
+      "Binche",
+      "Estinnes",
+      "La Louvière",
+      "Morlanwelz",
+    ],
+  },
+  {
+    naam: "Arrondissement Charleroi",
+    kenmerk:
+      "Het industriebekken aan de Samber, met arbeiderswijken en fabrieksgebouwen die herbestemd worden.",
+    gemeenten: [
+      "Aiseau-Presles",
+      "Chapelle-lez-Herlaimont",
+      "Charleroi",
+      "Châtelet",
+      "Courcelles",
+      "Farciennes",
+      "Fleurus",
+      "Fontaine-l'Évêque",
+      "Gerpinnes",
+      "Les Bons Villers",
+      "Montigny-le-Tilleul",
+      "Pont-à-Celles",
+    ],
+  },
+  {
+    naam: "Arrondissement Bergen",
+    kenmerk:
+      "De Borinage: rijen arbeiderswoningen uit de negentiende eeuw, gebouwd zonder waterkering in de muurvoet.",
+    gemeenten: [
+      "Bergen (Mons)",
+      "Boussu",
+      "Colfontaine",
+      "Dour",
+      "Frameries",
+      "Hensies",
+      "Honnelles",
+      "Jurbeke",
+      "Lens",
+      "Quaregnon",
+      "Quiévrain",
+      "Quévy",
+      "Saint-Ghislain",
+    ],
+  },
+  {
+    naam: "Arrondissement Aat",
+    kenmerk:
+      "Landbouwgemeenten op leem tussen Doornik en Edingen, met hoeves en dorpskernen in baksteen.",
+    gemeenten: [
+      "Aat (Ath)",
+      "Belœil",
+      "Bernissart",
+      "Brugelette",
+      "Chièvres",
+      "Edingen (Enghien)",
+      "Elzele (Ellezelles)",
+      "Frasnes-lez-Anvaing",
+      "Lessen (Lessines)",
+      "Opzullik (Silly)",
+      "Vloesberg",
+    ],
+  },
+  {
+    naam: "Arrondissement Doornik-Moeskroen",
+    kenmerk:
+      "De Scheldevallei aan de Franse grens, met het textielverleden van Moeskroen en Komen-Waasten.",
+    gemeenten: [
+      "Antoing",
+      "Brunehaut",
+      "Celles",
+      "Doornik (Tournai)",
+      "Estaimpuis",
+      "Komen-Waasten (Comines-Warneton)",
+      "Leuze-en-Hainaut",
+      "Moeskroen (Mouscron)",
+      "Mont-de-l'Enclus",
+      "Pecq",
+      "Péruwelz",
+      "Rumes",
+    ],
+  },
+  {
+    naam: "Arrondissement Thuin",
+    kenmerk:
+      "De Samberstreek en de Botte du Hainaut: hoeves, bos en kalkbodem tot tegen Chimay.",
+    gemeenten: [
+      "Anderlues",
+      "Beaumont",
+      "Chimay",
+      "Erquelinnes",
+      "Froidchapelle",
+      "Ham-sur-Heure-Nalinnes",
+      "Lobbes",
+      "Merbes-le-Château",
+      "Momignies",
+      "Sivry-Rance",
+      "Thuin",
+    ],
+  },
+];
+
 export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   antwerpen: [
     {
@@ -564,6 +689,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   brussel: BRUSSEL_STREKEN,
 
   "waals-brabant": WAALS_BRABANT_STREKEN,
+  "henegouwen": HENEGOUWEN_STREKEN,
 
   limburg: [
     {
@@ -664,126 +790,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
  */
 export const WAALSE_STREKEN: Record<string, Streek[]> = {
   "waals-brabant": WAALS_BRABANT_STREKEN,
-  "henegouwen": [
-    {
-      naam: "Arrondissement Zinnik",
-      kenmerk:
-        "Het land van de blauwe hardsteen, met groeven en dorpen in natuursteen rond Zinnik.",
-      gemeenten: [
-        "'s-Gravenbrakel (Braine-le-Comte)",
-        "Le Rœulx",
-        "Manage",
-        "Seneffe",
-        "Zinnik (Soignies)",
-        "Écaussinnes",
-      ],
-    },
-    {
-      naam: "Arrondissement La Louvière",
-      kenmerk:
-        "Kanaal- en industriestreek rond het hellend vlak van Ronquières, met dicht bebouwde kernen.",
-      gemeenten: [
-        "Binche",
-        "Estinnes",
-        "La Louvière",
-        "Morlanwelz",
-      ],
-    },
-    {
-      naam: "Arrondissement Charleroi",
-      kenmerk:
-        "Het industriebekken aan de Samber, met arbeiderswijken en fabrieksgebouwen die herbestemd worden.",
-      gemeenten: [
-        "Aiseau-Presles",
-        "Chapelle-lez-Herlaimont",
-        "Charleroi",
-        "Châtelet",
-        "Courcelles",
-        "Farciennes",
-        "Fleurus",
-        "Fontaine-l'Évêque",
-        "Gerpinnes",
-        "Les Bons Villers",
-        "Montigny-le-Tilleul",
-        "Pont-à-Celles",
-      ],
-    },
-    {
-      naam: "Arrondissement Bergen",
-      kenmerk:
-        "De Borinage: rijen arbeiderswoningen uit de negentiende eeuw, gebouwd zonder waterkering in de muurvoet.",
-      gemeenten: [
-        "Bergen (Mons)",
-        "Boussu",
-        "Colfontaine",
-        "Dour",
-        "Frameries",
-        "Hensies",
-        "Honnelles",
-        "Jurbeke",
-        "Lens",
-        "Quaregnon",
-        "Quiévrain",
-        "Quévy",
-        "Saint-Ghislain",
-      ],
-    },
-    {
-      naam: "Arrondissement Aat",
-      kenmerk:
-        "Landbouwgemeenten op leem tussen Doornik en Edingen, met hoeves en dorpskernen in baksteen.",
-      gemeenten: [
-        "Aat (Ath)",
-        "Belœil",
-        "Bernissart",
-        "Brugelette",
-        "Chièvres",
-        "Edingen (Enghien)",
-        "Elzele (Ellezelles)",
-        "Frasnes-lez-Anvaing",
-        "Lessen (Lessines)",
-        "Opzullik (Silly)",
-        "Vloesberg",
-      ],
-    },
-    {
-      naam: "Arrondissement Doornik-Moeskroen",
-      kenmerk:
-        "De Scheldevallei aan de Franse grens, met het textielverleden van Moeskroen en Komen-Waasten.",
-      gemeenten: [
-        "Antoing",
-        "Brunehaut",
-        "Celles",
-        "Doornik (Tournai)",
-        "Estaimpuis",
-        "Komen-Waasten (Comines-Warneton)",
-        "Leuze-en-Hainaut",
-        "Moeskroen (Mouscron)",
-        "Mont-de-l'Enclus",
-        "Pecq",
-        "Péruwelz",
-        "Rumes",
-      ],
-    },
-    {
-      naam: "Arrondissement Thuin",
-      kenmerk:
-        "De Samberstreek en de Botte du Hainaut: hoeves, bos en kalkbodem tot tegen Chimay.",
-      gemeenten: [
-        "Anderlues",
-        "Beaumont",
-        "Chimay",
-        "Erquelinnes",
-        "Froidchapelle",
-        "Ham-sur-Heure-Nalinnes",
-        "Lobbes",
-        "Merbes-le-Château",
-        "Momignies",
-        "Sivry-Rance",
-        "Thuin",
-      ],
-    },
-  ],
+  "henegouwen": HENEGOUWEN_STREKEN,
   "luik": [
     {
       naam: "Arrondissement Borgworm",
