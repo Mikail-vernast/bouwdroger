@@ -1221,6 +1221,138 @@ export const REGIOS: Regio[] = [
     },
     areaServed: provincie("Namen"),
   },
+  /* ------------------------------------------------------------------ */
+  {
+    ...route("luxemburg"),
+    /*
+      De provincie Luxemburg kreeg haar pagina op 15-11-2026, na Waals-Brabant,
+      Henegouwen en Namen, met hetzelfde sjabloon, dezelfde prijs en hetzelfde
+      pakket.
+
+      Twee dingen maken deze pagina anders. Ten eerste de naam: wie
+      "bouwdroger Luxemburg" zoekt, kan ook het Groothertogdom bedoelen, en
+      daar leveren we niet. Titel, kicker, intro en een vraag zeggen daarom
+      uitdrukkelijk dat het om de Belgische provincie gaat. Ten tweede de
+      afstand: Aarlen en Virton zijn de verste ritten die we rijden, en dat
+      staat er zonder omweg, om dezelfde reden als bij Chimay in Henegouwen.
+      Wat de provincie verder eigen maakt: de Famenne, het koude plateau rond
+      Bastenaken, leisteen rond Bertrix en Herbeumont, de Ourthe en de Semois,
+      de Lotharingse huizen van de Gaume, de grensarbeiders rond Aarlen en de
+      vele tweede verblijven. Rijtijden zijn afgerond en te verifiëren tegen
+      de echte ritgegevens, net als in `gemeenten.ts`.
+
+      Werven heeft de provincie nog niet; de sectie leent de drie Brusselse,
+      die op de rit naar het zuiden liggen. Zie `LEENT_VAN`.
+    */
+    title: "Bouwdroger huren in de provincie Luxemburg | Vernast",
+    description:
+      "Bouwdroger huren in de Belgische provincie Luxemburg: Aarlen, Bastenaken, Marche en Libramont. Geleverd, geplaatst en opgehaald, zonder waarborg.",
+    h1: "Bouwdroger huren in de provincie Luxemburg",
+    kicker: "Province de Luxembourg (België) · 43 gemeenten · onze verste ritten",
+    intro: [
+      "Een bouwdroger huren in de Belgische provincie Luxemburg, voor een ruwbouw op het Ardense plateau, een verbouwde hoeve of een vakantiewoning die na de winter vochtig is? Vernast brengt de toestellen tot op uw werf, van Durbuy tot Virton en van Gouvy tot Bouillon. **Het droogpakket omvat de levering, de plaatsing en de ophaling.** Het gaat hier om de Belgische provincie, niet om het Groothertogdom: daar leveren we niet. En over de afstand zeggen we het liever meteen: **Durbuy en Marche-en-Famenne liggen op anderhalf à twee uur van ons magazijn**, Bastenaken en Libramont op rond twee uur, en **Aarlen en Virton op tweeënhalf à drie uur. Dat zijn de verste ritten die we rijden.**",
+    ],
+    heroFacts: [
+      "Levering, plaatsing en ophaling inbegrepen",
+      "Geen waarborg",
+      "Hulp in het Nederlands en het Frans",
+    ],
+    bouw: {
+      kop: "Waarvoor huurt men in de provincie Luxemburg een bouwdroger?",
+      alineas: [
+        "Het is de grootste provincie van het land en de minst dicht bevolkte, en dat bepaalt de werven. **Het zijn zelden rijen nieuwbouw, veel vaker losse huizen**: een hoeve die een woning wordt, een vakantiehuis dat grondig wordt aangepakt, een nieuwe woning op een kavel aan de rand van een dorp. Elke werf is anders, en de afstand tussen twee werven is groot. Daarom stellen we het pakket liefst vooraf samen met u op, zodat de technieker niet voor een tweede rit moet terugkomen.",
+        "**In de Famenne, rond Marche, Hotton en Durbuy, ligt een lage strook tussen de Condroz en de Ardennen.** De ondergrond is schist met kalk aan de randen, en de oude hoeves zijn gebouwd in de steen die er gewonnen werd. Waar de Ourthe door Hotton, Durbuy en La Roche-en-Ardenne loopt, staan huizen dicht bij het water, en bij hoog water lopen kelders en garages er onder. Na zo'n overstroming zit het vocht diep in het metselwerk, en een droging duurt er weken.",
+        "**Op het hoge plateau, rond Bastenaken, Libramont, Vielsalm en Houffalize, ligt de grond op vierhonderd tot zeshonderd meter.** De winters zijn er kouder en langer dan in de rest van het land, met meer vorstdagen en vaker sneeuw. Een ruwbouw zonder verwarming blijft daar van november tot maart koud en nat: de chape droogt nauwelijks, het pleisterwerk evenmin. **Op zo'n werf hoort een bouwkachel naast de droger**, want onder vijftien graden haalt een condensdroger maar een klein deel van zijn vermogen.",
+        "**Rond Bertrix, Herbeumont en Bouillon is het land van leisteen en bos.** Daken en vaak ook gevels zijn in leisteen, de huizen staan op hellingen, en de Semois kronkelt van Florenville en Chiny langs Herbeumont naar Bouillon. Huizen in het dal krijgen er grondwater en dauw, huizen op de helling water dat langs de achtermuur naar beneden komt. Veel van die woningen zijn tweede verblijven die een seizoen dicht stonden, en dan is het vocht vaak condens in een koud huis, geen lek.",
+        "**Helemaal in het zuiden ligt de Gaume, rond Virton, Rouvroy en Meix-devant-Virton**, met de lange Lotharingse huizen: woning, stal en schuur onder één doorlopend dak, met de nok evenwijdig aan de straat. Wie zo'n huis verbouwt, maakt van de schuur een leefruimte met een nieuwe vloer en nieuw pleisterwerk tegen oude, dikke muren. Rond Aarlen, Messancy, Aubange en Attert wordt dan weer veel nieuw gebouwd door gezinnen die over de grens in het Groothertogdom werken. **Daar gaat het om de klassieke nieuwbouwdroging**, met een strakke planning voor de vloerder.",
+      ],
+    },
+    beeld: {
+      src: "/vernast/case-nieuwbouw.webp",
+      alt: "Woning in afwerking in de Ardennen, met bouwdrogers op het gelijkvloers",
+    },
+    toestellen: {
+      kop: "Welke bouwdroger past bij een werf in de provincie Luxemburg?",
+      items: [
+        {
+          key: "ttk350",
+          waarom: `**Voor een nieuwbouw rond Aarlen of één bouwlaag van een verbouwde hoeve**: 70 liter per dag en een bereik tot ongeveer 400 m³. Op een gewone woning plaatsen we er een per verdieping. Vanaf ${dag("ttk350")} per dag.`,
+        },
+        {
+          key: "teddh30",
+          waarom: `**De bouwkachel van 30 kW voor de winterwerf op het Ardense plateau.** Zonder warmte blijft een ruwbouw in Bastenaken of Libramont te koud om te drogen; met deze kachel erbij komt de droger op toeren. Vraagt krachtstroom (400 V) op de werf. Vanaf ${dag("teddh30")} per dag.`,
+        },
+        {
+          key: "revolution",
+          waarom: `**De adsorptiedroger voor het vakantiehuis dat een winter dicht stond** of een koude kelder aan de Ourthe of de Semois. Hij blijft vocht opnemen bij lage temperatuur en stuurt de droge lucht via slangen naar de natte plek. Die opstelling bespreken we liefst eerst met u. Vanaf ${dag("revolution")} per dag.`,
+        },
+        {
+          key: "ttk650",
+          waarom: `**Voor de schuur van een Lotharingse hoeve die tot leefruimte wordt verbouwd**: 110 liter per dag, tot ongeveer 600 m³. In een hoge, open ruimte doet één groot toestel meer dan twee kleine. Vanaf ${dag("ttk650")} per dag.`,
+        },
+      ],
+    },
+    levering: {
+      kop: "Leveren in de provincie Luxemburg: de langste rit, goed gepland",
+      alineas: [
+        "Vanuit Aartselaar gaat het over de Brusselse ring en de E411 langs Namen naar het zuidoosten. **De Famenne, met Marche, Hotton en Durbuy, halen we in anderhalf à twee uur.** Bastenaken, Libramont, Neufchâteau en Saint-Hubert liggen op rond twee uur. Voor Aarlen, Virton, Florenville en de rest van het zuiden rekenen we tweeënhalf à drie uur. Omdat elke rit zo lang is, combineren we werven in de provincie waar het kan en spreken we het uur van levering vooraf met u af.",
+        `Ter plaatse meet de technieker het vocht in vloer en muren, zet de toestellen waar het nodig is en legt de afvoer naar een putje, een gootsteen of naar buiten. **Naar de verdieping via de trap zit in de prijs**; moet het via een ladder omdat de trap er nog niet ligt, dan geldt ${euro(LADDER)} per verdieping. Voor de kilometers betaalt u niets extra: een werf in Virton kost hetzelfde droogpakket als een werf in Durbuy.`,
+      ],
+      feiten: [
+        { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
+        { label: "Levertermijn", waarde: "Binnen 24 uur, in een ronde buiten de spits" },
+        { label: "Rijtijd vanuit ons magazijn", waarde: "Anderhalf uur (Durbuy) tot rond drie uur (Virton)" },
+        { label: "Taal", waarde: "Nederlands of Frans, naar keuze" },
+        { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
+        { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
+      ],
+    },
+    afhalen: {
+      kop: "Afhalen vanuit de provincie Luxemburg: reken het eerst uit",
+      alineas: [
+        `Wie zelf wil afhalen, rijdt naar ons magazijn in Aartselaar, aan de A12 onder Antwerpen. Vanuit Marche is dat ongeveer twee uur rijden, vanuit Aarlen of Virton bijna drie, en dat twee keer: bij het ophalen en bij het terugbrengen. **Voor een droogpakket is dat een verloren dag, want de levering is al inbegrepen.** Alleen wie toch in de buurt van Antwerpen moet zijn en één losse droger lang nodig heeft, wint er iets bij: ${euro(AFHAALKORTING)} korting op de huurprijs en een vast afhaalmoment op een werkdag tussen 07:30 en 17:00.`,
+      ],
+      feiten: [
+        { label: "Rijtijd naar ons afhaalpunt", waarde: "Rond twee uur (Marche) tot bijna drie uur (Aarlen, Virton)" },
+        { label: "Korting bij afhalen", waarde: `${euro(AFHAALKORTING)} op de huurprijs` },
+        { label: "Waarborg", waarde: "Geen" },
+        { label: "Vervoer", waarde: "Rechtop; plat vervoerd 24 uur laten staan" },
+        { label: "Liever laten leveren?", waarde: "De rit zit al in elke pakketprijs" },
+      ],
+    },
+    faq: [
+      {
+        q: "Leveren jullie ook in het Groothertogdom Luxemburg?",
+        a: "Nee. Deze pagina gaat over de Belgische provincie Luxemburg, met Aarlen, Bastenaken, Marche-en-Famenne en Virton, en daar leveren we in alle 43 gemeenten. Over de grens, in Luxemburg-Stad, Esch-sur-Alzette of elders in het Groothertogdom, plaatsen we geen toestellen. Woont u in België en werkt u daar, dan bent u bij ons wel aan het juiste adres.",
+      },
+      {
+        q: "Komen jullie echt tot in Aarlen of Virton?",
+        a: "Ja, al is het met tweeënhalf à drie uur rijden vanuit Aartselaar onze langste rit. Daarom bundelen we de werven in het zuiden waar het kan en spreken we een vast uur af in plaats van een venster van een halve dag. De prijs blijft dezelfde: levering, plaatsing en ophaling zitten in het pakket, zonder toeslag voor de afstand.",
+      },
+      {
+        q: "Kan ik in het Frans met jullie afspreken?",
+        a: "Ja. Aan de telefoon, in de offerte en bij de plaatsing kiest u zelf tussen Nederlands en Frans. Zoekt u op Arlon, Bastogne of Neufchâteau, dan vindt u hier dezelfde gemeenten onder hun Nederlandse naam waar die bestaat: Aarlen en Bastenaken. Pakket en prijs zijn gelijk.",
+      },
+      {
+        q: "Droogt een ruwbouw in de Ardennen in de winter wel?",
+        a: "Met een droger alleen gaat het traag, omdat de lucht in een koude ruwbouw weinig vocht opneemt en de chape haar water amper afgeeft. Met een bouwkachel erbij wordt de ruimte warm genoeg om de droger op volle kracht te laten werken. Die kachel vraagt wel krachtstroom; heeft de werf alleen een gewoon stopcontact, zeg het ons dan vooraf.",
+      },
+      {
+        q: "Ons vakantiehuis aan de Semois is vochtig na de winter. Is dat waterschade?",
+        a: "Meestal niet. Een huis dat maanden koud en gesloten stond, krijgt condens op muren en ramen, en dan ruikt het muf zonder dat er ergens een lek is. Een adsorptiedroger haalt dat vocht er ook bij lage temperatuur uit. Kijk wel achter kasten en in de hoeken naar schimmel, en laat het huis daarna geregeld verluchten en verwarmen.",
+      },
+      {
+        q: "Hoe lang duurt het drogen van een verbouwde Lotharingse hoeve?",
+        a: "Langer dan een nieuwbouw. De oude muren zijn dik en houden veel vocht vast, en er komen een nieuwe chape en nieuw pleisterwerk bovenop. Reken op enkele weken, met een droger per bouwlaag en in de koude maanden een kachel erbij. De technieker meet bij de start en bij de ophaling, zodat u weet wanneer de vloerder kan beginnen.",
+      },
+    ],
+    realisaties: {
+      kop: "Werven in de buurt van de provincie Luxemburg",
+      intro: "In de provincie Luxemburg zelf hebben we nog geen werf gefotografeerd. Deze drie liggen in Brussel, aan het begin van onze rit langs de E411 naar het zuiden.",
+      slugs: ["dhr-h-brussel", "mnr-s-brussel", "mevr-g-b-sint-pieters-woluwe"],
+    },
+    areaServed: provincie("Luxemburg"),
+  },
 ];
 
 export const REGIO_BY_SLUG: Record<string, Regio> = Object.fromEntries(REGIOS.map((r) => [r.slug, r]));

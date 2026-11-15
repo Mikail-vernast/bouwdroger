@@ -160,6 +160,17 @@ export const REGIO_ROUTES: RegioRoute[] = [
     towns: ["Namen", "Gembloers", "Dinant", "Andenne", "Sambreville", "Ciney", "Éghezée", "Jemeppe-sur-Sambre", "Rochefort", "Walcourt", "Philippeville", "Couvin", "Fosses-la-Ville", "Profondeville", "Florennes", "Yvoir"],
     pin: { left: "58%", top: "63%" },
   },
+  /*
+    De Belgische provincie Luxemburg, sinds 15-11-2026: onze verste ritten. De
+    speld staat bij Libramont (5,0 OL, 49,9 NB).
+  */
+  {
+    slug: "luxemburg",
+    name: "Luxemburg",
+    path: "/bouwdroger-huren-luxemburg",
+    towns: ["Aarlen", "Bastenaken", "Marche-en-Famenne", "Libramont-Chevigny", "Virton", "Durbuy", "Bouillon", "Neufchâteau", "Saint-Hubert", "Vielsalm", "Houffalize", "La Roche-en-Ardenne", "Bertrix", "Aubange", "Florenville", "Habay"],
+    pin: { left: "62%", top: "80%" },
+  },
 ];
 
 export const REGIO_BY_PATH: Record<string, RegioRoute> = Object.fromEntries(

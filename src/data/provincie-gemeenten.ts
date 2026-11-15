@@ -337,6 +337,91 @@ export const NAMEN_STREKEN: Streek[] = [
   },
 ];
 
+/**
+ * Luxemburg, met een eigen pagina sinds 15-11-2026. Eén array op twee plaatsen,
+ * zoals Waals-Brabant.
+ */
+export const LUXEMBURG_STREKEN: Streek[] = [
+  {
+    naam: "Arrondissement Marche-en-Famenne",
+    kenmerk:
+      "De Famenne, met kalk en schist in de ondergrond en hoeves in natuursteen.",
+    gemeenten: [
+      "Durbuy",
+      "Hotton",
+      "La Roche-en-Ardenne",
+      "Manhay",
+      "Marche-en-Famenne",
+      "Nassogne",
+      "Rendeux",
+      "Tenneville",
+      "Érezée",
+    ],
+  },
+  {
+    naam: "Arrondissement Bastenaken",
+    kenmerk:
+      "Het hoge Ardense plateau, waar een ruwbouw zonder bijverwarming de hele winter nat blijft.",
+    gemeenten: [
+      "Bastenaken (Bastogne)",
+      "Fauvillers",
+      "Gouvy",
+      "Houffalize",
+      "Sainte-Ode",
+      "Vaux-sur-Sûre",
+      "Vielsalm",
+    ],
+  },
+  {
+    naam: "Arrondissement Neufchâteau",
+    kenmerk:
+      "Bosrijke Ardennen rond Bouillon en Libramont, met natuurstenen gebouwen en veel hoogteverschil.",
+    gemeenten: [
+      "Bertrix",
+      "Bouillon",
+      "Daverdisse",
+      "Herbeumont",
+      "Libin",
+      "Libramont-Chevigny",
+      "Léglise",
+      "Neufchâteau",
+      "Paliseul",
+      "Saint-Hubert",
+      "Tellin",
+      "Wellin",
+    ],
+  },
+  {
+    naam: "Arrondissement Aarlen",
+    kenmerk:
+      "Het Gutland tegen de Luxemburgse grens, met zandsteen en de verste ritten van het land.",
+    gemeenten: [
+      "Aarlen (Arlon)",
+      "Attert",
+      "Aubange",
+      "Martelange",
+      "Messancy",
+    ],
+  },
+  {
+    naam: "Arrondissement Virton",
+    kenmerk:
+      "De Gaume, het zuidelijkste en warmste puntje van het land, met kalkrijke bodem en lichte hellingen.",
+    gemeenten: [
+      "Chiny",
+      "Florenville",
+      "Habay",
+      "Meix-devant-Virton",
+      "Musson",
+      "Rouvroy",
+      "Saint-Léger",
+      "Tintigny",
+      "Virton",
+      "Étalle",
+    ],
+  },
+];
+
 export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   antwerpen: [
     {
@@ -757,6 +842,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   "waals-brabant": WAALS_BRABANT_STREKEN,
   "henegouwen": HENEGOUWEN_STREKEN,
   "namen": NAMEN_STREKEN,
+  "luxemburg": LUXEMBURG_STREKEN,
 
   limburg: [
     {
@@ -973,86 +1059,7 @@ export const WAALSE_STREKEN: Record<string, Streek[]> = {
     },
   ],
   "namen": NAMEN_STREKEN,
-  "luxemburg": [
-    {
-      naam: "Arrondissement Marche-en-Famenne",
-      kenmerk:
-        "De Famenne, met kalk en schist in de ondergrond en hoeves in natuursteen.",
-      gemeenten: [
-        "Durbuy",
-        "Hotton",
-        "La Roche-en-Ardenne",
-        "Manhay",
-        "Marche-en-Famenne",
-        "Nassogne",
-        "Rendeux",
-        "Tenneville",
-        "Érezée",
-      ],
-    },
-    {
-      naam: "Arrondissement Bastenaken",
-      kenmerk:
-        "Het hoge Ardense plateau, waar een ruwbouw zonder bijverwarming de hele winter nat blijft.",
-      gemeenten: [
-        "Bastenaken (Bastogne)",
-        "Fauvillers",
-        "Gouvy",
-        "Houffalize",
-        "Sainte-Ode",
-        "Vaux-sur-Sûre",
-        "Vielsalm",
-      ],
-    },
-    {
-      naam: "Arrondissement Neufchâteau",
-      kenmerk:
-        "Bosrijke Ardennen rond Bouillon en Libramont, met natuurstenen gebouwen en veel hoogteverschil.",
-      gemeenten: [
-        "Bertrix",
-        "Bouillon",
-        "Daverdisse",
-        "Herbeumont",
-        "Libin",
-        "Libramont-Chevigny",
-        "Léglise",
-        "Neufchâteau",
-        "Paliseul",
-        "Saint-Hubert",
-        "Tellin",
-        "Wellin",
-      ],
-    },
-    {
-      naam: "Arrondissement Aarlen",
-      kenmerk:
-        "Het Gutland tegen de Luxemburgse grens, met zandsteen en de verste ritten van het land.",
-      gemeenten: [
-        "Aarlen (Arlon)",
-        "Attert",
-        "Aubange",
-        "Martelange",
-        "Messancy",
-      ],
-    },
-    {
-      naam: "Arrondissement Virton",
-      kenmerk:
-        "De Gaume, het zuidelijkste en warmste puntje van het land, met kalkrijke bodem en lichte hellingen.",
-      gemeenten: [
-        "Chiny",
-        "Florenville",
-        "Habay",
-        "Meix-devant-Virton",
-        "Musson",
-        "Rouvroy",
-        "Saint-Léger",
-        "Tintigny",
-        "Virton",
-        "Étalle",
-      ],
-    },
-  ],
+  "luxemburg": LUXEMBURG_STREKEN,
 };
 
 export const NEDERLANDSE_STREKEN: Record<string, Streek[]> = {
