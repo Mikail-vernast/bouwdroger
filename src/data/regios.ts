@@ -938,11 +938,6 @@ export const REGIOS: Regio[] = [
     intro: [
       "Een bouwdroger huren in Henegouwen voor een renovatie, een nieuwe chape of een kelder na waterschade? Vernast levert en plaatst de toestellen op uw werf, van Edingen tot Charleroi en van Moeskroen tot Chimay. **Levering, plaatsing en ophaling zitten in uw droogpakket.** Henegouwen is wel de breedste provincie die we bedienen, en dat zeggen we liever vooraf: **Edingen en 's-Gravenbrakel liggen op ongeveer drie kwartier van ons magazijn**, Bergen en Charleroi op een uur tot vijf kwartier, en de Botte du Hainaut rond Chimay is onze verste rit.",
     ],
-    heroFacts: [
-      "Levering, plaatsing en ophaling inbegrepen",
-      "Geen waarborg",
-      "Hulp in het Nederlands en het Frans",
-    ],
     bouw: {
       kop: "Waarvoor huurt men in Henegouwen een bouwdroger?",
       alineas: [
@@ -1070,11 +1065,6 @@ export const REGIOS: Regio[] = [
     intro: [
       "Een bouwdroger huren in de provincie Namen, voor een hoeve in renovatie, een nieuwe chape of een kelder die bij hoog water volliep? Vernast brengt de toestellen tot op uw werf, van Éghezée tot Couvin en van Gembloers tot Vresse-sur-Semois. **Leveren, opstellen en weer ophalen zitten in uw droogpakket.** Over de afstand zijn we liever eerlijk: **Gembloers en Éghezée halen we in ongeveer een uur over de E411**, de stad Namen in iets meer, Dinant en Philippeville in anderhalf uur of langer, en Couvin en Vresse-sur-Semois horen bij de verste ritten die we rijden. Deze pagina gaat over de hele provincie; voor de stad Namen zelf, met Jambes en de wijken aan de oever, bestaat een aparte pagina.",
     ],
-    heroFacts: [
-      "Levering, plaatsing en ophaling inbegrepen",
-      "Geen waarborg",
-      "Hulp in het Nederlands en het Frans",
-    ],
     bouw: {
       kop: "Waarvoor huurt men in de provincie Namen een bouwdroger?",
       alineas: [
@@ -1199,11 +1189,6 @@ export const REGIOS: Regio[] = [
     kicker: "Province de Luxembourg (België) · 43 gemeenten · onze verste ritten",
     intro: [
       "Een bouwdroger huren in de Belgische provincie Luxemburg, voor een ruwbouw op het Ardense plateau, een verbouwde hoeve of een vakantiewoning die na de winter vochtig is? Vernast brengt de toestellen tot op uw werf, van Durbuy tot Virton en van Gouvy tot Bouillon. **Het droogpakket omvat de levering, de plaatsing en de ophaling.** Het gaat hier om de Belgische provincie, niet om het Groothertogdom: daar leveren we niet. En over de afstand zeggen we het liever meteen: **Durbuy en Marche-en-Famenne liggen op anderhalf à twee uur van ons magazijn**, Bastenaken en Libramont op rond twee uur, en **Aarlen en Virton op tweeënhalf à drie uur. Dat zijn de verste ritten die we rijden.**",
-    ],
-    heroFacts: [
-      "Levering, plaatsing en ophaling inbegrepen",
-      "Geen waarborg",
-      "Hulp in het Nederlands en het Frans",
     ],
     bouw: {
       kop: "Waarvoor huurt men in de provincie Luxemburg een bouwdroger?",
@@ -1336,11 +1321,6 @@ export const REGIOS: Regio[] = [
     intro: [
       "Een bouwdroger huren in de provincie Luik, voor een herenhuis in renovatie, een verse chape in Haspengouw of een gelijkvloers dat na hoog water nog nat is? Vernast zet de toestellen op uw werf, van Hannuit tot Eupen en van Wezet tot Sankt Vith. **Levering, plaatsing en ophaling horen bij uw droogpakket.** De afstand verzwijgen we niet: **Hannuit en Borgworm liggen op ongeveer een uur over de E40**, de stad Luik op vijf kwartier, Verviers en Spa op anderhalf uur, en de Oostkantons rond Sankt Vith op ruim twee uur. Deze pagina gaat over de hele provincie; de stad Luik heeft haar eigen pagina, met de wijken en de deelgemeenten binnen de stadsgrens.",
     ],
-    heroFacts: [
-      "Levering, plaatsing en ophaling inbegrepen",
-      "Geen waarborg",
-      "Hulp in het Nederlands en het Frans",
-    ],
     bouw: {
       kop: "Waarvoor huurt men in de provincie Luik een bouwdroger?",
       alineas: [
@@ -1468,11 +1448,6 @@ export const REGIOS: Regio[] = [
     kicker: "Nederland · 56 gemeenten · van de Brabantse Wal tot het Land van Cuijk",
     intro: [
       "Een bouwdroger huren in Noord-Brabant, voor een nieuwe dekvloer in een Bredase nieuwbouwwijk, gestucte muren in een rijtjeshuis in Tilburg of een bedrijfshal rond Eindhoven? Vernast rijdt vanuit Aartselaar, net onder Antwerpen, de grens over en zet het droogpakket bij u neer. **De leverdag spreken we samen af**, en waar het kan combineren we uw adres met andere ritten in dezelfde streek. Over de afstand zijn we open: **Woensdrecht en Bergen op Zoom liggen rond drie kwartier van ons magazijn**, Breda en Roosendaal op een uur, Tilburg en Eindhoven op ruim een uur, Den Bosch en Oss op ongeveer anderhalf uur, en het Land van Cuijk nog wat verder.",
-    ],
-    heroFacts: [
-      "Levering op een afgesproken dag",
-      "Geplaatst en ingesteld door een technicus",
-      "Geen waarborg",
     ],
     bouw: {
       kop: "Waarvoor huurt men in Noord-Brabant een bouwdroger?",
@@ -1603,11 +1578,6 @@ export const REGIOS: Regio[] = [
     intro: [
       "Een bouwdroger huren in Zeeland, voor een nieuwe dekvloer in een polderdorp, een vakantiewoning die voor het seizoen klaar moet of een oud pand met zout in de muren? Vernast brengt de toestellen naar uw bouwplaats, sluit ze aan en haalt ze weer op. **We komen uit Aartselaar, aan de zuidkant van Antwerpen, en zeggen eerlijk hoe ver dat is.** **Hulst en Tholen liggen rond drie kwartier rijden**, Terneuzen op een uur via de Kennedytunnel en de Waaslandhaven. Goes en Middelburg bereiken we in ongeveer anderhalf uur, via Bergen op Zoom en de A58 of door de Westerscheldetunnel. Schouwen-Duiveland ligt nog verder. **De leverdag spreken we daarom samen met u af.**",
     ],
-    heroFacts: [
-      "Leverdag op afspraak",
-      "Plaatsing en ophaling door onze technicus",
-      "Geen waarborg",
-    ],
     bouw: {
       kop: "Waarvoor huurt u in Zeeland een bouwdroger?",
       alineas: [
@@ -1733,11 +1703,6 @@ export const REGIOS: Regio[] = [
     kicker: "Nederland · 31 gemeenten · van Mook tot Vaals",
     intro: [
       "Een bouwdroger huren in Nederlands Limburg, de Nederlandse provincie langs de Maas, voor een dekvloer in een nieuwbouwwijk, stucwerk in een mijnwerkerswoning of een kruipruimte die na een lekkage nat blijft? Vernast brengt de toestellen vanuit Aartselaar bij Antwerpen naar uw adres, **van Mook en Middelaar in het noorden tot Vaals op het drielandenpunt**. Over de afstand zijn we open: **Weert en Maastricht liggen op vijf kwartier tot anderhalf uur rijden**, Roermond en Sittard op anderhalf uur, Heerlen, Kerkrade, Venlo en Venray rond twee uur, en Mook nog wat verder. **Daarom spreken we de leverdag met u af** en zetten we de rit zo mogelijk samen met andere adressen in dezelfde streek.",
-    ],
-    heroFacts: [
-      "Leverdag op afspraak, plaatsing door onze technicus",
-      "Geen waarborg",
-      "Vooraf een offerte met huur en levering",
     ],
     bouw: {
       kop: "Waarvoor huurt men in Nederlands Limburg een bouwdroger?",
