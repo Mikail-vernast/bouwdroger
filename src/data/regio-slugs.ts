@@ -149,6 +149,17 @@ export const REGIO_ROUTES: RegioRoute[] = [
     ],
     pin: { left: "38%", top: "54%" },
   },
+  /*
+    Namen, sinds 15-11-2026. De speld staat tussen Namen en Dinant
+    (4,8 OL, 50,25 NB).
+  */
+  {
+    slug: "namen",
+    name: "Namen",
+    path: "/bouwdroger-huren-namen",
+    towns: ["Namen", "Gembloers", "Dinant", "Andenne", "Sambreville", "Ciney", "Éghezée", "Jemeppe-sur-Sambre", "Rochefort", "Walcourt", "Philippeville", "Couvin", "Fosses-la-Ville", "Profondeville", "Florennes", "Yvoir"],
+    pin: { left: "58%", top: "63%" },
+  },
 ];
 
 export const REGIO_BY_PATH: Record<string, RegioRoute> = Object.fromEntries(

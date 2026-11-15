@@ -24711,6 +24711,2203 @@ const G: Gemeente[] = [
     ],
     realisaties: [],
   },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "namen-stad",
+    title: "Bouwdroger huren in Namen | Vernast",
+    description:
+      "Bouwdroger huren in Namen, Namur: oude stadswoningen aan Samber en Maas, kelders in de benedenstad en huizen in Jambes en Wépion. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Namen",
+    kicker: "Provincie Namen · de stad aan Samber en Maas",
+    rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Namen, in het Frans **Namur**, ligt waar **de Samber in de Maas uitmondt**. Boven die samenvloeiing staat **de citadel** op de rotsflank, en aan de voet ervan, op de punt van de Grognon, zetelt **het Waals Parlement**. Namen is de hoofdstad van Wallonië en tegelijk de hoofdplaats van de gelijknamige provincie.",
+      "Deze pagina gaat over **de stad zelf**: het oude centrum tussen de twee rivieren, **Jambes** aan de overkant van de Maas, en deelgemeenten als **Salzinnes, Bouge, Saint-Servais, Wépion en Malonne**. Voor de rest van de provincie is er een aparte pagina.",
+    ],
+    bouw: {
+      kop: "Herenhuizen in de benedenstad en woningen tegen de rots",
+      alineas: [
+        "**Het historische centrum** bestaat uit smalle stadswoningen en herenhuizen in baksteen en blauwe hardsteen, vaak met **een gewelfde kelder**. Die kelders liggen dicht bij het peil van Samber en Maas, en bij **hoog water op de rivieren** stijgt ook het grondwater onder de oevers mee. Na zo'n periode, of na een renovatie met nieuwe pleister, blijft een kelder of een gelijkvloers lang nat.",
+        "**Langs de Maas richting Wépion en aan de voet van de citadel** staan huizen tegen of in de helling. Daar komt vocht niet alleen van onderen maar ook **van de bergkant**, door rots en aarde tegen de achtermuur. Bij de plaatsing meet de technieker waar het vocht zit, zodat u weet of het om bouwvocht gaat dat een droger wegwerkt, of om water uit de helling.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een gewelfde kelder in de benedenstad** die bij hoog water nat is geworden: 110 liter per dag en bereik tot ongeveer 600 m³." },
+      { key: "radiaal2250", waarom: "Een kelder onder een herenhuis heeft hoeken waar de lucht nooit beweegt. **Deze ventilator blaast gericht over de vloer** en in die hoeken." },
+      { key: "ttk170", waarom: "**Voor een appartement of een bovenverdieping in het centrum**: compact genoeg voor een smalle stadstrap en zuinig op een gewoon stopcontact." },
+      { key: "teddh30", waarom: "Een kelder tegen de rotsflank blijft ook in de zomer koel. **Onder 15 °C verliest een condensdroger rendement**; deze kachel brengt de ruimte op temperatuur." },
+    ],
+    levering: {
+      kop: "Leveren in Namen: over de E411 tot aan de deur",
+      alinea:
+        "Vanuit Aartselaar is Namen **ongeveer een uur rijden**, via de ring rond Brussel en de E411. U kiest **een tijdslot** bij de reservatie. In het oude centrum zijn de straten smal en is parkeren beperkt; **zeg vooraf of de bestelwagen kort voor de deur kan staan**, dan plant de technieker de levering daarop en draagt hij de toestellen tot in de kelder.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar loont vanuit Namen zelden",
+      alinea:
+        "Heen en terug naar ons afhaalpunt bent u **ruim twee uur onderweg**, buiten de file rond Brussel. Een droger weegt **25 tot 52 kg en moet rechtop mee**. Voor een kelder in de benedenstad is leveren de logische keuze: de technieker meet bij de start hoe nat de muren zijn.",
+    },
+    buren: ["la-bruyere", "fernelmont", "profondeville", "floreffe", "assesse"],
+    faq: [
+      {
+        q: "Mijn kelder in de benedenstad stond nat na hoog water op de Maas. Wanneer zet ik een droger?",
+        a: "Pas als het staande water weg is en de kelder opgeruimd. Een droger haalt het vocht uit vloer en muren, niet het water dat er nog staat. Vermeld bij de reservatie hoe hoog het stond, dan brengt de technieker de juiste combinatie van droger en ventilator mee.",
+      },
+      {
+        q: "Leveren jullie ook in Jambes, Wépion en Salzinnes?",
+        a: "Ja. Jambes, Wépion, Salzinnes, Bouge, Saint-Servais en de andere deelgemeenten horen bij de stad Namen en vallen gewoon in onze levering. Geef bij de reservatie het volledige adres door, dan rekent de planning met de juiste rit.",
+      },
+      {
+        q: "Mijn huis staat tegen de helling onder de citadel. Is dat vocht bouwvocht?",
+        a: "Dat hangt ervan af of het terugkomt. Na een renovatie met nieuwe pleister is het grotendeels bouwvocht, en dat droogt een toestel weg. Komt het na elke regenbui terug langs de muur aan de bergkant, dan is het water uit de helling. De technieker meet bij de plaatsing welk van de twee.",
+      },
+      {
+        q: "Kan een bouwdroger in een appartement boven een winkel in het centrum?",
+        a: "Ja. De Small bouwdroger weegt ongeveer 25 kg, draait op één gewoon stopcontact en past door een smalle trappenhal. Hij is ook stil genoeg voor een gebouw waar mensen wonen. Is er geen lift, meld dan op welke verdieping het toestel moet staan.",
+      },
+      {
+        q: "Spreekt de technieker Frans?",
+        a: "Op de werf in Namen helpt de technieker u ook in het Frans als dat makkelijker is. Zo kunnen ook een Franstalige aannemer of huurder mee horen waar het toestel staat en wanneer het water geleegd moet worden.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "gembloers",
+    title: "Bouwdroger huren in Gembloers | Vernast",
+    description:
+      "Bouwdroger huren in Gembloers, Gembloux: nieuwbouw en verbouwde hoeves op het leemplateau van Haspengouw, van Grand-Leez tot Corroy. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Gembloers",
+    kicker: "Provincie Namen · het leemplateau van Haspengouw",
+    rit: { afstand: "circa 80 km", tijd: "ongeveer vijftig minuten" },
+    intro: [
+      "Gembloers, in het Frans **Gembloux**, ligt **op het leemplateau in het westen van Haspengouw**, de Hesbaye. Het stadje groeide rond **een oude abdij**, en in die abdijgebouwen zit vandaag **de landbouwfaculteit van de universiteit van Luik**, Gembloux Agro-Bio Tech.",
+      "Rond het centrum liggen landbouwdorpen als **Grand-Leez, Lonzée, Sauvenière, Ernage en Corroy-le-Château**. Gembloers ligt aan **de spoorlijn tussen Brussel en Namen**, en dat zie je aan de bouw: veel nieuwe woningen en verkavelingen voor mensen die in Brussel of Namen werken.",
+    ],
+    bouw: {
+      kop: "Nieuwbouw op leem en hoeves die een woning worden",
+      alineas: [
+        "**Het grootste deel van het werk is nieuwbouw** in de verkavelingen rond het centrum en de dorpen. Daar draait het om **chape en pleisterwerk** die op tijd droog moeten zijn voor de vloerder. **De leembodem laat water traag weg**: een bouwput staat na een natte week lang onder water, en een woning die in de winter wind- en waterdicht wordt, zit vol vocht.",
+        "Daarnaast worden **oude hoeves op het plateau verbouwd** tot woning. Dikke muren in baksteen en kalksteen, **zonder vochtkering**, en vaak een stal of schuur die voor het eerst verwarmd wordt. Zo'n muur geeft zijn water traag af, en wie te vroeg pleistert of een houten vloer legt, krijgt schimmel of een vloer die gaat werken.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een nieuwbouwwoning in een verkaveling**: 70 liter per dag en bereik tot ongeveer 400 m³, genoeg voor een gelijkvloers met verse chape." },
+      { key: "ttk650", waarom: "Voor **een hoeve of schuur die een woning wordt**: grote, hoge ruimtes met veel natte muur, waar 110 liter per dag nodig is." },
+      { key: "ttv4500", waarom: "In een lange stal met dikke muren staat de lucht stil. **Deze ventilator verplaatst de droge lucht** naar de verste hoek." },
+      { key: "teddh30", waarom: "**Een winterwerf op het open plateau** koelt sterk af. Deze kachel houdt de ruimte boven 15 °C, waar de condensdroger goed werkt." },
+    ],
+    levering: {
+      kop: "Leveren in Gembloers: vlak bij de E411",
+      alinea:
+        "Gembloers ligt **een paar kilometer van de E411**, en dat maakt de rit voorspelbaar: een vijftigtal minuten buiten de spits. De levering plannen we met **een tijdslot** dat u bij de reservatie kiest. Op een werf in een verkaveling zonder afgewerkte oprit **zeg dan waar de bestelwagen kan stoppen**, zodat de technieker niet door de modder moet met een toestel van vijftig kilo.",
+    },
+    afhalen: {
+      kop: "Afhalen kan, maar het is een rit van een uur",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer vijftig minuten**, via de E411 en de ring rond Brussel. Wie toch in de buurt van Antwerpen moet zijn, kan één toestel meenemen. Voor een volledige nieuwbouw met meerdere toestellen is leveren eenvoudiger: **de rit zit in de prijs**.",
+    },
+    buren: ["chastre", "walhain", "perwijs", "eghezee", "sombreffe"],
+    faq: [
+      {
+        q: "Waarom blijft mijn bouwput in Gembloers zo lang nat?",
+        a: "Omdat de leembodem van Haspengouw water slecht doorlaat. Na een natte periode blijft het in de put staan en trekt het in de funderingsmuren. Zodra de woning wind- en waterdicht is, haalt een droger dat vocht uit de ruimte, maar eerst moet het staande water weg.",
+      },
+      {
+        q: "Ik verbouw een hoeve in Grand-Leez. Wanneer mag ik pleisteren?",
+        a: "Als de oude muren zelf droog genoeg zijn, en dat duurt bij dikke baksteen of kalksteen zonder vochtkering langer dan bij nieuwbouw. Laat de technieker bij de plaatsing meten. Dan hebt u een vertrekpunt en ziet u bij elke meting hoe ver het staat.",
+      },
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een nieuwbouwwoning?",
+        a: "Meestal één Medium per verdieping met verse chape, aangevuld met een ventilator als de plattegrond lang of gesloten is. Geef bij de reservatie de oppervlakte en het aantal verdiepingen door, dan stellen we de combinatie daarop samen.",
+      },
+      {
+        q: "Leveren jullie ook in Corroy-le-Château en Lonzée?",
+        a: "Ja, alle deelgemeenten van Gembloers horen bij onze levering, van Corroy-le-Château en Bossière tot Lonzée, Sauvenière en Ernage. Op het platteland helpt het als u bij de reservatie aangeeft waar de toegang tot de werf is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "eghezee",
+    title: "Bouwdroger huren in Éghezée | Vernast",
+    description:
+      "Bouwdroger huren in Éghezée: hoeves in vierkant op de Haspengouwse graanvlakte, nieuwbouw in Leuze en Longchamps, kelders bij de Mehaigne. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Éghezée",
+    kicker: "Provincie Namen · graanland langs de E411",
+    rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Éghezée ligt **in het open graanland van Haspengouw**, ten noordoosten van Namen. Het is een uitgestrekte landelijke gemeente met een reeks dorpen: **Leuze, Longchamps, Aische-en-Refail, Taviers, Noville-sur-Mehaigne** en meer. Door het oosten stroomt **de Mehaigne**, een zijrivier van de Maas.",
+      "Het landschap wordt bepaald door **grote akkers met graan en suikerbieten** en door de **hoeves in vierkant**: een gesloten erf met woonhuis, stallen en schuur rond een binnenkoer. Langs **de E411**, die door de gemeente loopt, zijn de dorpen gegroeid met nieuwe woningen voor wie in Namen of Brussel werkt.",
+    ],
+    bouw: {
+      kop: "Een vierkantshoeve verbouwen en nieuwbouw in de dorpen",
+      alineas: [
+        "**Een hoeve in vierkant verbouwen** is hier een vaak gezien project: de schuur of de stallen worden een woning, een praktijk of een vakantiewoning. **Muren van een halve meter dik**, zonder spouw of vochtkering, en vloeren die rechtstreeks op de grond liggen. Na het aanbrengen van een nieuwe chape en pleister zit er een grote hoeveelheid water in een ruimte die nooit verwarmd werd.",
+        "**In de dorpen langs de E411** gaat het vaker om nieuwbouw op leem, met dezelfde kwestie als elders op het plateau: de grond houdt water vast. **In de vallei van de Mehaigne** liggen oudere woningen lager en dichter bij het water, en daar is een vochtige kelder of een koud gelijkvloers een terugkerend punt bij renovatie.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een schuur of stal in een vierkantshoeve** die een woning wordt: hoge, grote ruimtes waar 110 liter per dag het verschil maakt." },
+      { key: "revolution", waarom: "**Voor een onverwarmde hoevekelder** of een stal in de winter: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttk350", waarom: "Voor een nieuwbouwwoning in Leuze of Longchamps: 70 liter per dag, ruim voldoende voor een gelijkvloers met verse chape." },
+      { key: "radiaal2250", waarom: "Een nieuwe chape in een lange stal droogt aan de randen het traagst. **Deze ventilator blaast gericht over de vloer** tot in de hoeken." },
+    ],
+    levering: {
+      kop: "Leveren in Éghezée: van de E411 tot op het erf",
+      alinea:
+        "Éghezée heeft **een eigen afrit op de E411**, en de rit vanuit Aartselaar duurt zo'n uur. Bij de reservatie legt u **een tijdslot** vast. Op een hoeve met een binnenkoer **zeg dan langs welke poort de bestelwagen het erf op kan**; de technieker zet de toestellen per ruimte en legt uit waar het condenswater heen moet.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: alleen als u toch die kant op moet",
+      alinea:
+        "Vanuit Éghezée is ons afhaalpunt **een uur rijden**, en terug nog eens zoveel. Voor één toestel kan dat, als u toch richting Antwerpen moet. Voor een hoeve met meerdere droogzones laat u beter leveren: **de technieker meet bij de start**, en dat cijfer hebt u nodig voor uw aannemer.",
+    },
+    buren: ["gembloers", "fernelmont", "la-bruyere", "perwijs", "ramillies"],
+    faq: [
+      {
+        q: "Hoe droog ik een schuur die we tot woning ombouwen?",
+        a: "Met de ramen dicht, een grote droger per ruimte en een ventilator die de lucht in beweging houdt. Een oude schuurmuur zonder vochtkering geeft water traag af, dus reken eerder op weken dan op dagen. De technieker meet bij de start, zodat u de vooruitgang kunt volgen.",
+      },
+      {
+        q: "Werkt een bouwdroger in een onverwarmde hoeve in de winter?",
+        a: "Een gewone condensdroger verliest onder 15 °C veel rendement. In een koude stal of kelder kiest u daarom een adsorptiedroger, of zet u een elektrische kachel naast de condensdroger. Vermeld bij de reservatie of de ruimte verwarmd wordt.",
+      },
+      {
+        q: "Leveren jullie ook in de kleinere dorpen zoals Taviers of Branchon?",
+        a: "Ja, heel de gemeente Éghezée hoort bij onze levering, ook de kleinere dorpen bij de Mehaigne. Geef het volledige adres door en vermeld of het een afgelegen hoeve is, dan houdt de planning rekening met de laatste kilometers over landbouwwegen.",
+      },
+      {
+        q: "Hoeveel stroom verbruikt een droger op een hoeve met een oude installatie?",
+        a: "Een Medium bouwdroger vraagt minder dan een kilowatt en draait op een gewoon stopcontact. Zet u er een kachel bij, dan komt er een paar kilowatt bij; verdeel de toestellen dan over verschillende kringen. De technieker kijkt dat bij de plaatsing na.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "fernelmont",
+    title: "Bouwdroger huren in Fernelmont | Vernast",
+    description:
+      "Bouwdroger huren in Fernelmont: verbouwde hoeves en nieuwbouw in Noville-les-Bois, Hingeon, Franc-Waret en Marchovelette, op het plateau ten oosten van Namen.",
+    h1: "Bouwdroger huren in Fernelmont",
+    kicker: "Provincie Namen · landbouwdorpen ten oosten van Namen",
+    rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
+    intro: [
+      "Fernelmont is **een landelijke gemeente ten oosten van Namen**, op het plateau tussen de E411 en de Maasvallei. Het bestuur zit in **Noville-les-Bois**; daarrond liggen dorpen als **Hingeon, Franc-Waret, Marchovelette, Bierwart, Forville en Cortil-Wodon**.",
+      "Het is **graanland met grote akkers**, waar de dorpen nog rond hun hoeves en kerk liggen. In Franc-Waret staat een **kasteel** met een slotgracht. Door de nabijheid van Namen en **de E42 richting Luik** zijn de dorpen de laatste decennia aangegroeid met nieuwe woningen.",
+    ],
+    bouw: {
+      kop: "Hoevewoningen met dikke muren en nieuwe woningen op het plateau",
+      alineas: [
+        "**Veel woningen in Fernelmont zijn oude hoeves of dorpshuizen** in baksteen of kalksteen. Bij een renovatie gaat het om **een nieuwe vloer, nieuw pleisterwerk of een stal die bij het woonhuis getrokken wordt**. Die muren hebben vaak geen vochtkering en nemen bij een natte winter water op, dus is het nuttig te weten hoeveel vocht er al in zat vóór de werken.",
+        "**Bij nieuwbouw op het plateau** speelt de leembodem: het water zakt traag weg, en een woning die tijdens een natte periode gebouwd wordt, droogt niet vanzelf. **Een open, onbeschut perceel** koelt in de winter snel af, en dan helpt een kachel naast de droger om de chape op schema te krijgen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een nieuwbouwwoning in Noville-les-Bois of Hingeon**: 70 liter per dag en bereik tot ongeveer 400 m³." },
+      { key: "ttk650", waarom: "Voor **een stal die bij het woonhuis getrokken wordt**: veel volume en veel natte muur tegelijk, dus 110 liter per dag." },
+      { key: "teddh20", waarom: "Een gerenoveerde hoevekamer die nog niet verwarmd wordt, brengt deze kachel boven 15 °C, waar de condensdroger zijn werk doet." },
+      { key: "ttv4500", waarom: "**In een woning met dikke binnenmuren** komt droge lucht niet vanzelf in elke kamer. Deze ventilator duwt ze door." },
+    ],
+    levering: {
+      kop: "Leveren in Fernelmont: over Namen en de E42",
+      alinea:
+        "De rit loopt **via de E411 tot Namen en verder over de E42**, ruim een uur vanuit Aartselaar. Wij rijden in **het tijdslot** dat u bij de reservatie aanduidt. Ligt de werf aan een smalle landweg of achter een erfpoort, **zeg dat vooraf**, dan weet de technieker waar hij kan keren en hoe ver hij de toestellen moet dragen.",
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Fernelmont is een flinke rit",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ruim een uur**, en dat twee keer: bij het ophalen en bij het terugbrengen. Dat zijn vier ritten voor één huurperiode. **Laten leveren spaart u die tijd**, en de technieker meet bij plaatsing en ophaling hoe ver het drogen staat.",
+    },
+    buren: ["eghezee", "namen-stad", "andenne"],
+    faq: [
+      {
+        q: "Hoe weet ik of mijn oude hoevemuur droog genoeg is om te pleisteren?",
+        a: "Door te meten, niet door te voelen. Een dikke muur kan aan de oppervlakte droog lijken terwijl hij binnenin nog nat is. De technieker meet bij de plaatsing en bij het ophalen, zodat u een cijfer hebt om aan uw stukadoor te geven.",
+      },
+      {
+        q: "Moet ik thuis zijn als de droger in Fernelmont geleverd wordt?",
+        a: "Iemand moet de technieker binnenlaten en tonen waar de toestellen moeten staan. Daarom kiest u bij de reservatie een tijdslot. Is de werf een verbouwing waar de aannemer elke dag is, dan kan die de levering ook ontvangen.",
+      },
+      {
+        q: "Mag de droger 's nachts blijven draaien in een bewoonde hoeve?",
+        a: "Ja, de toestellen zijn gemaakt om dag en nacht te draaien. De Small en de Medium zijn stil genoeg voor een woning, al hoort u ze in dezelfde kamer wel. Plaats de droger bij voorkeur in de ruimte die gerenoveerd wordt en sluit de deur.",
+      },
+      {
+        q: "Wat doe ik met het condenswater als er geen afvoer is?",
+        a: "Het toestel vangt het water op in een reservoir dat u op tijd leegmaakt, of het pompt via een slang naar een emmer of een buitenafvoer. Op een werf zonder sanitair kiest de technieker bij de plaatsing de handigste oplossing en legt hij uit hoe vaak u moet ledigen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "la-bruyere",
+    title: "Bouwdroger huren in La Bruyère | Vernast",
+    description:
+      "Bouwdroger huren in La Bruyère: nieuwbouw en verbouwingen in Rhisnes, Émines, Meux en Bovesse, op het landbouwplateau vlak boven Namen. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in La Bruyère",
+    kicker: "Provincie Namen · het plateau boven Namen",
+    rit: { afstand: "circa 88 km", tijd: "ongeveer een uur" },
+    intro: [
+      "La Bruyère ligt **op het plateau net ten noorden van Namen**, tussen Gembloers en de stad. Het gemeentehuis staat in **Rhisnes**; de andere dorpen zijn **Émines, Meux, Bovesse, Saint-Denis, Villers-lez-Heest en Warisoulx**.",
+      "Het is een **landelijke gemeente met akkers en verspreide hoeves**, maar door de korte afstand tot Namen en de snelwegen in de buurt is ze sterk aangegroeid. Wie hier bouwt, heeft **de stad op een kwartier** en woont toch op het platteland. Dat geeft een mix van **recente verkavelingen en oude dorpshuizen** in kalksteen of baksteen.",
+    ],
+    bouw: {
+      kop: "Verkavelingen op leem en dorpshuizen in steen",
+      alineas: [
+        "**De nieuwe woningen in Rhisnes, Émines en Meux** staan op leem, net als in de rest van het plateau. Dat betekent: een bouwput die lang nat blijft en **een woning die bij het dichtmaken veel water bevat**, uit beton, chape en pleister. Wie de vloerder op tijd wil laten komen, moet dat water actief afvoeren.",
+        "**De oudere huizen in de dorpskernen** hebben dikke muren zonder spouw. Bij een renovatie wordt vaak **de vloer uitgebroken en vernieuwd**, of komt er isolatie tegen de binnenkant van de buitenmuur. In beide gevallen wilt u dat de muur droog is vóór hij dichtgemaakt wordt; anders zit het vocht opgesloten achter de isolatie.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een nieuwbouwwoning in een verkaveling op het plateau**: 70 liter per dag, ruim genoeg voor een gelijkvloers met verse chape." },
+      { key: "ttk170", waarom: "Voor **één kamer in een dorpshuis** die van binnenuit geïsoleerd wordt: compact en zuinig op een gewoon stopcontact." },
+      { key: "radiaal2250", waarom: "**Voor een nieuwe chape** die droog moet voor de vloerder: deze ventilator blaast droge lucht vlak over het oppervlak." },
+      { key: "teddh30", waarom: "Een nieuwbouw die in de winter nog geen verwarming heeft, krijgt met deze kachel **de temperatuur waarbij de droger goed werkt**." },
+    ],
+    levering: {
+      kop: "Leveren in La Bruyère: vlak bij de snelweg",
+      alinea:
+        "La Bruyère ligt **tegen het knooppunt van de E411 en de E42** aan, op ongeveer een uur van Aartselaar. U duidt bij het reserveren **een tijdslot** aan, zodat u niet de hele dag moet wachten. Op een nieuwbouwwerf **meldt u best of de oprit al verhard is**; zo niet, dan neemt de technieker een steekkar mee en zoekt hij de kortste weg naar binnen.",
+    },
+    afhalen: {
+      kop: "Afhalen: een uur heen, een uur terug",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur**, via de E411 en de ring rond Brussel. Voor een kleine droger die in de koffer past, kan het. Een Medium of een kachel samen met een droger past zelden in een personenwagen; dan is **leveren de praktische keuze**.",
+    },
+    buren: ["namen-stad", "gembloers", "eghezee"],
+    faq: [
+      {
+        q: "Ik isoleer de buitenmuur van mijn dorpshuis aan de binnenkant. Moet die eerst drogen?",
+        a: "Ja. Vocht dat achter de isolatie opgesloten raakt, kan niet meer weg en leidt tot schimmel of beschadigde pleister. Laat de muur meten voor u dichtmaakt. Is hij nog nat, dan droogt een droger met een ventilator hem in de dagen ervoor.",
+      },
+      {
+        q: "Hoe lang moet een chape drogen in een nieuwbouw in Rhisnes?",
+        a: "Dat hangt af van de dikte, het type chape en de temperatuur. De vloerder bepaalt de grenswaarde voor zijn vloer. Met een droger en een ventilator gaat het veel sneller dan vanzelf, en de technieker meet bij het ophalen zodat u een cijfer hebt.",
+      },
+      {
+        q: "Wat kost een bouwdroger huren in La Bruyère?",
+        a: "De huurprijs per toestel en de prijs voor levering en ophaling staan op onze prijzenpagina en in de reservatie. U ziet het totaal voor u bevestigt. De rit tot in La Bruyère zit in de leveringsprijs, er komt geen kilometervergoeding achteraf bij.",
+      },
+      {
+        q: "Kan ik de huurperiode verlengen als de woning nog niet droog is?",
+        a: "Ja. Meet de technieker bij de afgesproken ophaling dat het nog niet droog genoeg is, of ziet u dat zelf aankomen, dan verlengen we de huur. Laat het ons liefst een paar dagen vooraf weten, dan passen we de planning aan.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "sombreffe",
+    title: "Bouwdroger huren in Sombreffe | Vernast",
+    description:
+      "Bouwdroger huren in Sombreffe, Ligny, Tongrinne of Boignée: verbouwde hoeves en nieuwbouw op het leemplateau tussen Gembloers en Fleurus. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Sombreffe",
+    kicker: "Provincie Namen · Ligny en het plateau bij Fleurus",
+    rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
+    intro: [
+      "Sombreffe ligt **in het westen van de provincie Namen**, op de grens met Henegouwen, tussen Gembloers en Fleurus. De gemeente telt vier dorpen: **Sombreffe zelf, Ligny, Tongrinne en Boignée**. Ligny is bekend van **de slag van 1815**, twee dagen voor Waterloo, en heeft daar een bezoekerscentrum over.",
+      "Het landschap is **open akkerland op leem**, met grote hoeves en dorpen die langs de steenwegen gegroeid zijn. Sombreffe heeft ook **een middeleeuws kasteel**. De nabijheid van Charleroi en Namen trekt nieuwe bewoners, en dus **nieuwe woningen aan de rand van de dorpen**.",
+    ],
+    bouw: {
+      kop: "Hoeves langs de steenweg en nieuwbouw aan de dorpsrand",
+      alineas: [
+        "**In Ligny en Tongrinne** staan grote hoeves en oude dorpswoningen, vaak in baksteen. Bij een verbouwing komen **nieuwe vloeren, nieuwe badkamers en pleisterwerk** in muren die al een eeuw zonder vochtkering staan. Het bouwvocht komt dan bovenop het vocht dat de muur al had, en dat droogt trager dan de planning van de aannemer voorziet.",
+        "**Aan de rand van de dorpen** staan nieuwe woningen op leem. Na een natte periode **blijft de grond verzadigd**, en een woning die dan dichtgaat, houdt het water uit chape en pleister binnen. Met een droger op het juiste formaat en de ramen dicht haalt u dat water eruit voor de afwerking begint.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een nieuwbouw aan de dorpsrand van Sombreffe**: 70 liter per dag, bereik tot ongeveer 400 m³." },
+      { key: "ttk650", waarom: "Voor **een grote hoeve in Ligny of Tongrinne** die in één keer gerenoveerd wordt: meerdere ruimtes, veel natte muur." },
+      { key: "ttv4500", waarom: "In een hoevewoning met losse kamers achter elkaar **verdeelt deze ventilator de droge lucht** over het hele gelijkvloers." },
+      { key: "ttk170", waarom: "**Voor een badkamer of één kamer** die apart gerenoveerd wordt, terwijl de rest van het huis bewoond blijft." },
+    ],
+    levering: {
+      kop: "Leveren in Sombreffe: over de E411 en Gembloers",
+      alinea:
+        "Vanuit Aartselaar rijden we **ongeveer een uur**, langs de ring rond Brussel en dan via Gembloers. De technieker komt in **het tijdslot** dat u zelf kiest. Op een hoeve met een binnenkoer **zeg dan langs welke kant de technieker binnenkomt**, zodat hij de toestellen niet over het hele erf moet dragen.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: ongeveer een uur rijden",
+      alinea:
+        "Ons afhaalpunt ligt op **ongeveer een uur** van Sombreffe. Wie al in de buurt van Antwerpen moet zijn, kan een kleine droger meenemen. Houd er rekening mee dat **een toestel rechtop vervoerd moet worden**; voor een Medium of Large hebt u een bestelwagen of een grote break nodig.",
+    },
+    buren: ["gembloers", "jemeppe-sur-sambre", "fleurus"],
+    faq: [
+      {
+        q: "Mijn hoeve in Ligny heeft geen vochtkering. Helpt een bouwdroger dan wel?",
+        a: "Voor het bouwvocht van de renovatie wel: dat haalt de droger uit de ruimte. Optrekkend vocht uit de grond lost hij niet blijvend op, want dat komt na het drogen terug. De technieker meet bij de plaatsing of het vocht onderaan de muur hoger is dan bovenaan.",
+      },
+      {
+        q: "Kunnen jullie leveren in Boignée en Tongrinne?",
+        a: "Ja, alle vier de dorpen van Sombreffe vallen in onze levering: Sombreffe, Ligny, Tongrinne en Boignée. Geef het volledige adres door bij de reservatie; voor een hoeve buiten de dorpskern helpt een korte beschrijving van de toegang.",
+      },
+      {
+        q: "Kan de droger in een bewoonde woning staan tijdens de badkamerrenovatie?",
+        a: "Ja. De Small bouwdroger is compact en stil genoeg om in een bewoond huis te draaien. Zet hem in de badkamer, sluit de deur en laat het raam dicht. Zo droogt de nieuwe pleister of tegellijm zonder dat de rest van het huis vochtig wordt.",
+      },
+      {
+        q: "Moet ik de ramen openzetten terwijl de droger werkt?",
+        a: "Nee, liever niet. Een droger werkt in een gesloten ruimte: open ramen laten vochtige buitenlucht binnen, en dan droogt hij de buitenlucht in plaats van uw muren. Even kort luchten bij het binnenkomen is geen probleem.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "jemeppe-sur-sambre",
+    title: "Bouwdroger huren in Jemeppe-sur-Sambre | Vernast",
+    description:
+      "Bouwdroger huren in Jemeppe-sur-Sambre, Spy, Moustier of Ham-sur-Sambre: woningen in de Sambervallei met kelders bij het water. Geleverd en ter plaatse gemeten.",
+    h1: "Bouwdroger huren in Jemeppe-sur-Sambre",
+    kicker: "Provincie Namen · de vallei van de Samber",
+    rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
+    intro: [
+      "Jemeppe-sur-Sambre ligt **in de vallei van de Samber**, tussen Namen en Charleroi. Naast Jemeppe zelf horen daar **Spy, Moustier-sur-Sambre, Ham-sur-Sambre, Mornimont, Onoz, Balâtre en Saint-Martin** bij. Spy is wereldwijd bekend door **de grot waar skeletten van Neanderthalers** gevonden werden.",
+      "De Samber is hier lang **een industriële rivier** geweest, met chemische nijverheid en glasfabrieken op de oevers. Daarvan getuigen **de arbeiderswoningen in de dorpen bij het water**. Hogerop, richting het plateau, liggen de landelijkere dorpen en de nieuwere woningen.",
+    ],
+    bouw: {
+      kop: "Rijhuizen bij de Samber en woningen op de helling",
+      alineas: [
+        "**In de dorpen aan de Samber** staan veel oudere rijwoningen, gebouwd voor wie in de fabrieken werkte. Ze liggen laag, dicht bij het water, en hebben vaak **een kelder of een gelijkvloers zonder vochtkering**. Na hoog water op de rivier of na een renovatie blijft daar lang vocht in de muren zitten, en een koud, vochtig gelijkvloers droogt niet vanzelf.",
+        "**Op de hellingen naar het plateau** toe, richting Spy en Saint-Martin, wordt meer nieuw gebouwd. Daar gaat het om **chape en pleisterwerk** in een nieuwe woning, en om **een kelder in een helling** die van de bergkant water krijgt. De technieker meet bij de plaatsing of het vocht uit de bouw komt of uit de grond.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een kelder in een huis aan de Samber** die nat stond: 110 liter per dag, zodat het vocht eruit gaat voor het dieper in de muren trekt." },
+      { key: "revolution", waarom: "**Een koud gelijkvloers bij het water** droogt deze adsorptiedroger ook als de temperatuur onder 15 °C blijft." },
+      { key: "ttk350", waarom: "Voor een nieuwbouw op de helling richting Spy of Saint-Martin: 70 liter per dag, genoeg voor een volledige verdieping." },
+      { key: "radiaal2250", waarom: "Voor een natte keldervloer bij de rivier: **deze ventilator blaast over de vloer** en tot in de hoeken waar het water het langst blijft." },
+    ],
+    levering: {
+      kop: "Leveren in Jemeppe-sur-Sambre: via Namen of via Charleroi",
+      alinea:
+        "We rijden **via de E411 en de E42** en zijn ruim een uur onderweg vanuit Aartselaar. Wanneer de technieker komt, legt u vast met **een tijdslot** bij het reserveren. Gaat het om een kelder na wateroverlast, **zeg dan hoe hoog het water stond** en of het al weg is, zodat de technieker de juiste toestellen meebrengt en de eerste rit volstaat.",
+    },
+    afhalen: {
+      kop: "Afhalen vanuit de Sambervallei is een halve voormiddag",
+      alinea:
+        "Heen en terug naar ons afhaalpunt bent u **ruim twee uur onderweg**, buiten de spits. Alleen wie toch naar de streek rond Antwerpen moet, heeft daar baat bij. Na waterschade is leveren de betere keuze: **u blijft bij de kelder** en de technieker brengt alles mee.",
+    },
+    buren: ["sambreville", "sombreffe", "gembloers", "floreffe"],
+    faq: [
+      {
+        q: "Mijn huis aan de Samber heeft een natte kelder. Is dat bouwvocht of grondwater?",
+        a: "Dat kan beide zijn, en het verschil bepaalt of een droger helpt. Na een renovatie of na hoog water haalt een droger het vocht er blijvend uit. Komt het water bij elke regenperiode terug door de vloer, dan is het grondwater en moet eerst de oorzaak aangepakt worden.",
+      },
+      {
+        q: "Leveren jullie ook in Spy, Moustier en Ham-sur-Sambre?",
+        a: "Ja, alle deelgemeenten van Jemeppe-sur-Sambre horen bij onze levering, van Moustier en Ham-sur-Sambre aan de rivier tot Spy en Saint-Martin op de helling. Vermeld het volledige adres bij de reservatie, dan plannen we de rit correct.",
+      },
+      {
+        q: "Hoe lang moet een oude rijwoning drogen na een renovatie?",
+        a: "Een oud huis met dikke bakstenen muren zonder vochtkering geeft zijn water traag af. Reken op enkele weken, niet op enkele dagen. Met de ramen dicht, een droger per verdieping en een ventilator tegen de natste muur gaat het het snelst.",
+      },
+      {
+        q: "Is een adsorptiedroger beter dan een condensdroger in een kelder?",
+        a: "In een koude kelder wel. Een condensdroger heeft warmte nodig en verliest onder 15 °C veel rendement. Een adsorptiedroger blijft ook bij lagere temperaturen vocht opnemen. In een verwarmde kelder doet een condensdroger het prima, eventueel met een kachel erbij.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "sambreville",
+    title: "Bouwdroger huren in Sambreville | Vernast",
+    description:
+      "Bouwdroger huren in Sambreville, Auvelais, Tamines of Velaine: rijhuizen uit het steenkool- en glasverleden langs de Samber, met kelders bij het water. Geleverd.",
+    h1: "Bouwdroger huren in Sambreville",
+    kicker: "Provincie Namen · Auvelais, Tamines en de Basse-Sambre",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Sambreville is **een fusiegemeente aan de Samber**, tussen Charleroi en Namen. De naam is jong; de dorpen zijn oud: **Auvelais, Tamines, Arsimont, Falisolle, Keumiée, Moignelée en Velaine-sur-Sambre**. Samen vormen ze het hart van de streek die de **Basse-Sambre** heet.",
+      "Die streek leefde lang van **steenkool, glas en metaal**. Daarvan getuigen **de lange rijen arbeiderswoningen** in Tamines en Auvelais en de oude industriegronden langs de rivier. Vandaag wordt er veel **gerenoveerd**: oude rijhuizen worden opgeknapt, en wie een woning koopt, begint vaak met vloeren en pleisterwerk.",
+    ],
+    bouw: {
+      kop: "Arbeiderswoningen in baksteen en kelders aan de rivier",
+      alineas: [
+        "**De rijhuizen in Tamines en Auvelais** zijn gebouwd in baksteen, vaak **zonder spouw en zonder vochtkering**, met een smalle trap en een kelder onder de voorkamer. Bij een renovatie wordt die woning vaak in één keer aangepakt: **nieuwe chape, nieuwe pleister, een nieuwe badkamer**. Al dat water moet eruit voor de vloer en de verf erop kunnen.",
+        "**Dicht bij de Samber** ligt de grond laag en staat het grondwater hoog. Kelders en gelijkvloersen van huizen aan het water blijven daardoor koel en vochtig, zeker na een natte winter of na hoog water. **De technieker meet bij de plaatsing** hoe nat de muren zijn, zodat u weet waar u begint.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor een smal rijhuis met een steile trap**: de Small weegt ongeveer 25 kg en gaat zonder moeite naar boven." },
+      { key: "ttk350", waarom: "Voor **een rijwoning die in één keer gerenoveerd wordt**: 70 liter per dag, genoeg voor een gelijkvloers met verse chape." },
+      { key: "teddh30", waarom: "**Voor de kelder onder de voorkamer**, die bij de Samber koud blijft. Boven 15 °C werkt de condensdroger pas op volle kracht." },
+      { key: "ttv4500", waarom: "In een smal, diep rijhuis gaat de droge lucht niet vanzelf van voor naar achter. **Deze ventilator doet dat wel.**" },
+    ],
+    levering: {
+      kop: "Leveren in Sambreville: met de bestelwagen voor het rijhuis",
+      alinea:
+        "Vanuit Aartselaar is het **ongeveer een uur en een kwartier rijden**, via de ring rond Brussel en de E411 of langs Charleroi. Het moment van de levering kiest u zelf, in **een tijdslot**. In een straat met rijhuizen **zeg vooraf of de bestelwagen kort voor de deur kan staan**; de technieker draagt de toestellen naar binnen en zet ze per verdieping.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar is vanuit Sambreville een lange rit",
+      alinea:
+        "Ons afhaalpunt ligt op **ruim een uur**, en u rijdt die rit twee keer per huurperiode heen en terug. Dat loont zelden. **De levering zit in de prijs**, en u krijgt er een meting bij de start en bij het ophalen bij, wat bij een oud bakstenen huis echt iets zegt.",
+    },
+    buren: ["jemeppe-sur-sambre", "fosses-la-ville", "fleurus", "aiseau-presles"],
+    faq: [
+      {
+        q: "Ik heb een oud rijhuis gekocht in Tamines. Waar begin ik met drogen?",
+        a: "Met meten. Bij een oud huis zonder vochtkering wilt u weten hoeveel vocht er al in de muren zat voor u begint te renoveren. Daarna droogt u per fase: eerst na de chape, dan na het pleisterwerk. De technieker meet bij elke plaatsing en ophaling.",
+      },
+      {
+        q: "Past een bouwdroger op de smalle trap van een arbeiderswoning?",
+        a: "De Small bouwdroger wel: hij is compact en weegt ongeveer 25 kg. Voor de Medium rekent u op wat meer breedte. Meld bij de reservatie dat het om een smalle of steile trap gaat, dan kiest de technieker het toestel daarop.",
+      },
+      {
+        q: "Hoe droog ik een koude kelder dicht bij de Samber?",
+        a: "Met een droger en een elektrische kachel samen, of met een adsorptiedroger die geen warmte nodig heeft. Een gewone condensdroger werkt onder 15 °C slecht. Houd de kelderdeur dicht zodat de droger niet de lucht van het hele huis moet verwerken.",
+      },
+      {
+        q: "Kan de technieker in het Frans uitleggen hoe het toestel werkt?",
+        a: "Ja. In Sambreville spreken de meeste mensen Frans, en de technieker legt de bediening en het legen van het reservoir ook in het Frans uit als u dat verkiest. Zo weet ook een Franstalige aannemer op de werf wat hij moet doen.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "andenne",
+    title: "Bouwdroger huren in Andenne | Vernast",
+    description:
+      "Bouwdroger huren in Andenne, Seilles of Sclayn: huizen tussen de Maas en de kalkrotsen, kelders dicht bij het rivierpeil. Geleverd, geplaatst en gemeten.",
+    h1: "Bouwdroger huren in Andenne",
+    kicker: "Namen · de Maasstad tussen Namen en Hoei",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Andenne ligt **aan de Maas, halfweg tussen Namen en Hoei**. Het centrum groeide rond de **collegiale Sainte-Begge**, en de beer uit de legende van de stichteres keert terug in het stadswapen en in het **berencarnaval**. Aan de overkant van de rivier ligt **Seilles**, met de brug als verbinding.",
+      "De vallei is hier smal en wordt aan beide kanten begrensd door **kalkrotsen en oude groeves**. Dorpen als **Sclayn, Namêche en Landenne** liggen tegen de helling of in een zijdal, en verder van de rivier gaat de gemeente over in landbouwgrond op het plateau. Andenne had lang een eigen **aardewerk- en kleinijverheid**, en daar herinneren oudere arbeiderswoningen nog aan.",
+    ],
+    bouw: {
+      kop: "Kelders bij de Maas en huizen tegen de rots",
+      alineas: [
+        "**Langs de kaaien en in de lage straten van het centrum** staan rijwoningen met een kelder die niet ver boven het rivierpeil ligt. Staat de Maas hoog, dan stijgt ook het grondwater, en een kelder die net gerenoveerd is, krijgt dat vocht via de vloer en de onderkant van de muren. **De technieker meet bij de plaatsing** of het vocht bouwvocht is of van onderuit komt, want dat bepaalt hoe lang een droger zinvol is.",
+        "**In Sclayn, Namêche en de straten tegen de helling** staat het huis vaak met de achtergevel tegen rots of aarde. Die muur blijft koud en neemt na een natte periode water op. Wie zo'n woning verbouwt, met **nieuwe pleister op een stenen muur of een nieuwe chape op een oude vloer**, droogt het best met de ramen dicht, een kachel erbij in de winter en een toestel dat het volume aankan.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een kelder aan de Maaskant die na hoog water nat staat**: 110 liter per dag en bereik tot ongeveer 600 m³, zodat het vocht eruit is voor het diep in de muren trekt." },
+      { key: "radiaal2250", waarom: "Spatwaterdicht en laag bij de grond: deze ventilator **blaast over een natte keldervloer** en in de hoeken naast de trap, waar het water het langst blijft liggen." },
+      { key: "teddh30", waarom: "**Voor een woning met de achtergevel tegen de rots**, die in de winter koud blijft. Zonder warmte zakt het rendement van de droger en geeft de muur haar water nauwelijks af." },
+      { key: "ttk170", waarom: "Voor een badkamer of slaapkamer in een rijwoning in het centrum: **compact, op een gewoon stopcontact**, en licht genoeg voor een smalle trap." },
+    ],
+    levering: {
+      kop: "Leveren in Andenne: langs de E411 en de E42 naar de Maas",
+      alinea:
+        "Vanuit Aartselaar rijden we **over de ring rond Brussel en de E411 naar Namen**, en dan verder richting Andenne. Bij het boeken legt u **een tijdslot** vast. Woont u aan de overkant in Seilles of hoog op de helling, **zeg dan of de bestelwagen tot aan de deur kan**; de technieker brengt dan een steekkar mee voor de laatste meters.",
+    },
+    afhalen: {
+      kop: "Zelf afhalen in Aartselaar: twee keer de ring rond Brussel",
+      alinea:
+        "Een afhaling betekent vanuit Andenne **ruim twee uur rijden heen en terug**, en een toestel van **25 tot 40 kg dat rechtop in de wagen moet**. Voor wie toch in Antwerpen moet zijn kan dat, maar meestal is levering eenvoudiger: dan meet de technieker ook meteen hoe nat de kelder is.",
+    },
+    buren: ["namen-stad", "fernelmont", "ohey", "gesves"],
+    faq: [
+      {
+        q: "Mijn kelder in Andenne staat bij hoog water van de Maas vochtig. Lost een bouwdroger dat op?",
+        a: "Na een renovatie of na een periode met water in de kelder haalt een droger het opgestapelde vocht uit muren en vloer. Komt het water telkens terug wanneer de Maas stijgt, dan is dat grondwater en geen bouwvocht. De technieker meet bij de plaatsing welke van de twee de grootste rol speelt.",
+      },
+      {
+        q: "Leveren jullie ook in Seilles, aan de andere kant van de Maas?",
+        a: "Ja, Seilles hoort bij Andenne en valt gewoon in onze leverzone. Geef bij de reservatie het juiste adres en de toegang door, zeker als u aan een smalle straat langs de rivier woont, dan plannen we de rit en het tijdslot daarop.",
+      },
+      {
+        q: "Hoe droog ik een woning met de achtergevel tegen de rots?",
+        a: "Met een droger in de koudste ruimte, de ramen dicht en in het stookseizoen een kachel erbij, want een koude stenen muur geeft zijn water traag af. Verwacht eerder weken dan dagen. Een meting bij de start en bij de ophaling laat zien hoeveel de muur werkelijk gezakt is.",
+      },
+      {
+        q: "Kan ik voor de praktische afspraken in het Frans terecht?",
+        a: "Voor de praktische kant, zoals de toegang tot de woning of waar de toestellen moeten staan, helpen we u ook in het Frans verder. Deze pagina en de opvolging van uw dossier zijn in het Nederlands; bij twijfel belt u ons gewoon even op.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "ohey",
+    title: "Bouwdroger huren in Ohey | Vernast",
+    description:
+      "Bouwdroger huren in Ohey, Haillot of Évelette: natuurstenen hoeves en dorpshuizen op het Condroz-plateau, met dikke muren die traag drogen. Aan huis geplaatst.",
+    h1: "Bouwdroger huren in Ohey",
+    kicker: "Namen · landelijk Condroz boven de Maas",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Ohey ligt **op het Condroz-plateau, ten zuiden van Andenne**, en is een landelijke gemeente van verspreide dorpen: **Haillot, Évelette, Goesnes, Jallet en Perwez** horen erbij. Het landschap is dat van de Condroz: **langgerekte ruggen en tussenliggende dalen**, met akkers, weiden en bosranden.",
+      "De dorpen zijn gebouwd in **de steen van de streek**, zandsteen en kalksteen uit de ondergrond, vaak met hoeves rond een binnenplaats. Wie hier verbouwt, werkt dus zelden aan een spouwmuur van na de oorlog, maar aan **een massieve stenen gevel** die al lang staat en zijn eigen ritme heeft.",
+    ],
+    bouw: {
+      kop: "Hoeves in natuursteen die tot woning worden",
+      alineas: [
+        "Een **hoeve of schuur die tot woning verbouwd wordt**, krijgt in één keer een nieuwe vloerplaat, chape, binnenpleister en vaak een opgetrokken binnenmuur tegen de oude gevel. Dat is **veel water in een groot, hoog volume**, en de dikke stenen muren houden de ruimte koel. Daar werkt één groot toestel samen met een ventilator beter dan drie kleine.",
+        "In een **ouder dorpshuis** is het vocht vaak een mengeling: wat de renovatie erin bracht en wat **van onderuit in de muurvoet** zit, omdat er nooit een vochtkering geplaatst is. Na het afkappen van oude pleister is het verstandig om eerst te laten meten. **Een droger haalt het bouwvocht eruit**; opstijgend vocht vraagt daarna een eigen oplossing.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een verbouwde schuur of stal**: 110 liter per dag en bereik tot ongeveer 600 m³, genoeg voor een hoog volume met nieuwe chape en pleister." },
+      { key: "ttv4500", waarom: "In een lange hoeve met een open dakstructuur blijft vochtige lucht in de hoeken hangen. **Deze ventilator zet de hele ruimte in beweging.**" },
+      { key: "teddh30", waarom: "**Natuursteen houdt de kou vast.** Bij een winterwerf in een onverwarmde hoeve brengt deze kachel de ruimte op een temperatuur waar de droger rendeert." },
+      { key: "ttk350", waarom: "Voor een **dorpshuis in Haillot of Évelette** met nieuwe pleister op het gelijkvloers: 70 liter per dag, tot ongeveer 400 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Ohey: via Namen of Andenne het plateau op",
+      alinea:
+        "We rijden via de **E411 naar Namen** en dan langs Andenne het plateau op. Bij de reservatie kiest u **een tijdslot**. Ligt uw hoeve aan een veldweg of achter een smalle oprit, **vermeld dat dan**: dan weet de technieker vooraf waar de bestelwagen kan keren en hoe ver hij de toestellen moet rollen.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: een lange rit voor één toestel",
+      alinea:
+        "Vanuit Ohey bent u **heen en terug bijna drie uur onderweg** naar ons afhaalpunt. Voor een verbouwde hoeve met meerdere toestellen past dat bovendien niet in een gewone wagen. **Levering is hier de logische keuze**, en de rit zit in de prijs van het droogpakket.",
+    },
+    buren: ["andenne", "gesves", "havelange"],
+    faq: [
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een verbouwde Condrozische hoeve?",
+        a: "Dat hangt af van het volume, de dikte van de chape en hoeveel pleister er nieuw is. Een grote schuur met een hoge nok vraagt vaak een groot toestel en een ventilator per zone. De Calculator rekent het uit op basis van uw maten, en de technieker stelt bij bij de plaatsing.",
+      },
+      {
+        q: "Mijn stenen gevel blijft vochtig na de renovatie. Is dat bouwvocht?",
+        a: "Gedeeltelijk misschien. Nieuwe pleister en mortel brengen water mee dat een droger er wel uit haalt. Zit het vocht vooral in de onderste halve meter en komt het terug, dan is het waarschijnlijk opstijgend vocht. De meting bij de start maakt dat onderscheid zichtbaar.",
+      },
+      {
+        q: "Kan de bestelwagen tot aan een afgelegen hoeve rijden?",
+        a: "In de meeste gevallen wel, ook over een verharde veldweg. Is de toegang onverhard of heel smal, zeg dat dan bij de reservatie. De technieker brengt dan een steekkar mee en plant de levering zo dat hij niet achteruit een lange oprit af moet.",
+      },
+      {
+        q: "Is drogen in de winter zinvol in een onverwarmd huis op het plateau?",
+        a: "Ja, maar alleen met warmte erbij. Onder vijftien graden neemt lucht weinig vocht op en zakt het rendement van een condensdroger sterk. Een bouwkachel brengt de ruimte op temperatuur, waarna de droger het vrijgekomen vocht wel uit de lucht haalt.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "gesves",
+    title: "Bouwdroger huren in Gesves | Vernast",
+    description:
+      "Bouwdroger huren in Gesves, Mozet, Faulx-les-Tombes of Haltinne: stenen dorpshuizen in de valleien van de Condroz. Geleverd en geplaatst, met vochtmeting.",
+    h1: "Bouwdroger huren in Gesves",
+    kicker: "Namen · dorpen in de dalen van de Condroz",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Gesves ligt **in het noorden van de Condroz, ten oosten van Namen**, en bestaat uit een handvol dorpen: **Faulx-les-Tombes, Haltinne, Mozet, Sorée** en Gesves zelf. Het reliëf is hier uitgesproken, met **beboste hellingen en smalle valleien** zoals die van de Samson, die naar de Maas afloopt.",
+      "**Mozet** staat bekend als een van de mooiste dorpen van Wallonië, met huizen in grijze kalksteen, en in de buurt liggen de **grotten van Goyet**, waar sporen van prehistorische bewoning gevonden zijn. Die kalksteen bepaalt ook de bebouwing: wie in Gesves verbouwt, heeft meestal met **massieve stenen muren** te maken.",
+    ],
+    bouw: {
+      kop: "Kalksteen in het dal, koude muren aan de helling",
+      alineas: [
+        "**In de valleibodem** liggen de huizen dicht bij een beek, met een vochtige ondergrond en soms een kelder die bij aanhoudende regen water krijgt. Na herstel of renovatie moet zo'n kelder **grondig drogen voor er een nieuwe vloer in komt**, anders zit het vocht straks onder de tegels.",
+        "**Tegen de helling** staan woningen met één zijde half in de grond. Die muur is het hele jaar koud en voelt na de winter klam aan. Bij een verbouwing met **nieuwe binnenpleister of een opgetrokken voorzetwand** is het belangrijk dat de muur eerst droogt; anders sluit u het vocht op achter de afwerking.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een dorpshuis in kalksteen na een verbouwing**: 70 liter per dag en bereik tot ongeveer 400 m³, het toestel voor een volledig gelijkvloers." },
+      { key: "revolution", waarom: "**Voor een voorzetwand of zwevende vloer tegen een koude muur**: deze adsorptiedroger blaast droge lucht via slangen in de constructie en werkt ook bij lage temperatuur." },
+      { key: "radiaal2250", waarom: "Na water in een kelder in het dal blaast deze ventilator **gericht over de vloer**, zodat de dekvloer niet onder een nat laagje blijft liggen." },
+      { key: "teddh20", waarom: "**Voor een kelder of afgesloten ruimte tegen de helling**: een kleinere kachel die het lokaal op werkingstemperatuur brengt voor de droger." },
+    ],
+    levering: {
+      kop: "Leveren in Gesves: over Namen de valleien in",
+      alinea:
+        "Vanuit Aartselaar gaat de rit **via de E411 tot voorbij Namen**, en dan over de N-wegen de dorpen in. Het **tijdslot** kiest u zelf wanneer u reserveert. Sommige straten in Mozet en Faulx-les-Tombes zijn **smal en steil**; laat weten hoe de toegang is, dan houdt de technieker daar rekening mee bij het laden.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar vanuit Gesves",
+      alinea:
+        "Ons afhaalpunt ligt **ruim een uur rijden** van Gesves, dus reken heen en terug op een halve dag als u ook laadt en uitlaadt. Een toestel moet **rechtop vervoerd worden**. Met levering hoeft dat niet, en de technieker plaatst en meet meteen.",
+    },
+    buren: ["namen-stad", "andenne", "ohey", "assesse"],
+    faq: [
+      {
+        q: "Mag ik een voorzetwand plaatsen tegen een muur die nog vochtig is?",
+        a: "Liever niet. Achter een voorzetwand of nieuwe pleisterlaag kan het vocht niet meer weg, en dan krijgt u schimmel of loszittende afwerking. Laat de muur eerst drogen en meten. Is de wand al geplaatst, dan kan een adsorptiedroger via slangen droge lucht in de spouw blazen.",
+      },
+      {
+        q: "Werkt een bouwdroger in een koude kelder in het dal?",
+        a: "Een condensdroger verliest onder vijftien graden veel van zijn rendement. In een koude kelder zetten we er daarom een kachel naast, of kiezen we voor een adsorptiedroger, die bij lage temperatuur blijft werken. De technieker beslist dat op basis van de meting ter plaatse.",
+      },
+      {
+        q: "Hoe lang staat een droger in een kalkstenen huis in Mozet?",
+        a: "Dat hangt af van de muurdikte, de hoeveelheid nieuwe pleister en of de woning verwarmd is. Een dikke stenen muur droogt traag; reken eerder op enkele weken. De droogtijd volgt uit de meting bij de start en bij de ophaling, niet uit een vaste termijn.",
+      },
+      {
+        q: "Rijden jullie ook naar Haltinne en Sorée?",
+        a: "Ja, alle dorpen van Gesves liggen in onze leverzone. Vermeld bij de reservatie het volledige adres en eventueel hoe u er het best komt als het om een afgelegen woning gaat, dan plannen we de rit samen met andere adressen in de streek.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "assesse",
+    title: "Bouwdroger huren in Assesse | Vernast",
+    description:
+      "Bouwdroger huren in Assesse, Crupet, Courrière of Maillen: nieuwbouw langs de E411 en stenen hoeves in de Condroz. Geleverd en geplaatst met een tijdslot.",
+    h1: "Bouwdroger huren in Assesse",
+    kicker: "Namen · aan de E411 in de Condroz",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Assesse ligt **in de Condroz, ten zuidoosten van Namen**, en wordt doorsneden door **de E411 en de oude N4** richting Marche. Die ligging heeft de gemeente veranderd: rond **Courrière, Maillen en Sart-Bernard** zijn verkavelingen bijgekomen voor wie in Namen werkt en hier ruimer woont.",
+      "Tegelijk bleven de oude dorpen bewaard. **Crupet**, met zijn **middeleeuwse donjon** aan het water, hoort bij de mooiste dorpen van Wallonië, en ook **Florée, Sorinne-la-Longue en Natoye** zijn landelijk gebleven, met **hoeves en huizen in natuursteen**. Dat geeft twee heel verschillende soorten werven in één gemeente.",
+    ],
+    bouw: {
+      kop: "Nieuwbouw op het plateau, oude steen in de dorpen",
+      alineas: [
+        "**In de nieuwe wijken** gaat het meestal om nieuwbouw: een volledige woning met **chape op vloerverwarming en pleisterwerk** op elke muur, die droog moet zijn voor de vloerder of de schilder komt. Wie kort na de ruwbouw wil intrekken, wint met een droger weken op de planning. **De chape is daarbij de grootste watermassa.**",
+        "**In Crupet, Florée en de andere oude kernen** staan stenen huizen en hoeves die gerenoveerd worden. Daar zit het vocht in **dikke muren zonder spouw**, die traag reageren en in de winter koud blijven. Een droger met een kachel erbij en geduld werkt daar beter dan een toestel dat te groot is voor de ruimte.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een nieuwbouwwoning in Courrière of Maillen**: 70 liter per dag en bereik tot ongeveer 400 m³, genoeg om een gelijkvloers met verse chape aan te pakken." },
+      { key: "radiaal2250", waarom: "**Over de chape blazen** breekt het verzadigde laagje lucht net boven de vloer. Deze ventilator ligt laag en richt de stroom waar het moet." },
+      { key: "ttk650", waarom: "Voor **een grote nieuwbouw of een woning met kelder** die in één keer moet drogen: 110 liter per dag, tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "**Voor een stenen huis in Crupet of Florée** dat tijdens de werken onverwarmd blijft. Met warmte erbij geeft de dikke muur haar water sneller af." },
+    ],
+    levering: {
+      kop: "Leveren in Assesse: rechtstreeks over de E411",
+      alinea:
+        "Assesse heeft **een eigen afrit op de E411**, en dat maakt de rit vanuit Aartselaar eenvoudig: de ring rond Brussel, dan de autosnelweg naar het zuiden. U kiest **een tijdslot**. Staat de werf nog in ruwbouw, **zeg dan of er een werkende stroomaansluiting is**, want daar hangt het aantal toestellen van af.",
+    },
+    afhalen: {
+      kop: "Zelf afhalen: de E411 terug naar Aartselaar",
+      alinea:
+        "Via de E411 en de ring is ons afhaalpunt **iets meer dan een uur rijden**. Wie toch met de bestelwagen naar de regio Antwerpen moet, kan een toestel meenemen; reken op **25 tot 40 kg per stuk, rechtop vervoerd**. Voor een volledige nieuwbouw met meerdere toestellen is levering eenvoudiger.",
+    },
+    buren: ["namen-stad", "gesves", "profondeville", "yvoir"],
+    faq: [
+      {
+        q: "Wanneer mag ik vloeren op de chape in een nieuwbouw in Assesse?",
+        a: "Wanneer de meting zegt dat het restvocht onder de norm van de vloerbekleding zit, niet na een vast aantal weken. Een droger met ventilator versnelt dat sterk. De technieker meet bij de plaatsing en bij de ophaling, zodat u de vloerder een cijfer kunt geven.",
+      },
+      {
+        q: "Heb ik op een nieuwbouwwerf zonder definitieve aansluiting genoeg stroom?",
+        a: "Een droger en een ventilator draaien op een gewoon stopcontact, ook op een werfkast. Een bouwkachel van dertig kilowatt vraagt een aansluiting van 400 volt. Geef bij de reservatie door wat er op de werf beschikbaar is, dan stemmen we het pakket daarop af.",
+      },
+      {
+        q: "Werkt een bouwdroger in een oud stenen huis zonder spouwmuur?",
+        a: "Ja, maar trager dan in nieuwbouw. Een massieve muur geeft zijn water langzaam af en blijft in de winter koud. Met de ramen dicht, een kachel bij lage temperatuur en een meting aan het begin weet u hoeveel de muur werkelijk droogt.",
+      },
+      {
+        q: "Is de rit naar Crupet of Sorinne-la-Longue inbegrepen?",
+        a: "Ja. Alle deelgemeenten van Assesse liggen in onze leverzone en de levering, plaatsing en ophaling zitten in de prijs van het droogpakket. U ziet het volledige bedrag in de Calculator voor u boekt.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "profondeville",
+    title: "Bouwdroger huren in Profondeville | Vernast",
+    description:
+      "Bouwdroger huren in Profondeville, Lustin of Bois-de-Villers: woningen aan de Maas onder de rotsen van Frênes en villa's op de helling. Aan huis geplaatst.",
+    h1: "Bouwdroger huren in Profondeville",
+    kicker: "Namen · de Maasbocht onder de rotsen",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Profondeville ligt **aan de Maas, net stroomopwaarts van Namen**, in een bocht waar de rivier tussen steile oevers loopt. Bij Lustin rijzen de **rotsen van Frênes** boven het water uit, een bekende plek voor klimmers. Langs de oever staan **villa's en oudere huizen** uit de tijd dat de Maasvallei een vakantiebestemming was.",
+      "Bij de gemeente horen ook **Lustin, Rivière, Arbre, Lesve en Bois-de-Villers**, deels op de helling en deels op het plateau ten westen van de rivier. Dat maakt het bouwwerk gevarieerd: **een herenhuis aan de kaai, een villa tegen de rots, een verkaveling op het plateau**.",
+    ],
+    bouw: {
+      kop: "Aan de oever, tegen de rots, op het plateau",
+      alineas: [
+        "**Aan de Maaskant** ligt het gelijkvloers laag en de kelder dicht bij het rivierpeil. Na hoog water of bij een renovatie met nieuwe vloer moet die kelder volledig drogen. **Een groot toestel en een ventilator op de vloer** halen het meeste water eruit, maar het grondwater zelf blijft: de technieker meet of de muren nog vocht van buitenaf krijgen.",
+        "**Huizen tegen de rots** hebben vaak een achtergevel die in de helling zit, en kamers aan die kant zijn koud en klam. **Op het plateau rond Bois-de-Villers en Lesve** gaat het eerder om nieuwbouw en uitbreidingen, met chape en pleister op een vaste planning. Drie situaties, drie verschillende pakketten.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een kelder aan de Maaskant na hoog water**: 110 liter per dag, bereik tot ongeveer 600 m³. Het vocht moet eruit voor het in de muren blijft zitten." },
+      { key: "ttv4500", waarom: "In een **villa met hoge plafonds aan de oever** blijft de lucht anders stil staan. 4 500 m³ per uur houdt de hele ruimte in beweging." },
+      { key: "teddh20", waarom: "**Voor een koude kamer aan de rotskant**: deze kleinere kachel brengt één ruimte op temperatuur, zodat de droger er zijn werk kan doen." },
+      { key: "ttk350", waarom: "Voor **een nieuwbouw of uitbreiding op het plateau van Bois-de-Villers**: 70 liter per dag voor een gelijkvloers met verse chape." },
+    ],
+    levering: {
+      kop: "Leveren in Profondeville: over Namen langs de Maas",
+      alinea:
+        "We rijden **via de E411 naar Namen** en dan de Maas op richting Profondeville. Wanneer u boekt, duidt u **het tijdslot** aan dat u past. De weg langs de rivier is **smal en druk in het seizoen**; meld of er voor de deur kan worden gestopt, of dat de technieker beter een zijstraat neemt om uit te laden.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar vanuit de Maasvallei",
+      alinea:
+        "Heen en terug naar ons afhaalpunt bent u **ruim twee uur onderweg**, buiten de spits rond Brussel. Een toestel moet rechtop in de wagen, en voor een kelder na hoog water hebt u er meestal meer dan één nodig. **Levering bespaart u die rit**, en de technieker meet meteen bij de start.",
+    },
+    buren: ["namen-stad", "assesse", "yvoir", "floreffe", "fosses-la-ville"],
+    faq: [
+      {
+        q: "Mijn kelder aan de Maas heeft water gehad. Wanneer mag de droger erin?",
+        a: "Zodra het staande water weg is en er geen nieuw water meer binnenkomt. Eerst pompen en het slib verwijderen, dan pas drogen; anders droogt de droger een kelder die zich opnieuw vult. De technieker kijkt bij de plaatsing of de muren nog water van buitenaf krijgen.",
+      },
+      {
+        q: "Kan de technieker een toestel tot in een villa tegen de helling brengen?",
+        a: "Meestal wel, ook als er trappen in de tuin liggen. Een droger weegt 25 tot 40 kg en wordt met een steekkar of gedragen. Vermeld bij de reservatie hoeveel treden er zijn, dan rekent de technieker daarop en brengt hij het juiste materiaal mee.",
+      },
+      {
+        q: "Waarom blijft de kamer aan de rotskant klam, ook na de renovatie?",
+        a: "Omdat die muur in contact staat met de helling en koud blijft. Bouwvocht uit nieuwe pleister haalt een droger eruit, maar water dat via de rots binnendringt keert terug. Een meting aan het begin en het einde toont welk deel blijvend gedaald is.",
+      },
+      {
+        q: "Leveren jullie ook in Lustin, Rivière en Lesve?",
+        a: "Ja, alle deelgemeenten van Profondeville vallen in onze leverzone, zowel aan de rivier als op het plateau. Geef het volledige adres en de toegang door bij de reservatie, dan combineren we uw levering met andere adressen in de omgeving van Namen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "floreffe",
+    title: "Bouwdroger huren in Floreffe | Vernast",
+    description:
+      "Bouwdroger huren in Floreffe, Franière of Floriffoux: woningen aan de Samber onder de abdij en dorpshuizen op de helling. Geleverd, geplaatst en opgemeten.",
+    h1: "Bouwdroger huren in Floreffe",
+    kicker: "Namen · de abdij boven de Samber",
+    rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
+    intro: [
+      "Floreffe ligt **aan de Samber, enkele kilometers stroomopwaarts van Namen**. Boven het dal staat de **abdij van Floreffe**, gesticht in de twaalfde eeuw door de norbertijnen, met haar gebouwen op een rotsuitloper die over de vallei uitkijkt. Vandaag is er een school, en het abdijbier draagt de naam verder.",
+      "Bij de gemeente horen **Franière, Floriffoux en Soye**. Franière en Floriffoux liggen **in het Samberdal**, met oudere woningen langs het water en het spoor; Soye en de hogere delen van Floreffe liggen **op de helling en het plateau** richting Fosses-la-Ville, met meer recente woningen en verkavelingen.",
+    ],
+    bouw: {
+      kop: "Het Samberdal en de helling erboven",
+      alineas: [
+        "**In het dal bij Franière en Floriffoux** staan rijwoningen en arbeidershuizen dicht bij de rivier, met een kelder in een vochtige ondergrond. Wie zo'n huis opknapt, vindt vaak **oude pleister die met vocht vol zit** en een vloer zonder isolatie. Na het afkappen en opnieuw pleisteren is een compacte droger per ruimte meestal genoeg, als de deur dicht blijft.",
+        "**Op de helling en het plateau** liggen woningen uit de laatste decennia, waar gerenoveerd of uitgebreid wordt: een nieuwe keuken met tegelvloer, **een zolder die bewoonbaar wordt**, een aanbouw met chape. Daar zit het werk vooral in tempo: de afwerking moet erop, en de chape bepaalt wanneer.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor een rijwoning in Franière met nieuwe pleister**: 50 liter per dag op een gewoon stopcontact, compact genoeg om per kamer te verplaatsen." },
+      { key: "ttk350", waarom: "Voor een **aanbouw of verbouwde zolder op de helling van Soye**: 70 liter per dag en bereik tot ongeveer 400 m³." },
+      { key: "radiaal2250", waarom: "**Over een nieuwe chape in een aanbouw** gericht blazen, laag bij de vloer, zodat de tegelzetter sneller kan beginnen." },
+      { key: "teddh20", waarom: "**Voor een vochtige kelder in het Samberdal** die het hele jaar koel blijft: de kachel brengt hem op een temperatuur waar de droger rendeert." },
+    ],
+    levering: {
+      kop: "Leveren in Floreffe: via de E42 tot in het Samberdal",
+      alinea:
+        "Vanuit Aartselaar rijden we **over de ring rond Brussel naar de E42**, die vlak bij Floreffe ligt. Bij de reservatie geeft u aan **in welk tijdslot** u thuis bent. In het dal lopen sommige straten **tussen spoor en rivier**, met weinig plaats om te stoppen; zeg vooraf waar de bestelwagen even kan staan.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: ongeveer een uur in elke richting",
+      alinea:
+        "Ons afhaalpunt ligt **zo'n honderd kilometer** van Floreffe. Een afhaling kost u dus algauw een halve dag, en een toestel van **25 tot 40 kg** moet rechtop vervoerd worden. Levering is meestal de verstandigere keuze, want de rit zit in de pakketprijs.",
+    },
+    buren: ["namen-stad", "profondeville", "fosses-la-ville", "sambreville", "jemeppe-sur-sambre"],
+    faq: [
+      {
+        q: "Hoe droog ik een oude rijwoning in Franière na het afkappen van de pleister?",
+        a: "Eerst laten uitdrogen wat er na het afkappen bloot ligt, dan pas opnieuw pleisteren. Een droger per verdieping met de ramen en deuren dicht doet dat het snelst. Een meting bij de start en bij de ophaling laat zien of de muur klaar is voor de nieuwe laag.",
+      },
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een aanbouw met chape?",
+        a: "Voor een gewone aanbouw volstaat meestal één droger met een ventilator die over de vloer blaast. De Calculator rekent het precies uit op basis van oppervlak, laagdikte en materiaal. U ziet het bedrag voor u boekt, zonder waarborg erbovenop.",
+      },
+      {
+        q: "Mijn kelder vlak bij de Samber voelt altijd klam. Helpt een droger?",
+        a: "Een droger haalt het vocht uit de lucht en uit muren die na een renovatie nat zijn. Is de kelder klam omdat het grondwater hoog staat, dan droogt hij tijdelijk, maar het vocht keert terug als het toestel weg is. De technieker meet bij de plaatsing wat de oorzaak is.",
+      },
+      {
+        q: "Komen jullie ook tot aan de woningen in de buurt van de abdij?",
+        a: "Ja, heel Floreffe ligt in onze leverzone, ook de straten op de helling onder de abdij. Zijn ze smal of steil, vermeld dat bij de reservatie. Dan weet de technieker vooraf waar hij uitlaadt en of hij de steekkar nodig heeft.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "fosses-la-ville",
+    title: "Bouwdroger huren in Fosses-la-Ville | Vernast",
+    description:
+      "Bouwdroger huren in Fosses-la-Ville, Vitrival of Sart-Saint-Laurent: stenen huizen rond de collegiale en hoeves op het plateau. Geleverd, geplaatst en gemeten.",
+    h1: "Bouwdroger huren in Fosses-la-Ville",
+    kicker: "Namen · de Chinels-stad tussen Samber en Maas",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Fosses-la-Ville ligt **op het plateau van Entre-Sambre-et-Meuse**, tussen de Samber en de Maas, ten zuiden van Floreffe. Het oude stadje groeide rond de **collegiale Sint-Feuillen**, en is in de streek bekend om **de Chinels**, de gemaskerde figuren van het carnaval rond half vasten.",
+      "Rond de kern liggen dorpen als **Vitrival, Sart-Saint-Laurent, Sart-Eustache, Aisemont en Le Roux**. Het landschap is **open landbouwgebied** met beboste randen en kleine beken, en de bebouwing is gemengd: **stenen dorpshuizen en hoeves** naast woningen uit de jaren zeventig en later.",
+    ],
+    bouw: {
+      kop: "Een oud stadscentrum en open land eromheen",
+      alineas: [
+        "**In het centrum rond de collegiale** staan rijwoningen in steen en baksteen, met kelders en een gelijkvloers dat vaak geen vochtkering heeft. Bij een renovatie komt daar **nieuwe pleister op oude muren** bij, en die mengeling van bouwvocht en oud vocht droogt traag. Eén toestel per verdieping, deuren dicht, en een meting bij de start.",
+        "**In de dorpen op het plateau** worden hoeves en woningen uit de jaren zeventig aangepakt: **nieuwe vloeren, een geïsoleerde chape, een badkamer**. Het is er open en winderig, en in de winter koud; een werf die dan onverwarmd blijft, droogt alleen met warmte erbij.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een woning uit de jaren zeventig met nieuwe chape**: 70 liter per dag, bereik tot ongeveer 400 m³, het toestel voor een volledig gelijkvloers." },
+      { key: "ttk170", waarom: "Voor **een rijwoning in het centrum rond de collegiale**: compact, 0,75 kW, en makkelijk van kamer naar kamer te verplaatsen." },
+      { key: "teddh30", waarom: "**Voor een winterwerf op het open plateau**, waar een onverwarmd huis snel afkoelt. Met warmte erbij blijft de droger op volle capaciteit werken." },
+      { key: "ttv4500", waarom: "In een **lange hoeve met meerdere ruimten achter elkaar** zet deze ventilator de lucht in beweging, zodat elke kamer droge lucht krijgt." },
+    ],
+    levering: {
+      kop: "Leveren in Fosses-la-Ville: via Namen of Charleroi",
+      alinea:
+        "De rit loopt **over de ring rond Brussel en de E42**, en dan zuidwaarts het plateau op. Het **tijdslot** voor de levering kiest u tijdens het boeken. Tijdens het carnaval is het centrum afgesloten; **plant u rond die periode**, zeg het dan, dan kiezen we een dag waarop de straten vrij zijn.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar vanuit Entre-Sambre-et-Meuse",
+      alinea:
+        "Vanuit Fosses-la-Ville bent u **ruim twee uur onderweg** om een toestel heen en terug te halen. Wie een hoeve verbouwt, heeft er bovendien vaak meer dan één nodig, en die passen zelden samen in een gewone wagen. **Laat ons leveren**: de rit zit in de prijs.",
+    },
+    buren: ["floreffe", "profondeville", "mettet", "sambreville"],
+    faq: [
+      {
+        q: "Kunnen jullie leveren tijdens het carnaval van Fosses-la-Ville?",
+        a: "Het centrum is dan grotendeels afgesloten, dus levering in de kern plannen we liever op een andere dag. In de omliggende dorpen is het meestal geen probleem. Geef bij de reservatie door dat uw adres in het centrum ligt, dan kiezen we samen een geschikt tijdslot.",
+      },
+      {
+        q: "Hoe droog ik een woning uit de jaren zeventig na een nieuwe chape?",
+        a: "Met een droger die het volume aankan en een ventilator die laag over de vloer blaast, ramen dicht. Een chape van enkele centimeters heeft weken nodig; met de juiste toestellen wordt dat korter. De meting bij de ophaling toont of de vloerder kan beginnen.",
+      },
+      {
+        q: "Heb ik een kachel nodig als ik in de winter op het plateau verbouw?",
+        a: "Als de woning tijdens de werken niet verwarmd wordt, ja. Onder vijftien graden werkt een condensdroger veel minder goed en geeft de muur haar water traag af. De Heatpower 30 vraagt wel een aansluiting van 400 volt; vermeld bij de reservatie wat er op de werf is.",
+      },
+      {
+        q: "Valt Le Roux of Aisemont ook binnen jullie leverzone?",
+        a: "Ja, alle deelgemeenten van Fosses-la-Ville horen erbij. Bij de reservatie geeft u het adres door en kiest u een tijdslot. Wij combineren de rit met andere leveringen in de streek tussen Samber en Maas.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "mettet",
+    title: "Bouwdroger huren in Mettet | Vernast",
+    description:
+      "Bouwdroger huren in Mettet, Saint-Gérard of Biesme: hoeves en dorpshuizen op het plateau van Entre-Sambre-et-Meuse, bij het circuit. Aan huis geleverd.",
+    h1: "Bouwdroger huren in Mettet",
+    kicker: "Namen · het circuit op het plateau",
+    rit: { afstand: "circa 120 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Mettet ligt **op het hoogste deel van het plateau van Entre-Sambre-et-Meuse**, tussen Fosses-la-Ville en Florennes. Buiten de streek kent men de gemeente vooral van het **circuit Jules Tacheny**, waar al decennia motor- en autowedstrijden gereden worden.",
+      "Verder is het een **landelijke gemeente van uitgestrekte dorpen**: **Saint-Gérard** met de resten van de **abdij van Brogne**, Biesme, Biesmerée, Ermeton-sur-Biert, Furnaux, Graux en Oret. Er wordt geboerd op een **open, hoog plateau**, en dat zie je aan de bebouwing: grote hoeves, dorpshuizen in steen en verspreide nieuwbouw.",
+    ],
+    bouw: {
+      kop: "Grote hoeves en open wind op het plateau",
+      alineas: [
+        "Een **hoeve die tot woning of gîte verbouwd wordt** is het typische project hier: hoge ruimtes, dikke muren, een nieuwe vloerplaat en veel pleister. **Het volume is groot en de muren zijn koud**, dus één toestel volstaat zelden. Een droger per zone, met een ventilator die de lucht door de lange ruimtes stuurt, houdt de planning haalbaar.",
+        "Het plateau ligt **hoog en open**, en in de winter koelt een onverwarmd huis er sneller af dan in een beschut dal. Voor een **nieuwbouw of renovatie in de koude maanden** betekent dat warmte erbij. Wie dat overslaat, ziet de droger weinig liters opbrengen terwijl het werk wacht.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een verbouwde hoeve of gîte met hoge plafonds**: 110 liter per dag en bereik tot ongeveer 600 m³, het grootste toestel uit het gamma." },
+      { key: "teddh30", waarom: "**Op het open plateau koelt een werf snel af.** Deze kachel van 30 kW brengt een grote ruimte op temperatuur zodat de droger rendeert." },
+      { key: "ttv4500", waarom: "Voor **een lange hoeve met ruimtes achter elkaar**: 4 500 m³ lucht per uur stuurt de droge lucht tot in de verste kamer." },
+      { key: "revolution", waarom: "Voor **een vloeropbouw of isolatielaag die nat geworden is**: deze adsorptiedroger blaast droge lucht via slangen in de constructie, ook als het koud is." },
+    ],
+    levering: {
+      kop: "Leveren in Mettet: het plateau ten zuiden van de Samber",
+      alinea:
+        "We rijden **via de ring rond Brussel en de E42** en dan het plateau op naar Mettet. U kiest **een tijdslot** bij de reservatie. Op een **wedstrijdweekend bij het circuit** is het druk op de wegen rond de kern; plant u in die periode, laat het weten, dan houden we daar rekening mee.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: bijna drie uur heen en terug",
+      alinea:
+        "Mettet ligt **ruim honderd kilometer** van ons afhaalpunt. Voor een verbouwde hoeve met meerdere toestellen en een kachel is afhalen in een gewone wagen niet haalbaar. **Levering is hier de standaard**, met plaatsing en een meting bij de start.",
+    },
+    buren: ["fosses-la-ville", "gerpinnes", "florennes", "anhee"],
+    faq: [
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een hoeve die een gîte wordt?",
+        a: "Dat hangt af van het volume, het aantal ruimtes en hoeveel chape en pleister er nieuw is. Voor een grote hoeve rekent u meestal op meerdere drogers en ventilatoren, verdeeld per zone. De Calculator berekent het pakket, en de technieker stelt het ter plaatse bij.",
+      },
+      {
+        q: "Werkt een bouwdroger in een onverwarmde hoeve op het plateau in de winter?",
+        a: "Slecht, zonder warmte. Onder vijftien graden haalt een condensdroger weinig water uit de lucht. Een bouwkachel brengt de ruimte op temperatuur, en dan werkt de droger weer op volle capaciteit. Een kachel van 30 kW vraagt een aansluiting van 400 volt.",
+      },
+      {
+        q: "Wat als de isolatie onder mijn chape nat geworden is?",
+        a: "Dan droogt een gewone droger de bovenkant, maar blijft het water onder de chape zitten. Een adsorptiedroger blaast via slangen droge lucht in de vloeropbouw. Of dat werkt of de vloer eruit moet, beoordeelt de technieker na een meting.",
+      },
+      {
+        q: "Leveren jullie in Saint-Gérard en Ermeton-sur-Biert?",
+        a: "Ja, alle deelgemeenten van Mettet vallen in onze leverzone, ook de verspreide hoeves buiten de kernen. Geef bij de reservatie het adres en de toegang door, zeker bij een lange oprit, dan plannen we de levering met een tijdslot.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "dinant",
+    title: "Bouwdroger huren in Dinant | Vernast",
+    description:
+      "Bouwdroger huren in Dinant: huizen tussen de Maas en de rotswand, kelders aan de kade en woningen in Anseremme en Bouvignes. Geleverd, geplaatst en gemeten.",
+    h1: "Bouwdroger huren in Dinant",
+    kicker: "Namen · de stad tussen Maas en rots",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Dinant ligt **in een smalle strook tussen de Maas en een steile rotswand**. Onder de **citadel** staat de **collegiale kerk** met haar peervormige toren, en iets stroomopwaarts rijst de **Rocher Bayard** naast de weg op. Meer ruimte is er niet: de stad loopt in de lengte langs het water.",
+      "Bij de gemeente horen ook **Anseremme**, waar de Lesse in de Maas uitmondt, **Bouvignes** aan de overkant van de stroom, en dorpen op het plateau zoals **Falmignoul, Sorinnes en Foy-Notre-Dame**. Wie liever Franstalig overlegt over de plaatsing, kan dat met de technieker ter plaatse doen.",
+    ],
+    bouw: {
+      kop: "Huizen tegen de rots en kelders aan de Maaskade",
+      alineas: [
+        "Veel woningen in het centrum staan **met hun achtergevel tegen de rots**. Een kamer of keuken aan die kant heeft kalksteen en grond tegen de muur, en dat **voert bij regen vocht aan** dat niets met de verbouwing te maken heeft. Na nieuw pleisterwerk wil u weten welk vocht uit de werken komt en welk uit de wand. **De technieker meet beide zones apart** bij de plaatsing.",
+        "Aan de kade ligt het gelijkvloers **dicht bij het waterpeil van de Maas**. De streek heeft in de zomer van 2021 gezien wat zware regen in deze vallei doet. Na **waterschade** is het werk altijd hetzelfde: eerst het staande water en het slib weg, dan **vloer, muren en kelder drogen** tot de afwerking erop kan.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Na water in een gelijkvloers aan de Maaskade**: 110 liter per dag om het vocht uit vloer en muren te halen voor het verder trekt." },
+      { key: "revolution", waarom: "Voor **de kamer die tegen de rotswand ligt** en koud blijft: de adsorptiedroger blijft vocht opnemen waar een condensdroger stilvalt." },
+      { key: "radiaal2250", waarom: "Blaast gericht over een natte vloer en in de hoeken van een kelder, waar het water na een overstroming het langst blijft hangen." },
+      { key: "ttk350", waarom: "Voor **een smal stadshuis dat per verdieping wordt opgeknapt**: 70 liter per dag en makkelijk genoeg voor een steile trap." },
+    ],
+    levering: {
+      kop: "Leveren in Dinant: over Namen en langs de Maas",
+      alinea:
+        "We rijden **via de E19, de ring en de E411 naar Namen** en volgen daarna de Maas stroomopwaarts. Bij de reservatie kiest u **een tijdslot**. Langs de kade en in de smalle straten achter de collegiale kerk is **stilstaan niet overal mogelijk**; zeg vooraf waar de bestelwagen kan laden, dan brengt de technieker een steekkar mee en zet hij de toestellen per droogzone.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: ruim twee en een half uur heen en terug",
+      alinea:
+        "Vanuit Dinant is ons afhaalpunt **geen rit om even te maken**. Heen en terug bent u al snel een halve dag kwijt. Laat ons leveren: de rit zit in de prijs, en u krijgt er **een vochtmeting bij de start** bij, wat in een huis tegen de rots het verschil maakt.",
+    },
+    buren: ["yvoir", "anhee", "onhaye", "hastiere", "houyet"],
+    faq: [
+      {
+        q: "Mijn huis staat tegen de rotswand. Is dat vocht bouwvocht?",
+        a: "Niet altijd. Pleisterwerk en chape geven hun water af en zijn dan klaar, maar vocht dat uit de rots en de grond achter de muur komt, keert na elke regenperiode terug. De technieker meet bij de plaatsing beide kanten, zodat u weet wat een droger hier oplost.",
+      },
+      {
+        q: "Wat doe ik eerst als de Maas mijn gelijkvloers bereikt heeft?",
+        a: "Laat eerst het staande water wegpompen en het slib verwijderen, en kijk na of de elektriciteit veilig is. Pas daarna heeft drogen zin. Vermeld bij de reservatie hoe hoog het water stond, dan brengt de technieker de juiste combinatie van drogers en ventilatoren mee.",
+      },
+      {
+        q: "Leveren jullie ook op het plateau, in Sorinnes of Foy-Notre-Dame?",
+        a: "Ja, alle deelgemeenten van Dinant vallen in onze levering, ook de dorpen boven de vallei. Daar gaat het eerder om een verbouwde hoeve dan om een huis aan de kade, en dan rekenen we de toestellen op het grotere volume.",
+      },
+      {
+        q: "Kan een droger in een kelder onder de stadswoning blijven draaien?",
+        a: "Ja. Onze toestellen zijn pompklaar en de technieker legt de afvoerslang naar een putje of een gootsteen, zodat er niets leeg te maken valt. In een koude kelder tegen de rots kiezen we liever de adsorptiedroger, die ook bij lage temperatuur blijft werken.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "yvoir",
+    title: "Bouwdroger huren in Yvoir | Vernast",
+    description:
+      "Bouwdroger huren in Yvoir, Godinne, Spontin of Purnode: woningen aan de Maas en in de vallei van de Bocq, natuurstenen hoeves op het plateau. Thuis geplaatst.",
+    h1: "Bouwdroger huren in Yvoir",
+    kicker: "Namen · waar de Bocq in de Maas loopt",
+    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
+    intro: [
+      "Yvoir ligt **aan de Maas, op de plek waar de Bocq erin uitmondt**. De kern ligt in het dal, met het eilandje in de stroom ervoor, en stroomafwaarts volgt **Godinne** langs dezelfde oever. Wie de Bocq landinwaarts volgt, komt door **Purnode en Spontin**, waar het kasteel naast de rivier staat.",
+      "Op de hoogte liggen **Durnal, Dorinne, Evrehailles en Mont**: dorpen in **natuursteen** op het plateau van de Condroz. Daar wonen mensen in oude hoeves en dorpshuizen, en worden schuren en stallen geregeld tot woning verbouwd.",
+    ],
+    bouw: {
+      kop: "Lage oevers aan Maas en Bocq, hoeves in kalksteen",
+      alineas: [
+        "**In de dalen van de Maas en de Bocq** ligt het gelijkvloers laag en is het grondwater nooit ver weg. Een kelder of een benedenverdieping wordt daar na een natte winter vochtiger dan boven. Wie zo'n huis renoveert, droogt **koude muren zonder vochtkering**; met een ventilator die de natte luchtlaag van de wand blaast, gaat dat merkbaar vlotter.",
+        "**Op het plateau** draait het om grotere volumes. Een verbouwde hoeve krijgt vaak **een nieuwe vloerplaat, chape en veel pleisterwerk** tegelijk, achter muren van een halve meter kalksteen. Zulke muren geven hun water **traag** af. Een groot toestel met de hygrostaat op een streefwaarde houdt het tempo gelijkmatig, zodat het pleisterwerk niet scheurt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een hoeve of schuur op het plateau die tot woning wordt verbouwd**: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "Haalt de verzadigde lucht weg langs een dikke kalkstenen muur, zodat die over haar hele oppervlak droogt en niet in één hoek nat blijft." },
+      { key: "revolution", waarom: "Voor **een lage kelder in het dal van de Bocq**, die ook in de zomer koel blijft en waar een condensdroger zijn rendement verliest." },
+      { key: "ttk350", waarom: "Voor een woning in Godinne of in de kern van Yvoir die per verdieping wordt opgeknapt: 70 liter per dag, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Yvoir: langs de Maas of over het plateau",
+      alinea:
+        "De rit loopt **over Namen**, en vandaar langs de Maas of over de hoogte, afhankelijk van uw adres. Bij de reservatie legt u **een tijdslot** vast. In de dalen zijn sommige wegen smal en steil; meld vooraf of de bestelwagen tot aan uw deur kan. De technieker zet de toestellen per droogzone en **noteert de vochtwaarden** voor hij vertrekt.",
+    },
+    afhalen: {
+      kop: "Zelf afhalen: meer rijden dan drogen",
+      alinea:
+        "Aartselaar ligt op **ruim een uur** van Yvoir, en dat betekent heen en terug een flink stuk van uw dag, twee keer: bij de start en bij het terugbrengen. Voor één los toestel kan het als u toch richting Antwerpen moet. Voor een hoeve met meerdere ruimtes is levering de logische keuze.",
+    },
+    buren: ["anhee", "dinant", "profondeville", "assesse"],
+    faq: [
+      {
+        q: "Hoeveel toestellen vraagt een verbouwde hoeve in Durnal of Spontin?",
+        a: "Dat hangt af van het volume en van hoeveel nat werk er gebeurd is. Reken op een groot toestel per open ruimte en een ventilator waar de nieuwe chape ligt. Geef bij de reservatie de oppervlakte en de plafondhoogte door, dan rekenen we de opstelling vooraf uit.",
+      },
+      {
+        q: "Waarom blijft mijn kelder aan de Bocq vochtig na het drogen?",
+        a: "Omdat een kelder zo dicht bij de rivier vocht van buitenaf krijgt zodra het grondwater stijgt. Een droger haalt het bouwvocht weg en houdt de ruimte bruikbaar, maar water dat door de muur blijft komen vraagt een oplossing aan de buitenkant. De meting toont welk van de twee speelt.",
+      },
+      {
+        q: "Hoe snel droogt een muur van natuursteen na nieuw kalkpleister?",
+        a: "Trager dan een bakstenen binnenmuur, want een dikke kalkstenen wand houdt veel water vast en geeft het geleidelijk af. Reken eerder op weken dan op dagen. Zet de hygrostaat op een streefwaarde in plaats van op maximaal, zodat het pleisterwerk niet te snel uitdroogt.",
+      },
+      {
+        q: "Komen jullie ook naar Godinne en Evrehailles?",
+        a: "Ja, we leveren in alle deelgemeenten van Yvoir, zowel langs de Maas als op het plateau. Ligt uw woning aan een smalle of steile weg, vermeld dat dan bij de reservatie, dan weet de technieker vooraf waar hij kan uitladen.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "anhee",
+    title: "Bouwdroger huren in Anhée | Vernast",
+    description:
+      "Bouwdroger huren in Anhée, Annevoie, Denée of Warnant: woningen aan de Maas en in de vallei van de Molignée onder Maredsous. Geleverd en per ruimte geplaatst.",
+    h1: "Bouwdroger huren in Anhée",
+    kicker: "Namen · de vallei van de Molignée",
+    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
+    intro: [
+      "Anhée ligt **op de linkeroever van de Maas**, waar de **Molignée** in de stroom uitkomt. Die kleine rivier slingert landinwaarts door een beboste vallei langs **Warnant en Sosoye**, en hoog daarboven staat in Denée **de abdij van Maredsous**, die u van ver ziet liggen.",
+      "Verder horen **Annevoie-Rouillon**, met zijn tuinen en waterpartijen, **Bioul en Haut-le-Wastia** bij de gemeente. Het is een landelijke gemeente: dorpskernen in **grijze kalksteen**, verspreide hoeves en woningen die in de helling gebouwd zijn.",
+    ],
+    bouw: {
+      kop: "Dorpshuizen in het dal, woningen in de helling",
+      alineas: [
+        "**In het smalle dal van de Molignée** staan de huizen dicht bij het water en vaak half tegen de helling. Een gelijkvloers dat met de achterkant in de grond zit, krijgt **vocht door de muur** zodra de bodem verzadigd is. Na een renovatie wilt u weten of het nog bouwvocht is; de technieker meet **de muur aan de bergkant en die aan de straat** apart.",
+        "**Op het plateau rond Bioul en Denée** gaat het om grotere woningen en verbouwde hoeves met **dikke stenen muren en betonnen vloerplaten**. Daar ligt het meeste water in de nieuwe chape. Een ventilator die laag over de vloer blaast, samen met een groot toestel in de ruimte, brengt die vloer op tijd op de waarde die de vloerder vraagt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een dorpshuis in Warnant of Sosoye**: 70 liter per dag, compact genoeg voor de smalle trappen van een oud huis." },
+      { key: "radiaal2250", waarom: "Blaast laag en gericht over **een verse chape in een verbouwde hoeve** op het plateau, waar de vloer het meeste water vasthoudt." },
+      { key: "ttk650", waarom: "Voor een open woonruimte of een volledig gestripte hoeve: 110 liter per dag en bereik tot ongeveer 600 m³." },
+      { key: "teddh20", waarom: "Brengt een **onverwarmd huis in de koele vallei** in de winter boven 15 °C, de temperatuur waarboven een condensdroger echt rendeert." },
+    ],
+    levering: {
+      kop: "Leveren in Anhée: via Namen en de linker Maasoever",
+      alinea:
+        "We nemen **de snelweg tot Namen** en volgen dan de Maas op de linkeroever. Het moment van levering legt u vast met **een tijdslot** naar keuze. In de vallei van de Molignée zijn de wegen bochtig en smal; meld of de bestelwagen tot aan uw deur kan, dan neemt de technieker een steekkar mee. Hij **legt de afvoerslang** en stelt de hygrostaat in voor hij vertrekt.",
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Anhée: een tocht naar de A12",
+      alinea:
+        "Tot ons afhaalpunt in Aartselaar is het **ruim een uur**, en die rit maakt u twee keer per huurperiode. Een droger weegt 25 tot 40 kg en moet rechtop vervoerd worden. Voor één toestel kan het passen; voor een hele woning laat u beter leveren.",
+    },
+    buren: ["yvoir", "dinant", "onhaye", "mettet", "profondeville"],
+    faq: [
+      {
+        q: "Mijn huis in de vallei van de Molignée ligt tegen de helling. Wat kan een droger daar?",
+        a: "Bouwvocht na een renovatie haalt hij er gewoon uit. Vocht dat na elke regenperiode uit de helling door de muur komt, keert terug zodra het toestel weg is. De technieker meet bij de plaatsing beide kanten, zodat u weet waar u aan toe bent.",
+      },
+      {
+        q: "Hoe droog ik een nieuwe chape in een verbouwde hoeve rond Bioul?",
+        a: "Met de ramen dicht, een groot toestel in de ruimte en een radiaalventilator die laag over de vloer blaast. De vloerder bepaalt de grenswaarde. Bij het ophalen meet de technieker opnieuw, zodat u een cijfer hebt om aan hem door te geven.",
+      },
+      {
+        q: "Werkt een bouwdroger in een koud, onverwarmd huis in de winter?",
+        a: "Een condensdroger verliest onder ongeveer 15 °C duidelijk rendement. Daarom zetten we in een koude woning een elektrische kachel mee, die de ruimte eerst op temperatuur brengt. In een kelder kiezen we liever een adsorptiedroger, die ook bij lage temperatuur blijft werken.",
+      },
+      {
+        q: "Leveren jullie in Annevoie-Rouillon en Haut-le-Wastia?",
+        a: "Ja, we rijden naar alle deelgemeenten van Anhée, ook naar de verspreide hoeves buiten de dorpskernen. Ligt uw adres aan een onverharde oprit of een smalle landweg, vermeld dat bij de reservatie, dan weet de technieker vooraf waar hij kan laden.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "hastiere",
+    title: "Bouwdroger huren in Hastière | Vernast",
+    description:
+      "Bouwdroger huren in Hastière, Waulsort of Heer: woningen aan de Maas vlak voor de Franse grens, rond de romaanse kerk. Thuis geleverd, geplaatst en opgehaald.",
+    h1: "Bouwdroger huren in Hastière",
+    kicker: "Namen · aan de Maas, tegen de Franse grens",
+    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en een half" },
+    intro: [
+      "Hastière is **de eerste Belgische gemeente aan de Maas**, waar de stroom uit Frankrijk het land binnenkomt. De dorpen liggen aan beide oevers: **Hastière-par-delà**, met zijn **romaanse kerk**, Hastière-Lavaux en **Waulsort** stroomafwaarts, en **Hermeton-sur-Meuse, Heer en Agimont** richting de grens.",
+      "Het dal is hier diep ingesneden, met **beboste hellingen en kalksteen** aan weerszijden. Naast de vaste bewoners staan er veel **tweede verblijven en vakantiewoningen**, die soms maanden leeg en onverwarmd blijven voor er iemand komt verbouwen.",
+    ],
+    bouw: {
+      kop: "Lage oevers en huizen die maanden leeg staan",
+      alineas: [
+        "**Langs de Maas** ligt het gelijkvloers van veel woningen laag, met een kelder of berging die bij hoog water als eerste nat wordt. Is er water binnengekomen, dan geldt hier hetzelfde als stroomafwaarts: **eerst het water en het slib weg**, dan drogen met voldoende capaciteit tot vloer en muren weer droog zijn.",
+        "Een **vakantiewoning die de hele winter dicht stond**, heeft koude muren en lucht die al vocht vasthoudt. Wie zo'n huis in het voorjaar opknapt, met nieuwe pleister of een nieuwe vloer, begint in een ruimte van **onder de tien graden**. Daar werkt een droger pas goed als de ruimte eerst opgewarmd wordt, of met een **adsorptiedroger** die niet op warmte rekent.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor een tweede verblijf dat de hele winter onverwarmd stond**: de adsorptiedroger neemt ook in een koude ruimte vocht op." },
+      { key: "teddh30", waarom: "Brengt een groot, koud huis aan de Maas eerst op temperatuur, zodat een condensdroger zijn werk kan doen; vraagt 400 V." },
+      { key: "ttk650", waarom: "**Na water in een gelijkvloers langs de oever**: 110 liter per dag om vloer en muren snel te ontlasten." },
+      { key: "ttv4500", waarom: "Houdt de lucht in beweging in een lang, laag gelijkvloers, zodat er geen natte hoek achter de kasten blijft." },
+    ],
+    levering: {
+      kop: "Leveren in Hastière: tot aan de grens, met een vast tijdslot",
+      alinea:
+        "Hastière is **een van onze langste ritten in de provincie**: over Namen en Dinant de Maas op. Daarom kiest u **een tijdslot** bij de reservatie en plannen we de rit samen met andere adressen in de streek. Woont u er niet vast, zeg dan **wie de technieker binnenlaat**; hij plaatst de toestellen, legt de afvoer en noteert de vochtwaarden.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: zelden de moeite vanuit Hastière",
+      alinea:
+        "Heen en terug naar ons afhaalpunt is **ruim drie uur rijden**, en u doet dat bij de start en bij het terugbrengen. Komt u zelf vanuit Vlaanderen naar uw tweede verblijf, dan kan het wel: neem het toestel mee onderweg, **rechtop** en vastgezet.",
+    },
+    buren: ["dinant", "onhaye", "doische"],
+    faq: [
+      {
+        q: "Ik woon niet vast in Hastière. Moet ik bij de levering aanwezig zijn?",
+        a: "Iemand moet de technieker binnenlaten en weten waar de toestellen mogen staan. Dat kan een buur, een aannemer of een beheerder zijn. Vermeld bij de reservatie wie dat is en hoe we die persoon bereiken, dan spreken we het tijdslot met hem of haar af.",
+      },
+      {
+        q: "Hoe droog ik een vakantiewoning die de hele winter leeg stond?",
+        a: "Eerst de ruimte op temperatuur brengen, want koude muren geven hun water nauwelijks af. Daarna een droger per verdieping met de ramen dicht. In een woning die echt koud blijft, kiezen we een adsorptiedroger, die ook onder 15 °C blijft werken.",
+      },
+      {
+        q: "Rijden jullie tot Heer en Agimont, vlak bij Givet?",
+        a: "Ja, alle deelgemeenten van Hastière vallen in onze levering, tot aan de grens. Geef bij de reservatie uw volledige adres door, zodat de technieker de rit vooraf kan inplannen met andere adressen in de streek.",
+      },
+      {
+        q: "Kan de droger blijven draaien als er niemand in huis is?",
+        a: "Ja. De technieker legt de afvoerslang naar een putje, een gootsteen of buiten, zodat het opvangreservoir nooit vol raakt. Het toestel slaat zelf af zodra de hygrostaat de streefwaarde bereikt, en springt weer aan als het vocht opnieuw stijgt.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "onhaye",
+    title: "Bouwdroger huren in Onhaye | Vernast",
+    description:
+      "Bouwdroger huren in Onhaye, Anthée, Falaën of Weillen: dorpshuizen en hoeves op het plateau ten westen van de Maas, onder de burcht van Montaigle. Geleverd.",
+    h1: "Bouwdroger huren in Onhaye",
+    kicker: "Namen · dorpen op het plateau boven de Maas",
+    rit: { afstand: "circa 120 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Onhaye ligt **op het plateau ten westen van Dinant**, boven het dal van de Maas. Het is een landelijke gemeente van **acht dorpen**: Onhaye zelf, **Anthée, Falaën, Gerin, Miavoye, Serville, Sommière en Weillen**, verspreid tussen akkers, weiden en bosranden.",
+      "Bij Falaën liggen in de vallei van de Molignée **de ruïnes van de burcht van Montaigle** op een rotspunt. Verder is het hier vooral **landbouwgebied**, met hoeves in kalksteen, oude dorpswoningen en nieuwere huizen langs de wegen naar Dinant en Philippeville.",
+    ],
+    bouw: {
+      kop: "Hoeves en dorpshuizen in kalksteen",
+      alineas: [
+        "Het typische huis hier is **een oude hoeve of dorpswoning in kalksteen**, met dikke muren en een vloer rechtstreeks op de grond. Wie zo'n huis verbouwt, legt vaak **een nieuwe vloerplaat met isolatie en chape** en pleistert de muren opnieuw. Dat is veel water in een gebouw dat van zichzelf al traag droogt.",
+        "**Stallen en schuren** worden steeds vaker woonruimte. Dat zijn grote, hoge volumes met weinig ramen, die in de winter **koud** blijven zolang de verwarming nog niet werkt. Een groot toestel samen met een kachel, en een ventilator over de nieuwe vloer, houdt de werf op schema voor de vloerder of de schilder komt.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een schuur of stal die tot woning verbouwd wordt**: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Warmt **een hoog, onverwarmd volume** in de winter op tot boven 15 °C, zodat de droger zijn volle capaciteit haalt; vraagt 400 V." },
+      { key: "radiaal2250", waarom: "Blaast laag over **een verse chape op een nieuwe vloerplaat**, het deel van de verbouwing dat het meeste water bevat." },
+      { key: "ttk350", waarom: "Voor een dorpswoning die kamer per kamer wordt opgeknapt: 70 liter per dag op een gewoon stopcontact, pompklaar." },
+    ],
+    levering: {
+      kop: "Leveren in Onhaye: via Dinant het plateau op",
+      alinea:
+        "Vanuit Aartselaar rijden we **over Namen en Dinant** en dan het plateau op. Bij het reserveren kiest u **het tijdslot** dat u past. Ligt uw hoeve aan **een landweg of onverharde oprit**, zeg dat dan vooraf, dan weet de technieker waar de bestelwagen kan staan. Hij zet de toestellen per droogzone en legt de afvoerslang.",
+    },
+    afhalen: {
+      kop: "Afhalen: een lange rit voor een zwaar toestel",
+      alinea:
+        "Naar ons afhaalpunt is het **ruim een uur en een kwartier**, en u maakt die rit bij de start en aan het einde. Een groot toestel weegt bovendien tot 40 kg en moet rechtop mee. Voor een verbouwde hoeve met meerdere toestellen is levering de enige zinnige keuze.",
+    },
+    buren: ["dinant", "anhee", "hastiere", "florennes"],
+    faq: [
+      {
+        q: "Hoe lang droogt een nieuwe vloer in een oude hoeve in Anthée of Weillen?",
+        a: "Dat hangt af van de dikte van de chape, het type en de temperatuur in de ruimte. In een koude hoeve gaat het pas vlot als ze eerst opgewarmd wordt. De technieker meet bij de start en bij het ophalen, zodat u een cijfer hebt voor de vloerder.",
+      },
+      {
+        q: "Werkt een droger in een stal zonder verwarming?",
+        a: "Een condensdroger heeft warmte nodig: onder ongeveer 15 °C haalt hij veel minder water uit de lucht. Daarom combineren we in een onverwarmde stal de droger met een elektrische kachel. Controleer wel of er een aansluiting van 400 V is voor de grote kachel.",
+      },
+      {
+        q: "Leveren jullie in alle acht dorpen van Onhaye?",
+        a: "Ja, van Onhaye zelf tot Falaën, Serville en Sommière. Op het plateau liggen veel adressen buiten de kern; geef bij de reservatie door of de bestelwagen tot aan de deur kan, of dat de laatste meters over een veldweg gaan.",
+      },
+      {
+        q: "Mag ik zelf de hygrostaat bijstellen tijdens de huur?",
+        a: "Dat mag, maar zet hem niet zomaar op maximaal. Bij een kalkstenen muur met vers kalkpleister is een gelijkmatig tempo beter dan een zo snel mogelijk resultaat, anders kan het pleisterwerk scheuren. De technieker zet bij de plaatsing een streefwaarde die bij uw werf past.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "houyet",
+    title: "Bouwdroger huren in Houyet | Vernast",
+    description:
+      "Bouwdroger huren in Houyet, Celles of Wanlin: stenen dorpen in de vallei van de Lesse, waar de kajaks vertrekken, en hoeves op de hoogte. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Houyet",
+    kicker: "Namen · aan de Lesse, tussen Famenne en Condroz",
+    rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en een half" },
+    intro: [
+      "Houyet ligt **aan de Lesse**, en in de zomer is het vooral bekend als **het vertrekpunt van de kajaktochten** die de rivier afzakken tot Anseremme. Het station ligt vlak bij het water, en daarrond is het dorp in de vallei gegroeid.",
+      "De gemeente is uitgestrekt en landelijk. **Celles**, met zijn romaanse kerk en het kasteel van Vêves in de buurt, hoort erbij, net als **Wanlin, Hulsonniaux, Custinne en Ciergnon**, waar een kasteel van de koninklijke familie staat. Het zijn dorpen van **grijze steen** tussen bossen en weiden.",
+    ],
+    bouw: {
+      kop: "Huizen in het Lessedal en hoeves op de hoogte",
+      alineas: [
+        "**In de vallei van de Lesse** staan woningen dicht bij de rivier en tegen de helling. Na veel regen stijgt het water snel, en een kelder of een laag gelijkvloers wordt dan vochtig. Wie hier verbouwt, krijgt **koude stenen muren** die hun water traag afgeven; een ventilator die de lucht langs de wand houdt, maakt het verschil.",
+        "**Op de hoogte rond Celles en Custinne** worden oude hoeves verbouwd tot woning of **vakantieverblijf**. Dat betekent nieuwe vloeren, nieuw pleisterwerk en grote ruimtes in één keer. Zo'n werf staat in de winter vaak onverwarmd, en dan moet er eerst warmte bij voor een condensdroger zijn werk kan doen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een hoeve rond Celles die tot vakantieverblijf verbouwd wordt**: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "Houdt de lucht in beweging langs **een koude stenen muur in het Lessedal**, zodat het vocht niet aan de wand blijft hangen." },
+      { key: "revolution", waarom: "Voor **een kelder dicht bij de Lesse**: de adsorptiedroger werkt ook in een koude ruimte waar een condensdroger stilvalt." },
+      { key: "teddh20", waarom: "Brengt een kleiner, onverwarmd dorpshuis in de winter boven 15 °C, zodat de droger er vat op krijgt." },
+    ],
+    levering: {
+      kop: "Leveren in Houyet: over Namen en Ciney naar de Lesse",
+      alinea:
+        "Houyet is **een lange rit**: over de E411 en dan richting Ciney en de Lesse. Daarom kiest u **een tijdslot** bij de reservatie en combineren we de rit met andere adressen in de streek. De technieker plaatst de toestellen per droogzone, legt de afvoerslang en **noteert de vochtwaarden** als vergelijkingspunt voor het ophalen.",
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Houyet: drie uur rijden",
+      alinea:
+        "Heen en terug naar Aartselaar bent u **ruim drie uur** onderweg, en dat twee keer per huurperiode. Dat loont alleen als u zelf vanuit Vlaanderen naar uw tweede verblijf rijdt. Neem het toestel dan **rechtop** mee; liggend vervoerd lekt er restwater uit.",
+    },
+    buren: ["dinant", "ciney", "rochefort", "beauraing"],
+    faq: [
+      {
+        q: "Mijn huis aan de Lesse wordt vochtig na hoog water. Helpt een droger?",
+        a: "Voor het vocht dat na het hoge water in muren en vloer achterblijft, ja. Komt het water telkens terug langs de muur of door de vloer, dan lost een droger dat niet blijvend op. De technieker meet bij de plaatsing waar het vocht zit en hoe diep.",
+      },
+      {
+        q: "Ik verbouw een hoeve tot vakantiewoning. Hoeveel toestellen heb ik nodig?",
+        a: "Reken op een groot toestel per open ruimte en een ventilator waar de nieuwe vloer ligt, en in de winter een kachel erbij. Geef bij de reservatie de oppervlakte en de plafondhoogte per ruimte door, dan rekenen we de opstelling vooraf voor u uit.",
+      },
+      {
+        q: "Komen jullie ook naar Ciergnon, Hulsonniaux en Wanlin?",
+        a: "Ja, we leveren in alle deelgemeenten van Houyet, in de vallei en op de hoogte. Sommige wegen langs de Lesse zijn smal; meld bij de reservatie of de bestelwagen tot aan de deur kan, dan neemt de technieker een steekkar mee.",
+      },
+      {
+        q: "Kan ik in de zomer huren, als de streek vol toeristen zit?",
+        a: "Zeker. Een warme zomer is zelfs een gunstig moment om te drogen, want een condensdroger werkt beter bij hogere temperatuur. Het enige verschil is de drukte op de wegen in de vallei; kies daarom een tijdslot dat voor u en de technieker vlot past.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "beauraing",
+    title: "Bouwdroger huren in Beauraing | Vernast",
+    description:
+      "Bouwdroger huren in Beauraing, Pondrôme of Winenne: het bedevaartsoord en zijn dorpen in de Famenne, stenen hoeves en nieuwbouw op leem. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Beauraing",
+    kicker: "Namen · bedevaartsoord in de Famenne",
+    rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en vijfendertig minuten" },
+    intro: [
+      "Beauraing is **een bekend Maria-bedevaartsoord**: sinds de verschijningen in de jaren dertig komen er elk jaar pelgrims naar **het heiligdom** in het centrum. Rond die kern ligt een kleine stad met winkels, scholen en woonstraten.",
+      "Daarbuiten is de gemeente groot en landelijk, met meer dan een dozijn dorpen zoals **Pondrôme, Winenne, Felenne, Focant en Vonêche**. Het landschap is dat van **de Famenne**: een glooiende streek van weiden en bossen, met **kalksteen en schiefer** in de oude gebouwen.",
+    ],
+    bouw: {
+      kop: "Stadswoningen rond het heiligdom, hoeves in de dorpen",
+      alineas: [
+        "**In het centrum** staan oudere woningen en handelspanden die gerenoveerd worden tot appartement of woning boven een winkel. Dat betekent **nieuw pleisterwerk per verdieping** en soms een nieuwe vloer, terwijl er beneden of naast gewoond wordt. Een compact toestel per ruimte, op een gewoon stopcontact, past daar het best.",
+        "**In de dorpen** gaat het om hoeves en dorpshuizen in steen, en om nieuwbouw op de zware **bodem van de Famenne**, die water slecht doorlaat. Een bouwput of een kelder in aanbouw blijft daardoor lang nat. Met **een groot toestel en een ventilator** over de verse chape blijft de planning van de vloerder haalbaar.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor een appartement boven een winkel in het centrum**: 50 liter per dag, 0,75 kW en licht genoeg voor een smalle trap." },
+      { key: "ttk650", waarom: "Voor **nieuwbouw of een verbouwde hoeve in de dorpen**: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "radiaal2250", waarom: "Blaast gericht over een verse chape, die in een nieuwbouw op de natte Famennebodem het meeste water bevat." },
+      { key: "revolution", waarom: "Voor **een kelder in een oud stenen huis**, die het hele jaar koel blijft en waar een condensdroger rendement verliest." },
+    ],
+    levering: {
+      kop: "Leveren in Beauraing: onze rit naar de Famenne",
+      alinea:
+        "Beauraing ligt **aan de verre kant van de provincie**, en dat merkt u aan de rit: over Namen en verder zuidwaarts. U kiest **een tijdslot** bij de reservatie, en we plannen de levering samen met andere adressen in de streek. Rond het heiligdom is het op drukke dagen voller in de straten; meld waar de bestelwagen kan laden.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: vanuit Beauraing te ver",
+      alinea:
+        "Heen en terug naar ons afhaalpunt bent u **meer dan drie uur onderweg**, buiten de file. Dat weegt niet op tegen een levering waarbij de rit in de prijs zit en de technieker **de toestellen plaatst en de vochtwaarden meet**. Afhalen is hier alleen zinnig als u toch in de buurt van Antwerpen moet zijn.",
+    },
+    buren: ["houyet", "gedinne"],
+    faq: [
+      {
+        q: "Hoe droog ik een appartement boven een winkel zonder de zaak te storen?",
+        a: "Met een compact toestel per kamer, de deuren dicht en de afvoerslang naar een gootsteen of putje. De Small draait op een gewoon stopcontact en maakt weinig lawaai. Vermeld bij de reservatie of de toegang via de winkel loopt, dan stemmen we het tijdslot daarop af.",
+      },
+      {
+        q: "Waarom blijft een bouwput in de Famenne zo lang nat?",
+        a: "Omdat de bodem hier veel klei en schiefer bevat en water slecht doorlaat. Regenwater blijft in en rond de bouwput staan en trekt in vloerplaat en muren. Een droger met voldoende capaciteit haalt dat vocht eruit, maar het staande water moet eerst weggepompt zijn.",
+      },
+      {
+        q: "Leveren jullie ook in Felenne, Focant en de andere dorpen?",
+        a: "Ja, alle deelgemeenten van Beauraing vallen in onze levering, ook de kleinere dorpen in het zuiden van de gemeente. Ligt uw hoeve aan een smalle of onverharde weg, meld dat bij de reservatie, dan weet de technieker vooraf waar hij kan uitladen.",
+      },
+      {
+        q: "Hoe weet ik wanneer ik de droger mag laten ophalen?",
+        a: "Op basis van de meting, niet op gevoel. De technieker noteert bij de plaatsing de vochtwaarden van muur en vloer. Bij het ophalen meet hij opnieuw, en vraagt uw vloerder of schilder een bepaalde waarde, dan kunt u die vooraf doorgeven.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "ciney",
+    title: "Bouwdroger huren in Ciney | Vernast",
+    description:
+      "Bouwdroger huren in Ciney: Condrozische hoeves in kalk- en zandsteen, rijwoningen bij het station en verbouwde stallen. Wij plaatsen en meten het vocht ter plaatse.",
+    h1: "Bouwdroger huren in Ciney",
+    kicker: "Provincie Namen · de hoofdplaats van de Condroz",
+    rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en een half" },
+    intro: [
+      "Ciney geldt als **de hoofdplaats van de Condroz**, het golvende plateau tussen Maas en Ourthe. De stad is in de streek vooral bekend om haar **veemarkt**, een van de grootste van Wallonië, en ligt aan **de spoorlijn Namen-Luxemburg**. Rond de kern liggen dorpen als **Achêne, Leignon, Chevetogne, Sovet en Braibant**.",
+      "Het landschap is typisch Condrozisch: **lange ruggen van zandsteen** afgewisseld met **dalen in kalksteen**. Op die ruggen staan de grote vierkantshoeves, in de dalen de dorpen. Veel van die hoeves worden vandaag verbouwd tot woning, en net daar komt een bouwdroger in beeld.",
+    ],
+    bouw: {
+      kop: "Hoeves van blauwe steen en woningen rond de markt",
+      alineas: [
+        "Een Condrozische hoeve heeft **muren van een halve meter natuursteen**, vaak blauwe kalksteen met zandsteen gemengd, en geen vochtkering. Wie zo'n stal of schuur tot woning ombouwt, legt er **een nieuwe chape** in en zet **binnenmuren met pleister** op. Al dat aanmaakwater moet eruit, en **de dikke koude muren houden het lang vast**. De technieker meet bij de plaatsing hoe nat ze zijn, zodat u bij het ophalen een vergelijking hebt.",
+        "In het centrum van Ciney en langs de wegen naar het station staan **rijwoningen en burgerhuizen** uit de negentiende en twintigste eeuw. Daar gaat het meestal om een badkamer, een keuken of een volledig gelijkvloers dat opgeknapt wordt. **Een kelder onder zo'n huis** blijft in de winter koud, en dan droogt een gewone condensdroger traag.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een verbouwde schuur met hoge ruimtes**: 110 liter per dag en bereik tot ongeveer 600 m³, genoeg voor het volume onder een hoevedak." },
+      { key: "teddh30", waarom: "Een stal met stenen muren is in de winter ijskoud. Deze kachel brengt hem boven 15 °C, waar de droger pas rendeert. **Vraagt 400 V**, op een hoeve vaak aanwezig." },
+      { key: "ttv4500", waarom: "Langs een dikke wand van natuursteen blijft een laag natte lucht hangen. **Deze ventilator blaast ze weg**, zodat de droger het vocht echt opneemt." },
+      { key: "ttk350", waarom: "Voor een rijwoning in het centrum met nieuw pleisterwerk: 70 liter per dag, bereik tot ongeveer 400 m³, op een gewoon stopcontact." },
+    ],
+    levering: {
+      kop: "Leveren in Ciney: over de E411, voorbij Namen",
+      alinea:
+        "De rit loopt **over de ring rond Brussel en de E411** tot voorbij Namen, ruim anderhalf uur in totaal. We bundelen de leveringen in de Condroz, en u kiest **een tijdslot** bij de reservatie. Ligt de hoeve aan een veldweg of op een erf met kasseien, **vermeld dat dan**: de technieker neemt dan een steekkar mee en zet de toestellen per ruimte op hun plaats.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: drie uur heen en terug",
+      alinea:
+        "Zelf naar ons magazijn rijden betekent vanuit Ciney **ongeveer drie uur onderweg**, voor heen en terug samen. Voor een droger van 25 tot 40 kg is dat zelden de moeite. Bij een levering zit de rit in de prijs en neemt de technieker de vochtmeting meteen mee.",
+    },
+    buren: ["hamois", "assesse", "yvoir", "dinant"],
+    faq: [
+      {
+        q: "We bouwen een oude Condrozische stal om tot woning. Hoeveel drogers hebben we nodig?",
+        a: "Dat hangt af van het volume en het aantal ruimtes, niet alleen van de oppervlakte. Een stal heeft vaak hoge plafonds, dus rekenen we in kubieke meter. Geef de afmetingen door bij de reservatie, dan stelt de technieker een combinatie van droger, ventilator en eventueel kachel voor.",
+      },
+      {
+        q: "Waarom droogt een muur van blauwe steen zo traag?",
+        a: "Omdat natuursteen van een halve meter dik veel water opneemt en het maar langzaam aan de oppervlakte afgeeft, zeker als de ruimte koud is. Warmte en luchtbeweging versnellen dat. Reken bij een volledige hoeverenovatie eerder op enkele weken dan op enkele dagen.",
+      },
+      {
+        q: "Heeft een hoeve in de Condroz genoeg stroom voor een bouwkachel?",
+        a: "Vaak wel, omdat veel hoeves een driefasige aansluiting hebben uit hun landbouwtijd. Zeker is dat niet. De kachels vragen 400 V; is die er niet, dan kiezen we een opstelling met een adsorptiedroger die ook in de kou werkt.",
+      },
+      {
+        q: "Leveren jullie ook in Chevetogne, Leignon en Achêne?",
+        a: "Ja, die dorpen horen bij Ciney en vallen in dezelfde levering. Ligt uw adres buiten een dorpskern, aan een smalle landweg, zeg dat dan vooraf, zodat de technieker weet waar hij met de bestelwagen terechtkan.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "hamois",
+    title: "Bouwdroger huren in Hamois | Vernast",
+    description:
+      "Bouwdroger huren in Hamois, Natoye, Emptinne of Schaltin: landelijke woningen en verbouwde hoeves op het plateau van de Condroz. Bij u geleverd en ingesteld.",
+    h1: "Bouwdroger huren in Hamois",
+    kicker: "Provincie Namen · dorpen op het Condrozisch plateau",
+    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Hamois is **een landelijke gemeente in het noorden van de Condroz**, tussen Namen en Ciney. Ze bestaat uit een reeks dorpen: **Hamois zelf, Natoye, Emptinne, Schaltin, Achet, Mohiville en Scy**. Er is geen echte stad, wel veel open veld, kleine bossen en hoeves die verspreid over het plateau liggen.",
+      "De ligging trekt **nieuwe bewoners** aan: Namen is dichtbij, en tussen de oude dorpskernen zijn **verkavelingen met vrijstaande woningen** verschenen. Zo staan in Hamois twee soorten werven naast elkaar: nieuwbouw op een open kavel en de renovatie van een oud stenen huis.",
+    ],
+    bouw: {
+      kop: "Nieuwbouw tussen de velden en oude huizen in steen",
+      alineas: [
+        "Bij **een nieuwe woning op het plateau** gaat het om bouwvocht: chape, pleisterwerk en metselwerk die samen honderden liters water in huis brengen. Wie de vloerder of de schilder op tijd wil laten beginnen, kan dat water niet vanzelf laten verdampen, zeker niet in een natte herfst. **Een droger op het juiste formaat** houdt de planning haalbaar.",
+        "In de dorpskernen staan **oudere huizen in zandsteen en kalksteen**, vaak met een kelder onder een deel van de woning. Bij een renovatie komt het vocht dan van twee kanten: **het nieuwe pleisterwerk** en **de koude, oude muur** die zelf vocht vasthoudt. De technieker meet bij de start, zodat duidelijk is wat er na het drogen overblijft.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**De vaste keuze voor een nieuwbouwwoning op een kavel**: 70 liter per dag en bereik tot ongeveer 400 m³, genoeg voor een gelijkvloers met verse chape." },
+      { key: "ttk650", waarom: "Voor een ruime vrijstaande woning met open leefruimte en een hoog volume: 110 liter per dag, tot ongeveer 600 m³." },
+      { key: "revolution", waarom: "**Voor de kelder onder een oud dorpshuis** die niet te verwarmen is: de adsorptiedroger neemt ook bij lage temperatuur vocht op." },
+      { key: "radiaal2250", waarom: "Een verse chape droogt het traagst in de hoeken. Deze ventilator blaast gericht over de vloer, zodat ze gelijkmatig droogt." },
+    ],
+    levering: {
+      kop: "Leveren in Hamois: over Namen het plateau op",
+      alinea:
+        "Vanuit Aartselaar rijden we **over Brussel en de E411 tot voorbij Namen**, en dan het plateau op naar uw dorp. Reken op een uur en twintig minuten buiten de spits. U kiest **een tijdslot**, en de technieker plaatst de toestellen, stelt ze in en legt uit waar het water heen gaat als er geen afvoer in de buurt is.",
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Hamois: haalbaar, maar een lange rit",
+      alinea:
+        "Naar ons afhaalpunt is het **ruim twee en een half uur heen en terug**. Combineert u het met een rit naar Antwerpen of Brussel, dan kan het passen. Anders is levering de rustigere keuze: de technieker brengt de toestellen tot in de juiste ruimte.",
+    },
+    buren: ["ciney", "havelange", "ohey", "assesse"],
+    faq: [
+      {
+        q: "Wanneer mag de vloerder beginnen op een chape in een nieuwbouw?",
+        a: "Dat bepaalt de vloerder, op basis van een meting van het restvocht in de chape. Een droger verkort de wachttijd flink ten opzichte van vanzelf laten drogen. Bij het ophalen meet onze technieker opnieuw, zodat u de vloerder een concreet cijfer kunt geven.",
+      },
+      {
+        q: "Waar loopt het water heen als er nog geen afvoer is?",
+        a: "In een woning in aanbouw is er vaak nog geen aangesloten afvoer. De droger vangt het water dan op in een reservoir dat u regelmatig leegmaakt, of de technieker legt een slang naar een plek waar het weg kan. Zeg bij de reservatie of er al een afvoer is.",
+      },
+      {
+        q: "Rijden jullie ook naar Natoye, Emptinne en Schaltin?",
+        a: "Ja, alle dorpen van Hamois vallen in dezelfde levering. Ligt uw werf op een nieuwe verkaveling zonder straatnaambord, geef dan een goede omschrijving of een locatie mee, dan vindt de technieker de kavel zonder zoeken.",
+      },
+      {
+        q: "Mijn kelder in een oud dorpshuis is altijd vochtig. Lost een droger dat op?",
+        a: "Een droger haalt het vocht uit de lucht en uit de muren, maar als er na elke regenperiode opnieuw water binnendringt, komt het terug. Bij een renovatie helpt hij om het bouwvocht weg te krijgen. De meting bij de start toont welk deel van het vocht structureel is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "havelange",
+    title: "Bouwdroger huren in Havelange | Vernast",
+    description:
+      "Bouwdroger huren in Havelange, Maffe, Méan of Barvaux-Condroz: hoeves en dorpshuizen in de oostelijke Condroz, tegen de provincie Luik. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Havelange",
+    kicker: "Provincie Namen · de oostelijke Condroz",
+    rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en een half" },
+    intro: [
+      "Havelange ligt **in het oosten van de Condroz**, waar de provincie Namen aan die van Luik grenst. Het is **een uitgestrekte landbouwgemeente** met dorpen als **Maffe, Méan, Barvaux-Condroz, Flostoy, Porcheresse en Verlée**, verspreid over het plateau en verbonden door smalle landwegen.",
+      "Wie in Havelange bouwt of verbouwt, doet dat meestal **in een oud gebouw van steen**: een hoeve, een pastorie, een dorpshuis aan het kerkplein. Het landelijke karakter is beschermd, en dat merk je aan wat er verbouwd wordt. We helpen ook in het Frans als dat vlotter gaat bij de plaatsing.",
+    ],
+    bouw: {
+      kop: "Dikke muren, koude winters, en een ruimte die nog niet verwarmd is",
+      alineas: [
+        "Op het plateau van de oostelijke Condroz **kan het in de winter fors koud zijn**, en een woning in verbouwing heeft dan nog geen werkende verwarming. **Onder 15 °C verliest een condensdroger rendement**, en in een stenen huis zonder verwarming haal je die temperatuur in januari zelden. Een bouwkachel of een adsorptiedroger maakt dan het verschil.",
+        "Veel huizen hier hebben **een gelijkvloers op volle grond** of op een oude tegelvloer zonder isolatie. Komt daar een nieuwe geïsoleerde vloer met chape in, dan zit er **veel water in die nieuwe laag**, terwijl de muren eromheen zelf koud en vochtig blijven. Droog dan ruimte per ruimte, met de deuren dicht, en niet het hele huis tegelijk.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor een winterwerf zonder verwarming**: de adsorptiedroger werkt met een droogmiddel en blijft ook in een koude stenen ruimte vocht opnemen." },
+      { key: "teddh20", waarom: "Voor een afgesloten ruimte die op temperatuur moet: 20 kW, zodat de droger ernaast weer rendeert. Vraagt een 400 V-aansluiting." },
+      { key: "ttk350", waarom: "Voor een dorpshuis of pastorie waar per verdieping gewerkt wordt: 70 liter per dag en bereik tot ongeveer 400 m³." },
+      { key: "ttv4500", waarom: "**Op een nieuwe chape in een oud huis** brengt hij de lucht in beweging, zodat de natte laag boven de vloer niet blijft hangen." },
+    ],
+    levering: {
+      kop: "Leveren in Havelange: tot op het plateau tegen Luik",
+      alinea:
+        "Havelange is **een van de verdere adressen** in de Condroz: we rijden over de E411 tot voorbij Namen en dan nog een stuk over landwegen. Reken op een goed anderhalf uur. Daarom **plannen we de rit samen met andere leveringen in de streek**, en u kiest bij de reservatie een tijdslot.",
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Havelange: rekenen op een halve dag",
+      alinea:
+        "Heen en terug naar Aartselaar bent u **ruim drie uur onderweg**. Dat loont zelden voor één toestel. Bij levering brengt de technieker ook de juiste kachel of adsorptiedroger mee als de ruimte te koud blijkt, iets wat u bij het afhalen vooraf zelf moet inschatten.",
+    },
+    buren: ["hamois", "ohey", "somme-leuze"],
+    faq: [
+      {
+        q: "Werkt een bouwdroger in een onverwarmde hoeve in de winter?",
+        a: "Een gewone condensdroger werkt dan wel, maar traag: onder 15 °C daalt zijn rendement sterk. In een koude stenen ruimte zetten we daarom ofwel een bouwkachel ernaast, ofwel een adsorptiedroger, die ook bij lage temperatuur blijft drogen.",
+      },
+      {
+        q: "Is een levering in een afgelegen dorp als Méan of Porcheresse mogelijk?",
+        a: "Ja, alle dorpen van Havelange vallen in onze levering. Het zijn wel smalle landwegen, dus geef bij de reservatie door of een bestelwagen tot aan het huis kan, en of er een plek is om even stil te staan tijdens het uitladen.",
+      },
+      {
+        q: "Moet ik het hele huis tegelijk drogen?",
+        a: "Nee, en in een groot stenen huis is dat zelfs minder efficiënt. Beter is per zone werken: de ruimte met de nieuwe chape of het verse pleisterwerk afsluiten en daar drogen. Dan gaat de energie naar de plek waar het water zit.",
+      },
+      {
+        q: "Hoe ver ligt Havelange van jullie magazijn?",
+        a: "Ongeveer honderdvijfendertig kilometer, of een goed anderhalf uur rijden via Brussel en de E411. Dat is een van de langere ritten in de provincie Namen, en daarom bundelen we leveringen in de Condroz en werkt u met een tijdslot.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "somme-leuze",
+    title: "Bouwdroger huren in Somme-Leuze | Vernast",
+    description:
+      "Bouwdroger huren in Somme-Leuze, Baillonville, Noiseux of Sinsin: tussen Condroz en Famenne, met woningen op zware grond en aan de Ourthe. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Somme-Leuze",
+    kicker: "Provincie Namen · tussen Condroz en Famenne",
+    rit: { afstand: "circa 145 km", tijd: "ongeveer een uur en veertig minuten" },
+    intro: [
+      "Somme-Leuze ligt **op de overgang van de Condroz naar de Famenne**, in het uiterste oosten van de provincie Namen. Bij de gemeente horen **Baillonville, Bonsin, Heure, Hogne, Nettinne, Noiseux, Sinsin en Waillet**, dorpen die verspreid liggen tussen akkers, weiden en bossen.",
+      "In het noorden is het land nog Condrozisch, met ruggen en dalen. Naar het zuiden toe **wordt de bodem zwaarder** en vlakker: de Famenne begint. **Noiseux** ligt dan weer aan de Ourthe, in een smalle vallei. Drie landschappen in één gemeente, en elk met een eigen soort vocht.",
+    ],
+    bouw: {
+      kop: "Zware grond, een rivier en tweede verblijven in het groen",
+      alineas: [
+        "**De Famenne heeft een kleiige, slecht doorlatende bodem.** Regenwater zakt er traag weg, en een kelder of een vloer op volle grond **blijft daardoor lang nat**. Wie hier een woning renoveert of een nieuwe vloer giet, droogt niet alleen het aanmaakwater maar werkt ook tegen een vochtige ondergrond. Een meting bij de start geeft dan houvast.",
+        "Langs de Ourthe en in de bosrijke delen staan ook **vakantiewoningen en tweede verblijven**. Die staan een hele winter leeg en onverwarmd, en in het voorjaar ruiken ze muf. **Een droger enkele weken laten draaien** voor het seizoen begint, haalt dat vocht uit muren, matrassen en kasten voor er schimmel komt.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor een vakantiewoning die de hele winter leeg stond**: de adsorptiedroger droogt ook in een koude ruimte, zonder eerst te stoken." },
+      { key: "ttk350", waarom: "Voor een renovatie op de zware Famenne-grond: 70 liter per dag en bereik tot ongeveer 400 m³, genoeg voor een gelijkvloers." },
+      { key: "radiaal2250", waarom: "**Op een vloer die op natte grond ligt** blaast hij gericht over het oppervlak en in de hoeken, waar het vocht het langst blijft." },
+      { key: "ttk170", waarom: "Voor een chalet of een kleine vakantiewoning: compact, 0,75 kW op een gewoon stopcontact en makkelijk in een wagen te tillen." },
+    ],
+    levering: {
+      kop: "Leveren in Somme-Leuze: een verre rit, goed gepland",
+      alinea:
+        "Somme-Leuze ligt **aan de rand van ons werkgebied**: over de E411 voorbij Namen en dan nog een flink stuk richting Marche, samen bijna een uur en drie kwartier. Daarom **plannen we de leveringen hier per streek** en kiest u een tijdslot. Gaat het om een vakantiewoning waar u zelf niet bent, spreek dan vooraf af hoe de technieker binnen kan.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar loont vanuit Somme-Leuze zelden",
+      alinea:
+        "Heen en terug naar ons afhaalpunt is **ruim drie uur rijden**. Woont u in Vlaanderen en hebt u hier een tweede verblijf, dan kan afhalen wel passen: u neemt het toestel mee op weg naar het weekend. Houd rekening met 25 tot 40 kg en rechtop vervoeren.",
+    },
+    buren: ["havelange", "ciney", "rochefort"],
+    faq: [
+      {
+        q: "Onze vakantiewoning ruikt muf na de winter. Helpt een droger?",
+        a: "Ja, als het om vocht gaat dat zich in een onverwarmde, gesloten woning heeft opgestapeld. Laat de droger enkele weken draaien met ramen en deuren dicht. Een adsorptiedroger werkt daarbij ook als het binnen nog koud is. Blijft er schimmel op de muren, dan moet die apart behandeld worden.",
+      },
+      {
+        q: "Kan ik een droger huren als ik zelf niet ter plaatse ben?",
+        a: "Dat kan, op voorwaarde dat de technieker binnen kan en er stroom is. Spreek bij de reservatie af hoe hij toegang krijgt, bijvoorbeeld via een buur of een sleutelkastje. Het ophalen gebeurt op dezelfde manier.",
+      },
+      {
+        q: "Waarom blijft een kelder in de Famenne zo lang nat?",
+        a: "Omdat de bodem er kleiig is en water slecht doorlaat. Na een natte periode blijft het water rond de kelder staan en duwt het vocht door de muren. Een droger haalt bouwvocht en opgestapeld vocht weg, maar lost een structureel waterprobleem niet op.",
+      },
+      {
+        q: "Leveren jullie ook in Noiseux aan de Ourthe?",
+        a: "Ja, Noiseux hoort bij Somme-Leuze en valt in dezelfde levering. In de vallei zijn de wegen smal en soms steil, dus vermeld bij de reservatie of de bestelwagen tot aan de woning kan.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "rochefort",
+    title: "Bouwdroger huren in Rochefort | Vernast",
+    description:
+      "Bouwdroger huren in Rochefort, Han-sur-Lesse of Jemelle: stenen woningen aan de Lesse en de Lomme, in de Famenne. Bij u geleverd, geplaatst en ingesteld.",
+    h1: "Bouwdroger huren in Rochefort",
+    kicker: "Provincie Namen · Famenne, Lesse en Lomme",
+    rit: { afstand: "circa 155 km", tijd: "ongeveer een uur en veertig minuten" },
+    intro: [
+      "Rochefort ligt **in de Famenne, aan de Lomme**, en is buiten de streek vooral bekend om twee dingen: **de grotten van Han** in Han-sur-Lesse en **de abdij van Saint-Remy**, waar de trappisten het Rochefort-bier brouwen. Bij de gemeente horen ook **Jemelle, Éprave, Lessive, Wavreille en Villers-sur-Lesse**.",
+      "Die grotten zijn geen toeval. Rochefort ligt **op een strook kalksteen** waar de Lesse deels onder de grond verdwijnt. Daarnaast ligt **de zware, kleiige bodem van de Famenne**. Twee ondergronden in één gemeente, en twee rivieren die bij veel regen buiten hun oevers kunnen treden.",
+    ],
+    bouw: {
+      kop: "Woningen aan het water en op kleigrond",
+      alineas: [
+        "**Langs de Lomme in het centrum en langs de Lesse in Han** staan oudere stenen woningen dicht bij het water. Na een periode met veel regen of **na wateroverlast** moet zo'n gelijkvloers of kelder grondig drogen. Eerst het water en het slib weg, dan de toestellen: **een droger is voor het vocht in de muren**, niet voor water dat nog op de vloer staat.",
+        "Rochefort heeft daarnaast **veel toerisme**, met hotels, gastenkamers en vakantiewoningen. Die worden vaak **buiten het seizoen** gerenoveerd, en dan moet een kamer droog zijn voor de eerste gasten. Op de kleigrond van de Famenne droogt een vloer of kelder bovendien trager dan op zand.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Na wateroverlast aan de Lomme of de Lesse**: 110 liter per dag haalt het meeste vocht uit een gelijkvloers voor het diep in de muren trekt." },
+      { key: "radiaal2250", waarom: "Voor een kelder of vloer die onder water stond: hij blaast gericht over de vloer en in de hoeken, waar het water het langst blijft." },
+      { key: "ttk170", waarom: "**Voor een gastenkamer die tussen twee seizoenen opgeknapt wordt**: compact, stil en op een gewoon stopcontact." },
+      { key: "ttk350", waarom: "Voor een woning op de Famenne-klei met nieuwe chape of pleister: 70 liter per dag, bereik tot ongeveer 400 m³." },
+    ],
+    levering: {
+      kop: "Leveren in Rochefort: de E411 tot in de Famenne",
+      alinea:
+        "Rochefort ligt **vlak bij de E411**, en dat maakt de rit voorspelbaar, ook al is het een verre: reken op ongeveer een uur en veertig minuten vanuit Aartselaar. Het **tijdslot** voor de plaatsing spreken we bij de reservatie met u af. Na wateroverlast, **zeg hoe hoog het water stond**, zodat de technieker de juiste toestellen in één keer meebrengt.",
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Rochefort: ruim drie uur rijden",
+      alinea:
+        "Naar Aartselaar en terug bent u **een goede drie uur onderweg**. Voor een uitbater die toch naar Antwerpen of Brussel moet, kan het passen. Na wateroverlast is leveren de betere keuze: u blijft ter plaatse en de technieker meet meteen hoe nat de muren zijn.",
+    },
+    buren: ["ciney", "houyet", "beauraing", "somme-leuze"],
+    faq: [
+      {
+        q: "Ons huis aan de Lomme had water binnen. Wanneer kan de droger erin?",
+        a: "Zodra het staande water weg is en het slib eruit, ook als muren en vloer nog doornat zijn. Hoe sneller u begint, hoe minder vocht diep in het metselwerk trekt. Vermeld bij de reservatie hoe hoog het water stond, dan stellen we de juiste combinatie samen.",
+      },
+      {
+        q: "We renoveren gastenkamers buiten het seizoen. Hoe plannen we het drogen?",
+        a: "Reken het drogen mee in de planning, tussen de pleisterwerker en de schilder. Een droger per kamer of per verdieping met de deuren dicht werkt het snelst. Bij het ophalen meet de technieker het restvocht, zodat u weet of er geschilderd kan worden.",
+      },
+      {
+        q: "Leveren jullie ook in Han-sur-Lesse en Jemelle?",
+        a: "Ja, beide horen bij Rochefort en vallen in dezelfde levering, net als Éprave, Wavreille en de andere dorpen. In Han kan het in het toeristische seizoen druk zijn, dus geef een plek door waar de bestelwagen even kan stilstaan.",
+      },
+      {
+        q: "Kan de technieker de uitleg ook in het Frans geven?",
+        a: "Ja, bij de plaatsing kan de technieker de werking en het leegmaken van het reservoir ook in het Frans uitleggen. Dat is handig als een uitbater of een medewerker ter plaatse liever Frans spreekt.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "gedinne",
+    title: "Bouwdroger huren in Gedinne | Vernast",
+    description:
+      "Bouwdroger huren in Gedinne: woningen in leisteen en tweede verblijven op het hoogste deel van de Naamse Ardennen. Aan huis geplaatst, met een meting bij de start.",
+    h1: "Bouwdroger huren in Gedinne",
+    kicker: "Provincie Namen · de hoge Ardennen tegen Frankrijk",
+    rit: { afstand: "circa 185 km", tijd: "ongeveer twee uur" },
+    intro: [
+      "Gedinne ligt **in de Ardennen, helemaal in het zuiden van de provincie Namen**, tegen de Franse grens. Op het grondgebied ligt **de Croix-Scaille**, het hoogste punt van de provincie. Rond Gedinne horen dorpen als **Louette-Saint-Pierre, Bourseigne-Vieille, Willerzie, Rienne en Vencimont** bij de gemeente, verspreid tussen uitgestrekte bossen.",
+      "Het is **een dunbevolkte streek** met veel natuur, en dat trekt mensen die er een **tweede verblijf of vakantiewoning** hebben. Daarnaast zijn er de oude dorpshuizen in **leisteen en schist**, met hun typische donkere daken.",
+    ],
+    bouw: {
+      kop: "Koude winters, leistenen huizen en woningen die maanden leeg staan",
+      alineas: [
+        "Op deze hoogte zijn **de winters langer en natter** dan in Vlaanderen. Een vakantiewoning die van november tot Pasen gesloten blijft, **koelt helemaal af**, en vocht slaat neer op koude muren, in kasten en in textiel. In het voorjaar ruikt het huis muf, en soms verschijnen er vlekken. **Een droger een paar weken laten draaien** voor het seizoen begint, voorkomt erger.",
+        "De oude huizen zijn gebouwd **in schist en leisteen**, met dikke muren die traag opwarmen. Bij een renovatie komt er nieuw pleisterwerk of een nieuwe vloer in een huis dat zelf koud blijft. **Onder 15 °C verliest een condensdroger rendement**, dus kijkt de technieker bij de plaatsing of er warmte bij moet, of beter een adsorptiedroger.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**De droger voor een tweede verblijf na de winter**: hij werkt met een droogmiddel en neemt ook in een ijskoude woning vocht op." },
+      { key: "ttk170", waarom: "Voor een kleine vakantiewoning of chalet: compact en zuinig op een gewoon stopcontact, makkelijk in een kamer te zetten." },
+      { key: "teddh20", waarom: "**Voor een renovatie in een koud stenen huis**: brengt de ruimte op temperatuur zodat de droger rendeert. Vraagt wel 400 V, vraag dat vooraf na." },
+      { key: "ttv4500", waarom: "Langs een koude muur van schist blijft natte lucht hangen. Deze ventilator houdt de lucht in beweging, ook achter kasten en in hoeken." },
+    ],
+    levering: {
+      kop: "Leveren in Gedinne: een van onze verste ritten",
+      alinea:
+        "Eerlijk gezegd: Gedinne ligt **aan de uiterste rand van ons werkgebied**. Vanuit Aartselaar is het ongeveer twee uur rijden, over Brussel en Namen naar het zuiden. Daarom **combineren we leveringen in de Ardennen** en kiest u een tijdslot. Bent u zelf niet ter plaatse, spreek dan vooraf af hoe de technieker binnenkomt.",
+    },
+    afhalen: {
+      kop: "Afhalen: interessant als u vanuit Vlaanderen komt",
+      alinea:
+        "Vanuit Gedinne zelf is ons afhaalpunt **vier uur heen en terug**, en dat loont niet. Woont u in de buurt van Antwerpen en hebt u hier een tweede verblijf, dan is afhalen wel logisch: u laadt het toestel in op weg naar het weekend. Een droger weegt 25 tot 40 kg en reist rechtop.",
+    },
+    buren: ["beauraing", "bievre", "vresse-sur-semois"],
+    faq: [
+      {
+        q: "Hoe lang laat ik een droger draaien in een vakantiewoning na de winter?",
+        a: "Meestal twee tot drie weken, afhankelijk van hoe vochtig het huis is en hoe groot. Houd ramen en deuren dicht en zet kasten en lades open, zodat ook textiel droogt. Bij het ophalen meet de technieker, zodat u voor volgend jaar een richtpunt hebt.",
+      },
+      {
+        q: "Leveren jullie echt tot in Gedinne?",
+        a: "Ja, maar het is een van onze verste ritten, ongeveer twee uur vanuit Aartselaar. Daarom plannen we de leveringen in de Ardennen samen en werkt u met een tijdslot. Zo blijft de rit voor u betaalbaar en voor ons haalbaar.",
+      },
+      {
+        q: "Werkt een gewone bouwdroger in een onverwarmd huis op de Ardense hoogte?",
+        a: "Hij werkt, maar onder 15 °C neemt hij veel minder water op. In een koud huis zetten we daarom liever een adsorptiedroger, die met een droogmiddel werkt en ook bij lage temperatuur rendeert. Is er warmte beschikbaar, dan kan een condensdroger met een kachel ook.",
+      },
+      {
+        q: "Wat als er in de woning geen 400 V is?",
+        a: "Dan vallen de bouwkachels weg, want die vragen krachtstroom. In veel vakantiewoningen is dat zo. De adsorptiedroger en de condensdrogers werken op een gewoon stopcontact, dus daarmee stellen we een opstelling samen die past bij wat er is.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "bievre",
+    title: "Bouwdroger huren in Bièvre | Vernast",
+    description:
+      "Bouwdroger huren in Bièvre, Graide, Naomé of Gros-Fays: Ardense dorpen tussen de bossen, met leistenen huizen en vakantiewoningen. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Bièvre",
+    kicker: "Provincie Namen · bosdorpen op het Ardens plateau",
+    rit: { afstand: "circa 185 km", tijd: "ongeveer twee uur" },
+    intro: [
+      "Bièvre is **een bosrijke gemeente in de Ardennen**, in het zuidoosten van de provincie Namen, tegen de provincie Luxemburg. Bij de gemeente horen **Graide, Naomé, Gros-Fays, Petit-Fays, Oizy, Cornimont, Baillamont, Bellefontaine en Monceau-en-Ardenne**: kleine dorpen op open plekken in het bos.",
+      "Het is **een van de dunst bevolkte delen van de provincie**. Wie hier bouwt, verbouwt meestal een oud huis, en veel woningen zijn **vakantiehuizen of tweede verblijven** van mensen die er vooral in de zomer en de weekends komen. In deze streek spreekt men Frans, en we kunnen de plaatsing ook in die taal toelichten.",
+    ],
+    bouw: {
+      kop: "Leisteen, bos en huizen die in de winter dicht blijven",
+      alineas: [
+        "De oude huizen zijn **opgetrokken in schist en zandsteen**, met **daken van leisteen** en kleine ramen. Die muren nemen veel vocht op en geven het traag af. **Midden in het bos** droogt een huis bovendien minder goed uit dan op een open plek: er is meer schaduw en de lucht blijft vochtiger, ook na een regenbui.",
+        "Een vakantiewoning die **van de herfst tot het voorjaar dicht blijft**, staat daar maandenlang koud en onverlucht. Dan vormt zich condens op de koudste muren, en dat zie je aan **muffe kasten en vlekken** achter de meubels. Een droger laten draaien voor de eerste gasten komen, haalt dat vocht weg voor het schimmel wordt.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor een huis dat maanden dicht stond**: de adsorptiedroger neemt ook in een koude, onverwarmde woning vocht op." },
+      { key: "ttk170", waarom: "Voor een kleine vakantiewoning: 0,75 kW op een gewoon stopcontact, licht genoeg om zelf van kamer naar kamer te verplaatsen." },
+      { key: "ttk350", waarom: "**Voor de renovatie van een oud dorpshuis** met nieuwe pleister of chape: 70 liter per dag, bereik tot ongeveer 400 m³." },
+      { key: "radiaal2250", waarom: "Achter meubels en in hoeken tegen een koude muur blijft vocht hangen. Deze ventilator blaast er gericht droge lucht naartoe." },
+    ],
+    levering: {
+      kop: "Leveren in Bièvre: ver, maar mogelijk",
+      alinea:
+        "Bièvre ligt **ongeveer twee uur rijden** van ons magazijn, over Brussel, Namen en de E411. Dat is een van de langste ritten die we maken, en we doen ze **gebundeld met andere adressen in de Ardennen**. U kiest een tijdslot; is het huis onbewoond, spreek dan af hoe de technieker toegang krijgt en waar de stroom is.",
+    },
+    afhalen: {
+      kop: "Afhalen: alleen als u toch uit Vlaanderen komt",
+      alinea:
+        "Vanuit Bièvre zelf heen en terug naar Aartselaar rijden is **een rit van ongeveer vier uur**. Hebt u hier een tweede verblijf en woont u in Vlaanderen, dan neemt u de droger beter mee onderweg. Reken op 25 tot 40 kg en vervoer hem rechtop.",
+    },
+    buren: ["gedinne", "vresse-sur-semois"],
+    faq: [
+      {
+        q: "Waarom wordt een vakantiehuis in het bos zo vochtig?",
+        a: "Omdat het maandenlang koud en gesloten staat in een omgeving waar de lucht vochtig blijft. Het vocht slaat neer op de koudste plekken: buitenmuren, achter meubels, in kasten. Zonder verwarming en verluchting hoopt het zich op tot het voorjaar.",
+      },
+      {
+        q: "Kan een droger draaien terwijl ik er niet ben?",
+        a: "Ja. De droger kan een slang naar een afvoer krijgen, zodat hij niet stilvalt wanneer het reservoir vol is. Is er geen afvoer in de buurt, dan moet iemand het reservoir geregeld leegmaken. Bespreek dat bij de reservatie, dan stelt de technieker het juist in.",
+      },
+      {
+        q: "Leveren jullie in Graide, Naomé en de andere dorpen van Bièvre?",
+        a: "Ja, alle deelgemeenten vallen in onze levering. De wegen tussen de dorpen lopen door het bos en zijn soms smal; geef bij de reservatie door hoe het huis bereikbaar is en of er een plek is om de bestelwagen te parkeren.",
+      },
+      {
+        q: "Helpt een droger tegen schimmel in een leistenen huis?",
+        a: "Hij neemt de oorzaak weg, namelijk het vocht in de lucht en in de muren. Schimmel die er al zit, moet u apart reinigen. Daarna houdt een droge woning nieuwe vlekken tegen, zeker als u na het drogen regelmatig verlucht.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "vresse-sur-semois",
+    title: "Bouwdroger huren in Vresse-sur-Semois | Vernast",
+    description:
+      "Bouwdroger huren in Vresse-sur-Semois, Alle, Bohan of Laforêt: huizen en vakantiewoningen in de bochten van de Semois. Geleverd en geplaatst, ook na de winter.",
+    h1: "Bouwdroger huren in Vresse-sur-Semois",
+    kicker: "Provincie Namen · de vallei van de Semois",
+    rit: { afstand: "circa 205 km", tijd: "ongeveer twee uur en een kwartier" },
+    intro: [
+      "Vresse-sur-Semois ligt **in de diepe, kronkelende vallei van de Semois**, in de zuidelijkste hoek van de provincie Namen, tegen Frankrijk. Bij de gemeente horen **Alle, Bohan, Membre, Mouzaive, Laforêt, Orchimont, Sugny en Pussemange**. Laforêt staat bekend als **een van de mooiste dorpen van Wallonië**.",
+      "De Semoisvallei leefde lang van **de tabaksteelt**, en in de dorpen staan nog de houten **droogschuren voor tabak**. Vandaag leeft ze vooral van **toerisme**: kajakken op de rivier, wandelen in de bossen, en veel vakantiewoningen, campings en tweede verblijven langs het water.",
+    ],
+    bouw: {
+      kop: "Huizen aan de rivier, op de helling en die de winter leeg doorkomen",
+      alineas: [
+        "**Langs de Semois** liggen huizen vlak bij het water, in een vallei waar mist en vocht na zonsondergang lang blijven hangen. Na een periode met hoog water of na wateroverlast moet een gelijkvloers of kelder grondig drogen. **Eerst het water en het slib weg**, dan pas de droger: die is voor het vocht in muren en vloer.",
+        "Daarnaast zijn er de **vakantiewoningen** die de hele winter dicht en koud blijven. In het voorjaar **ruiken ze muf**, en in textiel, matrassen en kasten zit vocht. Een oud huis **in schist met een leistenen dak** houdt dat bovendien lang vast. Een droger enkele weken voor het seizoen, met ramen en deuren dicht, maakt de woning weer klaar voor gasten.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor een vakantiehuis dat de winter onverwarmd doorkwam**: de adsorptiedroger blijft ook in een koude woning vocht opnemen." },
+      { key: "ttk650", waarom: "**Na hoog water in een gelijkvloers aan de Semois**: 110 liter per dag haalt het meeste vocht weg voor het diep in de muren zit." },
+      { key: "radiaal2250", waarom: "Voor een vloer die onder water stond: hij blaast gericht over het oppervlak en in de hoeken, waar het water het langst blijft staan." },
+      { key: "ttk170", waarom: "Voor een kleine gîte of een studio aan het water: compact, stil en op een gewoon stopcontact." },
+    ],
+    levering: {
+      kop: "Leveren in Vresse-sur-Semois: onze verste hoek",
+      alinea:
+        "We zijn er eerlijk over: Vresse-sur-Semois is **een van de verste adressen waar we leveren**, ruim twee uur rijden vanuit Aartselaar, met op het einde de bochtige wegen de vallei in. Daarom **bundelen we de ritten naar de Ardennen** en kiest u een tijdslot. Na wateroverlast, zeg hoe hoog het water stond, zodat alles in één rit meekomt.",
+    },
+    afhalen: {
+      kop: "Afhalen loont alleen op weg naar uw tweede verblijf",
+      alinea:
+        "Vanuit de Semoisvallei is Aartselaar heen en terug **ruim vier uur rijden**. Dat doet niemand voor één droger. Woont u wel in de Antwerpse regio en hebt u hier een vakantiewoning, dan neemt u het toestel mee in de koffer: 25 tot 40 kg, rechtop vervoerd.",
+    },
+    buren: ["bievre", "gedinne"],
+    faq: [
+      {
+        q: "Onze gîte aan de Semois moet klaar zijn voor de eerste gasten. Wanneer beginnen we met drogen?",
+        a: "Reken op twee tot drie weken voor de eerste aankomst, en meer als het huis na een natte winter echt vochtig is. Zet de droger met deuren en ramen dicht, open kasten en lades, en laat de technieker bij het ophalen meten hoe droog de muren zijn.",
+      },
+      {
+        q: "Het water van de Semois stond in ons gelijkvloers. Wat eerst?",
+        a: "Eerst het water en het slib weg, en elektriciteit laten nakijken als die onder water stond. Daarna zo snel mogelijk drogen, zodat het vocht niet diep in muren en vloer trekt. Geef bij de reservatie door hoe hoog het water kwam, dan brengen we de juiste toestellen mee.",
+      },
+      {
+        q: "Leveren jullie ook in Alle, Bohan, Membre en Laforêt?",
+        a: "Ja, alle dorpen van Vresse-sur-Semois vallen in onze levering. De wegen in de vallei zijn smal en bochtig, dus geef door of de bestelwagen tot aan het huis kan, of dat de technieker het laatste stuk met een steekkar moet doen.",
+      },
+      {
+        q: "Hoe lang duurt de rit van Aartselaar naar de Semoisvallei?",
+        a: "Ruim twee uur, via Brussel, Namen en de E411, met op het einde een stuk over kronkelende wegen. Het is een van onze verste ritten. Daarom plannen we leveringen in de Ardennen samen en spreken we vooraf een tijdslot met u af.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "philippeville",
+    title: "Bouwdroger huren in Philippeville | Vernast",
+    description:
+      "Bouwdroger huren in Philippeville: woningen in de oude vestingstad met haar stervormig plan, en stenen hoeves in de dorpen van de Fagne. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Philippeville",
+    kicker: "Provincie Namen · de vestingstad in de Fagne",
+    rit: { afstand: "circa 125 km", tijd: "ongeveer anderhalf uur" },
+    intro: [
+      "Philippeville werd in de zestiende eeuw **als vesting** aangelegd en draagt de naam van Filips II. Het **stervormige plan** is nog altijd te lezen: de straten lopen als spaken vanuit het centrale plein naar de oude bastions, en onder de stad liggen **onderaardse gangen** uit de tijd van de vesting, waarvan een deel te bezoeken is.",
+      "De gemeente is veel groter dan de vesting. Rond de stad liggen **een vijftiental dorpen**, waaronder Jamagne, Sautour, Romedenne, Villers-le-Gambon en Franchimont, verspreid over de **Fagne**: een open landschap met weiden, bosjes en **hoeves in natuursteen** die steeds vaker tot woning worden verbouwd.",
+    ],
+    bouw: {
+      kop: "Stenen huizen binnen de vesting, hoeves op natte grond",
+      alineas: [
+        "Binnen de oude omwalling staan **huizen tegen elkaar** op een beperkte oppervlakte, met dikke muren en vaak **een kelder of een kamer die half onder het maaiveld ligt**. Wie zo'n woning vernieuwt, legt nieuwe pleister op **koude natuursteen of baksteen** die zijn vocht maar traag afgeeft. Daar helpt een droger meer als hij een paar weken mag draaien met de ramen dicht.",
+        "In de dorpen speelt de **bodem van de Fagne** mee: een ondergrond van **schiefer en zware klei** die water slecht laat zakken. Rond een hoeve blijft de grond na een natte winter lang verzadigd, en een **nieuwe vloerplaat of chape** in een omgebouwde stal droogt dan trager dan op een zandgrond. **De technieker meet bij de plaatsing** hoeveel vocht er in de vloer zit, zodat u weet waar u staat.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een rijhuis binnen de vesting** dat per verdieping vernieuwd wordt: 70 liter per dag en bereik tot ongeveer 400 m³." },
+      { key: "ttk650", waarom: "Voor **een hoeve of stal in de Fagne** die een woning wordt, met nieuwe chape over een groot gelijkvloers: 110 liter per dag." },
+      { key: "revolution", waarom: "Voor **de half ingegraven kelder onder een stadshuis**, die ook in de zomer koel blijft. Een adsorptiedroger blijft daar vocht opnemen." },
+      { key: "ttv4500", waarom: "Een dikke natuurstenen muur houdt een laag verzadigde lucht vast. Deze ventilator blaast die weg, zodat de droger er weer vat op krijgt." },
+    ],
+    levering: {
+      kop: "Leveren in Philippeville: over Charleroi en de N5",
+      alinea:
+        "Vanuit Aartselaar rijden we **over de ring rond Brussel, langs Charleroi en dan de N5 naar het zuiden**. Het **tijdslot** legt u vast bij de reservatie. Binnen de vesting zijn de straten kort en vaak bezet door geparkeerde wagens; zeg vooraf **waar de bestelwagen kan stilstaan**, dan rekent de technieker daarop en plaatst hij de toestellen in de ruimtes waar het vocht zit.",
+    },
+    afhalen: {
+      kop: "Zelf afhalen is vanuit Philippeville een lange rit",
+      alinea:
+        "Ons afhaalpunt in Aartselaar ligt op **ongeveer anderhalf uur** rijden. Heen en terug, twee keer, is dat een flink deel van uw week. **Leveren loont hier bijna altijd**: de rit zit in de prijs en u krijgt er een vochtmeting bij de start bovenop.",
+    },
+    buren: ["walcourt", "florennes", "cerfontaine", "doische", "viroinval"],
+    faq: [
+      {
+        q: "Mijn huis staat binnen de oude vesting. Kan een droger in een kamer onder het maaiveld?",
+        a: "Ja. Voor een ruimte die deels onder de grond ligt en koel blijft, kiezen we meestal een adsorptiedroger, omdat een condensdroger onder 15 °C rendement verliest. De technieker kijkt ook of het vocht van buiten blijft binnenkomen, want dan is drogen alleen niet de oplossing.",
+      },
+      {
+        q: "Waarom droogt een chape in een hoeve in de Fagne zo traag?",
+        a: "Omdat de grond eronder vaak zware klei op schiefer is, die na regen lang nat blijft, en omdat een oude stal dikke stenen muren heeft die koud zijn. Een grote droger met de deuren dicht en een ventilator laag over de vloer haalt het meeste uit die situatie.",
+      },
+      {
+        q: "Leveren jullie ook in Jamagne, Sautour of Villers-le-Gambon?",
+        a: "Ja, in alle dorpen van de gemeente Philippeville. Geef het volledige adres door bij de reservatie, dan plannen we de rit samen met andere leveringen in de streek en kiest u een tijdslot dat u past.",
+      },
+      {
+        q: "Hoe weet ik of de muren van mijn stenen woning droog genoeg zijn om te schilderen?",
+        a: "Door te meten, niet door te voelen. Een natuurstenen muur kan aan de oppervlakte droog aanvoelen terwijl er dieper nog water zit. De technieker meet bij de plaatsing en bij het ophalen, en op basis van dat verschil beslist u met uw schilder wanneer hij kan beginnen.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "walcourt",
+    title: "Bouwdroger huren in Walcourt | Vernast",
+    description:
+      "Bouwdroger huren in Walcourt: woningen rond de basiliek op de heuvel, in het dal van de Eau d'Heure en in dorpen als Thy-le-Château en Yves-Gomezée.",
+    h1: "Bouwdroger huren in Walcourt",
+    kicker: "Provincie Namen · de basiliek boven de Eau d'Heure",
+    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en twintig minuten" },
+    intro: [
+      "Het oude Walcourt ligt **op een heuvel boven de Eau d'Heure**, met bovenaan de **basiliek Sint-Materne**, een bedevaartskerk die van ver te zien is. Elk jaar trekt er een **mars** door de straten, een van de bekende **Marches van Entre-Sambre-et-Meuse**.",
+      "Bij de gemeente hoort een brede rij dorpen: **Thy-le-Château** met zijn burcht, **Yves-Gomezée, Berzée, Laneffe, Tarcienne, Somzée** en meer. De rivier stroomt van de stuwmeren in het zuiden door het dal naar de Samber, en de bebouwing wisselt tussen **steile straatjes in de kern** en **verspreide hoeves** op het plateau.",
+    ],
+    bouw: {
+      kop: "Huizen tegen de heuvel en woningen in het rivierdal",
+      alineas: [
+        "Rond de basiliek staan de huizen **op een helling**, sommige met de achtergevel half in de grond. Een kamer aan de bergkant heeft dan **aarde tegen de muur**, en na een renovatie is het nuttig te weten welk vocht van de nieuwe pleister komt en welk uit de helling. **De technieker meet dat** bij de plaatsing en zegt u eerlijk wat een droger daar kan.",
+        "Lager, **in het dal van de Eau d'Heure**, ligt de grond dicht bij het water en zijn oudere woningen gebouwd **zonder vochtkering**. Op het plateau worden **stenen hoeves** tot woning verbouwd, met een nieuwe vloer en veel pleister in een groot volume. Daar draait een groot toestel samen met een ventilator, zodat de chape op tijd klaar is voor de vloerder.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een woning op de heuvel rond de basiliek** die stuk voor stuk vernieuwd wordt: 70 liter per dag op een gewoon stopcontact." },
+      { key: "ttk650", waarom: "Voor **een verbouwde hoeve op het plateau** rond Laneffe of Somzée, met chape over het hele gelijkvloers: 110 liter per dag." },
+      { key: "radiaal2250", waarom: "Voor **een vloer in het dal die nat bleef na hoog water**: hij blaast gericht over de vloer en tot in de hoeken." },
+      { key: "teddh30", waarom: "Een onverwarmd huis aan de rivier blijft in de winter koud. Deze kachel brengt het eerst op temperatuur, zodat de droger rendement haalt." },
+    ],
+    levering: {
+      kop: "Leveren in Walcourt: via Charleroi en het dal van de Eau d'Heure",
+      alinea:
+        "We rijden **over de ring, langs Charleroi en verder zuidwaarts** naar de kern of naar een van de dorpen. U kiest **een tijdslot** bij de reservatie. De straatjes naar de basiliek zijn **steil en smal**: meld dat vooraf, dan neemt de technieker een steekkar mee en zet hij de toestellen per kamer neer.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: reken op bijna drie uur rijden",
+      alinea:
+        "Heen en terug naar ons afhaalpunt bent u **ruim twee en een half uur onderweg**, en bij het terugbrengen nog eens. Vanuit Walcourt is **laten leveren** de logische keuze: de technieker plaatst, stelt in en meet de muren bij de start.",
+    },
+    buren: ["philippeville", "florennes", "cerfontaine", "gerpinnes"],
+    faq: [
+      {
+        q: "Mijn huis ligt tegen de heuvel van de basiliek. Is het vocht bouwvocht of komt het uit de grond?",
+        a: "Dat is na een renovatie de eerste vraag, en de technieker meet het bij de plaatsing. Daalt het vochtgehalte in de muur gestaag, dan is het bouwvocht en doet de droger zijn werk. Blijft het na regen telkens terugkomen, dan is er water van buitenaf en heeft u eerst een oplossing aan de muur nodig.",
+      },
+      {
+        q: "Komen jullie ook in Thy-le-Château, Berzée of Yves-Gomezée?",
+        a: "Ja, in alle deelgemeenten van Walcourt. We bundelen de ritten in de streek, dus geef bij de reservatie uw volledige adres en een tijdslot door. De technieker weet dan vooraf waar hij moet zijn en hoe hij de bestelwagen kwijt kan.",
+      },
+      {
+        q: "Hoeveel drogers heb ik nodig om een verbouwde hoeve te drogen?",
+        a: "Dat hangt af van het volume en van wat er nat is. Voor een groot gelijkvloers met verse chape volstaat vaak één grote droger met een ventilator, met de deuren dicht. Zijn er ook verdiepingen gepleisterd, dan komt er per verdieping een toestel bij.",
+      },
+      {
+        q: "Kan een bouwdroger draaien in een woning die nog niet verwarmd is?",
+        a: "Ja, maar een condensdroger werkt onder ongeveer 15 °C duidelijk minder goed. In een koud huis in het dal zetten we er een elektrische kachel bij, zodat de ruimte eerst opwarmt. In een koele kelder kan ook een adsorptiedroger, die minder afhangt van de temperatuur.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "florennes",
+    title: "Bouwdroger huren in Florennes | Vernast",
+    description:
+      "Bouwdroger huren in Florennes, Morialmé, Hemptinne of Flavion: woningen en hoeves op het plateau van Entre-Sambre-et-Meuse. Geplaatst en ingesteld door ons.",
+    h1: "Bouwdroger huren in Florennes",
+    kicker: "Provincie Namen · het plateau tussen Samber en Maas",
+    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en vijfentwintig minuten" },
+    intro: [
+      "Florennes ligt **midden in Entre-Sambre-et-Meuse**, op het plateau tussen de Samber en de Maas. De gemeente is in het hele land bekend van **de militaire vliegbasis** die haar naam draagt; de stad zelf is ouder en heeft een **kasteel** in haar centrum.",
+      "Rond de kern liggen landelijke dorpen als **Morialmé, Hemptinne, Flavion, Rosée, Corenne en Saint-Aubin**. Het zijn dorpen van **akkers en weiden met stenen hoeves**, en daarnaast recentere woningen langs de invalswegen, gebouwd voor wie in de streek werkt.",
+    ],
+    bouw: {
+      kop: "Hoeves in breuksteen en nieuwbouw op het open plateau",
+      alineas: [
+        "De oudere bebouwing is **in natuursteen uit de streek**: lage hoeves, schuren en dorpshuizen met **dikke muren** en een gelijkvloers dat vaak op de volle grond ligt. Wie zo'n gebouw ombouwt tot woning, legt **een nieuwe isolatie en chape** en pleistert de binnenmuren. Al dat water moet eruit voor er een vloer of verf op kan.",
+        "Op het open plateau staat **meer wind en meer kou** dan in de dalen. Een nieuwbouw die in de winter onder dak komt, heeft daarom vaak **een koud binnenklimaat** waarin de chape nauwelijks vordert. **Eerst de ruimte opwarmen, dan drogen**: met een kachel erbij haalt een condensdroger zijn volle capaciteit.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een omgebouwde schuur of hoeve** met een groot gelijkvloers en nieuwe chape: 110 liter per dag, bereik tot ongeveer 600 m³." },
+      { key: "ttk350", waarom: "Voor **een nieuwbouwwoning langs de invalswegen**: 70 liter per dag, genoeg voor een gelijkvloers met verse chape of een verdieping met nieuwe pleister." },
+      { key: "teddh30", waarom: "**Voor een winterwerf op het winderige plateau**: deze kachel tilt een koude nieuwbouw boven 15 °C, waar de droger pas goed werkt." },
+      { key: "ttv4500", waarom: "Tegen een dikke wand van breuksteen houdt hij de lucht in beweging, zodat de vochtige laag niet tegen de muur blijft hangen." },
+    ],
+    levering: {
+      kop: "Leveren in Florennes: langs Charleroi naar het plateau",
+      alinea:
+        "De rit loopt **over de ring rond Brussel en langs Charleroi** naar het zuiden. U reserveert met **een tijdslot** naar keuze. Op het platteland staan hoeves soms aan een onverharde oprit of achter een erf: **zeg vooraf hoe de bestelwagen tot bij de deur raakt**, dan neemt de technieker het juiste materiaal mee om de toestellen binnen te krijgen.",
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Florennes kost u een halve dag",
+      alinea:
+        "Aartselaar ligt op **bijna anderhalf uur** van Florennes. Een toestel ophalen en later terugbrengen betekent twee keer die rit, met een droger van 25 tot 40 kg rechtop in de wagen. **Laten leveren is hier eenvoudiger** en de plaatsing zit erbij.",
+    },
+    buren: ["philippeville", "walcourt", "mettet"],
+    faq: [
+      {
+        q: "Ik bouw in de winter op het plateau. Hoe krijg ik de chape op tijd droog?",
+        a: "Door eerst de kou aan te pakken. In een onverwarmde nieuwbouw onder 15 °C werkt een condensdroger op halve kracht. Met een elektrische kachel erbij en de ramen dicht haalt hij zijn capaciteit wel, en een ventilator laag over de vloer versnelt het nog.",
+      },
+      {
+        q: "Leveren jullie ook in Morialmé, Flavion of Rosée?",
+        a: "Ja, in elk dorp van de gemeente Florennes. Meld bij de reservatie of het om een hoeve met een lange oprit of een erf gaat, zodat de technieker weet hoe hij tot aan de deur kan rijden en hoe hij de toestellen binnen krijgt.",
+      },
+      {
+        q: "Hoe lang moet een bouwdroger draaien in een omgebouwde stal?",
+        a: "Reken eerder op weken dan op dagen. Een stal met dikke stenen muren en een nieuwe chape bevat veel water, en natuursteen geeft dat traag af. De technieker meet bij de start, zodat u bij het ophalen kunt zien hoeveel er gezakt is.",
+      },
+      {
+        q: "Zie ik vooraf wat de levering tot in Florennes kost?",
+        a: "Ja. Bij de reservatie ziet u de huur van de toestellen en de kost van levering en ophaling voor u bevestigt, zodat er achteraf geen verrassing op de factuur staat. We plannen de rit samen met andere adressen in de streek.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "cerfontaine",
+    title: "Bouwdroger huren in Cerfontaine | Vernast",
+    description:
+      "Bouwdroger huren in Cerfontaine, Silenrieux of Senzeille: woningen en vakantiehuizen rond de meren van de Eau d'Heure, op de natte grond van de Fagne.",
+    h1: "Bouwdroger huren in Cerfontaine",
+    kicker: "Provincie Namen · aan de meren van de Eau d'Heure",
+    rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en een half" },
+    intro: [
+      "Een deel van **de meren van de Eau d'Heure**, het grootste stuwmerencomplex van het land, ligt op het grondgebied van Cerfontaine; de rest hoort bij Froidchapelle in Henegouwen. De stuwdammen, met die van **de Plate Taille** als grootste, maakten van een rustige landbouwstreek een plek waar **vakantiewoningen en recreatie** bij kwamen.",
+      "De gemeente zelf bestaat uit **Cerfontaine, Daussois, Senzeille, Silenrieux, Soumoy en Villers-Deux-Églises**. Het zijn dorpen in **de Fagne**, met boerderijen in steen, rijtjes dorpshuizen langs de hoofdweg en, dichter bij het water, **recentere woningen en tweede verblijven**.",
+    ],
+    bouw: {
+      kop: "Tweede verblijven bij het water, hoeves op zware grond",
+      alineas: [
+        "Een vakantiewoning die **een hele winter dicht en onverwarmd** stond, is in het voorjaar vaak klam: muren die koud zijn gebleven, een zweem schimmel achter een kast, een kruipruimte die nat ruikt. Wie dan renoveert of verkoopt, wil eerst **de lucht en de muren droog**. **De technieker meet** of het om opgehoopt vocht gaat of om een lek.",
+        "De dorpen liggen op **de schiefer- en kleibodem van de Fagne**, die water slecht doorlaat. Rond een stenen hoeve blijft de grond in natte maanden verzadigd, en **een kelder of een gelijkvloers zonder vochtkering** neemt dat over. Bij een verbouwing komt daar nog **nieuwe chape en pleister** bij, en dan draait een groot toestel best een paar weken.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Voor een vakantiehuis dat na de winter klam aanvoelt**: compact, 50 liter per dag, makkelijk van kamer naar kamer te verplaatsen." },
+      { key: "ttk650", waarom: "Voor **een hoeve in de Fagne** die verbouwd wordt, met nieuwe chape over het gelijkvloers en pleister op de muren: 110 liter per dag." },
+      { key: "revolution", waarom: "**Voor een kelder of kruipruimte op de natte kleigrond**, die koel blijft: een adsorptiedroger neemt daar vocht op waar een condensdroger stilvalt." },
+      { key: "teddh20", waarom: "Een tweede verblijf dat maanden onverwarmd stond, warmt deze kachel eerst op, zodat de droger niet in de kou moet werken." },
+    ],
+    levering: {
+      kop: "Leveren in Cerfontaine: tot bij het meer of in het dorp",
+      alinea:
+        "We rijden **langs Charleroi en dan zuidwaarts** naar Cerfontaine of een van de deeldorpen. Bij het reserveren duidt u **een tijdslot** aan. Bent u zelf niet ter plaatse omdat het om een tweede verblijf gaat, **spreek dan af wie de deur opent**: de technieker plaatst de toestellen, zet ze aan en meet bij de start.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: past zelden in een weekend aan het meer",
+      alinea:
+        "Ons afhaalpunt ligt op **ongeveer anderhalf uur** rijden. Neemt u toch de wagen naar uw vakantiewoning, dan kan afhalen voor één compact toestel. Voor een verbouwing met meer toestellen **leveren we liever**, want de opstelling bepaalt hoe snel het droogt.",
+    },
+    buren: ["philippeville", "walcourt", "froidchapelle", "couvin"],
+    faq: [
+      {
+        q: "Mijn vakantiehuis bij de meren is na de winter klam. Wat helpt?",
+        a: "Eerst verwarmen en dan drogen, met ramen en deuren dicht. Een compacte droger per verdieping haalt het vocht uit de lucht en uit de oppervlakte van de muren. Komt de klamheid na enkele weken terug, dan is er een bron zoals een lek of opstijgend vocht, en dat lost drogen niet op.",
+      },
+      {
+        q: "Ik ben niet ter plaatse. Kunnen jullie toch leveren in mijn tweede verblijf?",
+        a: "Ja, als iemand de deur kan openen en de technieker binnen kan. Dat mag een buur of uw aannemer zijn. Geef zijn naam en telefoonnummer door bij de reservatie, dan belt de technieker hem als hij in de buurt is.",
+      },
+      {
+        q: "Komen jullie ook naar Silenrieux, Daussois of Villers-Deux-Églises?",
+        a: "Ja, naar alle dorpen van Cerfontaine en naar de woningen rond de meren. Vermeld het volledige adres, want sommige vakantiewoningen liggen aan wegen die een gps niet altijd goed vindt. Dan kijken we de rit vooraf na.",
+      },
+      {
+        q: "Waarom blijft mijn kelder op de Fagne zo lang nat?",
+        a: "De ondergrond hier is klei op schiefer, en die laat regenwater slecht zakken. Rond het huis blijft de grond dan lang verzadigd, en een kelder zonder goede waterkering neemt dat vocht op. Een droger haalt het bouwvocht weg; voor water dat blijft binnenkomen is een ingreep aan de muur nodig.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "couvin",
+    title: "Bouwdroger huren in Couvin | Vernast",
+    description:
+      "Bouwdroger huren in Couvin of Mariembourg: woningen aan de Eau Noire, op de kalkrotsen van de Calestienne en in de bosdorpen naar Frankrijk. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Couvin",
+    kicker: "Provincie Namen · aan de Eau Noire",
+    rit: { afstand: "circa 145 km", tijd: "ongeveer een uur en veertig minuten" },
+    intro: [
+      "Couvin ligt **aan de Eau Noire**, op de plek waar de rivier zich door een kalkrots snijdt. In de rotsen boven de stad zitten **grotten**, en een eind stroomopwaarts verdwijnt de rivier deels onder de grond bij **de grotten van Neptunus**. Dat is typisch voor **de Calestienne**, de smalle band kalksteen die hier van west naar oost loopt.",
+      "De gemeente is uitgestrekt. In het noorden ligt **Mariembourg**, gesticht als vesting door Maria van Hongarije, met vlakbij Frasnes en Boussu-en-Fagne in **de Fagne**. In het zuiden worden de dorpen kleiner en het bos dichter: **Pesche, Petigny, Brûly en Cul-des-Sarts** liggen al op de rand van **de Ardennen**, tegen de Franse grens.",
+    ],
+    bouw: {
+      kop: "Drie bodems in één gemeente: klei, kalk en schiefer",
+      alineas: [
+        "In de stad en langs **de Eau Noire** staan oudere huizen dicht bij het water, met **kelders in de rots of tegen de helling**. Een kalkbodem lijkt droog, maar **water zoekt er zijn weg door spleten** en kan na zware regen op onverwachte plaatsen een muur nat maken. Na een renovatie meet de technieker of het vocht van de werken komt of van buiten.",
+        "In de Fagne rond Mariembourg ligt **zware klei** die water vasthoudt, en in de Ardense dorpen **schiefer en bos** met een koeler, vochtiger klimaat. Daar staan **woningen in schiefer en natuursteen** met dikke, koude muren. Wie zo'n huis opknapt, droogt langer dan in het Vlaamse binnenland, en **een kachel bij de droger** maakt in het voor- en najaar een groot verschil.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**Voor een kelder in de rots onder een huis aan de Eau Noire**: koel het hele jaar, en daar blijft een adsorptiedroger vocht opnemen." },
+      { key: "ttk350", waarom: "Voor **een woning in Couvin of Mariembourg** die vernieuwd wordt: 70 liter per dag op een gewoon stopcontact, genoeg voor een volledig gelijkvloers." },
+      { key: "teddh30", waarom: "**Voor een stenen huis in de Ardense dorpen**, waar het binnen lang koud blijft: de kachel brengt de ruimte op de temperatuur waar drogen vlot gaat." },
+      { key: "ttv4500", waarom: "Langs een dikke wand van schiefer of kalksteen blaast hij de verzadigde lucht weg, zodat de muur zijn vocht blijft afgeven." },
+    ],
+    levering: {
+      kop: "Leveren in Couvin: de N5 naar het zuiden, tot in de bosdorpen",
+      alinea:
+        "Couvin ligt **helemaal in het zuiden van de provincie**: over Brussel en Charleroi en dan de N5 tot aan de Eau Noire. U kiest bij de reservatie **een tijdslot**, en we combineren de rit met andere adressen in de streek. Ligt uw huis **in een bosdorp aan een smalle weg**, zeg dat dan, zodat de technieker weet hoe ver de bestelwagen kan komen.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar is vanuit Couvin geen optie",
+      alinea:
+        "Van Couvin naar ons afhaalpunt is **meer dan anderhalf uur rijden**, enkel. Twee keer heen en terug voor een huurtoestel is dat niet waard. **Laat ons leveren**: de technieker plaatst de toestellen, stelt ze in en meet bij de start hoe nat de muren zijn.",
+    },
+    buren: ["viroinval", "cerfontaine", "chimay"],
+    faq: [
+      {
+        q: "Mijn kelder in Couvin is in de rots uitgehouwen. Kan die droog worden?",
+        a: "Bouwvocht en vocht uit een natte periode kan een adsorptiedroger er grotendeels uithalen, ook in de koude. Een kalkrots laat wel water door langs spleten, dus droog als een woonkamer wordt zo'n kelder zelden. De technieker meet bij de plaatsing en zegt u wat haalbaar is.",
+      },
+      {
+        q: "Leveren jullie tot in Brûly, Pesche of Cul-des-Sarts?",
+        a: "Ja, ook in de dorpen tegen de Franse grens. Die liggen verder van de N5 en soms aan smalle bosweggetjes, dus geef het precieze adres en eventuele beperkingen voor een bestelwagen door bij de reservatie. Dan plannen we de rit daarop.",
+      },
+      {
+        q: "Hoe droog ik een huis in schiefer dat lang leeg stond?",
+        a: "Eerst opwarmen, dan drogen. Een leegstaand stenen huis is binnen vaak kouder dan buiten, en een condensdroger werkt onder 15 °C slecht. Met een kachel erbij, ramen dicht en een droger per verdieping zakt het vocht gestaag. Reken op enkele weken.",
+      },
+      {
+        q: "Kan de technieker uitleg geven in het Frans?",
+        a: "Onze techniekers kunnen bij de plaatsing ook in het Frans uitleggen hoe de toestellen werken. Zo kan een Franstalige aannemer of buur die de werf opvolgt meteen mee. De reservatie zelf en de bevestiging verlopen via onze site.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "viroinval",
+    title: "Bouwdroger huren in Viroinval | Vernast",
+    description:
+      "Bouwdroger huren in Viroinval: Nismes, Olloy, Treignes en Vierves langs de Viroin, met stenen huizen tussen de kalkheuvels van de Calestienne. Ter plaatse gemeten.",
+    h1: "Bouwdroger huren in Viroinval",
+    kicker: "Provincie Namen · de vallei van de Viroin",
+    rit: { afstand: "circa 150 km", tijd: "ongeveer een uur en drie kwartier" },
+    intro: [
+      "Viroinval draagt de naam van **de Viroin**, de rivier die bij Nismes ontstaat waar **de Eau Noire en de Eau Blanche** samenkomen. De vallei snijdt door **de Calestienne**, en de kalkheuvels die hier ‘tiennes’ heten, met hun droge graslanden, zijn een bekend natuurgebied. Bij Nismes ligt **de Fondry des Chiens**, een diepe kloof in de kalksteen.",
+      "De gemeente bestaat uit **Nismes, Dourbes, Olloy-sur-Viroin, Vierves-sur-Viroin, Treignes, Mazée, Le Mesnil en Oignies-en-Thiérache**. Het zijn **dorpen in grijze steen** langs de rivier en op de flanken, met naar het zuiden, rond Oignies, al het bos en de schiefer van **de Ardennen**.",
+    ],
+    bouw: {
+      kop: "Dorpshuizen aan de rivier en op de kalkflank",
+      alineas: [
+        "Langs de Viroin staan **oude huizen dicht bij het water**, vaak met een gelijkvloers op de volle grond en **muren van kalksteen** die na een natte winter lang koud en vochtig blijven. Na een renovatie met nieuwe pleister of een nieuwe vloer droogt zo'n huis traag, en **de technieker meet bij de start** hoeveel water er in vloer en muur zit.",
+        "Op de flanken liggen huizen **tegen de helling**, waar regenwater door de kalk en het puin naar beneden loopt. Een muur aan de bergkant kan dan nat worden zonder dat er binnen iets mis is. **Een droger lost bouwvocht op, geen water dat blijft toestromen**, en dat onderscheid maken we bij de plaatsing.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Voor een dorpshuis in Nismes of Olloy** dat vernieuwd wordt: 70 liter per dag, bereik tot ongeveer 400 m³." },
+      { key: "revolution", waarom: "Voor **een koude kamer of kelder tegen de kalkflank**: een adsorptiedroger blijft daar werken waar het voor een condensdroger te koud is." },
+      { key: "radiaal2250", waarom: "**Voor een gelijkvloers aan de Viroin dat nat werd**: hij blaast gericht over de vloer en in de hoeken, waar het water het langst blijft." },
+      { key: "teddh20", waarom: "Een huis in kalksteen dat maanden koud stond, brengt deze kachel eerst op temperatuur, zodat drogen niet stilvalt." },
+    ],
+    levering: {
+      kop: "Leveren in Viroinval: tot in de dorpen langs de rivier",
+      alinea:
+        "Viroinval is **een van de verste adressen** waar we leveren: over Brussel, Charleroi en verder zuidwaarts tot in de vallei. Bij de reservatie kiest u **een tijdslot**. De dorpsstraten zijn **smal en bochtig** en soms kort voor de deur bezet; zeg vooraf waar de bestelwagen kan stoppen, dan regelt de technieker de rest.",
+    },
+    afhalen: {
+      kop: "Afhalen: een dagtrip naar Aartselaar",
+      alinea:
+        "Vanuit de vallei van de Viroin bent u heen en terug **bijna vier uur onderweg**. Afhalen is daarom zelden zinvol. **Leveren en ophalen zitten in de prijs**, en de technieker zet de toestellen meteen op de plek waar ze het meest uithalen.",
+    },
+    buren: ["couvin", "doische", "philippeville"],
+    faq: [
+      {
+        q: "Mijn huis aan de Viroin heeft een gelijkvloers op de volle grond. Helpt een droger?",
+        a: "Voor het vocht van een renovatie of van een natte periode wel. Zonder vochtkering trekt de grond wel altijd wat water op, dus helemaal droog als een nieuwbouw wordt zo'n vloer niet. De technieker meet bij de plaatsing en bij het ophalen, zodat u het verschil ziet.",
+      },
+      {
+        q: "Leveren jullie in Treignes, Mazée en Oignies-en-Thiérache?",
+        a: "Ja, in alle dorpen van Viroinval, ook die tegen de Franse grens en in het bos richting Oignies. Geef het volledige adres door, want enkele huizen liggen aan wegen waar een bestelwagen moeilijk keert. Dan bekijken we de rit op voorhand.",
+      },
+      {
+        q: "Waarom wordt de muur aan de bergkant nat na regen?",
+        a: "Op een kalkflank loopt regenwater door de grond en de spleten naar beneden, en een muur die tegen de helling staat vangt dat op. Dat is geen bouwvocht, en een droger houdt het niet tegen. Daalt de meting niet, dan is drainage of een waterkering aan de buitenkant nodig.",
+      },
+      {
+        q: "Hoeveel weken duurt het om een oud stenen huis in de vallei te drogen?",
+        a: "Na een grondige renovatie met nieuwe pleister of chape reken je op enkele weken, langer in de koude maanden. Kalksteen geeft zijn water traag af. Een kachel en een ventilator bij de droger maken het sneller, en de metingen tonen wanneer de vloerder of schilder kan beginnen.",
+      },
+    ],
+    realisaties: [],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "doische",
+    title: "Bouwdroger huren in Doische | Vernast",
+    description:
+      "Bouwdroger huren in Doische, Matagne, Romerée of Gochenée: natuurstenen hoeves en dorpshuizen aan de Franse grens, tussen Fagne en Calestienne. Geleverd en geplaatst.",
+    h1: "Bouwdroger huren in Doische",
+    kicker: "Provincie Namen · tegen de Franse grens",
+    rit: { afstand: "circa 150 km", tijd: "ongeveer een uur en drie kwartier" },
+    intro: [
+      "Doische is **een grensgemeente**: een groot deel van haar grens is ook de grens met Frankrijk, met de Franse stad Givet aan de overkant. Het is **een landelijke gemeente met kleine dorpen** en veel ruimte tussen de kernen, ver van de grote steenwegen.",
+      "Bij de gemeente horen **Matagne-la-Grande, Matagne-la-Petite, Romerée, Gimnée, Niverlée, Soulme, Gochenée, Vodelée, Vaucelles en Agimont**. Ze liggen op de overgang van **de Fagne naar de Calestienne**, en de dorpen zijn grotendeels **in grijze natuursteen** gebouwd: hoeves rond een erf, schuren en rijen dorpshuizen langs de kerk.",
+    ],
+    bouw: {
+      kop: "Natuurstenen hoeves op klei en kalk",
+      alineas: [
+        "De typische woning hier is **een oude hoeve of een dorpshuis in kalksteen**, met muren van een halve meter dik en zelden een vochtkering. Wordt zo'n gebouw omgebouwd, dan komt er **isolatie aan de binnenkant, een nieuwe vloer en veel pleister** op een muur die zelf nooit helemaal droog is. Dat vocht moet eruit voor er afwerking op komt, anders zit het achter de isolatie vast.",
+        "De bodem verschilt per dorp. In het noorden ligt **de natte klei van de Fagne**, die water vasthoudt rond het huis. Naar het zuiden komt **de kalk van de Calestienne** boven, die water beter laat zakken maar het via spleten onverwacht naar een kelder kan leiden. **De technieker meet bij de plaatsing**, zodat u weet of het vocht van de werken komt of van de grond.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Voor een hoeve rond een erf die een woning wordt**: 110 liter per dag, voor een groot volume met verse chape en pleister." },
+      { key: "ttk350", waarom: "Voor **een dorpshuis in Romerée of Matagne** dat per verdieping wordt opgeknapt: 70 liter per dag op een gewoon stopcontact." },
+      { key: "ttv4500", waarom: "**Voor een halve meter dikke kalksteenmuur**: hij houdt de lucht ertegen in beweging, zodat het vocht uit de wand blijft komen." },
+      { key: "teddh30", waarom: "Een stenen hoeve die nog niet verwarmd is, blijft binnen lang koud. Deze kachel tilt ze boven 15 °C, waar de droger zijn werk doet." },
+    ],
+    levering: {
+      kop: "Leveren in Doische: tot in de dorpen aan de grens",
+      alinea:
+        "Doische ligt **aan het einde van onze rit naar het zuiden**: over Brussel en Charleroi, verder langs Philippeville en dan de landwegen naar de grens. U kiest **een tijdslot**, en we plannen de levering samen met andere adressen in de Fagne. Staat de hoeve achter een erf of aan een veldweg, **zeg het vooraf**, dan weet de technieker hoe hij er komt.",
+    },
+    afhalen: {
+      kop: "Afhalen in Aartselaar: vanuit Doische te ver",
+      alinea:
+        "Een toestel ophalen in Aartselaar en het nadien terugbrengen kost vanuit Doische **twee lange dagen in de wagen**. Dat weegt niet op tegen een levering. **De technieker brengt de toestellen tot in de juiste ruimte** en meet de muren bij de start.",
+    },
+    buren: ["philippeville", "viroinval", "hastiere"],
+    faq: [
+      {
+        q: "Ik isoleer mijn natuurstenen hoeve aan de binnenkant. Moet de muur eerst droog?",
+        a: "Ja, dat is aan te raden. Vocht dat achter een binnenisolatie wordt opgesloten, kan er niet meer uit en geeft schimmel of schade aan de afwerking. Laat de muren en de nieuwe pleister eerst drogen en laat meten; pas dan de isolatie sluiten.",
+      },
+      {
+        q: "Komen jullie ook in Gochenée, Vodelée en Agimont?",
+        a: "Ja, in elk dorp van de gemeente Doische, ook die vlak tegen de Franse grens. Geef het volledige adres en eventuele toegangsbeperkingen voor een bestelwagen door bij de reservatie, want een gps stuurt op die landwegen soms een omweg uit.",
+      },
+      {
+        q: "Werkt een droger in een hoeve met muren van een halve meter dik?",
+        a: "Ja, maar het duurt langer. Een dikke stenen muur houdt veel water vast en geeft het traag af. Met een grote droger, ramen dicht en een ventilator die langs de muur blaast, gaat het het snelst. De metingen bij de plaatsing en het ophalen tonen hoeveel vocht er weg is.",
+      },
+      {
+        q: "Kan de huur verlengd worden als de hoeve nog niet droog is?",
+        a: "Ja. Bij het ophalen meet de technieker opnieuw. Is de muur of de chape nog niet droog genoeg voor de volgende stap, dan spreken we een verlenging af en blijven de toestellen staan, zonder dat er een extra rit nodig is.",
+      },
+    ],
+    realisaties: [],
+  },
 ];
 
 export const GEMEENTE_BY_SLUG: Record<string, Gemeente> = Object.fromEntries(

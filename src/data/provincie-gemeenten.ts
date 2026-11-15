@@ -271,6 +271,72 @@ export const HENEGOUWEN_STREKEN: Streek[] = [
   },
 ];
 
+/**
+ * Namen, met een eigen pagina sinds 15-11-2026. Eén array op twee plaatsen,
+ * zoals Waals-Brabant.
+ */
+export const NAMEN_STREKEN: Streek[] = [
+  {
+    naam: "Arrondissement Namen",
+    kenmerk:
+      "Waar Samber en Maas samenkomen: stadswoningen met gewelfde kelders en hoog water bij de oever.",
+    gemeenten: [
+      "Andenne",
+      "Assesse",
+      "Fernelmont",
+      "Floreffe",
+      "Fosses-la-Ville",
+      "Gembloers (Gembloux)",
+      "Gesves",
+      "Jemeppe-sur-Sambre",
+      "La Bruyère",
+      "Mettet",
+      "Namen",
+      "Ohey",
+      "Profondeville",
+      "Sambreville",
+      "Sombreffe",
+      "Éghezée",
+    ],
+  },
+  {
+    naam: "Arrondissement Dinant",
+    kenmerk:
+      "De Maasvallei tussen de kalkrotsen, met diepe kelders en gebouwen die tegen de helling staan.",
+    gemeenten: [
+      "Anhée",
+      "Beauraing",
+      "Bièvre",
+      "Ciney",
+      "Dinant",
+      "Gedinne",
+      "Hamois",
+      "Hastière",
+      "Havelange",
+      "Houyet",
+      "Onhaye",
+      "Rochefort",
+      "Somme-Leuze",
+      "Vresse-sur-Semois",
+      "Yvoir",
+    ],
+  },
+  {
+    naam: "Arrondissement Philippeville",
+    kenmerk:
+      "De Fagne met haar schist- en kalkbodem: open landbouwgebied met natuurstenen hoeves.",
+    gemeenten: [
+      "Cerfontaine",
+      "Couvin",
+      "Doische",
+      "Florennes",
+      "Philippeville",
+      "Viroinval",
+      "Walcourt",
+    ],
+  },
+];
+
 export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   antwerpen: [
     {
@@ -690,6 +756,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
 
   "waals-brabant": WAALS_BRABANT_STREKEN,
   "henegouwen": HENEGOUWEN_STREKEN,
+  "namen": NAMEN_STREKEN,
 
   limburg: [
     {
@@ -905,67 +972,7 @@ export const WAALSE_STREKEN: Record<string, Streek[]> = {
       ],
     },
   ],
-  "namen": [
-    {
-      naam: "Arrondissement Namen",
-      kenmerk:
-        "Waar Samber en Maas samenkomen: stadswoningen met gewelfde kelders en hoog water bij de oever.",
-      gemeenten: [
-        "Andenne",
-        "Assesse",
-        "Fernelmont",
-        "Floreffe",
-        "Fosses-la-Ville",
-        "Gembloers (Gembloux)",
-        "Gesves",
-        "Jemeppe-sur-Sambre",
-        "La Bruyère",
-        "Mettet",
-        "Namen",
-        "Ohey",
-        "Profondeville",
-        "Sambreville",
-        "Sombreffe",
-        "Éghezée",
-      ],
-    },
-    {
-      naam: "Arrondissement Dinant",
-      kenmerk:
-        "De Maasvallei tussen de kalkrotsen, met diepe kelders en gebouwen die tegen de helling staan.",
-      gemeenten: [
-        "Anhée",
-        "Beauraing",
-        "Bièvre",
-        "Ciney",
-        "Dinant",
-        "Gedinne",
-        "Hamois",
-        "Hastière",
-        "Havelange",
-        "Houyet",
-        "Onhaye",
-        "Rochefort",
-        "Somme-Leuze",
-        "Vresse-sur-Semois",
-        "Yvoir",
-      ],
-    },
-    {
-      naam: "Arrondissement Philippeville",
-      kenmerk:
-        "De Fagne met haar schist- en kalkbodem: open landbouwgebied met natuurstenen hoeves.",
-      gemeenten: [
-        "Cerfontaine",
-        "Couvin",
-        "Doische",
-        "Florennes",
-        "Philippeville",
-        "Viroinval",
-        "Walcourt",
-      ],
-    },
-  ],
+  "namen": NAMEN_STREKEN,
   "luxemburg": [
     {
       naam: "Arrondissement Marche-en-Famenne",

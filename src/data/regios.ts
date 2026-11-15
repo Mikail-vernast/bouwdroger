@@ -1088,6 +1088,139 @@ export const REGIOS: Regio[] = [
     },
     areaServed: provincie("Henegouwen"),
   },
+  /* ------------------------------------------------------------------ */
+  {
+    ...route("namen"),
+    /*
+      De provincie Namen kreeg haar pagina op 15-11-2026, als derde Waalse
+      provincie na Waals-Brabant en Henegouwen, met hetzelfde sjabloon,
+      dezelfde prijs en hetzelfde pakket.
+
+      Titel en H1 zeggen "de provincie Namen" en niet "Namen", omdat de stad
+      een eigen pagina heeft (/bouwdroger-huren-namen-stad). Twee pagina's op
+      dezelfde zoekintentie vechten om dezelfde plek; zie de uitleg bij de
+      provinciepagina van Antwerpen in src/test/regios.test.ts. De tekst
+      noemt het onderscheid, maar linkt er niet naar.
+
+      Wat de provincie eigen maakt: Samber en Maas die in Namen samenkomen,
+      de Maasvallei met haar kalkrotsen, de natuurstenen hoeves van de
+      Condroz, tweede verblijven in de Famenne en de Ardennen, en het
+      leemplateau van de Hesbaye in het noorden. De afstand staat er eerlijk:
+      Gembloers ligt op een uur, Vresse-sur-Semois is met Chimay onze verste
+      rit. Rijtijden zijn afgerond en te verifiëren tegen de echte
+      ritgegevens, net als in `gemeenten.ts`.
+
+      Werven heeft de provincie nog niet; de sectie leent de drie Brusselse.
+      Zie `LEENT_VAN`.
+    */
+    title: "Bouwdroger huren in de provincie Namen | Vernast",
+    description:
+      "Bouwdroger huren in de provincie Namen: Gembloers, Andenne, Dinant en Ciney. Geleverd, geplaatst en opgehaald vanuit Aartselaar, zonder waarborg.",
+    h1: "Bouwdroger huren in de provincie Namen",
+    kicker: "Province de Namur · 38 gemeenten · van de Hesbaye tot de Semois",
+    intro: [
+      "Een bouwdroger huren in de provincie Namen, voor een hoeve in renovatie, een nieuwe chape of een kelder die bij hoog water volliep? Vernast brengt de toestellen tot op uw werf, van Éghezée tot Couvin en van Gembloers tot Vresse-sur-Semois. **Leveren, opstellen en weer ophalen zitten in uw droogpakket.** Over de afstand zijn we liever eerlijk: **Gembloers en Éghezée halen we in ongeveer een uur over de E411**, de stad Namen in iets meer, Dinant en Philippeville in anderhalf uur of langer, en Couvin en Vresse-sur-Semois horen bij de verste ritten die we rijden. Deze pagina gaat over de hele provincie; voor de stad Namen zelf, met Jambes en de wijken aan de oever, bestaat een aparte pagina.",
+    ],
+    heroFacts: [
+      "Levering, plaatsing en ophaling inbegrepen",
+      "Geen waarborg",
+      "Hulp in het Nederlands en het Frans",
+    ],
+    bouw: {
+      kop: "Waarvoor huurt men in de provincie Namen een bouwdroger?",
+      alineas: [
+        "**In Namen vloeit de Samber in de Maas**, en langs beide rivieren ligt het dichtste deel van de provincie: Sambreville, Jemeppe-sur-Sambre en Floreffe aan de Samber, Andenne en Profondeville aan de Maas. Het zijn oude industrie- en rivierdorpen met rijwoningen die vaak een gewelfde kelder hebben, half onder het peil van de oever. Bij een hoge waterstand of een zware onweersbui staat daar water in, en dan telt elke dag die u wacht met drogen.",
+        "**Stroomopwaarts, tussen Yvoir en Hastière, snijdt de Maas door kalkrotsen.** Dinant ligt geprangd tussen de rotswand en de rivier, en veel huizen in de vallei staan met hun achtergevel tegen de helling. Water uit de rots zoekt zijn weg naar binnen langs de muur aan de bergkant, zodat die achtermuur en de kelder eronder vaak nat blijven terwijl de voorgevel droog is. Een droger die gericht bij die muur staat, haalt er meer uit dan een toestel in het midden van de kamer.",
+        "**Op het plateau van de Condroz**, rond Ciney, Havelange en Hamois, staan hoeves en dorpswoningen in kalksteen en zandsteen, met muren van een halve meter dik. Wie zo'n gebouw tot woning verbouwt, giet nieuwe vloeren en pleistert binnenmuren die al jaren onverwarmd stonden. Dat vocht komt maar traag naar buiten. **Verder naar het zuiden, in de Famenne rond Rochefort en in de Ardennen rond Gedinne en Bièvre, zijn het vaak tweede verblijven**: huizen die een winter leeg stonden en bij de eerste lentedag muf en vochtig blijken.",
+        "In het noorden ligt **de Hesbaye, het Waalse deel van Haspengouw**: een leemplateau met grote akkers rond Éghezée, Fernelmont en Gembloers. Daar wordt wel nieuw gebouwd, op verkavelingen aan de rand van de dorpen, en daar gaat het om de klassieke droging van een nieuwbouw. Pleisterwerk en chape brengen samen honderden liters water in een woning, en dat moet eruit voor de parketlegger komt.",
+      ],
+    },
+    beeld: {
+      src: "/vernast/case-kelder.webp",
+      alt: "Kelder van een oude woning met een bouwdroger tegen de natte muur",
+    },
+    toestellen: {
+      kop: "Welke bouwdroger past bij een werf in de provincie Namen?",
+      items: [
+        {
+          key: "ttk350",
+          waarom: `**Voor de nieuwbouw in de Hesbaye of een verdieping in een rivierdorp**: 70 liter per dag en een bereik tot ongeveer 400 m³. Op een gewone woning zetten we er een per bouwlaag. Vanaf ${dag("ttk350")} per dag.`,
+        },
+        {
+          key: "ttk650",
+          waarom: `**Voor een verbouwde schuur in de Condroz of een kelder die volliep**: 110 liter per dag, tot ongeveer 600 m³. Eén groot toestel waar anders twee kleinere de ruimte zouden delen. Vanaf ${dag("ttk650")} per dag.`,
+        },
+        {
+          key: "revolution",
+          waarom: `**De adsorptiedroger voor de koude kelder in de Maasvallei of het tweede verblijf in de Ardennen.** Hij werkt ook bij lage temperatuur en blaast de droge lucht via een slang tot tegen de natte muur. We bekijken de opstelling liefst eerst met u. Vanaf ${dag("revolution")} per dag.`,
+        },
+        {
+          key: "teddh30",
+          waarom: `**De elektrische kachel van 30 kW voor een natuurstenen hoeve die in de winter verbouwd wordt.** Pas als de ruimte warm genoeg is, haalt een condensdroger zijn volle vermogen. Vraagt krachtstroom (400 V) op de werf. Vanaf ${dag("teddh30")} per dag.`,
+        },
+      ],
+    },
+    levering: {
+      kop: "Leveren in de provincie Namen: over de E411, met een afgesproken uur",
+      alineas: [
+        "Vanuit Aartselaar rijden we over de Brusselse ring en dan de E411 af naar het zuidoosten. **Gembloers, Éghezée en Sombreffe liggen op ongeveer een uur, de stad Namen op vijf kwartier.** Voor de Maasvallei richting Dinant en voor het zuiden rond Philippeville en Florennes rekenen we anderhalf uur of meer. Couvin, Viroinval, Gedinne en Vresse-sur-Semois liggen op rond twee uur of iets langer, en daar leggen we het uur van levering samen met u vast.",
+        `De technieker meet bij aankomst hoe nat de muren en de vloer zijn, plaatst de toestellen waar het vocht zit en legt de afvoer naar een putje, een gootsteen of naar buiten. **Naar boven via de trap is inbegrepen**; ligt de trap er nog niet, dan rekenen we ${euro(LADDER)} per verdieping via de ladder. Kilometers rekenen we niet aan: een werf in Vresse-sur-Semois kost hetzelfde droogpakket als een werf in Gembloers.`,
+      ],
+      feiten: [
+        { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
+        { label: "Levertermijn", waarde: "Binnen 24 uur, in een ronde buiten de spits" },
+        { label: "Rijtijd vanuit ons magazijn", waarde: "Rond een uur (Gembloers, Éghezée) tot ruim twee uur (Vresse-sur-Semois)" },
+        { label: "Taal", waarde: "Nederlands of Frans, naar keuze" },
+        { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
+        { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
+      ],
+    },
+    afhalen: {
+      kop: "Afhalen vanuit de provincie Namen: zelden een goed idee",
+      alineas: [
+        `Ons afhaalpunt ligt in Aartselaar, aan de A12 net onder Antwerpen. Vanuit Gembloers is dat een uur rijden, vanuit Dinant of Ciney al snel het dubbele, en die rit maakt u twee keer. **Bij een volledig droogpakket bespaart u daarmee niets, want de levering zit al in de prijs.** Heeft u maar één droger of ventilator nodig voor een lange periode en komt u toch in de buurt van Antwerpen, dan krijgt u ${euro(AFHAALKORTING)} korting op de huurprijs en een vast afhaalmoment op een werkdag tussen 07:30 en 17:00.`,
+      ],
+      feiten: [
+        { label: "Rijtijd naar ons afhaalpunt", waarde: "Een uur (Gembloers) tot ruim twee uur (het zuiden)" },
+        { label: "Korting bij afhalen", waarde: `${euro(AFHAALKORTING)} op de huurprijs` },
+        { label: "Waarborg", waarde: "Geen" },
+        { label: "Vervoer", waarde: "Rechtop; plat vervoerd 24 uur laten staan" },
+        { label: "Liever laten leveren?", waarde: "De rit zit al in elke pakketprijs" },
+      ],
+    },
+    faq: [
+      {
+        q: "Is deze pagina voor de stad Namen of voor de provincie?",
+        a: "Voor de provincie: alle 38 gemeenten, van Éghezée in het noorden tot Vresse-sur-Semois in het zuiden. Voor de stad Namen zelf, met Jambes, Salzinnes en de andere deelgemeenten, staat er een aparte pagina. Het droogpakket en de prijs zijn op beide pagina's dezelfde; alleen de uitleg over de streek verschilt.",
+      },
+      {
+        q: "Komen jullie ook tot in Couvin of Vresse-sur-Semois?",
+        a: "Ja, al is het met ruim twee uur rijden vanuit Aartselaar een van onze langste ritten. Daarom spreken we het uur van levering met u af, in plaats van u een venster van een halve dag te geven. De prijs blijft gelijk: levering, plaatsing en ophaling zitten in het droogpakket, zonder toeslag voor de kilometers.",
+      },
+      {
+        q: "Kunnen we met jullie in het Frans afspreken?",
+        a: "Ja. U kiest zelf of we in het Nederlands of het Frans praten, aan de telefoon, in de offerte en bij de plaatsing op de werf. Zoekt u op Namur, Gembloux of Dinant, dan vindt u hier dezelfde gemeenten en hetzelfde pakket, alleen met hun Nederlandse naam waar die bestaat.",
+      },
+      {
+        q: "Mijn huis staat tegen de rots in de Maasvallei. Helpt een droger tegen de natte achtermuur?",
+        a: "Hij haalt het vocht uit de lucht en uit de muur, zodat u kunt pleisteren of schilderen. Komt er blijvend water uit de helling achter het huis, dan lost een droger dat niet op: dan is drainage of een waterdichting nodig, en daarna kan de muur uitdrogen. De technieker meet bij de start waar het vocht zit en zegt eerlijk wat de droger kan.",
+      },
+      {
+        q: "Ons tweede verblijf in de Ardennen is muf na de winter. Wat raden jullie aan?",
+        a: "Meestal is dat geen waterschade maar condens: een koud huis dat maanden dicht stond. Een adsorptiedroger werkt dan beter dan een condensdroger, omdat hij ook bij lage temperatuur vocht blijft opnemen. Laat in de tussentijd zo veel mogelijk verwarmen en verluchten, en kijk achter kasten en in de hoeken of er al schimmel zit.",
+      },
+      {
+        q: "Hoe lang duurt het drogen van een verbouwde hoeve in de Condroz?",
+        a: "Langer dan een nieuwbouw, omdat de dikke natuurstenen muren hun vocht pas na weken loslaten en de nieuwe chape er nog bovenop komt. Reken op enkele weken met een droger per bouwlaag, en in de winter met een kachel erbij. Bij de ophaling meet de technieker opnieuw, zodat u weet of de vloerder of de schilder kan starten.",
+      },
+    ],
+    realisaties: {
+      kop: "Werven in de buurt van Namen",
+      intro: "In de provincie Namen hebben we tot nu toe geen werf gefotografeerd. Deze drie liggen in Brussel, waar onze rit naar Gembloers en Namen langs passeert.",
+      slugs: ["dhr-h-brussel", "mnr-s-brussel", "mevr-g-b-sint-pieters-woluwe"],
+    },
+    areaServed: provincie("Namen"),
+  },
 ];
 
 export const REGIO_BY_SLUG: Record<string, Regio> = Object.fromEntries(REGIOS.map((r) => [r.slug, r]));

@@ -61,6 +61,7 @@ export const REALISATIE_REGIO: Record<string, RegioRoute["slug"]> = {
   en van Brussel komen we er ook langs de ring en de E19 naartoe.
 */
 const LEENT_VAN: Record<string, string> = {
+  "namen": "brussel",
   "vlaams-brabant": "brussel",
   "waals-brabant": "brussel",
   "henegouwen": "brussel",
