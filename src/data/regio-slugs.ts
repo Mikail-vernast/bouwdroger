@@ -40,6 +40,23 @@ export interface RegioRoute {
    * anders overlappen.
    */
   pin: { left: string; top: string };
+  /**
+   * Levering op afspraak in plaats van "binnen 24 uur". Staat aan voor de
+   * Nederlandse provincies: daar rijden we over de grens, met andere
+   * btw-regels, en de sitemap zei al dat het "op aanvraag" is. Het sjabloon
+   * mag dan geen termijn beloven die de rest van de site tegenspreekt.
+   */
+  opAanvraag?: boolean;
+}
+
+/** De leverbelofte zoals de sjablonen ze tonen, per gebied. */
+export function levertermijn(route: Pick<RegioRoute, "opAanvraag"> | undefined): {
+  kort: string;
+  lang: string;
+} {
+  return route?.opAanvraag
+    ? { kort: "Op afspraak", lang: "Op afspraak, de leverdag spreken we samen af" }
+    : { kort: "Binnen 24 uur", lang: "Binnen 24 uur, meestal de volgende werkdag" };
 }
 
 export const REGIO_ROUTES: RegioRoute[] = [
@@ -170,6 +187,16 @@ export const REGIO_ROUTES: RegioRoute[] = [
     path: "/bouwdroger-huren-luxemburg",
     towns: ["Aarlen", "Bastenaken", "Marche-en-Famenne", "Libramont-Chevigny", "Virton", "Durbuy", "Bouillon", "Neufchâteau", "Saint-Hubert", "Vielsalm", "Houffalize", "La Roche-en-Ardenne", "Bertrix", "Aubange", "Florenville", "Habay"],
     pin: { left: "62%", top: "80%" },
+  },
+  /*
+    Luik, sinds 15-11-2026. De speld staat op Luik (5,6 OL, 50,5 NB).
+  */
+  {
+    slug: "luik",
+    name: "Luik",
+    path: "/bouwdroger-huren-luik",
+    towns: ["Luik", "Verviers", "Seraing", "Herstal", "Hoei", "Eupen", "Borgworm", "Hannuit", "Wezet", "Spa", "Malmedy", "Ans", "Flémalle", "Sankt Vith", "Aywaille", "Chaudfontaine"],
+    pin: { left: "80%", top: "52%" },
   },
 ];
 

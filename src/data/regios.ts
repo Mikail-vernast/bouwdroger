@@ -1353,6 +1353,143 @@ export const REGIOS: Regio[] = [
     },
     areaServed: provincie("Luxemburg"),
   },
+  /* ------------------------------------------------------------------ */
+  {
+    ...route("luik"),
+    /*
+      De provincie Luik kreeg haar pagina op 15-11-2026, als laatste van de
+      vijf Waalse provincies, met hetzelfde sjabloon, dezelfde prijs en
+      hetzelfde pakket.
+
+      Titel en H1 zeggen "de provincie Luik" en niet "Luik", omdat de stad een
+      eigen pagina heeft (/bouwdroger-huren-luik-stad). Twee pagina's op
+      dezelfde zoekintentie vechten om dezelfde plek; zie de uitleg bij de
+      provinciepagina van Antwerpen in src/test/regios.test.ts. De tekst noemt
+      het onderscheid, maar linkt er niet naar, net als bij Namen.
+
+      Wat de provincie eigen maakt: Waals Haspengouw rond Hannuit en Borgworm,
+      de Maasvallei met haar staal- en steenkoolverleden (Seraing, Flémalle,
+      Herstal), de herenhuizen met souterrain in de stad, de Vesdre die in juli
+      2021 buiten haar oevers trad, het Land van Herve, de Hoge Venen en de
+      Duitstalige Gemeenschap. Die laatste staat er zonder belofte in het
+      Duits: de pagina is Nederlandstalig en we spreken Nederlands of Frans.
+      De afstand staat er eerlijk: Hannuit ligt op een uur, de Oostkantons
+      rond Sankt Vith op ruim twee. Rijtijden zijn afgerond en te verifiëren
+      tegen de echte ritgegevens, net als in `gemeenten.ts`.
+
+      Werven heeft de provincie nog niet; de sectie leent de twee Limburgse,
+      omdat Limburg aan Luik grenst en Hasselt op de E313 naar Luik ligt.
+      Zie `LEENT_VAN`.
+    */
+    title: "Bouwdroger huren in de provincie Luik | Vernast",
+    description:
+      "Bouwdroger huren in de provincie Luik: Hoei, Verviers, Seraing, Spa en de Oostkantons. Geleverd, geplaatst en opgehaald vanuit Aartselaar, zonder waarborg.",
+    h1: "Bouwdroger huren in de provincie Luik",
+    kicker: "Province de Liège · 84 gemeenten · van Hannuit tot de Oostkantons",
+    intro: [
+      "Een bouwdroger huren in de provincie Luik, voor een herenhuis in renovatie, een verse chape in Haspengouw of een gelijkvloers dat na hoog water nog nat is? Vernast zet de toestellen op uw werf, van Hannuit tot Eupen en van Wezet tot Sankt Vith. **Levering, plaatsing en ophaling horen bij uw droogpakket.** De afstand verzwijgen we niet: **Hannuit en Borgworm liggen op ongeveer een uur over de E40**, de stad Luik op vijf kwartier, Verviers en Spa op anderhalf uur, en de Oostkantons rond Sankt Vith op ruim twee uur. Deze pagina gaat over de hele provincie; de stad Luik heeft haar eigen pagina, met de wijken en de deelgemeenten binnen de stadsgrens.",
+    ],
+    heroFacts: [
+      "Levering, plaatsing en ophaling inbegrepen",
+      "Geen waarborg",
+      "Hulp in het Nederlands en het Frans",
+    ],
+    bouw: {
+      kop: "Waarvoor huurt men in de provincie Luik een bouwdroger?",
+      alineas: [
+        "**Het westen van de provincie is Waals Haspengouw**, rond Hannuit, Borgworm, Braives en Geer: een vlak leemplateau met suikerbieten, graan en grote vierkantshoeven rond een gesloten erf. Wie zo'n hoeve opdeelt in woningen of de stallen tot leefruimte verbouwt, giet nieuwe vloeren over een groot oppervlak. Aan de rand van de dorpen komen er ook verkavelingen bij, en daar is het de gewone nieuwbouwdroging: pleisterwerk en chape die samen honderden liters water in huis brengen.",
+        "**Langs de Maas, van Hoei over Seraing en Flémalle tot Herstal, ligt het oude hart van de Waalse zware industrie.** Hoogovens, walserijen en steenkoolmijnen bepaalden hier anderhalve eeuw lang het beeld, en tussen de fabrieken bouwde men rijen arbeiderswoningen tegen de hellingen. Veel van die huizen worden nu gerenoveerd. Ze hebben dunne gevels, kelders onder het straatpeil en muren die jaren onverwarmd stonden, en na het uitbreken van oude bepleistering blijkt het metselwerk vaak natter dan verwacht.",
+        "**In de stad Luik zelf staan herenhuizen uit de negentiende eeuw met een souterrain**: een half ondergrondse verdieping waar vroeger de keuken en de bergingen lagen. Wie dat souterrain tot leefruimte of praktijkruimte maakt, werkt tegen muren die aan de straatkant in de grond staan. Die muren drogen traag, en een nieuwe vloer erbovenop houdt het vocht nog langer vast. Een droger in zo'n ruimte doet het meeste werk in de eerste twee weken.",
+        "**In juli 2021 trad de Vesdre buiten haar oevers**, en in Pepinster, Verviers, Trooz, Chaudfontaine en Limburg stonden huizen tot op de eerste verdieping onder water. Veel woningen in die vallei zijn sindsdien gestript en opnieuw opgebouwd, en sommige zijn dat nog. Wie er vandaag pleistert of een nieuwe vloer legt, droogt een huis dat ooit doorweekt was; daar is het belangrijk eerst te meten hoeveel vocht er nog in de muurvoet zit.",
+        "**Ten oosten van Luik ligt het Land van Herve**: glooiende weiden met hagen, boomgaarden en verspreide hoeves in baksteen en kalksteen, rond Herve, Aubel en Thimister-Clermont. Daarachter stijgt de grond naar **de Hoge Venen**, het hoogste en natste stuk van België, rond Jalhay, Weismes en Bütgenbach. Een ruwbouw op die hoogte blijft in de winter maandenlang koud. **In de Oostkantons, van Eupen en Kelmis tot Sankt Vith en Burg-Reuland, ligt de Duitstalige Gemeenschap**; ook daar leveren we, met afspraken in het Nederlands of het Frans.",
+      ],
+    },
+    beeld: {
+      src: "/vernast/case-waterschade.webp",
+      alt: "Gelijkvloers na waterschade, met bouwdrogers tegen de gestripte muren",
+    },
+    toestellen: {
+      kop: "Welke bouwdroger past bij een werf in de provincie Luik?",
+      items: [
+        {
+          key: "ttk350",
+          waarom: `**Voor een arbeiderswoning in de Maasvallei of een nieuwbouw in Haspengouw**: 70 liter per dag en een bereik tot ongeveer 400 m³. Op een woning van gemiddelde grootte staat er een op elke bouwlaag. Vanaf ${dag("ttk350")} per dag.`,
+        },
+        {
+          key: "ttk650",
+          waarom: `**Voor het gelijkvloers in de Vesdrevallei of de stallen van een vierkantshoeve**: 110 liter per dag, tot ongeveer 600 m³. Waar veel water in korte tijd weg moet, vervangt dit toestel er twee kleinere. Vanaf ${dag("ttk650")} per dag.`,
+        },
+        {
+          key: "revolution",
+          waarom: `**De adsorptiedroger voor het Luikse souterrain of een kelder onder het straatpeil.** Hij blijft vocht opnemen in een koude ruimte en brengt de droge lucht via slangen tot tegen de natte muur. Die opstelling overlopen we graag eerst met u. Vanaf ${dag("revolution")} per dag.`,
+        },
+        {
+          key: "teddh30",
+          waarom: `**De bouwkachel van 30 kW voor de winterwerf in de Hoge Venen of de Oostkantons.** Een onverwarmde ruwbouw op die hoogte is te koud voor een condensdroger; met de kachel erbij komt hij op gang. Vraagt krachtstroom (400 V) op de werf. Vanaf ${dag("teddh30")} per dag.`,
+        },
+      ],
+    },
+    levering: {
+      kop: "Leveren in de provincie Luik: E40 en E313, en een afgesproken uur",
+      alineas: [
+        "Vanuit Aartselaar rijden we naar het oosten. **Hannuit, Borgworm en de rest van Haspengouw bereiken we in ongeveer een uur over de E40**; de stad Luik, Seraing en Herstal liggen op vijf kwartier, langs de E40 of de E313 via Hasselt. Hoei, Verviers en Spa halen we in anderhalf uur. Voor Malmedy, Stavelot en de Oostkantons rond Sankt Vith en Burg-Reuland rekenen we ruim twee uur, en daar leggen we het uur van levering samen met u vast.",
+        `Bij aankomst meet de technieker hoeveel vocht er in de vloer en de muren zit, zet de toestellen op de natste plekken en leidt de afvoer naar een putje, een gootsteen of naar buiten. **De trap op naar de verdieping is in de prijs inbegrepen**; is er nog geen trap, dan kost de ladder ${euro(LADDER)} per verdieping. De afstand rekenen we niet door: een werf in Sankt Vith kost hetzelfde droogpakket als een werf in Hannuit.`,
+      ],
+      feiten: [
+        { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
+        { label: "Levertermijn", waarde: "Binnen 24 uur, in een ronde buiten de spits" },
+        { label: "Rijtijd vanuit ons magazijn", waarde: "Rond een uur (Hannuit) tot ruim twee uur (Sankt Vith)" },
+        { label: "Taal", waarde: "Nederlands of Frans, naar keuze" },
+        { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
+        { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
+      ],
+    },
+    afhalen: {
+      kop: "Afhalen vanuit de provincie Luik: alleen als u toch naar Antwerpen moet",
+      alineas: [
+        `Afhalen kan in ons magazijn in Aartselaar, aan de A12 aan de zuidkant van Antwerpen. Vanuit Hannuit is dat een uur rijden, vanuit Verviers of Spa anderhalf uur, en u rijdt die weg heen en terug, bij het ophalen en opnieuw bij het terugbrengen. **Bij een droogpakket levert dat niets op, omdat de levering er al in zit.** Moet u toch in de buurt van Antwerpen zijn en heeft u één droger of ventilator lang nodig, dan krijgt u ${euro(AFHAALKORTING)} korting op de huurprijs en een vast afhaalmoment op een werkdag tussen 07:30 en 17:00.`,
+      ],
+      feiten: [
+        { label: "Rijtijd naar ons afhaalpunt", waarde: "Een uur (Hannuit) tot ruim twee uur (Oostkantons)" },
+        { label: "Korting bij afhalen", waarde: `${euro(AFHAALKORTING)} op de huurprijs` },
+        { label: "Waarborg", waarde: "Geen" },
+        { label: "Vervoer", waarde: "Rechtop; plat vervoerd 24 uur laten staan" },
+        { label: "Liever laten leveren?", waarde: "De rit zit al in elke pakketprijs" },
+      ],
+    },
+    faq: [
+      {
+        q: "Gaat deze pagina over de stad Luik of over de provincie?",
+        a: "Over de provincie: alle 84 gemeenten, van Hannuit en Borgworm in het westen tot Eupen en Sankt Vith in het oosten. De stad Luik heeft een eigen pagina, met de wijken en deelgemeenten binnen de stadsgrens. Droogpakket en prijs zijn op beide dezelfde; wat verschilt is de uitleg over de streek en de afstand.",
+      },
+      {
+        q: "Leveren jullie ook in de Oostkantons, rond Eupen en Sankt Vith?",
+        a: "Ja, in alle negen gemeenten van de Duitstalige Gemeenschap, van Kelmis en Raeren tot Bütgenbach en Burg-Reuland. Sankt Vith ligt op ruim twee uur van Aartselaar, dus spreken we het uur van levering vooraf af. De afspraken maken we in het Nederlands of het Frans; de prijs is dezelfde als in Haspengouw, zonder toeslag voor de kilometers.",
+      },
+      {
+        q: "Kunnen we de afspraak in het Frans maken?",
+        a: "Ja. Aan de telefoon, in de offerte en bij de plaatsing kiest u zelf of we Nederlands of Frans spreken. Zoekt u op Liège, Huy, Waremme of Visé, dan vindt u hier dezelfde gemeenten onder hun Nederlandse naam: Luik, Hoei, Borgworm en Wezet. Het droogpakket en de technieker zijn dezelfde.",
+      },
+      {
+        q: "Ons huis aan de Vesdre is na 2021 heropgebouwd. Moet het nog gedroogd worden?",
+        a: "Dat hangt af van wat er sindsdien gebeurd is. Werd er opnieuw gepleisterd of een nieuwe chape gegoten, dan zit dat bouwvocht er nog in, bovenop wat de muurvoet van de overstroming heeft vastgehouden. De technieker meet bij de start hoe nat muren en vloer zijn, zodat u niet te vroeg parket of verf aanbrengt op een ondergrond die nog vocht afgeeft.",
+      },
+      {
+        q: "Werkt een bouwdroger in een souterrain van een Luiks herenhuis?",
+        a: "Ja, maar het souterrain is meestal koel, en een condensdroger levert daar minder. Een adsorptiedroger blijft ook bij lage temperatuur vocht opnemen en is dan vaak de betere keuze. Komt er blijvend water door de muur aan de straatkant, dan is eerst een waterdichting nodig; de droger haalt daarna het vocht eruit dat al in de muur zit.",
+      },
+      {
+        q: "Droogt een ruwbouw in de Hoge Venen in de winter?",
+        a: "Zonder warmte nauwelijks. Op die hoogte blijft een onverwarmde ruwbouw maandenlang koud, en koude lucht neemt weinig vocht op, zodat chape en pleisterwerk hun water amper afgeven. Met een bouwkachel erbij wordt de ruimte warm genoeg om de droger zijn werk te laten doen. Die kachel vraagt krachtstroom, dus zeg vooraf wat er op de werf beschikbaar is.",
+      },
+    ],
+    realisaties: {
+      kop: "Werven in de buurt van Luik",
+      intro: "In de provincie Luik zelf hebben we nog geen werf gefotografeerd. Deze twee liggen in Limburg, de buurprovincie: Hasselt ligt op onze rit over de E313 naar Luik, Bocholt in het Maasland verder noordwaarts.",
+      slugs: ["mnr-l-hasselt", "mnr-j-bocholt"],
+    },
+    areaServed: provincie("Luik"),
+  },
 ];
 
 export const REGIO_BY_SLUG: Record<string, Regio> = Object.fromEntries(REGIOS.map((r) => [r.slug, r]));

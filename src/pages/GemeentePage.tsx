@@ -31,7 +31,7 @@ import {
   gemeenteVanPlaats,
 } from "@/data/gemeente-slugs";
 import { GEMEENTE_BY_SLUG, plaatsenVoor, routeVan, type Gemeente } from "@/data/gemeenten";
-import { REGIO_ROUTES } from "@/data/regio-slugs";
+import { REGIO_ROUTES, levertermijn } from "@/data/regio-slugs";
 import { REGIO_BY_SLUG } from "@/data/regios";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
@@ -75,7 +75,7 @@ import "@/styles/v3-content.css";
  * De vier stappen van een huur. Eén regel draagt de gemeentenaam, zodat deze
  * sectie niet op zeventien pagina's woord voor woord dezelfde is.
  */
-const verloop = (naam: string) => [
+const verloop = (naam: string, levering: string) => [
   {
     Icon: CalendarCheckIcon,
     title: "U reserveert",
@@ -84,7 +84,7 @@ const verloop = (naam: string) => [
   {
     Icon: TruckIcon,
     title: `Wij rijden naar ${naam}`,
-    desc: "Binnen 24 uur. De technieker verdeelt de toestellen, sluit de condensafvoer aan en stelt de streefvochtigheid in.",
+    desc: `${levering}. De technieker verdeelt de toestellen, sluit de condensafvoer aan en stelt de streefvochtigheid in.`,
   },
   {
     Icon: BoltIcon,
@@ -413,7 +413,7 @@ const GemeentePage = () => {
               </div>
               <div>
                 <dt>Levering</dt>
-                <dd>Binnen 24 uur, meestal de volgende werkdag</dd>
+                <dd>{levertermijn(provincie).lang}</dd>
               </div>
               <div>
                 <dt>Transportkost</dt>
@@ -527,7 +527,7 @@ const GemeentePage = () => {
                   </div>
                   <div>
                     <dt>Levertermijn</dt>
-                    <dd>Binnen 24 uur, meestal de volgende werkdag</dd>
+                    <dd>{levertermijn(provincie).lang}</dd>
                   </div>
                   <div>
                     <dt>Transport en installatie</dt>
@@ -715,7 +715,7 @@ const GemeentePage = () => {
               </p>
             </div>
             <div className="flow">
-              {verloop(route.name).map(({ Icon, title, desc }, i) => (
+              {verloop(route.name, levertermijn(provincie).kort).map(({ Icon, title, desc }, i) => (
                 <Reveal from="up" delay={i * 0.08} className="fl" key={title}>
                   <i>{`0${i + 1}`}</i>
                   <div className="fi"><Icon size={19} /></div>

@@ -29,6 +29,7 @@ const VERWACHT: Record<string, number> = {
   brussel: 19,
   "waals-brabant": 27,
   henegouwen: 69,
+  luik: 84,
   namen: 38,
   luxemburg: 43,
 };

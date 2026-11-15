@@ -24,7 +24,7 @@ import {
 import { GaugeIcon, LayersIcon, LekIcon, WindIcon } from "@/components/content/icons";
 import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
-import { REGIO_BY_PATH, REGIO_ROUTES } from "@/data/regio-slugs";
+import { REGIO_BY_PATH, REGIO_ROUTES, levertermijn } from "@/data/regio-slugs";
 import { gemeentenInRegio, gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import {
@@ -62,7 +62,7 @@ import "@/styles/v3-content.css";
  * App.tsx registreert vijf vaste routes die allemaal hier uitkomen.
  */
 /** De vier stappen van een huur, voor de sectie onderaan elke regiopagina. */
-const VERLOOP = [
+const verloop = (levering: string) => [
   {
     Icon: CalendarCheckIcon,
     title: "U reserveert",
@@ -71,7 +71,7 @@ const VERLOOP = [
   {
     Icon: TruckIcon,
     title: "Wij leveren en plaatsen",
-    desc: "Binnen 24 uur. De technieker verdeelt de toestellen, sluit de condensafvoer aan en stelt de streefvochtigheid in.",
+    desc: `${levering}. De technieker verdeelt de toestellen, sluit de condensafvoer aan en stelt de streefvochtigheid in.`,
   },
   {
     Icon: BoltIcon,
@@ -661,7 +661,7 @@ const RegioPage = () => {
             </p>
           </div>
           <div className="flow">
-            {VERLOOP.map(({ Icon, title, desc }, i) => (
+            {verloop(levertermijn(route).kort).map(({ Icon, title, desc }, i) => (
               <Reveal from="up" delay={i * 0.08} className="fl" key={title}>
                 <i>{`0${i + 1}`}</i>
                 <div className="fi">
@@ -1186,7 +1186,7 @@ const RegioPage = () => {
                     <TruckIcon size={15} />
                   </span>
                   <div>
-                    Levering binnen 24 uur
+                    {route.opAanvraag ? "Levering op afspraak" : "Levering binnen 24 uur"}
                     <small>geplaatst en ingesteld door onze technieker</small>
                   </div>
                 </div>
