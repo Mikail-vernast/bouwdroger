@@ -86,7 +86,10 @@ const alsGebied = (regio: (typeof REGIO_ROUTES)[number]): Gebied => ({
    provincie. Het is een gewest naast Vlaanderen en Wallonië, met een eigen
    kop. */
 const VLAANDEREN: Gebied[] = REGIO_ROUTES.filter(
-  (regio) => !(regio.slug in WAALSE_STREKEN) && regio.slug !== "brussel"
+  (regio) =>
+    !(regio.slug in WAALSE_STREKEN) &&
+    !(regio.slug in NEDERLANDSE_STREKEN) &&
+    regio.slug !== "brussel"
 ).map(alsGebied);
 const BRUSSEL: Gebied[] = REGIO_ROUTES.filter((regio) => regio.slug === "brussel").map(alsGebied);
 
@@ -124,16 +127,21 @@ const WALLONIE: Gebied[] = [
   return regio ? alsGebied(regio) : gebied;
 });
 
+/* Sinds 15-11-2026 heeft elke Nederlandse provincie haar pagina, en komt ze
+   net als de Waalse uit `REGIO_ROUTES`. */
 const NEDERLAND: Gebied[] = [
-  { sleutel: "nl-noord-brabant", kop: "Noord-Brabant", streken: NEDERLANDSE_STREKEN["noord-brabant"] },
-  { sleutel: "nl-zeeland", kop: "Zeeland", streken: NEDERLANDSE_STREKEN.zeeland },
+  { sleutel: "noord-brabant", kop: "Noord-Brabant", streken: NEDERLANDSE_STREKEN["noord-brabant"] },
+  { sleutel: "zeeland", kop: "Zeeland", streken: NEDERLANDSE_STREKEN.zeeland },
   // "Nederlands" erbij: zonder dat leest het als de Belgische provincie hierboven.
   {
-    sleutel: "nl-limburg",
+    sleutel: "nederlands-limburg",
     kop: "Nederlands Limburg",
     streken: NEDERLANDSE_STREKEN["nederlands-limburg"],
   },
-];
+].map((gebied) => {
+  const regio = REGIO_ROUTES.find((r) => r.slug === gebied.sleutel);
+  return regio ? alsGebied(regio) : gebied;
+});
 
 interface Blok {
   titel: string;
@@ -440,14 +448,18 @@ const SitemapPage = () => {
               <h2 id="sm-nederland">Nederland</h2>
               <p className="sm-uit">
                 De gemeenten van Noord-Brabant, Zeeland en Nederlands Limburg, de drie
-                provincies langs de Belgische grens. Ook hier geen
+                provincies langs de Belgische grens. Hier leveren we op afspraak, zonder
                 levertermijn van 24 uur: de rit is langer en over de grens gelden andere
                 btw-regels. Bel ons op <a href="tel:+3236899065">03 689 90 65</a> en we zeggen
                 meteen wat er kan.
               </p>
-              {NEDERLAND.map((gebied) => (
-                <GebiedOpAanvraag key={gebied.sleutel} gebied={gebied} />
-              ))}
+              {NEDERLAND.map((gebied) =>
+                gebied.path ? (
+                  <GebiedMetPagina key={gebied.sleutel} gebied={gebied} />
+                ) : (
+                  <GebiedOpAanvraag key={gebied.sleutel} gebied={gebied} />
+                )
+              )}
             </section>
 
             <nav className="sm-breed" aria-labelledby="sm-real">

@@ -541,6 +541,191 @@ export const LUIK_STREKEN: Streek[] = [
   },
 ];
 
+/**
+ * Noord-Brabant, met een eigen pagina sinds 15-11-2026. Eén array op twee plaatsen,
+ * zoals Waals-Brabant.
+ */
+export const NOORD_BRABANT_STREKEN: Streek[] = [
+  {
+    naam: "West-Brabant",
+    kenmerk:
+      "Onze dichtste Nederlandse streek: Bergen op Zoom ligt op een drie kwartier van het magazijn, op zandgrond.",
+    gemeenten: [
+      "Alphen-Chaam",
+      "Altena",
+      "Baarle-Nassau",
+      "Bergen op Zoom",
+      "Breda",
+      "Drimmelen",
+      "Etten-Leur",
+      "Geertruidenberg",
+      "Halderberge",
+      "Moerdijk",
+      "Oosterhout",
+      "Roosendaal",
+      "Rucphen",
+      "Steenbergen",
+      "Woensdrecht",
+      "Zundert",
+    ],
+  },
+  {
+    naam: "Midden-Brabant",
+    kenmerk:
+      "Zandgrond rond Tilburg en Waalwijk, met naoorlogse woonwijken en veel bedrijfsruimte op de zones.",
+    gemeenten: [
+      "Dongen",
+      "Gilze en Rijen",
+      "Goirle",
+      "Heusden",
+      "Hilvarenbeek",
+      "Loon op Zand",
+      "Oisterwijk",
+      "Tilburg",
+      "Waalwijk",
+    ],
+  },
+  {
+    naam: "Noordoost-Brabant",
+    kenmerk:
+      "De Maaskant en de Meierij: kleigrond langs de Maas en zand daarachter, met grote hoeves.",
+    gemeenten: [
+      "'s-Hertogenbosch",
+      "Bernheze",
+      "Boekel",
+      "Boxtel",
+      "Gemert-Bakel",
+      "Land van Cuijk",
+      "Maashorst",
+      "Meierijstad",
+      "Oss",
+      "Sint-Michielsgestel",
+      "Vught",
+    ],
+  },
+  {
+    naam: "Zuidoost-Brabant",
+    kenmerk:
+      "De regio rond Eindhoven en Helmond: veel nieuwbouw en bedrijfshallen, alles op zandgrond.",
+    gemeenten: [
+      "Asten",
+      "Bergeijk",
+      "Best",
+      "Bladel",
+      "Cranendonck",
+      "Deurne (Noord-Brabant)",
+      "Eersel",
+      "Eindhoven",
+      "Geldrop-Mierlo",
+      "Heeze-Leende",
+      "Helmond",
+      "Laarbeek",
+      "Nuenen c.a.",
+      "Oirschot",
+      "Reusel-De Mierden",
+      "Someren",
+      "Son en Breugel",
+      "Valkenswaard",
+      "Veldhoven",
+      "Waalre",
+    ],
+  },
+];
+
+/**
+ * Zeeland, met een eigen pagina sinds 15-11-2026. Eén array op twee plaatsen,
+ * zoals Waals-Brabant.
+ */
+export const ZEELAND_STREKEN: Streek[] = [
+  {
+    naam: "Zeeuws-Vlaanderen",
+    kenmerk:
+      "Polderklei achter de dijken, bereikbaar over Antwerpen of door de Westerscheldetunnel.",
+    gemeenten: [
+      "Hulst",
+      "Sluis",
+      "Terneuzen",
+    ],
+  },
+  {
+    naam: "De Zeeuwse eilanden",
+    kenmerk:
+      "Zeekleipolders en zeelucht: net als aan de Belgische kust houdt zout in een muur het vocht vast.",
+    gemeenten: [
+      "Borsele",
+      "Goes",
+      "Kapelle",
+      "Middelburg",
+      "Noord-Beveland",
+      "Reimerswaal",
+      "Schouwen-Duiveland",
+      "Tholen",
+      "Veere",
+      "Vlissingen",
+    ],
+  },
+];
+
+/**
+ * Nederlands Limburg, met een eigen pagina sinds 15-11-2026. Eén array op twee plaatsen,
+ * zoals Waals-Brabant.
+ */
+export const NEDERLANDS_LIMBURG_STREKEN: Streek[] = [
+  {
+    naam: "Noord-Limburg",
+    kenmerk:
+      "Zandgrond en tuinbouw rond Venlo en Venray, met kassen en bedrijfshallen langs de Maas.",
+    gemeenten: [
+      "Beesel",
+      // "(L.)" zoals de gemeente zichzelf schrijft: er is ook een Bergen in Noord-Holland.
+      "Bergen (L.)",
+      "Gennep",
+      "Horst aan de Maas",
+      "Mook en Middelaar",
+      "Peel en Maas",
+      "Venlo",
+      "Venray",
+    ],
+  },
+  {
+    naam: "Midden-Limburg",
+    kenmerk:
+      "De Maasvallei rond Roermond en Weert, met grindgrond en dorpen langs de Maasplassen.",
+    gemeenten: [
+      "Echt-Susteren",
+      "Leudal",
+      "Maasgouw",
+      "Nederweert",
+      "Roerdalen",
+      "Roermond",
+      "Weert",
+    ],
+  },
+  {
+    naam: "Zuid-Limburg",
+    kenmerk:
+      "Heuvelland en mergel rond Maastricht, en de oude mijnstreek rond Heerlen en Kerkrade.",
+    gemeenten: [
+      "Beek",
+      "Beekdaelen",
+      "Brunssum",
+      "Eijsden-Margraten",
+      "Gulpen-Wittem",
+      "Heerlen",
+      "Kerkrade",
+      "Landgraaf",
+      "Maastricht",
+      "Meerssen",
+      "Simpelveld",
+      "Sittard-Geleen",
+      "Stein",
+      "Vaals",
+      "Valkenburg aan de Geul",
+      "Voerendaal",
+    ],
+  },
+];
+
 export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   antwerpen: [
     {
@@ -963,6 +1148,9 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   "namen": NAMEN_STREKEN,
   "luxemburg": LUXEMBURG_STREKEN,
   "luik": LUIK_STREKEN,
+  "noord-brabant": NOORD_BRABANT_STREKEN,
+  "zeeland": ZEELAND_STREKEN,
+  "nederlands-limburg": NEDERLANDS_LIMBURG_STREKEN,
 
   limburg: [
     {
@@ -1070,176 +1258,9 @@ export const WAALSE_STREKEN: Record<string, Streek[]> = {
 };
 
 export const NEDERLANDSE_STREKEN: Record<string, Streek[]> = {
-  "noord-brabant": [
-    {
-      naam: "West-Brabant",
-      kenmerk:
-        "Onze dichtste Nederlandse streek: Bergen op Zoom ligt op een halfuur van het magazijn, op zandgrond.",
-      gemeenten: [
-        "Alphen-Chaam",
-        "Altena",
-        "Baarle-Nassau",
-        "Bergen op Zoom",
-        "Breda",
-        "Drimmelen",
-        "Etten-Leur",
-        "Geertruidenberg",
-        "Halderberge",
-        "Moerdijk",
-        "Oosterhout",
-        "Roosendaal",
-        "Rucphen",
-        "Steenbergen",
-        "Woensdrecht",
-        "Zundert",
-      ],
-    },
-    {
-      naam: "Midden-Brabant",
-      kenmerk:
-        "Zandgrond rond Tilburg en Waalwijk, met naoorlogse woonwijken en veel bedrijfsruimte op de zones.",
-      gemeenten: [
-        "Dongen",
-        "Gilze en Rijen",
-        "Goirle",
-        "Heusden",
-        "Hilvarenbeek",
-        "Loon op Zand",
-        "Oisterwijk",
-        "Tilburg",
-        "Waalwijk",
-      ],
-    },
-    {
-      naam: "Noordoost-Brabant",
-      kenmerk:
-        "De Maaskant en de Meierij: kleigrond langs de Maas en zand daarachter, met grote hoeves.",
-      gemeenten: [
-        "'s-Hertogenbosch",
-        "Bernheze",
-        "Boekel",
-        "Boxtel",
-        "Gemert-Bakel",
-        "Land van Cuijk",
-        "Maashorst",
-        "Meierijstad",
-        "Oss",
-        "Sint-Michielsgestel",
-        "Vught",
-      ],
-    },
-    {
-      naam: "Zuidoost-Brabant",
-      kenmerk:
-        "De regio rond Eindhoven en Helmond: veel nieuwbouw en bedrijfshallen, alles op zandgrond.",
-      gemeenten: [
-        "Asten",
-        "Bergeijk",
-        "Best",
-        "Bladel",
-        "Cranendonck",
-        "Deurne",
-        "Eersel",
-        "Eindhoven",
-        "Geldrop-Mierlo",
-        "Heeze-Leende",
-        "Helmond",
-        "Laarbeek",
-        "Nuenen c.a.",
-        "Oirschot",
-        "Reusel-De Mierden",
-        "Someren",
-        "Son en Breugel",
-        "Valkenswaard",
-        "Veldhoven",
-        "Waalre",
-      ],
-    },
-  ],
-  "zeeland": [
-    {
-      naam: "Zeeuws-Vlaanderen",
-      kenmerk:
-        "Polderklei achter de dijken, bereikbaar over Antwerpen of door de Westerscheldetunnel.",
-      gemeenten: [
-        "Hulst",
-        "Sluis",
-        "Terneuzen",
-      ],
-    },
-    {
-      naam: "De Zeeuwse eilanden",
-      kenmerk:
-        "Zeekleipolders en zeelucht: net als aan de Belgische kust houdt zout in een muur het vocht vast.",
-      gemeenten: [
-        "Borsele",
-        "Goes",
-        "Kapelle",
-        "Middelburg",
-        "Noord-Beveland",
-        "Reimerswaal",
-        "Schouwen-Duiveland",
-        "Tholen",
-        "Veere",
-        "Vlissingen",
-      ],
-    },
-  ],
-  "nederlands-limburg": [
-    {
-      naam: "Noord-Limburg",
-      kenmerk:
-        "Zandgrond en tuinbouw rond Venlo en Venray, met kassen en bedrijfshallen langs de Maas.",
-      gemeenten: [
-        "Beesel",
-        // "(L.)" zoals de gemeente zichzelf schrijft: er is ook een Bergen in Noord-Holland.
-        "Bergen (L.)",
-        "Gennep",
-        "Horst aan de Maas",
-        "Mook en Middelaar",
-        "Peel en Maas",
-        "Venlo",
-        "Venray",
-      ],
-    },
-    {
-      naam: "Midden-Limburg",
-      kenmerk:
-        "De Maasvallei rond Roermond en Weert, met grindgrond en dorpen langs de Maasplassen.",
-      gemeenten: [
-        "Echt-Susteren",
-        "Leudal",
-        "Maasgouw",
-        "Nederweert",
-        "Roerdalen",
-        "Roermond",
-        "Weert",
-      ],
-    },
-    {
-      naam: "Zuid-Limburg",
-      kenmerk:
-        "Heuvelland en mergel rond Maastricht, en de oude mijnstreek rond Heerlen en Kerkrade.",
-      gemeenten: [
-        "Beek",
-        "Beekdaelen",
-        "Brunssum",
-        "Eijsden-Margraten",
-        "Gulpen-Wittem",
-        "Heerlen",
-        "Kerkrade",
-        "Landgraaf",
-        "Maastricht",
-        "Meerssen",
-        "Simpelveld",
-        "Sittard-Geleen",
-        "Stein",
-        "Vaals",
-        "Valkenburg aan de Geul",
-        "Voerendaal",
-      ],
-    },
-  ],
+  "noord-brabant": NOORD_BRABANT_STREKEN,
+  "zeeland": ZEELAND_STREKEN,
+  "nederlands-limburg": NEDERLANDS_LIMBURG_STREKEN,
 };
 
 /** Hoeveel gemeenten een lijst buiten Vlaanderen telt. */

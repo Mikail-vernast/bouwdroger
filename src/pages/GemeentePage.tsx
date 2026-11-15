@@ -731,8 +731,8 @@ const GemeentePage = () => {
               de vraag "komen jullie ook bij mij?" hoort.
             */}
             <div className="note">
-              <b>Wij leveren in heel België.</b> Buiten {provincie.name} rijden we ook, al telt de
-              rit dan mee in de planning.
+              <b>{provincie.opAanvraag ? "Wij leveren ook in Nederland, op afspraak." : "Wij leveren in heel België."}</b>{" "}
+              Buiten {provincie.name} rijden we ook, al telt de rit dan mee in de planning.
               {buren.length > 0 && (
                 <>
                   {" "}

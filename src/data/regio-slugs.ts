@@ -198,6 +198,41 @@ export const REGIO_ROUTES: RegioRoute[] = [
     towns: ["Luik", "Verviers", "Seraing", "Herstal", "Hoei", "Eupen", "Borgworm", "Hannuit", "Wezet", "Spa", "Malmedy", "Ans", "Flémalle", "Sankt Vith", "Aywaille", "Chaudfontaine"],
     pin: { left: "80%", top: "52%" },
   },
+  /*
+    Noord-Brabant, de eerste Nederlandse provincie met een pagina (15-11-2026).
+    De speld valt net boven de Belgische grens, tussen Breda en Tilburg.
+  */
+  {
+    slug: "noord-brabant",
+    name: "Noord-Brabant",
+    path: "/bouwdroger-huren-noord-brabant",
+    opAanvraag: true,
+    towns: ["Breda", "Eindhoven", "Tilburg", "'s-Hertogenbosch", "Bergen op Zoom", "Roosendaal", "Helmond", "Oss", "Oosterhout", "Etten-Leur", "Waalwijk", "Veldhoven", "Woensdrecht", "Zundert", "Valkenswaard", "Meierijstad"],
+    pin: { left: "57%", top: "4%" },
+  },
+  /*
+    Zeeland, sinds 15-11-2026. De speld staat boven Zeeuws-Vlaanderen.
+  */
+  {
+    slug: "zeeland",
+    name: "Zeeland",
+    path: "/bouwdroger-huren-zeeland",
+    opAanvraag: true,
+    towns: ["Middelburg", "Vlissingen", "Goes", "Terneuzen", "Hulst", "Sluis", "Tholen", "Schouwen-Duiveland", "Veere", "Reimerswaal", "Borsele", "Kapelle", "Noord-Beveland"],
+    pin: { left: "33%", top: "4%" },
+  },
+  /*
+    Nederlands Limburg, sinds 15-11-2026. De speld staat op de Maas tussen
+    Roermond en Maastricht, oostelijk van die van het Belgische Limburg.
+  */
+  {
+    slug: "nederlands-limburg",
+    name: "Nederlands Limburg",
+    path: "/bouwdroger-huren-nederlands-limburg",
+    opAanvraag: true,
+    towns: ["Maastricht", "Venlo", "Roermond", "Heerlen", "Sittard-Geleen", "Weert", "Kerkrade", "Venray", "Valkenburg aan de Geul", "Echt-Susteren", "Landgraaf", "Brunssum", "Eijsden-Margraten", "Gulpen-Wittem", "Vaals", "Meerssen"],
+    pin: { left: "86%", top: "30%" },
+  },
 ];
 
 export const REGIO_BY_PATH: Record<string, RegioRoute> = Object.fromEntries(

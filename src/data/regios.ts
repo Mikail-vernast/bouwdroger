@@ -81,10 +81,12 @@ const AFHAALKORTING = 25;
 const euro = (n: number) => `€ ${n.toLocaleString("nl-BE")}`;
 const dag = (key: string) => euro(PRODUCTS[key].day);
 
-const provincie = (name: string) => ({
+/* Het land is een parameter sinds de Nederlandse provincies (15-11-2026):
+   anders vertelde de schema-markup dat Noord-Brabant in België ligt. */
+const provincie = (name: string, land = "België") => ({
   "@type": "AdministrativeArea",
   name,
-  containedInPlace: { "@type": "Country", name: "België" },
+  containedInPlace: { "@type": "Country", name: land },
 });
 
 const route = (slug: string): RegioRoute => {
@@ -1489,6 +1491,416 @@ export const REGIOS: Regio[] = [
       slugs: ["mnr-l-hasselt", "mnr-j-bocholt"],
     },
     areaServed: provincie("Luik"),
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    ...route("noord-brabant"),
+    /*
+      Noord-Brabant kreeg zijn pagina op 15-11-2026, samen met de andere
+      Nederlandse grensprovincies, met hetzelfde sjabloon en dezelfde
+      dagprijzen als de Belgische.
+
+      Twee dingen zijn hier anders dan bij de Belgische provincies. De route
+      staat op `opAanvraag`, dus het sjabloon belooft geen termijn maar een
+      leverdag op afspraak; de tekst hieronder beloft dus ook niets sneller.
+      En de levering staat niet als "inbegrepen" vermeld: over de grens maakt
+      de offerte vooraf duidelijk wat het kost, en een belofte die het sjabloon
+      voor België doet hoort hier niet. Btw-regels staan er bewust niet in.
+
+      De afstand staat er eerlijk, zodat niemand in Cuijk een rit van drie
+      kwartier verwacht: Woensdrecht en Bergen op Zoom rond drie kwartier,
+      Breda en Roosendaal een uur, Tilburg en Eindhoven ruim een uur, Den Bosch
+      en Oss rond anderhalf uur, het Land van Cuijk verder. Rijtijden zijn
+      afgerond, net als in `gemeenten.ts`.
+
+      Werven heeft de provincie nog niet; de sectie leent drie uit de provincie
+      Antwerpen, die aan West-Brabant grenst en op de route over de A12 en E19
+      naar Breda ligt. Zie `LEENT_VAN`.
+    */
+    title: "Bouwdroger huren in Noord-Brabant | Vernast",
+    description:
+      "Bouwdroger huren in Noord-Brabant: Breda, Tilburg, Eindhoven, Den Bosch en de rest van de provincie. Geplaatst door onze technicus, geleverd op afspraak.",
+    h1: "Bouwdroger huren in Noord-Brabant",
+    kicker: "Nederland · 56 gemeenten · van de Brabantse Wal tot het Land van Cuijk",
+    intro: [
+      "Een bouwdroger huren in Noord-Brabant, voor een nieuwe dekvloer in een Bredase nieuwbouwwijk, gestucte muren in een rijtjeshuis in Tilburg of een bedrijfshal rond Eindhoven? Vernast rijdt vanuit Aartselaar, net onder Antwerpen, de grens over en zet het droogpakket bij u neer. **De leverdag spreken we samen af**, en waar het kan combineren we uw adres met andere ritten in dezelfde streek. Over de afstand zijn we open: **Woensdrecht en Bergen op Zoom liggen rond drie kwartier van ons magazijn**, Breda en Roosendaal op een uur, Tilburg en Eindhoven op ruim een uur, Den Bosch en Oss op ongeveer anderhalf uur, en het Land van Cuijk nog wat verder.",
+    ],
+    heroFacts: [
+      "Levering op een afgesproken dag",
+      "Geplaatst en ingesteld door een technicus",
+      "Geen waarborg",
+    ],
+    bouw: {
+      kop: "Waarvoor huurt men in Noord-Brabant een bouwdroger?",
+      alineas: [
+        "**Het grootste deel van Brabant ligt op zandgrond**, van de Kempen rond Bladel en Eersel tot de Meierij rond Boxtel en Schijndel. Zand voert regenwater vlot af, dus wat er in een Brabantse woning na een verbouwing nat is, komt meestal niet uit de grond maar uit het werk zelf: **een anhydriet- of zandcementvloer, stucwerk op gipsplaat, nieuwe binnenmuren**. Een woning van gemiddelde grootte brengt zo al snel honderden liters water binnen die er weer uit moeten voor de parketteur of de schilder komt.",
+        "**Langs de Maas en rond de Biesbosch ligt rivierklei**, in de Maaskant tussen Den Bosch en Ravenstein, in het Land van Heusden en Altena en in de polders rond Drimmelen en Werkendam. Op die zware grond staat het grondwater hoger en houdt een kruipruimte zijn vocht vast. Wie daar een benedenverdieping isoleert of een nieuwe vloer stort, droogt dus tegen een ondergrond die zelf niet meewerkt.",
+        "**Brabant bouwt veel.** Rond Eindhoven, Veldhoven en Helmond groeit de Brainport-regio, met nieuwe woonwijken en **grote bedrijfshallen** voor de hightechbedrijven en hun toeleveranciers. Een hal met een betonvloer van duizend vierkante meter heeft andere toestellen nodig dan een eengezinswoning, en vooral meer luchtbeweging over de vloer. Ook rond Tilburg, Waalwijk en Oosterhout liggen grote bedrijventerreinen met logistieke panden.",
+        "**Daarnaast staan er in elke Brabantse stad naoorlogse wijken** met rijtjeshuizen uit de jaren vijftig tot zeventig, nu volop in renovatie: nieuwe isolatie, vloerverwarming, een uitbouw aan de achterkant. In het oosten, in **de Peel** rond Deurne, Asten en Someren, gaat het vaker om vrijstaande woningen en omgebouwde boerderijen op het platteland, waar een schuur of stal een woonruimte wordt.",
+      ],
+    },
+    beeld: {
+      src: "/vernast/case-renovatie.webp",
+      alt: "Renovatie met nieuw stucwerk, met een bouwdroger midden in de ruimte",
+    },
+    toestellen: {
+      kop: "Welke bouwdroger past bij een Brabantse verbouwing?",
+      items: [
+        {
+          key: "ttk350",
+          waarom: `**Voor een rijtjeshuis in een naoorlogse wijk of een nieuwbouwwoning in Breda of Tilburg**: 70 liter per dag, op een gewoon stopcontact. Meestal staat er een per bouwlaag. Vanaf ${dag("ttk350")} per dag.`,
+        },
+        {
+          key: "ttk650",
+          waarom: `**Voor een bedrijfshal rond Eindhoven of een verbouwde boerderij in de Peel**: 110 liter per dag en een bereik tot zo'n 600 m³. Waar een groot volume droog moet, neemt dit toestel het werk van twee kleinere over. Vanaf ${dag("ttk650")} per dag.`,
+        },
+        {
+          key: "radiaal2250",
+          waarom: `**De ventilator die laag over een verse dekvloer blaast.** Op een grote vloer in een hal of een open woonkeuken blijft de lucht anders stilstaan boven het midden, en dat deel droogt het laatst. Vanaf ${dag("radiaal2250")} per dag.`,
+        },
+        {
+          key: "teddh30",
+          waarom: `**Voor een onverwarmde casco-woning of hal in de winter.** Onder 15 °C neemt een condensdroger nog weinig vocht op; de kachel brengt de ruimte eerst op temperatuur. Vraagt krachtstroom (400 V) op de bouwplaats. Vanaf ${dag("teddh30")} per dag.`,
+        },
+      ],
+    },
+    levering: {
+      kop: "Leveren in Noord-Brabant: de leverdag spreken we samen af",
+      alineas: [
+        "We rijden vanuit Aartselaar over de A12 en de E19 naar het noorden. **West-Brabant, met Bergen op Zoom, Roosendaal en Breda, halen we binnen het uur**; voor Tilburg over de A58 en voor Eindhoven over de E34 en de A67 rekenen we ruim een uur. Den Bosch, Oss en de Maaskant liggen rond anderhalf uur, het Land van Cuijk aan de oostgrens nog verder. Omdat het een rit over de grens is, plannen we die met u: u kiest een dag die bij de planning van de vloerlegger past, en wij koppelen er waar mogelijk andere Brabantse adressen aan.",
+        `Op de afgesproken dag meet de technicus eerst hoeveel vocht er in vloer en muren zit, verdeelt de toestellen over de natste ruimtes en sluit de condensafvoer aan op een afvoer of gootsteen. **De trap op naar een verdieping is gewoon inbegrepen**; staat er nog geen trap en moet alles via een ladder, dan kost dat ${euro(LADDER)} per verdieping. Wat de levering zelf kost staat vooraf in de offerte, zodat u niet achteraf voor een verrassing staat.`,
+      ],
+      feiten: [
+        { label: "Levertermijn", waarde: "Op afspraak, de leverdag spreken we samen af" },
+        { label: "Plaatsing", waarde: "Door onze technicus, met vochtmeting bij de start" },
+        { label: "Kosten levering", waarde: "Vooraf vermeld in de offerte" },
+        { label: "Rijtijd vanuit ons magazijn", waarde: "Rond drie kwartier (Bergen op Zoom) tot ruim anderhalf uur (Land van Cuijk)" },
+        { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
+        { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
+      ],
+    },
+    afhalen: {
+      kop: "Zelf afhalen in Aartselaar: handig vanuit West-Brabant",
+      alineas: [
+        `Ons afhaalpunt ligt aan de Boomsesteenweg in Aartselaar, aan de zuidkant van Antwerpen. Vanuit Bergen op Zoom of Woensdrecht is dat ongeveer drie kwartier rijden, vanuit Breda een uur; voor wie in Eindhoven of Den Bosch woont, is het een halve dag heen en terug, en dan twee keer. **Voor een enkele droger die lang moet blijven staan kan afhalen lonen**: u krijgt ${euro(AFHAALKORTING)} korting op de huurprijs en haalt af op een werkdag, ergens tussen 07:30 en 17:00. Leg het toestel niet plat in de kofferbak, want dat beschadigt de compressor.`,
+      ],
+      feiten: [
+        { label: "Rijtijd naar ons afhaalpunt", waarde: "Drie kwartier (Bergen op Zoom) tot ruim anderhalf uur (Oss)" },
+        { label: "Korting bij afhalen", waarde: `${euro(AFHAALKORTING)} op de huurprijs` },
+        { label: "Waarborg", waarde: "Geen" },
+        { label: "Vervoer", waarde: "Rechtop; plat vervoerd 24 uur laten staan" },
+        { label: "Liever laten leveren?", waarde: "Leverdag op afspraak, kosten vooraf in de offerte" },
+      ],
+    },
+    faq: [
+      {
+        q: "Leveren jullie in heel Noord-Brabant, ook in het oosten?",
+        a: "Ja, in alle 56 gemeenten, van Woensdrecht en Steenbergen in het westen tot Gemert-Bakel en het Land van Cuijk in het oosten. Hoe verder van de grens, hoe langer de rit; daarom spreken we de leverdag altijd met u af en combineren we die waar het kan met andere adressen in de buurt.",
+      },
+      {
+        q: "Waarom leveren jullie in Nederland op afspraak en niet binnen een vaste termijn?",
+        a: "Ons magazijn staat in Aartselaar, bij Antwerpen. Een rit naar Eindhoven of Den Bosch plannen we zorgvuldiger dan een levering in de Antwerpse rand, zodat de technicus genoeg tijd heeft voor de meting en de plaatsing. U kiest een dag die past bij de planning van uw aannemer of vloerlegger, en die houden we vast.",
+      },
+      {
+        q: "Hoe lang moet een anhydrietvloer drogen voor er parket op mag?",
+        a: "Dat hangt af van de dikte, de temperatuur en de ventilatie. Een anhydrietvloer moet voor parket of pvc doorgaans onder 0,5 procent restvocht zakken, en dat duurt zonder hulp al gauw weken. Met een bouwdroger en een ventilator over de vloer gaat het sneller; de technicus meet bij de start en u meet aan het eind opnieuw voor de vloerlegger begint.",
+      },
+      {
+        q: "Kunnen jullie ook een bedrijfshal drogen?",
+        a: "Ja. In een hal met een grote betonvloer zetten we meestal een of meer drogers van 110 liter per dag, met ventilatoren die de lucht over de vloer laten bewegen. Is de hal onverwarmd, dan komt er in de winter een kachel op krachtstroom bij. Geef de oppervlakte en de hoogte door, dan rekenen we het aantal toestellen vooraf uit.",
+      },
+      {
+        q: "Komen jullie uit België, en wat betekent dat voor de prijs?",
+        a: "We zijn een Belgisch bedrijf met het magazijn in Aartselaar, op korte afstand van de grens bij Essen en Putte. De dagprijs van de toestellen is dezelfde als op de rest van de site. De offerte maakt vooraf duidelijk wat u betaalt voor huur, levering, plaatsing en ophaling, zodat er achteraf niets bijkomt.",
+      },
+    ],
+    realisaties: {
+      kop: "Werven in de buurt van Noord-Brabant",
+      intro: "Van een Brabantse bouwplaats hebben we nog geen foto's. Deze drie werven liggen in de provincie Antwerpen, die aan West-Brabant grenst: Merksem en Schilde aan de noordkant van Antwerpen, op de weg naar Breda, en een woning in de stad zelf.",
+      slugs: ["dhr-p-merksem", "dhr-e-schilde", "mnr-w-antwerpen"],
+    },
+    /*
+      Let op: `provincie()` zet `containedInPlace` vast op België, en dat is
+      voor Noord-Brabant fout. Zolang de helper geen land aanneemt, staat hier
+      een onjuiste Country in de Service-schema.
+    */
+    areaServed: provincie("Noord-Brabant", "Nederland"),
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    ...route("zeeland"),
+    /*
+      Zeeland kreeg zijn pagina op 15-11-2026, samen met Noord-Brabant en
+      Nederlands Limburg: de eerste provincies over de grens. De route staat op
+      `opAanvraag`, dus het sjabloon belooft geen "binnen 24 uur" maar een
+      leverdag op afspraak, en de tekst hieronder doet dat ook nergens. Btw
+      staat er bewust niet in: over de grens gelden andere regels, en die horen
+      in de offerte, niet in een tekst die niemand bijwerkt als ze wijzigen.
+
+      Wat Zeeland eigen maakt: zeeklei en polders onder zeeniveau, zout in oude
+      muren, de zeewind tegen de westgevels, de vakantiewoningen op Walcheren en
+      Schouwen die tussen twee seizoenen verbouwd worden, en 1953. Dat laatste
+      staat er sober in, als reden waarom huizen er zijn zoals ze zijn, niet als
+      verkoopargument.
+
+      De afstand staat er eerlijk. Hulst en Tholen liggen rond drie kwartier,
+      Terneuzen op een uur via de Kennedytunnel en de Waaslandhaven, Goes en
+      Middelburg op ongeveer anderhalf uur, Schouwen-Duiveland verder. Rijtijden
+      zijn afgerond en te verifiëren tegen de echte ritgegevens.
+
+      Werven heeft de provincie nog niet; de sectie leent de twee
+      West-Vlaamse, omdat Sluis tegen Knokke-Heist en het Brugse Ommeland ligt
+      en de kust er dezelfde zeelucht en hetzelfde zout kent. Zie `LEENT_VAN`.
+    */
+    title: "Bouwdroger huren in Zeeland | Vernast",
+    description:
+      "Bouwdroger huren in Zeeland, van Hulst en Terneuzen tot Goes, Middelburg en Schouwen. Geplaatst en opgehaald vanuit Aartselaar, de leverdag op afspraak.",
+    h1: "Bouwdroger huren in Zeeland",
+    kicker: "Nederland · 13 gemeenten · Zeeuws-Vlaanderen en de eilanden",
+    intro: [
+      "Een bouwdroger huren in Zeeland, voor een nieuwe dekvloer in een polderdorp, een vakantiewoning die voor het seizoen klaar moet of een oud pand met zout in de muren? Vernast brengt de toestellen naar uw bouwplaats, sluit ze aan en haalt ze weer op. **We komen uit Aartselaar, aan de zuidkant van Antwerpen, en zeggen eerlijk hoe ver dat is.** **Hulst en Tholen liggen rond drie kwartier rijden**, Terneuzen op een uur via de Kennedytunnel en de Waaslandhaven. Goes en Middelburg bereiken we in ongeveer anderhalf uur, via Bergen op Zoom en de A58 of door de Westerscheldetunnel. Schouwen-Duiveland ligt nog verder. **De leverdag spreken we daarom samen met u af.**",
+    ],
+    heroFacts: [
+      "Leverdag op afspraak",
+      "Plaatsing en ophaling door onze technicus",
+      "Geen waarborg",
+    ],
+    bouw: {
+      kop: "Waarvoor huurt u in Zeeland een bouwdroger?",
+      alineas: [
+        "**Bijna heel Zeeland ligt op zeeklei**, en een groot deel ervan ligt onder zeeniveau, achter dijken die het land eeuw na eeuw op het water hebben gewonnen. Het grondwater staat in de polders hoog. Een nieuwe dekvloer of een vers gestucte muur droogt er niet vanzelf sneller omdat de zon schijnt: het vocht moet de ruimte uit, en buiten is de lucht zelden droog. Wie in een polderdorp bij Kapelle, Borsele of Reimerswaal bouwt, rekent dus beter op een droger dan op het weer.",
+        "**In oude muren zit in Zeeland vaak zout.** Het komt uit de klei, uit de zeelucht en in sommige huizen nog van een overstroming. Zout trekt water aan, zodat zo'n muur vochtig blijft terwijl de rest van het huis al droog is. Een bouwdroger haalt het water eruit, niet het zout; tijdens het drogen kan dat zout als witte uitslag aan het oppervlak komen. **Dat is geen fout van de droging maar een teken dat de stukadoor er rekening mee moet houden**, bijvoorbeeld met een pleister die tegen zout kan.",
+        "**De zeewind slaat de regen tegen de westgevels**, van Westkapelle tot Renesse. Een gevel die de hele winter nat geblazen wordt, geeft dat vocht door naar binnen, en wie daar een buitenmuur isoleert of afwerkt, droogt eerst de binnenkant. Ramen openzetten helpt aan de kust weinig: de buitenlucht is er vochtig en brengt meer water binnen dan ze meeneemt. Een droger werkt daarom het best in een gesloten ruimte.",
+        "**Op Walcheren en Schouwen staan veel vakantiewoningen**, rond Domburg, Zoutelande en Vrouwenpolder, en rond Renesse en Burgh-Haamstede. Die worden verbouwd in de maanden dat er niemand logeert, en vaak staan ze dan onverwarmd. Voor de eigenaar telt één datum: de eerste gasten. Tussen een nieuwe badkamer in november en een verhuurbare woning met Pasen zit weinig speling, en een dekvloer die te nat is voor de vloerlegger kost een week.",
+        "**In februari 1953 liep een groot deel van de eilanden onder water.** Op Schouwen-Duiveland, Tholen en in andere delen van de provincie werden daarna hele dorpen opnieuw opgebouwd, en de Deltawerken volgden. Veel van die wederopbouwwoningen zijn nu zeventig jaar oud en worden gerenoveerd. Hun muren staan op dezelfde natte grond als toen; meten vóór het afwerken is daar geen overbodige luxe.",
+      ],
+    },
+    beeld: {
+      src: "/vernast/case-renovatie.webp",
+      alt: "Verbouwing met vers stucwerk in een oudere woning, klaar om te drogen",
+    },
+    toestellen: {
+      kop: "Welke bouwdroger past bij een bouwplaats in Zeeland?",
+      items: [
+        {
+          key: "ttk350",
+          waarom: `**Voor een woning in een polderdorp of een wederopbouwhuis op de eilanden**: haalt 70 liter water per dag uit een ruimte tot zo'n 400 m³. Eén toestel per verdieping is meestal genoeg om dekvloer en stucwerk samen te drogen. Vanaf ${dag("ttk350")} per dag.`,
+        },
+        {
+          key: "ttk170",
+          waarom: `**Voor de vakantiewoning of het appartement aan zee**: 50 liter per dag in een ruimte tot ongeveer 250 m³, compact en op een gewoon stopcontact. Past ook in een badkamer die voor het seizoen klaar moet. Vanaf ${dag("ttk170")} per dag.`,
+        },
+        {
+          key: "revolution",
+          waarom: `**De adsorptiedroger voor een onverwarmde woning in de winter.** Een condensdroger levert weinig in een koude ruimte; deze blijft vocht opnemen en blaast zijn droge lucht door een slang tegen de muur die het natst is. Die opstelling bekijken we vooraf samen met u. Vanaf ${dag("revolution")} per dag.`,
+        },
+        {
+          key: "ttv4500",
+          waarom: `**De ventilator die de droge lucht tot in de hoeken brengt**, ook achter een buitenmuur die de zeewind nat heeft geblazen. Zonder luchtbeweging droogt het midden van de kamer en blijven de randen nat. Vanaf ${dag("ttv4500")} per dag.`,
+        },
+      ],
+    },
+    levering: {
+      kop: "Leveren in Zeeland: een leverdag die we samen afspreken",
+      alineas: [
+        "Vanuit Aartselaar rijden we noordwaarts of onder de Schelde door. **Tholen en Reimerswaal bereiken we over de A12 en Bergen op Zoom**, Hulst langs de Waaslandhaven, en Terneuzen via de Kennedytunnel in ongeveer een uur. Voor Goes, Middelburg en Vlissingen rekenen we rond anderhalf uur, langs de A58 of door de Westerscheldetunnel. Sluis en Schouwen-Duiveland liggen het verst. Voor al die plaatsen spreken we eerst een leverdag af, en waar het kan combineren we die met andere ritten in de provincie.",
+        `Op de afgesproken dag begint de technicus met een vochtmeting van dekvloer en muren. Daarna kiest hij per ruimte de plek voor elk toestel en leidt hij het condenswater af, naar een afvoer in huis of naar buiten. **Een verdieping hoger via de trap valt gewoon onder de levering**; is er nog geen trap en gaat alles langs een ladder omhoog, dan kost dat ${euro(LADDER)} per verdieping. Wat u betaalt, staat vooraf in de offerte, inclusief levering en ophaling.`,
+      ],
+      feiten: [
+        { label: "Levering en ophaling", waarde: "In de offerte, zonder ritkosten achteraf" },
+        { label: "Levertermijn", waarde: "Op afspraak, de leverdag spreken we samen af" },
+        { label: "Rijtijd vanuit ons magazijn", waarde: "Rond drie kwartier (Hulst, Tholen) tot ruim anderhalf uur (Schouwen)" },
+        { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
+        { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
+      ],
+    },
+    afhalen: {
+      kop: "Zelf ophalen vanuit Zeeland: het magazijn ligt aan de A12",
+      alineas: [
+        `Ons afhaalpunt is het magazijn aan de Boomsesteenweg in Aartselaar, net onder Antwerpen. Wie uit Hulst of Tholen komt, rijdt drie kwartier; uit Goes of Middelburg anderhalf uur. Dat doet u heen en terug, en nog eens als de droger terug moet. **Voor een volledige droging is laten leveren dus meestal de betere keuze.** Komt u voor uw werk sowieso langs Antwerpen en volstaat één losse droger, dan scheelt afhalen ${euro(AFHAALKORTING)} op de huurprijs. De toestellen staan klaar op een werkdag, van 07:30 tot 17:00.`,
+      ],
+      feiten: [
+        { label: "Rijtijd naar ons afhaalpunt", waarde: "Drie kwartier (Hulst) tot ruim anderhalf uur (Middelburg)" },
+        { label: "Korting bij afhalen", waarde: `${euro(AFHAALKORTING)} op de huurprijs` },
+        { label: "Waarborg", waarde: "Geen" },
+        { label: "Vervoer", waarde: "Rechtop; plat vervoerd 24 uur laten staan" },
+        { label: "Liever laten leveren?", waarde: "Leverdag op afspraak, ophaling erbij" },
+      ],
+    },
+    faq: [
+      {
+        q: "Leveren jullie in heel Zeeland, ook op de eilanden?",
+        a: "Ja, in alle dertien gemeenten: in Zeeuws-Vlaanderen, op Walcheren, de Bevelanden, Tholen en Schouwen-Duiveland. Omdat we uit Aartselaar bij Antwerpen komen, beloven we geen termijn maar spreken we de leverdag samen met u af. Zo staat de technicus er wanneer de stukadoor of de vloerlegger klaar is.",
+      },
+      {
+        q: "Hoe snel kan een bouwdroger in Zeeland staan?",
+        a: "Dat hangt af van de plaats en de planning. Hulst en Tholen liggen het dichtst bij ons magazijn, Goes en Middelburg op ongeveer anderhalf uur. We kijken bij uw boeking welke dag past en combineren de rit waar mogelijk met andere leveringen in de provincie. Bij waterschade bellen we u eerst terug om te zien wat er kan.",
+      },
+      {
+        q: "Wat kost een bouwdroger huren in Zeeland?",
+        a: "De huurprijs per dag is dezelfde als in België en staat bij elk toestel op de site. Voor een levering in Zeeland krijgt u vooraf een offerte waarin toestellen, huurperiode, levering en ophaling staan. Wat daarin staat, betaalt u; er komt achteraf geen rekening voor kilometers bij.",
+      },
+      {
+        q: "Er komt witte uitslag op de muur tijdens het drogen. Wat is dat?",
+        a: "Meestal zout dat met het water naar het oppervlak trekt. In Zeeland zit dat vaak in oude muren, door de klei, de zeelucht of een overstroming. De droger haalt het water weg, het zout blijft achter. Borstel de uitslag droog af en zeg het tegen uw stukadoor, die dan een geschikte pleister kan kiezen.",
+      },
+      {
+        q: "Kan een vakantiewoning op Walcheren of Schouwen droog zijn voor het seizoen?",
+        a: "Als we op tijd beginnen wel. Een nieuwe dekvloer heeft al gauw enkele weken nodig, en in een onverwarmde woning in de winter langer. Plan de droging daarom direct na het storten of stucen, en laat de technicus aan het begin en het eind meten. Dan weet u op welke dag de vloerlegger kan komen en de woning verhuurd kan worden.",
+      },
+      {
+        q: "Helpt het om de ramen open te zetten aan de kust?",
+        a: "Tijdens het drogen liever niet. De lucht aan zee is bijna altijd vochtig, en door een open raam komt er meer water binnen dan er naar buiten gaat. Een bouwdroger werkt het best in een gesloten ruimte, met een ventilator die de lucht rondstuurt. Na de droging is gewoon ventileren wel weer belangrijk.",
+      },
+    ],
+    realisaties: {
+      kop: "Werven in de buurt van Zeeland",
+      intro: "Van een Zeeuwse bouwplaats hebben we nog geen foto's. De dichtstbijzijnde werven op deze site liggen in West-Vlaanderen, aan de andere kant van de grens bij Sluis: een kelder in Brugge en een villa aan de kust in Oostende, met dezelfde zeelucht en hetzelfde zout in de muren.",
+      slugs: ["mancave-brugge", "mnr-n-v-oostende"],
+    },
+    areaServed: provincie("Zeeland", "Nederland"),
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    ...route("nederlands-limburg"),
+    /*
+      Nederlands Limburg kreeg zijn pagina op 15-11-2026, samen met
+      Noord-Brabant en Zeeland. De naam staat overal voluit, in titel, H1,
+      kicker en de eerste zin: /bouwdroger-huren-limburg is de Belgische
+      provincie, en twee pagina's die allebei "Limburg" heten vechten om
+      dezelfde zoekopdracht. Wie "bouwdroger Maastricht" of "bouwdroger
+      Venlo" intikt, moet hier meteen zien dat het over Nederland gaat.
+
+      Levering staat op afspraak (`opAanvraag` in regio-slugs.ts), dus deze
+      tekst belooft geen termijn en geen gratis rit: wat de levering kost,
+      staat in de offerte. Btw-regels noemen we niet; die verschillen over
+      de grens en horen in de offerte, niet in een regiotekst.
+
+      De afstand staat er eerlijk: Weert en Maastricht op vijf kwartier tot
+      anderhalf uur, Venlo en Venray rond twee uur, Mook nog verder. Rijtijden
+      zijn afgerond en te verifiëren tegen de echte ritgegevens.
+
+      Werven heeft de provincie nog niet. De sectie leent de twee uit
+      Belgisch Limburg: Bocholt ligt tegen de grens bij Weert, Hasselt ligt
+      op de E313, de weg die we naar Maastricht nemen.
+    */
+    title: "Bouwdroger huren in Nederlands Limburg | Vernast",
+    description:
+      "Bouwdroger huren in Nederlands Limburg: Maastricht, Heerlen, Sittard, Roermond, Venlo en Venray. Leverdag op afspraak, geplaatst door onze technicus.",
+    h1: "Bouwdroger huren in Nederlands Limburg",
+    kicker: "Nederland · 31 gemeenten · van Mook tot Vaals",
+    intro: [
+      "Een bouwdroger huren in Nederlands Limburg, de Nederlandse provincie langs de Maas, voor een dekvloer in een nieuwbouwwijk, stucwerk in een mijnwerkerswoning of een kruipruimte die na een lekkage nat blijft? Vernast brengt de toestellen vanuit Aartselaar bij Antwerpen naar uw adres, **van Mook en Middelaar in het noorden tot Vaals op het drielandenpunt**. Over de afstand zijn we open: **Weert en Maastricht liggen op vijf kwartier tot anderhalf uur rijden**, Roermond en Sittard op anderhalf uur, Heerlen, Kerkrade, Venlo en Venray rond twee uur, en Mook nog wat verder. **Daarom spreken we de leverdag met u af** en zetten we de rit zo mogelijk samen met andere adressen in dezelfde streek.",
+    ],
+    heroFacts: [
+      "Leverdag op afspraak, plaatsing door onze technicus",
+      "Geen waarborg",
+      "Vooraf een offerte met huur en levering",
+    ],
+    bouw: {
+      kop: "Waarvoor huurt men in Nederlands Limburg een bouwdroger?",
+      alineas: [
+        "**De provincie is een smalle strook langs de Maas**, en de rivier bepaalt er veel van het bouwen. In december 1993 en januari 1995 trad de Maas buiten haar oevers, en in dorpen rond Roermond, Maasgouw en Venlo liepen huizen onder. Daarna kwamen er kades en nieuwe dijken. In juli 2021 waren het de Geul en kleinere beken die overstroomden, in Valkenburg, Meerssen en Gulpen. **Wie zo'n huis vandaag verbouwt, droogt vaak een muurvoet die ooit doorweekt was**, en daar meet de technicus eerst hoeveel vocht er nog in zit.",
+        "**In het Heuvelland, rond Valkenburg, Gulpen-Wittem en Eijsden-Margraten, staan huizen van mergel en vakwerk.** Mergel is een zachte kalksteen die veel water opneemt en het maar langzaam weer afgeeft; vakwerk is een houten skelet met vakken van leem of baksteen. Bij zulke panden moet het tempo omlaag: te snel drogen kan leem doen scheuren en hout laten werken. We zetten de streefvochtigheid dan hoger en laten de drogers langer, maar rustiger draaien.",
+        "**Parkstad, met Heerlen, Kerkrade, Brunssum en Landgraaf, is de oude mijnstreek.** De laatste mijnen sloten begin jaren zeventig, maar de mijnwerkerskoloniën staan er nog: rijen woningen uit het begin van de vorige eeuw die nu één voor één gerenoveerd worden, met nieuw stucwerk, gipsplaatwanden en een nieuwe dekvloer. Sommige huizen hebben **scheuren of een scheve vloer door mijnschade**. Een bouwdroger herstelt dat niet, maar haalt wel het vocht uit wat na het herstel opnieuw is gestort of gestuct.",
+        "**Noord-Limburg, rond Venlo, Venray, Horst aan de Maas en Peel en Maas, is tuinbouwland.** Tussen de kassen, de champignonkwekerijen en de distributiecentra liggen nieuwbouwwijken op zandgrond. Daar gaat het vooral om de gewone nieuwbouwdroging: een anhydriet- of cementdekvloer die droog moet voor de parketlegger komt, en een kruipruimte waar het bouwwater blijft staan. Ook een verbouwde bedrijfswoning bij een kwekerij kan een flinke hoeveelheid water bevatten.",
+      ],
+    },
+    beeld: {
+      src: "/vernast/case-renovatie.webp",
+      alt: "Renovatie met vers stucwerk in een oudere Limburgse woning",
+    },
+    toestellen: {
+      kop: "Welke bouwdroger past bij een klus in Nederlands Limburg?",
+      items: [
+        {
+          key: "ttk350",
+          waarom: `**Voor een mijnwerkerswoning in Parkstad of een tussenwoning in een nieuwbouwwijk**: 70 liter per dag, geschikt voor ongeveer 400 m³. Per verdieping is er meestal één genoeg. Vanaf ${dag("ttk350")} per dag.`,
+        },
+        {
+          key: "ttk650",
+          waarom: `**Voor een vrijstaand huis in Noord-Limburg of een woning na hoogwater langs de Maas**: 110 liter per dag, tot ongeveer 600 m³. Waar in korte tijd veel water weg moet, doet hij het werk van twee kleinere drogers. Vanaf ${dag("ttk650")} per dag.`,
+        },
+        {
+          key: "revolution",
+          waarom: `**De adsorptiedroger voor een kruipruimte of een kelder in het Heuvelland.** Hij blijft vocht opnemen bij lage temperaturen, waar een condensdroger stilvalt, en droogt mergel en leem in een rustig tempo. Vanaf ${dag("revolution")} per dag.`,
+        },
+        {
+          key: "ttv4500",
+          waarom: `**De ventilator voor een diepe woning met ramen aan één kant**, zoals veel huizen in de mijnkoloniën. Hij zet de lucht in de achterste kamers in beweging, zodat niet alleen de voorkant droog wordt. Vanaf ${dag("ttv4500")} per dag.`,
+        },
+      ],
+    },
+    levering: {
+      kop: "Leveren in Nederlands Limburg: over de E313 of de E34, op een afgesproken dag",
+      alineas: [
+        "**Naar Zuid-Limburg rijden we over de E313 naar Hasselt en dan over de E314 en de A76**, richting Maastricht, Sittard en Heerlen. Weert, Roermond en Noord-Limburg bereiken we over de E34 langs Eindhoven en daarna de A2 of de A67. Omdat dat lange ritten zijn, **plannen we de leverdag samen met u** en combineren we die waar het kan met andere adressen in dezelfde hoek van de provincie.",
+        `Op het adres meet de technicus eerst het vochtgehalte van vloer en muren, zet de drogers waar ze het meest uithalen en leidt de afvoerslang naar een gootsteen, een putje of naar buiten. Moeten toestellen via een ladder naar een verdieping zonder trap, dan geldt ${euro(LADDER)} per verdieping; laat dat vooraf weten, dan komen we met twee man. **Wat de levering en de ophaling kosten, ziet u vooraf in de offerte.**`,
+      ],
+      feiten: [
+        { label: "Levering en installatie", waarde: "Plaatsing door onze technicus, kosten vooraf in de offerte" },
+        { label: "Levertermijn", waarde: "Op afspraak, de leverdag spreken we samen af" },
+        { label: "Rijtijd vanuit ons magazijn", waarde: "Vijf kwartier (Weert, Maastricht) tot ruim twee uur (Mook)" },
+        { label: "Route", waarde: "E313, E314 en A76 naar het zuiden; E34, A2 of A67 naar het noorden" },
+        { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
+        { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
+      ],
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Nederlands Limburg: alleen als u toch bij Antwerpen bent",
+      alineas: [
+        `Afhalen doet u in ons magazijn in Aartselaar, bij de A12 aan de zuidkant van Antwerpen. Vanuit Maastricht of Weert bent u daar ruim een uur mee bezig, vanuit Venlo of Heerlen eerder twee, en die rit maakt u twee keer: bij het halen en bij het terugbrengen. **Voor een volledige opstelling is laten leveren bijna altijd de betere keuze**, omdat de technicus dan meteen meet en plaatst. Komt u toch in de buurt van Antwerpen en heeft u één droger of ventilator lang nodig, dan krijgt u ${euro(AFHAALKORTING)} korting op de huurprijs en reserveert u een afhaalmoment op een werkdag tussen 07:30 en 17:00.`,
+      ],
+      feiten: [
+        { label: "Rijtijd naar ons afhaalpunt", waarde: "Ruim een uur (Maastricht, Weert) tot twee uur (Venlo, Heerlen)" },
+        { label: "Korting bij afhalen", waarde: `${euro(AFHAALKORTING)} op de huurprijs` },
+        { label: "Waarborg", waarde: "Geen" },
+        { label: "Vervoer", waarde: "Rechtop; plat vervoerd 24 uur laten staan" },
+        { label: "Liever laten leveren?", waarde: "Leverdag op afspraak, kosten in de offerte" },
+      ],
+    },
+    faq: [
+      {
+        q: "Gaat deze pagina over het Nederlandse of het Belgische Limburg?",
+        a: "Over het Nederlandse: de 31 gemeenten van Mook en Middelaar tot Vaals, met Maastricht, Heerlen, Sittard-Geleen, Roermond en Venlo. Belgisch Limburg, met Hasselt, Genk en het Maasland, heeft een eigen pagina. De toestellen zijn dezelfde; wat verschilt is de rit en de afspraak over de leverdag.",
+      },
+      {
+        q: "Leveren jullie vanuit België ook in Maastricht en Venlo?",
+        a: "Ja. Maastricht ligt over de E313 en de E314 op ongeveer anderhalf uur van ons magazijn, Venlo over de E34 en de A67 op ongeveer twee uur. Omdat we de grens over gaan, spreken we de leverdag vooraf samen af en plannen we de rit zo dat de technicus de tijd heeft om alles goed op te stellen.",
+      },
+      {
+        q: "Hoe weet ik vooraf wat het huren in Nederlands Limburg kost?",
+        a: "U krijgt een offerte voor u bevestigt. Daarin staan de huur per dag, het aantal toestellen en wat de levering en de ophaling kosten. Zo ziet u voor de start wat u betaalt, ook als de droging langer of korter duurt dan gedacht.",
+      },
+      {
+        q: "Kan ik een huis van mergel of vakwerk in het Heuvelland drogen?",
+        a: "Ja, maar langzamer dan een nieuwbouw. Mergel en leem houden veel water vast en kunnen scheuren als ze te snel uitdrogen. De technicus stelt de droger daarom in op een hogere streefvochtigheid en meet tussendoor, zodat het vocht er geleidelijk uit gaat in plaats van in één week.",
+      },
+      {
+        q: "Helpt een bouwdroger tegen een natte kruipruimte?",
+        a: "Bij vocht dat na een lekkage, een overstroming of het storten van een dekvloer is achtergebleven wel. Komt er telkens opnieuw grondwater omhoog, zoals in lage delen langs de Maas, dan moet eerst die oorzaak worden aangepakt. De technicus meet bij de plaatsing welk van de twee het is.",
+      },
+      {
+        q: "Onze woning in Parkstad heeft mijnschade gehad. Moet ze na het herstel gedroogd worden?",
+        a: "Meestal wel. Bij het herstel van mijnschade worden scheuren dichtgezet, muren opnieuw gestuct en soms vloeren opnieuw gestort, en dat brengt veel water in huis. Een droger haalt dat eruit voor u gaat schilderen of een vloer legt; de scheuren zelf zijn dan al hersteld door de aannemer.",
+      },
+    ],
+    realisaties: {
+      kop: "Werven in de buurt van Nederlands Limburg",
+      intro: "In Nederlands Limburg hebben we nog geen werf gefotografeerd. Deze twee liggen in Belgisch Limburg: Bocholt ligt op een kwartier van Weert, en Hasselt ligt op de E313, de weg die we naar Maastricht nemen.",
+      slugs: ["mnr-j-bocholt", "mnr-l-hasselt"],
+    },
+    /*
+      `provincie()` hierboven zet `containedInPlace` vast op België, dus die
+      helper zou deze provincie verkeerd plaatsen. Daarom hier voluit, met
+      Nederland als land. "Limburg" en niet "Nederlands Limburg": zo heet de
+      provincie bestuurlijk, en het land maakt het onderscheid al.
+    */
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: "Limburg",
+      containedInPlace: { "@type": "Country", name: "Nederland" },
+    },
   },
 ];
 

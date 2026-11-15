@@ -75,18 +75,22 @@ describe("werkgebied buiten Vlaanderen", () => {
     Antwerpse district, en een Nederlandse bezoeker die op zijn eigen gemeente
     drukt zou in Deurne bij Antwerpen uitkomen.
 
+    Sinds de Nederlandse gemeenten een pagina hebben (15-11-2026) staat die
+    Deurne als "Deurne (Noord-Brabant)" in de lijst, en wijst `ookVoor` die
+    schrijfwijze naar `deurne-nb`. De lijst van homoniemen is daarmee leeg.
+
     Deze test legt de bekende gevallen vast. Komt er een naam bij die in beide
     lijsten staat, dan breekt ze, en dan hoort iemand te beslissen wat die naam
     moet doen in plaats van dat hij stil naar de verkeerde pagina linkt.
   */
-  const HOMONIEMEN = ["Deurne"];
+  const HOMONIEMEN: string[] = [];
 
   it("overlapt met de Vlaamse lijsten alleen in de bekende homoniemen", () => {
     /* Een Waalse provincie met een eigen pagina staat ook in `STREKEN_PER_REGIO`;
        die telt hier niet als "Vlaams", anders overlapt ze met zichzelf. */
     const binnen = new Set(
       Object.entries(STREKEN_PER_REGIO)
-        .filter(([sleutel]) => !(sleutel in WAALSE_STREKEN))
+        .filter(([sleutel]) => !(sleutel in WAALSE_STREKEN) && !(sleutel in NEDERLANDSE_STREKEN))
         .flatMap(([, s]) => s.flatMap((x) => x.gemeenten))
     );
     const buiten = [
@@ -114,12 +118,11 @@ describe("werkgebied buiten Vlaanderen", () => {
   */
   it("staat met een eigen pagina ook in STREKEN_PER_REGIO, anders nog zonder", () => {
     const routes = new Set(REGIO_ROUTES.map((r) => r.slug));
-    for (const [sleutel, streken] of Object.entries(WAALSE_STREKEN)) {
-      if (routes.has(sleutel)) expect(STREKEN_PER_REGIO[sleutel], sleutel).toBe(streken);
-      else expect(STREKEN_PER_REGIO[sleutel], sleutel).toBeUndefined();
-    }
-    for (const sleutel of Object.keys(NEDERLANDSE_STREKEN)) {
-      expect(routes.has(sleutel), sleutel).toBe(false);
+    for (const lijst of [WAALSE_STREKEN, NEDERLANDSE_STREKEN]) {
+      for (const [sleutel, streken] of Object.entries(lijst)) {
+        if (routes.has(sleutel)) expect(STREKEN_PER_REGIO[sleutel], sleutel).toBe(streken);
+        else expect(STREKEN_PER_REGIO[sleutel], sleutel).toBeUndefined();
+      }
     }
   });
 

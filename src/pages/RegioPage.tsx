@@ -698,7 +698,12 @@ const RegioPage = () => {
           )}
 
           <div className="note">
-            <b>Wij leveren in heel België.</b> Buiten de provincies hieronder rijden we ook, al telt
+            <b>
+              {route.opAanvraag
+                ? "Wij leveren ook in Nederland, op afspraak."
+                : "Wij leveren in heel België."}
+            </b>{" "}
+            Buiten de provincies hieronder rijden we ook, al telt
             de rit dan mee in de planning. Bel ons gerust voor een werf net over de provinciegrens.
             Ook bouwdrogers huren in:{" "}
             {andere.map((r, i) => (
