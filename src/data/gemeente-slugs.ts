@@ -651,6 +651,46 @@ export const GEMEENTE_ROUTES: GemeenteRoute[] = [
   gemeente("Edegem", "edegem", "2650"),
   gemeente("Duffel", "duffel", "2570"),
   gemeente("Mortsel", "mortsel", "2640"),
+  /*
+    Waals-Brabant, sinds 15-11-2026: de 27 gemeenten van de eerste Waalse
+    provincie met een eigen pagina.
+
+    De naam is de Nederlandse ("Waver", "Eigenbrakel"), omdat die in elke zin
+    van de pagina en in de titel staat. In de streeklijst staat de gemeente
+    tweetalig, "Waver (Wavre)", want wie op de Franse naam zoekt, zoekt
+    dezelfde droger; `ookVoor` verbindt die schrijfwijze met deze pagina,
+    zodat ze op de provinciepagina en op /sitemap een link wordt.
+
+    De slug volgt de Nederlandse naam, zoals bij Brussel (`elsene`, niet
+    `ixelles`). Waar er geen Nederlandse naam is, is het de Franse.
+  */
+  { ...gemeente("Tubeke", "tubeke", "1480", "waals-brabant"), ookVoor: ["Tubeke (Tubize)"] },
+  gemeente("Rebecq", "rebecq", "1430", "waals-brabant"),
+  { ...gemeente("Kasteelbrakel", "kasteelbrakel", "1440", "waals-brabant"), ookVoor: ["Kasteelbrakel (Braine-le-Château)"] },
+  gemeente("Itter", "itter", "1460", "waals-brabant"),
+  { ...gemeente("Eigenbrakel", "eigenbrakel", "1420", "waals-brabant"), ookVoor: ["Eigenbrakel (Braine-l'Alleud)"] },
+  gemeente("Waterloo", "waterloo", "1410", "waals-brabant"),
+  { ...gemeente("Nijvel", "nijvel", "1400", "waals-brabant"), ookVoor: ["Nijvel (Nivelles)"] },
+  { ...gemeente("Genepiën", "genepien", "1470", "waals-brabant"), ookVoor: ["Genepiën (Genappe)"] },
+  gemeente("Lasne", "lasne", "1380", "waals-brabant"),
+  { ...gemeente("Terhulpen", "terhulpen", "1310", "waals-brabant"), ookVoor: ["Terhulpen (La Hulpe)"] },
+  gemeente("Rixensart", "rixensart", "1330", "waals-brabant"),
+  { ...gemeente("Waver", "waver", "1300", "waals-brabant"), ookVoor: ["Waver (Wavre)"] },
+  gemeente("Ottignies-Louvain-la-Neuve", "ottignies-louvain-la-neuve", "1340", "waals-brabant"),
+  gemeente("Court-Saint-Étienne", "court-saint-etienne", "1490", "waals-brabant"),
+  gemeente("Mont-Saint-Guibert", "mont-saint-guibert", "1435", "waals-brabant"),
+  gemeente("Villers-la-Ville", "villers-la-ville", "1495", "waals-brabant"),
+  gemeente("Chastre", "chastre", "1450", "waals-brabant"),
+  gemeente("Walhain", "walhain", "1457", "waals-brabant"),
+  { ...gemeente("Graven", "graven", "1390", "waals-brabant"), ookVoor: ["Graven (Grez-Doiceau)"] },
+  gemeente("Chaumont-Gistoux", "chaumont-gistoux", "1325", "waals-brabant"),
+  { ...gemeente("Bevekom", "bevekom", "1320", "waals-brabant"), ookVoor: ["Bevekom (Beauvechain)"] },
+  gemeente("Incourt", "incourt", "1315", "waals-brabant"),
+  { ...gemeente("Perwijs", "perwijs", "1360", "waals-brabant"), ookVoor: ["Perwijs (Perwez)"] },
+  gemeente("Ramillies", "ramillies", "1367", "waals-brabant"),
+  { ...gemeente("Geldenaken", "geldenaken", "1370", "waals-brabant"), ookVoor: ["Geldenaken (Jodoigne)"] },
+  gemeente("Orp-Jauche", "orp-jauche", "1350", "waals-brabant"),
+  gemeente("Hélécine", "helecine", "1357", "waals-brabant"),
 ];
 
 export const GEMEENTE_BY_PATH: Record<string, GemeenteRoute> = Object.fromEntries(

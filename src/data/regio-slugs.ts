@@ -114,6 +114,26 @@ export const REGIO_ROUTES: RegioRoute[] = [
     ],
     pin: { left: "76%", top: "23%" },
   },
+  /*
+    De eerste Waalse provincie, sinds 15-11-2026. Ze ligt dichter bij ons
+    magazijn dan het Maasland: Waterloo en Waver zitten op een klein uur over
+    de ring. De namen staan hier in het Nederlands, zoals de rest van de site;
+    de Franse naam hangt via `ookVoor` aan elke gemeentepagina.
+
+    De speld staat ten zuidoosten van die van Brussel, op Ottignies, het
+    midden van de provincie (4,57 OL, 50,67 NB in de grenzen hierboven).
+  */
+  {
+    slug: "waals-brabant",
+    name: "Waals-Brabant",
+    path: "/bouwdroger-huren-waals-brabant",
+    towns: [
+      "Waver", "Nijvel", "Eigenbrakel", "Waterloo", "Ottignies-Louvain-la-Neuve", "Tubeke",
+      "Rixensart", "Lasne", "Terhulpen", "Genepiën", "Geldenaken", "Perwijs",
+      "Court-Saint-Étienne", "Villers-la-Ville", "Graven", "Chaumont-Gistoux",
+    ],
+    pin: { left: "53%", top: "44%" },
+  },
 ];
 
 export const REGIO_BY_PATH: Record<string, RegioRoute> = Object.fromEntries(

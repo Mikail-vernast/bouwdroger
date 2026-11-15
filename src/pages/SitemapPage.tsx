@@ -64,32 +64,75 @@ const JURIDISCH: NavLinkItem[] = [
  * wijst erger is dan een kop zonder link; sinds /bouwdroger-huren-brussel
  * bestaat, komt het gewest gewoon uit `REGIO_ROUTES` mee.
  */
-const GEBIEDEN: { sleutel: string; kop: string; path?: string; streken: Streek[] }[] =
-  REGIO_ROUTES.map((regio) => ({
-    sleutel: regio.slug,
-    kop: `Bouwdroger huren in ${regio.name}`,
-    path: regio.path,
-    streken: STREKEN_PER_REGIO[regio.slug] ?? [],
-  }));
+interface Gebied {
+  sleutel: string;
+  kop: string;
+  path?: string;
+  streken: Streek[];
+}
+
+const alsGebied = (regio: (typeof REGIO_ROUTES)[number]): Gebied => ({
+  sleutel: regio.slug,
+  kop: `Bouwdroger huren in ${regio.name}`,
+  path: regio.path,
+  streken: STREKEN_PER_REGIO[regio.slug] ?? [],
+});
+
+/* Een Waalse provincie met een eigen pagina staat onder Wallonië, niet onder
+   Vlaanderen, ook al komt ze uit dezelfde `REGIO_ROUTES`.
+
+   Brussel staat apart. Tot 15-11-2026 stond het gewest als zesde gebied onder
+   "België: Vlaanderen en Brussel", en las het daardoor als een Vlaamse
+   provincie. Het is een gewest naast Vlaanderen en Wallonië, met een eigen
+   kop. */
+const VLAANDEREN: Gebied[] = REGIO_ROUTES.filter(
+  (regio) => !(regio.slug in WAALSE_STREKEN) && regio.slug !== "brussel"
+).map(alsGebied);
+const BRUSSEL: Gebied[] = REGIO_ROUTES.filter((regio) => regio.slug === "brussel").map(alsGebied);
 
 /**
  * Wallonië en de Nederlandse grensstreek: wél in de lijst, nog zonder pagina.
  *
- * Bewust een apart blok met een eigen kop, en bewust zonder `path` en zonder
- * levertermijn. Twee redenen. Een kop die naar een onbestaande pagina linkt is
- * erger dan een kop zonder link, dat was de les van Brussel. En het ritme van
- * de rest van de site, "binnen 24 uur geleverd", geldt hier niet: Virton ligt
- * op drie uur en Eindhoven achter een grens, met andere btw-regels. Daarom
- * staat er boven dit blok "op aanvraag" en geen belofte die we niet nakomen.
+ * Bewust zonder `path` en zonder levertermijn. Twee redenen. Een kop die naar
+ * een onbestaande pagina linkt is erger dan een kop zonder link, dat was de les
+ * van Brussel. En het ritme van de rest van de site, "binnen 24 uur geleverd",
+ * geldt hier niet: Virton ligt op drie uur en Eindhoven achter een grens, met
+ * andere btw-regels. Daarom staat er boven deze blokken "op aanvraag" en geen
+ * belofte die we niet nakomen.
+ *
+ * Twee lijsten en niet één. Ze stonden tot 15-11-2026 samen onder de kop
+ * "Wallonië en de Nederlandse grensstreek", met "(NL)" achter de twee
+ * Nederlandse provincies als enige onderscheid. Wie de pagina doorliep, zag
+ * daardoor niet in één oogopslag welk deel België was en welk Nederland, en
+ * Zeeland las als de achtste Waalse provincie. Nu draagt elk land zijn eigen
+ * sectie.
  */
-const BUITEN: { sleutel: string; kop: string; streken: Streek[] }[] = [
-  { sleutel: "wallonie-waals-brabant", kop: "Waals-Brabant", streken: WAALSE_STREKEN["waals-brabant"] },
-  { sleutel: "wallonie-henegouwen", kop: "Henegouwen", streken: WAALSE_STREKEN.henegouwen },
-  { sleutel: "wallonie-luik", kop: "Luik", streken: WAALSE_STREKEN.luik },
-  { sleutel: "wallonie-namen", kop: "Namen", streken: WAALSE_STREKEN.namen },
-  { sleutel: "wallonie-luxemburg", kop: "Luxemburg", streken: WAALSE_STREKEN.luxemburg },
-  { sleutel: "nl-noord-brabant", kop: "Noord-Brabant (NL)", streken: NEDERLANDSE_STREKEN["noord-brabant"] },
-  { sleutel: "nl-zeeland", kop: "Zeeland (NL)", streken: NEDERLANDSE_STREKEN.zeeland },
+/*
+  Heeft een provincie haar pagina (Waals-Brabant sinds 15-11-2026), dan komt ze
+  uit `REGIO_ROUTES` met kop en gemeenten als link, net als de Vlaamse. De rest
+  blijft tekst tot haar pagina er is.
+*/
+const WALLONIE: Gebied[] = [
+  { sleutel: "waals-brabant", kop: "Waals-Brabant", streken: WAALSE_STREKEN["waals-brabant"] },
+  { sleutel: "henegouwen", kop: "Henegouwen", streken: WAALSE_STREKEN.henegouwen },
+  { sleutel: "luik", kop: "Luik", streken: WAALSE_STREKEN.luik },
+  { sleutel: "namen", kop: "Namen", streken: WAALSE_STREKEN.namen },
+  // "Provincie" erbij: zonder dat leest het onder Wallonië als het groothertogdom.
+  { sleutel: "luxemburg", kop: "Provincie Luxemburg", streken: WAALSE_STREKEN.luxemburg },
+].map((gebied) => {
+  const regio = REGIO_ROUTES.find((r) => r.slug === gebied.sleutel);
+  return regio ? alsGebied(regio) : gebied;
+});
+
+const NEDERLAND: Gebied[] = [
+  { sleutel: "nl-noord-brabant", kop: "Noord-Brabant", streken: NEDERLANDSE_STREKEN["noord-brabant"] },
+  { sleutel: "nl-zeeland", kop: "Zeeland", streken: NEDERLANDSE_STREKEN.zeeland },
+  // "Nederlands" erbij: zonder dat leest het als de Belgische provincie hierboven.
+  {
+    sleutel: "nl-limburg",
+    kop: "Nederlands Limburg",
+    streken: NEDERLANDSE_STREKEN["nederlands-limburg"],
+  },
 ];
 
 interface Blok {
@@ -137,6 +180,84 @@ const BLOKKEN: Blok[] = [
     items: BEDRIJF,
   },
 ];
+
+/** Een gebied met een eigen pagina: de kop is de link, en elke plaats met een
+    eigen pagina ook. */
+const GebiedMetPagina = ({ gebied }: { gebied: Gebied }) => {
+  /*
+    "Plaatsen" en niet "gemeenten". De provincie Antwerpen telt
+    67 gemeenten, maar deze lijst noemt er 77: de districten van
+    de stad staan er apart bij omdat mensen "bouwdroger huren
+    Deurne" intikken. Het label "77 gemeenten" was dus gewoon
+    onjuist. Nagerekend op 13-11-2026.
+  */
+  const aantal = gebied.streken.reduce((n, s) => n + s.gemeenten.length, 0);
+  return (
+    <div className="sm-prov">
+      <h3>
+        {gebied.path ? <Link to={gebied.path}>{gebied.kop}</Link> : gebied.kop}
+        <span className="sm-telling">{aantal} plaatsen</span>
+      </h3>
+      <div className="sm-streken">
+        {gebied.streken.map((streek) => (
+          <div className="sm-streek" key={streek.naam}>
+            <h4>{streek.naam}</h4>
+            <ul>
+              {/* Alfabetisch, en niet in de volgorde van
+                `provincie-gemeenten.ts`: op de provinciepagina
+                leest die lijst als een opsomming in een zin,
+                hier zoekt iemand één naam tussen dertig. */}
+              {[...streek.gemeenten]
+                .sort((a, b) => a.localeCompare(b, "nl"))
+                .map((naam) => {
+                  const eigen = gemeenteVanPlaats(naam);
+                  return (
+                    <li key={naam}>
+                      {eigen ? (
+                        <Link to={eigen.path}>{naam}</Link>
+                      ) : (
+                        <span>{naam}</span>
+                      )}
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/** Een provincie buiten het vaste werkgebied: namen als tekst, want er is nog
+    geen pagina om naar te linken. */
+const GebiedOpAanvraag = ({ gebied }: { gebied: Gebied }) => {
+  const aantal = gebied.streken.reduce((n, s) => n + s.gemeenten.length, 0);
+  return (
+    <div className="sm-prov">
+      <h3>
+        {gebied.kop}
+        <span className="sm-telling">{aantal} gemeenten</span>
+      </h3>
+      <div className="sm-streken">
+        {gebied.streken.map((streek) => (
+          <div className="sm-streek" key={streek.naam}>
+            <h4>{streek.naam}</h4>
+            <ul>
+              {[...streek.gemeenten]
+                .sort((a, b) => a.localeCompare(b, "nl"))
+                .map((naam) => (
+                  <li key={naam}>
+                    <span>{naam}</span>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const SitemapPage = () => {
   /*
@@ -271,10 +392,10 @@ const SitemapPage = () => {
               wegwijzer, geen tweede tekst.
             */}
             <section className="sm-breed" aria-labelledby="sm-regio">
-              <h2 id="sm-regio">Werkgebied</h2>
+              <h2 id="sm-regio">België: Vlaanderen</h2>
               <p className="sm-uit">
-                Zes gebiedspagina's en elke plaats in Vlaanderen en Brussel waar we leveren, per
-                streek. Elke plaats hier heeft haar eigen pagina, en haar naam is de link erheen.
+                De vijf Vlaamse provincies en elke plaats waar we leveren, per streek. Elke plaats
+                hier heeft haar eigen pagina, en haar naam is de link erheen.
               </p>
               {/* Hier stond eerst nog een rij met dezelfde vijf
                   provincielinks uit `REGIOS`. Die dateert van toen dit blok
@@ -284,97 +405,49 @@ const SitemapPage = () => {
                   pagina, één keer als losse regel en vijf regels later als
                   titel van haar eigen lijst. Twee links naar hetzelfde pad met
                   dezelfde ankertekst zeggen een bezoeker niets extra. */}
-              {GEBIEDEN.map((gebied) => {
-                /*
-                  "Plaatsen" en niet "gemeenten". De provincie Antwerpen telt
-                  67 gemeenten, maar deze lijst noemt er 77: de districten van
-                  de stad staan er apart bij omdat mensen "bouwdroger huren
-                  Deurne" intikken. Het label "77 gemeenten" was dus gewoon
-                  onjuist. Nagerekend op 13-11-2026.
-                */
-                const aantal = gebied.streken.reduce((n, s) => n + s.gemeenten.length, 0);
-                return (
-                  <div className="sm-prov" key={gebied.sleutel}>
-                    <h3>
-                      {gebied.path ? <Link to={gebied.path}>{gebied.kop}</Link> : gebied.kop}
-                      <span className="sm-telling">{aantal} plaatsen</span>
-                    </h3>
-                    <div className="sm-streken">
-                      {gebied.streken.map((streek) => (
-                        <div className="sm-streek" key={streek.naam}>
-                          <h4>{streek.naam}</h4>
-                          <ul>
-                            {/* Alfabetisch, en niet in de volgorde van
-                              `provincie-gemeenten.ts`: op de provinciepagina
-                              leest die lijst als een opsomming in een zin,
-                              hier zoekt iemand één naam tussen dertig. */}
-                            {[...streek.gemeenten]
-                              .sort((a, b) => a.localeCompare(b, "nl"))
-                              .map((naam) => {
-                                const eigen = gemeenteVanPlaats(naam);
-                                return (
-                                  <li key={naam}>
-                                    {eigen ? (
-                                      <Link to={eigen.path}>{naam}</Link>
-                                    ) : (
-                                      <span>{naam}</span>
-                                    )}
-                                  </li>
-                                );
-                              })}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
+              {VLAANDEREN.map((gebied) => (
+                <GebiedMetPagina key={gebied.sleutel} gebied={gebied} />
+              ))}
+            </section>
+
+            <section className="sm-breed" aria-labelledby="sm-brussel">
+              <h2 id="sm-brussel">België: Brussels Hoofdstedelijk Gewest</h2>
+              {BRUSSEL.map((gebied) => (
+                <GebiedMetPagina key={gebied.sleutel} gebied={gebied} />
+              ))}
             </section>
 
             {/*
-              Wallonië en de Nederlandse grensstreek staan in een eigen sectie
-              en niet tussen de zes erboven, want ze zijn iets anders: een
-              gebied waar we komen als het gevraagd wordt, zonder pagina en
+              Wallonië en de Nederlandse grensstreek staan elk in een eigen
+              sectie en niet tussen de gebieden erboven, want ze zijn iets anders:
+              een gebied waar we komen als het gevraagd wordt, zonder pagina en
               zonder de levertermijn van 24 uur die hierboven wél geldt. De
               namen zijn daarom tekst en geen link, en de kop zegt "op
               aanvraag" in plaats van iets te beloven.
             */}
-            <section className="sm-breed" aria-labelledby="sm-buiten">
-              <h2 id="sm-buiten">Wallonië en de Nederlandse grensstreek, op aanvraag</h2>
+            <section className="sm-breed" aria-labelledby="sm-wallonie">
+              <h2 id="sm-wallonie">België: Wallonië, op aanvraag</h2>
+              {WALLONIE.map((gebied) =>
+                gebied.path ? (
+                  <GebiedMetPagina key={gebied.sleutel} gebied={gebied} />
+                ) : (
+                  <GebiedOpAanvraag key={gebied.sleutel} gebied={gebied} />
+                )
+              )}
+            </section>
+
+            <section className="sm-breed" aria-labelledby="sm-nederland">
+              <h2 id="sm-nederland">Nederland</h2>
               <p className="sm-uit">
-                Buiten Vlaanderen en Brussel werken we op aanvraag: de 261 Waalse gemeenten en de
-                Nederlandse grensstreek van Noord-Brabant en Zeeland. Hier geldt geen levertermijn
-                van 24 uur, want de rit is langer en over de grens gelden andere btw-regels. Bel
-                ons op{" "}
-                <a href="tel:+3236899065">03 689 90 65</a> en we zeggen meteen wat er kan.
+                De gemeenten van Noord-Brabant, Zeeland en Nederlands Limburg, de drie
+                provincies langs de Belgische grens. Ook hier geen
+                levertermijn van 24 uur: de rit is langer en over de grens gelden andere
+                btw-regels. Bel ons op <a href="tel:+3236899065">03 689 90 65</a> en we zeggen
+                meteen wat er kan.
               </p>
-              {BUITEN.map((gebied) => {
-                const aantal = gebied.streken.reduce((n, s) => n + s.gemeenten.length, 0);
-                return (
-                  <div className="sm-prov" key={gebied.sleutel}>
-                    <h3>
-                      {gebied.kop}
-                      <span className="sm-telling">{aantal} gemeenten</span>
-                    </h3>
-                    <div className="sm-streken">
-                      {gebied.streken.map((streek) => (
-                        <div className="sm-streek" key={streek.naam}>
-                          <h4>{streek.naam}</h4>
-                          <ul>
-                            {[...streek.gemeenten]
-                              .sort((a, b) => a.localeCompare(b, "nl"))
-                              .map((naam) => (
-                                <li key={naam}>
-                                  <span>{naam}</span>
-                                </li>
-                              ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
+              {NEDERLAND.map((gebied) => (
+                <GebiedOpAanvraag key={gebied.sleutel} gebied={gebied} />
+              ))}
             </section>
 
             <nav className="sm-breed" aria-labelledby="sm-real">

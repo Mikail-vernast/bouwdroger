@@ -53,7 +53,15 @@ export const REALISATIE_REGIO: Record<string, RegioRoute["slug"]> = {
  *
  * Komt er een echte werf in Leuven of Halle bij, dan mag deze regel weg.
  */
-const LEENT_VAN: Record<string, string> = { "vlaams-brabant": "brussel" };
+/*
+  Waals-Brabant leent ook van Brussel (15-11-2026): de provincie grenst aan het
+  gewest, de werven liggen op een kwartier van Waterloo en Terhulpen, en de
+  pagina noemt ze "werven in de buurt", niet werven in de provincie.
+*/
+const LEENT_VAN: Record<string, string> = {
+  "vlaams-brabant": "brussel",
+  "waals-brabant": "brussel",
+};
 
 /** Van welk gebied deze regio haar werven leent, als ze er zelf geen heeft. */
 export function leentVan(regioSlug: string): string | undefined {

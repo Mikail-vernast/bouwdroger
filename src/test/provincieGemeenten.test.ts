@@ -27,6 +27,7 @@ const VERWACHT: Record<string, number> = {
   "west-vlaanderen": 62,
   limburg: 38,
   brussel: 19,
+  "waals-brabant": 27,
 };
 
 describe("gemeenten per provincie", () => {
@@ -90,7 +91,13 @@ describe("gemeenten per provincie", () => {
   it("spelt elke gemeente met een eigen pagina net zo als daar", () => {
     for (const gemeente of GEMEENTE_ROUTES) {
       const namen = (STREKEN_PER_REGIO[gemeente.regio] ?? []).flatMap((s) => s.gemeenten);
-      expect(namen, `${gemeente.name} (${gemeente.regio})`).toContain(gemeente.name);
+      /* Een Waalse gemeente staat in de lijst tweetalig ("Waver (Wavre)") en
+         heet op haar pagina "Waver"; `ookVoor` draagt de lijstspelling. */
+      const spellingen = [gemeente.name, ...(gemeente.ookVoor ?? [])];
+      expect(
+        spellingen.some((s) => namen.includes(s)),
+        `${gemeente.name} (${gemeente.regio})`
+      ).toBe(true);
     }
   });
 });

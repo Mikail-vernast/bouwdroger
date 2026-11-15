@@ -1,5 +1,5 @@
 /**
- * De inhoud van de zes regiopagina's (/bouwdroger-huren-<regio>).
+ * De inhoud van de regiopagina's (/bouwdroger-huren-<regio>).
  *
  * Waarom deze pagina's bestaan: Search Console toonde in september 2026 dat de
  * site verschijnt op "bouwdroger aalst", "bouwdroger huren antwerpen" en
@@ -833,6 +833,132 @@ export const REGIOS: Regio[] = [
       slugs: ["mnr-l-hasselt", "mnr-j-bocholt"],
     },
     areaServed: provincie("Limburg"),
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    ...route("waals-brabant"),
+    /*
+      De eerste Waalse provincie met een eigen pagina, sinds 15-11-2026. Ze
+      staat hier en niet in een apart Waals bestand omdat ze hetzelfde
+      sjabloon draagt als de zes Vlaamse en Brusselse gebieden, met dezelfde
+      prijs en hetzelfde pakket.
+
+      Wat haar eigen maakt: de leem van het Brabants plateau, de valleien van
+      de Dijle, de Lasne en de Thyle die erdoor snijden, en de villawijken in
+      het zuiden van Brussel. Wat per gemeente verschilt, staat op de
+      gemeentepagina's. Rijtijden zijn afgerond en te verifiëren tegen de echte
+      ritgegevens, net als in `gemeenten.ts`.
+
+      Werven heeft de provincie nog niet; de sectie leent de drie Brusselse,
+      en zegt dat er ook bij ("in de buurt"). Zie `LEENT_VAN`.
+    */
+    title: "Bouwdroger huren in Waals-Brabant | Vernast",
+    description:
+      "Bouwdroger huren in Waals-Brabant: Waver, Nijvel, Waterloo en Eigenbrakel. Geleverd, geplaatst en opgehaald vanuit Aartselaar, zonder waarborg.",
+    h1: "Bouwdroger huren in Waals-Brabant",
+    kicker: "Brabant wallon · 27 gemeenten · een klein uur over de ring",
+    intro: [
+      "Een bouwdroger huren in Waals-Brabant voor nieuwbouw, renovatie of waterschade? Vernast levert en plaatst toestellen op uw werf in Waver, Waterloo, Nijvel en de rest van de provincie. **Uw droogpakket omvat de levering, plaatsing en ophaling van de toestellen.** Bereken uw huurprijs online of neem contact op voor advies over uw project.",
+    ],
+    heroFacts: [
+      "Levering, plaatsing en ophaling inbegrepen",
+      "Geen waarborg",
+      "Hulp in het Nederlands en het Frans",
+    ],
+    bouw: {
+      kop: "Waarvoor huurt men in Waals-Brabant een bouwdroger?",
+      alineas: [
+        "Twee soorten werven vullen het grootste deel van de vraag hier: **de grondige renovatie van een villa** uit de jaren zestig tot tachtig, en **nieuwbouw op een verkaveling** aan de rand van een dorp. In beide gevallen gaat het om grote volumes. Een villa in Lasne of Terhulpen heeft al snel een kelder onder het hele huis, een open gelijkvloers en een verdieping onder het dak, en dat droogt u niet met één klein toestel.",
+        "**De bodem is leem**, en dat merkt u aan de chape en aan de kelder. Het Brabants plateau is bedekt met een dikke laag löss die water slecht doorlaat: na een natte winter blijft het tegen de keldermuur staan in plaats van weg te zakken. Wie in Waver, Nijvel of Perwijs een nieuwe vloer giet, rekent daarom beter niet op natuurlijke droging. **Een chape van zes centimeter heeft zonder hulp weken nodig**, met een berekende opstelling volgt de vloerder veel vroeger.",
+        "**In de valleien is het water dichterbij.** De Dijle loopt door Waver en Ottignies, de Lasne door Lasne en Rixensart, de Thyle langs Court-Saint-Étienne en Villers-la-Ville, en in het westen de Zenne door Tubeke. Een woning op de valleibodem krijgt bij hevige regen eerder water in de kelder of de garage dan een woning op het plateau erboven. Daar telt na een waterschade vooral de snelheid: hoe langer vocht in een muur zit, hoe groter de kans op schimmel.",
+        "Aan de oostkant, rond Geldenaken, Ramillies en Orp-Jauche, is het landbouwland met **hoeves in vierkant** en schuren die tot woning worden verbouwd. Dat zijn dikke muren van baksteen of natuursteen die veel vocht vasthouden, vaak zonder verwarming tijdens de werken. Op zo'n winterwerf zetten we een kachel bij de droger, want **onder 15 °C werkt een condensdroger op een fractie van zijn vermogen**.",
+      ],
+    },
+    beeld: {
+      src: "/vernast/case-nieuwbouw.webp",
+      alt: "Villa in afwerking, met bouwdrogers op het gelijkvloers",
+    },
+    toestellen: {
+      kop: "Welke bouwdroger past bij een werf in Waals-Brabant?",
+      items: [
+        {
+          key: "ttk350",
+          waarom: `**Per bouwlaag van een villa of per gelijkvloers van een nieuwbouw**: 70 liter per dag en een bereik tot ongeveer 400 m³. In Waals-Brabant is dit het toestel dat het vaakst in een pakket zit. Vanaf ${dag("ttk350")} per dag.`,
+        },
+        {
+          key: "ttk650",
+          waarom: `**Voor de kelder onder de hele villa** of een open ruimte met vide: 110 liter per dag, tot ongeveer 600 m³. Waar twee middelgrote toestellen elkaar in de weg zouden staan, doet deze het alleen. Vanaf ${dag("ttk650")} per dag.`,
+        },
+        {
+          key: "teddh30",
+          waarom: `**De elektrische kachel voor de onverwarmde winterwerf**, zoals een schuur die tot woning wordt verbouwd. Hij brengt de ruimte op werkingstemperatuur zodat de droger rendeert. Vraagt krachtstroom op de werf. Vanaf ${dag("teddh30")} per dag.`,
+        },
+        {
+          key: "radiaal2250",
+          waarom: `**De radiaalventilator** voor een villa met lange gangen of een verdieping onder het dak. Hij blaast de droge lucht gericht tot in de verste hoek, waar de droger zelf niet komt. Vanaf ${dag("radiaal2250")} per dag.`,
+        },
+      ],
+    },
+    levering: {
+      kop: "Leveren in Waals-Brabant: over de ring, met een tijdslot",
+      alineas: [
+        "De rit gaat over de Brusselse ring, en die staat 's ochtends vast. **We plannen Waals-Brabant daarom in een ronde buiten de spits**: het westen en Waterloo over de E19 en de R0, Waver en het oosten over de E411. U krijgt een tijdslot en een sms een halfuur vooraf.",
+        `Bij de levering meet de technieker het startvocht, verdeelt de toestellen over de bouwlagen, legt de afvoer naar een putje of naar buiten en stelt elke droger in. **Via de trap naar boven is inbegrepen**; moet er iets via een ladder omdat de trap nog niet ligt, dan geldt ${euro(LADDER)} per verdieping. Levering en ophaling zitten in het pakket, zonder afstandstoeslag voor de rit naar het zuiden.`,
+      ],
+      feiten: [
+        { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
+        { label: "Levertermijn", waarde: "Binnen 24 uur, in een ronde buiten de spits" },
+        { label: "Rijtijd vanuit ons magazijn", waarde: "50 minuten (Waterloo, Waver) tot 70 minuten (Hélécine)" },
+        { label: "Taal", waarde: "Nederlands of Frans, naar keuze" },
+        { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
+        { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
+      ],
+    },
+    afhalen: {
+      kop: "Afhalen vanuit Waals-Brabant: alleen voor één los toestel",
+      alineas: [
+        `Ons afhaalpunt ligt in Aartselaar, ten zuiden van Antwerpen: vanuit Waver of Nijvel ruim een uur heen en evenveel terug, door het verkeer rond Brussel. **Voor een volledig pakket loont dat nooit**, want de rit zit al in de prijs. Voor één losse droger die u maanden houdt, kan het wel: ${euro(AFHAALKORTING)} korting op de huurprijs en een gereserveerd afhaalmoment op een werkdag tussen 07:30 en 17:00.`,
+      ],
+      feiten: [
+        { label: "Rijtijd naar ons afhaalpunt", waarde: "Een klein uur tot ruim een uur, buiten de spits" },
+        { label: "Korting bij afhalen", waarde: `${euro(AFHAALKORTING)} op de huurprijs` },
+        { label: "Waarborg", waarde: "Geen" },
+        { label: "Vervoer", waarde: "Rechtop; plat vervoerd 24 uur laten staan" },
+        { label: "Liever laten leveren?", waarde: "De rit zit al in elke pakketprijs" },
+      ],
+    },
+    faq: [
+      {
+        q: "Komen jullie echt tot in Waals-Brabant, of alleen tot de taalgrens?",
+        a: "Tot in elke gemeente van de provincie, van Tubeke en Rebecq in het westen tot Hélécine en Orp-Jauche in het oosten. Het droogpakket kost er hetzelfde als in Vlaanderen: levering, plaatsing, de vochtmeting bij de start en de ophaling zitten erin, zonder toeslag voor de afstand.",
+      },
+      {
+        q: "Spreken jullie ook Frans met klanten in Waals-Brabant?",
+        a: "Ja. Aan de telefoon, in de offerte en op de werf kiest u zelf of we Nederlands of Frans spreken. Deze pagina staat in het Nederlands, zoals de rest van de site, maar zoekt u op Wavre, Nivelles of Braine-l'Alleud, dan gaat het om dezelfde gemeenten en hetzelfde pakket.",
+      },
+      {
+        q: "Waarom droogt mijn chape op de leembodem zo traag?",
+        a: "Omdat de chape zelf het water moet afgeven aan de lucht, en die lucht in een nieuwbouw snel verzadigd is. De leem onder de vloer helpt niet mee: ze laat weinig door en houdt de onderkant van de plaat koel en vochtig. Een bouwdroger haalt het vocht continu uit de lucht, zodat de chape kan blijven afgeven. De technieker meet het restvocht bij de start en bij de ophaling.",
+      },
+      {
+        q: "Mijn kelder in de Dijlevallei liep onder. Wat moet ik eerst doen?",
+        a: "Het staande water laten wegpompen en natte spullen buiten zetten, en dan zo snel mogelijk drogen: op vochtig materiaal begint schimmel na 24 tot 48 uur. Bel ons meteen, dan plannen we de rit zo vroeg als het kan. Voor een koude kelder nemen we een adsorptiedroger mee, die ook bij lage temperatuur blijft werken.",
+      },
+      {
+        q: "Hoeveel toestellen heb ik nodig voor een villa met kelder?",
+        a: "Dat hangt af van het volume en van wat er nat is, niet van het aantal kamers. Voor een villa met een volledige kelder, een gelijkvloers en een verdieping komt het vaak neer op een toestel per bouwlaag en een ventilator, en een groter toestel in de kelder. De Calculator rekent het uit op kubieke meter; geef de plafondhoogte mee.",
+      },
+      {
+        q: "Werken jullie ook op een verbouwde hoeve zonder verwarming?",
+        a: "Ja, en dan nemen we een elektrische kachel mee. In dikke muren van een oude schuur zit veel vocht, en zonder warmte in de ruimte haalt een condensdroger er weinig uit. Voorwaarde is krachtstroom op de werf; is die er niet, dan zoeken we met u een andere opstelling, bijvoorbeeld met een adsorptiedroger.",
+      },
+    ],
+    realisaties: {
+      kop: "Werven in de buurt van Waals-Brabant",
+      intro: "In Waals-Brabant zelf hebben we nog geen werf gefotografeerd. Deze drie liggen in Brussel, op een kwartier tot een halfuur van Waterloo en Terhulpen.",
+      slugs: ["dhr-h-brussel", "mnr-s-brussel", "mevr-g-b-sint-pieters-woluwe"],
+    },
+    areaServed: provincie("Waals-Brabant"),
   },
 ];
 

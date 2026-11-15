@@ -33,6 +33,7 @@ const WALLONIE: Record<string, number> = {
 const NEDERLAND: Record<string, number> = {
   "noord-brabant": 56,
   zeeland: 13,
+  "nederlands-limburg": 31,
 };
 
 describe("werkgebied buiten Vlaanderen", () => {
@@ -52,8 +53,8 @@ describe("werkgebied buiten Vlaanderen", () => {
     expect(streken.reduce((n, s) => n + s.gemeenten.length, 0)).toBe(aantal);
   });
 
-  it("telt 69 Nederlandse gemeenten in de grensstreek", () => {
-    expect(aantalBuiten(NEDERLANDSE_STREKEN)).toBe(69);
+  it("telt 100 Nederlandse gemeenten in de grensstreek", () => {
+    expect(aantalBuiten(NEDERLANDSE_STREKEN)).toBe(100);
   });
 
   it("noemt geen enkele gemeente twee keer", () => {
@@ -81,8 +82,12 @@ describe("werkgebied buiten Vlaanderen", () => {
   const HOMONIEMEN = ["Deurne"];
 
   it("overlapt met de Vlaamse lijsten alleen in de bekende homoniemen", () => {
+    /* Een Waalse provincie met een eigen pagina staat ook in `STREKEN_PER_REGIO`;
+       die telt hier niet als "Vlaams", anders overlapt ze met zichzelf. */
     const binnen = new Set(
-      Object.values(STREKEN_PER_REGIO).flatMap((s) => s.flatMap((x) => x.gemeenten))
+      Object.entries(STREKEN_PER_REGIO)
+        .filter(([sleutel]) => !(sleutel in WAALSE_STREKEN))
+        .flatMap(([, s]) => s.flatMap((x) => x.gemeenten))
     );
     const buiten = [
       ...Object.values(WAALSE_STREKEN).flatMap((s) => s.flatMap((x) => x.gemeenten)),
@@ -100,16 +105,18 @@ describe("werkgebied buiten Vlaanderen", () => {
   });
 
   /*
-    Deze gebieden hebben nog geen pagina, en dat is de reden dat ze buiten
-    `STREKEN_PER_REGIO` staan: die record is de lijst per gebiedspagina en
-    `provincieGemeenten.test.ts` eist dat elke sleutel daarin een bestaande
-    route heeft. Zodra er een Waalse pagina komt, hoort die lijst te verhuizen
-    en breekt deze test, zodat niemand vergeet dat ook te doen.
+    De meeste van deze gebieden hebben nog geen pagina, en dat is de reden dat
+    ze buiten `STREKEN_PER_REGIO` staan: die record is de lijst per
+    gebiedspagina en `provincieGemeenten.test.ts` eist dat elke sleutel daarin
+    een bestaande route heeft. Krijgt een provincie haar pagina, zoals
+    Waals-Brabant op 15-11-2026, dan hoort haar lijst ook in die record te
+    staan, als dezelfde array. Vergeet iemand dat, dan breekt deze test.
   */
-  it("heeft (nog) geen eigen gebiedspagina", () => {
+  it("staat met een eigen pagina ook in STREKEN_PER_REGIO, anders nog zonder", () => {
     const routes = new Set(REGIO_ROUTES.map((r) => r.slug));
-    for (const sleutel of Object.keys(WAALSE_STREKEN)) {
-      expect(routes.has(sleutel), sleutel).toBe(false);
+    for (const [sleutel, streken] of Object.entries(WAALSE_STREKEN)) {
+      if (routes.has(sleutel)) expect(STREKEN_PER_REGIO[sleutel], sleutel).toBe(streken);
+      else expect(STREKEN_PER_REGIO[sleutel], sleutel).toBeUndefined();
     }
     for (const sleutel of Object.keys(NEDERLANDSE_STREKEN)) {
       expect(routes.has(sleutel), sleutel).toBe(false);

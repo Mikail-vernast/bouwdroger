@@ -100,6 +100,52 @@ export const BRUSSEL_STREKEN: Streek[] = [
 ];
 
 
+/**
+ * Waals-Brabant: de enige Waalse provincie met een eigen pagina, sinds
+ * 15-11-2026.
+ *
+ * Een eigen constante om dezelfde reden als `BRUSSEL_STREKEN`: de lijst hoort
+ * in `STREKEN_PER_REGIO`, want /bouwdroger-huren-waals-brabant bestaat, en
+ * ook in `WAALSE_STREKEN`, want die telt alle 261 Waalse gemeenten. Eén array
+ * op twee plaatsen, zodat de twee niet uit elkaar kunnen lopen.
+ */
+export const WAALS_BRABANT_STREKEN: Streek[] = [
+  {
+    naam: "Arrondissement Nijvel",
+    kenmerk:
+      "Leembodem en villawijken in de zuidrand van Brussel, met nieuwbouw rond Waver, Nijvel en Ottignies.",
+    gemeenten: [
+      "Bevekom (Beauvechain)",
+      "Chastre",
+      "Chaumont-Gistoux",
+      "Court-Saint-Étienne",
+      "Eigenbrakel (Braine-l'Alleud)",
+      "Geldenaken (Jodoigne)",
+      "Genepiën (Genappe)",
+      "Graven (Grez-Doiceau)",
+      "Hélécine",
+      "Incourt",
+      "Itter",
+      "Kasteelbrakel (Braine-le-Château)",
+      "Lasne",
+      "Mont-Saint-Guibert",
+      "Nijvel (Nivelles)",
+      "Orp-Jauche",
+      "Ottignies-Louvain-la-Neuve",
+      "Perwijs (Perwez)",
+      "Ramillies",
+      "Rebecq",
+      "Rixensart",
+      "Terhulpen (La Hulpe)",
+      "Tubeke (Tubize)",
+      "Villers-la-Ville",
+      "Walhain",
+      "Waterloo",
+      "Waver (Wavre)",
+    ],
+  },
+];
+
 export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
   antwerpen: [
     {
@@ -517,6 +563,8 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
 
   brussel: BRUSSEL_STREKEN,
 
+  "waals-brabant": WAALS_BRABANT_STREKEN,
+
   limburg: [
     {
       naam: "Hasselt, Genk en Midden-Limburg",
@@ -587,10 +635,10 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
  *
  * **Waarom dit apart staat van `STREKEN_PER_REGIO`.** Die record is de lijst
  * per gebiedspagina, en de test eist dat elke sleutel erin een bestaande
- * pagina heeft. Deze gebieden hebben er nog geen; ze staan voorlopig alleen op
- * /sitemap, zoals Brussel dat deed tot 13-11-2026. Komen die pagina's er, dan
- * verhuizen deze lijsten naar de record erboven en worden de koppen vanzelf
- * links.
+ * pagina heeft. De meeste gebieden hier hebben er nog geen; ze staan voorlopig
+ * alleen op /sitemap, zoals Brussel dat deed tot 13-11-2026. Krijgt een
+ * provincie haar pagina, dan staat haar lijst in beide records, als dezelfde
+ * array: zo deed Waals-Brabant het op 15-11-2026.
  *
  * **Waar ze vandaan komen.** Niet uit het hoofd: de 261 Waalse gemeenten zijn
  * op 14-11-2026 uit de lijst van het Waals Gewest gehaald en per arrondissement
@@ -599,53 +647,23 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
  * Dat Luxemburg er 43 heeft en geen 44 is het gevolg van de fusie van Bastenaken
  * en Bertogne op 2 december 2024, waardoor Wallonië van 262 naar 261 gemeenten
  * ging. De Nederlandse lijsten komen uit dezelfde controle: Noord-Brabant 56,
- * Zeeland 13.
+ * Zeeland 13, Nederlands Limburg 31.
  *
  * **De naam staat er tweetalig in** waar hij afwijkt ("Bergen (Mons)"). Wie
  * "Mons" intikt zoekt dezelfde droger als wie "Bergen" intikt, en een pagina
  * die alleen de Nederlandse naam kent, mist de helft van zijn streek.
  *
- * **Wat hier nog niet in staat.** Nederlands Limburg (31 gemeenten) is bewust
- * weggelaten: Maastricht ligt op een uur en twintig, maar Venlo en Roermond op
- * anderhalf uur en meer, en dat is verder dan "de grensstreek".
+ * **Nederlands Limburg staat er sinds 15-11-2026 in**, alle 31 gemeenten. Het
+ * was eerst weggelaten omdat Venlo en Roermond op anderhalf uur en meer liggen,
+ * maar de hele provincie grenst aan België en wie er belt, vraagt hetzelfde als
+ * in Zeeland: kan het, en wat kost het. "Op aanvraag" dekt die afstand al.
+ *
+ * De sleutel is `nederlands-limburg` en niet `limburg`: die laatste is de
+ * Belgische provinciepagina, en een gedeelde sleutel zou de twee lijsten in
+ * elkaar laten lopen.
  */
 export const WAALSE_STREKEN: Record<string, Streek[]> = {
-  "waals-brabant": [
-    {
-      naam: "Arrondissement Nijvel",
-      kenmerk:
-        "Leembodem en villawijken in de zuidrand van Brussel, met nieuwbouw rond Waver, Nijvel en Ottignies.",
-      gemeenten: [
-        "Bevekom (Beauvechain)",
-        "Chastre",
-        "Chaumont-Gistoux",
-        "Court-Saint-Étienne",
-        "Eigenbrakel (Braine-l'Alleud)",
-        "Geldenaken (Jodoigne)",
-        "Genepiën (Genappe)",
-        "Graven (Grez-Doiceau)",
-        "Hélécine",
-        "Incourt",
-        "Itter",
-        "Kasteelbrakel (Braine-le-Château)",
-        "Lasne",
-        "Mont-Saint-Guibert",
-        "Nijvel (Nivelles)",
-        "Orp-Jauche",
-        "Ottignies-Louvain-la-Neuve",
-        "Perwijs (Perwez)",
-        "Ramillies",
-        "Rebecq",
-        "Rixensart",
-        "Terhulpen (La Hulpe)",
-        "Tubeke (Tubize)",
-        "Villers-la-Ville",
-        "Walhain",
-        "Waterloo",
-        "Waver (Wavre)",
-      ],
-    },
-  ],
+  "waals-brabant": WAALS_BRABANT_STREKEN,
   "henegouwen": [
     {
       naam: "Arrondissement Zinnik",
@@ -1136,6 +1154,61 @@ export const NEDERLANDSE_STREKEN: Record<string, Streek[]> = {
         "Tholen",
         "Veere",
         "Vlissingen",
+      ],
+    },
+  ],
+  "nederlands-limburg": [
+    {
+      naam: "Noord-Limburg",
+      kenmerk:
+        "Zandgrond en tuinbouw rond Venlo en Venray, met kassen en bedrijfshallen langs de Maas.",
+      gemeenten: [
+        "Beesel",
+        // "(L.)" zoals de gemeente zichzelf schrijft: er is ook een Bergen in Noord-Holland.
+        "Bergen (L.)",
+        "Gennep",
+        "Horst aan de Maas",
+        "Mook en Middelaar",
+        "Peel en Maas",
+        "Venlo",
+        "Venray",
+      ],
+    },
+    {
+      naam: "Midden-Limburg",
+      kenmerk:
+        "De Maasvallei rond Roermond en Weert, met grindgrond en dorpen langs de Maasplassen.",
+      gemeenten: [
+        "Echt-Susteren",
+        "Leudal",
+        "Maasgouw",
+        "Nederweert",
+        "Roerdalen",
+        "Roermond",
+        "Weert",
+      ],
+    },
+    {
+      naam: "Zuid-Limburg",
+      kenmerk:
+        "Heuvelland en mergel rond Maastricht, en de oude mijnstreek rond Heerlen en Kerkrade.",
+      gemeenten: [
+        "Beek",
+        "Beekdaelen",
+        "Brunssum",
+        "Eijsden-Margraten",
+        "Gulpen-Wittem",
+        "Heerlen",
+        "Kerkrade",
+        "Landgraaf",
+        "Maastricht",
+        "Meerssen",
+        "Simpelveld",
+        "Sittard-Geleen",
+        "Stein",
+        "Vaals",
+        "Valkenburg aan de Geul",
+        "Voerendaal",
       ],
     },
   ],
