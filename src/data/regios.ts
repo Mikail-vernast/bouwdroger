@@ -1108,7 +1108,6 @@ export const REGIOS: Regio[] = [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
         { label: "Levertermijn", waarde: "Op afspraak, de leverdag spreken we samen af" },
         { label: "Rijtijd vanuit ons magazijn", waarde: "Rond een uur (Gembloers, Éghezée) tot ruim twee uur (Vresse-sur-Semois)" },
-        { label: "Taal", waarde: "Nederlands of Frans, naar keuze" },
         { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
         { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
       ],
@@ -1135,8 +1134,8 @@ export const REGIOS: Regio[] = [
         a: "Ja, al is het met ruim twee uur rijden vanuit Aartselaar een van onze langste ritten. Daarom spreken we het uur van levering met u af, in plaats van u een venster van een halve dag te geven. De prijs blijft gelijk: levering, plaatsing en ophaling zitten in het droogpakket, zonder toeslag voor de kilometers.",
       },
       {
-        q: "Kunnen we met jullie in het Frans afspreken?",
-        a: "Ja. U kiest zelf of we in het Nederlands of het Frans praten, aan de telefoon, in de offerte en bij de plaatsing op de werf. Zoekt u op Namur, Gembloux of Dinant, dan vindt u hier dezelfde gemeenten en hetzelfde pakket, alleen met hun Nederlandse naam waar die bestaat.",
+        q: "Ik zoek op Namur of Dinant. Is dat dezelfde pagina?",
+        a: "Ja. Elke gemeente heeft één pagina onder haar Nederlandse naam, met de Franse naam erbij waar die anders is: Namen is Namur, Gembloers is Gembloux. Het droogpakket, de levering en de plaatsing zijn overal dezelfde.",
       },
       {
         q: "Mijn huis staat tegen de rots in de Maasvallei. Helpt een droger tegen de natte achtermuur?",
@@ -1234,7 +1233,6 @@ export const REGIOS: Regio[] = [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
         { label: "Levertermijn", waarde: "Op afspraak, de leverdag spreken we samen af" },
         { label: "Rijtijd vanuit ons magazijn", waarde: "Anderhalf uur (Durbuy) tot rond drie uur (Virton)" },
-        { label: "Taal", waarde: "Nederlands of Frans, naar keuze" },
         { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
         { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
       ],
@@ -1261,8 +1259,8 @@ export const REGIOS: Regio[] = [
         a: "Ja, al is het met tweeënhalf à drie uur rijden vanuit Aartselaar onze langste rit. Daarom bundelen we de werven in het zuiden waar het kan en spreken we een vast uur af in plaats van een venster van een halve dag. De prijs blijft dezelfde: levering, plaatsing en ophaling zitten in het pakket, zonder toeslag voor de afstand.",
       },
       {
-        q: "Kan ik in het Frans met jullie afspreken?",
-        a: "Ja. Aan de telefoon, in de offerte en bij de plaatsing kiest u zelf tussen Nederlands en Frans. Zoekt u op Arlon, Bastogne of Neufchâteau, dan vindt u hier dezelfde gemeenten onder hun Nederlandse naam waar die bestaat: Aarlen en Bastenaken. Pakket en prijs zijn gelijk.",
+        q: "Ik zoek op Arlon of Bastogne. Is dat dezelfde pagina?",
+        a: "Ja. Arlon en Bastogne zijn de Franse namen van Aarlen en Bastenaken. Elke gemeente heeft één pagina onder haar Nederlandse naam, met de Franse naam erbij. Het droogpakket, de levering en de plaatsing zijn dezelfde.",
       },
       {
         q: "Droogt een ruwbouw in de Ardennen in de winter wel?",
@@ -1302,8 +1300,8 @@ export const REGIOS: Regio[] = [
       de Maasvallei met haar staal- en steenkoolverleden (Seraing, Flémalle,
       Herstal), de herenhuizen met souterrain in de stad, de Vesdre die in juli
       2021 buiten haar oevers trad, het Land van Herve, de Hoge Venen en de
-      Duitstalige Gemeenschap. Die laatste staat er zonder belofte in het
-      Duits: de pagina is Nederlandstalig en we spreken Nederlands of Frans.
+      Duitstalige Gemeenschap. Die laatste staat er zonder belofte over de
+      taal: de pagina is Nederlandstalig.
       De afstand staat er eerlijk: Hannuit ligt op een uur, de Oostkantons
       rond Sankt Vith op ruim twee. Rijtijden zijn afgerond en te verifiëren
       tegen de echte ritgegevens, net als in `gemeenten.ts`.
@@ -1327,7 +1325,7 @@ export const REGIOS: Regio[] = [
         "**Langs de Maas, van Hoei over Seraing en Flémalle tot Herstal, ligt het oude hart van de Waalse zware industrie.** Hoogovens, walserijen en steenkoolmijnen bepaalden hier anderhalve eeuw lang het beeld, en tussen de fabrieken bouwde men rijen arbeiderswoningen tegen de hellingen. Veel van die huizen worden nu gerenoveerd. Ze hebben dunne gevels, kelders onder het straatpeil en muren die jaren onverwarmd stonden, en na het uitbreken van oude bepleistering blijkt het metselwerk vaak natter dan verwacht.",
         "**In de stad Luik zelf staan herenhuizen uit de negentiende eeuw met een souterrain**: een half ondergrondse verdieping waar vroeger de keuken en de bergingen lagen. Wie dat souterrain tot leefruimte of praktijkruimte maakt, werkt tegen muren die aan de straatkant in de grond staan. Die muren drogen traag, en een nieuwe vloer erbovenop houdt het vocht nog langer vast. Een droger in zo'n ruimte doet het meeste werk in de eerste twee weken.",
         "**In juli 2021 trad de Vesdre buiten haar oevers**, en in Pepinster, Verviers, Trooz, Chaudfontaine en Limburg stonden huizen tot op de eerste verdieping onder water. Veel woningen in die vallei zijn sindsdien gestript en opnieuw opgebouwd, en sommige zijn dat nog. Wie er vandaag pleistert of een nieuwe vloer legt, droogt een huis dat ooit doorweekt was; daar is het belangrijk eerst te meten hoeveel vocht er nog in de muurvoet zit.",
-        "**Ten oosten van Luik ligt het Land van Herve**: glooiende weiden met hagen, boomgaarden en verspreide hoeves in baksteen en kalksteen, rond Herve, Aubel en Thimister-Clermont. Daarachter stijgt de grond naar **de Hoge Venen**, het hoogste en natste stuk van België, rond Jalhay, Weismes en Bütgenbach. Een ruwbouw op die hoogte blijft in de winter maandenlang koud. **In de Oostkantons, van Eupen en Kelmis tot Sankt Vith en Burg-Reuland, ligt de Duitstalige Gemeenschap**; ook daar leveren we, met afspraken in het Nederlands of het Frans.",
+        "**Ten oosten van Luik ligt het Land van Herve**: glooiende weiden met hagen, boomgaarden en verspreide hoeves in baksteen en kalksteen, rond Herve, Aubel en Thimister-Clermont. Daarachter stijgt de grond naar **de Hoge Venen**, het hoogste en natste stuk van België, rond Jalhay, Weismes en Bütgenbach. Een ruwbouw op die hoogte blijft in de winter maandenlang koud. **In de Oostkantons, van Eupen en Kelmis tot Sankt Vith en Burg-Reuland, ligt de Duitstalige Gemeenschap**; ook daar leveren we.",
       ],
     },
     beeld: {
@@ -1365,7 +1363,6 @@ export const REGIOS: Regio[] = [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
         { label: "Levertermijn", waarde: "Op afspraak, de leverdag spreken we samen af" },
         { label: "Rijtijd vanuit ons magazijn", waarde: "Rond een uur (Hannuit) tot ruim twee uur (Sankt Vith)" },
-        { label: "Taal", waarde: "Nederlands of Frans, naar keuze" },
         { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
         { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
       ],
@@ -1389,11 +1386,11 @@ export const REGIOS: Regio[] = [
       },
       {
         q: "Leveren jullie ook in de Oostkantons, rond Eupen en Sankt Vith?",
-        a: "Ja, in alle negen gemeenten van de Duitstalige Gemeenschap, van Kelmis en Raeren tot Bütgenbach en Burg-Reuland. Sankt Vith ligt op ruim twee uur van Aartselaar, dus spreken we het uur van levering vooraf af. De afspraken maken we in het Nederlands of het Frans; de prijs is dezelfde als in Haspengouw, zonder toeslag voor de kilometers.",
+        a: "Ja, in alle negen gemeenten van de Duitstalige Gemeenschap, van Kelmis en Raeren tot Bütgenbach en Burg-Reuland. Sankt Vith ligt op ruim twee uur van Aartselaar, dus spreken we het uur van levering vooraf af. De prijs is dezelfde als in Haspengouw, zonder toeslag voor de kilometers.",
       },
       {
-        q: "Kunnen we de afspraak in het Frans maken?",
-        a: "Ja. Aan de telefoon, in de offerte en bij de plaatsing kiest u zelf of we Nederlands of Frans spreken. Zoekt u op Liège, Huy, Waremme of Visé, dan vindt u hier dezelfde gemeenten onder hun Nederlandse naam: Luik, Hoei, Borgworm en Wezet. Het droogpakket en de technieker zijn dezelfde.",
+        q: "Ik zoek op Liège, Huy of Visé. Is dat dezelfde pagina?",
+        a: "Ja. Liège, Huy en Visé zijn de Franse namen van Luik, Hoei en Wezet. Elke gemeente heeft één pagina onder haar Nederlandse naam, met de Franse naam erbij. Het droogpakket, de levering en de plaatsing zijn dezelfde.",
       },
       {
         q: "Ons huis aan de Vesdre is na 2021 heropgebouwd. Moet het nog gedroogd worden?",
