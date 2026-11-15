@@ -377,8 +377,9 @@ const OzonbehandelingPage = () => (
 
         {/*
           De animatie van de zustersite, in onze kleuren. Daar is ze blauw op
-          marineblauw (blauw = ozon, groen = spore); hier is de bak maroon en is
-          de actieve zuurstof wit met een rode kern.
+          marineblauw (blauw = ozon, groen = spore); hier is de spore een donkere
+          schimmelvlek zoals op de homepage, en de actieve zuurstof wit met een
+          rode kern.
 
           De schimmelmuur maakt de praktijksituatie zichtbaar. Daarover vliegt
           een O₃-deeltje op een spore af, en pas als het raakt klapt de spore

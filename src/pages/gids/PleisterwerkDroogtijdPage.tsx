@@ -794,7 +794,7 @@ const PleisterwerkDroogtijdPage = () => (
           <Link to="/hoe-drogen-werkt">Hoe drogen werkt</Link>
           <Link to="/gids/condensdroger-of-adsorptiedroger">Condensdroger of adsorptiedroger</Link>
           <Link to="/gids/stroomverbruik-bouwdroger">Stroomverbruik van een bouwdroger</Link>
-          <Link to="/realisaties/dhr-p-merksem">Vers pleisterwerk gecontroleerd drooggelegd</Link>
+          <Link to="/realisaties/pleisterwerk-drogen-merksem">Vers pleisterwerk gecontroleerd drooggelegd</Link>
           <Link to="/prijzen">Prijzen en tarieven</Link>
         </Reveal>
       </div>

@@ -144,9 +144,9 @@ const verderLezen: LeesGroep[] = [
   {
     kop: "Zo zetten we de toestellen in",
     links: [
-      { to: "/realisaties/mnr-k-putte", label: "Bouwvocht weggedroogd in een nieuwbouw in Putte" },
-      { to: "/realisaties/mnr-erdem-bedrijfsgebouw", label: "Waterschade in een bedrijfsgebouw gedroogd" },
-      { to: "/realisaties/mancave-brugge", label: "Vochtige kelder in Brugge weer droog" },
+      { to: "/realisaties/nieuwbouw-drogen-putte", label: "Bouwvocht weggedroogd in een nieuwbouw in Putte" },
+      { to: "/realisaties/waterschade-drogen-bedrijfsgebouw", label: "Waterschade in een bedrijfsgebouw gedroogd" },
+      { to: "/realisaties/kelder-drogen-brugge", label: "Vochtige kelder in Brugge weer droog" },
     ],
   },
   {

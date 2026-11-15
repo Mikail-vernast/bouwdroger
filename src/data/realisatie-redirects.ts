@@ -1,0 +1,25 @@
+/** Oude projectadressen; alleen de nieuwe slugs worden geprerenderd. */
+export const REALISATIE_REDIRECTS: Record<string, string> = {
+  "vernissage-boom": "expositieruimte-drogen-boom",
+  "mnr-w-antwerpen": "kelder-en-kamer-drogen-antwerpen",
+  "mnr-s-brussel": "badkamer-drogen-brussel",
+  "mnr-n-v-oostende": "pleisterwerk-drogen-oostende",
+  "mnr-l-hasselt": "chape-pleisterwerk-drogen-hasselt",
+  "mnr-k-putte": "nieuwbouw-drogen-putte",
+  "mnr-j-bocholt": "waterschade-drogen-bocholt",
+  "mnr-erdem-bedrijfsgebouw": "waterschade-drogen-bedrijfsgebouw",
+  "mevr-k-wintam": "bouwvocht-drogen-wintam",
+  "mevr-j-j-kontich": "nieuwbouw-drogen-kontich",
+  "mevr-j-berchem": "pleisterwerk-drogen-berchem",
+  "mevr-g-b-sint-pieters-woluwe": "pleisterwerk-drogen-sint-pieters-woluwe",
+  "mevr-b-a-lokeren": "kelder-drogen-lokeren",
+  "mevr-arlette": "woning-drogen-waterschade",
+  "mevr-a-r-berlare": "berging-drogen-berlare",
+  "mancave-brugge": "kelder-drogen-brugge",
+  "levis": "schimmelsanering-winkelkelder",
+  "dhr-p-merksem": "pleisterwerk-drogen-merksem",
+  "dhr-h-brussel": "woning-drogen-brussel",
+  "dhr-e-schilde": "nieuwbouwvilla-drogen-schilde",
+  "dhr-d-c-antwerpen": "kelder-drogen-antwerpen",
+  "bang-olufsen": "bouwdroging-winkelpand"
+};

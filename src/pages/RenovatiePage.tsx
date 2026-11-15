@@ -194,7 +194,7 @@ const tips = [
  * drie regels in een linklijst. Wie twijfelt of drogen bij hém werkt, kijkt
  * naar een kelder die op de zijne lijkt, niet naar een linktekst.
  */
-const REFERENTIES = ["mancave-brugge", "dhr-d-c-antwerpen", "levis"]
+const REFERENTIES = ["kelder-drogen-brugge", "kelder-drogen-antwerpen", "schimmelsanering-winkelkelder"]
   .map(getRealisatie)
   .filter((r): r is Realisatie => !!r);
 

@@ -1,0 +1,84 @@
+/* TIJDELIJK — ontwerp A "Inhoudsopgave". */
+
+/* `.v3c` zet overflow-x:hidden, en dat maakt van de pagina een scrollcontainer
+   waarin `position: sticky` niets meer doet. `clip` knipt hetzelfde af zonder. */
+.v3c.smA { overflow-x: clip; }
+
+.smA .pad { font-family: var(--fm); font-size: 12.5px; font-weight: 500; color: var(--txt-mid); white-space: nowrap; }
+.smA .pad i { font-style: normal; color: var(--red); }
+.smA .pad em { font-style: normal; color: var(--txt-dim); }
+
+/* ---- kop ---- */
+.smA-hero { background: var(--maroon-d) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat; color: #fff; overflow: hidden; }
+.smA-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+.smA-hero { padding-top: 172px; }
+.smA-hero-copy { padding-bottom: 48px; }
+.smA-kruimels { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 18px; }
+.smA-kruimels a { color: rgba(255,255,255,.8); }
+.smA-kruimels a:hover { color: #fff; }
+.smA-kick { display: inline-block; font-weight: 600; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.75); margin-bottom: 14px; }
+.smA-hero h1 { font-family: var(--fd); font-weight: 800; font-size: clamp(36px, 4.4vw, 54px); line-height: 1; letter-spacing: -.04em; }
+.smA-hero p { font-size: 15.5px; line-height: 1.65; color: rgba(255,255,255,.8); max-width: 540px; margin: 12px 0 0; }
+.smA-acties { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.smA-team { display: flex; justify-content: center; align-self: end; }
+.smA-team img { display: block; width: min(100%, 520px); max-width: none; height: auto; margin-bottom: -1px; filter: drop-shadow(0 28px 40px rgba(0,0,0,.45)); }
+
+/* ---- body: inhoudsopgave + register ---- */
+.v3c .smA-body { display: grid; grid-template-columns: 240px 1fr; gap: 64px; padding-top: 72px; padding-bottom: 110px; }
+.smA-toc { position: sticky; top: 110px; align-self: start; max-height: calc(100vh - 130px); overflow: auto; }
+.smA-toc-kop { display: block; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--txt-dim); margin-bottom: 12px; }
+.smA-toc ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+.smA-toc li a { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0 7px 16px; margin-left: -2px; border-left: 2px solid transparent; font-size: 14px; font-weight: 600; color: var(--txt); }
+.smA-toc li a span { font-size: 12px; font-weight: 500; color: var(--txt-dim); }
+.smA-toc li a:hover { color: var(--red); border-left-color: var(--red); }
+.smA-toc-cta { display: block; margin-top: 22px; padding: 14px 16px; border-radius: 12px; background: #FBEFF1; color: var(--red); font-weight: 700; font-size: 13.5px; }
+
+.smA-sectie { scroll-margin-top: 110px; padding-bottom: 52px; margin-bottom: 52px; border-bottom: 1px solid var(--line); }
+.smA-sectie:last-child { border-bottom: 0; margin-bottom: 0; }
+.smA-sectie > header { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 22px; }
+.smA-nr { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--red); color: #fff; font-family: var(--fd); font-weight: 800; font-size: 14px; }
+.smA-nr-grijs { background: var(--bg-alt); color: var(--txt-mid); }
+.smA-sectie h2 { font-family: var(--fd); font-weight: 800; font-size: 24px; letter-spacing: -.03em; }
+.smA-sectie header p { font-size: 14.5px; line-height: 1.6; color: var(--txt-mid); margin: 6px 0 0; max-width: 620px; }
+
+.smA-register { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+.smA-register li a { display: flex; align-items: baseline; gap: 10px; padding: 11px 10px; margin: 0 -10px; border-radius: 8px; color: var(--txt); }
+.smA-register li a:hover { background: #FBEFF1; color: var(--red); }
+.smA-register li a:hover .pad { color: var(--red); }
+.smA-naam { font-size: 15px; font-weight: 600; }
+.smA-stip { flex: 1; border-bottom: 1.5px dotted var(--line-2); transform: translateY(-4px); min-width: 16px; }
+.smA-klein .smA-naam { font-size: 14px; font-weight: 500; }
+
+/* Realisatietitels zijn zinnen; die willen de volle breedte. */
+#sm-real .smA-register { grid-template-columns: 1fr; }
+
+/* ---- werkgebied ---- */
+.smA-prov { background: var(--bg-alt); border-radius: 18px; padding: 24px 26px 8px; margin-top: 16px; }
+.smA-prov h3 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; font-family: var(--fd); font-weight: 800; font-size: 17px; margin: 0 0 18px; }
+.smA-prov h3 a { display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; color: var(--txt); }
+.smA-prov h3 a:hover { color: var(--red); }
+.smA-prov h3 small { font-family: var(--fb); font-size: 12.5px; font-weight: 500; color: var(--txt-dim); margin-left: auto; }
+.smA-streken { columns: 3; column-gap: 32px; }
+.smA-streek { break-inside: avoid; margin-bottom: 20px; }
+.smA-streek h4 { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--txt-dim); padding-bottom: 6px; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
+.smA-streek ul { list-style: none; margin: 0; padding: 0; font-size: 13px; line-height: 1.75; }
+.smA-streek a { color: var(--txt); font-weight: 600; text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+.smA-streek a:hover { color: var(--red); text-decoration-color: var(--red); }
+.smA-streek span { color: var(--txt-mid); }
+
+@media (max-width: 1100px) { .smA-streken { columns: 2; } }
+@media (max-width: 1040px) {
+  .smA-hero-grid { grid-template-columns: 1fr; }
+  .smA-hero-copy { padding-bottom: 8px; }
+  .smA-team img { width: min(100%, 460px); }
+  .v3c .smA-body { grid-template-columns: 1fr; gap: 32px; }
+  .smA-toc { position: static; max-height: none; }
+  .smA-toc ol { display: flex; flex-wrap: wrap; gap: 6px; border: 0; }
+  .smA-toc li a { border: 1px solid var(--line-2); border-radius: 99px; padding: 6px 12px; margin: 0; }
+}
+@media (max-width: 700px) {
+  .smA-register { grid-template-columns: 1fr; }
+  .smA-register .pad { display: none; }
+  .smA-streken { columns: 1; }
+  .smA-prov { padding: 20px 18px 4px; }
+}

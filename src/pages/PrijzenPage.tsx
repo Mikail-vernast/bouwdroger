@@ -171,9 +171,9 @@ const verderLezen: LeesGroep[] = [
   {
     kop: "Wat onze klanten lieten drogen",
     links: [
-      { to: "/realisaties/bang-olufsen", label: "Versnelde bouwdroging binnen een strak bouwschema" },
-      { to: "/realisaties/mnr-l-hasselt", label: "Pleister- en chapewerken versneld gedroogd in Hasselt" },
-      { to: "/realisaties/mnr-w-antwerpen", label: "Kelder en leefruimte drooggelegd na waterschade" },
+      { to: "/realisaties/bouwdroging-winkelpand", label: "Versnelde bouwdroging binnen een strak bouwschema" },
+      { to: "/realisaties/chape-pleisterwerk-drogen-hasselt", label: "Pleister- en chapewerken versneld gedroogd in Hasselt" },
+      { to: "/realisaties/kelder-en-kamer-drogen-antwerpen", label: "Kelder en leefruimte drooggelegd na waterschade" },
     ],
   },
   {

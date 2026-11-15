@@ -33,8 +33,8 @@ export interface Toebehoren {
   sum: string;
   /** Prijs per bouwdroger per dag, excl. btw. */
   dag: number;
-  /** [bestand, omschrijving] — de omschrijving is de alt-tekst. */
-  img: [src: string, alt: string][];
+  /** Afbeelding met alt-tekst en optioneel zichtbaar bijschrift. */
+  img: [src: string, alt: string, bijschrift?: string][];
   /** De drie cijfers in de hero: [label, waarde, eenheid]. */
   key: [label: string, waarde: string, eenheid: string][];
   aboutTitle: string;
@@ -62,12 +62,19 @@ export const CONDENSPOMP: Toebehoren = {
   dag: PUMP.price,
   img: [
     [
-      "/vernast/condenspomp-extern.webp",
-      "Externe condenspomp met witte motorkap op een zwarte opvangbak, met aanzuigslang en voedingskabel",
+      "/vernast/condenspomp-product-v2.webp",
+      "Witte externe condenspomp op een zwarte opvangbak, met stroomkabel en transparante afvoerslang op een betonvloer",
+      "Externe condenspomp met opvangbak en afvoerslang.",
     ],
     [
-      "/vernast/condenspomp-extern-slang.webp",
-      "Dezelfde condenspomp met de doorzichtige afvoerslang opgerold ernaast",
+      "/vernast/condenspomp-slangopstelling.webp",
+      "Voorbeeldopstelling: groene condensslang van een bouwdroger naar een pomp op de vloer, met een dunne afvoerslang naar een hoger gelegen afvoer",
+      "Via een slang naar de pomp: het condenswater loopt vanuit de bouwdroger naar de opvangbak en wordt daarna weggepompt.",
+    ],
+    [
+      "/vernast/condenspomp-zonder-emmer.webp",
+      "Voorbeeldopstelling: condenspomp in het onderste vak van een bouwdroger, aangesloten met een korte groene slang en zonder losse opvangemmer",
+      "Zonder losse emmer: de pomp staat onder de condensafvoer van de bouwdroger, als het toestel daarvoor geschikt is.",
     ],
   ],
   key: [

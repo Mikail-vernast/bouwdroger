@@ -144,7 +144,7 @@ const faqs = [
 
 /* Drie werven waar pleisterwerk moest drogen. `getRealisatie` geeft undefined
    zodra een dossier uit de lijst verdwijnt; die valt dan stil weg. */
-const REFERENTIES = ["dhr-p-merksem", "mevr-j-berchem", "mevr-g-b-sint-pieters-woluwe"]
+const REFERENTIES = ["pleisterwerk-drogen-merksem", "pleisterwerk-drogen-berchem", "pleisterwerk-drogen-sint-pieters-woluwe"]
   .map(getRealisatie)
   .filter((r): r is Realisatie => !!r);
 

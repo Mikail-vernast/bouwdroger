@@ -42,22 +42,14 @@ export interface RegioRoute {
   pin: { left: string; top: string };
   /**
    * Levering op afspraak in plaats van "binnen 24 uur". Staat aan voor de
-   * Nederlandse provincies: daar rijden we over de grens, met andere
-   * btw-regels, en de sitemap zei al dat het "op aanvraag" is. Het sjabloon
+   * Nederlandse provincies (over de grens, met andere btw-regels) en sinds
+   * 15-11-2026 ook voor de Waalse: daar halen we die termijn niet, en de
+   * sitemap zei al dat het "op aanvraag" is. Het sjabloon
    * mag dan geen termijn beloven die de rest van de site tegenspreekt.
    */
   opAanvraag?: boolean;
 }
 
-/** De leverbelofte zoals de sjablonen ze tonen, per gebied. */
-export function levertermijn(route: Pick<RegioRoute, "opAanvraag"> | undefined): {
-  kort: string;
-  lang: string;
-} {
-  return route?.opAanvraag
-    ? { kort: "Op afspraak", lang: "Op afspraak, de leverdag spreken we samen af" }
-    : { kort: "Binnen 24 uur", lang: "Binnen 24 uur, meestal de volgende werkdag" };
-}
 
 export const REGIO_ROUTES: RegioRoute[] = [
   {
@@ -144,6 +136,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
     slug: "waals-brabant",
     name: "Waals-Brabant",
     path: "/bouwdroger-huren-waals-brabant",
+    opAanvraag: true,
     towns: [
       "Waver", "Nijvel", "Eigenbrakel", "Waterloo", "Ottignies-Louvain-la-Neuve", "Tubeke",
       "Rixensart", "Lasne", "Terhulpen", "Genepiën", "Geldenaken", "Perwijs",
@@ -159,6 +152,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
     slug: "henegouwen",
     name: "Henegouwen",
     path: "/bouwdroger-huren-henegouwen",
+    opAanvraag: true,
     towns: [
       "Charleroi", "Bergen", "Doornik", "La Louvière", "Moeskroen", "Aat", "Edingen", "Zinnik",
       "'s-Gravenbrakel", "Binche", "Lessen", "Komen-Waasten", "Fleurus", "Châtelet", "Thuin",
@@ -174,6 +168,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
     slug: "namen",
     name: "Namen",
     path: "/bouwdroger-huren-namen",
+    opAanvraag: true,
     towns: ["Namen", "Gembloers", "Dinant", "Andenne", "Sambreville", "Ciney", "Éghezée", "Jemeppe-sur-Sambre", "Rochefort", "Walcourt", "Philippeville", "Couvin", "Fosses-la-Ville", "Profondeville", "Florennes", "Yvoir"],
     pin: { left: "58%", top: "63%" },
   },
@@ -185,6 +180,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
     slug: "luxemburg",
     name: "Luxemburg",
     path: "/bouwdroger-huren-luxemburg",
+    opAanvraag: true,
     towns: ["Aarlen", "Bastenaken", "Marche-en-Famenne", "Libramont-Chevigny", "Virton", "Durbuy", "Bouillon", "Neufchâteau", "Saint-Hubert", "Vielsalm", "Houffalize", "La Roche-en-Ardenne", "Bertrix", "Aubange", "Florenville", "Habay"],
     pin: { left: "62%", top: "80%" },
   },
@@ -195,6 +191,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
     slug: "luik",
     name: "Luik",
     path: "/bouwdroger-huren-luik",
+    opAanvraag: true,
     towns: ["Luik", "Verviers", "Seraing", "Herstal", "Hoei", "Eupen", "Borgworm", "Hannuit", "Wezet", "Spa", "Malmedy", "Ans", "Flémalle", "Sankt Vith", "Aywaille", "Chaudfontaine"],
     pin: { left: "80%", top: "52%" },
   },

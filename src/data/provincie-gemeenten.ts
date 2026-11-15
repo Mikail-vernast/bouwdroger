@@ -60,7 +60,7 @@ export const BRUSSEL_STREKEN: Streek[] = [
   {
     naam: "Brussel-centrum en de eerste kroon",
     kenmerk:
-      "Herenhuizen en appartementen uit de negentiende-eeuwse gordel: hoge plafonds, kelders onder het trottoir en zelden een lift om een toestel mee naar boven te krijgen.",
+      "Levering in Brussel, Elsene, Etterbeek en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Brussel",
       "Elsene",
@@ -73,7 +73,7 @@ export const BRUSSEL_STREKEN: Streek[] = [
   {
     naam: "De kanaalzone en de westrand",
     kenmerk:
-      "Arbeiderswoningen en nieuwe blokken langs het kanaal, waar het vocht meestal uit een kelder onder het maaiveld of een plat dak komt.",
+      "Levering in Anderlecht, Ganshoren, Jette en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Anderlecht",
       "Ganshoren",
@@ -86,7 +86,7 @@ export const BRUSSEL_STREKEN: Streek[] = [
   {
     naam: "De zuid- en oostrand",
     kenmerk:
-      "Ruimer gebouwde woonwijken tegen het Zoniënwoud, met diepe kelders en garages die bij een hevige bui het water van de helling erboven krijgen.",
+      "Levering in Evere, Oudergem, Sint-Lambrechts-Woluwe en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Evere",
       "Oudergem",
@@ -113,7 +113,7 @@ export const WAALS_BRABANT_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Nijvel",
     kenmerk:
-      "Leembodem en villawijken in de zuidrand van Brussel, met nieuwbouw rond Waver, Nijvel en Ottignies.",
+      "Levering in Bevekom (Beauvechain), Chastre, Chaumont-Gistoux en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Bevekom (Beauvechain)",
       "Chastre",
@@ -154,7 +154,7 @@ export const HENEGOUWEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Zinnik",
     kenmerk:
-      "Het land van de blauwe hardsteen, met groeven en dorpen in natuursteen rond Zinnik.",
+      "Levering in 's-Gravenbrakel (Braine-le-Comte), Le Rœulx, Manage en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "'s-Gravenbrakel (Braine-le-Comte)",
       "Le Rœulx",
@@ -167,7 +167,7 @@ export const HENEGOUWEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement La Louvière",
     kenmerk:
-      "Kanaal- en industriestreek rond de oude scheepsliften van het Centrumkanaal, met dicht bebouwde kernen.",
+      "Levering in Binche, Estinnes, La Louvière en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Binche",
       "Estinnes",
@@ -178,7 +178,7 @@ export const HENEGOUWEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Charleroi",
     kenmerk:
-      "Het industriebekken aan de Samber, met arbeiderswijken en fabrieksgebouwen die herbestemd worden.",
+      "Levering in Aiseau-Presles, Chapelle-lez-Herlaimont, Charleroi en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Aiseau-Presles",
       "Chapelle-lez-Herlaimont",
@@ -197,7 +197,7 @@ export const HENEGOUWEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Bergen",
     kenmerk:
-      "De Borinage: rijen arbeiderswoningen uit de negentiende eeuw, gebouwd zonder waterkering in de muurvoet.",
+      "Levering in Bergen (Mons), Boussu, Colfontaine en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Bergen (Mons)",
       "Boussu",
@@ -217,7 +217,7 @@ export const HENEGOUWEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Aat",
     kenmerk:
-      "Landbouwgemeenten op leem tussen Doornik en Edingen, met hoeves en dorpskernen in baksteen.",
+      "Levering in Aat (Ath), Belœil, Bernissart en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Aat (Ath)",
       "Belœil",
@@ -235,7 +235,7 @@ export const HENEGOUWEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Doornik-Moeskroen",
     kenmerk:
-      "De Scheldevallei aan de Franse grens, met het textielverleden van Moeskroen en Komen-Waasten.",
+      "Levering in Antoing, Brunehaut, Celles en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Antoing",
       "Brunehaut",
@@ -254,7 +254,7 @@ export const HENEGOUWEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Thuin",
     kenmerk:
-      "De Samberstreek en de Botte du Hainaut: hoeves, bos en kalkbodem tot tegen Chimay.",
+      "Levering in Anderlues, Beaumont, Chimay en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Anderlues",
       "Beaumont",
@@ -279,7 +279,7 @@ export const NAMEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Namen",
     kenmerk:
-      "Waar Samber en Maas samenkomen: stadswoningen met gewelfde kelders en hoog water bij de oever.",
+      "Levering in Andenne, Assesse, Fernelmont en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Andenne",
       "Assesse",
@@ -302,7 +302,7 @@ export const NAMEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Dinant",
     kenmerk:
-      "De Maasvallei tussen de kalkrotsen, met diepe kelders en gebouwen die tegen de helling staan.",
+      "Levering in Anhée, Beauraing, Bièvre en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Anhée",
       "Beauraing",
@@ -324,7 +324,7 @@ export const NAMEN_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Philippeville",
     kenmerk:
-      "De Fagne met haar schist- en kalkbodem: open landbouwgebied met natuurstenen hoeves.",
+      "Levering in Cerfontaine, Couvin, Doische en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Cerfontaine",
       "Couvin",
@@ -345,7 +345,7 @@ export const LUXEMBURG_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Marche-en-Famenne",
     kenmerk:
-      "De Famenne, met kalk en schist in de ondergrond en hoeves in natuursteen.",
+      "Levering in Durbuy, Hotton, La Roche-en-Ardenne en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Durbuy",
       "Hotton",
@@ -361,7 +361,7 @@ export const LUXEMBURG_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Bastenaken",
     kenmerk:
-      "Het hoge Ardense plateau, waar een ruwbouw zonder bijverwarming de hele winter nat blijft.",
+      "Levering in Bastenaken (Bastogne), Fauvillers, Gouvy en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Bastenaken (Bastogne)",
       "Fauvillers",
@@ -375,7 +375,7 @@ export const LUXEMBURG_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Neufchâteau",
     kenmerk:
-      "Bosrijke Ardennen rond Bouillon en Libramont, met natuurstenen gebouwen en veel hoogteverschil.",
+      "Levering in Bertrix, Bouillon, Daverdisse en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Bertrix",
       "Bouillon",
@@ -394,7 +394,7 @@ export const LUXEMBURG_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Aarlen",
     kenmerk:
-      "Het Gutland tegen de Luxemburgse grens, met zandsteen en de verste ritten van het land.",
+      "Levering in Aarlen (Arlon), Attert, Aubange en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Aarlen (Arlon)",
       "Attert",
@@ -406,7 +406,7 @@ export const LUXEMBURG_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Virton",
     kenmerk:
-      "De Gaume, het zuidelijkste en warmste puntje van het land, met kalkrijke bodem en lichte hellingen.",
+      "Levering in Chiny, Florenville, Habay en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Chiny",
       "Florenville",
@@ -430,7 +430,7 @@ export const LUIK_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Borgworm",
     kenmerk:
-      "Het Haspengouwse leemplateau met grote vierkantshoeven, vlak akkerland en weinig hoogteverschil.",
+      "Levering in Berloz, Borgworm (Waremme), Braives en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Berloz",
       "Borgworm (Waremme)",
@@ -451,7 +451,7 @@ export const LUIK_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Luik",
     kenmerk:
-      "De Maasvallei en de stad zelf, met negentiende-eeuwse woningen, souterrains en industrieel erfgoed.",
+      "Levering in Ans, Awans, Aywaille en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Ans",
       "Awans",
@@ -482,7 +482,7 @@ export const LUIK_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Hoei",
     kenmerk:
-      "De Condroz en de Maasvallei: kalkbodem, diepe kelders en hoeves op de hellingen.",
+      "Levering in Amay, Anthisnes, Burdinne en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Amay",
       "Anthisnes",
@@ -506,7 +506,7 @@ export const LUIK_STREKEN: Streek[] = [
   {
     naam: "Arrondissement Verviers",
     kenmerk:
-      "De Hoge Venen en het Duitstalige oosten: het koudste stuk van het land voor een onverwarmde ruwbouw.",
+      "Levering in Amel, Aubel, Baelen en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Amel",
       "Aubel",
@@ -549,7 +549,7 @@ export const NOORD_BRABANT_STREKEN: Streek[] = [
   {
     naam: "West-Brabant",
     kenmerk:
-      "Onze dichtste Nederlandse streek: Bergen op Zoom ligt op een drie kwartier van het magazijn, op zandgrond.",
+      "Levering in Alphen-Chaam, Altena, Baarle-Nassau en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Alphen-Chaam",
       "Altena",
@@ -572,7 +572,7 @@ export const NOORD_BRABANT_STREKEN: Streek[] = [
   {
     naam: "Midden-Brabant",
     kenmerk:
-      "Zandgrond rond Tilburg en Waalwijk, met naoorlogse woonwijken en veel bedrijfsruimte op de zones.",
+      "Levering in Dongen, Gilze en Rijen, Goirle en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Dongen",
       "Gilze en Rijen",
@@ -588,7 +588,7 @@ export const NOORD_BRABANT_STREKEN: Streek[] = [
   {
     naam: "Noordoost-Brabant",
     kenmerk:
-      "De Maaskant en de Meierij: kleigrond langs de Maas en zand daarachter, met grote hoeves.",
+      "Levering in 's-Hertogenbosch, Bernheze, Boekel en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "'s-Hertogenbosch",
       "Bernheze",
@@ -606,7 +606,7 @@ export const NOORD_BRABANT_STREKEN: Streek[] = [
   {
     naam: "Zuidoost-Brabant",
     kenmerk:
-      "De regio rond Eindhoven en Helmond: veel nieuwbouw en bedrijfshallen, alles op zandgrond.",
+      "Levering in Asten, Bergeijk, Best en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Asten",
       "Bergeijk",
@@ -640,7 +640,7 @@ export const ZEELAND_STREKEN: Streek[] = [
   {
     naam: "Zeeuws-Vlaanderen",
     kenmerk:
-      "Polderklei achter de dijken, bereikbaar over Antwerpen of door de Westerscheldetunnel.",
+      "Levering in Hulst, Sluis, Terneuzen en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Hulst",
       "Sluis",
@@ -650,7 +650,7 @@ export const ZEELAND_STREKEN: Streek[] = [
   {
     naam: "De Zeeuwse eilanden",
     kenmerk:
-      "Zeekleipolders en zeelucht: net als aan de Belgische kust houdt zout in een muur het vocht vast.",
+      "Levering in Borsele, Goes, Kapelle en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Borsele",
       "Goes",
@@ -674,7 +674,7 @@ export const NEDERLANDS_LIMBURG_STREKEN: Streek[] = [
   {
     naam: "Noord-Limburg",
     kenmerk:
-      "Zandgrond en tuinbouw rond Venlo en Venray, met kassen en bedrijfshallen langs de Maas.",
+      "Levering in Beesel, Bergen (L.), Gennep en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Beesel",
       // "(L.)" zoals de gemeente zichzelf schrijft: er is ook een Bergen in Noord-Holland.
@@ -690,7 +690,7 @@ export const NEDERLANDS_LIMBURG_STREKEN: Streek[] = [
   {
     naam: "Midden-Limburg",
     kenmerk:
-      "De Maasvallei rond Roermond en Weert, met grindgrond en dorpen langs de Maasplassen.",
+      "Levering in Echt-Susteren, Leudal, Maasgouw en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Echt-Susteren",
       "Leudal",
@@ -704,7 +704,7 @@ export const NEDERLANDS_LIMBURG_STREKEN: Streek[] = [
   {
     naam: "Zuid-Limburg",
     kenmerk:
-      "Heuvelland en mergel rond Maastricht, en de oude mijnstreek rond Heerlen en Kerkrade.",
+      "Levering in Beek, Beekdaelen, Brunssum en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
     gemeenten: [
       "Beek",
       "Beekdaelen",
@@ -731,7 +731,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Stad Antwerpen en districten",
       kenmerk:
-        "Rijwoningen en appartementen, smalle trappen, kelders onder het maaiveld. Compacte toestellen op één stopcontact. Berendrecht en Zandvliet staan er apart bij omdat mensen zo zoeken; bestuurlijk vormen ze samen met Lillo één district.",
+        "Levering in Antwerpen, Berchem, Berendrecht en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Antwerpen",
         "Berchem",
@@ -749,7 +749,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Zuidrand en Scheldeboord",
       kenmerk:
-        "Onze eigen streek: het magazijn staat in Aartselaar. Naoorlogse woningen en bungalows in renovatie, vaak dezelfde dag geleverd.",
+        "Levering in Aartselaar, Boechout, Edegem en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: ["Aartselaar", "Boechout", "Edegem", "Hove", "Kontich", "Lint", "Mortsel"],
     },
     /*
@@ -763,19 +763,19 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Rupelstreek",
       kenmerk:
-        "Kleigrond en de oude steenbakkersdorpen langs de Rupel. Arbeiderswoningen zonder spouw, kelders met opstijgend vocht.",
+        "Levering in Boom, Hemiksem, Niel en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: ["Boom", "Hemiksem", "Niel", "Rumst", "Schelle"],
     },
     {
       naam: "Klein-Brabant en Willebroek",
       kenmerk:
-        "Klei- en poldergrond tussen Schelde en kanaal, met oude dorpskernen en nieuwbouw op de rand. Na een natte periode water in kelders en bergingen.",
+        "Levering in Bornem, Puurs-Sint-Amands, Willebroek en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: ["Bornem", "Puurs-Sint-Amands", "Willebroek"],
     },
     {
       naam: "Noordrand en Noorderkempen",
       kenmerk:
-        "Villa's op ruime percelen met een volledige kelderverdieping, en naar het noorden toe steeds opener bebouwing.",
+        "Levering in Brasschaat, Brecht, Essen en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Brasschaat",
         "Brecht",
@@ -797,7 +797,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Mechelse regio en Netevallei",
       kenmerk:
-        "Stadsrenovatie binnen de vesten, nieuwbouwprojecten erbuiten, en bij hoogwater van de Nete waterschade in kelders en gelijkvloerse ruimtes.",
+        "Levering in Mechelen, Berlaar, Bonheiden en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Mechelen",
         "Berlaar",
@@ -813,7 +813,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "De Kempen",
       kenmerk:
-        "Zandgrond, vrijstaande woningen en kruipruimtes. Winterwerven die nauwelijks verwarmd zijn. Hier gaat vaak een bouwkachel of een adsorptiedroger mee.",
+        "Levering in Turnhout, Arendonk, Baarle-Hertog en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Turnhout",
         "Arendonk",
@@ -850,7 +850,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Gent en de Gentse rand",
       kenmerk:
-        "Smalle, diepe rijhuizen in de negentiende-eeuwse gordel en appartementen aan de Vaartkom. Per ruimte een compact toestel werkt er beter dan één groot in de gang.",
+        "Levering in Gent, Destelbergen, Lochristi en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Gent",
         "Destelbergen",
@@ -867,7 +867,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Het Waasland",
       kenmerk:
-        "Onze kortste rit buiten de provincie: twintig minuten over de E17. Veel nieuwbouw in verkavelingen, en daar drogen we vooral chape van een volledig gelijkvloers.",
+        "Levering in Sint-Niklaas, Beveren-Kruibeke-Zwijndrecht, Temse en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Sint-Niklaas",
         "Beveren-Kruibeke-Zwijndrecht",
@@ -881,7 +881,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Scheldeland en de Dendermondse regio",
       kenmerk:
-        "Hoog grondwater langs Schelde, Durme en Dender. Kelders en bergingen die bij elke natte periode terugkomen. Twee van onze werven hier zijn precies dat.",
+        "Levering in Dendermonde, Hamme, Zele en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Dendermonde",
         "Hamme",
@@ -897,7 +897,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "De Denderstreek",
       kenmerk:
-        "Tussen Aalst en Ninove wordt meer nieuw gebouwd dan bijna overal in Vlaanderen: open en halfopen woningen waar de chape in één keer gelegd wordt.",
+        "Levering in Aalst, Denderleeuw, Haaltert en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Aalst",
         "Denderleeuw",
@@ -913,7 +913,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Het Meetjesland",
       kenmerk:
-        "Open bebouwing op zandgrond tussen Eeklo en de Nederlandse grens. Ruime volumes, en in de winter een onverwarmde ruwbouw die eerst op temperatuur moet.",
+        "Levering in Eeklo, Maldegem, Aalter en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Eeklo",
         "Maldegem",
@@ -929,7 +929,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "De Vlaamse Ardennen",
       kenmerk:
-        "Heuvelland met oude hoeves en herenhuizen in renovatie. Dikke massieve muren geven hun vocht traag af; hier staat een pakket doorgaans langer dan het gemiddelde.",
+        "Levering in Oudenaarde, Ronse, Zottegem en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Oudenaarde",
         "Ronse",
@@ -950,7 +950,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "De Brusselse rand",
       kenmerk:
-        "Villa's uit de jaren zestig tot tachtig die nu grondig gerenoveerd worden: drie bouwlagen vers pleisterwerk en een kelder onder het hele volume.",
+        "Levering in Vilvoorde, Zaventem, Machelen en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Vilvoorde",
         "Zaventem",
@@ -975,7 +975,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Pajottenland en Zennevallei",
       kenmerk:
-        "Oude dorpskernen en hoeves tussen Halle en Asse, met verkavelingen ertussen. Leembodem, en dus chape die zonder hulp opvallend traag droogt.",
+        "Levering in Halle, Beersel, Sint-Pieters-Leeuw en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Halle",
         "Beersel",
@@ -999,7 +999,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Leuven en het Dijleland",
       kenmerk:
-        "Studentenhuizen die per kamer verbouwd worden en stadswoningen met een gewelfde kelder. De condenspomp is hier geen luxe: reservoirs legen doet niemand.",
+        "Levering in Leuven, Herent, Bertem en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Leuven",
         "Herent",
@@ -1021,7 +1021,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Het Hageland",
       kenmerk:
-        "Nieuwbouw op zandleem rond Aarschot en Diest. In de winter hoort hier bijverwarming bij: onder 15 °C haalt een condensdroger te weinig rendement.",
+        "Levering in Aarschot, Diest, Scherpenheuvel-Zichem en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Aarschot",
         "Diest",
@@ -1036,7 +1036,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Tienen en Vlaams-Haspengouw",
       kenmerk:
-        "Vlak akkerland met grote hoeves in herbestemming. Ruime, hoge volumes waar de droge lucht met een ventilator verdeeld moet worden.",
+        "Levering in Tienen, Hoegaarden, Landen en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: ["Tienen", "Hoegaarden", "Landen", "Linter", "Zoutleeuw"],
     },
   ],
@@ -1045,7 +1045,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "De kust",
       kenmerk:
-        "Appartementen in renovatie en waterschade achter de zeedijk. Vochtige buitenlucht maakt ventileren onvoorspelbaar, dus blijven ramen en deuren hier dicht.",
+        "Levering in Knokke-Heist, Blankenberge, De Haan en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Knokke-Heist",
         "Blankenberge",
@@ -1061,7 +1061,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Brugge en het Brugse Ommeland",
       kenmerk:
-        "Historische panden met koude kelders en bergingen. Onder 15 °C zetten we er een adsorptiedroger in of warmen we de ruimte eerst op.",
+        "Levering in Brugge, Damme, Zuienkerke en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Brugge",
         "Damme",
@@ -1079,7 +1079,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "De Westhoek",
       kenmerk:
-        "Onze verste rit, dus plannen we ze in een vaste toer. Veel hoeverenovatie met massieve muren en een gelijkvloers zonder isolatie onder de chape.",
+        "Levering in Ieper, Poperinge, Diksmuide en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Ieper",
         "Poperinge",
@@ -1100,7 +1100,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Kortrijk en de Leiestreek",
       kenmerk:
-        "Nieuwbouw en bedrijfsgebouwen met grote vloeroppervlakken. Die delen we op in droogzones, met een berekende droger en een ventilator per zone.",
+        "Levering in Kortrijk, Harelbeke, Kuurne en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Kortrijk",
         "Harelbeke",
@@ -1120,7 +1120,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Midden-West-Vlaanderen",
       kenmerk:
-        "Tussen Roeselare en Tielt: verkavelingen en renovaties waar chape en pleisterwerk samen moeten drogen voor de vloerlegger kan starten.",
+        "Levering in Roeselare, Izegem, Ingelmunster en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Roeselare",
         "Izegem",
@@ -1156,7 +1156,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Hasselt, Genk en Midden-Limburg",
       kenmerk:
-        "De drukste streek van de provincie voor ons: stadsrenovatie in Hasselt, ruime nieuwbouw eromheen, en de werven waar een pakket van drie toestellen de regel is.",
+        "Levering in Hasselt, Genk, Zonhoven en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Hasselt",
         "Genk",
@@ -1173,7 +1173,7 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Noord-Limburg en de Limburgse Kempen",
       kenmerk:
-        "Zandgrond die goed draineert, dus weinig kelders, maar wel de koudste winterwerven van Vlaanderen. Tussen november en maart gaat hier bijna altijd een kachel mee.",
+        "Levering in Beringen, Heusden-Zolder, Houthalen-Helchteren en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Beringen",
         "Heusden-Zolder",
@@ -1194,13 +1194,13 @@ export const STREKEN_PER_REGIO: Record<string, Streek[]> = {
     {
       naam: "Het Maasland",
       kenmerk:
-        "Langs de Maas komt waterschade terug bij elke hoge waterstand: kelders en bergingen die onderlopen, en water dat via de vloer naar binnen komt.",
+        "Levering in Maaseik, Kinrooi, Dilsen-Stokkem en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: ["Maaseik", "Kinrooi", "Dilsen-Stokkem", "Maasmechelen", "Lanaken"],
     },
     {
       naam: "Haspengouw en de Voerstreek",
       kenmerk:
-        "Vierkantshoeves en herenhuizen in renovatie op leembodem. Dikke muren geven hun vocht traag af, en de rit tot aan de taalgrens is onze langste in Vlaanderen.",
+        "Levering in Sint-Truiden, Tongeren-Borgloon, Bilzen-Hoeselt en de andere plaatsen hieronder. Kies uw gemeente voor informatie over het huren van een bouwdroger.",
       gemeenten: [
         "Sint-Truiden",
         "Tongeren-Borgloon",

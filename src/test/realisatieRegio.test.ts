@@ -43,7 +43,7 @@ describe("realisatie → regio", () => {
   });
 
   it("zonder plaatsnaam geen regio", () => {
-    expect(regioVanRealisatie("levis")).toBeUndefined();
-    expect(regioVanRealisatie("mancave-brugge")?.path).toBe("/bouwdroger-huren-west-vlaanderen");
+    expect(regioVanRealisatie("schimmelsanering-winkelkelder")).toBeUndefined();
+    expect(regioVanRealisatie("kelder-drogen-brugge")?.path).toBe("/bouwdroger-huren-west-vlaanderen");
   });
 });

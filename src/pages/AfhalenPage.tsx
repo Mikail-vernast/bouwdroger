@@ -377,7 +377,7 @@ const AfhalenPage = () => {
             rij. Ze is bovendien het enige toebehoren in de rij — de vier
             kaarten erboven zijn toestellen.
           */}
-          <article className="af-toebehoren"><img src="/vernast/condenspomp-extern.webp" alt="Externe condenspomp met opvangbak en afvoerslang, klaar voor afhaling" loading="lazy" /><div><span>Toebehoren</span><h3>Condenspomp, {euro(PUMP.price)} per bouwdroger per dag</h3><p>Zodat u geen reservoir hoeft te legen: de pomp voert het condenswater continu af naar een afvoer, douche of vloerput, tot 3,90 m hoger dan het toestel staat. <a className="af-text-link" href="/verhuur/toebehoren/condenspomp">Zo werkt de condenspomp</a></p></div></article>
+          <article className="af-toebehoren"><img src="/vernast/condenspomp-product-v2.webp" alt="Externe condenspomp met opvangbak en afvoerslang, klaar voor afhaling" loading="lazy" /><div><span>Toebehoren</span><h3>Condenspomp, {euro(PUMP.price)} per bouwdroger per dag</h3><p>Zodat u geen reservoir hoeft te legen: de pomp voert het condenswater continu af naar een afvoer, douche of vloerput, tot 3,90 m hoger dan het toestel staat. <a className="af-text-link" href="/verhuur/toebehoren/condenspomp">Zo werkt de condenspomp</a></p></div></article>
         </div>
         <div className="af-center"><a className="btn" href="/verhuur/afhalen">Bekijk beschikbaarheid en afhaalprijzen <Arrow /></a></div>
       </div>

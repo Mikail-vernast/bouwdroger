@@ -224,12 +224,12 @@ const VERLOOP: VerloopStap[] = [
 
 /** De werven die we als referentie tonen; alle vier waterschadegevallen. */
 const REFERENTIES = [
-  "mnr-w-antwerpen",
-  "mevr-b-a-lokeren",
-  "mnr-s-brussel",
-  "mnr-erdem-bedrijfsgebouw",
-  "mevr-a-r-berlare",
-  "dhr-h-brussel",
+  "kelder-en-kamer-drogen-antwerpen",
+  "kelder-drogen-lokeren",
+  "badkamer-drogen-brussel",
+  "waterschade-drogen-bedrijfsgebouw",
+  "berging-drogen-berlare",
+  "woning-drogen-brussel",
 ]
   .map(getRealisatie)
   .filter((r): r is Realisatie => !!r)

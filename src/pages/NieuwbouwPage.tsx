@@ -159,7 +159,7 @@ const faqs = [
  * wanneer een dossier uit de lijst verdwijnt; die valt dan stil weg in plaats
  * van de pagina te breken.
  */
-const REFERENTIES = ["mnr-l-hasselt", "mevr-j-j-kontich", "mnr-k-putte"]
+const REFERENTIES = ["chape-pleisterwerk-drogen-hasselt", "nieuwbouw-drogen-kontich", "nieuwbouw-drogen-putte"]
   .map(getRealisatie)
   .filter((r): r is Realisatie => !!r);
 

@@ -24,7 +24,7 @@ import {
 import { GaugeIcon, LayersIcon, LekIcon, WindIcon } from "@/components/content/icons";
 import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
-import { REGIO_BY_PATH, REGIO_ROUTES, levertermijn } from "@/data/regio-slugs";
+import { REGIO_BY_PATH, REGIO_ROUTES } from "@/data/regio-slugs";
 import { gemeentenInRegio, gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import {
@@ -62,26 +62,26 @@ import "@/styles/v3-content.css";
  * App.tsx registreert vijf vaste routes die allemaal hier uitkomen.
  */
 /** De vier stappen van een huur, voor de sectie onderaan elke regiopagina. */
-const verloop = (levering: string) => [
+const VERLOOP = [
   {
     Icon: CalendarCheckIcon,
     title: "U reserveert",
-    desc: "Online via de Calculator of met één telefoontje. U kiest zelf de leverdag; twijfelt u over het volume, dan rekenen wij het door.",
+    desc: "Bereken uw pakket online of bel voor advies. Geef uw werfadres, gewenste startdatum en de afmetingen van de ruimtes door.",
   },
   {
     Icon: TruckIcon,
     title: "Wij leveren en plaatsen",
-    desc: `${levering}. De technieker verdeelt de toestellen, sluit de condensafvoer aan en stelt de streefvochtigheid in.`,
+    desc: "Op het afgesproken moment plaatst de technieker de toestellen, sluit de condensafvoer aan en legt het gebruik uit.",
   },
   {
     Icon: BoltIcon,
     title: "De opstelling draait",
-    desc: "Dag en nacht, ook in het weekend. U laat ramen en deuren dicht en verplaatst niets; de rest gebeurt vanzelf.",
+    desc: "Gebruik de opstelling volgens de uitleg van de technieker. Controleer de condensafvoer en meld storingen of nieuwe vochtproblemen.",
   },
   {
     Icon: GaugeIcon,
     title: "Wij meten en halen op",
-    desc: "De eindmeting bepaalt of het droog is, niet de kalender. Is het droog, dan halen we alles op; zo niet, dan huurt u kosteloos verder.",
+    desc: "We controleren het vocht en spreken de ophaling af. Voor berekende pakketten geldt kosteloos verder huren als aan de drooggarantievoorwaarden is voldaan.",
   },
 ];
 
@@ -245,7 +245,7 @@ const RegioPage = () => {
           <div className="note">
             Twijfelt u tussen twee toestellen?{" "}
             <Link to="/verhuur/calculator">
-              Bereken hoeveel liter per dag uw ruimte nodig heeft
+              Bereken het droogpakket voor uw ruimte
             </Link>{" "}
             of bekijk <Link to="/machines">het volledige gamma</Link>.
           </div>
@@ -427,7 +427,7 @@ const RegioPage = () => {
         <div className="manband">
           <div className="mb-t">
             <span className="mbk">Bouwdroger nodig in {regio.name}</span>
-            <h3>Bereken uw pakket, reserveer online, en morgen staat het er.</h3>
+            <h3>Bereken uw droogpakket en kies uw gewenste leverdatum.</h3>
             <p>
               Geplaatst en ingesteld door onze technieker, met een vochtmeting bij de start en bij
               de oplevering. Liever eerst even overleggen? Bel ons gerust.
@@ -503,9 +503,7 @@ const RegioPage = () => {
               <span className="kick">Hoe lang duurt het</span>
               <h2 className="sec">Droogtijden met en zonder bouwdroger.</h2>
               <p className="lede">
-                De huurtermijnen hieronder zijn die van onze droogpakketten,{" "}
-                <b>dezelfde als de Calculator aanrekent</b>. Ze gelden in heel {regio.name}: de
-                droogtijd hangt af van dikte, volume en temperatuur, <b>niet van uw postcode</b>.
+                De tabel helpt u de huurperiode te plannen. <b>Een richttermijn is geen bevestiging dat het materiaal droog genoeg is.</b> De controle vóór de afwerking blijft nodig.
               </p>
             </div>
             <div className="prijsknoppen">
@@ -552,12 +550,11 @@ const RegioPage = () => {
           </div>
 
           <p className="tblnote">
-            &ldquo;Zonder droger&rdquo; is de vuistregel uit de bouwpraktijk, en daarom een bereik:
-            de ondergrens geldt in een goed verluchte ruimte rond 20 &deg;C, de bovengrens op een
-            koude, dichtgemaakte werf in de winter. Een richtwaarde dus, geen meting, en
-            precies waar een bouwdroger het verschil maakt. Wat telt is de eindmeting: is het op de
-            afgesproken datum niet droog, dan huurt u kosteloos verder.{" "}
-            <Link to="/gids/hoe-lang-moet-chape-drogen">Hoe lang chape moet drogen</Link> legt het
+                De tabel geeft richtwaarden voor de planning. De werkelijke droogtijd hangt af van het
+                materiaal en de omstandigheden op de werf. Laat vóór de afwerking het restvocht
+                controleren volgens de eisen van uw vloerlegger of schilder. Voor berekende pakketten
+                geldt kosteloos verder huren onder de <Link to="/drooggarantie">drooggarantievoorwaarden</Link>.{" "}
+                <Link to="/gids/hoe-lang-moet-chape-drogen">Hoe lang chape moet drogen</Link> legt het
             per situatie uit.
           </p>
         </div>
@@ -587,9 +584,8 @@ const RegioPage = () => {
             <span className="kick">Waar we leveren</span>
             <h2 className="sec">De gemeenten van {regio.name}, per streek.</h2>
             <p className="lede">
-              <b>Wij leveren in de hele provincie</b>, en de streek bepaalt mee welke opstelling
-              erbij hoort. Staat uw gemeente er niet bij, bel ons dan gerust. Ook net over de
-              provinciegrens rijden we.
+              <b>Wij leveren in heel {regio.name}.</b> Kies hieronder uw gemeente voor informatie
+              over huren, levering en afhalen. Staat uw plaats er niet bij, neem dan contact op.
             </p>
           </div>
           <div className="strk">
@@ -621,15 +617,13 @@ const RegioPage = () => {
           <div className="note">
             {gemeenten.length > 0 ? (
               <>
-                <b>De onderstreepte gemeenten hebben een eigen pagina</b> met de rijtijd vanaf ons
-                magazijn, de bebouwing ter plaatse en de vragen die daar spelen. De rest bedienen we
-                even goed. Hebt u een vraag,{" "}
+                <b>Kies uw gemeente voor informatie over bouwdrogerverhuur.</b> Wilt u advies over
+                uw werf of hulp bij het reserveren,{" "}
               </>
             ) : (
               <>
-                <b>Wij leveren in elke gemeente hierboven</b>, en de streek bepaalt alleen welke
-                opstelling meegaat, niet of we komen. Twijfelt u over het aantal toestellen
-                voor uw volume,{" "}
+                <b>Wij leveren in de gemeenten hierboven.</b> Wilt u advies over het aantal toestellen
+                of de bereikbaarheid van uw werf,{" "}
               </>
             )}
             bel ons op <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a> of{" "}
@@ -656,12 +650,12 @@ const RegioPage = () => {
             <span className="kick">Hoe het verloopt</span>
             <h2 className="sec">Van reservatie tot eindmeting in {regio.name}.</h2>
             <p className="lede">
-              <b>Vier stappen, en u hoeft er zelf maar één te zetten.</b> De rest doen wij, met een
-              <b> vochtmeting als bewijs</b> in plaats van een datum op een kalender.
+              <b>Van uw aanvraag tot de ophaling.</b> We spreken de plaatsing af, leggen het gebruik
+              uit en volgen het droogproces op met vochtmetingen.
             </p>
           </div>
           <div className="flow">
-            {verloop(levertermijn(route).kort).map(({ Icon, title, desc }, i) => (
+            {VERLOOP.map(({ Icon, title, desc }, i) => (
               <Reveal from="up" delay={i * 0.08} className="fl" key={title}>
                 <i>{`0${i + 1}`}</i>
                 <div className="fi">
@@ -700,7 +694,7 @@ const RegioPage = () => {
           <div className="note">
             <b>
               {route.opAanvraag
-                ? "Wij leveren ook in Nederland, op afspraak."
+                ? "Hier leveren we op afspraak."
                 : "Wij leveren in heel België."}
             </b>{" "}
             Buiten de provincies hieronder rijden we ook, al telt
@@ -736,10 +730,10 @@ const RegioPage = () => {
         <div className="wrap">
           <div className="sec-head mid">
             <span className="kick">Wat klanten zeggen</span>
-            <h2 className="sec">Beoordeeld door wie ons al liet komen.</h2>
+            <h2 className="sec">Ervaringen van onze klanten.</h2>
             <p className="lede">
-              Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over snelheid,
-              afspraken nakomen en opvolging, precies wat een werf in {regio.name} van ons vraagt.
+              Lees hoe klanten de levering, afspraken en opvolging van Vernast ervaren.
+              Deze beoordelingen gaan over onze dienstverlening in het hele werkgebied.
             </p>
           </div>
           <div className="rvs">
@@ -818,7 +812,7 @@ const RegioPage = () => {
               afhalen kan in {CONTACT.city} bij Antwerpen.
             </p>
             <p className="lede">
-              U huurt <b>geen los toestel op goed geluk, maar een droogpakket</b> berekend op het
+              U huurt <b>een droogpakket</b> berekend op het
               volume, het materiaal en de temperatuur van uw werf. <b>De prijs is vooraf bekend</b>{" "}
               en omvat de levering, de installatie, de vochtmeting bij de start en bij de oplevering
               en de ophaling. Niet droog binnen de berekende termijn? Dan loopt de huur volgens de

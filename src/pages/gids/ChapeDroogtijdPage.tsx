@@ -775,7 +775,7 @@ const ChapeDroogtijdPage = () => (
           <Link to="/hoe-drogen-werkt">Hoe drogen werkt</Link>
           <Link to="/gids/condensdroger-of-adsorptiedroger">Condensdroger of adsorptiedroger</Link>
           <Link to="/gids/stroomverbruik-bouwdroger">Stroomverbruik van een bouwdroger</Link>
-          <Link to="/realisaties/mnr-l-hasselt">Pleister- en chapewerken versneld gedroogd</Link>
+          <Link to="/realisaties/chape-pleisterwerk-drogen-hasselt">Pleister- en chapewerken versneld gedroogd</Link>
           <Link to="/prijzen">Prijzen en tarieven</Link>
         </Reveal>
       </div>

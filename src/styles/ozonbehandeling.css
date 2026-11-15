@@ -298,12 +298,21 @@
   spore die al weg is.
 */
 .oz-page .oz-spoke{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(var(--a,0deg))}
-.oz-page .oz-target{position:absolute;left:var(--r);top:0;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b4e493,#5f9e3e 55%,#36621f);box-shadow:0 0 16px rgba(120,190,90,.45),inset 0 0 6px rgba(255,255,255,.22)}
-/* Dezelfde knobbels als in de ozonbak verderop, zodat het hetzelfde beestje is. */
-.oz-page .oz-target::before,
-.oz-page .oz-target::after{content:"";position:absolute;width:24%;height:24%;border-radius:50%;background:#5f9e3e}
-.oz-page .oz-target::before{left:-10%;top:28%}
-.oz-page .oz-target::after{right:-8%;bottom:4%}
+.oz-page .oz-target{position:absolute;left:var(--r);top:0;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%}
+/*
+  Dezelfde donkere schimmelvlek als in de ozonbak verderop en in de ozonsectie
+  op de homepage (`.v3 .oa-stage .spore`). Daar staat hij op een lichte foto;
+  hier op maroon, dus krijgt hij een lichte schijf achter zich — zonder die
+  schijf viel een donkere vlek weg tegen de achtergrond.
+*/
+.oz-page .oz-target::before{content:"";position:absolute;inset:-6px;border-radius:50%;background:radial-gradient(circle,rgba(255,240,236,.9) 0 52%,rgba(255,240,236,0) 72%)}
+.oz-page .oz-target::after{content:"";position:absolute;inset:0;border-radius:50%;background:
+    radial-gradient(circle at 50% 50%,rgba(20,16,14,.95) 0 26%,rgba(20,16,14,0) 34%),
+    radial-gradient(circle at 24% 36%,rgba(35,28,24,.85) 0 14%,rgba(35,28,24,0) 22%),
+    radial-gradient(circle at 74% 30%,rgba(35,28,24,.85) 0 15%,rgba(35,28,24,0) 23%),
+    radial-gradient(circle at 32% 72%,rgba(48,38,32,.8) 0 13%,rgba(48,38,32,0) 21%),
+    radial-gradient(circle at 72% 70%,rgba(48,38,32,.8) 0 14%,rgba(48,38,32,0) 22%),
+    radial-gradient(circle at 50% 50%,rgba(60,50,42,.4) 0 48%,rgba(60,50,42,0) 62%);filter:blur(.4px)}
 .oz-page .oz-shot{position:absolute;left:0;top:0;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff,#ffd4da 58%,#ff9aa7);box-shadow:0 0 14px rgba(255,255,255,.75);opacity:0}
 
 @media (prefers-reduced-motion:no-preference){
@@ -384,11 +393,12 @@
 /* ============ HOE WERKT HET: de ozonbak ============
    Nagebouwd naar de hero-animatie van vernast-vochtbestrijding.be, in onze
    kleuren. Daar is de bak marineblauw en is de actieve zuurstof blauw tegen
-   groene sporen; hier is de bak maroon en is de zuurstof wit met een rode kern.
+   groene sporen; hier staan donkere schimmelvlekken op de foto, zoals op de
+   homepage, en is de zuurstof wit met een rode kern.
    Het mechanisme is hetzelfde, en dát is waarom het werkt: je ziet een deeltje
    aankomen, raken, en de spore dichtklappen. */
 .oz-page .oz-stage-wrap{position:relative;margin-top:8px}
-.oz-page .oz-stage{position:relative;height:clamp(340px,40vw,460px);border-radius:22px;overflow:hidden;background:linear-gradient(180deg,rgba(74,12,12,.3),rgba(48,7,8,.58)),url('/vernast/ozon-schimmelmuur.webp') center 68%/cover no-repeat;box-shadow:0 30px 70px -30px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2)}
+.oz-page .oz-stage{position:relative;height:clamp(340px,40vw,460px);border-radius:22px;overflow:hidden;background:url('/vernast/ozon-schimmelmuur.webp') center 68%/cover no-repeat;box-shadow:0 30px 70px -30px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2)}
 .oz-page .oz-glow{position:absolute;inset:0;background:radial-gradient(58% 50% at 50% 55%,rgba(255,255,255,.14),transparent 70%)}
 
 /* ---- het O₃-molecuul: drie bollen met twee bindingen ---- */
@@ -404,18 +414,18 @@
 /* ---- de spore, en het deeltje dat erop afgaat ---- */
 .oz-page .oz-spore{position:absolute;width:var(--ss,40px);height:var(--ss,40px)}
 /*
-  Groen blijft groen. "Maak het in onze kleuren" gaat over de bak en over de
-  actieve zuurstof; de spore rood of maroon maken zou hem laten samenvallen met
-  precies datgene wat hem opruimt, en dan zegt het beeld niets meer. Groen zit
-  trouwens al in dit palet — het is dezelfde tint als de bolletjes bij de USP's.
+  De spore is een donkere schimmelvlek, net als in de ozonsectie op de
+  homepage (`.v3 .oa-stage .spore`). Eerst was hij felgroen; naast de homepage
+  las dat als een andere huisstijl. Donker houdt hem ook los van de witte
+  zuurstof die hem opruimt, en dat onderscheid is waar het beeld om draait.
 */
-.oz-page .oz-spore-body{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b4e493,#5f9e3e 55%,#36621f);box-shadow:0 0 16px rgba(120,190,90,.45),inset 0 0 6px rgba(255,255,255,.22)}
-/* Twee knobbels: een spore is geen perfecte bol, en dat verschil maakt hem
-   herkenbaar naast de gladde zuurstofatomen. */
-.oz-page .oz-spore-body::before,
-.oz-page .oz-spore-body::after{content:"";position:absolute;width:22%;height:22%;border-radius:50%;background:#5f9e3e;box-shadow:0 0 8px rgba(120,190,90,.45)}
-.oz-page .oz-spore-body::before{left:-12%;top:30%}
-.oz-page .oz-spore-body::after{right:-10%;bottom:6%}
+.oz-page .oz-spore-body{position:absolute;inset:-20%;border-radius:50%;background:
+    radial-gradient(circle at 50% 50%,rgba(20,16,14,.95) 0 26%,rgba(20,16,14,0) 34%),
+    radial-gradient(circle at 24% 36%,rgba(35,28,24,.85) 0 14%,rgba(35,28,24,0) 22%),
+    radial-gradient(circle at 74% 30%,rgba(35,28,24,.85) 0 15%,rgba(35,28,24,0) 23%),
+    radial-gradient(circle at 32% 72%,rgba(48,38,32,.8) 0 13%,rgba(48,38,32,0) 21%),
+    radial-gradient(circle at 72% 70%,rgba(48,38,32,.8) 0 14%,rgba(48,38,32,0) 22%),
+    radial-gradient(circle at 50% 50%,rgba(60,50,42,.4) 0 48%,rgba(60,50,42,0) 62%);filter:blur(.4px)}
 .oz-page .oz-zap{position:absolute;width:60%;height:60%;left:-90%;top:-70%;border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff,#ffd4da 58%,#ff9aa7);box-shadow:0 0 16px rgba(255,255,255,.75);opacity:0}
 
 /*
@@ -452,14 +462,14 @@
   100%{opacity:0}
 }
 
-/* ---- de legende: zonder dit raadt de bezoeker wat groen en wit betekenen ----
+/* ---- de legende: zonder dit raadt de bezoeker wat donker en wit betekenen ----
    Hangt aan `.oz-stage-wrap`, dus niet in de bak met `overflow:hidden`. */
 .oz-page .oz-legend{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;background:rgba(48,7,8,.56);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.16);border-radius:99px;padding:10px 20px}
 .oz-page .oz-lg{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.84);white-space:nowrap}
 .oz-page .oz-lg b{font-family:var(--fd);font-weight:800;color:#fff}
 .oz-page .oz-lg i{width:13px;height:13px;border-radius:50%;flex-shrink:0}
 .oz-page .oz-lg.o3 i{background:radial-gradient(circle at 32% 30%,#fff,#ffd4da 60%,#ff9aa7);box-shadow:0 0 10px rgba(255,255,255,.6)}
-.oz-page .oz-lg.sp i{background:radial-gradient(circle at 35% 30%,#b4e493,#5f9e3e 60%,#36621f)}
+.oz-page .oz-lg.sp i{background:radial-gradient(circle,#14100e 0 45%,#3c322a 75%);box-shadow:0 0 0 2px rgba(255,255,255,.5)}
 
 .oz-page .oz-after{margin:28px auto 0;max-width:760px;text-align:center}
 .oz-page .oz-after p{font-size:15px;line-height:1.72;color:var(--txt-mid)}
