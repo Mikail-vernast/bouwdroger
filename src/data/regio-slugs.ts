@@ -58,7 +58,7 @@ export interface RegioRoute {
 
 /**
  * De kaart achter de speld. Beide kaarten delen de lengtegraden (2,54-6,41 OL)
- * en de projectie; de grote loopt verder naar het noorden (tot 51,90 NB in
+ * en de projectie; de grote loopt verder naar het noorden (tot 52,02 NB in
  * plaats van 51,51). `pin.left` blijft dus gelijk en `pin.top` wordt
  * herrekend, zodat de speld op dezelfde plek op de aardbol blijft staan.
  */
@@ -66,11 +66,11 @@ export function kaartVoor(route: Pick<RegioRoute, "pin" | "metNederland">) {
   if (!route.metNederland) {
     return { src: "/vernast/belgie-kaart-rood.webp", width: 1200, height: 980, pin: route.pin };
   }
-  const top = (0.39 + (parseFloat(route.pin.top) / 100) * 2.01) / 2.4;
+  const top = (0.51 + (parseFloat(route.pin.top) / 100) * 2.01) / 2.52;
   return {
-    src: "/vernast/kaart-belgie-nederland.svg",
+    src: "/vernast/kaart-belgie-nederland-v2.svg",
     width: 1200,
-    height: 1170,
+    height: 1228,
     pin: { left: route.pin.left, top: `${(top * 100).toFixed(1)}%` },
   };
 }
