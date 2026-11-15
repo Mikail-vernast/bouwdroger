@@ -24,7 +24,7 @@ import {
 import { GaugeIcon, LayersIcon, LekIcon, WindIcon } from "@/components/content/icons";
 import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
-import { REGIO_BY_PATH, REGIO_ROUTES } from "@/data/regio-slugs";
+import { REGIO_BY_PATH, REGIO_ROUTES, kaartVoor } from "@/data/regio-slugs";
 import { gemeentenInRegio, gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import {
@@ -91,6 +91,7 @@ const RegioPage = () => {
   const regio: Regio = REGIO_BY_SLUG[route.slug];
   const isWest = regio.slug === "west-vlaanderen";
   const realisaties = realisatiesVoor(regio);
+  const kaart = kaartVoor(route);
   /*
     Álle werven uit deze provincie, de drie uitgelichte vooraan.
     De rest stond tot 10-11-2026 onder de kaarten als bulletlijst met rode
@@ -1161,12 +1162,12 @@ const RegioPage = () => {
                 </div>
               </div>
               <div className="hero-vis">
-                <div className="kaartvis">
+                <div className="kaartvis" style={{ aspectRatio: `${kaart.width}/${kaart.height}` }}>
                   <img
-                    src="/vernast/belgie-kaart-rood.webp"
+                    src={kaart.src}
                     alt={`Werkgebied van Vernast, met ${regio.name} aangeduid`}
-                    width={1200}
-                    height={980}
+                    width={kaart.width}
+                    height={kaart.height}
                     loading="lazy"
                     decoding="async"
                   />
@@ -1176,7 +1177,7 @@ const RegioPage = () => {
                   speld staat. Hier stond een klasse die het label naar links of
                   rechts gooide naargelang `pin.left`.
                 */}
-                  <span className="speld" style={{ left: route.pin.left, top: route.pin.top }}>
+                  <span className="speld" style={{ left: kaart.pin.left, top: kaart.pin.top }}>
                     <b>{regio.name}</b>
                   </span>
                 </div>

@@ -31,7 +31,7 @@ import {
   gemeenteVanPlaats,
 } from "@/data/gemeente-slugs";
 import { GEMEENTE_BY_SLUG, plaatsenVoor, routeVan, type Gemeente } from "@/data/gemeenten";
-import { REGIO_ROUTES } from "@/data/regio-slugs";
+import { REGIO_ROUTES, kaartVoor } from "@/data/regio-slugs";
 import { REGIO_BY_SLUG } from "@/data/regios";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
@@ -103,6 +103,7 @@ const GemeentePage = () => {
   const route = GEMEENTE_BY_PATH[pathname.replace(/\/$/, "")] ?? GEMEENTE_ROUTES[0];
   const gemeente: Gemeente = GEMEENTE_BY_SLUG[route.slug];
   const provincie = REGIO_ROUTES.find((r) => r.slug === route.regio)!;
+  const kaart = kaartVoor(provincie);
   /*
     "Antwerpen stad", niet "Antwerpen" kaal. De stad en de provincie dragen
     dezelfde `name`; in een kop op déze pagina moet de lezer (en Google) zien
@@ -1033,18 +1034,18 @@ const GemeentePage = () => {
                 </div>
               </div>
               <div className="hero-vis">
-                <div className="kaartvis">
+                <div className="kaartvis" style={{ aspectRatio: `${kaart.width}/${kaart.height}` }}>
                   <img
-                    src="/vernast/belgie-kaart-rood.webp"
+                    src={kaart.src}
                     alt={`Werkgebied van Vernast, met ${route.name} in de provincie ${provincie.name}`}
-                    width={1200}
-                    height={980}
+                    width={kaart.width}
+                    height={kaart.height}
                     loading="lazy"
                     decoding="async"
                   />
                   <span
-                    className={`speld${parseInt(provincie.pin.left, 10) > 55 ? " links" : ""}`}
-                    style={{ left: provincie.pin.left, top: provincie.pin.top }}
+                    className={`speld${parseInt(kaart.pin.left, 10) > 55 ? " links" : ""}`}
+                    style={{ left: kaart.pin.left, top: kaart.pin.top }}
                   >
                     <b>{route.name}</b>
                   </span>

@@ -48,6 +48,31 @@ export interface RegioRoute {
    * mag dan geen termijn beloven die de rest van de site tegenspreekt.
    */
   opAanvraag?: boolean;
+  /**
+   * Toon de kaart van België mét Zeeland, Noord-Brabant en Nederlands
+   * Limburg. Op de kaart van alleen België viel de speld van een Nederlandse
+   * provincie op de bovenrand, in het niets (15-11-2026).
+   */
+  metNederland?: boolean;
+}
+
+/**
+ * De kaart achter de speld. Beide kaarten delen de lengtegraden (2,54-6,41 OL)
+ * en de projectie; de grote loopt verder naar het noorden (tot 51,90 NB in
+ * plaats van 51,51). `pin.left` blijft dus gelijk en `pin.top` wordt
+ * herrekend, zodat de speld op dezelfde plek op de aardbol blijft staan.
+ */
+export function kaartVoor(route: Pick<RegioRoute, "pin" | "metNederland">) {
+  if (!route.metNederland) {
+    return { src: "/vernast/belgie-kaart-rood.webp", width: 1200, height: 980, pin: route.pin };
+  }
+  const top = (0.39 + (parseFloat(route.pin.top) / 100) * 2.01) / 2.4;
+  return {
+    src: "/vernast/kaart-belgie-nederland.svg",
+    width: 1200,
+    height: 1170,
+    pin: { left: route.pin.left, top: `${(top * 100).toFixed(1)}%` },
+  };
 }
 
 
@@ -204,6 +229,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Noord-Brabant",
     path: "/bouwdroger-huren-noord-brabant",
     opAanvraag: true,
+    metNederland: true,
     towns: ["Breda", "Eindhoven", "Tilburg", "'s-Hertogenbosch", "Bergen op Zoom", "Roosendaal", "Helmond", "Oss", "Oosterhout", "Etten-Leur", "Waalwijk", "Veldhoven", "Woensdrecht", "Zundert", "Valkenswaard", "Meierijstad"],
     pin: { left: "57%", top: "4%" },
   },
@@ -215,6 +241,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Zeeland",
     path: "/bouwdroger-huren-zeeland",
     opAanvraag: true,
+    metNederland: true,
     towns: ["Middelburg", "Vlissingen", "Goes", "Terneuzen", "Hulst", "Sluis", "Tholen", "Schouwen-Duiveland", "Veere", "Reimerswaal", "Borsele", "Kapelle", "Noord-Beveland"],
     pin: { left: "33%", top: "4%" },
   },
@@ -227,6 +254,7 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Nederlands Limburg",
     path: "/bouwdroger-huren-nederlands-limburg",
     opAanvraag: true,
+    metNederland: true,
     towns: ["Maastricht", "Venlo", "Roermond", "Heerlen", "Sittard-Geleen", "Weert", "Kerkrade", "Venray", "Valkenburg aan de Geul", "Echt-Susteren", "Landgraaf", "Brunssum", "Eijsden-Margraten", "Gulpen-Wittem", "Vaals", "Meerssen"],
     pin: { left: "86%", top: "30%" },
   },
