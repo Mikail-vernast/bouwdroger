@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { REGIO_ROUTES } from "@/data/regio-slugs";
+import { REGIO_ROUTES, kaartVoor } from "@/data/regio-slugs";
 import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import { ArrowRightIcon } from "./icons";
@@ -24,24 +24,42 @@ interface Region {
 */
 const bySlug = (slug: string): Region => {
   const r = REGIO_ROUTES.find((x) => x.slug === slug)!;
-  return { name: r.name, pin: r.pin, towns: r.towns, path: r.path, slug };
+  /* De kaart is sinds 15-11-2026 die mét het zuiden van Nederland; de speld
+     wordt daarvoor herrekend (zie `kaartVoor`). */
+  const pin = kaartVoor({ pin: r.pin, metNederland: true }).pin;
+  return { name: r.name, pin, towns: r.towns, path: r.path, slug };
 };
 
-/* Design order: west to east, Brussel between Vlaams-Brabant and Limburg. */
-const REGIONS: Region[] = [
-  bySlug("west-vlaanderen"),
-  bySlug("oost-vlaanderen"),
-  bySlug("antwerpen"),
-  bySlug("vlaams-brabant"),
-  bySlug("brussel"),
-  bySlug("limburg"),
+/*
+  Drie groepen, elk met hoogstens zes spelden. Met alle veertien gebieden
+  tegelijk op de kaart liepen de labels over elkaar: Brussel, Vlaams- en
+  Waals-Brabant liggen te dicht bij elkaar voor drie naamkaartjes.
+  Volgorde binnen een groep: van west naar oost.
+*/
+const GROEPEN: { naam: string; regios: Region[]; start: number }[] = [
+  {
+    naam: "Vlaanderen en Brussel",
+    regios: ["west-vlaanderen", "oost-vlaanderen", "antwerpen", "vlaams-brabant", "brussel", "limburg"].map(bySlug),
+    /** Opent op Antwerpen, de provincie van het magazijn. */
+    start: 2,
+  },
+  {
+    naam: "Wallonië",
+    regios: ["henegouwen", "waals-brabant", "namen", "luik", "luxemburg"].map(bySlug),
+    start: 0,
+  },
+  {
+    naam: "Nederland",
+    regios: ["zeeland", "noord-brabant", "nederlands-limburg"].map(bySlug),
+    start: 0,
+  },
 ];
-
-/** The design opens on Antwerpen — the province the depot sits in. */
-const DEFAULT_REGION = 2;
+const ALLE = GROEPEN.flatMap((g) => g.regios);
 
 const V3Regio = () => {
-  const [active, setActive] = useState(DEFAULT_REGION);
+  const [groep, setGroep] = useState(0);
+  const REGIONS = GROEPEN[groep].regios;
+  const [active, setActive] = useState(GROEPEN[0].start);
   /*
     Welke streek binnen de gekozen provincie openstaat. Altijd de eerste bij
     het laden en bij elke wissel van provincie: een paneel dat opent op
@@ -65,6 +83,12 @@ const V3Regio = () => {
   */
   const plaatsen = actieveStreek ? actieveStreek.gemeenten : region.towns;
 
+  const kiesGroep = (g: number) => {
+    setGroep(g);
+    setActive(GROEPEN[g].start);
+    setStreek(0);
+  };
+
   const kiesRegio = (i: number) => {
     setActive(i);
     setStreek(0);
@@ -75,12 +99,27 @@ const V3Regio = () => {
       <div className="wrap">
         <div className="sec-head">
           <span className="kick">Leveringsgebied</span>
-          <h2 className="sec">Wij leveren in heel Vlaanderen en Brussel.</h2>
+          <h2 className="sec">Wij leveren in heel België en in het zuiden van Nederland.</h2>
           <p className="lede">
             Klik op uw provincie, kies uw streek en zie meteen de gemeenten waar wij leveren,
             installeren en ophalen. Klik op de naam om naar de pagina van die provincie te gaan.
             Twijfelt u? Bel ons even.
           </p>
+        </div>
+
+        <div className="rg-streken rg-landen" role="tablist" aria-label="Gebied">
+          {GROEPEN.map((g, i) => (
+            <button
+              key={g.naam}
+              type="button"
+              role="tab"
+              aria-selected={i === groep}
+              className={i === groep ? "actief" : undefined}
+              onClick={() => kiesGroep(i)}
+            >
+              {g.naam}
+            </button>
+          ))}
         </div>
 
         <div className="regio-grid">
@@ -215,7 +254,8 @@ const V3Regio = () => {
               })}
             </div>
             <p className="rg-note">
-              Staat uw gemeente er niet bij? Wij leveren in heel Vlaanderen en Brussel. Bel ons op
+              Staat uw gemeente er niet bij? Wij leveren in heel België en in het zuiden van
+              Nederland. Bel ons op
               03 689 90 65 en we bekijken het meteen.
             </p>
             <div className="rg-actions">
@@ -242,7 +282,7 @@ const V3Regio = () => {
         */}
         <nav className="rg-links" aria-label="Werkgebied">
           <span>Bouwdroger huren in:</span>
-          {REGIONS.map((r) => (
+          {ALLE.map((r) => (
             <Link key={r.name} to={r.path}>
               {r.name}
             </Link>

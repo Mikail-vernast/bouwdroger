@@ -709,7 +709,7 @@ html { scroll-behavior: smooth; }
 /* regio */
 .v3 .regio{padding:88px 0;background:#fff;border-top:1px solid var(--line)}
 .v3 .regio-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center}
-.v3 .rm-panel{position:relative;margin-top:30px;width:100%;max-width:540px;aspect-ratio:1200/980;background:url('/vernast/belgie-kaart-rood.webp') center/contain no-repeat}
+.v3 .rm-panel{position:relative;margin-top:30px;width:100%;max-width:540px;aspect-ratio:1200/1228;background:url('/vernast/kaart-belgie-nederland-v2.svg') center/contain no-repeat}
 .v3 .pin{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);color:var(--txt);font-family:var(--fb);font-weight:600;font-size:12.5px;padding:7px 13px;border-radius:99px;cursor:pointer;box-shadow:0 10px 24px -14px rgba(0,0,0,.35);transition:all .15s;white-space:nowrap}
 .v3 .pin b{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0}
 .v3 .pin:hover{border-color:var(--red)}
@@ -737,6 +737,8 @@ html { scroll-behavior: smooth; }
    lijst eronder stond. De kenmerkregel eronder zegt in één zin wat er in die
    streek gedroogd wordt -- dezelfde zin als op de provinciepagina. */
 .v3 .rg-streken{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+/* De keuze tussen Vlaanderen, Wallonië en Nederland, boven de kaart. */
+.v3 .rg-landen{margin:22px 0 0}
 .v3 .rg-streken button{font-family:inherit;font-size:12.5px;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 14px;color:var(--txt-mid);cursor:pointer;transition:border-color .15s,color .15s,background .15s}
 .v3 .rg-streken button:hover{border-color:var(--red);color:var(--red)}
 .v3 .rg-streken button.actief{background:var(--red);border-color:var(--red);color:#fff}
