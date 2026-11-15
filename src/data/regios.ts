@@ -941,7 +941,7 @@ export const REGIOS: Regio[] = [
     bouw: {
       kop: "Waarvoor huurt men in Henegouwen een bouwdroger?",
       alineas: [
-        "Henegouwen is geen nieuwbouwprovincie maar een renovatieprovincie. Het grootste deel van de woningen is gebouwd vóór de Tweede Wereldoorlog, en wie er vandaag een huis koopt, haalt pleister af, legt een nieuwe vloer en isoleert van binnenuit. **Al die werken brengen water in een huis dat al vocht in de muren had.** Daar komt de vraag naar een bouwdroger vandaan, meer dan van verkavelingen.",
+        "Henegouwen is geen nieuwbouwprovincie maar een renovatieprovincie. Veel woningen zijn ouder dan de Tweede Wereldoorlog, en wie er vandaag een huis koopt, haalt pleister af, legt een nieuwe vloer en isoleert van binnenuit. **Al die werken brengen water in een huis dat al vocht in de muren had.** Daar komt de vraag naar een bouwdroger vandaan, meer dan van verkavelingen.",
         "**Rond Zinnik, Écaussinnes en Lessen is blauwe hardsteen het bouwmateriaal.** De steen zelf neemt weinig water op, maar de muren erachter zijn vaak dik metselwerk met kalkmortel, en de voegen en de vulling houden het vocht wel vast. Een hoeve of een dorpswoning in natuursteen droogt daarom traag van binnenuit. In het westen, rond Doornik en Antoing, is het de Doornikse kalksteen die het beeld bepaalt, en ook die muren geven hun vocht pas na weken af.",
         "**In de Borinage, rond Bergen, Frameries en Quaregnon, staan rijen mijnwoningen uit de negentiende eeuw.** Ze zijn gebouwd zonder waterkering in de muurvoet, zodat grondvocht ongehinderd in het metselwerk optrekt. Wie zo'n woning renoveert, plaatst vaak eerst een injectie tegen opstijgend vocht en moet de muur daarna nog laten uitdrogen. Een bouwdroger versnelt die tweede stap; de eerste lost hij niet op, en dat zegt de technieker er ook bij.",
         "**Drie rivieren lopen door de provincie**: de Samber door Charleroi en Thuin, de Schelde door Doornik, en de Dender door Aat en Lessen. Bij hoog water lopen kelders en gelijkvloerse ruimtes in die valleien onder. In het westen ligt Moeskroen, met zijn textielverleden: oude weverijen en fabriekshallen die tot lofts of woningen worden verbouwd. Dat zijn grote, hoge ruimtes met betonvloeren en een nieuwe chape, waar een klein toestel weinig uithaalt.",
@@ -982,7 +982,6 @@ export const REGIOS: Regio[] = [
         { label: "Levering en installatie", waarde: "Inbegrepen in het droogpakket, geen kilometerkost" },
         { label: "Levertermijn", waarde: "Op afspraak, de leverdag spreken we samen af" },
         { label: "Rijtijd vanuit ons magazijn", waarde: "45 minuten (Edingen) tot rond twee uur (Chimay)" },
-        { label: "Taal", waarde: "Nederlands of Frans, naar keuze" },
         { label: "Verdieping via ladder", waarde: `${euro(LADDER)} per verdieping, vooraf melden` },
         { label: "Condenspomp (aangeraden)", waarde: `${euro(POMP)} per bouwdroger per dag` },
       ],
@@ -1005,8 +1004,8 @@ export const REGIOS: Regio[] = [
         a: "Ja, ook in de Botte du Hainaut: Chimay, Momignies, Sivry-Rance en Froidchapelle. Het is wel onze langste rit, rond twee uur vanuit Aartselaar, dus spreken we het tijdstip met u af in plaats van u een willekeurig moment te geven. De prijs verandert niet: levering, plaatsing en ophaling zitten in het droogpakket.",
       },
       {
-        q: "Spreken jullie Frans met klanten in Henegouwen?",
-        a: "Ja. U kiest zelf of we Nederlands of Frans spreken, aan de telefoon, in de offerte en op de werf. Zoekt u op Mons, Tournai of Mouscron, dan gaat het om Bergen, Doornik en Moeskroen: dezelfde gemeenten, hetzelfde droogpakket en dezelfde technieker die het komt plaatsen.",
+        q: "Ik zoek op Mons, Tournai of Mouscron. Is dat dezelfde pagina?",
+        a: "Ja. Mons, Tournai en Mouscron zijn de Franse namen van Bergen, Doornik en Moeskroen. Elke gemeente heeft één pagina onder haar Nederlandse naam, met de Franse naam erbij. Het droogpakket, de levering en de plaatsing zijn dezelfde.",
       },
       {
         q: "Lost een bouwdroger het vocht in mijn mijnwoning op?",
