@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -11,6 +11,7 @@ import {
   type Realisatie,
 } from "@/data/realisaties";
 import { realisatieSlugsIn, regioVanRealisatie } from "@/data/realisatie-regio";
+import { REALISATIE_REDIRECTS } from "@/data/realisatie-redirects";
 import RealisatieAlbum from "@/components/realisaties/RealisatieAlbum";
 import { ArrowRight, DryIcon, HouseIcon, MeasureIcon, PinIcon, XIcon } from "@/components/realisaties/icons";
 // De gedeelde <V3Header>/<V3Footer> dragen hun eigen opmaak; zonder deze
@@ -64,6 +65,12 @@ const NietGevonden = () => {
 
 const RealisatieDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { search, hash } = useLocation();
+  const nieuweSlug = slug ? REALISATIE_REDIRECTS[slug] : undefined;
+  // Vite en navigatie binnen de app passeren de serverredirects niet.
+  if (nieuweSlug) {
+    return <Navigate replace to={`/realisaties/${nieuweSlug}${search}${hash}`} />;
+  }
   const project = slug ? getRealisatie(slug) : undefined;
   if (!project) return <NietGevonden />;
 

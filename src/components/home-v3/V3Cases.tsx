@@ -122,9 +122,9 @@ const V3Cases = () => (
             professionele ozonbehandeling.
           </p>
         </div>
-        <a className="btn btn-white" href="#ozon">
+        <Link className="btn btn-white" to="/ozonbehandeling">
           Ontdek de ozonbehandeling <ArrowRightIcon size={13} strokeWidth={2.6} />
-        </a>
+        </Link>
       </div>
     </div>
   </section>

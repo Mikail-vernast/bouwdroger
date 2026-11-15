@@ -1,0 +1,97 @@
+/* TIJDELIJK — ontwerp B "Zoeken en kaarten". */
+
+.smB .pad { font-family: var(--fm); font-size: 12px; font-weight: 500; color: var(--txt-dim); }
+.smB .pad i { font-style: normal; color: var(--red); }
+.smB .pad em { font-style: normal; }
+
+/* ---- kop ---- */
+.smB-hero { background: var(--maroon-d) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat; color: #fff; overflow: hidden; }
+.smB-hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: end; }
+.smB-hero { padding-top: 172px; }
+.smB-hero-copy { padding-bottom: 48px; }
+.smB-kruimels { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 14px; }
+.smB-kruimels a { color: rgba(255,255,255,.8); }
+.smB-kick { display: inline-block; font-weight: 700; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.75); margin-bottom: 10px; }
+.smB-hero h1 { font-family: var(--fd); font-weight: 800; font-size: clamp(32px, 4vw, 50px); line-height: 1.03; letter-spacing: -.045em; text-wrap: balance; color: #fff; }
+.smB-hero p { font-size: 15.5px; line-height: 1.65; color: rgba(255,255,255,.8); max-width: 520px; margin: 12px 0 0; }
+
+.smB-zoek { margin-top: 22px; display: flex; align-items: center; gap: 12px; background: #fff; border: 1.5px solid transparent; border-radius: 18px; padding: 0 10px 0 20px; max-width: 560px; box-shadow: 0 22px 44px -22px rgba(0,0,0,.5); color: var(--txt-dim); transition: border-color .15s; }
+.smB-zoek:focus-within { border-color: var(--red); color: var(--red); }
+.smB-zoek input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: 600 16.5px var(--fb); color: var(--txt); padding: 16px 0; }
+.smB-zoek input::placeholder { color: var(--txt-dim); font-weight: 500; }
+.smB-zoek button { border: 0; background: var(--bg-alt); color: var(--txt); width: 34px; height: 34px; border-radius: 10px; font-size: 20px; cursor: pointer; }
+.smB-snel { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.smB-snel a { font-size: 13px; font-weight: 600; color: #fff; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); border-radius: 99px; padding: 7px 13px; }
+.smB-snel a:hover { background: #fff; color: var(--red); }
+
+.smB-paneel { position: relative; display: flex; justify-content: center; align-items: flex-end; }
+.smB-paneel img { position: relative; display: block; width: min(100%, 520px); max-width: none; height: auto; margin-bottom: -1px; filter: drop-shadow(0 28px 40px rgba(0,0,0,.45)); }
+.smB-stempel { position: absolute; z-index: 2; background: #fff; border-radius: 14px; padding: 12px 16px; font-size: 12.5px; line-height: 1.35; color: var(--txt-mid); box-shadow: 0 18px 36px -16px rgba(0,0,0,.4); }
+.smB-stempel b { display: block; font-family: var(--fd); font-size: 22px; letter-spacing: -.03em; color: var(--txt); }
+.smB-stempel-1 { top: 26%; left: -18px; color: var(--txt-mid); }
+.smB-stempel-1:hover b { color: var(--red); }
+.smB-stempel-1 b { font-size: 18px; }
+.smB-stempel-2 { bottom: 18%; right: -10px; }
+
+/* ---- body ---- */
+.smB-body { background: #fff; padding: 0 0 110px; }
+.smB-kaarten { margin-top: 0; }
+.smB-niets { background: #fff; border-radius: 18px; padding: 28px; font-size: 16px; color: var(--txt-mid); }
+
+.smB-kaarten { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; padding-top: 56px; }
+.smB-kaart { background: #FAF8F7; border: 1px solid var(--line); border-radius: 22px; padding: 26px 24px 16px; scroll-margin-top: 110px; box-shadow: 0 1px 0 var(--line); }
+.smB-kaart h2 { display: flex; align-items: center; justify-content: space-between; font-family: var(--fd); font-weight: 800; font-size: 19px; letter-spacing: -.025em; }
+.smB-kaart h2 span { font-size: 12px; font-weight: 700; color: var(--red); background: #FBEFF1; border-radius: 99px; padding: 3px 10px; letter-spacing: 0; }
+.smB-kaart > p { font-size: 13.5px; line-height: 1.55; color: var(--txt-mid); margin: 6px 0 0; }
+.smB-kaart ul { list-style: none; margin: 14px 0 0; padding: 0; }
+.smB-kaart li + li { border-top: 1px solid var(--line); }
+.smB-kaart li a { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; column-gap: 12px; padding: 12px 4px; color: var(--txt); }
+.smB-label { font-size: 15px; font-weight: 600; }
+.smB-kaart .pad { grid-row: 2; }
+.smB-pijl { grid-row: 1 / span 2; grid-column: 2; align-self: center; color: var(--txt-dim); transition: transform .15s, color .15s; }
+.smB-kaart li a:hover { color: var(--red); }
+.smB-kaart li a:hover .smB-pijl { color: var(--red); transform: translateX(3px); }
+
+.smB-werk { margin-top: 64px; scroll-margin-top: 110px; }
+.smB-werk-kop h2, .smB-real h2 { font-family: var(--fd); font-weight: 800; font-size: clamp(26px, 3vw, 36px); letter-spacing: -.035em; }
+.smB-werk-kop p { color: var(--txt-mid); font-size: 15px; margin: 8px 0 0; }
+.smB-land { margin-top: 32px; scroll-margin-top: 110px; }
+.smB-land h3 { display: flex; align-items: center; gap: 12px; font-family: var(--fd); font-weight: 800; font-size: 17px; margin-bottom: 12px; }
+.smB-tag { font-size: 11.5px; font-weight: 700; color: #fff; background: var(--ok); padding: 4px 10px; border-radius: 99px; }
+.smB-tag.grijs { background: var(--txt-dim); }
+.smB-prov { background: #FAF8F7; border: 1px solid var(--line); border-radius: 16px; margin-bottom: 8px; }
+.smB-prov summary { list-style: none; display: flex; align-items: center; gap: 14px; padding: 18px 22px; cursor: pointer; }
+.smB-prov summary::-webkit-details-marker { display: none; }
+.smB-prov summary::after { content: "+"; margin-left: 12px; width: 28px; height: 28px; flex: none; display: grid; place-items: center; border-radius: 9px; background: var(--bg-alt); font-weight: 700; font-size: 18px; }
+.smB-prov[open] summary::after { content: "−"; background: var(--red); color: #fff; }
+.smB-prov-naam { font-weight: 700; font-size: 16px; }
+.smB-prov-n { margin-left: auto; font-size: 13px; color: var(--txt-dim); }
+.smB-prov-in { padding: 4px 22px 22px; }
+.smB-prov-link { display: inline-block; font-weight: 700; font-size: 14px; margin-bottom: 14px; }
+.smB-streek + .smB-streek { margin-top: 16px; }
+.smB-streek h4 { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--txt-dim); margin-bottom: 8px; }
+.smB-streek ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.smB-streek li > * { display: inline-block; font-size: 13px; padding: 5px 11px; border-radius: 99px; background: var(--bg-alt); color: var(--txt-mid); border: 1px solid transparent; }
+.smB-streek li a { background: #fff; border-color: var(--red); color: var(--txt); font-weight: 600; }
+.smB-streek li a:hover { background: var(--red); color: #fff; }
+
+.smB-real { margin-top: 64px; }
+.smB-real ul { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 10px; }
+.smB-real li a { display: flex; flex-direction: column; gap: 4px; height: 100%; background: #FAF8F7; border-radius: 14px; padding: 16px 18px; color: var(--txt); font-weight: 600; font-size: 14.5px; line-height: 1.4; }
+.smB-real li a:hover { color: var(--red); box-shadow: inset 0 0 0 1.5px var(--red); }
+
+.smB-jur { display: flex; gap: 22px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line-2); font-size: 13.5px; }
+.smB-jur a { color: var(--txt-mid); }
+
+@media (max-width: 1040px) {
+  .smB-hero-grid { grid-template-columns: 1fr; gap: 20px; }
+  .smB-hero-copy { padding-bottom: 0; }
+  .smB-paneel { min-height: 0; }
+  .smB-paneel img { width: min(100%, 460px); }
+  .smB-stempel-1 { left: 0; }
+  .smB-stempel-2 { right: 0; }
+}
+@media (max-width: 560px) {
+  .smB-kaarten, .smB-real ul { grid-template-columns: 1fr; }
+  .smB-prov summary .pad { display: none; }
+}

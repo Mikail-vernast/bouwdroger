@@ -114,3 +114,49 @@
   background: var(--red);
   color: #fff;
 }
+
+/* Productfoto en twee herkenbare voorbeeldopstellingen. */
+.vh-prod .tb-bijschrift {
+  margin: 12px 2px 0;
+  color: rgba(255, 255, 255, .88);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.vh-prod .tb-opstellingen {
+  padding: 72px 0;
+  background: #f4f2ef;
+}
+.vh-prod .tb-fotogrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.vh-prod .tb-fotogrid figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+}
+.vh-prod .tb-fotogrid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+.vh-prod .tb-fotogrid figcaption {
+  padding: 20px 24px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--txt-mid);
+}
+.vh-prod .tb-beeldnote {
+  margin: 20px 0 0;
+  max-width: 780px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--txt-mid);
+}
+@media (max-width: 640px) {
+  .vh-prod .tb-opstellingen { padding: 48px 0; }
+  .vh-prod .tb-fotogrid { grid-template-columns: 1fr; gap: 18px; }
+}

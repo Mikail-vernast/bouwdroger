@@ -1,251 +1,90 @@
 /* Sitemap — de zichtbare pagina, zie src/pages/SitemapPage.tsx.
-   Hangt aan de gedeelde inhoudsschil `.v3c` (v3-content.css); hier staat
-   alleen wat deze pagina eigen is. */
+   Mappenboom: rode kop zoals de rest van de site, daaronder wit. Hangt aan de
+   gedeelde inhoudsschil `.v3c` (v3-content.css) voor tokens en knoppen. */
 
-.v3c.sm-page .hero .hero-copy {
-  padding-bottom: 72px;
-}
+.v3c.sm-page { background: #fff; color: var(--txt); overflow-x: clip; }
+.sm-page a { color: inherit; }
+.sm-page .pad { font-family: var(--fm); font-size: 13.5px; font-weight: 600; color: var(--txt); word-break: break-word; }
+.sm-page .pad i { font-style: normal; color: var(--red); }
+.sm-page .pad em { font-style: normal; color: var(--txt-dim); }
+.sm-tak { font-family: var(--fm); color: var(--line-2); white-space: pre; flex: none; }
 
-.v3c .sm-body {
-  background: #fff;
-  padding: 72px 0 96px;
-}
+/* ---- kop ---- */
+.sm-hero { position: relative; overflow: hidden; padding-top: 172px; background: var(--maroon-d) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat; color: #fff; }
+.sm-hero-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+.sm-hero-copy { padding-bottom: 48px; }
+.sm-kruimels { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 14px; }
+.sm-kruimels a { color: rgba(255,255,255,.8); }
+.sm-kruimels a:hover { color: #fff; }
+.sm-hero h1 { font-family: var(--fm); font-weight: 700; font-size: clamp(38px, 4.6vw, 60px); letter-spacing: -.05em; line-height: 1; color: #fff; }
+.sm-hero h1 i { font-style: normal; color: rgba(255,255,255,.45); }
+.sm-hero p { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,.8); max-width: 520px; margin: 12px 0 0; }
+.sm-boom { margin-top: 22px; max-width: 560px; padding: 14px 18px; border-radius: 16px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(6px); font-family: var(--fm); font-size: 13px; line-height: 1.85; display: grid; grid-template-columns: 1fr 1fr; column-gap: 26px; }
+.sm-wortel { grid-column: 1 / -1; color: #fff; font-weight: 700; }
+.sm-boom a { display: flex; gap: 8px; align-items: baseline; border-radius: 6px; padding: 0 8px; margin: 0 -8px; color: #fff; }
+.sm-boom a:hover { background: rgba(255,255,255,.14); }
+.sm-boom small { margin-left: auto; font-size: 11.5px; color: rgba(255,255,255,.5); }
+.sm-boom .sm-tak { color: rgba(255,255,255,.3); }
+.sm-team { display: flex; justify-content: flex-end; }
+.sm-team img { display: block; width: min(100%, 540px); max-width: none; height: auto; margin-bottom: -1px; filter: drop-shadow(0 28px 40px rgba(0,0,0,.45)); }
 
-/* Vier tot zes blokken naast elkaar op een breed scherm, en ze breken zelf af:
-   een vast aantal kolommen laat de kortste blokken met een gat eronder staan
-   zodra er een groep bijkomt in navigation.ts. */
-.v3c .sm-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 40px 36px;
-}
 
-.v3c .sm-blok h2,
-.v3c .sm-breed h2 {
-  font-family: var(--fd);
-  font-weight: 800;
-  font-size: 17px;
-  letter-spacing: -0.015em;
-  color: var(--txt);
-}
+/* ---- mappen ---- */
+.sm-body { padding: 72px 0 110px; }
+.sm-mappen { columns: 3 320px; column-gap: 20px; }
+.sm-map { break-inside: avoid; margin-bottom: 20px; padding: 22px 22px 14px; border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(20,20,20,.04); scroll-margin-top: 110px; }
+.sm-map h2 { display: flex; align-items: center; gap: 10px; font-family: var(--fd); font-weight: 800; font-size: 16px; letter-spacing: -.015em; margin-bottom: 12px; }
+.sm-map h2 svg { color: var(--red); }
+.sm-map ul { list-style: none; margin: 0; padding: 0; }
+.sm-map li { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; line-height: 1.5; }
+.sm-map li .sm-tak { padding-top: 6px; }
+.sm-map li a { display: block; flex: 1; padding: 6px 8px; margin-left: -8px; border-radius: 8px; }
+.sm-map li a:hover { background: #FBEFF1; }
+.sm-map li a:hover .pad { color: var(--red); }
+.sm-map small, .sm-real small { display: block; font-size: 12px; color: var(--txt-dim); margin-top: 1px; }
 
-.v3c .sm-uit {
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: var(--txt-mid);
-  margin: 7px 0 0;
-}
+/* Realisaties (breed, twee kolommen paden) naast Juridisch (smal). */
+.sm-mappen-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start; margin-top: 52px; }
+.sm-mappen-2 .sm-map { margin-bottom: 0; }
+.sm-map-breed ul { columns: 2; column-gap: 28px; }
+.sm-map-breed li { break-inside: avoid; }
+@media (max-width: 900px) { .sm-mappen-2 { grid-template-columns: 1fr; } .sm-map-breed ul { columns: 1; } }
 
-.v3c .sm-blok ul {
-  list-style: none;
-  margin: 14px 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+/* ---- werkgebied ---- */
+.sm-land { margin-top: 72px; scroll-margin-top: 110px; }
+.sm-land-kop { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.sm-land-kop h2 { font-family: var(--fd); font-weight: 800; font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -.03em; }
+.sm-status { font-family: var(--fm); font-size: 12px; font-weight: 600; color: var(--ok); display: inline-flex; align-items: center; gap: 7px; }
+.sm-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 4px rgba(30,158,80,.15); }
+.sm-status.uit { color: var(--txt-dim); }
+.sm-status.uit::before { box-shadow: none; }
+.sm-uit { font-size: 14.5px; line-height: 1.6; color: var(--txt-mid); margin: 14px 0 0; max-width: 700px; }
+.sm-provs { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; margin-top: 24px; }
+.sm-prov { padding: 22px; border-radius: 18px; background: #FAF8F7; border: 1px solid var(--line); }
+.sm-prov h3 { display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; }
+.sm-prov h3 a:hover .pad { color: var(--red); }
+.sm-prov h3 .pad { font-size: 15px; }
+.sm-prov h3 small { font-family: var(--fb); font-size: 12.5px; font-weight: 500; color: var(--txt-dim); }
+.sm-streek + .sm-streek { margin-top: 12px; }
+.sm-streek h4 { display: flex; gap: 8px; font-family: var(--fm); font-size: 12px; font-weight: 600; color: var(--txt-mid); margin-bottom: 6px; }
+.sm-streek ul { list-style: none; margin: 0 0 0 30px; padding: 0 0 0 12px; border-left: 1px solid var(--line-2); display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 13px; line-height: 1.75; }
+.sm-streek a { color: var(--txt); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(200,16,46,.4); text-underline-offset: 3px; }
+.sm-streek a:hover { color: var(--red); }
+.sm-streek span { color: var(--txt-mid); }
 
-.v3c .sm-blok a,
-.v3c .sm-rij a {
-  font-size: 14.5px;
-  line-height: 1.4;
-  color: var(--txt);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-}
+.sm-real { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 4px 28px; }
+.sm-real a { display: block; padding: 10px 12px; margin: 0 -12px; border-radius: 10px; }
+.sm-real a:hover { background: #FBEFF1; }
 
-.v3c .sm-blok a:hover,
-.v3c .sm-rij a:hover {
-  color: var(--red);
-  border-bottom-color: var(--red);
-}
-
-.v3c .sm-breed {
-  margin-top: 56px;
-  padding-top: 40px;
-  border-top: 1px solid var(--line);
-}
-
-/* De brede lijsten (gemeenten, realisaties) lopen in kolommen door in plaats
-   van in een raster: met een raster begint de tweede rij pas onder het
-   langste item van de eerste, en dat gat is bij losse woorden meteen zichtbaar. */
-.v3c .sm-rij {
-  list-style: none;
-  margin: 16px 0 0;
-  padding: 0;
-  columns: 3;
-  column-gap: 36px;
-}
-
-.v3c .sm-rij li {
-  break-inside: avoid;
-  margin-bottom: 9px;
-}
-
-.v3c .sm-rij.sm-klein {
-  columns: 4;
-}
-
-.v3c .sm-rij.sm-klein a {
-  font-size: 13.5px;
-  color: var(--txt-mid);
-}
-
-.v3c .sm-voet {
-  margin-top: 48px;
-}
-
-@media (max-width: 860px) {
-  .v3c .sm-rij,
-  .v3c .sm-rij.sm-klein {
-    columns: 2;
-  }
-  .v3c .sm-body {
-    padding: 52px 0 72px;
-  }
-}
-
-@media (max-width: 520px) {
-  .v3c .sm-rij,
-  .v3c .sm-rij.sm-klein {
-    columns: 1;
-  }
-}
-
-/* De realisatietitels zijn hele zinnen — in vier kolommen breekt elke titel
-   over drie regels en lees je er geen enkele. */
-.v3c .sm-rij.sm-breed-2 {
-  columns: 2;
-}
-
-.v3c .sm-rij.sm-breed-2 a {
-  font-size: 13.5px;
-  color: var(--txt-mid);
-}
-
-@media (max-width: 860px) {
-  .v3c .sm-rij.sm-breed-2 {
-    columns: 1;
-  }
-}
-
-/*
-  Het werkgebied per provincie en per streek.
-
-  Dezelfde indeling als de sectie "De gemeenten van <provincie>, per streek" op
-  de provinciepagina, maar zonder de streekomschrijving en zonder kaartvlak:
-  daar is het een leesbare sectie, hier een wegwijzer. De kolommen zijn dus
-  smaller en de namen kleiner dan in `.strk-lijst`.
-
-  De streken stonden in een raster van twee kolommen, en een raster lijnt rijen
-  uit: naast "De Kempen" met zijn dertig gemeenten bleef onder de Rupelstreek
-  een gat van tweehonderd pixels staan, en de volgende streek begon pas waar
-  De Kempen begon. Daardoor leek de linkerkolom af terwijl er nog twee streken
-  volgden. Nu stapelen ze in twee tekstkolommen: een streek die niet meer past
-  schuift naar boven in de volgende kolom in plaats van op een rij te wachten.
-  `break-inside: avoid` houdt kop en gemeenten daarbij bij elkaar.
-*/
-.v3c .sm-prov {
-  margin-top: 36px;
-  padding-top: 28px;
-  border-top: 1px solid var(--line);
-}
-
-.v3c .sm-prov h3 {
-  font-family: var(--fd);
-  font-weight: 800;
-  font-size: 16.5px;
-  margin: 0 0 16px;
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.v3c .sm-prov h3 a {
-  color: var(--txt);
-  text-decoration: none;
-  border-bottom: 2px solid var(--red);
-  padding-bottom: 2px;
-}
-
-.v3c .sm-prov h3 a:hover {
-  color: var(--red);
-}
-
-/* Hoeveel gemeenten er onder die provincie hangen. Zonder dat getal moet je
-   de lijst tellen om te weten of je werf erbij hoort; mét staat er meteen dat
-   het er geen handvol zijn. */
-.v3c .sm-prov .sm-telling {
-  font-family: var(--fb);
-  font-weight: 500;
-  font-size: 12.5px;
-  color: var(--txt-dim);
-}
-
-.v3c .sm-streken {
-  columns: 2;
-  column-gap: 44px;
-}
-
-.v3c .sm-streek {
-  break-inside: avoid;
-  margin: 0 0 22px;
-}
-
-/* De streeknaam in kapitalen, kleiner dan de provincie erboven: zo is in één
-   oogopslag te zien welke regel een kop is en welke een plaatsnaam. */
-.v3c .sm-streek h4 {
-  font-family: var(--fb);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--txt-dim);
-  margin: 0 0 8px;
-  padding-bottom: 7px;
-  border-bottom: 1px solid var(--line);
-}
-
-/* Een raster en geen tekstkolommen: dit staat zelf al in een kolom, en
-   kolommen in kolommen laten browsers de hoogte verkeerd schatten. */
-.v3c .sm-streek ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
-  gap: 2px 16px;
-  font-size: 13px;
-}
-
-.v3c .sm-streek li {
-  line-height: 1.7;
-}
-
-/* Een gemeente mét eigen pagina is onderstreept, een zonder is gewone tekst —
-   hetzelfde onderscheid als op de provinciepagina, zodat de zin erboven
-   ("de gemeenten met een eigen pagina staan als link") klopt zonder dat het
-   verschil alleen in de kleur zit. */
-.v3c .sm-streek a {
-  color: var(--txt);
-  text-decoration: underline;
-  text-decoration-color: var(--line-2);
-  text-underline-offset: 3px;
-  font-weight: 600;
-}
-
-.v3c .sm-streek a:hover {
-  color: var(--red);
-  text-decoration-color: var(--red);
-}
-
-.v3c .sm-streek span {
-  color: var(--txt-mid);
-}
 
 @media (max-width: 1040px) {
-  .v3c .sm-streken {
-    columns: 1;
-  }
+  .sm-hero { padding-top: 140px; }
+  .sm-hero-grid { grid-template-columns: 1fr; }
+  .sm-hero-copy { padding-bottom: 8px; }
+  .sm-team { justify-content: center; }
+  .sm-team img { width: min(100%, 460px); }
+}
+@media (max-width: 560px) {
+  .sm-provs, .sm-real { grid-template-columns: 1fr; }
+  .sm-prov { padding: 18px; }
 }

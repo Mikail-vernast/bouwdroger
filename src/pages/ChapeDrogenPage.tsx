@@ -140,7 +140,7 @@ const faqs = [
 
 /* Drie werven waar chape moest drogen. `getRealisatie` geeft undefined zodra
    een dossier uit de lijst verdwijnt; die valt dan stil weg. */
-const REFERENTIES = ["mnr-l-hasselt", "mevr-k-wintam", "mnr-k-putte"]
+const REFERENTIES = ["chape-pleisterwerk-drogen-hasselt", "bouwvocht-drogen-wintam", "nieuwbouw-drogen-putte"]
   .map(getRealisatie)
   .filter((r): r is Realisatie => !!r);
 

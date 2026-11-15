@@ -127,6 +127,25 @@ export const routes: RouteRecord[] = [
         path: "sitemap",
         lazy: async () => ({ Component: (await import("./pages/SitemapPage")).default }),
       },
+      /*
+        TIJDELIJK — drie ontwerpvoorstellen voor /sitemap, onder `npm run dev`
+        of in een preview-build met VITE_ONTWERPEN=1. Een gewone productiebuild
+        laat ze weg; en ook in de preview staan ze op noindex, dus buiten
+        sitemap.xml. Weg zodra er gekozen is.
+      */
+      ...(import.meta.env.DEV || import.meta.env.VITE_ONTWERPEN === "1"
+        ? (["a", "b", "c"] as const).map((letter) => ({
+            path: `sitemap-ontwerp/${letter}`,
+            lazy: async () => {
+              const mod = {
+                a: () => import("./pages/sitemap-ontwerpen/OntwerpA"),
+                b: () => import("./pages/sitemap-ontwerpen/OntwerpB"),
+                c: () => import("./pages/sitemap-ontwerpen/OntwerpC"),
+              }[letter];
+              return { Component: (await mod()).default };
+            },
+          }))
+        : []),
       {
         path: "privacy",
         lazy: async () => ({ Component: (await import("./pages/PrivacyPage")).default }),

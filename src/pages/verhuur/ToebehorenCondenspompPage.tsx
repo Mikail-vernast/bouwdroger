@@ -102,7 +102,7 @@ const ToebehorenCondenspompPage = () => {
                 <Head>
                   <link rel="preload" href="/vernast/bg-red-wide-2.webp" as="image" type="image/webp" fetchPriority="high" />
                 </Head>
-                <img src={pomp.img[shot][0]} alt={pomp.img[shot][1]} fetchPriority="high" decoding="async" />
+                <img src={pomp.img[shot][0]} alt={pomp.img[shot][1]} width={1254} height={1254} fetchPriority="high" decoding="async" />
               </div>
               <div className="thumbs">
                 {pomp.img.map(([src, alt], i) => (
@@ -111,12 +111,14 @@ const ToebehorenCondenspompPage = () => {
                     type="button"
                     className={i === shot ? "on" : undefined}
                     onClick={() => setShot(i)}
-                    aria-label={`Afbeelding ${i + 1}`}
+                    aria-label={`Bekijk: ${alt}`}
+                    aria-pressed={i === shot}
                   >
                     <img src={src} alt={alt} loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>
+              <p className="tb-bijschrift" aria-live="polite">{pomp.img[shot][2]}</p>
             </div>
 
             <div className="pinfo">
@@ -178,6 +180,31 @@ const ToebehorenCondenspompPage = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="tb-opstellingen">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="kick">De aansluiting in beeld</span>
+            <h2 className="sec">Van bouwdroger naar afvoer, zonder emmer legen.</h2>
+            <p className="lede">
+              Met een slang naar de pomp of met de pomp onder de condensafvoer:
+              de juiste plaatsing hangt af van uw bouwdroger en de beschikbare ruimte.
+            </p>
+          </div>
+          <div className="tb-fotogrid">
+            {pomp.img.slice(1).map(([src, alt, bijschrift]) => (
+              <figure key={src}>
+                <img src={src} alt={alt} width={1254} height={1254} loading="lazy" decoding="async" />
+                <figcaption>{bijschrift}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="tb-beeldnote">
+            Illustratieve voorbeeldopstellingen. Laat de aansluiting afstemmen op uw toestel.
+            De toevoerslang moet naar de pomp aflopen; de pomp voert het water daarna verder af.
+          </p>
         </div>
       </section>
 

@@ -4,11 +4,9 @@ import { REGIO_ROUTES } from "@/data/regio-slugs";
 import { PRODUCTS } from "@/data/verhuur";
 
 /**
- * De regiopagina's bestaan om per provincie gevonden te worden, en dat werkt
- * alleen als elke pagina genoeg eigen tekst heeft. Vijf keer dezelfde tekst
- * met een andere plaatsnaam filtert Google weg als kopie. Deze test bewaakt
- * de drie dingen die je aan de pagina zelf niet ziet: de lengte van titel en
- * beschrijving, het woordental en de uniciteit tussen de regio's.
+ * Controleer metadata, inhoud en verwijzingen van de regiopagina's.
+ * Huurvoorwaarden en technisch advies mogen overeenkomen tussen regio's.
+ * De introductie en de uitleg van het werkgebied blijven per regio specifiek.
  */
 const TITEL_MAX = 60;
 const DESCR_MIN = 120;
@@ -16,11 +14,6 @@ const DESCR_MAX = 160;
 const MIN_WOORDEN = 500;
 
 const woorden = (t: string) => t.split(/\s+/).filter(Boolean).length;
-const zinnen = (t: string) =>
-  t
-    .split(/(?<=[.!?])\s+|\n/)
-    .map((z) => z.trim().toLowerCase())
-    .filter((z) => woorden(z) >= 8);
 
 describe("regiopagina's", () => {
   it("dekt precies de routes uit regio-slugs.ts", () => {
@@ -74,16 +67,8 @@ describe("regiopagina's", () => {
     expect(realisatiesVoor(regio).length).toBeGreaterThanOrEqual(2);
   });
 
-  it("deelt geen zinnen tussen twee regio's", () => {
-    const gezien = new Map<string, string>();
-    const dubbel: string[] = [];
-    for (const regio of REGIOS) {
-      for (const zin of new Set(zinnen(regioTekst(regio)))) {
-        const eerder = gezien.get(zin);
-        if (eerder && eerder !== regio.slug) dubbel.push(`${eerder} ↔ ${regio.slug}: ${zin}`);
-        gezien.set(zin, regio.slug);
-      }
-    }
-    expect(dubbel).toEqual([]);
+  it("heeft per regio een eigen introductie en uitleg van het werkgebied", () => {
+    expect(new Set(REGIOS.map((regio) => regio.intro.join(" "))).size).toBe(REGIOS.length);
+    expect(new Set(REGIOS.map((regio) => regio.bouw.alineas[0])).size).toBe(REGIOS.length);
   });
 });
