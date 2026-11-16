@@ -228,6 +228,8 @@
   .ds-ptop{padding:14px 16px 0}
   .ds-body{padding:10px 16px 0;gap:10px}
   .ds-foot{padding:10px 16px 14px}
+  /* The hint gets its own line above the buttons instead of squeezing them. */
+  .ds-foot{flex-wrap:wrap;row-gap:6px}.ds-foot .ds-melding{order:-1;flex-basis:100%}
   .ds-sub:not(.ds-sub--altijd){display:none}
   .ds-cards{gap:8px}
   .ds-t{padding:6px 10px 8px}
@@ -1047,7 +1049,7 @@
 .ds-bf-pin.onder span{left:0;top:14px;transform:translateX(-50%)}
 .ds-bf-pin.weg{opacity:0}
 /* the film takes the height that is left in the panel, within bounds */
-.ds-sim[data-stap="3"] .ds-body > .ds-bf{flex:1 1 0;min-height:150px;max-height:380px}
+.ds-sim[data-stap="2"] .ds-body > .ds-bf{flex:1 1 0;min-height:150px;max-height:380px}
 
 /* de zes fase-knoppen */
 .ds-fk-rij{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
@@ -1072,7 +1074,7 @@
 .ds-bf-cap-pin{display:none}
 .ds-bf-cap-pin::before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:var(--nat);box-shadow:0 0 0 2px #fff;vertical-align:1px}
 /* children keep their height: when the step does not fit, it must show (and be measurable), not squash a block */
-.ds-sim[data-stap="3"] .ds-body > *{flex-shrink:0}
+.ds-sim[data-stap="2"] .ds-body > *{flex-shrink:0}
 
 /* Starten / Meten / Let op */
 .ds-fr{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:16px;background:#fff;color:var(--ink);animation:ds-in .35s cubic-bezier(.2,.8,.2,1) both}
@@ -1132,9 +1134,9 @@
 }
 @media (max-width:899px){
   /* the question already stands above the film */
-  .ds-sim[data-stap="3"] .ds-body h2{display:none}
-  .ds-sim[data-stap="3"] .ds-body{gap:8px}
-  .ds-sim[data-stap="3"] .ds-lbl{margin-bottom:5px}
+  .ds-sim[data-stap="2"] .ds-body h2{display:none}
+  .ds-sim[data-stap="2"] .ds-body{gap:8px}
+  .ds-sim[data-stap="2"] .ds-lbl{margin-bottom:5px}
   .ds-bf{border-radius:12px}
   .ds-bf-cap{left:10px;right:10px;bottom:8px}
   .ds-bf-cap > div > span{font-size:8.5px;letter-spacing:.08em;margin-bottom:1px}
@@ -1152,18 +1154,18 @@
 @media (prefers-reduced-motion:reduce){.ds-bf,.ds-fr,.ds-gevolg,.ds-fk-rij.uitnodig .ds-fk,.ds-bf-pin::after{animation:none}.ds-fk,.ds-fk-ic,.ds-fk-vk{transition:none}}
 /* stap 4 met de film in het paneel: wie weinig hoogte heeft, geeft eerst de herhaalde vraag op, dan filmhoogte */
 /* safety net: if it still does not fit, the panel scrolls instead of running under the buttons */
-.ds-sim[data-stap="3"] .ds-body{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+.ds-sim[data-stap="2"] .ds-body{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
 @container paneel (max-height:800px){
-  .ds-sim[data-stap="3"] .ds-body > h2,.ds-sim[data-stap="3"] .ds-body > .ds-sub{display:none}
-  .ds-sim[data-stap="3"] .ds-fr-tekst{display:none}
-  .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:130px}
+  .ds-sim[data-stap="2"] .ds-body > h2,.ds-sim[data-stap="2"] .ds-body > .ds-sub{display:none}
+  .ds-sim[data-stap="2"] .ds-fr-tekst{display:none}
+  .ds-sim[data-stap="2"] .ds-body > .ds-bf{min-height:130px}
 }
 @container paneel (max-height:640px){
-  .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:110px}
+  .ds-sim[data-stap="2"] .ds-body > .ds-bf{min-height:110px}
 }
 @container paneel (max-width:520px){
-  .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:96px}
-  .ds-sim[data-stap="3"] .ds-lbl{display:none}
+  .ds-sim[data-stap="2"] .ds-body > .ds-bf{min-height:96px}
+  .ds-sim[data-stap="2"] .ds-lbl{display:none}
 }
 /* gsm: the house strip gets less room at this step, the film and the buttons more */
 
@@ -1177,19 +1179,19 @@
 @media (max-width:899px){.ds-herhaal{left:auto;right:10px;bottom:10px;transform:none;padding:6px 11px;font-size:11.5px}}
 .ds-herhaal:focus-visible{outline:2px solid var(--red,#c8102e);outline-offset:2px}
 @container paneel (max-height:800px){
-  .ds-sim[data-stap="3"] .ds-body{gap:7px}
+  .ds-sim[data-stap="2"] .ds-body{gap:7px}
 }
 @container paneel (max-height:640px){
-  .ds-sim[data-stap="3"] .ds-fk-tegel{aspect-ratio:5/2}
-  .ds-sim[data-stap="3"] .ds-fk b{font-size:11.5px}
+  .ds-sim[data-stap="2"] .ds-fk-tegel{aspect-ratio:5/2}
+  .ds-sim[data-stap="2"] .ds-fk b{font-size:11.5px}
 }
 @container paneel (max-width:520px){
-  .ds-sim[data-stap="3"] .ds-body{gap:5px}
-  .ds-sim[data-stap="3"] .ds-fk{min-height:36px}
-  .ds-sim[data-stap="3"] .ds-fk-tegel{width:30px;height:30px}
+  .ds-sim[data-stap="2"] .ds-body{gap:5px}
+  .ds-sim[data-stap="2"] .ds-fk{min-height:36px}
+  .ds-sim[data-stap="2"] .ds-fk-tegel{width:30px;height:30px}
 }
-@container paneel (max-height:640px){.ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:104px}}
-@container paneel (max-width:520px){.ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:82px}}
+@container paneel (max-height:640px){.ds-sim[data-stap="2"] .ds-body > .ds-bf{min-height:104px}}
+@container paneel (max-width:520px){.ds-sim[data-stap="2"] .ds-body > .ds-bf{min-height:82px}}
 /* a low film (laptop, gsm) has no room for the floating label: the moisture spot moves into the caption */
 .ds-bf{container:film/size}
 @container film (max-height:220px){
@@ -1199,9 +1201,9 @@
   .ds-bf-cap > div > b{font-size:19px}
 }
 @container paneel (max-width:520px){
-  .ds-sim[data-stap="3"] .ds-vraag{padding:3px 10px}
-  .ds-sim[data-stap="3"] .ds-fr-regels > div{padding:3px 6px}
-  .ds-sim[data-stap="3"] .ds-fr-regels b{line-height:1.15}
+  .ds-sim[data-stap="2"] .ds-vraag{padding:3px 10px}
+  .ds-sim[data-stap="2"] .ds-fr-regels > div{padding:3px 6px}
+  .ds-sim[data-stap="2"] .ds-fr-regels b{line-height:1.15}
 }
 
 @media (max-width:899px){
@@ -1307,8 +1309,8 @@
 /* "Hoe dik is het nat?" in the fixed panel: two layer cards plus buttons, ~10 px tighter. */
 @media (max-width:899px){
   @container paneel (max-height:430px){
-    .ds-sim[data-stap="2"] .ds-body{gap:6px}
-    .ds-sim[data-stap="2"] .ds-laagk-inh{gap:4px;padding-block:5px}
+    .ds-sim[data-stap="3"] .ds-body{gap:6px}
+    .ds-sim[data-stap="3"] .ds-laagk-inh{gap:4px;padding-block:5px}
   }
 }
 /* gsm: no tips per phase (start / measure / watch out) — the photo and the drops already say it,
@@ -1316,7 +1318,7 @@
 @media (max-width:899px){ .ds-sim .ds-fr{display:none} }
 /* gsm, fixed panel: the "+ Kachels erbij" note gives way when a second question
    (vloerverwarming) appears; the droogplan lists the heaters anyway. */
-@media (max-width:899px){ @container paneel (max-height:430px){ .ds-sim[data-stap="3"] .ds-vragen:has(> :nth-child(2)) .ds-gevolg{display:none} } }
+@media (max-width:899px){ @container paneel (max-height:430px){ .ds-sim[data-stap="2"] .ds-vragen:has(> :nth-child(2)) .ds-gevolg{display:none} } }
 
 /* ── tempo: hoe snel moet het droog zijn? ──
    Three segments under the question; the choice sets the number of driers and the term. */
@@ -1330,26 +1332,26 @@
 .ds-tempo button.on small{opacity:.6}
 .ds-tempo button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 @media (max-width:899px){
-  .ds-sim[data-stap="3"] .ds-vraag--tempo{padding:6px 10px 8px;gap:5px}
-  .ds-sim[data-stap="3"] .ds-vraag--tempo > span{font-size:13px}
+  .ds-sim[data-stap="2"] .ds-vraag--tempo{padding:6px 10px 8px;gap:5px}
+  .ds-sim[data-stap="2"] .ds-vraag--tempo > span{font-size:13px}
   .ds-tempo button{padding:5px 2px}
   .ds-tempo button b{font-size:12.5px}
 }
 @media (max-width:899px){
   @container paneel (max-height:430px){
-    .ds-sim[data-stap="3"] .ds-vragen .ds-gevolg{display:none}
-    .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:58px}
-    .ds-sim[data-stap="3"] .ds-vraag{padding-block:5px}
-    .ds-sim[data-stap="3"] .ds-vraag--tempo{gap:4px}
-    .ds-sim[data-stap="3"] .ds-tempo button{padding:4px 2px;gap:0}
-    .ds-sim[data-stap="3"] .ds-jn button{padding-block:5px}
+    .ds-sim[data-stap="2"] .ds-vragen .ds-gevolg{display:none}
+    .ds-sim[data-stap="2"] .ds-body > .ds-bf{min-height:58px}
+    .ds-sim[data-stap="2"] .ds-vraag{padding-block:5px}
+    .ds-sim[data-stap="2"] .ds-vraag--tempo{gap:4px}
+    .ds-sim[data-stap="2"] .ds-tempo button{padding:4px 2px;gap:0}
+    .ds-sim[data-stap="2"] .ds-jn button{padding-block:5px}
   }
 }
 @media (max-width:899px){
   @container paneel (max-height:430px){
-    .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:48px}
-    .ds-sim[data-stap="3"] .ds-vraag{padding-block:3px}
-    .ds-sim[data-stap="3"] .ds-vraag--tempo{padding-bottom:6px}
+    .ds-sim[data-stap="2"] .ds-body > .ds-bf{min-height:48px}
+    .ds-sim[data-stap="2"] .ds-vraag{padding-block:3px}
+    .ds-sim[data-stap="2"] .ds-vraag--tempo{padding-bottom:6px}
   }
 }
 /* a very low film strip: the drops meter would sit under the play button */
@@ -1363,16 +1365,16 @@
   .ds-sim .ds-tempo button b{font-size:12.5px}
   .ds-sim .ds-tempo button small{font-size:9px}
   @container paneel (max-height:430px){
-    .ds-sim[data-stap="3"] .ds-vraag{padding-block:5px}
-    .ds-sim[data-stap="3"] .ds-vraag--tempo{padding-bottom:5px}
-    .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:72px}
+    .ds-sim[data-stap="2"] .ds-vraag{padding-block:5px}
+    .ds-sim[data-stap="2"] .ds-vraag--tempo{padding-bottom:5px}
+    .ds-sim[data-stap="2"] .ds-body > .ds-bf{min-height:72px}
   }
 }
 @media (max-width:374px){ .ds-sim .ds-tempo button{padding-inline:6px} .ds-sim .ds-tempo button b{font-size:11.5px} }
 @media (max-width:899px){ .ds-sim .ds-tempo button{padding:4px 8px} .ds-sim .ds-vraag--tempo{gap:6px 8px} }
 @media (max-width:899px){ @container paneel (max-height:430px){
-  .ds-sim[data-stap="3"] .ds-vragen .ds-vraag{padding-block:3px}
-  .ds-sim[data-stap="3"] .ds-body > .ds-bf{min-height:80px}
+  .ds-sim[data-stap="2"] .ds-vragen .ds-vraag{padding-block:3px}
+  .ds-sim[data-stap="2"] .ds-body > .ds-bf{min-height:80px}
 } }
 
 /* ── droogplan als kassabon ──
@@ -1436,3 +1438,23 @@
   .ds-stempel{left:auto;right:4px;top:calc(100% + 10px);font-size:16px;padding:5px 10px 4px}
 }
 .ds-meter--plaats i{background:#c8102e}
+
+/* Stap 3 met één laag (chape gegoten): de foto als banner over de volle breedte die de vrije
+   hoogte opneemt, naam en dikte groot erop; lat, knoppen en info sluiten eronder aan. */
+.ds-laagk.ds-laagk--solo{display:flex;flex-direction:column;grid-template-columns:none}
+.ds-laagk--solo .ds-laagk-foto{flex:1 1 0;min-height:170px}
+.ds-laagk--solo .ds-laagk-foto::after{background:linear-gradient(180deg,transparent 35%,rgba(40,8,8,.85) 100%)}
+.ds-laagk--solo .ds-laagk-inh{flex:none;justify-content:flex-start;gap:12px}
+.ds-laagk--solo .ds-laagk-foto figcaption.ds-laagk-band{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;left:18px;right:18px;bottom:14px;font-size:13px;opacity:1}
+.ds-sim .ds-laagk-band h3{margin:0 0 2px;font-size:28px;font-weight:800;letter-spacing:-.01em;line-height:1.05;color:#fff}
+.ds-laagk-band output{flex:none;font-size:46px;font-weight:800;line-height:.9;font-variant-numeric:tabular-nums;color:#fff}
+.ds-laagk-band output small{font-size:16px;font-weight:600;opacity:.7}
+.ds-laagk-band output .ok{font-size:20px;color:#9fe0b4}
+.ds-laagk--solo .ds-laagk-badge{top:12px;left:12px}
+@container paneel (max-width:520px){
+  .ds-laagk--solo .ds-laagk-foto{min-height:110px}
+  .ds-laagk--solo .ds-laagk-foto figcaption.ds-laagk-band{display:flex;left:12px;right:12px;bottom:10px;font-size:11.5px}
+  .ds-sim .ds-laagk-band h3{font-size:20px}
+  .ds-laagk-band output{font-size:32px}.ds-laagk-band output small{font-size:13px}
+  .ds-laagk--solo .ds-laagk-inh{padding:10px 10px 9px;gap:8px}
+}

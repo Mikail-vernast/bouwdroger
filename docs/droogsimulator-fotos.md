@@ -19,6 +19,16 @@ Prompts: "Straat-edit" en "Hoeken" onderaan.
 `dak-lessenaar` kwam de eerste keer terug met een zadeldak; opnieuw gemaakt met de
 expliciete eis "één dakvlak, geen nok, zijgevel is een trapezium".
 
+**Lessenaarsdak rechtgezet (16-11-2026).** In `dak-lessenaar`, `huis-lessenaar-1` en
+`huis-lessenaar-3` (en hun `breed-*`) liep de achterrand van het dak naar de goot toe:
+het dakvlak leek gedraaid, rechts als een half schilddak. Alle zes opnieuw bewerkt met
+Codex (prompt "Lessenaar-fix" onderaan). Controle: de achterrand loopt evenwijdig met de
+goot; dat is de eerste lijn om na te meten bij een nieuwe dakfoto.
+Daarna stak het dak rechts nog 8–12 px voorbij de zijmuur (links liep het gelijk): het
+rechter dakeinde en de goot zijn met een pixelverschuiving ingekort tot gelijk met de muur,
+niet opnieuw door Codex (die tekende de rand telkens anders). Tweede controle: dakrand rechts =
+muurhoek rechts.
+
 ---
 
 
@@ -90,3 +100,11 @@ gewoon de tekening.
 > roof with aluminium edge. huis-lessenaar-1 / huis-lessenaar-3: edit of dak-lessenaar —
 > remove / add one storey under the same single-pitch roof (one plane, no ridge,
 > trapezoid side wall). Street, camera and light unchanged.
+
+### Lessenaar-fix
+
+> Fix ONLY the roof: ONE flat rectangular roof plane rising from the gutter on the front
+> facade to a higher back wall; no ridge, no hip, no slope down to the right. The back
+> edge is a straight line PARALLEL to the gutter. The left side wall is a clean trapezoid;
+> the right end of the roof is a straight edge parallel to its left edge. Keep everything
+> else (brick, windows, storeys, camera, street, light, image size) the same.

@@ -8,6 +8,7 @@
  */
 import { describe, expect, it } from "vitest";
 import {
+  LAGEN_PER_FASE,
   MAX_KAMERS,
   MAX_VERDIEPINGEN,
   MIN_KAMERS,
@@ -64,7 +65,7 @@ describe("toPackageConfig", () => {
 describe("simResultaat", () => {
   it("toont exact wat de klant boekt: dezelfde toestellen, termijn en prijs als de boeking", () => {
     for (const size of SIZE_VALUES) {
-      for (const wat of ["pleister", "chape", "beide"] as const) {
+      for (const wat of ["pleister", "chape", "beide", "waterschade"] as const) {
         for (const verwarmt of [true, false]) {
           for (const tempo of ["snel", "gemiddeld", "traag"] as const) {
             const r = simResultaat({ ...BASIS, size, wat, verwarmt, tempo });
@@ -80,6 +81,21 @@ describe("simResultaat", () => {
         }
       }
     }
+  });
+
+  it("geeft ruwbouw en ramen geplaatst (geen chape, geen pleister) een vast waterschadepakket bij elke oppervlakte", () => {
+    for (const fase of ["ruwbouw", "ramen"] as const) {
+      expect(LAGEN_PER_FASE[fase]).toEqual([]);
+      for (const size of SIZE_VALUES) {
+        const r = simResultaat({ ...BASIS, size, fase, wat: "waterschade" });
+        expect(r, `${fase} ${size} m²`).not.toBeNull();
+        expect(r!.prijs).toBeGreaterThan(0);
+        expect(r!.config.wat).toBe("waterschade");
+      }
+    }
+    // Een chape zonder pleister vraagt enkel de chapedikte; vanaf het pleisteren beide.
+    expect(LAGEN_PER_FASE.chape).toEqual(["cd"]);
+    expect(LAGEN_PER_FASE.gepleisterd).toEqual(["pd", "cd"]);
   });
 
   it("zet bij 'snel' één droger bovenop het pakket, en verandert verder niets", () => {
