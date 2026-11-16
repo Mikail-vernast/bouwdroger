@@ -43525,54 +43525,54 @@ const G: Gemeente[] = [
     slug: "venlo",
     title: "Bouwdroger huren in Venlo | Vernast",
     description:
-      "Bouwdroger huren in Venlo: oude panden bij de Maaskade, rijwoningen in Blerick en Tegelen en huizen in Arcen en Steyl. Op afspraak geleverd en geplaatst.",
+      "Bouwdroger huren in Venlo, Blerick, Tegelen of Arcen: bovenwoningen in de binnenstad en oudere huizen bij de Maas. Leverdag op afspraak, met plaatsing en meting.",
     h1: "Bouwdroger huren in Venlo",
-    kicker: "Nederlands Limburg · logistieke stad aan de Maas",
+    kicker: "Nederlands Limburg · stad aan beide oevers van de Maas",
     rit: { afstand: "circa 160 km", tijd: "ruim anderhalf uur" },
     intro: [
-      "Venlo ligt **aan beide oevers van de Maas**, vlak bij de Duitse grens. De oude binnenstad met het **renaissancestadhuis** ligt op de oostoever, Blerick aan de overkant. Door de ligging tussen de Randstad, Antwerpen en het Ruhrgebied is Venlo uitgegroeid tot een van de grootste **logistieke knooppunten** van Nederland, met lange rijen distributiecentra langs de snelwegen.",
-      "De gemeente is veel meer dan de stad alleen. **Tegelen en Belfeld** in het zuiden hebben een verleden in de **kleiwaren en dakpannen**, Steyl is bekend om zijn **missiekloosters** aan het water, en in het noorden horen **Arcen, Lomm en Velden** erbij, dorpen tussen de Maas en de bossen langs de grens.",
+      "Venlo ligt **aan beide oevers van de Maas**, vlak bij de Duitse grens. De oude binnenstad met het **renaissancestadhuis** ligt op de oostoever, Blerick op de westoever. Langs de snelwegen staan veel distributiecentra: Venlo is een belangrijk **logistiek knooppunt**. Vanuit Aartselaar bent u er in ruim anderhalf uur.",
+      "Bij de gemeente horen ook **Tegelen**, met zijn verleden in kleiwaren en dakpannen, en **Steyl**, bekend om de missiekloosters aan de Maas. In het noorden liggen **Arcen, Lomm en Velden**, dorpen tussen de rivier en de bossen langs de grens.",
     ],
     bouw: {
       kop: "Van een pand aan de kade tot een rijwoning in Blerick",
       alineas: [
-        "In de binnenstad staan **smalle, diepe panden** met een winkel beneden en woonruimte erboven. Wie zo'n bovenwoning opnieuw indeelt, met nieuwe **gipsplaatwanden, stucwerk en een dekvloer**, brengt in korte tijd veel water in een ruimte met weinig ramen. Juist daar blijft het vocht hangen als er niemand de lucht ververst.",
-        "Dichter bij de rivier ligt de grond **laag en kleiig**, en een oudere woning heeft er vaak een kruipruimte of kelder die **koud en vochtig** blijft. Bij een renovatie in Blerick, Tegelen of langs de Maas kijkt de technieker daarom ook onder de vloer: een droge woonkamer boven een natte kruipruimte blijft niet lang droog.",
+        "In de binnenstad staan **smalle, diepe panden** met een winkel beneden en een woning erboven. Wie zo'n bovenwoning opnieuw indeelt, met **gipsplaatwanden, stucwerk en een nieuwe dekvloer**, brengt veel water in een ruimte met weinig ramen. Zonder droger blijft dat vocht er weken hangen.",
+        "Dichter bij de rivier ligt de grond **laag en kleiig**. Een oudere woning heeft er vaak een kruipruimte of kelder die **koud en vochtig** blijft. Bij een renovatie in Blerick of Tegelen kijkt de technicus daarom ook onder de vloer: boven een natte kruipruimte blijft een woonkamer niet lang droog.",
       ],
     },
     toestellen: [
-      { key: "ttk350", waarom: "**Voor een bovenwoning in de binnenstad** met nieuw stucwerk: 70 liter per dag, en hij past door een smal trapgat." },
+      { key: "ttk350", waarom: "**Voor een bovenwoning in de binnenstad** met nieuw stucwerk en een dekvloer: 70 liter per dag op een standaard stopcontact." },
       { key: "ttk650", waarom: "Voor een **grote verbouwing of een vrijstaand huis** in Arcen of Velden, waar meerdere ruimtes tegelijk moeten drogen." },
-      { key: "revolution", waarom: "**Voor de koude kelder of kruipruimte** van een ouder huis bij de Maas, waar een condensdroger nauwelijks nog vocht opneemt." },
-      { key: "ttv4500", waarom: "In een diep pand met ramen alleen aan de voorgevel zet hij **de lucht achterin in beweging**, zodat de hele verdieping gelijk droogt." },
+      { key: "revolution", waarom: "**Voor de koude kelder of kruipruimte** van een ouder huis bij de Maas. Deze adsorptiedroger werkt ook waar een condensdroger stilvalt." },
+      { key: "ttv4500", waarom: "In een diep pand met ramen alleen aan de voorgevel zet hij **de lucht achterin in beweging**, zodat de hele verdieping even snel droogt." },
     ],
     levering: {
       kop: "Leveren in Venlo: over de E34 en de A67",
       alinea:
-        "Vanuit Aartselaar rijden we **over de E34 langs Eindhoven en verder over de A67** naar Venlo. Omdat de rit lang is, spreken we **de leverdag samen af** en combineren we die waar het kan met andere adressen in Noord-Limburg. De technieker plaatst de toestellen, **meet de vochtigheid** bij de start en legt uit waar de afvoerslang heen moet.",
+        "Vanuit Aartselaar rijden we in ruim anderhalf uur **over de E34 langs Eindhoven en de A67** naar Venlo. U kiest een leverdatum bij de boeking en wij **bevestigen de leverdag samen met u**, zodat we de rit kunnen combineren met andere adressen in Noord-Limburg. De technicus plaatst de toestellen, **meet de vochtigheid** en legt de afvoerslang.",
     },
     afhalen: {
-      kop: "Afhalen in Aartselaar: vanuit Venlo meer dan drie uur rijden",
+      kop: "Afhalen in Aartselaar: vanuit Venlo ruim drie uur heen en terug",
       alinea:
-        "Heen en terug naar ons magazijn bent u **ruim drie uur onderweg**. Dat loont alleen als u toch in de buurt van Antwerpen moet zijn. Voor de meeste klussen in Venlo is **laten leveren** de logische keuze, met een plaatsing en een meting erbij.",
+        "Een enkele rit naar ons magazijn duurt ruim anderhalf uur, dus heen en terug bent u **ruim drie uur onderweg**. Dat loont alleen als u toch bij Antwerpen moet zijn. Voor de meeste klussen in Venlo is **laten leveren** de betere keuze, met plaatsing en meting erbij.",
     },
     buren: ["beesel", "peel-en-maas", "horst-aan-de-maas", "bergen-limburg"],
     faq: [
       {
         q: "Leveren jullie vanuit België ook in Venlo?",
-        a: "Ja. Ons magazijn staat in Aartselaar bij Antwerpen, en Venlo ligt via de E34 en de A67 binnen bereik. We spreken de leverdag samen af en plannen de rit zo dat de technieker de tijd heeft om alles goed op te stellen.",
+        a: "Ja. Ons magazijn staat in Aartselaar bij Antwerpen, en Venlo ligt via de E34 en de A67 binnen bereik. We stemmen de leverdag met u af en plannen de rit zo dat de technicus de tijd heeft om alles goed op te stellen.",
       },
       {
         q: "Kan een bouwdroger in een bovenwoning boven een winkel draaien?",
-        a: "Ja, zolang de afvoer geregeld is. De droger loost zijn water in een tank of via een slang in een afvoer of gootsteen. In een bovenwoning boven een winkel spreken we af waar die slang heen gaat, zodat er niets naar beneden lekt.",
+        a: "Ja, als de afvoer geregeld is. De droger vangt zijn water op in een tank of loost het via een slang in een afvoer of gootsteen. We spreken vooraf af waar die slang heen gaat, zodat er niets naar de winkel beneden lekt.",
       },
       {
         q: "Mijn huis in Blerick heeft een vochtige kruipruimte. Helpt een droger daar?",
-        a: "Voor vocht dat na een verbouwing of een lekkage in de kruipruimte achterblijft wel. Staat er steeds opnieuw grondwater, dan lost drogen het niet op en moet eerst de oorzaak weg. De technieker meet bij de plaatsing welk van de twee het is.",
+        a: "Voor vocht dat na een verbouwing of een lekkage in de kruipruimte achterblijft, wel. Komt er steeds opnieuw grondwater binnen, dan lost drogen het niet op en moet eerst de oorzaak weg. Met een vochtmeting ziet de technicus welk van de twee het is.",
       },
       {
         q: "Hoe weet ik vooraf wat de huur naar Venlo kost?",
-        a: "U krijgt vooraf een offerte waarin de huur per dag, de levering en de ophaling apart staan. Zo ziet u voor de start wat u betaalt, ook wanneer de droogperiode langer of korter uitvalt dan eerst gedacht.",
+        a: "U krijgt vooraf een offerte waarin de huur per dag, de levering en de ophaling apart staan. Zo weet u voor de start wat u betaalt, en ziet u ook wat een langere of kortere droogperiode kost.",
       },
     ],
     realisaties: [],
@@ -43583,54 +43583,54 @@ const G: Gemeente[] = [
     slug: "venray",
     title: "Bouwdroger huren in Venray | Vernast",
     description:
-      "Bouwdroger huren in Venray en de kerkdorpen zoals Oostrum, Ysselsteyn en Wanssum: nieuwbouw, boerderijen en Maasdorpen. Leverdag op afspraak, geplaatst.",
+      "Bouwdroger huren in Venray en de kerkdorpen zoals Oostrum, Ysselsteyn en Wanssum: nieuwbouw, boerderijen en Maasdorpen. Leverdag op afspraak, met plaatsing.",
     h1: "Bouwdroger huren in Venray",
-    kicker: "Nederlands Limburg · stad met dertien kerkdorpen",
-    rit: { afstand: "circa 170 km", tijd: "ongeveer een uur en drie kwartier" },
+    kicker: "Nederlands Limburg · stad met kerkdorpen tussen Peel en Maas",
+    rit: { afstand: "circa 170 km", tijd: "bijna twee uur" },
     intro: [
-      "Venray ligt in het noorden van Limburg, **tussen de Peel en de Maas**. Rond de kern liggen **een reeks kerkdorpen**: Oostrum, Oirlo, Leunen, Merselo, Castenray, Ysselsteyn en Vredepeel aan de kant van de Peel, en **Wanssum, Geijsteren en Blitterswijck** aan de Maas. In Ysselsteyn ligt de bekende **Duitse militaire begraafplaats**.",
-      "De streek is **agrarisch** gebleven, met veel boerderijen en bedrijfshallen, terwijl Venray zelf flink gegroeid is met nieuwe woonwijken. Dat maakt de klussen hier uiteenlopend: van een nieuwbouwwoning die moet uitdrogen tot een **verbouwde boerderij** op het platteland.",
+      "Venray ligt in het noorden van Limburg, **tussen de Peel en de Maas**. Rond de stad liggen **kerkdorpen** als Oostrum, Oirlo, Merselo, Ysselsteyn en Vredepeel aan de kant van de Peel, en **Wanssum, Geijsteren en Blitterswijck** aan de Maas. Bij Ysselsteyn ligt de **Duitse militaire begraafplaats**.",
+      "Het buitengebied is **agrarisch** gebleven, met boerderijen en bedrijfshallen, terwijl Venray zelf gegroeid is met nieuwe woonwijken. De klussen lopen daardoor uiteen: van een nieuwbouwwoning die moet uitdrogen tot een **verbouwde boerderij**. Vanuit Aartselaar rijden we er bijna twee uur over.",
     ],
     bouw: {
       kop: "Nieuwbouwwijken in de kern, boerderijen in de dorpen",
       alineas: [
-        "In de nieuwe wijken van Venray gaat een woning vaak **in één keer dicht**: dekvloer, stucwerk en tegelwerk volgen elkaar snel op. In die fase zit er **honderden liters water** in de vloer en de wanden. Wie dan te vroeg parket legt of gaat schilderen, krijgt opstaande naden en bladderende verf.",
-        "Een boerderij die tot woning wordt omgebouwd, heeft **dikke muren en een grote open ruimte** onder het dak. Daar droogt het niet vanzelf: de lucht staat stil en de oude stenen geven hun water traag af. Bij zo'n verbouwing combineren we een **grote droger met een ventilator**, en zo nodig met een kachel om de ruimte op temperatuur te brengen.",
+        "In de nieuwe wijken van Venray volgen dekvloer, stucwerk en tegelwerk elkaar snel op. In die fase zitten er **honderden liters water** in vloer en wanden. Wie dan te vroeg parket legt of schildert, krijgt **opstaande naden en bladderende verf**.",
+        "Een boerderij die woning wordt, heeft **dikke muren en een grote open ruimte** onder het dak. De lucht staat er stil en oude stenen geven hun water traag af. Bij zo'n verbouwing zetten we een **grote droger met een ventilator** en, in de winter, een kachel om de ruimte op temperatuur te brengen.",
       ],
     },
     toestellen: [
-      { key: "ttk350", waarom: "**Voor een nieuwbouwwoning in een van de wijken van Venray**: 70 liter per dag om de dekvloer en het stucwerk op tijd droog te krijgen." },
-      { key: "ttk650", waarom: "**Voor een verbouwde boerderij** met een groot volume onder het dak, waar een kleine droger het niet bijhoudt." },
+      { key: "ttk350", waarom: "**Voor een nieuwbouwwoning in een van de wijken van Venray**: 70 liter per dag om dekvloer en stucwerk op tijd droog te krijgen." },
+      { key: "ttk650", waarom: "**Voor een verbouwde boerderij** met een groot volume onder het dak: 110 liter per dag, voor ruimtes tot ongeveer 600 m³." },
       { key: "ttv4500", waarom: "In een open schuur of deel staat de lucht stil. Deze ventilator **verspreidt de droge lucht** tot in de hoeken." },
-      { key: "teddh30", waarom: "Een onverwarmde boerderij in de winter brengt deze kachel **eerst op temperatuur**, zodat de droger er goed kan werken." },
+      { key: "teddh30", waarom: "Brengt een onverwarmde boerderij in de winter **eerst op temperatuur**. Let op: deze kachel van 30 kW vraagt krachtstroom (400 V)." },
     ],
     levering: {
       kop: "Leveren in Venray: via Eindhoven naar de Peel",
       alinea:
-        "We rijden **over de E34 en de A67** richting Venlo en dan noordwaarts naar Venray. Een vaste termijn beloven we niet: **we spreken een leverdag af** en plannen die samen met andere ritten in Noord-Limburg. Bij een boerderij in een van de kerkdorpen zegt u best vooraf **waar de bestelwagen kan staan**, dan neemt de technieker het juiste materiaal mee.",
+        "We rijden **over de E34 en de A67** richting Venlo en dan over de A73 naar het noorden, samen bijna twee uur. Een vaste termijn beloven we niet: u kiest een leverdatum bij de boeking en **we stemmen die met u af**, zodat de rit past bij andere adressen in Noord-Limburg. Laat bij een boerderij vooraf weten **waar de bestelwagen kan staan**.",
     },
     afhalen: {
-      kop: "Afhalen vanuit Venray: een dag rijden voor een droger",
+      kop: "Afhalen vanuit Venray: bijna vier uur heen en terug",
       alinea:
-        "Naar Aartselaar en terug is **meer dan drie uur rijden**, nog los van file rond Antwerpen. Afhalen is dus zelden de moeite. Laat ons leveren: de technieker zet de toestellen op de goede plek en **meet bij de start** hoe nat vloer en muren zijn.",
+        "Naar Aartselaar en terug bent u **bijna vier uur onderweg**, file rond Antwerpen niet meegerekend. Afhalen is dus zelden de moeite. Laat ons leveren: de technicus zet de toestellen op de juiste plek en **meet bij de start** hoe nat vloer en muren zijn.",
     },
     buren: ["horst-aan-de-maas", "bergen-limburg", "land-van-cuijk", "deurne-nb"],
     faq: [
       {
         q: "Wanneer mag ik parket leggen op een nieuwe dekvloer in Venray?",
-        a: "Pas als de dekvloer droog genoeg is volgens de voorschriften van de leverancier van uw vloer. Dat meet de vloerlegger. Met een droger, gesloten ramen en een stabiele temperatuur haalt u die waarde merkbaar sneller dan met alleen ventileren.",
+        a: "Pas als de dekvloer het vochtgehalte haalt dat de leverancier van uw vloer voorschrijft. Dat meet de vloerlegger. Met een droger, gesloten ramen en een stabiele temperatuur bereikt u die waarde merkbaar sneller dan met alleen ventileren.",
       },
       {
         q: "Werkt een bouwdroger ook in een grote boerderij of schuur?",
-        a: "Ja, als de ruimte afgesloten kan worden. Een open schuur met tocht laat vochtige buitenlucht steeds opnieuw binnen. We stellen dan voor de ruimte af te schermen met folie of deuren, en rekenen het volume na voordat we het aantal toestellen kiezen.",
+        a: "Ja, als de ruimte afgesloten kan worden. Een open schuur met tocht laat steeds nieuwe vochtige buitenlucht binnen. We raden dan aan de ruimte af te schermen met folie of deuren, en rekenen het volume na voordat we het aantal toestellen kiezen.",
       },
       {
         q: "Leveren jullie ook in kerkdorpen als Ysselsteyn of Blitterswijck?",
-        a: "Ja, in heel de gemeente Venray, ook in de dorpen aan de Peel en aan de Maas. Geef het volledige adres en de toegang door, zeker bij een erf achter een hek of een woning aan een smalle landweg.",
+        a: "Ja, in de hele gemeente Venray, ook in de dorpen aan de Peel en aan de Maas. Geef bij de boeking het volledige adres en de toegang door, vooral bij een erf achter een hek of een woning aan een smalle landweg.",
       },
       {
         q: "Hoeveel toestellen heb ik nodig voor een nieuwbouwwoning?",
-        a: "Voor een gewone eengezinswoning volstaan vaak een of twee grote drogers, met de binnendeuren open en de ramen dicht. Bij een grotere woning of een natte winter adviseren we meer. De technieker bekijkt het ter plaatse en past het zo nodig aan.",
+        a: "Voor een eengezinswoning volstaan vaak een of twee grote drogers, met de binnendeuren open en de ramen dicht. Bij een grotere woning of in een natte winter adviseren we meer. De technicus bekijkt het ter plaatse en past de opstelling zo nodig aan.",
       },
     ],
     realisaties: [],
@@ -43644,47 +43644,47 @@ const G: Gemeente[] = [
       "Bouwdroger huren in Horst aan de Maas, Sevenum, Grubbenvorst of America: woningen en bedrijfsruimtes in de tuinbouwstreek. Leverdag op afspraak, geplaatst.",
     h1: "Bouwdroger huren in Horst aan de Maas",
     kicker: "Nederlands Limburg · tuinbouw tussen Peel en Maas",
-    rit: { afstand: "circa 165 km", tijd: "ongeveer een uur en drie kwartier" },
+    rit: { afstand: "circa 165 km", tijd: "ruim anderhalf uur" },
     intro: [
-      "Horst aan de Maas is een **plattelandsgemeente met veel dorpen**: Horst, Sevenum, Grubbenvorst, America, Hegelsom, Melderslo, Meterik, Lottum, Broekhuizen, Swolgen, Tienray en meer. Lottum staat bekend als **rozendorp**, en bij Horst ligt de ruïne van kasteel **Huys ter Horst**.",
-      "De streek is een van de centra van de **Nederlandse tuinbouw**. Tussen de dorpen staan **kassen, loodsen en verwerkingsbedrijven** voor groente, asperges en sierteelt. Wie hier bouwt, bouwt vaak een woning naast een bedrijf, of verbouwt een bedrijfsruimte die een andere functie krijgt.",
+      "Horst aan de Maas is een **plattelandsgemeente met veel dorpen**, onder meer Horst, Sevenum, Grubbenvorst, America, Hegelsom, Meterik, Lottum, Broekhuizen, Swolgen en Tienray. Lottum staat bekend als **rozendorp**, en bij Horst ligt de kasteelruïne **Huys ter Horst**.",
+      "De streek is een belangrijke **tuinbouwregio**. Tussen de dorpen staan **kassen, loodsen en verwerkingsbedrijven** voor groente, asperges en sierteelt. Wie hier bouwt, zet vaak een woning naast een bedrijf of geeft een bedrijfsruimte een nieuwe functie. Vanuit Aartselaar is het ruim anderhalf uur rijden.",
     ],
     bouw: {
       kop: "Woningen op zandgrond en bedrijfsruimtes bij de kassen",
       alineas: [
-        "Het grootste deel van de gemeente ligt op **droge zandgrond** richting de Peel. Het vocht bij een verbouwing komt hier dus vooral uit **het bouwwerk zelf**: een nieuwe dekvloer, vers stucwerk of een betonvloer in een aanbouw. Dat water moet eruit voordat de vloer wordt afgewerkt.",
-        "Een **loods of bedrijfshal** die wordt omgebouwd tot kantoor, kantine of huisvesting is een ander verhaal. Zo'n ruimte is groot, vaak slecht geïsoleerd en in de winter koud. Daar werkt een droger alleen goed als de ruimte **afgesloten en op temperatuur** is, en dat bespreken we vooraf.",
+        "Het grootste deel van de gemeente ligt op **zandgrond** richting de Peel. Het vocht bij een verbouwing komt hier vooral uit **het bouwwerk zelf**: een nieuwe dekvloer, vers stucwerk of een betonvloer in een aanbouw. Dat water moet eruit voordat u de vloer afwerkt.",
+        "Een **loods of bedrijfshal** die kantoor, kantine of huisvesting wordt, vraagt een andere aanpak. Zo'n ruimte is groot, vaak slecht geïsoleerd en in de winter koud. Een droger werkt er alleen goed als de ruimte **afgesloten en op temperatuur** is. Dat bespreken we vooraf.",
       ],
     },
     toestellen: [
       { key: "ttk650", waarom: "**Voor een omgebouwde loods of een groot kantoorgedeelte**: 110 liter per dag, voor een volume tot ongeveer 600 m³." },
-      { key: "ttk350", waarom: "**Voor een nieuwe woning of aanbouw** in een van de dorpen, waar een dekvloer en stucwerk tegelijk moeten drogen." },
-      { key: "teddh30", waarom: "Een **koude bedrijfsruimte in de winter** brengt deze kachel op temperatuur, zodat beton en dekvloer hun water kunnen afgeven." },
+      { key: "ttk350", waarom: "**Voor een nieuwe woning of aanbouw** in een van de dorpen, waar dekvloer en stucwerk tegelijk moeten drogen. Werkt op een standaard stopcontact." },
+      { key: "teddh30", waarom: "Brengt een **koude bedrijfsruimte in de winter** op temperatuur, zodat beton en dekvloer hun water afgeven. Hij vraagt krachtstroom (400 V)." },
       { key: "radiaal2250", waarom: "Voor **een natte hoek of vloerdeel** dat achterblijft: de radiaalventilator blaast gericht over dat ene stuk." },
     ],
     levering: {
       kop: "Leveren in Horst aan de Maas: via de A67 en de A73",
       alinea:
-        "De rit loopt **over de E34 en de A67** naar Venlo en dan via de A73 naar Horst. We **plannen de leverdag samen met u** en combineren die waar mogelijk met andere ritten in de regio. Bij een bedrijfsruimte vragen we vooraf **waar we kunnen laden en lossen** en of er een stopcontact per droogzone is.",
+        "De rit loopt **over de E34 en de A67** naar Venlo en dan via de A73 naar Horst, samen ruim anderhalf uur. U kiest bij de boeking een leverdatum en **we leggen de leverdag samen vast**, waar het kan gecombineerd met andere ritten in de regio. Bij een bedrijfsruimte vragen we vooraf **waar we kunnen laden en lossen** en of er per droogzone een stopcontact is.",
     },
     afhalen: {
       kop: "Afhalen loont vanuit Horst zelden",
       alinea:
-        "Aartselaar ligt op **ruim anderhalf uur rijden**, dus u bent heen en terug al gauw een halve dag kwijt. Wie toch naar Antwerpen moet, kan afhalen. Voor een loods of een grote verbouwing **leveren we liever**, zodat de technieker de opstelling op de ruimte kan afstemmen.",
+        "Aartselaar ligt op **ruim anderhalf uur rijden**, dus heen en terug kost u al gauw een halve dag. Moet u toch naar Antwerpen, dan kunt u afhalen. Voor een loods of een grote verbouwing **leveren we liever**, zodat de technicus de opstelling op de ruimte afstemt.",
     },
     buren: ["venlo", "venray", "peel-en-maas", "bergen-limburg"],
     faq: [
       {
         q: "Kan ik een bouwdroger huren voor een loods die kantoor wordt?",
-        a: "Ja. Een loods is groot en vaak koud, dus we kijken eerst naar het volume en de temperatuur. Meestal combineren we een grote droger met een kachel, en sluiten we het deel waar gewerkt wordt af van de rest van de hal.",
+        a: "Ja. Een loods is groot en vaak koud, dus we kijken eerst naar het volume en de temperatuur. Meestal combineren we een grote droger met een kachel, en schermen we het deel waar gewerkt wordt af van de rest van de hal.",
       },
       {
         q: "Werkt een bouwdroger in een koude ruimte zonder verwarming?",
-        a: "Een condensdroger werkt het best boven ongeveer 15 °C. In een koude ruimte zet u er een kachel bij, of kiest u een adsorptiedroger die ook bij lage temperaturen vocht opneemt. De technieker adviseert wat bij uw ruimte past.",
+        a: "Een condensdroger heeft een temperatuur boven ongeveer 15 °C nodig. In een koude ruimte zet u er een kachel bij, of kiest u een adsorptiedroger die ook bij lage temperaturen vocht opneemt. De technicus adviseert wat bij uw ruimte past.",
       },
       {
         q: "Mijn woning staat naast ons bedrijf in Sevenum. Kunnen jullie daar leveren?",
-        a: "Ja, ook op een bedrijfserf buiten de dorpskern. Geef bij de reservering door via welke ingang de technieker moet komen en of er vrachtverkeer rijdt, dan plannen we het lossen op een rustig moment.",
+        a: "Ja, ook op een bedrijfserf buiten de dorpskern. Geef bij de boeking door via welke ingang de technicus moet komen en of er vrachtverkeer rijdt, dan plannen we het lossen op een rustig moment.",
       },
       {
         q: "Hoe lang moet een nieuwe aanbouw drogen voordat ik kan afwerken?",
@@ -43704,45 +43704,45 @@ const G: Gemeente[] = [
     kicker: "Nederlands Limburg · van de Maasoever tot de Peel",
     rit: { afstand: "circa 155 km", tijd: "ruim anderhalf uur" },
     intro: [
-      "De naam zegt waar de gemeente ligt: **tussen de Peel en de Maas**, ten westen van Venlo. **Panningen** is de grootste kern, daarnaast horen Helden, Maasbree, Beringe, Egchel, Grashoek, Koningslust, **Baarlo en Kessel** aan de Maas en **Meijel** aan de rand van de Peel bij de gemeente.",
-      "Aan de rivierkant staan **kastelen en oude boerderijen**, zoals kasteel De Keverberg in Kessel. Richting het westen wordt het landschap vlakker en opener, met **tuinbouw, kassen en akkers** op wat ooit veen en heide was.",
+      "De naam zegt waar de gemeente ligt: **tussen de Peel en de Maas**, ten westen van Venlo. **Panningen** is de grootste kern. Verder horen onder meer Helden, Maasbree, Beringe, Egchel, Grashoek, Koningslust, **Baarlo en Kessel** aan de Maas en **Meijel** aan de rand van de Peel bij de gemeente.",
+      "Aan de rivierkant staan **kastelen en oude boerderijen**, zoals kasteel De Keverberg in Kessel. Naar het westen wordt het landschap open, met **tuinbouw, kassen en akkers** op wat ooit veen en heide was. Vanuit Aartselaar bent u er in ruim anderhalf uur.",
     ],
     bouw: {
       kop: "Rivierklei in Kessel en Baarlo, veengrond rond Meijel",
       alineas: [
-        "Langs de Maas, in **Kessel en Baarlo**, staan oudere huizen op **kleigrond** die lang vochtig blijft. Wie zo'n huis renoveert, heeft te maken met dikke muren zonder vochtkering en soms een kelder of kruipruimte die zich na regen weer vult. Daar meten we eerst voordat we drogen.",
-        "Rond **Meijel en Grashoek** ligt de grond lager en was het vroeger **veen**. Nieuwe woningen staan er goed, maar bouwvocht in een betonvloer of dekvloer droogt in een vochtige omgeving trager. In de centrale dorpen zoals Panningen en Helden gaat het meestal om **nieuwbouw en verbouwingen** van gewone eengezinswoningen.",
+        "Langs de Maas, in **Kessel en Baarlo**, staan oudere huizen op **kleigrond** die lang vochtig blijft. Bij een renovatie krijgt u er te maken met dikke muren zonder vochtkering en soms een kelder die na regen weer water trekt. Daar meten we eerst, en drogen we pas daarna.",
+        "Rond **Meijel en Grashoek** lag vroeger **veen**. Ook in de nieuwe woningen daar en in Panningen en Helden komt het meeste vocht uit **de bouw zelf**: een betonvloer, een dekvloer, nieuw stucwerk. Dat water haalt een droger eruit, zolang de ramen dicht blijven.",
       ],
     },
     toestellen: [
-      { key: "ttk350", waarom: "**Voor een eengezinswoning in Panningen of Helden**: 70 liter per dag op een gewoon stopcontact, genoeg voor een verdieping." },
-      { key: "revolution", waarom: "**Voor een koude kelder in een oud huis aan de Maas**, waar een adsorptiedroger ook bij lage temperatuur blijft werken." },
-      { key: "ttk170", waarom: "Voor **een badkamer of één kamer** die opnieuw gestuct is: compact en makkelijk te verplaatsen." },
-      { key: "ttv4500", waarom: "Tegen **een dikke, koude muur** van een oude boerderij blaast hij de verzadigde luchtlaag weg, zodat de droger er vat op krijgt." },
+      { key: "ttk350", waarom: "**Voor een eengezinswoning in Panningen of Helden**: 70 liter per dag op een standaard stopcontact, genoeg voor een verdieping." },
+      { key: "revolution", waarom: "**Voor een koude kelder in een oud huis aan de Maas**: deze adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
+      { key: "ttk170", waarom: "Voor **een badkamer of één kamer** die opnieuw gestuct is: 50 liter per dag, compact en makkelijk te verplaatsen." },
+      { key: "ttv4500", waarom: "Langs **een dikke, koude muur** van een oude boerderij blaast hij de vochtige luchtlaag weg, zodat de droger er vat op krijgt." },
     ],
     levering: {
       kop: "Leveren in Peel en Maas: vlak naast de A67",
       alinea:
-        "Peel en Maas ligt **direct aan de A67**, dus de rit vanuit Aartselaar loopt over de E34 langs Eindhoven en is voor Noord-Limburg relatief kort. We **leggen samen een leverdag vast** en combineren die met andere adressen in de buurt. De technieker zet de toestellen op hun plek en **noteert de beginmeting**.",
+        "De **A67 loopt door de gemeente**, dus vanuit Aartselaar rijden we over de E34 langs Eindhoven in ruim anderhalf uur tot bij u. U kiest een leverdatum bij de boeking en **we spreken de leverdag met u af**, samen met andere adressen in de buurt. De technicus zet de toestellen op hun plek en **noteert de beginmeting**.",
     },
     afhalen: {
-      kop: "Afhalen vanuit Panningen: drie uur heen en terug",
+      kop: "Afhalen vanuit Panningen: ruim drie uur heen en terug",
       alinea:
-        "Naar Aartselaar en terug bent u **ruim drie uur onderweg**. Voor één kleine droger kan dat, als u toch in België bent. Voor een verbouwing van een heel huis is **levering met plaatsing** handiger en meestal ook voordeliger in tijd.",
+        "Naar Aartselaar en terug bent u **ruim drie uur onderweg**. Voor één kleine droger kan dat, als u toch in België bent. Voor de verbouwing van een heel huis spaart **levering met plaatsing** u die rit en een halve werkdag.",
     },
     buren: ["venlo", "horst-aan-de-maas", "beesel", "leudal"],
     faq: [
       {
         q: "Mijn huis aan de Maas in Kessel blijft vochtig. Is dat bouwvocht?",
-        a: "Dat kan, maar het kan ook vocht van buitenaf zijn, zoals optrekkend vocht of een hoge grondwaterstand. Een droger haalt bouwvocht weg, geen water dat steeds opnieuw binnenkomt. De technieker meet bij de plaatsing waar het vocht vandaan komt.",
+        a: "Dat kan, maar het kan ook vocht van buitenaf zijn, zoals optrekkend vocht of een hoge grondwaterstand. Een droger haalt bouwvocht weg, geen water dat steeds opnieuw binnenkomt. De technicus meet bij de plaatsing waar het vocht vandaan komt.",
       },
       {
         q: "Kan ik een kleine droger huren voor alleen een badkamer?",
-        a: "Ja. Voor een badkamer of een enkele kamer is een compacte droger genoeg. Zet hem met de deur dicht en de ramen dicht, dan haalt hij het vocht uit het nieuwe stucwerk of tegelwerk zonder de rest van het huis te belasten.",
+        a: "Ja. Voor een badkamer of één kamer volstaat een compacte droger. Houd de deur en het raam dicht, dan haalt hij het vocht uit het nieuwe stucwerk of tegelwerk zonder dat u de rest van het huis hoeft af te sluiten.",
       },
       {
         q: "Leveren jullie ook in Meijel en Grashoek, aan de kant van de Peel?",
-        a: "Ja, in alle kernen van Peel en Maas. Meijel ligt wat verder van de snelweg, maar dat maakt voor de planning weinig uit. Geef bij de reservering het adres en de toegang door, dan houdt de technieker daar rekening mee.",
+        a: "Ja, in alle kernen van Peel en Maas. Meijel ligt wat verder van de snelweg, maar voor de planning maakt dat weinig uit. Geef bij de boeking het adres en de toegang door, dan houdt de technicus daar rekening mee.",
       },
       {
         q: "Hoe vaak moet ik de tank van de droger legen?",
@@ -43760,20 +43760,20 @@ const G: Gemeente[] = [
       "Bouwdroger huren in Beesel, Reuver of Offenbeek: woningen op de oostoever van de Maas, tussen Venlo en Roermond. Leverdag op afspraak, met vochtmeting.",
     h1: "Bouwdroger huren in Beesel",
     kicker: "Nederlands Limburg · de drakendorpen aan de Maas",
-    rit: { afstand: "circa 165 km", tijd: "ongeveer een uur en drie kwartier" },
+    rit: { afstand: "circa 165 km", tijd: "ruim anderhalf uur" },
     intro: [
-      "Beesel ligt **op de oostoever van de Maas**, tussen Venlo en Roermond, met de Duitse grens aan de achterkant. De gemeente bestaat uit **Reuver, Beesel en Offenbeek**. Het dorp Beesel is bekend om **Drakenfeest**, het openluchtspel over Sint-Joris en de draak dat er om de zoveel jaar wordt opgevoerd.",
-      "Reuver is de grootste kern, met woonwijken die op de hogere grond tegen de bossen aan liggen. De streek heeft een lange geschiedenis in de **klei**: de Maasklei werd hier gewonnen en verwerkt tot **aardewerk, buizen en bouwmaterialen**.",
+      "Beesel ligt **op de oostoever van de Maas**, tussen Venlo en Roermond, met de Duitse grens in de rug. De gemeente bestaat uit **Reuver, Beesel en Offenbeek**. Het dorp Beesel is bekend om het **Drakenfeest**, het openluchtspel over Sint-Joris en de draak.",
+      "Reuver is de grootste kern, met woonwijken op de hogere grond tegen de bossen. Langs de Maas werd lang **klei** gewonnen en verwerkt tot **aardewerk, buizen en bouwmaterialen**. Vanuit Aartselaar rijden we ruim anderhalf uur naar Beesel.",
     ],
     bouw: {
       kop: "Kleigrond bij de rivier, zandgrond tegen de bossen",
       alineas: [
-        "Dicht bij de Maas ligt de grond **lager en kleiiger**, en houden oudere huizen hun vocht langer vast. Een woning met een **kruipruimte op klei** blijft na een lekkage of een natte periode lang vochtig, en dat merkt u aan een muffe geur in de kamers erboven.",
-        "In Reuver en Offenbeek gaat het vaker om **gewone eengezinswoningen** uit de tweede helft van de vorige eeuw die een nieuwe keuken, badkamer of dekvloer krijgen. Daar is het vocht vooral **bouwvocht**, en dat haalt een goede droger er in een paar weken uit, mits de ramen dicht blijven.",
+        "Dicht bij de Maas ligt de grond **lager en kleiiger**, en daar houden oudere huizen hun vocht langer vast. Een woning met een **kruipruimte op klei** blijft na een lekkage of een natte periode lang vochtig. U merkt dat aan een muffe geur in de kamers erboven.",
+        "In Reuver en Offenbeek staan veel **eengezinswoningen** die een nieuwe keuken, badkamer of dekvloer krijgen. Daar gaat het vooral om **bouwvocht**. Een droger haalt dat er in enkele weken uit, als de ramen dicht blijven.",
       ],
     },
     toestellen: [
-      { key: "ttk350", waarom: "**Voor een eengezinswoning in Reuver** die een nieuwe dekvloer of stucwerk krijgt: 70 liter per dag, bereik tot ongeveer 400 m³." },
+      { key: "ttk350", waarom: "**Voor een eengezinswoning in Reuver** die een nieuwe dekvloer of stucwerk krijgt: 70 liter per dag, voor ruimtes tot ongeveer 400 m³." },
       { key: "revolution", waarom: "Voor **een kruipruimte of kelder op kleigrond** bij de Maas, die koud blijft en waar een condensdroger traag werkt." },
       { key: "ttk170", waarom: "Voor **een nieuwe badkamer of keuken**: compact, en genoeg voor één ruimte met de deur dicht." },
       { key: "radiaal2250", waarom: "Voor **een nat stuk vloer na een lekkage**: de radiaalventilator blaast gericht over die ene plek." },
@@ -43781,30 +43781,30 @@ const G: Gemeente[] = [
     levering: {
       kop: "Leveren in Beesel: via Venlo of via Roermond",
       alinea:
-        "Beesel ligt **tussen twee snelwegroutes**: via de E34 en de A67 naar Venlo, of door Belgisch Limburg richting Roermond. We kiezen de route die die dag het best past. **De leverdag spreken we samen af**, waarna de technieker de toestellen plaatst, de afvoer regelt en een **beginmeting** doet.",
+        "Naar Beesel rijden we **over de E34 en de A67 naar Venlo**, of door Belgisch Limburg richting Roermond. Beide routes duren ruim anderhalf uur. U kiest een leverdatum bij de boeking en **we bevestigen de leverdag in overleg**. Daarna plaatst de technicus de toestellen, regelt de afvoer en doet een **beginmeting**.",
     },
     afhalen: {
       kop: "Afhalen vanuit Beesel: zelden de rit waard",
       alinea:
-        "Heen en terug naar Aartselaar is **meer dan drie uur rijden**. Alleen als u toch in de buurt van Antwerpen bent, is afhalen een optie. Anders laat u ons **leveren en ophalen**, dan rijden wij die afstand en hoeft u geen dag vrij te nemen.",
+        "Heen en terug naar Aartselaar is **ruim drie uur rijden**. Afhalen is alleen een optie als u toch in de buurt van Antwerpen bent. Laat ons anders **leveren en ophalen**: wij rijden die afstand, u hoeft geen dag vrij te nemen.",
     },
     buren: ["venlo", "roermond", "peel-en-maas"],
     faq: [
       {
         q: "Er hangt een muffe geur in mijn huis in Beesel. Komt dat uit de kruipruimte?",
-        a: "Dat is vaak zo bij woningen op kleigrond dicht bij de Maas. Vochtige lucht uit de kruipruimte trekt door kieren in de vloer naar boven. De technieker meet de vochtigheid onder en boven de vloer en adviseert of drogen daar zin heeft.",
+        a: "Bij woningen op kleigrond dicht bij de Maas is dat vaak zo. Vochtige lucht uit de kruipruimte trekt door kieren in de vloer naar boven. De technicus meet de vochtigheid onder en boven de vloer en zegt u of drogen daar zin heeft.",
       },
       {
         q: "Kan ik een droger huren voor een kruipruimte?",
-        a: "Ja, al is het geen standaardklus. In een lage kruipruimte zetten we liever een adsorptiedroger bij het luik, die de lucht eronder droogt. Staat er water op de bodem, dan moet dat eerst weg en de oorzaak gevonden worden.",
+        a: "Ja, al vraagt het een andere opstelling. In een lage kruipruimte zetten we liever een adsorptiedroger bij het luik, die de lucht eronder droogt. Staat er water op de bodem, dan moet dat eerst weg en moet de oorzaak gevonden worden.",
       },
       {
         q: "Hoe lang huur ik een droger na een nieuwe dekvloer in Reuver?",
-        a: "Reken voor een gewone dekvloer op enkele weken, afhankelijk van de dikte en het seizoen. Wie de droger meteen na het leggen plaatst en de ramen dicht houdt, wint daar veel tijd mee. Een meting vertelt wanneer de vloer klaar is.",
+        a: "Reken voor een cementdekvloer op enkele weken, afhankelijk van de dikte en het seizoen. Wie de droger meteen na het leggen plaatst en de ramen dicht houdt, wint daar veel tijd mee. Een meting vertelt wanneer de vloer klaar is.",
       },
       {
         q: "Rijden jullie helemaal vanuit Antwerpen naar Beesel?",
-        a: "Ja. We zitten in Aartselaar en Beesel is een lange rit, daarom plannen we de levering op een afgesproken dag en combineren we die met andere adressen in Midden- en Noord-Limburg. Zo blijft de rit voor u betaalbaar.",
+        a: "Ja. Ons magazijn staat in Aartselaar en Beesel is een lange rit. Daarom leveren we op een afgesproken dag en combineren we die rit met andere adressen in Midden- en Noord-Limburg. De offerte toont vooraf wat de levering kost.",
       },
     ],
     realisaties: [],
@@ -43815,54 +43815,54 @@ const G: Gemeente[] = [
     slug: "bergen-limburg",
     title: "Bouwdroger huren in Bergen (L.) | Vernast",
     description:
-      "Bouwdroger huren in Bergen (L.), het Limburgse Bergen met Well, Afferden en Siebengewald, niet Mons of Bergen op Zoom. Leverdag op afspraak, met plaatsing.",
+      "Bouwdroger huren in Bergen (L.), met Nieuw-Bergen, Well, Afferden en Siebengewald: woningen tussen de Maas en de Maasduinen. Leverdag op afspraak, met plaatsing.",
     h1: "Bouwdroger huren in Bergen (L.)",
     kicker: "Nederlands Limburg · tussen Maas en Maasduinen",
     rit: { afstand: "circa 180 km", tijd: "bijna twee uur" },
     intro: [
-      "Deze pagina gaat over **Bergen in Nederlands Limburg**, de gemeente op de oostoever van de Maas tussen Venlo en Gennep. Niet over Bergen in Henegouwen, dat in het Frans Mons heet, en ook niet over Bergen op Zoom in Brabant. Bij de gemeente horen **Bergen, Afferden, Aijen, Siebengewald, Well en Wellerlooi**.",
-      "Het landschap is bijzonder voor Nederland: tussen de Maas en de Duitse grens liggen de **Maasduinen**, een nationaal park met **oude landduinen, heide en vennen**. Bij Well ligt het **Leukermeer**, een recreatieplas, en het dorp heeft een kasteel aan de rivier.",
+      "Bergen ligt in Noord-Limburg **op de oostoever van de Maas**, tussen Venlo en Gennep. Bij de gemeente horen **Nieuw-Bergen, Bergen, Afferden, Aijen, Siebengewald, Well en Wellerlooi**. Vanuit Aartselaar rijden we er bijna twee uur over.",
+      "Tussen de Maas en de Duitse grens liggen de **Maasduinen**, een nationaal park met **landduinen, heide en vennen**. Bij Well ligt het **Leukermeer**, een recreatieplas, en het dorp heeft een kasteel aan de rivier.",
     ],
     bouw: {
       kop: "Huizen op duinzand en woningen aan de Maas",
       alineas: [
-        "Een groot deel van de gemeente ligt **op zandgrond**. Huizen daar hebben weinig last van grondvocht, en een verbouwing draait om **bouwvocht**: een nieuwe dekvloer, stucwerk of een aanbouw. Daar werkt een condensdroger met gesloten ramen het snelst.",
-        "Dichter bij de rivier, in **Well en Aijen**, ligt de grond lager. Wie daar een **vakantiewoning of oudere woning** opknapt, heeft vaker te maken met koude muren en een vochtig gelijkvloers. Een woning die een tijd leeg heeft gestaan, moet ook eerst **opwarmen** voordat een droger echt resultaat geeft.",
+        "Een groot deel van de gemeente ligt **op zandgrond**. Huizen daar hebben weinig last van grondvocht, dus bij een verbouwing gaat het vooral om **bouwvocht**: een nieuwe dekvloer, stucwerk of een aanbouw. Een condensdroger met gesloten ramen haalt dat er het snelst uit.",
+        "Dichter bij de rivier, in **Well en Aijen**, ligt de grond lager. Wie daar een **vakantiewoning of oudere woning** opknapt, krijgt vaker te maken met koude muren en een vochtige benedenverdieping. Een huis dat een tijd leeg stond, moet eerst **opwarmen** voordat een droger zijn werk kan doen.",
       ],
     },
     toestellen: [
       { key: "ttk350", waarom: "**Voor een woning op het zand** in Bergen of Siebengewald: 70 liter per dag voor dekvloer en stucwerk." },
-      { key: "teddh20", waarom: "Voor **een vakantiewoning of huis dat lang leeg stond**: de kachel brengt de ruimte eerst boven de 15 °C." },
+      { key: "teddh20", waarom: "Voor **een vakantiewoning of huis dat lang leeg stond**: de kachel van 20 kW brengt de ruimte boven 15 °C. Hij vraagt krachtstroom (400 V)." },
       { key: "ttk170", waarom: "Voor **een kleine woning of één verbouwde kamer** bij de recreatieplas, waar een grote droger te veel is." },
-      { key: "ttv4500", waarom: "Tegen **een koude muur in een huis bij de Maas** haalt hij de natte luchtlaag weg, zodat de droger beter werkt." },
+      { key: "ttv4500", waarom: "Langs **een koude muur in een huis bij de Maas** haalt hij de natte luchtlaag weg, zodat de droger beter werkt." },
     ],
     levering: {
       kop: "Leveren in Bergen (L.): voorbij Venlo, over de Maas",
       alinea:
-        "We rijden **over de E34 en de A67** naar Venlo en dan noordwaarts, over de Maas naar de oostoever. Dat is een van de langere ritten die we maken. **De leverdag stemmen we met u af** en we combineren hem met adressen in Venlo, Venray of Gennep. Geef bij de reservering **duidelijk de plaatsnaam en postcode** door, zodat er geen verwarring met een ander Bergen ontstaat.",
+        "We rijden **over de E34 en de A67** naar Venlo en dan noordwaarts naar de oostoever van de Maas, samen bijna twee uur. U kiest een leverdatum bij de boeking, en **we stemmen de leverdag met u af** zodat we de rit kunnen combineren met adressen in Venlo, Venray of Gennep. Vul **de plaatsnaam en postcode** volledig in, dan komt er geen verwarring met een ander Bergen.",
     },
     afhalen: {
       kop: "Afhalen vanuit Bergen (L.): bijna vier uur rijden",
       alinea:
-        "Naar Aartselaar en terug is **bijna vier uur** onderweg. Dat is voor een bouwdroger zelden de moeite. Laat ons leveren en ophalen, dan **plaatst de technieker** de toestellen meteen op de goede plek.",
+        "Naar Aartselaar en terug bent u **bijna vier uur** onderweg. Voor een bouwdroger is dat zelden de moeite. Laat ons leveren en ophalen, dan **plaatst de technicus** de toestellen meteen op de juiste plek.",
     },
     buren: ["gennep", "venlo", "venray", "horst-aan-de-maas"],
     faq: [
       {
         q: "Gaat deze pagina over Bergen in Limburg of over Bergen bij Mons?",
-        a: "Over Bergen in Nederlands Limburg, met de dorpen Well, Afferden, Aijen, Siebengewald en Wellerlooi. Voor Bergen in Henegouwen, Mons, en voor Bergen op Zoom hebben we aparte pagina's. Controleer bij een bestelling de postcode, dan komt de droger op het goede adres.",
+        a: "Over Bergen in Nederlands Limburg, met onder meer Nieuw-Bergen, Well, Afferden, Aijen en Siebengewald. Bergen in Henegouwen (Mons) en Bergen op Zoom zijn andere gemeenten. Controleer bij de boeking de postcode, dan komt de droger op het juiste adres.",
       },
       {
         q: "Kan ik een droger huren voor een vakantiewoning bij het Leukermeer?",
-        a: "Ja. Na een renovatie of een lekkage in een vakantiewoning plaatsen we een droger, eventueel met een kachel als het huis onverwarmd is. Spreek af hoe de technieker binnen kan, als u er zelf niet bent op de leverdag.",
+        a: "Ja. Na een renovatie of een lekkage in een vakantiewoning plaatsen we een droger, eventueel met een kachel als het huis onverwarmd is. Spreek vooraf af hoe de technicus binnen kan als u er op de leverdag zelf niet bent.",
       },
       {
         q: "Is een woning op zandgrond sneller droog dan een op klei?",
-        a: "Het bouwvocht in een dekvloer of pleisterlaag droogt even snel, dat hangt af van de lucht in de ruimte. Het verschil zit in wat er van buiten bijkomt: op zand trekt er minder grondvocht naar binnen, dus blijft een droge vloer ook droog.",
+        a: "Het bouwvocht in een dekvloer of pleisterlaag droogt even snel, want dat hangt af van de lucht in de ruimte. Het verschil zit in wat er van buiten bijkomt: op zand trekt er minder grondvocht naar binnen, dus blijft een droge vloer ook droog.",
       },
       {
         q: "Waarom plannen jullie een vaste leverdag in plaats van een termijn?",
-        a: "Omdat Bergen ver van ons magazijn ligt, combineren we de rit met andere adressen in Noord-Limburg. Op een afgesproken dag weet u waar u aan toe bent, en heeft de technieker de tijd om alles rustig op te stellen en te meten.",
+        a: "Bergen ligt ver van ons magazijn, dus combineren we de rit met andere adressen in Noord-Limburg. Met een afgesproken dag weet u waar u aan toe bent, en heeft de technicus de tijd om alles rustig op te stellen en te meten.",
       },
     ],
     realisaties: [],
@@ -43878,37 +43878,37 @@ const G: Gemeente[] = [
     kicker: "Nederlands Limburg · waar de Niers de Maas bereikt",
     rit: { afstand: "circa 195 km", tijd: "ongeveer twee uur" },
     intro: [
-      "Gennep is een oud stadje in het noorden van Limburg, op de plek waar **de Niers uitmondt in de Maas**. Vlak bij de monding staan de resten van **het Genneperhuis**, een vesting die de oversteek bewaakte. Het **oude raadhuis** op de markt is het bekendste gebouw van de kern.",
-      "Bij de gemeente horen ook **Ottersum, Milsbeek, Ven-Zelderheide en Heijen**. Ten oosten ligt de **Duitse grens**, ten zuiden de bossen en duinen van de Maasduinen. Het is een kleine gemeente met een mengeling van een stadskern, dorpen en buitengebied.",
+      "Gennep is een oud stadje in het noorden van Limburg, op de plek waar **de Niers uitmondt in de Maas**. Bij de monding liggen de resten van **het Genneperhuis**, een vesting die de rivieren bewaakte. Het **oude raadhuis** op de markt is het bekendste gebouw van de kern.",
+      "Bij de gemeente horen ook **Ottersum, Milsbeek, Ven-Zelderheide en Heijen**. Ten oosten ligt de **Duitse grens**, ten zuiden beginnen de bossen en duinen van de Maasduinen. Vanuit Aartselaar is Gennep ongeveer twee uur rijden.",
     ],
     bouw: {
       kop: "Tussen twee rivieren: lage grond en oude kernen",
       alineas: [
-        "Waar twee rivieren samenkomen, ligt de grond **laag en is ze vaak kleiig**. Oudere woningen in de kern van Gennep en in Heijen hebben daardoor meer kans op een **vochtige kelder of kruipruimte**. Bij een renovatie meten we hier altijd eerst of het vocht uit de constructie komt of van onderen.",
-        "In **Ottersum en Milsbeek** staan veel woningen uit de naoorlogse wederopbouw en later. Die krijgen nu **nieuwe isolatie, keukens en badkamers**. Dat levert bouwvocht op dat goed weg te drogen is, zolang de woning tijdens het drogen dicht blijft en niet tegelijk wordt gelucht.",
+        "Waar twee rivieren samenkomen, ligt de grond **laag en vaak kleiig**. Oudere woningen in de kern van Gennep en in Heijen hebben daardoor vaker een **vochtige kelder of kruipruimte**. Bij een renovatie meten we hier eerst of het vocht uit de constructie komt of van onderen.",
+        "In **Ottersum en Milsbeek** krijgen veel woningen **nieuwe isolatie, een nieuwe keuken of badkamer**. Dat levert bouwvocht op dat goed weg te drogen is. Houd de woning tijdens het drogen dicht en lucht niet tegelijk.",
       ],
     },
     toestellen: [
       { key: "ttk350", waarom: "**Voor een woning in Ottersum of Milsbeek** die gerenoveerd wordt: 70 liter per dag, voor een verdieping of een open benedenruimte." },
       { key: "revolution", waarom: "**Voor de kelder van een ouder huis in de kern**, laag bij de rivieren, waar de lucht koud en vochtig blijft." },
-      { key: "ttk650", waarom: "Voor **een grote verbouwing of een woonboerderij** in het buitengebied, met veel volume tegelijk." },
+      { key: "ttk650", waarom: "Voor **een grote verbouwing of een woonboerderij** in het buitengebied: 110 liter per dag, voor ruimtes tot ongeveer 600 m³." },
       { key: "radiaal2250", waarom: "Voor **een natte vloer na een lekkage**: hij blaast gericht over het natte deel en versnelt de verdamping." },
     ],
     levering: {
       kop: "Leveren in Gennep: de lange rit naar het noorden van Limburg",
       alinea:
-        "Gennep ligt **ongeveer twee uur** van Aartselaar, via de E34, de A67 en de A73. Dat is ver, dus **we plannen de leverdag samen** en combineren de rit met andere klanten in de regio. De technieker plaatst de toestellen, legt de afvoerslang en **meet de beginwaarde** zodat u de voortgang kunt volgen.",
+        "Gennep ligt **ongeveer twee uur** van Aartselaar, via de E34, de A67 en de A73. U kiest een leverdatum bij de boeking en **we plannen de leverdag samen**, zodat we de rit kunnen combineren met andere adressen in de regio. De technicus plaatst de toestellen, legt de afvoerslang en **meet de beginwaarde**, zodat u de voortgang kunt volgen.",
     },
     afhalen: {
       kop: "Afhalen vanuit Gennep: vier uur heen en terug",
       alinea:
-        "Een retourrit naar Aartselaar kost **ongeveer vier uur**. Voor een bouwdroger is dat niet zinvol. Laat ons leveren en ophalen, ook als u de toestellen maar een paar weken nodig heeft.",
+        "Heen en terug naar Aartselaar rijdt u **ongeveer vier uur**. Voor een bouwdroger staat dat niet in verhouding. Laat ons leveren en ophalen, ook als u de toestellen maar een paar weken nodig hebt.",
     },
     buren: ["mook-en-middelaar", "bergen-limburg", "land-van-cuijk"],
     faq: [
       {
         q: "Mijn kelder in Gennep is vochtig. Kan een bouwdroger dat oplossen?",
-        a: "Als het om achtergebleven vocht na een renovatie of een lekkage gaat, wel. Komt er telkens water door de muur of de vloer, bijvoorbeeld bij een hoge waterstand, dan moet eerst de oorzaak aangepakt worden. De technieker meet bij de plaatsing wat het is.",
+        a: "Als het om achtergebleven vocht na een renovatie of een lekkage gaat, wel. Komt er telkens water door de muur of de vloer, bijvoorbeeld bij een hoge waterstand, dan moet eerst de oorzaak aangepakt worden. Een vochtmeting bij de plaatsing laat zien wat het is.",
       },
       {
         q: "Hoe ver rijden jullie voor een levering in Gennep?",
@@ -43936,49 +43936,49 @@ const G: Gemeente[] = [
     kicker: "Nederlands Limburg · de noordelijkste gemeente aan de Maas",
     rit: { afstand: "circa 205 km", tijd: "ruim twee uur" },
     intro: [
-      "Mook en Middelaar is de **noordelijkste gemeente van Limburg**, vlak onder Nijmegen. Bij de gemeente horen **Mook, Middelaar, Molenhoek en Plasmolen**. Molenhoek sluit bijna aan op de Nijmeegse wijken, terwijl Middelaar en Plasmolen landelijk zijn gebleven.",
-      "Het landschap is voor Limburg ongewoon: de **Mookerheide en de Sint-Jansberg** vormen een **heuvelachtige stuwwal** met bos en heide, vlak naast het rivierdal van de Maas. Op de heide werd in de zestiende eeuw de **Slag op de Mookerheide** uitgevochten. Langs de Maas ligt de **Mookerplas**, een grote zandwinplas.",
+      "Mook en Middelaar is de **noordelijkste gemeente van Limburg**, vlak onder Nijmegen. Bij de gemeente horen **Mook, Middelaar, Molenhoek en Plasmolen**. Molenhoek sluit bijna aan op de Nijmeegse wijken, Middelaar en Plasmolen zijn landelijk gebleven. Vanuit Aartselaar rijden we er ruim twee uur over.",
+      "De **Mookerheide en de Sint-Jansberg** vormen een **stuwwal** met bos en heide, vlak naast het rivierdal van de Maas. Op de heide werd in de zestiende eeuw de **Slag op de Mookerheide** uitgevochten. Langs de Maas ligt de **Mookerplas**, een zandwinplas.",
     ],
     bouw: {
       kop: "Villa's tegen de heuvel, dorpswoningen in het rivierdal",
       alineas: [
-        "Aan de rand van de bossen staan **vrijstaande villa's en landhuizen**, vaak met een kelder en een grote woonruimte. Wie zo'n huis verbouwt, brengt veel water in **een groot volume**. Daar is een zware droger nodig, en soms twee, om binnen de planning van de aannemer te blijven.",
-        "In **Molenhoek en Mook** gaat het vaker om rijwoningen en twee-onder-een-kapwoningen die een **nieuwe dekvloer, badkamer of keuken** krijgen. Lager in het rivierdal, dicht bij de Maas, kan een kruipruimte vochtiger zijn. De technieker meet bij de start, zodat u weet wat bouwvocht is en wat niet.",
+        "Aan de rand van de bossen staan **vrijstaande villa's en landhuizen**, vaak met een kelder en een grote woonruimte. Wie zo'n huis verbouwt, brengt veel water in **een groot volume**. Om binnen de planning van de aannemer te blijven, is daar een zware droger nodig, soms twee.",
+        "In **Molenhoek en Mook** gaat het vaker om rijwoningen en twee-onder-een-kapwoningen met een **nieuwe dekvloer, badkamer of keuken**. Lager in het rivierdal, dicht bij de Maas, is een kruipruimte vaak vochtiger. De technicus meet bij de start, zodat u weet wat bouwvocht is en wat niet.",
       ],
     },
     toestellen: [
-      { key: "ttk650", waarom: "**Voor een villa of landhuis aan de bosrand**: 110 liter per dag, bereik tot ongeveer 600 m³, voor een grote woonruimte." },
-      { key: "ttk350", waarom: "**Voor een woning in Molenhoek of Mook** met een nieuwe dekvloer: 70 liter per dag op een gewoon stopcontact." },
-      { key: "revolution", waarom: "Voor **de kelder van een villa tegen de heuvel**, die koel blijft en waar een adsorptiedroger beter werkt." },
-      { key: "ttv4500", waarom: "In **een hoge woonkamer of vide** brengt hij de lucht in beweging, zodat ook het stucwerk bovenaan gelijk droogt." },
+      { key: "ttk650", waarom: "**Voor een villa of landhuis aan de bosrand**: 110 liter per dag, voor een grote woonruimte tot ongeveer 600 m³." },
+      { key: "ttk350", waarom: "**Voor een woning in Molenhoek of Mook** met een nieuwe dekvloer: 70 liter per dag, aan te sluiten op een standaard stopcontact." },
+      { key: "revolution", waarom: "Voor **de kelder van een villa tegen de heuvel**, die koel blijft. Deze adsorptiedroger werkt daar beter dan een condensdroger." },
+      { key: "ttv4500", waarom: "In **een hoge woonkamer of vide** brengt hij de lucht in beweging, zodat ook het stucwerk bovenaan even snel droogt." },
     ],
     levering: {
       kop: "Leveren in Mook en Middelaar: de verste rit in Limburg",
       alinea:
-        "Vanuit Aartselaar rijden we **via de E34, de A67 en de A73** naar het noorden, tot bijna in Nijmegen. Het is **een van onze langste ritten**, dus we plannen de **leverdag in overleg** en combineren hem met adressen in de omgeving. Bij een villa aan een bosweg zegt u best vooraf of de oprit geschikt is voor een bestelwagen.",
+        "Vanuit Aartselaar rijden we **via de E34, de A67 en de A73** ruim twee uur naar het noorden, tot bijna in Nijmegen. Het is **een van onze langste ritten**. U kiest een leverdatum bij de boeking, we stemmen de **leverdag met u af** en combineren hem met adressen in de omgeving. Laat bij een villa aan een bosweg vooraf weten of de oprit geschikt is voor een bestelwagen.",
     },
     afhalen: {
-      kop: "Afhalen vanuit Mook: meer dan vier uur rijden",
+      kop: "Afhalen vanuit Mook: ruim vier uur rijden",
       alinea:
-        "Heen en terug naar Aartselaar is **meer dan vier uur** rijden. Dat is voor een droger geen redelijke optie. Laat ons leveren, dan **komt de technieker de toestellen plaatsen** en later weer ophalen.",
+        "Heen en terug naar Aartselaar is **ruim vier uur** rijden. Voor een droger is dat geen redelijke optie. Laat ons leveren, dan **plaatst de technicus de toestellen** en halen we ze later weer op.",
     },
     buren: ["gennep", "land-van-cuijk"],
     faq: [
       {
         q: "Leveren jullie ook in Molenhoek, zo dicht bij Nijmegen?",
-        a: "Ja, Molenhoek hoort bij de gemeente Mook en Middelaar en ligt in ons leveringsgebied. Voor adressen in Nijmegen zelf of elders in Gelderland kunt u het best contact opnemen, dan bekijken we of de rit in de planning past.",
+        a: "Ja, Molenhoek hoort bij de gemeente Mook en Middelaar en ligt in ons leveringsgebied. Voor een adres in Nijmegen zelf of elders in Gelderland bekijken we of de rit in de planning past. Vragen? Mail of bel ons gerust.",
       },
       {
         q: "Hoeveel drogers heb ik nodig voor een grote villa?",
-        a: "Dat hangt af van het volume en van hoe open het huis is. Een villa met een vide en een open keuken behandelen we als één groot volume. Vaak zetten we een zware droger beneden en een tweede op de verdieping, en rekenen ter plaatse na.",
+        a: "Dat hangt af van het volume en van hoe open het huis is. Een villa met een vide en een open keuken behandelen we als één groot volume. Vaak zetten we een zware droger beneden en een tweede op de verdieping, en rekenen we ter plaatse na.",
       },
       {
         q: "Kan de bestelwagen tot aan een huis aan de bosrand komen?",
-        a: "Meestal wel, maar onverharde of smalle bospaden zijn niet altijd geschikt. Meld bij de reservering hoe de toegang is. Dan neemt de technieker een steekwagen mee en weet hij vooraf waar hij veilig kan stoppen om uit te laden.",
+        a: "Meestal wel, maar onverharde of smalle bospaden zijn niet altijd geschikt. Meld bij de boeking hoe de toegang is. Dan neemt de technicus een steekwagen mee en weet hij vooraf waar hij veilig kan stoppen om uit te laden.",
       },
       {
         q: "Wat kost een levering in Mook en Middelaar, zo ver van Antwerpen?",
-        a: "Dat ziet u in de offerte, nog voor u bevestigt. Daar staan de huur, de levering en de ophaling apart vermeld. Omdat we de rit combineren met andere klanten in de streek, blijven de kosten voor u zo beperkt mogelijk.",
+        a: "Dat ziet u in de offerte, nog voor u bevestigt. Daarin staan de huur, de levering en de ophaling apart vermeld. We combineren de rit met andere adressen in de streek, zodat u niet alleen voor de hele afstand opdraait.",
       },
     ],
     realisaties: [],
@@ -43988,54 +43988,54 @@ const G: Gemeente[] = [
     slug: "echt-susteren",
     title: "Bouwdroger huren in Echt-Susteren | Vernast",
     description:
-      "Bouwdroger huren in Echt-Susteren: van de Maasdorpen Roosteren en Nieuwstadt tot Koningsbosch tegen de Duitse grens. Leverdag op afspraak, geplaatst en gemeten.",
+      "Bouwdroger huren in Echt-Susteren, Roosteren, Nieuwstadt of Koningsbosch. Voor een nieuwe dekvloer, vers pleisterwerk of waterschade. Levering op afspraak.",
     h1: "Bouwdroger huren in Echt-Susteren",
     kicker: "Nederlands Limburg · de smalste strook van Nederland",
     rit: { afstand: "circa 130 km", tijd: "ongeveer anderhalf uur" },
     intro: [
-      "Bij Susteren is Nederland **op zijn smalst**: tussen de Maas aan de Belgische kant en de Duitse grens blijft hier maar een paar kilometer over. In die strook liggen **Echt, Susteren, Pey, Roosteren, Dieteren en Nieuwstadt**, met de A2, het spoor en het Julianakanaal allemaal vlak naast elkaar.",
-      "Het landschap kantelt binnen die paar kilometer. **Aan de westkant de Maas en haar uiterwaarden**, met grind en rivierklei in de ondergrond; **aan de oostkant Koningsbosch en Maria-Hoop**, op hogere zandgrond tussen de bossen tegen Duitsland.",
+      "Bij Susteren is Nederland **op zijn smalst**: tussen de Maas en de Duitse grens ligt hier maar een paar kilometer. In die strook liggen Echt, Susteren, Pey, Roosteren, Dieteren en Nieuwstadt, met de A2, het spoor en het Julianakanaal vlak naast elkaar.",
+      "Aan de westkant liggen de dorpen langs de Maas, aan de oostkant Koningsbosch en Maria-Hoop tegen de Duitse grens. Vanuit ons magazijn in Aartselaar is het **ongeveer anderhalf uur rijden**. Wij leveren de toestellen, plaatsen ze en halen ze weer op.",
     ],
     bouw: {
-      kop: "Maasdorpen op klei, grensdorpen op zand",
+      kop: "Dorpen bij de Maas en nieuwbouw tegen de grens",
       alineas: [
-        "**In Roosteren en de andere dorpen bij de Maas** staan woningen die het hoogwater van de rivier kennen. Een kelder of een benedenverdieping die nat is geweest, droogt in rivierklei traag, omdat **de klei het water vasthoudt** en het weer afgeeft aan muren en vloer. Daar gaat het om weken drogen met voldoende capaciteit, niet om een paar dagen.",
-        "**In de kernen Echt en Susteren** is het werk vaker renovatie: een **oud dorpshuis met dikke bakstenen muren** dat een nieuwe dekvloer krijgt, of een woning waar het pleisterwerk vernieuwd is. In de grensdorpen op zand speelt eerder nieuwbouw, waar het bouwvocht zelf het probleem is en niet het grondwater.",
+        "**In Roosteren en de andere dorpen bij de Maas** kan hoogwater een kelder of benedenverdieping onder water zetten. Pomp eerst het water weg en haal natte vloerbedekking en isolatie eruit. Pas daarna heeft drogen zin, met een droger van voldoende capaciteit en een ventilator die over de vloer blaast.",
+        "In de kernen Echt en Susteren gaat het vaker om renovatie: **een oud dorpshuis met dikke bakstenen muren** dat een nieuwe dekvloer of nieuw pleisterwerk krijgt. Dikke muren geven hun vocht langzaam af. Laat het restvocht meten voordat de vloerlegger of de schilder begint.",
       ],
     },
     toestellen: [
-      { key: "ttk650", waarom: "**Voor een benedenverdieping in een Maasdorp na hoogwater**: 110 liter per dag, zodat het vocht uit de klei niet in de muren blijft hangen." },
-      { key: "ttk350", waarom: "Voor een dorpswoning in Echt of Susteren met een **nieuwe dekvloer**: 70 liter per dag en bereik tot ongeveer 400 m³ dekt een volledige benedenverdieping." },
-      { key: "radiaal2250", waarom: "**Laag over de vloer blazen** waar water heeft gestaan. In een kelder bij de Maas blijven de hoeken het langst nat, en daar richt deze ventilator zich op." },
-      { key: "ttk170", waarom: "Voor nieuwbouw in Koningsbosch of Maria-Hoop, kamer per kamer: **compact, 0,75 kW** op een gewoon stopcontact en makkelijk naar boven te dragen." },
+      { key: "ttk650", waarom: "**Voor een benedenverdieping na hoogwater**: 110 liter per dag, voor ruimtes tot ongeveer 600 m³." },
+      { key: "ttk350", waarom: "Voor een dorpswoning in Echt of Susteren met een **nieuwe dekvloer**: 70 liter per dag, voor ruimtes tot ongeveer 400 m³." },
+      { key: "radiaal2250", waarom: "**Blaast laag over de vloer** waar water heeft gestaan, zodat ook de hoeken van een kelder meedrogen. Spatwaterdicht volgens IP55." },
+      { key: "ttk170", waarom: "Voor nieuwbouw in Koningsbosch of Maria-Hoop, kamer per kamer: **compact, 0,75 kW** en aan te sluiten op een standaard stopcontact." },
     ],
     levering: {
-      kop: "Leveren in Echt-Susteren: de leverdag spreken we samen af",
+      kop: "Levering in Echt-Susteren: op afspraak",
       alinea:
-        "Echt-Susteren ligt **aan de A2**, maar voor ons is het een lange rit vanuit Aartselaar. Daarom **prikken we samen een leverdag** en combineren we die waar het kan met andere adressen in Midden-Limburg. Op die dag zet de technieker de toestellen neer, **meet het vocht bij de start** en stelt alles in, zodat u weet waar u staat.",
+        "Echt-Susteren ligt aan de A2, op ongeveer anderhalf uur rijden van Aartselaar. **U kiest bij de boeking een leverdatum**, en de levering zelf spreken we met u af. Waar het kan, combineren we de rit met andere adressen in Midden-Limburg. De technicus plaatst de toestellen en legt uit hoe u de condensafvoer controleert.",
     },
     afhalen: {
-      kop: "Afhalen in Aartselaar: reken op een lange rit",
+      kop: "Zelf afhalen in Aartselaar",
       alinea:
-        "Zelf afhalen kan, maar ons magazijn ligt **ongeveer anderhalf uur rijden** van Echt. Heen en terug is dat een halve dag, en een droger van **25 tot 40 kg** moet rechtop in de wagen. Voor de meeste klanten hier is laten leveren de eenvoudigste keuze.",
+        "Afhalen kan op afspraak in ons magazijn, **ongeveer anderhalf uur rijden** van Echt. Ophalen en terugbrengen kosten u samen twee halve dagen, en een droger moet rechtop in de auto staan. Voor de meeste adressen in Echt-Susteren is laten leveren daarom de eenvoudigste keuze.",
     },
     buren: ["maasgouw", "roerdalen", "sittard-geleen", "maaseik"],
     faq: [
       {
         q: "Mijn huis in Roosteren stond in het water. Hoe pakken jullie dat aan?",
-        a: "Eerst moet het staande water weg en moeten natte vloerbedekking en isolatie eruit. Daarna komt de droger, aangevuld met een ventilator die over de vloer blaast. De technieker meet bij de start hoe nat muren en vloer zijn, zodat we kunnen zien of het droogproces vooruitgaat.",
+        a: "Eerst moet het staande water weg en moeten natte vloerbedekking en isolatie eruit. Daarna plaatsen we een droger en een ventilator die over de vloer blaast. Laat muren en vloer meten voordat u afwerkt, zodat u weet dat het vocht eruit is.",
       },
       {
         q: "Leveren jullie ook in Koningsbosch en Maria-Hoop?",
-        a: "Ja, die dorpen horen bij Echt-Susteren en vallen gewoon in onze levering. Ze liggen tegen de Duitse grens, op zandgrond, en daar gaat het meestal om nieuwbouw of een verbouwing, niet om water van onderuit.",
+        a: "Ja, Koningsbosch en Maria-Hoop horen bij Echt-Susteren en vallen binnen ons leveringsgebied. Daar gaat het meestal om nieuwbouw of een verbouwing, waarbij het vocht uit de dekvloer en het pleisterwerk moet.",
       },
       {
-        q: "Waarom duurt drogen in een Maasdorp langer dan in nieuwbouw?",
-        a: "Omdat rivierklei veel water vasthoudt en het langzaam afgeeft aan vloer en muren. In nieuwbouw op zand gaat het om het water dat in de dekvloer en het pleisterwerk zit; dat raakt op. Na hoogwater komt er uit de ondergrond vaak nog een tijd vocht bij.",
+        q: "Waarom duurt drogen na hoogwater langer dan in nieuwbouw?",
+        a: "In nieuwbouw droogt u het water uit de dekvloer en het pleisterwerk, en die hoeveelheid is beperkt. Na hoogwater zit het water ook in het metselwerk en soms onder de vloer. Zolang de rivier en het grondwater hoog staan, kan er bovendien vocht bijkomen.",
       },
       {
         q: "Kan ik in Nederland een bouwdroger huren bij een Belgisch bedrijf?",
-        a: "Ja. We leveren vanuit Aartselaar bij Antwerpen en rijden voor Nederlands Limburg op afgesproken dagen. De offerte vooraf maakt duidelijk wat de huur, de levering en de ophaling kosten, zodat u niet voor verrassingen komt te staan.",
+        a: "Ja. We leveren vanuit Aartselaar bij Antwerpen, ook in het zuiden van Nederland. De offerte vooraf maakt duidelijk wat huur, levering en ophaling kosten. Vragen? Mail of bel ons gerust.",
       },
     ],
     realisaties: [],
@@ -44046,54 +44046,54 @@ const G: Gemeente[] = [
     slug: "leudal",
     title: "Bouwdroger huren in Leudal | Vernast",
     description:
-      "Bouwdroger huren in Leudal: Heythuysen, Haelen, Roggel, Neer of Horn. Boerderijen en dorpshuizen tussen Peel en Maas, geplaatst op een afgesproken leverdag.",
+      "Bouwdroger huren in Leudal: Heythuysen, Haelen, Roggel, Neer of Horn. Voor verbouwde boerderijen, dorpswoningen en waterschade. Levering op afspraak.",
     h1: "Bouwdroger huren in Leudal",
     kicker: "Nederlands Limburg · dorpen tussen de Peel en de Maas",
-    rit: { afstand: "circa 120 km", tijd: "ongeveer een uur en twintig minuten" },
+    rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
     intro: [
-      "Leudal is **een gemeente van dorpen**: Heythuysen, Haelen, Roggel, Neer, Horn, Hunsel, Baexem, Grathem en nog een flink aantal kleinere kernen. Ze is genoemd naar **het Leudal**, het beekdal van de Leubeek, een bosrijk natuurgebied midden in de gemeente.",
-      "**Aan de westkant loopt het land op naar de Peel**, met zandgrond en vroeger veen rond Heibloem en Roggel. **Aan de oostkant ligt de Maas**, met de dorpen Neer, Buggenum en Horn dicht bij de rivier. Tussen die twee lopen meerdere beken van de Peel naar de Maas.",
+      "Leudal is **een gemeente van dorpen**: Heythuysen, Haelen, Roggel, Neer, Horn, Hunsel, Baexem, Grathem en een reeks kleinere kernen. De naam komt van het Leudal, het bosrijke dal van de Leubeek midden in de gemeente.",
+      "Aan de westkant loopt het land op naar de Peel, aan de oostkant liggen Neer, Buggenum en Horn dicht bij de Maas. Vanuit ons magazijn in Aartselaar rijden we er **ruim een uur** over.",
     ],
     bouw: {
       kop: "Boerderijen, dorpshuizen en woningen bij de beken",
       alineas: [
-        "Het platteland van Leudal telt veel **oude boerderijen en schuren** die tot woning worden verbouwd. Zo'n verbouwing brengt in één keer veel water binnen: **een nieuwe dekvloer op een grote oppervlakte**, nieuw pleisterwerk tegen oude muren. Een open schuur of een hoge deel heeft bovendien veel volume, en dat vraagt meer droogcapaciteit dan een gewone woonkamer.",
-        "**In de dorpen langs de Maas en de beken** speelt iets anders: een kelder of een laag gelegen benedenverdieping die vocht trekt bij hoog water. In de Maasdorpen weten bewoners nog goed hoe hoog de rivier in de jaren negentig kwam. **Na wateroverlast eerst leegpompen**, dan pas drogen, en de technieker kijkt of er nog water van onderuit komt.",
+        "In het buitengebied van Leudal worden veel **oude boerderijen en schuren** tot woning verbouwd. Zo'n verbouwing brengt in één keer veel water binnen: een nieuwe dekvloer over een grote oppervlakte en nieuw pleisterwerk tegen oude muren. Een hoge schuur heeft bovendien veel volume, en dat vraagt meer droogcapaciteit dan een woonkamer.",
+        "In de dorpen langs de Maas en de beken kan een kelder of een laag gelegen benedenverdieping nat worden bij hoog water. **Pomp na wateroverlast eerst leeg** en haal natte materialen weg. Daarna plaatsen we een droger en zo nodig een ventilator.",
       ],
     },
     toestellen: [
-      { key: "ttk650", waarom: "**Voor een verbouwde schuur of deel met veel volume**: 110 liter per dag en bereik tot ongeveer 600 m³ in één toestel." },
-      { key: "ttv4500", waarom: "In een hoge, open ruimte blijft natte lucht boven de vloer hangen. **4.500 m³ per uur** zet die lucht in beweging, zodat de dekvloer gelijkmatig droogt." },
-      { key: "teddh30", waarom: "**Voor een onverwarmde boerderij in de winter.** Onder 15 °C werkt een condensdroger traag; deze kachel brengt de ruimte op temperatuur." },
-      { key: "ttk350", waarom: "Voor een dorpswoning in Heythuysen of Haelen: 70 liter per dag, genoeg voor een benedenverdieping met nieuw pleisterwerk of een nieuwe dekvloer." },
+      { key: "ttk650", waarom: "**Voor een verbouwde schuur met veel volume**: 110 liter per dag, voor ruimtes tot ongeveer 600 m³." },
+      { key: "ttv4500", waarom: "In een hoge, open ruimte blijft vochtige lucht boven de vloer hangen. **4 500 m³ per uur** zet die lucht in beweging, zodat de dekvloer gelijkmatig droogt." },
+      { key: "teddh30", waarom: "**Voor een onverwarmde boerderij in de winter.** Onder 15 °C werkt een condensdroger traag. Deze kachel van 30 kW vraagt een 400 V-aansluiting (krachtstroom)." },
+      { key: "ttk350", waarom: "Voor een dorpswoning in Heythuysen of Haelen: 70 liter per dag, voor een benedenverdieping met nieuw pleisterwerk of een nieuwe dekvloer." },
     ],
     levering: {
-      kop: "Leveren in Leudal: op een vaste dag, samen gepland",
+      kop: "Levering in Leudal: u kiest een leverdatum",
       alinea:
-        "Leudal ligt **ver van ons magazijn** en de dorpen liggen uit elkaar, dus **plannen we de levering op een dag die we samen afspreken**, met een tijdslot. Vertel ons bij de reservatie of het om een schuur, een kelder of een woning gaat. Dan **brengt de technieker de juiste toestellen** mee en hoeft hij geen tweede keer te rijden.",
+        "De kernen van Leudal liggen ver uit elkaar en op ruim een uur van ons magazijn. Daarom leveren we hier **op afspraak**: u kiest een leverdatum bij de boeking en wij bevestigen de levering. Vermeld of het om een schuur, een kelder of een woning gaat, dan brengt de technicus de juiste toestellen mee.",
     },
     afhalen: {
       kop: "Afhalen kan, maar het is ver",
       alinea:
-        "Ons afhaalpunt in Aartselaar ligt op **ongeveer een uur en twintig minuten**, via Belgisch Limburg of via Eindhoven. Voor een grote verbouwing met meerdere toestellen past dat zelden in één wagen. **Laten leveren spaart u de rit** en de vochtmeting zit erbij.",
+        "Ons magazijn in Aartselaar ligt op **ruim een uur rijden** van Leudal. Voor een verbouwing met meerdere toestellen past dat zelden in één auto. Laten leveren bespaart u twee keer een rit heen en terug.",
     },
     buren: ["roermond", "maasgouw", "nederweert", "weert", "peel-en-maas"],
     faq: [
       {
         q: "Hoe droog ik een verbouwde boerderij met een hoge deel?",
-        a: "Met meer capaciteit dan voor een gewone woning, en met luchtbeweging. In een hoge ruimte stijgt warme vochtige lucht op en blijft koude lucht boven de vloer hangen. Een ventilator mengt die lucht, en een grote droger haalt het vocht eruit. Sluit de ruimte zo goed mogelijk af, anders droogt u de buitenlucht.",
+        a: "Met meer capaciteit dan in een woning, en met luchtbeweging. In een hoge ruimte stijgt warme, vochtige lucht op en blijft koudere lucht boven de vloer hangen. Een ventilator mengt die lucht en een grote droger haalt het vocht eruit. Sluit de ruimte zo goed mogelijk af, anders droogt u de buitenlucht.",
       },
       {
         q: "Bedienen jullie alle kernen van Leudal?",
-        a: "Ja, van Heibloem en Roggel aan de Peelkant tot Neer, Buggenum en Horn bij de Maas, en ook Hunsel, Ittervoort en Neeritter in het zuiden. Omdat de kernen ver uit elkaar liggen, spreken we de leverdag samen met u af.",
+        a: "Ja, van Heibloem en Roggel aan de kant van de Peel tot Neer, Buggenum en Horn bij de Maas, en ook Hunsel, Ittervoort en Neeritter. Omdat de kernen ver uit elkaar liggen, stemmen we de leverdatum met u af.",
       },
       {
         q: "Moet er in de winter een kachel bij in een onverwarmde schuur?",
-        a: "Meestal wel. Een condensdroger haalt onder ongeveer 15 °C veel minder water uit de lucht, en in een schuur zonder verwarming wordt het in de winter kouder dan dat. Een elektrische kachel brengt de ruimte op temperatuur, zodat de droger weer zijn volle capaciteit haalt.",
+        a: "Meestal wel. Een condensdroger haalt onder ongeveer 15 °C veel minder water uit de lucht, en een onverwarmde schuur wordt in de winter kouder dan dat. Een elektrische bouwkachel brengt de ruimte op temperatuur. De kachels van 20 en 30 kW vragen wel een 400 V-aansluiting.",
       },
       {
-        q: "Wat als het op de afgesproken einddatum nog niet droog is?",
-        a: "Dan beslist de meting. Bij de ophaling meet de technieker het vocht in vloer en muren. Zit het nog boven de waarde die uw vloerder of schilder vraagt, dan loopt de droging volgens de Drooggarantie kosteloos door tot het wel zover is.",
+        q: "Wat als de dekvloer op de geplande einddatum nog niet droog is?",
+        a: "Laat het restvocht meten met een methode die bij de dekvloer past. Zit het nog boven de waarde die uw vloerlegger vraagt, neem dan contact met ons op. Dan bekijken we samen een verlenging van de huur.",
       },
     ],
     realisaties: [],
@@ -44104,46 +44104,46 @@ const G: Gemeente[] = [
     slug: "maasgouw",
     title: "Bouwdroger huren in Maasgouw | Vernast",
     description:
-      "Bouwdroger huren in Maasgouw: het witte stadje Thorn, Maasbracht, Stevensweert en Heel, tussen de Maasplassen. Op een afgesproken dag geleverd en geplaatst.",
+      "Bouwdroger huren in Maasgouw: Thorn, Maasbracht, Stevensweert, Heel en Wessem. Voor oude panden, nieuwbouw en natte kelders bij de Maas. Levering op afspraak.",
     h1: "Bouwdroger huren in Maasgouw",
     kicker: "Nederlands Limburg · Thorn en de Maasplassen",
-    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
+    rit: { afstand: "circa 125 km", tijd: "bijna anderhalf uur" },
     intro: [
-      "Maasgouw bestaat uit **Thorn, Maasbracht, Heel, Wessem, Beegden, Linne, Stevensweert en Ohé en Laak**. Bekendst is **Thorn, het witte stadje**, waar de huizen rond de abdijkerk wit geschilderd zijn. **Maasbracht** is een binnenvaartdorp, met een grote haven en de sluis in het Julianakanaal.",
-      "Daartussen liggen **de Maasplassen**: grote meren die zijn ontstaan door het afgraven van grind. Dat zegt meteen iets over de ondergrond. **Onder Maasgouw zit grind en zand**, met rivierklei erboven, en het grondwater hangt nauw samen met de stand van de Maas.",
+      "Maasgouw bestaat uit Thorn, Maasbracht, Heel, Wessem, Beegden, Linne, Stevensweert en Ohé en Laak. Het bekendst is **Thorn, het witte stadje**, met witgekalkte huizen rond de abdijkerk. Maasbracht is een binnenvaartdorp met een grote haven en een sluis in het Julianakanaal.",
+      "Tussen de dorpen liggen de **Maasplassen**, meren die zijn ontstaan door grindwinning. Het grondwater hangt hier nauw samen met de stand van de Maas. Ons magazijn in Aartselaar ligt op bijna anderhalf uur rijden.",
     ],
     bouw: {
       kop: "Witte gevels, oude muren en het peil van de Maas",
       alineas: [
-        "**In Thorn en het oude Stevensweert** staan historische huizen met dikke bakstenen muren. Die muren zijn vaak gekalkt of geschilderd, en dat is precies waarom ze **rustig moeten drogen**: wie een oude muur te snel droogt, krijgt scheuren in het pleisterwerk of zouten die naar buiten komen. Een droger op de juiste capaciteit, met een meting bij de start, houdt dat beheersbaar.",
-        "**In de dorpen dicht bij de Maas en de plassen** komt het vocht eerder van onderen. Bij hoog water stijgt het grondwater mee, en een kelder of een laag gelegen woning kan dan vocht trekken. In de nieuwere wijken van Maasbracht en Heel gaat het vaker om **een nieuwbouwwoning met een verse dekvloer** die droog moet voor de vloer erop gaat.",
+        "**In Thorn en Stevensweert** staan oude huizen met dikke bakstenen muren, vaak gekalkt of geschilderd. Zulke muren moeten rustig drogen: wie te snel droogt, riskeert scheuren in het pleisterwerk of zouten die naar de oppervlakte komen. Kies daarom een droger op maat van de ruimte, niet de grootste.",
+        "In de dorpen dicht bij de Maas en de plassen komt het vocht vaker van onderen. Bij hoog water stijgt het grondwater mee en kan een kelder vocht trekken. In de nieuwere wijken van Maasbracht en Heel gaat het eerder om **een nieuwbouwwoning met een verse dekvloer** die droog moet zijn voordat de vloer erop komt.",
       ],
     },
     toestellen: [
-      { key: "ttk170", waarom: "**Voor een oud huis in Thorn, kamer per kamer**: 50 liter per dag, rustig genoeg om gekalkte muren niet te snel uit te drogen." },
-      { key: "ttk650", waarom: "Voor een kelder of benedenverdieping die bij hoog water van de Maas vocht trok: **110 liter per dag** en bereik tot ongeveer 600 m³." },
-      { key: "revolution", waarom: "**Voor een zwevende vloer of een wand in een oud pand.** Deze adsorptiedroger blaast droge lucht via slangen in de constructie, zodat u niet hoeft uit te breken." },
-      { key: "ttk350", waarom: "Voor nieuwbouw in Maasbracht of Heel: 70 liter per dag, op maat van een volledige woning met een verse dekvloer." },
+      { key: "ttk170", waarom: "**Voor een oud huis in Thorn, kamer per kamer**: 50 liter per dag, voor ruimtes tot ongeveer 250 m³, zodat oude muren niet te hard drogen." },
+      { key: "ttk650", waarom: "Voor een kelder of benedenverdieping die bij hoog water vocht trok: **110 liter per dag**, voor ruimtes tot ongeveer 600 m³." },
+      { key: "revolution", waarom: "**Voor een zwevende vloer of een voorzetwand.** Deze adsorptiedroger blaast droge lucht via slangen in de constructie en werkt ook in een koude ruimte." },
+      { key: "ttk350", waarom: "Voor nieuwbouw in Maasbracht of Heel: 70 liter per dag, voor een woning met een verse dekvloer tot ongeveer 400 m³." },
     ],
     levering: {
-      kop: "Leveren in Maasgouw: een leverdag die we samen kiezen",
+      kop: "Levering in Maasgouw: op een datum die u kiest",
       alinea:
-        "Maasgouw ligt **net over de Maas tegenover Kinrooi en Maaseik**, en dat is ook de route die we vaak nemen. De leverdag **spreken we samen af**, met een tijdslot. Voor de smalle straatjes van Thorn is het handig om bij de reservatie te zeggen **waar de bestelwagen kan stoppen**, dan houdt de technieker daar rekening mee.",
+        "We rijden naar Maasgouw via de E313 en Belgisch Limburg, en steken de Maas over bij Kinrooi of Maaseik. Bij de boeking kiest u een leverdatum; het precieze moment van de levering spreken we met u af. In de smalle straten van Thorn helpt het als u vooraf meldt **waar de bestelwagen kan stoppen**.",
     },
     afhalen: {
       kop: "Zelf afhalen: een rit via Belgisch Limburg",
       alinea:
-        "Aartselaar ligt **ongeveer een uur en twintig minuten** van Thorn, via de E313 en Belgisch Limburg. Neem een wagen waarin een droger **rechtop** kan staan; liggend vervoeren beschadigt het toestel. Voor een kelder na hoog water is leveren de snellere weg.",
+        "Aartselaar ligt **bijna anderhalf uur** rijden van Thorn. Neem een auto waarin een droger rechtop kan staan, want liggend vervoeren kan het toestel beschadigen. Voor een kelder na hoog water is laten leveren de eenvoudigere weg.",
     },
     buren: ["roermond", "echt-susteren", "leudal", "kinrooi", "maaseik"],
     faq: [
       {
         q: "Kan een bouwdroger kwaad in een historisch huis in Thorn?",
-        a: "Niet als hij op de juiste capaciteit staat. Oude kalkmuren hebben tijd nodig: te snel en te hard drogen kan scheurtjes geven of zouten naar buiten trekken. Daarom kiezen we hier vaak een kleiner toestel per ruimte en meet de technieker bij de start, zodat de droging gecontroleerd verloopt.",
+        a: "Niet als het toestel bij de ruimte past. Oude kalkmuren hebben tijd nodig: te snel en te hard drogen kan scheurtjes geven of zouten naar buiten trekken. Daarom kiezen we in zo'n huis vaak een kleiner toestel per kamer, zodat de droging rustig verloopt.",
       },
       {
         q: "Wat is een adsorptiedroger en wanneer heb ik die nodig?",
-        a: "Een adsorptiedroger blaast droge lucht via slangen in een constructie, bijvoorbeeld onder een zwevende vloer of in een voorzetwand. Dat is nuttig als er water onder de vloer is gelopen en u niet wilt uitbreken. Het werkt ook bij lage temperatuur. Bel ons eerst, dan schatten we samen in of uw vloer zich ervoor leent.",
+        a: "Een adsorptiedroger blaast droge lucht via slangen in een constructie, bijvoorbeeld onder een zwevende vloer of achter een voorzetwand. Dat helpt als er water onder de vloer is gelopen. Hij werkt ook in koude ruimtes. Bel ons eerst, dan bekijken we samen of uw vloer zich ervoor leent.",
       },
       {
         q: "Speelt het peil van de Maasplassen mee bij een natte kelder?",
@@ -44151,7 +44151,7 @@ const G: Gemeente[] = [
       },
       {
         q: "Leveren jullie ook op het eiland van Stevensweert en in Ohé en Laak?",
-        a: "Ja, die horen bij Maasgouw en vallen in onze levering. Geef bij de reservatie het volledige adres en eventuele bijzonderheden over de toegang door, dan plannen we de rit en het tijdslot daarop.",
+        a: "Ja, Stevensweert en Ohé en Laak horen bij Maasgouw en vallen binnen ons leveringsgebied. Geef bij de boeking het volledige adres en eventuele bijzonderheden over de toegang door, dan plannen we de rit daarop.",
       },
     ],
     realisaties: [],
@@ -44162,54 +44162,54 @@ const G: Gemeente[] = [
     slug: "nederweert",
     title: "Bouwdroger huren in Nederweert | Vernast",
     description:
-      "Bouwdroger huren in Nederweert, Ospel of Leveroy: woningen en boerderijen op Peelgrond, waar het grondwater hoog staat. Leverdag samen afgesproken, vocht gemeten.",
+      "Bouwdroger huren in Nederweert, Ospel of Leveroy: voor woningen, verbouwde stallen en een nieuwe dekvloer aan de rand van de Peel. Levering op afspraak.",
     h1: "Bouwdroger huren in Nederweert",
     kicker: "Nederlands Limburg · aan de rand van de Peel",
-    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwart" },
+    rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
     intro: [
-      "Nederweert ligt **op de overgang van de Kempen naar de Peel**. Bij het dorp komen drie kanalen samen: de **Zuid-Willemsvaart**, de **Noordervaart** en het **kanaal Wessem-Nederweert**. Rond de kern liggen Budschop, Ospel, Leveroy en Nederweert-Eind.",
-      "Aan de noordkant begint **de Groote Peel**, een nationaal park van hoogveen dat vroeger veel groter was. Een groot deel van het land rond Nederweert is **ontgonnen Peelgrond**: zand met resten van veen, waar het grondwater van nature hoog staat. Het buitengebied is landbouwgrond, met veel boerenbedrijven.",
+      "Nederweert ligt **op de overgang van de Kempen naar de Peel**. Bij het dorp komen drie kanalen samen: de Zuid-Willemsvaart, de Noordervaart en het kanaal Wessem-Nederweert. Bij de gemeente horen ook Budschop, Ospel, Leveroy en Nederweert-Eind.",
+      "Aan de noordkant ligt **Nationaal Park De Groote Peel**. Een groot deel van het buitengebied is landbouwgrond, met veel boerenbedrijven. Vanuit ons magazijn in Aartselaar is het ruim een uur rijden, via Lommel en Weert.",
     ],
     bouw: {
-      kop: "Hoog grondwater en verbouwde bedrijfsgebouwen",
+      kop: "Vochtige kruipruimtes en verbouwde bedrijfsgebouwen",
       alineas: [
-        "**Op Peelgrond staat het grondwater dicht onder het maaiveld.** Een woning zonder kelder heeft daar weinig last van, maar een kruipruimte kan vochtig blijven en een nieuwe dekvloer op een koude ondergrond droogt trager dan op een droge zandrug. In een natte winter merkt u dat aan **een muffe geur** of condens tegen koude muren.",
-        "**In het buitengebied** worden boerderijen en bedrijfsgebouwen verbouwd tot woning of uitgebreid. Dat betekent grote oppervlakken nieuwe dekvloer en vaak **een ruimte die nog niet verwarmd wordt**. In de dorpskernen gaat het eerder om een rijtjeshuis of twee-onder-een-kap met een nieuwe badkamer of een vernieuwde benedenverdieping.",
+        "Op de lage Peelgrond staat het grondwater vaak dicht onder het maaiveld. Een kruipruimte kan daar vochtig blijven, en in een natte winter merkt u dat aan **een muffe geur** of condens tegen koude muren. Een bouwdroger lost dat alleen op als het vocht van een lekkage of een verbouwing komt.",
+        "In het buitengebied worden boerderijen en bedrijfsgebouwen tot woning verbouwd. Dat betekent grote oppervlakken nieuwe dekvloer en vaak **een ruimte zonder verwarming**. In de dorpskernen gaat het eerder om een rijtjeshuis of een twee-onder-een-kap met een nieuwe badkamer of een vernieuwde benedenverdieping.",
       ],
     },
     toestellen: [
-      { key: "ttk350", waarom: "**Voor een woning op Peelgrond met een nieuwe dekvloer**: 70 liter per dag houdt het tempo erin, ook als de ondergrond koel en vochtig is." },
-      { key: "teddh20", waarom: "Voor een verbouwd bedrijfsgebouw of een garage die nog niet verwarmd wordt: **deze kachel brengt de ruimte op werkingstemperatuur** voor de droger." },
-      { key: "ttv4500", waarom: "**Voor een grote, vlakke dekvloer** in een verbouwde stal of schuur: de ventilator breekt de verzadigde luchtlaag boven de vloer." },
-      { key: "ttk170", waarom: "Voor een badkamer of een kamer in een dorpswoning in Ospel of Budschop: compact en op een gewoon stopcontact." },
+      { key: "ttk350", waarom: "**Voor een woning met een nieuwe dekvloer**: 70 liter per dag, voor ruimtes tot ongeveer 400 m³." },
+      { key: "teddh20", waarom: "Voor een verbouwd bedrijfsgebouw of een garage zonder verwarming: **20 kW op 400 V** brengt de ruimte op een temperatuur waarbij de droger goed werkt." },
+      { key: "ttv4500", waarom: "**Voor een grote, vlakke dekvloer** in een verbouwde stal of schuur: 4 500 m³ per uur breekt de vochtige luchtlaag boven de vloer." },
+      { key: "ttk170", waarom: "Voor een badkamer of een kamer in een woning in Ospel of Budschop: compact, 0,75 kW en op een standaard stopcontact." },
     ],
     levering: {
-      kop: "Leveren in Nederweert: op afspraak, met een tijdslot",
+      kop: "Levering in Nederweert: op afspraak",
       alinea:
-        "Nederweert is **vanuit Aartselaar bereikbaar via Lommel en Weert**. De leverdag **leggen we samen vast** en waar het kan combineren we die met andere ritten in de regio. Ligt uw adres in het buitengebied aan een smalle weg of op een erf, zeg dan **waar de bestelwagen kan keren**. De technieker zet de toestellen neer en meet bij de start.",
+        "Bij de boeking kiest u de gewenste leverdatum; het precieze moment stemmen we daarna met u af. Waar het kan, combineren we de rit met andere adressen in de regio. Ligt uw adres in het buitengebied aan een smalle weg of op een erf, meld dan **waar de bestelwagen kan keren**. De technicus plaatst de toestellen en stelt ze in.",
     },
     afhalen: {
-      kop: "Afhalen in Aartselaar: over de grens bij Hamont",
+      kop: "Afhalen in Aartselaar: ruim een uur rijden",
       alinea:
-        "Wie zelf rijdt, is **ongeveer een uur en een kwart** onderweg naar ons magazijn. Voor één compact toestel kan dat, op voorwaarde dat het **rechtop** in de wagen past. Voor een verbouwing met meerdere toestellen en een kachel is laten leveren praktischer.",
+        "Wie zelf rijdt, is **ruim een uur** onderweg naar ons magazijn. Voor één compact toestel kan dat, als het rechtop in de auto past. Voor een verbouwing met meerdere toestellen en een kachel is laten leveren praktischer.",
     },
     buren: ["weert", "leudal", "peel-en-maas", "asten", "someren"],
     faq: [
       {
         q: "Waarom blijft mijn kruipruimte in Nederweert vochtig?",
-        a: "Op Peelgrond staat het grondwater hoog, en een kruipruimte ligt daar dicht boven. Een bouwdroger haalt het vocht uit de lucht, maar als het grondwater blijft aanvoeren is dat dweilen met de kraan open. Na een lekkage of een verbouwing helpt drogen wel; bij blijvend vocht moet ook de oorzaak bekeken worden.",
+        a: "Op lage Peelgrond staat het grondwater vaak hoog, en een kruipruimte ligt daar dicht boven. Een bouwdroger haalt vocht uit de lucht, maar als het grondwater blijft aanvoeren, is dat dweilen met de kraan open. Na een lekkage of een verbouwing helpt drogen wel; bij blijvend vocht moet ook de oorzaak bekeken worden.",
       },
       {
         q: "Droogt een dekvloer in een verbouwde stal net zo snel als in een woning?",
-        a: "Meestal trager. Een stal of schuur is groter, hoger en vaak nog niet verwarmd. Dan heeft u meer droogcapaciteit nodig, een ventilator die de lucht boven de vloer in beweging houdt en in de koude maanden een kachel erbij. De technieker rekent dat bij de plaatsing na.",
+        a: "Meestal trager. Een stal of schuur is groter, hoger en vaak nog onverwarmd. Dan heeft u meer droogcapaciteit nodig, een ventilator die de lucht boven de vloer in beweging houdt en in de koude maanden een bouwkachel. Geef ons de afmetingen door, dan stellen we de opstelling samen.",
       },
       {
         q: "Komen jullie ook in Ospel, Leveroy en Nederweert-Eind?",
-        a: "Ja, die kernen horen bij de gemeente en vallen gewoon binnen onze levering. Omdat het buitengebied uitgestrekt is, vragen we bij de reservatie het volledige adres en spreken we een leverdag met tijdslot af.",
+        a: "Ja, die kernen horen bij de gemeente en vallen binnen ons leveringsgebied. Omdat het buitengebied uitgestrekt is, vragen we bij de boeking het volledige adres en eventuele bijzonderheden over de toegang.",
       },
       {
         q: "Hoe weet ik dat de dekvloer klaar is voor de vloerlegger?",
-        a: "Door te meten. Welke waarde de vloerlegger accepteert, hangt af van het soort dekvloer en wat erop komt. Onze technieker meet het vocht bij de start en bij de ophaling, zodat u een concreet getal hebt om door te geven in plaats van een schatting.",
+        a: "Door te meten. Welke vochtwaarde de vloerlegger accepteert, hangt af van het soort dekvloer en de vloer die erop komt. Laat het restvocht meten met een methode die bij de dekvloer past, zodat u een concreet getal kunt doorgeven in plaats van een schatting.",
       },
     ],
     realisaties: [],
@@ -44220,54 +44220,54 @@ const G: Gemeente[] = [
     slug: "roerdalen",
     title: "Bouwdroger huren in Roerdalen | Vernast",
     description:
-      "Bouwdroger huren in Roerdalen: Sint Odiliënberg, Herkenbosch, Vlodrop en Melick in het dal van de Roer, tegen de Duitse grens. Geleverd op een afgesproken dag.",
+      "Bouwdroger huren in Roerdalen: Sint Odiliënberg, Herkenbosch, Vlodrop en Melick, in het dal van de Roer. Voor waterschade, nieuwbouw en renovatie, op afspraak.",
     h1: "Bouwdroger huren in Roerdalen",
     kicker: "Nederlands Limburg · het dal van de Roer",
     rit: { afstand: "circa 140 km", tijd: "ruim anderhalf uur" },
     intro: [
-      "Roerdalen ligt **in het dal van de Roer**, de rivier die uit Duitsland komt en bij Roermond in de Maas uitmondt. De gemeente telt onder meer **Sint Odiliënberg** met zijn basiliek, **Herkenbosch, Melick, Vlodrop, Montfort en Posterholt**, en grenst in het oosten aan Duitsland.",
-      "Aan die oostkant ligt **het Nationaal Park De Meinweg**, met heide, bos en zandgrond die hoger ligt dan het rivierdal. **Langs de Roer zelf** is de grond lager en kleiiger. Wie in Roerdalen woont, woont dus ofwel op droog zand aan de bosrand, ofwel dicht bij een rivier die bij veel regen snel kan stijgen.",
+      "Roerdalen ligt **in het dal van de Roer**, de rivier die uit Duitsland komt en bij Roermond in de Maas uitmondt. De gemeente telt onder meer Sint Odiliënberg met zijn basiliek, Herkenbosch, Melick, Vlodrop, Montfort en Posterholt, en grenst in het oosten aan Duitsland.",
+      "Aan die oostkant ligt **Nationaal Park De Meinweg**, met heide en bos op hoger gelegen grond. Langs de Roer ligt het land lager. Vanuit Aartselaar is het ruim anderhalf uur rijden, en daarom plannen we elke levering hier vooraf.",
     ],
     bouw: {
       kop: "Wonen langs de Roer en aan de rand van de Meinweg",
       alineas: [
-        "**De dorpen langs de Roer** liggen in een dal waar het water bij langdurige regen in Duitsland snel kan aanzwellen. Een woning dicht bij de rivier kan dan **water in de kelder of de benedenverdieping** krijgen. Na zo'n periode moet niet alleen de lucht droog, maar ook de vloer en het onderste deel van de muren, en dat gaat beter met een droger én luchtbeweging.",
-        "**Op de hogere zandgrond** richting de Meinweg en in Vlodrop gaat het vaker om nieuwbouw en verbouwing: **een uitbouw, een nieuwe dekvloer** of een woning waar de afwerking op de planning wacht. Rond Montfort en in de oude kernen staan daarnaast **oudere dorpswoningen en boerderijen** die gerenoveerd worden.",
+        "**De dorpen langs de Roer** liggen in een dal waar het water na langdurige regen snel kan stijgen. Een woning dicht bij de rivier kan dan water in de kelder of op de benedenverdieping krijgen. Daarna moeten niet alleen de lucht, maar ook de vloer en het onderste deel van de muren drogen. Dat gaat beter met een droger én een ventilator.",
+        "Op de hogere grond richting de Meinweg gaat het vaker om nieuwbouw en verbouwing: **een uitbouw of een nieuwe dekvloer** die droog moet zijn voor de afwerking. In Montfort en de oude kernen worden daarnaast oudere dorpswoningen en boerderijen gerenoveerd.",
       ],
     },
     toestellen: [
-      { key: "ttk650", waarom: "**Na water uit de Roer in een benedenverdieping**: 110 liter per dag haalt het meeste vocht weg voor het zich in de muren vastzet." },
-      { key: "radiaal2250", waarom: "Voor een natte vloer bij de rivier: **de luchtstroom gaat laag over de vloer** en in de hoeken, waar het water het langst blijft." },
-      { key: "ttk350", waarom: "Voor een uitbouw of nieuwbouw op de zandgrond bij de Meinweg: **70 liter per dag**, genoeg voor een volledige benedenverdieping." },
-      { key: "teddh30", waarom: "Voor een kelder of een koude, lege woning in de winter: **onder 15 °C droogt het traag**, met de kachel erbij haalt de droger weer zijn capaciteit." },
+      { key: "ttk650", waarom: "**Na water uit de Roer op een benedenverdieping**: 110 liter per dag, voor ruimtes tot ongeveer 600 m³." },
+      { key: "radiaal2250", waarom: "Voor een natte vloer bij de rivier: **de luchtstroom gaat laag over de vloer** en in de hoeken, waar het water het langst blijft. Spatwaterdicht (IP55)." },
+      { key: "ttk350", waarom: "Voor een uitbouw of nieuwbouw bij de Meinweg: **70 liter per dag**, genoeg voor een benedenverdieping tot ongeveer 400 m³." },
+      { key: "teddh30", waarom: "Voor een kelder of een koude, lege woning in de winter: onder 15 °C droogt een condensdroger traag. **Deze kachel van 30 kW** vraagt krachtstroom (400 V)." },
     ],
     levering: {
-      kop: "Leveren in Roerdalen: een lange rit, goed gepland",
+      kop: "Levering in Roerdalen: een lange rit, goed gepland",
       alinea:
-        "Roerdalen is **een van de verste adressen** die we vanuit Aartselaar bedienen, aan de andere kant van Roermond. Daarom **kiezen we de leverdag samen** en plannen we een tijdslot. Gaat het om waterschade, **vertel dan hoe hoog het water stond** en welke ruimtes nat zijn: dan neemt de technieker meteen de juiste combinatie mee.",
+        "Roerdalen ligt voor ons aan de andere kant van Roermond, op ruim anderhalf uur rijden. U kiest een leverdatum wanneer u boekt, en de levering zelf gebeurt op afspraak. Gaat het om waterschade, **vertel dan hoe hoog het water stond** en welke ruimtes nat zijn. Dan neemt de technicus meteen de juiste toestellen mee.",
     },
     afhalen: {
       kop: "Afhalen: ruim anderhalf uur enkele reis",
       alinea:
-        "Ons magazijn ligt **ruim anderhalf uur rijden** van Sint Odiliënberg. Een toestel afhalen kost u dus al snel een halve dag, en terugbrengen nog eens. Bij waterschade wilt u bovendien bij het huis blijven. **Laten leveren is hier bijna altijd de betere keuze.**",
+        "Ons magazijn ligt **ruim anderhalf uur rijden** van Sint Odiliënberg. Een toestel afhalen kost u dus al snel een halve dag, en terugbrengen nog eens. Bij waterschade wilt u bovendien bij het huis blijven. Laten leveren is hier bijna altijd de betere keuze.",
     },
     buren: ["roermond", "echt-susteren"],
     faq: [
       {
         q: "De Roer stond hoog en mijn kelder is nat. Wanneer kan ik beginnen met drogen?",
-        a: "Zodra het water weg is en niet meer terugkomt. Drogen terwijl de rivier nog hoog staat heeft weinig zin, want het grondwater blijft dan aanvoeren. Pomp eerst leeg, verwijder natte materialen en laat ons daarna een droger en een ventilator plaatsen. De technieker meet bij de start.",
+        a: "Zodra het water weg is en niet meer terugkomt. Drogen terwijl de rivier nog hoog staat heeft weinig zin, want het grondwater blijft dan aanvoeren. Pomp eerst leeg, verwijder natte materialen en laat ons daarna een droger en een ventilator plaatsen.",
       },
       {
-        q: "Heb ik op zandgrond bij de Meinweg minder last van vocht?",
-        a: "Van grondwater meestal wel, want zand voert water goed af en ligt hoger dan het rivierdal. Maar bouwvocht blijft: een nieuwe dekvloer of vers pleisterwerk brengt honderden liters water in huis, ongeacht de ondergrond. Daarvoor is een bouwdroger evengoed nodig.",
+        q: "Heb ik bij de Meinweg minder last van vocht?",
+        a: "Van grondwater meestal wel, want die grond ligt hoger dan het rivierdal. Maar bouwvocht blijft: een nieuwe dekvloer of vers pleisterwerk brengt veel water in huis, wat de ondergrond ook is. Daarvoor is een bouwdroger evengoed nodig.",
       },
       {
         q: "Rijden jullie helemaal tot Vlodrop aan de Duitse grens?",
-        a: "Ja. Vlodrop hoort bij Roerdalen en valt in onze levering, net als Herkenbosch, Melick, Montfort en Posterholt. Het is wel een lange rit, dus we spreken samen een vaste leverdag met tijdslot af.",
+        a: "Ja. Vlodrop hoort bij Roerdalen en valt binnen ons leveringsgebied, net als Herkenbosch, Melick, Montfort en Posterholt. Omdat het een lange rit is, stemmen we de leverdatum vooraf met u af.",
       },
       {
         q: "Hoeveel toestellen heb ik nodig voor een natte benedenverdieping?",
-        a: "Dat hangt af van het volume en van hoe nat vloer en muren zijn. Voor een gemiddelde benedenverdieping na wateroverlast is een grote droger met een of twee ventilatoren een gebruikelijke opstelling. De Calculator geeft een eerste inschatting; de technieker stuurt bij na de meting ter plaatse.",
+        a: "Dat hangt af van het volume en van hoe nat vloer en muren zijn. Na wateroverlast is een grote droger met een of twee ventilatoren een gebruikelijke opstelling voor een benedenverdieping. De calculator geeft een eerste inschatting; bel ons als uw situatie afwijkt.",
       },
     ],
     realisaties: [],
@@ -44278,54 +44278,54 @@ const G: Gemeente[] = [
     slug: "roermond",
     title: "Bouwdroger huren in Roermond | Vernast",
     description:
-      "Bouwdroger huren in Roermond, Swalmen of Herten: oude panden in de binnenstad, woningen bij de Roer en de Maasplassen. Leverdag op afspraak, vocht gemeten.",
+      "Bouwdroger huren in Roermond, Swalmen of Herten: voor oude panden in de binnenstad, nieuwbouw en natte kelders bij de Roer en de Maas. Levering op afspraak.",
     h1: "Bouwdroger huren in Roermond",
     kicker: "Nederlands Limburg · waar de Roer in de Maas stroomt",
     rit: { afstand: "circa 130 km", tijd: "ongeveer anderhalf uur" },
     intro: [
-      "Roermond ligt **op de plek waar de Roer in de Maas uitmondt**. De stad heeft een oude binnenstad met de **Munsterkerk** en de **Sint-Christoffelkathedraal**, en is de stad van architect **Pierre Cuypers**, die er woonde en werkte. Veel bezoekers kennen Roermond vooral van **het outletcentrum** aan de rand van de binnenstad.",
-      "Ten westen en zuiden van de stad liggen **de Maasplassen**, ontstaan door grindwinning. Tot de gemeente horen ook **Swalmen, Herten, Maasniel en Asenray**. Rivieren, plassen en een grindrijke ondergrond bepalen hier hoe het water zich in de grond gedraagt.",
+      "Roermond ligt **op de plek waar de Roer in de Maas uitmondt**. In de oude binnenstad staan de Munsterkerk en de Sint-Christoffelkathedraal, en architect Pierre Cuypers woonde en werkte er. Veel bezoekers kennen de stad van het outletcentrum aan de rand van het centrum.",
+      "Ten westen en zuiden van de stad liggen de **Maasplassen**, ontstaan door grindwinning. Tot de gemeente horen ook Swalmen, Herten, Maasniel en Asenray. Vanuit Aartselaar is het ongeveer anderhalf uur rijden.",
     ],
     bouw: {
       kop: "Binnenstadspanden en woningen bij het water",
       alineas: [
-        "**In de binnenstad** staan oude panden met kelders, vaak met een winkel beneden en woonruimte erboven. Wordt zo'n pand verbouwd, dan komt er veel vocht vrij uit **nieuw pleisterwerk en een nieuwe dekvloer** op een plek waar weinig luchtdoorstroming is. Een kelder onder een oud stadspand droogt bovendien uit zichzelf zelden goed.",
-        "**In de wijken en dorpen dicht bij de Maas en de Roer**, zoals Herten en Swalmen, kan hoog water het grondwater laten stijgen of een kelder laten vollopen. Verder van het water, in de **naoorlogse wijken en de nieuwbouw**, gaat het om gewone bouwdroging: een nieuwe woning of uitbouw die op tijd droog moet zijn voor de afwerking.",
+        "**In de binnenstad** staan oude panden met kelders, vaak met een winkel beneden en woonruimte erboven. Bij een verbouwing komt veel vocht vrij uit nieuw pleisterwerk en een nieuwe dekvloer, op plekken waar de lucht weinig circuleert. Een kelder onder een oud stadspand droogt zelden vanzelf goed.",
+        "In Herten, Swalmen en andere delen dicht bij de Maas en de Roer kan hoog water het grondwater laten stijgen of een kelder laten vollopen. In de **naoorlogse wijken en de nieuwbouw** gaat het om bouwdroging: een nieuwe woning of uitbouw die op tijd droog moet zijn voor de afwerking.",
       ],
     },
     toestellen: [
-      { key: "ttk170", waarom: "**Voor een bovenwoning of appartement in de binnenstad**: compact genoeg voor een smalle trap en zuinig op één stopcontact." },
-      { key: "ttk350", waarom: "Voor een verbouwd stadspand of een nieuwbouwwoning: **70 liter per dag** en bereik tot ongeveer 400 m³ voor een hele verdieping." },
-      { key: "ttk650", waarom: "Voor een volgelopen kelder in Herten of Swalmen: **110 liter per dag**, zodat het vocht er snel uit is." },
-      { key: "ttv4500", waarom: "**Voor een kelder zonder doorstroming**: de ventilator houdt de lucht in beweging, zodat de droger aan alle muren vocht kan onttrekken." },
+      { key: "ttk170", waarom: "**Voor een bovenwoning of appartement in de binnenstad**: compact genoeg voor een smalle trap, met een verbruik van 0,75 kW." },
+      { key: "ttk350", waarom: "Voor een verbouwd stadspand of een nieuwbouwwoning: **70 liter per dag**, voor een hele verdieping tot ongeveer 400 m³." },
+      { key: "ttk650", waarom: "Voor een volgelopen kelder in Herten of Swalmen: **110 liter per dag**, de grootste van onze drie condensdrogers." },
+      { key: "ttv4500", waarom: "**Voor een kelder waar de lucht stilstaat**: 4 500 m³ per uur houdt de lucht in beweging, zodat ook de muren in de hoeken drogen." },
     ],
     levering: {
-      kop: "Leveren in Roermond: met een afgesproken tijdslot",
+      kop: "Levering in Roermond en de kerkdorpen",
       alinea:
-        "Roermond ligt **aan de A73 en vlak bij de A2**, en voor ons is het een vaste bestemming in Midden-Limburg. **De leverdag kiezen we samen** en we combineren hem waar het kan met andere ritten in de buurt. In de binnenstad gelden **beperkingen voor laden en lossen**; geef bij de reservatie door waar de bestelwagen kan staan.",
+        "Roermond ligt aan de A73, vlak bij de A2. Bij de boeking kiest u een leverdatum, waarna we de levering met u afspreken en waar mogelijk combineren met andere ritten in Midden-Limburg. In de binnenstad gelden **beperkingen voor laden en lossen**; meld vooraf waar de bestelwagen kan staan.",
     },
     afhalen: {
       kop: "Zelf afhalen: ongeveer anderhalf uur rijden",
       alinea:
-        "Aartselaar ligt **ongeveer anderhalf uur** van Roermond, via Belgisch Limburg. Voor één klein toestel kan afhalen een optie zijn als u toch die kant op rijdt. Reken op **25 tot 40 kg per droger**, rechtop vervoerd. Voor een kelder of een hele woning is laten leveren eenvoudiger.",
+        "Aartselaar ligt **ongeveer anderhalf uur** van Roermond. Voor één klein toestel kan afhalen een optie zijn als u toch die kant op rijdt; vervoer het rechtop. Voor een kelder of een hele woning is laten leveren eenvoudiger.",
     },
     buren: ["roerdalen", "leudal", "maasgouw", "beesel"],
     faq: [
       {
         q: "Kan een bouwdroger in een oud winkelpand met bovenwoning?",
-        a: "Ja. In een oud pand met een winkel beneden en woonruimte erboven plaatsen we vaak een toestel per verdieping, zodat elke laag gelijk opdroogt. De Boost is compact genoeg voor een smalle trap. Draait de winkel door, dan zoeken we samen een plek waar het toestel niet in de weg staat.",
+        a: "Ja. In een oud pand met een winkel beneden en woonruimte erboven plaatsen we vaak een toestel per verdieping, zodat elke laag gelijk opdroogt. De Boost is compact genoeg voor een smalle trap. Blijft de winkel open, dan zoeken we samen een plek waar het toestel niet in de weg staat.",
       },
       {
         q: "Mijn kelder in Herten liep vol bij hoog water. Wat nu?",
-        a: "Wacht tot het water gezakt is en niet meer terugkomt, pomp leeg en haal natte spullen en materialen weg. Daarna plaatsen we een grote droger met een ventilator. De technieker meet bij de start, zodat u kunt volgen hoe de muren en de vloer opdrogen.",
+        a: "Wacht tot het water gezakt is en niet meer terugkomt. Pomp leeg en haal natte spullen en materialen weg. Daarna plaatsen we een grote droger met een ventilator. Laat voor de afwerking het restvocht in muren en vloer meten.",
       },
       {
         q: "Hoeveel stroom verbruikt een bouwdroger per dag?",
-        a: "Dat hangt van het toestel af. De Boost neemt 0,75 kW op, de Performance 1,1 kW en de Ultimate 1,4 kW bij volle werking. Over een dag is dat vergelijkbaar met een paar huishoudelijke toestellen tegelijk. De stroom komt uit uw eigen stopcontact; dat staat los van de huurprijs.",
+        a: "Dat hangt van het toestel af. De Boost neemt 0,75 kW op, de Performance 1,1 kW en de Ultimate 1,4 kW bij volle werking. De stroom komt uit uw eigen stopcontact en staat los van de huurprijs. De bouwkachels vragen een aparte 400 V-aansluiting.",
       },
       {
         q: "Leveren jullie ook in Swalmen en Maasniel?",
-        a: "Ja, Swalmen, Maasniel, Herten en Asenray horen bij Roermond en vallen allemaal binnen onze levering. Geef bij de reservatie het volledige adres door, dan plannen we de rit en het tijdslot daarop.",
+        a: "Ja, Swalmen, Maasniel, Herten en Asenray horen bij Roermond en vallen binnen ons leveringsgebied. Vermeld bij de boeking het volledige adres; daar stemmen we de rit op af.",
       },
     ],
     realisaties: [],
@@ -44336,54 +44336,54 @@ const G: Gemeente[] = [
     slug: "weert",
     title: "Bouwdroger huren in Weert | Vernast",
     description:
-      "Bouwdroger huren in Weert, Stramproy of Altweerterheide: woningen op Kempense zandgrond, vlak over de grens bij Bocholt. Leverdag op afspraak, geplaatst en gemeten.",
+      "Bouwdroger huren in Weert, Stramproy of Altweerterheide: voor nieuwbouw en renovatie op Kempense zandgrond, vlak over de grens bij Bocholt. Levering op afspraak.",
     h1: "Bouwdroger huren in Weert",
     kicker: "Nederlands Limburg · over de grens bij Bocholt",
-    rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwart" },
+    rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
     intro: [
-      "Weert is **de Nederlandse gemeente die het dichtst bij ons magazijn ligt** van heel Midden-Limburg. De stad grenst aan **Bocholt en Kinrooi** in Belgisch Limburg, en de **Zuid-Willemsvaart** loopt van Bocholt over de grens dwars door Weert. In het centrum staat de **Sint-Martinuskerk**, aan de rand ligt de **IJzeren Man**, een plas in het bos.",
-      "De gemeente telt naast de stad ook **Stramproy, Swartbroek, Tungelroy, Altweerterheide en Laar**. De ondergrond is hier **Kempens zand**, dezelfde grond als aan de Belgische kant. Water zakt er goed weg, maar in de lagere delen bij de beken staat het grondwater hoger.",
+      "Weert grenst aan **Bocholt en Kinrooi** in Belgisch Limburg. De Zuid-Willemsvaart komt bij Bocholt over de grens en loopt door de stad. In het centrum staat de Sint-Martinuskerk, aan de rand ligt de IJzeren Man, een plas in het bos.",
+      "Naast de stad horen ook Stramproy, Swartbroek, Tungelroy, Altweerterheide en Laar bij de gemeente. De ondergrond is **Kempens zand**, zoals aan de Belgische kant. Vanuit ons magazijn in Aartselaar is het ruim een uur rijden.",
     ],
     bouw: {
       kop: "Nieuwbouwwijken op zand en oudere huizen in de kernen",
       alineas: [
-        "Weert is **na de oorlog flink gegroeid**, met grote woonwijken rond het oude centrum en later nieuwbouwwijken aan de randen. In die nieuwbouw gaat het vooral om **bouwvocht**: een dekvloer van enkele centimeters en vers pleisterwerk die samen honderden liters water in huis brengen. Op zand heeft u weinig last van grondwater, maar dat water moet er toch uit.",
-        "**In het oude centrum en de kerkdorpen** staan oudere woningen en boerderijen die verbouwd worden. Daar komen een **nieuwe badkamer, een nieuwe vloer of een opgeknapte zolder** voor, en in een huis met dikke muren duurt het drogen langer dan in een nieuwbouwwoning. In de lager gelegen delen bij de beken kan een kruipruimte vochtig zijn.",
+        "Rond het oude centrum liggen grote woonwijken en aan de randen nieuwbouw. In nieuwbouw gaat het vooral om **bouwvocht**: een dekvloer en vers pleisterwerk brengen samen honderden liters water in huis. Op zandgrond heeft u weinig last van grondwater, maar dat bouwvocht moet er toch uit.",
+        "In het oude centrum en de kerkdorpen worden oudere woningen en boerderijen verbouwd, met **een nieuwe badkamer, vloer of zolder**. In een huis met dikke muren duurt drogen langer dan in nieuwbouw. In de lager gelegen delen bij de beken kan een kruipruimte vochtig zijn.",
       ],
     },
     toestellen: [
-      { key: "ttk350", waarom: "**Voor een nieuwbouwwoning in een van de nieuwe wijken**: 70 liter per dag, genoeg voor een volledige benedenverdieping met een verse dekvloer." },
-      { key: "ttk170", waarom: "Voor een verbouwde badkamer of zolder in het centrum: **compact, 0,75 kW** en licht genoeg voor een zoldertrap." },
-      { key: "radiaal2250", waarom: "Om de **dekvloer gelijkmatig te laten drogen**: de ventilator blaast over de vloer en breekt de natte luchtlaag die erboven blijft hangen." },
-      { key: "teddh20", waarom: "Voor een verbouwing in Stramproy of Laar in de winter, in **een huis waar de verwarming nog niet aangesloten is**." },
+      { key: "ttk350", waarom: "**Voor een nieuwbouwwoning**: 70 liter per dag, genoeg voor een benedenverdieping met een verse dekvloer." },
+      { key: "ttk170", waarom: "Voor een verbouwde badkamer of zolder in het centrum: **compact en zuinig met 0,75 kW**, voor ruimtes tot ongeveer 250 m³." },
+      { key: "radiaal2250", waarom: "Om de **dekvloer gelijkmatig te laten drogen**: 2 250 m³ per uur over de vloer breekt de vochtige luchtlaag die erboven blijft hangen." },
+      { key: "teddh20", waarom: "Voor een verbouwing in Stramproy of Laar in de winter, in **een huis waar de verwarming nog niet werkt**. Deze kachel vraagt een 400 V-aansluiting." },
     ],
     levering: {
-      kop: "Leveren in Weert: via Lommel, op een afgesproken dag",
+      kop: "Levering in Weert: via Lommel, op afspraak",
       alinea:
-        "Van alle Midden-Limburgse gemeenten is Weert **voor ons het snelst bereikbaar**, over de grens bij Hamont of Bocholt. We **plannen samen een dag en een tijdslot**. De technieker brengt de toestellen binnen, zet ze op de juiste plek en **meet het vocht bij de start**, zodat er een vergelijkingspunt is bij de ophaling.",
+        "Weert ligt voor ons vlak over de grens, via Lommel en Hamont of via Bocholt. U kiest een leverdatum bij het boeken, en wij spreken de levering met u af. De technicus brengt de toestellen binnen, zet ze op de juiste plek en **legt uit hoe u de condensafvoer controleert**.",
     },
     afhalen: {
       kop: "Afhalen in Aartselaar: haalbaar vanuit Weert",
       alinea:
-        "Met **ongeveer een uur en een kwart** rijden is Aartselaar vanuit Weert te doen, zeker als u toch richting Antwerpen moet. Houd rekening met **25 tot 40 kg** per toestel, staand vervoerd. Voor een volledige woning met meerdere toestellen is leveren de rustigere keuze.",
+        "Met **ruim een uur** rijden is Aartselaar vanuit Weert haalbaar, vooral als u toch richting Antwerpen moet. Vervoer elk toestel staand. Voor een volledige woning met meerdere toestellen is laten leveren de rustigere keuze.",
     },
     buren: ["nederweert", "cranendonck", "bocholt", "hamont-achel", "kinrooi"],
     faq: [
       {
-        q: "Heb ik op zandgrond in Weert eigenlijk een bouwdroger nodig?",
-        a: "Ja, als er een dekvloer of pleisterwerk is aangebracht. Zandgrond voorkomt vooral grondwaterproblemen, maar het water in de dekvloer en de muren komt van het bouwen zelf. Zonder droger blijft dat weken in huis hangen en schuift de vloerlegger of de schilder op.",
+        q: "Heb ik op zandgrond in Weert wel een bouwdroger nodig?",
+        a: "Ja, als er een dekvloer of pleisterwerk is aangebracht. Zandgrond voorkomt vooral grondwaterproblemen, maar het water in de dekvloer en de muren komt van het bouwen zelf. Zonder droger blijft dat weken in huis hangen en moeten de vloerlegger of de schilder wachten.",
       },
       {
         q: "Werken jullie aan beide kanten van de grens bij Weert?",
-        a: "Ja. We leveren in Weert en de kerkdorpen, en ook in de Belgische buurgemeenten zoals Bocholt en Kinrooi. Voor een Nederlands adres spreken we de leverdag samen af; de offerte vooraf laat zien wat de huur en de levering kosten.",
+        a: "Ja. We leveren in Weert en de kerkdorpen, en ook in de Belgische buurgemeenten zoals Bocholt en Kinrooi. Voor een Nederlands adres gebeurt de levering op afspraak, en de offerte vooraf laat zien wat huur en levering kosten.",
       },
       {
         q: "Hoe lang staat een bouwdroger in een nieuwbouwwoning?",
-        a: "Dat hangt af van de dikte van de dekvloer, de hoeveelheid pleisterwerk en het seizoen. Een droogpakket rekent vaak op enkele weken. De meting bij de ophaling bepaalt of het klaar is; is het dat niet, dan loopt de droging volgens de Drooggarantie kosteloos verder.",
+        a: "Dat hangt af van de dikte van de dekvloer, de hoeveelheid pleisterwerk en het seizoen. Een droogpakket loopt vaak enkele weken. Laat aan het eind het restvocht meten; is de dekvloer nog niet klaar, dan bekijken we samen een verlenging.",
       },
       {
         q: "Kan een toestel in een kamer blijven staan terwijl we er wonen?",
-        a: "Ja. De Boost en de Performance zijn gemaakt om in een bewoonde woning te draaien. Ze maken een gelijkmatig zoemend geluid, ongeveer zoals een koelkast. Houd ramen en deuren van de ruimte dicht, anders haalt het toestel vocht uit de buitenlucht in plaats van uit de muren.",
+        a: "Ja. De Boost en de Performance kunnen in een bewoonde woning draaien; u hoort wel een constant geluid. Houd ramen en deuren van de ruimte dicht, anders haalt het toestel vocht uit de buitenlucht in plaats van uit de muren en de vloer.",
       },
     ],
     realisaties: [],
@@ -44393,54 +44393,54 @@ const G: Gemeente[] = [
     slug: "maastricht",
     title: "Bouwdroger huren in Maastricht | Vernast",
     description:
-      "Bouwdroger huren in Maastricht: monumentale panden in de binnenstad en Wyck, mergel van de Sint-Pietersberg en kelders bij de Maas. Geplaatst en gemeten op locatie.",
+      "Bouwdroger huren in Maastricht: mergelpanden in de binnenstad, kelders in Wyck en studentenhuizen die op tijd droog moeten zijn. Levering op afspraak, met vochtmeting.",
     h1: "Bouwdroger huren in Maastricht",
-    kicker: "Nederlands Limburg · binnenstad aan de Maas",
-    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
+    kicker: "Nederlands Limburg · stad aan de Maas",
+    rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
     intro: [
-      "Maastricht ligt **aan beide oevers van de Maas**: de oude binnenstad rond het Vrijthof op de westoever, **Wyck** aan de overkant. Ten zuiden van de stad rijst **de Sint-Pietersberg** op, de heuvel waaruit eeuwenlang **mergel** gehakt werd, met een gangenstelsel dat kilometers diep de berg in loopt.",
-      "Die mergel zit ook in de stad zelf, in gevels, kerken en **oude vestingmuren**. Daarnaast staat er veel baksteen uit de negentiende eeuw, naoorlogse wijken in het westen en het oosten, en **studentenhuizen en appartementen** waar per verdieping verbouwd wordt. De **Jeker** loopt door het zuiden van de binnenstad naar de Maas.",
+      "Maastricht ligt **aan beide oevers van de Maas**: de oude binnenstad rond het Vrijthof op de westoever, Wyck aan de overkant. Ten zuiden van de stad ligt de Sint-Pietersberg, waar eeuwenlang **mergel** uit de berg is gehakt. De gangen van die winning lopen nog altijd kilometers door de berg.",
+      "Die mergel ziet u terug in gevels, kerken en de oude vestingmuren. Daarnaast telt de stad veel negentiende-eeuwse baksteen, naoorlogse wijken en **studentenhuizen en appartementen** die per verdieping worden verbouwd. Vanuit ons magazijn in Aartselaar rijden we in ruim een uur naar Maastricht.",
     ],
     bouw: {
-      kop: "Monumenten, mergel en kelders dicht bij het water",
+      kop: "Mergel, baksteen en kelders bij de Maas",
       alineas: [
-        "Mergel is **een zachte, poreuze kalksteen**. Hij neemt veel water op en geeft het traag weer af, en hij verdraagt geen bruuske behandeling. Een renovatie in een **mergelen of gemengd pand** droog je dus gelijkmatig en zonder de ruimte op te stoken. **Onze technieker meet bij de start** hoe nat de muren zijn, zodat u weet waar u begint.",
-        "In de lage delen van de binnenstad en in Wyck liggen **kelders dicht bij het grondwater van de Maas**. Na een natte periode of een lekkage blijft zo'n kelder lang vochtig. In de bovenverdiepingen van **een smal grachtenpand of studentenhuis** draait het eerder om een nieuwe dekvloer of pleisterwerk dat op tijd klaar moet zijn voor de volgende huurder.",
+        "Mergel is **een zachte, poreuze kalksteen**. Hij neemt veel water op, geeft het traag weer af en verdraagt geen te snelle droging. Een renovatie in een pand van mergel droogt u daarom gelijkmatig, zonder de ruimte op te stoken. De technicus meet bij de start hoe nat de muren zijn, zodat u weet waar u begint.",
+        "In de lage delen van de binnenstad en in Wyck liggen **kelders dicht bij het grondwater** van de Maas. Na een natte periode of een lekkage blijft zo'n kelder lang vochtig. Op de verdiepingen van een studentenhuis of appartement gaat het eerder om een nieuwe dekvloer of pleisterwerk dat klaar moet zijn voor de volgende huurder.",
       ],
     },
     toestellen: [
-      { key: "ttk170", waarom: "**Voor een kamer of appartement boven in een smal binnenstadspand**: licht genoeg voor een steile trap en zuinig op een gewoon stopcontact." },
-      { key: "ttk350", waarom: "Voor een volledige verdieping met **een nieuwe dekvloer of chape**: 70 liter per dag en een bereik tot ongeveer 400 m³." },
-      { key: "revolution", waarom: "**Voor een koele kelder in Wyck of langs de Jeker**: de adsorptiedroger blijft ook bij lage temperatuur vocht opnemen." },
-      { key: "ttv4500", waarom: "Tegen een dikke mergelen of bakstenen muur blaast hij de verzadigde luchtlaag weg, zodat de droger er gelijkmatig vat op krijgt." },
+      { key: "ttk170", waarom: "**Voor een kamer of appartement hoog in een smal pand**: compact genoeg voor een steile trap, zuinig (0,75 kW) en op een standaard stopcontact." },
+      { key: "ttk350", waarom: "Voor een volledige verdieping met **een nieuwe dekvloer**: 70 liter per dag in een ruimte tot ongeveer 400 m³." },
+      { key: "revolution", waarom: "**Voor een koele kelder in Wyck of langs de Jeker**: een adsorptiedroger blijft ook bij lage temperatuur vocht uit de lucht halen." },
+      { key: "ttv4500", waarom: "Blaast de vochtige luchtlaag weg van **een dikke muur van mergel of baksteen**, zodat die gelijkmatig droogt." },
     ],
     levering: {
-      kop: "Leveren in Maastricht: op een dag die we samen afspreken",
+      kop: "Leveren in Maastricht: op afspraak",
       alinea:
-        "Vanuit Aartselaar rijden we **via de E313 en de A2** naar Maastricht. De leverdag spreken we **samen met u af**, vaak gecombineerd met andere adressen in Zuid-Limburg. In de binnenstad gelden **venstertijden en smalle straten**; zeg bij de boeking waar de bestelwagen kan stoppen, dan neemt onze technieker een steekkar mee voor het laatste stuk.",
+        "We rijden via de E313 en de A2 naar Maastricht en zijn ruim een uur onderweg. Levering is **op afspraak**: u kiest een leverdatum bij de boeking, en we bevestigen die met u, vaak samen met andere adressen in Zuid-Limburg. In de binnenstad gelden **venstertijden** en zijn de straten smal. Zeg daarom waar de bestelwagen kan stoppen; de technicus brengt een steekkar mee voor het laatste stuk.",
     },
     afhalen: {
-      kop: "Afhalen in Aartselaar is vanuit Maastricht een flinke rit",
+      kop: "Zelf afhalen in Aartselaar: ruim een uur enkele reis",
       alinea:
-        "Heen en terug naar ons magazijn bij Antwerpen bent u **al snel tweeënhalf uur onderweg**. Voor één toestel loont dat zelden. Laat het brengen, dan meet de technieker meteen hoe nat de muren zijn, en dat is bij een oud Maastrichts pand nuttige informatie.",
+        "Ons magazijn bij Antwerpen ligt ruim een uur rijden van Maastricht, dus heen en terug bent u **ruim twee uur** kwijt. Voor één toestel loont dat zelden. Laat u leveren, dan meet de technicus meteen hoe nat de muren zijn, en bij een oud pand is dat nuttige informatie.",
     },
     buren: ["meerssen", "valkenburg-aan-de-geul", "eijsden-margraten", "lanaken", "riemst"],
     faq: [
       {
-        q: "Mag ik een mergelen muur snel droogstoken?",
-        a: "Liever niet. Mergel is zacht en poreus, en een muur die aan de buitenkant te snel uitdroogt terwijl de kern nat blijft, kan gaan afschilferen. Een condensdroger die de lucht rustig droog trekt, eventueel met een ventilator erbij, is voor zo'n muur de veilige weg.",
+        q: "Mag ik een muur van mergel snel droogstoken?",
+        a: "Liever niet. Mergel is zacht en poreus. Droogt de buitenkant van de muur te snel terwijl de kern nat blijft, dan kan het oppervlak gaan afschilferen. Een condensdroger die de lucht rustig droog trekt, eventueel met een ventilator erbij, is voor zo'n muur de veilige aanpak.",
       },
       {
         q: "Hoe krijgen jullie een droger in een pand in de binnenstad?",
-        a: "Met een bestelwagen tot zo dicht mogelijk bij de deur en daarna met een steekkar. Geef bij de boeking door of er een venstertijd geldt en hoe steil de trap is. Dan kiezen we een toestel dat de trap op kan en plannen we de levering binnen het venster.",
+        a: "Met de bestelwagen zo dicht mogelijk bij de deur en daarna met een steekkar. Geef bij de boeking door of er een venstertijd geldt en hoe steil de trap is. Dan kiezen we een toestel dat de trap op kan en leveren we binnen het venster.",
       },
       {
-        q: "Mijn studentenhuis moet droog zijn voor de nieuwe huurders. Kan dat?",
-        a: "Dat hangt af van wat er nat is. Vers pleisterwerk droogt met een droger op een paar weken, een dekvloer heeft langer nodig. Vertel ons wanneer de kamers weer bewoond worden, dan stemmen we het aantal toestellen daarop af en meten we bij het ophalen of het gelukt is.",
+        q: "Mijn studentenhuis moet droog zijn voor de nieuwe huurders. Lukt dat?",
+        a: "Dat hangt af van wat er nat is. Vers pleisterwerk is met een droger vaak binnen enkele weken droog, een dekvloer heeft langer nodig. Vertel ons wanneer de kamers weer bewoond worden. Dan stemmen we het aantal toestellen daarop af en meten we bij het ophalen of het gelukt is.",
       },
       {
-        q: "Waarom komen jullie uit België naar Maastricht?",
-        a: "Omdat Maastricht via de snelweg dichterbij ligt dan het lijkt: reken op ongeveer een uur en een kwartier vanaf ons magazijn in Aartselaar. We plannen de ritten naar Zuid-Limburg samen met u, en de offerte maakt vooraf duidelijk wat de levering en de huur kosten.",
+        q: "Waarom komt een Belgisch bedrijf naar Maastricht?",
+        a: "Omdat Maastricht via de E313 en de A2 ruim een uur van ons magazijn in Aartselaar ligt. We spreken de leverdag met u af, en de offerte maakt vooraf duidelijk wat levering en huur kosten. Vragen? Mail of bel ons gerust, dan rekenen we het samen uit.",
       },
     ],
     realisaties: [],
@@ -44451,54 +44451,54 @@ const G: Gemeente[] = [
     slug: "eijsden-margraten",
     title: "Bouwdroger huren in Eijsden-Margraten | Vernast",
     description:
-      "Bouwdroger huren in Eijsden-Margraten: huizen aan de Maas in Eijsden, mergelhoeves en vakwerk op het plateau van Margraten. Geleverd op een dag die u kiest.",
+      "Bouwdroger huren in Eijsden-Margraten: huizen aan de Maas in Eijsden, hoeves van mergel en vakwerk op het plateau van Margraten. Levering op afspraak.",
     h1: "Bouwdroger huren in Eijsden-Margraten",
     kicker: "Nederlands Limburg · tussen de Maas en het plateau",
-    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
+    rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
     intro: [
-      "Eijsden-Margraten is **in 2011 ontstaan uit twee gemeenten**, en dat zie je nog aan het landschap. **Eijsden** ligt laag aan de Maas, met een kasteel en een oude dorpskern, en grenst aan het Belgische **Wezet**. Oostelijker ligt **het plateau van Margraten**, met dorpen als Cadier en Keer, Mheer en Noorbeek.",
-      "Langs de zuidgrens loopt de gemeente over in **de Voerstreek**. Het is een landelijke gemeente: **oude hoeves van mergel en baksteen**, vakwerk in de kleinere kernen, en daartussen verkavelingen uit de laatste decennia waar gewone nieuwbouw en verbouwingen aan de orde zijn.",
+      "Eijsden-Margraten ontstond in 2011 uit **twee gemeenten**, en dat ziet u nog aan het landschap. Eijsden ligt laag aan de Maas, met een kasteel en een oude dorpskern, en grenst aan het Belgische Wezet. Oostelijker ligt **het plateau van Margraten**, met dorpen als Cadier en Keer, Mheer en Noorbeek.",
+      "In het zuiden grenst de gemeente aan de Voerstreek. Het is een landelijke gemeente met **oude hoeves van mergel en baksteen**, vakwerk in de kleinere kernen en nieuwbouwwijken uit de laatste decennia. Vanuit Aartselaar zijn we er in ruim een uur.",
     ],
     bouw: {
-      kop: "Een gemeente aan de rivier en een gemeente op de heuvel",
+      kop: "Laag aan de Maas, hoog op het plateau",
       alineas: [
-        "**In Eijsden en de kernen langs de Maas** ligt de grond laag en het grondwater hoog. Een kelder of een gelijkvloers dat na een natte winter of een lekkage nat staat, droogt daar traag. **Eerst de bron, dan de droger**: als er water van onderuit blijft komen, ziet onze technieker dat bij de plaatsing aan de meting.",
-        "**Op het plateau** wordt vooral verbouwd: een hoeve die woning wordt, een schuur met een nieuwe dekvloer, **dikke muren van mergel of breuksteen** die na een renovatie hun vocht vasthouden. Op de **lössbodem** zelf staat het water minder lang, maar in een koude, ongeïsoleerde ruimte gaat drogen zonder hulp erg langzaam.",
+        "In Eijsden en de kernen langs de Maas ligt de grond laag en staat het grondwater hoog. Een kelder of benedenverdieping die na een natte winter of een lekkage nat staat, droogt daar traag. **Eerst de bron, dan de droger**: blijft er water van onderuit komen, dan ziet de technicus dat bij de plaatsing aan de meting.",
+        "Op het plateau wordt vooral verbouwd: een hoeve die woning wordt, een schuur met een nieuwe dekvloer. **Dikke muren van mergel of breuksteen** houden na zo'n renovatie hun vocht lang vast. In een koude, ongeïsoleerde ruimte gaat het drogen zonder hulp bovendien erg langzaam.",
       ],
     },
     toestellen: [
-      { key: "ttk650", waarom: "**Voor een grote hoeve of schuur die tot woning verbouwd wordt**: 110 liter per dag en een bereik tot ongeveer 600 m³." },
-      { key: "teddh30", waarom: "Een koude schuur op het plateau brengt deze kachel eerst op temperatuur, zodat de droger weer op volle capaciteit werkt." },
-      { key: "radiaal2250", waarom: "**Voor een natte vloer in een huis bij de Maas**: hij blaast gericht over de dekvloer en tot in de hoeken." },
-      { key: "ttk350", waarom: "Voor een gewone woning in een verkaveling met nieuw pleisterwerk of een verse chape: 70 liter per dag." },
+      { key: "ttk650", waarom: "**Voor een grote hoeve of schuur die woning wordt**: 110 liter per dag in een ruimte tot ongeveer 600 m³." },
+      { key: "teddh30", waarom: "Brengt **een koude schuur op het plateau** op temperatuur, zodat de droger weer op volle capaciteit werkt. Let op: deze kachel vraagt krachtstroom (400 V)." },
+      { key: "radiaal2250", waarom: "**Voor een natte vloer in een huis bij de Maas**: blaast gericht over de dekvloer, tot in de hoeken." },
+      { key: "ttk350", waarom: "Voor een woning in een nieuwbouwwijk met nieuw pleisterwerk of een verse dekvloer: 70 liter per dag, tot ongeveer 400 m³." },
     ],
     levering: {
-      kop: "Leveren in Eijsden-Margraten: de dag spreken we samen af",
+      kop: "Leveren in Eijsden-Margraten: op afspraak",
       alinea:
-        "We rijden **via de E313 en de A2** tot voorbij Maastricht. De leverdag kiest u **samen met ons**, en waar het kan combineren we de rit met andere adressen in het Heuvelland. **Ligt uw hoeve aan een smalle holle weg** of op een erf zonder verharding, meld dat dan vooraf, dan weet de technieker hoe hij er komt.",
+        "We rijden via de E313 en de A2 tot voorbij Maastricht, ruim een uur onderweg. U kiest bij de boeking een leverdatum, en die stemmen we met u af; waar het kan, combineren we de rit met andere adressen in het Heuvelland. Ligt uw hoeve aan **een smalle holle weg** of op een onverhard erf, meld dat dan vooraf.",
     },
     afhalen: {
       kop: "Zelf afhalen: ver, maar het kan",
       alinea:
-        "Ons afhaalpunt in Aartselaar ligt **op ruim een uur rijden**, en terug nog eens zoveel. Wie toch richting Antwerpen moet, kan een toestel meenemen; reken op **25 tot 40 kg per droger**, rechtop vervoerd. Voor een hoeve met meerdere toestellen is leveren de logische keuze.",
+        "Ons afhaalpunt in Aartselaar ligt ruim een uur rijden, enkele reis. Moet u toch richting Antwerpen, dan kunt u een toestel meenemen. Een droger weegt **enkele tientallen kilo's** en moet rechtop in de auto. Voor een hoeve met meerdere toestellen is leveren de logische keuze.",
     },
     buren: ["maastricht", "valkenburg-aan-de-geul", "gulpen-wittem", "voeren", "wezet"],
     faq: [
       {
-        q: "Kan een bouwdroger in een verbouwde hoeve met dikke muren werken?",
-        a: "Ja, maar het duurt langer dan in een nieuwbouwwoning. Dikke muren van mergel of breuksteen geven hun vocht traag af. Reken eerder op weken dan op dagen, en laat de technieker bij de start meten, zodat u later kunt zien hoeveel er al uit is.",
+        q: "Werkt een bouwdroger in een verbouwde hoeve met dikke muren?",
+        a: "Ja, maar het duurt langer dan in een nieuwbouwwoning. Dikke muren van mergel of breuksteen geven hun vocht traag af. Reken eerder op weken dan op dagen, en laat de technicus bij de start meten, zodat u later ziet hoeveel vocht er al uit is.",
       },
       {
-        q: "Mijn kelder in Eijsden staat vaak vochtig. Lost een droger dat op?",
-        a: "Gaat het om vocht na een lekkage of een renovatie, dan wel. Komt het water telkens terug omdat het grondwater van de Maas hoog staat, dan haalt een droger het weg zolang hij draait, maar het blijft terugkomen. De meting bij de plaatsing laat zien welk van de twee het is.",
+        q: "Mijn kelder in Eijsden is vaak vochtig. Lost een droger dat op?",
+        a: "Gaat het om vocht na een lekkage of een renovatie, dan wel. Komt het water telkens terug omdat het grondwater bij de Maas hoog staat, dan haalt een droger het weg zolang hij draait, maar het keert terug. De meting bij de plaatsing laat zien welk van de twee het is.",
       },
       {
-        q: "Bereiken jullie ook de kleine kernen zoals Mheer en Noorbeek?",
-        a: "Ja, alle kernen van de gemeente vallen in onze levering. Op smalle wegen in het Heuvelland is het wel handig als u vooraf zegt waar de bestelwagen kan keren of even stilstaan, dan verloopt de plaatsing vlot.",
+        q: "Leveren jullie ook in kleine kernen als Mheer en Noorbeek?",
+        a: "Ja, alle kernen van de gemeente vallen in ons leveringsgebied. Op de smalle wegen van het Heuvelland helpt het als u vooraf zegt waar de bestelwagen kan keren of even stilstaan. Vragen? Mail of bel ons gerust, dan bekijken we de route samen.",
       },
       {
         q: "Hoeveel toestellen heb ik nodig voor een schuur die woning wordt?",
-        a: "Dat rekenen we uit op basis van het volume en wat er nat is: een dekvloer, pleisterwerk of allebei. Een grote schuur vraagt vaak een droger met veel capaciteit en een kachel erbij, omdat zo'n ruimte zonder verwarming te koud is voor een condensdroger. De offerte toont dat vooraf.",
+        a: "Dat rekenen we uit op basis van het volume en wat er nat is: een dekvloer, pleisterwerk of allebei. Een grote, onverwarmde schuur vraagt vaak een droger met veel capaciteit en een kachel erbij, want onder 15 °C verliest een condensdroger rendement. De offerte toont dat vooraf.",
       },
     ],
     realisaties: [],
@@ -44509,54 +44509,54 @@ const G: Gemeente[] = [
     slug: "meerssen",
     title: "Bouwdroger huren in Meerssen | Vernast",
     description:
-      "Bouwdroger huren in Meerssen, Bunde, Ulestraten of Geulle: woningen in het Geuldal en op de hellingen erboven. Op afspraak geleverd, met vochtmeting bij de plaatsing.",
+      "Bouwdroger huren in Meerssen, Bunde, Ulestraten of Geulle: woningen in het Geuldal en op de hellingen erboven. Levering op afspraak, met vochtmeting bij plaatsing.",
     h1: "Bouwdroger huren in Meerssen",
     kicker: "Nederlands Limburg · waar de Geul de Maas nadert",
-    rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
+    rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
     intro: [
-      "Meerssen ligt **in het dal van de Geul**, net ten noordoosten van Maastricht. De oude kern draait rond **de Basiliek van het Heilig Sacrament**, en de rivier loopt er vlak langs op haar laatste kilometers naar de Maas. Bij de gemeente horen ook **Bunde, Ulestraten, Geulle en Rothem**.",
-      "De gemeente ligt **aan de A2 en de A79**, waardoor er naast de dorpskernen ook veel gezinswoningen uit de jaren zestig tot nu staan. Wie hier verbouwt, heeft meestal te maken met **een rijwoning in het dal** of **een vrijstaand huis op de helling**, en dat zijn twee heel verschillende vochtverhalen.",
+      "Meerssen ligt **in het dal van de Geul**, net ten noordoosten van Maastricht. De oude kern draait rond de Basiliek van het Heilig Sacrament, en de Geul stroomt er vlak langs op weg naar de Maas. Ook Bunde, Ulestraten, Geulle en Rothem horen bij de gemeente.",
+      "Meerssen ligt aan de A2 en de A79. Naast de oude dorpskernen staan er veel gezinswoningen uit de jaren zestig en later. Wie hier verbouwt, heeft meestal **een rijwoning in het dal** of een vrijstaand huis op de helling, en die hebben elk hun eigen vochtprobleem. De rit vanuit Aartselaar duurt ruim een uur.",
     ],
     bouw: {
       kop: "Het Geuldal onderaan, de lössheuvels erboven",
       alineas: [
-        "In de lage delen van Meerssen staat de Geul dichtbij. **In juli 2021 trad de rivier ook hier buiten haar oevers.** Wie daarna een huis moest drogen, weet dat het niet stopt bij het wegpompen: **het vocht zit in de dekvloer en onderaan de muren**, en dat moet er gecontroleerd uit voor er opnieuw afgewerkt wordt.",
-        "Op de hellingen richting Ulestraten en Bunde ligt **löss**, een fijne grond die bij regen makkelijk wegspoelt. Daar gaat het eerder om **nieuwbouw en verbouwingen**: een badkamer met nieuw stucwerk, een uitbouw met een verse dekvloer. Daar is het tempo van de aannemer de reden om een droger te huren.",
+        "In de lage delen van Meerssen ligt de Geul dichtbij. **In juli 2021 trad de rivier ook hier buiten haar oevers.** Wie daarna een huis moest drogen, weet dat het niet stopt bij het wegpompen: het vocht zit in de dekvloer en onderaan de muren, en dat moet eruit voor er opnieuw afgewerkt wordt.",
+        "Op de hellingen richting Ulestraten en Bunde ligt **löss**, een fijne grond die bij hevige regen makkelijk wegspoelt. Daar gaat het vaker om nieuwbouw en verbouwingen: een badkamer met nieuw stucwerk, een uitbouw met een verse dekvloer. De planning van de aannemer is dan de reden om een droger te huren.",
       ],
     },
     toestellen: [
-      { key: "ttk650", waarom: "**Na wateroverlast in het Geuldal**: 110 liter per dag om het meeste vocht weg te halen voor het dieper in de muren trekt." },
-      { key: "radiaal2250", waarom: "Blaast gericht over **een natte dekvloer op het gelijkvloers**, waar het water na een overstroming het langst blijft zitten." },
-      { key: "ttk170", waarom: "Voor **een badkamer of een kamer met nieuw stucwerk** in een rijwoning: compact en op een gewoon stopcontact." },
-      { key: "ttk350", waarom: "Voor een uitbouw of een volledige verdieping in een huis op de helling: 70 liter per dag, bereik tot ongeveer 400 m³." },
+      { key: "ttk650", waarom: "**Na wateroverlast in het Geuldal**: 110 liter per dag, om het meeste vocht weg te halen voor het dieper in de muren trekt." },
+      { key: "radiaal2250", waarom: "Blaast gericht over **een natte dekvloer op de benedenverdieping**, waar het water na een overstroming het langst blijft zitten." },
+      { key: "ttk170", waarom: "Voor **een badkamer of kamer met nieuw stucwerk** in een rijwoning: compact en op een standaard stopcontact." },
+      { key: "ttk350", waarom: "Voor een uitbouw of een volledige verdieping in een huis op de helling: 70 liter per dag, in een ruimte tot ongeveer 400 m³." },
     ],
     levering: {
       kop: "Leveren in Meerssen: vlak bij de A2",
       alinea:
-        "Meerssen ligt **vlak bij de A2**, en dat maakt de rit voorspelbaar. De leverdag spreken we **samen af**, vaak samen met andere ritten in Zuid-Limburg. Gaat het om **waterschade**, beschrijf dan hoe hoog het water stond en welke vloeren het raakte, zodat de technieker de juiste combinatie meebrengt.",
+        "Meerssen ligt vlak bij de A2, ruim een uur rijden vanaf Aartselaar. Levering is **op afspraak**: u kiest een leverdatum bij de boeking, en we stemmen die af met andere ritten in Zuid-Limburg. Gaat het om **waterschade**, beschrijf dan hoe hoog het water stond en welke vloeren nat werden. Dan brengt de technicus de juiste combinatie mee.",
     },
     afhalen: {
       kop: "Afhalen in Aartselaar, aan de andere kant van de grens",
       alinea:
-        "Vanuit Meerssen bent u **meer dan twee uur onderweg** voor een afhaling en een terugbrenging. Dat is zelden de moeite waard. Bij levering staat het toestel meteen op de goede plek, en weet u na de vochtmeting hoe nat de vloer echt is.",
+        "Vanuit Meerssen bent u ruim een uur onderweg naar ons afhaalpunt, heen en terug **meer dan twee uur**. Dat loont zelden. Bij levering staat het toestel meteen op de goede plek, en na de vochtmeting weet u hoe nat de vloer werkelijk is.",
     },
     buren: ["maastricht", "valkenburg-aan-de-geul", "beek", "beekdaelen", "stein"],
     faq: [
       {
         q: "Hoe weet ik of mijn dekvloer na wateroverlast droog genoeg is?",
-        a: "Door te meten, niet door te voelen. Een dekvloer kan aan de oppervlakte droog lijken terwijl hij dieper nog nat is. De technieker meet bij de plaatsing en bij het ophalen, en dat cijfer geeft u door aan de vloerlegger of aan de verzekeraar.",
+        a: "Door te meten, niet door te voelen. Een dekvloer kan aan het oppervlak droog lijken terwijl hij dieper nog nat is. De technicus meet bij de plaatsing en bij het ophalen, en dat cijfer geeft u door aan de vloerlegger of de verzekeraar.",
       },
       {
         q: "Werken jullie ook in Bunde en Geulle?",
-        a: "Ja, Bunde, Ulestraten, Geulle en Rothem horen bij Meerssen en liggen gewoon in ons leveringsgebied. Geef bij de boeking het volledige adres door, dan plannen we de rit samen met andere adressen in de buurt.",
+        a: "Ja. Bunde, Ulestraten, Geulle en Rothem horen bij Meerssen en vallen in ons leveringsgebied. Geef bij de boeking het volledige adres door, dan combineren we de rit met andere adressen in de buurt. Vragen? Mail of bel ons gerust, ook als u twijfelt over het aantal toestellen.",
       },
       {
-        q: "Is een bouwdroger in een rijwoning niet te luidruchtig?",
-        a: "Een kleine bouwdroger maakt ongeveer het geluid van een koelkast. Zet hem op een stenen vloer en niet op een houten vloer, dan draagt het gebrom minder door. Hij moet dag en nacht draaien om goed te werken, dus houd daar rekening mee bij de plek die u kiest.",
+        q: "Maakt een bouwdroger in een rijwoning veel lawaai?",
+        a: "Een kleine bouwdroger maakt ongeveer het geluid van een koelkast. Zet hem op een stenen vloer in plaats van op hout, dan draagt het gebrom minder door. Hij moet dag en nacht draaien om goed te werken, dus kies de plek daarop.",
       },
       {
-        q: "Wat moet ik doen voor de technieker komt na waterschade?",
-        a: "Zorg dat het staande water weg is en het slib uit de ruimte. Haal natte vloerbedekking en meubels weg als dat lukt. Een droger is bedoeld voor het vocht dat in vloer en muren achterblijft, niet voor water dat er nog op de vloer ligt.",
+        q: "Wat moet ik doen voor de technicus komt na waterschade?",
+        a: "Zorg dat het staande water en het slib uit de ruimte zijn. Haal natte vloerbedekking en meubels weg als dat lukt. Een droger is bedoeld voor het vocht dat in vloer en muren achterblijft, niet voor water dat nog op de vloer staat.",
       },
     ],
     realisaties: [],
@@ -44570,43 +44570,43 @@ const G: Gemeente[] = [
       "Bouwdroger huren in Valkenburg aan de Geul: woningen, hotels en horeca in het Geuldal, mergelpanden bij de grotten en huizen in Houthem en Schin op Geul.",
     h1: "Bouwdroger huren in Valkenburg aan de Geul",
     kicker: "Nederlands Limburg · het Geuldal en de mergelgrotten",
-    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
+    rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
     intro: [
-      "Valkenburg ligt **diep in het dal van de Geul**, onder een helling waarop de **kasteelruïne** staat. In die helling zitten **de mergelgrotten**: gangen die eeuwenlang uitgehakt zijn voor bouwsteen. Die mergel zie je terug in de oude panden in het centrum en in de dorpen **Houthem, Schin op Geul, Berg en Terblijt en Sibbe**.",
-      "Het centrum leeft van het toerisme, met **hotels, restaurants en winkels** dicht op elkaar. Buiten het centrum is Valkenburg een woongemeente met verkavelingen en oudere boerderijen. **In juli 2021 liep het centrum onder water** toen de Geul buiten haar oevers trad.",
+      "Valkenburg ligt **diep in het dal van de Geul**, onder een helling met de kasteelruïne. In die helling zitten de mergelgrotten, gangen die eeuwenlang zijn uitgehakt voor bouwsteen. Die mergel ziet u terug in oude panden in het centrum en in Houthem, Schin op Geul, Berg en Terblijt en Sibbe.",
+      "Het centrum leeft van het toerisme, met **hotels, restaurants en winkels** dicht op elkaar. Daarbuiten is Valkenburg een woongemeente met nieuwbouwwijken en oudere boerderijen. In juli 2021 liep het centrum onder water toen de Geul buiten haar oevers trad. Vanuit Aartselaar zijn we in ruim een uur ter plaatse.",
     ],
     bouw: {
-      kop: "Panden in het dal en mergel in de helling",
+      kop: "Panden in het dal, mergel in de helling",
       alineas: [
-        "**Wat in het dal ligt, staat dicht bij de Geul.** Een gelijkvloers met een horecazaak of een winkel dat na wateroverlast opnieuw open moet, vraagt een droogplan dat in weken rekent en niet in maanden. **Vloeren, muurvoeten en de ruimte onder een vaste toog** zijn de plekken waar het vocht het langst blijft.",
-        "Panden tegen de helling hebben een andere zorg: **mergel en grond tegen de achtermuur**. Na een renovatie met nieuwe gipsplaat of stucwerk wil je weten of de muur droog is of dat er vocht uit de berg doorkomt. **Onze technieker meet dat bij de plaatsing**, zodat de afwerking niet op een natte ondergrond komt.",
+        "Wat in het dal ligt, staat dicht bij de Geul. Een horecazaak of winkel die na wateroverlast weer open moet, heeft **een droogplan in weken** nodig, niet in maanden. Vloeren, muurvoeten en de ruimte onder een vaste bar houden het vocht het langst vast.",
+        "Panden tegen de helling hebben een andere zorg: **mergel en grond tegen de achtermuur**. Na een renovatie met nieuwe gipsplaat of stucwerk wilt u weten of de muur droog is of dat er vocht uit de berg doorkomt. De technicus meet dat bij de plaatsing, zodat de afwerking niet op een natte ondergrond komt.",
       ],
     },
     toestellen: [
-      { key: "ttk650", waarom: "**Voor een hotel- of horecaverdieping in het centrum**: trekt tot 110 liter water per dag uit een ruimte van zo'n 600 m³." },
-      { key: "revolution", waarom: "Droogt via slangen **onder een vaste toog, achter een voorzetwand of onder een zwevende vloer**, waar een gewone droger niet bij kan." },
-      { key: "ttv4500", waarom: "Verplaatst veel lucht door een lange, diepe zaak in het dal, zodat ook de achterste hoek meedroogt." },
-      { key: "ttk170", waarom: "Voor een kamer in een woning op de helling die na een kleinere verbouwing opnieuw gestukt is." },
+      { key: "ttk650", waarom: "**Voor een hotel- of horecaverdieping in het centrum**: tot 110 liter per dag, in een ruimte tot ongeveer 600 m³." },
+      { key: "revolution", waarom: "Droogt via slangen **onder een vaste bar, achter een voorzetwand of onder een zwevende vloer**, waar een gewone droger niet bij kan." },
+      { key: "ttv4500", waarom: "Verplaatst 4 500 m³ lucht per uur door een lange, diepe zaak, zodat ook de achterste hoek meedroogt." },
+      { key: "ttk170", waarom: "Voor een kamer in een woning op de helling die na een kleinere verbouwing opnieuw gestukt is: compact en zuinig." },
     ],
     levering: {
       kop: "Leveren in Valkenburg: buiten de drukste uren",
       alinea:
-        "We rijden **via de E313, de A2 en de A79** naar het Geuldal. De leverdag spreken we **samen af**, en in het centrum kiezen we liefst een moment buiten de drukte van de bezoekers. Zeg bij de boeking of het om **een zaak met openingsuren** gaat; dan plaatst de technieker de toestellen zo dat de doorgang vrij blijft.",
+        "Via de E313, de A2 en de A79 zijn we in ruim een uur in het Geuldal. Levering is **op afspraak**. U kiest een leverdatum bij de boeking, en in het centrum zoeken we samen een moment buiten de drukte. Zeg erbij of het om **een zaak met openingsuren** gaat, dan plaatst de technicus de toestellen zo dat de doorgang vrij blijft.",
     },
     afhalen: {
       kop: "Zelf afhalen vanuit het Geuldal",
       alinea:
-        "Naar Aartselaar en terug is **een halve dag**. Voor een woning met één toestel kan dat, als u toch die kant op moet. Voor een zaak die snel weer open wil, is leveren beter: de toestellen komen samen, en de vochtmeting bij de start hoort erbij.",
+        "Naar Aartselaar is het ruim een uur rijden, dus met laden erbij kost een afhaling u **een halve dag**. Voor een woning met één toestel kan dat, als u toch die kant op moet. Een zaak die snel weer open wil, laat beter leveren: de toestellen komen samen, met een vochtmeting bij de start.",
     },
     buren: ["meerssen", "maastricht", "eijsden-margraten", "gulpen-wittem", "voerendaal"],
     faq: [
       {
         q: "Kan ik mijn zaak openhouden terwijl de drogers draaien?",
-        a: "Vaak wel, als de toestellen buiten de looproute staan en de deuren en ramen van de droogruimte zoveel mogelijk dicht blijven. Een deel van de ruimte afsluiten met folie werkt goed. Overleg het bij de boeking, dan kiest de technieker de opstelling daarop.",
+        a: "Vaak wel, als de toestellen buiten de looproute staan en de deuren en ramen van de droogruimte zoveel mogelijk dicht blijven. Een deel van de ruimte afschermen met folie werkt goed. Bespreek het bij de boeking, dan kiest de technicus de opstelling daarop.",
       },
       {
         q: "Mijn huis ligt tegen de mergelhelling. Is de muur ooit droog?",
-        a: "Het bouwvocht van een renovatie krijgt u er wel uit. Vocht dat telkens uit de helling doorkomt, is een andere zaak: dat vraagt een oplossing aan de muur zelf. De meting bij de plaatsing en bij het ophalen laat zien of het vochtgehalte blijvend daalt.",
+        a: "Het bouwvocht van een renovatie krijgt u eruit. Vocht dat telkens uit de helling doorkomt, is een ander verhaal: daarvoor is een oplossing aan de muur zelf nodig. De meting bij de plaatsing en bij het ophalen laat zien of het vochtgehalte blijvend daalt.",
       },
       {
         q: "Wat is het voordeel van een adsorptiedroger na wateroverlast?",
@@ -44614,7 +44614,7 @@ const G: Gemeente[] = [
       },
       {
         q: "Leveren jullie ook in Schin op Geul en Berg en Terblijt?",
-        a: "Ja, alle kernen van Valkenburg aan de Geul vallen in ons gebied, ook Houthem en Sibbe. We plannen de rit naar het Heuvelland samen met u en combineren hem waar het kan met andere adressen in de buurt.",
+        a: "Ja, alle kernen van Valkenburg aan de Geul vallen in ons leveringsgebied, ook Houthem en Sibbe. We spreken de leverdag met u af en combineren de rit waar het kan met andere adressen in de buurt. Vragen? Mail of bel ons gerust, dan denken we mee over de opstelling.",
       },
     ],
     realisaties: [],
@@ -44625,54 +44625,54 @@ const G: Gemeente[] = [
     slug: "gulpen-wittem",
     title: "Bouwdroger huren in Gulpen-Wittem | Vernast",
     description:
-      "Bouwdroger huren in Gulpen-Wittem: vakwerkhuizen in Epen en Mechelen, hoeves langs de Geul en de Gulp, woningen in Gulpen en Wijlre. Op afspraak geleverd en geplaatst.",
+      "Bouwdroger huren in Gulpen-Wittem: vakwerkhuizen in Epen en Mechelen, hoeves langs de Geul en de Gulp, woningen in Gulpen en Wijlre. Levering op afspraak.",
     h1: "Bouwdroger huren in Gulpen-Wittem",
     kicker: "Nederlands Limburg · vakwerk in het Heuvelland",
     rit: { afstand: "circa 135 km", tijd: "ongeveer anderhalf uur" },
     intro: [
-      "Gulpen-Wittem ligt **midden in het Heuvelland**, waar de **Gulp** bij Gulpen in de Geul uitkomt. Bij de gemeente horen **Gulpen, Wittem, Epen, Mechelen, Slenaken, Eys en Wijlre**. Wittem is bekend om **het klooster**, Gulpen om zijn brouwerij, en de dorpen in het zuiden liggen tegen de grens met de Voerstreek.",
-      "Het beeld wordt bepaald door **vakwerkhuizen en hoeves**: houten skeletten met leem of baksteen ertussen, en onderbouwen van mergel of breuksteen. Daartussen staan gewone woningen uit de twintigste eeuw. **In juli 2021 trad de Geul ook in deze dorpen buiten haar oevers.**",
+      "Gulpen-Wittem ligt **midden in het Heuvelland**, waar de Gulp bij Gulpen in de Geul uitmondt. Bij de gemeente horen onder meer Gulpen, Wittem, Epen, Mechelen, Slenaken, Eys en Wijlre. Wittem is bekend om zijn klooster, Gulpen om zijn brouwerij.",
+      "Het beeld wordt bepaald door **vakwerkhuizen en hoeves**: houten skeletten met leem of baksteen ertussen, op een onderbouw van mergel of breuksteen. Daartussen staan gewone woningen uit de twintigste eeuw. Vanuit Aartselaar rijden we er ongeveer anderhalf uur over.",
     ],
     bouw: {
-      kop: "Vakwerk, leem en dorpen langs twee beken",
+      kop: "Vakwerk, leem en dorpen langs Geul en Gulp",
       alineas: [
-        "Een vakwerkhuis vraagt **voorzichtig drogen**. Leem en hout reageren op een te snelle droging met krimp en scheuren, dus een droger staat hier **rustig en lang**, niet op volle kracht in een dichte, opgestookte ruimte. **De technieker meet bij de start en stelt de opstelling daarop af.**",
-        "**In de dorpen langs de Geul en de Gulp** liggen huizen en hoeves laag bij het water. Na wateroverlast moeten de vloeren en de onderkant van de muren drogen voor er nieuwe afwerking op komt. Op de hellingen erboven gaat het eerder om een verbouwde stal, een nieuwe badkamer of een dekvloer in een uitbreiding.",
+        "Een vakwerkhuis vraagt **voorzichtig drogen**. Leem en hout reageren op te snel drogen met krimp en scheuren. Een droger staat hier daarom rustig en lang te draaien, niet in een opgestookte ruimte. De technicus meet bij de start en stemt de opstelling daarop af.",
+        "In de dorpen langs de Geul en de Gulp liggen huizen en hoeves laag bij het water, en **in juli 2021 trad de Geul ook hier buiten haar oevers**. Na wateroverlast moeten vloeren en muurvoeten drogen voor er nieuwe afwerking op komt. Op de hellingen gaat het eerder om een verbouwde stal, een nieuwe badkamer of een dekvloer in een uitbouw.",
       ],
     },
     toestellen: [
-      { key: "ttk350", waarom: "**Voor een vakwerkhuis dat rustig moet drogen**: 70 liter per dag, ruim genoeg om zonder haast een verdieping te doen." },
-      { key: "teddh20", waarom: "Brengt **een koude hoeve of verbouwde stal** op een temperatuur waarbij de droger goed werkt, zonder de ruimte op te stoken." },
+      { key: "ttk350", waarom: "**Voor een vakwerkhuis dat rustig moet drogen**: 70 liter per dag, ruim genoeg om zonder haast een hele verdieping te doen." },
+      { key: "teddh20", waarom: "Brengt **een koude hoeve of verbouwde stal** op een temperatuur waarbij de droger goed werkt. Hij werkt op krachtstroom (400 V)." },
       { key: "radiaal2250", waarom: "Voor **een natte vloer in een huis langs de Geul**: blaast gericht over de dekvloer en tegen de muurvoet." },
-      { key: "ttk170", waarom: "Voor een badkamer of slaapkamer onder het dak van een woning in Gulpen of Wijlre: compact en makkelijk de trap op." },
+      { key: "ttk170", waarom: "Voor een badkamer of zolderkamer in een woning in Gulpen of Wijlre: compact en makkelijk de trap op." },
     ],
     levering: {
-      kop: "Leveren in Gulpen-Wittem: een rit naar het Heuvelland",
+      kop: "Leveren in Gulpen-Wittem: een rit het Heuvelland in",
       alinea:
-        "Het is **ongeveer anderhalf uur rijden**, via de E313, de A2 en verder over de provinciale weg het Heuvelland in. Daarom spreken we de leverdag **samen af** en combineren we hem waar mogelijk met andere ritten. **Holle wegen en smalle dorpsstraten** zijn hier gewoon; zeg vooraf waar de bestelwagen kan stoppen.",
+        "Via de E313, de A2 en daarna de provinciale weg zijn we ongeveer anderhalf uur onderweg. Levering is daarom **op afspraak**: u kiest een leverdatum bij de boeking, en we combineren de rit waar mogelijk met andere adressen. Holle wegen en smalle dorpsstraten horen bij deze streek, dus zeg vooraf waar de bestelwagen kan stoppen.",
     },
     afhalen: {
-      kop: "Afhalen in Aartselaar vraagt een dag",
+      kop: "Afhalen in Aartselaar kost u een halve dag",
       alinea:
-        "Met **ruim drie uur heen en terug** is zelf afhalen hier geen voordeel. Laat ons leveren: de toestellen komen samen, ze worden geplaatst en ingesteld, en u krijgt een meting die bij een vakwerkhuis echt iets zegt.",
+        "Met anderhalf uur rijden enkele reis bent u heen en terug **ruim drie uur** onderweg. Dan heeft zelf afhalen weinig zin. Laat ons leveren: de toestellen komen samen, worden geplaatst en ingesteld, en u krijgt een meting die bij een vakwerkhuis iets zegt.",
     },
     buren: ["vaals", "eijsden-margraten", "valkenburg-aan-de-geul", "simpelveld", "voeren"],
     faq: [
       {
         q: "Mag je een vakwerkhuis met een bouwdroger drogen?",
-        a: "Ja, als het rustig gebeurt. Leem en eikenhout krimpen bij een te snelle droging, en dan ontstaan er kieren en scheuren. Een droger op een gematigde stand met de ramen dicht, zonder extra warmte boven een normale kamertemperatuur, is voor zo'n huis de goede aanpak.",
+        a: "Ja, als het rustig gebeurt. Leem en hout krimpen bij te snel drogen, en dan ontstaan er kieren en scheuren. Een droger die lang en gelijkmatig draait, met de ramen dicht en zonder extra warmte boven een normale kamertemperatuur, is voor zo'n huis de goede aanpak.",
       },
       {
         q: "Hoe droog ik een verbouwde stal met een nieuwe dekvloer?",
-        a: "Eerst de ruimte op temperatuur, dan drogen. Een stal is zonder verwarming vaak te koud voor een condensdroger. Met een kleine kachel erbij werkt de droger veel beter. Hoe lang het duurt, hangt af van de dikte van de dekvloer en wordt bij het ophalen gemeten.",
+        a: "Eerst de ruimte op temperatuur, dan drogen. Een onverwarmde stal is vaak te koud voor een condensdroger, die onder 15 °C rendement verliest. Met een kachel erbij werkt de droger veel beter. Hoe lang het duurt, hangt af van de dikte van de dekvloer; bij het ophalen meten we het resultaat.",
       },
       {
         q: "Komen jullie ook naar Epen, Mechelen en Slenaken?",
-        a: "Ja, ook naar de kleinere kernen van de gemeente. Omdat het een lange rit is, plannen we de leverdag samen met u en proberen we hem te combineren met andere adressen in het Heuvelland.",
+        a: "Ja, ook naar de kleinere kernen van de gemeente. Omdat het een lange rit is, spreken we de leverdag met u af en combineren we hem waar het kan met andere adressen in het Heuvelland. Vragen? Mail of bel ons gerust, ook over de aanpak van uw vakwerkhuis.",
       },
       {
         q: "Is een droger nuttig voor een hoeve die bij de Gulp ligt?",
-        a: "Na een lekkage, een renovatie of wateroverlast wel. Staat de kelder of het gelijkvloers telkens vochtig door het grondwater bij de beek, dan helpt een droger zolang hij draait, maar lost hij de oorzaak niet op. De meting maakt het verschil zichtbaar.",
+        a: "Na een lekkage, een renovatie of wateroverlast wel. Staat de kelder of de benedenverdieping telkens vochtig door het grondwater bij de beek, dan helpt een droger zolang hij draait, maar de oorzaak blijft. De meting maakt dat verschil zichtbaar.",
       },
     ],
     realisaties: [],
@@ -44688,49 +44688,49 @@ const G: Gemeente[] = [
     kicker: "Nederlands Limburg · bij het Drielandenpunt",
     rit: { afstand: "circa 145 km", tijd: "ongeveer anderhalf uur" },
     intro: [
-      "Vaals ligt **in de uiterste zuidoosthoek van Nederland**, tegen de Duitse stad Aken. Op **de Vaalserberg** ligt het **Drielandenpunt**, waar Nederland, België en Duitsland samenkomen. Bij de gemeente horen ook **Lemiers en Vijlen**, het laatste een dorp hoog op het plateau.",
-      "Door de ligging tegen Aken wonen hier veel mensen die over de grens werken of studeren, en **de woningmarkt is gemengd**: oudere panden in het centrum, appartementen, en vrijstaande huizen op de hellingen. Het terrein is voor Nederland ongewoon steil, en dat merk je aan **kelders en souterrains** die half in de helling zitten.",
+      "Vaals ligt **in de uiterste zuidoosthoek van Nederland**, tegen de Duitse stad Aken. Op de Vaalserberg ligt het Drielandenpunt, waar Nederland, België en Duitsland samenkomen. Ook Lemiers en Vijlen horen bij de gemeente; Vijlen ligt hoog op het plateau.",
+      "Door de ligging bij Aken wonen hier veel mensen die over de grens werken of studeren. U vindt er oudere panden in het centrum, appartementen en vrijstaande huizen op de hellingen. Het terrein is voor Nederland ongewoon steil, en dat ziet u aan **kelders en souterrains** die half in de helling liggen. Vanuit Aartselaar is het ongeveer anderhalf uur rijden.",
     ],
     bouw: {
       kop: "Hellingen, souterrains en bos dichtbij",
       alineas: [
-        "**Een woning tegen de helling** heeft vaak een souterrain of een kelder met één muur tegen de grond. Na een natte periode trekt daar vocht in, en na een verbouwing moet bouwvocht eruit voor de afwerking. **Die twee vragen een andere aanpak**, en de meting bij de plaatsing laat zien met welke van de twee u te maken hebt.",
-        "**Hoger, rond Vijlen en de Vaalserberg**, ligt het land dicht bij het bos en blijft de lucht in de herfst en winter lang vochtig. Een gerenoveerde kamer met nieuwe gipsplaat of een verse dekvloer droogt daar met een open raam nauwelijks. **Ramen dicht en een droger aan** werkt hier beter.",
+        "**Een woning tegen de helling** heeft vaak een souterrain of kelder met één muur tegen de grond. Na een natte periode trekt daar vocht in, en na een verbouwing moet het bouwvocht eruit voor de afwerking. Die twee vragen een andere aanpak; de meting bij de plaatsing laat zien welke van de twee u hebt.",
+        "Hoger, rond Vijlen en de Vaalserberg, ligt het bos dichtbij en blijft de lucht in herfst en winter lang vochtig. Een gerenoveerde kamer met nieuwe gipsplaat of een verse dekvloer droogt daar met een open raam nauwelijks. **Ramen dicht en een droger aan** werkt hier beter.",
       ],
     },
     toestellen: [
-      { key: "revolution", waarom: "**Voor een koud souterrain tegen de helling**: adsorptie werkt door in een kelderkoude ruimte, waar condens het laat afweten." },
-      { key: "ttk350", waarom: "Voor een vrijstaande woning op de helling met nieuw stucwerk of een dekvloer: goed voor 70 liter per dag in een huis tot ongeveer 400 m³." },
-      { key: "ttk170", waarom: "Voor **een appartement in het centrum van Vaals**: licht en compact, op een gewoon stopcontact." },
-      { key: "teddh30", waarom: "Haalt **een onverwarmde verbouwing in Vijlen** in de winter boven 15 °C, de grens waaronder een condensdroger rendement verliest." },
+      { key: "revolution", waarom: "**Voor een koud souterrain tegen de helling**: een adsorptiedroger blijft werken in een kelderkoude ruimte, waar een condensdroger het laat afweten." },
+      { key: "ttk350", waarom: "Voor een vrijstaande woning op de helling met nieuw stucwerk of een dekvloer: 70 liter per dag, in een huis tot ongeveer 400 m³." },
+      { key: "ttk170", waarom: "Voor **een appartement in het centrum van Vaals**: compact, zuinig en op een standaard stopcontact." },
+      { key: "teddh30", waarom: "Brengt **een onverwarmde verbouwing in Vijlen** in de winter boven 15 °C, de grens waaronder een condensdroger rendement verliest. Hij heeft een krachtstroomaansluiting van 400 V nodig." },
     ],
     levering: {
       kop: "Leveren in Vaals: de verste rit in Zuid-Limburg",
       alinea:
-        "Vaals is voor ons **de verste hoek van Zuid-Limburg**, bereikbaar via de E313 en de A2 of via de E314 en de A76. De leverdag spreken we **samen af** en we combineren hem graag met andere adressen in de buurt. **Op een steile oprit** of een smalle weg in Vijlen helpt het als u vooraf zegt waar de bestelwagen kan staan.",
+        "Vaals is voor ons de verste hoek van Zuid-Limburg: ongeveer anderhalf uur via de E313 en de A2, of via de E314 en de A76. Levering is **op afspraak**; u kiest een leverdatum bij de boeking, en we combineren de rit graag met andere adressen in de buurt. Staat uw huis aan **een steile oprit** of een smalle weg in Vijlen, zeg dan vooraf waar de bestelwagen kan staan.",
     },
     afhalen: {
       kop: "Afhalen vanuit Vaals: reken op een halve dag",
       alinea:
-        "Naar ons magazijn in Aartselaar en terug is **meer dan drie uur rijden**. Dat loont zelden voor een of twee toestellen. Bij een levering plaatst de technieker ze meteen en meet hij hoe nat de muren zijn, ook in het souterrain.",
+        "Naar ons magazijn in Aartselaar is het ongeveer anderhalf uur rijden, heen en terug dus **ruim drie uur**. Dat loont zelden voor een of twee toestellen. Bij levering plaatst de technicus ze meteen en meet hij hoe nat de muren zijn, ook in het souterrain.",
     },
     buren: ["gulpen-wittem", "simpelveld", "plombieres"],
     faq: [
       {
         q: "Mijn souterrain is altijd wat vochtig. Helpt een bouwdroger?",
-        a: "Voor bouwvocht na een verbouwing of een lekkage zeker. Is het vocht er altijd, omdat de muur tegen de natte helling staat, dan houdt een droger het in toom zolang hij draait, maar de oorzaak zit in de muur. De meting bij de plaatsing en het ophalen laat zien wat er aan de hand is.",
+        a: "Voor bouwvocht na een verbouwing of lekkage wel. Is het vocht er altijd, omdat de muur tegen de natte helling staat, dan houdt een droger het in toom zolang hij draait, maar de oorzaak zit in de muur. De meting bij plaatsing en ophalen laat zien wat er aan de hand is.",
       },
       {
         q: "Leveren jullie ook in Vijlen en Lemiers?",
-        a: "Ja, beide horen bij Vaals en vallen in ons leveringsgebied. Op de smalle en steile wegen rond Vijlen helpt het als u vooraf zegt waar de bestelwagen kan stoppen en hoe ver het toestel nog gedragen moet worden.",
+        a: "Ja, beide horen bij Vaals en vallen in ons leveringsgebied. Op de smalle, steile wegen rond Vijlen helpt het als u vooraf zegt waar de bestelwagen kan stoppen en hoe ver het toestel nog gedragen moet worden. Vragen? Mail of bel ons gerust, ook over de bereikbaarheid van uw adres.",
       },
       {
         q: "Waarom droogt mijn verbouwing niet met de ramen open?",
-        a: "Omdat de buitenlucht hier in het najaar en de winter zelf vochtig is. Wie dan ventileert, haalt evenveel vocht binnen als hij buiten zet. Met de ramen dicht en een droger aan wordt het vocht wel uit de lucht gehaald en als water opgevangen.",
+        a: "Omdat de buitenlucht hier in najaar en winter zelf vochtig is. Wie dan ventileert, haalt bijna evenveel vocht binnen als hij buiten zet. Met de ramen dicht en een droger aan wordt het vocht uit de lucht gehaald en als water opgevangen.",
       },
       {
         q: "Hoe ver is Vaals van jullie magazijn?",
-        a: "Ongeveer honderdvijfenveertig kilometer, reken op anderhalf uur rijden. Daarom plannen we de levering op een dag die we met u afspreken. De offerte maakt vooraf duidelijk wat de huur en de levering samen kosten, zodat er achteraf geen verrassingen zijn.",
+        a: "Ongeveer 145 kilometer, reken op anderhalf uur rijden. Daarom leveren we op een dag die we met u afspreken. De offerte maakt vooraf duidelijk wat huur en levering samen kosten, zodat u achteraf niet voor verrassingen staat.",
       },
     ],
     realisaties: [],
@@ -44741,54 +44741,54 @@ const G: Gemeente[] = [
     slug: "beek",
     title: "Bouwdroger huren in Beek | Vernast",
     description:
-      "Bouwdroger huren in Beek, Spaubeek of Neerbeek: woningen op de lössheuvels bij Maastricht Aachen Airport en langs de A2. Geleverd en geplaatst op een afgesproken dag.",
+      "Bouwdroger huren in Beek, Spaubeek of Neerbeek: woningen op de lössheuvels bij Maastricht Aachen Airport en langs de A2. Levering op afspraak, met plaatsing.",
     h1: "Bouwdroger huren in Beek",
     kicker: "Nederlands Limburg · bij het vliegveld",
-    rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en tien minuten" },
+    rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
     intro: [
-      "Beek ligt **tussen Maastricht en Sittard-Geleen**, aan de A2 en vlak bij **Maastricht Aachen Airport**, dat op het grondgebied van de gemeente ligt. Naast Beek zelf horen **Spaubeek, Neerbeek, Genhout en Geverik** bij de gemeente, kernen op en tussen de heuvels van het Zuid-Limburgse lössland.",
-      "Het is een **woongemeente met een dorpskarakter**: een oude kern met kerk, rijen woningen uit de mijn- en chemieperiode, en nieuwere wijken. Veel bewoners werken in de omgeving, op het vliegveld of **op het chemiecomplex Chemelot**, dat tegen de gemeente aan ligt.",
+      "Beek ligt **tussen Maastricht en Sittard-Geleen**, aan de A2. Maastricht Aachen Airport ligt op het grondgebied van de gemeente. Naast Beek zelf horen Spaubeek, Neerbeek, Genhout en Geverik erbij, kernen op en tussen de lössheuvels van Zuid-Limburg.",
+      "Het is **een woongemeente met een dorps karakter**: een oude kern rond de kerk, veel woningen uit de twintigste eeuw en nieuwere wijken. Veel bewoners werken in de omgeving, op het vliegveld of op het nabije chemiecomplex Chemelot. Vanuit Aartselaar zijn we in ruim een uur in Beek.",
     ],
     bouw: {
       kop: "Rijwoningen uit de vorige eeuw en een lössbodem",
       alineas: [
-        "**Veel woningen in Beek zijn gebouwd in de twintigste eeuw**, en daar wordt nu volop gerenoveerd: een nieuwe keuken, een badkamer, een gelijkvloers met een nieuwe dekvloer en vloerverwarming. **Het bouwvocht van die dekvloer** moet eruit voor de vloerlegger komt, en zonder droger duurt dat al snel weken langer.",
-        "**De lössbodem** in de heuvels is vruchtbaar maar spoelt bij hevige regen makkelijk uit, en water dat van de hellingen afloopt, zoekt de laagste plek. Een kelder of garage onderaan een helling kan daardoor na een stortbui nat staan. **Dan gaat het om waterschade**, en dat vraagt meer capaciteit dan een renovatie.",
+        "Veel woningen in Beek dateren uit de twintigste eeuw, en daar wordt nu volop gerenoveerd: een nieuwe keuken, een badkamer, een benedenverdieping met **een nieuwe dekvloer en vloerverwarming**. Het bouwvocht van die dekvloer moet eruit voor de vloerlegger komt, en zonder droger duurt dat al snel weken langer.",
+        "**De lössbodem** in de heuvels spoelt bij hevige regen makkelijk uit, en water dat van de hellingen afloopt, zoekt de laagste plek. Een kelder of garage onderaan een helling kan daardoor na een stortbui nat staan. Dan gaat het om waterschade, en dat vraagt meer capaciteit dan een renovatie.",
       ],
     },
     toestellen: [
-      { key: "ttk350", waarom: "**Voor een gelijkvloers met een nieuwe dekvloer en vloerverwarming**: 70 liter per dag en bereik tot ongeveer 400 m³." },
-      { key: "ttv4500", waarom: "Haalt de vochtige lucht weg van **een grote, open woonkamer**, zodat de dekvloer overal even snel droogt." },
+      { key: "ttk350", waarom: "**Voor een benedenverdieping met een nieuwe dekvloer en vloerverwarming**: 70 liter per dag, tot ongeveer 400 m³." },
+      { key: "ttv4500", waarom: "Voert de vochtige lucht af uit **een grote, open woonkamer**, zodat de dekvloer overal even snel droogt." },
       { key: "ttk650", waarom: "**Na een stortbui die een kelder of garage onder water zette**: 110 liter per dag om het vocht snel weg te krijgen." },
-      { key: "ttk170", waarom: "Voor een badkamerrenovatie op de verdieping van een rijwoning: compact, licht, en op een gewoon stopcontact." },
+      { key: "ttk170", waarom: "Voor een badkamerrenovatie op de verdieping van een rijwoning: compact, licht en op een standaard stopcontact." },
     ],
     levering: {
       kop: "Leveren in Beek: dicht bij de A2",
       alinea:
-        "Via **de E313 en de E314**, die over de Maas als A76 verdergaat, is Beek **ruim een uur rijden**. De leverdag spreken we **met u af**, en vaak combineren we die rit met meer adressen in de Westelijke Mijnstreek. Geef bij de boeking door **of er vloerverwarming ligt**, want dat bepaalt mee hoe we de dekvloer drogen.",
+        "Via de E313 en de E314, die na de Maas als A76 verdergaat, is Beek ruim een uur rijden. Levering is **op afspraak**: u kiest een leverdatum bij de boeking, en vaak combineren we de rit met andere adressen in de Westelijke Mijnstreek. Geef ook door **of er vloerverwarming ligt**, want dat bepaalt mee hoe we de dekvloer drogen.",
     },
     afhalen: {
       kop: "Afhalen in Aartselaar: een rit over de grens",
       alinea:
-        "Vanuit Beek is ons afhaalpunt **iets meer dan een uur rijden**. Wie toch richting Antwerpen moet, kan een toestel meenemen; een droger weegt **25 tot 40 kg** en moet rechtop in de wagen. Voor meerdere toestellen of een dekvloer die gemeten moet worden, is leveren handiger.",
+        "Vanuit Beek is ons afhaalpunt ruim een uur rijden. Wie toch in de buurt van Antwerpen moet zijn, kan een toestel meenemen; reken op **enkele tientallen kilo's** per droger, rechtop vervoerd. Voor meerdere toestellen, of een dekvloer die gemeten moet worden, is leveren handiger.",
     },
     buren: ["stein", "sittard-geleen", "beekdaelen", "meerssen"],
     faq: [
       {
         q: "Mag de vloerverwarming aan terwijl de bouwdroger draait?",
-        a: "Pas als de dekvloer daar oud genoeg voor is, en dan volgens het opstookprotocol van de installateur. Zodra dat mag, helpt de warmte de droger: warme lucht neemt meer vocht op. Zet de verwarming nooit op eigen houtje vol open op een verse dekvloer, want dan kan hij scheuren.",
+        a: "Pas als de dekvloer daar oud genoeg voor is, en dan volgens het opstookprotocol van de installateur. Zodra het mag, helpt de warmte de droger, want warme lucht neemt meer vocht op. Zet de verwarming nooit op eigen houtje vol open op een verse dekvloer: dan kan hij scheuren.",
       },
       {
         q: "Mijn garage onderaan de helling liep onder na een stortbui. Wat nu?",
-        a: "Eerst het water en het slib weg, daarna drogen. Vertel bij de boeking hoe hoog het water stond en wat er nat werd, zoals de vloer, de muren of een tussenmuur van gipsplaat. Dan brengt de technieker een droger met voldoende capaciteit en eventueel een ventilator mee.",
+        a: "Eerst het water en het slib eruit, daarna drogen. Vertel bij de boeking hoe hoog het water stond en wat er nat werd, zoals de vloer, de muren of een wand van gipsplaat. Dan brengt de technicus een droger met voldoende capaciteit mee, en zo nodig een ventilator.",
       },
       {
         q: "Werken jullie ook in Spaubeek en Neerbeek?",
-        a: "Ja, alle kernen van de gemeente Beek, ook Genhout en Geverik, vallen in ons leveringsgebied. We plannen de levering op een dag die u past en combineren de rit waar mogelijk met adressen in Stein of Sittard-Geleen.",
+        a: "Ja, alle kernen van de gemeente Beek vallen in ons leveringsgebied, ook Genhout en Geverik. We spreken de leverdag met u af en combineren de rit waar het kan met adressen in Stein of Sittard-Geleen. Vragen? Mail of bel ons gerust, ook over de vloerverwarming.",
       },
       {
         q: "Hoe lang heeft een nieuwe dekvloer met een droger nodig?",
-        a: "Dat hangt af van de dikte, het soort dekvloer en de temperatuur in huis. Een droger maakt het verschil tussen weken en maanden. De technieker meet bij de start en bij het ophalen, en dat cijfer geeft u aan de vloerlegger, die bepaalt wanneer hij kan leggen.",
+        a: "Dat hangt af van de dikte, het soort dekvloer en de temperatuur in huis. Met een droger rekent u eerder in weken dan in maanden. De technicus meet bij de start en bij het ophalen, en met dat cijfer beslist de vloerlegger wanneer hij kan leggen.",
       },
     ],
     realisaties: [],
@@ -44799,54 +44799,54 @@ const G: Gemeente[] = [
     slug: "stein",
     title: "Bouwdroger huren in Stein | Vernast",
     description:
-      "Bouwdroger huren in Stein, Elsloo of Urmond: huizen langs de Maas en het Julianakanaal, bij de haven en op de steile Maasoever. Geleverd op een dag die we samen kiezen.",
+      "Bouwdroger huren in Stein, Elsloo of Urmond: huizen langs de Maas en het Julianakanaal, bij de haven en op de steile Maasoever. Levering op afspraak.",
     h1: "Bouwdroger huren in Stein",
     kicker: "Nederlands Limburg · aan de Maas en de haven",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur" },
     intro: [
-      "Stein ligt **aan de Maas**, die hier de grens met België vormt, met aan de overkant **Maasmechelen**. Tussen de rivier en de bebouwing loopt **het Julianakanaal**, en aan dat kanaal ligt **de haven van Stein**. Van de oude burcht staat nog **een ruïne** aan de rand van het centrum.",
-      "Bij de gemeente horen ook **Elsloo, Urmond, Berg aan de Maas en Meers**. Elsloo heeft een kasteel en ligt aan **een steile helling naar de Maasvallei**, Urmond en Berg zijn oude dorpen aan het water. De E314 komt hier als A76 Nederland binnen, en daardoor ligt Stein voor ons **aan de snelle kant van Zuid-Limburg**.",
+      "Stein ligt **aan de Maas**, die hier de grens met België vormt; aan de overkant ligt Maasmechelen. Tussen de rivier en de bebouwing loopt het Julianakanaal, met de haven van Stein. Aan de rand van het centrum staat de ruïne van de oude burcht.",
+      "Ook Elsloo, Urmond, Berg aan de Maas en Meers horen bij de gemeente. Elsloo heeft een kasteel en ligt tegen **een steile helling naar de Maasvallei**; Urmond en Berg zijn oude dorpen aan het water. Omdat de E314 hier als A76 Nederland binnenkomt, zijn we vanuit Aartselaar in ongeveer een uur in Stein.",
     ],
     bouw: {
       kop: "De Maasvallei onderaan, het plateau erboven",
       alineas: [
-        "**In de lage delen langs de Maas** ligt het grondwater dicht onder de oppervlakte. Oudere huizen in de dorpskernen hebben daar vaak een vochtige kelder of een gelijkvloers zonder isolatie. Wie zo'n huis renoveert, krijgt **het nieuwe stucwerk en de dekvloer** droog, maar moet weten welk vocht van de verbouwing komt en welk van onderuit.",
-        "**Op het plateau boven de steilrand** staan de nieuwere wijken, met gezinswoningen die nu een volgende ronde verbouwingen krijgen: een uitbouw, een nieuwe badkamer, een zolder die slaapkamer wordt. **Daar is de planning de reden voor een droger**: de vloerlegger of de schilder staat al ingepland.",
+        "In de lage delen langs de Maas zit het grondwater dicht onder het oppervlak. Oudere huizen in de dorpskernen hebben daar vaak een vochtige kelder of een benedenverdieping zonder isolatie. Wie zo'n huis renoveert, krijgt **nieuw stucwerk en de dekvloer** wel droog, maar moet weten welk vocht van de verbouwing komt en welk van onderuit.",
+        "Op het plateau boven de steilrand staan de nieuwere wijken, met gezinswoningen die nu een volgende verbouwing krijgen: een uitbouw, een nieuwe badkamer, een zolder die slaapkamer wordt. Daar is **de planning de reden voor een droger**, omdat de vloerlegger of de schilder al ingepland staat.",
       ],
     },
     toestellen: [
-      { key: "ttk350", waarom: "**Voor een woning op het plateau met een nieuwe uitbouw of dekvloer**: 70 liter per dag, genoeg voor een volledig gelijkvloers." },
-      { key: "teddh20", waarom: "Brengt **een koele kelder in Urmond of Berg aan de Maas** boven 15 °C, zodat de droger er goed werkt." },
-      { key: "ttk170", waarom: "Voor **een zolder die slaapkamer wordt**: compact genoeg voor een vlizotrap of een smalle zoldertrap." },
-      { key: "radiaal2250", waarom: "Droogt gericht een **natte kelder- of garagevloer** in een huis dicht bij de rivier, tot in de hoeken." },
+      { key: "ttk350", waarom: "**Voor een woning op het plateau met een nieuwe uitbouw of dekvloer**: 70 liter per dag, genoeg voor een volledige benedenverdieping." },
+      { key: "teddh20", waarom: "Brengt **een koele kelder in Urmond of Berg aan de Maas** boven 15 °C, zodat de droger er goed werkt. Reken op een aansluiting voor krachtstroom (400 V)." },
+      { key: "ttk170", waarom: "Voor **een zolder die slaapkamer wordt**: compact genoeg voor een smalle zoldertrap, en op een standaard stopcontact." },
+      { key: "radiaal2250", waarom: "Droogt gericht **een natte kelder- of garagevloer** in een huis dicht bij de rivier, tot in de hoeken." },
     ],
     levering: {
       kop: "Leveren in Stein: net over de Maas",
       alinea:
-        "We rijden **via de E313 en de E314** en steken bij Maasmechelen de Maas over. Zo is Stein **ongeveer een uur rijden**. De leverdag spreken we **samen met u af**, en vaak combineren we die met andere ritten in de buurt. In Elsloo **staan straten steil**; zeg vooraf als de bestelwagen niet tot aan de deur kan.",
+        "We rijden via de E313 en de E314 en steken bij Maasmechelen de Maas over: ongeveer een uur. Levering is **op afspraak**; u kiest een leverdatum bij de boeking, en vaak combineren we die rit met andere adressen in de buurt. In Elsloo zijn sommige straten **steil**, dus meld vooraf als de bestelwagen niet tot aan de deur kan.",
     },
     afhalen: {
       kop: "Afhalen in Aartselaar: haalbaar vanuit Stein",
       alinea:
-        "Stein ligt **vlak bij de grensovergang over de Maas**, maar een afhaling vraagt nog altijd **ruim twee uur heen en terug**. Voor een enkel toestel kan dat passen; voor een renovatie met een dekvloer die gemeten moet worden, laat u beter leveren.",
+        "Ons afhaalpunt in Aartselaar ligt ongeveer een uur rijden, dus heen en terug bent u **zo'n twee uur** onderweg. Voor één toestel kan dat passen. Voor een renovatie met een dekvloer die gemeten moet worden, laat u beter leveren.",
     },
     buren: ["sittard-geleen", "beek", "meerssen", "maasmechelen"],
     faq: [
       {
-        q: "Mijn kelder in Urmond is vochtig. Komt dat van de Maas?",
-        a: "Het kan. In de lage delen bij de Maas en het kanaal ligt het grondwater hoog, en een kelder zonder goede afdichting neemt dat op. Een droger helpt na een lekkage of verbouwing, maar bij vocht dat telkens terugkomt ligt de oplossing in de kelder zelf. De meting laat het verschil zien.",
+        q: "Mijn kelder in Urmond is vochtig. Komt dat door de Maas?",
+        a: "Dat kan. In de lage delen bij de Maas en het kanaal staat het grondwater hoog, en een kelder zonder goede afdichting neemt dat op. Een droger helpt na een lekkage of verbouwing; bij vocht dat telkens terugkomt, ligt de oplossing in de kelder zelf. De meting laat het verschil zien.",
       },
       {
         q: "Past een droger op een zolder met een vlizotrap?",
-        a: "De kleinste bouwdroger wel. Hij is compact en weegt ongeveer 25 kg, en dat gaat met twee mensen de trap op. Grotere toestellen zijn te zwaar en te groot voor een vlizotrap. Meld bij de boeking hoe de zolder bereikbaar is.",
+        a: "De kleinste bouwdroger meestal wel: hij is compact en met twee mensen de trap op te dragen. Grotere toestellen zijn te zwaar en te groot voor een vlizotrap. Meld bij de boeking hoe de zolder bereikbaar is. Vragen? Mail of bel ons gerust, dan kijken we welk toestel past.",
       },
       {
-        q: "Levert u ook in Elsloo, op de steile helling?",
-        a: "Ja, Elsloo hoort bij Stein en valt in ons leveringsgebied, net als Urmond, Berg aan de Maas en Meers. Op steile straten neemt de technieker een steekkar mee, en het helpt als u vooraf zegt waar de bestelwagen kan stoppen.",
+        q: "Leveren jullie ook in Elsloo, op de steile helling?",
+        a: "Ja, Elsloo hoort bij Stein en valt in ons leveringsgebied, net als Urmond, Berg aan de Maas en Meers. Op steile straten neemt de technicus een steekkar mee. Het helpt als u vooraf zegt waar de bestelwagen kan stoppen.",
       },
       {
         q: "Hoe snel droogt nieuw stucwerk met een bouwdroger?",
-        a: "Een dunne laag stucwerk is in een verwarmde ruimte met een droger vaak na een week of twee klaar om te schilderen. Dikkere lagen of een koude ruimte vragen langer. De meting bij het ophalen geeft de schilder een cijfer, en dat voorkomt bladderende verf.",
+        a: "Een dunne laag stucwerk is in een verwarmde ruimte met een droger vaak na een week of twee klaar om te schilderen. Dikkere lagen of een koude ruimte vragen meer tijd. De meting bij het ophalen geeft de schilder een cijfer, en dat voorkomt bladderende verf.",
       },
     ],
     realisaties: [],
@@ -44859,33 +44859,33 @@ const G: Gemeente[] = [
       "Bouwdroger huren in Heerlen: mijnwerkerswoningen in Hoensbroek en Heerlerheide, panden in de binnenstad en kelders op lössgrond. Leverdag samen afgesproken.",
     h1: "Bouwdroger huren in Heerlen",
     kicker: "Nederlands Limburg · het hart van Parkstad",
-    rit: { afstand: "circa 140 km", tijd: "ongeveer een uur en een half" },
+    rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
     intro: [
-      "Heerlen is **de grootste stad van Parkstad** en heeft twee verledens die je in de bebouwing terugziet. Onder de binnenstad lag **het Romeinse Coriovallum**, waarvan het badhuis in het Thermenmuseum te zien is. Boven de grond bepaalde **de steenkoolmijnbouw** van de twintigste eeuw hoe de stad groeide, met **mijnwerkerskoloniën** rond de schachten en Hoensbroek en Heerlerheide als grote woonkernen.",
-      "Sinds de mijnen in de jaren zestig en zeventig dichtgingen, wordt er vooral **verbouwd en verduurzaamd**: koloniewoningen krijgen isolatie en een nieuwe badkamer, winkelpanden in het centrum worden appartementen. Vernast zit in Aartselaar bij Antwerpen en levert hier **op een dag die we samen met u vastleggen**.",
+      "Heerlen is **de grootste stad van Parkstad**, en in de bebouwing ziet u twee verledens terug. Onder de binnenstad lag **het Romeinse Coriovallum**; de resten van het badhuis zijn te zien in het Thermenmuseum. In de twintigste eeuw bepaalde **de steenkoolmijnbouw** hoe de stad groeide, met **mijnwerkerskoloniën** rond de schachten en Hoensbroek en Heerlerheide als grote woonkernen.",
+      "De mijnen sloten in de jaren zestig en zeventig. Sindsdien wordt er vooral **verbouwd en verduurzaamd**: koloniewoningen krijgen isolatie en een nieuwe badkamer, winkelpanden in het centrum worden appartementen. Vernast zit in Aartselaar bij Antwerpen, ongeveer anderhalf uur rijden, en levert hier **op een dag die we samen met u afspreken**.",
     ],
     bouw: {
       kop: "Koloniewoningen, mijnschade en kelders in de löss",
       alineas: [
-        "Een **mijnwerkerswoning uit de jaren twintig of dertig** heeft dunne buitenmuren, vaak zonder spouw, en een vloer die direct op de grond ligt. Wie zo'n huis isoleert en opnieuw stuct, sluit **veel vocht in een klein volume** op. Een compacte droger met een ventilator die de lucht langs de muren stuurt, haalt dat er gelijkmatig uit, en **de technicus meet bij de start** hoeveel er in de muren zit.",
-        "In delen van Heerlen speelt **mijnschade**: scheuren en verzakkingen boven de oude mijngangen. **Een droger lost geen scheur op.** Komt er na het herstel nieuw stucwerk of een nieuwe dekvloer, dan drogen we dat. Blijft een kelder vochtig zonder dat er gebouwd is, dan zoekt u eerst de oorzaak: in **de leemachtige löss** houdt de grond rond een kelder lang water vast.",
+        "Een **mijnwerkerswoning uit het interbellum** heeft dunne buitenmuren, vaak zonder spouw, en een vloer die direct op de grond ligt. Wie zo'n huis isoleert en opnieuw stuct, brengt **veel vocht in een klein volume**. Een compacte droger met een ventilator die de lucht langs de muren stuurt, haalt dat er gelijkmatig uit. **De technicus meet bij de start** hoeveel vocht er in de muren zit.",
+        "In delen van Heerlen speelt **mijnschade**: scheuren en verzakkingen boven de oude mijngangen. **Een droger herstelt geen scheur.** Komt er na het herstel nieuw stucwerk of een nieuwe dekvloer, dan drogen wij dat. Blijft een kelder vochtig zonder dat er gebouwd is, zoek dan eerst de oorzaak: **de leemachtige löss** houdt rond een kelder lang water vast.",
       ],
     },
     toestellen: [
-      { key: "ttk170", waarom: "**Voor een koloniewoning** met kleine kamers en een smalle trap: compact, zuinig en op een gewoon stopcontact, ook als de bewoners in het huis blijven." },
+      { key: "ttk170", waarom: "**Voor een koloniewoning** met kleine kamers en een smalle trap: compact, zuinig (0,75 kW) en op een standaard stopcontact, ook als de bewoners in het huis blijven." },
       { key: "ttv4500", waarom: "Een mijnwerkerswoning met **nieuwe binnenisolatie** droogt ongelijk: de buitenmuur blijft het langst nat. Deze ventilator stuurt de droge lucht precies daarheen." },
-      { key: "ttk350", waarom: "Voor **een winkelpand in de binnenstad** dat appartementen wordt, of een woning in Hoensbroek met een nieuwe dekvloer over de hele begane grond." },
-      { key: "revolution", waarom: "Voor **een kelder onder een oud pand** die ook in de zomer koel blijft: een adsorptiedroger blijft bij lage temperatuur vocht uit de lucht halen." },
+      { key: "ttk350", waarom: "Voor **een winkelpand in de binnenstad** dat appartementen wordt, of een woning in Hoensbroek met een nieuwe dekvloer over de hele benedenverdieping." },
+      { key: "revolution", waarom: "Voor **een kelder onder een oud pand** die ook in de zomer koel blijft: een adsorptiedroger haalt ook bij lage temperatuur vocht uit de lucht." },
     ],
     levering: {
       kop: "Leveren in Heerlen: via de E314 en de A76, op een afgesproken dag",
       alinea:
-        "We rijden over de E313 en de E314 tot Maasmechelen, waar de snelweg **over de Maas doorloopt als de A76** richting Heerlen. **De leverdag spreken we samen af**, met een tijdslot, en waar het kan combineren we de rit met andere adressen in Parkstad. Ter plaatse zet **de technicus de toestellen op hun plek**, legt de afvoerslang naar een putje of de wastafel en meet het vocht bij de start.",
+        "We rijden over de E313 en de E314 naar Maasmechelen, waar de snelweg **over de Maas doorloopt als de A76** richting Heerlen. Reken op ongeveer anderhalf uur. **De leverdag spreken we samen af**, en waar het kan combineren we de rit met andere adressen in Parkstad. Ter plaatse zet **de technicus de toestellen op hun plek**, legt de afvoerslang naar een putje of wastafel en meet het vocht bij de start.",
     },
     afhalen: {
       kop: "Afhalen in Aartselaar: een flinke rit",
       alinea:
-        "Heen en terug bent u **bijna drie uur onderweg**, en een droger van 25 tot 40 kilo moet rechtop in de auto. Afhalen is dus alleen logisch als u toch in de buurt van Antwerpen moet zijn. Voor een volledige woning is **leveren en plaatsen** de eenvoudigste weg.",
+        "Aartselaar ligt ongeveer anderhalf uur rijden van Heerlen, dus heen en terug bent u **zo'n drie uur onderweg**. Een droger weegt enkele tientallen kilo's en moet rechtop in de auto. Afhalen loont alleen als u toch in de buurt van Antwerpen moet zijn. Voor een volledige woning is **leveren en plaatsen** de eenvoudigste weg.",
     },
     buren: ["kerkrade", "landgraaf", "brunssum", "voerendaal", "simpelveld"],
     faq: [
@@ -44917,10 +44917,10 @@ const G: Gemeente[] = [
       "Bouwdroger huren in Kerkrade: arbeiderswoningen in Chevremont en Bleijerheide, huizen op een helling en oude kelders bij de Duitse grens. Leverdag op afspraak.",
     h1: "Bouwdroger huren in Kerkrade",
     kicker: "Nederlands Limburg · Parkstad aan de Duitse grens",
-    rit: { afstand: "circa 150 km", tijd: "ongeveer een uur en veertig minuten" },
+    rit: { afstand: "circa 150 km", tijd: "ruim anderhalf uur" },
     intro: [
-      "Kerkrade ligt **pal tegen de Duitse grens**, die in de Nieuwstraat midden over de straat loopt: aan de overkant heet ze Neustraße en ligt Herzogenrath. Op de heuvel staat **de abdij Rolduc**, en in deze streek werd al in de middeleeuwen **steenkool gewonnen**. De Domaniale mijn in Kerkrade bleef tot eind jaren zestig in bedrijf.",
-      "Behalve het centrum horen **Chevremont, Bleijerheide, Eygelshoven** en Terwinselen bij de gemeente, en de bebouwing volgt de mijngeschiedenis: rijen arbeiderswoningen, mijnkoloniën en naoorlogse wijken op de hellingen langs **de Worm**. Een droger moet er vaak **een steile straat op en een smalle trap door**.",
+      "Kerkrade ligt **pal tegen de Duitse grens**, die in de Nieuwstraat midden over de straat loopt: aan de overkant heet ze Neustraße en ligt Herzogenrath. Op de heuvel staat **de abdij Rolduc**, en in deze streek werd al eeuwen **steenkool gewonnen**. De Domaniale mijn in Kerkrade bleef tot eind jaren zestig in bedrijf.",
+      "Naast het centrum horen **Chevremont, Bleijerheide, Eygelshoven** en Terwinselen bij de gemeente. De bebouwing volgt de mijngeschiedenis: rijen arbeiderswoningen, mijnkoloniën en naoorlogse wijken op de hellingen langs **de Worm**. Een droger moet er vaak **een steile straat op en een smalle trap door**. Vanuit Aartselaar zijn we ruim anderhalf uur onderweg.",
     ],
     bouw: {
       kop: "Hellingen, mijnkoloniën en oude kelders",
@@ -44996,22 +44996,22 @@ const G: Gemeente[] = [
     levering: {
       kop: "Leveren in Landgraaf: met de technicus tot binnen",
       alinea:
-        "We rijden over de E313, de E314 en de A76, en de laatste kilometers over **de Buitenring Parkstad**. **De leverdag kiezen we samen**, in een tijdslot, zodat u of de aannemer er is. De technicus zet de drogers neer, stelt ze in, legt de afvoer naar een putje of wastafel en **noteert de beginmeting**, zodat u later ziet hoeveel het vocht gezakt is.",
+        "We rijden over de E313, de E314 en de A76, en de laatste kilometers over **de Buitenring Parkstad**: samen ruim anderhalf uur. **De leverdag kiezen we samen**, zodat u of de aannemer thuis is. De technicus zet de drogers neer, stelt ze in, legt de afvoer naar een putje of wastafel en **noteert de beginmeting**. Zo ziet u later hoeveel het vocht gezakt is.",
     },
     afhalen: {
       kop: "Zelf halen? Reken op een halve dag",
       alinea:
-        "Tussen Landgraaf en Aartselaar zit **ruim anderhalf uur**, dus ophalen en terugbrengen kost twee keer een halve dag. Voor een losse droger kan het als u toch richting Antwerpen rijdt; houd er rekening mee dat het toestel **rechtop moet staan** tijdens het vervoer.",
+        "Tussen Landgraaf en Aartselaar zit **ruim anderhalf uur**, dus ophalen en terugbrengen kost u twee keer een halve dag. Voor een losse droger kan het als u toch richting Antwerpen rijdt. Houd er rekening mee dat het toestel **rechtop moet staan** tijdens het vervoer.",
     },
     buren: ["heerlen", "kerkrade", "brunssum"],
     faq: [
       {
         q: "Mag de vloer in mijn uitbouw doorlopen op de oude vloer als de dekvloer droog lijkt?",
-        a: "Droog lijken is niet hetzelfde als droog zijn. Een dekvloer droogt van boven naar onder, en de bovenkant voelt al lang droog terwijl er onderin nog vocht zit. Laat het restvocht meten voor de vloerlegger begint; die meting doet onze technicus bij het ophalen.",
+        a: "Droog lijken is niet hetzelfde als droog zijn. Een dekvloer droogt van boven naar onder: de bovenkant voelt al droog terwijl er onderin nog vocht zit. Laat het restvocht meten voor de vloerlegger begint. Die meting doet onze technicus bij het ophalen.",
       },
       {
         q: "Hoeveel drogers heb ik nodig voor een rijtjeshuis uit de jaren zestig?",
-        a: "Voor een gemiddeld rijtjeshuis met nieuw stucwerk volstaat meestal één droger per bouwlaag, met een ventilator erbij als de begane grond doorloopt naar een uitbouw. De Calculator rekent het precies uit op basis van het volume en het materiaal.",
+        a: "Voor een gemiddeld rijtjeshuis met nieuw stucwerk volstaat meestal één droger per bouwlaag, met een ventilator erbij als de begane grond doorloopt naar een uitbouw. De Calculator rekent het uit op basis van het volume en het materiaal.",
       },
       {
         q: "Helpt een bouwdroger tegen een vochtige kruipruimte?",
@@ -45036,7 +45036,7 @@ const G: Gemeente[] = [
     rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
     intro: [
       "Brunssum groeide in de twintigste eeuw van een boerendorp uit tot een mijnstad rond **de Staatsmijn Hendrik**. Daar komen **de mijnkoloniën** vandaan, zoals Treebeek en de wijken rond Rumpen, met rijen gelijke woningen die nu één voor één verbouwd worden.",
-      "Aan de zuidkant ligt **de Brunssummerheide**, een natuurgebied op zand, en de bodem is in een deel van de gemeente **zandiger dan de löss** elders in Zuid-Limburg. Dat merk je aan hoe snel regenwater wegzakt, en aan wat er in een kruipruimte gebeurt. Vanuit Aartselaar bij Antwerpen **brengen wij de toestellen** en zetten ze op hun plek.",
+      "Tegen de gemeente aan ligt **de Brunssummerheide**, een natuurgebied op zand. In dat deel is de bodem **zandiger dan de löss** elders in Zuid-Limburg, en dat merkt u aan hoe snel regenwater wegzakt en aan wat er in een kruipruimte gebeurt. Vanuit Aartselaar bij Antwerpen, ongeveer anderhalf uur rijden, **brengen wij de toestellen** en zetten ze op hun plek.",
     ],
     bouw: {
       kop: "Koloniewoningen en verbouwingen op zandgrond",
@@ -45046,7 +45046,7 @@ const G: Gemeente[] = [
       ],
     },
     toestellen: [
-      { key: "ttk170", waarom: "**Voor een koloniewoning met kleine kamers**: licht genoeg om naar boven te dragen en zuinig op een gewoon stopcontact." },
+      { key: "ttk170", waarom: "**Voor een koloniewoning met kleine kamers**: compact genoeg voor een smalle trap en zuinig op een standaard stopcontact." },
       { key: "ttk350", waarom: "Voor **een aanbouw met verse dekvloer** en de keuken die erop aansluit: 70 liter per dag, bereik tot ongeveer 400 m³." },
       { key: "radiaal2250", waarom: "Laat de lucht **vlak over een nieuwe dekvloer** stromen, zodat de vloer gelijkmatig droogt en de bovenlaag niet als eerste klaar is." },
       { key: "teddh30", waarom: "Voor **een winterverbouwing zonder werkende verwarming**: brengt de ruimte op temperatuur zodat de droger blijft presteren. Vraagt 400 V." },
@@ -45059,7 +45059,7 @@ const G: Gemeente[] = [
     afhalen: {
       kop: "Afhalen in Aartselaar, anderhalf uur verderop",
       alinea:
-        "Zelf ophalen kan, maar **reken op ongeveer drie uur rijden** voor één keer heen en terug, en dat twee keer als u het toestel ook terugbrengt. Een droger weegt 25 tot 40 kilo. In een kleine auto past er één.",
+        "Zelf ophalen kan, maar **reken op ongeveer drie uur rijden** voor één keer heen en terug, en dat twee keer als u het toestel ook terugbrengt. Een droger weegt enkele tientallen kilo's en moet rechtop vervoerd worden. In een kleine auto past er één.",
     },
     buren: ["heerlen", "landgraaf", "beekdaelen"],
     faq: [
@@ -45069,7 +45069,7 @@ const G: Gemeente[] = [
       },
       {
         q: "Moet ik thuis zijn als de droger geleverd wordt?",
-        a: "Iemand moet de technicus binnenlaten en laten zien waar de toestellen moeten staan. Dat mag ook de aannemer zijn. Omdat we de leverdag en het tijdslot samen afspreken, kiest u een moment waarop er iemand aanwezig is.",
+        a: "Iemand moet de technicus binnenlaten en laten zien waar de toestellen moeten staan. Dat mag ook de aannemer zijn. Omdat we de leverdag samen afspreken, kiest u een dag waarop er iemand aanwezig is.",
       },
       {
         q: "Kan het condenswater gewoon in de afvoer?",
@@ -45077,7 +45077,7 @@ const G: Gemeente[] = [
       },
       {
         q: "Werkt een bouwdroger ook na een lekkage?",
-        a: "Ja, het principe is hetzelfde: vocht uit de lucht halen zodat muren en vloeren het afgeven. Bij een lekkage is snel beginnen belangrijk, dus bel ons liever dan online te boeken; dan kijken we samen naar de eerste leverdag die past.",
+        a: "Ja, het principe is hetzelfde: vocht uit de lucht halen zodat muren en vloeren het afgeven. Bij een lekkage telt elke dag. Vragen? Mail of bel ons gerust, dan zoeken we samen de eerste leverdag die past.",
       },
     ],
     realisaties: [],
@@ -45106,13 +45106,13 @@ const G: Gemeente[] = [
     toestellen: [
       { key: "ttk650", waarom: "**Voor een stal of schuur die woning wordt**: een groot, open volume onder een hoge kap vraagt 110 liter per dag." },
       { key: "revolution", waarom: "Voor **een kelder onder een oude hoeve**, het hele jaar koel en vochtig; een adsorptiedroger blijft daar werken waar een condensdroger traag wordt." },
-      { key: "ttk350", waarom: "Voor een woning in Bocholtz met **nieuw stucwerk of een nieuwe dekvloer**, op een gewoon stopcontact." },
+      { key: "ttk350", waarom: "Voor een woning in Bocholtz met **nieuw stucwerk of een nieuwe dekvloer**: 70 liter per dag, op een standaard stopcontact." },
       { key: "ttv4500", waarom: "In een huis met **dikke muren van kalksteen** stuurt deze ventilator de droge lucht langs het oppervlak, zodat de muur overal even snel opdroogt." },
     ],
     levering: {
       kop: "Leveren in Simpelveld: tot aan de hoeve",
       alinea:
-        "De A76 eindigt bij Bocholtz aan de Duitse grens, zodat Simpelveld **vlot bereikbaar** is ondanks de afstand. Toch blijft het een lange rit, dus **de dag leggen we samen vast**, met een tijdslot. Ligt het adres aan een smalle holle weg of op een erf met een poort, beschrijf de toegang bij de boeking; de technicus kiest dan het juiste voertuig.",
+        "De A76 eindigt bij Bocholtz aan de Duitse grens, zodat Simpelveld **vlot bereikbaar** is. Toch zijn we ruim anderhalf uur onderweg, dus **de leverdag leggen we samen vast**. Ligt het adres aan een smalle holle weg of op een erf met een poort, beschrijf de toegang dan bij de boeking. Zo weet de technicus vooraf waar hij kan stoppen.",
     },
     afhalen: {
       kop: "Afhalen: alleen in combinatie met een andere rit",
@@ -45149,9 +45149,9 @@ const G: Gemeente[] = [
       "Bouwdroger huren in Voerendaal, Klimmen, Ubachsberg of Kunrade: huizen van Kunradersteen, hoeves en kelders op lössgrond. Leverdag op afspraak, toestel geplaatst.",
     h1: "Bouwdroger huren in Voerendaal",
     kicker: "Nederlands Limburg · Kunrade, Klimmen en Ubachsberg",
-    rit: { afstand: "circa 140 km", tijd: "ongeveer een uur en een half" },
+    rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
     intro: [
-      "Voerendaal ligt **op de overgang van Parkstad naar het heuvelland**, tussen Heerlen en Valkenburg. De gemeente bestaat uit **Voerendaal, Klimmen, Ubachsberg en Kunrade** en een reeks kleine gehuchten, met akkers op **lössgrond** en hellingen die naar het zuiden hoger worden. Ubachsberg is een van de hoogst gelegen dorpen van Nederland.",
+      "Voerendaal ligt **op de overgang van Parkstad naar het heuvelland**, tussen Heerlen en Valkenburg. Bij de gemeente horen **Voerendaal, Klimmen, Ubachsberg en Kunrade** en een reeks kleine gehuchten, met akkers op **lössgrond** en hellingen die naar het zuiden oplopen. Ubachsberg ligt hoog op het plateau.",
       "In **Kunrade** werd **de Kunradersteen** gewonnen, een grijze kalksteen waarmee veel oude huizen, muren en kerken in de omgeving gebouwd zijn. Rond de dorpen staan **kastelen en grote hoeves**, waaronder kasteel Cortenbach, en verder vooral vrijstaande woningen en boerderijen.",
     ],
     bouw: {
@@ -45170,10 +45170,10 @@ const G: Gemeente[] = [
     levering: {
       kop: "Leveren in Voerendaal: van de A76 de heuvels in",
       alinea:
-        "We rijden over de E313, de E314 en de A76 tot bij Heerlen, en dan **de heuvels in**. U kiest samen met ons **een leverdag en een tijdslot**. Op het platteland helpt het als u aangeeft **waar de wagen kan staan** en of er een erf of oprit is; de technicus plaatst de toestellen, sluit de afvoer aan en meet bij de start.",
+        "We rijden over de E313, de E314 en de A76 tot bij Heerlen, en dan **de heuvels in**: ongeveer anderhalf uur. **De leverdag spreken we samen af.** Op het platteland helpt het als u aangeeft **waar de wagen kan staan** en of er een erf of oprit is. De technicus plaatst de toestellen, sluit de afvoer aan en meet bij de start.",
     },
     afhalen: {
-      kop: "Zelf afhalen is een dagtrip",
+      kop: "Zelf afhalen kost een halve dag",
       alinea:
         "Van Voerendaal naar Aartselaar en terug is **ongeveer drie uur rijden**. Voor één droger die u zelf neerzet kan het, als u toch in de buurt van Antwerpen bent. Een hoeve of een volledige woning **laat u beter door ons plaatsen**.",
     },
@@ -45189,7 +45189,7 @@ const G: Gemeente[] = [
       },
       {
         q: "Wat als de muren op de geplande einddatum nog niet droog zijn?",
-        a: "Dan beslist de meting, niet de kalender. Bij een droogpakket loopt de huur volgens de Drooggarantie kosteloos verder tot de afgesproken waarde gehaald is. De technicus meet bij het ophalen en laat het toestel staan als dat nodig is.",
+        a: "Dan beslist de meting, niet de kalender. De technicus meet bij het ophalen; zijn de waarden nog te hoog, dan bespreken we samen hoe lang het toestel nog blijft staan. Vragen? Mail of bel ons gerust.",
       },
       {
         q: "Hoe vindt de technicus een adres in een klein gehucht?",
@@ -45207,7 +45207,7 @@ const G: Gemeente[] = [
       "Bouwdroger huren in Beekdaelen: Nuth, Schinnen, Schinveld en Amstenrade. Boerderijen en dorpswoningen op lössgrond, nieuwbouw op een vrij kavel. Leverdag op afspraak.",
     h1: "Bouwdroger huren in Beekdaelen",
     kicker: "Nederlands Limburg · Nuth, Schinnen en Onderbanken",
-    rit: { afstand: "circa 130 km", tijd: "ruim een uur en twintig minuten" },
+    rit: { afstand: "circa 130 km", tijd: "bijna anderhalf uur" },
     intro: [
       "Beekdaelen bestaat sinds 2019 en ontstond uit **Nuth, Schinnen en Onderbanken**. Het is **een landelijke gemeente van dorpen**: Nuth, Schinnen, Schinveld, Amstenrade, Oirsbeek, Merkelbeek en een rij kleinere kernen, tussen Sittard-Geleen en Parkstad.",
       "Het landschap is **glooiend en ligt op löss**, met de beekdalen die de gemeente haar naam gaven, waaronder dat van **de Geleenbeek**. In Amstenrade staat een kasteel, en in het noorden grenzen **de Schinveldse bossen** aan Duitsland. Gebouwd wordt er vooral in de dorpen: **een verbouwde boerderij, een uitbouw, een nieuwe woning op een vrij kavel**.",
@@ -45222,18 +45222,18 @@ const G: Gemeente[] = [
     toestellen: [
       { key: "ttk650", waarom: "Voor **een stal of schuur die bij de woning getrokken wordt**: groot volume, oude muren en veel vocht in één keer." },
       { key: "radiaal2250", waarom: "**Voor de dekvloer in een nieuwbouwwoning**: laag over de vloer geblazen, zodat het vocht ook uit de onderste centimeters komt." },
-      { key: "ttk350", waarom: "Voor een woning in Nuth of Schinnen met **nieuw stucwerk en een nieuwe vloer**: ons meest gehuurde toestel bij nieuwbouw." },
+      { key: "ttk350", waarom: "Voor een woning in Nuth of Schinnen met **nieuw stucwerk en een nieuwe vloer**: 70 liter per dag, voor ruimtes tot ongeveer 400 m³." },
       { key: "teddh20", waarom: "Voor **een koele ruimte in een oude boerderij** die in het voorjaar of najaar te koud is om goed te drogen; de kachel brengt ze op temperatuur." },
     ],
     levering: {
       kop: "Leveren in Beekdaelen: vlak langs de A76",
       alinea:
-        "De A76 loopt **dwars door de gemeente**, en daarmee is Beekdaelen voor ons een van de vlotter bereikbare adressen in Zuid-Limburg. **De dag zelf plannen we in overleg**, in een tijdslot. Op een bouwplaats zonder huisnummer helpt **een locatiepin**; ter plaatse zet de technicus de toestellen neer en meet de dekvloer bij de start.",
+        "De A76 loopt **dwars door de gemeente**, en daarmee is Beekdaelen voor ons een van de vlotter bereikbare adressen in Zuid-Limburg: bijna anderhalf uur rijden. **De leverdag plannen we in overleg.** Op een bouwplaats zonder huisnummer helpt **een locatiepin**. Ter plaatse zet de technicus de toestellen neer en meet de dekvloer bij de start.",
     },
     afhalen: {
       kop: "Afhalen in Aartselaar: bijna drie uur heen en terug",
       alinea:
-        "Ook al ligt Beekdaelen aan de snelweg, Aartselaar is **ruim een uur en twintig minuten** verderop. Wie toch richting Antwerpen moet, kan een losse droger meenemen: rechtop vervoeren, en reken op 25 tot 40 kilo per toestel.",
+        "Ook al ligt Beekdaelen aan de snelweg, Aartselaar is **bijna anderhalf uur** verderop. Wie toch richting Antwerpen moet, kan een losse droger meenemen. Vervoer hem rechtop en reken op enkele tientallen kilo's per toestel.",
     },
     buren: ["sittard-geleen", "beek", "brunssum", "heerlen", "voerendaal"],
     faq: [
@@ -45251,7 +45251,7 @@ const G: Gemeente[] = [
       },
       {
         q: "Heb ik krachtstroom nodig voor een bouwdroger?",
-        a: "Voor een condensdroger niet: die draait op een gewoon stopcontact en verbruikt ongeveer zoveel als een paar huishoudtoestellen samen. Een bouwkachel van 20 of 30 kW vraagt wel een krachtstroomaansluiting van 400 V; dat bespreken we vooraf, zodat er op de bouwplaats geen verrassing is.",
+        a: "Voor een condensdroger niet: die draait op een standaard stopcontact en vraagt naargelang het model 0,75 tot 1,4 kW. Een elektrische bouwkachel van 20 of 30 kW vraagt wel een krachtstroomaansluiting van 400 V; dat bespreken we vooraf, zodat er op de bouwplaats geen verrassing is.",
       },
     ],
     realisaties: [],
@@ -45262,54 +45262,54 @@ const G: Gemeente[] = [
     slug: "sittard-geleen",
     title: "Bouwdroger huren in Sittard-Geleen | Vernast",
     description:
-      "Bouwdroger huren in Sittard-Geleen en Born: oude panden in de Sittardse binnenstad, mijnwerkerswijken in Geleen en dorpen aan de Maas. Leverdag samen gepland.",
+      "Bouwdroger huren in Sittard-Geleen en Born: oude panden in de Sittardse binnenstad, mijnwerkerswijken in Geleen en dorpen aan de Maas. Levering op afspraak.",
     h1: "Bouwdroger huren in Sittard-Geleen",
     kicker: "Nederlands Limburg · Westelijke Mijnstreek, tegen de Maas",
-    rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en een kwartier" },
+    rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
     intro: [
-      "Sittard-Geleen ontstond in 2001 uit **Sittard, Geleen en Born**. Sittard is een oude **vestingstad** met een marktplein en smalle straten binnen de vroegere wallen. Geleen groeide met **de Staatsmijn Maurits**, op wier terrein later het chemiecomplex **Chemelot** kwam. Born ligt aan **het Julianakanaal** en de Maas.",
-      "De gemeente ligt in **de smalle strook van Nederland** tussen België en Duitsland: aan de ene kant grenst ze aan het Duitse Selfkant, aan de andere kant ligt over de Maas het Belgische **Maasmechelen**. Voor ons is dat gunstig, want vanuit Aartselaar rijden we over de E313 en de E314 tot aan de Maas, en daarna is het nog een kort stuk.",
+      "Sittard-Geleen ontstond in 2001 uit **Sittard, Geleen en Born**. Sittard is een oude vestingstad met een marktplein en smalle straten binnen de vroegere wallen. Geleen groeide met de Staatsmijn Maurits; op dat terrein ligt nu het chemiecomplex **Chemelot**. Born ligt aan het Julianakanaal en de Maas.",
+      "De gemeente ligt in **de smalle strook van Nederland** tussen België en Duitsland. Aan de oostkant grenst ze aan het Duitse Selfkant, en over de Maas ligt het Belgische Maasmechelen. Vanuit Aartselaar rijden we over de E313 en de E314 en zijn we in ruim een uur ter plaatse.",
     ],
     bouw: {
       kop: "Vestingpanden, mijnwerkerswijken en dorpen aan de Maas",
       alineas: [
-        "In **de binnenstad van Sittard** staan oude panden, soms met vakwerk, en kelders onder de straat. Wie er een winkel met bovenwoning verbouwt, krijgt **nieuw stucwerk in hoge, smalle ruimtes** en een kelder die zelden helemaal droog is. In zo'n kelder werkt een adsorptiedroger beter dan een condensdroger.",
-        "Geleen heeft **mijnwerkerswijken** zoals Lindenheuvel, met rijtjeshuizen die nu verduurzaamd worden. In **de dorpen langs de Maas**, zoals Grevenbicht en Obbicht, ligt de grond lager en kan een kelder of kruipruimte na een natte winter vochtiger zijn. **De technicus meet eerst** of het om bouwvocht gaat of om water van buiten.",
+        "In de binnenstad van Sittard staan oude panden, soms met vakwerk, en kelders onder de straat. Wie er een winkel met bovenwoning verbouwt, krijgt **nieuw stucwerk in hoge, smalle ruimtes** en een kelder die zelden helemaal droog is. In zo'n kelder werkt een adsorptiedroger beter dan een condensdroger.",
+        "Geleen heeft mijnwerkerswijken zoals Lindenheuvel, met rijtjeshuizen die nu verduurzaamd worden. In de dorpen langs de Maas, zoals Grevenbicht en Obbicht, ligt de grond lager en kan een kelder of kruipruimte na een natte winter vochtig zijn. **De technicus meet eerst** of het om bouwvocht gaat of om water van buiten.",
       ],
     },
     toestellen: [
       { key: "revolution", waarom: "**Voor de kelder onder een pand in de Sittardse binnenstad**: koel en vochtig, en daar blijft een adsorptiedroger rendement halen." },
-      { key: "ttk170", waarom: "Voor **een bovenwoning boven een winkel**, bereikbaar via een smalle trap: compact en stil genoeg als er beneden gewoon verkocht wordt." },
-      { key: "ttk350", waarom: "Voor **een rijtjeshuis in Geleen** dat geïsoleerd wordt en nieuw stucwerk krijgt, of een nieuwbouwwoning in Born met verse dekvloer." },
-      { key: "ttv4500", waarom: "In **een smal, diep pand** komt de droge lucht niet vanzelf tot achteraan. Deze ventilator verplaatst ze door de gang tot in de achterbouw." },
+      { key: "ttk170", waarom: "Voor **een bovenwoning boven een winkel**, bereikbaar via een smalle trap: compact, op een standaard stopcontact en stil genoeg als beneden de winkel open is." },
+      { key: "ttk350", waarom: "Voor **een rijtjeshuis in Geleen** dat geïsoleerd wordt en nieuw stucwerk krijgt, of een nieuwbouwwoning in Born met een verse dekvloer." },
+      { key: "ttv4500", waarom: "In **een smal, diep pand** komt de droge lucht niet vanzelf tot achteraan. Deze ventilator stuurt ze door de gang tot in de achterbouw." },
     ],
     levering: {
       kop: "Leveren in Sittard-Geleen: over de Maas bij Maasmechelen",
       alinea:
-        "Sittard-Geleen is voor ons **een van de dichtstbijzijnde gemeenten** aan de Nederlandse kant van de Maas. **De leverdag stemmen we met u af**, met een tijdslot dat in uw planning past. In de binnenstad van Sittard kan laden en lossen beperkt zijn: zeg bij de boeking waar het pand ligt, dan zet de technicus de wagen zo dicht mogelijk bij de deur en draagt het laatste stuk.",
+        "Via de E313 en de E314 zijn we in ruim een uur aan de Nederlandse kant van de Maas. Levering is **op afspraak**: u kiest een leverdatum bij de boeking, en we stemmen de rit af op uw planning. In de binnenstad van Sittard is laden en lossen soms beperkt. Zeg daarom waar het pand ligt, dan zet de technicus de bestelwagen zo dicht mogelijk bij de deur.",
     },
     afhalen: {
-      kop: "Afhalen: een uur en een kwartier naar Aartselaar",
+      kop: "Zelf afhalen in Aartselaar: ruim een uur rijden",
       alinea:
-        "Omdat de rit bijna helemaal snelweg is, is zelf ophalen **haalbaarder dan vanuit Parkstad**. Toch bent u heen en terug al snel tweeënhalf uur kwijt. Voor één droger kan het; voor een kelder of een volledig pand **plaatsen we liever zelf**.",
+        "Omdat de rit bijna helemaal over de snelweg gaat, is zelf afhalen **haalbaarder dan vanuit Parkstad**. Toch bent u heen en terug al snel meer dan twee uur kwijt. Voor één droger kan het; voor een kelder of een volledig pand plaatsen we liever zelf.",
     },
     buren: ["stein", "beek", "beekdaelen", "echt-susteren", "maasmechelen"],
     faq: [
       {
         q: "Mag een bouwdroger draaien in een pand waar beneden een winkel open is?",
-        a: "Ja. Een compacte condensdroger maakt ongeveer het geluid van een koelkast en draait op een gewoon stopcontact. Zet hem op de verdieping die verbouwd wordt, met de deur dicht, dan merkt de winkel er nauwelijks iets van.",
+        a: "Ja. Een compacte condensdroger maakt ongeveer het geluid van een koelkast en draait op een standaard stopcontact. Zet hem op de verdieping die verbouwd wordt, met de deur dicht, dan merkt de winkel er nauwelijks iets van.",
       },
       {
         q: "Is mijn kelder in Grevenbicht vochtig door de Maas?",
-        a: "Dat kan, maar dat zegt een meting en geen gok. Bouwvocht verdwijnt met drogen; vocht dat bij hoog water of een hoge grondwaterstand door de muur komt, keert terug. De technicus meet bij de start en vertelt u wat een droger in uw kelder kan doen.",
+        a: "Dat kan, maar alleen een meting geeft uitsluitsel. Bouwvocht verdwijnt met drogen; vocht dat bij hoog water of een hoge grondwaterstand door de muur komt, keert terug. De technicus meet bij de start en vertelt u wat een droger in uw kelder kan doen.",
       },
       {
         q: "Rijden jullie naar alle kernen, ook Born en Munstergeleen?",
-        a: "Ja, de hele gemeente: Sittard, Geleen, Born, Munstergeleen, Limbricht, Grevenbicht, Obbicht en de andere dorpen. Geef het adres op bij de boeking; omdat de leverdag in overleg gaat, stemmen we de rit af op uw planning.",
+        a: "Ja, de hele gemeente: Sittard, Geleen, Born, Munstergeleen, Limbricht, Grevenbicht, Obbicht en de andere dorpen. Geef het adres op bij de boeking. Vragen? Mail of bel ons gerust, dan plannen we de rit samen.",
       },
       {
         q: "Wat kost een bouwdroger huren in Sittard-Geleen?",
-        a: "Een los toestel heeft een dagprijs, een droogpakket een vaste prijs die we vooraf uitrekenen uit het volume en het materiaal. Levering, plaatsing en ophaling staan in de offerte, zodat u vooraf weet waar u aan toe bent. De Calculator op de site geeft meteen een bedrag.",
+        a: "Een los toestel heeft een dagprijs; voor een droogpakket rekenen we vooraf een vaste prijs uit op basis van het volume en het materiaal. Levering, plaatsing en ophaling staan in de offerte, zodat u vooraf weet waar u aan toe bent. Op de site kunt u meteen een prijs berekenen.",
       },
     ],
     realisaties: [],
