@@ -228,7 +228,7 @@
   .ds-ptop{padding:14px 16px 0}
   .ds-body{padding:10px 16px 0;gap:10px}
   .ds-foot{padding:10px 16px 14px}
-  /* The hint gets its own line above the buttons instead of squeezing them. */
+  /* De melding krijgt een eigen regel boven de knoppen, in plaats van ze samen te drukken. */
   .ds-foot{flex-wrap:wrap;row-gap:6px}.ds-foot .ds-melding{order:-1;flex-basis:100%}
   .ds-sub:not(.ds-sub--altijd){display:none}
   .ds-cards{gap:8px}
@@ -984,6 +984,10 @@
   .ds-melding{font-size:11px}
 }
 /* Lager paneel (laptop, 900 px en minder): eerst de uitleg weg, de lat en knoppen compacter. */
+/* Laptop (paneel tot ~960 px hoog) met twee kaarten: eerst de tip weg, anders wordt ze onderaan afgeknipt. */
+@container paneel (max-height:960px) and (min-width:521px){
+  .ds-laagk:not(.ds-laagk--solo) .ds-laagk-info .tip{display:none}
+}
 @container paneel (max-height:820px) and (min-width:521px){
   .ds-laagk-wat,.ds-laagk-info .tip{display:none}
   .ds-laagk-inh{gap:7px;padding:12px 14px 10px}
@@ -1457,4 +1461,28 @@
   .ds-sim .ds-laagk-band h3{font-size:20px}
   .ds-laagk-band output{font-size:32px}.ds-laagk-band output small{font-size:13px}
   .ds-laagk--solo .ds-laagk-inh{padding:10px 10px 9px;gap:8px}
+}
+/* Heel laag paneel met twee kaarten (tablet staand, kleine gsm): eerst de cijfers onder de
+   lat weg, daarna de lat zelf; de dikteknoppen blijven altijd staan. */
+@container paneel (max-height:440px){
+  .ds-laagk:not(.ds-laagk--solo) .ds-ware-schaal{display:none}
+  .ds-laagk:not(.ds-laagk--solo) .ds-laagk-inh{padding-top:8px;padding-bottom:8px;gap:6px}
+}
+@container paneel (max-height:380px){
+  .ds-laagk:not(.ds-laagk--solo) .ds-ware{display:none}
+}
+
+/* gsm: the devices as photo tiles side by side — a list of rows pushed the total under the buttons */
+@media (max-width:899px){
+  .ds-sim[data-stap="4"] .ds-bon{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px;border:0}
+  .ds-sim[data-stap="4"] .ds-bon li{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"img img" "q b" "s s";column-gap:4px;row-gap:1px;padding:6px 6px 7px;border:0;border-radius:12px;background:#fff;color:var(--ink);text-align:center;font-size:12.5px}
+  .ds-sim[data-stap="4"] .ds-bon img{grid-area:img;width:100%;height:64px;object-fit:contain;border-radius:0;background:none;margin-bottom:3px}
+  .ds-sim[data-stap="4"] .ds-bon .q{grid-area:q;width:auto;font-size:12px;color:var(--red);opacity:1}
+  .ds-sim[data-stap="4"] .ds-bon b{grid-area:b;text-align:left;white-space:normal;line-height:1.15}
+  .ds-sim[data-stap="4"] .ds-bon small{grid-area:s;margin:0;font-size:9.5px;opacity:.6}
+  .ds-sim[data-stap="4"] .ds-tot{padding-top:8px;border-top:1px dashed rgba(255,255,255,.25)}
+}
+@media (max-width:399px){
+  .ds-sim[data-stap="4"] .ds-bon li{padding-inline:4px;font-size:11.5px}
+  .ds-sim[data-stap="4"] .ds-bon .q{font-size:11px}
 }

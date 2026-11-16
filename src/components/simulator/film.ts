@@ -18,9 +18,9 @@ export const filmStatus = { wacht: false };
 export const PLAATSEN = 2.2;
 /** Duur van één val, tot het toestel stilstaat. */
 export const VAL = 0.6;
-/** First drop: once the camera's glide to a new floor (900 ms, ease-out) is mostly done. */
+/** Eerste val: zodra de camera bijna op de nieuwe verdieping staat (glijden 900 ms, ease-out). */
 const EERSTE = 0.3;
-/** Pause after the last device lands before the film moves on. */
+/** Even kijken nadat het laatste toestel staat, voor de film verdergaat. */
 const NAKIJKEN = 0.35;
 
 /** Wanneer het i-de van n toestellen begint te vallen. */
@@ -29,11 +29,11 @@ export function aankomst(i: number, n: number): number {
 }
 
 /**
- * Seconds to place n devices on one floor: until the last one has landed, plus a
- * short look. A fixed length left a floor with two devices standing idle for 1.7 s.
+ * Seconden om n toestellen op één verdieping te zetten: tot het laatste staat, plus
+ * even kijken. Met een vaste duur stond een verdieping met twee toestellen 1,7 s stil.
  */
-export function plaatsDuur(n: number): number {
-  return n > 0 ? aankomst(n - 1, n) + VAL + NAKIJKEN : 0.8;
+export function plaatsDuur(n: number, nakijken = true): number {
+  return n > 0 ? aankomst(n - 1, n) + VAL + (nakijken ? NAKIJKEN : 0.05) : 0.8;
 }
 
 /** Uitlopende stuit: valt, botst twee keer zacht en ligt stil. */
@@ -46,11 +46,11 @@ export function stuit(p: number): number {
 }
 
 /**
- * The drying plan plays in segments, one floor at a time:
- *   plaatsen  every floor in turn, bottom to top: the devices land, nothing runs yet
- *   drogen    then top to bottom: the devices run and the floor dries from `van` to `tot`
- * Upper floors dry first (warm, moist air rises and leaves through the top), so
- * by the time the film reaches a lower floor it is already partly dry.
+ * Het droogplan speelt in stukken, één verdieping tegelijk:
+ *   plaatsen  elke verdieping, van onder naar boven: de toestellen landen, nog niets draait
+ *   drogen    daarna van boven naar beneden: de toestellen draaien en de verdieping droogt
+ *             van `van` naar `tot` (in beeld telkens van nat naar droog)
+ * Bovenaan droogt het eerst (warme, vochtige lucht stijgt en gaat er bovenaan uit).
  */
 export type FilmModus = "plaatsen" | "drogen";
 export interface FilmPlan {
@@ -60,13 +60,13 @@ export interface FilmPlan {
   tot: number;
   /** seconds */
   duur: number;
-  /** devices placed on this floor, so the counter follows the actual landings */
+  /** toestellen op deze verdieping, zodat de teller de echte landingen volgt */
   toestellen?: number;
+  /** seconden dat de droge verdieping in beeld blijft voor de film verdergaat (0 op de laatste) */
+  naloop?: number;
 }
 /** Seconds per floor of drying. */
 export const DROOG_DUUR = 6;
-/** Share of a drying segment in which the floor dries; the rest holds the result. */
-const DROOG_DEEL = 0.93;
 
 /** The film clock of the open floor: `start` in ms (-1 = waiting for the first frame), `vast` = the end frame at once. */
 export interface Film extends FilmPlan { start: number; vast: boolean }
@@ -86,15 +86,18 @@ export function voortgangNa(plan: FilmPlan, sec: number): number {
   if (plan.modus === "plaatsen") {
     const n = plan.toestellen ?? 0;
     if (n === 0) return Math.min(1, Math.max(0, sec / Math.max(0.1, plan.duur - NAKIJKEN)));
-    // Each device counts once it is down: the counter ticks with the landings.
+    // Een toestel telt zodra het staat: de teller tikt mee met de landingen.
     let som = 0;
     for (let i = 0; i < n; i++) som += Math.min(1, Math.max(0, (sec - aankomst(i, n)) / VAL));
     return som / n;
   }
-  // Drying eases out: it visibly starts the moment the devices switch on (an ease-in
-  // showed almost nothing for the first second), and the last corners take their time.
-  const k = Math.min(1, Math.max(0, (sec - 0.15) / (plan.duur * DROOG_DEEL)));
-  return 1 - Math.pow(1 - k, 1.4);
+  // Het drogen is zichtbaar zodra de toestellen aanslaan (een ease-in toonde de
+  // eerste seconde bijna niets).
+  // Geen pauze op het einde, behalve de naloop: de verdieping is droog precies als
+  // het stuk eindigt, zodat de laatste dag, "Alles droog" en de droge woning samenvallen.
+  const k = Math.min(1, Math.max(0, (sec - 0.15) / (plan.duur - 0.15 - (plan.naloop ?? 0))));
+  // Lineair: elke dag duurt even lang, zodat de laatste dag niet kruipt voor "Alles droog".
+  return k;
 }
 
 /** How far this segment is, 0..1. */
@@ -114,7 +117,7 @@ export function droogStand(film: Film): number {
  */
 export function aanVoortgang(film: Film, aankomst: number): number {
   if (film.modus !== "drogen") return 0;
-  return Math.min(1, Math.max(0, (filmTijd(film) - (aankomst - EERSTE) * 0.35) / 0.5));
+  return Math.min(1, Math.max(0, (filmTijd(film) - (aankomst - EERSTE) * 0.2) / 0.35));
 }
 
 /**
