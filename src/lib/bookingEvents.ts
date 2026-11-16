@@ -181,7 +181,13 @@ export function recordBookingEvent(event: BookingEvent): void {
   if (event.dedupeKey && !rateLimit(`event:${event.code}:${event.dedupeKey}`, 1, DEDUPE_WINDOW_MS).allowed) {
     return;
   }
-  if (!rateLimit("event:totaal", MAX_EVENTS_PER_MINUTE, DEDUPE_WINDOW_MS).allowed) return;
+  /*
+    Eigen budget per bron. Wat de browser via `/api/booking-event` meldt, is
+    publiek en ongeauthenticeerd; deelde het één pot met de checkouts, dan kon
+    wie die route bestookt de echte weigeringen van de server wegdrukken.
+  */
+  const source = event.route === "wizard" || event.route === "afhaal-wizard" ? "browser" : "server";
+  if (!rateLimit(`event:totaal:${source}`, MAX_EVENTS_PER_MINUTE, DEDUPE_WINDOW_MS).allowed) return;
 
   console.warn(
     `[boeking geweigerd] ${event.route} ${event.code}${event.status ? ` (${event.status})` : ""}` +
