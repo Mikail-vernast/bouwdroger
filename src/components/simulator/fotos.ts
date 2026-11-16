@@ -19,9 +19,9 @@ const BESCHIKBAAR: FotoSleutel[] = [
 ];
 
 /**
- * Version suffix for photos that were replaced. /simulator/* is served with a
- * one-year immutable cache, so a fixed photo needs a new file name: under the
- * old name a returning visitor keeps seeing the old one.
+ * Versie-achtervoegsel voor vervangen foto's. /simulator/* stond een jaar immutable
+ * in de cache (nu een week, zie vercel.json): onder de oude naam bleef een
+ * terugkerende bezoeker de oude foto zien. De oude namen verwijzen door naar -v2.
  */
 const VERSIE: Partial<Record<FotoSleutel, string>> = {
   "dak-lessenaar": "-v2", "huis-lessenaar-1": "-v2", "huis-lessenaar-3": "-v2",

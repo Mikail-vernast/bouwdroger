@@ -228,7 +228,7 @@
   .ds-ptop{padding:14px 16px 0}
   .ds-body{padding:10px 16px 0;gap:10px}
   .ds-foot{padding:10px 16px 14px}
-  /* The hint gets its own line above the buttons instead of squeezing them. */
+  /* De melding krijgt een eigen regel boven de knoppen, in plaats van ze samen te drukken. */
   .ds-foot{flex-wrap:wrap;row-gap:6px}.ds-foot .ds-melding{order:-1;flex-basis:100%}
   .ds-sub:not(.ds-sub--altijd){display:none}
   .ds-cards{gap:8px}
@@ -984,6 +984,10 @@
   .ds-melding{font-size:11px}
 }
 /* Lager paneel (laptop, 900 px en minder): eerst de uitleg weg, de lat en knoppen compacter. */
+/* Laptop (paneel tot ~960 px hoog) met twee kaarten: eerst de tip weg, anders wordt ze onderaan afgeknipt. */
+@container paneel (max-height:960px) and (min-width:521px){
+  .ds-laagk:not(.ds-laagk--solo) .ds-laagk-info .tip{display:none}
+}
 @container paneel (max-height:820px) and (min-width:521px){
   .ds-laagk-wat,.ds-laagk-info .tip{display:none}
   .ds-laagk-inh{gap:7px;padding:12px 14px 10px}
@@ -1457,4 +1461,13 @@
   .ds-sim .ds-laagk-band h3{font-size:20px}
   .ds-laagk-band output{font-size:32px}.ds-laagk-band output small{font-size:13px}
   .ds-laagk--solo .ds-laagk-inh{padding:10px 10px 9px;gap:8px}
+}
+/* Heel laag paneel met twee kaarten (tablet staand, kleine gsm): eerst de cijfers onder de
+   lat weg, daarna de lat zelf; de dikteknoppen blijven altijd staan. */
+@container paneel (max-height:440px){
+  .ds-laagk:not(.ds-laagk--solo) .ds-ware-schaal{display:none}
+  .ds-laagk:not(.ds-laagk--solo) .ds-laagk-inh{padding-top:8px;padding-bottom:8px;gap:6px}
+}
+@container paneel (max-height:380px){
+  .ds-laagk:not(.ds-laagk--solo) .ds-ware{display:none}
 }

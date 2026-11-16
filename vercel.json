@@ -10,6 +10,86 @@
     "fra1"
   ],
   "redirects": [
+    {
+      "source": "/simulator/dak-lessenaar.webp",
+      "destination": "/simulator/dak-lessenaar-v2.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/dak-lessenaar-640.webp",
+      "destination": "/simulator/dak-lessenaar-v2-640.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/breed-dak-lessenaar.webp",
+      "destination": "/simulator/breed-dak-lessenaar-v2.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/breed-dak-lessenaar-640.webp",
+      "destination": "/simulator/breed-dak-lessenaar-v2-640.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/huis-lessenaar-1.webp",
+      "destination": "/simulator/huis-lessenaar-1-v2.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/huis-lessenaar-1-640.webp",
+      "destination": "/simulator/huis-lessenaar-1-v2-640.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/breed-huis-lessenaar-1.webp",
+      "destination": "/simulator/breed-huis-lessenaar-1-v2.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/breed-huis-lessenaar-1-640.webp",
+      "destination": "/simulator/breed-huis-lessenaar-1-v2-640.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/huis-lessenaar-3.webp",
+      "destination": "/simulator/huis-lessenaar-3-v2.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/huis-lessenaar-3-640.webp",
+      "destination": "/simulator/huis-lessenaar-3-v2-640.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/breed-huis-lessenaar-3.webp",
+      "destination": "/simulator/breed-huis-lessenaar-3-v2.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/breed-huis-lessenaar-3-640.webp",
+      "destination": "/simulator/breed-huis-lessenaar-3-v2-640.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/dikte-chape.webp",
+      "destination": "/simulator/dikte-chape-v2.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/dikte-chape-360.webp",
+      "destination": "/simulator/dikte-chape-v2-360.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/dikte-pleister.webp",
+      "destination": "/simulator/dikte-pleister-v2.webp",
+      "permanent": true
+    },
+    {
+      "source": "/simulator/dikte-pleister-360.webp",
+      "destination": "/simulator/dikte-pleister-v2-360.webp",
+      "permanent": true
+    },
     {"source":"/realisaties/vernissage-boom","destination":"/realisaties/expositieruimte-drogen-boom","permanent":true},
     {"source":"/realisaties/mnr-w-antwerpen","destination":"/realisaties/kelder-en-kamer-drogen-antwerpen","permanent":true},
     {"source":"/realisaties/mnr-s-brussel","destination":"/realisaties/badkamer-drogen-brussel","permanent":true},
@@ -162,6 +242,15 @@
         {
           "key": "Cross-Origin-Resource-Policy",
           "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/simulator/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
         }
       ]
     },

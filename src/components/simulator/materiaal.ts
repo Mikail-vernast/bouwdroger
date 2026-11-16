@@ -40,7 +40,7 @@ const FASE_BEELD: Record<Fase, { muurTegel: MuurTegel; muur: string; vloerTegel:
 
 /** Hoe muren en vloer eruitzien in deze fase — alleen beeld, geen rekenwerk. */
 export function materiaalVoor(wat: Wat | null, fase: Fase | null, vochtStart: number): Materiaal {
-  // Rainwater in the shell soaks the masonry and the floor slab alike.
+  // Regenwater in de ruwbouw maakt metselwerk en vloerplaat allebei nat.
   const muurNat = wat === "pleister" || wat === "beide" || wat === "waterschade";
   const vloerNat = wat === "chape" || wat === "beide" || wat === "waterschade";
   const vocht = wat ? vochtStart : 0;

@@ -18,9 +18,9 @@ export const filmStatus = { wacht: false };
 export const PLAATSEN = 2.2;
 /** Duur van één val, tot het toestel stilstaat. */
 export const VAL = 0.6;
-/** First drop: once the camera's glide to a new floor (900 ms, ease-out) is mostly done. */
+/** Eerste val: zodra de camera bijna op de nieuwe verdieping staat (glijden 900 ms, ease-out). */
 const EERSTE = 0.3;
-/** Pause after the last device lands before the film moves on. */
+/** Even kijken nadat het laatste toestel staat, voor de film verdergaat. */
 const NAKIJKEN = 0.35;
 
 /** Wanneer het i-de van n toestellen begint te vallen. */
@@ -29,8 +29,8 @@ export function aankomst(i: number, n: number): number {
 }
 
 /**
- * Seconds to place n devices on one floor: until the last one has landed, plus a
- * short look. A fixed length left a floor with two devices standing idle for 1.7 s.
+ * Seconden om n toestellen op één verdieping te zetten: tot het laatste staat, plus
+ * even kijken. Met een vaste duur stond een verdieping met twee toestellen 1,7 s stil.
  */
 export function plaatsDuur(n: number): number {
   return n > 0 ? aankomst(n - 1, n) + VAL + NAKIJKEN : 0.8;
@@ -60,9 +60,9 @@ export interface FilmPlan {
   tot: number;
   /** seconds */
   duur: number;
-  /** devices placed on this floor, so the counter follows the actual landings */
+  /** toestellen op deze verdieping, zodat de teller de echte landingen volgt */
   toestellen?: number;
-  /** seconds the dry floor stays in view before the film moves on (0 on the last floor) */
+  /** seconden dat de droge verdieping in beeld blijft voor de film verdergaat (0 op de laatste) */
   naloop?: number;
 }
 /** Seconds per floor of drying. */
@@ -86,17 +86,17 @@ export function voortgangNa(plan: FilmPlan, sec: number): number {
   if (plan.modus === "plaatsen") {
     const n = plan.toestellen ?? 0;
     if (n === 0) return Math.min(1, Math.max(0, sec / Math.max(0.1, plan.duur - NAKIJKEN)));
-    // Each device counts once it is down: the counter ticks with the landings.
+    // Een toestel telt zodra het staat: de teller tikt mee met de landingen.
     let som = 0;
     for (let i = 0; i < n; i++) som += Math.min(1, Math.max(0, (sec - aankomst(i, n)) / VAL));
     return som / n;
   }
-  // Drying starts visibly the moment the devices switch on (an ease-in showed
-  // almost nothing for the first second).
-  // No hold at the end: the floor is dry exactly when the segment ends, so the last
-  // day, "Alles droog" and the dry house arrive together.
+  // Het drogen is zichtbaar zodra de toestellen aanslaan (een ease-in toonde de
+  // eerste seconde bijna niets).
+  // Geen pauze op het einde, behalve de naloop: de verdieping is droog precies als
+  // het stuk eindigt, zodat de laatste dag, "Alles droog" en de droge woning samenvallen.
   const k = Math.min(1, Math.max(0, (sec - 0.15) / (plan.duur - 0.15 - (plan.naloop ?? 0))));
-  // Linear: every day takes as long, so the last day does not crawl before "Alles droog".
+  // Lineair: elke dag duurt even lang, zodat de laatste dag niet kruipt voor "Alles droog".
   return k;
 }
 

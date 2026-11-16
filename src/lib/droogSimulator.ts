@@ -30,8 +30,10 @@ import { droogTempo, type Tempo } from "./droogTempo.js";
 
 export type Woning = "rijwoning" | "halfopen" | "open" | "appartement";
 export type Dak = "zadeldak" | "plat" | "lessenaar";
-/** What is wet. "waterschade" = rainwater in masonry and floor slab (ruwbouw, ramen): no layer, so no thickness. */
+/** Wat er nat is. "waterschade" = regenwater in metselwerk en vloerplaat (ruwbouw, ramen): geen laag, dus geen dikte. */
 export type Wat = "pleister" | "chape" | "beide" | "waterschade";
+/** Natte laag (cm) waarmee de film het water in een ruwbouw schat: los van elke gekozen chapedikte. */
+const WATERSCHADE_CM = 2;
 export type Fase = "ruwbouw" | "ramen" | "chape" | "gepleisterd" | "tegels" | "afgewerkt";
 
 export interface SimAnswers {
@@ -83,10 +85,10 @@ export const WAT_LABEL: Record<Wat, { label: string; sub: string }> = {
 };
 
 /**
- * Which layers are there in each phase, so the thickness question only asks
- * about those: no chape or plaster in the shell, only chape once it is poured,
- * both from plastering on. Without a layer the catalogue's waterschade package
- * applies (no thickness, priced on the floor area).
+ * Welke lagen er in elke fase liggen, zodat de diktevraag alleen daarnaar vraagt:
+ * in de ruwbouw geen chape of pleister, na het gieten alleen chape, vanaf het
+ * pleisteren beide. Zonder laag geldt het waterschadepakket uit de catalogus
+ * (geen dikte, geprijsd op de vloeroppervlakte).
  */
 export const LAGEN_PER_FASE: Record<Fase, readonly ("pd" | "cd")[]> = {
   ruwbouw: [],
@@ -292,9 +294,10 @@ export function simResultaat(a: SimAnswers): SimResultaat | null {
     opp,
     verd: Math.max(1, a.verdiepingen),
     ruim: Math.max(1, a.ruimtes ?? a.verdiepingen * 4),
-    // The litres are only for the film: rainwater in the shell is estimated as a floor layer.
+    // De liters dienen alleen voor de film. Regenwater in de ruwbouw rekenen we als een
+    // vaste, dunne natte laag: een chapedikte die de bezoeker eerder koos, ligt er nog niet.
     wat: a.wat === "waterschade" ? "chape" : a.wat,
-    cd: Number(config.cd),
+    cd: a.wat === "waterschade" ? WATERSCHADE_CM : Number(config.cd),
     pd: Number(config.pd),
     verwarmt: a.verwarmt,
     tempo: "gemiddeld",
