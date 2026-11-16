@@ -7,7 +7,7 @@ import { materiaalVoor } from "@/components/simulator/materiaal";
 import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
 import { TEMPO, TEMPO_ORDER, type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
-import { DROOG_DUUR, FILM_START, FILM_WACHT, PLAATS_DUUR, filmStatus, voortgangNa, type FilmPlan } from "@/components/simulator/film";
+import { DROOG_DUUR, FILM_START, FILM_WACHT, filmStatus, plaatsDuur, voortgangNa, type FilmPlan } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
 import {
   DAK_LABEL,
@@ -15,6 +15,7 @@ import {
   maxKamers,
   MAX_VERDIEPINGEN,
   MIN_KAMERS,
+  LAGEN_PER_FASE,
   WAT_LABEL,
   WONING,
   geschatteOppervlakte,
@@ -69,9 +70,9 @@ interface Segment extends FilmPlan { v: number; dagVan: number; dagTot: number }
  * floors in between evenly spread. A lower floor's segment therefore starts
  * partly dry, at the day the floor above finished.
  */
-function droogfilm(lagen: number, dagen: number): Segment[] {
+function droogfilm(lagen: number, dagen: number, perLaag: number[]): Segment[] {
   const uit: Segment[] = [];
-  for (let v = 0; v < lagen; v++) uit.push({ v, modus: "plaatsen", van: 0, tot: 0, duur: PLAATS_DUUR, dagVan: 0, dagTot: 0 });
+  for (let v = 0; v < lagen; v++) uit.push({ v, modus: "plaatsen", van: 0, tot: 0, duur: plaatsDuur(perLaag[v] ?? 0), toestellen: perLaag[v] ?? 0, dagVan: 0, dagTot: 0 });
   const klaarOp = (v: number) => (lagen === 1 ? dagen : Math.round(dagen * (0.6 + (0.4 * (lagen - 1 - v)) / (lagen - 1))));
   let vorige = 0;
   for (let v = lagen - 1; v >= 0; v--) {
@@ -84,7 +85,8 @@ function droogfilm(lagen: number, dagen: number): Segment[] {
 /** Vaste lege lijst: een nieuwe [] bij elke render zou de film telkens herstarten. */
 const GEEN_PLAATSINGEN: Plaatsing[] = [];
 
-const STAPPEN = ["Woning", "Verdiepingen", "Materiaal", "Bouwfase", "Droogplan"];
+// Bouwfase before Materiaal: how far the site is decides which layers can still be wet.
+const STAPPEN = ["Woning", "Verdiepingen", "Bouwfase", "Materiaal", "Droogplan"];
 const WONINGEN: Woning[] = ["rijwoning", "halfopen", "open", "appartement"];
 const DAKEN: Dak[] = ["zadeldak", "plat", "lessenaar"];
 /** Short roof names for the segmented control, where three sit in half a panel. */
@@ -126,9 +128,12 @@ const TOESTEL_KORT: Record<DeviceKey, string> = {
 };
 
 /** Wat er nat is volgt uit de twee diktes: "geen" bij een laag laat die weg. */
-function watVan(pd: string, cd: string): Wat | null {
-  const muur = pd !== "geen";
-  const vloer = cd !== "geen";
+/** What is wet, counting only the layers this phase has (a chape-only site has no plaster to dry). */
+function watVoor(fase: Fase, pd: string, cd: string): Wat | null {
+  const lagen = LAGEN_PER_FASE[fase];
+  if (lagen.length === 0) return "waterschade";
+  const muur = lagen.includes("pd") && pd !== "geen";
+  const vloer = lagen.includes("cd") && cd !== "geen";
   return muur && vloer ? "beide" : muur ? "pleister" : vloer ? "chape" : null;
 }
 
@@ -161,7 +166,7 @@ const VerhuurSimulatorPage = () => {
   const [filmKlaar, setFilmKlaar] = useState(false);
   /** Telt op bij "opnieuw afspelen", zodat de film van vooraf aan begint. */
   const [ronde, setRonde] = useState(0);
-  /** the phase the visitor points at in stap 4; the film shows it before it is chosen */
+  /** the phase the visitor points at in stap 3; the film shows it before it is chosen */
   const [faseToon, setFaseToon] = useState<Fase | null>(null);
   // Stap 2: het huis gaat open zodra de bezoeker aan de indeling werkt, en
   // weer dicht bij bouwlagen of dak — dan wil hij de woning zien.
@@ -201,19 +206,25 @@ const VerhuurSimulatorPage = () => {
     [resultaat, kamers, plan.trappen, stap],
   );
 
-  const materiaal = materiaalVoor(stap >= 2 ? s.wat : null, stap >= 3 ? s.fase : null, FASE[antwoorden.fase].vocht);
+  const materiaal = materiaalVoor(stap >= 3 ? s.wat : null, stap >= 2 ? s.fase : null, FASE[antwoorden.fase].vocht);
 
   // Het droogplan speelt als film (zie droogfilm): eerst plaatsen van onder naar
   // boven, dan drogen van boven naar beneden, en daarna staat de woning droog en
   // leeg (filmKlaar). Elk stuk telt vanaf het echte begin van de 3D-film (die meldt
   // FILM_START na het laden van de modellen); zonder 3D vanaf nu. Kiest de
   // bezoeker zelf een verdieping, dan toont die haar droogstuk en blijft ze staan.
-  // Terwijl de bezoeker zijn bouwfase kiest, de modellen van zijn pakket alvast laden.
+  // Terwijl de bezoeker de laatste vraag (materiaal) beantwoordt, de modellen van zijn pakket alvast laden.
   useEffect(() => {
     if (stap === 3 && resultaat) voorlaadToestellen([...new Set(resultaat.items.map((it) => it.k))]);
   }, [stap, resultaat]);
 
-  const segmenten = useMemo(() => (resultaat ? droogfilm(lagen, resultaat.dagen) : []), [resultaat, lagen]);
+  const segmenten = useMemo(() => {
+    if (!resultaat) return [];
+    // Devices per floor: placing a floor lasts as long as its drops, not a fixed time.
+    const verdiepVan = new Map(kamers.map((k) => [k.id, k.verdieping]));
+    const perLaag = Array.from({ length: lagen }, (_, v) => plaatsingen.filter((p) => verdiepVan.get(p.kamer) === v).length);
+    return droogfilm(lagen, resultaat.dagen, perLaag);
+  }, [resultaat, lagen, kamers, plaatsingen]);
   useEffect(() => setSeg(0), [segmenten]);
   const segment = segmenten[Math.min(seg, segmenten.length - 1)];
   useEffect(() => {
@@ -249,8 +260,9 @@ const VerhuurSimulatorPage = () => {
   };
 
   const naar = (n: number) => {
-    // Vraag 3 opent met de gangbare diktes al gekozen: dat is meteen een antwoord.
-    if (n === 2) setS((p) => (p.wat ? p : { ...p, wat: watVan(p.pd, p.cd) }));
+    // Vraag 4 opent met de gangbare diktes al gekozen: dat is meteen een antwoord.
+    // Zonder lagen (ruwbouw, ramen) slaat de simulator die vraag over: dan is het antwoord al gekend.
+    if (n >= 3) setS((p) => (p.wat && n === 3 ? p : { ...p, wat: watVoor(p.fase ?? "chape", p.pd, p.cd) }));
     setStap(n);
     setToonPlan(false);
     setActief(0);
@@ -259,7 +271,8 @@ const VerhuurSimulatorPage = () => {
     setFilmKlaar(false);
   };
 
-  const kiesFase = (f: Fase) => setS((p) => ({ ...p, fase: f }));
+  // Een andere fase kan lagen toevoegen of wegnemen: wat er nat is, rekent dan opnieuw.
+  const kiesFase = (f: Fase) => setS((p) => ({ ...p, fase: f, wat: p.wat ? watVoor(f, p.pd, p.cd) : p.wat }));
 
   const kiesWoning = (w: Woning) =>
     setS((prev) => {
@@ -334,8 +347,8 @@ const VerhuurSimulatorPage = () => {
   const kop = [
     { eyebrow: "Stap 1 · Woning", titel: s.woning ? WONING[s.woning].label : "Welke woning droogt u?" },
     { eyebrow: "Stap 2 · Verdiepingen", titel: `${woningLagen(lagen, dak)}, ${totaalKamers} kamers` },
-    { eyebrow: "Stap 3 · Materiaal", titel: s.wat ? `${WAT_LABEL[s.wat].label}: nog nat` : "Wat is er nat?" },
-    { eyebrow: "Stap 4 · Bouwfase", titel: s.fase ? FASE[s.fase].label : "Hoe ver staat de werf?" },
+    { eyebrow: "Stap 3 · Bouwfase", titel: s.fase ? FASE[s.fase].label : "Hoe ver staat de werf?" },
+    { eyebrow: "Stap 4 · Materiaal", titel: s.wat ? `${WAT_LABEL[s.wat].label}: nog nat` : "Wat is er nat?" },
     {
       eyebrow: filmKlaar
         ? "Droogplan · klaar"
@@ -350,11 +363,17 @@ const VerhuurSimulatorPage = () => {
     },
   ][stap];
 
+  /** De lagen van deze fase; zonder lagen valt de diktevraag (stap 4) weg. */
+  const faseLagen = s.fase ? LAGEN_PER_FASE[s.fase] : (["pd", "cd"] as const);
+  const zonderLagen = faseLagen.length === 0;
+  const verder = stap === 2 && zonderLagen ? 4 : stap + 1;
+  const terug = stap === 4 && zonderLagen ? 2 : Math.max(0, stap - 1);
+
   /* ── de volgende-knop per stap ── */
   const volgende: { ok: boolean; label: string; melding?: string } =
     stap === 0 ? { ok: !!s.woning, label: "Volgende →" }
-    : stap === 2 ? { ok: !!s.wat, label: "Volgende →", melding: s.wat ? undefined : "Kies minstens één laag die nat is." }
-    : stap === 3 ? { ok: !!s.fase && !!s.tempo, label: "Toon mijn droogplan →" }
+    : stap === 2 ? { ok: !!s.fase && !!s.tempo, label: zonderLagen ? "Toon mijn droogplan →" : "Volgende →" }
+    : stap === 3 ? { ok: !!s.wat, label: "Toon mijn droogplan →", melding: s.wat ? undefined : faseLagen.length > 1 ? "Kies minstens één laag die nat is." : "Niets nat? Dan hoeft er niets te drogen." }
     : { ok: true, label: "Volgende →" };
 
   return (
@@ -509,24 +528,6 @@ const VerhuurSimulatorPage = () => {
 
               {stap === 2 && (
                 <>
-                  <h2>Hoe dik is het nat?</h2>
-                  <p className="ds-sub">Kies per laag de dikte. Weet u het niet, dan rekenen wij met de gangbare maat.</p>
-                  {(["pd", "cd"] as const).map((laag) => (
-                    <LaagKaart
-                      key={laag}
-                      laag={laag}
-                      gekozen={s[laag]}
-                      onKies={(v) => setS((p) => {
-                        const volgend = { ...p, [laag]: v };
-                        return { ...volgend, wat: watVan(volgend.pd, volgend.cd) };
-                      })}
-                    />
-                  ))}
-                </>
-              )}
-
-              {stap === 3 && (
-                <>
                   <h2>Hoe ver staat de werf?</h2>
                   <p className="ds-sub">Kies hoe ver de werken staan. De foto toont waar het vocht zit.</p>
                   <Bouwfilm fase={s.fase} toon={faseToon} onKies={kiesFase} />
@@ -563,6 +564,28 @@ const VerhuurSimulatorPage = () => {
                       </div>
                     </div>
                   </div>
+                </>
+              )}
+
+              {stap === 3 && (
+                <>
+                  <h2>Hoe dik is het nat?</h2>
+                  <p className="ds-sub">
+                    {faseLagen.length > 1 ? "Kies per laag de dikte." : "Kies de dikte."} Weet u het niet, dan rekenen wij met de gangbare maat.
+                  </p>
+                  {/* Alleen de lagen die er in deze fase al liggen: bij een chape is er nog geen pleister. */}
+                  {faseLagen.map((laag) => (
+                    <LaagKaart
+                      key={laag}
+                      laag={laag}
+                      solo={faseLagen.length === 1}
+                      gekozen={s[laag]}
+                      onKies={(v) => setS((p) => {
+                        const volgend = { ...p, [laag]: v };
+                        return { ...volgend, wat: watVoor(p.fase ?? "chape", volgend.pd, volgend.cd) };
+                      })}
+                    />
+                  ))}
                 </>
               )}
 
@@ -638,7 +661,7 @@ const VerhuurSimulatorPage = () => {
             </div>
 
             <div className="ds-foot">
-              <button className={stap === 4 && resultaat ? "ds-rond" : "ds-back"} type="button" hidden={stap === 0} aria-label="Terug" onClick={() => naar(Math.max(0, stap - 1))}>
+              <button className={stap === 4 && resultaat ? "ds-rond" : "ds-back"} type="button" hidden={stap === 0} aria-label="Terug" onClick={() => naar(terug)}>
                 {stap === 4 && resultaat ? (
                   <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 4l-6 6 6 6" /></svg>
                 ) : (
@@ -647,7 +670,7 @@ const VerhuurSimulatorPage = () => {
               </button>
               {volgende.melding && <p className="ds-melding" role="status">{volgende.melding}</p>}
               {stap < 4 ? (
-                <button className="ds-next" type="button" disabled={!volgende.ok} onClick={() => naar(stap + 1)}>
+                <button className="ds-next" type="button" disabled={!volgende.ok} onClick={() => naar(verder)}>
                   {volgende.label}
                 </button>
               ) : resultaat ? (
@@ -703,7 +726,7 @@ const VerhuurSimulatorPage = () => {
                 filmPlan={filmSeg}
                 filmRonde={ronde}
               />
-              {stap === 2 && s.wat && <Doorsnede wat={s.wat} pd={antwoorden.pd} cd={antwoorden.cd} />}
+              {stap === 3 && s.wat && <Doorsnede wat={s.wat} pd={antwoorden.pd} cd={antwoorden.cd} />}
               {stap === 4 && resultaat && (
                 <DagTeller
                   key={`${filmSeg?.modus}-${toonVerd}-${resultaat.dagen}-${ronde}-${filmKlaar}-${handmatig}`}
@@ -840,6 +863,7 @@ const LAAG = {
     standaard: DEFAULT_PD,
     foto: "/simulator/dikte-pleister.webp",
     fotoKlein: "/simulator/dikte-pleister-360.webp",
+    fotoBreedte: 900,
     fotoPositie: "48% 50%",
     wat: "De gladde laag gips op uw muren en plafonds. Vers aangebracht zit ze vol water.",
     onderschrift: "Gips op de muur, nog vochtig",
@@ -853,7 +877,9 @@ const LAAG = {
     standaard: DEFAULT_CD,
     foto: "/simulator/dikte-chape.webp",
     fotoKlein: "/simulator/dikte-chape-360.webp",
-    fotoPositie: "22% 78%",
+    // 1024×1536 portrait: sharp enough for the full-width banner when chape is the only layer.
+    fotoBreedte: 1024,
+    fotoPositie: "50% 72%",
     wat: "De dekvloer van zand en cement onder uw tegels of parket.",
     onderschrift: "Zandcement op de isolatie",
     tip: "Waar zie ik dat? Aan de dorpel, of vraag het aan uw chapeur.",
@@ -873,7 +899,7 @@ const Vink = ({ grootte = 10 }: { grootte?: number }) => (
  * de keuzes Geen / de catalogusmaten / weet niet. "Geen" is een antwoord, geen
  * uitgeschakelde kaart: de laag is droog en telt niet mee.
  */
-function LaagKaart({ laag, gekozen, onKies }: { laag: "pd" | "cd"; gekozen: string; onKies: (v: string) => void }) {
+function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd"; gekozen: string; onKies: (v: string) => void; solo?: boolean }) {
   const L = LAAG[laag];
   const droog = gekozen === "geen";
   const onbekend = gekozen === "onbekend";
@@ -885,18 +911,28 @@ function LaagKaart({ laag, gekozen, onKies }: { laag: "pd" | "cd"; gekozen: stri
     ...L.waarden.map((v) => ({ v, groot: <>{v}<small> cm</small></>, klein: v === L.standaard ? "meest" : "" })),
     { v: "onbekend", groot: "?", klein: "weet niet" },
   ];
+  const dikte = droog ? <span className="ok">Droog</span> : <>{onbekend ? "± " : ""}{cm}<small> cm</small></>;
+  // Solo (only one layer in this phase): the photo becomes a banner over the full width and takes
+  // the panel's spare height, with name and thickness on it; otherwise one card stretches into gaps.
   return (
-    <section className={`ds-laagk${droog ? " uit" : ""}`} aria-label={L.titel}>
+    <section className={`ds-laagk${droog ? " uit" : ""}${solo ? " ds-laagk--solo" : ""}`} aria-label={L.titel}>
       <figure className="ds-laagk-foto">
-        <img src={L.fotoKlein} srcSet={`${L.fotoKlein} 360w, ${L.foto} 900w`} sizes="(max-width: 899px) 30vw, 260px" alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
+        <img src={L.fotoKlein} srcSet={`${L.fotoKlein} 360w, ${L.foto} ${L.fotoBreedte}w`} sizes={solo ? "(max-width: 899px) 92vw, 640px" : "(max-width: 899px) 30vw, 260px"} alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
         {droog && <span className="ds-laagk-badge">Niet nat</span>}
-        <figcaption><b>{L.titel}</b>{L.onderschrift}</figcaption>
+        {solo ? (
+          <figcaption className="ds-laagk-band">
+            <span><h3>{L.titel}</h3>{L.onderschrift}</span>
+            <output>{dikte}</output>
+          </figcaption>
+        ) : <figcaption><b>{L.titel}</b>{L.onderschrift}</figcaption>}
       </figure>
       <div className="ds-laagk-inh">
-        <div className="ds-laagk-kop">
-          <h3>{L.titel}</h3>
-          <output>{droog ? <span className="ok">Droog</span> : <>{onbekend ? "± " : ""}{cm}<small> cm</small></>}</output>
-        </div>
+        {!solo && (
+          <div className="ds-laagk-kop">
+            <h3>{L.titel}</h3>
+            <output>{dikte}</output>
+          </div>
+        )}
         <p className="ds-laagk-wat">{L.wat}</p>
         <div className="ds-ware" style={{ "--max": max } as CSSProperties}>
           <em>Dikte in cm · sleep of kies</em>
@@ -1042,7 +1078,7 @@ function DagTeller({ segment, naam, geplaatst, dagen, water, klaar }: {
     return (
       <div className="ds-teller">
         <span>
-          <b>{Math.round(k * geplaatst)}</b> van {geplaatst} geplaatst
+          <b>{Math.floor(k * geplaatst + 1e-6)}</b> van {geplaatst} geplaatst
         </span>
         <div className="ds-meter ds-meter--plaats" aria-hidden="true">
           <i style={{ width: `${Math.max(3, k * 100)}%` }} />

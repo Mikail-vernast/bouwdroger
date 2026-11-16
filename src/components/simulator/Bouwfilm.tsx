@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPoi
 import { FASE, FASE_ORDER, type Fase } from "@/lib/droogSimulator";
 
 /*
-  Stap 4 van de droogsimulator: "Hoe ver staat de werf?".
+  Stap 3 van de droogsimulator: "Hoe ver staat de werf?".
 
   De klant kiest zijn fase met de knoppen in het paneel (FaseKnoppen). De
   tekening wordt een bouwfilm: zes foto's van dezelfde kamer, van ruwbouw tot

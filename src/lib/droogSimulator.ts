@@ -30,7 +30,8 @@ import { droogTempo, type Tempo } from "./droogTempo.js";
 
 export type Woning = "rijwoning" | "halfopen" | "open" | "appartement";
 export type Dak = "zadeldak" | "plat" | "lessenaar";
-export type Wat = "pleister" | "chape" | "beide";
+/** What is wet. "waterschade" = rainwater in masonry and floor slab (ruwbouw, ramen): no layer, so no thickness. */
+export type Wat = "pleister" | "chape" | "beide" | "waterschade";
 export type Fase = "ruwbouw" | "ramen" | "chape" | "gepleisterd" | "tegels" | "afgewerkt";
 
 export interface SimAnswers {
@@ -78,6 +79,22 @@ export const WAT_LABEL: Record<Wat, { label: string; sub: string }> = {
   pleister: { label: "Pleisterwerk", sub: "Muren en plafonds" },
   chape: { label: "Chape", sub: "Dekvloer" },
   beide: { label: "Pleisterwerk + chape", sub: "Muren én vloer" },
+  waterschade: { label: "Metselwerk en vloerplaat", sub: "Regenwater in de ruwbouw" },
+};
+
+/**
+ * Which layers are there in each phase, so the thickness question only asks
+ * about those: no chape or plaster in the shell, only chape once it is poured,
+ * both from plastering on. Without a layer the catalogue's waterschade package
+ * applies (no thickness, priced on the floor area).
+ */
+export const LAGEN_PER_FASE: Record<Fase, readonly ("pd" | "cd")[]> = {
+  ruwbouw: [],
+  ramen: [],
+  chape: ["cd"],
+  gepleisterd: ["pd", "cd"],
+  tegels: ["pd", "cd"],
+  afgewerkt: ["pd", "cd"],
 };
 
 export interface FaseInfo {
@@ -275,7 +292,8 @@ export function simResultaat(a: SimAnswers): SimResultaat | null {
     opp,
     verd: Math.max(1, a.verdiepingen),
     ruim: Math.max(1, a.ruimtes ?? a.verdiepingen * 4),
-    wat: a.wat,
+    // The litres are only for the film: rainwater in the shell is estimated as a floor layer.
+    wat: a.wat === "waterschade" ? "chape" : a.wat,
     cd: Number(config.cd),
     pd: Number(config.pd),
     verwarmt: a.verwarmt,

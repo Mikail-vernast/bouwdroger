@@ -64,7 +64,7 @@ const TEGELS = {
   chape: { url: TEXTUUR.chape, periode: [1, 1] },
   parket: { url: TEXTUUR.parket, periode: [8 * 0.18, 2.4] },
   grind: { url: TEXTUUR.grind, periode: [0.5, 0.5] },
-  // Bouwfasen (stap 4): wat er op muur en vloer zit, van ruwbouw tot afgewerkt.
+  // Bouwfasen (stap 3): wat er op muur en vloer zit, van ruwbouw tot afgewerkt.
   pleisternat: { url: TEXTUUR.pleisternat, periode: [2, 2] },
   verf: { url: TEXTUUR.verf, periode: [1, 1] },
   vloerplaat: { url: TEXTUUR.vloerplaat, periode: [2, 2] },

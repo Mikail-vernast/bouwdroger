@@ -14,14 +14,26 @@ export const FILM_WACHT = "ds-film-wacht";
  */
 export const filmStatus = { wacht: false };
 
-/** Seconden waarin de toestellen van één verdieping neergezet worden. */
+/** Seconden waarin de toestellen van één verdieping hoogstens neergezet worden. */
 export const PLAATSEN = 2.2;
 /** Duur van één val, tot het toestel stilstaat. */
 export const VAL = 0.6;
+/** First drop: once the camera's glide to a new floor (900 ms, ease-out) is mostly done. */
+const EERSTE = 0.3;
+/** Pause after the last device lands before the film moves on. */
+const NAKIJKEN = 0.35;
 
 /** Wanneer het i-de van n toestellen begint te vallen. */
 export function aankomst(i: number, n: number): number {
-  return 0.25 + i * Math.min(0.42, (PLAATSEN - VAL - 0.25) / Math.max(1, n - 1));
+  return EERSTE + i * Math.min(0.3, (PLAATSEN - VAL - EERSTE) / Math.max(1, n - 1));
+}
+
+/**
+ * Seconds to place n devices on one floor: until the last one has landed, plus a
+ * short look. A fixed length left a floor with two devices standing idle for 1.7 s.
+ */
+export function plaatsDuur(n: number): number {
+  return n > 0 ? aankomst(n - 1, n) + VAL + NAKIJKEN : 0.8;
 }
 
 /** Uitlopende stuit: valt, botst twee keer zacht en ligt stil. */
@@ -48,13 +60,13 @@ export interface FilmPlan {
   tot: number;
   /** seconds */
   duur: number;
+  /** devices placed on this floor, so the counter follows the actual landings */
+  toestellen?: number;
 }
-/** Seconds per floor to place the devices: the drops, then a short look. */
-export const PLAATS_DUUR = PLAATSEN + 0.8;
 /** Seconds per floor of drying. */
-export const DROOG_DUUR = 7;
+export const DROOG_DUUR = 6;
 /** Share of a drying segment in which the floor dries; the rest holds the result. */
-const DROOG_DEEL = 0.8;
+const DROOG_DEEL = 0.93;
 
 /** The film clock of the open floor: `start` in ms (-1 = waiting for the first frame), `vast` = the end frame at once. */
 export interface Film extends FilmPlan { start: number; vast: boolean }
@@ -71,10 +83,18 @@ export function filmTijd(film: Film): number {
 /** How far a segment is after `sec` seconds, 0..1. */
 export function voortgangNa(plan: FilmPlan, sec: number): number {
   // Placing is done when the last device has landed, not at the end of the segment.
-  if (plan.modus === "plaatsen") return Math.min(1, Math.max(0, sec / PLAATSEN));
-  // Drying eases in and out: the devices spin up, and the last corners take their time.
-  const k = Math.min(1, Math.max(0, sec / (plan.duur * DROOG_DEEL)));
-  return 0.5 - 0.5 * Math.cos(Math.PI * k);
+  if (plan.modus === "plaatsen") {
+    const n = plan.toestellen ?? 0;
+    if (n === 0) return Math.min(1, Math.max(0, sec / Math.max(0.1, plan.duur - NAKIJKEN)));
+    // Each device counts once it is down: the counter ticks with the landings.
+    let som = 0;
+    for (let i = 0; i < n; i++) som += Math.min(1, Math.max(0, (sec - aankomst(i, n)) / VAL));
+    return som / n;
+  }
+  // Drying eases out: it visibly starts the moment the devices switch on (an ease-in
+  // showed almost nothing for the first second), and the last corners take their time.
+  const k = Math.min(1, Math.max(0, (sec - 0.15) / (plan.duur * DROOG_DEEL)));
+  return 1 - Math.pow(1 - k, 1.4);
 }
 
 /** How far this segment is, 0..1. */
@@ -94,7 +114,7 @@ export function droogStand(film: Film): number {
  */
 export function aanVoortgang(film: Film, aankomst: number): number {
   if (film.modus !== "drogen") return 0;
-  return Math.min(1, Math.max(0, (filmTijd(film) - (aankomst - 0.25) * 0.6) / 0.8));
+  return Math.min(1, Math.max(0, (filmTijd(film) - (aankomst - EERSTE) * 0.35) / 0.5));
 }
 
 /**
