@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { reportBookingEvent } from "@/lib/reportBookingEvent";
 
 /**
  * Welke afhaaldatums zitten vol voor deze selectie?
@@ -55,16 +56,35 @@ export function usePickupAvailability(selection: string, days: number): PickupAv
         if (!response.ok) {
           setFailed(true);
           setBlocked(EMPTY);
+          reportBookingEvent({ code: "wizard_beschikbaarheid_onbereikbaar", lines: selection, days });
           return;
         }
+        const list = data.blocked_start_dates ?? EMPTY;
+        const horizon = data.horizon_days ?? 60;
         setFailed(false);
-        setBlocked(data.blocked_start_dates ?? EMPTY);
+        setBlocked(list);
         if (data.horizon_days) setHorizonDays(data.horizon_days);
+        /*
+          Zit de hele horizon vol, dan kan deze selectie online nergens meer
+          heen. Dat is een verloren reservatie en hoort bij het team; zie
+          `bookingEvents.ts`.
+        */
+        const tomorrow = new Date(Date.now() + 86_400_000).toISOString().slice(0, 10);
+        if (list.length && firstFreeDate(tomorrow, list, horizon) === null) {
+          reportBookingEvent({
+            code: "wizard_geen_vrije_datum",
+            lines: selection,
+            days,
+            start: tomorrow,
+            blocked: list.length,
+          });
+        }
       })
       .catch(() => {
         if (!current) return;
         setFailed(true);
         setBlocked(EMPTY);
+        reportBookingEvent({ code: "wizard_beschikbaarheid_onbereikbaar", lines: selection, days });
       })
       .finally(() => {
         if (current) setLoading(false);

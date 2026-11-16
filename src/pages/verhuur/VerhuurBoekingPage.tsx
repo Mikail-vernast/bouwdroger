@@ -62,6 +62,7 @@ import { SEO } from "@/data/seo";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 import "@/styles/verhuur-betaling.css";
+import { reportBookingEvent } from "@/lib/reportBookingEvent";
 
 /** De extra's uit data/verhuur.ts, gekoppeld aan hun icoon uit het design. */
 const EXTRA_ICONS: Record<string, (props: { size?: number }) => JSX.Element> = {
@@ -454,6 +455,7 @@ const VerhuurBoekingPage = () => {
           zoals `usePickupAvailability` dat op de afhaalpagina doet.
         */
         setHorizonDates([]);
+        reportBookingEvent({ code: "wizard_beschikbaarheid_onbereikbaar", config, options });
         setDatesError(
           "We kunnen op dit moment niet nakijken welke datums nog vrij zijn. U kunt gewoon verder, wij bevestigen uw leverdatum, of bel ons op 03 689 90 65."
         );
@@ -516,10 +518,28 @@ const VerhuurBoekingPage = () => {
 
   useEffect(() => {
     if (step !== 3 || loadingDates || datesError) return;
-    if (!dateBlocked || !nextFreeDate) return;
+    if (!dateBlocked) return;
+    if (!nextFreeDate) {
+      // Niets vrij binnen de horizon: de stap blijft dicht en de klant moet bellen.
+      reportBookingEvent({
+        code: "wizard_geen_vrije_datum",
+        config,
+        options,
+        start: startDate,
+        blocked: blockedDates.length,
+      });
+      return;
+    }
+    reportBookingEvent({
+      code: "wizard_datum_verschoven",
+      config,
+      options,
+      start: startDate,
+      blocked: blockedDates.length,
+    });
     setShiftedDate({ from: startDate, to: nextFreeDate });
     setStartDate(nextFreeDate);
-  }, [step, loadingDates, datesError, dateBlocked, nextFreeDate, startDate]);
+  }, [step, loadingDates, datesError, dateBlocked, nextFreeDate, startDate, config, options, blockedDates]);
 
   const sessionId = searchParams.get("session_id");
   const cancelled = searchParams.get("betaling") === "geannuleerd";

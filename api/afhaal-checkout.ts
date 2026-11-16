@@ -40,6 +40,7 @@ import {
   pickupTotals,
 } from "../src/lib/afhalen.js";
 import { newReference, toCents } from "../src/lib/booking.js";
+import { type BookingEvent, type BookingEventCode, recordBookingEvent } from "../src/lib/bookingEvents.js";
 import { releaseSession } from "../src/lib/checkoutSession.js";
 import { afhaalOrder } from "../src/lib/orderIntake.js";
 import { safeOrigin } from "../src/lib/origin.js";
@@ -81,8 +82,15 @@ export async function POST(request: Request): Promise<Response> {
   const ip = clientIp(request);
   const limit = gate(ip);
 
+  // Elke weigering laat een spoor na; zie `api/checkout.ts` en `bookingEvents.ts`.
+  let context: Pick<BookingEvent, "pkg" | "start" | "days" | "items"> = {};
+  const refused = (response: Response, code: BookingEventCode, detail?: string): Response => {
+    recordBookingEvent({ route: "afhaal-checkout", code, status: response.status, dedupeKey: ip, detail, ...context });
+    return response;
+  };
+
   const attempt = limit.attempt();
-  if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
+  if (!attempt.allowed) return refused(tooManyRequests(attempt.retryAfter), "te_veel_aanvragen");
 
   const key = process.env.STRIPE_SECRET_KEY;
   /*
@@ -92,7 +100,10 @@ export async function POST(request: Request): Promise<Response> {
   */
   const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
   if (!key || !publishableKey) {
-    return json({ error: "Stripe is nog niet geconfigureerd op deze omgeving." }, 500);
+    return refused(
+      json({ error: "Stripe is nog niet geconfigureerd op deze omgeving." }, 500),
+      "stripe_niet_geconfigureerd",
+    );
   }
 
   let body: { data?: unknown; payment?: unknown; previousSessionId?: unknown };
@@ -103,33 +114,48 @@ export async function POST(request: Request): Promise<Response> {
       previousSessionId?: unknown;
     };
   } catch {
-    return json({ error: "Ongeldige aanvraag." }, 400);
+    return refused(json({ error: "Ongeldige aanvraag." }, 400), "ongeldige_aanvraag");
   }
 
   const data = body.data;
   if (!data || typeof data !== "object" || Array.isArray(data)) {
-    return json({ error: "Geen ordergegevens ontvangen." }, 400);
+    return refused(json({ error: "Geen ordergegevens ontvangen." }, 400), "ongeldige_aanvraag");
   }
 
   const order = afhaalOrder(data as Record<string, unknown>);
+  context = {
+    pkg: "Losse toestellen, afhalen",
+    start: order.date || null,
+    days: order.days,
+    items: pickupDeviceLines(order.lines),
+  };
 
-  if (!order.lines.length) return json({ error: "Kies eerst minstens één toestel." }, 400);
-  if (!order.date) return json({ error: "Kies een afhaaldatum vanaf morgen: wij zetten uw toestel minstens 24 uur op voorhand klaar." }, 400);
-  if (!order.firstName) return json({ error: "Vul uw naam in." }, 400);
-  if (!order.phone) return json({ error: "Vul uw telefoonnummer in." }, 400);
+  if (!order.lines.length) {
+    return refused(json({ error: "Kies eerst minstens één toestel." }, 400), "gegevens_onvolledig", "geen toestellen");
+  }
+  if (!order.date) {
+    return refused(
+      json({ error: "Kies een afhaaldatum vanaf morgen: wij zetten uw toestel minstens 24 uur op voorhand klaar." }, 400),
+      "geen_datum",
+    );
+  }
+  if (!order.firstName) return refused(json({ error: "Vul uw naam in." }, 400), "gegevens_onvolledig", "naam");
+  if (!order.phone) {
+    return refused(json({ error: "Vul uw telefoonnummer in." }, 400), "gegevens_onvolledig", "telefoon");
+  }
   if (!/\S+@\S+\.\S+/.test(order.email)) {
-    return json({ error: "Geen geldig e-mailadres opgegeven." }, 400);
+    return refused(json({ error: "Geen geldig e-mailadres opgegeven." }, 400), "geen_email");
   }
   if (order.customerType === "zakelijk" && (!order.company || !order.vatNumber)) {
-    return json({ error: "Vul uw bedrijfsnaam en btw-nummer in." }, 400);
+    return refused(json({ error: "Vul uw bedrijfsnaam en btw-nummer in." }, 400), "btw_ontbreekt");
   }
 
   // Pas hier gaat er echt een sessie naar Stripe.
   const accepted = limit.accept();
-  if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
+  if (!accepted.allowed) return refused(tooManyRequests(accepted.retryAfter), "te_veel_aanvragen");
 
   const period = rentalWindow(order.date, order.days);
-  if (!period) return json({ error: "Kies een geldige afhaaldatum." }, 400);
+  if (!period) return refused(json({ error: "Kies een geldige afhaaldatum." }, 400), "geen_datum");
 
   const devices = pickupDeviceLines(order.lines);
   const stripe = new Stripe(key);
@@ -152,22 +178,29 @@ export async function POST(request: Request): Promise<Response> {
     const verdict = availabilityVerdict(availability);
     if (verdict === "onbekend") {
       alarmAvailabilityFailure(`afhaal-checkout ${period.start}`, availability);
-      return json({ error: CHECK_UNAVAILABLE_ERROR, code: CHECK_UNAVAILABLE_CODE }, 503);
+      return refused(
+        json({ error: CHECK_UNAVAILABLE_ERROR, code: CHECK_UNAVAILABLE_CODE }, 503),
+        "controle_onbereikbaar",
+        availability.reason?.slice(0, 200),
+      );
     }
     if (verdict === "vol") {
-      return json(
-        {
-          error:
-            "Op die datum staan deze toestellen al ingepland. Kies een andere afhaaldatum, of bel ons op 03 689 90 65.",
-          code: "niet_beschikbaar",
-        },
-        409,
+      return refused(
+        json(
+          {
+            error:
+              "Op die datum staan deze toestellen al ingepland. Kies een andere afhaaldatum, of bel ons op 03 689 90 65.",
+            code: "niet_beschikbaar",
+          },
+          409,
+        ),
+        "datum_vol",
       );
     }
   }
 
   const holds = rateLimit(`hold:${ip}`, MAX_HOLDS_PER_IP, HOLD_MINUTES * 60_000);
-  if (!holds.allowed) return tooManyRequests(holds.retryAfter);
+  if (!holds.allowed) return refused(tooManyRequests(holds.retryAfter), "te_veel_holds");
 
   /*
     De betaalwijze staat bewust náást `data`: de allowlist van `afhaalOrder`
@@ -337,9 +370,13 @@ export async function POST(request: Request): Promise<Response> {
     // De reden blijft binnen: Stripe zet er configuratie van ons in.
     const message = error instanceof Error ? error.message : "onbekende fout";
     console.error(`[afhaal-checkout] sessie ${reference} niet aangemaakt bij Stripe: ${message}`);
-    return json(
-      { error: "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65." },
-      502,
+    return refused(
+      json(
+        { error: "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65." },
+        502,
+      ),
+      "stripe_fout",
+      message.slice(0, 200),
     );
   }
 }

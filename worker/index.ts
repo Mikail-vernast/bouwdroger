@@ -28,6 +28,7 @@ import { setPlatformWaitUntil } from '../src/lib/platformWaitUntil';
 import * as aanvraag from '../api/aanvraag';
 import * as afhaalCheckout from '../api/afhaal-checkout';
 import * as availability from '../api/availability';
+import * as bookingEvent from '../api/booking-event';
 import * as bookingRelease from '../api/booking-release';
 import * as checkout from '../api/checkout';
 import * as checkoutSession from '../api/checkout-session';
@@ -84,6 +85,7 @@ const ROUTES: Record<string, RouteModule> = {
   '/api/aanvraag': aanvraag,
   '/api/afhaal-checkout': afhaalCheckout,
   '/api/availability': availability,
+  '/api/booking-event': bookingEvent,
   '/api/booking-release': bookingRelease,
   '/api/checkout': checkout,
   '/api/checkout-session': checkoutSession,
