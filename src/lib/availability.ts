@@ -139,6 +139,14 @@ export function releaseHold(stripeSessionId: string): Promise<AvailabilityResult
   return call({ action: "release", stripe_session_id: stripeSessionId });
 }
 
+/**
+ * Bewaart een geweigerde boeking in het portaal. Zelfde poort en secret als de
+ * beschikbaarheid, zodat er geen tweede URL bijkomt. Zie `bookingEvents.ts`.
+ */
+export function sendBookingEvent(event: Record<string, unknown>): Promise<AvailabilityResult> {
+  return call({ action: "event", event });
+}
+
 /** Logt een mislukte oproep zichtbaar genoeg om hem in Vercel terug te vinden. */
 export function logAvailabilityFailure(context: string, result: AvailabilityResult): void {
   if (result.ok) return;

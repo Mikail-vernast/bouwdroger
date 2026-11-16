@@ -22,6 +22,7 @@ import {
   logAvailabilityFailure,
 } from "../src/lib/availability.js";
 import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
+import { type BookingEvent, type BookingEventCode, recordBookingEvent } from "../src/lib/bookingEvents.js";
 import { releaseSession } from "../src/lib/checkoutSession.js";
 import { safeOrigin } from "../src/lib/origin.js";
 import { customerType } from "../src/lib/orderIntake.js";
@@ -113,8 +114,19 @@ export async function POST(request: Request): Promise<Response> {
   const ip = clientIp(request);
   const limit = gate(ip);
 
+  /*
+    Elke weigering hieronder laat een spoor na in het portaal (zie
+    `bookingEvents.ts`). `context` vult zich zodra het pakket bekend is, zodat
+    ook een late weigering zegt wát er geboekt werd.
+  */
+  let context: Pick<BookingEvent, "pkg" | "start" | "days" | "items"> = {};
+  const refused = (response: Response, code: BookingEventCode, detail?: string): Response => {
+    recordBookingEvent({ route: "checkout", code, status: response.status, dedupeKey: ip, detail, ...context });
+    return response;
+  };
+
   const attempt = limit.attempt();
-  if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
+  if (!attempt.allowed) return refused(tooManyRequests(attempt.retryAfter), "te_veel_aanvragen");
 
   const key = process.env.STRIPE_SECRET_KEY;
   /*
@@ -125,14 +137,17 @@ export async function POST(request: Request): Promise<Response> {
   */
   const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
   if (!key || !publishableKey) {
-    return json({ error: "Stripe is nog niet geconfigureerd op deze omgeving." }, 500);
+    return refused(
+      json({ error: "Stripe is nog niet geconfigureerd op deze omgeving." }, 500),
+      "stripe_niet_geconfigureerd",
+    );
   }
 
   let body: CheckoutBody;
   try {
     body = (await request.json()) as CheckoutBody;
   } catch {
-    return json({ error: "Ongeldige aanvraag." }, 400);
+    return refused(json({ error: "Ongeldige aanvraag." }, 400), "ongeldige_aanvraag");
   }
 
   /*
@@ -149,9 +164,16 @@ export async function POST(request: Request): Promise<Response> {
   const customer = strings(body.customer);
   const delivery = strings(body.delivery);
 
+  context = {
+    pkg: packageTitle(config),
+    start: trim(delivery.date, 20) || null,
+    days: summary.days,
+    items: toDeviceLines(summary.items),
+  };
+
   const email = trim(customer.mail, 200);
   if (!/\S+@\S+\.\S+/.test(email)) {
-    return json({ error: "Geen geldig e-mailadres opgegeven." }, 400);
+    return refused(json({ error: "Geen geldig e-mailadres opgegeven." }, 400), "geen_email");
   }
 
   /*
@@ -168,12 +190,12 @@ export async function POST(request: Request): Promise<Response> {
   // Dezelfde eis als in `api/afhaal-checkout.ts`: zonder btw-nummer valt er voor
   // een bedrijf geen factuur te maken, en de wizard vraagt er al om.
   if (business && (!company || !vatNumber)) {
-    return json({ error: "Vul uw bedrijfsnaam en btw-nummer in." }, 400);
+    return refused(json({ error: "Vul uw bedrijfsnaam en btw-nummer in." }, 400), "btw_ontbreekt");
   }
 
   // Pas hier gaat er echt een sessie naar Stripe.
   const accepted = limit.accept();
-  if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
+  if (!accepted.allowed) return refused(tooManyRequests(accepted.retryAfter), "te_veel_aanvragen");
 
   const reference = newReference();
   const origin = safeOrigin(request);
@@ -196,7 +218,7 @@ export async function POST(request: Request): Promise<Response> {
     aan de andere kant iets stuk.
   */
   if (!period) {
-    return json({ error: "Kies eerst een geldige leverdatum." }, 400);
+    return refused(json({ error: "Kies eerst een geldige leverdatum." }, 400), "geen_datum");
   }
 
   const stripe = new Stripe(key);
@@ -223,17 +245,24 @@ export async function POST(request: Request): Promise<Response> {
   const verdict = availabilityVerdict(availability);
   if (verdict === "onbekend") {
     alarmAvailabilityFailure(`checkout ${reference}`, availability);
-    return json({ error: CHECK_UNAVAILABLE_ERROR, code: CHECK_UNAVAILABLE_CODE }, 503);
+    return refused(
+      json({ error: CHECK_UNAVAILABLE_ERROR, code: CHECK_UNAVAILABLE_CODE }, 503),
+      "controle_onbereikbaar",
+      availability.reason?.slice(0, 200),
+    );
   }
   if (verdict === "vol") {
-    return json(
+    return refused(
+      json(
       {
         error:
           "Op deze leverdatum zijn onze toestellen al ingepland. Kies een andere datum, of bel ons op 03 689 90 65. Vaak kunnen we alsnog schuiven.",
         code: "niet_beschikbaar",
-        blocked_start_dates: availability.answer.blocked_start_dates,
-      },
-      409,
+          blocked_start_dates: availability.answer.blocked_start_dates,
+        },
+        409,
+      ),
+      "datum_vol",
     );
   }
 
@@ -243,7 +272,7 @@ export async function POST(request: Request): Promise<Response> {
     plaats te kosten. Zie `MAX_HOLDS_PER_IP`.
   */
   const holds = rateLimit(`hold:${ip}`, MAX_HOLDS_PER_IP, HOLD_MINUTES * 60_000);
-  if (!holds.allowed) return tooManyRequests(holds.retryAfter);
+  if (!holds.allowed) return refused(tooManyRequests(holds.retryAfter), "te_veel_holds");
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -395,9 +424,13 @@ export async function POST(request: Request): Promise<Response> {
     */
     const message = error instanceof Error ? error.message : "onbekende fout";
     console.error(`[checkout] sessie ${reference} niet aangemaakt bij Stripe: ${message}`);
-    return json(
-      { error: "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65." },
-      502,
+    return refused(
+      json(
+        { error: "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65." },
+        502,
+      ),
+      "stripe_fout",
+      message.slice(0, 200),
     );
   }
 }
