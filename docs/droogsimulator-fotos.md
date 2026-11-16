@@ -29,6 +29,16 @@ rechter dakeinde en de goot zijn met een pixelverschuiving ingekort tot gelijk m
 niet opnieuw door Codex (die tekende de rand telkens anders). Tweede controle: dakrand rechts =
 muurhoek rechts.
 
+**Een foto vervangen = een nieuwe bestandsnaam.** Alles onder `/simulator/` gaat de deur
+uit met `cache-control: immutable` voor een jaar. Overschrijf je een bestand, dan blijft
+elke bezoeker die het al zag de oude versie zien (16-11-2026: de nieuwe chape- en
+lessenaarfoto's waren live, maar niet bij wie de pagina al kende). Hang er een versie aan
+(`-v2`) en zet die in `VERSIE` in `fotos.ts`, of in het pad in `LAAG` voor de diktefoto's.
+
+**Diktefoto's (stap 3) zijn staand, 1024×1536** (`dikte-chape-v2`, `dikte-pleister-v2`): de
+kaart toont ze als smalle, hoge kolom, en bij één laag als banner over de volle breedte.
+De vroegere 900×600 werd daar 2 à 2,5 keer opgeblazen.
+
 ---
 
 

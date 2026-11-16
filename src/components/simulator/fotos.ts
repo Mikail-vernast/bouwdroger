@@ -18,8 +18,18 @@ const BESCHIKBAAR: FotoSleutel[] = [
   "huis-plat-1", "huis-plat-3", "huis-lessenaar-1", "huis-lessenaar-3",
 ];
 
+/**
+ * Version suffix for photos that were replaced. /simulator/* is served with a
+ * one-year immutable cache, so a fixed photo needs a new file name: under the
+ * old name a returning visitor keeps seeing the old one.
+ */
+const VERSIE: Partial<Record<FotoSleutel, string>> = {
+  "dak-lessenaar": "-v2", "huis-lessenaar-1": "-v2", "huis-lessenaar-3": "-v2",
+};
+const bestand = (sleutel: FotoSleutel) => `${sleutel}${VERSIE[sleutel] ?? ""}.webp`;
+
 export function fotoVoor(sleutel: FotoSleutel): string | null {
-  return BESCHIKBAAR.includes(sleutel) ? `/simulator/${sleutel}.webp` : null;
+  return BESCHIKBAAR.includes(sleutel) ? `/simulator/${bestand(sleutel)}` : null;
 }
 
 /**
@@ -42,7 +52,7 @@ export function huisFoto(woning: Woning, dak: Dak, lagen: number): string {
   // De grote foto gebruikt de brede 3:1-strook van dezelfde foto (breed-*),
   // waarin het hele gebouw past; de kaarten houden de 4:3-versie.
   for (const k of kandidaten) {
-    if (fotoVoor(k)) return `/simulator/breed-${k}.webp`;
+    if (fotoVoor(k)) return `/simulator/breed-${bestand(k)}`;
   }
   return "/simulator/breed-lagen-2.webp";
 }

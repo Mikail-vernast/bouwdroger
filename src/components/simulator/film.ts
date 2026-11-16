@@ -62,11 +62,11 @@ export interface FilmPlan {
   duur: number;
   /** devices placed on this floor, so the counter follows the actual landings */
   toestellen?: number;
+  /** seconds the dry floor stays in view before the film moves on (0 on the last floor) */
+  naloop?: number;
 }
 /** Seconds per floor of drying. */
 export const DROOG_DUUR = 6;
-/** Share of a drying segment in which the floor dries; the rest holds the result. */
-const DROOG_DEEL = 0.93;
 
 /** The film clock of the open floor: `start` in ms (-1 = waiting for the first frame), `vast` = the end frame at once. */
 export interface Film extends FilmPlan { start: number; vast: boolean }
@@ -91,10 +91,13 @@ export function voortgangNa(plan: FilmPlan, sec: number): number {
     for (let i = 0; i < n; i++) som += Math.min(1, Math.max(0, (sec - aankomst(i, n)) / VAL));
     return som / n;
   }
-  // Drying eases out: it visibly starts the moment the devices switch on (an ease-in
-  // showed almost nothing for the first second), and the last corners take their time.
-  const k = Math.min(1, Math.max(0, (sec - 0.15) / (plan.duur * DROOG_DEEL)));
-  return 1 - Math.pow(1 - k, 1.4);
+  // Drying starts visibly the moment the devices switch on (an ease-in showed
+  // almost nothing for the first second).
+  // No hold at the end: the floor is dry exactly when the segment ends, so the last
+  // day, "Alles droog" and the dry house arrive together.
+  const k = Math.min(1, Math.max(0, (sec - 0.15) / (plan.duur - 0.15 - (plan.naloop ?? 0))));
+  // Linear: every day takes as long, so the last day does not crawl before "Alles droog".
+  return k;
 }
 
 /** How far this segment is, 0..1. */

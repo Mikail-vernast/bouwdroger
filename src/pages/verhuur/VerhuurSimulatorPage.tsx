@@ -77,7 +77,9 @@ function droogfilm(lagen: number, dagen: number, perLaag: number[]): Segment[] {
   let vorige = 0;
   for (let v = lagen - 1; v >= 0; v--) {
     const dag = klaarOp(v);
-    uit.push({ v, modus: "drogen", van: vorige / dag, tot: 1, duur: DROOG_DUUR, dagVan: vorige, dagTot: dag });
+    // A floor above the ground floor stays dry in view for a moment; the last one ends
+    // the film the instant it is dry, together with the last day and "Droog en klaar".
+    uit.push({ v, modus: "drogen", van: vorige / dag, tot: 1, duur: DROOG_DUUR, naloop: v > 0 ? 0.5 : 0, dagVan: vorige, dagTot: dag });
     vorige = dag;
   }
   return uit;
@@ -861,9 +863,9 @@ const LAAG = {
     titel: "Pleisterwerk",
     waarden: PD_VALUES,
     standaard: DEFAULT_PD,
-    foto: "/simulator/dikte-pleister.webp",
-    fotoKlein: "/simulator/dikte-pleister-360.webp",
-    fotoBreedte: 900,
+    foto: "/simulator/dikte-pleister-v2.webp",
+    fotoKlein: "/simulator/dikte-pleister-v2-360.webp",
+    fotoBreedte: 1024,
     fotoPositie: "48% 50%",
     wat: "De gladde laag gips op uw muren en plafonds. Vers aangebracht zit ze vol water.",
     onderschrift: "Gips op de muur, nog vochtig",
@@ -875,8 +877,9 @@ const LAAG = {
     titel: "Chape",
     waarden: CD_VALUES,
     standaard: DEFAULT_CD,
-    foto: "/simulator/dikte-chape.webp",
-    fotoKlein: "/simulator/dikte-chape-360.webp",
+    // New file name, not the old one overwritten: /simulator/* is cached immutable for a year.
+    foto: "/simulator/dikte-chape-v2.webp",
+    fotoKlein: "/simulator/dikte-chape-v2-360.webp",
     // 1024×1536 portrait: sharp enough for the full-width banner when chape is the only layer.
     fotoBreedte: 1024,
     fotoPositie: "50% 72%",
@@ -1087,7 +1090,7 @@ function DagTeller({ segment, naam, geplaatst, dagen, water, klaar }: {
       </div>
     );
   }
-  const dag = klaar || !segment ? dagen : Math.max(1, Math.round(segment.dagVan + (segment.dagTot - segment.dagVan) * k));
+  const dag = klaar || !segment ? dagen : Math.max(1, Math.floor(segment.dagVan + (segment.dagTot - segment.dagVan) * k + 1e-6));
   const alles = dag >= dagen;
   const laagDroog = !klaar && !!segment && k >= 1;
   return (
