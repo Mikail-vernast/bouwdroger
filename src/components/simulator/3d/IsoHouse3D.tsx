@@ -1005,7 +1005,8 @@ function Scene(props: SceneProps) {
       nat.bron.value[i].set(b.x, b.y, b.z, aanVoortgang(film.current, b.a));
     }
     // About a room's reach from one device by the end; the last corners fade out.
-    nat.r.value = Math.pow(droog, 1.2) * 6.5;
+    // Snel zichtbaar in het begin (macht < 1): het drogen start op het moment dat de toestellen aanslaan.
+    nat.r.value = Math.pow(droog, 0.75) * 6.5;
     const sterkte = (0.7 + 0.3 * Math.min(1, materiaal.vocht)) * (1 - Math.max(0, (droog - 0.93) / 0.07));
     nat.muur.value = droogt && materiaal.muurNat ? sterkte : 0;
     nat.vloer.value = droogt && materiaal.vloerNat ? sterkte : 0;

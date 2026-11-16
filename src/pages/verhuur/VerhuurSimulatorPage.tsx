@@ -64,22 +64,25 @@ const CYCLUS = 12;
 interface Segment extends FilmPlan { v: number; dagVan: number; dagTot: number }
 
 /**
- * The drying film: first the devices go in, floor by floor from the bottom up;
- * then the house dries from the top down. Upper floors are always dry first:
- * the top floor is done at 60 % of the term, the ground floor at the end, the
- * floors in between evenly spread. A lower floor's segment therefore starts
- * partly dry, at the day the floor above finished.
+ * De droogfilm: eerst gaan de toestellen erin, verdieping per verdieping van onder
+ * naar boven; daarna droogt de woning van boven naar beneden. De bovenste verdieping
+ * is klaar op 60 % van de termijn, het gelijkvloers op het einde, de tussenliggende
+ * gelijk verdeeld. De dagteller loopt daardoor door over de verdiepingen; in beeld
+ * begint elke verdieping wel nat, zodat je ze allemaal ziet drogen.
  */
 function droogfilm(lagen: number, dagen: number, perLaag: number[]): Segment[] {
   const uit: Segment[] = [];
-  for (let v = 0; v < lagen; v++) uit.push({ v, modus: "plaatsen", van: 0, tot: 0, duur: plaatsDuur(perLaag[v] ?? 0), toestellen: perLaag[v] ?? 0, dagVan: 0, dagTot: 0 });
+  // De bovenste verdieping droogt meteen daarna op dezelfde plek: daar geen extra kijkpauze.
+  for (let v = 0; v < lagen; v++) uit.push({ v, modus: "plaatsen", van: 0, tot: 0, duur: plaatsDuur(perLaag[v] ?? 0, v < lagen - 1), toestellen: perLaag[v] ?? 0, dagVan: 0, dagTot: 0 });
   const klaarOp = (v: number) => (lagen === 1 ? dagen : Math.round(dagen * (0.6 + (0.4 * (lagen - 1 - v)) / (lagen - 1))));
   let vorige = 0;
   for (let v = lagen - 1; v >= 0; v--) {
     const dag = klaarOp(v);
     // Een verdieping boven het gelijkvloers blijft even droog in beeld; de laatste
     // beëindigt de film op het moment dat ze droog is, samen met de laatste dag.
-    uit.push({ v, modus: "drogen", van: vorige / dag, tot: 1, duur: DROOG_DUUR, naloop: v > 0 ? 0.5 : 0, dagVan: vorige, dagTot: dag });
+    // Elke verdieping begint nat in beeld (van 0), zodat je ze allemaal ziet drogen; de dagteller
+    // loopt wel door (dagVan), want de verdiepingen drogen in werkelijkheid tegelijk.
+    uit.push({ v, modus: "drogen", van: 0, tot: 1, duur: DROOG_DUUR, naloop: v > 0 ? 0.5 : 0, dagVan: vorige, dagTot: dag });
     vorige = dag;
   }
   return uit;

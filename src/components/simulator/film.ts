@@ -32,8 +32,8 @@ export function aankomst(i: number, n: number): number {
  * Seconden om n toestellen op één verdieping te zetten: tot het laatste staat, plus
  * even kijken. Met een vaste duur stond een verdieping met twee toestellen 1,7 s stil.
  */
-export function plaatsDuur(n: number): number {
-  return n > 0 ? aankomst(n - 1, n) + VAL + NAKIJKEN : 0.8;
+export function plaatsDuur(n: number, nakijken = true): number {
+  return n > 0 ? aankomst(n - 1, n) + VAL + (nakijken ? NAKIJKEN : 0.05) : 0.8;
 }
 
 /** Uitlopende stuit: valt, botst twee keer zacht en ligt stil. */
@@ -46,11 +46,11 @@ export function stuit(p: number): number {
 }
 
 /**
- * The drying plan plays in segments, one floor at a time:
- *   plaatsen  every floor in turn, bottom to top: the devices land, nothing runs yet
- *   drogen    then top to bottom: the devices run and the floor dries from `van` to `tot`
- * Upper floors dry first (warm, moist air rises and leaves through the top), so
- * by the time the film reaches a lower floor it is already partly dry.
+ * Het droogplan speelt in stukken, één verdieping tegelijk:
+ *   plaatsen  elke verdieping, van onder naar boven: de toestellen landen, nog niets draait
+ *   drogen    daarna van boven naar beneden: de toestellen draaien en de verdieping droogt
+ *             van `van` naar `tot` (in beeld telkens van nat naar droog)
+ * Bovenaan droogt het eerst (warme, vochtige lucht stijgt en gaat er bovenaan uit).
  */
 export type FilmModus = "plaatsen" | "drogen";
 export interface FilmPlan {
@@ -117,7 +117,7 @@ export function droogStand(film: Film): number {
  */
 export function aanVoortgang(film: Film, aankomst: number): number {
   if (film.modus !== "drogen") return 0;
-  return Math.min(1, Math.max(0, (filmTijd(film) - (aankomst - EERSTE) * 0.35) / 0.5));
+  return Math.min(1, Math.max(0, (filmTijd(film) - (aankomst - EERSTE) * 0.2) / 0.35));
 }
 
 /**
