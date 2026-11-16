@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { FOOTER_SITEMAP, REGIOS, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
-import { REGIO_ROUTES } from "@/data/regio-slugs";
+import { FOOTER_SITEMAP, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
+import { REGIO_ROUTES, kaartVoor } from "@/data/regio-slugs";
 import { CONTACT, HEADQUARTERS, MAPS_URL, SITE_NAME } from "@/lib/site";
 import "@/styles/site-footer.css";
 
@@ -114,7 +114,13 @@ const V3Footer = () => (
         <div className="ft-kaartkolom">
           <div className="ft-kaart" aria-hidden="true">
             {REGIO_ROUTES.map((regio) => (
-              <Link key={regio.slug} className="ft-pin" to={regio.path} tabIndex={-1} style={regio.pin}>
+              <Link
+                key={regio.slug}
+                className="ft-pin"
+                to={regio.path}
+                tabIndex={-1}
+                style={kaartVoor({ pin: regio.pin, metNederland: true }).pin}
+              >
                 <span>{regio.name}</span>
               </Link>
             ))}
@@ -129,12 +135,18 @@ const V3Footer = () => (
             en zonder zoekwoord in de ankertekst. Dit is het echte signaal, voor
             een bezoeker met een schermlezer én voor een crawler.
           */}
+          {/*
+            Eén lijst, alleen de namen (16-11-2026). Er stonden er twee: hier
+            "Bouwdroger huren in Antwerpen" en in de feitenbalk nog eens
+            "Werkgebied" met dezelfde provincies. Het zoekwoord staat al op de
+            pagina waar de link naartoe gaat.
+          */}
           <nav className="ft-regios" aria-labelledby="ft-regios">
-            <h2 id="ft-regios">Per regio</h2>
+            <h2 id="ft-regios">Werkgebied</h2>
             <ul>
-              {REGIOS.map((link) => (
-                <li key={link.path}>
-                  <Link to={link.path}>{link.label}</Link>
+              {REGIO_ROUTES.map((regio) => (
+                <li key={regio.slug}>
+                  <Link to={regio.path}>{regio.name}</Link>
                 </li>
               ))}
             </ul>
@@ -179,18 +191,6 @@ const V3Footer = () => (
             die rekenen zaterdagochtend wél als werkdag.
           */}
           <dd>Ma–Vr 08:00–17:00</dd>
-        </div>
-        <div>
-          <dt>Werkgebied</dt>
-          <dd>
-            <nav className="ft-prov" aria-label="Werkgebied">
-              {REGIO_ROUTES.map((regio) => (
-                <Link key={regio.slug} to={regio.path}>
-                  {regio.name}
-                </Link>
-              ))}
-            </nav>
-          </dd>
         </div>
       </dl>
 

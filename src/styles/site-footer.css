@@ -127,11 +127,8 @@ footer.site .lc .claim{font-size:13.5px;line-height:1.72;color:rgba(255,255,255,
 footer.site .ft-kaart{
   position:relative;
   width:100%;
-  aspect-ratio:1200/980;
-  background:url('/vernast/belgie-kaart-rood.webp') center/contain no-repeat;
-  margin-bottom:-34px;
-  -webkit-mask-image:linear-gradient(to bottom,#000 0 44%,rgba(0,0,0,.4) 68%,rgba(0,0,0,.06) 88%,transparent 100%);
-  mask-image:linear-gradient(to bottom,#000 0 44%,rgba(0,0,0,.4) 68%,rgba(0,0,0,.06) 88%,transparent 100%);
+  aspect-ratio:1200/1228;
+  background:url('/vernast/kaart-belgie-nederland-v2.svg') center/contain no-repeat;
 }
 /*
   De spelden droegen hun provincienaam in een pil. Op een kaart van 250 px
@@ -186,13 +183,13 @@ footer.site .ft-pin:hover span{opacity:1}
 */
 footer.site .ft-regios{margin-top:22px}
 footer.site .ft-regios h2{margin-bottom:16px}
-footer.site .ft-regios ul{gap:11px}
+footer.site .ft-regios ul{display:grid;grid-template-columns:1fr 1fr;gap:9px 18px}
 footer.site .ft-regios ul a{line-height:1.35;display:inline-block}
 
 /* ── Feitenbalk ─────────────────────────────────────────────────────── */
 footer.site .ft-feiten{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:0;
   margin:0;
   border-top:1px solid rgba(255,255,255,.1);

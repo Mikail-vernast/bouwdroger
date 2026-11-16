@@ -1,6 +1,7 @@
 import { useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { REGIO_ROUTES, kaartVoor } from "@/data/regio-slugs";
+import { KAART_BREEDTE, KAART_HOOGTE, PROVINCIE_PADEN } from "@/data/kaart-provincies";
 import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import { ArrowRightIcon } from "./icons";
@@ -124,6 +125,21 @@ const V3Regio = () => {
 
         <div className="regio-grid">
           <div className="rm-panel">
+            {/*
+              De kaart als echte provincies in plaats van een achtergrondbeeld,
+              zodat de gekozen provincie volledig rood kan kleuren (16-11-2026).
+              Een speld alleen zei niet waar Antwerpen ophoudt en Limburg begint.
+            */}
+            <svg
+              className="rm-kaart"
+              viewBox={`0 0 ${KAART_BREEDTE} ${KAART_HOOGTE}`}
+              aria-hidden="true"
+              focusable="false"
+            >
+              {Object.entries(PROVINCIE_PADEN).map(([slug, d]) => (
+                <path key={slug} d={d} fillRule="evenodd" className={slug === region.slug ? "actief" : undefined} />
+              ))}
+            </svg>
             {/*
               Twee dingen op één speld: de provincie kiezen, en naar haar
               pagina gaan. Een speld die alleen de gemeentenlijst verwisselde
