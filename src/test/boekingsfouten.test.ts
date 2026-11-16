@@ -150,18 +150,6 @@ describe("recordBookingEvent", () => {
     expect(postToSlack).toHaveBeenCalledTimes(1);
   });
 
-  it("laat de browser het budget van de checkouts niet opmaken", async () => {
-    fetchMock.mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }));
-    for (let i = 0; i < 130; i++) {
-      recordBookingEvent({ route: "wizard", code: "wizard_datum_verschoven", dedupeKey: `bot-${i}` });
-    }
-    recordBookingEvent({ route: "checkout", code: "datum_vol", status: 409, dedupeKey: "echte-klant" });
-    await flush();
-    const events = sentEvents();
-    expect(events.filter((e) => e.route === "wizard")).toHaveLength(120);
-    expect(events.some((e) => e.route === "checkout" && e.code === "datum_vol")).toBe(true);
-  });
-
   it("stuurt een validatiefout niet naar Slack", async () => {
     fetchMock.mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }));
     recordBookingEvent({ route: "checkout", code: "btw_ontbreekt", status: 400, dedupeKey: "v1" });
@@ -253,5 +241,25 @@ describe("/api/booking-event", () => {
     await flush();
     expect(response.status).toBe(204);
     expect(sentEvents()[0]).toMatchObject({ route: "afhaal-wizard", days: 7 });
+  });
+});
+
+/*
+  Bewust als laatste: de tellers van `rateLimit` leven per module, dus wie het
+  browserbudget opmaakt, blokkeert elke wizardtest die erna komt.
+*/
+describe("budget per bron", () => {
+  it("laat de browser het budget van de checkouts niet opmaken", async () => {
+    fetchMock.mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }));
+    for (let i = 0; i < 130; i++) {
+      recordBookingEvent({ route: "wizard", code: "wizard_datum_verschoven", dedupeKey: `bot-${i}` });
+    }
+    recordBookingEvent({ route: "checkout", code: "geen_email", status: 400, dedupeKey: "echte-klant" });
+    await flush();
+    const events = sentEvents();
+    // Het browserbudget is op vóór alle 130 erdoor zijn...
+    expect(events.filter((e) => e.route === "wizard").length).toBeLessThan(130);
+    // ...en toch komt de weigering van de checkout erdoor.
+    expect(events.some((e) => e.route === "checkout" && e.code === "geen_email")).toBe(true);
   });
 });
