@@ -24128,73 +24128,68 @@ const G: Gemeente[] = [
     slug: "tubeke",
     title: "Bouwdroger huren in Tubeke | Vernast",
     description:
-      "Bouwdroger huren in Tubeke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Tubeke? Vernast levert, plaatst en haalt uw droogpakket op afspraak weer op. Voor chape, pleisterwerk en waterschade in de Zennevallei.",
     h1: "Bouwdroger huren in Tubeke",
-    kicker: "Tubeke · levering op uw werf",
+    kicker: "Tubeke · levering op afspraak",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
     intro: [
-      "Een bouwdroger nodig in Tubeke voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Tubeke ligt aan de Zenne, net over de taalgrens bij Halle. Bouwt of verbouwt u er een woning, of staat er water in de kelder? Bij Vernast huurt u de bouwdrogers en ventilatoren om chape, pleisterwerk en natte ruimtes droog te krijgen.",
+      "Vanuit ons magazijn in Aartselaar rijden we ongeveer vijftig minuten naar Tubeke. In Wallonië leveren we **op afspraak**: u kiest een leverdatum bij de reservatie en wij spreken het uur met u af. Levering, plaatsing en ophaling zitten in de prijs van uw droogpakket."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Tubeke",
+      kop: "Drogen na waterschade of nieuwbouw in Tubeke",
       alineas: [
-        "Vernast levert in Tubeke en in omliggende plaatsen zoals Halle, Rebecq, Kasteelbrakel. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Na wateroverlast in een kelder of op de benedenverdieping pakt u eerst de oorzaak aan. Laat het lek herstellen en verwijder staand water voordat de droger start. Anders trekt de muur nieuw vocht aan en draait het toestel voor niets. Zit het vocht onder de vloer of achter een voorzetwand, meld dat dan: daar is een andere opstelling voor nodig.",
+        "Bij nieuwbouw bepalen de dikte van de chape, het soort pleisterwerk, de temperatuur en de verluchting hoe lang het drogen duurt. Een condensdroger werkt het best boven 15 °C. **Laat het restvocht meten** voordat de vloerlegger of schilder begint, want een droog oppervlak zegt weinig over de kern van de vloer."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een volledige woning in afbouw.** Deze condensdroger haalt tot 70 liter vocht per dag uit de lucht en volstaat voor ongeveer 400 m³. Bij meerdere verdiepingen verdelen we de toestellen over de ruimtes."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een koude kelder of vocht onder de vloer.** Deze adsorptiedroger blijft werken bij lage temperaturen en droogt via slangen ook plekken waar een gewone opstelling niet bij kan."
       },
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor één kamer of een appartement.** Compact, tot 50 liter per dag en bedoeld voor ruimtes tot ongeveer 250 m³. Hij verbruikt 0,75 kW en werkt op een standaard stopcontact."
       },
       {
         key: "radiaal2250",
-        waarom: "**Voor gerichte luchtcirculatie langs een vloer of wand.** De plaatsing hangt af van de te drogen zone. Combineer luchtverplaatsing met voldoende ontvochtigingscapaciteit."
+        waarom: "**Voor een gerichte luchtstroom over een natte vloer of muur.** Deze radiaalventilator verplaatst 2 250 m³ lucht per uur en is spatwaterdicht (IP55). Hij versnelt de verdamping, het vocht zelf haalt de droger eruit."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Tubeke",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Tubeke, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Levering in Tubeke gebeurt op afspraak.** U kiest bij de reservatie een leverdatum, daarna bellen we om het uur vast te leggen. Onze technieker rijdt ongeveer vijftig minuten vanuit Aartselaar. Meld vooraf een smalle doorgang, een steile trap of weinig parkeerruimte. Ter plaatse zet hij de toestellen op hun plaats en toont hij hoe u de condensafvoer controleert."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Tubeke",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Een los toestel haalt u op afspraak af in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Tubeke is dat ongeveer vijftig minuten rijden, en die rit maakt u opnieuw om het toestel terug te brengen. **Reserveer vooraf**, dan staat het klaar. Hebt u meerdere toestellen nodig, dan is levering met plaatsing meestal de betere keuze."
     },
     buren: ["halle", "rebecq", "kasteelbrakel", "itter"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Tubeke?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Tubeke, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoe verloopt een levering in Tubeke?",
+        a: "U stelt online een droogpakket samen en kiest een leverdatum. Omdat we in Wallonië op afspraak leveren, bellen we u daarna om het uur af te spreken. Geef het volledige werfadres door en zeg wie ons ter plaatse ontvangt."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Hoeveel bouwdrogers heb ik nodig voor mijn woning?",
+        a: "Dat hangt af van het volume, het aantal afgesloten ruimtes en hoe nat het materiaal is. Een open verdieping droogt met minder toestellen dan vijf aparte kamers. De calculator rekent uw pakket uit. Wijkt uw situatie af, bel ons dan even."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Werkt een bouwdroger in een koude kelder?",
+        a: "Een condensdroger werkt het best boven 15 °C en verliest in een koude kelder veel van zijn rendement. Daar huurt u beter de adsorptiedroger, die ook bij lage temperaturen vocht uit de lucht haalt. Een bouwkachel erbij is een andere mogelijkheid."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
+        q: "Lost een bouwdroger het vocht in mijn kelder blijvend op?",
+        a: "Niet zolang er water blijft binnenkomen. Een droger voert vocht af, maar dicht geen scheur en vervangt geen ontbrekende vochtwering. Laat eerst de oorzaak herstellen, daarna droogt de kelder wel blijvend uit."
       },
       {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Tubeke?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Kan ik zelf een toestel afhalen voor een werf in Tubeke?",
+        a: "Ja, op afspraak in Aartselaar. Reken op ongeveer vijftig minuten rijden per richting. Kijk vooraf of het toestel in uw wagen past en volg de transportinstructies die u bij het afhalen krijgt."
       }
     ],
     realisaties: [],
@@ -24205,73 +24200,68 @@ const G: Gemeente[] = [
     slug: "rebecq",
     title: "Bouwdroger huren in Rebecq | Vernast",
     description:
-      "Bouwdroger huren in Rebecq? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Rebecq? Vernast levert en plaatst uw droogpakket op afspraak en haalt het weer op. Voor een verse chape, nieuw pleisterwerk of een natte kelder.",
     h1: "Bouwdroger huren in Rebecq",
-    kicker: "Rebecq · levering op uw werf",
-    rit: { afstand: "circa 65 km", tijd: "ongeveer vijfenvijftig minuten" },
+    kicker: "Rebecq · levering op afspraak",
+    rit: { afstand: "circa 65 km", tijd: "bijna een uur" },
     intro: [
-      "Een bouwdroger nodig in Rebecq voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Rebecq ligt in het westen van Waals-Brabant, in de vallei van de Zenne en vlak bij Tubeke. Wie er een oudere woning renoveert of nieuw bouwt, brengt met chape en pleisterwerk veel water in huis. Vernast verhuurt de bouwdrogers, ventilatoren en bouwkachels om dat vocht er weer uit te halen.",
+      "Ons magazijn in Aartselaar ligt bijna een uur rijden van Rebecq. Voor Wallonië werken we **op afspraak**: bij de reservatie kiest u een leverdatum, nadien leggen we samen het uur vast. In de prijs van het droogpakket zitten levering, plaatsing en ophaling."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Rebecq",
+      kop: "Chape en pleisterwerk drogen in Rebecq",
       alineas: [
-        "Vernast levert in Rebecq en in omliggende plaatsen zoals Tubeke, Itter. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Een nieuwe chape brengt meer water in huis dan de meeste bouwheren verwachten. Hoe snel dat eruit gaat, hangt af van de dikte, het soort mortel en de temperatuur in de ruimte. Geef bij uw aanvraag door wanneer de vloer gegoten of het pleisterwerk aangebracht is, dan stemmen we de opstelling daarop af.",
+        "Volg voor het startmoment de richtlijnen van uw chapeur of van de mortelleverancier: sommige vloeren mogen de eerste dagen niet geforceerd drogen. **Een droog oppervlak is geen droge vloer.** Laat met een vochtmeting nagaan of de kern klaar is voordat de tegelzetter of parketlegger begint."
       ]
     },
     toestellen: [
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een grote open ruimte of een volledige nieuwbouw.** Deze condensdroger haalt tot 110 liter vocht per dag uit de lucht en is bedoeld voor volumes tot ongeveer 600 m³. Hij verbruikt 1,4 kW."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Om de lucht in beweging te houden.** Deze ventilator verplaatst 4 500 m³ lucht per uur bij een verbruik van 0,2 kW. Zo komt het vocht sneller uit de chape vrij, maar afvoeren doet de droger."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een verdieping of een woning van gemiddelde grootte.** Tot 70 liter per dag, geschikt voor ongeveer 400 m³, met een verbruik van 1,1 kW. Twee of meer toestellen verdelen we over de afgesloten ruimtes."
       },
       {
         key: "teddh20",
-        waarom: "**Voor bijverwarming tijdens het drogen.** Controleer vooraf de vereiste 400 V-aansluiting en het beschikbare vermogen. Verwarming ondersteunt het droogproces, maar verwijdert op zichzelf geen vocht."
+        waarom: "**Als het op de werf te koud is om goed te drogen.** Deze elektrische bouwkachel levert 20 kW en vraagt een aansluiting op 400 V (krachtstroom). De warmte versnelt het drogen, het vocht zelf voert de droger af."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Rebecq",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Rebecq, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**In Rebecq leveren we op afspraak.** U kiest een leverdatum wanneer u reserveert, wij bellen nadien om het uur af te spreken. Vanuit Aartselaar is de technieker bijna een uur onderweg. Laat vooraf weten of er een trap zonder leuning, een smalle gang of weinig plaats om te parkeren is. Hij plaatst de toestellen, sluit ze aan en toont hoe u de condensafvoer nakijkt."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Rebecq",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Hebt u maar één toestel nodig, dan kunt u het op afspraak ophalen aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Rebecq is dat bijna een uur rijden per richting, en u maakt die rit twee keer: bij het ophalen en bij het terugbrengen. **Reserveer vooraf** zodat het toestel klaarstaat, en kijk na of het in uw wagen past."
     },
     buren: ["tubeke", "itter"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Rebecq?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Rebecq, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoe reserveer ik een levering in Rebecq?",
+        a: "Stel online uw droogpakket samen en kies een leverdatum. Daarna bellen we u om het uur van levering vast te leggen. Vermeld het volledige werfadres, de verdieping en wie ons die dag binnenlaat."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Mag ik een bouwdroger meteen op een verse chape zetten?",
+        a: "Dat hangt af van de mortel. Sommige chapes moeten eerst enkele dagen rustig uitharden voordat u geforceerd droogt. Vraag het na bij uw chapeur of in de technische fiche van het product, en geef ons de gietdatum door."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Hoe weet ik wanneer de vloer droog genoeg is om af te werken?",
+        a: "Niet aan de oppervlakte en niet aan het aantal huurdagen. Een vochtmeting in de kern van de chape geeft uitsluitsel. Uw tegelzetter of parketlegger weet welke waarde zijn materiaal vraagt."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
+        q: "Welke aansluiting heb ik nodig voor een bouwkachel?",
+        a: "De elektrische bouwkachels van 20 en 30 kW werken op 400 V, dus op krachtstroom. Een standaard stopcontact volstaat daarvoor niet. Laat bij twijfel uw elektricien nakijken of de werfkast het vermogen aankan."
       },
       {
         q: "Kan ik zelf afhalen voor een werf in Rebecq?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        a: "Ja, op afspraak in ons magazijn in Aartselaar. Reken op bijna een uur rijden per richting. Reserveer het toestel vooraf en volg bij het vervoer de instructies die u meekrijgt."
       }
     ],
     realisaties: [],
@@ -24282,73 +24272,68 @@ const G: Gemeente[] = [
     slug: "kasteelbrakel",
     title: "Bouwdroger huren in Kasteelbrakel | Vernast",
     description:
-      "Bouwdroger huren in Kasteelbrakel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kasteelbrakel? Vernast brengt uw droogpakket op afspraak, plaatst het en haalt het weer op. Voor renovatie, nieuwbouw en een natte kelder.",
     h1: "Bouwdroger huren in Kasteelbrakel",
-    kicker: "Kasteelbrakel · levering op uw werf",
+    kicker: "Kasteelbrakel · levering op afspraak",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
     intro: [
-      "Een bouwdroger nodig in Kasteelbrakel voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Kasteelbrakel ligt in het westen van Waals-Brabant, tussen Tubeke en Eigenbrakel. Wie er een oudere woning renoveert, krijgt vaak te maken met nieuw pleisterwerk, een nieuwe chape of een kelder die vocht vasthoudt. Vernast verhuurt de drogers en ventilatoren die u daarvoor nodig hebt.",
+      "Vanuit Aartselaar zijn we ongeveer vijftig minuten onderweg naar Kasteelbrakel. Leveren in Wallonië doen we **op afspraak**: u kiest bij het reserveren de dag, wij bellen voor het uur. Levering, plaatsing en ophaling zijn in het droogpakket inbegrepen."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Kasteelbrakel",
+      kop: "Renovatie en waterschade in Kasteelbrakel",
       alineas: [
-        "Vernast levert in Kasteelbrakel en in omliggende plaatsen zoals Tubeke, Itter, Eigenbrakel. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Bij een renovatie zit het vocht vaak op plaatsen die u niet ziet: in een oude muur, onder een opengebroken vloer of in een kelder zonder goede vochtwering. Begin daarom bij de oorzaak. Een droger haalt vocht uit de lucht, maar houdt geen water tegen dat door een scheur of een slechte aansluiting binnenkomt.",
+        "Stond er water in huis, laat dan eerst het staande water wegpompen en natte isolatie of plinten verwijderen. Pas daarna heeft drogen zin. **Vertel ons waar het water stond en hoe lang**, dan kiezen we samen tussen een condensdroger en een adsorptiedroger."
       ]
     },
     toestellen: [
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een kelder of een ruimte die koud blijft.** Een adsorptiedroger werkt ook bij lage temperaturen, waar een condensdroger veel rendement verliest. Via slangen droogt hij ook holle ruimtes en plekken onder een vloer."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een woning die u volledig renoveert.** Deze condensdroger haalt tot 70 liter vocht per dag uit de lucht in ruimtes tot ongeveer 400 m³ en verbruikt 1,1 kW. Bij meerdere kamers plaatsen we er meer dan één."
       },
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor één kamer of een badkamer na een lek.** Deze compacte droger haalt tot 50 liter per dag weg, is geschikt tot ongeveer 250 m³ en draait op een standaard stopcontact (0,75 kW)."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Om natte muren en vloeren sneller te laten verdampen.** Deze ventilator blaast 4 500 m³ lucht per uur langs het oppervlak en verbruikt 0,2 kW. Hij werkt samen met een droger, want zelf vangt hij geen water op."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Kasteelbrakel",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Kasteelbrakel, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Levering in Kasteelbrakel spreken we met u af.** Na uw reservatie met leverdatum bellen we om het uur te bepalen. De rit vanuit Aartselaar duurt ongeveer vijftig minuten. Ligt de werf aan een smalle straat, of moeten de toestellen naar de kelder of een verdieping, zeg het ons dan vooraf. De technieker zet alles op zijn plaats en legt uit hoe u de opvangbak of de afvoerslang controleert."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Kasteelbrakel",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Een enkel toestel kunt u ook zelf ophalen in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Kasteelbrakel rijdt u er ongeveer vijftig minuten over, en bij het terugbrengen nog eens. **Maak vooraf een afspraak**, dan staat uw toestel klaar. Voor een volledige renovatie is levering met plaatsing meestal handiger."
     },
     buren: ["tubeke", "itter", "eigenbrakel", "halle"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Kasteelbrakel?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Kasteelbrakel, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoe verloopt een levering in Kasteelbrakel?",
+        a: "U reserveert online en kiest een leverdatum. Omdat we in Wallonië op afspraak leveren, nemen we daarna contact op om het uur te bevestigen. Zorg dat iemand de technieker binnenlaat en toont waar de toestellen moeten staan."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Welke droger kies ik voor een natte kelder?",
+        a: "In een koude kelder verliest een condensdroger veel rendement, want hij werkt het best boven 15 °C. Een adsorptiedroger blijft ook bij lage temperaturen vocht opnemen. Is de kelder verwarmd, dan volstaat een condensdroger vaak."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Hoe lang duurt het drogen na waterschade?",
+        a: "Dat hangt af van hoe lang het water er stond, welke materialen nat werden en hoe dik de muren zijn. Een vochtmeting bij de start en tijdens het drogen toont of het vocht daalt. Op basis daarvan beslist u of u de huur verlengt."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
+        q: "Werkt een bouwdroger op een standaard stopcontact?",
+        a: "Ja, de condensdrogers werken op een standaard stopcontact van 230 V. Zet er wel niet te veel toestellen op dezelfde kring, anders springt de zekering. Alleen de elektrische bouwkachels vragen een aansluiting op 400 V."
       },
       {
         q: "Kan ik zelf afhalen voor een werf in Kasteelbrakel?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        a: "Dat kan, op afspraak in Aartselaar. U rijdt ongeveer vijftig minuten per richting. Reserveer vooraf, meet de koffer van uw wagen op en volg de transportinstructies bij het ophalen."
       }
     ],
     realisaties: [],
@@ -24359,73 +24344,68 @@ const G: Gemeente[] = [
     slug: "itter",
     title: "Bouwdroger huren in Itter | Vernast",
     description:
-      "Bouwdroger huren in Itter? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Itter? Vernast levert en plaatst uw droogpakket op afspraak en haalt het nadien op. Advies op maat voor chape, pleisterwerk en waterschade.",
     h1: "Bouwdroger huren in Itter",
-    kicker: "Itter · levering op uw werf",
-    rit: { afstand: "circa 65 km", tijd: "ongeveer vijfenvijftig minuten" },
+    kicker: "Itter · levering op afspraak",
+    rit: { afstand: "circa 65 km", tijd: "bijna een uur" },
     intro: [
-      "Een bouwdroger nodig in Itter voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Itter ligt in het westen van Waals-Brabant, langs het kanaal Brussel-Charleroi. Bouwt u er, of moet een woning drogen na een lek, dan huurt u bij Vernast de toestellen die passen bij het volume en het soort vocht.",
+      "Van ons magazijn in Aartselaar naar Itter is het bijna een uur rijden. We leveren in Wallonië **op afspraak**: bij de reservatie legt u de leverdatum vast en wij bellen om het tijdstip te regelen. Levering, plaatsing en ophaling betaalt u niet apart, want ze zitten in het droogpakket."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Itter",
+      kop: "Het juiste droogpakket voor uw werf in Itter",
       alineas: [
-        "Vernast levert in Itter en in omliggende plaatsen zoals Tubeke, Kasteelbrakel, Eigenbrakel. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Hoeveel toestellen u nodig hebt, begint bij het volume: de oppervlakte maal de hoogte van de ruimtes die moeten drogen. Een leefruimte van 50 m² met een plafond van 2,5 meter is 125 m³. Ook de hoeveelheid nat materiaal telt mee: een verse chape over de hele verdieping vraagt meer capaciteit dan een paar natte muren.",
+        "Afgesloten kamers krijgen elk een eigen toestel, of u zet de deuren open en laat een ventilator de lucht rondsturen. **De calculator rekent een pakket voor u uit.** Twijfelt u, bel ons dan en beschrijf de werf."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een verdieping of een gemiddelde woning.** Deze condensdroger haalt tot 70 liter per dag uit de lucht en is geschikt voor ruimtes tot ongeveer 400 m³. Zijn verbruik bedraagt 1,1 kW."
       },
       {
         key: "radiaal2250",
-        waarom: "**Voor gerichte luchtcirculatie langs een vloer of wand.** De plaatsing hangt af van de te drogen zone. Combineer luchtverplaatsing met voldoende ontvochtigingscapaciteit."
+        waarom: "**Om lucht gericht over een vloer of langs een muur te sturen.** Deze radiaalventilator verplaatst 2 250 m³ per uur en is spatwaterdicht volgens IP55. Zet hem samen met een droger in, die het vrijgekomen vocht opvangt."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een kelder, een koude ruimte of vocht onder de vloer.** Deze adsorptiedroger blijft werken waar het te koud is voor een condensdroger. Met slangen bereikt hij ook isolatielagen en holle ruimtes."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor grote volumes of een volledige nieuwbouw.** Tot 110 liter vocht per dag, voor ruimtes tot ongeveer 600 m³, bij een verbruik van 1,4 kW. Eén toestel vervangt hier vaak twee kleinere."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Itter",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Itter, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**We leveren in Itter op afspraak.** Kies bij het reserveren een datum, en wij bellen om het uur met u af te stemmen. Onze technieker is vanuit Aartselaar bijna een uur onderweg. Geef vooraf door hoe de werf bereikbaar is en of de toestellen een trap op moeten. Ter plaatse stelt hij alles op en toont hij hoe u het condenswater afvoert."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Itter",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Zelf ophalen kan voor een los toestel, op afspraak in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Van Itter is dat bijna een uur rijden, en dezelfde rit maakt u om het toestel terug te brengen. **Reserveer op voorhand**, dan staat het klaar. Voor meerdere toestellen kiest u beter voor levering met plaatsing."
     },
     buren: ["tubeke", "kasteelbrakel", "eigenbrakel", "nijvel"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Itter?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Itter, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoe spreek ik een levering in Itter af?",
+        a: "Reserveer online uw droogpakket en kies een leverdatum. Na de reservatie bellen we u om het uur af te spreken. Geef het juiste werfadres op en de naam van wie ons ter plaatse ontvangt."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Hoe bereken ik hoeveel bouwdrogers ik nodig heb?",
+        a: "Vermenigvuldig de oppervlakte van elke ruimte met de hoogte om het volume te kennen. Tel daarbij hoeveel nat materiaal er is en hoeveel ruimtes afgesloten zijn. De calculator stelt een pakket voor, en bij twijfel helpen we telefonisch."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Heb ik een ventilator nodig naast de bouwdroger?",
+        a: "Niet altijd, maar bij een natte vloer of muur versnelt een ventilator de verdamping. Hij voert het vocht zelf niet af. Daarom zet u hem altijd samen met een droger in dezelfde ruimte."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
+        q: "Hoe weet ik dat de werf droog genoeg is?",
+        a: "Kijk niet naar de huurduur of naar een droog ogend oppervlak. Laat een vochtmeting uitvoeren in de vloer of muur. Uw vloerlegger of schilder weet welke restvochtwaarde zijn afwerking toelaat."
       },
       {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Itter?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Kan ik zelf een toestel ophalen voor een werf in Itter?",
+        a: "Ja, dat kan op afspraak in Aartselaar. Heen en terug duurt de rit telkens bijna een uur. Reserveer vooraf, kijk na of het toestel in uw wagen past en volg de transportinstructies."
       }
     ],
     realisaties: [],
@@ -24436,73 +24416,68 @@ const G: Gemeente[] = [
     slug: "eigenbrakel",
     title: "Bouwdroger huren in Eigenbrakel | Vernast",
     description:
-      "Bouwdroger huren in Eigenbrakel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Eigenbrakel? Vernast levert uw droogpakket op afspraak, ook in een appartement, plaatst het en haalt het weer op. Voor chape en waterschade.",
     h1: "Bouwdroger huren in Eigenbrakel",
-    kicker: "Eigenbrakel · levering op uw werf",
+    kicker: "Eigenbrakel · levering op afspraak",
     rit: { afstand: "circa 60 km", tijd: "ongeveer vijftig minuten" },
     intro: [
-      "Een bouwdroger nodig in Eigenbrakel voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Eigenbrakel is een stad in Waals-Brabant, naast Waterloo. Naast eengezinswoningen staan er veel appartementen, en daar moet vaak één verdieping of één wooneenheid drogen. Vernast verhuurt bouwdrogers in elke maat, van een compact toestel voor één kamer tot een droger voor een grote nieuwbouw.",
+      "Vanuit Aartselaar rijden we ongeveer vijftig minuten naar Eigenbrakel. U kiest bij de reservatie een leverdatum, en omdat we in Wallonië **op afspraak** leveren, bellen we daarna voor het uur. Levering, plaatsing en ophaling horen bij uw droogpakket."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Eigenbrakel",
+      kop: "Drogen in een appartement of op een verdieping",
       alineas: [
-        "Vernast levert in Eigenbrakel en in omliggende plaatsen zoals Waterloo, Kasteelbrakel, Itter. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Droogt u een appartement of een verdieping? Geef door of er een lift of vaste trap is en hoe breed de toegang is. De beschikbare ruimte bepaalt mee welke toestellen we kunnen plaatsen. Spreek bij een gedeeld gebouw vooraf af wie de deur opent en waar materiaal mag worden neergezet.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Droogt u een appartement, laat ons dan weten op welke verdieping het ligt, of er een lift is en hoe breed de deuren en gangen zijn. Spreek in een gedeeld gebouw af wie de toegang opent en waar de toestellen mogen staan. Zo verloopt de plaatsing vlot en blijven de gemeenschappelijke delen vrij.",
+        "Een appartement is meestal goed geïsoleerd en afgesloten. Dat helpt, want een condensdroger werkt het best in een warme, gesloten ruimte boven 15 °C. Houd ramen en deuren dicht terwijl hij draait, anders komt er steeds vochtige buitenlucht binnen. **Leeg de opvangbak geregeld** of laat de afvoerslang in een afvoer lopen."
       ]
     },
     toestellen: [
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor één kamer of een kleine studio.** Compact en makkelijk te verplaatsen, tot 50 liter per dag en geschikt voor ruimtes tot ongeveer 250 m³. Hij verbruikt 0,75 kW op een standaard stopcontact."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een volledig appartement of een woning.** Tot 70 liter vocht per dag, voor ongeveer 400 m³, met een verbruik van 1,1 kW. In een appartement met aparte kamers zetten we hem centraal en laten we de binnendeuren open."
       },
       {
         key: "radiaal2250",
-        waarom: "**Voor gerichte luchtcirculatie langs een vloer of wand.** De plaatsing hangt af van de te drogen zone. Combineer luchtverplaatsing met voldoende ontvochtigingscapaciteit."
+        waarom: "**Voor een natte vloer na een lek.** De radiaalventilator stuurt 2 250 m³ lucht per uur over het oppervlak en is spatwaterdicht (IP55). Het vocht dat zo vrijkomt, vangt de droger op."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een grote nieuwbouw of een open bedrijfsruimte.** Deze condensdroger haalt tot 110 liter per dag weg in volumes tot ongeveer 600 m³ en verbruikt 1,4 kW."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Eigenbrakel",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Eigenbrakel, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**In Eigenbrakel leveren we op afspraak.** Na uw reservatie met leverdatum spreken we telefonisch het uur af. De technieker rijdt ongeveer vijftig minuten vanuit Aartselaar. Meld vooraf de verdieping, of er een lift is en waar hij kan parkeren. Hij brengt de toestellen naar binnen, zet ze op en toont hoe u de condensafvoer opvolgt."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Eigenbrakel",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Een los toestel haalt u op afspraak zelf op in Aartselaar, aan de Boomsesteenweg 12, unit 11. Vanuit Eigenbrakel duurt de rit ongeveer vijftig minuten, en die maakt u opnieuw om het toestel terug te bezorgen. **Reserveer het vooraf**, dan wacht het op u. Moet het toestel naar een appartement hoog in een gebouw, dan bespaart levering met plaatsing u het sjouwen."
     },
     buren: ["waterloo", "kasteelbrakel", "itter", "nijvel", "genepien"],
     faq: [
       {
         q: "Hoe regel ik een levering in Eigenbrakel?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Eigenbrakel, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        a: "Kies online uw droogpakket en een leverdatum. Wij bellen u nadien om het uur vast te leggen. Vermeld het adres, het appartementsnummer en de verdieping, en wie ons die dag binnenlaat."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Kan een bouwdroger naar een verdieping zonder lift?",
+        a: "Ja, maar meld het vooraf. Een bouwdroger is groot en zwaar, dus de technieker moet weten wat hem te wachten staat. Is er geen vaste trap, dan bekijken we samen hoe de toestellen boven raken."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Mogen de ramen open terwijl de droger draait?",
+        a: "Liever niet. Een condensdroger haalt vocht uit de lucht in de ruimte, en open ramen laten steeds nieuwe vochtige buitenlucht binnen. Verlucht kort als het moet, en houd de ruimte verder gesloten en warm."
       },
       {
-        q: "Kan een bouwdroger op een verdieping geplaatst worden?",
-        a: "Dat hangt af van de toegang en het toestel. Meld bij uw aanvraag de verdieping, een eventuele lift en smalle doorgangen. Is er geen vaste trap, bespreek dan vooraf hoe de toestellen boven kunnen komen en welke toeslag van toepassing is."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
+        q: "Hoe weet ik wanneer de chape droog genoeg is?",
+        a: "Een droge bovenkant zegt weinig over de kern van de vloer. Laat een vochtmeting doen voordat de vloerbekleding erop komt. Uw vloerlegger kent de grenswaarde die zijn materiaal toelaat."
       },
       {
         q: "Kan ik zelf afhalen voor een werf in Eigenbrakel?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        a: "Dat kan op afspraak in ons magazijn in Aartselaar. U bent ongeveer vijftig minuten onderweg per richting. Reserveer vooraf en volg de transportinstructies, zodat het toestel rechtop en onbeschadigd aankomt."
       }
     ],
     realisaties: [],
@@ -24513,73 +24488,68 @@ const G: Gemeente[] = [
     slug: "waterloo",
     title: "Bouwdroger huren in Waterloo | Vernast",
     description:
-      "Bouwdroger huren in Waterloo? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Waterloo? Vernast levert en plaatst uw droogpakket op afspraak, ook voor grote woningen en kelders, en haalt het nadien weer op.",
     h1: "Bouwdroger huren in Waterloo",
-    kicker: "Waterloo · levering op uw werf",
+    kicker: "Waterloo · levering op afspraak",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
     intro: [
-      "Een bouwdroger nodig in Waterloo voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Waterloo is een residentiële gemeente in Waals-Brabant, aan de rand van het Zoniënwoud. Veel woningen zijn er ruim en hebben een kelder. Renoveert u een villa, laat u een nieuwe chape gieten of moet een kelder drogen na een lek, dan huurt u bij Vernast de toestellen die bij dat volume passen.",
+      "Onze technieker rijdt ongeveer vijftig minuten van Aartselaar naar Waterloo. Levering in Wallonië gebeurt **op afspraak**: bij de reservatie kiest u een dag, daarna bellen we om het uur te bepalen. Plaatsing en ophaling horen bij het droogpakket."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Waterloo",
+      kop: "Grote woningen en kelders drogen in Waterloo",
       alineas: [
-        "Vernast levert in Waterloo en in omliggende plaatsen zoals Eigenbrakel, Lasne, Sint-Genesius-Rode. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "In een ruime woning met hoge plafonds loopt het volume snel op. Een leefruimte van 80 m² met 3 meter hoogte is al 240 m³, nog zonder de rest van het huis. Daarom combineren we in grote woningen vaak een krachtige droger in de centrale ruimte met een kleinere in de afgesloten kamers.",
+        "Kelders vragen een eigen aanpak. Ze zijn koel, waardoor een condensdroger er minder rendement haalt, en het vocht komt vaak van buitenaf. **Laat eerst nagaan of er water binnendringt** via de muren of de vloer. Daarna kiest u tussen een adsorptiedroger voor een koude kelder of een condensdroger als de ruimte verwarmd is."
       ]
     },
     toestellen: [
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een ruime leefruimte of een volledige villa in afbouw.** Haalt tot 110 liter vocht per dag uit volumes tot ongeveer 600 m³, bij een verbruik van 1,4 kW."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Als aanvulling in de afgesloten kamers of op de verdieping.** Tot 70 liter per dag en geschikt voor ongeveer 400 m³. Hij verbruikt 1,1 kW."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor de kelder.** Deze adsorptiedroger haalt ook bij lage temperaturen vocht uit de lucht en droogt via slangen ruimtes onder een vloer of achter een wand."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Om de lucht door een grote ruimte te laten circuleren.** Deze ventilator verplaatst 4 500 m³ per uur voor 0,2 kW. Hij zorgt dat de vochtige lucht de droger bereikt, en verwijdert zelf geen vocht."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Waterloo",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Waterloo, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Leveren in Waterloo doen we op afspraak.** U legt bij de reservatie de leverdatum vast, wij bellen voor het uur. Vanuit Aartselaar zijn we ongeveer vijftig minuten onderweg. Laat ons weten of er een oprit is, of de toestellen naar de kelder moeten en hoe steil de keldertrap is. De technieker plaatst alles en toont hoe u de condensafvoer in het oog houdt."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Waterloo",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Wilt u één toestel zelf vervoeren, dan haalt u het op afspraak op aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Waterloo rijdt u daar ongeveer vijftig minuten over, en dat twee keer: bij het ophalen en bij het terugbrengen. **Reserveer op voorhand**, zodat het voor u klaarstaat. Voor een grote woning met meerdere toestellen is levering met plaatsing de logische keuze."
     },
     buren: ["eigenbrakel", "lasne", "sint-genesius-rode"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Waterloo?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Waterloo, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoe plan ik een levering in Waterloo?",
+        a: "Stel uw droogpakket online samen en kies de leverdatum. In Wallonië leveren we op afspraak, dus we bellen u daarna om het uur af te spreken. Geef het adres en de toegang tot de woning duidelijk door."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Welke droger zet ik in een koude kelder?",
+        a: "Een adsorptiedroger. Een condensdroger werkt het best boven 15 °C en haalt in een koele kelder te weinig vocht uit de lucht. Een adsorptiedroger heeft daar geen last van en droogt via slangen ook moeilijk bereikbare plekken."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Hoeveel toestellen heb ik nodig voor een grote woning?",
+        a: "Bereken eerst het volume: oppervlakte maal plafondhoogte, per ruimte. Een open leefruimte droogt met één groot toestel, afgesloten kamers vragen er elk een. De calculator stelt een pakket samen, en voor een uitzonderlijke woning denken we telefonisch mee."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
+        q: "Lost een bouwdroger vocht in de kelder blijvend op?",
+        a: "Alleen als het water niet blijft binnenkomen. Een droger verwijdert het vocht dat er is, maar herstelt geen gebarsten muur of ontbrekende vochtwering. Laat de oorzaak dus eerst aanpakken."
       },
       {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Waterloo?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Kan ik zelf een toestel afhalen voor een werf in Waterloo?",
+        a: "Ja, op afspraak in ons magazijn in Aartselaar, ongeveer vijftig minuten rijden van Waterloo. Reserveer vooraf en meet na of het toestel in uw wagen past. Bij het ophalen krijgt u de transportinstructies mee."
       }
     ],
     realisaties: [],
@@ -24590,73 +24560,68 @@ const G: Gemeente[] = [
     slug: "nijvel",
     title: "Bouwdroger huren in Nijvel | Vernast",
     description:
-      "Bouwdroger huren in Nijvel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Nijvel? Vernast brengt uw droogpakket op afspraak, plaatst het en haalt het nadien op. Voor de renovatie van een stadswoning, nieuwe chape en waterschade.",
     h1: "Bouwdroger huren in Nijvel",
-    kicker: "Nijvel · levering op uw werf",
+    kicker: "Nijvel · levering op afspraak",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Nijvel voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Nijvel is de stad rond de Sint-Gertrudiscollegiale, in Waals-Brabant. In de binnenstad staan oudere rijwoningen, daarbuiten verkavelingen en nieuwbouw. Voor beide verhuurt Vernast bouwdrogers en ventilatoren om chape, pleisterwerk en natte muren te drogen.",
+      "De rit van Aartselaar naar Nijvel duurt ongeveer een uur. In Wallonië leveren we **op afspraak**: u kiest een leverdatum bij het reserveren, wij bellen nadien voor het uur. Levering, plaatsing en ophaling zitten in uw droogpakket."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Nijvel",
+      kop: "Oudere woningen renoveren in Nijvel",
       alineas: [
-        "Vernast levert in Nijvel en in omliggende plaatsen zoals Eigenbrakel, Itter, Genepiën. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Droogt u een appartement of een verdieping? Geef door of er een lift of vaste trap is en hoe breed de toegang is. De beschikbare ruimte bepaalt mee welke toestellen we kunnen plaatsen. Spreek bij een gedeeld gebouw vooraf af wie de deur opent en waar materiaal mag worden neergezet.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Wie een oudere woning renoveert, klopt vaak pleisterwerk af, legt een nieuwe chape en plaatst nieuwe ramen. Die ramen sluiten beter dan de oude, waardoor het vocht uit de werken minder makkelijk weg kan. Een bouwdroger vangt dat op voordat het als condens op de ramen of als schimmel in de hoeken verschijnt.",
+        "Let in een rijwoning op de bereikbaarheid: een smalle gevel, een steile trap of geen parkeerplaats voor de deur. **Meld dat bij de reservatie**, dan houdt de technieker er rekening mee. Laat na de werken het restvocht meten voordat u schildert of parket legt."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een rijwoning die u volledig renoveert.** Deze condensdroger haalt tot 70 liter vocht per dag weg in ruimtes tot ongeveer 400 m³ en verbruikt 1,1 kW."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een vochtige kelder of een onverwarmde ruimte.** Deze adsorptiedroger werkt ook in de kou en droogt via slangen vocht onder een vloer of achter een voorzetwand."
       },
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor een badkamer of één slaapkamer.** Compact, tot 50 liter per dag, voor ruimtes tot ongeveer 250 m³. Hij werkt op een standaard stopcontact en verbruikt 0,75 kW."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Om vers pleisterwerk sneller te laten drogen.** De ventilator verplaatst 4 500 m³ lucht per uur langs de muren en verbruikt maar 0,2 kW. Het vocht dat hij losmaakt, vangt de droger op."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Nijvel",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Nijvel, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Levering in Nijvel gebeurt op afspraak.** Bij de reservatie kiest u de datum, daarna bellen we om het uur te regelen. Onze technieker is ongeveer een uur onderweg vanuit Aartselaar. Geef door of er voor de deur geparkeerd kan worden en of de toestellen een smalle trap op moeten. Hij plaatst de toestellen, schakelt ze in en legt uit hoe u de condensafvoer controleert."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Nijvel",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Voor één toestel kunt u op afspraak zelf naar ons magazijn komen, aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Nijvel is dat ongeveer een uur rijden, en evenveel voor de rit terug met het toestel. **Reserveer vooraf** zodat we het klaarzetten. Hebt u meerdere toestellen nodig, dan bespaart levering met plaatsing u die ritten."
     },
     buren: ["eigenbrakel", "itter", "genepien"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Nijvel?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Nijvel, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoe verloopt de levering in Nijvel?",
+        a: "U reserveert online en duidt een leverdatum aan. Het uur spreken we nadien telefonisch af, zoals overal in Wallonië. Zorg dat er die dag iemand is die de technieker binnenlaat en de werf toont."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Waarom slaan mijn nieuwe ramen aan na de renovatie?",
+        a: "Nieuw pleisterwerk en een verse chape geven wekenlang vocht af. Nieuwe ramen houden die vochtige lucht binnen, waardoor ze op het koude glas condenseert. Een bouwdroger haalt het vocht uit de lucht voordat het schimmel geeft."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Werkt een bouwdroger in een onverwarmd huis?",
+        a: "Een condensdroger heeft het liefst een temperatuur boven 15 °C. In een koud, onverwarmd huis zet u beter een adsorptiedroger, of u verwarmt de ruimte bij met een bouwkachel. Warmte versnelt bovendien het drogen van chape en pleisterwerk."
       },
       {
-        q: "Kan een bouwdroger op een verdieping geplaatst worden?",
-        a: "Dat hangt af van de toegang en het toestel. Meld bij uw aanvraag de verdieping, een eventuele lift en smalle doorgangen. Is er geen vaste trap, bespreek dan vooraf hoe de toestellen boven kunnen komen en welke toeslag van toepassing is."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
+        q: "Wanneer mag ik schilderen op nieuw pleisterwerk?",
+        a: "Pas als het pleisterwerk ook in de diepte droog is. Een lichte kleur aan de oppervlakte bewijst dat niet. Laat een vochtmeting doen en volg het advies van uw schilder of de verfleverancier over het toegelaten restvocht."
       },
       {
         q: "Kan ik zelf afhalen voor een werf in Nijvel?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        a: "Ja, u kunt op afspraak afhalen in Aartselaar. Vanuit Nijvel rijdt u ongeveer een uur per richting. Reserveer vooraf en vraag bij het afhalen hoe u het toestel veilig vervoert."
       }
     ],
     realisaties: [],
@@ -24667,73 +24632,68 @@ const G: Gemeente[] = [
     slug: "genepien",
     title: "Bouwdroger huren in Genepiën | Vernast",
     description:
-      "Bouwdroger huren in Genepiën? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Genepiën? Vernast levert en plaatst uw droogpakket op afspraak, met een bouwkachel voor een koude werf, en haalt het nadien weer op.",
     h1: "Bouwdroger huren in Genepiën",
-    kicker: "Genepiën · levering op uw werf",
+    kicker: "Genepiën · levering op afspraak",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Genepiën voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Genepiën is een landelijke gemeente in Waals-Brabant, met verspreide dorpen, hoeves en open velden. Wie er een oude hoeve verbouwt of een nieuwe woning optrekt, werkt vaak in grote, koude ruimtes. Vernast verhuurt de bouwdrogers, ventilatoren en bouwkachels om ook daar chape en pleisterwerk droog te krijgen.",
+      "Vanuit Aartselaar rijden we ongeveer een uur naar Genepiën. In Wallonië leveren we **op afspraak**: u kiest een leverdatum bij de reservatie en wij bellen om het uur vast te leggen. De prijs van het droogpakket dekt levering, plaatsing en ophaling."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Genepiën",
+      kop: "Verbouwen en bouwen in de winter in Genepiën",
       alineas: [
-        "Vernast levert in Genepiën en in omliggende plaatsen zoals Nijvel, Eigenbrakel, Lasne. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Een verbouwde hoeve heeft vaak dikke muren en hoge ruimtes. Dikke muren houden lang vocht vast, en een groot volume vraagt veel droogcapaciteit. Kies daarom een toestel dat bij het volume past en houd de ruimte tijdens het drogen zo goed mogelijk dicht.",
+        "Op een onverwarmde werf in de winter zakt de temperatuur al snel onder de 15 °C waarboven een condensdroger het best werkt. **Een elektrische bouwkachel brengt de temperatuur omhoog**, waarna de droger het vocht afvoert. Die kachel vraagt krachtstroom: kijk vooraf na of er een 400 V-aansluiting op de werf is."
       ]
     },
     toestellen: [
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een grote verbouwde hoeve of een nieuwbouw.** Deze condensdroger haalt tot 110 liter per dag uit de lucht in volumes tot ongeveer 600 m³. Hij verbruikt 1,4 kW."
       },
       {
         key: "radiaal2250",
-        waarom: "**Voor gerichte luchtcirculatie langs een vloer of wand.** De plaatsing hangt af van de te drogen zone. Combineer luchtverplaatsing met voldoende ontvochtigingscapaciteit."
+        waarom: "**Om lucht langs dikke muren of over een grote vloer te sturen.** De radiaalventilator verplaatst 2 250 m³ per uur en kan dankzij IP55 tegen spatwater. Hij versnelt het verdampen, de droger vangt het vocht op."
       },
       {
         key: "teddh30",
-        waarom: "**Voor bijverwarming op een koude werf.** Deze elektrische kachel vraagt een geschikte 400 V-aansluiting. Laat vooraf controleren of de beschikbare voeding past bij het aansluitvermogen."
+        waarom: "**Voor een koude werf.** Deze elektrische bouwkachel levert 30 kW en werkt op 400 V (krachtstroom). Zo krijgt u de ruimte warm genoeg om een condensdroger goed te laten werken."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor de kleinere ruimtes of de verdieping.** Tot 70 liter per dag, voor ruimtes tot ongeveer 400 m³, bij een verbruik van 1,1 kW. Naast een grotere droger beneden neemt hij de bovenverdieping voor zijn rekening."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Genepiën",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Genepiën, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Ook in Genepiën leveren we op afspraak.** U kiest bij het reserveren de leverdatum, wij bellen voor het uur. De technieker rijdt ongeveer een uur vanuit Aartselaar. Ligt de werf aan een landweg of is ze moeilijk te vinden, geef dan een routebeschrijving of een locatiepin door. Ter plaatse stelt hij de toestellen op en legt hij uit waar u tijdens het drogen op let."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Genepiën",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Een los toestel kunt u op afspraak ophalen in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Genepiën is dat ongeveer een uur rijden, en u rijdt die afstand opnieuw om het terug te brengen. **Reserveer vooraf**, dan ligt het klaar. Een bouwkachel en meerdere drogers laat u beter leveren en plaatsen."
     },
     buren: ["nijvel", "eigenbrakel", "lasne", "villers-la-ville", "court-saint-etienne"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Genepiën?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Genepiën, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoe wordt er geleverd in Genepiën?",
+        a: "Op afspraak. U stelt online een droogpakket samen en kiest een leverdatum, waarna we u bellen om het uur te bepalen. Geef bij een afgelegen werf een duidelijke routebeschrijving mee."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Werkt een bouwdroger op een koude werf in de winter?",
+        a: "Een condensdroger verliest onder 15 °C veel rendement. Verwarm de ruimte bij met een elektrische bouwkachel, of kies een adsorptiedroger die ook in de kou vocht opneemt. Houd de ruimte daarbij zo veel mogelijk dicht."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Welke aansluiting vraagt de bouwkachel van 30 kW?",
+        a: "Een aansluiting op 400 V, dus krachtstroom. Een standaard stopcontact kan dat vermogen niet leveren. Laat uw elektricien of aannemer nakijken of de werfkast geschikt is voordat we leveren."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
+        q: "Waarom drogen dikke muren zo traag?",
+        a: "Vocht moet vanuit de kern van de muur naar het oppervlak trekken voordat het kan verdampen. Hoe dikker de muur, hoe langer die weg. Een droger en een ventilator versnellen de verdamping aan het oppervlak, maar geduld blijft nodig."
       },
       {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Genepiën?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Kan ik zelf een toestel afhalen voor een werf in Genepiën?",
+        a: "Ja, op afspraak in Aartselaar, ongeveer een uur rijden per richting. Reserveer vooraf en controleer of de droger in uw wagen past. Een bouwkachel van 30 kW laat u beter leveren."
       }
     ],
     realisaties: [],
@@ -24744,73 +24704,68 @@ const G: Gemeente[] = [
     slug: "lasne",
     title: "Bouwdroger huren in Lasne | Vernast",
     description:
-      "Bouwdroger huren in Lasne? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lasne? Vernast levert uw droogpakket op afspraak, plaatst het en haalt het weer op. Voor een chape onder parket, pleisterwerk en waterschade.",
     h1: "Bouwdroger huren in Lasne",
-    kicker: "Lasne · levering op uw werf",
-    rit: { afstand: "circa 60 km", tijd: "ongeveer vijfenvijftig minuten" },
+    kicker: "Lasne · levering op afspraak",
+    rit: { afstand: "circa 60 km", tijd: "bijna een uur" },
     intro: [
-      "Een bouwdroger nodig in Lasne voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Lasne is een groene, residentiële gemeente in Waals-Brabant, naast Waterloo en Terhulpen. Er staan veel vrijstaande woningen, en bij een renovatie of nieuwbouw komt er vaak parket of een andere houten vloer op de chape. Juist dan moet de ondergrond goed droog zijn, en daarvoor verhuurt Vernast de bouwdrogers.",
+      "Van ons magazijn in Aartselaar naar Lasne is het bijna een uur rijden. Levering in Wallonië gebeurt **op afspraak**: u kiest bij de reservatie een leverdatum en wij bellen u voor het uur. Plaatsing en ophaling zijn in de prijs van het pakket inbegrepen."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Lasne",
+      kop: "Een droge chape onder parket in Lasne",
       alineas: [
-        "Vernast levert in Lasne en in omliggende plaatsen zoals Waterloo, Terhulpen, Rixensart. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Parket en andere houten vloeren verdragen weinig restvocht in de chape. Ligt het hout te vroeg, dan kan het opzwellen of gaan schotelen. Een bouwdroger laat het vochtgehalte van de chape sneller dalen, maar of de vloer klaar is, beslist de vochtmeting.",
+        "Ligt er vloerverwarming in de chape, volg dan het opstookprotocol van de installateur. De warmte ondersteunt het drogen, terwijl de droger het vrijgekomen vocht uit de lucht haalt. **Laat het restvocht meten** voordat de parketlegger begint, en bewaar de meetresultaten."
       ]
     },
     toestellen: [
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een ruime woning met grote open ruimtes.** Deze condensdroger haalt tot 110 liter vocht per dag uit ruimtes tot ongeveer 600 m³, bij 1,4 kW verbruik."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor de kelder of een koele ruimte.** Een adsorptiedroger blijft vocht opnemen bij temperaturen waar een condensdroger tekortschiet, en droogt via slangen ook onder vloeren."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor de verdieping of een kleinere woning.** Tot 70 liter per dag in volumes tot ongeveer 400 m³, met een verbruik van 1,1 kW."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Om de lucht boven een verse chape in beweging te houden.** Deze ventilator verplaatst 4 500 m³ per uur bij 0,2 kW. De verdamping gaat sneller, het opvangen van het vocht blijft het werk van de droger."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Lasne",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Lasne, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**In Lasne leveren we op afspraak.** Kies een leverdatum bij het reserveren, daarna bellen we om het uur af te spreken. De rit vanuit Aartselaar duurt bijna een uur. Meld of er een lange oprit, een poort met code of een trap naar de kelder is. De technieker plaatst de toestellen en laat zien hoe u het opgevangen water afvoert."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Lasne",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Wilt u zelf een los toestel ophalen, dan kan dat op afspraak aan de Boomsesteenweg 12, unit 11 in Aartselaar. De rit vanuit Lasne duurt bijna een uur, en u rijdt hem nog eens bij het terugbrengen. **Reserveer vooraf**, dan staat het toestel voor u klaar. Voor een volledige woning laat u de toestellen beter leveren en plaatsen."
     },
     buren: ["waterloo", "terhulpen", "rixensart", "genepien", "ottignies-louvain-la-neuve"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Lasne?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Lasne, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoe boek ik een levering in Lasne?",
+        a: "Reserveer online een droogpakket en kies de leverdatum. Wij nemen daarna contact op om een uur af te spreken. Vermeld het adres, hoe de woning bereikbaar is en wie er bij de levering aanwezig is."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Wanneer mag het parket op de chape?",
+        a: "Pas als een vochtmeting aantoont dat de chape droog genoeg is voor het gekozen hout. De grenswaarde verschilt per type chape en vloer, dus vraag ze na bij uw parketlegger. Een droog ogende bovenkant is geen bewijs."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Mag ik de vloerverwarming gebruiken om de chape te drogen?",
+        a: "Ja, maar volg het opstookprotocol van de installateur en zet de temperatuur stap voor stap hoger. Te snel opwarmen kan de chape doen scheuren. Combineer het met een bouwdroger die het vocht uit de lucht haalt."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
+        q: "Werkt een bouwdroger ook in een koele kelder?",
+        a: "Een condensdroger haalt in een kelder onder 15 °C weinig rendement. Een adsorptiedroger werkt daar wel goed, ook als het koud blijft. Pak eerst de oorzaak aan als er water binnenkomt."
       },
       {
         q: "Kan ik zelf afhalen voor een werf in Lasne?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        a: "Dat kan, op afspraak in ons magazijn in Aartselaar. Vanuit Lasne bent u bijna een uur onderweg per richting. Reserveer op voorhand en lees de transportinstructies voordat u vertrekt."
       }
     ],
     realisaties: [],
@@ -24820,73 +24775,68 @@ const G: Gemeente[] = [
     slug: "terhulpen",
     title: "Bouwdroger huren in Terhulpen | Vernast",
     description:
-      "Bouwdroger huren in Terhulpen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Terhulpen: Vernast levert op afspraak, plaatst de toestellen en haalt ze weer op. Voor chape, pleisterwerk en waterschade.",
     h1: "Bouwdroger huren in Terhulpen",
-    kicker: "Terhulpen · levering op uw werf",
+    kicker: "Terhulpen · levering op afspraak",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
     intro: [
-      "Een bouwdroger nodig in Terhulpen voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Droogt u chape, pleisterwerk of een ruimte na waterschade in Terhulpen? Vernast verhuurt bouwdrogers, ventilatoren en bouwkachels als droogpakket. **Levering, plaatsing en ophaling zijn inbegrepen.**",
+      "Ons magazijn in Aartselaar ligt op ongeveer vijftig minuten rijden. Terhulpen ligt in Wallonië, dus we leveren op afspraak: u kiest een leverdatum bij de reservatie en we leggen het levermoment daarna samen vast."
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Terhulpen",
       alineas: [
-        "Vernast levert in Terhulpen en in omliggende plaatsen zoals Hoeilaart, Overijse, Rixensart. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Terhulpen ligt tussen Hoeilaart, Overijse en Rixensart, aan de rand van het Zoniënwoud. Geef bij uw aanvraag het volledige werfadres door en wie de technieker ter plaatse ontvangt. Ligt de werf aan een smalle of doodlopende straat, vermeld dat dan ook.",
+        "Na een lek of een natte kelder pakt u eerst de oorzaak aan en verwijdert u het staande water. Pas daarna heeft drogen zin. **Een condensdroger werkt het best boven 15 °C**; in een koude kelder zetten we liever een adsorptiedroger."
       ]
     },
     toestellen: [
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een volledige verdieping of een grote werf.** Deze droger haalt tot 110 liter water per dag uit de lucht en is geschikt voor ruimtes tot 600 m³. Hij draait op een standaard stopcontact."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een woning met verse chape.** Tot 70 liter per dag in ruimtes tot 400 m³, bij een verbruik van 1,1 kW. Bij meerdere kamers verdelen we de toestellen over de zones."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een koude kelder of een vloer na waterschade.** Deze adsorptiedroger werkt ook bij lage temperaturen en droogt via slangen gericht onder een vloer."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Om de lucht in beweging te houden.** De ventilator verplaatst 4 500 m³ lucht per uur langs natte wanden en vloeren. Hij haalt zelf geen vocht uit de lucht; dat doet de bouwdroger ernaast."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Terhulpen",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Terhulpen, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Levering, plaatsing en ophaling zitten in uw droogpakket.** U kiest bij de reservatie een leverdatum; omdat Terhulpen in Wallonië ligt, spreken we het precieze levermoment daarna met u af. De rit vanuit Aartselaar duurt ongeveer vijftig minuten. Meld vooraf een verdieping zonder vaste trap of een moeilijke toegang. De technieker plaatst de toestellen en toont hoe u de condensafvoer controleert."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Terhulpen",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Een los toestel kunt u op afspraak afhalen in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Terhulpen rijdt u er ongeveer vijftig minuten over, en die rit maakt u twee keer: bij het ophalen en bij het terugbrengen. **Reserveer vooraf**, zodat uw toestel klaarstaat. Voor meerdere toestellen is een droogpakket met levering meestal handiger."
     },
     buren: ["hoeilaart", "overijse", "rixensart", "lasne", "waterloo"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Terhulpen?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Terhulpen, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Wanneer kunnen jullie leveren in Terhulpen?",
+        a: "U kiest zelf een leverdatum bij de reservatie. Omdat Terhulpen in Wallonië ligt, leggen we het uur van levering daarna samen met u vast. Geef het werfadres, de verdieping en de gewenste startdatum door."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Hoeveel bouwdrogers heb ik nodig voor mijn woning?",
+        a: "Dat hangt af van het volume, het aantal afgesloten kamers en hoeveel vocht er in de chape of het pleisterwerk zit. Met de calculator stelt u een pakket samen; wijkt uw werf af, bel ons dan voor advies."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Werkt een bouwdroger in een koude kelder?",
+        a: "Een condensdroger heeft een temperatuur boven 15 °C nodig om goed te werken. In een koude kelder of een onverwarmde aanbouw kiezen we daarom voor de adsorptiedroger, die ook bij lage temperaturen vocht opneemt."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
+        q: "Welke aansluiting heb ik nodig?",
+        a: "De bouwdrogers en ventilatoren werken op een standaard stopcontact van 230 V. Alleen de elektrische bouwkachels van 20 en 30 kW vragen krachtstroom van 400 V. Twijfelt u, laat dan uw elektricien de aansluiting nakijken."
       },
       {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Terhulpen?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Kan ik mijn vragen in het Frans stellen?",
+        a: "Vragen in het Frans? Mail of bel ons gerust. Vermeld in uw bericht het werfadres in Terhulpen en welke ruimtes gedroogd moeten worden, dan kunnen we u gericht antwoorden."
       }
     ],
     realisaties: [],
@@ -24897,73 +24847,68 @@ const G: Gemeente[] = [
     slug: "rixensart",
     title: "Bouwdroger huren in Rixensart | Vernast",
     description:
-      "Bouwdroger huren in Rixensart? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Rixensart, Genval of Rosières? Vernast plaatst uw droogpakket op afspraak en haalt het weer op. Advies bij chape en waterschade.",
     h1: "Bouwdroger huren in Rixensart",
-    kicker: "Rixensart · levering op uw werf",
+    kicker: "Rixensart · levering op afspraak",
     rit: { afstand: "circa 58 km", tijd: "ongeveer vijftig minuten" },
     intro: [
-      "Een bouwdroger nodig in Rixensart voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Moet er in Rixensart een chape, een bepleisterde muur of een natte kelder drogen? Bij Vernast huurt u daarvoor een volledig droogpakket. **Wij brengen de toestellen, zetten ze op hun plaats en halen ze nadien weer op.**",
+      "Vanuit ons magazijn in Aartselaar zijn we in ongeveer vijftig minuten in Rixensart. Bij de reservatie duidt u een leverdatum aan; voor Wallonië bepalen we het levermoment daarna in overleg."
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Rixensart",
       alineas: [
-        "Vernast levert in Rixensart en in omliggende plaatsen zoals Terhulpen, Lasne, Overijse. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Droogt u een appartement of een verdieping? Geef door of er een lift of vaste trap is en hoe breed de toegang is. De beschikbare ruimte bepaalt mee welke toestellen we kunnen plaatsen. Spreek bij een gedeeld gebouw vooraf af wie de deur opent en waar materiaal mag worden neergezet.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Rixensart omvat ook Genval en Rosières. Noteer bij uw aanvraag dus het volledige adres met deelgemeente, en wie ons op de werf opvangt. Droogt u een appartement, meld dan of er een lift is en hoe breed de traphal is.",
+        "Een verse chape geeft wekenlang vocht af aan de lucht. Hoe lang precies, hangt af van de dikte, de samenstelling en de temperatuur in de ruimte. **Houd ramen en deuren dicht zolang de droger draait**, anders haalt hij vocht van buiten binnen. Laat het restvocht meten voor u een vloer legt."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een volledige woning of een appartement.** Haalt tot 70 liter per dag uit ruimtes tot 400 m³. Bij meerdere afgesloten kamers verdelen we de capaciteit over de zones."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Om natte oppervlakken sneller te laten opdrogen.** Deze ventilator blaast 4 500 m³ lucht per uur langs vloer en muren. Combineer hem altijd met een bouwdroger, want zelf vangt hij geen water op."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een koude, onverwarmde kelder.** De adsorptiedroger blijft vocht opnemen waar een condensdroger weinig rendement haalt, en kan via slangen gericht onder een vloer drogen."
       },
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor een badkamer, slaapkamer of andere losse ruimte.** Deze compacte droger haalt tot 50 liter per dag uit ruimtes tot 250 m³ en verbruikt 0,75 kW."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Rixensart",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Rixensart, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Uw droogpakket omvat levering, plaatsing en ophaling.** Na uw reservatie met leverdatum nemen we contact op om het levermoment in Rixensart vast te leggen. Reken op ongeveer vijftig minuten rijden vanuit Aartselaar. Vertel ons vooraf of er beperkt geparkeerd kan worden of de toegang lastig is. Bij de plaatsing toont de technieker hoe u de waterbak of de afvoerslang nakijkt."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Rixensart",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Wilt u zelf rijden, dan haalt u een los toestel op afspraak af aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Rixensart is dat ongeveer vijftig minuten, heen bij het afhalen en opnieuw bij het terugbrengen. **Reserveer op voorhand** en kijk na of het toestel in uw wagen past. Gaat het om meerdere toestellen, dan bespaart levering u die ritten."
     },
     buren: ["terhulpen", "lasne", "overijse", "waver"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Rixensart?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Rixensart, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Leveren jullie ook in Genval en Rosières?",
+        a: "Ja, beide deelgemeenten van Rixensart vallen binnen ons leveringsgebied. U kiest een leverdatum bij de reservatie, en omdat het om Wallonië gaat, spreken we het precieze moment nadien met u af."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Hoe kies ik tussen een kleine en een grote bouwdroger?",
+        a: "Kijk naar het volume van de ruimte en naar de hoeveelheid vocht. De compacte droger volstaat tot 250 m³, de droger van 70 liter tot 400 m³. Bij twijfel helpt de calculator, of u belt ons even."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Mag ik verluchten terwijl de droger draait?",
+        a: "Houd ramen en deuren liefst dicht. Open ramen laten buitenlucht binnen, en bij vochtig weer moet de droger dan ook dat vocht opvangen. Kort verluchten aan het eind van een werkdag kan wel."
       },
       {
-        q: "Kan een bouwdroger op een verdieping geplaatst worden?",
-        a: "Dat hangt af van de toegang en het toestel. Meld bij uw aanvraag de verdieping, een eventuele lift en smalle doorgangen. Is er geen vaste trap, bespreek dan vooraf hoe de toestellen boven kunnen komen en welke toeslag van toepassing is."
+        q: "Heb ik krachtstroom nodig?",
+        a: "Voor de bouwdrogers en ventilatoren niet: die werken op een standaard stopcontact van 230 V. Krachtstroom van 400 V is alleen nodig voor de elektrische bouwkachels. Zet niet te veel toestellen op dezelfde kring."
       },
       {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Rixensart?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Wanneer is de chape droog genoeg om te betegelen of een parket te leggen?",
+        a: "Dat bepaalt een vochtmeting, niet het aantal huurdagen. Uw vloerlegger weet welke restvochtwaarde zijn vloer vraagt en kan die meten. Laat de droger draaien tot die waarde gehaald is."
       }
     ],
     realisaties: [],
@@ -24974,73 +24919,68 @@ const G: Gemeente[] = [
     slug: "waver",
     title: "Bouwdroger huren in Waver | Vernast",
     description:
-      "Bouwdroger huren in Waver? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Waver? Vernast levert op afspraak een droogpakket met plaatsing en ophaling, voor een woning, appartement of bedrijfspand.",
     h1: "Bouwdroger huren in Waver",
-    kicker: "Waver · levering op uw werf",
+    kicker: "Waver · levering op afspraak",
     rit: { afstand: "circa 62 km", tijd: "ongeveer vijftig minuten" },
     intro: [
-      "Een bouwdroger nodig in Waver voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "In Waver een nieuwe chape, vers pleisterwerk of waterschade laten drogen? Vernast verhuurt bouwdrogers en ventilatoren en stelt er een droogpakket mee samen dat bij uw werf past. **Levering, plaatsing en ophaling horen erbij.**",
+      "Waver ligt op ongeveer vijftig minuten van ons magazijn in Aartselaar. Bij het reserveren kiest u een leverdatum, en het juiste levermoment in Waver regelen we nadien telefonisch of per mail."
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Waver",
       alineas: [
-        "Vernast levert in Waver en in omliggende plaatsen zoals Rixensart, Ottignies-Louvain-la-Neuve, Chaumont-Gistoux. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Droogt u een appartement of een verdieping? Geef door of er een lift of vaste trap is en hoe breed de toegang is. De beschikbare ruimte bepaalt mee welke toestellen we kunnen plaatsen. Spreek bij een gedeeld gebouw vooraf af wie de deur opent en waar materiaal mag worden neergezet.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Als hoofdstad van Waals-Brabant telt Waver naast woonwijken ook appartementsgebouwen, winkels en kantoren. Vermeld bij uw aanvraag het soort pand, de verdieping en of er een lift is. In een gedeeld gebouw spreekt u best vooraf af wie ons binnenlaat.",
+        "Een grote open ruimte droogt anders dan een rij kleine kamers. In een open plan kan één krachtige droger met een ventilator volstaan; afgesloten kamers vragen een verdeelde opstelling. **Vertel ons hoe de ruimtes in elkaar overlopen**, dan stellen we het pakket daarop af."
       ]
     },
     toestellen: [
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een kantoor, winkel of grote open verdieping.** Met 110 liter per dag en een bereik tot 600 m³ is dit de krachtigste condensdroger in ons aanbod. Hij verbruikt 1,4 kW."
       },
       {
         key: "radiaal2250",
-        waarom: "**Voor gerichte luchtcirculatie langs een vloer of wand.** De plaatsing hangt af van de te drogen zone. Combineer luchtverplaatsing met voldoende ontvochtigingscapaciteit."
+        waarom: "**Voor gerichte lucht langs een natte vloer of wand.** De radiaalventilator verplaatst 2 250 m³ per uur en is spatwaterdicht (IP55). Hij versnelt het opdrogen, de droger vangt het vocht op."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een eengezinswoning of een appartement.** Tot 70 liter per dag en geschikt voor ruimtes tot 400 m³. De droger werkt op een standaard stopcontact."
       },
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor een enkele kamer of een kleine handelsruimte.** Deze compacte droger is goed voor ruimtes tot 250 m³, met een opbrengst tot 50 liter per dag."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Waver",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Waver, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Levering, plaatsing en ophaling maken deel uit van uw droogpakket.** U geeft bij de reservatie een leverdatum op; omdat Waver in Wallonië ligt, volgt daarna een afspraak voor het precieze uur. Vanuit Aartselaar zijn we ongeveer vijftig minuten onderweg. Laat ons vooraf weten of er een laadzone of parkeerplaats voor de deur is. De technieker zet alles op en legt uit hoe u de condensafvoer opvolgt."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Waver",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Afhalen kan ook: op afspraak in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Waver betekent dat telkens ongeveer vijftig minuten rijden, bij het ophalen en bij het terugbrengen. **Reserveer vooraf** en vergelijk de afmetingen van het toestel met uw koffer. Voor een groter pand is levering met plaatsing de eenvoudigste keuze."
     },
     buren: ["rixensart", "ottignies-louvain-la-neuve", "chaumont-gistoux", "graven"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Waver?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Waver, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Kan mijn handelszaak in Waver open blijven tijdens het drogen?",
+        a: "Vaak wel, als we vooraf weten welke zones in gebruik blijven. We plaatsen de toestellen dan buiten de looproutes en houden rekening met de beschikbare stopcontacten. Bespreek uw planning en openingsuren bij de aanvraag."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Hoe regel ik de levering in Waver?",
+        a: "Reserveer online en kies een leverdatum. Daarna nemen we contact met u op om het levermoment vast te leggen, want in Wallonië leveren we op afspraak. Houd het werfadres en de verdieping bij de hand."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Hoeveel toestellen heb ik nodig voor een open verdieping?",
+        a: "Dat hangt af van het volume en de hoeveelheid vocht in vloer en muren. Voor een open ruimte tot 600 m³ kan één grote droger met een ventilator volstaan. De calculator geeft een eerste voorstel, en wij kijken het graag na."
       },
       {
-        q: "Kan een bouwdroger op een verdieping geplaatst worden?",
-        a: "Dat hangt af van de toegang en het toestel. Meld bij uw aanvraag de verdieping, een eventuele lift en smalle doorgangen. Is er geen vaste trap, bespreek dan vooraf hoe de toestellen boven kunnen komen en welke toeslag van toepassing is."
+        q: "Welke stroom hebben de toestellen nodig?",
+        a: "Bouwdrogers en ventilatoren werken op 230 V, dus op een standaard stopcontact. Verdeel meerdere toestellen over verschillende elektrische kringen. Bouwkachels van 20 of 30 kW vragen een krachtstroomaansluiting van 400 V."
       },
       {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Waver?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Hoe weet ik dat het pleisterwerk klaar is om te schilderen?",
+        a: "Een droog oppervlak zegt weinig over het vocht dieper in de muur. Laat uw schilder een vochtmeting doen en volg de waarde die de verffabrikant opgeeft. Pas dan is het pleisterwerk klaar voor afwerking."
       }
     ],
     realisaties: [],
@@ -25051,73 +24991,68 @@ const G: Gemeente[] = [
     slug: "ottignies-louvain-la-neuve",
     title: "Bouwdroger huren in Ottignies-Louvain-la-Neuve | Vernast",
     description:
-      "Bouwdroger huren in Ottignies-Louvain-la-Neuve? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ottignies-Louvain-la-Neuve? Vernast levert op afspraak, plaatst de toestellen en haalt ze op. Ook voor studio's en appartementen.",
     h1: "Bouwdroger huren in Ottignies-Louvain-la-Neuve",
-    kicker: "Ottignies-Louvain-la-Neuve · levering op uw werf",
+    kicker: "Ottignies-Louvain-la-Neuve · levering op afspraak",
     rit: { afstand: "circa 68 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Ottignies-Louvain-la-Neuve voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Droogt u in Ottignies-Louvain-la-Neuve een nieuwe dekvloer, een gerenoveerde studio of een ruimte na een lek? Vernast stelt een droogpakket samen met bouwdrogers en ventilatoren. **Levering, plaatsing en ophaling zijn in het pakket inbegrepen.**",
+      "Vanuit Aartselaar rijden we ongeveer een uur tot in Ottignies of Louvain-la-Neuve. Bij de reservatie kiest u een leverdatum; het uur van levering stemmen we daarna met u af."
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Ottignies-Louvain-la-Neuve",
       alineas: [
-        "Vernast levert in Ottignies-Louvain-la-Neuve en in omliggende plaatsen zoals Waver, Rixensart, Court-Saint-Étienne. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Droogt u een appartement of een verdieping? Geef door of er een lift of vaste trap is en hoe breed de toegang is. De beschikbare ruimte bepaalt mee welke toestellen we kunnen plaatsen. Spreek bij een gedeeld gebouw vooraf af wie de deur opent en waar materiaal mag worden neergezet.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Louvain-la-Neuve is een universiteitsstad met veel appartementen en studentenkoten. Het autovrije centrum vraagt een goede afspraak over waar we kunnen laden en lossen. Vermeld dat bij uw aanvraag, samen met de verdieping en de toegang tot het gebouw.",
+        "In een kleine studio of een kot kan een compacte droger volstaan. **Sluit de ruimte zo goed mogelijk af**, zodat de droger alleen die lucht behandelt. Is er een afvoer in de buurt, dan kan het condenswater via een slang weglopen en hoeft u de waterbak niet te legen."
       ]
     },
     toestellen: [
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor een studio, kot of afzonderlijke kamer.** Deze compacte droger haalt tot 50 liter per dag uit ruimtes tot 250 m³. Met 0,75 kW blijft het verbruik beperkt."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Voor extra luchtbeweging over een natte vloer.** De ventilator verplaatst 4 500 m³ lucht per uur. Zet hem naast een bouwdroger: de ventilator droogt het oppervlak, de droger vangt het water op."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een appartement of een volledige verdieping.** Tot 70 liter per dag in ruimtes tot 400 m³. Een goede keuze bij een nieuwe chape in meerdere aaneengesloten kamers."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een koude berging, kelder of garage.** Als adsorptiedroger blijft hij werken bij lage temperaturen. Via slangen kan hij ook vocht uit een vloer of holle ruimte halen."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Ottignies-Louvain-la-Neuve",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Ottignies-Louvain-la-Neuve, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**In uw droogpakket zitten levering, plaatsing en ophaling.** U kiest een leverdatum bij de reservatie, waarna we het levermoment in Ottignies-Louvain-la-Neuve samen vastleggen. De rit vanuit Aartselaar duurt ongeveer een uur. Geef vooraf door of we in het autovrije centrum moeten zijn en waar we kunnen stoppen. De technieker installeert de toestellen en laat zien hoe u de afvoer nakijkt."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Ottignies-Louvain-la-Neuve",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "U kunt een los toestel ook zelf op afspraak ophalen aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Ottignies-Louvain-la-Neuve is dat ongeveer een uur rijden, en dezelfde rit maakt u opnieuw om het terug te brengen. **Reserveer vooraf**, dan staat het klaar. Kijk ook na of het toestel in uw wagen past."
     },
     buren: ["waver", "rixensart", "court-saint-etienne", "mont-saint-guibert", "chaumont-gistoux"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Ottignies-Louvain-la-Neuve?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Ottignies-Louvain-la-Neuve, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Kunnen jullie leveren in het autovrije centrum van Louvain-la-Neuve?",
+        a: "Dat bekijken we per adres. Laat bij de aanvraag weten waar de dichtstbijzijnde parkeer- of laadplaats is en hoe ver de toestellen nog gedragen moeten worden. Het levermoment spreken we met u af."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Volstaat één bouwdroger voor een studentenkot?",
+        a: "Voor een afgesloten kot of studio tot 250 m³ is de compacte droger meestal voldoende. Zit er veel vocht in een nieuwe chape of in meerdere ruimtes, dan stellen we een groter pakket voor."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Waar gaat het condenswater naartoe?",
+        a: "De droger vangt het water op in een bak die u regelmatig leegmaakt. Is er een afvoer in de buurt, dan kan het water ook via een slang weglopen. De technieker toont bij de plaatsing hoe dat werkt."
       },
       {
-        q: "Kan een bouwdroger op een verdieping geplaatst worden?",
-        a: "Dat hangt af van de toegang en het toestel. Meld bij uw aanvraag de verdieping, een eventuele lift en smalle doorgangen. Is er geen vaste trap, bespreek dan vooraf hoe de toestellen boven kunnen komen en welke toeslag van toepassing is."
+        q: "Werken de bouwdrogers op een standaard stopcontact?",
+        a: "Ja, de condensdrogers en ventilatoren werken op 230 V. Krachtstroom hebt u alleen nodig voor de elektrische bouwkachels van 20 en 30 kW, die op 400 V werken."
       },
       {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Ottignies-Louvain-la-Neuve?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Kan ik zelf afhalen als ik in Louvain-la-Neuve woon?",
+        a: "Dat kan op afspraak in ons magazijn in Aartselaar, op ongeveer een uur rijden. Houd rekening met een rit heen en terug bij zowel het ophalen als het terugbrengen. Voor meerdere toestellen is levering vaak praktischer."
       }
     ],
     realisaties: [],
@@ -25128,73 +25063,68 @@ const G: Gemeente[] = [
     slug: "court-saint-etienne",
     title: "Bouwdroger huren in Court-Saint-Étienne | Vernast",
     description:
-      "Bouwdroger huren in Court-Saint-Étienne? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Court-Saint-Étienne? Vernast brengt uw droogpakket op afspraak, plaatst het en haalt het op. Voor kelders, chape en pleisterwerk.",
     h1: "Bouwdroger huren in Court-Saint-Étienne",
-    kicker: "Court-Saint-Étienne · levering op uw werf",
+    kicker: "Court-Saint-Étienne · levering op afspraak",
     rit: { afstand: "circa 72 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Court-Saint-Étienne voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Staat er in Court-Saint-Étienne een kelder onder water, of moet er een nieuwe chape drogen? Vernast verhuurt bouwdrogers als compleet pakket. **De levering, de plaatsing en het ophalen zijn inbegrepen.**",
+      "Ons magazijn in Aartselaar ligt op ongeveer een uur rijden. U legt bij de reservatie een leverdatum vast, en omdat de werf in Wallonië ligt, maken we daarna een afspraak voor het uur."
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Court-Saint-Étienne",
       alineas: [
-        "Vernast levert in Court-Saint-Étienne en in omliggende plaatsen zoals Ottignies-Louvain-la-Neuve, Mont-Saint-Guibert, Villers-la-Ville. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Court-Saint-Étienne ligt in de vallei van de Dijle, tussen Ottignies-Louvain-la-Neuve en Genepiën. Bij een natte kelder begint het werk bij de oorzaak: zolang er water binnenkomt, heeft drogen weinig zin. Laat eerst het lek of de infiltratie herstellen en pomp het staande water weg.",
+        "Daarna kijken we welke materialen nat zijn en of het vocht ook onder de vloer of achter de bepleistering zit. **Een koude kelder vraagt een ander toestel dan een verwarmde woonruimte.** Onder 15 °C werkt een condensdroger traag, en dan kiezen we voor de adsorptiedroger."
       ]
     },
     toestellen: [
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor een washok, badkamer of kleine kelder.** Deze compacte condensdroger is geschikt tot 250 m³ en haalt tot 50 liter water per dag uit de lucht."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een woning met een natte benedenverdieping.** Met 70 liter per dag en een bereik tot 400 m³ droogt hij meerdere kamers tegelijk, als de binnendeuren openstaan."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Om lucht langs natte muren en vloeren te sturen.** Met 4 500 m³ per uur droogt het oppervlak sneller op. Zonder bouwdroger erbij blijft het vocht wel in de ruimte hangen."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een kelder die koud en vochtig blijft.** Deze adsorptiedroger werkt ook bij lage temperaturen. Met zijn slangen droogt hij gericht onder een vloer."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Court-Saint-Étienne",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Court-Saint-Étienne, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Levering, plaatsing en ophaling zijn bij uw droogpakket inbegrepen.** Kies een leverdatum bij de reservatie; het precieze levermoment in Court-Saint-Étienne leggen we daarna in overleg vast. Vanuit Aartselaar rijden we er ongeveer een uur over. Meld vooraf een smalle keldertrap of een moeilijk bereikbare ingang. Ter plaatse zet de technieker alles op en legt hij uit hoe u het opgevangen water afvoert."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Court-Saint-Étienne",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Een los toestel kunt u ook zelf ophalen, op afspraak, aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Court-Saint-Étienne rijdt u ongeveer een uur, en bij het terugbrengen nog eens. **Reserveer op voorhand**, zodat het toestel klaarstaat. Na waterschade is levering met plaatsing meestal de betere keuze, omdat de opstelling dan meteen klopt."
     },
     buren: ["ottignies-louvain-la-neuve", "mont-saint-guibert", "villers-la-ville", "genepien"],
     faq: [
       {
+        q: "Wat doe ik eerst na wateroverlast in mijn kelder?",
+        a: "Stop de oorzaak en verwijder het staande water. Zet natte spullen buiten de ruimte en noteer welke muren en vloeren nat zijn. Neem daarna contact op, dan stellen we een droogopstelling voor die bij uw kelder past."
+      },
+      {
+        q: "Lost een bouwdroger een vochtprobleem in de kelder op?",
+        a: "Niet als er water blijft binnenkomen. Een bouwdroger haalt vocht uit lucht en materialen, maar herstelt geen lek, scheur of ontbrekende vochtwering. Laat de oorzaak dus eerst aanpakken."
+      },
+      {
+        q: "Welke droger past bij een koude kelder?",
+        a: "Onder 15 °C haalt een condensdroger weinig rendement. In een onverwarmde kelder zetten we daarom de adsorptiedroger in, die bij lage temperaturen blijft werken."
+      },
+      {
         q: "Hoe regel ik een levering in Court-Saint-Étienne?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Court-Saint-Étienne, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        a: "Reserveer uw pakket en kies een leverdatum. We nemen daarna contact op om het uur af te spreken, want in Wallonië werken we op afspraak. Geef het adres, de toegang tot de kelder of verdieping en de beschikbare stopcontacten door."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
-      },
-      {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
-      },
-      {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Court-Saint-Étienne?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Welke stroomaansluiting is nodig?",
+        a: "Bouwdrogers en ventilatoren werken op een standaard stopcontact van 230 V. Spreid ze over verschillende kringen als u er meerdere plaatst. De elektrische bouwkachels vragen een 400 V-aansluiting."
       }
     ],
     realisaties: [],
@@ -25205,73 +25135,68 @@ const G: Gemeente[] = [
     slug: "mont-saint-guibert",
     title: "Bouwdroger huren in Mont-Saint-Guibert | Vernast",
     description:
-      "Bouwdroger huren in Mont-Saint-Guibert? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Mont-Saint-Guibert voor uw woning of bedrijfsruimte? Vernast levert, plaatst en haalt uw droogpakket weer op, op afspraak.",
     h1: "Bouwdroger huren in Mont-Saint-Guibert",
-    kicker: "Mont-Saint-Guibert · levering op uw werf",
+    kicker: "Mont-Saint-Guibert · levering op afspraak",
     rit: { afstand: "circa 72 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Mont-Saint-Guibert voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Een bouwdroger nodig in Mont-Saint-Guibert, voor een woning of een bedrijfsruimte? Vernast verhuurt drogers en ventilatoren voor chape, pleisterwerk en waterschade. **Wij leveren, plaatsen en halen alles weer op.**",
+      "Vanuit ons magazijn in Aartselaar is het ongeveer een uur rijden naar Mont-Saint-Guibert. U kiest een leverdatum wanneer u reserveert; het levermoment zelf spreken we nadien met u af."
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Mont-Saint-Guibert",
       alineas: [
-        "Vernast levert in Mont-Saint-Guibert en in omliggende plaatsen zoals Ottignies-Louvain-la-Neuve, Court-Saint-Étienne, Chastre. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Voor een winkel, kantoor of bedrijfsruimte telt naast het volume ook het gebruik van het pand. Geef aan welke zones bereikbaar moeten blijven en wanneer er gewerkt wordt. Bij meerdere afgesloten ruimtes kan een verdeelde opstelling nodig zijn. Een geplande heropening bespreken we vooraf; de vochtmeting bepaalt of de afwerking kan starten.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "In een kantoor, winkel of werkplaats telt naast het volume ook het gebruik van het pand. Geef aan welke zones bereikbaar moeten blijven en wanneer er gewerkt wordt. Bij meerdere afgesloten ruimtes verdelen we de toestellen; in één grote hal kan een krachtige droger met ventilatoren volstaan.",
+        "Plan een heropening pas na een vochtmeting. **Een vloer die droog oogt, kan dieper nog te nat zijn** voor tegels, vinyl of parket. Stem de meting en de gewenste restvochtwaarde af met wie de vloer legt."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een kantoorverdieping of een woning.** Hij verwerkt tot 70 liter per dag in ruimtes tot 400 m³. Met 1,1 kW draait hij op een standaard stopcontact."
       },
       {
         key: "radiaal2250",
-        waarom: "**Voor gerichte luchtcirculatie langs een vloer of wand.** De plaatsing hangt af van de te drogen zone. Combineer luchtverplaatsing met voldoende ontvochtigingscapaciteit."
+        waarom: "**Voor een gerichte luchtstroom over een vloer.** De radiaalventilator haalt 2 250 m³ per uur en is spatwaterdicht (IP55), handig in een werkplaats of na waterschade."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een koude opslagruimte of een vloer na een lek.** De adsorptiedroger werkt ook bij lage temperaturen en bereikt via slangen het vocht in een vloeropbouw."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een hal, winkel of grote open ruimte.** Tot 110 liter per dag in volumes tot 600 m³. In een groot pand combineren we hem met een of meer ventilatoren."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Mont-Saint-Guibert",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Mont-Saint-Guibert, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Levering, plaatsing en ophaling zijn deel van het droogpakket.** U kiest bij uw reservatie een leverdatum, en omdat Mont-Saint-Guibert in Wallonië ligt, volgt daarna een afspraak over het uur. Reken op ongeveer een uur rijden vanuit Aartselaar. Laat weten of we via een laadkade of via de voordeur binnenkomen. De technieker stelt de toestellen op en overloopt met u hoe u ze opvolgt."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Mont-Saint-Guibert",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Kiest u zelf voor afhalen, dan kan dat op afspraak aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Mont-Saint-Guibert is dat ongeveer een uur rijden, voor het ophalen en opnieuw voor het terugbrengen. **Reserveer vooraf** zodat uw toestel klaarstaat. Voor een bedrijfsruimte met meerdere toestellen is levering met plaatsing doorgaans eenvoudiger."
     },
     buren: ["ottignies-louvain-la-neuve", "court-saint-etienne", "chastre", "walhain"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Mont-Saint-Guibert?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Mont-Saint-Guibert, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
-      },
-      {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
-      },
-      {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
-      },
-      {
         q: "Kan ik een bedrijfsruimte laten drogen tijdens de werken?",
-        a: "Bespreek vooraf welke ruimtes in gebruik blijven, de beschikbare stroom en uw planning. We stemmen de plaatsing daarop af. Een grote open ruimte vraagt een andere verdeling dan meerdere afgesloten kamers; alleen de totale vloeroppervlakte is daarom niet voldoende voor het advies."
+        a: "Ja, als we vooraf weten welke ruimtes in gebruik blijven en wanneer er gewerkt wordt. We plaatsen de toestellen buiten de doorgangen en houden rekening met de beschikbare stroom. Een grote hal vraagt een andere verdeling dan losse kantoren."
+      },
+      {
+        q: "Hoe regel ik een levering in Mont-Saint-Guibert?",
+        a: "Reserveer online of bel ons, en kies een leverdatum. Daarna spreken we het uur van levering af. Geef ook door wie ons ontvangt en via welke ingang we de toestellen binnenbrengen."
+      },
+      {
+        q: "Hoeveel bouwdrogers heb ik nodig voor een kantoor?",
+        a: "Dat hangt af van het volume, de indeling en de hoeveelheid vocht. Voor één open ruimte tot 600 m³ kan een grote droger volstaan; losse kantoren vragen meestal meerdere kleinere toestellen. De calculator maakt een eerste voorstel."
+      },
+      {
+        q: "Wanneer kan ik mijn pand weer in gebruik nemen?",
+        a: "Dat hangt af van de afwerking die nog moet gebeuren. Laat het restvocht meten voordat de vloerbekleding of de verf erop gaat, en plan de heropening pas na die meting. Is de waarde nog niet gehaald, dan kunt u de huur verlengen."
       },
       {
         q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Mont-Saint-Guibert?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        a: "Onze drogers en ventilatoren hebben genoeg aan een standaard stopcontact van 230 V. Verdeel ze in een groot pand over meerdere kringen. Voor de elektrische bouwkachels van 20 en 30 kW is een 400 V-aansluiting nodig."
       }
     ],
     realisaties: [],
@@ -25282,73 +25207,68 @@ const G: Gemeente[] = [
     slug: "villers-la-ville",
     title: "Bouwdroger huren in Villers-la-Ville | Vernast",
     description:
-      "Bouwdroger huren in Villers-la-Ville? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Villers-la-Ville? Vernast levert op afspraak drogers en bouwkachels, met plaatsing en ophaling. Ook voor koude en oudere woningen.",
     h1: "Bouwdroger huren in Villers-la-Ville",
-    kicker: "Villers-la-Ville · levering op uw werf",
+    kicker: "Villers-la-Ville · levering op afspraak",
     rit: { afstand: "circa 78 km", tijd: "iets meer dan een uur" },
     intro: [
-      "Een bouwdroger nodig in Villers-la-Ville voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Renoveert u in Villers-la-Ville een oudere woning, of moet een nieuwbouw drogen? Vernast verhuurt bouwdrogers, ventilatoren en elektrische bouwkachels. **Wij brengen het pakket, plaatsen het en halen het weer op.**",
+      "Ons magazijn in Aartselaar ligt op iets meer dan een uur rijden. Bij de reservatie kiest u een leverdatum, en voor deze Waalse gemeente leggen we het levermoment daarna samen vast."
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Villers-la-Ville",
       alineas: [
-        "Vernast levert in Villers-la-Ville en in omliggende plaatsen zoals Court-Saint-Étienne, Genepiën, Chastre. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Villers-la-Ville is bekend om de ruïne van zijn cisterciënzerabdij. Voor een werf in een van de dorpen van de gemeente vermeldt u het volledige adres, en ook of we via een landweg of een smalle oprit moeten.",
+        "In een koud of onverwarmd huis droogt een chape traag. **Onder 15 °C verliest een condensdroger veel rendement**, dus in de winter kan een elektrische bouwkachel de ruimte eerst op temperatuur brengen. Houd daarbij rekening met de 400 V-aansluiting die zo'n kachel vraagt."
       ]
     },
     toestellen: [
       {
         key: "teddh30",
-        waarom: "**Voor bijverwarming op een koude werf.** Deze elektrische kachel vraagt een geschikte 400 V-aansluiting. Laat vooraf controleren of de beschikbare voeding past bij het aansluitvermogen."
+        waarom: "**Voor een koude werf in de winter.** Deze elektrische bouwkachel levert 30 kW en werkt op krachtstroom (400 V). Ze verwarmt de ruimte, de bouwdroger haalt het vocht eruit."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een grote woning of een volledige verdieping.** Tot 110 liter per dag in ruimtes tot 600 m³. Samen met een bouwkachel blijft hij ook in de winter rendement halen."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor ruimtes die niet warm te krijgen zijn.** Deze adsorptiedroger werkt ook in de kou, bijvoorbeeld in een kelder of een oude stal. Met zijn slangen bereikt hij ook vocht onder een vloer."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Voor luchtbeweging langs natte muren.** De ventilator verplaatst 4 500 m³ lucht per uur. Hij vervangt de droger niet, maar helpt het oppervlak sneller op te drogen."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Villers-la-Ville",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Villers-la-Ville, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Bij uw droogpakket horen levering, plaatsing en ophaling.** U geeft een leverdatum op bij de reservatie; daarna bellen of mailen we om het levermoment in Villers-la-Ville vast te leggen. De rit vanuit Aartselaar duurt iets meer dan een uur. Laat vooraf weten of er krachtstroom is voor een bouwkachel en hoe de werf bereikbaar is. Na de plaatsing legt de technieker uit hoe u de toestellen opvolgt."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Villers-la-Ville",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Afhalen kan op afspraak aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Villers-la-Ville rijdt u iets meer dan een uur, en dat twee keer: bij het ophalen en opnieuw bij het terugbrengen. **Reserveer vooraf**, zodat het toestel klaarstaat. Een bouwkachel of meerdere drogers laat u beter leveren en plaatsen."
     },
     buren: ["court-saint-etienne", "genepien", "chastre"],
     faq: [
       {
+        q: "Heb ik een bouwkachel nodig om in de winter te drogen?",
+        a: "Niet altijd, maar in een onverwarmde woning helpt het. Een condensdroger werkt traag onder 15 °C. Een elektrische bouwkachel brengt de ruimte op temperatuur, of we kiezen voor de adsorptiedroger die ook in de kou werkt."
+      },
+      {
+        q: "Welke aansluiting vraagt de bouwkachel van 30 kW?",
+        a: "Deze kachel werkt op krachtstroom van 400 V. Laat vooraf nakijken of uw werf die aansluiting heeft en of de beveiliging volstaat. De drogers zelf werken op een standaard stopcontact van 230 V."
+      },
+      {
         q: "Hoe regel ik een levering in Villers-la-Ville?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Villers-la-Ville, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        a: "Reserveer uw droogpakket en kies een leverdatum. In Wallonië leveren we op afspraak, dus we contacteren u daarna voor het uur. Geef het adres, de toegangsweg en de beschikbare aansluitingen door."
       },
       {
         q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        a: "Dat hangt af van het volume, het aantal kamers, de temperatuur en de hoeveelheid vocht. Een open verdieping vraagt een andere opstelling dan afgesloten kamers. Gebruik de calculator voor een eerste voorstel en bel ons als uw werf afwijkt."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
-      },
-      {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Villers-la-Ville?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Hoe weet ik wanneer de chape droog genoeg is?",
+        a: "Alleen een vochtmeting geeft uitsluitsel. Uw vloerlegger kent de restvochtwaarde die zijn vloerbekleding vraagt en kan die meten. Tot die waarde gehaald is, laat u de droger beter draaien."
       }
     ],
     realisaties: [],
@@ -25359,73 +25279,68 @@ const G: Gemeente[] = [
     slug: "chastre",
     title: "Bouwdroger huren in Chastre | Vernast",
     description:
-      "Bouwdroger huren in Chastre? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Chastre? Vernast levert op afspraak, plaatst de toestellen en haalt ze weer op. Advies bij nieuwbouw, renovatie en een koude werf.",
     h1: "Bouwdroger huren in Chastre",
-    kicker: "Chastre · levering op uw werf",
+    kicker: "Chastre · levering op afspraak",
     rit: { afstand: "circa 80 km", tijd: "iets meer dan een uur" },
     intro: [
-      "Een bouwdroger nodig in Chastre voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Bouwt of verbouwt u in Chastre en moet er een chape of pleisterwerk drogen? Bij Vernast huurt u bouwdrogers, ventilatoren en bouwkachels als één pakket. **Levering, plaatsing en ophaling zitten erin.**",
+      "Chastre ligt op iets meer dan een uur van ons magazijn in Aartselaar. U kiest een leverdatum bij de reservatie; voor een levering in Wallonië maken we nadien een afspraak over het uur."
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Chastre",
       alineas: [
-        "Vernast levert in Chastre en in omliggende plaatsen zoals Villers-la-Ville, Mont-Saint-Guibert, Walhain. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Chastre is een landelijke gemeente tussen Mont-Saint-Guibert, Walhain en Villers-la-Ville. Bij een nieuwbouw of een vrijstaande woning helpt het als u doorgeeft of de oprit al verhard is en waar we kunnen stoppen. Noteer ook wie ons op de werf ontvangt.",
+        "Op een nieuwbouwwerf is er soms nog geen verwarming. **Onder 15 °C droogt een condensdroger traag**, en dan kan een elektrische bouwkachel van 20 kW de ruimte op temperatuur brengen. Die kachel vraagt wel krachtstroom van 400 V; vraag uw elektricien of de werfkast dat aankan."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een nieuwbouwwoning met verse chape.** Goed voor 70 liter per dag in ruimtes tot 400 m³. Plaats hem centraal en laat de binnendeuren open, dan droogt hij meerdere kamers."
       },
       {
         key: "teddh20",
-        waarom: "**Voor bijverwarming tijdens het drogen.** Controleer vooraf de vereiste 400 V-aansluiting en het beschikbare vermogen. Verwarming ondersteunt het droogproces, maar verwijdert op zichzelf geen vocht."
+        waarom: "**Voor bijverwarming op een koude werf.** Deze elektrische bouwkachel levert 20 kW op 400 V. De warmte helpt het drogen, maar het vocht zelf vangt de bouwdroger op."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een grote woning of een open verdieping.** Tot 110 liter per dag in volumes tot 600 m³, bij een verbruik van 1,4 kW."
       },
       {
         key: "radiaal2250",
-        waarom: "**Voor gerichte luchtcirculatie langs een vloer of wand.** De plaatsing hangt af van de te drogen zone. Combineer luchtverplaatsing met voldoende ontvochtigingscapaciteit."
+        waarom: "**Voor luchtstroming over de dekvloer.** De radiaalventilator verplaatst 2 250 m³ per uur en is spatwaterdicht (IP55). Via zijn extra stopcontact kunt u een tweede toestel doorlussen."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Chastre",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Chastre, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Levering, plaatsing en ophaling zijn inbegrepen in uw droogpakket.** Na uw reservatie met leverdatum nemen we contact op om het uur van levering in Chastre af te spreken. We rijden er vanuit Aartselaar iets meer dan een uur over. Meld vooraf of de werf al stroom heeft en of er krachtstroom is voor een kachel. De technieker plaatst alles en legt uit hoe u de droger opvolgt."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Chastre",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Een los toestel haalt u op afspraak op aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Chastre is dat iets meer dan een uur rijden per richting, zowel bij het ophalen als bij het terugbrengen. **Reserveer vooraf** en vergelijk het gewicht en de afmetingen met uw voertuig. Voor een volledige nieuwbouw is een pakket met levering meestal praktischer."
     },
     buren: ["villers-la-ville", "mont-saint-guibert", "walhain"],
     faq: [
       {
+        q: "Kan ik drogen op een werf zonder verwarming?",
+        a: "Ja, maar in de kou werkt een condensdroger traag. Een elektrische bouwkachel brengt de ruimte op temperatuur, op voorwaarde dat er een 400 V-aansluiting is. Bespreek de temperatuur op uw werf bij de aanvraag."
+      },
+      {
         q: "Hoe regel ik een levering in Chastre?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Chastre, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        a: "Maak uw reservatie online en duid een leverdatum aan. Omdat Chastre in Wallonië ligt, spreken we daarna een uur af. Geef het adres, de bereikbaarheid van de werf en de beschikbare stroomaansluitingen mee."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Wanneer mag ik beginnen met drogen na het gieten van de chape?",
+        a: "Volg daarvoor de voorschriften van uw chapeleverancier of aannemer. Sommige dekvloeren moeten eerst enkele dagen rustig uitharden voor er een droger bij komt. Geef de datum van het gieten door, dan houden we er rekening mee."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Hoeveel bouwdrogers heb ik nodig voor een nieuwbouw?",
+        a: "Dat hangt af van het volume van de woning, de dikte van de chape en de temperatuur. De calculator maakt een eerste voorstel op basis van uw gegevens. Bij een grote of koude werf kijken we het graag samen na."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Chastre?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Hoe weet ik dat de vloer klaar is voor afwerking?",
+        a: "Een droog oppervlak zegt niets over het vocht onderin de chape. Laat uw vloerlegger een vochtmeting doen en wacht tot de waarde voor uw vloerbekleding gehaald is."
       }
     ],
     realisaties: [],
@@ -25436,73 +25351,68 @@ const G: Gemeente[] = [
     slug: "walhain",
     title: "Bouwdroger huren in Walhain | Vernast",
     description:
-      "Bouwdroger huren in Walhain? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Walhain? Vernast brengt uw droogpakket op afspraak, plaatst het en haalt het weer op. Voor chape, pleisterwerk en renovatie.",
     h1: "Bouwdroger huren in Walhain",
-    kicker: "Walhain · levering op uw werf",
+    kicker: "Walhain · levering op afspraak",
     rit: { afstand: "circa 78 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Walhain voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Een bouwdroger nodig in Walhain voor een renovatie, een nieuwbouw of na waterschade? Vernast verhuurt de toestellen als droogpakket, afgestemd op uw werf. **Wij leveren de toestellen, zetten ze op en halen ze nadien terug.**",
+      "Walhain ligt op ongeveer een uur rijden van ons magazijn in Aartselaar. U kiest een leverdatum bij het reserveren, en het levermoment spreken we daarna af, zoals bij elke levering in Wallonië."
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Walhain",
       alineas: [
-        "Vernast levert in Walhain en in omliggende plaatsen zoals Chastre, Mont-Saint-Guibert, Chaumont-Gistoux. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Droogt u een appartement of een verdieping? Geef door of er een lift of vaste trap is en hoe breed de toegang is. De beschikbare ruimte bepaalt mee welke toestellen we kunnen plaatsen. Spreek bij een gedeeld gebouw vooraf af wie de deur opent en waar materiaal mag worden neergezet.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Walhain is een landelijke gemeente met verspreide dorpen tussen Chastre, Mont-Saint-Guibert en Chaumont-Gistoux. Renoveert u een oudere woning of hoeve, vertel ons dan welke ruimtes nat zijn en hoe dik de muren zijn. Vermeld ook het volledige adres en wie ons ontvangt.",
+        "Een verse chape en nieuw pleisterwerk geven wekenlang vocht af. **Hoe lang het drogen duurt, hangt af van dikte, samenstelling, temperatuur en luchtvochtigheid.** Een droog oppervlak betekent niet dat de vloer of muur klaar is voor afwerking; daarvoor dient de vochtmeting van uw vloerlegger of schilder."
       ]
     },
     toestellen: [
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een volledige woning of een grote verbouwing.** Tot 110 liter per dag in ruimtes tot 600 m³, aangesloten op een standaard stopcontact."
       },
       {
         key: "radiaal2250",
-        waarom: "**Voor gerichte luchtcirculatie langs een vloer of wand.** De plaatsing hangt af van de te drogen zone. Combineer luchtverplaatsing met voldoende ontvochtigingscapaciteit."
+        waarom: "**Om de lucht langs pleisterwerk of een dekvloer te sturen.** De radiaalventilator haalt 2 250 m³ per uur en is spatwaterdicht (IP55). Hij werkt samen met een droger, niet in zijn plaats."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een woning met enkele kamers tegelijk.** Deze droger haalt tot 70 liter per dag uit ruimtes tot 400 m³ en verbruikt 1,1 kW."
       },
       {
         key: "teddh30",
-        waarom: "**Voor bijverwarming op een koude werf.** Deze elektrische kachel vraagt een geschikte 400 V-aansluiting. Laat vooraf controleren of de beschikbare voeding past bij het aansluitvermogen."
+        waarom: "**Voor een koude hoeve of een nieuwbouw zonder verwarming.** Deze bouwkachel levert 30 kW en vraagt een krachtstroomaansluiting van 400 V. Warmte versnelt het drogen, de bouwdroger vangt het vocht op."
       }
     ],
     levering: {
       kop: "Levering en plaatsing in Walhain",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Walhain, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      alinea: "**Uw droogpakket omvat de levering, de plaatsing en de ophaling.** Bij de reservatie kiest u een leverdatum; het precieze levermoment in Walhain leggen we daarna met u vast. Vanuit Aartselaar rijden we ongeveer een uur. Meld vooraf een smalle toegang, een landweg of een verdieping zonder vaste trap. Bij de plaatsing toont de technieker hoe u de toestellen bedient."
     },
     afhalen: {
       kop: "Zelf afhalen vanuit Walhain",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      alinea: "Zelf afhalen kan op afspraak in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Walhain is dat ongeveer een uur rijden, bij het afhalen en nog eens bij het terugbrengen. **Reserveer vooraf**, dan staat uw toestel klaar. Hebt u een bouwkachel of meerdere drogers nodig, kies dan liever voor levering met plaatsing."
     },
     buren: ["chastre", "mont-saint-guibert", "chaumont-gistoux", "perwijs"],
     faq: [
       {
         q: "Hoe regel ik een levering in Walhain?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Walhain, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        a: "Bereken uw droogpakket online en kies een leverdatum. Daarna contacteren we u om het uur af te spreken. Geef het werfadres, de verdieping en de beschikbare stroomaansluitingen door."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Droogt een bouwdroger ook de dikke muren van een oude hoeve?",
+        a: "Een bouwdroger haalt vocht uit de lucht, waarna de muren hun vocht langzaam afgeven. Dikke muren drogen daardoor trager dan een dunne chape. Bespreek de opbouw van de muren, dan stemmen we de opstelling en de huurduur af."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Hoeveel toestellen heb ik nodig voor mijn renovatie?",
+        a: "Dat hangt af van het volume, de indeling en hoeveel vocht er in vloeren en muren zit. Gebruik de calculator voor een eerste voorstel. Wijkt uw situatie af, bijvoorbeeld door hoge plafonds of verborgen vocht, vraag dan advies."
       },
       {
-        q: "Kan een bouwdroger op een verdieping geplaatst worden?",
-        a: "Dat hangt af van de toegang en het toestel. Meld bij uw aanvraag de verdieping, een eventuele lift en smalle doorgangen. Is er geen vaste trap, bespreek dan vooraf hoe de toestellen boven kunnen komen en welke toeslag van toepassing is."
+        q: "Welke aansluiting vraagt een bouwkachel?",
+        a: "De elektrische bouwkachels van 20 en 30 kW werken op krachtstroom van 400 V. Laat uw elektricien nakijken of de werf die aansluiting heeft. Voor de bouwdrogers en ventilatoren volstaat een standaard stopcontact."
       },
       {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Walhain?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Lost een bouwdroger opstijgend vocht op?",
+        a: "Nee. Een bouwdroger droogt vocht uit lucht en materialen, maar houdt geen nieuw vocht tegen. Bij opstijgend vocht of een lek laat u eerst de oorzaak aanpakken; pas daarna geeft drogen een blijvend resultaat."
       }
     ],
     realisaties: [],
@@ -25512,73 +25422,64 @@ const G: Gemeente[] = [
     slug: "graven",
     title: "Bouwdroger huren in Graven | Vernast",
     description:
-      "Bouwdroger huren in Graven? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Graven (Grez-Doiceau): drogen na een renovatie, een nieuwe chape of vocht in een huis langs de Train. Levering en plaatsing op afspraak.",
     h1: "Bouwdroger huren in Graven",
-    kicker: "Graven · levering op uw werf",
-    rit: { afstand: "circa 60 km", tijd: "ongeveer vijfenvijftig minuten" },
+    kicker: "Waals-Brabant · valleien van Dijle en Train",
+    rit: { afstand: "circa 60 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Graven voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Graven heet in het Frans **Grez-Doiceau** en ligt net over de taalgrens, naast Oud-Heverlee en Huldenberg. Tot de gemeente horen onder meer Archennes, Biez, Bossut-Gottechain, Doiceau, Nethen en Pécrot. De Train en de Nethen stromen hier naar de Dijle, met beboste hellingen en akkers ertussen.",
+      "We leveren bouwdrogers in de hele gemeente, van de dorpen in het dal tot de woonwijken op de hellingen. Vanuit ons magazijn in Aartselaar zijn we **ongeveer een uur** onderweg. In Wallonië leveren en plaatsen we op afspraak."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Graven",
+      kop: "Oude huizen in het dal, villa's op de helling",
       alineas: [
-        "Vernast levert in Graven en in omliggende plaatsen zoals Waver, Chaumont-Gistoux, Bevekom. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "**In de valleien van de Train en de Dijle** staan oudere dorpswoningen dicht bij het grondwater. Heeft de muur geen vochtkering, dan trekt hij dat water op en verschijnt er na de renovatie opnieuw een vochtrand onderaan. Een bouwdroger haalt bouwvocht weg, maar stopt geen opstijgend vocht. Daarom doet de technieker bij de plaatsing een vochtmeting.",
+        "Op de hellingen gaat het vaker om **een villa die grondig verbouwd wordt**, met nieuwe chape en nieuw pleisterwerk. Ligt er een souterrain half in de helling, dan droogt dat deel het traagst. Het blijft er koel en aan één kant zit de grond tegen de muur."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een verbouwde villa met meerdere verdiepingen.** Deze droger haalt tot 70 liter water per dag uit de lucht en is geschikt voor ruimtes tot ongeveer 400 m³."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een koel souterrain in de helling.** Deze adsorptiedroger blijft vocht opnemen bij lage temperaturen, waar een condensdroger trager wordt."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "Een nieuwe chape in een open leefruimte droogt gelijkmatiger als de lucht erboven blijft bewegen. Deze ventilator verplaatst 4 500 m³ lucht per uur."
       },
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor een dorpswoning die bewoond blijft.** Deze compacte droger haalt 50 liter per dag uit de lucht en werkt op een standaard stopcontact."
       }
     ],
     levering: {
-      kop: "Levering en plaatsing in Graven",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Graven, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      kop: "Levering in Graven op afspraak",
+      alinea: "Vanuit Aartselaar rijden we **ongeveer een uur** naar Graven, via de E40 of de E411. U kiest bij de reservatie een leverdatum, daarna spreken we het tijdstip met u af. De technieker plaatst de toestellen, leidt de afvoer naar een putje of gootsteen en meet de vochtigheid van vloer en muren. Levering, plaatsing en ophaling zitten in uw droogpakket."
     },
     afhalen: {
-      kop: "Zelf afhalen vanuit Graven",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      kop: "Zelf afhalen in Aartselaar",
+      alinea: "Afhalen kan op afspraak in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Dat is **ongeveer een uur rijden** vanuit Graven, en u maakt die rit twee keer: bij het ophalen en bij het terugbrengen. Voor één klein toestel kan dat lonen. Voor een volledig pakket kiest u beter levering met plaatsing."
     },
     buren: ["waver", "chaumont-gistoux", "bevekom", "oud-heverlee", "huldenberg"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Graven?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Graven, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Mijn huis ligt laag bij de Train. Is de vochtige muur bouwvocht?",
+        a: "Niet altijd. In een beekvallei zit het grondwater ondiep, en een oude muur zonder vochtkering trekt dat op. Bouwvocht verdwijnt met de tijd, opstijgend vocht blijft terugkomen. De vochtmeting bij de plaatsing toont welk van de twee u hebt."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Waarom droogt mijn souterrain trager dan de rest van het huis?",
+        a: "Een souterrain in de helling is koeler dan de verdiepingen erboven, en aan de bergkant zit de grond tegen de muur. Een condensdroger heeft een temperatuur boven 15 °C nodig om goed te werken. In een koel souterrain zetten we daarom vaak een adsorptiedroger."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Kan de droger blijven draaien terwijl wij in huis wonen?",
+        a: "Ja. De compacte droger werkt op een standaard stopcontact en kan in een bewoonde woning staan. Houd de deur van de ruimte die droogt dicht. Anders droogt het toestel ook de lucht in de rest van het huis en duurt het langer."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Graven?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Mijn aannemer spreekt alleen Frans. Hoe pakken we dat aan?",
+        a: "Vragen in het Frans? Mail of bel ons gerust. Geef bij de reservatie ook door wie er bij de levering aanwezig is, zodat we weten met wie we het tijdstip en de plaatsing afspreken."
       }
     ],
     realisaties: [],
@@ -25589,73 +25490,64 @@ const G: Gemeente[] = [
     slug: "chaumont-gistoux",
     title: "Bouwdroger huren in Chaumont-Gistoux | Vernast",
     description:
-      "Bouwdroger huren in Chaumont-Gistoux? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Chaumont-Gistoux: drogen na de verbouwing van een vrijstaande woning, een nieuwe chape of waterschade. Levering en plaatsing op afspraak.",
     h1: "Bouwdroger huren in Chaumont-Gistoux",
-    kicker: "Chaumont-Gistoux · levering op uw werf",
+    kicker: "Waals-Brabant · ten oosten van Waver",
     rit: { afstand: "circa 65 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Chaumont-Gistoux voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Chaumont-Gistoux ligt ten oosten van Waver, in het groene midden van Waals-Brabant. Tot de gemeente horen onder meer Bonlez, Corroy-le-Grand, Dion-Valmont en Longueville, met veel vrijstaande woningen tussen bossen en akkers.",
+      "We leveren bouwdrogers in alle dorpen van de gemeente. Vanuit ons magazijn in Aartselaar rijden we er **ongeveer een uur** over. Levering en plaatsing in Wallonië gebeuren op afspraak."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Chaumont-Gistoux",
+      kop: "Vrijstaande woningen, grote verbouwingen",
       alineas: [
-        "Vernast levert in Chaumont-Gistoux en in omliggende plaatsen zoals Waver, Graven, Incourt. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Een vrijstaande woning die volledig gerenoveerd wordt, krijgt vaak in één keer **een nieuwe chape over het hele gelijkvloers** en nieuw pleisterwerk op de muren. Dat is veel water in één volume. Een grote droger in het midden en een ventilator die de lucht over de vloer laat bewegen, halen dat sneller weg dan losse toestellen per kamer.",
+        "Wordt er in de winter gewerkt en staat de verwarming nog niet aan, dan koelt een lege woning snel af. Een condensdroger werkt pas goed boven 15 °C. Een elektrische bouwkachel houdt de ruimte op temperatuur, op voorwaarde dat er **een 400 V-aansluiting** op de werf is."
       ]
     },
     toestellen: [
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een volledig gerenoveerd gelijkvloers.** Deze droger haalt tot 110 liter water per dag uit de lucht en is berekend op ruimtes tot ongeveer 600 m³."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "Voor een verdieping of een afgesloten deel van de woning volstaat vaak deze droger: tot 70 liter per dag, in ruimtes tot ongeveer 400 m³."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Voor een grote open vloer.** De ventilator verplaatst 4 500 m³ lucht per uur over een verse chape. Hij droogt niet zelf, hij helpt de droger."
       },
       {
         key: "teddh30",
-        waarom: "**Voor bijverwarming op een koude werf.** Deze elektrische kachel vraagt een geschikte 400 V-aansluiting. Laat vooraf controleren of de beschikbare voeding past bij het aansluitvermogen."
+        waarom: "**Voor een koude werf in de winter.** Deze elektrische bouwkachel levert 30 kW en heeft krachtstroom nodig (400 V). Vraag uw elektricien vooraf of de aansluiting dat aankan."
       }
     ],
     levering: {
-      kop: "Levering en plaatsing in Chaumont-Gistoux",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Chaumont-Gistoux, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      kop: "Levering in Chaumont-Gistoux op afspraak",
+      alinea: "Naar Chaumont-Gistoux zijn we vanuit Aartselaar **ongeveer een uur** onderweg. Bij de reservatie kiest u de leverdatum; het uur van levering spreken we nadien met u af. Ter plaatse zet de technieker de toestellen op, sluit de afvoer aan en doet een vochtmeting. Levering, plaatsing en ophaling horen bij uw droogpakket."
     },
     afhalen: {
-      kop: "Zelf afhalen vanuit Chaumont-Gistoux",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      kop: "Zelf afhalen in Aartselaar",
+      alinea: "U kunt toestellen op afspraak afhalen in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Chaumont-Gistoux is dat **ongeveer een uur rijden**, heen bij het ophalen en opnieuw bij het terugbrengen. Voor één droger kan dat de moeite zijn. Voor een woning met meerdere toestellen en een bouwkachel laat u beter leveren."
     },
     buren: ["waver", "graven", "incourt", "walhain"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Chaumont-Gistoux?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Chaumont-Gistoux, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoeveel drogers heb ik nodig voor een volledig gerenoveerde woning?",
+        a: "Dat hangt af van het volume en van hoeveel chape en pleisterwerk er nat is. Voor een open gelijkvloers volstaat vaak één grote droger met een ventilator. Afgesloten kamers op de verdieping vragen soms een extra toestel. Geef de oppervlakte en de hoogte door, dan stellen we het pakket samen."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Waarom werkt een bouwdroger slecht in een koude woning?",
+        a: "Een condensdroger koelt de lucht af om er water uit te halen. Is de ruimte zelf al koud, onder ongeveer 15 °C, dan condenseert er weinig en daalt de opbrengst. Een bouwkachel of een adsorptiedroger lost dat op."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Welke aansluiting heb ik nodig voor de bouwkachel?",
+        a: "De kachel van 30 kW werkt op krachtstroom van 400 V, met een passende stekker en zekering. Een standaard stopcontact volstaat niet. Laat uw elektricien vooraf nakijken wat uw werfkast of verdeelbord kan leveren."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Chaumont-Gistoux?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Wanneer mag de parketvloer op de nieuwe chape?",
+        a: "Pas als de chape droog genoeg is voor de gekozen vloer, en dat bepaalt een vochtmeting, niet de kalender. Een droog oppervlak zegt weinig over de kern van de vloer. Spreek de meting en de grenswaarde af met uw vloerlegger."
       }
     ],
     realisaties: [],
@@ -25666,73 +25558,64 @@ const G: Gemeente[] = [
     slug: "bevekom",
     title: "Bouwdroger huren in Bevekom | Vernast",
     description:
-      "Bouwdroger huren in Bevekom? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bevekom (Beauvechain): drogen na de verbouwing van een hoeve, bij een nieuwbouw of in een bewoonde woning. Levering en plaatsing op afspraak.",
     h1: "Bouwdroger huren in Bevekom",
-    kicker: "Bevekom · levering op uw werf",
-    rit: { afstand: "circa 60 km", tijd: "ongeveer vijfenvijftig minuten" },
+    kicker: "Waals-Brabant · aan de taalgrens",
+    rit: { afstand: "circa 60 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Bevekom voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Bevekom, in het Frans **Beauvechain**, ligt in het noordoosten van Waals-Brabant en grenst aan Bierbeek, Boutersem en Hoegaarden. Bij de gemeente horen onder meer Hamme-Mille, Nodebais, Tourinnes-la-Grosse en L'Écluse. Buiten de streek kent men Bevekom vooral van de luchtmachtbasis.",
+      "Vanuit Aartselaar zijn we **ongeveer een uur** onderweg naar Bevekom. We leveren in elk dorp van de gemeente, en zoals overal in Wallonië op afspraak."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Bevekom",
+      kop: "Hoeves, dorpswoningen en nieuwe verkavelingen",
       alineas: [
-        "Vernast levert in Bevekom en in omliggende plaatsen zoals Graven, Geldenaken, Bierbeek. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Wie een **oude hoeve of schuur** tot woning verbouwt, droogt dikke muren en een nieuwe vloer in ruimtes die lang onverwarmd stonden. In zo'n koude ruimte haalt een adsorptiedroger meer vocht weg dan een condensdroger. Een ventilator houdt de lucht in een hoge schuur in beweging, zodat er geen natte hoeken achterblijven.",
+        "In de nieuwere woonwijken gaat het meestal om een nieuwbouw of een uitbreiding met verse chape. Blijft u in de woning wonen terwijl één kamer droogt, dan volstaat vaak **een compacte droger** die weinig plaats inneemt."
       ]
     },
     toestellen: [
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een verbouwde hoeve met grote volumes.** Deze droger haalt tot 110 liter per dag uit de lucht, in ruimtes tot ongeveer 600 m³."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "In een hoge schuur blijft vochtige lucht onderaan hangen. Deze ventilator verplaatst 4 500 m³ lucht per uur en mengt ze, zodat de droger ze kan opvangen."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor oude, koude muren.** Deze adsorptiedroger blijft vocht opnemen bij lage temperaturen en droogt via slangen ook een afgesloten ruimte."
       },
       {
         key: "ttk170",
-        waarom: "**Voor een afzonderlijke kamer of een kleinere droogzone.** Bespreek de afmetingen, temperatuur en hoeveelheid vocht om te bepalen of dit toestel voldoende capaciteit heeft."
+        waarom: "**Voor één kamer in een bewoonde woning.** Deze compacte droger haalt 50 liter per dag uit de lucht en werkt op een standaard stopcontact."
       }
     ],
     levering: {
-      kop: "Levering en plaatsing in Bevekom",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Bevekom, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      kop: "Levering in Bevekom op afspraak",
+      alinea: "We rijden **ongeveer een uur** van Aartselaar naar Bevekom. U legt bij de reservatie de leverdatum vast, en wij bellen om het tijdstip af te spreken. De technieker plaatst de toestellen, legt de afvoerslang naar een afvoerpunt en meet het vocht in vloer en muren. Ook de ophaling zit in uw droogpakket."
     },
     afhalen: {
-      kop: "Zelf afhalen vanuit Bevekom",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      kop: "Zelf afhalen in Aartselaar",
+      alinea: "Afhalen kan op afspraak aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Bevekom rijdt u daar **ongeveer een uur** over, en die rit maakt u twee keer. Voor de compacte droger kan afhalen een goede keuze zijn. Voor een hoeve met meerdere toestellen laat u ze beter leveren en plaatsen."
     },
     buren: ["graven", "geldenaken", "bierbeek", "boutersem", "hoegaarden"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Bevekom?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Bevekom, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Kan een bouwdroger een verbouwde schuur drogen?",
+        a: "Ja, maar een schuur is hoog en vaak koud. Daar werkt een adsorptiedroger beter dan een condensdroger, liefst met een ventilator erbij. Vertel ons de afmetingen en of er al verwarming is, dan stellen we de opstelling samen."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Mag de compacte droger in een slaapkamer staan terwijl wij thuis zijn?",
+        a: "Dat kan. Hij werkt op een standaard stopcontact en neemt weinig plaats in. Sluit deur en ramen van de kamer die droogt, want anders droogt hij de lucht van het hele huis mee en duurt het langer."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Komen de vochtvlekken onderaan de oude muur terug na het drogen?",
+        a: "Als het opstijgend vocht is, wel. Een oude muur zonder vochtkering trekt water uit de grond, en dat houdt een bouwdroger niet tegen. De vochtmeting bij de plaatsing toont of het om bouwvocht of om opstijgend vocht gaat."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Bevekom?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Hoe lang moet een nieuwe chape drogen?",
+        a: "Dat hangt af van de dikte, het soort chape, de temperatuur en de ventilatie. Daarom noemen we geen vaste termijn. Een vochtmeting toont wanneer de vloer klaar is voor tegels, parket of vinyl."
       }
     ],
     realisaties: [],
@@ -25743,73 +25626,64 @@ const G: Gemeente[] = [
     slug: "incourt",
     title: "Bouwdroger huren in Incourt | Vernast",
     description:
-      "Bouwdroger huren in Incourt? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Incourt, Glimes, Opprebais of Piétrebais: drogers voor nieuwbouw, verbouwde hoeves en waterschade, met levering en plaatsing op afspraak.",
     h1: "Bouwdroger huren in Incourt",
-    kicker: "Incourt · levering op uw werf",
-    rit: { afstand: "circa 70 km", tijd: "ongeveer een uur en vijf minuten" },
+    kicker: "Waals-Brabant · landelijke dorpen",
+    rit: { afstand: "circa 70 km", tijd: "ruim een uur" },
     intro: [
-      "Een bouwdroger nodig in Incourt voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Incourt is een landelijke gemeente in het oosten van Waals-Brabant, tussen Chaumont-Gistoux, Perwijs en Geldenaken. Ze bestaat uit Incourt, Glimes, Opprebais, Piétrebais en Roux-Miroir, dorpen met veel landbouw en verspreide hoeves.",
+      "Onze bestelwagen is vanuit Aartselaar **ruim een uur** onderweg naar Incourt. In Wallonië gebeuren levering en plaatsing op afspraak, en dat in elk van de vijf dorpen."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Incourt",
+      kop: "Grote volumes in hoeves en nieuwbouw",
       alineas: [
-        "Vernast levert in Incourt en in omliggende plaatsen zoals Chaumont-Gistoux, Perwijs, Geldenaken. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Een **hoeve die tot woning wordt omgebouwd** heeft vaak hoge ruimtes, dikke bakstenen muren en een nieuwe vloer op de oude grond. Het volume is groot en de muren houden lang water vast. Daar zetten we liever één krachtige droger met luchtcirculatie dan enkele kleine toestellen verspreid over het gebouw.",
+        "Bij een nieuwbouw in een van de dorpen draait het vooral om de chape en het pleisterwerk. Wie de afwerking plant, laat de droger draaien tot **de vochtmeting** het toelaat. Zo voorkomt u dat parket opzwelt of verf loskomt."
       ]
     },
     toestellen: [
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "**Voor hoge ruimtes in een hoeve.** Deze ventilator verplaatst 4 500 m³ lucht per uur, zodat de droge lucht ook de hoeken en de bovenkant van de ruimte bereikt."
       },
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "Voor een nieuwbouwwoning met chape op het gelijkvloers: deze droger haalt tot 70 liter water per dag weg, in ruimtes tot ongeveer 400 m³."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor koude ruimtes zonder verwarming.** Een adsorptiedroger blijft werken waar een condensdroger weinig meer opbrengt, en droogt via slangen."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor het grootste volume.** Deze droger haalt tot 110 liter per dag uit de lucht in ruimtes tot ongeveer 600 m³, zoals een omgebouwde stal of schuur."
       }
     ],
     levering: {
-      kop: "Levering en plaatsing in Incourt",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Incourt, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      kop: "Levering in Incourt op afspraak",
+      alinea: "Vanuit Aartselaar is het **ruim een uur** rijden naar Incourt. U kiest een leverdatum bij de reservatie; het precieze uur bellen we met u af. De technieker zet de toestellen op hun plaats, zorgt dat het condenswater weg kan en meet de vochtigheid van vloer en muren. In uw droogpakket zitten levering, plaatsing en ophaling."
     },
     afhalen: {
-      kop: "Zelf afhalen vanuit Incourt",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      kop: "Zelf afhalen in Aartselaar",
+      alinea: "Afhalen in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar kan op afspraak. Vanuit Incourt is dat **ruim een uur rijden**, en u rijdt die weg twee keer: om het toestel te halen en om het terug te brengen. Bij een omgebouwde hoeve met grote toestellen is levering met plaatsing de logische keuze."
     },
     buren: ["chaumont-gistoux", "perwijs", "geldenaken", "walhain"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Incourt?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Incourt, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Hoe droog ik een omgebouwde stal of schuur?",
+        a: "Met een krachtige droger, een ventilator voor de luchtcirculatie en ramen en deuren dicht. Is de ruimte koud, dan werkt een adsorptiedroger beter. Geef ons de afmetingen en de hoogte door, dan bepalen we hoeveel toestellen er nodig zijn."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Waarom mag er geen raam openstaan terwijl de droger draait?",
+        a: "Een droger haalt water uit de lucht van de ruimte waarin hij staat. Staat er een raam open, dan komt er steeds nieuwe vochtige lucht binnen en droogt hij vooral de buitenlucht. Verlucht kort en sluit daarna alles weer."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Wanneer kan mijn schilder het nieuwe pleisterwerk afwerken?",
+        a: "Als het pleisterwerk tot in de diepte droog is, niet alleen aan het oppervlak. Een muur die licht van kleur wordt, is daarom nog niet klaar. Laat meten voor u de eerste laag verf aanbrengt."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Incourt?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Rijden jullie tot in Roux-Miroir en Piétrebais?",
+        a: "Ja, we leveren in alle dorpen van Incourt. Vermeld bij de reservatie het volledige adres en of de werf bereikbaar is met een bestelwagen, vooral bij een hoeve aan een smalle landweg."
       }
     ],
     realisaties: [],
@@ -25820,73 +25694,64 @@ const G: Gemeente[] = [
     slug: "perwijs",
     title: "Bouwdroger huren in Perwijs | Vernast",
     description:
-      "Bouwdroger huren in Perwijs? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Perwijs (Perwez): drogen na waterschade, bij een nieuwbouw of een renovatie in het centrum of de dorpen. Levering en plaatsing op afspraak.",
     h1: "Bouwdroger huren in Perwijs",
-    kicker: "Perwijs · levering op uw werf",
-    rit: { afstand: "circa 75 km", tijd: "ongeveer een uur en vijf minuten" },
+    kicker: "Waals-Brabant · centrum en dorpen",
+    rit: { afstand: "circa 75 km", tijd: "ruim een uur" },
     intro: [
-      "Een bouwdroger nodig in Perwijs voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Perwijs heet in het Frans **Perwez** en ligt in het oosten van Waals-Brabant, tussen Incourt, Walhain en Ramillies. Rond het centrum liggen dorpen als Orbais, Thorembais-les-Béguines, Thorembais-Saint-Trond en Malèves-Sainte-Marie-Wastines.",
+      "We leveren in het centrum en in alle dorpen. Vanuit Aartselaar rijden we **ruim een uur**, en de levering spreken we met u af, zoals bij elke werf in Wallonië."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Perwijs",
+      kop: "Waterschade en nieuwe vloeren",
       alineas: [
-        "Vernast levert in Perwijs en in omliggende plaatsen zoals Incourt, Walhain, Ramillies. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Na **een lek of een ondergelopen kelder** zit het water vaak niet alleen in de lucht, maar ook onder de vloer en achter de plinten. Een radiaalventilator blaast gericht over de natte zone, en een droger haalt het vrijgekomen vocht uit de lucht. Laat eerst de oorzaak herstellen, anders begint u opnieuw.",
+        "Wie in Perwijs een rijwoning of een ouder huis renoveert, legt vaak **nieuwe chape en pleisterwerk** op meerdere verdiepingen. Eén droger per verdieping is dan een goed vertrekpunt, met een grotere droger voor het grootste volume."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een verdieping met nieuwe chape.** Deze droger haalt tot 70 liter per dag uit de lucht, in ruimtes tot ongeveer 400 m³."
       },
       {
         key: "radiaal2250",
-        waarom: "**Voor gerichte luchtcirculatie langs een vloer of wand.** De plaatsing hangt af van de te drogen zone. Combineer luchtverplaatsing met voldoende ontvochtigingscapaciteit."
+        waarom: "**Voor een natte vloer of muur na waterschade.** Deze radiaalventilator (2 250 m³/u, IP55) blaast gericht langs het natte oppervlak."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "Voor een groot gelijkvloers dat volledig nat werd: tot 110 liter per dag, geschikt voor ruimtes tot ongeveer 600 m³."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een koude kelder.** Deze adsorptiedroger neemt ook bij lage temperatuur vocht op en kan via slangen een afgesloten ruimte drogen."
       }
     ],
     levering: {
-      kop: "Levering en plaatsing in Perwijs",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Perwijs, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      kop: "Levering in Perwijs op afspraak",
+      alinea: "Perwijs ligt op **ruim een uur** rijden van ons magazijn in Aartselaar. Na uw reservatie met leverdatum nemen we contact op om het uur vast te leggen. De technieker plaatst de drogers en ventilatoren, leidt het condenswater af en meet hoe nat vloer en muren zijn. Levering, plaatsing en ophaling zijn deel van uw droogpakket."
     },
     afhalen: {
-      kop: "Zelf afhalen vanuit Perwijs",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      kop: "Zelf afhalen in Aartselaar",
+      alinea: "Wilt u zelf afhalen, dan kan dat op afspraak aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Perwijs bent u **ruim een uur** onderweg, en dat twee keer: bij het afhalen en bij het terugbrengen. Na waterschade, met meerdere toestellen, kiest u beter levering met plaatsing."
     },
     buren: ["incourt", "walhain", "ramillies"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Perwijs?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Perwijs, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Wat doe ik eerst na waterschade?",
+        a: "Eerst de oorzaak stoppen en het staande water verwijderen. Meld de schade aan uw verzekeraar voor u iets weggooit, en begin daarna pas te drogen. Bij de plaatsing kijken we met een vochtmeting hoe ver het water in vloer en muren zit."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Waarom staat er een ventilator naast de droger?",
+        a: "De droger haalt vocht uit de lucht, maar die lucht moet eerst langs het natte oppervlak komen. Een ventilator zorgt daarvoor. Zo komt het water sneller uit de vloer of de muur in de lucht, waar de droger het opvangt."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Is water onder de chape nog te drogen?",
+        a: "Vaak wel, maar het duurt langer dan het oppervlak drogen. Soms is een aangepaste opstelling nodig. Vertel bij de reservatie waar het water stond en hoe lang, dan bekijken we samen de aanpak."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Perwijs?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Kan ik drogers voor meerdere verdiepingen tegelijk huren?",
+        a: "Ja. In een woning met nieuwe chape op twee verdiepingen zetten we meestal per verdieping een droger. Geef de oppervlakte en de plafondhoogte per verdieping door, zodat het pakket klopt."
       }
     ],
     realisaties: [],
@@ -25897,73 +25762,64 @@ const G: Gemeente[] = [
     slug: "ramillies",
     title: "Bouwdroger huren in Ramillies | Vernast",
     description:
-      "Bouwdroger huren in Ramillies? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ramillies: drogers en elektrische bouwkachels voor een koude werf, een verbouwde hoeve of waterschade. Levering en plaatsing op afspraak.",
     h1: "Bouwdroger huren in Ramillies",
-    kicker: "Ramillies · levering op uw werf",
-    rit: { afstand: "circa 85 km", tijd: "ongeveer een uur en een kwartier" },
+    kicker: "Waals-Brabant · open landbouwstreek",
+    rit: { afstand: "circa 85 km", tijd: "ongeveer vijf kwartier" },
     intro: [
-      "Een bouwdroger nodig in Ramillies voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Ramillies ligt in het uiterste oosten van Waals-Brabant, tegen de provincies Namen en Luik. Tot de gemeente horen onder meer Bomal, Gérompont, Grand-Rosière-Hottomont, Huppaye, Mont-Saint-André en Offus. Het is een open landbouwstreek met grote hoeves.",
+      "Vanuit Aartselaar zijn we **ongeveer vijf kwartier** onderweg naar Ramillies. We leveren in alle deelgemeenten, op een dag en uur die we samen afspreken."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Ramillies",
+      kop: "Koude werven en grote hoeves",
       alineas: [
-        "Vernast levert in Ramillies en in omliggende plaatsen zoals Perwijs, Orp-Jauche, Geldenaken. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "In het open landschap staat een werf in de winter in de wind, en een lege woning zonder verwarming koelt snel af. Een condensdroger haalt dan weinig water uit de lucht. **Een elektrische bouwkachel** brengt de ruimte eerst op temperatuur, daarna doet de droger zijn werk. Lukt verwarmen niet, dan is een adsorptiedroger het alternatief.",
+        "Bij de **verbouwing van een hoeve** komt er veel water in het gebouw: nieuwe chape, pleisterwerk en soms een nieuwe betonvloer. In zo'n groot volume zet u best een grote droger, met een ventilator die de lucht rondstuurt."
       ]
     },
     toestellen: [
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een werf waar verwarmen niet lukt.** Deze adsorptiedroger blijft ook in koude ruimtes vocht opnemen en droogt via slangen."
       },
       {
         key: "teddh30",
-        waarom: "**Voor bijverwarming op een koude werf.** Deze elektrische kachel vraagt een geschikte 400 V-aansluiting. Laat vooraf controleren of de beschikbare voeding past bij het aansluitvermogen."
+        waarom: "**Voor een koude werf in de winter.** Deze bouwkachel geeft 30 kW warmte op krachtstroom (400 V). Kijk vooraf na of uw werfkast die aansluiting heeft."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "Voor de grote ruimtes van een verbouwde hoeve: tot 110 liter per dag, in volumes tot ongeveer 600 m³."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "Deze ventilator verplaatst 4 500 m³ lucht per uur en verdeelt de warme, droge lucht over de hele ruimte."
       }
     ],
     levering: {
-      kop: "Levering en plaatsing in Ramillies",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Ramillies, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      kop: "Levering in Ramillies op afspraak",
+      alinea: "We rijden **ongeveer vijf kwartier** van Aartselaar naar Ramillies. Bij de reservatie kiest u de dag van levering, en het uur stemmen we telefonisch met u af. De technieker zet de kachel en de drogers op, controleert de aansluiting en meet de vochtigheid. Levering, plaatsing en ophaling zijn in uw droogpakket inbegrepen."
     },
     afhalen: {
-      kop: "Zelf afhalen vanuit Ramillies",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      kop: "Zelf afhalen in Aartselaar",
+      alinea: "Afhalen kan op afspraak in Aartselaar, Boomsesteenweg 12, unit 11. Vanuit Ramillies is dat **ongeveer vijf kwartier** rijden, en die rit doet u bij het halen en opnieuw bij het terugbrengen. Een bouwkachel en een grote droger vragen bovendien een ruime wagen. Laat ze dus liever leveren."
     },
     buren: ["perwijs", "orp-jauche", "geldenaken"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Ramillies?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Ramillies, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Waarom eerst verwarmen en dan drogen?",
+        a: "Warme lucht kan meer vocht bevatten dan koude, en een condensdroger haalt pas goed water uit de lucht boven ongeveer 15 °C. In een ijskoude woning brengt verwarmen het vocht eerst in de lucht, waarna de droger het opvangt."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Kan ik de bouwkachel op een standaard stopcontact aansluiten?",
+        a: "Nee. De kachel van 30 kW werkt op krachtstroom van 400 V, net als die van 20 kW. Op veel werven hangt een werfkast met zo'n aansluiting. In een bestaande woning laat u best een elektricien kijken wat mogelijk is."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Wat als ik geen krachtstroom heb op de werf?",
+        a: "Dan kiest u voor een adsorptiedroger. Die droogt ook in een koude ruimte, zonder dat u eerst moet verwarmen. Zeg het bij de reservatie, dan stellen we een pakket zonder kachel samen."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Ramillies?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Hoe lang blijft de opstelling staan op een hoevewerf?",
+        a: "Tot de vochtmeting aantoont dat vloer en muren klaar zijn voor de afwerking. Bij een grote verbouwing met veel nieuwe chape duurt dat meestal langer dan bij een kleine renovatie. Is er meer tijd nodig, dan kunt u de huur verlengen."
       }
     ],
     realisaties: [],
@@ -25974,73 +25830,64 @@ const G: Gemeente[] = [
     slug: "geldenaken",
     title: "Bouwdroger huren in Geldenaken | Vernast",
     description:
-      "Bouwdroger huren in Geldenaken? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Geldenaken (Jodoigne): drogen na de verbouwing van een woning of handelspand, een nieuwe chape of een natte kelder. Levering op afspraak.",
     h1: "Bouwdroger huren in Geldenaken",
-    kicker: "Geldenaken · levering op uw werf",
+    kicker: "Waals-Brabant · stadje aan de Grote Gete",
     rit: { afstand: "circa 72 km", tijd: "ongeveer een uur" },
     intro: [
-      "Een bouwdroger nodig in Geldenaken voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Geldenaken, in het Frans **Jodoigne**, is een klein stadje aan de Grote Gete, vlak bij de taalgrens met Hoegaarden. Rond de kern liggen dorpen als Dongelberg, Jauchelette, Lathuy, Mélin, Piétrain en Zétrud-Lumay.",
+      "Vanuit ons magazijn in Aartselaar is Geldenaken **ongeveer een uur** rijden. We leveren in het centrum en in alle dorpen, telkens op afspraak."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Geldenaken",
+      kop: "Handelspanden in de kern, woningen langs de Gete",
       alineas: [
-        "Vernast levert in Geldenaken en in omliggende plaatsen zoals Bevekom, Hoegaarden, Orp-Jauche. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Voor een winkel, kantoor of bedrijfsruimte telt naast het volume ook het gebruik van het pand. Geef aan welke zones bereikbaar moeten blijven en wanneer er gewerkt wordt. Bij meerdere afgesloten ruimtes kan een verdeelde opstelling nodig zijn. Een geplande heropening bespreken we vooraf; de vochtmeting bepaalt of de afwerking kan starten.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "In het centrum worden **winkels, kantoren en woningen boven een zaak** verbouwd. Daar telt de planning: welke ruimtes moeten bereikbaar blijven, en wanneer wil de zaak heropenen? Zeg het ons vooraf, dan plaatsen we de toestellen waar ze niemand hinderen.",
+        "Na **wateroverlast in een kelder** droogt een adsorptiedroger de koele ruimte onder de grond, terwijl een condensdroger de leefruimte erboven aanpakt. Een ventilator over de natte vloer versnelt beide."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een handelspand of een woning in de kern.** Deze droger haalt tot 70 liter per dag uit de lucht, in ruimtes tot ongeveer 400 m³."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een koele kelder na wateroverlast.** De adsorptiedroger blijft vocht opnemen bij lage temperatuur en droogt via slangen."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "Voor een open winkelruimte of een grote leefruimte: deze ventilator verplaatst 4 500 m³ lucht per uur over de natte vloer."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "Voor een groot volume in één keer, zoals een volledige benedenverdieping: tot 110 liter per dag, in ruimtes tot ongeveer 600 m³."
       }
     ],
     levering: {
-      kop: "Levering en plaatsing in Geldenaken",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Geldenaken, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      kop: "Levering in Geldenaken op afspraak",
+      alinea: "Naar Geldenaken rijden we **ongeveer een uur**. Bij de reservatie geeft u de gewenste leverdatum op; het uur stemmen we daarna af, ook op de openingsuren van uw zaak. De technieker plaatst de toestellen, regelt de afvoer en meet het vocht in vloer en muren. Ook levering en ophaling zijn in de prijs van uw droogpakket inbegrepen."
     },
     afhalen: {
-      kop: "Zelf afhalen vanuit Geldenaken",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      kop: "Zelf afhalen in Aartselaar",
+      alinea: "Op afspraak haalt u toestellen af aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Geldenaken bent u **ongeveer een uur** onderweg, en dat twee keer: bij het halen en bij het terugbrengen. Voor één droger in een appartement kan dat lonen. Voor een handelspand met meerdere toestellen laat u ons leveren."
     },
     buren: ["bevekom", "hoegaarden", "orp-jauche", "incourt", "helecine"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Geldenaken?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Geldenaken, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Kan mijn winkel open blijven terwijl de droger draait?",
+        a: "Vaak wel, als de droogzone afgesloten kan worden van de verkoopruimte. Een droger werkt het best in een dichte ruimte. Bespreek vooraf welke delen bereikbaar moeten blijven, dan bepalen we waar de toestellen en de afvoer komen."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Mijn kelder liep onder water. Wanneer kan ik beginnen drogen?",
+        a: "Zodra het water weg is en de oorzaak hersteld. Pomp eerst het staande water weg en haal natte spullen en isolatie uit de kelder. Daarna droogt een adsorptiedroger de koele ruimte, ook als ze niet verwarmd wordt."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Hoe weet ik of de nieuwe vloer in de winkel klaar is voor de afwerking?",
+        a: "Door te meten. Een chape kan aan de oppervlakte droog lijken terwijl de kern nog nat is. Laat de vloerlegger de restvochtigheid meten voor hij een vloer legt die geen vocht verdraagt, zoals pvc of parket."
       },
       {
-        q: "Kan ik een bedrijfsruimte laten drogen tijdens de werken?",
-        a: "Bespreek vooraf welke ruimtes in gebruik blijven, de beschikbare stroom en uw planning. We stemmen de plaatsing daarop af. Een grote open ruimte vraagt een andere verdeling dan meerdere afgesloten kamers; alleen de totale vloeroppervlakte is daarom niet voldoende voor het advies."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Geldenaken?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Leveren jullie ook in Piétrain en Zétrud-Lumay?",
+        a: "Ja, in het centrum van Geldenaken en in alle deelgemeenten. Geef bij de reservatie het volledige adres op en meld of er een plek is om de bestelwagen even te parkeren."
       }
     ],
     realisaties: [],
@@ -26051,73 +25898,64 @@ const G: Gemeente[] = [
     slug: "orp-jauche",
     title: "Bouwdroger huren in Orp-Jauche | Vernast",
     description:
-      "Bouwdroger huren in Orp-Jauche? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Orp-Jauche: drogen na wateroverlast in een kelder, bij een nieuwe chape of in een verbouwde hoeve. Levering en plaatsing op afspraak.",
     h1: "Bouwdroger huren in Orp-Jauche",
-    kicker: "Orp-Jauche · levering op uw werf",
-    rit: { afstand: "circa 85 km", tijd: "ongeveer een uur en een kwartier" },
+    kicker: "Waals-Brabant · vallei van de Kleine Gete",
+    rit: { afstand: "circa 85 km", tijd: "ongeveer vijf kwartier" },
     intro: [
-      "Een bouwdroger nodig in Orp-Jauche voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Orp-Jauche ligt in het oosten van Waals-Brabant, langs de Kleine Gete. De gemeente groepeert onder meer Orp-le-Grand, Jauche, Enines, Folx-les-Caves, Marilles en Noduwez, dorpen tussen akkers en weiden.",
+      "Vanuit Aartselaar zijn we **ongeveer vijf kwartier** onderweg naar Orp-Jauche. We leveren in de hele gemeente, op een afgesproken dag en uur."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Orp-Jauche",
+      kop: "Kelders in de vallei, hoeves in het open veld",
       alineas: [
-        "Vernast levert in Orp-Jauche en in omliggende plaatsen zoals Geldenaken, Ramillies, Hélécine. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Oudere woningen in een rivierdal hebben vaak **een kelder die vocht doorlaat**. Na wateroverlast of een lek droogt zo'n kelder het best met een adsorptiedroger, want onder de grond blijft het koel. Is de muur ook zonder overstroming altijd nat, dan komt het water van buiten en helpt drogen maar tijdelijk.",
+        "Buiten de dorpskernen staan hoeves en nieuwere woningen. Bij een verbouwing met **nieuwe chape over een groot oppervlak** werkt een grote condensdroger met een ventilator het snelst."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "Voor een gerenoveerde woning met chape op één verdieping: tot 70 liter per dag, voor ruimtes tot ongeveer 400 m³."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "**Voor een hoeve met een groot volume.** Deze droger haalt tot 110 liter per dag uit de lucht, in ruimtes tot ongeveer 600 m³."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een kelder na wateroverlast.** Deze adsorptiedroger neemt ook in een koude ruimte vocht op en droogt via slangen."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "Verplaatst 4 500 m³ lucht per uur, zodat ook de lucht in een hoek of onder een trap langs de droger komt."
       }
     ],
     levering: {
-      kop: "Levering en plaatsing in Orp-Jauche",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Orp-Jauche, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      kop: "Levering in Orp-Jauche op afspraak",
+      alinea: "Orp-Jauche ligt op **ongeveer vijf kwartier** rijden van Aartselaar. U kiest bij het reserveren een leverdatum, waarna we samen een uur vastleggen. De technieker plaatst de toestellen, zorgt voor de afvoer van het condenswater en meet de vochtigheid in kelder, vloer of muur. Uw droogpakket omvat levering, plaatsing en ophaling."
     },
     afhalen: {
-      kop: "Zelf afhalen vanuit Orp-Jauche",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      kop: "Zelf afhalen in Aartselaar",
+      alinea: "U kunt op afspraak afhalen aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Orp-Jauche duurt die rit **ongeveer vijf kwartier**, en u maakt hem bij het halen en bij het terugbrengen. Voor één toestel kan dat. Na wateroverlast met meerdere toestellen spaart levering u twee lange ritten."
     },
     buren: ["geldenaken", "ramillies", "helecine"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Orp-Jauche?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Orp-Jauche, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Mijn kelder is na elke regenbui vochtig. Helpt een bouwdroger?",
+        a: "Tijdelijk. Een bouwdroger haalt het vocht uit de lucht en de muren, maar houdt geen water tegen dat van buitenaf binnenkomt. Laat eerst de kelder waterdicht maken. Daarna droogt de droger wat er nog in muur en vloer zit."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Welke droger zet ik in een koude kelder?",
+        a: "Een adsorptiedroger. Een condensdroger verliest onder ongeveer 15 °C veel van zijn rendement. Een adsorptiedroger haalt ook bij lage temperatuur vocht uit de lucht en kan via slangen een afgesloten kelder drogen."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Waar gaat het condenswater naartoe?",
+        a: "De technieker legt een afvoerslang naar een putje, een gootsteen of een andere afvoer in de buurt. Is er geen afvoer in de ruimte, meld dat dan bij de reservatie, zodat we een oplossing voorzien."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Orp-Jauche?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Leveren jullie ook in Folx-les-Caves en Noduwez?",
+        a: "Ja, we rijden naar alle dorpen van Orp-Jauche. Vermeld het volledige adres bij de reservatie en meld een smalle toegang of een kelder die alleen langs een buitentrap bereikbaar is."
       }
     ],
     realisaties: [],
@@ -26128,73 +25966,64 @@ const G: Gemeente[] = [
     slug: "helecine",
     title: "Bouwdroger huren in Hélécine | Vernast",
     description:
-      "Bouwdroger huren in Hélécine? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hélécine, aan de taalgrens bij Tienen en Linter: drogen na een renovatie, een nieuwe chape of waterschade. Levering en plaatsing op afspraak.",
     h1: "Bouwdroger huren in Hélécine",
-    kicker: "Hélécine · levering op uw werf",
-    rit: { afstand: "circa 75 km", tijd: "ongeveer een uur en vijf minuten" },
+    kicker: "Waals-Brabant · aan de taalgrens bij Tienen",
+    rit: { afstand: "circa 75 km", tijd: "ruim een uur" },
     intro: [
-      "Een bouwdroger nodig in Hélécine voor nieuwbouw, renovatie of waterschade? Bij Vernast huurt u bouwdrogers voor het drogen van chape, pleisterwerk en natte ruimtes. **Levering, plaatsing en ophaling zijn inbegrepen bij uw droogpakket.** Bereken uw huurprijs online of bel ons voor hulp bij het kiezen van de juiste toestellen."
+      "Hélécine is een kleine gemeente in het uiterste oosten van Waals-Brabant, aan de taalgrens vlak bij Tienen en Linter. Ze bestaat uit Linsmeau, Neerheylissem en Opheylissem, langs de Kleine Gete.",
+      "Van Aartselaar naar Hélécine zijn we **ruim een uur** onderweg. Ook hier leveren en plaatsen we op afspraak, zoals in de rest van Wallonië."
     ],
     bouw: {
-      kop: "Bouwdroging voor uw project in Hélécine",
+      kop: "Oude bakstenen huizen en vochtige kelders",
       alineas: [
-        "Vernast levert in Hélécine en in omliggende plaatsen zoals Tienen, Landen, Linter. Vermeld bij uw aanvraag het volledige werfadres en wie ons ter plaatse kan ontvangen. Zo kunnen we de levering en plaatsing vooraf afspreken.",
-        "Bij een natte kelder of lekkage begint het werk met de oorzaak: blijft er water binnenkomen, dan is drogen alleen geen blijvende oplossing. Laat eerst het lek of de waterinfiltratie aanpakken en verwijder aanwezig water. Daarna bekijken we welke materialen nat zijn en of het vocht ook onder een vloer of achter een wand zit.",
-        "Nieuwe chape en pleisterwerk brengen vocht in het gebouw. Voor de keuze van een droogpakket zijn vooral het materiaal, de dikte, het volume en de temperatuur van belang. Geef ook door wanneer het materiaal is aangebracht. De droogopstelling en het startmoment moeten passen bij de voorschriften van uw aannemer of materiaalleverancier.",
-        "**De droogtijd volgt uit de omstandigheden op uw werf.** Dikte en samenstelling van het materiaal, temperatuur en luchtvochtigheid spelen allemaal mee. Een droge bovenlaag betekent niet automatisch dat de volledige vloer of muur klaar is voor afwerking. Stem de controle van het restvocht af met uw vloerlegger of schilder."
+        "Wie in Hélécine **een ouder bakstenen huis** renoveert, breekt vaak de oude bepleistering uit en laat nieuw pleisterwerk zetten. Dan zit er veel water in de muren. Een droger per verdieping en een ventilator die de lucht langs de muren stuurt, laten die gelijkmatig drogen.",
+        "Ligt het huis laag bij de Kleine Gete, dan kan **een vochtige kelder of benedenverdieping** ook met grondwater te maken hebben. Een vochtmeting maakt het verschil tussen bouwvocht dat wegdroogt en vocht dat telkens terugkomt."
       ]
     },
     toestellen: [
       {
         key: "ttk350",
-        waarom: "**Voor grotere ruimtes of meerdere droogzones.** De benodigde capaciteit hangt af van het volume en het natte materiaal. De indeling van uw werf bepaalt waar de toestellen komen te staan."
+        waarom: "**Voor een verdieping met nieuw pleisterwerk.** Deze droger haalt tot 70 liter per dag uit de lucht, in ruimtes tot ongeveer 400 m³."
       },
       {
         key: "ttv4500",
-        waarom: "**Voor luchtcirculatie naast de bouwdroger.** Een ventilator helpt de lucht langs vochtige oppervlakken te bewegen. Hij voert zelf geen vocht uit de ruimte af en vervangt de ontvochtiger niet."
+        waarom: "Een ventilator van 4 500 m³ per uur stuurt de lucht langs de pas bepleisterde muren, zodat ze gelijkmatig drogen."
       },
       {
         key: "revolution",
-        waarom: "**Voor een droogopstelling na waterschade.** Bespreek eerst waar het vocht zit en hoe de constructie is opgebouwd. Voor vocht onder een vloer of achter een wand kan een aangepaste aanpak nodig zijn."
+        waarom: "**Voor een koele kelder of benedenverdieping.** De adsorptiedroger werkt ook bij lage temperatuur en droogt via slangen."
       },
       {
         key: "ttk650",
-        waarom: "**Voor grotere volumes en een hoge vochtbelasting.** Bekijk de technische fiche en laat de opstelling afstemmen op de ruimtes die werkelijk gedroogd moeten worden."
+        waarom: "Voor een volledig gerenoveerde woning met veel chape: tot 110 liter per dag, voor ruimtes tot ongeveer 600 m³."
       }
     ],
     levering: {
-      kop: "Levering en plaatsing in Hélécine",
-      alinea: "**Bij uw droogpakket zijn levering, plaatsing en ophaling inbegrepen.** Geef het adres in Hélécine, uw gewenste startdatum en de bereikbaarheid door. Meld een verdieping zonder vaste trap, een smalle doorgang of beperkte parkeerruimte vooraf. De technieker plaatst de toestellen en legt uit hoe u de opstelling gebruikt en de condensafvoer controleert. De afgesproken levering vindt u terug in uw reservatie."
+      kop: "Levering in Hélécine op afspraak",
+      alinea: "Van Aartselaar naar Hélécine is het **ruim een uur** rijden. Bij de reservatie duidt u een leverdatum aan, en het uur leggen we samen telefonisch vast. De technieker plaatst de toestellen, voert het condenswater af en meet de vochtigheid van muren en vloer. Leveren, plaatsen en weer ophalen hoort bij uw droogpakket."
     },
     afhalen: {
-      kop: "Zelf afhalen vanuit Hélécine",
-      alinea: "U kunt een los toestel op afspraak afhalen bij Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Reserveer vooraf**, zodat het juiste toestel klaarstaat. Bekijk de afhaaltarieven en houd rekening met zowel de heenrit als het terugbrengen. Controleer afmetingen en gewicht en volg de transportinstructies. Twijfelt u over de opstelling of hebt u meerdere toestellen nodig, bespreek dan een droogpakket met plaatsing."
+      kop: "Zelf afhalen in Aartselaar",
+      alinea: "Afhalen kan ook, op afspraak in ons magazijn aan de Boomsesteenweg 12, unit 11 in Aartselaar. Vanuit Hélécine rijdt u **ruim een uur**, zowel voor het ophalen als voor het terugbrengen. Hebt u meer dan één toestel nodig, dan bespaart levering met plaatsing u die ritten."
     },
     buren: ["tienen", "landen", "linter", "orp-jauche", "geldenaken"],
     faq: [
       {
-        q: "Hoe regel ik een levering in Hélécine?",
-        a: "Bereken uw droogpakket online of neem contact op met uw adres in Hélécine, de afmetingen van de ruimte en de gewenste startdatum. Geef ook de verdieping en de beschikbare stroom door. We stemmen het levermoment en de toegang tot de werf met u af."
+        q: "Mijn muur is na het uitbreken van de oude pleister nog vochtig. Is dat normaal?",
+        a: "Dat kan. Oude muren houden vocht vast, vooral onderaan. Is het bouwvocht, dan droogt het weg met een droger en verluchten. Komt het van onderuit, dan keert het terug. Een vochtmeting toont welke van de twee het is."
       },
       {
-        q: "Hoeveel bouwdrogers heb ik nodig?",
-        a: "Dat hangt af van het volume, de indeling, het materiaal en de hoeveelheid vocht. Eén open verdieping vraagt een andere opstelling dan meerdere afgesloten kamers. Gebruik de calculator voor uw pakket en vraag advies als uw situatie afwijkt, bijvoorbeeld bij een hoge ruimte of verborgen vocht."
+        q: "Hoeveel drogers zet ik in een huis met twee verdiepingen?",
+        a: "Meestal één per verdieping, en een extra ventilator als er veel nieuw pleisterwerk is. Afgesloten kamers kunnen een eigen toestel vragen. Geef de oppervlakte en de hoogte van elke verdieping door, dan berekenen we het pakket."
       },
       {
-        q: "Hoe weet ik wanneer de vloer of muur droog genoeg is?",
-        a: "De huurduur alleen geeft daar geen zekerheid over. Laat het restvocht controleren met een methode die bij het materiaal past. Uw vloerlegger of schilder beoordeelt welke vochtwaarde en eventuele aanvullende meting nodig zijn voordat de gekozen afwerking kan worden aangebracht."
+        q: "Hoe lang moet nieuw pleisterwerk drogen voor ik kan schilderen?",
+        a: "Dat hangt af van de dikte, het soort pleister, de temperatuur en de ventilatie. Een lichte kleur aan het oppervlak betekent nog niet dat de muur droog is. Laat meten voor de eerste verflaag, zo voorkomt u bladderende verf."
       },
       {
-        q: "Lost een bouwdroger een blijvend vochtprobleem op?",
-        a: "Een bouwdroger helpt vocht af te voeren, maar herstelt geen lekkage, waterinfiltratie of ontbrekende vochtwering. Laat de oorzaak eerst onderzoeken. Blijft er nieuw water binnenkomen, dan kan het materiaal opnieuw nat worden, ook terwijl de droger werkt."
-      },
-      {
-        q: "Welke stroomvoorziening heb ik nodig?",
-        a: "Het aansluitvermogen verschilt per toestel. Controleer de technische fiche en geef door welke aansluiting op uw werf beschikbaar is. Voor de elektrische bouwkachels van 20 en 30 kW is een geschikte 400 V-voeding nodig. Laat bij twijfel de beschikbare capaciteit en beveiliging controleren."
-      },
-      {
-        q: "Kan ik zelf afhalen voor een werf in Hélécine?",
-        a: "Afhalen kan op afspraak bij ons magazijn in Aartselaar, Boomsesteenweg 12, unit 11. Reserveer uw toestel vooraf en controleer of het in uw voertuig past. Volg de transportinstructies voor het gekozen toestel. Bij een droogpakket met levering verzorgen wij de plaatsing en de ophaling."
+        q: "Leveren jullie ook aan de Vlaamse kant, in Tienen of Linter?",
+        a: "Ja. Tienen, Linter en Landen liggen vlak bij Hélécine en vallen ook in ons leveringsgebied. Geef bij de reservatie het adres van de werf op, dan plannen we de levering."
       }
     ],
     realisaties: [],
