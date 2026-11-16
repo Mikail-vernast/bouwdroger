@@ -383,6 +383,16 @@ const VerhuurSimulatorPage = () => {
     : stap === 3 ? { ok: !!wat, label: "Toon mijn droogplan →", melding: wat ? undefined : faseLagen.length > 1 ? "Kies minstens één laag die nat is." : "Niets nat? Dan hoeft er niets te drogen." }
     : { ok: true, label: "Volgende →" };
 
+  const totaal = resultaat && (
+    <div className="ds-tot">
+      <div>
+        <span>Totaal, alles inbegrepen</span>
+        <small>voor {resultaat.weken} {resultaat.weken === 1 ? "week" : "weken"} huur</small>
+      </div>
+      <b>{euro(resultaat.prijs)}</b>
+    </div>
+  );
+
   return (
     <div className="vh-calc ds-sim" data-stap={stap} ref={root}>
       <PageMeta
@@ -633,13 +643,7 @@ const VerhuurSimulatorPage = () => {
                     <b>Let op · {FASE[antwoorden.fase].label.toLowerCase()}</b>
                     {FASE[antwoorden.fase].advies}
                   </div>
-                  <div className="ds-tot">
-                    <div>
-                      <span>Totaal, alles inbegrepen</span>
-                      <small>voor {resultaat.weken} {resultaat.weken === 1 ? "week" : "weken"} huur</small>
-                    </div>
-                    <b>{euro(resultaat.prijs)}</b>
-                  </div>
+{totaal}
                 </>
               )}
 
