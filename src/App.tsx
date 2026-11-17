@@ -3,6 +3,8 @@ import Layout from "./Layout";
 import ErrorPage from "./pages/ErrorPage";
 import { REGIO_ROUTES } from "./data/regio-slugs";
 import { GEMEENTE_ROUTES } from "./data/gemeente-slugs";
+import { ACTIEVE_TALEN } from "./i18n/taal";
+import { MAPPEN, vertaalPad } from "./i18n/paden";
 
 /**
  * De routes als data-array in plaats van als <Routes>-JSX. Dat is wat
@@ -20,21 +22,12 @@ import { GEMEENTE_ROUTES } from "./data/gemeente-slugs";
  * elke bezoeker op elke pagina. Alleen `data/tarieven.ts` is al 113 kB: de
  * volledige prijstabel, meegestuurd naar iemand die de homepage opent.
  */
-export const routes: RouteRecord[] = [
-  {
-    path: "/",
-    element: <Layout />,
-    entry: "src/Layout.tsx",
-    /*
-     * Vangt elke fout in een onderliggende route op. Zonder dit toont
-     * react-router zijn eigen scherm met een stacktrace en "Hey developer 👋"
-     * — aan een klant midden in een boeking.
-     *
-     * Bewust niet lazy: als de app al struikelt, mag het vangnet niet
-     * afhangen van een chunk die dan nog moet binnenkomen.
-     */
-    errorElement: <ErrorPage />,
-    children: [
+/**
+ * De Nederlandse routes. De Franse (en later Engelse) worden er hieronder uit
+ * afgeleid met de padentabel in `i18n/paden.ts`: zelfde component, vertaald
+ * pad. Een pagina zonder regel in die tabel bestaat alleen in het Nederlands.
+ */
+const NL_ROUTES: RouteRecord[] = [
       { index: true, lazy: async () => ({ Component: (await import("./pages/Index")).default }) },
       {
         path: "levering",
@@ -378,7 +371,66 @@ export const routes: RouteRecord[] = [
         path: "*",
         lazy: async () => ({ Component: (await import("./pages/NotFound")).default }),
       },
-    ],
+];
+
+/**
+ * Elke Nederlandse route nog eens per actieve taal, onder `/fr/…`.
+ *
+ * - `index` wordt `fr` (de Franse homepage);
+ * - een vast pad krijgt zijn vertaling uit `STATISCH` of de geregistreerde
+ *   gemeente- en provinciepaden; zonder vertaling valt hij weg;
+ * - een pad met parameter (`verhuur/toestel/:toestel`) volgt `MAPPEN`, en zijn
+ *   `getStaticPaths` wordt pad voor pad mee vertaald;
+ * - `404`, `*` en de ontwikkelroutes bestaan maar één keer.
+ */
+function vertaaldeRoutes(nl: RouteRecord[]): RouteRecord[] {
+  const uit: RouteRecord[] = [];
+  for (const taal of ACTIEVE_TALEN) {
+    if (taal === "nl") continue;
+    for (const r of nl) {
+      if (r.index) {
+        uit.push({ ...r, index: undefined, path: taal } as RouteRecord);
+        continue;
+      }
+      const pad = r.path;
+      if (!pad || pad === "*" || pad === "404" || pad.startsWith("__") || pad.includes("ontwerp") || pad.endsWith("-v2")) continue;
+      const param = pad.indexOf("/:");
+      if (param >= 0) {
+        const map = MAPPEN.find((m) => m.nl === `/${pad.slice(0, param + 1)}`);
+        if (!map) continue;
+        const origineel = r.getStaticPaths;
+        uit.push({
+          ...r,
+          path: `${taal}${map[taal]}${pad.slice(param + 1)}`,
+          getStaticPaths: origineel
+            ? async () =>
+                (await origineel()).map((p) => vertaalPad(p, taal)).filter((p): p is string => Boolean(p))
+            : undefined,
+        } as RouteRecord);
+        continue;
+      }
+      const doel = vertaalPad(`/${pad}`, taal);
+      if (doel) uit.push({ ...r, path: doel.slice(1) } as RouteRecord);
+    }
+  }
+  return uit;
+}
+
+export const routes: RouteRecord[] = [
+  {
+    path: "/",
+    element: <Layout />,
+    entry: "src/Layout.tsx",
+    /*
+     * Vangt elke fout in een onderliggende route op. Zonder dit toont
+     * react-router zijn eigen scherm met een stacktrace en "Hey developer 👋"
+     * — aan een klant midden in een boeking.
+     *
+     * Bewust niet lazy: als de app al struikelt, mag het vangnet niet
+     * afhangen van een chunk die dan nog moet binnenkomen.
+     */
+    errorElement: <ErrorPage />,
+    children: [...NL_ROUTES, ...vertaaldeRoutes(NL_ROUTES)],
   },
 ];
 
