@@ -25,6 +25,9 @@
  * `gemeenten.ts`, en niets meer — de route, de sitemap, de chips op de
  * homepage en de lijst op de provinciepagina leiden zich hieruit af.
  */
+import { registreerPaden } from "../i18n/paden.js";
+import { GEMEENTEN_MET_FR } from "./gemeenten-fr/aan/index.js";
+
 export interface GemeenteRoute {
   slug: string;
   /** Zoals de gemeente in een zin staat: "in Mechelen", "in Heist-op-den-Berg". */
@@ -52,7 +55,155 @@ export interface GemeenteRoute {
    * geen dode tekst blijft.
    */
   ookVoor?: string[];
+  /**
+   * De Franse naam, alleen bij de Belgische gemeenten (zie `NAAM_FR`): "Malines",
+   * "Ixelles", "Mons". Waar het Frans geen eigen naam gebruikt, is het de
+   * gewone naam. Staat ook bij gemeenten zonder Franse pagina, want de Franse
+   * provinciepagina noemt ze in haar streeklijst.
+   */
+  nameFr?: string;
 }
+
+/**
+ * De Franse naam van een Belgische plaats, waar die afwijkt van de naam
+ * hierboven. Alles wat hier niet staat, heet in het Frans hetzelfde.
+ *
+ * Twee soorten. In Vlaanderen alleen de exoniemen die een Franstalige ook echt
+ * gebruikt (Malines, Courtrai, Ypres); een vergeten Franse naam uit een oude
+ * atlas ("Montaigu" voor Scherpenheuvel) zou de lezer meer verwarren dan de
+ * Nederlandse. In Brussel en Wallonië de officiële Franse naam: daar zijn
+ * "Elsene", "Bergen" en "Aarlen" de vertaling, en "Ixelles", "Mons" en "Arlon"
+ * de plaats zelf. Ook de Duitstalige gemeenten met een gangbare Franse naam
+ * (Saint-Vith, Waimes) staan erbij.
+ *
+ * Gesleuteld op de naam en niet op de slug, omdat ook de streeklijsten van
+ * `provincie-gemeenten.ts` en de `towns` van de provincies hier hun Franse
+ * naam vinden. Alleen bedoeld voor Belgische plaatsen: "Bergen" is hier Mons,
+ * niet de gemeente in Nederlands Limburg.
+ */
+export const NAAM_FR: Record<string, string> = {
+  /* Vlaanderen */
+  Antwerpen: "Anvers",
+  Mechelen: "Malines",
+  Lier: "Lierre",
+  "Sint-Katelijne-Waver": "Wavre-Sainte-Catherine",
+  "Baarle-Hertog": "Baerle-Duc",
+  Gent: "Gand",
+  Aalst: "Alost",
+  Dendermonde: "Termonde",
+  "Sint-Niklaas": "Saint-Nicolas",
+  Temse: "Tamise",
+  Geraardsbergen: "Grammont",
+  Ronse: "Renaix",
+  Oudenaarde: "Audenarde",
+  "Sint-Martens-Latem": "Laethem-Saint-Martin",
+  Brugge: "Bruges",
+  Kortrijk: "Courtrai",
+  Oostende: "Ostende",
+  Ieper: "Ypres",
+  Veurne: "Furnes",
+  Diksmuide: "Dixmude",
+  Nieuwpoort: "Nieuport",
+  "De Panne": "La Panne",
+  Koksijde: "Coxyde",
+  Roeselare: "Roulers",
+  Menen: "Menin",
+  Wervik: "Wervicq",
+  Mesen: "Messines",
+  Poperinge: "Poperinghe",
+  Torhout: "Thourout",
+  "Spiere-Helkijn": "Espierres-Helchin",
+  Leuven: "Louvain",
+  Vilvoorde: "Vilvorde",
+  Halle: "Hal",
+  Tienen: "Tirlemont",
+  Zoutleeuw: "Léau",
+  Bever: "Biévène",
+  "Sint-Genesius-Rode": "Rhode-Saint-Genèse",
+  "Sint-Pieters-Leeuw": "Leeuw-Saint-Pierre",
+  "Sint-Truiden": "Saint-Trond",
+  Tongeren: "Tongres",
+  "Tongeren-Borgloon": "Tongres-Looz",
+  Voeren: "Fourons",
+  /* Brussel */
+  Brussel: "Bruxelles",
+  Schaarbeek: "Schaerbeek",
+  Elsene: "Ixelles",
+  "Sint-Gillis": "Saint-Gilles",
+  "Sint-Joost-ten-Node": "Saint-Josse-ten-Noode",
+  "Sint-Jans-Molenbeek": "Molenbeek-Saint-Jean",
+  "Sint-Agatha-Berchem": "Berchem-Sainte-Agathe",
+  Vorst: "Forest",
+  Ukkel: "Uccle",
+  Oudergem: "Auderghem",
+  "Watermaal-Bosvoorde": "Watermael-Boitsfort",
+  "Sint-Lambrechts-Woluwe": "Woluwe-Saint-Lambert",
+  "Sint-Pieters-Woluwe": "Woluwe-Saint-Pierre",
+  /* Waals-Brabant */
+  Waver: "Wavre",
+  Nijvel: "Nivelles",
+  Eigenbrakel: "Braine-l'Alleud",
+  Kasteelbrakel: "Braine-le-Château",
+  Tubeke: "Tubize",
+  Itter: "Ittre",
+  Genepiën: "Genappe",
+  Terhulpen: "La Hulpe",
+  Graven: "Grez-Doiceau",
+  Bevekom: "Beauvechain",
+  Perwijs: "Perwez",
+  Geldenaken: "Jodoigne",
+  /* Henegouwen */
+  Bergen: "Mons",
+  Doornik: "Tournai",
+  Moeskroen: "Mouscron",
+  "Komen-Waasten": "Comines-Warneton",
+  Aat: "Ath",
+  Edingen: "Enghien",
+  Elzele: "Ellezelles",
+  Lessen: "Lessines",
+  Opzullik: "Silly",
+  Vloesberg: "Flobecq",
+  Zinnik: "Soignies",
+  "'s-Gravenbrakel": "Braine-le-Comte",
+  Jurbeke: "Jurbise",
+  /* Namen en Luxemburg */
+  Namen: "Namur",
+  Gembloers: "Gembloux",
+  Aarlen: "Arlon",
+  Bastenaken: "Bastogne",
+  /* Luik */
+  Luik: "Liège",
+  Hoei: "Huy",
+  Borgworm: "Waremme",
+  Hannuit: "Hannut",
+  Lijsem: "Lincent",
+  Oerle: "Oreye",
+  Bitsingen: "Bassenge",
+  Wezet: "Visé",
+  "Sankt Vith": "Saint-Vith",
+  Weismes: "Waimes",
+  Amel: "Amblève",
+  Büllingen: "Bullange",
+  Bütgenbach: "Butgenbach",
+  Kelmis: "La Calamine",
+};
+
+/**
+ * Een plaatsnaam uit een Nederlandse lijst in het Frans. Kent ook de
+ * tweetalige schrijfwijze van de streeklijsten: "Waver (Wavre)" wordt "Wavre".
+ */
+export function plaatsFr(naam: string): string {
+  /* Tussen haakjes staat in die lijsten altijd de Franse naam ("Limburg
+     (Limbourg)" is de Luikse gemeente, niet de provincie). */
+  const tweetalig = /^.+ \((.+)\)$/.exec(naam);
+  return tweetalig ? tweetalig[1] : (NAAM_FR[naam] ?? naam);
+}
+
+/** De provincies met een Franse pagina; hun gemeenten krijgen een `nameFr`. */
+const BELGISCH = new Set([
+  "antwerpen", "oost-vlaanderen", "vlaams-brabant", "west-vlaanderen", "limburg", "brussel",
+  "waals-brabant", "henegouwen", "namen", "luxemburg", "luik",
+]);
 
 const gemeente = (
   name: string,
@@ -65,6 +216,7 @@ const gemeente = (
   path: `/bouwdroger-huren-${slug}`,
   regio,
   postcode,
+  ...(BELGISCH.has(regio) ? { nameFr: NAAM_FR[name] ?? name } : {}),
 });
 
 export const GEMEENTE_ROUTES: GemeenteRoute[] = [
@@ -1061,6 +1213,78 @@ export const GEMEENTE_ROUTES: GemeenteRoute[] = [
   gemeente("Valkenburg aan de Geul", "valkenburg-aan-de-geul", "6301", "nederlands-limburg"),
   gemeente("Voerendaal", "voerendaal", "6367", "nederlands-limburg"),
 ];
+
+/*
+  Waar het Franse pad niet gewoon uit de Franse naam volgt. Vier steden delen
+  hun naam met hun provincie (Anvers, Bruxelles, Namur, Liège) en krijgen,
+  zoals `antwerpen-stad` in het Nederlands, een achtervoegsel: `-ville`, het
+  woord dat een Franstalige er zelf bij zet. Sint-Niklaas en de Luikse
+  gemeente Saint-Nicolas heten in het Frans hetzelfde; de Waaslandse krijgt
+  haar streek erbij, zoals in het Franse spraakgebruik. En de Luikse gemeente
+  Limbourg botst met de provincie Limbourg.
+*/
+const SLUG_FR: Record<string, string> = {
+  "antwerpen-stad": "anvers-ville",
+  "brussel-stad": "bruxelles-ville",
+  "namen-stad": "namur-ville",
+  "luik-stad": "liege-ville",
+  "sint-niklaas": "saint-nicolas-waes",
+  limbourg: "limbourg-ville",
+};
+
+/** Het kruimelpad in het Frans, voor dezelfde vier steden als `kruimel`. */
+const KRUIMEL_FR: Record<string, string> = {
+  "antwerpen-stad": "Anvers ville",
+  "brussel-stad": "Bruxelles-Ville",
+  "namen-stad": "Namur ville",
+  "luik-stad": "Liège ville",
+};
+
+const slugVan = (naam: string) =>
+  naam
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/œ/gi, "oe")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+/**
+ * Het Franse pad van een gemeente, zonder taalprefix:
+ * `/location-deshumidificateur-malines`. Afgeleid uit de Franse naam, zodat
+ * het zoekwoord van een Franstalige in de URL staat; heet de plaats in beide
+ * talen hetzelfde, dan blijft de Nederlandse slug (`hasselt`). Bevroren zodra
+ * het live staat, zoals elke slug.
+ *
+ * Geeft ook een pad voor een gemeente zonder Franse tekst; of de pagina
+ * bestaat, beslist `GEMEENTEN_MET_FR`.
+ */
+export function gemeentePadFr(route: GemeenteRoute): string | null {
+  if (!route.nameFr) return null;
+  const slug =
+    SLUG_FR[route.slug] ?? (route.nameFr === route.name ? route.slug : slugVan(route.nameFr));
+  return `/location-deshumidificateur-${slug}`;
+}
+
+/** Hoe de gemeente in een Frans kruimelpad staat. */
+export function kruimelFr(route: GemeenteRoute): string {
+  return KRUIMEL_FR[route.slug] ?? route.nameFr ?? route.name;
+}
+
+/*
+  Alleen de gemeenten met een Franse tekst krijgen een Franse route. Een Franse
+  URL met Nederlandse tekst ziet Google als dubbele inhoud, en een lege pagina
+  is erger dan geen. Welke dat zijn, staat per provincie in
+  `gemeenten-fr/aan/`; zie de README in `gemeenten-fr/`.
+*/
+registreerPaden(
+  Object.fromEntries(
+    GEMEENTE_ROUTES.flatMap((g) => {
+      const fr = GEMEENTEN_MET_FR.has(g.slug) ? gemeentePadFr(g) : null;
+      return fr ? [[g.path, { fr, en: "" }]] : [];
+    }),
+  ),
+);
 
 export const GEMEENTE_BY_PATH: Record<string, GemeenteRoute> = Object.fromEntries(
   GEMEENTE_ROUTES.map((g) => [g.path, g])

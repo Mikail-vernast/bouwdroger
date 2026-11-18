@@ -21,12 +21,26 @@
  * want iemand die "Ixelles" intikt zoekt dezelfde droger als iemand die
  * "Elsene" intikt.
  */
+import { registreerPaden } from "../i18n/paden.js";
+
 export interface RegioRoute {
   slug: string;
   /** Zoals de provincie in een zin staat: "in Antwerpen", "in Limburg". */
   name: string;
   /** Het pad van de pagina, zonder trailing slash — zoals de hele site. */
   path: string;
+  /**
+   * De Franse naam, zoals hij in een Franse zin staat: "Anvers", "Flandre
+   * orientale", "Liège". Alleen bij de Belgische provincies: de Nederlandse
+   * hebben geen Franse pagina (een Waal die in Breda bouwt, is er geen
+   * doelgroep voor).
+   */
+  nameFr?: string;
+  /**
+   * Het laatste stuk van het Franse pad: `/fr/location-deshumidificateur-<slugFr>`.
+   * Bevroren zoals elke slug. Staat hij er, dan bestaat de Franse pagina.
+   */
+  slugFr?: string;
   /** Een greep uit de gemeenten — op de regiopagina én op de homepage-kaart. */
   towns: string[];
   /**
@@ -80,6 +94,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "antwerpen",
     name: "Antwerpen",
+    nameFr: "Anvers",
+    slugFr: "anvers",
     path: "/bouwdroger-huren-antwerpen",
     towns: [
       "Antwerpen", "Aartselaar", "Mechelen", "Turnhout", "Lier", "Boom", "Kontich", "Geel", "Mol",
@@ -91,6 +107,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "oost-vlaanderen",
     name: "Oost-Vlaanderen",
+    nameFr: "Flandre orientale",
+    slugFr: "flandre-orientale",
     path: "/bouwdroger-huren-oost-vlaanderen",
     towns: [
       "Gent", "Aalst", "Sint-Niklaas", "Dendermonde", "Lokeren", "Wetteren", "Deinze", "Eeklo",
@@ -101,6 +119,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "vlaams-brabant",
     name: "Vlaams-Brabant",
+    nameFr: "Brabant flamand",
+    slugFr: "brabant-flamand",
     path: "/bouwdroger-huren-vlaams-brabant",
     towns: [
       "Leuven", "Vilvoorde", "Halle", "Aarschot", "Tienen", "Zaventem", "Dilbeek", "Grimbergen",
@@ -111,6 +131,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "brussel",
     name: "Brussel",
+    nameFr: "Bruxelles",
+    slugFr: "bruxelles",
     path: "/bouwdroger-huren-brussel",
     towns: [
       "Brussel", "Schaarbeek", "Elsene", "Anderlecht", "Sint-Gillis", "Sint-Jans-Molenbeek",
@@ -130,6 +152,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "west-vlaanderen",
     name: "West-Vlaanderen",
+    nameFr: "Flandre occidentale",
+    slugFr: "flandre-occidentale",
     path: "/bouwdroger-huren-west-vlaanderen",
     towns: [
       "Brugge", "Kortrijk", "Oostende", "Roeselare", "Ieper", "Waregem", "Knokke-Heist", "Veurne",
@@ -140,6 +164,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "limburg",
     name: "Limburg",
+    nameFr: "Limbourg",
+    slugFr: "limbourg",
     path: "/bouwdroger-huren-limburg",
     towns: [
       "Hasselt", "Genk", "Sint-Truiden", "Tongeren", "Beringen", "Lommel", "Bilzen", "Maasmechelen",
@@ -160,6 +186,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "waals-brabant",
     name: "Waals-Brabant",
+    nameFr: "Brabant wallon",
+    slugFr: "brabant-wallon",
     path: "/bouwdroger-huren-waals-brabant",
     opAanvraag: true,
     towns: [
@@ -176,6 +204,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "henegouwen",
     name: "Henegouwen",
+    nameFr: "Hainaut",
+    slugFr: "hainaut",
     path: "/bouwdroger-huren-henegouwen",
     opAanvraag: true,
     towns: [
@@ -192,6 +222,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "namen",
     name: "Namen",
+    nameFr: "Namur",
+    slugFr: "namur",
     path: "/bouwdroger-huren-namen",
     opAanvraag: true,
     towns: ["Namen", "Gembloers", "Dinant", "Andenne", "Sambreville", "Ciney", "Éghezée", "Jemeppe-sur-Sambre", "Rochefort", "Walcourt", "Philippeville", "Couvin", "Fosses-la-Ville", "Profondeville", "Florennes", "Yvoir"],
@@ -204,6 +236,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "luxemburg",
     name: "Luxemburg",
+    nameFr: "Luxembourg",
+    slugFr: "luxembourg",
     path: "/bouwdroger-huren-luxemburg",
     opAanvraag: true,
     towns: ["Aarlen", "Bastenaken", "Marche-en-Famenne", "Libramont-Chevigny", "Virton", "Durbuy", "Bouillon", "Neufchâteau", "Saint-Hubert", "Vielsalm", "Houffalize", "La Roche-en-Ardenne", "Bertrix", "Aubange", "Florenville", "Habay"],
@@ -215,6 +249,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
   {
     slug: "luik",
     name: "Luik",
+    nameFr: "Liège",
+    slugFr: "liege",
     path: "/bouwdroger-huren-luik",
     opAanvraag: true,
     towns: ["Luik", "Verviers", "Seraing", "Herstal", "Hoei", "Eupen", "Borgworm", "Hannuit", "Wezet", "Spa", "Malmedy", "Ans", "Flémalle", "Sankt Vith", "Aywaille", "Chaudfontaine"],
@@ -259,6 +295,35 @@ export const REGIO_ROUTES: RegioRoute[] = [
     pin: { left: "86%", top: "30%" },
   },
 ];
+
+/**
+ * Het Franse pad van een provincie, zonder taalprefix, of `null` zonder Franse
+ * pagina.
+ *
+ * "location-deshumidificateur" en niet een vertaling van "bouwdroger huren"
+ * woord voor woord: dat is wat een Franstalige intikt. Dezelfde stam als
+ * /fr/location-deshumidificateur in `i18n/paden.ts`. De botsing tussen
+ * provincie en stad (Antwerpen, Namen, Luik) lost het Frans op zoals het
+ * Nederlands: de stad krijgt `-ville`, zie `gemeente-slugs.ts`.
+ */
+export function regioPadFr(route: Pick<RegioRoute, "slugFr">): string | null {
+  return route.slugFr ? `/location-deshumidificateur-${route.slugFr}` : null;
+}
+
+/*
+  De Franse provinciepaden in de padentabel. Hier en niet in `i18n/paden.ts`,
+  zodat die module niets van provincies hoeft te weten; App.tsx importeert dit
+  bestand al, dus de registratie is gebeurd voor de routes opgebouwd worden.
+*/
+registreerPaden(
+  Object.fromEntries(
+    REGIO_ROUTES.flatMap((r) => {
+      const fr = regioPadFr(r);
+      // Engels bestaat nog niet; zie ACTIEVE_TALEN. Het lege pad valt daar weg.
+      return fr ? [[r.path, { fr, en: "" }]] : [];
+    }),
+  ),
+);
 
 export const REGIO_BY_PATH: Record<string, RegioRoute> = Object.fromEntries(
   REGIO_ROUTES.map((r) => [r.path, r])
