@@ -722,7 +722,7 @@ export function toestelChipsInTaal(keyOfProduct: string | Product, taal: Taal, a
     if (nlNaam === "Bereik") return `jusqu'à ${value} m³`;
     if (frEenheid) return `${frWaarde} ${frEenheid}`;
     if (/^\d/.test(frWaarde)) return `${frWaarde} ${frNaam.toLowerCase()}`; // "3 vitesses"
-    return frWaarde === "oui" ? frNaam.toLowerCase() : frWaarde.toLowerCase();
+    return frWaarde === "oui" ? frNaam.toLowerCase() : frWaarde;
   });
 }
 
