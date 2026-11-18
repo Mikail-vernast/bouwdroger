@@ -79,6 +79,9 @@
 .kp-logo { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); width: 72px; z-index: 3; }
 .kp-badge {
   position: absolute; top: 14px; left: 50%; transform: translateX(-50%); z-index: 3;
+  /* max-content: absoluut gepositioneerd op left:50% krijgt de pil anders maar
+     de halve fotobreedte, en liep de Franse tekst eruit. */
+  width: max-content; max-width: calc(100% - 24px);
   display: flex; align-items: center; gap: 7px; white-space: nowrap;
   background: #fff; border-radius: 999px; padding: 4px 13px 4px 5px;
   box-shadow: 0 6px 16px rgba(30, 5, 5, 0.25);
