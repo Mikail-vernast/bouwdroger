@@ -917,4 +917,764 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+
+  glabbeek: {
+    slug: "glabbeek",
+    title: "Louer un déshumidificateur de chantier à Glabbeek | Vernast",
+    description:
+      "Location de déshumidificateur à Glabbeek : pack de séchage avec livraison, installation et reprise. Pour construction neuve, rénovation et dégâts des eaux.",
+    h1: "Location de déshumidificateur à Glabbeek",
+    kicker: "Glabbeek · livraison sur votre chantier",
+    rit: { afstand: "environ 58 km", tijd: "environ cinquante minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Glabbeek pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Glabbeek",
+      alineas: [
+        "Vernast livre à Glabbeek et dans les communes voisines comme Tielt-Winge, Bekkevoort et Kortenaken. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour de grands volumes et une forte charge d'humidité.** Consultez la fiche technique et faites adapter le dispositif aux pièces qui doivent réellement être séchées.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un dispositif de séchage après des dégâts des eaux.** Déterminez d'abord où se trouve l'humidité et comment la construction est composée. Pour de l'humidité sous un sol ou derrière une paroi, une approche adaptée peut être nécessaire.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Glabbeek",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Glabbeek, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Glabbeek",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["tielt-winge", "bekkevoort", "kortenaken", "boutersem", "tienen"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Glabbeek ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Glabbeek, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Glabbeek ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  kortenaken: {
+    slug: "kortenaken",
+    title: "Location de déshumidificateur à Kortenaken | Vernast",
+    description:
+      "Besoin d'un déshumidificateur de chantier à Kortenaken ? Calculez votre pack de séchage en ligne, livraison, installation et reprise comprises.",
+    h1: "Location de déshumidificateur à Kortenaken",
+    kicker: "Kortenaken · livraison sur votre chantier",
+    rit: { afstand: "environ 62 km", tijd: "environ cinquante-cinq minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Kortenaken pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Kortenaken",
+      alineas: [
+        "Vernast livre à Kortenaken et dans les communes voisines comme Glabbeek, Bekkevoort et Diest. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un dispositif de séchage après des dégâts des eaux.** Déterminez d'abord où se trouve l'humidité et comment la construction est composée. Pour de l'humidité sous un sol ou derrière une paroi, une approche adaptée peut être nécessaire.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**Pour un chauffage d'appoint sur un chantier froid.** Ce chauffage électrique demande un raccordement 400 V adapté. Faites vérifier à l'avance si l'alimentation disponible correspond à la puissance de raccordement.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Kortenaken",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Kortenaken, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Kortenaken",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["glabbeek", "bekkevoort", "diest", "geetbets", "zoutleeuw", "linter"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Kortenaken ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Kortenaken, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Kortenaken ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  geetbets: {
+    slug: "geetbets",
+    title: "Location de déshumidificateur à Geetbets | Vernast",
+    description:
+      "Vernast loue des déshumidificateurs de chantier à Geetbets : livraison, installation et reprise comprises, ou enlèvement sur rendez-vous à Aartselaar.",
+    h1: "Location de déshumidificateur à Geetbets",
+    kicker: "Geetbets · livraison sur votre chantier",
+    rit: { afstand: "environ 65 km", tijd: "environ cinquante-cinq minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Geetbets pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Geetbets",
+      alineas: [
+        "Vernast livre à Geetbets et dans les communes voisines comme Kortenaken, Léau et Diest. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un dispositif de séchage après des dégâts des eaux.** Déterminez d'abord où se trouve l'humidité et comment la construction est composée. Pour de l'humidité sous un sol ou derrière une paroi, une approche adaptée peut être nécessaire.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour de grands volumes et une forte charge d'humidité.** Consultez la fiche technique et faites adapter le dispositif aux pièces qui doivent réellement être séchées.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Geetbets",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Geetbets, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Geetbets",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["kortenaken", "zoutleeuw", "diest"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Geetbets ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Geetbets, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Geetbets ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  boortmeerbeek: {
+    slug: "boortmeerbeek",
+    title: "Déshumidificateurs de chantier à Boortmeerbeek | Vernast",
+    description:
+      "Location de déshumidificateur à Boortmeerbeek : pack de séchage avec livraison, installation et reprise. Pour construction neuve, rénovation et dégâts des eaux.",
+    h1: "Location de déshumidificateur à Boortmeerbeek",
+    kicker: "Boortmeerbeek · livraison sur votre chantier",
+    rit: { afstand: "environ 37 km", tijd: "environ trente-cinq minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Boortmeerbeek pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Boortmeerbeek",
+      alineas: [
+        "Vernast livre à Boortmeerbeek et dans les communes voisines comme Haacht, Zemst et Keerbergen. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un dispositif de séchage après des dégâts des eaux.** Déterminez d'abord où se trouve l'humidité et comment la construction est composée. Pour de l'humidité sous un sol ou derrière une paroi, une approche adaptée peut être nécessaire.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour de grands volumes et une forte charge d'humidité.** Consultez la fiche technique et faites adapter le dispositif aux pièces qui doivent réellement être séchées.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Boortmeerbeek",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Boortmeerbeek, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Boortmeerbeek",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["haacht", "zemst", "keerbergen", "kampenhout", "mechelen"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Boortmeerbeek ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Boortmeerbeek, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Boortmeerbeek ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  keerbergen: {
+    slug: "keerbergen",
+    title: "Déshumidificateur de chantier à louer à Keerbergen | Vernast",
+    description:
+      "Location de déshumidificateur à Keerbergen : pack de séchage avec livraison, installation et reprise. Pour construction neuve, rénovation et dégâts des eaux.",
+    h1: "Location de déshumidificateur à Keerbergen",
+    kicker: "Keerbergen · livraison sur votre chantier",
+    rit: { afstand: "environ 35 km", tijd: "environ trente-cinq minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Keerbergen pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Keerbergen",
+      alineas: [
+        "Vernast livre à Keerbergen et dans les communes voisines comme Tremelo, Boortmeerbeek et Haacht. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**Pour de grands volumes et une forte charge d'humidité.** Consultez la fiche technique et faites adapter le dispositif aux pièces qui doivent réellement être séchées.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**Pour un chauffage d'appoint sur un chantier froid.** Ce chauffage électrique demande un raccordement 400 V adapté. Faites vérifier à l'avance si l'alimentation disponible correspond à la puissance de raccordement.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Keerbergen",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Keerbergen, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Keerbergen",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["tremelo", "boortmeerbeek", "haacht", "putte", "begijnendijk"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Keerbergen ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Keerbergen, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Keerbergen ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  begijnendijk: {
+    slug: "begijnendijk",
+    title: "Déshumidificateurs de chantier à Begijnendijk | Vernast",
+    description:
+      "Séchez votre chantier à Begijnendijk avec un pack de séchage Vernast : déshumidificateurs livrés, installés et repris. Calculez votre prix de location en ligne.",
+    h1: "Location de déshumidificateur à Begijnendijk",
+    kicker: "Begijnendijk · livraison sur votre chantier",
+    rit: { afstand: "environ 35 km", tijd: "environ trente-cinq minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Begijnendijk pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Begijnendijk",
+      alineas: [
+        "Vernast livre à Begijnendijk et dans les communes voisines comme Tremelo, Aarschot et Heist-op-den-Berg. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un dispositif de séchage après des dégâts des eaux.** Déterminez d'abord où se trouve l'humidité et comment la construction est composée. Pour de l'humidité sous un sol ou derrière une paroi, une approche adaptée peut être nécessaire.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**Pour un chauffage d'appoint sur un chantier froid.** Ce chauffage électrique demande un raccordement 400 V adapté. Faites vérifier à l'avance si l'alimentation disponible correspond à la puissance de raccordement.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Begijnendijk",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Begijnendijk, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Begijnendijk",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["tremelo", "aarschot", "heist-op-den-berg", "keerbergen", "rotselaar"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Begijnendijk ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Begijnendijk, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Begijnendijk ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  tremelo: {
+    slug: "tremelo",
+    title: "Déshumidificateurs de chantier à Tremelo | Vernast",
+    description:
+      "Déshumidificateurs de chantier à Tremelo pour le neuf, la rénovation ou les dégâts des eaux. Vernast livre, installe et reprend les appareils de votre pack.",
+    h1: "Location de déshumidificateur à Tremelo",
+    kicker: "Tremelo · livraison sur votre chantier",
+    rit: { afstand: "environ 38 km", tijd: "environ trente-cinq minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Tremelo pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Tremelo",
+      alineas: [
+        "Vernast livre à Tremelo et dans les communes voisines comme Keerbergen, Begijnendijk et Haacht. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**Pour un chauffage d'appoint sur un chantier froid.** Ce chauffage électrique demande un raccordement 400 V adapté. Faites vérifier à l'avance si l'alimentation disponible correspond à la puissance de raccordement.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour de grands volumes et une forte charge d'humidité.** Consultez la fiche technique et faites adapter le dispositif aux pièces qui doivent réellement être séchées.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Tremelo",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Tremelo, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Tremelo",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["keerbergen", "begijnendijk", "haacht", "rotselaar", "putte"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Tremelo ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Tremelo, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Tremelo ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  haacht: {
+    slug: "haacht",
+    title: "Déshumidificateur à Haacht, livré et installé | Vernast",
+    description:
+      "Votre chantier à Haacht doit sécher ? Pack de séchage Vernast avec livraison, installation et reprise des déshumidificateurs. Prix calculé en ligne.",
+    h1: "Location de déshumidificateur à Haacht",
+    kicker: "Haacht · livraison sur votre chantier",
+    rit: { afstand: "environ 40 km", tijd: "environ quarante minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Haacht pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Haacht",
+      alineas: [
+        "Vernast livre à Haacht et dans les communes voisines comme Boortmeerbeek, Keerbergen et Tremelo. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un dispositif de séchage après des dégâts des eaux.** Déterminez d'abord où se trouve l'humidité et comment la construction est composée. Pour de l'humidité sous un sol ou derrière une paroi, une approche adaptée peut être nécessaire.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour de grands volumes et une forte charge d'humidité.** Consultez la fiche technique et faites adapter le dispositif aux pièces qui doivent réellement être séchées.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Haacht",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Haacht, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Haacht",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["boortmeerbeek", "keerbergen", "tremelo", "rotselaar", "kampenhout", "herent"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Haacht ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Haacht, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Haacht ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  rotselaar: {
+    slug: "rotselaar",
+    title: "Déshumidificateur de chantier à Rotselaar | Vernast",
+    description:
+      "Louez un déshumidificateur de chantier à Rotselaar chez Vernast. Livraison, installation et reprise comprises dans votre pack de séchage. Prix calculé en ligne.",
+    h1: "Location de déshumidificateur à Rotselaar",
+    kicker: "Rotselaar · livraison sur votre chantier",
+    rit: { afstand: "environ 45 km", tijd: "environ quarante minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Rotselaar pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Rotselaar",
+      alineas: [
+        "Vernast livre à Rotselaar et dans les communes voisines comme Haacht, Tremelo et Begijnendijk. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**Pour de grands volumes et une forte charge d'humidité.** Consultez la fiche technique et faites adapter le dispositif aux pièces qui doivent réellement être séchées.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un dispositif de séchage après des dégâts des eaux.** Déterminez d'abord où se trouve l'humidité et comment la construction est composée. Pour de l'humidité sous un sol ou derrière une paroi, une approche adaptée peut être nécessaire.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Rotselaar",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Rotselaar, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Rotselaar",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["haacht", "tremelo", "begijnendijk", "aarschot", "holsbeek"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Rotselaar ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Rotselaar, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Rotselaar ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  holsbeek: {
+    slug: "holsbeek",
+    title: "Déshumidificateur à Holsbeek, livré et installé | Vernast",
+    description:
+      "Location de déshumidificateur à Holsbeek : pack de séchage avec livraison, installation et reprise. Pour construction neuve, rénovation et dégâts des eaux.",
+    h1: "Location de déshumidificateur à Holsbeek",
+    kicker: "Holsbeek · livraison sur votre chantier",
+    rit: { afstand: "environ 50 km", tijd: "environ quarante-cinq minutes" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Holsbeek pour une construction neuve, une rénovation ou des dégâts des eaux ? Chez Vernast, vous louez des déshumidificateurs pour sécher chapes, plafonnages et pièces humides. **La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Calculez votre prix de location en ligne ou appelez-nous pour vous aider à choisir les bons appareils.",
+    ],
+    bouw: {
+      kop: "Séchage de chantier pour votre projet à Holsbeek",
+      alineas: [
+        "Vernast livre à Holsbeek et dans les communes voisines comme Louvain, Lubbeek et Rotselaar. Indiquez dans votre demande l'adresse complète du chantier et la personne qui pourra nous accueillir sur place. Nous pourrons ainsi convenir à l'avance de la livraison et de l'installation.",
+        "En cas de cave humide ou de fuite, le travail commence par la cause : si l'eau continue d'entrer, le séchage seul n'est pas une solution durable. Faites d'abord traiter la fuite ou l'infiltration d'eau et évacuez l'eau présente. Nous examinons ensuite quels matériaux sont mouillés et si l'humidité se trouve aussi sous un sol ou derrière une paroi.",
+        "Une chape neuve et le plafonnage apportent de l'humidité dans le bâtiment. Pour choisir un pack de séchage, ce sont surtout le matériau, l'épaisseur, le volume et la température qui comptent. Indiquez aussi quand le matériau a été appliqué. Le dispositif de séchage et le moment du démarrage doivent respecter les prescriptions de votre entrepreneur ou de votre fournisseur de matériaux.",
+        "**Le temps de séchage dépend des conditions sur votre chantier.** L'épaisseur et la composition du matériau, la température et l'humidité de l'air jouent toutes un rôle. Une couche supérieure sèche ne signifie pas automatiquement que tout le sol ou tout le mur est prêt pour la finition. Convenez du contrôle de l'humidité résiduelle avec votre poseur de sol ou votre peintre.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttv4500",
+        waarom: "**Pour la circulation de l'air à côté du déshumidificateur.** Un ventilateur aide à faire circuler l'air le long des surfaces humides. Il n'évacue pas lui-même l'humidité de la pièce et ne remplace pas le déshumidificateur.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**Pour de grands espaces ou plusieurs zones de séchage.** La capacité nécessaire dépend du volume et des matériaux humides. L'agencement de votre chantier détermine l'emplacement des appareils.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un dispositif de séchage après des dégâts des eaux.** Déterminez d'abord où se trouve l'humidité et comment la construction est composée. Pour de l'humidité sous un sol ou derrière une paroi, une approche adaptée peut être nécessaire.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour de grands volumes et une forte charge d'humidité.** Consultez la fiche technique et faites adapter le dispositif aux pièces qui doivent réellement être séchées.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Holsbeek",
+      alinea: "**Avec votre pack de séchage, la livraison, l'installation et la reprise sont comprises.** Communiquez l'adresse à Holsbeek, la date de début souhaitée et l'accessibilité. Signalez à l'avance un étage sans escalier fixe, un passage étroit ou un stationnement limité. Le technicien installe les appareils et vous explique comment utiliser le dispositif et contrôler l'évacuation des condensats. La livraison convenue figure dans votre réservation.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Holsbeek",
+      alinea: "Vous pouvez venir chercher un appareil seul sur rendez-vous chez Vernast, Boomsesteenweg 12, unit 11 à Aartselaar. **Réservez à l'avance**, pour que le bon appareil soit prêt. Consultez les tarifs d'enlèvement et tenez compte à la fois du trajet aller et du retour de l'appareil. Vérifiez les dimensions et le poids et suivez les instructions de transport. Vous hésitez sur le dispositif ou il vous faut plusieurs appareils ? Discutez alors d'un pack de séchage avec installation.",
+    },
+    buren: ["leuven", "lubbeek", "rotselaar", "herent", "tielt-winge", "aarschot"],
+    faq: [
+      {
+        q: "Comment organiser une livraison à Holsbeek ?",
+        a: "Calculez votre pack de séchage en ligne ou contactez-nous avec votre adresse à Holsbeek, les dimensions de la pièce et la date de début souhaitée. Indiquez aussi l'étage et l'alimentation électrique disponible. Nous convenons avec vous du moment de livraison et de l'accès au chantier.",
+      },
+      {
+        q: "De combien de déshumidificateurs ai-je besoin ?",
+        a: "Cela dépend du volume, de l'agencement, du matériau et de la quantité d'humidité. Un étage ouvert demande un autre dispositif que plusieurs pièces fermées. Utilisez le calculateur pour votre pack et demandez conseil si votre situation est particulière, par exemple une pièce haute ou une humidité cachée.",
+      },
+      {
+        q: "Comment savoir si le sol ou le mur est assez sec ?",
+        a: "La durée de location seule ne donne aucune certitude à ce sujet. Faites contrôler l'humidité résiduelle avec une méthode adaptée au matériau. Votre poseur de sol ou votre peintre détermine quelle valeur d'humidité et quelle mesure complémentaire éventuelle sont nécessaires avant d'appliquer la finition choisie.",
+      },
+      {
+        q: "Un déshumidificateur résout-il un problème d'humidité persistant ?",
+        a: "Un déshumidificateur aide à évacuer l'humidité, mais il ne répare pas une fuite, une infiltration d'eau ou une barrière d'étanchéité manquante. Faites d'abord rechercher la cause. Si de l'eau continue d'entrer, le matériau peut à nouveau se mouiller, même pendant que le déshumidificateur fonctionne.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "La puissance de raccordement varie selon l'appareil. Consultez la fiche technique et indiquez quel raccordement est disponible sur votre chantier. Les chauffages de chantier électriques de 20 et 30 kW nécessitent une alimentation 400 V adaptée. En cas de doute, faites contrôler la capacité disponible et la protection.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil moi-même pour un chantier à Holsbeek ?",
+        a: "L'enlèvement est possible sur rendez-vous à notre entrepôt d'Aartselaar, Boomsesteenweg 12, unit 11. Réservez votre appareil à l'avance et vérifiez qu'il tient dans votre véhicule. Suivez les instructions de transport de l'appareil choisi. Avec un pack de séchage livré, nous nous chargeons de l'installation et de la reprise.",
+      },
+    ],
+    realisaties: [],
+  },
 };
