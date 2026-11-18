@@ -1,5 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { addDays, isoDate } from "@/lib/verhuur";
+import { useCopy, type Copy } from "@/i18n/useTaal";
 import "@/styles/datumkiezer.css";
 
 /**
@@ -39,8 +40,57 @@ export interface DatumkiezerProps {
   onChange: (iso: string) => void;
 }
 
-const DAGEN = ["ma", "di", "wo", "do", "vr", "za", "zo"];
-const MAANDEN = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+/*
+  Teksten per taal in het component zelf: de kalender staat op de toestelpagina
+  én op de afhaalpagina, en een vertaling via props zou op elke plek opnieuw
+  moeten.
+*/
+const COPY = {
+  nl: {
+    dagen: ["ma", "di", "wo", "do", "vr", "za", "zo"],
+    maanden: ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"],
+    kies: "Kies een datum",
+    paneel: "Kies een afhaaldatum",
+    vorige: "Vorige maand",
+    volgende: "Volgende maand",
+    weekend: "Het magazijn is in het weekend gesloten",
+    vol: "Deze dag is volgeboekt voor uw selectie",
+    vroeg: "Wij zetten uw toestel minstens 24 uur op voorhand klaar",
+    afhalen: "Afhalen",
+    terug: "Terugbrengen",
+    volzet: "Volzet",
+    weekendGesloten: "Weekend gesloten",
+  },
+  fr: {
+    dagen: ["lu", "ma", "me", "je", "ve", "sa", "di"],
+    maanden: ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+    kies: "Choisissez une date",
+    paneel: "Choisissez une date d'enlèvement",
+    vorige: "Mois précédent",
+    volgende: "Mois suivant",
+    weekend: "L'entrepôt est fermé le week-end",
+    vol: "Ce jour est complet pour votre sélection",
+    vroeg: "Nous préparons votre appareil au moins 24 heures à l'avance",
+    afhalen: "Enlèvement",
+    terug: "Retour",
+    volzet: "Complet",
+    weekendGesloten: "Fermé le week-end",
+  },
+} satisfies Copy<{
+  dagen: string[];
+  maanden: string[];
+  kies: string;
+  paneel: string;
+  vorige: string;
+  volgende: string;
+  weekend: string;
+  vol: string;
+  vroeg: string;
+  afhalen: string;
+  terug: string;
+  volzet: string;
+  weekendGesloten: string;
+}>;
 
 /** `YYYY-MM-DD` → een `Date` om middernacht lokaal, nooit UTC. */
 function parse(iso: string): Date | null {
@@ -73,8 +123,8 @@ function kortDatum(d: Date): string {
 }
 
 /** `ma 16/11/26` — met de weekdag erbij waar er plaats voor is. */
-function datumMetDag(d: Date): string {
-  return `${DAGEN[(d.getDay() + 6) % 7]} ${kortDatum(d)}`;
+function datumMetDag(d: Date, dagen: string[]): string {
+  return `${dagen[(d.getDay() + 6) % 7]} ${kortDatum(d)}`;
 }
 
 const Datumkiezer = ({
@@ -88,6 +138,7 @@ const Datumkiezer = ({
   describedBy,
   onChange,
 }: DatumkiezerProps) => {
+  const t = useCopy(COPY);
   const [open, setOpen] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
   const knop = useRef<HTMLButtonElement>(null);
@@ -176,7 +227,7 @@ const Datumkiezer = ({
     knop.current?.focus();
   };
 
-  const label = gekozen ? datumMetDag(gekozen) : "Kies een datum";
+  const label = gekozen ? datumMetDag(gekozen, t.dagen) : t.kies;
 
   return (
     <div className="dk" ref={wrap}>
@@ -200,12 +251,12 @@ const Datumkiezer = ({
       </button>
 
       {open && (
-        <div className="dk-paneel" id={paneelId} role="dialog" aria-label="Kies een afhaaldatum">
+        <div className="dk-paneel" id={paneelId} role="dialog" aria-label={t.paneel}>
           <div className="dk-kop">
             <button
               type="button"
               className="dk-nav"
-              aria-label="Vorige maand"
+              aria-label={t.vorige}
               disabled={!vorigeKan}
               onClick={() => setMaand((m) => new Date(m.getFullYear(), m.getMonth() - 1, 1))}
             >
@@ -214,12 +265,12 @@ const Datumkiezer = ({
               </svg>
             </button>
             <strong aria-live="polite">
-              {MAANDEN[maand.getMonth()]} {maand.getFullYear()}
+              {t.maanden[maand.getMonth()]} {maand.getFullYear()}
             </strong>
             <button
               type="button"
               className="dk-nav"
-              aria-label="Volgende maand"
+              aria-label={t.volgende}
               onClick={() => setMaand((m) => new Date(m.getFullYear(), m.getMonth() + 1, 1))}
             >
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -229,7 +280,7 @@ const Datumkiezer = ({
           </div>
 
           <div className="dk-dagen" aria-hidden="true">
-            {DAGEN.map((d) => (
+            {t.dagen.map((d) => (
               <span key={d}>{d}</span>
             ))}
           </div>
@@ -253,12 +304,12 @@ const Datumkiezer = ({
                   aria-current={iso === value ? "date" : undefined}
                   title={
                     s === "weekend"
-                      ? "Het magazijn is in het weekend gesloten"
+                      ? t.weekend
                       : s === "vol"
-                        ? "Deze dag is volgeboekt voor uw selectie"
+                        ? t.vol
                         : s === "vroeg"
-                          ? "Wij zetten uw toestel minstens 24 uur op voorhand klaar"
-                          : datumMetDag(d)
+                          ? t.vroeg
+                          : datumMetDag(d, t.dagen)
                   }
                   onClick={() => kies(d)}
                 >
@@ -271,10 +322,10 @@ const Datumkiezer = ({
           {eind && gekozen && (
             <div className="dk-reeks">
               <span>
-                Afhalen <b>{datumMetDag(gekozen)}</b>
+                {t.afhalen} <b>{datumMetDag(gekozen, t.dagen)}</b>
               </span>
               <span>
-                Terugbrengen <b>{datumMetDag(eind)}</b>
+                {t.terug} <b>{datumMetDag(eind, t.dagen)}</b>
                 {rangeLabel ? ` · ${rangeLabel}` : ""}
               </span>
             </div>
@@ -282,10 +333,10 @@ const Datumkiezer = ({
 
           <div className="dk-legende">
             <span>
-              <i className="dk-stip vol" /> Volzet
+              <i className="dk-stip vol" /> {t.volzet}
             </span>
             <span>
-              <i className="dk-stip weekend" /> Weekend gesloten
+              <i className="dk-stip weekend" /> {t.weekendGesloten}
             </span>
           </div>
         </div>
