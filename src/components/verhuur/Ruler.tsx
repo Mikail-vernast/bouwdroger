@@ -1,4 +1,10 @@
 import { useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useCopy, type Copy } from "@/i18n/useTaal";
+
+const COPY = {
+  nl: { maatwerk: "maatwerk", weetNiet: "Weet ik niet" },
+  fr: { maatwerk: "sur mesure", weetNiet: "Je ne sais pas" },
+} satisfies Copy<{ maatwerk: string; weetNiet: string }>;
 
 /**
  * The drag ruler the calculator uses for surface area and layer thickness.
@@ -41,6 +47,7 @@ interface RulerProps {
 type Mode = "value" | "custom" | "unknown";
 
 const Ruler = ({ config, onChange }: RulerProps) => {
+  const t = useCopy(COPY);
   const trackRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState(config.snaps[Math.floor(config.snaps.length / 2)]);
   const [mode, setMode] = useState<Mode>("value");
@@ -174,7 +181,7 @@ const Ruler = ({ config, onChange }: RulerProps) => {
             className={marked === "custom" ? "on" : undefined}
             onClick={chooseCustom}
           >
-            {config.snaps[config.snaps.length - 1]}+{config.unit} · maatwerk
+            {config.snaps[config.snaps.length - 1]}+{config.unit} · {t.maatwerk}
           </button>
         )}
         {config.unknown !== undefined && (
@@ -183,7 +190,7 @@ const Ruler = ({ config, onChange }: RulerProps) => {
             className={marked === "unk" ? "on" : undefined}
             onClick={chooseUnknown}
           >
-            Weet ik niet
+            {t.weetNiet}
           </button>
         )}
       </div>
