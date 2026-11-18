@@ -15,4 +15,12 @@ export const AAN: readonly string[] = [
   "oudergem",
   "schaarbeek",
   "sint-agatha-berchem",
+  "sint-gillis",
+  "sint-jans-molenbeek",
+  "sint-joost-ten-node",
+  "sint-lambrechts-woluwe",
+  "sint-pieters-woluwe",
+  "ukkel",
+  "vorst",
+  "watermaal-bosvoorde",
 ];
