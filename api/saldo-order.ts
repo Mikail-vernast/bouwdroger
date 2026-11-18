@@ -25,6 +25,7 @@
  * "saldo_order"`) bij de zusterfunctie `bouwdroger-saldo-paid`.
  */
 import Stripe from "stripe";
+import { betaalPad, betaalTaal, type BetaalTaal } from "../src/lib/betaalTaal.js";
 import { safeOrigin } from "../src/lib/origin.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 import { ORDER_BALANCE_TYPE } from "../src/lib/vernastOrder.js";
@@ -85,6 +86,11 @@ interface SaldoOrderRequest {
   orderNumber: string;
   amountDue: number;
   email: string | null;
+  /**
+   * De taal van de klant, als het portaal ze meestuurt: "fr" of nl. Optioneel —
+   * een portaal dat dit veld (nog) niet kent, krijgt hetzelfde als vroeger.
+   */
+  taal: BetaalTaal;
 }
 
 /** Een bedrag in euro met hoogstens twee decimalen — 12.345 wordt geweigerd, niet afgerond. */
@@ -96,7 +102,7 @@ function validAmount(value: unknown): value is number {
   return Math.abs(value * 100 - Math.round(value * 100)) < 1e-6;
 }
 
-/** De body narrowen; alles buiten deze vier velden valt stil weg. */
+/** De body narrowen; alles buiten deze vijf velden valt stil weg. */
 function parse(body: unknown): SaldoOrderRequest | null {
   if (!body || typeof body !== "object") return null;
   const raw = body as Record<string, unknown>;
@@ -122,7 +128,8 @@ function parse(body: unknown): SaldoOrderRequest | null {
     }
   }
 
-  return { orderId, orderNumber, amountDue: raw.amount_due, email };
+  // Een onbekende taal is geen fout: de betaling gaat dan gewoon in het Nederlands.
+  return { orderId, orderNumber, amountDue: raw.amount_due, email, taal: betaalTaal(raw.taal) };
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -161,6 +168,10 @@ export async function POST(request: Request): Promise<Response> {
     canonieke domein.
   */
   const origin = safeOrigin(request);
+  /*
+    Bewust zonder `taal`: deze order leeft in het portaal, dat zijn eigen taal
+    al kent, en de webhook leest hier enkel deze drie sleutels.
+  */
   const metadata = {
     type: ORDER_BALANCE_TYPE,
     vernast_order_id: input.orderId,
@@ -171,7 +182,7 @@ export async function POST(request: Request): Promise<Response> {
     const stripe = new Stripe(key);
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      locale: "nl",
+      locale: input.taal,
       integration_identifier: INTEGRATION_ID,
       client_reference_id: input.orderNumber,
       // Stripe vult het veld dan in en stuurt zijn ontvangstbewijs daarheen —
@@ -187,8 +198,8 @@ export async function POST(request: Request): Promise<Response> {
           },
         },
       ],
-      success_url: `${origin}/verhuur/saldo/betaald`,
-      cancel_url: `${origin}/verhuur/saldo/niet-betaald`,
+      success_url: `${origin}${betaalPad("/verhuur/saldo/betaald", input.taal)}`,
+      cancel_url: `${origin}${betaalPad("/verhuur/saldo/niet-betaald", input.taal)}`,
       // Waaraan de webhook deze betaling herkent, op de sessie én op de
       // betaling zelf — die laatste is wat in het Stripe-dashboard bij een
       // terugbetaling of geschil zichtbaar is.
