@@ -1,6 +1,9 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import GidsShell, { type GidsFaq } from "@/components/gids/GidsShell";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { productInTaal } from "@/data/verhuur.fr";
+import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
 import { PRODUCTS, toestelPad } from "@/data/verhuur";
 import { TARIEVEN_PUBLIEK, euro } from "@/data/tarieflijst";
 import { itemListSchema } from "@/lib/schema";
@@ -22,187 +25,411 @@ const GAMMA = [...CONDENS, ...ADSORPTIE];
 const WERKBEREIK =
   CONDENS[0] && PRODUCTS[CONDENS[0].key]?.specs.find(([label]) => /werkingsbereik temperatuur/i.test(label))?.[1];
 
-const FAQ: GidsFaq[] = [
-  {
-    question: "Wat is het verschil tussen een condensdroger en een adsorptiedroger?",
-    answer:
-      "Een condensdroger koelt de lucht af tot onder het dauwpunt, zodat de waterdamp condenseert tot water dat u afvoert. Een adsorptiedroger trekt de waterdamp uit de lucht met een vochtopnemend materiaal en blaast de vochtige lucht via een slang naar buiten. De eerste werkt best in een warme ruimte, de tweede blijft ook in de koude werken.",
-  },
-  {
-    question: "Vanaf welke temperatuur werkt een condensdroger slecht?",
-    answer:
-      "Onder ongeveer 15 °C daalt het rendement van een condensdroger duidelijk, en onder 10 °C wordt de droging echt traag. In een koude kelder of een onverwarmde werf zetten we daarom een bouwkachel bij, of kiezen we voor adsorptie.",
-  },
-  {
-    question: "Wanneer kies ik een adsorptiedroger?",
-    answer:
-      "Wanneer het koud is en u niet wil of kan verwarmen, en wanneer het vocht op een plek zit waar een gewone bouwdroger niet bij raakt, zoals onder een zwevende vloer of in een wandopbouw na waterschade. Via slangen blaast een adsorptiedroger droge lucht precies naar die plek.",
-  },
-  {
-    question: "Is een luchtontvochtiger hetzelfde als een bouwdroger?",
-    answer:
-      "In de praktijk wel. Een bouwdroger is een krachtige luchtontvochtiger voor bouw- en renovatiewerk. Onze bouwdrogers zijn condensontvochtigers; de adsorptiedroger is een apart toestel voor gericht en koud drogen.",
-  },
-];
+type Lp = (nlPad: string) => string;
 
-const CondensAdsorptiePage = () => (
+interface CondensTekst {
+  crumbHome: string;
+  crumbGidsen: string;
+  crumb: string;
+  kick: string;
+  h1: string;
+  intro: string;
+  heroAlt: string;
+  faq: GidsFaq[];
+  lijst: string;
+  condensH2: string;
+  condensP1: ReactNode;
+  condensP2: ReactNode;
+  koudH2: string;
+  koudP1: ReactNode;
+  werkbereik: (bereik: string) => string;
+  koudP2: ReactNode;
+  adsH2: string;
+  adsP1: string;
+  adsP2: ReactNode;
+  keuzeH2: string;
+  situatie: string;
+  beste: string;
+  rijen: [string, string][];
+  twijfel: ReactNode;
+  gammaKick: string;
+  gammaH2: string;
+  gammaLede: ReactNode;
+  adsorptie: string;
+  condensatie: string;
+  tot: (l: number) => string;
+  ruimtes: (v: number) => string;
+  /** Wat er na het bedrag staat; `label` is "excl. btw", "TVAC" of "HTVA". */
+  perDag: (label: string) => string;
+  bekijk: (kort: string) => string;
+  note: ReactNode;
+}
+
+const COPY = {
+  nl: (lp: Lp): CondensTekst => ({
+    crumbHome: "Home",
+    crumbGidsen: "Gidsen",
+    crumb: "Condensdroger of adsorptiedroger?",
+    kick: "Gids · het juiste toestel",
+    h1: "Condensdroger of adsorptiedroger: welke heeft u nodig?",
+    intro:
+      "Beide toestellen halen vocht uit de lucht, maar op een totaal andere manier. Daardoor werkt de ene het best in een warme woning en de andere in een koude kelder of onder een vloer. Hier leest u hoe ze werken, waar de temperatuurgrens ligt en welk toestel uit ons gamma bij uw situatie past.",
+    heroAlt: "Drie Vernast condensbouwdrogers naast elkaar",
+    faq: [
+      {
+        question: "Wat is het verschil tussen een condensdroger en een adsorptiedroger?",
+        answer:
+          "Een condensdroger koelt de lucht af tot onder het dauwpunt, zodat de waterdamp condenseert tot water dat u afvoert. Een adsorptiedroger trekt de waterdamp uit de lucht met een vochtopnemend materiaal en blaast de vochtige lucht via een slang naar buiten. De eerste werkt best in een warme ruimte, de tweede blijft ook in de koude werken.",
+      },
+      {
+        question: "Vanaf welke temperatuur werkt een condensdroger slecht?",
+        answer:
+          "Onder ongeveer 15 °C daalt het rendement van een condensdroger duidelijk, en onder 10 °C wordt de droging echt traag. In een koude kelder of een onverwarmde werf zetten we daarom een bouwkachel bij, of kiezen we voor adsorptie.",
+      },
+      {
+        question: "Wanneer kies ik een adsorptiedroger?",
+        answer:
+          "Wanneer het koud is en u niet wil of kan verwarmen, en wanneer het vocht op een plek zit waar een gewone bouwdroger niet bij raakt, zoals onder een zwevende vloer of in een wandopbouw na waterschade. Via slangen blaast een adsorptiedroger droge lucht precies naar die plek.",
+      },
+      {
+        question: "Is een luchtontvochtiger hetzelfde als een bouwdroger?",
+        answer:
+          "In de praktijk wel. Een bouwdroger is een krachtige luchtontvochtiger voor bouw- en renovatiewerk. Onze bouwdrogers zijn condensontvochtigers; de adsorptiedroger is een apart toestel voor gericht en koud drogen.",
+      },
+    ],
+    lijst: "Condens- en adsorptiedrogers te huur",
+    condensH2: "Zo werkt een condensdroger",
+    condensP1: (
+      <>
+        Een condensdroger, ook condensontvochtiger genoemd, werkt als een kleine koelkast met een
+        ventilator. Hij zuigt de vochtige binnenlucht aan en leidt ze langs een koud element. Daar koelt
+        de lucht af tot onder haar <b>dauwpunt</b>, en de waterdamp slaat neer als vloeibaar water, net
+        zoals een koud glas in de zomer aan de buitenkant nat wordt. Dat water loopt naar een reservoir
+        of wordt met een condenspomp weggepompt. De lucht gaat daarna langs het warme deel van het
+        koelcircuit en verlaat het toestel droger en iets warmer dan ze binnenkwam.
+      </>
+    ),
+    condensP2: (
+      <>
+        Dat principe is efficiënt zolang de lucht warm en vochtig is. Warme lucht bevat veel waterdamp,
+        dus elke keer dat ze langs het koude element gaat, condenseert er veel. Daarom is de
+        condensdroger het standaardtoestel voor <Link to={lp("/nieuwbouw-drogen")}>chape en pleisterwerk</Link> in een
+        verwarmd gebouw en voor de meeste <Link to={lp("/waterschade")}>waterschade</Link>.
+      </>
+    ),
+    koudH2: "Waarom een condensdroger in de koude rendement verliest",
+    koudP1: (
+      <>
+        Koude lucht bevat weinig waterdamp. Het verschil tussen de luchttemperatuur en het dauwpunt wordt
+        kleiner, en het koude element kan bovendien gaan bevriezen; het toestel moet dan regelmatig
+        ontdooien in plaats van drogen. <b>Onder ongeveer 15 °C daalt het rendement van een condensdroger
+        duidelijk</b>, en onder 10 °C wordt de droging echt traag.
+      </>
+    ),
+    werkbereik: (b) =>
+      ` Onze condensdrogers mogen werken tussen ${b}, maar aan de onderkant van dat bereik halen ze lang niet hun volle capaciteit.`,
+    koudP2: (
+      <>
+        In een koude kelder of een onverwarmde winterwerf is er dus een keuze: verwarm de ruimte met een{" "}
+        <Link to={lp(toestelPad("teddh30"))}>elektrische bouwkachel</Link> zodat de condensdroger weer op
+        volle kracht werkt, of kies een toestel dat de koude niet erg vindt.
+      </>
+    ),
+    adsH2: "Zo werkt een adsorptiedroger",
+    adsP1:
+      "Een adsorptiedroger koelt niets af. Binnenin draait een rotor met een vochtopnemend materiaal, vaak silicagel. De waterdamp uit de lucht hecht zich aan dat materiaal, en de lucht die eruit komt is zeer droog. Een tweede, verwarmde luchtstroom haalt het vocht weer uit de rotor en voert het als vochtige lucht af, meestal via een slang naar buiten. Er komt dus geen condenswater in een bak terecht.",
+    adsP2: (
+      <>
+        Omdat dat proces niet op afkoeling steunt, <b>werkt adsorptie ook bij lage temperaturen</b> met
+        weinig verlies. Bijkomend voordeel: de droge lucht kan via slangen precies naar een plek gebracht
+        worden, zoals onder een zwevende vloer, achter een voorzetwand of in de isolatie. Dat maakt na
+        waterschade vaak het verschil tussen drogen en uitbreken. Het nadeel: bij kamertemperatuur haalt
+        een condensdroger doorgaans meer liter per kWh, en adsorptie vraagt een afvoer naar buiten.
+      </>
+    ),
+    keuzeH2: "Welk toestel voor welke situatie?",
+    situatie: "Situatie",
+    beste: "Beste keuze",
+    rijen: [
+      ["Chape of pleisterwerk in een verwarmde nieuwbouw", "Condensdroger, met ventilator"],
+      ["Waterschade in een bewoonde, verwarmde woning", "Condensdroger, met ventilatoren"],
+      ["Koude kelder of winterwerf, verwarmen kan", "Condensdroger met bouwkachel"],
+      ["Koude ruimte waar u niet wil of kan verwarmen", "Adsorptiedroger"],
+      ["Water onder een zwevende vloer, in een wand of in isolatie", "Adsorptiedroger via slangen"],
+    ],
+    twijfel: (
+      <>
+        Twijfelt u, bijvoorbeeld bij een kelder die half ingegraven en half verwarmd is? Dan is het
+        meestal zinvol om eerst te meten wat de temperatuur en de luchtvochtigheid echt zijn. Onze{" "}
+        <Link to={lp("/klantservice")}>klantenservice</Link> denkt mee.
+      </>
+    ),
+    gammaKick: "Uit ons gamma",
+    gammaH2: "Deze toestellen kunt u bij ons huren",
+    gammaLede: (
+      <>
+        Dagprijzen exclusief btw, zoals ze op de toestelpagina's en in de boekingsmodule staan. Losse
+        toestellen haalt u af in <Link to={lp("/verhuur/afhalen")}>ons magazijn in Aartselaar</Link>; een
+        volledig pakket met levering berekent u in de <Link to={lp("/verhuur/calculator")}>droogcalculator</Link>.
+      </>
+    ),
+    adsorptie: "Adsorptie",
+    condensatie: "Condensatie",
+    tot: (l) => ` · tot ${l} L per dag`,
+    ruimtes: (v) => ` · ruimtes tot ${v} m³`,
+    perDag: (label) => `per dag, ${label}`,
+    bekijk: (kort) => `Bekijk de ${kort}`,
+    note: (
+      <>
+        Meer over de werking van bouwdroging in het algemeen leest u op{" "}
+        <Link to={lp("/hoe-drogen-werkt")}>hoe drogen werkt</Link>. Wat die toestellen aan stroom verbruiken,
+        rekenen we voor in de gids <Link to={lp("/gids/stroomverbruik-bouwdroger")}>stroomverbruik van een
+        bouwdroger</Link>.
+      </>
+    ),
+  }),
+  fr: (lp: Lp): CondensTekst => ({
+    crumbHome: "Accueil",
+    crumbGidsen: "Guides",
+    crumb: "Condensation ou adsorption ?",
+    kick: "Guide · le bon appareil",
+    h1: "Déshumidificateur à condensation ou à adsorption : lequel vous faut-il ?",
+    intro:
+      "Les deux appareils retirent l'humidité de l'air, mais d'une manière totalement différente. L'un fonctionne donc au mieux dans une maison chaude, l'autre dans une cave froide ou sous un sol. Vous découvrirez ici comment ils fonctionnent, où se situe la limite de température et quel appareil de notre gamme convient à votre situation.",
+    heroAlt: "Trois déshumidificateurs de chantier à condensation Vernast côte à côte",
+    faq: [
+      {
+        question: "Quelle est la différence entre un déshumidificateur à condensation et un déshumidificateur à adsorption ?",
+        answer:
+          "Un déshumidificateur à condensation refroidit l'air sous le point de rosée, de sorte que la vapeur d'eau se condense en eau que vous évacuez. Un déshumidificateur à adsorption capte la vapeur d'eau de l'air au moyen d'un matériau absorbant et rejette l'air humide à l'extérieur par une gaine. Le premier fonctionne au mieux dans une pièce chaude, le second continue à fonctionner dans le froid.",
+      },
+      {
+        question: "À partir de quelle température un déshumidificateur à condensation fonctionne-t-il mal ?",
+        answer:
+          "Sous 15 °C environ, le rendement d'un déshumidificateur à condensation baisse nettement, et sous 10 °C le séchage devient vraiment lent. Dans une cave froide ou sur un chantier non chauffé, nous ajoutons donc un chauffage de chantier, ou nous optons pour l'adsorption.",
+      },
+      {
+        question: "Quand choisir un déshumidificateur à adsorption ?",
+        answer:
+          "Quand il fait froid et que vous ne voulez ou ne pouvez pas chauffer, et quand l'humidité se trouve à un endroit qu'un déshumidificateur de chantier ordinaire n'atteint pas, comme sous un plancher flottant ou dans une cloison après des dégâts des eaux. Par des gaines, un déshumidificateur à adsorption envoie l'air sec exactement à cet endroit.",
+      },
+      {
+        question: "Un déshumidificateur d'air est-il la même chose qu'un déshumidificateur de chantier ?",
+        answer:
+          "En pratique, oui. Un déshumidificateur de chantier est un déshumidificateur d'air puissant destiné aux travaux de construction et de rénovation. Nos déshumidificateurs de chantier sont des déshumidificateurs à condensation ; le déshumidificateur à adsorption est un appareil distinct pour un séchage ciblé et à froid.",
+      },
+    ],
+    lijst: "Déshumidificateurs à condensation et à adsorption à louer",
+    condensH2: "Comment fonctionne un déshumidificateur à condensation",
+    condensP1: (
+      <>
+        Un déshumidificateur à condensation fonctionne comme un petit réfrigérateur muni d'un
+        ventilateur. Il aspire l'air intérieur humide et le fait passer le long d'un élément froid. L'air
+        s'y refroidit sous son <b>point de rosée</b>, et la vapeur d'eau se dépose sous forme d'eau
+        liquide, exactement comme un verre froid qui se couvre de buée en été. Cette eau s'écoule dans un
+        réservoir ou est évacuée par une pompe à condensats. L'air passe ensuite le long de la partie
+        chaude du circuit frigorifique et quitte l'appareil plus sec et un peu plus chaud qu'à l'entrée.
+      </>
+    ),
+    condensP2: (
+      <>
+        Ce principe est efficace tant que l'air est chaud et humide. L'air chaud contient beaucoup de
+        vapeur d'eau : à chaque passage le long de l'élément froid, il en condense beaucoup. C'est
+        pourquoi le déshumidificateur à condensation est l'appareil standard pour{" "}
+        <Link to={lp("/nieuwbouw-drogen")}>la chape et le plafonnage</Link> dans un bâtiment chauffé et
+        pour la plupart des <Link to={lp("/waterschade")}>dégâts des eaux</Link>.
+      </>
+    ),
+    koudH2: "Pourquoi un déshumidificateur à condensation perd du rendement dans le froid",
+    koudP1: (
+      <>
+        L'air froid contient peu de vapeur d'eau. L'écart entre la température de l'air et le point de
+        rosée diminue, et l'élément froid peut en outre geler ; l'appareil doit alors dégivrer
+        régulièrement au lieu de sécher. <b>Sous 15 °C environ, le rendement d'un déshumidificateur à
+        condensation baisse nettement</b>, et sous 10 °C le séchage devient vraiment lent.
+      </>
+    ),
+    werkbereik: (b) =>
+      ` Nos déshumidificateurs à condensation peuvent fonctionner dans une plage de ${b}, mais dans le bas de cette plage, ils sont loin d'atteindre leur pleine capacité.`,
+    koudP2: (
+      <>
+        Dans une cave froide ou sur un chantier d'hiver non chauffé, il y a donc un choix à faire :
+        chauffer la pièce avec un <Link to={lp(toestelPad("teddh30"))}>chauffage de chantier électrique</Link>{" "}
+        pour que le déshumidificateur à condensation retrouve toute sa puissance, ou choisir un appareil
+        que le froid ne dérange pas.
+      </>
+    ),
+    adsH2: "Comment fonctionne un déshumidificateur à adsorption",
+    adsP1:
+      "Un déshumidificateur à adsorption ne refroidit rien. À l'intérieur tourne un rotor garni d'un matériau absorbant, souvent du gel de silice. La vapeur d'eau de l'air se fixe sur ce matériau, et l'air qui en sort est très sec. Un second flux d'air, chauffé, retire l'humidité du rotor et l'évacue sous forme d'air humide, généralement à l'extérieur par une gaine. Aucune eau de condensation ne se retrouve donc dans un bac.",
+    adsP2: (
+      <>
+        Comme ce processus ne repose pas sur le refroidissement, <b>l'adsorption fonctionne aussi à basse
+        température</b>, avec peu de pertes. Autre avantage : l'air sec peut être amené par des gaines
+        exactement à un endroit précis, comme sous un plancher flottant, derrière un doublage ou dans
+        l'isolation. Après des dégâts des eaux, cela fait souvent la différence entre sécher et démolir.
+        L'inconvénient : à température ambiante, un déshumidificateur à condensation récupère généralement
+        plus de litres par kWh, et l'adsorption demande une évacuation vers l'extérieur.
+      </>
+    ),
+    keuzeH2: "Quel appareil pour quelle situation ?",
+    situatie: "Situation",
+    beste: "Meilleur choix",
+    rijen: [
+      ["Chape ou plafonnage dans une nouvelle construction chauffée", "Déshumidificateur à condensation, avec ventilateur"],
+      ["Dégâts des eaux dans une maison habitée et chauffée", "Déshumidificateur à condensation, avec ventilateurs"],
+      ["Cave froide ou chantier d'hiver, chauffage possible", "Déshumidificateur à condensation avec chauffage de chantier"],
+      ["Pièce froide que vous ne voulez ou ne pouvez pas chauffer", "Déshumidificateur à adsorption"],
+      ["Eau sous un plancher flottant, dans un mur ou dans l'isolation", "Déshumidificateur à adsorption avec gaines"],
+    ],
+    twijfel: (
+      <>
+        Vous hésitez, par exemple pour une cave à moitié enterrée et à moitié chauffée ? Il est alors
+        généralement utile de mesurer d'abord la température et l'humidité réelles. Notre{" "}
+        <Link to={lp("/klantservice")}>service clientèle</Link> vous conseille.
+      </>
+    ),
+    gammaKick: "Dans notre gamme",
+    gammaH2: "Ces appareils sont à louer chez nous",
+    gammaLede: (
+      <>
+        Prix journaliers tels qu'ils figurent sur les pages des appareils et dans le module de
+        réservation. Vous enlevez les appareils seuls dans{" "}
+        <Link to={lp("/verhuur/afhalen")}>notre entrepôt d'Aartselaar</Link> ; un pack complet avec
+        livraison se calcule dans le <Link to={lp("/verhuur/calculator")}>calculateur de séchage</Link>.
+      </>
+    ),
+    adsorptie: "Adsorption",
+    condensatie: "Condensation",
+    tot: (l) => ` · jusqu'à ${l} l par jour`,
+    ruimtes: (v) => ` · pièces jusqu'à ${v} m³`,
+    perDag: (label) => `par jour, ${label}`,
+    bekijk: (kort) => `Voir le ${kort}`,
+    note: (
+      <>
+        Vous en apprendrez plus sur le fonctionnement du séchage de chantier en général sur la page{" "}
+        <Link to={lp("/hoe-drogen-werkt")}>comment fonctionne le séchage</Link>. Ce que ces appareils
+        consomment en électricité, nous le calculons dans le guide{" "}
+        <Link to={lp("/gids/stroomverbruik-bouwdroger")}>consommation électrique d'un déshumidificateur</Link>.
+      </>
+    ),
+  }),
+} satisfies Copy<(lp: Lp) => CondensTekst>;
+
+const CondensAdsorptiePage = () => {
+  const lp = useLokaalPad();
+  const taal = useTaal();
+  const toonBedrag = useToonBedrag();
+  const t = useCopy(COPY)(lp);
+  /*
+    In het Nederlands blijft de dagprijs het cataloguscijfer met "excl. btw",
+    zoals altijd. In het Frans staat hij zoals de bezoeker hem betaalt, met
+    TVAC of HTVA erachter.
+  */
+  const prijs = (excl: number) => {
+    if (taal === "nl") return { tekst: euro(excl), label: "excl. btw" };
+    const b = toonBedrag(excl);
+    return { tekst: b.tekst, label: b.label };
+  };
+  const naam = (key: string, nl: string) => (taal === "nl" ? nl : productInTaal(key, taal)?.name ?? nl);
+  const samenvatting = (key: string, nl: string) => (taal === "nl" ? nl : productInTaal(key, taal)?.sum ?? nl);
+
+  return (
   <GidsShell
-    seo={SEO.gidsCondensAdsorptie}
+    seo={useSeo("gidsCondensAdsorptie")}
     path={PATH}
     crumbs={[
-      { name: "Home", path: "/" },
-      { name: "Gidsen", path: "/gids" },
-      { name: "Condensdroger of adsorptiedroger?", path: PATH },
+      { name: t.crumbHome, path: "/" },
+      { name: t.crumbGidsen, path: "/gids" },
+      { name: t.crumb, path: PATH },
     ]}
-    kick="Gids · het juiste toestel"
-    h1="Condensdroger of adsorptiedroger: welke heeft u nodig?"
-    intro={
-      <p>
-        Beide toestellen halen vocht uit de lucht, maar op een totaal andere manier. Daardoor werkt de
-        ene het best in een warme woning en de andere in een koude kelder of onder een vloer. Hier leest
-        u hoe ze werken, waar de temperatuurgrens ligt en welk toestel uit ons gamma bij uw situatie past.
-      </p>
-    }
-    heroImg={{ src: "/vernast/lineup-dryers.webp", alt: "Drie Vernast condensbouwdrogers naast elkaar" }}
+    kick={t.kick}
+    h1={t.h1}
+    intro={<p>{t.intro}</p>}
+    heroImg={{ src: "/vernast/lineup-dryers.webp", alt: t.heroAlt }}
     articlePublished="2026-09-29"
-    faq={FAQ}
+    faq={t.faq}
     jsonLd={[
       itemListSchema(
-        "Condens- en adsorptiedrogers te huur",
-        GAMMA.map((t) => ({ name: t.name, path: t.path })),
+        t.lijst,
+        GAMMA.map((g) => ({ name: naam(g.key, g.name), path: lp(g.path) })),
       ),
     ]}
   >
     <section className="sw">
       <div className="wrap prose">
-        <h2>Zo werkt een condensdroger</h2>
-        <p>
-          Een condensdroger, ook condensontvochtiger genoemd, werkt als een kleine koelkast met een
-          ventilator. Hij zuigt de vochtige binnenlucht aan en leidt ze langs een koud element. Daar koelt
-          de lucht af tot onder haar <b>dauwpunt</b>, en de waterdamp slaat neer als vloeibaar water, net
-          zoals een koud glas in de zomer aan de buitenkant nat wordt. Dat water loopt naar een reservoir
-          of wordt met een condenspomp weggepompt. De lucht gaat daarna langs het warme deel van het
-          koelcircuit en verlaat het toestel droger en iets warmer dan ze binnenkwam.
-        </p>
-        <p>
-          Dat principe is efficiënt zolang de lucht warm en vochtig is. Warme lucht bevat veel waterdamp,
-          dus elke keer dat ze langs het koude element gaat, condenseert er veel. Daarom is de
-          condensdroger het standaardtoestel voor <Link to="/nieuwbouw-drogen">chape en pleisterwerk</Link> in een
-          verwarmd gebouw en voor de meeste <Link to="/waterschade">waterschade</Link>.
-        </p>
+        <h2>{t.condensH2}</h2>
+        <p>{t.condensP1}</p>
+        <p>{t.condensP2}</p>
 
-        <h2 style={{ marginTop: 40 }}>Waarom een condensdroger in de koude rendement verliest</h2>
+        <h2 style={{ marginTop: 40 }}>{t.koudH2}</h2>
         <p>
-          Koude lucht bevat weinig waterdamp. Het verschil tussen de luchttemperatuur en het dauwpunt wordt
-          kleiner, en het koude element kan bovendien gaan bevriezen; het toestel moet dan regelmatig
-          ontdooien in plaats van drogen. <b>Onder ongeveer 15 °C daalt het rendement van een condensdroger
-          duidelijk</b>, en onder 10 °C wordt de droging echt traag.
-          {WERKBEREIK
-            ? ` Onze condensdrogers mogen werken tussen ${WERKBEREIK}, maar aan de onderkant van dat bereik halen ze lang niet hun volle capaciteit.`
-            : ""}
+          {t.koudP1}
+          {WERKBEREIK ? t.werkbereik(WERKBEREIK) : ""}
         </p>
-        <p>
-          In een koude kelder of een onverwarmde winterwerf is er dus een keuze: verwarm de ruimte met een{" "}
-          <Link to={toestelPad("teddh30")}>elektrische bouwkachel</Link> zodat de condensdroger weer op
-          volle kracht werkt, of kies een toestel dat de koude niet erg vindt.
-        </p>
+        <p>{t.koudP2}</p>
 
-        <h2 style={{ marginTop: 40 }}>Zo werkt een adsorptiedroger</h2>
-        <p>
-          Een adsorptiedroger koelt niets af. Binnenin draait een rotor met een vochtopnemend materiaal,
-          vaak silicagel. De waterdamp uit de lucht hecht zich aan dat materiaal, en de lucht die eruit komt
-          is zeer droog. Een tweede, verwarmde luchtstroom haalt het vocht weer uit de rotor en voert het
-          als vochtige lucht af, meestal via een slang naar buiten. Er komt dus geen condenswater in een bak
-          terecht.
-        </p>
-        <p>
-          Omdat dat proces niet op afkoeling steunt, <b>werkt adsorptie ook bij lage temperaturen</b> met
-          weinig verlies. Bijkomend voordeel: de droge lucht kan via slangen precies naar een plek gebracht
-          worden, zoals onder een zwevende vloer, achter een voorzetwand of in de isolatie. Dat maakt na
-          waterschade vaak het verschil tussen drogen en uitbreken. Het nadeel: bij kamertemperatuur haalt
-          een condensdroger doorgaans meer liter per kWh, en adsorptie vraagt een afvoer naar buiten.
-        </p>
+        <h2 style={{ marginTop: 40 }}>{t.adsH2}</h2>
+        <p>{t.adsP1}</p>
+        <p>{t.adsP2}</p>
 
-        <h2 style={{ marginTop: 40 }}>Welk toestel voor welke situatie?</h2>
+        <h2 style={{ marginTop: 40 }}>{t.keuzeH2}</h2>
         <div className="tbl">
           <table>
             <thead>
               <tr>
-                <th scope="col">Situatie</th>
-                <th scope="col">Beste keuze</th>
+                <th scope="col">{t.situatie}</th>
+                <th scope="col">{t.beste}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Chape of pleisterwerk in een verwarmde nieuwbouw</td>
-                <td>Condensdroger, met ventilator</td>
-              </tr>
-              <tr>
-                <td>Waterschade in een bewoonde, verwarmde woning</td>
-                <td>Condensdroger, met ventilatoren</td>
-              </tr>
-              <tr>
-                <td>Koude kelder of winterwerf, verwarmen kan</td>
-                <td>Condensdroger met bouwkachel</td>
-              </tr>
-              <tr>
-                <td>Koude ruimte waar u niet wil of kan verwarmen</td>
-                <td>Adsorptiedroger</td>
-              </tr>
-              <tr>
-                <td>Water onder een zwevende vloer, in een wand of in isolatie</td>
-                <td>Adsorptiedroger via slangen</td>
-              </tr>
+              {t.rijen.map(([sit, keuze]) => (
+                <tr key={sit}>
+                  <td>{sit}</td>
+                  <td>{keuze}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <p>
-          Twijfelt u, bijvoorbeeld bij een kelder die half ingegraven en half verwarmd is? Dan is het
-          meestal zinvol om eerst te meten wat de temperatuur en de luchtvochtigheid echt zijn. Onze{" "}
-          <Link to="/klantservice">klantenservice</Link> denkt mee.
-        </p>
+        <p>{t.twijfel}</p>
       </div>
     </section>
 
     <section className="sw2">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Uit ons gamma</span>
-          <h2 className="sec">Deze toestellen kunt u bij ons huren</h2>
-          <p className="lede">
-            Dagprijzen exclusief btw, zoals ze op de toestelpagina's en in de boekingsmodule staan. Losse
-            toestellen haalt u af in <Link to="/verhuur/afhalen">ons magazijn in Aartselaar</Link>; een
-            volledig pakket met levering berekent u in de <Link to="/verhuur/calculator">droogcalculator</Link>.
-          </p>
+          <span className="kick">{t.gammaKick}</span>
+          <h2 className="sec">{t.gammaH2}</h2>
+          <p className="lede">{t.gammaLede}</p>
         </div>
         <div className={GAMMA.length === 4 ? "g4" : "g3"}>
-          {GAMMA.map((t) => (
-            <div className="kaart" key={t.key}>
-              <h3>{t.name}</h3>
-              <p>
-                <b>{/adsorptie/i.test(t.type) ? "Adsorptie" : "Condensatie"}</b>
-                {t.litersPerDay ? ` · tot ${t.litersPerDay} L per dag` : ""}
-                {t.volume ? ` · ruimtes tot ${t.volume} m³` : ""}
-              </p>
-              <p className="prijs">
-                {euro(t.perDay)} <small>per dag, excl. btw</small>
-              </p>
-              <p>{t.summary}</p>
-              <Link className="meer" to={t.path}>
-                Bekijk de {t.short}
-              </Link>
-            </div>
-          ))}
+          {GAMMA.map((g) => {
+            const p = prijs(g.perDay);
+            return (
+              <div className="kaart" key={g.key}>
+                <h3>{naam(g.key, g.name)}</h3>
+                <p>
+                  <b>{/adsorptie/i.test(g.type) ? t.adsorptie : t.condensatie}</b>
+                  {g.litersPerDay ? t.tot(g.litersPerDay) : ""}
+                  {g.volume ? t.ruimtes(g.volume) : ""}
+                </p>
+                <p className="prijs">
+                  {p.tekst} <small>{t.perDag(p.label)}</small>
+                </p>
+                <p>{samenvatting(g.key, g.summary)}</p>
+                <Link className="meer" to={lp(g.path)}>
+                  {t.bekijk(g.short)}
+                </Link>
+              </div>
+            );
+          })}
         </div>
-        <div className="note">
-          Meer over de werking van bouwdroging in het algemeen leest u op{" "}
-          <Link to="/hoe-drogen-werkt">hoe drogen werkt</Link>. Wat die toestellen aan stroom verbruiken,
-          rekenen we voor in de gids <Link to="/gids/stroomverbruik-bouwdroger">stroomverbruik van een
-          bouwdroger</Link>.
-        </div>
+        <div className="note">{t.note}</div>
       </div>
     </section>
   </GidsShell>
-);
+  );
+};
 
 export default CondensAdsorptiePage;
