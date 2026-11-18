@@ -2,54 +2,113 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { DEPOSIT_GROSS } from "@/lib/booking";
 import { euroInt } from "@/lib/verhuur";
+import { formatEuro, useCopy, useLokaalPad, type Copy } from "@/i18n/useTaal";
 import { ArrowRightIcon, CalendarCheckIcon, MailIcon, PinIcon, RefreshIcon } from "./icons";
 
-const STEPS: { icon: ReactNode; title: string; body: string; tag: string }[] = [
-  {
-    icon: <CalendarCheckIcon size={19} height={16} />,
-    title: "Reserveer online",
-    // Reserveren kostte hier lang niets vooraf. Dat klopt niet meer: een
-    // afhaalreservatie legt echte toestellen apart, dus ze wordt bevestigd met
-    // hetzelfde voorschot als een pakket — of meteen volledig betaald.
-    body: `Kies uw toestel, huurperiode en afhaalmoment (bv. tussen 08:00 en 10:00). U betaalt volledig online met 5% korting, of ${euroInt(DEPOSIT_GROSS)} voorschot.`,
-    tag: "Stap 01, reservatie",
-  },
-  {
-    icon: <MailIcon size={19} strokeWidth={1.8} />,
-    title: "Bevestiging binnen het uur",
-    body: "U ontvangt uw reservatiebevestiging met routebeschrijving en wat u meebrengt: enkel uw identiteitskaart en de bevestiging op uw telefoon.",
-    tag: "Stap 02, bevestiging",
-  },
-  {
-    icon: <PinIcon />,
-    title: "Afhalen langs de A12",
-    body: "Uw toestel staat klaar aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar. Betaalde u een voorschot, dan scant u hier onze QR-code en rekent u af met Bancontact, kaart of Apple Pay. Wij laden mee in.",
-    tag: "Stap 03, afhaling",
-  },
-  {
-    icon: <RefreshIcon size={19} />,
-    title: "Terugbrengen, klaar",
-    body: "Breng het toestel terug op het afgesproken moment, ma–vr tussen 08:00 en 17:00. Uw factuur staat dan al in uw mailbox.",
-    tag: "Stap 04, retour",
-  },
+const ICONS: ReactNode[] = [
+  <CalendarCheckIcon key="kalender" size={19} height={16} />,
+  <MailIcon key="mail" size={19} strokeWidth={1.8} />,
+  <PinIcon key="pin" />,
+  <RefreshIcon key="retour" size={19} />,
 ];
 
-const V3Pickup = () => (
+type PickupStep = { title: string; body: string; tag: string };
+
+interface PickupCopy {
+  steps: PickupStep[];
+  kick: string;
+  h2: string;
+  lede: string;
+  zwaarB: string;
+  zwaarS: string;
+  zwaarBtn: string;
+  zwaarAlt: string;
+}
+
+const COPY = {
+  nl: {
+    steps: [
+      {
+        title: "Reserveer online",
+        // Reserveren kostte hier lang niets vooraf. Dat klopt niet meer: een
+        // afhaalreservatie legt echte toestellen apart, dus ze wordt bevestigd met
+        // hetzelfde voorschot als een pakket — of meteen volledig betaald.
+        body: `Kies uw toestel, huurperiode en afhaalmoment (bv. tussen 08:00 en 10:00). U betaalt volledig online met 5% korting, of ${euroInt(DEPOSIT_GROSS)} voorschot.`,
+        tag: "Stap 01, reservatie",
+      },
+      {
+        title: "Bevestiging binnen het uur",
+        body: "U ontvangt uw reservatiebevestiging met routebeschrijving en wat u meebrengt: enkel uw identiteitskaart en de bevestiging op uw telefoon.",
+        tag: "Stap 02, bevestiging",
+      },
+      {
+        title: "Afhalen langs de A12",
+        body: "Uw toestel staat klaar aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar. Betaalde u een voorschot, dan scant u hier onze QR-code en rekent u af met Bancontact, kaart of Apple Pay. Wij laden mee in.",
+        tag: "Stap 03, afhaling",
+      },
+      {
+        title: "Terugbrengen, klaar",
+        body: "Breng het toestel terug op het afgesproken moment, ma–vr tussen 08:00 en 17:00. Uw factuur staat dan al in uw mailbox.",
+        tag: "Stap 04, retour",
+      },
+    ],
+    kick: "Zelf afhalen",
+    h2: "Liever zelf afhalen? Zo werkt het.",
+    lede: "Losse toestellen haalt u zelf af aan ons afhaalpunt langs de A12 in Aartselaar, tegen lagere afhaalprijzen. Reserveren gaat online, betalen doet u vooraf of bij de afhaling.",
+    zwaarB: "Sommige toestellen zijn zwaar. Til niet, laat leveren.",
+    zwaarS: "Een professionele bouwdroger weegt al snel 30 tot 50 kg. Zelf tillen, zeker op een trap, is niet zonder risico. Bent u wat ouder of fysiek minder sterk? Kies dan een pakket met levering: wij dragen, plaatsen en stellen alles in. U hoeft niets te tillen.",
+    zwaarBtn: "Bekijk pakketten met levering",
+    zwaarAlt: "Oudere man met rugpijn na het tillen van een zwaar toestel",
+  },
+  fr: {
+    steps: [
+      {
+        title: "Réservez en ligne",
+        body: `Choisissez votre appareil, la période de location et le moment d'enlèvement (p. ex. entre 08:00 et 10:00). Vous payez tout en ligne avec 5 % de réduction, ou un acompte de ${formatEuro(DEPOSIT_GROSS, "fr", Number.isInteger(DEPOSIT_GROSS) ? 0 : 2)}.`,
+        tag: "Étape 01, réservation",
+      },
+      {
+        title: "Confirmation dans l'heure",
+        body: "Vous recevez votre confirmation de réservation avec l'itinéraire et ce que vous devez apporter : uniquement votre carte d'identité et la confirmation sur votre téléphone.",
+        tag: "Étape 02, confirmation",
+      },
+      {
+        title: "Enlèvement le long de l'A12",
+        body: "Votre appareil vous attend à notre point d'enlèvement : Boomsesteenweg 12 / Unit 11, 2630 Aartselaar. Si vous avez payé un acompte, vous scannez ici notre code QR et réglez par Bancontact, carte ou Apple Pay. Nous vous aidons à charger.",
+        tag: "Étape 03, enlèvement",
+      },
+      {
+        title: "Ramenez-le, c'est fini",
+        body: "Ramenez l'appareil au moment convenu, du lundi au vendredi entre 08:00 et 17:00. Votre facture se trouve alors déjà dans votre boîte mail.",
+        tag: "Étape 04, retour",
+      },
+    ],
+    kick: "Enlèvement sur place",
+    h2: "Vous préférez venir chercher l'appareil ? Voici comment faire.",
+    lede: "Les appareils seuls s'enlèvent à notre point d'enlèvement le long de l'A12 à Aartselaar, à des prix d'enlèvement plus bas. La réservation se fait en ligne, le paiement à l'avance ou lors de l'enlèvement.",
+    zwaarB: "Certains appareils sont lourds. Ne portez pas, faites livrer.",
+    zwaarS: "Un déshumidificateur de chantier professionnel pèse vite 30 à 50 kg. Le porter vous-même, surtout dans un escalier, n'est pas sans risque. Vous êtes un peu plus âgé ou moins fort physiquement ? Choisissez alors un pack avec livraison : nous portons, installons et réglons tout. Vous n'avez rien à porter.",
+    zwaarBtn: "Voir les packs avec livraison",
+    zwaarAlt: "Homme âgé avec des douleurs au dos après avoir porté un appareil lourd",
+  },
+} satisfies Copy<PickupCopy>;
+
+const V3Pickup = () => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  return (
   <section className="why" id="voordelen">
     <div className="wrap">
       <div className="sec-head">
-        <span className="kick">Zelf afhalen</span>
-        <h2 className="sec">Liever zelf afhalen? Zo werkt het.</h2>
-        <p className="lede">
-          Losse toestellen haalt u zelf af aan ons afhaalpunt langs de A12 in Aartselaar, tegen
-          lagere afhaalprijzen. Reserveren gaat online, betalen doet u vooraf of bij de afhaling.
-        </p>
+        <span className="kick">{t.kick}</span>
+        <h2 className="sec">{t.h2}</h2>
+        <p className="lede">{t.lede}</p>
       </div>
 
       <div className="why-grid">
-        {STEPS.map((step) => (
+        {t.steps.map((step, i) => (
           <div className="wcard" key={step.title}>
-            <div className="wi">{step.icon}</div>
+            <div className="wi">{ICONS[i]}</div>
             <h3>{step.title}</h3>
             <p>{step.body}</p>
             <span className="wtag">{step.tag}</span>
@@ -58,15 +117,10 @@ const V3Pickup = () => (
 
         <div className="wcard form">
           <div className="wf-l">
-            <b>Sommige toestellen zijn zwaar. Til niet, laat leveren.</b>
-            <span>
-              Een professionele bouwdroger weegt al snel 30 tot 50 kg. Zelf tillen, zeker op een
-              trap, is niet zonder risico. Bent u wat ouder of fysiek minder sterk? Kies dan een
-              pakket met levering: wij dragen, plaatsen en stellen alles in. U hoeft niets te
-              tillen.
-            </span>
-            <Link className="btn btn-white" to="/verhuur/calculator">
-              Bekijk pakketten met levering
+            <b>{t.zwaarB}</b>
+            <span>{t.zwaarS}</span>
+            <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+              {t.zwaarBtn}
               <ArrowRightIcon size={14} />
             </Link>
           </div>
@@ -82,7 +136,7 @@ const V3Pickup = () => (
           <img
             className="wf-men"
             src="/vernast/oudere-man.webp"
-            alt="Oudere man met rugpijn na het tillen van een zwaar toestel"
+            alt={t.zwaarAlt}
             width={1360}
             height={1440}
             loading="lazy"
@@ -91,6 +145,7 @@ const V3Pickup = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default V3Pickup;

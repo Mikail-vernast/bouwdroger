@@ -8,6 +8,7 @@ import {
   SupportIcon,
   TruckIcon,
 } from "./icons";
+import { useCopy, useLokaalPad, type Copy } from "@/i18n/useTaal";
 
 /** Spoedlevering: een waarschuwingsdriehoek, want dit is voor wie haast heeft. */
 const SpoedIcon = ({ size = 18 }: { size?: number }) => (
@@ -27,7 +28,7 @@ const AfvoerIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-const INCLUDED: { icon: ReactNode; title: string; body: string }[] = [
+const INCLUDED_NL: { icon: ReactNode; title: string; body: string }[] = [
   {
     icon: <TruckIcon />,
     title: "Levering & ophaling",
@@ -56,7 +57,7 @@ const INCLUDED: { icon: ReactNode; title: string; body: string }[] = [
  * rapportage is gewoon beschikbaar. Alle drie hetzelfde rode "OPTIE" las als
  * een waarschuwing -- zeker bij rapportage, waar niets mis mee is.
  */
-const OPTIONS: {
+type Option = {
   icon: ReactNode;
   toon?: string;
   label?: string;
@@ -64,7 +65,9 @@ const OPTIONS: {
   body: string;
   /* Alleen waar er een pagina achter zit die méér zegt dan deze drie regels. */
   link?: { label: string; path: string };
-}[] = [
+};
+
+const OPTIONS_NL: Option[] = [
   {
     icon: <ShieldIcon size={18} />,
     toon: "winst",
@@ -98,21 +101,108 @@ const OPTIONS: {
   },
 ];
 
-const V3Included = () => (
+/* Zelfde volgorde, iconen en tonen als hierboven; alleen de tekst verschilt. */
+const INCLUDED_FR: typeof INCLUDED_NL = INCLUDED_NL.map((item, i) => ({
+  ...item,
+  ...[
+    {
+      title: "Livraison et enlèvement",
+      body: "Livré à la date de votre choix et repris quand vous avez terminé. Gratuit dans notre région.",
+    },
+    {
+      title: "Installation au rez-de-chaussée",
+      body: "Notre technicien installe l'appareil, raccorde l'évacuation des condensats et règle tout correctement, avec une explication de base lors de l'installation.",
+    },
+    {
+      title: "Durée flexible",
+      body: "Prolongez en ligne en un clic ou arrêtez plus tôt. Vous payez uniquement les jours que vous utilisez.",
+    },
+    {
+      title: "Accessoires et assistance",
+      body: "Les accessoires standard comme les rallonges sont compris, et nos experts restent joignables pendant toute la location.",
+    },
+  ][i],
+}));
+
+const OPTIONS_FR: Option[] = OPTIONS_NL.map((option, i) => ({
+  ...option,
+  ...[
+    {
+      label: "Inclus",
+      title: "Garantie de prolongation",
+      body: "Pas encore sec dans la période prévue ? Une option de prolongation vous apporte une tranquillité d'esprit supplémentaire.",
+    },
+    {
+      title: "Livraison express",
+      body: "Pour les sinistres urgents ou les plannings serrés, nous prévoyons une livraison express.",
+    },
+    {
+      title: "Évacuation automatique de l'eau",
+      body: "Pour les séchages plus longs, une pompe à condensats évacue l'eau automatiquement, sans réservoirs à vider.",
+      link: { label: "Comment fonctionne la pompe à condensats", path: "/verhuur/toebehoren/condenspomp" },
+    },
+    {
+      title: "Rapport",
+      body: "Pour les dossiers où la preuve compte, nous vous aidons avec un rapport ou une documentation technique.",
+    },
+  ][i],
+}));
+
+const COPY = {
+  nl: {
+    included: INCLUDED_NL,
+    options: OPTIONS_NL,
+    optie: "Optie",
+    kick: "Prijzen & voorwaarden",
+    h2: "Eén duidelijke prijs. Meer inbegrepen dan u denkt.",
+    lede: "Bouwdroging moet duidelijk zijn. Daarom werken wij met transparante huurvoorwaarden en een serviceformule die u ontzorgt. U ziet de prijs bij het berekenen en boekt tegen exact dat tarief.",
+    obAlt: "Vernast technicus met klembord",
+    obH3: "Bij levering volledig ontzorgd. En 100% droog, gegarandeerd.*",
+    obP: "Wij berekenen, leveren, installeren en volgen op. U hoeft niets te sjouwen of in te stellen. Niet droog binnen de berekende periode? Dan verlengt u maximaal kosteloos.",
+    obBtn: "Start uw droging",
+    obNote: "* Garantie geldt wanneer de externe omstandigheden aan onze richtlijnen voldoen.",
+  },
+  fr: {
+    included: INCLUDED_FR,
+    options: OPTIONS_FR,
+    optie: "Option",
+    kick: "Prix et conditions",
+    h2: "Un prix clair. Plus de choses incluses que vous ne le pensez.",
+    lede: "Le séchage de chantier doit être clair. C'est pourquoi nous travaillons avec des conditions de location transparentes et une formule de service qui vous décharge de tout. Vous voyez le prix au moment du calcul et réservez exactement à ce tarif.",
+    obAlt: "Technicien Vernast avec un porte-bloc",
+    obH3: "Entièrement pris en charge dès la livraison. Et sec à 100 %, garanti.*",
+    obP: "Nous calculons, livrons, installons et assurons le suivi. Vous n'avez rien à porter ni à régler. Pas sec dans la période calculée ? Vous prolongez alors au maximum sans frais.",
+    obBtn: "Lancez votre séchage",
+    obNote: "* La garantie s'applique lorsque les conditions extérieures respectent nos directives.",
+  },
+} satisfies Copy<{
+  included: typeof INCLUDED_NL;
+  options: Option[];
+  optie: string;
+  kick: string;
+  h2: string;
+  lede: string;
+  obAlt: string;
+  obH3: string;
+  obP: string;
+  obBtn: string;
+  obNote: string;
+}>;
+
+const V3Included = () => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  return (
   <section className="incl" id="prijzen">
     <div className="wrap">
       <div className="sec-head">
-        <span className="kick">Prijzen &amp; voorwaarden</span>
-        <h2 className="sec">Eén duidelijke prijs. Meer inbegrepen dan u denkt.</h2>
-        <p className="lede">
-          Bouwdroging moet duidelijk zijn. Daarom werken wij met transparante huurvoorwaarden en een
-          serviceformule die u ontzorgt. U ziet de prijs bij het berekenen en boekt tegen exact dat
-          tarief.
-        </p>
+        <span className="kick">{t.kick}</span>
+        <h2 className="sec">{t.h2}</h2>
+        <p className="lede">{t.lede}</p>
       </div>
 
       <div className="incl-grid">
-        {INCLUDED.map((item) => (
+        {t.included.map((item) => (
           <div className="ic" key={item.title}>
             <div className="ii">{item.icon}</div>
             <h3>{item.title}</h3>
@@ -122,15 +212,15 @@ const V3Included = () => (
       </div>
 
       <div className="incl-x">
-        {OPTIONS.map((option) => (
+        {t.options.map((option) => (
           <div className={option.toon ? `ix ${option.toon}` : "ix"} key={option.title}>
             <div className="xt">
-              {option.icon} {option.label ?? "Optie"}
+              {option.icon} {option.label ?? t.optie}
             </div>
             <h3>{option.title}</h3>
             <p>{option.body}</p>
             {option.link && (
-              <Link className="ix-link" to={option.link.path}>
+              <Link className="ix-link" to={lp(option.link.path)}>
                 {option.link.label}
                 <ArrowRightIcon size={12} />
               </Link>
@@ -143,28 +233,24 @@ const V3Included = () => (
         <img
           className="ob-man"
           src="/vernast/man-klembord.webp"
-          alt="Vernast technicus met klembord"
+          alt={t.obAlt}
           width={1440}
           height={961}
           loading="lazy"
         />
         <div className="ob-body">
-          <h3>Bij levering volledig ontzorgd. En 100% droog, gegarandeerd.*</h3>
-          <p>
-            Wij berekenen, leveren, installeren en volgen op. U hoeft niets te sjouwen of in te
-            stellen. Niet droog binnen de berekende periode? Dan verlengt u maximaal kosteloos.
-          </p>
-          <Link className="ob-btn" to="/verhuur/calculator">
-            Start uw droging
+          <h3>{t.obH3}</h3>
+          <p>{t.obP}</p>
+          <Link className="ob-btn" to={lp("/verhuur/calculator")}>
+            {t.obBtn}
             <ArrowRightIcon size={14} />
           </Link>
-          <span className="ob-note">
-            * Garantie geldt wanneer de externe omstandigheden aan onze richtlijnen voldoen.
-          </span>
+          <span className="ob-note">{t.obNote}</span>
         </div>
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default V3Included;

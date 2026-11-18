@@ -1,10 +1,14 @@
+import { useCopy, type Copy } from "@/i18n/useTaal";
 import { PhoneIcon } from "./icons";
+
+type Vraag = { q: string; a: string };
 
 /**
  * Also feeds the FAQPage JSON-LD on the homepage, so the answers a visitor
  * reads and the answers a search engine indexes can never drift apart.
+ * Lees ze per taal via `useFaqVragen()`; `QUESTIONS` blijft de Nederlandse lijst.
  */
-export const QUESTIONS: { q: string; a: string }[] = [
+export const QUESTIONS: Vraag[] = [
   {
     q: "Hoe weet ik welk toestel ik nodig heb?",
     a: "Onze slimme Calculator geeft een eerste berekening op basis van volume, toepassing en situatie. Zo kiest u gerichter en sneller, en komt u meteen op de pagina met het juiste pakket en de prijs.",
@@ -47,30 +51,109 @@ export const QUESTIONS: { q: string; a: string }[] = [
   },
 ];
 
-const V3Faq = () => (
+const QUESTIONS_FR: Vraag[] = [
+  {
+    q: "Comment savoir de quel appareil j'ai besoin ?",
+    a: "Notre calculateur intelligent fait un premier calcul sur la base du volume, de l'application et de la situation. Vous choisissez ainsi de manière plus ciblée et plus rapide, et arrivez directement sur la page avec le bon pack et le prix.",
+  },
+  {
+    q: "Combien de temps dure un séchage de chantier ?",
+    a: "Cela dépend du volume, du matériau, de la situation de départ, de la température et de l'état final souhaité. Un séchage actif est généralement nettement plus rapide qu'un séchage naturel, le calculateur vous donne une estimation réaliste.",
+  },
+  {
+    q: "La livraison est-elle comprise ?",
+    a: "Oui. La livraison, l'enlèvement et l'installation au rez-de-chaussée sont inclus par défaut dans les conditions de service prévues, tout comme les accessoires standard comme les rallonges.",
+  },
+  {
+    q: "Dois-je vider moi-même le réservoir d'eau ?",
+    a: "Pas toujours. Selon l'appareil et la situation, une évacuation automatique de l'eau peut être prévue, de sorte que l'eau s'écoule directement et que vous n'avez rien à vider.",
+  },
+  {
+    q: "Puis-je prolonger si ce n'est pas encore sec ?",
+    a: "Oui, la prolongation est possible en un clic. Votre planning reste ainsi flexible et votre projet ne se bloque pas sur une durée de location estimée trop juste.",
+  },
+  {
+    q: "Puis-je aussi demander une livraison express ?",
+    a: "Oui. Pour les sinistres urgents ou les plannings serrés, nous prévoyons une livraison express.",
+  },
+  {
+    q: "Et si j'ai besoin d'un dossier pour l'assurance ou une expertise ?",
+    a: "Dans certaines situations, nous vous aidons avec un rapport complémentaire ou une documentation technique pour votre dossier.",
+  },
+  {
+    q: "Le séchage de chantier est-il utile en cas de moisissures ?",
+    a: "Oui, le séchage de chantier joue un rôle important pour réduire les conditions humides qui favorisent le développement des moisissures. En cas de moisissures actives, la cause doit bien sûr aussi être traitée correctement, et Vernast Vochtbestrijding est là pour cela.",
+  },
+  {
+    q: "Un déshumidificateur classique fonctionne-t-il aussi dans une cave ou une pièce froide ?",
+    a: "Cela dépend de la température et de la situation. Dans des conditions plus froides, une autre technique, comme le déshumidificateur à adsorption Revolution, ou un chauffage supplémentaire peut être nécessaire.",
+  },
+  {
+    q: "Pourquoi une pièce doit-elle être sèche avant les finitions ?",
+    a: "Parce que les supports humides posent problème pour la peinture, les sols, la pose de cuisine et d'autres finitions : cloques, finitions qui se décollent et dégâts aux armoires ou aux plinthes.",
+  },
+];
+
+const COPY = {
+  nl: {
+    vragen: QUESTIONS,
+    kick: "Veelgestelde vragen",
+    h2: "Alles wat u wilt weten.",
+    helpH3: "Staat uw vraag er niet bij?",
+    helpP: "Onze droogexperts helpen u meteen verder, met advies op maat van uw situatie.",
+    bel: "Bel 03 689 90 65",
+    online: "Stel uw vraag online",
+  },
+  fr: {
+    vragen: QUESTIONS_FR,
+    kick: "Questions fréquentes",
+    h2: "Tout ce que vous voulez savoir.",
+    helpH3: "Votre question n'y figure pas ?",
+    helpP: "Nos experts en séchage vous aident immédiatement, avec un conseil adapté à votre situation.",
+    bel: "Appelez le 03 689 90 65",
+    online: "Posez votre question en ligne",
+  },
+} satisfies Copy<{
+  vragen: Vraag[];
+  kick: string;
+  h2: string;
+  helpH3: string;
+  helpP: string;
+  bel: string;
+  online: string;
+}>;
+
+/** De vragen in de taal van de pagina — ook voor de FAQPage-schema in `Index`. */
+export function useFaqVragen(): Vraag[] {
+  return useCopy(COPY).vragen;
+}
+
+const V3Faq = () => {
+  const t = useCopy(COPY);
+  return (
   <section className="faq" id="faq">
     <div className="wrap faq-grid">
       <div className="faq-side">
         <div className="sec-head" style={{ marginBottom: 0 }}>
-          <span className="kick">Veelgestelde vragen</span>
-          <h2 className="sec">Alles wat u wilt weten.</h2>
+          <span className="kick">{t.kick}</span>
+          <h2 className="sec">{t.h2}</h2>
         </div>
         <div className="faq-help">
-          <h3>Staat uw vraag er niet bij?</h3>
-          <p>Onze droogexperts helpen u meteen verder, met advies op maat van uw situatie.</p>
+          <h3>{t.helpH3}</h3>
+          <p>{t.helpP}</p>
           <div className="fh-btns">
             <a className="fh-call" href="tel:+3236899065">
-              <PhoneIcon /> Bel 03 689 90 65
+              <PhoneIcon /> {t.bel}
             </a>
             <a className="fh-form" href="#contact">
-              Stel uw vraag online
+              {t.online}
             </a>
           </div>
         </div>
       </div>
 
       <div className="faq-list">
-        {QUESTIONS.map((item, i) => (
+        {t.vragen.map((item, i) => (
           <details className="q" key={item.q} open={i === 0}>
             <summary>
               {item.q} <span className="pl">+</span>
@@ -83,6 +166,7 @@ const V3Faq = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default V3Faq;

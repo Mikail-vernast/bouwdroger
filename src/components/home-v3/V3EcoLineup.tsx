@@ -8,6 +8,7 @@ import {
   ShieldIcon,
 } from "./icons";
 import { toestelPad } from "@/data/verhuur";
+import { useCopy, useLokaalPad, type Copy } from "@/i18n/useTaal";
 
 interface Hotspot {
   id: string;
@@ -21,7 +22,7 @@ interface Hotspot {
   rows: [string, string][];
 }
 
-const HOTSPOTS: Hotspot[] = [
+const HOTSPOTS_NL: Hotspot[] = [
   {
     id: "h1",
     model: "ttk170",
@@ -68,14 +69,74 @@ const HOTSPOTS: Hotspot[] = [
  * dat zei vier keer "ja" en nul keer wie, en in een rij naast elkaar werd het
  * een streepjespatroon in plaats van vier herkenbare partijen.
  */
-const TRUSTED: { who: string; icon: ReactNode }[] = [
-  { who: "Architecten", icon: <PlanIcon /> },
-  { who: "Verzekeringskantoren", icon: <ShieldIcon /> },
-  { who: "Bouwkundigen", icon: <ClipboardIcon /> },
-  { who: "Aannemers", icon: <HelmetIcon /> },
+const TRUST_ICONS: ReactNode[] = [
+  <PlanIcon key="plan" />,
+  <ShieldIcon key="schild" />,
+  <ClipboardIcon key="klembord" />,
+  <HelmetIcon key="helm" />,
 ];
 
+/*
+  Zelfde spelden, zelfde getallen als HOTSPOTS_NL; alleen de woorden en de
+  eenheden ("l/jour", "m³/h") volgen de taal. De "80l" bij de Performance is
+  hier niet rechtgezet: dat is een vraag over de inhoud, niet over de vertaling.
+*/
+const HOTSPOTS_FR: Hotspot[] = HOTSPOTS_NL.map((spot, i) => ({
+  ...spot,
+  name: ["Boost – 50 l/jour", "Performance – 80 l/jour", "Ultimate – 110 l/jour"][i],
+  context: [
+    "Petites pièces · jusqu'à 250 m³",
+    "Le plus loué · jusqu'à 400 m³",
+    "Grands volumes · jusqu'à 600 m³",
+  ][i],
+  rows: spot.rows.map(([label, value]): [string, string] => [
+    { Vochtafvoer: "Extraction d'humidité", Luchtdebiet: "Débit d'air", Verbruik: "Consommation" }[label] ?? label,
+    value.replace(/ ?[lL]\/dag$/, " l/jour").replace("m³/u", "m³/h"),
+  ]),
+}));
+
+const COPY = {
+  nl: {
+    hotspots: HOTSPOTS_NL,
+    trusted: ["Architecten", "Verzekeringskantoren", "Bouwkundigen", "Aannemers"],
+    seal: "Gecertificeerd",
+    tbK: "Vertrouwd door wie het moet weten",
+    tbH3: "Vertrouwd door professionals in de bouw.",
+    kick: "Eco Bouwdrogers",
+    h2: "Onze beste eco bouwdrogers op een rij.",
+    lede: "Drie formaten, één familie. Klik op de punten voor de technische informatie per toestel.",
+    alt: "Vernast eco bouwdrogers, drie formaten",
+    bekijken: "Bekijken",
+  },
+  fr: {
+    hotspots: HOTSPOTS_FR,
+    trusted: ["Architectes", "Bureaux d'assurances", "Experts en construction", "Entrepreneurs"],
+    seal: "Certifié",
+    tbK: "La confiance de ceux qui s'y connaissent",
+    tbH3: "La confiance des professionnels de la construction.",
+    kick: "Déshumidificateurs de chantier éco",
+    h2: "Nos meilleurs déshumidificateurs de chantier éco en un coup d'œil.",
+    lede: "Trois formats, une seule famille. Cliquez sur les points pour les informations techniques de chaque appareil.",
+    alt: "Déshumidificateurs de chantier éco Vernast, trois formats",
+    bekijken: "Voir",
+  },
+} satisfies Copy<{
+  hotspots: Hotspot[];
+  trusted: string[];
+  seal: string;
+  tbK: string;
+  tbH3: string;
+  kick: string;
+  h2: string;
+  lede: string;
+  alt: string;
+  bekijken: string;
+}>;
+
 const V3EcoLineup = () => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const HOTSPOTS = t.hotspots;
   const [open, setOpen] = useState<string | null>(null);
 
   // A click anywhere outside a hotspot closes the open spec card.
@@ -107,33 +168,31 @@ const V3EcoLineup = () => {
               height={360}
               loading="lazy"
             />
-            <span>Gecertificeerd</span>
+            <span>{t.seal}</span>
           </div>
           <div className="tb-l">
-            <span className="tb-k">Vertrouwd door wie het moet weten</span>
-            <h3>Vertrouwd door professionals in de bouw.</h3>
+            <span className="tb-k">{t.tbK}</span>
+            <h3>{t.tbH3}</h3>
           </div>
           <div className="tb-chips">
-            {TRUSTED.map((item) => (
-              <span key={item.who}>
-                {item.icon} {item.who}
+            {t.trusted.map((who, i) => (
+              <span key={who}>
+                {TRUST_ICONS[i]} {who}
               </span>
             ))}
           </div>
         </div>
 
         <div className="sec-head mid">
-          <span className="kick">Eco Bouwdrogers</span>
-          <h2 className="sec">Onze beste eco bouwdrogers op een rij.</h2>
-          <p className="lede">
-            Drie formaten, één familie. Klik op de punten voor de technische informatie per toestel.
-          </p>
+          <span className="kick">{t.kick}</span>
+          <h2 className="sec">{t.h2}</h2>
+          <p className="lede">{t.lede}</p>
         </div>
 
         <div className="eco-stage">
           <img
             src="/vernast/lineup-dryers.webp"
-            alt="Vernast eco bouwdrogers, drie formaten"
+            alt={t.alt}
             width={1440}
             height={1183}
             loading="lazy"
@@ -168,8 +227,8 @@ const V3EcoLineup = () => {
                   <span>{value}</span>
                 </div>
               ))}
-              <Link to={toestelPad(spot.model)}>
-                Bekijken <ArrowRightIcon size={12} strokeWidth={2.6} />
+              <Link to={lp(toestelPad(spot.model))}>
+                {t.bekijken} <ArrowRightIcon size={12} strokeWidth={2.6} />
               </Link>
             </div>
           ))}

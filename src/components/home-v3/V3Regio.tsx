@@ -4,7 +4,9 @@ import { REGIO_ROUTES, kaartVoor } from "@/data/regio-slugs";
 import { KAART_BREEDTE, KAART_HOOGTE, PROVINCIE_PADEN } from "@/data/kaart-provincies";
 import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
+import { useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
 import { ArrowRightIcon } from "./icons";
+import { COPY, PROVINCIE_FR, STREEK_FR } from "./V3Regio.copy";
 
 interface Region {
   name: string;
@@ -39,6 +41,7 @@ const bySlug = (slug: string): Region => {
 */
 const GROEPEN: { naam: string; regios: Region[]; start: number }[] = [
   {
+    /* De zichtbare groepsnaam staat in `COPY.groepen`, in dezelfde volgorde. */
     naam: "Vlaanderen en Brussel",
     regios: ["west-vlaanderen", "oost-vlaanderen", "antwerpen", "vlaams-brabant", "brussel", "limburg"].map(bySlug),
     /** Opent op Antwerpen, de provincie van het magazijn. */
@@ -57,7 +60,40 @@ const GROEPEN: { naam: string; regios: Region[]; start: number }[] = [
 ];
 const ALLE = GROEPEN.flatMap((g) => g.regios);
 
+/* De Nederlandse provincies: hun gemeenten hebben geen Belgische Franse naam. */
+const NEDERLAND = new Set(GROEPEN[2].regios.map((r) => r.slug));
+
+/**
+ * De naam van een provincie in de taal van de pagina. `nameFr` komt uit
+ * `regio-slugs.ts` (alleen de Belgische); de rest uit `PROVINCIE_FR`.
+ */
+function regioNaam(r: Region, fr: boolean): string {
+  if (!fr) return r.name;
+  const bron = REGIO_ROUTES.find((x) => x.slug === r.slug) as { nameFr?: string } | undefined;
+  return bron?.nameFr ?? PROVINCIE_FR[r.slug]?.naam ?? r.name;
+}
+
+/**
+ * De naam van een gemeente op de Franse kaart. Eerst `nameFr` uit
+ * `gemeente-slugs.ts`; anders de Franse naam tussen haakjes die de Waalse
+ * streeklijsten al dragen ("Bergen (Mons)" wordt "Mons"). Niet in Nederland:
+ * daar is "Bergen (L.)" geen Franse naam maar een onderscheid met Bergen op Zoom.
+ */
+function plaatsNaam(town: string, regioSlug: string, fr: boolean): string {
+  if (!fr || NEDERLAND.has(regioSlug)) return town;
+  const eigen = gemeenteVanPlaats(town) as { nameFr?: string; name: string } | undefined;
+  if (eigen?.nameFr && eigen.name === town) return eigen.nameFr;
+  const haakjes = /^.+ \((.+)\)$/.exec(town);
+  /* Geen `eigen.nameFr` hier: "Zandvliet" vindt de pagina van Berendrecht. */
+  return haakjes ? haakjes[1] : town;
+}
+
 const V3Regio = () => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const fr = useTaal() === "fr";
+  const naam = (r: Region) => regioNaam(r, fr);
+  const inRegio = (r: Region) => t.inRegio(r.slug, naam(r));
   const [groep, setGroep] = useState(0);
   const REGIONS = GROEPEN[groep].regios;
   const [active, setActive] = useState(GROEPEN[0].start);
@@ -69,6 +105,7 @@ const V3Regio = () => {
   */
   const [streek, setStreek] = useState(0);
   const region = REGIONS[active];
+  const plaats = (town: string) => plaatsNaam(town, region.slug, fr);
   const streken = STREKEN_PER_REGIO[region.slug] ?? [];
   /*
     `streek` kan na een provinciewissel buiten bereik vallen voor de nieuwe
@@ -99,16 +136,12 @@ const V3Regio = () => {
     <section className="regio" id="regio">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Leveringsgebied</span>
-          <h2 className="sec">Wij leveren in heel België en in het zuiden van Nederland.</h2>
-          <p className="lede">
-            Klik op uw provincie, kies uw streek en zie meteen de gemeenten waar wij leveren,
-            installeren en ophalen. Klik op de naam om naar de pagina van die provincie te gaan.
-            Twijfelt u? Bel ons even.
-          </p>
+          <span className="kick">{t.kick}</span>
+          <h2 className="sec">{t.h2}</h2>
+          <p className="lede">{t.lede}</p>
         </div>
 
-        <div className="rg-streken rg-landen" role="tablist" aria-label="Gebied">
+        <div className="rg-streken rg-landen" role="tablist" aria-label={t.gebied}>
           {GROEPEN.map((g, i) => (
             <button
               key={g.naam}
@@ -118,7 +151,7 @@ const V3Regio = () => {
               className={i === groep ? "actief" : undefined}
               onClick={() => kiesGroep(i)}
             >
-              {g.naam}
+              {t.groepen[i] ?? g.naam}
             </button>
           ))}
         </div>
@@ -158,11 +191,11 @@ const V3Regio = () => {
                   key={item.name}
                   className="pin active"
                   style={item.pin}
-                  to={item.path}
-                  aria-label={`Bouwdroger huren in ${item.name}`}
+                  to={lp(item.path)}
+                  aria-label={t.pinLabel(inRegio(item))}
                 >
                   <b />
-                  {item.name}
+                  {naam(item)}
                   <ArrowRightIcon size={12} />
                 </Link>
               ) : (
@@ -174,7 +207,7 @@ const V3Regio = () => {
                   onClick={() => kiesRegio(i)}
                 >
                   <b />
-                  {item.name}
+                  {naam(item)}
                 </button>
               )
             )}
@@ -187,8 +220,8 @@ const V3Regio = () => {
               bestemming als de rode knop onderaan het paneel.
             */}
             <h3 id="rgName">
-              <Link to={region.path}>
-                {region.name}
+              <Link to={lp(region.path)}>
+                {naam(region)}
                 <ArrowRightIcon size={15} />
               </Link>
             </h3>
@@ -201,8 +234,8 @@ const V3Regio = () => {
                   Per streek zijn het er hoogstens 26, en de streeknaam zegt
                   bovendien iets over wat er daar gedroogd wordt.
                 */}
-                <p className="rg-sub">Kies uw streek binnen {region.name}:</p>
-                <div className="rg-streken" role="tablist" aria-label={`Streken in ${region.name}`}>
+                <p className="rg-sub">{t.kiesStreek(naam(region))}</p>
+                <div className="rg-streken" role="tablist" aria-label={t.strekenIn(naam(region))}>
                   {streken.map((st, i) => (
                     <button
                       key={st.naam}
@@ -214,14 +247,18 @@ const V3Regio = () => {
                       className={i === Math.min(streek, streken.length - 1) ? "actief" : undefined}
                       onClick={() => setStreek(i)}
                     >
-                      {st.naam}
+                      {(fr && STREEK_FR[st.naam]) || st.naam}
                     </button>
                   ))}
                 </div>
-                {actieveStreek && <p className="rg-kenmerk">{actieveStreek.kenmerk}</p>}
+                {actieveStreek && (
+                  <p className="rg-kenmerk">
+                    {t.kenmerk(actieveStreek.kenmerk, actieveStreek.gemeenten.slice(0, 3).map(plaats))}
+                  </p>
+                )}
               </>
             ) : (
-              <p className="rg-sub">Een greep uit de gemeenten waar wij leveren en installeren:</p>
+              <p className="rg-sub">{t.greep}</p>
             )}
             {/*
               De gemeenten zagen eruit als knoppen en waren dode <span>'s. Wie
@@ -257,30 +294,24 @@ const V3Regio = () => {
                 return (
                   <Link
                     key={town}
-                    to={doel}
+                    to={lp(doel)}
                     aria-label={
-                      eigen
-                        ? `Bouwdroger huren in ${town}`
-                        : `${town}, bouwdroger huren in ${region.name}`
+                      eigen ? t.chipEigen(plaats(town)) : t.chipRegio(plaats(town), inRegio(region))
                     }
                   >
-                    {town}
+                    {plaats(town)}
                   </Link>
                 );
               })}
             </div>
-            <p className="rg-note">
-              Staat uw gemeente er niet bij? Wij leveren in heel België en in het zuiden van
-              Nederland. Bel ons op
-              03 689 90 65 en we bekijken het meteen.
-            </p>
+            <p className="rg-note">{t.noot}</p>
             <div className="rg-actions">
-              <Link className="btn btn-red" to={region.path}>
-                Bouwdroger huren in {region.name}
+              <Link className="btn btn-red" to={lp(region.path)}>
+                {t.huren(inRegio(region))}
                 <ArrowRightIcon size={14} />
               </Link>
-              <Link className="btn btn-out" to="/verhuur/calculator">
-                Gratis Calculator
+              <Link className="btn btn-out" to={lp("/verhuur/calculator")}>
+                {t.calculator}
                 <ArrowRightIcon size={14} />
               </Link>
             </div>
@@ -296,11 +327,11 @@ const V3Regio = () => {
           omdat het geen pagina had -- en dat wekte de indruk dat we er niet
           komen. Sinds het er een heeft, is het de zesde link.
         */}
-        <nav className="rg-links" aria-label="Werkgebied">
-          <span>Bouwdroger huren in:</span>
+        <nav className="rg-links" aria-label={t.werkgebied}>
+          <span>{t.hurenIn}</span>
           {ALLE.map((r) => (
-            <Link key={r.name} to={r.path}>
-              {r.name}
+            <Link key={r.name} to={lp(r.path)}>
+              {naam(r)}
             </Link>
           ))}
         </nav>

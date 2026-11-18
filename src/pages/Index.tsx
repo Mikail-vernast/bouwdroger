@@ -15,13 +15,15 @@ import V3Regio from "@/components/home-v3/V3Regio";
 import V3Pay from "@/components/home-v3/V3Pay";
 import V3Pickup from "@/components/home-v3/V3Pickup";
 import V3Reviews from "@/components/home-v3/V3Reviews";
-import V3Faq, { QUESTIONS } from "@/components/home-v3/V3Faq";
+import V3Faq, { useFaqVragen } from "@/components/home-v3/V3Faq";
 import V3Cta from "@/components/home-v3/V3Cta";
 import V3Footer from "@/components/home-v3/V3Footer";
 import "@/styles/home-v3.css";
 import "@/styles/home-v3-fixes.css";
 import "@/styles/home-v3-reviews.css";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { useTaal } from "@/i18n/useTaal";
+import { HTML_LANG } from "@/i18n/taal";
 import { faqSchema, organizationSchema, websiteSchema } from "@/lib/schema";
 
 /**
@@ -31,17 +33,29 @@ import { faqSchema, organizationSchema, websiteSchema } from "@/lib/schema";
  * heeft die sectie ook een eigen stylesheet in plaats van een regel in
  * home-v3.css.
  */
+/*
+  De bedrijfsomschrijving in de schema staat in `src/lib/schema.ts` in het
+  Nederlands. Op de Franse homepage hoort ze in de taal van de pagina, net als
+  de FAQ eronder; de rest van de organisatie (naam, adres, telefoon) is dezelfde.
+*/
+const ORG_OMSCHRIJVING_FR =
+  "Location de déshumidificateurs de chantier, ventilateurs et chauffages de chantier professionnels pour la nouvelle construction, la rénovation et les dégâts des eaux en Flandre, avec livraison, installation et mesure d'humidité.";
+
 const Index = () => {
+  const taal = useTaal();
+  const vragen = useFaqVragen();
+  const organisatie = organizationSchema({ withRating: true });
+  const website = websiteSchema();
   return (
     <div className="v3">
       <PageMeta
-        {...SEO.home}
+        {...useSeo("home")}
         jsonLd={[
           // Enige pagina die "4,8" en "412" zichtbaar toont, dus de enige die de
           // beoordeling in de schema mag zetten — zie `OrganizationOptions`.
-          organizationSchema({ withRating: true }),
-          websiteSchema(),
-          faqSchema(QUESTIONS.map((item) => ({ question: item.q, answer: item.a }))),
+          taal === "nl" ? organisatie : { ...organisatie, description: ORG_OMSCHRIJVING_FR },
+          taal === "nl" ? website : { ...website, inLanguage: HTML_LANG[taal] },
+          faqSchema(vragen.map((item) => ({ question: item.q, answer: item.a }))),
         ]}
       />
       <V3Header />

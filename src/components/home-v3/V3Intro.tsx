@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCopy, type Copy } from "@/i18n/useTaal";
 
 /**
  * Natuurlijk vs actief drogen. The two panels swap on their own every 4,6 s
@@ -6,7 +7,17 @@ import { useEffect, useState } from "react";
  */
 const AUTOPLAY_MS = 4600;
 
-const PANELS = [
+type Panel = {
+  key: string;
+  tab: string;
+  tone: string;
+  rows: [string, string][];
+  verdict: string;
+  verdictOk: boolean;
+};
+type Fact = { n: string; toon?: string; title: string; body: string };
+
+const PANELS_NL: Panel[] = [
   {
     key: "nat",
     tab: "Natuurlijk drogen",
@@ -58,7 +69,7 @@ const PANELS = [
  * die droging oplevert. Zie `.fact.waarschuwing` en `.fact.winst` in
  * home-v3-fixes.css.
  */
-const FACTS = [
+const FACTS_NL: Fact[] = [
   {
     n: "1 500 L",
     toon: "water",
@@ -84,7 +95,88 @@ const FACTS = [
   },
 ];
 
+const PANELS_FR: Panel[] = [
+  {
+    key: "nat",
+    tab: "Séchage naturel",
+    tone: "bad",
+    rows: [
+      [
+        "Durée de séchage",
+        "Des semaines, voire des mois, entièrement selon la météo, la température et la ventilation.",
+      ],
+      ["Contrôle", "Aucun. Vous ne savez jamais quand la pièce est vraiment sèche."],
+      ["Risque de moisissures", "Élevé : l'humidité reste des semaines dans les murs et la chape."],
+      [
+        "Finitions",
+        "Attendre, ou finir trop tôt avec des cloques et de la peinture qui se décolle.",
+      ],
+    ],
+    verdict: "Le séchage naturel n'est pas gratuit : vous le payez en temps, en frais de chauffage et en risque de dégâts.",
+    verdictOk: false,
+  },
+  {
+    key: "act",
+    tab: "Séchage de chantier actif",
+    tone: "good",
+    rows: [
+      ["Durée de séchage", "Des jours au lieu de semaines, calculés à l'avance et prévisibles."],
+      ["Contrôle", "Total : une mesure d'humidité avant et après confirme quand tout est vraiment sec."],
+      ["Risque de moisissures", "Minimal : l'humidité est évacuée en continu avant que la moisissure ne puisse se développer."],
+      [
+        "Finitions",
+        "Finir dès que la mesure le permet, sans cloques ni peinture qui se décolle.",
+      ],
+    ],
+    verdict: "Le séchage actif est rentable en temps, en frais de chauffage et en sécurité.",
+    verdictOk: true,
+  },
+];
+
+const FACTS_FR: Fact[] = [
+  {
+    n: "1 500 L",
+    toon: "water",
+    title: "D'eau dans une construction neuve moyenne",
+    body: "La chape, le plafonnage et le béton apportent ensemble des centaines, voire des milliers de litres d'humidité qui doivent sortir avant les finitions.",
+  },
+  {
+    n: "48 h",
+    title: "Avant que les moisissures ne se développent",
+    body: "En cas de dégâts des eaux, les moisissures apparaissent déjà après deux jours. Commencer vite à sécher est l'intervention la moins chère qui soit.",
+  },
+  {
+    n: "≤ 2 %",
+    toon: "waarschuwing",
+    title: "Humidité résiduelle avant de pouvoir finir",
+    body: "Les revêtements de sol et la peinture exigent un support sec. Finir trop tôt, c'est des cloques, des moisissures et tout recommencer.",
+  },
+  {
+    n: "60 %",
+    toon: "winst",
+    title: "De temps gagné avec un séchage actif",
+    body: "Ce qui prend des semaines naturellement, un appareil correctement dimensionné le ramène à une question de jours.",
+  },
+];
+
+const COPY = {
+  nl: {
+    panels: PANELS_NL,
+    facts: FACTS_NL,
+    kick: "Natuurlijk vs actief drogen",
+    h2: "Natuurlijk of actief drogen? Het verschil is tijd, controle en zekerheid.",
+  },
+  fr: {
+    panels: PANELS_FR,
+    facts: FACTS_FR,
+    kick: "Séchage naturel ou actif",
+    h2: "Séchage naturel ou actif ? La différence, c'est le temps, le contrôle et la certitude.",
+  },
+} satisfies Copy<{ panels: Panel[]; facts: Fact[]; kick: string; h2: string }>;
+
 const V3Intro = () => {
+  const t = useCopy(COPY);
+  const PANELS = t.panels;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -92,16 +184,14 @@ const V3Intro = () => {
     if (paused) return;
     const timer = setInterval(() => setActive((i) => (i + 1) % PANELS.length), AUTOPLAY_MS);
     return () => clearInterval(timer);
-  }, [paused]);
+  }, [paused, PANELS.length]);
 
   return (
     <section className="intro" id="natuurlijk-actief">
       <div className="wrap intro-grid">
         <div>
-          <span className="kick">Natuurlijk vs actief drogen</span>
-          <h2 className="sec">
-            Natuurlijk of actief drogen? Het verschil is tijd, controle en zekerheid.
-          </h2>
+          <span className="kick">{t.kick}</span>
+          <h2 className="sec">{t.h2}</h2>
 
           <div className={`vs-tabs${paused ? " paused" : ""}`} id="vsTabs">
             {PANELS.map((panel, i) => (
@@ -147,7 +237,7 @@ const V3Intro = () => {
         </div>
 
         <div className="factlist">
-          {FACTS.map((fact) => (
+          {t.facts.map((fact) => (
             <div className={fact.toon ? `fact ${fact.toon}` : "fact"} key={fact.n}>
               <div className="fn">{fact.n}</div>
               <div>

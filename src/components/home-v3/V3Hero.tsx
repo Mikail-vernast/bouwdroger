@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Head } from "vite-react-ssg";
 import { REVIEWS } from "@/lib/site";
+import { useCopy, useLokaalPad, type Copy } from "@/i18n/useTaal";
 import { ArrowRightIcon, GoogleIcon } from "./icons";
 
 /**
@@ -10,7 +11,7 @@ import { ArrowRightIcon, GoogleIcon } from "./icons";
  * verbergt het design ze — vandaar dat de HTML géén begintoestand mag dragen
  * die de prerender onzichtbaar maakt; deze markup is altijd zichtbaar.
  */
-const NOTES = [
+const ICONS = [
   {
     icon: (
       <>
@@ -20,20 +21,51 @@ const NOTES = [
         <path d="M8 15h5" />
       </>
     ),
-    title: "Online berekenen & boeken",
-    sub: "Betalen en plannen inbegrepen",
   },
-  {
-    icon: <path d="M20 6 9 17l-5-5" />,
-    title: "Één all-in prijs",
-    sub: "Geen verborgen kosten",
-  },
-  {
-    icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />,
-    title: "100% droog-garantie*",
-    sub: "Of kosteloos verlengen",
-  },
+  { icon: <path d="M20 6 9 17l-5-5" /> },
+  { icon: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /> },
 ];
+
+type HeroCopy = {
+  notes: { title: string; sub: string }[];
+  reviews: string;
+  h1: string;
+  intro: string;
+  cta: string;
+  garantie: string;
+  alt: string;
+};
+
+const COPY = {
+  nl: {
+    notes: [
+      { title: "Online berekenen & boeken", sub: "Betalen en plannen inbegrepen" },
+      { title: "Één all-in prijs", sub: "Geen verborgen kosten" },
+      { title: "100% droog-garantie*", sub: "Of kosteloos verlengen" },
+    ],
+    reviews: "Google reviews",
+    h1: "Bouwdroger huren op maat. Drooggarantie inbegrepen.",
+    intro:
+      "Geen standaard bouwdroger, maar een compleet droogpakket op maat van uw woning. Digitaal geboekt, energiezuinig gedimensioneerd, professioneel geïnstalleerd en één vaste all-in prijs. Niet droog binnen de berekende periode? Kosteloos verder huren.",
+    cta: "Bereken uw bouwdroging",
+    garantie: "Bekijk de drooggarantie",
+    alt: "Het Vernast-team met het volledige toestellengamma",
+  },
+  fr: {
+    notes: [
+      { title: "Calculez et réservez en ligne", sub: "Paiement et planification inclus" },
+      { title: "Un prix tout compris", sub: "Aucun frais caché" },
+      { title: "Garantie de séchage 100 %*", sub: "Ou prolongation sans frais" },
+    ],
+    reviews: "avis Google",
+    h1: "Location de déshumidificateur de chantier sur mesure. Garantie de séchage incluse.",
+    intro:
+      "Pas un simple déshumidificateur de chantier, mais un pack de séchage complet adapté à votre habitation. Réservé en ligne, dimensionné pour consommer peu, installé par des professionnels et un prix fixe tout compris. Pas sec dans la période calculée ? Vous continuez à louer sans frais.",
+    cta: "Calculez votre séchage",
+    garantie: "Voir la garantie de séchage",
+    alt: "L'équipe Vernast avec toute la gamme d'appareils",
+  },
+} satisfies Copy<HeroCopy>;
 
 /**
  * De achtergrond van de hero is het LCP-element van de homepage, maar hij staat
@@ -43,7 +75,10 @@ const NOTES = [
  */
 const HERO_BG = "/vernast/bg-red-wide-2.webp";
 
-const V3Hero = () => (
+const V3Hero = () => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  return (
   <section className="hero">
     <Head>
       <link rel="preload" href={HERO_BG} as="image" type="image/webp" fetchPriority="high" />
@@ -63,21 +98,17 @@ const V3Hero = () => (
               <b>
                 {REVIEWS.display}/{REVIEWS.best}
               </b>{" "}
-              · {REVIEWS.reviewCount} Google reviews
+              · {REVIEWS.reviewCount} {t.reviews}
             </span>
           </div>
         )}
         {/* "Bouwdroger huren" is de zoekvraag waarop deze pagina moet landen (Search
             Console, sep 2026: pos. 45-68). Het stond in de titel, niet in de H1. */}
-        <h1>Bouwdroger huren op maat. Drooggarantie inbegrepen.</h1>
-        <p>
-          Geen standaard bouwdroger, maar een compleet droogpakket op maat van uw woning. Digitaal
-          geboekt, energiezuinig gedimensioneerd, professioneel geïnstalleerd en één vaste all-in
-          prijs. Niet droog binnen de berekende periode? Kosteloos verder huren.
-        </p>
+        <h1>{t.h1}</h1>
+        <p>{t.intro}</p>
         <div className="h-ctas">
-          <Link className="btn btn-white" to="/verhuur/calculator">
-            Bereken uw bouwdroging
+          <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+            {t.cta}
             <ArrowRightIcon />
           </Link>
           {/*
@@ -88,8 +119,8 @@ const V3Hero = () => (
             witte ernaast blijft de eerste. `btn-dark` bestaat al in
             home-v3.css, inclusief hover naar puur zwart.
           */}
-          <Link className="btn btn-dark" to="/drooggarantie">
-            Bekijk de drooggarantie
+          <Link className="btn btn-dark" to={lp("/drooggarantie")}>
+            {t.garantie}
           </Link>
         </div>
       </div>
@@ -127,15 +158,15 @@ const V3Hero = () => (
       src="/vernast/team-hero-wide-v2.webp"
       srcSet="/vernast/team-hero-wide-v2-1100.webp 1100w, /vernast/team-hero-wide-v2.webp 2000w"
       sizes="(max-width: 767px) 139vw, 100vw"
-      alt="Het Vernast-team met het volledige toestellengamma"
+      alt={t.alt}
       width={2000}
       height={617}
       fetchPriority="high"
       decoding="async"
     />
-    {/* De drie zwevende kaartjes over de banner — zie NOTES en .h-note in home-v3.css. */}
+    {/* De drie zwevende kaartjes over de banner — zie ICONS/COPY en .h-note in home-v3.css. */}
     <div className="h-note">
-      {NOTES.map((note) => (
+      {t.notes.map((note, i) => (
         <span key={note.title}>
           <i className="hni">
             <svg
@@ -148,7 +179,7 @@ const V3Hero = () => (
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              {note.icon}
+              {ICONS[i].icon}
             </svg>
           </i>
           <span className="hnt">
@@ -159,6 +190,7 @@ const V3Hero = () => (
       ))}
     </div>
   </section>
-);
+  );
+};
 
 export default V3Hero;
