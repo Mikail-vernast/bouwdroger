@@ -276,40 +276,55 @@ const imgTotal = indexable.reduce((n, r) => n + r.imgs, 0);
 console.log(`Afbeeldingen:  ${unsizedTotal} van ${imgTotal} zonder width/height (aandachtspunt, geen fout)`);
 
 /**
- * Elke geïndexeerde pagina moet vanaf /sitemap te bereiken zijn.
+ * Elke geïndexeerde pagina moet vanaf de sitemap van haar taal te bereiken zijn.
  *
  * De zichtbare sitemap wordt opgebouwd uit `src/data/navigation.ts` en de
  * datalijsten, dus hij loopt vanzelf mee. Vanzelf is niet hetzelfde als
  * gegarandeerd: een nieuwe route die wél geprerenderd wordt maar in geen enkele
  * navigatielijst staat, verschijnt in sitemap.xml en nergens anders. Dat is
  * precies de wees waar navigation.ts tegen bestaat, en hier wordt hij zichtbaar.
+ *
+ * Per taal: een Franse pagina hoort gelinkt te zijn vanaf /fr/plan-du-site, niet
+ * vanaf /sitemap. Die Franse sitemap linkt bewust alleen Franse pagina's (zie
+ * `src/data/sitemap.ts`), en de Nederlandse alleen Nederlandse — één controle
+ * over beide samen zou een Franse wees verbergen achter een Nederlandse link.
  */
-/* vite-react-ssg schrijft een route zonder kinderen weg als `<route>.html`,
-   niet als `<route>/index.html`. Allebei accepteren: welke vorm het wordt
-   hangt af van de routeboom, niet van deze pagina. */
-const sitemapFile = [join(DIST, "sitemap.html"), join(DIST, "sitemap", "index.html")].find(existsSync);
-if (sitemapFile) {
+const SITEMAPS = [
+  { taal: "nl", pad: "/sitemap", hoort: (route) => !/^\/(fr|en)(\/|$)/.test(route), thuis: "/" },
+  { taal: "fr", pad: "/fr/plan-du-site", hoort: (route) => /^\/fr(\/|$)/.test(route), thuis: "/fr" },
+];
+
+for (const sm of SITEMAPS) {
+  const paginas = indexable.map((r) => r.route).filter(sm.hoort);
+  // Een taal die (nog) niet gebouwd is, heeft niets om te controleren.
+  if (paginas.length === 0) continue;
+  /* vite-react-ssg schrijft een route zonder kinderen weg als `<route>.html`,
+     niet als `<route>/index.html`. Allebei accepteren: welke vorm het wordt
+     hangt af van de routeboom, niet van deze pagina. */
+  const rel = sm.pad.slice(1);
+  const sitemapFile = [join(DIST, `${rel}.html`), join(DIST, rel, "index.html")].find(existsSync);
+  if (!sitemapFile) {
+    problems.push(`dist/${rel}/index.html ontbreekt — de zichtbare sitemap (${sm.taal}) is niet geprerenderd`);
+    continue;
+  }
   const html = readFileSync(sitemapFile, "utf8");
   const gelinkt = new Set(
     [...html.matchAll(/href="([^"]+)"/g)]
       .map((m) => m[1].replace(/^https?:\/\/[^/]+/, "").replace(/[?#].*$/, ""))
       .map((h) => (h.length > 1 ? h.replace(/\/$/, "") : h))
   );
-  const ontbreekt = indexable
-    .map((r) => r.route)
-    .filter((route) => route !== "/" && !gelinkt.has(route))
+  const ontbreekt = paginas
     // De kruimel en de voettekst dekken de homepage al; de funnelstappen
     // (boeking, saldo, bevestigingen) staan op noindex en zitten hier dus niet.
+    .filter((route) => route !== sm.thuis && !gelinkt.has(route))
     .sort();
   if (ontbreekt.length) {
     problems.push(
-      `/sitemap linkt niet naar ${ontbreekt.length} geïndexeerde pagina('s): ${ontbreekt.join(", ")}`
+      `${sm.pad} linkt niet naar ${ontbreekt.length} geïndexeerde pagina('s): ${ontbreekt.join(", ")}`
     );
   } else {
-    console.log(`Sitemappagina: alle ${indexable.length} indexeerbare pagina's gelinkt`);
+    console.log(`Sitemappagina (${sm.taal}): alle ${paginas.length} indexeerbare pagina's gelinkt`);
   }
-} else {
-  problems.push("dist/sitemap/index.html ontbreekt — de zichtbare sitemap is niet geprerenderd");
 }
 
 if (problems.length) {

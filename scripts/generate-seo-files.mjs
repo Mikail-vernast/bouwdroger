@@ -70,6 +70,59 @@ function hoistCharset(file) {
 const htmlPages = htmlFiles(DIST);
 htmlPages.forEach(hoistCharset);
 
+/**
+ * De taalversies van een pagina, zoals `<PageMeta>` ze als
+ * `<link rel="alternate" hreflang>` in de geprerenderde HTML zet.
+ *
+ * De sitemap neemt ze over in plaats van ze zelf uit te rekenen: zo kan de
+ * sitemap niets anders beweren dan de pagina, en hoeft dit script niets te
+ * weten van de padentabel in `src/i18n/paden.ts` (TypeScript, dus hier niet te
+ * importeren). Google leest de koppeling uit allebei; staan ze niet gelijk, dan
+ * negeert hij ze.
+ *
+ * Attributen worden los gelezen: react-helmet zet er `data-rh` tussen en de
+ * volgorde ligt niet vast — dezelfde valkuil als bij de canonical hieronder.
+ */
+function alternates(file) {
+  const html = readFileSync(file, "utf8");
+  const uit = [];
+  for (const [tag] of html.matchAll(/<link\b[^>]*>/gi)) {
+    const attr = (naam) => tag.match(new RegExp(`\\s${naam}="([^"]*)"`, "i"))?.[1];
+    if (attr("rel")?.toLowerCase() !== "alternate") continue;
+    const hreflang = attr("hreflang");
+    const href = attr("href");
+    if (hreflang && href) uit.push({ hreflang, href });
+  }
+  return uit;
+}
+
+/** Het pad van een absolute URL op deze site: `https://…/fr/prix` → `/fr/prix`. */
+function padVan(url) {
+  try {
+    const p = new URL(url).pathname.replace(/\/$/, "");
+    return p === "" ? "/" : p;
+  } catch {
+    return null;
+  }
+}
+
+/** Route → zijn alternates, één keer gelezen voor sitemap én lastmod. */
+const ALTERNATES = new Map(htmlPages.map((file) => [toRoute(file), alternates(file)]));
+
+/**
+ * De Nederlandse route achter een vertaalde pagina: de `nl-BE`-alternate.
+ *
+ * Een Franse pagina komt uit hetzelfde sjabloon en dezelfde data als de
+ * Nederlandse — op het Franse copybestand na — dus haar lastmod, prioriteit en
+ * changefreq volgen de Nederlandse. Zonder deze stap kwamen alle Franse routes
+ * in `unmappedRoutes` en pingde IndexNow ze bij elke deploy.
+ */
+function nlRoute(route) {
+  if (!route.startsWith("/fr/") && route !== "/fr" && !route.startsWith("/en/") && route !== "/en") return route;
+  const nl = ALTERNATES.get(route)?.find((a) => a.hreflang.toLowerCase().startsWith("nl"));
+  return (nl && padVan(nl.href)) || route;
+}
+
 const routes = htmlPages
   .filter(isIndexable)
   .map(toRoute)
@@ -181,7 +234,8 @@ function lastCommitDate(paths) {
   }
 }
 
-function lastmodFor(route) {
+function lastmodFor(vertaaldeRoute) {
+  const route = nlRoute(vertaaldeRoute);
   if (route === "/sitemap") return lastCommitDate(SITEMAP_SOURCES);
   if (route.startsWith("/verhuur/toestel/")) return lastCommitDate(TOESTEL_SOURCES);
   if (route.startsWith("/verhuur/toebehoren/")) return lastCommitDate(TOEBEHOREN_SOURCES);
@@ -194,12 +248,30 @@ function lastmodFor(route) {
   return today;
 }
 
+const escapeXml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+/*
+  Elke URL krijgt zijn taalversies als `<xhtml:link>`, ook naar zichzelf: zo
+  wil Google het, en zo staat het ook in de `<head>` van de pagina. Een
+  alternate naar een pagina die zelf niet in de sitemap staat (noindex) laten
+  we weg — die zou op een URL wijzen die we tegelijk uit de index houden.
+*/
+const inSitemap = new Set(routes);
+const alternateRegels = (route) =>
+  (ALTERNATES.get(route) ?? [])
+    .filter((a) => {
+      const p = padVan(a.href);
+      return p && inSitemap.has(p);
+    })
+    .map((a) => `    <xhtml:link rel="alternate" hreflang="${escapeXml(a.hreflang)}" href="${escapeXml(a.href)}"/>`);
+
 const urls = routes
   .map((route) => {
-    const rule = PRIORITY.find((r) => r.test(route));
+    const rule = PRIORITY.find((r) => r.test(nlRoute(route)));
     return [
       "  <url>",
       `    <loc>${SITE_URL}${route === "/" ? "/" : route}</loc>`,
+      ...alternateRegels(route),
       `    <lastmod>${lastmodFor(route)}</lastmod>`,
       `    <changefreq>${rule?.changefreq ?? "yearly"}</changefreq>`,
       `    <priority>${rule?.priority ?? "0.5"}</priority>`,
@@ -210,7 +282,7 @@ const urls = routes
 
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
-  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
   urls,
   "</urlset>",
   "",
@@ -246,12 +318,15 @@ function injectDateModified(file, route) {
     `withOrganization()` in src/lib/schema.ts oplost. Een WebPage met een datum
     is op zichzelf compleet.
   */
+  // De taal uit `<html lang>`, die PageMeta per pagina zet: een Franse pagina
+  // met `inLanguage: "nl-BE"` spreekt haar eigen hreflang tegen.
+  const lang = html.match(/<html[^>]*\slang="([^"]+)"/i)?.[1] ?? "nl-BE";
   const node = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": canonical,
     url: canonical,
-    inLanguage: "nl-BE",
+    inLanguage: lang,
     dateModified: lastmodFor(route),
   };
   const tag = `<script type="application/ld+json">${JSON.stringify(node)}</script>`;
