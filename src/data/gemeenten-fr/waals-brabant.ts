@@ -1367,4 +1367,576 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+
+  incourt: {
+    slug: "incourt",
+    title: "Louer un déshumidificateur de chantier à Incourt | Vernast",
+    description:
+      "Déshumidificateur à louer à Incourt, Glimes, Opprebais ou Piétrebais : neuf, ferme rénovée, dégâts des eaux. Livraison et installation sur rendez-vous.",
+    h1: "Location de déshumidificateur de chantier à Incourt",
+    kicker: "Brabant wallon · villages ruraux",
+    rit: { afstand: "environ 70 km", tijd: "un peu plus d'une heure" },
+    intro: [
+      "Incourt est une commune rurale de l'est du Brabant wallon, entre Chaumont-Gistoux, Perwez et Jodoigne. Elle regroupe Incourt, Glimes, Opprebais, Piétrebais et Roux-Miroir, des villages très agricoles aux fermes dispersées.",
+      "Depuis Aartselaar, notre camionnette met **un peu plus d'une heure** pour rejoindre Incourt. En Wallonie, la livraison et l'installation se font sur rendez-vous, et ce dans chacun des cinq villages.",
+    ],
+    bouw: {
+      kop: "De grands volumes dans les fermes et les constructions neuves",
+      alineas: [
+        "Une **ferme transformée en habitation** a souvent des pièces hautes, d'épais murs en briques et un nouveau sol coulé à même l'ancienne assise. Le volume est important et les murs retiennent longtemps l'eau. Nous y plaçons plutôt un seul déshumidificateur puissant avec circulation d'air que quelques petits appareils répartis dans le bâtiment.",
+        "Dans une construction neuve, dans l'un des villages, tout tourne surtout autour de la chape et du plafonnage. Si vous planifiez la finition, laissez tourner le déshumidificateur jusqu'à ce que **la mesure d'humidité** le permette. Vous éviterez ainsi que le parquet gonfle ou que la peinture se décolle.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttv4500",
+        waarom: "**Pour les pièces hautes d'une ferme.** Ce ventilateur déplace 4 500 m³ d'air par heure, pour que l'air sec atteigne aussi les coins et le haut de la pièce.",
+      },
+      {
+        key: "ttk350",
+        waarom: "Pour une maison neuve avec une chape au rez-de-chaussée : ce déshumidificateur retire jusqu'à 70 litres d'eau par jour, dans des pièces jusqu'à environ 400 m³.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour les pièces froides et non chauffées.** Un déshumidificateur à adsorption continue de fonctionner là où un déshumidificateur à condensation ne rend plus grand-chose, et il sèche par des gaines.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour le plus grand volume.** Ce déshumidificateur retire jusqu'à 110 litres par jour de l'air dans des pièces jusqu'à environ 600 m³, comme une étable ou une grange transformée.",
+      },
+    ],
+    levering: {
+      kop: "Livraison à Incourt sur rendez-vous",
+      alinea:
+        "Depuis Aartselaar, il faut **un peu plus d'une heure** pour rejoindre Incourt. Vous choisissez une date de livraison lors de la réservation ; nous convenons ensuite de l'heure précise avec vous par téléphone. Le technicien met les appareils en place, veille à l'évacuation des condensats et mesure l'humidité du sol et des murs. La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.",
+    },
+    afhalen: {
+      kop: "Venir chercher vous-même à Aartselaar",
+      alinea:
+        "L'enlèvement à notre entrepôt, Boomsesteenweg 12, unit 11 à Aartselaar, est possible sur rendez-vous. Depuis Incourt, cela représente **un peu plus d'une heure de route**, et vous faites ce trajet deux fois : pour chercher l'appareil et pour le rapporter. Pour une ferme transformée qui demande de grands appareils, la livraison avec installation est le choix logique.",
+    },
+    buren: ["chaumont-gistoux", "perwijs", "geldenaken", "walhain"],
+    faq: [
+      {
+        q: "Comment sécher une étable ou une grange transformée ?",
+        a: "Avec un déshumidificateur puissant, un ventilateur pour la circulation de l'air, et portes et fenêtres fermées. Si la pièce est froide, un déshumidificateur à adsorption fonctionne mieux. Communiquez-nous les dimensions et la hauteur, et nous déterminerons le nombre d'appareils nécessaires.",
+      },
+      {
+        q: "Pourquoi ne faut-il laisser aucune fenêtre ouverte pendant que le déshumidificateur tourne ?",
+        a: "Un déshumidificateur retire l'eau de l'air de la pièce où il se trouve. Si une fenêtre reste ouverte, de l'air humide entre sans cesse et il sèche surtout l'air extérieur. Aérez brièvement, puis refermez tout.",
+      },
+      {
+        q: "Quand mon peintre peut-il faire la finition du nouveau plafonnage ?",
+        a: "Quand le plafonnage est sec en profondeur, pas seulement en surface. Un mur qui s'éclaircit n'est donc pas encore prêt pour autant. Faites mesurer l'humidité avant d'appliquer la première couche de peinture.",
+      },
+      {
+        q: "Livrez-vous aussi à Roux-Miroir et à Piétrebais ?",
+        a: "Oui, nous livrons dans tous les villages d'Incourt. Indiquez lors de la réservation l'adresse complète et si le chantier est accessible en camionnette, surtout pour une ferme le long d'un chemin de campagne étroit.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  itter: {
+    slug: "itter",
+    title: "Location de déshumidificateur de chantier à Ittre | Vernast",
+    description:
+      "Un déshumidificateur à Ittre ? Vernast livre et installe votre pack de séchage sur rendez-vous, puis le reprend. Conseil : chape, plafonnage, dégâts des eaux.",
+    h1: "Location de déshumidificateur de chantier à Ittre",
+    kicker: "Ittre · livraison sur rendez-vous",
+    rit: { afstand: "environ 65 km", tijd: "près d'une heure" },
+    intro: [
+      "Ittre se trouve dans l'ouest du Brabant wallon, le long du canal Bruxelles-Charleroi. Vous y construisez, ou une habitation doit sécher après une fuite ? Chez Vernast, vous louez les appareils adaptés au volume et au type d'humidité.",
+      "De notre entrepôt d'Aartselaar à Ittre, il faut près d'une heure de route. En Wallonie, nous livrons **sur rendez-vous** : vous fixez la date de livraison lors de la réservation, et nous vous appelons pour convenir de l'heure. La livraison, l'installation et la reprise ne sont pas facturées à part : elles sont comprises dans le pack de séchage.",
+    ],
+    bouw: {
+      kop: "Le bon pack de séchage pour votre chantier à Ittre",
+      alineas: [
+        "Le nombre d'appareils nécessaires dépend d'abord du volume : la surface multipliée par la hauteur des pièces à sécher. Un séjour de 50 m² avec un plafond de 2,5 mètres représente 125 m³. La quantité de matériaux humides compte aussi : une chape fraîche sur tout un étage demande plus de capacité que quelques murs humides.",
+        "Les pièces fermées reçoivent chacune leur propre appareil, ou bien vous ouvrez les portes et laissez un ventilateur faire circuler l'air. **Le calculateur établit un pack pour vous.** En cas de doute, appelez-nous et décrivez le chantier.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour un étage ou une habitation moyenne.** Ce déshumidificateur à condensation retire jusqu'à 70 litres par jour de l'air et convient aux pièces jusqu'à environ 400 m³. Il consomme 1,1 kW.",
+      },
+      {
+        key: "radiaal2250",
+        waarom: "**Pour diriger l'air sur un sol ou le long d'un mur.** Ce ventilateur radial déplace 2 250 m³ par heure et résiste aux projections d'eau selon l'indice IP55. Utilisez-le avec un déshumidificateur, qui capte l'humidité libérée.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour une cave, une pièce froide ou de l'humidité sous le sol.** Ce déshumidificateur à adsorption continue de fonctionner là où il fait trop froid pour un déshumidificateur à condensation. Grâce à des gaines, il atteint aussi les couches d'isolation et les espaces creux.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour de grands volumes ou une construction neuve complète.** Jusqu'à 110 litres d'humidité par jour, pour des pièces jusqu'à environ 600 m³, avec une consommation de 1,4 kW. Ici, un seul appareil en remplace souvent deux plus petits.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Ittre",
+      alinea:
+        "**À Ittre, nous livrons sur rendez-vous.** Choisissez une date lors de la réservation, et nous vous appelons pour convenir de l'heure. Notre technicien est en route près d'une heure depuis Aartselaar. Indiquez à l'avance comment accéder au chantier et si les appareils doivent monter un escalier. Sur place, il installe tout et vous montre comment évacuer les condensats.",
+    },
+    afhalen: {
+      kop: "Venir chercher vous-même depuis Ittre",
+      alinea:
+        "Pour un seul appareil, vous pouvez venir le chercher vous-même sur rendez-vous à notre entrepôt, Boomsesteenweg 12, unit 11 à Aartselaar. Depuis Ittre, cela représente près d'une heure de route, et le même trajet pour rapporter l'appareil. **Réservez à l'avance**, et il sera prêt. Pour plusieurs appareils, mieux vaut opter pour la livraison avec installation.",
+    },
+    buren: ["tubeke", "kasteelbrakel", "eigenbrakel", "nijvel"],
+    faq: [
+      {
+        q: "Comment convenir d'une livraison à Ittre ?",
+        a: "Réservez votre pack de séchage en ligne et choisissez une date de livraison. Après la réservation, nous vous appelons pour fixer l'heure. Indiquez l'adresse exacte du chantier et le nom de la personne qui nous accueillera sur place.",
+      },
+      {
+        q: "Comment calculer le nombre de déshumidificateurs nécessaires ?",
+        a: "Multipliez la surface de chaque pièce par sa hauteur pour connaître le volume. Tenez compte ensuite de la quantité de matériaux humides et du nombre de pièces fermées. Le calculateur propose un pack, et en cas de doute, nous vous aidons par téléphone.",
+      },
+      {
+        q: "Ai-je besoin d'un ventilateur en plus du déshumidificateur ?",
+        a: "Pas toujours, mais sur un sol ou un mur humide, un ventilateur accélère l'évaporation. Il n'évacue pas lui-même l'humidité. C'est pourquoi vous l'utilisez toujours avec un déshumidificateur dans la même pièce.",
+      },
+      {
+        q: "Comment savoir si le chantier est assez sec ?",
+        a: "Ne vous fiez ni à la durée de location ni à une surface d'apparence sèche. Faites réaliser une mesure d'humidité dans le sol ou le mur. Votre poseur de sol ou votre peintre sait quelle humidité résiduelle sa finition admet.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil pour un chantier à Ittre ?",
+        a: "Oui, sur rendez-vous à Aartselaar. À l'aller comme au retour, le trajet dure chaque fois près d'une heure. Réservez à l'avance, vérifiez que l'appareil entre dans votre voiture et suivez les instructions de transport.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  kasteelbrakel: {
+    slug: "kasteelbrakel",
+    title: "Déshumidificateur à louer à Braine-le-Château | Vernast",
+    description:
+      "Déshumidificateur à Braine-le-Château ? Vernast livre votre pack de séchage sur rendez-vous, l'installe et le reprend. Rénovation, neuf ou cave humide.",
+    h1: "Location de déshumidificateur de chantier à Braine-le-Château",
+    kicker: "Braine-le-Château · livraison sur rendez-vous",
+    rit: { afstand: "environ 55 km", tijd: "environ cinquante minutes" },
+    intro: [
+      "Braine-le-Château se trouve dans l'ouest du Brabant wallon, entre Tubize et Braine-l'Alleud. Qui y rénove une maison ancienne a souvent affaire à un nouveau plafonnage, une nouvelle chape ou une cave qui retient l'humidité. Vernast loue les déshumidificateurs et les ventilateurs dont vous avez besoin pour cela.",
+      "Depuis Aartselaar, nous mettons environ cinquante minutes pour rejoindre Braine-le-Château. En Wallonie, nous livrons **sur rendez-vous** : vous choisissez le jour lors de la réservation, nous vous appelons pour l'heure. La livraison, l'installation et la reprise sont comprises dans le pack de séchage.",
+    ],
+    bouw: {
+      kop: "Rénovation et dégâts des eaux à Braine-le-Château",
+      alineas: [
+        "Lors d'une rénovation, l'humidité se cache souvent là où vous ne la voyez pas : dans un vieux mur, sous un sol démoli ou dans une cave sans bonne protection contre l'humidité. Commencez donc par la cause. Un déshumidificateur retire l'humidité de l'air, mais n'arrête pas l'eau qui entre par une fissure ou un raccord défectueux.",
+        "Si l'eau a envahi la maison, faites d'abord pomper l'eau stagnante et retirer l'isolation ou les plinthes mouillées. Ce n'est qu'ensuite que le séchage a du sens. **Dites-nous où se trouvait l'eau et pendant combien de temps**, et nous choisirons ensemble entre un déshumidificateur à condensation et un déshumidificateur à adsorption.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "revolution",
+        waarom: "**Pour une cave ou une pièce qui reste froide.** Un déshumidificateur à adsorption fonctionne aussi à basse température, là où un déshumidificateur à condensation perd beaucoup de rendement. Grâce à des gaines, il sèche aussi les espaces creux et les endroits sous un sol.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**Pour une maison que vous rénovez entièrement.** Ce déshumidificateur à condensation retire jusqu'à 70 litres d'humidité par jour de l'air dans des pièces jusqu'à environ 400 m³ et consomme 1,1 kW. Pour plusieurs pièces, nous en plaçons plus d'un.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**Pour une seule pièce ou une salle de bains après une fuite.** Ce déshumidificateur compact retire jusqu'à 50 litres par jour, convient jusqu'à environ 250 m³ et fonctionne sur une prise standard (0,75 kW).",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour faire sécher plus vite les murs et les sols mouillés.** Ce ventilateur souffle 4 500 m³ d'air par heure le long de la surface et consomme 0,2 kW. Il travaille avec un déshumidificateur, car il ne capte pas l'eau lui-même.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Braine-le-Château",
+      alinea:
+        "**À Braine-le-Château, nous convenons de la livraison avec vous.** Après votre réservation avec date de livraison, nous vous appelons pour fixer l'heure. Le trajet depuis Aartselaar dure environ cinquante minutes. Si le chantier se trouve dans une rue étroite, ou si les appareils doivent aller à la cave ou à l'étage, dites-le-nous à l'avance. Le technicien met tout en place et explique comment contrôler le bac de récupération ou le tuyau d'évacuation.",
+    },
+    afhalen: {
+      kop: "Venir chercher vous-même depuis Braine-le-Château",
+      alinea:
+        "Un seul appareil, vous pouvez aussi venir le chercher vous-même à notre entrepôt, Boomsesteenweg 12, unit 11 à Aartselaar. Depuis Braine-le-Château, comptez environ cinquante minutes de route, et autant pour le rapporter. **Prenez rendez-vous à l'avance**, et votre appareil sera prêt. Pour une rénovation complète, la livraison avec installation est généralement plus pratique.",
+    },
+    buren: ["tubeke", "itter", "eigenbrakel", "halle"],
+    faq: [
+      {
+        q: "Comment se déroule une livraison à Braine-le-Château ?",
+        a: "Vous réservez en ligne et choisissez une date de livraison. Comme nous livrons sur rendez-vous en Wallonie, nous vous contactons ensuite pour confirmer l'heure. Veillez à ce que quelqu'un laisse entrer le technicien et lui montre où placer les appareils.",
+      },
+      {
+        q: "Quel déshumidificateur choisir pour une cave humide ?",
+        a: "Dans une cave froide, un déshumidificateur à condensation perd beaucoup de rendement, car il fonctionne le mieux au-dessus de 15 °C. Un déshumidificateur à adsorption continue d'absorber l'humidité même à basse température. Si la cave est chauffée, un déshumidificateur à condensation suffit souvent.",
+      },
+      {
+        q: "Combien de temps dure le séchage après des dégâts des eaux ?",
+        a: "Cela dépend du temps pendant lequel l'eau est restée, des matériaux mouillés et de l'épaisseur des murs. Une mesure d'humidité au début et pendant le séchage montre si l'humidité baisse. Sur cette base, vous décidez de prolonger ou non la location.",
+      },
+      {
+        q: "Un déshumidificateur fonctionne-t-il sur une prise standard ?",
+        a: "Oui, les déshumidificateurs à condensation fonctionnent sur une prise standard de 230 V. Ne branchez toutefois pas trop d'appareils sur le même circuit, sinon le fusible saute. Seuls les chauffages de chantier électriques demandent un raccordement de 400 V.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil pour un chantier à Braine-le-Château ?",
+        a: "C'est possible, sur rendez-vous à Aartselaar. Comptez environ cinquante minutes de route dans chaque sens. Réservez à l'avance, mesurez le coffre de votre voiture et suivez les instructions de transport lors de l'enlèvement.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  lasne: {
+    slug: "lasne",
+    title: "Déshumidificateur de chantier en location à Lasne | Vernast",
+    description:
+      "Un déshumidificateur à Lasne ? Vernast livre votre pack de séchage sur rendez-vous, l'installe et le reprend. Chape sous parquet, plafonnage, dégâts des eaux.",
+    h1: "Location de déshumidificateur de chantier à Lasne",
+    kicker: "Lasne · livraison sur rendez-vous",
+    rit: { afstand: "environ 60 km", tijd: "près d'une heure" },
+    intro: [
+      "Lasne est une commune verte et résidentielle du Brabant wallon, voisine de Waterloo et de La Hulpe. On y trouve de nombreuses maisons quatre façades, et lors d'une rénovation ou d'une construction neuve, on pose souvent du parquet ou un autre sol en bois sur la chape. C'est justement là que le support doit être bien sec, et c'est pour cela que Vernast loue des déshumidificateurs de chantier.",
+      "De notre entrepôt d'Aartselaar à Lasne, il faut près d'une heure de route. En Wallonie, la livraison se fait **sur rendez-vous** : vous choisissez une date de livraison lors de la réservation et nous vous appelons pour l'heure. L'installation et la reprise sont comprises dans le prix du pack.",
+    ],
+    bouw: {
+      kop: "Une chape sèche sous le parquet à Lasne",
+      alineas: [
+        "Le parquet et les autres sols en bois tolèrent peu d'humidité résiduelle dans la chape. Posé trop tôt, le bois peut gonfler ou se tuiler. Un déshumidificateur de chantier fait baisser plus vite le taux d'humidité de la chape, mais c'est la mesure d'humidité qui décide si le sol est prêt.",
+        "Si la chape contient un chauffage par le sol, suivez le protocole de mise en chauffe de l'installateur. La chaleur favorise le séchage, tandis que le déshumidificateur retire de l'air l'humidité libérée. **Faites mesurer l'humidité résiduelle** avant que le parqueteur commence, et conservez les résultats de mesure.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**Pour une maison spacieuse avec de grands espaces ouverts.** Ce déshumidificateur à condensation retire jusqu'à 110 litres d'humidité par jour dans des pièces jusqu'à environ 600 m³, pour une consommation de 1,4 kW.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour la cave ou une pièce fraîche.** Un déshumidificateur à adsorption continue d'absorber l'humidité à des températures où un déshumidificateur à condensation ne suffit plus, et sèche aussi sous les sols grâce à des gaines.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**Pour l'étage ou une maison plus petite.** Jusqu'à 70 litres par jour dans des volumes jusqu'à environ 400 m³, avec une consommation de 1,1 kW.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour garder l'air en mouvement au-dessus d'une chape fraîche.** Ce ventilateur déplace 4 500 m³ par heure pour 0,2 kW. L'évaporation va plus vite ; capter l'humidité reste le travail du déshumidificateur.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Lasne",
+      alinea:
+        "**À Lasne, nous livrons sur rendez-vous.** Choisissez une date de livraison lors de la réservation, puis nous vous appelons pour convenir de l'heure. Le trajet depuis Aartselaar dure près d'une heure. Signalez s'il y a une longue allée, un portail à code ou un escalier vers la cave. Le technicien installe les appareils et vous montre comment évacuer l'eau récupérée.",
+    },
+    afhalen: {
+      kop: "Venir chercher vous-même depuis Lasne",
+      alinea:
+        "Si vous souhaitez venir chercher vous-même un seul appareil, c'est possible sur rendez-vous, Boomsesteenweg 12, unit 11 à Aartselaar. Le trajet depuis Lasne dure près d'une heure, et vous le refaites pour rapporter l'appareil. **Réservez à l'avance**, et l'appareil sera prêt pour vous. Pour une maison entière, mieux vaut faire livrer et installer les appareils.",
+    },
+    buren: ["waterloo", "terhulpen", "rixensart", "genepien", "ottignies-louvain-la-neuve"],
+    faq: [
+      {
+        q: "Comment réserver une livraison à Lasne ?",
+        a: "Réservez un pack de séchage en ligne et choisissez la date de livraison. Nous vous contactons ensuite pour convenir d'une heure. Indiquez l'adresse, l'accès à la maison et qui sera présent lors de la livraison.",
+      },
+      {
+        q: "Quand peut-on poser le parquet sur la chape ?",
+        a: "Seulement quand une mesure d'humidité montre que la chape est assez sèche pour le bois choisi. La valeur limite varie selon le type de chape et de sol : renseignez-vous auprès de votre parqueteur. Une surface d'apparence sèche n'est pas une preuve.",
+      },
+      {
+        q: "Puis-je utiliser le chauffage par le sol pour sécher la chape ?",
+        a: "Oui, mais suivez le protocole de mise en chauffe de l'installateur et augmentez la température progressivement. Un réchauffement trop rapide peut faire fissurer la chape. Combinez-le avec un déshumidificateur qui retire l'humidité de l'air.",
+      },
+      {
+        q: "Un déshumidificateur fonctionne-t-il aussi dans une cave fraîche ?",
+        a: "Sous 15 °C, un déshumidificateur à condensation a peu de rendement dans une cave. Un déshumidificateur à adsorption y fonctionne bien, même si le froid persiste. Si de l'eau s'infiltre, traitez d'abord la cause.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil pour un chantier à Lasne ?",
+        a: "C'est possible, sur rendez-vous à notre entrepôt d'Aartselaar. Depuis Lasne, comptez près d'une heure de route dans chaque sens. Réservez à l'avance et lisez les instructions de transport avant de partir.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  "mont-saint-guibert": {
+    slug: "mont-saint-guibert",
+    title: "Location de déshumidificateur à Mont-Saint-Guibert | Vernast",
+    description:
+      "Un déshumidificateur à Mont-Saint-Guibert pour votre maison ou vos locaux ? Vernast livre, installe et reprend votre pack de séchage, sur rendez-vous.",
+    h1: "Location de déshumidificateur de chantier à Mont-Saint-Guibert",
+    kicker: "Mont-Saint-Guibert · livraison sur rendez-vous",
+    rit: { afstand: "environ 72 km", tijd: "environ une heure" },
+    intro: [
+      "Besoin d'un déshumidificateur de chantier à Mont-Saint-Guibert, pour une habitation ou des locaux professionnels ? Vernast loue des déshumidificateurs et des ventilateurs pour la chape, le plafonnage et les dégâts des eaux. **Nous livrons, installons et reprenons tout.**",
+      "Depuis notre entrepôt d'Aartselaar, il faut environ une heure de route jusqu'à Mont-Saint-Guibert. Vous choisissez une date de livraison au moment de réserver ; le moment précis de la livraison, nous le convenons ensuite avec vous.",
+    ],
+    bouw: {
+      kop: "Le séchage de votre projet à Mont-Saint-Guibert",
+      alineas: [
+        "Dans un bureau, un commerce ou un atelier, l'utilisation du bâtiment compte autant que le volume. Indiquez quelles zones doivent rester accessibles et quand on y travaille. S'il y a plusieurs pièces fermées, nous répartissons les appareils ; dans un seul grand hall, un déshumidificateur puissant avec des ventilateurs peut suffire.",
+        "Ne planifiez une réouverture qu'après une mesure d'humidité. **Un sol qui paraît sec peut être encore trop humide en profondeur** pour du carrelage, du vinyle ou du parquet. Convenez de la mesure et de l'humidité résiduelle souhaitée avec la personne qui pose le sol.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour un étage de bureaux ou une habitation.** Il traite jusqu'à 70 litres par jour dans des pièces jusqu'à 400 m³. Avec 1,1 kW, il fonctionne sur une prise standard.",
+      },
+      {
+        key: "radiaal2250",
+        waarom: "**Pour un flux d'air ciblé sur un sol.** Le ventilateur radial atteint 2 250 m³ par heure et résiste aux projections d'eau (IP55), pratique dans un atelier ou après des dégâts des eaux.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un espace de stockage froid ou un sol après une fuite.** Le déshumidificateur à adsorption fonctionne aussi à basse température et atteint, par des gaines, l'humidité prise dans la composition du sol.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour un hall, un commerce ou un grand espace ouvert.** Jusqu'à 110 litres par jour dans des volumes jusqu'à 600 m³. Dans un grand bâtiment, nous le combinons avec un ou plusieurs ventilateurs.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Mont-Saint-Guibert",
+      alinea:
+        "**La livraison, l'installation et la reprise font partie du pack de séchage.** Vous choisissez une date de livraison lors de votre réservation, et comme Mont-Saint-Guibert se trouve en Wallonie, nous convenons ensuite d'un rendez-vous pour l'heure. Comptez environ une heure de route depuis Aartselaar. Faites-nous savoir si nous entrons par un quai de chargement ou par la porte d'entrée. Le technicien installe les appareils et passe en revue avec vous la manière de les suivre.",
+    },
+    afhalen: {
+      kop: "Venir chercher vous-même depuis Mont-Saint-Guibert",
+      alinea:
+        "Si vous préférez venir chercher vous-même, c'est possible sur rendez-vous, Boomsesteenweg 12, unit 11 à Aartselaar. Depuis Mont-Saint-Guibert, cela représente environ une heure de route, pour l'enlèvement et à nouveau pour le retour. **Réservez à l'avance** pour que votre appareil soit prêt. Pour des locaux professionnels avec plusieurs appareils, la livraison avec installation est généralement plus simple.",
+    },
+    buren: ["ottignies-louvain-la-neuve", "court-saint-etienne", "chastre", "walhain"],
+    faq: [
+      {
+        q: "Puis-je faire sécher des locaux professionnels pendant les travaux ?",
+        a: "Oui, si nous savons à l'avance quelles pièces restent en service et quand on y travaille. Nous plaçons les appareils en dehors des passages et tenons compte du courant disponible. Un grand hall demande une autre répartition que des bureaux séparés.",
+      },
+      {
+        q: "Comment organiser une livraison à Mont-Saint-Guibert ?",
+        a: "Réservez en ligne ou appelez-nous, et choisissez une date de livraison. Nous convenons ensuite de l'heure de livraison. Indiquez aussi qui nous accueille et par quelle entrée nous faisons entrer les appareils.",
+      },
+      {
+        q: "Combien de déshumidificateurs faut-il pour un bureau ?",
+        a: "Cela dépend du volume, de l'agencement et de la quantité d'humidité. Pour un seul espace ouvert jusqu'à 600 m³, un grand déshumidificateur peut suffire ; des bureaux séparés demandent généralement plusieurs appareils plus petits. Le calculateur fait une première proposition.",
+      },
+      {
+        q: "Quand puis-je réutiliser mon bâtiment ?",
+        a: "Cela dépend de la finition qui reste à faire. Faites mesurer l'humidité résiduelle avant la pose du revêtement de sol ou de la peinture, et ne planifiez la réouverture qu'après cette mesure. Si la valeur n'est pas encore atteinte, vous pouvez prolonger la location.",
+      },
+      {
+        q: "De quelle alimentation électrique ai-je besoin ?",
+        a: "Nos déshumidificateurs et ventilateurs se contentent d'une prise standard de 230 V. Dans un grand bâtiment, répartissez-les sur plusieurs circuits. Les chauffages de chantier électriques de 20 et 30 kW nécessitent un raccordement de 400 V.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  "orp-jauche": {
+    slug: "orp-jauche",
+    title: "Déshumidificateur de chantier à louer à Orp-Jauche | Vernast",
+    description:
+      "Location de déshumidificateur à Orp-Jauche : séchage d'une cave inondée, d'une nouvelle chape ou d'une ferme rénovée. Livraison et installation sur rendez-vous.",
+    h1: "Location de déshumidificateur de chantier à Orp-Jauche",
+    kicker: "Brabant wallon · vallée de la Petite Gette",
+    rit: { afstand: "environ 85 km", tijd: "environ une heure et quart" },
+    intro: [
+      "Orp-Jauche se trouve dans l'est du Brabant wallon, le long de la Petite Gette. La commune regroupe notamment Orp-le-Grand, Jauche, Enines, Folx-les-Caves, Marilles et Noduwez, des villages entre champs et prairies.",
+      "Depuis Aartselaar, nous mettons **environ une heure et quart** pour rejoindre Orp-Jauche. Nous livrons dans toute la commune, au jour et à l'heure convenus.",
+    ],
+    bouw: {
+      kop: "Des caves dans la vallée, des fermes en plein champ",
+      alineas: [
+        "Les maisons anciennes d'une vallée ont souvent **une cave qui laisse passer l'humidité**. Après une inondation ou une fuite, une telle cave sèche le mieux avec un déshumidificateur à adsorption, car il fait frais sous terre. Si le mur est toujours humide, même sans inondation, l'eau vient de l'extérieur et le séchage n'aide que temporairement.",
+        "En dehors des centres de village se trouvent des fermes et des habitations plus récentes. Lors d'une transformation avec **une nouvelle chape sur une grande surface**, un grand déshumidificateur à condensation avec un ventilateur est le plus rapide.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "Pour une maison rénovée avec une chape sur un étage : jusqu'à 70 litres par jour, pour des pièces jusqu'à environ 400 m³.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**Pour une ferme au grand volume.** Ce déshumidificateur retire jusqu'à 110 litres par jour de l'air, dans des pièces jusqu'à environ 600 m³.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour une cave après une inondation.** Ce déshumidificateur à adsorption absorbe l'humidité même dans une pièce froide et sèche par des gaines.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "Déplace 4 500 m³ d'air par heure, pour que l'air d'un coin ou de dessous un escalier passe lui aussi par le déshumidificateur.",
+      },
+    ],
+    levering: {
+      kop: "Livraison à Orp-Jauche sur rendez-vous",
+      alinea:
+        "Orp-Jauche se trouve à **environ une heure et quart** de route d'Aartselaar. Vous choisissez une date de livraison lors de la réservation, puis nous fixons ensemble une heure. Le technicien installe les appareils, prévoit l'évacuation des condensats et mesure l'humidité de la cave, du sol ou du mur. Votre pack de séchage comprend la livraison, l'installation et la reprise.",
+    },
+    afhalen: {
+      kop: "Venir chercher vous-même à Aartselaar",
+      alinea:
+        "Vous pouvez venir chercher les appareils sur rendez-vous, Boomsesteenweg 12, unit 11 à Aartselaar. Depuis Orp-Jauche, ce trajet dure **environ une heure et quart**, et vous le faites à l'enlèvement comme au retour. Pour un seul appareil, c'est faisable. Après une inondation qui demande plusieurs appareils, la livraison vous épargne deux longs trajets.",
+    },
+    buren: ["geldenaken", "ramillies", "helecine"],
+    faq: [
+      {
+        q: "Ma cave est humide après chaque averse. Un déshumidificateur peut-il aider ?",
+        a: "Temporairement. Un déshumidificateur retire l'humidité de l'air et des murs, mais n'arrête pas l'eau qui entre de l'extérieur. Faites d'abord étanchéifier la cave. Ensuite, le déshumidificateur sèche ce qui reste dans les murs et le sol.",
+      },
+      {
+        q: "Quel déshumidificateur placer dans une cave froide ?",
+        a: "Un déshumidificateur à adsorption. En dessous d'environ 15 °C, un déshumidificateur à condensation perd une grande partie de son rendement. Un déshumidificateur à adsorption retire l'humidité de l'air même à basse température et peut sécher une cave fermée par des gaines.",
+      },
+      {
+        q: "Où vont les condensats ?",
+        a: "Le technicien pose un tuyau d'évacuation vers un siphon de sol, un évier ou une autre évacuation à proximité. S'il n'y a pas d'évacuation dans la pièce, signalez-le lors de la réservation, afin que nous prévoyions une solution.",
+      },
+      {
+        q: "Livrez-vous aussi à Folx-les-Caves et à Noduwez ?",
+        a: "Oui, nous livrons dans tous les villages d'Orp-Jauche. Indiquez l'adresse complète lors de la réservation et signalez un accès étroit ou une cave accessible uniquement par un escalier extérieur.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  "ottignies-louvain-la-neuve": {
+    slug: "ottignies-louvain-la-neuve",
+    title: "Déshumidificateur à Ottignies-Louvain-la-Neuve | Vernast",
+    description:
+      "Déshumidificateur à louer à Ottignies-Louvain-la-Neuve ? Vernast livre sur rendez-vous, installe et reprend les appareils. Aussi pour studios et appartements.",
+    h1: "Location de déshumidificateur de chantier à Ottignies-Louvain-la-Neuve",
+    kicker: "Ottignies-Louvain-la-Neuve · livraison sur rendez-vous",
+    rit: { afstand: "environ 68 km", tijd: "environ une heure" },
+    intro: [
+      "Vous devez faire sécher à Ottignies-Louvain-la-Neuve une nouvelle chape, un studio rénové ou une pièce après une fuite ? Vernast compose un pack de séchage avec des déshumidificateurs de chantier et des ventilateurs. **La livraison, l'installation et la reprise sont comprises dans le pack.**",
+      "Depuis Aartselaar, il nous faut environ une heure jusqu'à Ottignies ou Louvain-la-Neuve. Lors de la réservation, vous choisissez une date de livraison ; nous convenons ensuite avec vous de l'heure de livraison.",
+    ],
+    bouw: {
+      kop: "Le séchage de votre projet à Ottignies-Louvain-la-Neuve",
+      alineas: [
+        "Louvain-la-Neuve est une ville universitaire qui compte de nombreux appartements et kots d'étudiants. Le centre piétonnier demande un accord précis sur l'endroit où nous pouvons charger et décharger. Mentionnez-le dans votre demande, avec l'étage et l'accès au bâtiment.",
+        "Dans un petit studio ou un kot, un déshumidificateur compact peut suffire. **Fermez la pièce le mieux possible**, pour que le déshumidificateur ne traite que cet air. S'il y a une évacuation à proximité, les condensats peuvent s'écouler par un tuyau et vous n'avez pas à vider le bac.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk170",
+        waarom: "**Pour un studio, un kot ou une pièce séparée.** Ce déshumidificateur compact retire jusqu'à 50 litres par jour dans des pièces jusqu'à 250 m³. Avec 0,75 kW, sa consommation reste limitée.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**Pour plus de mouvement d'air sur un sol humide.** Le ventilateur déplace 4 500 m³ d'air par heure. Placez-le à côté d'un déshumidificateur : le ventilateur sèche la surface, le déshumidificateur capte l'eau.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**Pour un appartement ou un étage complet.** Jusqu'à 70 litres par jour dans des pièces jusqu'à 400 m³. Un bon choix pour une nouvelle chape dans plusieurs pièces contiguës.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour un débarras, une cave ou un garage froid.** En tant que déshumidificateur à adsorption, il continue de fonctionner à basse température. Grâce à des gaines, il peut aussi retirer l'humidité d'un sol ou d'un espace creux.",
+      },
+    ],
+    levering: {
+      kop: "Livraison et installation à Ottignies-Louvain-la-Neuve",
+      alinea:
+        "**La livraison, l'installation et la reprise sont comprises dans votre pack de séchage.** Vous choisissez une date de livraison lors de la réservation, puis nous fixons ensemble le moment de la livraison à Ottignies-Louvain-la-Neuve. Le trajet depuis Aartselaar dure environ une heure. Indiquez à l'avance si nous devons nous rendre dans le centre piétonnier et où nous pouvons nous arrêter. Le technicien installe les appareils et vous montre comment vérifier l'évacuation.",
+    },
+    afhalen: {
+      kop: "Venir chercher vous-même depuis Ottignies-Louvain-la-Neuve",
+      alinea:
+        "Vous pouvez aussi venir chercher vous-même un seul appareil sur rendez-vous, Boomsesteenweg 12, unit 11 à Aartselaar. Depuis Ottignies-Louvain-la-Neuve, cela représente environ une heure de route, et le même trajet pour le rapporter. **Réservez à l'avance**, et il sera prêt. Vérifiez aussi que l'appareil entre dans votre voiture.",
+    },
+    buren: ["waver", "rixensart", "court-saint-etienne", "mont-saint-guibert", "chaumont-gistoux"],
+    faq: [
+      {
+        q: "Pouvez-vous livrer dans le centre piétonnier de Louvain-la-Neuve ?",
+        a: "Nous l'examinons adresse par adresse. Indiquez dans votre demande où se trouve la place de stationnement ou de chargement la plus proche et sur quelle distance les appareils doivent encore être portés. Nous convenons avec vous du moment de la livraison.",
+      },
+      {
+        q: "Un seul déshumidificateur suffit-il pour un kot d'étudiant ?",
+        a: "Pour un kot ou un studio fermé jusqu'à 250 m³, le déshumidificateur compact suffit généralement. S'il y a beaucoup d'humidité dans une nouvelle chape ou dans plusieurs pièces, nous proposons un pack plus important.",
+      },
+      {
+        q: "Où vont les condensats ?",
+        a: "Le déshumidificateur recueille l'eau dans un bac que vous videz régulièrement. S'il y a une évacuation à proximité, l'eau peut aussi s'écouler par un tuyau. Le technicien vous montre comment cela fonctionne lors de l'installation.",
+      },
+      {
+        q: "Les déshumidificateurs fonctionnent-ils sur une prise standard ?",
+        a: "Oui, les déshumidificateurs à condensation et les ventilateurs fonctionnent en 230 V. Vous n'avez besoin de courant triphasé que pour les chauffages de chantier électriques de 20 et 30 kW, qui fonctionnent en 400 V.",
+      },
+      {
+        q: "Puis-je venir chercher un appareil si j'habite à Louvain-la-Neuve ?",
+        a: "C'est possible sur rendez-vous à notre entrepôt d'Aartselaar, à environ une heure de route. Comptez un aller-retour aussi bien pour l'enlèvement que pour le retour de l'appareil. Pour plusieurs appareils, la livraison est souvent plus pratique.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  perwijs: {
+    slug: "perwijs",
+    title: "Perwez : location de déshumidificateur de chantier | Vernast",
+    description:
+      "Déshumidificateur à louer à Perwez : dégâts des eaux, neuf ou rénovation, au centre comme dans les villages. Livraison et installation sur rendez-vous.",
+    h1: "Location de déshumidificateur de chantier à Perwez",
+    kicker: "Brabant wallon · centre et villages",
+    rit: { afstand: "environ 75 km", tijd: "un peu plus d'une heure" },
+    intro: [
+      "**Perwez** se trouve dans l'est du Brabant wallon, entre Incourt, Walhain et Ramillies. Autour du centre s'égrènent des villages comme Orbais, Thorembais-les-Béguines, Thorembais-Saint-Trond et Malèves-Sainte-Marie-Wastines.",
+      "Nous livrons au centre et dans tous les villages. Depuis Aartselaar, nous roulons **un peu plus d'une heure**, et nous convenons de la livraison avec vous, comme pour tout chantier en Wallonie.",
+    ],
+    bouw: {
+      kop: "Dégâts des eaux et nouveaux sols",
+      alineas: [
+        "Après **une fuite ou une cave inondée**, l'eau ne se trouve souvent pas seulement dans l'air, mais aussi sous le sol et derrière les plinthes. Un ventilateur radial souffle de façon ciblée sur la zone mouillée, et un déshumidificateur retire de l'air l'humidité libérée. Faites d'abord réparer la cause, sinon tout est à recommencer.",
+        "Qui rénove à Perwez une maison mitoyenne ou une maison ancienne pose souvent **une nouvelle chape et du plafonnage** sur plusieurs étages. Un déshumidificateur par étage est alors un bon point de départ, avec un appareil plus grand pour le plus grand volume.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**Pour un étage avec une nouvelle chape.** Ce déshumidificateur retire jusqu'à 70 litres par jour de l'air, dans des pièces jusqu'à environ 400 m³.",
+      },
+      {
+        key: "radiaal2250",
+        waarom: "**Pour un sol ou un mur mouillé après des dégâts des eaux.** Ce ventilateur radial (2 250 m³/h, IP55) souffle de façon ciblée le long de la surface mouillée.",
+      },
+      {
+        key: "ttk650",
+        waarom: "Pour un grand rez-de-chaussée entièrement mouillé : jusqu'à 110 litres par jour, adapté aux pièces jusqu'à environ 600 m³.",
+      },
+      {
+        key: "revolution",
+        waarom: "**Pour une cave froide.** Ce déshumidificateur à adsorption absorbe l'humidité même à basse température et peut sécher une pièce fermée par des gaines.",
+      },
+    ],
+    levering: {
+      kop: "Livraison à Perwez sur rendez-vous",
+      alinea:
+        "Perwez se trouve à **un peu plus d'une heure** de route de notre entrepôt d'Aartselaar. Après votre réservation avec date de livraison, nous vous contactons pour fixer l'heure. Le technicien installe les déshumidificateurs et les ventilateurs, évacue les condensats et mesure l'humidité du sol et des murs. La livraison, l'installation et la reprise font partie de votre pack de séchage.",
+    },
+    afhalen: {
+      kop: "Venir chercher vous-même à Aartselaar",
+      alinea:
+        "Si vous souhaitez venir chercher vous-même, c'est possible sur rendez-vous, Boomsesteenweg 12, unit 11 à Aartselaar. Depuis Perwez, vous roulez **un peu plus d'une heure**, et cela deux fois : à l'enlèvement et au retour. Après des dégâts des eaux, avec plusieurs appareils, mieux vaut choisir la livraison avec installation.",
+    },
+    buren: ["incourt", "walhain", "ramillies"],
+    faq: [
+      {
+        q: "Que faire en premier après des dégâts des eaux ?",
+        a: "D'abord arrêter la cause et enlever l'eau stagnante. Déclarez les dégâts à votre assureur avant de jeter quoi que ce soit, et ne commencez le séchage qu'ensuite. Lors de l'installation, nous vérifions par une mesure d'humidité jusqu'où l'eau a pénétré dans le sol et les murs.",
+      },
+      {
+        q: "Pourquoi place-t-on un ventilateur à côté du déshumidificateur ?",
+        a: "Le déshumidificateur retire l'humidité de l'air, mais cet air doit d'abord passer le long de la surface mouillée. C'est le rôle du ventilateur. L'eau passe ainsi plus vite du sol ou du mur dans l'air, où le déshumidificateur la capte.",
+      },
+      {
+        q: "L'eau sous la chape peut-elle encore être séchée ?",
+        a: "Souvent oui, mais cela prend plus de temps que de sécher la surface. Une installation adaptée est parfois nécessaire. Indiquez lors de la réservation où se trouvait l'eau et pendant combien de temps, et nous examinerons ensemble l'approche.",
+      },
+      {
+        q: "Puis-je louer des déshumidificateurs pour plusieurs étages à la fois ?",
+        a: "Oui. Dans une maison avec une nouvelle chape sur deux étages, nous plaçons généralement un déshumidificateur par étage. Communiquez la surface et la hauteur sous plafond de chaque étage, pour que le pack soit juste.",
+      },
+    ],
+    realisaties: [],
+  },
 };

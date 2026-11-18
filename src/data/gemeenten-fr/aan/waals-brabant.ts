@@ -23,4 +23,12 @@ export const AAN: readonly string[] = [
   "villers-la-ville",
   "walhain",
   "waterloo",
+  "incourt",
+  "itter",
+  "kasteelbrakel",
+  "lasne",
+  "mont-saint-guibert",
+  "orp-jauche",
+  "ottignies-louvain-la-neuve",
+  "perwijs",
 ];
