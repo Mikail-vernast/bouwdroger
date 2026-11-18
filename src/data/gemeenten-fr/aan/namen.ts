@@ -35,4 +35,11 @@ export const AAN: readonly string[] = [
   "somme-leuze",
   "vresse-sur-semois",
   "yvoir",
+  "cerfontaine",
+  "couvin",
+  "doische",
+  "florennes",
+  "philippeville",
+  "viroinval",
+  "walcourt",
 ];
