@@ -6,4 +6,14 @@
 export const AAN: readonly string[] = [
   "aarlen",
   "bastenaken",
+  "durbuy",
+  "hotton",
+  "la-roche-en-ardenne",
+  "manhay",
+  "marche-en-famenne",
+  "nassogne",
+  "rendeux",
+  "tenneville",
+  "erezee",
+  "fauvillers",
 ];

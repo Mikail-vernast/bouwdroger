@@ -60,8 +60,8 @@ export const GEMEENTEN: Record<string, Gemeente> = {
         a: "Oui. Le déshumidificateur compact de 50 litres par jour fonctionne sur une prise standard et trouve donc aussi sa place dans un petit appartement. S'il n'y a pas d'ascenseur, indiquez à quel étage l'appareil doit être installé, pour que le technicien en tienne compte.",
       },
       {
-        q: "Puis-je poser mes questions en français ?",
-        a: "Des questions en français ? N'hésitez pas à nous écrire ou à nous appeler. Indiquez-nous aussi qui sera présent à la livraison, par exemple votre entrepreneur, pour que nous sachions avec qui convenir de l'installation.",
+        q: "Je ne serai pas là à la livraison. Avec qui convenez-vous de l'installation ?",
+        a: "Indiquez-nous qui sera présent à la livraison, par exemple votre entrepreneur. Nous savons ainsi avec qui convenir de l'installation. Pour toute question, n'hésitez pas à nous écrire ou à nous appeler.",
       },
     ],
     realisaties: [],
