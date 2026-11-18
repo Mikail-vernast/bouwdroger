@@ -73,4 +73,11 @@ export const AAN: readonly string[] = [
   "geel",
   "mol",
   "herentals",
+  "heist-op-den-berg",
+  "brasschaat",
+  "schoten",
+  "wilrijk",
+  "edegem",
+  "duffel",
+  "mortsel",
 ];
