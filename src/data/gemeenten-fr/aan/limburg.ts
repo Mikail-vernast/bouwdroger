@@ -6,4 +6,14 @@
 export const AAN: readonly string[] = [
   "hasselt",
   "genk",
+  "sint-truiden",
+  "tongeren-borgloon",
+  "bilzen-hoeselt",
+  "riemst",
+  "wellen",
+  "heers",
+  "gingelom",
+  "herstappe",
+  "voeren",
+  "maaseik",
 ];
