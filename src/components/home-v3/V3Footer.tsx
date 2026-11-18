@@ -18,7 +18,7 @@ const COPY = {
     magazijn: "Magazijn en afhaalpunt",
     open: "Open",
     uren: "Ma–Vr 08:00–17:00",
-    zetel: "Zetel",
+    zetel: "Zetel:",
     credit: "Ontwerp en realisatie door",
     voorwaarden: "Algemene voorwaarden",
     privacy: "Privacy",
@@ -35,7 +35,7 @@ const COPY = {
     magazijn: "Dépôt et point d'enlèvement",
     open: "Ouvert",
     uren: "Lu–Ve 8 h–17 h",
-    zetel: "Siège",
+    zetel: "Siège :",
     credit: "Conception et réalisation par",
     voorwaarden: "Conditions générales",
     privacy: "Confidentialité",
@@ -252,7 +252,7 @@ const V3Footer = () => {
           zichtbaar op de pagina.
         */}
         <div>
-          © {new Date().getFullYear()} {SITE_NAME} · {t.zetel}: {HEADQUARTERS.street},{" "}
+          © {new Date().getFullYear()} {SITE_NAME} · {t.zetel} {HEADQUARTERS.street},{" "}
           {HEADQUARTERS.postalCode} {HEADQUARTERS.city}
         </div>
         {/*
