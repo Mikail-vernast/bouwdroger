@@ -6,4 +6,15 @@
 export const AAN: readonly string[] = [
   "charleroi",
   "bergen",
+  "aiseau-presles",
+  "chapelle-lez-herlaimont",
+  "chatelet",
+  "courcelles",
+  "farciennes",
+  "fleurus",
+  "fontaine-l-eveque",
+  "gerpinnes",
+  "les-bons-villers",
+  "montigny-le-tilleul",
+  "pont-a-celles",
 ];
