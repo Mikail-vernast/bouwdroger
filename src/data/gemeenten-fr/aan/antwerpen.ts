@@ -6,4 +6,14 @@
 export const AAN: readonly string[] = [
   "mechelen",
   "lier",
+  "antwerpen-stad",
+  "berchem",
+  "borgerhout",
+  "deurne",
+  "merksem",
+  "hoboken",
+  "ekeren",
+  "berendrecht-zandvliet",
+  "borsbeek",
+  "aartselaar",
 ];
