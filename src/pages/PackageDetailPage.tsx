@@ -34,10 +34,13 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { format, addDays, differenceInDays } from "date-fns";
-import { nl } from "date-fns/locale";
+import { fr, nl } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import PageMeta from "@/components/PageMeta";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
+import { NUMBER_LOCALE } from "@/i18n/taal";
+import { equipmentSummaryFr, packageMetaTitleFr, pakketInTaal } from "@/data/packages.fr";
 import { breadcrumbSchema, productSchema } from "@/lib/schema";
 import { maskEmail, maskPhone } from "@/lib/inputMask";
 import { altVoorBeeld } from "@/lib/altTekst";
@@ -69,10 +72,209 @@ const categoryImages: Record<string, string[]> = {
 
 const defaultGallery = ["/products/pakket-1.webp", "/products/extra-6.webp", "/products/extra-7.webp", "/products/extra-8.webp"];
 
+/*
+  De dagprijzen van een extra toestel bovenop het pakket. Stonden twee keer in
+  de pagina: in de berekening én als "+€12/dag" in de tekst. Nu één waarde die
+  beide lezen. Wat de server aanrekent, rekent `orderIntake.ts` opnieuw uit.
+*/
+const EXTRA_DROGER_DAG = 12;
+const EXTRA_VENTILATOR_DAG = 5;
+
+type Tekst = {
+  verplicht: string;
+  kiesDatums: string;
+  fout: string;
+  probeerOpnieuw: string;
+  nietGevonden: string;
+  terugConfigurator: string;
+  samenstelling: (titel: string, inhoud: string) => string;
+  foto: (titel: string, nr: number) => string;
+  levering: string;
+  badges: [string, string, string];
+  uitgifte: string;
+  retour: string;
+  kiesDatum: string;
+  weken: (w: number, d: number) => string;
+  duurkorting: (pct: number) => string;
+  bespaart: (bedrag: string) => string;
+  extraVraag: string;
+  extraDroger: string;
+  extraVentilator: string;
+  perDag: string;
+  boekDirect: string;
+  vertrouwen: [string, string, string, string];
+  specKop: string;
+  inbegrepen: (n: number) => string;
+  watInbegrepen: string;
+  hulp: string;
+  specificaties: string;
+  boekNu: string;
+  bevestigen: string;
+  klantType: { particulier: string; zakelijk: string };
+  bedrijfsnaam: string;
+  btwNummer: string;
+  voornaam: string;
+  achternaam: string;
+  email: string;
+  telefoon: string;
+  straat: string;
+  postcode: string;
+  gemeente: string;
+  opmerkingen: string;
+  opmerkingenPh: string;
+  bezig: string;
+  boekKnop: (bedrag: string) => string;
+  geenBetaling: string;
+  prijsoverzicht: string;
+  pakketDagen: (d: number) => string;
+  extraApparatuur: string;
+  duurkortingRegel: (pct: number) => string;
+  totaal: string;
+  zijbalk: [string, string, string, string];
+  opnieuw: string;
+  mobielInfo: (w: number, n: number) => string;
+  boekNuKort: string;
+  metaBeschrijving: (kort: string, inhoud: string, prijs: string) => string;
+};
+
+const COPY = {
+  nl: {
+    verplicht: "Vul alle verplichte velden in",
+    kiesDatums: "Selecteer een start- en einddatum",
+    fout: "Er ging iets mis",
+    probeerOpnieuw: "Probeer het opnieuw.",
+    nietGevonden: "Pakket niet gevonden",
+    terugConfigurator: "Terug naar configurator",
+    samenstelling: (titel, inhoud) => `Samenstelling van het pakket ${titel}: ${inhoud}`,
+    foto: (titel, nr) => `${titel}, foto ${nr}`,
+    levering: "Levering",
+    badges: ["Inclusief vochtmeting", "Bouwnorm proof", "Altijd inbegrepen"],
+    uitgifte: "Uitgifte datum",
+    retour: "Retour datum",
+    kiesDatum: "Kies datum",
+    weken: (w, d) => `${w} ${w === 1 ? "week" : "weken"} (${d} dagen)`,
+    duurkorting: (pct) => `-${pct}% duurkorting`,
+    bespaart: (bedrag) => `U bespaart ${bedrag} dankzij duurkorting`,
+    extraVraag: "Extra apparatuur toevoegen?",
+    extraDroger: "Extra bouwdroger",
+    extraVentilator: "Extra ventilator",
+    perDag: "/dag",
+    boekDirect: "Direct Boeken",
+    vertrouwen: ["Gratis levering & ophaling", "Vochtmeting inbegrepen", "Levering binnen 24u", "Heel België"],
+    specKop: "Slim formaat met robuuste prestaties",
+    inbegrepen: (n) =>
+      `${n}× inbegrepen in uw pakket. Professionele kwaliteit, getest en onderhouden door onze technici.`,
+    watInbegrepen: "Wat Is Inbegrepen?",
+    hulp: "Hulp Nodig? Bel Ons",
+    specificaties: "Specificaties",
+    boekNu: "Boek nu",
+    bevestigen: "Wij bevestigen uw boeking binnen 24 uur.",
+    klantType: { particulier: "particulier", zakelijk: "zakelijk" },
+    bedrijfsnaam: "Bedrijfsnaam *",
+    btwNummer: "BTW-nummer",
+    voornaam: "Voornaam *",
+    achternaam: "Achternaam *",
+    email: "E-mail *",
+    telefoon: "Telefoon *",
+    straat: "Straat + huisnummer *",
+    postcode: "Postcode",
+    gemeente: "Gemeente",
+    opmerkingen: "Opmerkingen (optioneel)",
+    opmerkingenPh: "Bijv. toegangsinformatie, specifieke wensen...",
+    bezig: "Bezig met verzenden...",
+    boekKnop: (bedrag) => `Boek Nu, ${bedrag}`,
+    geenBetaling: "Geen betaling vereist. Wij bevestigen binnen 24 uur.",
+    prijsoverzicht: "Prijsoverzicht",
+    pakketDagen: (d) => `Pakket (${d}d)`,
+    extraApparatuur: "Extra apparatuur",
+    duurkortingRegel: (pct) => `Duurkorting (-${pct}%)`,
+    totaal: "Totaal",
+    zijbalk: ["Gratis levering & ophaling", "500+ projecten afgerond", "Vochtmeting inbegrepen", "Binnen 24u antwoord"],
+    opnieuw: "Opnieuw configureren",
+    mobielInfo: (w, n) => `${w}w • ${n} apparaten`,
+    boekNuKort: "Boek nu",
+    metaBeschrijving: (kort, inhoud, prijs) =>
+      `${kort} droogpakket met ${inhoud}. ${prijs} per 2 weken, inclusief levering, installatie en ophaling.`,
+  },
+  fr: {
+    verplicht: "Veuillez remplir tous les champs obligatoires",
+    kiesDatums: "Sélectionnez une date de début et de fin",
+    fout: "Une erreur s'est produite",
+    probeerOpnieuw: "Veuillez réessayer.",
+    nietGevonden: "Pack introuvable",
+    terugConfigurator: "Retour au configurateur",
+    samenstelling: (titel, inhoud) => `Composition du pack ${titel} : ${inhoud}`,
+    foto: (titel, nr) => `${titel}, photo ${nr}`,
+    levering: "Livraison",
+    badges: ["Mesure d'humidité comprise", "Conforme aux normes de construction", "Toujours inclus"],
+    uitgifte: "Date de départ",
+    retour: "Date de retour",
+    kiesDatum: "Choisir une date",
+    weken: (w, d) => `${w} ${w === 1 ? "semaine" : "semaines"} (${d} jours)`,
+    duurkorting: (pct) => `-${pct} % de remise de durée`,
+    bespaart: (bedrag) => `Vous économisez ${bedrag} grâce à la remise de durée`,
+    extraVraag: "Ajouter des appareils ?",
+    extraDroger: "Déshumidificateur de chantier supplémentaire",
+    extraVentilator: "Ventilateur supplémentaire",
+    perDag: "/jour",
+    boekDirect: "Réserver directement",
+    vertrouwen: ["Livraison et reprise gratuites", "Mesure d'humidité comprise", "Livraison sous 24 h", "Toute la Belgique"],
+    specKop: "Format compact, performances robustes",
+    inbegrepen: (n) =>
+      `${n}× inclus dans votre pack. Qualité professionnelle, testée et entretenue par nos techniciens.`,
+    watInbegrepen: "Qu'est-ce qui est inclus ?",
+    hulp: "Besoin d'aide ? Appelez-nous",
+    specificaties: "Spécifications",
+    boekNu: "Réservez maintenant",
+    bevestigen: "Nous confirmons votre réservation dans les 24 heures.",
+    klantType: { particulier: "Particulier", zakelijk: "Professionnel" },
+    bedrijfsnaam: "Nom de l'entreprise *",
+    btwNummer: "Numéro de TVA",
+    voornaam: "Prénom *",
+    achternaam: "Nom *",
+    email: "E-mail *",
+    telefoon: "Téléphone *",
+    straat: "Rue + numéro *",
+    postcode: "Code postal",
+    gemeente: "Commune",
+    opmerkingen: "Remarques (facultatif)",
+    opmerkingenPh: "P. ex. informations d'accès, souhaits particuliers...",
+    bezig: "Envoi en cours...",
+    boekKnop: (bedrag) => `Réserver, ${bedrag}`,
+    geenBetaling: "Aucun paiement requis. Nous confirmons dans les 24 heures.",
+    prijsoverzicht: "Aperçu du prix",
+    pakketDagen: (d) => `Pack (${d} j)`,
+    extraApparatuur: "Appareils supplémentaires",
+    duurkortingRegel: (pct) => `Remise de durée (-${pct} %)`,
+    totaal: "Total",
+    zijbalk: ["Livraison et reprise gratuites", "500+ projets réalisés", "Mesure d'humidité comprise", "Réponse sous 24 h"],
+    opnieuw: "Reconfigurer",
+    mobielInfo: (w, n) => `${w} sem. • ${n} appareils`,
+    boekNuKort: "Réserver",
+    metaBeschrijving: (kort, inhoud, prijs) =>
+      `Pack de séchage ${kort} avec ${inhoud}. ${prijs} par 2 semaines, livraison, installation et reprise comprises.`,
+  },
+} satisfies Copy<Tekst>;
+
 const PackageDetailPage = () => {
   const { packageId } = useParams<{ packageId: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const seoNietGevonden = useSeo("notFound");
+  const taal = useTaal();
+  const toon = useToonBedrag();
+  /** Bedrag + btw-label, zoals de bezoeker het hoort te zien. */
+  const bedrag = (excl: number) => `${toon(excl).tekst} ${toon(excl).label}`;
+  /*
+    Nederlands houdt zijn date-fns-notatie ("3 dec. 2026"); de andere talen
+    volgen NUMBER_LOCALE, zoals elders op de site.
+  */
+  const datum = (d: Date) =>
+    taal === "nl"
+      ? format(d, "d MMM yyyy", { locale: nl })
+      : d.toLocaleDateString(NUMBER_LOCALE[taal], { day: "numeric", month: "short", year: "numeric" });
   const pkg = packageId ? getPackageById(packageId) : undefined;
 
   // Gallery
@@ -103,12 +305,12 @@ const PackageDetailPage = () => {
   if (!pkg) {
     return (
       <div className="min-h-screen bg-background">
-        <PageMeta {...SEO.notFound} />
+        <PageMeta {...seoNietGevonden} />
         <Navbar />
         <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Pakket niet gevonden</h1>
-          <Button onClick={() => navigate("/levering")} className="rounded-full">
-            <ArrowLeft className="h-4 w-4 mr-2" /> Terug naar configurator
+          <h1 className="text-2xl font-bold text-foreground mb-4">{t.nietGevonden}</h1>
+          <Button onClick={() => navigate(lp("/levering"))} className="rounded-full">
+            <ArrowLeft className="h-4 w-4 mr-2" /> {t.terugConfigurator}
           </Button>
         </div>
         <V3Footer />
@@ -122,15 +324,24 @@ const PackageDetailPage = () => {
   // De pakketfoto uit het portaal is de banner met de toestellen en hun
   // aantallen; die beschrijven we vanuit de samenstelling. De rest kent
   // `altVoorBeeld` aan zijn bestandsnaam, met de pakkettitel als terugval.
-  const samenstelling = pkg.equipment
+  //
+  // `tp` is hetzelfde pakket met zijn teksten in de taal van de pagina; `pkg`
+  // blijft de bron voor opzoekingen, berekeningen en wat naar /api/order gaat.
+  // `altVoorBeeld` kent alleen Nederlandse omschrijvingen, dus in een andere
+  // taal valt elk beeld terug op de context.
+  const tp = pakketInTaal(pkg, taal);
+  const samenstelling = tp.equipment
     .filter((item) => !item.optional)
     .map((item) => `${item.count}× ${item.name}`)
     .join(", ");
   const galleryAlts = gallery.map((img, i) =>
     i === 0
-      ? `Samenstelling van het pakket ${pkg.title}: ${samenstelling || pkg.description}`
-      : altVoorBeeld(img, `${pkg.title}, foto ${i + 1}`),
+      ? t.samenstelling(tp.title, samenstelling || tp.description)
+      : taal === "nl"
+        ? altVoorBeeld(img, t.foto(tp.title, i + 1))
+        : t.foto(tp.title, i + 1),
   );
+  const pad = lp(`/levering/pakket/${pkg.id}`);
 
   // Duration calculation
   const rentalDays = startDate && endDate ? Math.max(1, differenceInDays(endDate, startDate)) : 14;
@@ -139,7 +350,7 @@ const PackageDetailPage = () => {
   // Pricing
   const baseTotal = pkg.pricePerDay * rentalDays;
   const durationDiscount = rentalDays >= 28 ? 15 : rentalDays >= 21 ? 10 : rentalDays >= 14 ? 5 : 0;
-  const extraEquipmentDaily = extraDrogers * 12 + extraVentilatoren * 5;
+  const extraEquipmentDaily = extraDrogers * EXTRA_DROGER_DAG + extraVentilatoren * EXTRA_VENTILATOR_DAG;
   const extraEquipmentTotal = extraEquipmentDaily * rentalDays;
   const subtotal = baseTotal + extraEquipmentTotal;
   const discount = Math.round(subtotal * (durationDiscount / 100));
@@ -155,11 +366,11 @@ const PackageDetailPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !firstName || !lastName || !phone || !address) {
-      toast({ title: "Vul alle verplichte velden in", variant: "destructive" });
+      toast({ title: t.verplicht, variant: "destructive" });
       return;
     }
     if (!startDate || !endDate) {
-      toast({ title: "Selecteer een start- en einddatum", variant: "destructive" });
+      toast({ title: t.kiesDatums, variant: "destructive" });
       return;
     }
 
@@ -206,13 +417,13 @@ const PackageDetailPage = () => {
       });
 
       if (!response.ok) {
-        toast({ title: "Er ging iets mis", description: "Probeer het opnieuw.", variant: "destructive" });
+        toast({ title: t.fout, description: t.probeerOpnieuw, variant: "destructive" });
         setIsSubmitting(false);
         return;
       }
-      navigate("/booking/success", { state: { bookingNumber, firstName, email } });
+      navigate(lp("/booking/success"), { state: { bookingNumber, firstName, email } });
     } catch {
-      toast({ title: "Er ging iets mis", variant: "destructive" });
+      toast({ title: t.fout, variant: "destructive" });
       setIsSubmitting(false);
     }
   };
@@ -227,9 +438,13 @@ const PackageDetailPage = () => {
          * `shortTitle` kregen ze alle drie dezelfde titel — drie pagina's die
          * op precies dezelfde zoekopdracht mikken.
          */
-        title={`${packageMetaTitle(pkg)} | Vernast`}
-        description={`${pkg.shortTitle} droogpakket met ${equipmentSummary(pkg)}. € ${pkg.pricePerTwoWeeks} per 2 weken, inclusief levering, installatie en ophaling.`}
-        path={`/levering/pakket/${pkg.id}`}
+        title={`${taal === "nl" ? packageMetaTitle(pkg) : packageMetaTitleFr(tp)} | Vernast`}
+        description={t.metaBeschrijving(
+          tp.shortTitle,
+          taal === "nl" ? equipmentSummary(pkg) : equipmentSummaryFr(tp),
+          bedrag(pkg.pricePerTwoWeeks),
+        )}
+        path={pad}
         ogType="product"
         /*
          * Uit de index gehouden. Deze pagina bestaat 46 keer, telkens met
@@ -244,17 +459,17 @@ const PackageDetailPage = () => {
         noindex
         jsonLd={[
           productSchema({
-            name: pkg.title,
-            description: pkg.description,
+            name: tp.title,
+            description: tp.description,
             image: gallery[0],
-            path: `/levering/pakket/${pkg.id}`,
+            path: pad,
             pricePerDay: pkg.pricePerDay,
-            category: pkg.category,
+            category: tp.category,
           }),
           breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Levering", path: "/levering" },
-            { name: pkg.shortTitle, path: `/levering/pakket/${pkg.id}` },
+            { name: "Home", path: lp("/") },
+            { name: t.levering, path: lp("/levering") },
+            { name: tp.shortTitle, path: pad },
           ]),
         ]}
       />
@@ -264,11 +479,11 @@ const PackageDetailPage = () => {
         <div className="bg-muted/30 border-b border-border">
           <div className="container mx-auto px-4 py-3">
             <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+              <Link to={lp("/")} className="hover:text-foreground transition-colors">Home</Link>
               <ChevronRight className="h-3 w-3" />
-              <Link to="/levering" className="hover:text-foreground transition-colors">Levering</Link>
+              <Link to={lp("/levering")} className="hover:text-foreground transition-colors">{t.levering}</Link>
               <ChevronRight className="h-3 w-3" />
-              <span className="text-foreground font-medium truncate">{pkg.shortTitle}</span>
+              <span className="text-foreground font-medium truncate">{tp.shortTitle}</span>
             </nav>
           </div>
         </div>
@@ -289,9 +504,9 @@ const PackageDetailPage = () => {
                   {/* USP badges overlay */}
                   <div className="absolute bottom-4 left-4 space-y-2">
                     {[
-                      { icon: CheckCircle2, text: "Inclusief vochtmeting" },
-                      { icon: Shield, text: "Bouwnorm proof" },
-                      { icon: Check, text: "Altijd inbegrepen" },
+                      { icon: CheckCircle2, text: t.badges[0] },
+                      { icon: Shield, text: t.badges[1] },
+                      { icon: Check, text: t.badges[2] },
                     ].map((b) => (
                       <div key={b.text} className="flex items-center gap-2 bg-accent/90 text-primary-foreground px-3 py-1.5 rounded-lg text-sm font-semibold backdrop-blur-sm">
                         <b.icon className="h-4 w-4" />
@@ -320,19 +535,19 @@ const PackageDetailPage = () => {
               {/* RIGHT: Title, Date, Equipment, Price */}
               <div>
                 <h1 className="text-2xl md:text-3xl font-black text-foreground mb-2 leading-tight">
-                  {pkg.title}
+                  {tp.title}
                 </h1>
-                <p className="text-muted-foreground mb-6">{pkg.description}</p>
+                <p className="text-muted-foreground mb-6">{tp.description}</p>
 
                 {/* Date pickers */}
                 <div className="grid grid-cols-2 gap-3 mb-6">
                   <div>
-                    <Label className="text-xs font-semibold text-muted-foreground mb-1 block">Uitgifte datum</Label>
+                    <Label className="text-xs font-semibold text-muted-foreground mb-1 block">{t.uitgifte}</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !startDate && "text-muted-foreground")}>
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {startDate ? format(startDate, "d MMM yyyy", { locale: nl }) : "Kies datum"}
+                          {startDate ? datum(startDate) : t.kiesDatum}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
@@ -340,6 +555,7 @@ const PackageDetailPage = () => {
                           mode="single"
                           selected={startDate}
                           onSelect={handleStartDateSelect}
+                          locale={taal === "fr" ? fr : undefined}
                           disabled={(date) => date < new Date()}
                           initialFocus
                         />
@@ -347,12 +563,12 @@ const PackageDetailPage = () => {
                     </Popover>
                   </div>
                   <div>
-                    <Label className="text-xs font-semibold text-muted-foreground mb-1 block">Retour datum</Label>
+                    <Label className="text-xs font-semibold text-muted-foreground mb-1 block">{t.retour}</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !endDate && "text-muted-foreground")}>
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {endDate ? format(endDate, "d MMM yyyy", { locale: nl }) : "Kies datum"}
+                          {endDate ? datum(endDate) : t.kiesDatum}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
@@ -360,6 +576,7 @@ const PackageDetailPage = () => {
                           mode="single"
                           selected={endDate}
                           onSelect={setEndDate}
+                          locale={taal === "fr" ? fr : undefined}
                           disabled={(date) => date < (startDate || new Date())}
                           initialFocus
                         />
@@ -375,14 +592,14 @@ const PackageDetailPage = () => {
                     return (
                       <div key={i} className="flex items-center gap-3 p-3">
                         {img ? (
-                          <img src={img} alt={item.name} className="w-10 h-10 object-contain rounded" loading="lazy" decoding="async" />
+                          <img src={img} alt={tp.equipment[i].name} className="w-10 h-10 object-contain rounded" loading="lazy" decoding="async" />
                         ) : (
                           <div className="w-10 h-10 bg-muted rounded flex items-center justify-center">
                             {(() => { const Icon = equipmentIcons[item.type] || Droplets; return <Icon className="h-5 w-5 text-primary" />; })()}
                           </div>
                         )}
                         <div className="flex-1">
-                          <span className="text-sm font-medium">{item.count}× {item.name}</span>
+                          <span className="text-sm font-medium">{item.count}× {tp.equipment[i].name}</span>
                         </div>
                       </div>
                     );
@@ -392,30 +609,30 @@ const PackageDetailPage = () => {
                 {/* Duration info */}
                 <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                   <Clock className="h-4 w-4" />
-                  <span>{rentalWeeks} {rentalWeeks === 1 ? "week" : "weken"} ({rentalDays} dagen)</span>
+                  <span>{t.weken(rentalWeeks, rentalDays)}</span>
                   {durationDiscount > 0 && (
-                    <Badge variant="secondary" className="text-xs bg-primary/10 text-primary">-{durationDiscount}% duurkorting</Badge>
+                    <Badge variant="secondary" className="text-xs bg-primary/10 text-primary">{t.duurkorting(durationDiscount)}</Badge>
                   )}
                 </div>
 
                 {/* Price */}
                 <div className="mb-4">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-black text-foreground">€{totalPrice.toFixed(0)}</span>
-                    <span className="text-muted-foreground text-sm">excl. BTW</span>
+                    <span className="text-3xl font-black text-foreground">{toon(totalPrice).tekst}</span>
+                    <span className="text-muted-foreground text-sm">{toon(totalPrice).label}</span>
                   </div>
                   {discount > 0 && (
-                    <p className="text-sm text-primary font-medium">U bespaart €{discount} dankzij duurkorting</p>
+                    <p className="text-sm text-primary font-medium">{t.bespaart(toon(discount).tekst)}</p>
                   )}
                 </div>
 
                 {/* Extra equipment upsell */}
                 <div className="bg-muted/50 rounded-xl p-4 mb-6 space-y-3">
-                  <p className="text-sm font-bold">Extra apparatuur toevoegen?</p>
+                  <p className="text-sm font-bold">{t.extraVraag}</p>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium">Extra bouwdroger</p>
-                      <p className="text-xs text-muted-foreground">+€12/dag</p>
+                      <p className="text-sm font-medium">{t.extraDroger}</p>
+                      <p className="text-xs text-muted-foreground">+{toon(EXTRA_DROGER_DAG).tekst}{t.perDag}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <button type="button" onClick={() => setExtraDrogers(Math.max(0, extraDrogers - 1))} className="w-7 h-7 rounded-full border border-border flex items-center justify-center hover:bg-background"><Minus className="h-3 w-3" /></button>
@@ -425,8 +642,8 @@ const PackageDetailPage = () => {
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium">Extra ventilator</p>
-                      <p className="text-xs text-muted-foreground">+€5/dag</p>
+                      <p className="text-sm font-medium">{t.extraVentilator}</p>
+                      <p className="text-xs text-muted-foreground">+{toon(EXTRA_VENTILATOR_DAG).tekst}{t.perDag}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <button type="button" onClick={() => setExtraVentilatoren(Math.max(0, extraVentilatoren - 1))} className="w-7 h-7 rounded-full border border-border flex items-center justify-center hover:bg-background"><Minus className="h-3 w-3" /></button>
@@ -442,16 +659,16 @@ const PackageDetailPage = () => {
                   className="w-full rounded-xl font-bold text-base gap-2"
                   onClick={() => document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth", block: "start" })}
                 >
-                  Direct Boeken <ArrowRight className="h-4 w-4" />
+                  {t.boekDirect} <ArrowRight className="h-4 w-4" />
                 </Button>
 
                 {/* Trust row */}
                 <div className="grid grid-cols-2 gap-2 mt-4">
                   {[
-                    { icon: Truck, text: "Gratis levering & ophaling" },
-                    { icon: Shield, text: "Vochtmeting inbegrepen" },
-                    { icon: Clock, text: "Levering binnen 24u" },
-                    { icon: MapPin, text: "Heel België" },
+                    { icon: Truck, text: t.vertrouwen[0] },
+                    { icon: Shield, text: t.vertrouwen[1] },
+                    { icon: Clock, text: t.vertrouwen[2] },
+                    { icon: MapPin, text: t.vertrouwen[3] },
                   ].map((u) => (
                     <div key={u.text} className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       <u.icon className="h-3.5 w-3.5 text-primary flex-shrink-0" />
@@ -470,45 +687,45 @@ const PackageDetailPage = () => {
             <div className="max-w-5xl mx-auto">
               <Tabs defaultValue={pkg.equipment[0]?.name}>
                 <TabsList className="w-full flex-wrap h-auto gap-2 bg-transparent p-0 mb-8">
-                  {pkg.equipment.map((item) => (
+                  {pkg.equipment.map((item, i) => (
                     <TabsTrigger
                       key={item.name}
                       value={item.name}
                       className="rounded-full border border-border data-[state=active]:bg-accent data-[state=active]:text-primary-foreground data-[state=active]:border-accent px-5 py-2.5 text-sm font-semibold"
                     >
-                      {item.name}
+                      {tp.equipment[i].name}
                     </TabsTrigger>
                   ))}
                 </TabsList>
-                {pkg.equipment.map((item) => {
-                  const img = equipmentImages[item.name];
+                {pkg.equipment.map((item, i) => {
+                  const specs = tp.equipment[i].specs;
                   return (
                     <TabsContent key={item.name} value={item.name}>
                       <div className="grid md:grid-cols-2 gap-8 items-start">
                         {/* Left: description */}
                         <div>
                           <h2 className="text-2xl md:text-3xl font-black text-foreground mb-4">
-                            Slim formaat met robuuste prestaties
+                            {t.specKop}
                           </h2>
                           <p className="text-muted-foreground mb-6">
-                            {item.count}× inbegrepen in uw pakket. Professionele kwaliteit, getest en onderhouden door onze technici.
+                            {t.inbegrepen(item.count)}
                           </p>
                           <div className="flex flex-col gap-3">
                             <Button variant="default" className="rounded-full w-fit" onClick={() => document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth" })}>
-                              Wat Is Inbegrepen?
+                              {t.watInbegrepen}
                             </Button>
-                            <Button variant="outline" className="rounded-full w-fit" onClick={() => navigate("/contact")}>
-                              <Phone className="h-4 w-4 mr-2" /> Hulp Nodig? Bel Ons
+                            <Button variant="outline" className="rounded-full w-fit" onClick={() => navigate(lp("/contact"))}>
+                              <Phone className="h-4 w-4 mr-2" /> {t.hulp}
                             </Button>
                           </div>
                         </div>
                         {/* Right: specs tables */}
                         <div className="space-y-6">
-                          {Object.entries(item.specs).length > 0 && (
+                          {Object.entries(specs).length > 0 && (
                             <div>
-                              <h3 className="font-bold text-foreground mb-3">Specificaties</h3>
+                              <h3 className="font-bold text-foreground mb-3">{t.specificaties}</h3>
                               <div className="border border-border rounded-xl overflow-hidden">
-                                {Object.entries(item.specs).map(([key, val], idx) => (
+                                {Object.entries(specs).map(([key, val], idx) => (
                                   <div key={key} className={cn("flex justify-between px-4 py-3 text-sm", idx % 2 === 0 ? "bg-background" : "bg-muted/30")}>
                                     <span className="text-muted-foreground">{key}</span>
                                     <span className="font-semibold text-foreground">{val}</span>
@@ -533,8 +750,8 @@ const PackageDetailPage = () => {
             <div className="max-w-5xl mx-auto grid lg:grid-cols-3 gap-8">
               {/* Form */}
               <div className="lg:col-span-2">
-                <h2 className="text-2xl font-black mb-1">Boek nu</h2>
-                <p className="text-muted-foreground text-sm mb-6">Wij bevestigen uw boeking binnen 24 uur.</p>
+                <h2 className="text-2xl font-black mb-1">{t.boekNu}</h2>
+                <p className="text-muted-foreground text-sm mb-6">{t.bevestigen}</p>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Customer type */}
@@ -550,7 +767,7 @@ const PackageDetailPage = () => {
                         )}
                       >
                         {type === "particulier" ? <User className="h-4 w-4" /> : <Building2 className="h-4 w-4" />}
-                        <span className="font-semibold text-sm capitalize">{type}</span>
+                        <span className="font-semibold text-sm capitalize">{t.klantType[type]}</span>
                       </button>
                     ))}
                   </div>
@@ -558,11 +775,11 @@ const PackageDetailPage = () => {
                   {customerType === "zakelijk" && (
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <Label className="text-sm font-semibold">Bedrijfsnaam *</Label>
+                        <Label className="text-sm font-semibold">{t.bedrijfsnaam}</Label>
                         <Input value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
                       </div>
                       <div className="space-y-1.5">
-                        <Label className="text-sm font-semibold">BTW-nummer</Label>
+                        <Label className="text-sm font-semibold">{t.btwNummer}</Label>
                         <Input value={vatNumber} onChange={(e) => setVatNumber(e.target.value)} placeholder="BE0123.456.789" />
                       </div>
                     </div>
@@ -570,51 +787,51 @@ const PackageDetailPage = () => {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">Voornaam *</Label>
+                      <Label className="text-sm font-semibold">{t.voornaam}</Label>
                       <Input id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
                     </div>
                     <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">Achternaam *</Label>
+                      <Label className="text-sm font-semibold">{t.achternaam}</Label>
                       <Input value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">E-mail *</Label>
+                      <Label className="text-sm font-semibold">{t.email}</Label>
                       <Input type="email" inputMode="email" autoComplete="email" autoCapitalize="none" spellCheck={false} value={email} onChange={(e) => setEmail(maskEmail(e.target.value))} required />
                     </div>
                     <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">Telefoon *</Label>
+                      <Label className="text-sm font-semibold">{t.telefoon}</Label>
                       <Input type="tel" inputMode="tel" autoComplete="tel" placeholder="0470 00 00 00" value={phone} onChange={(e) => setPhone(maskPhone(e.target.value))} required />
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label className="text-sm font-semibold">Straat + huisnummer *</Label>
+                    <Label className="text-sm font-semibold">{t.straat}</Label>
                     <Input value={address} onChange={(e) => setAddress(e.target.value)} required />
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">Postcode</Label>
+                      <Label className="text-sm font-semibold">{t.postcode}</Label>
                       <Input value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
                     </div>
                     <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">Gemeente</Label>
+                      <Label className="text-sm font-semibold">{t.gemeente}</Label>
                       <Input value={city} onChange={(e) => setCity(e.target.value)} />
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label className="text-sm font-semibold">Opmerkingen (optioneel)</Label>
-                    <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Bijv. toegangsinformatie, specifieke wensen..." rows={3} />
+                    <Label className="text-sm font-semibold">{t.opmerkingen}</Label>
+                    <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={t.opmerkingenPh} rows={3} />
                   </div>
 
                   <Button type="submit" size="lg" className="w-full font-bold text-base rounded-xl" disabled={isSubmitting}>
-                    {isSubmitting ? "Bezig met verzenden..." : `Boek Nu, €${totalPrice.toFixed(0)} excl. BTW`}
+                    {isSubmitting ? t.bezig : t.boekKnop(bedrag(totalPrice))}
                   </Button>
-                  <p className="text-xs text-muted-foreground text-center">Geen betaling vereist. Wij bevestigen binnen 24 uur.</p>
+                  <p className="text-xs text-muted-foreground text-center">{t.geenBetaling}</p>
                 </form>
               </div>
 
@@ -622,29 +839,29 @@ const PackageDetailPage = () => {
               <div className="lg:sticky lg:top-24 space-y-5">
                 {/* Price recap */}
                 <div className="bg-accent text-primary-foreground rounded-2xl p-5">
-                  <h3 className="font-bold text-sm mb-3 opacity-80">Prijsoverzicht</h3>
+                  <h3 className="font-bold text-sm mb-3 opacity-80">{t.prijsoverzicht}</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="opacity-80">Pakket ({rentalDays}d)</span>
-                      <span>€{baseTotal.toFixed(0)}</span>
+                      <span className="opacity-80">{t.pakketDagen(rentalDays)}</span>
+                      <span>{toon(baseTotal).tekst}</span>
                     </div>
                     {extraEquipmentTotal > 0 && (
                       <div className="flex justify-between">
-                        <span className="opacity-80">Extra apparatuur</span>
-                        <span>€{extraEquipmentTotal.toFixed(0)}</span>
+                        <span className="opacity-80">{t.extraApparatuur}</span>
+                        <span>{toon(extraEquipmentTotal).tekst}</span>
                       </div>
                     )}
                     {discount > 0 && (
                       <div className="flex justify-between text-primary-foreground/80">
-                        <span>Duurkorting (-{durationDiscount}%)</span>
-                        <span>-€{discount}</span>
+                        <span>{t.duurkortingRegel(durationDiscount)}</span>
+                        <span>-{toon(discount).tekst}</span>
                       </div>
                     )}
                     <div className="border-t border-primary-foreground/20 pt-2 flex justify-between text-lg font-black">
-                      <span>Totaal</span>
-                      <span>€{totalPrice.toFixed(0)}</span>
+                      <span>{t.totaal}</span>
+                      <span>{toon(totalPrice).tekst}</span>
                     </div>
-                    <p className="text-xs opacity-60">excl. 21% BTW</p>
+                    <p className="text-xs opacity-60">{toon(totalPrice).label}</p>
                   </div>
                 </div>
 
@@ -656,17 +873,17 @@ const PackageDetailPage = () => {
                 */}
                 <div className="bg-card border border-border rounded-2xl p-5">
                   <div className="space-y-2">
-                    {["Gratis levering & ophaling", "500+ projecten afgerond", "Vochtmeting inbegrepen", "Binnen 24u antwoord"].map((t) => (
-                      <div key={t} className="flex items-center gap-2 text-xs text-muted-foreground">
+                    {t.zijbalk.map((regel) => (
+                      <div key={regel} className="flex items-center gap-2 text-xs text-muted-foreground">
                         <Check className="h-3 w-3 text-primary flex-shrink-0" />
-                        <span>{t}</span>
+                        <span>{regel}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <Button variant="ghost" onClick={() => navigate("/levering")} className="w-full gap-2 text-sm">
-                  <ArrowLeft className="h-4 w-4" /> Opnieuw configureren
+                <Button variant="ghost" onClick={() => navigate(lp("/levering"))} className="w-full gap-2 text-sm">
+                  <ArrowLeft className="h-4 w-4" /> {t.opnieuw}
                 </Button>
               </div>
             </div>
@@ -676,11 +893,11 @@ const PackageDetailPage = () => {
         {/* Sticky mobile CTA */}
         <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border p-3 flex items-center justify-between lg:hidden z-50">
           <div>
-            <div className="text-lg font-black text-foreground">€{totalPrice.toFixed(0)}</div>
-            <div className="text-xs text-muted-foreground">{rentalWeeks}w • {pkg.equipment.reduce((s, e) => s + e.count, 0) + extraDrogers + extraVentilatoren} apparaten</div>
+            <div className="text-lg font-black text-foreground">{toon(totalPrice).tekst}</div>
+            <div className="text-xs text-muted-foreground">{t.mobielInfo(rentalWeeks, pkg.equipment.reduce((s, e) => s + e.count, 0) + extraDrogers + extraVentilatoren)}</div>
           </div>
           <Button size="sm" className="rounded-xl font-bold gap-1" onClick={() => document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth" })}>
-            Boek nu <ArrowRight className="h-4 w-4" />
+            {t.boekNuKort} <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
       </main>
