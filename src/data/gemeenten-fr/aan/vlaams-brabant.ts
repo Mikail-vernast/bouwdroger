@@ -6,4 +6,14 @@
 export const AAN: readonly string[] = [
   "leuven",
   "vilvoorde",
+  "tienen",
+  "linter",
+  "zoutleeuw",
+  "hoegaarden",
+  "landen",
+  "aarschot",
+  "tielt-winge",
+  "scherpenheuvel-zichem",
+  "bekkevoort",
+  "diest",
 ];
