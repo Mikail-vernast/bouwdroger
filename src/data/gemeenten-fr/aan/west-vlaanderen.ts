@@ -6,4 +6,14 @@
 export const AAN: readonly string[] = [
   "brugge",
   "kortrijk",
+  "tielt",
+  "wingene",
+  "pittem",
+  "ardooie",
+  "dentergem",
+  "oostrozebeke",
+  "wielsbeke",
+  "roeselare",
+  "izegem",
+  "ingelmunster",
 ];
