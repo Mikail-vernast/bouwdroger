@@ -6,4 +6,13 @@
 export const AAN: readonly string[] = [
   "waver",
   "nijvel",
+  "bevekom",
+  "chastre",
+  "chaumont-gistoux",
+  "court-saint-etienne",
+  "eigenbrakel",
+  "geldenaken",
+  "genepien",
+  "graven",
+  "helecine",
 ];
