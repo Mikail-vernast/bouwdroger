@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -17,7 +16,9 @@ import {
 } from "@/components/ozon/ozonIcons";
 import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { useCopy, useLokaalPad } from "@/i18n/useTaal";
+import { OZON_COPY } from "./OzonbehandelingPage.copy";
 import { eersteReviews } from "@/data/reviews";
 import "@/styles/ozonbehandeling.css";
 
@@ -45,74 +46,18 @@ import "@/styles/ozonbehandeling.css";
  *    zo volledig in de HTML, ook zonder JavaScript.
  */
 
-/* De FAQ staat één keer in deze lijst, en voedt zowel het scherm als de JSON-LD.
-   Twee kopieën zouden uit de pas lopen, en dan markeert de schema iets wat de
-   bezoeker niet ziet. */
-const FAQ: { question: string; answer: string }[] = [
-  {
-    question: "Waarom komt mijn schimmel steeds terug na het reinigen?",
-    answer:
-      "Omdat oppervlakkig reinigen alleen de zichtbare schimmel verwijdert. De microscopische sporen blijven achter in kieren, voegen, textiel en in de lucht, en zetten zich opnieuw af zodra de omstandigheden goed zijn. Een ozonbehandeling doodt die achtergebleven sporen in de hele ruimte. Belangrijk: los altijd eerst de vochtoorzaak op en droog de constructie, anders keert schimmel sowieso terug.",
-  },
-  {
-    question: "Is een ozonbehandeling veilig?",
-    answer:
-      "Ja, mits professioneel uitgevoerd. Tijdens de behandeling mag er niemand in de ruimte, geen mensen, huisdieren of planten: ozon is krachtig juist omdat het reactief is. Na de behandeling vervalt het vanzelf tot gewone zuurstof en volstaat een korte verluchting. Daarna is de ruimte weer veilig te gebruiken en blijven er geen chemische residu's achter op oppervlakken of in textiel.",
-  },
-  {
-    question: "Vervangt ozon het drogen van mijn woning?",
-    answer:
-      "Nee. Ozon is de afronding: het ruimt de bestaande besmetting op, maar lost de oorzaak niet op. Blijft de muur of de chape vochtig, dan keert schimmel terug. Daarom drogen we eerst de constructie met bouwdrogers tot de vochtmeting het bevestigt, en zetten we ozon in als sluitstuk.",
-  },
-  {
-    question: "Waarvoor gebruiken jullie ozon nog meer?",
-    answer:
-      "Naast schimmel zetten we ozon in tegen huisstofmijt in matrassen, tapijt en textiel, tegen hardnekkige geuren van vocht, rook, huisdieren of brand, voor de ontsmetting van kelders en kruipruimtes, na waterschade, en om een woning fris en geurvrij te maken voor verhuur of verkoop.",
-  },
-  {
-    question: "Welk toestel gebruiken jullie?",
-    answer:
-      "Wij werken met professionele ozongeneratoren van Duitse makelij, geen hobbytoestellen. Ze leveren een hoog, regelbaar ozondebiet dat we afstemmen op het volume van de ruimte, zodat de behandeling grondig en gecontroleerd verloopt. De inzet gebeurt altijd door onze techniekers, met de nodige veiligheidsmaatregelen.",
-  },
-  {
-    question: "Hoelang duurt het en kan ik er daarna meteen in?",
-    answer:
-      "Een behandeling duurt doorgaans enkele uren, afhankelijk van het volume van de ruimte. Tijdens de werking is de ruimte onbemand en afgesloten. Daarna verluchten we kort; zodra de waarden veilig zijn, is de ruimte weer normaal te gebruiken. Onze technieker zegt u ter plaatse hoelang dat in uw situatie is.",
-  },
-];
+/* De FAQ staat één keer in de copy (`OzonbehandelingPage.copy.tsx`), en voedt
+   zowel het scherm als de JSON-LD. Twee kopieën zouden uit de pas lopen, en dan
+   markeert de schema iets wat de bezoeker niet ziet. */
 
-/** De zes situaties waarvoor we ozon inzetten. */
-const INZET: { icon: JSX.Element; title: string; text: string }[] = [
-  {
-    icon: <SporenIcon />,
-    title: "Schimmel & sporen",
-    text: "Na het ontschimmelen: de sporen die achterbleven in lucht, voegen en textiel worden gedood, zodat de schimmel geen herstart krijgt.",
-  },
-  {
-    icon: <MijtIcon />,
-    title: "Huisstofmijt",
-    text: "Ozon bestrijdt huisstofmijt in matrassen, tapijt en textiel. Een verademing voor wie allergisch is en niet weet waar het vandaan komt.",
-  },
-  {
-    icon: <NeusIcon />,
-    title: "Hardnekkige geuren",
-    text: "Vocht-, rook-, huisdier- of brandgeur wordt geneutraliseerd op molecuulniveau. Niet overdekt met een geurstof, maar afgebroken.",
-  },
-  {
-    icon: <KelderIcon />,
-    title: "Kelders & kruipruimtes",
-    text: "Vochtige, slecht verluchte ruimtes waar schimmel en muffe lucht zich vastzetten, en waar u met een borstel niet overal bij kunt.",
-  },
-  {
-    icon: <WaterschadeIcon />,
-    title: "Na waterschade",
-    text: "Na een lek of een overstroming: ontsmetting van de ruimte en het wegnemen van de vochtgeur die na het drogen blijft hangen.",
-  },
-  {
-    icon: <SleutelIcon />,
-    title: "Voor verhuur of verkoop",
-    text: "Een frisse, ontsmette en geurvrije woning bij de overdracht. Geen muffe eerste indruk bij een bezoek of een plaatsbeschrijving.",
-  },
+/** De iconen van de zes situaties waarvoor we ozon inzetten, in de volgorde van `inzet` in de copy. */
+const INZET_ICONEN: JSX.Element[] = [
+  <SporenIcon key="sporen" />,
+  <MijtIcon key="mijt" />,
+  <NeusIcon key="neus" />,
+  <KelderIcon key="kelder" />,
+  <WaterschadeIcon key="water" />,
+  <SleutelIcon key="sleutel" />,
 ];
 
 /*
@@ -164,32 +109,26 @@ const SPOREN: { id: string; style: CSSProperties }[] = [
   { id: "s6", style: { left: "12%", top: "76%", "--ss": "34px", "--sd": "9s", animationDelay: "7.5s" } as CSSProperties },
 ];
 
-/** Wat de generator doet, in de taal van de werf. */
-const TECHNIEK: [string, string][] = [
-  ["Herkomst", "Duitse makelij"],
-  ["Vermogen", "Hoog ozondebiet"],
-  ["Regeling", "Timer & debiet"],
-  ["Inzet", "Onbemand, door onze technieker"],
-];
-
-const OzonbehandelingPage = () => (
+const OzonbehandelingPage = () => {
+  const t = useCopy(OZON_COPY);
+  const lp = useLokaalPad();
+  return (
   <div className="oz-page">
     <PageMeta
-      {...SEO.ozonbehandeling}
-      path="/ozonbehandeling"
+      {...useSeo("ozonbehandeling")}
+      path={lp("/ozonbehandeling")}
       jsonLd={[
         organizationSchema(),
         serviceSchema({
-          name: "Ozonbehandeling en ontschimmeling",
-          description:
-            "Professionele ozonbehandeling tegen schimmelsporen, huisstofmijt en hardnekkige geuren, als sluitstuk na het drogen en ontschimmelen van een ruimte.",
-          path: "/ozonbehandeling",
-          serviceType: "Ontschimmeling",
+          name: t.schemaNaam,
+          description: t.schemaBeschrijving,
+          path: lp("/ozonbehandeling"),
+          serviceType: t.schemaType,
         }),
-        faqSchema(FAQ),
+        faqSchema(t.faq),
         breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Ozonbehandeling", path: "/ozonbehandeling" },
+          { name: t.kruimelHome, path: lp("/") },
+          { name: t.kruimel, path: lp("/ozonbehandeling") },
         ]),
       ]}
     />
@@ -209,25 +148,21 @@ const OzonbehandelingPage = () => (
       <section className="oz-hero">
         <div className="oz-wrap oz-hero-grid">
           <div className="oz-hero-copy">
-            <span className="oz-kick">Ontschimmeling · schimmel &amp; geur</span>
-            <h1>Schimmel weggeschrobd en tóch terug? Dan zit het dieper dan de muur.</h1>
-            <p>
-              Een ozonbehandeling verspreidt actieve zuurstof (O₃) tot in elke kier van de ruimte,
-              doodt schimmelsporen, bacteriën en huisstofmijt, en breekt de muffe vochtgeur af, ook
-              daar waar borstel en verf niet raken.
-            </p>
+            <span className="oz-kick">{t.heroKick}</span>
+            <h1>{t.h1}</h1>
+            <p>{t.heroTekst}</p>
             <div className="oz-hero-cta">
               <a className="ozbtn ozbtn-white" href="#boeken">
-                Boek uw ozonbehandeling <ArrowRightIcon size={13} strokeWidth={2.6} />
+                {t.heroCta} <ArrowRightIcon size={13} strokeWidth={2.6} />
               </a>
               <a className="ozbtn ozbtn-ghost" href={`tel:${CONTACT.phoneE164}`}>
                 <PhoneIcon size={14} /> {CONTACT.phoneLocal}
               </a>
             </div>
             <ul className="oz-hero-usp">
-              <li>Uitgevoerd door onze eigen techniekers</li>
-              <li>Geen chemische residu&apos;s</li>
-              <li>Heel Vlaanderen</li>
+              {t.heroUsp.map((usp) => (
+                <li key={usp}>{usp}</li>
+              ))}
             </ul>
           </div>
 
@@ -267,47 +202,23 @@ const OzonbehandelingPage = () => (
     <section className="oz-sec oz-light">
       <div className="oz-wrap">
         <Reveal className="oz-head">
-          <span className="oz-kick red">Herkenbaar?</span>
-          <h2 className="oz-h2">U heeft ontschimmeld, en toch komt hij terug.</h2>
-          <p className="oz-lede">
-            Dat ligt zelden aan hoe grondig u geschrobd heeft. Schimmel werkt met sporen, en die
-            zitten op plaatsen waar een doek nooit komt.
-          </p>
+          <span className="oz-kick red">{t.herkenKick}</span>
+          <h2 className="oz-h2">{t.herkenH2}</h2>
+          <p className="oz-lede">{t.herkenLede}</p>
         </Reveal>
 
         <div className="oz-three">
-          <Reveal className="oz-card">
-            <span className="oz-num">01</span>
-            <h3>Sporen blijven achter</h3>
-            <p>
-              Schimmel plant zich voort via microscopische sporen die in kieren, voegen en poriën
-              zitten. Wat u wegveegt is maar het topje.
-            </p>
-          </Reveal>
-          <Reveal className="oz-card" delay={0.08}>
-            <span className="oz-num">02</span>
-            <h3>De ruimte blijft besmet</h3>
-            <p>
-              Sporen zweven ook in de lucht en zetten zich elders opnieuw af. U reinigt één muur,
-              maar de kamer blijft een broedplaats.
-            </p>
-          </Reveal>
-          <Reveal className="oz-card" delay={0.16}>
-            <span className="oz-num">03</span>
-            <h3>De geur komt telkens terug</h3>
-            <p>
-              De muffe schimmelgeur zit vastgezet in materialen en textiel. Luchten en schilderen
-              maskeren het even, daarna is het er weer.
-            </p>
-          </Reveal>
+          {t.herkenKaarten.map((kaart, i) => (
+            <Reveal className="oz-card" key={kaart.title} delay={i ? i * 0.08 : undefined}>
+              <span className="oz-num">{`0${i + 1}`}</span>
+              <h3>{kaart.title}</h3>
+              <p>{kaart.text}</p>
+            </Reveal>
+          ))}
         </div>
 
         <Reveal className="oz-note" delay={0.1}>
-          <b>Eerst droog, dan ozon.</b> Ozon doodt wat er is en doorbreekt de cirkel, maar zonder
-          een droge constructie keert schimmel terug. Zit er nog vocht in muur of chape, dan drogen
-          we eerst, met{" "}
-          <Link to="/verhuur/calculator">een berekend droogpakket</Link>, bevestigd door een
-          vochtmeting. Pas daarna heeft een behandeling zin.
+          {t.noot(lp)}
         </Reveal>
       </div>
     </section>
@@ -316,17 +227,10 @@ const OzonbehandelingPage = () => (
     <section className="oz-sec oz-red">
       <div className="oz-wrap oz-split">
         <Reveal className="oz-split-copy">
-          <span className="oz-kick onred">Wat is ozon?</span>
-          <h2 className="oz-h2">Zuurstof met een extra atoom.</h2>
-          <p className="oz-lede">
-            De lucht die u inademt is O₂: zuurstof met twee atomen. Ozon is O₃, met een derde, los
-            gebonden atoom. Net dat extra atoom maakt ozon zo krachtig.
-          </p>
-          <p className="oz-body">
-            Dat derde atoom laat makkelijk los en valt schimmelsporen, bacteriën en geurmoleculen
-            aan. Daarna vervalt ozon vanzelf weer tot gewone zuurstof, <b>zonder residu</b>. En
-            omdat het een gas is, verspreidt het zich uit zichzelf naar élke hoek van de ruimte.
-          </p>
+          <span className="oz-kick onred">{t.watKick}</span>
+          <h2 className="oz-h2">{t.watH2}</h2>
+          <p className="oz-lede">{t.watLede}</p>
+          <p className="oz-body">{t.watBody}</p>
         </Reveal>
 
         {/* De omzetting O₂ → O₃, puur CSS. Decoratief, dus aria-hidden. */}
@@ -338,7 +242,7 @@ const OzonbehandelingPage = () => (
                 <i />
               </div>
               <b>O₂</b>
-              <small>Gewone lucht, stabiel</small>
+              <small>{t.molO2}</small>
             </div>
             <div className="oz-mol-arrow">
               <span className="oz-spark" />
@@ -346,7 +250,7 @@ const OzonbehandelingPage = () => (
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
-              <small>+ energie</small>
+              <small>{t.molEnergie}</small>
             </div>
             <div className="oz-mol-side hot">
               <div className="oz-mol-atoms three">
@@ -355,7 +259,7 @@ const OzonbehandelingPage = () => (
                 <i className="loose" />
               </div>
               <b>O₃</b>
-              <small>Reactief, kortstondig, krachtig</small>
+              <small>{t.molO3}</small>
             </div>
           </div>
         </Reveal>
@@ -366,13 +270,9 @@ const OzonbehandelingPage = () => (
     <section className="oz-sec oz-light">
       <div className="oz-wrap">
         <Reveal className="oz-head oz-head-mid">
-          <span className="oz-kick red">Hoe werkt het?</span>
-          <h2 className="oz-h2">Een gas dat overal komt waar u niet bij kunt.</h2>
-          <p className="oz-lede">
-            Een ozongenerator zet de zuurstof in de kamer om in ozon. Omdat het een gas is,
-            verspreidt het zich vanzelf: tot in kieren, voegen, achter meubels, in textiel en in het
-            ventilatiekanaal, plekken die u met een borstel nooit bereikt.
-          </p>
+          <span className="oz-kick red">{t.hoeKick}</span>
+          <h2 className="oz-h2">{t.hoeH2}</h2>
+          <p className="oz-lede">{t.hoeLede}</p>
         </Reveal>
 
         {/*
@@ -390,7 +290,7 @@ const OzonbehandelingPage = () => (
           willekeurige waarde zou bij hydratatie niet overeenkomen met de HTML.
         */}
         <Reveal className="oz-stage-wrap" delay={0.08}>
-          <div className="oz-stage" aria-label="Schimmelmuur met animatie: actieve zuurstof breekt schimmelsporen af">
+          <div className="oz-stage" aria-label={t.stageLabel}>
             <span className="oz-glow" aria-hidden="true" />
 
             {MOLECULEN.map((mol) => (
@@ -421,20 +321,16 @@ const OzonbehandelingPage = () => (
           */}
           <div className="oz-legend">
             <span className="oz-lg o3">
-              <i /> <b>O₃</b> actieve zuurstof
+              <i /> <b>O₃</b> {t.legO3}
             </span>
             <span className="oz-lg sp">
-              <i /> schimmelspore
+              <i /> {t.legSpore}
             </span>
           </div>
         </Reveal>
 
         <Reveal className="oz-after" delay={0.12}>
-          <p>
-            Tijdens de behandeling is de ruimte onbemand. Daarna vervalt de ozon vanzelf terug tot
-            gewone zuurstof, en na een korte verluchting is de ruimte weer veilig te gebruiken. Er
-            blijven geen chemische residu&apos;s achter op oppervlakken of in textiel.
-          </p>
+          <p>{t.hoeNa}</p>
         </Reveal>
       </div>
     </section>
@@ -443,59 +339,42 @@ const OzonbehandelingPage = () => (
     <section className="oz-sec oz-red">
       <div className="oz-wrap">
         <Reveal className="oz-head">
-          <span className="oz-kick onred">De cirkel doorbreken</span>
-          <h2 className="oz-h2">Waarom ozon ná het drogen en ontschimmelen komt.</h2>
-          <p className="oz-lede">
-            Ontschimmelen verwijdert de zichtbare schimmel. Ozon ruimt op wat achterblijft, zodat de
-            schimmel geen herstart krijgt.
-          </p>
+          <span className="oz-kick onred">{t.cirkelKick}</span>
+          <h2 className="oz-h2">{t.cirkelH2}</h2>
+          <p className="oz-lede">{t.cirkelLede}</p>
         </Reveal>
 
         <div className="oz-steps">
           <Reveal className="oz-step">
             <span className="oz-step-n">1</span>
-            <h3>Droog en ontschimmel eerst</h3>
-            <p>
-              De constructie droogt tot de vochtmeting het bevestigt en de zichtbare schimmel wordt
-              verwijderd. Zie <Link to="/ontschimmeling">ontschimmeling</Link>. Het oppervlak oogt weer proper.
-            </p>
+            <h3>{t.stap1Titel}</h3>
+            <p>{t.stap1(lp)}</p>
           </Reveal>
           <Reveal className="oz-step" delay={0.08}>
             <span className="oz-step-n">2</span>
-            <h3>Ozon ruimt de rest op</h3>
-            <p>
-              De behandeling doodt de achtergebleven sporen in de lucht, in kieren en in textiel, in
-              de hele ruimte, niet alleen op de muur.
-            </p>
+            <h3>{t.stap2Titel}</h3>
+            <p>{t.stap2}</p>
           </Reveal>
           <Reveal className="oz-step" delay={0.16}>
             <span className="oz-step-n">3</span>
-            <h3>Geen herbesmetting</h3>
-            <p>
-              Zonder levende sporen die zich opnieuw kunnen vestigen blijft de ruimte, mits droog,
-              langdurig schimmelvrij en geurloos.
-            </p>
+            <h3>{t.stap3Titel}</h3>
+            <p>{t.stap3}</p>
           </Reveal>
         </div>
 
         <Reveal className="oz-band" delay={0.1}>
           <div className="oz-band-t">
-            <span className="oz-kick onred">Waar drogen ophoudt</span>
-            <h3>Eerst meten, dan drogen, dan ozon.</h3>
-            <p>
-              Wij zijn in de eerste plaats droogspecialisten. Daarom kijken we eerst of het vocht
-              echt weg is: na <Link to="/waterschade">waterschade</Link> of in een{" "}
-              <Link to="/renovatie">vochtige kelder</Link> is dat het halve werk. Pas als de meting
-              droog zegt, is ozon het sluitstuk dat de geur en de sporen wegneemt.
-            </p>
+            <span className="oz-kick onred">{t.bandKick}</span>
+            <h3>{t.bandH3}</h3>
+            <p>{t.band(lp)}</p>
             <a className="ozbtn ozbtn-white" href="#boeken">
-              Vraag uw behandeling aan <ArrowRightIcon size={13} strokeWidth={2.6} />
+              {t.bandCta} <ArrowRightIcon size={13} strokeWidth={2.6} />
             </a>
           </div>
           <img
             className="oz-band-man"
             src="/vernast/man-schimmelpak.webp"
-            alt="Vernast-specialist in beschermpak bij een ozonbehandeling"
+            alt={t.bandAlt}
             width={700}
             height={900}
             loading="lazy"
@@ -508,18 +387,15 @@ const OzonbehandelingPage = () => (
     <section className="oz-sec oz-light">
       <div className="oz-wrap">
         <Reveal className="oz-head">
-          <span className="oz-kick red">Waarvoor zetten wij het in?</span>
-          <h2 className="oz-h2">Meer dan alleen schimmel.</h2>
-          <p className="oz-lede">
-            Omdat ozon microben én geurmoleculen aanpakt, gebruiken we het voor uiteenlopende
-            situaties, altijd als aanvulling op een gezonde, droge ruimte.
-          </p>
+          <span className="oz-kick red">{t.inzetKick}</span>
+          <h2 className="oz-h2">{t.inzetH2}</h2>
+          <p className="oz-lede">{t.inzetLede}</p>
         </Reveal>
 
         <div className="oz-grid6">
-          {INZET.map((item, i) => (
+          {t.inzet.map((item, i) => (
             <Reveal className="oz-use" key={item.title} delay={(i % 3) * 0.07}>
-              <span className="oz-use-ic">{item.icon}</span>
+              <span className="oz-use-ic">{INZET_ICONEN[i]}</span>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </Reveal>
@@ -539,21 +415,14 @@ const OzonbehandelingPage = () => (
     <section className="oz-sec oz-red">
       <div className="oz-wrap oz-split">
         <Reveal className="oz-split-copy">
-          <span className="oz-kick onred">Onze techniek</span>
-          <h2 className="oz-h2">Professionele Duitse ozongeneratoren.</h2>
-          <p className="oz-lede">
-            Wij werken met krachtige, professionele ozongeneratoren van Duitse makelij, geen
-            hobbytoestellen. Ze produceren een hoog, regelbaar ozondebiet, afgestemd op het volume
-            van de ruimte, zodat de behandeling grondig én gecontroleerd verloopt.
-          </p>
-          <p className="oz-body">
-            De inzet gebeurt altijd door onze eigen techniekers, met de nodige
-            veiligheidsmaatregelen. Tijdens de werking mogen mensen en huisdieren niet in de ruimte.
-          </p>
+          <span className="oz-kick onred">{t.techKick}</span>
+          <h2 className="oz-h2">{t.techH2}</h2>
+          <p className="oz-lede">{t.techLede}</p>
+          <p className="oz-body">{t.techBody}</p>
         </Reveal>
         <Reveal className="oz-split-vis" delay={0.1}>
           <dl className="oz-specs oz-specs-card">
-            {TECHNIEK.map(([label, value]) => (
+            {t.techniek.map(([label, value]) => (
               <div key={label}>
                 <dt>{label}</dt>
                 <dd>{value}</dd>
@@ -569,43 +438,18 @@ const OzonbehandelingPage = () => (
       <div className="oz-wrap">
         <Reveal className="oz-head oz-head-mid">
           <span className="oz-kick red">
-            <SchildIcon /> Veilig &amp; verantwoord
+            <SchildIcon /> {t.veiligKick}
           </span>
-          <h2 className="oz-h2">Krachtig tijdens, ongevaarlijk erna.</h2>
-          <p className="oz-lede">
-            Ozon is juist zo krachtig omdat het reactief is. Daarom hoort een behandeling in
-            professionele handen, en volgen wij een vast protocol.
-          </p>
+          <h2 className="oz-h2">{t.veiligH2}</h2>
+          <p className="oz-lede">{t.veiligLede}</p>
         </Reveal>
         <div className="oz-four">
-          <Reveal className="oz-safe-card">
-            <b>Onbemande behandeling</b>
-            <p>
-              Tijdens de werking is de ruimte afgesloten: geen mensen, geen huisdieren, geen
-              planten. Wij bewaken de timing.
-            </p>
-          </Reveal>
-          <Reveal className="oz-safe-card" delay={0.06}>
-            <b>Vervalt tot zuurstof</b>
-            <p>
-              Ozon breekt na de behandeling vanzelf af tot gewone zuurstof (O₂). Geen chemische
-              residu&apos;s op oppervlakken of textiel.
-            </p>
-          </Reveal>
-          <Reveal className="oz-safe-card" delay={0.12}>
-            <b>Korte verluchting</b>
-            <p>
-              Na afloop verluchten we de ruimte. Zodra de waarden veilig zijn, is ze weer normaal te
-              gebruiken.
-            </p>
-          </Reveal>
-          <Reveal className="oz-safe-card" delay={0.18}>
-            <b>Altijd na het drogen</b>
-            <p>
-              Ozon is de finishing touch. Een blijvend resultaat vraagt eerst een droge constructie,
-              en daar adviseren we u eerlijk in.
-            </p>
-          </Reveal>
+          {t.veiligKaarten.map((kaart, i) => (
+            <Reveal className="oz-safe-card" key={kaart.title} delay={i ? i * 0.06 : undefined}>
+              <b>{kaart.title}</b>
+              <p>{kaart.text}</p>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -625,17 +469,14 @@ const OzonbehandelingPage = () => (
     <section className="oz-sec oz-red">
       <div className="oz-wrap">
         <Reveal className="oz-head oz-head-mid">
-          <span className="oz-kick onred">Wat klanten zeggen</span>
-          <h2 className="oz-h2">Hoe wij werken, in hun woorden.</h2>
-          <p className="oz-lede">
-            Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over snelheid,
-            opvolging en afspraken nakomen, want dat is wat een behandeling bij u thuis vraagt.
-          </p>
+          <span className="oz-kick onred">{t.reviewKick}</span>
+          <h2 className="oz-h2">{t.reviewH2}</h2>
+          <p className="oz-lede">{t.reviewLede}</p>
         </Reveal>
         <div className="oz-reviews">
           {eersteReviews(3).map((review, i) => (
             <Reveal className="oz-review" key={review.name} delay={(i % 3) * 0.07}>
-              <div className="oz-review-stars" aria-label={`${review.rating} van 5 sterren`}>
+              <div className="oz-review-stars" aria-label={t.sterren(review.rating)}>
                 {Array.from({ length: review.rating }, (_, star) => (
                   <StarIcon key={star} size={14} />
                 ))}
@@ -678,27 +519,24 @@ const OzonbehandelingPage = () => (
     <section className="oz-sec oz-light" id="faq">
       <div className="oz-wrap faq-grid">
         <div className="faq-side">
-          <span className="oz-kick red">Veelgestelde vragen</span>
-          <h2 className="oz-h2">Uw vragen over ozonbehandeling.</h2>
+          <span className="oz-kick red">{t.faqKick}</span>
+          <h2 className="oz-h2">{t.faqH2}</h2>
           <div className="faq-help">
-            <h3>Staat uw vraag er niet bij?</h3>
-            <p>
-              Wij bekijken uw situatie en zeggen eerlijk of een behandeling zin heeft, en wat er
-              eventueel eerst moet gebeuren.
-            </p>
+            <h3>{t.faqHelpH3}</h3>
+            <p>{t.faqHelp}</p>
             <div className="fh-btns">
               <a className="fh-call" href={`tel:${CONTACT.phoneE164}`}>
-                <PhoneIcon /> Bel {CONTACT.phoneLocal}
+                <PhoneIcon /> {t.bel} {CONTACT.phoneLocal}
               </a>
               <a className="fh-form" href="#boeken">
-                Stel uw vraag online
+                {t.online}
               </a>
             </div>
           </div>
         </div>
 
         <div className="faq-list">
-          {FAQ.map((item, i) => (
+          {t.faq.map((item, i) => (
             <details className="q" key={item.question} open={i === 0}>
               <summary>
                 {item.question} <span className="pl">+</span>
@@ -716,23 +554,17 @@ const OzonbehandelingPage = () => (
     <section className="oz-sec oz-book">
       <div className="oz-wrap oz-book-grid">
         <Reveal className="oz-book-l">
-          <span className="oz-kick onred">Boek uw behandeling</span>
-          <h2 className="oz-h2">Schimmel of geur die maar blijft terugkomen?</h2>
-          <p>
-            Vul hieronder uw situatie in, dan belt een specialist u binnen één werkdag om de
-            behandeling in te plannen. Wij pakken eerst de oorzaak aan en zetten ozon in als
-            grondige afronding, duidelijk, correct en zonder valse verwachtingen.
-          </p>
+          <span className="oz-kick onred">{t.boekKick}</span>
+          <h2 className="oz-h2">{t.boekH2}</h2>
+          <p>{t.boekTekst}</p>
           <ul className="oz-book-usp">
-            <li>Reactie binnen één werkdag</li>
-            <li>Eerlijk advies: soms is drogen het echte antwoord</li>
-            <li>Werkzaam in heel Vlaanderen</li>
+            {t.boekUsp.map((usp) => (
+              <li key={usp}>{usp}</li>
+            ))}
           </ul>
           <p className="oz-book-call">
-            Liever meteen bellen?{" "}
-            <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a>, {CONTACT.openingHours
-              .replace("Mo-Fr", "ma–vr")
-              .replace(" 08:00-17:00", ", 8u–17u")}
+            {t.liever}{" "}
+            <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a>, {t.uren(CONTACT.openingHours)}
           </p>
         </Reveal>
         <div className="oz-book-r">
@@ -745,6 +577,7 @@ const OzonbehandelingPage = () => (
 
     <V3Footer />
   </div>
-);
+  );
+};
 
 export default OzonbehandelingPage;
