@@ -2,6 +2,8 @@ import type { FilmPlan } from "./film";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import {
   WONING,
+  kamerNaam,
+  woningTekst,
   type Dak,
   type Kamer,
   type Opening,
@@ -13,6 +15,7 @@ import type { DeviceKey } from "@/data/verhuur";
 import type { Materiaal } from "./materiaal";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "./maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useTaal } from "@/i18n/useTaal";
 
 /*
   Isometrische woning voor de droogsimulator.
@@ -285,6 +288,7 @@ export default function IsoHouse({
 }: IsoHouseProps) {
   const uid = useId().replace(/:/g, "");
   const reduced = useReducedMotion();
+  const taal = useTaal();
   const { w, l, buren } = WONING[woning];
   const lagen = Math.max(1, verdiepingen);
   const act = Math.min(actief, lagen - 1);
@@ -618,7 +622,7 @@ export default function IsoHouse({
             const [tx, ty] = P([k.x + k.w * 0.5, yf + HC + 0.15, k.z + k.l * 0.5]);
             return (
               <text key={`l-${k.id}`} x={tx} y={ty} className={`ds-kamerlabel${k.soort === "circulatie" ? " ds-kamerlabel--gang" : ""}`} textAnchor="middle" style={{ opacity: o }}>
-                {k.naam.toUpperCase()}
+                {kamerNaam(k.naam, taal).toUpperCase()}
               </text>
             );
           })}
@@ -696,7 +700,11 @@ export default function IsoHouse({
       className={`ds-iso${mini ? " ds-iso--mini" : ""}${className ? ` ${className}` : ""}`}
       viewBox={viewBox}
       role="img"
-      aria-label={`Isometrische tekening van een ${WONING[woning].label.toLowerCase()} met ${lagen} bouwla${lagen === 1 ? "ag" : "gen"}`}
+      aria-label={
+        taal === "fr"
+          ? `Dessin isométrique : ${woningTekst(woning, taal).label.toLowerCase()}, ${lagen} niveau${lagen === 1 ? "" : "x"}`
+          : `Isometrische tekening van een ${WONING[woning].label.toLowerCase()} met ${lagen} bouwla${lagen === 1 ? "ag" : "gen"}`
+      }
       preserveAspectRatio="xMidYMid meet"
     >
       <defs>

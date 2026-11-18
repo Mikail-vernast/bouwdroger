@@ -5,7 +5,8 @@
   wet. Strokes use currentColor so a drawing reads on the maroon tile and on
   the selected (white) tile without a second colour set.
 */
-import type { Dak, Kamer, Opening, Trap, Wat } from "@/lib/droogSimulator";
+import { kamerNaam, type Dak, type Kamer, type Opening, type Trap, type Wat } from "@/lib/droogSimulator";
+import { useTaal } from "@/i18n/useTaal";
 
 /** Front elevation: `lagen` storeys under roof `dak`; a third storey under a pitched roof is the attic. */
 export function Gevel({ lagen, dak }: { lagen: number; dak: Dak }) {
@@ -48,6 +49,7 @@ export function Gevel({ lagen, dak }: { lagen: number; dak: Dak }) {
  * isometric drawing next to it, where the street side faces the viewer.
  */
 export function Plattegrond({ kamers, openingen = [], trappen = [] }: { kamers: Kamer[]; openingen?: Opening[]; trappen?: Trap[] }) {
+  const taal = useTaal();
   if (!kamers.length) return null;
   const W = Math.max(...kamers.map((k) => k.x + k.w));
   const L = Math.max(...kamers.map((k) => k.z + k.l));
@@ -74,8 +76,8 @@ export function Plattegrond({ kamers, openingen = [], trappen = [] }: { kamers: 
   }
   return (
     <svg viewBox={`${-pad} ${-pad - 0.5} ${W + pad * 2} ${L + pad * 2 + 1}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true" className="ds-plan">
-      <text x={W / 2} y={-0.45} className="ds-plan-kant" textAnchor="middle">tuin</text>
-      <text x={W / 2} y={L + 0.85} className="ds-plan-kant" textAnchor="middle">straat</text>
+      <text x={W / 2} y={-0.45} className="ds-plan-kant" textAnchor="middle">{taal === "fr" ? "jardin" : "tuin"}</text>
+      <text x={W / 2} y={L + 0.85} className="ds-plan-kant" textAnchor="middle">{taal === "fr" ? "rue" : "straat"}</text>
       {kamers.map((k, i) => {
         const gang = k.soort === "circulatie";
         const fs = Math.min(0.5, k.w / 7, k.l / 2);
@@ -84,7 +86,7 @@ export function Plattegrond({ kamers, openingen = [], trappen = [] }: { kamers: 
             <rect x={k.x} y={k.z} width={k.w} height={k.l} />
             {fs > 0.24 && !(gang && k.w > k.l * 3) && (
               <text x={k.x + k.w / 2} y={k.z + k.l / 2} fontSize={fs} textAnchor="middle" dominantBaseline="central">
-                {k.naam}
+                {kamerNaam(k.naam, taal)}
               </text>
             )}
           </g>

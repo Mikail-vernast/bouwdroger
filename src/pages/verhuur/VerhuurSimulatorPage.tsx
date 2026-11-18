@@ -5,18 +5,20 @@ import IsoHouse from "@/components/simulator/IsoHouse";
 import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
 import { materiaalVoor } from "@/components/simulator/materiaal";
 import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
-import { TEMPO, TEMPO_ORDER, type Tempo } from "@/lib/droogTempo";
+import { TEMPO_ORDER, type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
 import { DROOG_DUUR, FILM_START, FILM_WACHT, filmStatus, plaatsDuur, voortgangNa, type FilmPlan } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
 import {
-  DAK_LABEL,
   FASE,
+  dakTekst,
+  faseInTaal,
+  watTekst,
+  woningTekst,
   maxKamers,
   MAX_VERDIEPINGEN,
   MIN_KAMERS,
   LAGEN_PER_FASE,
-  WAT_LABEL,
   WONING,
   geschatteOppervlakte,
   isMaatwerk,
@@ -38,11 +40,15 @@ import {
   type Wat,
   type Woning,
 } from "@/lib/droogSimulator";
-import { CD_VALUES, DEFAULT_CD, DEFAULT_PD, PD_VALUES, SIZE_VALUES, configToQuery, euro } from "@/lib/verhuur";
-import { CAT, type DeviceKey } from "@/data/verhuur";
+import { CD_VALUES, DEFAULT_CD, DEFAULT_PD, PD_VALUES, SIZE_VALUES, configToQuery } from "@/lib/verhuur";
+import { CAT } from "@/data/verhuur";
+import { catInTaal } from "@/data/verhuur.fr";
 import { extraNaarQuery } from "@/lib/booking";
 import { CONTACT } from "@/lib/site";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { NUMBER_LOCALE } from "@/i18n/taal";
+import { useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
+import { COPY, type SimCopy } from "./VerhuurSimulatorPage.copy";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
@@ -91,11 +97,10 @@ function droogfilm(lagen: number, dagen: number, perLaag: number[]): Segment[] {
 const GEEN_PLAATSINGEN: Plaatsing[] = [];
 
 // Bouwfase vóór Materiaal: hoe ver de werf staat, bepaalt welke lagen nog nat kunnen zijn.
-const STAPPEN = ["Woning", "Verdiepingen", "Bouwfase", "Materiaal", "Droogplan"];
+// De namen staan in de COPY (`stappen`), in dezelfde volgorde.
 const WONINGEN: Woning[] = ["rijwoning", "halfopen", "open", "appartement"];
 const DAKEN: Dak[] = ["zadeldak", "plat", "lessenaar"];
-/** Short roof names for the segmented control, where three sit in half a panel. */
-const DAK_KORT: Record<Dak, string> = { zadeldak: "Zadeldak", plat: "Plat", lessenaar: "Lessenaar" };
+// Korte daknamen voor de keuzeknoppen (drie op een half paneel): `dakKort` in de COPY.
 const MATEN = SIZE_VALUES.map(Number);
 /** The slider steps: the catalogue sizes, then "more than the largest". */
 const OPP_STAPPEN = [...MATEN.map(String), "custom"];
@@ -123,12 +128,6 @@ const START: State = {
   kamers: [],
 };
 
-const TOESTEL_KORT: Record<DeviceKey, string> = {
-  small: "Bouwdroger",
-  medium: "Droger medium",
-  axiaal: "Ventilator",
-  kachel: "Kachel",
-};
 
 /**
  * Wat er nat is, afgeleid uit de fase en de twee diktes: alleen de lagen die er in
@@ -162,6 +161,13 @@ function volledig(s: State, wat: Wat | null): SimAnswers {
 }
 
 const VerhuurSimulatorPage = () => {
+  const t = useCopy(COPY);
+  const taal = useTaal();
+  const lp = useLokaalPad();
+  const toon = useToonBedrag();
+  const seo = useSeo("verhuurSimulator");
+  const cat = catInTaal(taal);
+  const STAPPEN = t.stappen;
   const [s, setS] = useState<State>(START);
   const [stap, setStap] = useState(0);
   const [actief, setActief] = useState(0);
@@ -350,21 +356,21 @@ const VerhuurSimulatorPage = () => {
   const verwarmd = s.verwarmt ?? (s.fase ? FASE[s.fase].verwarmtWaarschijnlijk : null);
 
   const kop = [
-    { eyebrow: "Stap 1 · Woning", titel: s.woning ? WONING[s.woning].label : "Welke woning droogt u?" },
-    { eyebrow: "Stap 2 · Verdiepingen", titel: `${woningLagen(lagen, dak)}, ${totaalKamers} kamers` },
-    { eyebrow: "Stap 3 · Bouwfase", titel: s.fase ? FASE[s.fase].label : "Hoe ver staat de werf?" },
-    { eyebrow: "Stap 4 · Materiaal", titel: wat ? `${WAT_LABEL[wat].label}: nog nat` : "Wat is er nat?" },
+    { eyebrow: t.kop.stap1, titel: s.woning ? woningTekst(s.woning, taal).label : t.kop.welkeWoning },
+    { eyebrow: t.kop.stap2, titel: t.kop.lagenKamers(woningLagen(lagen, dak, t), totaalKamers) },
+    { eyebrow: t.kop.stap3, titel: s.fase ? faseInTaal(s.fase, taal).label : t.kop.hoeVer },
+    { eyebrow: t.kop.stap4, titel: wat ? t.kop.nogNat(watTekst(wat, taal).label) : t.kop.watNat },
     {
       eyebrow: filmKlaar
-        ? "Droogplan · klaar"
-        : `Droogplan · ${filmSeg?.modus === "plaatsen" ? "plaatsen" : "drogen"} · ${verdiepingNaam(toonVerd, lagen, dak)}`,
+        ? t.kop.planKlaar
+        : t.kop.plan(filmSeg?.modus === "plaatsen" ? "plaatsen" : "drogen", verdiepingNaam(toonVerd, lagen, dak, taal)),
       titel: !resultaat
-        ? "Maatwerk"
+        ? t.kop.maatwerk
         : filmKlaar
-          ? "Droog en klaar om af te werken"
+          ? t.kop.droogKlaar
           : filmSeg?.modus === "plaatsen"
-            ? "De toestellen worden geplaatst"
-            : `${aantalToestellen} toestellen aan het werk`,
+            ? t.kop.geplaatst
+            : t.kop.aanHetWerk(aantalToestellen),
     },
   ][stap];
 
@@ -378,36 +384,38 @@ const VerhuurSimulatorPage = () => {
 
   /* ── de volgende-knop per stap ── */
   const volgende: { ok: boolean; label: string; melding?: string } =
-    stap === 0 ? { ok: !!s.woning, label: "Volgende →" }
-    : stap === 2 ? { ok: !!s.fase && !!s.tempo, label: zonderLagen ? "Toon mijn droogplan →" : "Volgende →" }
-    : stap === 3 ? { ok: !!wat, label: "Toon mijn droogplan →", melding: wat ? undefined : faseLagen.length > 1 ? "Kies minstens één laag die nat is." : "Niets nat? Dan hoeft er niets te drogen." }
-    : { ok: true, label: "Volgende →" };
+    stap === 0 ? { ok: !!s.woning, label: t.volgende }
+    : stap === 2 ? { ok: !!s.fase && !!s.tempo, label: zonderLagen ? t.toonPlan : t.volgende }
+    : stap === 3 ? { ok: !!wat, label: t.toonPlan, melding: wat ? undefined : faseLagen.length > 1 ? t.minstensEen : t.nietsNat }
+    : { ok: true, label: t.volgende };
+
+  // Weergave volgens de klant (TVAC/HTVA); de prijs zelf blijft die van de catalogus.
+  const prijs = resultaat ? toon(resultaat.prijs) : null;
 
   const totaal = resultaat && (
     <div className="ds-tot">
       <div>
-        <span>Totaal, alles inbegrepen</span>
-        <small>voor {resultaat.weken} {resultaat.weken === 1 ? "week" : "weken"} huur</small>
+        <span>{t.totaal}</span>
+        <small>{t.voorHuur(resultaat.weken)} · {prijs?.label}</small>
       </div>
-      <b>{euro(resultaat.prijs)}</b>
+      <b>{prijs?.tekst}</b>
     </div>
   );
 
   return (
     <div className="vh-calc ds-sim" data-stap={stap} ref={root}>
       <PageMeta
-        {...SEO.verhuurSimulator}
+        {...seo}
         jsonLd={[
           serviceSchema({
-            name: "Droogsimulator",
-            description:
-              "Zie in vijf stappen welke bouwdrogers uw woning nodig heeft, waar ze komen te staan en wat het pakket kost.",
-            path: "/verhuur/simulator",
-            serviceType: "Bouwdroging",
+            name: t.service.name,
+            description: t.service.description,
+            path: lp("/verhuur/simulator"),
+            serviceType: t.service.serviceType,
           }),
           breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Droogsimulator", path: "/verhuur/simulator" },
+            { name: t.kruimelHome, path: lp("/") },
+            { name: t.kruimel, path: lp("/verhuur/simulator") },
           ]),
         ]}
       />
@@ -416,26 +424,26 @@ const VerhuurSimulatorPage = () => {
       <div className="ds-app">
 
         <main className="ds-main">
-          <h1 className="sr-only">Droogsimulator: zie welke bouwdrogers uw woning nodig heeft</h1>
+          <h1 className="sr-only">{t.h1}</h1>
 
           {/* ───────────── vraagpaneel ───────────── */}
-          <section className="ds-panel" aria-label="Vragen">
+          <section className="ds-panel" aria-label={t.vragen}>
             <div className="ds-ptop">
               {/* Zonder lagen (ruwbouw, ramen) bestaat de diktevraag niet: dan ook geen bolletje voor Materiaal. */}
-              <ol className="ds-bar" aria-label={`Stap ${stapNr} van ${zichtbareStappen.length}: ${STAPPEN[stap]}`}>
+              <ol className="ds-bar" aria-label={t.stapVan(stapNr, zichtbareStappen.length, STAPPEN[stap])}>
                 {zichtbareStappen.map(({ naam, i }) => (
                   <li key={naam} className={i < stap ? "done" : i === stap ? "on" : undefined} aria-current={i === stap ? "step" : undefined} />
                 ))}
               </ol>
-              <span className="ds-count">{stap < 4 ? `Vraag ${stapNr} van ${zichtbareStappen.length - 1}` : "Droogplan"}</span>
+              <span className="ds-count">{stap < 4 ? t.vraagVan(stapNr, zichtbareStappen.length - 1) : t.droogplan}</span>
             </div>
 
             <div className="ds-body" key={stap}>
               {stap === 0 && (
                 <>
-                  <h2>Wat voor woning droogt u?</h2>
-                  <p className="ds-sub">Zo weten we hoe de ruimtes liggen en waar de toestellen komen.</p>
-                  <div className="ds-cards" role="radiogroup" aria-label="Type woning">
+                  <h2>{t.s1Kop}</h2>
+                  <p className="ds-sub">{t.s1Sub}</p>
+                  <div className="ds-cards" role="radiogroup" aria-label={t.typeWoning}>
                     {WONINGEN.map((w) => (
                       <button key={w} type="button" role="radio" aria-checked={s.woning === w} className={`ds-card${s.woning === w ? " sel" : ""}`} onClick={() => kiesWoning(w)}>
                         <span className={`ds-art${fotoVoor(`woning-${w}`) ? " ds-art--foto" : ""}`}>
@@ -444,8 +452,8 @@ const VerhuurSimulatorPage = () => {
                           </Foto>
                         </span>
                         <span className="ds-t">
-                          <b>{WONING[w].label}</b>
-                          <small>{WONING[w].sub}</small>
+                          <b>{woningTekst(w, taal).label}</b>
+                          <small>{woningTekst(w, taal).sub}</small>
                         </span>
                       </button>
                     ))}
@@ -455,56 +463,56 @@ const VerhuurSimulatorPage = () => {
 
               {stap === 1 && (
                 <>
-                  <h2>Hoe ziet uw woning eruit?</h2>
+                  <h2>{t.s2Kop}</h2>
                   <figure className="ds-held" aria-hidden="true">
                     <img key={heldFoto} className="ds-held-foto" onAnimationEnd={(e) => (e.currentTarget.style.animation = "none")} src={heldFoto} srcSet={fotoSrcSet(heldFoto)} sizes="(max-width: 899px) 100vw, 46vw" alt="" loading="lazy" decoding="async" />
                     <figcaption className="ds-held-cap">
-                      {DAK_LABEL[dak].label}
-                      <i> · {woningLagen(lagen, dak).toLowerCase()} · {totaalKamers} kamers</i>
+                      {dakTekst(dak, taal).label}
+                      <i> · {woningLagen(lagen, dak, t).toLowerCase()} · {t.kamers(totaalKamers)}</i>
                     </figcaption>
                   </figure>
                   <div className="ds-keuzerij">
-                    <div className="ds-lbl">Dak{woning === "appartement" && <span> · bij een appartement altijd plat</span>}</div>
-                    <div className="ds-hkset" role="radiogroup" aria-label="Daktype">
+                    <div className="ds-lbl">{t.dak}{woning === "appartement" && <span>{t.dakAppartement}</span>}</div>
+                    <div className="ds-hkset" role="radiogroup" aria-label={t.daktype}>
                       {DAKEN.map((d) => (
                         <button key={d} type="button" role="radio" aria-checked={dak === d} disabled={!WONING[woning].dakToegelaten.includes(d)} className={`ds-hk${dak === d ? " on" : ""}`} onClick={() => zetDak(d)}>
                           <HuisIcoon dak={d} lagen={2} />
-                          <b><span className="ds-lang">{DAK_LABEL[d].label}</span><span className="ds-kort">{DAK_KORT[d]}</span></b>
+                          <b><span className="ds-lang">{dakTekst(d, taal).label}</span><span className="ds-kort">{t.dakKort[d]}</span></b>
                         </button>
                       ))}
                     </div>
                   </div>
                   <div className="ds-keuzerij">
-                    <div className="ds-lbl">Verdiepen boven het gelijkvloers</div>
-                    <div className="ds-hkset ds-hkset--lagen" role="radiogroup" aria-label="Verdiepen boven het gelijkvloers">
+                    <div className="ds-lbl">{t.verdiepen}</div>
+                    <div className="ds-hkset ds-hkset--lagen" role="radiogroup" aria-label={t.verdiepen}>
                       {Array.from({ length: MAX_VERDIEPINGEN }, (_, i) => i + 1).map((n) => (
-                        <button key={n} type="button" role="radio" aria-checked={lagen === n} aria-label={woningLagen(n, dak)} disabled={n > maxLagen} className={`ds-hk ds-hk--laag${lagen === n ? " on" : ""}`} onClick={() => zetLagen(n)}>
+                        <button key={n} type="button" role="radio" aria-checked={lagen === n} aria-label={woningLagen(n, dak, t)} disabled={n > maxLagen} className={`ds-hk ds-hk--laag${lagen === n ? " on" : ""}`} onClick={() => zetLagen(n)}>
                           <HuisIcoon dak={dak} lagen={n} />
-                          {n === 1 ? <b>Gelijkvloers</b> : <b>+{n - 1}<small>{n === 2 ? "verdiep" : "verdiepen"}</small></b>}
+                          {n === 1 ? <b>{t.gelijkvloers}</b> : <b>+{n - 1}<small>{t.verdiepKort(n - 1)}</small></b>}
                         </button>
                       ))}
                     </div>
                   </div>
                   <div className="ds-groei">
-                    <div className="ds-lbl ds-lbl--rij">Aantal kamers per verdieping<span>{totaalKamers} in totaal</span></div>
+                    <div className="ds-lbl ds-lbl--rij">{t.kamersPerVerdieping}<span>{t.inTotaal(totaalKamers)}</span></div>
                     {/* Een doorsnede van het huis: bovenste verdieping bovenaan, elk deurtje is een kamer. */}
                     <div className={`ds-gebouw ds-gebouw--${dak}`}>
                       <span className="ds-gebouw-dak" aria-hidden="true" />
                       <div className="ds-verdrijen">
                         {aantallen.map((n, v) => ({ n, v })).reverse().map(({ n, v }) => {
-                          const naam = verdiepingNaam(v, lagen, dak);
+                          const naam = verdiepingNaam(v, lagen, dak, taal);
                           return (
                             <div key={v} className={`ds-verdrij${toonPlan && verd === v ? " on" : ""}`}>
-                              <button type="button" className="ds-verdrij-naam" onClick={() => kiesVerdieping(v)} aria-label={`Toon ${naam.toLowerCase()} in de tekening`}>
+                              <button type="button" className="ds-verdrij-naam" onClick={() => kiesVerdieping(v)} aria-label={t.toonInTekening(naam)}>
                                 <b>{naam}</b>
                               </button>
                               <span className="ds-deuren" aria-hidden="true">
                                 {Array.from({ length: n }, (_, k) => <i key={k} />)}
                               </span>
                               <span className="ds-tel">
-                                <button type="button" aria-label={`Minder kamers ${naam.toLowerCase()}`} disabled={n <= MIN_KAMERS} onClick={() => zetAantal(v, n - 1)}>−</button>
+                                <button type="button" aria-label={t.minderKamers(naam)} disabled={n <= MIN_KAMERS} onClick={() => zetAantal(v, n - 1)}>−</button>
                                 <output aria-live="polite">{n}</output>
-                                <button type="button" aria-label={`Meer kamers ${naam.toLowerCase()}`} disabled={n >= maxPer[v]} onClick={() => zetAantal(v, n + 1)}>+</button>
+                                <button type="button" aria-label={t.meerKamers(naam)} disabled={n >= maxPer[v]} onClick={() => zetAantal(v, n + 1)}>+</button>
                               </span>
                             </div>
                           );
@@ -515,12 +523,12 @@ const VerhuurSimulatorPage = () => {
                   <div className="ds-opp">
                     <div className="ds-opp-rij">
                       <div className="ds-opp-waarde">
-                        <span className="ds-opp-cap">Vloeroppervlakte</span>
+                        <span className="ds-opp-cap">{t.vloeroppervlakte}</span>
                         <b>{maatwerk ? `${GROOTSTE}+` : s.size}<span> m²</span></b>
                         <small>
-                          {maatwerk ? "maatwerk" : opIk === opSchat ? "past bij uw woning" : (
+                          {maatwerk ? t.maatwerkKlein : opIk === opSchat ? t.pastBij : (
                             <button type="button" className="ds-opp-terug" onClick={() => setS((p) => ({ ...p, size: OPP_STAPPEN[opSchat] }))}>
-                              geschat ± {schatting} m²
+                              {t.geschat(schatting)}
                             </button>
                           )}
                         </small>
@@ -532,8 +540,8 @@ const VerhuurSimulatorPage = () => {
                           max={OPP_STAPPEN.length - 1}
                           step={1}
                           value={opIk}
-                          aria-label="Vloeroppervlakte"
-                          aria-valuetext={maatwerk ? `meer dan ${GROOTSTE} m²` : `tot ${s.size} m²`}
+                          aria-label={t.vloeroppervlakte}
+                          aria-valuetext={maatwerk ? t.meerDan(GROOTSTE) : t.tot(s.size)}
                           onChange={(e) => setS((p) => ({ ...p, size: OPP_STAPPEN[Number(e.target.value)] }))}
                         />
                         <i className="ds-opp-tick" aria-hidden="true" />
@@ -546,37 +554,37 @@ const VerhuurSimulatorPage = () => {
 
               {stap === 2 && (
                 <>
-                  <h2>Hoe ver staat de werf?</h2>
-                  <p className="ds-sub">Kies hoe ver de werken staan. De foto toont waar het vocht zit.</p>
+                  <h2>{t.s3Kop}</h2>
+                  <p className="ds-sub">{t.s3Sub}</p>
                   <Bouwfilm fase={s.fase} toon={faseToon} onKies={kiesFase} />
                   <div>
-                    <div className="ds-lbl">Kies uw fase</div>
+                    <div className="ds-lbl">{t.kiesFase}</div>
                     <FaseKnoppen fase={s.fase} onKies={kiesFase} onToon={setFaseToon} />
                   </div>
                   {s.fase && <FaseRegels key={s.fase} fase={s.fase} />}
                   <div className="ds-vragen">
                     <div className="ds-vraag">
-                      <span>Is er verwarming?</span>
-                      <div className="ds-jn" role="radiogroup" aria-label="Is er verwarming?">
+                      <span>{t.verwarming}</span>
+                      <div className="ds-jn" role="radiogroup" aria-label={t.verwarming}>
                         <button type="button" role="radio" aria-checked={verwarmd === true} className={verwarmd === true ? "on" : undefined} onClick={() => setS((p) => ({ ...p, verwarmt: true }))}>
-                          Ja
+                          {t.ja}
                         </button>
                         <button type="button" role="radio" aria-checked={verwarmd === false} className={verwarmd === false ? "on" : undefined} onClick={() => setS((p) => ({ ...p, verwarmt: false }))}>
-                          Nee
+                          {t.nee}
                         </button>
                       </div>
                       {verwarmd === false && (
-                        <p className="ds-gevolg"><i>+</i><span><b>Kachels</b> erbij in uw pakket.</span></p>
+                        <p className="ds-gevolg"><i>+</i><span><b>{t.kachelsErbij[0]}</b>{t.kachelsErbij[1]}</span></p>
                       )}
                     </div>
                     <div className="ds-vraag ds-vraag--tempo">
-                      <span>Hoe snel<span className="ds-lang"> moet het droog zijn</span>?</span>
-                      <div className="ds-tempo" role="radiogroup" aria-label="Hoe snel moet het droog zijn?">
-                        {TEMPO_ORDER.map((t) => (
-                          <button key={t} type="button" role="radio" aria-checked={s.tempo === t} className={s.tempo === t ? "on" : undefined} onClick={() => setS((p) => ({ ...p, tempo: t }))}>
-                            <b>{TEMPO[t].label}</b>
+                      <span>{t.hoeSnel[0]}<span className="ds-lang">{t.hoeSnel[1]}</span>{taal === "fr" ? " ?" : "?"}</span>
+                      <div className="ds-tempo" role="radiogroup" aria-label={t.hoeSnelVol}>
+                        {TEMPO_ORDER.map((tp) => (
+                          <button key={tp} type="button" role="radio" aria-checked={s.tempo === tp} className={s.tempo === tp ? "on" : undefined} onClick={() => setS((p) => ({ ...p, tempo: tp }))}>
+                            <b>{t.tempo[tp].label}</b>
                             {/* De termijn ligt per pakket vast; "snel" zet er een droger bij. */}
-                            <small>{t === "snel" ? "+1 droger" : resultaat ? `${resultaat.weken} weken` : TEMPO[t].tekst}</small>
+                            <small>{tp === "snel" ? t.plusDroger : resultaat ? t.weken(resultaat.weken) : t.tempo[tp].tekst}</small>
                           </button>
                         ))}
                       </div>
@@ -587,9 +595,9 @@ const VerhuurSimulatorPage = () => {
 
               {stap === 3 && (
                 <>
-                  <h2>Hoe dik is het nat?</h2>
+                  <h2>{t.s4Kop}</h2>
                   <p className="ds-sub">
-                    {faseLagen.length > 1 ? "Kies per laag de dikte." : "Kies de dikte."} Weet u het niet, dan rekenen wij met de gangbare maat.
+                    {faseLagen.length > 1 ? t.perLaag : t.eenLaag}{t.weetNiet}
                   </p>
                   {/* Alleen de lagen die er in deze fase al liggen: bij een chape is er nog geen pleister. */}
                   {faseLagen.map((laag) => (
@@ -606,12 +614,12 @@ const VerhuurSimulatorPage = () => {
 
               {stap === 4 && resultaat && (
                 <>
-                  <span className={`ds-tempo-label ds-tempo-label--${antwoorden.tempo}`}>{TEMPO[antwoorden.tempo ?? "gemiddeld"].label}</span>
+                  <span className={`ds-tempo-label ds-tempo-label--${antwoorden.tempo}`}>{t.tempo[antwoorden.tempo ?? "gemiddeld"].label}</span>
                   <h2 className="ds-plan-kop">
-                    Droog in <em>± {resultaat.weken} {resultaat.weken === 1 ? "week" : "weken"}</em>
+                    {t.droogIn} <em>{t.weekOfWeken(resultaat.weken)}</em>
                   </h2>
                   <p className="ds-sub ds-sub--altijd">
-                    {WONING[woning].label} · {maat} · {aantalToestellen} toestellen
+                    {woningTekst(woning, taal).label} · {maat} · {t.toestellen(aantalToestellen)}
                   </p>
                   <ul className="ds-bon">
                     {resultaat.items
@@ -620,28 +628,28 @@ const VerhuurSimulatorPage = () => {
                         <li key={it.k}>
                           <img src={CAT[it.k].img.replace(/\.png$/, ".webp")} alt="" loading="lazy" decoding="async" />
                           <span className="q">{it.q}×</span>
-                          <b>{TOESTEL_KORT[it.k]}</b>
-                          <small>{CAT[it.k].name.split(", ")[1] ?? ""}</small>
+                          <b>{t.toestelKort[it.k]}</b>
+                          <small>{cat[it.k].name.split(", ")[1] ?? ""}</small>
                         </li>
                       ))}
                   </ul>
                   <dl className="ds-stats">
                     {resultaat.capaciteit > 0 && (
                       <div>
-                        <dt>Ontvochtiging</dt>
-                        <dd>{resultaat.capaciteit} <small>l/24u</small></dd>
+                        <dt>{t.ontvochtiging}</dt>
+                        <dd>{resultaat.capaciteit} <small>{t.l24u}</small></dd>
                       </div>
                     )}
                     {resultaat.luchtverzet > 0 && (
                       <div>
-                        <dt>Lucht</dt>
-                        <dd>{resultaat.luchtverzet.toLocaleString("nl-BE")} <small>m³/u</small></dd>
+                        <dt>{t.lucht}</dt>
+                        <dd>{resultaat.luchtverzet.toLocaleString(NUMBER_LOCALE[taal])} <small>{t.m3u}</small></dd>
                       </div>
                     )}
                   </dl>
                   <div className="ds-advies ds-advies--plan">
-                    <b>Let op · {FASE[antwoorden.fase].label.toLowerCase()}</b>
-                    {FASE[antwoorden.fase].advies}
+                    <b>{t.letOp} · {faseInTaal(antwoorden.fase, taal).label.toLowerCase()}</b>
+                    {faseInTaal(antwoorden.fase, taal).advies}
                   </div>
 {totaal}
                 </>
@@ -649,32 +657,30 @@ const VerhuurSimulatorPage = () => {
 
               {stap === 4 && !resultaat && (
                 <>
-                  <h2>{maatwerk ? "Groot project? Dan maken we het droogplan op maat." : "Voor deze combinatie hebben we geen vast pakket."}</h2>
+                  <h2>{maatwerk ? t.maatwerkKop : t.geenPakketKop}</h2>
                   <p className="ds-sub ds-sub--altijd">
-                    {maatwerk
-                      ? `Boven ${GROOTSTE} m² stellen wij het droogplan persoonlijk samen, met plaatsbezoek indien nodig. Wij nemen binnen één werkdag contact op.`
-                      : "Stel uw pakket samen in de Calculator, of bel ons: we rekenen het samen uit."}
+                    {maatwerk ? t.maatwerkTekst(GROOTSTE) : t.geenPakketTekst}
                   </p>
                   <div className="ds-chips">
                     {maatwerk ? (
                       <a className="ds-book" href="https://survey.typeform.com/to/QJgaZgHX" target="_blank" rel="noopener">
-                        Vraag uw maatwerkofferte aan →
+                        {t.maatwerkKnop}
                       </a>
                     ) : (
-                      <Link className="ds-book" to="/verhuur/calculator">Naar de Calculator →</Link>
+                      <Link className="ds-book" to={lp("/verhuur/calculator")}>{t.naarCalculator}</Link>
                     )}
-                    <a className="ds-chip" href={`tel:${CONTACT.phoneE164}`}>Bel {CONTACT.phoneLocal}</a>
+                    <a className="ds-chip" href={`tel:${CONTACT.phoneE164}`}>{t.bel(CONTACT.phoneLocal)}</a>
                   </div>
                 </>
               )}
             </div>
 
             <div className="ds-foot">
-              <button className={stap === 4 && resultaat ? "ds-rond" : "ds-back"} type="button" hidden={stap === 0} aria-label="Terug" onClick={() => naar(terug)}>
+              <button className={stap === 4 && resultaat ? "ds-rond" : "ds-back"} type="button" hidden={stap === 0} aria-label={t.terug} onClick={() => naar(terug)}>
                 {stap === 4 && resultaat ? (
                   <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 4l-6 6 6 6" /></svg>
                 ) : (
-                  "← Terug"
+                  t.terugKnop
                 )}
               </button>
               {volgende.melding && <p className="ds-melding" role="status">{volgende.melding}</p>}
@@ -684,10 +690,10 @@ const VerhuurSimulatorPage = () => {
                 </button>
               ) : resultaat ? (
                 <>
-                  <Link className="ds-boek" to={`/verhuur/pakket?${configToQuery(resultaat.config)}${extraNaarQuery(resultaat.extra)}`}>
-                    Boek dit pakket →
+                  <Link className="ds-boek" to={lp(`/verhuur/pakket?${configToQuery(resultaat.config)}${extraNaarQuery(resultaat.extra)}`)}>
+                    {t.boek}
                   </Link>
-                  <button className="ds-rond" type="button" aria-label="Opnieuw beginnen" title="Opnieuw" onClick={() => { setS(START); naar(0); }}>
+                  <button className="ds-rond" type="button" aria-label={t.opnieuwBeginnen} title={t.opnieuw} onClick={() => { setS(START); naar(0); }}>
                     <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 10a6 6 0 1 0 2-4.5M4 3v3.5h3.5" /></svg>
                   </button>
                 </>
@@ -700,21 +706,21 @@ const VerhuurSimulatorPage = () => {
                     naar(0);
                   }}
                 >
-                  Opnieuw
+                  {t.opnieuw}
                 </button>
               )}
             </div>
           </section>
 
           {/* ───────────── tekening ───────────── */}
-          <section className="ds-stage" aria-label="Tekening van uw woning">
+          <section className="ds-stage" aria-label={t.tekening}>
             <div className="ds-shead">
               <div>
                 <p className="ds-eyebrow">{kop.eyebrow}</p>
                 <p className="ds-stitel" aria-live="polite">{kop.titel}</p>
               </div>
               <span className="ds-badge">
-                {WONING[woning].label} · {lagen} {lagen === 1 ? "laag" : "lagen"} · {maat}
+                {woningTekst(woning, taal).label} · {t.lagen(lagen)} · {maat}
               </span>
             </div>
 
@@ -740,7 +746,7 @@ const VerhuurSimulatorPage = () => {
                 <DagTeller
                   key={`${filmSeg?.modus}-${toonVerd}-${resultaat.dagen}-${ronde}-${filmKlaar}-${handmatig}`}
                   segment={filmSeg}
-                  naam={verdiepingNaam(toonVerd, lagen, dak)}
+                  naam={verdiepingNaam(toonVerd, lagen, dak, taal)}
                   geplaatst={perLaag[toonVerd] ?? 0}
                   dagen={resultaat.dagen}
                   water={resultaat.water}
@@ -750,14 +756,14 @@ const VerhuurSimulatorPage = () => {
               {stap === 4 && resultaat && filmKlaar && (
                 <button type="button" className="ds-herhaal" onClick={opnieuwAfspelen}>
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 1 0 1.7-4M2.5 2.5v3h3" /></svg>
-                  Opnieuw afspelen
+                  {t.opnieuwAfspelen}
                 </button>
               )}
             </div>
 
             <div className="ds-sfoot">
               {stap === 4 && lagen > 1 && (
-                <div className="ds-tabs" role="tablist" aria-label="Verdieping">
+                <div className="ds-tabs" role="tablist" aria-label={t.verdieping}>
                   {Array.from({ length: lagen }, (_, v) => {
                     const n = perLaag[v] ?? 0;
                     return (
@@ -775,10 +781,8 @@ const VerhuurSimulatorPage = () => {
                           setRonde((r) => r + 1);
                         }}
                       >
-                        {verdiepingNaam(v, lagen, dak)}
-                        <small>
-                          {n} {n === 1 ? "toestel" : "toestellen"}
-                        </small>
+                        {verdiepingNaam(v, lagen, dak, taal)}
+                        <small>{t.toestelTel(n)}</small>
                       </button>
                     );
                   })}
@@ -786,19 +790,19 @@ const VerhuurSimulatorPage = () => {
               )}
               <div className="ds-cart">
                 <div className="ds-legend">
-                  <p>Legende</p>
+                  <p>{t.legende}</p>
                   <div>
-                    <span><i className="ds-l-droger" />Droger</span>
-                    <span><i className="ds-l-fan" />Ventilator</span>
-                    <span><i className="ds-l-kachel" />Kachel</span>
-                    <span><i className="ds-l-nat" />Vocht</span>
+                    <span><i className="ds-l-droger" />{t.droger}</span>
+                    <span><i className="ds-l-fan" />{t.ventilator}</span>
+                    <span><i className="ds-l-kachel" />{t.kachel}</span>
+                    <span><i className="ds-l-nat" />{t.vocht}</span>
                   </div>
                 </div>
                 {/* De prijs pas in het droogplan: tijdens de vragen leidt hij af van het antwoorden. */}
                 {stap === 4 && (
                   <div className="ds-cart-prijs">
-                    <p>Uw pakket</p>
-                    {resultaat ? <b>{euro(resultaat.prijs)}</b> : <b className="dim">Maatwerk</b>}
+                    <p>{t.uwPakket}</p>
+                    {prijs ? <b>{prijs.tekst}</b> : <b className="dim">{t.kop.maatwerk}</b>}
                   </div>
                 )}
               </div>
@@ -822,15 +826,15 @@ function Foto({ sleutel, children }: { sleutel: FotoSleutel; children: ReactNode
 
 /** "Gelijkvloers", "+ 1 verdiep", "+ 2 verdiepen + zolder" — what n bouwlagen mean under this roof. */
 /** "Alleen gelijkvloers", "Gelijkvloers + 1 verdiep + zolder" — the whole house in words. */
-function woningLagen(n: number, dak: Dak): string {
-  return n === 1 ? "Alleen gelijkvloers" : `Gelijkvloers ${lagenUitleg(n, dak)}`;
+function woningLagen(n: number, dak: Dak, t: SimCopy): string {
+  return n === 1 ? t.alleenGelijkvloers : t.gelijkvloersMet(lagenUitleg(n, dak, t));
 }
 
-function lagenUitleg(n: number, dak: Dak): string {
-  if (n === 1) return "Gelijkvloers";
+function lagenUitleg(n: number, dak: Dak, t: SimCopy): string {
+  if (n === 1) return t.gelijkvloers;
   const zolder = isZolder(n - 1, n, dak);
   const verd = n - 1 - (zolder ? 1 : 0);
-  return [verd > 0 ? `+ ${verd} ${verd === 1 ? "verdiep" : "verdiepen"}` : "", zolder ? "+ zolder" : ""].filter(Boolean).join(" ");
+  return [verd > 0 ? t.plusVerdiep(verd) : "", zolder ? t.plusZolder : ""].filter(Boolean).join(" ");
 }
 
 /**
@@ -864,24 +868,19 @@ function HuisIcoon({ dak, lagen }: { dak: Dak; lagen: number }) {
   );
 }
 
-/** Wat de bezoeker per laag te zien krijgt: een echte foto, wat het is, waar hij het ziet. */
+/** Wat de bezoeker per laag te zien krijgt: een echte foto, wat het is, waar hij het ziet. De teksten staan in de COPY (`laag`). */
 const LAAG = {
   pd: {
-    titel: "Pleisterwerk",
     waarden: PD_VALUES,
     standaard: DEFAULT_PD,
     foto: "/simulator/dikte-pleister-v2.webp",
     fotoKlein: "/simulator/dikte-pleister-v2-360.webp",
     fotoBreedte: 1024,
     fotoPositie: "48% 50%",
-    wat: "De gladde laag gips op uw muren en plafonds. Vers aangebracht zit ze vol water.",
-    onderschrift: "Gips op de muur, nog vochtig",
-    tip: "Waar zie ik dat? In een inbouwdoos of naast een deurlijst.",
     // Vuistregel: ± 1 week per cm zonder droger.
     weken: (cm: number) => cm,
   },
   cd: {
-    titel: "Chape",
     waarden: CD_VALUES,
     standaard: DEFAULT_CD,
     // Nieuwe bestandsnaam, niet de oude overschreven: zie VERSIE in fotos.ts.
@@ -890,9 +889,6 @@ const LAAG = {
     // Staand 1024×1536: scherp genoeg voor de banner over de volle breedte als chape de enige laag is.
     fotoBreedte: 1024,
     fotoPositie: "50% 72%",
-    wat: "De dekvloer van zand en cement onder uw tegels of parket.",
-    onderschrift: "Zandcement op de isolatie",
-    tip: "Waar zie ik dat? Aan de dorpel, of vraag het aan uw chapeur.",
     // Vuistregel: 1 week per cm tot 4 cm, daarboven 2 weken per extra cm.
     weken: (cm: number) => (cm <= 4 ? cm : 4 + 2 * (cm - 4)),
   },
@@ -910,25 +906,26 @@ const Vink = ({ grootte = 10 }: { grootte?: number }) => (
  * uitgeschakelde kaart: de laag is droog en telt niet mee.
  */
 function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd"; gekozen: string; onKies: (v: string) => void; solo?: boolean }) {
-  const L = LAAG[laag];
+  const t = useCopy(COPY);
+  const L = { ...LAAG[laag], ...t.laag[laag] };
   const droog = gekozen === "geen";
   const onbekend = gekozen === "onbekend";
   const cm = droog ? 0 : Number(onbekend ? L.standaard : gekozen);
   const max = Math.max(...L.waarden.map(Number));
   const weken = L.weken(cm);
   const keuzes: { v: string; groot: ReactNode; klein: string }[] = [
-    { v: "geen", groot: "Geen", klein: droog ? "droog" : "niet nat" },
-    ...L.waarden.map((v) => ({ v, groot: <>{v}<small> cm</small></>, klein: v === L.standaard ? "meest" : "" })),
-    { v: "onbekend", groot: "?", klein: "weet niet" },
+    { v: "geen", groot: t.geen, klein: droog ? t.droogKlein : t.nietNat },
+    ...L.waarden.map((v) => ({ v, groot: <>{v}<small> cm</small></>, klein: v === L.standaard ? t.meest : "" })),
+    { v: "onbekend", groot: "?", klein: t.weetNietKlein },
   ];
-  const dikte = droog ? <span className="ok">Droog</span> : <>{onbekend ? "± " : ""}{cm}<small> cm</small></>;
+  const dikte = droog ? <span className="ok">{t.droog}</span> : <>{onbekend ? "± " : ""}{cm}<small> cm</small></>;
   // Solo (maar één laag in deze fase): de foto wordt een banner over de volle breedte die de vrije
   // hoogte opneemt, met naam en dikte erop; anders rekt één kaart uit tot gaten.
   return (
     <section className={`ds-laagk${droog ? " uit" : ""}${solo ? " ds-laagk--solo" : ""}`} aria-label={L.titel}>
       <figure className="ds-laagk-foto">
         <img src={L.fotoKlein} srcSet={`${L.fotoKlein} 360w, ${L.foto.replace(/\.webp$/, "-640.webp")} 640w, ${L.foto} ${L.fotoBreedte}w`} sizes={solo ? "(max-width: 899px) 92vw, 640px" : "(max-width: 899px) 30vw, 260px"} alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
-        {droog && <span className="ds-laagk-badge">Niet nat</span>}
+        {droog && <span className="ds-laagk-badge">{t.nietNatBadge}</span>}
         {solo ? (
           <figcaption className="ds-laagk-band">
             <span><h3>{L.titel}</h3>{L.onderschrift}</span>
@@ -945,7 +942,7 @@ function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd";
         )}
         <p className="ds-laagk-wat">{L.wat}</p>
         <div className="ds-ware" style={{ "--max": max } as CSSProperties}>
-          <em>Dikte in cm · sleep of kies</em>
+          <em>{t.dikteSleep}</em>
           <div className="ds-ware-lat">
             <i style={{ width: `${(cm / max) * 100}%` }} />
             <WareSchuif laag={laag} cm={cm} max={max} onKies={onKies} />
@@ -953,10 +950,10 @@ function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd";
           <div className="ds-ware-schaal">{Array.from({ length: max + 1 }, (_, i) => <span key={i}>{i}</span>)}</div>
           <div className="ds-ware-droog" aria-hidden={!droog}>
             <span className="bol"><Vink grootte={14} /></span>
-            <span><b>{L.titel}: droog</b><small>Deze laag telt niet mee in uw droogplan.</small></span>
+            <span><b>{t.laagDroog(L.titel)}</b><small>{t.telNiet}</small></span>
           </div>
         </div>
-        <div className="ds-dk" role="radiogroup" aria-label={`Dikte ${L.titel.toLowerCase()}`}>
+        <div className="ds-dk" role="radiogroup" aria-label={t.dikte(L.titel)}>
           {keuzes.map((k) => (
             <button key={k.v} type="button" role="radio" aria-checked={gekozen === k.v} className={`${k.v === "geen" ? "geen" : ""}${gekozen === k.v ? " on" : ""}`} onClick={() => onKies(k.v)}>
               {k.v === "geen" && <span className="vink"><Vink /></span>}
@@ -972,8 +969,8 @@ function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd";
             )}
             <span>
               {droog
-                ? laag === "pd" ? "Geen nat pleisterwerk: niets te drogen." : "Geen natte chape: niets te drogen."
-                : <>± {weken} {weken === 1 ? "week" : "weken"} drogen zonder droger{onbekend && <em> · gerekend met {cm} cm</em>}</>}
+                ? laag === "pd" ? t.geenPleister : t.geenChape
+                : <>{t.zonderDroger(weken)}{onbekend && <em>{t.gerekendMet(cm)}</em>}</>}
             </span>
           </span>
           <span className="tip">{L.tip}</span>
@@ -989,7 +986,8 @@ function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd";
  * naar een catalogusmaat: andere diktes kent de berekening niet.
  */
 function WareSchuif({ laag, cm, max, onKies }: { laag: "pd" | "cd"; cm: number; max: number; onKies: (v: string) => void }) {
-  const L = LAAG[laag];
+  const t = useCopy(COPY);
+  const L = { ...LAAG[laag], ...t.laag[laag] };
   const stops: { cm: number; v: string }[] = [{ cm: 0, v: "geen" }, ...L.waarden.map((v) => ({ cm: Number(v), v }))];
   const dichtst = (x: number) => stops.reduce((b, s) => (Math.abs(s.cm - x) < Math.abs(b.cm - x) ? s : b), stops[0]);
   const huidig = stops.findIndex((s) => s.cm === cm);
@@ -1002,8 +1000,8 @@ function WareSchuif({ laag, cm, max, onKies }: { laag: "pd" | "cd"; cm: number; 
       max={max}
       step={0.05}
       value={cm}
-      aria-label={`Dikte ${L.titel.toLowerCase()} in cm`}
-      aria-valuetext={cm === 0 ? "niet nat" : `${cm} cm`}
+      aria-label={t.dikteCm(L.titel)}
+      aria-valuetext={cm === 0 ? t.nietNat : `${cm} cm`}
       onChange={(e) => {
         const s = dichtst(Number(e.target.value));
         if (s.cm !== cm) onKies(s.v);
@@ -1021,14 +1019,15 @@ function WareSchuif({ laag, cm, max, onKies }: { laag: "pd" | "cd"; cm: number; 
 
 /** Detail A: een doorsnede van muur en vloer op schaal, met maatlijnen. */
 function Doorsnede({ wat, pd, cd }: { wat: Wat; pd: string; cd: string }) {
+  const t = useCopy(COPY);
   const p = Number(pd.replace(",", ".")) || 2;
   const c = Number(cd.replace(",", ".")) || 6;
   const muur = wat !== "chape";
   const vloer = wat !== "pleister";
   const k = 4; // px per cm, overdreven zodat 1 cm zichtbaar blijft
   return (
-    <figure className="ds-detail" aria-label="Doorsnede van muur en vloer">
-      <figcaption>Detail A · doorsnede</figcaption>
+    <figure className="ds-detail" aria-label={t.doorsnede}>
+      <figcaption>{t.detailA}</figcaption>
       <svg viewBox="0 0 150 110">
         <rect x="20" y="8" width="30" height="72" fill="#c9bfb2" />
         {Array.from({ length: 6 }, (_, i) => (
@@ -1040,13 +1039,13 @@ function Doorsnede({ wat, pd, cd }: { wat: Wat; pd: string; cd: string }) {
         {muur && (
           <g className="ds-maat">
             <line x1="50" x2={50 + p * k} y1="4" y2="4" />
-            <text x={52 + p * k} y="6">{pd.replace(".", ",")} cm pleister</text>
+            <text x={52 + p * k} y="6">{t.cmPleister(pd.replace(".", ","))}</text>
           </g>
         )}
         {vloer && (
           <g className="ds-maat">
             <line x1="140" x2="140" y1={88 - c * k * 0.5} y2="88" />
-            <text x="138" y={84 - c * k * 0.5} textAnchor="end">{cd} cm chape</text>
+            <text x="138" y={84 - c * k * 0.5} textAnchor="end">{t.cmChape(cd)}</text>
           </g>
         )}
       </svg>
@@ -1063,6 +1062,8 @@ function Doorsnede({ wat, pd, cd }: { wat: Wat; pd: string; cd: string }) {
 function DagTeller({ segment, naam, geplaatst, dagen, water, klaar }: {
   segment?: Segment; naam: string; geplaatst: number; dagen: number; water: number; klaar: boolean;
 }) {
+  const t = useCopy(COPY);
+  const taal = useTaal();
   const [k, setK] = useState(klaar || !segment ? 1 : 0);
   useEffect(() => {
     if (klaar || !segment || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -1088,7 +1089,7 @@ function DagTeller({ segment, naam, geplaatst, dagen, water, klaar }: {
     return (
       <div className="ds-teller">
         <span>
-          <b>{Math.floor(k * geplaatst + 1e-6)}</b> van {geplaatst} geplaatst
+          <b>{Math.floor(k * geplaatst + 1e-6)}</b>{t.vanGeplaatst(geplaatst)}
         </span>
         <div className="ds-meter ds-meter--plaats" aria-hidden="true">
           <i style={{ width: `${Math.max(3, k * 100)}%` }} />
@@ -1103,21 +1104,21 @@ function DagTeller({ segment, naam, geplaatst, dagen, water, klaar }: {
   return (
     <div className="ds-teller">
       <span>
-        Dag <b>{dag}</b> van {dagen}
+        {t.dag} <b>{dag}</b>{t.van(dagen)}
       </span>
       {/* Blue = moisture left in the house; once dry the bar turns full and green. */}
       <div className={alles ? "ds-meter ds-meter--droog" : "ds-meter"} aria-hidden="true">
         <i style={{ width: alles ? "100%" : `${Math.max(3, (1 - dag / dagen) * 100)}%` }} />
       </div>
-      <small>{alles ? "Alles droog" : `${naam} droogt`}</small>
+      <small>{alles ? t.allesDroog : t.droogt(naam)}</small>
       {/* Litres pulled out of the house so far, on the same clock as the days. */}
       <p className="ds-liter">
-        <b>{Math.round((dag / dagen) * water).toLocaleString("nl-BE")}</b> l water afgevoerd
+        <b>{Math.round((dag / dagen) * water).toLocaleString(NUMBER_LOCALE[taal])}</b>{t.afgevoerd}
       </p>
       {laagDroog && (
         <div className="ds-stempel" aria-hidden="true">
-          Droog
-          <small>{naam} · dag {segment.dagTot}</small>
+          {t.stempel}
+          <small>{t.stempelDag(naam, segment.dagTot)}</small>
         </div>
       )}
     </div>
