@@ -1,5 +1,25 @@
 import { useEffect, useRef } from "react";
+import { useCopy, type Copy } from "@/i18n/useTaal";
 import "@/styles/hoe-drogen-animaties.css";
+
+const COPY = {
+  nl: {
+    aria: "Grafiek: hoeveel waterdamp lucht kan bevatten per temperatuur, bij 20 tot 100 procent relatieve luchtvochtigheid.",
+    asT: "temperatuur (°C)",
+    asG: "waterdamp in de lucht (g/m³)",
+    verzadigd: "verzadigd: ",
+    ruimte: "bij 60% nog ruimte voor ",
+    bij: "Hoe warmer de lucht, hoe meer waterdamp ze kán dragen. Daarom zegt een percentage alleen iets samen met de temperatuur, en groeit de ruimte om vocht op te nemen zo sterk met elke graad erbij.",
+  },
+  fr: {
+    aria: "Graphique : quantité de vapeur d'eau que l'air peut contenir selon la température, entre 20 et 100 pour cent d'humidité relative.",
+    asT: "température (°C)",
+    asG: "vapeur d'eau dans l'air (g/m³)",
+    verzadigd: "saturé : ",
+    ruimte: "marge à 60 % : ",
+    bij: "Plus l'air est chaud, plus il peut contenir de vapeur d'eau. C'est pourquoi un pourcentage ne veut rien dire sans la température, et pourquoi la marge pour absorber l'humidité augmente autant à chaque degré supplémentaire.",
+  },
+} satisfies Copy<{ aria: string; asT: string; asG: string; verzadigd: string; ruimte: string; bij: string }>;
 
 /*
   Verzadigingshoeveelheid waterdamp in g/m³ bij een temperatuur, via de
@@ -62,6 +82,7 @@ const PERIODE = 15000;
  * rAF-lus die altijd doordraait is zonde op een pagina van deze lengte.
  */
 const VochtGrafiek = () => {
+  const t = useCopy(COPY);
   const wortel = useRef<HTMLDivElement>(null);
   const lijn = useRef<SVGLineElement>(null);
   const spanLijn = useRef<SVGLineElement>(null);
@@ -133,7 +154,7 @@ const VochtGrafiek = () => {
 
   return (
     <div className="vgraf" ref={wortel}>
-      <svg viewBox={`0 0 ${B.w} ${B.h}`} role="img" aria-label="Grafiek: hoeveel waterdamp lucht kan bevatten per temperatuur, bij 20 tot 100 procent relatieve luchtvochtigheid.">
+      <svg viewBox={`0 0 ${B.w} ${B.h}`} role="img" aria-label={t.aria}>
         {/* rasterlijnen */}
         {GRAM_TICKS.map((g) => (
           <line key={`g${g}`} className="vgraf-raster" x1={B.l} x2={B.w - B.r} y1={y(g)} y2={y(g)} />
@@ -181,10 +202,10 @@ const VochtGrafiek = () => {
           </text>
         ))}
         <text className="vgraf-astitel" x={B.l + (B.w - B.l - B.r) / 2} y={B.h - 6} textAnchor="middle">
-          temperatuur (°C)
+          {t.asT}
         </text>
         <text className="vgraf-astitel" x={-((B.h - B.b + B.t) / 2)} y={13} transform="rotate(-90)" textAnchor="middle">
-          waterdamp in de lucht (g/m³)
+          {t.asG}
         </text>
 
         {/* aflezing */}
@@ -194,17 +215,14 @@ const VochtGrafiek = () => {
             {graden(START)} °C
           </text>
           <text className="vgraf-chip-r" x={B.l + 24} y={B.t + 52}>
-            verzadigd: <tspan ref={volTekst} className="vol">{getal(volStart)} g/m³</tspan>
+            {t.verzadigd}<tspan ref={volTekst} className="vol">{getal(volStart)} g/m³</tspan>
           </text>
           <text className="vgraf-chip-r" x={B.l + 24} y={B.t + 70}>
-            bij 60% nog ruimte voor <tspan ref={ijkTekst} className="ijk">{getal(volStart * 0.4)} g/m³</tspan>
+            {t.ruimte}<tspan ref={ijkTekst} className="ijk">{getal(volStart * 0.4)} g/m³</tspan>
           </text>
         </g>
       </svg>
-      <p className="vgraf-bij">
-        Hoe warmer de lucht, hoe meer waterdamp ze kán dragen. Daarom zegt een percentage alleen iets
-        samen met de temperatuur, en groeit de ruimte om vocht op te nemen zo sterk met elke graad erbij.
-      </p>
+      <p className="vgraf-bij">{t.bij}</p>
     </div>
   );
 };

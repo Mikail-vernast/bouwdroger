@@ -6,6 +6,8 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import FaqBlok from "@/components/content/FaqBlok";
 import { articleSchema, breadcrumbSchema, faqSchema, organizationSchema } from "@/lib/schema";
 import type { SeoEntry } from "@/data/seo";
+import { useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
+import { HTML_LANG, type Taal } from "@/i18n/taal";
 import "@/styles/hoe-drogen-werkt.css";
 import "@/styles/hoe-drogen-werkt-fixes.css";
 import "@/styles/gids.css";
@@ -72,6 +74,43 @@ interface GidsShellProps {
   children: ReactNode;
 }
 
+/*
+  De vaste teksten van de schil. Wat per pagina verschilt (kop, inleiding,
+  kruimelnamen) geeft de pagina zelf mee, al in haar eigen taal; paden geeft
+  ze in het Nederlands, en de schil zet ze om.
+*/
+const COPY = {
+  nl: {
+    kruimelpad: "Kruimelpad",
+    bereken: "Bereken uw droogpakket",
+    afhalen: "Losse toestellen afhalen",
+    faqKick: "Veelgestelde vragen",
+    faqTitel: "Kort beantwoord",
+  },
+  fr: {
+    kruimelpad: "Fil d'Ariane",
+    bereken: "Calculez votre pack de séchage",
+    afhalen: "Appareils à enlever",
+    faqKick: "Questions fréquentes",
+    faqTitel: "En bref",
+  },
+} satisfies Copy<{ kruimelpad: string; bereken: string; afhalen: string; faqKick: string; faqTitel: string }>;
+
+/**
+ * `articleSchema` zet de taal van de site (nl-BE) vast in het artikel. Een
+ * Franse gids met `inLanguage: nl-BE` zou zichzelf tegenspreken, dus zet de
+ * schil hier de taal van de pagina in de artikelknoop van de graaf.
+ */
+function inTaal(blok: Record<string, unknown>, taal: Taal): Record<string, unknown> {
+  if (taal === "nl" || !Array.isArray(blok["@graph"])) return blok;
+  return {
+    ...blok,
+    "@graph": (blok["@graph"] as Record<string, unknown>[]).map((knoop) =>
+      knoop["@type"] === "Article" ? { ...knoop, inLanguage: HTML_LANG[taal] } : knoop
+    ),
+  };
+}
+
 const Arrow = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
     <path d="M5 12h14" />
@@ -90,7 +129,7 @@ const Arrow = () => (
  */
 export const GidsFaqSectie = ({
   faq,
-  kick = "Veelgestelde vragen",
+  kick,
   titel,
   variant = "grijs",
 }: {
@@ -98,7 +137,10 @@ export const GidsFaqSectie = ({
   kick?: string;
   titel: string;
   variant?: "grijs" | "rood";
-}) => (
+}) => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  return (
   /*
     Hetzelfde vragenblok als op de homepage en op de inhoudspagina's. Hier
     stond een eigen accordeon met een rond pijltje; dat was de derde vorm van
@@ -106,14 +148,15 @@ export const GidsFaqSectie = ({
     waarom het één component is.
   */
   <FaqBlok
-    kicker={kick}
+    kicker={kick ?? t.faqKick}
     titel={titel}
     vragen={faq.map((item) => ({ q: item.question, a: item.answer }))}
     sleutel="gids-faq"
     variant={variant === "rood" ? "rood" : "grijs"}
-    vraagHref="/contact"
+    vraagHref={lp("/contact")}
   />
-);
+  );
+};
 
 /**
  * De gedeelde schil van de gidsen en /luchtontvochtiger-huren: header, rode
@@ -139,26 +182,36 @@ const GidsShell = ({
   faqZelfPlaatsen = false,
   jsonLd = [],
   children,
-}: GidsShellProps) => (
+}: GidsShellProps) => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const taal = useTaal();
+  const pad = lp(path);
+  const kruimels = crumbs.map((c) => ({ name: c.name, path: lp(c.path) }));
+
+  return (
   <div className="hdw-page gids">
     <PageMeta
       {...seo}
-      path={path}
+      path={pad}
       ogType={articlePublished ? "article" : "website"}
       jsonLd={[
         articlePublished
-          ? articleSchema({
-              headline: h1,
-              description: seo.description,
-              path,
-              datePublished: articlePublished,
-              dateModified: articleModified,
-            })
+          ? inTaal(
+              articleSchema({
+                headline: h1,
+                description: seo.description,
+                path: pad,
+                datePublished: articlePublished,
+                dateModified: articleModified,
+              }),
+              taal
+            )
           : // Een @graph uit withOrganization() draagt het bedrijf al mee.
             jsonLd.some((blok) => Array.isArray(blok["@graph"]))
             ? null
             : organizationSchema(),
-        breadcrumbSchema(crumbs),
+        breadcrumbSchema(kruimels),
         ...(faq.length ? [faqSchema(faq)] : []),
         ...jsonLd,
       ].filter((blok): blok is Record<string, unknown> => blok !== null)}
@@ -170,11 +223,11 @@ const GidsShell = ({
       <section className="hero">
         <div className={heroImg ? "wrap hero-grid" : "wrap hero-grid nopic"}>
           <div className="hero-copy">
-            <nav aria-label="Kruimelpad">
+            <nav aria-label={t.kruimelpad}>
               <ol className="crumbs">
-                {crumbs.map((c, i) => (
+                {kruimels.map((c, i) => (
                   <li key={c.path}>
-                    {i === crumbs.length - 1 ? (
+                    {i === kruimels.length - 1 ? (
                       <span aria-current="page">{c.name}</span>
                     ) : (
                       <Link to={c.path}>{c.name}</Link>
@@ -187,12 +240,12 @@ const GidsShell = ({
             <h1>{h1}</h1>
             {intro}
             <div className="hcta">
-              <Link className="btn btn-white" to="/verhuur/calculator">
-                Bereken uw droogpakket
+              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+                {t.bereken}
                 <Arrow />
               </Link>
-              <Link className="btn btn-ghost" to="/verhuur/afhalen">
-                Losse toestellen afhalen
+              <Link className="btn btn-ghost" to={lp("/verhuur/afhalen")}>
+                {t.afhalen}
               </Link>
             </div>
           </div>
@@ -213,10 +266,11 @@ const GidsShell = ({
 
     {children}
 
-    {faq.length > 0 && !faqZelfPlaatsen && <GidsFaqSectie faq={faq} titel="Kort beantwoord" />}
+    {faq.length > 0 && !faqZelfPlaatsen && <GidsFaqSectie faq={faq} titel={t.faqTitel} />}
 
     <V3Footer />
   </div>
-);
+  );
+};
 
 export default GidsShell;
