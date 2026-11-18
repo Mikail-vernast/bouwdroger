@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import type { Copy } from "@/i18n/useTaal";
 import { droogtermijnen, natuurlijkeChapeWeken, termijnLabel, type DroogtermijnRij } from "@/lib/droogtijden";
+import { termijnLabelFr } from "./termijnLabelFr";
 
 /**
  * Teksten van /chape-drogen in het Nederlands en het Frans.
@@ -16,14 +17,6 @@ export const CHAPE = droogtermijnen("chape");
 const kortsteTermijn = Math.min(...CHAPE.map((r) => r.min));
 const langsteTermijn = Math.max(...CHAPE.map((r) => r.max));
 const dikste = CHAPE[CHAPE.length - 1];
-
-/** "2 semaines", of "2 à 3 semaines" — de Franse tegenhanger van `termijnLabel`. */
-export function termijnLabelFr(rij: Pick<DroogtermijnRij, "min" | "max">): string {
-  const eenheid = (n: number) => (n === 1 ? "semaine" : "semaines");
-  return rij.min === rij.max
-    ? `${rij.min} ${eenheid(rij.min)}`
-    : `${rij.min} à ${rij.max} ${eenheid(rij.max)}`;
-}
 
 /** "5 cm: 2 weken, 6 cm: 3 weken en 7 cm: 4 weken" voor lopende tekst. */
 function opsomming(rijen: typeof CHAPE): string {
