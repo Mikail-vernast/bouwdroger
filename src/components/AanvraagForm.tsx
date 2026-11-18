@@ -1,4 +1,5 @@
 import { MAIL_TO } from "@/hooks/useAanvraag";
+import { useCopy, type Copy } from "@/i18n/useTaal";
 import "@/styles/aanvraag.css";
 
 /**
@@ -22,35 +23,57 @@ export const AanvraagHoneypot = () => (
   />
 );
 
+const COPY = {
+  nl: {
+    of: "Of",
+    mailRechtstreeks: "mail uw vraag rechtstreeks",
+    naar: "naar",
+    doneTitel: "Vraag verzonden",
+    doneTekst: "Bedankt! We nemen binnen één werkdag contact met u op.",
+  },
+  fr: {
+    of: "Ou",
+    mailRechtstreeks: "envoyez directement votre question par e-mail",
+    naar: "à",
+    doneTitel: "Question envoyée",
+    doneTekst: "Merci ! Nous vous recontactons dans un délai d'un jour ouvrable.",
+  },
+} satisfies Copy<{ of: string; mailRechtstreeks: string; naar: string; doneTitel: string; doneTekst: string }>;
+
 /** De foutmelding, met de mailto als laatste uitweg. */
-export const AanvraagError = ({ error, mailto }: { error: string | null; mailto: string | null }) =>
-  error ? (
+export const AanvraagError = ({ error, mailto }: { error: string | null; mailto: string | null }) => {
+  const t = useCopy(COPY);
+  return error ? (
     <p className="aanv-err" role="alert">
       {error}
       {mailto && (
         <>
           {" "}
-          Of <a href={mailto}>mail uw vraag rechtstreeks</a> naar {MAIL_TO}.
+          {t.of} <a href={mailto}>{t.mailRechtstreeks}</a> {t.naar} {MAIL_TO}.
         </>
       )}
     </p>
   ) : null;
+};
 
 /** Het bevestigingspaneel na verzenden. */
 export const AanvraagDone = ({
-  title = "Vraag verzonden",
-  text = "Bedankt! We nemen binnen één werkdag contact met u op.",
+  title,
+  text,
 }: {
   title?: string;
   text?: string;
-}) => (
+}) => {
+  const t = useCopy(COPY);
+  return (
   <div className="aanv-done" role="status">
     <div className="aanv-done-ic">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20 6 9 17l-5-5" />
       </svg>
     </div>
-    <h3>{title}</h3>
-    <p>{text}</p>
+    <h3>{title ?? t.doneTitel}</h3>
+    <p>{text ?? t.doneTekst}</p>
   </div>
-);
+  );
+};

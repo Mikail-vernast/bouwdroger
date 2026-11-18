@@ -1,4 +1,6 @@
 import { useState, type FormEvent } from "react";
+import { useTaal } from "@/i18n/useTaal";
+import type { Taal } from "@/i18n/taal";
 
 /**
  * De verzendlogica onder de formulieren op de contact-, klantenservice- en
@@ -19,6 +21,27 @@ export type AanvraagStatus = "idle" | "sending" | "done" | "error";
 /** Waar de mailto-uitweg naartoe gaat — dezelfde inbox als op de pagina's zelf. */
 export const MAIL_TO = "info@vernast-bouwdrogers.be";
 const FALLBACK_ERROR = "Verzenden lukte niet. Probeer het opnieuw of bel 03 689 90 65.";
+const NETWORK_ERROR = "Verzenden lukte niet, controleer uw verbinding en probeer opnieuw.";
+
+/*
+  `api/aanvraag.ts` antwoordt in het Nederlands, en dat blijft zo: de API
+  kent geen taal. Op een Franse pagina vertalen we zijn bekende meldingen
+  hier; een onbekende valt terug op de algemene Franse melding, zodat een
+  Franstalige bezoeker nooit een Nederlandse foutzin te zien krijgt.
+*/
+const FOUT_FR: Record<string, string> = {
+  "Ongeldige aanvraag.": "Demande non valide.",
+  "Vul uw naam en uw vraag in.": "Veuillez indiquer votre nom et votre question.",
+  "Vul een geldig e-mailadres in, dan kunnen we u antwoorden.":
+    "Veuillez indiquer une adresse e-mail valide, afin que nous puissions vous répondre.",
+  [FALLBACK_ERROR]: "L'envoi a échoué. Réessayez ou appelez le 03 689 90 65.",
+  [NETWORK_ERROR]: "L'envoi a échoué, vérifiez votre connexion et réessayez.",
+};
+
+function inTaal(melding: string, taal: Taal): string {
+  if (taal !== "fr") return melding;
+  return FOUT_FR[melding] ?? FOUT_FR[FALLBACK_ERROR];
+}
 
 interface Options {
   source: AanvraagSource;
@@ -32,6 +55,7 @@ export function useAanvraag({ source, messageField, mailSubject }: Options) {
   const [status, setStatus] = useState<AanvraagStatus>("idle");
   const [error, setError] = useState<string | null>(null);
   const [mailto, setMailto] = useState<string | null>(null);
+  const taal = useTaal();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -73,7 +97,7 @@ export function useAanvraag({ source, messageField, mailSubject }: Options) {
         `mailto:${MAIL_TO}?subject=${encodeURIComponent(`${mailSubject}: ${fields.onderwerp}`)}` +
           `&body=${encodeURIComponent(body)}`,
       );
-      setError(message);
+      setError(inTaal(message, taal));
       setStatus("error");
     };
 
@@ -97,7 +121,7 @@ export function useAanvraag({ source, messageField, mailSubject }: Options) {
 
       setStatus("done");
     } catch {
-      fail("Verzenden lukte niet, controleer uw verbinding en probeer opnieuw.");
+      fail(NETWORK_ERROR);
     }
   };
 
