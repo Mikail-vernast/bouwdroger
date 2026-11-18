@@ -4,7 +4,7 @@ import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import Reveal from "@/components/Reveal";
 import FaqBlok from "@/components/content/FaqBlok";
-import VerderLezen, { type LeesGroep } from "@/components/VerderLezen";
+import VerderLezen from "@/components/VerderLezen";
 import ContactBlok from "@/components/content/ContactBlok";
 import {
   ArrowRightIcon,
@@ -21,11 +21,16 @@ import {
   WindIcon,
 } from "@/components/content/icons";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "@/lib/schema";
-import { SEO } from "@/data/seo";
-import { PRODUCT_ADDONS, PRODUCT_ORDER, productImageAlt, PRODUCTS, PUMP, toestelChips, toestelPad } from "@/data/verhuur";
+import { useSeo } from "@/data/seo";
+import { PRODUCT_ADDONS, PRODUCT_ORDER, productImageAlt, PRODUCTS, PUMP, toestelPad } from "@/data/verhuur";
+import { productInTaal, toestelChipsInTaal } from "@/data/verhuur.fr";
 import { CONDENSPOMP } from "@/data/toebehoren";
-import { DROGERS, euro } from "@/data/tarieflijst";
+import { toebehorenInTaal } from "@/data/toebehoren.fr";
+import { DROGERS, tariefInTaal } from "@/data/tarieflijst";
 import { CONTACT } from "@/lib/site";
+import { formatEuro, useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
+import type { Taal } from "@/i18n/taal";
+import { COPY } from "./MachinesPage.copy";
 import "@/styles/v3-content.css";
 import "@/styles/machines.css";
 
@@ -55,10 +60,29 @@ import "@/styles/machines.css";
   hier met de hand bijgehouden wordt.
 */
 
-/** Een waarde uit de kerngegevens van een toestel, bv. "Verbruik" → "1,1 kW". */
-function kerngegeven(key: string, label: string): string | null {
-  const rij = PRODUCTS[key]?.key.find(([l]) => l === label);
+/**
+ * Een waarde uit de kerngegevens van een toestel, bv. "Verbruik" → "1,1 kW".
+ * Gezocht op het Nederlandse label; de waarde komt uit de vertaalde rij op
+ * dezelfde plaats, zodat "L/dag" in het Frans "L/jour" wordt.
+ */
+function kerngegeven(key: string, label: string, taal: Taal): string | null {
+  const i = PRODUCTS[key]?.key.findIndex(([l]) => l === label) ?? -1;
+  const rij = i >= 0 ? productInTaal(key, taal).key[i] : undefined;
   return rij ? `${rij[1]}${rij[2] ? ` ${rij[2]}` : ""}` : null;
+}
+
+/**
+ * Een catalogusbedrag zoals deze bezoeker het moet zien (incl. of excl. btw),
+ * zonder centen wanneer er geen zijn: "€ 9" voor een bedrijf, zoals hier
+ * altijd stond, en "€ 10,89" incl. btw.
+ */
+function useBedrag(): (excl: number) => { tekst: string; label: string } {
+  const toon = useToonBedrag();
+  const taal = useTaal();
+  return (excl) => {
+    const { bedrag, label } = toon(excl);
+    return { tekst: formatEuro(bedrag, taal, Number.isInteger(bedrag) ? 0 : 2), label };
+  };
 }
 
 /**
@@ -72,48 +96,17 @@ const MEETCONDITIE = (() => {
   return label?.match(/\(([^)]+)\)/)?.[1] ?? null;
 })();
 
+/** "30 °C / 80 % RV" in de taal van de pagina (HR = humidité relative). */
+const meetconditieIn = (taal: Taal) =>
+  MEETCONDITIE && taal === "fr" ? MEETCONDITIE.replace(/\bRV\b/, "HR") : MEETCONDITIE;
+
 const KLEINSTE = DROGERS[0];
 const GROOTSTE = DROGERS[DROGERS.length - 1];
 
-interface Keuze {
-  key: string;
-  titel: string;
-  wanneer: string;
-}
-
-/** Per toesteltype: wanneer kiest u het. Enkel wat het portaal verhuurt. */
-const keuzes: Keuze[] = [
-  {
-    key: "ttk350",
-    titel: "Condensontvochtiger",
-    wanneer:
-      "De standaard voor bouwvocht, chape, pleisterwerk en de meeste waterschade in een verwarmde of gematigde ruimte. Hij koelt de lucht af tot het vocht condenseert en voert het water af via een slang of reservoir. Onder ongeveer 15 °C daalt het rendement sterk.",
-  },
-  {
-    key: "revolution",
-    titel: "Adsorptiedroger",
-    wanneer:
-      "Voor koude ruimtes en om gericht te drogen: hij blaast droge lucht via slangen in een vloeropbouw, een wand of isolatie. Kies hem wanneer het vocht zit waar een gewone droger niet bij komt, bijvoorbeeld onder een zwevende chape na waterschade.",
-  },
-  {
-    key: "ttv4500",
-    titel: "Axiaalventilator",
-    wanneer:
-      "Zet de hele ruimte in beweging. Tegen een natte muur of vloer blijft anders een laagje verzadigde lucht hangen en stopt de droging. Voert zelf geen vocht af: voor bouwvocht zet u hem samen met een ontvochtiger in.",
-  },
-  {
-    key: "radiaal2250",
-    titel: "Radiaalventilator",
-    wanneer:
-      "Blaast een smalle straal vlak over de vloer, ook onder kasten en tegen plinten. De betere keuze wanneer het vocht in de chape of de vloer zit; bij waterschade vaak samen met een axiaalventilator.",
-  },
-  {
-    key: "teddh30",
-    titel: "Elektrische bouwkachel",
-    wanneer:
-      "Voor kelders, winterwerven en onverwarmde nieuwbouw. Warmte maakt het vocht los en laat de condensdroger op volle capaciteit werken, maar voert zelf niets af. De losse Heatpower en Heatboost vragen een aansluiting op 400 V krachtstroom; de kachel in een droogpakket draait op 230 V.",
-  },
-].filter((k) => PRODUCTS[k.key]);
+/** Per toesteltype: wanneer kiest u het (tekst in de copy). Enkel wat het portaal verhuurt. */
+const KEUZE_KEYS = ["ttk350", "revolution", "ttv4500", "radiaal2250", "teddh30"].filter(
+  (k) => PRODUCTS[k],
+);
 
 /**
  * De combinaties die op de toestelpagina's als aanvulling voorgesteld worden,
@@ -124,50 +117,6 @@ const combinaties = DROGERS.map((t) => ({
   droger: t,
   erbij: (PRODUCT_ADDONS[t.key] ?? []).map((k) => PRODUCTS[k]).filter(Boolean),
 })).filter((c) => c.erbij.length > 0);
-
-const faqs = [
-  {
-    q: "Hoeveel liter per dag heb ik nodig?",
-    a: `Reken eerst het volume van de ruimte uit: vloeroppervlakte maal plafondhoogte. Onze kleinste droger, de ${KLEINSTE.short}, is bedoeld voor ruimtes tot ${KLEINSTE.volume} m³; de ${GROOTSTE.short} gaat tot ${GROOTSTE.volume} m³. Veel nat materiaal, zoals een dikke chape of verse waterschade, vraagt meer capaciteit dan het volume alleen doet vermoeden. Twijfelt u, neem dan het grotere toestel of laat de Calculator rekenen.`,
-  },
-  {
-    q: "Wat is het verschil tussen een condensdroger en een adsorptiedroger?",
-    a: "Een condensdroger koelt de lucht af tot het vocht condenseert en werkt het best boven ongeveer 15 °C. Een adsorptiedroger haalt het vocht uit de lucht met een vochtopnemend materiaal, verliest in de koude weinig capaciteit en kan droge lucht via slangen gericht in een vloer of wand blazen.",
-  },
-  {
-    q: "Heb ik naast een bouwdroger een ventilator nodig?",
-    a: "Bij nieuwbouw is het sterk aangeraden, bij waterschade beschouwen wij het als noodzakelijk. Een ontvochtiger droogt de lucht; een ventilator zorgt dat die droge lucht ook langs de natte muren en vloeren strijkt.",
-  },
-];
-
-const verderLezen: LeesGroep[] = [
-  {
-    kop: "Zo zetten we de toestellen in",
-    links: [
-      { to: "/realisaties/nieuwbouw-drogen-putte", label: "Bouwvocht weggedroogd in een nieuwbouw in Putte" },
-      { to: "/realisaties/waterschade-drogen-bedrijfsgebouw", label: "Waterschade in een bedrijfsgebouw gedroogd" },
-      { to: "/realisaties/kelder-drogen-brugge", label: "Vochtige kelder in Brugge weer droog" },
-    ],
-  },
-  {
-    kop: "Kiezen en berekenen",
-    links: [
-      { to: "/verhuur/calculator", label: "Bereken welk pakket bij uw ruimte past" },
-      { to: "/gids/condensdroger-of-adsorptiedroger", label: "Gids: condensdroger of adsorptiedroger?" },
-      { to: "/gids/stroomverbruik-bouwdroger", label: "Gids: wat verbruikt een bouwdroger aan stroom?" },
-      { to: "/prijzen", label: "Huurprijzen per dag en per week" },
-      { to: "/nieuwbouw-drogen", label: "Chape en pleisterwerk drogen" },
-      { to: "/waterschade", label: "Waterschade drogen" },
-    ],
-  },
-  {
-    kop: "Levering in uw regio",
-    links: [
-      { to: "/bouwdroger-huren-vlaams-brabant", label: "Bouwdroger huren in Vlaams-Brabant" },
-      { to: "/bouwdroger-huren-antwerpen", label: "Bouwdroger huren in de provincie Antwerpen" },
-    ],
-  },
-];
 
 /**
  * Het gamma zoals het portaal het publiceert, gegroepeerd per soort.
@@ -184,8 +133,6 @@ const GAMMA = [
   {
     id: "bouwdrogers",
     Icon: DropIcon,
-    kop: "Bouwdrogers",
-    lede: "Onze eco-lijn verbruikt tot 40 % minder energie dan traditionele industriële drogers, merkbaar op uw stroomfactuur bij een toestel dat weken dag en nacht draait. De Revolution staat erbij als adsorptiedroger: die droogt gericht in een vloeropbouw of een koude kelder.",
     keys: PRODUCT_ORDER.filter((k) =>
       /Condensontvochtiger|Adsorptiedroger/.test(PRODUCTS[k].type)
     ),
@@ -193,15 +140,11 @@ const GAMMA = [
   {
     id: "ventilatoren",
     Icon: WindIcon,
-    kop: "Ventilatoren",
-    lede: "Luchtbeweging versnelt het drogen merkbaar. Axiaal zet de hele ruimte in beweging, radiaal blaast vlak over een natte vloer. Bij waterschade hoort er altijd één bij.",
     keys: PRODUCT_ORDER.filter((k) => /Bouwventilator/.test(PRODUCTS[k].type)),
   },
   {
     id: "verwarming",
     Icon: ThermoIcon,
-    kop: "Verwarming",
-    lede: "Onder 15 °C droogt een condensdroger traag: koude lucht neemt weinig vocht op. Twee elektrische bouwkachels met thermostaat, allebei op 400 V krachtstroom.",
     keys: PRODUCT_ORDER.filter((k) => /bouwkachel/i.test(PRODUCTS[k].type)),
   },
 ].filter((g) => g.keys.length > 0);
@@ -215,32 +158,14 @@ const GAMMA = [
 */
 const [eersteGroep, ...restGroepen] = GAMMA;
 
-/** Waarom hier acht toestellen staan en niet de catalogus van een leverancier. */
-const onderzoek = [
-  {
-    Icon: WereldIcon,
-    titel: "De wereldmarkt, niet één catalogus",
-    tekst:
-      "Wat in België te huur staat is maar een fractie van wat er gebouwd wordt. Wij volgen fabrikanten en vakbeurzen in Europa, Azië en Noord-Amerika en vragen toestellen op die hier door niemand verhuurd worden. Pas als zo'n toestel beter is dan wat we hebben, komt het in aanmerking.",
-  },
-  {
-    Icon: WerfIcon,
-    titel: "Eerst weken op onze eigen werf",
-    tekst:
-      "Een kandidaat draait eerst bij ons, naast het toestel dat hij zou vervangen. We kijken naar de liters per kilowattuur, het geluid in een bewoond huis, het gewicht in een trappenhal en of het toestel een nacht zonder toezicht doorkomt. Een folder zegt daar niets over.",
-  },
-  {
-    Icon: KeuringIcon,
-    titel: "Wat het niet haalt, komt er niet in",
-    tekst:
-      "Haalt een toestel zijn opgegeven cijfers niet, of liggen de onderdelen niet binnen de week hier, dan nemen we het niet op. Liever acht toestellen die wij door en door kennen dan een lijst vol namen die wij zelf nooit op een werf gezien hebben.",
-  },
-];
+/** Waarom hier acht toestellen staan en niet de catalogus van een leverancier; tekst in de copy. */
+const ONDERZOEK_ICONEN = [WereldIcon, WerfIcon, KeuringIcon];
 
+/** Wat er bij een droger hoort; tekst in de copy. */
 const toebehoren = [
-  { Icon: BoltIcon, name: "Verlengsnoer 10 m", desc: "Zit gratis bij elke bouwdroger. Vraag er gerust een tweede bij als het stopcontact ver zit.", gratis: true },
-  { Icon: DropIcon, name: "Opvangbak", desc: "Ook gratis bij elke droger. Liever niets legen? Dan neemt u een condenspomp.", gratis: true },
-  { Icon: ThermoIcon, name: "Airconditioner", desc: "Beschikbaar op aanvraag, bijvoorbeeld voor een serverruimte of een werf in de zomer.", gratis: false },
+  { Icon: BoltIcon, gratis: true },
+  { Icon: DropIcon, gratis: true },
+  { Icon: ThermoIcon, gratis: false },
 ];
 
 /**
@@ -258,14 +183,21 @@ const toebehoren = [
  * de knop niet het enige klikbare stuk is.
  */
 const Toestelkaart = ({ sleutel, index }: { sleutel: string; index: number }) => {
-  const p = PRODUCTS[sleutel];
+  const taal = useTaal();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const bedrag = useBedrag();
+  // Logica op het Nederlandse product (badge, type), tekst uit de vertaalde.
+  const nl = PRODUCTS[sleutel];
+  const p = productInTaal(sleutel, taal);
+  const dag = bedrag(p.day);
   return (
     <Reveal
       as={Link}
-      to={toestelPad(sleutel)}
+      to={lp(toestelPad(sleutel))}
       from="up"
       delay={(index % 4) * 0.06}
-      className={`pc${p.badge === "Meest gehuurd" ? " hot" : ""}`}
+      className={`pc${nl.badge === "Meest gehuurd" ? " hot" : ""}`}
     >
       <div className="pm">
         {p.badge && <span className="pt">{p.badge}</span>}
@@ -289,12 +221,12 @@ const Toestelkaart = ({ sleutel, index }: { sleutel: string; index: number }) =>
             ooit wel. Als afbeelding en niet als lijnicoon, net als op de
             homepage — het draagt zijn eigen groen.
           */}
-          {p.type.startsWith("Condensontvochtiger") && (
+          {nl.type.startsWith("Condensontvochtiger") && (
             <span className="chip eco">
               <img src="/vernast/icoon-eco.webp" alt="" width={96} height={96} loading="lazy" /> Eco
             </span>
           )}
-          {toestelChips(p).map((chip) => (
+          {toestelChipsInTaal(sleutel, taal).map((chip) => (
             <span className="chip" key={chip}>
               {chip}
             </span>
@@ -302,12 +234,12 @@ const Toestelkaart = ({ sleutel, index }: { sleutel: string; index: number }) =>
         </div>
         <div className="pf">
           <span className="bekijk">
-            Bekijken
+            {t.kaartBekijken}
             <ArrowRightIcon size={13} strokeWidth={2.6} />
           </span>
           <span className="pr">
-            vanaf<b>{euro(p.day)}</b>
-            <small>/dag excl. btw</small>
+            {t.kaartVanaf}<b>{dag.tekst}</b>
+            <small>{t.kaartPerDag} {dag.label}</small>
           </span>
         </div>
       </div>
@@ -330,37 +262,62 @@ const Gammagroep = ({
 }: {
   groep: (typeof GAMMA)[number];
   breed?: boolean;
-}) => (
-  <div className="pcat" id={groep.id}>
-    <div className="pcat-kop">
-      <span className="ci"><groep.Icon size={19} /></span>
-      <h3>{groep.kop}</h3>
+}) => {
+  const tekst = useCopy(COPY).groepen[groep.id];
+  return (
+    <div className="pcat" id={groep.id}>
+      <div className="pcat-kop">
+        <span className="ci"><groep.Icon size={19} /></span>
+        <h3>{tekst.kop}</h3>
+      </div>
+      <p className="pcat-lede">{tekst.lede}</p>
+      <div className={breed ? "pgrid" : "pgrid twee"}>
+        {groep.keys.map((k, j) => (
+          <Toestelkaart sleutel={k} index={j} key={k} />
+        ))}
+      </div>
     </div>
-    <p className="pcat-lede">{groep.lede}</p>
-    <div className={breed ? "pgrid" : "pgrid twee"}>
-      {groep.keys.map((k, j) => (
-        <Toestelkaart sleutel={k} index={j} key={k} />
-      ))}
-    </div>
-  </div>
-);
+  );
+};
 
-const MachinesPage = () => (
+const MachinesPage = () => {
+  const taal = useTaal();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const bedrag = useBedrag();
+  const drogers = DROGERS.map((d) => tariefInTaal(d, taal));
+  const faqs = t.faqs({ kleinste: KLEINSTE, grootste: GROOTSTE });
+  const pomp = toebehorenInTaal(CONDENSPOMP, taal);
+  const pompPrijs = bedrag(PUMP.price);
+  const btwLabel = bedrag(0).label;
+  /*
+    De combinaties die op de toestelpagina's als aanvulling voorgesteld worden,
+    voor de drie ontvochtigers. Uit `PRODUCT_ADDONS`, dus dezelfde suggestie als
+    wie op de toestelpagina iets bijboekt.
+  */
+  const combinaties = drogers
+    .map((d) => ({
+      droger: d,
+      erbij: (PRODUCT_ADDONS[d.key] ?? []).filter((k) => PRODUCTS[k]).map((k) => productInTaal(k, taal)),
+    }))
+    .filter((c) => c.erbij.length > 0);
+
+  return (
     <div className="v3c mc-page">
       <PageMeta
-        {...SEO.machines}
+        {...useSeo("machines")}
         jsonLd={[
           itemListSchema(
-            "Gamma bouwdrogers, ventilatoren en bouwkachels",
+            t.itemList,
             PRODUCT_ORDER.map((k) => ({
-              name: PRODUCTS[k].name,
-              path: toestelPad(k),
+              name: productInTaal(k, taal).name,
+              path: lp(toestelPad(k)),
             }))
           ),
           faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
           breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Machines", path: "/machines" },
+            { name: t.home, path: lp("/") },
+            { name: t.machines, path: lp("/machines") },
           ]),
         ]}
       />
@@ -374,19 +331,13 @@ const MachinesPage = () => (
         <section className="hero">
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <span className="kick">Ons productgamma</span>
-              <h1>Bouwdrogers, ventilatoren en kachels huren.</h1>
-              <p>
-                Acht toestellen, gekozen uit wat er wereldwijd gebouwd wordt en niet uit wat een
-                Belgische leverancier toevallig op voorraad had. De ontvochtiger haalt het vocht
-                uit de lucht, de ventilator brengt die droge lucht bij het natte materiaal, en de
-                kachel zorgt dat de ruimte warm genoeg is om het vocht los te laten. Hieronder
-                staat het hele gamma, elk toestel met zijn dagprijs.
-              </p>
+              <span className="kick">{t.heroKick}</span>
+              <h1>{t.heroH1}</h1>
+              <p>{t.heroP}</p>
               <div className="jump">
-                <a href="#bouwdrogers"><DropIcon size={15} /> Bouwdrogers</a>
-                <a href="#ventilatoren"><WindIcon size={15} /> Ventilatoren</a>
-                <a href="#verwarming"><ThermoIcon size={15} /> Verwarming</a>
+                <a href="#bouwdrogers"><DropIcon size={15} /> {t.groepen.bouwdrogers.kop}</a>
+                <a href="#ventilatoren"><WindIcon size={15} /> {t.groepen.ventilatoren.kop}</a>
+                <a href="#verwarming"><ThermoIcon size={15} /> {t.groepen.verwarming.kop}</a>
               </div>
             </div>
             {/*
@@ -399,7 +350,7 @@ const MachinesPage = () => (
             <div className="hero-vis">
               <img
                 src="/vernast/team-tools.webp"
-                alt="De Vernast vakmannen met hun materiaal"
+                alt={t.heroAlt}
                 width={1400}
                 height={859}
                 loading="eager"
@@ -410,8 +361,8 @@ const MachinesPage = () => (
               <div className="fbadge rd" style={{ top: "-10px", left: "0" }}>
                 <span className="ic"><WereldIcon size={15} /></span>
                 <div>
-                  Wereldwijd gezocht
-                  <small>op onze eigen werven getest</small>
+                  {t.heroBadge}
+                  <small>{t.heroBadgeSub}</small>
                 </div>
               </div>
             </div>
@@ -433,13 +384,9 @@ const MachinesPage = () => (
       <section className="sw" id="gamma">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Het gamma</span>
-            <h2 className="sec">Alle toestellen die wij verhuren, in één overzicht.</h2>
-            <p className="lede">
-              Acht toestellen, meer niet. Elk toestel hieronder staat in ons depot, heeft een eigen
-              pagina met zijn volledige specificaties en is vandaag te huur tegen de prijs die
-              erbij staat. Wat wij niet zelf plaatsen en onderhouden, staat er niet bij.
-            </p>
+            <span className="kick">{t.gammaKick}</span>
+            <h2 className="sec">{t.gammaH2}</h2>
+            <p className="lede">{t.gammaLede}</p>
           </div>
 
           {eersteGroep && <Gammagroep groep={eersteGroep} breed />}
@@ -453,12 +400,7 @@ const MachinesPage = () => (
             restGroepen.map((groep) => <Gammagroep groep={groep} breed key={groep.id} />)
           )}
 
-          <div className="note">
-            <b>Losse toestellen haalt u af in Aartselaar</b>, tegen lagere afhaalprijzen, via de{" "}
-            <Link to="/verhuur/afhalen">afhaal-checkout</Link>. Leveren, plaatsen en afstellen doen
-            wij enkel per pakket: alleen dan kunnen we de <Link to="/drooggarantie">drooggarantie</Link>{" "}
-            waarmaken. De <Link to="/verhuur/calculator">Calculator</Link> stelt dat pakket samen.
-          </div>
+          <div className="note">{t.gammaNote(lp)}</div>
         </div>
       </section>
 
@@ -466,32 +408,23 @@ const MachinesPage = () => (
       <section className="sr" id="onderzoek">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Productonderzoek</span>
-            <h2 className="sec">Wij zoeken het beste toestel ter wereld, niet het beste toestel in België.</h2>
-            <p className="lede">
-              De meeste verhuurders kopen wat hun Belgische leverancier die maand in de catalogus
-              heeft staan. Wij doen het omgekeerd. Ons productonderzoek loopt over de hele wereld:
-              we volgen fabrikanten en vakbeurzen in Europa, Azië en Noord-Amerika, laten
-              kandidaat-toestellen overkomen en zetten ze eerst op onze eigen werven. Een toestel
-              staat hier omdat het bij ons het best droogt, niet omdat het hier nu eenmaal te koop
-              was.
-            </p>
+            <span className="kick">{t.onderzoekKick}</span>
+            <h2 className="sec">{t.onderzoekH2}</h2>
+            <p className="lede">{t.onderzoekLede}</p>
           </div>
           <div className="g3">
-            {onderzoek.map(({ Icon, titel, tekst }, i) => (
-              <Reveal from="up" delay={(i % 3) * 0.08} className="kaart" key={titel}>
-                <div className="ki"><Icon size={20} /></div>
-                <h3>{titel}</h3>
-                <p>{tekst}</p>
-              </Reveal>
-            ))}
+            {t.onderzoek.map(({ titel, tekst }, i) => {
+              const Icon = ONDERZOEK_ICONEN[i];
+              return (
+                <Reveal from="up" delay={(i % 3) * 0.08} className="kaart" key={titel}>
+                  <div className="ki"><Icon size={20} /></div>
+                  <h3>{titel}</h3>
+                  <p>{tekst}</p>
+                </Reveal>
+              );
+            })}
           </div>
-          <div className="note">
-            <b>Daarom dragen de toestellen een eigen naam.</b> Boost, Performance, Ultimate,
-            Highflow: zo noemen wij ze, omdat de keuze van ons komt en niet van een catalogus. Het
-            typenummer van de fabrikant staat op elke toestelpagina en in het overzicht hierboven,
-            zodat u een offerte van iemand anders ernaast kunt leggen.
-          </div>
+          <div className="note">{t.onderzoekNote}</div>
         </div>
       </section>
 
@@ -499,30 +432,29 @@ const MachinesPage = () => (
       <section className="sw" id="verschillen">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">De verschillen</span>
-            <h2 className="sec">Wat doet welk toestel?</h2>
-            <p className="lede">
-              In de meeste situaties werkt u met een combinatie: een ontvochtiger die het vocht
-              afvoert, en een ventilator die de droge lucht bij de muren en de vloer brengt. Wat
-              elk soort toestel doet, en wanneer u het kiest.
-            </p>
+            <span className="kick">{t.verschilKick}</span>
+            <h2 className="sec">{t.verschilH2}</h2>
+            <p className="lede">{t.verschilLede}</p>
           </div>
           <div className="g3">
-            {keuzes.map((k, i) => (
-              <Reveal from="up" delay={(i % 3) * 0.08} className="kaart" key={k.key}>
-                <span className="kick" style={{ marginBottom: "6px" }}>{k.titel}</span>
-                <h3>{PRODUCTS[k.key].name}</h3>
-                <p>{k.wanneer}</p>
-                <Link
-                  className="plink"
-                  to={toestelPad(k.key)}
-                  style={{ marginTop: "14px", display: "inline-flex" }}
-                >
-                  Bekijk de {PRODUCTS[k.key].short}
-                  <ArrowRightIcon size={13} />
-                </Link>
-              </Reveal>
-            ))}
+            {KEUZE_KEYS.map((key, i) => {
+              const p = productInTaal(key, taal);
+              return (
+                <Reveal from="up" delay={(i % 3) * 0.08} className="kaart" key={key}>
+                  <span className="kick" style={{ marginBottom: "6px" }}>{t.keuzes[key].titel}</span>
+                  <h3>{p.name}</h3>
+                  <p>{t.keuzes[key].wanneer}</p>
+                  <Link
+                    className="plink"
+                    to={lp(toestelPad(key))}
+                    style={{ marginTop: "14px", display: "inline-flex" }}
+                  >
+                    {t.bekijkDe(p.short)}
+                    <ArrowRightIcon size={13} />
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -531,54 +463,39 @@ const MachinesPage = () => (
       <section className="sr">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Liter of kubieke meter</span>
-            <h2 className="sec">Wat zegt de capaciteit van een droger?</h2>
-            <p className="lede">
-              Bij een ontvochtiger staan twee getallen. De <b>vochtafvoer in liter per dag</b> is
-              hoeveel water het toestel maximaal uit de lucht haalt
-              {MEETCONDITIE ? `, gemeten bij ${MEETCONDITIE}` : " onder labo-omstandigheden"}. In
-              een koelere of drogere ruimte haalt geen enkele droger dat cijfer: het is een maat om
-              toestellen te vergelijken, geen belofte voor uw werf.
-            </p>
-            <p className="lede">
-              Het <b>bereik in kubieke meter</b> is het volume waarvoor het toestel geschikt is.
-              Reken uw volume uit als vloeroppervlakte maal plafondhoogte: 100 m² bij 2,5 m hoog is
-              250 m³. Zit er veel nat materiaal in die ruimte, zoals een verse chape of recente
-              waterschade, kies dan eerder het grotere toestel of een tweede droger.
-            </p>
+            <span className="kick">{t.capKick}</span>
+            <h2 className="sec">{t.capH2}</h2>
+            <p className="lede">{t.capLede1(meetconditieIn(taal))}</p>
+            <p className="lede">{t.capLede2}</p>
           </div>
 
           <div className="tblwrap" style={{ marginTop: 0 }}>
             <div className="tblscroll">
               <table className="tbl">
-                <caption className="sr-only">
-                  Vergelijking van de ontvochtigers: capaciteit, bereik, verbruik en dagprijs
-                </caption>
+                <caption className="sr-only">{t.capCaption}</caption>
                 <thead>
                   <tr>
-                    <th scope="col">Ontvochtiger</th>
-                    <th scope="col">Liter per dag</th>
-                    <th scope="col">Bereik</th>
-                    <th scope="col">Verbruik</th>
-                    <th scope="col">Per dag</th>
+                    {t.capTh.map((th) => (
+                      <th scope="col" key={th}>{th}</th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {DROGERS.map((t) => (
-                    <tr key={t.key}>
+                  {drogers.map((d) => (
+                    <tr key={d.key}>
                       <th scope="row">
-                        <Link to={t.path}>{t.short}</Link>
-                        {t.badge && (
+                        <Link to={lp(d.path)}>{d.short}</Link>
+                        {d.badge && (
                           <span style={{ display: "block", fontWeight: 400, fontSize: "11.5px", color: "var(--txt-dim)" }}>
-                            {t.badge}
+                            {d.badge}
                           </span>
                         )}
                       </th>
-                      <td>{t.litersPerDay} L</td>
-                      <td style={{ whiteSpace: "nowrap" }}>tot {t.volume} m³</td>
-                      <td style={{ whiteSpace: "nowrap" }}>{kerngegeven(t.key, "Verbruik") ?? "n.v.t."}</td>
+                      <td>{d.litersPerDay} L</td>
+                      <td style={{ whiteSpace: "nowrap" }}>{t.tot(d.volume)}</td>
+                      <td style={{ whiteSpace: "nowrap" }}>{kerngegeven(d.key, "Verbruik", taal) ?? t.nvt}</td>
                       <td style={{ whiteSpace: "nowrap", fontWeight: 700, color: "var(--txt)" }}>
-                        {euro(t.perDay)}
+                        {bedrag(d.perDay).tekst}
                       </td>
                     </tr>
                   ))}
@@ -586,23 +503,17 @@ const MachinesPage = () => (
               </table>
             </div>
           </div>
-          <p className="tblnote">
-            Prijzen excl. btw. Meer over de prijsopbouw op{" "}
-            <Link to="/prijzen">de prijzenpagina</Link>, en wat deze toestellen per dag aan stroom
-            kosten in de gids over het{" "}
-            <Link to="/gids/stroomverbruik-bouwdroger">stroomverbruik van een bouwdroger</Link>.
-          </p>
+          <p className="tblnote">{t.capNote(lp, btwLabel)}</p>
 
           {combinaties.length > 0 && (
             <div className="note">
-              <b>Welke combinatie hoort erbij?</b> Een ontvochtiger staat zelden alleen. Dit zijn de
-              toestellen die we bij elke droger als aanvulling voorstellen: een ventilator om de
-              droge lucht bij de muren en de vloer te krijgen, en in een koude ruimte een kachel.
+              <b>{t.combiKop}</b>
+              {t.combiTekst}
               <ul style={{ margin: "12px 0 0", paddingLeft: "18px" }}>
                 {combinaties.map(({ droger, erbij }) => (
                   <li key={droger.key} style={{ marginBottom: "5px" }}>
-                    <Link to={droger.path}>{droger.short}</Link> met{" "}
-                    {erbij.map((p) => p.name).join(" en ")}
+                    <Link to={lp(droger.path)}>{droger.short}</Link> {t.met}{" "}
+                    {erbij.map((p) => p.name).join(t.en)}
                   </li>
                 ))}
               </ul>
@@ -615,18 +526,18 @@ const MachinesPage = () => (
       <section className="sw">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Toebehoren</span>
-            <h2 className="sec">Wat er standaard bij zit, en wat u kunt bijvragen.</h2>
+            <span className="kick">{t.toebKick}</span>
+            <h2 className="sec">{t.toebH2}</h2>
           </div>
           <div className="g3">
-            {toebehoren.map(({ Icon, name, desc, gratis }, i) => (
-              <Reveal from="up" delay={i * 0.08} className="kaart" key={name}>
+            {toebehoren.map(({ Icon, gratis }, i) => (
+              <Reveal from="up" delay={i * 0.08} className="kaart" key={t.toebehoren[i].name}>
                 <div className="ki"><Icon size={20} /></div>
-                <h3>{name}</h3>
-                <p>{desc}</p>
+                <h3>{t.toebehoren[i].name}</h3>
+                <p>{t.toebehoren[i].desc}</p>
                 {gratis && (
                   <span className="verdict ja" style={{ marginTop: "12px", marginBottom: 0 }}>
-                    <CheckIcon size={12} /> Gratis
+                    <CheckIcon size={12} /> {t.gratis}
                   </span>
                 )}
               </Reveal>
@@ -641,23 +552,19 @@ const MachinesPage = () => (
           */}
           <div className="mc-pomp">
             <img
-              src={CONDENSPOMP.img[0][0]}
-              alt={CONDENSPOMP.img[0][1]}
+              src={pomp.img[0][0]}
+              alt={pomp.img[0][1]}
               width={1000}
               height={1000}
               loading="lazy"
               decoding="async"
             />
             <div>
-              <span className="mbk">Het meest gevraagde toebehoren</span>
-              <h3>Condenspomp, {euro(PUMP.price)} per bouwdroger per dag</h3>
-              <p>
-                Voert het condenswater continu af naar een lavabo, douche of vloerput, tot 3,90 m
-                hoger dan het toestel staat. Zo hoeft u geen opvangbak te legen en draait de droger
-                dag en nacht door.
-              </p>
-              <Link className="btn btn-red" to="/verhuur/toebehoren/condenspomp">
-                Bekijk de condenspomp
+              <span className="mbk">{t.pompKick}</span>
+              <h3>{t.pompH3(`${pompPrijs.tekst} ${pompPrijs.label}`)}</h3>
+              <p>{t.pompP}</p>
+              <Link className="btn btn-red" to={lp("/verhuur/toebehoren/condenspomp")}>
+                {t.pompBtn}
                 <ArrowRightIcon />
               </Link>
             </div>
@@ -666,7 +573,7 @@ const MachinesPage = () => (
       </section>
 
       <FaqBlok
-        titel="Veelgestelde vragen over het materiaal."
+        titel={t.faqTitel}
         vragen={faqs}
         sleutel="mc-faq"
       />
@@ -676,16 +583,12 @@ const MachinesPage = () => (
         <div className="wrap">
           <div className="manband">
             <div className="mb-t">
-              <span className="mbk">Twijfelt u nog</span>
-              <h3>U hoeft niet zelf te kiezen welk toestel het wordt.</h3>
-              <p>
-                Geef ons uw oppervlakte en uw situatie, dan rekent de Calculator het volledige
-                pakket uit: droger, ventilator en kachel in de juiste verhouding. Of u belt ons en
-                we doen het aan de telefoon.
-              </p>
+              <span className="mbk">{t.slotKick}</span>
+              <h3>{t.slotH3}</h3>
+              <p>{t.slotP}</p>
               <div className="mb-cta">
-                <Link className="btn btn-white" to="/verhuur/calculator">
-                  Bereken uw droogpakket
+                <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+                  {t.slotBtn}
                   <ArrowRightIcon />
                 </Link>
                 <a className="btn btn-ghost" href={`tel:${CONTACT.phoneE164}`}>
@@ -696,7 +599,7 @@ const MachinesPage = () => (
             <img
               className="mb-man"
               src="/vernast/man-duim-kabels.webp"
-              alt="Vernast technicus met de kabels van een bouwdroger"
+              alt={t.slotAlt}
               width={600}
               height={900}
               loading="lazy"
@@ -710,27 +613,28 @@ const MachinesPage = () => (
           rode vlak het enige contrast, en drie kaarten op rood lezen als een
           tweede slotplaat vlak achter de echte. De scheiding komt nu van
           `--bg-alt` (#F4F4F4), dat `.sw .vlcard` op een witte sectie zet. */}
-      <VerderLezen titel="Verder lezen over het materiaal" groepen={verderLezen} />
+      <VerderLezen
+        titel={t.verderTitel}
+        groepen={t.verderLezen.map((g) => ({
+          ...g,
+          links: g.links.map((l) => ({ ...l, to: lp(l.to) })),
+        }))}
+      />
 
       <ContactBlok
         achtergrond="wit"
-        kicker="Welk toestel heeft u nodig?"
-        titel="Niet zeker welk toestel bij uw werf past?"
-        lede="Beschrijf kort de ruimte en wat er moet drogen. Een droogspecialist zegt u binnen één werkdag welk toestel of welke combinatie het wordt."
-        onderwerpen={[
-          "Advies over het juiste toestel",
-          "Meerdere toestellen voor een grote werf",
-          "Adsorptiedroger of condensdroger?",
-          "Prijs en beschikbaarheid",
-          "Iets anders",
-        ]}
-        placeholder="Bv. kelder van 60 m² met 2,2 m plafondhoogte, onverwarmd, vochtige muren na een lek."
+        kicker={t.contactKicker}
+        titel={t.contactTitel}
+        lede={t.contactLede}
+        onderwerpen={t.contactOnderwerpen}
+        placeholder={t.contactPlaceholder}
       />
 
       </main>
 
       <V3Footer />
     </div>
-);
+  );
+};
 
 export default MachinesPage;
