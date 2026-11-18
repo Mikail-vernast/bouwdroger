@@ -65,7 +65,14 @@ const Layout = () => {
   const [gemount, setGemount] = useState(false);
   const [popupDicht, setPopupDicht] = useState(false);
   useEffect(() => setGemount(true), []);
-  const toonPopup = gemount && !voorkeur && !popupDicht && !ZONDER_POPUP.test(location.pathname);
+  /*
+    `?taalkeuze` in de URL toont de popup opnieuw, ook als er al een keuze
+    bewaard is — om hem na te kijken, of voor een klant die zijn keuze wil
+    overdoen zonder zijn browsergegevens te wissen.
+  */
+  const opnieuw = gemount && new URLSearchParams(location.search).has("taalkeuze");
+  const toonPopup =
+    gemount && (!voorkeur || opnieuw) && !popupDicht && !ZONDER_POPUP.test(location.pathname);
   const navigated = useRef(false);
   if (!navigated.current && location.pathname !== initialPath.current) {
     // Eén keer wegklikken is genoeg: vanaf dan animeert elke pagina, ook als de
