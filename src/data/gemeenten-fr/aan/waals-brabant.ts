@@ -15,4 +15,12 @@ export const AAN: readonly string[] = [
   "genepien",
   "graven",
   "helecine",
+  "ramillies",
+  "rebecq",
+  "rixensart",
+  "terhulpen",
+  "tubeke",
+  "villers-la-ville",
+  "walhain",
+  "waterloo",
 ];
