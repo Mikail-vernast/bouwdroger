@@ -693,4 +693,578 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+
+  chaudfontaine: {
+    slug: "chaudfontaine",
+    title: "Déshumidificateur à louer à Chaudfontaine | Vernast",
+    description:
+      "Louez un déshumidificateur à Chaudfontaine, Embourg, Beaufays ou Vaux-sous-Chèvremont : séchage après une inondation dans la vallée ou une rénovation.",
+    h1: "Location de déshumidificateur à Chaudfontaine",
+    kicker: "Liège · la station thermale de la vallée de la Vesdre",
+    rit: { afstand: "environ 135 km", tijd: "près d'une heure et demie" },
+    intro: [
+      "Chaudfontaine se trouve juste au sud-est de Liège, **dans la vallée de la Vesdre**. La commune est connue pour sa source d'eau chaude et pour l'eau minérale qui porte son nom. **Embourg, Beaufays et Vaux-sous-Chèvremont** en font aussi partie.",
+      "Dans la vallée, les maisons se serrent entre la rivière, la route et la ligne de chemin de fer. Sur les hauteurs d'Embourg et de Beaufays s'étendent des quartiers plus aérés, avec des **maisons quatre façades**. Depuis notre entrepôt d'Aartselaar, nous mettons près d'une heure et demie pour rejoindre Chaudfontaine.",
+    ],
+    bouw: {
+      kop: "Sécher après l'eau dans la vallée, rénover sur les hauteurs",
+      alineas: [
+        "**Les inondations de juillet 2021** ont durement touché les habitations le long de la Vesdre. Des murs qui ont absorbé l'eau pendant des jours la rendent lentement, et les sols du rez-de-chaussée doivent souvent être refaits. Une telle maison sèche par étapes. Une **mesure d'humidité** lors de l'installation montre combien d'eau les murs contiennent encore.",
+        "Sur les hauteurs, il s'agit le plus souvent d'une rénovation : une nouvelle salle de bains, une extension ou **une chape qui doit être sèche** avant le passage du parqueteur. C'est de l'humidité de construction. Elle disparaît plus vite si vous gardez les fenêtres fermées et faites tourner un déshumidificateur par étage.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Pour un rez-de-chaussée resté longtemps sous l'eau** : 110 litres par jour et une portée jusqu'à 600 m³, pour que murs et sol sèchent ensemble." },
+      { key: "radiaal2250", waarom: "Ce ventilateur radial souffle **au ras d'un sol mouillé et le long des plinthes**, là où l'eau reste le plus longtemps après une inondation." },
+      { key: "ttk350", waarom: "Pour une rénovation à Embourg ou à Beaufays : 70 litres par jour et une portée jusqu'à 400 m³. C'est suffisant pour un rez-de-chaussée avec une chape fraîche ou un nouveau plafonnage." },
+      { key: "teddh30", waarom: "Ce chauffage de 30 kW porte **une maison inoccupée et non chauffée** au-dessus de 15 °C, la température à partir de laquelle un déshumidificateur à condensation travaille bien. Il demande un raccordement en 400 V." },
+    ],
+    levering: {
+      kop: "Livraison à Chaudfontaine : par Liège jusque dans la vallée",
+      alinea:
+        "Depuis Aartselaar, nous roulons près d'une heure et demie, **par l'E313 vers Liège**, puis dans la vallée de la Vesdre. En Wallonie, nous livrons **sur rendez-vous** : vous choisissez une date de livraison lors de la réservation et nous confirmons l'heure. Le long de la route de la vallée, le stationnement est parfois serré. Indiquez à l'avance où la camionnette peut s'arrêter, et le technicien installera les appareils directement au bon endroit.",
+    },
+    afhalen: {
+      kop: "Enlèvement à Aartselaar : un long trajet",
+      alinea:
+        "Venir chercher le matériel vous-même est possible, mais vous roulez près d'une heure et demie à l'aller et autant au retour. Pour un seul déshumidificateur, cela en vaut rarement la peine. Après des dégâts des eaux, la livraison est le meilleur choix : **le technicien mesure au départ**, et cette mesure vous permet de vérifier plus tard si un mur est sec.",
+    },
+    buren: ["luik-stad", "fleron", "trooz", "sprimont", "esneux"],
+    faq: [
+      {
+        q: "Ma maison au bord de la Vesdre a subi des dégâts des eaux. Combien de temps doit-elle sécher ?",
+        a: "Cela dépend de la durée pendant laquelle l'eau a stagné et de la composition du mur. Un mur en briques qui a absorbé l'eau pendant des jours la rend lentement : comptez en semaines, pas en jours. Une mesure d'humidité à l'installation et à l'enlèvement montre où vous en êtes.",
+      },
+      {
+        q: "Puis-je commencer les réparations dès que les murs semblent secs au toucher ?",
+        a: "Mieux vaut ne pas se fier au toucher. Un mur peut paraître sec en surface alors que l'humidité reste plus en profondeur, et un nouvel enduit ou une peinture l'enferme alors. Faites mesurer avant le début de la finition ; le technicien le fait lorsqu'il vient reprendre les appareils.",
+      },
+      {
+        q: "Livrez-vous aussi à Embourg et à Beaufays ?",
+        a: "Oui, Embourg et Beaufays sont des sections de Chaudfontaine, et nous y livrons sur rendez-vous, comme à Vaux-sous-Chèvremont. Sur les hauteurs, il s'agit le plus souvent d'une rénovation, et un déshumidificateur par étage avec les fenêtres fermées suffit alors souvent.",
+      },
+      {
+        q: "Pourquoi un chauffage à côté du déshumidificateur dans une maison inoccupée ?",
+        a: "Un déshumidificateur à condensation fonctionne au mieux au-dessus de 15 °C. Une maison inoccupée et non chauffée après des dégâts des eaux atteint rarement cette température au printemps et en automne. Le chauffage amène la pièce à température, pour que le déshumidificateur récupère nettement plus d'eau par jour.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  "comblain-au-pont": {
+    slug: "comblain-au-pont",
+    title: "Louer un déshumidificateur à Comblain-au-Pont | Vernast",
+    description:
+      "Déshumidificateur à louer à Comblain-au-Pont et Poulseur, au confluent de l'Amblève et de l'Ourthe. Installé et mesuré par un technicien.",
+    h1: "Location de déshumidificateur à Comblain-au-Pont",
+    kicker: "Liège · là où l'Amblève se jette dans l'Ourthe",
+    rit: { afstand: "environ 150 km", tijd: "un peu plus d'une heure et demie" },
+    intro: [
+      "Comblain-au-Pont se trouve là où **l'Amblève se jette dans l'Ourthe**. Des rochers calcaires dominent le village, et les environs comptent des grottes et d'anciennes carrières. **Poulseur**, un peu plus en aval sur l'Ourthe, fait aussi partie de la commune.",
+      "C'est une petite commune, avec un centre dans la vallée et des hameaux sur les hauteurs. Au centre, les maisons se trouvent **entre la rivière et la paroi rocheuse**, avec peu de place sur les côtés. Depuis Aartselaar, nous roulons un peu plus d'une heure et demie pour y arriver.",
+    ],
+    bouw: {
+      kop: "Deux rivières au pied, la roche dans le dos",
+      alineas: [
+        "Au confluent de deux rivières, l'eau peut monter vite après de fortes pluies. Les maisons de la vallée ont souvent **une cave ou un rez-de-chaussée** proche du niveau de l'eau, et après une inondation, ils doivent sécher à fond. Les maisons plus anciennes sans barrière d'étanchéité aspirent en outre l'humidité du sol. Vous le remarquez à un **rez-de-chaussée froid qui sent le renfermé**.",
+        "Un mur adossé à la paroi rocheuse reste froid et humide, car le calcaire laisse passer l'eau. Lors d'une rénovation, le technicien fait la distinction entre **humidité de construction et eau venant de la roche**. La première, un déshumidificateur l'élimine ; pour la seconde, il faut intervenir sur le mur.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Après une inondation** : 110 litres par jour et une portée jusqu'à 600 m³, pour qu'une cave ou un rez-de-chaussée inondé commence à sécher tout de suite." },
+      { key: "radiaal2250", waarom: "Pour **un sol mouillé dans une maison au bord de l'eau** : ce ventilateur radial souffle de manière ciblée sur le carrelage et dans les coins, là où l'eau stagne." },
+      { key: "teddh20", waarom: "Ce chauffage de 20 kW porte **un rez-de-chaussée froid** au-dessus de 15 °C, pour que le déshumidificateur rende mieux. Prévoyez un raccordement en 400 V." },
+      { key: "ttk170", waarom: "Pour un étage ou une petite rénovation à Poulseur : compact, économe et facile à monter par un escalier étroit." },
+    ],
+    levering: {
+      kop: "Livraison à Comblain-au-Pont : par la vallée de l'Ourthe",
+      alinea:
+        "Nous roulons un peu plus d'une heure et demie, **par Liège et la vallée de l'Ourthe** ou par l'E25 et Aywaille. En Wallonie, nous livrons sur rendez-vous, à la date de livraison que vous choisissez lors de la réservation. Au centre du village, la place entre la rivière et la roche est limitée. **Indiquez-nous où la camionnette peut s'arrêter un moment**, et le technicien déchargera sans difficulté.",
+    },
+    afhalen: {
+      kop: "Venir chercher le matériel, c'est ici une longue journée sur la route",
+      alinea:
+        "Depuis Comblain-au-Pont, Aartselaar est à **un peu plus d'une heure et demie de route**, dans un seul sens. Après une inondation, la livraison est le choix logique : vous restez près de votre maison et le technicien mesure tout de suite son degré d'humidité.",
+    },
+    buren: ["esneux", "sprimont", "aywaille", "hamoir", "anthisnes"],
+    faq: [
+      {
+        q: "Pourquoi mon rez-de-chaussée sent-il le renfermé, même sans inondation ?",
+        a: "Les maisons plus anciennes de la vallée n'ont souvent pas de barrière d'étanchéité, si bien que les murs aspirent l'humidité du sol. Un déshumidificateur retire cette humidité de l'air et des murs et rend la pièce à nouveau agréable, mais l'apport par le bas ne cesse qu'avec une intervention sur le mur lui-même.",
+      },
+      {
+        q: "Un déshumidificateur peut-il tourner pendant que j'habite la maison ?",
+        a: "Oui. Les déshumidificateurs et les ventilateurs fonctionnent sur une prise standard ; seul le chauffage demande du courant triphasé. Ils font un bruit constant, comme un ventilateur. Placez-les de préférence dans une pièce porte fermée. Lors de l'installation, le technicien vous montre comment vider le réservoir ou faire s'écouler le tuyau.",
+      },
+      {
+        q: "Livrez-vous aussi à Poulseur et sur le plateau ?",
+        a: "Oui, Poulseur et les hameaux sur les hauteurs font partie de Comblain-au-Pont, et nous y livrons sur rendez-vous. Pour une maison sur le plateau, décrivez le chemin d'accès, pour que le technicien sache s'il lui faut un diable.",
+      },
+      {
+        q: "Comment savoir si l'humidité de mon mur vient de la roche ?",
+        a: "Une mesure d'humidité à différentes hauteurs et à différents moments donne une bonne image. Si le mur côté roche reste mouillé alors que le reste sèche, l'eau vient de l'extérieur. Le technicien le mesure au début et lors de l'enlèvement.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  dalhem: {
+    slug: "dalhem",
+    title: "Déshumidificateur de chantier à louer à Dalhem | Vernast",
+    description:
+      "Déshumidificateur à louer à Dalhem : fermes et maisons de village dans les collines le long de la Berwinne, de Berneau à Warsage et Bombaye. Livré et installé.",
+    h1: "Location de déshumidificateur à Dalhem",
+    kicker: "Liège · la campagne verte le long de la Berwinne",
+    rit: { afstand: "environ 130 km", tijd: "près d'une heure et demie" },
+    intro: [
+      "Dalhem se trouve **entre la vallée de la Meuse et le Pays de Herve**, dans un paysage vallonné de prairies, de haies et de vergers. Le vieux centre est situé au bord de **la Berwinne**, un petit affluent de la Meuse. Depuis Aartselaar, nous y sommes en près d'une heure et demie.",
+      "La commune compte huit villages : **Berneau, Bombaye, Dalhem, Feneur, Mortroux, Neufchâteau, Saint-André et Warsage**. Au nord, Dalhem touche **Fourons**. Qui rénove ici travaille souvent sur une ancienne ferme ou sur une maison dans un petit lotissement.",
+    ],
+    bouw: {
+      kop: "Fermes en pierre naturelle, lotissements sur la colline",
+      alineas: [
+        "La région se caractérise par des **fermes et maisons de village en briques**, souvent sur un soubassement en pierre naturelle. Qui transforme une étable ou une grange en logement coule **un nouveau sol**, monte des cloisons et pose du plafonnage partout. Dans un grand volume ouvert, cette humidité de construction ne disparaît pas d'elle-même, et encore moins en automne.",
+        "Dans les fonds le long de la Berwinne, le sol est humide et le rez-de-chaussée y reste plus frais que plus haut sur la pente. Sur les collines se trouvent les constructions neuves, avec **une chape et un plafonnage** qui doivent sécher avant la finition. Lors de l'installation, le technicien évalue le volume et répartit les appareils en conséquence.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Pour une étable ou une grange transformée** avec un grand volume ouvert : 110 litres par jour, jusqu'à environ 600 m³." },
+      { key: "teddh30", waarom: "**Pour une ferme dont la finition se fait en automne.** Ce chauffage de 30 kW réchauffe une pièce froide, pour que le séchage avance. Il demande du 400 V." },
+      { key: "ttv4500", waarom: "Dans un espace haut sous le toit, ce ventilateur garde l'air en mouvement, pour que **le plafonnage sèche uniformément jusqu'en haut**." },
+      { key: "ttk350", waarom: "Pour **une maison de village à Warsage ou à Berneau** ou une maison de lotissement : 70 litres par jour, jusqu'à environ 400 m³." },
+    ],
+    levering: {
+      kop: "Livraison à Dalhem, jusque dans la cour",
+      alinea:
+        "Le trajet dure **près d'une heure et demie**, la dernière partie par des routes de campagne. Vous choisissez une date de livraison lors de la réservation ; en Wallonie, nous livrons **sur rendez-vous**. Si la ferme se trouve sur une route étroite ou derrière une cour en gravier, signalez-le. Le technicien met les appareils en place pièce par pièce.",
+    },
+    afhalen: {
+      kop: "Enlèvement à Aartselaar",
+      alinea:
+        "De Dalhem à Aartselaar aller-retour, comptez **près de trois heures de route**. Une ferme avec de grandes pièces demande en outre souvent plus d'un appareil, et cela ne rentre pas dans toutes les voitures. Ici, mieux vaut choisir la livraison, avec une mesure d'humidité au départ.",
+    },
+    buren: ["wezet", "blegny", "voeren"],
+    faq: [
+      {
+        q: "Comment sécher une étable transformée avec un nouveau sol en béton ?",
+        a: "Fermez l'espace le mieux possible. Placez un grand déshumidificateur et un ventilateur qui souffle sur le sol, et un chauffage de chantier s'il fait froid dehors. Un grand volume avec un sol épais a besoin de plusieurs semaines. Faites mesurer le sol avant d'y poser du carrelage ou du parquet.",
+      },
+      {
+        q: "Un déshumidificateur fonctionne-t-il dans une ferme sans chauffage ?",
+        a: "Un déshumidificateur à condensation a besoin d'une température supérieure à 15 °C pour bien fonctionner. Dans une ferme non chauffée, nous ajoutons donc un chauffage de chantier ou nous choisissons un déshumidificateur à adsorption. Le chauffage demande un raccordement en 400 volts, c'est pourquoi nous demandons à l'avance quel courant est disponible.",
+      },
+      {
+        q: "Livrez-vous aussi dans de petits villages comme Feneur et Mortroux ?",
+        a: "Oui, dans tous les villages de Dalhem. Indiquez lors de la réservation l'adresse et l'accès, surtout si la route est étroite ou si la maison se trouve derrière une cour. Nous combinons le trajet avec d'autres livraisons dans la région de Liège.",
+      },
+      {
+        q: "Combien de déshumidificateurs me faut-il pour une ferme de deux étages ?",
+        a: "En général, un déshumidificateur par étage, avec l'escalier fermé là où c'est possible. Une grange transformée, ouverte jusque sous le toit, compte comme un seul grand volume et demande un appareil plus puissant. Le technicien le recalcule sur place.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  esneux: {
+    slug: "esneux",
+    title: "Location de déshumidificateur à Esneux et Tilff | Vernast",
+    description:
+      "Déshumidificateur à louer à Esneux et Tilff : maisons au bord de l'Ourthe et villas dans les bois des coteaux. Livré sur rendez-vous, installé et mesuré.",
+    h1: "Location de déshumidificateur à Esneux",
+    kicker: "Liège · les méandres de l'Ourthe",
+    rit: { afstand: "environ 140 km", tijd: "environ une heure et demie" },
+    intro: [
+      "Esneux se trouve **au bord de l'Ourthe**, au sud de Liège, là où la rivière dessine de grandes boucles à travers la forêt. La commune comprend notamment **Tilff**, le village au bord de la rivière le plus proche de Liège.",
+      "Beaucoup de Liégeois ont choisi Esneux pour **vivre dans la verdure**. Sur les coteaux, des villas et des maisons quatre façades occupent de vastes terrains boisés ; dans les noyaux au bord de l'eau, les maisons sont plus serrées. Depuis Aartselaar, vous y êtes en environ une heure et demie.",
+    ],
+    bouw: {
+      kop: "Au bord de l'eau et sous les arbres",
+      alineas: [
+        "Le long de l'Ourthe, les caves et les pièces du rez-de-chaussée sont proches du niveau de la rivière. **En juillet 2021**, l'Ourthe est elle aussi sortie de son lit, et à Tilff et Esneux, des habitations ont dû sécher ensuite. Une cave près de la rivière demande en outre de l'attention après **un hiver humide**.",
+        "Sur les coteaux boisés, c'est autre chose. Une villa à l'ombre des arbres reçoit peu de soleil sur sa façade, et les murs côté pente sèchent lentement. Lors de **la rénovation d'une villa ancienne**, avec un nouveau plafonnage ou un nouveau sol, le séchage prend donc plus de temps que dans une maison en terrain dégagé.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Pour la rénovation d'une villa sur le coteau** : 70 litres par jour et une portée jusqu'à 400 m³, assez pour un grand séjour." },
+      { key: "ttk650", waarom: "Pour une maison à Tilff ou au bord de l'Ourthe après des dégâts des eaux : **110 litres par jour** et une portée jusqu'à 600 m³, pour retirer l'eau des murs et du sol." },
+      { key: "radiaal2250", waarom: "Pour **un sol de cave près de la rivière** : ce ventilateur radial souffle de manière ciblée sur le sol et dans les coins, là où l'humidité persiste le plus longtemps." },
+      { key: "teddh20", waarom: "Une cave ou une villa inoccupée à l'ombre reste fraîche. Ce chauffage de 20 kW en 400 V met la pièce à température pour le déshumidificateur." },
+    ],
+    levering: {
+      kop: "Livraison à Esneux : le long de l'Ourthe ou par la colline",
+      alinea:
+        "Le trajet depuis Aartselaar dure environ une heure et demie. Vous choisissez une date de livraison lors de la réservation, et nous convenons de l'heure **sur rendez-vous** avec vous. Une partie des maisons se trouve au bord de la rivière, une autre le long de routes sinueuses sur le coteau. Si votre maison est sur un chemin forestier étroit ou en haut d'une allée raide, **signalez-le à l'avance**, pour que le technicien sache jusqu'où la camionnette peut aller.",
+    },
+    afhalen: {
+      kop: "L'enlèvement est possible, mais c'est loin",
+      alinea:
+        "Depuis Esneux, vous roulez environ une heure et demie jusqu'à Aartselaar, et autant pour revenir. Pour une villa de plusieurs étages, il vous faut en outre souvent deux ou trois appareils, qui tiennent rarement ensemble dans une voiture. **La livraison vous épargne ce trajet.**",
+    },
+    buren: ["neupre", "seraing", "chaudfontaine", "sprimont", "comblain-au-pont"],
+    faq: [
+      {
+        q: "Ma cave à Tilff devient humide chaque hiver. Un déshumidificateur aide-t-il ?",
+        a: "Un déshumidificateur retire l'humidité de l'air et des murs, et rend une cave humide à nouveau utilisable. Si l'humidité revient à chaque crue, la cause se trouve dans la paroi de la cave elle-même. Lors de l'installation, le technicien mesure le degré d'humidité.",
+      },
+      {
+        q: "Pourquoi ma villa dans les bois sèche-t-elle si lentement après les travaux ?",
+        a: "Parce que les façades reçoivent peu de soleil et que l'air sous les arbres est plus humide. Aérer fenêtres ouvertes aide alors peu, car l'air extérieur est lui-même humide. Fenêtres fermées et avec un déshumidificateur à l'intérieur, cela va plus vite et de façon plus prévisible.",
+      },
+      {
+        q: "La camionnette peut-elle arriver jusqu'à une maison sur le coteau ?",
+        a: "La plupart du temps, oui. Avec une allée raide ou non revêtue, la camionnette s'arrête parfois en bas et le technicien monte les appareils avec un diable. Indiquez lors de la réservation à quoi ressemble votre allée.",
+      },
+      {
+        q: "Combien de déshumidificateurs me faut-il pour une grande villa ?",
+        a: "Comptez un déshumidificateur par étage. Un espace ouvert de plus de 400 m³ demande un appareil plus puissant. Indiquez la surface et le type de travaux lors de la réservation ; le technicien vérifie sur place si l'installation est la bonne.",
+      },
+      {
+        q: "Que dois-je indiquer lors de la réservation pour une maison à Esneux ?",
+        a: "Indiquez quelles pièces doivent sécher et comment la maison est accessible, et nous préparerons bien la livraison. Pour toute autre question, écrivez-nous ou appelez-nous sans hésiter.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  flemalle: {
+    slug: "flemalle",
+    title: "Louer un déshumidificateur de chantier à Flémalle | Vernast",
+    description:
+      "Déshumidificateur à louer à Flémalle, Ivoz-Ramet, Mons-lez-Liège ou Les Awirs : pour les caves au bord de la Meuse et les maisons à flanc de coteau.",
+    h1: "Location de déshumidificateur à Flémalle",
+    kicker: "Province de Liège · sur la Meuse en amont",
+    rit: { afstand: "environ 130 km", tijd: "un peu plus d'une heure" },
+    intro: [
+      "Flémalle s'étend **sur les deux rives de la Meuse**, en amont de Liège. La commune comprend Flémalle-Grande, Flémalle-Haute, Ivoz-Ramet, Mons-lez-Liège, Les Awirs, Chokier et Gleixhe. Depuis la rivière, le terrain monte en pente raide vers le plateau.",
+      "La vallée de la Meuse a longtemps été **une terre de sidérurgie**, et cela se voit encore. Au pied du coteau s'alignent des maisons ouvrières et d'anciens bâtiments industriels. Plus haut sur la pente et sur le plateau, vous trouvez davantage de maisons quatre façades et de constructions neuves. Depuis Aartselaar, nous roulons un peu plus d'une heure jusqu'à Flémalle.",
+    ],
+    bouw: {
+      kop: "Des maisons près de la rivière, d'autres à flanc de coteau",
+      alineas: [
+        "Le long de la Meuse, les habitations sont basses. Après une période humide, une crue ou une fuite, **le bas du mur** reste longtemps mouillé. Le technicien vérifie d'abord si l'eau entre encore. Tant que c'est le cas, mieux vaut d'abord traiter la cause.",
+        "Sur le coteau, il s'agit plutôt de rénovation et de construction neuve. Une maison à moitié encastrée dans la pente a **une façade arrière contre la terre**, et le rez-de-chaussée se trouve d'un côté sous le niveau du sol. Un plafonnage frais contre un tel mur froid sèche lentement. En hiver, un chauffage de chantier à côté du déshumidificateur fait la différence.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Pour une cave ou un rez-de-chaussée près de la Meuse** après une fuite ou une crue : 110 litres par jour, pour des pièces jusqu'à environ 600 m³." },
+      { key: "radiaal2250", waarom: "Pour un sol de cave mouillé : ce ventilateur radial souffle **de manière ciblée sur le sol et dans les coins**, là où l'eau reste le plus longtemps." },
+      { key: "ttk350", waarom: "Pour une rénovation sur le coteau à Ivoz-Ramet ou à Mons-lez-Liège : 70 litres par jour, pour un rez-de-chaussée avec un nouveau plafonnage." },
+      { key: "teddh30", waarom: "**Pour une pièce adossée à la pente** qui reste froide. Ce chauffage de chantier électrique de 30 kW la met à température, pour que le déshumidificateur rende mieux. Il fonctionne en triphasé." },
+    ],
+    levering: {
+      kop: "Livraison à Flémalle : le long de la Meuse ou en haut du coteau",
+      alinea:
+        "Nous passons **par l'E313 et Liège**, un peu plus d'une heure hors heures de pointe. Certaines rues du coteau sont raides et étroites ; signalez-le lors de la réservation. Vous choisissez une date de livraison, et nous convenons de l'heure avec vous. S'il s'agit d'une cave après une inondation, dites-nous **jusqu'à quelle hauteur l'eau est montée**.",
+    },
+    afhalen: {
+      kop: "Enlèvement à Aartselaar : rarement intéressant depuis Flémalle",
+      alinea:
+        "Aartselaar se trouve à **un peu plus d'une heure de route** de Flémalle. Seul celui qui doit de toute façon se rendre dans la région d'Anvers y gagne quelque chose. Pour une cave humide, la livraison est le meilleur choix, car le technicien installe alors tout de suite la bonne combinaison de déshumidificateur et de ventilateur.",
+    },
+    buren: ["seraing", "grace-hollogne", "engis", "neupre", "saint-georges-sur-meuse"],
+    faq: [
+      {
+        q: "Ma cave près de la Meuse a été inondée. Quand dois-je commencer à sécher ?",
+        a: "Dès que l'eau stagnante et la boue ont disparu. Un déshumidificateur retire l'humidité du sol et des murs, pas l'eau qui reste au sol. Indiquez lors de la réservation jusqu'où l'eau est montée, et le technicien apportera aussi un ventilateur.",
+      },
+      {
+        q: "Intervenez-vous sur le coteau, aux Awirs et à Chokier ?",
+        a: "Oui, nous livrons dans tout Flémalle, y compris dans les sections plus haut sur le coteau. Les rues y sont parfois étroites et raides. Indiquez lors de la réservation si la camionnette peut s'arrêter devant la porte, et nous organiserons la livraison en conséquence.",
+      },
+      {
+        q: "Pourquoi le plafonnage contre un mur adossé à la pente sèche-t-il si lentement ?",
+        a: "De l'autre côté, ce mur touche une terre humide et reste froid. Un mur froid sèche plus lentement, et un déshumidificateur à condensation fonctionne moins bien en dessous d'environ 15 °C. Avec un chauffage de chantier en plus et les portes fermées, cela va nettement plus vite.",
+      },
+      {
+        q: "Pouvez-vous sécher un ancien bâtiment industriel au bord de la Meuse ?",
+        a: "Oui. Pour un grand volume, le technicien calcule d'abord le nombre de mètres cubes et vérifie si l'espace peut être fermé. Un hall aux portes ouvertes sèche mal. Il s'agit alors généralement d'une combinaison de grands déshumidificateurs et de ventilateurs.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  fleron: {
+    slug: "fleron",
+    title: "Location de déshumidificateur à Fléron (Liège) | Vernast",
+    description:
+      "Déshumidificateur à louer à Fléron : maisons sur le plateau à l'est de Liège, à Retinne, Romsée et Magnée, avec caves et chapes. Livré, installé, réglé.",
+    h1: "Location de déshumidificateur à Fléron",
+    kicker: "Liège · sur le plateau, le long de l'E40",
+    rit: { afstand: "environ 130 km", tijd: "près d'une heure et demie" },
+    intro: [
+      "Fléron se trouve **sur le plateau à l'est de Liège**, sur la route de Verviers et du Pays de Herve. Autrefois, la commune vivait **des charbonnages** ; aujourd'hui, c'est une commune résidentielle avec beaucoup de navetteurs vers Liège. Notre camionnette y est en près d'une heure et demie.",
+      "**Magnée, Retinne et Romsée** font partie de Fléron. C'est aussi ici que se trouve **le fort de Fléron**, l'un des douze forts que Brialmont fit construire autour de Liège. Vers le sud, le terrain descend en pente raide vers la vallée de la Vesdre.",
+    ],
+    bouw: {
+      kop: "Cités minières, caves et nouveaux lotissements",
+      alineas: [
+        "À Retinne et Romsée, il reste **des rangées de maisons de l'époque des charbonnages**, avec une cave et un jardin étroit. Beaucoup de ces maisons font l'objet d'**une rénovation complète**, avec une nouvelle électricité, un nouveau plafonnage et une nouvelle salle de bains. Sur le plateau, il fait venteux et frais, et une maison restée longtemps vide est froide jusque dans les murs.",
+        "En bordure de la commune se trouvent **des lotissements de maisons quatre et trois façades**. Là, tout tourne généralement autour de la chape : combien de temps elle doit sécher et si cela peut aller plus vite. **Le chauffage par le sol** ne peut être allumé progressivement qu'après le délai d'attente prescrit. D'ici là, c'est un déshumidificateur qui fait le travail.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Pour une maison de mineur à Retinne ou à Romsée** en rénovation complète : 70 litres par jour, jusqu'à environ 400 m³." },
+      { key: "teddh20", waarom: "Ce chauffage de chantier de 20 kW réchauffe d'abord **une maison restée longtemps vide**, pour que le séchage avance. Il demande du 400 V." },
+      { key: "ttk650", waarom: "**Pour une maison de lotissement avec une chape fraîche** : 110 litres par jour, pour que le sol soit plus vite prêt pour la finition." },
+      { key: "radiaal2250", waarom: "Ce ventilateur radial souffle **de manière ciblée sur une chape**, pour que les bords et les coins du sol sèchent aussi." },
+    ],
+    levering: {
+      kop: "Livraison à Fléron",
+      alinea:
+        "Par l'E313 et l'E40, nous sommes à Fléron en **près d'une heure et demie**. Vous choisissez une date de livraison lors de la réservation, et nous livrons **sur rendez-vous**. Le technicien installe les appareils, les règle et mesure l'humidité au départ. Si la maison se trouve dans une nouvelle rue sans numéro, indiquez-nous un point de repère.",
+    },
+    afhalen: {
+      kop: "Enlèvement à Aartselaar",
+      alinea:
+        "Un aller-retour de Fléron à Aartselaar prend **près de trois heures**. L'enlèvement ne vaut donc la peine que si vous devez de toute façon passer dans la région d'Anvers. Avec la livraison, l'appareil est **tout de suite bien installé**.",
+    },
+    buren: ["beyne-heusay", "soumagne", "chaudfontaine", "trooz"],
+    faq: [
+      {
+        q: "Ma maison à Retinne est restée vide un an. Pourquoi sèche-t-elle si mal ?",
+        a: "Une maison longtemps non chauffée est froide jusque dans les murs, et des murs froids rendent leur humidité lentement. De plus, un déshumidificateur à condensation ne fonctionne bien qu'au-dessus de 15 °C. Avec un chauffage de chantier en plus, les murs et l'air montent en température, et la maison sèche plus facilement.",
+      },
+      {
+        q: "Puis-je utiliser mon chauffage par le sol pour sécher la chape ?",
+        a: "Seulement après le délai d'attente indiqué par le fournisseur de la chape, et alors progressivement. Chauffer trop tôt ou trop fort, c'est risquer des fissures dans la chape. D'ici là, un déshumidificateur fait le travail, éventuellement avec un ventilateur sur le sol.",
+      },
+      {
+        q: "Livrez-vous aussi à Magnée, du côté de la Vesdre ?",
+        a: "Oui, dans toutes les sections de Fléron. Magnée se trouve en bordure du plateau, où certaines rues descendent en pente raide vers la vallée. Indiquez lors de la réservation si la camionnette peut aller jusqu'à la maison.",
+      },
+      {
+        q: "Combien d'électricité consomme un déshumidificateur de chantier ?",
+        a: "Cela dépend du modèle. Le modèle compact demande 0,75 kW, le modèle intermédiaire 1,1 kW et le plus grand 1,4 kW. Un chauffage de chantier de 20 ou 30 kW consomme beaucoup plus, et nous ne l'utilisons que si c'est nécessaire.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  "grace-hollogne": {
+    slug: "grace-hollogne",
+    title: "Déshumidificateur à louer à Grâce-Hollogne | Vernast",
+    description:
+      "Déshumidificateur à louer à Grâce-Hollogne, Bierset, Velroux ou Horion-Hozémont : maisons, fermes et bâtiments d'entreprise près de Liège Airport.",
+    h1: "Location de déshumidificateur à Grâce-Hollogne",
+    kicker: "Province de Liège · la commune de l'aéroport",
+    rit: { afstand: "environ 120 km", tijd: "un peu plus d'une heure" },
+    intro: [
+      "C'est à Grâce-Hollogne que se trouve **Liège Airport**, l'aéroport de Bierset, surtout connu comme aéroport de fret. Autour du site s'étendent des zones logistiques et des bâtiments d'entreprise. Au-delà se trouvent les noyaux d'habitat de Hollogne-aux-Pierres, Grâce-Berleur, Velroux et Horion-Hozémont.",
+      "Les noyaux du côté de Liège appartiennent à **l'ancien bassin houiller**, avec un bâti dense et des maisons ouvrières. Velroux et Horion-Hozémont sont plus ruraux. Un entrepreneur travaille ici une semaine dans une maison mitoyenne et la suivante dans un entrepôt ou une ferme. Depuis Aartselaar, nous roulons un peu plus d'une heure jusqu'à Grâce-Hollogne.",
+    ],
+    bouw: {
+      kop: "Maisons mitoyennes près de la ville, entrepôts près de l'aéroport",
+      alineas: [
+        "À Grâce-Berleur et à Hollogne s'alignent des maisons anciennes de l'époque des charbonnages, avec des **murs en briques sans creux** et de petites caves. Après une fuite ou lors d'une rénovation avec un nouveau plafonnage, il s'agit d'un petit volume. Un déshumidificateur compact dans une pièce fermée y fait l'essentiel du travail.",
+        "Près de l'aéroport, il s'agit de bâtiments d'entreprise : un nouveau **sol industriel**, des bureaux en cours d'aménagement ou un local technique après des dégâts des eaux. Là, c'est la capacité par mètre cube qui compte. Le technicien recalcule le volume avant de confirmer le nombre d'appareils.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Pour un entrepôt ou des bureaux à Bierset** : 110 litres par jour, adapté à des espaces jusqu'à environ 600 m³ avec un sol frais." },
+      { key: "ttv4500", waarom: "Au-dessus d'un grand sol en béton, l'air juste au-dessus de la surface reste saturé. Ce ventilateur **le garde en mouvement**, pour que le sol sèche de façon plus uniforme." },
+      { key: "ttk170", waarom: "Pour une maison mitoyenne à Grâce ou à Hollogne : assez compact pour un couloir étroit et, avec 0,75 kW, un **appareil économe**." },
+      { key: "ttk350", waarom: "Pour une maison neuve à Velroux ou à Horion-Hozémont : 70 litres par jour, suffisant pour un rez-de-chaussée avec chape." },
+    ],
+    levering: {
+      kop: "Livraison à Grâce-Hollogne : près de l'aéroport et dans les villages",
+      alinea:
+        "Nous passons **par l'E313, puis en direction de l'aéroport**, un peu plus d'une heure hors heures de pointe. Sur un site d'entreprise avec contrôle d'accès, communiquez de préférence à l'avance **le nom d'une personne de contact**, pour que le technicien ne reste pas bloqué à la barrière. Vous choisissez la date de livraison lors de la réservation, et nous convenons de l'heure.",
+    },
+    afhalen: {
+      kop: "L'enlèvement est possible, mais rarement rentable",
+      alinea:
+        "Notre point d'enlèvement à Aartselaar se trouve à **un peu plus d'une heure de route**. Pour un seul déshumidificateur, c'est faisable, avec une voiture où il tient debout. Pour un bâtiment d'entreprise avec plusieurs appareils, nous conseillons la livraison, car l'installation y compte davantage que l'appareil lui-même.",
+    },
+    buren: ["ans", "awans", "saint-nicolas", "flemalle"],
+    faq: [
+      {
+        q: "Livrez-vous aussi sur un site d'entreprise près de Liège Airport ?",
+        a: "Oui. Indiquez lors de la réservation l'adresse du bâtiment, l'accès et une personne de contact sur place. Sur les sites avec barrière ou contrôle par badge, nous convenons à l'avance de qui fait entrer le technicien, pour que la livraison se déroule sans accroc le jour prévu.",
+      },
+      {
+        q: "Combien de déshumidificateurs me faut-il pour un nouveau sol en béton dans un entrepôt ?",
+        a: "Cela dépend du volume de l'espace, de l'épaisseur du sol et de la possibilité de fermer l'espace. Un entrepôt dont les portes restent ouvertes sèche mal. Nous combinons généralement de grands déshumidificateurs avec des ventilateurs ; le technicien recalcule le nombre sur place.",
+      },
+      {
+        q: "Travaillez-vous aussi à Velroux et à Horion-Hozémont ?",
+        a: "Oui, ces sections se trouvent dans notre zone de livraison. Il s'agit plus souvent de fermes et de constructions neuves que de maisons mitoyennes. Pour une maison isolée, décrivez l'accès, pour que le technicien choisisse le bon itinéraire.",
+      },
+      {
+        q: "Un déshumidificateur peut-il tourner la nuit dans un bureau ?",
+        a: "Oui, et c'est même le but. Un déshumidificateur travaille en continu. Si vous l'éteignez la nuit, l'air reprend de l'humidité aux murs et au sol. Gardez l'espace fermé et convenez que personne n'éteint le déshumidificateur en fermant le bâtiment.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  herstal: {
+    slug: "herstal",
+    title: "Louer un déshumidificateur de chantier à Herstal | Vernast",
+    description:
+      "Déshumidificateur à louer à Herstal : maisons ouvrières, caves entre la Meuse et le canal Albert, constructions neuves à Vottem, Milmort et Liers.",
+    h1: "Location de déshumidificateur à Herstal",
+    kicker: "Liège · entre la Meuse et le canal Albert",
+    rit: { afstand: "environ 115 km", tijd: "un peu plus d'une heure" },
+    intro: [
+      "Herstal se trouve **juste en aval de Liège**, entre la Meuse et le **canal Albert**. La ville s'est développée autour de son industrie : FN Herstal y fabrique des armes depuis plus d'un siècle. Depuis Aartselaar, notre camionnette y est en un peu plus d'une heure.",
+      "En bas, près de l'eau, se trouvent **les quartiers plus anciens**. Plus haut sur la pente s'étendent **Vottem, Milmort et Liers**, des sections avec des quartiers résidentiels et des lotissements plus récents.",
+    ],
+    bouw: {
+      kop: "Maisons ouvrières et caves près de l'eau",
+      alineas: [
+        "Autour du centre s'alignent **des rangées d'étroites maisons ouvrières**, avec une cave sous la pièce avant. Lors d'une rénovation, l'ancien enduit est souvent enlevé d'un coup et un nouveau **plafonnage** est posé sur tous les murs. Une si petite maison reçoit alors beaucoup d'eau en peu de temps.",
+        "Près de la Meuse et du canal, **la nappe phréatique est plus haute**. Une cave y paraît fraîche et moite, même sans fuite. Si l'eau vient du sol, un déshumidificateur ne règle pas le problème durablement. **Lors de l'installation, le technicien fait une mesure d'humidité** et vous dit s'il s'agit d'humidité de construction.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**Pour une seule pièce ou une salle de bains** dans une maison mitoyenne étroite : compact, 50 litres par jour et facile à monter à l'étage." },
+      { key: "ttk350", waarom: "Si **toute la maison reçoit un nouveau plafonnage**, ce déshumidificateur retire 70 litres par jour, pour des volumes jusqu'à environ 400 m³." },
+      { key: "revolution", waarom: "**Pour une cave froide près de la Meuse.** Ce déshumidificateur à adsorption continue d'extraire l'humidité là où un appareil à condensation rend trop peu." },
+      { key: "ttv4500", waarom: "Dans une maison mitoyenne profonde, l'air stagne à l'arrière. Le ventilateur le met en mouvement, pour que **la pièce arrière sèche aussi**." },
+    ],
+    levering: {
+      kop: "Livraison à Herstal",
+      alinea:
+        "Par l'E313, nous sommes à Herstal en **un peu plus d'une heure**. Vous choisissez une date de livraison lors de la réservation ; en Wallonie, nous livrons **sur rendez-vous**. Dans les vieux quartiers, les rues sont étroites et parfois raides. Signalez à l'avance si l'on peut se garer devant la porte. Le technicien met les appareils en place étage par étage.",
+    },
+    afhalen: {
+      kop: "Enlèvement à Aartselaar",
+      alinea:
+        "Notre point d'enlèvement est à un peu plus d'une heure de route de Herstal. Aller-retour, deux fois, cela vous prend **une bonne partie de la journée**. Cela ne vaut la peine que si vous devez de toute façon passer près d'Anvers. Avec la livraison, le technicien fait tout de suite une mesure d'humidité.",
+    },
+    buren: ["luik-stad", "oupeye", "juprelle"],
+    faq: [
+      {
+        q: "Ma cave à Herstal reste humide. Est-ce à cause de la Meuse ?",
+        a: "C'est possible. Dans les quartiers bas, la nappe phréatique est juste sous le sol, et une cave toujours moite ne sèche pas durablement avec un déshumidificateur. L'humidité de construction après une rénovation, en revanche, nous l'éliminons. Lors de l'installation, le technicien mesure de quelle humidité il s'agit.",
+      },
+      {
+        q: "Combien de déshumidificateurs dans une maison mitoyenne entièrement replafonnée ?",
+        a: "Comptez en général un déshumidificateur par étage, avec les portes vers l'escalier fermées. Une maison mitoyenne étroite a peu de volume, mais un nouveau plafonnage sur tous les murs apporte beaucoup d'eau. Un ventilateur en plus accélère le séchage.",
+      },
+      {
+        q: "Livrez-vous aussi à Vottem, Milmort et Liers ?",
+        a: "Oui, dans toutes les sections de Herstal. Plus haut sur la pente, il s'agit plus souvent de constructions neuves dans un lotissement, avec une chape qui doit sécher avant la pose du revêtement. Indiquez l'adresse et l'accès lors de la réservation.",
+      },
+      {
+        q: "Un déshumidificateur peut-il tourner sur l'installation électrique d'une maison ancienne ?",
+        a: "Les déshumidificateurs à condensation et les ventilateurs fonctionnent sur une prise standard de 230 volts. Si l'installation est ancienne, répartissez les appareils sur plusieurs circuits. Seuls les chauffages de chantier demandent un raccordement en 400 volts, et nous en discutons avec vous à l'avance.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  juprelle: {
+    slug: "juprelle",
+    title: "Déshumidificateur de chantier à louer à Juprelle | Vernast",
+    description:
+      "Déshumidificateur à louer à Juprelle, Slins, Lantin, Paifve ou Wihogne : fermes rénovées et constructions neuves en Hesbaye liégeoise. Livré et installé.",
+    h1: "Location de déshumidificateur à Juprelle",
+    kicker: "Province de Liège · la Hesbaye rurale au-dessus de Liège",
+    rit: { afstand: "environ 110 km", tijd: "un peu plus d'une heure" },
+    intro: [
+      "Juprelle se trouve au nord de Liège, dans **la Hesbaye liégeoise**. C'est une commune rurale, avec des champs et des villages comme Slins, Fexhe-Slins, Lantin, Paifve, Wihogne, Voroux-lez-Liers et Villers-Saint-Siméon.",
+      "Qui construit ou rénove à Juprelle travaille souvent dans **une ancienne ferme** ou sur une maison neuve en bordure d'un village. La proximité de Liège et de l'E313 attire de nouveaux habitants, mais le caractère reste rural. Depuis Aartselaar, nous roulons un peu plus d'une heure jusqu'à Juprelle.",
+    ],
+    bouw: {
+      kop: "Fermes en carré et constructions neuves en bordure de village",
+      alineas: [
+        "Une **ferme en carré hesbignonne** a d'épais murs en briques et des granges sous une haute toiture. Si vous en transformez une partie en logement, vous y apportez un nouveau plafonnage, un nouveau sol et souvent un chauffage par le sol, dans un grand volume. Cela demande plus de capacité de séchage qu'une maison ordinaire, et un air qui reste en mouvement jusque sous le toit.",
+        "En construction neuve, une cave ou une fouille reste parfois longtemps mouillée après la pluie. Pompez l'eau avant de commencer à sécher. Ensuite, **la chape doit encore sécher** avant l'arrivée du poseur de sol, et c'est une mesure d'humidité qui dit si elle est prête.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Pour une ferme en carré en rénovation** : 110 litres par jour et adapté à des espaces jusqu'à environ 600 m³, pour de hautes granges avec beaucoup de plafonnage neuf." },
+      { key: "ttv4500", waarom: "Sous une haute toiture de ferme, l'air humide stagne. Ce ventilateur de 4 500 m³/h **le met en mouvement**, pour que murs et sol sèchent uniformément." },
+      { key: "ttk350", waarom: "Pour une maison neuve à Slins ou à Lantin : 70 litres par jour pour une puissance de 1,1 kW, pour un rez-de-chaussée avec une chape fraîche." },
+      { key: "radiaal2250", waarom: "**Pour une cave restée mouillée après la pluie** : ce ventilateur radial souffle de manière ciblée sur le sol et jusque dans les coins." },
+    ],
+    levering: {
+      kop: "Livraison à Juprelle : tout près de l'E313",
+      alinea:
+        "Juprelle se trouve **tout près de l'E313**, à un peu plus d'une heure de route de notre entrepôt d'Aartselaar. Si la ferme est derrière un portail ou au bord d'un chemin de campagne étroit, précisez l'accès lors de la réservation. Vous choisissez une date de livraison et nous convenons de l'heure. Le technicien installe les appareils, les règle et **mesure l'humidité**.",
+    },
+    afhalen: {
+      kop: "Enlèvement à Aartselaar : un peu plus d'une heure par l'E313",
+      alinea:
+        "Depuis Juprelle, vous rejoignez Aartselaar **par l'E313**. Dans une camionnette, vous pouvez emporter deux appareils. Pour une ferme avec plusieurs pièces et un ventilateur, nous conseillons la livraison, pour que l'installation soit tout de suite correcte.",
+    },
+    buren: ["ans", "awans", "herstal", "oupeye"],
+    faq: [
+      {
+        q: "Comment sécher une grange rénovée sous une haute toiture ?",
+        a: "Une grange haute contient beaucoup plus d'air que la surface au sol ne le laisse penser. Un grand déshumidificateur, avec un ventilateur qui garde l'air en mouvement sous le toit, fonctionne le mieux. Indiquez les dimensions lors de la réservation ; le technicien vérifie l'installation sur place.",
+      },
+      {
+        q: "Peut-on sécher plus vite une chape sur chauffage par le sol ?",
+        a: "La chape doit d'abord durcir, ensuite vient le protocole de mise en chauffe de l'installateur. Entre-temps, un déshumidificateur de chantier retire l'humidité de l'air, pour que la chape puisse libérer la sienne. Suivez le schéma de votre installateur et faites mesurer l'humidité résiduelle avant l'arrivée du poseur de sol.",
+      },
+      {
+        q: "Livrez-vous dans tous les villages de Juprelle, y compris Paifve et Wihogne ?",
+        a: "Oui, nous livrons dans chaque village de Juprelle. Dans les plus petits noyaux, certaines fermes se trouvent au bord de chemins de campagne étroits. Décrivez lors de la réservation comment on rejoint la ferme, et nous prévoirons l'itinéraire et le véhicule en conséquence.",
+      },
+      {
+        q: "Pourquoi y a-t-il de l'eau dans ma fouille après une averse ?",
+        a: "L'eau dans une fouille ou contre un mur de cave ne s'infiltre que lentement dans le sol. Pompez-la d'abord, car un déshumidificateur n'est pas fait pour des flaques. Ensuite, un déshumidificateur avec un ventilateur retire l'humidité du sol et des parois.",
+      },
+    ],
+    realisaties: [],
+  },
+
+  neupre: {
+    slug: "neupre",
+    title: "Location de déshumidificateur à Neupré | Vernast Liège",
+    description:
+      "Déshumidificateur à louer à Neupré : quartiers de villas dans les bois à Plainevaux, Rotheux-Rimière et Neuville-en-Condroz. Livré et mesuré.",
+    h1: "Location de déshumidificateur à Neupré",
+    kicker: "Liège · des quartiers de villas aux portes du Condroz",
+    rit: { afstand: "environ 140 km", tijd: "environ une heure et demie" },
+    intro: [
+      "Neupré se trouve **sur le plateau au sud-ouest de Liège**, là où la ville fait place au Condroz. La commune se compose de **Plainevaux, Rotheux-Rimière, Neuville-en-Condroz et Ehein**. À Neuville-en-Condroz se trouve le cimetière militaire américain de la Seconde Guerre mondiale.",
+      "Neupré est surtout une commune résidentielle, avec des **quartiers de villas dans les bois** et des maisons quatre façades sur de grands terrains. Beaucoup de ces maisons ont quelques décennies et sont aujourd'hui rénovées ou agrandies. Depuis Aartselaar, nous roulons environ une heure et demie pour y arriver.",
+    ],
+    bouw: {
+      kop: "Des villas plus anciennes, rénovées aujourd'hui",
+      alineas: [
+        "Une villa plus ancienne a souvent **une cave ou un vide sanitaire**, des vitrages dépassés et peu d'isolation. Lors d'une rénovation en profondeur, beaucoup d'humidité entre dans la maison en peu de temps : nouveau plafonnage, **une chape avec chauffage par le sol**, parfois une extension en maçonnerie. Tout cela doit être sec avant que le poseur de sol et le peintre commencent.",
+        "La forêt autour des maisons garde l'air humide et les façades à l'ombre. Aérer aide alors peu, car **l'air extérieur apporte lui-même de l'humidité**. Un déshumidificateur dans une pièce fermée fonctionne mieux. Pour un vide sanitaire, un **déshumidificateur à adsorption** souffle de l'air sec par la trappe existante.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**Pour une villa en pleine rénovation** : 70 litres par jour et une portée jusqu'à 400 m³, assez pour un rez-de-chaussée avec un nouveau plafonnage et une chape." },
+      { key: "revolution", waarom: "Pour **le vide sanitaire sous une villa ancienne** : ce déshumidificateur à adsorption amène de l'air sec par des gaines, même s'il fait froid sous la maison." },
+      { key: "radiaal2250", waarom: "Ce ventilateur radial chasse la couche d'air humide au-dessus d'**une nouvelle chape**, pour que le sol sèche de façon plus uniforme." },
+      { key: "ttk170", waarom: "Pour une salle de bains ou une petite extension : compact, 0,75 kW sur une prise standard, sans gêner le reste de la maison." },
+    ],
+    levering: {
+      kop: "Livraison à Neupré : jusqu'à la villa dans les bois",
+      alinea:
+        "Nous rejoignons Neupré en environ une heure et demie, **par Liège et la route du Condroz**. En Wallonie, nous livrons sur rendez-vous : vous choisissez une date de livraison lors de la réservation. Beaucoup de villas se trouvent sur des routes calmes avec une longue allée, ce qui facilite le déchargement. Le technicien installe les appareils pièce par pièce et **mesure au départ** l'humidité de la chape et des murs.",
+    },
+    afhalen: {
+      kop: "Enlèvement : comptez une après-midi entière",
+      alinea:
+        "Jusqu'à notre point d'enlèvement à Aartselaar, vous roulez environ une heure et demie, dans un seul sens. Pour la rénovation de toute une villa, il vous faut en outre souvent plus d'un déshumidificateur. **La livraison est alors plus simple** : tout arrive en une fois et se trouve tout de suite à sa place.",
+    },
+    buren: ["seraing", "esneux", "nandrin", "flemalle"],
+    faq: [
+      {
+        q: "Ma villa est entièrement rénovée. Quand dois-je louer un déshumidificateur ?",
+        a: "Dès que le plafonnage et la chape sont posés et que les fenêtres peuvent être fermées. Plus tôt a peu de sens, car l'air sec s'échappe. Intégrez le temps de séchage dans votre planning, pour que le poseur de sol et le peintre ne doivent pas attendre un sol encore humide.",
+      },
+      {
+        q: "Comment sécher le vide sanitaire sous ma villa ?",
+        a: "Avec un déshumidificateur à adsorption placé à l'extérieur du vide sanitaire, qui souffle de l'air sec par une gaine à travers la trappe existante. Vous ne devez pas y descendre vous-même. Un tel espace est généralement trop froid pour un déshumidificateur à condensation.",
+      },
+      {
+        q: "Puis-je utiliser le chauffage par le sol pour sécher la chape plus vite ?",
+        a: "Seulement quand le chapiste a validé le schéma de mise en chauffe, et alors progressivement. Entre-temps, un déshumidificateur et un ventilateur s'attaquent à l'humidité dans la pièce. À l'enlèvement, le technicien mesure, pour que vous ayez un chiffre à donner au poseur de sol.",
+      },
+      {
+        q: "Pourquoi aérer aide-t-il peu dans une maison dans les bois ?",
+        a: "Parce que l'air sous les arbres est lui-même humide, surtout au printemps et en automne. Des fenêtres ouvertes font alors entrer presque autant d'humidité qu'elles n'en évacuent. Fenêtres fermées et déshumidificateur allumé, vous retirez bel et bien l'eau de la pièce.",
+      },
+    ],
+    realisaties: [],
+  },
 };
