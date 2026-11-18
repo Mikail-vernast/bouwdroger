@@ -1,16 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-  BEDRIJF,
-  ALLES_OVER_DROGEN,
-  MENU_SITUATIES,
-  PAKKETTEN,
-  SERVICE,
-  TOESTELLEN,
-  VERNAST_GROEP,
-} from "@/data/navigation";
+import { navigatie, type Navigatie } from "@/data/navigation";
 import { CONTACT } from "@/lib/site";
+import { useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
+import { KlantWissel, TaalWissel } from "@/components/TaalWissel";
+import { SCHIL_COPY, type SchilTekst } from "@/components/schil.copy";
 import "@/styles/mobile-nav.css";
+import "@/styles/taalwissel.css";
 
 /**
  * De mobiele navigatie van beide schillen.
@@ -51,27 +47,28 @@ interface Rij {
   categorieen: Categorie[];
 }
 
-const UITKLAPBAAR: Rij[] = [
+/** De rijen in de taal van de pagina: de lijsten uit `navigatie()`, de koppen uit `SCHIL_COPY`. */
+const uitklapbaar = (nav: Navigatie, t: SchilTekst): Rij[] => [
   {
     id: "bouwdroging",
-    label: "Bouwdroging",
+    label: t.bouwdroging,
     categorieen: [
-      { chip: "Pakketten", items: PAKKETTEN },
-      { chip: "Toestellen", items: TOESTELLEN },
+      { chip: t.kopPakketten, items: nav.PAKKETTEN },
+      { chip: t.kopToestellen, items: nav.TOESTELLEN },
       // Dezelfde vierde kolom als op de desktop: wie het menu Bouwdroging
       // opent, moet ook hier bij zijn eigen situatie kunnen.
-      { chip: "Toepassingen", items: MENU_SITUATIES },
-      { chip: "Levering & service", items: SERVICE },
+      { chip: t.kopToepassingen, items: nav.MENU_SITUATIES },
+      { chip: t.chipService, items: nav.SERVICE },
     ],
   },
   {
     id: "drogen",
-    label: "Alles over drogen",
+    label: t.allesOverDrogen,
     // Dezelfde kolommen als in het mega-menu op de desktop, zodat beide
     // dezelfde pagina's tonen; de kop van elke kolom wordt hier de chip.
-    categorieen: ALLES_OVER_DROGEN.map((groep) => ({ chip: groep.titel, items: groep.items })),
+    categorieen: nav.ALLES_OVER_DROGEN.map((groep) => ({ chip: groep.titel, items: groep.items })),
   },
-  { id: "groep", label: "Group", categorieen: [{ items: VERNAST_GROEP }] },
+  { id: "groep", label: t.groep, categorieen: [{ items: nav.VERNAST_GROEP }] },
 ];
 
 const strokeProps = {
@@ -113,11 +110,13 @@ export const MobileNavButton = ({
 }: {
   open: boolean;
   onClick: () => void;
-}) => (
+}) => {
+  const t = useCopy(SCHIL_COPY);
+  return (
   <button
     type="button"
     className="mnav-btn"
-    aria-label={open ? "Menu sluiten" : "Menu openen"}
+    aria-label={open ? t.menuSluit : t.menuOpen}
     aria-expanded={open}
     aria-controls="mobiel-menu"
     onClick={onClick}
@@ -126,7 +125,8 @@ export const MobileNavButton = ({
     <i />
     <i />
   </button>
-);
+  );
+};
 
 /**
  * Belknop + hamburger, het rechterblok van de `.navpill` op een telefoon.
@@ -145,18 +145,17 @@ export const MobileNavActions = ({
 }: {
   open: boolean;
   onClick: () => void;
-}) => (
-  <div className="mnav-acties">
-    <a
-      className="mnav-bel"
-      href={`tel:${CONTACT.phoneE164}`}
-      aria-label={`Bel ${CONTACT.phoneLocal}`}
-    >
-      <PhoneGlyph />
-    </a>
-    <MobileNavButton open={open} onClick={onClick} />
-  </div>
-);
+}) => {
+  const t = useCopy(SCHIL_COPY);
+  return (
+    <div className="mnav-acties">
+      <a className="mnav-bel" href={`tel:${CONTACT.phoneE164}`} aria-label={t.bel(CONTACT.phoneLocal)}>
+        <PhoneGlyph />
+      </a>
+      <MobileNavButton open={open} onClick={onClick} />
+    </div>
+  );
+};
 
 interface MobileNavProps {
   open: boolean;
@@ -178,6 +177,10 @@ const MobileNav = ({
   const { pathname } = useLocation();
   const panelRef = useRef<HTMLDivElement>(null);
   const teruggeefFocus = useRef<HTMLElement | null>(null);
+  const t = useCopy(SCHIL_COPY);
+  const lp = useLokaalPad();
+  const nav = navigatie(useTaal());
+  const UITKLAPBAAR = uitklapbaar(nav, t);
 
   // Sluiten bij navigatie: het paneel blijft anders over de nieuwe pagina staan.
   useEffect(() => {
@@ -232,13 +235,13 @@ const MobileNav = ({
       ref={panelRef}
       role="dialog"
       aria-modal="true"
-      aria-label="Hoofdmenu"
+      aria-label={t.hoofdmenu}
     >
       <div className="mnav-h">
-        <Link to="/" aria-label="Naar de homepage">
+        <Link to={lp("/")} aria-label={t.naarHome}>
           <img src={logo} alt="Vernast" width={1600} height={268} decoding="async" />
         </Link>
-        <button type="button" className="mnav-close" aria-label="Menu sluiten" onClick={onClose}>
+        <button type="button" className="mnav-close" aria-label={t.menuSluit} onClick={onClose}>
           <CloseIcon />
         </button>
       </div>
@@ -287,7 +290,7 @@ const MobileNav = ({
           </div>
         ))}
 
-        {BEDRIJF.map((item, i) => (
+        {nav.BEDRIJF.map((item, i) => (
           <div
             key={item.path}
             className="mnav-acc mnav-rise"
@@ -302,8 +305,8 @@ const MobileNav = ({
       </div>
 
       <div className="mnav-foot">
-        <Link className="mnav-cta mnav-rise" style={rise(6)} to="/verhuur/calculator">
-          Bereken uw droogpakket
+        <Link className="mnav-cta mnav-rise" style={rise(6)} to={lp("/verhuur/calculator")}>
+          {t.berekenPakket}
           <ArrowRight />
         </Link>
         <a className="mnav-call mnav-rise" style={rise(7)} href={`tel:${CONTACT.phoneE164}`}>
@@ -311,7 +314,13 @@ const MobileNav = ({
           {CONTACT.phoneLocal}
         </a>
         <span className="mnav-hours mnav-rise" style={rise(8)}>
-          Ma–Vr 08:00–17:00 · {CONTACT.email}
+          {t.uren} · {CONTACT.email}
+        </span>
+        {/* Taal en prijsweergave: op een telefoon valt de topregel weg, dus
+            hier is de enige plek om ze na de keuzepopup nog te wijzigen. */}
+        <span className="wissels mnav-rise" style={rise(9)}>
+          <TaalWissel />
+          <KlantWissel />
         </span>
       </div>
     </div>

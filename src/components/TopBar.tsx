@@ -1,7 +1,13 @@
 import { Phone, Mail, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCopy } from "@/i18n/useTaal";
+import { KlantWissel, TaalWissel } from "@/components/TaalWissel";
+import "@/styles/taalwissel.css";
+
+const COPY = { nl: { offerte: "Gratis Offerte" }, fr: { offerte: "Devis gratuit" } };
 
 const TopBar = () => {
+  const t = useCopy(COPY);
   return (
     <div className="bg-foreground text-background text-sm py-2">
       <div className="container mx-auto px-4 flex items-center justify-between">
@@ -16,13 +22,18 @@ const TopBar = () => {
           </a>
         </div>
         <div className="flex items-center gap-4">
+          {/* Op een telefoon staan ze in het menu van de Navbar. */}
+          <span className="wissels hidden md:inline-flex">
+            <TaalWissel />
+            <KlantWissel />
+          </span>
           <div className="flex items-center gap-3">
             <a href="#" aria-label="Facebook" className="hover:text-primary transition-colors">
               <Facebook className="h-4 w-4" />
             </a>
           </div>
           <Button size="sm" className="text-xs font-semibold tracking-wide uppercase">
-            Gratis Offerte
+            {t.offerte}
           </Button>
         </div>
       </div>
