@@ -3,9 +3,11 @@ import { AanvraagDone, AanvraagError, AanvraagHoneypot } from "@/components/Aanv
 import { useAanvraag } from "@/hooks/useAanvraag";
 import V3Footer from "@/components/home-v3/V3Footer";
 import V3Header from "@/components/home-v3/V3Header";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
 import { PUMP } from "@/data/verhuur";
-import { euro } from "@/lib/verhuur";
+import { DEPOSIT_GROSS } from "@/lib/booking";
+import { formatEuro, useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
+import { AFHALEN_COPY, AFHALEN_STANDAARD_ONDERWERP } from "./AfhalenPage.copy";
 import { MAPS_URL } from "@/lib/site";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 /*
@@ -45,7 +47,7 @@ const Check = () => (
  * dan blijft het toestel rechtop staan met het kruis uit.
  */
 const RechtopPictogram = () => (
-  <svg className="af-upright" viewBox="0 0 120 96" role="img" aria-label="Een bouwdroger hoort rechtop vervoerd te worden, niet liggend">
+  <svg className="af-upright" viewBox="0 0 120 96" role="img" aria-label={useCopy(AFHALEN_COPY).pictogram.rechtop}>
     <line x1="10" y1="86" x2="110" y2="86" stroke="#d9d5d5" strokeWidth="3" strokeLinecap="round" />
     <g className="afu-toestel">
       <rect x="44" y="26" width="32" height="56" rx="5" fill="#fff" stroke="#3a3737" strokeWidth="3" />
@@ -68,7 +70,7 @@ const RechtopPictogram = () => (
  * koffer ruim moet zijn.
  */
 const LaadruimtePictogram = () => (
-  <svg className="af-anim" viewBox="0 0 120 96" role="img" aria-label="Een bouwdroger die in een ruime koffer wordt geschoven">
+  <svg className="af-anim" viewBox="0 0 120 96" role="img" aria-label={useCopy(AFHALEN_COPY).pictogram.laadruimte}>
     <path d="M18 74V38h46l16 14v22" fill="none" stroke="#3a3737" strokeWidth="3" strokeLinejoin="round" />
     <path d="M18 74h84" stroke="#d9d5d5" strokeWidth="3" strokeLinecap="round" />
     <circle cx="36" cy="74" r="7" fill="#fff" stroke="#3a3737" strokeWidth="3" />
@@ -87,7 +89,7 @@ const LaadruimtePictogram = () => (
  * in de rode boog tot stilstand komt, zegt dat in één beweging.
  */
 const TijdslotPictogram = () => (
-  <svg className="af-anim" viewBox="0 0 120 96" role="img" aria-label="Een klok waarvan de wijzer stilvalt in het gereserveerde tijdslot">
+  <svg className="af-anim" viewBox="0 0 120 96" role="img" aria-label={useCopy(AFHALEN_COPY).pictogram.tijdslot}>
     <path className="aft-boog" d="M60 18a30 30 0 0 1 26 15" fill="none" stroke="#C8102E" strokeWidth="6" strokeLinecap="round" />
     <circle cx="60" cy="48" r="30" fill="#fff" stroke="#3a3737" strokeWidth="3" />
     <path d="M60 22v4M86 48h-4M60 74v-4M34 48h4" stroke="#3a3737" strokeWidth="3" strokeLinecap="round" />
@@ -99,8 +101,10 @@ const TijdslotPictogram = () => (
 );
 
 /** De routekaart uit de contactpagina, hier als hoofdvisual voor afhalen. */
-const AfhaalRouteKaart = () => (
-  <svg viewBox="0 0 900 460" role="img" aria-label="Route naar het afhaalpunt van Vernast via de N177, Tesla en Carglass">
+const AfhaalRouteKaart = () => {
+  const t = useCopy(AFHALEN_COPY);
+  return (
+  <svg viewBox="0 0 900 460" role="img" aria-label={t.pictogram.kaart}>
     <rect width="900" height="460" fill="#F7F6F6" />
     <rect x="810" width="90" height="460" fill="#ECEAEA" />
     <text x="855" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#b3afaf" transform="rotate(-90 855 230)">A12</text>
@@ -109,97 +113,31 @@ const AfhaalRouteKaart = () => (
     <text x="672" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" transform="rotate(-90 672 230)">N177 · BOOMSESTEENWEG</text>
     <rect x="40" y="350" width="686" height="52" fill="#E3E1E1" />
     <text x="420" y="396" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
-    <g><rect x="480" y="128" width="170" height="72" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" /><text x="565" y="160" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#3a3737" letterSpacing="2">TESLA</text><text x="565" y="182" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">u passeert eerst Tesla</text></g>
-    <g><rect x="462" y="236" width="188" height="86" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" /><rect x="462" y="236" width="188" height="26" rx="10" fill="#C8102E" /><text x="556" y="254" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="12" fontWeight="700" fill="#fff" letterSpacing="2">CARGLASS</text><text x="556" y="286" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">daarna Carglass,</text><text x="556" y="304" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">hier rechts indraaien</text></g>
-    <g><rect x="40" y="216" width="250" height="100" rx="12" fill="#C8102E" /><text x="165" y="256" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="14" fontWeight="700" fill="#fff" letterSpacing="2">VERNAST · UNIT 11</text><text x="165" y="280" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="rgba(255,255,255,.85)">magazijn + afhaalpoort</text></g>
+    <g><rect x="480" y="128" width="170" height="72" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" /><text x="565" y="160" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#3a3737" letterSpacing="2">TESLA</text><text x="565" y="182" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">{t.kaart.tesla}</text></g>
+    <g><rect x="462" y="236" width="188" height="86" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" /><rect x="462" y="236" width="188" height="26" rx="10" fill="#C8102E" /><text x="556" y="254" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="12" fontWeight="700" fill="#fff" letterSpacing="2">CARGLASS</text><text x="556" y="286" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">{t.kaart.carglass[0]}</text><text x="556" y="304" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">{t.kaart.carglass[1]}</text></g>
+    <g><rect x="40" y="216" width="250" height="100" rx="12" fill="#C8102E" /><text x="165" y="256" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="14" fontWeight="700" fill="#fff" letterSpacing="2">VERNAST · UNIT 11</text><text x="165" y="280" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="rgba(255,255,255,.85)">{t.kaart.unit}</text></g>
     <path className="route-alt" d="M855 16 L855 200 L740 288 L726 310" fill="none" stroke="#DE9AA5" strokeWidth="4" strokeLinecap="round" />
     <circle cx="855" cy="16" r="7" fill="#DE9AA5" stroke="#fff" strokeWidth="3" />
     <path className="route-line" d="M726 16 L726 376 L96 376" fill="none" stroke="#C8102E" strokeWidth="5" strokeLinecap="round" />
     <circle className="pin-pulse" cx="96" cy="376" r="10" fill="none" stroke="#C8102E" strokeWidth="3" />
     <circle cx="96" cy="376" r="9" fill="#C8102E" stroke="#fff" strokeWidth="3" />
     <circle className="car-dot" r="8" fill="#141414" stroke="#fff" strokeWidth="3" />
-    <g><circle cx="726" cy="16" r="8" fill="#3a3737" stroke="#fff" strokeWidth="3" /><text x="700" y="26" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#8a8686">van Antwerpen via de N177</text></g>
+    <g><circle cx="726" cy="16" r="8" fill="#3a3737" stroke="#fff" strokeWidth="3" /><text x="700" y="26" textAnchor="end" fontFamily="system-ui" fontSize="12" fontWeight="600" fill="#8a8686">{t.kaart.vanAntwerpen}</text></g>
   </svg>
-);
-
-const stappen = [
-  ["01", "Kies en reserveer online", "Selecteer uw bouwdroger, ventilator of kachel, de huurperiode en een vrij afhaalmoment."],
-  ["02", "U ontvangt bevestiging", "Na betaling krijgt u uw reservatie, tijdslot en het adres meteen per e-mail."],
-  ["03", "Alles staat klaar", "Kom op het afgesproken moment naar unit 11. Wij geven korte uitleg en helpen bij het inladen."],
-  ["04", "Breng op afspraak terug", "U brengt de toestellen aan het einde van de gekozen huurperiode terug naar hetzelfde magazijn."],
-];
+  );
+};
 
 /*
-  De vragen die aan de telefoon terugkomen bij een afhaling, en nergens anders
-  op deze pagina beantwoord worden. Ze staan hier langer dan één regel met
-  opzet: wie zelf komt halen heeft geen technieker die het ter plaatse uitlegt,
-  dus wat bij een levering mondeling gaat, moet hier staan.
+  De stappen en de veelgestelde vragen staan in `AfhalenPage.copy.tsx`.
+
+  De vragen zijn die welke aan de telefoon terugkomen bij een afhaling, en
+  nergens anders op deze pagina beantwoord worden. Ze staan er langer dan één
+  regel met opzet: wie zelf komt halen heeft geen technieker die het ter
+  plaatse uitlegt, dus wat bij een levering mondeling gaat, moet hier staan.
 
   Alle bedragen en periodes komen uit dezelfde bron als de reservatiepagina
   (`src/data/afhalen.ts`, `src/lib/afhalen.ts`) -- typ er geen over.
 */
-const faq = [
-  [
-    "Kan ik zonder reservatie langskomen?",
-    "Nee. Afhalen en terugbrengen gebeurt enkel op een afgesproken moment. Wij houden geen balie open: de toestellen staan in het magazijn en worden per reservatie klaargezet, gecontroleerd en geladen. Komt u onaangekondigd, dan is de kans groot dat het toestel dat u zoekt net op een werf staat. Met een reservatie weet u vooraf dat het er is en staat het klaar wanneer u aankomt.",
-  ],
-  [
-    "Wanneer kan ik afhalen en terugbrengen?",
-    "Op weekdagen, in een van de tijdsloten 07:30–08:00, 08:00–10:00, 10:00–12:00, 13:00–15:00 of 15:00–17:00. U kiest het slot tijdens de online reservatie en u krijgt het samen met het adres in uw bevestiging. Terugbrengen gebeurt op dezelfde manier: op het einde van de gekozen huurperiode, binnen een van diezelfde tijdsloten. In het weekend is het magazijn gesloten.",
-  ],
-  [
-    "Hoe lang kan ik een toestel afhalen, en kan ik verlengen?",
-    "U kiest bij de reservatie een periode in hele weken, van 1 tot 8 weken. Vanaf 4 weken zakt de huurprijs met 10%, oplopend tot 15% bij 8 weken. Is de ruimte op het einde nog niet droog, dan verlengt u online, u betaalt dan alleen de extra dagen aan hetzelfde dagtarief. Doe dat liefst vóór de einddatum: dan blijft het toestel voor u gereserveerd in plaats van naar de volgende klant te gaan.",
-  ],
-  [
-    "Moet ik een waarborg betalen?",
-    "Nee. Wij vragen geen waarborg, ook niet bij afhalen. U betaalt de huurprijs voor de gereserveerde periode, meer niet. Wat u wel ondertekent is de verplichting om het materieel schoon en in dezelfde staat terug te brengen; schade of vervuiling wordt achteraf doorgerekend, maar er staat vooraf geen bedrag geblokkeerd.",
-  ],
-  [
-    "Wat betaal ik op het moment van reserveren?",
-    "Twee mogelijkheden. Betaalt u de volledige huur meteen online, dan krijgt u 5% korting op de huurprijs. Of u betaalt een vaste orderbevestiging van € 50 en het saldo wanneer u de toestellen komt halen, dan rekent u ter plaatse af en vertrekt u met de factuur. Het bedrag staat in beide gevallen op het scherm vóór u bevestigt.",
-  ],
-  [
-    "Past een bouwdroger in mijn auto?",
-    "Een condensbouwdroger weegt 25 tot 40 kg en is ongeveer zo groot als een stevige koffer op wielen. In een break of een ruime kofferbak past hij; in een kleine stadswagen meestal niet, zeker niet samen met een ventilator. Voorzie een aanhangwagen zodra u twee of meer toestellen meeneemt, en kom bij voorkeur met twee personen, onze medewerker helpt bij het inladen, maar thuis staat u er alleen voor.",
-  ],
-  [
-    "Mag ik een bouwdroger liggend vervoeren?",
-    "Liever niet. In een condensdroger zit een compressor met koelmiddel en olie; ligt het toestel plat, dan kan die olie uit de compressor lopen. Vervoer hem dus rechtop en zet hem vast zodat hij niet omvalt. Is het toch liggend gegaan, laat het toestel dan minstens 24 uur rechtop staan vóór u het inschakelt, anders riskeert u de compressor.",
-  ],
-  [
-    "Welke stroom heb ik nodig?",
-    "De condensbouwdrogers en de ventilatoren draaien op een gewoon stopcontact van 230 V: 0,75 tot 1,4 kW voor een droger, ongeveer 0,2 kW voor een ventilator. De elektrische bouwkachels van 20 en 30 kW zijn iets anders, die vragen een krachtstroomaansluiting van 400 V. Controleer dat vóór u reserveert; zonder 400 V op de werf kunt u de kachel niet gebruiken.",
-  ],
-  [
-    "Moet ik het waterreservoir zelf leegmaken?",
-    `Alleen als u geen condenspomp meeneemt. Zonder pomp gaat het toestel mee zoals het is, met zijn reservoir: reken op 2 à 3 keer per dag legen, afhankelijk van hoe nat de ruimte is. Loopt het vol, dan schakelt de droger zichzelf uit en staat hij stil tot u hem leegt. Mét pomp (${euro(PUMP.price)} per bouwdroger per dag) loopt het condenswater continu weg naar een afvoer, douche of vloerput en hoeft u niets te legen. Vermeld de pomp bij uw reservatie, dan leggen wij hem klaar; aansluiten is een slang in de bak en een stekker in het stopcontact.`,
-  ],
-  [
-    "Krijg ik uitleg bij het afhalen?",
-    "Ja. Aan de poort overlopen we kort waar u het toestel best zet, hoe u de streefvochtigheid instelt, wanneer u het reservoir leegt en waar u op let bij ramen en deuren. Dat duurt enkele minuten en volstaat voor een gewone droging. Wat er niet bij zit is de berekening: hoeveel toestellen uw ruimte nodig heeft en hoe lang, dat bepaalt u zelf met de Calculator of u kiest levering met installatie.",
-  ],
-  [
-    "Geldt de Drooggarantie ook als ik zelf afhaal?",
-    "Nee. De Drooggarantie geldt uitsluitend voor droogpakketten die via de Calculator berekend en met levering en installatie geboekt zijn. Ze steunt op een vochtmeting bij de start en bij de oplevering door onze technieker, en die meting gebeurt niet bij een afhaling. Huurt u los af te halen toestellen, dan bepaalt u zelf de opstelling en de duur.",
-  ],
-  [
-    "Hoeveel toestellen kan ik in één keer reserveren?",
-    "Tot acht per toestelsoort, en nooit meer dan er in de vloot staan, van de adsorptiedroger hebben we er bijvoorbeeld één. De reservatiepagina toont per toestel wat er op uw datum vrij is. Heeft u meer nodig voor een grote werf, bel ons dan: dan kijken we of het logistiek haalbaar is of dat levering de betere oplossing is.",
-  ],
-  [
-    "In welke staat moet ik de toestellen terugbrengen?",
-    "Schoon, compleet en in dezelfde staat als bij ontvangst, normale slijtage uitgezonderd, inclusief de slangen, kabels en accessoires die u meekreeg. Een droger die onder het chapestof zit mag u gewoon afvegen; wij controleren en onderhouden hem daarna zelf. Treffen we vervuiling of schade aan, dan laten we dat schriftelijk weten vóór er iets wordt doorgerekend.",
-  ],
-  [
-    "Wat als ik het toestel niet op tijd kan terugbrengen?",
-    "Bel of mail ons zodra u het weet. In de meeste gevallen verlengen we gewoon en betaalt u de extra dagen aan hetzelfde tarief. Het probleem is niet de dag zelf maar de planning: staat het toestel al ingepland voor een volgende klant, dan moeten wij dat omgooien. Een telefoontje op voorhand lost dat op; onaangekondigd te laat terugbrengen niet.",
-  ],
-  [
-    "Is afhalen goedkoper dan laten leveren?",
-    "Ja, u betaalt geen transport en geen installatie. Daar staat tegenover dat u zelf tilt, zelf de opstelling bepaalt, zelf het reservoir leegt en zelf terugrijdt, en dat er geen vochtmeting en geen Drooggarantie bij zitten. Voor één droger in een garage of kelder is afhalen vaak de logische keuze; voor een volledige chape of een waterschadedossier met verzekering is levering dat meestal.",
-  ],
-];
 
 const AfhalenPage = () => {
   /*
@@ -214,6 +152,13 @@ const AfhalenPage = () => {
     heeft een allowlist. Vandaar dat de gewenste datum en de toestellen in het
     berichtveld gevraagd worden en niet in een eigen veldje.
   */
+  const t = useCopy(AFHALEN_COPY);
+  const lp = useLokaalPad();
+  const taal = useTaal();
+  const toon = useToonBedrag();
+  const pomp = `${toon(PUMP.price).tekst} ${toon(PUMP.price).label}`;
+  /* De orderbevestiging is een vast bruto bedrag, voor iedereen gelijk: geen btw-label. */
+  const faq = t.faq.lijst(pomp, formatEuro(DEPOSIT_GROSS, taal, 0));
   const { status, error, mailto, sending, handleSubmit } = useAanvraag({
     source: "contact",
     messageField: "bericht",
@@ -223,12 +168,12 @@ const AfhalenPage = () => {
   return (
   <div className="ct-page af-page">
     <PageMeta
-      {...SEO.afhalen}
+      {...useSeo("afhalen")}
       jsonLd={[
         organizationSchema(),
         breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Zelf afhalen in Aartselaar", path: "/afhalen" },
+          { name: "Home", path: lp("/") },
+          { name: t.kruimel, path: lp("/afhalen") },
         ]),
       ]}
     />
@@ -245,13 +190,13 @@ const AfhalenPage = () => {
       <section className="hero">
         <div className="wrap hero-grid">
           <div>
-            <span className="kick">Zelf afhalen in Aartselaar</span>
-            <h1>Online reserveren. Klaarzetten. Inladen en vertrekken.</h1>
-            <p>Huur losse bouwdrogers, ventilatoren en elektrische kachels aan afhaaltarief. U kiest vooraf uw toestel en tijdslot; wij zetten alles klaar aan onze poort langs de A12.</p>
+            <span className="kick">{t.hero.kick}</span>
+            <h1>{t.hero.h1}</h1>
+            <p>{t.hero.p}</p>
 
             <div className="cta">
-              <a className="btn btn-white" href="/verhuur/afhalen">Bekijk toestellen en reserveer <Arrow /></a>
-              <a className="btn btn-ghost" href="#zo-werkt-het">Zo werkt afhalen</a>
+              <a className="btn btn-white" href={lp("/verhuur/afhalen")}>{t.hero.cta} <Arrow /></a>
+              <a className="btn btn-ghost" href="#zo-werkt-het">{t.hero.ctaUitleg}</a>
             </div>
           </div>
           {/*
@@ -262,9 +207,9 @@ const AfhalenPage = () => {
             nog een keer, groot genoeg om de straatnamen te lezen; deze is de
             uitnodiging, die is de uitleg.
           */}
-          <a className="hero-map" href="#route" aria-label="Bekijk de route naar het afhaalpunt">
+          <a className="hero-map" href="#route" aria-label={t.hero.kaartAria}>
             <AfhaalRouteKaart />
-            <div className="hm-cap"><i /> Boomsesteenweg 12, Unit 11 · langs de A12</div>
+            <div className="hm-cap"><i /> {t.hero.kaartCap}</div>
           </a>
         </div>
       </section>
@@ -273,12 +218,12 @@ const AfhalenPage = () => {
     <section className="af-steps" id="zo-werkt-het">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Van reservatie tot retour</span>
-          <h2 className="sec">Afhalen zonder wachten, in vier duidelijke stappen.</h2>
-          <p className="lede">De reservatie gebeurt volledig online. Daardoor ligt het juiste toestel klaar wanneer u aankomt en weet u vooraf wat u betaalt.</p>
+          <span className="kick">{t.stappen.kick}</span>
+          <h2 className="sec">{t.stappen.h2}</h2>
+          <p className="lede">{t.stappen.lede}</p>
         </div>
         <div className="af-step-grid">
-          {stappen.map(([nr, titel, tekst]) => (
+          {t.stappen.lijst.map(([nr, titel, tekst]) => (
             <article className="af-step" key={nr}>
               <span>{nr}</span><h3>{titel}</h3><p>{tekst}</p>
             </article>
@@ -299,50 +244,38 @@ const AfhalenPage = () => {
       <div className="wrap">
         <div className="aft-split">
           <div className="aft-body">
-            <span className="kick">Goed voorbereid vertrekken</span>
-            <h2 className="sec">Een droger weegt 25 tot 40 kg. Til hem niet alleen.</h2>
-            <p className="lede">
-              Zeker niet op een trap. Met de juiste wagen, een tweede paar handen en een toestel dat
-              rechtop blijft staan, vertrekt u veilig en komt het heel aan.
-            </p>
+            <span className="kick">{t.transport.kick}</span>
+            <h2 className="sec">{t.transport.h2}</h2>
+            <p className="lede">{t.transport.lede}</p>
 
             <ul className="aft-rules">
               <li>
                 <RechtopPictogram />
                 <div>
-                  <b>Altijd rechtop vervoeren</b>
-                  <p>
-                    Leg een condensdroger niet plat: koelmiddel kan uit de compressor lopen. Toch
-                    liggend vervoerd? Laat hem vóór gebruik minstens 24 uur rechtop staan.
-                  </p>
+                  <b>{t.transport.regels[0].b}</b>
+                  <p>{t.transport.regels[0].p}</p>
                 </div>
               </li>
               <li>
                 <LaadruimtePictogram />
                 <div>
-                  <b>Kom met voldoende laadruimte</b>
-                  <p>
-                    Een ruime koffer of aanhangwagen is aanbevolen. Kom bij voorkeur met twee; onze
-                    medewerker helpt u aan het magazijn met inladen.
-                  </p>
+                  <b>{t.transport.regels[1].b}</b>
+                  <p>{t.transport.regels[1].p}</p>
                 </div>
               </li>
               <li>
                 <TijdslotPictogram />
                 <div>
-                  <b>Uw tijdslot voorkomt wachttijd</b>
-                  <p>
-                    Afhalen en terugbrengen kan op weekdagen van 08:00 tot 17:00, uitsluitend op het
-                    moment uit uw bevestiging. Daardoor staat uw toestel klaar als u aankomt.
-                  </p>
+                  <b>{t.transport.regels[2].b}</b>
+                  <p>{t.transport.regels[2].p}</p>
                 </div>
               </li>
             </ul>
 
             <div className="aft-cta">
-              <b>Liever niets tillen of instellen?</b>
-              <a className="btn" href="/levering">
-                Bekijk levering &amp; installatie <Arrow />
+              <b>{t.transport.ctaVraag}</b>
+              <a className="btn" href={lp("/levering")}>
+                {t.transport.cta} <Arrow />
               </a>
             </div>
           </div>
@@ -350,7 +283,7 @@ const AfhalenPage = () => {
           <img
             className="aft-man"
             src="/vernast/oudere-man.webp"
-            alt="Man met rugpijn na het tillen van een zwaar toestel"
+            alt={t.transport.imgAlt}
             width={1360}
             height={1440}
             loading="lazy"
@@ -362,48 +295,43 @@ const AfhalenPage = () => {
     <section className="af-range">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Wat kunt u afhalen?</span>
-          <h2 className="sec">Losse toestellen voor elke droogopstelling.</h2>
-          <p className="lede">U kiest zelf de combinatie. Twijfelt u over capaciteit of aantallen, gebruik dan de Calculator of kies levering met installatie.</p>
+          <span className="kick">{t.gamma.kick}</span>
+          <h2 className="sec">{t.gamma.h2}</h2>
+          <p className="lede">{t.gamma.lede}</p>
         </div>
         <div className="af-range-grid">
-          <article><img src="/vernast/eco-boost.webp" alt="Vernast Boost condensbouwdroger, klaar voor afhaling" loading="lazy" /><div><span>Bouwdrogers</span><h3>50 tot 110 liter per dag</h3><p>Voor chape, pleisterwerk, renovatie en de meeste waterschade.</p></div></article>
-          <article><img src="/vernast/eco-revolution.webp" alt="Vernast Revolution adsorptiedroger met slangaansluitingen, klaar voor afhaling" loading="lazy" /><div><span>Koude ruimtes</span><h3>Adsorptiedroger</h3><p>Voor lage temperaturen of gerichte droging via luchtslangen.</p></div></article>
-          <article><img src="/vernast/vent-axiaal.webp" alt="Vernast Highflow axiaalventilator, klaar voor afhaling" loading="lazy" /><div><span>Luchtcirculatie</span><h3>Axiale en radiale ventilatoren</h3><p>Verspreiden droge lucht langs vloeren, muren en moeilijk bereikbare zones.</p></div></article>
-          <article><img src="/vernast/kachel-30.webp" alt="Vernast Heatpower 30 elektrische bouwkachel, klaar voor afhaling" loading="lazy" /><div><span>Extra warmte</span><h3>Elektrische bouwkachels</h3><p>Voor koude werven waar een condensdroger anders rendement verliest.</p></div></article>
+          {["/vernast/eco-boost.webp", "/vernast/eco-revolution.webp", "/vernast/vent-axiaal.webp", "/vernast/kachel-30.webp"].map((src, i) => {
+            const k = t.gamma.kaarten[i];
+            return <article key={src}><img src={src} alt={k.alt} loading="lazy" /><div><span>{k.span}</span><h3>{k.h3}</h3><p>{k.p}</p></div></article>;
+          })}
           {/*
             De condenspomp staat over de volle breedte en niet als vijfde kaart
             in een raster van twee kolommen: dan hing ze als enige op een derde
             rij. Ze is bovendien het enige toebehoren in de rij — de vier
             kaarten erboven zijn toestellen.
           */}
-          <article className="af-toebehoren"><img src="/vernast/condenspomp-product-v2.webp" alt="Externe condenspomp met opvangbak en afvoerslang, klaar voor afhaling" loading="lazy" /><div><span>Toebehoren</span><h3>Condenspomp, {euro(PUMP.price)} per bouwdroger per dag</h3><p>Zodat u geen reservoir hoeft te legen: de pomp voert het condenswater continu af naar een afvoer, douche of vloerput, tot 3,90 m hoger dan het toestel staat. <a className="af-text-link" href="/verhuur/toebehoren/condenspomp">Zo werkt de condenspomp</a></p></div></article>
+          <article className="af-toebehoren"><img src="/vernast/condenspomp-product-v2.webp" alt={t.gamma.pomp.alt} loading="lazy" /><div><span>{t.gamma.pomp.span}</span><h3>{t.gamma.pomp.h3(pomp)}</h3><p>{t.gamma.pomp.p}<a className="af-text-link" href={lp("/verhuur/toebehoren/condenspomp")}>{t.gamma.pomp.link}</a></p></div></article>
         </div>
-        <div className="af-center"><a className="btn" href="/verhuur/afhalen">Bekijk beschikbaarheid en afhaalprijzen <Arrow /></a></div>
+        <div className="af-center"><a className="btn" href={lp("/verhuur/afhalen")}>{t.gamma.cta} <Arrow /></a></div>
       </div>
     </section>
 
     <section className="af-location" id="route">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Ons afhaalpunt</span>
-          <h2 className="sec">Vlak langs de A12, zonder stadsverkeer.</h2>
-          <p className="lede"><b>Vernast Bouwdrogers</b><br />Boomsesteenweg 12, Unit 11 · 2630 Aartselaar. Rijd na Carglass het KMO-park in en volg de units tot nummer 11.</p>
+          <span className="kick">{t.locatie.kick}</span>
+          <h2 className="sec">{t.locatie.h2}</h2>
+          <p className="lede"><b>Vernast Bouwdrogers</b><br />{t.locatie.lede}</p>
         </div>
         <div className="af-map-card"><AfhaalRouteKaart /></div>
         <div className="rt-grid af-route-grid">
-          {[
-            ["1", "/vernast/route-1.webp", "Neem de inrit", "Vlak naast Carglass, met Tesla als herkenningspunt op de hoek."],
-            ["2", "/vernast/route-2.webp", "Rijd rechtdoor", "Volg de weg het KMO-park in richting het zwarte Arthrex-gebouw."],
-            ["3", "/vernast/route-3.webp", "Houd rechts aan", "Volg de nummering langs de laadkades tot de units 11–12."],
-            ["4", "/vernast/route-4.webp", "Parkeer bij unit 11", "Meld u aan bij onze poort; uw reservatie staat daar klaar."],
-          ].map(([nr, foto, titel, tekst]) => (
-            <article className="rt" key={nr}><div className="im"><span className="n">{nr}</span><img src={foto} alt={`${titel}: route naar het afhaalpunt`} loading="lazy" /></div><p><b>{titel}.</b> {tekst}</p></article>
+          {t.locatie.route.map(([titel, tekst], i) => [String(i + 1), `/vernast/route-${i + 1}.webp`, titel, tekst]).map(([nr, foto, titel, tekst]) => (
+            <article className="rt" key={nr}><div className="im"><span className="n">{nr}</span><img src={foto} alt={t.locatie.routeAlt(titel)} loading="lazy" /></div><p><b>{titel}.</b> {tekst}</p></article>
           ))}
         </div>
         <div className="af-location-actions">
-          <a className="btn" href={MAPS_URL} target="_blank" rel="noopener noreferrer">Open in Google Maps <Arrow /></a>
-          <a className="af-text-link" href="/contact">Bekijk alle contactgegevens</a>
+          <a className="btn" href={MAPS_URL} target="_blank" rel="noopener noreferrer">{t.locatie.maps} <Arrow /></a>
+          <a className="af-text-link" href={lp("/contact")}>{t.locatie.contact}</a>
         </div>
       </div>
     </section>
@@ -411,8 +339,8 @@ const AfhalenPage = () => {
     <section className="af-faq">
       <div className="wrap af-faq-layout">
         <div className="sec-head">
-          <span className="kick">Veelgestelde vragen</span>
-          <h2 className="sec">Praktisch vóór u vertrekt.</h2>
+          <span className="kick">{t.faq.kick}</span>
+          <h2 className="sec">{t.faq.h2}</h2>
           {/*
             De linkerkolom droeg alleen een kop en één regel, waardoor er naast
             de vier vragen een halve schermhoogte leeg bleef. De homepage lost
@@ -420,17 +348,14 @@ const AfhalenPage = () => {
             twee pagina's herkenbaar en geeft de kolom een bodem.
           */}
           <div className="af-faq-help">
-            <h3>Staat uw vraag er niet bij?</h3>
-            <p>
-              Onze medewerkers aan het afhaalpunt kennen de toestellen en uw reservatie. Bellen gaat
-              het snelst, op weekdagen tussen 08:00 en 17:00.
-            </p>
+            <h3>{t.faq.hulpH3}</h3>
+            <p>{t.faq.hulpP}</p>
             <div className="afh-btns">
               <a className="afh-call" href="tel:+3236899065">
-                Bel 03 689 90 65
+                {t.faq.bel}
               </a>
               <a className="afh-mail" href="mailto:info@vernast-bouwdrogers.be">
-                Mail uw vraag
+                {t.faq.mail}
               </a>
             </div>
           </div>
@@ -457,67 +382,60 @@ const AfhalenPage = () => {
     <section className="cform af-form" id="aanvraag">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Uw afhaling aanvragen</span>
-          <h2 className="sec">Vertel ons wanneer u langskomt.</h2>
-          <p className="lede">
-            Laat uw gewenste afhaaldatum en de toestellen weten, dan bevestigen wij uw tijdslot. U
-            krijgt binnen één werkdag antwoord. Liever meteen zelf boeken?{" "}
-            <a href="/verhuur/afhalen">Bekijk de beschikbaarheid online</a>.
-          </p>
+          <span className="kick">{t.form.kick}</span>
+          <h2 className="sec">{t.form.h2}</h2>
+          <p className="lede">{t.form.lede(lp)}</p>
         </div>
 
         <form className="fshell" onSubmit={handleSubmit}>
           {status === "done" ? (
-            <AanvraagDone text="Bedankt! Wij bevestigen uw afhaalmoment binnen één werkdag." />
+            <AanvraagDone title={t.form.klaarTitel} text={t.form.klaar} />
           ) : (
             <div>
               <div className="frow">
                 <div className="fld">
-                  <label htmlFor="afVoor">Voornaam</label>
-                  <input type="text" id="afVoor" name="voornaam" placeholder="Voornaam" required />
+                  <label htmlFor="afVoor">{t.form.voornaam}</label>
+                  <input type="text" id="afVoor" name="voornaam" placeholder={t.form.voornaam} required />
                 </div>
                 <div className="fld">
-                  <label htmlFor="afNaam">Naam</label>
-                  <input type="text" id="afNaam" name="naam" placeholder="Achternaam" required />
+                  <label htmlFor="afNaam">{t.form.naam}</label>
+                  <input type="text" id="afNaam" name="naam" placeholder={t.form.naamPh} required />
                 </div>
               </div>
               <div className="frow">
                 <div className="fld">
-                  <label htmlFor="afMail">E-mail</label>
-                  <input type="email" id="afMail" name="email" placeholder="naam@voorbeeld.be" required />
+                  <label htmlFor="afMail">{t.form.email}</label>
+                  <input type="email" id="afMail" name="email" placeholder={t.form.emailPh} required />
                 </div>
                 <div className="fld">
-                  <label htmlFor="afTel">Telefoon</label>
+                  <label htmlFor="afTel">{t.form.telefoon}</label>
                   <input type="tel" id="afTel" name="telefoon" placeholder="04.." />
                 </div>
               </div>
               <div className="frow one">
                 <div className="fld">
-                  <label htmlFor="afOnd">Waarover gaat het?</label>
-                  <select id="afOnd" name="onderwerp" defaultValue="Afhaling reserveren">
-                    <option>Afhaling reserveren</option>
-                    <option>Vraag over een toestel of capaciteit</option>
-                    <option>Afhaalmoment verzetten</option>
-                    <option>Terugbrengen of verlengen</option>
+                  <label htmlFor="afOnd">{t.form.onderwerp}</label>
+                  <select id="afOnd" name="onderwerp" defaultValue={AFHALEN_STANDAARD_ONDERWERP}>
+                    {t.form.onderwerpen.map((o) => <option key={o.waarde} value={o.waarde}>{o.label}</option>)}
                   </select>
                 </div>
               </div>
               <div className="frow one">
                 <div className="fld">
-                  <label htmlFor="afMsg">Gewenste datum en toestellen</label>
+                  <label htmlFor="afMsg">{t.form.bericht}</label>
                   <textarea
                     id="afMsg"
                     name="bericht"
                     rows={5}
-                    placeholder="Bv. donderdag 14 november in de voormiddag, 1 bouwdroger en 1 ventilator, voor een kelder van 60 m²."
+                    placeholder={t.form.berichtPh}
                     required
                   />
                 </div>
               </div>
               <div className="fsend">
-                <small>Wij gebruiken uw gegevens enkel om uw afhaling te bevestigen.</small>
+                <small>{t.form.privacy}</small>
                 <button className="btn aanv-btn" type="submit" disabled={sending}>
-                  {sending ? "Versturen…" : "Verstuur aanvraag"} <Arrow />
+                  {sending ? t.form.bezig : t.form.versturen} <Arrow />
                 </button>
               </div>
               <AanvraagHoneypot />

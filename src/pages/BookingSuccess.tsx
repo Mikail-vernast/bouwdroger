@@ -29,7 +29,7 @@ const COPY = {
     intro: "Votre demande de réservation a bien été reçue. Nous vous contactons dans les plus brefs délais.",
     nummer: "Votre numéro de réservation",
     bevestiging: "Une confirmation sera envoyée à",
-    watNu: "Et maintenant ?",
+    watNu: "Et maintenant ?",
     stappen: [
       "Nous examinons votre demande et vérifions la disponibilité",
       "Vous recevez une confirmation avec le prix définitif et la date de livraison",
