@@ -733,7 +733,9 @@ export function toestelChipsInTaal(keyOfProduct: string | Product, taal: Taal, a
  * btw-weergave volgt als de pagina.
  */
 export function toestelTitelFr(naam: string, dagprijs?: string): string {
-  const bouw = (prijs?: string) => `Location ${naam}${prijs ? ` - ${prijs}/jour` : ""} | Vernast`;
+  // "Location déshumidificateur Performance": het soortwoord is hier geen begin van een zin.
+  const klein = naam.charAt(0).toLowerCase() + naam.slice(1);
+  const bouw = (prijs?: string) => `Location ${klein}${prijs ? ` - ${prijs}/jour` : ""} | Vernast`;
   const met = dagprijs ? bouw(dagprijs) : "";
   return met && met.length <= 60 ? met : bouw();
 }

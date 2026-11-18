@@ -13,14 +13,16 @@ import {
   PRODUCT_ORDER,
   productImageAlt,
   PRODUCTS,
-  SC_LABEL,
-  toestelChips,
   toestelKey,
   toestelPad,
   type Product,
 } from "@/data/verhuur";
+import { productInTaal, scLabelInTaal, toestelChipsInTaal, toestelTitelFr } from "@/data/verhuur.fr";
 import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
-import { toestelLabel } from "@/data/navigation";
+import { toestelLabelIn } from "@/data/navigation";
+import { useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
+import { NUMBER_LOCALE } from "@/i18n/taal";
+import { COPY } from "./VerhuurToestelPage.copy";
 import { MAPS_URL } from "@/lib/site";
 import { earliestPickupDate, langhuurKorting, longStayDiscount, serializeSelection } from "@/lib/afhalen";
 import { firstFreeDate, usePickupAvailability } from "@/hooks/usePickupAvailability";
@@ -38,47 +40,10 @@ const kortDatum = (d: Date) =>
     d.getFullYear(),
   ).slice(-2)}`;
 
-/**
- * Vragen die op elke toestelpagina onder de toestelspecifieke FAQ komen: ze
- * gaan over het afhalen zelf en gelden dus voor het hele gamma.
- */
-const PICKUP_FAQ: [string, string][] = [
-  [
-    "Waar haal ik het toestel af?",
-    "Aan ons afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar, vlak langs de A12, vlot bereikbaar vanuit Antwerpen en Brussel. Open ma–vr van 08:00 tot 17:00.",
-  ],
-  [
-    "Wat breng ik mee bij de afhaling?",
-    "Uw identiteitskaart en uw reservatiebevestiging (op uw telefoon volstaat). Wij laden het toestel mee in uw wagen of aanhangwagen.",
-  ],
-  [
-    "Kan dit toestel ook geleverd en geïnstalleerd worden?",
-    "Ja, maar uitsluitend als onderdeel van een berekend droogpakket. Alleen zo kunnen wij onze 100% droog-garantie waarmaken. Bereken uw pakket via de Calculator.",
-  ],
-  [
-    "Waarom zijn afhaalprijzen lager?",
-    "U bespaart de transport- en installatiekost. Reserveren doet u online: betaal alles vooraf met 5% korting, of bevestig met een voorschot en reken de rest af bij de afhaling.",
-  ],
-];
-
-const PICKUP_STEPS = [
-  {
-    title: "Reserveer online",
-    body: "Kies uw toestel, huurperiode en afhaalmoment. U betaalt vooraf met 5% korting of enkel het voorschot.",
-  },
-  {
-    title: "Bevestiging binnen het uur",
-    body: "U ontvangt uw reservatiebevestiging met routebeschrijving en wat u meebrengt (identiteitskaart).",
-  },
-  {
-    title: "Afhalen op de A12",
-    body: "Uw toestel staat klaar aan ons afhaalpunt. Een openstaand saldo scant en betaalt u hier met Bancontact, kaart of Apple Pay. Breng een ruime koffer, break of aanhangwagen mee.",
-  },
-  {
-    title: "Terugbrengen, klaar",
-    body: "Breng het toestel terug op het afgesproken moment. Uw factuur staat dan al in uw mailbox.",
-  },
-];
+/*
+  De afhaalvragen en -stappen gelden voor elk toestel; ze staan in
+  `VerhuurToestelPage.copy.ts`, per taal, onder de toestelspecifieke FAQ.
+*/
 
 /*
   Periodes en afhaalmomenten komen uit `data/afhalen.ts`, dezelfde lijst als de
@@ -87,8 +52,33 @@ const PICKUP_STEPS = [
 */
 const PERIODS = PICKUP_PERIODS;
 
+/**
+ * Een bedrag zoals de bezoeker het moet zien (incl. of excl. btw), zonder centen
+ * wanneer er geen zijn — dezelfde regel als `euroInt`.
+ */
+function useGeld(): (excl: number) => string {
+  const toon = useToonBedrag();
+  const taal = useTaal();
+  return (excl: number) => {
+    const { bedrag } = toon(excl);
+    if (taal === "nl") return euroInt(bedrag);
+    const centen = Math.round(bedrag * 100) % 100 !== 0;
+    return `${bedrag.toLocaleString(NUMBER_LOCALE[taal], {
+      minimumFractionDigits: centen ? 2 : 0,
+      maximumFractionDigits: 2,
+    })} €`;
+  };
+}
+
 const VerhuurToestelPage = () => {
   const { toestel } = useParams();
+  const taal = useTaal();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const toon = useToonBedrag();
+  const geld = useGeld();
+  const btw = toon(0).label;
+  const scLabel = scLabelInTaal(taal);
   const [searchParams] = useSearchParams();
 
   // De URL draagt de slug ("bouwdroger-70-liter"), niet de sleutel ("ttk350");
@@ -96,9 +86,10 @@ const VerhuurToestelPage = () => {
   // sleutel-URL. Valt terug op het eerste toestel uit het gamma: "ttk350"
   // hardcoderen breekt zodra dat toestel in het portaal uit de verhuur gaat.
   const key = toestelKey(toestel) ?? PRODUCT_ORDER[0];
-  const prod: Product = PRODUCTS[key];
+  // Prijs, foto's en sleutels blijven die van PRODUCTS; alleen de tekst volgt de taal.
+  const prod: Product = productInTaal(key, taal);
   // De afhaalvragen gelden voor elk toestel en staan onder de specifieke FAQ.
-  const questions: [string, string][] = [...prod.faq, ...PICKUP_FAQ];
+  const questions: [string, string][] = [...prod.faq, ...t.pickupFaq];
 
   /*
     Hoeveel stuks deze bezoeker mag kiezen. Van sommige toestellen hebben we er
@@ -108,7 +99,12 @@ const VerhuurToestelPage = () => {
   const maxQty = Math.min(MAX_QTY, PICKUP_BY_KEY[key]?.max ?? MAX_QTY);
 
   // Soortwoord, kerncijfer en dagprijs — zie toestelTitel.ts voor het waarom.
-  const pageTitle = toestelTitel({ short: prod.short, type: prod.type, day: prod.day, spec: prod.key[0] });
+  const nl = PRODUCTS[key];
+  const naam = toestelLabelIn(key, taal);
+  const pageTitle =
+    taal === "nl"
+      ? toestelTitel({ short: nl.short, type: nl.type, day: nl.day, spec: nl.key[0] })
+      : toestelTitelFr(naam, geld(prod.day));
 
   /*
     De naam die de klant kent, en niet `prod.name`.
@@ -121,7 +117,6 @@ const VerhuurToestelPage = () => {
     voor één machine, waarvan de enige die niemand zoekt het grootst op het
     scherm stond. `toestelLabel()` is de ene naam, site-breed.
   */
-  const naam = toestelLabel(key);
 
   /*
     De galerij: eerst de foto's van het portaal, dan de infoplaten uit de
@@ -225,6 +220,11 @@ const VerhuurToestelPage = () => {
   }, [startDate, days]);
 
   const cross = PRODUCT_ORDER.filter((k) => k !== key);
+  const periodeLabel = (dagen: number) =>
+    t.periode(dagen, PERIODS.find(([v]) => v === dagen)?.[1] ?? String(dagen));
+  const langeDatum = (iso: string) =>
+    new Date(`${iso}T00:00:00`).toLocaleDateString(NUMBER_LOCALE[taal], { day: "numeric", month: "long" });
+  const [retourVoor, retourMidden, retourNa] = t.retour(days);
   const vol = searchParams.get("vol");
   const sc = searchParams.get("sc");
 
@@ -233,7 +233,7 @@ const VerhuurToestelPage = () => {
       <PageMeta
         title={pageTitle}
         description={prod.sum}
-        path={toestelPad(key)}
+        path={lp(toestelPad(key))}
         image={prod.img[0]}
         ogType="product"
         jsonLd={[
@@ -241,16 +241,16 @@ const VerhuurToestelPage = () => {
             name: prod.name,
             description: prod.sum,
             image: prod.img[0],
-            path: toestelPad(key),
+            path: lp(toestelPad(key)),
             pricePerDay: prod.day,
             category: prod.type,
             specs: prod.specs,
           }),
           faqSchema(questions.map(([question, answer]) => ({ question, answer }))),
           breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Toestellen", path: "/machines" },
-            { name: naam, path: toestelPad(key) },
+            { name: t.home, path: lp("/") },
+            { name: t.toestellen, path: lp("/machines") },
+            { name: naam, path: lp(toestelPad(key)) },
           ]),
         ]}
       />
@@ -260,8 +260,8 @@ const VerhuurToestelPage = () => {
       <section className="phero">
         <div className="wrap">
           <div className="crumb">
-            <Link to="/">Home</Link> <span>/</span>
-            <Link to="/#toestellen">Toestellen</Link> <span>/</span>
+            <Link to={lp("/")}>{t.home}</Link> <span>/</span>
+            <Link to={`${lp("/")}#toestellen`}>{t.toestellen}</Link> <span>/</span>
             <span className="cur">{naam}</span>
           </div>
 
@@ -288,7 +288,7 @@ const VerhuurToestelPage = () => {
                       type="button"
                       className={i === shot ? "on" : undefined}
                       onClick={() => setShot(i)}
-                      aria-label={`Afbeelding ${i + 1}`}
+                      aria-label={t.afbeelding(i + 1)}
                     >
                       <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
                     </button>
@@ -302,7 +302,7 @@ const VerhuurToestelPage = () => {
               <h1>{naam}</h1>
               <div className="promo-online">
                 <CheckIcon size={15} strokeWidth={2.4} />
-                <b>5% korting bij online betalen</b>
+                <b>{t.promo}</b>
                 {/*
                   Proforma, niet "factuur". Wat er na het reserveren vertrekt is
                   een proforma: de huur loopt nog en de definitieve factuur
@@ -311,7 +311,7 @@ const VerhuurToestelPage = () => {
                   de verwachting van een boekhoudkundig stuk dat er dan nog niet
                   is.
                 */}
-                <span>&nbsp;· proforma factuur meteen in uw mailbox</span>
+                <span>&nbsp;· {t.proforma}</span>
               </div>
               <p className="psum">{prod.sum}</p>
 
@@ -319,20 +319,20 @@ const VerhuurToestelPage = () => {
                 <div className="ctx on">
                   <CheckIcon size={16} strokeWidth={2.2} />
                   <p>
-                    Op basis van uw berekening: <b>{Number(vol).toLocaleString("nl-BE")} m³</b>
-                    {sc && SC_LABEL[sc] && (
+                    {t.ctxBasis} <b>{Number(vol).toLocaleString(NUMBER_LOCALE[taal])} m³</b>
+                    {sc && scLabel[sc] && (
                       <>
                         {" · "}
-                        <b>{SC_LABEL[sc]}</b>
+                        <b>{scLabel[sc]}</b>
                       </>
                     )}
                     {qty > 1 && (
                       <>
                         {" · "}
-                        <b>{qty} toestellen</b> aanbevolen
+                        <b>{t.ctxToestellen(qty)}</b> {t.ctxAanbevolen}
                       </>
                     )}
-                    . <Link to="/#configurator">Opnieuw berekenen</Link>
+                    . <Link to={`${lp("/")}#configurator`}>{t.opnieuw}</Link>
                   </p>
                 </div>
               )}
@@ -351,7 +351,7 @@ const VerhuurToestelPage = () => {
 
               <div className="book">
                 <div className="bh">
-                  <span className="bt">Afhaalreservatie</span>
+                  <span className="bt">{t.afhaalreservatie}</span>
                   {/*
                     Antwoordt de controle niet, dan staat er "Beschikbaar" en
                     niet "Beschikbaarheid onbekend". Dat laatste stond er bij
@@ -365,23 +365,23 @@ const VerhuurToestelPage = () => {
                   <span className={`stock${dateBlocked ? " op" : ""}`}>
                     <span className="d" />{" "}
                     {checkingDates
-                      ? "Beschikbaarheid nakijken…"
+                      ? t.nakijken
                       : dateBlocked
-                        ? "Bezet op deze datum"
-                        : "Beschikbaar"}
+                        ? t.bezet
+                        : t.beschikbaar}
                   </span>
                 </div>
                 <div className="bb">
                   <div className="pickupline">
                     <PinIcon size={15} />
                     <span>
-                      Afhaalpunt: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar
-                      <small>Vlak langs de A12 · Ma–Vr 08:00–17:00</small>
+                      {t.afhaalpunt}
+                      <small>{t.afhaalpuntSub}</small>
                     </span>
                   </div>
                   <div className="brow">
                     <div className="fld">
-                      <label htmlFor="startDate">Startdatum</label>
+                      <label htmlFor="startDate">{t.startdatum}</label>
                       {/*
                         Geen `<input type="date">` meer: die opent de kalender
                         van de browser, en daarin is niet te zien dat het
@@ -394,14 +394,14 @@ const VerhuurToestelPage = () => {
                         min={minDate}
                         blocked={blocked}
                         rangeDays={days}
-                        rangeLabel={PERIODS.find(([v]) => v === days)?.[1]}
+                        rangeLabel={periodeLabel(days)}
                         invalid={dateBlocked}
                         describedBy={dateBlocked ? "dateWarn" : undefined}
                         onChange={setStartDate}
                       />
                     </div>
                     <div className="fld">
-                      <label htmlFor="period">Huurperiode</label>
+                      <label htmlFor="period">{t.huurperiode}</label>
                       <select
                         id="period"
                         value={days}
@@ -413,12 +413,12 @@ const VerhuurToestelPage = () => {
                           bezoeker de periode kiest, en een voordeel dat hij pas
                           ziet nadat hij gekozen heeft, stuurt zijn keuze niet.
                         */}
-                        {PERIODS.map(([v, label]) => {
+                        {PERIODS.map(([v]) => {
                           const pct = Math.round(langhuurKorting(v) * 100);
                           return (
                             <option key={v} value={v}>
-                              {label}
-                              {pct > 0 ? ` · −${pct}%` : ""}
+                              {periodeLabel(v)}
+                              {pct > 0 ? ` · −${pct}${taal === "nl" ? "" : "\u202f"}%` : ""}
                             </option>
                           );
                         })}
@@ -433,18 +433,21 @@ const VerhuurToestelPage = () => {
                   */}
                   {terug && (
                     <p className="retour">
-                      Afhalen op <b>{kortDatum(terug.start)}</b>, terugbrengen op{" "}
-                      <b>{kortDatum(terug.eind)}</b> — {days} dagen
+                      {retourVoor}
+                      <b>{kortDatum(terug.start)}</b>
+                      {retourMidden}
+                      <b>{kortDatum(terug.eind)}</b>
+                      {retourNa}
                     </p>
                   )}
 
                   <div className="brow">
                     <div className="fld">
-                      <label htmlFor="qtyIn">Aantal toestellen</label>
+                      <label htmlFor="qtyIn">{t.aantal}</label>
                       <div className="qty">
                         <button
                           type="button"
-                          aria-label="Minder"
+                          aria-label={t.minder}
                           onClick={() => setQty((q) => Math.max(1, q - 1))}
                         >
                           −
@@ -452,7 +455,7 @@ const VerhuurToestelPage = () => {
                         <input type="text" id="qtyIn" value={qty} readOnly />
                         <button
                           type="button"
-                          aria-label="Meer"
+                          aria-label={t.meer}
                           disabled={qty >= maxQty}
                           onClick={() => setQty((q) => Math.min(maxQty, q + 1))}
                         >
@@ -461,7 +464,7 @@ const VerhuurToestelPage = () => {
                       </div>
                     </div>
                     <div className="fld">
-                      <label htmlFor="slot">Afhaalmoment</label>
+                      <label htmlFor="slot">{t.afhaalmoment}</label>
                       <select id="slot" value={slot} onChange={(e) => setSlot(e.target.value)}>
                         {PICKUP_SLOTS.map((option) => (
                           <option key={option}>{option}</option>
@@ -472,37 +475,28 @@ const VerhuurToestelPage = () => {
 
                   {dateBlocked && (
                     <div className="datewarn" id="dateWarn" role="status">
-                      <b>
-                        Op {new Date(`${startDate}T00:00:00`).toLocaleDateString("nl-BE", {
-                          day: "numeric",
-                          month: "long",
-                        })}{" "}
-                        staat {qty > 1 ? "dit aantal" : "dit toestel"} al ingepland.
-                      </b>
+                      <b>{t.datumBezet(langeDatum(startDate), qty > 1)}</b>
                       {suggestion ? (
                         <>
                           {" "}
-                          De eerstvolgende vrije startdatum is{" "}
+                          {t.eerstVrij}{" "}
                           <button type="button" onClick={() => setStartDate(suggestion)}>
-                            {new Date(`${suggestion}T00:00:00`).toLocaleDateString("nl-BE", {
-                              day: "numeric",
-                              month: "long",
-                            })}
+                            {langeDatum(suggestion)}
                           </button>
                           .
                         </>
                       ) : (
-                        " De komende weken is er niets vrij, bel ons op 03 689 90 65."
+                        t.nietsVrij
                       )}
                     </div>
                   )}
 
                   {addonKeys.length > 0 && (
                     <div className="addons">
-                      <div className="al">Aanbevolen erbij</div>
+                      <div className="al">{t.aanbevolen}</div>
                       <div>
                         {addonKeys.map((k) => {
-                          const a = PRODUCTS[k];
+                          const a = productInTaal(k, taal);
                           return (
                             <label className={`addon${addons[k] ? " on" : ""}`} key={k}>
                               <input
@@ -517,7 +511,10 @@ const VerhuurToestelPage = () => {
                                 {a.short}
                                 <small>{a.type}</small>
                               </span>
-                              <span className="ap">€ {a.day}/dag</span>
+                              <span className="ap">
+                                {geld(a.day)}
+                                {t.perDag}
+                              </span>
                             </label>
                           );
                         })}
@@ -528,31 +525,33 @@ const VerhuurToestelPage = () => {
                   <div className="total">
                     <div className="tline">
                       <span>
-                        {prod.short} × {qty} × {days} dagen
+                        {prod.short} × {qty} × {days} {t.dagen}
                       </span>
-                      <span>{euroInt(base)}</span>
+                      <span>{geld(base)}</span>
                     </div>
                     {addTotal > 0 && (
                       <div className="tline" style={{ display: "flex" }}>
                         <span>
-                          {chosenAddons.map((k) => PRODUCTS[k].short).join(" + ")} × {days} dagen
+                          {chosenAddons.map((k) => PRODUCTS[k].short).join(" + ")} × {days} {t.dagen}
                         </span>
-                        <span>{euroInt(addTotal)}</span>
+                        <span>{geld(addTotal)}</span>
                       </div>
                     )}
                     {longStay > 0 && (
                       <div className="tline">
-                        <span>Langhuurkorting ({Math.round(langhuurKorting(days) * 100)}%)</span>
-                        <span className="disc">− {euroInt(longStay)}</span>
+                        <span>{t.langhuur(Math.round(langhuurKorting(days) * 100))}</span>
+                        <span className="disc">− {geld(longStay)}</span>
                       </div>
                     )}
                     <div className="tline">
-                      <span>Afhalen &amp; terugbrengen in Aartselaar</span>
-                      <span className="disc">Gratis</span>
+                      <span>{t.afhalenGratis}</span>
+                      <span className="disc">{t.gratis}</span>
                     </div>
                     <div className="tline big">
-                      <span className="tl-lab">Totaal excl. btw</span>
-                      <span className="tl-val">{euroInt(total)}</span>
+                      <span className="tl-lab">
+                        {t.totaal} {btw}
+                      </span>
+                      <span className="tl-val">{geld(total)}</span>
                     </div>
                   </div>
                 </div>
@@ -565,19 +564,18 @@ const VerhuurToestelPage = () => {
                   */}
                   {dateBlocked ? (
                     <button className="btn btn-red" type="button" disabled>
-                      Niet beschikbaar op deze datum
+                      {t.nietBeschikbaar}
                     </button>
                   ) : (
-                    <Link className="btn btn-red" to={`/verhuur/afhalen?${pickupQuery}`}>
-                      Reserveer voor afhaling, {euroInt(total)}
+                    <Link className="btn btn-red" to={lp(`/verhuur/afhalen?${pickupQuery}`)}>
+                      {t.reserveer} {geld(total)}
                       <ArrowRightIcon strokeWidth={2.4} />
                     </Link>
                   )}
                   <div className="note">
-                    5% korting bij online betalen · lagere afhaalprijzen · liever geleverd én
-                    geïnstalleerd? Dat kan{" "}
-                    <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 700 }}>
-                      per pakket
+                    {t.noteVoor}{" "}
+                    <Link to={lp("/verhuur/calculator")} style={{ color: "var(--red)", fontWeight: 700 }}>
+                      {t.perPakket}
                     </Link>
                   </div>
                 </div>
@@ -590,7 +588,7 @@ const VerhuurToestelPage = () => {
       <section className="about">
         <div className="wrap about-grid">
           <div>
-            <span className="kick">Waarvoor dit toestel</span>
+            <span className="kick">{t.waarvoor}</span>
             <h2 className="sec">{prod.aboutTitle}</h2>
             <div className="about-body" style={{ marginTop: 22 }}>
               {prod.about.map((paragraph) => (
@@ -616,12 +614,9 @@ const VerhuurToestelPage = () => {
       <section className="specs">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Technische fiche</span>
-            <h2 className="sec">Volledige specificaties</h2>
-            <p className="lede">
-              Alle waarden zoals opgemeten onder standaardomstandigheden. Vragen over uw specifieke
-              situatie? Bel ons.
-            </p>
+            <span className="kick">{t.techFiche}</span>
+            <h2 className="sec">{t.volledigeSpecs}</h2>
+            <p className="lede">{t.specsLede}</p>
           </div>
           <div className="stable">
             <table>
@@ -641,15 +636,12 @@ const VerhuurToestelPage = () => {
       <section className="incl afh" id="afhalen">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Afhalen in Aartselaar</span>
-            <h2 className="sec">Zo werkt afhalen.</h2>
-            <p className="lede">
-              Losse toestellen huurt u tegen lagere afhaalprijzen via onze afhaal-checkout. U
-              reserveert online en haalt op wanneer het u past, wij zetten alles klaar.
-            </p>
+            <span className="kick">{t.afhalenKick}</span>
+            <h2 className="sec">{t.zoWerkt}</h2>
+            <p className="lede">{t.afhalenLede}</p>
           </div>
           <div className="astep-grid">
-            {PICKUP_STEPS.map((step, i) => (
+            {t.pickupSteps.map((step, i) => (
               <div className="astep" key={step.title}>
                 <div className="an">{i + 1}</div>
                 <h3>{step.title}</h3>
@@ -661,10 +653,8 @@ const VerhuurToestelPage = () => {
           <div className="pickupbar">
             <PinIcon size={34} />
             <div className="pb-t">
-              <b>Afhaalpunt Vernast, Boomsesteenweg 12 / Unit 11, 2630 Aartselaar</b>
-              <span>
-                Vlak langs de A12, vlot bereikbaar vanuit Antwerpen en Brussel · Ma–Vr 08:00–17:00
-              </span>
+              <b>{t.pickupbarTitel}</b>
+              <span>{t.pickupbarSub}</span>
             </div>
             <a
               className="btn"
@@ -672,36 +662,30 @@ const VerhuurToestelPage = () => {
               target="_blank"
               rel="noopener"
             >
-              Plan uw route
+              {t.route}
             </a>
           </div>
 
           <div className="zwaarbar">
             <div className="zb-t">
-              <span className="zk">Goed om te weten</span>
-              <b>Sommige toestellen zijn zwaar. Til niet, laat leveren.</b>
-              <p>
-                Een professionele bouwdroger weegt al snel 30 tot 50 kg. Zelf tillen, zeker op een
-                trap, is niet zonder risico. Bent u wat ouder of fysiek minder sterk? Kies dan voor
-                een pakket met levering: wij dragen, plaatsen en stellen alles in, u hoeft niets te
-                tillen.
-              </p>
-              <Link className="btn" to="/verhuur/calculator">
-                Bekijk pakketten met levering
+              <span className="zk">{t.goedOmTeWeten}</span>
+              <b>{t.zwaarTitel}</b>
+              <p>{t.zwaarTekst}</p>
+              <Link className="btn" to={lp("/verhuur/calculator")}>
+                {t.zwaarCta}
                 <ArrowRightIcon size={14} strokeWidth={2.4} />
               </Link>
             </div>
             <img
               src="/vernast/oudere-man.webp"
-              alt="Oudere man met rugpijn na het tillen van een zwaar toestel"
+              alt={t.zwaarAlt}
               loading="lazy"
             />
           </div>
 
           <p className="af-note">
-            Leveren en installeren doen wij uitsluitend{" "}
-            <Link to="/verhuur/calculator">per pakket</Link>, alleen zo kunnen wij onze 100%
-            droog-garantie waarmaken.
+            {t.afNoteVoor} <Link to={lp("/verhuur/calculator")}>{t.perPakket}</Link>
+            {t.afNoteNa}
           </p>
         </div>
       </section>
@@ -709,12 +693,9 @@ const VerhuurToestelPage = () => {
       <section className="cross">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Combineer met</span>
-            <h2 className="sec">Sneller droog met de juiste combinatie</h2>
-            <p className="lede">
-              Circulatie en temperatuur bepalen hoe snel het vocht uit de bouwmassa komt. Deze
-              toestellen versterken elkaar.
-            </p>
+            <span className="kick">{t.combineer}</span>
+            <h2 className="sec">{t.combineerTitel}</h2>
+            <p className="lede">{t.combineerLede}</p>
           </div>
           {/*
             Dezelfde kaart als op de homepage, uit `ToestelKaart`. Hier stond
@@ -724,20 +705,20 @@ const VerhuurToestelPage = () => {
           */}
           <div className="tk-grid">
             {cross.map((k) => {
-              const c = PRODUCTS[k];
+              const c = productInTaal(k, taal);
               return (
                 <ToestelKaart
                   key={k}
-                  href={toestelPad(k)}
+                  href={lp(toestelPad(k))}
                   tag={c.badge}
                   image={c.img[0]}
                   alt={productImageAlt(c, 0)}
-                  name={toestelLabel(k)}
+                  name={toestelLabelIn(k, taal)}
                   blurb={c.sum}
-                  chips={toestelChips(c)}
-                  price={euroInt(c.day)}
-                  priceNote="/dag excl. btw"
-                  cta="Bekijken"
+                  chips={toestelChipsInTaal(k, taal)}
+                  price={geld(c.day)}
+                  priceNote={`${t.perDag} ${btw}`}
+                  cta={t.bekijken}
                 />
               );
             })}
@@ -748,8 +729,8 @@ const VerhuurToestelPage = () => {
       <section className="faq">
         <div className="wrap faq-in">
           <div className="sec-head">
-            <span className="kick">Veelgestelde vragen</span>
-            <h2 className="sec">Over dit toestel</h2>
+            <span className="kick">{t.faqKick}</span>
+            <h2 className="sec">{t.faqTitel}</h2>
           </div>
           <div style={{ marginTop: 30 }}>
             {questions.map(([q, a], i) => (
@@ -777,15 +758,12 @@ const VerhuurToestelPage = () => {
       <section className="cta">
         <div className="wrap">
           <div className="cta-copy">
-            <span className="kick onred">Nog niet zeker?</span>
-            <h2>Laat de configurator het voor u uitrekenen.</h2>
-            <p>
-              Geef uw oppervlakte en plafondhoogte in, u ziet meteen welk toestel, hoeveel units en
-              welke prijs bij uw ruimte hoort.
-            </p>
+            <span className="kick onred">{t.ctaKick}</span>
+            <h2>{t.ctaTitel}</h2>
+            <p>{t.ctaTekst}</p>
             <div className="cb">
-              <Link className="btn btn-white" to="/verhuur/calculator">
-                Naar de configurator
+              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+                {t.ctaKnop}
                 <ArrowRightIcon strokeWidth={2.4} />
               </Link>
               {/*
@@ -795,11 +773,11 @@ const VerhuurToestelPage = () => {
                 De homepage zet hier `btn-dark` naast dezelfde witte knop.
               */}
               <a className="btn btn-dark" href="tel:+3236899065">
-                Bel 03 689 90 65
+                {t.bel}
               </a>
             </div>
           </div>
-          <img className="cta-man" src="/vernast/man-klembord.webp" alt="Vernast droogexpert" loading="lazy" decoding="async" />
+          <img className="cta-man" src="/vernast/man-klembord.webp" alt={t.expertAlt} loading="lazy" decoding="async" />
         </div>
       </section>
 
