@@ -2362,4 +2362,60 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  etalle: {
+    slug: "etalle",
+    title: "Étalle, en Gaume : location de déshumidificateur | Vernast",
+    description:
+      "Location de déshumidificateur à Étalle, Vance ou Sainte-Marie-sur-Semois : fermes gaumaises rénovées et maisons neuves sur la Semois. Livré, installé, repris.",
+    h1: "Location de déshumidificateur à Étalle",
+    kicker: "Province de Luxembourg · sur le cours supérieur de la Semois",
+    rit: { afstand: "environ 225 km", tijd: "un peu plus de deux heures" },
+    intro: [
+      "Étalle se trouve **sur le cours supérieur de la Semois**, à l'ouest d'Arlon, en **Gaume**, la partie la plus méridionale de la province de Luxembourg. La commune comprend notamment Buzenol, Chantemelle, Sainte-Marie-sur-Semois, Vance et Villers-sur-Semois. À Buzenol se trouve le site archéologique de Montauban, avec des vestiges gallo-romains.",
+      "C'est une région rurale, avec des **forêts** au nord et des prairies dans la vallée. Des familles qui travaillent à Arlon ou de l'autre côté de la frontière y construisent une maison neuve ou transforment une **ancienne ferme** en habitation. Notre technicien met un peu plus de deux heures pour y arriver.",
+    ],
+    bouw: {
+      kop: "Fermes gaumaises et maisons neuves dans la vallée de la Semois",
+      alineas: [
+        "Une **ferme gaumaise** est longue et d'un seul tenant : logis, étable et grange sous un même toit, avec une grande porte charretière et d'épais murs en pierre naturelle. Qui intègre l'étable ou la grange à l'habitation doit sécher un grand volume, avec un nouveau sol et de vieux murs. Placez alors un grand appareil par zone et laissez un ventilateur faire circuler l'air le long des parois froides.",
+        "Dans les villages le long de la Semois, le sol est souvent **humide**. Une cave ou un rez-de-chaussée sans barrière contre l'humidité y reste frais. Si cette pièce devient habitable, mesurez d'abord quelle part de l'humidité provient des travaux. Si un complexe de sol est mouillé après un dégât des eaux, un déshumidificateur à adsorption peut amener de l'air sec jusqu'à l'eau par des gaines.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**Pour une ferme dont la grange devient habitable** : 110 litres par jour, pour un volume jusqu'à environ 600 m³." },
+      { key: "ttv4500", waarom: "Dans **une longue ferme d'un seul tenant**, ce ventilateur (4 500 m³/h) porte l'air du logis jusqu'au fond de la grange." },
+      { key: "revolution", waarom: "Pour **une cave humide ou un complexe de sol mouillé** : ce déshumidificateur à adsorption fonctionne aussi dans les pièces froides et sèche de manière ciblée par des gaines." },
+      { key: "ttk350", waarom: "Pour **une maison neuve à Vance ou Villers-sur-Semois** avec une chape fraîche : 70 litres par jour, pour 1,1 kW." },
+    ],
+    levering: {
+      kop: "Livraison à Étalle : jusqu'au cœur de la Gaume",
+      alinea:
+        "Étalle est à un peu plus de deux heures de route d'Aartselaar, via Namur et l'E411. Vous choisissez **une date de livraison** lors de la réservation, et nous convenons de l'heure avec vous. Si la ferme se trouve sur une route de village étroite ou derrière une porte charretière, signalez-le à l'avance. Le technicien sait alors où il peut décharger et comment installer les appareils par zone.",
+    },
+    afhalen: {
+      kop: "Enlèvement depuis Étalle : seulement si vous passez par Anvers",
+      alinea:
+        "L'aller-retour jusqu'à Aartselaar vous prend **plus de quatre heures**. Cela n'en vaut la peine que si vous devez de toute façon vous rendre près d'Anvers. Pour une ferme au grand volume, mieux vaut la livraison : le technicien installe alors les appareils par zone.",
+    },
+    buren: ["habay", "tintigny", "saint-leger"],
+    faq: [
+      {
+        q: "Combien de déshumidificateurs me faut-il pour une ferme gaumaise ?",
+        a: "Cela dépend de la partie que vous rénovez. Si seule la grange devient habitable, un grand appareil avec un ventilateur suffit souvent. Si tout le bâtiment est en travaux, placez un déshumidificateur par zone et gardez les portes intermédiaires fermées. Le calculateur vous permet de calculer le pack.",
+      },
+      {
+        q: "Que faire d'une cave de la vallée de la Semois qui reste humide ?",
+        a: "Faites d'abord mesurer. S'il s'agit d'humidité de construction après des travaux, un déshumidificateur l'élimine, de préférence un déshumidificateur à adsorption dans une cave froide. Si l'humidité revient avec la nappe phréatique ou après chaque période de pluie, traitez d'abord la cause. Sinon, vous continuerez à sécher.",
+      },
+      {
+        q: "Pouvez-vous sécher un sol mouillé sans le démolir ?",
+        a: "Parfois, oui. Après un dégât des eaux, un déshumidificateur à adsorption peut souffler de l'air sec par des gaines dans la couche d'isolation sous une chape flottante. La réussite dépend de la composition du sol et du temps depuis lequel l'eau s'y trouve. Appelez-nous ou écrivez-nous d'abord, et nous examinerons votre situation.",
+      },
+      {
+        q: "Étalle, est-ce loin pour votre technicien ?",
+        a: "C'est l'un de nos plus longs trajets : un peu plus de deux heures par l'E411. C'est pourquoi nous convenons de l'heure de livraison avec vous, pour que vous sachiez quand le technicien arrive et qu'il puisse installer les appareils tranquillement.",
+      },
+    ],
+    realisaties: [],
+  },
 };

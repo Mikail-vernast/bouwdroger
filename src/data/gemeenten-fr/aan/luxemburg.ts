@@ -46,4 +46,5 @@ export const AAN: readonly string[] = [
   "saint-leger",
   "tintigny",
   "virton",
+  "etalle",
 ];

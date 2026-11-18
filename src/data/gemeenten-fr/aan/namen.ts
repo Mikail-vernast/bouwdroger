@@ -6,4 +6,13 @@
 export const AAN: readonly string[] = [
   "namen-stad",
   "dinant",
+  "andenne",
+  "assesse",
+  "fernelmont",
+  "floreffe",
+  "fosses-la-ville",
+  "gembloers",
+  "gesves",
+  "jemeppe-sur-sambre",
+  "la-bruyere",
 ];
