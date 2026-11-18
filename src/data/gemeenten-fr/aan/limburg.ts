@@ -34,4 +34,12 @@ export const AAN: readonly string[] = [
   "leopoldsburg",
   "hechtel-eksel",
   "lommel",
+  "zonhoven",
+  "diepenbeek",
+  "alken",
+  "zutendaal",
+  "lummen",
+  "herk-de-stad",
+  "halen",
+  "nieuwerkerken",
 ];
