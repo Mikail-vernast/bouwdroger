@@ -105,7 +105,15 @@ const Layout = () => {
         key={location.pathname}
         className={navigated.current ? "page-shell page-enter" : "page-shell"}
       >
-        <Outlet />
+        {/*
+          Vangnet voor pagina's die tijdens de render op een taalbestand
+          wachten (zoals `realisatieInTaal` in het Frans). Zonder grens hier
+          gooide React bij een navigatie naar zo'n pagina een fout in plaats
+          van even te wachten. Bij het prerenderen is de data er al.
+        */}
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </div>
     </>
   );
