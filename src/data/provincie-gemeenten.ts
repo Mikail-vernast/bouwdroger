@@ -1276,3 +1276,82 @@ export function aantalGemeenten(regioSlug: string): number {
   return (STREKEN_PER_REGIO[regioSlug] ?? []).reduce((n, s) => n + s.gemeenten.length, 0);
 }
 
+
+/**
+ * De streeknamen hierboven in het Frans, voor de Franse provincie- en
+ * gemeentepagina's. Alleen de zichtbare labels: de groepering en de
+ * gemeenten zelf blijven die van de Nederlandse lijst, zodat de twee talen
+ * niet uit elkaar kunnen lopen. De plaatsnamen in de lijsten vertaalt
+ * `plaatsFr` in `gemeente-slugs.ts`.
+ *
+ * De Nederlandse provincies staan er niet in: die hebben geen Franse pagina.
+ * Een arrondissement draagt de Franse naam van zijn hoofdplaats.
+ */
+const STREEKNAAM_FR: Record<string, string> = {
+  "Brussel-centrum en de eerste kroon": "Bruxelles-centre et la première couronne",
+  "De kanaalzone en de westrand": "La zone du canal et l'ouest",
+  "De zuid- en oostrand": "Le sud et l'est",
+  "Arrondissement Nijvel": "Arrondissement de Nivelles",
+  "Arrondissement Zinnik": "Arrondissement de Soignies",
+  "Arrondissement La Louvière": "Arrondissement de La Louvière",
+  "Arrondissement Charleroi": "Arrondissement de Charleroi",
+  "Arrondissement Bergen": "Arrondissement de Mons",
+  "Arrondissement Aat": "Arrondissement d'Ath",
+  "Arrondissement Doornik-Moeskroen": "Arrondissement de Tournai-Mouscron",
+  "Arrondissement Thuin": "Arrondissement de Thuin",
+  "Arrondissement Namen": "Arrondissement de Namur",
+  "Arrondissement Dinant": "Arrondissement de Dinant",
+  "Arrondissement Philippeville": "Arrondissement de Philippeville",
+  "Arrondissement Marche-en-Famenne": "Arrondissement de Marche-en-Famenne",
+  "Arrondissement Bastenaken": "Arrondissement de Bastogne",
+  "Arrondissement Neufchâteau": "Arrondissement de Neufchâteau",
+  "Arrondissement Aarlen": "Arrondissement d'Arlon",
+  "Arrondissement Virton": "Arrondissement de Virton",
+  "Arrondissement Borgworm": "Arrondissement de Waremme",
+  "Arrondissement Luik": "Arrondissement de Liège",
+  "Arrondissement Hoei": "Arrondissement de Huy",
+  "Arrondissement Verviers": "Arrondissement de Verviers",
+  "Stad Antwerpen en districten": "Anvers ville et ses districts",
+  "Zuidrand en Scheldeboord": "La périphérie sud et les rives de l'Escaut",
+  "Rupelstreek": "La région du Rupel",
+  "Klein-Brabant en Willebroek": "Le Petit-Brabant et Willebroek",
+  "Noordrand en Noorderkempen": "La périphérie nord et la Campine du Nord",
+  "Mechelse regio en Netevallei": "La région de Malines et la vallée de la Nèthe",
+  "De Kempen": "La Campine",
+  "Gent en de Gentse rand": "Gand et sa périphérie",
+  "Het Waasland": "Le Pays de Waes",
+  "Scheldeland en de Dendermondse regio": "Le pays de l'Escaut et la région de Termonde",
+  "De Denderstreek": "La vallée de la Dendre",
+  "Het Meetjesland": "Le Meetjesland",
+  "De Vlaamse Ardennen": "Les Ardennes flamandes",
+  "De Brusselse rand": "La périphérie bruxelloise",
+  "Pajottenland en Zennevallei": "Le Pajottenland et la vallée de la Senne",
+  "Leuven en het Dijleland": "Louvain et la vallée de la Dyle",
+  "Het Hageland": "Le Hageland",
+  "Tienen en Vlaams-Haspengouw": "Tirlemont et la Hesbaye flamande",
+  "De kust": "La côte",
+  "Brugge en het Brugse Ommeland": "Bruges et ses environs",
+  "De Westhoek": "Le Westhoek",
+  "Kortrijk en de Leiestreek": "Courtrai et la vallée de la Lys",
+  "Midden-West-Vlaanderen": "Le centre de la Flandre occidentale",
+  "Hasselt, Genk en Midden-Limburg": "Hasselt, Genk et le centre du Limbourg",
+  "Noord-Limburg en de Limburgse Kempen": "Le nord du Limbourg et la Campine limbourgeoise",
+  "Het Maasland": "Le Maasland",
+  "Haspengouw en de Voerstreek": "La Hesbaye et les Fourons",
+};
+
+/** De Franse naam van een streek; zonder vertaling de Nederlandse. */
+export function streekNaamFr(naam: string): string {
+  return STREEKNAAM_FR[naam] ?? naam;
+}
+
+/**
+ * De Franse `kenmerk` van een streek. Elke Nederlandse `kenmerk` volgt
+ * hetzelfde patroon ("Levering in A, B, C en de andere plaatsen hieronder."),
+ * dus wordt hij hier uit de eerste drie gemeenten opgebouwd in plaats van
+ * negenenvijftig keer vertaald.
+ */
+export function streekKenmerkFr(gemeenten: string[], plaatsFr: (naam: string) => string): string {
+  const drie = gemeenten.slice(0, 3).map(plaatsFr).join(", ");
+  return `Livraison à ${drie} et dans les autres localités ci-dessous. Choisissez votre commune pour en savoir plus sur la location d'un déshumidificateur.`;
+}

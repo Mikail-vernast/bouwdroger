@@ -3,7 +3,7 @@ import Layout from "./Layout";
 import ErrorPage from "./pages/ErrorPage";
 import { REGIO_ROUTES } from "./data/regio-slugs";
 import { GEMEENTE_ROUTES } from "./data/gemeente-slugs";
-import { ACTIEVE_TALEN } from "./i18n/taal";
+import { ACTIEVE_TALEN, type Taal } from "./i18n/taal";
 import { MAPPEN, vertaalPad } from "./i18n/paden";
 
 /**
@@ -22,6 +22,21 @@ import { MAPPEN, vertaalPad } from "./i18n/paden";
  * elke bezoeker op elke pagina. Alleen `data/tarieven.ts` is al 113 kB: de
  * volledige prijstabel, meegestuurd naar iemand die de homepage opent.
  */
+/**
+ * Wat een Nederlandse route aan haar vertalingen meegeeft.
+ *
+ * `perTaal`: een eigen `lazy` per taal, in plaats van dezelfde component op
+ * een vertaald pad. Nodig waar de tekst als data in een groot bestand staat
+ * (de provincie- en gemeentepagina's): de Nederlandse pagina importeert
+ * `gemeenten.ts`, en die megabytes Nederlands horen niet in de chunk van een
+ * Franstalige. De Franse route laadt daarom een eigen pagina met alleen de
+ * Franse tekst van haar provincie.
+ */
+type LazyRoute = NonNullable<RouteRecord["lazy"]>;
+interface RouteHandle {
+  perTaal?: Partial<Record<Taal, LazyRoute>>;
+}
+
 /**
  * De Nederlandse routes. De Franse (en later Engelse) worden er hieronder uit
  * afgeleid met de padentabel in `i18n/paden.ts`: zelfde component, vertaald
@@ -220,6 +235,17 @@ const NL_ROUTES: RouteRecord[] = [
         (regio): RouteRecord => ({
           path: regio.path.slice(1),
           lazy: async () => ({ Component: (await import("./pages/RegioPage")).default }),
+          /*
+            De Franse versie laadt een eigen pagina, met alleen de Franse
+            tekst van deze ene provincie; zie `vertaaldeRoutes` hieronder.
+          */
+          handle: {
+            perTaal: {
+              fr: async () => ({
+                Component: await (await import("./pages/RegioPageFr")).laadRegioPaginaFr(regio.slug),
+              }),
+            },
+          } satisfies RouteHandle,
         })
       ),
 
@@ -234,6 +260,16 @@ const NL_ROUTES: RouteRecord[] = [
         (gemeente): RouteRecord => ({
           path: gemeente.path.slice(1),
           lazy: async () => ({ Component: (await import("./pages/GemeentePage")).default }),
+          /* Idem: de Franse pagina laadt de Franse teksten van haar eigen provincie. */
+          handle: {
+            perTaal: {
+              fr: async () => ({
+                Component: await (await import("./pages/GemeentePageFr")).laadGemeentePaginaFr(
+                  gemeente.slug,
+                ),
+              }),
+            },
+          } satisfies RouteHandle,
         })
       ),
 
@@ -378,7 +414,9 @@ const NL_ROUTES: RouteRecord[] = [
  *
  * - `index` wordt `fr` (de Franse homepage);
  * - een vast pad krijgt zijn vertaling uit `STATISCH` of de geregistreerde
- *   gemeente- en provinciepaden; zonder vertaling valt hij weg;
+ *   gemeente- en provinciepaden; zonder vertaling valt hij weg. Heeft de route
+ *   een eigen pagina voor die taal (`handle.perTaal`), dan laadt het vertaalde
+ *   pad die in plaats van de Nederlandse;
  * - een pad met parameter (`verhuur/toestel/:toestel`) volgt `MAPPEN`, en zijn
  *   `getStaticPaths` wordt pad voor pad mee vertaald;
  * - `404`, `*` en de ontwikkelroutes bestaan maar één keer.
@@ -410,7 +448,9 @@ function vertaaldeRoutes(nl: RouteRecord[]): RouteRecord[] {
         continue;
       }
       const doel = vertaalPad(`/${pad}`, taal);
-      if (doel) uit.push({ ...r, path: doel.slice(1) } as RouteRecord);
+      if (!doel) continue;
+      const eigen = (r.handle as RouteHandle | undefined)?.perTaal?.[taal];
+      uit.push({ ...r, path: doel.slice(1), ...(eigen ? { lazy: eigen, handle: undefined } : {}) } as RouteRecord);
     }
   }
   return uit;

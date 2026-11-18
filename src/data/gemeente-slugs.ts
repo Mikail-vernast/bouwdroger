@@ -1302,6 +1302,19 @@ export function gemeenteVanPlaats(plaats: string): GemeenteRoute | undefined {
   return GEMEENTE_ROUTES.find((g) => g.name === plaats || g.ookVoor?.includes(plaats));
 }
 
+/**
+ * De plaatsnamen waaronder de werven van deze gemeente in `realisaties.ts`
+ * staan ("Bouwdroging · Kontich"). De districten van Antwerpen tellen mee voor
+ * de stadspagina: wie "bouwdroger Berchem" zoekt, is geholpen met de
+ * Antwerpse pagina. Staat hier en niet in `gemeenten.ts`, zodat het sjabloon
+ * het kan gebruiken zonder de Nederlandse teksten te laden.
+ */
+const DISTRICTEN = ["Antwerpen", "Berchem", "Merksem", "Deurne", "Hoboken", "Ekeren", "Borgerhout"];
+
+export function plaatsenVanRoute(route: GemeenteRoute): string[] {
+  return route.slug === "antwerpen-stad" ? DISTRICTEN : [route.name];
+}
+
 /** Alle gemeentepagina's binnen één provincie, in de volgorde hierboven. */
 export function gemeentenInRegio(regioSlug: string): GemeenteRoute[] {
   return GEMEENTE_ROUTES.filter((g) => g.regio === regioSlug);
