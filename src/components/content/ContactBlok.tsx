@@ -3,6 +3,44 @@ import { AanvraagDone, AanvraagError, AanvraagHoneypot } from "@/components/Aanv
 import { useAanvraag } from "@/hooks/useAanvraag";
 import { ArrowRightIcon, PhoneIcon } from "@/components/home-v3/icons";
 import { CONTACT } from "@/lib/site";
+import { useCopy, useLokaalPad, type Copy } from "@/i18n/useTaal";
+
+const COPY = {
+  nl: {
+    kicker: "Een vraag over uw situatie?",
+    doneTitel: "Vraag verzonden",
+    doneTekst: "Bedankt. Een droogspecialist neemt binnen één werkdag contact met u op.",
+    voornaam: "Voornaam",
+    naam: "Naam",
+    achternaam: "Achternaam",
+    email: "E-mail",
+    emailVb: "naam@voorbeeld.be",
+    tel: "Telefoon",
+    onderwerp: "Waarover gaat uw vraag?",
+    situatie: "Uw situatie",
+    privacy: "Wij gebruiken uw gegevens enkel om uw vraag te beantwoorden. Liever meteen een prijs?",
+    bereken: "Bereken uw droogpakket",
+    versturen: "Versturen…",
+    verstuur: "Verstuur uw vraag",
+  },
+  fr: {
+    kicker: "Une question sur votre situation ?",
+    doneTitel: "Question envoyée",
+    doneTekst: "Merci. Un spécialiste du séchage vous recontacte dans un délai d'un jour ouvrable.",
+    voornaam: "Prénom",
+    naam: "Nom",
+    achternaam: "Nom de famille",
+    email: "E-mail",
+    emailVb: "nom@exemple.be",
+    tel: "Téléphone",
+    onderwerp: "Quel est l'objet de votre question ?",
+    situatie: "Votre situation",
+    privacy: "Nous utilisons vos données uniquement pour répondre à votre question. Vous préférez un prix tout de suite ?",
+    bereken: "Calculez votre pack de séchage",
+    versturen: "Envoi…",
+    verstuur: "Envoyer votre question",
+  },
+} satisfies Copy<Record<string, string>>;
 
 /**
  * Het vraagformulier onderaan een inhoudspagina.
@@ -17,7 +55,7 @@ import { CONTACT } from "@/lib/site";
  * de designtranscriptie zónder handler en verstuurt dus niets. Dit blok wél.
  */
 const ContactBlok = ({
-  kicker = "Een vraag over uw situatie?",
+  kicker,
   titel,
   lede,
   onderwerpen,
@@ -36,6 +74,8 @@ const ContactBlok = ({
   placeholder: string;
   achtergrond?: "rood" | "wit";
 }) => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
   const { status, error, mailto, handleSubmit, sending } = useAanvraag({
     source: "levering",
     messageField: "situatie",
@@ -46,42 +86,42 @@ const ContactBlok = ({
     <section className={achtergrond === "wit" ? "oform licht" : "oform"} id="formulier">
       <div className="wrap">
         <div className="sec-head mid">
-          <span className="kick">{kicker}</span>
+          <span className="kick">{kicker ?? t.kicker}</span>
           <h2 className="sec">{titel}</h2>
           <p className="lede">{lede}</p>
         </div>
         <div className="fshell">
           {status === "done" ? (
             <AanvraagDone
-              title="Vraag verzonden"
-              text="Bedankt. Een droogspecialist neemt binnen één werkdag contact met u op."
+              title={t.doneTitel}
+              text={t.doneTekst}
             />
           ) : (
             <form onSubmit={handleSubmit} noValidate>
               <AanvraagHoneypot />
               <div className="frow">
                 <div className="fld">
-                  <label htmlFor="cb-voornaam">Voornaam</label>
-                  <input id="cb-voornaam" name="voornaam" type="text" autoComplete="given-name" required placeholder="Voornaam" />
+                  <label htmlFor="cb-voornaam">{t.voornaam}</label>
+                  <input id="cb-voornaam" name="voornaam" type="text" autoComplete="given-name" required placeholder={t.voornaam} />
                 </div>
                 <div className="fld">
-                  <label htmlFor="cb-naam">Naam</label>
-                  <input id="cb-naam" name="naam" type="text" autoComplete="family-name" required placeholder="Achternaam" />
+                  <label htmlFor="cb-naam">{t.naam}</label>
+                  <input id="cb-naam" name="naam" type="text" autoComplete="family-name" required placeholder={t.achternaam} />
                 </div>
               </div>
               <div className="frow">
                 <div className="fld">
-                  <label htmlFor="cb-email">E-mail</label>
-                  <input id="cb-email" name="email" type="email" autoComplete="email" required placeholder="naam@voorbeeld.be" />
+                  <label htmlFor="cb-email">{t.email}</label>
+                  <input id="cb-email" name="email" type="email" autoComplete="email" required placeholder={t.emailVb} />
                 </div>
                 <div className="fld">
-                  <label htmlFor="cb-tel">Telefoon</label>
+                  <label htmlFor="cb-tel">{t.tel}</label>
                   <input id="cb-tel" name="telefoon" type="tel" autoComplete="tel" placeholder="04.." />
                 </div>
               </div>
               <div className="frow one">
                 <div className="fld">
-                  <label htmlFor="cb-onderwerp">Waarover gaat uw vraag?</label>
+                  <label htmlFor="cb-onderwerp">{t.onderwerp}</label>
                   <select id="cb-onderwerp" name="onderwerp" defaultValue={onderwerpen[0]}>
                     {onderwerpen.map((o) => (
                       <option key={o}>{o}</option>
@@ -91,22 +131,21 @@ const ContactBlok = ({
               </div>
               <div className="frow one">
                 <div className="fld">
-                  <label htmlFor="cb-situatie">Uw situatie</label>
+                  <label htmlFor="cb-situatie">{t.situatie}</label>
                   <textarea id="cb-situatie" name="situatie" rows={5} required placeholder={placeholder} />
                 </div>
               </div>
               <AanvraagError error={error} mailto={mailto} />
               <div className="fsend">
                 <small>
-                  Wij gebruiken uw gegevens enkel om uw vraag te beantwoorden. Liever meteen een
-                  prijs? <Link to="/verhuur/calculator">Bereken uw droogpakket</Link>.
+                  {t.privacy} <Link to={lp("/verhuur/calculator")}>{t.bereken}</Link>.
                 </small>
                 <div className="fbtns">
                   <a className="btn btn-line" href={`tel:${CONTACT.phoneE164}`}>
                     <PhoneIcon /> {CONTACT.phoneLocal}
                   </a>
                   <button className="btn" type="submit" disabled={sending}>
-                    {sending ? "Versturen…" : "Verstuur uw vraag"}
+                    {sending ? t.versturen : t.verstuur}
                     <ArrowRightIcon />
                   </button>
                 </div>

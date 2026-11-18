@@ -164,7 +164,7 @@ const V3Footer = () => {
                 tabIndex={-1}
                 style={kaartVoor({ pin: regio.pin, metNederland: true }).pin}
               >
-                <span>{regioNaam(regio.slug, regio.name, taal)}</span>
+                <span>{regioNaam(regio, taal)}</span>
               </Link>
             ))}
           </div>
@@ -189,7 +189,7 @@ const V3Footer = () => {
             <ul>
               {REGIO_ROUTES.map((regio) => (
                 <li key={regio.slug}>
-                  <Link to={lp(regio.path)}>{regioNaam(regio.slug, regio.name, taal)}</Link>
+                  <Link to={lp(regio.path)}>{regioNaam(regio, taal)}</Link>
                 </li>
               ))}
             </ul>

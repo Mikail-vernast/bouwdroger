@@ -3,8 +3,9 @@ import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import Pad from "@/components/sitemap/Pad";
-import { SEO } from "@/data/seo";
-import { BLOKKEN, JURIDISCH, LANDEN, REALISATIE_LINKS } from "@/data/sitemap";
+import { useSeo } from "@/data/seo";
+import { sitemapInhoud } from "@/data/sitemap";
+import { useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
 import { breadcrumbSchema, itemListSchema, organizationSchema } from "@/lib/schema";
 import "@/styles/v3-content.css";
 import "@/styles/sitemap.css";
@@ -28,22 +29,58 @@ const Tak = ({ laatste }: { laatste: boolean }) => (
   <span className="sm-tak" aria-hidden="true">{laatste ? "└─" : "├─"}</span>
 );
 
-const alles = BLOKKEN.flatMap((b) => b.items);
+const COPY = {
+  nl: {
+    home: "Home",
+    sitemap: "Sitemap",
+    kruimelpad: "Kruimelpad",
+    h1: "sitemap",
+    lede: "De hele site als mappenboom. Klik een map om ernaartoe te springen.",
+    opDezePagina: "Op deze pagina",
+    team: "Drie technici van Vernast in werkoverall",
+    realisaties: "Realisaties",
+    juridisch: "Juridisch",
+    opAanvraag: "op aanvraag",
+    binnen24: "levering binnen 24 uur",
+    plaatsen: "plaatsen",
+    lijst: "Alle pagina's van Vernast Bouwdrogers",
+  },
+  fr: {
+    home: "Accueil",
+    sitemap: "Plan du site",
+    kruimelpad: "Fil d'Ariane",
+    h1: "plan-du-site",
+    lede: "Tout le site sous forme d'arborescence. Cliquez sur un dossier pour y accéder.",
+    opDezePagina: "Sur cette page",
+    team: "Trois techniciens de Vernast en bleu de travail",
+    realisaties: "Réalisations",
+    juridisch: "Mentions légales",
+    opAanvraag: "sur demande",
+    binnen24: "livraison en 24 heures",
+    plaatsen: "localités",
+    lijst: "Toutes les pages de Vernast Bouwdrogers",
+  },
+} satisfies Copy<Record<string, string>>;
 
-const SitemapPage = () => (
+const SitemapPage = () => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const { BLOKKEN, JURIDISCH, LANDEN, REALISATIE_LINKS } = sitemapInhoud(useTaal());
+  const alles = BLOKKEN.flatMap((b) => b.items);
+  return (
   <div className="v3c sm-page">
     <PageMeta
-      {...SEO.sitemap}
+      {...useSeo("sitemap")}
       jsonLd={[
         organizationSchema(),
         breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Sitemap", path: "/sitemap" },
+          { name: t.home, path: lp("/") },
+          { name: t.sitemap, path: lp("/sitemap") },
         ]),
         /* De hoofdsecties als lijst: wat een antwoordmachine nodig heeft om
            de site als geheel te begrijpen in plaats van als losse pagina's. */
         itemListSchema(
-          "Alle pagina's van Vernast Bouwdrogers",
+          t.lijst,
           alles.map((item) => ({ name: item.label, path: item.path }))
         ),
       ]}
@@ -54,18 +91,18 @@ const SitemapPage = () => (
       <section className="sm-hero">
         <div className="wrap sm-hero-grid">
           <div className="sm-hero-copy">
-            <nav aria-label="Kruimelpad" className="sm-kruimels">
-              <Link to="/">Home</Link> <span aria-hidden="true">/</span> <span>Sitemap</span>
+            <nav aria-label={t.kruimelpad} className="sm-kruimels">
+              <Link to={lp("/")}>{t.home}</Link> <span aria-hidden="true">/</span> <span>{t.sitemap}</span>
             </nav>
-            <h1><i>/</i>sitemap</h1>
+            <h1><i>/</i>{t.h1}</h1>
             <p>
-              De hele site als mappenboom. Klik een map om ernaartoe te springen.
+              {t.lede}
             </p>
-            <nav className="sm-boom" aria-label="Op deze pagina">
+            <nav className="sm-boom" aria-label={t.opDezePagina}>
               <span className="sm-wortel">vernast-bouwdrogers.be</span>
               {[
                 ...BLOKKEN.map((b) => ({ href: `#${b.id}`, naam: b.titel, n: b.items.length })),
-                { href: "#sm-real", naam: "Realisaties", n: REALISATIE_LINKS.length },
+                { href: "#sm-real", naam: t.realisaties, n: REALISATIE_LINKS.length },
                 ...LANDEN.map((l) => ({
                   href: `#${l.id}`,
                   naam: l.kort,
@@ -81,7 +118,7 @@ const SitemapPage = () => (
             </nav>
           </div>
           <div className="sm-team">
-            <img src="/vernast/drie-vakmannen.webp" alt="Drie technici van Vernast in werkoverall" width={1400} height={934} />
+            <img src="/vernast/drie-vakmannen.webp" alt={t.team} width={1400} height={934} />
           </div>
         </div>
       </section>
@@ -120,7 +157,7 @@ const SitemapPage = () => (
             <nav className="sm-map sm-map-breed" id="sm-real" aria-labelledby="sm-real-k">
               <h2 id="sm-real-k">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
-                Realisaties
+                {t.realisaties}
               </h2>
               <ul>
                 {REALISATIE_LINKS.map((item, i, alle) => (
@@ -137,7 +174,7 @@ const SitemapPage = () => (
             <nav className="sm-map" id="sm-jur" aria-labelledby="sm-jur-k">
               <h2 id="sm-jur-k">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
-                Juridisch
+                {t.juridisch}
               </h2>
               <ul>
                 {JURIDISCH.map((item, i, alle) => (
@@ -158,7 +195,7 @@ const SitemapPage = () => (
               <div className="sm-land-kop">
                 <h2 id={`${land.id}-k`}>{land.titel}</h2>
                 <span className={land.opAanvraag ? "sm-status uit" : "sm-status"}>
-                  {land.opAanvraag ? "op aanvraag" : "levering binnen 24 uur"}
+                  {land.opAanvraag ? t.opAanvraag : t.binnen24}
                 </span>
               </div>
               <p className="sm-uit">{land.uitleg}</p>
@@ -171,7 +208,7 @@ const SitemapPage = () => (
                       ) : (
                         <span className="pad"><i>~</i> {g.kop}</span>
                       )}
-                      <small>{g.path ? g.kop + " · " : ""}{g.aantal} plaatsen</small>
+                      <small>{g.path ? g.kop + " · " : ""}{g.aantal} {t.plaatsen}</small>
                     </h3>
                     {g.streken.map((s) => (
                       <div className="sm-streek" key={s.naam}>
@@ -196,6 +233,7 @@ const SitemapPage = () => (
 
     <V3Footer />
   </div>
-);
+  );
+};
 
 export default SitemapPage;

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "./home-v3/icons";
 import "@/styles/toestel-kaart.css";
+import { useCopy, useLokaalPad } from "@/i18n/useTaal";
 
 /**
  * Eén toestel als kaart: foto, label, naam, chips, prijs en knop.
@@ -36,8 +37,11 @@ export interface ToestelKaartProps {
   cta?: string;
 }
 
-/** De vochtafvoer krijgt een eigen kleur; herkenning op het achtervoegsel. */
-const isVochtafvoer = (chip: string) => chip.endsWith("liter per dag");
+/** De vochtafvoer krijgt een eigen kleur; herkenning op het achtervoegsel,
+    in het Nederlands en in het Frans ("50 litres par jour"). */
+const isVochtafvoer = (chip: string) => chip.endsWith("liter per dag") || chip.endsWith("litres par jour");
+
+const COPY = { nl: { cta: "Product huren" }, fr: { cta: "Louer cet appareil" } };
 
 const Inhoud = ({
   tag,
@@ -50,8 +54,10 @@ const Inhoud = ({
   pricePrefix,
   price,
   priceNote,
-  cta = "Product huren",
-}: ToestelKaartProps) => (
+  cta,
+}: ToestelKaartProps) => {
+  const t = useCopy(COPY);
+  return (
   <>
     <div className="tk-media">
       {tag && <span className="tk-tag">{tag}</span>}
@@ -80,7 +86,7 @@ const Inhoud = ({
       )}
       <div className="tk-foot">
         <span className="tk-cta">
-          {cta} <ArrowRightIcon size={13} strokeWidth={2.6} />
+          {cta ?? t.cta} <ArrowRightIcon size={13} strokeWidth={2.6} />
         </span>
         <span className="tk-price">
           {pricePrefix}
@@ -90,7 +96,8 @@ const Inhoud = ({
       </div>
     </div>
   </>
-);
+  );
+};
 
 const ToestelKaart = (props: ToestelKaartProps) =>
   props.external ? (
@@ -98,9 +105,18 @@ const ToestelKaart = (props: ToestelKaartProps) =>
       <Inhoud {...props} />
     </a>
   ) : (
-    <Link className={`tk${props.hot ? " hot" : ""}`} to={props.href}>
+    <InterneKaart {...props} />
+  );
+
+/* `lp` laat een pad dat al vertaald is ongemoeid, dus de pagina mag ook een
+   Frans pad meegeven. */
+const InterneKaart = (props: ToestelKaartProps) => {
+  const lp = useLokaalPad();
+  return (
+    <Link className={`tk${props.hot ? " hot" : ""}`} to={lp(props.href)}>
       <Inhoud {...props} />
     </Link>
   );
+};
 
 export default ToestelKaart;

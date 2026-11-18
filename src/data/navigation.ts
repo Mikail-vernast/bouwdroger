@@ -16,7 +16,7 @@
  * naar twee verschillende URL's te wijzen.
  */
 import { PRODUCTS, PRODUCT_ORDER } from "./verhuur.js";
-import { REGIO_ROUTES } from "./regio-slugs.js";
+import { REGIO_ROUTES, type RegioRoute } from "./regio-slugs.js";
 import { TOEBEHOREN, toebehorenPad } from "./toebehoren.js";
 import { toestelPad } from "./verhuur";
 import { vertaalPad } from "../i18n/paden.js";
@@ -464,26 +464,21 @@ export const REGIO_IN_FR: Record<string, string> = {
   "nederlands-limburg": "au Limbourg néerlandais",
 };
 
-/** De naam van de regio zelf, voor de kaart en de lijst "Werkgebied". */
-export const REGIO_NAAM_FR: Record<string, string> = {
-  antwerpen: "Anvers",
-  "oost-vlaanderen": "Flandre orientale",
-  "vlaams-brabant": "Brabant flamand",
-  brussel: "Bruxelles",
-  "west-vlaanderen": "Flandre occidentale",
-  limburg: "Limbourg",
-  "waals-brabant": "Brabant wallon",
-  henegouwen: "Hainaut",
-  namen: "Namur",
-  luxemburg: "Luxembourg",
-  luik: "Liège",
+/**
+ * De naam van de regio zelf, voor de kaart en de lijst "Werkgebied". De
+ * Belgische provincies dragen hun Franse naam in `regio-slugs.ts` (`nameFr`);
+ * de drie Nederlandse hebben (nog) geen Franse pagina en dus geen `nameFr`,
+ * maar in een Franse lijst hoort hun naam toch in het Frans.
+ */
+const NL_PROVINCIE_FR: Record<string, string> = {
   "noord-brabant": "Brabant-Septentrional",
   zeeland: "Zélande",
   "nederlands-limburg": "Limbourg néerlandais",
 };
 
-export function regioNaam(slug: string, naam: string, taal: Taal): string {
-  return taal === "fr" ? (REGIO_NAAM_FR[slug] ?? naam) : naam;
+export function regioNaam(regio: Pick<RegioRoute, "slug" | "name" | "nameFr">, taal: Taal): string {
+  if (taal !== "fr") return regio.name;
+  return regio.nameFr ?? NL_PROVINCIE_FR[regio.slug] ?? regio.name;
 }
 
 const TOEBEHOREN_LABEL_FR: Record<string, string> = {

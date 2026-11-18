@@ -3,6 +3,64 @@ import { ArrowRightIcon, LeafIcon } from "@/components/home-v3/icons";
 import Reveal from "@/components/Reveal";
 import { DROGER_KAARTEN } from "@/data/tarieflijst";
 import { PRODUCTS, productImageAlt } from "@/data/verhuur";
+import { formatEuro, useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
+
+interface Tekst {
+  cta: string;
+  perWeek: string;
+  onderPrijs: string;
+  voet: string;
+  pakketKop: string;
+  pakketVoor: string;
+  garantie: string;
+  pakketNa: string;
+  samenstellen: string;
+  /** De datatekst uit `DROGER_KAARTEN` in deze taal; `null` laat ze ongemoeid. */
+  volume: ((nl: string) => string) | null;
+  badge: Record<string, string>;
+  desc: Record<string, string>;
+}
+
+const COPY = {
+  nl: {
+    cta: "Bekijk dit toestel",
+    perWeek: "/week",
+    onderPrijs: "excl. btw · levering en vochtmeting inbegrepen",
+    voet:
+      "Alle drie zijn eco-condensdrogers, te huur per dag of per week. Levering, plaatsing en de vochtmeting zitten in de prijs.",
+    pakketKop: "Een volledige woning? Dan wordt het een droogpakket.",
+    pakketVoor:
+      "Een pakket combineert droger, ventilator en indien nodig een bouwkachel, berekend op uw oppervlakte en op wat er moet drogen. Alleen op zo'n berekend pakket geldt onze",
+    garantie: "100 % drooggarantie",
+    pakketNa: ": bij een los toestel kunnen we het resultaat niet garanderen.",
+    samenstellen: "Stel uw pakket samen",
+    volume: null,
+    badge: {},
+    desc: {},
+  },
+  fr: {
+    cta: "Voir cet appareil",
+    perWeek: "/semaine",
+    onderPrijs: "HTVA · livraison et mesure d'humidité comprises",
+    voet:
+      "Ce sont tous trois des déshumidificateurs à condensation éco, à louer à la journée ou à la semaine. Livraison, installation et mesure d'humidité sont comprises dans le prix.",
+    pakketKop: "Un logement entier ? Il vous faut alors un pack de séchage.",
+    pakketVoor:
+      "Un pack combine déshumidificateur, ventilateur et si nécessaire un chauffage de chantier, calculés selon votre surface et ce qui doit sécher. Notre",
+    garantie: "garantie de séchage à 100 %",
+    pakketNa:
+      " ne s'applique qu'à un tel pack calculé : avec un appareil seul, nous ne pouvons pas garantir le résultat.",
+    samenstellen: "Composez votre pack",
+    // "Tot 250 m³ · 50 L/dag" uit tarieflijst.ts; de getallen blijven, de woorden niet.
+    volume: (nl) => nl.replace(/^Tot /, "Jusqu'à ").replace(/ L\/dag$/, " l/jour"),
+    badge: { "Meest gehuurd": "Le plus loué" },
+    desc: {
+      ttk170: "Une pièce, un appartement ou une petite rénovation",
+      ttk350: "Une maison familiale standard ou une grande rénovation",
+      ttk650: "Grands chantiers, caves spacieuses et dégâts des eaux urgents",
+    },
+  },
+} satisfies Copy<Tekst>;
 
 /**
  * De drie ontvochtigers als keuzeblok op een inhoudspagina — de v3-opvolger van de
@@ -18,7 +76,11 @@ import { PRODUCTS, productImageAlt } from "@/data/verhuur";
  * Prijzen en omschrijvingen komen uit `DROGER_KAARTEN`, dus uit de
  * gepubliceerde tarieven. Nooit een bedrag in een pagina overtypen.
  */
-const Pakketkaarten = ({ ctaLabel = "Bekijk dit toestel" }: { ctaLabel?: string }) => (
+const Pakketkaarten = ({ ctaLabel }: { ctaLabel?: string }) => {
+  const t = useCopy(COPY);
+  const taal = useTaal();
+  const lp = useLokaalPad();
+  return (
   <div className="pkgs">
     {DROGER_KAARTEN.map((kaart, i) => {
       const product = PRODUCTS[kaart.key];
@@ -29,7 +91,7 @@ const Pakketkaarten = ({ ctaLabel = "Bekijk dit toestel" }: { ctaLabel?: string 
           className={`pkg${kaart.highlight ? " top" : ""}`}
           key={kaart.key}
         >
-          {kaart.badge && <span className="plab">{kaart.badge}</span>}
+          {kaart.badge && <span className="plab">{t.badge[kaart.badge] ?? kaart.badge}</span>}
           {product && (
             <img
               src={product.img[0]}
@@ -41,15 +103,17 @@ const Pakketkaarten = ({ ctaLabel = "Bekijk dit toestel" }: { ctaLabel?: string 
             />
           )}
           <h3>{kaart.name}</h3>
-          <span className="pvol">{kaart.volume}</span>
-          <p className="pdesc">{kaart.desc}</p>
+          <span className="pvol">{t.volume ? t.volume(kaart.volume) : kaart.volume}</span>
+          <p className="pdesc">{t.desc[kaart.key] ?? kaart.desc}</p>
           <div className="pprice">
-            <b>€ {kaart.weekPrice}</b>
-            <span>/week</span>
-            <small>excl. btw · levering en vochtmeting inbegrepen</small>
+            {/* Excl. btw zoals in het Nederlands; in het Frans in de Belgische
+                notatie (`99 €`) via formatEuro. */}
+            <b>{taal === "nl" ? `€ ${kaart.weekPrice}` : formatEuro(Number(kaart.weekPrice), taal, 0)}</b>
+            <span>{t.perWeek}</span>
+            <small>{t.onderPrijs}</small>
           </div>
-          <Link className={`btn${kaart.highlight ? "" : " btn-line"}`} to={kaart.path}>
-            {ctaLabel}
+          <Link className={`btn${kaart.highlight ? "" : " btn-line"}`} to={lp(kaart.path)}>
+            {ctaLabel ?? t.cta}
             <ArrowRightIcon size={13} />
           </Link>
         </Reveal>
@@ -57,10 +121,7 @@ const Pakketkaarten = ({ ctaLabel = "Bekijk dit toestel" }: { ctaLabel?: string 
     })}
     <p className="pkgs-foot">
       <LeafIcon size={13} />
-      <span>
-        Alle drie zijn eco-condensdrogers, te huur per dag of per week. Levering, plaatsing en de
-        vochtmeting zitten in de prijs.
-      </span>
+      <span>{t.voet}</span>
     </p>
     {/*
       Deze drie kaarten zijn toestellen, geen pakketten. Dat onderscheid moet er
@@ -70,20 +131,19 @@ const Pakketkaarten = ({ ctaLabel = "Bekijk dit toestel" }: { ctaLabel?: string 
     */}
     <div className="pkgcta">
       <div className="pc-t">
-        <b>Een volledige woning? Dan wordt het een droogpakket.</b>
+        <b>{t.pakketKop}</b>
         <p>
-          Een pakket combineert droger, ventilator en indien nodig een bouwkachel, berekend op uw
-          oppervlakte en op wat er moet drogen. Alleen op zo'n berekend pakket geldt onze{" "}
-          <Link to="/drooggarantie">100 % drooggarantie</Link>: bij een los toestel kunnen we het
-          resultaat niet garanderen.
+          {t.pakketVoor} <Link to={lp("/drooggarantie")}>{t.garantie}</Link>
+          {t.pakketNa}
         </p>
       </div>
-      <Link className="btn btn-white" to="/verhuur/calculator">
-        Stel uw pakket samen
+      <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+        {t.samenstellen}
         <ArrowRightIcon />
       </Link>
     </div>
   </div>
-);
+  );
+};
 
 export default Pakketkaarten;

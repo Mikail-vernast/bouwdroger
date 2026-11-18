@@ -1,5 +1,13 @@
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRightIcon } from "@/components/home-v3/icons";
+import { useCopy } from "@/i18n/useTaal";
+
+/* `wie` blijft "U" of "Vernast" in de data van elke taal: het is een sleutel
+   voor kleur en label, geen zichtbare tekst. */
+const COPY = {
+  nl: { stap: "Stap", van: "van", u: "U doet dit", wij: "Wij doen dit", vorige: "Vorige stap", volgende: "Volgende stap" },
+  fr: { stap: "Étape", van: "sur", u: "À vous", wij: "On s'en charge", vorige: "Étape précédente", volgende: "Étape suivante" },
+};
 
 export interface VerloopStap {
   /** Wie er aan zet is. Bepaalt de kleur van de zijkant en het label. */
@@ -34,6 +42,7 @@ const WISSEL_MS = 7000;
  *    wegschuift terwijl iemand aan het lezen is, is erger dan geen carrousel.
  */
 const StappenCarrousel = ({ stappen, label }: { stappen: VerloopStap[]; label: string }) => {
+  const t = useCopy(COPY);
   const aantal = stappen.length;
   const houder = useRef<HTMLDivElement>(null);
   const raakX = useRef(0);
@@ -121,7 +130,7 @@ const StappenCarrousel = ({ stappen, label }: { stappen: VerloopStap[]; label: s
               type="button"
               className={`sc-tab${i === actief ? " aan" : ""}${i < actief ? " gehad" : ""}`}
               onClick={() => ga(i)}
-              aria-label={`Stap ${i + 1}: ${stap.titel}`}
+              aria-label={`${t.stap} ${i + 1}: ${stap.titel}`}
               aria-current={i === actief ? "step" : undefined}
             >
               {i + 1}
@@ -149,7 +158,7 @@ const StappenCarrousel = ({ stappen, label }: { stappen: VerloopStap[]; label: s
             >
               <div className="sc-zij">
                 <span className="sc-nr">{String(i + 1).padStart(2, "0")}</span>
-                <span className="sc-wie">{stap.wie === "U" ? "U doet dit" : "Wij doen dit"}</span>
+                <span className="sc-wie">{stap.wie === "U" ? t.u : t.wij}</span>
               </div>
               <div className="sc-tekst">
                 <h3>{stap.titel}</h3>
@@ -162,14 +171,14 @@ const StappenCarrousel = ({ stappen, label }: { stappen: VerloopStap[]; label: s
 
       <div className="sc-voet">
         <span className="sc-teller">
-          Stap {actief + 1} <i>van</i> {aantal}
+          {t.stap} {actief + 1} <i>{t.van}</i> {aantal}
         </span>
         <div className="sc-knoppen">
           <button
             type="button"
             className="sc-pijl terug"
             onClick={() => ga(actief - 1)}
-            aria-label="Vorige stap"
+            aria-label={t.vorige}
           >
             <ArrowRightIcon size={17} />
           </button>
@@ -177,7 +186,7 @@ const StappenCarrousel = ({ stappen, label }: { stappen: VerloopStap[]; label: s
             type="button"
             className="sc-pijl"
             onClick={() => ga(actief + 1)}
-            aria-label="Volgende stap"
+            aria-label={t.volgende}
           >
             <ArrowRightIcon size={17} />
           </button>
