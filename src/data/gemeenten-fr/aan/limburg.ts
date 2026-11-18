@@ -26,4 +26,12 @@ export const AAN: readonly string[] = [
   "bocholt",
   "bree",
   "oudsbergen",
+  "as",
+  "tessenderlo-ham",
+  "beringen",
+  "heusden-zolder",
+  "houthalen-helchteren",
+  "leopoldsburg",
+  "hechtel-eksel",
+  "lommel",
 ];
