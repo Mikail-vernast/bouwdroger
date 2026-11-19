@@ -23,6 +23,7 @@ import { useCopy, type Copy } from "@/i18n/useTaal";
 const COPY = {
   nl: { laden: "Betaalformulier laden…", of: "of betaal met", bezig: "Bezig met betalen…", betaal: "Betaal" },
   fr: { laden: "Chargement du formulaire de paiement…", of: "ou payez par", bezig: "Paiement en cours…", betaal: "Payer" },
+  en: { laden: "Loading payment form…", of: "or pay with", bezig: "Processing payment…", betaal: "Pay" },
 } satisfies Copy<{ laden: string; of: string; bezig: string; betaal: string }>;
 
 interface BoekingBetaalformulierProps {

@@ -76,6 +76,21 @@ const COPY = {
     volzet: "Complet",
     weekendGesloten: "Fermé le week-end",
   },
+  en: {
+    dagen: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+    maanden: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    kies: "Choose a date",
+    paneel: "Choose a collection date",
+    vorige: "Previous month",
+    volgende: "Next month",
+    weekend: "The warehouse is closed at weekends",
+    vol: "This day is fully booked for your selection",
+    vroeg: "We get your unit ready at least 24 hours in advance",
+    afhalen: "Collection",
+    terug: "Return",
+    volzet: "Fully booked",
+    weekendGesloten: "Closed at weekends",
+  },
 } satisfies Copy<{
   dagen: string[];
   maanden: string[];

@@ -4,6 +4,7 @@ import { useCopy, type Copy } from "@/i18n/useTaal";
 const COPY = {
   nl: { maatwerk: "maatwerk", weetNiet: "Weet ik niet" },
   fr: { maatwerk: "sur mesure", weetNiet: "Je ne sais pas" },
+  en: { maatwerk: "custom", weetNiet: "I don't know" },
 } satisfies Copy<{ maatwerk: string; weetNiet: string }>;
 
 /**

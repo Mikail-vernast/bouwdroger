@@ -573,7 +573,219 @@ const fr: BoekingTeksten = {
   noot: "5 % de réduction en cas de paiement en ligne · résiliable chaque jour",
 };
 
-export const BOEKING_COPY = { nl, fr } satisfies Copy<BoekingTeksten>;
+const en: BoekingTeksten = {
+  volgende: {
+    1: "Continue to extras",
+    2: "Continue to date",
+    3: "Continue to your details",
+    4: "Confirm booking",
+  },
+  verder: "Continue",
+  beschikbaarheidLaden: "Checking availability…",
+  datesError:
+    "We can't check which dates are still free right now. You can simply continue and we will confirm your delivery date, or call us on 03 689 90 65.",
+  geannuleerd: "The payment was cancelled. Your choices are still saved.",
+  nietTeruggevonden:
+    "We couldn't find this payment at Stripe. Your choices are still saved, so feel free to try paying again, or call us on 03 689 90 65.",
+  statusNietOpgehaald: "The payment status could not be retrieved. Please try again.",
+  nietGestart: "The payment could not be started.",
+  geenVerbinding: "No connection to the payment server. Please try again.",
+  teVeel: "Too many requests. Please try again in a minute.",
+
+  dekkingKop: "Choose your cover",
+  dekkingSub:
+    "Site equipment is at risk of damage, theft or delay. Choose how much you want to bear yourself, just as with a hire car.",
+  inbegrepen: "Included",
+  eenmalig: "one-off, for the entire hire",
+  inPakketprijs: "included in your package price",
+  gekozen: "Selected",
+  selecteer: "Select",
+  terugNaarPakket: "Back to the package",
+  verderExtras: "Continue to extras",
+
+  extrasKop: "Included as standard & extra peace of mind",
+  extrasSub: (
+    <>
+      The professional moisture reading before the start and at handover is included{" "}
+      <b>as standard</b> with every hire, so you know for certain that everything is dry. If you need an
+      official document of it, we will draw one up.
+    </>
+  ),
+  vochtmetingKop: "Moisture reading before & after",
+  vochtmetingSub:
+    "Readings of walls, screed and air humidity at delivery and at handover, with every package.",
+  inbegrepenTag: "✓ Included",
+  toegevoegd: "Added",
+  toevoegen: "Add",
+  monitoringKop: "Digital monitoring",
+  binnenkort: "Coming soon",
+  monitoringSub:
+    "All our units are getting digital monitoring: you will soon be able to follow the air humidity and drying progress live online, at no extra cost, automatically on every unit.",
+  pompKop: "Condensate pump, 1 per construction dehumidifier as standard",
+  pompSub: (
+    <>
+      Never empty a tank yourself or work with a tub: the condensate pump drains the water{" "}
+      <b>directly and automatically</b>, even to a drain at a higher level. Good to know: the water
+      from a construction dehumidifier is pure condensate and can simply go down the drain. We supply
+      one pump per construction dehumidifier as standard; you can adjust this below.
+    </>
+  ),
+  pompAantal: (dryerCount) => (
+    <>
+      {" "}You have{" "}
+      <b>
+        {dryerCount} construction dehumidifier{dryerCount === 1 ? "" : "s"}
+      </b>{" "}
+      in this package, so we prepare {dryerCount} pump{dryerCount === 1 ? "" : "s"} as standard.
+    </>
+  ),
+  perPompDag: "per pump / day",
+  pompMinder: "One pump fewer",
+  pompMeer: "One pump more",
+  verdiepingKop: "Which floor are we working on?",
+  verdiepingSub: (ladderFee) => (
+    <>
+      Installation on an upper floor is <b>included in the price</b> as long as there is a staircase.
+      If the units have to be carried up by ladder, we charge a one-off {ladderFee} for the extra
+      carrying.
+    </>
+  ),
+  verdiepingenKop: "Number of floors",
+  verdiepingenSub:
+    "Ground floor = 0. We carry and install all units on the right floor.",
+  verdiepingMinder: "One floor fewer",
+  verdiepingMeer: "One floor more",
+  hoeBoven: "How do we get upstairs?",
+  viaTrap: "By the stairs",
+  viaLadder: "By ladder",
+  ladderEenmalig: (ladderFee) => `+ ${ladderFee} one-off`,
+  extraToestellenKop: "Extra units",
+  extraToestellenSub:
+    "More capacity means a shorter drying time. Our technician assesses it at delivery and you only pay for what you use.",
+  per2Weken: "per 2 weeks",
+  eenMinder: "One fewer",
+  eenMeer: "One more",
+  terug: "Back",
+  verderDatum: "Continue to date",
+
+  leveringKop: "Delivery & installation",
+  leveringSub: (lp) => (
+    <>
+      Packages are always delivered, installed and set up by us; that is the only way we can honour
+      the 100% drying guarantee. Collecting it yourself is only possible for{" "}
+      <Link to={lp("/verhuur/afhalen")} style={{ color: "var(--red)", fontWeight: 600 }}>
+        individual units
+      </Link>
+      , at a lower collection price.
+    </>
+  ),
+  leverdatumKop: "Choose your delivery date",
+  leverdatumSub:
+    "Choose a day in our diary. Based on the drying time of this package, we automatically schedule the collection too; you don't need to do anything.",
+  leverdatum: "Delivery date",
+  tijdslotLevering: "Delivery time slot",
+  huurperiodeVast: "Hire period (fixed per package)",
+  huurperiodeWaarde: (dagen) => `${dagen} days, included in the package price`,
+  datumVol: (datum, binnenHorizon, horizon) => (
+    <>
+      On <b>{datum}</b> our units for this package are already booked
+      {binnenHorizon ? `, and nothing comes free in the next ${horizon} days` : ""}
+      . Choose another day above, or call us on 03 689 90 65; we can often move things around.
+    </>
+  ),
+  datumVerschoven: (van, naar) => (
+    <>
+      On <b>{van}</b> our units for this package are already booked. We have therefore moved your
+      delivery date to the next free day: <b>{naar}</b>. You can still choose another day above.
+    </>
+  ),
+  planning: ({ start, slot, dagen, einde, droogtijd }) => (
+    <>
+      We deliver and install on <b>{start}</b> between <b>{slot}</b>. Your fixed hire period of{" "}
+      <b>{dagen} days</b> runs until <b>{einde}</b>; the collection is automatically scheduled for
+      that day, between <b>{slot}</b>. Expected drying time of this package: <b>{droogtijd} days</b>.
+    </>
+  ),
+  teKort: "Shorter than the expected drying time; you can extend later with one click.",
+  ophaaldatum: "Collection date (automatic)",
+  tijdslotOphaling: "Collection time slot",
+  verderGegevens: "Continue to your details",
+
+  gegevensKop: "Your details",
+  gegevensSub: "We use these to schedule the delivery and send you the confirmation.",
+  particulier: "Private customer",
+  professioneel: "Business",
+  naam: "First name and surname",
+  naamPlaceholder: "John Smith",
+  telefoon: "Phone",
+  email: "Email address",
+  emailPlaceholder: "john@example.be",
+  bedrijfsnaam: "Company name",
+  bedrijfPlaceholder: "Construction Ltd",
+  btwNummer: "VAT number",
+  adresWerf: "Site address",
+  adresPlaceholder: "Street and number",
+  postcode: "Postcode",
+  postcodePlaceholder: "2630",
+  gemeente: "Town",
+  gemeentePlaceholder: "Aartselaar",
+  betalenKop: "How would you like to pay?",
+  korting: "5% discount",
+  volledigOnline: "Pay in full online",
+  volledigOnlineUitleg:
+    "Pay now with Bancontact, card, Apple Pay or iDEAL. You get a 5% discount on your entire package and your invoice lands in your inbox straight away.",
+  uBespaart: (bedrag) => `You save ${bedrag}`,
+  voorschotKop: (bedrag) => `${bedrag} now, the rest on delivery`,
+  voorschotUitleg: (bedrag) =>
+    `Confirm your booking with ${bedrag}. You scan and pay the balance on site at delivery: Bancontact, card or Apple Pay.`,
+  factuurNaBetaling: "Invoice after payment in full",
+  akkoord:
+    "I agree to the terms and conditions and give Vernast permission to contact me about this booking.",
+  voorbereiden: "Preparing payment…",
+  naarBetaling: (bedrag) => `Go to payment · ${bedrag}`,
+
+  betaalKop: "Pay for your booking",
+  betaalSub: (bedrag) => (
+    <>
+      You pay <b>{bedrag}</b> with Apple Pay, Bancontact, card, iDEAL or Klarna. The payment is
+      processed securely via Stripe; we never see your card details.
+    </>
+  ),
+  vastgelegd: (datum, slot) => (
+    <>
+      Your delivery on <b>{datum}</b> between <b>{slot}</b> will be confirmed as soon as the payment
+      is confirmed.
+    </>
+  ),
+  terugGegevens: "Back to my details",
+
+  geduldKop: "One moment",
+  geduldSub: "We are confirming your payment. Please don't close this window.",
+  vastKop: "Your booking is confirmed",
+  vastSub: (voorschot) =>
+    `We will confirm your delivery by phone within one working day. If you paid in full online, your invoice is already in your inbox, with a 5% discount. If you chose the ${voorschot} confirmation, you pay the balance on delivery.`,
+  referentie: "Reference",
+  levering: "Delivery",
+  huurperiode: "Hire period",
+  tem: "to",
+  dagen: "days",
+  betaald: "Paid",
+  nogTeBetalen: "Still to pay on delivery",
+  naarHome: "Go to the homepage",
+
+  uwDroogpakket: "Your drying package",
+  uwPakket: "Your package",
+  pakketRegel: (toestellen, weken) => `Package · ${toestellen} units · ${weken} weeks`,
+  leveringRegel: "Delivery, installation & collection",
+  huurprijsExcl: "Hire price excl. VAT",
+  kortingOnline: "Online payment discount (5%)",
+  btw: "VAT 21%",
+  totaalIncl: "Total incl. VAT",
+  perWeek: (bedrag) => `${bedrag} per week incl. VAT`,
+  noot: "5% discount when paying online · cancellable daily",
+};
+
+export const BOEKING_COPY = { nl, fr, en } satisfies Copy<BoekingTeksten>;
 
 /**
  * Een regel uit `bookingSummary` in de taal van de pagina.
@@ -583,21 +795,50 @@ export const BOEKING_COPY = { nl, fr } satisfies Copy<BoekingTeksten>;
  * een regel die we niet herkennen blijft Nederlands staan in plaats van te
  * verdwijnen.
  */
+const REGEL_WOORDEN: Record<
+  Exclude<Taal, "nl">,
+  {
+    vast: Record<string, string>;
+    dekking: (naam: string) => string;
+    pomp: (aantal: string, dagen: string) => string;
+    extra: (naam: string, weken: string) => string;
+  }
+> = {
+  fr: {
+    vast: {
+      "Standaard dekking": "Couverture standard",
+      "Vochtmeting bij start & oplevering": "Mesure d'humidité au début & à la fin",
+      "Plaatsing verdieping via ladder": "Installation à l'étage par une échelle",
+      "Plaatsing op verdieping (trap)": "Installation à l'étage (escalier)",
+      "Zelf afhalen": "Enlèvement par vos soins",
+    },
+    dekking: (naam) => `Couverture ${naam}`,
+    pomp: (aantal, dagen) => `${aantal}× pompe à condensats · ${dagen} jours`,
+    extra: (naam, weken) => `${naam} · ${weken} sem.`,
+  },
+  en: {
+    vast: {
+      "Standaard dekking": "Standard cover",
+      "Vochtmeting bij start & oplevering": "Moisture reading at start & handover",
+      "Plaatsing verdieping via ladder": "Upper-floor installation by ladder",
+      "Plaatsing op verdieping (trap)": "Upper-floor installation (stairs)",
+      "Zelf afhalen": "Self-collection",
+    },
+    dekking: (naam) => `${naam} cover`,
+    pomp: (aantal, dagen) => `${aantal}× condensate pump · ${dagen} days`,
+    extra: (naam, weken) => `${naam} · ${weken} wk`,
+  },
+};
+
 export function regelInTaal(regel: string, taal: Taal): string {
-  if (taal !== "fr") return regel;
-  const vast: Record<string, string> = {
-    "Standaard dekking": "Couverture standard",
-    "Vochtmeting bij start & oplevering": "Mesure d'humidité au début & à la fin",
-    "Plaatsing verdieping via ladder": "Installation à l'étage par une échelle",
-    "Plaatsing op verdieping (trap)": "Installation à l'étage (escalier)",
-    "Zelf afhalen": "Enlèvement par vos soins",
-  };
-  if (vast[regel]) return vast[regel];
+  if (taal === "nl") return regel;
+  const w = REGEL_WOORDEN[taal];
+  if (w.vast[regel]) return w.vast[regel];
   const dekking = /^Dekking (.+)$/.exec(regel);
-  if (dekking) return `Couverture ${vertaalPortaal(dekking[1], taal)}`;
+  if (dekking) return w.dekking(vertaalPortaal(dekking[1], taal));
   const pomp = /^(\d+)× condenspomp · (\d+) dagen$/.exec(regel);
-  if (pomp) return `${pomp[1]}× pompe à condensats · ${pomp[2]} jours`;
+  if (pomp) return w.pomp(pomp[1], pomp[2]);
   const extra = /^(.+) · (\d+) wk$/.exec(regel);
-  if (extra) return `${vertaalPortaal(extra[1], taal)} · ${extra[2]} sem.`;
+  if (extra) return w.extra(vertaalPortaal(extra[1], taal), extra[2]);
   return vertaalPortaal(regel, taal);
 }
