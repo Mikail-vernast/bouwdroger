@@ -28,6 +28,8 @@ export interface RnTeksten {
   heroP: string;
   cta: string;
   heroAlt: string;
+  /** Stond hard in de pagina; in het Engels "RH" en zonder spatie voor "%". */
+  badgeTitel: string;
   badgeSub: string;
   trust: [string, string, string, string];
 
@@ -62,6 +64,8 @@ export interface RnTeksten {
   /** De chips; de prijs van het meetrapport komt uit de catalogus. */
   rvChips: (rapport: string) => string[];
   meterTitel: string;
+  /** De eenheid achter "40 – 60" in de meter. */
+  meterEenheid: string;
   meterTeDroog: string;
   meterSchimmel: string;
   meterUitleg: string;
@@ -123,6 +127,7 @@ export const RN_COPY = {
       "Muffe geur, donkere plekken onderaan de muur, schimmel in de hoek: vocht trekt niet weg omdat u het raam openzet. Een bouwdroger haalt het uit de lucht en daarmee uit muren en vloeren. En als er een blijvende oorzaak achter zit, leest u hieronder eerlijk welke dat is en in welke volgorde u ze aanpakt.",
     cta: "Bereken uw droogpakket",
     heroAlt: "Ontvochtiger in een vochtige kelder tijdens een renovatie",
+    badgeTitel: "40 à 60 % RV",
     badgeSub: "de richtwaarde waar we naartoe drogen",
     trust: ["Vochtmeting voor én na", "Binnen 24 uur geleverd", "Levering en plaatsing inbegrepen", "Advies vóór u huurt"],
 
@@ -218,6 +223,7 @@ export const RN_COPY = {
     /* Het Nederlands blijft zoals het altijd stond; `rapport` wordt hier niet gebruikt. */
     rvChips: () => ["Hygrometer vanaf € 15", "Meting voor én na inbegrepen", "Meetrapport € 49"],
     meterTitel: "Relatieve luchtvochtigheid",
+    meterEenheid: "% RV",
     meterTeDroog: "20 % · te droog",
     meterSchimmel: "80 % · schimmel",
     meterUitleg:
@@ -386,6 +392,7 @@ export const RN_COPY = {
       "Odeur de moisi, taches sombres au bas du mur, moisissures dans le coin : l’humidité ne part pas parce que vous ouvrez la fenêtre. Un déshumidificateur de chantier la retire de l’air, et donc des murs et des sols. Et si une cause durable se cache derrière, vous lisez ci-dessous, en toute franchise, laquelle et dans quel ordre vous y attaquer.",
     cta: "Calculez votre pack de séchage",
     heroAlt: "Déshumidificateur dans une cave humide pendant une rénovation",
+    badgeTitel: "40 à 60 % RV",
     badgeSub: "la valeur cible vers laquelle nous séchons",
     trust: [
       "Mesure d’humidité avant et après",
@@ -490,6 +497,7 @@ export const RN_COPY = {
       `Rapport de mesure ${rapport}`,
     ],
     meterTitel: "Humidité relative",
+    meterEenheid: "% RV",
     meterTeDroog: "20 % · trop sec",
     meterSchimmel: "80 % · moisissures",
     meterUitleg:
@@ -660,5 +668,273 @@ export const RN_COPY = {
     ],
     contactPlaceholder:
       "P. ex. cave de 25 m², odeur de moisi et taches sombres au bas du mur, surtout en hiver.",
+  },
+
+  en: {
+    schemaNaam: "Basement and renovation drying",
+    schemaBeschrijving:
+      "Drying damp basements, walls and renovation spaces with dehumidifiers and site heaters, including moisture readings before and after.",
+    schemaType: "Construction drying",
+    kruimelHome: "Home",
+    kruimelPagina: "Renovation",
+
+    heroKick: "Renovation & damp basements",
+    h1: "Drying a damp basement or wet walls, and keeping them dry.",
+    heroP:
+      "A musty smell, dark patches at the bottom of the wall, mould in the corner: damp doesn't go away because you open the window. A construction dehumidifier takes it out of the air, and with it out of walls and floors. And if there is a lasting cause behind it, you can read below, honestly, which one it is and in what order to tackle it.",
+    cta: "Calculate your drying package",
+    heroAlt: "Dehumidifier in a damp basement during a renovation",
+    badgeTitel: "40–60% RH",
+    badgeSub: "the target level we dry towards",
+    trust: ["Moisture reading before and after", "Delivered within 24 hours", "Delivery and installation included", "Advice before you hire"],
+
+    gevarenKick: "Why it's urgent",
+    gevarenH2: "Damp doesn't wait until you have time.",
+    gevarenLede:
+      "A damp room doesn't slowly get a little worse. Mould doubles in days, wet timber and wet insulation are damaged beyond repair, and what starts as a smell ends up as an item in a deed of sale.",
+    gevaren: [
+      {
+        title: "Mould spores in the air",
+        desc: "The mould you can see is only part of it; the spores hang in the air you breathe. They cause respiratory complaints, headaches and allergic reactions, and are most troublesome for children, older people and people with asthma.",
+      },
+      {
+        title: "Damage to the structure",
+        desc: "Damp attacks masonry, timber beams, skirting boards and insulation. Insulation that has been wet no longer insulates, and timber that stays damp for months rots from the inside, exactly where you can't get at it.",
+      },
+      {
+        title: "A home that's worth less",
+        desc: "Visible damp patches, a musty basement or a damp survey that raises questions: every buyer knocks it off the price. Drying costs a fraction of what the price negotiation will cost you.",
+      },
+    ],
+
+    checkKick: "Does this sound familiar?",
+    checkH2: "Five signs that drying makes sense.",
+    checkP1:
+      "One of these five is enough to have it measured. With two or more it's rarely a coincidence: there is moisture somewhere that can't get out. Call us and we'll go through your situation before you hire anything, even if the answer is that you don't need anything from us.",
+    checkP2: (lp) => (
+      <>
+        Not sure which machine suits your volume? The{" "}
+        <Link to={lp("/verhuur/calculator")}>drying calculator</Link> works it out from floor area and
+        ceiling height, and <Link to={lp("/hoe-drogen-werkt")}>how drying works</Link> explains why
+        the combination of heat, air movement and dehumidification does the job.
+      </>
+    ),
+    checklist: [
+      "A musty, cellar-like smell that won't go away",
+      "Dark damp patches on walls or ceiling",
+      "Black or green mould spots, often in corners",
+      "Condensation on windows, cold walls or pipes",
+      "Damp after building work, a leak or a flood",
+    ],
+    checkFoot: "Recognise one or more of these? One phone call is all it takes for advice.",
+    belOns: "Call us",
+
+    oorzKick: "Cause or symptom",
+    oorzH2: "A construction dehumidifier removes damp. Not always the reason it's there.",
+    oorzLede:
+      "A construction dehumidifier takes moisture out of the air, and with it out of walls and floors. If that moisture keeps coming back in, you are drying against the tide: you're hiring a machine that works only while it's there. So first look at where it comes from. For three of these five causes, drying is the answer; for two, something else comes first.",
+    doorsnedeGrond: "Ground",
+    doorsnedeKelder: "Basement",
+    doorsnedeBijschrift:
+      "Cross-section of a basement wall: the ground on the left, the room with the dehumidifier on the right. The numbered spots are the five places where moisture gets in, and match the five causes in the list.",
+    oorzaken: [
+      {
+        title: "Condensation",
+        desc: "Warm, humid air condenses on cold walls, floors and windows. Typical in basements and poorly ventilated rooms, especially in winter. A construction dehumidifier brings the humidity down; a lasting fix needs better ventilation or insulation.",
+      },
+      {
+        title: "Construction moisture after renovation",
+        desc: "New plasterwork, screed or masonry brings hundreds of litres of water into a space that is often poorly ventilated. That is exactly what a construction dehumidifier is made for.",
+      },
+      {
+        title: "After a leak or water damage",
+        desc: "Once the leak is repaired, a construction dehumidifier with a fan dries out the walls and floor again. As long as the leak remains, the damp keeps coming back.",
+      },
+      {
+        title: "Rising damp",
+        desc: "Groundwater drawn up through the masonry: damp patches and salt deposits at the bottom of the wall, up to a metre high or more. A construction dehumidifier dries the surface, but the damp keeps rising as long as the wall isn't treated.",
+      },
+      {
+        title: "Penetrating damp",
+        desc: "Rain or groundwater pushing through a façade or a basement wall, often visible after a spell of rain. Here too, drying is only temporary: the wall or basement wall has to be made watertight.",
+      },
+    ],
+    helptJa: "A dehumidifier helps",
+    helptNee: "Cause first",
+    oorzNote: (
+      <>
+        <b>Is the cause in the wall itself?</b> Rising damp, a leaking basement wall or a basement
+        that needs waterproofing: for that you can turn to{" "}
+        <a href="https://vernast-vochtbestrijding.be/">Vernast Vochtbestrijding</a>, our sister
+        company. Once the cause is gone, a construction dehumidifier dries the residual moisture out
+        of the wall, in that order and not the other way round.
+      </>
+    ),
+
+    rvKick: "The target level",
+    rvH2: "Aim for 40 to 60% relative humidity.",
+    rvP1:
+      "Relative humidity tells you how much moisture the air holds compared with the maximum it can carry at that temperature. For a home, 40 to 60% is the guideline. If it stays higher for long, mould gets a chance, especially on cold walls. Well below that, the air becomes unpleasantly dry.",
+    rvP2:
+      "In a basement, temperature plays a part: cold air becomes saturated sooner, and a cold wall draws moisture towards it. That's why a basement can smell musty while the rest of the house is fine. Our dehumidifiers have a built-in humidistat: they throttle back as soon as the set target is reached, instead of running on until the air is bone dry.",
+    rvChips: (rapport) => [
+      "Hygrometer from €15",
+      "Reading before and after included",
+      `Measurement report ${rapport}`,
+    ],
+    meterTitel: "Relative humidity",
+    meterEenheid: "% RH",
+    meterTeDroog: "20% · too dry",
+    meterSchimmel: "80% · mould",
+    meterUitleg:
+      "Below 40% the air becomes uncomfortable and wood shrinks. Above 60% mould starts on a cold wall. In between is the zone we dry a basement towards, and where you keep it afterwards.",
+
+    schimmelAlt: "Mould growth on a damp interior wall",
+    schimmelKick: "In this order",
+    schimmelH2: "Dry first, then remove the mould.",
+    schimmelP1:
+      "Mould needs moisture. Drying takes away its breeding ground, so it stops growing. But the mould that is already there doesn't disappear with it. You need to remove it after drying, and for large areas it's better to have that done professionally.",
+    schimmelP2: (lp) => (
+      <>
+        Do it in that order. Treating mould on a wet wall makes little sense: the mould comes back as
+        long as the damp remains, and you'll have paid twice for the same work. For a stubborn case
+        or a musty smell that lingers after drying, there is one more step: an{" "}
+        <Link to={lp("/ozonbehandeling")}>ozone treatment</Link> tackles the spores and the smell in
+        the room itself.
+      </>
+    ),
+
+    stapKick: "Step by step",
+    stapH2: "Drying a damp basement: how to go about it.",
+    stapLede: "Six steps, in this order. Skip step two and you'll be repeating step four every year.",
+    stap: "Step",
+    kelderStappen: [
+      {
+        title: "Measure first",
+        desc: "A simple hygrometer shows the relative humidity and the temperature. Note them down for a few days, so you know your starting point and can show afterwards that it worked.",
+      },
+      {
+        title: "Find the cause",
+        desc: "Condensation, a leak, or moisture from outside? See the five causes above. With rising or penetrating damp, have the wall treated first.",
+      },
+      {
+        title: "Make space",
+        desc: "Move boxes, cupboards and textiles away from the walls. Behind a cupboard against a cold wall is always the dampest spot, and that's where mould starts.",
+      },
+      {
+        title: "Place the dehumidifier centrally",
+        desc: "In the middle of the room, doors and basement windows shut: you're drying the basement, not the garden. With a condensate hose to a drain, you don't have to empty a tank.",
+      },
+      {
+        title: "Heat below 15 °C",
+        desc: "A cold basement dries slowly with a condensation dehumidifier: cold air simply holds less moisture. A site heater brings the temperature up, or you choose a desiccant dehumidifier.",
+      },
+      {
+        title: "Keep it dry afterwards",
+        desc: "Once the room is dry, ventilate regularly and keep an eye on the humidity. Otherwise you'll be back where you started in a few months.",
+      },
+    ],
+
+    pakKick: "Which machine",
+    pakH2: "Three dehumidifiers, one for each volume.",
+    pakLede:
+      "Not the heaviest machine, but the one that suits your room. A dehumidifier that's too big for a small basement doesn't dry any faster; it just uses more electricity.",
+
+    refKick: "From the field",
+    refH2: "Basements we got dry.",
+    refLede:
+      "Three sites with their readings, their duration and the machines that were there. If one looks like your situation, you'll know straight away what to expect.",
+
+    tipsKick: "After collection",
+    tipsH2: "Deal with damp for good, not again every year.",
+    tipsLede:
+      "The dehumidifier goes back with us. What happens next decides whether you'll be calling us again in a year. Three things that make the difference.",
+    tips: [
+      {
+        title: "Find the cause",
+        desc: "A construction dehumidifier solves the symptom. Have the cause investigated, or you'll be drying the same wall every year.",
+      },
+      {
+        title: "Ventilate every day",
+        desc: "Ten minutes of cross-ventilation does more than a window left ajar all day. Especially in a basement or storeroom.",
+      },
+      {
+        title: "Keep an eye on the hygrometer",
+        desc: "If the humidity stays above 60%, the damp is coming back. You'll see it on the meter before you see it on the wall.",
+      },
+    ],
+
+    faqTitel: "What customers with a damp basement ask us.",
+    faqs: [
+      { q: "How long does it take to dry a damp basement?", a: "Depending on the situation, 2 to 6 weeks. Our moisture reading confirms when it's done." },
+      { q: "Does a construction dehumidifier work for condensation problems?", a: "Yes, especially combined with good ventilation." },
+      {
+        q: "Does a construction dehumidifier help against rising damp?",
+        a: "Not permanently. A construction dehumidifier dries the air and the surface of the wall, but groundwater keeps rising through the masonry as long as the wall hasn't been treated. Have the cause dealt with first, for example with a damp-proof injection; after that, a construction dehumidifier dries the residual moisture out of the wall.",
+      },
+      {
+        q: "What is a good humidity level in the home?",
+        a: "As a guideline, keep the relative humidity between 40 and 60%. If it stays above that for long, especially in a cold basement, mould gets a chance. Well below that, the air becomes unpleasantly dry. A simple hygrometer shows where you stand.",
+      },
+      {
+        q: "How do I know whether the damp comes from condensation or from outside?",
+        a: "Condensation is mainly found in the coldest spots: corners, behind cupboards, around windows. It gets worse in winter and with little ventilation. Rising damp shows at the bottom of the wall, often with salt deposits. Penetrating damp appears after rain, on the façade or ground side. If in doubt, have it looked at on site.",
+      },
+      {
+        q: "Does a construction dehumidifier get rid of mould?",
+        a: "No. Drying takes away the breeding ground so mould stops growing, but you still have to remove the mould itself. For large areas or mould that keeps coming back, professional mould removal is the safe choice.",
+      },
+      { q: "Is a construction dehumidifier safe around children and pets?", a: "Yes, completely safe. Keep an eye on the water container every day." },
+    ],
+
+    verderTitel: "Further reading on damp basements",
+    verderLezen: (lp) => [
+      {
+        kop: "Machines for basements and damp rooms",
+        links: [
+          { to: lp(toestelPad("ttk170")), toestel: "ttk170", label: "Boost", sub: "Compact, for one room or a small basement." },
+          { to: lp(toestelPad("ttk650")), toestel: "ttk650", label: "Ultimate", sub: "For large basements and a lot of moisture." },
+          { to: lp(toestelPad("teddh20")), toestel: "teddh20", label: "Site heater for a cold basement or garage", sub: "Brings the room up to working temperature." },
+        ],
+      },
+      {
+        kop: "Understand first, then hire",
+        links: [
+          { to: lp("/hoe-drogen-werkt"), label: "How drying works: heat, air and dehumidification" },
+          { to: lp("/gids/condensdroger-of-adsorptiedroger"), label: "Guide: condensation or desiccant dehumidifier in a cold basement?" },
+          { to: lp("/gids/stroomverbruik-bouwdroger"), label: "Guide: how much electricity does a construction dehumidifier use?" },
+          { to: lp("/waarom-bouwdroging"), label: "Why dry your building rather than just wait" },
+          { to: lp("/ozonbehandeling"), label: "A musty smell that lingers: ozone treatment" },
+        ],
+      },
+      {
+        kop: "Planning and further reading",
+        links: [
+          { to: lp("/verhuur/calculator"), label: "Calculate a drying package by floor area" },
+          { to: lp("/waterschade"), label: "Flooded basement? Drying water damage" },
+          { to: lp("/bouwdroger-huren-west-vlaanderen"), label: "Dehumidifier hire in West Flanders" },
+          { to: lp("/bouwdroger-huren-antwerpen"), label: "Dehumidifier hire in the province of Antwerp" },
+        ],
+      },
+    ],
+    slotKick: "Tackle it now",
+    slotH3: "The longer the damp stays, the more there is to dry out.",
+    slotP:
+      "Have your situation assessed before you hire anything. We measure, work out the package and deliver within 24 hours. And if drying isn't the answer, we'll tell you that too.",
+    slotAlt: "Vernast specialist measuring the moisture content of a wall",
+
+    contactKicker: "A question about your basement?",
+    contactTitel: "Not sure whether drying is the solution for you?",
+    contactLede:
+      "Describe what you see and smell, and we'll tell you what the likely cause is and whether a construction dehumidifier will help. Even if the answer is that you don't need anything from us.",
+    contactOnderwerpen: [
+      "Damp basement or storeroom",
+      "Mould on walls or ceiling",
+      "Damp after building work",
+      "Rising or penetrating damp",
+      "Something else",
+    ],
+    contactPlaceholder:
+      "E.g. 25 m² basement, musty smell and dark patches at the bottom of the wall, mostly in winter.",
   },
 } satisfies Copy<RnTeksten>;

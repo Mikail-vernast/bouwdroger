@@ -40,7 +40,7 @@ import "@/styles/renovatie.css";
 import { EXTRAS } from "@/data/verhuur";
 import { RN_COPY } from "./RenovatiePage.copy";
 
-/** Het ondertekende meetrapport, voor de Franse chip; zie RenovatiePage.copy.tsx. */
+/** Het ondertekende meetrapport, voor de Franse en Engelse chip; zie RenovatiePage.copy.tsx. */
 const RAPPORT = EXTRAS.find((x) => x.k === "rapport");
 
 /**
@@ -175,8 +175,8 @@ const RenovatiePage = () => {
   const t = useCopy(RN_COPY);
   const lp = useLokaalPad();
   const toon = useToonBedrag();
-  /* Alleen het Frans leest de rapportprijs uit de catalogus; het Nederlands
-     houdt zijn chips zoals ze stonden. */
+  /* Alleen het Frans en het Engels lezen de rapportprijs uit de catalogus; het
+     Nederlands houdt zijn chips zoals ze stonden. */
   const rapportBedrag = RAPPORT ? toon(RAPPORT.price) : null;
   const rvChips = t.rvChips(
     taal !== "nl" && rapportBedrag ? `${rapportBedrag.tekst} ${rapportBedrag.label}` : "",
@@ -250,7 +250,7 @@ const RenovatiePage = () => {
             <div className="fbadge rd" style={{ bottom: "60px", left: "-6%" }}>
               <span className="ic"><DropIcon size={15} /></span>
               <div>
-                40 à 60 % RV
+                {t.badgeTitel}
                 <small>{t.badgeSub}</small>
               </div>
             </div>
@@ -386,7 +386,7 @@ const RenovatiePage = () => {
               streefzone, zodat de meter toont wat drogen met hem doet. */}
           <div className="meter wandelt">
             <div className="t">{t.meterTitel}</div>
-            <div className="big">40 – 60<small>% RV</small></div>
+            <div className="big">40 – 60<small>{t.meterEenheid}</small></div>
             <div className="scale" style={{ "--at": "50%" } as React.CSSProperties}>
               <b />
             </div>
