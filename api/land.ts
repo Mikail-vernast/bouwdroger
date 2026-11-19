@@ -9,7 +9,7 @@
  * wijzigen. Onder `vite dev` bestaat deze route niet; de popup valt dan terug
  * op België.
  */
-export function GET(request: Request): Response {
+export async function GET(request: Request): Promise<Response> {
   const ruw =
     request.headers.get("cf-ipcountry") ?? request.headers.get("x-vercel-ip-country") ?? "";
   // "XX" en "T1" (Tor) zijn Cloudflares codes voor "onbekend"; die laten we leeg.
