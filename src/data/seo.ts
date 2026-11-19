@@ -273,8 +273,9 @@ export const SEO = {
 export type SeoSleutel = keyof typeof SEO;
 
 /**
- * Titel en beschrijving in de taal van de pagina. Franse teksten staan in
- * `seo.fr.ts`, met dezelfde sleutels en dezelfde lengterichtlijn. Ontbreekt
+ * Titel en beschrijving in de taal van de pagina. Franse en Engelse teksten
+ * staan in `seo.fr.ts` en `seo.en.ts`, met dezelfde sleutels en dezelfde
+ * lengterichtlijn. Ontbreekt
  * een sleutel daar, dan valt hij terug op het Nederlands — `audit-seo.mjs`
  * vangt dat op als dubbele titel tussen twee talen.
  *
