@@ -40,7 +40,7 @@ const ONTSCHIMMELD = ["ja", "nee", "weet_niet"] as const;
 /*
   Alleen wat de bezoeker ziet is vertaald. De `value`s hierboven gaan
   onvertaald naar `api/ozon.ts`, dat er het Nederlandse label voor het portaal
-  bij zoekt: een Franse aanvraag komt bij het team dus in dezelfde woorden binnen.
+  bij zoekt: een Franse of Engelse aanvraag komt bij het team dus in dezelfde woorden binnen.
 */
 interface FormTekst {
   situaties: Record<(typeof SITUATIES)[number], string>;
@@ -211,6 +211,68 @@ const COPY = {
     dringend: "Urgent ? Appelez le",
     bijlagenNiet: (namen) =>
       `Ces pièces jointes n'ont pas pu être envoyées\u00a0: ${namen}. N'hésitez pas à les envoyer par e-mail à`,
+  },
+  en: {
+    situaties: {
+      schimmel: "Mould: ozone after mould removal",
+      geur: "Stubborn odour (damp, smoke, pets, fire)",
+      huisstofmijt: "Dust mites or allergy",
+      waterschade: "Disinfection after water damage",
+      overdracht: "Freshening up before letting or selling",
+      advies: "I'm not sure yet, I'd like advice",
+    },
+    termijnen: {
+      zo_snel_mogelijk: "As soon as possible",
+      deze_week: "This week",
+      binnen_twee_weken: "Within two weeks",
+      later: "Later or still to be decided",
+    },
+    ontschimmeld: {
+      ja: "Yes, the visible mould has gone",
+      nee: "No, the mould is still there",
+      weet_niet: "Don't know / not applicable",
+    },
+    verstuurStandaard: "Request my ozone treatment",
+    /* Zelfde reden als in het Frans: de server antwoordt in het Nederlands. */
+    serverFout: "Sending failed. Please check your details, try again or call 03 689 90 65.",
+    foutAlgemeen: "Sending failed. Please try again or call 03 689 90 65.",
+    foutVerbinding: "Sending failed. Please check your connection and try again.",
+    stap1: "1. Your details",
+    stap2: "2. Your situation",
+    voornaam: "First name",
+    achternaam: "Surname",
+    telefoon: "Phone",
+    email: "Email",
+    emailPh: "name@example.be",
+    straat: "Street",
+    straatPh: "Street name",
+    nr: "No. / box",
+    postcode: "Postcode",
+    gemeente: "Town",
+    gemeentePh: "E.g. Aartselaar",
+    volgende: "Next: your situation",
+    vraagSituatie: "What do you need an ozone treatment for?",
+    vraagTermijn: "When can it take place?",
+    vraagOntschimmeld: "Has the mould already been removed?",
+    vraagRuimtes: "Which rooms, and roughly how big?",
+    ruimtesPh: "E.g. cellar 30 m² + bedroom 14 m², ceiling 2.4 m",
+    ruimtesHint: "The volume determines the ozone output and the duration. An estimate is fine.",
+    uwSituatie: "Your situation",
+    berichtPh:
+      "E.g. musty smell in the cellar since the water damage in October, the wall has been treated and is dry, the smell remains.",
+    fotos: "Add photos of the mould or the room",
+    fotosSub: "One photo often says more than three sentences (jpg, png, webp or pdf)",
+    verwijder: "Remove",
+    nietToegevoegd: (namen) =>
+      `Not added: ${namen}. Only jpg, png, webp, pdf or Word; photos up to 30 MB, documents up to 10 MB.`,
+    terug: "← Back",
+    versturen: "Sending…",
+    privacy: "We only use your details to schedule your treatment.",
+    klaarTitel: "Your request has been sent.",
+    klaarTekst:
+      "Thank you! A specialist will call you within one working day to schedule the treatment and tell you honestly whether ozone is the right solution in your situation.",
+    dringend: "Urgent? Call",
+    bijlagenNiet: (namen) => `These attachments could not be sent: ${namen}. Feel free to email them to`,
   },
 } satisfies Copy<FormTekst>;
 

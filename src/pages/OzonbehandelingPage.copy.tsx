@@ -12,6 +12,21 @@ import type { Copy } from "@/i18n/useTaal";
  */
 type Lp = (nlPad: string) => string;
 
+/*
+  De reviewdatums staan in reviews.ts als Nederlandse afkorting ("okt 2023").
+  Op een Engelse pagina is "mrt 2025" een raadsel; de beoordeling zelf blijft
+  letterlijk (en dus Nederlands), alleen de maand wordt vertaald. Frans laat de
+  datum staan zoals hij altijd stond.
+*/
+const MAAND_EN: Record<string, string> = {
+  jan: "Jan", feb: "Feb", mrt: "Mar", apr: "Apr", mei: "May", jun: "Jun",
+  jul: "Jul", aug: "Aug", sep: "Sep", okt: "Oct", nov: "Nov", dec: "Dec",
+};
+export function reviewDatumEn(datum: string): string {
+  const [maand, jaar] = datum.split(" ");
+  return MAAND_EN[maand] ? `${MAAND_EN[maand]} ${jaar}` : datum;
+}
+
 interface Kaart {
   title: string;
   text: string;
@@ -79,6 +94,7 @@ export interface OzonTekst {
   reviewH2: string;
   reviewLede: string;
   sterren: (n: number) => string;
+  datum: (datum: string) => string;
   faqKick: string;
   faqH2: string;
   faqHelpH3: string;
@@ -287,6 +303,7 @@ export const OZON_COPY = {
     reviewLede:
       "Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over snelheid, opvolging en afspraken nakomen, want dat is wat een behandeling bij u thuis vraagt.",
     sterren: (n) => `${n} van 5 sterren`,
+    datum: (d) => d,
     faqKick: "Veelgestelde vragen",
     faqH2: "Uw vragen over ozonbehandeling.",
     faqHelpH3: "Staat uw vraag er niet bij?",
@@ -504,6 +521,7 @@ export const OZON_COPY = {
     reviewLede:
       "Avis sur Vernast publiés sur Google et Solvari, repris tels quels (en néerlandais). Sur la rapidité, le suivi et le respect des engagements, car c'est ce que demande un traitement chez vous.",
     sterren: (n) => `${n} étoiles sur 5`,
+    datum: (d) => d,
     faqKick: "Questions fréquentes",
     faqH2: "Vos questions sur le traitement à l'ozone.",
     faqHelpH3: "Votre question n'y figure pas ?",
@@ -522,5 +540,218 @@ export const OZON_COPY = {
     ],
     liever: "Vous préférez appeler tout de suite ?",
     uren: (u) => u.replace("Mo-Fr", "lun–ven").replace(" 08:00-17:00", ", 8 h–17 h"),
+  },
+  en: {
+    faq: [
+      {
+        question: "Why does my mould keep coming back after cleaning?",
+        answer:
+          "Because surface cleaning only removes the visible mould. The microscopic spores stay behind in cracks, joints, fabrics and in the air, and settle again as soon as conditions are right. An ozone treatment kills those remaining spores throughout the room. Important: always deal with the cause of the damp first and dry the structure, otherwise the mould will come back regardless.",
+      },
+      {
+        question: "Is an ozone treatment safe?",
+        answer:
+          "Yes, provided it is carried out by professionals. During the treatment nobody may be in the room, no people, pets or plants: ozone is powerful precisely because it is reactive. After the treatment it breaks down by itself into ordinary oxygen and a short airing is enough. The room is then safe to use again and no chemical residues are left on surfaces or in fabrics.",
+      },
+      {
+        question: "Does ozone replace drying my home?",
+        answer:
+          "No. Ozone is the finishing step: it clears up the existing contamination, but does not solve the cause. If the wall or the screed stays damp, the mould comes back. That is why we first dry the structure with construction dehumidifiers until a moisture reading confirms it, and use ozone as the final step.",
+      },
+      {
+        question: "What else do you use ozone for?",
+        answer:
+          "Besides mould, we use ozone against dust mites in mattresses, carpets and fabrics, against stubborn odours from damp, smoke, pets or fire, to disinfect cellars and crawl spaces, after water damage, and to make a home fresh and odour-free before it is let or sold.",
+      },
+      {
+        question: "Which equipment do you use?",
+        answer:
+          "We work with professional German-made ozone generators, not hobby units. They deliver a high, adjustable ozone output that we match to the volume of the room, so the treatment is thorough and controlled. They are always operated by our technicians, with the necessary safety measures.",
+      },
+      {
+        question: "How long does it take and can I go back in straight away?",
+        answer:
+          "A treatment usually takes a few hours, depending on the volume of the room. While it runs, the room is unoccupied and closed off. Afterwards we air it briefly; as soon as the levels are safe, the room can be used normally again. Our technician will tell you on site how long that is in your situation.",
+      },
+    ],
+    inzet: [
+      {
+        title: "Mould & spores",
+        text: "After mould removal: the spores left behind in the air, joints and fabrics are killed, so the mould gets no chance to restart.",
+      },
+      {
+        title: "Dust mites",
+        text: "Ozone tackles dust mites in mattresses, carpets and fabrics. A relief for allergy sufferers who don't know where it comes from.",
+      },
+      {
+        title: "Stubborn odours",
+        text: "Smells of damp, smoke, pets or fire are neutralised at molecular level. Not covered up with a fragrance, but broken down.",
+      },
+      {
+        title: "Cellars & crawl spaces",
+        text: "Damp, poorly ventilated spaces where mould and stale air take hold, and where a brush can't reach everywhere.",
+      },
+      {
+        title: "After water damage",
+        text: "After a leak or a flood: disinfecting the room and removing the damp smell that lingers after drying.",
+      },
+      {
+        title: "Before letting or selling",
+        text: "A fresh, disinfected and odour-free home at handover. No musty first impression at a viewing or an inventory check.",
+      },
+    ],
+    techniek: [
+      ["Origin", "German-made"],
+      ["Output", "High ozone output"],
+      ["Control", "Timer & output"],
+      ["Operation", "Unoccupied, by our technician"],
+    ],
+    schemaNaam: "Ozone treatment and mould removal",
+    schemaBeschrijving:
+      "Professional ozone treatment against mould spores, dust mites and stubborn odours, as the final step after drying a room and removing the mould.",
+    schemaType: "Mould removal",
+    kruimelHome: "Home",
+    kruimel: "Ozone treatment",
+    heroKick: "Mould removal · mould & odour",
+    h1: "Scrubbed the mould off and it still came back? Then it goes deeper than the wall.",
+    heroTekst:
+      "An ozone treatment spreads active oxygen (O₃) into every crack of the room, kills mould spores, bacteria and dust mites, and breaks down the musty damp smell, even where brush and paint can't reach.",
+    heroCta: "Book your ozone treatment",
+    heroUsp: ["Carried out by our own technicians", "No chemical residues", "Throughout Flanders"],
+    herkenKick: "Sound familiar?",
+    herkenH2: "You removed the mould, and still it comes back.",
+    herkenLede:
+      "That is rarely down to how thoroughly you scrubbed. Mould works through spores, and they sit in places a cloth never reaches.",
+    herkenKaarten: [
+      {
+        title: "Spores stay behind",
+        text: "Mould reproduces through microscopic spores lodged in cracks, joints and pores. What you wipe away is only the tip.",
+      },
+      {
+        title: "The room stays contaminated",
+        text: "Spores also float in the air and settle again elsewhere. You clean one wall, but the room remains a breeding ground.",
+      },
+      {
+        title: "The smell keeps coming back",
+        text: "The musty smell of mould is trapped in materials and fabrics. Airing and painting mask it for a while, then it's back.",
+      },
+    ],
+    noot: (lp) => (
+      <>
+        <b>Dry first, then ozone.</b> Ozone kills what is there and breaks the cycle, but without a
+        dry structure the mould comes back. If there is still moisture in the wall or screed, we dry
+        first, with{" "}
+        <Link to={lp("/verhuur/calculator")}>a calculated drying package</Link>, confirmed by a
+        moisture reading. Only then does a treatment make sense.
+      </>
+    ),
+    watKick: "What is ozone?",
+    watH2: "Oxygen with an extra atom.",
+    watLede:
+      "The air you breathe is O₂: oxygen with two atoms. Ozone is O₃, with a third, loosely bound atom. It is exactly that extra atom that makes ozone so powerful.",
+    watBody: (
+      <>
+        That third atom lets go easily and attacks mould spores, bacteria and odour molecules.
+        Ozone then breaks down by itself into ordinary oxygen, <b>without residue</b>. And because
+        it is a gas, it spreads by itself into every corner of the room.
+      </>
+    ),
+    molO2: "Ordinary air, stable",
+    molEnergie: "+ energy",
+    molO3: "Reactive, short-lived, powerful",
+    hoeKick: "How does it work?",
+    hoeH2: "A gas that gets everywhere you can't.",
+    hoeLede:
+      "An ozone generator converts the oxygen in the room into ozone. Because it is a gas, it spreads by itself: into cracks, joints, behind furniture, into fabrics and the ventilation duct, places you never reach with a brush.",
+    stageLabel: "Mouldy wall with animation: active oxygen breaks down mould spores",
+    legO3: "active oxygen",
+    legSpore: "mould spore",
+    hoeNa:
+      "During the treatment the room is unoccupied. Afterwards the ozone breaks down by itself into ordinary oxygen, and after a short airing the room is safe to use again. No chemical residues are left on surfaces or in fabrics.",
+    cirkelKick: "Breaking the cycle",
+    cirkelH2: "Why ozone comes after drying and mould removal.",
+    cirkelLede:
+      "Mould removal takes away the visible mould. Ozone clears up what is left, so the mould gets no chance to restart.",
+    stap1Titel: "Dry and remove the mould first",
+    stap1: (lp) => (
+      <>
+        The structure dries until a moisture reading confirms it and the visible mould is removed. See{" "}
+        <Link to={lp("/ontschimmeling")}>mould removal</Link>. The surface looks clean again.
+      </>
+    ),
+    stap2Titel: "Ozone clears up the rest",
+    stap2:
+      "The treatment kills the remaining spores in the air, in cracks and in fabrics, throughout the room, not just on the wall.",
+    stap3Titel: "No recontamination",
+    stap3:
+      "Without living spores that can settle again, the room stays free of mould and odour for a long time, provided it stays dry.",
+    bandKick: "Where drying stops",
+    bandH3: "Measure first, then dry, then ozone.",
+    band: (lp) => (
+      <>
+        We are drying specialists first and foremost. That is why we first check whether the
+        moisture has really gone: after <Link to={lp("/waterschade")}>water damage</Link> or in a{" "}
+        <Link to={lp("/renovatie")}>damp cellar</Link> that is half the job. Only when the reading
+        says dry is ozone the final step that removes the smell and the spores.
+      </>
+    ),
+    bandCta: "Request your treatment",
+    bandAlt: "Vernast specialist in a protective suit during an ozone treatment",
+    inzetKick: "What do we use it for?",
+    inzetH2: "More than just mould.",
+    inzetLede:
+      "Because ozone tackles microbes and odour molecules alike, we use it in a wide range of situations, always in addition to a healthy, dry room.",
+    techKick: "Our equipment",
+    techH2: "Professional German ozone generators.",
+    techLede:
+      "We work with powerful, professional German-made ozone generators, not hobby units. They produce a high, adjustable ozone output, matched to the volume of the room, so the treatment is thorough and controlled.",
+    techBody:
+      "They are always operated by our own technicians, with the necessary safety measures. While the generator is running, people and pets must stay out of the room.",
+    veiligKick: "Safe & responsible",
+    veiligH2: "Powerful during, harmless after.",
+    veiligLede:
+      "Ozone is so powerful precisely because it is reactive. That is why a treatment belongs in professional hands, and we follow a fixed protocol.",
+    veiligKaarten: [
+      {
+        title: "Unoccupied treatment",
+        text: "While it runs, the room is closed off: no people, no pets, no plants. We keep an eye on the timing.",
+      },
+      {
+        title: "Breaks down to oxygen",
+        text: "After the treatment, ozone breaks down by itself into ordinary oxygen (O₂). No chemical residues on surfaces or fabrics.",
+      },
+      {
+        title: "Short airing",
+        text: "Afterwards we air the room. As soon as the levels are safe, it can be used normally again.",
+      },
+      {
+        title: "Always after drying",
+        text: "Ozone is the finishing touch. A lasting result first needs a dry structure, and we will give you honest advice on that.",
+      },
+    ],
+    reviewKick: "What customers say",
+    reviewH2: "How we work, in their words.",
+    reviewLede:
+      "Reviews of Vernast on Google and Solvari, quoted word for word (in Dutch). About speed, follow-up and keeping appointments, because that is what a treatment in your home requires.",
+    sterren: (n) => `${n} out of 5 stars`,
+    datum: reviewDatumEn,
+    faqKick: "Frequently asked questions",
+    faqH2: "Your questions about ozone treatment.",
+    faqHelpH3: "Can't find your question?",
+    faqHelp:
+      "We look at your situation and tell you honestly whether a treatment makes sense, and what may need to happen first.",
+    bel: "Call",
+    online: "Ask your question online",
+    boekKick: "Book your treatment",
+    boekH2: "Mould or a smell that just keeps coming back?",
+    boekTekst:
+      "Describe your situation below and a specialist will call you within one working day to schedule the treatment. We tackle the cause first and use ozone as a thorough finish, clearly, correctly and without false expectations.",
+    boekUsp: [
+      "Response within one working day",
+      "Honest advice: sometimes drying is the real answer",
+      "Working throughout Flanders",
+    ],
+    liever: "Rather call straight away?",
+    uren: (u) => u.replace("Mo-Fr", "Mon–Fri").replace(" 08:00-17:00", ", 8am–5pm"),
   },
 } satisfies Copy<OzonTekst>;
