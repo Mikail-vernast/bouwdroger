@@ -36,4 +36,12 @@ export const AAN: readonly string[] = [
   "herstal",
   "juprelle",
   "neupre",
+  "oupeye",
+  "saint-nicolas",
+  "seraing",
+  "soumagne",
+  "sprimont",
+  "trooz",
+  "wezet",
+  "amay",
 ];
