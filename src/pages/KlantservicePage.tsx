@@ -45,7 +45,7 @@ const KlantservicePage = () => {
   const t = useCopy(KLANTSERVICE_COPY);
   const lp = useLokaalPad();
   const taal = useTaal();
-  // Nederlands houdt zijn eigen notatie (`€ 3,00`); Frans krijgt `3,00 €`.
+  // Nederlands houdt zijn eigen notatie (`€ 3,00`); Frans krijgt `3,00 €`, Engels `€3.00`.
   const pompPrijs = taal === "nl" ? euro(PUMP.price) : formatEuro(PUMP.price, taal);
 
   return (

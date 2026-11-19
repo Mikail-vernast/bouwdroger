@@ -7,6 +7,7 @@ import { useSeo } from "@/data/seo";
 import { CONTACT } from "@/lib/site";
 import { useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
 import VoorwaardenFr from "./AlgemeneVoorwaardenPage.fr";
+import VoorwaardenEn from "./AlgemeneVoorwaardenPage.en";
 import "@/styles/algemene-voorwaarden.css";
 import "@/styles/algemene-voorwaarden-fixes.css";
 
@@ -20,9 +21,9 @@ import "@/styles/algemene-voorwaarden-fixes.css";
  *
  * De artikels staan per taal als volledig blok, niet als COPY-sleutels: bij
  * een juridische tekst moet je de vertaling naast het origineel kunnen leggen
- * en nalezen, kop voor kop. De Franse versie staat in
- * `AlgemeneVoorwaardenPage.fr.tsx`; bij tegenstrijdigheid is de Nederlandse
- * leidend (art. 2).
+ * en nalezen, kop voor kop. De Franse en Engelse versie staan in
+ * `AlgemeneVoorwaardenPage.fr.tsx` en `AlgemeneVoorwaardenPage.en.tsx`; bij
+ * tegenstrijdigheid is de Nederlandse leidend (art. 2).
  */
 
 const HERO_LINK = { color: "#fff", fontWeight: 600 } as const;
@@ -65,6 +66,25 @@ const COPY = {
       </>
     ),
     heroAlt: "L'équipe Vernast",
+  },
+  en: {
+    kicker: "Legal",
+    h1: "Terms and conditions",
+    intro: (
+      <>
+        These General Rental Terms and Conditions apply to every offer, quote and agreement of
+        Vernast. Questions? Email{" "}
+        <a href={`mailto:${CONTACT.email}`} style={HERO_LINK}>
+          {CONTACT.email}
+        </a>{" "}
+        or call{" "}
+        <a href="tel:+3236899065" style={HERO_LINK}>
+          03 689 90 65
+        </a>
+        .
+      </>
+    ),
+    heroAlt: "The Vernast team",
   },
 } satisfies Copy<{ kicker: string; h1: string; intro: ReactNode; heroAlt: string }>;
 
@@ -518,7 +538,7 @@ const AlgemeneVoorwaardenPage = () => {
         </div>
       </section>
 
-      {taal === "fr" ? <VoorwaardenFr /> : <VoorwaardenNl />}
+      {taal === "fr" ? <VoorwaardenFr /> : taal === "en" ? <VoorwaardenEn /> : <VoorwaardenNl />}
 
       <V3Footer />
     </div>

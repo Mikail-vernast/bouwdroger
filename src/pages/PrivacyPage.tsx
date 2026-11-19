@@ -204,6 +204,87 @@ const COPY = {
       <p>Des questions sur cette politique de confidentialité ou sur vos données ? Écrivez à {MAIL}, appelez le <a href="tel:+3236899065">03 689 90 65</a> ou posez votre question via le <Link to={lp("/klantservice")}>service client</Link>.</p>,
     ],
   },
+  en: {
+    kicker: "Legal",
+    h1: "Privacy policy",
+    intro: (
+      <>
+        Vernast handles your personal data with care, in accordance with the GDPR. Here you can read which data we process, for what purposes and what rights you have. Questions? Email <a href={`mailto:${CONTACT.email}`} style={HERO_LINK}>{CONTACT.email}</a> or call <a href="tel:+3236899065" style={HERO_LINK}>03 689 90 65</a>.
+      </>
+    ),
+    heroAlt: "The Vernast team",
+    crumb: "Privacy",
+    navLabel: "Topics",
+    navTitel: "All topics",
+    artikel: "Article",
+    titels: [
+      "Who we are",
+      "Which data we process",
+      "What we use it for",
+      "Legal bases",
+      "Sharing with third parties",
+      "Retention periods",
+      "Cookies",
+      "Security",
+      "Geolocation and trackers",
+      "Your rights",
+      "Complaints",
+      "Changes",
+      "Contact",
+    ],
+    bijgewerkt: "Last updated: August 2026",
+    inhoud: (lp) => [
+      <>
+        <p>Vernast (VRNST) hires out construction dehumidifiers, fans, site heaters and accessories, and provides the related drying services. Vernast is the controller of the personal data collected via this website, by telephone, by email or on site.</p>
+        <p>Contact: {MAIL} · <a href="tel:+3236899065">03 689 90 65</a>.</p>
+      </>,
+      <>
+        <h3>Identification and contact details</h3>
+        <p>Surname, first name, address, email address, telephone number and, for business customers, company name and VAT number.</p>
+        <h3>Booking and project data</h3>
+        <p>Data you enter in the Calculator and when booking: floor area, ceiling height, situation (new build, water damage, renovation, basement), delivery address, preferred delivery and installation times, and the options and accessories chosen.</p>
+        <h3>Payment and invoicing data</h3>
+        <p>Invoicing details, payment status and payment method. Your payment is handled by an external, secure payment provider; we do not store any card or account details ourselves.</p>
+        <h3>Measurement and service data</h3>
+        <p>Moisture readings before and after drying, delivery and collection notes, and communication with our customer service.</p>
+        <h3>Website data</h3>
+        <p>Technical data such as IP address, browser type and browsing behaviour on our website (see article 7, Cookies).</p>
+      </>,
+      <ul>
+        <li>Drawing up quotes and concluding and performing the rental agreement (delivery, installation, follow-up and collection).</li>
+        <li>Scheduling and confirming delivery and installation times, including reminders by email or text message.</li>
+        <li>Invoicing, payment follow-up and the collection of outstanding amounts.</li>
+        <li>Drawing up moisture measurement reports when you choose that option.</li>
+        <li>Customer service: questions, breakdowns, extensions and complaints.</li>
+        <li>Fraud prevention and the security of our rental equipment.</li>
+        <li>Compliance with legal obligations (accounting, taxation).</li>
+        <li>With your consent: newsletters or commercial communications, from which you can always unsubscribe.</li>
+      </ul>,
+      <p>We process your data on the basis of: the performance of the contract (Art. 6(1)(b) GDPR), legal obligations (Art. 6(1)(c) GDPR), our legitimate interest (Art. 6(1)(f) GDPR, such as fraud prevention and the protection of our equipment) and, where required, your consent (Art. 6(1)(a) GDPR).</p>,
+      <>
+        <p>We never sell your data. We only share it with parties that are necessary for our services:</p>
+        <ul>
+          <li>Payment providers, for processing online payments.</li>
+          <li>IT and hosting suppliers for our website and scheduling systems.</li>
+          <li>Transport partners for delivery and collection, if engaged.</li>
+          <li>Our accountant and, where required by law, public authorities.</li>
+          <li>Your insurer or broker, exclusively at your request (e.g. for a measurement report in the event of water damage).</li>
+        </ul>
+        <p>We conclude data processing agreements with processors in accordance with the GDPR. Data is in principle processed within the EEA.</p>
+      </>,
+      <p>We do not keep personal data for longer than necessary: quote data for up to 1 year after the quote, contract and invoicing data for 7 years (statutory accounting obligation), measurement reports for 5 years, and customer service communications for up to 2 years after the file is closed. After that, data is deleted or anonymised.</p>,
+      <p>Our website uses necessary cookies (for your booking session and shopping basket, among other things) and, only with your consent, analytical and marketing cookies. You can change your preferences at any time via your browser settings or the cookie settings on the website.</p>,
+      <p>We take appropriate technical and organisational measures to protect your data against loss, misuse and unauthorised access: encrypted connections (TLS), access management, and access to personal data limited to staff who need it for their role.</p>,
+      <p>Our rental equipment may be fitted with geolocation systems or trackers for theft prevention and fraud control. Location data is not accessible to third parties, but may be used by Vernast in the event of theft or fraud, and is not kept for longer than necessary after the end of the hire period.</p>,
+      <>
+        <p>Under the GDPR, you have the right of access, rectification, erasure, restriction of processing, portability of your data and objection to processing based on legitimate interest or for direct marketing. If you have given consent, you can withdraw it at any time.</p>
+        <p>Send your request to {MAIL}. We respond within 30 days and may ask you to identify yourself.</p>
+      </>,
+      <p>Not satisfied with how we handle your data? Please let us know first via {MAIL}. You also always have the right to lodge a complaint with the Belgian Data Protection Authority (Drukpersstraat 35, 1000 Brussels, <a href="https://www.dataprotectionauthority.be" target="_blank" rel="noopener">dataprotectionauthority.be</a>).</p>,
+      <p>Vernast may amend this privacy policy, for example in the event of new services or changes in legislation. The most recent version is always on this page, with the date of the last update at the top.</p>,
+      <p>Questions about this privacy policy or about your data? Email {MAIL}, call <a href="tel:+3236899065">03 689 90 65</a>, or ask your question via <Link to={lp("/klantservice")}>customer service</Link>.</p>,
+    ],
+  },
 } satisfies Copy<Teksten>;
 
 const PrivacyPage = () => {
