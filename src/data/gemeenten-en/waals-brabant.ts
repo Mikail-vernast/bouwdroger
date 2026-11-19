@@ -1662,4 +1662,202 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  geldenaken: {
+    slug: "geldenaken",
+    title: "Jodoigne dehumidifier hire for shops and homes | Vernast",
+    description:
+      "Dehumidifier hire in Jodoigne: drying after renovating a home or shop, a new screed or a wet cellar. Delivery by appointment, in the town and its villages.",
+    h1: "Construction dehumidifier hire in Jodoigne",
+    kicker: "Walloon Brabant · a small town on the Grande Gette",
+    rit: { afstand: "about 72 km", tijd: "about an hour" },
+    intro: [
+      "Jodoigne, Geldenaken in Dutch, is a small town on the Grande Gette, close to the language border with Hoegaarden. Around the centre lie villages such as Dongelberg, Jauchelette, Lathuy, Mélin, Piétrain and Zétrud-Lumay.",
+      "From our warehouse in Aartselaar, Jodoigne is **about an hour's** drive. We deliver in the centre and in all the villages, always by appointment.",
+    ],
+    bouw: {
+      kop: "Shops in the centre, homes along the Gette",
+      alineas: [
+        "In the centre, **shops, offices and flats above a business** are being renovated. There the planning matters: which areas must stay accessible, and when does the business want to reopen? Tell us in advance, and we will place the units where they are in nobody's way.",
+        "After **flooding in a cellar**, a desiccant dehumidifier dries the cool space below ground, while a condensation dehumidifier deals with the living space above. A fan over the wet floor speeds up both.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For a shop or a house in the centre.** This dehumidifier extracts up to 70 litres a day from the air, in rooms up to about 400 m³.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cool cellar after flooding.** The desiccant dehumidifier keeps absorbing moisture at low temperatures and dries through hoses.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "For an open shop floor or a large living area: this fan moves 4,500 m³ of air an hour over the wet floor.",
+      },
+      {
+        key: "ttk650",
+        waarom: "For a large volume in one go, such as a whole ground floor: up to 110 litres a day, in rooms up to about 600 m³.",
+      },
+    ],
+    levering: {
+      kop: "Delivery in Jodoigne by appointment",
+      alinea: "We drive **about an hour** to Jodoigne. When you book, you give the delivery date you want; we then agree the time, taking your opening hours into account too. The technician installs the units, sorts out the drain and measures the moisture in floor and walls. Delivery and collection are also included in the price of your drying package.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself in Aartselaar",
+      alinea: "By appointment, you collect units at Boomsesteenweg 12, unit 11 in Aartselaar. From Jodoigne you are on the road for **about an hour**, and you do it twice: when collecting and when returning. For one dehumidifier in a flat, that can be worth it. For a shop with several units, let us deliver.",
+    },
+    buren: ["bevekom", "hoegaarden", "orp-jauche", "incourt", "helecine"],
+    faq: [
+      {
+        q: "Can my shop stay open while the dehumidifier runs?",
+        a: "Often it can, if the drying area can be closed off from the sales floor. A dehumidifier works best in a closed room. Discuss in advance which parts must stay accessible, and we will decide where the units and the drain go.",
+      },
+      {
+        q: "My cellar was flooded. When can I start drying?",
+        a: "As soon as the water is gone and the cause has been repaired. First pump out the standing water and take wet belongings and insulation out of the cellar. Then a desiccant dehumidifier dries the cool space, even if it is not heated.",
+      },
+      {
+        q: "How do I know whether the new floor in the shop is ready for finishing?",
+        a: "By measuring. A screed can look dry on the surface while the core is still wet. Have the floor layer measure the residual moisture before laying a floor that does not tolerate moisture, such as vinyl or parquet.",
+      },
+      {
+        q: "Do you also deliver in Piétrain and Zétrud-Lumay?",
+        a: "Yes, in the centre of Jodoigne and in all its villages. When you book, give the full address and tell us whether there is somewhere the van can park for a while.",
+      },
+    ],
+    realisaties: [],
+  },
+  "orp-jauche": {
+    slug: "orp-jauche",
+    title: "Orp-Jauche dehumidifier hire, Petite Gette valley | Vernast",
+    description:
+      "Dehumidifier hire in Orp-Jauche: drying after a flooded cellar, a new screed or in a converted farmhouse. Delivery and installation by appointment.",
+    h1: "Construction dehumidifier hire in Orp-Jauche",
+    kicker: "Walloon Brabant · the Petite Gette valley",
+    rit: { afstand: "about 85 km", tijd: "about an hour and a quarter" },
+    intro: [
+      "Orp-Jauche lies in the east of Walloon Brabant, along the Petite Gette. The municipality brings together Orp-le-Grand, Jauche, Enines, Folx-les-Caves, Marilles and Noduwez, among others, villages set among fields and meadows.",
+      "From Aartselaar we are **about an hour and a quarter** on the road to Orp-Jauche. We deliver throughout the municipality, on an agreed day and at an agreed time.",
+    ],
+    bouw: {
+      kop: "Cellars in the valley, farmhouses in open country",
+      alineas: [
+        "Older houses in a river valley often have **a cellar that lets moisture in**. After flooding or a leak, such a cellar is best dried with a desiccant dehumidifier, because it stays cool below ground. If the wall is always wet, even without a flood, the water is coming from outside and drying only helps for a while.",
+        "Outside the village centres stand farmhouses and newer homes. In a conversion with **new screed over a large area**, a large condensation dehumidifier with a fan works fastest.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "For a renovated house with screed on one floor: up to 70 litres a day, for rooms up to about 400 m³.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**For a farmhouse with a large volume.** This dehumidifier extracts up to 110 litres a day from the air, in rooms up to about 600 m³.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cellar after flooding.** This desiccant dehumidifier absorbs moisture even in a cold room and dries through hoses.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "Moves 4,500 m³ of air an hour, so the air in a corner or under a staircase also passes the dehumidifier.",
+      },
+    ],
+    levering: {
+      kop: "Delivery in Orp-Jauche by appointment",
+      alinea: "Orp-Jauche is **about an hour and a quarter** by road from Aartselaar. You choose a delivery date when you book, after which we fix a time together. The technician installs the units, arranges the drainage of the condensate and measures the moisture in the cellar, floor or wall. Your drying package includes delivery, installation and collection.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself in Aartselaar",
+      alinea: "You can collect by appointment at Boomsesteenweg 12, unit 11 in Aartselaar. From Orp-Jauche the drive takes **about an hour and a quarter**, and you make it when collecting and when returning. For one unit, that is fine. After flooding, with several units, delivery saves you two long trips.",
+    },
+    buren: ["geldenaken", "ramillies", "helecine"],
+    faq: [
+      {
+        q: "My cellar is damp after every downpour. Will a dehumidifier help?",
+        a: "For a while. A construction dehumidifier takes moisture out of the air and the walls, but it does not keep out water coming in from outside. Have the cellar made watertight first. After that, the dehumidifier dries what is still in the wall and floor.",
+      },
+      {
+        q: "Which dehumidifier should I put in a cold cellar?",
+        a: "A desiccant dehumidifier. A condensation dehumidifier loses much of its efficiency below about 15 °C. A desiccant dehumidifier extracts moisture from the air even at low temperatures and, through hoses, can dry a closed-off cellar.",
+      },
+      {
+        q: "Where does the condensate go?",
+        a: "The technician runs a drain hose to a floor drain, a sink or another drain nearby. If there is no drain in the room, mention it when you book, so we can arrange a solution.",
+      },
+      {
+        q: "Do you also deliver in Folx-les-Caves and Noduwez?",
+        a: "Yes, we go to every village in Orp-Jauche. Give the full address when you book, and mention narrow access or a cellar that can only be reached by outside steps.",
+      },
+    ],
+    realisaties: [],
+  },
+  helecine: {
+    slug: "helecine",
+    title: "Hélécine dehumidifier hire, near Tienen and Linter | Vernast",
+    description:
+      "Dehumidifier hire in Hélécine, on the language border near Tienen and Linter: drying after a renovation, new screed or water damage. Installed by appointment.",
+    h1: "Construction dehumidifier hire in Hélécine",
+    kicker: "Walloon Brabant · on the language border near Tienen",
+    rit: { afstand: "about 75 km", tijd: "a good hour" },
+    intro: [
+      "Hélécine is a small municipality in the far east of Walloon Brabant, on the language border close to Tienen and Linter. It is made up of Linsmeau, Neerheylissem and Opheylissem, along the Petite Gette.",
+      "From Aartselaar to Hélécine we are on the road for **a good hour**. Here too we deliver and install by appointment, as in the rest of Wallonia.",
+    ],
+    bouw: {
+      kop: "Old brick houses and damp cellars",
+      alineas: [
+        "Renovating **an older brick house** in Hélécine often means stripping the old plaster and having new plasterwork applied. That puts a lot of water into the walls. One dehumidifier per floor and a fan sending air along the walls let them dry evenly.",
+        "If the house lies low by the Petite Gette, **a damp cellar or ground floor** may also be down to groundwater. A moisture reading tells the difference between construction moisture that dries out and moisture that keeps coming back.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For a floor with new plasterwork.** This dehumidifier extracts up to 70 litres a day from the air, in rooms up to about 400 m³.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "A 4,500 m³ an hour fan sends the air along the freshly plastered walls, so they dry evenly.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cool cellar or ground floor.** The desiccant dehumidifier also works at low temperatures and dries through hoses.",
+      },
+      {
+        key: "ttk650",
+        waarom: "For a fully renovated house with a lot of screed: up to 110 litres a day, for rooms up to about 600 m³.",
+      },
+    ],
+    levering: {
+      kop: "Delivery in Hélécine by appointment",
+      alinea: "From Aartselaar to Hélécine is **a good hour's** drive. When you book, you choose a delivery date, and we fix the time together by phone. The technician installs the units, drains off the condensate and measures the moisture in walls and floor. Delivery, installation and collection are part of your drying package.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself in Aartselaar",
+      alinea: "Collection is also possible, by appointment at our warehouse at Boomsesteenweg 12, unit 11 in Aartselaar. From Hélécine you drive **a good hour**, both to collect and to return. If you need more than one unit, delivery with installation saves you those trips.",
+    },
+    buren: ["tienen", "landen", "linter", "orp-jauche", "geldenaken"],
+    faq: [
+      {
+        q: "My wall is still damp after the old plaster came off. Is that normal?",
+        a: "It can be. Old walls hold moisture, especially low down. If it is construction moisture, it dries out with a dehumidifier and ventilation. If it comes from below, it returns. A moisture reading shows which of the two it is.",
+      },
+      {
+        q: "How many dehumidifiers should I use in a two-storey house?",
+        a: "Usually one per floor, plus an extra fan if there is a lot of new plasterwork. Closed rooms may need a unit of their own. Give us the floor area and the height of each floor, and we will work out the package.",
+      },
+      {
+        q: "How long must new plasterwork dry before I can paint?",
+        a: "That depends on the thickness, the type of plaster, the temperature and the ventilation. A light colour on the surface does not yet mean the wall is dry. Have it measured before the first coat, and you avoid flaking paint.",
+      },
+      {
+        q: "Do you also deliver on the Flemish side, in Tienen or Linter?",
+        a: "Yes. Tienen, Linter and Landen are close to Hélécine and also fall within our delivery area. Give the site address when you book, and we will plan the delivery.",
+      },
+    ],
+    realisaties: [],
+  },
 };

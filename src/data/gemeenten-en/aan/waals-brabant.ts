@@ -28,4 +28,7 @@ export const AAN: readonly string[] = [
   "incourt",
   "perwijs",
   "ramillies",
+  "geldenaken",
+  "orp-jauche",
+  "helecine",
 ];
