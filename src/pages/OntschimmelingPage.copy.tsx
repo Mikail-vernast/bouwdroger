@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import type { Copy } from "@/i18n/useTaal";
+import { reviewDatumEn } from "./OzonbehandelingPage.copy";
 
 /**
  * Teksten van /ontschimmeling in elke taal. Nederlands letterlijk zoals het op
@@ -63,6 +64,7 @@ export interface OntschimmelingTekst {
   reviewH2: string;
   reviewLede: string;
   sterren: (n: number) => string;
+  datum: (datum: string) => string;
   faqKick: string;
   faqH2: string;
   faqHelpH3: string;
@@ -262,6 +264,7 @@ export const ONTSCHIMMELING_COPY = {
     reviewLede:
       "Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over snelheid, opvolging en afspraken nakomen, want dat is wat werk bij u thuis vraagt.",
     sterren: (n) => `${n} van 5 sterren`,
+    datum: (d) => d,
     faqKick: "Veelgestelde vragen",
     faqH2: "Uw vragen over ontschimmeling.",
     faqHelpH3: "Staat uw vraag er niet bij?",
@@ -468,6 +471,7 @@ export const ONTSCHIMMELING_COPY = {
     reviewLede:
       "Avis sur Vernast publiés sur Google et Solvari, repris tels quels (en néerlandais). Sur la rapidité, le suivi et le respect des engagements, car c'est ce que demande un chantier chez vous.",
     sterren: (n) => `${n} étoiles sur 5`,
+    datum: (d) => d,
     faqKick: "Questions fréquentes",
     faqH2: "Vos questions sur l'élimination des moisissures.",
     faqHelpH3: "Votre question n'y figure pas ?",
@@ -487,5 +491,209 @@ export const ONTSCHIMMELING_COPY = {
     liever: "Vous préférez appeler tout de suite ?",
     uren: (u) => u.replace("Mo-Fr", "lun–ven").replace(" 08:00-17:00", ", 8 h–17 h"),
     verstuurLabel: "Demander une visite sur place",
+  },
+  en: {
+    faq: [
+      {
+        question: "Can't I just clean the mould off myself?",
+        answer:
+          "Surface cleaning removes the black stain, but not the mould. The threads sit in the pores of plaster and joints, and wiping it dry actually releases spores that settle elsewhere in the room. That is why we work in a sealed-off area, with negative pressure where needed, and first remove the affected material before we treat.",
+      },
+      {
+        question: "How much does mould removal cost?",
+        answer:
+          "That depends on the surface area, how deep the mould goes and whether the affected material has to be removed. A wall of a few square metres in a bedroom is different from a cellar where the plasterwork has to come off. Our specialist comes to have a look and gives you a fixed price before anything is done.",
+      },
+      {
+        question: "Do I have to leave the house during the work?",
+        answer:
+          "Usually not. We seal off the work area so that dust and spores don't spread through the home, and work room by room. Only during any ozone treatment afterwards does the treated room have to stay empty for a few hours, including pets and plants.",
+      },
+      {
+        question: "How do I know the damp problem has been solved?",
+        answer:
+          "By measuring, not by looking. We measure the moisture content of the substrate before and after drying. A wall that looks dry can still be wet inside, and then the mould comes back, however thoroughly the surface has been treated. Only when the reading says dry do we finish off.",
+      },
+      {
+        question: "What is the difference with an ozone treatment?",
+        answer:
+          "Mould removal is the hands-on work: the visible mould and the affected material go, and the substrate is treated. An ozone treatment is the finishing step afterwards: it clears up the spores left behind in the air, in cracks and in fabrics. One does not replace the other, they follow each other.",
+      },
+      {
+        question: "Is mould in the home really unhealthy?",
+        answer:
+          "Mould spores can trigger respiratory complaints, headaches and fatigue, and they hit children, older people and people with asthma or an allergy hardest. That is also the reason not to wait: the longer the room stays damp, the bigger the colony and the more spores get into the air.",
+      },
+    ],
+    stappen: [
+      {
+        title: "Finding the cause",
+        text: "Measure first: where is the moisture coming from? A leak, rising damp, a cold bridge or simply too little ventilation. Without that answer, any treatment is temporary.",
+      },
+      {
+        title: "Sealing off and removing",
+        text: "The work area is sealed off so that spores don't spread through the home. Affected plasterwork, wallpaper or plasterboard comes out, down to a sound substrate.",
+      },
+      {
+        title: "Treating and drying",
+        text: "The substrate is treated against regrowth and the structure is dried with construction dehumidifiers until a moisture reading confirms it. Measuring, not guessing.",
+      },
+      {
+        title: "Finishing with ozone",
+        text: "Finally an ozone treatment: it kills the spores left behind in the air, in cracks and in fabrics, so the mould gets no chance to restart.",
+      },
+    ],
+    inzet: [
+      {
+        title: "Black patches on the wall",
+        text: "The classic: a cold outside wall behind a wardrobe, or the corner of a bedroom that never dries out.",
+      },
+      {
+        title: "Cellars & crawl spaces",
+        text: "Damp, poorly ventilated spaces where mould can spread unseen for months before anyone smells it.",
+      },
+      {
+        title: "After water damage",
+        text: "After a leak or a flood, mould starts within 24 to 48 hours. Drying and removing mould quickly can save you a renovation.",
+      },
+      {
+        title: "Musty smell, no stain",
+        text: "You can smell it but see nothing: then the mould is behind the skirting board, under the floor or in the cavity wall.",
+      },
+      {
+        title: "Allergies and airways",
+        text: "Recurring complaints in children or in people with asthma that are worse at home than elsewhere.",
+      },
+      {
+        title: "When buying or letting",
+        text: "Mould noted in an inventory report, or discovered just before a home changes hands.",
+      },
+    ],
+    aanpak: [
+      ["Site visit", "Free, no obligation"],
+      ["Price", "Fixed, agreed in advance"],
+      ["Work area", "Sealed off, room by room"],
+      ["Handover", "With a moisture reading as proof"],
+    ],
+    schemaNaam: "Mould removal",
+    schemaBeschrijving:
+      "Removing mould at the source: tracing the cause, taking out affected material, treating the substrate, drying until the reading confirms it and finishing with ozone.",
+    schemaType: "Mould removal",
+    kruimelHome: "Home",
+    kruimel: "Mould removal",
+    heroKick: "Mould removal · getting rid of mould",
+    h1: "Mould only really goes when the cause goes with it.",
+    heroTekst:
+      "We remove the mould down to a sound substrate, dry the structure until a moisture reading confirms it and finish with ozone. That way it stays gone, instead of coming back as soon as the paint is dry.",
+    plaatsbezoek: "Request a site visit",
+    heroUsp: ["Free site visit", "Fixed price up front", "Throughout Flanders"],
+    herkenKick: "Sound familiar?",
+    herkenH2: "Cleaned off, painted over, and a month later it's back.",
+    herkenLede:
+      "It's not down to how thoroughly you scrubbed. It's down to what lies underneath, and what is still keeping that wall damp.",
+    herkenKaarten: [
+      {
+        title: "The cause is still there",
+        text: "A leak, rising damp or a cold bridge keeps bringing in water. As long as that continues, any surface treatment is temporary.",
+      },
+      {
+        title: "The mould goes deeper",
+        text: "What you see is the growth on the surface. The threads sit in the pores of plaster and joints; a cloth removes nothing there.",
+      },
+      {
+        title: "Paint locks it in",
+        text: "Painting over it hides the stain for a few months. Underneath it keeps growing, and then it comes back straight through the new coat.",
+      },
+    ],
+    noot: (lp) => (
+      <>
+        <b>Dry first, treat afterwards.</b> A wall that looks dry can still be wet inside. That is
+        why we measure the moisture content of the substrate, and dry first if necessary with{" "}
+        <Link to={lp("/verhuur/calculator")}>a calculated drying package</Link>. Only when the reading
+        says dry does finishing off make sense.
+      </>
+    ),
+    waaromKick: "Why waiting doesn't help",
+    waaromH2: "Mould that is left alone gets bigger.",
+    waaromLede:
+      "On damp material, mould starts after 24 to 48 hours. After that the colony keeps growing as long as the moisture is there, and every day spores get into the air and settle elsewhere in the home.",
+    waaromBody:
+      "Those spores are the real problem. They cause respiratory complaints, headaches and fatigue, and hit children, older people and people with asthma hardest. On top of that comes the damage to the building: affected plasterwork, peeling wallpaper and, in a cellar or crawl space, rot in the timber floor structure.",
+    aanpakKick: "Our approach",
+    aanpakH2: "Four steps, and the last one isn't the paint.",
+    aanpakLede:
+      "Mould removal is not a clean-up but a sequence. Skip a step and you'll be doing it again within the year.",
+    stageLabel: "Mouldy wall with animation: active oxygen breaks down the remaining spores",
+    legO3: "active oxygen",
+    legSpore: "mould spore",
+    na: (lp) => (
+      <>
+        That last step is what an ordinary clean-up never achieves: ozone is a gas, so it gets into
+        cracks, joints, fabrics and the ventilation duct. Afterwards it breaks down by itself into
+        ordinary oxygen, without residue. More on{" "}
+        <Link to={lp("/ozonbehandeling")}>the ozone treatment page</Link>.
+      </>
+    ),
+    bandKick: "Where drying comes in",
+    bandH3: "We are drying specialists first and foremost.",
+    band: (lp) => (
+      <>
+        That is also why, with mould, we look at the moisture first. After{" "}
+        <Link to={lp("/waterschade")}>water damage</Link> or in a{" "}
+        <Link to={lp("/renovatie")}>damp cellar</Link>, the drying is half the job; without a dry
+        substrate, mould removal is a treatment with a use-by date.
+      </>
+    ),
+    bandAlt: "Vernast specialist treating a wall against mould",
+    inzetKick: "What we're called out for",
+    inzetH2: "From a single corner to an entire cellar.",
+    inzetLede: "Mould looks different everywhere. These are the situations people call us for.",
+    veiligKick: "Safe & responsible",
+    veiligH2: "Without contaminating the rest of your home.",
+    veiligLede:
+      "Removing mould stirs up spores. That is why we work in a sealed-off area, with the right protection, and the affected material leaves the house sealed.",
+    veiligKaarten: [
+      {
+        title: "Sealed-off work area",
+        text: "The room is closed off from the rest of the home, so that dust and spores don't travel to the hallway or the bedrooms.",
+      },
+      {
+        title: "Working with protection",
+        text: "Our technicians wear a suit and mask. Not for show: removal releases spores you don't want to breathe in.",
+      },
+      {
+        title: "Waste leaves sealed",
+        text: "Affected plasterwork, wallpaper or plasterboard leaves the home packed up, so the contamination doesn't get loose on the way out.",
+      },
+      {
+        title: "Honest about the cause",
+        text: "If the problem lies in the structure, we'll tell you. Sometimes a damp-proof injection or better ventilation is the real answer, not our treatment.",
+      },
+    ],
+    reviewKick: "What customers say",
+    reviewH2: "How we work, in their words.",
+    reviewLede:
+      "Reviews of Vernast on Google and Solvari, quoted word for word (in Dutch). About speed, follow-up and keeping appointments, because that is what work in your home requires.",
+    sterren: (n) => `${n} out of 5 stars`,
+    datum: reviewDatumEn,
+    faqKick: "Frequently asked questions",
+    faqH2: "Your questions about mould removal.",
+    faqHelpH3: "Can't find your question?",
+    faqHelp:
+      "Our specialist comes to have a look free of charge and tells you honestly what needs to be done, and in what order.",
+    bel: "Call",
+    online: "Ask your question online",
+    boekKick: "Request a site visit",
+    boekH2: "Mould in your home? Have someone look at it first.",
+    boekTekst:
+      "Describe your situation below and a specialist will call you within one working day. The visit is free and without obligation, and you get a fixed price before anything is done.",
+    boekUsp: [
+      "Response within one working day",
+      "Honest advice: sometimes drying or ventilating is the real answer",
+      "Working throughout Flanders",
+    ],
+    liever: "Rather call straight away?",
+    uren: (u) => u.replace("Mo-Fr", "Mon–Fri").replace(" 08:00-17:00", ", 8am–5pm"),
+    verstuurLabel: "Request a site visit",
   },
 } satisfies Copy<OntschimmelingTekst>;

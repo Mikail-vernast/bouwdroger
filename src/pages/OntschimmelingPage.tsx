@@ -381,7 +381,7 @@ const OntschimmelingPage = () => {
                     <b>{review.name}</b>
                     <small>
                       {review.source === "Google" && <GoogleIcon size={12} />} {review.source},{" "}
-                      {review.date}
+                      {t.datum(review.date)}
                     </small>
                   </span>
                 </div>
