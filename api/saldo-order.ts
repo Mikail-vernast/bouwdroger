@@ -87,7 +87,7 @@ interface SaldoOrderRequest {
   amountDue: number;
   email: string | null;
   /**
-   * De taal van de klant, als het portaal ze meestuurt: "fr" of nl. Optioneel —
+   * De taal van de klant, als het portaal ze meestuurt: "fr", "en" of nl. Optioneel —
    * een portaal dat dit veld (nog) niet kent, krijgt hetzelfde als vroeger.
    */
   taal: BetaalTaal;

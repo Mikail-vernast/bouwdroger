@@ -4,21 +4,26 @@
  *
  * Draait in `api/` — dus relatieve imports met `.js`, geen `@/`.
  *
- * Strikt genarrowed: alleen de letterlijke tekst "fr" maakt een betaling
- * Frans, alles anders (ontbrekend, "FR", "en", een getal, een object) wordt
- * Nederlands. Engels staat nog niet online (zie `ACTIEVE_TALEN`); een
- * `locale: "en"` met een return-URL naar een niet-bestaande `/en`-pagina zou
- * een betaler na het afrekenen op een 404 zetten.
+ * Strikt genarrowed: alleen de letterlijke teksten "fr" en "en" maken een
+ * betaling Frans of Engels, alles anders (ontbrekend, "FR", "EN", "en-GB", een
+ * getal, een object) wordt Nederlands. Zo kan een rare waarde in de request
+ * nooit een `locale` opleveren die Stripe weigert, of een return-URL naar een
+ * pagina die niet bestaat: een betaler die na het afrekenen op een 404 landt,
+ * denkt dat zijn betaling mislukt is.
+ *
+ * Engels kwam erbij toen de `/en`-pagina's online gingen (zie `ACTIEVE_TALEN`).
+ * `locale: "en"` en niet "en-GB": Stripe kent beide, maar "en" is de vorm die
+ * elke Checkout-versie aanvaardt, en de woorden op het formulier zijn dezelfde.
  *
  * Wat hier NIET gebeurt: bedragen. De taal verandert alleen woorden en paden;
  * wat Stripe int, rekenen de routes zelf uit, zoals altijd.
  */
 import { vertaalPad } from "../i18n/paden.js";
 
-export type BetaalTaal = "nl" | "fr";
+export type BetaalTaal = "nl" | "fr" | "en";
 
 export function betaalTaal(waarde: unknown): BetaalTaal {
-  return waarde === "fr" ? "fr" : "nl";
+  return waarde === "fr" || waarde === "en" ? waarde : "nl";
 }
 
 /**
@@ -77,6 +82,41 @@ const FR: Record<string, string> = {
     "Trop de demandes. Réessayez dans une minute.",
 };
 
+/** Engelse (Britse) versie van dezelfde weigeringen; zie `FR` hierboven. */
+const EN: Record<string, string> = {
+  "Stripe is nog niet geconfigureerd op deze omgeving.": "Payment has not been set up on this environment yet.",
+  "Betalen is nog niet geconfigureerd op deze omgeving.": "Payment has not been set up on this environment yet.",
+  "Ongeldige aanvraag.": "Invalid request.",
+  "Ongeldige sessie.": "Invalid session.",
+  "Boeking niet gevonden.": "Booking not found.",
+  "Geen geldig e-mailadres opgegeven.": "No valid email address provided.",
+  "Vul uw bedrijfsnaam en btw-nummer in.": "Please enter your company name and VAT number.",
+  "Kies eerst een geldige leverdatum.": "Please choose a valid delivery date first.",
+  "We kunnen de beschikbaarheid nu niet controleren. Probeer het over enkele minuten opnieuw of bel ons op 03 689 90 65.":
+    "We cannot check availability right now. Please try again in a few minutes or call us on 03 689 90 65.",
+  "Op deze leverdatum zijn onze toestellen al ingepland. Kies een andere datum, of bel ons op 03 689 90 65. Vaak kunnen we alsnog schuiven.":
+    "Our units are already booked on this delivery date. Please choose another date, or call us on 03 689 90 65. We can often still rearrange things.",
+  "Op die datum staan deze toestellen al ingepland. Kies een andere afhaaldatum, of bel ons op 03 689 90 65.":
+    "These units are already booked on that date. Please choose another collection date, or call us on 03 689 90 65.",
+  "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65.":
+    "The payment could not be started. Please try again or call us on 03 689 90 65.",
+  "Betaling kon niet gestart worden.": "The payment could not be started.",
+  "Geen ordergegevens ontvangen.": "No order details received.",
+  "Kies eerst minstens één toestel.": "Please choose at least one unit first.",
+  "Kies een afhaaldatum vanaf morgen: wij zetten uw toestel minstens 24 uur op voorhand klaar.":
+    "Please choose a collection date from tomorrow onwards: we get your unit ready at least 24 hours in advance.",
+  "Vul uw naam in.": "Please enter your name.",
+  "Vul uw telefoonnummer in.": "Please enter your phone number.",
+  "Kies een geldige afhaaldatum.": "Please choose a valid collection date.",
+  "Deze boeking is al volledig betaald.": "This booking has already been paid in full.",
+  "Kies hoeveel langer u de toestellen wilt houden.": "Please choose how much longer you want to keep the units.",
+  "Vul een telefoonnummer in waarop wij u kunnen bereiken.": "Please enter a phone number on which we can reach you.",
+  "Vertel kort waarom u wilt verlengen.": "Please tell us briefly why you want to extend.",
+  "Te veel aanvragen. Probeer het over een minuut opnieuw.": "Too many requests. Please try again in a minute.",
+};
+
 export function foutmelding(nl: string, taal: BetaalTaal): string {
-  return taal === "fr" ? (FR[nl] ?? nl) : nl;
+  if (taal === "fr") return FR[nl] ?? nl;
+  if (taal === "en") return EN[nl] ?? nl;
+  return nl;
 }

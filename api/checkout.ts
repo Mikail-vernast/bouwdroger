@@ -45,7 +45,7 @@ interface CheckoutBody {
   /** De sessie van een vorige poging van dezelfde bezoeker; zie `dropPrevious`. */
   previousSessionId?: unknown;
   /**
-   * De taal van de boekingspagina: "fr" of iets anders (= nl). Bepaalt alleen
+   * De taal van de boekingspagina: "fr", "en" of iets anders (= nl). Bepaalt alleen
    * wat Stripe toont, waar de betaler terugkomt en de taal van een weigering;
    * nooit een bedrag. Zie `src/lib/betaalTaal.ts`.
    */

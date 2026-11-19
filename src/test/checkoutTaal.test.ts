@@ -4,9 +4,10 @@
  *
  * Een Franse boeking krijgt een Frans betaalformulier (`locale: "fr"`) en komt
  * na het betalen terug op de Franse pagina — niet op `/verhuur/boeking`, waar
- * hij een bevestiging krijgt in een taal die hij niet koos. Alles wat geen
- * letterlijk "fr" is, blijft Nederlands: zo kan een rare waarde in de request
- * nooit een niet-bestaande `/en`-pagina als terugkeeradres opleveren.
+ * hij een bevestiging krijgt in een taal die hij niet koos. Engels net zo
+ * (`locale: "en"`, terug naar `/en/rental/…`). Alles wat geen letterlijk "fr"
+ * of "en" is, blijft Nederlands: zo kan een rare waarde in de request nooit
+ * een niet-bestaande pagina als terugkeeradres opleveren.
  *
  * En wat de taal níet mag: het bedrag veranderen.
  *
@@ -154,9 +155,10 @@ afterEach(() => {
 });
 
 describe("betaalTaal", () => {
-  it("maakt alleen van de letterlijke tekst fr een Franse betaling", () => {
+  it("maakt alleen van de letterlijke teksten fr en en een Franse of Engelse betaling", () => {
     expect(betaalTaal("fr")).toBe("fr");
-    for (const raar of ["FR", "en", "de", "", " fr", null, undefined, 1, ["fr"], { taal: "fr" }]) {
+    expect(betaalTaal("en")).toBe("en");
+    for (const raar of ["FR", "EN", "en-GB", "en ", "de", "", " fr", null, undefined, 1, ["fr"], ["en"], { taal: "en" }]) {
       expect(betaalTaal(raar)).toBe("nl");
     }
   });
@@ -170,10 +172,21 @@ describe("betaalTaal", () => {
     expect(betaalPad("/verhuur/boeking", "nl")).toBe("/verhuur/boeking");
   });
 
+  it("vertaalt de terugkeerpaden naar de Engelse pagina's", () => {
+    expect(betaalPad("/verhuur/boeking", "en")).toBe("/en/rental/booking");
+    expect(betaalPad("/verhuur/afhalen", "en")).toBe("/en/rental/collection");
+    expect(betaalPad("/verhuur/saldo", "en")).toBe("/en/rental/balance");
+    expect(betaalPad("/verhuur/saldo/betaald", "en")).toBe("/en/rental/balance/paid");
+    expect(betaalPad("/verhuur/saldo/niet-betaald", "en")).toBe("/en/rental/balance/unpaid");
+    expect(betaalPad("/verhuur/saldo?session_id=cs_x", "en")).toBe("/en/rental/balance?session_id=cs_x");
+  });
+
   it("laat een Nederlandse foutmelding letterlijk staan en valt in het Frans nooit op leeg terug", () => {
     expect(foutmelding("Ongeldige sessie.", "nl")).toBe("Ongeldige sessie.");
     expect(foutmelding("Ongeldige sessie.", "fr")).toBe("Session non valable.");
     expect(foutmelding("Een tekst zonder vertaling.", "fr")).toBe("Een tekst zonder vertaling.");
+    expect(foutmelding("Ongeldige sessie.", "en")).toBe("Invalid session.");
+    expect(foutmelding("Een tekst zonder vertaling.", "en")).toBe("Een tekst zonder vertaling.");
   });
 });
 
@@ -190,7 +203,7 @@ describe("POST /api/checkout", () => {
   });
 
   it("valt bij een onbekende of ontbrekende taal terug op nl, met het oude terugkeeradres", async () => {
-    for (const taal of [undefined, "en", "FR", 42]) {
+    for (const taal of [undefined, "EN", "en-GB", "FR", 42]) {
       await checkout(post("/api/checkout", boeking(taal)));
       const params = laatsteSessie();
       expect(params.locale).toBe("nl");
@@ -199,16 +212,37 @@ describe("POST /api/checkout", () => {
     }
   });
 
+  it("geeft een Engelse sessie locale en, een Engelse return-URL en taal in de metadata", async () => {
+    const response = await checkout(post("/api/checkout", boeking("en")));
+    expect(response.status).toBe(200);
+
+    const params = laatsteSessie();
+    expect(params.locale).toBe("en");
+    expect(params.return_url.startsWith(`${ORIGIN}/en/rental/booking?`)).toBe(true);
+    expect(params.return_url).toContain("session_id={CHECKOUT_SESSION_ID}");
+    expect(params.metadata.taal).toBe("en");
+  });
+
   it("rekent in elke taal exact hetzelfde bedrag en dezelfde metadata-bedragen af", async () => {
     await checkout(post("/api/checkout", boeking("nl")));
     const nl = laatsteSessie();
-    await checkout(post("/api/checkout", boeking("fr")));
-    const fr = laatsteSessie();
-
-    expect(fr.line_items).toEqual(nl.line_items);
-    for (const sleutel of ["totaal", "korting", "btw", "totaal_incl_btw", "nu_betaald", "saldo_bij_levering", "betaalwijze"]) {
-      expect(fr.metadata[sleutel]).toBe(nl.metadata[sleutel]);
+    for (const taal of ["fr", "en"]) {
+      await checkout(post("/api/checkout", boeking(taal)));
+      const ander = laatsteSessie();
+      expect(ander.line_items).toEqual(nl.line_items);
+      for (const sleutel of ["totaal", "korting", "btw", "totaal_incl_btw", "nu_betaald", "saldo_bij_levering", "betaalwijze"]) {
+        expect(ander.metadata[sleutel]).toBe(nl.metadata[sleutel]);
+      }
     }
+  });
+
+  it("geeft een volle dag in het Engels terug, met dezelfde code en status", async () => {
+    verdict.mockReturnValue("vol");
+    const response = await checkout(post("/api/checkout", boeking("en")));
+    expect(response.status).toBe(409);
+    const body = (await response.json()) as { error: string; code: string };
+    expect(body.code).toBe("niet_beschikbaar");
+    expect(body.error).toMatch(/already booked/);
   });
 
   it("geeft een volle dag in het Frans terug, met dezelfde code en status", async () => {
@@ -240,6 +274,10 @@ describe("POST /api/afhaal-checkout", () => {
 
     const nl = await afhaalCheckout(post("/api/afhaal-checkout", afhaling()));
     expect(((await nl.json()) as { error: string }).error).toBe("Kies eerst minstens één toestel.");
+
+    const en = await afhaalCheckout(post("/api/afhaal-checkout", afhaling("en")));
+    expect(en.status).toBe(400);
+    expect(((await en.json()) as { error: string }).error).toBe("Please choose at least one unit first.");
   });
 });
 
@@ -273,6 +311,24 @@ describe("POST /api/saldo", () => {
     expect(params.metadata.basis_sessie).toBe("cs_test_boeking");
   });
 
+  it("stuurt een Engelse saldobetaling terug naar /en/rental/balance, met locale en en hetzelfde bedrag", async () => {
+    sessionsRetrieve.mockResolvedValue(boekingSessie);
+    await saldo(post("/api/saldo", { session_id: "cs_test_boeking", taal: "nl" }));
+    const nl = laatsteSessie();
+    sessionsRetrieve.mockResolvedValue(boekingSessie);
+    const response = await saldo(post("/api/saldo", { session_id: "cs_test_boeking", taal: "en" }));
+    expect(response.status).toBe(200);
+
+    const params = laatsteSessie();
+    expect(params.locale).toBe("en");
+    expect(params.return_url).toBe(
+      `${ORIGIN}/en/rental/balance?session_id=cs_test_boeking&saldo_session={CHECKOUT_SESSION_ID}`,
+    );
+    expect(params.metadata.taal).toBe("en");
+    expect(params.metadata.type).toBe("saldo");
+    expect(params.line_items).toEqual(nl.line_items);
+  });
+
   it("blijft zonder taal Nederlands", async () => {
     sessionsRetrieve.mockResolvedValue(boekingSessie);
     await saldo(post("/api/saldo", { session_id: "cs_test_boeking", taal: "es" }));
@@ -301,6 +357,15 @@ describe("POST /api/saldo-order", () => {
     expect(params.cancel_url).toBe(`${ORIGIN}/fr/location/solde/non-paye`);
   });
 
+  it("stuurt een Engelse klant naar de Engelse bedank- en annuleerpagina", async () => {
+    const response = await saldoOrder(post("/api/saldo-order", geldig("en"), secret));
+    expect(response.status).toBe(200);
+    const params = laatsteSessie();
+    expect(params.locale).toBe("en");
+    expect(params.success_url).toBe(`${ORIGIN}/en/rental/balance/paid`);
+    expect(params.cancel_url).toBe(`${ORIGIN}/en/rental/balance/unpaid`);
+  });
+
   it("weigert een onbekende taal niet, maar valt terug op nl", async () => {
     const response = await saldoOrder(post("/api/saldo-order", geldig("xx"), secret));
     expect(response.status).toBe(200);
@@ -320,5 +385,10 @@ describe("POST /api/extension", () => {
 
     const nl = await extension(post("/api/extension", { sessionId: "cs_test_x", extraDagen: 0 }));
     expect(((await nl.json()) as { error: string }).error).toBe("Kies hoeveel langer u de toestellen wilt houden.");
+
+    const en = await extension(post("/api/extension", { sessionId: "cs_test_x", extraDagen: 0, taal: "en" }));
+    expect(((await en.json()) as { error: string }).error).toBe(
+      "Please choose how much longer you want to keep the units.",
+    );
   });
 });
