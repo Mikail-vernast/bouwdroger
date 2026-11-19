@@ -3006,4 +3006,1354 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  "malle": {
+    slug: "malle",
+    title: "Malle, Oostmalle, Westmalle: dehumidifier hire | Vernast",
+    description:
+      "Hiring a construction dehumidifier in Malle? A Vernast drying package with delivery, installation and collection, for new builds, renovation and water damage.",
+    h1: "Construction dehumidifier hire in Malle",
+    kicker: "Malle \u00b7 delivery to your site",
+    rit: { afstand: "about 28 km", tijd: "about half an hour" },
+    intro: [
+      "Need a construction dehumidifier in Malle for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Malle",
+      alineas: [
+        "Vernast delivers to Malle and nearby places such as Zoersel, Brecht and Lille. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For larger volumes and a heavy moisture load.** Check the data sheet and have the set-up matched to the rooms that actually need drying.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Malle",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Malle, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Malle",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["zoersel", "brecht", "lille", "beerse"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Malle?",
+        a: "Calculate your drying package online or contact us with your address in Malle, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Malle?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "brecht": {
+    slug: "brecht",
+    title: "Hire a dehumidifier in Brecht, 30 minutes away | Vernast",
+    description:
+      "Hire a construction dehumidifier in Brecht: Vernast delivers, installs and collects it. Calculate your drying package online.",
+    h1: "Construction dehumidifier hire in Brecht",
+    kicker: "Brecht \u00b7 delivery to your site",
+    rit: { afstand: "about 29 km", tijd: "about half an hour" },
+    intro: [
+      "Need a construction dehumidifier in Brecht for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Brecht",
+      alineas: [
+        "Vernast delivers to Brecht and nearby places such as Zoersel, Malle and Wuustwezel. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For larger volumes and a heavy moisture load.** Check the data sheet and have the set-up matched to the rooms that actually need drying.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Brecht",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Brecht, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Brecht",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["zoersel", "malle", "wuustwezel", "kalmthout"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Brecht?",
+        a: "Calculate your drying package online or contact us with your address in Brecht, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Brecht?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "kapellen": {
+    slug: "kapellen",
+    title: "Hire a dehumidifier in Kapellen, 25 minutes away | Vernast",
+    description:
+      "Dehumidifier hire in Kapellen? Calculate your Vernast drying package, delivery and collection included. Advice for new builds, renovation and water damage.",
+    h1: "Construction dehumidifier hire in Kapellen",
+    kicker: "Kapellen \u00b7 delivery to your site",
+    rit: { afstand: "about 23 km", tijd: "about twenty-five minutes" },
+    intro: [
+      "Need a construction dehumidifier in Kapellen for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Kapellen",
+      alineas: [
+        "Vernast delivers to Kapellen and nearby places such as Brasschaat, Stabroek and Kalmthout. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For larger volumes and a heavy moisture load.** Check the data sheet and have the set-up matched to the rooms that actually need drying.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Kapellen",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Kapellen, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Kapellen",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["brasschaat", "stabroek", "kalmthout", "ekeren"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Kapellen?",
+        a: "Calculate your drying package online or contact us with your address in Kapellen, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Kapellen?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "stabroek": {
+    slug: "stabroek",
+    title: "Dehumidifier hire in Stabroek in the polders | Vernast",
+    description:
+      "Screed, plasterwork or water damage in Stabroek? Hire a Vernast construction dehumidifier, with delivery, installation and collection in the drying package.",
+    h1: "Construction dehumidifier hire in Stabroek",
+    kicker: "Stabroek \u00b7 delivery to your site",
+    rit: { afstand: "about 27 km", tijd: "about half an hour" },
+    intro: [
+      "Need a construction dehumidifier in Stabroek for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Stabroek",
+      alineas: [
+        "Vernast delivers to Stabroek and nearby places such as Kapellen, Ekeren and Kalmthout. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Stabroek",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Stabroek, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Stabroek",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["kapellen", "ekeren", "kalmthout", "brasschaat"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Stabroek?",
+        a: "Calculate your drying package online or contact us with your address in Stabroek, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Stabroek?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "kalmthout": {
+    slug: "kalmthout",
+    title: "Dehumidifier hire in Kalmthout, 35 minutes away | Vernast",
+    description:
+      "Building or renovating in Kalmthout? Hire a construction dehumidifier from Vernast: delivery, installation and collection included. Prices online.",
+    h1: "Construction dehumidifier hire in Kalmthout",
+    kicker: "Kalmthout \u00b7 delivery to your site",
+    rit: { afstand: "about 32 km", tijd: "about thirty-five minutes" },
+    intro: [
+      "Need a construction dehumidifier in Kalmthout for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Kalmthout",
+      alineas: [
+        "Vernast delivers to Kalmthout and nearby places such as Kapellen, Wuustwezel and Essen. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For larger volumes and a heavy moisture load.** Check the data sheet and have the set-up matched to the rooms that actually need drying.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Kalmthout",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Kalmthout, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Kalmthout",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["kapellen", "wuustwezel", "essen", "brecht"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Kalmthout?",
+        a: "Calculate your drying package online or contact us with your address in Kalmthout, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Kalmthout?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "wuustwezel": {
+    slug: "wuustwezel",
+    title: "Hire a dehumidifier in Wuustwezel, 35 minutes away | Vernast",
+    description:
+      "In Wuustwezel, Vernast delivers and installs your construction dehumidifiers and collects them again. Calculate your drying package online or ask for advice.",
+    h1: "Construction dehumidifier hire in Wuustwezel",
+    kicker: "Wuustwezel \u00b7 delivery to your site",
+    rit: { afstand: "about 34 km", tijd: "about thirty-five minutes" },
+    intro: [
+      "Need a construction dehumidifier in Wuustwezel for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Wuustwezel",
+      alineas: [
+        "Vernast delivers to Wuustwezel and nearby places such as Brecht, Kalmthout and Essen. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For larger volumes and a heavy moisture load.** Check the data sheet and have the set-up matched to the rooms that actually need drying.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Wuustwezel",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Wuustwezel, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Wuustwezel",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["brecht", "kalmthout", "essen", "hoogstraten"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Wuustwezel?",
+        a: "Calculate your drying package online or contact us with your address in Wuustwezel, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Wuustwezel?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "essen": {
+    slug: "essen",
+    title: "Dehumidifier hire in Essen, in the Noorderkempen | Vernast",
+    description:
+      "Construction dehumidifier hire in Essen for a new build, renovation or water damage. A Vernast drying package with delivery, installation and collection.",
+    h1: "Construction dehumidifier hire in Essen",
+    kicker: "Essen \u00b7 delivery to your site",
+    rit: { afstand: "about 40 km", tijd: "about forty minutes" },
+    intro: [
+      "Need a construction dehumidifier in Essen for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Essen",
+      alineas: [
+        "Vernast delivers to Essen and nearby places such as Kalmthout, Wuustwezel and Brecht. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For larger volumes and a heavy moisture load.** Check the data sheet and have the set-up matched to the rooms that actually need drying.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Essen",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Essen, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Essen",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["kalmthout", "wuustwezel", "brecht", "kapellen"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Essen?",
+        a: "Calculate your drying package online or contact us with your address in Essen, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Essen?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "boechout": {
+    slug: "boechout",
+    title: "Hire a dehumidifier in Boechout, 15 minutes away | Vernast",
+    description:
+      "Screed or plasterwork to dry in Boechout? Vernast hires out construction dehumidifiers, delivered, installed and collected. Calculate your package online.",
+    h1: "Construction dehumidifier hire in Boechout",
+    kicker: "Boechout \u00b7 delivery to your site",
+    rit: { afstand: "about 11 km", tijd: "about a quarter of an hour" },
+    intro: [
+      "Need a construction dehumidifier in Boechout for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Boechout",
+      alineas: [
+        "Vernast delivers to Boechout and nearby places such as Kontich, Mortsel and Hove. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "Drying a flat or an upper floor? Let us know whether there is a lift or a fixed staircase and how wide the access is. The available space partly decides which units we can install. In a shared building, agree in advance who opens the door and where the equipment can be left.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a single room or a smaller drying zone.** Give us the dimensions, the temperature and the amount of moisture so we can tell whether this unit has enough capacity.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Boechout",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Boechout, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Boechout",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["kontich", "mortsel", "hove", "lint"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Boechout?",
+        a: "Calculate your drying package online or contact us with your address in Boechout, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Can a dehumidifier be installed on an upper floor?",
+        a: "That depends on the access and the unit. When you make your request, mention the floor level, any lift and narrow passages. If there is no fixed staircase, discuss in advance how the units will be taken up and which surcharge applies.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Boechout?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "hove": {
+    slug: "hove",
+    title: "Hire a dehumidifier in Hove, 15 minutes away | Vernast",
+    description:
+      "Hiring a construction dehumidifier in Hove? A Vernast drying package with delivery, installation and collection, for new builds, renovation and water damage.",
+    h1: "Construction dehumidifier hire in Hove",
+    kicker: "Hove \u00b7 delivery to your site",
+    rit: { afstand: "about 12 km", tijd: "about a quarter of an hour" },
+    intro: [
+      "Need a construction dehumidifier in Hove for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Hove",
+      alineas: [
+        "Vernast delivers to Hove and nearby places such as Kontich, Boechout and Lint. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For larger volumes and a heavy moisture load.** Check the data sheet and have the set-up matched to the rooms that actually need drying.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Hove",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Hove, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Hove",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["kontich", "boechout", "lint", "edegem"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Hove?",
+        a: "Calculate your drying package online or contact us with your address in Hove, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Hove?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "lint": {
+    slug: "lint",
+    title: "Hire a dehumidifier in Lint, 20 minutes away | Vernast",
+    description:
+      "Hire a construction dehumidifier in Lint: Vernast delivers, installs and collects it. Calculate your drying package online.",
+    h1: "Construction dehumidifier hire in Lint",
+    kicker: "Lint \u00b7 delivery to your site",
+    rit: { afstand: "about 13 km", tijd: "about twenty minutes" },
+    intro: [
+      "Need a construction dehumidifier in Lint for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Lint",
+      alineas: [
+        "Vernast delivers to Lint and nearby places such as Kontich, Boechout and Hove. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a single room or a smaller drying zone.** Give us the dimensions, the temperature and the amount of moisture so we can tell whether this unit has enough capacity.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Lint",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Lint, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Lint",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["kontich", "boechout", "hove", "duffel"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Lint?",
+        a: "Calculate your drying package online or contact us with your address in Lint, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Lint?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "hemiksem": {
+    slug: "hemiksem",
+    title: "Dehumidifier hire in Hemiksem, 10 minutes away | Vernast",
+    description:
+      "Dehumidifier hire in Hemiksem? Calculate your Vernast drying package, delivery and collection included. Advice for new builds, renovation and water damage.",
+    h1: "Construction dehumidifier hire in Hemiksem",
+    kicker: "Hemiksem \u00b7 delivery to your site",
+    rit: { afstand: "about 5 km", tijd: "about ten minutes" },
+    intro: [
+      "Need a construction dehumidifier in Hemiksem for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Hemiksem",
+      alineas: [
+        "Vernast delivers to Hemiksem and nearby places such as Schelle, Niel and Aartselaar. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a single room or a smaller drying zone.** Give us the dimensions, the temperature and the amount of moisture so we can tell whether this unit has enough capacity.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Hemiksem",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Hemiksem, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Hemiksem",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["schelle", "niel", "aartselaar", "hoboken"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Hemiksem?",
+        a: "Calculate your drying package online or contact us with your address in Hemiksem, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Hemiksem?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "niel": {
+    slug: "niel",
+    title: "Hire a dehumidifier in Niel, 10 minutes away | Vernast",
+    description:
+      "Screed, plasterwork or water damage in Niel? Hire a Vernast construction dehumidifier, with delivery, installation and collection in the drying package.",
+    h1: "Construction dehumidifier hire in Niel",
+    kicker: "Niel \u00b7 delivery to your site",
+    rit: { afstand: "about 7 km", tijd: "about ten minutes" },
+    intro: [
+      "Need a construction dehumidifier in Niel for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Niel",
+      alineas: [
+        "Vernast delivers to Niel and nearby places such as Boom, Hemiksem and Schelle. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "Drying a flat or an upper floor? Let us know whether there is a lift or a fixed staircase and how wide the access is. The available space partly decides which units we can install. In a shared building, agree in advance who opens the door and where the equipment can be left.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a single room or a smaller drying zone.** Give us the dimensions, the temperature and the amount of moisture so we can tell whether this unit has enough capacity.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Niel",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Niel, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Niel",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["boom", "hemiksem", "schelle", "rumst"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Niel?",
+        a: "Calculate your drying package online or contact us with your address in Niel, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Can a dehumidifier be installed on an upper floor?",
+        a: "That depends on the access and the unit. When you make your request, mention the floor level, any lift and narrow passages. If there is no fixed staircase, discuss in advance how the units will be taken up and which surcharge applies.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Niel?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "rumst": {
+    slug: "rumst",
+    title: "Hire a dehumidifier in Rumst, 15 minutes away | Vernast",
+    description:
+      "Building or renovating in Rumst? Hire a construction dehumidifier from Vernast: delivery, installation and collection included. Prices online.",
+    h1: "Construction dehumidifier hire in Rumst",
+    kicker: "Rumst \u00b7 delivery to your site",
+    rit: { afstand: "about 10 km", tijd: "about a quarter of an hour" },
+    intro: [
+      "Need a construction dehumidifier in Rumst for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Rumst",
+      alineas: [
+        "Vernast delivers to Rumst and nearby places such as Boom, Niel and Duffel. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Rumst",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Rumst, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Rumst",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["boom", "niel", "duffel", "kontich"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Rumst?",
+        a: "Calculate your drying package online or contact us with your address in Rumst, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Rumst?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "schelle": {
+    slug: "schelle",
+    title: "Hire a dehumidifier in Schelle, 10 minutes away | Vernast",
+    description:
+      "In Schelle, Vernast delivers and installs your construction dehumidifiers and collects them again. Calculate your drying package online or ask for advice.",
+    h1: "Construction dehumidifier hire in Schelle",
+    kicker: "Schelle \u00b7 delivery to your site",
+    rit: { afstand: "about 5 km", tijd: "about ten minutes" },
+    intro: [
+      "Need a construction dehumidifier in Schelle for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Schelle",
+      alineas: [
+        "Vernast delivers to Schelle and nearby places such as Hemiksem, Niel and Aartselaar. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a single room or a smaller drying zone.** Give us the dimensions, the temperature and the amount of moisture so we can tell whether this unit has enough capacity.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Schelle",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Schelle, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Schelle",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["hemiksem", "niel", "aartselaar", "boom"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Schelle?",
+        a: "Calculate your drying package online or contact us with your address in Schelle, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Schelle?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "bornem": {
+    slug: "bornem",
+    title: "Hire a dehumidifier in Bornem, Klein-Brabant | Vernast",
+    description:
+      "Construction dehumidifier hire in Bornem for a new build, renovation or water damage. A Vernast drying package with delivery, installation and collection.",
+    h1: "Construction dehumidifier hire in Bornem",
+    kicker: "Bornem \u00b7 delivery to your site",
+    rit: { afstand: "about 22 km", tijd: "about twenty-five minutes" },
+    intro: [
+      "Need a construction dehumidifier in Bornem for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Bornem",
+      alineas: [
+        "Vernast delivers to Bornem and nearby places such as Puurs-Sint-Amands, Willebroek and Boom. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Bornem",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Bornem, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Bornem",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["puurs-sint-amands", "willebroek", "boom", "rumst"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Bornem?",
+        a: "Calculate your drying package online or contact us with your address in Bornem, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Bornem?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "puurs-sint-amands": {
+    slug: "puurs-sint-amands",
+    title: "Hire a dehumidifier in Puurs-Sint-Amands | Vernast",
+    description:
+      "Hire a construction dehumidifier in Puurs-Sint-Amands: Vernast delivers, installs and collects it. Calculate your drying package online.",
+    h1: "Construction dehumidifier hire in Puurs-Sint-Amands",
+    kicker: "Puurs-Sint-Amands \u00b7 delivery to your site",
+    rit: { afstand: "about 20 km", tijd: "about twenty-five minutes" },
+    intro: [
+      "Need a construction dehumidifier in Puurs-Sint-Amands for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Puurs-Sint-Amands",
+      alineas: [
+        "Vernast delivers to Puurs-Sint-Amands and nearby places such as Bornem, Willebroek and Boom. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For larger volumes and a heavy moisture load.** Check the data sheet and have the set-up matched to the rooms that actually need drying.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For extra heat on a cold site.** This electric heater needs a suitable 400 V connection. Have it checked in advance whether the available supply matches the connected load.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Puurs-Sint-Amands",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Puurs-Sint-Amands, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Puurs-Sint-Amands",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["bornem", "willebroek", "boom", "rumst"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Puurs-Sint-Amands?",
+        a: "Calculate your drying package online or contact us with your address in Puurs-Sint-Amands, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Puurs-Sint-Amands?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "willebroek": {
+    slug: "willebroek",
+    title: "Dehumidifier hire in Willebroek, 20 minutes away | Vernast",
+    description:
+      "Hire a construction dehumidifier in Willebroek: Vernast delivers, installs and collects it. Calculate your drying package online.",
+    h1: "Construction dehumidifier hire in Willebroek",
+    kicker: "Willebroek \u00b7 delivery to your site",
+    rit: { afstand: "about 15 km", tijd: "about twenty minutes" },
+    intro: [
+      "Need a construction dehumidifier in Willebroek for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Willebroek",
+      alineas: [
+        "Vernast delivers to Willebroek and nearby places such as Boom, Puurs-Sint-Amands and Bornem. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**For larger volumes and a heavy moisture load.** Check the data sheet and have the set-up matched to the rooms that actually need drying.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Willebroek",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Willebroek, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Willebroek",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["boom", "puurs-sint-amands", "bornem", "rumst"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Willebroek?",
+        a: "Calculate your drying package online or contact us with your address in Willebroek, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Willebroek?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "berlaar": {
+    slug: "berlaar",
+    title: "Dehumidifier hire in Berlaar in the Nete valley | Vernast",
+    description:
+      "Hire a construction dehumidifier in Berlaar: Vernast delivers, installs and collects it. Calculate your drying package online.",
+    h1: "Construction dehumidifier hire in Berlaar",
+    kicker: "Berlaar \u00b7 delivery to your site",
+    rit: { afstand: "about 22 km", tijd: "about twenty-five minutes" },
+    intro: [
+      "Need a construction dehumidifier in Berlaar for a new build, a renovation or water damage? At Vernast you hire dehumidifiers to dry screed, plasterwork and damp rooms. **Delivery, installation and collection are included in your drying package.** Calculate your hire price online or call us for help choosing the right units.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Berlaar",
+      alineas: [
+        "Vernast delivers to Berlaar and nearby places such as Lier, Nijlen and Heist-op-den-Berg. Include the full site address in your request and the person who can let us in on site. That way we can arrange delivery and installation in advance.",
+        "With a wet cellar or a leak, the work starts with the cause: if water keeps getting in, drying alone is not a lasting solution. Have the leak or water ingress dealt with first and remove any standing water. We then look at which materials are wet and whether the moisture is also under a floor or behind a wall.",
+        "New screed and plasterwork bring moisture into the building. When choosing a drying package, the material, thickness, volume and temperature matter most. Let us know when the material was laid as well. The drying set-up and the moment you start must follow the instructions of your contractor or material supplier.",
+        "**Drying time depends on the conditions on your site.** The thickness and make-up of the material, the temperature and the humidity all play a part. A dry surface layer does not automatically mean the whole floor or wall is ready for finishing. Agree the residual moisture check with your floor layer or decorator.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For larger rooms or several drying zones.** The capacity you need depends on the volume and the wet materials. The layout of your site decides where the units go.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air circulation alongside the dehumidifier.** A fan helps move air along damp surfaces. It does not remove moisture from the room itself and does not replace the dehumidifier.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a drying set-up after water damage.** First establish where the moisture is and how the structure is built up. For moisture under a floor or behind a wall, a tailored approach may be needed.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a single room or a smaller drying zone.** Give us the dimensions, the temperature and the amount of moisture so we can tell whether this unit has enough capacity.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Berlaar",
+      alinea: "**With your drying package, delivery, installation and collection are included.** Give us the address in Berlaar, your preferred start date and the access details. Mention a floor without a fixed staircase, a narrow passage or limited parking in advance. The technician installs the units and explains how to use the set-up and check the condensate drain. The agreed delivery is shown in your booking.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Berlaar",
+      alinea: "You can collect a single unit by appointment from Vernast, Boomsesteenweg 12, unit 11 in Aartselaar. **Book in advance** so the right unit is ready. Check the collection rates and allow for both the outward and the return trip. Check the dimensions and weight, and follow the transport instructions. If you are unsure about the set-up or need several units, talk to us about a drying package with installation.",
+    },
+    buren: ["lier", "nijlen", "heist-op-den-berg", "duffel"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Berlaar?",
+        a: "Calculate your drying package online or contact us with your address in Berlaar, the size of the room and your preferred start date. Let us know the floor level and the available power supply too. We then agree the delivery time and access to the site with you.",
+      },
+      {
+        q: "How many dehumidifiers do I need?",
+        a: "That depends on the volume, the layout, the material and the amount of moisture. An open-plan floor needs a different set-up from several closed rooms. Use the calculator for your package and ask for advice if your situation is different, for example with a high room or hidden moisture.",
+      },
+      {
+        q: "How do I know when the floor or wall is dry enough?",
+        a: "The hire period alone gives no certainty about that. Have the residual moisture checked with a method that suits the material. Your floor layer or decorator decides which moisture reading, and any further measurement, is needed before the chosen finish can be applied.",
+      },
+      {
+        q: "Does a dehumidifier solve a persistent damp problem?",
+        a: "A construction dehumidifier helps remove moisture, but it does not repair a leak, water ingress or a missing damp-proof barrier. Have the cause investigated first. If new water keeps getting in, the material can get wet again, even while the dehumidifier is running.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "The connected load differs per unit. Check the data sheet and tell us which connection is available on your site. The 20 and 30 kW electric site heaters need a suitable 400 V supply. If in doubt, have the available capacity and the circuit protection checked.",
+      },
+      {
+        q: "Can I collect a unit for a site in Berlaar?",
+        a: "Collection is possible by appointment from our warehouse in Aartselaar, Boomsesteenweg 12, unit 11. Book your unit in advance and make sure it fits in your vehicle. Follow the transport instructions for the chosen unit. With a delivered drying package, we take care of installation and collection.",
+      },
+    ],
+    realisaties: [],
+  },
 };
