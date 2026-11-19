@@ -28,4 +28,12 @@ export const AAN: readonly string[] = [
   "blegny",
   "chaudfontaine",
   "comblain-au-pont",
+  "dalhem",
+  "esneux",
+  "flemalle",
+  "fleron",
+  "grace-hollogne",
+  "herstal",
+  "juprelle",
+  "neupre",
 ];
