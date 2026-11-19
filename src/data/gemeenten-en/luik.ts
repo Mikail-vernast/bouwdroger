@@ -3042,4 +3042,396 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  "villers-le-bouillet": {
+    slug: "villers-le-bouillet",
+    title: "Dehumidifier hire in Villers-le-Bouillet | Vernast",
+    description:
+      "Dehumidifier hire in Villers-le-Bouillet, Warnant-Dreye or Vaux-et-Borset? Vernast delivers units for new builds along the E42 and converted farmhouses.",
+    h1: "Construction dehumidifier hire in Villers-le-Bouillet",
+    kicker: "Province of Liège · on the plateau above Huy",
+    rit: { afstand: "about 115 km", tijd: "just over an hour" },
+    intro: [
+      "Villers-le-Bouillet lies on the plateau north of Huy, on the edge of **the Hesbaye**. The E42 between Namur and Liège runs through the municipality, and many housing estates have been added along that route over the past decades. From Aartselaar we get there in just over an hour.",
+      "Between the new neighbourhoods lie the old villages of Warnant-Dreye, Vaux-et-Borset, Vieux-Waleffe and Fize-Fontaine. There **courtyard farmhouses** stand among the fields, and more than one of them is being converted into a home today.",
+    ],
+    bouw: {
+      kop: "New builds on the plateau and farmhouses becoming homes",
+      alineas: [
+        "With a new build it is all about **the schedule**. The screed has to be dry enough before the floor goes on, and starting too early risks a floor that comes loose or swells. A dehumidifier of the right size, in a closed room, shortens that wait.",
+        "A **courtyard farmhouse** converted into one or more homes brings a large volume and thick brick walls. There it is often one unit per wing, and in winter a site heater to bring the room up to temperature first. During installation the technician divides the farmhouse into **separate drying zones**.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a new-build home on a housing estate.** At 70 litres a day it is the right size for a ground floor with fresh screed." },
+      { key: "ttk650", waarom: "**For a wing of a courtyard farmhouse with a high roof.** It extracts 110 litres a day from the air, in rooms up to 600 m³." },
+      { key: "teddh30", waarom: "A farmhouse on the open plateau cools down sharply in winter. This site heater brings the room above 15 °C, the temperature above which a condensation dehumidifier works well." },
+      { key: "ttv4500", waarom: "In a long stable or barn it sends the air from one end wall to the other, so the furthest corner does not lag behind." },
+    ],
+    levering: {
+      kop: "Delivery in Villers-le-Bouillet: easy to reach via the E42",
+      alinea:
+        "We drive **via the E40 and the E42**, just over an hour on the road. You choose a delivery date when you book, and for Wallonia we fix the exact moment with you. Is your farmhouse on a farm track? **Describe the access**, so the technician can take the units straight into the right wing.",
+    },
+    afhalen: {
+      kop: "Collecting: just over an hour each way",
+      alinea:
+        "From Villers-le-Bouillet you drive just over an hour to Aartselaar, and the same trip again when returning. For a new-build site or a farmhouse you are **better off having it delivered**: the technician then also looks at the volume and the set-up, and they determine the result as much as the unit does.",
+    },
+    buren: ["hoei", "wanze", "amay", "verlaine", "braives"],
+    faq: [
+      {
+        q: "Why does the cellar of my new build stay wet for so long?",
+        a: "During the shell construction, rainwater runs into the excavation and onto the cellar floor, and concrete and masonry soak it up. After that the moisture can only get out slowly. A dehumidifier in the closed cellar removes it faster than airing with open windows.",
+      },
+      {
+        q: "How many units do I need for a courtyard farmhouse?",
+        a: "Usually one dehumidifier per wing or per storey, with the doors between the zones shut. In winter a site heater is often added. The technician looks at the volume during installation and tells you which combination works best.",
+      },
+      {
+        q: "Can a dehumidifier stay on when the site is empty?",
+        a: "Yes. It runs day and night and drains its water through a hose to a floor drain or an outlet. Do make sure the power point does not go off when the contractor locks the site distribution box in the evening.",
+      },
+      {
+        q: "Do you also deliver in Vieux-Waleffe and Fize-Fontaine?",
+        a: "Yes, in all parts of Villers-le-Bouillet. The villages lie far apart on the plateau, so give the full address with postcode. That way the technician plans his route and we agree a delivery time with you.",
+      },
+    ],
+    realisaties: [],
+  },
+  wanze: {
+    slug: "wanze",
+    title: "Construction dehumidifier hire in Wanze and Moha | Vernast",
+    description:
+      "Dehumidifier hire in Wanze, Antheit, Bas-Oha, Moha or Huccorgne? Vernast delivers and sets up units for stone houses on the Mehaigne and for new builds.",
+    h1: "Construction dehumidifier hire in Wanze",
+    kicker: "Province of Liège · sugar factory and Mehaigne valley",
+    rit: { afstand: "about 120 km", tijd: "just over an hour" },
+    intro: [
+      "Wanze lies on the Meuse, just upstream of Huy. The municipality is known for **the sugar factory**, where lorries come and go during the beet campaign in autumn. From Aartselaar it takes us just over an hour to drive there.",
+      "Behind the industrial zone the **Mehaigne** flows through a green valley, with Moha, where the castle ruins stand, and Huccorgne. Antheit, Vinalmont and Bas-Oha lie between the Meuse and the plateau. You will find old stone houses and recent housing estates.",
+    ],
+    bouw: {
+      kop: "Valley houses on the Mehaigne, housing estates above",
+      alineas: [
+        "In Moha and Huccorgne the houses stand close to the river and against the side of the valley, often with **thick natural-stone walls**. Such a home is naturally cool. In summer that is pleasant, but during a renovation it works against you: **cold walls dry slowly**, and fresh plasterwork stays dark there for weeks.",
+        "Around Antheit and Vinalmont the buildings are more recent: **new builds with screed and underfloor heating** and extensions behind older homes. There everything revolves around the schedule. The floor layer or tiler wants to see a reading, and the technician measures the screed at collection.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a new build with fresh screed.** At 70 litres a day and with a range of up to 400 m³, the floor layer's schedule stays achievable." },
+      { key: "teddh30", waarom: "**For a stone house being renovated unheated in winter.** This site heater on three-phase power first brings the room up to temperature, then the drying starts." },
+      { key: "ttv4500", waarom: "In front of a **thick stone wall** it blows away the damp layer of air, so the dehumidifier keeps drawing moisture out of the wall." },
+      { key: "ttk170", waarom: "For a single bathroom or room in a lived-in house. It is compact, uses 0.75 kW and fits easily up a narrow stairwell." },
+    ],
+    levering: {
+      kop: "Delivery in Wanze: along the Meuse or through the valley",
+      alinea:
+        "We drive **via the E40** to Wanze, just over an hour on the road. You choose a delivery date when you book; in Wallonia we make an appointment with you for the delivery time. During the beet campaign the roads around the sugar factory are busier. In the narrow streets of Moha, it is best to tell us in advance **where the van can stop**.",
+    },
+    afhalen: {
+      kop: "Collecting from Wanze: allow half a day",
+      alinea:
+        "Our warehouse in Aartselaar is just over an hour's drive from Wanze. Collecting and returning means making that trip twice. **Delivery makes more sense here**, especially for a renovation where the dehumidifier stays for a few weeks.",
+    },
+    buren: ["hoei", "villers-le-bouillet", "heron", "braives"],
+    faq: [
+      {
+        q: "My house in Moha stands against the side of the Mehaigne valley. What should I know?",
+        a: "A wall against the slope takes in moisture from outside after a lot of rain. A dehumidifier removes the construction moisture after a renovation, but it can do nothing against water from the slope. During installation the technician measures on which side the moisture sits.",
+      },
+      {
+        q: "How do I know when the screed in my new build is dry enough?",
+        a: "By measuring, not by counting days. The floor layer or tiler decides which limit applies to his material. At collection the technician measures the screed, so you have a figure you can pass on.",
+      },
+      {
+        q: "Do you work in all parts of Wanze?",
+        a: "Yes, from Bas-Oha on the Meuse to Huccorgne on the Mehaigne. Include the district in the address. The villages are spread out, and with the full address the technician plans his route correctly.",
+      },
+      {
+        q: "Can I let a dehumidifier run in a lived-in house?",
+        a: "Yes, if the room it stands in can be closed. Put it in the room that needs to dry, keep the door shut and use the rest of the house as usual. It keeps running at night too, because drying works best without interruption.",
+      },
+    ],
+    realisaties: [],
+  },
+  amel: {
+    slug: "amel",
+    title: "Construction dehumidifier hire in Amel (Amblève) | Vernast",
+    description:
+      "Dehumidifier hire in Amel: for rubble-stone Eifel farmhouses and new builds on the cold high plateau. Set up by a technician, measured at start and end.",
+    h1: "Construction dehumidifier hire in Amel",
+    kicker: "Province of Liège · Eifel villages in the Amel valley",
+    rit: { afstand: "about 205 km", tijd: "just over two hours" },
+    intro: [
+      "Amel, Amblève in French, lies in the Belgian Eifel, in the German-speaking part of the province of Liège. The municipality consists of villages on the high plateau: **Amel, Heppenbach and Meyerode**, with hamlets around them such as Born, Deidenberg and Schoppen. From Aartselaar it takes just over two hours to drive there.",
+      "You mainly find meadows, woodland and scattered farmhouses. The climate is that of the High Ardennes, with **long winters, plenty of rain and night frost until late in spring**. As a result, the period in which the outside air helps a site dry is shorter here than in Flanders.",
+    ],
+    bouw: {
+      kop: "Old farmhouses with thick walls, new builds in a short building season",
+      alineas: [
+        "The older building type in Amel is **the Eifel farmhouse**: house and stable under one roof, with rubble-stone walls. When it is converted into a home, new plaster goes onto a cold, thick wall that holds moisture itself. **The technician measures during installation** how wet the wall is. That way you know later what was construction moisture and what the stone itself carries.",
+        "With **new builds** the calendar counts for a lot. If the shell construction runs on into autumn, the screed and plasterwork have to dry in cold, damp months. An unheated home on the high plateau then stays well below 15 °C, the temperature above which a condensation dehumidifier works well. **Adding a site heater or using a desiccant dehumidifier** solves that.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a new-build home with fresh screed.** Extracts up to 70 litres a day from the air in rooms up to about 400 m³, enough for an entire ground floor." },
+      { key: "teddh30", waarom: "**For a winter site on the high plateau**, where an unheated home stays cold for weeks. The heater delivers 30 kW and needs a 400 V (three-phase) connection." },
+      { key: "revolution", waarom: "For **a cold stable or barn becoming living space**. This desiccant dehumidifier also absorbs moisture where it is too cold for a condensation dehumidifier." },
+      { key: "ttv4500", waarom: "Damp air lingers along **a thick rubble-stone wall**. The fan gets that air moving, so the dehumidifier can pick it up." },
+    ],
+    levering: {
+      kop: "Delivery in Amel: a long drive, well planned",
+      alinea:
+        "Amel is **just over two hours** from our warehouse in Aartselaar, via Liège, Verviers and the A27. You choose a delivery date when you book. In Wallonia we deliver **by appointment**, and we combine the trip with other addresses in the East Cantons. If snow or black ice is forecast, we call ahead. Also let us know whether the van can get to the farmhouse, because not every drive is paved.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: over four hours on the road",
+      alinea:
+        "Collecting a unit means just over two hours there and just over two hours back, and the same again when returning it. A construction dehumidifier also has to be **transported upright**. If you choose delivery, the technician places the units and **takes readings at the start and at collection**.",
+    },
+    buren: ["buetgenbach", "buellingen", "sankt-vith", "weismes"],
+    faq: [
+      {
+        q: "Does a construction dehumidifier also work in a cold Eifel farmhouse in winter?",
+        a: "A condensation dehumidifier clearly loses efficiency below 15 °C, and an unheated farmhouse in Amel is often colder than that in winter. That is why here we combine a dehumidifier with an electric site heater, or choose the desiccant dehumidifier that keeps working in the cold. Tell us when you book whether the building is heated.",
+      },
+      {
+        q: "Do you also deliver in the small hamlets such as Born or Schoppen?",
+        a: "Yes, we deliver throughout the municipality of Amel, including the hamlets and isolated farmhouses. Tell us what the access is like when you book. With a narrow farm track or an unpaved drive, the technician will bring a sack truck.",
+      },
+      {
+        q: "How long is the drive from Aartselaar to Amel?",
+        a: "Allow just over two hours, and longer with traffic around Liège or winter weather on the high plateau. You choose a delivery date when you book and we agree the delivery time with you, so you do not have to wait all day.",
+      },
+      {
+        q: "How do I dry a converted stable that is becoming living space?",
+        a: "Keep the space as closed as possible, bring it up to temperature with a site heater and let a dehumidifier take the moisture out of the air. Old rubble-stone stable walls release their water slowly, so allow weeks. The reading at the start gives you a point of comparison for later.",
+      },
+    ],
+    realisaties: [],
+  },
+  aubel: {
+    slug: "aubel",
+    title: "Dehumidifier hire in Aubel, near Val-Dieu Abbey | Vernast",
+    description:
+      "Dehumidifier hire in Aubel, on the plateau by the Voeren area: farmhouses, orchards and Val-Dieu Abbey. Delivery by appointment, set up by a technician.",
+    h1: "Construction dehumidifier hire in Aubel",
+    kicker: "Liège · plateau village on the border with Voeren",
+    rit: { afstand: "about 145 km", tijd: "about an hour and a half" },
+    intro: [
+      "Aubel lies in the north of the Pays de Herve, with **Voeren** just across the municipal boundary. It is a rural municipality of meadows, standard orchards and scattered farmhouses, known for its fruit syrup and for **Val-Dieu Abbey** in the Berwinne valley.",
+      "Around the market square, brick houses stand close together. Beyond that you mainly find farms, converted farmhouses and newer homes along the roads to the neighbouring villages. We drive about an hour and a half from Aartselaar to Aubel.",
+    ],
+    bouw: {
+      kop: "Converted farmhouses and a cold winter on the plateau",
+      alineas: [
+        "**A farmhouse in Aubel** often has a house, a stable and a barn under one roof or around an inner courtyard. A conversion adds new floors, new plasterwork and sometimes a second dwelling. That brings a lot of construction moisture into a building with thick, cold walls, and those walls only release their moisture when the air next to them is dry and moving.",
+        "**On the plateau the winter is colder** and windier than in the valleys. An unheated site then stays below the temperature at which a condensation dehumidifier works well for a long time. During installation the technician measures the temperature and adds a site heater if needed.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a farmhouse with house and stable under one roof**: 110 litres a day, designed for a lot of construction moisture at once." },
+      { key: "teddh30", waarom: "**For an unheated room in winter**: this 30 kW electric site heater brings the site up to temperature for the dehumidifier. Allow for a 400 V connection." },
+      { key: "ttv4500", waarom: "In a barn with a high ridge, damp air lingers in the corners. **This fan keeps it moving**, so the dehumidifier reaches the whole space." },
+      { key: "ttk170", waarom: "**For a single converted room or a bathroom** in a home near the market square: compact and runs on a standard socket." },
+    ],
+    levering: {
+      kop: "Delivery in Aubel: via the E40 and the country roads",
+      alinea:
+        "We drive **via the E313 and the E40** and the last stretch on country roads, about an hour and a half in all. You choose a delivery date when you book and we deliver by appointment. If the farmhouse is on a narrow road or behind a yard, tell us where the van can stand. The technician brings everything inside, places it room by room and records the moisture readings.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: three hours' driving",
+      alinea:
+        "Our collection point is about an hour and a half from Aubel, so **about three hours there and back**. A dehumidifier, a fan and a heater together also will not fit in an ordinary car. For a farmhouse conversion, delivery and collection is the practical choice.",
+    },
+    buren: ["voeren", "plombieres", "thimister-clermont", "herve"],
+    faq: [
+      {
+        q: "Does a construction dehumidifier work in a cold farmhouse in winter?",
+        a: "Only if the room is warm enough. Below fifteen degrees a condensation dehumidifier loses a lot of efficiency, and an old farmhouse on the plateau often does not get warmer than that in winter. Then we add a site heater, or choose a desiccant dehumidifier if heating is not possible.",
+      },
+      {
+        q: "How many units do I need for a stable becoming a home?",
+        a: "That depends on the volume and on what is wet: only the screed, or the plasterwork and walls too. Give us the floor area and the height when you book, and we will suggest a combination. The technician checks on site whether it is enough.",
+      },
+      {
+        q: "Do you also deliver on the Voeren and Val-Dieu side?",
+        a: "Yes. We drive to all of Aubel, including the farmhouses towards Voeren and in the valley near Val-Dieu. For a remote address, mention whether the access is along a farm track, so the technician knows what to expect.",
+      },
+      {
+        q: "Can the dehumidifier keep running while the tradespeople carry on working?",
+        a: "Yes, the units keep running while work is going on. Agree with the contractor that the windows stay shut as much as possible, otherwise the unit dries the outside air. We lay the drain hose so nobody trips over it.",
+      },
+    ],
+    realisaties: [],
+  },
+  baelen: {
+    slug: "baelen",
+    title: "Construction dehumidifier hire in Baelen | Vernast",
+    description:
+      "Dehumidifier hire in Baelen and Membach: homes and farmhouses between the Hertogenwald and the Vesdre, near Eupen. Delivered by appointment and set up.",
+    h1: "Construction dehumidifier hire in Baelen",
+    kicker: "Liège · on the edge of the Hertogenwald",
+    rit: { afstand: "about 155 km", tijd: "over an hour and a half" },
+    intro: [
+      "Baelen lies in the east of the province of Liège, with **Eupen** as its neighbour. A large part of the area is forest: **the Hertogenwald**, which runs on to the reservoirs. From Aartselaar it takes us over an hour and a half to drive to Baelen.",
+      "**Membach**, in the Vesdre valley, also belongs to the municipality. In the village stand old homes and farmhouses, newer houses along the roads, and in between hamlets among meadows and woodland.",
+    ],
+    bouw: {
+      kop: "A damp climate on the edge of the forest",
+      alineas: [
+        "**On the edge of the Hertogenwald** the climate is damper than in the west of the country. A home being renovated in autumn or winter will not dry here with an open window, because the outside air is often as damp as the air inside. A construction dehumidifier does get the moisture out of the room.",
+        "**In Membach** the homes lie lower and closer to the Vesdre, with cellars and ground floors that are more susceptible to damp. In Baelen, higher up, it is more often the renovation of old farmhouses and village houses, with thick walls that release their moisture slowly.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a renovation in the damp climate on the forest edge**, where airing achieves little: 70 litres a day." },
+      { key: "revolution", waarom: "**For a cellar in Membach close to the Vesdre**: this desiccant dehumidifier also works in a cold, damp room." },
+      { key: "teddh30", waarom: "**For a winter site in an old farmhouse**: 30 kW to bring the room up to temperature, so the dehumidifier does not run at half power. Needs three-phase power (400 V)." },
+      { key: "ttv4500", waarom: "With the thick walls of a farmhouse in Baelen, **it keeps the air moving**, so the moisture can keep coming out of the wall." },
+    ],
+    levering: {
+      kop: "Delivery in Baelen: right up to the border with Eupen",
+      alinea:
+        "We drive over an hour and a half, **via the E313 and the E40**, and the last stretch along the Vesdre or across the plateau. You choose a delivery date when you book, and we agree the delivery time together. If the home is on a forest road or has narrow access, tell us where a van can stand.",
+    },
+    afhalen: {
+      kop: "Collecting: over three hours there and back",
+      alinea:
+        "Our collection point in Aartselaar is over an hour and a half from Baelen. So there and back you are **on the road for over three hours**, and that rarely pays off. With delivery the technician also collects the units again and measures at the end how much moisture is still there.",
+    },
+    buren: ["limbourg", "welkenraedt", "eupen", "jalhay"],
+    faq: [
+      {
+        q: "Why is my renovation not drying with the windows open?",
+        a: "Because the outside air in Baelen is often as damp as the air inside, especially in autumn and winter. Airing then just moves moisture around. A dehumidifier extracts the water from the air and carries it away, whatever the weather outside.",
+      },
+      {
+        q: "How do I operate the units once the technician has gone?",
+        a: "That is simple. The technician sets everything up during installation and explains what to keep an eye on, such as the drain hose or the collection tank. Any questions afterwards? Feel free to email or call us, in French too.",
+      },
+      {
+        q: "Do you also deliver in Membach?",
+        a: "Yes, Membach belongs to Baelen and is within our delivery area. If the home is close to the Vesdre and has a cellar, mention it when you book. The technician will then bring a unit that also works in a cold cellar.",
+      },
+      {
+        q: "How long does a dehumidifier need to stay in an old farmhouse?",
+        a: "That depends on the thickness of the walls and on how much water went in during the renovation. With thick walls in natural stone or brick, allow a few weeks. The technician takes readings at installation and at collection, so you know where you stand.",
+      },
+    ],
+    realisaties: [],
+  },
+  "burg-reuland": {
+    slug: "burg-reuland",
+    title: "Construction dehumidifier hire in Burg-Reuland | Vernast",
+    description:
+      "Dehumidifier hire in Burg-Reuland: for rubble-stone farmhouses and new builds in the Our valley, by Luxembourg and Germany. Delivered, set up and measured.",
+    h1: "Construction dehumidifier hire in Burg-Reuland",
+    kicker: "Province of Liège · the Our valley on the tri-border",
+    rit: { afstand: "about 230 km", tijd: "about two and a half hours" },
+    intro: [
+      "Burg-Reuland is the **southernmost municipality of the German-speaking Community**. It lies in the **Our valley**, the river that forms the border with Germany here, and at Ouren Belgium, Luxembourg and Germany meet. Above the village of Reuland stand the **ruins of the castle** from which the municipality takes its name.",
+      "The municipality consists of **Reuland and Thommen**, with a series of small villages and hamlets. It is rural and sparsely populated, with farmhouses, holiday homes and a few new housing estates. To the west it borders Gouvy in the province of Luxembourg. From Aartselaar it takes about two and a half hours to drive there.",
+    ],
+    bouw: {
+      kop: "Farmhouses in the valley and homes on the cold slope",
+      alineas: [
+        "The older building type is **the rubble-stone Eifel farmhouse**, often with a slate roof. Anyone converting such a farmhouse is dealing with **walls half a metre thick or more** that release their moisture slowly. In the Our valley the ground is close to the water, and a ground floor or cellar there is naturally cool and damp.",
+        "On the slopes above it is more often **new builds and holiday homes**. There it is mainly **the long, cold winter** that slows things down. A home that is ready for its screed in autumn then stands for weeks at a temperature at which plaster and floor barely dry. With a dehumidifier and a heater added, the floor layer's and painter's schedule stays achievable.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a converted farmhouse with a new screed** in the living area. Removes up to 70 litres a day, in rooms up to about 400 m³." },
+      { key: "revolution", waarom: "For **a cold cellar or cool ground floor in the valley**, where a condensation dehumidifier performs too poorly. This desiccant dehumidifier also works at low temperatures." },
+      { key: "teddh20", waarom: "**For a holiday home being finished in winter.** The 20 kW heater brings the room up to temperature, so the dehumidifier can do its work. Needs a 400 V connection." },
+      { key: "radiaal2250", waarom: "Blows dry air in a targeted way along **an old stone wall or over a wet floor**, where moisture lingers longest." },
+    ],
+    levering: {
+      kop: "Delivery in Burg-Reuland: our longest drive in the province",
+      alinea:
+        "Burg-Reuland is **our furthest address in the province of Liège**: about two and a half hours' drive via Liège, Verviers and the A27, to beyond Sankt Vith. That is why we combine the trip with other addresses in the south of the East Cantons. You choose a delivery date and we agree the time with you. Let us know in advance whether the van can get to the house; in the narrow valley lanes that is not always possible.",
+    },
+    afhalen: {
+      kop: "Collecting from Burg-Reuland: five hours' driving",
+      alinea:
+        "There and back to Aartselaar you are on the road for **about five hours**, and that twice per hire period. We advise against it. **Have the units delivered**: the technician then measures at the start how wet the walls are, and with a rubble-stone farmhouse that is the first thing you want to know.",
+    },
+    buren: ["sankt-vith", "gouvy"],
+    faq: [
+      {
+        q: "Do you deliver all the way to Burg-Reuland, so far from Antwerp?",
+        a: "Yes, the municipality is within our delivery area. It is our longest drive in the province, though, so we plan deliveries in the area together and agree the delivery time with you. Tell us when you book what the access to your house is like.",
+      },
+      {
+        q: "How do I dry a rubble-stone farmhouse in the Our valley after a conversion?",
+        a: "Keep the space closed, put one dehumidifier per zone and a heater if needed, because such a farmhouse is cool in the cold season. Thick stone walls release their water slowly, so allow weeks rather than days. The reading at the start and at collection shows the difference.",
+      },
+      {
+        q: "Is my damp cellar in the valley construction moisture or groundwater?",
+        a: "The technician measures that first during installation. Construction moisture after a renovation disappears with a dehumidifier. If the moisture comes back after every rainy spell along the floor or the wall on the hill side, it comes from outside and drying alone will not solve the problem.",
+      },
+      {
+        q: "Do you also have a page for Gouvy, just across the provincial border?",
+        a: "Yes, Gouvy in the province of Luxembourg borders Burg-Reuland and has its own page. For the delivery the provincial border plays no part: both municipalities lie on the same long drive, and we often plan them together.",
+      },
+    ],
+    realisaties: [],
+  },
+  buellingen: {
+    slug: "buellingen",
+    title: "Construction dehumidifier hire in Büllingen | Vernast",
+    description:
+      "Dehumidifier hire in Büllingen: for post-war rebuilt homes and wet new builds in the border villages of the East Cantons. Delivered, set up and measured.",
+    h1: "Construction dehumidifier hire in Büllingen",
+    kicker: "Province of Liège · East Cantons against the German border",
+    rit: { afstand: "about 210 km", tijd: "just over two hours" },
+    intro: [
+      "Büllingen, Bullange in French, is a sprawling German-speaking municipality in the East Cantons, **against the German border**. It consists of a series of villages, including **Büllingen, Rocherath, Krinkelt, Mürringen, Honsfeld and Manderfeld**, with meadows and spruce forest in between. From Aartselaar you are on the road for just over two hours.",
+      "The villages lie **high and exposed** on the edge of the Eifel, with wind, snow and frost and a winter that lasts longer than in Flanders. Rocherath and Krinkelt were hit hard during the **Battle of the Bulge**. Many houses there were rebuilt after the war.",
+    ],
+    bouw: {
+      kop: "Rebuilt villages and new builds in the wind",
+      alineas: [
+        "In the villages stand many **homes from the post-war reconstruction**. They are solidly built, but without the cavity or damp-proof course of a modern house. Anyone insulating and replastering such a home traps the moisture from the old wall behind a new layer. **So dry first and only finish afterwards**, otherwise stains will appear behind the paint later.",
+        "With **new builds** on the open high plateau, the weather weighs heaviest. If a shell only becomes wind- and watertight in autumn, it has often had weeks of rain and snow. The screed and interior walls are then full of water, and outside it is too cold to dry with open windows. **Close up the home** and dry with a construction dehumidifier, with a heater added if needed.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a new build that stood open through a wet autumn.** At 110 litres a day and with a range of up to about 600 m³, it is made for a soaked shell." },
+      { key: "teddh30", waarom: "**For a home without heating while it is freezing outside.** The heater brings the room to a temperature at which the dehumidifier works well. It needs a 400 V connection." },
+      { key: "ttk170", waarom: "**For a single room in a post-war rebuilt home** being replastered. A compact 0.75 kW unit that runs on a standard socket." },
+      { key: "radiaal2250", waarom: "Blows in a targeted way over **a wet screed**, so the floor dries evenly and no wet corner is left behind." },
+    ],
+    levering: {
+      kop: "Delivery in Büllingen: from Manderfeld to Rocherath",
+      alinea:
+        "Büllingen is **just over two hours** from Aartselaar, via Liège, Verviers and the A27. It is one of our longest drives, which is why we combine it with other addresses in the area. You choose a delivery date when you book, and we agree the time with you. If you live in a remote village along the border, mention it, so the technician can plan his route.",
+    },
+    afhalen: {
+      kop: "Collecting yourself: two long drives",
+      alinea:
+        "There and back to our collection point in Aartselaar you are on the road for **over four hours**, not counting the loading. After the hire period you drive the same distance again to return the unit. **Having it delivered is almost always the better choice here.**",
+    },
+    buren: ["buetgenbach", "amel", "sankt-vith"],
+    faq: [
+      {
+        q: "My new build in Büllingen stood open all autumn. How wet is it?",
+        a: "Often wetter than you think. Rain and snow on an open shell soak deep into the blocks and the screed. During installation the technician measures how much moisture is in the floor and walls, and on that basis we decide the size of dehumidifier and the length of the package.",
+      },
+      {
+        q: "Can I dry when it is freezing outside?",
+        a: "Yes, as long as the home is closed. Frost outside is no objection, because cold outside air contains little moisture. Inside it does have to be warm enough: below 15 °C a condensation dehumidifier loses efficiency. If there is no heating yet, we add an electric site heater.",
+      },
+      {
+        q: "After insulating an old house, do I need to let it dry first?",
+        a: "Yes, especially with a wall without a damp-proof course. If you trap the moisture behind insulation and new plaster, it looks for a way out later and you get stains or mould. Let the old wall and the new plaster dry first and have it measured before you paint.",
+      },
+      {
+        q: "Do you deliver all the way to the border villages such as Manderfeld and Honsfeld?",
+        a: "Yes, we deliver throughout the municipality of Büllingen, including the villages against the German border. Because it is a long drive, we plan those addresses together. You choose a delivery date and we agree the delivery time with you.",
+      },
+    ],
+    realisaties: [],
+  },
 };

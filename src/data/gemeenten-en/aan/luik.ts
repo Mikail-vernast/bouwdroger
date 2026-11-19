@@ -58,4 +58,11 @@ export const AAN: readonly string[] = [
   "ouffet",
   "tinlot",
   "verlaine",
+  "villers-le-bouillet",
+  "wanze",
+  "amel",
+  "aubel",
+  "baelen",
+  "burg-reuland",
+  "buellingen",
 ];
