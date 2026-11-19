@@ -452,7 +452,7 @@ const en: typeof nl = {
   praktijk: [
     {
       title: "Only start once the screed may be dried",
-      desc: "Fresh sand-cement screed first has to cure; drying hard straight away risks shrinkage cracks or a weak top layer. Ask your screed layer from when you may dry actively, often after a few days to a week. Plaster can usually be tackled sooner, as soon as the surface is hard.",
+      desc: "Fresh sand-cement screed first has to cure; drying hard straight away risks shrinkage cracks or a weak top layer. Ask your screed fitter from when you may dry actively, often after a few days to a week. Plaster can usually be tackled sooner, as soon as the surface is hard.",
     },
     {
       title: "Keep the room closed",
@@ -494,7 +494,7 @@ const en: typeof nl = {
     },
     {
       q: "Can I use the underfloor heating to dry the screed?",
-      a: "Only according to the heating-up protocol of your installer or screed layer: warming up slowly and in stages. Heating too fast or too hot can cause cracks. The construction dehumidifier can simply keep running in the meantime and removes the moisture released in the process.",
+      a: "Only according to the heating-up protocol of your installer or screed fitter: warming up slowly and in stages. Heating too fast or too hot can cause cracks. The construction dehumidifier can simply keep running in the meantime and removes the moisture released in the process.",
     },
     { q: "Can I combine several machines?", a: "Yes, for large sites we deliver several machines. Call us for a proposal." },
     {
@@ -621,7 +621,7 @@ const en: typeof nl = {
   cKicker: "A question about your site?",
   cTitel: "Unsure about the hire period or the package?",
   cLede:
-    "Give us your floor area, the screed thickness and when the screed layer will be finished. Within one working day you will receive a proposal from a drying specialist.",
+    "Give us your floor area, the screed thickness and when the screed fitter will be finished. Within one working day you will receive a proposal from a drying specialist.",
   cOnderwerpen: [
     "Advice on screed drying",
     "Advice on plaster drying",

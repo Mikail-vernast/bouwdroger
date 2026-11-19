@@ -455,7 +455,7 @@ const en: typeof nl = {
   stappen: [
     {
       title: "You choose the delivery day",
-      desc: "As soon as your screed layer says the floor may be actively dried, you book the date. We deliver throughout Flanders, usually within a few working days, and you get a time slot instead of waiting in all day.",
+      desc: "As soon as your screed fitter says the floor may be actively dried, you book the date. We deliver throughout Flanders, usually within a few working days, and you get a time slot instead of waiting in all day.",
     },
     {
       title: "An initial reading before anything runs",
@@ -485,7 +485,7 @@ const en: typeof nl = {
     },
     {
       q: "When can a construction dehumidifier go on fresh screed?",
-      a: "Not straight away. Cement screed binds water chemically as it cures and still needs that water in the first phase. Ask your screed layer from which day you may dry actively; that is usually a matter of days to a week. After that, the unit can run day and night. Our guide to screed drying time explains in detail why drying too early causes shrinkage cracks.",
+      a: "Not straight away. Cement screed binds water chemically as it cures and still needs that water in the first phase. Ask your screed fitter from which day you may dry actively; that is usually a matter of days to a week. After that, the unit can run day and night. Our guide to screed drying time explains in detail why drying too early causes shrinkage cracks.",
     },
     {
       q: "How many units do I need for my floor area?",
@@ -633,7 +633,7 @@ const en: typeof nl = {
   cKicker: "A question about your floor?",
   cTitel: "Unsure about the hire period or the package?",
   cLede:
-    "Give us your floor area, the screed thickness and when the screed layer will be finished. Within one working day you will receive a proposal from a drying specialist.",
+    "Give us your floor area, the screed thickness and when the screed fitter will be finished. Within one working day you will receive a proposal from a drying specialist.",
   cOnderwerpen: ["Advice on screed drying", "Price and delivery date", "Question about measuring residual moisture", "Something else"],
   cPlaceholder: "E.g. new build 140 m², 6 cm screed laid on 3 November, floor layer coming in early December.",
 };
