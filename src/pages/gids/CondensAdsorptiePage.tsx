@@ -314,6 +314,129 @@ const COPY = {
       </>
     ),
   }),
+  en: (lp: Lp): CondensTekst => ({
+    crumbHome: "Home",
+    crumbGidsen: "Guides",
+    crumb: "Condensation or desiccant dehumidifier?",
+    kick: "Guide · the right machine",
+    h1: "Condensation or desiccant dehumidifier: which one do you need?",
+    intro:
+      "Both machines remove moisture from the air, but in completely different ways. As a result, one works best in a warm house and the other in a cold cellar or under a floor. Here you can read how they work, where the temperature limit lies and which machine from our range suits your situation.",
+    heroAlt: "Three Vernast condensation construction dehumidifiers side by side",
+    faq: [
+      {
+        question: "What is the difference between a condensation dehumidifier and a desiccant dehumidifier?",
+        answer:
+          "A condensation dehumidifier cools the air below its dew point, so the water vapour condenses into water that you drain away. A desiccant dehumidifier draws the water vapour out of the air with a moisture-absorbing material and blows the moist air outside through a duct. The first works best in a warm room, the second keeps working in the cold.",
+      },
+      {
+        question: "Below what temperature does a condensation dehumidifier work poorly?",
+        answer:
+          "Below about 15 °C the efficiency of a condensation dehumidifier drops noticeably, and below 10 °C drying becomes really slow. In a cold cellar or an unheated site we therefore add a site heater, or we opt for a desiccant dehumidifier.",
+      },
+      {
+        question: "When do I choose a desiccant dehumidifier?",
+        answer:
+          "When it is cold and you do not want to or cannot heat, and when the moisture is somewhere an ordinary construction dehumidifier cannot reach, such as under a floating floor or inside a wall build-up after water damage. Through ducts, a desiccant dehumidifier blows dry air exactly to that spot.",
+      },
+      {
+        question: "Is a dehumidifier the same as a construction dehumidifier?",
+        answer:
+          "In practice, yes. A construction dehumidifier is a powerful dehumidifier for building and renovation work. Our construction dehumidifiers are condensation dehumidifiers; the desiccant dehumidifier is a separate machine for targeted and cold drying.",
+      },
+    ],
+    lijst: "Condensation and desiccant dehumidifiers for hire",
+    condensH2: "How a condensation dehumidifier works",
+    condensP1: (
+      <>
+        A condensation dehumidifier works like a small fridge with a fan. It draws in the moist indoor
+        air and passes it over a cold element. There the air cools below its <b>dew point</b>, and the
+        water vapour settles as liquid water, just as a cold glass gets wet on the outside in summer.
+        That water runs into a tank or is pumped away with a condensate pump. The air then passes the
+        warm part of the refrigeration circuit and leaves the machine drier and slightly warmer than
+        when it came in.
+      </>
+    ),
+    condensP2: (
+      <>
+        That principle is efficient as long as the air is warm and humid. Warm air holds a lot of water
+        vapour, so every time it passes the cold element, a lot condenses. That is why the condensation
+        dehumidifier is the standard machine for <Link to={lp("/nieuwbouw-drogen")}>screed and plasterwork</Link> in
+        a heated building and for most <Link to={lp("/waterschade")}>water damage</Link>.
+      </>
+    ),
+    koudH2: "Why a condensation dehumidifier loses efficiency in the cold",
+    koudP1: (
+      <>
+        Cold air holds little water vapour. The gap between the air temperature and the dew point gets
+        smaller, and the cold element can also start to freeze; the machine then has to defrost
+        regularly instead of drying. <b>Below about 15 °C the efficiency of a condensation dehumidifier
+        drops noticeably</b>, and below 10 °C drying becomes really slow.
+      </>
+    ),
+    werkbereik: (b) =>
+      ` Our condensation dehumidifiers are rated for an operating range of ${b}, but at the lower end of that range they come nowhere near their full capacity.`,
+    koudP2: (
+      <>
+        In a cold cellar or an unheated winter site there is therefore a choice: heat the room with an{" "}
+        <Link to={lp(toestelPad("teddh30"))}>electric site heater</Link> so the condensation dehumidifier
+        works at full power again, or choose a machine that does not mind the cold.
+      </>
+    ),
+    adsH2: "How a desiccant dehumidifier works",
+    adsP1:
+      "A desiccant dehumidifier does not cool anything. Inside, a rotor turns with a moisture-absorbing material, often silica gel. The water vapour in the air attaches to that material, and the air that comes out is very dry. A second, heated airflow draws the moisture back out of the rotor and carries it away as moist air, usually outside through a duct. So no condensate ends up in a tank.",
+    adsP2: (
+      <>
+        Because that process does not rely on cooling, <b>a desiccant dehumidifier also works at low
+        temperatures</b> with little loss. An added advantage: the dry air can be ducted exactly where it is
+        needed, such as under a floating floor, behind a dry-lined wall or into the insulation. After water
+        damage, that often makes the difference between drying and ripping out. The drawback: at room
+        temperature a condensation dehumidifier usually extracts more litres per kWh, and a desiccant
+        dehumidifier needs an outlet to the outside.
+      </>
+    ),
+    keuzeH2: "Which machine for which situation?",
+    situatie: "Situation",
+    beste: "Best choice",
+    rijen: [
+      ["Screed or plasterwork in a heated new build", "Condensation dehumidifier, with fan"],
+      ["Water damage in an occupied, heated home", "Condensation dehumidifier, with fans"],
+      ["Cold cellar or winter site, heating possible", "Condensation dehumidifier with site heater"],
+      ["Cold room you do not want to or cannot heat", "Desiccant dehumidifier"],
+      ["Water under a floating floor, in a wall or in insulation", "Desiccant dehumidifier with ducts"],
+    ],
+    twijfel: (
+      <>
+        Not sure, for example with a cellar that is half below ground and half heated? Then it usually
+        makes sense to measure first what the temperature and humidity really are. Our{" "}
+        <Link to={lp("/klantservice")}>customer service</Link> will help you think it through.
+      </>
+    ),
+    gammaKick: "From our range",
+    gammaH2: "You can hire these machines from us",
+    gammaLede: (
+      <>
+        Daily prices as shown on the machine pages and in the booking module. You collect individual
+        machines from <Link to={lp("/verhuur/afhalen")}>our warehouse in Aartselaar</Link>; a complete
+        package with delivery is calculated in the <Link to={lp("/verhuur/calculator")}>drying calculator</Link>.
+      </>
+    ),
+    adsorptie: "Desiccant",
+    condensatie: "Condensation",
+    tot: (l) => ` · up to ${l} L per day`,
+    ruimtes: (v) => ` · rooms up to ${v} m³`,
+    perDag: (label) => `per day, ${label}`,
+    bekijk: (kort) => `View the ${kort}`,
+    note: (
+      <>
+        You can read more about how construction drying works in general on{" "}
+        <Link to={lp("/hoe-drogen-werkt")}>how drying works</Link>. What these machines use in electricity
+        is worked out in the guide <Link to={lp("/gids/stroomverbruik-bouwdroger")}>power consumption of a
+        construction dehumidifier</Link>.
+      </>
+    ),
+  }),
 } satisfies Copy<(lp: Lp) => CondensTekst>;
 
 const CondensAdsorptiePage = () => {
@@ -323,8 +446,8 @@ const CondensAdsorptiePage = () => {
   const t = useCopy(COPY)(lp);
   /*
     In het Nederlands blijft de dagprijs het cataloguscijfer met "excl. btw",
-    zoals altijd. In het Frans staat hij zoals de bezoeker hem betaalt, met
-    TVAC of HTVA erachter.
+    zoals altijd. In het Frans en Engels staat hij zoals de bezoeker hem
+    betaalt, met TVAC/HTVA of incl./excl. VAT erachter.
   */
   const prijs = (excl: number) => {
     if (taal === "nl") return { tekst: euro(excl), label: "excl. btw" };

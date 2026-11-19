@@ -4,7 +4,7 @@ import ContactBlok from "@/components/content/ContactBlok";
 import Reveal from "@/components/Reveal";
 import { useSeo } from "@/data/seo";
 import { productInTaal } from "@/data/verhuur.fr";
-import { NUMBER_LOCALE } from "@/i18n/taal";
+import { NUMBER_LOCALE, type Taal } from "@/i18n/taal";
 import { formatEuro, useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
 import { COPY, type Ctx } from "./StroomverbruikPage.copy";
 import { PRODUCTS, PUMP } from "@/data/verhuur";
@@ -82,6 +82,9 @@ const eenDecimaal = (n: number) =>
   n.toLocaleString("nl-BE", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
 const perDag = (k: number) => k * 24;
+
+/** De eenheid achter "50 L/…" in de vergelijkingskaarten. */
+const PER_DAG_EENHEID: Record<Taal, string> = { nl: "dag", fr: "jour", en: "day" };
 const PRIJS_TXT = bedrag(VOORBEELD_PRIJS_KWH);
 
 /**
@@ -215,8 +218,9 @@ const StroomverbruikPage = () => {
   /*
     De Nederlandse formatters hierboven blijven ongewijzigd in gebruik; in een
     andere taal komen dezelfde getallen in de notatie van die taal ("0,30 €").
-    Catalogusbedragen (huur, condenspomp) toont het Frans zoals de bezoeker
-    ze betaalt, met TVAC of HTVA; het Nederlands houdt zijn cataloguscijfer.
+    Catalogusbedragen (huur, condenspomp) tonen Frans en Engels zoals de
+    bezoeker ze betaalt, met TVAC/HTVA of incl./excl. VAT; het Nederlands
+    houdt zijn cataloguscijfer.
   */
   const fmtGetal = nl
     ? getal
@@ -622,7 +626,7 @@ const StroomverbruikPage = () => {
               </div>
               <div className="erow">
                 <span className="k">{ons.afvoer}</span>
-                <span className="v">{O.litersPerDay} L/{nl ? "dag" : "jour"}</span>
+                <span className="v">{O.litersPerDay} L/{PER_DAG_EENHEID[taal]}</span>
               </div>
               <div className="erow">
                 <span className="k">{ons.volume}</span>
@@ -652,7 +656,7 @@ const StroomverbruikPage = () => {
               </div>
               <div className="erow">
                 <span className="k">{ons.afvoer}</span>
-                <span className="v">{CONCURRENT.liters} L/{nl ? "dag" : "jour"}</span>
+                <span className="v">{CONCURRENT.liters} L/{PER_DAG_EENHEID[taal]}</span>
               </div>
               <div className="erow">
                 <span className="k">{ons.volume}</span>

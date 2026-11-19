@@ -7,8 +7,8 @@ import type { Copy } from "@/i18n/useTaal";
  * De teksten van /gids/stroomverbruik-bouwdroger per taal.
  *
  * Elk getal komt uit de pagina (`Ctx`): de rekensom zelf staat daar en wordt
- * hier alleen in zinnen gegoten. Zo kan de Franse tekst nooit een ander
- * bedrag of vermogen noemen dan de Nederlandse. Secties die alleen bestaan
+ * hier alleen in zinnen gegoten. Zo kan de Franse of Engelse tekst nooit een
+ * ander bedrag of vermogen noemen dan de Nederlandse. Secties die alleen bestaan
  * als er een voorbeeldtoestel is, krijgen dat toestel als argument.
  */
 
@@ -842,6 +842,342 @@ export const COPY = {
           "Autre chose",
         ],
         placeholder: "P. ex. nouvelle construction de 140 m², un circuit de 16 A disponible : combien d'appareils puis-je brancher ?",
+      },
+    };
+  },
+  en: (c: Ctx): StroomTekst => {
+    const { lp, getal, bedrag, prijs: PRIJS_TXT, V, ONS, groot: CONCURRENT, klein: CONCURRENT_KLEIN } = c;
+    return {
+      crumbHome: "Home",
+      crumbGidsen: "Guides",
+      crumb: "Power consumption of a construction dehumidifier",
+      kick: "Guide · consumption and costs",
+      h1: "Power consumption of a construction dehumidifier: what does it cost per day?",
+      intro1:
+        "A construction dehumidifier runs day and night, so it is fair to ask what that costs. The sum is simple: power rating times hours times days times your price per kWh.",
+      intro2: (v, zuiniger) => (
+        <>
+          <b style={{ color: "#fff" }}>We size the machine to the volume of your room.</b> That is why we
+          install {getal(v.kw, 2)} kW where a hire company puts in {getal(CONCURRENT.kw, 2)} kW as standard.{" "}
+          That is {zuiniger}% less electricity for the same drying.
+        </>
+      ),
+      heroAlt: "Carefree drying: the construction dehumidifier runs, you do not have to do a thing",
+      badge: (zuiniger) => (
+        <>
+          {zuiniger}% less electricity
+          <small>than a standard {getal(CONCURRENT.kw, 2)} kW construction dehumidifier</small>
+        </>
+      ),
+      faq: [
+        {
+          question: "How much electricity does a construction dehumidifier use per day?",
+          answer: V
+            ? `Multiply the power input by 24 hours. Our ${V.short} draws ${getal(V.kw, 2)} kW; that is at most ${getal(V.kwhDag)} kWh per 24 hours if it runs non-stop at full power. In practice it is lower, because the humidistat throttles the machine back as soon as the target humidity is reached.`
+            : "Multiply the power input on the rating plate by 24 hours. That is the upper limit; in practice it is lower, because the humidistat throttles the machine back as soon as the target humidity is reached.",
+        },
+        {
+          question: "What does a construction dehumidifier cost in electricity?",
+          answer: V
+            ? `Multiply the kWh per day by your price per kWh. At an example price of ${PRIJS_TXT} per kWh, the ${V.short} costs at most ${bedrag(V.kostDag)} a day in electricity. Your own price is on your energy bill.`
+            : `Multiply the kWh per day by your price per kWh, which is on your energy bill.`,
+        },
+        {
+          question: "Can a construction dehumidifier stay on 24 hours a day and overnight?",
+          answer:
+            "Yes. A construction dehumidifier is made to run day and night, and it has to: every hour it stands still lets the humidity in the air rise again. If it drains the water through a hose or a condensate pump rather than into a tank, it also keeps running over the weekend without you having to empty anything.",
+        },
+        {
+          question: "Does a fan or a site heater use more than a construction dehumidifier?",
+          answer:
+            "A construction fan uses less than a construction dehumidifier. An electric site heater uses much more: it produces heat, and that takes the most energy. Its thermostat does throttle back as soon as the room is up to temperature.",
+        },
+        {
+          question: "How many watts does a construction dehumidifier use per hour?",
+          answer: V
+            ? `The power input is the consumption per hour. Our ${V.short} is rated at ${getal(V.kw, 2)} kW, so ${getal(V.kw * 1000, 0)} watts per running hour. In our range that goes from 200 watts for a construction fan to 1,400 watts for the largest condensation dehumidifier; larger hire machines reach 2,100 watts.`
+            : "The power input on the rating plate is the consumption per running hour. For condensation construction dehumidifiers it is usually between 750 and 2,100 watts.",
+        },
+        {
+          question: "What does a construction dehumidifier cost in electricity per week and per month?",
+          answer: V
+            ? `Multiply the daily consumption by the number of days. Our ${V.short} comes to at most ${getal(V.kwhDag * 7)} kWh per week (${bedrag(V.kwhDag * 7 * c.prijsKwh)}) and ${getal(V.kwhDag * 30)} kWh per month (${bedrag(V.kwhDag * 30 * c.prijsKwh)}) at an example price of ${PRIJS_TXT} per kWh. Those are upper limits: the humidistat throttles the machine back as soon as the target value is reached, and a drying job rarely lasts a full month.`
+            : "Multiply the daily consumption by the number of days, and that by your price per kWh. The result is an upper limit; the humidistat throttles the machine back as soon as the target value is reached.",
+        },
+        {
+          question: "Can I plug a construction dehumidifier into an ordinary socket?",
+          answer: V
+            ? `Yes. Our condensation construction dehumidifiers run on 230 V and plug into an ordinary socket. Do watch the circuit, though: an ordinary 16 A circuit can handle about 3.6 kW, so add up the power of everything connected to it. With ${getal(V.kw, 2)} kW for the ${V.short} there is room left for other tools. The stand-alone 20 and 30 kW site heaters, however, run on 400 V three-phase power and need their own connection.`
+            : "Yes, our condensation construction dehumidifiers run on 230 V. Watch the circuit: 16 A can handle about 3.6 kW, so add up the power of everything connected to it.",
+        },
+        {
+          question: "Does a construction dehumidifier use more than a household dehumidifier?",
+          answer:
+            "Yes, and that makes sense. A household dehumidifier runs a few hours a day at low power to keep a living room comfortable. A construction dehumidifier runs day and night and has to pull dozens of litres of construction moisture out of the air every 24 hours. So it uses more per day, but it is only needed for a few weeks.",
+        },
+        {
+          question: "Does a larger construction dehumidifier always use more electricity?",
+          answer: ONS
+            ? `Per hour, yes, and that is exactly why size matters. A machine for volumes up to ${CONCURRENT.volume} m³ draws ${getal(CONCURRENT.kw, 2)} kW, compared with ${getal(ONS.kw, 2)} kW for a machine up to ${ONS.volume} m³. Put that large machine in a small room and you pay every day for capacity that cannot be used. That is why the drying calculator chooses the volume first and only then the machine.`
+            : "Per hour, yes. An oversized machine in a small room costs electricity every day for capacity that goes unused; so size it to the volume.",
+        },
+      ],
+      concurrentOmschrijving: "The construction dehumidifier found in the range of most hire companies",
+      factoren: [
+        {
+          titel: "How wet the building is",
+          tekst: (
+            <>
+              As long as a lot of moisture is being released, the compressor runs almost continuously. As the
+              screed and plaster dry out, the humidistat throttles back more often.
+            </>
+          ),
+        },
+        {
+          titel: "The temperature",
+          tekst: (
+            <>
+              In a cold room a condensation dehumidifier works less efficiently and runs longer for the same
+              result. You can read why in{" "}
+              <Link to={lp("/gids/condensdroger-of-adsorptiedroger")}>condensation or desiccant dehumidifier</Link>.
+            </>
+          ),
+        },
+        {
+          titel: "An open house",
+          tekst: (
+            <>
+              Windows on tilt or an open door to a damp cellar keep letting in fresh moist air. The construction
+              dehumidifier then dries the outside air instead of your walls.
+            </>
+          ),
+        },
+        {
+          titel: "The right size",
+          tekst: (
+            <>
+              A machine that is too small runs at full power for weeks; a properly sized machine finishes sooner.
+              The <Link to={lp("/verhuur/calculator")}>drying calculator</Link> works out what suits your floor
+              area.
+            </>
+          ),
+        },
+        {
+          titel: "The drying time itself",
+          tekst: (
+            <>
+              The biggest saving is a shorter drying time. How long screed and plasterwork need is explained in{" "}
+              <Link to={lp("/gids/hoe-lang-moet-chape-drogen")}>how long screed takes to dry</Link>.
+            </>
+          ),
+        },
+      ],
+      stats: (v) => [
+        { l: `Power input of the ${v.short}` },
+        { l: "At most per 24 hours, continuously at full power" },
+        { l: "Example price to calculate with, not a rate of ours" },
+        { l: "Running per day: every hour of standstill costs drying time" },
+      ],
+      uur: "h",
+      formuleH2: "How to work out the consumption",
+      formuleP1: (
+        <>
+          Every electrical appliance has a <b>power input</b>, expressed in kilowatts (kW). That figure is
+          on the rating plate and in the technical data sheet. The consumption in kilowatt hours (kWh) is
+          that power times the number of hours the machine runs. The cost is that consumption times your
+          price per kWh:
+        </>
+      ),
+      formule: "kW × 24 hours × number of days × price per kWh = electricity cost",
+      formuleP2: (
+        <>
+          The result is an <b>upper limit</b>. A condensation construction dehumidifier has a humidistat:
+          as soon as the humidity reaches the target value, the compressor throttles back and the machine
+          uses much less. In the first days of a drying job, when a lot of moisture is released, you are
+          close to that upper limit; towards the end, well below it.
+        </>
+      ),
+      meter: (v) => ({
+        onsKop: `Our machine · ${v.short}`,
+        zuinigst: "Most efficient",
+        sub: "consumption per 24 hours, upper limit",
+        vermogen: "Power input",
+        draaiuren: "Running hours per day",
+        voorbeeldprijs: "Example price",
+        onsRes: `At most ${bedrag(v.kostDag)} per day`,
+        aanStroom: "in electricity",
+        hunKop: `Competitor · ${CONCURRENT.naam}`,
+        zelfde: "Same room",
+        hunRes: `${bedrag(c.perDag(CONCURRENT.kw) * c.prijsKwh)} per day`,
+      }),
+      tblKick: "Per machine",
+      tblH2: "The power rating of our machines",
+      tblLede: `The power input as stated in the technical data sheet on the machine page, with the maximum consumption per 24 hours and the cost per day at an example price of ${PRIJS_TXT} per kWh. That price is only an example to calculate with; your own rate is on your energy bill and may be higher or lower.`,
+      caption: `Maximum consumption at continuous full power. Example price ${PRIJS_TXT}/kWh, not a Vernast rate.`,
+      captionGeen: " If the data sheet does not state a power rating, check the machine's rating plate.",
+      thToestel: "Machine",
+      thVermogen: "Power",
+      thKwh: "Max. kWh per 24 h",
+      thDag: "Max. per day (example)",
+      geenVermogen: "Not stated in the data sheet: see the rating plate",
+      tblNote: (
+        <>
+          For the site heaters that upper limit is mostly theoretical: their thermostat switches off as soon
+          as the room is up to temperature, and how much they run after that depends on how well the
+          building holds its heat. Even so, the heater is almost always the biggest consumer on site.{" "}
+          <b>So only heat where it is needed</b>, such as in a cold cellar or on a winter site.
+        </>
+      ),
+      reken: (v) => ({
+        kick: "Worked example",
+        h2: "What the electricity costs per day.",
+        p1: (
+          <>
+            Alongside you can see what one machine costs in electricity per 24 hours if it runs non-stop at
+            full power: our {v.short} next to two construction dehumidifiers from competitors, all calculated
+            at the same example price of {PRIJS_TXT} per kWh.
+          </>
+        ),
+        p2: (
+          <>
+            These are <b>upper limits</b>. The humidistat throttles the compressor back as soon as the
+            target humidity is reached, so in the second week the bill is lower than in the first. What does
+            not change is the ratio: a machine with three times the power also costs three times as much
+            electricity, every single day, whether it needs that capacity or not.
+          </>
+        ),
+        p3: (
+          <>
+            The grey bar at the bottom is different from the three above it: that is the <b>hire</b> of the{" "}
+            {v.short}, {c.huur(v.huurDag)} per day (see <Link to={lp("/prijzen")}>all prices</Link>). It is
+            there for scale, so you can see straight away how electricity and hire compare.
+          </>
+        ),
+        onsLabel: `${v.short}, our smallest construction dehumidifier`,
+        huurLabel: `Hire of the ${v.short} per day`,
+        noot: `If you add a fan, relatively little consumption is added; a site heater weighs much more heavily. The power ratings of the ${CONCURRENT_KLEIN.naam} and the ${CONCURRENT.naam} come from their distributors' data sheets.`,
+        somKop: "Two weeks of drying, step by step",
+        uurSom: `${getal(v.kw, 2)} kW × 24 hours`,
+        kwhDag: "kWh/day",
+        dagen: "14 days",
+        perKwh: `${PRIJS_TXT} per kWh`,
+        stroom: "electricity",
+        somnoot: `Say you dry a new-build home with one ${v.short} for two weeks, and the machine runs non-stop at full power. At the example price of ${PRIJS_TXT} per kWh that is the upper limit: at most ${bedrag(v.kostDag)} per day. Thanks to the humidistat, the actual bill is lower.`,
+        somvs: (
+          <>
+            The same fourteen days with a <b>{CONCURRENT_KLEIN.naam}</b>, a competitor's construction dehumidifier of{" "}
+            {getal(CONCURRENT_KLEIN.kw, 2)} kW, cost{" "}
+            <b className="hun">{bedrag(c.perDag(CONCURRENT_KLEIN.kw) * 14 * c.prijsKwh)}</b> in
+            electricity, {bedrag((c.perDag(CONCURRENT_KLEIN.kw) - v.kwhDag) * 14 * c.prijsKwh)} more
+            for the same room.
+          </>
+        ),
+      }),
+      faqTitel: "All about the consumption of a construction dehumidifier",
+      ons: (o) => ({
+        kick: "Machine against machine",
+        h2: "You do not put a large machine in a small room.",
+        lede: `The biggest electricity bill rarely comes from an inefficient machine, but from an oversized one. Below, our smallest construction dehumidifier next to the ${CONCURRENT.naam}, the model most hire companies send out as standard, even to a cellar or a flat it is far too heavy for.`,
+        onsLabel: "Our machine",
+        esub: `${o.type} for rooms up to ${o.volume} m³ · 230 V`,
+        kwhEtmaal: "kWh per 24 hours",
+        ekpilOns: `${bedrag(c.perDag(o.kw) * c.prijsKwh)} per day in electricity at ${PRIJS_TXT} per kWh`,
+        vermogen: "Power input",
+        afvoer: "Moisture extraction",
+        volume: "Recommended volume",
+        tweeWeken: "Electricity over two weeks",
+        totVolume: (vol) => `up to ${vol} m³`,
+        bekijk: `View the ${o.short}`,
+        vglLabel: "Comparison machine",
+        ekpilHun: `${bedrag(c.perDag(CONCURRENT.kw) * c.prijsKwh)} per day in electricity at ${PRIJS_TXT} per kWh`,
+        note: (
+          <>
+            <b>
+              Saves {bedrag((c.perDag(CONCURRENT.kw) - c.perDag(o.kw)) * 14 * c.prijsKwh)} in
+              electricity over two weeks
+            </b>:{" "}
+            <b className="ons">{Math.round((1 - c.perDag(o.kw) / c.perDag(CONCURRENT.kw)) * 100)}% less
+            consumption</b>, for a room where {o.volume} m³ of capacity is enough. That is why the{" "}
+            <Link to={lp("/verhuur/calculator")}>drying calculator</Link> works out your volume first and
+            only then chooses the machine.
+          </>
+        ),
+        bron: (
+          <>
+            To be fair: the {CONCURRENT.naam} is not a bad machine. It is built for industrial work and for
+            volumes up to {CONCURRENT.volume} m³, and in a hall or warehouse like that it does exactly what it
+            should. The problem starts when that same machine is put in a cellar, a flat or a single floor,
+            and that happens often, because hire companies simply send out whatever is on the van. You then
+            pay every day for capacity that cannot be used. So the point above is about size, not quality.
+            Our figures come from the technical data sheet on{" "}
+            <Link to={lp(o.path)}>the machine page</Link> (moisture extraction at 30 °C and 80% relative
+            humidity), those for the {CONCURRENT.naam} from the{" "}
+            <a href={CONCURRENT.bron} target="_blank" rel="noopener noreferrer nofollow">
+              distributor's product data sheet
+            </a>
+            . In both cases the consumption is the power input times 24 hours, converted at the example
+            price of {PRIJS_TXT} per kWh.
+          </>
+        ),
+      }),
+      praktijkKick: "In practice",
+      praktijkH2: "What pushes consumption up or down.",
+      praktijkLede: "Five things determine whether you are close to that upper limit or stay well below it.",
+      nachtKick: "Day and night",
+      nachtH2: "Can a construction dehumidifier run 24 hours a day and overnight?",
+      nachtLede:
+        "Yes, and that is the whole idea. If you switch it off at night, the humidity rises again within a few hours and the moisture in the air soaks back into the walls and the floor. You then lose more drying time than you save in electricity.",
+      doorLabel: "Leave it running",
+      doorH3: "A construction dehumidifier is built for continuous use.",
+      door: [
+        { b: "Every hour of standstill counts.", tekst: "The humidity rises again within a few hours, and the moisture soaks back into walls and floor." },
+        { b: "The humidistat regulates itself.", tekst: "As soon as the target value is reached, the compressor throttles back; you do not have to switch the machine off yourself." },
+        { b: "Running continuously is usually cheaper.", tekst: "An extra day of hire weighs more heavily than the electricity for running through the night." },
+        { b: "We measure before and after.", tekst: "In a drying package the technician records the start and end readings, so nobody has to decide on gut feeling." },
+      ],
+      doorVoet: "Applies to every condensation machine in our range.",
+      letLabel: "What to watch out for",
+      letH3: "Three things with continuous use.",
+      letop: [
+        {
+          b: "Draining the water.",
+          tekst: (
+            <>
+              With a tank you have to empty it regularly, otherwise the machine stops. With a hose to a
+              drain, or a condensate pump ({c.pomp} per construction dehumidifier per day with us), drying
+              carries on overnight and at the weekend too.
+            </>
+          ),
+        },
+        { b: "A clear spot.", tekst: "Do not put the machine against a wall or under a table; the air must be able to flow in and out freely." },
+        {
+          b: "The electrical circuit.",
+          tekst:
+            "An ordinary 16 A circuit at 230 V can handle about 3.6 kW. Add up the power of everything connected to it. The stand-alone Heatboost 20 and 30 T site heaters run on 400 V three-phase power and need their own connection; the heater in a drying package runs on an ordinary 230 V socket.",
+        },
+      ],
+      mbKick: "Rather not do the maths yourself?",
+      mbH3: "In a drying package, nothing runs more than it needs to.",
+      mbP: (
+        <>
+          Our technicians place the machines, set the target value and measure the moisture before and
+          after. So nothing runs harder or longer than it needs to. See also{" "}
+          <Link to={lp("/levering")}>delivery and installation</Link>.
+        </>
+      ),
+      mbCta: "Calculate your drying package",
+      mbAlt: "Vernast technician giving a thumbs up",
+      contact: {
+        kicker: "Any more questions about this?",
+        titel: "Our drying specialists will work it out with you.",
+        lede: "Not sure whether your circuit can cope, or which machine is the most efficient for your project? Ask your question and a specialist will reply within one working day.",
+        onderwerpen: [
+          "Question about power consumption and costs",
+          "Advice on the right machine",
+          "Question about the electrical connection",
+          "Something else",
+        ],
+        placeholder: "E.g. new build of 140 m², one 16 A circuit available, how many machines can I connect?",
       },
     };
   },
