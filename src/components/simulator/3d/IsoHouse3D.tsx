@@ -1184,6 +1184,8 @@ export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void
       aria-label={
         taal === "fr"
           ? `Dessin 3D : ${woningTekst(woning, taal).label.toLowerCase()}, ${lagen} niveau${lagen === 1 ? "" : "x"}`
+          : taal === "en"
+          ? `3D drawing: ${woningTekst(woning, taal).label.toLowerCase()}, ${lagen} storey${lagen === 1 ? "" : "s"}`
           : `3D-tekening van een ${WONING[woning].label.toLowerCase()} met ${lagen} bouwla${lagen === 1 ? "ag" : "gen"}`
       }
     >

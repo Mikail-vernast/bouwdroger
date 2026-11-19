@@ -40,6 +40,8 @@ const grootste = (reeks: number[]) => reeks[reeks.length - 1] ?? 0;
 const middelste = (reeks: number[]) => reeks[Math.floor(reeks.length / 2)] ?? 0;
 
 interface CalcCopy {
+  /** decimaalteken op de pleisterliniaal: "1,5" in nl en fr, "1.5" in het Engels */
+  komma: string;
   meerDan: (n: number) => string;
   gebouw: (v: number) => string;
   gemiddelde: (n: number) => string;
@@ -82,6 +84,7 @@ interface CalcCopy {
 
 const COPY = {
   nl: {
+    komma: ",",
     meerDan: (n) => `Meer dan ${n} m², maatwerkofferte`,
     gebouw: (v) => `Gebouw kleiner dan ${v} m²`,
     gemiddelde: (n) => `Wij rekenen met een gemiddelde van ${n} cm`,
@@ -137,6 +140,7 @@ const COPY = {
     bel: "Bel 03 689 90 65",
   },
   fr: {
+    komma: ",",
     meerDan: (n) => `Plus de ${n} m², devis sur mesure`,
     gebouw: (v) => `Bâtiment de moins de ${v} m²`,
     gemiddelde: (n) => `Nous calculons avec une moyenne de ${n} cm`,
@@ -196,6 +200,62 @@ const COPY = {
     maatCta: "Demandez votre devis sur mesure →",
     bel: "Appelez le 03 689 90 65",
   },
+  en: {
+    komma: ".",
+    meerDan: (n) => `More than ${n} m², bespoke quote`,
+    gebouw: (v) => `Building smaller than ${v} m²`,
+    gemiddelde: (n) => `We calculate with an average of ${n} cm`,
+    dunPleister: "Thin plasterwork",
+    dikPleister: "Thick plasterwork",
+    gangbarePleister: "Usual plaster thickness",
+    dunneChape: "Thin screed",
+    dikkeChape: "Thick screed",
+    gangbareChape: "Usual screed thickness",
+    what: [
+      { alt: "Freshly plastered walls in a home being finished", title: "Plasterwork", sub: "Drying walls" },
+      { alt: "Fresh screed floor in a new-build home", title: "Drying floors", sub: "Screed" },
+      {
+        alt: "Living room with fresh plasterwork and a fresh screed floor",
+        title: "Plasterwork + screed",
+        sub: "Drying walls + floor",
+      },
+      {
+        alt: "Wall with damp damage and mould after water damage",
+        title: "Water damage",
+        sub: "Desiccant drying, delivered fast",
+      },
+    ],
+    serviceName: "Build your drying package",
+    serviceDesc:
+      "Work out in five questions which units your home needs, how long drying takes and what it costs.",
+    serviceType: "Construction drying",
+    home: "Home",
+    h1: "Build your drying package: work out your units, drying time and price",
+    workerAlt: "Vernast technician carrying a construction dehumidifier on his back",
+    terug: "← Back",
+    stap: (n, van) => `Step ${n} / ${van}`,
+    q1: "How big is your home",
+    q1sub: "Drag the ruler to the floor area that fits best.",
+    verder: "Next →",
+    q2: "What do you want to dry",
+    q2sub: "Plasterwork and screed release their moisture differently.",
+    q3: "How thick is the plasterwork",
+    q3sub: "Thicker plasterwork holds more water and needs more drying time. Drag to the right thickness.",
+    q4: "How thick is the screed",
+    q4sub: "Screed is usually the biggest source of moisture. Drag to the right thickness.",
+    q5: "Will you provide the heating yourself?",
+    q5sub: "Drying only works well above 15 °C. If not, we add electric heaters.",
+    ja: "Yes, I'll heat it myself",
+    jaSub: "The room is above 15 °C, your own heating is on",
+    kachelAlt: "Vernast electric heater",
+    nee: "No, add heaters",
+    neeSub: "Our electric heaters come with the package",
+    maatH: "Large project? That's bespoke.",
+    maatP:
+      "Above 260 m² we put the drying plan together personally, with a site visit if needed, a project price and a tailored schedule. Tell us briefly about your project and we will be in touch within one working day.",
+    maatCta: "Request your bespoke quote →",
+    bel: "Call 03 689 90 65",
+  },
 } satisfies Copy<CalcCopy>;
 
 /** De drie linialen, met hun teksten in de taal van de pagina. */
@@ -219,7 +279,7 @@ function linialen(t: CalcCopy): { size: RulerConfig; plaster: RulerConfig; scree
       unknown: middelste(PLASTERS),
       unknownLabel: t.gemiddelde(middelste(PLASTERS)),
       unit: " cm",
-      format: (v) => String(v).replace(".", ","),
+      format: (v) => String(v).replace(".", t.komma),
       label: (v) =>
         v <= PLASTERS[0] ? t.dunPleister : v >= grootste(PLASTERS) ? t.dikPleister : t.gangbarePleister,
       bigEvery: 0.5,

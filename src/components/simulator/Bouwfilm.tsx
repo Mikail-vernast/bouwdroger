@@ -15,6 +15,7 @@ import { useCopy, useTaal, type Copy } from "@/i18n/useTaal";
 const COPY = {
   nl: { bouwfase: "Bouwfase", starten: "Starten", meten: "Meten", letOp: "Let op", veeg: "← Veeg door de bouw →", bekijk: "Bekijk de bouw", fase: "Fase", van: "van", uwWerf: " · uw werf", vocht: "Vocht" },
   fr: { bouwfase: "Phase du chantier", starten: "Démarrer", meten: "Mesurer", letOp: "Attention", veeg: "← Faites défiler le chantier →", bekijk: "Voir le chantier", fase: "Phase", van: "sur", uwWerf: " · votre chantier", vocht: "Humidité" },
+  en: { bouwfase: "Build stage", starten: "Start", meten: "Measure", letOp: "Please note", veeg: "← Swipe through the build →", bekijk: "Watch the build", fase: "Stage", van: "of", uwWerf: " · your site", vocht: "Moisture" },
 } satisfies Copy<Record<string, string>>;
 
 const LAATSTE = FASE_ORDER.length - 1;

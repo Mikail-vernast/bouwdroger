@@ -867,6 +867,11 @@ export function verdiepingNaam(v: number, totaal: number, dak: Dak, taal: Taal =
     if (isZolder(v, totaal, dak)) return "Grenier";
     return v === 1 ? "1er étage" : `${v}e étage`;
   }
+  if (taal === "en") {
+    if (v === 0) return "Ground floor";
+    if (isZolder(v, totaal, dak)) return "Attic";
+    return v === 1 ? "1st floor" : v === 2 ? "2nd floor" : v === 3 ? "3rd floor" : `${v}th floor`;
+  }
   if (v === 0) return "Gelijkvloers";
   if (isZolder(v, totaal, dak)) return "Zolder";
   return v === 1 ? "1e verdieping" : `${v}e verdieping`;
@@ -988,27 +993,134 @@ const KAMER_FR: Record<string, string> = {
   Vestiaire: "Vestiaire",
 };
 
+/* ───────────────────────── teksten in het Engels ───────────────────────── */
+
+/* Zelfde regel als hierboven: alleen weergave, de Nederlandse sleutels blijven sturen. */
+
+const WONING_EN: Record<Woning, { label: string; sub: string }> = {
+  rijwoning: { label: "Terraced house", sub: "Two party walls" },
+  halfopen: { label: "Semi-detached", sub: "One party wall" },
+  open: { label: "Detached house", sub: "Free-standing" },
+  appartement: { label: "Apartment", sub: "One or two storeys" },
+};
+
+const DAK_EN: Record<Dak, { label: string; sub: string }> = {
+  zadeldak: { label: "Pitched roof", sub: "Two sloping planes" },
+  plat: { label: "Flat roof", sub: "Or an apartment above" },
+  lessenaar: { label: "Mono-pitch roof", sub: "One sloping plane" },
+};
+
+const WAT_EN: Record<Wat, { label: string; sub: string }> = {
+  pleister: { label: "Plasterwork", sub: "Walls and ceilings" },
+  chape: { label: "Screed", sub: "Floor screed" },
+  beide: { label: "Plasterwork + screed", sub: "Walls and floor" },
+  waterschade: { label: "Masonry and floor slab", sub: "Rainwater in the shell" },
+};
+
+const FASE_EN: Record<Fase, FaseTekst> = {
+  ruwbouw: {
+    label: "Shell, windows still open",
+    kort: "Shell",
+    advies: "The masonry and floor slab are soaked with rainwater. Drying only works once the openings are closed, otherwise you are drying the outside air.",
+    druppelsTekst: "rainwater",
+    pin: "Rainwater on the floor slab",
+    starten: "After sealing with sheeting",
+    meten: "Not yet",
+    letOp: "Close the openings first",
+  },
+  ramen: {
+    label: "Windows fitted",
+    kort: "Windows fitted",
+    advies: "The right moment to dry out the masonry and floor slab, before the screed goes down.",
+    druppelsTekst: "moderate",
+    pin: "Moisture in the masonry",
+    starten: "Straight away",
+    meten: "Not needed",
+    letOp: "Rainwater on the floor slab",
+  },
+  chape: {
+    label: "Screed poured",
+    kort: "Screed",
+    advies: "A screed brings the most water into the house: roughly a week per centimetre to dry.",
+    druppelsTekst: "the most",
+    pin: "Water in the screed",
+    starten: "After ± 1 week of curing",
+    meten: "Before tiles or parquet",
+    letOp: "Don't force it too early",
+  },
+  tegels: {
+    label: "Tiles laid",
+    kort: "Tiles",
+    advies: "Tiles lock the moisture into the screed. It can only escape through the joints and the walls.",
+    druppelsTekst: "trapped",
+    pin: "Moisture under the tiles",
+    starten: "Straight away",
+    meten: "Screed under the tiles",
+    letOp: "Moisture is trapped",
+  },
+  gepleisterd: {
+    label: "Freshly plastered",
+    kort: "Plastered",
+    advies: "Plasterwork dries at roughly a week per centimetre. Only then can it be painted.",
+    druppelsTekst: "a lot",
+    pin: "Wet plasterwork",
+    starten: "After 2 to 3 days",
+    meten: "Before painting",
+    letOp: "Paint on wet plaster peels",
+  },
+  afgewerkt: {
+    label: "Finished or lived in",
+    kort: "Finished",
+    advies:
+      "Paint and flooring hold on to the last moisture: damp patches, condensation or mould in the corners. The dehumidifiers also work while you live there, and they are quiet enough for a bedroom.",
+    druppelsTekst: "hidden",
+    pin: "Residual moisture behind the paint",
+    starten: "Straight away, gently",
+    meten: "First: where is it?",
+    letOp: "Quiet enough for a bedroom",
+  },
+};
+
+const KAMER_EN: Record<string, string> = {
+  Leefruimte: "Living room",
+  Keuken: "Kitchen",
+  Slaapkamer: "Bedroom",
+  Bureau: "Study",
+  Berging: "Storage room",
+  Wasplaats: "Utility room",
+  Badkamer: "Bathroom",
+  Toilet: "WC",
+  Dressing: "Dressing room",
+  Zolder: "Attic",
+  Overloop: "Landing",
+  Hal: "Hall",
+  Gang: "Corridor",
+  Vestiaire: "Cloakroom",
+};
+
 /** `WONING` met label en ondertitel in de taal van de pagina; maten ongewijzigd. */
 export function woningTekst(w: Woning, taal: Taal = "nl"): { label: string; sub: string } {
-  return taal === "fr" ? WONING_FR[w] : WONING[w];
+  return taal === "fr" ? WONING_FR[w] : taal === "en" ? WONING_EN[w] : WONING[w];
 }
 
 export function dakTekst(d: Dak, taal: Taal = "nl"): { label: string; sub: string } {
-  return taal === "fr" ? DAK_FR[d] : DAK_LABEL[d];
+  return taal === "fr" ? DAK_FR[d] : taal === "en" ? DAK_EN[d] : DAK_LABEL[d];
 }
 
 export function watTekst(w: Wat, taal: Taal = "nl"): { label: string; sub: string } {
-  return taal === "fr" ? WAT_FR[w] : WAT_LABEL[w];
+  return taal === "fr" ? WAT_FR[w] : taal === "en" ? WAT_EN[w] : WAT_LABEL[w];
 }
 
 /** `FASE[f]` met de leesbare velden in de taal van de pagina; cijfers en foto ongewijzigd. */
 export function faseInTaal(f: Fase, taal: Taal = "nl"): FaseInfo {
-  if (taal !== "fr") return FASE[f];
-  const { pin, ...t } = FASE_FR[f];
+  if (taal === "nl") return FASE[f];
+  const { pin, ...t } = taal === "fr" ? FASE_FR[f] : FASE_EN[f];
   return { ...FASE[f], ...t, pin: { ...FASE[f].pin, tekst: pin } };
 }
 
 /** De naam van een kamer in de tekening; `naam` is de Nederlandse sleutel. */
 export function kamerNaam(naam: string, taal: Taal = "nl"): string {
-  return taal === "fr" ? (KAMER_FR[naam] ?? naam) : naam;
+  if (taal === "fr") return KAMER_FR[naam] ?? naam;
+  if (taal === "en") return KAMER_EN[naam] ?? naam;
+  return naam;
 }

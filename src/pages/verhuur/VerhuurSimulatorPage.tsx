@@ -578,7 +578,7 @@ const VerhuurSimulatorPage = () => {
                       )}
                     </div>
                     <div className="ds-vraag ds-vraag--tempo">
-                      <span>{t.hoeSnel[0]}<span className="ds-lang">{t.hoeSnel[1]}</span>{taal === "fr" ? " ?" : "?"}</span>
+                      <span>{t.hoeSnel[0]}<span className="ds-lang">{t.hoeSnel[1]}</span>{taal === "fr" ? " ?" /* Franse typografie */ : "?" /* nl en en */}</span>
                       <div className="ds-tempo" role="radiogroup" aria-label={t.hoeSnelVol}>
                         {TEMPO_ORDER.map((tp) => (
                           <button key={tp} type="button" role="radio" aria-checked={s.tempo === tp} className={s.tempo === tp ? "on" : undefined} onClick={() => setS((p) => ({ ...p, tempo: tp }))}>

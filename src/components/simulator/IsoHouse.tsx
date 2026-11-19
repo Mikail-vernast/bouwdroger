@@ -703,6 +703,8 @@ export default function IsoHouse({
       aria-label={
         taal === "fr"
           ? `Dessin isométrique : ${woningTekst(woning, taal).label.toLowerCase()}, ${lagen} niveau${lagen === 1 ? "" : "x"}`
+          : taal === "en"
+          ? `Isometric drawing: ${woningTekst(woning, taal).label.toLowerCase()}, ${lagen} storey${lagen === 1 ? "" : "s"}`
           : `Isometrische tekening van een ${WONING[woning].label.toLowerCase()} met ${lagen} bouwla${lagen === 1 ? "ag" : "gen"}`
       }
       preserveAspectRatio="xMidYMid meet"

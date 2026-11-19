@@ -76,8 +76,8 @@ export function Plattegrond({ kamers, openingen = [], trappen = [] }: { kamers: 
   }
   return (
     <svg viewBox={`${-pad} ${-pad - 0.5} ${W + pad * 2} ${L + pad * 2 + 1}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true" className="ds-plan">
-      <text x={W / 2} y={-0.45} className="ds-plan-kant" textAnchor="middle">{taal === "fr" ? "jardin" : "tuin"}</text>
-      <text x={W / 2} y={L + 0.85} className="ds-plan-kant" textAnchor="middle">{taal === "fr" ? "rue" : "straat"}</text>
+      <text x={W / 2} y={-0.45} className="ds-plan-kant" textAnchor="middle">{taal === "fr" ? "jardin" : taal === "en" ? "garden" : "tuin"}</text>
+      <text x={W / 2} y={L + 0.85} className="ds-plan-kant" textAnchor="middle">{taal === "fr" ? "rue" : taal === "en" ? "street" : "straat"}</text>
       {kamers.map((k, i) => {
         const gang = k.soort === "circulatie";
         const fs = Math.min(0.5, k.w / 7, k.l / 2);
