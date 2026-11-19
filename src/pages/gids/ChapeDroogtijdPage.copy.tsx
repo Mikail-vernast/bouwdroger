@@ -138,6 +138,14 @@ const STAART_FR: Record<number, string> = {
   7: "À sept centimètres, attendre la météo devient vraiment coûteux : c'est l'épaisseur où le séchage naturel peut engloutir tout un congé du bâtiment.",
 };
 
+const enWeken = (n: number) => `${n} ${n === 1 ? "week" : "weeks"}`;
+
+const STAART_EN: Record<number, string> = {
+  5: "Five centimetres is the thinnest screed in our packages and the quickest to dry: the rule of thumb of one week per centimetre still largely holds here.",
+  6: "Six centimetres is the most common thickness in a Belgian new build. The two extra centimetres beyond four count double, and that explains the difference with a 5 cm floor.",
+  7: "At seven centimetres, waiting on the weather gets really expensive: this is the thickness where natural drying can swallow an entire construction holiday.",
+};
+
 export const COPY = {
   nl: ({ lp, chape, dunste, dikste, nat }: ChapeHulp): ChapeTekst => ({
     weken: nlWeken,
@@ -699,6 +707,287 @@ export const COPY = {
         "Autre chose",
       ],
       placeholder: "P. ex. 120 m² de chape de 6 cm, posée le 20 novembre, le poseur de sol vient mi-janvier : est-ce faisable ?",
+    },
+  }),
+  en: ({ lp, chape, dunste, dikste, nat }: ChapeHulp): ChapeTekst => ({
+    weken: enWeken,
+    faq: [
+      ...chape.map((rij) => ({
+        question: `How long does a ${rij.cm} cm screed take to dry?`,
+        answer: `As a guide, a ${rij.cm} cm cement screed dries on its own in about ${enWeken(
+          nat(rij.cm),
+        )}, and even then only in a building that is heated and ventilated. With a construction dehumidifier, we work on a hire period of ${enWeken(
+          rij.weken,
+        )} for that thickness, including a moisture reading at the start and at handover. ${
+          STAART_EN[rij.cm] ??
+          "How many units that thickness needs depends on the floor area; the drying calculator works it out for you."
+        } Bear in mind: the calendar does not decide whether the floor is ready, the moisture reading does. A cold or closed-up site can easily run weeks beyond this guide figure.`,
+      })),
+      {
+        question: "When can the dehumidifier go on after the screed has been laid?",
+        answer:
+          "Not straight away. Cement screed binds water chemically while it cures, and in that first phase it still needs that water. Ask your screed layer from when you can start drying actively; that is a matter of days to weeks, depending on the mix and what is in it. Switch the dehumidifier on too early and too hard, and the top dries out while the bottom is still wet, which leads to shrinkage, cracks and, in the worst case, a floor that comes loose. After that, the unit can run day and night: every hour it stands idle lets the humidity climb again.",
+      },
+      {
+        question: "Can screed dry too quickly?",
+        answer:
+          "Yes, and it is the risk people underestimate. If only the surface dries, the top shrinks while the bottom is still swollen with moisture; that tension comes out as cracks or curling edges. That is why a construction dehumidifier does not dry as hard as possible, but towards a target value the technician sets, and why you do not turn the underfloor heating up to full power straight away. A controlled drying process with a reading before and after is faster and safer than a floor you try to force in a week.",
+      },
+      {
+        question: "Can I use underfloor heating to dry screed?",
+        answer:
+          "Yes, but only by following a heating-up protocol: start gently at a low flow temperature, raise it by one step a day up to the maximum the manufacturer allows, hold it for a few days and then bring it down just as gradually, and all of that only after the waiting time the screed layer prescribes. Never turn the heating up in one go. And remember that heating only drives the moisture out of the floor, not out of the building: without a dehumidifier or ventilation it condenses on windows, sills and external walls. Completing a heating-up protocol is not proof that the floor is dry either; that still takes a moisture reading.",
+      },
+      {
+        question: "How do I know whether my screed is dry enough for parquet or tiles?",
+        answer:
+          "By measuring, usually with a CM test (carbide method) on a sample taken from the full depth of the floor. A surface meter tells you too little: a screed that is hard and light in colour can still be wet inside. Which limit applies depends on the type of screed, the underfloor heating and the floor finish; tiles usually tolerate more residual moisture than parquet, vinyl or a poured floor. Your floor layer sets that limit, so ask in advance which value they want to see; then you know what you are drying towards. Our drying packages include a reading before and after, and a measurement report on request.",
+      },
+      {
+        question: "How can I make screed dry faster?",
+        answer:
+          "By controlling the climate in the building instead of waiting. Three things at once: heat, so the air can hold more moisture; a construction dehumidifier, which continuously removes that moisture from the air; and air movement, so the saturated layer above the floor is swept away and dry air can get in. Let the unit run day and night and keep windows and doors closed; you are drying the room, not the street. What does not work: only heating, only ventilating when it is damp outside, or switching the dehumidifier off at night to save electricity.",
+      },
+      {
+        question: "How many dehumidifiers do I need for my screed?",
+        answer:
+          "That depends on the volume of the room, not just the floor area: a high open-plan space needs more than a low one. That is why the drying calculator asks for your floor area, what you are drying and the thickness, and then puts together a package with the right number of units and hire period. One undersized unit in a large space will not dry faster if you leave it longer; it simply never reaches the target value. If in doubt, give us a call: a misjudged package costs you weeks, and those weeks cost more than the unit.",
+      },
+      {
+        question: "Should I open the windows while the dehumidifier is running?",
+        answer:
+          "No, keep them closed. A construction dehumidifier dries the air in an enclosed space; if a window is open, you keep letting in fresh, damp outside air and the unit carries on drying that instead of your floor. Ventilating only helps when the outside air is drier than the air indoors, and in a Belgian winter or a rainy autumn that is rarely the case. Also close the doors to parts of the building that are not being dried, and keep the dehumidifier in that closed-off space.",
+      },
+      {
+        question: "How long does anhydrite screed take to dry?",
+        answer:
+          "Anhydrite screed (based on calcium sulphate) is poured as a liquid and is therefore often thinner and flatter, which works in its favour. On the other hand, it is more sensitive to moisture and usually needs a lower residual moisture level before it can be covered; often the top layer also has to be sanded before it can dry and bond properly. So always follow the instructions of the installer and the manufacturer, which differ from product to product and override any rule of thumb. The drying principle stays the same, though: without dry, moving air in the building, nothing leaves the floor.",
+      },
+      {
+        question: "Is hiring a dehumidifier worth it, or can I just wait?",
+        answer: `You can wait, and it costs nothing in hire. What it does cost is time you pay for elsewhere: ${
+          dikste
+            ? `for a ${dikste.cm} cm screed, it is roughly ${enWeken(nat(dikste.cm))} of natural drying against ${enWeken(dikste.weken)} with a drying package`
+            : "drying on its own takes several times longer than controlled drying"
+        }. During those weeks your construction loan keeps running, every following trade is pushed back with it, and the moisture hangs in a closed building where it can cause mould and rising damp in the plasterwork. What is more, waiting is no guarantee: on a cold, closed-up site without ventilation, drying grinds to a halt, however long you wait. That is why we include a reading before and after, and a Drying Guarantee: if the floor is not dry by the end date, we extend free of charge.`,
+      },
+    ],
+    crumbHome: "Home",
+    crumbGidsen: "Guides",
+    crumb: "How long does screed take to dry?",
+    kick: "Guide · drying times",
+    h1: "How long does screed take to dry?",
+    intro: (
+      <p>
+        A cement screed of {dunste?.cm} to {dikste?.cm} cm dries on its own in about{" "}
+        {nat(dunste?.cm ?? 5)} to {nat(dikste?.cm ?? 7)} weeks. With a construction dehumidifier, we work
+        on {dunste?.weken} to {dikste?.weken} weeks for those thicknesses. What it comes to in your case
+        depends on the thickness, the type of screed, the temperature and the ventilation. Below you will
+        find the guide figures per thickness, the difference with and without a dehumidifier, and how to
+        tell when the floor layer can come in.
+      </p>
+    ),
+    heroAlt: "The Vernast team with their construction dehumidifiers",
+    badge: "± 1 week per cm",
+    badgeSub: "rule of thumb up to 4 cm, slower after that",
+    stats: dikste
+      ? [
+          { n: "1", em: "week/cm", l: "Rule of thumb for natural drying, for the first 4 cm of cement screed" },
+          { n: "2", em: "weeks/cm", l: "For every centimetre beyond that: the moisture has to travel through the full thickness" },
+          { n: <>± {nat(dikste.cm)}</>, em: "weeks", l: <>Natural drying at {dikste.cm} cm, in a heated and ventilated building</> },
+          { n: <>{dikste.weken}</>, em: "weeks", l: <>With a drying package at {dikste.cm} cm, with residual moisture readings before and after</> },
+        ]
+      : [],
+    vuistH2: "The rule of thumb: roughly one week per centimetre",
+    vuist: [
+      <>
+        For cement screed drying on its own, the building trade has an old rule of thumb:{" "}
+        <b>roughly one week per centimetre for the first 4 cm</b>. Beyond that it is considerably
+        slower; allow roughly <b>two weeks for each extra centimetre</b>. A {dikste?.cm} cm floor
+        therefore does not take {dikste?.cm} weeks but about {nat(dikste?.cm ?? 7)}.
+      </>,
+      <>
+        That is not down to the amount of water alone, but to the route it has to take. Beneath the
+        screed lie insulation and a concrete structural slab; nothing gets through those. The moisture in
+        the bottom layer therefore has only one way out: upwards, through the full thickness of the
+        floor. The thicker the screed, the longer that route, and the more slowly the last centimetres
+        give up their water.
+      </>,
+      <>
+        These guide figures apply to a heated, ventilated building at around room temperature. On a
+        cold, closed-up winter site it easily takes longer, because the air above the floor can no longer
+        absorb the moisture. Why that is the case is explained in detail on{" "}
+        <Link to={lp("/hoe-drogen-werkt")}>how drying works</Link>.
+      </>,
+    ],
+    snedeTitel: "Cross-section of the floor",
+    snedeSub: `${dikste?.cm} cm screed`,
+    lucht: "Air in the room",
+    luchtSub: "this is where the dehumidifier removes the moisture",
+    chape: "Screed",
+    iso: "Insulation",
+    beton: "Concrete structural slab",
+    snedeVoet:
+      "The moisture cannot escape downwards. That is why every centimetre beyond the fourth costs about two weeks instead of one, and why dry, moving air above the floor helps so much.",
+    rwKick: "Guide figures",
+    rwH2: "Screed drying time by thickness.",
+    rwLede:
+      "On the left, what the floor needs to dry on its own; on the right, the hire period we allow for that thickness in our packages. The difference is not a promise about your floor, but the difference between waiting and controlling the climate.",
+    natLabel: (cm) => `${cm} cm, natural drying`,
+    pakLabel: (cm) => `${cm} cm, with a drying package`,
+    vglNoot:
+      "The bars are on the same scale, with the longest drying time at 100%. The same figures appear in the table below.",
+    caption:
+      "Natural drying: guide figure for cement screed in a favourable indoor climate. With a dehumidifier: the hire period of our standard screed packages, including residual moisture readings before and after.",
+    thDikte: "Screed thickness",
+    thNat: "Natural drying (guide figure)",
+    thPak: "With a dehumidifier (Vernast package)",
+    rwNote: (
+      <>
+        <b>Which package suits your floor?</b> The{" "}
+        <Link to={lp("/verhuur/calculator")}>drying calculator</Link> asks for your floor area, what you
+        are drying and the thickness, and shows the package with the number of units, the hire period and
+        the price. How this works for a complete new build is explained on{" "}
+        <Link to={lp("/nieuwbouw-drogen")}>drying screed and plaster in new builds</Link>.
+      </>
+    ),
+    fKick: "Two phases",
+    fH2: "When can the dehumidifier go on?",
+    fLede:
+      "A fresh screed goes through two phases, and they ask the opposite of you. First the cement still needs the water; only after that can it come out.",
+    f1Label: "Phase 1 · curing",
+    f1H3: "Let the screed set first.",
+    f1P: "Cement binds water chemically while it cures. Aggressive drying in this phase draws out water the mix still needs: the top shrinks, the bottom does not, and that shows up as cracks or curling edges. Your screed layer will tell you from which day you can start drying.",
+    f1Bar: "Days to weeks, depending on the mix",
+    f2Label: "Phase 2 · drying",
+    f2H3: "Then the water has to leave the building.",
+    f2P: "Now the actual drying begins, and it can carry on day and night. A construction dehumidifier keeps the humidity low, and a fan makes sure that dry air really sweeps across the floor. Every hour the unit stands idle lets the moisture soak back into walls and floor.",
+    f2Bar: "The weeks from the table above",
+    fNote: (
+      <>
+        <b>Do not switch the dehumidifier off at night.</b> Within a few hours the humidity rises again
+        and the moisture in the air is drawn back into the floor. You then lose more drying time than you
+        save on electricity; what a unit like this costs per day, we work out in{" "}
+        <Link to={lp("/gids/stroomverbruik-bouwdroger")}>power consumption of a construction dehumidifier</Link>.
+      </>
+    ),
+    prKick: "In practice",
+    prH2: "What makes the drying time shorter or longer.",
+    prLede:
+      "Five things decide whether you stay close to the guide figure or go weeks beyond it. You can control four of them yourself.",
+    factoren: [
+      { titel: "The thickness", tekst: "The biggest factor. The moisture in the bottom layer has to travel up through the full thickness; beyond 4 cm that adds up quickly." },
+      { titel: "The temperature", tekst: "Warm air can hold far more moisture than cold air. Below ten degrees or so, drying all but stops." },
+      { titel: "The humidity", tekst: "If the air in the building is already full of moisture, the screed cannot give off any more, however long you wait." },
+      { titel: "The air movement", tekst: "A layer of saturated air lingers above a floor. A fan sweeps it away, so dry air can pick up the moisture." },
+      { titel: "What goes on top", tekst: "Tiles tolerate more residual moisture than parquet, vinyl or a poured floor. The finish determines what you are drying towards." },
+    ],
+    soKick: "Two types of screed",
+    soH2: "Cement screed or anhydrite screed?",
+    soLede:
+      "The drying times above are for sand and cement screed, the most common floor in Belgium. If anhydrite has been laid, different instructions apply, and the manufacturer's override any rule of thumb.",
+    cemLabel: "Sand and cement screed",
+    cemH3: "The most common floor, and the rule of thumb above.",
+    cem: [
+      { b: "Binds water chemically.", rest: " That is why you must not dry aggressively in the first phase: the cement still needs that water." },
+      { b: `Usually ${dunste?.cm} to ${dikste?.cm} cm thick.`, rest: " Exactly the thicknesses our standard packages calculate their hire period for." },
+      { b: "Tolerates more residual moisture", rest: " than anhydrite, but exactly how much is determined by the finish, and so by your floor layer." },
+      { b: "Dries from the top down.", rest: " The last centimetres are the slowest; a hard, light-coloured surface tells you little." },
+    ],
+    cemVoet: "The guide figures and packages on this page are about this type.",
+    anhLabel: "Anhydrite screed",
+    anhH3: "Flatter and thinner, but stricter about what it tolerates.",
+    anh: [
+      { b: "Based on calcium sulphate", rest: " and poured as a liquid; as a result it is often thinner and flatter than a cement screed." },
+      { b: "More sensitive to moisture.", rest: " It usually needs a lower residual moisture level before it can be covered." },
+      { b: "Often needs sanding.", rest: " The top layer frequently has to come off before the floor can dry properly and the finish can bond." },
+      { b: "Follow the instructions.", rest: " Waiting times and limit values differ per product; the installer and the manufacturer have the final say." },
+    ],
+    anhVoet: "The drying principle stays the same: without dry air, nothing comes out.",
+    vvKick: "Underfloor heating",
+    vvH2: "Heating up in six steps, in this order.",
+    vvLede:
+      "If there is underfloor heating beneath the screed, it is a useful aid to drying, but only if handled with care. This is the shape a heating-up protocol takes; the exact temperatures and days come from your screed layer or the manufacturer.",
+    opstook: [
+      { b: "Wait for the curing time.", rest: " Cement screed needs water to cure. Your screed layer will tell you from which day you can start heating; for anhydrite that waiting time is usually shorter." },
+      { b: "Start low.", rest: " Begin at a low flow temperature, not the temperature you will later want to live at. The floor needs to warm up evenly." },
+      { b: "Raise it step by step.", rest: " Increase by a fixed step each day up to the maximum flow temperature the manufacturer allows, and hold it there for a few days." },
+      { b: "Bring it down just as gradually.", rest: " Do not switch the heating off in one go; that causes the same stresses as heating up too fast." },
+      { b: "Remove the moisture while you heat.", rest: " Heating drives the moisture out of the floor but leaves it in the building. Without a dehumidifier or ventilation it condenses on windows and external walls." },
+      { b: "Measure, and only then call the floor layer.", rest: " Completing a heating-up protocol is no proof that the floor is dry. That still takes a residual moisture reading." },
+    ],
+    vvNote: (
+      <>
+        <b>Turning the heating straight up risks cracks.</b> The tension between a dry bottom and a still
+        wet top has to go somewhere. And heat alone does not dry: the moisture is released, but it stays in
+        the building until a dehumidifier removes it.
+      </>
+    ),
+    mKick: "Measure, don't guess",
+    mH2: "Measuring residual moisture before parquet, tiles or vinyl.",
+    mLede:
+      "A screed that is hard and light in colour can still be wet inside. Under parquet, vinyl or a poured floor, that moisture is then trapped, and it comes back as cupped boards, lifting strips or stains.",
+    zekerLabel: "How to be sure",
+    zekerH3: "A reading from the full depth of the floor.",
+    zeker: [
+      { b: "CM test (carbide method).", rest: " On a sample from the full thickness, not at the surface; that is where the floor dries first." },
+      { b: "Your floor layer sets the limit.", rest: " Ask in advance which value they want to see; it depends on the type of screed, the underfloor heating and the finish." },
+      { b: "Readings before and after with our package.", rest: " The technician records the starting value and the final value, so nobody has to decide on gut feeling." },
+      { b: "In black and white, if you like.", rest: " On request you receive a measurement report, useful for your floor layer, your architect or an insurer." },
+    ],
+    zekerVoet: (
+      <>
+        See also our <Link to={lp("/drooggarantie")}>Drying Guarantee</Link>: not dry by the end date,
+        and we extend free of charge.
+      </>
+    ),
+    misLabel: "How it goes wrong",
+    misH3: "Three decisions that cost money later.",
+    mis: [
+      { b: "Judging by eye.", rest: " Light in colour and hard to the touch means the surface is dry, nothing more." },
+      { b: "Following the calendar.", rest: ' "Six weeks is enough" does not hold on a cold site where the humidity never dropped below the target value.' },
+      { b: "Letting the floor layer wait without measuring.", rest: " If they come anyway and lay on a wet floor, the problem is yours, and the floor has to come out." },
+    ],
+    faqTitel: "Everything about screed drying times",
+    vlKick: "Read on",
+    vlH2: "Drying more than just the floor?",
+    vlLede:
+      "Plasterwork has its own timescales and its own pitfalls, and in a new build the floor and walls usually dry together. Two pages that take it further.",
+    dk1H3: "How long does plaster take to dry?",
+    dk1P: "The timescales per coat thickness, the difference between gypsum and cement plaster, and why moisture lingers in a closed-up house until it ends up on the windows.",
+    dk1Meer: "Read the plaster guide →",
+    dk2H3: "Drying screed and plaster together",
+    dk2P: "In a new build, floor and walls are wet at the same time. That can be done in one package, with one hire period and one reading before and after.",
+    dk2Meer: "See drying in new builds →",
+    links: [
+      { pad: "/hoe-drogen-werkt", label: "How drying works" },
+      { pad: "/gids/condensdroger-of-adsorptiedroger", label: "Condensation or desiccant dehumidifier" },
+      { pad: "/gids/stroomverbruik-bouwdroger", label: "Power consumption of a construction dehumidifier" },
+      { pad: "/realisaties/chape-pleisterwerk-drogen-hasselt", label: "Plaster and screed dried faster" },
+      { pad: "/prijzen", label: "Prices and rates" },
+    ],
+    mbKick: "Rather not rely on a rule of thumb?",
+    mbH3: "We measure your floor before and after, and guarantee the end date.",
+    mbP: (
+      <>
+        Our technicians set up the units, set the target value and record the residual moisture at the
+        start and at handover. If the floor is not dry by then, we extend free of charge; see{" "}
+        <Link to={lp("/drooggarantie")}>the Drying Guarantee</Link>.
+      </>
+    ),
+    mbCta: "Calculate your drying package",
+    mbAlt: "Vernast technician giving a thumbs up",
+    contact: {
+      kicker: "Another question about your floor?",
+      titel: "Our drying specialists will look at the schedule with you.",
+      lede: "Not sure whether your screed will be dry in time for the floor layer, or unsure about the thickness and the number of units? Ask your question and a specialist will reply within one working day.",
+      onderwerpen: [
+        "Question about my screed's drying time",
+        "Advice on the number of units",
+        "Question about measuring residual moisture",
+        "Something else",
+      ],
+      placeholder: "E.g. 120 m² of 6 cm screed, laid on 20 November, floor layer coming mid-January: will that work?",
     },
   }),
 } satisfies Copy<(h: ChapeHulp) => ChapeTekst>;
