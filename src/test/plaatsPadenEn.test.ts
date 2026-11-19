@@ -57,11 +57,16 @@ describe("Engelse paden van provincies en gemeenten", () => {
     }
   });
 
-  it("geeft een gemeente met alleen een Franse tekst geen Engels pad, en zeker niet /en", () => {
-    const alleenFr = GEMEENTE_ROUTES.find(
-      (x) => !GEMEENTEN_MET_EN.has(x.slug) && vertaalPad(x.path, "fr"),
-    )!;
-    expect(vertaalPad(alleenFr.path, "en")).toBeNull();
+  /*
+    Sinds 19-11-2026 heeft elke Belgische gemeente een Engelse tekst; de
+    Nederlandse provincies (Noord-Brabant, Zeeland, Nederlands Limburg) krijgen
+    er bewust geen. Zo'n gemeente mag geen Engels pad hebben — en zeker niet
+    `/en`, want een leeg pad maakte er ooit een tweede Engelse homepage van.
+  */
+  it("geeft een gemeente zonder Engelse tekst geen Engels pad, en zeker niet /en", () => {
+    const zonderEn = GEMEENTE_ROUTES.filter((x) => !GEMEENTEN_MET_EN.has(x.slug));
+    expect(zonderEn.length).toBeGreaterThan(0);
+    for (const x of zonderEn) expect(vertaalPad(x.path, "en")).toBeNull();
   });
 
   it("gebruikt Engelse exoniemen, en elders de lokale naam", () => {
