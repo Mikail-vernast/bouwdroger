@@ -1126,4 +1126,276 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  chastre: {
+    slug: "chastre",
+    title: "Chastre dehumidifier hire for new builds | Vernast",
+    description:
+      "Dehumidifier hire in Chastre? Vernast delivers by appointment, installs the units and collects them again. Advice on new builds, renovation and cold sites.",
+    h1: "Construction dehumidifier hire in Chastre",
+    kicker: "Chastre · delivery by appointment",
+    rit: { afstand: "about 80 km", tijd: "just over an hour" },
+    intro: [
+      "Building or renovating in Chastre, with screed or plasterwork that needs to dry? At Vernast you hire construction dehumidifiers, fans and site heaters as one package. **Delivery, installation and collection are included.**",
+      "Chastre is just over an hour from our warehouse in Aartselaar. You choose a delivery date when you book; for a delivery in Wallonia, we then make an appointment for the time.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Chastre",
+      alineas: [
+        "Chastre is a rural municipality between Mont-Saint-Guibert, Walhain and Villers-la-Ville. For a new build or a detached house, it helps if you tell us whether the driveway has been surfaced yet and where we can stop. Also note who will meet us on site.",
+        "On a new-build site there is sometimes no heating yet. **Below 15 °C a condensation dehumidifier dries slowly**, and then a 20 kW electric site heater can bring the room up to temperature. That heater does need 400 V three-phase power; ask your electrician whether the site distribution board can handle it.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For a new-build house with fresh screed.** Good for 70 litres a day in rooms up to 400 m³. Place it centrally and leave the inside doors open, and it will dry several rooms.",
+      },
+      {
+        key: "teddh20",
+        waarom: "**For extra heat on a cold site.** This electric site heater delivers 20 kW on 400 V. The warmth helps the drying, but the construction dehumidifier captures the moisture itself.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**For a large house or an open floor.** Up to 110 litres a day in volumes up to 600 m³, using 1.4 kW.",
+      },
+      {
+        key: "radiaal2250",
+        waarom: "**For airflow over the screed.** The radial fan moves 2,250 m³ an hour and is splash-proof (IP55). Its extra socket lets you daisy-chain a second unit.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Chastre",
+      alinea: "**Delivery, installation and collection are included in your drying package.** Once you have booked with a delivery date, we get in touch to agree the delivery time in Chastre. From Aartselaar it takes us just over an hour. Tell us beforehand whether the site already has power and whether there is three-phase power for a heater. The technician installs everything and explains how to keep an eye on the dehumidifier.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Chastre",
+      alinea: "You collect a single unit by appointment at Boomsesteenweg 12, unit 11 in Aartselaar. From Chastre that is just over an hour's drive each way, both when collecting and when returning. **Book in advance** and compare the weight and dimensions with your vehicle. For a complete new build, a package with delivery is usually more practical.",
+    },
+    buren: ["villers-la-ville", "mont-saint-guibert", "walhain"],
+    faq: [
+      {
+        q: "Can I dry a site that has no heating?",
+        a: "Yes, but in the cold a condensation dehumidifier works slowly. An electric site heater brings the room up to temperature, provided there is a 400 V connection. Mention the temperature on your site in your request.",
+      },
+      {
+        q: "How do I arrange a delivery in Chastre?",
+        a: "Make your booking online and choose a delivery date. Because Chastre is in Wallonia, we then agree a time. Include the address, how the site can be reached and the power connections available.",
+      },
+      {
+        q: "When can I start drying after the screed has been poured?",
+        a: "Follow the instructions of your screed supplier or contractor. Some screeds must first cure undisturbed for a few days before a dehumidifier goes in. Tell us the date it was poured, and we will take it into account.",
+      },
+      {
+        q: "How many dehumidifiers do I need for a new build?",
+        a: "That depends on the volume of the house, the thickness of the screed and the temperature. The calculator makes a first proposal based on your details. For a large or cold site, we are happy to go through it with you.",
+      },
+      {
+        q: "How do I know the floor is ready for finishing?",
+        a: "A dry surface tells you nothing about the moisture at the bottom of the screed. Have your floor layer take a moisture reading and wait until the value for your floor covering is reached.",
+      },
+    ],
+    realisaties: [],
+  },
+  walhain: {
+    slug: "walhain",
+    title: "Walhain dehumidifier hire for renovations | Vernast",
+    description:
+      "Dehumidifier hire in Walhain? Vernast brings your drying package by appointment, installs it and collects it again. For screed, plasterwork and renovation.",
+    h1: "Construction dehumidifier hire in Walhain",
+    kicker: "Walhain · delivery by appointment",
+    rit: { afstand: "about 78 km", tijd: "about an hour" },
+    intro: [
+      "Need a construction dehumidifier in Walhain for a renovation, a new build or after water damage? Vernast hires out the units as a drying package, matched to your site. **We deliver the units, set them up and take them back afterwards.**",
+      "Walhain is about an hour's drive from our warehouse in Aartselaar. You choose a delivery date when you book, and we then agree the delivery time, as with every delivery in Wallonia.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Walhain",
+      alineas: [
+        "Walhain is a rural municipality of scattered villages between Chastre, Mont-Saint-Guibert and Chaumont-Gistoux. If you are renovating an older house or farmhouse, tell us which rooms are wet and how thick the walls are. Also give the full address and who will meet us.",
+        "Fresh screed and new plasterwork give off moisture for weeks. **How long drying takes depends on thickness, composition, temperature and humidity.** A dry surface does not mean the floor or wall is ready for finishing; that is what the moisture reading by your floor layer or decorator is for.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For a whole house or a large renovation.** Up to 110 litres a day in rooms up to 600 m³, plugged into a standard socket.",
+      },
+      {
+        key: "radiaal2250",
+        waarom: "**To direct air along plasterwork or a screed.** The radial fan delivers 2,250 m³ an hour and is splash-proof (IP55). It works alongside a dehumidifier, not instead of one.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For a house with several rooms at once.** This dehumidifier extracts up to 70 litres a day from rooms up to 400 m³ and uses 1.1 kW.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For a cold farmhouse or a new build without heating.** This site heater delivers 30 kW and needs a 400 V three-phase connection. Warmth speeds up drying; the construction dehumidifier captures the moisture.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Walhain",
+      alinea: "**Your drying package covers delivery, installation and collection.** You choose a delivery date when you book; we then fix the exact delivery time in Walhain with you. From Aartselaar we drive about an hour. Tell us in advance about narrow access, a country lane or a floor without a fixed staircase. During installation, the technician shows you how to operate the units.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Walhain",
+      alinea: "You can collect by appointment from our warehouse at Boomsesteenweg 12, unit 11 in Aartselaar. From Walhain that is about an hour's drive, when collecting and again when returning. **Book in advance** and your unit will be ready. If you need a site heater or several dehumidifiers, it is better to choose delivery with installation.",
+    },
+    buren: ["chastre", "mont-saint-guibert", "chaumont-gistoux", "perwijs"],
+    faq: [
+      {
+        q: "How do I arrange a delivery in Walhain?",
+        a: "Work out your drying package online and choose a delivery date. We then contact you to agree the time. Give us the site address, the floor and the power connections available.",
+      },
+      {
+        q: "Will a dehumidifier also dry the thick walls of an old farmhouse?",
+        a: "A construction dehumidifier takes moisture out of the air, after which the walls slowly release theirs. Thick walls therefore dry more slowly than a thin screed. Tell us how the walls are built, and we will match the set-up and the hire period to it.",
+      },
+      {
+        q: "How many units do I need for my renovation?",
+        a: "That depends on the volume, the layout and how much moisture is in the floors and walls. Use the calculator for a first proposal. If your situation is different, for example because of high ceilings or hidden moisture, ask us for advice.",
+      },
+      {
+        q: "What connection does a site heater need?",
+        a: "The 20 and 30 kW electric site heaters run on 400 V three-phase power. Have your electrician check whether the site has that connection. For the construction dehumidifiers and fans, a standard socket is enough.",
+      },
+      {
+        q: "Does a construction dehumidifier cure rising damp?",
+        a: "No. A construction dehumidifier dries moisture out of air and materials, but it does not keep new moisture out. With rising damp or a leak, have the cause dealt with first; only then does drying give a lasting result.",
+      },
+    ],
+    realisaties: [],
+  },
+  graven: {
+    slug: "graven",
+    title: "Grez-Doiceau dehumidifier hire, Train and Dyle | Vernast",
+    description:
+      "Dehumidifier hire in Grez-Doiceau: drying after a renovation, a new screed or damp in a house by the Train. Delivery and installation by appointment.",
+    h1: "Construction dehumidifier hire in Grez-Doiceau",
+    kicker: "Walloon Brabant · the Dyle and Train valleys",
+    rit: { afstand: "about 60 km", tijd: "about an hour" },
+    intro: [
+      "Grez-Doiceau, Graven in Dutch, lies just across the language border, next to Oud-Heverlee and Huldenberg. The municipality includes Archennes, Biez, Bossut-Gottechain, Doiceau, Nethen and Pécrot, among others. The Train and the Nethen flow here into the Dyle, with wooded slopes and fields in between.",
+      "We deliver construction dehumidifiers throughout the municipality, from the villages in the valley to the residential areas on the slopes. From our warehouse in Aartselaar we are **about an hour** on the road. In Wallonia we deliver and install by appointment.",
+    ],
+    bouw: {
+      kop: "Old houses in the valley, villas on the slopes",
+      alineas: [
+        "**In the Train and Dyle valleys**, older village houses stand close to the groundwater. If the wall has no damp-proof course, it draws that water up, and after the renovation a tide mark appears again at the bottom. A construction dehumidifier removes construction moisture, but it does not stop rising damp. That is why the technician takes a moisture reading during installation.",
+        "On the slopes it is more often **a villa undergoing a major renovation**, with new screed and new plasterwork. If there is a lower ground floor set half into the slope, that part dries slowest. It stays cool there, and on one side the ground is against the wall.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For a renovated villa over several floors.** This dehumidifier extracts up to 70 litres of water a day from the air and is suitable for rooms up to about 400 m³.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cool lower ground floor in the slope.** This desiccant dehumidifier keeps absorbing moisture at low temperatures, where a condensation dehumidifier slows down.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "A new screed in an open living area dries more evenly if the air above it keeps moving. This fan moves 4,500 m³ of air an hour.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a village house you go on living in.** This compact dehumidifier extracts 50 litres a day from the air and runs on a standard socket.",
+      },
+    ],
+    levering: {
+      kop: "Delivery in Grez-Doiceau by appointment",
+      alinea: "From Aartselaar we drive **about an hour** to Grez-Doiceau, via the E40 or the E411. You choose a delivery date when you book, and we then agree the time with you. The technician installs the units, runs the drain to a floor drain or sink and measures the moisture in floor and walls. Delivery, installation and collection are included in your drying package.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself in Aartselaar",
+      alinea: "You can collect by appointment from our warehouse at Boomsesteenweg 12, unit 11 in Aartselaar. That is **about an hour's drive** from Grez-Doiceau, and you make the trip twice: when collecting and when returning. For one small unit that can be worth it. For a full package, delivery with installation is the better choice.",
+    },
+    buren: ["waver", "chaumont-gistoux", "bevekom", "oud-heverlee", "huldenberg"],
+    faq: [
+      {
+        q: "My house is low down by the Train. Is the damp wall construction moisture?",
+        a: "Not always. In a stream valley the groundwater is shallow, and an old wall without a damp-proof course draws it up. Construction moisture disappears over time; rising damp keeps coming back. The moisture reading during installation shows which of the two you have.",
+      },
+      {
+        q: "Why does my lower ground floor dry more slowly than the rest of the house?",
+        a: "A lower ground floor set into the slope is cooler than the floors above, and on the uphill side the ground is against the wall. A condensation dehumidifier needs a temperature above 15 °C to work well. So in a cool lower ground floor we often use a desiccant dehumidifier.",
+      },
+      {
+        q: "Can the dehumidifier keep running while we live in the house?",
+        a: "Yes. The compact dehumidifier runs on a standard socket and can stand in an occupied home. Keep the door of the room being dried shut. Otherwise the unit also dries the air in the rest of the house and takes longer.",
+      },
+      {
+        q: "Who should I name for the delivery in Grez-Doiceau?",
+        a: "When you book, tell us who will be there for the delivery, so we know who to agree the time and the installation with. That person can also show the technician where the drain can go.",
+      },
+    ],
+    realisaties: [],
+  },
+  "chaumont-gistoux": {
+    slug: "chaumont-gistoux",
+    title: "Chaumont-Gistoux dehumidifier hire, east of Wavre | Vernast",
+    description:
+      "Dehumidifier hire in Chaumont-Gistoux: drying after renovating a detached house, a new screed or water damage. Delivery and installation by appointment.",
+    h1: "Construction dehumidifier hire in Chaumont-Gistoux",
+    kicker: "Walloon Brabant · east of Wavre",
+    rit: { afstand: "about 65 km", tijd: "about an hour" },
+    intro: [
+      "Chaumont-Gistoux lies east of Wavre, in the green heart of Walloon Brabant. The municipality includes Bonlez, Corroy-le-Grand, Dion-Valmont and Longueville, among others, with many detached houses between woods and fields.",
+      "We deliver construction dehumidifiers to every village in the municipality. From our warehouse in Aartselaar it takes us **about an hour**. Delivery and installation in Wallonia are by appointment.",
+    ],
+    bouw: {
+      kop: "Detached houses, large renovations",
+      alineas: [
+        "A detached house that is being fully renovated often gets **a new screed across the whole ground floor** and new plasterwork on the walls in one go. That is a lot of water in one volume. A large dehumidifier in the middle and a fan moving the air over the floor remove it faster than separate units in each room.",
+        "If work goes on in winter and the heating is not yet on, an empty house cools down quickly. A condensation dehumidifier only works well above 15 °C. An electric site heater keeps the space at temperature, provided there is **a 400 V connection** on site.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For a fully renovated ground floor.** This dehumidifier extracts up to 110 litres of water a day from the air and is designed for rooms up to about 600 m³.",
+      },
+      {
+        key: "ttk350",
+        waarom: "For an upper floor or a closed-off part of the house, this dehumidifier is often enough: up to 70 litres a day, in rooms up to about 400 m³.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For a large open floor.** The fan moves 4,500 m³ of air an hour over a fresh screed. It does not dry by itself; it helps the dehumidifier.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For a cold site in winter.** This electric site heater delivers 30 kW and needs three-phase power (400 V). Ask your electrician beforehand whether the connection can handle it.",
+      },
+    ],
+    levering: {
+      kop: "Delivery in Chaumont-Gistoux by appointment",
+      alinea: "From Aartselaar we are **about an hour** on the road to Chaumont-Gistoux. You choose the delivery date when you book; we then agree the delivery time with you. On site, the technician sets up the units, connects the drain and takes a moisture reading. Delivery, installation and collection are part of your drying package.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself in Aartselaar",
+      alinea: "You can collect units by appointment from our warehouse at Boomsesteenweg 12, unit 11 in Aartselaar. From Chaumont-Gistoux that is **about an hour's drive**, once to collect and again to return. For one dehumidifier that can be worth the effort. For a house with several units and a site heater, it is better to have them delivered.",
+    },
+    buren: ["waver", "graven", "incourt", "walhain"],
+    faq: [
+      {
+        q: "How many dehumidifiers do I need for a fully renovated house?",
+        a: "That depends on the volume and how much screed and plasterwork is wet. For an open ground floor, one large dehumidifier with a fan is often enough. Closed rooms upstairs sometimes need an extra unit. Give us the floor area and the height, and we will put the package together.",
+      },
+      {
+        q: "Why does a construction dehumidifier struggle in a cold house?",
+        a: "A condensation dehumidifier cools the air to draw water out of it. If the room itself is already cold, below about 15 °C, little condenses and the output drops. A site heater or a desiccant dehumidifier solves that.",
+      },
+      {
+        q: "Which connection do I need for the site heater?",
+        a: "The 30 kW heater runs on 400 V three-phase power, with a suitable plug and fuse. A standard socket is not enough. Have your electrician check beforehand what your site board or consumer unit can supply.",
+      },
+      {
+        q: "When can the parquet go down on the new screed?",
+        a: "Only when the screed is dry enough for the chosen floor, and a moisture reading decides that, not the calendar. A dry surface says little about the core of the floor. Agree the reading and the limit with your floor layer.",
+      },
+    ],
+    realisaties: [],
+  },
 };

@@ -20,4 +20,8 @@ export const AAN: readonly string[] = [
   "court-saint-etienne",
   "mont-saint-guibert",
   "villers-la-ville",
+  "chastre",
+  "walhain",
+  "graven",
+  "chaumont-gistoux",
 ];
