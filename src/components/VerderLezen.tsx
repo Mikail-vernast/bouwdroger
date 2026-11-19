@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 import { PRODUCTS } from "@/data/verhuur";
 import { useCopy, useLokaalPad } from "@/i18n/useTaal";
 
-const COPY = { nl: { kicker: "Verder lezen" }, fr: { kicker: "Pour aller plus loin" } };
+const COPY = { nl: { kicker: "Verder lezen" }, fr: { kicker: "Pour aller plus loin" }, en: { kicker: "Further reading" } };
 
 /**
  * Het blok "verder lezen" onderaan de inhoudspagina's: realisaties, toestellen,

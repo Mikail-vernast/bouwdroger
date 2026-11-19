@@ -51,6 +51,19 @@ const COPY = {
     cta: "Calculez votre prix",
     menuOpen: "Ouvrir le menu",
   },
+  en: {
+    diensten: "Services",
+    dienstenItems: [
+      ["New build", "Drying plaster & screed", null],
+      ["Renovation", "Tackling damp & mould", null],
+      ["Water damage", "Emergency service within 24 h", "URGENT"],
+      ["Damp control", "Solving structural damp problems", null],
+      ["Contractors", "B2B rates & partnership", null],
+    ],
+    links: ["Delivery", "Collection", "Machines", "Projects", "About us", "Customer service", "Contact"],
+    cta: "Calculate your price",
+    menuOpen: "Open menu",
+  },
 } satisfies Copy<NavbarTekst>;
 
 const Navbar = () => {

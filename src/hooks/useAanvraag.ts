@@ -27,7 +27,8 @@ const NETWORK_ERROR = "Verzenden lukte niet, controleer uw verbinding en probeer
   `api/aanvraag.ts` antwoordt in het Nederlands, en dat blijft zo: de API
   kent geen taal. Op een Franse pagina vertalen we zijn bekende meldingen
   hier; een onbekende valt terug op de algemene Franse melding, zodat een
-  Franstalige bezoeker nooit een Nederlandse foutzin te zien krijgt.
+  Franstalige bezoeker nooit een Nederlandse foutzin te zien krijgt. Engels
+  volgt hetzelfde patroon.
 */
 const FOUT_FR: Record<string, string> = {
   "Ongeldige aanvraag.": "Demande non valide.",
@@ -38,9 +39,20 @@ const FOUT_FR: Record<string, string> = {
   [NETWORK_ERROR]: "L'envoi a échoué, vérifiez votre connexion et réessayez.",
 };
 
+/* Hetzelfde voor een Engelse pagina. */
+const FOUT_EN: Record<string, string> = {
+  "Ongeldige aanvraag.": "Invalid request.",
+  "Vul uw naam en uw vraag in.": "Please fill in your name and your question.",
+  "Vul een geldig e-mailadres in, dan kunnen we u antwoorden.":
+    "Please enter a valid email address so that we can reply to you.",
+  [FALLBACK_ERROR]: "Sending failed. Please try again or call +32 3 689 90 65.",
+  [NETWORK_ERROR]: "Sending failed, please check your connection and try again.",
+};
+
 function inTaal(melding: string, taal: Taal): string {
-  if (taal !== "fr") return melding;
-  return FOUT_FR[melding] ?? FOUT_FR[FALLBACK_ERROR];
+  if (taal === "nl") return melding;
+  const tabel = taal === "fr" ? FOUT_FR : FOUT_EN;
+  return tabel[melding] ?? tabel[FALLBACK_ERROR];
 }
 
 interface Options {

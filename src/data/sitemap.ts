@@ -14,7 +14,7 @@
  * 15-11-2026: de pagina toont elke link als pad en de streken als takken, en
  * dat leest makkelijker van een platte structuur dan van de lijsten zelf.
  */
-import { LABEL_FR, navigatie, regioNaam, type NavLinkItem } from "@/data/navigation";
+import { navigatie, regioNaam, vertaalLabel, type NavLinkItem } from "@/data/navigation";
 import { gemeenteVanPlaats, plaatsFr } from "@/data/gemeente-slugs";
 import { REGIO_ROUTES } from "@/data/regio-slugs";
 import {
@@ -24,8 +24,9 @@ import {
   type Streek,
 } from "@/data/provincie-gemeenten";
 import { REALISATIES } from "@/data/realisaties";
+import { PLAATS_EN, STREEK_EN } from "@/components/home-v3/V3Regio.copy";
 import { vertaalPad } from "@/i18n/paden";
-import type { Taal } from "@/i18n/taal";
+import { prefix, type Taal } from "@/i18n/taal";
 
 export interface Plaats {
   naam: string;
@@ -144,6 +145,33 @@ const STREEK_FR: Record<string, string> = {
   "Haspengouw en de Voerstreek": "Hesbaye et les Fourons",
 };
 
+/* De streek- en plaatsnamen in het Engels delen we met de leveringskaart op
+   de homepage (`V3Regio.copy.ts`): dezelfde naam op de kaart en hier. */
+/**
+ * Een plaatsnaam in het Engels. In Brussel en Wallonië is de Franse naam de
+ * plaats zelf (Ixelles, Mons, Arlon) — daar volgt hij `plaatsFr`. In
+ * Vlaanderen en Nederland blijft de lokale naam, op de paar exoniemen na: een
+ * Brit zoekt "Ghent", niet "Gand" en ook niet altijd "Gent". `Bergen` in
+ * Nederlands Limburg blijft zo Bergen, en niet Mons.
+ */
+function plaatsEn(naam: string, gebied: string): string {
+  if (PLAATS_EN[naam]) return PLAATS_EN[naam];
+  if (gebied === "brussel" || gebied in WAALSE_STREKEN) return plaatsFr(naam);
+  return naam;
+}
+
+function plaatsIn(naam: string, gebied: string, taal: Taal): string {
+  if (taal === "fr") return plaatsFr(naam);
+  if (taal === "en") return plaatsEn(naam, gebied);
+  return naam;
+}
+
+function streekIn(naam: string, taal: Taal): string {
+  if (taal === "fr") return STREEK_FR[naam] ?? naam;
+  if (taal === "en") return STREEK_EN[naam] ?? naam;
+  return naam;
+}
+
 /** Een Nederlands pad in de taal van de sitemap, of `undefined` als die pagina daar niet bestaat. */
 function padIn(nlPad: string | undefined, taal: Taal): string | undefined {
   if (!nlPad) return undefined;
@@ -163,10 +191,10 @@ const naarGebied = (
   path: padIn(nlPath, taal),
   aantal: streken.reduce((n, s) => n + s.gemeenten.length, 0),
   streken: streken.map((s) => ({
-    naam: taal === "fr" ? (STREEK_FR[s.naam] ?? s.naam) : s.naam,
+    naam: streekIn(s.naam, taal),
     plaatsen: s.gemeenten
       .map((naam) => ({
-        naam: taal === "fr" ? plaatsFr(naam) : naam,
+        naam: plaatsIn(naam, sleutel, taal),
         path: nlPath ? padIn(gemeenteVanPlaats(naam)?.path, taal) : undefined,
       }))
       .sort((a, b) => a.naam.localeCompare(b.naam, taal)),
@@ -188,7 +216,7 @@ interface Teksten {
 
 /* Titel, korte naam en uitleg per sectie. De titels worden ook de ankers
    (`slugId`), dus elke taal heeft zijn eigen #sm-… op zijn eigen pagina. */
-const TEKSTEN: Record<"nl" | "fr", Teksten> = {
+const TEKSTEN: Record<Taal, Teksten> = {
   nl: {
     bestellen: ["Droogpakket bestellen", "Van de berekening tot de levering op de werf."],
     waarvoor: ["Waarvoor u droogt", "Elke situatie heeft een eigen aanpak en een eigen pagina."],
@@ -247,6 +275,33 @@ const TEKSTEN: Record<"nl" | "fr", Teksten> = {
     ],
     alleRealisaties: "Toutes les réalisations",
   },
+  en: {
+    bestellen: ["Order a drying package", "From the calculation to delivery on site."],
+    waarvoor: ["What you are drying", "Every situation has its own approach and its own page."],
+    toestellen: ["Hire a unit", "Every unit with its capacity, daily price and full product sheet."],
+    bedrijf: ["About Vernast", "Who does the work and how to reach us."],
+    juridisch: [
+      { label: "Privacy policy", path: "/privacy" },
+      { label: "General terms and conditions", path: "/algemene-voorwaarden" },
+    ],
+    vlaanderen: [
+      "Belgium: Flanders",
+      "Flanders",
+      "The five Flemish provinces and every place we deliver to, by area. A place with its own page is a link.",
+    ],
+    brussel: ["Belgium: Brussels-Capital Region", "Brussels", "The nineteen municipalities of the region."],
+    wallonie: [
+      "Belgium: Wallonia, on request",
+      "Wallonia",
+      "We come when asked, without the 24-hour delivery time.",
+    ],
+    nederland: [
+      "The Netherlands",
+      "Netherlands",
+      "The three provinces along the Belgian border. We deliver here by appointment, without the 24-hour delivery time: the journey is longer and different VAT rules apply across the border.",
+    ],
+    alleRealisaties: "All projects",
+  },
 };
 
 const BESTELLEN: NavLinkItem[] = [
@@ -265,7 +320,7 @@ export interface SitemapInhoud {
   REALISATIE_LINKS: NavLinkItem[];
 }
 
-function bouw(taal: "nl" | "fr"): SitemapInhoud {
+function bouw(taal: Taal): SitemapInhoud {
   const t = TEKSTEN[taal];
   const nav = navigatie(taal);
   /* De menulijsten uit `navigatie()` zijn al vertaald (label en pad). Wat hier
@@ -275,11 +330,11 @@ function bouw(taal: "nl" | "fr"): SitemapInhoud {
       ? items
       : items.flatMap((i) => {
           const path = padIn(i.path, taal);
-          return path ? [{ label: LABEL_FR[i.label] ?? i.label, path }] : [];
+          return path ? [{ label: vertaalLabel(i.label, taal), path }] : [];
         });
   /* Een link naar een pagina die in deze taal niet bestaat, valt weg — zie hierboven. */
   const bestaat = (items: NavLinkItem[]) =>
-    taal === "nl" ? items : items.filter((i) => i.path.startsWith("/fr"));
+    taal === "nl" ? items : items.filter((i) => i.path.startsWith(`${prefix(taal)}/`) || i.path === prefix(taal));
 
   /*
     Elke pagina krijgt één plek. De blokken en de groepen uit het mega-menu
@@ -385,11 +440,10 @@ function bouw(taal: "nl" | "fr"): SitemapInhoud {
 
 const CACHE = new Map<Taal, SitemapInhoud>();
 
-/** De volledige sitemap in één taal; Engels valt terug op Nederlands zolang het niet online staat. */
+/** De volledige sitemap in één taal. */
 export function sitemapInhoud(taal: Taal): SitemapInhoud {
-  const t = taal === "fr" ? "fr" : "nl";
-  let uit = CACHE.get(t);
-  if (!uit) CACHE.set(t, (uit = bouw(t)));
+  let uit = CACHE.get(taal);
+  if (!uit) CACHE.set(taal, (uit = bouw(taal)));
   return uit;
 }
 

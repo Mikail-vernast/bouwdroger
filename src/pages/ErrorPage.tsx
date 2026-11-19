@@ -88,6 +88,30 @@ const COPY = {
     hulp: "Vous préférez parler à quelqu'un tout de suite ?",
     details: "Détails techniques (visibles uniquement en développement)",
   },
+  en: {
+    fouten: {
+      nietGevonden: {
+        badge: "Page not found",
+        title: "This page does not exist (any more)",
+        lead: "The link has expired or there is a typo in the address. From the homepage you will find all our units and packages again.",
+      },
+      server: {
+        badge: "Something went wrong",
+        title: "We could not load this page",
+        lead: "Our server returned an error. Please try again in a moment; if it keeps going wrong, give us a call or send an email and we will sort it out manually.",
+      },
+      client: {
+        badge: "Something went wrong",
+        title: "Something went wrong on our side",
+        lead: "This is not your fault. Try reloading the page; if that does not work, give us a call or send an email and we will help you straight away.",
+      },
+    },
+    tag: "Building drying service",
+    opnieuw: "Try again",
+    start: "To the homepage",
+    hulp: "Rather speak to someone straight away?",
+    details: "Technical details (only visible in development)",
+  },
 } satisfies Copy<PaginaTekst>;
 
 function describe(error: unknown, t: PaginaTekst): ErrorCopy {

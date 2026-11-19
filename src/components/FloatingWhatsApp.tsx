@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { naarNl } from "@/i18n/paden";
 import { useCopy } from "@/i18n/useTaal";
 
-const COPY = { nl: { label: "WhatsApp ons" }, fr: { label: "Écrivez-nous sur WhatsApp" } };
+const COPY = { nl: { label: "WhatsApp ons" }, fr: { label: "Écrivez-nous sur WhatsApp" }, en: { label: "WhatsApp us" } };
 
 /*
  * Het WhatsApp-merkteken, niet de algemene tekstballon van lucide.

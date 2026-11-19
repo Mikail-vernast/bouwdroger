@@ -40,6 +40,23 @@ const COPY = {
     voorwaarden: "Conditions générales",
     privacy: "Confidentialité",
   },
+  en: {
+    say: "We are there.",
+    sayEm: "Across Flanders.",
+    claim: "Drying guarantee included. Delivery on the date you choose.",
+    diensten: "Services",
+    groep: "Vernast Group",
+    sitemap: "Sitemap",
+    werkgebied: "Service area",
+    bereikbaar: "Get in touch",
+    magazijn: "Depot and collection point",
+    open: "Open",
+    uren: "Mon–Fri 08:00–17:00",
+    zetel: "Registered office:",
+    credit: "Design and build by",
+    voorwaarden: "Terms and conditions",
+    privacy: "Privacy",
+  },
 } satisfies Copy<Record<string, string>>;
 
 /**

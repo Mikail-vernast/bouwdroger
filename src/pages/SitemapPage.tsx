@@ -60,6 +60,21 @@ const COPY = {
     plaatsen: "localités",
     lijst: "Toutes les pages de Vernast Bouwdrogers",
   },
+  en: {
+    home: "Home",
+    sitemap: "Sitemap",
+    kruimelpad: "Breadcrumb",
+    h1: "sitemap",
+    lede: "The whole site as a folder tree. Click a folder to jump to it.",
+    opDezePagina: "On this page",
+    team: "Three Vernast technicians in work overalls",
+    realisaties: "Projects",
+    juridisch: "Legal",
+    opAanvraag: "on request",
+    binnen24: "delivery within 24 hours",
+    plaatsen: "places",
+    lijst: "Every page of Vernast Bouwdrogers",
+  },
 } satisfies Copy<Record<string, string>>;
 
 const SitemapPage = () => {

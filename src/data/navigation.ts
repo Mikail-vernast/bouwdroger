@@ -476,11 +476,6 @@ const NL_PROVINCIE_FR: Record<string, string> = {
   "nederlands-limburg": "Limbourg néerlandais",
 };
 
-export function regioNaam(regio: Pick<RegioRoute, "slug" | "name" | "nameFr">, taal: Taal): string {
-  if (taal !== "fr") return regio.name;
-  return regio.nameFr ?? NL_PROVINCIE_FR[regio.slug] ?? regio.name;
-}
-
 const TOEBEHOREN_LABEL_FR: Record<string, string> = {
   condenspomp: "Location pompe à condensats externe",
 };
@@ -492,11 +487,119 @@ const GROEP_FR: Record<string, { label: string; sub: string }> = {
   Schilderwerken: { label: "Travaux de peinture", sub: "Intérieur & extérieur" },
 };
 
+/* ------------------------------------------------------------------ */
+/* Dezelfde lijsten in het Engels (Brits).                              */
+/* ------------------------------------------------------------------ */
+
+/*
+  Zelfde aanpak als het Frans: een vertaaltabel op het Nederlandse label.
+  Hoofdterm "construction dehumidifier", zoekwoord "dehumidifier hire"; zie
+  docs/vertalen.md. Ontbreekt een Engels label, dan faalt
+  `src/test/navigatieEn.test.ts`.
+*/
+/** Nederlands label → Engels label, voor elke vaste link en elk kopje hierboven. */
+export const LABEL_EN: Record<string, string> = {
+  /* Pakketten */
+  "Pleisterwerk drogen": "Plaster drying",
+  "Chape drogen": "Screed drying",
+  "Pleisterwerk + chape": "Plaster + screed",
+  "Waterschade drogen": "Water damage drying",
+  "Alles in één Droogservice": "All-in-one drying service",
+  /* Toepassingen en schimmels */
+  "Nieuwbouw drogen": "New-build drying",
+  "Drogen na waterschade": "Drying after water damage",
+  "Renovatie drogen": "Renovation drying",
+  Ontschimmeling: "Mould removal",
+  Ozonbehandeling: "Ozone treatment",
+  "Luchtontvochtiger huren": "Dehumidifier hire",
+  /* Service en kiezen */
+  Prijzen: "Prices",
+  "Levering en installatie": "Delivery and installation",
+  "Zelf afhalen in Aartselaar": "Collect it yourself in Aartselaar",
+  "Bereken uw droogpakket": "Calculate your drying package",
+  "Droogsimulator voor uw woning": "Drying simulator for your home",
+  "Ons volledige gamma": "Our full range",
+  "Losse toestellen afhalen": "Collect individual units",
+  /* Bedrijf */
+  "Over Vernast": "About Vernast",
+  Realisaties: "Projects",
+  Contact: "Contact",
+  Home: "Home",
+  /* Gidsen en uitleg */
+  "Hoe lang moet chape drogen?": "How long does screed take to dry?",
+  "Hoe lang moet pleisterwerk drogen?": "How long does plaster take to dry?",
+  "Natuurlijk drogen of een bouwdroger?": "Natural drying or a dehumidifier?",
+  "Condensdroger of adsorptiedroger?": "Condensation or desiccant dehumidifier?",
+  "Stroomverbruik van een bouwdroger": "Power consumption of a dehumidifier",
+  "Hoe drogen werkt": "How drying works",
+  "Waarom bouwdroging": "Why building drying",
+  Drooggarantie: "Drying guarantee",
+  Klantenservice: "Customer service",
+  "Gidsen over bouwdroging": "Guides to building drying",
+  "Alle gidsen": "All guides",
+  /* Kopjes van het mega-menu */
+  Uitleg: "Explained",
+  Gidsen: "Guides",
+  Toepassingen: "Applications",
+  "Het gamma": "The range",
+  "Prijzen & service": "Prices & service",
+};
+
+/** Toestelnamen in het Engels: merk plus soortwoord, zoals `TOESTEL_LABEL`. */
+const TOESTEL_LABEL_EN: Record<string, string> = {
+  ttk170: "Boost construction dehumidifier",
+  ttk350: "Performance construction dehumidifier",
+  ttk650: "Ultimate construction dehumidifier",
+  ttv4500: "Highflow axial fan",
+  radiaal2250: "Turboflow radial fan",
+  revolution: "Revolution desiccant dehumidifier",
+  teddh30: "Heatpower 30 electric heater",
+  teddh20: "Heatboost 20 electric heater",
+};
+
+/**
+ * De Belgische provincies dragen hun Engelse naam in `regio-slugs.ts`
+ * (`nameEn`, en `zinEn` voor "the province of Antwerp"). De drie Nederlandse
+ * hebben er geen, net als bij `nameFr`; hun Engelse naam staat hier.
+ */
+const NL_PROVINCIE_EN: Record<string, string> = {
+  "noord-brabant": "North Brabant",
+  zeeland: "Zeeland",
+  "nederlands-limburg": "Dutch Limburg",
+};
+
+const TOEBEHOREN_LABEL_EN: Record<string, string> = {
+  condenspomp: "External condensate pump hire",
+};
+
+const GROEP_EN: Record<string, { label: string; sub: string }> = {
+  "Vernast.be": { label: "Vernast.be", sub: "The group" },
+  "Vernast Bouwdrogers": { label: "Vernast Bouwdrogers", sub: "Units and packages" },
+  Vochtbestrijding: { label: "Damp control", sub: "Cellar · walls · façade" },
+  Schilderwerken: { label: "Painting", sub: "Interior & exterior" },
+};
+
+/** De naam van de regio in de gevraagde taal, voor de kaart en "Werkgebied". */
+export function regioNaam(
+  regio: Pick<RegioRoute, "slug" | "name" | "nameFr" | "nameEn">,
+  taal: Taal,
+): string {
+  if (taal === "fr") return regio.nameFr ?? NL_PROVINCIE_FR[regio.slug] ?? regio.name;
+  if (taal === "en") return regio.nameEn ?? NL_PROVINCIE_EN[regio.slug] ?? regio.name;
+  return regio.name;
+}
+
+/** Een vast menulabel in de gevraagde taal; onbekend blijft het Nederlands. */
+export function vertaalLabel(label: string, taal: Taal): string {
+  if (taal === "fr") return LABEL_FR[label] ?? label;
+  if (taal === "en") return LABEL_EN[label] ?? label;
+  return label;
+}
+
 /** De naam van een toestel in de gevraagde taal. Zie `toestelLabel`. */
 export function toestelLabelIn(key: string, taal: Taal): string {
-  if (taal === "fr" && Object.prototype.hasOwnProperty.call(TOESTEL_LABEL_FR, key)) {
-    return TOESTEL_LABEL_FR[key];
-  }
+  const tabel = taal === "fr" ? TOESTEL_LABEL_FR : taal === "en" ? TOESTEL_LABEL_EN : null;
+  if (tabel && Object.prototype.hasOwnProperty.call(tabel, key)) return tabel[key];
   return toestelLabel(key);
 }
 
@@ -540,28 +643,50 @@ const NL: Navigatie = {
   VERNAST_GROEP,
 };
 
-function frPad(nlPad: string): string {
-  return vertaalPad(nlPad, "fr") ?? nlPad;
-}
+type Vreemd = Exclude<Taal, "nl">;
 
-/** Eén link naar het Frans: label uit de tabel, pad vertaald. */
-function fr(item: NavLinkItem): NavLinkItem {
-  return { label: LABEL_FR[item.label] ?? item.label, path: frPad(item.path) };
-}
+/** Per taal: de tabellen waaruit `bouw()` de lijsten vertaalt. */
+const TABELLEN: Record<
+  Vreemd,
+  {
+    labels: Record<string, string>;
+    toebehoren: Record<string, string>;
+    groep: Record<string, { label: string; sub: string }>;
+    regio: (regio: RegioRoute) => string;
+  }
+> = {
+  fr: {
+    labels: LABEL_FR,
+    toebehoren: TOEBEHOREN_LABEL_FR,
+    groep: GROEP_FR,
+    regio: (regio) => `Location déshumidificateur ${REGIO_IN_FR[regio.slug] ?? regio.name}`,
+  },
+  en: {
+    labels: LABEL_EN,
+    toebehoren: TOEBEHOREN_LABEL_EN,
+    groep: GROEP_EN,
+    regio: (regio) => `Dehumidifier hire in ${regio.zinEn ?? regioNaam(regio, "en")}`,
+  },
+};
 
-let FR: Navigatie | null = null;
-function bouwFr(): Navigatie {
-  const lijst = (items: NavLinkItem[]) => items.map(fr);
-  const toebehoren = TOEBEHOREN.map((t) => ({
-    label: TOEBEHOREN_LABEL_FR[t.slug] ?? `${t.naam} huren`,
-    path: frPad(toebehorenPad(t.slug)),
+const GEBOUWD: Partial<Record<Vreemd, Navigatie>> = {};
+
+function bouw(taal: Vreemd): Navigatie {
+  const t = TABELLEN[taal];
+  const pad = (nlPad: string) => vertaalPad(nlPad, taal) ?? nlPad;
+  /** Eén link: label uit de tabel, pad vertaald. */
+  const een = (item: NavLinkItem): NavLinkItem => ({ label: t.labels[item.label] ?? item.label, path: pad(item.path) });
+  const lijst = (items: NavLinkItem[]) => items.map(een);
+  const toebehoren = TOEBEHOREN.map((tb) => ({
+    label: t.toebehoren[tb.slug] ?? `${tb.naam} huren`,
+    path: pad(toebehorenPad(tb.slug)),
   }));
   // GAMMA en het mega-menu bevatten de toebehorenlinks; die hebben hun eigen
-  // Franse label (het Nederlandse is samengesteld, "… huren").
-  const perPad = new Map(TOEBEHOREN_LINKS.map((t, i) => [t.path, toebehoren[i]]));
-  const vervang = (items: NavLinkItem[]) => items.map((item) => perPad.get(item.path) ?? fr(item));
+  // label per taal (het Nederlandse is samengesteld, "… huren").
+  const perPad = new Map(TOEBEHOREN_LINKS.map((tb, i) => [tb.path, toebehoren[i]]));
+  const vervang = (items: NavLinkItem[]) => items.map((item) => perPad.get(item.path) ?? een(item));
   return {
-    TOESTELLEN: PRODUCT_ORDER.map((key) => ({ label: toestelLabelIn(key, "fr"), path: frPad(toestelPad(key)) })),
+    TOESTELLEN: PRODUCT_ORDER.map((key) => ({ label: toestelLabelIn(key, taal), path: pad(toestelPad(key)) })),
     TOEBEHOREN_LINKS: toebehoren,
     PAKKETTEN: lijst(PAKKETTEN),
     TOEPASSINGEN: lijst(TOEPASSINGEN),
@@ -575,27 +700,24 @@ function bouwFr(): Navigatie {
     UITLEG: lijst(UITLEG),
     ONTDEK: lijst(ONTDEK),
     ALLES_OVER_DROGEN: ALLES_OVER_DROGEN.map((g) => ({
-      titel: LABEL_FR[g.titel] ?? g.titel,
+      titel: t.labels[g.titel] ?? g.titel,
       items: vervang(g.items),
     })),
-    REGIOS: REGIO_ROUTES.map((regio) => ({
-      label: `Location déshumidificateur ${REGIO_IN_FR[regio.slug] ?? regio.name}`,
-      path: frPad(regio.path),
-    })),
+    REGIOS: REGIO_ROUTES.map((regio) => ({ label: t.regio(regio), path: pad(regio.path) })),
     FOOTER_SITEMAP: lijst(FOOTER_SITEMAP),
     VERNAST_GROEP: VERNAST_GROEP.map((g) => ({
       ...g,
-      ...(GROEP_FR[g.label] ?? {}),
-      ...(g.path ? { path: frPad(g.path) } : {}),
+      ...(t.groep[g.label] ?? {}),
+      ...(g.path ? { path: pad(g.path) } : {}),
     })),
   };
 }
 
 /**
  * Alle menulijsten in één taal. De Nederlandse zijn de constanten hierboven,
- * ongewijzigd; de Franse worden één keer opgebouwd en daarna hergebruikt.
+ * ongewijzigd; de andere worden één keer opgebouwd en daarna hergebruikt.
  */
 export function navigatie(taal: Taal): Navigatie {
-  if (taal !== "fr") return NL;
-  return (FR ??= bouwFr());
+  if (taal === "nl") return NL;
+  return (GEBOUWD[taal] ??= bouw(taal));
 }

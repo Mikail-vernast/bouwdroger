@@ -7,6 +7,7 @@ import { useCopy } from "@/i18n/useTaal";
 const COPY = {
   nl: { stap: "Stap", van: "van", u: "U doet dit", wij: "Wij doen dit", vorige: "Vorige stap", volgende: "Volgende stap" },
   fr: { stap: "Étape", van: "sur", u: "À vous", wij: "On s'en charge", vorige: "Étape précédente", volgende: "Étape suivante" },
+  en: { stap: "Step", van: "of", u: "You do this", wij: "We do this", vorige: "Previous step", volgende: "Next step" },
 };
 
 export interface VerloopStap {

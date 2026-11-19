@@ -4,7 +4,7 @@ import { useCopy } from "@/i18n/useTaal";
 import { KlantWissel, TaalWissel } from "@/components/TaalWissel";
 import "@/styles/taalwissel.css";
 
-const COPY = { nl: { offerte: "Gratis Offerte" }, fr: { offerte: "Devis gratuit" } };
+const COPY = { nl: { offerte: "Gratis Offerte" }, fr: { offerte: "Devis gratuit" }, en: { offerte: "Free quote" } };
 
 const TopBar = () => {
   const t = useCopy(COPY);

@@ -100,6 +100,118 @@ export const STREEK_FR: Record<string, string> = {
   "Haspengouw en de Voerstreek": "La Hesbaye et les Fourons",
 };
 
+/**
+ * Dezelfde kaart in het Engels: de gangbare Engelse exoniemen uit
+ * docs/vertalen.md (Antwerp, East Flanders, Brussels, Liège). "Antwerp" alleen
+ * leest als de stad, daarom "the province of" in de zinnen, zoals « province
+ * d'Anvers » in het Frans. Gelijk aan `nameEn`/`zinEn` in `regio-slugs.ts`, op
+ * Brussel na: op een speld past "Brussels", niet "Brussels-Capital Region".
+ */
+export const PROVINCIE_EN: Record<string, { naam: string; in: string }> = {
+  antwerpen: { naam: "Antwerp", in: "in the province of Antwerp" },
+  "oost-vlaanderen": { naam: "East Flanders", in: "in East Flanders" },
+  "vlaams-brabant": { naam: "Flemish Brabant", in: "in Flemish Brabant" },
+  brussel: { naam: "Brussels", in: "in Brussels" },
+  "west-vlaanderen": { naam: "West Flanders", in: "in West Flanders" },
+  limburg: { naam: "Limburg", in: "in Limburg" },
+  "waals-brabant": { naam: "Walloon Brabant", in: "in Walloon Brabant" },
+  henegouwen: { naam: "Hainaut", in: "in Hainaut" },
+  namen: { naam: "Namur", in: "in the province of Namur" },
+  luxemburg: { naam: "Luxembourg", in: "in the province of Luxembourg" },
+  luik: { naam: "Liège", in: "in the province of Liège" },
+  zeeland: { naam: "Zeeland", in: "in Zeeland" },
+  "noord-brabant": { naam: "North Brabant", in: "in North Brabant" },
+  "nederlands-limburg": { naam: "Dutch Limburg", in: "in Dutch Limburg" },
+};
+
+/**
+ * Vlaamse plaatsen met een gangbare Engelse naam. De rest van Vlaanderen en
+ * Nederland houdt zijn lokale naam; Brussel en Wallonië hun Franse (Ixelles,
+ * Mons). Ook gebruikt door de zichtbare sitemap (`src/data/sitemap.ts`).
+ */
+export const PLAATS_EN: Record<string, string> = {
+  Antwerpen: "Antwerp",
+  Gent: "Ghent",
+  Brugge: "Bruges",
+  Oostende: "Ostend",
+  Ieper: "Ypres",
+  Brussel: "Brussels",
+};
+
+/**
+ * De streken in het Engels. Ook gebruikt door de zichtbare sitemap, zodat de
+ * kaart en /en/sitemap dezelfde naam dragen.
+ */
+export const STREEK_EN: Record<string, string> = {
+  /* Brussel */
+  "Brussel-centrum en de eerste kroon": "Central Brussels and the inner ring",
+  "De kanaalzone en de westrand": "The canal zone and the west",
+  "De zuid- en oostrand": "The south and east",
+  /* Wallonië */
+  "Arrondissement Nijvel": "Arrondissement of Nivelles",
+  "Arrondissement Zinnik": "Arrondissement of Soignies",
+  "Arrondissement La Louvière": "Arrondissement of La Louvière",
+  "Arrondissement Charleroi": "Arrondissement of Charleroi",
+  "Arrondissement Bergen": "Arrondissement of Mons",
+  "Arrondissement Aat": "Arrondissement of Ath",
+  "Arrondissement Doornik-Moeskroen": "Arrondissement of Tournai-Mouscron",
+  "Arrondissement Thuin": "Arrondissement of Thuin",
+  "Arrondissement Namen": "Arrondissement of Namur",
+  "Arrondissement Dinant": "Arrondissement of Dinant",
+  "Arrondissement Philippeville": "Arrondissement of Philippeville",
+  "Arrondissement Marche-en-Famenne": "Arrondissement of Marche-en-Famenne",
+  "Arrondissement Bastenaken": "Arrondissement of Bastogne",
+  "Arrondissement Neufchâteau": "Arrondissement of Neufchâteau",
+  "Arrondissement Aarlen": "Arrondissement of Arlon",
+  "Arrondissement Virton": "Arrondissement of Virton",
+  "Arrondissement Borgworm": "Arrondissement of Waremme",
+  "Arrondissement Luik": "Arrondissement of Liège",
+  "Arrondissement Hoei": "Arrondissement of Huy",
+  "Arrondissement Verviers": "Arrondissement of Verviers",
+  /* Nederland */
+  "West-Brabant": "West Brabant",
+  "Midden-Brabant": "Central Brabant",
+  "Noordoost-Brabant": "North-east Brabant",
+  "Zuidoost-Brabant": "South-east Brabant",
+  "Zeeuws-Vlaanderen": "Zeelandic Flanders",
+  "De Zeeuwse eilanden": "The Zeeland islands",
+  "Noord-Limburg": "North Limburg",
+  "Midden-Limburg": "Central Limburg",
+  "Zuid-Limburg": "South Limburg",
+  /* Antwerpen */
+  "Stad Antwerpen en districten": "City of Antwerp and districts",
+  "Zuidrand en Scheldeboord": "Southern edge and Scheldt bank",
+  Rupelstreek: "The Rupel area",
+  "Klein-Brabant en Willebroek": "Klein-Brabant and Willebroek",
+  "Noordrand en Noorderkempen": "Northern edge and Northern Campine",
+  "Mechelse regio en Netevallei": "Mechelen area and Nete valley",
+  "De Kempen": "The Campine",
+  /* Oost-Vlaanderen */
+  "Gent en de Gentse rand": "Ghent and its outskirts",
+  "Het Waasland": "The Waasland",
+  "Scheldeland en de Dendermondse regio": "Scheldeland and the Dendermonde area",
+  "De Denderstreek": "The Dender area",
+  "Het Meetjesland": "The Meetjesland",
+  "De Vlaamse Ardennen": "The Flemish Ardennes",
+  /* Vlaams-Brabant */
+  "De Brusselse rand": "The Brussels periphery",
+  "Pajottenland en Zennevallei": "Pajottenland and Senne valley",
+  "Leuven en het Dijleland": "Leuven and the Dyle valley",
+  "Het Hageland": "The Hageland",
+  "Tienen en Vlaams-Haspengouw": "Tienen and Flemish Hesbaye",
+  /* West-Vlaanderen */
+  "De kust": "The coast",
+  "Brugge en het Brugse Ommeland": "Bruges and its surroundings",
+  "De Westhoek": "The Westhoek",
+  "Kortrijk en de Leiestreek": "Kortrijk and the Lys valley",
+  "Midden-West-Vlaanderen": "Central West Flanders",
+  /* Limburg */
+  "Hasselt, Genk en Midden-Limburg": "Hasselt, Genk and Central Limburg",
+  "Noord-Limburg en de Limburgse Kempen": "North Limburg and the Limburg Campine",
+  "Het Maasland": "The Maasland",
+  "Haspengouw en de Voerstreek": "Hesbaye and the Voeren area",
+};
+
 export interface RegioCopy {
   kick: string;
   h2: string;
@@ -164,5 +276,26 @@ export const COPY = {
     calculator: "Calculateur gratuit",
     werkgebied: "Zone desservie",
     hurenIn: "Location de déshumidificateur de chantier :",
+  },
+  en: {
+    kick: "Delivery area",
+    h2: "We deliver across Belgium and in the south of the Netherlands.",
+    lede: "Click your province, choose your area and immediately see the municipalities where we deliver, install and collect. Click the name to go to that province's page. Not sure? Give us a call.",
+    gebied: "Area",
+    groepen: ["Flanders and Brussels", "Wallonia", "Netherlands"],
+    inRegio: (slug, naam) => PROVINCIE_EN[slug]?.in ?? `in ${naam}`,
+    pinLabel: (inRegio) => `Construction dehumidifier hire ${inRegio}`,
+    kiesStreek: (naam) => `Choose your area within ${naam}:`,
+    strekenIn: (naam) => `Areas in ${naam}`,
+    greep: "A selection of the municipalities where we deliver and install:",
+    kenmerk: (_nl, eerste) =>
+      `Delivery in ${eerste.join(", ")} and the other places below. Choose your municipality to find out more about hiring a construction dehumidifier.`,
+    chipEigen: (town) => `Construction dehumidifier hire in ${town}`,
+    chipRegio: (town, inRegio) => `${town}, construction dehumidifier hire ${inRegio}`,
+    noot: "Is your municipality not listed? We deliver across Belgium and in the south of the Netherlands. Call us on +32 3 689 90 65 and we will look into it straight away.",
+    huren: (inRegio) => `Dehumidifier hire ${inRegio}`,
+    calculator: "Free Calculator",
+    werkgebied: "Service area",
+    hurenIn: "Construction dehumidifier hire in:",
   },
 } satisfies Copy<RegioCopy>;

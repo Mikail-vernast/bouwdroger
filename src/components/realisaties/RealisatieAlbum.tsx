@@ -6,6 +6,7 @@ import { useCopy } from "@/i18n/useTaal";
 const COPY = {
   nl: { vorige: "Vorige foto", volgende: "Volgende foto", foto: "Foto", fotoKlein: "foto", sluiten: "Sluiten" },
   fr: { vorige: "Photo précédente", volgende: "Photo suivante", foto: "Photo", fotoKlein: "photo", sluiten: "Fermer" },
+  en: { vorige: "Previous photo", volgende: "Next photo", foto: "Photo", fotoKlein: "photo", sluiten: "Close" },
 };
 
 /**

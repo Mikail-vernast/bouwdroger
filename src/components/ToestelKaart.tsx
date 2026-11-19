@@ -38,10 +38,11 @@ export interface ToestelKaartProps {
 }
 
 /** De vochtafvoer krijgt een eigen kleur; herkenning op het achtervoegsel,
-    in het Nederlands en in het Frans ("50 litres par jour"). */
-const isVochtafvoer = (chip: string) => chip.endsWith("liter per dag") || chip.endsWith("litres par jour");
+    in het Nederlands, Frans ("50 litres par jour") en Engels ("50 litres per day"). */
+const isVochtafvoer = (chip: string) =>
+  chip.endsWith("liter per dag") || chip.endsWith("litres par jour") || chip.endsWith("litres per day");
 
-const COPY = { nl: { cta: "Product huren" }, fr: { cta: "Louer cet appareil" } };
+const COPY = { nl: { cta: "Product huren" }, fr: { cta: "Louer cet appareil" }, en: { cta: "Hire this unit" } };
 
 const Inhoud = ({
   tag,

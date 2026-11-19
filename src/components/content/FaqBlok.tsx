@@ -19,6 +19,13 @@ const COPY = {
     bel: "Appelez le",
     stel: "Posez votre question en ligne",
   },
+  en: {
+    kicker: "Frequently asked questions",
+    hulpKop: "Is your question not listed?",
+    hulp: "Our drying experts will help you straight away, with advice tailored to your situation.",
+    bel: "Call",
+    stel: "Ask your question online",
+  },
 };
 
 export interface FaqItem {

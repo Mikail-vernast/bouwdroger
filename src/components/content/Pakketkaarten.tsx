@@ -60,6 +60,26 @@ const COPY = {
       ttk650: "Grands chantiers, caves spacieuses et dégâts des eaux urgents",
     },
   },
+  en: {
+    cta: "View this unit",
+    perWeek: "/week",
+    onderPrijs: "excl. VAT · delivery and moisture reading included",
+    voet:
+      "All three are eco condensation dryers, available by the day or by the week. Delivery, installation and the moisture reading are included in the price.",
+    pakketKop: "A whole home? Then it becomes a drying package.",
+    pakketVoor:
+      "A package combines a dryer, a fan and if needed a site heater, calculated on your floor area and on what needs to dry. Our",
+    garantie: "100% drying guarantee",
+    pakketNa: " only applies to a calculated package like that: with a single unit we cannot guarantee the result.",
+    samenstellen: "Put together your package",
+    volume: (nl) => nl.replace(/^Tot /, "Up to ").replace(/ L\/dag$/, " L/day"),
+    badge: { "Meest gehuurd": "Most hired" },
+    desc: {
+      ttk170: "One room, a flat or a small renovation",
+      ttk350: "A standard family home or a large renovation",
+      ttk650: "Large sites, spacious cellars and urgent water damage",
+    },
+  },
 } satisfies Copy<Tekst>;
 
 /**
@@ -106,8 +126,8 @@ const Pakketkaarten = ({ ctaLabel }: { ctaLabel?: string }) => {
           <span className="pvol">{t.volume ? t.volume(kaart.volume) : kaart.volume}</span>
           <p className="pdesc">{t.desc[kaart.key] ?? kaart.desc}</p>
           <div className="pprice">
-            {/* Excl. btw zoals in het Nederlands; in het Frans in de Belgische
-                notatie (`99 €`) via formatEuro. */}
+            {/* Excl. btw zoals in het Nederlands; in het Frans en Engels in de
+                notatie van die taal (`99 €`, `€99`) via formatEuro. */}
             <b>{taal === "nl" ? `€ ${kaart.weekPrice}` : formatEuro(Number(kaart.weekPrice), taal, 0)}</b>
             <span>{t.perWeek}</span>
             <small>{t.onderPrijs}</small>

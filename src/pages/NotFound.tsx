@@ -8,6 +8,7 @@ import { useCopy, useLokaalPad } from "@/i18n/useTaal";
 const COPY = {
   nl: { tekst: "Oops! Page not found", terug: "Return to Home" },
   fr: { tekst: "Oups ! Page introuvable", terug: "Retour à l'accueil" },
+  en: { tekst: "Oops! Page not found", terug: "Return to Home" },
 };
 
 const NotFound = () => {

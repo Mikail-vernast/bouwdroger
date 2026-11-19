@@ -38,6 +38,13 @@ const COPY = {
     doneTitel: "Question envoyée",
     doneTekst: "Merci ! Nous vous recontactons dans un délai d'un jour ouvrable.",
   },
+  en: {
+    of: "Or",
+    mailRechtstreeks: "email your question directly",
+    naar: "to",
+    doneTitel: "Question sent",
+    doneTekst: "Thank you! We will contact you within one working day.",
+  },
 } satisfies Copy<{ of: string; mailRechtstreeks: string; naar: string; doneTitel: string; doneTekst: string }>;
 
 /** De foutmelding, met de mailto als laatste uitweg. */

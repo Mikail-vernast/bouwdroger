@@ -40,6 +40,23 @@ const COPY = {
     versturen: "Envoi…",
     verstuur: "Envoyer votre question",
   },
+  en: {
+    kicker: "A question about your situation?",
+    doneTitel: "Question sent",
+    doneTekst: "Thank you. A drying specialist will contact you within one working day.",
+    voornaam: "First name",
+    naam: "Name",
+    achternaam: "Surname",
+    email: "Email",
+    emailVb: "name@example.be",
+    tel: "Phone",
+    onderwerp: "What is your question about?",
+    situatie: "Your situation",
+    privacy: "We only use your details to answer your question. Rather have a price straight away?",
+    bereken: "Calculate your drying package",
+    versturen: "Sending…",
+    verstuur: "Send your question",
+  },
 } satisfies Copy<Record<string, string>>;
 
 /**
