@@ -16,4 +16,8 @@ export const AAN: readonly string[] = [
   "lasne",
   "terhulpen",
   "rixensart",
+  "ottignies-louvain-la-neuve",
+  "court-saint-etienne",
+  "mont-saint-guibert",
+  "villers-la-ville",
 ];

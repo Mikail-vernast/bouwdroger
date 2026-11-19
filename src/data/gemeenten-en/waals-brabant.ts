@@ -846,4 +846,284 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  "ottignies-louvain-la-neuve": {
+    slug: "ottignies-louvain-la-neuve",
+    title: "Dehumidifier hire in Ottignies-Louvain-la-Neuve | Vernast",
+    description:
+      "Dehumidifier hire in Ottignies-Louvain-la-Neuve? Vernast delivers by appointment, installs the units and collects them. Studios and flats included.",
+    h1: "Construction dehumidifier hire in Ottignies-Louvain-la-Neuve",
+    kicker: "Ottignies-Louvain-la-Neuve · delivery by appointment",
+    rit: { afstand: "about 68 km", tijd: "about an hour" },
+    intro: [
+      "Drying a new screed, a renovated studio or a room after a leak in Ottignies-Louvain-la-Neuve? Vernast puts together a drying package of construction dehumidifiers and fans. **Delivery, installation and collection are included in the package.**",
+      "From Aartselaar we drive about an hour to Ottignies or Louvain-la-Neuve. When you book, you choose a delivery date; we then agree the delivery time with you.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Ottignies-Louvain-la-Neuve",
+      alineas: [
+        "Louvain-la-Neuve is a university town with many flats and student rooms. The car-free centre calls for a clear arrangement about where we can load and unload. Mention it in your request, together with the floor and how to get into the building.",
+        "In a small studio or student room, a compact dehumidifier can be enough. **Close the room off as well as you can**, so the dehumidifier only treats that air. If there is a drain nearby, the condensate can run away through a hose and you do not have to empty the tank.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk170",
+        waarom: "**For a studio, student room or separate room.** This compact dehumidifier extracts up to 50 litres a day from rooms up to 250 m³. At 0.75 kW, its consumption stays low.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For extra air movement over a wet floor.** The fan moves 4,500 m³ of air an hour. Place it next to a construction dehumidifier: the fan dries the surface, the dehumidifier captures the water.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For a flat or a whole floor.** Up to 70 litres a day in rooms up to 400 m³. A good choice for a new screed across several connecting rooms.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cold storeroom, cellar or garage.** As a desiccant dehumidifier, it keeps working at low temperatures. Through hoses, it can also draw moisture out of a floor or cavity.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Ottignies-Louvain-la-Neuve",
+      alinea: "**Your drying package includes delivery, installation and collection.** You choose a delivery date when you book, after which we fix the delivery time in Ottignies-Louvain-la-Neuve together. The drive from Aartselaar takes about an hour. Tell us beforehand whether we need to be in the car-free centre and where we can stop. The technician installs the units and shows you how to check the drain.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Ottignies-Louvain-la-Neuve",
+      alinea: "You can also collect a single unit yourself by appointment at Boomsesteenweg 12, unit 11 in Aartselaar. From Ottignies-Louvain-la-Neuve that is about an hour's drive, and you make the same trip again to bring it back. **Book in advance** and it will be ready. Check as well that the unit fits in your car.",
+    },
+    buren: ["waver", "rixensart", "court-saint-etienne", "mont-saint-guibert", "chaumont-gistoux"],
+    faq: [
+      {
+        q: "Can you deliver in the car-free centre of Louvain-la-Neuve?",
+        a: "We look at that address by address. In your request, tell us where the nearest parking or loading space is and how far the units still need to be carried. We agree the delivery time with you.",
+      },
+      {
+        q: "Is one dehumidifier enough for a student room?",
+        a: "For a closed student room or studio up to 250 m³, the compact dehumidifier is usually enough. If there is a lot of moisture in a new screed or across several rooms, we suggest a larger package.",
+      },
+      {
+        q: "Where does the condensate go?",
+        a: "The dehumidifier collects the water in a tank that you empty regularly. If there is a drain nearby, the water can also run away through a hose. The technician shows you how that works during installation.",
+      },
+      {
+        q: "Do the construction dehumidifiers run on a standard socket?",
+        a: "Yes, the condensation dehumidifiers and fans run on 230 V. You only need three-phase power for the 20 and 30 kW electric site heaters, which run on 400 V.",
+      },
+      {
+        q: "Can I collect a unit myself if I live in Louvain-la-Neuve?",
+        a: "You can, by appointment at our warehouse in Aartselaar, about an hour's drive away. Allow for a return trip both when collecting and when bringing it back. For several units, delivery is often more practical.",
+      },
+    ],
+    realisaties: [],
+  },
+  "court-saint-etienne": {
+    slug: "court-saint-etienne",
+    title: "Court-Saint-Étienne dehumidifier hire for cellars | Vernast",
+    description:
+      "Dehumidifier hire in Court-Saint-Étienne? Vernast brings your drying package by appointment, installs it and collects it. For cellars, screed and plasterwork.",
+    h1: "Construction dehumidifier hire in Court-Saint-Étienne",
+    kicker: "Court-Saint-Étienne · delivery by appointment",
+    rit: { afstand: "about 72 km", tijd: "about an hour" },
+    intro: [
+      "Is there a flooded cellar in Court-Saint-Étienne, or does a new screed need to dry? Vernast hires out construction dehumidifiers as a complete package. **Delivery, installation and collection are included.**",
+      "Our warehouse in Aartselaar is about an hour's drive away. You fix a delivery date when you book, and because the site is in Wallonia, we then make an appointment for the time.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Court-Saint-Étienne",
+      alineas: [
+        "Court-Saint-Étienne lies in the Dyle valley, between Ottignies-Louvain-la-Neuve and Genappe. With a wet cellar, the work starts with the cause: as long as water keeps coming in, drying makes little sense. First have the leak or seepage repaired and pump out the standing water.",
+        "Then we look at which materials are wet and whether the moisture is also under the floor or behind the plaster. **A cold cellar needs a different unit from a heated living space.** Below 15 °C a condensation dehumidifier works slowly, and then we choose the desiccant dehumidifier.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk170",
+        waarom: "**For a utility room, bathroom or small cellar.** This compact condensation dehumidifier is suitable up to 250 m³ and extracts up to 50 litres of water a day from the air.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For a house with a wet ground floor.** With 70 litres a day and a range of up to 400 m³, it dries several rooms at once, if the inside doors are open.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**To direct air along wet walls and floors.** At 4,500 m³ an hour, the surface dries faster. Without a construction dehumidifier alongside, though, the moisture stays in the room.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cellar that stays cold and damp.** This desiccant dehumidifier also works at low temperatures. With its hoses, it dries under a floor in a targeted way.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Court-Saint-Étienne",
+      alinea: "**Delivery, installation and collection are included in your drying package.** Choose a delivery date when you book; we then fix the exact delivery time in Court-Saint-Étienne in consultation with you. From Aartselaar it takes us about an hour. Let us know in advance about narrow cellar stairs or an entrance that is hard to reach. On site, the technician sets everything up and explains how to drain the collected water.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Court-Saint-Étienne",
+      alinea: "You can also collect a single unit yourself, by appointment, at Boomsesteenweg 12, unit 11 in Aartselaar. From Court-Saint-Étienne you drive about an hour, and the same again when you return it. **Book ahead** so the unit is ready. After water damage, delivery with installation is usually the better choice, because the set-up is then right from the start.",
+    },
+    buren: ["ottignies-louvain-la-neuve", "mont-saint-guibert", "villers-la-ville", "genepien"],
+    faq: [
+      {
+        q: "What should I do first after flooding in my cellar?",
+        a: "Stop the cause and remove the standing water. Take wet belongings out of the room and note which walls and floors are wet. Then get in touch, and we will suggest a drying set-up that suits your cellar.",
+      },
+      {
+        q: "Will a construction dehumidifier solve a damp problem in the cellar?",
+        a: "Not if water keeps coming in. A construction dehumidifier draws moisture out of air and materials, but it does not repair a leak, a crack or a missing damp-proof barrier. So have the cause dealt with first.",
+      },
+      {
+        q: "Which dehumidifier suits a cold cellar?",
+        a: "Below 15 °C a condensation dehumidifier achieves little. In an unheated cellar we therefore use the desiccant dehumidifier, which keeps working at low temperatures.",
+      },
+      {
+        q: "How do I arrange a delivery in Court-Saint-Étienne?",
+        a: "Book your package and choose a delivery date. We then get in touch to agree the time, because in Wallonia we work by appointment. Give us the address, the access to the cellar or floor and the sockets available.",
+      },
+      {
+        q: "What power supply is needed?",
+        a: "Construction dehumidifiers and fans run on a standard 230 V socket. Spread them over different circuits if you are using several. The electric site heaters need a 400 V connection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "mont-saint-guibert": {
+    slug: "mont-saint-guibert",
+    title: "Mont-Saint-Guibert dehumidifier hire for offices | Vernast",
+    description:
+      "Dehumidifier hire in Mont-Saint-Guibert for your home or business premises? Vernast delivers, installs and collects your drying package, by appointment.",
+    h1: "Construction dehumidifier hire in Mont-Saint-Guibert",
+    kicker: "Mont-Saint-Guibert · delivery by appointment",
+    rit: { afstand: "about 72 km", tijd: "about an hour" },
+    intro: [
+      "Need a construction dehumidifier in Mont-Saint-Guibert, for a home or business premises? Vernast hires out dehumidifiers and fans for screed, plasterwork and water damage. **We deliver, install and collect everything again.**",
+      "From our warehouse in Aartselaar it is about an hour's drive to Mont-Saint-Guibert. You choose a delivery date when you book; we then agree the delivery time itself with you.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Mont-Saint-Guibert",
+      alineas: [
+        "In an office, shop or workshop, how the building is used counts as well as the volume. Tell us which areas must stay accessible and when work is going on. With several closed rooms, we spread the units; in one large hall, a powerful dehumidifier with fans can be enough.",
+        "Only plan a reopening after a moisture reading. **A floor that looks dry can still be too wet further down** for tiles, vinyl or parquet. Agree the reading and the residual moisture value you need with whoever is laying the floor.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For an office floor or a house.** It handles up to 70 litres a day in rooms up to 400 m³. At 1.1 kW, it runs on a standard socket.",
+      },
+      {
+        key: "radiaal2250",
+        waarom: "**For a targeted airflow over a floor.** The radial fan delivers 2,250 m³ an hour and is splash-proof (IP55), useful in a workshop or after water damage.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cold storage area or a floor after a leak.** The desiccant dehumidifier also works at low temperatures and, through hoses, reaches the moisture within a floor build-up.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**For a hall, shop or large open space.** Up to 110 litres a day in volumes up to 600 m³. In a large building, we combine it with one or more fans.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Mont-Saint-Guibert",
+      alinea: "**Delivery, installation and collection are part of the drying package.** You choose a delivery date when you book, and because Mont-Saint-Guibert is in Wallonia, an appointment for the time follows. Allow about an hour's drive from Aartselaar. Let us know whether we come in via a loading bay or the front door. The technician sets up the units and goes through with you how to keep an eye on them.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Mont-Saint-Guibert",
+      alinea: "If you choose to collect, you can do so by appointment at Boomsesteenweg 12, unit 11 in Aartselaar. From Mont-Saint-Guibert that is about an hour's drive, to collect and again to return. **Book in advance** so your unit is ready. For business premises with several units, delivery with installation is generally simpler.",
+    },
+    buren: ["ottignies-louvain-la-neuve", "court-saint-etienne", "chastre", "walhain"],
+    faq: [
+      {
+        q: "Can I have business premises dried while work is going on?",
+        a: "Yes, if we know in advance which rooms stay in use and when work is going on. We place the units out of the walkways and take the available power into account. A large hall needs a different layout from separate offices.",
+      },
+      {
+        q: "How do I arrange a delivery in Mont-Saint-Guibert?",
+        a: "Book online or call us, and choose a delivery date. We then agree the delivery time. Also tell us who will receive us and which entrance we should use to bring the units in.",
+      },
+      {
+        q: "How many dehumidifiers do I need for an office?",
+        a: "That depends on the volume, the layout and the amount of moisture. For one open space up to 600 m³, one large dehumidifier can be enough; separate offices usually need several smaller units. The calculator makes a first proposal.",
+      },
+      {
+        q: "When can I use my premises again?",
+        a: "That depends on the finishing work still to be done. Have the residual moisture measured before the floor covering or paint goes on, and only plan the reopening after that reading. If the value has not been reached yet, you can extend the hire.",
+      },
+      {
+        q: "What power supply do I need?",
+        a: "Our dehumidifiers and fans need nothing more than a standard 230 V socket. In a large building, spread them over several circuits. The 20 and 30 kW electric site heaters need a 400 V connection.",
+      },
+    ],
+    realisaties: [],
+  },
+  "villers-la-ville": {
+    slug: "villers-la-ville",
+    title: "Villers-la-Ville dehumidifier and heater hire | Vernast",
+    description:
+      "Dehumidifier hire in Villers-la-Ville? Vernast delivers dehumidifiers and site heaters by appointment, installed and collected. For cold and older homes too.",
+    h1: "Construction dehumidifier hire in Villers-la-Ville",
+    kicker: "Villers-la-Ville · delivery by appointment",
+    rit: { afstand: "about 78 km", tijd: "just over an hour" },
+    intro: [
+      "Renovating an older house in Villers-la-Ville, or does a new build need drying? Vernast hires out construction dehumidifiers, fans and electric site heaters. **We bring the package, install it and collect it again.**",
+      "Our warehouse in Aartselaar is just over an hour's drive away. When you book, you choose a delivery date, and for this Walloon municipality we then fix the delivery time together.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Villers-la-Ville",
+      alineas: [
+        "Villers-la-Ville is known for the ruins of its Cistercian abbey. For a site in one of the municipality's villages, give the full address, and also whether we need to come along a country lane or a narrow driveway.",
+        "In a cold or unheated house, screed dries slowly. **Below 15 °C a condensation dehumidifier loses much of its efficiency**, so in winter an electric site heater can first bring the room up to temperature. Bear in mind the 400 V connection such a heater needs.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "teddh30",
+        waarom: "**For a cold site in winter.** This electric site heater delivers 30 kW and runs on three-phase power (400 V). It heats the room; the construction dehumidifier takes the moisture out.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**For a large house or a whole floor.** Up to 110 litres a day in rooms up to 600 m³. Together with a site heater, it stays efficient in winter too.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For rooms that cannot be heated.** This desiccant dehumidifier also works in the cold, for example in a cellar or an old stable. With its hoses, it also reaches moisture under a floor.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**For air movement along wet walls.** The fan moves 4,500 m³ of air an hour. It does not replace the dehumidifier, but it helps the surface dry faster.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Villers-la-Ville",
+      alinea: "**Delivery, installation and collection come with your drying package.** You give a delivery date when you book; we then call or email to fix the delivery time in Villers-la-Ville. The drive from Aartselaar takes just over an hour. Let us know in advance whether there is three-phase power for a site heater and how the site can be reached. After installation, the technician explains how to keep an eye on the units.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Villers-la-Ville",
+      alinea: "Collection is possible by appointment at Boomsesteenweg 12, unit 11 in Aartselaar. From Villers-la-Ville you drive just over an hour, and you do it twice: when collecting and again when returning. **Book in advance** so the unit is ready. A site heater or several dehumidifiers are better delivered and installed.",
+    },
+    buren: ["court-saint-etienne", "genepien", "chastre"],
+    faq: [
+      {
+        q: "Do I need a site heater to dry in winter?",
+        a: "Not always, but in an unheated house it helps. A condensation dehumidifier works slowly below 15 °C. An electric site heater brings the room up to temperature, or we choose the desiccant dehumidifier, which also works in the cold.",
+      },
+      {
+        q: "What connection does the 30 kW heater require?",
+        a: "This heater runs on 400 V three-phase power. Have it checked in advance whether your site has that connection and whether the circuit protection is sufficient. The dehumidifiers themselves run on a standard 230 V socket.",
+      },
+      {
+        q: "How do I arrange a delivery in Villers-la-Ville?",
+        a: "Book your drying package and choose a delivery date. In Wallonia we deliver by appointment, so we then contact you about the time. Give us the address, the access road and the connections available.",
+      },
+      {
+        q: "How many construction dehumidifiers do I need?",
+        a: "That depends on the volume, the number of rooms, the temperature and the amount of moisture. An open floor needs a different set-up from closed rooms. Use the calculator for a first proposal and call us if your site is out of the ordinary.",
+      },
+      {
+        q: "How can I tell the screed is dry enough?",
+        a: "Only a moisture reading settles it. Your floor layer knows the residual moisture value their floor covering requires and can measure it. Until that value is reached, it is best to keep the dehumidifier running.",
+      },
+    ],
+    realisaties: [],
+  },
 };
