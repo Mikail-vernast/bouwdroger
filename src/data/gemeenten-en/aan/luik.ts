@@ -72,4 +72,11 @@ export const AAN: readonly string[] = [
   "jalhay",
   "kelmis",
   "lierneux",
+  "limbourg",
+  "lontzen",
+  "malmedy",
+  "olne",
+  "pepinster",
+  "plombieres",
+  "raeren",
 ];
