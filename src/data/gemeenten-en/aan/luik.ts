@@ -84,4 +84,8 @@ export const AAN: readonly string[] = [
   "stavelot",
   "stoumont",
   "theux",
+  "thimister-clermont",
+  "trois-ponts",
+  "weismes",
+  "welkenraedt",
 ];
