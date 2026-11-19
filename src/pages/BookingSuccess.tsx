@@ -38,6 +38,20 @@ const COPY = {
     home: "Retour à l'accueil",
     bel: "Appelez-nous",
   },
+  en: {
+    bedankt: "Thank you",
+    intro: "Your booking request has been received. We will get in touch with you as soon as possible.",
+    nummer: "Your booking number",
+    bevestiging: "A confirmation will be sent to",
+    watNu: "What happens next?",
+    stappen: [
+      "We review your request and check availability",
+      "You receive a confirmation with the final price and delivery date",
+      "We deliver on the agreed date, with a free moisture reading",
+    ],
+    home: "Back to home",
+    bel: "Call us",
+  },
 } satisfies Copy<{
   bedankt: string;
   intro: string;

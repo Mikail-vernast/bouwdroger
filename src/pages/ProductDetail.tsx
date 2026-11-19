@@ -79,6 +79,27 @@ const COPY = {
     voorAdvies: "pour un conseil gratuit.",
     terug: "Retour",
   },
+  en: {
+    nietGevonden: "Product not found",
+    terugOverzicht: "Back to overview",
+    categorie: { bouwdrogers: "Construction dehumidifier", ventilatoren: "Fan", verwarming: "Heating" },
+    kruimel: { bouwdrogers: "construction dehumidifiers", ventilatoren: "fans", verwarming: "heating" },
+    metaTitel: (p) => `${p.name} hire, ${p.capacity} | Vernast`,
+    metaBeschrijving: (p, prijs) =>
+      `Hire the ${p.name} for ${prijs} per day. ${p.suitableFor}. Delivery, installation and collection included, within 24 hours throughout Flanders.`,
+    machines: "Machines",
+    capaciteit: (p) => `Capacity: ${p.capacity} · Suitable for: ${p.suitableFor.charAt(0).toLowerCase()}${p.suitableFor.slice(1)}`,
+    perDag: (label) => `/day ${label}`,
+    korting: "Discount for longer rental periods · Free delivery from 2 weeks",
+    kenmerken: "Features",
+    specificaties: "Specifications",
+    huur: "Hire this product",
+    calculator: "Use the calculator",
+    advies: "Need advice?",
+    belOns: "Call us on",
+    voorAdvies: "for free advice.",
+    terug: "Back",
+  },
 } satisfies Copy<Tekst>;
 
 const ProductDetail = () => {

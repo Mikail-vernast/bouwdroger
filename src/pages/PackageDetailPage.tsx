@@ -34,13 +34,19 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { format, addDays, differenceInDays } from "date-fns";
-import { fr, nl } from "date-fns/locale";
+import { enGB, fr, nl } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import PageMeta from "@/components/PageMeta";
 import { useSeo } from "@/data/seo";
 import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
 import { NUMBER_LOCALE } from "@/i18n/taal";
-import { equipmentSummaryFr, packageMetaTitleFr, pakketInTaal } from "@/data/packages.fr";
+import {
+  equipmentSummaryEn,
+  equipmentSummaryFr,
+  packageMetaTitleEn,
+  packageMetaTitleFr,
+  pakketInTaal,
+} from "@/data/packages.fr";
 import { breadcrumbSchema, productSchema } from "@/lib/schema";
 import { maskEmail, maskPhone } from "@/lib/inputMask";
 import { altVoorBeeld } from "@/lib/altTekst";
@@ -254,6 +260,64 @@ const COPY = {
     metaBeschrijving: (kort, inhoud, prijs) =>
       `Pack de séchage ${kort} avec ${inhoud}. ${prijs} par 2 semaines, livraison, installation et reprise comprises.`,
   },
+  en: {
+    verplicht: "Please fill in all required fields",
+    kiesDatums: "Select a start and end date",
+    fout: "Something went wrong",
+    probeerOpnieuw: "Please try again.",
+    nietGevonden: "Package not found",
+    terugConfigurator: "Back to the configurator",
+    samenstelling: (titel, inhoud) => `Contents of the ${titel} package: ${inhoud}`,
+    foto: (titel, nr) => `${titel}, photo ${nr}`,
+    levering: "Delivery",
+    badges: ["Moisture reading included", "Meets building standards", "Always included"],
+    uitgifte: "Start date",
+    retour: "Return date",
+    kiesDatum: "Choose a date",
+    weken: (w, d) => `${w} ${w === 1 ? "week" : "weeks"} (${d} days)`,
+    duurkorting: (pct) => `-${pct}% duration discount`,
+    bespaart: (bedrag) => `You save ${bedrag} with the duration discount`,
+    extraVraag: "Add extra equipment?",
+    extraDroger: "Extra construction dehumidifier",
+    extraVentilator: "Extra fan",
+    perDag: "/day",
+    boekDirect: "Book now",
+    vertrouwen: ["Free delivery & collection", "Moisture reading included", "Delivery within 24h", "All of Belgium"],
+    specKop: "Compact size, robust performance",
+    inbegrepen: (n) =>
+      `${n}× included in your package. Professional quality, tested and maintained by our technicians.`,
+    watInbegrepen: "What's included?",
+    hulp: "Need help? Call us",
+    specificaties: "Specifications",
+    boekNu: "Book now",
+    bevestigen: "We will confirm your booking within 24 hours.",
+    klantType: { particulier: "Private", zakelijk: "Business" },
+    bedrijfsnaam: "Company name *",
+    btwNummer: "VAT number",
+    voornaam: "First name *",
+    achternaam: "Last name *",
+    email: "Email *",
+    telefoon: "Phone *",
+    straat: "Street + house number *",
+    postcode: "Postcode",
+    gemeente: "Town",
+    opmerkingen: "Comments (optional)",
+    opmerkingenPh: "E.g. access information, specific requests...",
+    bezig: "Sending...",
+    boekKnop: (bedrag) => `Book now, ${bedrag}`,
+    geenBetaling: "No payment required. We will confirm within 24 hours.",
+    prijsoverzicht: "Price overview",
+    pakketDagen: (d) => `Package (${d}d)`,
+    extraApparatuur: "Extra equipment",
+    duurkortingRegel: (pct) => `Duration discount (-${pct}%)`,
+    totaal: "Total",
+    zijbalk: ["Free delivery & collection", "500+ projects completed", "Moisture reading included", "Reply within 24h"],
+    opnieuw: "Reconfigure",
+    mobielInfo: (w, n) => `${w}w • ${n} units`,
+    boekNuKort: "Book now",
+    metaBeschrijving: (kort, inhoud, prijs) =>
+      `${kort} drying package with ${inhoud}. ${prijs} per 2 weeks, including delivery, installation and collection.`,
+  },
 } satisfies Copy<Tekst>;
 
 const PackageDetailPage = () => {
@@ -275,6 +339,12 @@ const PackageDetailPage = () => {
     taal === "nl"
       ? format(d, "d MMM yyyy", { locale: nl })
       : d.toLocaleDateString(NUMBER_LOCALE[taal], { day: "numeric", month: "short", year: "numeric" });
+  /*
+    De kalender bleef in het Nederlands als de taal niet "fr" was; Engels krijgt
+    zijn eigen locale (Britse volgorde, week vanaf maandag) in plaats van de
+    Amerikaanse standaard van date-fns.
+  */
+  const kalenderLocale = taal === "fr" ? fr : taal === "en" ? enGB : undefined;
   const pkg = packageId ? getPackageById(packageId) : undefined;
 
   // Gallery
@@ -438,10 +508,12 @@ const PackageDetailPage = () => {
          * `shortTitle` kregen ze alle drie dezelfde titel — drie pagina's die
          * op precies dezelfde zoekopdracht mikken.
          */
-        title={`${taal === "nl" ? packageMetaTitle(pkg) : packageMetaTitleFr(tp)} | Vernast`}
+        title={`${
+          taal === "nl" ? packageMetaTitle(pkg) : taal === "en" ? packageMetaTitleEn(tp) : packageMetaTitleFr(tp)
+        } | Vernast`}
         description={t.metaBeschrijving(
           tp.shortTitle,
-          taal === "nl" ? equipmentSummary(pkg) : equipmentSummaryFr(tp),
+          taal === "nl" ? equipmentSummary(pkg) : taal === "en" ? equipmentSummaryEn(tp) : equipmentSummaryFr(tp),
           bedrag(pkg.pricePerTwoWeeks),
         )}
         path={pad}
@@ -555,7 +627,7 @@ const PackageDetailPage = () => {
                           mode="single"
                           selected={startDate}
                           onSelect={handleStartDateSelect}
-                          locale={taal === "fr" ? fr : undefined}
+                          locale={kalenderLocale}
                           disabled={(date) => date < new Date()}
                           initialFocus
                         />
@@ -576,7 +648,7 @@ const PackageDetailPage = () => {
                           mode="single"
                           selected={endDate}
                           onSelect={setEndDate}
-                          locale={taal === "fr" ? fr : undefined}
+                          locale={kalenderLocale}
                           disabled={(date) => date < (startDate || new Date())}
                           initialFocus
                         />
