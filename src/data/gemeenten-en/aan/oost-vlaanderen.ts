@@ -17,4 +17,13 @@ export const AAN: readonly string[] = [
   "maarkedal",
   "wortegem-petegem",
   "zwalm",
+  "eeklo",
+  "maldegem",
+  "aalter",
+  "assenede",
+  "evergem",
+  "kaprijke",
+  "sint-laureins",
+  "lievegem",
+  "zelzate",
 ];
