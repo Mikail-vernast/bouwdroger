@@ -141,8 +141,8 @@ function omgekeerdeTabel(): Map<string, string> {
   if (omgekeerd) return omgekeerd;
   omgekeerd = new Map();
   for (const [nl, v] of [...Object.entries(STATISCH), ...EXTRA.entries()]) {
-    omgekeerd.set(`fr:${v.fr}`, nl);
-    omgekeerd.set(`en:${v.en}`, nl);
+    if (v.fr) omgekeerd.set(`fr:${v.fr}`, nl);
+    if (v.en) omgekeerd.set(`en:${v.en}`, nl);
   }
   return omgekeerd;
 }
@@ -160,7 +160,12 @@ export function vertaalPad(nlPad: string, taal: Taal): string | null {
   const [basis, rest = ""] = splitsQuery(zonderSlash(nlPad));
   if (taal === "nl") return basis + rest;
   const vast = STATISCH[basis] ?? EXTRA.get(basis);
-  if (vast) return plak(taal, vast[taal]) + rest;
+  /*
+    Een leeg pad betekent: in die taal (nog) niet. Een gemeente met een Franse
+    maar zonder Engelse tekst registreert `en: ""`; dat gaf `/en` terug, en
+    App.tsx maakte er een tweede Engelse homepage van (19-11-2026).
+  */
+  if (vast) return vast[taal] ? plak(taal, vast[taal]) + rest : null;
   for (const m of MAPPEN) {
     if (basis.startsWith(m.nl) && basis.length > m.nl.length) {
       const seg = basis.slice(m.nl.length);

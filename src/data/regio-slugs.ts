@@ -22,6 +22,7 @@
  * "Elsene" intikt.
  */
 import { registreerPaden } from "../i18n/paden.js";
+import type { Taal } from "../i18n/taal.js";
 
 export interface RegioRoute {
   slug: string;
@@ -41,6 +42,22 @@ export interface RegioRoute {
    * Bevroren zoals elke slug. Staat hij er, dan bestaat de Franse pagina.
    */
   slugFr?: string;
+  /**
+   * De Engelse naam: "Antwerp", "East Flanders", "Brussels-Capital Region".
+   * Net als `nameFr` alleen bij de Belgische provincies.
+   */
+  nameEn?: string;
+  /**
+   * Hoe de provincie in een Engelse zin staat, als de naam alleen niet volstaat:
+   * "the province of Antwerp" naast de stad Antwerp, "the Brussels-Capital
+   * Region" met lidwoord. Zonder waarde is het de kale `nameEn`.
+   */
+  zinEn?: string;
+  /**
+   * Het laatste stuk van het Engelse pad: `/en/dehumidifier-hire-<slugEn>`.
+   * Bevroren zoals elke slug.
+   */
+  slugEn?: string;
   /** Een greep uit de gemeenten — op de regiopagina én op de homepage-kaart. */
   towns: string[];
   /**
@@ -96,6 +113,9 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Antwerpen",
     nameFr: "Anvers",
     slugFr: "anvers",
+    nameEn: "Antwerp",
+    zinEn: "the province of Antwerp",
+    slugEn: "antwerp",
     path: "/bouwdroger-huren-antwerpen",
     towns: [
       "Antwerpen", "Aartselaar", "Mechelen", "Turnhout", "Lier", "Boom", "Kontich", "Geel", "Mol",
@@ -109,6 +129,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Oost-Vlaanderen",
     nameFr: "Flandre orientale",
     slugFr: "flandre-orientale",
+    nameEn: "East Flanders",
+    slugEn: "east-flanders",
     path: "/bouwdroger-huren-oost-vlaanderen",
     towns: [
       "Gent", "Aalst", "Sint-Niklaas", "Dendermonde", "Lokeren", "Wetteren", "Deinze", "Eeklo",
@@ -121,6 +143,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Vlaams-Brabant",
     nameFr: "Brabant flamand",
     slugFr: "brabant-flamand",
+    nameEn: "Flemish Brabant",
+    slugEn: "flemish-brabant",
     path: "/bouwdroger-huren-vlaams-brabant",
     towns: [
       "Leuven", "Vilvoorde", "Halle", "Aarschot", "Tienen", "Zaventem", "Dilbeek", "Grimbergen",
@@ -133,6 +157,9 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Brussel",
     nameFr: "Bruxelles",
     slugFr: "bruxelles",
+    nameEn: "Brussels-Capital Region",
+    zinEn: "the Brussels-Capital Region",
+    slugEn: "brussels",
     path: "/bouwdroger-huren-brussel",
     towns: [
       "Brussel", "Schaarbeek", "Elsene", "Anderlecht", "Sint-Gillis", "Sint-Jans-Molenbeek",
@@ -154,6 +181,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "West-Vlaanderen",
     nameFr: "Flandre occidentale",
     slugFr: "flandre-occidentale",
+    nameEn: "West Flanders",
+    slugEn: "west-flanders",
     path: "/bouwdroger-huren-west-vlaanderen",
     towns: [
       "Brugge", "Kortrijk", "Oostende", "Roeselare", "Ieper", "Waregem", "Knokke-Heist", "Veurne",
@@ -166,6 +195,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Limburg",
     nameFr: "Limbourg",
     slugFr: "limbourg",
+    nameEn: "Limburg",
+    slugEn: "limburg",
     path: "/bouwdroger-huren-limburg",
     towns: [
       "Hasselt", "Genk", "Sint-Truiden", "Tongeren", "Beringen", "Lommel", "Bilzen", "Maasmechelen",
@@ -188,6 +219,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Waals-Brabant",
     nameFr: "Brabant wallon",
     slugFr: "brabant-wallon",
+    nameEn: "Walloon Brabant",
+    slugEn: "walloon-brabant",
     path: "/bouwdroger-huren-waals-brabant",
     opAanvraag: true,
     towns: [
@@ -206,6 +239,8 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Henegouwen",
     nameFr: "Hainaut",
     slugFr: "hainaut",
+    nameEn: "Hainaut",
+    slugEn: "hainaut",
     path: "/bouwdroger-huren-henegouwen",
     opAanvraag: true,
     towns: [
@@ -224,6 +259,9 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Namen",
     nameFr: "Namur",
     slugFr: "namur",
+    nameEn: "Namur",
+    zinEn: "the province of Namur",
+    slugEn: "namur",
     path: "/bouwdroger-huren-namen",
     opAanvraag: true,
     towns: ["Namen", "Gembloers", "Dinant", "Andenne", "Sambreville", "Ciney", "Éghezée", "Jemeppe-sur-Sambre", "Rochefort", "Walcourt", "Philippeville", "Couvin", "Fosses-la-Ville", "Profondeville", "Florennes", "Yvoir"],
@@ -238,6 +276,9 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Luxemburg",
     nameFr: "Luxembourg",
     slugFr: "luxembourg",
+    nameEn: "Luxembourg",
+    zinEn: "the province of Luxembourg",
+    slugEn: "luxembourg",
     path: "/bouwdroger-huren-luxemburg",
     opAanvraag: true,
     towns: ["Aarlen", "Bastenaken", "Marche-en-Famenne", "Libramont-Chevigny", "Virton", "Durbuy", "Bouillon", "Neufchâteau", "Saint-Hubert", "Vielsalm", "Houffalize", "La Roche-en-Ardenne", "Bertrix", "Aubange", "Florenville", "Habay"],
@@ -251,6 +292,9 @@ export const REGIO_ROUTES: RegioRoute[] = [
     name: "Luik",
     nameFr: "Liège",
     slugFr: "liege",
+    nameEn: "Liège",
+    zinEn: "the province of Liège",
+    slugEn: "liege",
     path: "/bouwdroger-huren-luik",
     opAanvraag: true,
     towns: ["Luik", "Verviers", "Seraing", "Herstal", "Hoei", "Eupen", "Borgworm", "Hannuit", "Wezet", "Spa", "Malmedy", "Ans", "Flémalle", "Sankt Vith", "Aywaille", "Chaudfontaine"],
@@ -310,17 +354,39 @@ export function regioPadFr(route: Pick<RegioRoute, "slugFr">): string | null {
   return route.slugFr ? `/location-deshumidificateur-${route.slugFr}` : null;
 }
 
+/**
+ * Het Engelse pad van een provincie, zonder taalprefix, of `null` zonder
+ * Engelse pagina.
+ *
+ * "dehumidifier-hire", dezelfde stam als /en/dehumidifier-hire in
+ * `i18n/paden.ts`: wie in het Engels zoekt, tikt "dehumidifier hire Ghent",
+ * niet "construction dryer rental". De botsing tussen provincie en stad lost
+ * het Engels op zoals het Frans: de stad krijgt `-city`, zie
+ * `gemeente-slugs.ts`.
+ */
+export function regioPadEn(route: Pick<RegioRoute, "slugEn">): string | null {
+  return route.slugEn ? `/dehumidifier-hire-${route.slugEn}` : null;
+}
+
+/** De naam van een provincie in de taal van de pagina; zonder vertaling de Nederlandse. */
+export function regioNaamIn(route: RegioRoute, taal: Taal): string {
+  if (taal === "fr") return route.nameFr ?? route.name;
+  if (taal === "en") return route.nameEn ?? route.name;
+  return route.name;
+}
+
 /*
-  De Franse provinciepaden in de padentabel. Hier en niet in `i18n/paden.ts`,
-  zodat die module niets van provincies hoeft te weten; App.tsx importeert dit
-  bestand al, dus de registratie is gebeurd voor de routes opgebouwd worden.
+  De Franse en Engelse provinciepaden in de padentabel. Hier en niet in
+  `i18n/paden.ts`, zodat die module niets van provincies hoeft te weten;
+  App.tsx importeert dit bestand al, dus de registratie is gebeurd voor de
+  routes opgebouwd worden. Een leeg pad betekent: in die taal geen pagina.
 */
 registreerPaden(
   Object.fromEntries(
     REGIO_ROUTES.flatMap((r) => {
-      const fr = regioPadFr(r);
-      // Engels bestaat nog niet; zie ACTIEVE_TALEN. Het lege pad valt daar weg.
-      return fr ? [[r.path, { fr, en: "" }]] : [];
+      const fr = regioPadFr(r) ?? "";
+      const en = regioPadEn(r) ?? "";
+      return fr || en ? [[r.path, { fr, en }]] : [];
     }),
   ),
 );
