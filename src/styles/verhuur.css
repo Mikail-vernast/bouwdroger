@@ -1747,3 +1747,31 @@
 .vh-book .cok input,.vh-pick .chk input{accent-color:var(--ok)}
 .vh-book .payopt.sel .pos,.vh-pick .payopt.sel .pos{color:#0d7a42}
 .vh-book .stap1fout{margin:12px 0 0;padding:10px 14px;border-radius:10px;background:#fdf0f2;border:1px solid rgba(200,16,46,.3);color:#a10d26;font-size:13.5px;font-weight:600;line-height:1.5}
+/* leveragenda (LeverKalender): leverdag, huurperiode en ophaaldag in één beeld */
+.vh-book .lk{position:relative;margin-top:14px;padding:18px;border:1.5px solid var(--line);border-radius:16px;background:#fff}
+.vh-book .lk-kop{position:absolute;top:14px;left:12px;right:12px;display:flex;justify-content:space-between;pointer-events:none}
+.vh-book .lk-nav{pointer-events:auto;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line-2);background:#fff;font-size:20px;line-height:1;color:var(--txt);cursor:pointer;transition:border-color .15s,background .15s}
+.vh-book .lk-nav:hover:not(:disabled){border-color:var(--ok);background:#f4fbf7}
+.vh-book .lk-nav:disabled{opacity:.3;cursor:default}
+.vh-book .lk-maanden{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media (max-width:700px){.vh-book .lk-maanden{grid-template-columns:1fr}.vh-book .lk-maand.tweede{display:none}}
+.vh-book .lk-titel{display:block;text-align:center;font-family:var(--fd);font-weight:700;font-size:15.5px;text-transform:capitalize;margin:6px 0 14px}
+.vh-book .lk-rooster{display:grid;grid-template-columns:repeat(7,1fr);gap:3px 0}
+.vh-book .lk-wd{text-align:center;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--txt-dim);padding-bottom:6px}
+.vh-book .lk-dag{position:relative;height:40px;border:0;background:none;font-family:var(--fb);font-size:14px;font-weight:600;color:var(--txt);cursor:pointer;border-radius:10px;transition:background .12s,color .12s}
+.vh-book .lk-dag:hover:not(:disabled){background:#eaf6ef;color:#0d7a42}
+.vh-book .lk-dag:disabled{color:rgba(20,20,20,.22);cursor:default}
+.vh-book .lk-dag.vol{color:rgba(200,16,46,.45);text-decoration:line-through}
+.vh-book .lk-dag.binnen{background:#eaf6ef;border-radius:0;color:#0d7a42}
+.vh-book .lk-dag.start,.vh-book .lk-dag.einde{color:#fff;z-index:1}
+.vh-book .lk-dag.start{background:var(--ok);border-radius:10px 0 0 10px}
+.vh-book .lk-dag.einde{background:#141414;border-radius:0 10px 10px 0}
+.vh-book .lk-dag.start:hover,.vh-book .lk-dag.einde:hover{color:#fff}
+.vh-book .lk-dag.start:hover{background:#0f9150}
+.vh-book .lk-legende{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--txt-mid)}
+.vh-book .lk-legende span{display:flex;align-items:center;gap:7px}
+.vh-book .lk-legende i{width:12px;height:12px;border-radius:4px;display:inline-block}
+.vh-book .lk-legende .l-start{background:var(--ok)}
+.vh-book .lk-legende .l-binnen{background:#eaf6ef;border:1px solid #bfe3cd}
+.vh-book .lk-legende .l-einde{background:#141414}
+.vh-book .lk-legende .l-vol{background:repeating-linear-gradient(135deg,#f4d6dc 0 3px,#fff 3px 6px);border:1px solid #efc0c9}
