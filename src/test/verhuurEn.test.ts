@@ -54,7 +54,7 @@ describe("Engelse productdata", () => {
 
   it("vertaalt catalogus, dekking, extra's en fiches zonder bedragen te raken", () => {
     const cat = catInTaal("en");
-    for (const k of Object.keys(CAT) as (keyof typeof CAT)[]) expect(cat[k].price).toBe(CAT[k].price);
+    for (const k of Object.keys(CAT) as (keyof typeof CAT)[]) expect(cat[k].w2).toBe(CAT[k].w2);
     expect(coverInTaal("en").map((c) => c.price)).toEqual(COVER.map((c) => c.price));
     expect(extrasInTaal("en").map((x) => x.price)).toEqual(EXTRAS.map((x) => x.price));
     expect(specsInTaal("en")[0].tab).toBe("Small dehumidifier");
