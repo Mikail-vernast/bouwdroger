@@ -26,4 +26,12 @@ export const AAN: readonly string[] = [
   "sint-laureins",
   "lievegem",
   "zelzate",
+  "denderleeuw",
+  "haaltert",
+  "erpe-mere",
+  "lede",
+  "ninove",
+  "geraardsbergen",
+  "herzele",
+  "sint-lievens-houtem",
 ];
