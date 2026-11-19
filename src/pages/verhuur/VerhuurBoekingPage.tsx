@@ -279,16 +279,6 @@ const VerhuurBoekingPage = () => {
   */
   const [step, setStep] = useState(() => (searchParams.get("session_id") ? STEP_VERIFY : 1));
   const [cover, setCover] = useState(stored?.options.cover ?? "comfort");
-  /*
-    De dekking moet de bezoeker zelf aanklikken. "comfort" blijft de waarde
-    waarmee de samenvatting rekent, maar een vooraf aangevinkte verzekering
-    is geen keuze — en wie ze niet gezien heeft, belt later over een schade.
-  */
-  const [coverGekozen, setCoverGekozen] = useState(Boolean(stored?.options.cover));
-  const kiesCover = (k: typeof cover) => {
-    setCover(k);
-    setCoverGekozen(true);
-  };
   const [toonStap1Fouten, setToonStap1Fouten] = useState(false);
   const [extras, setExtras] = useState<Record<string, boolean>>(() =>
     Object.fromEntries((stored?.options.extras ?? []).map((k) => [k, true]))
@@ -467,16 +457,16 @@ const VerhuurBoekingPage = () => {
   };
 
   /*
-    Stap 1 laat niemand door zonder werf en zonder dekking. Zonder werf is er
-    geen transport en dus geen juist totaal; zonder dekking heeft de klant de
-    verzekering nooit bekeken. De knop blijft klikbaar maar wijst aan wat
-    ontbreekt — een grijze knop zonder uitleg leest als een kapotte wizard.
+    Stap 1 laat niemand door zonder werf: zonder werf is er geen transport en
+    dus geen juist totaal. De dekking staat standaard op "Eigen risico € 250"
+    (comfort) — daar rekent de samenvatting al mee, dus een lege keuze zou het
+    totaal tegenspreken. De knop blijft klikbaar maar wijst aan wat ontbreekt;
+    een grijze knop zonder uitleg leest als een kapotte wizard.
   */
-  const naarStap2 = (dekkingGekozen = coverGekozen) => {
-    const mist = !leverzone ? "stap1-plaats" : !dekkingGekozen ? "stap1-dekking" : null;
-    if (mist) {
+  const naarStap2 = () => {
+    if (!leverzone) {
       setToonStap1Fouten(true);
-      document.getElementById(mist)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("stap1-plaats")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     goTo(2);
@@ -1055,24 +1045,19 @@ const VerhuurBoekingPage = () => {
                   <h2>{t.dekkingKop}</h2>
                 </div>
                 <p className="bsub">{t.dekkingSub}</p>
-                {toonStap1Fouten && !coverGekozen && (
-                  <p className="stap1fout" role="alert">
-                    {t.mistDekking}
-                  </p>
-                )}
-                <div className="cvs" id="stap1-dekking">
+                <div className="cvs">
                   {cover_.map((c) => (
                     <div
                       key={c.k}
-                      className={`cv${coverGekozen && c.k === cover ? " sel" : ""}`}
-                      onClick={() => kiesCover(c.k)}
+                      className={`cv${c.k === cover ? " sel" : ""}`}
+                      onClick={() => setCover(c.k)}
                       role="radio"
-                      aria-checked={coverGekozen && c.k === cover}
+                      aria-checked={c.k === cover}
                       tabIndex={0}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
-                          kiesCover(c.k);
+                          setCover(c.k);
                         }
                       }}
                     >
@@ -1108,11 +1093,11 @@ const VerhuurBoekingPage = () => {
                         type="button"
                         onClick={(e) => {
                           e.stopPropagation();
-                          kiesCover(c.k);
-                          naarStap2(true);
+                          setCover(c.k);
+                          naarStap2();
                         }}
                       >
-                        {coverGekozen && c.k === cover ? t.gekozen : t.selecteer}
+                        {c.k === cover ? t.gekozen : t.selecteer}
                       </button>
                     </div>
                   ))}
