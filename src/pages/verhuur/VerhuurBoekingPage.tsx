@@ -6,6 +6,7 @@ import type { Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
 import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
 import LeverplaatsZoeker from "@/components/verhuur/LeverplaatsZoeker";
+import LeverKalender from "@/components/verhuur/LeverKalender";
 import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -1388,17 +1389,14 @@ const VerhuurBoekingPage = () => {
                   <h2>{t.leverdatumKop}</h2>
                 </div>
                 <p className="bsub">{t.leverdatumSub}</p>
-                <div className="frow">
-                  <div className="fld">
-                    <label htmlFor="dStart">{t.leverdatum}</label>
-                    <input
-                      type="date"
-                      id="dStart"
-                      value={startDate}
-                      min={today || undefined}
-                      onChange={(e) => setStartDate(e.target.value)}
-                    />
-                  </div>
+                <LeverKalender
+                  waarde={startDate}
+                  onKies={setStartDate}
+                  vanaf={today}
+                  huurDagen={rentalDays}
+                  isVol={(iso) => !datumKan(iso)}
+                />
+                <div className="frow two" style={{ marginTop: 18 }}>
                   <div className="fld">
                     <label htmlFor="dSlot">{t.tijdslotLevering}</label>
                     <select id="dSlot" value={slot} onChange={(e) => setSlot(e.target.value)}>
@@ -1478,14 +1476,25 @@ const VerhuurBoekingPage = () => {
                   </div>
                 )}
 
+                {/*
+                  De ophaaldag kiest de klant niet: hij volgt uit de leverdag en
+                  de huurtermijn van het pakket. Een vaste weergave, geen
+                  readonly-datumveld dat een kalender opende die niets deed.
+                */}
                 <div className="frow two" style={{ marginTop: 16 }}>
                   <div className="fld">
-                    <label htmlFor="dEnd">{t.ophaaldatum}</label>
-                    <input type="date" id="dEnd" readOnly value={end ? isoDate(end) : ""} />
+                    <span className="fldl" id="dEnd">{t.ophaaldatum}</span>
+                    <div className="vast" aria-labelledby="dEnd">
+                      <b>{end ? datumLang(end) : "—"}</b>
+                      <small>{t.ophaalNa(rentalDays)}</small>
+                    </div>
                   </div>
                   <div className="fld">
-                    <label htmlFor="dEndSlot">{t.tijdslotOphaling}</label>
-                    <input type="text" id="dEndSlot" readOnly value={slot} />
+                    <span className="fldl" id="dEndSlot">{t.tijdslotOphaling}</span>
+                    <div className="vast" aria-labelledby="dEndSlot">
+                      <b>{slot}</b>
+                      <small>{t.zelfdeSlot}</small>
+                    </div>
                   </div>
                 </div>
               </div>

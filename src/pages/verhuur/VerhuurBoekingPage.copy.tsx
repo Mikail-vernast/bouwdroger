@@ -91,6 +91,8 @@ export interface BoekingTeksten {
   planning: (p: { start: string; slot: string; dagen: number; einde: string; droogtijd: number }) => ReactNode;
   teKort: string;
   ophaaldatum: string;
+  zelfdeSlot: string;
+  ophaalNa: (dagen: number) => string;
   tijdslotOphaling: string;
   verderGegevens: string;
   /* Stap 4 */
@@ -317,6 +319,8 @@ const nl: BoekingTeksten = {
   ),
   teKort: "Korter dan de verwachte droogtijd, verlengen kan later met één klik.",
   ophaaldatum: "Ophaaldatum (automatisch)",
+  zelfdeSlot: "zelfde tijdslot als de levering",
+  ophaalNa: (dagen) => `${dagen} dagen na de levering, automatisch`,
   tijdslotOphaling: "Tijdslot ophaling",
   verderGegevens: "Verder naar gegevens",
 
@@ -560,6 +564,8 @@ const fr: BoekingTeksten = {
   ),
   teKort: "Plus court que le temps de séchage prévu : vous pourrez prolonger plus tard en un clic.",
   ophaaldatum: "Date d'enlèvement (automatique)",
+  zelfdeSlot: "même créneau que la livraison",
+  ophaalNa: (dagen) => `${dagen} jours après la livraison, automatiquement`,
   tijdslotOphaling: "Créneau d'enlèvement",
   verderGegevens: "Continuer vers vos coordonnées",
 
@@ -800,6 +806,8 @@ const en: BoekingTeksten = {
   ),
   teKort: "Shorter than the expected drying time; you can extend later with one click.",
   ophaaldatum: "Collection date (automatic)",
+  zelfdeSlot: "same time slot as the delivery",
+  ophaalNa: (dagen) => `${dagen} days after delivery, automatically`,
   tijdslotOphaling: "Collection time slot",
   verderGegevens: "Continue to your details",
 
