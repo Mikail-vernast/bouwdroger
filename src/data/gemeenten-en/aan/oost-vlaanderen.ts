@@ -34,4 +34,13 @@ export const AAN: readonly string[] = [
   "geraardsbergen",
   "herzele",
   "sint-lievens-houtem",
+  "dendermonde",
+  "hamme",
+  "zele",
+  "berlare",
+  "buggenhout",
+  "lebbeke",
+  "wichelen",
+  "laarne",
+  "wetteren",
 ];
