@@ -61,10 +61,10 @@ const LuchtontvochtigerHurenPage = () => {
   const taal = useTaal();
   const toon = useToonBedrag();
   const seo = useSeo("luchtontvochtigerHuren");
-  /* Engels krijgt de toestelnamen, badges en samenvattingen in het Engels.
-     Frans blijft voorlopig op DROGERS staan zoals het altijd stond, zodat deze
-     wijziging de Franse pagina niet ongemerkt verandert. */
-  const drogers = taal === "en" ? drogersInTaal(taal) : DROGERS;
+  /* Toestelnamen, badges en samenvattingen in de taal van de pagina. Frans
+     stond eerst bewust op DROGERS, en toonde daardoor Nederlandse teksten
+     ("Meest gehuurd", "Compacte, verrijdbare condensontvochtiger…"). */
+  const drogers = drogersInTaal(taal);
 
   /* Nederlands blijft zoals het altijd was: excl. btw, "€ 9". Frans en Engels
      volgen de keuze particulier/bedrijf uit de keuzepopup. */
