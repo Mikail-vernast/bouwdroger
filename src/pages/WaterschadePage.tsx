@@ -36,6 +36,7 @@ import { termijnLabel, termijnZonderDikte } from "@/lib/droogtijden";
 import { CONTACT } from "@/lib/site";
 import "@/styles/v3-content.css";
 import { WS_COPY, termijnLabelFr, type WsCtx } from "./WaterschadePage.copy";
+import { termijnLabelEn } from "./termijnLabelEn";
 
 /**
  * Waterschade — de meest urgente van de drie situatiepagina's, en daarom de
@@ -140,20 +141,24 @@ const WaterschadePage = () => {
 
   /*
     In het Nederlands blijft de prijs staan zoals ze altijd stond (excl. btw);
-    in het Frans volgt ze de keuze particulier/bedrijf uit de keuzepopup.
+    in het Frans en het Engels volgt ze de keuze particulier/bedrijf uit de
+    keuzepopup. Het voorzetsel staat per taal apart: zonder die keuze kreeg
+    het Engels "pour", want alles wat niet Nederlands was, werd Frans.
   */
   let rapportPrijs = "";
   if (RAPPORT) {
     if (taal === "nl") rapportPrijs = ` voor ${euro(RAPPORT.price)} excl. btw`;
     else {
       const b = toon(RAPPORT.price);
-      rapportPrijs = ` pour ${b.tekst} ${b.label}`;
+      rapportPrijs = `${taal === "en" ? " for" : " pour"} ${b.tekst} ${b.label}`;
     }
   }
   const termijn = WATER_TERMIJN
     ? taal === "nl"
       ? termijnLabel(WATER_TERMIJN)
-      : termijnLabelFr(WATER_TERMIJN)
+      : taal === "en"
+        ? termijnLabelEn(WATER_TERMIJN)
+        : termijnLabelFr(WATER_TERMIJN)
     : null;
   const ctx: WsCtx = { lp, rapportPrijs, termijn };
   const faqs = t.faqs(ctx);
@@ -392,19 +397,20 @@ const WaterschadePage = () => {
                     <i>3</i>
                     <b>{t.dos.metingen}</b>
                   </div>
+                  {/* Voorbeeldwaarden; in het Engels met decimale punt en "78%" zonder spatie. */}
                   <div className="dos-meet">
                     <div>
-                      <b>78 %</b>
+                      <b>{taal === "en" ? "78%" : "78 %"}</b>
                       <span>{t.dos.chape}</span>
                       <em style={{ "--v": "78%" } as React.CSSProperties} />
                     </div>
                     <div>
-                      <b>14,2°</b>
+                      <b>{taal === "en" ? "14.2°" : "14,2°"}</b>
                       <span>{t.dos.oppervlak}</span>
                       <em style={{ "--v": "55%" } as React.CSSProperties} />
                     </div>
                     <div>
-                      <b>82 %</b>
+                      <b>{taal === "en" ? "82%" : "82 %"}</b>
                       <span>{t.dos.rvLucht}</span>
                       <em style={{ "--v": "82%" } as React.CSSProperties} />
                     </div>

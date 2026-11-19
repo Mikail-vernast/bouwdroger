@@ -807,4 +807,319 @@ export const WS_COPY = {
     urgBelAria: "Appeler le",
     urgWhatsApp: "Contactez-nous sur WhatsApp",
   },
+
+  en: {
+    schemaNaam: "Drying after water damage",
+    schemaBeschrijving:
+      "Fast drying of floors, walls and insulation after a water leak or flood, with construction dehumidifiers and fans delivered within 24 hours.",
+    schemaType: "Water damage restoration",
+    kruimelHome: "Home",
+    kruimelPagina: "Water damage",
+
+    pulse: "Emergency delivery · call us now",
+    h1: "Drying water damage. Delivered today, not next week.",
+    heroP:
+      "A burst pipe, a flooded basement, a bathroom that leaked into the room below: from the moment the water is gone, the clock is ticking. Mould starts within two days. For water damage we deliver the same day, take a moisture reading at the start and give you an invoice in your name for your insurance claim.",
+    bel: "Call",
+    aanvraag: "Send a request",
+    heroAlt: "Construction dehumidifier and fan at work in a room after water damage",
+    badgeTitel: "24 to 48 hours",
+    badgeSub: "after that, mould sets in",
+    trust: ["Same-day delivery", "Invoice for your insurer", "Always reachable", "Moisture reading before and after"],
+
+    eersteKick: "Do this first",
+    eersteH2: "What to do in the first 48 hours.",
+    eersteLede:
+      "After a leak or flood, water quickly soaks in deeper: first into the screed and the bottom of the walls, then into insulation and plasterwork. After a day or two, mould gets a foothold on damp material. The sooner you remove the water and start drying, the less has to be ripped out.",
+    eersteUren: [
+      {
+        title: "Safety first",
+        desc: "Switch off the power in the wet areas before you step in, and never put electrical appliances in standing water.",
+      },
+      {
+        title: "Stop the source",
+        desc: "Turn off the main water valve if a pipe is leaking and have the leak repaired. As long as water keeps coming in, drying makes little sense.",
+      },
+      {
+        title: "Record the damage",
+        desc: "Take photos and video of the water, the floor, the walls and damaged belongings before you clear up. Don't throw anything away until your insurer says you can.",
+      },
+      {
+        title: "Remove standing water",
+        desc: "Pump or vacuum up the water. A construction dehumidifier takes moisture out of the air and out of materials, not out of a puddle on the floor.",
+      },
+      {
+        title: "Clear out wet materials",
+        desc: "Carpet, underlay, cardboard boxes and loose furniture hold on to water and go mouldy fast. Move them out of the room so the air can reach the floor and walls.",
+      },
+      {
+        title: "Start drying and measure",
+        desc: "Dehumidifier and fan in place, windows and doors shut. A reading at the start gives the baseline; the reading at the end shows that it is dry.",
+      },
+    ],
+
+    soortenKick: "What kind of damage do you have?",
+    soortenH2: "Not all water damage dries equally fast.",
+    soortenLede:
+      "Where the water ended up decides everything: the approach, how long it takes and whether anything has to be ripped out. A wet tiled floor on solid concrete is often done in days; water that ran into the insulation under a floating screed takes weeks, and a dehumidifier in the room won't get it out. If you recognise your situation below, you'll know straight away what to expect.",
+    schadetypes: [
+      {
+        label: "Most common",
+        titel: "Burst or leaking pipe",
+        tekst:
+          "A fitting that comes loose, a pipe that freezes, a leak behind a wall that went unnoticed for weeks. The water takes the shortest route down and soaks into the screed, the bottom of the walls and the plasterwork. Often the visible patch is only a fraction of the wet area.",
+        aanpak:
+          "Have the leak repaired first, then dry. We measure how far the moisture has spread and place the machines on the wettest zone, not where you saw the leak.",
+        fotoAlt: "Wet wall below a leaking pipe in a home",
+      },
+      {
+        label: "Most urgent",
+        titel: "Flooded basement or garage",
+        tekst:
+          "After a heavy downpour, a sewer backflow or a broken pump. Basements are cold and poorly ventilated, so the moisture lingers and mould gets a chance sooner than upstairs. Stored goods, cardboard and textiles soak up water and become a source of moisture themselves.",
+        aanpak:
+          "Standing water out first, wet belongings out. In a cold basement we add a site heater or a desiccant dehumidifier, because a condensation dehumidifier loses much of its efficiency below 15 °C.",
+        fotoAlt: "Flooded basement with a tide mark on the wall and a wet floor",
+      },
+      {
+        label: "Hardest to spot",
+        titel: "Water in the floor build-up or insulation",
+        tekst:
+          "With a floating screed there is insulation under the floor. If water runs into it, it is out of reach of the air in the room: the surface feels dry after a week while the layers below stay wet. Months later the stains, the smell or the lifting parquet show up anyway.",
+        aanpak:
+          "This is the case we do targeted drying for: dry air is blown through small openings and hoses straight into the floor build-up. It often makes the difference between drying and ripping out.",
+        fotoAlt: "Targeted drying of wet floor insulation through air hoses",
+      },
+      {
+        label: "From above",
+        titel: "Leaking bathroom, roof or rain penetration",
+        tekst:
+          "A joint that is no longer watertight, a blocked gutter, a storm driving water through a façade. The moisture comes from above and spreads across the ceiling and the top of the walls, sometimes in a different room from where the leak is.",
+        aanpak:
+          "Seal the source first, then dry from the highest wet point. Ceilings and plasterboard walls release their moisture readily; the masonry behind them needs more time.",
+        fotoAlt: "Water damage on the ceiling and upper wall from a leak above",
+      },
+    ],
+    aanpakLabel: "Our approach: ",
+    elkUur: (
+      <>
+        <b>Why every hour counts.</b> Water damage doesn't get worse gradually, but in jumps. On damp
+        material, mould takes hold after 24 to 48 hours, and from then on drying is no longer
+        enough: the mould has to be removed as well. The second threshold is the moment the moisture
+        reaches the floor build-up or the insulation. Whatever is dry before then usually doesn't
+        need to be ripped out.
+      </>
+    ),
+
+    dossierKick: "Your claim",
+    dossierH2: "Water damage and your insurance.",
+    dossierP1:
+      "Water damage is often covered by your home's fire insurance, but whether and how much is reimbursed depends on your policy and on the cause. Ask your insurer or broker as early as possible, preferably before you incur major costs.",
+    dossierP2:
+      "What an insurer usually wants to see: a claim filed in time, photos of the damage, the invoices for the work you had done, and proof that you limited the damage. Drying quickly is part of that last point. Alongside you can see what the report you get from us looks like: the readings at the start and at handover, photos of the situation as we found it, and our findings on where the moisture was.",
+    dos: {
+      soort: "Technical moisture report",
+      titel: "Water damage drying file",
+      ruimteL: "Room",
+      ruimte: "Basement 42 m²",
+      oorzaakL: "Cause",
+      oorzaak: "Burst pipe",
+      techniekerL: "Technician",
+      dossierL: "File",
+      vaststelling: "On-site findings",
+      foto: "Photo report",
+      metingen: "Readings at start",
+      chape: "Screed",
+      oppervlak: "Surface",
+      rvLucht: "Air RH",
+      aanpak: "Findings and approach",
+      conclusieL: "Conclusion",
+      conclusie: "Water in the floor insulation. Targeted drying with a desiccant dehumidifier; no ripping out needed.",
+      stempel1: "Moisture",
+      stempel2: "measured",
+    },
+    dosBijschrift:
+      "Example of the report you receive at handover. The values above are for illustration only.",
+    krijgtKick: "What you get from us",
+    krijgtH3: "Everything that belongs in a claim file, without you having to ask.",
+    krijgtP: (c) =>
+      `An invoice in your name, the moisture reading at the start and at handover, and photos of the situation as we found it. A signed moisture report with all readings is available as an option${c.rapportPrijs}.`,
+    krijgtAlt: "Vernast technician noting the readings for the claim file",
+
+    techKick: "The technique",
+    techH2: "Is the moisture in the room, or in the floor?",
+    techLede:
+      "With water damage that is the only question that matters, because each answer calls for a different machine. If the moisture is in the air and the surfaces of the room, a condensation dehumidifier takes it out. If it is in the floor build-up, the insulation or behind a wall, the air in the room will never reach it.",
+    techP1:
+      "With a floating screed there is insulation under the floor. If water ran into it, the surface feels dry after a week while the layers below stay wet; the stains, the smell or the lifting parquet still appear months later.",
+    techP2: ({ lp }) => (
+      <>
+        That is why we drill small openings in the right places and blow dry air through hoses
+        straight into the floor build-up, the cavity or the wall. That is what a{" "}
+        <Link to={lp(toestelPad("revolution"))}>desiccant dehumidifier</Link> can do and an ordinary
+        dehumidifier can't, and below 15 °C it loses hardly any capacity. How the two techniques
+        differ is explained in the guide{" "}
+        <Link to={lp("/gids/condensdroger-of-adsorptiedroger")}>
+          condensation or desiccant dehumidifier
+        </Link>
+        . We measure whether the structure itself is dry, not just the air above it; with a covered
+        claim, that is often the difference between a drying file and a demolition file.
+      </>
+    ),
+    techChips: ["Floor build-up and insulation", "Cavity and lining wall", "Cold basements", "Wooden floors"],
+    techAlt: "Vernast Revolution desiccant dehumidifier with hose connection for targeted drying",
+    kaarten: [
+      {
+        titel: "Desiccant dehumidifier",
+        p1: "For moisture that is out of reach: under a floating screed, in insulation, behind a lining wall or in a wooden floor. Blows dry air through hoses straight to the spot itself.",
+        p2: "Also the choice for a cold basement: it loses hardly any capacity below 15 °C.",
+      },
+      {
+        titel: "Condensation dehumidifier",
+        p1: "For the room itself: it draws in the damp air, cools it so the water condenses, and blows dry air back out. In a heated home that works well.",
+        p2: "Below about 15 °C its efficiency drops sharply; then you add a site heater.",
+      },
+      {
+        titel: "And always a fan",
+        p1: "Water damage always needs air movement: without a fan it is mainly the air that dries, not the floor and the walls.",
+        p2: "A radial fan blows low across a wet floor; an axial fan keeps the whole room moving.",
+      },
+    ],
+    techNote: (
+      <>
+        <b>We decide on the combination on site.</b> So you don't have to choose yourself: we
+        measure where the moisture is and how cold the room is, and put the set-up together
+        accordingly. If in doubt, we come and take a look before anything is delivered.
+      </>
+    ),
+
+    werkKick: "How we work",
+    werkH2: "From the first wet patch to the moisture report.",
+    werkLede:
+      "A water damage case doesn't start with us but with you, the moment you see the water. This is the full process, showing whose turn it is at each step. It moves on by itself; use the arrows or the numbers to go forward or back yourself.",
+    verloop: [
+      {
+        wie: "U",
+        titel: "You notice the damage",
+        tekst:
+          "A wet floor, a damp patch on the ceiling, a musty smell in the basement. Switch off the power in the wet area, turn off the main valve if it's a pipe, and take photos before you clear anything up. Your insurer will need those photos later.",
+      },
+      {
+        wie: "U",
+        titel: "You report it to your insurer",
+        tekst:
+          "File the claim within the period set in your policy. Ask straight away whether drying costs can be included in the claim and whether an expert will visit. You don't have to wait for that visit to start drying; limiting the damage is exactly what an insurer expects of you.",
+      },
+      {
+        wie: "U",
+        titel: "You get in touch with us",
+        tekst:
+          "By phone or using the form below. Describe what happened, how big the room is and whether the water has already gone. With water damage we call back as soon as possible to see what can still be done today.",
+      },
+      {
+        wie: "Vernast",
+        titel: "We assess the problem and propose a solution",
+        tekst:
+          "Over the phone or on site, we determine where the moisture is and how deep it has penetrated. That tells us which machines are needed: a condensation dehumidifier for the room, a desiccant dehumidifier if the moisture is in the floor build-up, a fan and, when it's cold, a site heater.",
+      },
+      {
+        wie: "Vernast",
+        titel: "We visit, measure and record everything",
+        tekst:
+          "Our technician measures the moisture content of the floor and walls, photographs the damage and logs those readings digitally in your file. That is your starting point, and the document an insurer usually wants to see.",
+      },
+      {
+        wie: "Vernast",
+        titel: "We install the machines and start drying",
+        tekst:
+          "We spread the machines across the wet zones, connect the condensate drain so you don't have to empty anything, and set the target humidity. You keep windows and doors shut and move nothing; the rest happens by itself, day and night.",
+      },
+      {
+        wie: "Vernast",
+        titel: "We collect, measure again and deliver the report",
+        tekst:
+          "The final reading decides whether it's dry, not the calendar. We compare with a dry spot in the same home, collect the machines and give you the readings from the start and the end. A signed moisture report for your insurance claim is available as an option.",
+      },
+    ],
+    carrouselLabel: "How we work with water damage",
+
+    refKick: "From the field",
+    refH2: "Water damage we've dried before.",
+    refLede:
+      "Three cases with photos from the site itself: what had happened, which machines we installed and how long it took.",
+    refAlle: "View all water damage projects",
+    refNote: ({ lp }) => (
+      <>
+        <b>For water damage we cover all of Belgium.</b> From our warehouse in Aartselaar we are
+        quickest to reach <Link to={lp("/bouwdroger-huren-antwerpen")}>the province of Antwerp</Link>,{" "}
+        <Link to={lp("/bouwdroger-huren-oost-vlaanderen")}>East Flanders</Link> and{" "}
+        <Link to={lp("/bouwdroger-huren-vlaams-brabant")}>Flemish Brabant</Link>; further afield we
+        plan the trip in, but we deliver all the same. Already know what you need? The{" "}
+        <Link to={lp("/verhuur/calculator")}>drying calculator</Link> puts the package together
+        straight away.
+      </>
+    ),
+
+    faqTitel: "What people with water damage ask us.",
+    faqs: (c) => [
+      {
+        q: "How soon should I start drying after water damage?",
+        a: "Within 24 to 48 hours. After that, mould starts to form and the moisture penetrates deeper into screed, insulation and plasterwork. That is why, for water damage, we deliver the same day.",
+      },
+      {
+        q: "How long does drying take after a water leak or flood?",
+        a: `That varies a lot from case to case. A wet tiled floor on solid concrete or a plasterboard wall that caught water is often dry in a few days to a week. If the water is in the screed, it can take up to about two weeks, and if it has run into the insulation under a floating floor, it usually takes three weeks or more. What matters is how long the water stood, how deep it soaked in and how warm the room is.${
+          c.termijn
+            ? ` That is why our water damage package is built around a hire period of ${c.termijn}: that is the upper limit we plan for, not the time your damage will need.`
+            : ""
+        } If it's dry sooner, we collect sooner. The moisture readings at the start and at handover decide, not the calendar.`,
+      },
+      {
+        q: "Will my insurance pay for hiring a construction dehumidifier?",
+        a: `That depends on your policy and on the cause of the damage. With a covered claim, drying costs are often included, but ask your insurer or broker before you decide. From us you get an invoice in your name and the readings at the start and at handover; a signed moisture report is available as an option${c.rapportPrijs}.`,
+      },
+      {
+        q: "Do I have to wait for the insurance expert before I start drying?",
+        a: "No, and usually that isn't the intention either. Your policy expects you to limit the damage, and starting to dry quickly is part of that. What you should do first: take photos and video of the damage before you clear up, and throw nothing away until your insurer says you can. Mention in your claim that you are starting a drying job; the readings and the invoice you get from us then go into the file.",
+      },
+      {
+        q: "How many machines do I need for a flooded basement?",
+        a: "For an average basement, one dehumidifier with a fan is enough. If there is water in several rooms or the space is cold, a site heater or a desiccant dehumidifier is added. Call us with the dimensions and we'll work it out together.",
+      },
+      {
+        q: "Can I start drying while there is still standing water?",
+        a: "No. Pump or vacuum up the standing water first. A construction dehumidifier takes moisture out of the air and out of materials, not out of a puddle. As soon as the floor is free of water, we install the machines.",
+      },
+      {
+        q: "Does the screed have to come out after water damage?",
+        a: "Not always. If water has run into the insulation under a floating screed, targeted drying with a desiccant dehumidifier, which blows dry air through hoses into the floor build-up, can sometimes avoid ripping it out. Whether that works depends on how long the water stood and on how the floor is built up. We prefer to assess that together with you.",
+      },
+      {
+        q: "Does a construction dehumidifier work in a cold basement after a flood?",
+        a: "Only to a limited extent. Below 15 °C a condensation dehumidifier loses much of its efficiency. Add an electric site heater, or choose a desiccant dehumidifier: it loses far less capacity in the cold.",
+      },
+    ],
+    nuKick: "Call now",
+    nuH3: "The sooner we're there, the less has to be ripped out.",
+    nuP: "Briefly describe what happened and how big the room is. We'll tell you straight away which machines are needed and when we can deliver: for water damage, today.",
+    nuAlt: "Vernast technician by the van with a construction dehumidifier",
+
+    contactKicker: "Report water damage",
+    contactTitel: "Describe your situation and we'll call you back.",
+    contactLede:
+      "With water damage, every hour counts. Would you rather call right away? Please do, and we'll head out today. Through this form you'll get an answer within one working day.",
+    contactOnderwerpen: [
+      "Water damage, this is urgent",
+      "Water under the floor or in the insulation",
+      "Question about my insurance claim",
+      "Price of a water damage package",
+      "Something else",
+    ],
+    contactPlaceholder:
+      "E.g. 40 m² basement flooded after a burst pipe, the water is gone, the screed and bottom of the walls are wet.",
+
+    urgTitel: "Water damage? Call now",
+    urgBelAria: "Call",
+    urgWhatsApp: "Message us on WhatsApp",
+  },
 } satisfies Copy<WsTeksten>;
