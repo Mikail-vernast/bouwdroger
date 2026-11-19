@@ -20,4 +20,12 @@ export const AAN: readonly string[] = [
   "remicourt",
   "saint-georges-sur-meuse",
   "wasseiges",
+  "ans",
+  "awans",
+  "aywaille",
+  "beyne-heusay",
+  "bitsingen",
+  "blegny",
+  "chaudfontaine",
+  "comblain-au-pont",
 ];
