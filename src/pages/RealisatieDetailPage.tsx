@@ -8,6 +8,7 @@ import { useSeo } from "@/data/seo";
 import { realisatieMeta, type Realisatie } from "@/data/realisaties";
 import { realisatiesInTaal } from "@/data/realisatiesInTaal";
 import { useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
+import type { Taal } from "@/i18n/taal";
 import { realisatieSlugsIn, regioVanRealisatie } from "@/data/realisatie-regio";
 import { REALISATIE_REDIRECTS } from "@/data/realisatie-redirects";
 import RealisatieAlbum from "@/components/realisaties/RealisatieAlbum";
@@ -69,6 +70,18 @@ const COPY = {
     vrijblijvend: "Sans engagement, avec un prix fixe connu d'avance.",
     bekijk: "Voir le projet",
   },
+  en: {
+    nietGevonden: "Project not found",
+    terug: "Back to the projects",
+    crumb: "Projects",
+    kruimelpad: "Breadcrumb",
+    bereken: "Calculate your drying package",
+    gamma: "Our range of machines",
+    fiche: "Project details",
+    droogplan: "Request a drying plan",
+    vrijblijvend: "No obligation, with a fixed price agreed in advance.",
+    bekijk: "View project",
+  },
 } satisfies Copy<Record<string, string>>;
 
 /*
@@ -90,6 +103,22 @@ const regioLinkFr = (regio: { slug: string; name: string; nameFr?: string }) =>
     ? `Louer un déshumidificateur de chantier ${VOORZETSEL_FR[regio.slug]}`
     : `Location de déshumidificateurs de chantier · ${regio.nameFr ?? regio.name}`;
 
+/* Engelse exoniemen voor de regio's met een eigen werf (docs/vertalen.md). */
+const REGIO_EN: Record<string, string> = {
+  antwerpen: "the province of Antwerp",
+  "oost-vlaanderen": "East Flanders",
+  "west-vlaanderen": "West Flanders",
+  "vlaams-brabant": "Flemish Brabant",
+  brussel: "Brussels",
+  limburg: "Limburg",
+};
+
+const regioLink = (regio: { slug: string; name: string; nameFr?: string }, taal: Taal) => {
+  if (taal === "fr") return regioLinkFr(regio);
+  if (taal === "en") return `Construction dehumidifier hire in ${REGIO_EN[regio.slug] ?? regio.name}`;
+  return `Bouwdroger huren in ${regio.name}`;
+};
+
 const NietGevonden = () => {
   const navigate = useNavigate();
   const t = useCopy(COPY);
@@ -110,8 +139,8 @@ const NietGevonden = () => {
 };
 
 /*
-  De Franse projectteksten laden pas op een Franse route en schorsen tot ze er
-  zijn (zie `realisatiesInTaal.ts`); deze grens vangt dat op.
+  De Franse en Engelse projectteksten laden pas op een route in die taal en
+  schorsen tot ze er zijn (zie `realisatiesInTaal.ts`); deze grens vangt dat op.
 */
 const RealisatieDetailPage = () => (
   <Suspense fallback={null}>
@@ -199,7 +228,7 @@ const Project = () => {
                     <>
                       {" · "}
                       <Link to={lp(regio.path)} className="rz-loc-link">
-                        {taal === "fr" ? regioLinkFr(regio) : `Bouwdroger huren in ${regio.name}`}
+                        {regioLink(regio, taal)}
                       </Link>
                     </>
                   )}

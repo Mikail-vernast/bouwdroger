@@ -91,6 +91,32 @@ const COPY = {
     projecten: "projets",
     bekijk: "Voir le projet",
   },
+  en: {
+    crumb: "Projects",
+    lijstNaam: "Completed drying projects",
+    eyebrow: "Our projects",
+    h1: "Real sites, real results",
+    intro: (
+      <>
+        Take a look at our completed projects: construction moisture after plastering and screed
+        work, water damage after a leak and rooms that were too damp. Each project shows the
+        problem, the approach and the result, with photos from the site itself.
+      </>
+    ),
+    filter: "Filter by type of work",
+    alle: "All projects",
+    ctaH2: "Got moisture to get rid of yourself?",
+    ctaP: (
+      <>
+        Work out in five questions which machines you need, with the drying time and the price
+        included. No obligation.
+      </>
+    ),
+    ctaKnop: "Calculate your drying package",
+    project: "project",
+    projecten: "projects",
+    bekijk: "View project",
+  },
 } satisfies Copy<{
   crumb: string;
   lijstNaam: string;
@@ -108,9 +134,9 @@ const COPY = {
 }>;
 
 /*
-  De Franse projectteksten laden pas op een Franse route en schorsen tot ze er
-  zijn (zie `realisatiesInTaal.ts`); deze grens vangt dat op. Het Nederlands
-  schorst nooit.
+  De Franse en Engelse projectteksten laden pas op een route in die taal en
+  schorsen tot ze er zijn (zie `realisatiesInTaal.ts`); deze grens vangt dat
+  op. Het Nederlands schorst nooit.
 */
 const RealisatiesPage = () => (
   <Suspense fallback={null}>
