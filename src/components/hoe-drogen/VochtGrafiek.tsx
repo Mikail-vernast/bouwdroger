@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { useCopy, type Copy } from "@/i18n/useTaal";
+import { useCopy, useTaal, type Copy } from "@/i18n/useTaal";
+import type { Taal } from "@/i18n/taal";
 import "@/styles/hoe-drogen-animaties.css";
 
 const COPY = {
@@ -18,6 +19,14 @@ const COPY = {
     verzadigd: "saturé : ",
     ruimte: "marge à 60 % : ",
     bij: "Plus l'air est chaud, plus il peut contenir de vapeur d'eau. C'est pourquoi un pourcentage ne veut rien dire sans la température, et pourquoi la marge pour absorber l'humidité augmente autant à chaque degré supplémentaire.",
+  },
+  en: {
+    aria: "Chart: how much water vapour air can hold at each temperature, at 20 to 100 percent relative humidity.",
+    asT: "temperature (°C)",
+    asG: "water vapour in the air (g/m³)",
+    verzadigd: "saturated: ",
+    ruimte: "room left at 60%: ",
+    bij: "The warmer the air, the more water vapour it can carry. That is why a percentage only means something together with the temperature, and why the room to absorb moisture grows so much with every extra degree.",
   },
 } satisfies Copy<{ aria: string; asT: string; asG: string; verzadigd: string; ruimte: string; bij: string }>;
 
@@ -60,7 +69,8 @@ const LIJNEN = [
 const TEMP_TICKS = [-10, -5, 0, 5, 10, 15, 20, 25, 30];
 const GRAM_TICKS = [0, 5, 10, 15, 20, 25, 30];
 
-const getal = (w: number, d = 1) => w.toFixed(d).replace(".", ",");
+/** Decimale komma in het Nederlands en Frans, punt in het Engels (en-BE zou een komma geven). */
+const getal = (w: number, taal: Taal, d = 1) => (taal === "en" ? w.toFixed(d) : w.toFixed(d).replace(".", ","));
 const graden = (t: number) => (t > 0 ? `+${t}` : `${t}`).replace("-", "−");
 
 /** Waar de aanwijzer begint — ook de stand die in de geprerenderde HTML staat. */
@@ -83,6 +93,7 @@ const PERIODE = 15000;
  */
 const VochtGrafiek = () => {
   const t = useCopy(COPY);
+  const taal = useTaal();
   const wortel = useRef<HTMLDivElement>(null);
   const lijn = useRef<SVGLineElement>(null);
   const spanLijn = useRef<SVGLineElement>(null);
@@ -115,8 +126,8 @@ const VochtGrafiek = () => {
       dotIjk.current?.setAttribute("cx", String(px));
       dotIjk.current?.setAttribute("cy", String(y(ijk)));
       if (tTekst.current) tTekst.current.textContent = `${graden(Math.round(t))} °C`;
-      if (volTekst.current) volTekst.current.textContent = `${getal(vol)} g/m³`;
-      if (ijkTekst.current) ijkTekst.current.textContent = `${getal(vol - ijk)} g/m³`;
+      if (volTekst.current) volTekst.current.textContent = `${getal(vol, taal)} g/m³`;
+      if (ijkTekst.current) ijkTekst.current.textContent = `${getal(vol - ijk, taal)} g/m³`;
     };
 
     const begin = performance.now();
@@ -148,7 +159,7 @@ const VochtGrafiek = () => {
       observer.disconnect();
       cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [taal]);
 
   const volStart = verzadiging(START);
 
@@ -215,10 +226,10 @@ const VochtGrafiek = () => {
             {graden(START)} °C
           </text>
           <text className="vgraf-chip-r" x={B.l + 24} y={B.t + 52}>
-            {t.verzadigd}<tspan ref={volTekst} className="vol">{getal(volStart)} g/m³</tspan>
+            {t.verzadigd}<tspan ref={volTekst} className="vol">{getal(volStart, taal)} g/m³</tspan>
           </text>
           <text className="vgraf-chip-r" x={B.l + 24} y={B.t + 70}>
-            {t.ruimte}<tspan ref={ijkTekst} className="ijk">{getal(volStart * 0.4)} g/m³</tspan>
+            {t.ruimte}<tspan ref={ijkTekst} className="ijk">{getal(volStart * 0.4, taal)} g/m³</tspan>
           </text>
         </g>
       </svg>

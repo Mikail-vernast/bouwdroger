@@ -30,11 +30,16 @@ const HoeDrogenWerktPage = () => {
   const toon = useToonBedrag();
   /*
     De Nederlandse zin toonde altijd het cataloguscijfer zonder label, en dat
-    blijft zo. In het Frans staat het bedrag zoals de bezoeker het betaalt,
-    mét TVAC of HTVA erachter.
+    blijft zo. In het Frans en Engels staat het bedrag zoals de bezoeker het
+    betaalt, mét TVAC/HTVA of incl./excl. VAT erachter.
   */
   const pompBedrag = toon(PUMP.price);
   const pomp = taal === "nl" ? euro(PUMP.price) : `${pompBedrag.tekst} ${pompBedrag.label}`;
+  /*
+    De waterdamp in de twee RV-vakjes. Engels schrijft een decimale punt; niet
+    via `NUMBER_LOCALE.en`, want en-BE geeft voor een los getal een komma.
+  */
+  const waterGram = taal === "en" ? "6.2 g" : "6,2 g";
   const t = useCopy(COPY)({ lp, pomp });
   const f = t.form;
 
@@ -120,7 +125,7 @@ const HoeDrogenWerktPage = () => {
               <div className="bar"><b></b></div>
             </div>
             <div className="rvmeet rvwater">
-              <span className="rvlab"><b>6,2 g</b>{t.waterPerKg}</span>
+              <span className="rvlab"><b>{waterGram}</b>{t.waterPerKg}</span>
               <div className="water" aria-hidden="true"><b></b><i></i><i></i><i></i><i></i></div>
             </div>
             <div className="sub">{t.koudSub}</div>
@@ -138,7 +143,7 @@ const HoeDrogenWerktPage = () => {
               <div className="bar"><b></b></div>
             </div>
             <div className="rvmeet rvwater">
-              <span className="rvlab"><b>6,2 g</b>{t.waterPerKg}</span>
+              <span className="rvlab"><b>{waterGram}</b>{t.waterPerKg}</span>
               <div className="water" aria-hidden="true"><b></b><i></i><i></i><i></i><i></i></div>
             </div>
             <div className="sub">{t.warmSub}</div>

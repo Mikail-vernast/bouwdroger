@@ -1,5 +1,6 @@
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
-import { useCopy, type Copy } from "@/i18n/useTaal";
+import { useCopy, useTaal, type Copy } from "@/i18n/useTaal";
+import type { Taal } from "@/i18n/taal";
 import "@/styles/hoe-drogen-animaties.css";
 
 type Variant = "temperatuur" | "vocht" | "lucht";
@@ -29,6 +30,11 @@ const TEKST = {
     temperatuur: { eenheid: "°C", labelVan: "chantier froid", labelNaar: "climat de travail" },
     vocht: { eenheid: "% HR", labelVan: "air saturé", labelNaar: "capacité d'absorption" },
     lucht: { eenheid: "m/s", labelVan: "air immobile", labelNaar: "sur chaque surface" },
+  },
+  en: {
+    temperatuur: { eenheid: "°C", labelVan: "cold site", labelNaar: "working climate" },
+    vocht: { eenheid: "% RH", labelVan: "saturated air", labelNaar: "absorption capacity" },
+    lucht: { eenheid: "m/s", labelVan: "still air", labelNaar: "across every surface" },
   },
 } satisfies Copy<MeterTekst>;
 
@@ -75,9 +81,15 @@ const METERS: Record<Variant, Meter> = {
   },
 };
 
-/** Nederlandse komma en een echt minteken — `toFixed` levert een punt en een koppelteken. */
-const toon = (waarde: number, decimalen: number) =>
-  waarde.toFixed(decimalen).replace(".", ",").replace("-", "−");
+/**
+ * Decimale komma in het Nederlands en Frans, punt in het Engels, en altijd een
+ * echt minteken — `toFixed` levert een punt en een koppelteken. Niet via
+ * `NUMBER_LOCALE`: en-BE geeft voor een los getal ook een komma.
+ */
+const toon = (waarde: number, decimalen: number, taal: Taal) => {
+  const vast = waarde.toFixed(decimalen);
+  return (taal === "en" ? vast : vast.replace(".", ",")).replace("-", "−");
+};
 
 const DUUR = 1600;
 /** Afstand tussen de drie kaarten: eerst temperatuur, dan RV, dan lucht. */
@@ -103,6 +115,7 @@ interface Props {
 const KlimaatMeter = ({ variant, volgorde = 0 }: Props) => {
   const m = METERS[variant];
   const tekst = useCopy(TEKST)[variant];
+  const taal = useTaal();
   const wortel = useRef<HTMLDivElement>(null);
   const getal = useRef<HTMLElement>(null);
 
@@ -118,7 +131,7 @@ const KlimaatMeter = ({ variant, volgorde = 0 }: Props) => {
     const zet = (p: number) => {
       el.style.setProperty("--p", String(p));
       el.style.setProperty("--f", String(m.vulVan + (m.vulNaar - m.vulVan) * p));
-      cijfer.textContent = toon(m.van + (m.naar - m.van) * p, m.decimalen);
+      cijfer.textContent = toon(m.van + (m.naar - m.van) * p, m.decimalen, taal);
     };
 
     const stop = () => {
@@ -161,7 +174,7 @@ const KlimaatMeter = ({ variant, volgorde = 0 }: Props) => {
       observer.disconnect();
       stop();
     };
-  }, [m, volgorde]);
+  }, [m, volgorde, taal]);
 
   return (
     <div
@@ -173,7 +186,7 @@ const KlimaatMeter = ({ variant, volgorde = 0 }: Props) => {
       <div className="klm-top">
         <span className="klm-ic">{m.icoon}</span>
         <span className="klm-val">
-          <b ref={getal}>{toon(m.naar, m.decimalen)}</b>
+          <b ref={getal}>{toon(m.naar, m.decimalen, taal)}</b>
           <i>{tekst.eenheid}</i>
         </span>
       </div>
