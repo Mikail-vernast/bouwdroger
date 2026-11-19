@@ -57,6 +57,8 @@ interface Teksten {
   laden: string;
   onbekendKop: string;
   onbekendUitleg: string;
+  /** Wat na het telefoonnummer komt. */
+  onbekendSlot: string;
   terug: string;
   verstuurdKop: string;
   verstuurdUitleg: (telefoon: string, afhaal: boolean) => string;
@@ -98,6 +100,7 @@ const COPY = {
     onbekendKop: "Deze link werkt niet meer",
     onbekendUitleg:
       "Wij vinden geen lopende huur bij deze link. Gebruik de knop uit de mail die u twee dagen vóór het einde van uw huurperiode kreeg, of bel ons op ",
+    onbekendSlot: ", dan regelen wij het telefonisch.",
     terug: "Terug naar de site",
     verstuurdKop: "Uw aanvraag staat genoteerd",
     verstuurdUitleg: (telefoon, afhaal) =>
@@ -139,6 +142,7 @@ const COPY = {
     onbekendKop: "Ce lien ne fonctionne plus",
     onbekendUitleg:
       "Nous ne trouvons aucune location en cours liée à ce lien. Utilisez le bouton de l'e-mail reçu deux jours avant la fin de votre période de location, ou appelez-nous au ",
+    onbekendSlot: " : nous réglons cela par téléphone.",
     terug: "Retour au site",
     verstuurdKop: "Votre demande est enregistrée",
     verstuurdUitleg: (telefoon, afhaal) =>
@@ -160,6 +164,48 @@ const COPY = {
       "Ceci est une demande, pas encore une confirmation : nous vérifions d'abord si les appareils peuvent rester plus longtemps chez vous. Vous aurez de nos nouvelles dans un délai d'un jour ouvrable, et les jours supplémentaires figureront sur votre prochaine facture. Votre explication nous aide à estimer tout de suite si une semaine suffit.",
     versturen: "Envoi…",
     aanvragen: "Demander une prolongation",
+  },
+  en: {
+    titel: "Extend your rental | Vernast",
+    beschrijving: "Request to keep your construction dehumidifiers for longer.",
+    keuzes: ["1 week", "2 weeks", "3 weeks", "4 weeks"],
+    toestel: {
+      small: "Small construction dehumidifier",
+      medium: "Medium construction dehumidifier",
+      axiaal: "Axial fan",
+      kachel: "Electric heater",
+    },
+    ontbreektTel: "a phone number we can reach you on",
+    ontbreektReden: "a short reason why you would like to extend",
+    missen: (lijst) => `We still need ${lijst.join(" and ")}.`,
+    mislukt: "Sending failed. Feel free to call us on 03 689 90 65.",
+    teVeel: "Too many requests. Please try again in a minute.",
+    laden: "Fetching your booking…",
+    onbekendKop: "This link no longer works",
+    onbekendUitleg:
+      "We cannot find a current rental for this link. Use the button in the email you received two days before the end of your rental period, or call us on ",
+    onbekendSlot: " and we will sort it out by phone.",
+    terug: "Back to the site",
+    verstuurdKop: "Your request has been noted",
+    verstuurdUitleg: (telefoon, afhaal) =>
+      `We will check whether the units can stay with you for longer and call you back within one working day on ${telefoon}. Until you hear from us, ${afhaal ? "the return" : "the collection"} remains scheduled for the original date.`,
+    gevraagdTot: "Requested until",
+    verlengKop: "Extend your rental",
+    referentie: "Reference",
+    pakket: "Package",
+    uwToestellen: "Your units",
+    bijUGeplaatst: "Installed at your site",
+    terugbrengenGepland: "Return currently scheduled for",
+    ophalingGepland: "Collection currently scheduled for",
+    hoeveelKop: "How much longer would you like to keep them?",
+    tot: "until",
+    telLabel: "Phone number we can reach you on",
+    redenLabel: "Why would you like to extend?",
+    redenPlaceholder: "For example: the screed in the basement is not dry yet.",
+    aanvraagUitleg:
+      "This is a request, not yet a confirmation: we first check whether the units can stay with you for longer. You will hear from us within one working day, and the extra days will appear on your next invoice. Your explanation helps us judge straight away whether one week is enough.",
+    versturen: "Sending…",
+    aanvragen: "Request an extension",
   },
 } satisfies Copy<Teksten>;
 
@@ -320,7 +366,7 @@ const VerhuurVerlengenPage = () => {
                 <p style={{ lineHeight: 1.7 }}>
                   {t.onbekendUitleg}
                   <a href="tel:+3236899065">03 689 90 65</a>
-                  {taal === "nl" ? ", dan regelen wij het telefonisch." : " : nous réglons cela par téléphone."}
+                  {t.onbekendSlot}
                 </p>
                 <div className="fnav" style={{ marginTop: 20 }}>
                   <Link className="btn btn-o" to={lp("/verhuur/calculator")}>

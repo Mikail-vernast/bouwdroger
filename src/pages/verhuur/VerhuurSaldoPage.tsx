@@ -114,6 +114,28 @@ const COPY = {
     factuurNote: "Dès réception du paiement, nous vous envoyons automatiquement votre facture par e-mail.",
     teVeel: "Trop de demandes. Réessayez dans une minute.",
   },
+  en: {
+    titel: "Pay your balance | Vernast",
+    beschrijving: "Settle the outstanding amount for your rental.",
+    laden: "Fetching your booking…",
+    onbekendKop: "This link does not work",
+    onbekendUitleg:
+      "We cannot find a booking for this link. Ask our technician to show the code again, or call us on ",
+    terug: "Back to the site",
+    betaaldKop: "Paid, thank you",
+    betaaldUitleg:
+      "Your rental has been paid in full. The invoice is sent to your inbox automatically; it may take a few minutes to arrive.",
+    referentie: "Reference",
+    nuTeBetalen: "To pay now",
+    vanTotaal: (totaal, betaald) => `of ${totaal} incl. VAT, ${betaald} already paid`,
+    uwHuur: "Your rental",
+    periode: "Period",
+    dagen: "days",
+    mislukt: "Payment did not go through. Feel free to call us on 03 689 90 65.",
+    formulierLaden: "Loading payment form…",
+    factuurNote: "As soon as the payment is received, we email your invoice automatically.",
+    teVeel: "Too many requests. Please try again in a minute.",
+  },
 } satisfies Copy<Teksten>;
 
 /** "2026-09-09" → "9 sep 2026". Leeg als de sessie de datum niet draagt. */

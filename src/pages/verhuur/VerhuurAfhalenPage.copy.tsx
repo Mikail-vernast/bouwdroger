@@ -390,39 +390,203 @@ const fr: AfhaalTeksten = {
   notaAfhaling: (totaal, saldo) => `Réservation ${totaal} TVAC · solde ${saldo} à l'enlèvement`,
 };
 
-export const AFHAAL_COPY = { nl, fr } satisfies Copy<AfhaalTeksten>;
+const en: AfhaalTeksten = {
+  pompEen: "Please include a condensate pump with this unit.",
+  pompMeer: (aantal) => `Please include ${aantal} condensate pumps with these units.`,
+  ontbreekt: {
+    toestellen: "Choose at least one unit.",
+    datum: "Choose a collection date.",
+    datumVol: "These units are not available on that date.",
+    naam: "Enter your name.",
+    telefoon: "Enter a valid phone number.",
+    email: "Enter a valid email address.",
+    adres: "Enter your address (for the invoice).",
+    firma: "Enter your company name.",
+    btw: "Enter your VAT number.",
+    akkoord: "Confirm the rental terms.",
+  },
+  week: "week",
+  weken: "weeks",
+  samenvatting: (units, dagen, weekSuffix) =>
+    `${units} unit${units === 1 ? "" : "s"} · ${dagen} days${weekSuffix} · collection`,
+  nogGeenToestellen: "No units chosen yet",
+  nietBevestigd:
+    "Your payment has not been confirmed yet. If this takes longer than a few minutes, call us on 03 689 90 65.",
+  nietNagekeken: "We could not check your payment. Feel free to call us on 03 689 90 65.",
+  nietDoorgegeven:
+    "Your booking could not be submitted. Please try again or call us on 03 689 90 65.",
+  nietGestart: "Payment could not be started. Please try again or call us on 03 689 90 65.",
+  nietVerstuurd:
+    "Your booking could not be sent. Check your connection or call us on 03 689 90 65.",
+  teVeel: "Too many requests. Please try again in a minute.",
+  catalogusNaam: "Collection rates for individual units, Aartselaar",
+  kruimelHome: "Home",
+  kruimelToestellen: "Equipment",
+  chip: "Self-collection · Aartselaar",
+  h1: "Hire individual units and collect them yourself.",
+  intro: (pct, voorschot) =>
+    `Put together what you need, construction dehumidifiers, fans and heaters, and collect everything from our warehouse. Pay online with ${pct}% discount, or secure your booking with ${voorschot} and pay the rest on collection.`,
+  teamAlt: "The Vernast team with construction dehumidifiers and fans",
+  stap1: "1. Choose your units",
+  stap1Sub: "Choose how many you need in each category. All prices are per day, excl. VAT.",
+  gekozen: (n) => `${n} chosen`,
+  perDag: "per day",
+  nietBeschikbaar: "Temporarily unavailable",
+  minder: (kort) => `Fewer ${kort}`,
+  meer: (kort) => `More ${kort}`,
+  maxBereikt: (max) => `We have ${max}, call us for more`,
+  stap2: "2. Rental period & collection time",
+  stap2Sub: "You collect from and return to our warehouse, on weekdays between 7:30 and 17:00.",
+  huurperiode: "Rental period",
+  afhaaldatum: "Collection date",
+  afhaalmoment: "Collection time",
+  datumVol: (datum) => `This combination is already booked on ${datum}.`,
+  eerstVrij: "The next available collection date is",
+  nietsVrij: " Nothing is available in the coming weeks, call us on 03 689 90 65.",
+  magazijn: "Vernast Bouwdrogers, warehouse",
+  uitleg: "On collection you get a short explanation of setup and use.",
+  stap3: "3. Your details",
+  stap3Sub:
+    "Whose name should the booking and invoice be in? We only need your address for invoicing, collection is at our warehouse.",
+  particulier: "Private",
+  professioneel: "Business",
+  naam: "Name",
+  naamPlaceholder: "First and last name",
+  telefoon: "Phone",
+  email: "Email",
+  emailPlaceholder: "name@example.com",
+  adres: "Address",
+  adresPlaceholder: "Street, no., town",
+  bedrijfsnaam: "Company name",
+  bedrijfPlaceholder: "Your company Ltd",
+  btwNummer: "VAT number",
+  opmerking: "Note (optional)",
+  opmerkingPlaceholder: "E.g. I'm coming with a trailer",
+  pompHint: "Taking a condensate pump? Ask for it here and we will have one ready.",
+  pompLink: "What does a condensate pump do?",
+  akkoord:
+    "I agree to the rental terms and will return the units clean and undamaged.",
+  stap4: "4. How would you like to pay?",
+  stap4Sub: (voorschot) =>
+    `The same two options as with a package: everything up front with a discount, or secure your booking with ${voorschot} and settle the rest when you come to collect the units.`,
+  korting: (pct) => `${pct}% discount`,
+  volledigOnline: "Pay in full online",
+  volledigOnlineUitleg: (pct) =>
+    `Pay now with Bancontact, card, Apple Pay or iDEAL. You get ${pct}% off your entire booking and your invoice lands in your inbox straight away.`,
+  uBespaart: (bedrag) => `You save ${bedrag}`,
+  voorschotKop: (bedrag) => `${bedrag} now, the rest on collection`,
+  voorschotUitleg: (bedrag) =>
+    `Confirm your booking with ${bedrag}. You scan and pay the balance at our warehouse when you come to collect the units: Bancontact, card or Apple Pay.`,
+  factuurNaBetaling: "Invoice after payment in full",
+  betaalKop: "Pay for your collection booking",
+  betaalSub: (bedrag) => (
+    <>
+      You pay <b>{bedrag}</b> with Apple Pay, Bancontact, card, iDEAL or Klarna. Payment is
+      handled securely by Stripe, we never see your card details.
+    </>
+  ),
+  saldoBijAfhaling: (bedrag) => (
+    <>
+      {" "}
+      You settle the balance of <b>{bedrag}</b> on collection.
+    </>
+  ),
+  klaar: (datum, slot) => (
+    <>
+      Your units will be ready in Aartselaar on <b>{datum}</b> between <b>{slot}</b> once the
+      payment is confirmed.
+    </>
+  ),
+  terugGegevens: "Back to my details",
+  geduldKop: "One moment",
+  geduldSub: "We are checking your payment with Stripe and preparing your booking.",
+  vastKop: "Your collection booking is confirmed",
+  vastSub:
+    "Everything will be ready for you at our warehouse in Aartselaar at the chosen time. You will shortly receive a confirmation email with the collection instructions and the address.",
+  vastSaldo: (bedrag) => (
+    <>
+      {" "}
+      You settle the balance of <b>{bedrag}</b> on collection: you scan our QR code and pay with
+      Bancontact, card or Apple Pay.
+    </>
+  ),
+  referentie: "Reference",
+  uwReservatie: "Your collection booking",
+  kiesLinks: "Choose your units on the left",
+  dagAfkorting: "d",
+  afhalenTerug: (start, slot, einde) => `Collect ${start} (${slot}) → return ${einde}`,
+  langhuurkorting: (pct) => `Long-term discount (${pct}%)`,
+  kortingOnline: (pct) => `Online payment discount (${pct}%)`,
+  btw: "VAT 21%",
+  totaalIncl: "Booking total incl. VAT",
+  nuTeBetalen: "To pay now",
+  incl: "incl. VAT",
+  evenGeduld: "One moment…",
+  betalen: (bedrag) => `Pay ${bedrag}`,
+  notaOnline: (bedrag) => `Rental ${bedrag} excl. VAT · secure payment via Stripe`,
+  notaAfhaling: (totaal, saldo) => `Booking ${totaal} incl. VAT · balance ${saldo} on collection`,
+};
 
-const GROEP_FR: Record<string, string> = {
-  Bouwdrogers: "Déshumidificateurs de chantier",
-  Ventilatoren: "Ventilateurs",
-  "Elektrische kachels": "Chauffages électriques",
+export const AFHAAL_COPY = { nl, fr, en } satisfies Copy<AfhaalTeksten>;
+
+const GROEP: Record<"fr" | "en", Record<string, string>> = {
+  fr: {
+    Bouwdrogers: "Déshumidificateurs de chantier",
+    Ventilatoren: "Ventilateurs",
+    "Elektrische kachels": "Chauffages électriques",
+  },
+  en: {
+    Bouwdrogers: "Construction dehumidifiers",
+    Ventilatoren: "Fans",
+    "Elektrische kachels": "Electric heaters",
+  },
 };
 
 /** De specs uit `data/afhalen.ts` die woorden bevatten; cijfers en eenheden vertalen apart. */
-const SPEC_FR: Record<string, string> = {
-  reservoir: "réservoir",
-  pompklaar: "prêt pour pompe",
-  "3 standen": "3 vitesses",
-  thermostaat: "thermostat",
-  adsorptie: "adsorption",
-  "via slangen": "par gaines",
-  "koude ruimtes": "pièces froides",
+const SPEC: Record<"fr" | "en", Record<string, string>> = {
+  fr: {
+    reservoir: "réservoir",
+    pompklaar: "prêt pour pompe",
+    "3 standen": "3 vitesses",
+    thermostaat: "thermostat",
+    adsorptie: "adsorption",
+    "via slangen": "par gaines",
+    "koude ruimtes": "pièces froides",
+  },
+  en: {
+    reservoir: "tank",
+    pompklaar: "pump-ready",
+    "3 standen": "3 speeds",
+    thermostaat: "thermostat",
+    adsorptie: "desiccant",
+    "via slangen": "ducted",
+    "koude ruimtes": "cold rooms",
+  },
 };
 
-function specInTaal(spec: string): string {
-  if (SPEC_FR[spec]) return SPEC_FR[spec];
+/*
+  Engels schrijft getallen anders: "0,75 kW" wordt "0.75 kW" en "4 500" wordt
+  "4,500". Frans deelt de Nederlandse notatie, dus daar blijft het getal staan.
+*/
+function getalInTaal(getal: string, taal: "fr" | "en"): string {
+  if (taal === "fr") return getal;
+  return getal.replace(/(\d)\s(\d{3})/g, "$1,$2").replace(/(\d),(\d{1,2})(?!\d)/g, "$1.$2");
+}
+
+function specInTaal(spec: string, taal: "fr" | "en"): string {
+  if (SPEC[taal][spec]) return SPEC[taal][spec];
   const perDag = /^(\d+) l \/ 24 u$/.exec(spec);
   if (perDag) return `${perDag[1]} l / 24 h`;
   const tot = /^tot (.+)$/.exec(spec);
-  if (tot) return `jusqu'à ${tot[1]}`;
+  if (tot) return `${taal === "fr" ? "jusqu'à" : "up to"} ${getalInTaal(tot[1], taal)}`;
   const debiet = /^(.+) m³\/u$/.exec(spec);
-  if (debiet) return `${debiet[1]} m³/h`;
-  return spec;
+  if (debiet) return `${getalInTaal(debiet[1], taal)} m³/h`;
+  return getalInTaal(spec, taal);
 }
 
 /** De categorienaam van een afhaaltoestel in de taal van de pagina. */
 export function groepInTaal(groep: string, taal: Taal): string {
-  return taal === "fr" ? (GROEP_FR[groep] ?? groep) : groep;
+  return taal === "nl" ? groep : (GROEP[taal][groep] ?? groep);
 }
 
 /**
@@ -431,19 +595,20 @@ export function groepInTaal(groep: string, taal: Taal): string {
  * verandert. Een tekst zonder vertaling blijft Nederlands.
  */
 export function afhaalProductInTaal(product: PickupProduct, taal: Taal): PickupProduct {
-  if (taal !== "fr") return product;
+  if (taal === "nl") return product;
   return {
     ...product,
     // `group` blijft Nederlands: de pagina groepeert erop. Toon hem via `groepInTaal`.
     name: vertaalPortaal(product.name, taal),
     sub: vertaalPortaal(product.sub, taal),
-    specs: product.specs.map(specInTaal),
+    specs: product.specs.map((spec) => specInTaal(spec, taal)),
   };
 }
 
 /** "1 week", "2 weken" … uit `PICKUP_PERIODS`, in de taal van de pagina. */
 export function periodeInTaal(dagen: number, label: string, taal: Taal): string {
-  if (taal !== "fr") return label;
+  if (taal === "nl") return label;
   const weken = dagen / 7;
+  if (taal === "en") return Number.isInteger(weken) ? `${weken} week${weken === 1 ? "" : "s"}` : `${dagen} days`;
   return Number.isInteger(weken) ? `${weken} semaine${weken === 1 ? "" : "s"}` : `${dagen} jours`;
 }

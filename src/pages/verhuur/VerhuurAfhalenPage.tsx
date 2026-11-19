@@ -64,7 +64,7 @@ import "@/styles/verhuur-betaling.css";
  */
 /*
   Alleen weergave. Nederlands houdt zijn oude notatie ("€ 29,00"), zodat die
-  pagina tekst-identiek blijft; Frans krijgt "29,00 €". Wat Stripe int, rekent
+  pagina tekst-identiek blijft; Frans krijgt "29,00 €", Engels "€29.00". Wat Stripe int, rekent
   `api/afhaal-checkout.ts` zelf uit.
 */
 const euroIn = (n: number, taal: Taal) =>
@@ -674,7 +674,7 @@ const VerhuurAfhalenPage = () => {
                     return (
                       <option key={value} value={value}>
                         {periodeInTaal(value, label, taal)}
-                        {pct > 0 ? ` · −${pct}${taal === "nl" ? "" : " "}%` : ""}
+                        {pct > 0 ? ` · −${pct}${taal === "fr" ? " " : ""}%` : ""}
                       </option>
                     );
                   })}

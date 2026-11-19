@@ -63,6 +63,20 @@ const COPY = {
     bel: "03 689 90 65",
     terug: "Retour au site",
   },
+  en: {
+    titelOk: "Payment received | Vernast",
+    titelNee: "Payment not completed | Vernast",
+    beschrijvingOk: "Thank you, your payment has been received.",
+    beschrijvingNee: "Your payment was not completed. Nothing has been charged.",
+    kopOk: "Thank you, your payment has been received",
+    uitlegOk:
+      "Your payment has been applied to your rental. Stripe sends a receipt to your inbox; it may take a few minutes to arrive.",
+    kopNee: "The payment was not completed",
+    uitlegNee:
+      "Nothing has been charged. Try again using the button in your email or our technician's code, or call us on ",
+    bel: "03 689 90 65",
+    terug: "Back to the site",
+  },
 } satisfies Copy<Teksten>;
 
 function Uitkomst({ geslaagd }: { geslaagd: boolean }) {
