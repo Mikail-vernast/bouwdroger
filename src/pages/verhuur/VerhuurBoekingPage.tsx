@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckoutElementsProvider } from "@stripe/react-stripe-js/checkout";
 import type { Stripe as StripeJs } from "@stripe/stripe-js";
 import PageMeta from "@/components/PageMeta";
 import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
+import LeverplaatsZoeker from "@/components/verhuur/LeverplaatsZoeker";
 import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -62,9 +64,10 @@ import {
   leverzoneUitQuery,
   type Land,
 } from "@/lib/levering";
+import type { Plaats } from "@/lib/plaatsZoeker";
 import { CONTACT } from "@/lib/site";
 import { useSeo } from "@/data/seo";
-import { catInTaal, coverInTaal, deliveryInTaal, extrasInTaal, packageSpecLineInTaal, pumpInTaal } from "@/data/verhuur.fr";
+import { catInTaal, coverInTaal, deliveryInTaal, extrasInTaal, packageSpecLineInTaal } from "@/data/verhuur.fr";
 import { formatEuro, useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
 import { NUMBER_LOCALE, type Taal } from "@/i18n/taal";
 import { BOEKING_COPY, regelInTaal } from "./VerhuurBoekingPage.copy";
@@ -259,7 +262,6 @@ const VerhuurBoekingPage = () => {
   const datumLang = (d: Date) => langeDatum(d, taal);
   const cover_ = useMemo(() => coverInTaal(taal), [taal]);
   const extras_ = useMemo(() => extrasInTaal(taal), [taal]);
-  const pump_ = useMemo(() => pumpInTaal(taal), [taal]);
   const delivery_ = useMemo(() => deliveryInTaal(taal), [taal]);
   const cat_ = useMemo(() => catInTaal(taal), [taal]);
   const ladderFee = taal === "nl" ? `€ ${LADDER_FEE}` : formatEuro(LADDER_FEE, taal, 0);
@@ -324,6 +326,44 @@ const VerhuurBoekingPage = () => {
     ...(uitQuery ? { post: uitQuery.postcode, land: uitQuery.land } : {}),
     ...stored?.customer,
   }));
+  /*
+    De werf zoals de zoeker ze toont. De postcode blijft de waarheid voor het
+    tarief; de gemeente gaat mee naar het leveradres in stap 4, zodat de
+    bezoeker ze daar niet nog eens hoeft te typen.
+  */
+  const leverplaats = useMemo<Plaats | null>(
+    () =>
+      /^\d{4}$/.test(customer.post)
+        ? { land: customer.land, postcode: customer.post, naam: customer.city }
+        : null,
+    [customer.land, customer.post, customer.city],
+  );
+  const kiesLand = useCallback((land: Land) => {
+    setCustomer((c) => ({ ...c, land }));
+  }, []);
+  const kiesLeverplaats = useCallback((p: Plaats | null) => {
+    setCustomer((c) =>
+      p
+        ? { ...c, land: p.land, post: p.postcode, city: p.naam || c.city }
+        : { ...c, post: "" },
+    );
+  }, []);
+  const [fotoGroot, setFotoGroot] = useState(false);
+  const [pompInfo, setPompInfo] = useState(false);
+  // Escape sluit de vergrote foto, en de pagina scrolt er niet onder mee.
+  useEffect(() => {
+    if (!fotoGroot) return;
+    const toets = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFotoGroot(false);
+    };
+    const vorig = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", toets);
+    return () => {
+      document.body.style.overflow = vorig;
+      window.removeEventListener("keydown", toets);
+    };
+  }, [fotoGroot]);
   const [reference, setReference] = useState("");
   /*
     Wat er effectief betaald is, zoals `api/checkout-session` het teruggeeft.
@@ -887,40 +927,18 @@ const VerhuurBoekingPage = () => {
               */}
               <div className="blk">
                 <div className="blkh">
-                  <h2>Waar leveren we?</h2>
+                  <h2>Waar wilt u de bouwdrogers geleverd?</h2>
                 </div>
                 <p className="bsub">
                   De huurprijs is overal dezelfde. Buiten onze eigen regio komt er een
                   transportvergoeding bij voor de rit heen en de ophaling terug.
                 </p>
-                <div className="frow">
-                  <div className="fld">
-                    <label htmlFor="zLand">Land</label>
-                    <select
-                      id="zLand"
-                      value={customer.land}
-                      onChange={(e) => setCustomer({ ...customer, land: e.target.value as Land })}
-                    >
-                      <option value="BE">België</option>
-                      <option value="NL">Nederland</option>
-                    </select>
-                  </div>
-                  <div className="fld">
-                    <label htmlFor="zPost">Postcode van de werf</label>
-                    <input
-                      type="text"
-                      id="zPost"
-                      inputMode="numeric"
-                      autoComplete="postal-code"
-                      placeholder={customer.land === "NL" ? "4811" : "2630"}
-                      maxLength={4}
-                      value={customer.post}
-                      onChange={(e) =>
-                        setCustomer({ ...customer, post: e.target.value.replace(/\D/g, "") })
-                      }
-                    />
-                  </div>
-                </div>
+                <LeverplaatsZoeker
+                  waarde={leverplaats}
+                  land={customer.land}
+                  onLand={kiesLand}
+                  onKies={kiesLeverplaats}
+                />
 
                 {customer.post.length === 4 && leverzone && leverbaar && (
                   <div className="pcz ja">
@@ -1140,21 +1158,48 @@ const VerhuurBoekingPage = () => {
               </div>
 
               <div className="blk">
-                <div className="blkh">
+                <div className="blkh pomph">
                   <h2>{t.pompKop}</h2>
+                  <button
+                    type="button"
+                    className={`pompi${pompInfo ? " on" : ""}`}
+                    aria-label={t.pompInfoKnop}
+                    aria-expanded={pompInfo}
+                    aria-controls="pompInfo"
+                    onClick={() => setPompInfo((v) => !v)}
+                  >
+                    i
+                  </button>
                 </div>
                 <p className="bsub">{t.pompSub}</p>
+                {pompInfo && (
+                  <div className="pompinfo" id="pompInfo">
+                    <img
+                      src="/vernast/condenspomp-slangopstelling.webp"
+                      alt={t.pompFotoAlt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div>
+                      <b>{t.pompInfoTitel}</b>
+                      {t.pompInfo}
+                      <Link to={lp("/verhuur/toebehoren/condenspomp")}>{t.pompMeerLink} →</Link>
+                    </div>
+                  </div>
+                )}
+                {/*
+                  Het aantal is het aantal bouwdrogers uit het pakket, vooraf
+                  ingevuld. "Condenspomp per bouwdroger" als productnaam liet
+                  de bezoeker rekenen; hier ziet hij gewoon "4 van de 4".
+                */}
                 <div>
                   <div className="ex">
                     <span className="exi">
                       <PumpIcon />
                     </span>
                     <span className="ext">
-                      <b>{pump_.name}</b>
-                      <small>
-                        {pump_.sub}
-                        {t.pompAantal(dryerCount)}
-                      </small>
+                      <b>{t.pompNaam}</b>
+                      <small>{t.pompAantal(pumpCount, dryerCount)}</small>
                     </span>
                     <span className="exp">
                       {eur(PUMP.price)}
@@ -1341,14 +1386,17 @@ const VerhuurBoekingPage = () => {
                       ))}
                     </select>
                   </div>
+                  {/*
+                    Geen invoerveld: de huurtermijn volgt uit het pakket. Een
+                    readonly-input zag eruit als iets wat je kon aanpassen, kreeg
+                    een cursor bij een klik en kapte de tekst af.
+                  */}
                   <div className="fld">
-                    <label htmlFor="dWeeks">{t.huurperiodeVast}</label>
-                    <input
-                      type="text"
-                      id="dWeeks"
-                      readOnly
-                      value={t.huurperiodeWaarde(rentalDays)}
-                    />
+                    <span className="fldl" id="dWeeks">{t.huurperiodeVast}</span>
+                    <div className="vast" aria-labelledby="dWeeks">
+                      <b>{t.huurperiodeDagen(rentalDays)}</b>
+                      <small>{t.huurperiodeInbegrepen}</small>
+                    </div>
                   </div>
                 </div>
 
@@ -1876,12 +1924,53 @@ const VerhuurBoekingPage = () => {
               <div className="sh">
                 {/* Met de bijgezette toestellen erbij: de banner draagt zijn
                     tellingen in het beeld, dus die moet meebewegen. */}
-                <img
-                  src={packageImage(config, allItems(config, dev))}
-                  alt={t.uwDroogpakket}
-                  loading="lazy"
-                  decoding="async"
-                />
+                {/*
+                  De banner draagt de tellingen en de toestellen in het beeld,
+                  en is in deze smalle kolom nauwelijks te lezen. Een klik zet
+                  hem op volle grootte.
+                */}
+                <button
+                  type="button"
+                  className="sh-zoom"
+                  onClick={() => setFotoGroot(true)}
+                  aria-label={t.fotoVergroten}
+                >
+                  <img
+                    src={packageImage(config, allItems(config, dev))}
+                    alt={t.uwDroogpakket}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span className="sh-zoom-i" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3M11 8v6M8 11h6" /></svg>
+                  </span>
+                </button>
+                {/*
+                  Via een portal op <body>: de samenvatting is sticky en maakt
+                  een eigen stapelcontext, waardoor een fixed overlay erin onder
+                  de header bleef hangen.
+                */}
+                {fotoGroot && createPortal(
+                  <div
+                    className="sh-groot"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={t.uwDroogpakket}
+                    onClick={() => setFotoGroot(false)}
+                  >
+                    <img src={packageImage(config, allItems(config, dev))} alt={t.uwDroogpakket} />
+                    <button
+                      type="button"
+                      className="sh-groot-x"
+                      aria-label={t.fotoSluiten}
+                      onClick={() => setFotoGroot(false)}
+                      autoFocus
+                    >
+                      ×
+                    </button>
+                  </div>,
+                  document.body,
+                )}
               </div>
               <div className="st">
                 <div className="sl">{t.uwPakket}</div>
@@ -1982,7 +2071,7 @@ const VerhuurBoekingPage = () => {
                     excl. btw, terwijl een particulier de prijs incl. btw hoort te
                     zien — en Stripe rekende datzelfde te lage bedrag af.
                   */}
-                  <div className="tl">
+                  <div className="tl totaal">
                     <span className="tll">{t.totaalIncl}</span>
                     <span className="tlv">{eur(summary.grossTotal)}</span>
                   </div>

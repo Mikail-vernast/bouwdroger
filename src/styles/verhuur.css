@@ -873,45 +873,7 @@
 .vh-book .pcz .pczp b{display:inline;font-size:inherit}
 .vh-book .pcz .pczp .excl{color:var(--txt-dim);font-size:12px}
 .vh-pkg .uspnoot{font-size:11.5px;line-height:1.55;color:var(--txt-dim);margin:14px 0 0;max-width:620px}
-.vh-calc .pcnoot{display:block;font-size:11.5px;line-height:1.5;color:rgba(255,255,255,.6);max-width:560px;margin:-8px 0 18px}
 .vh-book .pcznoot{display:block;font-size:11.5px;line-height:1.5;color:var(--txt-dim);margin-top:10px}
-/* transportregel op de pakketpagina */
-.vh-pkg .ptrans{display:flex;gap:11px;align-items:flex-start;margin-top:14px;padding:13px 15px;border:1.5px solid rgba(18,165,88,.35);border-radius:13px;background:#f4fbf7;font-size:13.5px;line-height:1.55;color:var(--txt-mid)}
-.vh-pkg .ptrans.opmaat{border-color:#bcd2ea;background:#f4f8fc}
-.vh-pkg .ptrans svg{flex-shrink:0;margin-top:2px;color:#0d7a42}
-.vh-pkg .ptrans.opmaat svg{color:#1d4f82}
-.vh-pkg .ptrans b{color:var(--txt);font-weight:700}
-/* postcodestap in de calculator — staat op het donkerrode paneel, dus de
-   labels moeten licht zijn en de uitkomstkaart draagt zijn eigen donkere tekst */
-.vh-calc .pcrij{display:grid;grid-template-columns:minmax(0,180px) minmax(0,240px);gap:14px;max-width:460px;margin-bottom:18px}
-@media (max-width:560px){.vh-calc .pcrij{grid-template-columns:1fr}}
-.vh-calc .pcveld{display:block}
-.vh-calc .pcveld > span{display:block;font-family:var(--fb);font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.68);margin-bottom:7px}
-.vh-calc .pcveld input,.vh-calc .pcveld select{width:100%;padding:12px 14px;border:1.5px solid rgba(255,255,255,.34);border-radius:10px;font-family:var(--fb);font-size:15px;color:#1a1a1a;background:#fff}
-.vh-calc .pcveld input::placeholder{color:#9a9a9a}
-.vh-calc .pcveld input:focus,.vh-calc .pcveld select:focus{outline:2px solid rgba(255,255,255,.55);border-color:#fff}
-.vh-calc .pcuit{max-width:560px;margin:0 0 20px;padding:15px 17px;border:1.5px solid rgba(255,255,255,.3);border-radius:14px;background:#fff;color:#4a4a4a}
-.vh-calc .pcuit.ja{border-color:rgba(18,165,88,.5);background:#f1faf5}
-.vh-calc .pcuit.nee{border-color:#e8c48f;background:#fdf6ec}
-.vh-calc .pcuit.opmaat{border-color:#aec8e4;background:#f3f7fc}
-.vh-calc .pcuit > b{display:block;font-family:var(--fd);font-weight:700;font-size:15px;color:#1a1a1a}
-.vh-calc .pcuit.ja > b{color:#0d7a42}
-.vh-calc .pcuit.opmaat > b{color:#1d4f82}
-.vh-calc .pcuit small{display:block;font-size:12.5px;line-height:1.55;color:#5c5c5c;margin-top:4px}
-.vh-calc .pcuit .pcbed{display:block;font-size:13.5px;line-height:1.5;color:#2a2a2a;margin-top:9px;padding-top:9px;border-top:1px solid rgba(0,0,0,.09)}
-.vh-calc .pcuit .pcbed b{display:inline;font-size:inherit;color:#1a1a1a;font-weight:700}
-.vh-calc .pcuit .pcexcl{color:#7a7a7a;font-size:12px}
-.vh-calc .pcsom{margin-top:11px;padding-top:11px;border-top:1px solid rgba(0,0,0,.09);display:grid;gap:5px;font-size:13.5px;color:#3a3a3a}
-.vh-calc .pcsom > div{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
-.vh-calc .pcsom em{display:block;font-style:normal;font-size:12px;color:#6a6a6a;margin-top:2px}
-.vh-calc .pcsom b{font-family:var(--fb);font-weight:700;color:#1a1a1a;font-variant-numeric:tabular-nums;white-space:nowrap}
-.vh-calc .pcsom .pctot{margin-top:4px;padding-top:7px;border-top:1px solid rgba(0,0,0,.12);font-weight:600;color:#1a1a1a}
-.vh-calc .pcsom .pctot b{font-family:var(--fd);font-size:19px}
-.vh-calc .pcuit.betaald{border-color:#e4c9a0;background:#fdf8f0}
-.vh-calc .pcuit.betaald > b{color:#8a5a12}
-.vh-calc .pcnodig{display:inline-block;margin-left:16px;font-size:13px;color:rgba(255,255,255,.7)}
-.vh-calc .pcover{border:0;background:none;padding:0;margin-left:16px;font:inherit;font-size:13.5px;color:rgba(255,255,255,.74);text-decoration:underline;cursor:pointer}
-.vh-calc .pcover:hover{color:#fff}
 .vh-book .pcz.offerte{border-color:#bcd2ea;background:#f4f8fc}
 .vh-book .pcz.offerte .pczd{background:#2f6fb3}
 .vh-book .pcz.offerte > div > b{color:#1d4f82}
@@ -1734,3 +1696,53 @@
    zwevende, transparante header als de boekings- en calculatorpagina; het
    rode-bandje-patroon is weg. De lead krijgt hieronder de vrije ruimte die de
    `position:fixed` header nodig heeft (zie `.vh-book .rail{margin-top:146px}`). */
+
+/* leverplaats: gemeente of postcode, met suggesties — stap 1 van de boeking
+   (LeverplaatsZoeker). Zelfde veld als .vh-book .fld, zodat het in de boeking
+   niet afsteekt tegen de adresvelden van stap 4. */
+.lpz{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:12px;max-width:560px;margin-top:4px}
+@media (max-width:560px){.lpz{grid-template-columns:1fr}}
+.lpz-veld{position:relative}
+.lpz label{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:7px;font-weight:600}
+.lpz input,.lpz select{width:100%;padding:13px 14px;border:1.5px solid var(--line-2);border-radius:11px;font-family:var(--fb);font-size:15px;color:var(--txt);background:#fff}
+.lpz input:focus,.lpz select:focus{outline:2px solid rgba(200,16,46,.22);border-color:var(--red)}
+.lpz-lijst{position:absolute;z-index:30;left:0;right:0;top:calc(100% + 6px);margin:0;padding:6px;list-style:none;background:#fff;border:1.5px solid var(--line-2);border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.12);max-height:320px;overflow-y:auto}
+.lpz-lijst li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px;color:var(--txt)}
+.lpz-lijst li.on{background:#fbeef0}
+.lpz-lijst li b{font-weight:700}
+.lpz-lijst li span{font-size:12px;color:var(--txt-dim);white-space:nowrap}
+.lpz-lijst li.lpz-leeg{cursor:default;color:var(--txt-dim);font-size:13px;display:block}
+/* samenvatting: de pakketfoto opent groot (VerhuurBoekingPage) */
+.vh-book .sum .sh-zoom{position:relative;display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.vh-book .sum .sh-zoom-i{position:absolute;right:10px;bottom:10px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:rgba(20,20,20,.72);color:#fff;transition:transform .15s}
+.vh-book .sum .sh-zoom:hover .sh-zoom-i{transform:scale(1.08)}
+.sh-groot{position:fixed;inset:0;z-index:10000;background:rgba(10,10,10,.86);display:grid;place-items:center;padding:24px;cursor:zoom-out}
+.sh-groot img{max-width:min(980px,100%);max-height:calc(100vh - 48px);width:auto;height:auto;border-radius:14px;background:#fff}
+.sh-groot-x{position:absolute;top:16px;right:18px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:#141414;font-size:26px;line-height:1;cursor:pointer}
+/* totaal: de regels erboven kregen geen lucht, en "Btw 21%" plakte tegen het totaal */
+.vh-book .stot .tl{align-items:baseline}
+.vh-book .stot .tl + .tl{margin-top:8px}
+.vh-book .stot .tl.totaal{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);align-items:flex-end}
+/* condenspomp: i-knop met uitleg en foto */
+.vh-book .blkh.pomph{display:flex;align-items:center;gap:10px}
+.vh-book .pompi{flex-shrink:0;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-2);background:#fff;color:var(--txt-mid);font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:14px;line-height:1;cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+.vh-book .pompi:hover,.vh-book .pompi.on{border-color:var(--red);color:#fff;background:var(--red)}
+.vh-book .pompinfo{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:16px;align-items:start;margin:14px 0 6px;padding:14px;border:1.5px solid var(--line);border-radius:14px;background:#fafafa}
+@media (max-width:620px){.vh-book .pompinfo{grid-template-columns:1fr}}
+.vh-book .pompinfo img{width:100%;height:auto;border-radius:10px;display:block;background:#fff}
+.vh-book .pompinfo b{display:block;font-family:var(--fd);font-weight:700;font-size:15px;color:var(--txt);margin-bottom:6px}
+.vh-book .pompinfo p{font-size:13.5px;line-height:1.6;color:var(--txt-mid);margin:0 0 8px}
+.vh-book .pompinfo p b{display:inline;font-size:inherit;font-family:inherit;margin:0}
+.vh-book .pompinfo a{font-size:13.5px;font-weight:600;color:var(--red)}
+/* huurperiode: vaste waarde, geen invoerveld */
+.vh-book .fld .fldl{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:7px;font-weight:600}
+.vh-book .fld .vast{display:flex;flex-direction:column;justify-content:center;min-height:49px;padding:7px 14px;border:1.5px dashed var(--line-2);border-radius:11px;background:#f6f6f6;cursor:default;user-select:none}
+.vh-book .fld .vast b{font-family:var(--fd);font-weight:700;font-size:14.5px;color:var(--txt);line-height:1.3}
+.vh-book .fld .vast small{font-size:11.5px;color:var(--txt-dim);line-height:1.35}
+/* betaalkeuze en akkoord: groen = gekozen. Rood bleef de kleur van een fout of
+   een waarschuwing, en een gekozen optie las daardoor als iets dat niet klopt.
+   De kortingsbadge blijft rood: dat is een aanbieding, geen toestand. */
+.vh-book .payopt:hover,.vh-pick .payopt:hover{border-color:rgba(18,165,88,.5)}
+.vh-book .payopt.sel,.vh-pick .payopt.sel{border-color:var(--ok);box-shadow:0 0 0 1.5px var(--ok) inset;background:#f4fbf7}
+.vh-book .cok input,.vh-pick .chk input{accent-color:var(--ok)}
+.vh-book .payopt.sel .pos,.vh-pick .payopt.sel .pos{color:#0d7a42}

@@ -180,11 +180,11 @@ export const GRATIS_LEVERING_KORT = `* binnen ${GRATIS_TOT_KM} km; daarbuiten va
 /**
  * De postcode reist met de configuratie mee door de trechter.
  *
- * De calculator vraagt hem als laatste stap, de pakketpagina toont er de
- * transportvergoeding mee, en de boekingswizard vult hem voor. Zonder dit
- * stond de prijs op /verhuur/pakket zonder transport en zag de bezoeker het
- * bedrag pas twee stappen later verschijnen — precies het soort verrassing
- * waar "transparante prijzen zonder verrassingen" naast staat.
+ * De boeking vraagt de werf in haar eerste stap ("Waar wilt u de bouwdrogers
+ * geleverd?") en rekent daar het transport. De calculator en de pakketpagina
+ * vragen hem bewust niet meer: daar ziet de bezoeker de prijs van zijn pakket,
+ * en wie twee keer zijn adres moet aanwijzen, haakt af. Een link met `land` en
+ * `pc` vult de boeking nog wel voor.
  *
  * Twee korte sleutels, want ze komen naast de pakketconfiguratie in dezelfde
  * adresbalk te staan.

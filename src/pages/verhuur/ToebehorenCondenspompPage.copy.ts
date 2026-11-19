@@ -91,7 +91,7 @@ export const COPY = {
     afvoerTitel: "Zo loopt het water weg.",
     afvoerLede: "Vier stappen die zich de hele huurperiode herhalen, zonder dat er iemand bij hoeft te zijn.",
     zonderK: "Zonder pomp",
-    zonderTitel: "U leegt de opvangbak 2 à 3 keer per dag",
+    zonderTitel: "U leegt de opvangbak gemiddeld 2 keer per dag",
     zonderTekst:
       "Loopt de bak vol terwijl er niemand is, dan schakelt de bouwdroger zichzelf uit en staat hij stil tot u hem leegt. Een weekend stilstand kost u een weekend droogtijd.",
     of: "of",
@@ -158,7 +158,7 @@ export const COPY = {
     afvoerLede:
       "Quatre étapes qui se répètent pendant toute la période de location, sans que personne ne doive être présent.",
     zonderK: "Sans pompe",
-    zonderTitel: "Vous videz le bac 2 à 3 fois par jour",
+    zonderTitel: "Vous videz le bac en moyenne 2 fois par jour",
     zonderTekst:
       "Si le bac se remplit alors que personne n'est là, le déshumidificateur s'arrête de lui-même et reste à l'arrêt jusqu'à ce que vous le vidiez. Un week-end d'arrêt vous coûte un week-end de séchage.",
     of: "ou",
@@ -225,7 +225,7 @@ export const COPY = {
     afvoerTitel: "This is how the water drains away.",
     afvoerLede: "Four steps that repeat throughout the hire period, without anyone needing to be there.",
     zonderK: "Without pump",
-    zonderTitel: "You empty the tank 2 to 3 times a day",
+    zonderTitel: "You empty the tank about twice a day on average",
     zonderTekst:
       "If the tank fills up while nobody is there, the construction dehumidifier switches itself off and stays idle until you empty it. A weekend standing still costs you a weekend of drying time.",
     of: "or",

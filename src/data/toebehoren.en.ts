@@ -43,7 +43,7 @@ export const CONDENSPOMP_EN: ToebehorenTekst = {
   bullets: [
     [
       "Never empty a tank again",
-      "Without a pump you empty the tray 2 to 3 times a day, depending on how damp the room is. With a pump: not once.",
+      "Without a pump you empty the tray about twice a day on average, depending on how damp the room is. With a pump: not once.",
     ],
     [
       "Keeps running at night and at weekends",

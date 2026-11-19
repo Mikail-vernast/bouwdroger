@@ -7,8 +7,14 @@ import "@/styles/site-footer.css";
 
 const COPY = {
   nl: {
-    say: "Wij staan er.",
-    sayEm: "In heel Vlaanderen.",
+    /*
+      Stond op "Wij staan er. In heel Vlaanderen." — terwijl we sinds de
+      transportzones tot in Wallonië en Nederland leveren. De zin zegt nu
+      waarvoor we er staan in plaats van waar: geen gebied dat bij elke nieuwe
+      zone verouderd is.
+    */
+    say: "Wij drogen vandaag.",
+    sayEm: "Voor de bouw van morgen.",
     claim: "Drooggarantie inbegrepen. Levering op de datum die u kiest.",
     diensten: "Diensten",
     groep: "Vernast Groep",
@@ -24,8 +30,8 @@ const COPY = {
     privacy: "Privacy",
   },
   fr: {
-    say: "Nous sommes là.",
-    sayEm: "Partout en Flandre.",
+    say: "Nous séchons aujourd'hui.",
+    sayEm: "Pour la construction de demain.",
     claim: "Garantie de séchage comprise. Livraison à la date de votre choix.",
     diensten: "Services",
     groep: "Groupe Vernast",
@@ -41,8 +47,8 @@ const COPY = {
     privacy: "Confidentialité",
   },
   en: {
-    say: "We are there.",
-    sayEm: "Across Flanders.",
+    say: "We dry today.",
+    sayEm: "For tomorrow's construction.",
     claim: "Drying guarantee included. Delivery on the date you choose.",
     diensten: "Services",
     groep: "Vernast Group",
