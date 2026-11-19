@@ -44,6 +44,8 @@ export interface BoekingTeksten {
   binnenkort: string;
   monitoringSub: string;
   fotoVergroten: string;
+  mistPlaats: string;
+  mistDekking: string;
   fotoSluiten: string;
   pompKop: string;
   pompSub: ReactNode;
@@ -207,6 +209,8 @@ const nl: BoekingTeksten = {
   monitoringSub:
     "Al onze toestellen krijgen digitale opvolging: u volgt de luchtvochtigheid en droogvoortgang binnenkort live online op, zonder meerkost, automatisch op elk toestel.",
   fotoVergroten: "Foto van uw pakket vergroten",
+  mistPlaats: "Vul eerst in waar we leveren: typ uw gemeente of postcode en kies ze in de lijst.",
+  mistDekking: "Kies een dekking om verder te gaan.",
   fotoSluiten: "Sluiten",
   pompKop: "Condenspomp, automatische waterafvoer",
   pompSub: (
@@ -447,6 +451,8 @@ const fr: BoekingTeksten = {
   monitoringSub:
     "Tous nos appareils seront bientôt suivis numériquement : vous suivrez l'humidité de l'air et l'avancement du séchage en direct en ligne, sans supplément, automatiquement sur chaque appareil.",
   fotoVergroten: "Agrandir la photo de votre pack",
+  mistPlaats: "Indiquez d'abord où nous livrons : tapez votre commune ou code postal et choisissez-la dans la liste.",
+  mistDekking: "Choisissez une couverture pour continuer.",
   fotoSluiten: "Fermer",
   pompKop: "Pompe à condensats, évacuation automatique de l'eau",
   pompSub: (
@@ -689,6 +695,8 @@ const en: BoekingTeksten = {
   monitoringSub:
     "All our units are getting digital monitoring: you will soon be able to follow the air humidity and drying progress live online, at no extra cost, automatically on every unit.",
   fotoVergroten: "Enlarge the photo of your package",
+  mistPlaats: "First tell us where to deliver: type your town or postcode and pick it from the list.",
+  mistDekking: "Choose a cover option to continue.",
   fotoSluiten: "Close",
   pompKop: "Condensate pump, automatic water drainage",
   pompSub: (

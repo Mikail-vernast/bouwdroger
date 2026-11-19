@@ -279,6 +279,17 @@ const VerhuurBoekingPage = () => {
   */
   const [step, setStep] = useState(() => (searchParams.get("session_id") ? STEP_VERIFY : 1));
   const [cover, setCover] = useState(stored?.options.cover ?? "comfort");
+  /*
+    De dekking moet de bezoeker zelf aanklikken. "comfort" blijft de waarde
+    waarmee de samenvatting rekent, maar een vooraf aangevinkte verzekering
+    is geen keuze — en wie ze niet gezien heeft, belt later over een schade.
+  */
+  const [coverGekozen, setCoverGekozen] = useState(Boolean(stored?.options.cover));
+  const kiesCover = (k: typeof cover) => {
+    setCover(k);
+    setCoverGekozen(true);
+  };
+  const [toonStap1Fouten, setToonStap1Fouten] = useState(false);
   const [extras, setExtras] = useState<Record<string, boolean>>(() =>
     Object.fromEntries((stored?.options.extras ?? []).map((k) => [k, true]))
   );
@@ -453,6 +464,22 @@ const VerhuurBoekingPage = () => {
   const goTo = (n: number) => {
     setStep(n);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  /*
+    Stap 1 laat niemand door zonder werf en zonder dekking. Zonder werf is er
+    geen transport en dus geen juist totaal; zonder dekking heeft de klant de
+    verzekering nooit bekeken. De knop blijft klikbaar maar wijst aan wat
+    ontbreekt — een grijze knop zonder uitleg leest als een kapotte wizard.
+  */
+  const naarStap2 = (dekkingGekozen = coverGekozen) => {
+    const mist = !leverzone ? "stap1-plaats" : !dekkingGekozen ? "stap1-dekking" : null;
+    if (mist) {
+      setToonStap1Fouten(true);
+      document.getElementById(mist)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    goTo(2);
   };
 
   /*
@@ -933,12 +960,18 @@ const VerhuurBoekingPage = () => {
                   De huurprijs is overal dezelfde. Buiten onze eigen regio komt er een
                   transportvergoeding bij voor de rit heen en de ophaling terug.
                 </p>
+                <div id="stap1-plaats" />
                 <LeverplaatsZoeker
                   waarde={leverplaats}
                   land={customer.land}
                   onLand={kiesLand}
                   onKies={kiesLeverplaats}
                 />
+                {toonStap1Fouten && !leverzone && (
+                  <p className="stap1fout" role="alert">
+                    {t.mistPlaats}
+                  </p>
+                )}
 
                 {customer.post.length === 4 && leverzone && leverbaar && (
                   <div className="pcz ja">
@@ -1022,19 +1055,24 @@ const VerhuurBoekingPage = () => {
                   <h2>{t.dekkingKop}</h2>
                 </div>
                 <p className="bsub">{t.dekkingSub}</p>
-                <div className="cvs">
+                {toonStap1Fouten && !coverGekozen && (
+                  <p className="stap1fout" role="alert">
+                    {t.mistDekking}
+                  </p>
+                )}
+                <div className="cvs" id="stap1-dekking">
                   {cover_.map((c) => (
                     <div
                       key={c.k}
-                      className={`cv${c.k === cover ? " sel" : ""}`}
-                      onClick={() => setCover(c.k)}
+                      className={`cv${coverGekozen && c.k === cover ? " sel" : ""}`}
+                      onClick={() => kiesCover(c.k)}
                       role="radio"
-                      aria-checked={c.k === cover}
+                      aria-checked={coverGekozen && c.k === cover}
                       tabIndex={0}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
-                          setCover(c.k);
+                          kiesCover(c.k);
                         }
                       }}
                     >
@@ -1070,11 +1108,11 @@ const VerhuurBoekingPage = () => {
                         type="button"
                         onClick={(e) => {
                           e.stopPropagation();
-                          setCover(c.k);
-                          goTo(2);
+                          kiesCover(c.k);
+                          naarStap2(true);
                         }}
                       >
-                        {c.k === cover ? t.gekozen : t.selecteer}
+                        {coverGekozen && c.k === cover ? t.gekozen : t.selecteer}
                       </button>
                     </div>
                   ))}
@@ -1084,7 +1122,7 @@ const VerhuurBoekingPage = () => {
                 <Link className="btn btn-o" to={lp(`/verhuur/pakket?${configToQuery(config)}${extraNaarQuery(dev)}`)}>
                   {t.terugNaarPakket}
                 </Link>
-                <button className="btn btn-d" type="button" onClick={() => goTo(2)}>
+                <button className="btn btn-d" type="button" onClick={() => naarStap2()}>
                   {t.verderExtras}
                   <ArrowRightIcon />
                 </button>
@@ -2098,7 +2136,7 @@ const VerhuurBoekingPage = () => {
                     className="btn btn-r"
                     type="button"
                     disabled={nextBlocked !== null}
-                    onClick={() => goTo(step + 1)}
+                    onClick={() => (step === 1 ? naarStap2() : goTo(step + 1))}
                   >
                     {nextBlocked === "laden" ? t.beschikbaarheidLaden : t.volgende[step] ?? t.verder}
                   </button>

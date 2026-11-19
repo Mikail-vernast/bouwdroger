@@ -1746,3 +1746,4 @@
 .vh-book .payopt.sel,.vh-pick .payopt.sel{border-color:var(--ok);box-shadow:0 0 0 1.5px var(--ok) inset;background:#f4fbf7}
 .vh-book .cok input,.vh-pick .chk input{accent-color:var(--ok)}
 .vh-book .payopt.sel .pos,.vh-pick .payopt.sel .pos{color:#0d7a42}
+.vh-book .stap1fout{margin:12px 0 0;padding:10px 14px;border-radius:10px;background:#fdf0f2;border:1px solid rgba(200,16,46,.3);color:#a10d26;font-size:13.5px;font-weight:600;line-height:1.5}
