@@ -39,8 +39,12 @@ describe("meertalige paden", () => {
     expect(wisselPad("/copy-v2", "fr")).toBe("/fr");
   });
 
-  it("geeft geen Engelse alternatieven zolang Engels niet online staat", () => {
-    expect(alternatieven("/chape-drogen")).toEqual({ nl: "/chape-drogen", fr: "/fr/sechage-chape" });
+  it("geeft per pagina de alternatieven in elke actieve taal", () => {
+    expect(alternatieven("/chape-drogen")).toEqual({
+      nl: "/chape-drogen",
+      fr: "/fr/sechage-chape",
+      en: "/en/screed-drying",
+    });
   });
 
   it("heeft geen twee pagina's op hetzelfde Franse pad", () => {

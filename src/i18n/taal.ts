@@ -20,7 +20,7 @@ export const STANDAARD_TAAL: Taal = "nl";
  * tekst zou Google als dubbele inhoud zien, en een klant die "English" kiest
  * kreeg toch Nederlands.
  */
-export const ACTIEVE_TALEN: readonly Taal[] = ["nl", "fr"];
+export const ACTIEVE_TALEN: readonly Taal[] = ["nl", "fr", "en"];
 
 /** Het voorvoegsel van een taal in het pad: "" voor nl, "/fr" en "/en". */
 export function prefix(taal: Taal): string {

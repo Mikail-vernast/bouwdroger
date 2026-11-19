@@ -103,3 +103,34 @@ const ChapeDrogenPage = () => {
    (`git add <paden>`, nooit `-A`), bericht in het Nederlands,
    `feat(i18n): <wat>`, eindigend op
    `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+
+---
+
+# Engels — aanvullende afspraken (fase 2, branch `feat/engels`)
+
+Frans is af (branch `feat/frans`). Engels volgt **hetzelfde patroon**: overal waar
+nu `nl:` en `fr:` staan, komt `en:` erbij. Waar een helper of databestand per taal
+bestaat (`*.fr.ts`, `productInTaal`, `realisatieInTaal`, `seo.fr.ts`,
+`gemeenten-fr/`, `regios-fr/`, `navigatie(taal)`, `betaalTaal`…), maak je de
+Engelse tegenhanger (`*.en.ts`, `seo.en.ts`, `gemeenten-en/`…) en laat je de helper
+`taal === "en"` aankunnen. Zoek met `grep -rn 'taal === "fr"'` naar plekken die
+Engels nu stilzwijgend als Nederlands behandelen.
+
+- **Brits Engels**: *metre*, *litre*, *mould*, *colour*, *centre*; aanspreekvorm
+  *you*. Vakterm: *construction dehumidifier* / *building dryer* (gebruik
+  "construction dehumidifier" als hoofdterm, "dehumidifier hire" als
+  zoekwoord), *screed*, *plaster(work)*, *desiccant dehumidifier*, *axial / radial
+  fan*, *site heater*, *moisture reading*, *water damage*, *mould removal*,
+  *ozone treatment*, *condensate pump*, *drying package* (droogpakket), *drying
+  guarantee* (drooggarantie), *quote* (offerte).
+- Btw: *incl. VAT* / *excl. VAT*. Bedragen `€29.00` (`formatEuro` met en-BE).
+- Plaatsnamen: Engelse exoniemen waar gangbaar (Antwerp, Ghent, Bruges, Brussels,
+  Ostend, Ypres, Louvain → **Leuven** (gangbaar in het Engels), Mechelen,
+  Liège → **Liège**, Mons, Namur, Flanders, Wallonia, East/West Flanders,
+  Flemish/Walloon Brabant, Limburg, Hainaut, Luxembourg (province)); anders de
+  officiële lokale naam (Nederlands in Vlaanderen, Frans in Wallonië en voor
+  Brusselse gemeenten de tweetalige gangbare vorm, bv. Ixelles, Schaerbeek).
+- Juridische teksten (voorwaarden, privacy, drooggarantie): getrouw, niets
+  toevoegen; de Nederlandse tekst blijft leidend.
+- Commit op branch `feat/engels`, berichten `feat(i18n-en): …`.

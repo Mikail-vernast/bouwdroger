@@ -1,6 +1,7 @@
 import { useTaal } from "@/i18n/useTaal";
 import type { Taal } from "@/i18n/taal";
 import { SEO_FR } from "./seo.fr";
+import { SEO_EN } from "./seo.en";
 /**
  * Titel en beschrijving per route, op één plek.
  *
@@ -286,5 +287,6 @@ export function useSeo(sleutel: SeoSleutel): SeoEntry {
 export function seoVoor(sleutel: SeoSleutel, taal: Taal): SeoEntry {
   const nl: SeoEntry = SEO[sleutel];
   if (taal === "fr") return SEO_FR[sleutel] ?? nl;
+  if (taal === "en") return SEO_EN[sleutel] ?? nl;
   return nl;
 }
