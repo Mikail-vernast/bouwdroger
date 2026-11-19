@@ -117,6 +117,13 @@ export interface NatTekst {
 
 const wekenNl = (n: number) => `${n} ${n === 1 ? "week" : "weken"}`;
 const wekenFr = (n: number) => `${n.toLocaleString(NUMBER_LOCALE.fr)} ${n === 1 ? "semaine" : "semaines"}`;
+/*
+  Engels getal bewust in en-GB, niet in NUMBER_LOCALE.en: dat is "en-BE", en
+  dat schrijft 6.2 als "6,2" — een decimale komma die een Engelse lezer als
+  duizendtalscheiding leest. Voor bedragen blijft formatEuro de weg.
+*/
+const enGetal = (n: number) => n.toLocaleString("en-GB");
+const wekenEn = (n: number) => `${enGetal(n)} ${n === 1 ? "week" : "weeks"}`;
 
 export const COPY = {
   nl: ({ lp, gCm, gNat, gWeken, pCm, pMin, dikCm }: NatHulp): NatTekst => ({
@@ -638,6 +645,265 @@ export const COPY = {
       cOnderwerpen: ["Dois-je louer quelque chose ?", "Combien de temps cela prendra-t-il chez moi ?", "Prix et date de livraison", "Autre chose"],
       cPlaceholder:
         "P. ex. nouvelle construction de 140 m², chape de 6 cm coulée le 3 novembre, plafonnage fin octobre, le poseur de sol vient mi-décembre.",
+    };
+  },
+  en: ({ lp, gCm, gNat, gWeken, pCm, pMin, dikCm }: NatHulp): NatTekst => {
+    const n = enGetal;
+    return {
+      weken: wekenEn,
+      cm: n,
+      faq: [
+        {
+          question: "How long does it take for a new build to dry naturally?",
+          answer: `There is no fixed timescale, and that is exactly the problem. For the screed, usually the slowest layer, building practice allows roughly one week per centimetre for the first four centimetres and then roughly two weeks for each extra centimetre: at ${n(gCm)} cm that comes to around ${n(gNat)} weeks. That guide figure only applies in a heated and ventilated space at around 20 degrees. On a closed-up, unheated site in November it does not run more slowly; it barely runs at all. That is why nobody commits to an end date without measuring.`,
+        },
+        {
+          question: "Can't I just open the windows and turn the heating on?",
+          answer: "That is the natural method, and it really does work, provided you do both at the same time. Ventilating alone cools the building down, and cold air carries little moisture away. Heating alone drives the moisture out of the materials but keeps it in the house, where it condenses again on the first cold surface. The combination works best in winter: outside air at 5 degrees and 90 percent humidity becomes, once warmed to 20 degrees indoors, air at around 35 percent, and that takes up water eagerly. Only then you do pay for the heat that escapes with every round of ventilation.",
+        },
+        {
+          question: "Should I open the windows while a construction dehumidifier is running?",
+          answer: "No, quite the opposite. A condensation dehumidifier works in a closed space: it draws in the indoor air, cools it until the water condenses out, drains that water away and blows the air back into the room dry and slightly warmed. If the windows are open, you keep bringing in fresh damp air and the unit is effectively drying the street. So keep doors and windows closed, and let the unit run day and night.",
+        },
+        {
+          question: "What is the difference compared with just waiting, in weeks?",
+          answer: `For a ${n(gCm)} cm screed, the guide figure for natural drying is around ${n(gNat)} weeks in favourable weather, against ${gWeken !== null ? wekenEn(gWeken) : "a few weeks"} with a drying package. With plaster the difference is smaller in weeks but just as unpredictable: a ${n(pCm)} cm coat is dry in ${wekenEn(pMin)} in a ventilated, heated home and still not dry after a month on a closed, cold site. So the real difference is not just the duration, but that a drying package comes with a date.`,
+        },
+        {
+          question: "Can I move into a house that is not dry yet?",
+          answer: "You can, but you then take the moisture into your daily life: misted-up windows, a musty smell, cupboards against external walls with mould growing behind them, and a heating bill that mainly warms up water. More annoying is what happens under your floor and behind your paint, because you only see that a season later. If you do move in, keep heating and ventilating well, and lay sensitive floor finishes as late as possible.",
+        },
+        {
+          question: "Does a construction dehumidifier also work on a cold site in winter?",
+          answer: "A condensation dehumidifier performs best roughly between 15 and 25 degrees; below that its output drops because there is less water in the air to condense. On a cold site we therefore add an electric site heater with a thermostat, or we choose a desiccant dehumidifier, which works with a drying agent and keeps removing moisture even at low temperatures. Which unit suits when is explained in our guide to condensation and desiccant dehumidifiers.",
+        },
+        {
+          question: "How do I know whether the house is really dry?",
+          answer: "By measuring, not by looking. A screed that is hard and light in colour can still be wet inside, and a wall that feels dry is only dry in its outer few millimetres. We record the residual moisture at the start and again at handover; those two values are what an end date rests on. If your floor layer or your building file needs a signed report, an official moisture report can be added.",
+        },
+        {
+          question: "What does drying with a construction dehumidifier cost?",
+          answer: "That depends on the volume of your home and on what needs drying: those two determine how many units are needed and how long they stay. The drying calculator asks for your floor area, the screed thickness and what you are drying, and immediately shows the package with the price, including delivery, installation and the readings. All individual daily and weekly rates are on our prices page.",
+        },
+      ],
+      crumbHome: "Home",
+      crumbGidsen: "Guides",
+      crumb: "Natural drying or a construction dehumidifier?",
+      kick: "Guide · new builds",
+      h1: "Drying a new build: naturally or with a construction dehumidifier?",
+      intro:
+        "Every new build contains construction moisture: mixing water from the screed, the plaster coat, the masonry and the concrete. That water has to leave the building before the floor layer, the decorator and your removal van arrive. There are two ways to go about it. You let the house dry on its own, or you control the indoor climate with a construction dehumidifier. Below: what the first approach really asks of you, why the season decides, and what the difference is in weeks.",
+      heroAlt: "Construction dehumidifier at work in a new-build home where the screed and plaster are still wet",
+      badgeTop: gWeken !== null ? wekenEn(gWeken) : "A few weeks",
+      badgeSub: `instead of ± ${n(gNat)} weeks for ${n(gCm)} cm of screed`,
+      stats: [
+        { em: "weeks", l: `Natural drying of ${n(gCm)} cm of screed, and even then only in a favourable indoor climate` },
+        { em: "weeks", l: "The same floor with a drying package, with an end date attached" },
+        { em: "h", l: "Active per day. Natural drying stalls every night as the building cools down" },
+        { em: "readings", l: "Before and after. That is what makes the difference between a date and an estimate" },
+      ],
+      lagen: [
+        { titel: "The screed", tekst: "The biggest reservoir, and the slowest. The water at the bottom has to travel up through the full thickness, because the insulation seals off everything below." },
+        { titel: "The plaster", tekst: "Thin, but on every wall and ceiling in the house. It gives up its water quickly, and all of it ends up in the same indoor air." },
+        { titel: "Masonry and concrete", tekst: "The shell has stood in wind and rain for months. Clay block and concrete take up water and then slowly release it into the space again." },
+        { titel: "The finishing", tekst: "Tile adhesive, filler, poured floors and paint bring in water all over again, just when the building is closed and nothing can get out any more." },
+        { titel: "And then the air", tekst: "Everything those layers give off first hangs in the indoor air. If that air does not leave the building, the moisture simply soaks back in somewhere else." },
+      ],
+      voorwaarden: [
+        { titel: "Warmth", tekst: "Warm air carries far more water than cold air. In an unheated shell at five degrees, drying all but stops, however long you wait." },
+        { titel: "Dry air", tekst: "Air that is already full of moisture takes up nothing more. As long as the indoor air stays saturated, the screed cannot get rid of its water." },
+        { titel: "Movement", tekst: "Just above a floor and against a wall, a layer of saturated air lingers. Without movement, that layer insulates the surface from the rest of the room." },
+        { titel: "Extraction", tekst: "The moisture has to leave the building. If it stays inside, it condenses on the coldest surface it can find: the glass, the sill, the corner behind the cupboard." },
+        { titel: "And time", tekst: "The four above determine how much time you need. If one cooperates and the rest do not, the slowest sets the pace." },
+      ],
+      risicos: [
+        { titel: "The floor starts to cup", tekst: "Parquet, vinyl and a poured floor seal off the screed. If there is still moisture underneath, it has nowhere to go and comes back as cupped boards or lifting strips." },
+        { titel: "The paint does not adhere", tekst: "Paint will not stay put on a plaster coat that is still wet inside. The result is dull patches, blisters or a layer that comes loose after a year." },
+        { titel: "Mould in the cold corners", tekst: "Moisture condenses where it is coldest: behind cupboards, in the corner of an external wall, on the sills. That is where the black growth starts, and it does not go away on its own." },
+        { titel: "A house that keeps sweating", tekst: "Misted-up windows, a musty smell and washing that will not dry. Anyone who moves into a wet house spends months heating water instead of their home." },
+        { titel: "Your schedule slips", tekst: "The floor layer and the decorator have diaries. If you give up your slot because it is not dry yet, you go to the back of the queue, and that often costs more weeks than the drying itself." },
+      ],
+      vpKick: "The starting point",
+      vpH2: "A new house is a wet house.",
+      vpLede:
+        "This is not about a puddle on the floor. A 6 cm screed over 120 m² is well over seven cubic metres of mortar, and the mixing water the cement does not bind chemically has to come back out through the surface. Then there are the walls, the shell and the finishing on top of that. All that water leaves the building by one route: the indoor air.",
+      vpNote: (
+        <>
+          <b>That is why drying is always about air.</b> A construction dehumidifier does not take water
+          out of your floor, it takes it out of the air above it. Only because that air gets drier can the
+          floor give off moisture again. Exactly how that works is explained in{" "}
+          <Link to={lp("/hoe-drogen-werkt")}>how drying works</Link>.
+        </>
+      ),
+      nKick: "Natural drying",
+      nH2: "Four things have to be right. At the same time.",
+      nLede:
+        "Natural drying is not a matter of waiting, it is a method: heating and ventilating, every day. It only works when these conditions come together. If one is missing, that one sets the pace for the whole.",
+      nNote: (
+        <>
+          <b>Heating and ventilating go together.</b> Ventilating alone cools the home down, and cold air
+          carries little moisture outside. Heating alone drives the moisture out of the materials but keeps
+          it indoors, where it condenses again on the coldest surface. Drying naturally therefore means
+          doing both, and paying for the heat that goes out with every round of ventilation.
+        </>
+      ),
+      sH2: "Why the calendar decides, not you",
+      sP: [
+        <>
+          Air can only carry a certain amount of water, and the warmer it is, the more that can be. That
+          one fact explains why the same home dries faster in January than in July, as long as you keep
+          the heating on.
+        </>,
+        <>
+          <b>In winter, outside air is bone dry as soon as it warms up.</b> Air at 5 degrees with 90 percent
+          relative humidity carries little water. Let it in and warm it to 20 degrees, and its relative
+          humidity drops to around 35 percent. Air like that eagerly takes up moisture, and with the next
+          round of ventilation that moisture goes outside with it.
+        </>,
+        <>
+          <b>In summer, the same mechanism works against you.</b> Outside air at 20 degrees with 80 percent
+          humidity is already fairly full. Let into a home at 22 degrees, it ends up at around 70 percent,
+          and then there is little room left to take up moisture. Ventilating feels good but achieves hardly
+          any drying.
+        </>,
+        <>
+          <b>And in a closed-up, unheated shell, nothing happens.</b> Inside and outside are equally cold,
+          the air is still and saturated. The home does not dry slowly, it simply does not dry. That is the
+          state most sites are in in November.
+        </>,
+      ],
+      sCaption:
+        "How the same action, ventilating, plays out differently by season. The percentages are worked examples at an indoor temperature of 20 to 22 degrees, not readings from your home.",
+      sKoppen: ["Situation", "Indoors after warming", "What ventilating achieves"],
+      sRijen: [
+        ["Winter, heated", "± 35%", "Strong drying, as long as you keep heating"],
+        ["Spring or autumn", "45 to 65%", "Dries in fits and starts; a wet week sets it back"],
+        ["Summer, warm and humid", "± 70%", "Little to nothing; sometimes you bring moisture in"],
+        ["Closed shell, no heating", "80% and more", "Drying all but stops"],
+      ],
+      vKick: "The difference",
+      vH2: "The same floor, two timelines.",
+      vLede:
+        "On the left, what the screed needs on its own in a favourable indoor climate; on the right, the hire period we allow for that thickness in our packages. That difference is not a promise about your floor, it is the difference between waiting and taking control.",
+      balkNat: (cm) => `${cm} cm, natural drying`,
+      balkPakket: (cm) => `${cm} cm, with a drying package`,
+      vglNoot:
+        "The bars are on the same scale, with the slowest drying at 100 percent. The guide figure follows the usual rule of thumb for sand and cement screed in a ventilated space at around 20 degrees.",
+      tCaption:
+        "Natural drying: guide figures from building practice in a favourable indoor climate. With a dehumidifier: the hire period of our standard packages, including residual moisture readings before and after. Neither column replaces a reading.",
+      tKoppen: ["What is drying", "Natural (guide figure)", "With a drying package"],
+      tChape: (cm) => `Screed, ${cm} cm`,
+      tPleister: (cm) => `Plaster, ${cm} cm`,
+      tTot: (min, max) => `${n(min)} to ${max}`,
+      tBeide: "Screed and plaster together",
+      tBeideNat: "The slower of the two",
+      vNote: (
+        <>
+          <b>Note what is in the left-hand column.</b> These are guide figures for a heated and ventilated
+          building, so for the best conditions natural drying can get. On a cold, closed-up site there is
+          no figure to go with it, and that is not hedging but the heart of the matter. And look at the thin
+          plaster coat: there the difference is small to non-existent. On a site like that, a package buys
+          you certainty rather than weeks, and sometimes you simply do not need it. By material,{" "}
+          <Link to={lp("/gids/hoe-lang-moet-chape-drogen")}>the screed guide</Link> and{" "}
+          <Link to={lp("/gids/hoe-lang-moet-pleisterwerk-drogen")}>the plaster guide</Link> go into it in
+          more depth.
+        </>
+      ),
+      zKick: "Side by side",
+      zH2: "What a construction dehumidifier does differently from waiting.",
+      zLede:
+        "The difference is not just speed. Natural drying depends on the weather, on how you heat and on who opens the windows that day. A drying package turns it into a controlled, measurable process.",
+      natLabel: "Natural drying",
+      natH3: "Free, but out of your hands.",
+      natLijst: [
+        { b: "The weather sets the pace.", rest: " A wet week in autumn sets the drying back, and nobody can tell you by how much." },
+        { b: "It stalls at night.", rest: " When the building cools down, the humidity rises again and some of the moisture is drawn back into floors and walls." },
+        { b: "The heat goes out with it.", rest: " Every round of ventilation removes moisture, and the heat you paid for along with it." },
+        { b: "Nothing is measured.", rest: " Without a reading there is no end date, just a feeling that it will probably be dry." },
+      ],
+      natVoet: "Costs you no hire, but it does cost weeks and certainty.",
+      pakLabel: "With a drying package",
+      pakH3: "A controlled climate, with a date attached.",
+      pakLijst: [
+        { b: "Closed space, no heat loss.", rest: " Windows and doors stay shut; the unit takes the water out of the air and returns that air dry and slightly warmed." },
+        { b: "Day and night, to a target value.", rest: " The humidistat keeps the humidity low and throttles back on its own once it is reached." },
+        { b: "A fan across the surface.", rest: " It sweeps away the saturated layer above the screed, so dry air keeps reaching the floor." },
+        {
+          b: "Readings before and after.",
+          rest: (
+            <>
+              {" "}The end date rests on them, and if the floor is not dry by then, we extend free of
+              charge. See{" "}
+              <Link to={lp("/drooggarantie")}>the Drying Guarantee</Link>.
+            </>
+          ),
+        },
+      ],
+      pakVoet: "Costs you hire, and gives you a date you can pass on to your contractor.",
+      rKick: "The bill afterwards",
+      rH2: "What goes wrong in a house that is still wet.",
+      rLede:
+        "Drying is not just a question of patience. As soon as work carries on over construction moisture, the problem moves into layers where you only see it again a season later.",
+      rNote: (
+        <>
+          <b>This is also the answer to "why would I pay to dry".</b> Repairing a cupped floor or redoing
+          the decorating costs many times more than a drying package. Which damage comes back most often
+          in practice is described on{" "}
+          <Link to={lp("/waarom-bouwdroging")}>why construction drying</Link>.
+        </>
+      ),
+      wH2: "When natural drying is enough",
+      wP1: "Not every site needs a construction dehumidifier, and we would rather say so here than after you have paid. Natural drying is a good choice when these things come together.",
+      wLijst: [
+        { b: "You have months to spare.", rest: " No floor layer or decorator is waiting, and a delay of a few weeks changes nothing in your schedule." },
+        { b: "It is summer and you can open everything up.", rest: " A house that stands in a draught for days in warm, dry weather loses a lot of moisture by itself." },
+        { b: "It is only a thin coat of plaster.", rest: " That is the quickest of the layers; without a thick screed underneath, it dries out a good deal faster." },
+        { b: "The home is heated and already lived in.", rest: " Then it dries a little more every day, as long as you keep ventilating." },
+      ],
+      wP2: "If one of those points does not apply, a drying package buys you certainty rather than speed: a timescale you can pass on and a reading that confirms it. If you only want the units and set them up yourself, that is possible too, at the collection rate from our depot along the A12.",
+      wCaption:
+        "What we would do ourselves, by situation. If in doubt, the question is not how fast it has to go, but whether someone needs a date from you.",
+      wKoppen: ["Your situation", "The approach that fits"],
+      wRijen: [
+        ["No date to meet, summer", "Natural drying: heat and ventilate"],
+        ["Only plaster, thin coat", "Often natural, certainly in a lived-in house"],
+        ["The floor layer is booked", <><Link to={lp("/verhuur/calculator")}>Drying package</Link> with readings and an end date</>],
+        [`Closed shell, winter, ${n(dikCm)} cm screed`, "Drying package, with a site heater on a cold site"],
+        ["You would rather set up yourself", <><Link to={lp("/verhuur/afhalen")}>Individual units</Link> at the collection rate</>],
+      ],
+      faqTitel: "Natural drying or hiring, answered briefly",
+      lKick: "Read on",
+      lH2: "Already know what needs drying at your place?",
+      lLede:
+        "Then these two pages pick up where this guide leaves off: with the timescales per layer and with what happens on your site.",
+      deur1H3: "How long does screed take to dry?",
+      deur1P:
+        "The guide figures per centimetre, the difference between cement and anhydrite screed, the heating-up protocol for underfloor heating and when to measure residual moisture.",
+      deur1Meer: "Read the screed guide →",
+      deur2H3: "Drying screed and plaster together",
+      deur2P:
+        "What drying on a new-build site costs and how it works: one package, one hire period and one reading before and after.",
+      deur2Meer: "See drying in new builds →",
+      lees: [
+        ["/hoe-drogen-werkt", "How drying works"],
+        ["/waarom-bouwdroging", "Why construction drying"],
+        ["/gids/hoe-lang-moet-pleisterwerk-drogen", "Plaster drying time"],
+        ["/gids/condensdroger-of-adsorptiedroger", "Condensation or desiccant dehumidifier"],
+        ["/gids/stroomverbruik-bouwdroger", "Power consumption of a construction dehumidifier"],
+        ["/prijzen", "Prices and rates"],
+      ],
+      mbKick: "From guide figure to date",
+      mbH3: "Give us your floor area and your screed thickness, and we will give you an end date.",
+      mbP: "The calculator turns your volume into a package with the right units and the right hire period. Our technician sets up, adjusts and measures at the start and at handover. If it is not dry by then, we extend free of charge.",
+      mbCta: "Calculate your drying package",
+      mbAlt: "Vernast technician measuring the residual moisture of a screed",
+      cKick: "Not sure whether you need to hire?",
+      cTitel: "Run your site past a drying specialist.",
+      cLede:
+        "Tell us what is drying, when it needs to be ready and what state your site is in. You will get an honest answer within one working day, even if that answer is that you do not need anything.",
+      cOnderwerpen: ["Do I need to hire anything for this?", "How long will it take in my case?", "Price and delivery date", "Something else"],
+      cPlaceholder:
+        "E.g. new build of 140 m², 6 cm screed laid on 3 November, plastered at the end of October, floor layer coming mid-December.",
     };
   },
 } satisfies Copy<(h: NatHulp) => NatTekst>;
