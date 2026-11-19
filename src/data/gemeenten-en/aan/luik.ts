@@ -12,4 +12,12 @@ export const AAN: readonly string[] = [
   "crisnee",
   "donceel",
   "faimes",
+  "fexhe-le-haut-clocher",
+  "geer",
+  "hannuit",
+  "lijsem",
+  "oerle",
+  "remicourt",
+  "saint-georges-sur-meuse",
+  "wasseiges",
 ];
