@@ -222,10 +222,16 @@ const StroomverbruikPage = () => {
     bezoeker ze betaalt, met TVAC/HTVA of incl./excl. VAT; het Nederlands
     houdt zijn cataloguscijfer.
   */
+  /*
+    Engels niet via NUMBER_LOCALE: "en-BE" schrijft gewone getallen als "0,75"
+    en "1.400", terwijl formatEuro in dezelfde locale "€0.30" geeft. Dat gaf
+    "0,75 kW" naast "€5.40" op één regel; "en-GB" houdt beide bij de punt.
+  */
+  const getalLocale = taal === "en" ? "en-GB" : NUMBER_LOCALE[taal];
   const fmtGetal = nl
     ? getal
     : (n: number, decimalen = 1) =>
-        n.toLocaleString(NUMBER_LOCALE[taal], { minimumFractionDigits: 0, maximumFractionDigits: decimalen });
+        n.toLocaleString(getalLocale, { minimumFractionDigits: 0, maximumFractionDigits: decimalen });
   const fmtBedrag = nl ? bedrag : (n: number) => formatEuro(n, taal);
   const catalogus = (excl: number) => {
     if (nl) return euro(excl);
