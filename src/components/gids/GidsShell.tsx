@@ -94,6 +94,13 @@ const COPY = {
     faqKick: "Questions fréquentes",
     faqTitel: "En bref",
   },
+  en: {
+    kruimelpad: "Breadcrumb",
+    bereken: "Calculate your drying package",
+    afhalen: "Collect individual units",
+    faqKick: "Frequently asked questions",
+    faqTitel: "In short",
+  },
 } satisfies Copy<{ kruimelpad: string; bereken: string; afhalen: string; faqKick: string; faqTitel: string }>;
 
 /**

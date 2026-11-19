@@ -103,6 +103,33 @@ const COPY = {
       </>
     ),
   },
+  en: {
+    crumbHome: "Home",
+    crumb: "Guides",
+    kick: "All about drying · guides",
+    h1: "Guides to construction drying",
+    intro:
+      "Everything we have explained about drying, on one page. How long something needs to dry, which machine you need, what that costs in electricity, and what is included in a delivery. No sales talk, with the figures from our own catalogue where they exist.",
+    heroAlt: "The Vernast tradesmen with their tools",
+    lijst: "Guides to construction drying",
+    antwoorden: (n) => `${n} answers`,
+    vraag: "What is your question about?",
+    lede: "Tap a topic and you will immediately see which questions we answer about it. From drying times and choice of machine to what a delivery costs.",
+    alles: "All",
+    vanDe: (z, n) => ` of ${n} pages · `,
+    toonAlles: "Show all",
+    verdeeld: (g) => ` pages, across ${g} topics`,
+    meer: "Read more",
+    note: (lp) => (
+      <>
+        <b>Is your question not listed?</b> Browse <Link to={lp("/machines")}>the full range</Link>{" "}
+        if you are looking for a machine, <Link to={lp("/realisaties")}>our projects</Link> if you want to see how
+        a site like yours went, or work out your set-up straight away in the{" "}
+        <Link to={lp("/verhuur/calculator")}>drying calculator</Link>. Rather speak to someone? You can do
+        that too, via <Link to={lp("/contact")}>contact</Link>.
+      </>
+    ),
+  },
 } satisfies Copy<HubTekst>;
 
 const Pijl = () => (
