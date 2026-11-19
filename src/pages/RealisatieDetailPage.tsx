@@ -1,15 +1,14 @@
+import { Suspense } from "react";
 import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema } from "@/lib/schema";
-import { SEO } from "@/data/seo";
-import {
-  REALISATIES,
-  getRealisatie,
-  realisatieMeta,
-  type Realisatie,
-} from "@/data/realisaties";
+import { useSeo } from "@/data/seo";
+import { realisatieMeta, type Realisatie } from "@/data/realisaties";
+import { realisatiesInTaal } from "@/data/realisatiesInTaal";
+import { useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
+import type { Taal } from "@/i18n/taal";
 import { realisatieSlugsIn, regioVanRealisatie } from "@/data/realisatie-regio";
 import { REALISATIE_REDIRECTS } from "@/data/realisatie-redirects";
 import RealisatieAlbum from "@/components/realisaties/RealisatieAlbum";
@@ -46,16 +45,92 @@ const Alinea = ({ html }: { html: string }) => (
   <p dangerouslySetInnerHTML={{ __html: html.replace(TOEGESTAAN, "") }} />
 );
 
+const COPY = {
+  nl: {
+    nietGevonden: "Project niet gevonden",
+    terug: "Terug naar de realisaties",
+    crumb: "Realisaties",
+    kruimelpad: "Kruimelpad",
+    bereken: "Bereken uw droogpakket",
+    gamma: "Ons gamma toestellen",
+    fiche: "Projectfiche",
+    droogplan: "Vraag een droogplan aan",
+    vrijblijvend: "Vrijblijvend, met een vaste prijs vooraf.",
+    bekijk: "Bekijk project",
+  },
+  fr: {
+    nietGevonden: "Projet introuvable",
+    terug: "Retour aux réalisations",
+    crumb: "Réalisations",
+    kruimelpad: "Fil d'Ariane",
+    bereken: "Calculez votre pack de séchage",
+    gamma: "Notre gamme d'appareils",
+    fiche: "Fiche du projet",
+    droogplan: "Demandez un plan de séchage",
+    vrijblijvend: "Sans engagement, avec un prix fixe connu d'avance.",
+    bekijk: "Voir le projet",
+  },
+  en: {
+    nietGevonden: "Project not found",
+    terug: "Back to the projects",
+    crumb: "Projects",
+    kruimelpad: "Breadcrumb",
+    bereken: "Calculate your drying package",
+    gamma: "Our range of machines",
+    fiche: "Project details",
+    droogplan: "Request a drying plan",
+    vrijblijvend: "No obligation, with a fixed price agreed in advance.",
+    bekijk: "View project",
+  },
+} satisfies Copy<Record<string, string>>;
+
+/*
+  Het Frans kent geen neutraal "in": à Bruxelles, en Flandre orientale, dans le
+  Limbourg. De regio's met een eigen werf staan hier; een andere valt terug op
+  een vorm zonder voorzetsel.
+*/
+const VOORZETSEL_FR: Record<string, string> = {
+  antwerpen: "dans la province d'Anvers",
+  "oost-vlaanderen": "en Flandre orientale",
+  "west-vlaanderen": "en Flandre occidentale",
+  "vlaams-brabant": "en Brabant flamand",
+  brussel: "à Bruxelles",
+  limburg: "dans le Limbourg",
+};
+
+const regioLinkFr = (regio: { slug: string; name: string; nameFr?: string }) =>
+  VOORZETSEL_FR[regio.slug]
+    ? `Louer un déshumidificateur de chantier ${VOORZETSEL_FR[regio.slug]}`
+    : `Location de déshumidificateurs de chantier · ${regio.nameFr ?? regio.name}`;
+
+/* Engelse exoniemen voor de regio's met een eigen werf (docs/vertalen.md). */
+const REGIO_EN: Record<string, string> = {
+  antwerpen: "the province of Antwerp",
+  "oost-vlaanderen": "East Flanders",
+  "west-vlaanderen": "West Flanders",
+  "vlaams-brabant": "Flemish Brabant",
+  brussel: "Brussels",
+  limburg: "Limburg",
+};
+
+const regioLink = (regio: { slug: string; name: string; nameFr?: string }, taal: Taal) => {
+  if (taal === "fr") return regioLinkFr(regio);
+  if (taal === "en") return `Construction dehumidifier hire in ${REGIO_EN[regio.slug] ?? regio.name}`;
+  return `Bouwdroger huren in ${regio.name}`;
+};
+
 const NietGevonden = () => {
   const navigate = useNavigate();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
   return (
     <div className="v3 rz-page">
-      <PageMeta {...SEO.notFound} />
+      <PageMeta {...useSeo("notFound")} />
       <V3Header />
       <div className="rz-wrap" style={{ padding: "160px 0 120px", textAlign: "center" }}>
-        <h1 style={{ fontSize: 28, marginBottom: 16 }}>Project niet gevonden</h1>
-        <button type="button" className="rz-btn rz-btn-red" onClick={() => navigate("/realisaties")}>
-          Terug naar de realisaties
+        <h1 style={{ fontSize: 28, marginBottom: 16 }}>{t.nietGevonden}</h1>
+        <button type="button" className="rz-btn rz-btn-red" onClick={() => navigate(lp("/realisaties"))}>
+          {t.terug}
         </button>
       </div>
       <V3Footer />
@@ -63,14 +138,29 @@ const NietGevonden = () => {
   );
 };
 
-const RealisatieDetailPage = () => {
+/*
+  De Franse en Engelse projectteksten laden pas op een route in die taal en
+  schorsen tot ze er zijn (zie `realisatiesInTaal.ts`); deze grens vangt dat op.
+*/
+const RealisatieDetailPage = () => (
+  <Suspense fallback={null}>
+    <Project />
+  </Suspense>
+);
+
+const Project = () => {
   const { slug } = useParams<{ slug: string }>();
   const { search, hash } = useLocation();
+  const taal = useTaal();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
   const nieuweSlug = slug ? REALISATIE_REDIRECTS[slug] : undefined;
   // Vite en navigatie binnen de app passeren de serverredirects niet.
   if (nieuweSlug) {
-    return <Navigate replace to={`/realisaties/${nieuweSlug}${search}${hash}`} />;
+    return <Navigate replace to={`${lp(`/realisaties/${nieuweSlug}`)}${search}${hash}`} />;
   }
+  const REALISATIES = realisatiesInTaal(taal);
+  const getRealisatie = (s: string) => REALISATIES.find((r) => r.slug === s);
   const project = slug ? getRealisatie(slug) : undefined;
   if (!project) return <NietGevonden />;
 
@@ -97,13 +187,13 @@ const RealisatieDetailPage = () => {
     <div className="v3 rz-page">
       <PageMeta
         {...realisatieMeta(project)}
-        path={`/realisaties/${project.slug}`}
+        path={lp(`/realisaties/${project.slug}`)}
         image={project.hero}
         ogType="article"
         jsonLd={breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Realisaties", path: "/realisaties" },
-          { name: project.titel, path: `/realisaties/${project.slug}` },
+          { name: "Home", path: lp("/") },
+          { name: t.crumb, path: lp("/realisaties") },
+          { name: project.titel, path: lp(`/realisaties/${project.slug}`) },
         ])}
       />
       <V3Header />
@@ -111,10 +201,10 @@ const RealisatieDetailPage = () => {
       <main>
         <section className="rz-hero">
           <div className="rz-wrap">
-            <nav className="rz-crumb" aria-label="Kruimelpad">
-              <Link to="/">Home</Link>
+            <nav className="rz-crumb" aria-label={t.kruimelpad}>
+              <Link to={lp("/")}>Home</Link>
               <span className="sep">›</span>
-              <Link to="/realisaties">Realisaties</Link>
+              <Link to={lp("/realisaties")}>{t.crumb}</Link>
               <span className="sep">›</span>
               <span className="cur">{project.titel}</span>
             </nav>
@@ -137,8 +227,8 @@ const RealisatieDetailPage = () => {
                   {regio && (
                     <>
                       {" · "}
-                      <Link to={regio.path} className="rz-loc-link">
-                        Bouwdroger huren in {regio.name}
+                      <Link to={lp(regio.path)} className="rz-loc-link">
+                        {regioLink(regio, taal)}
                       </Link>
                     </>
                   )}
@@ -199,17 +289,17 @@ const RealisatieDetailPage = () => {
                 ))}
 
                 <div className="svc-link">
-                  <Link to="/verhuur/calculator">
-                    <DryIcon /> Bereken uw droogpakket
+                  <Link to={lp("/verhuur/calculator")}>
+                    <DryIcon /> {t.bereken}
                   </Link>
-                  <Link to="/machines">
-                    <HouseIcon /> Ons gamma toestellen
+                  <Link to={lp("/machines")}>
+                    <HouseIcon /> {t.gamma}
                   </Link>
                 </div>
               </div>
 
               <aside className="rz-meta">
-                <h4>Projectfiche</h4>
+                <h4>{t.fiche}</h4>
                 <dl>
                   {project.fiche.map((f) => (
                     <div className="rz-mrow" key={f.label}>
@@ -218,10 +308,10 @@ const RealisatieDetailPage = () => {
                     </div>
                   ))}
                 </dl>
-                <Link className="rz-btn rz-btn-red" to="/contact">
-                  Vraag een droogplan aan <ArrowRight className="arr" />
+                <Link className="rz-btn rz-btn-red" to={lp("/contact")}>
+                  {t.droogplan} <ArrowRight className="arr" />
                 </Link>
-                <p className="m-note">Vrijblijvend, met een vaste prijs vooraf.</p>
+                <p className="m-note">{t.vrijblijvend}</p>
               </aside>
             </div>
           </div>
@@ -267,13 +357,13 @@ const RealisatieDetailPage = () => {
             </div>
             <div className="rel-grid">
               {meer.map((r) => (
-                <Link className="rel-card" to={`/realisaties/${r.slug}`} key={r.slug}>
+                <Link className="rel-card" to={lp(`/realisaties/${r.slug}`)} key={r.slug}>
                   <img src={r.kaart} alt={r.kaartAlt} loading="lazy" width={800} height={600} />
                   <div className="rc-body">
                     <span className="rc-tag">{r.chip}</span>
                     <h3>{r.titel}</h3>
                     <span className="rc-more">
-                      Bekijk project <ArrowRight />
+                      {t.bekijk} <ArrowRight />
                     </span>
                   </div>
                 </Link>

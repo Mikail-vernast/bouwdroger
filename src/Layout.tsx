@@ -1,7 +1,21 @@
-import { useRef } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import ScrollToTop from "@/components/ScrollToTop";
+import { useVoorkeur } from "@/i18n/useTaal";
+
+/*
+  De keuzepopup (taal, particulier/bedrijf, land) laadt lui: zijn code en zijn
+  foto's horen niet in de entry-chunk van wie hem al ooit beantwoordde.
+*/
+const KeuzePopup = lazy(() => import("@/components/KeuzePopup"));
+
+/*
+  Pagina's waar de popup niet mag verschijnen: de QR-betaling bij de
+  installatie, de verlenglink uit de mail en de bevestigingen na betaling.
+  Wie daar komt, heeft al geboekt — en een technieker staat ernaast te wachten.
+*/
+const ZONDER_POPUP = /\/(saldo|solde|balance|verlengen|prolonger|extend|success|confirmation)(\/|$)/;
 
 /**
  * Applicatieschil rond elke route. Staat los van de router zelf omdat de
@@ -42,6 +56,23 @@ const Layout = () => {
     animeert alleen wat de bezoeker daarna zelf aanklikt.
   */
   const initialPath = useRef(location.pathname);
+
+  /*
+    Eén keer, bij het eerste bezoek: pas ná mount (zodat hij nooit in de
+    geprerenderde HTML belandt) en alleen zolang er nog geen voorkeur bewaard is.
+  */
+  const voorkeur = useVoorkeur();
+  const [gemount, setGemount] = useState(false);
+  const [popupDicht, setPopupDicht] = useState(false);
+  useEffect(() => setGemount(true), []);
+  /*
+    `?taalkeuze` in de URL toont de popup opnieuw, ook als er al een keuze
+    bewaard is — om hem na te kijken, of voor een klant die zijn keuze wil
+    overdoen zonder zijn browsergegevens te wissen.
+  */
+  const opnieuw = gemount && new URLSearchParams(location.search).has("taalkeuze");
+  const toonPopup =
+    gemount && (!voorkeur || opnieuw) && !popupDicht && !ZONDER_POPUP.test(location.pathname);
   const navigated = useRef(false);
   if (!navigated.current && location.pathname !== initialPath.current) {
     // Eén keer wegklikken is genoeg: vanaf dan animeert elke pagina, ook als de
@@ -63,6 +94,11 @@ const Layout = () => {
   return (
     <>
       <ScrollToTop />
+      {toonPopup && (
+        <Suspense fallback={null}>
+          <KeuzePopup onKlaar={() => setPopupDicht(true)} />
+        </Suspense>
+      )}
       <FloatingWhatsApp />
       {/*
         `page-shell` is de vaste haak waaraan src/styles/site-footer.css de
@@ -76,7 +112,15 @@ const Layout = () => {
         key={location.pathname}
         className={navigated.current ? "page-shell page-enter" : "page-shell"}
       >
-        <Outlet />
+        {/*
+          Vangnet voor pagina's die tijdens de render op een taalbestand
+          wachten (zoals `realisatieInTaal` in het Frans). Zonder grens hier
+          gooide React bij een navigatie naar zo'n pagina een fout in plaats
+          van even te wachten. Bij het prerenderen is de data er al.
+        */}
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </div>
     </>
   );

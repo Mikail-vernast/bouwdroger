@@ -1,6 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import type { RealisatieFoto } from "@/data/realisaties";
 import { ArrowLeft, ArrowRight } from "./icons";
+import { useCopy } from "@/i18n/useTaal";
+
+const COPY = {
+  nl: { vorige: "Vorige foto", volgende: "Volgende foto", foto: "Foto", fotoKlein: "foto", sluiten: "Sluiten" },
+  fr: { vorige: "Photo précédente", volgende: "Photo suivante", foto: "Photo", fotoKlein: "photo", sluiten: "Fermer" },
+  en: { vorige: "Previous photo", volgende: "Next photo", foto: "Photo", fotoKlein: "photo", sluiten: "Close" },
+};
 
 /**
  * De fotocarrousel van de projectpagina: één grote foto met bijschrift,
@@ -12,6 +19,7 @@ import { ArrowLeft, ArrowRight } from "./icons";
  * waarom deze site nergens een begintoestand met `opacity:0` prerendert.
  */
 const RealisatieAlbum = ({ fotos, titel }: { fotos: RealisatieFoto[]; titel: string }) => {
+  const t = useCopy(COPY);
   const [actief, setActief] = useState(0);
   const [vergroot, setVergroot] = useState(false);
 
@@ -69,10 +77,10 @@ const RealisatieAlbum = ({ fotos, titel }: { fotos: RealisatieFoto[]; titel: str
 
           {fotos.length > 1 && (
             <>
-              <button type="button" className="alb-nav alb-prev" onClick={() => ga(-1)} aria-label="Vorige foto">
+              <button type="button" className="alb-nav alb-prev" onClick={() => ga(-1)} aria-label={t.vorige}>
                 <ArrowLeft />
               </button>
-              <button type="button" className="alb-nav alb-next" onClick={() => ga(1)} aria-label="Volgende foto">
+              <button type="button" className="alb-nav alb-next" onClick={() => ga(1)} aria-label={t.volgende}>
                 <ArrowRight />
               </button>
             </>
@@ -86,7 +94,7 @@ const RealisatieAlbum = ({ fotos, titel }: { fotos: RealisatieFoto[]; titel: str
               key={f.src}
               className={`alb-thumb${i === actief ? " on" : ""}`}
               onClick={() => setActief(i)}
-              aria-label={`Foto ${i + 1}: ${f.thumb}`}
+              aria-label={`${t.foto} ${i + 1}: ${f.thumb}`}
               aria-current={i === actief}
             >
               <span className="tno">{i + 1}</span>
@@ -97,16 +105,16 @@ const RealisatieAlbum = ({ fotos, titel }: { fotos: RealisatieFoto[]; titel: str
       </div>
 
       {vergroot && (
-        <div className="rz-lightbox" role="dialog" aria-modal="true" aria-label={`${titel}, foto ${actief + 1}`} onClick={() => setVergroot(false)}>
-          <button type="button" className="lb-close" onClick={() => setVergroot(false)} aria-label="Sluiten">
+        <div className="rz-lightbox" role="dialog" aria-modal="true" aria-label={`${titel}, ${t.fotoKlein} ${actief + 1}`} onClick={() => setVergroot(false)}>
+          <button type="button" className="lb-close" onClick={() => setVergroot(false)} aria-label={t.sluiten}>
             ×
           </button>
           {fotos.length > 1 && (
             <>
-              <button type="button" className="lb-nav lb-prev" onClick={(e) => { e.stopPropagation(); ga(-1); }} aria-label="Vorige foto">
+              <button type="button" className="lb-nav lb-prev" onClick={(e) => { e.stopPropagation(); ga(-1); }} aria-label={t.vorige}>
                 <ArrowLeft />
               </button>
-              <button type="button" className="lb-nav lb-next" onClick={(e) => { e.stopPropagation(); ga(1); }} aria-label="Volgende foto">
+              <button type="button" className="lb-nav lb-next" onClick={(e) => { e.stopPropagation(); ga(1); }} aria-label={t.volgende}>
                 <ArrowRight />
               </button>
             </>

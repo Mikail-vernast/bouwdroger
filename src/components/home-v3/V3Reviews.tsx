@@ -1,5 +1,96 @@
 import { GoogleIcon, StarIcon } from "./icons";
 import { REVIEWS_LIST, type Review } from "@/data/reviews";
+import { useCopy, type Copy } from "@/i18n/useTaal";
+
+/*
+  De reviews zelf blijven in de taal waarin de klant ze schreef: een vertaalde
+  review is geen review meer (zie `src/data/reviews.ts`). Alleen wat eromheen
+  staat volgt de taal van de pagina — ook de maand, want "okt 2023" is geen
+  Frans. Het dienstlabel is van ons (zie `service` in reviews.ts) en vertaalt
+  mee; een label zonder vertaling blijft zoals het is.
+*/
+const DIENST_FR: Record<string, string> = {
+  "Bouwdroger geïnstalleerd": "Déshumidificateur de chantier installé",
+};
+const MAAND_FR: Record<string, string> = {
+  jan: "janv.",
+  feb: "févr.",
+  mrt: "mars",
+  apr: "avr.",
+  mei: "mai",
+  jun: "juin",
+  jul: "juil.",
+  aug: "août",
+  sep: "sept.",
+  okt: "oct.",
+  nov: "nov.",
+  dec: "déc.",
+};
+
+/* Hetzelfde in het Engels: "Oct 2023". */
+const DIENST_EN: Record<string, string> = {
+  "Bouwdroger geïnstalleerd": "Construction dehumidifier installed",
+};
+const MAAND_EN: Record<string, string> = {
+  jan: "Jan",
+  feb: "Feb",
+  mrt: "Mar",
+  apr: "Apr",
+  mei: "May",
+  jun: "Jun",
+  jul: "Jul",
+  aug: "Aug",
+  sep: "Sep",
+  okt: "Oct",
+  nov: "Nov",
+  dec: "Dec",
+};
+
+interface RevCopy {
+  sterren: (rating: number) => string;
+  datum: (date: string) => string;
+  dienst: (service: string) => string;
+  via: string;
+  kick: string;
+  h2: string;
+  lede: string;
+}
+
+const COPY = {
+  nl: {
+    sterren: (rating) => `${rating} van de 5 sterren`,
+    datum: (date) => date,
+    dienst: (service) => service,
+    via: "via",
+    kick: "Wat klanten zeggen",
+    h2: "Klanten gingen u voor.",
+    lede: "Echte beoordelingen van Vernast, bij Google en Solvari. Onbewerkt, met naam en datum.",
+  },
+  fr: {
+    sterren: (rating) => `${rating} étoiles sur 5`,
+    datum: (date) => {
+      const [maand, jaar] = date.split(" ");
+      return MAAND_FR[maand] ? `${MAAND_FR[maand]} ${jaar}` : date;
+    },
+    dienst: (service) => DIENST_FR[service] ?? service,
+    via: "via",
+    kick: "Ce que disent nos clients",
+    h2: "D'autres clients vous ont précédé.",
+    lede: "De vrais avis sur Vernast, sur Google et Solvari. Non retouchés, avec nom et date. Les avis sont affichés dans leur langue d'origine.",
+  },
+  en: {
+    sterren: (rating) => `${rating} out of 5 stars`,
+    datum: (date) => {
+      const [maand, jaar] = date.split(" ");
+      return MAAND_EN[maand] ? `${MAAND_EN[maand]} ${jaar}` : date;
+    },
+    dienst: (service) => DIENST_EN[service] ?? service,
+    via: "via",
+    kick: "What customers say",
+    h2: "Customers who went before you.",
+    lede: "Genuine reviews of Vernast, on Google and Solvari. Unedited, with name and date. Reviews are shown in their original language.",
+  },
+} satisfies Copy<RevCopy>;
 
 /*
   De beoordelingen en de twee selectieregels staan in `src/data/reviews.ts` —
@@ -7,15 +98,20 @@ import { REVIEWS_LIST, type Review } from "@/data/reviews";
   de derde plek.
 */
 
-const Stars = ({ rating, size }: { rating: number; size?: number }) => (
-  <div className="rv-stars" role="img" aria-label={`${rating} van de 5 sterren`}>
-    {Array.from({ length: rating }).map((_, index) => (
-      <StarIcon key={index} size={size} />
-    ))}
-  </div>
-);
+const Stars = ({ rating, size }: { rating: number; size?: number }) => {
+  const t = useCopy(COPY);
+  return (
+    <div className="rv-stars" role="img" aria-label={t.sterren(rating)}>
+      {Array.from({ length: rating }).map((_, index) => (
+        <StarIcon key={index} size={size} />
+      ))}
+    </div>
+  );
+};
 
-const ReviewCard = ({ review }: { review: Review }) => (
+const ReviewCard = ({ review }: { review: Review }) => {
+  const t = useCopy(COPY);
+  return (
   <figure className={review.featured ? "rv-card rv-big" : "rv-card"}>
     <div className="rv-head">
       <Stars rating={review.rating} size={review.featured ? 16 : 14} />
@@ -33,23 +129,24 @@ const ReviewCard = ({ review }: { review: Review }) => (
       <span className="rv-who">
         <b>{review.name}</b>
         <small>
-          {review.service ? `${review.service} · ` : ""}
-          {review.date} · via {review.source}
+          {review.service ? `${t.dienst(review.service)} · ` : ""}
+          {t.datum(review.date)} · {t.via} {review.source}
         </small>
       </span>
     </figcaption>
   </figure>
-);
+  );
+};
 
-const V3Reviews = () => (
+const V3Reviews = () => {
+  const t = useCopy(COPY);
+  return (
   <section className="revs" id="reviews">
     <div className="wrap">
       <div className="sec-head mid">
-        <span className="kick">Wat klanten zeggen</span>
-        <h2 className="sec">Klanten gingen u voor.</h2>
-        <p className="lede">
-          Echte beoordelingen van Vernast, bij Google en Solvari. Onbewerkt, met naam en datum.
-        </p>
+        <span className="kick">{t.kick}</span>
+        <h2 className="sec">{t.h2}</h2>
+        <p className="lede">{t.lede}</p>
       </div>
 
       <div className="rv-grid">
@@ -59,6 +156,7 @@ const V3Reviews = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default V3Reviews;

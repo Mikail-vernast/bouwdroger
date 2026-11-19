@@ -10,6 +10,8 @@
     "fra1"
   ],
   "redirects": [
+    { "source": "/nl", "destination": "/", "permanent": true },
+    { "source": "/nl/:path*", "destination": "/:path*", "permanent": true },
     {
       "source": "/simulator/dak-lessenaar.webp",
       "destination": "/simulator/dak-lessenaar-v2.webp",

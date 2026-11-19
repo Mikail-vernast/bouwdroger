@@ -1,4 +1,6 @@
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { useCopy, useTaal, type Copy } from "@/i18n/useTaal";
+import type { Taal } from "@/i18n/taal";
 import "@/styles/hoe-drogen-animaties.css";
 
 type Variant = "temperatuur" | "vocht" | "lucht";
@@ -8,15 +10,33 @@ interface Meter {
   van: number;
   /** Eindwaarde — het klimaat waar de droging naartoe werkt. */
   naar: number;
-  eenheid: string;
   decimalen: number;
   /** Vulgraad van de balk (%) bij begin- en eindwaarde. */
   vulVan: number;
   vulNaar: number;
-  labelVan: string;
-  labelNaar: string;
   icoon: ReactNode;
 }
+
+/** Eenheid en de twee labels onder de balk, per taal. De cijfers blijven in `METERS`. */
+type MeterTekst = Record<Variant, { eenheid: string; labelVan: string; labelNaar: string }>;
+
+const TEKST = {
+  nl: {
+    temperatuur: { eenheid: "°C", labelVan: "koude werf", labelNaar: "werkklimaat" },
+    vocht: { eenheid: "% RV", labelVan: "verzadigde lucht", labelNaar: "opnamecapaciteit" },
+    lucht: { eenheid: "m/s", labelVan: "stilstaande lucht", labelNaar: "langs elk oppervlak" },
+  },
+  fr: {
+    temperatuur: { eenheid: "°C", labelVan: "chantier froid", labelNaar: "climat de travail" },
+    vocht: { eenheid: "% HR", labelVan: "air saturé", labelNaar: "capacité d'absorption" },
+    lucht: { eenheid: "m/s", labelVan: "air immobile", labelNaar: "sur chaque surface" },
+  },
+  en: {
+    temperatuur: { eenheid: "°C", labelVan: "cold site", labelNaar: "working climate" },
+    vocht: { eenheid: "% RH", labelVan: "saturated air", labelNaar: "absorption capacity" },
+    lucht: { eenheid: "m/s", labelVan: "still air", labelNaar: "across every surface" },
+  },
+} satisfies Copy<MeterTekst>;
 
 /*
   De drie factoren uit "Het principe", elk met de beweging die ze maakt:
@@ -31,13 +51,10 @@ const METERS: Record<Variant, Meter> = {
   temperatuur: {
     van: -8,
     naar: 21.5,
-    eenheid: "°C",
     decimalen: 1,
     // Schaal −12 … 25 °C, zodat een vorstwerf ook nog zichtbaar vult.
     vulVan: 11,
     vulNaar: 90,
-    labelVan: "koude werf",
-    labelNaar: "werkklimaat",
     icoon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z" /></svg>
     ),
@@ -45,12 +62,9 @@ const METERS: Record<Variant, Meter> = {
   vocht: {
     van: 98,
     naar: 45,
-    eenheid: "% RV",
     decimalen: 0,
     vulVan: 98,
     vulNaar: 45,
-    labelVan: "verzadigde lucht",
-    labelNaar: "opnamecapaciteit",
     icoon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z" /></svg>
     ),
@@ -58,21 +72,24 @@ const METERS: Record<Variant, Meter> = {
   lucht: {
     van: 0.5,
     naar: 2.5,
-    eenheid: "m/s",
     decimalen: 1,
     vulVan: 14,
     vulNaar: 71,
-    labelVan: "stilstaande lucht",
-    labelNaar: "langs elk oppervlak",
     icoon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M9.6 4.6A2 2 0 1 1 11 8H2" /><path d="M12.6 19.4A2 2 0 1 0 14 16H2" /><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" /></svg>
     ),
   },
 };
 
-/** Nederlandse komma en een echt minteken — `toFixed` levert een punt en een koppelteken. */
-const toon = (waarde: number, decimalen: number) =>
-  waarde.toFixed(decimalen).replace(".", ",").replace("-", "−");
+/**
+ * Decimale komma in het Nederlands en Frans, punt in het Engels, en altijd een
+ * echt minteken — `toFixed` levert een punt en een koppelteken. Niet via
+ * `NUMBER_LOCALE`: en-BE geeft voor een los getal ook een komma.
+ */
+const toon = (waarde: number, decimalen: number, taal: Taal) => {
+  const vast = waarde.toFixed(decimalen);
+  return (taal === "en" ? vast : vast.replace(".", ",")).replace("-", "−");
+};
 
 const DUUR = 1600;
 /** Afstand tussen de drie kaarten: eerst temperatuur, dan RV, dan lucht. */
@@ -97,6 +114,8 @@ interface Props {
  */
 const KlimaatMeter = ({ variant, volgorde = 0 }: Props) => {
   const m = METERS[variant];
+  const tekst = useCopy(TEKST)[variant];
+  const taal = useTaal();
   const wortel = useRef<HTMLDivElement>(null);
   const getal = useRef<HTMLElement>(null);
 
@@ -112,7 +131,7 @@ const KlimaatMeter = ({ variant, volgorde = 0 }: Props) => {
     const zet = (p: number) => {
       el.style.setProperty("--p", String(p));
       el.style.setProperty("--f", String(m.vulVan + (m.vulNaar - m.vulVan) * p));
-      cijfer.textContent = toon(m.van + (m.naar - m.van) * p, m.decimalen);
+      cijfer.textContent = toon(m.van + (m.naar - m.van) * p, m.decimalen, taal);
     };
 
     const stop = () => {
@@ -155,7 +174,7 @@ const KlimaatMeter = ({ variant, volgorde = 0 }: Props) => {
       observer.disconnect();
       stop();
     };
-  }, [m, volgorde]);
+  }, [m, volgorde, taal]);
 
   return (
     <div
@@ -167,8 +186,8 @@ const KlimaatMeter = ({ variant, volgorde = 0 }: Props) => {
       <div className="klm-top">
         <span className="klm-ic">{m.icoon}</span>
         <span className="klm-val">
-          <b ref={getal}>{toon(m.naar, m.decimalen)}</b>
-          <i>{m.eenheid}</i>
+          <b ref={getal}>{toon(m.naar, m.decimalen, taal)}</b>
+          <i>{tekst.eenheid}</i>
         </span>
       </div>
       {variant === "lucht" ? (
@@ -181,8 +200,8 @@ const KlimaatMeter = ({ variant, volgorde = 0 }: Props) => {
         </div>
       )}
       <div className="klm-foot">
-        <span>{m.labelVan}</span>
-        <span>{m.labelNaar}</span>
+        <span>{tekst.labelVan}</span>
+        <span>{tekst.labelNaar}</span>
       </div>
     </div>
   );

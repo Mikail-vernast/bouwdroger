@@ -35,7 +35,7 @@
 /* ---- mappen ---- */
 .v3c .sm-body { padding: 72px 0 110px; }
 .v3c .sm-mappen { columns: 3 320px; column-gap: 20px; }
-.v3c .sm-map { break-inside: avoid; margin-bottom: 20px; padding: 22px 22px 14px; border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(20,20,20,.04); scroll-margin-top: 110px; }
+.v3c .sm-map { break-inside: avoid; margin-bottom: 20px; padding: 22px 22px 14px; border-radius: 18px; background: #FAF8F7; border: 1px solid var(--line); scroll-margin-top: 110px; }
 .v3c .sm-map h2 { display: flex; align-items: center; gap: 10px; font-family: var(--fd); font-weight: 800; font-size: 16px; letter-spacing: -.015em; margin-bottom: 12px; }
 .v3c .sm-map h2 svg { color: var(--red); }
 .v3c .sm-map ul { list-style: none; margin: 0; padding: 0; }
@@ -90,3 +90,21 @@
   .v3c .sm-provs, .v3c .sm-real { grid-template-columns: 1fr; }
   .v3c .sm-prov { padding: 18px; }
 }
+
+/* Taaltabs boven de mappen: de sitemap toont alle drie de talen, elk met hun
+   eigen URL's. Zwart op gebroken wit, zoals de rest van de pagina — geen rood
+   voor tekst (zie de fix van 18-11-2026). */
+.v3c .sm-talen { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 36px; }
+.v3c .sm-talen button {
+  display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+  font: inherit; font-weight: 700; font-size: 15px; color: #141414;
+  background: #f4efeb; border: 1px solid #e4dcd6; border-radius: 999px; padding: 8px 18px 8px 8px;
+}
+.v3c .sm-talen button small { font-weight: 500; font-size: 12px; opacity: 0.6; }
+.v3c .sm-talen .sm-taal-code {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+}
+.v3c .sm-talen button.actief { background: #141414; color: #fff; border-color: #141414; }
+.v3c .sm-talen button.actief .sm-taal-code { background: #fff; color: #141414; }
+.v3c .sm-talen button:focus-visible { outline: 2px solid #141414; outline-offset: 2px; }

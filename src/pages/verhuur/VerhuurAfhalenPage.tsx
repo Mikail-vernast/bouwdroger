@@ -15,7 +15,10 @@ import {
   PICKUP_SLOTS,
 } from "@/data/afhalen";
 import Datumkiezer from "@/components/Datumkiezer";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { formatEuro, useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
+import { NUMBER_LOCALE, type Taal } from "@/i18n/taal";
+import { AFHAAL_COPY, afhaalProductInTaal, groepInTaal, periodeInTaal } from "./VerhuurAfhalenPage.copy";
 import {
   earliestPickupDate,
   langhuurKorting,
@@ -59,13 +62,21 @@ import "@/styles/verhuur-betaling.css";
  * bij een pakketboeking, in plaats van een doorverwijzing naar een hosted
  * Checkout-pagina met een andere huisstijl.
  */
-const euro = (n: number) =>
-  `€ ${n.toLocaleString("nl-BE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+/*
+  Alleen weergave. Nederlands houdt zijn oude notatie ("€ 29,00"), zodat die
+  pagina tekst-identiek blijft; Frans krijgt "29,00 €", Engels "€29.00". Wat Stripe int, rekent
+  `api/afhaal-checkout.ts` zelf uit.
+*/
+const euroIn = (n: number, taal: Taal) =>
+  taal === "nl"
+    ? `€ ${n.toLocaleString("nl-BE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    : formatEuro(n, taal);
 
-const shortDate = (d: Date) => d.toLocaleDateString("nl-BE", { day: "numeric", month: "short" });
+const shortDate = (d: Date, taal: Taal) =>
+  d.toLocaleDateString(NUMBER_LOCALE[taal], { day: "numeric", month: "short" });
 
-const longDate = (d: Date) =>
-  d.toLocaleDateString("nl-BE", { weekday: "long", day: "numeric", month: "long" });
+const longDate = (d: Date, taal: Taal) =>
+  d.toLocaleDateString(NUMBER_LOCALE[taal], { weekday: "long", day: "numeric", month: "long" });
 
 /**
  * Waar de openstaande betaalpoging blijft staan tijdens de omweg langs
@@ -122,16 +133,19 @@ interface Missing {
  * De bezoeker kan de zin gewoon overschrijven; het is een voorstel, geen veld
  * dat de pagina voor hem invult en bewaakt.
  */
-function pompVraag(raw: string | null): string {
+function pompVraag(raw: string | null, t: { pompEen: string; pompMeer: (aantal: number) => string }): string {
   const aantal = Math.floor(Number(raw));
   if (!Number.isFinite(aantal) || aantal <= 0) return "";
-  return aantal === 1
-    ? "Graag een condenspomp bij dit toestel."
-    : `Graag ${aantal} condenspompen bij deze toestellen.`;
+  return aantal === 1 ? t.pompEen : t.pompMeer(aantal);
 }
 
 const VerhuurAfhalenPage = () => {
   const [searchParams] = useSearchParams();
+  const taal = useTaal();
+  const t = useCopy(AFHAAL_COPY);
+  const lp = useLokaalPad();
+  const seo = useSeo("verhuurAfhalen");
+  const euro = (n: number) => euroIn(n, taal);
 
   /*
     De toestelpagina stuurt de keuze mee in de URL. Zonder dit begon de bezoeker
@@ -147,7 +161,7 @@ const VerhuurAfhalenPage = () => {
       days: normalizeDays(searchParams.get("days")),
       slot: normalizeSlot(searchParams.get("slot")),
       date: searchParams.get("date") ?? "",
-      note: pompVraag(searchParams.get("pomp")),
+      note: pompVraag(searchParams.get("pomp"), t),
     };
     // Eén keer, bij het openen van de pagina: daarna stuurt de bezoeker.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -269,25 +283,20 @@ const VerhuurAfhalenPage = () => {
     zegt de pagina wat er ontbreekt.
   */
   const missing: Missing[] = [];
-  if (summary.units === 0) missing.push({ field: "toestellen", text: "Kies minstens één toestel." });
-  if (!date) missing.push({ field: "aDate", text: "Kies een afhaaldatum." });
-  if (dateBlocked)
-    missing.push({ field: "aDate", text: "Op die datum zijn deze toestellen niet vrij." });
-  if (!name.trim()) missing.push({ field: "cNaam", text: "Vul uw naam in." });
-  if (!isValidPhone(phone))
-    missing.push({ field: "cTel", text: "Vul een geldig telefoonnummer in." });
-  if (!isValidEmail(mail)) missing.push({ field: "cMail", text: "Vul een geldig e-mailadres in." });
-  if (!address.trim()) missing.push({ field: "cAdres", text: "Vul uw adres in (voor de factuur)." });
-  if (customerType === "pro" && !company.trim())
-    missing.push({ field: "cFirma", text: "Vul uw bedrijfsnaam in." });
-  if (customerType === "pro" && !vat.trim())
-    missing.push({ field: "cBtw", text: "Vul uw btw-nummer in." });
-  if (!agreed) missing.push({ field: "cAkkoord", text: "Bevestig de huurvoorwaarden." });
+  const o = t.ontbreekt;
+  if (summary.units === 0) missing.push({ field: "toestellen", text: o.toestellen });
+  if (!date) missing.push({ field: "aDate", text: o.datum });
+  if (dateBlocked) missing.push({ field: "aDate", text: o.datumVol });
+  if (!name.trim()) missing.push({ field: "cNaam", text: o.naam });
+  if (!isValidPhone(phone)) missing.push({ field: "cTel", text: o.telefoon });
+  if (!isValidEmail(mail)) missing.push({ field: "cMail", text: o.email });
+  if (!address.trim()) missing.push({ field: "cAdres", text: o.adres });
+  if (customerType === "pro" && !company.trim()) missing.push({ field: "cFirma", text: o.firma });
+  if (customerType === "pro" && !vat.trim()) missing.push({ field: "cBtw", text: o.btw });
+  if (!agreed) missing.push({ field: "cAkkoord", text: o.akkoord });
 
-  const weekSuffix = days >= 7 && days % 7 === 0 ? ` (${days / 7} ${days === 7 ? "week" : "weken"})` : "";
-  const summaryTitle = summary.units
-    ? `${summary.units} toestel${summary.units === 1 ? "" : "len"} · ${days} dagen${weekSuffix} · afhalen`
-    : "Nog geen toestellen gekozen";
+  const weekSuffix = days >= 7 && days % 7 === 0 ? ` (${days / 7} ${days === 7 ? t.week : t.weken})` : "";
+  const summaryTitle = summary.units ? t.samenvatting(summary.units, days, weekSuffix) : t.nogGeenToestellen;
 
   const returnDate = useMemo(() => {
     if (!date) return null;
@@ -363,13 +372,10 @@ const VerhuurAfhalenPage = () => {
           */
           setBalanceDue(Number(result.order?.balance) || 0);
         } else
-          setError(
-            "Uw betaling is nog niet bevestigd. Duurt dit langer dan een paar minuten, bel ons dan op 03 689 90 65."
-          );
+          setError(t.nietBevestigd);
       })
       .catch(() => {
-        if (!cancelled)
-          setError("We konden uw betaling niet nakijken. Bel ons gerust op 03 689 90 65.");
+        if (!cancelled) setError(t.nietNagekeken);
       })
       .finally(() => {
         if (!cancelled) setChecking(false);
@@ -378,6 +384,8 @@ const VerhuurAfhalenPage = () => {
     return () => {
       cancelled = true;
     };
+    // `t` volgt de taal uit de URL en verandert niet binnen één pagina.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const reserve = async () => {
@@ -437,7 +445,9 @@ const VerhuurAfhalenPage = () => {
         headers: { "content-type": "application/json" },
         // De vorige sessie gaat mee zodat de server haar laat vervallen en de
         // toestellen teruggeeft vóór hij opnieuw kijkt wat vrij is.
-        body: JSON.stringify({ data: order, payment, previousSessionId: session?.id }),
+        // `taal` naast `data`, net als `payment`: de taal van Stripe en de
+        // terugkeer-URL, nooit het bedrag. Niet in de vingerafdruk.
+        body: JSON.stringify({ data: order, payment, previousSessionId: session?.id, taal }),
       });
 
       const result = (await response.json().catch(() => ({}))) as {
@@ -449,10 +459,8 @@ const VerhuurAfhalenPage = () => {
       };
 
       if (!response.ok) {
-        setError(
-          result.error ??
-            "Uw reservatie kon niet doorgegeven worden. Probeer het opnieuw of bel ons op 03 689 90 65."
-        );
+        // Een 429 valt vóór de server de taal kent; die tekst vertalen we hier.
+        setError(response.status === 429 ? t.teVeel : (result.error ?? t.nietDoorgegeven));
         /*
           De sessie is niet meer bruikbaar om naar terug te keren — de server kan
           haar bij deze poging al hebben laten vervallen. Het ID blijft staan,
@@ -463,22 +471,21 @@ const VerhuurAfhalenPage = () => {
       }
 
       if (!result.clientSecret || !result.publishableKey || !result.sessionId) {
-        setError("Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65.");
+        setError(t.nietGestart);
         return;
       }
       // Stripe.js pas hier écht initialiseren: het script staat al klaar door
       // de import hierboven, de sleutel komt van de server.
       const { loadStripe } = await import("@stripe/stripe-js");
-      setStripeJs(loadStripe(result.publishableKey));
+      // `locale`: de velden en foutmeldingen van het formulier in de taal van de pagina.
+      setStripeJs(loadStripe(result.publishableKey, { locale: taal }));
       setSession({ id: result.sessionId, clientSecret: result.clientSecret, fingerprint });
       // Vanaf hier ligt er een hold, en na de omweg langs Bancontact is dit ID
       // de enige weg om die weer los te krijgen.
       writeStored({ sessionId: result.sessionId, email: mail });
       setPayOpen(true);
     } catch {
-      setError(
-        "Uw reservatie kon niet verstuurd worden. Controleer uw verbinding of bel ons op 03 689 90 65."
-      );
+      setError(t.nietVerstuurd);
     } finally {
       setBusy(false);
     }
@@ -493,20 +500,20 @@ const VerhuurAfhalenPage = () => {
         een adres, openingsuren en een tarieflijst.
       */}
       <PageMeta
-        {...SEO.verhuurAfhalen}
+        {...seo}
         jsonLd={[
           offerCatalogSchema(
-            "Afhaaltarieven losse toestellen, Aartselaar",
-            PICKUP_PRODUCTS.map((product) => ({
+            t.catalogusNaam,
+            PICKUP_PRODUCTS.map((product) => afhaalProductInTaal(product, taal)).map((product) => ({
               name: product.name,
               description: product.sub,
-              path: "/verhuur/afhalen",
+              path: lp("/verhuur/afhalen"),
               pricePerDay: product.day,
             }))
           ),
           breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Toestellen", path: "/verhuur/afhalen" },
+            { name: t.kruimelHome, path: lp("/") },
+            { name: t.kruimelToestellen, path: lp("/verhuur/afhalen") },
           ]),
         ]}
       />
@@ -531,19 +538,14 @@ const VerhuurAfhalenPage = () => {
       <section className="lead">
         <div className="wrap lh-grid">
           <div className="lh-copy">
-            <span className="chip">Zelf afhalen · Aartselaar</span>
-            <h1>Losse toestellen huren en zelf afhalen.</h1>
-            <p>
-              Stel zelf samen wat u nodig heeft, bouwdrogers, ventilatoren en kachels, en haal
-              alles af in ons magazijn. Betaal online met {Math.round(ONLINE_DISCOUNT * 100)}%
-              korting, of zet uw reservatie vast met {euro(DEPOSIT_GROSS)} en reken de rest af bij
-              de afhaling.
-            </p>
+            <span className="chip">{t.chip}</span>
+            <h1>{t.h1}</h1>
+            <p>{t.intro(Math.round(ONLINE_DISCOUNT * 100), euro(DEPOSIT_GROSS))}</p>
           </div>
           <div className="lh-vis">
             <img
               src="/vernast/team-tools.webp"
-              alt="Het Vernast-team met bouwdrogers en ventilatoren"
+              alt={t.teamAlt}
               width={1400}
               height={859}
               fetchPriority="high"
@@ -560,26 +562,26 @@ const VerhuurAfhalenPage = () => {
           style={reference || checking || payOpen ? { display: "none" } : undefined}
         >
           <div className="blk">
-            <h2>1. Kies uw toestellen</h2>
-            <p className="bs">
-              Kies per categorie het aantal dat u nodig heeft. Alle prijzen zijn per dag, excl. btw.
-            </p>
+            <h2>{t.stap1}</h2>
+            <p className="bs">{t.stap1Sub}</p>
             <div id="toestellen">
               {PICKUP_GROUPS.map((group) => {
                 const count = groupCount(group);
                 return (
                   <div className="gsec" key={group}>
                     <div className="gsec-h">
-                      <span className="gname">{group}</span>
+                      <span className="gname">{groepInTaal(group, taal)}</span>
                       <span
                         className={`gst${count > 0 ? " ok" : ""}`}
                         style={count > 0 ? undefined : { display: "none" }}
                       >
-                        {count} gekozen
+                        {t.gekozen(count)}
                       </span>
                     </div>
                     <div className="pgrid">
-                      {PICKUP_PRODUCTS.filter((p) => p.group === group).map((product) => (
+                      {PICKUP_PRODUCTS.filter((p) => p.group === group)
+                        .map((p) => afhaalProductInTaal(p, taal))
+                        .map((product) => (
                         <div
                           className={`pcard${qty(product.key) > 0 ? " has" : ""}`}
                           key={product.key}
@@ -607,7 +609,7 @@ const VerhuurAfhalenPage = () => {
                           </span>
                           <span className="pr">
                             <span className="px">
-                              {euro(product.day)} <i>per dag</i>
+                              {euro(product.day)} <i>{t.perDag}</i>
                             </span>
                             {/*
                               Staat het laatste exemplaar in onderhoud, dan is
@@ -615,12 +617,12 @@ const VerhuurAfhalenPage = () => {
                               hangen laat de bezoeker raden waarom; dit zegt het.
                             */}
                             {product.max === 0 ? (
-                              <span className="stp-uit">Tijdelijk niet beschikbaar</span>
+                              <span className="stp-uit">{t.nietBeschikbaar}</span>
                             ) : (
                             <span className="stp">
                               <button
                                 type="button"
-                                aria-label={`Minder ${product.short}`}
+                                aria-label={t.minder(product.short)}
                                 onClick={() => step(product.key, -1)}
                               >
                                 −
@@ -628,11 +630,11 @@ const VerhuurAfhalenPage = () => {
                               <span>{qty(product.key)}</span>
                               <button
                                 type="button"
-                                aria-label={`Meer ${product.short}`}
+                                aria-label={t.meer(product.short)}
                                 disabled={qty(product.key) >= product.max}
                                 title={
                                   qty(product.key) >= product.max
-                                    ? `Wij hebben er ${product.max}, bel ons voor meer`
+                                    ? t.maxBereikt(product.max)
                                     : undefined
                                 }
                                 onClick={() => step(product.key, 1)}
@@ -652,13 +654,11 @@ const VerhuurAfhalenPage = () => {
           </div>
 
           <div className="blk">
-            <h2>2. Huurperiode &amp; afhaalmoment</h2>
-            <p className="bs">
-              U haalt af en brengt terug in ons magazijn, op weekdagen tussen 7:30 en 17:00.
-            </p>
+            <h2>{t.stap2}</h2>
+            <p className="bs">{t.stap2Sub}</p>
             <div className="frow">
               <div className="fld">
-                <label htmlFor="aDays">Huurperiode</label>
+                <label htmlFor="aDays">{t.huurperiode}</label>
                 <select
                   id="aDays"
                   value={days}
@@ -673,15 +673,15 @@ const VerhuurAfhalenPage = () => {
                     const pct = Math.round(langhuurKorting(value) * 100);
                     return (
                       <option key={value} value={value}>
-                        {label}
-                        {pct > 0 ? ` · −${pct}%` : ""}
+                        {periodeInTaal(value, label, taal)}
+                        {pct > 0 ? ` · −${pct}${taal === "fr" ? " " : ""}%` : ""}
                       </option>
                     );
                   })}
                 </select>
               </div>
               <div className="fld">
-                <label htmlFor="aDate">Afhaaldatum</label>
+                <label htmlFor="aDate">{t.afhaaldatum}</label>
                 {/* Zie `components/Datumkiezer.tsx`: weekend en volle dagen
                     staan uit, en de kalender zegt onderaan waarom. */}
                 <Datumkiezer
@@ -690,14 +690,17 @@ const VerhuurAfhalenPage = () => {
                   min={minDate}
                   blocked={blocked}
                   rangeDays={days}
-                  rangeLabel={PICKUP_PERIODS.find(([v]) => v === days)?.[1]}
+                  rangeLabel={(() => {
+                    const periode = PICKUP_PERIODS.find(([v]) => v === days);
+                    return periode ? periodeInTaal(periode[0], periode[1], taal) : undefined;
+                  })()}
                   invalid={dateBlocked}
                   describedBy={dateBlocked ? "aDateWarn" : undefined}
                   onChange={setDate}
                 />
               </div>
               <div className="fld">
-                <label htmlFor="aSlot">Afhaalmoment</label>
+                <label htmlFor="aSlot">{t.afhaalmoment}</label>
                 <select id="aSlot" value={slot} onChange={(event) => setSlot(event.target.value)}>
                   {PICKUP_SLOTS.map((option) => (
                     <option key={option}>{option}</option>
@@ -708,19 +711,19 @@ const VerhuurAfhalenPage = () => {
             {dateBlocked && (
               <div className="datewarn" id="aDateWarn" role="status">
                 <b>
-                  Op{" "}
-                  {new Date(`${date}T00:00:00`).toLocaleDateString("nl-BE", {
-                    day: "numeric",
-                    month: "long",
-                  })}{" "}
-                  is deze samenstelling al ingepland.
+                  {t.datumVol(
+                    new Date(`${date}T00:00:00`).toLocaleDateString(NUMBER_LOCALE[taal], {
+                      day: "numeric",
+                      month: "long",
+                    }),
+                  )}
                 </b>
                 {suggestion ? (
                   <>
                     {" "}
-                    De eerstvolgende vrije afhaaldatum is{" "}
+                    {t.eerstVrij}{" "}
                     <button type="button" onClick={() => setDate(suggestion)}>
-                      {new Date(`${suggestion}T00:00:00`).toLocaleDateString("nl-BE", {
+                      {new Date(`${suggestion}T00:00:00`).toLocaleDateString(NUMBER_LOCALE[taal], {
                         day: "numeric",
                         month: "long",
                       })}
@@ -728,58 +731,55 @@ const VerhuurAfhalenPage = () => {
                     .
                   </>
                 ) : (
-                  " De komende weken is er niets vrij, bel ons op 03 689 90 65."
+                  t.nietsVrij
                 )}
               </div>
             )}
             <div className="adres">
               <PinIcon size={17} />
               <span>
-                <b>Vernast Bouwdrogers, magazijn</b>
+                <b>{t.magazijn}</b>
                 <br />
                 Boomsesteenweg 12, Unit 11 · 2630 Aartselaar
                 <br />
-                U krijgt bij afhaling korte uitleg over plaatsing en gebruik.
+                {t.uitleg}
               </span>
             </div>
           </div>
 
           <div className="blk">
-            <h2>3. Uw gegevens</h2>
-            <p className="bs">
-              Op naam van wie zetten we de reservatie en de factuur? Uw adres hebben we enkel voor
-              de facturatie nodig, afhalen doet u in ons magazijn.
-            </p>
+            <h2>{t.stap3}</h2>
+            <p className="bs">{t.stap3Sub}</p>
             <div className="ktype">
               <button
                 type="button"
                 className={customerType === "part" ? "active" : undefined}
                 onClick={() => setCustomerType("part")}
               >
-                Particulier
+                {t.particulier}
               </button>
               <button
                 type="button"
                 className={customerType === "pro" ? "active" : undefined}
                 onClick={() => setCustomerType("pro")}
               >
-                Professioneel
+                {t.professioneel}
               </button>
             </div>
             <div className="frow two">
               <div className="fld">
-                <label htmlFor="cNaam">Naam</label>
+                <label htmlFor="cNaam">{t.naam}</label>
                 <input
                   type="text"
                   id="cNaam"
-                  placeholder="Voor- en achternaam"
+                  placeholder={t.naamPlaceholder}
                   autoComplete="name"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                 />
               </div>
               <div className="fld">
-                <label htmlFor="cTel">Telefoon</label>
+                <label htmlFor="cTel">{t.telefoon}</label>
                 <input
                   type="tel"
                   id="cTel"
@@ -793,7 +793,7 @@ const VerhuurAfhalenPage = () => {
             </div>
             <div className="frow two" style={{ marginTop: 14 }}>
               <div className="fld">
-                <label htmlFor="cMail">E-mail</label>
+                <label htmlFor="cMail">{t.email}</label>
                 <input
                   type="email"
                   id="cMail"
@@ -801,17 +801,17 @@ const VerhuurAfhalenPage = () => {
                   autoComplete="email"
                   autoCapitalize="none"
                   spellCheck={false}
-                  placeholder="naam@voorbeeld.be"
+                  placeholder={t.emailPlaceholder}
                   value={mail}
                   onChange={(event) => setMail(maskEmail(event.target.value))}
                 />
               </div>
               <div className="fld">
-                <label htmlFor="cAdres">Adres</label>
+                <label htmlFor="cAdres">{t.adres}</label>
                 <input
                   type="text"
                   id="cAdres"
-                  placeholder="Straat, nr, gemeente"
+                  placeholder={t.adresPlaceholder}
                   autoComplete="street-address"
                   value={address}
                   onChange={(event) => setAddress(event.target.value)}
@@ -821,17 +821,17 @@ const VerhuurAfhalenPage = () => {
             {customerType === "pro" && (
               <div className="frow two" style={{ marginTop: 14 }}>
                 <div className="fld">
-                  <label htmlFor="cFirma">Bedrijfsnaam</label>
+                  <label htmlFor="cFirma">{t.bedrijfsnaam}</label>
                   <input
                     type="text"
                     id="cFirma"
-                    placeholder="Uw firma bv"
+                    placeholder={t.bedrijfPlaceholder}
                     value={company}
                     onChange={(event) => setCompany(event.target.value)}
                   />
                 </div>
                 <div className="fld">
-                  <label htmlFor="cBtw">Btw-nummer</label>
+                  <label htmlFor="cBtw">{t.btwNummer}</label>
                   <input
                     type="text"
                     id="cBtw"
@@ -843,11 +843,11 @@ const VerhuurAfhalenPage = () => {
               </div>
             )}
             <div className="fld" style={{ marginTop: 14 }}>
-              <label htmlFor="cNota">Opmerking (optioneel)</label>
+              <label htmlFor="cNota">{t.opmerking}</label>
               <input
                 type="text"
                 id="cNota"
-                placeholder="Bv. ik kom met een aanhangwagen"
+                placeholder={t.opmerkingPlaceholder}
                 value={note}
                 onChange={(event) => setNote(event.target.value)}
               />
@@ -858,8 +858,8 @@ const VerhuurAfhalenPage = () => {
                 zie `pompVraag`, dat deze zin invult voor wie van de fiche komt.
               */}
               <p className="pomphint">
-                Een condenspomp meenemen? Vraag het hier, dan leggen wij er een klaar.{" "}
-                <Link to="/verhuur/toebehoren/condenspomp">Wat doet een condenspomp?</Link>
+                {t.pompHint}{" "}
+                <Link to={lp("/verhuur/toebehoren/condenspomp")}>{t.pompLink}</Link>
               </p>
             </div>
             <label className="chk">
@@ -869,18 +869,13 @@ const VerhuurAfhalenPage = () => {
                 checked={agreed}
                 onChange={(event) => setAgreed(event.target.checked)}
               />{" "}
-              Ik ga akkoord met de huurvoorwaarden en breng de toestellen proper en onbeschadigd
-              terug.
+              {t.akkoord}
             </label>
           </div>
 
           <div className="blk">
-            <h2>4. Hoe wilt u betalen?</h2>
-            <p className="bs">
-              Dezelfde twee keuzes als bij een pakket: alles vooraf met korting, of uw reservatie
-              vastzetten met {euro(DEPOSIT_GROSS)} en de rest afrekenen wanneer u de toestellen
-              komt halen.
-            </p>
+            <h2>{t.stap4}</h2>
+            <p className="bs">{t.stap4Sub(euro(DEPOSIT_GROSS))}</p>
             {/*
               Dit waren twee pilknoppen met "Factuur na de huurperiode" ernaast,
               en daaronder de belofte dat u niets vooraf betaalde. Nu dezelfde
@@ -893,31 +888,24 @@ const VerhuurAfhalenPage = () => {
                 className={`payopt${payment === "online" ? " sel" : ""}`}
                 onClick={() => setPayment("online")}
               >
-                <span className="pob">{Math.round(ONLINE_DISCOUNT * 100)}% korting</span>
-                <b>Volledig online betalen</b>
-                <span>
-                  Betaal nu met Bancontact, kaart, Apple Pay of iDEAL. U krijgt{" "}
-                  {Math.round(ONLINE_DISCOUNT * 100)}% korting op uw hele reservatie en uw factuur
-                  staat meteen in uw mailbox.
-                </span>
-                {savings > 0 && <span className="pos">U bespaart {euro(savings)}</span>}
+                <span className="pob">{t.korting(Math.round(ONLINE_DISCOUNT * 100))}</span>
+                <b>{t.volledigOnline}</b>
+                <span>{t.volledigOnlineUitleg(Math.round(ONLINE_DISCOUNT * 100))}</span>
+                {savings > 0 && <span className="pos">{t.uBespaart(euro(savings))}</span>}
               </button>
               <button
                 type="button"
                 className={`payopt${payment === "afhaling" ? " sel" : ""}`}
                 onClick={() => setPayment("afhaling")}
               >
-                <b>{euro(DEPOSIT_GROSS)} nu, rest bij afhaling</b>
+                <b>{t.voorschotKop(euro(DEPOSIT_GROSS))}</b>
                 {/*
                   "via Bancontact of QR-code" zette de QR naast de betaalwijzen,
                   terwijl die enkel de weg naar het betaalscherm is — daar staan
                   dezelfde knoppen als hier.
                 */}
-                <span>
-                  Bevestig uw reservatie met {euro(DEPOSIT_GROSS)}. Het saldo scant en betaalt u in
-                  ons magazijn wanneer u de toestellen komt halen: Bancontact, kaart of Apple Pay.
-                </span>
-                <span className="pos">Factuur na volledige betaling</span>
+                <span>{t.voorschotUitleg(euro(DEPOSIT_GROSS))}</span>
+                <span className="pos">{t.factuurNaBetaling}</span>
               </button>
             </div>
           </div>
@@ -932,17 +920,10 @@ const VerhuurAfhalenPage = () => {
         {payOpen && !reference && !checking && (
           <div className="main">
             <div className="blk">
-              <h2>Betaal uw afhaalreservatie</h2>
+              <h2>{t.betaalKop}</h2>
               <p className="bs">
-                U betaalt <b>{euro(totals.payableGross)}</b> met Apple Pay, Bancontact, kaart,
-                iDEAL of Klarna. De betaling loopt beveiligd via Stripe, wij zien uw kaartgegevens
-                nooit.
-                {totals.balance > 0 && (
-                  <>
-                    {" "}
-                    Het saldo van <b>{euro(totals.balance)}</b> rekent u af bij de afhaling.
-                  </>
-                )}
+                {t.betaalSub(euro(totals.payableGross))}
+                {totals.balance > 0 && t.saldoBijAfhaling(euro(totals.balance))}
               </p>
 
               <div className="paybox">
@@ -964,11 +945,7 @@ const VerhuurAfhalenPage = () => {
                 <CheckIcon size={13} />
                 {/* De tekst hoort in één span: los in de flexbox wordt elk
                     stukje een eigen kolom zodra de ruimte krap wordt. */}
-                <span>
-                  Uw toestellen liggen klaar in Aartselaar op{" "}
-                  <b>{returnDate ? longDate(returnDate.start) : ""}</b> tussen <b>{slot}</b> zodra
-                  de betaling bevestigd is.
-                </span>
+                <span>{t.klaar(returnDate ? longDate(returnDate.start, taal) : "", slot)}</span>
               </p>
 
               {error && <p className="perr">{error}</p>}
@@ -978,7 +955,7 @@ const VerhuurAfhalenPage = () => {
                 type="button"
                 onClick={() => setPayOpen(false)}
               >
-                Terug naar mijn gegevens
+                {t.terugGegevens}
               </button>
             </div>
           </div>
@@ -987,8 +964,8 @@ const VerhuurAfhalenPage = () => {
         <div className={`done${reference || checking ? " on" : ""}`}>
           {checking && !reference ? (
             <>
-              <h2>Even geduld</h2>
-              <p>We kijken uw betaling na bij Stripe en zetten uw reservatie klaar.</p>
+              <h2>{t.geduldKop}</h2>
+              <p>{t.geduldSub}</p>
               {error && <p className="err">{error}</p>}
             </>
           ) : (
@@ -996,20 +973,13 @@ const VerhuurAfhalenPage = () => {
               <div className="ic">
                 <CheckIcon size={30} />
               </div>
-              <h2>Uw afhaalreservatie staat vast</h2>
+              <h2>{t.vastKop}</h2>
               <p>
-                Alles ligt voor u klaar in ons magazijn in Aartselaar op het gekozen moment. U
-                ontvangt zo een bevestiging per e-mail met de afhaalinstructies en het adres.
-                {balanceDue > 0 && (
-                  <>
-                    {" "}
-                    Het saldo van <b>{euro(balanceDue)}</b> rekent u af bij de afhaling: u scant
-                    onze QR-code en betaalt met Bancontact, kaart of Apple Pay.
-                  </>
-                )}
+                {t.vastSub}
+                {balanceDue > 0 && t.vastSaldo(euro(balanceDue))}
               </p>
               <div className="ref">
-                <span>Referentie</span>
+                <span>{t.referentie}</span>
                 <span>{reference ?? ""}</span>
               </div>
             </>
@@ -1027,22 +997,27 @@ const VerhuurAfhalenPage = () => {
             <div className="thumbs">
               {summary.lines.map((line) => (
                 <span className="thumb" key={line.product.key}>
-                  <img src={line.product.image} alt={line.product.name} loading="lazy" decoding="async" />
+                  <img
+                    src={line.product.image}
+                    alt={afhaalProductInTaal(line.product, taal).name}
+                    loading="lazy"
+                    decoding="async"
+                  />
                   {line.qty > 1 && <i>{line.qty}×</i>}
                 </span>
               ))}
             </div>
           )}
           <div className="sh">
-            <div className="l">Uw afhaalreservatie</div>
+            <div className="l">{t.uwReservatie}</div>
             <h3>{summaryTitle}</h3>
           </div>
           <div className="rows">
-            {summary.lines.length === 0 && <div className="srow mut">Kies links uw toestellen</div>}
+            {summary.lines.length === 0 && <div className="srow mut">{t.kiesLinks}</div>}
             {summary.lines.map((line) => (
               <div className="srow" key={line.product.key}>
                 <span>
-                  {line.qty}× {line.product.short} · {days} d
+                  {line.qty}× {line.product.short} · {days} {t.dagAfkorting}
                 </span>
                 <b>{euro(line.product.day * line.qty * days)}</b>
               </div>
@@ -1050,27 +1025,26 @@ const VerhuurAfhalenPage = () => {
             {returnDate && (
               <div className="srow">
                 <span>
-                  Afhalen {shortDate(returnDate.start)} ({slot}) → terug{" "}
-                  {shortDate(returnDate.end)}
+                  {t.afhalenTerug(shortDate(returnDate.start, taal), slot, shortDate(returnDate.end, taal))}
                 </span>
                 <b>-</b>
               </div>
             )}
             {summary.longStay > 0 && (
               <div className="srow">
-                <span>Langhuurkorting ({Math.round(langhuurKorting(days) * 100)}%)</span>
+                <span>{t.langhuurkorting(Math.round(langhuurKorting(days) * 100))}</span>
                 <b>− {euro(summary.longStay)}</b>
               </div>
             )}
             {totals.discount > 0 && (
               <div className="srow">
-                <span>Korting online betalen ({Math.round(ONLINE_DISCOUNT * 100)}%)</span>
+                <span>{t.kortingOnline(Math.round(ONLINE_DISCOUNT * 100))}</span>
                 <b>− {euro(totals.discount)}</b>
               </div>
             )}
             {summary.units > 0 && (
               <div className="srow mut">
-                <span>Btw 21%</span>
+                <span>{t.btw}</span>
                 <b>{euro(totals.vat)}</b>
               </div>
             )}
@@ -1081,15 +1055,15 @@ const VerhuurAfhalenPage = () => {
             */}
             {totals.balance > 0 && (
               <div className="srow">
-                <span>Totaal reservatie incl. btw</span>
+                <span>{t.totaalIncl}</span>
                 <b>{euro(totals.gross)}</b>
               </div>
             )}
           </div>
           <div className="tot">
-            <span className="l">Nu te betalen</span>
+            <span className="l">{t.nuTeBetalen}</span>
             <span className="v">
-              {euro(totals.payableGross)} <small>incl. btw</small>
+              {euro(totals.payableGross)} <small>{t.incl}</small>
             </span>
           </div>
           {/*
@@ -1106,7 +1080,7 @@ const VerhuurAfhalenPage = () => {
                   disabled={busy || reference !== null}
                   onClick={reserve}
                 >
-                  {busy ? "Even geduld…" : `Betalen, ${euro(totals.payableGross)}`}
+                  {busy ? t.evenGeduld : t.betalen(euro(totals.payableGross))}
                 </button>
                 {showMissing && missing.length > 0 && (
                   <ul className="miss">
@@ -1120,8 +1094,8 @@ const VerhuurAfhalenPage = () => {
             )}
             <div className="nt">
               {payment === "online"
-                ? `Huur ${euro(totals.net)} excl. btw · veilig betalen via Stripe`
-                : `Reservatie ${euro(totals.gross)} incl. btw · saldo ${euro(totals.balance)} bij de afhaling`}
+                ? t.notaOnline(euro(totals.net))
+                : t.notaAfhaling(euro(totals.gross), euro(totals.balance))}
             </div>
           </div>
         </aside>

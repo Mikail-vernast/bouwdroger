@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
-import { FASE, FASE_ORDER, type Fase } from "@/lib/droogSimulator";
+import { FASE, FASE_ORDER, faseInTaal, type Fase } from "@/lib/droogSimulator";
+import { useCopy, useTaal, type Copy } from "@/i18n/useTaal";
 
 /*
   Stap 3 van de droogsimulator: "Hoe ver staat de werf?".
@@ -10,6 +11,12 @@ import { FASE, FASE_ORDER, type Fase } from "@/lib/droogSimulator";
   of ▶ laten de kamer zich opbouwen; kiezen gebeurt met een tik op een knop of
   door los te laten na het vegen.
 */
+
+const COPY = {
+  nl: { bouwfase: "Bouwfase", starten: "Starten", meten: "Meten", letOp: "Let op", veeg: "← Veeg door de bouw →", bekijk: "Bekijk de bouw", fase: "Fase", van: "van", uwWerf: " · uw werf", vocht: "Vocht" },
+  fr: { bouwfase: "Phase du chantier", starten: "Démarrer", meten: "Mesurer", letOp: "Attention", veeg: "← Faites défiler le chantier →", bekijk: "Voir le chantier", fase: "Phase", van: "sur", uwWerf: " · votre chantier", vocht: "Humidité" },
+  en: { bouwfase: "Build stage", starten: "Start", meten: "Measure", letOp: "Please note", veeg: "← Swipe through the build →", bekijk: "Watch the build", fase: "Stage", van: "of", uwWerf: " · your site", vocht: "Moisture" },
+} satisfies Copy<Record<string, string>>;
 
 const LAATSTE = FASE_ORDER.length - 1;
 const plek = (f: Fase) => FASE_ORDER.indexOf(f);
@@ -79,15 +86,17 @@ const Druppel = () => (
 
 /** The six phase buttons in the panel. `onToon` previews a phase in the film (hover, focus). */
 export function FaseKnoppen({ fase, onKies, onToon }: { fase: Fase | null; onKies: (f: Fase) => void; onToon: (f: Fase | null) => void }) {
+  const taal = useTaal();
+  const t = useCopy(COPY);
   return (
-    <div className={`ds-fk-rij${fase ? " gekozen" : " uitnodig"}`} role="radiogroup" aria-label="Bouwfase" onMouseLeave={() => onToon(null)}>
+    <div className={`ds-fk-rij${fase ? " gekozen" : " uitnodig"}`} role="radiogroup" aria-label={t.bouwfase} onMouseLeave={() => onToon(null)}>
       {FASE_ORDER.map((f, i) => (
         <button
           key={f}
           type="button"
           role="radio"
           aria-checked={fase === f}
-          aria-label={FASE[f].label}
+          aria-label={faseInTaal(f, taal).label}
           className={`ds-fk${fase === f ? " on" : ""}`}
           style={{ animationDelay: `${i * 0.12}s` }}
           onClick={() => onKies(f)}
@@ -98,7 +107,7 @@ export function FaseKnoppen({ fase, onKies, onToon }: { fase: Fase | null; onKie
           <span className="ds-fk-nr" aria-hidden="true">{i + 1}</span>
           <span className="ds-fk-vk" aria-hidden="true"><Vink /></span>
           <span className="ds-fk-tegel"><Picto fase={f} /></span>
-          <b>{FASE[f].kort}</b>
+          <b>{faseInTaal(f, taal).kort}</b>
         </button>
       ))}
     </div>
@@ -107,16 +116,17 @@ export function FaseKnoppen({ fase, onKies, onToon }: { fase: Fase | null; onKie
 
 /** Starten / Meten / Let op for the chosen phase. */
 export function FaseRegels({ fase }: { fase: Fase }) {
-  const F = FASE[fase];
+  const F = faseInTaal(fase, useTaal());
+  const t = useCopy(COPY);
   return (
     <div className="ds-fr" aria-live="polite">
       <p className="ds-fr-tekst">
         <b>{F.kort}.</b> {F.advies}
       </p>
       <div className="ds-fr-regels">
-        <div><span>Starten</span><b>{F.starten}</b></div>
-        <div><span>Meten</span><b>{F.meten}</b></div>
-        <div className="let"><span>Let op</span><b>{F.letOp}</b></div>
+        <div><span>{t.starten}</span><b>{F.starten}</b></div>
+        <div><span>{t.meten}</span><b>{F.meten}</b></div>
+        <div className="let"><span>{t.letOp}</span><b>{F.letOp}</b></div>
       </div>
     </div>
   );
@@ -131,6 +141,8 @@ const zonderBeweging = () => typeof window !== "undefined" && window.matchMedia?
  * Frames are written straight to the DOM, so scrubbing never re-renders React.
  */
 export function Bouwfilm({ fase, toon, onKies }: { fase: Fase | null; toon: Fase | null; onKies: (f: Fase) => void }) {
+  const taal = useTaal();
+  const t = useCopy(COPY);
   const fotos = useRef<(HTMLImageElement | null)[]>([]);
   const pin = useRef<HTMLSpanElement>(null);
   const pos = useRef(fase ? plek(fase) : 0);
@@ -228,7 +240,7 @@ export function Bouwfilm({ fase, toon, onKies }: { fase: Fase | null; toon: Fase
     volgende(1);
   };
 
-  const F = FASE[FASE_ORDER[toont]];
+  const F = faseInTaal(FASE_ORDER[toont], taal);
   const pinKant = F.pin.x > 55 ? " links" : F.pin.x > 28 ? " onder" : "";
 
   return (
@@ -238,7 +250,7 @@ export function Bouwfilm({ fase, toon, onKies }: { fase: Fase | null; toon: Fase
           key={f}
           ref={(el) => (fotos.current[i] = el)}
           src={FASE[f].foto}
-          alt={i === toont ? FASE[f].label : ""}
+          alt={i === toont ? faseInTaal(f, taal).label : ""}
           draggable={false}
           decoding="async"
         />
@@ -247,25 +259,25 @@ export function Bouwfilm({ fase, toon, onKies }: { fase: Fase | null; toon: Fase
         <span>{F.pin.tekst}</span>
       </span>
       <span className={`ds-bf-veeg${geveegd || fase ? " weg" : ""}`} aria-hidden="true">
-        ← Veeg door de bouw →
+        {t.veeg}
       </span>
       <button type="button" className={`ds-bf-speel${spelen ? " weg" : ""}`} onClick={speel}>
         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor" /></svg>
-        Bekijk de bouw
+        {t.bekijk}
       </button>
       <div className="ds-bf-cap" aria-hidden="true">
         <div>
           <span>
             <span className="ds-bf-cap-fase">
-              Fase {toont + 1} van {FASE_ORDER.length}
-              {fase && FASE_ORDER[toont] === fase ? " · uw werf" : ""}
+              {t.fase} {toont + 1} {t.van} {FASE_ORDER.length}
+              {fase && FASE_ORDER[toont] === fase ? t.uwWerf : ""}
             </span>
             <span className="ds-bf-cap-pin">{F.pin.tekst}</span>
           </span>
           <b>{F.kort}</b>
         </div>
         <span className="ds-bf-meter">
-          <small>Vocht</small>
+          <small>{t.vocht}</small>
           <span className="ds-bf-drup">
             {[1, 2, 3, 4, 5].map((n) => (
               <span key={n} className={n <= F.druppels ? "vol" : undefined}><Druppel /></span>

@@ -1,4 +1,4 @@
-import { GEMEENTE_ROUTES, type GemeenteRoute } from "./gemeente-slugs.js";
+import { GEMEENTE_ROUTES, plaatsenVanRoute, type GemeenteRoute } from "./gemeente-slugs.js";
 import { REALISATIE_REGIO } from "./realisatie-regio.js";
 
 /**
@@ -45334,11 +45334,8 @@ export function routeVan(gemeente: Gemeente): GemeenteRoute {
  * Hoboken, Ekeren) tellen mee voor de stadspagina — wie "bouwdroger Berchem"
  * zoekt, is geholpen met de Antwerpse pagina.
  */
-const DISTRICTEN = ["Antwerpen", "Berchem", "Merksem", "Deurne", "Hoboken", "Ekeren", "Borgerhout"];
-
 export function plaatsenVoor(gemeente: Gemeente): string[] {
-  const route = routeVan(gemeente);
-  return route.slug === "antwerpen-stad" ? DISTRICTEN : [route.name];
+  return plaatsenVanRoute(routeVan(gemeente));
 }
 
 /** Of een realisatie in de provincie van deze gemeente ligt. */

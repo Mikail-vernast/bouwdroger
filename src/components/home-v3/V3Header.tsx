@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
 import FontPreload from "@/components/FontPreload";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
-import { ALLES_OVER_DROGEN, MENU_SITUATIES, PAKKETTEN, TOESTELLEN } from "@/data/navigation";
+import { navigatie } from "@/data/navigation";
+import { useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
+import { KlantWissel, TaalWissel } from "@/components/TaalWissel";
+import { SCHIL_COPY } from "@/components/schil.copy";
+import "@/styles/taalwissel.css";
 import "@/styles/offerte-shine.css";
 import "@/styles/mega-menu.css";
 
@@ -58,6 +62,9 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuGroep, setMenuGroep] = useState<string | null>(null);
   const lastY = useRef(0);
+  const t = useCopy(SCHIL_COPY);
+  const lp = useLokaalPad();
+  const { ALLES_OVER_DROGEN, MENU_SITUATIES, PAKKETTEN, TOESTELLEN } = navigatie(useTaal());
 
   useEffect(() => {
     let ticking = false;
@@ -124,16 +131,20 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
           <a href="mailto:info@vernast-bouwdrogers.be">
             <MailIcon /> info@vernast-bouwdrogers.be
           </a>
-          <span>Ma–Vr 08:00–17:00</span>
+          <span>{t.uren}</span>
         </div>
         <div className="tl-right">
-          <span className="dot" /> Droogpakket berekend op uw woning · u kiest zelf uw leverdatum
+          <span className="dot" /> <span className="tl-belofte">{t.belofteV3}</span>
+          <span className="wissels">
+            <TaalWissel />
+            <KlantWissel />
+          </span>
         </div>
       </div>
 
       <div className="wrap navrow mnav-row">
         <div className="navpill">
-          <Link className="nav-logo" to="/">
+          <Link className="nav-logo" to={lp("/")}>
             <img
               src={onLight ? "/vernast/logo-horizontal-black.webp" : "/vernast/logo-horizontal-white.webp"}
               alt="Vernast"
@@ -145,23 +156,23 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
 
           <div className="nav-menu">
             <div className="item has-sub">
-              Group
+              {t.groep}
               <CaretIcon className="caret" />
               <div className="submenu">
                 <a href="https://vernast-vochtbestrijding.be/">
-                  Vochtbestrijding<small>Kelder · muren · gevel</small>
+                  {t.groepVocht[0]}<small>{t.groepVocht[1]}</small>
                 </a>
-                <Link to="/">
-                  Verhuur &amp; bouwdroging<small>Toestellen en pakketten</small>
+                <Link to={lp("/")}>
+                  {t.groepVerhuur[0]}<small>{t.groepVerhuur[1]}</small>
                 </Link>
                 <a href="https://www.vernast-schilderwerken.be/">
-                  Schilderwerken<small>Binnen &amp; buiten</small>
+                  {t.groepSchilder[0]}<small>{t.groepSchilder[1]}</small>
                 </a>
               </div>
             </div>
 
             <div className="item mega has-sub">
-              Bouwdroging
+              {t.bouwdroging}
               <CaretIcon className="caret" />
               <div className="mega-panel">
                 <div className="mmv-cols">
@@ -176,7 +187,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                     komt te staan, niet ernaast.
                   */}
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Toestellen</span>
+                    <span className="mmv-kop">{t.kopToestellen}</span>
                     {/*
                       Deze vijf stonden hier overgetypt, en liepen daardoor uit
                       de pas met het gamma: de Large bouwdroger, de Revolution
@@ -196,7 +207,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                     </ul>
                   </div>
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Pakketten</span>
+                    <span className="mmv-kop">{t.kopPakketten}</span>
                     {/*
                       Deze vijf stonden hier én in VHeader én in het mobiele
                       menu overgetypt, terwijl `PAKKETTEN` in
@@ -222,7 +233,7 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                     de afspraken rond een huur.
                   */}
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Toepassingen</span>
+                    <span className="mmv-kop">{t.kopToepassingen}</span>
                     <ul className="mmv-lijst">
                       {MENU_SITUATIES.map((item) => (
                         <li key={item.path}>
@@ -232,42 +243,40 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                     </ul>
                   </div>
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Service</span>
+                    <span className="mmv-kop">{t.kopService}</span>
                     <ul className="mmv-lijst">
                       <li>
-                        <Link to="/levering">Levering &amp; installatie</Link>
+                        <Link to={lp("/levering")}>{t.levering}</Link>
                       </li>
                       <li>
-                        <Link to="/afhalen">Afhalen in Aartselaar</Link>
+                        <Link to={lp("/afhalen")}>{t.afhalen}</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/pakket">Vochtmeting inbegrepen</Link>
+                        <Link to={lp("/verhuur/pakket")}>{t.vochtmeting}</Link>
                       </li>
                       <li>
-                        <Link to="/klantservice">Dekking &amp; eigen risico</Link>
+                        <Link to={lp("/klantservice")}>{t.dekking}</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/verlengen">Verlengen of stoppen</Link>
+                        <Link to={lp("/verhuur/verlengen")}>{t.verlengen}</Link>
                       </li>
                     </ul>
                   </div>
                 </div>
                 <div className="mega-foot">
                   <div className="mft">
-                    <b>Niet zeker welk pakket u nodig heeft?</b>
-                    <span>
-                      Onze Calculator bepaalt in 5 vragen de juiste toestellen, droogtijd en prijs.
-                    </span>
+                    <b>{t.megaVraag1}</b>
+                    <span>{t.megaUitleg1}</span>
                   </div>
-                  <Link className="btn-offerte" to="/verhuur/calculator">
-                    Gratis Calculator
+                  <Link className="btn-offerte" to={lp("/verhuur/calculator")}>
+                    {t.calculatorKnop}
                   </Link>
                 </div>
               </div>
             </div>
 
             <div className="item mega has-sub">
-              Alles over drogen
+              {t.allesOverDrogen}
               <CaretIcon className="caret" />
               {/*
                 Ook dit is een mega-menu en geen uitklapper meer. Er stonden
@@ -293,42 +302,39 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
                 </div>
                 <div className="mega-foot">
                   <div className="mft">
-                    <b>Liever eerst weten wat het kost?</b>
-                    <span>
-                      De Calculator rekent uw volume uit en zegt welk toestel en welke droogtijd erbij
-                      horen.
-                    </span>
+                    <b>{t.megaVraag2}</b>
+                    <span>{t.megaUitleg2}</span>
                   </div>
-                  <Link className="btn-offerte" to="/verhuur/calculator">
-                    Gratis Calculator
+                  <Link className="btn-offerte" to={lp("/verhuur/calculator")}>
+                    {t.calculatorKnop}
                   </Link>
                 </div>
               </div>
             </div>
 
-            <Link className="item" to="/realisaties">
-              Realisaties
+            <Link className="item" to={lp("/realisaties")}>
+              {t.realisaties}
             </Link>
-            <Link className="item" to="/over-ons">
-              Over ons
+            <Link className="item" to={lp("/over-ons")}>
+              {t.overOns}
             </Link>
-            <Link className="item" to="/klantservice">
-              Klantenservice
+            <Link className="item" to={lp("/klantservice")}>
+              {t.klantenservice}
             </Link>
-            <Link className="item" to="/contact">
-              Contact
+            <Link className="item" to={lp("/contact")}>
+              {t.contact}
             </Link>
           </div>
 
           <MobileNavActions open={menuOpen} onClick={() => (menuOpen ? sluitMenu() : setMenuOpen(true))} />
         </div>
 
-        <Link className="cart mnav-hide-sm" to="/verhuur/calculator" aria-label="Winkelwagen">
+        <Link className="cart mnav-hide-sm" to={lp("/verhuur/calculator")} aria-label={t.winkelwagen}>
           <CartIcon />
           <i id="cartCount">1</i>
         </Link>
-        <Link className="btn-offerte mnav-cta-sm" to="/verhuur/calculator">
-          Gratis Calculator
+        <Link className="btn-offerte mnav-cta-sm" to={lp("/verhuur/calculator")}>
+          {t.calculatorKnop}
         </Link>
       </div>
     </header>

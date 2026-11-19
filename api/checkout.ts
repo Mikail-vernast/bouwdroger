@@ -23,6 +23,7 @@ import {
 } from "../src/lib/availability.js";
 import { bookingSummary, newReference, normalizeOptions, toCents } from "../src/lib/booking.js";
 import { type BookingEvent, type BookingEventCode, recordBookingEvent } from "../src/lib/bookingEvents.js";
+import { betaalPad, betaalTaal, foutmelding } from "../src/lib/betaalTaal.js";
 import { releaseSession } from "../src/lib/checkoutSession.js";
 import { safeOrigin } from "../src/lib/origin.js";
 import { customerType } from "../src/lib/orderIntake.js";
@@ -43,6 +44,12 @@ interface CheckoutBody {
   delivery?: unknown;
   /** De sessie van een vorige poging van dezelfde bezoeker; zie `dropPrevious`. */
   previousSessionId?: unknown;
+  /**
+   * De taal van de boekingspagina: "fr", "en" of iets anders (= nl). Bepaalt alleen
+   * wat Stripe toont, waar de betaler terugkomt en de taal van een weigering;
+   * nooit een bedrag. Zie `src/lib/betaalTaal.ts`.
+   */
+  taal?: unknown;
 }
 
 function json(body: unknown, status = 200): Response {
@@ -150,6 +157,8 @@ export async function POST(request: Request): Promise<Response> {
     return refused(json({ error: "Ongeldige aanvraag." }, 400), "ongeldige_aanvraag");
   }
 
+  const taal = betaalTaal(body.taal);
+
   /*
     `config`, `customer` en `delivery` komen ongecontroleerd uit de browser.
     `parseConfig` en `trim` gaan ervan uit dat ze met tekst te maken hebben;
@@ -173,7 +182,7 @@ export async function POST(request: Request): Promise<Response> {
 
   const email = trim(customer.mail, 200);
   if (!/\S+@\S+\.\S+/.test(email)) {
-    return refused(json({ error: "Geen geldig e-mailadres opgegeven." }, 400), "geen_email");
+    return refused(json({ error: foutmelding("Geen geldig e-mailadres opgegeven.", taal) }, 400), "geen_email");
   }
 
   /*
@@ -190,7 +199,7 @@ export async function POST(request: Request): Promise<Response> {
   // Dezelfde eis als in `api/afhaal-checkout.ts`: zonder btw-nummer valt er voor
   // een bedrijf geen factuur te maken, en de wizard vraagt er al om.
   if (business && (!company || !vatNumber)) {
-    return refused(json({ error: "Vul uw bedrijfsnaam en btw-nummer in." }, 400), "btw_ontbreekt");
+    return refused(json({ error: foutmelding("Vul uw bedrijfsnaam en btw-nummer in.", taal) }, 400), "btw_ontbreekt");
   }
 
   // Pas hier gaat er echt een sessie naar Stripe.
@@ -218,7 +227,7 @@ export async function POST(request: Request): Promise<Response> {
     aan de andere kant iets stuk.
   */
   if (!period) {
-    return refused(json({ error: "Kies eerst een geldige leverdatum." }, 400), "geen_datum");
+    return refused(json({ error: foutmelding("Kies eerst een geldige leverdatum.", taal) }, 400), "geen_datum");
   }
 
   const stripe = new Stripe(key);
@@ -246,7 +255,7 @@ export async function POST(request: Request): Promise<Response> {
   if (verdict === "onbekend") {
     alarmAvailabilityFailure(`checkout ${reference}`, availability);
     return refused(
-      json({ error: CHECK_UNAVAILABLE_ERROR, code: CHECK_UNAVAILABLE_CODE }, 503),
+      json({ error: foutmelding(CHECK_UNAVAILABLE_ERROR, taal), code: CHECK_UNAVAILABLE_CODE }, 503),
       "controle_onbereikbaar",
       availability.reason?.slice(0, 200),
     );
@@ -255,8 +264,10 @@ export async function POST(request: Request): Promise<Response> {
     return refused(
       json(
       {
-        error:
+        error: foutmelding(
           "Op deze leverdatum zijn onze toestellen al ingepland. Kies een andere datum, of bel ons op 03 689 90 65. Vaak kunnen we alsnog schuiven.",
+          taal,
+        ),
         code: "niet_beschikbaar",
           blocked_start_dates: availability.answer.blocked_start_dates,
         },
@@ -288,7 +299,8 @@ export async function POST(request: Request): Promise<Response> {
       ui_mode: "elements",
       customer_email: email,
       client_reference_id: reference,
-      locale: "nl",
+      // De taal van het betaalformulier en van het ontvangstbewijs van Stripe.
+      locale: taal,
       integration_identifier: INTEGRATION_ID,
       line_items: [
         {
@@ -340,7 +352,7 @@ export async function POST(request: Request): Promise<Response> {
       ],
       // Bancontact, iDEAL en Klarna sturen de bezoeker even naar hun eigen app
       // of bank; hierlangs komt die terug op dezelfde boekingspagina.
-      return_url: `${origin}/verhuur/boeking?${query}&session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `${origin}${betaalPad("/verhuur/boeking", taal)}?${query}&session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         referentie: reference,
         pakket: trim(packageTitle(config)),
@@ -379,6 +391,14 @@ export async function POST(request: Request): Promise<Response> {
         huur_eind: period.end,
         huurdagen: String(summary.days),
         toestellen: trim(devices),
+        /*
+          De taal van de klant, voor wat na de betaling volgt. De mails
+          (`src/lib/mail.ts`) zijn nog Nederlands; zodra er Franse sjablonen
+          zijn, leest `sendPaidBookingMails` hier welke hij kiest. Het portaal
+          en `sessionToVernast` lezen enkel sleutels die ze kennen, dus deze
+          extra sleutel verandert daar niets.
+        */
+        taal,
       },
       /*
         Stripe-sessies leven standaard 24 uur. Zo lang toestellen apart houden
@@ -426,7 +446,12 @@ export async function POST(request: Request): Promise<Response> {
     console.error(`[checkout] sessie ${reference} niet aangemaakt bij Stripe: ${message}`);
     return refused(
       json(
-        { error: "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65." },
+        {
+          error: foutmelding(
+            "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65.",
+            taal,
+          ),
+        },
         502,
       ),
       "stripe_fout",

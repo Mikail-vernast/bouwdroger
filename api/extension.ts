@@ -17,6 +17,7 @@
  * en terugbelt.
  */
 import Stripe from "stripe";
+import { betaalTaal, foutmelding } from "../src/lib/betaalTaal.js";
 import { isReference } from "../src/lib/booking.js";
 import { alertExtensionFailure, sendExtensionRequest } from "../src/lib/mail.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
@@ -109,6 +110,14 @@ interface ExtensionBody {
   opmerking?: unknown;
   /** Honeypot, zie `api/contact.ts`. */
   website?: unknown;
+  /**
+   * De taal van de verlengpagina. Hier komt geen Stripe-sessie aan te pas;
+   * hij bepaalt alleen de taal van een weigering. Zodra er een Franse
+   * verlengmail bestaat, hoort hij ook in `sendExtensionRequest` en in de
+   * payload naar het portaal — nu nog niet, want `VernastExtensionPayload`
+   * kent het veld niet.
+   */
+  taal?: unknown;
 }
 
 function str(value: unknown, max: number): string {
@@ -131,17 +140,18 @@ export async function POST(request: Request): Promise<Response> {
 
   if (str(body.website, 200)) return json({ ok: true });
 
+  const taal = betaalTaal(body.taal);
   const id = str(body.sessionId, 300);
-  if (!SESSION_ID.test(id)) return json({ error: "Ongeldige sessie." }, 400);
+  if (!SESSION_ID.test(id)) return json({ error: foutmelding("Ongeldige sessie.", taal) }, 400);
 
   const extraDagen = Math.floor(Number(body.extraDagen));
   if (!Number.isFinite(extraDagen) || extraDagen < 1 || extraDagen > MAX_EXTRA_DAGEN) {
-    return json({ error: "Kies hoeveel langer u de toestellen wilt houden." }, 400);
+    return json({ error: foutmelding("Kies hoeveel langer u de toestellen wilt houden.", taal) }, 400);
   }
 
   const telefoon = str(body.telefoon, 40);
   if (telefoon.replace(/\D/g, "").length < 8) {
-    return json({ error: "Vul een telefoonnummer in waarop wij u kunnen bereiken." }, 400);
+    return json({ error: foutmelding("Vul een telefoonnummer in waarop wij u kunnen bereiken.", taal) }, 400);
   }
 
   /*
@@ -152,14 +162,14 @@ export async function POST(request: Request): Promise<Response> {
   */
   const opmerking = str(body.opmerking, 2000);
   if (opmerking.length < 5) {
-    return json({ error: "Vertel kort waarom u wilt verlengen." }, 400);
+    return json({ error: foutmelding("Vertel kort waarom u wilt verlengen.", taal) }, 400);
   }
 
   const accepted = limit.accept();
   if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
 
   const session = await loadSession(id);
-  if (!session) return json({ error: "Boeking niet gevonden." }, 404);
+  if (!session) return json({ error: foutmelding("Boeking niet gevonden.", taal) }, 404);
 
   const huidigEinde = meta(session, "huur_eind");
   const nieuwEinde = huidigEinde ? isoDate(addDays(new Date(huidigEinde), extraDagen)) : "";

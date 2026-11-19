@@ -1,15 +1,13 @@
+import { Suspense, type ReactNode } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
-import { SEO } from "@/data/seo";
-import {
-  REALISATIES,
-  REALISATIE_SOORTEN,
-  telPerSoort,
-  type RealisatieSoort,
-} from "@/data/realisaties";
+import { useSeo } from "@/data/seo";
+import { REALISATIE_SOORTEN, type RealisatieSoort } from "@/data/realisaties";
+import { realisatiesInTaal, realisatieSoortenInTaal } from "@/data/realisatiesInTaal";
+import { useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
 import { ArrowRight, DropIcon, FlowIcon, GridIcon, ShieldIcon } from "@/components/realisaties/icons";
 // De gedeelde <V3Header>/<V3Footer> dragen hun eigen opmaak; zonder deze
 // twee bestanden staat de schil er kaal bij.
@@ -40,7 +38,121 @@ const SOORT_ICOON = {
 const isSoort = (w: string | null): w is RealisatieSoort =>
   REALISATIE_SOORTEN.some((s) => s.key === w);
 
-const RealisatiesPage = () => {
+const COPY = {
+  nl: {
+    crumb: "Realisaties",
+    lijstNaam: "Uitgevoerde droogprojecten",
+    eyebrow: "Onze realisaties",
+    h1: "Echte werven, echte resultaten",
+    intro: (
+      <>
+        Bekijk onze afgewerkte projecten: bouwvocht na pleister- en chapewerken, waterschade na
+        een lek en ruimtes die te vochtig stonden. Elk project toont het probleem, de aanpak en
+        het resultaat, met de foto&apos;s van de werf zelf.
+      </>
+    ),
+    filter: "Filter op soort werk",
+    alle: "Alle projecten",
+    ctaH2: "Zelf vocht weg te krijgen?",
+    ctaP: (
+      <>
+        Bereken in vijf vragen welke toestellen u nodig heeft, met de droogtijd en de prijs
+        erbij. Vrijblijvend.
+      </>
+    ),
+    ctaKnop: "Bereken uw droogpakket",
+    project: "project",
+    projecten: "projecten",
+    bekijk: "Bekijk project",
+  },
+  fr: {
+    crumb: "Réalisations",
+    lijstNaam: "Projets de séchage réalisés",
+    eyebrow: "Nos réalisations",
+    h1: "De vrais chantiers, de vrais résultats",
+    intro: (
+      <>
+        Découvrez nos projets terminés : humidité de construction après des travaux de plafonnage
+        et de chape, dégâts des eaux après une fuite et des pièces trop humides. Chaque projet
+        montre le problème, l&apos;approche et le résultat, avec les photos du chantier lui-même.
+      </>
+    ),
+    filter: "Filtrer par type de travaux",
+    alle: "Tous les projets",
+    ctaH2: "De l'humidité à éliminer vous-même ?",
+    ctaP: (
+      <>
+        Calculez en cinq questions les appareils dont vous avez besoin, avec la durée de séchage et
+        le prix. Sans engagement.
+      </>
+    ),
+    ctaKnop: "Calculez votre pack de séchage",
+    project: "projet",
+    projecten: "projets",
+    bekijk: "Voir le projet",
+  },
+  en: {
+    crumb: "Projects",
+    lijstNaam: "Completed drying projects",
+    eyebrow: "Our projects",
+    h1: "Real sites, real results",
+    intro: (
+      <>
+        Take a look at our completed projects: construction moisture after plastering and screed
+        work, water damage after a leak and rooms that were too damp. Each project shows the
+        problem, the approach and the result, with photos from the site itself.
+      </>
+    ),
+    filter: "Filter by type of work",
+    alle: "All projects",
+    ctaH2: "Got moisture to get rid of yourself?",
+    ctaP: (
+      <>
+        Work out in five questions which machines you need, with the drying time and the price
+        included. No obligation.
+      </>
+    ),
+    ctaKnop: "Calculate your drying package",
+    project: "project",
+    projecten: "projects",
+    bekijk: "View project",
+  },
+} satisfies Copy<{
+  crumb: string;
+  lijstNaam: string;
+  eyebrow: string;
+  h1: string;
+  intro: ReactNode;
+  filter: string;
+  alle: string;
+  ctaH2: string;
+  ctaP: ReactNode;
+  ctaKnop: string;
+  project: string;
+  projecten: string;
+  bekijk: string;
+}>;
+
+/*
+  De Franse en Engelse projectteksten laden pas op een route in die taal en
+  schorsen tot ze er zijn (zie `realisatiesInTaal.ts`); deze grens vangt dat
+  op. Het Nederlands schorst nooit.
+*/
+const RealisatiesPage = () => (
+  <Suspense fallback={null}>
+    <Overzicht />
+  </Suspense>
+);
+
+const Overzicht = () => {
+  const taal = useTaal();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const seo = useSeo("realisaties");
+  const REALISATIES = realisatiesInTaal(taal);
+  const soorten = realisatieSoortenInTaal(taal);
+  const telPerSoort = (soort: RealisatieSoort) => REALISATIES.filter((r) => r.soort === soort).length;
+
   /*
     De keuze staat in de URL, niet in een useState: een doorgestuurde
     ?soort=waterschade toont dan ook waterschade, en de terugknop van de
@@ -63,17 +175,17 @@ const RealisatiesPage = () => {
   return (
     <div className="v3 rz-page">
       <PageMeta
-        {...SEO.realisaties}
-        path="/realisaties"
+        {...seo}
+        path={lp("/realisaties")}
         image={REALISATIES[0].kaart}
         jsonLd={[
           breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Realisaties", path: "/realisaties" },
+            { name: "Home", path: lp("/") },
+            { name: t.crumb, path: lp("/realisaties") },
           ]),
           itemListSchema(
-            "Uitgevoerde droogprojecten",
-            REALISATIES.map((r) => ({ name: r.titel, path: `/realisaties/${r.slug}` }))
+            t.lijstNaam,
+            REALISATIES.map((r) => ({ name: r.titel, path: lp(`/realisaties/${r.slug}`) }))
           ),
         ]}
       />
@@ -83,13 +195,9 @@ const RealisatiesPage = () => {
         <section className="section tech-section" style={{ padding: "170px 0 90px" }}>
           <div className="rz-wrap">
             <div className="shead center on-red" style={{ marginBottom: 0 }}>
-              <span className="eyebrow center">Onze realisaties</span>
-              <h1>Echte werven, echte resultaten</h1>
-              <p>
-                Bekijk onze afgewerkte projecten: bouwvocht na pleister- en chapewerken, waterschade na
-                een lek en ruimtes die te vochtig stonden. Elk project toont het probleem, de aanpak en
-                het resultaat, met de foto&apos;s van de werf zelf.
-              </p>
+              <span className="eyebrow center">{t.eyebrow}</span>
+              <h1>{t.h1}</h1>
+              <p>{t.intro}</p>
             </div>
           </div>
         </section>
@@ -99,14 +207,14 @@ const RealisatiesPage = () => {
             <div className="rl-layout">
               <aside className="rl-side">
                 <div className="rl-filter">
-                  <div className="tt">Filter op soort werk</div>
-                  <div className="fl" role="group" aria-label="Filter op soort werk">
+                  <div className="tt">{t.filter}</div>
+                  <div className="fl" role="group" aria-label={t.filter}>
                     <button type="button" className={gekozen === null ? "on" : undefined} aria-pressed={gekozen === null} onClick={() => kies(null)}>
                       <GridIcon />
-                      Alle projecten
+                      {t.alle}
                       <span className="n">{REALISATIES.length}</span>
                     </button>
-                    {REALISATIE_SOORTEN.map((s) => {
+                    {soorten.map((s) => {
                       const Icoon = SOORT_ICOON[s.key];
                       return (
                         <button key={s.key} type="button" className={gekozen === s.key ? "on" : undefined} aria-pressed={gekozen === s.key} onClick={() => kies(s.key)}>
@@ -120,25 +228,22 @@ const RealisatiesPage = () => {
                 </div>
 
                 <div className="rl-cta">
-                  <h2>Zelf vocht weg te krijgen?</h2>
-                  <p>
-                    Bereken in vijf vragen welke toestellen u nodig heeft, met de droogtijd en de prijs
-                    erbij. Vrijblijvend.
-                  </p>
-                  <Link className="rz-btn rz-btn-white" to="/verhuur/calculator">
-                    Bereken uw droogpakket
+                  <h2>{t.ctaH2}</h2>
+                  <p>{t.ctaP}</p>
+                  <Link className="rz-btn rz-btn-white" to={lp("/verhuur/calculator")}>
+                    {t.ctaKnop}
                   </Link>
                 </div>
               </aside>
 
               <div>
                 <p className="rl-count">
-                  {zichtbaar.length} {zichtbaar.length === 1 ? "project" : "projecten"}
+                  {zichtbaar.length} {zichtbaar.length === 1 ? t.project : t.projecten}
                 </p>
                 <div className="rl-grid">
                   {zichtbaar.map((r, i) => (
                     <article className="rl-card" key={r.slug}>
-                      <Link to={`/realisaties/${r.slug}`} aria-label={r.titel}>
+                      <Link to={lp(`/realisaties/${r.slug}`)} aria-label={r.titel}>
                         <img src={r.kaart} alt={r.kaartAlt} loading={i < 3 ? "eager" : "lazy"} width={800} height={600} />
                       </Link>
                       <div className="rl-body">
@@ -146,10 +251,10 @@ const RealisatiesPage = () => {
                           <span className="rl-chip">{r.chip}</span>
                         </div>
                         <h3>
-                          <Link to={`/realisaties/${r.slug}`}>{r.titel}</Link>
+                          <Link to={lp(`/realisaties/${r.slug}`)}>{r.titel}</Link>
                         </h3>
-                        <Link className="rl-go" to={`/realisaties/${r.slug}`}>
-                          Bekijk project <ArrowRight />
+                        <Link className="rl-go" to={lp(`/realisaties/${r.slug}`)}>
+                          {t.bekijk} <ArrowRight />
                         </Link>
                       </div>
                     </article>

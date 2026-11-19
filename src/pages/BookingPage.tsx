@@ -22,8 +22,184 @@ import type { PackageResult } from "@/lib/pricing";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import PageMeta from "@/components/PageMeta";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
 import { maskEmail, maskPhone } from "@/lib/inputMask";
+import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
+import { productInTaal } from "@/data/products.fr";
+
+const COPY = {
+  nl: {
+    verplicht: "Vul alle verplichte velden in",
+    fout: "Er ging iets mis",
+    foutUitleg: "Probeer het opnieuw of contacteer ons.",
+    terug: "Terug",
+    h1: "Boeking aanvragen",
+    intro: "Vul uw gegevens in en wij nemen binnen 24 uur contact met u op.",
+    typeKlant: "Type klant",
+    particulier: "Particulier",
+    particulierSub: "Privépersoon",
+    zakelijk: "Zakelijk",
+    zakelijkSub: "Bedrijf / Aannemer",
+    bedrijfsnaam: "Bedrijfsnaam *",
+    btwNummer: "BTW-nummer",
+    contact: "Contactgegevens",
+    voornaam: "Voornaam *",
+    achternaam: "Achternaam *",
+    email: "E-mail *",
+    telefoon: "Telefoon *",
+    adresKop: "Afleveradres",
+    straat: "Straat + huisnummer *",
+    postcode: "Postcode",
+    gemeente: "Gemeente",
+    opmerkingen: "Opmerkingen (optioneel)",
+    opmerkingenPh: "Bijv. toegangsinformatie, specifieke wensen...",
+    bezig: "Bezig met verzenden...",
+    versturen: "Boeking aanvragen",
+    selectie: "Uw selectie",
+    pakket: (label: string) => `${label} pakket`,
+    oppervlakte: "Oppervlakte",
+    type: "Type",
+    duur: "Duur",
+    dagen: (n: number) => `${n} dagen`,
+    droger: "Bouwdroger",
+    ventilator: "Ventilator",
+    verwarming: "Verwarming",
+    totaal: "Totaal",
+    bespaart: (bedrag: string) => `U bespaart ${bedrag} dankzij duurkorting`,
+    perDag: "/dag",
+    geenPakket: "Geen pakket geselecteerd. U kunt ook een vrijblijvende offerte aanvragen.",
+    voordelen: ["Gratis vochtmeting bij levering", "Gratis levering vanaf 2 weken", "Binnen 24u antwoord"],
+  },
+  fr: {
+    verplicht: "Veuillez remplir tous les champs obligatoires",
+    fout: "Une erreur s'est produite",
+    foutUitleg: "Réessayez ou contactez-nous.",
+    terug: "Retour",
+    h1: "Demander une réservation",
+    intro: "Indiquez vos coordonnées et nous vous contactons dans les 24 heures.",
+    typeKlant: "Type de client",
+    particulier: "Particulier",
+    particulierSub: "Personne privée",
+    zakelijk: "Professionnel",
+    zakelijkSub: "Entreprise / Entrepreneur",
+    bedrijfsnaam: "Nom de l'entreprise *",
+    btwNummer: "Numéro de TVA",
+    contact: "Coordonnées",
+    voornaam: "Prénom *",
+    achternaam: "Nom *",
+    email: "E-mail *",
+    telefoon: "Téléphone *",
+    adresKop: "Adresse de livraison",
+    straat: "Rue + numéro *",
+    postcode: "Code postal",
+    gemeente: "Commune",
+    opmerkingen: "Remarques (facultatif)",
+    opmerkingenPh: "P. ex. informations d'accès, souhaits particuliers...",
+    bezig: "Envoi en cours...",
+    versturen: "Demander une réservation",
+    selectie: "Votre sélection",
+    pakket: (label: string) => `Pack ${label}`,
+    oppervlakte: "Surface",
+    type: "Type",
+    duur: "Durée",
+    dagen: (n: number) => `${n} jours`,
+    droger: "Déshumidificateur de chantier",
+    ventilator: "Ventilateur",
+    verwarming: "Chauffage",
+    totaal: "Total",
+    bespaart: (bedrag: string) => `Vous économisez ${bedrag} grâce à la remise de durée`,
+    perDag: "/jour",
+    geenPakket: "Aucun pack sélectionné. Vous pouvez aussi demander un devis sans engagement.",
+    voordelen: [
+      "Mesure d'humidité gratuite à la livraison",
+      "Livraison gratuite à partir de 2 semaines",
+      "Réponse sous 24 h",
+    ],
+  },
+  en: {
+    verplicht: "Please fill in all required fields",
+    fout: "Something went wrong",
+    foutUitleg: "Please try again or contact us.",
+    terug: "Back",
+    h1: "Request a booking",
+    intro: "Fill in your details and we will contact you within 24 hours.",
+    typeKlant: "Customer type",
+    particulier: "Private",
+    particulierSub: "Private individual",
+    zakelijk: "Business",
+    zakelijkSub: "Company / Contractor",
+    bedrijfsnaam: "Company name *",
+    btwNummer: "VAT number",
+    contact: "Contact details",
+    voornaam: "First name *",
+    achternaam: "Last name *",
+    email: "Email *",
+    telefoon: "Phone *",
+    adresKop: "Delivery address",
+    straat: "Street + house number *",
+    postcode: "Postcode",
+    gemeente: "Town",
+    opmerkingen: "Comments (optional)",
+    opmerkingenPh: "E.g. access information, specific requests...",
+    bezig: "Sending...",
+    versturen: "Request a booking",
+    selectie: "Your selection",
+    pakket: (label: string) => `${label} package`,
+    oppervlakte: "Floor area",
+    type: "Type",
+    duur: "Duration",
+    dagen: (n: number) => `${n} days`,
+    droger: "Construction dehumidifier",
+    ventilator: "Fan",
+    verwarming: "Heating",
+    totaal: "Total",
+    bespaart: (bedrag: string) => `You save ${bedrag} with the duration discount`,
+    perDag: "/day",
+    geenPakket: "No package selected. You can also request a no-obligation quote.",
+    voordelen: ["Free moisture reading on delivery", "Free delivery from 2 weeks", "Reply within 24h"],
+  },
+} satisfies Copy<{
+  verplicht: string;
+  fout: string;
+  foutUitleg: string;
+  terug: string;
+  h1: string;
+  intro: string;
+  typeKlant: string;
+  particulier: string;
+  particulierSub: string;
+  zakelijk: string;
+  zakelijkSub: string;
+  bedrijfsnaam: string;
+  btwNummer: string;
+  contact: string;
+  voornaam: string;
+  achternaam: string;
+  email: string;
+  telefoon: string;
+  adresKop: string;
+  straat: string;
+  postcode: string;
+  gemeente: string;
+  opmerkingen: string;
+  opmerkingenPh: string;
+  bezig: string;
+  versturen: string;
+  selectie: string;
+  pakket: (label: string) => string;
+  oppervlakte: string;
+  type: string;
+  duur: string;
+  dagen: (n: number) => string;
+  droger: string;
+  ventilator: string;
+  verwarming: string;
+  totaal: string;
+  bespaart: (bedrag: string) => string;
+  perDag: string;
+  geenPakket: string;
+  voordelen: string[];
+}>;
 
 type CustomerType = "particulier" | "zakelijk";
 
@@ -41,6 +217,10 @@ const BookingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const taal = useTaal();
+  const toon = useToonBedrag();
 
   const [selection, setSelection] = useState<BookingSelection | null>(null);
   const [productId, setProductId] = useState<string | null>(null);
@@ -79,13 +259,15 @@ const BookingPage = () => {
     }
   }, [location.state]);
 
-  const selectedProduct = productId ? products.find((p) => p.id === productId) : null;
+  const gevonden = productId ? products.find((p) => p.id === productId) : null;
+  // Alleen de getoonde teksten; wat naar /api/order gaat leest de prijs uit het origineel.
+  const selectedProduct = gevonden ? productInTaal(gevonden, taal) : null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !firstName || !lastName || !phone || !address) {
-      toast({ title: "Vul alle verplichte velden in", variant: "destructive" });
+      toast({ title: t.verplicht, variant: "destructive" });
       return;
     }
 
@@ -136,7 +318,7 @@ const BookingPage = () => {
 
       if (!response.ok) {
         console.error("Booking error:", await response.text().catch(() => response.status));
-        toast({ title: "Er ging iets mis", description: "Probeer het opnieuw of contacteer ons.", variant: "destructive" });
+        toast({ title: t.fout, description: t.foutUitleg, variant: "destructive" });
         setIsSubmitting(false);
         return;
       }
@@ -145,7 +327,7 @@ const BookingPage = () => {
       localStorage.removeItem("vernast_booking_selection");
 
       // Navigate to success
-      navigate("/booking/success", {
+      navigate(lp("/booking/success"), {
         state: {
           bookingNumber,
           firstName,
@@ -155,7 +337,7 @@ const BookingPage = () => {
       });
     } catch (err) {
       console.error(err);
-      toast({ title: "Er ging iets mis", variant: "destructive" });
+      toast({ title: t.fout, variant: "destructive" });
       setIsSubmitting(false);
     }
   };
@@ -163,12 +345,12 @@ const BookingPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Toaster />
-      <PageMeta {...SEO.booking} />
+      <PageMeta {...useSeo("booking")} />
       <TopBar />
       <Navbar />
       <main className="container mx-auto px-4 py-10">
         <Button variant="ghost" onClick={() => navigate(-1)} className="gap-2 mb-6">
-          <ArrowLeft className="h-4 w-4" /> Terug
+          <ArrowLeft className="h-4 w-4" /> {t.terug}
         </Button>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -176,15 +358,15 @@ const BookingPage = () => {
           <div
             className="lg:col-span-2"
           >
-            <h1 className="text-3xl font-black mb-2">Boeking aanvragen</h1>
+            <h1 className="text-3xl font-black mb-2">{t.h1}</h1>
             <p className="text-muted-foreground mb-8">
-              Vul uw gegevens in en wij nemen binnen 24 uur contact met u op.
+              {t.intro}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Customer type toggle */}
               <div className="space-y-3">
-                <Label className="font-bold text-base">Type klant</Label>
+                <Label className="font-bold text-base">{t.typeKlant}</Label>
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     type="button"
@@ -197,8 +379,8 @@ const BookingPage = () => {
                   >
                     <User className={`h-5 w-5 ${customerType === "particulier" ? "text-primary" : "text-muted-foreground"}`} />
                     <div className="text-left">
-                      <p className="font-semibold text-sm">Particulier</p>
-                      <p className="text-xs text-muted-foreground">Privépersoon</p>
+                      <p className="font-semibold text-sm">{t.particulier}</p>
+                      <p className="text-xs text-muted-foreground">{t.particulierSub}</p>
                     </div>
                   </button>
                   <button
@@ -212,8 +394,8 @@ const BookingPage = () => {
                   >
                     <Building2 className={`h-5 w-5 ${customerType === "zakelijk" ? "text-primary" : "text-muted-foreground"}`} />
                     <div className="text-left">
-                      <p className="font-semibold text-sm">Zakelijk</p>
-                      <p className="text-xs text-muted-foreground">Bedrijf / Aannemer</p>
+                      <p className="font-semibold text-sm">{t.zakelijk}</p>
+                      <p className="text-xs text-muted-foreground">{t.zakelijkSub}</p>
                     </div>
                   </button>
                 </div>
@@ -225,11 +407,11 @@ const BookingPage = () => {
                   className="grid sm:grid-cols-2 gap-4"
                 >
                   <div className="space-y-2">
-                    <Label htmlFor="companyName" className="font-semibold">Bedrijfsnaam *</Label>
+                    <Label htmlFor="companyName" className="font-semibold">{t.bedrijfsnaam}</Label>
                     <Input id="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="vatNumber" className="font-semibold">BTW-nummer</Label>
+                    <Label htmlFor="vatNumber" className="font-semibold">{t.btwNummer}</Label>
                     <Input id="vatNumber" value={vatNumber} onChange={(e) => setVatNumber(e.target.value)} placeholder="BE0123.456.789" />
                   </div>
                 </div>
@@ -237,24 +419,24 @@ const BookingPage = () => {
 
               {/* Personal info */}
               <div className="space-y-4">
-                <h3 className="font-bold text-lg">Contactgegevens</h3>
+                <h3 className="font-bold text-lg">{t.contact}</h3>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName" className="font-semibold">Voornaam *</Label>
+                    <Label htmlFor="firstName" className="font-semibold">{t.voornaam}</Label>
                     <Input id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lastName" className="font-semibold">Achternaam *</Label>
+                    <Label htmlFor="lastName" className="font-semibold">{t.achternaam}</Label>
                     <Input id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="font-semibold">E-mail *</Label>
+                    <Label htmlFor="email" className="font-semibold">{t.email}</Label>
                     <Input id="email" type="email" inputMode="email" autoComplete="email" autoCapitalize="none" spellCheck={false} value={email} onChange={(e) => setEmail(maskEmail(e.target.value))} required />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone" className="font-semibold">Telefoon *</Label>
+                    <Label htmlFor="phone" className="font-semibold">{t.telefoon}</Label>
                     <Input id="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="0470 00 00 00" value={phone} onChange={(e) => setPhone(maskPhone(e.target.value))} required />
                   </div>
                 </div>
@@ -262,18 +444,18 @@ const BookingPage = () => {
 
               {/* Address */}
               <div className="space-y-4">
-                <h3 className="font-bold text-lg">Afleveradres</h3>
+                <h3 className="font-bold text-lg">{t.adresKop}</h3>
                 <div className="space-y-2">
-                  <Label htmlFor="address" className="font-semibold">Straat + huisnummer *</Label>
+                  <Label htmlFor="address" className="font-semibold">{t.straat}</Label>
                   <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} required />
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="postalCode" className="font-semibold">Postcode</Label>
+                    <Label htmlFor="postalCode" className="font-semibold">{t.postcode}</Label>
                     <Input id="postalCode" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="city" className="font-semibold">Gemeente</Label>
+                    <Label htmlFor="city" className="font-semibold">{t.gemeente}</Label>
                     <Input id="city" value={city} onChange={(e) => setCity(e.target.value)} />
                   </div>
                 </div>
@@ -281,18 +463,18 @@ const BookingPage = () => {
 
               {/* Notes */}
               <div className="space-y-2">
-                <Label htmlFor="notes" className="font-semibold">Opmerkingen (optioneel)</Label>
+                <Label htmlFor="notes" className="font-semibold">{t.opmerkingen}</Label>
                 <Textarea
                   id="notes"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Bijv. toegangsinformatie, specifieke wensen..."
+                  placeholder={t.opmerkingenPh}
                   rows={3}
                 />
               </div>
 
               <Button type="submit" size="lg" className="w-full sm:w-auto font-bold text-base" disabled={isSubmitting}>
-                {isSubmitting ? "Bezig met verzenden..." : "Boeking aanvragen"}
+                {isSubmitting ? t.bezig : t.versturen}
               </Button>
             </form>
           </div>
@@ -303,55 +485,55 @@ const BookingPage = () => {
           >
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Uw selectie</CardTitle>
+                <CardTitle className="text-lg">{t.selectie}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {selection ? (
                   <>
                     <Badge className="bg-primary text-primary-foreground">
-                      {selection.package.label} pakket
+                      {t.pakket(selection.package.label)}
                     </Badge>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Oppervlakte</span>
+                        <span className="text-muted-foreground">{t.oppervlakte}</span>
                         <span className="font-semibold">{selection.sqm} m²</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Type</span>
+                        <span className="text-muted-foreground">{t.type}</span>
                         <span className="font-semibold">{selection.roomTypeLabel}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Duur</span>
-                        <span className="font-semibold">{selection.durationDays} dagen</span>
+                        <span className="text-muted-foreground">{t.duur}</span>
+                        <span className="font-semibold">{t.dagen(selection.durationDays)}</span>
                       </div>
                     </div>
 
                     <div className="border-t border-border pt-3 space-y-2 text-sm">
                       <div className="flex items-center gap-2">
                         <Droplets className="h-4 w-4 text-primary" />
-                        <span>{selection.package.equipment.drogers}x Bouwdroger</span>
+                        <span>{selection.package.equipment.drogers}x {t.droger}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Wind className="h-4 w-4 text-primary" />
-                        <span>{selection.package.equipment.ventilatoren}x Ventilator</span>
+                        <span>{selection.package.equipment.ventilatoren}x {t.ventilator}</span>
                       </div>
                       {selection.package.equipment.verwarming > 0 && (
                         <div className="flex items-center gap-2">
                           <Flame className="h-4 w-4 text-primary" />
-                          <span>{selection.package.equipment.verwarming}x Verwarming</span>
+                          <span>{selection.package.equipment.verwarming}x {t.verwarming}</span>
                         </div>
                       )}
                     </div>
 
                     <div className="border-t border-border pt-3">
                       <div className="flex justify-between text-lg font-black">
-                        <span>Totaal</span>
-                        <span className="text-primary">€{selection.package.totalPrice.toFixed(0)}</span>
+                        <span>{t.totaal}</span>
+                        <span className="text-primary">{toon(selection.package.totalPrice).tekst}</span>
                       </div>
-                      <p className="text-xs text-muted-foreground">excl. 21% BTW</p>
+                      <p className="text-xs text-muted-foreground">{toon(selection.package.totalPrice).label}</p>
                       {selection.package.discount > 0 && (
                         <p className="text-xs text-primary mt-1">
-                          U bespaart €{selection.package.discount.toFixed(0)} dankzij duurkorting
+                          {t.bespaart(toon(selection.package.discount).tekst)}
                         </p>
                       )}
                     </div>
@@ -364,18 +546,18 @@ const BookingPage = () => {
                     <h3 className="font-bold">{selectedProduct.name}</h3>
                     <p className="text-sm text-muted-foreground">{selectedProduct.capacity}</p>
                     <div className="flex items-baseline gap-1">
-                      <span className="text-2xl font-black text-primary">€{selectedProduct.pricePerDay.toFixed(2)}</span>
-                      <span className="text-sm text-muted-foreground">/dag</span>
+                      <span className="text-2xl font-black text-primary">{toon(selectedProduct.pricePerDay).tekst}</span>
+                      <span className="text-sm text-muted-foreground">{t.perDag} {toon(selectedProduct.pricePerDay).label}</span>
                     </div>
                   </>
                 ) : (
                   <p className="text-sm text-muted-foreground">
-                    Geen pakket geselecteerd. U kunt ook een vrijblijvende offerte aanvragen.
+                    {t.geenPakket}
                   </p>
                 )}
 
                 <div className="border-t border-border pt-3 space-y-2">
-                  {["Gratis vochtmeting bij levering", "Gratis levering vanaf 2 weken", "Binnen 24u antwoord"].map((item) => (
+                  {t.voordelen.map((item) => (
                     <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Check className="h-3 w-3 text-primary flex-shrink-0" />
                       <span>{item}</span>

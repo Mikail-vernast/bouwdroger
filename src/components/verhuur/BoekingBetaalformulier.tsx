@@ -18,6 +18,13 @@ import type {
   StripeCheckoutExpressCheckoutElementOptions,
   StripeExpressCheckoutElementConfirmEvent,
 } from "@stripe/stripe-js";
+import { useCopy, type Copy } from "@/i18n/useTaal";
+
+const COPY = {
+  nl: { laden: "Betaalformulier laden…", of: "of betaal met", bezig: "Bezig met betalen…", betaal: "Betaal" },
+  fr: { laden: "Chargement du formulaire de paiement…", of: "ou payez par", bezig: "Paiement en cours…", betaal: "Payer" },
+  en: { laden: "Loading payment form…", of: "or pay with", bezig: "Processing payment…", betaal: "Pay" },
+} satisfies Copy<{ laden: string; of: string; bezig: string; betaal: string }>;
 
 interface BoekingBetaalformulierProps {
   /** Bedrag dat nu afgerekend wordt, al opgemaakt als "€ 652,65". */
@@ -60,6 +67,7 @@ const EXPRESS_OPTIONS: StripeCheckoutExpressCheckoutElementOptions = {
 
 export default function BoekingBetaalformulier({ bedrag }: BoekingBetaalformulierProps) {
   const state = useCheckoutElements();
+  const t = useCopy(COPY);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   /*
@@ -70,7 +78,7 @@ export default function BoekingBetaalformulier({ bedrag }: BoekingBetaalformulie
   const [heeftWallets, setHeeftWallets] = useState(false);
 
   if (state.type === "loading") {
-    return <p className="payload">Betaalformulier laden…</p>;
+    return <p className="payload">{t.laden}</p>;
   }
 
   if (state.type === "error") {
@@ -116,7 +124,7 @@ export default function BoekingBetaalformulier({ bedrag }: BoekingBetaalformulie
 
       {heeftWallets && (
         <div className="paysplit">
-          <span>of betaal met</span>
+          <span>{t.of}</span>
         </div>
       )}
 
@@ -130,7 +138,7 @@ export default function BoekingBetaalformulier({ bedrag }: BoekingBetaalformulie
           void bevestig();
         }}
       >
-        {busy ? "Bezig met betalen…" : `Betaal ${bedrag}`}
+        {busy ? t.bezig : `${t.betaal} ${bedrag}`}
       </button>
 
       {error && <p className="perr">{error}</p>}

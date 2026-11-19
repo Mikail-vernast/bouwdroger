@@ -1,0 +1,135 @@
+/*
+  Taal- en klantwissel (`src/components/TaalWissel.tsx`).
+
+  Ongescoped en op `currentColor`, net als site-footer.css: dezelfde regels
+  dienen de witte topregel boven de donkere hero, de lichte verhuurbalk, de
+  maroon menulade en de shadcn-Navbar. Elke schil kleurt hem via zijn eigen
+  tekstkleur; hier staat alleen de vorm.
+
+  Discreet met opzet: de keuzepopup vraagt de taal al bij het eerste bezoek.
+  Dit is de plek om ze later te wijzigen, geen tweede oproep.
+*/
+.taalwissel,
+.klantwissel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: inherit;
+  white-space: nowrap;
+}
+.taalwissel > span,
+.klantwissel > span {
+  display: inline-flex;
+  align-items: center;
+}
+.taalwissel [aria-hidden="true"],
+.klantwissel [aria-hidden="true"] {
+  opacity: 0.45;
+  padding: 0 0.15em;
+}
+.taalwissel a,
+.taalwissel strong,
+.klantwissel button {
+  display: inline-block;
+  padding: 4px 3px;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.taalwissel strong {
+  font-weight: 800;
+  cursor: default;
+}
+/* De niet-gekozen optie iets terug, maar leesbaar genoeg om op te tikken. */
+.taalwissel a,
+.klantwissel button[aria-checked="false"] {
+  opacity: 0.62;
+  transition: opacity 0.15s;
+}
+.taalwissel a:hover,
+.klantwissel button[aria-checked="false"]:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.klantwissel button[aria-checked="true"] {
+  font-weight: 800;
+  cursor: default;
+}
+.taalwissel :focus-visible,
+.klantwissel :focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Twee wissels naast elkaar: een dun streepje ertussen. */
+.wissels {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.wissels > * + * {
+  padding-left: 12px;
+  border-left: 1px solid currentColor;
+  border-left-color: color-mix(in srgb, currentColor 30%, transparent);
+}
+
+/* In de topregel van V3Header en VHeader: rechts, na de belofte. */
+.tl-right .wissels {
+  margin-left: 14px;
+}
+
+/* In de menulade (MobileNav): gecentreerd onder het telefoonnummer. */
+.mnav-foot .wissels {
+  justify-self: center;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 13.5px;
+}
+.mnav-foot .wissels .taalwissel,
+.mnav-foot .wissels .klantwissel {
+  font-size: 13.5px;
+}
+.mnav-foot .wissels a,
+.mnav-foot .wissels strong,
+.mnav-foot .wissels button {
+  padding: 8px 6px; /* tikdoel op een telefoon */
+}
+
+/*
+  De topregel liep met de wissels erbij krap: op 1280px paste de Nederlandse
+  regel net, de Franse belofte is langer en sprong naar een tweede regel, die
+  achter de nav-pil verdween. Daarom blijft de regel op één lijn en geeft de
+  belofte toe (afgekapt met …) in plaats van de wissels of de contactgegevens.
+
+  `.hdr .wrap.topline.mnav-topline` om dezelfde reden als in mobile-nav.css:
+  elke paginastylesheet zet `.x-page .hdr .topline{flex-wrap:wrap}` op (0,3,0).
+*/
+.hdr .wrap.topline.mnav-topline {
+  flex-wrap: nowrap;
+}
+.hdr .topline .tl-left {
+  flex-shrink: 0;
+}
+.hdr .topline .tl-right {
+  min-width: 0;
+  flex: 0 1 auto;
+}
+.hdr .topline .tl-right .tl-belofte {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hdr .topline .tl-right .dot,
+.hdr .topline .tl-right .wissels {
+  flex-shrink: 0;
+}

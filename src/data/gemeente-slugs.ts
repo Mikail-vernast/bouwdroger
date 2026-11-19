@@ -25,6 +25,11 @@
  * `gemeenten.ts`, en niets meer — de route, de sitemap, de chips op de
  * homepage en de lijst op de provinciepagina leiden zich hieruit af.
  */
+import { registreerPaden } from "../i18n/paden.js";
+import { GEMEENTEN_MET_FR } from "./gemeenten-fr/aan/index.js";
+import { GEMEENTEN_MET_EN } from "./gemeenten-en/aan/index.js";
+import type { Taal } from "../i18n/taal.js";
+
 export interface GemeenteRoute {
   slug: string;
   /** Zoals de gemeente in een zin staat: "in Mechelen", "in Heist-op-den-Berg". */
@@ -52,7 +57,261 @@ export interface GemeenteRoute {
    * geen dode tekst blijft.
    */
   ookVoor?: string[];
+  /**
+   * De Franse naam, alleen bij de Belgische gemeenten (zie `NAAM_FR`): "Malines",
+   * "Ixelles", "Mons". Waar het Frans geen eigen naam gebruikt, is het de
+   * gewone naam. Staat ook bij gemeenten zonder Franse pagina, want de Franse
+   * provinciepagina noemt ze in haar streeklijst.
+   */
+  nameFr?: string;
+  /**
+   * De Engelse naam, alleen bij de Belgische gemeenten (zie `NAAM_EN`):
+   * "Ghent", "Bruges", "Ypres"; elders de lokale naam ("Mechelen", "Mons",
+   * "Ixelles"). Staat ook bij gemeenten zonder Engelse pagina, om dezelfde
+   * reden als `nameFr`.
+   */
+  nameEn?: string;
 }
+
+/**
+ * De Franse naam van een Belgische plaats, waar die afwijkt van de naam
+ * hierboven. Alles wat hier niet staat, heet in het Frans hetzelfde.
+ *
+ * Twee soorten. In Vlaanderen alleen de exoniemen die een Franstalige ook echt
+ * gebruikt (Malines, Courtrai, Ypres); een vergeten Franse naam uit een oude
+ * atlas ("Montaigu" voor Scherpenheuvel) zou de lezer meer verwarren dan de
+ * Nederlandse. In Brussel en Wallonië de officiële Franse naam: daar zijn
+ * "Elsene", "Bergen" en "Aarlen" de vertaling, en "Ixelles", "Mons" en "Arlon"
+ * de plaats zelf. Ook de Duitstalige gemeenten met een gangbare Franse naam
+ * (Saint-Vith, Waimes) staan erbij.
+ *
+ * Gesleuteld op de naam en niet op de slug, omdat ook de streeklijsten van
+ * `provincie-gemeenten.ts` en de `towns` van de provincies hier hun Franse
+ * naam vinden. Alleen bedoeld voor Belgische plaatsen: "Bergen" is hier Mons,
+ * niet de gemeente in Nederlands Limburg.
+ */
+export const NAAM_FR: Record<string, string> = {
+  /* Vlaanderen */
+  Antwerpen: "Anvers",
+  Mechelen: "Malines",
+  Lier: "Lierre",
+  "Sint-Katelijne-Waver": "Wavre-Sainte-Catherine",
+  "Baarle-Hertog": "Baerle-Duc",
+  Gent: "Gand",
+  Aalst: "Alost",
+  Dendermonde: "Termonde",
+  "Sint-Niklaas": "Saint-Nicolas",
+  Temse: "Tamise",
+  Geraardsbergen: "Grammont",
+  Ronse: "Renaix",
+  Oudenaarde: "Audenarde",
+  "Sint-Martens-Latem": "Laethem-Saint-Martin",
+  Brugge: "Bruges",
+  Kortrijk: "Courtrai",
+  Oostende: "Ostende",
+  Ieper: "Ypres",
+  Veurne: "Furnes",
+  Diksmuide: "Dixmude",
+  Nieuwpoort: "Nieuport",
+  "De Panne": "La Panne",
+  Koksijde: "Coxyde",
+  Roeselare: "Roulers",
+  Menen: "Menin",
+  Wervik: "Wervicq",
+  Mesen: "Messines",
+  Poperinge: "Poperinghe",
+  Torhout: "Thourout",
+  "Spiere-Helkijn": "Espierres-Helchin",
+  Leuven: "Louvain",
+  Vilvoorde: "Vilvorde",
+  Halle: "Hal",
+  Tienen: "Tirlemont",
+  Zoutleeuw: "Léau",
+  Bever: "Biévène",
+  "Sint-Genesius-Rode": "Rhode-Saint-Genèse",
+  "Sint-Pieters-Leeuw": "Leeuw-Saint-Pierre",
+  "Sint-Truiden": "Saint-Trond",
+  Tongeren: "Tongres",
+  "Tongeren-Borgloon": "Tongres-Looz",
+  Voeren: "Fourons",
+  /* Brussel */
+  Brussel: "Bruxelles",
+  Schaarbeek: "Schaerbeek",
+  Elsene: "Ixelles",
+  "Sint-Gillis": "Saint-Gilles",
+  "Sint-Joost-ten-Node": "Saint-Josse-ten-Noode",
+  "Sint-Jans-Molenbeek": "Molenbeek-Saint-Jean",
+  "Sint-Agatha-Berchem": "Berchem-Sainte-Agathe",
+  Vorst: "Forest",
+  Ukkel: "Uccle",
+  Oudergem: "Auderghem",
+  "Watermaal-Bosvoorde": "Watermael-Boitsfort",
+  "Sint-Lambrechts-Woluwe": "Woluwe-Saint-Lambert",
+  "Sint-Pieters-Woluwe": "Woluwe-Saint-Pierre",
+  /* Waals-Brabant */
+  Waver: "Wavre",
+  Nijvel: "Nivelles",
+  Eigenbrakel: "Braine-l'Alleud",
+  Kasteelbrakel: "Braine-le-Château",
+  Tubeke: "Tubize",
+  Itter: "Ittre",
+  Genepiën: "Genappe",
+  Terhulpen: "La Hulpe",
+  Graven: "Grez-Doiceau",
+  Bevekom: "Beauvechain",
+  Perwijs: "Perwez",
+  Geldenaken: "Jodoigne",
+  /* Henegouwen */
+  Bergen: "Mons",
+  Doornik: "Tournai",
+  Moeskroen: "Mouscron",
+  "Komen-Waasten": "Comines-Warneton",
+  Aat: "Ath",
+  Edingen: "Enghien",
+  Elzele: "Ellezelles",
+  Lessen: "Lessines",
+  Opzullik: "Silly",
+  Vloesberg: "Flobecq",
+  Zinnik: "Soignies",
+  "'s-Gravenbrakel": "Braine-le-Comte",
+  Jurbeke: "Jurbise",
+  /* Namen en Luxemburg */
+  Namen: "Namur",
+  Gembloers: "Gembloux",
+  Aarlen: "Arlon",
+  Bastenaken: "Bastogne",
+  /* Luik */
+  Luik: "Liège",
+  Hoei: "Huy",
+  Borgworm: "Waremme",
+  Hannuit: "Hannut",
+  Lijsem: "Lincent",
+  Oerle: "Oreye",
+  Bitsingen: "Bassenge",
+  Wezet: "Visé",
+  "Sankt Vith": "Saint-Vith",
+  Weismes: "Waimes",
+  Amel: "Amblève",
+  Büllingen: "Bullange",
+  Bütgenbach: "Butgenbach",
+  Kelmis: "La Calamine",
+};
+
+/**
+ * Een plaatsnaam uit een Nederlandse lijst in het Frans. Kent ook de
+ * tweetalige schrijfwijze van de streeklijsten: "Waver (Wavre)" wordt "Wavre".
+ */
+export function plaatsFr(naam: string): string {
+  /* Tussen haakjes staat in die lijsten altijd de Franse naam ("Limburg
+     (Limbourg)" is de Luikse gemeente, niet de provincie). */
+  const tweetalig = /^.+ \((.+)\)$/.exec(naam);
+  return tweetalig ? tweetalig[1] : (NAAM_FR[naam] ?? naam);
+}
+
+/**
+ * De Engelse naam van een Belgische plaats, waar die afwijkt van de
+ * Nederlandse naam. Alles wat hier niet staat, heet in het Engels hetzelfde.
+ *
+ * Het Engels gebruikt een eigen naam alleen voor een handvol steden (Antwerp,
+ * Ghent, Bruges, Ostend, Ypres, Brussels) en voor drie Waalse waar die gangbaar
+ * is (Liège, Namur, Mons); "Louvain" en "Malines" zijn in het Engels verouderd,
+ * dus Leuven en Mechelen blijven. Voor de rest geldt de lokale naam: Nederlands
+ * in Vlaanderen, Frans in Wallonië en in Brussel (Ixelles, Schaerbeek, zoals
+ * ze in Engelstalige teksten over Brussel staan), Duits in de Oostkantons.
+ * Daarom staan de Waalse en Brusselse namen uit `NAAM_FR` hier opnieuw, en de
+ * Duitstalige gemeenten met hun eigen naam: "Sankt Vith", niet "Saint-Vith".
+ */
+export const NAAM_EN: Record<string, string> = {
+  /* Vlaanderen: alleen de Engelse exoniemen */
+  Antwerpen: "Antwerp",
+  Gent: "Ghent",
+  Brugge: "Bruges",
+  Oostende: "Ostend",
+  Ieper: "Ypres",
+  /* Brussel */
+  Brussel: "Brussels",
+  Schaarbeek: "Schaerbeek",
+  Elsene: "Ixelles",
+  "Sint-Gillis": "Saint-Gilles",
+  "Sint-Joost-ten-Node": "Saint-Josse-ten-Noode",
+  "Sint-Jans-Molenbeek": "Molenbeek-Saint-Jean",
+  "Sint-Agatha-Berchem": "Berchem-Sainte-Agathe",
+  Vorst: "Forest",
+  Ukkel: "Uccle",
+  Oudergem: "Auderghem",
+  "Watermaal-Bosvoorde": "Watermael-Boitsfort",
+  "Sint-Lambrechts-Woluwe": "Woluwe-Saint-Lambert",
+  "Sint-Pieters-Woluwe": "Woluwe-Saint-Pierre",
+  /* Waals-Brabant */
+  Waver: "Wavre",
+  Nijvel: "Nivelles",
+  Eigenbrakel: "Braine-l'Alleud",
+  Kasteelbrakel: "Braine-le-Château",
+  Tubeke: "Tubize",
+  Itter: "Ittre",
+  Genepiën: "Genappe",
+  Terhulpen: "La Hulpe",
+  Graven: "Grez-Doiceau",
+  Bevekom: "Beauvechain",
+  Perwijs: "Perwez",
+  Geldenaken: "Jodoigne",
+  /* Henegouwen */
+  Bergen: "Mons",
+  Doornik: "Tournai",
+  Moeskroen: "Mouscron",
+  "Komen-Waasten": "Comines-Warneton",
+  Aat: "Ath",
+  Edingen: "Enghien",
+  Elzele: "Ellezelles",
+  Lessen: "Lessines",
+  Opzullik: "Silly",
+  Vloesberg: "Flobecq",
+  Zinnik: "Soignies",
+  "'s-Gravenbrakel": "Braine-le-Comte",
+  Jurbeke: "Jurbise",
+  /* Namen en Luxemburg */
+  Namen: "Namur",
+  Gembloers: "Gembloux",
+  Aarlen: "Arlon",
+  Bastenaken: "Bastogne",
+  /* Luik */
+  Luik: "Liège",
+  Hoei: "Huy",
+  Borgworm: "Waremme",
+  Hannuit: "Hannut",
+  Lijsem: "Lincent",
+  Oerle: "Oreye",
+  Bitsingen: "Bassenge",
+  Wezet: "Visé",
+  Weismes: "Waimes",
+  /* De Oostkantons houden hun Duitse naam, ook in de tweetalige streeklijst. */
+  "Sankt Vith": "Sankt Vith",
+};
+
+/**
+ * Een plaatsnaam uit een Nederlandse lijst in het Engels. In de tweetalige
+ * schrijfwijze van de streeklijsten ("Waver (Wavre)") staat tussen haakjes de
+ * Franse naam, en dat is in Wallonië ook de Engelse; een eigen Engelse naam
+ * gaat voor ("Luik (Liège)" en "Sankt Vith (Saint-Vith)").
+ */
+export function plaatsEn(naam: string): string {
+  const tweetalig = /^(.+) \((.+)\)$/.exec(naam);
+  if (tweetalig) return NAAM_EN[tweetalig[1]] ?? tweetalig[2];
+  return NAAM_EN[naam] ?? naam;
+}
+
+/** Een plaatsnaam uit een Nederlandse lijst in de taal van de pagina. */
+export function plaatsIn(naam: string, taal: Taal): string {
+  if (taal === "fr") return plaatsFr(naam);
+  if (taal === "en") return plaatsEn(naam);
+  return naam;
+}
+
+/** De provincies met een Franse pagina; hun gemeenten krijgen een `nameFr`. */
+const BELGISCH = new Set([
+  "antwerpen", "oost-vlaanderen", "vlaams-brabant", "west-vlaanderen", "limburg", "brussel",
+  "waals-brabant", "henegouwen", "namen", "luxemburg", "luik",
+]);
 
 const gemeente = (
   name: string,
@@ -65,6 +324,7 @@ const gemeente = (
   path: `/bouwdroger-huren-${slug}`,
   regio,
   postcode,
+  ...(BELGISCH.has(regio) ? { nameFr: NAAM_FR[name] ?? name, nameEn: NAAM_EN[name] ?? name } : {}),
 });
 
 export const GEMEENTE_ROUTES: GemeenteRoute[] = [
@@ -1062,6 +1322,136 @@ export const GEMEENTE_ROUTES: GemeenteRoute[] = [
   gemeente("Voerendaal", "voerendaal", "6367", "nederlands-limburg"),
 ];
 
+/*
+  Waar het Franse pad niet gewoon uit de Franse naam volgt. Vier steden delen
+  hun naam met hun provincie (Anvers, Bruxelles, Namur, Liège) en krijgen,
+  zoals `antwerpen-stad` in het Nederlands, een achtervoegsel: `-ville`, het
+  woord dat een Franstalige er zelf bij zet. Sint-Niklaas en de Luikse
+  gemeente Saint-Nicolas heten in het Frans hetzelfde; de Waaslandse krijgt
+  haar streek erbij, zoals in het Franse spraakgebruik. En de Luikse gemeente
+  Limbourg botst met de provincie Limbourg.
+*/
+const SLUG_FR: Record<string, string> = {
+  "antwerpen-stad": "anvers-ville",
+  "brussel-stad": "bruxelles-ville",
+  "namen-stad": "namur-ville",
+  "luik-stad": "liege-ville",
+  "sint-niklaas": "saint-nicolas-waes",
+  limbourg: "limbourg-ville",
+};
+
+/** Het kruimelpad in het Frans, voor dezelfde vier steden als `kruimel`. */
+const KRUIMEL_FR: Record<string, string> = {
+  "antwerpen-stad": "Anvers ville",
+  "brussel-stad": "Bruxelles-Ville",
+  "namen-stad": "Namur ville",
+  "luik-stad": "Liège ville",
+};
+
+const slugVan = (naam: string) =>
+  naam
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/œ/gi, "oe")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+/**
+ * Het Franse pad van een gemeente, zonder taalprefix:
+ * `/location-deshumidificateur-malines`. Afgeleid uit de Franse naam, zodat
+ * het zoekwoord van een Franstalige in de URL staat; heet de plaats in beide
+ * talen hetzelfde, dan blijft de Nederlandse slug (`hasselt`). Bevroren zodra
+ * het live staat, zoals elke slug.
+ *
+ * Geeft ook een pad voor een gemeente zonder Franse tekst; of de pagina
+ * bestaat, beslist `GEMEENTEN_MET_FR`.
+ */
+export function gemeentePadFr(route: GemeenteRoute): string | null {
+  if (!route.nameFr) return null;
+  const slug =
+    SLUG_FR[route.slug] ?? (route.nameFr === route.name ? route.slug : slugVan(route.nameFr));
+  return `/location-deshumidificateur-${slug}`;
+}
+
+/** Hoe de gemeente in een Frans kruimelpad staat. */
+export function kruimelFr(route: GemeenteRoute): string {
+  return KRUIMEL_FR[route.slug] ?? route.nameFr ?? route.name;
+}
+
+/*
+  Waar het Engelse pad niet gewoon uit de Engelse naam volgt: dezelfde vier
+  steden die hun naam met hun provincie delen (Antwerp, Brussels, Namur,
+  Liège). Ze krijgen `-city`, zoals `-ville` in het Frans en `-stad` in het
+  Nederlands. Sint-Niklaas en Saint-Nicolas, en de gemeente Limbourg tegenover
+  de provincie Limburg, botsen in het Engels niet: daar blijft de lokale naam.
+*/
+const SLUG_EN: Record<string, string> = {
+  "antwerpen-stad": "antwerp-city",
+  "brussel-stad": "brussels-city",
+  "namen-stad": "namur-city",
+  "luik-stad": "liege-city",
+};
+
+/** Het kruimelpad in het Engels, voor dezelfde vier steden. */
+const KRUIMEL_EN: Record<string, string> = {
+  "antwerpen-stad": "Antwerp City",
+  "brussel-stad": "Brussels City",
+  "namen-stad": "Namur City",
+  "luik-stad": "Liège City",
+};
+
+/**
+ * Het Engelse pad van een gemeente, zonder taalprefix:
+ * `/dehumidifier-hire-ghent`. Afgeleid uit de Engelse naam, zoals
+ * `gemeentePadFr` uit de Franse. Bevroren zodra het live staat.
+ *
+ * Geeft ook een pad voor een gemeente zonder Engelse tekst; of de pagina
+ * bestaat, beslist `GEMEENTEN_MET_EN`.
+ */
+export function gemeentePadEn(route: GemeenteRoute): string | null {
+  if (!route.nameEn) return null;
+  const slug =
+    SLUG_EN[route.slug] ?? (route.nameEn === route.name ? route.slug : slugVan(route.nameEn));
+  return `/dehumidifier-hire-${slug}`;
+}
+
+/** Hoe de gemeente in een Engels kruimelpad staat. */
+export function kruimelEn(route: GemeenteRoute): string {
+  return KRUIMEL_EN[route.slug] ?? route.nameEn ?? route.name;
+}
+
+/** De naam van een gemeente in de taal van de pagina. */
+export function gemeenteNaamIn(route: GemeenteRoute, taal: Taal): string {
+  if (taal === "fr") return route.nameFr ?? route.name;
+  if (taal === "en") return route.nameEn ?? route.name;
+  return route.name;
+}
+
+/** Het kruimelpad (en de naam in koppen) in de taal van de pagina. */
+export function kruimelIn(route: GemeenteRoute, taal: Taal): string {
+  if (taal === "fr") return kruimelFr(route);
+  if (taal === "en") return kruimelEn(route);
+  return route.kruimel ?? route.name;
+}
+
+/*
+  Alleen de gemeenten met een tekst in die taal krijgen een route in die taal.
+  Een Franse of Engelse URL met Nederlandse tekst ziet Google als dubbele
+  inhoud, en een lege pagina is erger dan geen. Welke dat zijn, staat per
+  provincie in `gemeenten-fr/aan/` en `gemeenten-en/aan/`; zie de README's
+  daar. Een leeg pad betekent: in die taal geen pagina.
+*/
+registreerPaden(
+  Object.fromEntries(
+    GEMEENTE_ROUTES.flatMap((g) => {
+      const fr = (GEMEENTEN_MET_FR.has(g.slug) && gemeentePadFr(g)) || "";
+      const en = (GEMEENTEN_MET_EN.has(g.slug) && gemeentePadEn(g)) || "";
+      return fr || en ? [[g.path, { fr, en }]] : [];
+    }),
+  ),
+);
+
 export const GEMEENTE_BY_PATH: Record<string, GemeenteRoute> = Object.fromEntries(
   GEMEENTE_ROUTES.map((g) => [g.path, g])
 );
@@ -1076,6 +1466,19 @@ export const GEMEENTE_BY_PATH: Record<string, GemeenteRoute> = Object.fromEntrie
  */
 export function gemeenteVanPlaats(plaats: string): GemeenteRoute | undefined {
   return GEMEENTE_ROUTES.find((g) => g.name === plaats || g.ookVoor?.includes(plaats));
+}
+
+/**
+ * De plaatsnamen waaronder de werven van deze gemeente in `realisaties.ts`
+ * staan ("Bouwdroging · Kontich"). De districten van Antwerpen tellen mee voor
+ * de stadspagina: wie "bouwdroger Berchem" zoekt, is geholpen met de
+ * Antwerpse pagina. Staat hier en niet in `gemeenten.ts`, zodat het sjabloon
+ * het kan gebruiken zonder de Nederlandse teksten te laden.
+ */
+const DISTRICTEN = ["Antwerpen", "Berchem", "Merksem", "Deurne", "Hoboken", "Ekeren", "Borgerhout"];
+
+export function plaatsenVanRoute(route: GemeenteRoute): string[] {
+  return route.slug === "antwerpen-stad" ? DISTRICTEN : [route.name];
 }
 
 /** Alle gemeentepagina's binnen één provincie, in de volgorde hierboven. */

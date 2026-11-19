@@ -1,8 +1,63 @@
 import { Link } from "react-router-dom";
-import { FOOTER_SITEMAP, TOEPASSINGEN, VERNAST_GROEP } from "@/data/navigation";
+import { navigatie, regioNaam } from "@/data/navigation";
 import { REGIO_ROUTES, kaartVoor } from "@/data/regio-slugs";
 import { CONTACT, HEADQUARTERS, MAPS_URL, SITE_NAME } from "@/lib/site";
+import { useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
 import "@/styles/site-footer.css";
+
+const COPY = {
+  nl: {
+    say: "Wij staan er.",
+    sayEm: "In heel Vlaanderen.",
+    claim: "Drooggarantie inbegrepen. Levering op de datum die u kiest.",
+    diensten: "Diensten",
+    groep: "Vernast Groep",
+    sitemap: "Sitemap",
+    werkgebied: "Werkgebied",
+    bereikbaar: "Bereikbaar",
+    magazijn: "Magazijn en afhaalpunt",
+    open: "Open",
+    uren: "Ma–Vr 08:00–17:00",
+    zetel: "Zetel:",
+    credit: "Ontwerp en realisatie door",
+    voorwaarden: "Algemene voorwaarden",
+    privacy: "Privacy",
+  },
+  fr: {
+    say: "Nous sommes là.",
+    sayEm: "Partout en Flandre.",
+    claim: "Garantie de séchage comprise. Livraison à la date de votre choix.",
+    diensten: "Services",
+    groep: "Groupe Vernast",
+    sitemap: "Plan du site",
+    werkgebied: "Zone d'intervention",
+    bereikbaar: "Joignable",
+    magazijn: "Dépôt et point d'enlèvement",
+    open: "Ouvert",
+    uren: "Lu–Ve 8 h–17 h",
+    zetel: "Siège :",
+    credit: "Conception et réalisation par",
+    voorwaarden: "Conditions générales",
+    privacy: "Confidentialité",
+  },
+  en: {
+    say: "We are there.",
+    sayEm: "Across Flanders.",
+    claim: "Drying guarantee included. Delivery on the date you choose.",
+    diensten: "Services",
+    groep: "Vernast Group",
+    sitemap: "Sitemap",
+    werkgebied: "Service area",
+    bereikbaar: "Get in touch",
+    magazijn: "Depot and collection point",
+    open: "Open",
+    uren: "Mon–Fri 08:00–17:00",
+    zetel: "Registered office:",
+    credit: "Design and build by",
+    voorwaarden: "Terms and conditions",
+    privacy: "Privacy",
+  },
+} satisfies Copy<Record<string, string>>;
 
 /**
  * De voet van de hele site.
@@ -23,7 +78,12 @@ import "@/styles/site-footer.css";
  * FOOTER_SITEMAP in src/data/navigation.ts voor wat eruit ging en waarom geen
  * van die pagina's daardoor een wees wordt.
  */
-const V3Footer = () => (
+const V3Footer = () => {
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const taal = useTaal();
+  const { FOOTER_SITEMAP, TOEPASSINGEN, VERNAST_GROEP } = navigatie(taal);
+  return (
   <footer className="site">
     <div className="wrap">
       <div className="fg">
@@ -43,7 +103,7 @@ const V3Footer = () => (
             van het logo en de spelden.
           */}
           <p className="say">
-            Wij staan er. <em>In heel Vlaanderen.</em>
+            {t.say} <em>{t.sayEm}</em>
           </p>
           <a className="tel" href={`tel:${CONTACT.phoneE164}`}>
             {CONTACT.phoneLocal}
@@ -52,13 +112,13 @@ const V3Footer = () => (
             {CONTACT.email}
           </a>
           <p className="claim">
-            Drooggarantie inbegrepen. Levering op de datum die u kiest.
+            {t.claim}
           </p>
         </div>
 
         <div>
           <nav aria-labelledby="ft-diensten">
-            <h2 id="ft-diensten">Diensten</h2>
+            <h2 id="ft-diensten">{t.diensten}</h2>
             <ul>
               {TOEPASSINGEN.map((link) => (
                 <li key={link.path}>
@@ -70,7 +130,7 @@ const V3Footer = () => (
 
           <nav aria-labelledby="ft-groep">
             <h2 id="ft-groep" className="later">
-              Vernast Groep
+              {t.groep}
             </h2>
             {/*
               Alleen de zusterdomeinen. Deze site stond hier even bij als
@@ -92,7 +152,7 @@ const V3Footer = () => (
         </div>
 
         <nav aria-labelledby="ft-sitemap">
-          <h2 id="ft-sitemap">Sitemap</h2>
+          <h2 id="ft-sitemap">{t.sitemap}</h2>
           <ul>
             {FOOTER_SITEMAP.map((link) => (
               <li key={link.path}>
@@ -117,11 +177,11 @@ const V3Footer = () => (
               <Link
                 key={regio.slug}
                 className="ft-pin"
-                to={regio.path}
+                to={lp(regio.path)}
                 tabIndex={-1}
                 style={kaartVoor({ pin: regio.pin, metNederland: true }).pin}
               >
-                <span>{regio.name}</span>
+                <span>{regioNaam(regio, taal)}</span>
               </Link>
             ))}
           </div>
@@ -142,11 +202,11 @@ const V3Footer = () => (
             pagina waar de link naartoe gaat.
           */}
           <nav className="ft-regios" aria-labelledby="ft-regios">
-            <h2 id="ft-regios">Werkgebied</h2>
+            <h2 id="ft-regios">{t.werkgebied}</h2>
             <ul>
               {REGIO_ROUTES.map((regio) => (
                 <li key={regio.slug}>
-                  <Link to={regio.path}>{regio.name}</Link>
+                  <Link to={lp(regio.path)}>{regioNaam(regio, taal)}</Link>
                 </li>
               ))}
             </ul>
@@ -161,7 +221,7 @@ const V3Footer = () => (
       */}
       <dl className="ft-feiten">
         <div>
-          <dt>Bereikbaar</dt>
+          <dt>{t.bereikbaar}</dt>
           <dd>
             <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a>
             <br />
@@ -169,7 +229,7 @@ const V3Footer = () => (
           </dd>
         </div>
         <div>
-          <dt>Magazijn en afhaalpunt</dt>
+          <dt>{t.magazijn}</dt>
           {/*
             Het adres is een route, niet een gegeven om te onthouden: wie het
             hier leest wil erheen rijden. Hetzelfde doel als de knop op
@@ -184,13 +244,13 @@ const V3Footer = () => (
           </dd>
         </div>
         <div>
-          <dt>Open</dt>
+          <dt>{t.open}</dt>
           {/*
             Alleen wat `CONTACT.openingHours` dekt. Hier stond even "Zaterdag
             en zondag gesloten", en dat spreekt de algemene voorwaarden tegen:
             die rekenen zaterdagochtend wél als werkdag.
           */}
-          <dd>Ma–Vr 08:00–17:00</dd>
+          <dd>{t.uren}</dd>
         </div>
       </dl>
 
@@ -209,7 +269,7 @@ const V3Footer = () => (
           zichtbaar op de pagina.
         */}
         <div>
-          © {new Date().getFullYear()} {SITE_NAME} · Zetel: {HEADQUARTERS.street},{" "}
+          © {new Date().getFullYear()} {SITE_NAME} · {t.zetel} {HEADQUARTERS.street},{" "}
           {HEADQUARTERS.postalCode} {HEADQUARTERS.city}
         </div>
         {/*
@@ -219,24 +279,25 @@ const V3Footer = () => (
           elkaar wijzen is precies het signaal dat ze één bedrijf zijn.
         */}
         <div className="ft-credit">
-          Ontwerp en realisatie door{" "}
+          {t.credit}{" "}
           <a href={HEADQUARTERS.url} target="_blank" rel="noopener noreferrer">
             {HEADQUARTERS.name}
           </a>
         </div>
         <div className="ft-legal">
-          <Link to="/algemene-voorwaarden">Algemene voorwaarden</Link>
-          <Link to="/privacy">Privacy</Link>
+          <Link to={lp("/algemene-voorwaarden")}>{t.voorwaarden}</Link>
+          <Link to={lp("/privacy")}>{t.privacy}</Link>
           {/*
             De zichtbare sitemap (/sitemap), niet sitemap.xml. Dat XML-bestand
             is voor crawlers; wie hier klikt is een mens en kreeg een scherm
             vol ongeopmaakte XML. De crawler vindt zijn versie via robots.txt.
           */}
-          <Link to="/sitemap">Sitemap</Link>
+          <Link to={lp("/sitemap")}>{t.sitemap}</Link>
         </div>
       </div>
     </div>
   </footer>
-);
+  );
+};
 
 export default V3Footer;

@@ -1,34 +1,64 @@
 import { useEffect, useRef } from "react";
 import { REVIEWS } from "@/lib/site";
+import { useCopy, type Copy } from "@/i18n/useTaal";
 
 /**
  * The red band under the hero. Each figure counts up from zero the first time
  * it scrolls into view; the design eases that over 1,3 s and staggers the four
  * blocks 90 ms apart.
  */
-const STATS = [
-  { count: "450", suffix: "+", label: "Woningen en werven ondersteund" },
-  { count: "24", suffix: "u", label: "Levering én installatie aan huis" },
-  /*
-    Zolang er geen te verantwoorden beoordeling is (zie `REVIEWS` in
-    src/lib/site.ts) staat hier de droog-garantie. Die is van onszelf en dus wél
-    hard te maken, en houdt de balk op vier blokken — met drie valt het ritme
-    van de rode band uit elkaar.
-  */
-  REVIEWS
-    ? {
-        count: REVIEWS.display,
-        suffix: `/${REVIEWS.best}`,
-        label: `Gemiddeld op ${REVIEWS.reviewCount} beoordelingen`,
-      }
-    : { count: "100", suffix: "%", label: "Droog, of u huurt kosteloos verder" },
-  { count: "0", suffix: "€", label: "Voorschot · geen verborgen kosten" },
-];
+type Stat = { count: string; suffix: string; label: string };
+
+/*
+  Zolang er geen te verantwoorden beoordeling is (zie `REVIEWS` in
+  src/lib/site.ts) staat op de derde plaats de droog-garantie. Die is van
+  onszelf en dus wél hard te maken, en houdt de balk op vier blokken — met drie
+  valt het ritme van de rode band uit elkaar.
+*/
+const COPY = {
+  nl: [
+    { count: "450", suffix: "+", label: "Woningen en werven ondersteund" },
+    { count: "24", suffix: "u", label: "Levering én installatie aan huis" },
+    REVIEWS
+      ? {
+          count: REVIEWS.display,
+          suffix: `/${REVIEWS.best}`,
+          label: `Gemiddeld op ${REVIEWS.reviewCount} beoordelingen`,
+        }
+      : { count: "100", suffix: "%", label: "Droog, of u huurt kosteloos verder" },
+    { count: "0", suffix: "€", label: "Voorschot · geen verborgen kosten" },
+  ],
+  fr: [
+    { count: "450", suffix: "+", label: "Habitations et chantiers accompagnés" },
+    { count: "24", suffix: "h", label: "Livraison et installation à domicile" },
+    REVIEWS
+      ? {
+          count: REVIEWS.display,
+          suffix: `/${REVIEWS.best}`,
+          label: `En moyenne sur ${REVIEWS.reviewCount} avis`,
+        }
+      : { count: "100", suffix: "%", label: "Sec, ou vous continuez à louer sans frais" },
+    { count: "0", suffix: "€", label: "Acompte · aucun frais caché" },
+  ],
+  en: [
+    { count: "450", suffix: "+", label: "Homes and sites supported" },
+    { count: "24", suffix: "h", label: "Delivery and installation at your door" },
+    REVIEWS
+      ? {
+          count: REVIEWS.display,
+          suffix: `/${REVIEWS.best}`,
+          label: `Average across ${REVIEWS.reviewCount} reviews`,
+        }
+      : { count: "100", suffix: "%", label: "Dry, or keep hiring at no extra cost" },
+    { count: "0", suffix: "€", label: "Deposit · no hidden costs" },
+  ],
+} satisfies Copy<Stat[]>;
 
 const DURATION = 1300;
 
 const V3StatRule = () => {
   const bandRef = useRef<HTMLDivElement>(null);
+  const stats = useCopy(COPY);
 
   useEffect(() => {
     const blocks = Array.from(bandRef.current?.querySelectorAll<HTMLElement>(".st") ?? []);
@@ -82,7 +112,7 @@ const V3StatRule = () => {
     <div className="statrule">
       <div className="wrap">
         <div className="band" ref={bandRef}>
-          {STATS.map((stat) => (
+          {stats.map((stat) => (
             <div className="st" key={stat.label}>
               <div className="n">
                 <span data-count={stat.count}>0</span>

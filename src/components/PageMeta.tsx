@@ -4,11 +4,12 @@ import {
   DEFAULT_OG_IMAGE,
   OG_IMAGE_HEIGHT,
   OG_IMAGE_WIDTH,
-  SITE_LOCALE,
   SITE_NAME,
   absoluteUrl,
   canonicalUrl,
 } from "@/lib/site";
+import { HTML_LANG, OG_LOCALE, taalUitPad } from "@/i18n/taal";
+import { alternatieven } from "@/i18n/paden";
 
 interface PageMetaProps {
   /** 50–60 tekens, belangrijkste begrip vooraan. */
@@ -45,9 +46,20 @@ const PageMeta = ({
   const canonical = canonicalUrl(path ?? location.pathname);
   const ogImage = absoluteUrl(image);
   const blocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+  const taal = taalUitPad(location.pathname);
+  /*
+    hreflang: elke taalversie wijst naar alle andere én naar zichzelf, anders
+    negeert Google de koppeling. x-default is de Nederlandse versie: de
+    oorspronkelijke site, en de taal van wie geen voorkeur aangeeft.
+    Een pagina op noindex krijgt ze niet — die hoort in geen enkele taal in
+    de index.
+  */
+  const alt = noindex ? {} : alternatieven(location.pathname);
+  const altLinks = Object.entries(alt) as [keyof typeof HTML_LANG, string][];
 
   return (
     <Head>
+      <html lang={HTML_LANG[taal]} />
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
@@ -62,7 +74,19 @@ const PageMeta = ({
 
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={SITE_NAME} />
-      <meta property="og:locale" content={SITE_LOCALE} />
+      <meta property="og:locale" content={OG_LOCALE[taal]} />
+      {altLinks
+        .filter(([t]) => t !== taal)
+        .map(([t]) => (
+          <meta key={`ogl-${t}`} property="og:locale:alternate" content={OG_LOCALE[t]} />
+        ))}
+      {altLinks.length > 1 &&
+        altLinks.map(([t, p]) => (
+          <link key={`hl-${t}`} rel="alternate" hrefLang={HTML_LANG[t]} href={canonicalUrl(p)} />
+        ))}
+      {altLinks.length > 1 && alt.nl && (
+        <link rel="alternate" hrefLang="x-default" href={canonicalUrl(alt.nl)} />
+      )}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonical} />

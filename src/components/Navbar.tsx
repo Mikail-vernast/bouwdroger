@@ -5,54 +5,66 @@ import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import logoWhite from "@/assets/logo-white.png";
 import FontPreload from "@/components/FontPreload";
+import { KlantWissel, TaalWissel } from "@/components/TaalWissel";
+import { useCopy, useLokaalPad, type Copy } from "@/i18n/useTaal";
+import "@/styles/taalwissel.css";
 
-const dienstenItems = [
-  {
-    label: "Nieuwbouw",
-    href: "/nieuwbouw-drogen",
-    description: "Pleisterwerk & chape drogen",
-    icon: Building2,
-    badge: null,
-  },
-  {
-    label: "Renovatie",
-    href: "/renovatie",
-    description: "Vocht & schimmel aanpakken",
-    icon: Hammer,
-    badge: null,
-  },
-  {
-    label: "Waterschade",
-    href: "/waterschade",
-    description: "Noodservice binnen 24u",
-    icon: Droplets,
-    badge: "SPOED",
-  },
-  {
-    label: "Vochtbestrijding",
-    href: "/renovatie",
-    description: "Structurele vochtproblemen oplossen",
-    icon: Droplets,
-    badge: null,
-  },
-  {
-    label: "Aannemers",
-    href: "/contact",
-    description: "B2B tarieven & samenwerking",
-    icon: HardHat,
-    badge: null,
-  },
-];
+/* De paden zijn Nederlands; de component zet ze om met `lp()`. */
+const DIENSTEN_PAD = ["/nieuwbouw-drogen", "/renovatie", "/waterschade", "/renovatie", "/contact"];
+const DIENSTEN_ICOON = [Building2, Hammer, Droplets, Droplets, HardHat];
+const LINK_PAD = ["/levering", "/afhalen", "/machines", "/realisaties", "/over-ons", "/klantservice", "/contact"];
 
-const navLinks = [
-  { label: "Levering", href: "/levering" },
-  { label: "Afhalen", href: "/afhalen" },
-  { label: "Machines", href: "/machines" },
-  { label: "Realisaties", href: "/realisaties" },
-  { label: "Over Ons", href: "/over-ons" },
-  { label: "Klantenservice", href: "/klantservice" },
-  { label: "Contact", href: "/contact" },
-];
+interface NavbarTekst {
+  diensten: string;
+  /** Per dienst: label, omschrijving, badge — in de volgorde van DIENSTEN_PAD. */
+  dienstenItems: [string, string, string | null][];
+  /** In de volgorde van LINK_PAD. */
+  links: string[];
+  cta: string;
+  menuOpen: string;
+}
+
+const COPY = {
+  nl: {
+    diensten: "Diensten",
+    dienstenItems: [
+      ["Nieuwbouw", "Pleisterwerk & chape drogen", null],
+      ["Renovatie", "Vocht & schimmel aanpakken", null],
+      ["Waterschade", "Noodservice binnen 24u", "SPOED"],
+      ["Vochtbestrijding", "Structurele vochtproblemen oplossen", null],
+      ["Aannemers", "B2B tarieven & samenwerking", null],
+    ],
+    links: ["Levering", "Afhalen", "Machines", "Realisaties", "Over Ons", "Klantenservice", "Contact"],
+    cta: "Bereken je prijs",
+    menuOpen: "Menu openen",
+  },
+  fr: {
+    diensten: "Services",
+    dienstenItems: [
+      ["Nouvelle construction", "Sécher plafonnage & chape", null],
+      ["Rénovation", "Traiter humidité & moisissures", null],
+      ["Dégâts des eaux", "Service d'urgence en 24 h", "URGENT"],
+      ["Traitement de l'humidité", "Résoudre l'humidité structurelle", null],
+      ["Entrepreneurs", "Tarifs B2B & partenariat", null],
+    ],
+    links: ["Livraison", "Enlèvement", "Machines", "Réalisations", "À propos", "Service client", "Contact"],
+    cta: "Calculez votre prix",
+    menuOpen: "Ouvrir le menu",
+  },
+  en: {
+    diensten: "Services",
+    dienstenItems: [
+      ["New build", "Drying plaster & screed", null],
+      ["Renovation", "Tackling damp & mould", null],
+      ["Water damage", "Emergency service within 24 h", "URGENT"],
+      ["Damp control", "Solving structural damp problems", null],
+      ["Contractors", "B2B rates & partnership", null],
+    ],
+    links: ["Delivery", "Collection", "Machines", "Projects", "About us", "Customer service", "Contact"],
+    cta: "Calculate your price",
+    menuOpen: "Open menu",
+  },
+} satisfies Copy<NavbarTekst>;
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -62,6 +74,16 @@ const Navbar = () => {
   const dienstenRef = useRef<HTMLDivElement>(null);
   const dienstenTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const location = useLocation();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const dienstenItems = DIENSTEN_PAD.map((pad, i) => ({
+    label: t.dienstenItems[i][0],
+    href: lp(pad),
+    description: t.dienstenItems[i][1],
+    badge: t.dienstenItems[i][2],
+    icon: DIENSTEN_ICOON[i],
+  }));
+  const navLinks = LINK_PAD.map((pad, i) => ({ label: t.links[i], href: lp(pad) }));
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -111,7 +133,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <Link to="/" className="flex-shrink-0">
+        <Link to={lp("/")} className="flex-shrink-0">
           <img src={logoWhite} alt="Vernast Bouwdrogers" className="h-7 md:h-8 w-auto" loading="lazy" decoding="async" />
         </Link>
 
@@ -133,7 +155,7 @@ const Navbar = () => {
                   : "text-primary-foreground/80 hover:text-white hover:bg-white/10"
               )}
             >
-              Diensten
+              {t.diensten}
               <ChevronDown
                 className={cn(
                   "h-4 w-4 transition-transform duration-200",
@@ -196,13 +218,14 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Desktop CTA */}
+        {/* Desktop CTA. De taal- en klantwissel staan op de desktop in de
+            TopBar erboven: in deze balk duwden ze de knop uit beeld op 1280px. */}
         <div className="hidden lg:block flex-shrink-0">
           <Button
             asChild
             className="bg-white text-foreground hover:bg-white/90 font-semibold text-sm rounded-lg px-5"
           >
-            <Link to="/#configurator">Bereken je prijs &rarr;</Link>
+            <Link to={lp("/") + "#configurator"}>{t.cta} &rarr;</Link>
           </Button>
         </div>
 
@@ -210,7 +233,7 @@ const Navbar = () => {
         <button
           className="lg:hidden p-2 text-primary-foreground"
           onClick={() => setIsMobileOpen((prev) => !prev)}
-          aria-label="Menu openen"
+          aria-label={t.menuOpen}
         >
           {isMobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
@@ -230,7 +253,7 @@ const Navbar = () => {
                     : "text-primary-foreground/80 hover:text-white hover:bg-white/5"
                 )}
               >
-                Diensten
+                {t.diensten}
                 <ChevronDown
                   className={cn(
                     "h-4 w-4 transition-transform duration-200",
@@ -284,13 +307,21 @@ const Navbar = () => {
                 </Link>
               ))}
 
+              {/* Mobile: taal en prijsweergave */}
+              <div className="px-6 pt-3 text-primary-foreground/85">
+                <span className="wissels">
+                  <TaalWissel />
+                  <KlantWissel />
+                </span>
+              </div>
+
               {/* Mobile CTA */}
               <div className="px-6 pt-4 pb-2">
                 <Button
                   asChild
                   className="bg-white text-foreground hover:bg-white/90 font-semibold text-sm rounded-lg w-full"
                 >
-                  <Link to="/#configurator">Bereken je prijs &rarr;</Link>
+                  <Link to={lp("/") + "#configurator"}>{t.cta} &rarr;</Link>
                 </Button>
               </div>
             </div>

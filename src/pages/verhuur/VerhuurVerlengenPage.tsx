@@ -18,6 +18,8 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import { CheckIcon, WarnIcon } from "@/components/verhuur/icons";
 import { isValidPhone, maskPhone } from "@/lib/inputMask";
 import { addDays, formatLongDate, isoDate, parseDeviceLines } from "@/lib/verhuur";
+import { useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
+import { NUMBER_LOCALE } from "@/i18n/taal";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 
@@ -40,24 +42,184 @@ interface Huur {
 const MIN_TOELICHTING = 5;
 
 /** De keuzes die de klant krijgt; in weken, want zo verhuren wij. */
-const KEUZES = [
-  { dagen: 7, label: "1 week" },
-  { dagen: 14, label: "2 weken" },
-  { dagen: 21, label: "3 weken" },
-  { dagen: 28, label: "4 weken" },
-];
+const KEUZE_DAGEN = [7, 14, 21, 28];
 
-const DEVICE_LABEL: Record<string, string> = {
-  small: "Small Bouwdroger",
-  medium: "Medium Bouwdroger",
-  axiaal: "Axiaalventilator",
-  kachel: "Elektrische kachel",
-};
+interface Teksten {
+  titel: string;
+  beschrijving: string;
+  keuzes: string[];
+  toestel: Record<string, string>;
+  ontbreektTel: string;
+  ontbreektReden: string;
+  missen: (lijst: string[]) => string;
+  mislukt: string;
+  teVeel: string;
+  laden: string;
+  onbekendKop: string;
+  onbekendUitleg: string;
+  /** Wat na het telefoonnummer komt. */
+  onbekendSlot: string;
+  terug: string;
+  verstuurdKop: string;
+  verstuurdUitleg: (telefoon: string, afhaal: boolean) => string;
+  gevraagdTot: string;
+  verlengKop: string;
+  referentie: string;
+  pakket: string;
+  uwToestellen: string;
+  bijUGeplaatst: string;
+  terugbrengenGepland: string;
+  ophalingGepland: string;
+  hoeveelKop: string;
+  tot: string;
+  telLabel: string;
+  redenLabel: string;
+  redenPlaceholder: string;
+  aanvraagUitleg: string;
+  versturen: string;
+  aanvragen: string;
+}
+
+const COPY = {
+  nl: {
+    titel: "Uw huur verlengen | Vernast",
+    beschrijving: "Vraag aan om uw bouwdrogers langer te houden.",
+    keuzes: ["1 week", "2 weken", "3 weken", "4 weken"],
+    toestel: {
+      small: "Small Bouwdroger",
+      medium: "Medium Bouwdroger",
+      axiaal: "Axiaalventilator",
+      kachel: "Elektrische kachel",
+    },
+    ontbreektTel: "een telefoonnummer waarop wij u kunnen bereiken",
+    ontbreektReden: "een korte reden waarom u wilt verlengen",
+    missen: (lijst) => `Wij missen nog ${lijst.join(" en ")}.`,
+    mislukt: "Versturen lukte niet. Bel ons gerust op 03 689 90 65.",
+    teVeel: "Te veel aanvragen. Probeer het over een minuut opnieuw.",
+    laden: "Even uw boeking ophalen…",
+    onbekendKop: "Deze link werkt niet meer",
+    onbekendUitleg:
+      "Wij vinden geen lopende huur bij deze link. Gebruik de knop uit de mail die u twee dagen vóór het einde van uw huurperiode kreeg, of bel ons op ",
+    onbekendSlot: ", dan regelen wij het telefonisch.",
+    terug: "Terug naar de site",
+    verstuurdKop: "Uw aanvraag staat genoteerd",
+    verstuurdUitleg: (telefoon, afhaal) =>
+      `Wij kijken na of de toestellen langer bij u kunnen blijven en bellen u binnen één werkdag terug op ${telefoon}. Zolang u niets gehoord heeft, blijft ${afhaal ? "het terugbrengen" : "de ophaling"} op de oorspronkelijke datum staan.`,
+    gevraagdTot: "Gevraagd tot",
+    verlengKop: "Uw huur verlengen",
+    referentie: "Referentie",
+    pakket: "Pakket",
+    uwToestellen: "Uw toestellen",
+    bijUGeplaatst: "Bij u geplaatst",
+    terugbrengenGepland: "Terugbrengen nu gepland op",
+    ophalingGepland: "Ophaling nu gepland op",
+    hoeveelKop: "Hoeveel langer wilt u ze houden?",
+    tot: "tot",
+    telLabel: "Telefoonnummer waarop wij u kunnen bereiken",
+    redenLabel: "Waarom wilt u verlengen?",
+    redenPlaceholder: "Bijvoorbeeld: de chape is nog niet droog op de kelderverdieping.",
+    aanvraagUitleg:
+      "Dit is een aanvraag, nog geen bevestiging: wij kijken eerst na of de toestellen langer bij u kunnen blijven. U hoort binnen één werkdag van ons, en de extra dagen komen op uw volgende factuur. Uw toelichting helpt ons meteen inschatten of één week volstaat.",
+    versturen: "Versturen…",
+    aanvragen: "Verlenging aanvragen",
+  },
+  fr: {
+    titel: "Prolonger votre location | Vernast",
+    beschrijving: "Demandez à garder vos déshumidificateurs de chantier plus longtemps.",
+    keuzes: ["1 semaine", "2 semaines", "3 semaines", "4 semaines"],
+    toestel: {
+      small: "Déshumidificateur de chantier Small",
+      medium: "Déshumidificateur de chantier Medium",
+      axiaal: "Ventilateur axial",
+      kachel: "Chauffage électrique",
+    },
+    ontbreektTel: "un numéro de téléphone auquel nous pouvons vous joindre",
+    ontbreektReden: "une brève raison pour laquelle vous souhaitez prolonger",
+    missen: (lijst) => `Il nous manque encore ${lijst.join(" et ")}.`,
+    mislukt: "L'envoi n'a pas abouti. N'hésitez pas à nous appeler au 03 689 90 65.",
+    teVeel: "Trop de demandes. Réessayez dans une minute.",
+    laden: "Récupération de votre réservation…",
+    onbekendKop: "Ce lien ne fonctionne plus",
+    onbekendUitleg:
+      "Nous ne trouvons aucune location en cours liée à ce lien. Utilisez le bouton de l'e-mail reçu deux jours avant la fin de votre période de location, ou appelez-nous au ",
+    onbekendSlot: " : nous réglons cela par téléphone.",
+    terug: "Retour au site",
+    verstuurdKop: "Votre demande est enregistrée",
+    verstuurdUitleg: (telefoon, afhaal) =>
+      `Nous vérifions si les appareils peuvent rester plus longtemps chez vous et vous rappelons dans un délai d'un jour ouvrable au ${telefoon}. Tant que vous n'avez pas de nouvelles de notre part, ${afhaal ? "le retour reste prévu" : "l'enlèvement reste prévu"} à la date initiale.`,
+    gevraagdTot: "Demandé jusqu'au",
+    verlengKop: "Prolonger votre location",
+    referentie: "Référence",
+    pakket: "Pack",
+    uwToestellen: "Vos appareils",
+    bijUGeplaatst: "Installés chez vous",
+    terugbrengenGepland: "Retour actuellement prévu le",
+    ophalingGepland: "Enlèvement actuellement prévu le",
+    hoeveelKop: "Combien de temps en plus souhaitez-vous les garder ?",
+    tot: "jusqu'au",
+    telLabel: "Numéro de téléphone auquel nous pouvons vous joindre",
+    redenLabel: "Pourquoi souhaitez-vous prolonger ?",
+    redenPlaceholder: "Par exemple : la chape n'est pas encore sèche au sous-sol.",
+    aanvraagUitleg:
+      "Ceci est une demande, pas encore une confirmation : nous vérifions d'abord si les appareils peuvent rester plus longtemps chez vous. Vous aurez de nos nouvelles dans un délai d'un jour ouvrable, et les jours supplémentaires figureront sur votre prochaine facture. Votre explication nous aide à estimer tout de suite si une semaine suffit.",
+    versturen: "Envoi…",
+    aanvragen: "Demander une prolongation",
+  },
+  en: {
+    titel: "Extend your rental | Vernast",
+    beschrijving: "Request to keep your construction dehumidifiers for longer.",
+    keuzes: ["1 week", "2 weeks", "3 weeks", "4 weeks"],
+    toestel: {
+      small: "Small construction dehumidifier",
+      medium: "Medium construction dehumidifier",
+      axiaal: "Axial fan",
+      kachel: "Electric heater",
+    },
+    ontbreektTel: "a phone number we can reach you on",
+    ontbreektReden: "a short reason why you would like to extend",
+    missen: (lijst) => `We still need ${lijst.join(" and ")}.`,
+    mislukt: "Sending failed. Feel free to call us on 03 689 90 65.",
+    teVeel: "Too many requests. Please try again in a minute.",
+    laden: "Fetching your booking…",
+    onbekendKop: "This link no longer works",
+    onbekendUitleg:
+      "We cannot find a current rental for this link. Use the button in the email you received two days before the end of your rental period, or call us on ",
+    onbekendSlot: " and we will sort it out by phone.",
+    terug: "Back to the site",
+    verstuurdKop: "Your request has been noted",
+    verstuurdUitleg: (telefoon, afhaal) =>
+      `We will check whether the units can stay with you for longer and call you back within one working day on ${telefoon}. Until you hear from us, ${afhaal ? "the return" : "the collection"} remains scheduled for the original date.`,
+    gevraagdTot: "Requested until",
+    verlengKop: "Extend your rental",
+    referentie: "Reference",
+    pakket: "Package",
+    uwToestellen: "Your units",
+    bijUGeplaatst: "Installed at your site",
+    terugbrengenGepland: "Return currently scheduled for",
+    ophalingGepland: "Collection currently scheduled for",
+    hoeveelKop: "How much longer would you like to keep them?",
+    tot: "until",
+    telLabel: "Phone number we can reach you on",
+    redenLabel: "Why would you like to extend?",
+    redenPlaceholder: "For example: the screed in the basement is not dry yet.",
+    aanvraagUitleg:
+      "This is a request, not yet a confirmation: we first check whether the units can stay with you for longer. You will hear from us within one working day, and the extra days will appear on your next invoice. Your explanation helps us judge straight away whether one week is enough.",
+    versturen: "Sending…",
+    aanvragen: "Request an extension",
+  },
+} satisfies Copy<Teksten>;
 
 type Status = "laden" | "klaar" | "onbekend" | "verstuurd";
 
 const VerhuurVerlengenPage = () => {
   const [searchParams] = useSearchParams();
+  const taal = useTaal();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const langeDatum = (d: Date) =>
+    taal === "nl"
+      ? formatLongDate(d)
+      : d.toLocaleDateString(NUMBER_LOCALE[taal], { weekday: "long", day: "numeric", month: "long" });
   const sessionId = searchParams.get("session_id") ?? "";
 
   const [status, setStatus] = useState<Status>("laden");
@@ -100,8 +262,8 @@ const VerhuurVerlengenPage = () => {
     if (huur?.machine) return huur.machine;
     // Product lines (pickup) have no device_key; never print "undefined".
     const lines = parseDeviceLines(huur?.toestellen).filter((l) => l.device_key);
-    return lines.map((l) => `${l.qty}× ${DEVICE_LABEL[l.device_key] ?? l.device_key}`).join(", ");
-  }, [huur?.toestellen, huur?.machine]);
+    return lines.map((l) => `${l.qty}× ${t.toestel[l.device_key] ?? l.device_key}`).join(", ");
+  }, [huur?.toestellen, huur?.machine, t]);
 
   /*
     De einddatum die de klant zou krijgen. Onder voorbehoud, want pas de
@@ -123,15 +285,15 @@ const VerhuurVerlengenPage = () => {
     tegen niets duwen.
   */
   const ontbreekt = [
-    !isValidPhone(telefoon) && "een telefoonnummer waarop wij u kunnen bereiken",
-    opmerking.trim().length < MIN_TOELICHTING && "een korte reden waarom u wilt verlengen",
+    !isValidPhone(telefoon) && t.ontbreektTel,
+    opmerking.trim().length < MIN_TOELICHTING && t.ontbreektReden,
   ].filter((item): item is string => Boolean(item));
 
   const verstuur = async (event: React.FormEvent) => {
     event.preventDefault();
     if (bezig) return;
     if (ontbreekt.length) {
-      setFout(`Wij missen nog ${ontbreekt.join(" en ")}.`);
+      setFout(t.missen(ontbreekt));
       return;
     }
 
@@ -142,7 +304,8 @@ const VerhuurVerlengenPage = () => {
       const response = await fetch("/api/extension", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ sessionId, extraDagen: dagen, telefoon, opmerking, website }),
+        // `taal`: een weigering komt terug in de taal van deze pagina.
+        body: JSON.stringify({ sessionId, extraDagen: dagen, telefoon, opmerking, website, taal }),
       });
       const data = (await response.json().catch(() => ({}))) as {
         error?: string;
@@ -150,14 +313,15 @@ const VerhuurVerlengenPage = () => {
       };
 
       if (!response.ok) {
-        setFout(data.error ?? "Versturen lukte niet. Bel ons gerust op 03 689 90 65.");
+        // Een 429 valt vóór de server de taal kent; die tekst vertalen we hier.
+        setFout(response.status === 429 ? t.teVeel : (data.error ?? t.mislukt));
         return;
       }
 
       setNieuwEinde(data.nieuw_einde ?? voorstel);
       setStatus("verstuurd");
     } catch {
-      setFout("Versturen lukte niet. Bel ons gerust op 03 689 90 65.");
+      setFout(t.mislukt);
     } finally {
       setBezig(false);
     }
@@ -166,8 +330,8 @@ const VerhuurVerlengenPage = () => {
   return (
     <div className="vh-book vh-ext">
       <PageMeta
-        title="Uw huur verlengen | Vernast"
-        description="Vraag aan om uw bouwdrogers langer te houden."
+        title={t.titel}
+        description={t.beschrijving}
         noindex
       />
       {/*
@@ -190,23 +354,23 @@ const VerhuurVerlengenPage = () => {
           <div className="blk">
             {status === "laden" && (
               <div className="blkh">
-                <h2>Even uw boeking ophalen…</h2>
+                <h2>{t.laden}</h2>
               </div>
             )}
 
             {status === "onbekend" && (
               <>
                 <div className="blkh">
-                  <h2>Deze link werkt niet meer</h2>
+                  <h2>{t.onbekendKop}</h2>
                 </div>
                 <p style={{ lineHeight: 1.7 }}>
-                  Wij vinden geen lopende huur bij deze link. Gebruik de knop uit de mail die u
-                  twee dagen vóór het einde van uw huurperiode kreeg, of bel ons op{" "}
-                  <a href="tel:+3236899065">03 689 90 65</a>, dan regelen wij het telefonisch.
+                  {t.onbekendUitleg}
+                  <a href="tel:+3236899065">03 689 90 65</a>
+                  {t.onbekendSlot}
                 </p>
                 <div className="fnav" style={{ marginTop: 20 }}>
-                  <Link className="btn btn-o" to="/verhuur/calculator">
-                    Terug naar de site
+                  <Link className="btn btn-o" to={lp("/verhuur/calculator")}>
+                    {t.terug}
                   </Link>
                 </div>
               </>
@@ -217,16 +381,12 @@ const VerhuurVerlengenPage = () => {
                 <div className="dico">
                   <CheckIcon size={28} />
                 </div>
-                <h2>Uw aanvraag staat genoteerd</h2>
-                <p>
-                  Wij kijken na of de toestellen langer bij u kunnen blijven en bellen u binnen één
-                  werkdag terug op {telefoon}. Zolang u niets gehoord heeft, blijft{" "}
-                  {huur?.afhaal ? "het terugbrengen" : "de ophaling"} op de oorspronkelijke datum staan.
-                </p>
+                <h2>{t.verstuurdKop}</h2>
+                <p>{t.verstuurdUitleg(telefoon, Boolean(huur?.afhaal))}</p>
                 {nieuwEinde && (
                   <div className="dref">
-                    <span>Gevraagd tot</span>
-                    <span>{formatLongDate(new Date(nieuwEinde))}</span>
+                    <span>{t.gevraagdTot}</span>
+                    <span>{langeDatum(new Date(nieuwEinde))}</span>
                   </div>
                 )}
               </div>
@@ -235,7 +395,7 @@ const VerhuurVerlengenPage = () => {
             {status === "klaar" && huur && (
               <form onSubmit={verstuur}>
                 <div className="blkh">
-                  <h2>Uw huur verlengen</h2>
+                  <h2>{t.verlengKop}</h2>
                 </div>
 
                 {/*
@@ -254,12 +414,12 @@ const VerhuurVerlengenPage = () => {
                   }}
                 >
                   {[
-                    ["Referentie", huur.referentie],
-                    ["Pakket", huur.pakket],
-                    [huur.afhaal ? "Uw toestellen" : "Bij u geplaatst", toestellen],
+                    [t.referentie, huur.referentie],
+                    [t.pakket, huur.pakket],
+                    [huur.afhaal ? t.uwToestellen : t.bijUGeplaatst, toestellen],
                     [
-                      huur.afhaal ? "Terugbrengen nu gepland op" : "Ophaling nu gepland op",
-                      huur.huur_eind ? formatLongDate(new Date(huur.huur_eind)) : "",
+                      huur.afhaal ? t.terugbrengenGepland : t.ophalingGepland,
+                      huur.huur_eind ? langeDatum(new Date(huur.huur_eind)) : "",
                     ],
                   ]
                     .filter(([, waarde]) => waarde)
@@ -285,19 +445,19 @@ const VerhuurVerlengenPage = () => {
                 </dl>
 
                 <div className="blkh">
-                  <h2>Hoeveel langer wilt u ze houden?</h2>
+                  <h2>{t.hoeveelKop}</h2>
                 </div>
                 <div className="payopts">
-                  {KEUZES.map((keuze) => (
+                  {KEUZE_DAGEN.map((keuzeDagen, i) => (
                     <button
-                      key={keuze.dagen}
+                      key={keuzeDagen}
                       type="button"
-                      className={`payopt${dagen === keuze.dagen ? " sel" : ""}`}
-                      onClick={() => setDagen(keuze.dagen)}
+                      className={`payopt${dagen === keuzeDagen ? " sel" : ""}`}
+                      onClick={() => setDagen(keuzeDagen)}
                     >
-                      <b>{keuze.label}</b>
+                      <b>{t.keuzes[i]}</b>
                       <span>
-                        tot {voorstel && formatLongDate(new Date(isoDate(addDays(new Date(huur.huur_eind), keuze.dagen))))}
+                        {t.tot} {voorstel && langeDatum(new Date(isoDate(addDays(new Date(huur.huur_eind), keuzeDagen))))}
                       </span>
                     </button>
                   ))}
@@ -305,7 +465,7 @@ const VerhuurVerlengenPage = () => {
 
                 <div className="frow" style={{ marginTop: 24 }}>
                   <div className="fld" style={{ gridColumn: "span 3" }}>
-                    <label htmlFor="vTel">Telefoonnummer waarop wij u kunnen bereiken</label>
+                    <label htmlFor="vTel">{t.telLabel}</label>
                     <input
                       type="tel"
                       id="vTel"
@@ -321,11 +481,11 @@ const VerhuurVerlengenPage = () => {
 
                 <div className="frow" style={{ marginTop: 14 }}>
                   <div className="fld" style={{ gridColumn: "span 3" }}>
-                    <label htmlFor="vNote">Waarom wilt u verlengen?</label>
+                    <label htmlFor="vNote">{t.redenLabel}</label>
                     <textarea
                       id="vNote"
                       rows={3}
-                      placeholder="Bijvoorbeeld: de chape is nog niet droog op de kelderverdieping."
+                      placeholder={t.redenPlaceholder}
                       value={opmerking}
                       onChange={(e) => {
                         setOpmerking(e.target.value);
@@ -364,15 +524,12 @@ const VerhuurVerlengenPage = () => {
                 )}
 
                 <p style={{ marginTop: 18, fontSize: 13.5, lineHeight: 1.6, color: "var(--txt-mid)" }}>
-                  Dit is een aanvraag, nog geen bevestiging: wij kijken eerst na of de toestellen
-                  langer bij u kunnen blijven. U hoort binnen één werkdag van ons, en de extra
-                  dagen komen op uw volgende factuur. Uw toelichting helpt ons meteen inschatten
-                  of één week volstaat.
+                  {t.aanvraagUitleg}
                 </p>
 
                 <div className="fnav" style={{ marginTop: 20 }}>
                   <button className="btn btn-r" type="submit" disabled={bezig}>
-                    {bezig ? "Versturen…" : "Verlenging aanvragen"}
+                    {bezig ? t.versturen : t.aanvragen}
                   </button>
                 </div>
               </form>

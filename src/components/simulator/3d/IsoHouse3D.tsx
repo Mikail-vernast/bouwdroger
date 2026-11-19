@@ -22,7 +22,7 @@ import {
   Vector3,
 } from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
-import { WONING, type Dak, type Kamer, type Opening, type Trap, type Woning } from "@/lib/droogSimulator";
+import { WONING, kamerNaam, woningTekst, type Dak, type Kamer, type Opening, type Trap, type Woning } from "@/lib/droogSimulator";
 import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
@@ -31,6 +31,7 @@ import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVang
 import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useTaal } from "@/i18n/useTaal";
 import { TEXTUUR } from "./bestanden";
 
 /*
@@ -1169,6 +1170,7 @@ const STANDAARD_MATERIAAL: Materiaal = {
 export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void; onFout?: () => void }) {
   const { woning, verdiepingen, kamers, actief, className, onKlaar, onFout } = props;
   const reduced = useReducedMotion();
+  const taal = useTaal();
   const anim = useRef<Anim>({ o: tween(props.open ? 1 : 0), cam: tween(props.open ? 1 : 0), act: tween(actief) });
   const labels = useRef<(HTMLDivElement | null)[]>([]);
   const lagen = Math.max(1, verdiepingen);
@@ -1179,7 +1181,13 @@ export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void
     <div
       className={`ds-iso ds-iso3d${className ? ` ${className}` : ""}`}
       role="img"
-      aria-label={`3D-tekening van een ${WONING[woning].label.toLowerCase()} met ${lagen} bouwla${lagen === 1 ? "ag" : "gen"}`}
+      aria-label={
+        taal === "fr"
+          ? `Dessin 3D : ${woningTekst(woning, taal).label.toLowerCase()}, ${lagen} niveau${lagen === 1 ? "" : "x"}`
+          : taal === "en"
+          ? `3D drawing: ${woningTekst(woning, taal).label.toLowerCase()}, ${lagen} storey${lagen === 1 ? "" : "s"}`
+          : `3D-tekening van een ${WONING[woning].label.toLowerCase()} met ${lagen} bouwla${lagen === 1 ? "ag" : "gen"}`
+      }
     >
       <Canvas
         // het droogplan is een film (toestellen, ventilatoren, drogen): dan altijd tekenen
@@ -1208,7 +1216,7 @@ export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void
             className={`ds-kamerlabel3d${k.soort === "circulatie" ? " ds-kamerlabel3d--gang" : ""}`}
             style={{ opacity: 0 }}
           >
-            {k.naam.toUpperCase()}
+            {kamerNaam(k.naam, taal).toUpperCase()}
           </div>
         ))}
       </div>
