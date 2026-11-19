@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -17,7 +16,9 @@ import {
 } from "@/components/ozon/ozonIcons";
 import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { useCopy, useLokaalPad } from "@/i18n/useTaal";
+import { ONTSCHIMMELING_COPY } from "./OntschimmelingPage.copy";
 import { eersteReviews } from "@/data/reviews";
 import "@/styles/ozonbehandeling.css";
 
@@ -45,40 +46,9 @@ import "@/styles/ozonbehandeling.css";
  *  - de FAQ in `<details>`, zodat elk antwoord in de HTML staat.
  */
 
-/* Eén lijst voor het scherm én de JSON-LD. Twee kopieën zouden uit de pas lopen,
-   en dan markeert de schema iets wat de bezoeker niet ziet. */
-const FAQ: { question: string; answer: string }[] = [
-  {
-    question: "Kan ik schimmel niet gewoon zelf wegpoetsen?",
-    answer:
-      "Oppervlakkig reinigen haalt de zwarte vlek weg, maar niet de schimmel. De draden zitten in de poriën van pleister en voeg, en bij droogwrijven komen er juist sporen vrij die zich elders in de ruimte afzetten. Daarom werken wij afgeschermd, met onderdruk waar nodig, en verwijderen we eerst het aangetaste materiaal voor we behandelen.",
-  },
-  {
-    question: "Wat kost een ontschimmeling?",
-    answer:
-      "Dat hangt af van de oppervlakte, hoe diep de aantasting zit en of het aangetaste materiaal weg moet. Een muur van enkele vierkante meters in een slaapkamer is iets anders dan een kelder waar het pleisterwerk eraf moet. Onze specialist komt kijken en geeft een vaste prijs voordat er iets gebeurt.",
-  },
-  {
-    question: "Moet ik het huis uit tijdens de werken?",
-    answer:
-      "Meestal niet. Wij schermen de werkzone af zodat het stof en de sporen niet door de woning trekken, en werken kamer per kamer. Alleen tijdens een eventuele ozonbehandeling achteraf moet de behandelde ruimte enkele uren leeg zijn, ook van huisdieren en planten.",
-  },
-  {
-    question: "Hoe weet ik of het vochtprobleem opgelost is?",
-    answer:
-      "Door te meten, niet te kijken. Wij meten het vochtgehalte in de ondergrond voor en na het drogen. Een muur die droog oogt kan vanbinnen nog nat zijn, en dan komt de schimmel terug, hoe grondig het oppervlak ook behandeld is. Pas als de meting droog zegt, werken we af.",
-  },
-  {
-    question: "Wat is het verschil met een ozonbehandeling?",
-    answer:
-      "Ontschimmelen is het handwerk: de zichtbare schimmel en het aangetaste materiaal gaan weg, en de ondergrond wordt behandeld. Een ozonbehandeling is de afronding daarna: die ruimt de sporen op die in de lucht, in kieren en in textiel achterbleven. Ze vervangen elkaar niet, ze volgen op elkaar.",
-  },
-  {
-    question: "Is schimmel in huis echt ongezond?",
-    answer:
-      "Schimmelsporen kunnen luchtwegklachten, hoofdpijn en vermoeidheid uitlokken, en ze treffen kinderen, ouderen en mensen met astma of een allergie het hardst. Dat is ook de reden om niet te wachten: hoe langer de ruimte vochtig blijft, hoe groter de kolonie en hoe meer sporen er in de lucht komen.",
-  },
-];
+/* De FAQ staat één keer in de copy (`OntschimmelingPage.copy.tsx`) en voedt het
+   scherm én de JSON-LD. Twee kopieën zouden uit de pas lopen, en dan markeert de
+   schema iets wat de bezoeker niet ziet. */
 
 /*
  * De zes spaken van de hero-animatie: elke spore op de kring krijgt een
@@ -116,90 +86,37 @@ const MOLECULEN: { id: string; style: CSSProperties }[] = [
   { id: "m5", style: { left: "46%", top: "38%", "--s": "52px", "--dur": "12s", "--dx": "18px", "--dy": "22px", "--dr": "46deg" } as CSSProperties },
 ];
 
-/** De vier stappen van een ontschimmeling, in de volgorde waarin ze gebeuren. */
-const STAPPEN: { titel: string; tekst: string }[] = [
-  {
-    titel: "De oorzaak zoeken",
-    tekst:
-      "Eerst meten: waar komt het vocht vandaan? Een lek, optrekkend vocht, een koudebrug of gewoon te weinig ventilatie. Zonder dat antwoord is elke behandeling tijdelijk.",
-  },
-  {
-    titel: "Afschermen en verwijderen",
-    tekst:
-      "De werkzone wordt afgeschermd zodat sporen niet door de woning trekken. Aangetast pleisterwerk, behang of gipskarton gaat eruit, tot op een gezonde ondergrond.",
-  },
-  {
-    titel: "Behandelen en drogen",
-    tekst:
-      "De ondergrond wordt behandeld tegen hergroei en de constructie droogt met bouwdrogers tot de vochtmeting het bevestigt. Meten, niet gokken.",
-  },
-  {
-    titel: "Afronden met ozon",
-    tekst:
-      "Tot slot een ozonbehandeling: die doodt de sporen die in de lucht, in kieren en in textiel achterbleven, zodat de schimmel geen herstart krijgt.",
-  },
+/** Waar we ontschimmelen — dezelfde zes situaties als de zusterpagina kent.
+    De iconen, in de volgorde van `inzet` in de copy. */
+const INZET_ICONEN: JSX.Element[] = [
+  <SporenIcon key="sporen" />,
+  <KelderIcon key="kelder" />,
+  <WaterschadeIcon key="water" />,
+  <NeusIcon key="neus" />,
+  <MijtIcon key="mijt" />,
+  <SleutelIcon key="sleutel" />,
 ];
 
-/** Waar we ontschimmelen — dezelfde zes situaties als de zusterpagina kent. */
-const INZET: { icon: JSX.Element; title: string; text: string }[] = [
-  {
-    icon: <SporenIcon />,
-    title: "Zwarte plekken op de muur",
-    text: "De klassieker: een koude buitenmuur achter een kast, of de hoek van een slaapkamer die nooit opdroogt.",
-  },
-  {
-    icon: <KelderIcon />,
-    title: "Kelders & kruipruimtes",
-    text: "Vochtige, slecht verluchte ruimtes waar schimmel maanden ongezien zijn gang kan gaan voor iemand het ruikt.",
-  },
-  {
-    icon: <WaterschadeIcon />,
-    title: "Na waterschade",
-    text: "Na een lek of een overstroming begint schimmel binnen 24 tot 48 uur. Snel drogen en ontschimmelen scheelt een renovatie.",
-  },
-  {
-    icon: <NeusIcon />,
-    title: "Muffe geur zonder vlek",
-    text: "U ruikt het wel maar ziet niets: dan zit de schimmel achter de plint, onder de vloer of in de spouw.",
-  },
-  {
-    icon: <MijtIcon />,
-    title: "Allergie en luchtwegen",
-    text: "Terugkerende klachten bij kinderen of bij wie astma heeft, die thuis erger zijn dan elders.",
-  },
-  {
-    icon: <SleutelIcon />,
-    title: "Bij aankoop of verhuur",
-    text: "Schimmel vastgesteld in een plaatsbeschrijving, of ontdekt net voor de overdracht van een woning.",
-  },
-];
-
-/** Wat de bezoeker van ons mag verwachten, in de taal van de werf. */
-const AANPAK: [string, string][] = [
-  ["Plaatsbezoek", "Gratis en vrijblijvend"],
-  ["Prijs", "Vast, vooraf afgesproken"],
-  ["Werkzone", "Afgeschermd, kamer per kamer"],
-  ["Oplevering", "Met vochtmeting als bewijs"],
-];
-
-const OntschimmelingPage = () => (
+const OntschimmelingPage = () => {
+  const t = useCopy(ONTSCHIMMELING_COPY);
+  const lp = useLokaalPad();
+  return (
   <div className="oz-page">
     <PageMeta
-      {...SEO.ontschimmeling}
-      path="/ontschimmeling"
+      {...useSeo("ontschimmeling")}
+      path={lp("/ontschimmeling")}
       jsonLd={[
         organizationSchema(),
         serviceSchema({
-          name: "Ontschimmeling",
-          description:
-            "Schimmel verwijderen aan de bron: oorzaak opsporen, aangetast materiaal weghalen, de ondergrond behandelen, drogen tot de meting het bevestigt en afronden met ozon.",
-          path: "/ontschimmeling",
-          serviceType: "Ontschimmeling",
+          name: t.schemaNaam,
+          description: t.schemaBeschrijving,
+          path: lp("/ontschimmeling"),
+          serviceType: t.schemaType,
         }),
-        faqSchema(FAQ),
+        faqSchema(t.faq),
         breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Ontschimmeling", path: "/ontschimmeling" },
+          { name: t.kruimelHome, path: lp("/") },
+          { name: t.kruimel, path: lp("/ontschimmeling") },
         ]),
       ]}
     />
@@ -212,25 +129,21 @@ const OntschimmelingPage = () => (
         <section className="oz-hero">
           <div className="oz-wrap oz-hero-grid">
             <div className="oz-hero-copy">
-              <span className="oz-kick">Ontschimmeling · schimmel verwijderen</span>
-              <h1>Schimmel verdwijnt pas echt als de oorzaak mee weggaat.</h1>
-              <p>
-                Wij halen de schimmel weg tot op een gezonde ondergrond, drogen de constructie tot
-                de vochtmeting het bevestigt en ronden af met ozon. Zo blijft het weg, in plaats van
-                terug te komen zodra de verf droog is.
-              </p>
+              <span className="oz-kick">{t.heroKick}</span>
+              <h1>{t.h1}</h1>
+              <p>{t.heroTekst}</p>
               <div className="oz-hero-cta">
                 <a className="ozbtn ozbtn-white" href="#boeken">
-                  Vraag een plaatsbezoek <ArrowRightIcon size={13} strokeWidth={2.6} />
+                  {t.plaatsbezoek} <ArrowRightIcon size={13} strokeWidth={2.6} />
                 </a>
                 <a className="ozbtn ozbtn-ghost" href={`tel:${CONTACT.phoneE164}`}>
                   <PhoneIcon size={14} /> {CONTACT.phoneLocal}
                 </a>
               </div>
               <ul className="oz-hero-usp">
-                <li>Gratis plaatsbezoek</li>
-                <li>Vaste prijs vooraf</li>
-                <li>Heel Vlaanderen</li>
+                {t.heroUsp.map((usp) => (
+                  <li key={usp}>{usp}</li>
+                ))}
               </ul>
             </div>
 
@@ -268,46 +181,23 @@ const OntschimmelingPage = () => (
       <section className="oz-sec oz-light">
         <div className="oz-wrap">
           <Reveal className="oz-head">
-            <span className="oz-kick red">Herkenbaar?</span>
-            <h2 className="oz-h2">Weggepoetst, overgeschilderd, en na een maand staat hij er weer.</h2>
-            <p className="oz-lede">
-              Dat ligt niet aan hoe grondig u geschrobd heeft. Het ligt aan wat eronder zit, en wat
-              er nog steeds voor zorgt dat die muur vochtig blijft.
-            </p>
+            <span className="oz-kick red">{t.herkenKick}</span>
+            <h2 className="oz-h2">{t.herkenH2}</h2>
+            <p className="oz-lede">{t.herkenLede}</p>
           </Reveal>
 
           <div className="oz-three">
-            <Reveal className="oz-card">
-              <span className="oz-num">01</span>
-              <h3>De oorzaak staat er nog</h3>
-              <p>
-                Een lek, optrekkend vocht of een koudebrug blijft water aanvoeren. Zolang dat
-                doorgaat, is elke behandeling van het oppervlak tijdelijk.
-              </p>
-            </Reveal>
-            <Reveal className="oz-card" delay={0.08}>
-              <span className="oz-num">02</span>
-              <h3>De schimmel zit dieper</h3>
-              <p>
-                Wat u ziet is de bloei aan de oppervlakte. De draden zitten in de poriën van
-                pleister en voeg; een doek haalt daar niets weg.
-              </p>
-            </Reveal>
-            <Reveal className="oz-card" delay={0.16}>
-              <span className="oz-num">03</span>
-              <h3>Verf sluit hem op</h3>
-              <p>
-                Overschilderen verbergt de vlek een paar maanden. Daaronder groeit hij door, en
-                daarna komt hij dwars door de nieuwe laag terug.
-              </p>
-            </Reveal>
+            {t.herkenKaarten.map((kaart, i) => (
+              <Reveal className="oz-card" key={kaart.title} delay={i ? i * 0.08 : undefined}>
+                <span className="oz-num">{`0${i + 1}`}</span>
+                <h3>{kaart.title}</h3>
+                <p>{kaart.text}</p>
+              </Reveal>
+            ))}
           </div>
 
           <Reveal className="oz-note" delay={0.1}>
-            <b>Droog eerst, behandel daarna.</b> Een muur die droog oogt kan vanbinnen nog nat zijn.
-            Daarom meten wij het vochtgehalte in de ondergrond, en drogen we zo nodig eerst met{" "}
-            <Link to="/verhuur/calculator">een berekend droogpakket</Link>. Pas als de meting droog
-            zegt, heeft afwerken zin.
+            {t.noot(lp)}
           </Reveal>
         </div>
       </section>
@@ -316,24 +206,15 @@ const OntschimmelingPage = () => (
       <section className="oz-sec oz-red">
         <div className="oz-wrap oz-split">
           <Reveal className="oz-split-copy">
-            <span className="oz-kick onred">Waarom wachten niet helpt</span>
-            <h2 className="oz-h2">Een schimmel die blijft staan, wordt groter.</h2>
-            <p className="oz-lede">
-              Op vochtig materiaal begint schimmel na 24 tot 48 uur. Daarna groeit de kolonie door
-              zolang het vocht er is, en elke dag komen er sporen in de lucht die zich elders in de
-              woning afzetten.
-            </p>
-            <p className="oz-body">
-              Die sporen zijn het echte probleem. Ze veroorzaken luchtwegklachten, hoofdpijn en
-              vermoeidheid, en treffen kinderen, ouderen en mensen met astma het hardst. Daar komt
-              de schade aan het gebouw bij: aangetast pleisterwerk, loskomend behang en, in een
-              kelder of kruipruimte, houtrot in de vloerstructuur.
-            </p>
+            <span className="oz-kick onred">{t.waaromKick}</span>
+            <h2 className="oz-h2">{t.waaromH2}</h2>
+            <p className="oz-lede">{t.waaromLede}</p>
+            <p className="oz-body">{t.waaromBody}</p>
           </Reveal>
 
           <Reveal className="oz-split-vis" delay={0.1}>
             <dl className="oz-specs oz-specs-card">
-              {AANPAK.map(([label, waarde]) => (
+              {t.aanpak.map(([label, waarde]) => (
                 <div key={label}>
                   <dt>{label}</dt>
                   <dd>{waarde}</dd>
@@ -348,20 +229,17 @@ const OntschimmelingPage = () => (
       <section className="oz-sec oz-light">
         <div className="oz-wrap">
           <Reveal className="oz-head">
-            <span className="oz-kick red">Onze aanpak</span>
-            <h2 className="oz-h2">Vier stappen, en de laatste is niet de verf.</h2>
-            <p className="oz-lede">
-              Ontschimmelen is geen schoonmaakbeurt maar een volgorde. Wie een stap overslaat, doet
-              het binnen het jaar opnieuw.
-            </p>
+            <span className="oz-kick red">{t.aanpakKick}</span>
+            <h2 className="oz-h2">{t.aanpakH2}</h2>
+            <p className="oz-lede">{t.aanpakLede}</p>
           </Reveal>
 
           <div className="oz-four">
-            {STAPPEN.map((stap, i) => (
-              <Reveal className="oz-safe-card" key={stap.titel} delay={i * 0.06}>
+            {t.stappen.map((stap, i) => (
+              <Reveal className="oz-safe-card" key={stap.title} delay={i * 0.06}>
                 <span className="oz-num">{`0${i + 1}`}</span>
-                <b>{stap.titel}</b>
-                <p>{stap.tekst}</p>
+                <b>{stap.title}</b>
+                <p>{stap.text}</p>
               </Reveal>
             ))}
           </div>
@@ -379,7 +257,7 @@ const OntschimmelingPage = () => (
           <Reveal className="oz-stage-wrap" delay={0.08}>
             <div
               className="oz-stage"
-              aria-label="Schimmelmuur met animatie: actieve zuurstof breekt de achtergebleven sporen af"
+              aria-label={t.stageLabel}
             >
               <span className="oz-glow" aria-hidden="true" />
 
@@ -403,41 +281,31 @@ const OntschimmelingPage = () => (
 
             <div className="oz-legend">
               <span className="oz-lg o3">
-                <i /> <b>O₃</b> actieve zuurstof
+                <i /> <b>O₃</b> {t.legO3}
               </span>
               <span className="oz-lg sp">
-                <i /> schimmelspore
+                <i /> {t.legSpore}
               </span>
             </div>
           </Reveal>
 
           <Reveal className="oz-after" delay={0.12}>
-            <p>
-              Dat laatste is wat een gewone schoonmaakbeurt nooit haalt: ozon is een gas, dus het
-              komt tot in kieren, voegen, textiel en het ventilatiekanaal. Daarna vervalt het
-              vanzelf tot gewone zuurstof, zonder residu. Meer daarover op{" "}
-              <Link to="/ozonbehandeling">de pagina over ozonbehandeling</Link>.
-            </p>
+            <p>{t.na(lp)}</p>
           </Reveal>
 
           <Reveal className="oz-band" delay={0.1}>
             <div className="oz-band-t">
-              <span className="oz-kick onred">Waar drogen bij hoort</span>
-              <h3>Wij zijn in de eerste plaats droogspecialisten.</h3>
-              <p>
-                Dat is ook waarom we bij schimmel eerst naar het vocht kijken. Na{" "}
-                <Link to="/waterschade">waterschade</Link> of in een{" "}
-                <Link to="/renovatie">vochtige kelder</Link> is de droging het halve werk; zonder
-                droge ondergrond is ontschimmelen een behandeling met een houdbaarheidsdatum.
-              </p>
+              <span className="oz-kick onred">{t.bandKick}</span>
+              <h3>{t.bandH3}</h3>
+              <p>{t.band(lp)}</p>
               <a className="ozbtn ozbtn-white" href="#boeken">
-                Vraag een plaatsbezoek <ArrowRightIcon size={13} strokeWidth={2.6} />
+                {t.plaatsbezoek} <ArrowRightIcon size={13} strokeWidth={2.6} />
               </a>
             </div>
             <img
               className="oz-band-man"
               src="/vernast/man-spuitbus.webp"
-              alt="Vernast-specialist behandelt een muur tegen schimmel"
+              alt={t.bandAlt}
               width={700}
               height={900}
               loading="lazy"
@@ -450,17 +318,15 @@ const OntschimmelingPage = () => (
       <section className="oz-sec oz-red">
         <div className="oz-wrap">
           <Reveal className="oz-head">
-            <span className="oz-kick onred">Waar we voor komen</span>
-            <h2 className="oz-h2">Van één hoek tot een hele kelder.</h2>
-            <p className="oz-lede">
-              Schimmel ziet er overal anders uit. Dit zijn de situaties waarvoor men ons belt.
-            </p>
+            <span className="oz-kick onred">{t.inzetKick}</span>
+            <h2 className="oz-h2">{t.inzetH2}</h2>
+            <p className="oz-lede">{t.inzetLede}</p>
           </Reveal>
 
           <div className="oz-grid6">
-            {INZET.map((item, i) => (
+            {t.inzet.map((item, i) => (
               <Reveal className="oz-use" key={item.title} delay={(i % 3) * 0.07}>
-                <span className="oz-use-ic">{item.icon}</span>
+                <span className="oz-use-ic">{INZET_ICONEN[i]}</span>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </Reveal>
@@ -474,43 +340,18 @@ const OntschimmelingPage = () => (
         <div className="oz-wrap">
           <Reveal className="oz-head oz-head-mid">
             <span className="oz-kick red">
-              <SchildIcon /> Veilig &amp; verantwoord
+              <SchildIcon /> {t.veiligKick}
             </span>
-            <h2 className="oz-h2">Zonder dat de rest van uw woning besmet raakt.</h2>
-            <p className="oz-lede">
-              Schimmel verwijderen doet sporen opwaaien. Daarom werken we afgeschermd, met de juiste
-              bescherming, en gaat het aangetaste materiaal gesloten de deur uit.
-            </p>
+            <h2 className="oz-h2">{t.veiligH2}</h2>
+            <p className="oz-lede">{t.veiligLede}</p>
           </Reveal>
           <div className="oz-four">
-            <Reveal className="oz-safe-card">
-              <b>Afgeschermde werkzone</b>
-              <p>
-                De kamer wordt afgesloten van de rest van de woning, zodat stof en sporen niet
-                meereizen naar de gang of de slaapkamers.
-              </p>
-            </Reveal>
-            <Reveal className="oz-safe-card" delay={0.06}>
-              <b>Beschermd werken</b>
-              <p>
-                Onze techniekers dragen pak en masker. Niet voor de show: bij het verwijderen komen
-                er sporen vrij die u niet wilt inademen.
-              </p>
-            </Reveal>
-            <Reveal className="oz-safe-card" delay={0.12}>
-              <b>Afval gaat gesloten weg</b>
-              <p>
-                Aangetast pleisterwerk, behang of gipskarton verlaat de woning verpakt, zodat de
-                besmetting niet onderweg alsnog loskomt.
-              </p>
-            </Reveal>
-            <Reveal className="oz-safe-card" delay={0.18}>
-              <b>Eerlijk over de oorzaak</b>
-              <p>
-                Zit het probleem in de constructie, dan zeggen we dat. Soms is een muurinjectie of
-                betere ventilatie het echte antwoord, en niet onze behandeling.
-              </p>
-            </Reveal>
+            {t.veiligKaarten.map((kaart, i) => (
+              <Reveal className="oz-safe-card" key={kaart.title} delay={i ? i * 0.06 : undefined}>
+                <b>{kaart.title}</b>
+                <p>{kaart.text}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -519,17 +360,14 @@ const OntschimmelingPage = () => (
       <section className="oz-sec oz-red">
         <div className="oz-wrap">
           <Reveal className="oz-head oz-head-mid">
-            <span className="oz-kick onred">Wat klanten zeggen</span>
-            <h2 className="oz-h2">Hoe wij werken, in hun woorden.</h2>
-            <p className="oz-lede">
-              Beoordelingen van Vernast op Google en Solvari, letterlijk overgenomen. Over snelheid,
-              opvolging en afspraken nakomen, want dat is wat werk bij u thuis vraagt.
-            </p>
+            <span className="oz-kick onred">{t.reviewKick}</span>
+            <h2 className="oz-h2">{t.reviewH2}</h2>
+            <p className="oz-lede">{t.reviewLede}</p>
           </Reveal>
           <div className="oz-reviews">
             {eersteReviews(3).map((review, i) => (
               <Reveal className="oz-review" key={review.name} delay={(i % 3) * 0.07}>
-                <div className="oz-review-stars" aria-label={`${review.rating} van 5 sterren`}>
+                <div className="oz-review-stars" aria-label={t.sterren(review.rating)}>
                   {Array.from({ length: review.rating }, (_, star) => (
                     <StarIcon key={star} size={14} />
                   ))}
@@ -543,7 +381,7 @@ const OntschimmelingPage = () => (
                     <b>{review.name}</b>
                     <small>
                       {review.source === "Google" && <GoogleIcon size={12} />} {review.source},{" "}
-                      {review.date}
+                      {t.datum(review.date)}
                     </small>
                   </span>
                 </div>
@@ -557,27 +395,24 @@ const OntschimmelingPage = () => (
       <section className="oz-sec oz-light" id="faq">
         <div className="oz-wrap faq-grid">
           <div className="faq-side">
-            <span className="oz-kick red">Veelgestelde vragen</span>
-            <h2 className="oz-h2">Uw vragen over ontschimmeling.</h2>
+            <span className="oz-kick red">{t.faqKick}</span>
+            <h2 className="oz-h2">{t.faqH2}</h2>
             <div className="faq-help">
-              <h3>Staat uw vraag er niet bij?</h3>
-              <p>
-                Onze specialist komt gratis kijken en zegt eerlijk wat er moet gebeuren, en in welke
-                volgorde.
-              </p>
+              <h3>{t.faqHelpH3}</h3>
+              <p>{t.faqHelp}</p>
               <div className="fh-btns">
                 <a className="fh-call" href={`tel:${CONTACT.phoneE164}`}>
-                  <PhoneIcon /> Bel {CONTACT.phoneLocal}
+                  <PhoneIcon /> {t.bel} {CONTACT.phoneLocal}
                 </a>
                 <a className="fh-form" href="#boeken">
-                  Stel uw vraag online
+                  {t.online}
                 </a>
               </div>
             </div>
           </div>
 
           <div className="faq-list">
-            {FAQ.map((item, i) => (
+            {t.faq.map((item, i) => (
               <details className="q" key={item.question} open={i === 0}>
                 <summary>
                   {item.question} <span className="pl">+</span>
@@ -595,28 +430,25 @@ const OntschimmelingPage = () => (
       <section className="oz-sec oz-book">
         <div className="oz-wrap oz-book-grid">
           <Reveal className="oz-book-l">
-            <span className="oz-kick onred">Vraag een plaatsbezoek</span>
-            <h2 className="oz-h2">Schimmel in huis? Laat er eerst iemand naar kijken.</h2>
-            <p>
-              Vul hieronder uw situatie in, dan belt een specialist u binnen één werkdag. Het bezoek
-              is gratis en vrijblijvend, en u krijgt een vaste prijs voordat er iets gebeurt.
-            </p>
+            <span className="oz-kick onred">{t.boekKick}</span>
+            <h2 className="oz-h2">{t.boekH2}</h2>
+            <p>{t.boekTekst}</p>
             <ul className="oz-book-usp">
-              <li>Reactie binnen één werkdag</li>
-              <li>Eerlijk advies: soms is drogen of ventileren het echte antwoord</li>
-              <li>Werkzaam in heel Vlaanderen</li>
+              {t.boekUsp.map((usp) => (
+                <li key={usp}>{usp}</li>
+              ))}
             </ul>
             <p className="oz-book-call">
-              Liever meteen bellen?{" "}
+              {t.liever}{" "}
               <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a>,{" "}
-              {CONTACT.openingHours.replace("Mo-Fr", "ma–vr").replace(" 08:00-17:00", ", 8u–17u")}
+              {t.uren(CONTACT.openingHours)}
             </p>
           </Reveal>
           <div className="oz-book-r">
             <OzonForm
               dienst="ontschimmeling"
               situatieStandaard="schimmel"
-              verstuurLabel="Vraag een plaatsbezoek aan"
+              verstuurLabel={t.verstuurLabel}
             />
           </div>
         </div>
@@ -625,6 +457,7 @@ const OntschimmelingPage = () => (
 
     <V3Footer />
   </div>
-);
+  );
+};
 
 export default OntschimmelingPage;

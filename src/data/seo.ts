@@ -1,3 +1,7 @@
+import { useTaal } from "@/i18n/useTaal";
+import type { Taal } from "@/i18n/taal";
+import { SEO_FR } from "./seo.fr";
+import { SEO_EN } from "./seo.en";
 /**
  * Titel en beschrijving per route, op één plek.
  *
@@ -269,3 +273,27 @@ export const SEO = {
     noindex: true,
   },
 } satisfies Record<string, SeoEntry>;
+
+/* ---------- Andere talen ---------- */
+
+export type SeoSleutel = keyof typeof SEO;
+
+/**
+ * Titel en beschrijving in de taal van de pagina. Franse en Engelse teksten
+ * staan in `seo.fr.ts` en `seo.en.ts`, met dezelfde sleutels en dezelfde
+ * lengterichtlijn. Ontbreekt
+ * een sleutel daar, dan valt hij terug op het Nederlands — `audit-seo.mjs`
+ * vangt dat op als dubbele titel tussen twee talen.
+ *
+ * Gebruik in een pagina: `<PageMeta {...useSeo("home")} />`.
+ */
+export function useSeo(sleutel: SeoSleutel): SeoEntry {
+  return seoVoor(sleutel, useTaal());
+}
+
+export function seoVoor(sleutel: SeoSleutel, taal: Taal): SeoEntry {
+  const nl: SeoEntry = SEO[sleutel];
+  if (taal === "fr") return SEO_FR[sleutel] ?? nl;
+  if (taal === "en") return SEO_EN[sleutel] ?? nl;
+  return nl;
+}

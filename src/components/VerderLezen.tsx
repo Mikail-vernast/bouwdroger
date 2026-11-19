@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "@/components/home-v3/icons";
 import Reveal from "@/components/Reveal";
 import { PRODUCTS } from "@/data/verhuur";
+import { useCopy, useLokaalPad } from "@/i18n/useTaal";
+
+const COPY = { nl: { kicker: "Verder lezen" }, fr: { kicker: "Pour aller plus loin" }, en: { kicker: "Further reading" } };
 
 /**
  * Het blok "verder lezen" onderaan de inhoudspagina's: realisaties, toestellen,
@@ -47,7 +50,7 @@ const VerderLezen = ({
    */
   achtergrond = "sw",
   /** De rode kop boven de titel. `null` laat hem weg. */
-  kicker = "Verder lezen",
+  kicker,
   children,
 }: {
   titel: string;
@@ -61,6 +64,11 @@ const VerderLezen = ({
    */
   children?: ReactNode;
 }) => {
+  const t = useCopy(COPY);
+  /* De pagina geeft Nederlandse paden mee (of al vertaalde: `lp` laat een pad
+     dat hij niet kent ongemoeid). Zo hoeft geen enkele pagina het zelf te doen. */
+  const lp = useLokaalPad();
+  const kop = kicker === undefined ? t.kicker : kicker;
   const zichtbaar = groepen
     .map((g) => ({ ...g, links: g.links.filter((l) => !l.toestel || PRODUCTS[l.toestel]) }))
     .filter((g) => g.links.length > 0);
@@ -69,7 +77,7 @@ const VerderLezen = ({
     <section className={achtergrond}>
       <div className="wrap">
         <div className="sec-head mid">
-          {kicker && <span className="kick">{kicker}</span>}
+          {kop && <span className="kick">{kop}</span>}
           <h2 className="sec">{titel}</h2>
         </div>
         <div className="vl">
@@ -79,7 +87,7 @@ const VerderLezen = ({
               <ul>
                 {groep.links.map((link) => (
                   <li key={link.to}>
-                    <Link to={link.to}>
+                    <Link to={lp(link.to)}>
                       <ArrowRightIcon size={13} strokeWidth={2.6} />
                       <span>{link.label}</span>
                     </Link>

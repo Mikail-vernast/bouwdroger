@@ -9,6 +9,8 @@ import { CONDENSPOMP, TOEBEHOREN, toebehorenPad } from "@/data/toebehoren";
 import { GAMMA, TOEBEHOREN_LINKS } from "@/data/navigation";
 import { PUMP } from "@/data/verhuur";
 import { euro } from "@/lib/verhuur";
+import { formatEuro } from "@/i18n/useTaal";
+import { toebehorenInTaal } from "@/data/toebehoren.fr";
 
 /**
  * De condenspomp is het eerste artikel op deze site dat te huur staat zonder
@@ -19,6 +21,13 @@ import { euro } from "@/lib/verhuur";
  * ooit aan verzonnen bedragen raakte.
  */
 const PAD = "/verhuur/toebehoren/condenspomp";
+
+/*
+  Zonder keuze in de popup is de bezoeker een particulier, en die ziet in
+  België btw-inclusief (`useToonBedrag`). Het getal blijft dat van het portaal;
+  alleen de weergave telt er 21 % bij.
+*/
+const GETOOND = formatEuro(Math.round(PUMP.price * 1.21 * 100) / 100, "nl");
 
 function toon(element: ReactElement, pad = PAD): HTMLElement {
   const { container } = render(
@@ -81,13 +90,14 @@ describe("de fiche van de condenspomp", () => {
     // De bouwdrogers in de kruisverkoop dragen hun eigen dagprijs; die komt
     // uit dezelfde tarieven. Het enige wat hier niet mag, is een bedrag dat
     // nergens vandaan komt.
-    expect(bedragen).toContain(euro(PUMP.price));
+    expect(bedragen).toContain(GETOOND);
   });
 
   it("zet elk FAQ-antwoord in de HTML, ook dichtgeklapt", () => {
     const container = toon(<ToebehorenCondenspompPage />);
     const tekst = container.textContent ?? "";
-    for (const [vraag, antwoord] of CONDENSPOMP.faq) {
+    const getoond = toebehorenInTaal(CONDENSPOMP, "nl", `${GETOOND} incl. btw`);
+    for (const [vraag, antwoord] of getoond.faq) {
       expect(tekst).toContain(vraag);
       // Werkt zonder JavaScript: <details> houdt zijn inhoud in de HTML, en
       // precies daarvoor prerenderen wij.

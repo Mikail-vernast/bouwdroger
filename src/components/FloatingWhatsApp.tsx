@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { naarNl } from "@/i18n/paden";
+import { useCopy } from "@/i18n/useTaal";
+
+const COPY = { nl: { label: "WhatsApp ons" }, fr: { label: "Écrivez-nous sur WhatsApp" }, en: { label: "WhatsApp us" } };
 
 /*
  * Het WhatsApp-merkteken, niet de algemene tekstballon van lucide.
@@ -20,6 +24,10 @@ const WhatsAppGlyph = ({ className }: { className?: string }) => (
 const FloatingWhatsApp = () => {
   const [isHovered, setIsHovered] = useState(false);
   const { pathname } = useLocation();
+  const t = useCopy(COPY);
+  // De uitzonderingen hieronder staan op het Nederlandse pad; `naarNl` maakt
+  // dat ze ook op /fr/degats-des-eaux en /fr/location/simulateur gelden.
+  const nlPad = naarNl(pathname) ?? pathname;
   const [hideForFooter, setHideForFooter] = useState(false);
 
   // Hide when footer is visible to prevent overlap
@@ -36,12 +44,12 @@ const FloatingWhatsApp = () => {
   }, [pathname]);
 
   // On waterschade page, position above sticky bar on mobile
-  const isWaterschade = pathname === "/waterschade";
+  const isWaterschade = nlPad === "/waterschade";
 
   // De droogsimulator vult precies één scherm en zet zijn Volgende-knop
   // rechtsonder — net waar deze knop zweeft. Zijn eigen kop heeft al een
   // belknop, dus hier blijft hij weg.
-  if (pathname === "/verhuur/simulator") return null;
+  if (nlPad === "/verhuur/simulator") return null;
 
   return (
     <a
@@ -61,12 +69,12 @@ const FloatingWhatsApp = () => {
         hideForFooter ? "opacity-0 pointer-events-none" : "",
         isWaterschade ? "bottom-[4.5rem] lg:bottom-6" : "bottom-6",
       ].join(" ")}
-      aria-label="WhatsApp ons"
+      aria-label={t.label}
     >
       <WhatsAppGlyph className="h-6 w-6 flex-shrink-0" />
       {isHovered && (
         <span className="text-sm font-semibold whitespace-nowrap animate-fade-in">
-          WhatsApp ons
+          {t.label}
         </span>
       )}
     </a>

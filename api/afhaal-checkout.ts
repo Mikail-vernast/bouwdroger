@@ -41,6 +41,7 @@ import {
 } from "../src/lib/afhalen.js";
 import { newReference, toCents } from "../src/lib/booking.js";
 import { type BookingEvent, type BookingEventCode, recordBookingEvent } from "../src/lib/bookingEvents.js";
+import { betaalPad, betaalTaal, foutmelding } from "../src/lib/betaalTaal.js";
 import { releaseSession } from "../src/lib/checkoutSession.js";
 import { afhaalOrder } from "../src/lib/orderIntake.js";
 import { safeOrigin } from "../src/lib/origin.js";
@@ -106,20 +107,27 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  let body: { data?: unknown; payment?: unknown; previousSessionId?: unknown };
+  /*
+    `taal` staat naast `data`, net als `payment`: de allowlist van `afhaalOrder`
+    laat alleen klant- en reservatievelden door. Zie `src/lib/betaalTaal.ts`.
+  */
+  let body: { data?: unknown; payment?: unknown; previousSessionId?: unknown; taal?: unknown };
   try {
     body = (await request.json()) as {
       data?: unknown;
       payment?: unknown;
       previousSessionId?: unknown;
+      taal?: unknown;
     };
   } catch {
     return refused(json({ error: "Ongeldige aanvraag." }, 400), "ongeldige_aanvraag");
   }
 
+  const taal = betaalTaal(body.taal);
+
   const data = body.data;
   if (!data || typeof data !== "object" || Array.isArray(data)) {
-    return refused(json({ error: "Geen ordergegevens ontvangen." }, 400), "ongeldige_aanvraag");
+    return refused(json({ error: foutmelding("Geen ordergegevens ontvangen.", taal) }, 400), "ongeldige_aanvraag");
   }
 
   const order = afhaalOrder(data as Record<string, unknown>);
@@ -131,23 +139,23 @@ export async function POST(request: Request): Promise<Response> {
   };
 
   if (!order.lines.length) {
-    return refused(json({ error: "Kies eerst minstens één toestel." }, 400), "gegevens_onvolledig", "geen toestellen");
+    return refused(json({ error: foutmelding("Kies eerst minstens één toestel.", taal) }, 400), "gegevens_onvolledig", "geen toestellen");
   }
   if (!order.date) {
     return refused(
-      json({ error: "Kies een afhaaldatum vanaf morgen: wij zetten uw toestel minstens 24 uur op voorhand klaar." }, 400),
+      json({ error: foutmelding("Kies een afhaaldatum vanaf morgen: wij zetten uw toestel minstens 24 uur op voorhand klaar.", taal) }, 400),
       "geen_datum",
     );
   }
-  if (!order.firstName) return refused(json({ error: "Vul uw naam in." }, 400), "gegevens_onvolledig", "naam");
+  if (!order.firstName) return refused(json({ error: foutmelding("Vul uw naam in.", taal) }, 400), "gegevens_onvolledig", "naam");
   if (!order.phone) {
-    return refused(json({ error: "Vul uw telefoonnummer in." }, 400), "gegevens_onvolledig", "telefoon");
+    return refused(json({ error: foutmelding("Vul uw telefoonnummer in.", taal) }, 400), "gegevens_onvolledig", "telefoon");
   }
   if (!/\S+@\S+\.\S+/.test(order.email)) {
-    return refused(json({ error: "Geen geldig e-mailadres opgegeven." }, 400), "geen_email");
+    return refused(json({ error: foutmelding("Geen geldig e-mailadres opgegeven.", taal) }, 400), "geen_email");
   }
   if (order.customerType === "zakelijk" && (!order.company || !order.vatNumber)) {
-    return refused(json({ error: "Vul uw bedrijfsnaam en btw-nummer in." }, 400), "btw_ontbreekt");
+    return refused(json({ error: foutmelding("Vul uw bedrijfsnaam en btw-nummer in.", taal) }, 400), "btw_ontbreekt");
   }
 
   // Pas hier gaat er echt een sessie naar Stripe.
@@ -155,7 +163,7 @@ export async function POST(request: Request): Promise<Response> {
   if (!accepted.allowed) return refused(tooManyRequests(accepted.retryAfter), "te_veel_aanvragen");
 
   const period = rentalWindow(order.date, order.days);
-  if (!period) return refused(json({ error: "Kies een geldige afhaaldatum." }, 400), "geen_datum");
+  if (!period) return refused(json({ error: foutmelding("Kies een geldige afhaaldatum.", taal) }, 400), "geen_datum");
 
   const devices = pickupDeviceLines(order.lines);
   const stripe = new Stripe(key);
@@ -179,7 +187,7 @@ export async function POST(request: Request): Promise<Response> {
     if (verdict === "onbekend") {
       alarmAvailabilityFailure(`afhaal-checkout ${period.start}`, availability);
       return refused(
-        json({ error: CHECK_UNAVAILABLE_ERROR, code: CHECK_UNAVAILABLE_CODE }, 503),
+        json({ error: foutmelding(CHECK_UNAVAILABLE_ERROR, taal), code: CHECK_UNAVAILABLE_CODE }, 503),
         "controle_onbereikbaar",
         availability.reason?.slice(0, 200),
       );
@@ -188,8 +196,10 @@ export async function POST(request: Request): Promise<Response> {
       return refused(
         json(
           {
-            error:
+            error: foutmelding(
               "Op die datum staan deze toestellen al ingepland. Kies een andere afhaaldatum, of bel ons op 03 689 90 65.",
+              taal,
+            ),
             code: "niet_beschikbaar",
           },
           409,
@@ -242,7 +252,8 @@ export async function POST(request: Request): Promise<Response> {
       ui_mode: "elements",
       customer_email: order.email,
       client_reference_id: reference,
-      locale: "nl",
+      // De taal van het betaalformulier en van het ontvangstbewijs van Stripe.
+      locale: taal,
       integration_identifier: INTEGRATION_ID,
       line_items: [
         {
@@ -283,7 +294,7 @@ export async function POST(request: Request): Promise<Response> {
       ],
       // Bancontact, iDEAL en Klarna sturen de bezoeker even naar hun eigen app
       // of bank; hierlangs komt die terug op de afhaalpagina.
-      return_url: `${origin}/verhuur/afhalen?${query}&session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `${origin}${betaalPad("/verhuur/afhalen", taal)}?${query}&session_id={CHECKOUT_SESSION_ID}`,
       /*
         Wat de webhook en de terugkeerpagina nodig hebben om hier een order van
         te maken. `type: afhaal` is het onderscheid: zonder die sleutel zou
@@ -339,6 +350,8 @@ export async function POST(request: Request): Promise<Response> {
             .filter(Boolean)
             .join(" "),
         ),
+        // Zie `api/checkout.ts`: voor de mails van straks, het portaal negeert hem.
+        taal,
       },
       expires_at: Math.floor(Date.now() / 1000) + HOLD_MINUTES * 60,
     });
@@ -372,7 +385,12 @@ export async function POST(request: Request): Promise<Response> {
     console.error(`[afhaal-checkout] sessie ${reference} niet aangemaakt bij Stripe: ${message}`);
     return refused(
       json(
-        { error: "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65." },
+        {
+          error: foutmelding(
+            "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65.",
+            taal,
+          ),
+        },
         502,
       ),
       "stripe_fout",

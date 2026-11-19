@@ -26,14 +26,17 @@ import {
   WarnIcon,
   WindIcon,
 } from "@/components/content/icons";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { euro } from "@/data/tarieflijst";
-import { EXTRAS, toestelPad } from "@/data/verhuur";
+import { EXTRAS } from "@/data/verhuur";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { termijnLabel, termijnZonderDikte } from "@/lib/droogtijden";
 import { CONTACT } from "@/lib/site";
 import "@/styles/v3-content.css";
+import { WS_COPY, termijnLabelFr, type WsCtx } from "./WaterschadePage.copy";
+import { termijnLabelEn } from "./termijnLabelEn";
 
 /**
  * Waterschade — de meest urgente van de drie situatiepagina's, en daarom de
@@ -51,7 +54,6 @@ const WATER_TERMIJN = termijnZonderDikte("waterschade");
 
 /** Het ondertekende vochtrapport is een betalende optie, geen standaard. */
 const RAPPORT = EXTRAS.find((x) => x.k === "rapport");
-const RAPPORT_PRIJS = RAPPORT ? ` voor ${euro(RAPPORT.price)} excl. btw` : "";
 
 const WHATSAPP = "https://wa.me/3236899065";
 
@@ -66,38 +68,15 @@ const WhatsAppIcon = ({ size = 18 }: { size?: number }) => (
   Wat iemand zelf doet in de eerste twee dagen, los van ons. De vier stappen
   eronder ("Zo werken wij") gaan over de levering; deze gaan over de schade.
   Wie zoekt op "waterschade drogen" wil eerst weten wat hij nú moet doen.
+  De teksten staan per taal in WaterschadePage.copy.tsx, in dezelfde volgorde.
 */
-const eersteUren: { icon: ComponentType<{ size?: number }>; title: string; desc: string }[] = [
-  {
-    icon: StroomUitIcon,
-    title: "Veiligheid eerst",
-    desc: "Schakel de stroom uit in de natte zones voor u erin stapt, en zet geen elektrische toestellen in staand water.",
-  },
-  {
-    icon: KraanIcon,
-    title: "Stop de bron",
-    desc: "Draai de hoofdkraan dicht bij een leidinglek en laat het lek herstellen. Zolang er water bijkomt, heeft drogen weinig zin.",
-  },
-  {
-    icon: FotoIcon,
-    title: "Leg de schade vast",
-    desc: "Neem foto's en video van het water, de vloer, de muren en de beschadigde spullen, vóór u opruimt. Gooi niets weg voor uw verzekeraar zegt dat het mag.",
-  },
-  {
-    icon: PompIcon,
-    title: "Haal het staande water weg",
-    desc: "Pomp of zuig het water op. Een bouwdroger haalt vocht uit de lucht en uit materialen, niet uit een plas op de vloer.",
-  },
-  {
-    icon: DoosIcon,
-    title: "Ruim natte materialen op",
-    desc: "Tapijt, ondertapijt, kartonnen dozen en losse meubels houden water vast en schimmelen snel. Zet ze buiten de ruimte, dan kan de lucht bij vloer en muren.",
-  },
-  {
-    icon: DrogerIcon,
-    title: "Start met drogen en meet",
-    desc: "Ontvochtiger en ventilator erbij, ramen en deuren dicht. Een meting bij de start geeft het vertrekpunt; de meting op het einde toont dat het droog is.",
-  },
+const EERSTE_UREN_ICONEN: ComponentType<{ size?: number }>[] = [
+  StroomUitIcon,
+  KraanIcon,
+  FotoIcon,
+  PompIcon,
+  DoosIcon,
+  DrogerIcon,
 ];
 
 /**
@@ -111,116 +90,25 @@ const eersteUren: { icon: ComponentType<{ size?: number }>; title: string; desc:
  *
  * Elke kaart heeft een eigen beeld dat de schade en de bijbehorende aanpak
  * herkenbaar maakt, ook voor iemand die de technische benaming niet kent.
+ * De teksten (en de alt) staan per taal in de copy, in dezelfde volgorde.
  */
-const SCHADETYPES: {
-  label: string;
-  titel: string;
-  tekst: string;
-  aanpak: string;
-  foto: string;
-  fotoHd: string;
-  fotoAlt: string;
-}[] = [
-  {
-    label: "Meest voorkomend",
-    titel: "Gesprongen of lekkende leiding",
-    tekst:
-      "Een koppeling die loslaat, een leiding die bevriest, een lek achter een muur dat weken onopgemerkt bleef. Het water loopt via de kortste weg naar beneden en trekt in de chape, de onderkant van de muren en het pleisterwerk. Vaak is de zichtbare plek maar een fractie van het natte oppervlak.",
-    aanpak:
-      "Lek eerst laten herstellen, dan drogen. Wij meten hoe ver het vocht is gelopen en zetten de toestellen op de natste zone, niet op de plek waar u het lek zag.",
-    foto: "/vernast/waterschade-leiding.webp",
-    fotoHd: "/vernast/waterschade-leiding-hd.webp",
-    fotoAlt: "Natte muur onder een lekkende leiding in een woning",
-  },
-  {
-    label: "Snelst urgent",
-    titel: "Ondergelopen kelder of garage",
-    tekst:
-      "Na een hevige bui, een terugslaande riolering of een defecte pomp. Kelders zijn koud en slecht verlucht, dus het vocht blijft hangen en schimmel krijgt er sneller kans dan boven. Opslag, karton en textiel zuigen zich vol en worden zelf een vochtbron.",
-    aanpak:
-      "Staand water eerst weg, natte spullen eruit. In een koude kelder zetten we een bouwkachel of een adsorptiedroger in, omdat een condensdroger onder 15 °C sterk aan rendement verliest.",
-    foto: "/vernast/waterschade-kelder.webp",
-    fotoHd: "/vernast/waterschade-kelder-hd.webp",
-    fotoAlt: "Ondergelopen kelder met vochtlijn op de muur en een natte vloer",
-  },
-  {
-    label: "Lastigst te zien",
-    titel: "Water in de vloeropbouw of isolatie",
-    tekst:
-      "Bij een zwevende chape ligt er isolatie onder de vloer. Loopt daar water in, dan staat het buiten bereik van de lucht in de kamer: het oppervlak voelt na een week droog terwijl de opbouw nat blijft. Maanden later komen de vlekken, de geur of het loskomende parket alsnog.",
-    aanpak:
-      "Dit is het geval waarvoor wij gericht drogen: droge lucht gaat via kleine openingen en slangen rechtstreeks in de vloeropbouw. Vaak maakt dat het verschil tussen drogen en uitbreken.",
-    foto: "/vernast/waterschade-vloeropbouw.webp",
-    fotoHd: "/vernast/waterschade-vloeropbouw-hd.webp",
-    fotoAlt: "Gerichte droging van natte vloerisolatie via luchtslangen",
-  },
-  {
-    label: "Van boven",
-    titel: "Lekkende badkamer, dak of regeninslag",
-    tekst:
-      "Een voeg die niet meer waterdicht is, een verstopte dakgoot, een storm die water door een gevel duwt. Het vocht komt van bovenaf en verspreidt zich over het plafond en de bovenkant van de muren, soms in een andere ruimte dan waar het lek zit.",
-    aanpak:
-      "Eerst de bron dicht, daarna drogen vanaf de hoogste natte plek. Plafonds en gipswanden geven hun vocht vlot af; het metselwerk erachter heeft meer tijd nodig.",
-    foto: "/vernast/waterschade-van-boven.webp",
-    fotoHd: "/vernast/waterschade-van-boven-hd.webp",
-    fotoAlt: "Waterschade op het plafond en de bovenmuur door een lekkage van boven",
-  },
+const SCHADEFOTOS: { foto: string; fotoHd: string }[] = [
+  { foto: "/vernast/waterschade-leiding.webp", fotoHd: "/vernast/waterschade-leiding-hd.webp" },
+  { foto: "/vernast/waterschade-kelder.webp", fotoHd: "/vernast/waterschade-kelder-hd.webp" },
+  { foto: "/vernast/waterschade-vloeropbouw.webp", fotoHd: "/vernast/waterschade-vloeropbouw-hd.webp" },
+  { foto: "/vernast/waterschade-van-boven.webp", fotoHd: "/vernast/waterschade-van-boven-hd.webp" },
 ];
 
-/**
- * Het volledige verloop van een schadegeval, van het moment dat de klant het
- * ziet tot het rapport.
- *
- * Hier stond een stappenplan dat met "Bel ons" begon. Dat is niet waar een
- * schadegeval begint: de klant ziet eerst de schade, belt dan doorgaans zijn
- * verzekeraar, en komt pas daarna bij ons. Wie die eerste twee stappen
- * weglaat, lijkt te doen alsof de klant al wist dat hij ons nodig had.
- * `wie` zegt per stap wie aan zet is, zodat dat zichtbaar blijft.
- */
-const VERLOOP: VerloopStap[] = [
-  {
-    wie: "U",
-    titel: "U merkt de schade op",
-    tekst:
-      "Een natte vloer, een vochtplek op het plafond, een muffe geur in de kelder. Zet de stroom uit in de natte zone, draai de hoofdkraan dicht als het een leiding is, en neem foto's vóór u iets opruimt. Die foto's heeft uw verzekeraar later nodig.",
-  },
-  {
-    wie: "U",
-    titel: "U meldt het bij uw verzekeraar",
-    tekst:
-      "Doe de aangifte binnen de termijn uit uw polis. Vraag meteen of droogkosten in het dossier mogen en of er een expert langskomt. U hoeft niet op dat bezoek te wachten om te beginnen drogen; de schade beperken is net wat een verzekeraar van u verwacht.",
-  },
-  {
-    wie: "U",
-    titel: "U neemt contact met ons op",
-    tekst:
-      "Telefonisch of via het formulier onderaan. Beschrijf wat er gebeurd is, hoe groot de ruimte is en of het water al weg is. Bij waterschade bellen we zo snel mogelijk terug om te kijken wat vandaag nog kan.",
-  },
-  {
-    wie: "Vernast",
-    titel: "Wij bekijken het probleem en stellen een oplossing voor",
-    tekst:
-      "Aan de telefoon of ter plaatse bepalen we waar het vocht zit en hoe diep het is doorgedrongen. Daaruit volgt welke toestellen mee moeten: een condensdroger voor de ruimte, een adsorptiedroger als het vocht in de vloeropbouw zit, een ventilator en bij koude een bouwkachel.",
-  },
-  {
-    wie: "Vernast",
-    titel: "Wij komen langs, meten en leggen alles vast",
-    tekst:
-      "Onze technieker meet het vochtgehalte in vloer en muren, maakt foto's van de schade en zet die metingen digitaal op uw dossier. Dat is uw vertrekpunt, en het stuk dat een verzekeraar doorgaans wil zien.",
-  },
-  {
-    wie: "Vernast",
-    titel: "Wij plaatsen de toestellen en starten de droging",
-    tekst:
-      "Wij verdelen de toestellen over de natte zones, sluiten de condensafvoer aan zodat u niets hoeft te legen, en stellen de streefvochtigheid in. U laat ramen en deuren dicht en verplaatst niets; de rest gebeurt vanzelf, dag en nacht.",
-  },
-  {
-    wie: "Vernast",
-    titel: "Wij halen op, meten na en bezorgen het rapport",
-    tekst:
-      "De eindmeting beslist of het droog is, niet de kalender. Wij vergelijken met een droge plek in dezelfde woning, halen de toestellen op en bezorgen u de meetwaarden van start en einde. Een ondertekend vochtrapport voor uw verzekeringsdossier neemt u optioneel bij.",
-  },
-];
+/*
+  Het volledige verloop van een schadegeval, van het moment dat de klant het
+  ziet tot het rapport, staat in de copy (`verloop`).
+
+  Hier stond een stappenplan dat met "Bel ons" begon. Dat is niet waar een
+  schadegeval begint: de klant ziet eerst de schade, belt dan doorgaans zijn
+  verzekeraar, en komt pas daarna bij ons. Wie die eerste twee stappen
+  weglaat, lijkt te doen alsof de klant al wist dat hij ons nodig had.
+  `wie` zegt per stap wie aan zet is, zodat dat zichtbaar blijft.
+*/
 
 /** De werven die we als referentie tonen; alle vier waterschadegevallen. */
 const REFERENTIES = [
@@ -235,76 +123,62 @@ const REFERENTIES = [
   .filter((r): r is Realisatie => !!r)
   .slice(0, 3);
 
-/**
- * De vragen die iemand met een ondergelopen kelder daadwerkelijk stelt.
- *
- * Deze pagina had als enige van de vier commerciële landingspagina's geen
- * FAQ — terwijl waterschade de meest urgente en meest gezochte situatie is.
- * Wie in paniek "hoe lang duurt drogen na waterschade" vraagt aan een
- * assistent, kreeg hier niets te citeren; nieuwbouw en renovatie wel.
- */
-const faqs = [
-  {
-    q: "Hoe snel moet ik beginnen met drogen na waterschade?",
-    a: "Binnen 24 tot 48 uur. Daarna begint schimmelvorming en dringt het vocht dieper in chape, isolatie en pleisterwerk. Wij leveren daarom bij waterschade nog dezelfde dag.",
-  },
-  {
-    q: "Hoe lang duurt drogen na een waterlek of overstroming?",
-    /*
-      Hier stond "ons waterschadepakket rekent met een huurtermijn van 4
-      weken" als enig antwoord. Dat las als "elke schade duurt vier weken",
-      terwijl een natte tegelvloer op beton in dagen klaar is en water in de
-      vloerisolatie weken kost. De termijn van het pakket is de bovengrens
-      waarop wij plannen, niet de verwachte duur — en de meting beslist.
-    */
-    a: `Dat verschilt sterk per situatie. Een natte tegelvloer op volle beton of een gipswand die water opving, is vaak in enkele dagen tot een week droog. Zit het water in de chape, dan loopt het op tot ongeveer twee weken, en is het in de isolatie onder een zwevende vloer gelopen, dan duurt het doorgaans drie weken of meer. Bepalend zijn hoe lang het water er stond, hoe diep het trok en hoe warm de ruimte is.${
-      WATER_TERMIJN
-        ? ` Ons waterschadepakket is daarom opgebouwd met een huurtermijn van ${termijnLabel(WATER_TERMIJN)}: dat is de bovengrens waarop wij plannen, niet de tijd die uw schade nodig heeft.`
-        : ""
-    } Is het eerder droog, dan halen we eerder op. De vochtmeting bij start en oplevering beslist, niet de kalender.`,
-  },
-  {
-    q: "Betaalt mijn verzekering de huur van een bouwdroger?",
-    a: `Dat hangt af van uw polis en van de oorzaak van de schade. Bij een gedekt schadegeval worden droogkosten vaak mee opgenomen in het dossier, maar vraag het uw verzekeraar of makelaar voor u beslist. Van ons krijgt u een factuur op naam en de metingen bij start en oplevering; een ondertekend vochtrapport kunt u bijnemen${RAPPORT_PRIJS}.`,
-  },
-  {
-    q: "Moet ik wachten op de expert van de verzekering voor ik begin te drogen?",
-    a: "Nee, en dat is meestal ook niet de bedoeling. Uw polis verwacht dat u de schade beperkt, en snel beginnen drogen hoort daarbij. Wat u wél eerst doet: foto's en video van de schade maken vóór u opruimt, en niets weggooien tot uw verzekeraar zegt dat het mag. Meld bij de aangifte dat u een droging opstart; de meetwaarden en de factuur die u van ons krijgt, horen daarna in het dossier.",
-  },
-  {
-    q: "Hoeveel toestellen heb ik nodig bij een ondergelopen kelder?",
-    a: "Voor een gemiddelde kelder volstaat één ontvochtiger met een ventilator. Staat er water in meerdere ruimtes of is de ruimte koud, dan komt er een bouwkachel of een adsorptiedroger bij. Bel ons met de afmetingen, dan rekenen we het samen door.",
-  },
-  {
-    q: "Kan ik drogen terwijl er nog water staat?",
-    a: "Nee. Pomp of zuig eerst het staande water weg. Een bouwdroger haalt vocht uit de lucht en uit materialen, niet uit een plas. Zodra de vloer waterloos is, plaatsen wij de toestellen.",
-  },
-  {
-    q: "Moet de chape eruit na waterschade?",
-    a: "Niet altijd. Is er water in de isolatie onder een zwevende chape gelopen, dan kan gericht drogen met een adsorptiedroger, die droge lucht via slangen in de vloeropbouw blaast, uitbreken soms voorkomen. Of dat lukt, hangt af van hoe lang het water er stond en van de opbouw van de vloer. Dat schatten we liefst samen met u in.",
-  },
-  {
-    q: "Werkt een bouwdroger in een koude kelder na een overstroming?",
-    a: "Beperkt. Onder 15 °C verliest een condensontvochtiger sterk aan rendement. Zet er een elektrische bouwkachel bij, of kies een adsorptiedroger: die verliest in de koude veel minder capaciteit.",
-  },
-];
+/*
+  De vragen die iemand met een ondergelopen kelder daadwerkelijk stelt staan
+  in de copy (`faqs`).
 
-const WaterschadePage = () => (
+  Deze pagina had als enige van de vier commerciële landingspagina's geen
+  FAQ — terwijl waterschade de meest urgente en meest gezochte situatie is.
+  Wie in paniek "hoe lang duurt drogen na waterschade" vraagt aan een
+  assistent, kreeg hier niets te citeren; nieuwbouw en renovatie wel.
+*/
+
+const WaterschadePage = () => {
+  const taal = useTaal();
+  const t = useCopy(WS_COPY);
+  const lp = useLokaalPad();
+  const toon = useToonBedrag();
+
+  /*
+    In het Nederlands blijft de prijs staan zoals ze altijd stond (excl. btw);
+    in het Frans en het Engels volgt ze de keuze particulier/bedrijf uit de
+    keuzepopup. Het voorzetsel staat per taal apart: zonder die keuze kreeg
+    het Engels "pour", want alles wat niet Nederlands was, werd Frans.
+  */
+  let rapportPrijs = "";
+  if (RAPPORT) {
+    if (taal === "nl") rapportPrijs = ` voor ${euro(RAPPORT.price)} excl. btw`;
+    else {
+      const b = toon(RAPPORT.price);
+      rapportPrijs = `${taal === "en" ? " for" : " pour"} ${b.tekst} ${b.label}`;
+    }
+  }
+  const termijn = WATER_TERMIJN
+    ? taal === "nl"
+      ? termijnLabel(WATER_TERMIJN)
+      : taal === "en"
+        ? termijnLabelEn(WATER_TERMIJN)
+        : termijnLabelFr(WATER_TERMIJN)
+    : null;
+  const ctx: WsCtx = { lp, rapportPrijs, termijn };
+  const faqs = t.faqs(ctx);
+  const verloop: VerloopStap[] = t.verloop;
+
+  return (
   <div className="v3c ws-page heeft-urgbar">
     <PageMeta
-      {...SEO.waterschade}
+      {...useSeo("waterschade")}
       jsonLd={[
         serviceSchema({
-          name: "Bouwdroging na waterschade",
-          description:
-            "Snelle droging van vloeren, muren en isolatie na een waterlek of overstroming, met bouwdrogers en ventilatoren geleverd binnen 24 uur.",
-          path: "/waterschade",
-          serviceType: "Waterschadeherstel",
+          name: t.schemaNaam,
+          description: t.schemaBeschrijving,
+          path: lp("/waterschade"),
+          serviceType: t.schemaType,
         }),
         faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
         breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Waterschade", path: "/waterschade" },
+          { name: t.kruimelHome, path: lp("/") },
+          { name: t.kruimelPagina, path: lp("/waterschade") },
         ]),
       ]}
     />
@@ -318,17 +192,12 @@ const WaterschadePage = () => (
       <section className="hero">
         <div className="wrap hero-grid">
           <div className="hero-copy">
-            <span className="pulse"><i /> Spoedlevering · bel ons nu</span>
-            <h1>Waterschade drogen. Vandaag geleverd, niet volgende week.</h1>
-            <p>
-              Een gesprongen leiding, een ondergelopen kelder, een badkamer die naar beneden lekte:
-              vanaf het moment dat het water weg is, loopt de klok. Binnen twee dagen begint
-              schimmel. Wij leveren bij waterschade dezelfde dag, meten bij de start en leveren een
-              factuur op naam voor uw verzekeringsdossier.
-            </p>
+            <span className="pulse"><i /> {t.pulse}</span>
+            <h1>{t.h1}</h1>
+            <p>{t.heroP}</p>
             <div className="hcta">
               <a className="btn btn-white" href={`tel:${CONTACT.phoneE164}`}>
-                <PhoneIcon /> Bel {CONTACT.phoneLocal}
+                <PhoneIcon /> {t.bel} {CONTACT.phoneLocal}
               </a>
               {/*
                 Hier stond "WhatsApp ons". Die knop opende een app die niet
@@ -338,7 +207,7 @@ const WaterschadePage = () => (
                 op een telefoon, waar hij thuishoort.
               */}
               <a className="btn btn-ghost" href="#formulier">
-                Aanvraag doen
+                {t.aanvraag}
                 <ArrowRightIcon />
               </a>
             </div>
@@ -347,7 +216,7 @@ const WaterschadePage = () => (
             <img
               className="framed"
               src="/vernast/case-waterschade-v3.webp"
-              alt="Bouwdroger en ventilator aan het werk in een ruimte na waterschade"
+              alt={t.heroAlt}
               width={800}
               height={600}
               loading="lazy"
@@ -356,8 +225,8 @@ const WaterschadePage = () => (
             <div className="fbadge rd" style={{ bottom: "60px", left: "-6%" }}>
               <span className="ic"><WarnIcon size={15} /></span>
               <div>
-                24 tot 48 uur
-                <small>daarna begint de schimmel</small>
+                {t.badgeTitel}
+                <small>{t.badgeSub}</small>
               </div>
             </div>
           </div>
@@ -368,10 +237,10 @@ const WaterschadePage = () => (
     {/* ================= VERTROUWENSRIJ ================= */}
     <div className="wrap">
       <div className="trust">
-        <div><BoltIcon size={19} /> Levering dezelfde dag</div>
-        <div><ShieldIcon size={19} /> Factuur voor uw verzekeraar</div>
-        <div><SupportIcon size={19} /> Altijd bereikbaar</div>
-        <div><CheckIcon size={17} strokeWidth={3} /> Vochtmeting voor én na</div>
+        <div><BoltIcon size={19} /> {t.trust[0]}</div>
+        <div><ShieldIcon size={19} /> {t.trust[1]}</div>
+        <div><SupportIcon size={19} /> {t.trust[2]}</div>
+        <div><CheckIcon size={17} strokeWidth={3} /> {t.trust[3]}</div>
       </div>
     </div>
 
@@ -379,26 +248,24 @@ const WaterschadePage = () => (
     <section className="sw" id="eerste-48-uur">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Doe dit eerst</span>
-          <h2 className="sec">Wat u moet doen in de eerste 48 uur.</h2>
-          <p className="lede">
-            Na een lek of overstroming trekt het water snel dieper: eerst in de chape en de
-            onderkant van de muren, daarna in isolatie en pleisterwerk. Na een dag of twee krijgt
-            schimmel kans op vochtig materiaal. Hoe sneller u het water weghaalt en begint te
-            drogen, hoe minder er uitgebroken moet worden.
-          </p>
+          <span className="kick">{t.eersteKick}</span>
+          <h2 className="sec">{t.eersteH2}</h2>
+          <p className="lede">{t.eersteLede}</p>
         </div>
         <div className="stapkaarten">
-          {eersteUren.map((stap, i) => (
-            <Reveal from="up" delay={(i % 3) * 0.08} className="stk" key={stap.title}>
-              <span className="stkic">
-                <stap.icon size={21} />
-              </span>
-              <span className="stknr">{String(i + 1).padStart(2, "0")}</span>
-              <h3>{stap.title}</h3>
-              <p>{stap.desc}</p>
-            </Reveal>
-          ))}
+          {t.eersteUren.map((stap, i) => {
+            const Icon = EERSTE_UREN_ICONEN[i];
+            return (
+              <Reveal from="up" delay={(i % 3) * 0.08} className="stk" key={stap.title}>
+                <span className="stkic">
+                  <Icon size={21} />
+                </span>
+                <span className="stknr">{String(i + 1).padStart(2, "0")}</span>
+                <h3>{stap.title}</h3>
+                <p>{stap.desc}</p>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -407,53 +274,44 @@ const WaterschadePage = () => (
     <section className="sr" id="soorten">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Welke schade heeft u?</span>
-          <h2 className="sec">Niet elke waterschade droogt even snel.</h2>
-          <p className="lede">
-            Waar het water in terechtkwam bepaalt alles: de aanpak, de duur en of er uitgebroken
-            moet worden. Een natte tegelvloer op volle beton is vaak in dagen klaar; water dat in
-            de isolatie onder een zwevende chape liep, kost weken en krijgt u met een droger in de
-            kamer niet weg. Herkent u uw situatie hieronder, dan weet u meteen wat u te wachten
-            staat.
-          </p>
+          <span className="kick">{t.soortenKick}</span>
+          <h2 className="sec">{t.soortenH2}</h2>
+          <p className="lede">{t.soortenLede}</p>
         </div>
         <div className="schades">
-          {SCHADETYPES.map((t, i) => (
-            <Reveal from="up" delay={(i % 2) * 0.08} className="schade" key={t.titel}>
-              <div className="sfoto">
-                <img
-                  src={t.foto}
-                  srcSet={`${t.foto} 1672w, ${t.fotoHd} 3344w`}
-                  sizes="(max-width: 860px) calc(100vw - 40px), calc((100vw - 82px) / 2)"
-                  alt={t.fotoAlt}
-                  width={1672}
-                  height={941}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="stekst">
-                <span className="slabel">{t.label}</span>
-                <h3>{t.titel}</h3>
-                <p>{t.tekst}</p>
-                <span className="saanpak">
-                  <CheckIcon size={13} strokeWidth={3} />
-                  <span>
-                    <b>Onze aanpak: </b>
-                    {t.aanpak}
+          {t.schadetypes.map((s, i) => {
+            const { foto, fotoHd } = SCHADEFOTOS[i];
+            return (
+              <Reveal from="up" delay={(i % 2) * 0.08} className="schade" key={s.titel}>
+                <div className="sfoto">
+                  <img
+                    src={foto}
+                    srcSet={`${foto} 1672w, ${fotoHd} 3344w`}
+                    sizes="(max-width: 860px) calc(100vw - 40px), calc((100vw - 82px) / 2)"
+                    alt={s.fotoAlt}
+                    width={1672}
+                    height={941}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div className="stekst">
+                  <span className="slabel">{s.label}</span>
+                  <h3>{s.titel}</h3>
+                  <p>{s.tekst}</p>
+                  <span className="saanpak">
+                    <CheckIcon size={13} strokeWidth={3} />
+                    <span>
+                      <b>{t.aanpakLabel}</b>
+                      {s.aanpak}
+                    </span>
                   </span>
-                </span>
-              </div>
-            </Reveal>
-          ))}
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
-        <div className="note">
-          <b>Waarom elk uur telt.</b> Waterschade wordt niet geleidelijk erger, maar in sprongen.
-          Op vochtig materiaal slaat schimmel aan na 24 tot 48 uur, en vanaf dat moment volstaat
-          drogen niet meer: er moet ook gesaneerd worden. De tweede drempel is het moment waarop
-          het vocht de vloeropbouw of de isolatie bereikt. Wat daarvóór droog is, hoeft meestal
-          niet uitgebroken te worden.
-        </div>
+        <div className="note">{t.elkUur}</div>
       </div>
     </section>
 
@@ -472,20 +330,10 @@ const WaterschadePage = () => (
       <div className="wrap">
         <div className="split boven">
           <div className="sec-head" style={{ marginBottom: 0 }}>
-            <span className="kick">Uw dossier</span>
-            <h2 className="sec">Waterschade en uw verzekering.</h2>
-            <p className="lede">
-              Waterschade valt vaak onder de brandverzekering van de woning, maar of en hoeveel er
-              vergoed wordt, hangt af van uw polis en van de oorzaak. Vraag het uw verzekeraar of
-              makelaar zo vroeg mogelijk, liefst vóór u grote kosten maakt.
-            </p>
-            <p className="lede">
-              Wat een verzekeraar doorgaans wil zien: een aangifte binnen de termijn, foto's van de
-              schade, de facturen van wat u liet doen, en dat u de schade beperkt hebt. Snel drogen
-              hoort bij dat laatste. Hiernaast ziet u hoe het verslag eruitziet dat u van ons
-              krijgt: de meetwaarden bij start en oplevering, de foto's van de situatie zoals wij
-              ze aantroffen, en de vaststelling van waar het vocht zat.
-            </p>
+            <span className="kick">{t.dossierKick}</span>
+            <h2 className="sec">{t.dossierH2}</h2>
+            <p className="lede">{t.dossierP1}</p>
+            <p className="lede">{t.dossierP2}</p>
           </div>
 
           <div>
@@ -498,27 +346,27 @@ const WaterschadePage = () => (
             <div className="dossier" aria-hidden="true">
               <div className="dos-kop">
                 <div>
-                  <span className="dk-l">Technisch vochtverslag</span>
-                  <b>Droogdossier waterschade</b>
+                  <span className="dk-l">{t.dos.soort}</span>
+                  <b>{t.dos.titel}</b>
                 </div>
                 <span className="dk-merk">Vernast</span>
               </div>
 
               <div className="dos-meta">
                 <div>
-                  <span>Ruimte</span>
-                  <b>Kelder 42 m²</b>
+                  <span>{t.dos.ruimteL}</span>
+                  <b>{t.dos.ruimte}</b>
                 </div>
                 <div>
-                  <span>Oorzaak</span>
-                  <b>Leidingbreuk</b>
+                  <span>{t.dos.oorzaakL}</span>
+                  <b>{t.dos.oorzaak}</b>
                 </div>
                 <div>
-                  <span>Technieker</span>
+                  <span>{t.dos.techniekerL}</span>
                   <b>Vernast</b>
                 </div>
                 <div>
-                  <span>Dossier</span>
+                  <span>{t.dos.dossierL}</span>
                   <b>WS-0413</b>
                 </div>
               </div>
@@ -527,7 +375,7 @@ const WaterschadePage = () => (
                 <div className="dos-blok">
                   <div className="dos-t">
                     <i>1</i>
-                    <b>Vaststelling ter plaatse</b>
+                    <b>{t.dos.vaststelling}</b>
                   </div>
                   <div className="dos-regels">
                     <i /><i /><i />
@@ -537,7 +385,7 @@ const WaterschadePage = () => (
                 <div className="dos-blok">
                   <div className="dos-t">
                     <i>2</i>
-                    <b>Fotoreportage</b>
+                    <b>{t.dos.foto}</b>
                   </div>
                   <div className="dos-fotos">
                     <i /><i /><i />
@@ -547,22 +395,23 @@ const WaterschadePage = () => (
                 <div className="dos-blok">
                   <div className="dos-t">
                     <i>3</i>
-                    <b>Metingen bij start</b>
+                    <b>{t.dos.metingen}</b>
                   </div>
+                  {/* Voorbeeldwaarden; in het Engels met decimale punt en "78%" zonder spatie. */}
                   <div className="dos-meet">
                     <div>
-                      <b>78 %</b>
-                      <span>Chape</span>
+                      <b>{taal === "en" ? "78%" : "78 %"}</b>
+                      <span>{t.dos.chape}</span>
                       <em style={{ "--v": "78%" } as React.CSSProperties} />
                     </div>
                     <div>
-                      <b>14,2°</b>
-                      <span>Oppervlak</span>
+                      <b>{taal === "en" ? "14.2°" : "14,2°"}</b>
+                      <span>{t.dos.oppervlak}</span>
                       <em style={{ "--v": "55%" } as React.CSSProperties} />
                     </div>
                     <div>
-                      <b>82 %</b>
-                      <span>RV lucht</span>
+                      <b>{taal === "en" ? "82%" : "82 %"}</b>
+                      <span>{t.dos.rvLucht}</span>
                       <em style={{ "--v": "82%" } as React.CSSProperties} />
                     </div>
                   </div>
@@ -571,7 +420,7 @@ const WaterschadePage = () => (
                 <div className="dos-blok">
                   <div className="dos-t">
                     <i>4</i>
-                    <b>Vaststelling en aanpak</b>
+                    <b>{t.dos.aanpak}</b>
                   </div>
                   <div className="dos-regels">
                     <i /><i /><i />
@@ -579,40 +428,30 @@ const WaterschadePage = () => (
                 </div>
 
                 <div className="dos-slot">
-                  <span className="dos-label">Conclusie</span>
-                  <p>
-                    Water in de vloerisolatie. Gericht drogen met adsorptiedroger; uitbraak niet
-                    nodig.
-                  </p>
+                  <span className="dos-label">{t.dos.conclusieL}</span>
+                  <p>{t.dos.conclusie}</p>
                   <span className="dos-stempel">
-                    Vocht
+                    {t.dos.stempel1}
                     <br />
-                    gemeten
+                    {t.dos.stempel2}
                   </span>
                 </div>
               </div>
             </div>
-            <p className="dosbijschrift">
-              Voorbeeld van het verslag dat u bij de oplevering krijgt. De waarden hierboven zijn
-              ter illustratie.
-            </p>
+            <p className="dosbijschrift">{t.dosBijschrift}</p>
           </div>
         </div>
         <div className="manband">
           <div className="mb-t">
-            <span className="mbk">Wat u van ons krijgt</span>
-            <h3>Alles wat in een schadedossier hoort, zonder dat u erom moet vragen.</h3>
-            <p>
-              Een factuur op naam, de vochtmeting bij de start en bij de oplevering, en foto's van
-              de situatie zoals wij ze aantroffen. Een ondertekend vochtrapport met alle
-              meetwaarden neemt u optioneel bij{RAPPORT_PRIJS}.
-            </p>
+            <span className="mbk">{t.krijgtKick}</span>
+            <h3>{t.krijgtH3}</h3>
+            <p>{t.krijgtP(ctx)}</p>
             <div className="mb-cta">
               <a className="btn btn-white" href={`tel:${CONTACT.phoneE164}`}>
-                <PhoneIcon /> Bel {CONTACT.phoneLocal}
+                <PhoneIcon /> {t.bel} {CONTACT.phoneLocal}
               </a>
               <a className="btn btn-ghost" href="#formulier">
-                Aanvraag doen
+                {t.aanvraag}
                 <ArrowRightIcon />
               </a>
             </div>
@@ -620,7 +459,7 @@ const WaterschadePage = () => (
           <img
             className="mb-man"
             src="/vernast/man-klembord.webp"
-            alt="Vernast technicus noteert de meetwaarden voor het schadedossier"
+            alt={t.krijgtAlt}
             width={600}
             height={700}
             loading="lazy"
@@ -643,44 +482,25 @@ const WaterschadePage = () => (
     <section className="sr" id="techniek">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">De techniek</span>
-          <h2 className="sec">Zit het vocht in de kamer, of in de vloer?</h2>
-          <p className="lede">
-            Dat is bij waterschade de enige vraag die telt, want er horen twee verschillende
-            machines bij. Zit het vocht in de lucht en in de oppervlakken van de kamer, dan haalt
-            een condensontvochtiger het eruit. Zit het in de vloeropbouw, de isolatie of achter een
-            wand, dan komt de lucht uit de kamer daar nooit bij.
-          </p>
+          <span className="kick">{t.techKick}</span>
+          <h2 className="sec">{t.techH2}</h2>
+          <p className="lede">{t.techLede}</p>
         </div>
 
         <div className="split boven" style={{ marginBottom: "44px" }}>
           <div>
-            <p className="lede" style={{ marginTop: 0 }}>
-              Bij een zwevende chape ligt isolatie onder de vloer. Liep daar water in, dan voelt
-              het oppervlak na een week droog terwijl de opbouw nat blijft; de vlekken, de geur of
-              het loskomende parket komen maanden later alsnog.
-            </p>
-            <p className="lede">
-              Daarom boren wij kleine openingen op de juiste plaatsen en blazen we droge lucht via
-              slangen rechtstreeks in de vloeropbouw, de spouw of de wand. Dat is wat een{" "}
-              <Link to={toestelPad("revolution")}>adsorptiedroger</Link> kan en een gewone
-              droger niet, en onder 15 °C verliest hij nauwelijks capaciteit. Hoe de twee
-              technieken verschillen, staat uitgewerkt in de gids{" "}
-              <Link to="/gids/condensdroger-of-adsorptiedroger">condensdroger of adsorptiedroger</Link>.
-              Wij meten of de constructie zelf droog is, niet alleen de lucht erboven, bij een
-              gedekt schadegeval vaak het verschil tussen een droogdossier en een afbraakdossier.
-            </p>
+            <p className="lede" style={{ marginTop: 0 }}>{t.techP1}</p>
+            <p className="lede">{t.techP2(ctx)}</p>
             <div className="chips">
-              <span>Vloeropbouw en isolatie</span>
-              <span>Spouw en voorzetwand</span>
-              <span>Koude kelders</span>
-              <span>Houten vloeren</span>
+              {t.techChips.map((c) => (
+                <span key={c}>{c}</span>
+              ))}
             </div>
           </div>
           <Reveal from="up" className="split-vis">
             <img
               src="/vernast/eco-revolution.webp"
-              alt="Vernast Revolution adsorptiedroger met slangaansluiting voor gericht drogen"
+              alt={t.techAlt}
               width={700}
               height={700}
               loading="lazy"
@@ -691,47 +511,19 @@ const WaterschadePage = () => (
         </div>
 
         <div className="g3">
-          <Reveal from="up" className="kaart">
-            <div className="ki"><LekIcon size={20} /></div>
-            <h3>Adsorptiedroger</h3>
-            <p>
-              Voor vocht dat buiten bereik zit: onder een zwevende chape, in isolatie, achter een
-              voorzetwand of in een houten vloer. Blaast droge lucht via slangen gericht naar de
-              plek zelf.
-            </p>
-            <p>
-              Ook de keuze voor een koude kelder: hij verliest onder 15 °C nauwelijks capaciteit.
-            </p>
-          </Reveal>
-          <Reveal from="up" delay={0.08} className="kaart">
-            <div className="ki"><BoltIcon size={20} /></div>
-            <h3>Condensontvochtiger</h3>
-            <p>
-              Voor de ruimte zelf: zuigt de vochtige lucht aan, koelt ze af zodat het water
-              condenseert, en blaast droge lucht terug. In een verwarmde woning werkt dat goed.
-            </p>
-            <p>
-              Onder ongeveer 15 °C daalt het rendement sterk; dan zet u er een bouwkachel bij.
-            </p>
-          </Reveal>
-          <Reveal from="up" delay={0.16} className="kaart">
-            <div className="ki"><WindIcon size={20} /></div>
-            <h3>En altijd een ventilator</h3>
-            <p>
-              Bij waterschade hoort er altijd luchtbeweging bij: zonder ventilator droogt vooral de
-              lucht, niet de vloer en de muren.
-            </p>
-            <p>
-              Een radiaalventilator blaast vlak over een natte vloer; een axiale houdt de hele
-              ruimte in beweging.
-            </p>
-          </Reveal>
+          {t.kaarten.map((k, i) => {
+            const Icon = [LekIcon, BoltIcon, WindIcon][i];
+            return (
+              <Reveal from="up" delay={i * 0.08} className="kaart" key={k.titel}>
+                <div className="ki"><Icon size={20} /></div>
+                <h3>{k.titel}</h3>
+                <p>{k.p1}</p>
+                <p>{k.p2}</p>
+              </Reveal>
+            );
+          })}
         </div>
-        <div className="note">
-          <b>Welke combinatie het wordt, bepalen wij ter plaatse.</b> U hoeft dus niet zelf te
-          kiezen: wij meten waar het vocht zit en hoe koud de ruimte is, en stellen de opstelling
-          daarop samen. Bij twijfel komen we kijken vóór er iets geleverd wordt.
-        </div>
+        <div className="note">{t.techNote}</div>
       </div>
     </section>
 
@@ -739,15 +531,11 @@ const WaterschadePage = () => (
     <section className="sw" id="zo-werken-wij">
       <div className="wrap">
         <div className="sec-head">
-          <span className="kick">Zo werken wij</span>
-          <h2 className="sec">Van de eerste natte plek tot het meetrapport.</h2>
-          <p className="lede">
-            Een schadegeval begint niet bij ons maar bij u, op het moment dat u het water ziet.
-            Dit is het volledige verloop, met per stap wie er aan zet is. Het schuift vanzelf door;
-            met de pijlen of de nummers gaat u zelf vooruit of terug.
-          </p>
+          <span className="kick">{t.werkKick}</span>
+          <h2 className="sec">{t.werkH2}</h2>
+          <p className="lede">{t.werkLede}</p>
         </div>
-        <StappenCarrousel stappen={VERLOOP} label="Zo werken wij bij waterschade" />
+        <StappenCarrousel stappen={verloop} label={t.carrouselLabel} />
       </div>
     </section>
 
@@ -755,17 +543,14 @@ const WaterschadePage = () => (
     <section className="sr">
       <div className="wrap">
         <div className="sec-head mid">
-          <span className="kick">Uit de praktijk</span>
-          <h2 className="sec">Waterschade die we eerder droogden.</h2>
-          <p className="lede">
-            Drie dossiers met de foto's van de werf zelf: wat er gebeurd was, welke toestellen we
-            plaatsten en hoe lang het duurde.
-          </p>
+          <span className="kick">{t.refKick}</span>
+          <h2 className="sec">{t.refH2}</h2>
+          <p className="lede">{t.refLede}</p>
         </div>
         <div className="refs">
           {REFERENTIES.map((r, i) => (
             <Reveal from="up" delay={(i % 3) * 0.08} key={r.slug}>
-              <Link className="rz" to={`/realisaties/${r.slug}`}>
+              <Link className="rz" to={lp(`/realisaties/${r.slug}`)}>
                 <img src={r.kaart} alt={r.kaartAlt} width={640} height={420} loading="lazy" decoding="async" />
                 <div className="rzt">
                   <span className="rzl">{r.locatie}</span>
@@ -776,23 +561,16 @@ const WaterschadePage = () => (
           ))}
         </div>
         <p className="tblnote" style={{ textAlign: "center" }}>
-          <Link to="/realisaties?soort=waterschade" style={{ fontWeight: 600 }}>
-            Alle waterschadeprojecten bekijken
+          <Link to={lp("/realisaties?soort=waterschade")} style={{ fontWeight: 600 }}>
+            {t.refAlle}
           </Link>
         </p>
-        <div className="note">
-          <b>Wij rijden bij waterschade in heel België.</b> Vanuit ons magazijn in Aartselaar staan
-          we het snelst in <Link to="/bouwdroger-huren-antwerpen">de provincie Antwerpen</Link>,{" "}
-          <Link to="/bouwdroger-huren-oost-vlaanderen">Oost-Vlaanderen</Link> en{" "}
-          <Link to="/bouwdroger-huren-vlaams-brabant">Vlaams-Brabant</Link>; verder weg plannen we
-          de rit mee, maar leveren we evengoed. Weet u al wat u nodig heeft, dan stelt de{" "}
-          <Link to="/verhuur/calculator">droogcalculator</Link> het pakket meteen samen.
-        </div>
+        <div className="note">{t.refNote(ctx)}</div>
       </div>
     </section>
 
     <FaqBlok
-      titel="Wat mensen met waterschade ons vragen."
+      titel={t.faqTitel}
       vragen={faqs}
       sleutel="ws-faq"
       variant="wit"
@@ -806,18 +584,15 @@ const WaterschadePage = () => (
       */}
       <div className="manband">
         <div className="mb-t">
-          <span className="mbk">Nu bellen</span>
-          <h3>Hoe sneller wij er staan, hoe minder er uitgebroken moet worden.</h3>
-          <p>
-            Beschrijf kort wat er gebeurd is en hoe groot de ruimte is. Wij zeggen meteen welke
-            toestellen mee moeten en wanneer we kunnen leveren: bij waterschade vandaag nog.
-          </p>
+          <span className="mbk">{t.nuKick}</span>
+          <h3>{t.nuH3}</h3>
+          <p>{t.nuP}</p>
           <div className="mb-cta">
             <a className="btn btn-white" href={`tel:${CONTACT.phoneE164}`}>
-              <PhoneIcon /> Bel {CONTACT.phoneLocal}
+              <PhoneIcon /> {t.bel} {CONTACT.phoneLocal}
             </a>
             <a className="btn btn-ghost" href="#formulier">
-              Aanvraag doen
+              {t.aanvraag}
               <ArrowRightIcon />
             </a>
           </div>
@@ -825,7 +600,7 @@ const WaterschadePage = () => (
         <img
           className="mb-man breed bijsnijden tegenrand"
           src="/vernast/man-bestelwagen.webp"
-          alt="Vernast technicus bij de bestelwagen met een bouwdroger"
+          alt={t.nuAlt}
           width={1440}
           height={800}
           loading="lazy"
@@ -835,17 +610,11 @@ const WaterschadePage = () => (
     </FaqBlok>
 
     <ContactBlok
-      kicker="Waterschade melden"
-      titel="Beschrijf uw situatie, wij bellen u terug."
-      lede="Bij waterschade telt elk uur. Belt u liever meteen? Doe dat gerust, dan rijden we vandaag nog uit. Via dit formulier krijgt u binnen één werkdag antwoord."
-      onderwerpen={[
-        "Waterschade, dit is dringend",
-        "Water onder de vloer of in de isolatie",
-        "Vraag over mijn verzekeringsdossier",
-        "Prijs van een waterschadepakket",
-        "Iets anders",
-      ]}
-      placeholder="Bv. kelder van 40 m² ondergelopen na een gesprongen leiding, water is weg, chape en onderkant van de muren zijn nat."
+      kicker={t.contactKicker}
+      titel={t.contactTitel}
+      lede={t.contactLede}
+      onderwerpen={t.contactOnderwerpen}
+      placeholder={t.contactPlaceholder}
     />
 
     </main>
@@ -859,9 +628,9 @@ const WaterschadePage = () => (
       de pagina klopt; CSS zet hem onderaan het scherm vast.
     */}
     <div className="urgbar">
-      <b><WarnIcon size={18} /> Waterschade? Bel nu</b>
+      <b><WarnIcon size={18} /> {t.urgTitel}</b>
       <div className="ubtns">
-        <a className="ubtn" href={`tel:${CONTACT.phoneE164}`} aria-label={`Bel ${CONTACT.phoneLocal}`}>
+        <a className="ubtn" href={`tel:${CONTACT.phoneE164}`} aria-label={`${t.urgBelAria} ${CONTACT.phoneLocal}`}>
           <PhoneIcon size={18} />
         </a>
         <a
@@ -869,13 +638,14 @@ const WaterschadePage = () => (
           href={WHATSAPP}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="WhatsApp ons"
+          aria-label={t.urgWhatsApp}
         >
           <WhatsAppIcon size={19} />
         </a>
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default WaterschadePage;

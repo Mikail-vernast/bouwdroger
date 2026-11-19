@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CaretIcon, CartIcon, MailIcon, PhoneIcon } from "./icons";
-import { ALLES_OVER_DROGEN, MENU_SITUATIES, PAKKETTEN, TOESTELLEN } from "@/data/navigation";
+import { navigatie } from "@/data/navigation";
+import { useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
+import { KlantWissel, TaalWissel } from "@/components/TaalWissel";
+import { SCHIL_COPY } from "@/components/schil.copy";
+import "@/styles/taalwissel.css";
 import "@/styles/mega-menu.css";
 import MobileNav, { MobileNavActions } from "@/components/MobileNav";
 
@@ -21,6 +25,9 @@ const VHeader = () => {
   const [menuGroep, setMenuGroep] = useState<string | null>(null);
   const lastY = useRef(0);
   const ticking = useRef(false);
+  const t = useCopy(SCHIL_COPY);
+  const lp = useLokaalPad();
+  const { ALLES_OVER_DROGEN, MENU_SITUATIES, PAKKETTEN, TOESTELLEN } = navigatie(useTaal());
 
   useEffect(() => {
     const onScroll = () => {
@@ -62,38 +69,42 @@ const VHeader = () => {
           <a href="mailto:info@vernast-bouwdrogers.be">
             <MailIcon /> info@vernast-bouwdrogers.be
           </a>
-          <span>Ma–Vr 08:00–17:00</span>
+          <span>{t.uren}</span>
         </div>
         <div className="tl-right">
-          <span className="dot" /> Erkend droogspecialist · u kiest uw leverdatum
+          <span className="dot" /> <span className="tl-belofte">{t.belofteV}</span>
+          <span className="wissels">
+            <TaalWissel />
+            <KlantWissel />
+          </span>
         </div>
       </div>
 
       <div className="wrap navrow mnav-row">
         <div className="navpill">
-          <Link className="nav-logo" to="/">
+          <Link className="nav-logo" to={lp("/")}>
             <img src="/verhuur/logo-horizontal-black.webp" alt="Vernast" />
           </Link>
 
-          <nav className="nav-menu" aria-label="Hoofdnavigatie">
+          <nav className="nav-menu" aria-label={t.hoofdnav}>
             <div className="item has-sub">
-              Group
+              {t.groep}
               <CaretIcon className="caret" />
               <div className="submenu">
                 <a href="https://vernast-vochtbestrijding.be/">
-                  Vochtbestrijding<small>Kelder · muren · gevel</small>
+                  {t.groepVocht[0]}<small>{t.groepVocht[1]}</small>
                 </a>
-                <Link to="/">
-                  Verhuur &amp; bouwdroging<small>Toestellen en pakketten</small>
+                <Link to={lp("/")}>
+                  {t.groepVerhuur[0]}<small>{t.groepVerhuur[1]}</small>
                 </Link>
                 <a href="https://www.vernast-schilderwerken.be/">
-                  Schilderwerken<small>Binnen &amp; buiten</small>
+                  {t.groepSchilder[0]}<small>{t.groepSchilder[1]}</small>
                 </a>
               </div>
             </div>
 
             <div className="item mega has-sub">
-              Bouwdroging
+              {t.bouwdroging}
               <CaretIcon className="caret" />
               <div className="mega-panel">
                 <div className="mmv-cols">
@@ -108,7 +119,7 @@ const VHeader = () => {
                     komt te staan, niet ernaast.
                   */}
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Toestellen</span>
+                    <span className="mmv-kop">{t.kopToestellen}</span>
                     <ul className="mmv-lijst">
                       {TOESTELLEN.map((item) => (
                         <li key={item.path}>
@@ -118,7 +129,7 @@ const VHeader = () => {
                     </ul>
                   </div>
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Pakketten</span>
+                    <span className="mmv-kop">{t.kopPakketten}</span>
                     {/* Dezelfde lijst als in V3Header en het mobiele menu:
                         `PAKKETTEN` in src/data/navigation.ts. */}
                     <ul className="mmv-lijst">
@@ -137,7 +148,7 @@ const VHeader = () => {
                     schillen tonen nu dezelfde vier kolommen.
                   */}
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Toepassingen</span>
+                    <span className="mmv-kop">{t.kopToepassingen}</span>
                     <ul className="mmv-lijst">
                       {MENU_SITUATIES.map((item) => (
                         <li key={item.path}>
@@ -147,42 +158,40 @@ const VHeader = () => {
                     </ul>
                   </div>
                   <div className="mmv-groep">
-                    <span className="mmv-kop">Service</span>
+                    <span className="mmv-kop">{t.kopService}</span>
                     <ul className="mmv-lijst">
                       <li>
-                        <Link to="/#levering">Levering &amp; installatie</Link>
+                        <Link to={lp("/") + "#levering"}>{t.levering}</Link>
                       </li>
                       <li>
-                        <Link to="/afhalen">Afhalen in Aartselaar</Link>
+                        <Link to={lp("/afhalen")}>{t.afhalen}</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/pakket">Vochtmeting inbegrepen</Link>
+                        <Link to={lp("/verhuur/pakket")}>{t.vochtmeting}</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/boeking">Dekking &amp; eigen risico</Link>
+                        <Link to={lp("/verhuur/boeking")}>{t.dekking}</Link>
                       </li>
                       <li>
-                        <Link to="/verhuur/boeking">Verlengen of stoppen</Link>
+                        <Link to={lp("/verhuur/boeking")}>{t.verlengen}</Link>
                       </li>
                     </ul>
                   </div>
                 </div>
                 <div className="mega-foot">
                   <div className="mft">
-                    <b>Niet zeker welk pakket u nodig heeft?</b>
-                    <span>
-                      Onze Calculator bepaalt in 5 vragen de juiste toestellen, droogtijd en prijs.
-                    </span>
+                    <b>{t.megaVraag1}</b>
+                    <span>{t.megaUitleg1}</span>
                   </div>
-                  <Link className="btn-offerte" to="/verhuur/calculator">
-                    Gratis Calculator
+                  <Link className="btn-offerte" to={lp("/verhuur/calculator")}>
+                    {t.calculatorKnop}
                   </Link>
                 </div>
               </div>
             </div>
 
             <div className="item mega has-sub">
-              Alles over drogen
+              {t.allesOverDrogen}
               <CaretIcon className="caret" />
               {/*
                 Ook dit is een mega-menu en geen uitklapper meer. Er stonden
@@ -208,43 +217,40 @@ const VHeader = () => {
                 </div>
                 <div className="mega-foot">
                   <div className="mft">
-                    <b>Liever eerst weten wat het kost?</b>
-                    <span>
-                      De Calculator rekent uw volume uit en zegt welk toestel en welke droogtijd erbij
-                      horen.
-                    </span>
+                    <b>{t.megaVraag2}</b>
+                    <span>{t.megaUitleg2}</span>
                   </div>
-                  <Link className="btn-offerte" to="/verhuur/calculator">
-                    Gratis Calculator
+                  <Link className="btn-offerte" to={lp("/verhuur/calculator")}>
+                    {t.calculatorKnop}
                   </Link>
                 </div>
               </div>
             </div>
 
-            <Link className="item" to="/realisaties">
-              Realisaties
+            <Link className="item" to={lp("/realisaties")}>
+              {t.realisaties}
             </Link>
-            <Link className="item" to="/over-ons">
-              Over ons
+            <Link className="item" to={lp("/over-ons")}>
+              {t.overOns}
             </Link>
-            <Link className="item" to="/#faq">
-              Klantenservice
+            <Link className="item" to={lp("/") + "#faq"}>
+              {t.klantenservice}
             </Link>
-            <Link className="item" to="/contact">
-              Contact
+            <Link className="item" to={lp("/contact")}>
+              {t.contact}
             </Link>
           </nav>
 
           <MobileNavActions open={menuOpen} onClick={() => (menuOpen ? sluitMenu() : setMenuOpen(true))} />
         </div>
 
-        <Link className="cart mnav-hide-sm" to="/verhuur/boeking" aria-label="Winkelwagen">
+        <Link className="cart mnav-hide-sm" to={lp("/verhuur/boeking")} aria-label={t.winkelwagen}>
           <CartIcon />
           <i>1</i>
         </Link>
 
-        <Link className="btn-offerte mnav-cta-sm" to="/verhuur/calculator">
-          Gratis Calculator
+        <Link className="btn-offerte mnav-cta-sm" to={lp("/verhuur/calculator")}>
+          {t.calculatorKnop}
         </Link>
       </div>
     </header>

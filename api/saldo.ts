@@ -26,6 +26,7 @@
  * ander adres in de balk. Eén stap minder, en het blijft van ons.
  */
 import Stripe from "stripe";
+import { betaalPad, betaalTaal, foutmelding } from "../src/lib/betaalTaal.js";
 import { isReference } from "../src/lib/booking.js";
 import { safeOrigin } from "../src/lib/origin.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
@@ -224,25 +225,29 @@ export async function POST(request: Request): Promise<Response> {
   const attempt = limit.attempt();
   if (!attempt.allowed) return tooManyRequests(attempt.retryAfter);
 
-  let body: { session_id?: unknown };
+  // `taal`: die van de saldopagina; zie `src/lib/betaalTaal.ts`.
+  let body: { session_id?: unknown; taal?: unknown };
   try {
-    body = (await request.json()) as { session_id?: unknown };
+    body = (await request.json()) as { session_id?: unknown; taal?: unknown };
   } catch {
     return json({ error: "Ongeldige aanvraag." }, 400);
   }
 
+  const taal = betaalTaal(body.taal);
   const id = typeof body.session_id === "string" ? body.session_id : "";
-  if (!SESSION_ID.test(id)) return json({ error: "Ongeldige sessie." }, 400);
+  if (!SESSION_ID.test(id)) return json({ error: foutmelding("Ongeldige sessie.", taal) }, 400);
 
   const accepted = limit.accept();
   if (!accepted.allowed) return tooManyRequests(accepted.retryAfter);
 
   const stripe = new Stripe(key);
   const booking = await loadBooking(stripe, id);
-  if (!booking) return json({ error: "Boeking niet gevonden." }, 404);
+  if (!booking) return json({ error: foutmelding("Boeking niet gevonden.", taal) }, 404);
 
   const balance = readBalance(booking);
-  if (balance.voldaan) return json({ error: "Deze boeking is al volledig betaald." }, 409);
+  if (balance.voldaan) {
+    return json({ error: foutmelding("Deze boeking is al volledig betaald.", taal) }, 409);
+  }
 
   /*
     Blijft binnen: dit gaat naar Stripe, niet naar de browser. `customer_email`
@@ -262,7 +267,7 @@ export async function POST(request: Request): Promise<Response> {
         Apple Pay werkt zo ook buiten Safari.
       */
       ui_mode: "elements",
-      locale: "nl",
+      locale: taal,
       integration_identifier: INTEGRATION_ID,
       client_reference_id: balance.referentie,
       /*
@@ -296,7 +301,7 @@ export async function POST(request: Request): Promise<Response> {
         sturen de betaler even naar hun eigen app, en hierlangs komt hij terug op
         het scherm waar hij vandaan kwam.
       */
-      return_url: `${origin}/verhuur/saldo?session_id=${id}&saldo_session={CHECKOUT_SESSION_ID}`,
+      return_url: `${origin}${betaalPad("/verhuur/saldo", taal)}?session_id=${id}&saldo_session={CHECKOUT_SESSION_ID}`,
       metadata: {
         /*
           Waaraan de webhook een saldobetaling herkent. Zonder deze twee zou de
@@ -309,13 +314,15 @@ export async function POST(request: Request): Promise<Response> {
         referentie: balance.referentie,
         totaal_incl_btw: balance.totaal.toFixed(2),
         voorschot_betaald: balance.betaald.toFixed(2),
+        // Zie `api/checkout.ts`: voor de factuurmail van straks.
+        taal,
       },
       expires_at: Math.floor(Date.now() / 1000) + SESSION_MINUTES * 60,
     });
 
     if (!session.client_secret) {
       console.error(`[saldo] sessie ${session.id} kwam zonder client_secret terug`);
-      return json({ error: "Betaling kon niet gestart worden." }, 502);
+      return json({ error: foutmelding("Betaling kon niet gestart worden.", taal) }, 502);
     }
 
     return json({
@@ -330,7 +337,12 @@ export async function POST(request: Request): Promise<Response> {
     const message = error instanceof Error ? error.message : "onbekende fout";
     console.error(`[saldo] sessie voor ${id} niet aangemaakt bij Stripe: ${message}`);
     return json(
-      { error: "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65." },
+      {
+        error: foutmelding(
+          "Betaling kon niet gestart worden. Probeer het opnieuw of bel ons op 03 689 90 65.",
+          taal,
+        ),
+      },
       502,
     );
   }

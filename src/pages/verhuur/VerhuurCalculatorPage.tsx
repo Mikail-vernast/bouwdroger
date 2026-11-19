@@ -19,7 +19,8 @@ import {
   toestellenZin,
   type PackageConfig,
 } from "@/lib/verhuur";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { useCopy, useLokaalPad, type Copy } from "@/i18n/useTaal";
 import {
   GRATIS_LEVERING_VOETNOOT,
   leverzoneNaarQuery,
@@ -50,82 +51,273 @@ const SCREEDS = CD_VALUES.map((v) => Number(v.replace(",", ".")));
 const grootste = (reeks: number[]) => reeks[reeks.length - 1] ?? 0;
 const middelste = (reeks: number[]) => reeks[Math.floor(reeks.length / 2)] ?? 0;
 
-const SIZE: RulerConfig = {
-  min: Math.max(0, SIZES[0] - 20),
-  max: grootste(SIZES) + 20,
-  snaps: SIZES,
-  custom: true,
-  unit: " m²",
-  format: (v) => String(v),
-  label: (v) =>
-    Number.isNaN(v)
-      ? `Meer dan ${grootste(SIZES)} m², maatwerkofferte`
-      : `Gebouw kleiner dan ${v} m²`,
-  bigEvery: 40,
-  tick: 10,
-};
+interface CalcCopy {
+  /** decimaalteken op de pleisterliniaal: "1,5" in nl en fr, "1.5" in het Engels */
+  komma: string;
+  meerDan: (n: number) => string;
+  gebouw: (v: number) => string;
+  gemiddelde: (n: number) => string;
+  dunPleister: string;
+  dikPleister: string;
+  gangbarePleister: string;
+  dunneChape: string;
+  dikkeChape: string;
+  gangbareChape: string;
+  what: { alt: string; title: string; sub: string }[];
+  serviceName: string;
+  serviceDesc: string;
+  serviceType: string;
+  home: string;
+  h1: string;
+  workerAlt: string;
+  terug: string;
+  stap: (n: number, van: number) => string;
+  q1: string;
+  q1sub: string;
+  verder: string;
+  q2: string;
+  q2sub: string;
+  q3: string;
+  q3sub: string;
+  q4: string;
+  q4sub: string;
+  q5: string;
+  q5sub: string;
+  ja: string;
+  jaSub: string;
+  kachelAlt: string;
+  nee: string;
+  neeSub: string;
+  maatH: string;
+  maatP: string;
+  maatCta: string;
+  bel: string;
+}
 
-const PLASTER: RulerConfig = {
-  min: Math.max(0, PLASTERS[0] - 0.5),
-  max: grootste(PLASTERS) + 0.5,
-  snaps: PLASTERS,
-  unknown: middelste(PLASTERS),
-  unknownLabel: `Wij rekenen met een gemiddelde van ${middelste(PLASTERS)} cm`,
-  unit: " cm",
-  format: (v) => String(v).replace(".", ","),
-  label: (v) =>
-    v <= PLASTERS[0]
-      ? "Dun pleisterwerk"
-      : v >= grootste(PLASTERS)
-        ? "Dik pleisterwerk"
-        : "Gangbare pleisterdikte",
-  bigEvery: 0.5,
-  tick: 0.1,
-};
+const COPY = {
+  nl: {
+    komma: ",",
+    meerDan: (n) => `Meer dan ${n} m², maatwerkofferte`,
+    gebouw: (v) => `Gebouw kleiner dan ${v} m²`,
+    gemiddelde: (n) => `Wij rekenen met een gemiddelde van ${n} cm`,
+    dunPleister: "Dun pleisterwerk",
+    dikPleister: "Dik pleisterwerk",
+    gangbarePleister: "Gangbare pleisterdikte",
+    dunneChape: "Dunne chape",
+    dikkeChape: "Dikke chape",
+    gangbareChape: "Gangbare chapedikte",
+    what: [
+      { alt: "Vers gepleisterde muren in een woning in afwerking", title: "Pleisterwerk", sub: "Muren drogen" },
+      { alt: "Verse chapevloer in een nieuwbouwwoning", title: "Vloer drogen", sub: "Chape" },
+      {
+        alt: "Leefruimte met vers pleisterwerk én een verse chapevloer",
+        title: "Pleisterwerk + chape",
+        sub: "Muren + vloer drogen",
+      },
+      {
+        alt: "Muur met vochtschade en schimmel na waterschade",
+        title: "Waterschade",
+        sub: "Absorptiedroging, snel geleverd",
+      },
+    ],
+    serviceName: "Droogpakket samenstellen",
+    serviceDesc:
+      "Bereken in vijf vragen welke toestellen uw woning nodig heeft, hoe lang het drogen duurt en wat het kost.",
+    serviceType: "Bouwdroging",
+    home: "Home",
+    h1: "Droogpakket samenstellen, bereken uw toestellen, droogtijd en prijs",
+    workerAlt: "Vernast technieker draagt een bouwdroger op zijn rug",
+    terug: "← Terug",
+    stap: (n, van) => `Stap ${n} / ${van}`,
+    q1: "Hoe groot is uw woning",
+    q1sub: "Sleep over de liniaal tot de oppervlakte die het best past.",
+    verder: "Verder →",
+    q2: "Wat wilt u drogen",
+    q2sub: "Pleisterwerk en chape geven hun vocht anders af.",
+    q3: "Hoe dik is het pleisterwerk",
+    q3sub: "Dikker pleisterwerk bevat meer water en vraagt meer droogtijd. Sleep naar de juiste dikte.",
+    q4: "Hoe dik is de chape",
+    q4sub: "Chape is meestal de grootste vochtbron. Sleep naar de juiste dikte.",
+    q5: "Zorgt u zelf voor verwarming?",
+    q5sub: "Drogen werkt enkel goed boven 15 °C. Zo niet, voegen wij elektrische kachels toe.",
+    ja: "Ja, ik verwarm zelf",
+    jaSub: "De ruimte is boven 15 °C, uw eigen verwarming staat aan",
+    kachelAlt: "Vernast elektrische kachel",
+    nee: "Nee, voeg kachels toe",
+    neeSub: "Onze elektrische kachels komen mee in het pakket",
+    maatH: "Groot project? Dat is maatwerk.",
+    maatP:
+      "Boven 260 m² stellen wij het droogplan persoonlijk samen, met plaatsbezoek indien nodig, projectprijs en planning op maat. Vertel ons kort over uw project en wij nemen binnen één werkdag contact op.",
+    maatCta: "Vraag uw maatwerkofferte aan →",
+    bel: "Bel 03 689 90 65",
+  },
+  fr: {
+    komma: ",",
+    meerDan: (n) => `Plus de ${n} m², devis sur mesure`,
+    gebouw: (v) => `Bâtiment de moins de ${v} m²`,
+    gemiddelde: (n) => `Nous calculons avec une moyenne de ${n} cm`,
+    dunPleister: "Plafonnage fin",
+    dikPleister: "Plafonnage épais",
+    gangbarePleister: "Épaisseur de plafonnage courante",
+    dunneChape: "Chape fine",
+    dikkeChape: "Chape épaisse",
+    gangbareChape: "Épaisseur de chape courante",
+    what: [
+      {
+        alt: "Murs fraîchement plafonnés dans une habitation en finition",
+        title: "Plafonnage",
+        sub: "Sécher les murs",
+      },
+      { alt: "Chape fraîche dans une maison neuve", title: "Sécher le sol", sub: "Chape" },
+      {
+        alt: "Séjour avec un plafonnage frais et une chape fraîche",
+        title: "Plafonnage + chape",
+        sub: "Sécher murs + sol",
+      },
+      {
+        alt: "Mur avec dégâts d'humidité et moisissures après des dégâts des eaux",
+        title: "Dégâts des eaux",
+        sub: "Séchage par absorption, livraison rapide",
+      },
+    ],
+    serviceName: "Composer votre pack de séchage",
+    serviceDesc:
+      "Calculez en cinq questions de quels appareils votre habitation a besoin, combien de temps dure le séchage et ce qu'il coûte.",
+    serviceType: "Séchage de chantier",
+    home: "Accueil",
+    h1: "Composer votre pack de séchage : calculez vos appareils, le temps de séchage et le prix",
+    workerAlt: "Technicien Vernast portant un déshumidificateur de chantier sur le dos",
+    terug: "← Retour",
+    stap: (n, van) => `Étape ${n} / ${van}`,
+    q1: "Quelle est la superficie de votre habitation",
+    q1sub: "Faites glisser la règle jusqu'à la superficie qui correspond le mieux.",
+    verder: "Suivant →",
+    q2: "Que voulez-vous sécher",
+    q2sub: "Le plafonnage et la chape ne libèrent pas leur humidité de la même manière.",
+    q3: "Quelle est l'épaisseur du plafonnage",
+    q3sub:
+      "Un plafonnage plus épais contient plus d'eau et demande plus de temps de séchage. Faites glisser jusqu'à la bonne épaisseur.",
+    q4: "Quelle est l'épaisseur de la chape",
+    q4sub: "La chape est généralement la principale source d'humidité. Faites glisser jusqu'à la bonne épaisseur.",
+    q5: "Chauffez-vous vous-même ?",
+    q5sub: "Le séchage ne fonctionne bien qu'au-dessus de 15 °C. Sinon, nous ajoutons des chauffages électriques.",
+    ja: "Oui, je chauffe moi-même",
+    jaSub: "La pièce est à plus de 15 °C, votre propre chauffage est allumé",
+    kachelAlt: "Chauffage électrique Vernast",
+    nee: "Non, ajoutez des chauffages",
+    neeSub: "Nos chauffages électriques sont inclus dans le pack",
+    maatH: "Grand projet ? C'est du sur-mesure.",
+    maatP:
+      "Au-delà de 260 m², nous établissons le plan de séchage personnellement, avec visite sur place si nécessaire, prix de projet et planning sur mesure. Décrivez-nous brièvement votre projet et nous vous recontactons dans un délai d'un jour ouvrable.",
+    maatCta: "Demandez votre devis sur mesure →",
+    bel: "Appelez le 03 689 90 65",
+  },
+  en: {
+    komma: ".",
+    meerDan: (n) => `More than ${n} m², bespoke quote`,
+    gebouw: (v) => `Building smaller than ${v} m²`,
+    gemiddelde: (n) => `We calculate with an average of ${n} cm`,
+    dunPleister: "Thin plasterwork",
+    dikPleister: "Thick plasterwork",
+    gangbarePleister: "Usual plaster thickness",
+    dunneChape: "Thin screed",
+    dikkeChape: "Thick screed",
+    gangbareChape: "Usual screed thickness",
+    what: [
+      { alt: "Freshly plastered walls in a home being finished", title: "Plasterwork", sub: "Drying walls" },
+      { alt: "Fresh screed floor in a new-build home", title: "Drying floors", sub: "Screed" },
+      {
+        alt: "Living room with fresh plasterwork and a fresh screed floor",
+        title: "Plasterwork + screed",
+        sub: "Drying walls + floor",
+      },
+      {
+        alt: "Wall with damp damage and mould after water damage",
+        title: "Water damage",
+        sub: "Desiccant drying, delivered fast",
+      },
+    ],
+    serviceName: "Build your drying package",
+    serviceDesc:
+      "Work out in five questions which units your home needs, how long drying takes and what it costs.",
+    serviceType: "Construction drying",
+    home: "Home",
+    h1: "Build your drying package: work out your units, drying time and price",
+    workerAlt: "Vernast technician carrying a construction dehumidifier on his back",
+    terug: "← Back",
+    stap: (n, van) => `Step ${n} / ${van}`,
+    q1: "How big is your home",
+    q1sub: "Drag the ruler to the floor area that fits best.",
+    verder: "Next →",
+    q2: "What do you want to dry",
+    q2sub: "Plasterwork and screed release their moisture differently.",
+    q3: "How thick is the plasterwork",
+    q3sub: "Thicker plasterwork holds more water and needs more drying time. Drag to the right thickness.",
+    q4: "How thick is the screed",
+    q4sub: "Screed is usually the biggest source of moisture. Drag to the right thickness.",
+    q5: "Will you provide the heating yourself?",
+    q5sub: "Drying only works well above 15 °C. If not, we add electric heaters.",
+    ja: "Yes, I'll heat it myself",
+    jaSub: "The room is above 15 °C, your own heating is on",
+    kachelAlt: "Vernast electric heater",
+    nee: "No, add heaters",
+    neeSub: "Our electric heaters come with the package",
+    maatH: "Large project? That's bespoke.",
+    maatP:
+      "Above 260 m² we put the drying plan together personally, with a site visit if needed, a project price and a tailored schedule. Tell us briefly about your project and we will be in touch within one working day.",
+    maatCta: "Request your bespoke quote →",
+    bel: "Call 03 689 90 65",
+  },
+} satisfies Copy<CalcCopy>;
 
-const SCREED: RulerConfig = {
-  min: Math.max(0, SCREEDS[0] - 1),
-  max: grootste(SCREEDS) + 1,
-  snaps: SCREEDS,
-  unknown: middelste(SCREEDS),
-  unknownLabel: `Wij rekenen met een gemiddelde van ${middelste(SCREEDS)} cm`,
-  unit: " cm",
-  format: (v) => String(v),
-  label: (v) =>
-    v <= SCREEDS[0] ? "Dunne chape" : v >= grootste(SCREEDS) ? "Dikke chape" : "Gangbare chapedikte",
-  bigEvery: 1,
-  tick: 0.25,
-};
+/** De drie linialen, met hun teksten in de taal van de pagina. */
+function linialen(t: CalcCopy): { size: RulerConfig; plaster: RulerConfig; screed: RulerConfig } {
+  return {
+    size: {
+      min: Math.max(0, SIZES[0] - 20),
+      max: grootste(SIZES) + 20,
+      snaps: SIZES,
+      custom: true,
+      unit: " m²",
+      format: (v) => String(v),
+      label: (v) => (Number.isNaN(v) ? t.meerDan(grootste(SIZES)) : t.gebouw(v)),
+      bigEvery: 40,
+      tick: 10,
+    },
+    plaster: {
+      min: Math.max(0, PLASTERS[0] - 0.5),
+      max: grootste(PLASTERS) + 0.5,
+      snaps: PLASTERS,
+      unknown: middelste(PLASTERS),
+      unknownLabel: t.gemiddelde(middelste(PLASTERS)),
+      unit: " cm",
+      format: (v) => String(v).replace(".", t.komma),
+      label: (v) =>
+        v <= PLASTERS[0] ? t.dunPleister : v >= grootste(PLASTERS) ? t.dikPleister : t.gangbarePleister,
+      bigEvery: 0.5,
+      tick: 0.1,
+    },
+    screed: {
+      min: Math.max(0, SCREEDS[0] - 1),
+      max: grootste(SCREEDS) + 1,
+      snaps: SCREEDS,
+      unknown: middelste(SCREEDS),
+      unknownLabel: t.gemiddelde(middelste(SCREEDS)),
+      unit: " cm",
+      format: (v) => String(v),
+      label: (v) => (v <= SCREEDS[0] ? t.dunneChape : v >= grootste(SCREEDS) ? t.dikkeChape : t.gangbareChape),
+      bigEvery: 1,
+      tick: 0.25,
+    },
+  };
+}
 
+/** Beeld en sleutel per kaart; de teksten staan in `COPY.what`, in dezelfde volgorde. */
 const WHAT = [
-  {
-    v: "pleister",
-    image: "/vernast/wat-pleister.webp",
-    alt: "Vers gepleisterde muren in een woning in afwerking",
-    title: "Pleisterwerk",
-    sub: "Muren drogen",
-  },
-  {
-    v: "chape",
-    image: "/vernast/wat-chape.webp",
-    alt: "Verse chapevloer in een nieuwbouwwoning",
-    title: "Vloer drogen",
-    sub: "Chape",
-  },
-  {
-    v: "beide",
-    image: "/vernast/wat-beide.webp",
-    alt: "Leefruimte met vers pleisterwerk én een verse chapevloer",
-    title: "Pleisterwerk + chape",
-    sub: "Muren + vloer drogen",
-  },
-  {
-    v: "waterschade",
-    image: "/vernast/wat-waterschade.webp",
-    alt: "Muur met vochtschade en schimmel na waterschade",
-    title: "Waterschade",
-    sub: "Absorptiedroging, snel geleverd",
-  },
+  { v: "pleister", image: "/vernast/wat-pleister.webp" },
+  { v: "chape", image: "/vernast/wat-chape.webp" },
+  { v: "beide", image: "/vernast/wat-beide.webp" },
+  { v: "waterschade", image: "/vernast/wat-waterschade.webp" },
 ];
 
 interface Answers {
@@ -175,6 +367,10 @@ function sequence(answers: Answers): number[] {
 
 const VerhuurCalculatorPage = () => {
   const navigate = useNavigate();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const seo = useSeo("verhuurCalculator");
+  const { size: SIZE, plaster: PLASTER, screed: SCREED } = useMemo(() => linialen(t), [t]);
   const [answers, setAnswers] = useState<Answers>(START);
   const [pos, setPos] = useState(0);
 
@@ -222,7 +418,7 @@ const VerhuurCalculatorPage = () => {
       weeks: 2,
     };
     navigate(
-      `/verhuur/pakket?${configToQuery(config)}${leverzoneNaarQuery(next.land, next.postcode)}`,
+      `${lp("/verhuur/pakket")}?${configToQuery(config)}${leverzoneNaarQuery(next.land, next.postcode)}`,
     );
   };
 
@@ -266,18 +462,17 @@ const VerhuurCalculatorPage = () => {
         ze voor een crawler los van de rest.
       */}
       <PageMeta
-        {...SEO.verhuurCalculator}
+        {...seo}
         jsonLd={[
           serviceSchema({
-            name: "Droogpakket samenstellen",
-            description:
-              "Bereken in vijf vragen welke toestellen uw woning nodig heeft, hoe lang het drogen duurt en wat het kost.",
-            path: "/verhuur/calculator",
-            serviceType: "Bouwdroging",
+            name: t.serviceName,
+            description: t.serviceDesc,
+            path: lp("/verhuur/calculator"),
+            serviceType: t.serviceType,
           }),
           breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Droogpakket samenstellen", path: "/verhuur/calculator" },
+            { name: t.home, path: lp("/") },
+            { name: t.serviceName, path: lp("/verhuur/calculator") },
           ]),
         ]}
       />
@@ -297,11 +492,9 @@ const VerhuurCalculatorPage = () => {
             gaat — vandaar een kop die alleen voor schermlezers en crawlers
             bestaat.
           */}
-          <h1 className="sr-only">
-            Droogpakket samenstellen, bereken uw toestellen, droogtijd en prijs
-          </h1>
+          <h1 className="sr-only">{t.h1}</h1>
           <div className="acard">
-            <img className="worker" src="/vernast/worker-carry.webp" alt="Vernast technieker draagt een bouwdroger op zijn rug" loading="lazy" decoding="async" />
+            <img className="worker" src="/vernast/worker-carry.webp" alt={t.workerAlt} loading="lazy" decoding="async" />
             <div className="inner">
               <div className="aptop">
                 <button
@@ -310,7 +503,7 @@ const VerhuurCalculatorPage = () => {
                   hidden={pos === 0}
                   onClick={() => setPos((p) => Math.max(0, p - 1))}
                 >
-                  ← Terug
+                  {t.terug}
                 </button>
                 <div className="adots">
                   {steps.map((_, i) => (
@@ -318,7 +511,7 @@ const VerhuurCalculatorPage = () => {
                   ))}
                 </div>
                 <span className="acount">
-                  Stap {Math.min(pos, steps.length - 1) + 1} / {steps.length}
+                  {t.stap(Math.min(pos, steps.length - 1) + 1, steps.length)}
                 </span>
               </div>
 
@@ -327,17 +520,17 @@ const VerhuurCalculatorPage = () => {
                   <div className="aqh">
                     <span className="aqn">1</span>
                     <h2>
-                      Hoe groot is uw woning<sup>*</sup>
+                      {t.q1}<sup>*</sup>
                     </h2>
                   </div>
-                  <p className="asub">Sleep over de liniaal tot de oppervlakte die het best past.</p>
+                  <p className="asub">{t.q1sub}</p>
                   <Ruler
                     config={SIZE}
                     onChange={(value) => setAnswers((prev) => ({ ...prev, size: value }))}
                   />
                   <div className="anext">
                     <button className="btn btn-r" type="button" onClick={() => advance(answers)}>
-                      Verder →
+                      {t.verder}
                     </button>
                   </div>
                 </div>
@@ -346,24 +539,24 @@ const VerhuurCalculatorPage = () => {
                   <div className="aqh">
                     <span className="aqn">2</span>
                     <h2>
-                      Wat wilt u drogen<sup>*</sup>
+                      {t.q2}<sup>*</sup>
                     </h2>
                   </div>
-                  <p className="asub">Pleisterwerk en chape geven hun vocht anders af.</p>
+                  <p className="asub">{t.q2sub}</p>
                   <div className="wcards">
-                    {WHAT.map((option) => (
+                    {WHAT.map((option, i) => (
                       <button
                         key={option.v}
                         type="button"
                         className={`wcard${answers.wat === option.v ? " sel" : ""}`}
                         onClick={() => answer({ wat: option.v })}
                       >
-                        <img src={option.image} alt={option.alt} loading="lazy" decoding="async" />
+                        <img src={option.image} alt={t.what[i].alt} loading="lazy" decoding="async" />
                         <span className="wb">
                           <span className="oc" />
                           <span>
-                            <b>{option.title}</b>
-                            <small>{option.sub}</small>
+                            <b>{t.what[i].title}</b>
+                            <small>{t.what[i].sub}</small>
                           </span>
                         </span>
                       </button>
@@ -375,20 +568,17 @@ const VerhuurCalculatorPage = () => {
                   <div className="aqh">
                     <span className="aqn">3</span>
                     <h2>
-                      Hoe dik is het pleisterwerk<sup>*</sup>
+                      {t.q3}<sup>*</sup>
                     </h2>
                   </div>
-                  <p className="asub">
-                    Dikker pleisterwerk bevat meer water en vraagt meer droogtijd. Sleep naar de
-                    juiste dikte.
-                  </p>
+                  <p className="asub">{t.q3sub}</p>
                   <Ruler
                     config={PLASTER}
                     onChange={(value) => setAnswers((prev) => ({ ...prev, pd: value }))}
                   />
                   <div className="anext">
                     <button className="btn btn-r" type="button" onClick={() => advance(answers)}>
-                      Verder →
+                      {t.verder}
                     </button>
                   </div>
                 </div>
@@ -397,19 +587,17 @@ const VerhuurCalculatorPage = () => {
                   <div className="aqh">
                     <span className="aqn">4</span>
                     <h2>
-                      Hoe dik is de chape<sup>*</sup>
+                      {t.q4}<sup>*</sup>
                     </h2>
                   </div>
-                  <p className="asub">
-                    Chape is meestal de grootste vochtbron. Sleep naar de juiste dikte.
-                  </p>
+                  <p className="asub">{t.q4sub}</p>
                   <Ruler
                     config={SCREED}
                     onChange={(value) => setAnswers((prev) => ({ ...prev, cd: value }))}
                   />
                   <div className="anext">
                     <button className="btn btn-r" type="button" onClick={() => advance(answers)}>
-                      Verder →
+                      {t.verder}
                     </button>
                   </div>
                 </div>
@@ -417,12 +605,9 @@ const VerhuurCalculatorPage = () => {
                 <div className={step(4)} data-a="4">
                   <div className="aqh">
                     <span className="aqn">5</span>
-                    <h2>Zorgt u zelf voor verwarming?</h2>
+                    <h2>{t.q5}</h2>
                   </div>
-                  <p className="asub">
-                    Drogen werkt enkel goed boven 15 °C. Zo niet, voegen wij elektrische kachels
-                    toe.
-                  </p>
+                  <p className="asub">{t.q5sub}</p>
                   <div className="wcards">
                     <button
                       type="button"
@@ -448,8 +633,8 @@ const VerhuurCalculatorPage = () => {
                       <span className="wb">
                         <span className="oc" />
                         <span>
-                          <b>Ja, ik verwarm zelf</b>
-                          <small>De ruimte is boven 15 °C, uw eigen verwarming staat aan</small>
+                          <b>{t.ja}</b>
+                          <small>{t.jaSub}</small>
                         </span>
                       </span>
                     </button>
@@ -464,13 +649,13 @@ const VerhuurCalculatorPage = () => {
                         <span className="hwave" style={{ left: "52%", animationDelay: "1.1s" }} />
                         <span className="hwave" style={{ left: "60%", animationDelay: "1.8s" }} />
                         <span className="hglow" />
-                        <img src="/vernast/kachel-30.webp" alt="Vernast elektrische kachel" loading="lazy" decoding="async" />
+                        <img src="/vernast/kachel-30.webp" alt={t.kachelAlt} loading="lazy" decoding="async" />
                       </span>
                       <span className="wb">
                         <span className="oc" />
                         <span>
-                          <b>Nee, voeg kachels toe</b>
-                          <small>Onze elektrische kachels komen mee in het pakket</small>
+                          <b>{t.nee}</b>
+                          <small>{t.neeSub}</small>
                         </span>
                       </span>
                     </button>
@@ -480,13 +665,9 @@ const VerhuurCalculatorPage = () => {
                 <div className={step(5)} data-a="5">
                   <div className="aqh">
                     <span className="aqn">★</span>
-                    <h2>Groot project? Dat is maatwerk.</h2>
+                    <h2>{t.maatH}</h2>
                   </div>
-                  <p className="asub">
-                    Boven 260 m² stellen wij het droogplan persoonlijk samen, met plaatsbezoek indien
-                    nodig, projectprijs en planning op maat. Vertel ons kort over uw project en wij
-                    nemen binnen één werkdag contact op.
-                  </p>
+                  <p className="asub">{t.maatP}</p>
                   <div style={{ display: "flex", gap: 11, flexWrap: "wrap", maxWidth: 460 }}>
                     <a
                       className="btn btn-w"
@@ -494,10 +675,10 @@ const VerhuurCalculatorPage = () => {
                       target="_blank"
                       rel="noopener"
                     >
-                      Vraag uw maatwerkofferte aan →
+                      {t.maatCta}
                     </a>
                     <a className="btn btn-r" href="tel:+3236899065">
-                      Bel 03 689 90 65
+                      {t.bel}
                     </a>
                   </div>
                 </div>

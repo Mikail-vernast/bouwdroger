@@ -8,11 +8,14 @@ import { ArrowRightIcon, CheckIcon } from "@/components/verhuur/icons";
 import { PinIcon } from "@/components/home-v3/icons";
 import ToestelKaart from "@/components/ToestelKaart";
 import { CONDENSPOMP, toebehorenPad } from "@/data/toebehoren";
-import { productImageAlt, PRODUCTS, toestelChips, toestelPad } from "@/data/verhuur";
-import { toestelLabel } from "@/data/navigation";
-import { SEO } from "@/data/seo";
+import { toebehorenInTaal } from "@/data/toebehoren.fr";
+import { productImageAlt, PRODUCTS, toestelPad } from "@/data/verhuur";
+import { productInTaal, toestelChipsInTaal } from "@/data/verhuur.fr";
+import { toestelLabelIn } from "@/data/navigation";
+import { useSeo } from "@/data/seo";
 import { MAPS_URL } from "@/lib/site";
-import { euro, euroInt } from "@/lib/verhuur";
+import { useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
+import { COPY } from "./ToebehorenCondenspompPage.copy";
 import { breadcrumbSchema, faqSchema, productSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
@@ -33,8 +36,19 @@ import "@/styles/toebehoren.css";
  * te krijgen, het schema van de waterafvoer) staan in `styles/toebehoren.css`.
  */
 const ToebehorenCondenspompPage = () => {
-  const pomp = CONDENSPOMP;
-  const pad = toebehorenPad(pomp.slug);
+  const taal = useTaal();
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const toon = useToonBedrag();
+  const seo = useSeo("toebehorenCondenspomp");
+  /*
+    Het bedrag zoals deze bezoeker het moet zien, met zijn btw-label erbij:
+    "€ 3,63 incl. btw" voor een particulier, "3,00 € HTVA" voor een bedrijf.
+    Het getal zelf blijft `CONDENSPOMP.dag`, uit het portaal.
+  */
+  const prijs = `${toon(CONDENSPOMP.dag).tekst} ${toon(CONDENSPOMP.dag).label}`;
+  const pomp = toebehorenInTaal(CONDENSPOMP, taal, prijs);
+  const pad = lp(toebehorenPad(pomp.slug));
   const [shot, setShot] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
 
@@ -56,8 +70,8 @@ const ToebehorenCondenspompPage = () => {
   return (
     <div className="vh-prod tb-page">
       <PageMeta
-        title={SEO.toebehorenCondenspomp.title}
-        description={SEO.toebehorenCondenspomp.description}
+        title={seo.title}
+        description={seo.description}
         path={pad}
         image={pomp.img[0][0]}
         ogType="product"
@@ -68,13 +82,13 @@ const ToebehorenCondenspompPage = () => {
             image: pomp.img[0][0],
             path: pad,
             pricePerDay: pomp.dag,
-            category: "Toebehoren bouwdroger",
+            category: t.categorie,
             specs: pomp.specs,
           }),
           faqSchema(pomp.faq.map(([question, answer]) => ({ question, answer }))),
           breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Toestellen", path: "/machines" },
+            { name: t.home, path: lp("/") },
+            { name: t.toestellen, path: lp("/machines") },
             { name: pomp.naam, path: pad },
           ]),
         ]}
@@ -85,8 +99,8 @@ const ToebehorenCondenspompPage = () => {
       <section className="phero">
         <div className="wrap">
           <div className="crumb">
-            <Link to="/">Home</Link> <span>/</span>
-            <Link to="/machines">Toestellen</Link> <span>/</span>
+            <Link to={lp("/")}>{t.home}</Link> <span>/</span>
+            <Link to={lp("/machines")}>{t.toestellen}</Link> <span>/</span>
             <span className="cur">{pomp.naam}</span>
           </div>
 
@@ -111,7 +125,7 @@ const ToebehorenCondenspompPage = () => {
                     type="button"
                     className={i === shot ? "on" : undefined}
                     onClick={() => setShot(i)}
-                    aria-label={`Bekijk: ${alt}`}
+                    aria-label={t.bekijk(alt)}
                     aria-pressed={i === shot}
                   >
                     <img src={src} alt={alt} loading="lazy" decoding="async" />
@@ -126,8 +140,8 @@ const ToebehorenCondenspompPage = () => {
               <h1>{pomp.naam}</h1>
               <div className="promo-online">
                 <CheckIcon size={15} strokeWidth={2.4} />
-                <b>{euro(pomp.dag)} per bouwdroger per dag</b>
-                <span>&nbsp;· aansluiting inbegrepen</span>
+                <b>{t.promo(prijs)}</b>
+                <span>&nbsp;· {t.aansluiting}</span>
               </div>
               <p className="psum">{pomp.sum}</p>
 
@@ -151,29 +165,20 @@ const ToebehorenCondenspompPage = () => {
               */}
               <div className="tb-wegen">
                 <div className="tb-weg">
-                  <span className="tb-k">Bij een geleverd pakket</span>
-                  <b>Onze technieker sluit hem aan</b>
-                  <p>
-                    Standaard één pomp per bouwdroger, aan {euro(pomp.dag)} per dag. Bij de
-                    installatie legt de technieker de afvoer naar een lavabo, douche, vloerput of
-                    wasmachineaansluiting. U vinkt hem aan tijdens het berekenen van uw pakket.
-                  </p>
-                  <Link className="btn btn-red" to="/verhuur/calculator">
-                    Bereken uw pakket
+                  <span className="tb-k">{t.pakketK}</span>
+                  <b>{t.pakketTitel}</b>
+                  <p>{t.pakketTekst(prijs)}</p>
+                  <Link className="btn btn-red" to={lp("/verhuur/calculator")}>
+                    {t.pakketCta}
                     <ArrowRightIcon size={14} strokeWidth={2.4} />
                   </Link>
                 </div>
                 <div className="tb-weg">
-                  <span className="tb-k">Bij een afhaling</span>
-                  <b>De pomp gaat mee met uw toestel</b>
-                  <p>
-                    Haalt u een bouwdroger af in Aartselaar, dan kan de pomp mee. Vraag hem bij uw
-                    reservatie, dan leggen wij hem klaar; aansluiten is een slang in de bak en een
-                    stekker in het stopcontact. De {euro(pomp.dag)} per dag komt op de eindfactuur,
-                    samen met de werkelijke huurperiode.
-                  </p>
-                  <Link className="btn btn-out" to="/verhuur/afhalen?pomp=1">
-                    Reserveer een toestel met pomp
+                  <span className="tb-k">{t.afhaalK}</span>
+                  <b>{t.afhaalTitel}</b>
+                  <p>{t.afhaalTekst(prijs)}</p>
+                  <Link className="btn btn-out" to={lp("/verhuur/afhalen?pomp=1")}>
+                    {t.afhaalCta}
                     <ArrowRightIcon size={14} strokeWidth={2.4} />
                   </Link>
                 </div>
@@ -186,12 +191,9 @@ const ToebehorenCondenspompPage = () => {
       <section className="tb-opstellingen">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">De aansluiting in beeld</span>
-            <h2 className="sec">Van bouwdroger naar afvoer, zonder emmer legen.</h2>
-            <p className="lede">
-              Met een slang naar de pomp of met de pomp onder de condensafvoer:
-              de juiste plaatsing hangt af van uw bouwdroger en de beschikbare ruimte.
-            </p>
+            <span className="kick">{t.opstKick}</span>
+            <h2 className="sec">{t.opstTitel}</h2>
+            <p className="lede">{t.opstLede}</p>
           </div>
           <div className="tb-fotogrid">
             {pomp.img.slice(1).map(([src, alt, bijschrift]) => (
@@ -201,17 +203,14 @@ const ToebehorenCondenspompPage = () => {
               </figure>
             ))}
           </div>
-          <p className="tb-beeldnote">
-            Illustratieve voorbeeldopstellingen. Laat de aansluiting afstemmen op uw toestel.
-            De toevoerslang moet naar de pomp aflopen; de pomp voert het water daarna verder af.
-          </p>
+          <p className="tb-beeldnote">{t.opstNote}</p>
         </div>
       </section>
 
       <section className="about">
         <div className="wrap about-grid">
           <div>
-            <span className="kick">Waarvoor deze pomp</span>
+            <span className="kick">{t.waarvoor}</span>
             <h2 className="sec">{pomp.aboutTitle}</h2>
             <div className="about-body" style={{ marginTop: 22 }}>
               {pomp.about.map((paragraph) => (
@@ -237,12 +236,9 @@ const ToebehorenCondenspompPage = () => {
       <section className="incl afh">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Automatische waterafvoer</span>
-            <h2 className="sec">Zo loopt het water weg.</h2>
-            <p className="lede">
-              Vier stappen die zich de hele huurperiode herhalen, zonder dat er iemand bij hoeft te
-              zijn.
-            </p>
+            <span className="kick">{t.afvoerKick}</span>
+            <h2 className="sec">{t.afvoerTitel}</h2>
+            <p className="lede">{t.afvoerLede}</p>
           </div>
           <div className="astep-grid">
             {pomp.stappen.map(([title, body], i) => (
@@ -256,21 +252,15 @@ const ToebehorenCondenspompPage = () => {
 
           <div className="tb-zonder">
             <div>
-              <span className="tb-k">Zonder pomp</span>
-              <b>U leegt de opvangbak 2 à 3 keer per dag</b>
-              <p>
-                Loopt de bak vol terwijl er niemand is, dan schakelt de bouwdroger zichzelf uit en
-                staat hij stil tot u hem leegt. Een weekend stilstand kost u een weekend droogtijd.
-              </p>
+              <span className="tb-k">{t.zonderK}</span>
+              <b>{t.zonderTitel}</b>
+              <p>{t.zonderTekst}</p>
             </div>
-            <div className="tb-of">of</div>
+            <div className="tb-of">{t.of}</div>
             <div>
-              <span className="tb-k">Met pomp</span>
-              <b>U kijkt ernaar, meer niet</b>
-              <p>
-                Het condenswater loopt continu weg naar uw afvoer. Het toestel draait dag en nacht
-                door, ook in het weekend, en haalt zo de droogtijd die ervoor berekend is.
-              </p>
+              <span className="tb-k">{t.metK}</span>
+              <b>{t.metTitel}</b>
+              <p>{t.metTekst}</p>
             </div>
           </div>
         </div>
@@ -279,12 +269,9 @@ const ToebehorenCondenspompPage = () => {
       <section className="specs">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Technische fiche</span>
-            <h2 className="sec">Volledige specificaties</h2>
-            <p className="lede">
-              Alle waarden zoals opgemeten onder standaardomstandigheden. Twijfelt u of uw afvoer
-              haalbaar is? Bel ons, dan rekenen we het samen na.
-            </p>
+            <span className="kick">{t.techFiche}</span>
+            <h2 className="sec">{t.volledigeSpecs}</h2>
+            <p className="lede">{t.specsLede}</p>
           </div>
           <div className="stable">
             <table>
@@ -304,30 +291,23 @@ const ToebehorenCondenspompPage = () => {
       <section className="incl">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Afhalen in Aartselaar</span>
-            <h2 className="sec">Of neem hem gewoon mee.</h2>
-            <p className="lede">
-              Reserveer uw bouwdroger online, vermeld de condenspomp bij uw reservatie en wij zetten
-              allebei klaar tegen uw afhaalmoment.
-            </p>
+            <span className="kick">{t.afhalenKick}</span>
+            <h2 className="sec">{t.afhalenTitel}</h2>
+            <p className="lede">{t.afhalenLede}</p>
           </div>
           <div className="pickupbar">
             <PinIcon size={34} />
             <div className="pb-t">
-              <b>Afhaalpunt Vernast, Boomsesteenweg 12 / Unit 11, 2630 Aartselaar</b>
-              <span>
-                Vlak langs de A12, vlot bereikbaar vanuit Antwerpen en Brussel · Ma–Vr 08:00–17:00
-              </span>
+              <b>{t.pickupbarTitel}</b>
+              <span>{t.pickupbarSub}</span>
             </div>
             <a className="btn" href={MAPS_URL} target="_blank" rel="noopener">
-              Plan uw route
+              {t.route}
             </a>
           </div>
           <p className="af-note">
-            De pomp weegt geen 2 kg en past in elke koffer. Het toestel waar hij bij hoort niet:
-            reken op 30 tot 50 kg. Liever niet tillen? Dan kiest u een{" "}
-            <Link to="/verhuur/calculator">pakket met levering</Link>, en sluiten wij de afvoer
-            meteen zelf aan.
+            {t.afNoteVoor} <Link to={lp("/verhuur/calculator")}>{t.afNoteLink}</Link>
+            {t.afNoteNa}
           </p>
         </div>
       </section>
@@ -335,29 +315,26 @@ const ToebehorenCondenspompPage = () => {
       <section className="cross">
         <div className="wrap">
           <div className="sec-head">
-            <span className="kick">Hoort bij</span>
-            <h2 className="sec">De bouwdrogers waar de pomp op werkt</h2>
-            <p className="lede">
-              Elke bouwdroger vangt zijn eigen condenswater op, dus elke droger krijgt zijn eigen
-              pomp.
-            </p>
+            <span className="kick">{t.hoortBij}</span>
+            <h2 className="sec">{t.hoortBijTitel}</h2>
+            <p className="lede">{t.hoortBijLede}</p>
           </div>
           <div className="tk-grid">
             {drogers.map((key) => {
-              const droger = PRODUCTS[key];
+              const droger = productInTaal(key, taal);
               return (
                 <ToestelKaart
                   key={key}
-                  href={toestelPad(key)}
+                  href={lp(toestelPad(key))}
                   tag={droger.badge}
                   image={droger.img[0]}
                   alt={productImageAlt(droger, 0)}
-                  name={toestelLabel(key)}
+                  name={toestelLabelIn(key, taal)}
                   blurb={droger.sum}
-                  chips={toestelChips(droger)}
-                  price={euroInt(droger.day)}
-                  priceNote="/dag excl. btw"
-                  cta="Bekijken"
+                  chips={toestelChipsInTaal(key, taal)}
+                  price={toon(droger.day).tekst}
+                  priceNote={`${t.perDag} ${toon(droger.day).label}`}
+                  cta={t.bekijken}
                 />
               );
             })}
@@ -368,8 +345,8 @@ const ToebehorenCondenspompPage = () => {
       <section className="faq">
         <div className="wrap faq-in">
           <div className="sec-head">
-            <span className="kick">Veelgestelde vragen</span>
-            <h2 className="sec">Over de condenspomp</h2>
+            <span className="kick">{t.faqKick}</span>
+            <h2 className="sec">{t.faqTitel}</h2>
           </div>
           <div style={{ marginTop: 30 }}>
             {pomp.faq.map(([q, a], i) => (
@@ -397,23 +374,20 @@ const ToebehorenCondenspompPage = () => {
       <section className="cta">
         <div className="wrap">
           <div className="cta-copy">
-            <span className="kick onred">Nog niet zeker?</span>
-            <h2>Laat de configurator het voor u uitrekenen.</h2>
-            <p>
-              Geef uw oppervlakte en plafondhoogte in. U ziet meteen welk toestel, hoeveel units en
-              hoeveel condenspompen bij uw ruimte horen, met de prijs erbij.
-            </p>
+            <span className="kick onred">{t.ctaKick}</span>
+            <h2>{t.ctaTitel}</h2>
+            <p>{t.ctaTekst}</p>
             <div className="cb">
-              <Link className="btn btn-white" to="/verhuur/calculator">
-                Naar de configurator
+              <Link className="btn btn-white" to={lp("/verhuur/calculator")}>
+                {t.ctaKnop}
                 <ArrowRightIcon strokeWidth={2.4} />
               </Link>
               <a className="btn btn-dark" href="tel:+3236899065">
-                Bel 03 689 90 65
+                {t.bel}
               </a>
             </div>
           </div>
-          <img className="cta-man" src="/vernast/man-klembord.webp" alt="Vernast droogexpert" loading="lazy" decoding="async" />
+          <img className="cta-man" src="/vernast/man-klembord.webp" alt={t.expertAlt} loading="lazy" decoding="async" />
         </div>
       </section>
 

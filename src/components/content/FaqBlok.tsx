@@ -1,7 +1,32 @@
 import type { ReactNode } from "react";
 import { PhoneIcon } from "@/components/home-v3/icons";
 import { CONTACT } from "@/lib/site";
+import { useCopy } from "@/i18n/useTaal";
 import "@/styles/faq-blok.css";
+
+const COPY = {
+  nl: {
+    kicker: "Veelgestelde vragen",
+    hulpKop: "Staat uw vraag er niet bij?",
+    hulp: "Onze droogexperts helpen u meteen verder, met advies op maat van uw situatie.",
+    bel: "Bel",
+    stel: "Stel uw vraag online",
+  },
+  fr: {
+    kicker: "Questions fréquentes",
+    hulpKop: "Votre question n'y figure pas ?",
+    hulp: "Nos experts du séchage vous aident tout de suite, avec un conseil adapté à votre situation.",
+    bel: "Appelez le",
+    stel: "Posez votre question en ligne",
+  },
+  en: {
+    kicker: "Frequently asked questions",
+    hulpKop: "Is your question not listed?",
+    hulp: "Our drying experts will help you straight away, with advice tailored to your situation.",
+    bel: "Call",
+    stel: "Ask your question online",
+  },
+};
 
 export interface FaqItem {
   q: string;
@@ -51,7 +76,7 @@ interface FaqBlokProps {
  * gevolgd.
  */
 const FaqBlok = ({
-  kicker = "Veelgestelde vragen",
+  kicker,
   titel,
   vragen,
   sleutel,
@@ -59,22 +84,24 @@ const FaqBlok = ({
   vraagHref = "#formulier",
   id = "faq",
   children,
-}: FaqBlokProps) => (
+}: FaqBlokProps) => {
+  const t = useCopy(COPY);
+  return (
   <section className={`fq ${variant}`} id={id}>
     <div className="fq-wrap">
       <div className="fq-grid">
         <div className="fq-zij">
-          <span className="fq-kick">{kicker}</span>
+          <span className="fq-kick">{kicker ?? t.kicker}</span>
           <h2 className="fq-titel">{titel}</h2>
           <div className="fq-help">
-            <h3>Staat uw vraag er niet bij?</h3>
-            <p>Onze droogexperts helpen u meteen verder, met advies op maat van uw situatie.</p>
+            <h3>{t.hulpKop}</h3>
+            <p>{t.hulp}</p>
             <div className="fq-knoppen">
               <a className="fq-bel" href={`tel:${CONTACT.phoneE164}`}>
-                <PhoneIcon /> Bel {CONTACT.phoneLocal}
+                <PhoneIcon /> {t.bel} {CONTACT.phoneLocal}
               </a>
               <a className="fq-stel" href={vraagHref}>
-                Stel uw vraag online
+                {t.stel}
               </a>
             </div>
           </div>
@@ -105,6 +132,7 @@ const FaqBlok = ({
       {children}
     </div>
   </section>
-);
+  );
+};
 
 export default FaqBlok;

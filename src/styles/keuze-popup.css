@@ -1,0 +1,174 @@
+/*
+ * De keuzepopup (taal + particulier/bedrijf + land). Ontwerp goedgekeurd op
+ * 17-11-2026, zie docs/superpowers/specs/2026-11-17-meertaligheid-design.md.
+ *
+ * Alles hangt onder `.kp` en gebruikt eigen kleurwaarden in plaats van de
+ * variabelen van een schil: de popup verschijnt op élke pagina, ook op de
+ * shadcn-pagina's waar `--red` en `--fb` niet bestaan.
+ */
+.kp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(20, 4, 6, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: kp-in 0.25s ease;
+}
+@keyframes kp-in {
+  from { opacity: 0; }
+}
+.kp {
+  --kp-red: #c8102e;
+  --kp-deep: #4a0c0c;
+  --kp-ok: #1e9e50;
+  font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  width: 100%;
+  max-width: 690px;
+  color: #fff;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  background: var(--kp-deep) url("/vernast/bg-red-wide-2.webp") right center / cover no-repeat;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  max-height: calc(100vh - 32px);
+  animation: kp-pop 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+@keyframes kp-pop {
+  from { transform: translateY(10px) scale(0.98); opacity: 0; }
+}
+.kp > * { min-width: 0; }
+.kp *, .kp *::before, .kp *::after { box-sizing: border-box; }
+.kp button, .kp select { font: inherit; color: inherit; }
+
+/* Sluitknop: zwart rondje, getekend kruis — het teken × zat in elk font op een
+   andere hoogte en stond nooit in het midden. */
+.kp-x {
+  position: absolute; top: 12px; right: 12px; z-index: 4;
+  width: 32px; height: 32px; border-radius: 50%; border: 0; padding: 0;
+  display: grid; place-items: center; cursor: pointer;
+  background: #141414; color: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+.kp-x:hover { background: #000; }
+.kp-x:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* ── Links: de drie vakmannen voor een werffoto ── */
+.kp-foto { position: relative; overflow: hidden; min-height: 350px; background: #7a000f; }
+/* De vloerlijn van de foto (op 69% van de hoogte) moet ónder de riem van de
+   mannen vallen, waar het verloop hem afdekt; lag hij hoger, dan stonden ze tot
+   hun middel in de vloer. Licht onscherp, zoals een portretfoto. */
+.kp-foto::before {
+  content: ""; position: absolute; inset: -6px; z-index: 0;
+  background: url("/vernast/case-renovatie.webp") 55% 0 / auto 136% no-repeat;
+  filter: blur(1.6px) brightness(0.97);
+}
+.kp-team {
+  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%);
+  width: 116%; max-width: none; z-index: 1;
+}
+/* Eén verloop, van onder, in #7A000F — tussen het lichtere rood van de vormen
+   in de achtergrond (#9E000F) en het donkere wijnrood. */
+.kp-foto::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(0deg, #7a000f 0%, #7a000f 10%, rgba(122, 0, 15, 0.7) 17%, rgba(122, 0, 15, 0) 28%);
+}
+.kp-logo { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); width: 72px; z-index: 3; }
+.kp-badge {
+  position: absolute; top: 14px; left: 50%; transform: translateX(-50%); z-index: 3;
+  /* max-content: absoluut gepositioneerd op left:50% krijgt de pil anders maar
+     de halve fotobreedte, en liep de Franse tekst eruit. */
+  width: max-content; max-width: calc(100% - 24px);
+  display: flex; align-items: center; gap: 7px; white-space: nowrap;
+  background: #fff; border-radius: 999px; padding: 4px 13px 4px 5px;
+  box-shadow: 0 6px 16px rgba(30, 5, 5, 0.25);
+  color: #141414; font-size: 12.5px; font-weight: 800;
+}
+.kp-badge img { width: 24px; height: 24px; display: block; }
+
+/* ── Rechts ── */
+.kp-body { padding: 22px 22px 18px 14px; overflow: auto; }
+.kp h2 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; padding-right: 34px; color: #fff; }
+.kp-sub { margin: 5px 0 0; color: rgba(255, 255, 255, 0.78); font-size: 13px; line-height: 1.45; }
+.kp-q {
+  display: grid; grid-template-columns: 78px 1fr; gap: 12px; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.kp-q:first-of-type { margin-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+.kp-lab { font-size: 12.5px; font-weight: 700; line-height: 1.3; }
+.kp-hint { grid-column: 2; margin-top: -4px; font-size: 11.5px; color: rgba(255, 255, 255, 0.75); display: flex; gap: 6px; align-items: center; }
+
+/* Schuifschakelaar: bijna witte rail, alle tekst zwart, alleen de witte knop
+   verschuift. Glas en een donkere rail lazen op rood als "uitgeschakeld". */
+.kp-sw {
+  --n: 3; --i: 0;
+  position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr);
+  background: #eee8e4; border-radius: 14px; padding: 4px;
+  box-shadow: inset 0 1px 3px rgba(60, 20, 20, 0.18);
+}
+.kp-knob {
+  position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / var(--n));
+  transform: translateX(calc(var(--i) * 100%)); background: #fff; border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(60, 10, 10, 0.22), 0 0 0 1px rgba(60, 10, 10, 0.06);
+  transition: transform 0.38s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+.kp-sw button {
+  position: relative; z-index: 1; border: 0; background: none; cursor: pointer; border-radius: 10px;
+  padding: 7px 4px; display: flex; align-items: center; justify-content: center; gap: 7px;
+  color: #141414; min-width: 0;
+}
+.kp-sw button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.kp-t { font-weight: 800; font-size: 12.5px; line-height: 1.15; white-space: nowrap; }
+.kp-s { display: block; font-size: 10.5px; font-weight: 600; opacity: 0.7; white-space: nowrap; }
+.kp-sw.taal button { flex-direction: column; gap: 3px; padding: 7px 2px 6px; }
+.kp-sw.klant button { justify-content: flex-start; padding: 8px 10px; text-align: left; }
+.kp-ico { display: grid; place-items: center; flex: none; transition: color 0.25s; }
+.kp-ico svg { display: block; }
+.kp-sw.klant .kp-ico svg { height: 26px; width: auto; }
+/* Het icoon van de gekozen klantsoort kleurt groen (#1E9E50, de ok-kleur van de site). */
+.kp-sw.klant button[aria-checked="true"] .kp-ico { color: var(--kp-ok); }
+
+.kp-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+.kp-werf { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: rgba(255, 255, 255, 0.75); }
+.kp-werf select {
+  appearance: none; -webkit-appearance: none; background: transparent; border: 0; color: #fff; font-weight: 700;
+  text-decoration: underline; text-decoration-color: rgba(255, 255, 255, 0.4); text-underline-offset: 3px;
+  cursor: pointer; padding: 2px 14px 2px 0;
+  background-image: linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(135deg, #fff 50%, transparent 50%);
+  background-position: calc(100% - 6px) 55%, calc(100% - 2px) 55%; background-size: 4px 4px; background-repeat: no-repeat;
+}
+.kp-werf select option { color: #141414; }
+.kp .kp-cta {
+  display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 11px 20px;
+  background: #fff; color: #141414; font-weight: 800; font-size: 14px; cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.15s;
+}
+/* "Ga verder" wordt groen met witte tekst zodra je erover gaat. */
+.kp .kp-cta:hover, .kp .kp-cta:focus-visible { background: var(--kp-ok); color: #fff; transform: translateY(-1px); box-shadow: 0 12px 26px rgba(30, 158, 80, 0.4); }
+.kp-cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.kp-cta svg { transition: transform 0.2s; }
+.kp-cta:hover svg { transform: translateX(3px); }
+.kp-note { margin-top: 10px; font-size: 12px; line-height: 1.45; background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 10px 12px; display: flex; gap: 10px; }
+.kp-note svg { flex: none; }
+
+@media (max-width: 700px) {
+  .kp { grid-template-columns: 1fr; }
+  .kp-foto { min-height: 250px; }
+  .kp-foto::before { background-size: cover; background-position: center 62%; }
+  .kp-team { width: 84%; bottom: 16px; }
+  .kp-logo { width: 64px; bottom: 12px; }
+  .kp-badge { top: 12px; left: 12px; transform: none; }
+  .kp-body { padding: 4px 16px 18px; }
+  .kp h2 { font-size: 19px; padding-right: 0; }
+  .kp-q { grid-template-columns: 1fr; gap: 8px; }
+  .kp-hint { grid-column: 1; margin-top: 0; }
+  .kp-t { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kp-overlay, .kp { animation: none; }
+  .kp-knob { transition: none; }
+}

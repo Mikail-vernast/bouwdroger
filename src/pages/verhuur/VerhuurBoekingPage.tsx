@@ -24,9 +24,7 @@ import {
 } from "@/components/verhuur/icons";
 import {
   CAT,
-  COVER,
   DELIVERY,
-  EXTRAS,
   LADDER_FEE,
   MAX_FLOORS,
   PUMP,
@@ -64,8 +62,12 @@ import {
   leverzoneUitQuery,
   type Land,
 } from "@/lib/levering";
-import { SEO } from "@/data/seo";
 import { CONTACT } from "@/lib/site";
+import { useSeo } from "@/data/seo";
+import { catInTaal, coverInTaal, deliveryInTaal, extrasInTaal, packageSpecLineInTaal, pumpInTaal } from "@/data/verhuur.fr";
+import { formatEuro, useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
+import { NUMBER_LOCALE, type Taal } from "@/i18n/taal";
+import { BOEKING_COPY, regelInTaal } from "./VerhuurBoekingPage.copy";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 import "@/styles/verhuur-betaling.css";
@@ -99,12 +101,6 @@ const SLOTS = ["08:00 – 10:00", "10:00 – 12:00", "13:00 – 15:00", "15:00 �
 /** Moet gelijk lopen met `HORIZON_DAYS` in `api/availability.ts`. */
 const AVAILABILITY_HORIZON_DAYS = 60;
 
-const NEXT_LABEL: Record<number, string> = {
-  1: "Verder naar extra's",
-  2: "Verder naar datum",
-  3: "Verder naar gegevens",
-  4: "Boeking bevestigen",
-};
 
 type CustomerType = "part" | "pro";
 
@@ -213,9 +209,16 @@ const EMPTY_CUSTOMER: Customer = {
  * staan. Wat geen datum blijkt, tonen we onveranderd; onleesbaar is beter dan
  * "Invalid Date" op een bevestiging.
  */
-function longDate(iso: string): string {
+function longDate(iso: string, taal: Taal): string {
   const date = new Date(`${iso}T12:00:00`);
-  return Number.isNaN(date.getTime()) ? iso : formatLongDate(date);
+  return Number.isNaN(date.getTime()) ? iso : langeDatum(date, taal);
+}
+
+/** `formatLongDate` in de taal van de pagina; Nederlands blijft exact het oude. */
+function langeDatum(date: Date, taal: Taal): string {
+  return taal === "nl"
+    ? formatLongDate(date)
+    : date.toLocaleDateString(NUMBER_LOCALE[taal], { weekday: "long", day: "numeric", month: "long" });
 }
 
 /**
@@ -243,6 +246,23 @@ function isComplete(c: Customer, type: CustomerType, leverbaar: boolean): boolea
 
 const VerhuurBoekingPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const taal = useTaal();
+  const t = useCopy(BOEKING_COPY);
+  const lp = useLokaalPad();
+  const seo = useSeo("verhuurBoeking");
+  /*
+    Alleen weergave. Nederlands houdt `euro()` ("€ 29,00"), zodat die pagina
+    tekst-identiek blijft; Frans krijgt "29,00 €". Wat Stripe int, rekent
+    `api/checkout.ts` zelf uit.
+  */
+  const eur = (n: number) => (taal === "nl" ? euro(n) : formatEuro(n, taal));
+  const datumLang = (d: Date) => langeDatum(d, taal);
+  const cover_ = useMemo(() => coverInTaal(taal), [taal]);
+  const extras_ = useMemo(() => extrasInTaal(taal), [taal]);
+  const pump_ = useMemo(() => pumpInTaal(taal), [taal]);
+  const delivery_ = useMemo(() => deliveryInTaal(taal), [taal]);
+  const cat_ = useMemo(() => catInTaal(taal), [taal]);
+  const ladderFee = taal === "nl" ? `€ ${LADDER_FEE}` : formatEuro(LADDER_FEE, taal, 0);
   const config = useMemo(() => parseConfig(searchParams), [searchParams]);
 
   // Na de omweg langs Stripe is de React-state weg; wat de bezoeker koos komt
@@ -522,9 +542,7 @@ const VerhuurBoekingPage = () => {
         */
         setHorizonDates([]);
         reportBookingEvent({ code: "wizard_beschikbaarheid_onbereikbaar", config, options });
-        setDatesError(
-          "We kunnen op dit moment niet nakijken welke datums nog vrij zijn. U kunt gewoon verder, wij bevestigen uw leverdatum, of bel ons op 03 689 90 65."
-        );
+        setDatesError(t.datesError);
       })
       .finally(() => {
         if (active) setLoadingDates(false);
@@ -533,6 +551,8 @@ const VerhuurBoekingPage = () => {
     return () => {
       active = false;
     };
+    // `t` volgt de taal uit de URL en verandert niet binnen één pagina.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, config, options]);
 
   const dateBlocked = blockedDates.includes(startDate);
@@ -644,7 +664,7 @@ const VerhuurBoekingPage = () => {
     if (!sessionId) {
       if (cancelled) {
         setStep(4);
-        setPayError("De betaling is geannuleerd. Uw keuzes staan nog klaar.");
+        setPayError(t.geannuleerd);
         clearReturnParams();
       }
       return;
@@ -668,21 +688,21 @@ const VerhuurBoekingPage = () => {
           */
           if (data.error) console.warn(`[boeking] betaalstatus: ${data.error}`);
           setStep(4);
-          setPayError(
-            "We konden deze betaling niet terugvinden bij Stripe. Uw keuzes staan nog klaar, probeer gerust opnieuw af te rekenen, of bel ons op 03 689 90 65."
-          );
+          setPayError(t.nietTeruggevonden);
         }
         clearReturnParams();
       })
       .catch(() => {
         if (!active) return;
         setStep(4);
-        setPayError("De betaalstatus kon niet opgehaald worden. Probeer opnieuw.");
+        setPayError(t.statusNietOpgehaald);
         clearReturnParams();
       });
     return () => {
       active = false;
     };
+    // Zie hierboven: `t` hoort bij de URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId, cancelled, clearReturnParams]);
 
   /**
@@ -771,7 +791,9 @@ const VerhuurBoekingPage = () => {
         headers: { "content-type": "application/json" },
         // De vorige sessie gaat mee zodat de server haar laat vervallen en de
         // toestellen teruggeeft vóór hij opnieuw kijkt wat er vrij is.
-        body: JSON.stringify({ ...payload, previousSessionId: session?.id }),
+        // `taal` bepaalt de taal van Stripe en de terugkeer-URL, nooit het
+        // bedrag; hij zit bewust niet in de vingerafdruk van de boeking.
+        body: JSON.stringify({ ...payload, previousSessionId: session?.id, taal }),
       });
       const data = (await response.json()) as {
         clientSecret?: string;
@@ -805,7 +827,8 @@ const VerhuurBoekingPage = () => {
         return;
       }
       if (!response.ok || !data.clientSecret || !data.publishableKey || !data.sessionId) {
-        setPayError(data.error ?? "De betaling kon niet gestart worden.");
+        // Een 429 valt vóór de server de taal kent; die tekst vertalen we hier.
+        setPayError(response.status === 429 ? t.teVeel : (data.error ?? t.nietGestart));
         setPaying(false);
         staleSession();
         return;
@@ -813,7 +836,8 @@ const VerhuurBoekingPage = () => {
       // Stripe.js pas hier binnenhalen: het is een externe bundel die niets
       // toevoegt zolang er geen betaalformulier op het scherm staat.
       const { loadStripe } = await import("@stripe/stripe-js");
-      setStripeJs(loadStripe(data.publishableKey));
+      // `locale`: de velden en foutmeldingen van het formulier in de taal van de pagina.
+      setStripeJs(loadStripe(data.publishableKey, { locale: taal }));
       setSession({ id: data.sessionId, clientSecret: data.clientSecret, fingerprint });
       // Meteen wegschrijven, niet pas bij een volgende poging: vanaf hier ligt er
       // een hold, en na de omweg langs Stripe is dit ID de enige weg om die weer
@@ -822,7 +846,7 @@ const VerhuurBoekingPage = () => {
       setPaying(false);
       goTo(STEP_PAY);
     } catch {
-      setPayError("Geen verbinding met de betaalserver. Probeer het opnieuw.");
+      setPayError(t.geenVerbinding);
       setPaying(false);
     }
   };
@@ -836,7 +860,7 @@ const VerhuurBoekingPage = () => {
 
   return (
     <div className="vh-book">
-      <PageMeta {...SEO.verhuurBoeking} path="/verhuur/boeking" />
+      <PageMeta {...seo} path={lp("/verhuur/boeking")} />
       <V3Header lightAfter={-1} />
 
       <div className="rail">
@@ -977,14 +1001,11 @@ const VerhuurBoekingPage = () => {
 
               <div className="blk">
                 <div className="blkh">
-                  <h2>Kies uw dekking</h2>
+                  <h2>{t.dekkingKop}</h2>
                 </div>
-                <p className="bsub">
-                  Werfmateriaal loopt risico op schade, diefstal of vertraging. Kies hoeveel u zelf
-                  wilt dragen, net zoals bij een huurwagen.
-                </p>
+                <p className="bsub">{t.dekkingSub}</p>
                 <div className="cvs">
-                  {COVER.map((c) => (
+                  {cover_.map((c) => (
                     <div
                       key={c.k}
                       className={`cv${c.k === cover ? " sel" : ""}`}
@@ -1002,10 +1023,8 @@ const VerhuurBoekingPage = () => {
                       {c.badge && <span className="cvb">{c.badge}</span>}
                       <div className="cvn">{c.name}</div>
                       <div className="cvs2">{c.sub}</div>
-                      <div className="cvp">{c.price ? euro(c.price) : "Inbegrepen"}</div>
-                      <div className="cvd">
-                        {c.price ? "eenmalig, voor de volledige huur" : "zit in uw pakketprijs"}
-                      </div>
+                      <div className="cvp">{c.price ? eur(c.price) : t.inbegrepen}</div>
+                      <div className="cvd">{c.price ? t.eenmalig : t.inPakketprijs}</div>
                       <ul>
                         {c.inc.map((i) => (
                           <li key={i}>
@@ -1037,18 +1056,18 @@ const VerhuurBoekingPage = () => {
                           goTo(2);
                         }}
                       >
-                        {c.k === cover ? "Gekozen" : "Selecteer"}
+                        {c.k === cover ? t.gekozen : t.selecteer}
                       </button>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="fnav">
-                <Link className="btn btn-o" to={`/verhuur/pakket?${configToQuery(config)}${extraNaarQuery(dev)}`}>
-                  Terug naar het pakket
+                <Link className="btn btn-o" to={lp(`/verhuur/pakket?${configToQuery(config)}${extraNaarQuery(dev)}`)}>
+                  {t.terugNaarPakket}
                 </Link>
                 <button className="btn btn-d" type="button" onClick={() => goTo(2)}>
-                  Verder naar extra's
+                  {t.verderExtras}
                   <ArrowRightIcon />
                 </button>
               </div>
@@ -1058,30 +1077,23 @@ const VerhuurBoekingPage = () => {
             <div className={`pane${step === 2 ? " on" : ""}`}>
               <div className="blk">
                 <div className="blkh">
-                  <h2>Standaard inbegrepen &amp; extra zekerheid</h2>
+                  <h2>{t.extrasKop}</h2>
                 </div>
-                <p className="bsub">
-                  De professionele vochtmeting vóór de start én bij oplevering zit{" "}
-                  <b>standaard</b> bij elke huur, zo weet u zeker dat alles droog is. Heeft u daar
-                  een officieel document van nodig, dan stellen wij dat op.
-                </p>
+                <p className="bsub">{t.extrasSub}</p>
 
                 <div className="inc-row">
                   <span className="exi">
                     <DropIcon />
                   </span>
                   <span className="ext">
-                    <b>Vochtmeting voor &amp; na</b>
-                    <small>
-                      Meting van muren, chape en luchtvochtigheid bij levering en bij oplevering, bij
-                      elk pakket.
-                    </small>
+                    <b>{t.vochtmetingKop}</b>
+                    <small>{t.vochtmetingSub}</small>
                   </span>
-                  <span className="inc-tag">✓ Inbegrepen</span>
+                  <span className="inc-tag">{t.inbegrepenTag}</span>
                 </div>
 
                 <div>
-                  {EXTRAS.map((x) => {
+                  {extras_.map((x) => {
                     const Icon = EXTRA_ICONS[x.k];
                     return (
                       <div className="ex" key={x.k}>
@@ -1091,7 +1103,7 @@ const VerhuurBoekingPage = () => {
                           <small>{x.sub}</small>
                         </span>
                         <span className="exp">
-                          {euro(x.price)}
+                          {eur(x.price)}
                           <small>{x.unit}</small>
                         </span>
                         <button
@@ -1099,7 +1111,7 @@ const VerhuurBoekingPage = () => {
                           className={`exadd${extras[x.k] ? " on" : ""}`}
                           onClick={() => setExtras((p) => ({ ...p, [x.k]: !p[x.k] }))}
                         >
-                          {extras[x.k] ? "Toegevoegd" : "Toevoegen"}
+                          {extras[x.k] ? t.toegevoegd : t.toevoegen}
                         </button>
                       </div>
                     );
@@ -1111,13 +1123,9 @@ const VerhuurBoekingPage = () => {
                     </span>
                     <span className="ext">
                       <b>
-                        Digitale monitoring<span className="soon-tag">Binnenkort</span>
+                        {t.monitoringKop}<span className="soon-tag">{t.binnenkort}</span>
                       </b>
-                      <small>
-                        Al onze toestellen krijgen digitale opvolging: u volgt de luchtvochtigheid
-                        en droogvoortgang binnenkort live online op, zonder meerkost, automatisch op
-                        elk toestel.
-                      </small>
+                      <small>{t.monitoringSub}</small>
                     </span>
                     <button
                       type="button"
@@ -1125,7 +1133,7 @@ const VerhuurBoekingPage = () => {
                       disabled
                       style={{ opacity: 0.5, cursor: "default" }}
                     >
-                      Binnenkort
+                      {t.binnenkort}
                     </button>
                   </div>
                 </div>
@@ -1133,41 +1141,29 @@ const VerhuurBoekingPage = () => {
 
               <div className="blk">
                 <div className="blkh">
-                  {/* De kop zei hoevéél pompen er komen; wat de bezoeker wil weten
-                      is wat ze dóen. Het aantal staat een regel lager al. */}
-                  <h2>Condenspomp, automatische waterafvoer</h2>
+                  <h2>{t.pompKop}</h2>
                 </div>
-                <p className="bsub">
-                  Nooit zelf een reservoir legen of werken met een kuip: de condenspomp voert het
-                  water <b>rechtstreeks en automatisch af</b>, ook naar een hoger gelegen afvoer.
-                  Goed om te weten: het water uit een bouwdroger is zuiver condenswater en mag gewoon
-                  in de afvoer. Wij voorzien standaard één pomp per bouwdroger, aanpassen kan
-                  hieronder.
-                </p>
+                <p className="bsub">{t.pompSub}</p>
                 <div>
                   <div className="ex">
                     <span className="exi">
                       <PumpIcon />
                     </span>
                     <span className="ext">
-                      <b>{PUMP.name}</b>
+                      <b>{pump_.name}</b>
                       <small>
-                        {PUMP.sub} U heeft{" "}
-                        <b>
-                          {dryerCount} bouwdroger{dryerCount === 1 ? "" : "s"}
-                        </b>{" "}
-                        in dit pakket, wij zetten er standaard {dryerCount} pomp
-                        {dryerCount === 1 ? "" : "en"} klaar.
+                        {pump_.sub}
+                        {t.pompAantal(dryerCount)}
                       </small>
                     </span>
                     <span className="exp">
-                      {euro(PUMP.price)}
-                      <small>per pomp / dag</small>
+                      {eur(PUMP.price)}
+                      <small>{t.perPompDag}</small>
                     </span>
                     <span className="stp">
                       <button
                         type="button"
-                        aria-label="Eén pomp minder"
+                        aria-label={t.pompMinder}
                         onClick={() => setPumps(Math.max(0, pumpCount - 1))}
                       >
                         −
@@ -1175,7 +1171,7 @@ const VerhuurBoekingPage = () => {
                       <span>{pumpCount}</span>
                       <button
                         type="button"
-                        aria-label="Eén pomp meer"
+                        aria-label={t.pompMeer}
                         onClick={() => setPumps(Math.min(dryerCount, pumpCount + 1))}
                       >
                         +
@@ -1187,28 +1183,21 @@ const VerhuurBoekingPage = () => {
 
               <div className="blk">
                 <div className="blkh">
-                  <h2>Op welke verdieping werken we?</h2>
+                  <h2>{t.verdiepingKop}</h2>
                 </div>
-                <p className="bsub">
-                  Plaatsing op een verdieping is <b>inbegrepen in de prijs</b> zolang er een trap
-                  aanwezig is. Moeten de toestellen via een ladder naar boven gedragen worden, dan
-                  rekenen wij eenmalig € {LADDER_FEE} extra draagwerk aan.
-                </p>
+                <p className="bsub">{t.verdiepingSub(ladderFee)}</p>
                 <div className="ex" style={{ borderBottom: 0 }}>
                   <span className="exi">
                     <StairsIcon />
                   </span>
                   <span className="ext">
-                    <b>Aantal verdiepingen</b>
-                    <small>
-                      Gelijkvloers = 0. Wij dragen en plaatsen alle toestellen op de juiste
-                      verdieping.
-                    </small>
+                    <b>{t.verdiepingenKop}</b>
+                    <small>{t.verdiepingenSub}</small>
                   </span>
                   <span className="stp">
                     <button
                       type="button"
-                      aria-label="Eén verdieping minder"
+                      aria-label={t.verdiepingMinder}
                       onClick={() => setFloors((f) => Math.max(0, f - 1))}
                     >
                       −
@@ -1216,7 +1205,7 @@ const VerhuurBoekingPage = () => {
                     <span>{floors}</span>
                     <button
                       type="button"
-                      aria-label="Eén verdieping meer"
+                      aria-label={t.verdiepingMeer}
                       onClick={() => setFloors((f) => Math.min(MAX_FLOORS, f + 1))}
                     >
                       +
@@ -1226,7 +1215,7 @@ const VerhuurBoekingPage = () => {
                 {floors > 0 && (
                   <div style={{ padding: "2px 0 10px 51px" }}>
                     <div style={{ fontSize: 13.5, fontWeight: 600, marginBottom: 9 }}>
-                      Hoe geraken we boven?
+                      {t.hoeBoven}
                     </div>
                     <div style={{ display: "flex", gap: 9, flexWrap: "wrap" }}>
                       <button
@@ -1234,14 +1223,14 @@ const VerhuurBoekingPage = () => {
                         className={`acc${access === "trap" ? " on" : ""}`}
                         onClick={() => setAccess("trap")}
                       >
-                        Via de trap <small>Inbegrepen</small>
+                        {t.viaTrap} <small>{t.inbegrepen}</small>
                       </button>
                       <button
                         type="button"
                         className={`acc${access === "ladder" ? " on" : ""}`}
                         onClick={() => setAccess("ladder")}
                       >
-                        Via een ladder <small>+ € {LADDER_FEE} eenmalig</small>
+                        {t.viaLadder} <small>{t.ladderEenmalig(ladderFee)}</small>
                       </button>
                     </div>
                   </div>
@@ -1250,32 +1239,29 @@ const VerhuurBoekingPage = () => {
 
               <div className="blk">
                 <div className="blkh">
-                  <h2>Extra toestellen</h2>
+                  <h2>{t.extraToestellenKop}</h2>
                 </div>
-                <p className="bsub">
-                  Meer capaciteit betekent kortere droogtijd. Onze technicus bekijkt het bij levering
-                  en u betaalt enkel wat u gebruikt.
-                </p>
+                <p className="bsub">{t.extraToestellenSub}</p>
                 <div>
                   {DEVICE_KEYS.map((k) => (
                     <div className="ex" key={k}>
                       <span className="exi">
-                        <img src={CAT[k].img} alt={CAT[k].name} loading="lazy" decoding="async" />
+                        <img src={cat_[k].img} alt={cat_[k].name} loading="lazy" decoding="async" />
                       </span>
                       <span className="ext">
-                        <b>{CAT[k].name}</b>
-                        <small>{CAT[k].sub}</small>
+                        <b>{cat_[k].name}</b>
+                        <small>{cat_[k].sub}</small>
                       </span>
                       <span className="exp">
-                        {euro(CAT[k].w2)}
-                        <small>per 2 weken</small>
+                        {eur(CAT[k].w2)}
+                        <small>{t.per2Weken}</small>
                       </span>
                       <span className="stp">
-                        <button type="button" aria-label="Eén minder" onClick={() => bump(k, -1)}>
+                        <button type="button" aria-label={t.eenMinder} onClick={() => bump(k, -1)}>
                           −
                         </button>
                         <span>{dev[k]}</span>
-                        <button type="button" aria-label="Eén meer" onClick={() => bump(k, 1)}>
+                        <button type="button" aria-label={t.eenMeer} onClick={() => bump(k, 1)}>
                           +
                         </button>
                       </span>
@@ -1286,10 +1272,10 @@ const VerhuurBoekingPage = () => {
 
               <div className="fnav">
                 <button className="btn btn-o" type="button" onClick={() => goTo(1)}>
-                  Terug
+                  {t.terug}
                 </button>
                 <button className="btn btn-d" type="button" onClick={() => goTo(3)}>
-                  Verder naar datum
+                  {t.verderDatum}
                   <ArrowRightIcon />
                 </button>
               </div>
@@ -1299,18 +1285,11 @@ const VerhuurBoekingPage = () => {
             <div className={`pane${step === 3 ? " on" : ""}`}>
               <div className="blk">
                 <div className="blkh">
-                  <h2>Levering &amp; installatie</h2>
+                  <h2>{t.leveringKop}</h2>
                 </div>
-                <p className="bsub">
-                  Pakketten worden altijd door ons geleverd, geplaatst en afgesteld, alleen zo kunnen
-                  wij de 100% droog-garantie waarmaken. Zelf afhalen kan enkel bij{" "}
-                  <Link to="/verhuur/afhalen" style={{ color: "var(--red)", fontWeight: 600 }}>
-                    losse toestellen
-                  </Link>
-                  , tegen een lagere afhaalprijs.
-                </p>
+                <p className="bsub">{t.leveringSub(lp)}</p>
                 <div className="dopt">
-                  {DELIVERY.map((d) => (
+                  {delivery_.map((d) => (
                     <div
                       key={d.k}
                       className={`dch${d.k === delivery ? " sel" : ""}`}
@@ -1338,15 +1317,12 @@ const VerhuurBoekingPage = () => {
 
               <div className="blk">
                 <div className="blkh">
-                  <h2>Kies uw leverdatum</h2>
+                  <h2>{t.leverdatumKop}</h2>
                 </div>
-                <p className="bsub">
-                  Kies een dag in onze agenda. Op basis van de droogtijd van dit pakket plannen wij de
-                  ophaling automatisch mee in, u hoeft daar niets voor te doen.
-                </p>
+                <p className="bsub">{t.leverdatumSub}</p>
                 <div className="frow">
                   <div className="fld">
-                    <label htmlFor="dStart">Leverdatum</label>
+                    <label htmlFor="dStart">{t.leverdatum}</label>
                     <input
                       type="date"
                       id="dStart"
@@ -1356,7 +1332,7 @@ const VerhuurBoekingPage = () => {
                     />
                   </div>
                   <div className="fld">
-                    <label htmlFor="dSlot">Tijdslot levering</label>
+                    <label htmlFor="dSlot">{t.tijdslotLevering}</label>
                     <select id="dSlot" value={slot} onChange={(e) => setSlot(e.target.value)}>
                       {SLOTS.map((s) => (
                         <option key={s} value={s}>
@@ -1366,12 +1342,12 @@ const VerhuurBoekingPage = () => {
                     </select>
                   </div>
                   <div className="fld">
-                    <label htmlFor="dWeeks">Huurperiode (vast per pakket)</label>
+                    <label htmlFor="dWeeks">{t.huurperiodeVast}</label>
                     <input
                       type="text"
                       id="dWeeks"
                       readOnly
-                      value={`${rentalDays} dagen, inbegrepen in de pakketprijs`}
+                      value={t.huurperiodeWaarde(rentalDays)}
                     />
                   </div>
                 </div>
@@ -1387,19 +1363,13 @@ const VerhuurBoekingPage = () => {
                   <div className="plan pw" role="status">
                     <WarnIcon />
                     <div className="pt2">
-                      Op <b>{start ? formatLongDate(start) : startDate}</b> staan onze toestellen voor
-                      dit pakket al ingepland
                       {/*
                         Alleen zeggen dat er niets vrijkomt wanneer we dat ook echt
-                        nagekeken hebben. Buiten de horizon van `api/availability`
-                        weten we het niet, en dan is "er komt niets vrij" gewoon
-                        onwaar — zeker voor een datum een jaar verderop.
+                        nagekeken hebben (`withinHorizon`). Buiten de horizon van
+                        `api/availability` weten we het niet, en dan is "er komt
+                        niets vrij" gewoon onwaar — zeker voor een datum een jaar verderop.
                       */}
-                      {withinHorizon
-                        ? `, en de komende ${AVAILABILITY_HORIZON_DAYS} dagen komt er niets vrij`
-                        : ""}
-                      . Kies een andere dag hierboven, of bel ons op 03 689 90 65, vaak kunnen we
-                      schuiven.
+                      {t.datumVol(start ? datumLang(start) : startDate, withinHorizon, AVAILABILITY_HORIZON_DAYS)}
                     </div>
                   </div>
                 )}
@@ -1408,10 +1378,10 @@ const VerhuurBoekingPage = () => {
                   <div className="plan pw" role="status">
                     <WarnIcon />
                     <div className="pt2">
-                      Op <b>{formatLongDate(new Date(shiftedDate.from))}</b> staan onze toestellen
-                      voor dit pakket al ingepland. Wij hebben uw leverdatum daarom verzet naar de
-                      eerstvolgende vrije dag: <b>{formatLongDate(new Date(shiftedDate.to))}</b>. Een
-                      andere dag kiezen kan gewoon hierboven.
+                      {t.datumVerschoven(
+                        datumLang(new Date(shiftedDate.from)),
+                        datumLang(new Date(shiftedDate.to)),
+                      )}
                     </div>
                   </div>
                 )}
@@ -1420,15 +1390,17 @@ const VerhuurBoekingPage = () => {
                   <div className="plan">
                     <CalendarCheckIcon />
                     <div className="pt2">
-                      Wij leveren en installeren op <b>{formatLongDate(start)}</b> tussen{" "}
-                      <b>{slot}</b>. Uw vaste huurperiode van <b>{rentalDays} dagen</b> loopt tot{" "}
-                      <b>{formatLongDate(end)}</b>, de ophaling staat automatisch ingepland op die
-                      dag, tussen <b>{slot}</b>. Verwachte droogtijd van dit pakket:{" "}
-                      <b>{days} dagen</b>.
+                      {t.planning({
+                        start: datumLang(start),
+                        slot,
+                        dagen: rentalDays,
+                        einde: datumLang(end),
+                        droogtijd: days,
+                      })}
                       {tooShort && (
                         <span className="pw">
                           <WarnIcon />
-                          Korter dan de verwachte droogtijd, verlengen kan later met één klik.
+                          {t.teKort}
                         </span>
                       )}
                     </div>
@@ -1437,11 +1409,11 @@ const VerhuurBoekingPage = () => {
 
                 <div className="frow two" style={{ marginTop: 16 }}>
                   <div className="fld">
-                    <label htmlFor="dEnd">Ophaaldatum (automatisch)</label>
+                    <label htmlFor="dEnd">{t.ophaaldatum}</label>
                     <input type="date" id="dEnd" readOnly value={end ? isoDate(end) : ""} />
                   </div>
                   <div className="fld">
-                    <label htmlFor="dEndSlot">Tijdslot ophaling</label>
+                    <label htmlFor="dEndSlot">{t.tijdslotOphaling}</label>
                     <input type="text" id="dEndSlot" readOnly value={slot} />
                   </div>
                 </div>
@@ -1449,7 +1421,7 @@ const VerhuurBoekingPage = () => {
 
               <div className="fnav">
                 <button className="btn btn-o" type="button" onClick={() => goTo(2)}>
-                  Terug
+                  {t.terug}
                 </button>
                 <button
                   className="btn btn-d"
@@ -1457,7 +1429,7 @@ const VerhuurBoekingPage = () => {
                   disabled={nextBlocked !== null}
                   onClick={() => goTo(4)}
                 >
-                  {nextBlocked === "laden" ? "Beschikbaarheid nakijken…" : "Verder naar gegevens"}
+                  {nextBlocked === "laden" ? t.beschikbaarheidLaden : t.verderGegevens}
                   <ArrowRightIcon />
                 </button>
               </div>
@@ -1515,11 +1487,9 @@ const VerhuurBoekingPage = () => {
                 <>
               <div className="blk">
                 <div className="blkh">
-                  <h2>Uw gegevens</h2>
+                  <h2>{t.gegevensKop}</h2>
                 </div>
-                <p className="bsub">
-                  Wij gebruiken dit om de levering te plannen en u de bevestiging te sturen.
-                </p>
+                <p className="bsub">{t.gegevensSub}</p>
 
                 <div className="ktype">
                   <button
@@ -1527,30 +1497,30 @@ const VerhuurBoekingPage = () => {
                     className={customerType === "part" ? "active" : undefined}
                     onClick={() => setCustomerType("part")}
                   >
-                    Particulier
+                    {t.particulier}
                   </button>
                   <button
                     type="button"
                     className={customerType === "pro" ? "active" : undefined}
                     onClick={() => setCustomerType("pro")}
                   >
-                    Professioneel
+                    {t.professioneel}
                   </button>
                 </div>
 
                 <div className="frow two">
                   <div className="fld">
-                    <label htmlFor="fName">Voornaam en naam</label>
+                    <label htmlFor="fName">{t.naam}</label>
                     <input
                       type="text"
                       id="fName"
-                      placeholder="Jan Peeters"
+                      placeholder={t.naamPlaceholder}
                       value={customer.name}
                       onChange={(e) => setCustomer({ ...customer, name: e.target.value })}
                     />
                   </div>
                   <div className="fld">
-                    <label htmlFor="fTel">Telefoon</label>
+                    <label htmlFor="fTel">{t.telefoon}</label>
                     <input
                       type="tel"
                       id="fTel"
@@ -1565,7 +1535,7 @@ const VerhuurBoekingPage = () => {
 
                 <div className="frow two" style={{ marginTop: 14 }}>
                   <div className="fld" style={{ gridColumn: "span 2" }}>
-                    <label htmlFor="fMail">E-mailadres</label>
+                    <label htmlFor="fMail">{t.email}</label>
                     <input
                       type="email"
                       id="fMail"
@@ -1573,7 +1543,7 @@ const VerhuurBoekingPage = () => {
                       autoComplete="email"
                       autoCapitalize="none"
                       spellCheck={false}
-                      placeholder="jan@voorbeeld.be"
+                      placeholder={t.emailPlaceholder}
                       value={customer.mail}
                       onChange={(e) => setCustomer({ ...customer, mail: maskEmail(e.target.value) })}
                     />
@@ -1583,17 +1553,17 @@ const VerhuurBoekingPage = () => {
                 {customerType === "pro" && (
                   <div className="frow two" style={{ marginTop: 14 }}>
                     <div className="fld">
-                      <label htmlFor="fComp">Bedrijfsnaam</label>
+                      <label htmlFor="fComp">{t.bedrijfsnaam}</label>
                       <input
                         type="text"
                         id="fComp"
-                        placeholder="Bouwbedrijf bv"
+                        placeholder={t.bedrijfPlaceholder}
                         value={customer.company}
                         onChange={(e) => setCustomer({ ...customer, company: e.target.value })}
                       />
                     </div>
                     <div className="fld">
-                      <label htmlFor="fBtw">Btw-nummer</label>
+                      <label htmlFor="fBtw">{t.btwNummer}</label>
                       <input
                         type="text"
                         id="fBtw"
@@ -1607,11 +1577,11 @@ const VerhuurBoekingPage = () => {
 
                 <div className="frow" style={{ marginTop: 14 }}>
                   <div className="fld" style={{ gridColumn: "span 3" }}>
-                    <label htmlFor="fAddr">Adres werf</label>
+                    <label htmlFor="fAddr">{t.adresWerf}</label>
                     <input
                       type="text"
                       id="fAddr"
-                      placeholder="Straat en nummer"
+                      placeholder={t.adresPlaceholder}
                       value={customer.addr}
                       onChange={(e) => setCustomer({ ...customer, addr: e.target.value })}
                     />
@@ -1619,12 +1589,12 @@ const VerhuurBoekingPage = () => {
                 </div>
                 <div className="frow" style={{ marginTop: 14 }}>
                   <div className="fld">
-                    <label htmlFor="fPost">Postcode</label>
+                    <label htmlFor="fPost">{t.postcode}</label>
                     <input
                       type="text"
                       id="fPost"
                       inputMode="numeric"
-                      placeholder="2630"
+                      placeholder={t.postcodePlaceholder}
                       maxLength={4}
                       value={customer.post}
                       onChange={(e) =>
@@ -1633,11 +1603,11 @@ const VerhuurBoekingPage = () => {
                     />
                   </div>
                   <div className="fld" style={{ gridColumn: "span 2" }}>
-                    <label htmlFor="fCity">Gemeente</label>
+                    <label htmlFor="fCity">{t.gemeente}</label>
                     <input
                       type="text"
                       id="fCity"
-                      placeholder="Aartselaar"
+                      placeholder={t.gemeentePlaceholder}
                       value={customer.city}
                       onChange={(e) => setCustomer({ ...customer, city: e.target.value })}
                     />
@@ -1651,7 +1621,7 @@ const VerhuurBoekingPage = () => {
                   keuze komt terug zodra de transportprijs aanvaard is.
                 */}
                 <div className="blkh" style={{ marginTop: 24, display: offerte ? "none" : undefined }}>
-                  <h2>Hoe wilt u betalen?</h2>
+                  <h2>{t.betalenKop}</h2>
                 </div>
                 <div className="payopts" style={offerte ? { display: "none" } : undefined}>
                   <button
@@ -1659,12 +1629,9 @@ const VerhuurBoekingPage = () => {
                     className={`payopt${payment === "online" ? " sel" : ""}`}
                     onClick={() => setPayment("online")}
                   >
-                    <span className="pob">5% korting</span>
-                    <b>Volledig online betalen</b>
-                    <span>
-                      Betaal nu met Bancontact, kaart, Apple Pay of iDEAL. U krijgt 5% korting op
-                      de volledige huurprijs en uw factuur staat meteen in uw mailbox.
-                    </span>
+                    <span className="pob">{t.korting}</span>
+                    <b>{t.volledigOnline}</b>
+                    <span>{t.volledigOnlineUitleg}</span>
                     {/*
                       Het bedrag uit de samenvatting, niet hier opnieuw 5% van het
                       totaal. Sinds de transportvergoeding in dat totaal zit — en
@@ -1672,9 +1639,8 @@ const VerhuurBoekingPage = () => {
                       een paar euro voor op wat de klant werkelijk bespaart.
                     */}
                     <span className="pos">
-                      U bespaart{" "}
-                      {euro(
-                        withVat(Math.round(summary.total - summary.transport) * ONLINE_DISCOUNT)
+                      {t.uBespaart(
+                        eur(withVat(Math.round(summary.total - summary.transport) * ONLINE_DISCOUNT))
                       )}
                     </span>
                   </button>
@@ -1683,14 +1649,11 @@ const VerhuurBoekingPage = () => {
                     className={`payopt${payment === "levering" ? " sel" : ""}`}
                     onClick={() => setPayment("levering")}
                   >
-                    <b>{euro(DEPOSIT_GROSS)} nu, rest bij levering</b>
+                    <b>{t.voorschotKop(eur(DEPOSIT_GROSS))}</b>
                     {/* De QR is de weg naar het betaalscherm, geen betaalwijze:
                         daar staan dezelfde knoppen als hier. */}
-                    <span>
-                      Bevestig uw boeking met {euro(DEPOSIT_GROSS)}. Het saldo scant en betaalt u
-                      ter plaatse bij levering: Bancontact, kaart of Apple Pay.
-                    </span>
-                    <span className="pos">Factuur na volledige betaling</span>
+                    <span>{t.voorschotUitleg(eur(DEPOSIT_GROSS))}</span>
+                    <span className="pos">{t.factuurNaBetaling}</span>
                   </button>
                 </div>
 
@@ -1700,10 +1663,7 @@ const VerhuurBoekingPage = () => {
                     checked={customer.ok}
                     onChange={(e) => setCustomer({ ...customer, ok: e.target.checked })}
                   />{" "}
-                  <span>
-                    Ik ga akkoord met de algemene voorwaarden en geef Vernast toestemming om mij over
-                    deze boeking te contacteren.
-                  </span>
+                  <span>{t.akkoord}</span>
                 </label>
 
                 {/*
@@ -1743,7 +1703,7 @@ const VerhuurBoekingPage = () => {
               </div>
               <div className="fnav">
                 <button className="btn btn-o" type="button" onClick={() => goTo(3)}>
-                  Terug
+                  {t.terug}
                 </button>
                 {offerte ? (
                   <button
@@ -1755,10 +1715,10 @@ const VerhuurBoekingPage = () => {
                     onClick={vraagOfferte}
                   >
                     {offerteVerstuurd
-                      ? "Aanvraag verstuurd"
+                      ? t.offerteVerstuurd
                       : paying
-                        ? "Aanvraag versturen…"
-                        : "Vraag uw transportprijs aan"}
+                        ? t.offerteVersturen
+                        : t.offerteVraag}
                     <ArrowRightIcon />
                   </button>
                 ) : (
@@ -1768,9 +1728,7 @@ const VerhuurBoekingPage = () => {
                     disabled={!isComplete(customer, customerType, leverbaar) || paying}
                     onClick={payAndConfirm}
                   >
-                    {paying
-                      ? "Betaling voorbereiden…"
-                      : `Naar de betaling · ${euro(summary.payableGross)}`}
+                    {paying ? t.voorbereiden : t.naarBetaling(eur(summary.payableGross))}
                     <ArrowRightIcon />
                   </button>
                 )}
@@ -1783,12 +1741,9 @@ const VerhuurBoekingPage = () => {
             <div className={`pane${step === STEP_PAY ? " on" : ""}`}>
               <div className="blk">
                 <div className="blkh">
-                  <h2>Betaal uw boeking</h2>
+                  <h2>{t.betaalKop}</h2>
                 </div>
-                <p className="bsub">
-                  U betaalt <b>{euro(summary.payableGross)}</b> met Apple Pay, Bancontact, kaart, iDEAL of
-                  Klarna. De betaling loopt beveiligd via Stripe, wij zien uw kaartgegevens nooit.
-                </p>
+                <p className="bsub">{t.betaalSub(eur(summary.payableGross))}</p>
 
                 <div className="paybox">
                   {step === STEP_PAY && session?.clientSecret && stripeJs && (
@@ -1800,7 +1755,7 @@ const VerhuurBoekingPage = () => {
                         elementsOptions: { appearance: STRIPE_APPEARANCE },
                       }}
                     >
-                      <BoekingBetaalformulier bedrag={euro(summary.payableGross)} />
+                      <BoekingBetaalformulier bedrag={eur(summary.payableGross)} />
                     </CheckoutElementsProvider>
                   )}
                 </div>
@@ -1809,15 +1764,12 @@ const VerhuurBoekingPage = () => {
                   <CheckIcon size={13} strokeWidth={3} />
                   {/* De tekst hoort in één span: los in de flexbox wordt elk
                       stukje een eigen kolom zodra de ruimte krap wordt. */}
-                  <span>
-                    Uw levering op <b>{start ? formatLongDate(start) : ""}</b> tussen <b>{slot}</b>{" "}
-                    wordt vastgelegd zodra de betaling bevestigd is.
-                  </span>
+                  <span>{t.vastgelegd(start ? datumLang(start) : "", slot)}</span>
                 </p>
               </div>
               <div className="fnav">
                 <button className="btn btn-o" type="button" onClick={cancelPayment}>
-                  Terug naar mijn gegevens
+                  {t.terugGegevens}
                 </button>
               </div>
             </div>
@@ -1831,8 +1783,8 @@ const VerhuurBoekingPage = () => {
             */}
             <div className={`pane${step === STEP_VERIFY ? " on" : ""}`}>
               <div className="done">
-                <h2>Even geduld</h2>
-                <p>We bevestigen uw betaling. Sluit dit venster niet.</p>
+                <h2>{t.geduldKop}</h2>
+                <p>{t.geduldSub}</p>
               </div>
             </div>
 
@@ -1841,14 +1793,10 @@ const VerhuurBoekingPage = () => {
                 <div className="dic">
                   <CheckIcon size={30} strokeWidth={2.6} />
                 </div>
-                <h2>Uw boeking staat vast</h2>
-                <p>
-                  Wij bevestigen uw levering telefonisch binnen één werkdag. Betaalde u volledig
-                  online, dan staat uw factuur meteen in uw mailbox, met 5% korting. Koos u voor
-                  {" "}{euro(DEPOSIT_GROSS)} bevestiging, dan betaalt u het saldo bij levering.
-                </p>
+                <h2>{t.vastKop}</h2>
+                <p>{t.vastSub(eur(DEPOSIT_GROSS))}</p>
                 <div className="dref">
-                  <span>Referentie</span>
+                  <span>{t.referentie}</span>
                   <span>{reference}</span>
                 </div>
 
@@ -1873,26 +1821,26 @@ const VerhuurBoekingPage = () => {
                     <dl>
                       {ordered.deliveryDate && (
                         <>
-                          <dt>Levering</dt>
+                          <dt>{t.levering}</dt>
                           <dd>
-                            {longDate(ordered.deliveryDate)}
+                            {longDate(ordered.deliveryDate, taal)}
                             {ordered.deliverySlot ? ` · ${ordered.deliverySlot}` : ""}
                           </dd>
                         </>
                       )}
                       {ordered.rentalStart && ordered.rentalEnd && (
                         <>
-                          <dt>Huurperiode</dt>
+                          <dt>{t.huurperiode}</dt>
                           <dd>
-                            {longDate(ordered.rentalStart)} t.e.m. {longDate(ordered.rentalEnd)}
-                            {ordered.rentalDays ? ` · ${ordered.rentalDays} dagen` : ""}
+                            {longDate(ordered.rentalStart, taal)} {t.tem} {longDate(ordered.rentalEnd, taal)}
+                            {ordered.rentalDays ? ` · ${ordered.rentalDays} ${t.dagen}` : ""}
                           </dd>
                         </>
                       )}
                       {ordered.paid !== null && (
                         <>
-                          <dt>Betaald</dt>
-                          <dd>{euro(ordered.paid)}</dd>
+                          <dt>{t.betaald}</dt>
+                          <dd>{eur(ordered.paid)}</dd>
                         </>
                       )}
                       {/*
@@ -1902,8 +1850,8 @@ const VerhuurBoekingPage = () => {
                       */}
                       {ordered.balance !== null && ordered.balance > 0 && (
                         <>
-                          <dt>Nog te betalen bij levering</dt>
-                          <dd>{euro(ordered.balance)}</dd>
+                          <dt>{t.nogTeBetalen}</dt>
+                          <dd>{eur(ordered.balance)}</dd>
                         </>
                       )}
                     </dl>
@@ -1911,11 +1859,11 @@ const VerhuurBoekingPage = () => {
                 )}
 
                 <div className="fnav" style={{ justifyContent: "center" }}>
-                  <Link className="btn btn-o" to={`/verhuur/pakket?${configToQuery(config)}${extraNaarQuery(dev)}`}>
-                    Terug naar het pakket
+                  <Link className="btn btn-o" to={lp(`/verhuur/pakket?${configToQuery(config)}${extraNaarQuery(dev)}`)}>
+                    {t.terugNaarPakket}
                   </Link>
-                  <Link className="btn btn-d" to="/">
-                    Naar de homepage
+                  <Link className="btn btn-d" to={lp("/")}>
+                    {t.naarHome}
                   </Link>
                 </div>
               </div>
@@ -1930,14 +1878,16 @@ const VerhuurBoekingPage = () => {
                     tellingen in het beeld, dus die moet meebewegen. */}
                 <img
                   src={packageImage(config, allItems(config, dev))}
-                  alt="Uw droogpakket"
+                  alt={t.uwDroogpakket}
                   loading="lazy"
                   decoding="async"
                 />
               </div>
               <div className="st">
-                <div className="sl">Uw pakket</div>
-                <h3>{packageTitle(config)}</h3>
+                <div className="sl">{t.uwPakket}</div>
+                {/* `packageTitle` blijft Nederlands (Stripe-productnaam, portaal); in het
+                    Frans tonen we dezelfde opsomming uit verhuur.fr.ts. */}
+                <h3>{taal === "nl" ? packageTitle(config) : packageSpecLineInTaal(config, taal)}</h3>
               </div>
               <div className="sb">
                 {/*
@@ -1948,11 +1898,9 @@ const VerhuurBoekingPage = () => {
                 */}
                 <div className="sline inc">
                   <span>
-                    {offerte || summary.transport > 0
-                      ? "Plaatsing & afstelling ter plaatse"
-                      : "Levering, installatie & ophaling"}
+                    {offerte || summary.transport > 0 ? t.plaatsingRegel : t.leveringRegel}
                   </span>
-                  <b>Inbegrepen</b>
+                  <b>{t.inbegrepen}</b>
                 </div>
                 {/*
                   Eerst wat er in de pakketprijs zit, dan pas wat er bij komt.
@@ -1965,8 +1913,8 @@ const VerhuurBoekingPage = () => {
                     .filter((r) => r.inc)
                     .map((r) => (
                       <div className="sline inc" key={r.l}>
-                        <span>{r.l}</span>
-                        <b>Inbegrepen</b>
+                        <span>{regelInTaal(r.l, taal)}</span>
+                        <b>{t.inbegrepen}</b>
                       </div>
                     ))}
                   {/*
@@ -1976,17 +1924,15 @@ const VerhuurBoekingPage = () => {
                     las alles eronder als meerwerk.
                   */}
                   <div className="sline">
-                    <span>
-                      Pakket · {summary.deviceCount} toestellen · {summary.weeks} weken
-                    </span>
-                    <b>{euro(base)}</b>
+                    <span>{t.pakketRegel(summary.deviceCount, summary.weeks)}</span>
+                    <b>{eur(base)}</b>
                   </div>
                   {rows
                     .filter((r) => !r.inc)
                     .map((r) => (
                       <div className="sline" key={r.l}>
-                        <span>{r.l}</span>
-                        <b>{euro(r.v)}</b>
+                        <span>{regelInTaal(r.l, taal)}</span>
+                        <b>{eur(r.v)}</b>
                       </div>
                     ))}
                   {/*
@@ -1996,8 +1942,8 @@ const VerhuurBoekingPage = () => {
                   */}
                   {offerte && (
                     <div className="sline opmaat">
-                      <span>Transport {leverzone?.zone.band}</span>
-                      <b>Op maat</b>
+                      <span>{t.transportRegel(leverzone?.zone.band ?? "")}</span>
+                      <b>{t.opMaat}</b>
                     </div>
                   )}
                 </div>
@@ -2010,25 +1956,25 @@ const VerhuurBoekingPage = () => {
                 <div className="stot">
                   <div className="tl" style={{ fontSize: 13 }}>
                     <span className="tll" style={{ fontWeight: 400 }}>
-                      Huurprijs excl. btw
+                      {t.huurprijsExcl}
                     </span>
-                    <span className="tlv" style={{ fontSize: 14 }}>{euro(total)}</span>
+                    <span className="tlv" style={{ fontSize: 14 }}>{eur(total)}</span>
                   </div>
                   {discount > 0 && (
                     <div className="tl" style={{ fontSize: 13 }}>
                       <span className="tll" style={{ fontWeight: 400 }}>
-                        Korting online betalen (5%)
+                        {t.kortingOnline}
                       </span>
                       <span className="tlv" style={{ fontSize: 14, color: "#2e9e5b" }}>
-                        − {euro(discount)}
+                        − {eur(discount)}
                       </span>
                     </div>
                   )}
                   <div className="tl" style={{ fontSize: 13 }}>
                     <span className="tll" style={{ fontWeight: 400 }}>
-                      Btw 21%
+                      {t.btw}
                     </span>
-                    <span className="tlv" style={{ fontSize: 14 }}>{euro(summary.vat)}</span>
+                    <span className="tlv" style={{ fontSize: 14 }}>{eur(summary.vat)}</span>
                   </div>
                   {/*
                     Het brutobedrag is wat er effectief afgerekend wordt, dus dat
@@ -2037,12 +1983,11 @@ const VerhuurBoekingPage = () => {
                     zien — en Stripe rekende datzelfde te lage bedrag af.
                   */}
                   <div className="tl">
-                    <span className="tll">Totaal incl. btw</span>
-                    <span className="tlv">{euro(summary.grossTotal)}</span>
+                    <span className="tll">{t.totaalIncl}</span>
+                    <span className="tlv">{eur(summary.grossTotal)}</span>
                   </div>
                   <div className="vat">
-                    {euro(Math.round((summary.grossTotal / summary.weeks) * 100) / 100)} per week
-                    incl. btw
+                    {t.perWeek(eur(Math.round((summary.grossTotal / summary.weeks) * 100) / 100))}
                   </div>
                   {offerte && (
                     <div className="vat opmaat">
@@ -2064,12 +2009,12 @@ const VerhuurBoekingPage = () => {
                     disabled={nextBlocked !== null}
                     onClick={() => goTo(step + 1)}
                   >
-                    {nextBlocked === "laden" ? "Beschikbaarheid nakijken…" : NEXT_LABEL[step] ?? "Verder"}
+                    {nextBlocked === "laden" ? t.beschikbaarheidLaden : t.volgende[step] ?? t.verder}
                   </button>
                 )}
                 {/* "Geen voorschot" stond hier naast een betaalstap die om
                     precies dat voorschot vraagt. */}
-                <div className="note">5% korting bij online betalen · dagelijks opzegbaar</div>
+                <div className="note">{t.noot}</div>
               </div>
             </div>
           </div>

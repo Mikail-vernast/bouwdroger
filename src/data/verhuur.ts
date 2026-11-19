@@ -7,6 +7,7 @@
 
 import { TARIEVEN } from "./tarieven.js";
 import { altVoorBeeld } from "../lib/altTekst.js";
+import { TOESTEL_SLUG_VERTAALD } from "../i18n/paden.js";
 
 export type DeviceKey = "small" | "medium" | "axiaal" | "kachel";
 
@@ -1008,8 +1009,17 @@ export const TOESTEL_SLUG: Record<string, string> = {
   teddh20: "bouwkachel-20-kw",
 };
 
+/*
+  Ook de vertaalde slugs (`/fr/location/appareil/deshumidificateur-chantier-70-litres`)
+  wijzen naar dezelfde sleutel. De Franse route geeft het laatste segment
+  ongewijzigd door aan dezelfde pagina; zonder deze regels viel elke Franse
+  toestelpagina terug op het eerste toestel uit het gamma.
+*/
 const SLEUTEL_PER_SLUG: Record<string, string> = Object.fromEntries(
-  Object.entries(TOESTEL_SLUG).map(([key, slug]) => [slug, key])
+  Object.entries(TOESTEL_SLUG).flatMap(([key, slug]) => [
+    [slug, key],
+    ...Object.values(TOESTEL_SLUG_VERTAALD[slug] ?? {}).map((vertaald) => [vertaald, key]),
+  ])
 );
 
 /** Het pad naar de detailpagina van een toestel. Typ dit nergens over. */
@@ -1020,7 +1030,8 @@ export function toestelPad(key: string): string {
 /**
  * Van URL-segment naar sleutel in `PRODUCTS`.
  *
- * Aanvaardt ook nog de oude sleutel-URL. De redirects in vercel.json vangen die
+ * Aanvaardt de Nederlandse slug, de vertaalde slugs uit `i18n/paden.ts` en
+ * ook nog de oude sleutel-URL. De redirects in vercel.json vangen die
  * af vóór de pagina laadt, maar `vite dev` kent die redirects niet en een oude
  * link in een e-mail of een bladwijzer hoort hoe dan ook niet op het eerste
  * toestel uit te komen.

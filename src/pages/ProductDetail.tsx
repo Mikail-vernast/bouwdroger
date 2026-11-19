@@ -9,24 +9,121 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Check, Phone } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
 import { breadcrumbSchema, productSchema } from "@/lib/schema";
-import { SEO } from "@/data/seo";
+import { useSeo } from "@/data/seo";
+import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
+import { productInTaal } from "@/data/products.fr";
+import type { Product } from "@/data/products";
+
+type Tekst = {
+  nietGevonden: string;
+  terugOverzicht: string;
+  categorie: Record<Product["category"], string>;
+  /** Hoe de categorie in het kruimelpad staat. */
+  kruimel: Record<Product["category"], string>;
+  metaTitel: (p: Product) => string;
+  metaBeschrijving: (p: Product, prijs: string) => string;
+  machines: string;
+  capaciteit: (p: Product) => string;
+  perDag: (label: string) => string;
+  korting: string;
+  kenmerken: string;
+  specificaties: string;
+  huur: string;
+  calculator: string;
+  advies: string;
+  belOns: string;
+  voorAdvies: string;
+  terug: string;
+};
+
+const COPY = {
+  nl: {
+    nietGevonden: "Product niet gevonden",
+    terugOverzicht: "Terug naar overzicht",
+    categorie: { bouwdrogers: "Bouwdroger", ventilatoren: "Ventilator", verwarming: "Verwarming" },
+    kruimel: { bouwdrogers: "bouwdrogers", ventilatoren: "ventilatoren", verwarming: "verwarming" },
+    metaTitel: (p) => `${p.name} huren, ${p.capacity} | Vernast`,
+    metaBeschrijving: (p, prijs) =>
+      `${p.name} huren aan ${prijs} per dag. ${p.suitableFor} Levering, installatie en ophaling inbegrepen, binnen 24 uur in heel Vlaanderen.`,
+    machines: "Machines",
+    capaciteit: (p) => `Capaciteit: ${p.capacity} · Geschikt voor ${p.suitableFor}`,
+    perDag: (label) => `/dag ${label}`,
+    korting: "Korting bij langere huurperiodes · Gratis levering vanaf 2 weken",
+    kenmerken: "Kenmerken",
+    specificaties: "Specificaties",
+    huur: "Huur dit product",
+    calculator: "Gebruik de Calculator",
+    advies: "Advies nodig?",
+    belOns: "Bel ons op",
+    voorAdvies: "voor gratis advies.",
+    terug: "Terug",
+  },
+  fr: {
+    nietGevonden: "Produit introuvable",
+    terugOverzicht: "Retour à l'aperçu",
+    categorie: { bouwdrogers: "Déshumidificateur de chantier", ventilatoren: "Ventilateur", verwarming: "Chauffage" },
+    kruimel: { bouwdrogers: "déshumidificateurs", ventilatoren: "ventilateurs", verwarming: "chauffage" },
+    metaTitel: (p) => `Louer le ${p.name}, ${p.capacity} | Vernast`,
+    metaBeschrijving: (p, prijs) =>
+      `Louez le ${p.name} à ${prijs} par jour. ${p.suitableFor}. Livraison, installation et reprise comprises, sous 24 heures dans toute la Flandre.`,
+    machines: "Machines",
+    capaciteit: (p) => `Capacité\u00a0: ${p.capacity} · Convient pour\u00a0: ${p.suitableFor.charAt(0).toLowerCase()}${p.suitableFor.slice(1)}`,
+    perDag: (label) => `/jour ${label}`,
+    korting: "Remise pour les locations plus longues · Livraison gratuite à partir de 2 semaines",
+    kenmerken: "Caractéristiques",
+    specificaties: "Spécifications",
+    huur: "Louer ce produit",
+    calculator: "Utiliser le calculateur",
+    advies: "Besoin de conseils ?",
+    belOns: "Appelez-nous au",
+    voorAdvies: "pour un conseil gratuit.",
+    terug: "Retour",
+  },
+  en: {
+    nietGevonden: "Product not found",
+    terugOverzicht: "Back to overview",
+    categorie: { bouwdrogers: "Construction dehumidifier", ventilatoren: "Fan", verwarming: "Heating" },
+    kruimel: { bouwdrogers: "construction dehumidifiers", ventilatoren: "fans", verwarming: "heating" },
+    metaTitel: (p) => `${p.name} hire, ${p.capacity} | Vernast`,
+    metaBeschrijving: (p, prijs) =>
+      `Hire the ${p.name} for ${prijs} per day. ${p.suitableFor}. Delivery, installation and collection included, within 24 hours throughout Flanders.`,
+    machines: "Machines",
+    capaciteit: (p) => `Capacity: ${p.capacity} · Suitable for: ${p.suitableFor.charAt(0).toLowerCase()}${p.suitableFor.slice(1)}`,
+    perDag: (label) => `/day ${label}`,
+    korting: "Discount for longer rental periods · Free delivery from 2 weeks",
+    kenmerken: "Features",
+    specificaties: "Specifications",
+    huur: "Hire this product",
+    calculator: "Use the calculator",
+    advies: "Need advice?",
+    belOns: "Call us on",
+    voorAdvies: "for free advice.",
+    terug: "Back",
+  },
+} satisfies Copy<Tekst>;
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = products.find((p) => p.id === id);
+  const t = useCopy(COPY);
+  const lp = useLokaalPad();
+  const seoNietGevonden = useSeo("notFound");
+  const taal = useTaal();
+  const toon = useToonBedrag();
+  const gevonden = products.find((p) => p.id === id);
+  const product = gevonden ? productInTaal(gevonden, taal) : undefined;
   const [activeImage, setActiveImage] = useState(0);
 
   if (!product) {
     return (
       <div className="min-h-screen bg-background">
-        <PageMeta {...SEO.notFound} />
+        <PageMeta {...seoNietGevonden} />
         <TopBar />
         <Navbar />
         <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-2xl font-bold mb-4">Product niet gevonden</h1>
+          <h1 className="text-2xl font-bold mb-4">{t.nietGevonden}</h1>
           <Button asChild>
-            <Link to="/#producten">Terug naar overzicht</Link>
+            <Link to={lp("/#producten")}>{t.terugOverzicht}</Link>
           </Button>
         </div>
         <V3Footer />
@@ -37,18 +134,15 @@ const ProductDetail = () => {
   const allImages = [product.image, ...(product.gallery || [])];
   const allAlts = allImages.map((_, i) => (i === 0 ? product.imageAlt : product.galleryAlt?.[i - 1] ?? product.imageAlt));
 
-  const categoryLabels: Record<string, string> = {
-    bouwdrogers: "Bouwdroger",
-    ventilatoren: "Ventilator",
-    verwarming: "Verwarming",
-  };
+  const categoryLabels = t.categorie;
+  const pad = lp(`/product/${product.id}`);
 
   return (
     <div className="min-h-screen bg-background">
       <PageMeta
-        title={`${product.name} huren, ${product.capacity} | Vernast`}
-        description={`${product.name} huren aan € ${product.pricePerDay} per dag. ${product.suitableFor} Levering, installatie en ophaling inbegrepen, binnen 24 uur in heel Vlaanderen.`}
-        path={`/product/${product.id}`}
+        title={t.metaTitel(product)}
+        description={t.metaBeschrijving(product, `${toon(product.pricePerDay).tekst} ${toon(product.pricePerDay).label}`)}
+        path={pad}
         image={product.image}
         ogType="product"
         /*
@@ -71,15 +165,15 @@ const ProductDetail = () => {
             name: product.name,
             description: `${product.capacity}. ${product.suitableFor}`,
             image: product.image,
-            path: `/product/${product.id}`,
+            path: pad,
             pricePerDay: product.pricePerDay,
             category: categoryLabels[product.category],
             specs: Object.entries(product.specs ?? {}),
           }),
           breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Machines", path: "/machines" },
-            { name: product.name, path: `/product/${product.id}` },
+            { name: "Home", path: lp("/") },
+            { name: t.machines, path: lp("/machines") },
+            { name: product.name, path: pad },
           ]),
         ]}
       />
@@ -88,10 +182,10 @@ const ProductDetail = () => {
       <main className="container mx-auto px-4 py-10">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-          <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+          <Link to={lp("/")} className="hover:text-primary transition-colors">Home</Link>
           <span>/</span>
-          <Link to="/#producten" className="hover:text-primary transition-colors capitalize">
-            {product.category}
+          <Link to={lp("/#producten")} className="hover:text-primary transition-colors capitalize">
+            {t.kruimel[product.category]}
           </Link>
           <span>/</span>
           <span className="text-foreground font-medium">{product.name}</span>
@@ -137,24 +231,24 @@ const ProductDetail = () => {
                 {product.name}
               </h1>
               <p className="text-lg text-muted-foreground">
-                Capaciteit: {product.capacity} · Geschikt voor {product.suitableFor}
+                {t.capaciteit(product)}
               </p>
             </div>
 
             <div className="border-y border-border py-6">
               <div className="flex items-baseline gap-2">
                 <span className="text-4xl font-black text-primary">
-                  €{product.pricePerDay.toFixed(2)}
+                  {toon(product.pricePerDay).tekst}
                 </span>
-                <span className="text-muted-foreground">/dag excl. BTW</span>
+                <span className="text-muted-foreground">{t.perDag(toon(product.pricePerDay).label)}</span>
               </div>
               <p className="text-sm text-muted-foreground mt-1">
-                Korting bij langere huurperiodes · Gratis levering vanaf 2 weken
+                {t.korting}
               </p>
             </div>
 
             <div className="space-y-3">
-              <h3 className="font-bold text-foreground">Kenmerken</h3>
+              <h3 className="font-bold text-foreground">{t.kenmerken}</h3>
               {product.features.map((f) => (
                 <div key={f} className="flex items-center gap-3">
                   <Check className="h-5 w-5 text-primary flex-shrink-0" />
@@ -166,7 +260,7 @@ const ProductDetail = () => {
             {/* Specs table */}
             {product.specs && (
               <div className="space-y-3">
-                <h3 className="font-bold text-foreground">Specificaties</h3>
+                <h3 className="font-bold text-foreground">{t.specificaties}</h3>
                 <div className="bg-secondary rounded-xl overflow-hidden">
                   {Object.entries(product.specs).map(([key, value], i) => (
                     <div
@@ -187,26 +281,26 @@ const ProductDetail = () => {
               <Button
                 size="lg"
                 className="font-bold text-base"
-                onClick={() => navigate("/booking", { state: { productId: product.id } })}
+                onClick={() => navigate(lp("/booking"), { state: { productId: product.id } })}
               >
-                Huur dit product
+                {t.huur}
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="font-bold text-base"
-                onClick={() => navigate("/#configurator")}
+                onClick={() => navigate(lp("/#configurator"))}
               >
-                Gebruik de Calculator
+                {t.calculator}
               </Button>
             </div>
 
             <div className="bg-secondary rounded-xl p-5 flex items-center gap-4">
               <Phone className="h-5 w-5 text-primary flex-shrink-0" />
               <div>
-                <p className="font-semibold text-foreground text-sm">Advies nodig?</p>
+                <p className="font-semibold text-foreground text-sm">{t.advies}</p>
                 <p className="text-sm text-muted-foreground">
-                  Bel ons op <a href="tel:+3236899065" className="text-primary font-semibold hover:underline">03 689 90 65</a> voor gratis advies.
+                  {t.belOns} <a href="tel:+3236899065" className="text-primary font-semibold hover:underline">03 689 90 65</a> {t.voorAdvies}
                 </p>
               </div>
             </div>
@@ -217,7 +311,7 @@ const ProductDetail = () => {
         <div className="mt-12">
           <Button variant="ghost" onClick={() => navigate(-1)} className="gap-2">
             <ArrowLeft className="h-4 w-4" />
-            Terug
+            {t.terug}
           </Button>
         </div>
       </main>

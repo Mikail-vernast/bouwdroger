@@ -14,6 +14,15 @@
 
 /* ---- kop ---- */
 .v3c .sm-hero { position: relative; overflow: hidden; padding-top: 172px; background: var(--maroon-d) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat; color: #fff; }
+/* Een zachte gloed achter de glasplaat, zodat `backdrop-filter` iets te pakken
+   heeft: op het egale bordeaux vervaagt een blur niets. Er liep hier ook een
+   boog dwars door de plaat, naar het voorbeeld van vernast-vochtbestrijding.be,
+   maar die sneed over de volle breedte van de hero ook dwars door de ploeg op
+   de foto — als lijn naar nergens stoorde hij meer dan het glas dat hij moest
+   bewijzen. Niet terugzetten zonder hem op de kaart te laten eindigen.
+   Ligt vóór de achtergrondfoto en áchter `.sm-hero-grid` — die is positioned
+   en schildert daardoor later — zodat alleen de plaat hem vervaagt. */
+.v3c .sm-hero::after { content: ""; position: absolute; left: 60px; bottom: -40px; width: 760px; height: 420px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(236,46,76,.26), transparent 70%); filter: blur(34px); pointer-events: none; }
 .v3c .sm-hero-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
 .v3c .sm-hero-copy { padding-bottom: 48px; }
 .v3c .sm-kruimels { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 14px; }
@@ -22,7 +31,20 @@
 .v3c .sm-hero h1 { font-family: var(--fm); font-weight: 700; font-size: clamp(38px, 4.6vw, 60px); letter-spacing: -.05em; line-height: 1; color: #fff; }
 .v3c .sm-hero h1 i { font-style: normal; color: rgba(255,255,255,.45); }
 .v3c .sm-hero p { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,.8); max-width: 520px; margin: 12px 0 0; }
-.v3c .sm-boom { margin-top: 22px; max-width: 560px; padding: 14px 18px; border-radius: 16px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(6px); font-family: var(--fm); font-size: 13px; line-height: 1.85; display: grid; grid-template-columns: 1fr 1fr; column-gap: 26px; }
+/* Glas, niet een donkerder vlak. Met alleen `rgba(255,255,255,.08)` en
+   `blur(6px)` las de boom op het egale bordeaux als een doffe plaat: er staat
+   daar nauwelijks beeld om te vervagen, dus het enige verschil was dat hij
+   iets lichter was dan de hero. Wat het wél glas maakt is de combinatie van
+   een verloop (boven lichter), een lichte streep op de bovenrand, een echte
+   rand en een schaduw eronder — dan ligt de plaat op de achtergrond in plaats
+   van erin. De `saturate` haalt het rood terug dat de blur wegmiddelt.
+   Zelfde recept als /sitemap op vernast-vochtbestrijding.be. */
+.v3c .sm-boom { position: relative; margin-top: 22px; max-width: 600px; padding: 18px 22px; border-radius: 20px; background: linear-gradient(158deg, rgba(255,255,255,.15), rgba(255,255,255,.04) 52%, rgba(255,255,255,.09)); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(9px) saturate(150%) brightness(112%); -webkit-backdrop-filter: blur(9px) saturate(150%) brightness(112%); box-shadow: 0 26px 54px rgba(0,0,0,.34), 0 2px 8px rgba(0,0,0,.14); font-family: var(--fm); font-size: 13px; line-height: 1.85; display: grid; grid-template-columns: 1fr 1fr; column-gap: 26px; }
+/* De lichtstreep op de bovenrand. Een gelijkmatige `inset 0 1px 0` las als een
+   randje; echt glas vangt het licht in het midden en laat het naar de hoeken
+   weglopen, dus een verloop. Absoluut gepositioneerd, want `.sm-boom` is een
+   grid en een pseudo-element in de stroom zou een derde kolomitem worden. */
+.v3c .sm-boom::before { content: ""; position: absolute; left: 18px; right: 18px; top: 0; height: 1px; border-radius: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.62) 42%, rgba(255,255,255,.28)); pointer-events: none; }
 .v3c .sm-wortel { grid-column: 1 / -1; color: #fff; font-weight: 700; }
 .v3c .sm-boom a { display: flex; gap: 8px; align-items: baseline; border-radius: 6px; padding: 0 8px; margin: 0 -8px; color: #fff; }
 .v3c .sm-boom a:hover { background: rgba(255,255,255,.14); }
@@ -33,9 +55,19 @@
 
 
 /* ---- mappen ---- */
-.v3c .sm-body { padding: 72px 0 110px; }
+/* Omgekeerd: gebroken wit eronder, de mapkaarten wit erop. Andersom — witte
+   kaarten op een witte pagina — hing de hele onderkant aan één haarlijn van
+   10% zwart, en op een scherm met weinig contrast viel de kaartvorm helemaal
+   weg. Nu dragen de kaarten zichzelf.
+
+   #F1EFEC en niet `--bg-alt` (#F4F4F4): dat grijs stond te dicht bij het wit
+   van de kaarten om ze te laten uitkomen, en is koud waar de rest van de
+   pagina warm is. Deze tint is overgenomen uit /sitemap op
+   vernast-vochtbestrijding.be, die hier als voorbeeld gekozen is. Alleen
+   deze sectie draagt hem — `--bg-alt` zelf blijft wat het elders is. */
+.v3c .sm-body { padding: 72px 0 110px; background: #F1EFEC; }
 .v3c .sm-mappen { columns: 3 320px; column-gap: 20px; }
-.v3c .sm-map { break-inside: avoid; margin-bottom: 20px; padding: 22px 22px 14px; border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(20,20,20,.04); scroll-margin-top: 110px; }
+.v3c .sm-map { break-inside: avoid; margin-bottom: 20px; padding: 22px 22px 14px; border-radius: 18px; background: #FAF8F7; border: 1px solid var(--line); scroll-margin-top: 110px; }
 .v3c .sm-map h2 { display: flex; align-items: center; gap: 10px; font-family: var(--fd); font-weight: 800; font-size: 16px; letter-spacing: -.015em; margin-bottom: 12px; }
 .v3c .sm-map h2 svg { color: var(--red); }
 .v3c .sm-map ul { list-style: none; margin: 0; padding: 0; }
@@ -63,7 +95,9 @@
 .v3c .sm-status.uit::before { box-shadow: none; }
 .v3c .sm-uit { font-size: 14.5px; line-height: 1.6; color: var(--txt-mid); margin: 14px 0 0; max-width: 700px; }
 .v3c .sm-provs { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; margin-top: 24px; }
-.v3c .sm-prov { padding: 22px; border-radius: 18px; background: #FAF8F7; border: 1px solid var(--line); }
+/* Wit, niet #FAF8F7: dat was een tint lichter dan de witte pagina en
+   verdwijnt nu de sectie zelf gebroken wit is. */
+.v3c .sm-prov { padding: 22px; border-radius: 18px; background: #fff; border: 1px solid var(--line); }
 .v3c .sm-prov h3 { display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; }
 .v3c .sm-prov h3 a:hover .pad { color: var(--red); }
 .v3c .sm-prov h3 .pad { font-size: 15px; }
@@ -71,7 +105,12 @@
 .v3c .sm-streek + .sm-streek { margin-top: 12px; }
 .v3c .sm-streek h4 { display: flex; gap: 8px; font-family: var(--fm); font-size: 12px; font-weight: 600; color: var(--txt-mid); margin-bottom: 6px; }
 .v3c .sm-streek ul { list-style: none; margin: 0 0 0 30px; padding: 0 0 0 12px; border-left: 1px solid var(--line-2); display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 13px; line-height: 1.75; }
-.v3c .sm-streek a { color: var(--txt); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(200,16,46,.4); text-underline-offset: 3px; }
+/* Neutrale onderlijn, geen rode. Elke plaatsnaam droeg er één van 40% rood;
+   bij Antwerpen staan er 77 in één kaart en dan leest het hele werkgebied
+   roze in plaats van zwart op wit. Rood blijft waar het betekenis heeft: op
+   hover. Dit is ook de onderlijn die `.v3c .sw p a` elders al gebruikt. */
+.v3c .sm-streek a { color: var(--txt); font-weight: 600; text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+.v3c .sm-streek a:hover { text-decoration-color: currentColor; }
 .v3c .sm-streek a:hover { color: var(--red); }
 .v3c .sm-streek span { color: var(--txt-mid); }
 .v3c .sm-real { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 4px 28px; }
@@ -90,3 +129,25 @@
   .v3c .sm-provs, .v3c .sm-real { grid-template-columns: 1fr; }
   .v3c .sm-prov { padding: 18px; }
 }
+
+/* Taaltabs boven de mappen: de sitemap toont alle drie de talen, elk met hun
+   eigen URL's. Zwart op gebroken wit, zoals de rest van de pagina — geen rood
+   voor tekst (zie de fix van 18-11-2026). */
+.v3c .sm-talen { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 36px; }
+.v3c .sm-talen button {
+  display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+  font: inherit; font-weight: 700; font-size: 15px; color: #141414;
+  /* Wit, niet #f4efeb: die beige stond op een witte pagina, maar valt tegen
+     het gebroken wit van `.sm-body` vrijwel samen met de achtergrond. */
+  background: #fff; border: 1px solid #e4dcd6; border-radius: 999px; padding: 8px 18px 8px 8px;
+}
+.v3c .sm-talen button small { font-weight: 500; font-size: 12px; opacity: 0.6; }
+.v3c .sm-talen .sm-taal-code {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  /* De schijf draagt het gebroken wit van de sectie: op de witte pil hierboven
+     was een witte schijf geen schijf meer. Op de actieve zwarte pil blijft ze wit. */
+  background: #F1EFEC; font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+}
+.v3c .sm-talen button.actief { background: #141414; color: #fff; border-color: #141414; }
+.v3c .sm-talen button.actief .sm-taal-code { background: #fff; color: #141414; }
+.v3c .sm-talen button:focus-visible { outline: 2px solid #141414; outline-offset: 2px; }

@@ -16,6 +16,8 @@
  */
 import { PRODUCTS } from "./verhuur.js";
 import { toestelPad } from "./verhuur";
+import { productInTaal } from "./verhuur.fr.js";
+import type { Taal } from "../i18n/taal.js";
 
 /**
  * De toestellen die op de publieke pagina's getoond worden, in gamma-volgorde.
@@ -142,6 +144,76 @@ export const DROGER_KAARTEN: DrogerKaart[] = DROGERS.map((t) => ({
     price: String(priceForWeeks(t, w)),
   })),
 }));
+
+/* ------------------------------------------------------------------ */
+/* Dezelfde lijsten in een andere taal.                                 */
+/* ------------------------------------------------------------------ */
+
+/*
+  Alleen de woorden verschillen: sleutels, bedragen en `path` (het Nederlandse
+  pad, de oproeper zet het om met `lokaalPad`) blijven die van hierboven. Zo
+  kan een Franse tabel nooit een ander bedrag tonen dan de Nederlandse. Geen
+  React hier: deze module wordt ook buiten componenten gelezen.
+*/
+
+/** Eén tarief met naam, soort, samenvatting en badge in `taal`. */
+export function tariefInTaal(t: Tarief, taal: Taal): Tarief {
+  if (taal === "nl") return t;
+  const p = productInTaal(t.key, taal);
+  return { ...t, name: p.name, type: p.type, summary: p.sum, badge: p.badge };
+}
+
+/** `TARIEVEN_PUBLIEK` in `taal`. */
+export function tarievenPubliekInTaal(taal: Taal): Tarief[] {
+  return taal === "nl" ? TARIEVEN_PUBLIEK : TARIEVEN_PUBLIEK.map((t) => tariefInTaal(t, taal));
+}
+
+/** `DROGERS` in `taal`. */
+export function drogersInTaal(taal: Taal): Tarief[] {
+  return taal === "nl" ? DROGERS : DROGERS.map((t) => tariefInTaal(t, taal));
+}
+
+const DESC_FALLBACK_FR: Record<string, string> = {
+  ttk170: "Une pièce, un appartement ou une petite rénovation",
+  ttk350: "Une maison familiale standard ou une grande rénovation",
+  ttk650: "Grands chantiers, caves spacieuses et dégâts des eaux aigus",
+};
+
+const DESC_FALLBACK_EN: Record<string, string> = {
+  ttk170: "One room, a flat or a small renovation",
+  ttk350: "A standard family home or a large renovation",
+  ttk650: "Large sites, spacious cellars and acute water damage",
+};
+
+/** De woorden op een droogkaart per taal; bedragen en sleutels staan erbuiten. */
+const KAART_WOORDEN: Record<"fr" | "en", { volume: (m3: number, l: number) => string; week: string; weken: string; desc: Record<string, string> }> = {
+  fr: { volume: (m3, l) => `Jusqu'à ${m3} m³ · ${l} L/jour`, week: "semaine", weken: "semaines", desc: DESC_FALLBACK_FR },
+  en: { volume: (m3, l) => `Up to ${m3} m³ · ${l} L/day`, week: "week", weken: "weeks", desc: DESC_FALLBACK_EN },
+};
+
+/**
+ * `DROGER_KAARTEN` in `taal`. `highlight` volgt de Nederlandse badge, zodat
+ * dezelfde kaart uitgelicht blijft wat de vertaling ook zegt.
+ */
+export function drogerKaartenInTaal(taal: Taal): DrogerKaart[] {
+  if (taal === "nl") return DROGER_KAARTEN;
+  const w = KAART_WOORDEN[taal];
+  return DROGER_KAARTEN.map((kaart) => {
+    const nl = DROGERS.find((t) => t.key === kaart.key);
+    const t = nl ? tariefInTaal(nl, taal) : undefined;
+    if (!nl || !t) return kaart;
+    return {
+      ...kaart,
+      volume: w.volume(t.volume, t.litersPerDay),
+      desc: w.desc[t.key] ?? t.summary,
+      badge: t.badge || null,
+      tiers: RENTAL_WEEKS.map((n) => ({
+        label: `${n} ${n === 1 ? w.week : w.weken}`,
+        price: String(priceForWeeks(t, n)),
+      })),
+    };
+  });
+}
 
 /** De laagste en hoogste dagprijs in het gamma, voor `priceRange` en samenvattingen. */
 export const DAY_PRICE_MIN = Math.min(...TARIEVEN_PUBLIEK.map((t) => t.perDay));

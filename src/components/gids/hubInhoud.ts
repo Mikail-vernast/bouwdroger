@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
-import { ALLES_OVER_DROGEN } from "@/data/navigation";
+import { navigatie } from "@/data/navigation";
+import type { Taal } from "@/i18n/taal";
 import {
   BoltIcon,
   BrushIcon,
@@ -97,6 +98,120 @@ export const SAMENVATTING: Record<string, string> = {
     "Losse toestellen zelf ophalen in Aartselaar, aan afhaaltarief. De route, de tijdsloten, wat er in uw auto past en waar u op let bij het vervoeren van een droger.",
 };
 
+/** {@link SAMENVATTING} in het Frans, met dezelfde (Nederlandse) sleutels. */
+export const SAMENVATTING_FR: Record<string, string> = {
+  /* Gidsen */
+  "/chape-drogen":
+    "Ce que coûte chez vous le séchage d'une chape et comment il se déroule : durée de location par épaisseur de chape, livraison et installation, mesure avant et après, et la garantie de séchage sur la date de fin.",
+  "/pleisterwerk-drogen":
+    "Faire sécher un plafonnage avec un pack de séchage : délai par épaisseur de couche, ce que fait le technicien, et quand le peintre ou le tapissier peut commencer.",
+  "/gids/hoe-lang-moet-chape-drogen":
+    "Les temps de séchage par épaisseur, naturellement et avec un déshumidificateur, la différence entre chape ciment et chape anhydrite, la mise en chauffe du chauffage par le sol et la mesure de l'humidité résiduelle. Avec une section distincte sur le plafonnage.",
+  "/gids/hoe-lang-moet-pleisterwerk-drogen":
+    "Le temps de séchage par épaisseur de couche, la différence entre enduit plâtre et enduit ciment, pourquoi l'humidité reste dans une maison fermée et quand le peintre peut venir.",
+  "/gids/natuurlijk-drogen-of-bouwdroger":
+    "Faut-il vraiment louer quelque chose ? Ce que le séchage naturel exige de vous, pourquoi la saison est déterminante, et la différence en semaines avec un pack de séchage.",
+  "/gids/condensdroger-of-adsorptiedroger":
+    "Comment fonctionnent les deux appareils, pourquoi un déshumidificateur à condensation perd du rendement dans le froid, et quel appareil convient à une cave, une nouvelle construction ou de l'eau sous le sol.",
+  "/gids/stroomverbruik-bouwdroger":
+    "La puissance de nos appareils, un exemple de calcul en kWh et en euros, et pourquoi un déshumidificateur de chantier peut tout simplement tourner 24 heures sur 24, y compris la nuit.",
+
+  /* Uitleg */
+  "/hoe-drogen-werkt":
+    "La technique du séchage : comment la température, l'humidité de l'air et le mouvement de l'air agissent ensemble, pourquoi la condensation fonctionne et ce que vous dit exactement un hygromètre.",
+  "/waarom-bouwdroging":
+    "Ce qui tourne mal si vous attendez le beau temps : moisissures, plafonnage qui se décolle, sols qui gonflent plus tard, et de combien de semaines un chantier est alors retardé.",
+  "/drooggarantie":
+    "Sec à la date convenue ou vous continuez à louer sans frais. Ce que couvre la garantie, les conditions qui s'y rattachent et le déroulement de la mesure d'humidité au début et à la fin.",
+  "/klantservice":
+    "Prolonger, arrêter plus tôt, un appareil qui ne fait pas ce qu'il doit, une facture ou un dossier pour l'assurance : qui appeler et à quoi vous attendre.",
+
+  /* Toepassingen */
+  "/nieuwbouw-drogen":
+    "Accélérer le séchage de la chape et du plafonnage sans forcer les travaux : combien d'appareils il faut pour une maison, quand vous pouvez commencer et comment prouver l'humidité résiduelle avant l'arrivée du poseur de sol.",
+  "/waterschade":
+    "Ce qu'il faut faire dans les 48 premières heures après une fuite ou une inondation, comment nous séchons sous les sols et derrière les murs, et quel rapport de mesure votre assureur demande.",
+  "/renovatie":
+    "Une cave qui reste humide, des murs avec des efflorescences salines ou des moisissures derrière les armoires : comment séchage et traitement de l'humidité s'enchaînent, et dans quel ordre.",
+  "/ozonbehandeling":
+    "Éliminer les odeurs et les spores de moisissures après le séchage : ce que fait l'ozone, combien de temps dure un traitement et pourquoi une pièce doit ensuite être aérée avant que vous puissiez y retourner.",
+  "/luchtontvochtiger-huren":
+    "La différence entre un déshumidificateur domestique et un déshumidificateur de chantier, quelle capacité pour quel volume, et quand un seul appareil suffit.",
+  "/ontschimmeling":
+    "Traiter les moisissures à la source au lieu de les repeindre : d'où elles viennent, ce que nous traitons et pourquoi la pièce doit d'abord être sèche.",
+
+  /* Het gamma */
+  "/machines":
+    "Chaque appareil que nous louons, avec sa capacité de déshumidification, sa puissance et le volume auquel il est destiné : déshumidificateurs, ventilateurs et purificateurs d'air.",
+  "/verhuur/afhalen":
+    "Enlever vous-même un appareil à Aartselaar : ce qui est disponible, le tarif d'enlèvement par jour et la réservation immédiate en ligne de votre moment d'enlèvement.",
+
+  /* Prijzen & service */
+  "/prijzen":
+    "Un prix journalier par appareil, sans caution et sans frais cachés. Avec les prix des packs, la garantie de séchage et toutes les conditions en langage clair.",
+  "/levering":
+    "Livré dans les 24 heures, installé et réglé par notre technicien, avec une mesure d'humidité au départ. Ce qui est compris, ce que fait la pompe à condensats et comment se passe l'enlèvement.",
+  "/afhalen":
+    "Enlever vous-même des appareils à Aartselaar, au tarif d'enlèvement. L'itinéraire, les créneaux horaires, ce qui tient dans votre voiture et à quoi faire attention lors du transport d'un déshumidificateur.",
+};
+
+/** {@link SAMENVATTING} in het Engels, met dezelfde (Nederlandse) sleutels. */
+export const SAMENVATTING_EN: Record<string, string> = {
+  /* Gidsen */
+  "/chape-drogen":
+    "What drying your screed costs and how it works: hire period per screed thickness, delivery and installation, readings before and after, and the drying guarantee on the end date.",
+  "/pleisterwerk-drogen":
+    "Drying plasterwork with a drying package: the period per coat thickness, what the technician does, and when the painter or paperhanger can start.",
+  "/gids/hoe-lang-moet-chape-drogen":
+    "Drying times per thickness, naturally and with a construction dehumidifier, the difference between cement and anhydrite screed, commissioning underfloor heating and measuring residual moisture. With a separate section on plasterwork.",
+  "/gids/hoe-lang-moet-pleisterwerk-drogen":
+    "Drying time per coat thickness, the difference between gypsum and cement plaster, why moisture lingers in a sealed-up house and when the painter can come in.",
+  "/gids/natuurlijk-drogen-of-bouwdroger":
+    "Do you actually need to hire anything? What natural drying asks of you, why the season decides it, and the difference in weeks compared with a drying package.",
+  "/gids/condensdroger-of-adsorptiedroger":
+    "How both machines work, why a condensation dehumidifier loses efficiency in the cold, and which machine suits a cellar, a new build or water under the floor.",
+  "/gids/stroomverbruik-bouwdroger":
+    "The power rating of our machines, a worked example in kWh and euros, and why a construction dehumidifier can simply run 24 hours a day, nights included.",
+
+  /* Uitleg */
+  "/hoe-drogen-werkt":
+    "The technology behind drying: how temperature, humidity and air movement work together, why condensation works and what a hygrometer actually tells you.",
+  "/waarom-bouwdroging":
+    "What goes wrong if you wait for good weather: mould, plaster coming loose, floors that buckle later, and how many weeks that adds to a building project.",
+  "/drooggarantie":
+    "Dry on the agreed date or you keep hiring free of charge. What the guarantee covers, the conditions attached and how the moisture reading at the start and at handover works.",
+  "/klantservice":
+    "Extending, stopping early, a machine that isn't doing what it should, an invoice or a file for the insurer: who to call and what you can expect.",
+
+  /* Toepassingen */
+  "/nieuwbouw-drogen":
+    "Speeding up screed and plaster drying without forcing the work: how many machines a house needs, when you can start and how to prove residual moisture before the floor layer arrives.",
+  "/waterschade":
+    "What to do in the first 48 hours after a leak or a flood, how we dry under floors and behind walls, and which reading report your insurer needs.",
+  "/renovatie":
+    "A cellar that stays damp, walls with salt efflorescence or mould behind the cupboards: how drying and damp treatment fit together, and in what order.",
+  "/ozonbehandeling":
+    "Removing odours and mould spores after drying: what ozone does, how long a treatment takes and why a room must be aired before you can go back in.",
+  "/luchtontvochtiger-huren":
+    "The difference between a household dehumidifier and a construction dehumidifier, which capacity suits which volume, and when one machine is enough.",
+  "/ontschimmeling":
+    "Tackling mould at the source instead of painting over it: where it comes from, what we treat and why the room has to be dry first.",
+
+  /* Het gamma */
+  "/machines":
+    "Every machine we hire out, with its dehumidifying capacity, power rating and the volume it is meant for: construction dehumidifiers, fans and air purifiers.",
+  "/verhuur/afhalen":
+    "Collecting a single machine yourself in Aartselaar: what is available, the daily collection rate and booking your collection slot online straight away.",
+
+  /* Prijzen & service */
+  "/prijzen":
+    "One daily price per machine, no deposit and no hidden costs. Including package prices, the drying guarantee and all terms in plain language.",
+  "/levering":
+    "Delivered within 24 hours, placed and set up by our technician, with a moisture reading at the start. What is included, what the condensate pump does and how collection works.",
+  "/afhalen":
+    "Collecting individual machines yourself in Aartselaar, at the collection rate. The route, the time slots, what fits in your car and what to watch out for when transporting a dehumidifier.",
+};
+
 /**
  * Dezelfde pagina als een vraag geformuleerd.
  *
@@ -132,6 +247,66 @@ export const VRAAG: Record<string, string> = {
   "/prijzen": "Wat kost een bouwdroger per dag?",
   "/levering": "Wat zit er bij een levering inbegrepen?",
   "/afhalen": "Kan ik een toestel zelf komen ophalen?",
+};
+
+/** {@link VRAAG} in het Frans, met dezelfde (Nederlandse) sleutels. */
+export const VRAAG_FR: Record<string, string> = {
+  "/gids/hoe-lang-moet-chape-drogen": "Combien de temps une chape doit-elle sécher ?",
+  "/gids/hoe-lang-moet-pleisterwerk-drogen": "Combien de temps un plafonnage doit-il sécher ?",
+  "/gids/natuurlijk-drogen-of-bouwdroger": "Dois-je louer, ou cela sèche-t-il tout seul ?",
+  "/gids/condensdroger-of-adsorptiedroger": "Condensation ou adsorption : de quel appareil ai-je besoin ?",
+  "/gids/stroomverbruik-bouwdroger": "Combien coûte un déshumidificateur en électricité ?",
+
+  "/hoe-drogen-werkt": "Comment un déshumidificateur de chantier sèche-t-il réellement une pièce ?",
+  "/waarom-bouwdroging": "Qu'est-ce qui tourne mal si j'attends simplement que ça sèche ?",
+  "/drooggarantie": "Et si ce n'est pas sec à la date convenue ?",
+  "/klantservice": "Comment prolonger, arrêter plus tôt ou signaler un problème ?",
+
+  "/chape-drogen": "Combien coûte le séchage de ma chape ?",
+  "/pleisterwerk-drogen": "Quand le peintre peut-il commencer après le plafonnage ?",
+  "/nieuwbouw-drogen": "Combien d'appareils faut-il pour ma nouvelle construction ?",
+  "/waterschade": "Que faire dans les 48 premières heures après des dégâts des eaux ?",
+  "/renovatie": "Comment assécher une cave ou un mur humide ?",
+  "/ozonbehandeling": "Comment me débarrasser de l'odeur et des spores de moisissures ?",
+  "/luchtontvochtiger-huren": "Un déshumidificateur d'air suffit-il, ou me faut-il un déshumidificateur de chantier ?",
+  "/ontschimmeling": "Comment me débarrasser des moisissures, et qu'elles ne reviennent pas ?",
+
+  "/machines": "Quels appareils louez-vous ?",
+  "/verhuur/afhalen": "Combien coûte l'enlèvement d'un appareil ?",
+
+  "/prijzen": "Combien coûte un déshumidificateur de chantier par jour ?",
+  "/levering": "Qu'est-ce qui est compris dans une livraison ?",
+  "/afhalen": "Puis-je venir chercher un appareil moi-même ?",
+};
+
+/** {@link VRAAG} in het Engels, met dezelfde (Nederlandse) sleutels. */
+export const VRAAG_EN: Record<string, string> = {
+  "/gids/hoe-lang-moet-chape-drogen": "How long does screed take to dry?",
+  "/gids/hoe-lang-moet-pleisterwerk-drogen": "How long does plaster take to dry?",
+  "/gids/natuurlijk-drogen-of-bouwdroger": "Should I hire, or will it dry on its own?",
+  "/gids/condensdroger-of-adsorptiedroger": "Condensation or desiccant dehumidifier: which do I need?",
+  "/gids/stroomverbruik-bouwdroger": "How much electricity does a construction dehumidifier cost?",
+
+  "/hoe-drogen-werkt": "How does a construction dehumidifier actually dry a room?",
+  "/waarom-bouwdroging": "What goes wrong if I just wait for it to dry?",
+  "/drooggarantie": "What if it isn't dry on the agreed date?",
+  "/klantservice": "How do I extend, stop early or report a problem?",
+
+  "/chape-drogen": "What does it cost to have my screed dried?",
+  "/pleisterwerk-drogen": "When can the painter start after plastering?",
+  "/nieuwbouw-drogen": "How many machines does my new build need?",
+  "/waterschade": "What do I do in the first 48 hours after water damage?",
+  "/renovatie": "How do I get a cellar or a damp wall dry?",
+  "/ozonbehandeling": "How do I get rid of the smell and the mould spores?",
+  "/luchtontvochtiger-huren": "Is a dehumidifier enough, or do I need a construction dehumidifier?",
+  "/ontschimmeling": "How do I get rid of mould, and keep it away?",
+
+  "/machines": "Which machines do you hire out?",
+  "/verhuur/afhalen": "What does collecting a single machine cost?",
+
+  "/prijzen": "What does a construction dehumidifier cost per day?",
+  "/levering": "What is included in a delivery?",
+  "/afhalen": "Can I collect a machine myself?",
 };
 
 /** Het pictogram per pagina; onbekend valt terug op {@link FileIcon}. */
@@ -220,6 +395,64 @@ export const GROEPKOP: Record<string, { kop: string; lede: string; kort: string;
   },
 };
 
+/** {@link GROEPKOP} in het Frans; de sleutel blijft de Nederlandse groepstitel. */
+export const GROEPKOP_FR: Record<string, { kop: string; lede: string; kort: string }> = {
+  Gidsen: {
+    kop: "Choisissez votre question",
+    lede: "Une question concrète par guide, développée avec des temps de séchage, des exemples de calcul et les chiffres de notre propre catalogue.",
+    kort: "Temps de séchage, choix de l'appareil et consommation, calculés.",
+  },
+  Uitleg: {
+    kop: "Comment fonctionne le séchage, et pourquoi il ne se fait pas tout seul",
+    lede: "Le contexte de tout ce qui précède : la technique, la raison de ne pas attendre, et ce que nous promettons quand vous louez chez nous.",
+    kort: "La technique et ce que nous promettons.",
+  },
+  Toepassingen: {
+    kop: "Votre situation",
+    lede: "Une nouvelle construction, une fuite, une cave humide ou une odeur qui persiste, chacune avec sa propre approche, son temps de séchage et son installation.",
+    kort: "Nouvelle construction, dégâts des eaux, cave ou odeur.",
+  },
+  "Het gamma": {
+    kop: "Les appareils",
+    lede: "Ce qui se trouve dans notre entrepôt, avec la capacité et la puissance de chaque appareil, et comment venir en chercher un vous-même.",
+    kort: "Les appareils, avec capacité et puissance.",
+  },
+  "Prijzen & service": {
+    kop: "Ce que ça coûte et comment c'est livré",
+    lede: "Les tarifs, ce qui est compris dans une livraison, et ce qui change quand vous venez chercher les appareils vous-même.",
+    kort: "Tarifs, livraison et enlèvement.",
+  },
+};
+
+/** {@link GROEPKOP} in het Engels; de sleutel blijft de Nederlandse groepstitel. */
+export const GROEPKOP_EN: Record<string, { kop: string; lede: string; kort: string }> = {
+  Gidsen: {
+    kop: "Choose your question",
+    lede: "One concrete question per guide, worked out with drying times, worked examples and the figures from our own catalogue.",
+    kort: "Drying times, choice of machine and consumption, calculated.",
+  },
+  Uitleg: {
+    kop: "How drying works, and why it doesn't happen by itself",
+    lede: "The background to everything above: the technology, the reason not to wait, and what we promise when you hire from us.",
+    kort: "The technology behind it and what we promise.",
+  },
+  Toepassingen: {
+    kop: "Your situation",
+    lede: "A new build, a leak, a damp cellar or a smell that lingers, each with its own approach, drying time and set-up.",
+    kort: "New build, water damage, cellar or odour.",
+  },
+  "Het gamma": {
+    kop: "The machines themselves",
+    lede: "What is in the warehouse, with the capacity and power rating of each machine, and how to collect one yourself.",
+    kort: "The machines, with capacity and power rating.",
+  },
+  "Prijzen & service": {
+    kop: "What it costs and how it is delivered",
+    lede: "The rates, what is included in a delivery, and what changes when you collect the machines yourself.",
+    kort: "Rates, delivery and self-collection.",
+  },
+};
+
 export interface HubItem {
   path: string;
   /** Het menulabel: waar u terechtkomt. */
@@ -241,34 +474,64 @@ export interface HubGroep {
   items: HubItem[];
 }
 
-/* De gidsen vooraan: dit is hun pagina. De rest volgt in de volgorde van het
-   menu, zodat iemand die van daar komt dezelfde indeling terugvindt. */
-export const HUB_GROEPEN: HubGroep[] = [
-  ...ALLES_OVER_DROGEN.filter((g) => g.titel === "Gidsen"),
-  ...ALLES_OVER_DROGEN.filter((g) => g.titel !== "Gidsen"),
-].map((groep) => {
-  const kop = GROEPKOP[groep.titel];
-  return {
-    titel: groep.titel,
-    kop: kop?.kop ?? groep.titel,
-    lede: kop?.lede ?? "",
-    kort: kop?.kort ?? "",
-    kleur: kop?.kleur ?? "wit",
-    // "Alle gidsen" is de hub zelf; een kaart die naar zichzelf linkt helpt
-    // niemand en kost een crawler een beurt.
-    items: groep.items
-      .filter((item) => item.path !== "/gids")
-      .map((item) => ({
-        path: item.path,
-        label: item.label,
-        vraag: VRAAG[item.path] ?? item.label,
-        samenvatting: SAMENVATTING[item.path] ?? "",
-        Icoon: PICTOGRAM[item.path] ?? FileIcon,
-        groep: groep.titel,
-        kleur: kop?.kleur ?? "wit",
-      })),
-  };
-});
+/*
+  De gidsen vooraan: dit is hun pagina. De rest volgt in de volgorde van het
+  menu, zodat iemand die van daar komt dezelfde indeling terugvindt.
+
+  De Nederlandse en de vertaalde menulijsten hebben dezelfde vorm (`navigatie()`
+  vertaalt ze item voor item), dus lopen ze hier naast elkaar: de Nederlandse
+  geeft de sleutel voor samenvatting, vraag en pictogram, de taal van de pagina
+  het label en het pad.
+*/
+function bouwGroepen(taal: Taal): HubGroep[] {
+  const nl = navigatie("nl").ALLES_OVER_DROGEN;
+  const lokaal = navigatie(taal).ALLES_OVER_DROGEN;
+  // Nederlands is de bron: een vertaling bestaat alleen voor fr en en. Een
+  // taal zonder eigen kop valt terug op de menutitel, niet op Nederlands.
+  const vertaald = taal !== "nl";
+  const KOP_VERTAALD = taal === "fr" ? GROEPKOP_FR : taal === "en" ? GROEPKOP_EN : undefined;
+  const VRAGEN = taal === "fr" ? VRAAG_FR : taal === "en" ? VRAAG_EN : VRAAG;
+  const SAMENVATTINGEN = taal === "fr" ? SAMENVATTING_FR : taal === "en" ? SAMENVATTING_EN : SAMENVATTING;
+  const volgorde = [
+    ...nl.map((g, i) => ({ g, i })).filter(({ g }) => g.titel === "Gidsen"),
+    ...nl.map((g, i) => ({ g, i })).filter(({ g }) => g.titel !== "Gidsen"),
+  ];
+  return volgorde.map(({ g: groep, i }) => {
+    const kop = GROEPKOP[groep.titel];
+    const kopVertaald = KOP_VERTAALD?.[groep.titel];
+    const titel = lokaal[i]?.titel ?? groep.titel;
+    return {
+      titel,
+      kop: kopVertaald?.kop ?? (vertaald ? titel : (kop?.kop ?? groep.titel)),
+      lede: kopVertaald?.lede ?? (vertaald ? "" : (kop?.lede ?? "")),
+      kort: kopVertaald?.kort ?? (vertaald ? "" : (kop?.kort ?? "")),
+      kleur: kop?.kleur ?? "wit",
+      // "Alle gidsen" is de hub zelf; een kaart die naar zichzelf linkt helpt
+      // niemand en kost een crawler een beurt.
+      items: groep.items
+        .map((item, j) => ({ item, hier: lokaal[i]?.items[j] ?? item }))
+        .filter(({ item }) => item.path !== "/gids")
+        .map(({ item, hier }) => ({
+          path: hier.path,
+          label: hier.label,
+          vraag: VRAGEN[item.path] ?? hier.label,
+          samenvatting: SAMENVATTINGEN[item.path] ?? "",
+          Icoon: PICTOGRAM[item.path] ?? FileIcon,
+          groep: titel,
+          kleur: kop?.kleur ?? "wit",
+        })),
+    };
+  });
+}
+
+const CACHE: Partial<Record<Taal, HubGroep[]>> = {};
+
+/** De groepen van de hub in één taal, één keer opgebouwd. */
+export function hubGroepen(taal: Taal): HubGroep[] {
+  return (CACHE[taal] ??= bouwGroepen(taal));
+}
 
 /** Alle pagina's op één hoop, in de volgorde van de groepen. */
-export const HUB_ITEMS: HubItem[] = HUB_GROEPEN.flatMap((g) => g.items);
+export function hubItems(taal: Taal): HubItem[] {
+  return hubGroepen(taal).flatMap((g) => g.items);
+}
