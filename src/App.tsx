@@ -236,13 +236,17 @@ const NL_ROUTES: RouteRecord[] = [
           path: regio.path.slice(1),
           lazy: async () => ({ Component: (await import("./pages/RegioPage")).default }),
           /*
-            De Franse versie laadt een eigen pagina, met alleen de Franse
-            tekst van deze ene provincie; zie `vertaaldeRoutes` hieronder.
+            De Franse en Engelse versie laden een eigen pagina, met alleen de
+            tekst van deze ene provincie in die taal; zie `vertaaldeRoutes`
+            hieronder.
           */
           handle: {
             perTaal: {
               fr: async () => ({
                 Component: await (await import("./pages/RegioPageFr")).laadRegioPaginaFr(regio.slug),
+              }),
+              en: async () => ({
+                Component: await (await import("./pages/RegioPageEn")).laadRegioPaginaEn(regio.slug),
               }),
             },
           } satisfies RouteHandle,
@@ -260,11 +264,16 @@ const NL_ROUTES: RouteRecord[] = [
         (gemeente): RouteRecord => ({
           path: gemeente.path.slice(1),
           lazy: async () => ({ Component: (await import("./pages/GemeentePage")).default }),
-          /* Idem: de Franse pagina laadt de Franse teksten van haar eigen provincie. */
+          /* Idem: de Franse en Engelse pagina laden de teksten van hun eigen provincie. */
           handle: {
             perTaal: {
               fr: async () => ({
                 Component: await (await import("./pages/GemeentePageFr")).laadGemeentePaginaFr(
+                  gemeente.slug,
+                ),
+              }),
+              en: async () => ({
+                Component: await (await import("./pages/GemeentePageEn")).laadGemeentePaginaEn(
                   gemeente.slug,
                 ),
               }),

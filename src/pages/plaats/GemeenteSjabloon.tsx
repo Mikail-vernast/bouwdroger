@@ -25,15 +25,24 @@ import {
   GEMEENTE_BY_PATH,
   GEMEENTE_ROUTES,
   gemeentenInRegio,
+  gemeenteNaamIn,
   gemeenteVanPlaats,
-  kruimelFr,
+  kruimelIn,
   plaatsenVanRoute,
+  plaatsEn,
   plaatsFr,
+  plaatsIn,
   type GemeenteRoute,
 } from "@/data/gemeente-slugs";
 import type { Gemeente } from "@/data/gemeenten";
-import { REGIO_ROUTES, kaartVoor } from "@/data/regio-slugs";
-import { STREKEN_PER_REGIO, streekKenmerkFr, streekNaamFr } from "@/data/provincie-gemeenten";
+import { REGIO_ROUTES, kaartVoor, regioInEn, regioNaamIn } from "@/data/regio-slugs";
+import {
+  STREKEN_PER_REGIO,
+  streekKenmerkEn,
+  streekKenmerkFr,
+  streekNaamEn,
+  streekNaamFr,
+} from "@/data/provincie-gemeenten";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { realisatieSlugsIn } from "@/data/realisatie-regio";
 import { productImageAlt, PRODUCTS, toestelPad } from "@/data/verhuur";
@@ -58,7 +67,8 @@ import "@/styles/v3-content.css";
  *
  * De tekst komt als prop binnen: `pages/GemeentePage.tsx` geeft de
  * Nederlandse uit `gemeenten.ts`, `pages/GemeentePageFr.tsx` de Franse uit
- * `gemeenten-fr/`. Zo laadt dit sjabloon zelf geen van beide, en krijgt een
+ * `gemeenten-fr/`, `pages/GemeentePageEn.tsx` de Engelse uit `gemeenten-en/`.
+ * Zo laadt dit sjabloon zelf geen van de drie, en krijgt een
  * Franstalige geen 3 MB Nederlandse tekst mee (en omgekeerd). De vaste teksten
  * eromheen staan in `plaats.copy.tsx` en hieronder in `COPY`.
  *
@@ -72,7 +82,7 @@ import "@/styles/v3-content.css";
  *
  * React Router kan geen `bouwdroger-huren-:gemeente` (een parameter moet een
  * heel segment zijn), dus App.tsx registreert vaste routes die allemaal hier
- * uitkomen; welke gemeente het is, volgt uit het pad (in het Frans via
+ * uitkomen; welke gemeente het is, volgt uit het pad (in het Frans en Engels via
  * `naarNl`).
  */
 
@@ -80,7 +90,7 @@ interface Props {
   gemeente: Gemeente;
   /**
    * De werffoto van de provincie, in de taal van de pagina. Komt van de
-   * provinciedata (`regios.ts` of `regios-fr/`): er zijn per provincie één
+   * provinciedata (`regios.ts`, `regios-fr/` of `regios-en/`): er zijn per provincie één
    * foto en tientallen gemeenten, en de bebouwing van een gemeente lijkt op die
    * van haar provincie.
    */
@@ -267,6 +277,93 @@ const COPY = {
     placeholder: (naam: string) =>
       `P. ex. rénovation ${a(naam)}, chape coulée la semaine dernière, quand le poseur de sol peut-il commencer ?`,
   },
+  en: {
+    prijsH2: (plaats: string) => `What does dehumidifier hire cost in ${plaats}?`,
+    prijsLede1: (plaats: string): ReactNode => (
+      <>
+        <b>The right price starts with what needs to dry.</b> For a whole house, wet screed or
+        plasterwork you calculate a complete drying package; for a single room, a single unit may
+        be suitable. <b>Delivery in {plaats} is included in your drying package.</b>
+      </>
+    ),
+    in: (plaats: string) => `in ${plaats}`,
+    pakketLede: (postcode: string): ReactNode => (
+      <>
+        <b>You don't need to combine units yourself.</b> We calculate your drying package based on
+        the floor area, the material and the layer thickness. You see{" "}
+        <b>the package price in advance</b>, including delivery to postcode {postcode},
+        installation, readings before and after, and collection.
+      </>
+    ),
+    bouwKick: "The buildings here",
+    leverKick: "Where we deliver",
+    feitenBouw: [
+      ["Collection point", "Aartselaar, by appointment"],
+      ["Delivery", "As per your confirmed booking"],
+      ["Transport cost", "None, included in the drying package"],
+    ] as [string, string][],
+    postcode: "Postcode",
+    bouwNoot: (lp: (p: string) => string, provPad: string, prov: string): ReactNode => (
+      <>
+        <b>Which unit you need depends on your room, not on your municipality.</b> The full range
+        with capacities and daily rates is on <Link to={provPad}>our page for deliveries {prov}</Link>,
+        or calculate your set-up straight away in the{" "}
+        <Link to={lp("/verhuur/calculator")}>drying calculator</Link>. Prefer to collect it
+        yourself? You can, in <Link to={lp("/afhalen")}>Aartselaar</Link>.
+      </>
+    ),
+    toestelH2: (naam: string) => `The units most often used in ${naam}`,
+    toestelNoot: (lp: (p: string) => string): ReactNode => (
+      <>
+        See the options for your project and ask for advice on the right set-up.{" "}
+        <Link to={lp("/verhuur/calculator")}>Calculate the drying package for your room</Link> or
+        see <Link to={lp("/machines")}>all units</Link>.
+      </>
+    ),
+    leverH2: (naam: string) => `Collection or delivery in ${naam}?`,
+    feitenLever: [
+      ["Collection point", "Aartselaar, by appointment"],
+      ["Delivery time", "As per your confirmed booking"],
+      ["Transport and installation", "Included in the drying package"],
+    ] as [string, string][],
+    wervenH2: (waar: string) => `Sites we dried ${waar}`,
+    omgeving: (plaats: string) => `${plaats} and the surrounding area`,
+    wervenEen: "One project from this municipality, with photos of the site itself.",
+    wervenVeel: (n: number) => `${n} projects from this municipality, each with photos of the site itself.`,
+    wervenRond: (plaats: string, prov: string) =>
+      `Work in ${plaats} itself, plus sites elsewhere ${prov}. Each with photos of the site, the same team and the same reading at the start and at handover.`,
+    wervenProv: (prov: string) =>
+      `Sites ${prov}, each with photos of the site itself. The same team, the same reading at the start and at handover.`,
+    alleWerven: (prov: string) => `View all sites ${prov}`,
+    verloopH2: (naam: string) => `From booking to collection in ${naam}.`,
+    rijden: (naam: string) => `We drive to ${naam}`,
+    buiten: (prov: string) => `We also drive outside ${prov}, although the journey then counts in the planning.`,
+    inDeBuurt: "Dehumidifier hire nearby:",
+    of: " or ",
+    twijfel: "Unsure about the number of units? Call us on",
+    bereken: "calculate your package straight away",
+    ofKort: "or",
+    streekH2: (streek: string) => `${streek}, and the rest of the province.`,
+    omstreken: (plaats: string) => `In ${plaats} and the surrounding area.`,
+    streekLede: (plaats: string, prov: string): ReactNode => (
+      <>
+        <b>We deliver in {plaats} and the surrounding municipalities.</b> Choose a place below for
+        details on hire and delivery, or see our service area {prov}.
+      </>
+    ),
+    elders: (prov: string) => `Elsewhere ${prov}`,
+    eldersP:
+      "See for each municipality how to hire a construction dehumidifier, what a drying package includes and how to arrange delivery.",
+    heleProv: (prov: string) => `The whole of ${prov}`,
+    advies: "Need advice for your site?",
+    adviesP: "Talk through the dimensions, the material and your planning. Call us on",
+    faqTitel: (plaats: string) => `What customers in ${plaats} ask us.`,
+    kaartAlt: (naam: string, prov: string) => `Vernast's service area, with ${naam} ${prov}`,
+    badge: "Delivery and installation included",
+    badgeKlein: "With a delivered drying package",
+    placeholder: (naam: string) =>
+      `E.g. renovation in ${naam}, screed laid last week, when can the floor layer start?`,
+  },
 } satisfies Copy<Record<string, unknown>>;
 
 /**
@@ -291,6 +388,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
   const { pathname } = useLocation();
   const taal = useTaal();
   const fr = taal === "fr";
+  const nl = taal === "nl";
   const lp = useLokaalPad();
   const t = kies(COPY, taal);
   const g = kies(GEDEELD, taal);
@@ -300,7 +398,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
   const kaart = kaartVoor(provincie);
 
   /** De naam van een gemeente in de taal van de pagina. */
-  const naamVan = (r: GemeenteRoute) => (fr ? (r.nameFr ?? r.name) : r.name);
+  const naamVan = (r: GemeenteRoute) => gemeenteNaamIn(r, taal);
   const naam = naamVan(route);
   /*
     "Antwerpen stad", niet "Antwerpen" kaal. De stad en de provincie dragen
@@ -308,10 +406,35 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
     welke van de twee bedoeld is. `kruimel` staat er precies daarvoor in
     `gemeente-slugs.ts`, en gemeenten zonder naamgenoot vallen terug op `name`.
   */
-  const plaats = fr ? kruimelFr(route) : (route.kruimel ?? route.name);
-  const provNaam = fr ? (provincie.nameFr ?? provincie.name) : provincie.name;
-  /* "in Antwerpen" / "dans la province d'Anvers": het Frans kiest per provincie. */
-  const provIn = fr ? (DANS_FR[provincie.slug] ?? a(provNaam)) : provNaam;
+  const plaats = kruimelIn(route, taal);
+  const provNaam = regioNaamIn(provincie, taal);
+  /*
+    "in Antwerpen" / "dans la province d'Anvers" / "in the province of
+    Antwerp": het Frans en het Engels kiezen het voorzetsel per provincie.
+    Het Nederlands zet zelf "in" of "provincie" in de zin.
+  */
+  const provIn = fr
+    ? (DANS_FR[provincie.slug] ?? a(provNaam))
+    : taal === "en"
+      ? regioInEn(provincie)
+      : provNaam;
+  /*
+    De provincie zonder voorzetsel: "outside the province of Antwerp", "the
+    whole of East Flanders". Het Frans en het Nederlands gebruiken daar de kale
+    naam.
+  */
+  const provZin = taal === "en" ? (provincie.zinEn ?? provNaam) : provNaam;
+  /* Een plaats na een voorzetsel: "à Mons", "in Mons"; het Nederlands zet "in" zelf. */
+  const inPlaats = (p: string) => (fr ? a(p) : `in ${p}`);
+  /* De naam en de kenmerkzin van een streek in de taal van de pagina. */
+  const streekNaam = (naam: string) =>
+    fr ? streekNaamFr(naam) : taal === "en" ? streekNaamEn(naam) : naam;
+  const streekKenmerk = (st: { gemeenten: string[]; kenmerk: string }) =>
+    fr
+      ? streekKenmerkFr(st.gemeenten, plaatsFr)
+      : taal === "en"
+        ? streekKenmerkEn(st.gemeenten, plaatsEn)
+        : st.kenmerk;
 
   /*
     Een link naar een andere gemeente, alleen als die in deze taal bestaat. In
@@ -319,7 +442,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
     Nederlandse pagina midden in een Franse lijst zou de lezer van taal doen
     wisselen zonder dat hij erom vroeg.
   */
-  const padIn = (nlPad: string) => (fr ? vertaalPad(nlPad, "fr") : nlPad);
+  const padIn = (nlPad: string) => (nl ? nlPad : vertaalPad(nlPad, taal));
 
   /*
     De werven in déze gemeente, herkend aan de plaatsnaam in `locatie`
@@ -372,7 +495,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
   */
   const drogers = Object.values(PRODUCTS).filter((p) => /ontvochtiger|droger/i.test(p.type));
   const goedkoopst = Math.min(...drogers.map((p) => p.day));
-  const goedkoopsteDag = fr ? formatEuro(goedkoopst, "fr", 0) : euroInt(goedkoopst);
+  const goedkoopsteDag = nl ? euroInt(goedkoopst) : formatEuro(goedkoopst, taal, 0);
   const chape = droogtermijnen("chape");
   const pleister = droogtermijnen("pleister");
   const termijn = g.weken ?? termijnLabel;
@@ -541,7 +664,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
             {feiten(t.feitenBouw)}
           </dl>
 
-          <div className="note">{t.bouwNoot(lp, provPad, fr ? provIn : provNaam)}</div>
+          <div className="note">{t.bouwNoot(lp, provPad, nl ? provNaam : provIn)}</div>
         </div>
       </section>
     </>
@@ -651,9 +774,9 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
             <h2 className="sec">
               {t.wervenH2(
                 wervenUitGemeente
-                  ? fr ? a(plaats) : plaats
+                  ? nl ? plaats : inPlaats(plaats)
                   : wervenRondGemeente
-                    ? fr ? a(t.omgeving(plaats)) : t.omgeving(plaats)
+                    ? nl ? t.omgeving(plaats) : inPlaats(t.omgeving(plaats))
                     : provIn,
               )}
             </h2>
@@ -663,8 +786,8 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
                   ? t.wervenEen
                   : t.wervenVeel(werven.length)
                 : wervenRondGemeente
-                  ? t.wervenRond(plaats, fr ? provIn : provNaam)
-                  : t.wervenProv(fr ? provIn : provNaam)}
+                  ? t.wervenRond(plaats, nl ? provNaam : provIn)
+                  : t.wervenProv(nl ? provNaam : provIn)}
             </p>
           </div>
           <div className="rzs">
@@ -689,7 +812,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
           </div>
           <p className="tblnote" style={{ textAlign: "center" }}>
             <Link to={provPad} style={{ fontWeight: 600 }}>
-              {t.alleWerven(fr ? provIn : provNaam)}
+              {t.alleWerven(nl ? provNaam : provIn)}
             </Link>
           </p>
         </div>
@@ -786,7 +909,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
           */}
           <div className="note">
             <b>{provincie.opAanvraag ? g.leverenOpAfspraak : g.leverenOveral}</b>{" "}
-            {t.buiten(provNaam)}
+            {t.buiten(provZin)}
             {buren.length > 0 && (
               <>
                 {" "}
@@ -869,21 +992,21 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
           <div className="sec-head">
             <span className="kick">{t.leverKick}</span>
             <h2 className="sec">
-              {streek ? t.streekH2(fr ? streekNaamFr(streek.naam) : streek.naam) : t.omstreken(plaats)}
+              {streek ? t.streekH2(streekNaam(streek.naam)) : t.omstreken(plaats)}
             </h2>
-            <p className="lede">{t.streekLede(plaats, fr ? provIn : provNaam)}</p>
+            <p className="lede">{t.streekLede(plaats, nl ? provNaam : provIn)}</p>
           </div>
 
           <div className="strk">
             {streek && (
               <Reveal from="up" as="article" className="strk-blok">
-                <h3>{fr ? streekNaamFr(streek.naam) : streek.naam}</h3>
-                <p>{fr ? streekKenmerkFr(streek.gemeenten, plaatsFr) : streek.kenmerk}</p>
+                <h3>{streekNaam(streek.naam)}</h3>
+                <p>{streekKenmerk(streek)}</p>
                 <ul className="strk-lijst">
                   {streek.gemeenten.map((n) => {
                     const eigen = gemeenteVanPlaats(n);
                     const pad = eigen && eigen.slug !== route.slug ? padIn(eigen.path) : null;
-                    const label = fr ? plaatsFr(n) : n;
+                    const label = plaatsIn(n, taal);
                     return <li key={n}>{pad ? <Link to={pad}>{label}</Link> : <span>{label}</span>}</li>;
                   })}
                 </ul>
@@ -891,7 +1014,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
             )}
             {elders.length > 0 && (
               <Reveal from="up" delay={0.08} as="article" className="strk-blok">
-                <h3>{t.elders(fr ? provIn : provNaam)}</h3>
+                <h3>{t.elders(nl ? provNaam : provIn)}</h3>
                 <p>{t.eldersP}</p>
                 <ul className="strk-lijst">
                   {elders.map((x) => (
@@ -900,7 +1023,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
                     </li>
                   ))}
                   <li>
-                    <Link to={provPad}>{t.heleProv(provNaam)}</Link>
+                    <Link to={provPad}>{t.heleProv(provZin)}</Link>
                   </li>
                 </ul>
               </Reveal>
@@ -977,7 +1100,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
     faqSection,
   ];
 
-  const kruimel = fr ? kruimelFr(route) : (route.kruimel ?? route.name);
+  const kruimel = kruimelIn(route, taal);
   const pad = lp(route.path);
 
   return (
@@ -1064,7 +1187,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
                 <div className="kaartvis" style={{ aspectRatio: `${kaart.width}/${kaart.height}` }}>
                   <img
                     src={kaart.src}
-                    alt={t.kaartAlt(naam, fr ? provIn : provNaam)}
+                    alt={t.kaartAlt(naam, nl ? provNaam : provIn)}
                     width={kaart.width}
                     height={kaart.height}
                     loading="lazy"
@@ -1101,9 +1224,9 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
         ))}
 
         <ContactBlok
-          titel={g.contact.titel(fr ? a(naam) : naam)}
+          titel={g.contact.titel(nl ? naam : inPlaats(naam))}
           lede={g.contact.lede}
-          onderwerpen={g.contact.onderwerpen(fr ? a(naam) : naam)}
+          onderwerpen={g.contact.onderwerpen(nl ? naam : inPlaats(naam))}
           placeholder={t.placeholder(naam)}
         />
       </main>

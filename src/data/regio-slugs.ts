@@ -375,6 +375,16 @@ export function regioNaamIn(route: RegioRoute, taal: Taal): string {
   return route.name;
 }
 
+/**
+ * "in the province of Antwerp", "in East Flanders", "in the Brussels-Capital
+ * Region": een provincie na een voorzetsel in een Engelse zin. Bij Antwerpen,
+ * Namen, Luik en Luxemburg staat "the province of" erbij (`zinEn`), anders
+ * leest "in Antwerp" als de stad en "in Luxembourg" als het groothertogdom.
+ */
+export function regioInEn(route: Pick<RegioRoute, "name" | "nameEn" | "zinEn">): string {
+  return `in ${route.zinEn ?? route.nameEn ?? route.name}`;
+}
+
 /*
   De Franse en Engelse provinciepaden in de padentabel. Hier en niet in
   `i18n/paden.ts`, zodat die module niets van provincies hoeft te weten;

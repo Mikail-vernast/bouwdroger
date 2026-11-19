@@ -21,9 +21,15 @@ import {
 } from "@/components/home-v3/icons";
 import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
-import { REGIO_ROUTES, kaartVoor } from "@/data/regio-slugs";
-import { gemeentenInRegio, gemeenteVanPlaats, plaatsFr } from "@/data/gemeente-slugs";
-import { STREKEN_PER_REGIO, streekKenmerkFr, streekNaamFr } from "@/data/provincie-gemeenten";
+import { REGIO_ROUTES, kaartVoor, regioNaamIn } from "@/data/regio-slugs";
+import { gemeenteNaamIn, gemeentenInRegio, gemeenteVanPlaats, plaatsEn, plaatsFr, plaatsIn } from "@/data/gemeente-slugs";
+import {
+  STREKEN_PER_REGIO,
+  streekKenmerkEn,
+  streekKenmerkFr,
+  streekNaamEn,
+  streekNaamFr,
+} from "@/data/provincie-gemeenten";
 import {
   bereikLabel,
   droogtermijnen,
@@ -48,7 +54,8 @@ import "@/styles/v3-content.css";
  * Eén sjabloon voor de provinciepagina's, in elke taal.
  *
  * De tekst komt als prop binnen: `pages/RegioPage.tsx` geeft de Nederlandse
- * uit `regios.ts`, `pages/RegioPageFr.tsx` de Franse uit `regios-fr/`. Dit
+ * uit `regios.ts`, `pages/RegioPageFr.tsx` de Franse uit `regios-fr/` en
+ * `pages/RegioPageEn.tsx` de Engelse uit `regios-en/`. Dit
  * bestand bepaalt alleen de volgorde en de vorm. Alles wordt bij de build
  * geprerenderd, dus de H1, de tekst en de vragen staan in de HTML zonder dat
  * er JavaScript aan te pas komt.
@@ -61,8 +68,9 @@ import "@/styles/v3-content.css";
 interface Props {
   regio: Regio;
   /**
-   * Hoe de provincie in een Franse zin staat ("dans la province d'Anvers").
-   * Alleen in het Frans; het Nederlands zegt overal "in Antwerpen".
+   * Hoe de provincie na een voorzetsel staat: "dans la province d'Anvers",
+   * "in the province of Antwerp", "in East Flanders". Alleen in het Frans en
+   * het Engels; het Nederlands zegt overal "in Antwerpen".
    */
   dans?: string;
 }
@@ -213,11 +221,84 @@ const COPY = {
     placeholder: (stad: string) =>
       `P. ex. nouvelle construction de 140 m² à ${stad}, chape coulée la semaine dernière, quand le poseur de sol peut-il commencer ?`,
   },
+  en: {
+    bouwKick: "What we dry here",
+    toestelNoot: (lp: (p: string) => string): ReactNode => (
+      <>
+        Torn between two units?{" "}
+        <Link to={lp("/verhuur/calculator")}>Calculate the drying package for your room</Link> or
+        see <Link to={lp("/machines")}>the full range</Link>.
+      </>
+    ),
+    leverH2West: "Delivery in West Flanders or collection near Antwerp?",
+    leverH2: (waar: string) => `Collection or delivery ${waar}?`,
+    leverenOnderMeer: "Among other places, we deliver to ",
+    afhalenWest: "Collect it yourself: Aartselaar, on the A12 near Antwerp",
+    wervenTotaal: (waar: string, n: number) =>
+      ` Below them is every other site we dried ${waar}, ${n} in total.`,
+    alleRealisaties: "View all projects",
+    faqTitel: (waar: string) => `What customers ${waar} ask us.`,
+    streekKick: "Where we deliver",
+    streekH2: (waar: string) => `The municipalities ${waar}, area by area.`,
+    streekLede: (waar: string): ReactNode => (
+      <>
+        <b>We deliver everywhere {waar}.</b> Choose your municipality below for details on hire,
+        delivery and collection. Is your town not listed? Get in touch.
+      </>
+    ),
+    kiesGemeente: (
+      <>
+        <b>Choose your municipality for details on dehumidifier hire.</b> For advice on your site
+        or help with your booking,{" "}
+      </>
+    ),
+    gemeentenHierboven: (
+      <>
+        <b>We deliver to the municipalities above.</b> For advice on the number of units or access
+        to your site,{" "}
+      </>
+    ),
+    belOns: "call us on",
+    of: "or",
+    bereken: "calculate your package straight away",
+    verloopH2: (waar: string) => `From booking to final reading ${waar}.`,
+    leverenPlaatsen: "We deliver and install",
+    perGemeenteAria: (naam: string) => `Municipalities in ${naam}`,
+    perGemeente: "Dehumidifier hire by municipality:",
+    buiten:
+      "We also drive outside the provinces below, although the journey then counts in the planning. Feel free to call us about a site just over the provincial border. Dehumidifier hire also in:",
+    en: " and ",
+    prijsH2: (waar: string) => `What does dehumidifier hire cost ${waar}?`,
+    prijsLede1: (towns: string, stad: string): ReactNode => (
+      <>
+        <b>The right price starts with what needs to dry.</b> For a whole house, wet screed or
+        plasterwork you calculate a complete drying package; for a single room, a single unit is
+        enough. Among other places, we deliver to {towns}; you can collect in {stad}, near Antwerp.
+      </>
+    ),
+    pakketLede: (waar: string): ReactNode => (
+      <>
+        <b>You don't need to combine units yourself.</b> We calculate your drying package based on
+        the floor area, the material and the layer thickness. You see{" "}
+        <b>the package price in advance</b>, including delivery {waar}, installation, readings
+        before and after, and collection.
+      </>
+    ),
+    prijsBeeldAlt: "Worry-free hire with Vernast: one price up front, no deposit",
+    kaartAlt: (naam: string) => `Vernast's service area, with ${naam} highlighted`,
+    heroFactsAria: "Included in your drying package",
+    badgeAfspraak: "Delivery by appointment",
+    badge24: "Delivery within 24 hours",
+    badgeKlein: "installed and set up by our technician",
+    placeholder: (stad: string) =>
+      `E.g. new build of 140 m² in ${stad}, screed laid last week, when can the floor layer start?`,
+  },
 } satisfies Copy<Record<string, unknown>>;
 
 const RegioSjabloon = ({ regio, dans }: Props) => {
   const taal = useTaal();
   const fr = taal === "fr";
+  const nl = taal === "nl";
   const lp = useLokaalPad();
   const t = kies(COPY, taal);
   const g = kies(GEDEELD, taal);
@@ -226,16 +307,25 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
   const isWest = regio.slug === "west-vlaanderen";
   const kaart = kaartVoor(route);
   /*
-    "in Antwerpen" in het Nederlands; in het Frans de vorm uit de data ("dans
-    la province d'Anvers", "en Flandre orientale"), want daar hangt het
-    voorzetsel van de provincie af.
+    "in Antwerpen" in het Nederlands; in het Frans en het Engels de vorm die
+    de lader meegeeft ("dans la province d'Anvers", "in the province of
+    Antwerp", "in East Flanders"), want daar hangt het voorzetsel van de
+    provincie af.
   */
-  const waar = fr ? (dans ?? regio.name) : `in ${regio.name}`;
+  const waar = nl ? `in ${regio.name}` : (dans ?? regio.name);
   const pad = lp(regio.path);
   /* Een link naar een pagina, alleen als die in deze taal bestaat. */
-  const padIn = (nlPad: string) => (fr ? vertaalPad(nlPad, "fr") : nlPad);
+  const padIn = (nlPad: string) => (nl ? nlPad : vertaalPad(nlPad, taal));
   /** De naam van een andere provincie in de taal van de pagina. */
-  const provNaam = (r: (typeof REGIO_ROUTES)[number]) => (fr ? (r.nameFr ?? r.name) : r.name);
+  const provNaam = (r: (typeof REGIO_ROUTES)[number]) => regioNaamIn(r, taal);
+  /** De naam en de kenmerkzin van een streek in de taal van de pagina. */
+  const streekNaam = (naam: string) => (fr ? streekNaamFr(naam) : taal === "en" ? streekNaamEn(naam) : naam);
+  const streekKenmerk = (streek: { gemeenten: string[]; kenmerk: string }) =>
+    fr
+      ? streekKenmerkFr(streek.gemeenten, plaatsFr)
+      : taal === "en"
+        ? streekKenmerkEn(streek.gemeenten, plaatsEn)
+        : streek.kenmerk;
 
   /*
     De uitgelichte werven uit de data, aangevuld met álle werven uit deze
@@ -253,7 +343,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
       .map(getRealisatie)
       .filter((r): r is Realisatie => !!r),
   ];
-  /* In het Frans alleen de provincies met een Franse pagina. */
+  /* In het Frans en het Engels alleen de provincies met een pagina in die taal. */
   const andere = REGIO_ROUTES.filter((r) => r.slug !== regio.slug && !!padIn(r.path));
   const gemeenten = gemeentenInRegio(regio.slug).filter((x) => !!padIn(x.path));
   const streken = STREKEN_PER_REGIO[regio.slug] ?? [];
@@ -272,7 +362,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
   */
   const drogers = Object.values(PRODUCTS).filter((p) => /ontvochtiger|droger/i.test(p.type));
   const goedkoopst = Math.min(...drogers.map((p) => p.day));
-  const goedkoopsteDag = fr ? formatEuro(goedkoopst, "fr", 0) : euroInt(goedkoopst);
+  const goedkoopsteDag = nl ? euroInt(goedkoopst) : formatEuro(goedkoopst, taal, 0);
   /*
     De werffoto van deze provincie hangt aan "Wat we hier drogen". Op
     West-Vlaanderen draagt de prijssectie ze; elders staat daar de
@@ -489,7 +579,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
         */}
         <div className="manband">
           <div className="mb-t">
-            <span className="mbk">{g.slot.mbk(fr ? waar : regio.name)}</span>
+            <span className="mbk">{g.slot.mbk(nl ? regio.name : waar)}</span>
             <h3>{g.slot.h3}</h3>
             <p>{g.slot.p}</p>
             <div className="mb-cta">
@@ -590,19 +680,19 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
         <div className="wrap">
           <div className="sec-head">
             <span className="kick">{t.streekKick}</span>
-            <h2 className="sec">{t.streekH2(fr ? waar : regio.name)}</h2>
-            <p className="lede">{t.streekLede(fr ? waar : regio.name)}</p>
+            <h2 className="sec">{t.streekH2(nl ? regio.name : waar)}</h2>
+            <p className="lede">{t.streekLede(nl ? regio.name : waar)}</p>
           </div>
           <div className="strk">
             {streken.map((streek) => (
               <Reveal from="up" as="article" className="strk-blok" key={streek.naam}>
-                <h3>{fr ? streekNaamFr(streek.naam) : streek.naam}</h3>
-                <p>{fr ? streekKenmerkFr(streek.gemeenten, plaatsFr) : streek.kenmerk}</p>
+                <h3>{streekNaam(streek.naam)}</h3>
+                <p>{streekKenmerk(streek)}</p>
                 <ul className="strk-lijst">
                   {streek.gemeenten.map((naam) => {
                     const eigen = gemeenteVanPlaats(naam);
                     const doel = eigen ? padIn(eigen.path) : null;
-                    const label = fr ? plaatsFr(naam) : naam;
+                    const label = plaatsIn(naam, taal);
                     return (
                       <li key={naam}>
                         {doel ? <Link to={doel}>{label}</Link> : <span>{label}</span>}
@@ -659,7 +749,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
               <span>{t.perGemeente}</span>
               {gemeenten.map((x) => (
                 <Link key={x.slug} to={padIn(x.path)!}>
-                  {fr ? (x.nameFr ?? x.name) : x.name}
+                  {gemeenteNaamIn(x, taal)}
                 </Link>
               ))}
             </nav>
@@ -740,7 +830,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
         <div className="wrap split omgekeerd">
           <div className="sec-head" style={{ marginBottom: 0 }}>
             <span className="kick">{g.prijs.kick}</span>
-            <h2 className="sec">{t.prijsH2(fr ? waar : regio.name)}</h2>
+            <h2 className="sec">{t.prijsH2(nl ? regio.name : waar)}</h2>
             <p className="lede">{t.prijsLede1(regio.towns.slice(0, 4).join(", "), CONTACT.city)}</p>
             <p className="lede">{g.prijs.lede2}</p>
             {/* De bedragen komen uit `PRODUCTS` (het portaal), niet uit deze JSX. */}
@@ -799,8 +889,8 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
           <div className="kop-rij">
             <div className="sec-head">
               <span className="kick">{g.pakket.kick}</span>
-              <h2 className="sec">{g.pakket.h2(fr ? waar : regio.name)}</h2>
-              <p className="lede">{t.pakketLede(fr ? waar : regio.name)}</p>
+              <h2 className="sec">{g.pakket.h2(nl ? regio.name : waar)}</h2>
+              <p className="lede">{t.pakketLede(nl ? regio.name : waar)}</p>
             </div>
             <div className="prijsknoppen">
               <Link className={hoofdKnop(kleur)} to={lp("/verhuur/calculator")}>
@@ -974,9 +1064,9 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
         {faqSection("sw")}
 
         <ContactBlok
-          titel={g.contact.titel(fr ? waar : regio.name)}
+          titel={g.contact.titel(nl ? regio.name : waar)}
           lede={g.contact.lede}
-          onderwerpen={g.contact.onderwerpen(fr ? waar : regio.name)}
+          onderwerpen={g.contact.onderwerpen(nl ? regio.name : waar)}
           placeholder={t.placeholder(regio.towns[0])}
         />
       </main>
