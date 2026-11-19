@@ -625,6 +625,10 @@ const PRODUCT_FR: Record<string, ProductTekst> = {
   },
   revolution: {
     alt: {
+      "/vernast/luchtkussen-wand-overzicht.webp": "Déshumidificateur à adsorption relié au film couvrant un mur humide",
+      "/vernast/luchtkussen-wand-detail.webp": "Détail de la gaine sous le film mural avec ouverture de sortie",
+      "/vernast/luchtkussen-vloer.webp": "Déshumidificateur envoyant de l’air sec sous un film sur un sol humide",
+
       "/vernast/eco-revolution.webp":
         "Vernast Revolution, déshumidificateur à adsorption rouge avec raccords de gaines pour un séchage localisé",
     },

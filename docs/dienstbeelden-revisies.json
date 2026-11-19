@@ -1,0 +1,49 @@
+{
+  "mode": "Built-in image_gen",
+  "outputs": [
+    "public/vernast/dienst-levering-voorbeeld-v2.webp",
+    "public/vernast/pakket-leefruimte-voorbeeld-v2.webp",
+    "public/vernast/pakket-condenspompen-voorbeeld-v2.webp",
+    "public/vernast/pakket-twee-verdiepingen-voorbeeld-v2.webp"
+  ],
+  "sources": [
+    "/Users/mikailozturk/.codex/generated_images/01a1df6d-6113-7a21-aad5-14550f38932b/exec-7edc51c6-363d-4cc5-abc5-7b16ffc2f473.png",
+    "/Users/mikailozturk/.codex/generated_images/01a1df6d-6113-7a21-aad5-14550f38932b/exec-c1f773e5-f033-4f3a-9e12-598fe4b261a0.png",
+    "/Users/mikailozturk/.codex/generated_images/01a1df6d-6113-7a21-aad5-14550f38932b/exec-b750f3ca-ce05-412b-9119-e9f4920a7452.png",
+    "/Users/mikailozturk/.codex/generated_images/01a1df6d-6113-7a21-aad5-14550f38932b/exec-5480b936-bec0-4953-b06e-e7bb441fbdc3.png"
+  ],
+  "prompts": [
+    {
+      "key": "delivery",
+      "refs": [
+        "/private/tmp/bouwdroger-luchtkussen-release/public/vernast/dienst-levering-voorbeeld.webp",
+        "/private/tmp/bouwdroger-luchtkussen-release/public/vernast/man-bestelwagen.webp"
+      ],
+      "prompt": "Recreate this VERNAST delivery scene as a candid realistic documentary photograph, landscape 3:2. Keep same recognizable man face and red bib overalls, white Vernast shirt, same exact white dryer shape black trolley frame and fan. Different natural pose: worker looks down concentrating on rolling machine on its two wheels down a broad low metal van ramp, no smiling at camera, physically correct tilt only on wheels, no hovering frame. Normal modest Belgian brick renovation house, overcast daylight, ordinary driveway with subtle imperfections, white van rear open, one fan secured inside. No cinematic glow, no staged symmetry, realistic proportions, equipment no larger than worker waist/body. Branding VERNAST. No annotations."
+    },
+    {
+      "key": "living",
+      "refs": [
+        "/private/tmp/bouwdroger-luchtkussen-release/public/vernast/ttk-350.webp",
+        "/private/tmp/bouwdroger-luchtkussen-release/public/vernast/ttv-4500.webp"
+      ],
+      "prompt": "New photorealistic documentary rental equipment example, landscape 3:2. ONE exact white Vernast Performance dehumidifier from reference1 and ONE full-size white Vernast axial fan from reference2 operating in a real modest Belgian living room under renovation. Different house style: older terraced home, oak window frames, patchy freshly repaired plaster, a brick fireplace recess, grey cured screed, no furniture. Wide casual architectural photo from doorway, ordinary soft overcast daylight, not luxury villa or showroom, slight natural lens character. Dryer three-quarter view side to camera, fan at a different angle tilted slightly upward in its black stand directing air diagonally through room. Fan correctly sized housing about 60cm diameter, dryer body about85cm tall; do NOT shrink fan. Blur moving fan BLADES gently but grille stays sharp. Tidy power cables along wall, closed windows, sensible clearance. One device pair only. No digital effects, text overlays or people. Branding VERNAST only."
+    },
+    {
+      "key": "pump",
+      "refs": [
+        "/private/tmp/bouwdroger-luchtkussen-release/public/vernast/pakket-condenspompen-voorbeeld.webp",
+        "/private/tmp/bouwdroger-luchtkussen-release/public/vernast/ttv-4500.webp"
+      ],
+      "prompt": "Edit first reference into a more natural realistic site photo. Keep two full-size dehumidifiers and two full-size fans, maintain their locations and exact count. Shrink BOTH small white condensate pumps to 55 percent of current dimensions: realistic pump around30cm long,15cm wide,15cm high, clearly much smaller than dryer. Green inlet hoses slope down from dryer drain into little pump inlet. Completely remove both tall grey wall waste pipes and their fittings. Thin clear discharge hoses simply run low along wall and out of camera frame to a drain that is NOT visible; never connect to electrical sockets. Make fans correct full size consistent with reference2, white housing about60cm diameter, black stand; rotate rear fan 30degrees sideways and tilt front fan slightly upward, gentle motion blur only on moving blades behind sharp safety grille. Less pristine wall texture and softer daylight, normal construction room, no symmetry. VERNAST branding only. Landscape3:2."
+    },
+    {
+      "key": "floors",
+      "refs": [
+        "/private/tmp/bouwdroger-luchtkussen-release/public/vernast/pakket-twee-verdiepingen-voorbeeld.webp",
+        "/private/tmp/bouwdroger-luchtkussen-release/public/vernast/ttv-4500.webp"
+      ],
+      "prompt": "Improve first reference as believable candid site photo while keeping exact four dryers four fans and two-story layout, stairs and railing. Equipment must not all face camera: downstairs left dryer seen from side three-quarter facing right, downstairs right dryer front three-quarter facing left, upstairs dryers face into their rooms at different angles. All four fans full-size identical white axial fans matching reference2, no miniature or squat fan shapes; each on its proper stand, tilted slightly upward, airflow aimed across different rooms. Soft motion blur ONLY spinning blades behind sharp safety grilles, no arrows. Natural Belgian home under renovation rather than perfect showroom: mild uneven plaster texture, subtle floor marks, softer cloudy daylight, believable proportions, no dirt on devices. Keep Vernast branding and do not add extra machines or people. Landscape3:2."
+    }
+  ]
+}

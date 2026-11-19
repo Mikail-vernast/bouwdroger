@@ -601,6 +601,7 @@ const VerhuurToestelPage = () => {
           <div>
             <span className="kick">{t.waarvoor}</span>
             <h2 className="sec">{prod.aboutTitle}</h2>
+            {key === "revolution" && <p style={{ marginTop: 18 }}><Link to={lp("/waterschade/luchtkussen-drogen")} style={{ color: "var(--red)", textDecoration: "underline" }}>{taal === "fr" ? "Découvrez le séchage sous film après un dégât des eaux" : taal === "en" ? "Explore air cushion drying after water damage" : "Bekijk luchtkussen drogen na waterschade"}</Link></p>}
             <div className="about-body" style={{ marginTop: 22 }}>
               {prod.about.map((paragraph) => (
                 // Vaste designtekst met <strong>-accenten — geen invoer van buitenaf.

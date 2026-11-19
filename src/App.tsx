@@ -43,6 +43,7 @@ interface RouteHandle {
  * pad. Een pagina zonder regel in die tabel bestaat alleen in het Nederlands.
  */
 const NL_ROUTES: RouteRecord[] = [
+      { path: "waterschade/luchtkussen-drogen", lazy: async () => ({ Component: (await import("./pages/LuchtkussenDrogenPage")).default }) },
       { index: true, lazy: async () => ({ Component: (await import("./pages/Index")).default }) },
       {
         path: "levering",

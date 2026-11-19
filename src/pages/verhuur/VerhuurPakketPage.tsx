@@ -1,3 +1,5 @@
+import { procesBeelden } from "@/data/dienstbeelden";
+import DienstVoorbeelden from "@/components/verhuur/DienstVoorbeelden";
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Head } from "vite-react-ssg";
@@ -13,7 +15,7 @@ import {
   RefreshIcon,
   TruckIcon,
 } from "@/components/verhuur/icons";
-import { catInTaal, packageGalleryAltsInTaal, packageSpecLineInTaal, roleInTaal, specsInTaal } from "@/data/verhuur.fr";
+import { catInTaal, productInTaal, packageGalleryAltsInTaal, packageSpecLineInTaal, roleInTaal, specsInTaal } from "@/data/verhuur.fr";
 import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
 import { extraNaarQuery, extraUitQuery } from "@/lib/booking";
 import {
@@ -26,11 +28,10 @@ import {
   configToQuery,
   deviceCount,
   dryingDays,
-  packageGallery,
-  packageImage,
   configPrice,
   configWeeks,
   parseConfig,
+  packageImage,
   totalAirflow,
   totalCapacity,
 } from "@/lib/verhuur";
@@ -391,9 +392,21 @@ const VerhuurPakketPage = () => {
   // ze tellen hier mee in prijs en lijst, en gaan door naar de boeking.
   const extra = useMemo(() => extraUitQuery(searchParams), [searchParams]);
   const items = useMemo(() => allItems(config, extra), [config, extra]);
-  const lead = packageImage(config, items);
-  const gallery = packageGallery(config, items);
-  const galleryAlts = packageGalleryAltsInTaal(config, items, gallery, taal);
+  const productSleutels = { small: "ttk170", medium: "ttk350", axiaal: "ttv4500", kachel: "teddh30" };
+  // Eén foto per toestelsoort: een tweede droger verdringt de ventilator of kachel niet.
+  const gekozen = items.filter(item => item.q > 0);
+  const droger = gekozen.find(item => item.k === "medium") ?? gekozen.find(item => item.k === "small");
+  const overzicht = [droger, gekozen.find(item => item.k === "axiaal"), gekozen.find(item => item.k === "kachel")].filter((item): item is typeof gekozen[number] => !!item);
+  const toestelFotos = overzicht.map(item => {
+    const toestel = productInTaal(productSleutels[item.k], taal);
+    return {src: toestel?.img[0] ?? CAT[item.k].img, alt: toestel?.imgAlt[0] ?? CAT[item.k].name};
+  });
+  const pakketBeeld = packageImage(config, items);
+  const pakketAlt = packageGalleryAltsInTaal(config, items, [pakketBeeld], taal)[0];
+  const productFotos = [{ src: pakketBeeld, alt: pakketAlt }, ...toestelFotos, ...procesBeelden(taal)].slice(0, 6);
+  const gallery = productFotos.map((foto) => foto.src);
+  const galleryAlts = productFotos.map((foto) => foto.alt);
+  const lead = gallery[0];
 
   const [shot, setShot] = useState(0);
   const [tab, setTab] = useState(SPECS[0].k);
@@ -473,8 +486,9 @@ const VerhuurPakketPage = () => {
                   <link rel="preconnect" href="https://zqzrdzpfxqlwrojxsqdl.supabase.co" />
                   <link rel="preload" href={gallery[0]} as="image" fetchPriority="high" />
                 </Head>
-                <img src={gallery[shot]} alt={galleryAlts[shot]} fetchPriority="high" decoding="async" />
+                <img src={gallery[shot] ?? gallery[0]} alt={galleryAlts[shot] ?? galleryAlts[0]} fetchPriority="high" decoding="async" />
               </div>
+              <p className="pkg-photo-caption" aria-live="polite">{galleryAlts[shot] ?? galleryAlts[0]}</p>
               <div className="gth">
                 {gallery.map((src, i) => (
                   <button
@@ -482,7 +496,8 @@ const VerhuurPakketPage = () => {
                     type="button"
                     className={i === shot ? "on" : undefined}
                     onClick={() => setShot(i)}
-                    aria-label={t.afbeelding(i + 1)}
+                    aria-label={`${t.afbeelding(i + 1)}: ${galleryAlts[i]}`}
+                    aria-pressed={i === shot}
                   >
                     <img src={src} alt={galleryAlts[i]} loading="lazy" decoding="async" />
                   </button>
@@ -616,6 +631,8 @@ const VerhuurPakketPage = () => {
           </div>
         </div>
       </section>
+
+      <DienstVoorbeelden toonOpstellingen={String(config.size) === "220" && config.wat === "pleister"} />
 
       <section className="incsec">
         <div className="shell">

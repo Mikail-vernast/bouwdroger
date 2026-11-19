@@ -1,3 +1,5 @@
+import DienstVoorbeelden from "@/components/verhuur/DienstVoorbeelden";
+import { procesBeelden } from "@/data/dienstbeelden";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -390,7 +392,7 @@ const PackageDetailPage = () => {
 
   // Beheerd in het Vernast-portaal; publiceerde nog niemand een galerij voor dit
   // pakket, dan de vaste lijst per werksoort van vroeger.
-  const gallery = pkg.images.length ? pkg.images : categoryImages[pkg.category] || defaultGallery;
+  const gallery = [...(pkg.images.length ? pkg.images : categoryImages[pkg.category] || defaultGallery).slice(0, 3), ...procesBeelden(taal).slice(0, 3).map(f => f.src)];
   // De pakketfoto uit het portaal is de banner met de toestellen en hun
   // aantallen; die beschrijven we vanuit de samenstelling. De rest kent
   // `altVoorBeeld` aan zijn bestandsnaam, met de pakkettitel als terugval.
@@ -405,11 +407,11 @@ const PackageDetailPage = () => {
     .map((item) => `${item.count}× ${item.name}`)
     .join(", ");
   const galleryAlts = gallery.map((img, i) =>
-    i === 0
+    procesBeelden(taal).find(f => f.src === img)?.alt ?? (i === 0
       ? t.samenstelling(tp.title, samenstelling || tp.description)
       : taal === "nl"
         ? altVoorBeeld(img, t.foto(tp.title, i + 1))
-        : t.foto(tp.title, i + 1),
+        : t.foto(tp.title, i + 1)),
   );
   const pad = lp(`/levering/pakket/${pkg.id}`);
 
@@ -568,11 +570,11 @@ const PackageDetailPage = () => {
               {/* LEFT: Image Gallery */}
               <div>
                 {/* Main image */}
-                <div className="relative rounded-2xl overflow-hidden bg-muted/30 aspect-[4/3] mb-3">
+                <div className="relative rounded-2xl overflow-hidden bg-muted/30 aspect-[3/2] mb-3">
                   <img
                     src={gallery[activeImg]}
                     alt={galleryAlts[activeImg]}
-                    className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                    className="w-full h-full object-contain" loading="lazy" decoding="async" />
                   {/* USP badges overlay */}
                   <div className="absolute bottom-4 left-4 space-y-2">
                     {[
@@ -588,7 +590,7 @@ const PackageDetailPage = () => {
                   </div>
                 </div>
                 {/* Thumbnails */}
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                   {gallery.map((img, i) => (
                     <button
                       key={img}
@@ -598,7 +600,7 @@ const PackageDetailPage = () => {
                         i === activeImg ? "border-primary shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
                       )}
                     >
-                      <img src={img} alt={galleryAlts[i]} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                      <img src={img} alt={galleryAlts[i]} className="w-full h-full object-contain" loading="lazy" decoding="async" />
                     </button>
                   ))}
                 </div>
@@ -972,6 +974,7 @@ const PackageDetailPage = () => {
             {t.boekNuKort} <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
+      <DienstVoorbeelden />
       </main>
       <V3Footer />
     </div>

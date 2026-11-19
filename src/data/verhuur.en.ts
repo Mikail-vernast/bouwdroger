@@ -540,6 +540,10 @@ export const PRODUCT_EN: Record<string, ProductTekst> = {
   },
   revolution: {
     alt: {
+      "/vernast/luchtkussen-wand-overzicht.webp": "Desiccant dehumidifier ducted to sheeting over a damp wall",
+      "/vernast/luchtkussen-wand-detail.webp": "Detail of the duct beneath wall sheeting with an outlet opening",
+      "/vernast/luchtkussen-vloer.webp": "Desiccant dehumidifier supplying dry air beneath sheeting over a wet floor",
+
       "/vernast/eco-revolution.webp":
         "Vernast Revolution, red desiccant dehumidifier with hose connections for local drying",
     },

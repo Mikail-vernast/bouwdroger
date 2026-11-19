@@ -854,6 +854,11 @@ const PRODUCT_COPY: Record<
     fiche moet dan nog aangevuld worden met de cijfers van het gekozen model.
   */
   revolution: {
+    extraPhotos: [
+      ["/vernast/luchtkussen-wand-overzicht.webp", "Adsorptiedroger met luchtslang naar folie over een vochtige wand"],
+      ["/vernast/luchtkussen-wand-detail.webp", "Detail van de luchtslang onder wandfolie met een uitlaatopening"],
+      ["/vernast/luchtkussen-vloer.webp", "Adsorptiedroger met droge lucht onder folie over een natte vloer"],
+    ],
     imgAlt: [
       "Vernast Revolution, rode adsorptiedroger met slangaansluitingen voor plaatselijk drogen",
     ],
