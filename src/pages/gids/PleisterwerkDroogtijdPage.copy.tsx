@@ -756,4 +756,322 @@ export const COPY = {
       },
     };
   },
+  en: ({ lp, pleister, dunste, dikste, beide }: PleisterData): PleisterTekst => {
+    const weken = (n: number) => `${n} ${n === 1 ? "week" : "weeks"}`;
+    const STAART: Record<number, string> = {
+      1: "One centimetre is the standard interior plaster coat, and also the quickest: the layer is thin and fully exposed on one side.",
+      2: "Two centimetres means twice as much water that has to leave through the same surface, so it certainly does not call for half the patience.",
+      3: "Three centimetres is heavy work in several coats. A build-up like that holds on to moisture the longest, especially on concrete.",
+    };
+    return {
+      weken,
+      crumbHome: "Home",
+      crumbGidsen: "Guides",
+      crumb: "How long does plaster take to dry?",
+      kick: "Guide · drying times",
+      h1: "How long does plaster take to dry?",
+      intro: (
+        <p>
+          With a construction dehumidifier, plasterwork dries in {dunste?.weken} to {dikste?.weken} weeks,
+          depending on the thickness of the coat. Without a dehumidifier no timescale can be promised: the
+          humidity in your building then sets the pace, and in a cold, closed-up house drying stops instead
+          of slowing down. Below are the timescales per coat thickness, why the moisture lingers in the
+          house, and when the decorator can come in.
+        </p>
+      ),
+      heroAlt: "The Vernast team with their construction dehumidifiers",
+      badge: <>{dunste?.weken} to {dikste?.weken} weeks</>,
+      badgeSub: "with a drying package, by coat thickness",
+      emWeken: "weeks",
+      emUur: "h",
+      statDun: <>With a drying package for {dunste?.cm} cm of plaster, the standard coat thickness</>,
+      statDik: <>At {dikste?.cm} cm, the heaviest coat we have a standard package for</>,
+      statBeide: "Screed and plaster together, in one package and one hire period",
+      statUur: "Running time per day: switching off at night lets the humidity climb again",
+      muurH2: "A wall dries from the outside in",
+      muurP: [
+        <>
+          A plaster coat is thin and fully exposed on one side, so it gives up its water faster than a
+          six-centimetre screed. It does so from the outside in, though. The first few millimetres are
+          already done while the layer against the masonry is still full of water, and by then the wall
+          already feels dry. <b>A wall that feels dry is not dry.</b>
+        </>,
+        <>
+          On top of that, the masonry behind the plaster has absorbed part of the mixing water. An
+          absorbent clay block releases it slowly, and as long as that goes on, the plaster coat is being
+          fed from behind. You can see it in the drawing alongside: light at the surface, dark where the
+          water still sits.
+        </>,
+        <>
+          All that water has to leave the building. If the house is closed up, it stays in the air until
+          the air is saturated; at that point it takes up nothing more and drying stops, however long you
+          wait. What you then see is condensation on the windows and on cold external walls. A
+          construction dehumidifier breaks that cycle, and why that works is explained in detail on <Link to={lp("/hoe-drogen-werkt")}>how drying works</Link>.
+        </>,
+      ],
+      muH: "The wall in cross-section",
+      muSub: "2 cm of plaster on 25 cm of masonry",
+      muKamer: "Room",
+      muPleister: "Plaster, 2 cm",
+      muSteen: "Clay block, 25 cm",
+      legDroog: ["Dry", " at the surface"],
+      legNat: ["Wet", " deeper in the plaster coat"],
+      legSteen: ["Masonry", " absorbs some of it"],
+      muF: "The 2 cm plaster coat dries from the outside in: the first few millimetres are already done while the layer against the masonry is still full of water. So a wall that feels dry is not dry.",
+      rwKick: "Guide figures",
+      rwH2: "Plaster drying time by coat thickness.",
+      rwLede:
+        "The hire period of our standard packages, by coat thickness. It follows from that thickness and not from your floor area: a larger space gets more units, not a longer hire period.",
+      rijLabel: (cm) => `${cm} cm of plaster`,
+      beideLabel: "Screed and plaster together",
+      vglnoot: "The bars are on the same scale, with the longest hire period at 100%. The same figures appear in the table below.",
+      caption:
+        "Hire period of our standard plaster packages, including a residual moisture reading at the start and at handover.",
+      thDikte: "Coat thickness",
+      thMet: "With a dehumidifier (Vernast package)",
+      thWaar: "Where you come across that thickness",
+      waar: {
+        1: "The standard interior plaster: gypsum, machine-applied in one coat on clay block or concrete.",
+        2: "A thicker build-up or a levelling coat, for example on a wall that is not straight.",
+        3: "Heavy work in several coats, such as cement rendering in a cellar or a wet room.",
+      },
+      waarAnders: "A coat thickness from our standard packages.",
+      beideCel: "Screed + plaster",
+      beideWaar: "A new build where floor and walls are wet at the same time, in one package.",
+      rwNote: (
+        <>
+          <b>Which package suits your site?</b> The{" "}
+          <Link to={lp("/verhuur/calculator")}>drying calculator</Link> asks for your floor area, what you are
+          drying and the coat thickness, and shows the package with the number of units, the hire period and
+          the price. Drying the floor as well? Then see{" "}
+          <Link to={lp("/gids/hoe-lang-moet-chape-drogen")}>how long screed takes to dry</Link>.
+        </>
+      ),
+      dichtH2: "Why waiting in a closed-up house does not work",
+      dichtP: [
+        "Fresh plaster soon looks dry. The coat turns light and even at the surface first, and that is exactly the moment people decide the decorator can come. In the photo alongside you can see the difference: the dark patches are still full of water, while the rest of the wall looks finished.",
+        "A coat that is still wet inside stays wet under a layer of paint too. The moisture looks for a way out and pushes against the finish: paint can blister, stain or peel, and wallpaper lifts at the seams and goes mouldy on the back. Those are not decorating mistakes, but the result of starting too early.",
+        "What you want to know, then, is not what the wall looks like, but how much moisture is still in it and whether the air in the room can still take it up. Those are two readings, and together they tell you whether you can move on.",
+      ],
+      fotoAlt: "Fresh gypsum plaster with dark damp patches next to lighter plaster that is already drying",
+      fotoH3: "Dark means wet",
+      fotoP:
+        "Fresh plaster turns lighter as it dries. That colour only tells you about the surface: the layer underneath can still be full of water while the wall looks ready.",
+      f1Label: "Closed-up house, no extraction",
+      f1H3: "The moisture goes round in circles.",
+      f1P: "The walls give off moisture until the air is saturated; after that, everything condenses on windows, sills and cold external walls and soaks back in. Drying does not get going slowly: it stands still, and no end date can be given.",
+      f1Bar: "No timescale: it depends entirely on the weather",
+      f2Label: "With a construction dehumidifier",
+      f2H3: "The moisture leaves the building.",
+      f2P: "The unit pulls the vapour out of the air and collects it, and a fan keeps that air moving. The walls can keep giving off moisture, the condensation on the windows disappears, and the end date is fixed instead of depending on the week after.",
+      f2Bar: <>{dunste?.weken} to {dikste?.weken} weeks, by coat thickness</>,
+      nachtNote: (
+        <>
+          <b>Do not switch the dehumidifier off at night.</b> The humidity rises again within a few hours
+          and the plaster simply soaks part of it back up. You then lose more drying time than you save on
+          electricity, and what a unit like this costs per day, we work out in{" "}
+          <Link to={lp("/gids/stroomverbruik-bouwdroger")}>power consumption of a construction dehumidifier</Link>.
+        </>
+      ),
+      prKick: "In practice",
+      prH2: "What makes the drying time shorter or longer.",
+      prLede: "Five things decide whether your walls are ready on time. You can control four of them yourself.",
+      factoren: [
+        { titel: "The coat thickness", tekst: "A coat twice as thick means twice as much mixing water, and that water has to leave through the same surface." },
+        { titel: "The substrate", tekst: "Absorbent masonry takes up part of the water and releases it slowly. On concrete, everything stays in the coat." },
+        { titel: "The temperature", tekst: "Warm air carries far more moisture than cold air. In an unheated shell, drying all but stops." },
+        { titel: "What else is wet", tekst: "If there is also a fresh screed, floor and walls compete for the same air. Drying both together needs more capacity." },
+        { titel: "The air movement", tekst: "In corners, behind doors and on the top floor, the air stays still. That is where the wall dries last." },
+      ],
+      gcKick: "Two types of plaster",
+      gcH2: "Gypsum plaster or cement plaster?",
+      gcLede:
+        "The timescales above are for ordinary interior plaster. If you are working with a cement-based coat, in a cellar, a wet room or on an external wall, different rules apply, and the plasterer's instructions override any rule of thumb.",
+      gips: {
+        vt: "Gypsum plaster",
+        h3: "The ordinary interior plaster, and the quickest.",
+        lijst: [
+          ["Thin and in one coat.", <> Machine-applied on clay block or concrete, usually around {dunste?.cm} cm thick.</>],
+          ["Gives up its water readily.", " The coat is open on one side; the moisture only has a few millimetres to travel."],
+          ["Sensitive to drying too hard.", " A heater right in front of the wall dries the surface and leaves the layer underneath wet; that leads to cracks or a powdery top layer."],
+          ["Not water-resistant.", " Gypsum does not belong in a shower or cellar; cement-based products are used there."],
+        ],
+        vf: "The guide figures and packages on this page are about this type.",
+      },
+      cement: {
+        vt: "Cement plaster",
+        h3: "Heavier work, and slower by nature.",
+        lijst: [
+          ["Binds water chemically.", " Like screed, cement needs that water first; only after that does the actual drying begin."],
+          ["Usually thicker", " and often in several coats, for example for cement rendering in a cellar or a wet room."],
+          ["Takes more patience.", " Allow for the longer timescales in the table, and for a waiting period before you start drying."],
+          ["Follow the instructions.", " Waiting times and limit values differ per product; the plasterer and the manufacturer have the final say."],
+        ],
+        vf: (
+          <>
+            Is the moisture in the wall itself? Then see{" "}
+            <Link to={lp("/renovatie")}>a damp cellar or mould</Link>.
+          </>
+        ),
+      },
+      stKick: "Approach",
+      stH2: "How to dry plaster, in six steps.",
+      stLede:
+        "Not the order from a manual, but the order in which it goes wrong on site: there is a heater in front of the wall and a window open, and the two work against each other.",
+      stappen: [
+        ["Give it a few quiet days first.", " Fresh plaster has to set first. Do not dry hard during those days, and certainly do not put a heater right in front of a wall: the surface then dries out while the layer underneath is still wet, and that leads to cracks or a powdery top layer."],
+        ["Close up the building.", " Windows and external doors shut. You are drying the room, not the street. For much of the year, Belgian outdoor air is damper than what you want indoors."],
+        ["Heat evenly.", " Around room temperature is enough. One glowing heater in one corner dries that corner and leaves the rest as it is."],
+        ["Put the dehumidifier in the middle.", " In the centre of the room, clear of walls and furniture, and let it run day and night. The humidistat throttles back on its own once the target value is reached."],
+        ["Add a fan.", " It does not need to blow at the wall; it needs to keep the air moving, so the saturated layer in front of the plaster is swept away."],
+        ["Measure before the decorator or paperhanger comes.", " An even, light colour tells you about the surface, not the layer underneath. Have the residual moisture measured and recorded."],
+      ],
+      stNote: (
+        <>
+          <b>Drying a fresh screed as well?</b> Then far more water is released in the same space, and that
+          needs more capacity than either of the two on its own. Our combined package allows for that. See <Link to={lp("/nieuwbouw-drogen")}>drying screed and plaster in new builds</Link>.
+        </>
+      ),
+      scKick: "Measure, don't guess",
+      scH2: "When can the decorator or paperhanger come in?",
+      scLede:
+        "This is the moment when starting too early really costs money: whatever moisture is left under the finish will not come out again without removing that finish.",
+      zeker: {
+        vt: "How to be sure",
+        h3: "Two readings, and an agreement with your decorator.",
+        lijst: [
+          ["Measure the wall and the air.", " A moisture meter on the surface tells you about the coat; the humidity tells you whether the building as a whole is already dry."],
+          ["Ask the decorator what they want to see.", " They know their paint and their primer; which value they work to is something you should hear from them, not from a rule of thumb."],
+          ["Start breathable.", " A first coat that lets vapour through lets the wall keep breathing; a sealed finish locks in whatever is still there."],
+          ["Readings before and after with our package.", " The technician records the starting and final values, and you get a measurement report on request."],
+        ],
+        vf: (
+          <>
+            See also our <Link to={lp("/drooggarantie")}>Drying Guarantee</Link>: not dry by the end date,
+            and we extend free of charge.
+          </>
+        ),
+      },
+      mis: {
+        vt: "How it goes wrong",
+        h3: "Four decisions that make you start again.",
+        lijst: [
+          ["Judging by colour.", " Light and even means the surface is dry, nothing more."],
+          ["Wallpapering a wet wall.", " The wallpaper traps the moisture; mould grows behind it and you only notice months later."],
+          ["Going straight for a sealed finish.", " Vinyl, a vapour-tight paint or a poured floor up against the skirting: anything that seals keeps the moisture in."],
+          ["Putting a heater in front of the wall.", " The surface dries ahead of the layer underneath, resulting in shrinkage cracks or plaster coming loose."],
+        ],
+      },
+      faqTitel: "Everything about plaster drying times",
+      faq: [
+        ...pleister.map((rij) => ({
+          question: `How long does a ${rij.cm} cm plaster coat take to dry?`,
+          answer: `With a construction dehumidifier, we work on a hire period of ${weken(
+            rij.weken,
+          )} for a ${rij.cm} cm coat, with a residual moisture reading at the start and at handover. ${
+            STAART[rij.cm] ?? "The timescale follows from the coat thickness, not from the floor area."
+          } Without a dehumidifier no fixed timescale can be given: everything then depends on the humidity in the building, and in a cold, closed-up house drying stops instead of slowing down. The reading decides whether you can paint, not the calendar.`,
+        })),
+        {
+          question: "When can I paint fresh plaster?",
+          answer:
+            "Only once a reading confirms that the coat is dry, not when the wall looks evenly light. A plaster coat turns light at the surface first; underneath it can still be full of water. Paint on a substrate that is too wet can blister, stain or peel, and a fresh substrate is also alkaline, which affects some paints. Ask your decorator which value they want to see and which first coat they use: a breathable primer lets the wall keep breathing, a sealed finish locks in the residual moisture.",
+        },
+        {
+          question: "Can I wallpaper plaster that is not completely dry yet?",
+          answer:
+            "No, and wallpaper is stricter than paint. Vinyl or a dense paper in particular puts a screen over the wall, so the moisture still in it can no longer escape. It then stays between the wall and the wallpaper, and that is exactly the climate in which mould develops; you only notice months later from dark stains and lifting seams. Have it measured, and ask the paperhanger which upper limit they work to.",
+        },
+        {
+          question: "Should I open the windows to dry plaster?",
+          answer:
+            "Only if the outside air is drier than the air indoors, and in Belgium that is not the case for much of the year. If a dehumidifier is running, close the windows: otherwise the unit keeps drawing in fresh, damp air and dries the street instead of your walls. Without a dehumidifier, short, thorough airing on a dry, windy day is better than a window left on tilt all day: that only cools the building down, and cold air takes up hardly any moisture.",
+        },
+        {
+          question: "Can I put a site heater in front of the wall to speed things up?",
+          answer:
+            "Better not, and certainly not right in front of a wall. A heater blowing at one surface dries that surface faster than the layer underneath; that leads to shrinkage cracks, a powdery top layer or plaster coming loose in places. What is more, heat does draw the moisture out of the wall, but not out of the building: without a dehumidifier it simply condenses a little further on, on a cold window or an external wall. Heat evenly at around room temperature and let a dehumidifier remove the moisture.",
+        },
+        {
+          question: "Why is there condensation on my windows after plastering?",
+          answer:
+            "Because the moisture has left the wall, but not the building. Fresh plaster releases water into the air for days; if the house is closed up and there is no dehumidification, the relative humidity climbs until the air is saturated. On the coldest surface in the room, such as the glass, the sill or an external wall behind a cupboard, that air cools below its dew point and the vapour turns back into water. So the condensation is not a window problem but a sign that there is too much moisture in the air. See also how drying works.",
+        },
+        {
+          question: "How do I know whether plaster is dry?",
+          answer:
+            "By measuring rather than looking or touching. A moisture meter on the surface gives a first indication, and the humidity in the room tells you whether the building as a whole is already dry: as long as it stays high, the wall gives off nothing more. If in doubt, or when a sealed finish is going on, a deeper reading is taken. In our drying packages the technician records the value at the start and at handover, so you do not have to decide on gut feeling; a measurement report can be added.",
+        },
+        {
+          question: "Gypsum plaster or cement plaster: which dries faster?",
+          answer:
+            "Gypsum plaster, as a rule. It is the ordinary interior plaster, applied thin and in one coat, and it gives up its water readily. Cement-based work, such as cement rendering in a cellar, a wet room or on an external wall, is usually thicker, binds part of the water chemically and has to do so before the rest can evaporate. Allow for a longer timescale there, and follow the plasterer's instructions: they override any rule of thumb.",
+        },
+        {
+          question: "Can I dry screed and plaster at the same time?",
+          answer: beide
+            ? `Yes, and in a new build that is the normal course of events: the floor and the walls are wet at the same time. For that we have a package that dries both together, with a hire period of ${weken(
+                beide,
+              )}. You then hire once and measure once, instead of two drying rounds one after the other. Bear in mind: drying both together needs more capacity than either of the two on its own, because far more water is released in the same space. The drying calculator works that out for your floor area.`
+            : "Yes, and in a new build that is the normal course of events: the floor and the walls are wet at the same time. Drying both together does need more capacity than either of the two on its own, because far more water is released in the same space. The drying calculator works out which package goes with it.",
+        },
+        {
+          question: "How many construction dehumidifiers do I need for plaster?",
+          answer:
+            "That depends on the volume of the space and on what else is wet, not on the number of square metres of wall alone. An open-plan new build with high ceilings needs more than a row of closed rooms with the same floor area. That is why the drying calculator asks for your floor area, what you are drying and the coat thickness, and uses them to put together a package with the number of units and the hire period. One undersized unit simply never reaches the target value, however long you leave it running.",
+        },
+        {
+          question: "Can the dehumidifier be switched off at night?",
+          answer:
+            "Better not. If you switch it off, the relative humidity rises again within a few hours and the plaster simply soaks part of that moisture back up. The next morning the unit starts from further back, and you lose more drying time than you save on electricity. A condensation dehumidifier is built to run continuously and throttles back on its own once the target value is reached. What a unit like this costs per day, we work out in our guide on power consumption.",
+        },
+      ],
+      lvKick: "Read on",
+      lvH2: "Drying more than just the walls?",
+      lvLede:
+        "In a new build, floor and walls are wet at the same time, and what counts most is whatever dries slowest. Two pages that take it further.",
+      door: [
+        {
+          h3: "How long does screed take to dry?",
+          p: "The guide figures per centimetre, why a thicker floor dries much more slowly and how to tell when the floor layer can come in.",
+          meer: "Read the screed guide →",
+        },
+        {
+          h3: "Drying screed and plaster together",
+          p: "One package, one hire period and one reading before and after, instead of two drying rounds one after the other.",
+          meer: "See drying in new builds →",
+        },
+      ],
+      leesVerder: [
+        "How drying works",
+        "Condensation or desiccant dehumidifier",
+        "Power consumption of a construction dehumidifier",
+        "Fresh plaster dried under control",
+        "Prices and rates",
+      ],
+      mbKick: "Is the decorator due next week?",
+      mbH3: "We measure your walls before and after, and guarantee the end date.",
+      mbP: (
+        <>
+          Our technicians set up the units, set the target value and record the residual moisture at the
+          start and at handover. If the plaster is not dry by then, we extend free of charge; see{" "}
+          <Link to={lp("/drooggarantie")}>the Drying Guarantee</Link>.
+        </>
+      ),
+      mbCta: "Calculate your drying package",
+      mbAlt: "Vernast technician giving a thumbs up",
+      contact: {
+        kicker: "Another question about your walls?",
+        titel: "Our drying specialists will look at the schedule with you.",
+        lede: "Not sure whether your plaster will be dry in time for the decorator, or drying a screed as well? Ask your question and a specialist will reply within one working day.",
+        onderwerpen: [
+          "Question about plaster drying time",
+          "Drying screed and plaster together",
+          "Question about measuring before painting",
+          "Something else",
+        ],
+        placeholder: "E.g. 180 m² of 1 cm gypsum plaster, plastered on 5 November, decorator coming early December. Will that work?",
+      },
+    };
+  },
 } satisfies Copy<(d: PleisterData) => PleisterTekst>;
