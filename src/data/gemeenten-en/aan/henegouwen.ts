@@ -6,4 +6,7 @@
 export const AAN: readonly string[] = [
   "bergen",
   "charleroi",
+  "s-gravenbrakel",
+  "le-roeulx",
+  "manage",
 ];
