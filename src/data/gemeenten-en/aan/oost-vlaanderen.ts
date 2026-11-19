@@ -6,4 +6,15 @@
 export const AAN: readonly string[] = [
   "gent",
   "aalst",
+  "oudenaarde",
+  "ronse",
+  "zottegem",
+  "brakel",
+  "kluisbergen",
+  "kruisem",
+  "horebeke",
+  "lierde",
+  "maarkedal",
+  "wortegem-petegem",
+  "zwalm",
 ];
