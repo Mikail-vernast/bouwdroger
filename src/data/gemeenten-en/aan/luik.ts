@@ -65,4 +65,11 @@ export const AAN: readonly string[] = [
   "baelen",
   "burg-reuland",
   "buellingen",
+  "buetgenbach",
+  "dison",
+  "eupen",
+  "herve",
+  "jalhay",
+  "kelmis",
+  "lierneux",
 ];
