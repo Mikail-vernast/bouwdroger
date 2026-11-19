@@ -58,9 +58,14 @@
 /* Omgekeerd: gebroken wit eronder, de mapkaarten wit erop. Andersom — witte
    kaarten op een witte pagina — hing de hele onderkant aan één haarlijn van
    10% zwart, en op een scherm met weinig contrast viel de kaartvorm helemaal
-   weg. Nu dragen de kaarten zichzelf. #F4F4F4 is `--bg-alt` uit v3-content,
-   hetzelfde gebroken wit als de `sw2`-secties elders op de site. */
-.v3c .sm-body { padding: 72px 0 110px; background: var(--bg-alt); }
+   weg. Nu dragen de kaarten zichzelf.
+
+   #F1EFEC en niet `--bg-alt` (#F4F4F4): dat grijs stond te dicht bij het wit
+   van de kaarten om ze te laten uitkomen, en is koud waar de rest van de
+   pagina warm is. Deze tint is overgenomen uit /sitemap op
+   vernast-vochtbestrijding.be, die hier als voorbeeld gekozen is. Alleen
+   deze sectie draagt hem — `--bg-alt` zelf blijft wat het elders is. */
+.v3c .sm-body { padding: 72px 0 110px; background: #F1EFEC; }
 .v3c .sm-mappen { columns: 3 320px; column-gap: 20px; }
 .v3c .sm-map { break-inside: avoid; margin-bottom: 20px; padding: 22px 22px 14px; border-radius: 18px; background: #FAF8F7; border: 1px solid var(--line); scroll-margin-top: 110px; }
 .v3c .sm-map h2 { display: flex; align-items: center; gap: 10px; font-family: var(--fd); font-weight: 800; font-size: 16px; letter-spacing: -.015em; margin-bottom: 12px; }
@@ -100,7 +105,12 @@
 .v3c .sm-streek + .sm-streek { margin-top: 12px; }
 .v3c .sm-streek h4 { display: flex; gap: 8px; font-family: var(--fm); font-size: 12px; font-weight: 600; color: var(--txt-mid); margin-bottom: 6px; }
 .v3c .sm-streek ul { list-style: none; margin: 0 0 0 30px; padding: 0 0 0 12px; border-left: 1px solid var(--line-2); display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 13px; line-height: 1.75; }
-.v3c .sm-streek a { color: var(--txt); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(200,16,46,.4); text-underline-offset: 3px; }
+/* Neutrale onderlijn, geen rode. Elke plaatsnaam droeg er één van 40% rood;
+   bij Antwerpen staan er 77 in één kaart en dan leest het hele werkgebied
+   roze in plaats van zwart op wit. Rood blijft waar het betekenis heeft: op
+   hover. Dit is ook de onderlijn die `.v3c .sw p a` elders al gebruikt. */
+.v3c .sm-streek a { color: var(--txt); font-weight: 600; text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+.v3c .sm-streek a:hover { text-decoration-color: currentColor; }
 .v3c .sm-streek a:hover { color: var(--red); }
 .v3c .sm-streek span { color: var(--txt-mid); }
 .v3c .sm-real { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 4px 28px; }
@@ -127,12 +137,16 @@
 .v3c .sm-talen button {
   display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
   font: inherit; font-weight: 700; font-size: 15px; color: #141414;
-  background: #f4efeb; border: 1px solid #e4dcd6; border-radius: 999px; padding: 8px 18px 8px 8px;
+  /* Wit, niet #f4efeb: die beige stond op een witte pagina, maar valt tegen
+     het gebroken wit van `.sm-body` vrijwel samen met de achtergrond. */
+  background: #fff; border: 1px solid #e4dcd6; border-radius: 999px; padding: 8px 18px 8px 8px;
 }
 .v3c .sm-talen button small { font-weight: 500; font-size: 12px; opacity: 0.6; }
 .v3c .sm-talen .sm-taal-code {
   display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
-  background: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+  /* De schijf draagt het gebroken wit van de sectie: op de witte pil hierboven
+     was een witte schijf geen schijf meer. Op de actieve zwarte pil blijft ze wit. */
+  background: #F1EFEC; font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
 }
 .v3c .sm-talen button.actief { background: #141414; color: #fff; border-color: #141414; }
 .v3c .sm-talen button.actief .sm-taal-code { background: #fff; color: #141414; }
