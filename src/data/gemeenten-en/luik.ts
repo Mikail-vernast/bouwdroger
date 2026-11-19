@@ -4218,4 +4218,284 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  "sankt-vith": {
+    slug: "sankt-vith",
+    title: "Construction dehumidifier hire in Sankt Vith | Vernast",
+    description:
+      "Dehumidifier hire in Sankt Vith: for post-war rebuilt homes, village farmhouses and new builds in the cold. Delivery with set-up and a moisture reading.",
+    h1: "Construction dehumidifier hire in Sankt Vith",
+    kicker: "Province of Liège · the centre of the Belgian Eifel",
+    rit: { afstand: "about 215 km", tijd: "just over two hours" },
+    intro: [
+      "Sankt Vith, Saint-Vith in French, is the centre of **the southern East Cantons**, with schools, shops and services for the villages around it. During the **Battle of the Bulge** the town was largely destroyed. The **Büchelturm** is one of the few old buildings left standing.",
+      "The villages of Recht, Schönberg, Crombach and Lommersweiler also belong to the municipality. The landscape is that of the Eifel: a rolling high plateau with meadows and woodland, and **long, cold winters**. From Aartselaar it takes just over two hours to drive there.",
+    ],
+    bouw: {
+      kop: "A town from the reconstruction and rubble-stone villages",
+      alineas: [
+        "The centre was **rebuilt after the war**, and many homes and shop buildings date from the fifties. They are now due for **a thorough renovation**: insulation, new plaster, a new bathroom. If you live in the house during the work, you need a dehumidifier that runs on a standard socket and takes up little space.",
+        "In the villages stand **old rubble-stone farmhouses**, and alongside them many new builds. Both dry slowly in the cold season. In the farmhouse **the thick stone wall** holds on to its water; in the new build, **screed and plaster in a cold home** release hardly any moisture without help.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**For a renovation in a post-war rebuilt home.** Removes up to 50 litres a day and is compact enough to carry upstairs." },
+      { key: "ttk350", waarom: "For **a new build in Recht or Schönberg** with fresh screed across the whole ground floor: 70 litres a day, for rooms up to about 400 m³." },
+      { key: "teddh30", waarom: "**For a cold site in January.** The heater brings an unheated home above 15 °C, where the dehumidifier only starts to perform properly. Needs a 400 V connection." },
+      { key: "ttv4500", waarom: "In **a farmhouse with thick walls**, damp air lingers in the corners. The fan sends that air to the dehumidifier." },
+    ],
+    levering: {
+      kop: "Delivery in Sankt Vith: a long drive, planned together",
+      alinea:
+        "Sankt Vith is **just over two hours** from our warehouse, at the end of the A27 beyond Malmedy. We do not drive that distance there and back for one unit, but **combine the deliveries in the East Cantons**. You choose a delivery date, and we agree the time. The technician places the units per drying zone, sets them up and measures the moisture at the start.",
+    },
+    afhalen: {
+      kop: "Collecting yourself from Sankt Vith",
+      alinea:
+        "Collecting in Aartselaar means **over four hours' driving**, and that twice: when collecting and when returning. **Delivery is the more obvious choice here**, not least because you then get a second reading at collection. That shows whether the floor is ready for the floor layer.",
+    },
+    buren: ["amel", "buellingen", "burg-reuland"],
+    faq: [
+      {
+        q: "I am renovating a house from the fifties in the centre. What should I watch out for?",
+        a: "Watch out for the moisture in the old walls before you insulate and finish. Many post-war rebuilt homes have no cavity and no good damp-proof course. Let the walls and the new plaster dry first and have them measured, otherwise the moisture will come back behind the finish later.",
+      },
+      {
+        q: "How long does a screed take to dry in a cold new build in the Eifel?",
+        a: "Without help it takes a long time, because in an unheated home a screed releases little moisture. With a dehumidifier and a heater if needed, it goes noticeably faster. The floor layer sets the limit, and the technician measures at collection so you can pass on a figure.",
+      },
+      {
+        q: "Can we keep living in the house while the dehumidifier runs?",
+        a: "Yes, with a renovation room by room or floor by floor that is the normal way of doing things. Keep the door of the drying room shut, so the unit works on that room and not on the whole house. The compact dehumidifier runs on a standard socket.",
+      },
+      {
+        q: "Do you also drive to Sankt Vith in winter when it snows?",
+        a: "Yes, but we follow the weather forecast. If snow or black ice is forecast on the high plateau, we call ahead and move the delivery if necessary. Better a few hours later than a van stuck on a slope.",
+      },
+    ],
+    realisaties: [],
+  },
+  spa: {
+    slug: "spa",
+    title: "Dehumidifier hire in Spa for villas and cellars | Vernast",
+    description:
+      "Dehumidifier hire in Spa: drying after renovating a villa or town mansion, or after flooding in the Wayai valley. With delivery, set-up and a moisture reading.",
+    h1: "Construction dehumidifier hire in Spa",
+    kicker: "Liège · the original spa town",
+    rit: { afstand: "about 150 km", tijd: "about an hour and a half" },
+    intro: [
+      "Spa is **the spa town** that gave every 'spa' its name. Around the Pouhon Pierre le Grand, the casino and the old bath buildings, a town of **villas, hotels and town mansions** grew up for the visitors taking the waters. On the hill above the town lie today's thermal baths.",
+      "The town lies in a valley between wooded slopes, with **Lake Warfaaz** to the east. Many old buildings are of stone, with cellars and tall storeys. From Aartselaar it takes us **about an hour and a half** to drive to Spa.",
+    ],
+    bouw: {
+      kop: "Villas from the spa era and homes in the valley",
+      alineas: [
+        "The **Belle Époque villas and town mansions** have high ceilings, large rooms and often a semi-basement. If you renovate such a building or divide it into flats, you are drying **a lot of volume at once**. A heavy-duty dehumidifier per floor and a fan in the large rooms keep the schedule achievable.",
+        "In the centre, **in the Wayai valley**, homes and shops lie low. After a wet spell or **flooding**, cellars and ground floors take a beating here, and old walls without a damp-proof course draw up moisture. During installation the technician measures whether it is construction moisture or water from outside.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a villa with high rooms**: 110 litres a day, for a large volume up to about 600 m³ being renovated in one go." },
+      { key: "ttv4500", waarom: "In a drawing room with a high ceiling, the fan mixes the air, so the dry air also reaches the walls and the corners." },
+      { key: "ttk350", waarom: "For a flat in a converted villa: 70 litres a day in rooms up to about 400 m³." },
+      { key: "radiaal2250", waarom: "**After flooding in a cellar in the centre**: the radial fan blows over the floor and along the skirting boards, where moisture lingers longest." },
+    ],
+    levering: {
+      kop: "Delivery in Spa: via Liège and Verviers into the valley",
+      alinea:
+        "We drive **along the E313 and the E42** and then via Theux to Spa. The drive takes about an hour and a half. When you book you choose **a delivery date**, and we deliver by appointment. If the villa has a long drive or the block of flats has no lift, mention it in advance. The technician puts each unit in the right room and records the starting readings.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: a long detour from Spa",
+      alinea:
+        "Our collection point is about an hour and a half's drive from Spa, so there and back costs you **around three hours**. A dehumidifier also has to be transported upright. For a villa with several units, delivery is the practical choice.",
+    },
+    buren: ["jalhay", "theux", "stoumont"],
+    faq: [
+      {
+        q: "I am renovating a villa from the spa era in Spa. How do I approach the drying?",
+        a: "Put one dehumidifier on each floor and a fan in the large rooms to mix the air. High ceilings and thick walls mean a lot of volume and a lot of water. Give us the floor area and the height when you book, so we can suggest a package that suits the building.",
+      },
+      {
+        q: "What do I do if my cellar in the centre of Spa was under water?",
+        a: "First clear up the water and the silt, then dry the floor and the walls. A dehumidifier with a radial fan removes the moisture from the floor and the bottom of the walls. Tell us when you book how high the water rose, and the technician will bring the right units.",
+      },
+      {
+        q: "Are your units quiet enough for a block of flats?",
+        a: "A dehumidifier runs day and night and makes an audible, constant noise. It usually stands in a room under renovation. Put it on a hard floor and not against a party wall, and the neighbours will hardly be bothered by it.",
+      },
+      {
+        q: "How do I know whether the semi-basement is dry enough to finish?",
+        a: "By measuring. During installation the technician records the moisture readings of walls and floor and measures again at collection. Your painter or floor layer decides which value his finish can tolerate.",
+      },
+    ],
+    realisaties: [],
+  },
+  stavelot: {
+    slug: "stavelot",
+    title: "Construction dehumidifier hire in Stavelot | Vernast",
+    description:
+      "Dehumidifier hire in Stavelot, Francorchamps or Coo: for stone houses around the abbey and holiday homes in the Amblève valley. Set up by our technician.",
+    h1: "Construction dehumidifier hire in Stavelot",
+    kicker: "Province of Liège · abbey town on the Amblève",
+    rit: { afstand: "about 170 km", tijd: "almost two hours" },
+    intro: [
+      "Stavelot grew up around **the abbey**, which now houses a museum. The old town lies on the slope above the Amblève, almost two hours' drive from Aartselaar. You will find narrow streets, houses in natural stone and half-timbering, and slate roofs. During Laetare the **Blancs Moussis** parade through the streets.",
+      "The municipality is larger than the small town. **Francorchamps**, with its famous circuit, and **Coo**, with its waterfall on the Amblève, belong to it too. Because the area attracts many visitors, there are many gîtes and holiday homes alongside family homes.",
+    ],
+    bouw: {
+      kop: "A historic town on the slope, a valley full of visitors",
+      alineas: [
+        "In the **old centre around the abbey** it is mainly about renovation. The walls are thick, of rubble stone and often without a damp-proof course, and the cellars lie against the slope. New plasterwork on such a wall dries more slowly than on a brick interior wall, because the stone behind it holds moisture itself. **Have the residual moisture measured** before you paint or wallpaper.",
+        "In the Amblève valley and around Coo, many homes are let to tourists. There everything revolves around the schedule: the gîte has to be dry before the first guests. If work goes on in winter, the valley is cold and damp. **Enough drying capacity and warmth** keep that schedule achievable.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a whole gîte being renovated between two seasons**: 110 litres a day, for rooms up to 600 m³." },
+      { key: "ttv4500", waarom: "Against a **rubble-stone wall in the old centre**: the fan takes the damp layer of air off the wall, so the plasterwork dries faster." },
+      { key: "teddh20", waarom: "For a smaller home in the valley: this 20 kW site heater brings the room above 15 °C. It runs on 400 V." },
+      { key: "ttk170", waarom: "For a flat or a room above a shop in the centre: compact, 0.75 kW, and easy to carry up a narrow staircase." },
+    ],
+    levering: {
+      kop: "Delivery in Stavelot: almost two hours via Liège",
+      alinea:
+        "We drive to Stavelot via Liège, a trip of almost two hours. That is why we bundle deliveries in the area. You choose a delivery date when you book, and because Stavelot is in Wallonia, **we deliver by appointment**. The streets around the abbey are narrow and steep. Let us know in advance whether the van can get to the door.",
+    },
+    afhalen: {
+      kop: "Collecting from Stavelot rarely pays off",
+      alinea:
+        "A trip to Aartselaar and back costs you almost four hours, and the same again when returning. If, as the owner of a holiday home, you are coming from Flanders anyway, collecting can work. **Book in advance**, so the unit is ready for you.",
+    },
+    buren: ["malmedy", "trois-ponts", "stoumont", "spa"],
+    faq: [
+      {
+        q: "My gîte near Coo has to be dry before the season. How do I plan that?",
+        a: "Start drying as soon as the wet work is done, not a week before the first guests. Fresh plasterwork and a screed need weeks, and longer still in a cold valley. Tell us when you book when the gîte has to be ready.",
+      },
+      {
+        q: "Do you also deliver in Francorchamps?",
+        a: "Yes, Francorchamps belongs to the municipality of Stavelot and so to our delivery area. During a big event at the circuit, traffic in the area gets gridlocked. It is better to choose another day for the delivery.",
+      },
+      {
+        q: "How long does new plasterwork take to dry on an old stone wall?",
+        a: "Longer than on a modern interior wall, because the stone behind it holds moisture itself. Allow weeks rather than days. A moisture reading tells you when you can paint, so you do not have to guess.",
+      },
+      {
+        q: "Can a construction dehumidifier be used in a half-timbered house?",
+        a: "Yes, but do not dry too fast. Timber that dries out too quickly can shrink and crack. Set the dehumidifier so the room dries gradually, and have the moisture in the timber checked too, not just in the plasterwork in between.",
+      },
+    ],
+    realisaties: [],
+  },
+  stoumont: {
+    slug: "stoumont",
+    title: "Dehumidifier hire in Stoumont and La Gleize | Vernast",
+    description:
+      "Dehumidifier hire in Stoumont, La Gleize, Chevron or Lorcé: for stone village houses above the Amblève valley and chalets in the woods. Set up on site.",
+    h1: "Construction dehumidifier hire in Stoumont",
+    kicker: "Province of Liège · villages above the Amblève",
+    rit: { afstand: "about 160 km", tijd: "over an hour and a half" },
+    intro: [
+      "Stoumont is **a sprawling, wooded municipality** along the Amblève, over an hour and a half's drive from Aartselaar. There is no town centre. The municipality consists of villages such as **La Gleize, Chevron, Lorcé, Rahier** and Stoumont itself, spread over valleys and heights. In La Gleize a museum recalls the fighting of December 1944.",
+      "The area attracts walkers and nature lovers, and you can see that in the many **gîtes, chalets and second homes**. The older houses are built of local natural stone, with a slate roof, and often stand against a slope or by a stream.",
+    ],
+    bouw: {
+      kop: "Stone village houses and chalets in the woods",
+      alineas: [
+        "An old village house in La Gleize or Chevron has **thick rubble-stone walls**. Such a wall absorbs a lot of water and releases it slowly. If you insulate or plaster the inside, let the wall dry first. Otherwise the moisture is trapped behind the new finish and you get mould.",
+        "A chalet in the woods gets little sun and stands empty for much of the year. The air under the trees is cool and damp, and a house that **stood unheated** all winter feels clammy in spring. To get such a house ready for the season, it is best to choose a dehumidifier that also works in the cold.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**For a chalet that stood empty all winter**: this desiccant dehumidifier keeps absorbing moisture in a cold house, without you having to heat it first." },
+      { key: "ttk350", waarom: "For a village house in La Gleize being completely renewed: 70 litres a day, for rooms up to 400 m³." },
+      { key: "teddh20", waarom: "For a smaller holiday home or a single floor: this 20 kW site heater on 400 V brings the room up to temperature, so the dehumidifier works well." },
+      { key: "ttv4500", waarom: "Along **a thick rubble-stone wall**: the fan keeps the air moving, so the wall releases its moisture faster." },
+    ],
+    levering: {
+      kop: "Delivery in Stoumont: via Liège and the valley",
+      alinea:
+        "We drive to Stoumont via Liège and then into the Amblève valley, over an hour and a half in all. You choose a delivery date when you book; **we agree the exact time**, as everywhere in Wallonia. If the home is on a forest road or a steep drive, mention it in advance. That way the technician knows how close he can get.",
+    },
+    afhalen: {
+      kop: "Collecting from Stoumont: a long morning",
+      alinea:
+        "There and back to Aartselaar is over three hours' driving. If you have a holiday home in Stoumont and live in Flanders yourself, you can take a unit with you on the way to the Ardennes. **Check the collection rates in advance** and allow for the trip to return it.",
+    },
+    buren: ["aywaille", "spa", "stavelot", "trois-ponts"],
+    faq: [
+      {
+        q: "Can I insulate a rubble-stone wall in Stoumont on the inside straight away?",
+        a: "Not while the wall is wet. If you seal a damp stone wall with insulation and a new finish, the moisture has nowhere to go and mould develops. Let the wall dry first and have the residual moisture measured.",
+      },
+      {
+        q: "My chalet smells musty after the winter. Is a dehumidifier enough?",
+        a: "For moisture in the air and in the walls, yes. If the water comes from a leak or from the ground, you first need to have that cause repaired. A desiccant dehumidifier works well in such a cold house.",
+      },
+      {
+        q: "Can you deliver to a home along a forest road?",
+        a: "Usually, yes, but mention it in advance. If the road is narrow, unpaved or steep, the technician chooses where to stop and takes the units inside with a sack truck. After heavy rain or snow we coordinate the delivery with you again.",
+      },
+      {
+        q: "Where in Stoumont do you deliver?",
+        a: "Throughout the municipality: La Gleize, Chevron, Lorcé, Rahier, Stoumont and the hamlets in between. The roads between the villages wind, so give a full address when you book and perhaps a tip for finding the home.",
+      },
+    ],
+    realisaties: [],
+  },
+  theux: {
+    slug: "theux",
+    title: "Dehumidifier hire in Theux, Polleur and La Reid | Vernast",
+    description:
+      "Dehumidifier hire in Theux, Polleur or La Reid: drying after flooding along the Hoëgne or after a renovation on the plateau. We set up the units and measure.",
+    h1: "Construction dehumidifier hire in Theux",
+    kicker: "Liège · on the Hoëgne below Franchimont",
+    rit: { afstand: "about 145 km", tijd: "almost an hour and a half" },
+    intro: [
+      "Theux lies **in the Hoëgne valley**, between Spa and Pepinster. Above the small town stand **the ruins of Franchimont castle**. In the old centre you will find a Romanesque church and a core of natural-stone houses.",
+      "**Polleur and La Reid** also belong to the municipality, rural villages on the heights around the valley. The area is hilly and wooded, and wetter than Flanders. From Aartselaar it takes us **almost an hour and a half** to drive there.",
+    ],
+    bouw: {
+      kop: "Houses on the Hoëgne and farmhouses on the heights",
+      alineas: [
+        "The centre of Theux lies **low along the Hoëgne**. Old natural-stone homes there have cellars that get wet at high water, and a ground floor that is hard to warm up. After **flooding** or during a renovation you therefore start with a reading: is the moisture in the new work, or is it coming from below?",
+        "In Polleur and La Reid stand **farmhouses and detached homes** on the plateau. There it is more often a conversion or a new build with screed and plasterwork. An unheated home up on the heights is cold in autumn. **A heater next to the dehumidifier** brings the room to a temperature at which drying goes smoothly.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**After flooding along the Hoëgne**: 110 litres a day for a ground floor or cellar full of moisture." },
+      { key: "radiaal2250", waarom: "The radial fan sweeps over a cellar floor and along the bottom of the walls, where the water stood." },
+      { key: "teddh20", waarom: "For a converted farmhouse in Polleur or La Reid without heating: this 20 kW heater on three-phase power (400 V) brings the room above 15 °C." },
+      { key: "ttk350", waarom: "For a new-build home on the plateau: 70 litres a day to get the screed and plasterwork ready for finishing on time." },
+    ],
+    levering: {
+      kop: "Delivery in Theux: via Verviers into the Hoëgne valley",
+      alinea:
+        "Theux lies **close to the E42**, between Verviers and Spa. From Aartselaar the drive takes almost an hour and a half. You choose **a delivery date** when you book, and the delivery is by appointment. If your home is on a slope in La Reid or on a narrow street in the centre, mention it in advance. The technician places the units and measures the walls at the start.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: almost three hours' driving",
+      alinea:
+        "From Theux you are on the road for **almost three hours** for a trip to our collection point and back. After flooding you would rather not leave your home, and a package with a dehumidifier and fan rarely fits in one car. Delivery is the simplest way.",
+    },
+    buren: ["spa", "jalhay", "pepinster", "sprimont"],
+    faq: [
+      {
+        q: "My house on the Hoëgne had water in the cellar. When can I start drying?",
+        a: "As soon as the standing water and the silt have gone. A dehumidifier is meant for the moisture left behind in floor and walls. The sooner you start, the smaller the chance of mould. Tell us when you book how high the water rose, and we will put together the right units.",
+      },
+      {
+        q: "Do you also deliver in Polleur and La Reid?",
+        a: "Yes, all the villages of the municipality of Theux are within our delivery area. Give us the address and the access, especially if the home is on a slope or a narrow country lane, so the technician knows how to get the units inside.",
+      },
+      {
+        q: "Why is there a heater in my package in La Reid?",
+        a: "On the plateau it is cold in autumn and winter, and an unheated conversion does not reach 15 °C then. Below that temperature a condensation dehumidifier loses a lot of efficiency. With a heater added, the same room dries noticeably faster.",
+      },
+      {
+        q: "How do I know whether my walls in Theux are dry enough for the painter?",
+        a: "By measuring. During installation the technician records the moisture readings of walls and floor, and measures again at collection. That way you have a figure for the painter or the floor layer and do not have to go by feel.",
+      },
+    ],
+    realisaties: [],
+  },
 };

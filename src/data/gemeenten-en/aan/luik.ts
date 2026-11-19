@@ -79,4 +79,9 @@ export const AAN: readonly string[] = [
   "pepinster",
   "plombieres",
   "raeren",
+  "sankt-vith",
+  "spa",
+  "stavelot",
+  "stoumont",
+  "theux",
 ];
