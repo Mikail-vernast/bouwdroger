@@ -11,4 +11,9 @@ export const AAN: readonly string[] = [
   "kasteelbrakel",
   "itter",
   "eigenbrakel",
+  "nijvel",
+  "genepien",
+  "lasne",
+  "terhulpen",
+  "rixensart",
 ];

@@ -496,4 +496,354 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  nijvel: {
+    slug: "nijvel",
+    title: "Nivelles dehumidifier hire for older homes | Vernast",
+    description:
+      "Dehumidifier hire in Nivelles? Vernast delivers by appointment, installs and collects your drying package. For a town house renovation, screed or water damage.",
+    h1: "Construction dehumidifier hire in Nivelles",
+    kicker: "Nivelles · delivery by appointment",
+    rit: { afstand: "about 70 km", tijd: "about an hour" },
+    intro: [
+      "Nivelles is the town around the Collegiate Church of St Gertrude, in Walloon Brabant. The town centre has older terraced houses, with housing estates and new builds beyond. For both, Vernast hires out construction dehumidifiers and fans to dry screed, plasterwork and damp walls.",
+      "The drive from Aartselaar to Nivelles takes about an hour. In Wallonia we deliver **by appointment**: you choose a delivery date when you book, and we call afterwards about the time. Delivery, installation and collection are included in your drying package.",
+    ],
+    bouw: {
+      kop: "Renovating older homes in Nivelles",
+      alineas: [
+        "Renovating an older house often means stripping plaster, laying a new screed and fitting new windows. Those windows seal better than the old ones, so the moisture from the works escapes less easily. A construction dehumidifier deals with it before it appears as condensation on the windows or as mould in the corners.",
+        "In a terraced house, think about access: a narrow frontage, a steep staircase or no parking space outside. **Mention it when you book**, and the technician will take it into account. After the works, have the residual moisture measured before you paint or lay parquet.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For a terraced house you are renovating throughout.** This condensation dehumidifier removes up to 70 litres of moisture a day in rooms up to about 400 m³ and uses 1.1 kW.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a damp cellar or an unheated room.** This desiccant dehumidifier also works in the cold and, through hoses, dries moisture under a floor or behind a stud wall.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a bathroom or a single bedroom.** Compact, up to 50 litres a day, for rooms up to about 250 m³. It runs on a standard socket and uses 0.75 kW.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**To help fresh plasterwork dry faster.** The fan moves 4,500 m³ of air an hour along the walls and uses only 0.2 kW. The moisture it releases is captured by the dehumidifier.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Nivelles",
+      alinea: "**Delivery in Nivelles is by appointment.** You choose the date when you book, and we then call to arrange the time. Our technician is on the road from Aartselaar for about an hour. Tell us whether there is parking outside and whether the units need to go up a narrow staircase. He places the units, switches them on and explains how to check the condensate drain.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Nivelles",
+      alinea: "For a single unit, you can come to our warehouse yourself by appointment, at Boomsesteenweg 12, unit 11 in Aartselaar. From Nivelles that is about an hour's drive, and the same again for the return trip with the unit. **Book in advance** so we can have it ready. If you need several units, delivery with installation saves you those trips.",
+    },
+    buren: ["eigenbrakel", "itter", "genepien"],
+    faq: [
+      {
+        q: "How does delivery in Nivelles work?",
+        a: "You book online and choose a delivery date. We then agree the time by phone, as everywhere in Wallonia. Make sure someone is there that day to let the technician in and show him the site.",
+      },
+      {
+        q: "Why are my new windows steaming up after the renovation?",
+        a: "New plasterwork and fresh screed give off moisture for weeks. New windows keep that damp air inside, so it condenses on the cold glass. A construction dehumidifier takes the moisture out of the air before it leads to mould.",
+      },
+      {
+        q: "Does a construction dehumidifier work in an unheated house?",
+        a: "A condensation dehumidifier prefers a temperature above 15 °C. In a cold, unheated house you are better off with a desiccant dehumidifier, or you add heat with a site heater. Warmth also speeds up the drying of screed and plasterwork.",
+      },
+      {
+        q: "When can I paint new plasterwork?",
+        a: "Only when the plaster is dry right through. A light colour on the surface does not prove that. Have a moisture reading taken and follow the advice of your decorator or the paint supplier on the permitted residual moisture.",
+      },
+      {
+        q: "Can I collect a unit myself for a site in Nivelles?",
+        a: "Yes, you can collect by appointment in Aartselaar. From Nivelles you drive about an hour each way. Book in advance and ask when you collect how to transport the unit safely.",
+      },
+    ],
+    realisaties: [],
+  },
+  genepien: {
+    slug: "genepien",
+    title: "Genappe dehumidifier hire for farmhouses | Vernast",
+    description:
+      "Dehumidifier hire in Genappe? Vernast delivers and installs your drying package by appointment, with a site heater for a cold site, and collects it afterwards.",
+    h1: "Construction dehumidifier hire in Genappe",
+    kicker: "Genappe · delivery by appointment",
+    rit: { afstand: "about 70 km", tijd: "about an hour" },
+    intro: [
+      "Genappe is a rural municipality in Walloon Brabant, with scattered villages, farmhouses and open fields. Converting an old farmhouse there or building a new home often means working in large, cold spaces. Vernast hires out the construction dehumidifiers, fans and site heaters to get screed and plasterwork dry there too.",
+      "From Aartselaar we drive about an hour to Genappe. In Wallonia we deliver **by appointment**: you choose a delivery date when you book, and we call to fix the time. The price of the drying package covers delivery, installation and collection.",
+    ],
+    bouw: {
+      kop: "Converting and building in winter in Genappe",
+      alineas: [
+        "A converted farmhouse often has thick walls and high rooms. Thick walls hold moisture for a long time, and a large volume needs a lot of drying capacity. So choose a unit that suits the volume and keep the space as closed as possible while it dries.",
+        "On an unheated site in winter, the temperature soon drops below the 15 °C above which a condensation dehumidifier works best. **An electric site heater raises the temperature**, after which the dehumidifier removes the moisture. That heater needs three-phase power: check beforehand that there is a 400 V connection on site.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For a large converted farmhouse or a new build.** This condensation dehumidifier extracts up to 110 litres a day from the air in volumes up to about 600 m³. It uses 1.4 kW.",
+      },
+      {
+        key: "radiaal2250",
+        waarom: "**To direct air along thick walls or over a large floor.** The radial fan moves 2,250 m³ an hour and, thanks to IP55, can handle splashes. It speeds up evaporation; the dehumidifier captures the moisture.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For a cold site.** This electric site heater delivers 30 kW and runs on 400 V (three-phase). It gets the room warm enough for a condensation dehumidifier to work properly.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For the smaller rooms or the upper floor.** Up to 70 litres a day, for rooms up to about 400 m³, using 1.1 kW. Alongside a larger dehumidifier downstairs, it takes care of the upper floor.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Genappe",
+      alinea: "**In Genappe too, we deliver by appointment.** You choose the delivery date when you book, and we call about the time. The technician drives about an hour from Aartselaar. If the site is on a country lane or hard to find, send us directions or a location pin. On site, he sets up the units and explains what to keep an eye on while drying.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Genappe",
+      alinea: "You can collect a single unit by appointment from our warehouse at Boomsesteenweg 12, unit 11 in Aartselaar. From Genappe that is about an hour's drive, and you cover the distance again to bring it back. **Book in advance** and it will be ready. A site heater and several dehumidifiers are better delivered and installed.",
+    },
+    buren: ["nijvel", "eigenbrakel", "lasne", "villers-la-ville", "court-saint-etienne"],
+    faq: [
+      {
+        q: "How do you deliver in Genappe?",
+        a: "By appointment. You put a drying package together online and choose a delivery date, after which we call you to set the time. For a remote site, include clear directions.",
+      },
+      {
+        q: "Does a construction dehumidifier work on a cold site in winter?",
+        a: "A condensation dehumidifier loses much of its efficiency below 15 °C. Add heat with an electric site heater, or choose a desiccant dehumidifier that also absorbs moisture in the cold. Keep the space as closed as possible as well.",
+      },
+      {
+        q: "What connection does the 30 kW site heater need?",
+        a: "A 400 V connection, so three-phase power. A standard socket cannot supply that load. Have your electrician or contractor check that the site distribution board is suitable before we deliver.",
+      },
+      {
+        q: "Why do thick walls dry so slowly?",
+        a: "Moisture has to travel from the core of the wall to the surface before it can evaporate. The thicker the wall, the longer that path. A dehumidifier and a fan speed up evaporation at the surface, but patience is still needed.",
+      },
+      {
+        q: "Can I collect a unit myself for a site in Genappe?",
+        a: "Yes, by appointment in Aartselaar, about an hour's drive each way. Book in advance and check that the dehumidifier fits in your car. A 30 kW site heater is better delivered.",
+      },
+    ],
+    realisaties: [],
+  },
+  lasne: {
+    slug: "lasne",
+    title: "Lasne dehumidifier hire, dry screed for parquet | Vernast",
+    description:
+      "Dehumidifier hire in Lasne? Vernast delivers your drying package by appointment, installs and collects it. For screed under parquet, plaster and water damage.",
+    h1: "Construction dehumidifier hire in Lasne",
+    kicker: "Lasne · delivery by appointment",
+    rit: { afstand: "about 60 km", tijd: "almost an hour" },
+    intro: [
+      "Lasne is a green, residential municipality in Walloon Brabant, next to Waterloo and La Hulpe. There are many detached houses, and in a renovation or new build, parquet or another wooden floor often goes on top of the screed. That is exactly when the subfloor must be properly dry, and Vernast hires out the construction dehumidifiers for it.",
+      "From our warehouse in Aartselaar to Lasne is almost an hour's drive. Delivery in Wallonia is **by appointment**: you choose a delivery date when you book, and we call you about the time. Installation and collection are included in the price of the package.",
+    ],
+    bouw: {
+      kop: "A dry screed under parquet in Lasne",
+      alineas: [
+        "Parquet and other wooden floors tolerate little residual moisture in the screed. If the wood goes down too early, it can swell or cup. A construction dehumidifier brings the moisture content of the screed down faster, but the moisture reading decides whether the floor is ready.",
+        "If there is underfloor heating in the screed, follow the installer's heating-up protocol. The heat supports the drying, while the dehumidifier takes the released moisture out of the air. **Have the residual moisture measured** before the parquet fitter starts, and keep the readings.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For a spacious house with large open areas.** This condensation dehumidifier extracts up to 110 litres of moisture a day from rooms up to about 600 m³, using 1.4 kW.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For the cellar or a cool room.** A desiccant dehumidifier keeps absorbing moisture at temperatures where a condensation dehumidifier falls short, and through hoses also dries under floors.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For the upper floor or a smaller house.** Up to 70 litres a day in volumes up to about 400 m³, using 1.1 kW.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**To keep the air above fresh screed moving.** This fan moves 4,500 m³ an hour at 0.2 kW. Evaporation speeds up; capturing the moisture remains the dehumidifier's job.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Lasne",
+      alinea: "**In Lasne we deliver by appointment.** Choose a delivery date when you book, and we then call to agree the time. The drive from Aartselaar takes almost an hour. Let us know if there is a long driveway, a gate with a code or stairs down to the cellar. The technician places the units and shows you how to drain the collected water.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Lasne",
+      alinea: "If you want to collect a single unit yourself, you can do so by appointment at Boomsesteenweg 12, unit 11 in Aartselaar. The drive from Lasne takes almost an hour, and you make it again when you return the unit. **Book in advance** and the unit will be ready for you. For a whole house, it is better to have the units delivered and installed.",
+    },
+    buren: ["waterloo", "terhulpen", "rixensart", "genepien", "ottignies-louvain-la-neuve"],
+    faq: [
+      {
+        q: "How do I book a delivery in Lasne?",
+        a: "Book a drying package online and choose the delivery date. We then get in touch to agree a time. Include the address, how the house can be reached and who will be there for the delivery.",
+      },
+      {
+        q: "When can the parquet go down on the screed?",
+        a: "Only when a moisture reading shows the screed is dry enough for the chosen wood. The limit differs by type of screed and floor, so check it with your parquet fitter. A top that looks dry is no proof.",
+      },
+      {
+        q: "Can I use the underfloor heating to dry the screed?",
+        a: "Yes, but follow the installer's heating-up protocol and raise the temperature step by step. Heating up too quickly can make the screed crack. Combine it with a construction dehumidifier that takes the moisture out of the air.",
+      },
+      {
+        q: "Does a construction dehumidifier also work in a cool cellar?",
+        a: "A condensation dehumidifier achieves little in a cellar below 15 °C. A desiccant dehumidifier does work well there, even if it stays cold. If water is getting in, deal with the cause first.",
+      },
+      {
+        q: "Can I collect a unit myself for a site in Lasne?",
+        a: "You can, by appointment at our warehouse in Aartselaar. From Lasne you are on the road for almost an hour each way. Book ahead and read the transport instructions before you set off.",
+      },
+    ],
+    realisaties: [],
+  },
+  terhulpen: {
+    slug: "terhulpen",
+    title: "La Hulpe dehumidifier hire by the Sonian Forest | Vernast",
+    description:
+      "Dehumidifier hire in La Hulpe: Vernast delivers by appointment, installs the units and collects them again. For screed, plasterwork and water damage.",
+    h1: "Construction dehumidifier hire in La Hulpe",
+    kicker: "La Hulpe · delivery by appointment",
+    rit: { afstand: "about 55 km", tijd: "about fifty minutes" },
+    intro: [
+      "Drying screed, plasterwork or a room after water damage in La Hulpe? Vernast hires out construction dehumidifiers, fans and site heaters as a drying package. **Delivery, installation and collection are included.**",
+      "Our warehouse in Aartselaar is about fifty minutes' drive away. La Hulpe is in Wallonia, so we deliver by appointment: you choose a delivery date when you book, and we then fix the delivery time together.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in La Hulpe",
+      alineas: [
+        "La Hulpe lies between Hoeilaart, Overijse and Rixensart, on the edge of the Sonian Forest. In your request, give the full site address and who will meet the technician there. If the site is on a narrow street or a cul-de-sac, mention that too.",
+        "After a leak or a wet cellar, deal with the cause first and remove the standing water. Only then is drying worthwhile. **A condensation dehumidifier works best above 15 °C**; in a cold cellar we prefer to use a desiccant dehumidifier.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For a whole floor or a large site.** This dehumidifier extracts up to 110 litres of water a day from the air and is suitable for rooms up to 600 m³. It runs on a standard socket.",
+      },
+      {
+        key: "ttk350",
+        waarom: "**For a house with fresh screed.** Up to 70 litres a day in rooms up to 400 m³, using 1.1 kW. With several rooms, we spread the units across the zones.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cold cellar or a floor after water damage.** This desiccant dehumidifier also works at low temperatures and, through hoses, dries under a floor in a targeted way.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**To keep the air moving.** The fan moves 4,500 m³ of air an hour along wet walls and floors. It does not remove moisture from the air itself; the construction dehumidifier next to it does that.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in La Hulpe",
+      alinea: "**Delivery, installation and collection are part of your drying package.** You choose a delivery date when you book; because La Hulpe is in Wallonia, we then agree the exact delivery time with you. The drive from Aartselaar takes about fifty minutes. Let us know in advance about a floor without a fixed staircase or difficult access. The technician places the units and shows you how to check the condensate drain.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from La Hulpe",
+      alinea: "You can collect a single unit by appointment from our warehouse at Boomsesteenweg 12, unit 11 in Aartselaar. From La Hulpe the drive takes about fifty minutes, and you make it twice: when collecting and when returning. **Book in advance** so your unit is ready. For several units, a drying package with delivery is usually more convenient.",
+    },
+    buren: ["hoeilaart", "overijse", "rixensart", "lasne", "waterloo"],
+    faq: [
+      {
+        q: "When can you deliver in La Hulpe?",
+        a: "You choose a delivery date yourself when you book. Because La Hulpe is in Wallonia, we then fix the delivery time together with you. Give us the site address, the floor and the start date you want.",
+      },
+      {
+        q: "How many dehumidifiers will my house in La Hulpe need?",
+        a: "That depends on the volume, the number of closed rooms and how much moisture is in the screed or plasterwork. Use the calculator to put a package together; if your site is unusual, call us for advice.",
+      },
+      {
+        q: "Will a dehumidifier cope with a cold cellar?",
+        a: "A condensation dehumidifier needs a temperature above 15 °C to work well. In a cold cellar or an unheated extension we therefore choose the desiccant dehumidifier, which also absorbs moisture at low temperatures.",
+      },
+      {
+        q: "What electrical connection do I need?",
+        a: "The construction dehumidifiers and fans run on a standard 230 V socket. Only the 20 and 30 kW electric site heaters need 400 V three-phase power. If in doubt, have your electrician check the connection.",
+      },
+      {
+        q: "What should I include in my request for a site in La Hulpe?",
+        a: "The full site address and who will meet the technician there. If the site is on a narrow street or a cul-de-sac, mention that too, so we know how close the van can get.",
+      },
+    ],
+    realisaties: [],
+  },
+  rixensart: {
+    slug: "rixensart",
+    title: "Dehumidifier hire in Rixensart, Genval, Rosières | Vernast",
+    description:
+      "Dehumidifier hire in Rixensart, Genval or Rosières? Vernast installs your drying package by appointment and collects it. Advice on screed and water damage.",
+    h1: "Construction dehumidifier hire in Rixensart",
+    kicker: "Rixensart · delivery by appointment",
+    rit: { afstand: "about 58 km", tijd: "about fifty minutes" },
+    intro: [
+      "Need to dry screed, a newly plastered wall or a wet cellar in Rixensart? At Vernast you hire a complete drying package for it. **We bring the units, put them in place and collect them again afterwards.**",
+      "From our warehouse in Aartselaar we reach Rixensart in about fifty minutes. When you book, you choose a delivery date; for Wallonia we then set the delivery time in consultation with you.",
+    ],
+    bouw: {
+      kop: "Construction drying for your project in Rixensart",
+      alineas: [
+        "Rixensart also includes Genval and Rosières. So in your request, give the full address including the village, and who will meet us on site. If you are drying a flat, tell us whether there is a lift and how wide the stairwell is.",
+        "A fresh screed releases moisture into the air for weeks. Exactly how long depends on the thickness, the mix and the temperature in the room. **Keep windows and doors shut while the dehumidifier runs**, or it pulls in moisture from outside. Have the residual moisture measured before you lay a floor.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For a whole house or a flat.** Extracts up to 70 litres a day from rooms up to 400 m³. With several closed rooms, we spread the capacity across the zones.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "**To make wet surfaces dry faster.** This fan blows 4,500 m³ of air an hour along floor and walls. Always combine it with a construction dehumidifier, because it collects no water itself.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cold, unheated cellar.** The desiccant dehumidifier keeps absorbing moisture where a condensation dehumidifier achieves little, and can dry under a floor in a targeted way through hoses.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a bathroom, bedroom or other single room.** This compact dehumidifier extracts up to 50 litres a day from rooms up to 250 m³ and uses 0.75 kW.",
+      },
+    ],
+    levering: {
+      kop: "Delivery and installation in Rixensart",
+      alinea: "**Your drying package includes delivery, installation and collection.** Once you have booked with a delivery date, we get in touch to fix the delivery time in Rixensart. Allow about fifty minutes' drive from Aartselaar. Tell us beforehand if parking is limited or access is awkward. During installation, the technician shows you how to check the water tank or the drain hose.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself from Rixensart",
+      alinea: "If you would rather drive yourself, you collect a single unit by appointment at Boomsesteenweg 12, unit 11 in Aartselaar. From Rixensart that is about fifty minutes, once to collect and again to return it. **Book ahead** and check that the unit fits in your car. If it involves several units, delivery saves you those trips.",
+    },
+    buren: ["terhulpen", "lasne", "overijse", "waver"],
+    faq: [
+      {
+        q: "Do you also deliver in Genval and Rosières?",
+        a: "Yes, both villages of Rixensart are within our delivery area. You choose a delivery date when you book, and because it is in Wallonia, we then agree the exact time with you.",
+      },
+      {
+        q: "How do I choose between a small and a large dehumidifier?",
+        a: "Look at the volume of the room and the amount of moisture. The compact dehumidifier is enough up to 250 m³, the 70-litre unit up to 400 m³. If in doubt, the calculator helps, or just give us a call.",
+      },
+      {
+        q: "Can I air the room while the dehumidifier runs?",
+        a: "Preferably keep windows and doors shut. Open windows let outside air in, and in damp weather the dehumidifier then has to capture that moisture too. Airing briefly at the end of a working day is fine.",
+      },
+      {
+        q: "Do I need three-phase power?",
+        a: "Not for the construction dehumidifiers and fans: they run on a standard 230 V socket. 400 V three-phase power is only needed for the electric site heaters. Do not put too many units on the same circuit.",
+      },
+      {
+        q: "When is the screed dry enough for tiles or parquet?",
+        a: "A moisture reading decides that, not the number of hire days. Your floor layer knows what residual moisture value their floor requires and can measure it. Keep the dehumidifier running until that value is reached.",
+      },
+    ],
+    realisaties: [],
+  },
 };
