@@ -116,10 +116,41 @@ export const TOESTEL_SLUG_VERTAALD: Record<string, Vertaling> = {
   "bouwkachel-20-kw": { fr: "chauffage-de-chantier-20-kw", en: "site-heater-20-kw" },
 };
 
+/**
+ * Realisatieslugs per taal. Tot 19-11-2026 bleef het laatste segment Nederlands
+ * (/fr/realisations/pleisterwerk-drogen-berchem): een Franstalige zoeker ziet
+ * die URL in Google en leest er niets in. De oude URL's verwijzen in
+ * `vercel.json` permanent door. De slug in de data blijft de Nederlandse.
+ */
+export const REALISATIE_SLUG_VERTAALD: Record<string, Vertaling> = {
+  "expositieruimte-drogen-boom": { fr: "sechage-salle-exposition-boom", en: "showroom-drying-boom" },
+  "kelder-en-kamer-drogen-antwerpen": { fr: "sechage-cave-et-chambre-anvers", en: "basement-and-room-drying-antwerp" },
+  "badkamer-drogen-brussel": { fr: "sechage-salle-de-bains-bruxelles", en: "bathroom-drying-brussels" },
+  "pleisterwerk-drogen-oostende": { fr: "sechage-plafonnage-ostende", en: "plaster-drying-ostend" },
+  "chape-pleisterwerk-drogen-hasselt": { fr: "sechage-chape-plafonnage-hasselt", en: "screed-plaster-drying-hasselt" },
+  "nieuwbouw-drogen-putte": { fr: "sechage-nouvelle-construction-putte", en: "new-build-drying-putte" },
+  "waterschade-drogen-bocholt": { fr: "sechage-degats-des-eaux-bocholt", en: "water-damage-drying-bocholt" },
+  "waterschade-drogen-bedrijfsgebouw": { fr: "sechage-degats-des-eaux-batiment-entreprise", en: "water-damage-drying-commercial-building" },
+  "bouwvocht-drogen-wintam": { fr: "sechage-humidite-construction-wintam", en: "construction-moisture-drying-wintam" },
+  "nieuwbouw-drogen-kontich": { fr: "sechage-nouvelle-construction-kontich", en: "new-build-drying-kontich" },
+  "pleisterwerk-drogen-berchem": { fr: "sechage-plafonnage-berchem", en: "plaster-drying-berchem" },
+  "pleisterwerk-drogen-sint-pieters-woluwe": { fr: "sechage-plafonnage-woluwe-saint-pierre", en: "plaster-drying-woluwe-saint-pierre" },
+  "kelder-drogen-lokeren": { fr: "sechage-cave-lokeren", en: "basement-drying-lokeren" },
+  "woning-drogen-waterschade": { fr: "sechage-habitation-degats-des-eaux", en: "home-drying-water-damage" },
+  "berging-drogen-berlare": { fr: "sechage-debarras-berlare", en: "storage-room-drying-berlare" },
+  "kelder-drogen-brugge": { fr: "sechage-cave-bruges", en: "basement-drying-bruges" },
+  "schimmelsanering-winkelkelder": { fr: "elimination-moisissures-cave-commerce", en: "mould-removal-shop-basement" },
+  "pleisterwerk-drogen-merksem": { fr: "sechage-plafonnage-merksem", en: "plaster-drying-merksem" },
+  "woning-drogen-brussel": { fr: "sechage-habitation-bruxelles", en: "home-drying-brussels" },
+  "nieuwbouwvilla-drogen-schilde": { fr: "sechage-villa-neuve-schilde", en: "new-villa-drying-schilde" },
+  "kelder-drogen-antwerpen": { fr: "sechage-cave-anvers", en: "basement-drying-antwerp" },
+  "bouwdroging-winkelpand": { fr: "sechage-chantier-commerce", en: "construction-drying-retail-unit" },
+};
+
 export const MAPPEN: MapRegel[] = [
   { nl: "/verhuur/toestel/", fr: "/location/appareil/", en: "/rental/unit/", slug: TOESTEL_SLUG_VERTAALD },
   { nl: "/levering/pakket/", fr: "/livraison/pack/", en: "/delivery/package/" },
-  { nl: "/realisaties/", fr: "/realisations/", en: "/projects/" },
+  { nl: "/realisaties/", fr: "/realisations/", en: "/projects/", slug: REALISATIE_SLUG_VERTAALD },
   { nl: "/product/", fr: "/produit/", en: "/product/" },
 ];
 
