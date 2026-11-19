@@ -52,4 +52,11 @@ export const AAN: readonly string[] = [
   "gavere",
   "deinze",
   "zulte",
+  "temse",
+  "beveren-kruibeke-zwijndrecht",
+  "sint-niklaas",
+  "waasmunster",
+  "lokeren",
+  "sint-gillis-waas",
+  "stekene",
 ];
