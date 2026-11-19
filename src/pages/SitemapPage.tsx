@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
@@ -6,6 +7,7 @@ import Pad from "@/components/sitemap/Pad";
 import { useSeo } from "@/data/seo";
 import { sitemapInhoud } from "@/data/sitemap";
 import { useCopy, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
+import { ACTIEVE_TALEN, prefix, type Taal } from "@/i18n/taal";
 import { breadcrumbSchema, itemListSchema, organizationSchema } from "@/lib/schema";
 import "@/styles/v3-content.css";
 import "@/styles/sitemap.css";
@@ -35,7 +37,7 @@ const COPY = {
     sitemap: "Sitemap",
     kruimelpad: "Kruimelpad",
     h1: "sitemap",
-    lede: "De hele site als mappenboom. Klik een map om ernaartoe te springen.",
+    lede: "De hele site als mappenboom, in het Nederlands, Frans en Engels. Klik een map om ernaartoe te springen.",
     opDezePagina: "Op deze pagina",
     team: "Drie technici van Vernast in werkoverall",
     realisaties: "Realisaties",
@@ -44,13 +46,14 @@ const COPY = {
     binnen24: "levering binnen 24 uur",
     plaatsen: "plaatsen",
     lijst: "Alle pagina's van Vernast Bouwdrogers",
+    talen: "Talen",
   },
   fr: {
     home: "Accueil",
     sitemap: "Plan du site",
     kruimelpad: "Fil d'Ariane",
     h1: "plan-du-site",
-    lede: "Tout le site sous forme d'arborescence. Cliquez sur un dossier pour y accéder.",
+    lede: "Tout le site sous forme d'arborescence, en français, néerlandais et anglais. Cliquez sur un dossier pour y accéder.",
     opDezePagina: "Sur cette page",
     team: "Trois techniciens de Vernast en bleu de travail",
     realisaties: "Réalisations",
@@ -59,13 +62,14 @@ const COPY = {
     binnen24: "livraison en 24 heures",
     plaatsen: "localités",
     lijst: "Toutes les pages de Vernast Bouwdrogers",
+    talen: "Langues",
   },
   en: {
     home: "Home",
     sitemap: "Sitemap",
     kruimelpad: "Breadcrumb",
     h1: "sitemap",
-    lede: "The whole site as a folder tree. Click a folder to jump to it.",
+    lede: "The whole site as a folder tree, in English, Dutch and French. Click a folder to jump to it.",
     opDezePagina: "On this page",
     team: "Three Vernast technicians in work overalls",
     realisaties: "Projects",
@@ -74,13 +78,138 @@ const COPY = {
     binnen24: "delivery within 24 hours",
     plaatsen: "places",
     lijst: "Every page of Vernast Bouwdrogers",
+    talen: "Languages",
   },
 } satisfies Copy<Record<string, string>>;
+
+/**
+ * De volledige boom van één taal. De pagina toont ze alle drie: elke taal heeft
+ * eigen URL's (/fr/location-deshumidificateur, /en/screed-drying, …) en wie de
+ * sitemap opent wil die allemaal kunnen aanklikken, niet alleen die van de taal
+ * waarin hij toevallig binnenkwam. De andere talen krijgen een prefix op hun
+ * id's, zodat de ankers van de boom bovenaan naar de eigen taal blijven wijzen.
+ */
+const TaalBoom = ({ taal, idPrefix }: { taal: Taal; idPrefix: string }) => {
+  const t = COPY[taal];
+  const { BLOKKEN, JURIDISCH, LANDEN, REALISATIE_LINKS } = sitemapInhoud(taal);
+  const id = (x: string) => idPrefix + x;
+  return (
+    <>
+      <div className="sm-mappen">
+        {BLOKKEN.map((blok) => (
+          <nav className="sm-map" id={id(blok.id)} key={blok.id} aria-labelledby={id(`${blok.id}-k`)}>
+            <h2 id={id(`${blok.id}-k`)}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
+              {blok.titel}
+            </h2>
+            <ul>
+              {blok.items.map((item, i) => (
+                <li key={item.path + item.label}>
+                  <Tak laatste={i === blok.items.length - 1} />
+                  <Link to={item.path}>
+                    <Pad path={item.path} />
+                    <small>{item.label}</small>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
+      </div>
+
+      {/*
+        Realisaties en Juridisch als mapkaarten, net als de onderwerpen
+        bovenaan. Als losse lijst onder een streep lazen ze als iets anders
+        dan de rest van de site, terwijl het gewoon twee mappen meer zijn.
+      */}
+      <div className="sm-mappen-2">
+        <nav className="sm-map sm-map-breed" id={id("sm-real")} aria-labelledby={id("sm-real-k")}>
+          <h2 id={id("sm-real-k")}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
+            {t.realisaties}
+          </h2>
+          <ul>
+            {REALISATIE_LINKS.map((item, i, alle) => (
+              <li key={item.path}>
+                <Tak laatste={i === alle.length - 1} />
+                <Link to={item.path}>
+                  <Pad path={item.path} />
+                  <small>{item.label}</small>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <nav className="sm-map" id={id("sm-jur")} aria-labelledby={id("sm-jur-k")}>
+          <h2 id={id("sm-jur-k")}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
+            {t.juridisch}
+          </h2>
+          <ul>
+            {JURIDISCH.map((item, i, alle) => (
+              <li key={item.path}>
+                <Tak laatste={i === alle.length - 1} />
+                <Link to={item.path}>
+                  <Pad path={item.path} />
+                  <small>{item.label}</small>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      {LANDEN.map((land) => (
+        <section className="sm-land" id={id(land.id)} key={land.id} aria-labelledby={id(`${land.id}-k`)}>
+          <div className="sm-land-kop">
+            <h2 id={id(`${land.id}-k`)}>{land.titel}</h2>
+            <span className={land.opAanvraag ? "sm-status uit" : "sm-status"}>
+              {land.opAanvraag ? t.opAanvraag : t.binnen24}
+            </span>
+          </div>
+          <p className="sm-uit">{land.uitleg}</p>
+          <div className="sm-provs">
+            {land.gebieden.map((g) => (
+              <div className="sm-prov" key={g.sleutel}>
+                <h3>
+                  {g.path ? (
+                    <Link to={g.path}><Pad path={g.path} stil={false} /></Link>
+                  ) : (
+                    <span className="pad"><i>~</i> {g.kop}</span>
+                  )}
+                  <small>{g.path ? g.kop + " · " : ""}{g.aantal} {t.plaatsen}</small>
+                </h3>
+                {g.streken.map((s) => (
+                  <div className="sm-streek" key={s.naam}>
+                    <h4><Tak laatste={false} />{s.naam}</h4>
+                    <ul>
+                      {s.plaatsen.map((p) => (
+                        <li key={p.naam}>
+                          {p.path ? <Link to={p.path}>{p.naam}</Link> : <span>{p.naam}</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </>
+  );
+};
+
+const TAALNAAM: Record<Taal, string> = { nl: "Nederlands", fr: "Français", en: "English" };
 
 const SitemapPage = () => {
   const t = useCopy(COPY);
   const lp = useLokaalPad();
-  const { BLOKKEN, JURIDISCH, LANDEN, REALISATIE_LINKS } = sitemapInhoud(useTaal());
+  const taal = useTaal();
+  const { BLOKKEN, LANDEN, REALISATIE_LINKS } = sitemapInhoud(taal);
+  /* De taal van de pagina eerst, daarna de andere. */
+  const talen = [taal, ...ACTIEVE_TALEN.filter((x) => x !== taal)];
+  const [actief, setActief] = useState<Taal>(taal);
   const alles = BLOKKEN.flatMap((b) => b.items);
   return (
   <div className="v3c sm-page">
@@ -124,7 +253,7 @@ const SitemapPage = () => {
                   n: l.gebieden.reduce((s, g) => s + g.aantal, 0),
                 })),
               ].map((r, i, arr) => (
-                <a key={r.href} href={r.href}>
+                <a key={r.href} href={r.href} onClick={() => setActief(taal)}>
                   <Tak laatste={i === arr.length - 1} />
                   <span>{r.naam}</span>
                   <small>{r.n}</small>
@@ -141,106 +270,36 @@ const SitemapPage = () => {
 
       <section className="sm-body">
         <div className="wrap">
-          <div className="sm-mappen">
-            {BLOKKEN.map((blok) => (
-              <nav className="sm-map" id={blok.id} key={blok.id} aria-labelledby={`${blok.id}-k`}>
-                <h2 id={`${blok.id}-k`}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
-                  {blok.titel}
-                </h2>
-                <ul>
-                  {blok.items.map((item, i) => (
-                    <li key={item.path + item.label}>
-                      <Tak laatste={i === blok.items.length - 1} />
-                      <Link to={item.path}>
-                        <Pad path={item.path} />
-                        <small>{item.label}</small>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+          <div className="sm-talen" role="tablist" aria-label={t.talen}>
+            {talen.map((tl) => (
+              <button
+                key={tl}
+                type="button"
+                role="tab"
+                id={`sm-tab-${tl}`}
+                aria-controls={`sm-paneel-${tl}`}
+                aria-selected={actief === tl}
+                className={actief === tl ? "actief" : undefined}
+                onClick={() => setActief(tl)}
+              >
+                <span className="sm-taal-code">{tl.toUpperCase()}</span>
+                {TAALNAAM[tl]}
+                <small>{prefix(tl) || "/"}</small>
+              </button>
             ))}
           </div>
-
-          {/*
-            Realisaties en Juridisch als mapkaarten, net als de onderwerpen
-            bovenaan. Als losse lijst onder een streep lazen ze als iets anders
-            dan de rest van de site, terwijl het gewoon twee mappen meer zijn.
-          */}
-          <div className="sm-mappen-2">
-            <nav className="sm-map sm-map-breed" id="sm-real" aria-labelledby="sm-real-k">
-              <h2 id="sm-real-k">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
-                {t.realisaties}
-              </h2>
-              <ul>
-                {REALISATIE_LINKS.map((item, i, alle) => (
-                  <li key={item.path}>
-                    <Tak laatste={i === alle.length - 1} />
-                    <Link to={item.path}>
-                      <Pad path={item.path} />
-                      <small>{item.label}</small>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <nav className="sm-map" id="sm-jur" aria-labelledby="sm-jur-k">
-              <h2 id="sm-jur-k">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
-                {t.juridisch}
-              </h2>
-              <ul>
-                {JURIDISCH.map((item, i, alle) => (
-                  <li key={item.path}>
-                    <Tak laatste={i === alle.length - 1} />
-                    <Link to={item.path}>
-                      <Pad path={item.path} />
-                      <small>{item.label}</small>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-
-          {LANDEN.map((land) => (
-            <section className="sm-land" id={land.id} key={land.id} aria-labelledby={`${land.id}-k`}>
-              <div className="sm-land-kop">
-                <h2 id={`${land.id}-k`}>{land.titel}</h2>
-                <span className={land.opAanvraag ? "sm-status uit" : "sm-status"}>
-                  {land.opAanvraag ? t.opAanvraag : t.binnen24}
-                </span>
-              </div>
-              <p className="sm-uit">{land.uitleg}</p>
-              <div className="sm-provs">
-                {land.gebieden.map((g) => (
-                  <div className="sm-prov" key={g.sleutel}>
-                    <h3>
-                      {g.path ? (
-                        <Link to={g.path}><Pad path={g.path} stil={false} /></Link>
-                      ) : (
-                        <span className="pad"><i>~</i> {g.kop}</span>
-                      )}
-                      <small>{g.path ? g.kop + " · " : ""}{g.aantal} {t.plaatsen}</small>
-                    </h3>
-                    {g.streken.map((s) => (
-                      <div className="sm-streek" key={s.naam}>
-                        <h4><Tak laatste={false} />{s.naam}</h4>
-                        <ul>
-                          {s.plaatsen.map((p) => (
-                            <li key={p.naam}>
-                              {p.path ? <Link to={p.path}>{p.naam}</Link> : <span>{p.naam}</span>}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </section>
+          {/* Alle drie in de HTML, ook de verborgen: een zoekmachine of
+              antwoordmachine volgt de links, ook zonder op een tab te klikken. */}
+          {talen.map((tl) => (
+            <div
+              key={tl}
+              role="tabpanel"
+              id={`sm-paneel-${tl}`}
+              aria-labelledby={`sm-tab-${tl}`}
+              hidden={actief !== tl}
+            >
+              <TaalBoom taal={tl} idPrefix={tl === taal ? "" : `${tl}-`} />
+            </div>
           ))}
         </div>
       </section>

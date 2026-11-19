@@ -90,3 +90,21 @@
   .v3c .sm-provs, .v3c .sm-real { grid-template-columns: 1fr; }
   .v3c .sm-prov { padding: 18px; }
 }
+
+/* Taaltabs boven de mappen: de sitemap toont alle drie de talen, elk met hun
+   eigen URL's. Zwart op gebroken wit, zoals de rest van de pagina — geen rood
+   voor tekst (zie de fix van 18-11-2026). */
+.v3c .sm-talen { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 36px; }
+.v3c .sm-talen button {
+  display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+  font: inherit; font-weight: 700; font-size: 15px; color: #141414;
+  background: #f4efeb; border: 1px solid #e4dcd6; border-radius: 999px; padding: 8px 18px 8px 8px;
+}
+.v3c .sm-talen button small { font-weight: 500; font-size: 12px; opacity: 0.6; }
+.v3c .sm-talen .sm-taal-code {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+}
+.v3c .sm-talen button.actief { background: #141414; color: #fff; border-color: #141414; }
+.v3c .sm-talen button.actief .sm-taal-code { background: #fff; color: #141414; }
+.v3c .sm-talen button:focus-visible { outline: 2px solid #141414; outline-offset: 2px; }
