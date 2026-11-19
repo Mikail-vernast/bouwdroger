@@ -5,9 +5,10 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import KlimaatMeter from "@/components/hoe-drogen/KlimaatMeter";
 import VochtGrafiek from "@/components/hoe-drogen/VochtGrafiek";
 import InBeeld from "@/components/hoe-drogen/InBeeld";
+import ContactBlok from "@/components/content/ContactBlok";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { useSeo } from "@/data/seo";
-import { PUMP } from "@/data/verhuur";
+import { EXTRAS, PUMP } from "@/data/verhuur";
 import { euro } from "@/lib/verhuur";
 import "@/styles/hoe-drogen-werkt.css";
 import "@/styles/hoe-drogen-werkt-fixes.css";
@@ -24,6 +25,9 @@ import { COPY } from "./HoeDrogenWerktPage.copy";
  * neutralised in CSS so the page needs no JavaScript.
  */
 
+/** Het ondertekende vochtrapport is een betalende optie, geen standaard. */
+const RAPPORT = EXTRAS.find((x) => x.k === "rapport");
+
 const HoeDrogenWerktPage = () => {
   const lp = useLokaalPad();
   const taal = useTaal();
@@ -36,12 +40,19 @@ const HoeDrogenWerktPage = () => {
   const pompBedrag = toon(PUMP.price);
   const pomp = taal === "nl" ? euro(PUMP.price) : `${pompBedrag.tekst} ${pompBedrag.label}`;
   /*
+    Hetzelfde voor het vochtrapport. In de zin stond "(€ 49)" overgetypt, en dat
+    loopt bij de eerste prijswijziging in het portaal uit de pas met de
+    calculator. RAPPORT kan ontbreken als de extra uit de catalogus verdwijnt;
+    dan valt het bedrag stil weg en blijft de zin kloppen.
+  */
+  const rapportBedrag = toon(RAPPORT ? RAPPORT.price : 0);
+  const rapport = !RAPPORT ? "" : taal === "nl" ? euro(RAPPORT.price) : `${rapportBedrag.tekst} ${rapportBedrag.label}`;
+  /*
     De waterdamp in de twee RV-vakjes. Engels schrijft een decimale punt; niet
     via `NUMBER_LOCALE.en`, want en-BE geeft voor een los getal een komma.
   */
   const waterGram = taal === "en" ? "6.2 g" : "6,2 g";
-  const t = useCopy(COPY)({ lp, pomp });
-  const f = t.form;
+  const t = useCopy(COPY)({ lp, pomp, rapport });
 
   return (
   <div className="hdw-page">
@@ -74,7 +85,7 @@ const HoeDrogenWerktPage = () => {
             </div>
           </div>
           <div className="hero-vis rv d2">
-            <img src="/vernast/team-tools.webp" alt={t.heroAlt} style={{ width: "min(100%,560px)" }} />
+            <img src="/vernast/team-tools.webp" alt={t.heroAlt} width={1400} height={859} decoding="async" style={{ width: "min(100%,560px)" }} />
             <div className="fbadge" style={{ top: "-34px", left: "4%" }}><span className="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 12 2 2 4-4" /><circle cx="12" cy="12" r="10" /></svg></span><div>{t.badge}<small>{t.badgeSub}</small></div></div>
           </div>
         </div>
@@ -168,8 +179,35 @@ const HoeDrogenWerktPage = () => {
       </div>
     </section>
 
+    {/* ================= TWEE SOORTEN DROGERS =================
+        Een rode sectie tussen de uitleg over RV en de condenscyclus. Ze staat
+        er om twee redenen. Het ritme: de pagina liep wit -> gebroken wit ->
+        rood, en twee lichte secties na elkaar lezen als een voortzetting van
+        dezelfde sectie in plaats van als een nieuw hoofdstuk. En de inhoud: de
+        volgende sectie gaat over de kringloop van een condensdroger, zonder
+        dat ergens staat dat er ook een ander soort bestaat. Niet de drie
+        klimaatfactoren herhalen - die staan al in "Het principe" bovenaan. */}
+    <section className="sr">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick rv">{t.drKick}</span>
+          <h2 className="sec rv">{t.drH2}</h2>
+          <p className="lede rv d1">{t.drLede}</p>
+        </div>
+        <div className="fase2">
+          {t.drogers.map((d, n) => (
+            <div className={n === 0 ? "fs f1 rv" : "fs rv d1"} key={d.h3}>
+              <span className="fl">{d.label}</span>
+              <h3>{d.h3}</h3>
+              <p>{d.p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
     {/* ================= DE CYCLUS ================= */}
-    <section className="sw2">
+    <section className="sw">
       <div className="wrap">
         <div className="sec-head">
           <span className="kick rv">{t.cyKick}</span>
@@ -217,7 +255,7 @@ const HoeDrogenWerktPage = () => {
             <h3>{t.meetH3}</h3>
             <p>{t.meetP}</p>
           </div>
-          <img className="mb-man" src="/vernast/man-vochtmeter.webp" alt={t.meetAlt} style={{ width: "min(44%,440px)" }} />
+          <img className="mb-man" src="/vernast/man-vochtmeter.webp" alt={t.meetAlt} width={1400} height={933} loading="lazy" decoding="async" style={{ width: "min(44%,440px)" }} />
         </div>
       </div>
     </section>
@@ -253,7 +291,18 @@ const HoeDrogenWerktPage = () => {
             </div>
           </div>
         </div>
-        <div className="note rv">{t.matNote1}</div>
+        {/* Dit stond als grijze notitiebalk onder de drie materiaalkaarten: de
+            belangrijkste zin van de sectie, in de opmaak van een voetnoot. Als
+            rode band met de rode kaart erbij leest ze als een standpunt, en
+            komt er tussen drie foto's en een tekstkader weer een beeld. */}
+        <div className="manband rv d1" style={{ marginTop: "26px" }}>
+          <div className="mb-t">
+            <span className="mbk">{t.optKick}</span>
+            <h3>{t.optH3}</h3>
+            <p>{t.optP}</p>
+          </div>
+          <img className="mb-man" src="/vernast/man-rode-kaart.webp" alt={t.optAlt} width={1440} height={1438} loading="lazy" decoding="async" style={{ width: "min(34%,340px)" }} />
+        </div>
         <div className="note rv">{t.matNote2}</div>
       </div>
     </section>
@@ -288,52 +337,26 @@ const HoeDrogenWerktPage = () => {
             <p>{t.prinP}</p>
             <Link className="btn btn-white mb-cta" to={lp("/verhuur/calculator")}>{t.prinCta}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></Link>
           </div>
-          <img className="mb-man" src="/vernast/man-klembord-pen.webp" alt={t.prinAlt} style={{ width: "min(30%,320px)" }} />
+          <img className="mb-man" src="/vernast/man-klembord-pen.webp" alt={t.prinAlt} width={1400} height={934} loading="lazy" decoding="async" style={{ width: "min(30%,320px)" }} />
         </div>
       </div>
     </section>
 
-    {/* ================= VRAAGFORMULIER ================= */}
-    <section className="oform" id="formulier">
-      <div className="wrap">
-        <div className="sec-head" style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
-          <span className="kick rv">{f.kick}</span>
-          <h2 className="sec rv">{f.h2}</h2>
-          <p className="lede rv d1" style={{ marginLeft: "auto", marginRight: "auto" }}>{f.lede}</p>
-        </div>
-        <div className="fshell rv d2">
-          <div id="formBody">
-            <div className="frow">
-              <div className="fld"><label htmlFor="fVoor">{f.voornaam}</label><input type="text" id="fVoor" placeholder={f.voornaam} /></div>
-              <div className="fld"><label htmlFor="fNaam">{f.naam}</label><input type="text" id="fNaam" placeholder={f.achternaam} /></div>
-            </div>
-            <div className="frow">
-              <div className="fld"><label htmlFor="fMail">{f.mail}</label><input type="email" id="fMail" placeholder={f.mailPh} /></div>
-              <div className="fld"><label htmlFor="fTel">{f.tel}</label><input type="tel" id="fTel" placeholder="04.." /></div>
-            </div>
-            <div className="frow one">
-              <div className="fld"><label htmlFor="fOnd">{f.onderwerp}</label>
-                <select id="fOnd">
-                  {f.opties.map((o) => <option key={o}>{o}</option>)}
-                </select>
-              </div>
-            </div>
-            <div className="frow one">
-              <div className="fld"><label htmlFor="fMsg">{f.situatie}</label><textarea id="fMsg" rows={5} placeholder={f.situatiePh}></textarea></div>
-            </div>
-            <div className="fsend">
-              <small>{f.privacy}</small>
-              <button className="btn" id="fSend">{f.verstuur}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
-            </div>
-          </div>
-          <div className="fdone" id="formDone">
-            <div className="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg></div>
-            <h3>{f.klaar}</h3>
-            <p>{f.klaarP}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    {/*
+      Het formulier uit de designtranscriptie stond hier met een knop zonder
+      handler: geen <form>, geen onClick, en de pagina draait geen JavaScript.
+      Wie zijn vraag intikte en op "Verstuur uw vraag" drukte, kreeg niets en
+      wij ook niet. <ContactBlok> post naar /api/aanvraag, net als op de andere
+      inhoudspagina's en op de gidsen in deze zelfde schil, en draagt zijn eigen
+      vertalingen.
+    */}
+    <ContactBlok
+      kicker={t.form.kick}
+      titel={t.form.h2}
+      lede={t.form.lede}
+      onderwerpen={t.form.opties}
+      placeholder={t.form.situatiePh}
+    />
 
     <V3Footer />
   </div>
