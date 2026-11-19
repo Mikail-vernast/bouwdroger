@@ -65,6 +65,20 @@ const COPY = {
     garantie: "Voir la garantie de séchage",
     alt: "L'équipe Vernast avec toute la gamme d'appareils",
   },
+  en: {
+    notes: [
+      { title: "Calculate & book online", sub: "Payment and scheduling included" },
+      { title: "One all-in price", sub: "No hidden costs" },
+      { title: "100% drying guarantee*", sub: "Or extended at no cost" },
+    ],
+    reviews: "Google reviews",
+    h1: "Construction dehumidifier hire, tailored to you. Drying guarantee included.",
+    intro:
+      "Not a standard construction dehumidifier, but a complete drying package tailored to your home. Booked online, sized to save energy, professionally installed and one fixed all-in price. Not dry within the calculated period? Keep hiring at no extra cost.",
+    cta: "Calculate your building drying",
+    garantie: "View the drying guarantee",
+    alt: "The Vernast team with the full range of units",
+  },
 } satisfies Copy<HeroCopy>;
 
 /**

@@ -32,6 +32,18 @@ const COPY = {
     capS: "Les spores et les molécules odorantes sont détruites, jusque dans chaque fissure.",
     chips: ["Neutralisation des odeurs", "Nettoyage après moisissures et humidité", "Solution n° 1 pour les logements de fumeurs"],
   },
+  en: {
+    kick: "Mould & odour treatment",
+    h2: "Ozone treatment: mould and odours tackled at the source.",
+    p1: "Ozone is active oxygen that oxidises mould spores, bacteria and odour molecules, even in places you cannot reach yourself: behind skirting boards, in gaps and in soft materials. No masking with fragrances, but a thorough neutralisation.",
+    p2: "We use ozone treatment after water damage, when mould forms and for stubborn musty smells, always combined with correct drying and tackling the cause of the damp.",
+    cta: "View the ozone treatment",
+    animLabel: "Animation: ozone breaks down mould and odours",
+    photoAlt: "Damp damage on a wall",
+    capB: "Ozone at work",
+    capS: "Spores and odour molecules are broken down, into every gap.",
+    chips: ["Odour neutralisation", "Cleaning after mould & damp", "No. 1 solution for smokers' homes"],
+  },
 } satisfies Copy<{
   kick: string;
   h2: string;

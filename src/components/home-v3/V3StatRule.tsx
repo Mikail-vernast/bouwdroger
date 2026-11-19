@@ -40,6 +40,18 @@ const COPY = {
       : { count: "100", suffix: "%", label: "Sec, ou vous continuez à louer sans frais" },
     { count: "0", suffix: "€", label: "Acompte · aucun frais caché" },
   ],
+  en: [
+    { count: "450", suffix: "+", label: "Homes and sites supported" },
+    { count: "24", suffix: "h", label: "Delivery and installation at your door" },
+    REVIEWS
+      ? {
+          count: REVIEWS.display,
+          suffix: `/${REVIEWS.best}`,
+          label: `Average across ${REVIEWS.reviewCount} reviews`,
+        }
+      : { count: "100", suffix: "%", label: "Dry, or keep hiring at no extra cost" },
+    { count: "0", suffix: "€", label: "Deposit · no hidden costs" },
+  ],
 } satisfies Copy<Stat[]>;
 
 const DURATION = 1300;

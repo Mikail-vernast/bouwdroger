@@ -27,6 +27,25 @@ const MAAND_FR: Record<string, string> = {
   dec: "déc.",
 };
 
+/* Hetzelfde in het Engels: "Oct 2023". */
+const DIENST_EN: Record<string, string> = {
+  "Bouwdroger geïnstalleerd": "Construction dehumidifier installed",
+};
+const MAAND_EN: Record<string, string> = {
+  jan: "Jan",
+  feb: "Feb",
+  mrt: "Mar",
+  apr: "Apr",
+  mei: "May",
+  jun: "Jun",
+  jul: "Jul",
+  aug: "Aug",
+  sep: "Sep",
+  okt: "Oct",
+  nov: "Nov",
+  dec: "Dec",
+};
+
 interface RevCopy {
   sterren: (rating: number) => string;
   datum: (date: string) => string;
@@ -58,6 +77,18 @@ const COPY = {
     kick: "Ce que disent nos clients",
     h2: "D'autres clients vous ont précédé.",
     lede: "De vrais avis sur Vernast, sur Google et Solvari. Non retouchés, avec nom et date. Les avis sont affichés dans leur langue d'origine.",
+  },
+  en: {
+    sterren: (rating) => `${rating} out of 5 stars`,
+    datum: (date) => {
+      const [maand, jaar] = date.split(" ");
+      return MAAND_EN[maand] ? `${MAAND_EN[maand]} ${jaar}` : date;
+    },
+    dienst: (service) => DIENST_EN[service] ?? service,
+    via: "via",
+    kick: "What customers say",
+    h2: "Customers who went before you.",
+    lede: "Genuine reviews of Vernast, on Google and Solvari. Unedited, with name and date. Reviews are shown in their original language.",
   },
 } satisfies Copy<RevCopy>;
 

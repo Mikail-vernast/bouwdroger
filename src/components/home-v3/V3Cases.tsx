@@ -130,6 +130,64 @@ const CASES_FR: CaseCard[] = [
   },
 ];
 
+const CASES_EN: CaseCard[] = [
+  {
+    id: "case-nieuwbouw",
+    image: "/vernast/case-nieuwbouw.webp",
+    alt: "New-build home being finished",
+    tag: "New build",
+    heading: "Move on to the finishing faster",
+    body: "Screed, plaster and concrete hold a lot of residual moisture. Active drying helps you move on to flooring and painting sooner.",
+    cta: "More about new builds",
+  },
+  {
+    id: "case-chape",
+    image: "/vernast/case-chape-v2.webp",
+    alt: "Fresh screed with large wet patches while drying",
+    tag: "Screed drying",
+    heading: "Floors and parquet laid on time",
+    body: "If you want to lay floors sooner or keep to the site schedule, controlled drying of the screed pays off.",
+    cta: "More about screed drying",
+  },
+  {
+    id: "case-keuken",
+    image: "/vernast/case-keuken.webp",
+    alt: "Kitchen being fitted against a dry wall",
+    tag: "Kitchen fitting",
+    heading: "Dry walls before the kitchen goes in",
+    body: "Kitchens are often fitted against walls that are not dry enough, leading to damage to cabinets and skirting boards.",
+    cta: "More about kitchen fitting",
+  },
+  {
+    id: "case-waterschade",
+    image: "/vernast/case-waterschade-v3.webp",
+    alt: "Water damage from the ceiling with damp streaks on the wall",
+    objectPosition: "50% 22%",
+    tag: "Water damage",
+    heading: "Dry fast after a leak or flood",
+    body: "With water damage every day counts: starting to dry within 48 hours prevents mould, odours and damage to floors, walls and furniture. We deliver an intensive drying package within 24 hours and help you with the claim for your insurer.",
+    cta: "Calculate your water damage package",
+  },
+  {
+    id: "case-renovatie",
+    image: "/vernast/case-renovatie.webp",
+    alt: "Renovation with fresh plasterwork",
+    tag: "Renovation",
+    heading: "Do not finish on a damp surface",
+    body: "After plastering or in damp rooms, drying prevents paint or wallpaper going onto a damp surface too early.",
+    cta: "More about renovation",
+  },
+  {
+    id: "case-kelder",
+    image: "/vernast/case-kelder.webp",
+    alt: "Cellar with damp problems",
+    tag: "Cellars & cold rooms",
+    heading: "The right technique is crucial here",
+    body: "In cooler or underground rooms, condensation drying works more slowly. Depending on the situation, a different approach or extra heat is needed.",
+    cta: "More about cellars",
+  },
+];
+
 const COPY = {
   nl: {
     cases: CASES_NL,
@@ -152,6 +210,17 @@ const COPY = {
     schimmelP:
       "Sécher seul ne suffit alors pas : la moisissure elle-même doit être traitée et les spores neutralisées. Nos spécialistes s'attaquent à la cause et terminent par un traitement professionnel à l'ozone.",
     schimmelCta: "Découvrir le traitement à l'ozone",
+  },
+  en: {
+    cases: CASES_EN,
+    kick: "Which situations",
+    h2: "When building drying really makes the difference.",
+    schimmelAlt: "Vernast mould specialist",
+    schimmelKick: "Spotted mould?",
+    schimmelH3: "Mould needs a completely different treatment.",
+    schimmelP:
+      "Drying alone is not enough then: the mould itself has to be treated and the spores neutralised. Our specialists tackle the cause and finish with a professional ozone treatment.",
+    schimmelCta: "Discover the ozone treatment",
   },
 } satisfies Copy<{
   cases: CaseCard[];

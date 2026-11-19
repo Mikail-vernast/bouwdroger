@@ -94,6 +94,49 @@ const QUESTIONS_FR: Vraag[] = [
   },
 ];
 
+const QUESTIONS_EN: Vraag[] = [
+  {
+    q: "How do I know which unit I need?",
+    a: "Our smart Calculator gives a first calculation based on volume, application and situation. That way you choose more precisely and faster, and land straight on the page with the right package and price.",
+  },
+  {
+    q: "How long does building drying take?",
+    a: "That depends on the volume, the material, the starting situation, the temperature and the desired end state. Active drying is generally considerably faster than natural drying, and the Calculator gives you a realistic estimate.",
+  },
+  {
+    q: "Is delivery included?",
+    a: "Yes. Delivery, collection and ground-floor installation are included as standard within the stated service terms, as are standard accessories such as extension leads.",
+  },
+  {
+    q: "Do I have to empty the water tank myself?",
+    a: "Not always. Depending on the unit and the situation, automatic water drainage can be provided, so the water runs straight away and you do not have to empty anything.",
+  },
+  {
+    q: "Can I extend if it is not dry yet?",
+    a: "Yes, you can extend with one click. That keeps your schedule flexible and stops your project grinding to a halt on a hire period that was estimated too tightly.",
+  },
+  {
+    q: "Can I request express delivery?",
+    a: "Yes. For urgent damage cases or tight schedules, we arrange an express delivery.",
+  },
+  {
+    q: "What if I need a file for insurance or an expert assessment?",
+    a: "In certain situations we support you with additional reporting or technical documentation for your file.",
+  },
+  {
+    q: "Is building drying useful when there is mould?",
+    a: "Yes, building drying plays an important role in reducing the damp conditions that encourage mould growth. With active mould the cause also has to be tackled properly, of course, and Vernast Vochtbestrijding is there for that.",
+  },
+  {
+    q: "Does a conventional dehumidifier also work in a cellar or cold room?",
+    a: "That depends on the temperature and the situation. In colder conditions a different technique, such as the Revolution desiccant dehumidifier, or extra heating may be needed.",
+  },
+  {
+    q: "Why does a room need to be dry before finishing?",
+    a: "Because damp surfaces cause problems with painting, flooring, kitchen fitting and other finishes: blistering, finishes coming loose and damage to cabinets or skirting boards.",
+  },
+];
+
 const COPY = {
   nl: {
     vragen: QUESTIONS,
@@ -112,6 +155,15 @@ const COPY = {
     helpP: "Nos experts en séchage vous aident immédiatement, avec un conseil adapté à votre situation.",
     bel: "Appelez le 03 689 90 65",
     online: "Posez votre question en ligne",
+  },
+  en: {
+    vragen: QUESTIONS_EN,
+    kick: "Frequently asked questions",
+    h2: "Everything you want to know.",
+    helpH3: "Is your question not listed?",
+    helpP: "Our drying experts will help you straight away, with advice tailored to your situation.",
+    bel: "Call +32 3 689 90 65",
+    online: "Ask your question online",
   },
 } satisfies Copy<{
   vragen: Vraag[];

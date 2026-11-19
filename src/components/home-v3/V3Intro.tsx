@@ -159,6 +159,61 @@ const FACTS_FR: Fact[] = [
   },
 ];
 
+const PANELS_EN: Panel[] = [
+  {
+    key: "nat",
+    tab: "Natural drying",
+    tone: "bad",
+    rows: [
+      ["Drying time", "Weeks to months, entirely dependent on weather, temperature and ventilation."],
+      ["Control", "None. You never know when the room is really dry."],
+      ["Mould risk", "High: moisture lingers in walls and screed for weeks."],
+      ["Finishing", "Waiting, or finishing too early with blistering and peeling paint as a result."],
+    ],
+    verdict: "Natural drying is not free: you pay in time, heating costs and the risk of damage.",
+    verdictOk: false,
+  },
+  {
+    key: "act",
+    tab: "Active building drying",
+    tone: "good",
+    rows: [
+      ["Drying time", "Days instead of weeks, calculated in advance and predictable."],
+      ["Control", "Complete: moisture readings before and after confirm when everything is really dry."],
+      ["Mould risk", "Minimal: moisture is removed continuously before mould can grow."],
+      ["Finishing", "Finish as soon as the reading allows, without blistering or peeling paint."],
+    ],
+    verdict: "Active drying pays for itself in time, heating costs and certainty.",
+    verdictOk: true,
+  },
+];
+
+const FACTS_EN: Fact[] = [
+  {
+    n: "1,500 L",
+    toon: "water",
+    title: "Of water in an average new build",
+    body: "Screed, plaster and concrete together bring in hundreds to thousands of litres of moisture that have to come out before you finish.",
+  },
+  {
+    n: "48 h",
+    title: "Before mould starts to grow",
+    body: "With water damage, mould starts forming after just two days. Starting to dry quickly is the cheapest intervention there is.",
+  },
+  {
+    n: "≤ 2%",
+    toon: "waarschuwing",
+    title: "Residual moisture before you can finish",
+    body: "Floor coverings and paint need a dry surface. Finishing too early means blistering, mould and starting again.",
+  },
+  {
+    n: "60%",
+    toon: "winst",
+    title: "Time saved with active drying",
+    body: "What takes weeks naturally, a correctly sized unit brings down to a matter of days.",
+  },
+];
+
 const COPY = {
   nl: {
     panels: PANELS_NL,
@@ -171,6 +226,12 @@ const COPY = {
     facts: FACTS_FR,
     kick: "Séchage naturel ou actif",
     h2: "Séchage naturel ou actif ? La différence, c'est le temps, le contrôle et la certitude.",
+  },
+  en: {
+    panels: PANELS_EN,
+    facts: FACTS_EN,
+    kick: "Natural vs active drying",
+    h2: "Natural or active drying? The difference is time, control and certainty.",
   },
 } satisfies Copy<{ panels: Panel[]; facts: Fact[]; kick: string; h2: string }>;
 

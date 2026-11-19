@@ -5,8 +5,9 @@ import { KAART_BREEDTE, KAART_HOOGTE, PROVINCIE_PADEN } from "@/data/kaart-provi
 import { gemeenteVanPlaats } from "@/data/gemeente-slugs";
 import { STREKEN_PER_REGIO } from "@/data/provincie-gemeenten";
 import { useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
+import type { Taal } from "@/i18n/taal";
 import { ArrowRightIcon } from "./icons";
-import { COPY, PROVINCIE_FR, STREEK_FR } from "./V3Regio.copy";
+import { COPY, PLAATS_EN, PROVINCIE_EN, PROVINCIE_FR, STREEK_EN, STREEK_FR } from "./V3Regio.copy";
 
 interface Region {
   name: string;
@@ -62,13 +63,16 @@ const ALLE = GROEPEN.flatMap((g) => g.regios);
 
 /* De Nederlandse provincies: hun gemeenten hebben geen Belgische Franse naam. */
 const NEDERLAND = new Set(GROEPEN[2].regios.map((r) => r.slug));
+/* Brussel en Wallonië: daar is de Franse plaatsnaam ook de Engelse (Ixelles, Mons). */
+const FRANSTALIG = new Set(["brussel", ...GROEPEN[1].regios.map((r) => r.slug)]);
 
 /**
  * De naam van een provincie in de taal van de pagina. `nameFr` komt uit
  * `regio-slugs.ts` (alleen de Belgische); de rest uit `PROVINCIE_FR`.
  */
-function regioNaam(r: Region, fr: boolean): string {
-  if (!fr) return r.name;
+function regioNaam(r: Region, taal: Taal): string {
+  if (taal === "en") return PROVINCIE_EN[r.slug]?.naam ?? r.name;
+  if (taal !== "fr") return r.name;
   const bron = REGIO_ROUTES.find((x) => x.slug === r.slug) as { nameFr?: string } | undefined;
   return bron?.nameFr ?? PROVINCIE_FR[r.slug]?.naam ?? r.name;
 }
@@ -79,8 +83,11 @@ function regioNaam(r: Region, fr: boolean): string {
  * streeklijsten al dragen ("Bergen (Mons)" wordt "Mons"). Niet in Nederland:
  * daar is "Bergen (L.)" geen Franse naam maar een onderscheid met Bergen op Zoom.
  */
-function plaatsNaam(town: string, regioSlug: string, fr: boolean): string {
-  if (!fr || NEDERLAND.has(regioSlug)) return town;
+function plaatsNaam(town: string, regioSlug: string, taal: Taal): string {
+  /* In het Engels: Vlaanderen en Nederland lokaal (op een paar exoniemen na),
+     Brussel en Wallonië zoals in het Frans. */
+  if (taal === "en" && !FRANSTALIG.has(regioSlug)) return PLAATS_EN[town] ?? town;
+  if (taal === "nl" || NEDERLAND.has(regioSlug)) return town;
   const eigen = gemeenteVanPlaats(town) as { nameFr?: string; name: string } | undefined;
   if (eigen?.nameFr && eigen.name === town) return eigen.nameFr;
   const haakjes = /^.+ \((.+)\)$/.exec(town);
@@ -91,8 +98,8 @@ function plaatsNaam(town: string, regioSlug: string, fr: boolean): string {
 const V3Regio = () => {
   const t = useCopy(COPY);
   const lp = useLokaalPad();
-  const fr = useTaal() === "fr";
-  const naam = (r: Region) => regioNaam(r, fr);
+  const taal = useTaal();
+  const naam = (r: Region) => regioNaam(r, taal);
   const inRegio = (r: Region) => t.inRegio(r.slug, naam(r));
   const [groep, setGroep] = useState(0);
   const REGIONS = GROEPEN[groep].regios;
@@ -105,7 +112,7 @@ const V3Regio = () => {
   */
   const [streek, setStreek] = useState(0);
   const region = REGIONS[active];
-  const plaats = (town: string) => plaatsNaam(town, region.slug, fr);
+  const plaats = (town: string) => plaatsNaam(town, region.slug, taal);
   const streken = STREKEN_PER_REGIO[region.slug] ?? [];
   /*
     `streek` kan na een provinciewissel buiten bereik vallen voor de nieuwe
@@ -247,7 +254,7 @@ const V3Regio = () => {
                       className={i === Math.min(streek, streken.length - 1) ? "actief" : undefined}
                       onClick={() => setStreek(i)}
                     >
-                      {(fr && STREEK_FR[st.naam]) || st.naam}
+                      {(taal === "fr" && STREEK_FR[st.naam]) || (taal === "en" && STREEK_EN[st.naam]) || st.naam}
                     </button>
                   ))}
                 </div>

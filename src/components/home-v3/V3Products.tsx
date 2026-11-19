@@ -35,19 +35,19 @@ import type { Taal } from "@/i18n/taal";
 function tariff(key: string | undefined, taal: Taal) {
   const product = key ? PRODUCTS[key] : undefined;
   if (!product) return null;
-  const fr = taal === "fr" && key ? PORTAAL_FR[key] : undefined;
+  const vertaald = key ? PORTAAL[taal]?.[key] : undefined;
 
   return {
     name: product.short,
-    tag: fr?.tag ?? product.badge,
-    blurb: fr?.blurb ?? product.sum,
+    tag: vertaald?.tag ?? product.badge,
+    blurb: vertaald?.blurb ?? product.sum,
     day: product.day,
     // Drie in plaats van twee: de kachels dragen hun maximumtemperatuur als
     // derde spec, en dat is naast het vermogen het cijfer waarop iemand kiest.
     // Bij de drogers levert het de stroomopname op, bij de ventilatoren het
     // verbruik -- allebei zinvol, en de chips lopen netjes door naar een
     // tweede regel.
-    chips: taal === "fr" ? chipsFr(product) : toestelChips(product),
+    chips: taal === "fr" ? chipsFr(product) : taal === "en" ? chipsEn(product) : toestelChips(product),
   };
 }
 
@@ -102,6 +102,55 @@ const PORTAAL_FR: Record<string, { tag: string; blurb: string }> = {
   },
 };
 
+/* Dezelfde portaalteksten in het Engels, met dezelfde afspraak als hierboven. */
+const PORTAAL_EN: Record<string, { tag: string; blurb: string }> = {
+  ttk170: {
+    tag: "Small rooms",
+    blurb:
+      "Compact condensation dehumidifier on wheels. The right choice for one room, a flat or a smaller renovation.",
+  },
+  ttk350: {
+    tag: "Most hired",
+    blurb:
+      "Our most hired unit and the standard for new builds. Dries screed and plaster reliably within a few days.",
+  },
+  ttk650: {
+    tag: "Large volumes",
+    blurb:
+      "The heaviest unit in the range. For large sites, cellars and water damage where every day counts.",
+  },
+  revolution: {
+    tag: "Local drying",
+    blurb:
+      "Dries in a targeted way through hoses: under floors, inside walls and in hard-to-reach places. Also works at low temperatures.",
+  },
+  ttv4500: {
+    tag: "Speeds up any drying",
+    blurb:
+      "Powerful site fan moving 4,500 m³/h of air. Makes sure the dry air actually sweeps along walls and floors.",
+  },
+  radiaal2250: {
+    tag: "Targeted drying",
+    blurb:
+      "Blows air directly across floors and screed, including under cupboards and into corners. The regular partner of a dehumidifier when drying floors.",
+  },
+  teddh20: {
+    tag: "Smaller rooms",
+    blurb:
+      "20 kW electric site heater with thermostat. Brings smaller cold rooms up to temperature so the drying keeps going.",
+  },
+  teddh30: {
+    tag: "For cold rooms",
+    blurb:
+      "30 kW electric site heater with built-in thermostat. Brings cold rooms up to temperature so drying becomes effective.",
+  },
+};
+
+const PORTAAL: Partial<Record<Taal, Record<string, { tag: string; blurb: string }>>> = {
+  fr: PORTAAL_FR,
+  en: PORTAAL_EN,
+};
+
 /*
   `toestelChips` in het Frans. Zelfde regels, zelfde cijfers uit het portaal;
   alleen de woorden en eenheden ertussen vertalen. Een veldnaam die hier niet
@@ -128,6 +177,28 @@ function chipsFr(product: Pick<Product, "key">, aantal = 3): string[] {
   });
 }
 
+/* En in het Engels: "litres per day" en "up to", Britse spelling. */
+const VELD_EN: Record<string, string> = {
+  Standen: "speeds",
+  Thermostaat: "thermostat",
+  "Koude ruimtes": "cold rooms",
+};
+const WAARDE_EN: Record<string, string> = {
+  Adsorptie: "Desiccant",
+  "via slangen": "via hoses",
+};
+const EENHEID_EN: Record<string, string> = { "L/dag": "L/day", "m³/u": "m³/h" };
+
+function chipsEn(product: Pick<Product, "key">, aantal = 3): string[] {
+  return product.key.slice(0, aantal).map(([name, value, unit]) => {
+    if (name === "Vochtafvoer") return `${value} litres per day`;
+    if (name === "Bereik") return `up to ${value} m³`;
+    if (unit) return `${value} ${EENHEID_EN[unit] ?? unit}`;
+    if (/^\d/.test(value)) return `${value} ${VELD_EN[name] ?? name.toLowerCase()}`;
+    return value === "ja" ? (VELD_EN[name] ?? name.toLowerCase()) : (WAARDE_EN[value] ?? value);
+  });
+}
+
 /*
  * De vochtafvoer is het cijfer waarop bouwdrogers vergeleken worden -- het
  * verschil tussen 50 en 110 liter per dag bepaalt of een toestel bij de werf
@@ -149,7 +220,7 @@ function chipsFr(product: Pick<Product, "key">, aantal = 3): string[] {
 type Toon = ReturnType<typeof useToonBedrag>;
 
 const isVochtafvoer = (chip: string) =>
-  chip.endsWith("liter per dag") || chip.endsWith("litres par jour");
+  chip.endsWith("liter per dag") || chip.endsWith("litres par jour") || chip.endsWith("litres per day");
 
 interface ProductCard {
   /** Internal device route, or an absolute URL for the shop-hosted model. */
@@ -369,6 +440,59 @@ const FR_TEKST: Record<string, Pick<ProductCard, "tag" | "alt" | "blurb" | "chip
 };
 const naarFr = (card: ProductCard): ProductCard => ({ ...card, ...FR_TEKST[card.name] });
 
+/* En in het Engels, met dezelfde afspraak. */
+const EN_TEKST: Record<string, Pick<ProductCard, "tag" | "alt" | "blurb" | "chips">> = {
+  Boost: {
+    tag: "Small rooms",
+    alt: "Vernast Boost construction dehumidifier, condensation unit extracting 50 litres per day for rooms up to 250 m³",
+    blurb: "Compact and on wheels, fits through any doorway. Ideal for one room or a flat.",
+    chips: ["50 litres per day", "up to 250 m³"],
+  },
+  Performance: {
+    tag: "Most hired",
+    alt: "Vernast Performance construction dehumidifier, condensation unit extracting 70 litres per day for rooms up to 400 m³",
+    blurb: "Our standard for new builds. Dries screed and plaster reliably and efficiently.",
+    chips: ["70 litres per day", "up to 400 m³"],
+  },
+  Ultimate: {
+    tag: "Large volumes",
+    alt: "Vernast Ultimate construction dehumidifier, condensation unit extracting 110 litres per day for rooms up to 600 m³",
+    blurb: "The heaviest unit in the range. For large sites, cellars and serious water damage.",
+    chips: ["110 litres per day", "up to 600 m³"],
+  },
+  Revolution: {
+    tag: "Local drying",
+    alt: "Vernast Revolution, red desiccant dehumidifier with hose connections for local drying",
+    blurb: "Dries in a targeted way through hoses: under floors, inside walls and in hard-to-reach places.",
+    chips: ["Desiccant", "targeted drying"],
+  },
+  Highflow: {
+    tag: "Air circulation",
+    alt: "Vernast Highflow, site fan moving 4,500 m³/h of air",
+    blurb: "Speeds up any drying by keeping the air moving continuously.",
+    chips: ["4,500 m³/h", "3 speeds"],
+  },
+  Turbo: {
+    tag: "Targeted drying",
+    alt: "Vernast Turboflow, 2,250 m³/h, for drying floors and walls",
+    blurb: "Blows directly across floors and screed, ideal in combination with a dryer.",
+    chips: ["2,250 m³/h", "floors & screed"],
+  },
+  "Heatboost 20": {
+    tag: "Heating",
+    alt: "Vernast Heatboost 20 electric site heater, 20 kW with thermostat for smaller rooms",
+    blurb: "Compact heating for smaller rooms during the drying period.",
+    chips: ["20 kW", "400 V", "60 °C"],
+  },
+  "Heatpower 30": {
+    tag: "Heating",
+    alt: "Vernast Heatpower 30 electric site heater, 30 kW with built-in thermostat",
+    blurb: "Keeps the room up to temperature so the drying stays effective.",
+    chips: ["30 kW", "400 V", "75 °C"],
+  },
+};
+const naarEn = (card: ProductCard): ProductCard => ({ ...card, ...EN_TEKST[card.name] });
+
 interface ProdCopy {
   main: ProductCard[];
   support: ProductCard[];
@@ -446,6 +570,34 @@ const COPY = {
     pkbBtn: "Composez votre pack sur mesure",
     pkbNote:
       "* La garantie s'applique lorsque les conditions extérieures (chauffage, ventilation, électricité) respectent nos directives.",
+  },
+  en: {
+    main: MAIN_NL.map(naarEn),
+    support: SUPPORT_NL.map(naarEn),
+    kick: "The range",
+    h2: "Professional units for every drying situation.",
+    lede: (bedrag, label) =>
+      `From a single room to larger sites, from new builds to water damage: you are not choosing a unit, but a solution that fits your space and drying goal. Prices from ${bedrag} per day, ${label}.`,
+    pnote: (link) => (
+      <>
+        <b>Individual units are hired for collection in Aartselaar</b>, at lower collection prices,
+        via the {link("separate collection checkout")}. We only deliver and install per package,
+        as that is the only way we can honour our drying guarantee.
+      </>
+    ),
+    switchLabel: "Show prices with or without VAT",
+    excl: "Excl. VAT",
+    incl: "Incl. VAT",
+    huren: "Hire this unit",
+    vanaf: "from",
+    perDag: "/day",
+    pkbAlt: "Worry-free drying with Vernast",
+    pkbH3: "Rather not piece it together yourself? Build your package to measure.",
+    pkbP: "Our Calculator puts together the exact package for your home: dryers, fans and heating in the right proportions. Delivered, set up and adjusted. And with one promise:",
+    pkbBelofte: "100% dry within the calculated period, or keep hiring at no extra cost.*",
+    pkbBtn: "Build your package to measure",
+    pkbNote:
+      "* The guarantee applies when the external conditions (heating, ventilation, power) meet our guidelines.",
   },
 } satisfies Copy<ProdCopy>;
 

@@ -95,6 +95,17 @@ const HOTSPOTS_FR: Hotspot[] = HOTSPOTS_NL.map((spot, i) => ({
   ]),
 }));
 
+/* En in het Engels, met dezelfde getallen ("L/day", "m³/h"). */
+const HOTSPOTS_EN: Hotspot[] = HOTSPOTS_NL.map((spot, i) => ({
+  ...spot,
+  name: ["Boost – 50 L/day", "Performance – 80 L/day", "Ultimate – 110 L/day"][i],
+  context: ["Small rooms · up to 250 m³", "Most hired · up to 400 m³", "Large volumes · up to 600 m³"][i],
+  rows: spot.rows.map(([label, value]): [string, string] => [
+    { Vochtafvoer: "Moisture extraction", Luchtdebiet: "Airflow", Verbruik: "Consumption" }[label] ?? label,
+    value.replace(/ ?[lL]\/dag$/, " L/day").replace("m³/u", "m³/h").replace(/(\d),(\d)/, "$1.$2"),
+  ]),
+}));
+
 const COPY = {
   nl: {
     hotspots: HOTSPOTS_NL,
@@ -119,6 +130,18 @@ const COPY = {
     lede: "Trois formats, une seule famille. Cliquez sur les points pour les informations techniques de chaque appareil.",
     alt: "Déshumidificateurs de chantier éco Vernast, trois formats",
     bekijken: "Voir",
+  },
+  en: {
+    hotspots: HOTSPOTS_EN,
+    trusted: ["Architects", "Insurance offices", "Building surveyors", "Contractors"],
+    seal: "Certified",
+    tbK: "Trusted by those who need to know",
+    tbH3: "Trusted by professionals in construction.",
+    kick: "Eco construction dehumidifiers",
+    h2: "Our best eco construction dehumidifiers side by side.",
+    lede: "Three sizes, one family. Click the dots for the technical information on each unit.",
+    alt: "Vernast eco construction dehumidifiers, three sizes",
+    bekijken: "View",
   },
 } satisfies Copy<{
   hotspots: Hotspot[];

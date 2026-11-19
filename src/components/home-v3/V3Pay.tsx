@@ -11,6 +11,7 @@ const ICONS: ReactNode[] = [
 
 /* Het bevestigingsbedrag in de Franse tekst komt uit de tarieven; zie V3Pickup. */
 const voorschotFr = formatEuro(DEPOSIT_GROSS, "fr", Number.isInteger(DEPOSIT_GROSS) ? 0 : 2);
+const voorschotEn = formatEuro(DEPOSIT_GROSS, "en", Number.isInteger(DEPOSIT_GROSS) ? 0 : 2);
 
 interface PayCopy {
   cards: { title: string; body: ReactNode }[];
@@ -82,6 +83,36 @@ const COPY = {
     h2: "Réserver, payer et planifier : tout se règle en ligne.",
     lede: "Pas besoin d'attendre des devis ni de multiplier les appels. Vous gérez tout votre séchage en ligne, du calcul au paiement et à la planification de l'installation.",
     alt: "Couple âgé qui organise le séchage en ligne avec un ordinateur portable et une carte bancaire",
+  },
+  en: {
+    cards: [
+      {
+        title: "Two ways to pay",
+        body: (
+          <>
+            Pay everything online and get <b>5% off</b> your package, with your invoice straight in
+            your inbox. Or confirm with {voorschotEn} and pay the rest on delivery.
+          </>
+        ),
+      },
+      {
+        title: "Schedule the installation yourself",
+        body: "When you book, choose the delivery date and time slot that suit you straight away. You receive your confirmation by email immediately.",
+      },
+      {
+        title: "Extend or stop with one click",
+        body: "You manage your drying online: extend when needed or schedule the collection as soon as everything is measured dry.",
+      },
+    ],
+    notes: [
+      "5% off when you pay in full online",
+      "Invoice straight in your inbox",
+      `Or ${voorschotEn} to confirm + the rest on delivery`,
+    ],
+    kick: "Fully digital",
+    h2: "Booking, paying and scheduling: all sorted online.",
+    lede: "No waiting for quotes, no back-and-forth phone calls. You arrange your entire drying digitally, from calculation to payment and scheduling the installation.",
+    alt: "Older couple arranging the drying online with a laptop and a bank card",
   },
 } satisfies Copy<PayCopy>;
 

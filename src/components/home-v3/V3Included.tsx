@@ -148,6 +148,52 @@ const OPTIONS_FR: Option[] = OPTIONS_NL.map((option, i) => ({
   ][i],
 }));
 
+const INCLUDED_EN: typeof INCLUDED_NL = INCLUDED_NL.map((item, i) => ({
+  ...item,
+  ...[
+    {
+      title: "Delivery & collection",
+      body: "Delivered on the date you choose and collected when you are done. Free in our region.",
+    },
+    {
+      title: "Ground-floor installation",
+      body: "Our technician sets up the unit, connects the condensate drain and adjusts everything correctly, with a basic explanation at installation.",
+    },
+    {
+      title: "Flexible duration",
+      body: "Extend online with one click or stop sooner. You only pay for the days you use.",
+    },
+    {
+      title: "Accessories & support",
+      body: "Standard accessories such as extension leads are included, and our experts are available for as long as you hire.",
+    },
+  ][i],
+}));
+
+const OPTIONS_EN: Option[] = OPTIONS_NL.map((option, i) => ({
+  ...option,
+  ...[
+    {
+      label: "Included",
+      title: "Extension guarantee",
+      body: "Not dry yet within the expected period? An extension option gives extra peace of mind.",
+    },
+    {
+      title: "Express delivery",
+      body: "For urgent damage cases or tight schedules, we arrange an express delivery.",
+    },
+    {
+      title: "Automatic water drainage",
+      body: "On longer jobs a condensate pump drains the water away automatically, so you do not have to empty any tanks.",
+      link: { label: "How the condensate pump works", path: "/verhuur/toebehoren/condenspomp" },
+    },
+    {
+      title: "Reporting",
+      body: "For cases where evidence counts, we support you with reports or technical documentation.",
+    },
+  ][i],
+}));
+
 const COPY = {
   nl: {
     included: INCLUDED_NL,
@@ -174,6 +220,19 @@ const COPY = {
     obP: "Nous calculons, livrons, installons et assurons le suivi. Vous n'avez rien à porter ni à régler. Pas sec dans la période calculée ? Vous prolongez alors au maximum sans frais.",
     obBtn: "Lancez votre séchage",
     obNote: "* La garantie s'applique lorsque les conditions extérieures respectent nos directives.",
+  },
+  en: {
+    included: INCLUDED_EN,
+    options: OPTIONS_EN,
+    optie: "Option",
+    kick: "Prices & terms",
+    h2: "One clear price. More included than you think.",
+    lede: "Building drying should be clear. That is why we work with transparent hire terms and a service formula that takes the work off your hands. You see the price when you calculate and book at exactly that rate.",
+    obAlt: "Vernast technician with a clipboard",
+    obH3: "Fully taken care of on delivery. And 100% dry, guaranteed.*",
+    obP: "We calculate, deliver, install and follow up. You do not have to carry or set up anything. Not dry within the calculated period? Then you extend at no extra cost, up to the maximum.",
+    obBtn: "Start your drying",
+    obNote: "* The guarantee applies when the external conditions meet our guidelines.",
   },
 } satisfies Copy<{
   included: typeof INCLUDED_NL;

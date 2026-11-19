@@ -35,11 +35,14 @@ import { faqSchema, organizationSchema, websiteSchema } from "@/lib/schema";
  */
 /*
   De bedrijfsomschrijving in de schema staat in `src/lib/schema.ts` in het
-  Nederlands. Op de Franse homepage hoort ze in de taal van de pagina, net als
+  Nederlands. Op de Franse en Engelse homepage hoort ze in de taal van de pagina, net als
   de FAQ eronder; de rest van de organisatie (naam, adres, telefoon) is dezelfde.
 */
 const ORG_OMSCHRIJVING_FR =
   "Location de déshumidificateurs de chantier, ventilateurs et chauffages de chantier professionnels pour la nouvelle construction, la rénovation et les dégâts des eaux en Flandre, avec livraison, installation et mesure d'humidité.";
+const ORG_OMSCHRIJVING_EN =
+  "Hire of professional construction dehumidifiers, fans and site heaters for new builds, renovation and water damage in Flanders, with delivery, installation and moisture reading.";
+const ORG_OMSCHRIJVING: Record<"fr" | "en", string> = { fr: ORG_OMSCHRIJVING_FR, en: ORG_OMSCHRIJVING_EN };
 
 const Index = () => {
   const taal = useTaal();
@@ -53,7 +56,7 @@ const Index = () => {
         jsonLd={[
           // Enige pagina die "4,8" en "412" zichtbaar toont, dus de enige die de
           // beoordeling in de schema mag zetten — zie `OrganizationOptions`.
-          taal === "nl" ? organisatie : { ...organisatie, description: ORG_OMSCHRIJVING_FR },
+          taal === "nl" ? organisatie : { ...organisatie, description: ORG_OMSCHRIJVING[taal] },
           taal === "nl" ? website : { ...website, inLanguage: HTML_LANG[taal] },
           faqSchema(vragen.map((item) => ({ question: item.q, answer: item.a }))),
         ]}

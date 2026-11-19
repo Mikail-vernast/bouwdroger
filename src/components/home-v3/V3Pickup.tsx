@@ -91,6 +91,37 @@ const COPY = {
     zwaarBtn: "Voir les packs avec livraison",
     zwaarAlt: "Homme âgé avec des douleurs au dos après avoir porté un appareil lourd",
   },
+  en: {
+    steps: [
+      {
+        title: "Book online",
+        body: `Choose your unit, hire period and collection time (e.g. between 08:00 and 10:00). You pay in full online with a 5% discount, or a deposit of ${formatEuro(DEPOSIT_GROSS, "en", Number.isInteger(DEPOSIT_GROSS) ? 0 : 2)}.`,
+        tag: "Step 01, booking",
+      },
+      {
+        title: "Confirmation within the hour",
+        body: "You receive your booking confirmation with directions and what to bring: just your ID card and the confirmation on your phone.",
+        tag: "Step 02, confirmation",
+      },
+      {
+        title: "Collect by the A12",
+        body: "Your unit is ready at our collection point: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar. If you paid a deposit, you scan our QR code here and pay by Bancontact, card or Apple Pay. We help you load up.",
+        tag: "Step 03, collection",
+      },
+      {
+        title: "Bring it back, done",
+        body: "Return the unit at the agreed time, Mon–Fri between 08:00 and 17:00. Your invoice will already be in your inbox.",
+        tag: "Step 04, return",
+      },
+    ],
+    kick: "Collect it yourself",
+    h2: "Rather collect it yourself? Here is how it works.",
+    lede: "Individual units are collected from our collection point by the A12 in Aartselaar, at lower collection prices. Booking is online; you pay in advance or on collection.",
+    zwaarB: "Some units are heavy. Do not lift, have it delivered.",
+    zwaarS: "A professional construction dehumidifier easily weighs 30 to 50 kg. Lifting it yourself, especially on stairs, is not without risk. Are you a bit older or less physically strong? Then choose a package with delivery: we carry, set up and adjust everything. You do not have to lift a thing.",
+    zwaarBtn: "View packages with delivery",
+    zwaarAlt: "Older man with back pain after lifting a heavy unit",
+  },
 } satisfies Copy<PickupCopy>;
 
 const V3Pickup = () => {

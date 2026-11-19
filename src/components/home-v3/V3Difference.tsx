@@ -104,6 +104,44 @@ const COPY = {
       </>
     ),
   },
+  en: {
+    points: [
+      {
+        id: "calculator",
+        title: "Smart drying calculator",
+        body: "Works out which drying solution is needed based on volume, situation and application. That way you avoid both under- and overcapacity.",
+      },
+      {
+        id: "prijs",
+        title: "All-in price without surprises",
+        body: "Delivery, collection, ground-floor installation and standard accessories such as extension leads are included.",
+      },
+      {
+        id: "gamma",
+        title: "A matched range",
+        body: "No oversized units, but eco construction dehumidifiers matched to your space: new build, renovation, water damage or cold rooms.",
+      },
+      {
+        id: "opvolging",
+        title: "Practical follow-up",
+        body: "You book online, get a quick confirmation and clear instructions, and we set the units up correctly on site.",
+      },
+      {
+        id: "verlengen",
+        title: "Flexible extension",
+        body: "Not dry in time? With a limited extension option your schedule does not grind to a halt and you keep your project under control.",
+      },
+    ],
+    kick: "Why Vernast is different",
+    h2: "Why customers no longer want to gamble on building drying.",
+    lede: (link) => (
+      <>
+        In {link("building drying")}, things often go wrong on three points: the wrong unit, a
+        badly estimated hire period and unexpected extra costs. Vernast tackles exactly those pain
+        points: calculating, sizing correctly, installing professionally and communicating clearly.
+      </>
+    ),
+  },
 } satisfies Copy<DifCopy>;
 
 const V3Difference = () => {
