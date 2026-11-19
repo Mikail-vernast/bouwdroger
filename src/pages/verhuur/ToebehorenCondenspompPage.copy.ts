@@ -2,7 +2,7 @@ import type { Copy } from "@/i18n/useTaal";
 
 /**
  * Teksten van de condenspomppagina die niet in de fiche zelf staan; de fiche
- * staat in `data/toebehoren.ts` en `data/toebehoren.fr.ts`. `prijs` is het
+ * staat in `data/toebehoren.ts`, `data/toebehoren.fr.ts` en `data/toebehoren.en.ts`. `prijs` is het
  * bedrag zoals de pagina het toont, met zijn btw-label erbij.
  */
 export interface PompCopy {
@@ -196,5 +196,72 @@ export const COPY = {
     ctaKnop: "Vers le configurateur",
     bel: "Appelez le 03 689 90 65",
     expertAlt: "Expert en séchage Vernast",
+  },
+  en: {
+    home: "Home",
+    toestellen: "Units",
+    categorie: "Construction dehumidifier accessory",
+    bekijk: (alt) => `View: ${alt}`,
+    promo: (prijs) => `${prijs} per construction dehumidifier per day`,
+    aansluiting: "connection included",
+    pakketK: "With a delivered package",
+    pakketTitel: "Our technician connects it",
+    pakketTekst: (prijs) =>
+      `One pump per construction dehumidifier as standard, at ${prijs} per day. During installation, the technician runs the drain to a washbasin, shower, floor drain or washing machine connection. You tick it while calculating your package.`,
+    pakketCta: "Calculate your package",
+    afhaalK: "With a collection",
+    afhaalTitel: "The pump comes with your unit",
+    afhaalTekst: (prijs) =>
+      `If you collect a construction dehumidifier in Aartselaar, the pump can come along. Ask for it when you book and we'll have it ready; connecting it is a hose in the tank and a plug in the socket. The ${prijs} per day goes on the final invoice, together with the actual hire period.`,
+    afhaalCta: "Book a unit with pump",
+    opstKick: "The connection in pictures",
+    opstTitel: "From dehumidifier to drain, without emptying a bucket.",
+    opstLede:
+      "With a hose to the pump or with the pump under the condensate outlet: the right placement depends on your construction dehumidifier and the space available.",
+    opstNote:
+      "Illustrative example set-ups. Have the connection matched to your unit. The supply hose must slope down to the pump; the pump then carries the water away.",
+    waarvoor: "What this pump is for",
+    afvoerKick: "Automatic water drainage",
+    afvoerTitel: "This is how the water drains away.",
+    afvoerLede: "Four steps that repeat throughout the hire period, without anyone needing to be there.",
+    zonderK: "Without pump",
+    zonderTitel: "You empty the tank 2 to 3 times a day",
+    zonderTekst:
+      "If the tank fills up while nobody is there, the construction dehumidifier switches itself off and stays idle until you empty it. A weekend standing still costs you a weekend of drying time.",
+    of: "or",
+    metK: "With pump",
+    metTitel: "You keep an eye on it, nothing more",
+    metTekst:
+      "The condensate drains continuously to your drain. The unit keeps running day and night, weekends included, and so achieves the drying time calculated for it.",
+    techFiche: "Technical data sheet",
+    volledigeSpecs: "Full specifications",
+    specsLede:
+      "All values as measured under standard conditions. Not sure whether your drain is feasible? Call us and we'll work it out together.",
+    afhalenKick: "Collection in Aartselaar",
+    afhalenTitel: "Or simply take it with you.",
+    afhalenLede:
+      "Book your construction dehumidifier online, mention the condensate pump in your booking and we'll have both ready for your collection time.",
+    pickupbarTitel: "Vernast collection point, Boomsesteenweg 12 / Unit 11, 2630 Aartselaar",
+    pickupbarSub: "Right by the A12, easy to reach from Antwerp and Brussels · Mon–Fri 08:00–17:00",
+    route: "Plan your route",
+    afNoteVoor:
+      "The pump weighs less than 2 kg and fits in any car boot. The unit it goes with does not: expect 30 to 50 kg. Rather not lift? Then choose a",
+    afNoteLink: "package with delivery",
+    afNoteNa: ", and we'll connect the drain ourselves straight away.",
+    hoortBij: "Goes with",
+    hoortBijTitel: "The construction dehumidifiers the pump works with",
+    hoortBijLede:
+      "Every construction dehumidifier collects its own condensate, so every dehumidifier gets its own pump.",
+    perDag: "/day",
+    bekijken: "View",
+    faqKick: "Frequently asked questions",
+    faqTitel: "About the condensate pump",
+    ctaKick: "Not sure yet?",
+    ctaTitel: "Let the configurator work it out for you.",
+    ctaTekst:
+      "Enter your floor area and ceiling height. You'll see straight away which unit, how many units and how many condensate pumps suit your space, with the price.",
+    ctaKnop: "Go to the configurator",
+    bel: "Call 03 689 90 65",
+    expertAlt: "Vernast drying expert",
   },
 } satisfies Copy<PompCopy>;

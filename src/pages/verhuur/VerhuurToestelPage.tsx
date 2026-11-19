@@ -17,7 +17,7 @@ import {
   toestelPad,
   type Product,
 } from "@/data/verhuur";
-import { productInTaal, scLabelInTaal, toestelChipsInTaal, toestelTitelFr } from "@/data/verhuur.fr";
+import { productInTaal, scLabelInTaal, toestelChipsInTaal, toestelTitelEn, toestelTitelFr } from "@/data/verhuur.fr";
 import { PICKUP_BY_KEY, PICKUP_PERIODS, PICKUP_SLOTS } from "@/data/afhalen";
 import { toestelLabelIn } from "@/data/navigation";
 import { useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
@@ -63,6 +63,15 @@ function useGeld(): (excl: number) => string {
     const { bedrag } = toon(excl);
     if (taal === "nl") return euroInt(bedrag);
     const centen = Math.round(bedrag * 100) % 100 !== 0;
+    // Engels zet het teken vóór het bedrag, met een decimale punt: `€29.50`.
+    if (taal === "en") {
+      return bedrag.toLocaleString(NUMBER_LOCALE.en, {
+        style: "currency",
+        currency: "EUR",
+        minimumFractionDigits: centen ? 2 : 0,
+        maximumFractionDigits: 2,
+      });
+    }
     return `${bedrag.toLocaleString(NUMBER_LOCALE[taal], {
       minimumFractionDigits: centen ? 2 : 0,
       maximumFractionDigits: 2,
@@ -104,7 +113,9 @@ const VerhuurToestelPage = () => {
   const pageTitle =
     taal === "nl"
       ? toestelTitel({ short: nl.short, type: nl.type, day: nl.day, spec: nl.key[0] })
-      : toestelTitelFr(naam, geld(prod.day));
+      : taal === "fr"
+        ? toestelTitelFr(naam, geld(prod.day))
+        : toestelTitelEn(naam, geld(prod.day));
 
   /*
     De naam die de klant kent, en niet `prod.name`.
@@ -418,7 +429,7 @@ const VerhuurToestelPage = () => {
                           return (
                             <option key={v} value={v}>
                               {periodeLabel(v)}
-                              {pct > 0 ? ` · −${pct}${taal === "nl" ? "" : "\u202f"}%` : ""}
+                              {pct > 0 ? ` · −${pct}${taal === "fr" ? "\u202f" : ""}%` : ""}
                             </option>
                           );
                         })}

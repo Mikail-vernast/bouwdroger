@@ -2,7 +2,7 @@ import type { Copy } from "@/i18n/useTaal";
 
 /**
  * Teksten van de toestelpagina die niet per toestel verschillen. De
- * toestelteksten zelf staan in `data/verhuur.ts` en `data/verhuur.fr.ts`.
+ * toestelteksten zelf staan in `data/verhuur.ts`, `data/verhuur.fr.ts` en `data/verhuur.en.ts`.
  */
 export interface ToestelCopy {
   /** Vragen over het afhalen, onder de toestelspecifieke FAQ. */
@@ -302,5 +302,118 @@ export const COPY = {
     ctaKnop: "Vers le configurateur",
     bel: "Appelez le 03 689 90 65",
     expertAlt: "Expert en séchage Vernast",
+  },
+  en: {
+    pickupFaq: [
+      [
+        "Where do I collect the unit?",
+        "At our collection point: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar, right by the A12, easy to reach from Antwerp and Brussels. Open Mon–Fri from 08:00 to 17:00.",
+      ],
+      [
+        "What do I bring when collecting?",
+        "Your identity card and your booking confirmation (on your phone is fine). We load the unit into your car or trailer.",
+      ],
+      [
+        "Can this unit also be delivered and installed?",
+        "Yes, but only as part of a calculated drying package. That's the only way we can deliver on our 100% drying guarantee. Calculate your package with the Calculator.",
+      ],
+      [
+        "Why are collection prices lower?",
+        "You save on transport and installation costs. Booking is done online: pay everything up front with a 5% discount, or confirm with a deposit and settle the rest when you collect.",
+      ],
+    ],
+    pickupSteps: [
+      {
+        title: "Book online",
+        body: "Choose your unit, hire period and collection time. You pay up front with a 5% discount, or just the deposit.",
+      },
+      {
+        title: "Confirmation within the hour",
+        body: "You receive your booking confirmation with directions and what to bring (identity card).",
+      },
+      {
+        title: "Collect on the A12",
+        body: "Your unit is ready at our collection point. Any outstanding balance you scan and pay here by Bancontact, card or Apple Pay. Bring a large boot, estate car or trailer.",
+      },
+      {
+        title: "Bring it back, done",
+        body: "Return the unit at the agreed time. Your invoice will already be in your inbox.",
+      },
+    ],
+    periode: (dagen) => {
+      const weken = Math.round(dagen / 7);
+      return `${weken} ${weken === 1 ? "week" : "weeks"}`;
+    },
+    home: "Home",
+    toestellen: "Units",
+    afbeelding: (n) => `Image ${n}`,
+    promo: "5% discount when paying online",
+    proforma: "pro forma invoice straight to your inbox",
+    ctxBasis: "Based on your calculation:",
+    ctxToestellen: (n) => `${n} units`,
+    ctxAanbevolen: "recommended",
+    opnieuw: "Recalculate",
+    afhaalreservatie: "Collection booking",
+    nakijken: "Checking availability…",
+    bezet: "Booked on this date",
+    beschikbaar: "Available",
+    afhaalpunt: "Collection point: Boomsesteenweg 12 / Unit 11, 2630 Aartselaar",
+    afhaalpuntSub: "Right by the A12 · Mon–Fri 08:00–17:00",
+    startdatum: "Start date",
+    huurperiode: "Hire period",
+    retour: (dagen) => ["Collect on ", ", return on ", `, ${dagen} days`],
+    aantal: "Number of units",
+    minder: "Fewer",
+    meer: "More",
+    afhaalmoment: "Collection time",
+    datumBezet: (datum, meer) => `On ${datum}, ${meer ? "this number of units is" : "this unit is"} already booked.`,
+    eerstVrij: "The next available start date is",
+    nietsVrij: " Nothing is available in the coming weeks, call us on 03 689 90 65.",
+    aanbevolen: "Recommended add-ons",
+    perDag: "/day",
+    dagen: "days",
+    langhuur: (pct) => `Long-hire discount (${pct}%)`,
+    afhalenGratis: "Collection & return in Aartselaar",
+    gratis: "Free",
+    totaal: "Total",
+    nietBeschikbaar: "Not available on this date",
+    reserveer: "Book for collection,",
+    noteVoor:
+      "5% discount when paying online · lower collection prices · prefer delivery and installation? That's possible",
+    perPakket: "as a package",
+    waarvoor: "What this unit is for",
+    techFiche: "Technical data sheet",
+    volledigeSpecs: "Full specifications",
+    specsLede:
+      "All values as measured under standard conditions. Questions about your specific situation? Call us.",
+    afhalenKick: "Collection in Aartselaar",
+    zoWerkt: "How collection works.",
+    afhalenLede:
+      "You hire individual units at lower collection prices through our collection checkout. You book online and collect whenever suits you; we get everything ready.",
+    pickupbarTitel: "Vernast collection point, Boomsesteenweg 12 / Unit 11, 2630 Aartselaar",
+    pickupbarSub: "Right by the A12, easy to reach from Antwerp and Brussels · Mon–Fri 08:00–17:00",
+    route: "Plan your route",
+    goedOmTeWeten: "Good to know",
+    zwaarTitel: "Some units are heavy. Don't lift, have it delivered.",
+    zwaarTekst:
+      "A professional construction dehumidifier easily weighs 30 to 50 kg. Lifting it yourself, especially on stairs, is not without risk. Are you a bit older or physically less strong? Then choose a package with delivery: we carry, position and set up everything, you don't have to lift a thing.",
+    zwaarCta: "View packages with delivery",
+    zwaarAlt: "Older man with back pain after lifting a heavy unit",
+    afNoteVoor: "We only deliver and install",
+    afNoteNa: "; that's the only way we can deliver on our 100% drying guarantee.",
+    combineer: "Combine with",
+    combineerTitel: "Dry faster with the right combination",
+    combineerLede:
+      "Circulation and temperature determine how quickly moisture leaves the building fabric. These units reinforce each other.",
+    bekijken: "View",
+    faqKick: "Frequently asked questions",
+    faqTitel: "About this unit",
+    ctaKick: "Not sure yet?",
+    ctaTitel: "Let the configurator work it out for you.",
+    ctaTekst:
+      "Enter your floor area and ceiling height, and you'll see straight away which unit, how many units and what price suit your space.",
+    ctaKnop: "Go to the configurator",
+    bel: "Call 03 689 90 65",
+    expertAlt: "Vernast drying expert",
   },
 } satisfies Copy<ToestelCopy>;

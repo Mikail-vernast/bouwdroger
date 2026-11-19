@@ -269,6 +269,99 @@ const COPY = {
     watInbegrepen: "Qu'est-ce qui est compris ?",
     hulp: "Besoin d'aide ? Appelez-nous",
   },
+  en: {
+    title: "Your drying package: units, drying time and price | Vernast",
+    description:
+      "A drying package tailored to your home: the right construction dehumidifiers, fans and heaters, with expected drying time and total price, delivered within 24 hours.",
+    home: "Home",
+    crumbDroging: "Construction drying",
+    crumbPakket: "Your drying package",
+    cur: "Complete drying package",
+    chip: "All-in-one drying service",
+    h1: "Complete drying package",
+    factToestellen: "units in this package",
+    factAfvoer: "moisture extraction per 24 hours",
+    factDagen: "days expected drying time",
+    fact24: "24 h",
+    fact24Label: "delivered and installed",
+    afbeelding: (n) => `Image ${n}`,
+    ptag: "Category: Delivery",
+    h2: (size) => `Complete drying package, home up to ${size} m²`,
+    usps: [
+      ["Free delivery", " with your order, set up and adjusted by our technician"],
+      ["Transparent prices", " with no surprises, you see the total up front"],
+      ["Tailored advice", " from a building expert, during the drying as well"],
+      ["Energy-efficient ECO units", ", lower consumption per litre of moisture extracted"],
+      ["Free moisture reading before and after", " with every package, you see the result in black and white"],
+    ],
+    avail: "Available now, delivery within 24 hours",
+    voor: (weeks) => `for ${weeks} ${weeks === 1 ? "week" : "weeks"}`,
+    inbegrepen: "all included",
+    doorgaan: "Continue to build your package",
+    uwPakket: "Your package",
+    inbegrepenToestellen: "Included units",
+    uwPakketSub:
+      "Calculated automatically from your floor area and plaster and screed thickness. A ready-made package: exactly what your drying needs, nothing more.",
+    perTweeWeken: "/ 2 wks",
+    spxAfvoer: "Moisture extraction per 24 h",
+    spxLucht: "m³/h airflow",
+    spxDagen: "Days expected drying time",
+    rolH: "What does each unit do?",
+    rolStep: "Your package explained",
+    rolSub:
+      "Drying is an interplay of capacity, circulation and temperature. If one is missing, the drying time goes up, which is why we put together packages instead of hiring out individual units.",
+    inUwPakket: (q) => `${q}× in your package`,
+    incH: "Included with delivery",
+    incSpan: "At no extra cost",
+    incP: "The hire price is an all-in price. All of this comes as standard with every package, without you having to ask for it.",
+    inc: [
+      [
+        "Free moisture reading at delivery and collection",
+        "When setting up, our technician measures the moisture levels of the screed, plaster and air, and measures again at collection. That way you know in black and white that the room is dry before you finish it. Always included; a signed measurement report for your insurer or file is available as an option.",
+      ],
+      [
+        "Delivery within 24 hours and collection afterwards",
+        "We bring all the units to the site in the time slot you choose and collect them again as soon as the drying is done. Free in our region; beyond it, a limited mileage charge that you see in advance.",
+      ],
+      [
+        "Positioning, connection and adjustment",
+        "Every unit goes in the right position, the condensate drain is connected and the target humidity is set. You don't have to carry or programme anything.",
+      ],
+      [
+        "On-site explanation and a helpdesk you can reach",
+        "The technician explains how the units work and what target value you can expect. Throughout the hire period, our moisture experts are available by phone.",
+      ],
+      [
+        "Extend or stop early, flexibly",
+        "If the drying takes longer, you extend online with one click. If you're done sooner, you stop the hire and only pay for the days you actually used.",
+      ],
+    ],
+    rbChip: "Why a package works",
+    rbH: "Drying is capacity, circulation and temperature.",
+    rbP: "If one of the three is missing, the drying time goes up, or the process even stops altogether. That's why we put together complete packages instead of hiring out individual units.",
+    rb: [
+      [
+        "Capacity",
+        "The construction dehumidifiers determine how many litres of moisture can be taken out of the air each day. We size to your actual volume, not too small, not too big.",
+      ],
+      [
+        "Circulation",
+        "Without air movement, a saturated layer forms against the screed and walls, and that's where the drying stops. The fans break it up and win you days.",
+      ],
+      [
+        "Temperature",
+        "Below 15 °C, air barely absorbs any moisture. The heater brings cold rooms up to working temperature, so the dehumidifiers run at full power.",
+      ],
+    ],
+    stats: [
+      ["60%", "faster drying than natural drying"],
+      ["48 h", "before mould starts to grow, so starting quickly pays off"],
+      ["≤ 2%", "residual moisture required before you can finish"],
+      ["24 h", "delivered, positioned and adjusted"],
+    ],
+    watInbegrepen: "What's included?",
+    hulp: "Need help? Call us",
+  },
 } satisfies Copy<PakketCopy>;
 
 const INC_ICONS = [DropletPinIcon, TruckIcon, FileCheckIcon, ChatIcon, RefreshIcon];
@@ -458,7 +551,8 @@ const VerhuurPakketPage = () => {
                   </div>
                   <div className="s">
                     <div className="n">
-                      {(air / 1000).toFixed(1).replace(".", ",")}
+                      {/* Engels schrijft een decimale punt; Nederlands en Frans een komma. */}
+                      {taal === "en" ? (air / 1000).toFixed(1) : (air / 1000).toFixed(1).replace(".", ",")}
                       <small>k</small>
                     </div>
                     <div className="l">{t.spxLucht}</div>
