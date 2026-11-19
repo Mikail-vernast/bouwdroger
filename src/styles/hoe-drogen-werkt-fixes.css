@@ -46,3 +46,55 @@
     margin: 0 auto;
   }
 }
+
+/* De knoppenrij op een rode sectie — dezelfde correctie als in
+   src/styles/v3-content.css, zie de uitleg daar. Witte knop met zwarte tekst,
+   en de knop ernaast zwart met witte tekst in plaats van een transparante
+   omlijning. De gids-variant had die tweede knop al (gids.css); hier geldt ze
+   voor de hele schil. */
+.hdw-page .btn-white{color:#17171A}
+.hdw-page .btn-white:hover{color:#000}
+.hdw-page .btn-ghost{background:#141414;border-color:#141414;color:#fff}
+.hdw-page .btn-ghost:hover{background:#2b2b2b;border-color:#2b2b2b;color:#fff}
+
+/* Een link in de lopende tekst van een lichte sectie: zwart en vet met een
+   onderlijning, niet rood. Rood deed het werk van de onderlijning nog eens
+   over en las als accentkleur — als iets dat benadrukt is, niet als iets waar
+   je op drukt. In de notitiekaders stonden de links zelfs rood én zonder
+   onderlijning; dat is dezelfde fout, een rij verder. Rood blijft de hover. */
+.hdw-page .sw .lede a,.hdw-page .sw p a,
+.hdw-page .sw2 .lede a,.hdw-page .sw2 p a,
+.hdw-page .note a,.hdw-page .sr .note a,
+.hdw-page .materiaaltekst a,.hdw-page .fs p a{
+  color:var(--txt);font-weight:700;text-decoration:underline;
+  text-decoration-color:var(--line-2);text-underline-offset:3px;
+}
+.hdw-page .sw .lede a:hover,.hdw-page .sw p a:hover,
+.hdw-page .sw2 .lede a:hover,.hdw-page .sw2 p a:hover,
+.hdw-page .note a:hover,.hdw-page .sr .note a:hover,
+.hdw-page .materiaaltekst a:hover,.hdw-page .fs p a:hover{color:var(--red);text-decoration-color:var(--red)}
+
+/* De rode band staat ín een witte sectie, dus de regel hierboven trof ook de
+   link in de band: zwart op bordeaux. Daar blijft de link wit; in de witte
+   `lite`-variant van dezelfde band geldt het zwart wél. */
+.hdw-page .manband p a{color:#fff;text-decoration-color:rgba(255,255,255,.45)}
+.hdw-page .manband p a:hover{color:#fff;text-decoration-color:#fff}
+.hdw-page .manband.lite p a{color:var(--txt);font-weight:700;text-decoration-color:var(--line-2)}
+.hdw-page .manband.lite p a:hover{color:var(--red);text-decoration-color:var(--red)}
+
+/* De cycluskaarten stonden wit op het gebroken wit van `.sw2`. Die sectie is
+   nu wit (zie het ritme hierboven), dus keren de kaarten om: grijs vlak, wit
+   icoonvenster — precies de omkering die de designfile zelf al maakt voor
+   `.kaart` op een gebroken witte of rode sectie. */
+.hdw-page .sw .cy{background:var(--bg-alt)}
+.hdw-page .sw .cy .ci2{background:#fff}
+
+/* <ContactBlok> verving het formulier uit de designfile (dat verstuurde niets).
+   Het component brengt drie klassen mee die de transcriptie niet kent; de
+   gidsvariant van deze schil had ze al, nu geldt het voor de hele schil.
+   Zie src/styles/gids.css, waar dezelfde drie regels staan. */
+.hdw-page .sec-head.mid{max-width:760px;margin-left:auto;margin-right:auto;text-align:center}
+.hdw-page .sec-head.mid .lede{margin-left:auto;margin-right:auto}
+.hdw-page .fsend .fbtns{display:flex;gap:10px;flex-wrap:wrap}
+.hdw-page .btn-line{background:transparent;border:1.5px solid var(--line-2);color:var(--txt)}
+.hdw-page .btn-line:hover{background:var(--bg-alt);color:var(--txt)}

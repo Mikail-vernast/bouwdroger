@@ -48,3 +48,17 @@
     margin: 0 auto;
   }
 }
+
+/* De knoppenrij op een rode sectie — dezelfde correctie als in
+   src/styles/v3-content.css, zie de uitleg daar.
+
+   Witte knop met zwarte tekst: rood-op-wit midden in een rode sectie is
+   dezelfde kleur als de achtergrond, en de knop las als een lichte vlek
+   in plaats van als de knop waar alles naartoe werkt.
+
+   De knop ernaast zwart met witte tekst: als transparante omlijning las
+   hij nauwelijks als knop naast een volle witte. */
+.pv-page .btn-white{color:#17171A}
+.pv-page .btn-white:hover{color:#000}
+.pv-page .btn-ghost{background:#141414;border-color:#141414;color:#fff}
+.pv-page .btn-ghost:hover{background:#2b2b2b;border-color:#2b2b2b;color:#fff}

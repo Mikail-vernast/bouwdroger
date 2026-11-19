@@ -35,3 +35,34 @@
     margin: 0 auto;
   }
 }
+
+/* De knoppenrij op een rode sectie — dezelfde correctie als in
+   src/styles/v3-content.css, zie de uitleg daar.
+
+   Witte knop met zwarte tekst: rood-op-wit midden in een rode sectie is
+   dezelfde kleur als de achtergrond, en de knop las als een lichte vlek
+   in plaats van als de knop waar alles naartoe werkt.
+
+   De knop ernaast zwart met witte tekst: als transparante omlijning las
+   hij nauwelijks als knop naast een volle witte. */
+.dg-page .btn-white{color:#17171A}
+.dg-page .btn-white:hover{color:#000}
+.dg-page .btn-ghost{background:#141414;border-color:#141414;color:#fff}
+.dg-page .btn-ghost:hover{background:#2b2b2b;border-color:#2b2b2b;color:#fff}
+
+/* Een link in de lopende tekst van een lichte sectie: zwart en vet met een
+   onderlijning, niet rood — dezelfde correctie als in v3-content.css. Rood
+   deed het werk van de onderlijning nog eens over en las als accentkleur, niet
+   als iets waar je op drukt. Rood blijft de hover. Op een rode sectie en in de
+   rode band blijven de links wit; die regels staan in de designfile zelf en
+   wegen even zwaar, dus worden ze hieronder expliciet hersteld. */
+.dg-page .sw .lede a,.dg-page .sw p a,.dg-page .sw2 .lede a,.dg-page .sw2 p a,.dg-page .note a{
+  color:var(--txt);font-weight:700;text-decoration:underline;
+  text-decoration-color:var(--line-2);text-underline-offset:3px;
+}
+.dg-page .sw .lede a:hover,.dg-page .sw p a:hover,.dg-page .sw2 .lede a:hover,
+.dg-page .sw2 p a:hover,.dg-page .note a:hover{color:var(--red);text-decoration-color:var(--red)}
+.dg-page .manband p a{color:#fff;text-decoration-color:rgba(255,255,255,.45)}
+.dg-page .manband p a:hover{color:#fff;text-decoration-color:#fff}
+.dg-page .manband.lite p a{color:var(--txt);font-weight:700;text-decoration-color:var(--line-2)}
+.dg-page .manband.lite p a:hover{color:var(--red);text-decoration-color:var(--red)}

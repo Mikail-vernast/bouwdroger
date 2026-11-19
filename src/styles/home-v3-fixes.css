@@ -515,3 +515,13 @@
   color: var(--red);
 }
 .v3 .ix .ix-link:hover { text-decoration: underline; }
+
+/* De knoppenrij op een rode sectie — dezelfde correctie als in
+   src/styles/v3-content.css, zie de uitleg daar.
+
+   Witte knop met zwarte tekst: rood-op-wit midden in een rode sectie is
+   dezelfde kleur als de achtergrond, en de knop las als een lichte vlek
+   in plaats van als de knop waar alles naartoe werkt.
+   Deze schil heeft geen tweede knop met een rand. */
+.v3 .btn-white{color:#17171A}
+.v3 .btn-white:hover{color:#000}
