@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import type { Copy } from "@/i18n/useTaal";
 import { droogtermijnen, termijnLabel, termijnZonderDikte, type DroogtermijnRij } from "@/lib/droogtijden";
 import { termijnLabelFr } from "./termijnLabelFr";
+import { termijnLabelEn } from "./termijnLabelEn";
 
 /**
- * Teksten van /pleisterwerk-drogen in het Nederlands en het Frans. De
- * termijnen komen in beide talen uit de catalogus, nooit overgetypt.
+ * Teksten van /pleisterwerk-drogen in het Nederlands, het Frans en het Engels.
+ * De termijnen komen in elke taal uit de catalogus, nooit overgetypt.
  */
 
 export const PLEISTER = droogtermijnen("pleister");
@@ -25,6 +26,12 @@ function opsommingFr(rijen: typeof PLEISTER): string {
   const delen = rijen.map((r) => `${r.dikte} cm : ${termijnLabelFr(r)}`);
   if (delen.length <= 1) return delen.join("");
   return `${delen.slice(0, -1).join(", ")} et ${delen[delen.length - 1]}`;
+}
+
+function opsommingEn(rijen: typeof PLEISTER): string {
+  const delen = rijen.map((r) => `${r.dikte} cm: ${termijnLabelEn(r)}`);
+  if (delen.length <= 1) return delen.join("");
+  return `${delen.slice(0, -1).join(", ")} and ${delen[delen.length - 1]}`;
 }
 
 type Lp = (nlPad: string) => string;
@@ -472,4 +479,226 @@ const fr: typeof nl = {
   cPlaceholder: "P. ex. nouvelle construction 180 m², enduit au plâtre de 1 cm posé le 5 novembre, le peintre vient début décembre.",
 };
 
-export const COPY = { nl, fr } satisfies Copy<typeof nl>;
+const en: typeof nl = {
+  zonder: [
+    "The walls release moisture until the air is saturated, and then it stops",
+    "Condensation on windows and cold outside walls, sometimes mould in the corners",
+    "The painter cannot start and moves you down the list behind his next site",
+    "Painted too early: peeling paint or stains, and starting all over again",
+  ],
+  met: [
+    `A hire period of ${kortsteTermijn} to ${langsteTermijn} weeks, depending on the thickness of the coat`,
+    "The moisture leaves the building instead of condensing on the glass",
+    "An end date you can pass on to your painter or decorator",
+    "Residual moisture reading at the start and at handover",
+  ],
+  stappen: [
+    {
+      title: "You choose the delivery day",
+      desc: "As soon as the plaster has set and the surface feels hard, you book the date. We deliver throughout Flanders, usually within a few working days, and you get a time slot instead of waiting in all day.",
+    },
+    {
+      title: "An initial reading before anything runs",
+      desc: "The technician records the residual moisture in the walls and the humidity in the room. That starting point is why we can give you an end date instead of an estimate.",
+    },
+    {
+      title: "Setting up and adjusting",
+      desc: "He places the units centrally in the room, away from the walls, connects the condensate drain and sets the target value. After that everything runs day and night; the humidistat throttles back by itself as soon as the air is dry enough.",
+    },
+    {
+      title: "Keeping the air moving",
+      desc: "A layer of saturated air clings to a freshly plastered wall, and in corners and behind doors nothing moves at all. A fan sweeps that layer away, so dry air can pick up the moisture.",
+    },
+    {
+      title: "Heat when the site is cold",
+      desc: "A condensation dehumidifier works best between roughly 15 and 25 °C. If your site is colder, we add an electric site heater with a thermostat. It heats the room evenly, rather than one wall at close range.",
+    },
+    {
+      title: "Final reading and collection",
+      desc: "At the end we measure again. If the value is right, we collect the units and your painter or decorator can start. If it is not, we extend free of charge until it is.",
+    },
+  ],
+  faqs: [
+    {
+      q: "What does it cost to dry plasterwork?",
+      a: "That depends on the volume of the room and the thickness of the coat: those two determine how many units are needed and how long they stay. The drying calculator asks for your floor area and the thickness of the coat and immediately shows the package with its price, including delivery, installation and the moisture readings. All daily and weekly rates are also listed separately on our prices page.",
+    },
+    {
+      q: "When can the construction dehumidifier go on after plastering?",
+      a: "As soon as the surface is hard, which is usually sooner than with a screed. What you should not do in those first days is dry it very hard or put a heater right in front of a wall: the surface then dries out while the layer underneath is still wet, which causes shrinkage cracks or a powdery top layer. Heat evenly, and then let the unit run day and night.",
+    },
+    {
+      q: "Should I open the windows while the dehumidifier is running?",
+      a: "No, keep them closed. A condensation dehumidifier dries the air in a closed room; if a window is open, it keeps drawing in fresh, damp outside air and dries the street instead of your walls. Ventilating only helps if the outside air is drier than the air inside, and in Belgium that is not the case for much of the year.",
+    },
+    {
+      q: "When can the painter or decorator come in?",
+      a: "When a moisture reading confirms that the coat is dry, not when the wall looks evenly light. Paint on a substrate that is too wet can peel or stain, and wallpaper traps the residual moisture completely: mould then grows behind it that you only see months later. Ask your painter which value he wants to see and which first coat he uses; a vapour-permeable primer lets the wall keep breathing.",
+    },
+    {
+      q: "Can I have plaster and screed dried together?",
+      a: BEIDE
+        ? `Yes, and in a new build that is the normal way of doing things. There is a package for that which dries floor and walls together, with a hire period of ${termijnLabelEn(
+            BEIDE,
+          )}. You then hire once and measure once, instead of two drying rounds one after the other. Drying both together does need more capacity, because much more water is released in the same space; the calculator works that out.`
+        : "Yes, and in a new build that is the normal way of doing things. Drying both together does need more capacity than either one separately, because much more water is released in the same space. The calculator works out which package goes with it.",
+    },
+    {
+      q: "What if my walls are not dry by the end date?",
+      a: "Then we extend free of charge until they are. That is the drying guarantee, and it applies to every package calculated with the calculator and booked with delivery and installation. It relies on the readings at the start and at handover: without those two readings there is nothing to check an end date against.",
+    },
+    {
+      q: "Can I collect the units myself?",
+      a: "Yes, you can collect individual construction dehumidifiers, fans and site heaters from our collection point along the A12 in Aartselaar. You then pay no transport and no installation, but you decide the set-up yourself, and the moisture reading and the drying guarantee are not included in the hire. The unit itself is the same.",
+    },
+    {
+      q: "How long does plaster take to dry?",
+      a: `With a drying package, our plaster hire periods are ${opsommingEn(
+        PLEISTER,
+      )}. Without a dehumidifier no hire period can be promised: the humidity in your building then sets the pace, and in a cold, closed-up house drying comes to a standstill rather than just slowing down. The full explanation, including the difference between gypsum and cement plaster, is in our guide to plaster drying time.`,
+    },
+  ],
+  verderLezen: [
+    {
+      kop: "How long it takes and why",
+      links: [
+        { label: "Guide: how long does plaster take to dry?" },
+        { label: "How a construction dehumidifier draws moisture out of a home" },
+        { label: "Our 100% drying guarantee on a calculated package" },
+        { label: "Drying screed and plaster together in a new build" },
+      ],
+    },
+    {
+      kop: "The units for drying plaster",
+      links: [
+        { label: "Performance", sub: "The standard unit for a new-build home." },
+        { label: "Fan to keep the air moving", sub: "Against still air in corners." },
+        { label: "Electric site heater for a cold site", sub: "Below 15 °C, drying is slow." },
+      ],
+    },
+    {
+      kop: "Planning and prices",
+      links: [
+        { label: "Calculate your package by floor area and coat thickness" },
+        { label: "What does dehumidifier hire cost?" },
+        { label: "Delivery and installation throughout Flanders" },
+        { label: "Collect it yourself in Aartselaar" },
+      ],
+    },
+  ],
+  verderLezenKicker: "Further reading",
+  verderLezenTitel: "More about plaster drying",
+
+  schemaNaam: "Plaster drying",
+  schemaBeschrijving:
+    "Active drying of fresh plasterwork with a construction dehumidifier, fan and moisture readings, so the painter can start weeks earlier.",
+  schemaType: "Construction drying",
+  home: "Home",
+
+  heroKicker: "Application · plasterwork",
+  heroH1: "Plaster drying, so the painter is not left waiting.",
+  heroP:
+    "Fresh plaster releases water into the air for days. If the building is closed up, that water stays inside and drying stops as soon as the air is saturated. We take it out with the right units, measure the residual moisture at the start and at handover, and give you a date on which your painter can start.",
+  ctaPakket: "Calculate your drying package",
+  heroAlt: "Fresh gypsum plaster with dark damp patches next to plasterwork that is already drying",
+  badge: `${kortsteTermijn} to ${langsteTermijn} weeks`,
+  badgeSub: "with a drying package, by coat thickness",
+
+  vsKicker: "The difference",
+  vsH2: "The moisture leaves the wall, but not the house by itself.",
+  vsLede:
+    "A coat of plaster gives up its water readily; that is the easy part. The hard part is what happens to that water next. In a closed-up building it hangs in the air until the air is saturated, and from that point on nothing dries any more.",
+  vsZonder: "Without a construction dehumidifier",
+  vsMet: "With a Vernast drying package",
+
+  tKicker: "Hire period by coat thickness",
+  tH2: "Which hire period suits your plasterwork?",
+  tLede:
+    "The thickness of the coat determines the hire period, not your floor area: a bigger home gets more units, not a longer hire. A double coat means twice as much mixing water that has to leave through the same surface.",
+  tCaption: "Hire period of a plaster package by coat thickness, and of the combined package with screed",
+  tKolDikte: "Coat thickness",
+  tKolMet: "With a drying package",
+  tKolWaar: "Where you come across that thickness",
+  rijEerste: "Standard interior plastering: gypsum, machine-applied in a single coat.",
+  rijMidden: "A thicker build-up or a levelling coat on a wall that is not straight.",
+  rijLaatste: "Heavy work in several coats, such as cement rendering in a wet room.",
+  rijBeide: "Plaster + screed",
+  rijBeideWaar: "A new build where walls and floor are wet at the same time, in one package.",
+  termijn: (r: DroogtermijnRij) => termijnLabelEn(r),
+  tNote: (lp: Lp): ReactNode => (
+    <>
+      These hire periods are what our packages provide for, including the initial and final
+      readings. Why moisture lingers in a closed-up house, what is different with cement-based
+      work and when you can paint is explained in{" "}
+      <Link to={lp("/gids/hoe-lang-moet-pleisterwerk-drogen")}>
+        our guide to plaster drying time
+      </Link>
+      . No hire period replaces a moisture reading.
+    </>
+  ),
+
+  wKicker: "How it works",
+  wH2: "From delivery day to signing off the walls.",
+  wLede:
+    "You do not have to measure or set anything yourself. This is what happens from the moment you give us the date until the moment your painter can start.",
+
+  pKicker: "Which unit",
+  pH2: "The unit that suits your space.",
+  pLede:
+    "Plaster covers every wall and ceiling, so what counts is the volume of the room, not just the number of square metres of wall. The calculator converts that volume into the right combination, with a fan against still air and a site heater if your site is too cold.",
+  pNote: (lp: Lp): ReactNode => (
+    <>
+      <b>Rather collect it yourself?</b> You can pick up individual construction dehumidifiers,
+      fans and site heaters at the collection rate from our{" "}
+      <Link to={lp("/verhuur/afhalen")}>collection point along the A12 in Aartselaar</Link>.
+      The moisture reading and the drying guarantee are then not included in the hire, but the
+      unit is the same.
+    </>
+  ),
+
+  mKicker: "The handover",
+  mH2: "When can the painter come in?",
+  mP1: "A wall that is evenly light and feels dry can still be wet inside. Paint on such a substrate can peel or stain, and wallpaper traps the residual moisture completely. That is why a reading decides, not the colour of the wall.",
+  mP2: (rapport: string | null): ReactNode => (
+    <>
+      <b>We measure at the start and at handover.</b> Both values are included in every
+      package, so nobody has to decide by feel. If you need a signed report for your painter
+      or your building file, add an official moisture report
+      {rapport ? ` for ${rapport}` : ""}.
+    </>
+  ),
+  mP3: (lp: Lp): ReactNode => (
+    <>
+      <b>Your painter sets the limit.</b> He knows his paint and his primer; ask him
+      beforehand which value he wants to see and whether he starts with a vapour-permeable
+      coat. How that reading is taken is explained in{" "}
+      <Link to={lp("/gids/hoe-lang-moet-pleisterwerk-drogen")}>
+        our guide to plaster drying time
+      </Link>
+      .
+    </>
+  ),
+  chips: ["Initial reading", "Final reading", "Moisture report on request", "Drying guarantee"],
+  mAlt: "Vernast technician measuring the residual moisture of a plastered wall",
+
+  faqTitel: "What homeowners ask us about plaster drying.",
+
+  rKicker: "In practice",
+  rH2: "Walls we have dried before.",
+  rLede:
+    "Three projects with photos from the site itself: what had to dry, which units were in place and how long it took.",
+  rAlle: "View all construction moisture projects",
+  mbKicker: "Ready to start",
+  mbH3: "Give us your floor area and coat thickness, and we will give you a date.",
+  mbP: "The calculator converts your volume into a package with the right units and the right hire period. You choose the delivery day; we install and measure.",
+  mbAlt: "Vernast technician noting down the readings",
+
+  cKicker: "A question about your walls?",
+  cTitel: "Unsure about the hire period or the package?",
+  cLede:
+    "Give us your floor area, the coat thickness and when the plasterer will be finished. Within one working day you will receive a proposal from a drying specialist.",
+  cOnderwerpen: ["Advice on plaster drying", "Plaster and screed together", "Price and delivery date", "Something else"],
+  cPlaceholder: "E.g. new build 180 m², 1 cm gypsum plaster applied on 5 November, painter coming in early December.",
+};
+
+export const COPY = { nl, fr, en } satisfies Copy<typeof nl>;

@@ -76,7 +76,7 @@ const ChapeDrogenPage = () => {
   const toon = useToonBedrag();
   const seo = useSeo("chapeDrogen");
 
-  /* Nederlands toont het rapport zoals altijd excl. btw; Frans volgt de keuze
+  /* Nederlands toont het rapport zoals altijd excl. btw; Frans en Engels volgen de keuze
      particulier/bedrijf uit de keuzepopup. */
   const rapportPrijs = RAPPORT
     ? taal === "nl"

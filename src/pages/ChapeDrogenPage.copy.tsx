@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import type { Copy } from "@/i18n/useTaal";
 import { droogtermijnen, natuurlijkeChapeWeken, termijnLabel, type DroogtermijnRij } from "@/lib/droogtijden";
 import { termijnLabelFr } from "./termijnLabelFr";
+import { termijnLabelEn } from "./termijnLabelEn";
 
 /**
- * Teksten van /chape-drogen in het Nederlands en het Frans.
+ * Teksten van /chape-drogen in het Nederlands, het Frans en het Engels.
  *
  * De termijnen komen uit de catalogus (zie lib/droogtijden.ts), ook in het
  * Frans: `termijnLabelFr` zet dezelfde rij om in « 2 à 3 semaines » in plaats
@@ -29,6 +30,13 @@ function opsommingFr(rijen: typeof CHAPE): string {
   const delen = rijen.map((r) => `${r.dikte} cm : ${termijnLabelFr(r)}`);
   if (delen.length <= 1) return delen.join("");
   return `${delen.slice(0, -1).join(", ")} et ${delen[delen.length - 1]}`;
+}
+
+/** "5 cm: 2 weeks, 6 cm: 3 weeks and 7 cm: 4 weeks", zelfde catalogusrijen. */
+function opsommingEn(rijen: typeof CHAPE): string {
+  const delen = rijen.map((r) => `${r.dikte} cm: ${termijnLabelEn(r)}`);
+  if (delen.length <= 1) return delen.join("");
+  return `${delen.slice(0, -1).join(", ")} and ${delen[delen.length - 1]}`;
 }
 
 type Lp = (nlPad: string) => string;
@@ -431,4 +439,203 @@ const fr: typeof nl = {
   cPlaceholder: "P. ex. nouvelle construction 140 m², chape de 6 cm posée le 3 novembre, le poseur de sol vient début décembre.",
 };
 
-export const COPY = { nl, fr } satisfies Copy<typeof nl>;
+const en: typeof nl = {
+  zonder: [
+    "Waiting for the weather to cooperate, and even longer in winter",
+    "Your floor layer moves you down the list behind his next site",
+    "Moisture seeps into skirting boards, door frames and whatever is already fitted",
+    "Nobody knows when the floor will be ready: nothing is measured",
+  ],
+  met: [
+    `A hire period of ${kortsteTermijn} to ${langsteTermijn} weeks, depending on the thickness of your screed`,
+    "An end date you can pass on to your floor layer",
+    "Moisture reading at the start and at handover",
+    "Not dry by the end date? We extend free of charge",
+  ],
+  stappen: [
+    {
+      title: "You choose the delivery day",
+      desc: "As soon as your screed layer says the floor may be actively dried, you book the date. We deliver throughout Flanders, usually within a few working days, and you get a time slot instead of waiting in all day.",
+    },
+    {
+      title: "An initial reading before anything runs",
+      desc: "The technician records the residual moisture in the screed and the humidity in the room. That is the starting point the handover will be measured against, and it is why we can give you an end date.",
+    },
+    {
+      title: "Setting up and adjusting",
+      desc: "He places the units where they do their job, connects the condensate drain and sets the target value. From then on the unit runs day and night, and the humidistat throttles back by itself as soon as the air is dry enough.",
+    },
+    {
+      title: "Air across the floor",
+      desc: "A layer of saturated air hangs above fresh screed. A radial fan blows right across the surface so that dry air keeps reaching the floor. That saves days within the same hire period.",
+    },
+    {
+      title: "Heat when the site is cold",
+      desc: "A condensation dehumidifier works best between roughly 15 and 25 °C. If your site is colder than that, we add an electric site heater with a thermostat, so the screed keeps releasing its water instead of stalling.",
+    },
+    {
+      title: "Final reading and collection",
+      desc: "At the end we measure again. If the value is right, we collect the units and your floor layer can come in. If it is not, we extend free of charge until it is.",
+    },
+  ],
+  faqs: [
+    {
+      q: "What does it cost to dry a screed?",
+      a: "That depends on the volume of the room and the thickness of your screed: those two determine how many units are needed and how long they stay. The drying calculator asks for your floor area and screed thickness and immediately shows the package with its price, including delivery, installation and the moisture readings. All daily and weekly rates are also listed separately on our prices page.",
+    },
+    {
+      q: "When can a construction dehumidifier go on fresh screed?",
+      a: "Not straight away. Cement screed binds water chemically as it cures and still needs that water in the first phase. Ask your screed layer from which day you may dry actively; that is usually a matter of days to a week. After that, the unit can run day and night. Our guide to screed drying time explains in detail why drying too early causes shrinkage cracks.",
+    },
+    {
+      q: "How many units do I need for my floor area?",
+      a: "That depends on the volume, not just the number of square metres: an open-plan home with high ceilings needs more than the same floor area in closed rooms. The calculator converts your volume into a package with the right number of units. For large sites or an unusual layout, it is best to give us a call and we will look at it with you.",
+    },
+    {
+      q: "What if my screed is not dry by the end date?",
+      a: "Then we extend free of charge until it is. That is the drying guarantee, and it applies to every package calculated with the calculator and booked with delivery and installation. It relies on the readings at the start and at handover: without those two readings there is nothing to check an end date against.",
+    },
+    {
+      q: "Can I collect the units myself?",
+      a: "Yes, you can collect individual construction dehumidifiers, fans and site heaters from our collection point along the A12 in Aartselaar. You then pay no transport and no installation. On the other hand, you decide the set-up yourself, and the moisture reading and the drying guarantee are not included in the hire; the unit itself is the same.",
+    },
+    {
+      q: "How much electricity does a construction dehumidifier use on a screed?",
+      a: "A condensation dehumidifier from our range draws between 0.75 and 1.4 kW and runs on an ordinary 230 V socket. What that costs per day and over the whole hire period is worked out in our guide to the power consumption of a construction dehumidifier. An electric site heater of 20 or 30 kW is a different matter: it needs a 400 V three-phase supply.",
+    },
+    {
+      q: "Can I extend if my site runs late?",
+      a: "Yes. You can extend online, and you then only pay for the extra days at the same rate. Ideally do it before the end date: the units then stay reserved for you instead of going to the next customer.",
+    },
+    {
+      q: `How long does a ${dikste?.dikte ?? 7} cm screed take to dry?`,
+      a: `On its own, the rule of thumb is about ${natuurlijkeChapeWeken(dikste?.dikte ?? 7)} weeks, and only in a heated and ventilated building. With a drying package, our screed hire periods are ${opsommingEn(CHAPE)}. The reading decides whether the floor is ready, not the calendar; the full explanation per centimetre is in our guide to screed drying time.`,
+    },
+  ],
+  verderLezen: [
+    {
+      kop: "How long it takes and why",
+      links: [
+        { label: "Guide: how long does screed take to dry?" },
+        { label: "How a construction dehumidifier draws moisture out of a home" },
+        { label: "Our 100% drying guarantee on a calculated package" },
+        { label: "Drying screed and plaster together in a new build" },
+      ],
+    },
+    {
+      kop: "The units for drying screed",
+      links: [
+        { label: "Performance", sub: "The standard unit for a new-build home." },
+        { label: "Radial fan for screed drying", sub: "Blows right across the floor." },
+        { label: "Electric site heater for a cold site", sub: "Below 15 °C, drying is slow." },
+      ],
+    },
+    {
+      kop: "Planning and prices",
+      links: [
+        { label: "Calculate your package by floor area and screed thickness" },
+        { label: "What does dehumidifier hire cost?" },
+        { label: "Delivery and installation throughout Flanders" },
+        { label: "Collect it yourself in Aartselaar" },
+      ],
+    },
+  ],
+  verderLezenKicker: "Further reading",
+  verderLezenTitel: "More about screed drying",
+
+  schemaNaam: "Screed drying",
+  schemaBeschrijving:
+    "Active drying of fresh screed with a construction dehumidifier, fan and moisture readings, so the floor layer can start weeks earlier.",
+  schemaType: "Construction drying",
+  home: "Home",
+
+  heroKicker: "Application · screed",
+  heroH1: "Screed drying in weeks, with an end date in writing.",
+  heroP:
+    "Fresh sand-cement screed holds more water than the cement needs, and that surplus has to leave again through the surface. We put the right units on your site, set the target value and measure the residual moisture at the start and at handover. Your floor layer gets a date instead of an estimate.",
+  ctaPakket: "Calculate your drying package",
+  heroAlt: "Construction dehumidifier and fan at work on fresh screed",
+  badge: `${kortsteTermijn} to ${langsteTermijn} weeks`,
+  badgeSub: `instead of ± ${natuurlijkeChapeWeken(6)} weeks naturally`,
+
+  vsKicker: "The difference",
+  vsH2: "Screed left to dry on its own follows the weather.",
+  vsLede: `In good conditions, a 6 cm floor takes about ${natuurlijkeChapeWeken(6)} weeks. In November those conditions are not there, and then it means waiting until spring, without anyone being able to tell you how long. Active drying takes that uncertainty away.`,
+  vsZonder: "Without a construction dehumidifier",
+  vsMet: "With a Vernast drying package",
+
+  tKicker: "Hire period by thickness",
+  tH2: "Which hire period suits your screed thickness?",
+  tLede:
+    "The thickness of the layer determines the hire period, not your floor area: a bigger home gets more units, not a longer hire. The thicker the screed, the further the moisture at the bottom has to travel, which is why the hire period grows faster than the thickness.",
+  tCaption: "Hire period of a screed package by screed thickness, next to the rule of thumb without a construction dehumidifier",
+  tKolDikte: "Screed thickness",
+  tKolMet: "With a drying package",
+  tKolZonder: "Without a dehumidifier (rule of thumb)",
+  termijn: (r: DroogtermijnRij) => termijnLabelEn(r),
+  natuurlijk: (dikte: number) => `± ${natuurlijkeChapeWeken(dikte)} weeks`,
+  tNote: (lp: Lp): ReactNode => (
+    <>
+      The column with a drying package is what our packages provide for, including the initial
+      and final readings. The rule of thumb next to it follows the common guideline for
+      sand-cement screed in a ventilated room at around 20 °C. How that rule of thumb works,
+      what is different with anhydrite and how to run the heating-up protocol with underfloor
+      heating is explained in{" "}
+      <Link to={lp("/gids/hoe-lang-moet-chape-drogen")}>our guide to screed drying time</Link>.
+      Neither column replaces a moisture reading.
+    </>
+  ),
+
+  wKicker: "How it works",
+  wH2: "From delivery day to signing off the floor.",
+  wLede:
+    "You do not have to measure or set anything yourself. This is what happens from the moment you give us the date until the moment your floor layer can start.",
+
+  pKicker: "Which unit",
+  pH2: "The unit that suits your floor.",
+  pLede:
+    "For an ordinary family home, the Performance is the unit we deliver most often, with a radial fan that blows right across the screed. The calculator converts your volume and screed thickness into the right combination, with a site heater added if your site is too cold.",
+
+  mKicker: "The handover",
+  mH2: "When can the floor layer come in?",
+  mP1: "A screed that is hard and light in colour can still be wet inside. Under parquet, vinyl or a poured floor that moisture is then trapped, and it comes back as cupped boards or strips coming loose. That is why a reading decides, not the calendar.",
+  mP2: (rapport: string | null): ReactNode => (
+    <>
+      <b>We measure at the start and at handover.</b> Both values are included in every
+      package, so nobody has to decide by feel. If you need a signed report for your floor
+      layer or your building file, add an official moisture report
+      {rapport ? ` for ${rapport}` : ""}.
+    </>
+  ),
+  mP3: (lp: Lp): ReactNode => (
+    <>
+      <b>Your floor layer sets the limit.</b> Which value he wants to see depends on the type
+      of screed, the underfloor heating and the finish. Ask him beforehand, so you know what
+      you are drying towards. How that reading is taken is explained in{" "}
+      <Link to={lp("/gids/hoe-lang-moet-chape-drogen")}>our guide to screed drying time</Link>.
+    </>
+  ),
+  chips: ["Initial reading", "Final reading", "Moisture report on request", "Drying guarantee"],
+  mAlt: "Floor layer fitting the first tiles on a dry screed in a new-build home",
+
+  faqTitel: "What homeowners ask us about screed drying.",
+
+  rKicker: "In practice",
+  rH2: "Floors we have dried before.",
+  rLede:
+    "Three projects with photos from the site itself: what had to dry, which units were in place and how long it took.",
+  rAlle: "View all construction moisture projects",
+  mbKicker: "Ready to start",
+  mbH3: "Give us your floor area and screed thickness, and we will give you a date.",
+  mbP: "The calculator converts your volume into a package with the right units and the right hire period. You choose the delivery day; we install and measure.",
+  mbAlt: "Vernast technician noting down the readings",
+
+  cKicker: "A question about your floor?",
+  cTitel: "Unsure about the hire period or the package?",
+  cLede:
+    "Give us your floor area, the screed thickness and when the screed layer will be finished. Within one working day you will receive a proposal from a drying specialist.",
+  cOnderwerpen: ["Advice on screed drying", "Price and delivery date", "Question about measuring residual moisture", "Something else"],
+  cPlaceholder: "E.g. new build 140 m², 6 cm screed laid on 3 November, floor layer coming in early December.",
+};
+
+export const COPY = { nl, fr, en } satisfies Copy<typeof nl>;
