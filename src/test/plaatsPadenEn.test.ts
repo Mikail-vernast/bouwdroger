@@ -3,6 +3,7 @@ import { REGIO_ROUTES, regioPadEn } from "@/data/regio-slugs";
 import { GEMEENTE_ROUTES, gemeentePadEn, kruimelEn, plaatsEn } from "@/data/gemeente-slugs";
 import { GEMEENTEN_MET_EN } from "@/data/gemeenten-en/aan";
 import { STATISCH, naarNl, vertaalPad } from "@/i18n/paden";
+import { STREKEN_PER_REGIO, streekKenmerkEn, streekNaamEn } from "@/data/provincie-gemeenten";
 
 /**
  * De Engelse paden van de provincie- en gemeentepagina's, zoals
@@ -84,5 +85,21 @@ describe("Engelse paden van provincies en gemeenten", () => {
     expect(gemeentePadEn(g("bergen"))).toBe("/dehumidifier-hire-mons");
     expect(gemeentePadEn(g("gent"))).toBe("/dehumidifier-hire-ghent");
     expect(gemeentePadEn(g("hasselt"))).toBe("/dehumidifier-hire-hasselt");
+  });
+});
+
+describe("Engelse streeknamen op de provincie- en gemeentepagina's", () => {
+  const belgisch = REGIO_ROUTES.filter((r) => r.slugEn).map((r) => r.slug);
+
+  it("vertaalt elke streek van een Belgische provincie", () => {
+    const zonder = belgisch.flatMap((slug) =>
+      (STREKEN_PER_REGIO[slug] ?? []).filter((s) => streekNaamEn(s.naam) === s.naam).map((s) => s.naam),
+    );
+    expect(zonder).toEqual([]);
+  });
+
+  it("noemt in het kenmerk de plaatsen bij hun Engelse naam", () => {
+    const streek = STREKEN_PER_REGIO["oost-vlaanderen"].find((s) => s.gemeenten[0] === "Gent")!;
+    expect(streekKenmerkEn(streek.gemeenten, plaatsEn)).toMatch(/^Delivery to Ghent, /);
   });
 });
