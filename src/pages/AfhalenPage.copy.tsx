@@ -462,4 +462,195 @@ export const AFHALEN_COPY = {
       bezig: "Envoi…",
     },
   },
+  en: {
+    kruimel: "Collect it yourself in Aartselaar",
+    pictogram: {
+      rechtop: "A construction dehumidifier should be transported upright, not lying down",
+      laadruimte: "A construction dehumidifier being slid into a roomy boot",
+      tijdslot: "A clock whose hand comes to rest in the reserved time slot",
+      kaart: "Route to the Vernast collection point via the N177, Tesla and Carglass",
+    },
+    kaart: {
+      tesla: "you pass Tesla first",
+      carglass: ["then Carglass,", "turn right here"],
+      unit: "warehouse + collection door",
+      vanAntwerpen: "from Antwerp via the N177",
+    },
+    hero: {
+      kick: "Collect it yourself in Aartselaar",
+      h1: "Book online. We get it ready. Load up and go.",
+      p: "Hire individual construction dehumidifiers, fans and electric heaters at the collection rate. You choose your machine and time slot in advance; we have everything ready at our door alongside the A12.",
+      cta: "View machines and book",
+      ctaUitleg: "How collection works",
+      kaartAria: "View the route to the collection point",
+      kaartCap: "Boomsesteenweg 12, Unit 11 · alongside the A12",
+    },
+    stappen: {
+      kick: "From booking to return",
+      h2: "Collection without waiting, in four clear steps.",
+      lede: "Booking is done entirely online. That way the right machine is ready when you arrive and you know in advance what you will pay.",
+      lijst: [
+        ["01", "Choose and book online", "Select your dehumidifier, fan or heater, the hire period and an available collection time."],
+        ["02", "You receive confirmation", "After payment you immediately receive your booking, time slot and the address by email."],
+        ["03", "Everything is ready", "Come to unit 11 at the agreed time. We give you a short explanation and help you load up."],
+        ["04", "Return by appointment", "At the end of the hire period you chose, you bring the machines back to the same warehouse."],
+      ],
+    },
+    transport: {
+      kick: "Set off well prepared",
+      h2: "A dehumidifier weighs 25 to 40 kg. Don't lift it on your own.",
+      lede: "Certainly not on a staircase. With the right vehicle, a second pair of hands and a machine that stays upright, you set off safely and it arrives in one piece.",
+      regels: [
+        {
+          b: "Always transport upright",
+          p: "Do not lay a condensation dehumidifier flat: refrigerant can run out of the compressor. Transported lying down after all? Let it stand upright for at least 24 hours before use.",
+        },
+        {
+          b: "Bring enough loading space",
+          p: "A roomy boot or a trailer is recommended. Ideally come with two people; our staff member will help you load up at the warehouse.",
+        },
+        {
+          b: "Your time slot means no waiting",
+          p: "Collection and return are possible on weekdays from 08:00 to 17:00, only at the time in your confirmation. That way your machine is ready when you arrive.",
+        },
+      ],
+      ctaVraag: "Rather not lift or set up anything?",
+      cta: "View delivery & installation",
+      imgAlt: "Man with back pain after lifting a heavy machine",
+    },
+    gamma: {
+      kick: "What can you collect?",
+      h2: "Individual machines for every drying set-up.",
+      lede: "You choose the combination yourself. Unsure about capacity or numbers? Use the Calculator or choose delivery with installation.",
+      kaarten: [
+        { alt: "Vernast Boost condensation construction dehumidifier, ready for collection", span: "Construction dehumidifiers", h3: "50 to 110 litres per day", p: "For screed, plaster, renovation and most water damage." },
+        { alt: "Vernast Revolution desiccant dehumidifier with hose connections, ready for collection", span: "Cold spaces", h3: "Desiccant dehumidifier", p: "For low temperatures or targeted drying through air hoses." },
+        { alt: "Vernast Highflow axial fan, ready for collection", span: "Air circulation", h3: "Axial and radial fans", p: "Spread dry air along floors, walls and hard-to-reach areas." },
+        { alt: "Vernast Heatpower 30 electric site heater, ready for collection", span: "Extra heat", h3: "Electric site heaters", p: "For cold sites where a condensation dehumidifier would otherwise lose efficiency." },
+      ],
+      pomp: {
+        alt: "External condensate pump with collection tray and drain hose, ready for collection",
+        span: "Accessories",
+        h3: (pomp) => `Condensate pump, ${pomp} per dehumidifier per day`,
+        p: "So you don't have to empty a tank: the pump drains the condensate continuously to a drain, shower or floor drain, up to 3.90 m higher than the machine. ",
+        link: "How the condensate pump works",
+      },
+      cta: "View availability and collection prices",
+    },
+    locatie: {
+      kick: "Our collection point",
+      h2: "Right alongside the A12, no city traffic.",
+      lede: "Boomsesteenweg 12, Unit 11 · 2630 Aartselaar. After Carglass, drive into the business park and follow the units to number 11.",
+      route: [
+        ["Take the entrance", "Right next to Carglass, with Tesla on the corner as a landmark."],
+        ["Drive straight on", "Follow the road into the business park towards the black Arthrex building."],
+        ["Keep right", "Follow the numbering along the loading bays to units 11–12."],
+        ["Park at unit 11", "Report to our door; your booking will be ready for you there."],
+      ],
+      routeAlt: (titel) => `${titel}: route to the collection point`,
+      maps: "Open in Google Maps",
+      contact: "View all contact details",
+    },
+    faq: {
+      kick: "Frequently asked questions",
+      h2: "Practicalities before you set off.",
+      hulpH3: "Your question not listed?",
+      hulpP: "Our staff at the collection point know the machines and your booking. Calling is quickest, on weekdays between 08:00 and 17:00.",
+      bel: "Call 03 689 90 65",
+      mail: "Email your question",
+      lijst: (pomp, voorschot) => [
+        [
+          "Can I come by without a booking?",
+          "No. Collection and return only take place at an agreed time. We do not keep a counter open: the machines are in the warehouse and are prepared, checked and loaded per booking. If you turn up unannounced, there is a good chance the machine you are looking for is out on a site. With a booking you know in advance that it is there and it is ready when you arrive.",
+        ],
+        [
+          "When can I collect and return?",
+          "On weekdays, in one of the time slots 07:30–08:00, 08:00–10:00, 10:00–12:00, 13:00–15:00 or 15:00–17:00. You choose the slot when booking online and receive it together with the address in your confirmation. Returning works the same way: at the end of the hire period you chose, within one of those same time slots. The warehouse is closed at weekends.",
+        ],
+        [
+          "How long can I collect a machine for, and can I extend?",
+          "When booking you choose a period in whole weeks, from 1 to 8 weeks. From 4 weeks the hire price drops by 10%, rising to 15% for 8 weeks. If the room is still not dry at the end, you extend online and only pay for the extra days at the same daily rate. Ideally do that before the end date: the machine then stays reserved for you instead of going to the next customer.",
+        ],
+        [
+          "Do I have to pay a deposit?",
+          "No. We do not ask for a deposit, not even for collection. You pay the hire price for the reserved period, nothing more. What you do sign is an undertaking to return the equipment clean and in the same condition; damage or soiling is charged afterwards, but no amount is held in advance.",
+        ],
+        [
+          "What do I pay when I book?",
+          `Two options. If you pay the full hire online straight away, you get 5% off the hire price. Or you pay a fixed order confirmation of ${voorschot} and the balance when you come to collect the machines: you then settle up on site and leave with the invoice. In both cases the amount is shown on screen before you confirm.`,
+        ],
+        [
+          "Will a construction dehumidifier fit in my car?",
+          "A condensation construction dehumidifier weighs 25 to 40 kg and is roughly the size of a sturdy suitcase on wheels. It fits in an estate car or a roomy boot; in a small city car usually not, certainly not together with a fan. Bring a trailer as soon as you are taking two or more machines, and ideally come with two people: our staff member helps with loading, but at home you are on your own.",
+        ],
+        [
+          "Can I transport a construction dehumidifier lying down?",
+          "Better not. A condensation dehumidifier contains a compressor with refrigerant and oil; if the machine lies flat, that oil can run out of the compressor. So transport it upright and secure it so it cannot fall over. If it did travel lying down, let the machine stand upright for at least 24 hours before switching it on, otherwise you risk the compressor.",
+        ],
+        [
+          "What power supply do I need?",
+          "The condensation construction dehumidifiers and the fans run on an ordinary 230 V socket: 0.75 to 1.4 kW for a dehumidifier, about 0.2 kW for a fan. The 20 and 30 kW electric site heaters are a different matter: they need a 400 V three-phase connection. Check this before you book; without 400 V on site you cannot use the heater.",
+        ],
+        [
+          "Do I have to empty the water tank myself?",
+          `Only if you don't take a condensate pump. Without a pump the machine goes as it is, with its tank: expect to empty it 2 to 3 times a day, depending on how wet the room is. If it fills up, the dehumidifier switches itself off and stays off until you empty it. With a pump (${pomp} per dehumidifier per day) the condensate drains away continuously to a drain, shower or floor drain and you don't have to empty anything. Mention the pump when you book and we will have it ready; connecting it is a hose in the tray and a plug in the socket.`,
+        ],
+        [
+          "Do I get an explanation when I collect?",
+          "Yes. At the door we briefly go over where best to put the machine, how to set the target humidity, when to empty the tank and what to watch out for with windows and doors. That takes a few minutes and is enough for ordinary drying. What is not included is the calculation: how many machines your room needs and for how long, you work that out yourself with the Calculator, or you choose delivery with installation.",
+        ],
+        [
+          "Does the drying guarantee also apply if I collect myself?",
+          "No. The drying guarantee only applies to drying packages calculated with the Calculator and booked with delivery and installation. It rests on a moisture reading at the start and at handover by our technician, and that reading does not take place with a collection. If you hire machines to collect, you decide the set-up and the duration yourself.",
+        ],
+        [
+          "How many machines can I book at once?",
+          "Up to eight per type of machine, and never more than are in the fleet: we have just one desiccant dehumidifier, for example. The booking page shows for each machine what is available on your date. Need more for a large site? Call us: we will see whether it is logistically feasible or whether delivery is the better solution.",
+        ],
+        [
+          "In what condition should I return the machines?",
+          "Clean, complete and in the same condition as when you received them, normal wear and tear excepted, including the hoses, cables and accessories you were given. A dehumidifier covered in screed dust can simply be wiped down; we check and service it ourselves afterwards. If we find soiling or damage, we let you know in writing before anything is charged.",
+        ],
+        [
+          "What if I can't return the machine on time?",
+          "Call or email us as soon as you know. In most cases we simply extend and you pay the extra days at the same rate. The problem is not the day itself but the planning: if the machine is already scheduled for the next customer, we have to rearrange that. A phone call in advance solves it; returning it late without warning does not.",
+        ],
+        [
+          "Is collecting cheaper than having it delivered?",
+          "Yes, you pay no transport and no installation. On the other hand, you do the lifting yourself, decide the set-up yourself, empty the tank yourself and drive back yourself, and there is no moisture reading and no drying guarantee. For a single dehumidifier in a garage or cellar, collecting is often the logical choice; for a complete screed or a water damage claim with insurance, delivery usually is.",
+        ],
+      ],
+    },
+    form: {
+      kick: "Request your collection",
+      h2: "Tell us when you are coming.",
+      lede: (lp) => (
+        <>
+          Let us know your preferred collection date and the machines, and we will confirm your time
+          slot. You will receive a reply within one working day. Rather book yourself straight away?{" "}
+          <a href={lp("/verhuur/afhalen")}>Check availability online</a>.
+        </>
+      ),
+      klaar: "Thank you! We will confirm your collection time within one working day.",
+      klaarTitel: "Request sent",
+      voornaam: "First name",
+      naam: "Surname",
+      naamPh: "Surname",
+      email: "Email",
+      emailPh: "name@example.com",
+      telefoon: "Phone",
+      onderwerp: "What is it about?",
+      onderwerpen: [
+        { waarde: ONDERWERPEN[0], label: "Book a collection" },
+        { waarde: ONDERWERPEN[1], label: "Question about a machine or capacity" },
+        { waarde: ONDERWERPEN[2], label: "Change the collection time" },
+        { waarde: ONDERWERPEN[3], label: "Return or extension" },
+      ],
+      bericht: "Preferred date and machines",
+      berichtPh: "E.g. Thursday 14 November in the morning, 1 dehumidifier and 1 fan, for a 60 m² cellar.",
+      privacy: "We only use your details to confirm your collection.",
+      versturen: "Send request",
+      bezig: "Sending…",
+    },
+  },
 } satisfies Copy<AfhalenTekst>;

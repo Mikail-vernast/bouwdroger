@@ -9,7 +9,7 @@ import type { Tarief } from "@/data/tarieflijst";
 import { vertaalPortaal } from "@/data/verhuur.fr";
 
 /**
- * Teksten van /prijzen in het Nederlands en het Frans.
+ * Teksten van /prijzen in het Nederlands, het Frans en het Engels.
  *
  * Geen enkel bedrag staat hier als getal: de pagina rekent ze uit de catalogus
  * en geeft ze als tekst mee (`prijs(excl)`), al in de btw-weergave van deze
@@ -565,7 +565,270 @@ const fr: typeof nl = {
     "P. ex. nouvelle construction de 160 m² avec une chape de 6 cm, livraison mi-décembre, merci pour une proposition de prix.",
 };
 
-export const COPY = { nl, fr } satisfies Copy<typeof nl>;
+const en: typeof nl = {
+  service: {
+    name: "Hire of construction dehumidifiers, fans and site heaters",
+    description:
+      "Transparent hire prices per day, per week and per drying package, with no deposit. Calculated drying packages with delivery and installation include moisture readings and the drying guarantee.",
+    serviceType: "Construction dehumidifier hire",
+  },
+  catalogus: "Hire rates for construction dehumidifiers, fans and site heaters",
+  home: "Home",
+  prijzen: "Prices",
+
+  faq: (f: PrijsFeiten) => {
+    const eerste = f.drogers[0];
+    const laatste = f.drogers[f.drogers.length - 1];
+    const btw = f.incl ? "including VAT" : "excluding VAT";
+    return [
+      {
+        question: "How much does it cost to hire a construction dehumidifier per day?",
+        answer: `Hiring a construction dehumidifier from Vernast costs between ${f.prijs(eerste.perDay)} and ${f.prijs(laatste.perDay)} per day, ${btw}. The price depends on the capacity: the ${eerste.short} removes ${eerste.litersPerDay} litres of moisture per 24 hours, the ${laatste.short} up to ${laatste.litersPerDay} litres. These are the hire prices for individual machines. With a calculated drying package, delivery, installation, moisture readings and collection are also included.`,
+      },
+      {
+        question: "Do I have to pay a deposit?",
+        answer:
+          "No. We do not ask for a deposit on the machine. You only pay the hire price for the days you use the machine, plus any extra options you choose yourself.",
+      },
+      {
+        question: "Are delivery and collection included?",
+        answer:
+          "Delivery and collection are free from a hire period of four weeks. For shorter periods we charge a delivery fee; if you collect from our warehouse in Aartselaar yourself, you get €25 off the hire price.",
+      },
+      {
+        question: "Do the prices include VAT?",
+        answer: f.incl
+          ? "Yes, the prices on this page include VAT. The standard 21 % VAT rate applies to the hire of construction dehumidifiers. The VAT amount is shown separately on your invoice, so you can submit it to your insurer or accountant."
+          : "No, all prices shown exclude VAT. The standard 21 % VAT rate applies to the hire of construction dehumidifiers. The VAT amount is shown separately on your invoice, so you can submit it to your insurer or accountant.",
+      },
+      {
+        question: "How much does it cost to hire a construction dehumidifier per week?",
+        answer: `Per week, a construction dehumidifier from Vernast costs ${f.drogers
+          .map((t) => `${f.weekprijs(t)} for the ${t.short}`)
+          .join(", ")}, ${btw}. That is the daily rate times seven days in each case. You can work out a complete drying package with a fan in the Calculator.`,
+      },
+      {
+        question: "How much electricity does a construction dehumidifier use?",
+        answer: f.middenKw
+          ? `The ${f.midden.short} draws a maximum of ${f.kw(f.middenKw)} kW. If it runs for a full day at full power, that is ${f.kwh(f.middenKw * 24)} per day. In practice consumption is lower, because the built-in humidistat turns the machine down as soon as the target humidity is reached. Multiply by the kWh price in your own contract for the cost.`
+          : "That depends on the machine: the power input is listed on every machine page. Multiply it by the number of hours and by the kWh price in your own contract.",
+      },
+      {
+        question: "Does it get cheaper if I hire for longer?",
+        answer:
+          "The daily rate stays the same however long you hire; there is no surcharge for a short period. What you gain by hiring for longer is the delivery: from four weeks, delivery and collection are free.",
+      },
+      {
+        question: "Can I extend if the work runs over?",
+        answer:
+          "Yes. If the work runs over or the reading is not right yet, you extend by the week at the same daily rate; you receive a link by email for this and don't need to phone. If you hire a calculated drying package and it is still not dry despite correct drying conditions, you extend free of charge: that is the drying guarantee.",
+      },
+      {
+        question: "When is the drying guarantee included?",
+        answer:
+          "The drying guarantee is included with a drying package that Vernast calculates, delivers and installs for your situation. We take readings at the start and at handover. If the material is not dry within the calculated period despite correct drying conditions, you continue hiring the machines free of charge. The guarantee does not apply to individual machines that you collect or install yourself.",
+      },
+    ];
+  },
+
+  heroKick: "Rates",
+  heroH1: "Construction dehumidifier hire: prices with a drying guarantee.",
+  heroP:
+    "See the hire price per day or per week, or calculate a complete drying package for your site. No deposit and no hidden costs. Choose a package that we calculate, deliver and install, and our 100 % drying guarantee is included.",
+  berekenPrijs: "Calculate your price",
+  heroAlt: "Worry-free hire with Vernast: one price, no deposit",
+  heroBadge: "100 % drying guarantee",
+  heroBadgeSub: "on calculated packages with installation",
+
+  keuzeKick: "First this",
+  keuzeH2: "Drying guarantee or just hire a machine?",
+  keuzeLede:
+    "You can do either with us. An individual machine has a simple daily rate and you install it yourself. With a drying package you buy more certainty: we calculate the capacity and drying time, install the machines and measure the result. That is why our drying guarantee only applies to that complete package.",
+  pakketLab: "What we recommend",
+  pakketSub: "Drying package",
+  pakketH3: "Calculated, delivered and measured",
+  pakketP:
+    "The Calculator turns your floor area, ceiling height and situation into the right number of machines and a calculated drying period. Our technician installs everything, connects the condensate drain and measures the moisture content at the start and at handover.",
+  pakketLijst: (pct: number): ReactNode => (
+    <ul>
+      <li><CheckIcon size={14} strokeWidth={3} /> <span><b>100 % drying guarantee:</b> not dry within the calculated period? You continue hiring free of charge.*</span></li>
+      <li><CheckIcon size={14} strokeWidth={3} /> Moisture reading at the start and at handover, in black and white</li>
+      <li><CheckIcon size={14} strokeWidth={3} /> Delivery, installation and collection included</li>
+      <li><CheckIcon size={14} strokeWidth={3} /> Faulty machine replaced within 24 hours</li>
+      <li><CheckIcon size={14} strokeWidth={3} /> {pct} % discount when you pay in full online</li>
+    </ul>
+  ),
+  pakketBtn: "Calculate your drying package",
+  losSub: "Individual machine",
+  losH3: "You install it, you monitor it",
+  losP:
+    "One dehumidifier, fan or site heater, per day or per week. Handy for a small room, a second machine alongside a package, or if you want to keep the drying in your own hands. You collect it in Aartselaar or have it delivered.",
+  losLijst: (
+    <ul>
+      <li><CheckIcon size={14} strokeWidth={3} /> One fixed daily rate, no deposit</li>
+      <li><CheckIcon size={14} strokeWidth={3} /> Collection discount at our warehouse in Aartselaar</li>
+      <li><CheckIcon size={14} strokeWidth={3} /> Can also be added alongside a package</li>
+      <li className="niet"><XIcon size={14} /> No drying guarantee: we do not install or measure</li>
+      <li className="niet"><XIcon size={14} /> You check yourself whether it is dry</li>
+    </ul>
+  ),
+  losBtn: "View the range",
+  keuzeNote: (lp: Lp): ReactNode => (
+    <>
+      <b>Why that line exists.</b> A guarantee can only rest on a calculation. We size the
+      package to the volume and situation, install it ourselves and record the start and end
+      point with a reading; that makes "dry" a measured result for us, not a feeling. With an
+      individual machine you decide the set-up yourself, and then we cannot promise the
+      outcome. You can read the full conditions on{" "}
+      <Link to={lp("/drooggarantie")}>the drying guarantee page</Link>.
+    </>
+  ),
+
+  opbouwKick: "How the price is built up",
+  opbouwH2: "This is how your amount is arrived at.",
+  opbouwLede:
+    "Four things determine what you pay: what you hire, for how long, how you pay, and which options you tick yourself. All the amounts below come from the same price list the checkout calculates with.",
+  pakketprijsH3: "Drying package: a fixed price per situation",
+  pakketprijsP:
+    "A package combines a dehumidifier, a fan and, if needed, heaters for a given floor area, type of work and thickness. The price is the package's daily rate times the days of the hire period, and that period follows from the thickness of the screed or plaster.",
+  inbegrepenZin: (lijst: string) => ` Included: ${lijst}.`,
+  losprijsH3: "Individual machines: daily rate × days",
+  losprijsP: (naam: string, dag: string, tweeWeken: string) =>
+    `Every machine has a daily rate. The hire price is that daily rate times the number of days, with no surcharge for a short period. A ${naam} at ${dag} per day therefore costs ${tweeWeken} for two weeks.`,
+  onlineH3: (pct: number) => `${pct} % discount for paying online`,
+  onlineP: (pct: number, voorschot: string) =>
+    `If you pay the full hire online when you book, you get ${pct} % off the whole amount. You can also pay just a fixed order confirmation of ${voorschot} incl. VAT and settle the balance at installation or collection.`,
+  optiesH3: "Options you choose yourself",
+  dekking: (naam: string, prijs: string) => `${naam} cover: ${prijs}`,
+  pomp: (lp: Lp, prijs: string): ReactNode => (
+    <>
+      <Link to={lp("/verhuur/toebehoren/condenspomp")}>Condensate pump</Link>: {prijs} per dehumidifier per day
+    </>
+  ),
+  ladder: (prijs: string) => `Installation upstairs via a ladder: ${prijs}`,
+  optie: (naam: string, prijs: string, eenheid: string) => `${naam}: ${prijs} ${eenheid}`,
+  opbouwNote: (incl: boolean, pct: number) =>
+    `All amounts ${incl ? "include" : "exclude"} VAT unless stated otherwise. Hire is subject to ${pct} % VAT.`,
+
+  vbKick: "Worked example",
+  vbLede1: (weken: number) =>
+    `A screed package without heaters, with a hire period of ${weken} ${weken === 1 ? "week" : "weeks"}, and the options that are ticked by default when booking. You can untick those options.`,
+  vbLede2:
+    'This amount comes from the same module the booking page and Stripe calculate with. What you see here is what you will see at checkout: no "from" price that turns out higher afterwards.',
+  vbBtn: "Calculate your own package",
+  vbCaption: "Worked example of a drying package for screed",
+  vbPakket: (dagen: number) => `Package (${dagen} days)`,
+  inbegrepen: "Included",
+  vbKorting: (pct: number) => `Online payment discount (${pct} %)`,
+  totaalExcl: "Total excl. VAT",
+  btwRij: (pct: number) => `VAT ${pct} %`,
+  totaalIncl: "Total incl. VAT",
+
+  losKick: "Individual machines",
+  losTabelH2: "How much does a construction dehumidifier cost per day and per week?",
+  losTabelLede:
+    "The weekly amounts are simply the daily rate times the number of days. There is no surcharge for a short hire period, and no sliding scale that you only discover at checkout.",
+  losCaption: (incl: boolean) =>
+    `Hire prices per construction dehumidifier and per hire period, ${incl ? "including" : "excluding"} VAT`,
+  thDroger: "Dehumidifier",
+  thPerDag: "Per day",
+  weken: (w: number) => `${w} ${w === 1 ? "week" : "weeks"}`,
+  drogerSub: (liter: number, m3: number) => `${liter} L/day · up to ${m3} m³`,
+  losNote: (incl: boolean, pct: number) =>
+    `Prices ${incl ? "incl." : "excl."} VAT, ${pct} % VAT applies. Delivery and collection are free from a hire period of four weeks.`,
+  extraKick: "Fan and heater",
+  extraH3: "Dry faster, hired separately.",
+  extraLede:
+    "A dehumidifier takes the moisture out of the air; a fan makes sure dry air also reaches the wet building fabric, and a heater keeps the room at temperature. Together they save days. In a calculated package they are already included wherever your situation needs them.",
+  perDag: "/day",
+
+  inbKick: "Included with a drying package",
+  inbH2: "Not just machines, but certainty.",
+  inbLede:
+    "The package price covers full support from start to handover. These services are not listed as separate options at checkout and do not turn up unexpectedly on the invoice.",
+  inbegrepenLijst: [
+    "100 % drying guarantee on calculated drying packages",
+    "Delivery to your door by a technician",
+    "Collection after use",
+    "Free 10 m extension lead, 2.5 mm²",
+    "Explanation during installation",
+    "Moisture reading at the start and at handover",
+    "No deposit required",
+  ],
+  garanties: [
+    { title: "Machine faulty?", desc: "We replace it the next working day. No arguments, no extra cost: you are hiring a working machine, not just a machine." },
+    { title: "Always reachable", desc: "Weekdays, weekends and bank holidays. Drying that stops over the weekend is a week lost." },
+    { title: "A clear invoice", desc: "In your name, with VAT shown separately and the readings attached, ready for your insurance claim or accountant." },
+  ],
+
+  stroomKick: "Electricity",
+  stroomH2: "How much electricity does a construction dehumidifier use?",
+  stroomLede:
+    "You pay for the electricity yourself, as the machines run on your supply. Below is the power input per machine and what that means at full power per day and per week. That is an upper limit: the built-in humidistat turns a dehumidifier down as soon as the set humidity is reached. Multiply the number of kWh by the price in your own contract.",
+  stroomCaption: "Electricity consumption per machine at full power",
+  stroomTh: ["Machine", "Power", "Max. per day", "Max. per week"],
+  stroomNote: (lp: Lp): ReactNode => (
+    <>
+      <b>And a site heater?</b> It uses far more than a dehumidifier: its power is given in
+      kilowatts on the machine page, and the thermostat switches it off as soon as the room is
+      at temperature. In a cold room it still pays off, because otherwise the dehumidifier has
+      to run much longer. More figures in the guide to{" "}
+      <Link to={lp("/gids/stroomverbruik-bouwdroger")}>the power consumption of a construction dehumidifier</Link>.
+    </>
+  ),
+
+  faqTitel: "Frequently asked questions about the price.",
+  slotKick: "Ready to book",
+  slotH3: "No deposit, no hidden costs, delivery within 24 hours.",
+  slotP: (pct: number) =>
+    `The Calculator gives you the full price for your floor area in a few clicks, including the drying guarantee on a calculated package. You get ${pct} % off if you pay online straight away.`,
+  slotAlt: "Vernast technician with the payment terminal",
+
+  verderTitel: "Further reading about prices and packages",
+  verderLezen: [
+    {
+      kop: "What our customers had dried",
+      links: [
+        { to: "/realisaties/bouwdroging-winkelpand", label: "Accelerated construction drying within a tight build schedule" },
+        { to: "/realisaties/chape-pleisterwerk-drogen-hasselt", label: "Plaster and screed dried faster in Hasselt" },
+        { to: "/realisaties/kelder-en-kamer-drogen-antwerpen", label: "Cellar and living space dried out after water damage" },
+      ],
+    },
+    {
+      kop: "Choosing and calculating",
+      links: [
+        { to: "/verhuur/calculator", label: "Calculate the price of your drying package" },
+        { to: "/machines", label: "Which machine do you need? Compare the range" },
+        { to: "/gids/stroomverbruik-bouwdroger", label: "Guide: what does a construction dehumidifier cost in electricity?" },
+        { to: "/gids/hoe-lang-moet-chape-drogen", label: "Guide: how long does screed take to dry?" },
+        { to: "/nieuwbouw-drogen", label: "Drying times for screed and plaster" },
+      ],
+    },
+    {
+      kop: "Delivery in your region",
+      links: [
+        { to: "/bouwdroger-huren-antwerpen", label: "Dehumidifier hire in the province of Antwerp" },
+        { to: "/bouwdroger-huren-oost-vlaanderen", label: "Dehumidifier hire in East Flanders" },
+      ],
+    },
+  ],
+
+  contactKicker: "A question about the price?",
+  contactTitel: "Prefer a price tailored to your site?",
+  contactLede:
+    "Give us your floor area and what needs drying. Within one working day you will receive a proposal with the right package and the right hire period.",
+  contactOnderwerpen: [
+    "Price of a drying package",
+    "Price of an individual machine",
+    "Question about the drying guarantee",
+    "Invoice and VAT",
+    "Something else",
+  ],
+  contactPlaceholder:
+    "E.g. new build of 160 m² with 6 cm screed, delivery mid-December, I'd like a price proposal.",
+};
+
+export const COPY = { nl, fr, en } satisfies Copy<typeof nl>;
 
 /**
  * Een regel uit `bookingSummary` op het scherm. De regels zelf blijven
@@ -574,20 +837,47 @@ export const COPY = { nl, fr } satisfies Copy<typeof nl>;
  * /prijzen niet aan de boekingscopy hangt. Onbekend blijft Nederlands.
  */
 export function rekenregelInTaal(regel: string, taal: Taal): string {
-  if (taal !== "fr") return regel;
-  const vast: Record<string, string> = {
-    "Standaard dekking": "Couverture standard",
-    "Vochtmeting bij start & oplevering": "Mesure d'humidité au début & à la fin",
-    "Plaatsing verdieping via ladder": "Installation à l'étage par une échelle",
-    "Plaatsing op verdieping (trap)": "Installation à l'étage (escalier)",
-    "Zelf afhalen": "Enlèvement par vos soins",
-  };
-  if (vast[regel]) return vast[regel];
+  if (taal === "nl") return regel;
+  const r = REKENREGELS[taal];
+  if (r.vast[regel]) return r.vast[regel];
   const dekking = /^Dekking (.+)$/.exec(regel);
-  if (dekking) return `Couverture ${vertaalPortaal(dekking[1], taal)}`;
+  if (dekking) return r.dekking(vertaalPortaal(dekking[1], taal));
   const pomp = /^(\d+)× condenspomp · (\d+) dagen$/.exec(regel);
-  if (pomp) return `${pomp[1]}× pompe à condensats · ${pomp[2]} jours`;
+  if (pomp) return r.pomp(pomp[1], pomp[2]);
   const extra = /^(.+) · (\d+) wk$/.exec(regel);
-  if (extra) return `${vertaalPortaal(extra[1], taal)} · ${extra[2]} sem.`;
+  if (extra) return `${vertaalPortaal(extra[1], taal)} · ${extra[2]} ${r.wk}`;
   return vertaalPortaal(regel, taal);
 }
+
+/** De vaste rekenregels en de patronen eromheen, per taal (Nederlands is het origineel). */
+const REKENREGELS: Record<"fr" | "en", {
+  vast: Record<string, string>;
+  dekking: (naam: string) => string;
+  pomp: (aantal: string, dagen: string) => string;
+  wk: string;
+}> = {
+  fr: {
+    vast: {
+      "Standaard dekking": "Couverture standard",
+      "Vochtmeting bij start & oplevering": "Mesure d'humidité au début & à la fin",
+      "Plaatsing verdieping via ladder": "Installation à l'étage par une échelle",
+      "Plaatsing op verdieping (trap)": "Installation à l'étage (escalier)",
+      "Zelf afhalen": "Enlèvement par vos soins",
+    },
+    dekking: (naam) => `Couverture ${naam}`,
+    pomp: (aantal, dagen) => `${aantal}× pompe à condensats · ${dagen} jours`,
+    wk: "sem.",
+  },
+  en: {
+    vast: {
+      "Standaard dekking": "Standard cover",
+      "Vochtmeting bij start & oplevering": "Moisture reading at start & handover",
+      "Plaatsing verdieping via ladder": "Installation upstairs via ladder",
+      "Plaatsing op verdieping (trap)": "Installation upstairs (stairs)",
+      "Zelf afhalen": "Self-collection",
+    },
+    dekking: (naam) => `${naam} cover`,
+    pomp: (aantal, dagen) => `${aantal}× condensate pump · ${dagen} days`,
+    wk: "wk",
+  },
+};

@@ -96,9 +96,12 @@ const MEETCONDITIE = (() => {
   return label?.match(/\(([^)]+)\)/)?.[1] ?? null;
 })();
 
-/** "30 °C / 80 % RV" in de taal van de pagina (HR = humidité relative). */
-const meetconditieIn = (taal: Taal) =>
-  MEETCONDITIE && taal === "fr" ? MEETCONDITIE.replace(/\bRV\b/, "HR") : MEETCONDITIE;
+/**
+ * "30 °C / 80 % RV" in de taal van de pagina: HR (humidité relative) in het
+ * Frans, RH (relative humidity) in het Engels.
+ */
+const RV_IN: Record<Taal, string> = { nl: "RV", fr: "HR", en: "RH" };
+const meetconditieIn = (taal: Taal) => MEETCONDITIE?.replace(/\bRV\b/, RV_IN[taal]) ?? null;
 
 const KLEINSTE = DROGERS[0];
 const GROOTSTE = DROGERS[DROGERS.length - 1];

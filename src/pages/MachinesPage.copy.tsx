@@ -4,7 +4,7 @@ import type { Copy } from "@/i18n/useTaal";
 import type { LeesGroep } from "@/components/VerderLezen";
 
 /**
- * Teksten van /machines in het Nederlands en het Frans.
+ * Teksten van /machines in het Nederlands, het Frans en het Engels.
  *
  * Geen enkel bedrag of cijfer uit de catalogus staat hier als tekst: wat uit
  * PRODUCTS komt (namen, liters, kubieke meters, dagprijzen) geeft de pagina
@@ -478,4 +478,232 @@ const fr: typeof nl = {
     "P. ex. cave de 60 m² avec 2,2 m de hauteur sous plafond, non chauffée, murs humides après une fuite.",
 };
 
-export const COPY = { nl, fr } satisfies Copy<typeof nl>;
+const en: typeof nl = {
+  itemList: "Range of construction dehumidifiers, fans and site heaters",
+  home: "Home",
+  machines: "Machines",
+
+  heroKick: "Our range",
+  heroH1: "Hire construction dehumidifiers, fans and heaters.",
+  heroP:
+    "Eight machines, chosen from what is built around the world and not from whatever a Belgian supplier happened to have in stock. The dehumidifier takes the moisture out of the air, the fan carries that dry air to the wet material, and the heater keeps the room warm enough for the moisture to come out. Below is the whole range, each machine with its daily rate.",
+  heroAlt: "The Vernast craftsmen with their equipment",
+  heroBadge: "Sourced worldwide",
+  heroBadgeSub: "tested on our own sites",
+
+  groepen: {
+    bouwdrogers: {
+      kop: "Construction dehumidifiers",
+      lede: "Our eco line uses up to 40 % less energy than traditional industrial dehumidifiers, which shows on your electricity bill for a machine that runs day and night for weeks. The Revolution sits alongside them as a desiccant dehumidifier: it dries in a targeted way inside a floor build-up or a cold cellar.",
+    },
+    ventilatoren: {
+      kop: "Fans",
+      lede: "Air movement speeds up drying noticeably. An axial fan sets the whole room in motion, a radial fan blows flat across a wet floor. With water damage, there should always be one.",
+    },
+    verwarming: {
+      kop: "Heating",
+      lede: "Below 15 °C a condensation dehumidifier dries slowly: cold air takes up little moisture. Two electric site heaters with a thermostat, both on 400 V three-phase power.",
+    },
+  },
+
+  gammaKick: "The range",
+  gammaH2: "Every machine we hire out, at a glance.",
+  gammaLede:
+    "Eight machines, no more. Every machine below is in our depot, has its own page with its full specifications and can be hired today at the price shown. What we do not install and maintain ourselves is not listed.",
+  gammaNote: (lp: Lp): ReactNode => (
+    <>
+      <b>Individual machines are collected from Aartselaar</b>, at lower collection prices, via the{" "}
+      <Link to={lp("/verhuur/afhalen")}>collection checkout</Link>. We only deliver, install and
+      set up as part of a package: that is the only way we can honour the{" "}
+      <Link to={lp("/drooggarantie")}>drying guarantee</Link>. The{" "}
+      <Link to={lp("/verhuur/calculator")}>Calculator</Link> puts that package together.
+    </>
+  ),
+
+  kaartBekijken: "View",
+  kaartVanaf: "from",
+  kaartPerDag: "/day",
+
+  onderzoekKick: "Product research",
+  onderzoekH2: "We look for the best machine in the world, not the best machine in Belgium.",
+  onderzoekLede:
+    "Most hire companies buy whatever their Belgian supplier has in the catalogue that month. We do it the other way round. Our product research covers the whole world: we follow manufacturers and trade fairs in Europe, Asia and North America, bring in candidate machines and put them on our own sites first. A machine is here because it dries best for us, not because it happened to be for sale here.",
+  onderzoek: [
+    {
+      titel: "The world market, not one catalogue",
+      tekst:
+        "What is available for hire in Belgium is only a fraction of what gets built. We follow manufacturers and trade fairs in Europe, Asia and North America and request machines that nobody hires out here. Only if such a machine is better than what we have does it come into consideration.",
+    },
+    {
+      titel: "Weeks on our own site first",
+      tekst:
+        "A candidate first runs with us, next to the machine it would replace. We look at the litres per kilowatt-hour, the noise in an occupied home, the weight on a staircase and whether the machine gets through a night unattended. A brochure tells you nothing about that.",
+    },
+    {
+      titel: "If it doesn't make the grade, it doesn't get in",
+      tekst:
+        "If a machine does not reach its stated figures, or its parts cannot be here within the week, we do not take it on. Better eight machines we know inside out than a list full of names we have never seen on a site ourselves.",
+    },
+  ],
+  onderzoekNote: (
+    <>
+      <b>That is why the machines carry their own names.</b> Boost, Performance, Ultimate,
+      Highflow: that is what we call them, because the choice comes from us and not from a
+      catalogue. The manufacturer's model number is on every machine page and in the overview
+      above, so you can compare it with someone else's quote.
+    </>
+  ),
+
+  verschilKick: "The differences",
+  verschilH2: "What does each machine do?",
+  verschilLede:
+    "In most situations you work with a combination: a dehumidifier that removes the moisture, and a fan that carries the dry air to the walls and the floor. What each type of machine does, and when to choose it.",
+  bekijkDe: (naam: string) => `View the ${naam}`,
+  keuzes: {
+    ttk350: {
+      titel: "Condensation dehumidifier",
+      wanneer:
+        "The standard for construction moisture, screed, plaster and most water damage in a heated or temperate space. It cools the air until the moisture condenses and drains the water through a hose or tank. Below roughly 15 °C its efficiency drops sharply.",
+    },
+    revolution: {
+      titel: "Desiccant dehumidifier",
+      wanneer:
+        "For cold spaces and targeted drying: it blows dry air through hoses into a floor build-up, a wall or insulation. Choose it when the moisture sits where an ordinary dehumidifier cannot reach, for example under a floating screed after water damage.",
+    },
+    ttv4500: {
+      titel: "Axial fan",
+      wanneer:
+        "Sets the whole room in motion. Otherwise a thin layer of saturated air hangs against a wet wall or floor and the drying stops. Does not remove any moisture itself: for construction moisture, use it together with a dehumidifier.",
+    },
+    radiaal2250: {
+      titel: "Radial fan",
+      wanneer:
+        "Blows a narrow jet flat across the floor, even under cupboards and against skirting boards. The better choice when the moisture is in the screed or the floor; with water damage, often together with an axial fan.",
+    },
+    teddh30: {
+      titel: "Electric site heater",
+      wanneer:
+        "For cellars, winter sites and unheated new builds. Heat releases the moisture and lets the condensation dehumidifier work at full capacity, but removes nothing itself. The Heatpower and Heatboost hired on their own need a 400 V three-phase connection; the heater in a drying package runs on 230 V.",
+    },
+  },
+
+  capKick: "Litres or cubic metres",
+  capH2: "What does a dehumidifier's capacity tell you?",
+  capLede1: (meetconditie: string | null): ReactNode => (
+    <>
+      A dehumidifier lists two figures. The <b>moisture extraction in litres per day</b> is
+      the maximum amount of water the machine takes out of the air
+      {meetconditie ? `, measured at ${meetconditie}` : " under laboratory conditions"}. In a
+      cooler or drier room no dehumidifier reaches that figure: it is a way to compare
+      machines, not a promise for your site.
+    </>
+  ),
+  capLede2: (
+    <>
+      The <b>range in cubic metres</b> is the volume the machine is suited to. Work out your
+      volume as floor area times ceiling height: 100 m² at 2.5 m high is 250 m³. If there is a
+      lot of wet material in the room, such as fresh screed or recent water damage, go for the
+      larger machine or a second dehumidifier.
+    </>
+  ),
+  capCaption: "Comparison of the dehumidifiers: capacity, range, power consumption and daily rate",
+  capTh: ["Dehumidifier", "Litres per day", "Range", "Power use", "Per day"],
+  tot: (m3: number) => `up to ${m3} m³`,
+  nvt: "n/a",
+  capNote: (lp: Lp, btw: string): ReactNode => (
+    <>
+      Prices {btw}. More on how the prices are built up on{" "}
+      <Link to={lp("/prijzen")}>the prices page</Link>, and what these machines cost per day in
+      electricity in the guide to the{" "}
+      <Link to={lp("/gids/stroomverbruik-bouwdroger")}>power consumption of a construction dehumidifier</Link>.
+    </>
+  ),
+  combiKop: "Which combination goes with it?",
+  combiTekst:
+    " A dehumidifier rarely works alone. These are the machines we suggest alongside each dehumidifier: a fan to get the dry air to the walls and the floor, and a heater in a cold space.",
+  met: "with",
+  en: " and ",
+
+  toebKick: "Accessories",
+  toebH2: "What comes as standard, and what you can add.",
+  toebehoren: [
+    { name: "10 m extension lead", desc: "Comes free with every construction dehumidifier. Feel free to ask for a second one if the socket is far away." },
+    { name: "Collection tray", desc: "Also free with every dehumidifier. Rather not empty anything? Then take a condensate pump." },
+    { name: "Air conditioner", desc: "Available on request, for example for a server room or a site in summer." },
+  ],
+  gratis: "Free",
+  pompKick: "The most requested accessory",
+  pompH3: (prijs: string) => `Condensate pump, ${prijs} per dehumidifier per day`,
+  pompP:
+    "Drains the condensate continuously to a washbasin, shower or floor drain, up to 3.90 m higher than the machine. That way you never have to empty a tray and the dehumidifier keeps running day and night.",
+  pompBtn: "View the condensate pump",
+
+  faqTitel: "Frequently asked questions about the equipment.",
+  faqs: ({ kleinste, grootste }: FaqFeiten) => [
+    {
+      q: "How many litres per day do I need?",
+      a: `First work out the volume of the room: floor area times ceiling height. Our smallest dehumidifier, the ${kleinste.short}, is intended for spaces up to ${kleinste.volume} m³; the ${grootste.short} goes up to ${grootste.volume} m³. A lot of wet material, such as a thick screed or fresh water damage, needs more capacity than the volume alone would suggest. If in doubt, take the larger machine or let the Calculator do the sums.`,
+    },
+    {
+      q: "What is the difference between a condensation dehumidifier and a desiccant dehumidifier?",
+      a: "A condensation dehumidifier cools the air until the moisture condenses and works best above roughly 15 °C. A desiccant dehumidifier takes the moisture out of the air with a moisture-absorbing material, loses little capacity in the cold and can blow dry air through hoses into a floor or wall in a targeted way.",
+    },
+    {
+      q: "Do I need a fan as well as a construction dehumidifier?",
+      a: "In a new build it is strongly recommended; with water damage we consider it essential. A dehumidifier dries the air; a fan makes sure that dry air also passes along the wet walls and floors.",
+    },
+  ],
+
+  slotKick: "Still unsure",
+  slotH3: "You don't have to choose the machine yourself.",
+  slotP:
+    "Give us your floor area and your situation, and the Calculator works out the complete package: dehumidifier, fan and heater in the right proportions. Or call us and we will do it over the phone.",
+  slotBtn: "Calculate your drying package",
+  slotAlt: "Vernast technician with the cables of a construction dehumidifier",
+
+  verderTitel: "Further reading about the equipment",
+  verderLezen: [
+    {
+      kop: "How we use the machines",
+      links: [
+        { to: "/realisaties/nieuwbouw-drogen-putte", label: "Construction moisture dried out in a new build in Putte" },
+        { to: "/realisaties/waterschade-drogen-bedrijfsgebouw", label: "Water damage dried in a commercial building" },
+        { to: "/realisaties/kelder-drogen-brugge", label: "A damp cellar in Bruges dry again" },
+      ],
+    },
+    {
+      kop: "Choosing and calculating",
+      links: [
+        { to: "/verhuur/calculator", label: "Calculate which package suits your space" },
+        { to: "/gids/condensdroger-of-adsorptiedroger", label: "Guide: condensation or desiccant dehumidifier?" },
+        { to: "/gids/stroomverbruik-bouwdroger", label: "Guide: how much electricity does a construction dehumidifier use?" },
+        { to: "/prijzen", label: "Hire prices per day and per week" },
+        { to: "/nieuwbouw-drogen", label: "Drying screed and plaster" },
+        { to: "/waterschade", label: "Drying water damage" },
+      ],
+    },
+    {
+      kop: "Delivery in your region",
+      links: [
+        { to: "/bouwdroger-huren-vlaams-brabant", label: "Dehumidifier hire in Flemish Brabant" },
+        { to: "/bouwdroger-huren-antwerpen", label: "Dehumidifier hire in the province of Antwerp" },
+      ],
+    },
+  ],
+
+  contactKicker: "Which machine do you need?",
+  contactTitel: "Not sure which machine suits your site?",
+  contactLede:
+    "Briefly describe the room and what needs drying. A drying specialist will tell you within one working day which machine or combination you need.",
+  contactOnderwerpen: [
+    "Advice on the right machine",
+    "Several machines for a large site",
+    "Desiccant or condensation dehumidifier?",
+    "Price and availability",
+    "Something else",
+  ],
+  contactPlaceholder:
+    "E.g. cellar of 60 m² with a 2.2 m ceiling height, unheated, damp walls after a leak.",
+};
+
+export const COPY = { nl, fr, en } satisfies Copy<typeof nl>;

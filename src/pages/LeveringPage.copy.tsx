@@ -454,4 +454,194 @@ export const LEVERING_COPY = {
       klaarTekst: "Merci ! Un spécialiste du séchage vous contacte dans un délai d'un jour ouvrable.",
     },
   },
+  en: {
+    kruimel: "Delivery & installation",
+    hero: {
+      kick: "Delivery & installation",
+      h1: "Delivered and installed. Ready to dry.",
+      p1: "A Vernast technician delivers your drying package and installs the complete set-up, calculated for your home. ",
+      p2: "You don't have to lift, position or set up anything.",
+      cta: "Calculate your drying package",
+      ctaUitleg: "How the installation works",
+      imgAlt: "Vernast technician with cables, thumbs up",
+      badge: "Installed within 24 hours",
+      badgeSub: "Delivered and installed",
+    },
+    trk: {
+      kick: "Your delivery day",
+      h2: "Follow your delivery, from confirmation to a running set-up.",
+      lede: "You always know where you stand: one clear appointment, a heads-up when we are on our way and a set-up that is running before we leave.",
+      stops: [
+        { tm: "After you book", h3: "Appointment confirmed", p: "Confirmation with delivery date and time slot, plus a calendar invitation." },
+        { tm: "30 min before", h3: "Text: on our way", p: "The technician sends you a message. No waiting in all day." },
+        { tm: "On arrival", h3: "Check & baseline reading", p: "We go through the rooms and measure the starting moisture content." },
+        { tm: "On site", h3: "Installation", p: "Positioning, spreading out, connecting the drain and setting up." },
+        { tm: "Before we leave", h3: "Start-up & explanation", p: "Everything is running and you get a short explanation. Drying has started." },
+      ],
+    },
+    ins: {
+      kick: "The installation",
+      h2: "What our technician does, step by step.",
+      lede: "Not installing as much equipment as possible, but using the capacity as efficiently as possible. Click through the steps or simply watch.",
+      tabs: [
+        { nr: "Step 01", titel: "Check & drying zones" },
+        { nr: "Step 02", titel: "Positioning & circulation" },
+        { nr: "Step 03", titel: "Condensate drain" },
+        { nr: "Step 04", titel: "Power & airflow" },
+        { nr: "Step 05", titel: "Check & start-up" },
+      ],
+      p1: {
+        h3: "Look first, then install.",
+        pt: (lp, s) => (
+          <>
+            We go through the home and divide it into drying zones: which rooms need drying, how are they connected and where is the most moisture? Then we check the electrics, drainage options and conditions. If the situation differs greatly from your{" "}
+            <a href={lp("/verhuur/calculator")} style={s}>calculation</a>, we discuss that first.
+          </>
+        ),
+        chips: ["Drying zones", "Electrics", "Drainage", "Temperature"],
+        mt: "Capacity per drying zone",
+        zones: ["Living room · kitchen · hall", "Bathroom · bedrooms"],
+      },
+      p2: {
+        h3: "The right spot, the right airflow.",
+        pt: "Machines go where they can draw in and blow out freely, never pushed tight against walls or obstacles. Instead of one heavy machine in the middle, we spread several machines and air movers across the zones, so every room dries evenly.",
+        chips: ["Free air intake", "Spread capacity", "Even drying"],
+        mt: "Dry air reaches the whole zone",
+        hoek: "furthest corner",
+      },
+      p3: {
+        h3: "Water straight to the drain. ",
+        badge: "Optional · recommended",
+        pt: (lp, s, pomp) => (
+          <>
+            If you choose the <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>condensate pump</a> ({pomp} per dehumidifier per day), we connect a continuous condensate drain to a drain, shower, washbasin or floor drain. That way you never have to empty a tank and the machine keeps running day and night, weekends included. Without a pump you empty the tank yourself 2 to 3 times a day. Optional, but recommended: you add the pump when{" "}
+            <a href={lp("/verhuur/calculator")} style={s}>calculating your package</a>.
+          </>
+        ),
+        chips: ["No tray to empty", "Runs 24/7", "Clean condensate"],
+        mt: "Continuous condensate drain",
+        cap: "The condensate drains away directly. You watch it, nothing more.",
+      },
+      p4: {
+        h3: "Stable power, moving air.",
+        pt: "Construction dehumidifiers run continuously for long periods and need a stable supply; with several machines we spread them over different circuits. Air movers pull damp air out of hard-to-reach areas. Temperature, circulation and dehumidification together determine the efficiency.",
+        chips: ["Separate circuits", "Fans", "No dead corners"],
+        mt: "Circulation in the zone",
+        checks: ["Stable supply checked", "Circuits spread", "Fan on the right setting"],
+      },
+      p5: {
+        h3: "We only leave once everything is running.",
+        pt: (lp, s) => (
+          <>
+            We check the complete set-up, set the target humidity and go over which windows and doors stay open or closed. You get a short explanation, and then the set-up does the work. Questions during the hire? Our{" "}
+            <a href={lp("/klantservice")} style={s}>customer service</a> is ready to help.
+          </>
+        ),
+        chips: ["Target value set", "Short explanation", "Drying started"],
+        mt: "Final check",
+        rows: ["Set-up checked", "All machines running", "Condensate drain flowing", "Settings correct", "Explanation given · drying started"],
+      },
+    },
+    ladder: {
+      kick: "Access",
+      h2: "Stairs, lift or ladder? Let us know in advance.",
+      lede: "Upper floors are included as long as they can be reached by stairs or a lift. Only when machines have to go up by ladder do we charge a surcharge: that takes extra manpower and equipment.",
+      inbegrepen: "Included",
+      toeslag: "Surcharge",
+      perVerdieping: "per floor",
+      trap: { h3: "By the stairs", p: "Our technicians carry the machines up the stairs to every floor, at no extra cost." },
+      lift: { h3: "By lift", p: "If there is a lift, we install on every floor at no extra cost." },
+      ladder: {
+        h3: "By ladder",
+        p: (
+          <>
+            No staircase in the house yet? <b>Always let us know in advance</b>, so we can plan the right installation and manpower.
+          </>
+        ),
+      },
+    },
+    rol: {
+      kick: "Clear division of roles",
+      h2: "What you provide. What we do.",
+      u: {
+        tag: "You provide",
+        h3: "This keeps the installation running smoothly.",
+        li: [
+          "All rooms to be dried are clear, emptied and accessible",
+          "Working electricity and sockets",
+          "If available: a working water drain",
+          "Free space to position the machines",
+        ],
+        vf: "Building materials, rubbish or obstacles restrict air circulation.",
+      },
+      wij: {
+        tag: "We do",
+        h3: "You don't need to be a drying specialist.",
+        li: [
+          "Determine the right machine and the right capacity",
+          "Positioning and spreading across the rooms",
+          "Connect the condensate drain and choose the settings",
+          "Check and start up the set-up",
+        ],
+        vf: (lp) => (
+          <>
+            Questions during the hire? Our{" "}
+            <a href={lp("/klantservice")} style={{ color: "var(--red)", fontWeight: 600 }}>customer service</a> is ready to help.
+          </>
+        ),
+      },
+      note: (lp) => (
+        <>
+          <b>During the drying period:</b> leave the set-up unchanged, keep windows closed and don't switch machines off. Has something changed anyway? Let us know via{" "}
+          <a href={lp("/klantservice")}>customer service</a>, so your <a href={lp("/drooggarantie")}>drying guarantee</a> remains valid.*
+        </>
+      ),
+      imgAlt: "Vernast technician by the van",
+    },
+    rood: {
+      kick: "Red card",
+      h2: "Best avoided while drying is under way.",
+      lede: "Well meant, but harmful to the drying process, and sometimes even to the machine. We see these classics often, and they cost you drying time:",
+      kaarten: [
+        { b: "Opening windows or outside doors", p: "You let damp outside air in and the installation has to process that extra load all over again. The house stays closed during drying." },
+        { b: "Switching dehumidifiers off on a whim", p: "Switching them off at night or \"just while we're working\" stops the drying and extends the hire period. The machines are made to run continuously." },
+        { b: "Laying a dehumidifier flat or tilting it", p: "The cooling circuit contains refrigerant: laying the machine flat damages the compressor. Transported flat after all? Let the machine stand upright for 24 hours before starting it." },
+        { b: "Moving machines or pushing them close to the wall", p: "The set-up is calculated per drying zone. Moving machines or blocking the intake disrupts the circulation, so check with us first." },
+        { b: "Closing interior doors that need to stay open", p: "Dry air has to reach every room. At start-up our technician tells you which doors should be open or closed." },
+        { b: "Bringing in new wet materials", p: "Fresh plaster or a wet screed on top means a new moisture load, and a longer drying time. Let us know and we will recalculate the package." },
+      ],
+      note: (lp) => (
+        <>
+          <b>Unsure about something?</b> One call to <a href={lp("/klantservice")}>customer service</a> saves days of delay, and keeps your{" "}
+          <a href={lp("/drooggarantie")}>drying guarantee</a> valid.*
+        </>
+      ),
+      imgAlt: "Red card for these mistakes during drying",
+    },
+    form: {
+      kick: "Any more questions about this?",
+      h2: "Our drying specialists are happy to help.",
+      lede: "Not sure about the right approach for your project? Ask your question and a specialist will reply within one working day.",
+      voornaam: "First name",
+      naam: "Surname",
+      naamPh: "Surname",
+      email: "Email",
+      emailPh: "name@example.com",
+      telefoon: "Phone",
+      vraag: "What is your question about?",
+      onderwerpen: [
+        { waarde: ONDERWERPEN[0], label: "Question about delivery or installation" },
+        { waarde: ONDERWERPEN[1], label: "Advice on the right package" },
+        { waarde: ONDERWERPEN[2], label: "Question about prices or delivery" },
+        { waarde: ONDERWERPEN[3], label: "Something else" },
+      ],
+      situatie: "Your situation",
+      situatiePh: "E.g. new build of 140 m², screed laid last week, when can the floor layer start?",
+      privacy: "We only use your details to answer your question.",
+      versturen: "Send your question",
+      bezig: "Sending…",
+      klaarTitel: "Question sent",
+      klaarTekst: "Thank you! A drying specialist will contact you within one working day.",
+    },
+  },
 } satisfies Copy<LeveringTekst>;
