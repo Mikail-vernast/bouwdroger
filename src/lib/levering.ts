@@ -16,6 +16,7 @@ import {
   type Zone,
 } from "../data/levering.js";
 import { LEVERREGIOS, LEVERZONES } from "../data/leverzones.js";
+import { NL_WERKGEBIED } from "../data/werkgebied-nl.js";
 
 export type { Land, Zone, Corridor };
 
@@ -87,7 +88,44 @@ export function zoneVoor(land: unknown, postcode: unknown): Leverzone | null {
   if (gevonden < 0) return null;
 
   const [, zn, cn] = runs[gevonden];
-  return { zone: zoneNr(zn), corridor: corridorNr(cn), postcode: pc, land };
+  const zone = zoneNr(zn);
+  if (land === "NL" && !inWerkgebiedNL(pc) && zone.tarief !== null) {
+    return { zone: opMaat(zone), corridor: corridorNr(cn), postcode: pc, land };
+  }
+  return { zone, corridor: corridorNr(cn), postcode: pc, land };
+}
+
+/**
+ * Ligt deze Nederlandse postcode in Noord-Brabant, Zeeland of Nederlands
+ * Limburg — de provincies uit de sitemap?
+ *
+ * Amsterdam of Utrecht ligt soms binnen 200 km over de weg, en kreeg dan een
+ * vast tarief en een betaalknop. Daar rijden we niet op een vaste dag en daar
+ * willen we eerst een prijs op zetten. Zelfde opzoeking als `zoneVoor`: elke
+ * regel geldt vanaf haar postcode tot de volgende.
+ */
+export function inWerkgebiedNL(postcode: string): boolean {
+  let binnen = false;
+  for (const [pc, b] of NL_WERKGEBIED) {
+    if (pc > postcode) break;
+    binnen = b;
+  }
+  return binnen;
+}
+
+/**
+ * Dezelfde zone, maar zonder vast tarief: de boeking toont dan de offerte in
+ * plaats van een prijs, en `api/checkout.ts` weigert te betalen (`leverbaar`
+ * in `bookingSummary`). De afstand blijft staan, die klopt nog altijd.
+ */
+function opMaat(zone: Zone): Zone {
+  return {
+    ...zone,
+    tarief: null,
+    spoed: null,
+    belofte: "transportprijs op maat, binnen één werkdag",
+    ritme: "geen",
+  };
 }
 
 /** Levert dit adres een eigen rit op, of verwijzen we naar het afhaalpunt? */
