@@ -49,3 +49,6 @@ worker-configuration.d.ts
 
 # Local wrangler dev secrets
 .dev.vars
+
+# Tijdelijke map van vite-react-ssg tijdens de build; hoort niet in git.
+.vite-react-ssg-temp
