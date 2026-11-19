@@ -205,7 +205,7 @@ const GEMEENTE_SOURCES = ["src/pages/GemeentePage.tsx", "src/data/gemeenten.ts"]
  * wordt, niet alleen met zijn eigen sjabloon. Zou hier enkel de pagina staan,
  * dan claimde hij "ongewijzigd" op de dag dat er een pagina bij kwam.
  */
-const SITEMAP_SOURCES = ["src/pages/SitemapPage.tsx", "src/data/navigation.ts"];
+const SITEMAP_SOURCES = ["src/pages/SitemapPage.tsx", "src/data/sitemap.ts", "src/data/navigation.ts"];
 /** De slugs van de provinciepagina's; al de rest onder dat voorvoegsel is een gemeente. */
 const REGIO_SLUGS = [
   "antwerpen",

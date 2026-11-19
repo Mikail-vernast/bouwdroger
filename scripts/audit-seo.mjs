@@ -284,14 +284,16 @@ console.log(`Afbeeldingen:  ${unsizedTotal} van ${imgTotal} zonder width/height 
  * navigatielijst staat, verschijnt in sitemap.xml en nergens anders. Dat is
  * precies de wees waar navigation.ts tegen bestaat, en hier wordt hij zichtbaar.
  *
- * Per taal: een Franse pagina hoort gelinkt te zijn vanaf /fr/plan-du-site, niet
- * vanaf /sitemap. Die Franse sitemap linkt bewust alleen Franse pagina's (zie
- * `src/data/sitemap.ts`), en de Nederlandse alleen Nederlandse — één controle
- * over beide samen zou een Franse wees verbergen achter een Nederlandse link.
+ * Per taal: een Franse pagina hoort gelinkt te zijn vanaf /fr/plan-du-site, een
+ * Engelse vanaf /en/sitemap, niet vanaf /sitemap. Elke zichtbare sitemap linkt
+ * bewust alleen pagina's in haar eigen taal (zie `src/data/sitemap.ts`) — één
+ * controle over alle talen samen zou een Franse of Engelse wees verbergen
+ * achter een Nederlandse link.
  */
 const SITEMAPS = [
   { taal: "nl", pad: "/sitemap", hoort: (route) => !/^\/(fr|en)(\/|$)/.test(route), thuis: "/" },
   { taal: "fr", pad: "/fr/plan-du-site", hoort: (route) => /^\/fr(\/|$)/.test(route), thuis: "/fr" },
+  { taal: "en", pad: "/en/sitemap", hoort: (route) => /^\/en(\/|$)/.test(route), thuis: "/en" },
 ];
 
 for (const sm of SITEMAPS) {
