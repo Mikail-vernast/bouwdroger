@@ -26,6 +26,15 @@ import { join } from "node:path";
 
 const CACHE = join(tmpdir(), "vernast-leverzones");
 const UIT = new URL("../src/data/plaatsen.ts", import.meta.url);
+const UIT_NL = new URL("../src/data/werkgebied-nl.ts", import.meta.url);
+
+/*
+  De Nederlandse provincies waar we online boekbaar leveren — dezelfde drie als
+  in de sitemap. Daarbuiten (Amsterdam, Utrecht, Gelderland...) is het transport
+  op maat: de klant kan een prijs aanvragen, maar niet zelf boeken en betalen.
+  Namen zoals GeoNames ze schrijft.
+*/
+const NL_WERKGEBIED = new Set(["North Brabant", "Zeeland", "Limburg"]);
 
 /*
   Nederlandse namen voor plaatsen die GeoNames alleen in het Frans kent. Alleen
@@ -141,3 +150,46 @@ ${regels(nl)}
 `,
 );
 console.log(`plaatsen.ts: ${be.length} BE, ${nl.length} NL`);
+
+// Werkgebied in Nederland, run-length gecodeerd zoals LEVERZONES: elke regel
+// geldt vanaf haar postcode tot de volgende.
+const provincie = new Map();
+for (const regel of readFileSync(join(CACHE, "NL.txt"), "utf8").split("\n")) {
+  const v = regel.split("\t");
+  if (v.length < 4 || !/^\d{4}$/.test(v[1])) continue;
+  if (!provincie.has(v[1])) provincie.set(v[1], v[3]);
+}
+/*
+  Eén losse postcode die van provincie wisselt tussen twee buren van de andere
+  kant, is een fout in GeoNames, geen enclave: 1234 staat er als "Lemiers,
+  Limburg" (Lemiers is 6295) en 5217 als "'s-Gravenhage" midden in Den Bosch.
+  Zulke uitschieters nemen de kant van hun buren.
+*/
+const pcs = [...provincie.keys()].sort();
+const binnen = pcs.map((pc) => NL_WERKGEBIED.has(provincie.get(pc)));
+for (let i = 1; i < pcs.length - 1; i++) {
+  if (binnen[i - 1] === binnen[i + 1] && binnen[i] !== binnen[i - 1]) binnen[i] = binnen[i - 1];
+}
+const runs = [];
+pcs.forEach((pc, i) => {
+  if (!runs.length || runs[runs.length - 1][1] !== binnen[i]) runs.push([pc, binnen[i]]);
+});
+writeFileSync(
+  UIT_NL,
+  `/**
+ * GEGENEREERD door \`scripts/fetch-plaatsen.mjs\` op ${new Date().toISOString().slice(0, 10)}. Niet met de
+ * hand aanpassen — de provincies staan in \`NL_WERKGEBIED\` in dat script.
+ *
+ * Welke Nederlandse postcodes in ons werkgebied liggen: Noord-Brabant, Zeeland
+ * en Nederlands Limburg, de drie provincies uit de sitemap. Elke regel geldt
+ * vanaf haar postcode tot de volgende. Daarbuiten is het transport op maat
+ * (\`zoneVoor\` in \`src/lib/levering.ts\`).
+ *
+ * Bron: GeoNames postcodes (CC BY 4.0).
+ */
+export const NL_WERKGEBIED: readonly (readonly [string, boolean])[] = [
+${runs.map(([p, b]) => `  ["${p}", ${b}],`).join("\n")}
+];
+`,
+);
+console.log(`werkgebied-nl.ts: ${runs.length} regels`);

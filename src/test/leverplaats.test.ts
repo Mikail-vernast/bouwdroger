@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { PLAATSEN } from "@/data/plaatsen";
 import { herkenPlaats, normaliseer, plaatsLabel, zoekPlaatsen } from "@/lib/plaatsZoeker";
-import { zoneVoor } from "@/lib/levering";
+import { inWerkgebiedNL, zoneVoor } from "@/lib/levering";
 
 describe("herkenPlaats", () => {
   it("herkent een gemeente zonder dat de bezoeker hoeft te klikken", () => {
@@ -100,5 +100,28 @@ describe("normaliseer en plaatsLabel", () => {
   it("toont naam en postcode, of alleen de postcode", () => {
     expect(plaatsLabel({ naam: "Hemiksem", postcode: "2620" })).toBe("Hemiksem (2620)");
     expect(plaatsLabel({ naam: "", postcode: "2620" })).toBe("2620");
+  });
+});
+
+describe("werkgebied in Nederland", () => {
+  it("levert online boekbaar in Noord-Brabant, Zeeland en Limburg", () => {
+    for (const pc of ["4811", "5611", "4331", "4531", "6211", "5911", "6041"]) {
+      expect(inWerkgebiedNL(pc), pc).toBe(true);
+      expect(zoneVoor("NL", pc)?.zone.tarief, pc).not.toBeNull();
+    }
+  });
+
+  it("maakt het transport op maat daarbuiten, ook binnen 200 km", () => {
+    // Amsterdam, Utrecht, Rotterdam, Nijmegen, Zaltbommel, Gorinchem.
+    for (const pc of ["1011", "3511", "3011", "6511", "5301", "4201"]) {
+      expect(inWerkgebiedNL(pc), pc).toBe(false);
+      const z = zoneVoor("NL", pc);
+      expect(z, pc).not.toBeNull();
+      expect(z!.zone.tarief, pc).toBeNull();
+    }
+  });
+
+  it("raakt België niet", () => {
+    expect(zoneVoor("BE", "2620")?.zone.tarief).toBe(0);
   });
 });
