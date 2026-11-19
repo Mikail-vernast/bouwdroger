@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { naarNl } from "@/i18n/paden";
 import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
@@ -149,8 +150,11 @@ const RealisatieDetailPage = () => (
 );
 
 const Project = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { search, hash } = useLocation();
+  const { slug: urlSlug } = useParams<{ slug: string }>();
+  const { pathname, search, hash } = useLocation();
+  // In het Frans en Engels staat een vertaalde slug in de URL; de data kent
+  // alleen de Nederlandse. `naarNl` vertaalt terug via REALISATIE_SLUG_VERTAALD.
+  const slug = naarNl(pathname)?.split("/").pop() || urlSlug;
   const taal = useTaal();
   const t = useCopy(COPY);
   const lp = useLokaalPad();
