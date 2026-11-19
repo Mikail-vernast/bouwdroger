@@ -51,4 +51,11 @@ export const AAN: readonly string[] = [
   "ferrieres",
   "hamoir",
   "hoei",
+  "heron",
+  "marchin",
+  "modave",
+  "nandrin",
+  "ouffet",
+  "tinlot",
+  "verlaine",
 ];
