@@ -139,7 +139,7 @@ export const LEVERING_COPY = {
         badge: "Optioneel · aangeraden",
         pt: (lp, s, pomp) => (
           <>
-            Kiest u de <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>condenspomp</a> ({pomp} per bouwdroger per dag), dan sluiten we een continue condensafvoer aan naar een afvoer, douche, lavabo of vloerput. Zo hoeft u geen reservoirs te legen en draait het toestel dag en nacht door, ook in het weekend. Zonder pomp leegt u het reservoir zelf 2 à 3 keer per dag. Optioneel, maar aangeraden: u voegt de pomp toe tijdens het{" "}
+            Kiest u de <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>condenspomp</a> ({pomp} per bouwdroger per dag), dan sluiten we een continue condensafvoer aan naar een afvoer, douche, lavabo of vloerput. Zo hoeft u geen reservoirs te legen en draait het toestel dag en nacht door, ook in het weekend. Zonder pomp leegt u het reservoir zelf gemiddeld 2 keer per dag. Optioneel, maar aangeraden: u voegt de pomp toe tijdens het{" "}
             <a href={lp("/verhuur/calculator")} style={s}>berekenen van uw pakket</a>.
           </>
         ),
@@ -324,7 +324,7 @@ export const LEVERING_COPY = {
         badge: "En option · recommandé",
         pt: (lp, s, pomp) => (
           <>
-            Si vous choisissez la <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>pompe à condensats</a> ({pomp} par déshumidificateur par jour), nous raccordons une évacuation continue des condensats vers un égout, une douche, un lavabo ou un siphon de sol. Vous n'avez plus de réservoir à vider et l'appareil tourne jour et nuit, même le week-end. Sans pompe, vous videz vous-même le réservoir 2 à 3 fois par jour. En option, mais recommandé&nbsp;: vous ajoutez la pompe lors du{" "}
+            Si vous choisissez la <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>pompe à condensats</a> ({pomp} par déshumidificateur par jour), nous raccordons une évacuation continue des condensats vers un égout, une douche, un lavabo ou un siphon de sol. Vous n'avez plus de réservoir à vider et l'appareil tourne jour et nuit, même le week-end. Sans pompe, vous videz vous-même le réservoir en moyenne 2 fois par jour. En option, mais recommandé&nbsp;: vous ajoutez la pompe lors du{" "}
             <a href={lp("/verhuur/calculator")} style={s}>calcul de votre pack</a>.
           </>
         ),
@@ -514,7 +514,7 @@ export const LEVERING_COPY = {
         badge: "Optional · recommended",
         pt: (lp, s, pomp) => (
           <>
-            If you choose the <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>condensate pump</a> ({pomp} per dehumidifier per day), we connect a continuous condensate drain to a drain, shower, washbasin or floor drain. That way you never have to empty a tank and the machine keeps running day and night, weekends included. Without a pump you empty the tank yourself 2 to 3 times a day. Optional, but recommended: you add the pump when{" "}
+            If you choose the <a href={lp("/verhuur/toebehoren/condenspomp")} style={s}>condensate pump</a> ({pomp} per dehumidifier per day), we connect a continuous condensate drain to a drain, shower, washbasin or floor drain. That way you never have to empty a tank and the machine keeps running day and night, weekends included. Without a pump you empty the tank yourself about twice a day. Optional, but recommended: you add the pump when{" "}
             <a href={lp("/verhuur/calculator")} style={s}>calculating your package</a>.
           </>
         ),

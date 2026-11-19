@@ -57,7 +57,7 @@ const CONDENSPOMP_FR: ToebehorenTekst = {
   bullets: [
     [
       "Plus jamais de réservoir à vider",
-      "Sans pompe, vous videz le bac 2 à 3 fois par jour, selon l'humidité de la pièce. Avec pompe : pas une seule fois.",
+      "Sans pompe, vous videz le bac en moyenne 2 fois par jour, selon l'humidité de la pièce. Avec pompe : pas une seule fois.",
     ],
     [
       "Tourne la nuit et le week-end",

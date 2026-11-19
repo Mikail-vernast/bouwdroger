@@ -216,7 +216,7 @@ export const AFHALEN_COPY = {
         ],
         [
           "Moet ik het waterreservoir zelf leegmaken?",
-          `Alleen als u geen condenspomp meeneemt. Zonder pomp gaat het toestel mee zoals het is, met zijn reservoir: reken op 2 à 3 keer per dag legen, afhankelijk van hoe nat de ruimte is. Loopt het vol, dan schakelt de droger zichzelf uit en staat hij stil tot u hem leegt. Mét pomp (${pomp} per bouwdroger per dag) loopt het condenswater continu weg naar een afvoer, douche of vloerput en hoeft u niets te legen. Vermeld de pomp bij uw reservatie, dan leggen wij hem klaar; aansluiten is een slang in de bak en een stekker in het stopcontact.`,
+          `Alleen als u geen condenspomp meeneemt. Zonder pomp gaat het toestel mee zoals het is, met zijn reservoir: reken op gemiddeld 2 keer per dag legen, afhankelijk van hoe nat de ruimte is. Loopt het vol, dan schakelt de droger zichzelf uit en staat hij stil tot u hem leegt. Mét pomp (${pomp} per bouwdroger per dag) loopt het condenswater continu weg naar een afvoer, douche of vloerput en hoeft u niets te legen. Vermeld de pomp bij uw reservatie, dan leggen wij hem klaar; aansluiten is een slang in de bak en een stekker in het stopcontact.`,
         ],
         [
           "Krijg ik uitleg bij het afhalen?",
@@ -593,7 +593,7 @@ export const AFHALEN_COPY = {
         ],
         [
           "Do I have to empty the water tank myself?",
-          `Only if you don't take a condensate pump. Without a pump the machine goes as it is, with its tank: expect to empty it 2 to 3 times a day, depending on how wet the room is. If it fills up, the dehumidifier switches itself off and stays off until you empty it. With a pump (${pomp} per dehumidifier per day) the condensate drains away continuously to a drain, shower or floor drain and you don't have to empty anything. Mention the pump when you book and we will have it ready; connecting it is a hose in the tray and a plug in the socket.`,
+          `Only if you don't take a condensate pump. Without a pump the machine goes as it is, with its tank: expect to empty it about twice a day, depending on how wet the room is. If it fills up, the dehumidifier switches itself off and stays off until you empty it. With a pump (${pomp} per dehumidifier per day) the condensate drains away continuously to a drain, shower or floor drain and you don't have to empty anything. Mention the pump when you book and we will have it ready; connecting it is a hose in the tray and a plug in the socket.`,
         ],
         [
           "Do I get an explanation when I collect?",

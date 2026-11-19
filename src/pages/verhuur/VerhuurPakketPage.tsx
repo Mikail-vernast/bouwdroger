@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Head } from "vite-react-ssg";
 import PageMeta from "@/components/PageMeta";
@@ -14,14 +14,12 @@ import {
   TruckIcon,
 } from "@/components/verhuur/icons";
 import { catInTaal, packageGalleryAltsInTaal, packageSpecLineInTaal, roleInTaal, specsInTaal } from "@/data/verhuur.fr";
-import { formatEuro, useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
-import { extraNaarQuery, extraUitQuery, withVat } from "@/lib/booking";
+import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
+import { extraNaarQuery, extraUitQuery } from "@/lib/booking";
 import {
   GRATIS_LEVERING_VOETNOOT,
   GRATIS_TOT_KM,
   LAAGSTE_TARIEF,
-  leverzoneNaarQuery,
-  leverzoneUitQuery,
 } from "@/lib/levering";
 import {
   allItems,
@@ -35,7 +33,6 @@ import {
   parseConfig,
   totalAirflow,
   totalCapacity,
-  euro,
 } from "@/lib/verhuur";
 import { breadcrumbSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
@@ -65,10 +62,6 @@ interface PakketCopy {
   avail: string;
   voor: (weeks: number) => string;
   inbegrepen: string;
-  exclOpMaat: string;
-  exclTransport: (bedrag: string) => string;
-  transOpMaat: (postcode: string, band: string) => ReactNode;
-  transPrijs: (bedrag: string, postcode: string, zone: number, band: string) => ReactNode;
   doorgaan: string;
   uwPakket: string;
   inbegrepenToestellen: string;
@@ -128,20 +121,6 @@ const COPY = {
     avail: "Direct beschikbaar — u kiest zelf uw leverdag",
     voor: (weeks) => `voor ${weeks} ${weeks === 1 ? "week" : "weken"}`,
     inbegrepen: "alles inbegrepen",
-    exclOpMaat: "excl. transport, prijs op maat",
-    exclTransport: (bedrag) => `excl. ${bedrag} transport`,
-    transOpMaat: (postcode, band) => (
-      <>
-        <b>Transportprijs op maat</b> — {postcode} ligt {band} van ons magazijn. U boekt uw pakket
-        gewoon; wij bevestigen de transportprijs binnen één werkdag.
-      </>
-    ),
-    transPrijs: (bedrag, postcode, zone, band) => (
-      <>
-        <b>Transport {bedrag} incl. btw</b> voor levering én ophaling naar {postcode} — zone {zone},{" "}
-        {band} van ons magazijn. Komt bovenop het bedrag hierboven.
-      </>
-    ),
     doorgaan: "Doorgaan naar samenstellen",
     uwPakket: "Uw pakket",
     inbegrepenToestellen: "Inbegrepen toestellen",
@@ -235,20 +214,6 @@ const COPY = {
     avail: "Disponible immédiatement — vous choisissez votre jour de livraison",
     voor: (weeks) => `pour ${weeks} ${weeks === 1 ? "semaine" : "semaines"}`,
     inbegrepen: "tout compris",
-    exclOpMaat: "hors transport, prix sur mesure",
-    exclTransport: (bedrag) => `hors ${bedrag} de transport`,
-    transOpMaat: (postcode, band) => (
-      <>
-        <b>Prix de transport sur mesure</b> — {postcode} se trouve à {band} de notre entrepôt. Vous
-        réservez votre pack normalement ; nous confirmons le prix du transport dans un jour ouvrable.
-      </>
-    ),
-    transPrijs: (bedrag, postcode, zone, band) => (
-      <>
-        <b>Transport {bedrag} TVAC</b> pour la livraison et l'enlèvement vers {postcode} — zone{" "}
-        {zone}, à {band} de notre entrepôt. S'ajoute au montant ci-dessus.
-      </>
-    ),
     doorgaan: "Passer à la composition",
     uwPakket: "Votre pack",
     inbegrepenToestellen: "Appareils inclus",
@@ -342,20 +307,6 @@ const COPY = {
     avail: "Available now — you choose your delivery day",
     voor: (weeks) => `for ${weeks} ${weeks === 1 ? "week" : "weeks"}`,
     inbegrepen: "all included",
-    exclOpMaat: "excl. transport, price on request",
-    exclTransport: (bedrag) => `excl. ${bedrag} transport`,
-    transOpMaat: (postcode, band) => (
-      <>
-        <b>Transport price on request</b> — {postcode} lies {band} from our warehouse. Just book your
-        package; we confirm the transport price within one working day.
-      </>
-    ),
-    transPrijs: (bedrag, postcode, zone, band) => (
-      <>
-        <b>Transport {bedrag} incl. VAT</b> for delivery and collection to {postcode} — zone {zone},{" "}
-        {band} from our warehouse. On top of the amount above.
-      </>
-    ),
     doorgaan: "Continue to build your package",
     uwPakket: "Your package",
     inbegrepenToestellen: "Included units",
@@ -457,19 +408,7 @@ const VerhuurPakketPage = () => {
   */
   const weeks = configWeeks(config);
   const total = configPrice(config, items);
-  /*
-    De postcode uit de calculator. Reist mee in de adresbalk, zodat de
-    transportvergoeding hier al op het scherm staat en niet pas bij het
-    afrekenen — naast "transparante prijzen zonder verrassingen" is dat het
-    verschil tussen de belofte waarmaken en ze tegenspreken.
-  */
-  const leverzone = useMemo(() => leverzoneUitQuery(searchParams), [searchParams]);
-  const transport = leverzone?.zone.tarief ?? null;
-  /* Nederlands houdt `euro()`; Frans en Engels krijgen hun eigen opmaak. */
-  const eur = (n: number) => (taal === "nl" ? euro(n) : formatEuro(n, taal));
-  const bookingHref =
-    `${lp("/verhuur/boeking")}?${configToQuery(config)}${extraNaarQuery(extra)}` +
-    leverzoneNaarQuery(leverzone?.land ?? null, leverzone?.postcode ?? null);
+  const bookingHref = `${lp("/verhuur/boeking")}?${configToQuery(config)}${extraNaarQuery(extra)}`;
 
   return (
     <div className="vh-pkg">
@@ -581,37 +520,16 @@ const VerhuurPakketPage = () => {
                 <div>
                   <div className="pv">{toon(total).tekst}</div>
                   <div className="pl">
-                    {t.voor(weeks)} ·{" "}
-                    {leverzone === null || transport === 0
-                      ? t.inbegrepen
-                      : transport === null
-                        ? t.exclOpMaat
-                        : t.exclTransport(eur(transport))}{" "}
-                    · {toon(total).label}
+                    {t.voor(weeks)} · {t.inbegrepen} · {toon(total).label}
                   </div>
                 </div>
               </div>
               {/*
-                De transportregel verschijnt alleen met een postcode in de
-                adresbalk — die zet de calculator erin. Komt de bezoeker hier
-                rechtstreeks binnen, dan staat er niets en vraagt de boeking het
-                alsnog.
+                Geen transport op deze pagina: de bezoeker ziet hier de prijs
+                van zijn pakket, en geeft pas in de boeking ("Waar wilt u de
+                bouwdrogers geleverd?") zijn werf op. Een transportberekening
+                hier liet hem twee keer zijn adres aanwijzen.
               */}
-              {leverzone && transport !== 0 && (
-                <div className={`ptrans${transport === null ? " opmaat" : ""}`}>
-                  <TruckIcon />
-                  <div>
-                    {transport === null
-                      ? t.transOpMaat(leverzone.postcode, leverzone.zone.band.toLowerCase())
-                      : t.transPrijs(
-                          eur(withVat(transport)),
-                          leverzone.postcode,
-                          leverzone.zone.nr,
-                          leverzone.zone.band,
-                        )}
-                  </div>
-                </div>
-              )}
               <div className="jump">
                 <Link className="btn btn-d" to={bookingHref}>
                   {t.doorgaan}

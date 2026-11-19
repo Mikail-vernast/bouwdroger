@@ -91,7 +91,7 @@ export const CONDENSPOMP: Toebehoren = {
   bullets: [
     [
       "Nooit een reservoir legen",
-      "Zonder pomp leegt u de opvangbak 2 à 3 keer per dag, afhankelijk van hoe nat de ruimte is. Met pomp: geen enkele keer.",
+      "Zonder pomp leegt u de opvangbak gemiddeld 2 keer per dag, afhankelijk van hoe nat de ruimte is. Met pomp: geen enkele keer.",
     ],
     [
       "Draait door 's nachts en in het weekend",

@@ -43,12 +43,20 @@ export interface BoekingTeksten {
   monitoringKop: string;
   binnenkort: string;
   monitoringSub: string;
+  fotoVergroten: string;
+  fotoSluiten: string;
   pompKop: string;
   pompSub: ReactNode;
-  pompAantal: (dryerCount: number) => ReactNode;
+  pompNaam: string;
+  pompAantal: (pompen: number, bouwdrogers: number) => ReactNode;
   perPompDag: string;
   pompMinder: string;
   pompMeer: string;
+  pompInfoKnop: string;
+  pompInfoTitel: string;
+  pompInfo: ReactNode;
+  pompFotoAlt: string;
+  pompMeerLink: string;
   verdiepingKop: string;
   verdiepingSub: (ladderFee: string) => ReactNode;
   verdiepingenKop: string;
@@ -74,6 +82,8 @@ export interface BoekingTeksten {
   leverdatum: string;
   tijdslotLevering: string;
   huurperiodeVast: string;
+  huurperiodeDagen: (dagen: number) => string;
+  huurperiodeInbegrepen: string;
   huurperiodeWaarde: (dagen: number) => string;
   datumVol: (datum: string, binnenHorizon: boolean, horizon: number) => ReactNode;
   datumVerschoven: (van: string, naar: string) => ReactNode;
@@ -197,28 +207,46 @@ const nl: BoekingTeksten = {
   binnenkort: "Binnenkort",
   monitoringSub:
     "Al onze toestellen krijgen digitale opvolging: u volgt de luchtvochtigheid en droogvoortgang binnenkort live online op, zonder meerkost, automatisch op elk toestel.",
+  fotoVergroten: "Foto van uw pakket vergroten",
+  fotoSluiten: "Sluiten",
   pompKop: "Condenspomp, automatische waterafvoer",
   pompSub: (
     <>
-      Nooit zelf een reservoir legen of werken met een kuip: de condenspomp voert het water{" "}
-      <b>rechtstreeks en automatisch af</b>, ook naar een hoger gelegen afvoer. Goed om te weten: het
-      water uit een bouwdroger is zuiver condenswater en mag gewoon in de afvoer. Wij voorzien standaard
-      één pomp per bouwdroger, aanpassen kan hieronder.
+      Zonder pomp moet u elke bouwdroger <b>gemiddeld twee keer per dag</b> leegmaken. Met een
+      condenspomp wordt het water automatisch afgevoerd en werkt de bouwdroger gewoon door, zonder
+      te stoppen.
     </>
   ),
-  pompAantal: (dryerCount) => (
+  pompNaam: "Bouwdrogers met condenspomp",
+  pompAantal: (pompen, bouwdrogers) => (
     <>
-      {" "}U heeft{" "}
       <b>
-        {dryerCount} bouwdroger{dryerCount === 1 ? "" : "s"}
+        {pompen} van de {bouwdrogers}
       </b>{" "}
-      in dit pakket, wij zetten er standaard {dryerCount} pomp
-      {dryerCount === 1 ? "" : "en"} klaar.
+      bouwdroger{bouwdrogers === 1 ? "" : "s"} uit uw pakket. Wij vullen ze standaard allemaal in.
     </>
   ),
-  perPompDag: "per pomp / dag",
-  pompMinder: "Eén pomp minder",
-  pompMeer: "Eén pomp meer",
+  perPompDag: "per bouwdroger / dag",
+  pompMinder: "Eén bouwdroger minder met een condenspomp",
+  pompMeer: "Eén bouwdroger meer met een condenspomp",
+  pompInfoKnop: "Meer uitleg over de condenspomp",
+  pompInfoTitel: "Zo werkt de condenspomp",
+  pompInfo: (
+    <>
+      <p>
+        Een bouwdroger vangt het water uit de lucht op in zijn reservoir. Is dat vol, dan schakelt
+        hij zichzelf uit en staat hij stil tot iemand het leegmaakt, <b>gemiddeld twee keer per
+        dag</b>. Een weekend zonder legen is een weekend droogtijd kwijt.
+      </p>
+      <p>
+        De condenspomp hangt aan de bouwdroger en pompt het water via een slang naar een afvoer,
+        gootsteen of putje, ook als die hoger ligt. Het is zuiver condenswater en mag gewoon in de
+        afvoer. Onze technieker legt de slang bij de plaatsing.
+      </p>
+    </>
+  ),
+  pompFotoAlt: "Condenspomp op een bouwdroger, met de afvoerslang naar een putje",
+  pompMeerLink: "Alles over de condenspomp",
   verdiepingKop: "Op welke verdieping werken we?",
   verdiepingSub: (ladderFee) => (
     <>
@@ -262,6 +290,8 @@ const nl: BoekingTeksten = {
   leverdatum: "Leverdatum",
   tijdslotLevering: "Tijdslot levering",
   huurperiodeVast: "Huurperiode (vast per pakket)",
+  huurperiodeDagen: (dagen) => `${dagen} dagen`,
+  huurperiodeInbegrepen: "inbegrepen in de pakketprijs",
   huurperiodeWaarde: (dagen) => `${dagen} dagen, inbegrepen in de pakketprijs`,
   datumVol: (datum, binnenHorizon, horizon) => (
     <>
@@ -418,28 +448,46 @@ const fr: BoekingTeksten = {
   binnenkort: "Bientôt",
   monitoringSub:
     "Tous nos appareils seront bientôt suivis numériquement : vous suivrez l'humidité de l'air et l'avancement du séchage en direct en ligne, sans supplément, automatiquement sur chaque appareil.",
+  fotoVergroten: "Agrandir la photo de votre pack",
+  fotoSluiten: "Fermer",
   pompKop: "Pompe à condensats, évacuation automatique de l'eau",
   pompSub: (
     <>
-      Plus jamais de réservoir à vider ni de bac : la pompe à condensats évacue l'eau{" "}
-      <b>directement et automatiquement</b>, même vers une évacuation située plus haut. Bon à savoir :
-      l'eau d'un déshumidificateur de chantier est de l'eau de condensation pure, elle peut aller
-      simplement à l'égout. Nous prévoyons d'office une pompe par déshumidificateur, vous pouvez
-      l'adapter ci-dessous.
+      Sans pompe, vous devez vider chaque déshumidificateur <b>en moyenne deux fois par jour</b>. Avec
+      une pompe à condensats, l'eau est évacuée automatiquement et le déshumidificateur continue de
+      tourner, sans s'arrêter.
     </>
   ),
-  pompAantal: (dryerCount) => (
+  pompNaam: "Déshumidificateurs avec pompe à condensats",
+  pompAantal: (pompen, bouwdrogers) => (
     <>
-      {" "}Ce pack compte{" "}
       <b>
-        {dryerCount} déshumidificateur{dryerCount === 1 ? "" : "s"}
+        {pompen} sur {bouwdrogers}
       </b>{" "}
-      : nous préparons d'office {dryerCount} pompe{dryerCount === 1 ? "" : "s"}.
+      déshumidificateur{bouwdrogers === 1 ? "" : "s"} de votre pack. Nous les cochons tous d'office.
     </>
   ),
-  perPompDag: "par pompe / jour",
-  pompMinder: "Une pompe de moins",
-  pompMeer: "Une pompe de plus",
+  perPompDag: "par déshumidificateur / jour",
+  pompMinder: "Un déshumidificateur de moins avec pompe",
+  pompMeer: "Un déshumidificateur de plus avec pompe",
+  pompInfoKnop: "Plus d'explications sur la pompe à condensats",
+  pompInfoTitel: "Comment fonctionne la pompe à condensats",
+  pompInfo: (
+    <>
+      <p>
+        Un déshumidificateur recueille l'eau de l'air dans son réservoir. Quand celui-ci est plein, il
+        s'arrête jusqu'à ce que quelqu'un le vide, <b>en moyenne deux fois par jour</b>. Un week-end
+        sans vidange, c'est un week-end de séchage perdu.
+      </p>
+      <p>
+        La pompe se fixe au déshumidificateur et évacue l'eau par un tuyau vers une évacuation, un
+        évier ou un siphon de sol, même situé plus haut. C'est de l'eau de condensation pure, elle
+        peut aller à l'égout. Notre technicien pose le tuyau lors de l'installation.
+      </p>
+    </>
+  ),
+  pompFotoAlt: "Pompe à condensats sur un déshumidificateur, avec le tuyau vers un siphon",
+  pompMeerLink: "Tout sur la pompe à condensats",
   verdiepingKop: "À quel étage travaillons-nous ?",
   verdiepingSub: (ladderFee) => (
     <>
@@ -483,6 +531,8 @@ const fr: BoekingTeksten = {
   leverdatum: "Date de livraison",
   tijdslotLevering: "Créneau de livraison",
   huurperiodeVast: "Période de location (fixe par pack)",
+  huurperiodeDagen: (dagen) => `${dagen} jours`,
+  huurperiodeInbegrepen: "compris dans le prix du pack",
   huurperiodeWaarde: (dagen) => `${dagen} jours, compris dans le prix du pack`,
   datumVol: (datum, binnenHorizon, horizon) => (
     <>
@@ -641,27 +691,46 @@ const en: BoekingTeksten = {
   binnenkort: "Coming soon",
   monitoringSub:
     "All our units are getting digital monitoring: you will soon be able to follow the air humidity and drying progress live online, at no extra cost, automatically on every unit.",
+  fotoVergroten: "Enlarge the photo of your package",
+  fotoSluiten: "Close",
   pompKop: "Condensate pump, automatic water drainage",
   pompSub: (
     <>
-      Never empty a tank yourself or work with a tub: the condensate pump drains the water{" "}
-      <b>directly and automatically</b>, even to a drain at a higher level. Good to know: the water
-      from a construction dehumidifier is pure condensate and can simply go down the drain. We supply
-      one pump per construction dehumidifier as standard; you can adjust this below.
+      Without a pump you have to empty every dehumidifier <b>about twice a day on average</b>. With a
+      condensate pump the water drains away automatically and the dehumidifier simply keeps running,
+      without stopping.
     </>
   ),
-  pompAantal: (dryerCount) => (
+  pompNaam: "Dehumidifiers with a condensate pump",
+  pompAantal: (pompen, bouwdrogers) => (
     <>
-      {" "}You have{" "}
       <b>
-        {dryerCount} construction dehumidifier{dryerCount === 1 ? "" : "s"}
+        {pompen} of the {bouwdrogers}
       </b>{" "}
-      in this package, so we prepare {dryerCount} pump{dryerCount === 1 ? "" : "s"} as standard.
+      dehumidifier{bouwdrogers === 1 ? "" : "s"} in your package. We fill them all in as standard.
     </>
   ),
-  perPompDag: "per pump / day",
-  pompMinder: "One pump fewer",
-  pompMeer: "One pump more",
+  perPompDag: "per dehumidifier / day",
+  pompMinder: "One dehumidifier fewer with a pump",
+  pompMeer: "One dehumidifier more with a pump",
+  pompInfoKnop: "More about the condensate pump",
+  pompInfoTitel: "How the condensate pump works",
+  pompInfo: (
+    <>
+      <p>
+        A dehumidifier collects the water from the air in its tank. When the tank is full it switches
+        itself off and stays off until someone empties it, <b>about twice a day on average</b>. A
+        weekend without emptying is a weekend of drying lost.
+      </p>
+      <p>
+        The pump attaches to the dehumidifier and pumps the water through a hose to a drain, sink or
+        floor gully, even one at a higher level. It is pure condensate and can go down the drain. Our
+        technician lays the hose during set-up.
+      </p>
+    </>
+  ),
+  pompFotoAlt: "Condensate pump on a dehumidifier, with the hose to a floor drain",
+  pompMeerLink: "All about the condensate pump",
   verdiepingKop: "Which floor are we working on?",
   verdiepingSub: (ladderFee) => (
     <>
@@ -705,6 +774,8 @@ const en: BoekingTeksten = {
   leverdatum: "Delivery date",
   tijdslotLevering: "Delivery time slot",
   huurperiodeVast: "Hire period (fixed per package)",
+  huurperiodeDagen: (dagen) => `${dagen} days`,
+  huurperiodeInbegrepen: "included in the package price",
   huurperiodeWaarde: (dagen) => `${dagen} days, included in the package price`,
   datumVol: (datum, binnenHorizon, horizon) => (
     <>
