@@ -5,9 +5,10 @@ import V3Footer from "@/components/home-v3/V3Footer";
 import KlimaatMeter from "@/components/hoe-drogen/KlimaatMeter";
 import VochtGrafiek from "@/components/hoe-drogen/VochtGrafiek";
 import InBeeld from "@/components/hoe-drogen/InBeeld";
+import ContactBlok from "@/components/content/ContactBlok";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { SEO } from "@/data/seo";
-import { PUMP } from "@/data/verhuur";
+import { EXTRAS, PUMP } from "@/data/verhuur";
 import { euro } from "@/lib/verhuur";
 import "@/styles/hoe-drogen-werkt.css";
 import "@/styles/hoe-drogen-werkt-fixes.css";
@@ -22,6 +23,11 @@ import { toestelPad } from "@/data/verhuur";
  * resolve from /vernast/*.webp and the reveal-on-scroll animation is
  * neutralised in CSS so the page needs no JavaScript.
  */
+
+/* Het bedrag van het vochtrapport komt uit de gepubliceerde tarieven, niet uit
+   de tekst: hier stond "(€ 49)" overgetypt, en dat loopt bij de eerste
+   prijswijziging in het portaal uit de pas met de calculator. */
+const RAPPORT = EXTRAS.find((x) => x.k === "rapport");
 
 const HoeDrogenWerktPage = () => (
   <div className="hdw-page">
@@ -54,7 +60,7 @@ const HoeDrogenWerktPage = () => (
             </div>
           </div>
           <div className="hero-vis rv d2">
-            <img src="/vernast/team-tools.webp" alt="De Vernast vakmannen" style={{ width: "min(100%,560px)" }} />
+            <img src="/vernast/team-tools.webp" alt="De Vernast vakmannen" width={1400} height={859} decoding="async" style={{ width: "min(100%,560px)" }} />
             <div className="fbadge" style={{ top: "-34px", left: "4%" }}><span className="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 12 2 2 4-4" /><circle cx="12" cy="12" r="10" /></svg></span><div>Eco-condensdrogers<small>Berekend op uw volume</small></div></div>
           </div>
         </div>
@@ -68,23 +74,23 @@ const HoeDrogenWerktPage = () => (
         <div className="sec-head">
           <span className="kick rv">Het principe</span>
           <h2 className="sec rv">Uw woning wordt tijdelijk een gecontroleerde klimaatkamer.</h2>
-          <p className="lede rv d1">Een serre verandert het klimaat binnenin ten opzichte van buiten. Bij bouwdroging doen we iets vergelijkbaars: we creëren tijdelijk een binnenklimaat waarin vocht makkelijker uit <Link to="/verhuur/calculator">pleister, chape</Link> en muren naar de omgevingslucht beweegt, en daarna ook echt uit die lucht wordt verwijderd. Drie factoren werken daarvoor samen; geen enkele werkt optimaal op zichzelf.</p>
+          <p className="lede rv d1">Een serre verandert het klimaat binnenin ten opzichte van buiten. Bij bouwdroging doen we iets vergelijkbaars: we creëren tijdelijk een binnenklimaat waarin vocht makkelijker uit <Link to="/pleisterwerk-drogen">pleister</Link>, <Link to="/chape-drogen">chape</Link> en muren naar de omgevingslucht beweegt, en daarna ook echt uit die lucht wordt verwijderd. Drie factoren werken daarvoor samen; geen enkele werkt optimaal op zichzelf.</p>
         </div>
         <div className="g3">
           <div className="kaart rv">
             <KlimaatMeter variant="temperatuur" volgorde={0} />
             <h3>1. Temperatuur</h3>
-            <p>Voldoende warmte verhoogt het verdampingspotentieel en ondersteunt het vochttransport uit het materiaal. In koude ruimtes zetten we daarom een <Link to={toestelPad("teddh30")} style={{ color: "var(--red)", fontWeight: 600 }}>bouwkachel</Link> bij.</p>
+            <p>Voldoende warmte verhoogt het verdampingspotentieel en ondersteunt het vochttransport uit het materiaal. In koude ruimtes zetten we daarom een <Link to={toestelPad("teddh30")}>bouwkachel</Link> bij.</p>
           </div>
           <div className="kaart rv d1">
             <KlimaatMeter variant="vocht" volgorde={1} />
             <h3>2. Relatieve luchtvochtigheid</h3>
-            <p>Door waterdamp actief uit de lucht te verwijderen, ontstaat telkens opnieuw ruimte voor vocht dat uit de materialen verdampt. Dat is het werk van de <Link to="/machines" style={{ color: "var(--red)", fontWeight: 600 }}>bouwdroger</Link>.</p>
+            <p>Door waterdamp actief uit de lucht te verwijderen, ontstaat telkens opnieuw ruimte voor vocht dat uit de materialen verdampt. Dat is het werk van de <Link to="/machines">bouwdroger</Link>.</p>
           </div>
           <div className="kaart rv d2">
             <KlimaatMeter variant="lucht" volgorde={2} />
             <h3>3. Luchtbeweging</h3>
-            <p>Droge lucht moet álle vochtige oppervlakken bereiken; stilstaande lucht rond een wand of vloer remt het proces. Daarom horen bij veel pakketten <Link to={toestelPad("ttv4500")} style={{ color: "var(--red)", fontWeight: 600 }}>ventilatoren</Link>.</p>
+            <p>Droge lucht moet álle vochtige oppervlakken bereiken; stilstaande lucht rond een wand of vloer remt het proces. Daarom horen bij veel pakketten <Link to={toestelPad("ttv4500")}>ventilatoren</Link>.</p>
           </div>
         </div>
         <div className="note rv"><b>Daarom berekenen wij eerst, en plaatsen we pas daarna.</b> De <Link to="/verhuur/calculator">droogcalculator</Link> vertaalt uw oppervlakte, plafondhoogte en situatie naar de juiste combinatie van toestellen, het hart van elk <Link to="/verhuur/pakket">Vernast-droogpakket</Link>.</div>
@@ -156,8 +162,37 @@ const HoeDrogenWerktPage = () => (
       </div>
     </section>
 
+    {/* ================= TWEE SOORTEN DROGERS =================
+        Een rode sectie tussen de uitleg over RV en de condenscyclus. Ze staat
+        er om twee redenen. Het ritme: de pagina liep wit → gebroken wit → rood,
+        en twee lichte secties na elkaar lezen als één lange sectie. En de
+        inhoud: de volgende sectie gaat over de kringloop van een cóndensdroger,
+        zonder dat ergens staat dat er ook een ander soort bestaat. Niet de drie
+        klimaatfactoren herhalen — die staan al in "Het principe" bovenaan. */}
+    <section className="sr">
+      <div className="wrap">
+        <div className="sec-head">
+          <span className="kick rv">Twee soorten drogers</span>
+          <h2 className="sec rv">De temperatuur op uw werf bepaalt welk toestel het water pakt.</h2>
+          <p className="lede rv d1">Beide halen water uit de lucht, maar niet op dezelfde manier, en dat verschil wordt zichtbaar zodra het kwik zakt. Daarom vraagt de <Link to="/verhuur/calculator">droogcalculator</Link> ook hoe koud uw ruimte staat.</p>
+        </div>
+        <div className="fase2">
+          <div className="fs f1 rv">
+            <span className="fl">Condensdroger · 15 – 25 °C</span>
+            <h3>De standaard op een woningwerf.</h3>
+            <p>Hij koelt de binnenlucht onder haar dauwpunt en vangt de waterdamp op als condenswater. Boven 15 °C is dat de snelste en zuinigste manier om bouwvocht uit een woning te halen, en het is wat er in bijna elk pakket staat. <b>Hoe die kringloop precies loopt, ziet u in de volgende sectie.</b></p>
+          </div>
+          <div className="fs rv d1">
+            <span className="fl">Adsorptiedroger · ook onder 10 °C</span>
+            <h3>Voor koude ruimtes en kelders.</h3>
+            <p>Hij bindt de waterdamp aan een droogmiddel in plaats van ze te koelen, en werkt daardoor door bij temperaturen waar condensvorming nauwelijks nog op gang komt. Op een onverwarmde winterwerf of in een kelder haalt hij water waar een condensdroger stilvalt. Het volledige verschil staat in <Link to="/gids/condensdroger-of-adsorptiedroger">condensdroger of adsorptiedroger</Link>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     {/* ================= DE CYCLUS ================= */}
-    <section className="sw2">
+    <section className="sw">
       <div className="wrap">
         <div className="sec-head">
           <span className="kick rv">De cyclus</span>
@@ -203,9 +238,9 @@ const HoeDrogenWerktPage = () => (
           <div className="mb-t">
             <span className="mbk">Meten is weten</span>
             <h3>Daarom is meten belangrijker dan kijken.</h3>
-            <p>Een witte pleisterlaag kan droog ogen, een chape kan stevig aanvoelen, dat zegt niets over wat er dieper in het materiaal gebeurt. Visueel beoordelen is onbetrouwbaar. Het einddoel is nooit "de droger heeft zeven dagen gedraaid", maar: <b>het materiaal is klaar voor de volgende bouwfase</b>. Daarom zit bij elk pakket een vochtmeting voor én na, en kiest u optioneel een <Link to="/booking">meetrapport (€ 49)</Link> voor uw verzekering of huisbaas.</p>
+            <p>Een witte pleisterlaag kan droog ogen, een chape kan stevig aanvoelen, dat zegt niets over wat er dieper in het materiaal gebeurt. Visueel beoordelen is onbetrouwbaar. Het einddoel is nooit "de droger heeft zeven dagen gedraaid", maar: <b>het materiaal is klaar voor de volgende bouwfase</b>. Daarom zit bij elk pakket een vochtmeting voor én na, en kiest u optioneel een <Link to="/verhuur/calculator">officieel vochtrapport{RAPPORT ? ` (${euro(RAPPORT.price)})` : ""}</Link> voor uw verzekering of huisbaas.</p>
           </div>
-          <img className="mb-man" src="/vernast/man-vochtmeter.webp" alt="Vernast specialist meet het vochtgehalte van een muur" style={{ width: "min(44%,440px)" }} />
+          <img className="mb-man" src="/vernast/man-vochtmeter.webp" alt="Vernast specialist meet het vochtgehalte van een muur" width={1400} height={933} loading="lazy" decoding="async" style={{ width: "min(44%,440px)" }} />
         </div>
       </div>
     </section>
@@ -223,14 +258,17 @@ const HoeDrogenWerktPage = () => (
             <img className="materiaalfoto" src="/vernast/droogproces-nat-pleister.webp" alt="Vers nat gipspleister met zichtbare donkere vochtzones" width={1672} height={941} loading="lazy" decoding="async" />
             <div className="materiaaltekst">
               <h3>Gipspleister</h3>
-              <p>Verliest zijn overtollige water vooral door verdamping. Laagdikte, temperatuur, luchtvochtigheid, ventilatie en de zuiging van de ondergrond bepalen de droogtijd van <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 600 }}>pleisterwerk drogen</Link>.</p>
+              {/* Naar de pagina over pleisterwerk, niet naar de calculator: wie
+                  op "gipspleister" klikt wil weten hoe gips droogt, en belandde
+                  in een rekenformulier dat die vraag niet beantwoordt. */}
+              <p>Verliest zijn overtollige water vooral door verdamping. Laagdikte, temperatuur, luchtvochtigheid, ventilatie en de zuiging van de ondergrond bepalen de droogtijd van <Link to="/pleisterwerk-drogen">gipspleister en pleisterwerk</Link>.</p>
             </div>
           </div>
           <div className="kaart materiaalkaart rv d1">
             <img className="materiaalfoto" src="/vernast/droogproces-vochtige-chape.webp" alt="Vochtige chape tijdens de noodzakelijke uithardingsfase" width={1672} height={941} loading="lazy" decoding="async" />
             <div className="materiaaltekst">
               <h3>Chape &amp; beton</h3>
-              <p>Cement heeft water nodig voor de hydratatiereactie waarmee het uithardt. Te vroeg agressief drogen verstoort dat, bij <Link to="/verhuur/calculator" style={{ color: "var(--red)", fontWeight: 600 }}>chape drogen</Link> starten we pas ná de noodzakelijke uithardingsfase.</p>
+              <p>Cement heeft water nodig voor de hydratatiereactie waarmee het uithardt. Te vroeg agressief drogen verstoort dat, bij <Link to="/chape-drogen">chape drogen</Link> starten we pas ná de noodzakelijke uithardingsfase.</p>
             </div>
           </div>
           <div className="kaart materiaalkaart rv d2">
@@ -241,8 +279,19 @@ const HoeDrogenWerktPage = () => (
             </div>
           </div>
         </div>
-        <div className="note rv"><b>Niet maximaal drogen. Optimaal drogen.</b> Overcapaciteit is geen kwaliteitskenmerk, de juiste capaciteit wel. Waarom dat zo is, leest u bij <Link to="/waarom-bouwdroging">waarom bouwdroging</Link>.</div>
-        <div className="note rv"><b>Lees verder in onze gidsen.</b> Hoeveel weken uw vloer nodig heeft, leest u in <Link to="/gids/hoe-lang-moet-chape-drogen">hoe lang moet chape drogen</Link>, met de droogtijden per dikte voor chape en pleisterwerk. Werkt u in een koude kelder of zit het water onder de vloer, dan legt <Link to="/gids/condensdroger-of-adsorptiedroger">condensdroger of adsorptiedroger</Link> het verschil uit. En wat een toestel dat dag en nacht draait aan stroom kost, rekenen we voor in <Link to="/gids/stroomverbruik-bouwdroger">stroomverbruik van een bouwdroger</Link>. Alle gidsen staan op één plek onder <Link to="/gids">gidsen over bouwdroging</Link>.</div>
+        {/* Dit stond als grijze notitiebalk onder de drie materiaalkaarten: de
+            belangrijkste zin van de sectie, in de opmaak van een voetnoot. Als
+            rode band met de rode kaart erbij leest ze als een standpunt, en
+            komt er tussen drie foto's en twee tekstkaders weer een beeld. */}
+        <div className="manband rv d1" style={{ marginTop: "26px" }}>
+          <div className="mb-t">
+            <span className="mbk">Het verschil</span>
+            <h3>Niet maximaal drogen. Optimaal drogen.</h3>
+            <p>Overcapaciteit is geen kwaliteitskenmerk, de juiste capaciteit wel. Te veel vermogen op een verse laag trekt het oppervlak droog terwijl de kern nog nat is, en dat is precies hoe krimp en scheuren ontstaan. Waarom wij op het klimaat sturen en niet op het aantal toestellen, leest u bij <Link to="/waarom-bouwdroging">waarom bouwdroging</Link>.</p>
+          </div>
+          <img className="mb-man" src="/vernast/man-rode-kaart.webp" alt="Vernast-expert geeft een rode kaart aan te hard drogen" width={1440} height={1438} loading="lazy" decoding="async" style={{ width: "min(34%,340px)" }} />
+        </div>
+        <div className="note rv"><b>Lees verder in onze gidsen.</b> Hoeveel weken uw vloer nodig heeft, leest u in <Link to="/gids/hoe-lang-moet-chape-drogen">hoe lang moet chape drogen</Link>, en voor de muren in <Link to="/gids/hoe-lang-moet-pleisterwerk-drogen">hoe lang moet pleisterwerk drogen</Link>, allebei met de droogtijden per dikte. Werkt u in een koude kelder of zit het water onder de vloer, dan legt <Link to="/gids/condensdroger-of-adsorptiedroger">condensdroger of adsorptiedroger</Link> het verschil uit. En wat een toestel dat dag en nacht draait aan stroom kost, rekenen we voor in <Link to="/gids/stroomverbruik-bouwdroger">stroomverbruik van een bouwdroger</Link>. Alle gidsen staan op één plek onder <Link to="/gids">gidsen over bouwdroging</Link>.</div>
       </div>
     </section>
 
@@ -272,7 +321,7 @@ const HoeDrogenWerktPage = () => (
         <div className="sec-head">
           <span className="kick rv">Bouwdroger huren in Vlaanderen</span>
           <h2 className="sec rv">Van theorie naar uw werf.</h2>
-          <p className="lede rv d1">Bij Vernast huurt u geen losse machine, maar een berekend droogklimaat. Onze <Link to="/verhuur/calculator">droogcalculator</Link> bepaalt op basis van uw volume en situatie welk pakket u nodig heeft, voor <Link to="/verhuur/calculator">pleisterwerk</Link>, <Link to="/verhuur/calculator">chape</Link>, waterschade of een koude kelder. Elk pakket wordt binnen 24 uur geleverd en geïnstalleerd, inclusief vochtmeting voor en na. Liever zelf aan de slag? Losse <Link to="/machines">bouwdrogers, ventilatoren en bouwkachels</Link> haalt u voordelig af in ons <Link to="/verhuur/afhalen">afhaalpunt langs de A12 in Aartselaar</Link>. En met vragen tijdens de huur kunt u altijd terecht bij onze <Link to="/klantservice">klantenservice</Link>.</p>
+          <p className="lede rv d1">Bij Vernast huurt u geen losse machine, maar een berekend droogklimaat. Onze <Link to="/verhuur/calculator">droogcalculator</Link> bepaalt op basis van uw volume en situatie welk pakket u nodig heeft, voor <Link to="/pleisterwerk-drogen">pleisterwerk</Link>, <Link to="/chape-drogen">chape</Link>, <Link to="/waterschade">waterschade</Link> of een <Link to="/renovatie">koude kelder</Link>. Elk pakket wordt binnen 24 uur geleverd en geïnstalleerd, inclusief vochtmeting voor en na. Liever zelf aan de slag? Losse <Link to="/machines">bouwdrogers, ventilatoren en bouwkachels</Link> haalt u voordelig af in ons <Link to="/verhuur/afhalen">afhaalpunt langs de A12 in Aartselaar</Link>. En met vragen tijdens de huur kunt u altijd terecht bij onze <Link to="/klantservice">klantenservice</Link>.</p>
         </div>
         <div className="manband rv d1">
           <div className="mb-t">
@@ -281,55 +330,30 @@ const HoeDrogenWerktPage = () => (
             <p>Zo sturen we het klimaat rond uw bouwmateriaal, en verdwijnt het vocht gecontroleerd uit de constructie, met <Link to="/waarom-bouwdroging">100% droog-garantie</Link>.*</p>
             <Link className="btn btn-white mb-cta" to="/verhuur/calculator">Bereken uw droogpakket<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></Link>
           </div>
-          <img className="mb-man" src="/vernast/man-klembord-pen.webp" alt="Vernast technicus noteert de meetresultaten" style={{ width: "min(30%,320px)" }} />
+          <img className="mb-man" src="/vernast/man-klembord-pen.webp" alt="Vernast technicus noteert de meetresultaten" width={1400} height={934} loading="lazy" decoding="async" style={{ width: "min(30%,320px)" }} />
         </div>
       </div>
     </section>
 
-    {/* ================= VRAAGFORMULIER ================= */}
-    <section className="oform" id="formulier">
-      <div className="wrap">
-        <div className="sec-head" style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
-          <span className="kick rv">Nog een vraag hierover?</span>
-          <h2 className="sec rv">Onze droogspecialisten denken graag mee.</h2>
-          <p className="lede rv d1" style={{ marginLeft: "auto", marginRight: "auto" }}>Twijfelt u over de juiste aanpak voor uw project? Stel uw vraag, u krijgt binnen één werkdag antwoord van een specialist.</p>
-        </div>
-        <div className="fshell rv d2">
-          <div id="formBody">
-            <div className="frow">
-              <div className="fld"><label htmlFor="fVoor">Voornaam</label><input type="text" id="fVoor" placeholder="Voornaam" /></div>
-              <div className="fld"><label htmlFor="fNaam">Naam</label><input type="text" id="fNaam" placeholder="Achternaam" /></div>
-            </div>
-            <div className="frow">
-              <div className="fld"><label htmlFor="fMail">E-mail</label><input type="email" id="fMail" placeholder="naam@voorbeeld.be" /></div>
-              <div className="fld"><label htmlFor="fTel">Telefoon</label><input type="tel" id="fTel" placeholder="04.." /></div>
-            </div>
-            <div className="frow one">
-              <div className="fld"><label htmlFor="fOnd">Waarover gaat uw vraag?</label>
-                <select id="fOnd">
-                  <option>Hoe werkt drogen in mijn situatie?</option>
-                  <option>Advies over het juiste pakket</option>
-                  <option>Vraag over prijzen of levering</option>
-                  <option>Iets anders</option>
-                </select>
-              </div>
-            </div>
-            <div className="frow one">
-              <div className="fld"><label htmlFor="fMsg">Uw situatie</label><textarea id="fMsg" rows={5} placeholder="Bv. nieuwbouw 140 m², chape geplaatst vorige week, wanneer kan de vloerder starten?"></textarea></div>
-            </div>
-            <div className="fsend">
-              <small>Wij gebruiken uw gegevens enkel om uw vraag te beantwoorden.</small>
-              <button className="btn" id="fSend">Verstuur uw vraag<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
-            </div>
-          </div>
-          <div className="fdone" id="formDone">
-            <div className="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg></div>
-            <h3>Vraag verzonden</h3>
-            <p>Bedankt! Een droogspecialist neemt binnen één werkdag contact met u op.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    {/*
+      Het formulier uit de designtranscriptie stond hier met een knop zonder
+      handler: geen <form>, geen onClick, en de pagina draait geen JavaScript.
+      Wie zijn vraag intikte en op "Verstuur uw vraag" drukte, kreeg niets en
+      wij ook niet. <ContactBlok> post naar /api/aanvraag, net als op de dertien
+      andere inhoudspagina's en op de gidsen in deze zelfde schil.
+    */}
+    <ContactBlok
+      kicker="Nog een vraag hierover?"
+      titel="Onze droogspecialisten denken graag mee."
+      lede="Twijfelt u over de juiste aanpak voor uw project? Stel uw vraag, u krijgt binnen één werkdag antwoord van een specialist."
+      onderwerpen={[
+        "Hoe werkt drogen in mijn situatie?",
+        "Advies over het juiste pakket",
+        "Vraag over prijzen of levering",
+        "Iets anders",
+      ]}
+      placeholder="Bv. nieuwbouw 140 m², chape geplaatst vorige week, wanneer kan de vloerder starten?"
+    />
 
     <V3Footer />
   </div>

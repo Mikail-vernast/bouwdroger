@@ -60,10 +60,17 @@
 /* ---- knoppen ---- */
 .v3c .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--fb);font-weight:700;font-size:15px;padding:15px 28px;border-radius:99px;border:0;cursor:pointer;text-decoration:none;transition:all .15s;background:var(--red);color:#fff}
 .v3c .btn:hover{background:#a80d26;color:#fff}
-.v3c .btn-white{background:#fff;color:var(--red)}
-.v3c .btn-white:hover{background:rgba(255,255,255,.88);color:#a80d26}
-.v3c .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff}
-.v3c .btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+/* De witte hoofdknop draagt zwarte tekst, geen rode. Rood op wit, midden in
+   een rode sectie, is dezelfde kleur als de achtergrond: de knop las als een
+   lichte vlek in het rood in plaats van als de knop waar alles naartoe werkt.
+   Zwart zet het label los van de sectie. */
+.v3c .btn-white{background:#fff;color:#17171A}
+.v3c .btn-white:hover{background:rgba(255,255,255,.88);color:#000}
+/* De knop ernaast is zwart met witte tekst, dezelfde als .btn-zwart hieronder.
+   Als dunne omlijning (transparant met een witte rand) las hij nauwelijks als
+   knop naast een volle witte -- eerder als een omlijnd stuk tekst. */
+.v3c .btn-ghost{background:#17171A;border:1.5px solid #17171A;color:#fff}
+.v3c .btn-ghost:hover{background:#000;border-color:#000;color:#fff}
 /* De tweede knop op een rode sectie. Als dunne omlijning naast een volle witte
    knop las hij nauwelijks als knop -- het is dezelfde zwart als de kop van de
    droogtijdentabel, dus hij staat niet alleen in de vormtaal. */
@@ -157,7 +164,12 @@
 .v3c .sr .kick{color:rgba(255,255,255,.75)}
 .v3c .sr .sec{color:#fff}
 .v3c .sr .lede{color:rgba(255,255,255,.78)}
-.v3c .sw .lede a,.v3c .sw p a,.v3c .sw2 .lede a,.v3c .sw2 p a{color:var(--red);font-weight:600;text-decoration:underline;text-decoration-color:rgba(200,16,46,.35);text-underline-offset:3px}
+/* Een link in de lopende tekst van een witte sectie: zwart en vet, met de
+   onderlijning erbij. Rood deed het werk van de onderlijning nog eens over en
+   las als accentkleur -- als iets dat benadrukt is, niet als iets waar je op
+   drukt. De kleur blijft bewaard voor de hover. */
+.v3c .sw .lede a,.v3c .sw p a,.v3c .sw2 .lede a,.v3c .sw2 p a{color:var(--txt);font-weight:700;text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px}
+.v3c .sw .lede a:hover,.v3c .sw p a:hover,.v3c .sw2 .lede a:hover,.v3c .sw2 p a:hover{color:var(--red);text-decoration-color:var(--red)}
 .v3c .sr .lede a,.v3c .sr p a{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px}
 
 /* ============ HERO ============ */
@@ -1353,6 +1365,12 @@
   witte sectie zweeft een kaarsrechte afsnijding met een slagschaduw eronder.
   Dus geen fotoschaduw maar een verloop dat de onderrand laat oplossen.
 */
+/* De vochtmeter-uitsnede staat links in een liggend bestand van 1400×933, met
+   een halve breedte lege lucht ernaast. Zonder bijsnijden is hij ofwel klein
+   en verloren in de kolom, ofwel uitgerekt naar een vierkant. Rechtop
+   bijgesneden rond de man vult hij de kolom zoals de andere splitbeelden. */
+.v3c .split-vis img.meterman{width:min(88%,400px);aspect-ratio:3/4;object-fit:cover;object-position:30% 0}
+
 .v3c .split-vis img.vervaagd{
   filter:none;
   -webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent 97%);

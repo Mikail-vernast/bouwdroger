@@ -76,3 +76,30 @@
     padding-bottom: 72px;
   }
 }
+
+/* De knoppenrij op een rode sectie — dezelfde correctie als in
+   src/styles/v3-content.css, zie de uitleg daar.
+
+   Witte knop met zwarte tekst: rood-op-wit midden in een rode sectie is
+   dezelfde kleur als de achtergrond, en de knop las als een lichte vlek
+   in plaats van als de knop waar alles naartoe werkt.
+   Deze schil heeft geen tweede knop met een rand. */
+.ov-page .btn-white{color:#17171A}
+.ov-page .btn-white:hover{color:#000}
+
+/* Een link in de lopende tekst van een lichte sectie: zwart en vet met een
+   onderlijning, niet rood — dezelfde correctie als in v3-content.css. Rood
+   deed het werk van de onderlijning nog eens over en las als accentkleur, niet
+   als iets waar je op drukt. Rood blijft de hover. Op een rode sectie en in de
+   rode band blijven de links wit; die regels staan in de designfile zelf en
+   wegen even zwaar, dus worden ze hieronder expliciet hersteld. */
+.ov-page .sw .lede a,.ov-page .sw p a,.ov-page .sw2 .lede a,.ov-page .sw2 p a,.ov-page .note a{
+  color:var(--txt);font-weight:700;text-decoration:underline;
+  text-decoration-color:var(--line-2);text-underline-offset:3px;
+}
+.ov-page .sw .lede a:hover,.ov-page .sw p a:hover,.ov-page .sw2 .lede a:hover,
+.ov-page .sw2 p a:hover,.ov-page .note a:hover{color:var(--red);text-decoration-color:var(--red)}
+.ov-page .manband p a{color:#fff;text-decoration-color:rgba(255,255,255,.45)}
+.ov-page .manband p a:hover{color:#fff;text-decoration-color:#fff}
+.ov-page .manband.lite p a{color:var(--txt);font-weight:700;text-decoration-color:var(--line-2)}
+.ov-page .manband.lite p a:hover{color:var(--red);text-decoration-color:var(--red)}

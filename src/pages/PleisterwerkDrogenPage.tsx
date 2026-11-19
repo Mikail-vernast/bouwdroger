@@ -440,13 +440,20 @@ const PleisterwerkDrogenPage = () => (
             <span>Drooggarantie</span>
           </div>
         </div>
+        {/* De uitsnede stond als `framed` in een vierkant van 700×700, terwijl
+            het bestand 1400×933 is: de man werd in de hoogte uitgerekt en zweefde
+            met een slagschaduw onder een kaarsrechte afsnijding ter hoogte van
+            zijn knieën. `cut vervaagd` is hetzelfde recept als op de regio- en
+            gemeentepagina's: geen fotoschaduw, een verloop dat de onderrand laat
+            oplossen. De beeldverhouding staat rechtop zodat hij de kolom vult in
+            plaats van met een halve meter lege lucht ernaast te staan. */}
         <div className="split-vis">
           <img
-            className="framed"
+            className="cut vervaagd meterman"
             src="/vernast/man-vochtmeter.webp"
             alt="Vernast technicus meet de restvochtigheid van een bepleisterde muur"
-            width={700}
-            height={700}
+            width={1400}
+            height={933}
             loading="lazy"
             decoding="async"
           />
