@@ -72,7 +72,7 @@ const COPY = {
     h1: "Terms and conditions",
     intro: (
       <>
-        These General Rental Terms and Conditions apply to every offer, quote and agreement of
+        These General Terms and Conditions of Hire apply to every offer, quote and agreement of
         Vernast. Questions? Email{" "}
         <a href={`mailto:${CONTACT.email}`} style={HERO_LINK}>
           {CONTACT.email}
