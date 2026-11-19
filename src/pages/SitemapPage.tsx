@@ -207,8 +207,10 @@ const SitemapPage = () => {
   const lp = useLokaalPad();
   const taal = useTaal();
   const { BLOKKEN, LANDEN, REALISATIE_LINKS } = sitemapInhoud(taal);
-  /* De taal van de pagina eerst, daarna de andere. */
-  const talen = [taal, ...ACTIEVE_TALEN.filter((x) => x !== taal)];
+  /* Altijd in dezelfde volgorde — Nederlands, Frans, Engels — zodat een knop
+     niet van plaats verspringt tussen /sitemap en /fr/plan-du-site. Open staat
+     wel de taal van de pagina. */
+  const talen = ACTIEVE_TALEN;
   const [actief, setActief] = useState<Taal>(taal);
   const alles = BLOKKEN.flatMap((b) => b.items);
   return (
