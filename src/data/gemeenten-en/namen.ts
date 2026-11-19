@@ -1074,4 +1074,1068 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  andenne: {
+    slug: "andenne",
+    title: "Dehumidifier hire in Andenne, on the Meuse | Vernast",
+    description:
+      "Dehumidifier hire in Andenne, Seilles or Sclayn: homes on the Meuse with a cellar close to river level and houses against the rock. Delivered and installed.",
+    h1: "Construction dehumidifier hire in Andenne",
+    kicker: "Province of Namur · the Meuse town between Namur and Huy",
+    rit: { afstand: "about 105 km", tijd: "just over an hour" },
+    intro: [
+      "Andenne lies **on the Meuse, halfway between Namur and Huy**. The centre grew up around the collegiate church of Sainte-Begge, and the bear from the founding legend returns every year in the **bear carnival**. Seilles lies on the other side of the river and belongs to the same municipality.",
+      "The valley is narrow here, with limestone cliffs on both banks. Sclayn, Namêche and Landenne sit against the slope or in a side valley, and further from the river the farming plateau begins. From our warehouse in Aartselaar it takes us **just over an hour** to reach Andenne.",
+    ],
+    bouw: {
+      kop: "Cellars by the Meuse and houses against the rock",
+      alineas: [
+        "Along the quays and in the low streets of the centre stand terraced houses with **a cellar not far above river level**. When the Meuse is high, the groundwater rises too. A freshly renovated cellar then takes up that moisture through the floor and the base of the walls. So first have it measured to see whether it is construction moisture or moisture coming up from below.",
+        "In Sclayn, Namêche and the streets against the slope, the back wall often stands against rock or earth. That wall stays cold and takes up water after a wet spell. If you are applying **new plaster to a stone wall or a new screed on an old floor**, keep the windows shut, add a heater in winter and choose a dehumidifier that can handle the volume.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a cellar on the Meuse side that is wet after high water.** With 110 litres a day and a range of up to 600 m³, it pulls the moisture out before it soaks deep into the walls." },
+      { key: "radiaal2250", waarom: "This splash-proof radial fan (IP55) **blows across a wet cellar floor** and into the corners beside the stairs, where the water lingers longest." },
+      { key: "teddh30", waarom: "**For a house with its back wall against the rock**, which stays cold in winter. Without heat the dehumidifier's output drops and the wall releases its water slowly. The heater needs a 400 V connection." },
+      { key: "ttk170", waarom: "For a bathroom or bedroom in a terraced house in the centre. **Compact and economical (0.75 kW)**, so easy to carry up a narrow staircase." },
+    ],
+    levering: {
+      kop: "Delivery in Andenne: along the E411 to the Meuse",
+      alinea:
+        "We drive **via the Brussels ring and the E411 to Namur** and then on to Andenne, just over an hour in all. You choose a delivery date when you book; we agree the exact time with you, because in Wallonia we deliver **by appointment**. If you live in Seilles or high up on the slope, let us know whether the van can reach your door.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: just over an hour each way",
+      alinea:
+        "From Andenne, collecting means just over an hour there and the same back, and a dehumidifier has to travel **upright in the car**. If you are near Antwerp anyway, it can work. Delivery is usually simpler: the technician places the units and checks straight away how wet the cellar is.",
+    },
+    buren: ["namen-stad", "fernelmont", "ohey", "gesves"],
+    faq: [
+      {
+        q: "My cellar in Andenne gets damp when the Meuse is high. Will a construction dehumidifier solve that?",
+        a: "After a renovation or after water in the cellar, a dehumidifier pulls the accumulated moisture out of walls and floor. If the water keeps coming back whenever the Meuse rises, it is groundwater and not construction moisture. A moisture reading shows which of the two plays the bigger part.",
+      },
+      {
+        q: "Do you also deliver in Seilles, on the other side of the Meuse?",
+        a: "Yes, Seilles is part of Andenne and falls within our delivery area. Give the full address when you book, and mention what access is like if you live on a narrow street along the river. We then agree the delivery time with you.",
+      },
+      {
+        q: "How do I dry a house whose back wall stands against the rock?",
+        a: "Put the dehumidifier in the coldest room, keep the windows shut and add a heater during the heating season, because a cold stone wall releases its water slowly. Think weeks rather than days. A reading at the start and at collection shows how far the moisture in the wall has dropped.",
+      },
+      {
+        q: "Who arranges where the units go and how the technician gets in?",
+        a: "We do that together with you. Practical matters such as access to the house and where the units should stand are agreed in advance. Questions? Feel free to email or call us.",
+      },
+    ],
+    realisaties: [],
+  },
+  assesse: {
+    slug: "assesse",
+    title: "Construction dehumidifier hire in Assesse | Vernast",
+    description:
+      "Dehumidifier hire in Assesse, Crupet, Courrière or Maillen: new builds along the E411 and stone farmhouses in the Condroz. Delivered by appointment.",
+    h1: "Construction dehumidifier hire in Assesse",
+    kicker: "Province of Namur · on the E411 in the Condroz",
+    rit: { afstand: "about 110 km", tijd: "just over an hour" },
+    intro: [
+      "Assesse lies **in the Condroz, south-east of Namur**, and is crossed by the E411 and the N4. Because of that location, **new housing developments** have appeared around Courrière, Maillen and Sart-Bernard, often for people who work in Namur. From Aartselaar we get here in just over an hour.",
+      "The old villages, meanwhile, stayed rural. **Crupet**, with its medieval keep, is one of the most beautiful villages in Wallonia, and in Florée and Sorinne-la-Longue there are also **farmhouses and houses in natural stone**. So one municipality gives you two very different kinds of site.",
+    ],
+    bouw: {
+      kop: "New builds on the plateau, old stone in the villages",
+      alineas: [
+        "**In the new neighbourhoods** it is mostly new building: screed over underfloor heating and plasterwork on every wall, which has to be dry before the floor layer or the decorator arrives. If you want to move in soon after the shell is up, a dehumidifier gains you weeks on the schedule. **The screed holds most of the water.**",
+        "**In Crupet, Florée and the other old village centres**, stone houses and farmhouses are being renovated. There the moisture sits in thick walls without a cavity, which respond slowly and stay cold in winter. A dehumidifier with a heater and some patience works better there than a unit too big for the room.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a new-build house in Courrière or Maillen**: 70 litres a day for rooms up to 400 m³, enough for a ground floor with fresh screed." },
+      { key: "radiaal2250", waarom: "**Blowing across the screed** breaks up the saturated layer of air just above the floor. This radial fan directs the airflow over the surface." },
+      { key: "ttk650", waarom: "For **a large new build or a house with a cellar** that has to dry in one go: 110 litres a day, for rooms up to 600 m³." },
+      { key: "teddh30", waarom: "**For a stone house in Crupet or Florée** that stays unheated during the work. With heat added, the thick wall gives up its water faster. Allow for a 400 V connection." },
+    ],
+    levering: {
+      kop: "Delivery in Assesse: straight down the E411",
+      alinea:
+        "Assesse has **its own exit on the E411**. From Aartselaar we take the Brussels ring and then the motorway south, just over an hour in all. You choose the delivery date when you book, and we agree the time with you, because in Wallonia we work **by appointment**. If the site is still a shell, tell us what power supply there is.",
+    },
+    afhalen: {
+      kop: "Collecting yourself: back up the E411 to Aartselaar",
+      alinea:
+        "Via the E411 and the ring, our collection point is just over an hour from Assesse. If you have to take the van to the Antwerp area anyway, you can pick up a unit; transport it **upright**. For a complete new build with several units, **delivery is simpler**.",
+    },
+    buren: ["namen-stad", "gesves", "profondeville", "yvoir"],
+    faq: [
+      {
+        q: "When can flooring go on the screed in a new build in Assesse?",
+        a: "When a reading shows that the residual moisture is below the limit for the floor covering, not after a fixed number of weeks. A dehumidifier with a fan speeds that up considerably. Ask your floor layer which value he expects, and have the residual moisture measured before he starts.",
+      },
+      {
+        q: "Will I have enough power on a new-build site without a permanent connection?",
+        a: "A dehumidifier and a fan run on a standard socket, including one on a site distribution box. A 30 kW site heater needs a 400 V connection. Tell us when you book what is available on site, and we will match the package to it.",
+      },
+      {
+        q: "Does a construction dehumidifier work in an old stone house without a cavity wall?",
+        a: "Yes, but more slowly than in a new build. A solid wall releases its water slowly and stays cold in winter. Keep the windows shut, add a heater when it is cold and have a reading taken at the start, so you can later see how far the wall has really dried.",
+      },
+      {
+        q: "Do you also deliver in Crupet and Sorinne-la-Longue?",
+        a: "Yes, all the villages of Assesse are in our delivery area. The Calculator shows the full price of your drying package before you book. After the booking we call to fix the delivery time at your address.",
+      },
+    ],
+    realisaties: [],
+  },
+  fernelmont: {
+    slug: "fernelmont",
+    title: "Dehumidifier hire in Fernelmont: farmhouses | Vernast",
+    description:
+      "Dehumidifier hire in Fernelmont: converted farmhouses and new builds in Noville-les-Bois, Hingeon, Franc-Waret and Marchovelette, east of Namur.",
+    h1: "Construction dehumidifier hire in Fernelmont",
+    kicker: "Province of Namur · farming villages east of Namur",
+    rit: { afstand: "about 95 km", tijd: "just over an hour" },
+    intro: [
+      "Fernelmont is **a rural municipality north-east of Namur**, along the E42 towards Liège. The council sits in **Noville-les-Bois**. Around it lie villages such as Hingeon, Franc-Waret, Marchovelette, Bierwart, Forville and Cortil-Wodon.",
+      "It is **grain country with large fields**, and the villages still gather around their farms and church. Franc-Waret has **a castle**. Being close to Namur and the E42, the area has gained many new homes over recent decades. From Aartselaar you are there in just over an hour.",
+    ],
+    bouw: {
+      kop: "Farmhouses with thick walls and new homes on the plateau",
+      alineas: [
+        "**Many homes in Fernelmont are old farmhouses or village houses** in brick or limestone. A renovation brings **a new floor and new plasterwork**, or a stable is joined to the house. Those walls often have no damp-proof course and take up water in a wet winter. So have it measured how much moisture was already there before the work.",
+        "**For new builds on the plateau**, the loam soil plays a part: water drains away slowly, and a house built during a wet spell does not dry by itself. **An open, exposed plot** cools quickly in winter. A site heater next to the dehumidifier then keeps the screed on schedule.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a new-build house in Noville-les-Bois or Hingeon**: 70 litres a day and suitable for up to about 400 m³." },
+      { key: "ttk650", waarom: "For **a stable being joined to the house**: a lot of volume and a lot of wet wall at once, so 110 litres a day." },
+      { key: "teddh20", waarom: "This 20 kW heater brings an unheated farmhouse room above 15 °C, so the condensation dehumidifier can do its job. **It needs three-phase power (400 V).**" },
+      { key: "ttv4500", waarom: "**In a house with thick internal walls**, dry air does not reach every room by itself. This fan pushes it through." },
+    ],
+    levering: {
+      kop: "Delivery in Fernelmont: via Namur and the E42",
+      alinea:
+        "We drive **via the E411 to Namur and on along the E42**, just over an hour from Aartselaar. You choose a delivery date when you book, and we deliver **by appointment**. If the site is on a narrow country lane or behind a farmyard gate, tell us in advance. Then the technician knows where he can turn and how far he has to carry the units.",
+    },
+    afhalen: {
+      kop: "Collecting from Fernelmont is a long drive",
+      alinea:
+        "Our collection point in Aartselaar is **just over an hour's drive** away. You make that trip there and back when collecting, and again when returning. **Delivery saves you that time**, and the technician measures at installation and collection how far the drying has come.",
+    },
+    buren: ["eghezee", "namen-stad", "andenne"],
+    faq: [
+      {
+        q: "How do I know whether my old farmhouse wall is dry enough to plaster?",
+        a: "By measuring, not by feel. A thick wall can seem dry on the surface while still wet inside. The technician measures at installation and at collection, so you have a figure to give your plasterer.",
+      },
+      {
+        q: "Do I need to be at home when the dehumidifier is delivered in Fernelmont?",
+        a: "Someone has to let the technician in and show where the units should go. That is why we agree the delivery time with you in advance. If your contractor is on site every day, he can also take delivery.",
+      },
+      {
+        q: "Can the dehumidifier keep running at night in a lived-in farmhouse?",
+        a: "Yes, the units are made to run day and night. You will hear them in the same room, though. So place the dehumidifier in the room being renovated and close the door; that room will also dry faster.",
+      },
+      {
+        q: "What do I do with the condensate if there is no drain?",
+        a: "The unit collects the water in a tank that you empty in time, or it pumps it through a hose to a bucket or an outside drain. On a site without plumbing, the technician chooses the most practical solution at installation and explains how often you need to empty it.",
+      },
+    ],
+    realisaties: [],
+  },
+  floreffe: {
+    slug: "floreffe",
+    title: "Dehumidifier hire in Floreffe, below the abbey | Vernast",
+    description:
+      "Dehumidifier hire in Floreffe, Franière or Floriffoux: terraced houses in the Sambre valley below the abbey and homes on the slope. Delivered by appointment.",
+    h1: "Construction dehumidifier hire in Floreffe",
+    kicker: "Province of Namur · the abbey above the Sambre",
+    rit: { afstand: "about 100 km", tijd: "a little over an hour" },
+    intro: [
+      "Floreffe lies **on the Sambre, a few kilometres upstream from Namur**. Above the valley stands **Floreffe Abbey**, founded by the Premonstratensians in the twelfth century. Today it houses a school, and the abbey beer carries the name further.",
+      "The municipality includes Franière, Floriffoux and Soye. Franière and Floriffoux lie **in the Sambre valley**, with older houses along the water and the railway. Soye and the higher parts of Floreffe sit on the slope, with more recent homes and housing developments. From Aartselaar we drive a little over an hour.",
+    ],
+    bouw: {
+      kop: "The Sambre valley and the slope above it",
+      alineas: [
+        "**In the valley at Franière and Floriffoux** stand terraced houses and workers' cottages close to the river, with a cellar in damp ground. Anyone doing up such a house often finds old plaster full of moisture and an uninsulated floor. After hacking off and replastering, **one compact dehumidifier per room** is usually enough, provided the door stays shut.",
+        "**On the slope** stand homes from recent decades that are being renovated or extended: a new kitchen with a tiled floor, a loft being converted, an extension with screed. There it is mainly about pace. The finishing has to go on, and the screed decides when that can happen.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**For a terraced house in Franière with new plaster**: 50 litres a day on a standard socket, and compact enough to move from room to room." },
+      { key: "ttk350", waarom: "For **an extension or converted loft in Soye**: 70 litres a day for rooms up to 400 m³." },
+      { key: "radiaal2250", waarom: "**Blows low and directly across a new screed** in an extension, so the tiler can get started sooner." },
+      { key: "teddh20", waarom: "**For a damp cellar in the Sambre valley** that stays cool all year. This 20 kW heater on 400 V brings it to a temperature at which the dehumidifier performs." },
+    ],
+    levering: {
+      kop: "Delivery in Floreffe: via the E42 into the Sambre valley",
+      alinea:
+        "We drive **via the Brussels ring to the E42**, which runs close to Floreffe; allow a little over an hour. You choose a delivery date when you book. We agree the time with you, because in Wallonia we deliver **by appointment**. In the valley some streets run between railway and river, with little room to stop. Tell us in advance where the van can briefly park.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: a little over an hour each way",
+      alinea:
+        "Our collection point is a little over an hour's drive from Floreffe. There and back, a collection soon costs you **half a day**, and the dehumidifier has to travel upright. Delivery is usually the wisest choice, especially if you need more than one unit.",
+    },
+    buren: ["namen-stad", "profondeville", "fosses-la-ville", "sambreville", "jemeppe-sur-sambre"],
+    faq: [
+      {
+        q: "How do I dry an old terraced house in Franière after hacking off the plaster?",
+        a: "First let whatever is exposed after hacking off dry out, and only then replaster. One dehumidifier per floor with windows and doors shut is fastest. A reading at the start and at collection shows whether the wall is ready for the new coat.",
+      },
+      {
+        q: "How many units do I need for an extension with screed?",
+        a: "For an average extension, one dehumidifier with a fan blowing across the floor is usually enough. The Calculator works out your package from the floor area, layer thickness and material, and shows the price before you book.",
+      },
+      {
+        q: "My cellar close to the Sambre always feels clammy. Will a dehumidifier help?",
+        a: "A dehumidifier takes moisture out of the air and out of walls that are wet after a renovation. If the cellar is clammy because the groundwater is high, it only dries temporarily: the moisture returns as soon as the unit is gone. So have the cause measured first.",
+      },
+      {
+        q: "Do you also deliver to the homes near the abbey?",
+        a: "Yes, all of Floreffe is in our delivery area, including the streets on the slope below the abbey. If they are narrow or steep, mention it when you book. That way the technician knows in advance where he can unload and how to get the units inside.",
+      },
+    ],
+    realisaties: [],
+  },
+  "fosses-la-ville": {
+    slug: "fosses-la-ville",
+    title: "Construction dehumidifier hire, Fosses-la-Ville | Vernast",
+    description:
+      "Dehumidifier hire in Fosses-la-Ville, Vitrival or Sart-Saint-Laurent: stone houses around the collegiate church and farms on the plateau. Delivered and set up.",
+    h1: "Construction dehumidifier hire in Fosses-la-Ville",
+    kicker: "Province of Namur · the Chinels town between Sambre and Meuse",
+    rit: { afstand: "about 110 km", tijd: "just over an hour" },
+    intro: [
+      "Fosses-la-Ville lies **between the Sambre and the Meuse, south of Floreffe**. The little town grew up around the collegiate church of Saint Feuillen and is known in the area for **the Chinels**, the masked figures of the mid-Lent carnival. From Aartselaar it takes us just over an hour to get here.",
+      "Around the centre lie Vitrival, Sart-Saint-Laurent, Sart-Eustache, Aisemont and Le Roux. The landscape is **open farmland** with wooded edges and small streams. Stone village houses and farmhouses stand alongside homes from the 1970s onwards.",
+    ],
+    bouw: {
+      kop: "An old town centre with open country around it",
+      alineas: [
+        "**In the centre around the collegiate church** stand terraced houses in stone and brick, with cellars and a ground floor that often has no damp-proof course. A renovation adds new plaster on old walls. That mix of construction moisture and old moisture dries slowly, so work with **one unit per floor**, keep the doors shut and have a reading taken at the start.",
+        "**In the villages on the plateau**, farmhouses and 1970s homes are being tackled: new floors, an insulated screed, a bathroom. The land there is open and windy, and cold in winter. A site that stays unheated then only dries with heat added.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a 1970s house with new screed**: 70 litres a day for rooms up to 400 m³, suitable for a whole ground floor." },
+      { key: "ttk170", waarom: "For **a terraced house in the centre around the collegiate church**: compact, 0.75 kW, and easy to move from room to room." },
+      { key: "teddh30", waarom: "**For a winter site on the open plateau**, where an unheated house cools quickly. With heat added, the dehumidifier keeps working at full capacity. This heater needs three-phase power (400 V)." },
+      { key: "ttv4500", waarom: "In **a long farmhouse with several rooms in a row**, this fan gets the air moving, so every room gets dry air." },
+    ],
+    levering: {
+      kop: "Delivery in Fosses-la-Ville: via the E42 up onto the plateau",
+      alinea:
+        "The route runs **via the Brussels ring and the E42** and then south onto the plateau, just over an hour in all. When you book you choose the delivery date, and we arrange the time with you, because in Wallonia we deliver **by appointment**. During the carnival the centre is closed off. If your delivery falls in that period, let us know so we can pick another day.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar from Entre-Sambre-et-Meuse",
+      alinea:
+        "From Fosses-la-Ville you drive just over an hour to our collection point, and then back again. Anyone converting a farmhouse also often needs more than one unit, and they rarely fit in a car together. **Let us deliver**: then the units go straight into place.",
+    },
+    buren: ["floreffe", "profondeville", "mettet", "sambreville"],
+    faq: [
+      {
+        q: "Can you deliver during the Fosses-la-Ville carnival?",
+        a: "The centre is then largely closed off, so we would rather plan a delivery in the town centre on another day. In the surrounding villages it is usually no problem. Mention when you book that your address is in the centre, and we will find a suitable date together.",
+      },
+      {
+        q: "How do I dry a 1970s house after a new screed?",
+        a: "With a dehumidifier that can handle the volume and a fan blowing low across the floor, with the windows shut. A screed a few centimetres thick needs weeks, and with the right units that goes faster. A reading at collection shows whether the floor layer can start.",
+      },
+      {
+        q: "Do I need a heater if I am renovating on the plateau in winter?",
+        a: "If the house is not heated during the work, yes. Below 15 °C a condensation dehumidifier works much less well and the wall releases its water slowly. The 30 kW heater needs a 400 V connection, so mention when you book what is available on site.",
+      },
+      {
+        q: "Are Le Roux and Aisemont also within your delivery area?",
+        a: "Yes, all the villages of Fosses-la-Ville are included. Give the full address when you book and choose a delivery date. We then fix the delivery time together with you.",
+      },
+    ],
+    realisaties: [],
+  },
+  gembloers: {
+    slug: "gembloers",
+    title: "Dehumidifier hire in Gembloux: new builds on loam | Vernast",
+    description:
+      "Dehumidifier hire in Gembloux: new builds and converted farmhouses on the loam plateau, from Grand-Leez to Corroy-le-Château. Delivered and installed.",
+    h1: "Construction dehumidifier hire in Gembloux",
+    kicker: "Province of Namur · the loam plateau of the Hesbaye",
+    rit: { afstand: "about 80 km", tijd: "about an hour" },
+    intro: [
+      "**Gembloux**, Gembloers in Dutch, lies **on the loam plateau of the Hesbaye**. The little town grew up around an old abbey. Today the abbey buildings house Gembloux Agro-Bio Tech, the agricultural faculty of the University of Liège.",
+      "Around the centre lie farming villages such as **Grand-Leez, Lonzée, Sauvenière, Ernage and Corroy-le-Château**. Gembloux is on **the railway line between Brussels and Namur**. As a result, many new homes and housing developments have appeared. From Aartselaar we get there in about an hour.",
+    ],
+    bouw: {
+      kop: "New builds on loam and farmhouses becoming homes",
+      alineas: [
+        "**Most of the work is new building** in the developments around the centre and in the villages. There **the screed and plasterwork** have to be dry in time for the floor layer. Loam lets water through slowly. A foundation pit stays flooded for a long time after a wet week, and a house that becomes weathertight in winter is full of moisture.",
+        "In addition, **old farmhouses on the plateau are being converted** into homes. They have thick walls in brick or limestone, **without a damp-proof course**, and often a stable or barn that is being heated for the first time. Such a wall releases its water slowly. Plaster too early or lay a wooden floor too soon, and you risk mould or a floor that starts to move.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a new-build house in a housing development**: 70 litres a day and suitable for up to about 400 m³, enough for a ground floor with fresh screed." },
+      { key: "ttk650", waarom: "For **a farmhouse or barn becoming a home**: large, high rooms with a lot of wet wall, where you need 110 litres a day." },
+      { key: "ttv4500", waarom: "In a long stable with thick walls the air stands still. **This fan (4,500 m³/h) carries the dry air** into the furthest corner." },
+      { key: "teddh30", waarom: "**A winter site on the open plateau** cools down sharply. This heater keeps the room above 15 °C, so the condensation dehumidifier works properly. It connects to three-phase power (400 V)." },
+    ],
+    levering: {
+      kop: "Delivery in Gembloux: right by the E411",
+      alinea:
+        "Gembloux lies **a few kilometres from the E411**. From Aartselaar we are there in about an hour. You choose a delivery date when you book, and we deliver **by appointment**. If the driveway in your development has not been laid yet, tell us where the van can stop. Then the technician does not have to wade through mud with a heavy dehumidifier.",
+    },
+    afhalen: {
+      kop: "Collecting is possible, but it is an hour's drive",
+      alinea:
+        "Our collection point in Aartselaar is **about an hour's drive** away, via the E411 and the Brussels ring. If you are heading to the Antwerp area anyway, you can take one unit with you. For a complete new build with several units, **delivery with installation** is simpler.",
+    },
+    buren: ["chastre", "walhain", "perwijs", "eghezee", "sombreffe"],
+    faq: [
+      {
+        q: "Why does my foundation pit in Gembloux stay wet for so long?",
+        a: "Because the loam soil of the Hesbaye lets water through poorly. After a wet spell the water stays in the pit and soaks into the foundation walls. The standing water has to go first. Once the house is weathertight, a dehumidifier takes the moisture out of the space.",
+      },
+      {
+        q: "I am converting a farmhouse in Grand-Leez. When can I plaster?",
+        a: "Only when the old walls are dry enough. With thick brick or limestone without a damp-proof course, that takes longer than in a new build. Have the technician take a reading at installation. Then you have a starting point and can see with every later reading how far the drying has come.",
+      },
+      {
+        q: "How many units do I need for a new-build house?",
+        a: "Usually one 70-litre dehumidifier per floor with fresh screed, plus a fan if the space is long or divided up. Give the floor area and number of floors when you book, and we will put the combination together on that basis.",
+      },
+      {
+        q: "Do you also deliver in Corroy-le-Château and Lonzée?",
+        a: "All the villages of Gembloux fall within our delivery area, from Corroy-le-Château and Bossière to Lonzée, Sauvenière and Ernage. In the countryside it helps if you tell us when you book which way the site can be reached.",
+      },
+    ],
+    realisaties: [],
+  },
+  gesves: {
+    slug: "gesves",
+    title: "Dehumidifier hire in Gesves, Condroz valleys | Vernast",
+    description:
+      "Dehumidifier hire in Gesves, Mozet, Faulx-les-Tombes or Haltinne: limestone village houses in the Condroz valleys. Delivered and installed by appointment.",
+    h1: "Construction dehumidifier hire in Gesves",
+    kicker: "Province of Namur · villages in the Condroz valleys",
+    rit: { afstand: "about 110 km", tijd: "just over an hour" },
+    intro: [
+      "Gesves lies **in the north of the Condroz, east of Namur**. The municipality includes Faulx-les-Tombes, Haltinne, Mozet and Sorée. The terrain is pronounced, with **wooded slopes and narrow valleys**, such as that of the Samson, which runs down to the Meuse.",
+      "Mozet is one of the recognised most beautiful villages in Wallonia and is built of **grey limestone**. That material shapes the whole municipality: anyone renovating in Gesves is usually dealing with solid stone walls. From Aartselaar we drive **just over an hour** to get here.",
+    ],
+    bouw: {
+      kop: "Limestone in the valley, cold walls against the slope",
+      alineas: [
+        "**On the valley floor** the houses stand close to a stream, on damp ground. In prolonged rain a cellar sometimes takes in water. After repairs or a renovation, such a cellar has to be **completely dry before a new floor goes in**, or the moisture will end up trapped under the tiles.",
+        "**Against the slope** stand houses with one side half in the ground. That wall stays cold all year and feels clammy after winter. If you are planning new internal plaster or a stud wall lining, let the wall dry first. Otherwise you seal the moisture in behind the finish.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a limestone village house after renovation work**: 70 litres a day for rooms up to 400 m³, enough for a whole ground floor." },
+      { key: "revolution", waarom: "**For a wall lining or floating floor against a cold wall.** This desiccant dehumidifier blows dry air through hoses into the construction and keeps working even in a cold room." },
+      { key: "radiaal2250", waarom: "After water in a cellar in the valley, this radial fan blows **directly across the floor**, so the screed does not sit under a damp layer of air." },
+      { key: "teddh20", waarom: "**For a cellar or closed room against the slope.** This 20 kW heater brings the room up to temperature for the dehumidifier and needs a 400 V connection." },
+    ],
+    levering: {
+      kop: "Delivery in Gesves: past Namur into the valleys",
+      alinea:
+        "The route goes **via the E411 to beyond Namur** and then along the regional roads into the villages, just over an hour in all. You choose the delivery date when you book; we phone to agree the time, because in Wallonia we deliver **by appointment**. Some streets in Mozet and Faulx-les-Tombes are narrow and steep. Describe the access, and the technician will allow for it.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar from Gesves",
+      alinea:
+        "Our collection point is just over an hour's drive from Gesves. With loading and unloading, a collection soon costs you **half a day**, and a dehumidifier has to travel upright. With delivery that falls away, and the technician puts the units in the right place straight away.",
+    },
+    buren: ["namen-stad", "andenne", "ohey", "assesse"],
+    faq: [
+      {
+        q: "Can I put up a wall lining against a wall that is still damp?",
+        a: "Better not. Behind a wall lining or a new coat of plaster the moisture can no longer escape, leading to mould or a finish that comes loose. Let the wall dry and have it measured first. If the lining is already in place, a desiccant dehumidifier can blow dry air through hoses into the cavity behind it.",
+      },
+      {
+        q: "Does a construction dehumidifier work in a cold cellar in the valley?",
+        a: "Below 15 °C a condensation dehumidifier loses much of its output. In a cold cellar you therefore add a heater, or choose a desiccant dehumidifier, which keeps working at low temperatures. Which of the two suits depends on the room and the amount of moisture.",
+      },
+      {
+        q: "How long does a dehumidifier stay in a limestone house in Mozet?",
+        a: "That depends on the wall thickness, the amount of new plaster and whether the house is heated. A thick stone wall dries slowly, so think in terms of a few weeks. The right drying time follows from a reading at the start and at collection, not from a fixed period.",
+      },
+      {
+        q: "Do you also drive to Haltinne and Sorée?",
+        a: "Yes, all the villages of Gesves are in our delivery area. Give the full address when you book and, for a remote house, describe how the van can best get there. We then agree the exact delivery time with you.",
+      },
+    ],
+    realisaties: [],
+  },
+  "jemeppe-sur-sambre": {
+    slug: "jemeppe-sur-sambre",
+    title: "Dehumidifier hire, Jemeppe-sur-Sambre valley | Vernast",
+    description:
+      "Dehumidifier hire in Jemeppe-sur-Sambre, Spy, Moustier or Ham-sur-Sambre: homes in the Sambre valley with cellars by the water. Delivered and measured on site.",
+    h1: "Construction dehumidifier hire in Jemeppe-sur-Sambre",
+    kicker: "Province of Namur · the Sambre valley",
+    rit: { afstand: "about 95 km", tijd: "just over an hour" },
+    intro: [
+      "Jemeppe-sur-Sambre lies **in the Sambre valley**, between Namur and Charleroi. Besides Jemeppe itself, **Spy, Moustier-sur-Sambre, Ham-sur-Sambre, Mornimont, Onoz, Balâtre and Saint-Martin** belong to the municipality. Spy is known for the cave where Neanderthal skeletons were found.",
+      "For a long time there was **heavy industry** along the Sambre here, including chemical plants. **The workers' houses in the villages by the water** bear witness to it. Further from the river lie the more rural villages and the newer homes. The drive from Aartselaar takes just over an hour.",
+    ],
+    bouw: {
+      kop: "Terraced houses by the Sambre and homes on the slope",
+      alineas: [
+        "**In the villages on the Sambre** there are many older terraced houses, built for those who worked in the factories. They lie low, close to the water, and often have **a cellar or a ground floor without a damp-proof course**. After high water or a renovation, the moisture stays in the walls there for a long time. A cold, damp ground floor does not dry by itself.",
+        "**On the slopes above the valley** there is more new building. There it is about **screed and plasterwork** in a new house, or a cellar in the slope that takes in water from the uphill side. At installation the technician takes a moisture reading. That way you know whether the moisture comes from the building work or from the ground.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a cellar in a house on the Sambre** that has been flooded: 110 litres a day, so the moisture comes out before it soaks deeper into the walls." },
+      { key: "revolution", waarom: "**For a cold ground floor by the water**: this desiccant dehumidifier keeps absorbing moisture, even when the temperature stays below 15 °C." },
+      { key: "ttk350", waarom: "For a new build on the slope: 70 litres a day and suitable for up to about 400 m³, enough for a whole floor." },
+      { key: "radiaal2250", waarom: "For a wet cellar floor near the river: **this radial fan blows across the floor** into the corners where the water lingers longest." },
+    ],
+    levering: {
+      kop: "Delivery in Jemeppe-sur-Sambre: via Namur or via Charleroi",
+      alinea:
+        "We drive **via the E411 and the E42** and are on the road for just over an hour from Aartselaar. You choose a delivery date when you book, and we deliver **by appointment**. If it concerns a cellar after flooding, tell us how high the water was and whether it has gone. Then the technician brings the right units straight away.",
+    },
+    afhalen: {
+      kop: "Collecting from the Sambre valley takes half a morning",
+      alinea:
+        "You are on the road for **just over an hour** to our collection point, and as long back. That only pays off if you are heading to the Antwerp area anyway. After water damage, delivery is the better choice: **you stay with the cellar** and the technician brings everything.",
+    },
+    buren: ["sambreville", "sombreffe", "gembloers", "floreffe"],
+    faq: [
+      {
+        q: "My house on the Sambre has a wet cellar. Is that construction moisture or groundwater?",
+        a: "It can be either, and the difference decides whether a dehumidifier helps. After a renovation or high water, a dehumidifier removes the moisture for good. If the water comes back through the floor with every rainy spell, it is groundwater and you must tackle the cause first.",
+      },
+      {
+        q: "Do you also deliver in Spy, Moustier and Ham-sur-Sambre?",
+        a: "All the villages of Jemeppe-sur-Sambre fall within our delivery area, from Moustier and Ham-sur-Sambre on the river to Spy and Saint-Martin. Give the full address when you book, and we will plan the route correctly.",
+      },
+      {
+        q: "How long does an old terraced house need to dry after a renovation?",
+        a: "An old house with thick brick walls without a damp-proof course releases its water slowly. Allow a few weeks, not a few days. It goes fastest with the windows shut, one dehumidifier per floor and a fan aimed at the wettest wall.",
+      },
+      {
+        q: "Is a desiccant dehumidifier better than a condensation dehumidifier in a cellar?",
+        a: "In a cold cellar, yes. A condensation dehumidifier needs warmth and loses a lot of output below 15 °C. A desiccant dehumidifier absorbs moisture at lower temperatures too. In a heated cellar a condensation dehumidifier does fine, possibly with a site heater alongside.",
+      },
+    ],
+    realisaties: [],
+  },
+  "la-bruyere": {
+    slug: "la-bruyere",
+    title: "Dehumidifier hire in La Bruyère, above Namur | Vernast",
+    description:
+      "Dehumidifier hire in La Bruyère: new builds and renovations in Rhisnes, Émines, Meux and Bovesse, on the farming plateau just above Namur. Delivered and set up.",
+    h1: "Construction dehumidifier hire in La Bruyère",
+    kicker: "Province of Namur · the plateau above Namur",
+    rit: { afstand: "about 88 km", tijd: "about an hour" },
+    intro: [
+      "La Bruyère lies **on the plateau just north of Namur**, between Gembloux and the city. The town hall is in **Rhisnes**. The other villages are Émines, Meux, Bovesse, Saint-Denis, Villers-lez-Heest and Warisoulx.",
+      "It is **a rural municipality with fields and scattered farms**. Being so close to Namur and the motorways, it has grown strongly. Alongside **recent housing developments** stand old village houses in limestone or brick. From Aartselaar we get there in about an hour.",
+    ],
+    bouw: {
+      kop: "Housing developments on loam and village houses in stone",
+      alineas: [
+        "**The new homes in Rhisnes, Émines and Meux** stand on loam, as everywhere on the plateau. A foundation pit therefore stays wet for a long time, and **a house that is closed up holds a lot of water** from concrete, screed and plaster. If you want the floor layer to come on time, that water has to be actively removed.",
+        "**The older houses in the village centres** have thick walls without a cavity. A renovation often means **the floor is broken out and replaced**, or insulation goes on the inside of the outer wall. Either way the wall has to be dry before you finish it. Otherwise the moisture is trapped behind the insulation.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a new-build house in a development on the plateau**: 70 litres a day, more than enough for a ground floor with fresh screed." },
+      { key: "ttk170", waarom: "For **a single room in a village house** that you are insulating on the inside: a compact dehumidifier of 50 litres a day on a standard socket." },
+      { key: "radiaal2250", waarom: "**For a new screed** that has to be dry for the floor layer: this radial fan blows dry air right across the surface." },
+      { key: "teddh30", waarom: "If your new build has no heating yet in winter, this heater brings the room to **the temperature at which the dehumidifier works well**. It runs on three-phase power at 400 V." },
+    ],
+    levering: {
+      kop: "Delivery in La Bruyère: close to the motorway",
+      alinea:
+        "La Bruyère lies **close to the junction of the E411 and the E42**, about an hour from Aartselaar. You choose a delivery date when you book, and we agree the delivery time **by appointment**. On a new-build site, let us know whether the driveway has been surfaced. If not, the technician brings a hand truck and finds the shortest way inside.",
+    },
+    afhalen: {
+      kop: "Collecting: an hour there, an hour back",
+      alinea:
+        "You drive **about an hour** to our collection point in Aartselaar. A small dehumidifier that fits upright in your car you can collect yourself. A bigger dehumidifier, or a heater together with a dehumidifier, rarely fits in a car. Then **delivery is the practical choice**.",
+    },
+    buren: ["namen-stad", "gembloers", "eghezee"],
+    faq: [
+      {
+        q: "I am insulating the outer wall of my village house on the inside. Does it need to dry first?",
+        a: "Dry it first, yes. Moisture trapped behind the insulation can no longer escape and leads to mould or damaged plasterwork. Have the wall measured before you close it up. If it is still wet, a dehumidifier with a fan dries it in the days beforehand.",
+      },
+      {
+        q: "How long does a screed need to dry in a new build in Rhisnes?",
+        a: "That depends on the thickness, the type of screed and the temperature. The floor layer decides what residual moisture his floor allows. With a dehumidifier and a fan it goes much faster than on its own, and the technician takes a reading at collection so you have a figure.",
+      },
+      {
+        q: "What does it cost to hire a construction dehumidifier in La Bruyère?",
+        a: "The hire price per unit and the price for delivery and collection are on our prices page and in the booking. You see the total before you confirm. If you are unsure which units you need, call or email us beforehand.",
+      },
+      {
+        q: "Can I extend the hire period if the house is not dry yet?",
+        a: "Of course. If the reading at the planned collection shows it is not dry enough yet, or you can see that coming yourself, you can extend the hire. Ideally let us know a few days in advance, and we will adjust the schedule.",
+      },
+    ],
+    realisaties: [],
+  },
+  mettet: {
+    slug: "mettet",
+    title: "Dehumidifier hire in Mettet: farmhouses, gîtes | Vernast",
+    description:
+      "Dehumidifier hire in Mettet, Saint-Gérard or Biesme: farmhouses and village houses on the Entre-Sambre-et-Meuse plateau. Delivered to the door and set up.",
+    h1: "Construction dehumidifier hire in Mettet",
+    kicker: "Province of Namur · the circuit on the plateau",
+    rit: { afstand: "about 120 km", tijd: "almost an hour and a half" },
+    intro: [
+      "Mettet lies **on the Entre-Sambre-et-Meuse plateau**, between Fosses-la-Ville and Florennes. Outside the area the municipality is best known for the **Jules Tacheny circuit**, where motorbike and car races are held. From Aartselaar we are on the road for almost an hour and a half.",
+      "It is a rural municipality with villages such as **Saint-Gérard**, with the remains of Brogne Abbey, Biesme, Ermeton-sur-Biert, Furnaux, Graux and Oret. The open plateau is farmed, and you can see it in the buildings: large farmhouses, stone village houses and scattered new builds.",
+    ],
+    bouw: {
+      kop: "Large farmhouses and open wind on the plateau",
+      alineas: [
+        "A **farmhouse being converted into a home or a gîte** is the typical project here: high rooms, thick walls, a new floor slab and a lot of plaster. The volume is large and the walls are cold, so one unit is rarely enough. **One dehumidifier per zone**, with a fan sending the air through the long rooms, keeps the schedule achievable.",
+        "The plateau is high and open. In winter an unheated house cools faster there than in a sheltered valley. For **a new build or renovation in the cold months**, that means adding heat. Skip it, and the dehumidifier produces few litres while the work waits.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a converted farmhouse or gîte with high ceilings**: 110 litres a day, for rooms up to 600 m³." },
+      { key: "teddh30", waarom: "**On the open plateau a site cools quickly.** This 30 kW heater brings a large room up to temperature so the dehumidifier performs, and runs on 400 V." },
+      { key: "ttv4500", waarom: "For **a long farmhouse with rooms one behind the other**: with 4,500 m³ of air an hour, this fan sends the dry air into the furthest room." },
+      { key: "revolution", waarom: "For **a floor build-up or insulation layer that has got wet**: this desiccant dehumidifier blows dry air through hoses into the construction, even when it is cold." },
+    ],
+    levering: {
+      kop: "Delivery in Mettet: the plateau south of the Sambre",
+      alinea:
+        "We drive **via the Brussels ring and the E42** and then up onto the plateau to Mettet, almost an hour and a half in all. You choose the delivery date when you book; we agree the time with you, because in Wallonia we deliver **by appointment**. On a race weekend it is busy around the circuit. Let us know if your delivery falls in such a period.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: almost an hour and a half each way",
+      alinea:
+        "Mettet is almost an hour and a half's drive from our collection point, and then you still have to get back. For a converted farmhouse with several units and a heater, that will not fit in a car. **Delivery is the obvious choice here**: the technician places everything and sets up the arrangement properly.",
+    },
+    buren: ["fosses-la-ville", "gerpinnes", "florennes", "anhee"],
+    faq: [
+      {
+        q: "How many units do I need for a farmhouse becoming a gîte?",
+        a: "That depends on the volume, the number of rooms and how much screed and plaster is new. For a large farmhouse you usually need several dehumidifiers and fans, spread over the zones. The Calculator puts the package together from your measurements.",
+      },
+      {
+        q: "Does a construction dehumidifier work in an unheated farmhouse on the plateau in winter?",
+        a: "Without heat it works poorly. Below 15 °C a condensation dehumidifier extracts little water from the air. A site heater brings the room up to temperature, and then the dehumidifier works at full capacity again. Bear in mind that a 30 kW heater needs three-phase power.",
+      },
+      {
+        q: "What if the insulation under my screed has got wet?",
+        a: "Then a condensation dehumidifier only dries the top, and the water stays under the screed. A desiccant dehumidifier blows dry air through hoses into the floor build-up. Whether that is enough or the floor has to come out only becomes clear after a reading on site.",
+      },
+      {
+        q: "Do you deliver in Saint-Gérard and Ermeton-sur-Biert?",
+        a: "Yes, all the villages of Mettet are in our delivery area, including the scattered farms outside the village centres. Give the address and the access when you book, also if the farm lies at the end of a long drive. We then agree the delivery time with you.",
+      },
+    ],
+    realisaties: [],
+  },
+  ohey: {
+    slug: "ohey",
+    title: "Dehumidifier hire in Ohey: stone farmhouses | Vernast",
+    description:
+      "Dehumidifier hire in Ohey, Haillot or Évelette: natural stone farmhouses and village houses on the Condroz plateau, with thick walls that dry slowly.",
+    h1: "Construction dehumidifier hire in Ohey",
+    kicker: "Province of Namur · rural Condroz above the Meuse",
+    rit: { afstand: "about 115 km", tijd: "almost an hour and a half" },
+    intro: [
+      "Ohey lies **on the Condroz plateau, south of Andenne**. The municipality is made up of scattered villages: Haillot, Évelette, Goesnes, Jallet, Perwez and Ohey itself. The landscape alternates between **long ridges and valleys**, with fields, meadows and the edges of woods.",
+      "The villages are built of **local sandstone and limestone**, often with farmhouses around a courtyard. So anyone renovating here is usually working on a solid stone wall and rarely on a cavity wall. From Aartselaar we are on the road for **almost an hour and a half** to Ohey.",
+    ],
+    bouw: {
+      kop: "Natural stone farmhouses becoming homes",
+      alineas: [
+        "A **farmhouse or barn being converted into a home** gets a new floor slab, screed, internal plaster and often an inner wall against the old façade all at once. That brings a lot of water into a large, high volume, and the thick stone walls keep the space cool. **One large unit with a fan** works better there than three small ones.",
+        "In an older village house the moisture often comes from two sources: the renovation itself and **the base of the wall**, where no damp-proof course was ever fitted. After hacking off old plaster, have it measured first. A dehumidifier removes the construction moisture, but rising damp needs its own solution afterwards.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a converted barn or stable**: 110 litres a day and a range of up to 600 m³, enough for a high volume with new screed and plaster." },
+      { key: "ttv4500", waarom: "In a long farmhouse with an open roof structure, damp air hangs in the corners. **This fan moves 4,500 m³ of air an hour** and keeps the whole space moving." },
+      { key: "teddh30", waarom: "**Natural stone holds on to the cold.** On a winter site in an unheated farmhouse, this 30 kW heater brings the room to a temperature at which the dehumidifier performs. It runs on three-phase power (400 V)." },
+      { key: "ttk350", waarom: "For **a village house in Haillot or Évelette** with new plaster on the ground floor: 70 litres a day, for rooms up to 400 m³." },
+    ],
+    levering: {
+      kop: "Delivery in Ohey: via Namur or Andenne up onto the plateau",
+      alinea:
+        "We take the **E411 to Namur** and drive past Andenne up onto the plateau, almost an hour and a half in all. You choose a delivery date when you book, and we fix the time together: in Wallonia we deliver **by appointment**. If your farmhouse is on a field track or behind a narrow drive, mention it, so the technician knows where he can turn.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: a long drive for one unit",
+      alinea:
+        "From Ohey you drive almost an hour and a half to our collection point and as long back. For a converted farmhouse with several units, it will not fit in a car either. **Delivery makes more sense here**: the technician brings everything and sets up the arrangement properly straight away.",
+    },
+    buren: ["andenne", "gesves", "havelange"],
+    faq: [
+      {
+        q: "How many units do I need for a converted Condroz farmhouse?",
+        a: "That depends on the volume, the thickness of the screed and the amount of new plaster. A large barn with a high ridge often needs a large unit and a fan per zone. The Calculator works it out from your measurements, and the technician adjusts where needed at installation.",
+      },
+      {
+        q: "My stone façade stays damp after the renovation. Is that construction moisture?",
+        a: "Partly, possibly. New plaster and mortar bring in water that a dehumidifier removes. If the moisture sits mainly in the bottom half metre and keeps coming back, it is probably rising damp. A moisture reading at the start makes that distinction clear.",
+      },
+      {
+        q: "Can the van get to a remote farmhouse?",
+        a: "Usually yes, also along a surfaced field track. If the access is unsurfaced or very narrow, mention it when you book. Then we plan the delivery so the technician does not have to reverse down a long drive, and he knows how far he has to wheel the units.",
+      },
+      {
+        q: "Is drying in winter worthwhile in an unheated house on the plateau?",
+        a: "Yes, provided you add heat. Below 15 °C the air takes up little moisture and the output of a condensation dehumidifier drops sharply. A site heater brings the room up to temperature, and then the dehumidifier does pull the released moisture out of the air.",
+      },
+    ],
+    realisaties: [],
+  },
+  profondeville: {
+    slug: "profondeville",
+    title: "Dehumidifier hire in Profondeville on the Meuse | Vernast",
+    description:
+      "Dehumidifier hire in Profondeville, Lustin or Bois-de-Villers: homes on the Meuse, houses against the rock and new builds on the plateau. Installed for you.",
+    h1: "Construction dehumidifier hire in Profondeville",
+    kicker: "Province of Namur · the Meuse bend below the cliffs",
+    rit: { afstand: "about 105 km", tijd: "just over an hour" },
+    intro: [
+      "Profondeville lies **on the Meuse, just upstream from Namur**, in a bend where the river runs between steep banks. At Lustin the **Frênes rocks** rise above the water. Along the bank stand villas and older houses from the days when the Meuse valley was a popular holiday area.",
+      "The municipality also includes Lustin, Rivière, Arbre, Lesve and Bois-de-Villers, partly on the slope and partly on the plateau. That gives **three kinds of homes**: on the quay, against the rock and in a housing development on the plateau. From Aartselaar we drive just over an hour to Profondeville.",
+    ],
+    bouw: {
+      kop: "On the bank, against the rock, on the plateau",
+      alineas: [
+        "**On the Meuse side** the ground floor lies low and the cellar close to river level. After high water, or a renovation with a new floor, that cellar has to dry completely. A large unit and a fan on the floor get most of the water out, but **the groundwater itself remains**. So have it measured whether the walls are still taking in moisture from outside.",
+        "Houses against the rock often have a back wall set into the slope, and the rooms on that side are cold and clammy. **On the plateau around Bois-de-Villers and Lesve** it is more about new builds and extensions, with screed and plaster on a fixed schedule. Each situation needs a different package.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a cellar on the Meuse side after high water**: 110 litres a day, for rooms up to 600 m³. That way the moisture disappears before it settles in the walls." },
+      { key: "ttv4500", waarom: "In **a villa with high ceilings on the riverbank** the air otherwise stands still. This fan moves 4,500 m³ an hour and keeps the whole space moving." },
+      { key: "teddh20", waarom: "**For a cold room on the rock side.** This 20 kW heater brings one room up to temperature, so the dehumidifier can do its work. It runs on three-phase power." },
+      { key: "ttk350", waarom: "For **a new build or extension on the Bois-de-Villers plateau**: 70 litres a day for a ground floor with fresh screed." },
+    ],
+    levering: {
+      kop: "Delivery in Profondeville: via Namur along the Meuse",
+      alinea:
+        "We drive **via the E411 to Namur** and then follow the Meuse to Profondeville, just over an hour in all. You choose the delivery date when you book; we fix the time by phone afterwards, because in Wallonia we deliver **by appointment**. The road along the river is narrow and busy in season. Let us know whether the van can stop outside your door.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar from the Meuse valley",
+      alinea:
+        "You are on the road for just over an hour to our collection point, and as long back, if traffic around Brussels allows. A dehumidifier has to travel upright, and for a cellar after high water you usually need more than one. **Delivery saves you that trip**, and the technician sets up the arrangement properly straight away.",
+    },
+    buren: ["namen-stad", "assesse", "yvoir", "floreffe", "fosses-la-ville"],
+    faq: [
+      {
+        q: "My cellar on the Meuse has had water in it. When can the dehumidifier go in?",
+        a: "As soon as the standing water has gone and no new water is coming in. Pump first, remove the silt and only then start drying; otherwise you are drying a cellar that fills up again. A reading shows whether the walls are still taking in water from outside.",
+      },
+      {
+        q: "Can the technician bring a unit into a villa on the slope?",
+        a: "Usually yes, even if there are steps in the garden. Mention when you book how many steps there are and how wide the passage is. Then the technician knows in advance what to expect and brings the right equipment to move the units.",
+      },
+      {
+        q: "Why does the room on the rock side stay clammy, even after the renovation?",
+        a: "Because that wall stands against the slope and stays cold. A dehumidifier removes construction moisture from new plaster, but water seeping in through the rock comes back. A reading at the start and at the end shows which part of the moisture has dropped for good.",
+      },
+      {
+        q: "Do you also deliver in Lustin, Rivière and Lesve?",
+        a: "Yes, all the villages of Profondeville are in our delivery area, both by the river and on the plateau. Give the full address and the access when you book. We then agree the delivery time on the chosen date together.",
+      },
+    ],
+    realisaties: [],
+  },
+  sambreville: {
+    slug: "sambreville",
+    title: "Dehumidifier hire in Sambreville: terraced homes | Vernast",
+    description:
+      "Dehumidifier hire in Sambreville, Auvelais, Tamines or Velaine: terraced houses from the coal and glass era along the Sambre, with cellars near the water.",
+    h1: "Construction dehumidifier hire in Sambreville",
+    kicker: "Province of Namur · Auvelais, Tamines and the Basse-Sambre",
+    rit: { afstand: "about 100 km", tijd: "just over an hour" },
+    intro: [
+      "Sambreville is **a merged municipality on the Sambre**, between Charleroi and Namur. The name is young, the villages are old: **Auvelais, Tamines, Arsimont, Falisolle, Keumiée, Moignelée and Velaine-sur-Sambre**. Together they form the heart of the area known as the Basse-Sambre.",
+      "For a long time the area lived on **coal, glass and metal**. **The long rows of workers' houses** in Tamines and Auvelais bear witness to it. Today a lot of renovation goes on, and anyone buying an old terraced house often starts with floors and plasterwork. From Aartselaar we get there in just over an hour.",
+    ],
+    bouw: {
+      kop: "Brick workers' houses and cellars by the river",
+      alineas: [
+        "**The terraced houses in Tamines and Auvelais** are built of brick, often **without a cavity and without a damp-proof course**, with a narrow staircase and a cellar under the front room. Such a house is often renovated in one go: new screed, new plasterwork, a new bathroom. All that water has to come out before the floor and the paint can go on.",
+        "**Close to the Sambre** the ground lies low and the groundwater is high. Cellars and ground floors of houses by the water therefore stay cool and damp, especially after a wet winter or high water. **The technician takes a reading at installation** of how wet the walls are, so you know where you are starting from.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**For a narrow terraced house with a steep staircase**: this compact dehumidifier of 50 litres a day is suitable for up to about 250 m³." },
+      { key: "ttk350", waarom: "For **a terraced house being renovated in one go**: 70 litres a day, enough for a ground floor with fresh screed." },
+      { key: "teddh30", waarom: "**For the cellar under the front room**, which stays cold near the Sambre. Only above 15 °C does a condensation dehumidifier work at full power. This heater needs three-phase power (400 V)." },
+      { key: "ttv4500", waarom: "In a narrow, deep terraced house the dry air does not travel from front to back by itself. **This fan takes care of that.**" },
+    ],
+    levering: {
+      kop: "Delivery in Sambreville: the van outside the terraced house",
+      alinea:
+        "From Aartselaar it is **just over an hour's drive**, via the Brussels ring and the E411 or past Charleroi. You fix the delivery date when you book; we agree the exact time **by appointment**. On a street of terraced houses, let us know in advance whether the van can stop briefly outside the door. The technician carries the units inside and places them floor by floor.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar is a long drive from Sambreville",
+      alinea:
+        "Our collection point is **just over an hour's drive** away, and you make that trip there and back twice per hire period. That rarely pays off. With delivery you also get **a reading at the start and at collection**, and with an old brick house that tells you a lot.",
+    },
+    buren: ["jemeppe-sur-sambre", "fosses-la-ville", "fleurus", "aiseau-presles"],
+    faq: [
+      {
+        q: "I have bought an old terraced house in Tamines. Where do I start with drying?",
+        a: "With measuring. In an old house without a damp-proof course, you want to know how much moisture was already in the walls before you start renovating. Then you dry in phases: first after the screed, then after the plasterwork. The technician takes a reading at every installation and collection.",
+      },
+      {
+        q: "Will a construction dehumidifier fit up the narrow stairs of a workers' house?",
+        a: "The compact dehumidifier of 50 litres a day is made for that. For the 70-litre dehumidifier you need a bit more width. Mention when you book that it is a narrow or steep staircase, and we will choose the unit accordingly.",
+      },
+      {
+        q: "How do I dry a cold cellar close to the Sambre?",
+        a: "With a condensation dehumidifier and an electric site heater together, or with a desiccant dehumidifier, which needs no heat. A condensation dehumidifier works poorly below 15 °C. Keep the cellar door shut, so the dehumidifier does not have to process the air of the whole house.",
+      },
+      {
+        q: "Who shows me how to operate the unit and empty the tank?",
+        a: "The technician does, at installation. If your contractor is working on site, have him there as well. Questions afterwards? Feel free to email or call us.",
+      },
+    ],
+    realisaties: [],
+  },
+  sombreffe: {
+    slug: "sombreffe",
+    title: "Dehumidifier hire in Sombreffe and Ligny | Vernast",
+    description:
+      "Dehumidifier hire in Sombreffe, Ligny, Tongrinne or Boignée: converted farmhouses and new builds on the loam plateau between Gembloux and Fleurus. Delivered.",
+    h1: "Construction dehumidifier hire in Sombreffe",
+    kicker: "Province of Namur · Ligny and the plateau near Fleurus",
+    rit: { afstand: "about 85 km", tijd: "about an hour" },
+    intro: [
+      "Sombreffe lies **in the west of the province of Namur**, on the border with Hainaut, between Gembloux and Fleurus. The municipality has four villages: **Sombreffe, Ligny, Tongrinne and Boignée**. Ligny is known for the battle of 1815, two days before Waterloo.",
+      "The landscape is **open arable land on loam**, with large farmhouses and villages that grew along the old main roads. Sombreffe also has **a castle**. Charleroi and Namur are close by, which is why new homes are appearing on the edges of the villages. A van from Aartselaar gets there in about an hour.",
+    ],
+    bouw: {
+      kop: "Farmhouses along the main road and new builds on the village edge",
+      alineas: [
+        "**In Ligny and Tongrinne** stand large farmhouses and old village homes, often in brick. A conversion brings **new floors, a new bathroom and plasterwork** into walls that have long stood without a damp-proof course. The construction moisture then comes on top of the moisture the wall already held. That dries more slowly than the contractor's schedule allows for.",
+        "**On the edges of the villages** new homes stand on loam. After a wet spell **the ground stays saturated**, and a house closed up at that point keeps the water from screed and plaster inside. A dehumidifier of the right size removes that water before the finishing starts, provided the windows stay shut.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a new build on the village edge of Sombreffe**: 70 litres a day and suitable for up to about 400 m³." },
+      { key: "ttk650", waarom: "For **a large farmhouse in Ligny or Tongrinne** being renovated in one go: several rooms and a lot of wet wall, so 110 litres a day." },
+      { key: "ttv4500", waarom: "In a farmhouse with rooms one behind the other, **this fan spreads the dry air** across the whole ground floor." },
+      { key: "ttk170", waarom: "**For a bathroom or single room** being renovated separately while you go on living in the rest of the house." },
+    ],
+    levering: {
+      kop: "Delivery in Sombreffe: via the E411 and Gembloux",
+      alinea:
+        "From Aartselaar we drive **about an hour**, via the Brussels ring, the E411 and Gembloux. You choose the delivery date when you book; we come **by appointment**. If you have a farmhouse with a courtyard, tell us which side the technician comes in from. Then he does not have to carry the units across the whole yard.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: about an hour's drive",
+      alinea:
+        "Our collection point is **about an hour's drive** from Sombreffe. If you need to be near Antwerp anyway, you can take a small dehumidifier with you. Bear in mind that **a dehumidifier has to travel upright**. For a larger dehumidifier you need a van or a roomy estate car.",
+    },
+    buren: ["gembloers", "jemeppe-sur-sambre", "fleurus"],
+    faq: [
+      {
+        q: "My farmhouse in Ligny has no damp-proof course. Will a construction dehumidifier still help?",
+        a: "For the construction moisture from the renovation, yes: the dehumidifier takes that out of the space. It does not permanently solve rising damp from the ground, because that comes back after drying. At installation the technician measures whether the moisture is higher at the bottom of the wall than at the top.",
+      },
+      {
+        q: "Can you deliver in Boignée and Tongrinne?",
+        a: "All four villages of Sombreffe fall within our delivery area: Sombreffe, Ligny, Tongrinne and Boignée. Give the full address when you book. For a farmhouse outside the village centre, a short description of the access helps.",
+      },
+      {
+        q: "Can the dehumidifier stand in a lived-in house during the bathroom renovation?",
+        a: "That works well: the smallest dehumidifier, 50 litres a day, is compact and only needs a standard socket. Put it in the bathroom and keep the door and window shut. That way the new plasterwork or tile adhesive dries without the rest of the house getting damp.",
+      },
+      {
+        q: "Should I open the windows while the dehumidifier is running?",
+        a: "No. A dehumidifier works in a closed room. Open windows let damp outside air in, and then the unit dries the outside air instead of your walls. Airing briefly when you go into the room is no problem.",
+      },
+    ],
+    realisaties: [],
+  },
+  eghezee: {
+    slug: "eghezee",
+    title: "Dehumidifier hire in Éghezée: courtyard farms | Vernast",
+    description:
+      "Dehumidifier hire in Éghezée: courtyard farms on the Hesbaye grain plain, new builds in Leuze and Longchamps, cellars by the Mehaigne. Delivered and installed.",
+    h1: "Construction dehumidifier hire in Éghezée",
+    kicker: "Province of Namur · grain country along the E411",
+    rit: { afstand: "about 85 km", tijd: "about an hour" },
+    intro: [
+      "Éghezée lies **in the open grain country of the Hesbaye**, north-east of Namur. This extensive rural municipality has a string of villages, such as **Leuze, Longchamps, Aische-en-Refail, Taviers and Noville-sur-Mehaigne**. The Mehaigne, a tributary of the Meuse, flows through the municipality.",
+      "The landscape consists of **large fields of grain and sugar beet** and **courtyard farms**: a closed yard with farmhouse, stables and barn around an inner courtyard. The E411 runs through the municipality, and new homes have appeared along that axis. From Aartselaar we drive here in about an hour.",
+    ],
+    bouw: {
+      kop: "Converting a courtyard farm and new builds in the villages",
+      alineas: [
+        "**Many projects here are conversions of a courtyard farm**: the barn or the stables become a home, a practice room or a holiday home. The walls are **half a metre thick**, with no cavity or damp-proof course, and the floors sit directly on the ground. A new screed and new plasterwork bring a lot of water into a space that was never heated.",
+        "**In the villages along the E411** it is more often new building on loam, and that soil holds on to water. **In the Mehaigne valley** older homes lie lower and closer to the water. A renovation there often brings a damp cellar or a cold ground floor.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a barn or stable in a courtyard farm** that is becoming a home: high, large rooms where 110 litres a day makes the difference." },
+      { key: "revolution", waarom: "**For an unheated farm cellar** or a stable in winter: this desiccant dehumidifier absorbs moisture even in a cold room." },
+      { key: "ttk350", waarom: "For a new-build house in Leuze or Longchamps: 70 litres a day, more than enough for a ground floor with fresh screed." },
+      { key: "radiaal2250", waarom: "A new screed in a long stable dries slowest at the edges. **This radial fan blows directly across the floor** into the corners." },
+    ],
+    levering: {
+      kop: "Delivery in Éghezée: from the E411 into the farmyard",
+      alinea:
+        "Éghezée has **its own exit on the E411**. The drive from Aartselaar takes about an hour. You choose a delivery date when you book, and we deliver **by appointment**. If you have a farm with a courtyard, tell us which gate the van can use to get into the yard. The technician places the units room by room and explains where the condensate should go.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: only if you are going that way anyway",
+      alinea:
+        "From Éghezée you are on the road for **about an hour** to our collection point, and as long back. For one unit that can work, if you are heading towards Antwerp anyway. For a farm with several drying zones you are better off with delivery: **the technician takes a reading at the start**, and you need that reading for your contractor.",
+    },
+    buren: ["gembloers", "fernelmont", "la-bruyere", "perwijs", "ramillies"],
+    faq: [
+      {
+        q: "How do I dry a barn we are converting into a home?",
+        a: "Keep the windows shut, put one large dehumidifier in each room and let a fan keep the air moving. An old barn wall without a damp-proof course releases water slowly, so think weeks rather than days. The technician takes a reading at the start, so you can follow the progress.",
+      },
+      {
+        q: "Does a construction dehumidifier work in an unheated farmhouse in winter?",
+        a: "A condensation dehumidifier loses a lot of output below 15 °C. In a cold stable or cellar you therefore choose a desiccant dehumidifier, or you put an electric site heater next to the condensation dehumidifier. Mention when you book whether the room is heated.",
+      },
+      {
+        q: "Do you also deliver in the smaller villages such as Taviers or Branchon?",
+        a: "We deliver there too. The whole municipality of Éghezée falls within our delivery area, including the smaller villages in the Mehaigne valley. Give the full address and mention if it is a remote farm, so the planning allows for the last few kilometres along farm roads.",
+      },
+      {
+        q: "How much power does a dehumidifier use on a farm with an old electrical installation?",
+        a: "The 70-litre-a-day dehumidifier draws about 1.1 kW, the large 110-litre one about 1.4 kW. A 20 or 30 kW site heater needs three-phase power (400 V). Spread several units over different circuits; the technician checks this at installation.",
+      },
+    ],
+    realisaties: [],
+  },
+  anhee: {
+    slug: "anhee",
+    title: "Dehumidifier hire in Anhée and the Molignée | Vernast",
+    description:
+      "Dehumidifier hire in Anhée, Annevoie, Denée or Warnant: homes on the Meuse and in the Molignée valley below Maredsous. Delivered and placed room by room.",
+    h1: "Construction dehumidifier hire in Anhée",
+    kicker: "Province of Namur · the Molignée valley",
+    rit: { afstand: "about 110 km", tijd: "just over an hour" },
+    intro: [
+      "Anhée lies **on the left bank of the Meuse**, where the Molignée flows into the Meuse. That small river winds inland through a wooded valley past Warnant and Sosoye. High above the valley, in Denée, stands **Maredsous Abbey**.",
+      "Annevoie-Rouillon, known for its gardens, Bioul and Haut-le-Wastia also belong to the municipality. You will find village centres in grey limestone, scattered farmhouses and homes against the slope. From Aartselaar we drive just over an hour to Anhée.",
+    ],
+    bouw: {
+      kop: "Village houses in the valley, homes in the slope",
+      alineas: [
+        "In the narrow Molignée valley the houses stand close to the water and often half against the slope. If the back of the ground floor sits in the ground, **moisture seeps through the wall** as soon as the soil is saturated. After a renovation you want to know whether it is still construction moisture. That is why the technician measures the wall on the slope side and the one on the street side separately.",
+        "On the plateau around Bioul and Denée stand larger homes and converted farmhouses with thick stone walls. There most of the water sits in **the new screed**. Put a large unit in the room and a fan blowing low across the floor. That way the floor reaches the value the floor layer asks for.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk350", waarom: "**For a village house in Warnant or Sosoye**: 70 litres a day, enough for a village home of up to 400 m³." },
+      { key: "radiaal2250", waarom: "Blows low and directly across **a fresh screed in a converted farmhouse**, the part of the site that holds the most water." },
+      { key: "ttk650", waarom: "For an open-plan living space or a completely stripped farmhouse: 110 litres a day for rooms up to 600 m³." },
+      { key: "teddh20", waarom: "Warms **an unheated house in the cool valley** in winter to above 15 °C, so a condensation dehumidifier works properly. Runs on 400 V." },
+    ],
+    levering: {
+      kop: "Delivery in Anhée: via Namur and the left bank of the Meuse",
+      alinea:
+        "We take the motorway to Namur and then follow the Meuse along the left bank. You choose **a delivery date** when you book; we agree the delivery time with you. In the Molignée valley the roads are winding and narrow. Let us know whether the van can reach your door. The technician lays the drain hose and sets the hygrostat before he leaves.",
+    },
+    afhalen: {
+      kop: "Collecting from Anhée: a long drive, twice",
+      alinea:
+        "To our collection point in Aartselaar you drive just over an hour, and you make that trip twice per hire period. A construction dehumidifier also has to travel **upright**. For one unit, collecting may suit you. For a whole house you are better off with delivery.",
+    },
+    buren: ["yvoir", "dinant", "onhaye", "mettet", "profondeville"],
+    faq: [
+      {
+        q: "My house in the Molignée valley stands against the slope. What can a dehumidifier do there?",
+        a: "It removes the construction moisture from a renovation. Moisture that comes through the wall from the slope after every rainy spell returns as soon as the unit is gone. The technician measures both sides at installation, so you know where you stand.",
+      },
+      {
+        q: "How do I dry a new screed in a converted farmhouse around Bioul?",
+        a: "Keep the windows shut, put a large unit in the room and let a radial fan blow low across the floor. The floor layer decides what residual moisture value he needs. At collection the technician measures again, so you have a figure to pass on.",
+      },
+      {
+        q: "Does a construction dehumidifier work in a cold, unheated house in winter?",
+        a: "A condensation dehumidifier needs more than 15 °C to work well. In a cold house we therefore add an electric site heater, which warms the room first. In a cellar we prefer a desiccant dehumidifier, which keeps working at low temperatures.",
+      },
+      {
+        q: "Do you deliver in Annevoie-Rouillon and Haut-le-Wastia?",
+        a: "Yes, we drive to all the villages of Anhée, including the scattered farmhouses outside the village centres. If your address is on an unsurfaced drive or a narrow country lane, mention it when you book. Then the technician knows in advance where he can load.",
+      },
+    ],
+    realisaties: [],
+  },
+  beauraing: {
+    slug: "beauraing",
+    title: "Dehumidifier hire in Beauraing, in the Famenne | Vernast",
+    description:
+      "Dehumidifier hire in Beauraing, Pondrôme or Winenne: for homes around the shrine, stone farmhouses and new builds in the Famenne. Delivered and installed.",
+    h1: "Construction dehumidifier hire in Beauraing",
+    kicker: "Province of Namur · pilgrimage town in the Famenne",
+    rit: { afstand: "about 135 km", tijd: "over an hour and a half" },
+    intro: [
+      "Beauraing is **a well-known Marian pilgrimage site**. Since the apparitions in the 1930s, pilgrims have come every year to the shrine in the centre. Around that core lies a small town with shops, schools and residential streets.",
+      "Beyond it the municipality is large and rural, with villages such as Pondrôme, Winenne, Felenne, Focant and Vonêche. The landscape is that of **the Famenne**: rolling meadows and woods, with limestone and slate in the old buildings. From Aartselaar we are on the road for over an hour and a half.",
+    ],
+    bouw: {
+      kop: "Town houses around the shrine, farmhouses in the villages",
+      alineas: [
+        "In the centre, older homes and shop buildings are being renovated, often into a flat above a shop. **New plasterwork goes in floor by floor**, sometimes with a new floor, while people live or work downstairs or next door. A compact unit per room suits that best.",
+        "In the villages stand farmhouses and stone village houses, and new building goes on on the heavy **soil of the Famenne**, which lets water through poorly. A foundation pit or a cellar under construction therefore stays wet for a long time. A large unit and a fan over the fresh screed keep the floor layer's schedule achievable.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk170", waarom: "**For a flat above a shop in the centre**: compact, 50 litres a day and a consumption of 0.75 kW." },
+      { key: "ttk650", waarom: "For **new builds or a converted farmhouse in the villages**: 110 litres a day for rooms up to 600 m³." },
+      { key: "radiaal2250", waarom: "Blows directly across a fresh screed, which in a new build on the wet Famenne soil holds the most water." },
+      { key: "revolution", waarom: "For **a cellar in an old stone house** that stays cool all year. There a desiccant dehumidifier removes more moisture than a condensation dehumidifier." },
+    ],
+    levering: {
+      kop: "Delivery in Beauraing: our run to the Famenne",
+      alinea:
+        "We drive via Namur and on south, over an hour and a half in all. You choose **a delivery date** when you book, and we agree the time with you. That way we can combine the delivery with other addresses in the area. Around the shrine the streets are full on busy days. So tell us where the van can load.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: too far from Beauraing",
+      alinea:
+        "There and back to our collection point, you are on the road for more than three hours, without traffic jams. With delivery the technician places **the units and takes the moisture readings**, and you save yourself two long drives. Collecting only pays off here if you need to be near Antwerp anyway.",
+    },
+    buren: ["houyet", "gedinne"],
+    faq: [
+      {
+        q: "How do I dry a flat above a shop without disturbing the business?",
+        a: "Put a compact unit in each room, keep the doors shut and run the drain hose to a sink or floor drain. Our smallest unit is quiet enough for a lived-in space. Mention when you book whether access is through the shop, and we will take that into account when making the appointment.",
+      },
+      {
+        q: "Why does a foundation pit in the Famenne stay wet for so long?",
+        a: "The soil here contains a lot of clay and slate and lets water through poorly. Rainwater stays in and around the pit and soaks into the floor slab and walls. A dehumidifier with enough capacity removes that moisture, but pump out the standing water first.",
+      },
+      {
+        q: "Do you also deliver in Felenne, Focant and the other villages?",
+        a: "Yes, we deliver in all the villages of Beauraing, including the smaller ones. If your farmhouse is on a narrow or unsurfaced road, mention it when you book. The technician then knows in advance where the van can stand.",
+      },
+      {
+        q: "How do I know when the dehumidifier can be collected?",
+        a: "The reading decides, not how it feels. At installation the technician records the moisture values of wall and floor and measures again at collection. If your floor layer or decorator asks for a particular value, let us know beforehand.",
+      },
+    ],
+    realisaties: [],
+  },
+  bievre: {
+    slug: "bievre",
+    title: "Dehumidifier hire in Bièvre: forest villages | Vernast",
+    description:
+      "Dehumidifier hire in Bièvre, Graide, Naomé or Gros-Fays: Ardennes villages among the forests, with slate-roofed houses and holiday homes. Delivered.",
+    h1: "Construction dehumidifier hire in Bièvre",
+    kicker: "Province of Namur · forest villages on the Ardennes plateau",
+    rit: { afstand: "about 185 km", tijd: "about two hours" },
+    intro: [
+      "Bièvre is **a heavily wooded municipality in the Ardennes**, in the south of the province of Namur, against the province of Luxembourg. It includes Graide, Naomé, Gros-Fays, Petit-Fays, Oizy, Cornimont, Baillamont, Bellefontaine and Monceau-en-Ardenne: small villages in clearings in the forest.",
+      "The municipality is **sparsely populated**. Anyone building here is usually renovating an old house, and many homes are **holiday homes or second homes** for the summer and weekends. From Aartselaar we get there in about two hours. Questions? Feel free to email or call us.",
+    ],
+    bouw: {
+      kop: "Slate, forest and houses that stay shut in winter",
+      alineas: [
+        "The old houses are **built of schist and sandstone**, with **slate roofs** and small windows. Those walls take up a lot of moisture and release it slowly. A house **in the middle of the forest** also dries less well than one in a clearing, because there is more shade and the air stays damper.",
+        "A holiday home that **stays shut from autumn to spring** stands cold and unventilated for months. Condensation forms on the coldest walls, and you see it in **musty cupboards and stains** behind the furniture. Let the dehumidifier run before the first guests arrive, and that moisture disappears before mould grows.",
+      ],
+    },
+    toestellen: [
+      { key: "revolution", waarom: "**For a house that has been shut for months**: the desiccant dehumidifier absorbs moisture even in a cold, unheated home." },
+      { key: "ttk170", waarom: "For a small holiday home: compact, 0.75 kW on a standard socket and easy to move from room to room." },
+      { key: "ttk350", waarom: "**For renovating an old village house** with new plasterwork or a new screed: 70 litres a day and a range of up to about 400 m³." },
+      { key: "radiaal2250", waarom: "Moisture lingers behind furniture and in corners against a cold wall. This radial fan blows dry air directly at those spots." },
+    ],
+    levering: {
+      kop: "Delivery in Bièvre: far, but possible",
+      alinea:
+        "Bièvre is **about two hours' drive** from our warehouse, via Brussels, Namur and the E411. It is one of our longest runs, and we **combine it with other addresses in the Ardennes**. You choose a delivery date when you book; we agree the time by appointment. If the house is unoccupied, tell us how the technician gets in and where he can find power.",
+    },
+    afhalen: {
+      kop: "Collecting: only if you are coming from Flanders anyway",
+      alinea:
+        "From Bièvre to Aartselaar and back is **about four hours' driving**. If you have a second home here and live in Flanders, you are better off picking up the dehumidifier on the way. Transport it upright.",
+    },
+    buren: ["gedinne", "vresse-sur-semois"],
+    faq: [
+      {
+        q: "Why does a holiday home in the forest get so damp?",
+        a: "It stands cold and shut for months in surroundings where the air stays damp. The moisture condenses on the coldest spots: outside walls, the wall behind furniture and the inside of cupboards. Without heating and ventilation it builds up until spring.",
+      },
+      {
+        q: "Can a dehumidifier run while I am not there?",
+        a: "Yes. With a hose to a drain, the dehumidifier does not stop when the tank is full. If there is no drain nearby, someone has to empty the tank regularly. Discuss this when you book, and the technician will set up the dehumidifier accordingly.",
+      },
+      {
+        q: "Do you deliver in Graide, Naomé and the other villages of Bièvre?",
+        a: "Yes, all the villages are covered by our delivery. The roads between the villages run through the forest and are sometimes narrow. Tell us when you book how the house can be reached and whether the van can park there.",
+      },
+      {
+        q: "Does a dehumidifier help against mould in a slate-roofed house?",
+        a: "It removes the cause: the moisture in the air and in the walls. Mould that is already there has to be cleaned off separately. After that, a dry home prevents new stains, especially if you ventilate regularly after drying.",
+      },
+    ],
+    realisaties: [],
+  },
+  ciney: {
+    slug: "ciney",
+    title: "Construction dehumidifier hire in Ciney, Condroz | Vernast",
+    description:
+      "Dehumidifier hire in Ciney, Achêne or Leignon: for converted Condroz farmhouses and town-centre terraces. Installed, with a moisture reading at the start.",
+    h1: "Construction dehumidifier hire in Ciney",
+    kicker: "Province of Namur · the main town of the Condroz",
+    rit: { afstand: "about 130 km", tijd: "about an hour and a half" },
+    intro: [
+      "Ciney is **the main town of the Condroz**, the rolling plateau between the Meuse and the Ourthe. The town lies on **the Namur-Luxembourg railway line** and is known in the area for its **livestock market**. The municipality includes villages such as Achêne, Leignon, Chevetogne, Sovet and Braibant.",
+      "The landscape alternates **sandstone ridges** with **limestone valleys**. On the ridges stand large courtyard farms, and many of them are now being converted into homes. Such a conversion brings a lot of water into a building that itself dries slowly. From our warehouse in Aartselaar we get there in about an hour and a half.",
+    ],
+    bouw: {
+      kop: "Blue stone farmhouses and homes around the market",
+      alineas: [
+        "A Condroz farmhouse has **thick natural stone walls** and usually no damp-proof course. Anyone converting a stable or barn into a home pours **a new screed** and puts up internal walls with plasterwork. That mixing water has to come out, and **thick, cold walls hold moisture for a long time**. The technician measures how wet they are at installation, so you can compare at collection.",
+        "In the centre and towards the station stand **terraced houses and town houses** from the nineteenth and twentieth centuries. There it is usually a new bathroom, a kitchen or a renovated ground floor. A cellar under such a house stays cold in winter, and below 15 °C a condensation dehumidifier works noticeably more slowly.",
+      ],
+    },
+    toestellen: [
+      { key: "ttk650", waarom: "**For a converted barn with high rooms**: 110 litres a day and a range of up to about 600 m³, matched to the volume under a farmhouse roof." },
+      { key: "teddh30", waarom: "A stable with stone walls is ice-cold in winter. This 30 kW heater brings the room above 15 °C, so the dehumidifier performs. **It needs 400 V**; check whether the farmhouse has that connection." },
+      { key: "ttv4500", waarom: "Along a thick natural stone wall, a layer of damp air hangs still. **This fan gets it moving**, so the dehumidifier can take up the moisture." },
+      { key: "ttk350", waarom: "For a terraced house in the centre with new plasterwork: 70 litres a day and a range of up to about 400 m³, on a standard socket." },
+    ],
+    levering: {
+      kop: "Delivery in Ciney: down the E411, past Namur",
+      alinea:
+        "We drive **via the Brussels ring and the E411** to beyond Namur, about an hour and a half in all. In Wallonia we deliver **by appointment**: you choose a delivery date when you book and we confirm the time. If the farmhouse is on a field track or a cobbled yard, let us know. The technician brings a hand truck and places the units room by room.",
+    },
+    afhalen: {
+      kop: "Collecting in Aartselaar: three hours there and back",
+      alinea:
+        "If you drive to our warehouse yourself, from Ciney you are on the road for **about three hours**, there and back together. For one dehumidifier that rarely pays off. With delivery the technician places the units and takes the moisture reading straight away.",
+    },
+    buren: ["hamois", "assesse", "yvoir", "dinant"],
+    faq: [
+      {
+        q: "We are converting an old Condroz stable into a home. How many dehumidifiers do we need?",
+        a: "That depends on the volume and the number of rooms, not just the floor area. A stable often has high ceilings, so we calculate in cubic metres. Give the dimensions when you book, and we will suggest a combination of dehumidifier, fan and possibly a heater.",
+      },
+      {
+        q: "Why does a farmhouse with stone walls dry so slowly?",
+        a: "The walls are thick and cold. The moisture from new plasterwork and masonry mortar soaks into them and only comes out again slowly, especially if the room is not heated. Heat and air movement speed that up. For a complete farmhouse renovation, think weeks rather than days.",
+      },
+      {
+        q: "Does a farmhouse in the Condroz have enough power for a site heater?",
+        a: "Often yes, because many farmhouses still have a three-phase connection from their farming days. Check with the owner or your electrician before booking. The heaters need 400 V. If that is missing, we choose a desiccant dehumidifier, which also works in the cold.",
+      },
+      {
+        q: "Do you also deliver in Chevetogne, Leignon and Achêne?",
+        a: "Yes, those villages belong to Ciney and fall within the same delivery. If your address is outside the village centre on a narrow country lane, tell us beforehand. Then the technician knows where he can get to with the van.",
+      },
+    ],
+    realisaties: [],
+  },
 };
