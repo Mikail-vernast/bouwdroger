@@ -41,6 +41,7 @@ import { toestelLabel } from "@/data/navigation";
 import { eersteReviews } from "@/data/reviews";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { realisatieSlugsIn } from "@/data/realisatie-regio";
+import { regioLevering } from "@/lib/levering";
 import "@/styles/v3-content.css";
 
 /**
@@ -88,6 +89,12 @@ const VERLOOP = [
 const RegioPage = () => {
   const { pathname } = useLocation();
   const route = REGIO_BY_PATH[pathname.replace(/\/$/, "")] ?? REGIO_ROUTES[0];
+  /*
+    Wat levering hier kost, uit de gemeten wegafstanden van deze regio. `null`
+    voor een regio die nog niet in `LEVERREGIOS` staat; dan valt de pagina terug
+    op de voorzichtige formulering.
+  */
+  const levering = regioLevering(route.slug);
   const regio: Regio = REGIO_BY_SLUG[route.slug];
   const isWest = regio.slug === "west-vlaanderen";
   const realisaties = realisatiesVoor(regio);
@@ -692,14 +699,16 @@ const RegioPage = () => {
             </nav>
           )}
 
+          {/*
+            De leveringszin komt uit de gemeten afstanden van deze regio, niet
+            uit een handmatig vlaggetje. Daarvoor beloofde West-Vlaanderen
+            "levering binnen 24 uur" terwijl Brugge in zone 5 ligt.
+          */}
           <div className="note">
-            <b>
-              {route.opAanvraag
-                ? "Hier leveren we op afspraak."
-                : "Wij leveren in heel België."}
-            </b>{" "}
-            Buiten de provincies hieronder rijden we ook, al telt
-            de rit dan mee in de planning. Bel ons gerust voor een werf net over de provinciegrens.
+            <b>Wij leveren in heel België en Zuid-Nederland.</b>{" "}
+            {levering?.zin ??
+              "Buiten de provincies hieronder rijden we ook, al telt de rit dan mee in de planning."}{" "}
+            Bel ons gerust voor een werf net over de provinciegrens.
             Ook bouwdrogers huren in:{" "}
             {andere.map((r, i) => (
               <span key={r.slug}>
@@ -1186,7 +1195,7 @@ const RegioPage = () => {
                     <TruckIcon size={15} />
                   </span>
                   <div>
-                    {route.opAanvraag ? "Levering op afspraak" : "Levering binnen 24 uur"}
+                    {levering?.badge ?? "Levering op afspraak"}
                     <small>geplaatst en ingesteld door onze technieker</small>
                   </div>
                 </div>

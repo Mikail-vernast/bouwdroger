@@ -14,7 +14,14 @@ import {
   TruckIcon,
 } from "@/components/verhuur/icons";
 import { CAT, ROLE, SPECS } from "@/data/verhuur";
-import { extraNaarQuery, extraUitQuery } from "@/lib/booking";
+import { extraNaarQuery, extraUitQuery, withVat } from "@/lib/booking";
+import {
+  GRATIS_LEVERING_VOETNOOT,
+  GRATIS_TOT_KM,
+  LAAGSTE_TARIEF,
+  leverzoneNaarQuery,
+  leverzoneUitQuery,
+} from "@/lib/levering";
 import {
   allItems,
   configToQuery,
@@ -60,13 +67,23 @@ const VerhuurPakketPage = () => {
   */
   const weeks = configWeeks(config);
   const total = configPrice(config, items);
-  const bookingHref = `/verhuur/boeking?${configToQuery(config)}${extraNaarQuery(extra)}`;
+  /*
+    De postcode uit de calculator. Reist mee in de adresbalk, zodat de
+    transportvergoeding hier al op het scherm staat en niet pas bij het
+    afrekenen — naast "transparante prijzen zonder verrassingen" is dat het
+    verschil tussen de belofte waarmaken en ze tegenspreken.
+  */
+  const leverzone = useMemo(() => leverzoneUitQuery(searchParams), [searchParams]);
+  const transport = leverzone?.zone.tarief ?? null;
+  const bookingHref =
+    `/verhuur/boeking?${configToQuery(config)}${extraNaarQuery(extra)}` +
+    leverzoneNaarQuery(leverzone?.land ?? null, leverzone?.postcode ?? null);
 
   return (
     <div className="vh-pkg">
       <PageMeta
         title="Uw droogpakket: toestellen, droogtijd en prijs | Vernast"
-        description="Droogpakket op maat van uw woning: de juiste bouwdrogers, ventilatoren en kachels, met verwachte droogtijd en totaalprijs, geleverd binnen 24 uur."
+        description="Droogpakket op maat van uw woning: de juiste bouwdrogers, ventilatoren en kachels, met verwachte droogtijd en totaalprijs, geleverd en geplaatst op de dag die u kiest."
         // Het pakket wordt bepaald door de querystring; die varianten zijn
         // configuratie van dezelfde pagina, geen aparte URL's om te indexeren.
         path="/verhuur/pakket"
@@ -149,8 +166,8 @@ const VerhuurPakketPage = () => {
                 <div>
                   <CheckIcon />
                   <span>
-                    <b>Gratis levering</b> bij bestelling, geplaatst en afgesteld door onze
-                    technicus
+                    <b>Gratis levering*</b> binnen {GRATIS_TOT_KM} km, geplaatst en afgesteld door
+                    onze technicus
                   </span>
                 </div>
                 <div>
@@ -179,17 +196,60 @@ const VerhuurPakketPage = () => {
                   </span>
                 </div>
               </div>
+              {/* De asterisk uit de eerste regel; zonder noot leest hij als kleine
+                  lettertjes die nergens staan. */}
+              <p className="uspnoot">{GRATIS_LEVERING_VOETNOOT}</p>
+              {/*
+                "Levering binnen 24 uur" stond hier voor elk adres, van Boom tot
+                Aarlen. Direct beschikbaar gaat over voorraad en klopt overal;
+                wanneer wij rijden en wat dat kost hangt aan de postcode, en dat
+                rekent de boeking uit. Beloof hier dus de voorraad, niet de rit.
+              */}
               <div className="avail">
-                <span className="d" /> Direct beschikbaar, levering binnen 24 uur
+                <span className="d" /> Direct beschikbaar — u kiest zelf uw leverdag
               </div>
               <div className="pprice">
                 <div>
                   <div className="pv">{euro(total)}</div>
                   <div className="pl">
-                    voor {weeks} {weeks === 1 ? "week" : "weken"} · alles inbegrepen
+                    voor {weeks} {weeks === 1 ? "week" : "weken"} ·{" "}
+                    {leverzone === null || transport === 0
+                      ? "alles inbegrepen"
+                      : transport === null
+                        ? "excl. transport, prijs op maat"
+                        : `excl. ${euro(transport)} transport`}
                   </div>
                 </div>
               </div>
+              {/*
+                De transportregel verschijnt alleen met een postcode in de
+                adresbalk — die zet de calculator erin. Komt de bezoeker hier
+                rechtstreeks binnen, dan staat er niets en vraagt de boeking het
+                alsnog.
+              */}
+              {leverzone && transport !== 0 && (
+                <div className={`ptrans${transport === null ? " opmaat" : ""}`}>
+                  <TruckIcon />
+                  <div>
+                    {transport === null ? (
+                      <>
+                        <b>Transportprijs op maat</b> — {leverzone.postcode} ligt{" "}
+                        {leverzone.zone.band.toLowerCase()} van ons magazijn. U boekt uw pakket
+                        gewoon; wij bevestigen de transportprijs binnen één werkdag.
+                      </>
+                    ) : (
+                      <>
+                        <b>
+                          Transport {euro(withVat(transport))} incl. btw
+                        </b>{" "}
+                        voor levering én ophaling naar {leverzone.postcode} — zone{" "}
+                        {leverzone.zone.nr}, {leverzone.zone.band} van ons magazijn. Komt bovenop het
+                        bedrag hierboven.
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
               <div className="jump">
                 <Link className="btn btn-d" to={bookingHref}>
                   Doorgaan naar samenstellen
@@ -312,11 +372,14 @@ const VerhuurPakketPage = () => {
                   <TruckIcon />
                 </span>
                 <div>
-                  <b>Levering binnen 24 uur en ophaling achteraf</b>
+                  <b>Levering, plaatsing en ophaling, op de dag die u kiest</b>
                   <p>
                     Wij brengen alle toestellen naar de werf in het gekozen tijdslot en halen ze weer
-                    op zodra de droging klaar is. Gratis in onze regio; daarbuiten een beperkte
-                    kilometervergoeding die u vooraf ziet.
+                    op zodra de droging klaar is. Binnen {GRATIS_TOT_KM} km van ons magazijn in
+                    Aartselaar zit dat in de pakketprijs; daarbuiten komt er een transportvergoeding
+                    bij vanaf {euro(LAAGSTE_TARIEF)} excl. btw voor de heenrit en de ophaling samen.
+                    U vult uw postcode in bij de eerste stap van de boeking en ziet het exacte bedrag
+                    dan meteen staan.
                   </p>
                 </div>
               </div>

@@ -174,7 +174,16 @@ describe("/api/checkout", () => {
       post("https://site.test/api/checkout", {
         config: { size: "140", wat: "chape", cd: "6", pd: "2", heat: "0" },
         options: {},
-        customer: { name: "Jan Peeters", mail: "jan@voorbeeld.be", tel: "0470123456", addr: "Straat 1" },
+        customer: {
+          name: "Jan Peeters",
+          mail: "jan@voorbeeld.be",
+          tel: "0470123456",
+          addr: "Straat 1",
+          // De postcode bepaalt de transportzone; zonder weigert de route de
+          // boeking vóór ze aan de datumcontrole komt.
+          post: "2630",
+          land: "BE",
+        },
         delivery: { date: start, slot: "10:00 – 12:00" },
       }),
     );

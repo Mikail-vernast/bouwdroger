@@ -19,13 +19,25 @@ import { RateLimitedError } from "./vernastContact.js";
 export { RateLimitedError };
 
 /** Van welk formulier de aanvraag komt. */
-export type RequestSource = "contact" | "klantenservice" | "levering" | "vraag";
+export type RequestSource =
+  | "contact"
+  | "klantenservice"
+  | "levering"
+  | "vraag"
+  /**
+   * Een volledig geconfigureerde boeking op een adres waar geen vast
+   * transporttarief voor bestaat — boven 200 km. De bezoeker rekent zijn pakket
+   * gewoon uit en laat zijn gegevens achter; wij zetten er een vervoersprijs
+   * bij en bellen terug. Zie `api/transport-offerte.ts`.
+   */
+  | "transport";
 
 export const REQUEST_SOURCES: readonly RequestSource[] = [
   "contact",
   "klantenservice",
   "levering",
   "vraag",
+  "transport",
 ];
 
 export interface BouwdrogerRequestPayload {

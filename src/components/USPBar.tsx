@@ -1,11 +1,12 @@
 import { Truck, Droplets, Percent, HeadphonesIcon } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import { GRATIS_LEVERING_KOP, GRATIS_LEVERING_VOETNOOT, GRATIS_TOT_KM } from "@/lib/levering";
 
 const usps = [
   {
     icon: Truck,
-    title: "Gratis levering & ophaling",
-    description: "Vanaf 2 weken huurperiode",
+    title: GRATIS_LEVERING_KOP,
+    description: `Binnen ${GRATIS_TOT_KM} km, vanaf 2 weken huur`,
   },
   {
     icon: Droplets,
@@ -46,6 +47,15 @@ const USPBar = () => {
             </Reveal>
           ))}
         </div>
+        {/*
+          De asterisk uit de eerste kaart moet ergens landen. Zonder deze regel
+          leest "Gratis levering & ophaling*" als een sterretje zonder noot, en
+          dat is erger dan geen sterretje: het suggereert kleine lettertjes die
+          nergens staan.
+        */}
+        <p className="text-muted-foreground text-xs mt-6 max-w-3xl leading-relaxed">
+          {GRATIS_LEVERING_VOETNOOT}
+        </p>
       </div>
     </section>
   );

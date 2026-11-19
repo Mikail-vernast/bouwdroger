@@ -16,6 +16,15 @@ import {
 } from "../data/verhuur.js";
 import { TARIEVEN } from "../data/tarieven.js";
 import {
+  isLand,
+  normaliseerPostcode,
+  transportLabel,
+  transportTarief,
+  zoneVoor,
+  type Land,
+  type Leverzone,
+} from "./levering.js";
+import {
   DEVICE_KEYS,
   allItems,
   configPrice,
@@ -69,6 +78,18 @@ export interface BookingOptions {
   /** sleutel uit DELIVERY */
   delivery: string;
   payment: PaymentChoice;
+  /**
+   * Het land en de postcode van de werf. Die bepalen de transportvergoeding en
+   * de dagen waarop we daar leveren, dus staan ze in stap 1 van de wizard en
+   * niet pas bij de contactgegevens.
+   *
+   * Zonder land is een postcode dubbelzinnig: 4000 is Luik én Tiel, 3500 is
+   * Hasselt én Veenendaal.
+   */
+  land: Land | null;
+  postcode: string | null;
+  /** Leveren buiten de vaste ritdag van de zone, tegen een toeslag. */
+  spoed: boolean;
 }
 
 export interface BookingLine {
@@ -88,6 +109,22 @@ export interface BookingSummary {
   lines: BookingLine[];
   /** som van pakket en opties, vóór de kortingen */
   total: number;
+  /**
+   * De transportvergoeding die in `total` zit, apart bijgehouden: de korting
+   * gaat er niet over, en het portaal moet omzet van transport kunnen scheiden.
+   */
+  transport: number;
+  /** De zone van de werf, of `null` zolang er geen geldige postcode is. */
+  leverzone: Leverzone | null;
+  /**
+   * `false` wanneer we op dit adres niet zelf leveren: geen geldige postcode,
+   * of een zone boven 200 km. De wizard toont dan het afhaalpunt en
+   * `api/checkout.ts` weigert de boeking — een transport van € 0 is hier geen
+   * geldig antwoord.
+   */
+  leverbaar: boolean;
+  /** `true` wanneer de spoedtoeslag effectief aangerekend is. */
+  spoed: boolean;
   /** korting bij volledig online betalen; 0 bij betalen bij levering */
   discount: number;
   /** het totaal zoals de samenvatting het toont */
@@ -122,6 +159,9 @@ export const EMPTY_OPTIONS: BookingOptions = {
   access: "trap",
   delivery: DELIVERY[0].k,
   payment: "online",
+  land: null,
+  postcode: null,
+  spoed: false,
 };
 
 function clampInt(n: unknown, min: number, max: number): number {
@@ -147,6 +187,9 @@ export function normalizeOptions(raw: unknown): BookingOptions {
     access: o.access === "ladder" ? "ladder" : "trap",
     delivery: DELIVERY.some((d) => d.k === o.delivery) ? (o.delivery as string) : EMPTY_OPTIONS.delivery,
     payment: o.payment === "levering" ? "levering" : "online",
+    land: isLand(o.land) ? o.land : null,
+    postcode: normaliseerPostcode(o.postcode),
+    spoed: o.spoed === true,
   };
 }
 
@@ -303,11 +346,50 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
   const deliveryOption = DELIVERY.find((d) => d.k === options.delivery) ?? DELIVERY[0];
   if (deliveryOption.price) lines.push({ l: "Zelf afhalen", v: deliveryOption.price });
 
+  /*
+    De transportvergoeding. Ze dekt wat de afstand méér kost dan een rit in de
+    thuiszone; die thuiszonekost zit in de pakketprijs verrekend en blijft daar,
+    zodat hetzelfde pakket in Namen en in Boom dezelfde prijs heeft.
+
+    Zonder geldige postcode staat er niets: de wizard vraagt ze in stap 1 en
+    toont het totaal pas als ze er is. Stil op 0 terugvallen zou betekenen dat
+    een afzender die het veld weglaat gratis tot in Luxemburg geleverd wordt.
+  */
+  const leverzone = zoneVoor(options.land, options.postcode);
+  /*
+    Boven 200 km rijden we niet zelf (`tarief: null`). Dat is geen tarief van 0
+    maar een order die we moeten weigeren; `leverbaar` zegt dat tegen elke
+    aanroeper, zodat noch de wizard noch `api/checkout.ts` het kan vergeten.
+  */
+  const leverbaar = leverzone !== null && leverzone.zone.tarief !== null;
+  /*
+    Spoed bestaat alleen in de zones die het aanbieden. Zonder deze afvlakking
+    leverde `spoed: true` in zone 5 een tarief van `null` op en dus gratis
+    transport — precies het soort stille nul waar een afzender van kan profiteren.
+  */
+  const spoed = options.spoed && leverzone?.zone.spoed !== null && leverzone?.zone.spoed !== undefined;
+  const transport = leverbaar ? (transportTarief(leverzone!.zone, spoed) ?? 0) : 0;
+  if (leverbaar) {
+    if (transport > 0) {
+      lines.push({ l: transportLabel(leverzone!.zone, spoed), v: transport });
+    } else {
+      lines.push({ l: "Levering, plaatsing en ophaling", v: 0, inc: true });
+    }
+  }
+
   const total = base + lines.reduce((s, r) => s + r.v, 0);
-  // Op centen afronden voordat er iets van afgetrokken wordt, anders loopt het
-  // bedrag op het scherm een cent uit de pas met het bedrag bij Stripe.
+  /*
+    De korting gaat over de huur, niet over het transport. Die vergoeding dekt
+    exact onze kost; 5% ervan weggeven betekent in zone 6 € 10 verlies per order
+    en haalt de bodem onder de hele berekening weg.
+
+    Op centen afronden voordat er iets van afgetrokken wordt, anders loopt het
+    bedrag op het scherm een cent uit de pas met het bedrag bij Stripe.
+  */
   const discount =
-    options.payment === "online" ? Math.round(total * ONLINE_DISCOUNT * 100) / 100 : 0;
+    options.payment === "online"
+      ? Math.round((total - transport) * ONLINE_DISCOUNT * 100) / 100
+      : 0;
   const netTotal = Math.round((total - discount) * 100) / 100;
   const vat = Math.round(netTotal * VAT_RATE * 100) / 100;
   const grossTotal = Math.round((netTotal + vat) * 100) / 100;
@@ -327,6 +409,10 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
     base,
     lines,
     total,
+    transport,
+    leverzone,
+    leverbaar,
+    spoed,
     discount,
     netTotal,
     payable,

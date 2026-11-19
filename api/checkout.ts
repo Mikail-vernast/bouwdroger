@@ -158,11 +158,21 @@ export async function POST(request: Request): Promise<Response> {
     platte tekstmap van.
   */
   const config = parseConfig(new URLSearchParams(strings(body.config)));
-  const options = normalizeOptions(body.options);
-  const summary = bookingSummary(config, options);
-
   const customer = strings(body.customer);
   const delivery = strings(body.delivery);
+
+  /*
+    De transportzone volgt het leveradres, niet wat de browser in `options`
+    meestuurt. Anders stuurt een afzender `postcode: "2630"` mee naast een
+    werfadres in Luik, en laat hij zich voor € 0 transport in zone 6 beleveren.
+    Hier geldt dus: het adres waar de toestellen heen gaan bepaalt het tarief.
+  */
+  const options = normalizeOptions({
+    ...(typeof body.options === "object" && body.options !== null ? body.options : {}),
+    land: customer.land,
+    postcode: customer.post,
+  });
+  const summary = bookingSummary(config, options);
 
   context = {
     pkg: packageTitle(config),
@@ -174,6 +184,28 @@ export async function POST(request: Request): Promise<Response> {
   const email = trim(customer.mail, 200);
   if (!/\S+@\S+\.\S+/.test(email)) {
     return refused(json({ error: "Geen geldig e-mailadres opgegeven." }, 400), "geen_email");
+  }
+
+  /*
+    Zonder bruikbare postcode kennen we de transportvergoeding niet, en boven
+    300 km ligt er geen vast tarief maar een prijs per order — tussen Nijmegen
+    en Groningen zit € 500 verschil in vervoerskost. Wij weigeren die orders
+    niet, maar ze kunnen niet door een zelfbedieningscheckout; de wizard stuurt
+    de klant naar een offerte. Dit is de harde controle, want de payload komt
+    uit de browser.
+  */
+  if (!summary.leverbaar) {
+    return refused(
+      json(
+        {
+          error: summary.leverzone
+            ? `Postcode ${summary.leverzone.postcode} ligt ${summary.leverzone.zone.band} van ons magazijn. Wij leveren er wel, maar de transportprijs maken we per order — bel ons op 03 689 90 65 of mail ons, u krijgt binnen één werkdag een vaste prijs.`
+            : "Vul de postcode van de werf in; die bepaalt de transportvergoeding.",
+        },
+        400,
+      ),
+      "buiten_leveringsgebied",
+    );
   }
 
   /*
@@ -350,6 +382,14 @@ export async function POST(request: Request): Promise<Response> {
         // Bruto, zoals ze effectief afgerekend worden. `totaal` en `korting`
         // hierboven blijven excl. btw: dat is wat het portaal noteert en wat de
         // bevestigingsmail als huurprijs toont, met de btw als aparte regel.
+        /*
+          Transport apart van de huur. Het portaal moet omzet en vervoer kunnen
+          scheiden — ze hebben een andere marge en een andere kostenpost — en
+          uit één totaalbedrag valt dat niet terug te halen.
+        */
+        transport: summary.transport.toFixed(2),
+        transport_zone: summary.leverzone ? String(summary.leverzone.zone.nr) : "",
+        transport_spoed: summary.spoed ? "ja" : "nee",
         btw: summary.vat.toFixed(2),
         totaal_incl_btw: summary.grossTotal.toFixed(2),
         nu_betaald: summary.payableGross.toFixed(2),

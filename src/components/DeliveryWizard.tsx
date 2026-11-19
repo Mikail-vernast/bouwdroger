@@ -17,6 +17,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import technicianImg from "@/assets/technician.png";
+import { GRATIS_TOT_KM } from "@/lib/levering";
 import { Button } from "@/components/ui/button";
 import {
   type BuildingSize,
@@ -144,7 +145,7 @@ const screedOptions: { value: ScreedThickness; label: string }[] = [
 ];
 
 const uspItems = [
-  "Gratis levering bij bestelling",
+  `Gratis levering* binnen ${GRATIS_TOT_KM} km, daarbuiten een vaste vergoeding`,
   "Transparante prijzen zonder verrassingen",
   "Advies op maat door een bouwkundige expert",
   "Energiezuinige ECO-toestellen",

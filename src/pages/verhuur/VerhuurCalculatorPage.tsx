@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
@@ -11,10 +11,22 @@ import {
   DEFAULT_SIZE,
   PD_VALUES,
   SIZE_VALUES,
+  allItems,
+  configPrice,
   configToQuery,
+  configWeeks,
+  euro,
+  toestellenZin,
   type PackageConfig,
 } from "@/lib/verhuur";
 import { SEO } from "@/data/seo";
+import {
+  GRATIS_LEVERING_VOETNOOT,
+  leverzoneNaarQuery,
+  zoneVoor,
+  type Land,
+} from "@/lib/levering";
+import { withVat } from "@/lib/booking";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
@@ -122,6 +134,14 @@ interface Answers {
   pd: string;
   cd: string;
   heat: string | null;
+  /*
+    Waar het naartoe gaat. Laatste vraag en niet de eerste: een calculator die
+    opent met "wat is uw postcode" vraagt iets terug voordat hij iets gegeven
+    heeft. Hier heeft de bezoeker zijn pakket al zien ontstaan, en levert de
+    postcode hem meteen zijn volledige prijs op.
+  */
+  land: Land;
+  postcode: string;
 }
 
 const START: Answers = {
@@ -130,6 +150,8 @@ const START: Answers = {
   pd: DEFAULT_PD,
   cd: DEFAULT_CD,
   heat: null,
+  land: "BE",
+  postcode: "",
 };
 
 const needsPlaster = (wat: string | null) => wat === "pleister" || wat === "beide";
@@ -146,6 +168,8 @@ function sequence(answers: Answers): number[] {
   if (needsPlaster(answers.wat)) steps.push(2);
   if (needsScreed(answers.wat)) steps.push(3);
   steps.push(4);
+  // Panel 6: waar het pakket heen gaat. Altijd als laatste, ook bij waterschade.
+  steps.push(6);
   return steps;
 }
 
@@ -157,6 +181,36 @@ const VerhuurCalculatorPage = () => {
   const steps = sequence(answers);
   const index = steps[Math.min(pos, steps.length - 1)];
 
+  /*
+    De zone van de ingetypte postcode, en wat het pakket daarmee kost. Hier
+    staat voor het eerst een bedrag op het scherm; dat is bewust, want de
+    bezoeker moet het verschil zien dat zijn postcode maakt vóór hij op de
+    pakketpagina komt.
+  */
+  const leverzone = useMemo(
+    () => zoneVoor(answers.land, answers.postcode),
+    [answers.land, answers.postcode],
+  );
+
+  const prijs = useMemo(() => {
+    if (!leverzone) return null;
+    const config: PackageConfig = {
+      size: answers.size,
+      wat: answers.wat ?? "beide",
+      pd: answers.pd === "onbekend" ? DEFAULT_PD : answers.pd,
+      cd: answers.cd === "onbekend" ? DEFAULT_CD : answers.cd,
+      heat: answers.heat === "nee",
+      weeks: 2,
+    };
+    const items = allItems(config, {});
+    return {
+      pakket: configPrice(config, items),
+      weken: configWeeks(config),
+      toestellen: toestellenZin(items),
+      transport: leverzone.zone.tarief,
+    };
+  }, [leverzone, answers]);
+
   const finish = (next: Answers) => {
     const config: PackageConfig = {
       size: next.size,
@@ -167,7 +221,9 @@ const VerhuurCalculatorPage = () => {
       heat: next.heat === "nee",
       weeks: 2,
     };
-    navigate(`/verhuur/pakket?${configToQuery(config)}`);
+    navigate(
+      `/verhuur/pakket?${configToQuery(config)}${leverzoneNaarQuery(next.land, next.postcode)}`,
+    );
   };
 
   const advance = (next: Answers) => {
@@ -443,6 +499,163 @@ const VerhuurCalculatorPage = () => {
                     <a className="btn btn-r" href="tel:+3236899065">
                       Bel 03 689 90 65
                     </a>
+                  </div>
+                </div>
+
+                {/*
+                  Laatste vraag: waar gaat het heen. Verplicht, want zonder
+                  postcode staat er op de volgende pagina een prijs zonder
+                  transport — en dat is precies de verrassing die we twee
+                  schermen eerder beloven niet te doen.
+
+                  Over welke dag wij in die richting rijden staat hier bewust
+                  niets: dat is onze planning, en de bezoeker kiest straks zelf
+                  zijn leverdag in de agenda. Deze stap gaat alleen over wat het
+                  vervoer kost.
+                */}
+                <div className={step(6)} data-a="6">
+                  <div className="aqh">
+                    <span className="aqn">{steps.length}</span>
+                    <h2>Bekijk uw levering</h2>
+                  </div>
+                  <p className="asub">
+                    De huurprijs van uw pakket is overal dezelfde. Uw postcode bepaalt alleen of
+                    de levering inbegrepen is.
+                  </p>
+                  <div className="pcrij">
+                    <label className="pcveld">
+                      <span>Land</span>
+                      <select
+                        value={answers.land}
+                        onChange={(e) =>
+                          setAnswers((prev) => ({ ...prev, land: e.target.value as Land }))
+                        }
+                      >
+                        <option value="BE">België</option>
+                        <option value="NL">Nederland</option>
+                      </select>
+                    </label>
+                    <label className="pcveld">
+                      <span>Postcode van de werf</span>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        autoComplete="postal-code"
+                        placeholder={answers.land === "NL" ? "4811" : "2630"}
+                        maxLength={4}
+                        value={answers.postcode}
+                        onChange={(e) =>
+                          setAnswers((prev) => ({
+                            ...prev,
+                            postcode: e.target.value.replace(/\D/g, ""),
+                          }))
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && leverzone) {
+                            e.preventDefault();
+                            advance(answers);
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+
+                  {answers.postcode.length === 4 && !leverzone && (
+                    <div className="pcuit nee">
+                      <b>Deze postcode kennen wij niet</b>
+                      <small>
+                        Controleer of het land klopt — een Belgische en een Nederlandse postcode van
+                        vier cijfers kunnen op elkaar lijken.
+                      </small>
+                    </div>
+                  )}
+
+                  {leverzone && prijs && (
+                    <div
+                      className={`pcuit ${
+                        prijs.transport === null ? "opmaat" : prijs.transport === 0 ? "ja" : "betaald"
+                      }`}
+                    >
+                      {/*
+                        Drie keer dezelfde opbouw: wat er met de levering
+                        gebeurt, en dat plaatsing hoe dan ook inbegrepen blijft.
+                        De afstand tot het magazijn staat er niet meer bij — dat
+                        is onze logistiek, de bezoeker koopt een uitkomst.
+                      */}
+                      {prijs.transport === 0 ? (
+                        <>
+                          <b>Gratis levering*</b>
+                          <small>Levering, plaatsing en ophaling zijn inbegrepen.</small>
+                        </>
+                      ) : prijs.transport === null ? (
+                        <>
+                          <b>Levering met transportprijs op maat</b>
+                          <small>
+                            Plaatsing en ophaling blijven inbegrepen. De vervoerskost naar uw
+                            postcode maken wij per order en bevestigen we binnen één werkdag.
+                          </small>
+                        </>
+                      ) : (
+                        <>
+                          <b>Levering met transportvergoeding</b>
+                          <small>
+                            Plaatsing en ophaling blijven inbegrepen. Voor de rit heen en de ophaling
+                            terug komt er één vaste vergoeding bij.
+                          </small>
+                        </>
+                      )}
+
+                      {/*
+                        Het bedrag verandert mee zodra de postcode er staat. Dat
+                        is de hele reden dat deze vraag vóór de pakketpagina komt
+                        en niet erna.
+                      */}
+                      <div className="pcsom">
+                        <div>
+                          <span>
+                            Uw droogpakket
+                            {prijs.toestellen && <em>{prijs.toestellen} · {prijs.weken} weken</em>}
+                          </span>
+                          <b>{euro(withVat(prijs.pakket))}</b>
+                        </div>
+                        <div>
+                          <span>Transport, levering én ophaling</span>
+                          <b>
+                            {prijs.transport === null
+                              ? "op maat"
+                              : prijs.transport === 0
+                                ? "inbegrepen"
+                                : euro(withVat(prijs.transport))}
+                          </b>
+                        </div>
+                        <div className="pctot">
+                          <span>
+                            {prijs.transport === null ? "Pakket incl. btw" : "Totaal incl. btw"}
+                          </span>
+                          <b>{euro(withVat(prijs.pakket + (prijs.transport ?? 0)))}</b>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {leverzone && leverzone.zone.tarief === 0 && (
+                    <span className="pcnoot">{GRATIS_LEVERING_VOETNOOT}</span>
+                  )}
+
+                  <div className="anext">
+                    <button
+                      className="btn btn-r"
+                      type="button"
+                      disabled={!leverzone}
+                      onClick={() => advance(answers)}
+                    >
+                      Bekijk mijn droogpakket →
+                    </button>
+                    {!leverzone && (
+                      <span className="pcnodig">
+                        Vul uw postcode in — die bepaalt of levering inbegrepen is.
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

@@ -44,6 +44,42 @@ export interface PackageItem {
 
 export const DEVICE_KEYS: DeviceKey[] = ["small", "medium", "axiaal", "kachel"];
 
+/**
+ * Hoe een toestel heet in gewone taal.
+ *
+ * De catalogusnamen zijn merknamen — "Boost", "Performance", "Highflow" — en
+ * die zeggen een bezoeker niets over wát er komt staan. Voor een samenvatting
+ * ("4 bouwdrogers en 4 ventilatoren") is dit de woordenschat; op de
+ * toestelpagina's blijft de catalogusnaam staan.
+ *
+ * `small` en `medium` zijn allebei bouwdrogers en tellen in zo'n zin samen op:
+ * het verschil zit in de capaciteit, niet in wat de klant ziet binnenkomen.
+ */
+const SOORT: Record<DeviceKey, { enkel: string; meer: string }> = {
+  small: { enkel: "bouwdroger", meer: "bouwdrogers" },
+  medium: { enkel: "bouwdroger", meer: "bouwdrogers" },
+  axiaal: { enkel: "ventilator", meer: "ventilatoren" },
+  kachel: { enkel: "kachel", meer: "kachels" },
+};
+
+/** "4 bouwdrogers en 4 ventilatoren" — of "" bij een leeg pakket. */
+export function toestellenZin(items: PackageItem[]): string {
+  const per = new Map<string, { enkel: string; meer: string; aantal: number }>();
+  for (const it of items) {
+    const soort = SOORT[it.k];
+    if (!soort) continue;
+    const b = per.get(soort.meer);
+    if (b) b.aantal += it.q;
+    else per.set(soort.meer, { ...soort, aantal: it.q });
+  }
+  const delen = [...per.values()]
+    .filter((d) => d.aantal > 0)
+    .map((d) => `${d.aantal} ${d.aantal === 1 ? d.enkel : d.meer}`);
+  if (delen.length === 0) return "";
+  if (delen.length === 1) return delen[0];
+  return delen.slice(0, -1).join(", ") + " en " + delen[delen.length - 1];
+}
+
 /** Bedragen in nl-BE-notatie: "€ 616,00", negatief als "− € 25,00". */
 export function euro(n: number): string {
   const prefix = n < 0 ? "− € " : "€ ";

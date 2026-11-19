@@ -41,6 +41,7 @@ import * as reminders from '../api/reminders';
 import * as saldo from '../api/saldo';
 import * as saldoOrder from '../api/saldo-order';
 import * as stripeWebhook from '../api/stripe-webhook';
+import * as transportOfferte from '../api/transport-offerte';
 import { normalizeHost } from './normalizeHost';
 import * as vraag from '../api/vraag';
 import * as vraagUploads from '../api/vraag-uploads';
@@ -98,6 +99,7 @@ const ROUTES: Record<string, RouteModule> = {
   '/api/saldo': saldo,
   '/api/saldo-order': saldoOrder,
   '/api/stripe-webhook': stripeWebhook,
+  '/api/transport-offerte': transportOfferte,
   '/api/vraag': vraag,
   '/api/vraag-uploads': vraagUploads,
 };

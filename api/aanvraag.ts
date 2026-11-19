@@ -35,6 +35,7 @@ const SOURCE_LABEL: Record<RequestSource, string> = {
   klantenservice: "Klantenservice",
   levering: "Levering & installatie",
   vraag: "Vraagformulier homepage",
+  transport: "Transportofferte boekingswizard",
 };
 
 function json(body: unknown, status = 200): Response {

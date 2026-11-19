@@ -622,6 +622,8 @@
 .vh-pkg .stot .vat{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:6px;text-align:right}
 .vh-pkg .sum .sf{padding:0 22px 22px}
 .vh-pkg .sum .sf .btn{width:100%}
+.vh-book .sum .sline.opmaat b,.vh-pkg .sum .sline.opmaat b{color:#8fc0ef;font-weight:700}
+.vh-book .sum .vat.opmaat,.vh-pkg .sum .vat.opmaat{color:#8fc0ef;margin-top:8px;line-height:1.5}
 .vh-pkg .sum .sf .note{font-family:var(--fb);font-weight:600;font-size:10px;color:rgba(255,255,255,.42);text-align:center;margin-top:10px;line-height:1.6}
 .vh-pkg .sum .save{margin:0 22px 18px;background:rgba(74,214,131,.13);border:1px solid rgba(74,214,131,.32);border-radius:11px;padding:11px 14px;font-size:12px;color:#7ee5a6;display:flex;gap:9px;align-items:flex-start;line-height:1.5}
 .vh-pkg .sum .save svg{flex-shrink:0;margin-top:1px}
@@ -858,6 +860,68 @@
 .vh-book .stp button{width:34px;height:36px;border:0;background:#fff;cursor:pointer;font-size:16px;color:var(--txt-mid);transition:background .15s,color .15s}
 .vh-book .stp button:hover{background:var(--page);color:var(--red)}
 .vh-book .stp span{width:32px;text-align:center;font-weight:700;font-size:14px}
+/* postcode -> zone, stap 1 */
+.vh-book .pcz{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:15px 16px;border:1.5px solid var(--line);border-radius:14px;background:#fff}
+.vh-book .pcz.ja{border-color:rgba(18,165,88,.42);background:#f4fbf7}
+.vh-book .pcz.nee{border-color:#f0d3a8;background:#fdf6ec}
+.vh-book .pcz .pczd{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:6px;background:var(--ok)}
+.vh-book .pcz.nee .pczd{background:#d08a2a}
+.vh-book .pcz b{display:block;font-family:var(--fd);font-weight:700;font-size:15px;color:var(--txt)}
+.vh-book .pcz.ja > div > b{color:#0d7a42}
+.vh-book .pcz small{display:block;font-size:12.5px;line-height:1.55;color:var(--txt-mid);margin-top:4px}
+.vh-book .pcz .pczp{display:block;font-size:13px;line-height:1.5;color:var(--txt);margin-top:9px;padding-top:9px;border-top:1px solid rgba(0,0,0,.07)}
+.vh-book .pcz .pczp b{display:inline;font-size:inherit}
+.vh-book .pcz .pczp .excl{color:var(--txt-dim);font-size:12px}
+.vh-pkg .uspnoot{font-size:11.5px;line-height:1.55;color:var(--txt-dim);margin:14px 0 0;max-width:620px}
+.vh-calc .pcnoot{display:block;font-size:11.5px;line-height:1.5;color:rgba(255,255,255,.6);max-width:560px;margin:-8px 0 18px}
+.vh-book .pcznoot{display:block;font-size:11.5px;line-height:1.5;color:var(--txt-dim);margin-top:10px}
+/* transportregel op de pakketpagina */
+.vh-pkg .ptrans{display:flex;gap:11px;align-items:flex-start;margin-top:14px;padding:13px 15px;border:1.5px solid rgba(18,165,88,.35);border-radius:13px;background:#f4fbf7;font-size:13.5px;line-height:1.55;color:var(--txt-mid)}
+.vh-pkg .ptrans.opmaat{border-color:#bcd2ea;background:#f4f8fc}
+.vh-pkg .ptrans svg{flex-shrink:0;margin-top:2px;color:#0d7a42}
+.vh-pkg .ptrans.opmaat svg{color:#1d4f82}
+.vh-pkg .ptrans b{color:var(--txt);font-weight:700}
+/* postcodestap in de calculator — staat op het donkerrode paneel, dus de
+   labels moeten licht zijn en de uitkomstkaart draagt zijn eigen donkere tekst */
+.vh-calc .pcrij{display:grid;grid-template-columns:minmax(0,180px) minmax(0,240px);gap:14px;max-width:460px;margin-bottom:18px}
+@media (max-width:560px){.vh-calc .pcrij{grid-template-columns:1fr}}
+.vh-calc .pcveld{display:block}
+.vh-calc .pcveld > span{display:block;font-family:var(--fb);font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.68);margin-bottom:7px}
+.vh-calc .pcveld input,.vh-calc .pcveld select{width:100%;padding:12px 14px;border:1.5px solid rgba(255,255,255,.34);border-radius:10px;font-family:var(--fb);font-size:15px;color:#1a1a1a;background:#fff}
+.vh-calc .pcveld input::placeholder{color:#9a9a9a}
+.vh-calc .pcveld input:focus,.vh-calc .pcveld select:focus{outline:2px solid rgba(255,255,255,.55);border-color:#fff}
+.vh-calc .pcuit{max-width:560px;margin:0 0 20px;padding:15px 17px;border:1.5px solid rgba(255,255,255,.3);border-radius:14px;background:#fff;color:#4a4a4a}
+.vh-calc .pcuit.ja{border-color:rgba(18,165,88,.5);background:#f1faf5}
+.vh-calc .pcuit.nee{border-color:#e8c48f;background:#fdf6ec}
+.vh-calc .pcuit.opmaat{border-color:#aec8e4;background:#f3f7fc}
+.vh-calc .pcuit > b{display:block;font-family:var(--fd);font-weight:700;font-size:15px;color:#1a1a1a}
+.vh-calc .pcuit.ja > b{color:#0d7a42}
+.vh-calc .pcuit.opmaat > b{color:#1d4f82}
+.vh-calc .pcuit small{display:block;font-size:12.5px;line-height:1.55;color:#5c5c5c;margin-top:4px}
+.vh-calc .pcuit .pcbed{display:block;font-size:13.5px;line-height:1.5;color:#2a2a2a;margin-top:9px;padding-top:9px;border-top:1px solid rgba(0,0,0,.09)}
+.vh-calc .pcuit .pcbed b{display:inline;font-size:inherit;color:#1a1a1a;font-weight:700}
+.vh-calc .pcuit .pcexcl{color:#7a7a7a;font-size:12px}
+.vh-calc .pcsom{margin-top:11px;padding-top:11px;border-top:1px solid rgba(0,0,0,.09);display:grid;gap:5px;font-size:13.5px;color:#3a3a3a}
+.vh-calc .pcsom > div{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.vh-calc .pcsom em{display:block;font-style:normal;font-size:12px;color:#6a6a6a;margin-top:2px}
+.vh-calc .pcsom b{font-family:var(--fb);font-weight:700;color:#1a1a1a;font-variant-numeric:tabular-nums;white-space:nowrap}
+.vh-calc .pcsom .pctot{margin-top:4px;padding-top:7px;border-top:1px solid rgba(0,0,0,.12);font-weight:600;color:#1a1a1a}
+.vh-calc .pcsom .pctot b{font-family:var(--fd);font-size:19px}
+.vh-calc .pcuit.betaald{border-color:#e4c9a0;background:#fdf8f0}
+.vh-calc .pcuit.betaald > b{color:#8a5a12}
+.vh-calc .pcnodig{display:inline-block;margin-left:16px;font-size:13px;color:rgba(255,255,255,.7)}
+.vh-calc .pcover{border:0;background:none;padding:0;margin-left:16px;font:inherit;font-size:13.5px;color:rgba(255,255,255,.74);text-decoration:underline;cursor:pointer}
+.vh-calc .pcover:hover{color:#fff}
+.vh-book .pcz.offerte{border-color:#bcd2ea;background:#f4f8fc}
+.vh-book .pcz.offerte .pczd{background:#2f6fb3}
+.vh-book .pcz.offerte > div > b{color:#1d4f82}
+.vh-book .pcz.offerte .pczp a{color:#1d4f82}
+/* transportofferte, stap 4 */
+.vh-book .offbox{margin-top:18px;padding:16px 18px;border:1.5px solid #bcd2ea;border-radius:14px;background:#f4f8fc}
+.vh-book .offbox b{display:block;font-family:var(--fd);font-weight:700;font-size:15px;color:#1d4f82;margin-bottom:5px}
+.vh-book .offbox p{font-size:13.5px;line-height:1.6;color:var(--txt-mid);margin:0}
+.vh-book .offbox p b{display:inline;font-size:inherit;color:var(--txt)}
+.vh-book .pcz .pczp a{color:var(--red);font-weight:600}
 /* delivery + dates */
 .vh-book .dopt{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .vh-book .dch{border:1.5px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;background:#fff;transition:border-color .16s,transform .14s;display:flex;gap:12px;align-items:flex-start}
