@@ -47,8 +47,12 @@ export const HTML_LANG: Record<Taal, string> = { nl: "nl-BE", fr: "fr-BE", en: "
 /** `og:locale`. */
 export const OG_LOCALE: Record<Taal, string> = { nl: "nl_BE", fr: "fr_BE", en: "en_GB" };
 
-/** Locale voor `toLocaleString` (bedragen, datums). */
-export const NUMBER_LOCALE: Record<Taal, string> = { nl: "nl-BE", fr: "fr-BE", en: "en-BE" };
+/**
+ * Locale voor `toLocaleString` (bedragen, datums). Engels op en-GB, niet en-BE:
+ * en-BE schrijft een decimale komma ("6,2 cm"), wat een Engelstalige lezer als
+ * duizendtal leest. Bedragen blijven "€29.00".
+ */
+export const NUMBER_LOCALE: Record<Taal, string> = { nl: "nl-BE", fr: "fr-BE", en: "en-GB" };
 
 export function isTaal(waarde: unknown): waarde is Taal {
   return waarde === "nl" || waarde === "fr" || waarde === "en";
