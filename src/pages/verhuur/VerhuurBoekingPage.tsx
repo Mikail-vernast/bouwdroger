@@ -2075,9 +2075,11 @@ const VerhuurBoekingPage = () => {
                     <span className="tll">{t.totaalIncl}</span>
                     <span className="tlv">{eur(summary.grossTotal)}</span>
                   </div>
-                  <div className="vat">
-                    {t.perWeek(eur(Math.round((summary.grossTotal / summary.weeks) * 100) / 100))}
-                  </div>
+                  {/*
+                    Geen bedrag per week onder het totaal: een pakket huurt u
+                    voor zijn vaste termijn, en een weekprijs naast het totaal
+                    las als een tweede, lagere prijs.
+                  */}
                   {offerte && (
                     <div className="vat opmaat">
                       Transport komt hier nog bij — wij bezorgen u binnen één werkdag een vaste prijs.

@@ -155,7 +155,6 @@ export interface BoekingTeksten {
   kortingOnline: string;
   btw: string;
   totaalIncl: string;
-  perWeek: (bedrag: string) => string;
   noot: string;
 }
 
@@ -396,7 +395,6 @@ const nl: BoekingTeksten = {
   kortingOnline: "Korting online betalen (5%)",
   btw: "Btw 21%",
   totaalIncl: "Totaal incl. btw",
-  perWeek: (bedrag) => `${bedrag} per week incl. btw`,
   noot: "5% korting bij online betalen · dagelijks opzegbaar",
 };
 
@@ -639,7 +637,6 @@ const fr: BoekingTeksten = {
   kortingOnline: "Réduction paiement en ligne (5 %)",
   btw: "TVA 21 %",
   totaalIncl: "Total TVAC",
-  perWeek: (bedrag) => `${bedrag} par semaine TVAC`,
   noot: "5 % de réduction en cas de paiement en ligne · résiliable chaque jour",
 };
 
@@ -879,7 +876,6 @@ const en: BoekingTeksten = {
   kortingOnline: "Online payment discount (5%)",
   btw: "VAT 21%",
   totaalIncl: "Total incl. VAT",
-  perWeek: (bedrag) => `${bedrag} per week incl. VAT`,
   noot: "5% discount when paying online · cancellable daily",
 };
 
