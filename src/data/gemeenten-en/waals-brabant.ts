@@ -1398,4 +1398,268 @@ export const GEMEENTEN: Record<string, Gemeente> = {
     ],
     realisaties: [],
   },
+  bevekom: {
+    slug: "bevekom",
+    title: "Beauvechain dehumidifier hire for farmhouses | Vernast",
+    description:
+      "Dehumidifier hire in Beauvechain: drying after a farmhouse conversion, in a new build or in a lived-in home. Delivery and installation by appointment.",
+    h1: "Construction dehumidifier hire in Beauvechain",
+    kicker: "Walloon Brabant · on the language border",
+    rit: { afstand: "about 60 km", tijd: "about an hour" },
+    intro: [
+      "Beauvechain, Bevekom in Dutch, lies in the north-east of Walloon Brabant and borders Bierbeek, Boutersem and Hoegaarden. The municipality includes Hamme-Mille, Nodebais, Tourinnes-la-Grosse and L'Écluse, among others. Outside the area, Beauvechain is known mainly for its air base.",
+      "From Aartselaar we are **about an hour** on the road to Beauvechain. We deliver to every village in the municipality and, as everywhere in Wallonia, by appointment.",
+    ],
+    bouw: {
+      kop: "Farmhouses, village homes and new housing estates",
+      alineas: [
+        "Converting **an old farmhouse or barn** into a home means drying thick walls and a new floor in spaces that stood unheated for a long time. In such a cold space, a desiccant dehumidifier removes more moisture than a condensation dehumidifier. A fan keeps the air moving in a tall barn, so no damp corners are left behind.",
+        "In the newer residential areas it is usually a new build or an extension with fresh screed. If you stay in the house while one room dries, **a compact dehumidifier** that takes up little space is often enough.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk650",
+        waarom: "**For a converted farmhouse with large volumes.** This dehumidifier extracts up to 110 litres a day from the air, in rooms up to about 600 m³.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "In a tall barn, damp air lingers near the floor. This fan moves 4,500 m³ of air an hour and mixes it, so the dehumidifier can capture it.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For old, cold walls.** This desiccant dehumidifier keeps absorbing moisture at low temperatures and, through hoses, also dries an enclosed space.",
+      },
+      {
+        key: "ttk170",
+        waarom: "**For a single room in a lived-in home.** This compact dehumidifier extracts 50 litres a day from the air and runs on a standard socket.",
+      },
+    ],
+    levering: {
+      kop: "Delivery in Beauvechain by appointment",
+      alinea: "We drive **about an hour** from Aartselaar to Beauvechain. You fix the delivery date when you book, and we call to agree the time. The technician installs the units, runs the drain hose to a drainage point and measures the moisture in floor and walls. Collection is included in your drying package too.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself in Aartselaar",
+      alinea: "You can collect by appointment at Boomsesteenweg 12, unit 11 in Aartselaar. From Beauvechain the drive takes **about an hour**, and you make it twice. For the compact dehumidifier, collecting can be a good choice. For a farmhouse with several units, it is better to have them delivered and installed.",
+    },
+    buren: ["graven", "geldenaken", "bierbeek", "boutersem", "hoegaarden"],
+    faq: [
+      {
+        q: "Can a construction dehumidifier dry a converted barn?",
+        a: "Yes, but a barn is tall and often cold. There a desiccant dehumidifier works better than a condensation dehumidifier, ideally with a fan alongside. Tell us the dimensions and whether there is heating yet, and we will put the set-up together.",
+      },
+      {
+        q: "Can the compact dehumidifier stand in a bedroom while we are at home?",
+        a: "It can. It runs on a standard socket and takes up little space. Close the door and windows of the room being dried, or it will dry the air of the whole house as well and take longer.",
+      },
+      {
+        q: "Will the damp patches at the bottom of the old wall come back after drying?",
+        a: "If it is rising damp, yes. An old wall without a damp-proof course draws water from the ground, and a construction dehumidifier does not stop that. The moisture reading during installation shows whether it is construction moisture or rising damp.",
+      },
+      {
+        q: "How long does a new screed take to dry?",
+        a: "That depends on the thickness, the type of screed, the temperature and the ventilation. That is why we do not give a fixed period. A moisture reading shows when the floor is ready for tiles, parquet or vinyl.",
+      },
+    ],
+    realisaties: [],
+  },
+  incourt: {
+    slug: "incourt",
+    title: "Incourt dehumidifier hire in all five villages | Vernast",
+    description:
+      "Dehumidifier hire in Incourt, Glimes, Opprebais or Piétrebais: units for new builds, converted farmhouses and water damage, installed by appointment.",
+    h1: "Construction dehumidifier hire in Incourt",
+    kicker: "Walloon Brabant · rural villages",
+    rit: { afstand: "about 70 km", tijd: "a good hour" },
+    intro: [
+      "Incourt is a rural municipality in the east of Walloon Brabant, between Chaumont-Gistoux, Perwez and Jodoigne. It is made up of Incourt, Glimes, Opprebais, Piétrebais and Roux-Miroir, villages with a lot of farming and scattered farmhouses.",
+      "Our van is on the road from Aartselaar for **a good hour** to Incourt. In Wallonia, delivery and installation are by appointment, in each of the five villages.",
+    ],
+    bouw: {
+      kop: "Large volumes in farmhouses and new builds",
+      alineas: [
+        "A **farmhouse being converted into a home** often has high rooms, thick brick walls and a new floor laid on the old ground. The volume is large and the walls hold water for a long time. There we would rather use one powerful dehumidifier with air circulation than a few small units spread around the building.",
+        "In a new build in one of the villages, it is mainly about the screed and the plasterwork. If you are planning the finishing, keep the dehumidifier running until **the moisture reading** allows it. That way you avoid parquet swelling or paint coming away.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttv4500",
+        waarom: "**For high rooms in a farmhouse.** This fan moves 4,500 m³ of air an hour, so the dry air also reaches the corners and the top of the room.",
+      },
+      {
+        key: "ttk350",
+        waarom: "For a new-build house with screed on the ground floor: this dehumidifier removes up to 70 litres of water a day, in rooms up to about 400 m³.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For cold rooms without heating.** A desiccant dehumidifier keeps working where a condensation dehumidifier achieves little, and dries through hoses.",
+      },
+      {
+        key: "ttk650",
+        waarom: "**For the largest volume.** This dehumidifier extracts up to 110 litres a day from the air in rooms up to about 600 m³, such as a converted stable or barn.",
+      },
+    ],
+    levering: {
+      kop: "Delivery in Incourt by appointment",
+      alinea: "From Aartselaar it is **a good hour's** drive to Incourt. You choose a delivery date when you book; we agree the exact time with you by phone. The technician puts the units in place, makes sure the condensate can drain away and measures the moisture in floor and walls. Your drying package includes delivery, installation and collection.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself in Aartselaar",
+      alinea: "Collecting from our warehouse at Boomsesteenweg 12, unit 11 in Aartselaar is possible by appointment. From Incourt that is **a good hour's drive**, and you make the journey twice: to fetch the unit and to bring it back. For a converted farmhouse with large units, delivery with installation is the logical choice.",
+    },
+    buren: ["chaumont-gistoux", "perwijs", "geldenaken", "walhain"],
+    faq: [
+      {
+        q: "How do I dry a converted stable or barn?",
+        a: "With a powerful dehumidifier, a fan for air circulation, and windows and doors shut. If the space is cold, a desiccant dehumidifier works better. Give us the dimensions and the height, and we will work out how many units are needed.",
+      },
+      {
+        q: "Why should no window be open while the dehumidifier runs?",
+        a: "A dehumidifier takes water out of the air in the room it stands in. If a window is open, fresh damp air keeps coming in and it mainly dries the outside air. Air the room briefly and then close everything again.",
+      },
+      {
+        q: "When can my decorator finish the new plasterwork?",
+        a: "When the plaster is dry right through, not just on the surface. A wall that turns lighter in colour is therefore not ready yet. Have it measured before you apply the first coat of paint.",
+      },
+      {
+        q: "Do you come out as far as Roux-Miroir and Piétrebais?",
+        a: "Yes, we deliver to every village in Incourt. When you book, give the full address and say whether the site is reachable by van, especially for a farmhouse on a narrow country lane.",
+      },
+    ],
+    realisaties: [],
+  },
+  perwijs: {
+    slug: "perwijs",
+    title: "Perwez dehumidifier hire, town and villages | Vernast",
+    description:
+      "Dehumidifier hire in Perwez: drying after water damage, in a new build or a renovation in the town or its villages. Delivery and installation by appointment.",
+    h1: "Construction dehumidifier hire in Perwez",
+    kicker: "Walloon Brabant · town and villages",
+    rit: { afstand: "about 75 km", tijd: "a good hour" },
+    intro: [
+      "Perwez, Perwijs in Dutch, lies in the east of Walloon Brabant, between Incourt, Walhain and Ramillies. Around the centre lie villages such as Orbais, Thorembais-les-Béguines, Thorembais-Saint-Trond and Malèves-Sainte-Marie-Wastines.",
+      "We deliver in the centre and in all the villages. From Aartselaar we drive **a good hour**, and we agree the delivery with you, as for every site in Wallonia.",
+    ],
+    bouw: {
+      kop: "Water damage and new floors",
+      alineas: [
+        "After **a leak or a flooded cellar**, the water is often not just in the air, but also under the floor and behind the skirting boards. A radial fan blows directly over the wet area, and a dehumidifier takes the released moisture out of the air. Have the cause repaired first, or you will be starting all over again.",
+        "Renovating a terraced house or an older home in Perwez often means **new screed and plasterwork** on several floors. One dehumidifier per floor is then a good starting point, with a larger one for the biggest volume.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "ttk350",
+        waarom: "**For a floor with new screed.** This dehumidifier extracts up to 70 litres a day from the air, in rooms up to about 400 m³.",
+      },
+      {
+        key: "radiaal2250",
+        waarom: "**For a wet floor or wall after water damage.** This radial fan (2,250 m³/h, IP55) blows directly along the wet surface.",
+      },
+      {
+        key: "ttk650",
+        waarom: "For a large ground floor that got completely wet: up to 110 litres a day, suitable for rooms up to about 600 m³.",
+      },
+      {
+        key: "revolution",
+        waarom: "**For a cold cellar.** This desiccant dehumidifier absorbs moisture even at low temperatures and, through hoses, can dry an enclosed space.",
+      },
+    ],
+    levering: {
+      kop: "Delivery in Perwez by appointment",
+      alinea: "Perwez is **a good hour's** drive from our warehouse in Aartselaar. Once you have booked with a delivery date, we get in touch to fix the time. The technician installs the dehumidifiers and fans, drains the condensate away and measures how wet floor and walls are. Delivery, installation and collection are part of your drying package.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself in Aartselaar",
+      alinea: "If you want to collect yourself, you can do so by appointment at Boomsesteenweg 12, unit 11 in Aartselaar. From Perwez you are on the road for **a good hour**, and you do it twice: when collecting and when returning. After water damage, with several units, delivery with installation is the better choice.",
+    },
+    buren: ["incourt", "walhain", "ramillies"],
+    faq: [
+      {
+        q: "What should I do first after water damage?",
+        a: "First stop the cause and remove the standing water. Report the damage to your insurer before you throw anything away, and only then start drying. During installation, we use a moisture reading to see how far the water has got into floor and walls.",
+      },
+      {
+        q: "Why is there a fan next to the dehumidifier?",
+        a: "The dehumidifier takes moisture out of the air, but that air first has to pass over the wet surface. A fan makes sure it does. That way the water moves faster from the floor or wall into the air, where the dehumidifier captures it.",
+      },
+      {
+        q: "Can water under the screed still be dried?",
+        a: "Often it can, but it takes longer than drying the surface. Sometimes an adapted set-up is needed. When you book, tell us where the water stood and for how long, and we will look at the approach together.",
+      },
+      {
+        q: "Can I hire dehumidifiers for several floors at once?",
+        a: "Yes. In a house with new screed on two floors, we usually place one dehumidifier per floor. Give us the floor area and ceiling height of each floor, so the package is right.",
+      },
+    ],
+    realisaties: [],
+  },
+  ramillies: {
+    slug: "ramillies",
+    title: "Ramillies dehumidifier and site heater hire | Vernast",
+    description:
+      "Dehumidifier hire in Ramillies: dehumidifiers and electric site heaters for a cold site, a converted farmhouse or water damage. Installed by appointment.",
+    h1: "Construction dehumidifier hire in Ramillies",
+    kicker: "Walloon Brabant · open farmland",
+    rit: { afstand: "about 85 km", tijd: "about an hour and a quarter" },
+    intro: [
+      "Ramillies lies in the far east of Walloon Brabant, against the provinces of Namur and Liège. The municipality includes Bomal, Gérompont, Grand-Rosière-Hottomont, Huppaye, Mont-Saint-André and Offus, among others. It is open farmland with large farmhouses.",
+      "From Aartselaar we are **about an hour and a quarter** on the road to Ramillies. We deliver to all the villages, on a day and at a time we agree together.",
+    ],
+    bouw: {
+      kop: "Cold sites and large farmhouses",
+      alineas: [
+        "In the open landscape, a site in winter is exposed to the wind, and an empty house without heating cools down quickly. A condensation dehumidifier then extracts little water from the air. **An electric site heater** first brings the room up to temperature, and then the dehumidifier does its work. If heating is not possible, a desiccant dehumidifier is the alternative.",
+        "**Converting a farmhouse** brings a lot of water into the building: new screed, plasterwork and sometimes a new concrete floor. In such a large volume, it is best to use a large dehumidifier, with a fan that circulates the air.",
+      ],
+    },
+    toestellen: [
+      {
+        key: "revolution",
+        waarom: "**For a site that cannot be heated.** This desiccant dehumidifier keeps absorbing moisture even in cold rooms and dries through hoses.",
+      },
+      {
+        key: "teddh30",
+        waarom: "**For a cold site in winter.** This site heater gives 30 kW of heat on three-phase power (400 V). Check beforehand that your site distribution board has that connection.",
+      },
+      {
+        key: "ttk650",
+        waarom: "For the large spaces of a converted farmhouse: up to 110 litres a day, in volumes up to about 600 m³.",
+      },
+      {
+        key: "ttv4500",
+        waarom: "This fan moves 4,500 m³ of air an hour and spreads the warm, dry air through the whole room.",
+      },
+    ],
+    levering: {
+      kop: "Delivery in Ramillies by appointment",
+      alinea: "We drive **about an hour and a quarter** from Aartselaar to Ramillies. When you book, you choose the delivery day, and we agree the time with you by phone. The technician sets up the heater and the dehumidifiers, checks the connection and measures the moisture. Delivery, installation and collection are included in your drying package.",
+    },
+    afhalen: {
+      kop: "Collecting it yourself in Aartselaar",
+      alinea: "You can collect by appointment in Aartselaar, Boomsesteenweg 12, unit 11. From Ramillies the drive takes **about an hour and a quarter**, and you make the trip when collecting and again when returning. A site heater and a large dehumidifier also need a roomy vehicle. So it is better to have them delivered.",
+    },
+    buren: ["perwijs", "orp-jauche", "geldenaken"],
+    faq: [
+      {
+        q: "Why heat first and then dry?",
+        a: "Warm air can hold more moisture than cold air, and a condensation dehumidifier only extracts water from the air well above about 15 °C. In an ice-cold house, heating first brings the moisture into the air, after which the dehumidifier captures it.",
+      },
+      {
+        q: "Can I plug the site heater into a standard socket?",
+        a: "No. The 30 kW heater runs on 400 V three-phase power, as does the 20 kW one. Many sites have a site distribution board with such a connection. In an existing house, it is best to have an electrician check what is possible.",
+      },
+      {
+        q: "What if there is no three-phase power on site?",
+        a: "Then you choose a desiccant dehumidifier. It also dries in a cold room, without you having to heat it first. Mention it when you book, and we will put together a package without a heater.",
+      },
+      {
+        q: "How long does the set-up stay on a farmhouse site?",
+        a: "Until the moisture reading shows that floor and walls are ready for finishing. In a large conversion with a lot of new screed, that usually takes longer than in a small renovation. If more time is needed, you can extend the hire.",
+      },
+    ],
+    realisaties: [],
+  },
 };

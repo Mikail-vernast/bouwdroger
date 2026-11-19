@@ -24,4 +24,8 @@ export const AAN: readonly string[] = [
   "walhain",
   "graven",
   "chaumont-gistoux",
+  "bevekom",
+  "incourt",
+  "perwijs",
+  "ramillies",
 ];
