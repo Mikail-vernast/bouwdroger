@@ -348,7 +348,7 @@ export const DELIVERY = [
   {
     k: "lever",
     name: "Laten leveren & installeren",
-    sub: "Wij brengen alles binnen 24 u, plaatsen het en stellen de streefwaarde in. Ophaling na de huurperiode inbegrepen.",
+    sub: "Wij brengen alles op de dag die u kiest, plaatsen het en stellen de streefwaarde in. Ophaling na de huurperiode inbegrepen; buiten 50 km geldt een transportvergoeding.",
     price: 0,
     tag: "Inbegrepen",
   },

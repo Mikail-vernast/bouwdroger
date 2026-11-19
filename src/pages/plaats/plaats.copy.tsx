@@ -346,7 +346,7 @@ export const GEDEELD: Copy<GedeeldeCopy> = {
     },
     schema: { serviceType: "Bouwdroger verhuur", werkgebied: "Werkgebied" },
     leverenOpAfspraak: "Hier leveren we op afspraak.",
-    leverenOveral: "Wij leveren in heel België.",
+    leverenOveral: "Wij leveren in heel België en Zuid-Nederland.",
   },
   fr: {
     weken: semaines,
@@ -507,7 +507,7 @@ export const GEDEELD: Copy<GedeeldeCopy> = {
     },
     schema: { serviceType: "Location de déshumidificateurs de chantier", werkgebied: "Zone d'activité" },
     leverenOpAfspraak: "Ici, nous livrons sur rendez-vous.",
-    leverenOveral: "Nous livrons dans toute la Belgique.",
+    leverenOveral: "Nous livrons dans toute la Belgique et le sud des Pays-Bas.",
   },
   en: {
     weken: weeks,
@@ -663,6 +663,6 @@ export const GEDEELD: Copy<GedeeldeCopy> = {
     },
     schema: { serviceType: "Construction dehumidifier hire", werkgebied: "Service area" },
     leverenOpAfspraak: "Here we deliver by appointment.",
-    leverenOveral: "We deliver throughout Belgium.",
+    leverenOveral: "We deliver throughout Belgium and the south of the Netherlands.",
   },
 };

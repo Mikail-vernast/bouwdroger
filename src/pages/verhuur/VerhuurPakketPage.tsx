@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Head } from "vite-react-ssg";
 import PageMeta from "@/components/PageMeta";
@@ -14,8 +14,15 @@ import {
   TruckIcon,
 } from "@/components/verhuur/icons";
 import { catInTaal, packageGalleryAltsInTaal, packageSpecLineInTaal, roleInTaal, specsInTaal } from "@/data/verhuur.fr";
-import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
-import { extraNaarQuery, extraUitQuery } from "@/lib/booking";
+import { formatEuro, useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
+import { extraNaarQuery, extraUitQuery, withVat } from "@/lib/booking";
+import {
+  GRATIS_LEVERING_VOETNOOT,
+  GRATIS_TOT_KM,
+  LAAGSTE_TARIEF,
+  leverzoneNaarQuery,
+  leverzoneUitQuery,
+} from "@/lib/levering";
 import {
   allItems,
   configToQuery,
@@ -28,6 +35,7 @@ import {
   parseConfig,
   totalAirflow,
   totalCapacity,
+  euro,
 } from "@/lib/verhuur";
 import { breadcrumbSchema } from "@/lib/schema";
 import "@/styles/verhuur.css";
@@ -57,6 +65,10 @@ interface PakketCopy {
   avail: string;
   voor: (weeks: number) => string;
   inbegrepen: string;
+  exclOpMaat: string;
+  exclTransport: (bedrag: string) => string;
+  transOpMaat: (postcode: string, band: string) => ReactNode;
+  transPrijs: (bedrag: string, postcode: string, zone: number, band: string) => ReactNode;
   doorgaan: string;
   uwPakket: string;
   inbegrepenToestellen: string;
@@ -102,15 +114,34 @@ const COPY = {
     ptag: "Categorie: Levering",
     h2: (size) => `Volledig droogpakket, woning tot ${size} m²`,
     usps: [
-      ["Gratis levering", " bij bestelling, geplaatst en afgesteld door onze technicus"],
+      ["Gratis levering*", ` binnen ${GRATIS_TOT_KM} km, geplaatst en afgesteld door onze technicus`],
       ["Transparante prijzen", " zonder verrassingen, u ziet het totaal vooraf"],
       ["Advies op maat", " door een bouwkundige expert, ook tijdens de droging"],
       ["Energiezuinige ECO-toestellen", ", lager verbruik per liter onttrokken vocht"],
       ["Gratis voor- en na-vochtmeting", " bij elk pakket, u ziet het resultaat zwart op wit"],
     ],
-    avail: "Direct beschikbaar, levering binnen 24 uur",
+    /*
+      "Levering binnen 24 uur" stond hier voor elk adres, van Boom tot Aarlen.
+      Direct beschikbaar gaat over voorraad en klopt overal; wanneer wij rijden
+      hangt aan de postcode.
+    */
+    avail: "Direct beschikbaar — u kiest zelf uw leverdag",
     voor: (weeks) => `voor ${weeks} ${weeks === 1 ? "week" : "weken"}`,
     inbegrepen: "alles inbegrepen",
+    exclOpMaat: "excl. transport, prijs op maat",
+    exclTransport: (bedrag) => `excl. ${bedrag} transport`,
+    transOpMaat: (postcode, band) => (
+      <>
+        <b>Transportprijs op maat</b> — {postcode} ligt {band} van ons magazijn. U boekt uw pakket
+        gewoon; wij bevestigen de transportprijs binnen één werkdag.
+      </>
+    ),
+    transPrijs: (bedrag, postcode, zone, band) => (
+      <>
+        <b>Transport {bedrag} incl. btw</b> voor levering én ophaling naar {postcode} — zone {zone},{" "}
+        {band} van ons magazijn. Komt bovenop het bedrag hierboven.
+      </>
+    ),
     doorgaan: "Doorgaan naar samenstellen",
     uwPakket: "Uw pakket",
     inbegrepenToestellen: "Inbegrepen toestellen",
@@ -134,8 +165,8 @@ const COPY = {
         "Onze technicus meet bij plaatsing de vochtwaarden van chape, pleisterwerk en lucht, en meet opnieuw bij ophaling. Zo weet u zwart op wit dat de ruimte droog is voor u afwerkt. Altijd inbegrepen, een ondertekend meetrapport voor uw verzekeraar of dossier kunt u optioneel bijnemen.",
       ],
       [
-        "Levering binnen 24 uur en ophaling achteraf",
-        "Wij brengen alle toestellen naar de werf in het gekozen tijdslot en halen ze weer op zodra de droging klaar is. Gratis in onze regio; daarbuiten een beperkte kilometervergoeding die u vooraf ziet.",
+        "Levering, plaatsing en ophaling, op de dag die u kiest",
+        `Wij brengen alle toestellen naar de werf in het gekozen tijdslot en halen ze weer op zodra de droging klaar is. Binnen ${GRATIS_TOT_KM} km van ons magazijn in Aartselaar zit dat in de pakketprijs; daarbuiten komt er een transportvergoeding bij vanaf € ${LAAGSTE_TARIEF} excl. btw voor de heenrit en de ophaling samen. U vult uw postcode in bij de eerste stap van de boeking en ziet het exacte bedrag dan meteen staan.`,
       ],
       [
         "Plaatsing, aansluiting en afstelling",
@@ -195,15 +226,29 @@ const COPY = {
     ptag: "Catégorie : livraison",
     h2: (size) => `Pack de séchage complet, habitation jusqu'à ${size} m²`,
     usps: [
-      ["Livraison gratuite", " à la commande, installation et réglage par notre technicien"],
+      ["Livraison gratuite*", ` dans un rayon de ${GRATIS_TOT_KM} km, installation et réglage par notre technicien`],
       ["Prix transparents", " sans surprise, vous voyez le total à l'avance"],
       ["Conseil sur mesure", " par un expert en construction, également pendant le séchage"],
       ["Appareils ÉCO économes en énergie", ", consommation réduite par litre d'humidité extrait"],
       ["Mesure d'humidité gratuite avant et après", " avec chaque pack, vous voyez le résultat noir sur blanc"],
     ],
-    avail: "Disponible immédiatement, livraison sous 24 heures",
+    avail: "Disponible immédiatement — vous choisissez votre jour de livraison",
     voor: (weeks) => `pour ${weeks} ${weeks === 1 ? "semaine" : "semaines"}`,
     inbegrepen: "tout compris",
+    exclOpMaat: "hors transport, prix sur mesure",
+    exclTransport: (bedrag) => `hors ${bedrag} de transport`,
+    transOpMaat: (postcode, band) => (
+      <>
+        <b>Prix de transport sur mesure</b> — {postcode} se trouve à {band} de notre entrepôt. Vous
+        réservez votre pack normalement ; nous confirmons le prix du transport dans un jour ouvrable.
+      </>
+    ),
+    transPrijs: (bedrag, postcode, zone, band) => (
+      <>
+        <b>Transport {bedrag} TVAC</b> pour la livraison et l'enlèvement vers {postcode} — zone{" "}
+        {zone}, à {band} de notre entrepôt. S'ajoute au montant ci-dessus.
+      </>
+    ),
     doorgaan: "Passer à la composition",
     uwPakket: "Votre pack",
     inbegrepenToestellen: "Appareils inclus",
@@ -227,8 +272,8 @@ const COPY = {
         "Lors du placement, notre technicien mesure l'humidité de la chape, du plafonnage et de l'air, puis il mesure à nouveau à la reprise. Vous savez ainsi noir sur blanc que la pièce est sèche avant la finition. Toujours compris ; un rapport de mesure signé pour votre assureur ou votre dossier est disponible en option.",
       ],
       [
-        "Livraison sous 24 heures et reprise ensuite",
-        "Nous apportons tous les appareils sur le chantier dans le créneau choisi et les reprenons dès que le séchage est terminé. Gratuit dans notre région ; au-delà, une indemnité kilométrique limitée que vous voyez à l'avance.",
+        "Livraison, placement et reprise, le jour que vous choisissez",
+        `Nous apportons tous les appareils sur le chantier dans le créneau choisi et les reprenons dès que le séchage est terminé. Dans un rayon de ${GRATIS_TOT_KM} km de notre entrepôt à Aartselaar, c'est compris dans le prix du pack ; au-delà s'ajoute une indemnité de transport à partir de ${LAAGSTE_TARIEF} € HTVA pour l'aller et la reprise ensemble. Vous indiquez votre code postal à la première étape de la réservation et voyez le montant exact immédiatement.`,
       ],
       [
         "Placement, raccordement et réglage",
@@ -288,15 +333,29 @@ const COPY = {
     ptag: "Category: Delivery",
     h2: (size) => `Complete drying package, home up to ${size} m²`,
     usps: [
-      ["Free delivery", " with your order, set up and adjusted by our technician"],
+      ["Free delivery*", ` within ${GRATIS_TOT_KM} km, set up and adjusted by our technician`],
       ["Transparent prices", " with no surprises, you see the total up front"],
       ["Tailored advice", " from a building expert, during the drying as well"],
       ["Energy-efficient ECO units", ", lower consumption per litre of moisture extracted"],
       ["Free moisture reading before and after", " with every package, you see the result in black and white"],
     ],
-    avail: "Available now, delivery within 24 hours",
+    avail: "Available now — you choose your delivery day",
     voor: (weeks) => `for ${weeks} ${weeks === 1 ? "week" : "weeks"}`,
     inbegrepen: "all included",
+    exclOpMaat: "excl. transport, price on request",
+    exclTransport: (bedrag) => `excl. ${bedrag} transport`,
+    transOpMaat: (postcode, band) => (
+      <>
+        <b>Transport price on request</b> — {postcode} lies {band} from our warehouse. Just book your
+        package; we confirm the transport price within one working day.
+      </>
+    ),
+    transPrijs: (bedrag, postcode, zone, band) => (
+      <>
+        <b>Transport {bedrag} incl. VAT</b> for delivery and collection to {postcode} — zone {zone},{" "}
+        {band} from our warehouse. On top of the amount above.
+      </>
+    ),
     doorgaan: "Continue to build your package",
     uwPakket: "Your package",
     inbegrepenToestellen: "Included units",
@@ -320,8 +379,8 @@ const COPY = {
         "When setting up, our technician measures the moisture levels of the screed, plaster and air, and measures again at collection. That way you know in black and white that the room is dry before you finish it. Always included; a signed measurement report for your insurer or file is available as an option.",
       ],
       [
-        "Delivery within 24 hours and collection afterwards",
-        "We bring all the units to the site in the time slot you choose and collect them again as soon as the drying is done. Free in our region; beyond it, a limited mileage charge that you see in advance.",
+        "Delivery, placement and collection, on the day you choose",
+        `We bring all the units to the site in the time slot you choose and collect them again as soon as the drying is done. Within ${GRATIS_TOT_KM} km of our warehouse in Aartselaar that is included in the package price; beyond it a transport charge applies from €${LAAGSTE_TARIEF} excl. VAT for the outbound trip and the collection together. You enter your postcode at the first step of the booking and see the exact amount straight away.`,
       ],
       [
         "Positioning, connection and adjustment",
@@ -398,7 +457,19 @@ const VerhuurPakketPage = () => {
   */
   const weeks = configWeeks(config);
   const total = configPrice(config, items);
-  const bookingHref = `${lp("/verhuur/boeking")}?${configToQuery(config)}${extraNaarQuery(extra)}`;
+  /*
+    De postcode uit de calculator. Reist mee in de adresbalk, zodat de
+    transportvergoeding hier al op het scherm staat en niet pas bij het
+    afrekenen — naast "transparante prijzen zonder verrassingen" is dat het
+    verschil tussen de belofte waarmaken en ze tegenspreken.
+  */
+  const leverzone = useMemo(() => leverzoneUitQuery(searchParams), [searchParams]);
+  const transport = leverzone?.zone.tarief ?? null;
+  /* Nederlands houdt `euro()`; Frans en Engels krijgen hun eigen opmaak. */
+  const eur = (n: number) => (taal === "nl" ? euro(n) : formatEuro(n, taal));
+  const bookingHref =
+    `${lp("/verhuur/boeking")}?${configToQuery(config)}${extraNaarQuery(extra)}` +
+    leverzoneNaarQuery(leverzone?.land ?? null, leverzone?.postcode ?? null);
 
   return (
     <div className="vh-pkg">
@@ -494,6 +565,15 @@ const VerhuurPakketPage = () => {
                   </div>
                 ))}
               </div>
+              {/* De asterisk uit de eerste regel; zonder noot leest hij als kleine
+                  lettertjes die nergens staan. */}
+              <p className="uspnoot">{GRATIS_LEVERING_VOETNOOT}</p>
+              {/*
+                "Levering binnen 24 uur" stond hier voor elk adres, van Boom tot
+                Aarlen. Direct beschikbaar gaat over voorraad en klopt overal;
+                wanneer wij rijden en wat dat kost hangt aan de postcode, en dat
+                rekent de boeking uit. Beloof hier dus de voorraad, niet de rit.
+              */}
               <div className="avail">
                 <span className="d" /> {t.avail}
               </div>
@@ -501,10 +581,37 @@ const VerhuurPakketPage = () => {
                 <div>
                   <div className="pv">{toon(total).tekst}</div>
                   <div className="pl">
-                    {t.voor(weeks)} · {t.inbegrepen} · {toon(total).label}
+                    {t.voor(weeks)} ·{" "}
+                    {leverzone === null || transport === 0
+                      ? t.inbegrepen
+                      : transport === null
+                        ? t.exclOpMaat
+                        : t.exclTransport(eur(transport))}{" "}
+                    · {toon(total).label}
                   </div>
                 </div>
               </div>
+              {/*
+                De transportregel verschijnt alleen met een postcode in de
+                adresbalk — die zet de calculator erin. Komt de bezoeker hier
+                rechtstreeks binnen, dan staat er niets en vraagt de boeking het
+                alsnog.
+              */}
+              {leverzone && transport !== 0 && (
+                <div className={`ptrans${transport === null ? " opmaat" : ""}`}>
+                  <TruckIcon />
+                  <div>
+                    {transport === null
+                      ? t.transOpMaat(leverzone.postcode, leverzone.zone.band.toLowerCase())
+                      : t.transPrijs(
+                          eur(withVat(transport)),
+                          leverzone.postcode,
+                          leverzone.zone.nr,
+                          leverzone.zone.band,
+                        )}
+                  </div>
+                </div>
+              )}
               <div className="jump">
                 <Link className="btn btn-d" to={bookingHref}>
                   {t.doorgaan}

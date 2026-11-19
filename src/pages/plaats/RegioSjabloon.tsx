@@ -45,6 +45,7 @@ import { toestelLabelIn } from "@/data/navigation";
 import { eersteReviews } from "@/data/reviews";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { realisatieSlugsIn } from "@/data/realisatie-regio";
+import { regioLevering } from "@/lib/levering";
 import { vertaalPad } from "@/i18n/paden";
 import { formatEuro, kies, useLokaalPad, useTaal, type Copy } from "@/i18n/useTaal";
 import { GEDEELD } from "./plaats.copy";
@@ -304,6 +305,15 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
   const g = kies(GEDEELD, taal);
 
   const route = REGIO_ROUTES.find((r) => r.slug === regio.slug) ?? REGIO_ROUTES[0];
+  /*
+    Wat levering hier kost, uit de gemeten wegafstanden van deze regio. `null`
+    voor een regio die nog niet in `LEVERREGIOS` staat; dan valt de pagina terug
+    op de voorzichtige formulering. De zinnen uit `regioLevering` zijn
+    Nederlands: het Frans en het Engels houden de vertaalde regel en lezen
+    alleen de zones uit om niets te beloven wat niet klopt.
+  */
+  const levering = regioLevering(regio.slug);
+  const gratisZone = levering?.vanaf === 0 && levering?.tot === 0;
   const isWest = regio.slug === "west-vlaanderen";
   const kaart = kaartVoor(route);
   /*
@@ -756,7 +766,8 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
           )}
 
           <div className="note">
-            <b>{route.opAanvraag ? g.leverenOpAfspraak : g.leverenOveral}</b> {t.buiten}{" "}
+            <b>{g.leverenOveral}</b>{" "}
+            {nl && levering ? `${levering.zin} ` : `${t.buiten} `}
             {andere.map((r, i) => (
               <span key={r.slug}>
                 {i > 0 && (i === andere.length - 1 ? t.en : ", ")}
@@ -1051,7 +1062,11 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
                     <TruckIcon size={15} />
                   </span>
                   <div>
-                    {route.opAanvraag ? t.badgeAfspraak : t.badge24}
+                    {nl
+                      ? (levering?.badge ?? t.badgeAfspraak)
+                      : gratisZone
+                        ? t.badge24
+                        : t.badgeAfspraak}
                     <small>{t.badgeKlein}</small>
                   </div>
                 </div>

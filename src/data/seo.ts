@@ -21,9 +21,15 @@ export interface SeoEntry {
 
 export const SEO = {
   home: {
-    title: "Bouwdroger huren in Vlaanderen - geleverd in 24 u | Vernast",
+    title: "Bouwdroger huren in Vlaanderen - morgen geleverd | Vernast",
+    /*
+      "Binnen 24 uur in heel Vlaanderen" stond hier terwijl Brugge en Ieper op
+      ruim honderd kilometer liggen en daar een transportvergoeding geldt. De
+      belofte is nu wat ze altijd al was in de buurt van het magazijn, met de
+      afstand er eerlijk naast.
+    */
     description:
-      "Bereken welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie, vochtmeting en ophaling inbegrepen, binnen 24 uur in heel Vlaanderen.",
+      "Bereken welke bouwdroger u nodig heeft en boek meteen online. Levering, installatie en ophaling inbegrepen binnen 50 km; daarbuiten een vaste vergoeding.",
   },
 
   /* ---------- Toepassingen: elk een eigen zoekintentie ---------- */
@@ -89,7 +95,7 @@ export const SEO = {
   levering: {
     title: "Bouwdroger laten leveren en installeren | Vernast",
     description:
-      "Wij brengen uw droogpakket binnen 24 uur naar de werf, plaatsen elk toestel, sluiten de condensafvoer aan en halen alles weer op zodra u droog bent.",
+      "Wij brengen uw droogpakket naar de werf op de dag die u kiest, plaatsen elk toestel, sluiten de condensafvoer aan en halen alles weer op zodra u droog bent.",
   },
   afhalen: {
     title: "Bouwdroger zelf afhalen in Aartselaar | Vernast",

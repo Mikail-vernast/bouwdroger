@@ -94,6 +94,7 @@ const boeking = (taal?: unknown) => ({
     tel: "0470 00 00 00",
     type: "part",
     addr: "Rue de la Station 1",
+    land: "BE",
     post: "1300",
     city: "Wavre",
   },

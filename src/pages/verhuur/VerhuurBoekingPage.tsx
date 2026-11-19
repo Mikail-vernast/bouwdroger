@@ -12,6 +12,7 @@ import {
   ArrowRightIcon,
   BoltIcon,
   CalendarCheckIcon,
+  TruckIcon,
   CheckIcon,
   CrossIcon,
   DropIcon,
@@ -56,6 +57,12 @@ import {
   ONLINE_DISCOUNT,
   withVat,
 } from "@/lib/booking";
+import {
+  GRATIS_LEVERING_VOETNOOT,
+  leverzoneUitQuery,
+  type Land,
+} from "@/lib/levering";
+import { CONTACT } from "@/lib/site";
 import { useSeo } from "@/data/seo";
 import { catInTaal, coverInTaal, deliveryInTaal, extrasInTaal, packageSpecLineInTaal, pumpInTaal } from "@/data/verhuur.fr";
 import { formatEuro, useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
@@ -149,6 +156,12 @@ interface Customer {
   addr: string;
   post: string;
   /**
+   * Het land van de werf. Zonder dit veld is een postcode dubbelzinnig — 4000
+   * is Luik én Tiel — en de transportvergoeding hangt eraan. Staat daarom
+   * samen met de postcode in stap 1, vóór de prijs op het scherm komt.
+   */
+  land: Land;
+  /**
    * De gemeente van de werf. Stond er lang niet bij, omdat het portaal genoeg
    * had aan straat en postcode. De bevestigingsmail toont het leveradres wél
    * volledig, en een adres zonder gemeente leest daar als een fout.
@@ -183,6 +196,7 @@ const EMPTY_CUSTOMER: Customer = {
   vat: "",
   addr: "",
   post: "",
+  land: "BE",
   city: "",
   ok: false,
 };
@@ -207,9 +221,18 @@ function langeDatum(date: Date, taal: Taal): string {
     : date.toLocaleDateString(NUMBER_LOCALE[taal], { weekday: "long", day: "numeric", month: "long" });
 }
 
-function isComplete(c: Customer, type: CustomerType): boolean {
+/**
+ * Mag de boeking afgerekend worden?
+ *
+ * `leverbaar` hoort hierbij en niet alleen in `api/checkout.ts`: zonder
+ * bruikbare postcode staat er een totaal zónder transportvergoeding op het
+ * scherm, en boven 200 km rijden we helemaal niet. Dat moet tegengehouden
+ * worden vóór de betaling, niet erna.
+ */
+function isComplete(c: Customer, type: CustomerType, leverbaar: boolean): boolean {
   const proOk = type !== "pro" || (c.company.trim().length > 1 && c.vat.trim().length > 8);
   return (
+    leverbaar &&
     c.name.trim().length > 1 &&
     isValidEmail(c.mail) &&
     isValidPhone(c.tel) &&
@@ -290,7 +313,17 @@ const VerhuurBoekingPage = () => {
     die van ongecontroleerd naar gecontroleerd springt, en een `.trim()` die
     eruit klapt.
   */
-  const [customer, setCustomer] = useState<Customer>({ ...EMPTY_CUSTOMER, ...stored?.customer });
+  /*
+    De postcode die de calculator in de adresbalk zette. Alleen als beginwaarde:
+    wat er al in sessionStorage staat wint, anders overschrijft een gedeelde
+    link het adres dat de bezoeker zelf net getypt heeft.
+  */
+  const uitQuery = useMemo(() => leverzoneUitQuery(searchParams), [searchParams]);
+  const [customer, setCustomer] = useState<Customer>(() => ({
+    ...EMPTY_CUSTOMER,
+    ...(uitQuery ? { post: uitQuery.postcode, land: uitQuery.land } : {}),
+    ...stored?.customer,
+  }));
   const [reference, setReference] = useState("");
   /*
     Wat er effectief betaald is, zoals `api/checkout-session` het teruggeeft.
@@ -301,6 +334,13 @@ const VerhuurBoekingPage = () => {
   const [ordered, setOrdered] = useState<OrderSummary | null>(null);
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
+  /*
+    De transportofferte: boven 200 km rekent de bezoeker niet online af maar
+    laat hij zijn gegevens achter. `verstuurd` schakelt het formulier om naar de
+    bevestiging — in dezelfde stap, want een aparte bevestigingsstap zou langs
+    de betaalstap moeten die er voor hem niet is.
+  */
+  const [offerteVerstuurd, setOfferteVerstuurd] = useState(false);
 
   /*
     Het betaalformulier van Stripe leeft in stap 5. De sleutel wordt pas
@@ -337,12 +377,38 @@ const VerhuurBoekingPage = () => {
       access,
       delivery,
       payment,
+      land: customer.land,
+      postcode: customer.post,
+      /*
+        De wizard verkoopt geen spoed: de klant plant zijn eigen datum en betaalt
+        het tarief van zijn zone. Een losse rit buiten onze ronde regelen we aan
+        de telefoon, met het bedrag uit `ZONES[].spoed` erbij.
+      */
+      spoed: false,
     }),
-    [cover, extras, pumps, dev, floors, access, delivery, payment]
+    [cover, extras, pumps, dev, floors, access, delivery, payment, customer.land, customer.post]
   );
 
   const summary = useMemo(() => bookingSummary(config, options), [config, options]);
-  const { base, lines: rows, total, discount, netTotal, dryerCount, pumps: pumpCount } = summary;
+  const {
+    base,
+    lines: rows,
+    total,
+    discount,
+    netTotal,
+    dryerCount,
+    pumps: pumpCount,
+    leverzone,
+    leverbaar,
+  } = summary;
+
+  /*
+    Boven 200 km ligt er geen vast tarief. De bezoeker wordt daar niet
+    weggestuurd: hij stelt zijn pakket gewoon samen en ziet de huurprijs, alleen
+    rekent hij niet online af — wij zetten er een vervoersprijs bij en bellen
+    terug. Zie `api/transport-offerte.ts`.
+  */
+  const offerte = leverzone !== null && !leverbaar;
 
   const goTo = (n: number) => {
     setStep(n);
@@ -491,6 +557,16 @@ const VerhuurBoekingPage = () => {
 
   const dateBlocked = blockedDates.includes(startDate);
 
+  /*
+    Kan er op deze dag geleverd worden? Alleen volle dagen vallen af.
+
+    Deze kalender zet géén dagen dicht omdat het onze ritdag niet is: de klant
+    plant zijn levering zelf. Dat wij per corridor op een vaste dag rijden is
+    onze planning en staat nergens op het scherm; de bundeling waar het tarief
+    op steunt komt uit de dispatch en uit de telefonische bevestiging.
+  */
+  const datumKan = useCallback((iso: string) => !blockedDates.includes(iso), [blockedDates]);
+
   /**
    * Waarom de stap naar de gegevens dicht blijft — of `null` als hij open mag.
    *
@@ -517,16 +593,16 @@ const VerhuurBoekingPage = () => {
    * omdat we het niet weten, niet omdat hij vrij is.
    */
   const nextFreeDate = useMemo(() => {
-    if (!dateBlocked || !startDate) return null;
+    if (!startDate || datumKan(startDate)) return null;
     const from = new Date(startDate);
     const horizon = isoDate(addDays(new Date(), AVAILABILITY_HORIZON_DAYS));
     for (let i = 1; i <= AVAILABILITY_HORIZON_DAYS; i++) {
       const candidate = isoDate(addDays(from, i));
       if (candidate > horizon) return null;
-      if (!blockedDates.includes(candidate)) return candidate;
+      if (datumKan(candidate)) return candidate;
     }
     return null;
-  }, [dateBlocked, startDate, blockedDates]);
+  }, [startDate, datumKan]);
 
   /*
     Een volle dag hoeft de bezoeker niet zelf op te lossen: we schuiven de
@@ -636,6 +712,45 @@ const VerhuurBoekingPage = () => {
    */
   const staleSession = () =>
     setSession((prev) => (prev ? { ...prev, clientSecret: "", fingerprint: "" } : null));
+
+  /**
+   * Stuurt de volledige configuratie door als transportofferte.
+   *
+   * Hetzelfde payload-formaat als `payAndConfirm`, zodat de route de huurprijs
+   * met dezelfde functies kan herrekenen als de checkout. Wat de browser als
+   * bedrag meestuurt telt ook hier nergens mee.
+   */
+  const vraagOfferte = async () => {
+    setPaying(true);
+    setPayError("");
+    try {
+      const response = await fetch("/api/transport-offerte", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          config: Object.fromEntries(new URLSearchParams(configToQuery(config))),
+          options,
+          customer: { ...customer, type: customerType },
+          delivery: { date: startDate, slot },
+          page_url: typeof window === "undefined" ? "" : window.location.href,
+          website: "",
+        }),
+      });
+      const data = (await response.json()) as { ok?: boolean; error?: string };
+      if (!response.ok || !data.ok) {
+        setPayError(data.error ?? "Verzenden lukte niet. Probeer het opnieuw of bel 03 689 90 65.");
+        return;
+      }
+      setOfferteVerstuurd(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setPayError(
+        "Wij konden uw aanvraag niet versturen. Controleer uw verbinding, of bel ons op 03 689 90 65.",
+      );
+    } finally {
+      setPaying(false);
+    }
+  };
 
   /** Maakt een Stripe-sessie aan en toont het betaalformulier in stap 5. */
   const payAndConfirm = async () => {
@@ -762,8 +877,128 @@ const VerhuurBoekingPage = () => {
       <section className="main">
         <div className="wrap mgrid">
           <div>
-            {/* STAP 1 — dekking */}
+            {/* STAP 1 — waar leveren we, en welke dekking */}
             <div className={`pane${step === 1 ? " on" : ""}`}>
+              {/*
+                De postcode staat vóór de prijs, en niet pas bij de
+                contactgegevens. Hij bepaalt de transportvergoeding én de dagen
+                waarop we in die richting rijden, dus zonder hem is het totaal
+                rechts onvolledig en de kalender in stap 3 te ruim.
+              */}
+              <div className="blk">
+                <div className="blkh">
+                  <h2>Waar leveren we?</h2>
+                </div>
+                <p className="bsub">
+                  De huurprijs is overal dezelfde. Buiten onze eigen regio komt er een
+                  transportvergoeding bij voor de rit heen en de ophaling terug.
+                </p>
+                <div className="frow">
+                  <div className="fld">
+                    <label htmlFor="zLand">Land</label>
+                    <select
+                      id="zLand"
+                      value={customer.land}
+                      onChange={(e) => setCustomer({ ...customer, land: e.target.value as Land })}
+                    >
+                      <option value="BE">België</option>
+                      <option value="NL">Nederland</option>
+                    </select>
+                  </div>
+                  <div className="fld">
+                    <label htmlFor="zPost">Postcode van de werf</label>
+                    <input
+                      type="text"
+                      id="zPost"
+                      inputMode="numeric"
+                      autoComplete="postal-code"
+                      placeholder={customer.land === "NL" ? "4811" : "2630"}
+                      maxLength={4}
+                      value={customer.post}
+                      onChange={(e) =>
+                        setCustomer({ ...customer, post: e.target.value.replace(/\D/g, "") })
+                      }
+                    />
+                  </div>
+                </div>
+
+                {customer.post.length === 4 && leverzone && leverbaar && (
+                  <div className="pcz ja">
+                    <span className="pczd" />
+                    <div>
+                      <b>
+                        {leverzone.zone.tarief === 0
+                          ? "Gratis levering*"
+                          : "Levering met transportvergoeding"}
+                      </b>
+                      <small>
+                        {leverzone.zone.tarief === 0
+                          ? "Levering, plaatsing en ophaling zijn inbegrepen. U kiest zelf uw leverdag in de agenda."
+                          : "Plaatsing en ophaling blijven inbegrepen. Voor de rit heen en de ophaling terug komt er één vaste vergoeding bij. U kiest zelf uw leverdag in de agenda."}
+                      </small>
+                      {/*
+                        Het bedrag incl. btw staat vooraan en niet als voetnoot.
+                        De catalogus rekent excl. btw, maar wie hier zijn postcode
+                        intypt wil weten wat hij betaalt — en voor een particulier
+                        scheelt dat 21%.
+                      */}
+                      <span className="pczp">
+                        {leverzone.zone.tarief === 0 ? (
+                          <>
+                            Levering, plaatsing en ophaling <b>inbegrepen</b>
+                            <span className="pcznoot">{GRATIS_LEVERING_VOETNOOT}</span>
+                          </>
+                        ) : (
+                          <>
+                            Transportvergoeding <b>{euro(withVat(leverzone.zone.tarief ?? 0))}</b>{" "}
+                            incl. btw <span className="excl">({euro(leverzone.zone.tarief ?? 0)}{" "}
+                            excl. btw)</span> — levering en ophaling samen
+                          </>
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/*
+                  Boven 200 km rijden we niet zelf: een kostendekkend tarief landt
+                  daar rond € 400 en dat verkoopt niemand. Het afhaalpunt is daar
+                  het eerlijke aanbod, dus dat zegt dit blok ook.
+                */}
+                {customer.post.length === 4 && offerte && leverzone && (
+                  <div className="pcz offerte">
+                    <span className="pczd" />
+                    <div>
+                      <b>Levering met transportprijs op maat</b>
+                      <small>
+                        Plaatsing en ophaling blijven inbegrepen. De vervoerskost naar postcode{" "}
+                        {leverzone.postcode} maken wij per order: zo ver loopt ze te veel uiteen voor
+                        één vast bedrag.
+                      </small>
+                      <span className="pczp">
+                        <b>Stel uw pakket gewoon verder samen.</b> U ziet de volledige huurprijs; het
+                        transport staat er apart bij. Op het einde laat u uw gegevens achter en
+                        bezorgen wij u binnen één werkdag een vaste prijs. Afhalen in Aartselaar kan
+                        ook — <Link to="/verhuur/afhalen">bekijk de afhaalprijzen</Link>.
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {customer.post.length === 4 && !leverzone && (
+                  <div className="pcz nee">
+                    <span className="pczd" />
+                    <div>
+                      <b>Deze postcode kennen wij niet</b>
+                      <small>
+                        Controleer of het land klopt — een Belgische en een Nederlandse postcode van
+                        vier cijfers kunnen op elkaar lijken.
+                      </small>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <div className="blk">
                 <div className="blkh">
                   <h2>{t.dekkingKop}</h2>
@@ -1200,8 +1435,56 @@ const VerhuurBoekingPage = () => {
               </div>
             </div>
 
-            {/* STAP 4 — gegevens */}
+            {/* STAP 4 — gegevens, of de bevestiging van een transportofferte */}
             <div className={`pane${step === 4 ? " on" : ""}`}>
+              {offerteVerstuurd && leverzone ? (
+                /*
+                  De aanvraag is binnen. Geen aparte stap hiervoor: die zou langs
+                  de betaalstap moeten die voor deze bezoeker niet bestaat, en de
+                  voortgangsbalk bovenaan zou dan een betaling beloven die er
+                  niet komt.
+                */
+                <div className="blk">
+                  <div className="blkh">
+                    <h2>Uw aanvraag staat genoteerd</h2>
+                  </div>
+                  <p className="bsub">
+                    Wij hebben uw volledige pakketsamenstelling ontvangen, samen met het werfadres in{" "}
+                    <b>
+                      {customer.post} {customer.city}
+                    </b>
+                    .
+                  </p>
+                  <div className="plan">
+                    <CalendarCheckIcon />
+                    <div className="pt2">
+                      Een collega berekent de transportprijs voor{" "}
+                      {leverzone.zone.band.toLowerCase()} en belt of mailt u{" "}
+                      <b>binnen één werkdag</b> met een vaste prijs. De huurprijs van uw pakket ligt
+                      al vast op <b>{euro(summary.grossTotal)} incl. btw</b> en verandert daar niet
+                      door. Pas wanneer u de transportprijs aanvaardt, boeken wij de toestellen voor
+                      u in — er is nu dus nog niets vastgelegd op{" "}
+                      {start ? formatLongDate(start) : "uw gekozen datum"}.
+                    </div>
+                  </div>
+                  <div className="plan">
+                    <TruckIcon />
+                    <div className="pt2">
+                      Liever meteen weg? U kunt de toestellen ook zelf afhalen in Aartselaar, aan de
+                      lagere afhaalprijs en zonder vervoerskost —{" "}
+                      <Link to="/verhuur/afhalen" style={{ fontWeight: 600 }}>
+                        bekijk afhalen
+                      </Link>
+                      . Vragen in tussentijd:{" "}
+                      <a href={`tel:${CONTACT.phoneE164}`} style={{ fontWeight: 600 }}>
+                        {CONTACT.phoneLocal}
+                      </a>
+                      .
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <>
               <div className="blk">
                 <div className="blkh">
                   <h2>{t.gegevensKop}</h2>
@@ -1331,10 +1614,16 @@ const VerhuurBoekingPage = () => {
                   </div>
                 </div>
 
-                <div className="blkh" style={{ marginTop: 24 }}>
+                {/*
+                  Geen betaalkeuze bij een offerte: er wordt nu niets afgerekend,
+                  en "5% korting bij online betalen" naast een knop die een
+                  aanvraag verstuurt belooft iets wat deze stap niet doet. De
+                  keuze komt terug zodra de transportprijs aanvaard is.
+                */}
+                <div className="blkh" style={{ marginTop: 24, display: offerte ? "none" : undefined }}>
                   <h2>{t.betalenKop}</h2>
                 </div>
-                <div className="payopts">
+                <div className="payopts" style={offerte ? { display: "none" } : undefined}>
                   <button
                     type="button"
                     className={`payopt${payment === "online" ? " sel" : ""}`}
@@ -1343,8 +1632,16 @@ const VerhuurBoekingPage = () => {
                     <span className="pob">{t.korting}</span>
                     <b>{t.volledigOnline}</b>
                     <span>{t.volledigOnlineUitleg}</span>
+                    {/*
+                      Het bedrag uit de samenvatting, niet hier opnieuw 5% van het
+                      totaal. Sinds de transportvergoeding in dat totaal zit — en
+                      daar géén korting op gaat — liep een eigen berekening hier
+                      een paar euro voor op wat de klant werkelijk bespaart.
+                    */}
                     <span className="pos">
-                      {t.uBespaart(eur(withVat(Math.round(total * ONLINE_DISCOUNT * 100) / 100)))}
+                      {t.uBespaart(
+                        eur(withVat(Math.round(summary.total - summary.transport) * ONLINE_DISCOUNT))
+                      )}
                     </span>
                   </button>
                   <button
@@ -1369,22 +1666,75 @@ const VerhuurBoekingPage = () => {
                   <span>{t.akkoord}</span>
                 </label>
 
+                {/*
+                  Waarom de betaalknop dicht blijft. Een uitgeschakelde knop
+                  zonder uitleg is de snelste manier om een boeking kwijt te
+                  spelen; het ontbrekende of onleverbare adres staat in stap 1.
+                */}
+                {/*
+                  Waarom de knop dicht blijft. Een uitgeschakelde knop zonder
+                  uitleg is de snelste manier om een boeking kwijt te spelen.
+                */}
+                {!leverbaar && !offerte && (
+                  <p className="perr">
+                    Vul eerst de postcode van de werf in bij stap 1, die bepaalt de
+                    transportvergoeding.
+                  </p>
+                )}
+
+                {/*
+                  De offertezone: geen betaalknop maar een aanvraag. Alles wat
+                  hieronder verstuurd wordt heeft de bezoeker al ingevuld — hij
+                  hoeft niets over te typen in een los contactformulier.
+                */}
+                {offerte && leverzone && !offerteVerstuurd && (
+                  <div className="offbox">
+                    <b>Transportprijs op maat</b>
+                    <p>
+                      Uw werf ligt {leverzone.zone.band.toLowerCase()} van ons magazijn. Het pakket
+                      hierboven — <b>{euro(summary.grossTotal)} incl. btw</b> — staat vast; het
+                      transport berekenen wij apart en bevestigen we binnen één werkdag. Wij sturen
+                      uw volledige samenstelling mee, u hoeft niets opnieuw in te vullen.
+                    </p>
+                  </div>
+                )}
+
                 {payError && <p className="perr">{payError}</p>}
               </div>
               <div className="fnav">
                 <button className="btn btn-o" type="button" onClick={() => goTo(3)}>
                   {t.terug}
                 </button>
-                <button
-                  className="btn btn-r"
-                  type="button"
-                  disabled={!isComplete(customer, customerType) || paying}
-                  onClick={payAndConfirm}
-                >
-                  {paying ? t.voorbereiden : t.naarBetaling(eur(summary.payableGross))}
-                  <ArrowRightIcon />
-                </button>
+                {offerte ? (
+                  <button
+                    className="btn btn-r"
+                    type="button"
+                    disabled={
+                      !isComplete(customer, customerType, true) || paying || offerteVerstuurd
+                    }
+                    onClick={vraagOfferte}
+                  >
+                    {offerteVerstuurd
+                      ? t.offerteVerstuurd
+                      : paying
+                        ? t.offerteVersturen
+                        : t.offerteVraag}
+                    <ArrowRightIcon />
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-r"
+                    type="button"
+                    disabled={!isComplete(customer, customerType, leverbaar) || paying}
+                    onClick={payAndConfirm}
+                  >
+                    {paying ? t.voorbereiden : t.naarBetaling(eur(summary.payableGross))}
+                    <ArrowRightIcon />
+                  </button>
+                )}
               </div>
+                </>
+              )}
             </div>
 
             {/* STAP 5 — betaling, formulier van Stripe binnen onze eigen pagina */}
@@ -1540,21 +1890,62 @@ const VerhuurBoekingPage = () => {
                 <h3>{taal === "nl" ? packageTitle(config) : packageSpecLineInTaal(config, taal)}</h3>
               </div>
               <div className="sb">
-                <div className="sline">
-                  <span>{t.pakketRegel(summary.deviceCount, summary.weeks)}</span>
-                  <b>{eur(base)}</b>
-                </div>
+                {/*
+                  Deze regel ging over het plaatsen en afstellen, niet over de
+                  rit — maar naast een transportregel las "Inbegrepen" als een
+                  tegenspraak, en in een offertezone zelfs als een belofte. Nu
+                  zegt ze wat er wél in zit.
+                */}
                 <div className="sline inc">
-                  <span>{t.leveringRegel}</span>
+                  <span>
+                    {offerte || summary.transport > 0 ? t.plaatsingRegel : t.leveringRegel}
+                  </span>
                   <b>{t.inbegrepen}</b>
                 </div>
+                {/*
+                  Eerst wat er in de pakketprijs zit, dan pas wat er bij komt.
+                  Door elkaar las de lijst als een reeks losse kosten waarvan de
+                  helft toevallig nul was; zo zien de twee groepen eruit als wat
+                  ze zijn — de inhoud van het pakket, en de keuzes erbovenop.
+                */}
                 <div>
-                  {rows.map((r) => (
-                    <div className={`sline${r.inc ? " inc" : ""}`} key={r.l}>
-                      <span>{regelInTaal(r.l, taal)}</span>
-                      <b>{r.inc ? t.inbegrepen : eur(r.v)}</b>
+                  {rows
+                    .filter((r) => r.inc)
+                    .map((r) => (
+                      <div className="sline inc" key={r.l}>
+                        <span>{regelInTaal(r.l, taal)}</span>
+                        <b>{t.inbegrepen}</b>
+                      </div>
+                    ))}
+                  {/*
+                    De toestellen komen ná het inbegrepene: eerst leest de
+                    bezoeker wat er sowieso bij zit, dan pas wat er aangerekend
+                    wordt. Daarvoor opende de lijst met het grootste bedrag en
+                    las alles eronder als meerwerk.
+                  */}
+                  <div className="sline">
+                    <span>{t.pakketRegel(summary.deviceCount, summary.weeks)}</span>
+                    <b>{eur(base)}</b>
+                  </div>
+                  {rows
+                    .filter((r) => !r.inc)
+                    .map((r) => (
+                      <div className="sline" key={r.l}>
+                        <span>{regelInTaal(r.l, taal)}</span>
+                        <b>{eur(r.v)}</b>
+                      </div>
+                    ))}
+                  {/*
+                    Zonder deze regel leest het totaal als de volledige prijs,
+                    terwijl het transport er nog bij komt. Liever één regel te
+                    veel dan een klant die zich achteraf bekocht voelt.
+                  */}
+                  {offerte && (
+                    <div className="sline opmaat">
+                      <span>{t.transportRegel(leverzone?.zone.band ?? "")}</span>
+                      <b>{t.opMaat}</b>
                     </div>
-                  ))}
+                  )}
                 </div>
                 {/*
                   Zelfde volgorde als de bevestigingsmail: huurprijs, dan de
@@ -1598,6 +1989,11 @@ const VerhuurBoekingPage = () => {
                   <div className="vat">
                     {t.perWeek(eur(Math.round((summary.grossTotal / summary.weeks) * 100) / 100))}
                   </div>
+                  {offerte && (
+                    <div className="vat opmaat">
+                      Transport komt hier nog bij — wij bezorgen u binnen één werkdag een vaste prijs.
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="sf">

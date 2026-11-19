@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Droplets, Wind, Flame, Check } from "lucide-react";
 import type { PackageResult } from "@/lib/pricing";
+import { GRATIS_TOT_KM } from "@/lib/levering";
 import { cn } from "@/lib/utils";
 
 interface PackageCardProps {
@@ -75,7 +76,9 @@ const PackageCard = ({ pkg, recommended = false, onSelect }: PackageCardProps) =
           <div className="flex items-center gap-1.5">
             <Check className="h-3 w-3 text-primary" />
             <span>
-              {pkg.deliveryCost === 0 ? "Gratis levering & ophaling" : `Levering: €${pkg.deliveryCost}`}
+              {pkg.deliveryCost === 0
+                ? `Gratis levering & ophaling* binnen ${GRATIS_TOT_KM} km`
+                : `Levering: €${pkg.deliveryCost}`}
             </span>
           </div>
           {pkg.discount > 0 && (

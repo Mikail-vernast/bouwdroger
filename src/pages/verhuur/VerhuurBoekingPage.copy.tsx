@@ -130,11 +130,17 @@ export interface BoekingTeksten {
   betaald: string;
   nogTeBetalen: string;
   naarHome: string;
+  offerteVraag: string;
+  offerteVersturen: string;
+  offerteVerstuurd: string;
   /* Samenvatting */
   uwDroogpakket: string;
   uwPakket: string;
   pakketRegel: (toestellen: number, weken: number) => string;
   leveringRegel: string;
+  plaatsingRegel: string;
+  transportRegel: (band: string) => string;
+  opMaat: string;
   huurprijsExcl: string;
   kortingOnline: string;
   btw: string;
@@ -191,7 +197,7 @@ const nl: BoekingTeksten = {
   binnenkort: "Binnenkort",
   monitoringSub:
     "Al onze toestellen krijgen digitale opvolging: u volgt de luchtvochtigheid en droogvoortgang binnenkort live online op, zonder meerkost, automatisch op elk toestel.",
-  pompKop: "Condenspomp, standaard 1 per bouwdroger",
+  pompKop: "Condenspomp, automatische waterafvoer",
   pompSub: (
     <>
       Nooit zelf een reservoir legen of werken met een kuip: de condenspomp voert het water{" "}
@@ -345,10 +351,17 @@ const nl: BoekingTeksten = {
   nogTeBetalen: "Nog te betalen bij levering",
   naarHome: "Naar de homepage",
 
+  offerteVraag: "Vraag uw transportprijs aan",
+  offerteVersturen: "Aanvraag versturen…",
+  offerteVerstuurd: "Aanvraag verstuurd",
+
   uwDroogpakket: "Uw droogpakket",
   uwPakket: "Uw pakket",
   pakketRegel: (toestellen, weken) => `Pakket · ${toestellen} toestellen · ${weken} weken`,
   leveringRegel: "Levering, installatie & ophaling",
+  plaatsingRegel: "Plaatsing & afstelling ter plaatse",
+  transportRegel: (band) => `Transport ${band}`,
+  opMaat: "Op maat",
   huurprijsExcl: "Huurprijs excl. btw",
   kortingOnline: "Korting online betalen (5%)",
   btw: "Btw 21%",
@@ -405,7 +418,7 @@ const fr: BoekingTeksten = {
   binnenkort: "Bientôt",
   monitoringSub:
     "Tous nos appareils seront bientôt suivis numériquement : vous suivrez l'humidité de l'air et l'avancement du séchage en direct en ligne, sans supplément, automatiquement sur chaque appareil.",
-  pompKop: "Pompe à condensats, 1 par déshumidificateur de série",
+  pompKop: "Pompe à condensats, évacuation automatique de l'eau",
   pompSub: (
     <>
       Plus jamais de réservoir à vider ni de bac : la pompe à condensats évacue l'eau{" "}
@@ -561,10 +574,17 @@ const fr: BoekingTeksten = {
   nogTeBetalen: "Reste à payer à la livraison",
   naarHome: "Vers la page d'accueil",
 
+  offerteVraag: "Demandez votre prix de transport",
+  offerteVersturen: "Envoi de la demande…",
+  offerteVerstuurd: "Demande envoyée",
+
   uwDroogpakket: "Votre pack de séchage",
   uwPakket: "Votre pack",
   pakketRegel: (toestellen, weken) => `Pack · ${toestellen} appareils · ${weken} semaines`,
   leveringRegel: "Livraison, installation & enlèvement",
+  plaatsingRegel: "Placement & réglage sur place",
+  transportRegel: (band) => `Transport ${band}`,
+  opMaat: "Sur mesure",
   huurprijsExcl: "Prix de location HTVA",
   kortingOnline: "Réduction paiement en ligne (5 %)",
   btw: "TVA 21 %",
@@ -621,7 +641,7 @@ const en: BoekingTeksten = {
   binnenkort: "Coming soon",
   monitoringSub:
     "All our units are getting digital monitoring: you will soon be able to follow the air humidity and drying progress live online, at no extra cost, automatically on every unit.",
-  pompKop: "Condensate pump, 1 per construction dehumidifier as standard",
+  pompKop: "Condensate pump, automatic water drainage",
   pompSub: (
     <>
       Never empty a tank yourself or work with a tub: the condensate pump drains the water{" "}
@@ -773,10 +793,17 @@ const en: BoekingTeksten = {
   nogTeBetalen: "Still to pay on delivery",
   naarHome: "Go to the homepage",
 
+  offerteVraag: "Request your transport price",
+  offerteVersturen: "Sending request…",
+  offerteVerstuurd: "Request sent",
+
   uwDroogpakket: "Your drying package",
   uwPakket: "Your package",
   pakketRegel: (toestellen, weken) => `Package · ${toestellen} units · ${weken} weeks`,
   leveringRegel: "Delivery, installation & collection",
+  plaatsingRegel: "On-site placement & setup",
+  transportRegel: (band) => `Transport ${band}`,
+  opMaat: "On request",
   huurprijsExcl: "Hire price excl. VAT",
   kortingOnline: "Online payment discount (5%)",
   btw: "VAT 21%",
