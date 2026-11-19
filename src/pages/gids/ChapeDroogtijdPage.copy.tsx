@@ -726,7 +726,7 @@ export const COPY = {
       {
         question: "When can the dehumidifier go on after the screed has been laid?",
         answer:
-          "Not straight away. Cement screed binds water chemically while it cures, and in that first phase it still needs that water. Ask your screed layer from when you can start drying actively; that is a matter of days to weeks, depending on the mix and what is in it. Switch the dehumidifier on too early and too hard, and the top dries out while the bottom is still wet, which leads to shrinkage, cracks and, in the worst case, a floor that comes loose. After that, the unit can run day and night: every hour it stands idle lets the humidity climb again.",
+          "Not straight away. Cement screed binds water chemically while it cures, and in that first phase it still needs that water. Ask your screed fitter from when you can start drying actively; that is a matter of days to weeks, depending on the mix and what is in it. Switch the dehumidifier on too early and too hard, and the top dries out while the bottom is still wet, which leads to shrinkage, cracks and, in the worst case, a floor that comes loose. After that, the unit can run day and night: every hour it stands idle lets the humidity climb again.",
       },
       {
         question: "Can screed dry too quickly?",
@@ -736,7 +736,7 @@ export const COPY = {
       {
         question: "Can I use underfloor heating to dry screed?",
         answer:
-          "Yes, but only by following a heating-up protocol: start gently at a low flow temperature, raise it by one step a day up to the maximum the manufacturer allows, hold it for a few days and then bring it down just as gradually, and all of that only after the waiting time the screed layer prescribes. Never turn the heating up in one go. And remember that heating only drives the moisture out of the floor, not out of the building: without a dehumidifier or ventilation it condenses on windows, sills and external walls. Completing a heating-up protocol is not proof that the floor is dry either; that still takes a moisture reading.",
+          "Yes, but only by following a heating-up protocol: start gently at a low flow temperature, raise it by one step a day up to the maximum the manufacturer allows, hold it for a few days and then bring it down just as gradually, and all of that only after the waiting time the screed fitter prescribes. Never turn the heating up in one go. And remember that heating only drives the moisture out of the floor, not out of the building: without a dehumidifier or ventilation it condenses on windows, sills and external walls. Completing a heating-up protocol is not proof that the floor is dry either; that still takes a moisture reading.",
       },
       {
         question: "How do I know whether my screed is dry enough for parquet or tiles?",
@@ -857,7 +857,7 @@ export const COPY = {
       "A fresh screed goes through two phases, and they ask the opposite of you. First the cement still needs the water; only after that can it come out.",
     f1Label: "Phase 1 · curing",
     f1H3: "Let the screed set first.",
-    f1P: "Cement binds water chemically while it cures. Aggressive drying in this phase draws out water the mix still needs: the top shrinks, the bottom does not, and that shows up as cracks or curling edges. Your screed layer will tell you from which day you can start drying.",
+    f1P: "Cement binds water chemically while it cures. Aggressive drying in this phase draws out water the mix still needs: the top shrinks, the bottom does not, and that shows up as cracks or curling edges. Your screed fitter will tell you from which day you can start drying.",
     f1Bar: "Days to weeks, depending on the mix",
     f2Label: "Phase 2 · drying",
     f2H3: "Then the water has to leave the building.",
@@ -907,9 +907,9 @@ export const COPY = {
     vvKick: "Underfloor heating",
     vvH2: "Heating up in six steps, in this order.",
     vvLede:
-      "If there is underfloor heating beneath the screed, it is a useful aid to drying, but only if handled with care. This is the shape a heating-up protocol takes; the exact temperatures and days come from your screed layer or the manufacturer.",
+      "If there is underfloor heating beneath the screed, it is a useful aid to drying, but only if handled with care. This is the shape a heating-up protocol takes; the exact temperatures and days come from your screed fitter or the manufacturer.",
     opstook: [
-      { b: "Wait for the curing time.", rest: " Cement screed needs water to cure. Your screed layer will tell you from which day you can start heating; for anhydrite that waiting time is usually shorter." },
+      { b: "Wait for the curing time.", rest: " Cement screed needs water to cure. Your screed fitter will tell you from which day you can start heating; for anhydrite that waiting time is usually shorter." },
       { b: "Start low.", rest: " Begin at a low flow temperature, not the temperature you will later want to live at. The floor needs to warm up evenly." },
       { b: "Raise it step by step.", rest: " Increase by a fixed step each day up to the maximum flow temperature the manufacturer allows, and hold it there for a few days." },
       { b: "Bring it down just as gradually.", rest: " Do not switch the heating off in one go; that causes the same stresses as heating up too fast." },
