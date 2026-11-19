@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import GidsShell from "@/components/gids/GidsShell";
 import { useSeo } from "@/data/seo";
-import { DROGERS, euro, priceForWeeks } from "@/data/tarieflijst";
-import { REGIO_ROUTES } from "@/data/regio-slugs";
+import { DROGERS, drogersInTaal, euro, priceForWeeks } from "@/data/tarieflijst";
+import { REGIO_ROUTES, type RegioRoute } from "@/data/regio-slugs";
 import { offerCatalogSchema } from "@/lib/schema";
 import { toestelPad } from "@/data/verhuur";
 import { lokaalPad, useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
@@ -28,15 +28,46 @@ const CIJFERS: Cijfers = {
   litersMax: LITERS.length ? Math.max(...LITERS) : null,
 };
 
+/*
+  Engelse provincienamen. `regio-slugs.ts` heeft alleen een `nameFr`, en dat
+  bestand is niet van deze pagina. "Antwerpen" of "Oost-Vlaanderen" in een
+  Engelse zin is even fout als « en Anvers » in een Franse: wie in het Engels
+  zoekt, tikt "Antwerp" en "East Flanders". Zonder Engelse exoniem valt de naam
+  terug op de Franse (de officiële naam van een Waalse provincie) en anders op
+  de Nederlandse.
+*/
+const REGIO_EN: Record<string, string> = {
+  antwerpen: "Antwerp",
+  "oost-vlaanderen": "East Flanders",
+  "west-vlaanderen": "West Flanders",
+  "vlaams-brabant": "Flemish Brabant",
+  "waals-brabant": "Walloon Brabant",
+  brussel: "Brussels",
+  limburg: "Limburg",
+  henegouwen: "Hainaut",
+  namen: "Namur",
+  luik: "Liège",
+  luxemburg: "Luxembourg",
+  "noord-brabant": "North Brabant",
+  "nederlands-limburg": "Dutch Limburg",
+};
+function regioNaamEn(r: Pick<RegioRoute, "slug" | "name" | "nameFr">): string {
+  return REGIO_EN[r.slug] ?? r.nameFr ?? r.name;
+}
+
 const LuchtontvochtigerHurenPage = () => {
   const t = useCopy(COPY);
   const lp = useLokaalPad();
   const taal = useTaal();
   const toon = useToonBedrag();
   const seo = useSeo("luchtontvochtigerHuren");
+  /* Engels krijgt de toestelnamen, badges en samenvattingen in het Engels.
+     Frans blijft voorlopig op DROGERS staan zoals het altijd stond, zodat deze
+     wijziging de Franse pagina niet ongemerkt verandert. */
+  const drogers = taal === "en" ? drogersInTaal(taal) : DROGERS;
 
-  /* Nederlands blijft zoals het altijd was: excl. btw, "€ 9". Frans volgt de
-     keuze particulier/bedrijf uit de keuzepopup. */
+  /* Nederlands blijft zoals het altijd was: excl. btw, "€ 9". Frans en Engels
+     volgen de keuze particulier/bedrijf uit de keuzepopup. */
   const bedragen: Bedragen =
     taal === "nl"
       ? { prijs: euro, btw: "exclusief btw" }
@@ -57,7 +88,7 @@ const LuchtontvochtigerHurenPage = () => {
       jsonLd={[
         offerCatalogSchema(
           t.catalogusNaam,
-          DROGERS.map((d) => ({
+          drogers.map((d) => ({
             name: d.name,
             description: d.summary,
             path: lokaalPad(d.path, taal),
@@ -74,7 +105,7 @@ const LuchtontvochtigerHurenPage = () => {
             <p className="lede">{t.gLede(bedragen.btw)}</p>
           </div>
           <div className="g3">
-            {DROGERS.map((d) => (
+            {drogers.map((d) => (
               <div className="kaart" key={d.key}>
                 {d.badge ? <span className="kick">{d.badge}</span> : null}
                 <h3>{d.name}</h3>
@@ -120,7 +151,9 @@ const LuchtontvochtigerHurenPage = () => {
             {t.regioIntro}{" "}
             {REGIO_ROUTES.map((r, i) => (
               <span key={r.path}>
-                <Link to={lp(r.path)}>{t.regioLink(taal === "nl" ? r.name : r.nameFr ?? r.name)}</Link>
+                <Link to={lp(r.path)}>{t.regioLink(
+                    taal === "nl" ? r.name : taal === "en" ? regioNaamEn(r) : r.nameFr ?? r.name,
+                  )}</Link>
                 {i < REGIO_ROUTES.length - 2 ? ", " : i === REGIO_ROUTES.length - 2 ? t.regioEn : "."}
               </span>
             ))}

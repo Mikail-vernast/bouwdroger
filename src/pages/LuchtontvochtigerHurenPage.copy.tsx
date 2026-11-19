@@ -6,7 +6,7 @@ import type { Tarief } from "@/data/tarieflijst";
 import { CONTACT } from "@/lib/site";
 
 /**
- * Teksten van /luchtontvochtiger-huren in het Nederlands en het Frans.
+ * Teksten van /luchtontvochtiger-huren in het Nederlands, het Frans en het Engels.
  *
  * Geen enkel bedrag staat hier overgetypt: de pagina geeft `prijs` en `btw`
  * mee. In het Nederlands is dat zoals altijd het bedrag excl. btw ("€ 9" +
@@ -320,4 +320,136 @@ const fr: typeof nl = {
   regioEn: " et ",
 };
 
-export const COPY = { nl, fr } satisfies Copy<typeof nl>;
+const en: typeof nl = {
+  crumb: "Dehumidifier hire",
+  home: "Home",
+  kick: "Hire · dehumidifiers",
+  h1: "Dehumidifier hire for cellars, water damage and new builds",
+  intro: (c: Cijfers, b: Bedragen): ReactNode => (
+    <p>
+      A damp cellar, a leak that flooded the floor or a new build full of wet screed: a professional
+      dehumidifier draws the moisture out, day and night.
+      {c.litersMin && c.litersMax ? ` Our condensation dehumidifiers remove ${c.litersMin} to ${c.litersMax} litres of water a day` : ""}
+      {c.vanaf !== null ? `, for hire from ${b.prijs(c.vanaf)} a day ${b.btw}.` : "."} Collect it yourself or have
+      it delivered and installed, anywhere in Flanders.
+    </p>
+  ),
+  faq: (c: Cijfers, b: Bedragen): GidsFaq[] => [
+    ...(c.goedkoopste && c.goedkoopsteWeek !== null
+      ? [
+          {
+            question: "How much does it cost to hire a dehumidifier?",
+            answer: `You can hire our dehumidifiers from ${b.prijs(c.goedkoopste.perDay)} a day ${b.btw}, for the ${c.goedkoopste.short}. A week then costs ${b.prijs(c.goedkoopsteWeek)} ${b.btw}. The larger models and all hire periods are on our prices page.`,
+          },
+        ]
+      : []),
+    {
+      question: "Is a dehumidifier the same as a construction dehumidifier?",
+      answer:
+        "A construction dehumidifier is a professional dehumidifier: the same principle, but with far more capacity and built to run day and night on a building site. Our units are condensation dehumidifiers.",
+    },
+    {
+      question: "Which dehumidifier do I need for my cellar?",
+      answer:
+        "That depends on the volume of the cellar and how wet it is. Check the range in m³ of each unit, or let the Calculator work it out. If the cellar is colder than about 15 °C, add a site heater: in the cold, a condensation dehumidifier loses a lot of its efficiency.",
+    },
+    {
+      question: "Can I collect a dehumidifier myself?",
+      answer: `Yes. You collect individual units from our warehouse at ${CONTACT.street} in ${CONTACT.city}, on working days from 08:00 to 17:00. Would you rather have it delivered and set up? Then choose a drying package with delivery and installation.`,
+    },
+  ],
+  catalogusNaam: "Dehumidifiers for hire",
+
+  gKick: "Our range",
+  gH2: "Which dehumidifier should you hire?",
+  gLede: (btw: string) =>
+    `Three condensation dehumidifiers, from a flat to a large building site. The capacity is the maximum in litres per 24 hours from the technical data sheet; the range is the room volume the unit is intended for. All prices ${btw}.`,
+  kaartCapaciteit: (liters: number | undefined, volume: number | undefined): ReactNode => (
+    <>
+      Up to <b>{liters} litres a day</b> · rooms up to <b>{volume} m³</b>
+    </>
+  ),
+  kaartPrijs: (dag: string, week: string): ReactNode => (
+    <>
+      {dag} <small>a day · {week} a week</small>
+    </>
+  ),
+  kaartMeer: (kort: string) => `View the ${kort}`,
+  note: (lp: Lp): ReactNode => (
+    <>
+      <b>Not sure which size?</b> The <Link to={lp("/verhuur/calculator")}>drying calculator</Link> works out
+      how many litres a day your space needs. If you want a complete package with fans and delivery
+      straight away, use the <Link to={lp("/verhuur/calculator")}>drying calculator</Link>. All amounts per
+      period are on <Link to={lp("/prijzen")}>our prices page</Link>.
+    </>
+  ),
+
+  wH2: "What do you hire a dehumidifier for?",
+  kelderH3: "A damp cellar",
+  kelderP: (lp: Lp, kachelPad: string): ReactNode => (
+    <>
+      Cellars are cool and often poorly ventilated, so the humidity stays high and a musty smell or
+      mould develops. A dehumidifier brings that humidity down. Watch the temperature: below about
+      15 °C a condensation dehumidifier works noticeably less well. In a cold cellar we therefore add
+      an <Link to={lp(kachelPad)}>electric site heater</Link>. You can read more about cellars and
+      mould on <Link to={lp("/renovatie")}>drying a damp cellar or mould</Link>. If a cellar keeps
+      getting wet again, the cause usually lies in the walls themselves; dehumidifying then treats the
+      effect, not the source.
+    </>
+  ),
+  waterH3: "After water damage",
+  waterP: (lp: Lp): ReactNode => (
+    <>
+      After a leak or flood, every day counts. The longer floors, walls and insulation stay wet, the
+      greater the risk of mould and lasting damage. A dehumidifier combined with one or more fans dries
+      fastest: the fan releases the moisture from the surfaces, the dehumidifier takes it out of the
+      air. If the water is under a floating floor or inside a wall, read{" "}
+      <Link to={lp("/gids/condensdroger-of-adsorptiedroger")}>condensation or desiccant dehumidifier</Link>.
+      The whole approach is explained on <Link to={lp("/waterschade")}>drying after water damage</Link>.
+    </>
+  ),
+  nieuwbouwH3: "New builds and renovation",
+  nieuwbouwP: (lp: Lp): ReactNode => (
+    <>
+      Screed and plasterwork bring hundreds of litres of water into a home. Without dehumidification it
+      dries slowly and the floor layer or painter cannot start. How long that takes per thickness is
+      set out in <Link to={lp("/gids/hoe-lang-moet-chape-drogen")}>how long does screed take to dry</Link>;
+      what we do on site is described on{" "}
+      <Link to={lp("/nieuwbouw-drogen")}>drying screed and plasterwork</Link>.
+    </>
+  ),
+
+  proH2: "Professional or household?",
+  proP: (lp: Lp): ReactNode => (
+    <>
+      A dehumidifier from the shop is made for a bedroom or a utility room and usually removes only a
+      fraction of what a construction dehumidifier extracts in a day. For a cellar that is really wet,
+      for water damage or for a new build, such a unit is always playing catch-up. A professional
+      condensation dehumidifier runs continuously, drains the water through a hose or condensate pump
+      and is built to run for weeks on end. What it uses in electricity, we work out in{" "}
+      <Link to={lp("/gids/stroomverbruik-bouwdroger")}>power consumption of a construction dehumidifier</Link>.
+    </>
+  ),
+
+  afH2: "Collect it yourself or have it delivered",
+  afZelf: (lp: Lp): ReactNode => (
+    <>
+      <b>Collect it yourself.</b> You book individual units online and collect them from our warehouse in{" "}
+      {CONTACT.city}. See <Link to={lp("/verhuur/afhalen")}>hiring and collecting individual units</Link>.
+    </>
+  ),
+  afLever: (lp: Lp): ReactNode => (
+    <>
+      <b>Delivery and installation.</b> If you choose a drying package, our technicians bring the units
+      within 24 hours, set them up, take moisture readings before and after, and collect everything
+      again afterwards. See <Link to={lp("/levering")}>delivery and installation</Link>.
+    </>
+  ),
+
+  regioH2: "Dehumidifier hire in your province",
+  regioIntro: "We deliver throughout Flanders. By province:",
+  regioLink: (naam: string) => `construction dehumidifier hire in ${naam}`,
+  regioEn: " and ",
+};
+
+export const COPY = { nl, fr, en } satisfies Copy<typeof nl>;
