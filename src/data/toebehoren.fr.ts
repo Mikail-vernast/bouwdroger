@@ -1,5 +1,6 @@
 /**
- * De toebehoren-fiches van `toebehoren.ts` in het Frans.
+ * De toebehoren-fiches van `toebehoren.ts` in het Frans (hier) en het Engels
+ * (`toebehoren.en.ts`).
  *
  * `toebehorenInTaal(fiche, taal, prijs?)` geeft dezelfde `Toebehoren` terug met
  * alle tekst vertaald; `slug`, `dag` en de beeldpaden blijven gelijk.
@@ -15,8 +16,9 @@
 import type { Taal } from "../i18n/taal.js";
 import { euro } from "../lib/verhuur.js";
 import { CONDENSPOMP, type Toebehoren } from "./toebehoren.js";
+import { CONDENSPOMP_EN } from "./toebehoren.en.js";
 
-type ToebehorenTekst = Omit<Toebehoren, "slug" | "dag" | "img" | "faq"> & {
+export type ToebehorenTekst = Omit<Toebehoren, "slug" | "dag" | "img" | "faq"> & {
   /** Alt en bijschrift per beeldpad. */
   img: Record<string, [alt: string, bijschrift?: string]>;
   faq: [vraag: string, antwoord: string | ((prijs: string) => string)][];
@@ -130,9 +132,13 @@ const FR: Record<string, ToebehorenTekst> = {
   [CONDENSPOMP.slug]: CONDENSPOMP_FR,
 };
 
+const EN: Record<string, ToebehorenTekst> = {
+  [CONDENSPOMP.slug]: CONDENSPOMP_EN,
+};
+
 /** Een toebehoren-fiche in de taal van de pagina; zie de uitleg bovenaan. */
 export function toebehorenInTaal(fiche: Toebehoren, taal: Taal, prijs?: string): Toebehoren {
-  const fr = taal === "fr" ? FR[fiche.slug] : undefined;
+  const fr = taal === "fr" ? FR[fiche.slug] : taal === "en" ? EN[fiche.slug] : undefined;
   if (!fr) {
     if (!prijs) return fiche;
     // Het Nederlandse prijsantwoord begint met het bedrag excl. btw; vervang het
@@ -146,7 +152,9 @@ export function toebehorenInTaal(fiche: Toebehoren, taal: Taal, prijs?: string):
   // Zelfde notatie als `formatEuro` (i18n/useTaal.ts), dat React meesleept.
   const bedrag =
     prijs ??
-    `${fiche.dag.toLocaleString("fr-BE", { style: "currency", currency: "EUR" })} HTVA`;
+    (taal === "en"
+      ? `${fiche.dag.toLocaleString("en-BE", { style: "currency", currency: "EUR" })} excl. VAT`
+      : `${fiche.dag.toLocaleString("fr-BE", { style: "currency", currency: "EUR" })} HTVA`);
   return {
     ...fiche,
     naam: fr.naam,

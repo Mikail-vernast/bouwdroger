@@ -1,5 +1,8 @@
 import type { Package } from "./packages.js";
 import type { Taal } from "../i18n/taal.js";
+import { pakketInEngels } from "./packages.en.js";
+
+export { equipmentSummaryEn, packageMetaTitleEn } from "./packages.en.js";
 
 /**
  * De teksten van de kant-en-klare pakketten in het Frans.
@@ -123,6 +126,7 @@ const zin = (nl: string) => ZINNEN[nl] ?? nl;
  * voor wat er op het scherm komt.
  */
 export function pakketInTaal(pkg: Package, taal: Taal): Package {
+  if (taal === "en") return pakketInEngels(pkg);
   if (taal !== "fr") return pkg;
   return {
     ...pkg,

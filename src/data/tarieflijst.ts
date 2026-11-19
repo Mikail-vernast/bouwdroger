@@ -179,24 +179,37 @@ const DESC_FALLBACK_FR: Record<string, string> = {
   ttk650: "Grands chantiers, caves spacieuses et dégâts des eaux aigus",
 };
 
+const DESC_FALLBACK_EN: Record<string, string> = {
+  ttk170: "One room, a flat or a small renovation",
+  ttk350: "A standard family home or a large renovation",
+  ttk650: "Large sites, spacious cellars and acute water damage",
+};
+
+/** De woorden op een droogkaart per taal; bedragen en sleutels staan erbuiten. */
+const KAART_WOORDEN: Record<"fr" | "en", { volume: (m3: number, l: number) => string; week: string; weken: string; desc: Record<string, string> }> = {
+  fr: { volume: (m3, l) => `Jusqu'à ${m3} m³ · ${l} L/jour`, week: "semaine", weken: "semaines", desc: DESC_FALLBACK_FR },
+  en: { volume: (m3, l) => `Up to ${m3} m³ · ${l} L/day`, week: "week", weken: "weeks", desc: DESC_FALLBACK_EN },
+};
+
 /**
  * `DROGER_KAARTEN` in `taal`. `highlight` volgt de Nederlandse badge, zodat
  * dezelfde kaart uitgelicht blijft wat de vertaling ook zegt.
  */
 export function drogerKaartenInTaal(taal: Taal): DrogerKaart[] {
-  if (taal !== "fr") return DROGER_KAARTEN;
+  if (taal === "nl") return DROGER_KAARTEN;
+  const w = KAART_WOORDEN[taal];
   return DROGER_KAARTEN.map((kaart) => {
     const nl = DROGERS.find((t) => t.key === kaart.key);
     const t = nl ? tariefInTaal(nl, taal) : undefined;
     if (!nl || !t) return kaart;
     return {
       ...kaart,
-      volume: `Jusqu'à ${t.volume} m³ · ${t.litersPerDay} L/jour`,
-      desc: DESC_FALLBACK_FR[t.key] ?? t.summary,
+      volume: w.volume(t.volume, t.litersPerDay),
+      desc: w.desc[t.key] ?? t.summary,
       badge: t.badge || null,
-      tiers: RENTAL_WEEKS.map((w) => ({
-        label: `${w} ${w === 1 ? "semaine" : "semaines"}`,
-        price: String(priceForWeeks(t, w)),
+      tiers: RENTAL_WEEKS.map((n) => ({
+        label: `${n} ${n === 1 ? w.week : w.weken}`,
+        price: String(priceForWeeks(t, n)),
       })),
     };
   });

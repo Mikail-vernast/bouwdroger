@@ -27,6 +27,10 @@
  *   — de weergavefuncties uit `lib/verhuur.ts`. `packageTitle` blijft bewust
  *   Nederlands: die belandt in de Stripe-productnaam en in het portaal.
  *
+ * Engels werkt op dezelfde manier: de teksten staan in `verhuur.en.ts`, de
+ * functies hier zijn driewegs. Een taal die hier niet herkend wordt, krijgt
+ * het Nederlandse origineel, nooit het Frans.
+ *
  * Draait aan beide kanten, dus relatieve imports met `.js`.
  */
 
@@ -56,6 +60,21 @@ import {
   type PackageItem,
 } from "../lib/verhuur.js";
 import { altVoorBeeld } from "../lib/altTekst.js";
+import {
+  BEKENDE_BEELDEN_EN,
+  DELIVERY_EN,
+  DEVICE_LABEL_EN,
+  GEDEELDE_ALT_EN,
+  PORTAAL_EN,
+  PRODUCT_EN,
+  PUMP_EN,
+  ROLE_EN,
+  SC_LABEL_EN,
+  SPECS_EN,
+  WERK_EN,
+} from "./verhuur.en.js";
+
+export { toestelTitelEn } from "./verhuur.en.js";
 
 /* ============================================================
    Teksten uit het portaal
@@ -163,8 +182,10 @@ const PORTAAL_FR: Record<string, string> = {
 
 /** Een tekst uit het portaal in de taal van de pagina; onbekend blijft Nederlands. */
 export function vertaalPortaal(tekst: string, taal: Taal): string {
-  if (taal !== "fr" || !tekst) return tekst;
-  return PORTAAL_FR[tekst] ?? tekst;
+  if (!tekst) return tekst;
+  if (taal === "fr") return PORTAAL_FR[tekst] ?? tekst;
+  if (taal === "en") return PORTAAL_EN[tekst] ?? tekst;
+  return tekst;
 }
 
 /* ============================================================
@@ -172,7 +193,7 @@ export function vertaalPortaal(tekst: string, taal: Taal): string {
    ============================================================ */
 
 /** Wat per toestel vertaald wordt; de rest komt uit `PRODUCTS`. */
-interface ProductFr {
+export interface ProductTekst {
   /** Alt-tekst per beeldpad: portaalfoto's, extra foto's en infoplaten. */
   alt: Record<string, string>;
   key: [string, string, string][];
@@ -188,7 +209,7 @@ const GEDEELDE_ALT_FR: Record<string, string> = {
     "Transparence sur le prix et le planning : calcul automatique, aucune incertitude sur la durée, entièrement sec pour la phase de construction suivante",
 };
 
-const PRODUCT_FR: Record<string, ProductFr> = {
+const PRODUCT_FR: Record<string, ProductTekst> = {
   ttk170: {
     alt: {
       "/vernast/eco-boost.webp":
@@ -661,22 +682,24 @@ export function productInTaal(keyOfProduct: string | Product, taal: Taal): Produ
       ? keyOfProduct
       : (Object.keys(PRODUCTS).find((k) => PRODUCTS[k] === keyOfProduct) ?? "");
   const nl = typeof keyOfProduct === "string" ? PRODUCTS[keyOfProduct] : keyOfProduct;
-  const fr = PRODUCT_FR[key];
-  if (taal !== "fr" || !nl || !fr) return nl;
+  if (taal === "nl" || !nl) return nl;
+  const fr = taal === "fr" ? PRODUCT_FR[key] : taal === "en" ? PRODUCT_EN[key] : undefined;
+  if (!fr) return nl;
+  const gedeeld = taal === "fr" ? GEDEELDE_ALT_FR : GEDEELDE_ALT_EN;
 
-  const bewaard = product_cache.get(key);
+  const bewaard = product_cache.get(`${taal}:${key}`);
   if (bewaard) return bewaard;
 
-  const name = vertaalPortaal(nl.name, "fr");
-  // Een beeld zonder Franse omschrijving krijgt er een uit zijn bestandsnaam,
-  // of anders de toestelnaam: nooit de Nederlandse alt op een Franse pagina.
-  const alt = (src: string) => fr.alt[src] ?? GEDEELDE_ALT_FR[src] ?? altVoorBeeldInTaal(src, name, "fr");
+  const name = vertaalPortaal(nl.name, taal);
+  // Een beeld zonder omschrijving in deze taal krijgt er een uit zijn
+  // bestandsnaam, of anders de toestelnaam: nooit de Nederlandse alt.
+  const alt = (src: string) => fr.alt[src] ?? gedeeld[src] ?? altVoorBeeldInTaal(src, name, taal);
   const uit: Product = {
     ...nl,
     name,
-    type: vertaalPortaal(nl.type, "fr"),
-    badge: vertaalPortaal(nl.badge, "fr"),
-    sum: vertaalPortaal(nl.sum, "fr"),
+    type: vertaalPortaal(nl.type, taal),
+    badge: vertaalPortaal(nl.badge, taal),
+    sum: vertaalPortaal(nl.sum, taal),
     imgAlt: nl.img.map((src) => alt(src)),
     posts: nl.posts.map(([src]): [string, string] => [src, alt(src)]),
     key: fr.key,
@@ -686,13 +709,13 @@ export function productInTaal(keyOfProduct: string | Product, taal: Taal): Produ
     specs: fr.specs,
     faq: fr.faq,
   };
-  product_cache.set(key, uit);
+  product_cache.set(`${taal}:${key}`, uit);
   return uit;
 }
 
 /** `PRODUCTS` in de taal van de pagina, voor wie over alle toestellen loopt. */
 export function productsInTaal(taal: Taal): Record<string, Product> {
-  if (taal !== "fr") return PRODUCTS;
+  if (taal === "nl") return PRODUCTS;
   return Object.fromEntries(Object.keys(PRODUCTS).map((k) => [k, productInTaal(k, taal)]));
 }
 
@@ -708,7 +731,7 @@ export function toestelChipsInTaal(keyOfProduct: string | Product, taal: Taal, a
       : (Object.keys(PRODUCTS).find((k) => PRODUCTS[k] === keyOfProduct) ?? "");
   const nl = PRODUCTS[key] ?? (typeof keyOfProduct === "string" ? undefined : keyOfProduct);
   if (!nl) return [];
-  const fr = taal === "fr" ? PRODUCT_FR[key] : undefined;
+  const fr = taal === "fr" ? PRODUCT_FR[key] : taal === "en" ? PRODUCT_EN[key] : undefined;
   return nl.key.slice(0, aantal).map(([nlNaam, value, unit], i) => {
     if (!fr) {
       if (nlNaam === "Vochtafvoer") return `${value} liter per dag`;
@@ -718,6 +741,13 @@ export function toestelChipsInTaal(keyOfProduct: string | Product, taal: Taal, a
       return value === "ja" ? nlNaam.toLowerCase() : value;
     }
     const [frNaam, frWaarde, frEenheid] = fr.key[i] ?? [nlNaam, value, unit];
+    if (taal === "en") {
+      if (nlNaam === "Vochtafvoer") return `${value} litres a day`;
+      if (nlNaam === "Bereik") return `up to ${value} m³`;
+      if (frEenheid) return `${frWaarde} ${frEenheid}`;
+      if (/^\d/.test(frWaarde)) return `${frWaarde} ${frNaam.toLowerCase()}`; // "3 speeds"
+      return frWaarde === "yes" ? frNaam.toLowerCase() : frWaarde;
+    }
     if (nlNaam === "Vochtafvoer") return `${value} litres par jour`;
     if (nlNaam === "Bereik") return `jusqu'à ${value} m³`;
     if (frEenheid) return `${frWaarde} ${frEenheid}`;
@@ -759,9 +789,9 @@ const BEKENDE_BEELDEN_FR: [RegExp, string][] = [
 
 /** `altVoorBeeld` (lib/altTekst.ts) in de taal van de pagina. */
 export function altVoorBeeldInTaal(src: string, context: string, taal: Taal): string {
-  if (taal !== "fr") return altVoorBeeld(src, context);
+  if (taal !== "fr" && taal !== "en") return altVoorBeeld(src, context);
   const bestand = src.split("/").pop()?.toLowerCase() ?? "";
-  const hit = BEKENDE_BEELDEN_FR.find(([patroon]) => patroon.test(bestand));
+  const hit = (taal === "fr" ? BEKENDE_BEELDEN_FR : BEKENDE_BEELDEN_EN).find(([patroon]) => patroon.test(bestand));
   return hit ? hit[1] : context;
 }
 
@@ -771,7 +801,7 @@ export function altVoorBeeldInTaal(src: string, context: string, taal: Taal): st
 
 /** `CAT` met vertaalde naam en ondertitel; prijzen en capaciteit ongewijzigd. */
 export function catInTaal(taal: Taal): Record<DeviceKey, Device> {
-  if (taal !== "fr") return CAT;
+  if (taal === "nl") return CAT;
   return Object.fromEntries(
     Object.entries(CAT).map(([k, d]) => [
       k,
@@ -800,7 +830,7 @@ const ROLE_FR: typeof ROLE = {
 };
 
 export function roleInTaal(taal: Taal): typeof ROLE {
-  return taal === "fr" ? ROLE_FR : ROLE;
+  return taal === "fr" ? ROLE_FR : taal === "en" ? ROLE_EN : ROLE;
 }
 
 const SPECS_FR: SpecSheet[] = [
@@ -986,12 +1016,12 @@ const SPECS_FR: SpecSheet[] = [
 ];
 
 export function specsInTaal(taal: Taal): SpecSheet[] {
-  return taal === "fr" ? SPECS_FR : SPECS;
+  return taal === "fr" ? SPECS_FR : taal === "en" ? SPECS_EN : SPECS;
 }
 
 /** `COVER` met vertaalde teksten; `k` en `price` ongewijzigd. */
 export function coverInTaal(taal: Taal): CoverTier[] {
-  if (taal !== "fr") return COVER;
+  if (taal === "nl") return COVER;
   const v = (t: string) => vertaalPortaal(t, taal);
   return COVER.map((c) => ({
     ...c,
@@ -1005,7 +1035,7 @@ export function coverInTaal(taal: Taal): CoverTier[] {
 
 /** `EXTRAS` met vertaalde teksten; `k`, `price` en `perWeek` ongewijzigd. */
 export function extrasInTaal(taal: Taal): Extra[] {
-  if (taal !== "fr") return EXTRAS;
+  if (taal === "nl") return EXTRAS;
   const v = (t: string) => vertaalPortaal(t, taal);
   return EXTRAS.map((x) => ({ ...x, name: v(x.name), sub: v(x.sub), unit: v(x.unit) }));
 }
@@ -1017,7 +1047,9 @@ const PUMP_FR = {
 
 /** `PUMP` met vertaalde naam en uitleg; de prijs blijft die uit het portaal. */
 export function pumpInTaal(taal: Taal): typeof PUMP {
-  return taal === "fr" ? { ...PUMP, ...PUMP_FR } : PUMP;
+  if (taal === "fr") return { ...PUMP, ...PUMP_FR };
+  if (taal === "en") return { ...PUMP, ...PUMP_EN };
+  return PUMP;
 }
 
 const DELIVERY_FR: Record<string, { name: string; sub: string; tag: string }> = {
@@ -1029,8 +1061,9 @@ const DELIVERY_FR: Record<string, { name: string; sub: string; tag: string }> = 
 };
 
 export function deliveryInTaal(taal: Taal): typeof DELIVERY {
-  if (taal !== "fr") return DELIVERY;
-  return DELIVERY.map((d) => ({ ...d, ...(DELIVERY_FR[d.k] ?? {}) }));
+  if (taal === "nl") return DELIVERY;
+  const tekst = taal === "fr" ? DELIVERY_FR : DELIVERY_EN;
+  return DELIVERY.map((d) => ({ ...d, ...(tekst[d.k] ?? {}) }));
 }
 
 const SC_LABEL_FR: Record<string, string> = {
@@ -1041,7 +1074,7 @@ const SC_LABEL_FR: Record<string, string> = {
 };
 
 export function scLabelInTaal(taal: Taal): Record<string, string> {
-  return taal === "fr" ? SC_LABEL_FR : SC_LABEL;
+  return taal === "fr" ? SC_LABEL_FR : taal === "en" ? SC_LABEL_EN : SC_LABEL;
 }
 
 const DEVICE_LABEL_FR: Record<DeviceKey, string> = {
@@ -1053,7 +1086,7 @@ const DEVICE_LABEL_FR: Record<DeviceKey, string> = {
 
 /** `DEVICE_LABEL` (lib/verhuur.ts) in de taal van de pagina. */
 export function deviceLabelInTaal(taal: Taal): Record<DeviceKey, string> {
-  return taal === "fr" ? DEVICE_LABEL_FR : DEVICE_LABEL;
+  return taal === "fr" ? DEVICE_LABEL_FR : taal === "en" ? DEVICE_LABEL_EN : DEVICE_LABEL;
 }
 
 /** `deviceLineLabel` (lib/verhuur.ts) in de taal van de pagina: "2× Boost". */
@@ -1070,6 +1103,11 @@ export function deviceLineLabelInTaal(line: DeviceLine, taal: Taal): string {
  * "Habitation jusqu'à 180 m² · chape 6 cm · chauffage compris".
  */
 export function packageSpecLineInTaal(c: PackageConfig, taal: Taal): string {
+  if (taal === "en") {
+    const bits = [`Home up to ${c.size} m²`, ...dikteEn(c)];
+    bits.push(c.heat ? "heating included" : "heating excluded");
+    return bits.join(" · ");
+  }
   if (taal !== "fr") {
     const bits = [`Woning tot ${c.size} m²`, ...dikteNl(c)];
     bits.push(c.heat ? "inclusief verwarming" : "exclusief verwarming");
@@ -1085,6 +1123,13 @@ function dikteNl(c: PackageConfig): string[] {
   if (c.wat === "chape") return [`chapedikte ${c.cd} cm`];
   if (c.wat === "pleister") return [`pleisterdikte ${c.pd} cm`];
   return ["pleisterwerk + chape"];
+}
+
+function dikteEn(c: PackageConfig): string[] {
+  if (isWaterDamage(c)) return ["water damage"];
+  if (c.wat === "chape") return [`screed thickness ${c.cd} cm`];
+  if (c.wat === "pleister") return [`plaster thickness ${c.pd} cm`];
+  return ["plaster + screed"];
 }
 
 function dikteFr(c: PackageConfig): string[] {
@@ -1106,6 +1151,14 @@ export function packageGalleryAltsInTaal(
     .filter((it) => it.q > 0)
     .map((it) => `${it.q}× ${cat[it.k].name}`)
     .join(", ");
+  if (taal === "en") {
+    const pakket = `Drying package for ${WERK_EN[c.wat] ?? c.wat}, ${packageSpecLineInTaal(c, taal).toLowerCase()}`;
+    return gallery.map((src, i) =>
+      i === 0
+        ? `Composition of your drying package: ${samenstelling || pakket}`
+        : altVoorBeeldInTaal(src, `${pakket}, photo ${i + 1}`, taal),
+    );
+  }
   if (taal !== "fr") {
     const werk: Record<string, string> = {
       pleister: "pleisterwerk",

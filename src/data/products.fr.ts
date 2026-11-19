@@ -1,8 +1,10 @@
 import type { Product } from "./products.js";
 import type { Taal } from "../i18n/taal.js";
+import { PRODUCTEN_EN } from "./products.en.js";
 
 /**
- * De teksten van de catalogus in `products.ts` in het Frans, per id.
+ * De teksten van de catalogus in `products.ts` in het Frans, per id. Het
+ * Engels staat in `products.en.ts` en loopt via dezelfde `productInTaal`.
  *
  * Een apart bestand in plaats van een tweede veld per rij: `products.ts` wordt
  * ook door `orderIntake.ts` (server) gelezen voor de dagprijs, en die hoeft van
@@ -12,7 +14,7 @@ import type { Taal } from "../i18n/taal.js";
  * Specificatiesleutels en -waarden staan in dezelfde volgorde als het origineel.
  * Ontbreekt een id, dan blijft de Nederlandse tekst staan.
  */
-type ProductTekst = Pick<Product, "capacity" | "suitableFor" | "imageAlt" | "features"> &
+export type ProductTekst = Pick<Product, "capacity" | "suitableFor" | "imageAlt" | "features"> &
   Partial<Pick<Product, "galleryAlt" | "specs">>;
 
 const FR: Record<string, ProductTekst> = {
@@ -92,7 +94,6 @@ const FR: Record<string, ProductTekst> = {
 
 /** Het product met zijn teksten in `taal`; prijs, beelden en id blijven gelijk. */
 export function productInTaal(product: Product, taal: Taal): Product {
-  if (taal !== "fr") return product;
-  const t = FR[product.id];
+  const t = taal === "fr" ? FR[product.id] : taal === "en" ? PRODUCTEN_EN[product.id] : undefined;
   return t ? { ...product, ...t } : product;
 }
