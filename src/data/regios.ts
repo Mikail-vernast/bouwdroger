@@ -8,6 +8,7 @@ import { REGIO_ROUTES, type RegioRoute } from "./regio-slugs.js";
 import { REALISATIES } from "./realisaties.js";
 import { TARIEVEN } from "./tarieven.js";
 import { PRODUCTS } from "./verhuur.js";
+import { CONTACT, HEADQUARTERS } from "../lib/site.js";
 
 export interface RegioFaq {
   q: string;
@@ -37,6 +38,16 @@ export interface Regio extends RegioRoute {
   intro: string[];
   /** Optionele, korte servicebewijzen direct onder de hero-intro. */
   heroFacts?: string[];
+  /**
+   * "In het kort": harde feiten als term en waarde, direct onder de intro.
+   *
+   * Google's AI-overzicht noemde voor "bouwdroger antwerpen" (20-11-2026) vijf
+   * verhuurders en Vernast niet als verhuurder, alleen als bron voor algemeen
+   * advies. De zin over Droogpro was vrijwel letterlijk het feitenblok
+   * bovenaan hun pagina. Een taalmodel neemt over wat als feit op de pagina
+   * staat; onze intro sprak over een "droogpakket" en noemde geen dagprijs.
+   */
+  kortom?: RegioFeit[];
   /** Praktische uitleg over het werkgebied en de droogopstelling. */
   bouw: { kop: string; alineas: string[] };
   /**
@@ -64,6 +75,18 @@ const POMP = TARIEVEN.pricing.pump_price_per_day;
 
 const euro = (n: number) => `€ ${n.toLocaleString("nl-BE")}`;
 const dag = (key: string) => euro(PRODUCTS[key].day);
+/*
+  De goedkoopste bouwdroger, op dezelfde manier geteld als de prijssectie van
+  het regiosjabloon: alleen drogers, geen ventilator -- wie "vanaf" leest denkt
+  aan de droger zelf.
+*/
+const vanafDag = euro(
+  Math.min(
+    ...Object.values(PRODUCTS)
+      .filter((p) => /ontvochtiger|droger/i.test(p.type))
+      .map((p) => p.day),
+  ),
+);
 
 /* Het land is een parameter sinds de Nederlandse provincies (15-11-2026):
    anders vertelde de schema-markup dat Noord-Brabant in België ligt. */
@@ -89,7 +112,24 @@ export const REGIOS: Regio[] = [
     h1: "Bouwdroger huren in de provincie Antwerpen",
     kicker: "Hele provincie · magazijn in Aartselaar",
     intro: [
-      "Een bouwdroger huren in de provincie Antwerpen voor nieuwbouw, renovatie of waterschade? Vernast levert vanuit Aartselaar op uw werf, van Mechelen en Lier tot Turnhout en de Antwerpse districten. **Uw droogpakket is inclusief levering, plaatsing en ophaling.** Bereken uw huurprijs online of vraag ons advies over de geschikte toestellen.",
+      `Een bouwdroger huren in Antwerpen kan bij Vernast, met zetel in ${HEADQUARTERS.city} (${HEADQUARTERS.postalCode}) en magazijn in ${CONTACT.city}, op 10 km van de stad. **Een losse bouwdroger huurt u vanaf ${vanafDag} per dag, excl. btw.** Een droogpakket heeft één vaste prijs vooraf, inclusief levering, plaatsing, vochtmeting en ophaling, van de Antwerpse districten tot Mechelen, Lier en Turnhout.`,
+    ],
+    kortom: [
+      { label: "Bedrijf", waarde: "Vernast Bouwdrogers, verhuur van bouwdrogers en droogpakketten" },
+      {
+        label: "Zetel",
+        waarde: `${HEADQUARTERS.street}, ${HEADQUARTERS.postalCode} ${HEADQUARTERS.city}`,
+      },
+      {
+        label: "Magazijn en afhaalpunt",
+        waarde: `${CONTACT.street.split(",")[0]}, ${CONTACT.postalCode} ${CONTACT.city}, 10 km van Antwerpen-centrum`,
+      },
+      { label: "Werkgebied", waarde: "Antwerpen-stad en districten, en de hele provincie" },
+      { label: "Huurprijs", waarde: `losse bouwdroger vanaf ${vanafDag} per dag, excl. btw` },
+      { label: "Droogpakket", waarde: "vaste prijs vooraf, levering, plaatsing, vochtmeting en ophaling inbegrepen" },
+      { label: "Zelf afhalen", waarde: `in ${CONTACT.city}, ma–vr 8–17 uur` },
+      { label: "Waarborg", waarde: "geen" },
+      { label: "Bereikbaar", waarde: `${CONTACT.phoneLocal} of ${CONTACT.email}` },
     ],
     bouw: {
       kop: "Bouwdroging voor uw project in Antwerpen",
