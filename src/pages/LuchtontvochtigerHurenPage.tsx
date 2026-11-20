@@ -3,6 +3,7 @@ import GidsShell from "@/components/gids/GidsShell";
 import { useSeo } from "@/data/seo";
 import { DROGERS, drogersInTaal, euro, priceForWeeks } from "@/data/tarieflijst";
 import { REGIO_ROUTES, type RegioRoute } from "@/data/regio-slugs";
+import { toestelLabelIn } from "@/data/navigation";
 import { offerCatalogSchema } from "@/lib/schema";
 import { toestelPad } from "@/data/verhuur";
 import { lokaalPad, useCopy, useLokaalPad, useTaal, useToonBedrag } from "@/i18n/useTaal";
@@ -89,7 +90,7 @@ const LuchtontvochtigerHurenPage = () => {
         offerCatalogSchema(
           t.catalogusNaam,
           drogers.map((d) => ({
-            name: d.name,
+            name: toestelLabelIn(d.key, taal),
             description: d.summary,
             path: lokaalPad(d.path, taal),
             pricePerDay: d.perDay,
@@ -108,7 +109,14 @@ const LuchtontvochtigerHurenPage = () => {
             {drogers.map((d) => (
               <div className="kaart" key={d.key}>
                 {d.badge ? <span className="kick">{d.badge}</span> : null}
-                <h3>{d.name}</h3>
+                {/*
+                  `toestelLabelIn` en niet `d.name`: dat laatste is de typecode
+                  van de fabrikant uit het portaal. De kaarttitel zei
+                  "Ontvochtiger TTK 170 S" terwijl de link eronder "Bekijk de
+                  Boost" zei en het menu "Boost bouwdroger" — drie namen voor
+                  één machine op één pagina. Zie `toestelLabel` in navigation.ts.
+                */}
+                <h3>{toestelLabelIn(d.key, taal)}</h3>
                 <p>{t.kaartCapaciteit(d.litersPerDay, d.volume)}</p>
                 <p className="prijs">
                   {t.kaartPrijs(bedragen.prijs(d.perDay), bedragen.prijs(priceForWeeks(d, 1)))}

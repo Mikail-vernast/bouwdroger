@@ -620,11 +620,11 @@ export const BEKENDE_BEELDEN_EN: [RegExp, string][] = [
 export const ROLE_EN: typeof ROLE = {
   small: {
     tag: "Capacity",
-    txt: "The Small construction dehumidifier extracts up to 50 litres of moisture per 24 hours. Compact, on wheels and quiet enough to stay in place while work goes on. This is the base capacity of your package: without enough litres a day, drying drags on.",
+    txt: "The Boost construction dehumidifier extracts up to 50 litres of moisture per 24 hours. Compact, on wheels and quiet enough to stay in place while work goes on. This is the base capacity of your package: without enough litres a day, drying drags on.",
   },
   medium: {
     tag: "Extra capacity",
-    txt: "The Medium construction dehumidifier takes up to 70 litres per 24 hours out of the air. We add this unit as soon as the volume or the moisture load increases, for example with thicker screed or a complete house in one go.",
+    txt: "The Performance construction dehumidifier takes up to 70 litres per 24 hours out of the air. We add this unit as soon as the volume or the moisture load increases, for example with thicker screed or a complete house in one go.",
   },
   axiaal: {
     tag: "Circulation",
@@ -639,7 +639,7 @@ export const ROLE_EN: typeof ROLE = {
 export const SPECS_EN: SpecSheet[] = [
   {
     k: "small",
-    tab: "Small dehumidifier",
+    tab: "Boost dehumidifier",
     h: "Compact, quiet and always ready",
     p: [
       "With a dehumidifying capacity of up to <b>50 litres per 24 hours</b>, this construction dehumidifier removes moisture from spaces of up to about 250 m³. On wheels, compact and quiet enough to stay in place while work goes on.",
@@ -676,7 +676,7 @@ export const SPECS_EN: SpecSheet[] = [
   },
   {
     k: "medium",
-    tab: "Medium dehumidifier",
+    tab: "Performance dehumidifier",
     h: "Powerful under a higher moisture load",
     p: [
       "This construction dehumidifier extracts up to <b>70 litres per 24 hours</b> and covers volumes of up to about 400 m³. We add the unit as soon as the moisture load increases: thicker screed, a complete house or a shorter deadline.",

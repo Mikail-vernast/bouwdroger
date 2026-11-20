@@ -12,6 +12,7 @@ import { useSeo } from "@/data/seo";
 import { getRealisatie, type Realisatie } from "@/data/realisaties";
 import { euro } from "@/data/tarieflijst";
 import { PRODUCTS, toestelPad } from "@/data/verhuur";
+import { toestelLabelIn } from "@/data/navigation";
 import { productInTaal } from "@/data/verhuur.fr";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { CONTACT } from "@/lib/site";
@@ -301,7 +302,11 @@ export default function LuchtkussenDrogenPage() {
               <div className="lk-related">
                 <div>
                   <h3>{t.huurKop}</h3>
-                  <p>{t.huur(droger.name, dagprijs.tekst, dagprijs.label)}</p>
+                  {/* `toestelLabelIn` en niet `droger.name`: dat laatste is de
+                      naam uit het portaal ("Adsorptiedroger Revolution"),
+                      terwijl het menu en de toestelpagina "Revolution
+                      adsorptiedroger" zeggen. Zie `toestelLabel`. */}
+                  <p>{t.huur(toestelLabelIn(DROGER_KEY, taal), dagprijs.tekst, dagprijs.label)}</p>
                 </div>
                 <Link className="btn btn-red" to={lp(toestelPad(DROGER_KEY))}>
                   {t.huurKnop} <ArrowRightIcon />

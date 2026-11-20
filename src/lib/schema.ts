@@ -223,6 +223,17 @@ export interface ProductSchemaInput {
   category?: string;
   /** Technische kenmerken die ook zichtbaar op de pagina staan. */
   specs?: [string, string][];
+  /**
+   * De typecode van de fabrikant ("Ontvochtiger TTK 350 S").
+   *
+   * Die stond tot nu toe als `name` in dit schema, terwijl de pagina
+   * "Performance bouwdroger" als `h1` droeg. Gestructureerde data die iets
+   * anders zegt dan de zichtbare pagina is precies wat Google afkeurt, en een
+   * AI-antwoord citeerde zo een naam die nergens op de site staat. De naam
+   * hoort het label te zijn; de typecode is een onderdeelnummer en staat als
+   * `mpn` waar ze thuishoort.
+   */
+  mpn?: string;
 }
 
 /**
@@ -239,6 +250,7 @@ export function productSchema(p: ProductSchemaInput): Json {
     image: absoluteUrl(p.image),
     url: absoluteUrl(p.path),
     ...(p.category ? { category: p.category } : {}),
+    ...(p.mpn ? { mpn: p.mpn } : {}),
     brand: { "@type": "Brand", name: SITE_NAME },
     ...(p.specs?.length
       ? {

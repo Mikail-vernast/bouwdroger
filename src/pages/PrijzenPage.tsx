@@ -26,6 +26,7 @@ import {
   type Tarief,
 } from "@/data/tarieflijst";
 import { EXTRAS, LADDER_FEE, PRODUCTS, PUMP } from "@/data/verhuur";
+import { toestelLabelIn } from "@/data/navigation";
 import { coverInTaal, extrasInTaal } from "@/data/verhuur.fr";
 import { findPackage } from "@/data/packages";
 import { pakketInTaal } from "@/data/packages.fr";
@@ -171,7 +172,9 @@ const PrijzenPage = () => {
           TARIEVEN_PUBLIEK.map((nl) => {
             const tr = tariefInTaal(nl, taal);
             return {
-              name: tr.name,
+              /* De naam van het toestel zoals de pagina hem toont, niet de
+                 typecode uit het portaal — zie `toestelLabel`. */
+              name: toestelLabelIn(nl.key, taal),
               description: tr.summary,
               path: lp(tr.path),
               // Het schema draagt de catalogusprijs, excl. btw, zoals altijd.
@@ -471,7 +474,11 @@ const PrijzenPage = () => {
                 return (
                   <div key={d.key}>
                     <span className="pn">
-                      <Link to={lp(d.path)}>{d.name}</Link>
+                      {/* De tabel van de drogers hierboven draagt het merk uit
+                          het portaal; deze rijen droegen de typecode van de
+                          fabrikant ("Elektrische kachel TEddH 30 T"). Eén
+                          namenstelsel: het label uit navigation.ts. */}
+                      <Link to={lp(d.path)}>{toestelLabelIn(d.key, taal)}</Link>
                       <small>{d.type}</small>
                     </span>
                     <span className="pv">

@@ -9,6 +9,7 @@ import type { Copy } from "@/i18n/useTaal";
 import type { Taal } from "@/i18n/taal";
 import type { PickupProduct } from "@/data/afhalen";
 import { vertaalPortaal } from "@/data/verhuur.fr";
+import { toestelLabelIn } from "@/data/navigation";
 
 export interface AfhaalTeksten {
   pompEen: string;
@@ -595,11 +596,20 @@ export function groepInTaal(groep: string, taal: Taal): string {
  * verandert. Een tekst zonder vertaling blijft Nederlands.
  */
 export function afhaalProductInTaal(product: PickupProduct, taal: Taal): PickupProduct {
-  if (taal === "nl") return product;
+  /*
+    De naam komt uit `toestelLabelIn` en niet uit het portaal. `product.name` is
+    de typecode van de fabrikant ("Ontvochtiger TTK 170 S"), en die stond hier
+    als kaarttitel, als alt-tekst en in de OfferCatalog van een geïndexeerde
+    pagina — terwijl het menu, de toestelpagina en de bevestigingsmail Boost,
+    Performance en Ultimate zeggen. Ook in het Nederlands, waar deze functie
+    anders meteen teruggaf.
+  */
+  const naam = toestelLabelIn(product.key, taal);
+  if (taal === "nl") return { ...product, name: naam };
   return {
     ...product,
     // `group` blijft Nederlands: de pagina groepeert erop. Toon hem via `groepInTaal`.
-    name: vertaalPortaal(product.name, taal),
+    name: naam,
     sub: vertaalPortaal(product.sub, taal),
     specs: product.specs.map((spec) => specInTaal(spec, taal)),
   };

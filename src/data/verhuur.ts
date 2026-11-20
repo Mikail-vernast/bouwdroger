@@ -51,10 +51,23 @@ export const WEEKS: Record<number, number> = {
   4: Number(TARIEVEN.pricing.weeks_multiplier_4),
 };
 
+/*
+  Boost en Performance, niet Small en Medium.
+
+  De pakketpagina zette "Boost, 50 l / 24 u" (de naam die het portaal
+  publiceert) als kop boven een alinea die over "de Small Bouwdroger" ging, en
+  de fichetabs eronder heetten opnieuw Small en Medium. Dat is hetzelfde tweede
+  namenstelsel dat op 13-11-2026 uit het menu, de footer en de toestelpagina's
+  verdween — zie `TOESTEL_LABEL` in `navigation.ts`. De rolsleutels
+  (`small`, `medium`) blijven: die staan in de pakketconfiguratie en in het
+  portaal. `DEVICE_LABEL` in `lib/verhuur.ts` blijft ook Small en Medium
+  zeggen; dat zijn de depotnamen op de werklijst en in de mails, geen
+  websitetekst.
+*/
 export const ROLE: Record<DeviceKey, { tag: string; txt: string }> = {
   small: {
     tag: "Capaciteit",
-    txt: "De Small Bouwdroger onttrekt tot 50 liter vocht per 24 uur. Compact, verrijdbaar en stil genoeg om te blijven staan terwijl er gewerkt wordt. Dit is de basiscapaciteit van uw pakket: zonder voldoende liters per dag sleept de droging aan.",
+    txt: "De Boost bouwdroger onttrekt tot 50 liter vocht per 24 uur. Compact, verrijdbaar en stil genoeg om te blijven staan terwijl er gewerkt wordt. Dit is de basiscapaciteit van uw pakket: zonder voldoende liters per dag sleept de droging aan.",
   },
   medium: {
     tag: "Extra capaciteit",
@@ -65,7 +78,7 @@ export const ROLE: Record<DeviceKey, { tag: string; txt: string }> = {
       leest, weet niet wat hij huurt. De toestelpagina houdt de typespecificatie
       en is dus de bron.
     */
-    txt: "De Medium Bouwdroger haalt tot 70 liter per 24 uur uit de lucht. Wij zetten dit toestel bij zodra het volume of de vochtbelasting oploopt, bijvoorbeeld bij dikkere chape of een volledige woning in één keer.",
+    txt: "De Performance bouwdroger haalt tot 70 liter per 24 uur uit de lucht. Wij zetten dit toestel bij zodra het volume of de vochtbelasting oploopt, bijvoorbeeld bij dikkere chape of een volledige woning in één keer.",
   },
   axiaal: {
     tag: "Circulatie",
@@ -101,7 +114,7 @@ export interface SpecSheet {
 export const SPECS: SpecSheet[] = [
   {
     k: "small",
-    tab: "Small Bouwdroger",
+    tab: "Boost bouwdroger",
     h: "Compact, stil en altijd inzetbaar",
     p: [
       "Met een ontvochtigingscapaciteit tot <b>50 liter per 24 uur</b> haalt deze bouwdroger het vocht uit ruimtes tot ongeveer 250 m³. Verrijdbaar, compact en stil genoeg om te blijven staan terwijl er gewerkt wordt.",
@@ -138,7 +151,7 @@ export const SPECS: SpecSheet[] = [
   },
   {
     k: "medium",
-    tab: "Medium Bouwdroger",
+    tab: "Performance bouwdroger",
     h: "Krachtig bij hogere vochtbelasting",
     p: [
       "Deze bouwdroger onttrekt tot <b>70 liter per 24 uur</b> en dekt volumes tot ongeveer 400 m³. Wij zetten het toestel bij zodra de vochtbelasting oploopt, dikkere chape, een volledige woning of een kortere deadline.",

@@ -817,11 +817,11 @@ export function catInTaal(taal: Taal): Record<DeviceKey, Device> {
 const ROLE_FR: typeof ROLE = {
   small: {
     tag: "Capacité",
-    txt: "Le déshumidificateur Small extrait jusqu'à 50 litres d'humidité par 24 heures. Compact, mobile et assez silencieux pour rester en place pendant les travaux. C'est la capacité de base de votre pack : sans assez de litres par jour, le séchage traîne.",
+    txt: "Le déshumidificateur Boost extrait jusqu'à 50 litres d'humidité par 24 heures. Compact, mobile et assez silencieux pour rester en place pendant les travaux. C'est la capacité de base de votre pack : sans assez de litres par jour, le séchage traîne.",
   },
   medium: {
     tag: "Capacité supplémentaire",
-    txt: "Le déshumidificateur Medium retire jusqu'à 70 litres par 24 heures de l'air. Nous ajoutons cet appareil dès que le volume ou la charge d'humidité augmente, par exemple avec une chape plus épaisse ou une habitation complète en une fois.",
+    txt: "Le déshumidificateur Performance retire jusqu'à 70 litres par 24 heures de l'air. Nous ajoutons cet appareil dès que le volume ou la charge d'humidité augmente, par exemple avec une chape plus épaisse ou une habitation complète en une fois.",
   },
   axiaal: {
     tag: "Circulation",
@@ -840,7 +840,7 @@ export function roleInTaal(taal: Taal): typeof ROLE {
 const SPECS_FR: SpecSheet[] = [
   {
     k: "small",
-    tab: "Déshumidificateur Small",
+    tab: "Déshumidificateur Boost",
     h: "Compact, silencieux et toujours opérationnel",
     p: [
       "Avec une capacité de déshumidification jusqu'à <b>50 litres par 24 heures</b>, ce déshumidificateur de chantier retire l'humidité d'espaces jusqu'à environ 250 m³. Mobile, compact et assez silencieux pour rester en place pendant les travaux.",
@@ -877,7 +877,7 @@ const SPECS_FR: SpecSheet[] = [
   },
   {
     k: "medium",
-    tab: "Déshumidificateur Medium",
+    tab: "Déshumidificateur Performance",
     h: "Puissant face à une charge d'humidité plus élevée",
     p: [
       "Ce déshumidificateur de chantier extrait jusqu'à <b>70 litres par 24 heures</b> et couvre des volumes jusqu'à environ 400 m³. Nous ajoutons l'appareil dès que la charge d'humidité augmente : chape plus épaisse, habitation complète ou délai plus court.",

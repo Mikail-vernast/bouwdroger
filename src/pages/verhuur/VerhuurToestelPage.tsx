@@ -249,7 +249,10 @@ const VerhuurToestelPage = () => {
         ogType="product"
         jsonLd={[
           productSchema({
-            name: prod.name,
+            /* `naam` en niet `prod.name`: het schema draagt dezelfde naam als
+               de h1 erboven, de typecode gaat als `mpn` mee. */
+            name: naam,
+            mpn: prod.name,
             description: prod.sum,
             image: prod.img[0],
             path: lp(toestelPad(key)),

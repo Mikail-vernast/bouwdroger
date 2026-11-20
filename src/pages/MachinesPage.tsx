@@ -23,6 +23,7 @@ import {
 import { breadcrumbSchema, faqSchema, itemListSchema } from "@/lib/schema";
 import { useSeo } from "@/data/seo";
 import { PRODUCT_ADDONS, PRODUCT_ORDER, productImageAlt, PRODUCTS, PUMP, toestelPad } from "@/data/verhuur";
+import { toestelLabelIn } from "@/data/navigation";
 import { productInTaal, toestelChipsInTaal } from "@/data/verhuur.fr";
 import { CONDENSPOMP } from "@/data/toebehoren";
 import { toebehorenInTaal } from "@/data/toebehoren.fr";
@@ -214,8 +215,15 @@ const Toestelkaart = ({ sleutel, index }: { sleutel: string; index: number }) =>
         />
       </div>
       <div className="pb">
-        <h3>{p.short}</h3>
-        <span className="ptype">{p.name}</span>
+        {/*
+          De kaart droeg het merk als kop ("Boost") met de typecode van de
+          fabrikant eronder ("Ontvochtiger TTK 170 S") — twee namen, waarvan de
+          tweede nergens anders op de site staat. De kop is nu de naam die ook
+          in het menu, de footer en op /sitemap staat; de regel eronder zegt
+          wat voor toestel het is, want dát is wat een bezoeker hier zoekt.
+        */}
+        <h3>{toestelLabelIn(sleutel, taal)}</h3>
+        <span className="ptype">{p.type}</span>
         <p className="pdesc">{p.sum}</p>
         <div className="chips">
           {/*
@@ -301,7 +309,9 @@ const MachinesPage = () => {
   const combinaties = drogers
     .map((d) => ({
       droger: d,
-      erbij: (PRODUCT_ADDONS[d.key] ?? []).filter((k) => PRODUCTS[k]).map((k) => productInTaal(k, taal)),
+      /* De namen zoals ze in het menu en op de toestelpagina staan; het
+         portaal levert hier de typecode ("Ventilator TTV 4500"). */
+      erbij: (PRODUCT_ADDONS[d.key] ?? []).filter((k) => PRODUCTS[k]).map((k) => toestelLabelIn(k, taal)),
     }))
     .filter((c) => c.erbij.length > 0);
 
@@ -313,7 +323,7 @@ const MachinesPage = () => {
           itemListSchema(
             t.itemList,
             PRODUCT_ORDER.map((k) => ({
-              name: productInTaal(k, taal).name,
+              name: toestelLabelIn(k, taal),
               path: lp(toestelPad(k)),
             }))
           ),
@@ -445,7 +455,7 @@ const MachinesPage = () => {
               return (
                 <Reveal from="up" delay={(i % 3) * 0.08} className="kaart" key={key}>
                   <span className="kick" style={{ marginBottom: "6px" }}>{t.keuzes[key].titel}</span>
-                  <h3>{p.name}</h3>
+                  <h3>{toestelLabelIn(key, taal)}</h3>
                   <p>{t.keuzes[key].wanneer}</p>
                   <Link
                     className="plink"
@@ -516,7 +526,7 @@ const MachinesPage = () => {
                 {combinaties.map(({ droger, erbij }) => (
                   <li key={droger.key} style={{ marginBottom: "5px" }}>
                     <Link to={lp(droger.path)}>{droger.short}</Link> {t.met}{" "}
-                    {erbij.map((p) => p.name).join(t.en)}
+                    {erbij.join(t.en)}
                   </li>
                 ))}
               </ul>

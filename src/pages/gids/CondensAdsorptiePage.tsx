@@ -5,6 +5,7 @@ import { useSeo } from "@/data/seo";
 import { productInTaal } from "@/data/verhuur.fr";
 import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
 import { PRODUCTS, toestelPad } from "@/data/verhuur";
+import { toestelLabelIn } from "@/data/navigation";
 import { TARIEVEN_PUBLIEK, euro } from "@/data/tarieflijst";
 import { itemListSchema } from "@/lib/schema";
 
@@ -454,7 +455,6 @@ const CondensAdsorptiePage = () => {
     const b = toonBedrag(excl);
     return { tekst: b.tekst, label: b.label };
   };
-  const naam = (key: string, nl: string) => (taal === "nl" ? nl : productInTaal(key, taal)?.name ?? nl);
   const samenvatting = (key: string, nl: string) => (taal === "nl" ? nl : productInTaal(key, taal)?.sum ?? nl);
 
   return (
@@ -475,7 +475,7 @@ const CondensAdsorptiePage = () => {
     jsonLd={[
       itemListSchema(
         t.lijst,
-        GAMMA.map((g) => ({ name: naam(g.key, g.name), path: lp(g.path) })),
+        GAMMA.map((g) => ({ name: toestelLabelIn(g.key, taal), path: lp(g.path) })),
       ),
     ]}
   >
@@ -531,7 +531,13 @@ const CondensAdsorptiePage = () => {
             const p = prijs(g.perDay);
             return (
               <div className="kaart" key={g.key}>
-                <h3>{naam(g.key, g.name)}</h3>
+                {/*
+                  `toestelLabelIn` en niet `g.name`: dat is de typecode van de
+                  fabrikant ("Ontvochtiger TTK 650 S"), terwijl de link eronder
+                  "Bekijk de Ultimate" zei. Eén naam per toestel, dezelfde als
+                  in het menu en op de toestelpagina.
+                */}
+                <h3>{toestelLabelIn(g.key, taal)}</h3>
                 <p>
                   <b>{/adsorptie/i.test(g.type) ? t.adsorptie : t.condensatie}</b>
                   {g.litersPerDay ? t.tot(g.litersPerDay) : ""}

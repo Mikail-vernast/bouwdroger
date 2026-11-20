@@ -57,7 +57,7 @@ describe("Engelse productdata", () => {
     for (const k of Object.keys(CAT) as (keyof typeof CAT)[]) expect(cat[k].w2).toBe(CAT[k].w2);
     expect(coverInTaal("en").map((c) => c.price)).toEqual(COVER.map((c) => c.price));
     expect(extrasInTaal("en").map((x) => x.price)).toEqual(EXTRAS.map((x) => x.price));
-    expect(specsInTaal("en")[0].tab).toBe("Small dehumidifier");
+    expect(specsInTaal("en")[0].tab).toBe("Boost dehumidifier");
   });
 
   it("vertaalt pakketten en de oude catalogus, met dezelfde prijzen", () => {
