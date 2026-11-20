@@ -20,7 +20,7 @@ type Vertaling = { fr: string; en: string };
 
 /** Nederlands pad (zonder prefix) → pad in het Frans en Engels (ook zonder prefix). */
 export const STATISCH: Record<string, Vertaling> = {
-  "/waterschade/luchtkussen-drogen": { fr: "/degats-des-eaux/sechage-sous-film", en: "/water-damage/air-cushion-drying" },
+  "/waterschade-luchtkussen-techniek": { fr: "/degats-des-eaux/sechage-sous-film", en: "/water-damage/air-cushion-drying" },
   "/": { fr: "/", en: "/" },
 
   /* Toepassingen */

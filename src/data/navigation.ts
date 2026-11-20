@@ -131,7 +131,7 @@ export const PAKKETTEN: NavLinkItem[] = [
  * dat staat in de titel en de H1, waar het zwaarder weegt dan in ankertekst.
  */
 export const TOEPASSINGEN: NavLinkItem[] = [
-  { label: "Luchtkussen drogen", path: "/waterschade/luchtkussen-drogen" },
+  { label: "Luchtkussentechniek bij waterschade", path: "/waterschade-luchtkussen-techniek" },
   { label: "Chape drogen", path: "/chape-drogen" },
   { label: "Pleisterwerk drogen", path: "/pleisterwerk-drogen" },
   { label: "Nieuwbouw drogen", path: "/nieuwbouw-drogen" },
@@ -389,7 +389,7 @@ export const LABEL_FR: Record<string, string> = {
   /* Toepassingen en schimmels */
   "Nieuwbouw drogen": "Séchage nouvelle construction",
   "Drogen na waterschade": "Séchage après dégâts des eaux",
-  "Luchtkussen drogen": "Séchage sous film",
+  "Luchtkussentechniek bij waterschade": "Séchage sous film après un dégât des eaux",
   "Renovatie drogen": "Séchage rénovation",
   Ontschimmeling: "Élimination des moisissures",
   Ozonbehandeling: "Traitement à l'ozone",
@@ -510,7 +510,7 @@ export const LABEL_EN: Record<string, string> = {
   /* Toepassingen en schimmels */
   "Nieuwbouw drogen": "New-build drying",
   "Drogen na waterschade": "Drying after water damage",
-  "Luchtkussen drogen": "Air cushion drying",
+  "Luchtkussentechniek bij waterschade": "Air cushion drying after water damage",
   "Renovatie drogen": "Renovation drying",
   Ontschimmeling: "Mould removal",
   Ozonbehandeling: "Ozone treatment",

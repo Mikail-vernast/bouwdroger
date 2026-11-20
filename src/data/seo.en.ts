@@ -41,6 +41,11 @@ export const SEO_EN: Record<SeoSleutel, SeoEntry> = {
     description:
       "Burst pipe or flooding? We deliver your construction dehumidifier and fans today. The first 48 hours decide whether you avoid mould and structural damage.",
   },
+  luchtkussenDrogen: {
+    title: "Air cushion drying: wall or floor under sheeting | Vernast",
+    description:
+      "Air cushion drying after water damage: dry air beneath sheeting, aimed at a wet wall or floor. How it works, when it fits and how it differs from room drying.",
+  },
   renovatie: {
     title: "Drying a damp cellar or mould in a renovation | Vernast",
     description:

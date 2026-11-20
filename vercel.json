@@ -12,6 +12,7 @@
   "redirects": [
     { "source": "/nl", "destination": "/", "permanent": true },
     { "source": "/nl/:path*", "destination": "/:path*", "permanent": true },
+    { "source": "/waterschade/luchtkussen-drogen", "destination": "/waterschade-luchtkussen-techniek", "permanent": true },
     {
       "source": "/simulator/dak-lessenaar.webp",
       "destination": "/simulator/dak-lessenaar-v2.webp",

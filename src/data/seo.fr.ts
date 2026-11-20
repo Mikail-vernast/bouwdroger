@@ -41,6 +41,11 @@ export const SEO_FR: Record<SeoSleutel, SeoEntry> = {
     description:
       "Fuite ou inondation ? Nous livrons déshumidificateur et ventilateurs le jour même. Les 48 premières heures décident si vous évitez moisissures et dégâts.",
   },
+  luchtkussenDrogen: {
+    title: "Séchage sous film après un dégât des eaux | Vernast",
+    description:
+      "Séchage sous film après un dégât des eaux : air sec dirigé sur un mur ou un sol humide. Principe, cas adaptés et différence avec le séchage de la pièce.",
+  },
   renovatie: {
     title: "Rénovation : sécher une cave humide ou moisie | Vernast",
     description:
