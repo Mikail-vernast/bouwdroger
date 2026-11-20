@@ -271,7 +271,10 @@
    een gecentreerd beeld naar het midden van de pagina geduwd, weg van de marge
    waar het hoort. Gevraagd op 13-11-2026 ("iets meer naar links"). */
 .v3c .split.omgekeerd .split-vis{order:-1;justify-content:flex-start}
-@media (max-width:1040px){.v3c .split,.v3c .split.rev{grid-template-columns:1fr}.v3c .split-vis{order:-1}}
+/* `.split.omgekeerd` hoort erbij: met één klasse meer won die regel het van
+   deze media query, en bleef de prijssectie van elke gemeentepagina op een gsm
+   twee kolommen breed -- de tekst geperst in 170 px naast het mannetje. */
+@media (max-width:1040px){.v3c .split,.v3c .split.rev,.v3c .split.omgekeerd{grid-template-columns:1fr}.v3c .split-vis{order:-1}}
 .v3c .split-vis{position:relative;display:flex;justify-content:center;align-items:center}
 .v3c .split-vis img{width:min(100%,460px);border-radius:20px;filter:drop-shadow(0 26px 34px rgba(0,0,0,.28))}
 .v3c .split-vis img.cut{border-radius:0}
@@ -1412,3 +1415,54 @@
 .v3c .btn.btn-white.glans::after{background:linear-gradient(110deg,transparent 30%,rgba(200,16,46,.2) 50%,transparent 70%)}
 @keyframes v3cGlans{45%,100%{transform:translateX(100%)}}
 @media (prefers-reduced-motion:reduce){.v3c .btn.glans::after{animation:none}}
+
+/* ============ LOCATIEPAGINA'S OP EEN GSM ============
+   Gemeente- en regiopagina's (`.rg-page`) waren op 375 px zo'n 25.000 px hoog:
+   desktopmarges, een kaart van 400 px in de hero, negen werven onder elkaar en
+   zeventig gemeenten in één kolom. Gemeten op /bouwdroger-huren-berchem. */
+@media (max-width:620px){
+  /* De vaste kop is ~85 px hoog; 200 px erboven was loze rode ruimte. */
+  .v3c.rg-page .hero{padding-top:128px}
+  .v3c.rg-page .hero-copy{padding-bottom:40px}
+  .v3c.rg-page .sw,.v3c.rg-page .sw2,.v3c.rg-page .sr{padding:60px 0}
+  .v3c.rg-page .sec-head{margin-bottom:28px}
+
+  /* Kleinere kaart: herkenning, geen informatie. */
+  .v3c.rg-page .kaartvis{width:min(100%,250px);margin-bottom:44px}
+
+  /* Het mannetje onder de tekst in plaats van erboven of ernaast: op een gsm
+     is hij sfeer, de prijs is wat de bezoeker komt lezen. Gevraagd 20-11-2026. */
+  .v3c.rg-page .split.omgekeerd .split-vis{order:1;justify-content:center}
+  /* `!important` omdat de JSX de desktopbreedte inline zet. */
+  .v3c.rg-page .split-vis img{width:min(56%,200px) !important}
+
+  /* Feitentabellen: label boven, waarde eronder, beide links. Rechts
+     uitgelijnde waarden die over twee regels braken lazen als een losse kolom. */
+  .v3c.rg-page .feiten > div{display:block;padding:11px 16px}
+  .v3c.rg-page .feiten dd{text-align:left;margin-top:2px}
+
+  /* Knoppen over de volle breedte: groter doel voor een duim. */
+  .v3c.rg-page .prijsknoppen > a,.v3c.rg-page .hero .hcta > a{flex:1 1 100%;justify-content:center}
+
+  /* Toestelfoto's lager; de kaart zelf blijft volledig. */
+  .v3c.rg-page .prod .pimg img{height:170px}
+
+  /* Werven en reviews als veegrij in plaats van negen kaarten onder elkaar.
+     De rij loopt tot de schermrand zodat zichtbaar is dat er meer volgt. */
+  .v3c.rg-page .rzs,.v3c.rg-page .rvs{display:flex;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -28px;padding:0 28px 6px;scroll-padding:0 28px;scrollbar-width:none}
+  .v3c.rg-page .rzs::-webkit-scrollbar,.v3c.rg-page .rvs::-webkit-scrollbar{display:none}
+  .v3c.rg-page .rzs > *,.v3c.rg-page .rvs > *{flex:0 0 82%;scroll-snap-align:start}
+  .v3c.rg-page .rz img{aspect-ratio:16/10}
+  .v3c.rg-west .rzs.twee{margin:0 -28px;max-width:none}
+  .v3c.rg-west .rzs.twee > *{flex-basis:82%}
+
+  /* Droogtijdentabel past zonder horizontaal scrollen. */
+  .v3c.rg-page table.tbl{min-width:0;font-size:13px}
+  .v3c.rg-page table.tbl th,.v3c.rg-page table.tbl td{padding:12px 10px}
+  .v3c.rg-page table.tbl th{font-size:12px}
+
+  /* Gemeentelijsten in twee kolommen, met regels hoog genoeg om te tikken. */
+  .v3c.rg-page .strk-blok{padding:20px 18px 16px}
+  .v3c.rg-page .strk-lijst{columns:2;column-gap:12px}
+  .v3c.rg-page .strk-lijst li{line-height:1.4;padding:5px 0}
+}
