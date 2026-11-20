@@ -50,9 +50,9 @@ export interface BoekingTeksten {
   pompSub: ReactNode;
   pompNaam: string;
   pompAantal: (pompen: number, bouwdrogers: number) => ReactNode;
+  pompUit: (bouwdrogers: number) => ReactNode;
+  pompToegevoegd: (pompen: number) => string;
   perPompDag: string;
-  pompMinder: string;
-  pompMeer: string;
   pompInfoKnop: string;
   pompInfoTitel: string;
   pompInfo: ReactNode;
@@ -223,15 +223,18 @@ const nl: BoekingTeksten = {
   pompNaam: "Bouwdrogers met condenspomp",
   pompAantal: (pompen, bouwdrogers) => (
     <>
-      <b>
-        {pompen} van de {bouwdrogers}
-      </b>{" "}
-      bouwdroger{bouwdrogers === 1 ? "" : "s"} uit uw pakket. Wij vullen ze standaard allemaal in.
+      Op <b>{pompen === bouwdrogers ? `alle ${bouwdrogers}` : `${pompen} van de ${bouwdrogers}`}</b>{" "}
+      bouwdroger{bouwdrogers === 1 ? "" : "s"} uit uw pakket: het water loopt vanzelf weg.
     </>
   ),
+  pompUit: (bouwdrogers) => (
+    <>
+      Niet toegevoegd: u leegt de {bouwdrogers} bouwdroger{bouwdrogers === 1 ? "" : "s"} zelf, gemiddeld
+      twee keer per dag.
+    </>
+  ),
+  pompToegevoegd: (pompen) => `✓ ${pompen}× toegevoegd`,
   perPompDag: "per bouwdroger / dag",
-  pompMinder: "Eén bouwdroger minder met een condenspomp",
-  pompMeer: "Eén bouwdroger meer met een condenspomp",
   pompInfoKnop: "Meer uitleg over de condenspomp",
   pompInfoTitel: "Zo werkt de condenspomp",
   pompInfo: (
@@ -466,15 +469,18 @@ const fr: BoekingTeksten = {
   pompNaam: "Déshumidificateurs avec pompe à condensats",
   pompAantal: (pompen, bouwdrogers) => (
     <>
-      <b>
-        {pompen} sur {bouwdrogers}
-      </b>{" "}
-      déshumidificateur{bouwdrogers === 1 ? "" : "s"} de votre pack. Nous les cochons tous d'office.
+      Sur <b>{pompen === bouwdrogers ? `les ${bouwdrogers}` : `${pompen} des ${bouwdrogers}`}</b>{" "}
+      déshumidificateur{bouwdrogers === 1 ? "" : "s"} de votre pack : l'eau s'évacue toute seule.
     </>
   ),
+  pompUit: (bouwdrogers) => (
+    <>
+      Non ajoutée : vous videz vous-même les {bouwdrogers} déshumidificateur{bouwdrogers === 1 ? "" : "s"},
+      en moyenne deux fois par jour.
+    </>
+  ),
+  pompToegevoegd: (pompen) => `✓ ${pompen}× ajoutée${pompen === 1 ? "" : "s"}`,
   perPompDag: "par déshumidificateur / jour",
-  pompMinder: "Un déshumidificateur de moins avec pompe",
-  pompMeer: "Un déshumidificateur de plus avec pompe",
   pompInfoKnop: "Plus d'explications sur la pompe à condensats",
   pompInfoTitel: "Comment fonctionne la pompe à condensats",
   pompInfo: (
@@ -711,15 +717,18 @@ const en: BoekingTeksten = {
   pompNaam: "Dehumidifiers with a condensate pump",
   pompAantal: (pompen, bouwdrogers) => (
     <>
-      <b>
-        {pompen} of the {bouwdrogers}
-      </b>{" "}
-      dehumidifier{bouwdrogers === 1 ? "" : "s"} in your package. We fill them all in as standard.
+      On <b>{pompen === bouwdrogers ? `all ${bouwdrogers}` : `${pompen} of the ${bouwdrogers}`}</b>{" "}
+      dehumidifier{bouwdrogers === 1 ? "" : "s"} in your package: the water drains away by itself.
     </>
   ),
+  pompUit: (bouwdrogers) => (
+    <>
+      Not added: you empty the {bouwdrogers} dehumidifier{bouwdrogers === 1 ? "" : "s"} yourself, about
+      twice a day.
+    </>
+  ),
+  pompToegevoegd: (pompen) => `✓ ${pompen}× added`,
   perPompDag: "per dehumidifier / day",
-  pompMinder: "One dehumidifier fewer with a pump",
-  pompMeer: "One dehumidifier more with a pump",
   pompInfoKnop: "More about the condensate pump",
   pompInfoTitel: "How the condensate pump works",
   pompInfo: (
