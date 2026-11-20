@@ -145,7 +145,7 @@ const today = new Date().toISOString().slice(0, 10);
  * Onbekend of buiten git? Dan valt hij terug op vandaag.
  */
 const ROUTE_SOURCES = {
-  "/waterschade/luchtkussen-drogen": "src/pages/LuchtkussenDrogenPage.tsx",
+  "/waterschade-luchtkussen-techniek": "src/pages/LuchtkussenDrogenPage.tsx",
   "/": "src/pages/Index.tsx",
   "/afhalen": "src/pages/AfhalenPage.tsx",
   "/contact": "src/pages/ContactPage.tsx",

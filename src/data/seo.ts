@@ -57,6 +57,15 @@ export const SEO = {
     description:
       "Waterlek of overstroming? Wij leveren uw bouwdroger en ventilatoren vandaag nog. De eerste 48 uur bepalen of u schimmel en structurele schade voorblijft.",
   },
+  /* Stond eerst als losse tekst in de copy van de pagina, buiten deze lijst en
+     dus buiten het zicht bij een controle op kannibalisatie. Mikt op
+     "luchtkussen drogen" en "wand/vloer drogen onder folie": een techniek,
+     geen dienst die /waterschade al verkoopt. */
+  luchtkussenDrogen: {
+    title: "Luchtkussen drogen: wand of vloer onder folie | Vernast",
+    description:
+      "Luchtkussen drogen na waterschade: droge lucht onder folie, gericht op een natte wand of vloer. Werking, wanneer het past en het verschil met ruimtedroging.",
+  },
   renovatie: {
     title: "Vochtige kelder of schimmel drogen | Vernast",
     description:
