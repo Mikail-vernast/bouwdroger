@@ -1,4 +1,4 @@
-export const bestanden = ["dienst-levering-v2", "dienst-vochtmeting", "dienst-installatie", "pakket-leefruimte-v2", "pakket-twee-verdiepingen-v2", "pakket-condenspompen-v2", "dienst-controle", "dienst-ophaling"];
+export const bestanden = ["dienst-levering-v2", "dienst-vochtmeting", "dienst-installatie", "pakket-leefruimte-v2", "pakket-twee-verdiepingen-v3", "pakket-condenspompen-v3", "dienst-controle", "dienst-ophaling"];
 export const COPY = {
   nl: {
     kick: "Van levering tot ophaling", title: "Zo kan de droging er bij u uitzien.",
@@ -29,7 +29,7 @@ export const COPY = {
 export const PROCES_INDEXEN = [0, 1, 2, 3, 6, 7];
 export function dienstBeeldPad(i: number): string {
   const naam = bestanden[i];
-  return "/vernast/" + naam.replace(/-v2$/, "") + "-voorbeeld" + (naam.endsWith("-v2") ? "-v2" : "") + ".webp";
+  return "/vernast/" + naam.replace(/-v\d+$/, "") + "-voorbeeld" + (naam.match(/-v\d+$/)?.[0] ?? "") + ".webp";
 }
 export function procesBeelden(taal: "nl" | "fr" | "en") {
   return PROCES_INDEXEN.map(i => ({src: dienstBeeldPad(i), alt: COPY[taal].captions[i], label: COPY[taal].labels[i]}));
