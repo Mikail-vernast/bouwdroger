@@ -58,6 +58,10 @@ export interface BoekingTeksten {
   pompInfo: ReactNode;
   pompFotoAlt: string;
   pompMeerLink: string;
+  /** Aria-label van het i'tje naast een optie. */
+  infoKnop: (optie: string) => string;
+  /** Uitleg in de popup achter het i'tje, per optie. */
+  optieInfo: Record<"vochtmeting" | "rapport" | "stroom" | "monitoring", { titel: string; alt: string; tekst: ReactNode }>;
   verdiepingKop: string;
   verdiepingSub: (ladderFee: string) => ReactNode;
   verdiepingenKop: string;
@@ -253,6 +257,75 @@ const nl: BoekingTeksten = {
   ),
   pompFotoAlt: "Condenspomp op een bouwdroger, met de afvoerslang naar een putje",
   pompMeerLink: "Alles over de condenspomp",
+  infoKnop: (optie) => `Meer uitleg over ${optie}`,
+  optieInfo: {
+    vochtmeting: {
+      titel: "Wat meten we, en waarom?",
+      alt: "Technieker van Vernast meet het vocht in een muur, met een bouwdroger op de werf",
+      tekst: (
+        <>
+          <p>
+            Bij de levering meet onze technieker het vocht in de muren, de chape en de lucht. Zo weten
+            we hoe nat de werf is en stellen we de toestellen juist in.
+          </p>
+          <p>
+            Bij de ophaling meten we opnieuw. Zo ziet u zwart op wit dat alles droog is, vóór u
+            tegels legt, parket plaatst of schildert. Dit zit <b>altijd inbegrepen</b>, u hoeft niets
+            toe te voegen.
+          </p>
+        </>
+      ),
+    },
+    rapport: {
+      titel: "Wanneer heeft u een officieel vochtrapport nodig?",
+      alt: "Technieker van Vernast vult een meetrapport in",
+      tekst: (
+        <>
+          <p>
+            De metingen bij levering en ophaling doen we altijd. Met het rapport krijgt u ze ook op
+            papier: alle meetwaarden, de data en onze handtekening.
+          </p>
+          <p>
+            Handig voor uw <b>verzekeraar</b> na waterschade, voor een <b>huisbaas</b> of voor het
+            bouwdossier, of als uw vloerder of tegelzetter een bewijs vraagt dat de chape droog is.
+          </p>
+        </>
+      ),
+    },
+    stroom: {
+      titel: "Wat is een werfstroomkast?",
+      alt: "Technieker van Vernast met stroomkabels voor de werf",
+      tekst: (
+        <>
+          <p>
+            Een werfstroomkast, ook paddestoel genoemd, is een verdeelkast met stopcontacten en eigen
+            zekeringen. U heeft er één nodig als er op de werf <b>nog geen elektriciteitskast</b> is,
+            of als de bestaande kast niet genoeg groepen heeft voor alle toestellen.
+          </p>
+          <p>
+            Bouwdrogers draaien dag en nacht. Op één gewoon stopcontact springt de zekering, en dan
+            staat alles stil. Wij sluiten de kast aan bij de plaatsing.
+          </p>
+        </>
+      ),
+    },
+    monitoring: {
+      titel: "Wat is digitale monitoring?",
+      alt: "Klant volgt de droging van de werf op een laptop",
+      tekst: (
+        <>
+          <p>
+            Een sensor op de toestellen meet continu de luchtvochtigheid en de temperatuur. U volgt de
+            droging dan zelf online op, van thuis of vanop kantoor, zonder naar de werf te rijden.
+          </p>
+          <p>
+            Loopt er iets mis, staat een toestel stil of daalt het vocht niet, dan zien wij dat ook
+            en komen we kijken. Dit komt er <b>binnenkort</b>, zonder meerkost.
+          </p>
+        </>
+      ),
+    },
+  },
   verdiepingKop: "Op welke verdieping werken we?",
   verdiepingSub: (ladderFee) => (
     <>
@@ -499,6 +572,74 @@ const fr: BoekingTeksten = {
   ),
   pompFotoAlt: "Pompe à condensats sur un déshumidificateur, avec le tuyau vers un siphon",
   pompMeerLink: "Tout sur la pompe à condensats",
+  infoKnop: (optie) => `Plus d'explications : ${optie}`,
+  optieInfo: {
+    vochtmeting: {
+      titel: "Que mesurons-nous, et pourquoi ?",
+      alt: "Technicien Vernast mesurant l'humidité d'un mur, avec un déshumidificateur sur le chantier",
+      tekst: (
+        <>
+          <p>
+            À la livraison, notre technicien mesure l'humidité des murs, de la chape et de l'air. Nous
+            savons ainsi à quel point le chantier est humide et réglons correctement les appareils.
+          </p>
+          <p>
+            À la reprise, nous mesurons à nouveau. Vous voyez noir sur blanc que tout est sec avant de
+            carreler, poser le parquet ou peindre. C'est <b>toujours inclus</b>, rien à ajouter.
+          </p>
+        </>
+      ),
+    },
+    rapport: {
+      titel: "Quand avez-vous besoin d'un rapport d'humidité officiel ?",
+      alt: "Technicien Vernast remplissant un rapport de mesure",
+      tekst: (
+        <>
+          <p>
+            Les mesures à la livraison et à la reprise sont toujours faites. Le rapport vous les donne
+            aussi sur papier : toutes les valeurs, les dates et notre signature.
+          </p>
+          <p>
+            Utile pour votre <b>assureur</b> après un dégât des eaux, pour un <b>propriétaire</b> ou
+            le dossier de construction, ou si votre carreleur demande la preuve que la chape est sèche.
+          </p>
+        </>
+      ),
+    },
+    stroom: {
+      titel: "Qu'est-ce qu'un coffret de chantier ?",
+      alt: "Technicien Vernast avec des câbles électriques pour le chantier",
+      tekst: (
+        <>
+          <p>
+            Un coffret de chantier est un tableau avec prises et fusibles propres. Il vous en faut un
+            s'il n'y a <b>pas encore de tableau électrique</b> sur le chantier, ou si le tableau
+            existant n'a pas assez de circuits pour tous les appareils.
+          </p>
+          <p>
+            Les déshumidificateurs tournent jour et nuit. Sur une seule prise, le fusible saute et tout
+            s'arrête. Nous raccordons le coffret lors de l'installation.
+          </p>
+        </>
+      ),
+    },
+    monitoring: {
+      titel: "Qu'est-ce que le suivi numérique ?",
+      alt: "Client suivant le séchage du chantier sur un ordinateur portable",
+      tekst: (
+        <>
+          <p>
+            Un capteur sur les appareils mesure en continu l'humidité de l'air et la température. Vous
+            suivez le séchage en ligne, de chez vous ou du bureau, sans vous rendre sur le chantier.
+          </p>
+          <p>
+            Si un appareil s'arrête ou si l'humidité ne baisse pas, nous le voyons aussi et passons
+            voir. Disponible <b>bientôt</b>, sans supplément.
+          </p>
+        </>
+      ),
+    },
+  },
   verdiepingKop: "À quel étage travaillons-nous ?",
   verdiepingSub: (ladderFee) => (
     <>
@@ -747,6 +888,74 @@ const en: BoekingTeksten = {
   ),
   pompFotoAlt: "Condensate pump on a dehumidifier, with the hose to a floor drain",
   pompMeerLink: "All about the condensate pump",
+  infoKnop: (optie) => `More about ${optie}`,
+  optieInfo: {
+    vochtmeting: {
+      titel: "What do we measure, and why?",
+      alt: "Vernast technician measuring moisture in a wall, with a dehumidifier on site",
+      tekst: (
+        <>
+          <p>
+            At delivery our technician measures the moisture in the walls, the screed and the air. That
+            tells us how wet the site is, so we set the machines up correctly.
+          </p>
+          <p>
+            At collection we measure again, so you see in black and white that everything is dry before
+            you tile, lay parquet or paint. This is <b>always included</b>; nothing to add.
+          </p>
+        </>
+      ),
+    },
+    rapport: {
+      titel: "When do you need an official moisture report?",
+      alt: "Vernast technician filling in a measurement report",
+      tekst: (
+        <>
+          <p>
+            We always take the measurements at delivery and collection. The report puts them on paper:
+            every reading, the dates and our signature.
+          </p>
+          <p>
+            Useful for your <b>insurer</b> after water damage, for a <b>landlord</b> or the building
+            file, or when your flooring contractor asks for proof that the screed is dry.
+          </p>
+        </>
+      ),
+    },
+    stroom: {
+      titel: "What is a site power box?",
+      alt: "Vernast technician with power cables for the site",
+      tekst: (
+        <>
+          <p>
+            A site power box is a distribution unit with its own sockets and fuses. You need one when
+            there is <b>no consumer unit on site yet</b>, or when the existing one has too few circuits
+            for all the machines.
+          </p>
+          <p>
+            Dehumidifiers run day and night. On a single socket the fuse trips and everything stops. We
+            connect the box during installation.
+          </p>
+        </>
+      ),
+    },
+    monitoring: {
+      titel: "What is digital monitoring?",
+      alt: "Customer following the drying of the site on a laptop",
+      tekst: (
+        <>
+          <p>
+            A sensor on the machines continuously measures humidity and temperature. You follow the
+            drying online, from home or the office, without driving to the site.
+          </p>
+          <p>
+            If a machine stops or the moisture doesn't drop, we see it too and come by. Coming{" "}
+            <b>soon</b>, at no extra cost.
+          </p>
+        </>
+      ),
+    },
+  },
   verdiepingKop: "Which floor are we working on?",
   verdiepingSub: (ladderFee) => (
     <>

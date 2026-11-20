@@ -7,6 +7,7 @@ import PageMeta from "@/components/PageMeta";
 import BoekingBetaalformulier from "@/components/verhuur/BoekingBetaalformulier";
 import LeverplaatsZoeker from "@/components/verhuur/LeverplaatsZoeker";
 import LeverKalender from "@/components/verhuur/LeverKalender";
+import OptieInfo from "@/components/verhuur/OptieInfo";
 import { STRIPE_APPEARANCE } from "@/lib/stripeAppearance";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
@@ -20,7 +21,6 @@ import {
   CrossIcon,
   DropIcon,
   PulseIcon,
-  PumpIcon,
   ReportIcon,
   StairsIcon,
   WarnIcon,
@@ -78,6 +78,15 @@ import "@/styles/verhuur-betaling.css";
 import { reportBookingEvent } from "@/lib/reportBookingEvent";
 
 /** De extra's uit data/verhuur.ts, gekoppeld aan hun icoon uit het design. */
+/*
+  Welke uitleg en foto achter het i'tje van een extra hangt. De extra's zelf
+  komen uit het portaal; een extra die hier niet staat, krijgt gewoon geen i.
+*/
+const EXTRA_INFO: Record<string, { sleutel: "rapport" | "stroom"; foto: string }> = {
+  rapport: { sleutel: "rapport", foto: "/vernast/man-klembord-pen.webp" },
+  stroom: { sleutel: "stroom", foto: "/vernast/man-duim-kabels.webp" },
+};
+
 const EXTRA_ICONS: Record<string, (props: { size?: number }) => JSX.Element> = {
   rapport: ReportIcon,
   stroom: BoltIcon,
@@ -351,7 +360,6 @@ const VerhuurBoekingPage = () => {
     );
   }, []);
   const [fotoGroot, setFotoGroot] = useState(false);
-  const [pompInfo, setPompInfo] = useState(false);
   // Escape sluit de vergrote foto, en de pagina scrolt er niet onder mee.
   useEffect(() => {
     if (!fotoGroot) return;
@@ -1128,7 +1136,18 @@ const VerhuurBoekingPage = () => {
                     <DropIcon />
                   </span>
                   <span className="ext">
-                    <b>{t.vochtmetingKop}</b>
+                    <b className="ext-naam">
+                      {t.vochtmetingKop}
+                      <OptieInfo
+                        knopLabel={t.infoKnop(t.vochtmetingKop)}
+                        titel={t.optieInfo.vochtmeting.titel}
+                        foto="/vernast/dienst-vochtmeting-voorbeeld.webp"
+                        fotoAlt={t.optieInfo.vochtmeting.alt}
+                        sluiten={t.fotoSluiten}
+                      >
+                        {t.optieInfo.vochtmeting.tekst}
+                      </OptieInfo>
+                    </b>
                     <small>{t.vochtmetingSub}</small>
                   </span>
                   <span className="inc-tag">{t.inbegrepenTag}</span>
@@ -1141,7 +1160,20 @@ const VerhuurBoekingPage = () => {
                       <div className="ex" key={x.k}>
                         <span className="exi">{Icon && <Icon />}</span>
                         <span className="ext">
-                          <b>{x.name}</b>
+                          <b className="ext-naam">
+                            {x.name}
+                            {EXTRA_INFO[x.k] && (
+                              <OptieInfo
+                                knopLabel={t.infoKnop(x.name)}
+                                titel={t.optieInfo[EXTRA_INFO[x.k].sleutel].titel}
+                                foto={EXTRA_INFO[x.k].foto}
+                                fotoAlt={t.optieInfo[EXTRA_INFO[x.k].sleutel].alt}
+                                sluiten={t.fotoSluiten}
+                              >
+                                {t.optieInfo[EXTRA_INFO[x.k].sleutel].tekst}
+                              </OptieInfo>
+                            )}
+                          </b>
                           <small>{x.sub}</small>
                         </span>
                         <span className="exp">
@@ -1164,8 +1196,17 @@ const VerhuurBoekingPage = () => {
                       <PulseIcon />
                     </span>
                     <span className="ext">
-                      <b>
+                      <b className="ext-naam">
                         {t.monitoringKop}<span className="soon-tag">{t.binnenkort}</span>
+                        <OptieInfo
+                          knopLabel={t.infoKnop(t.monitoringKop)}
+                          titel={t.optieInfo.monitoring.titel}
+                          foto="/vernast/koppel-digitaal.webp"
+                          fotoAlt={t.optieInfo.monitoring.alt}
+                          sluiten={t.fotoSluiten}
+                        >
+                          {t.optieInfo.monitoring.tekst}
+                        </OptieInfo>
                       </b>
                       <small>{t.monitoringSub}</small>
                     </span>
@@ -1182,35 +1223,10 @@ const VerhuurBoekingPage = () => {
               </div>
 
               <div className="blk">
-                <div className="blkh pomph">
+                <div className="blkh">
                   <h2>{t.pompKop}</h2>
-                  <button
-                    type="button"
-                    className={`pompi${pompInfo ? " on" : ""}`}
-                    aria-label={t.pompInfoKnop}
-                    aria-expanded={pompInfo}
-                    aria-controls="pompInfo"
-                    onClick={() => setPompInfo((v) => !v)}
-                  >
-                    i
-                  </button>
                 </div>
                 <p className="bsub">{t.pompSub}</p>
-                {pompInfo && (
-                  <div className="pompinfo" id="pompInfo">
-                    <img
-                      src="/vernast/condenspomp-slangopstelling.webp"
-                      alt={t.pompFotoAlt}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div>
-                      <b>{t.pompInfoTitel}</b>
-                      {t.pompInfo}
-                      <Link to={lp("/verhuur/toebehoren/condenspomp")}>{t.pompMeerLink} →</Link>
-                    </div>
-                  </div>
-                )}
                 {/*
                   Het aantal is het aantal bouwdrogers uit het pakket, vooraf
                   ingevuld. "Condenspomp per bouwdroger" als productnaam liet
@@ -1218,11 +1234,23 @@ const VerhuurBoekingPage = () => {
                 */}
                 <div>
                   <div className="ex">
-                    <span className="exi">
-                      <PumpIcon />
+                    <span className="exi foto">
+                      <img src="/vernast/condenspomp-product-v2.webp" alt="" loading="lazy" decoding="async" />
                     </span>
                     <span className="ext">
-                      <b>{t.pompNaam}</b>
+                      <b className="ext-naam">
+                        {t.pompNaam}
+                        <OptieInfo
+                          knopLabel={t.pompInfoKnop}
+                          titel={t.pompInfoTitel}
+                          foto="/vernast/condenspomp-slangopstelling.webp"
+                          fotoAlt={t.pompFotoAlt}
+                          sluiten={t.fotoSluiten}
+                          link={{ to: lp("/verhuur/toebehoren/condenspomp"), tekst: t.pompMeerLink }}
+                        >
+                          {t.pompInfo}
+                        </OptieInfo>
+                      </b>
                       <small>
                         {pumpCount > 0 ? t.pompAantal(pumpCount, dryerCount) : t.pompUit(dryerCount)}
                       </small>

@@ -1723,17 +1723,6 @@
 .vh-book .stot .tl{align-items:baseline}
 .vh-book .stot .tl + .tl{margin-top:8px}
 .vh-book .stot .tl.totaal{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);align-items:flex-end}
-/* condenspomp: i-knop met uitleg en foto */
-.vh-book .blkh.pomph{display:flex;align-items:center;gap:10px}
-.vh-book .pompi{flex-shrink:0;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-2);background:#fff;color:var(--txt-mid);font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:14px;line-height:1;cursor:pointer;transition:border-color .15s,color .15s,background .15s}
-.vh-book .pompi:hover,.vh-book .pompi.on{border-color:var(--red);color:#fff;background:var(--red)}
-.vh-book .pompinfo{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:16px;align-items:start;margin:14px 0 6px;padding:14px;border:1.5px solid var(--line);border-radius:14px;background:#fafafa}
-@media (max-width:620px){.vh-book .pompinfo{grid-template-columns:1fr}}
-.vh-book .pompinfo img{width:100%;height:auto;border-radius:10px;display:block;background:#fff}
-.vh-book .pompinfo b{display:block;font-family:var(--fd);font-weight:700;font-size:15px;color:var(--txt);margin-bottom:6px}
-.vh-book .pompinfo p{font-size:13.5px;line-height:1.6;color:var(--txt-mid);margin:0 0 8px}
-.vh-book .pompinfo p b{display:inline;font-size:inherit;font-family:inherit;margin:0}
-.vh-book .pompinfo a{font-size:13.5px;font-weight:600;color:var(--red)}
 /* huurperiode: vaste waarde, geen invoerveld */
 .vh-book .fld .fldl{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:7px;font-weight:600}
 .vh-book .fld .vast{display:flex;flex-direction:column;justify-content:center;min-height:49px;padding:7px 14px;border:1.5px dashed var(--line-2);border-radius:11px;background:#f6f6f6;cursor:default;user-select:none}
@@ -1775,3 +1764,26 @@
 .vh-book .lk-legende .l-binnen{background:#eaf6ef;border:1px solid #bfe3cd}
 .vh-book .lk-legende .l-einde{background:#141414}
 .vh-book .lk-legende .l-vol{background:repeating-linear-gradient(135deg,#f4d6dc 0 3px,#fff 3px 6px);border:1px solid #efc0c9}
+
+/*
+  Productfoto's in de optielijsten. De foto stond als vierkantje van 36px in
+  een afgerond vak van 46px: je zag een grijze rand rond een te kleine foto en
+  herkende het toestel niet. Nu vult de foto het hele afgeronde vak.
+*/
+.vh-book .ex .exi:has(img),.vh-pkg .ex .exi:has(img){width:58px;height:58px;border-radius:12px;background:#ece9e5}
+.vh-book .ex .exi img,.vh-pkg .ex .exi img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* i-knop naast de naam van een optie, met popup (OptieInfo) */
+.vh-book .ext b.ext-naam{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px}
+.oi-knop{flex-shrink:0;display:inline-grid;place-items:center;width:22px;height:22px;padding:0;border-radius:50%;border:1.5px solid var(--line-2,#d6d3cf);background:#fff;color:var(--txt-mid,#555);font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:12.5px;line-height:1;cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+.oi-knop:hover,.oi-knop.on,.oi-knop:focus-visible{border-color:var(--red,#e30613);color:#fff;background:var(--red,#e30613)}
+.oi-laag{position:fixed;inset:0;z-index:10000;background:rgba(10,10,10,.6);display:grid;place-items:center;padding:20px;animation:oi-in .15s ease-out}
+@keyframes oi-in{from{opacity:0}to{opacity:1}}
+.oi-kaart{position:relative;width:min(560px,100%);max-height:calc(100vh - 40px);overflow:auto;background:#fff;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.3);font-family:"DM Sans",system-ui,sans-serif;color:#141414}
+.oi-kaart img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#f2f0ed}
+.oi-tekst{padding:20px 24px 24px}
+.oi-tekst h3{margin:0 0 10px;font-family:"Plus Jakarta Sans","DM Sans",system-ui,sans-serif;font-weight:700;font-size:19px;line-height:1.3}
+.oi-tekst p{margin:0 0 10px;font-size:14.5px;line-height:1.6;color:#4a4a4a}
+.oi-tekst p b{color:#141414}
+.oi-tekst a{display:inline-block;margin-top:4px;font-size:14px;font-weight:600;color:var(--red,#e30613)}
+.oi-x{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:0;background:#fff;color:#141414;font-size:24px;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.18)}

@@ -69,7 +69,7 @@ export interface BookingOptions {
   cover: string;
   /** sleutels uit EXTRAS die aangevinkt zijn */
   extras: string[];
-  /** aantal condenspompen; null = standaard, één per bouwdroger */
+  /** aantal condenspompen; null = niet gekozen, dus geen */
   pumps: number | null;
   /** handmatig bijgezette toestellen */
   dev: Partial<Record<DeviceKey, number>>;
@@ -300,8 +300,12 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
   const dryerCount = items
     .filter((it) => it.k === "small" || it.k === "medium")
     .reduce((s, it) => s + it.q, 0);
-  // Zonder eigen keuze staat er standaard één pomp per bouwdroger klaar.
-  const pumps = Math.min(options.pumps ?? dryerCount, dryerCount);
+  /*
+    Zonder eigen keuze geen pompen. Eerder stond er standaard één per
+    bouwdroger klaar, maar een betaalde optie die al aangevinkt is, voelt voor
+    de klant als een verborgen meerprijs: hij kiest ze zelf met "Toevoegen".
+  */
+  const pumps = Math.min(options.pumps ?? 0, dryerCount);
 
   /*
     De huurtermijn is niet meer voor iedereen twee weken: bij een vast pakket
