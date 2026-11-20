@@ -6,7 +6,9 @@
    Mappenboom: rode kop zoals de rest van de site, daaronder wit. Hangt aan de
    gedeelde inhoudsschil `.v3c` (v3-content.css) voor tokens en knoppen. */
 .v3c.sm-page { background: #fff; color: var(--txt); overflow-x: clip; }
-.v3c.sm-page a { color: inherit; }
+/* Alleen de links ín de pagina: deze regel woog zwaarder dan `.v3c .btn-offerte`
+   en kleurde zo ook "Gratis Calculator" in de header zwart op rood. */
+.v3c.sm-page main a { color: inherit; }
 .v3c.sm-page .pad { font-family: var(--fm); font-size: 13.5px; font-weight: 600; color: var(--txt); word-break: break-word; }
 .v3c.sm-page .pad i { font-style: normal; color: var(--red); }
 .v3c.sm-page .pad em { font-style: normal; color: var(--txt-dim); }

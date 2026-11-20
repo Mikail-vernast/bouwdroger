@@ -134,7 +134,6 @@ const V3Header = ({ lightAfter = 560, alwaysLightBelow, darkUntil }: V3HeaderPro
           <span>{t.uren}</span>
         </div>
         <div className="tl-right">
-          <span className="dot" /> <span className="tl-belofte">{t.belofteV3}</span>
           <span className="wissels">
             <TaalWissel />
             <KlantWissel />

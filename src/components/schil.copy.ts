@@ -15,7 +15,6 @@ import type { Copy } from "@/i18n/useTaal";
 export interface SchilTekst {
   uren: string;
   /** Rechts in de topregel van de homepage-schil. */
-  belofteV3: string;
   /** Rechts in de topregel van de verhuurschil. */
   belofteV: string;
   hoofdnav: string;
@@ -57,7 +56,6 @@ export interface SchilTekst {
 export const SCHIL_COPY = {
   nl: {
     uren: "Ma–Vr 08:00–17:00",
-    belofteV3: "Droogpakket berekend op uw woning · u kiest zelf uw leverdatum",
     belofteV: "Erkend droogspecialist · u kiest uw leverdatum",
     hoofdnav: "Hoofdnavigatie",
     groep: "Group",
@@ -96,7 +94,6 @@ export const SCHIL_COPY = {
   },
   fr: {
     uren: "Lu–Ve 8 h–17 h",
-    belofteV3: "Pack calculé pour votre logement · livraison à la date choisie",
     belofteV: "Spécialiste agréé du séchage · date de livraison au choix",
     hoofdnav: "Navigation principale",
     groep: "Groupe",
@@ -136,7 +133,6 @@ export const SCHIL_COPY = {
   },
   en: {
     uren: "Mon–Fri 08:00–17:00",
-    belofteV3: "Drying package calculated for your home · you choose the delivery date",
     belofteV: "Accredited drying specialist · you choose your delivery date",
     hoofdnav: "Main navigation",
     groep: "Group",
