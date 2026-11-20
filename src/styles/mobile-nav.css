@@ -106,6 +106,19 @@
   }
 }
 
+/* ---------- de calculatorknop in de balk: altijd witte tekst ----------
+
+   Elke pagina-stylesheet zet de kleur van `.btn-offerte` zelf, onder haar
+   eigen root. Een pagina zonder die kopie, of met een eigen regel voor `a`
+   die zwaarder weegt, toonde "Gratis Calculator" in zwart op rood. Ook hier
+   vier klassen diep, om dezelfde reden als hierboven. */
+.hdr .navrow > .btn-offerte.mnav-cta-sm,
+.hdr .navrow > .btn-offerte.mnav-cta-sm:visited,
+.hdr .navrow > .btn-offerte.mnav-cta-sm:hover,
+.hdr .navrow > .btn-offerte.mnav-cta-sm:focus-visible {
+  color: #fff;
+}
+
 /* ---------- het paneel ---------- */
 
 .mnav {
