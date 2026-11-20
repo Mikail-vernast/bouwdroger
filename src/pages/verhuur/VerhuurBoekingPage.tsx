@@ -1223,29 +1223,27 @@ const VerhuurBoekingPage = () => {
                     </span>
                     <span className="ext">
                       <b>{t.pompNaam}</b>
-                      <small>{t.pompAantal(pumpCount, dryerCount)}</small>
+                      <small>
+                        {pumpCount > 0 ? t.pompAantal(pumpCount, dryerCount) : t.pompUit(dryerCount)}
+                      </small>
                     </span>
                     <span className="exp">
                       {eur(PUMP.price)}
                       <small>{t.perPompDag}</small>
                     </span>
-                    <span className="stp">
-                      <button
-                        type="button"
-                        aria-label={t.pompMinder}
-                        onClick={() => setPumps(Math.max(0, pumpCount - 1))}
-                      >
-                        −
-                      </button>
-                      <span>{pumpCount}</span>
-                      <button
-                        type="button"
-                        aria-label={t.pompMeer}
-                        onClick={() => setPumps(Math.min(dryerCount, pumpCount + 1))}
-                      >
-                        +
-                      </button>
-                    </span>
+                    {/*
+                      Eén knop zoals bij de andere extra's, geen teller: een pomp
+                      hoort bij elke bouwdroger, dus "Toevoegen" zet ze op alle
+                      bouwdrogers uit het pakket en toont meteen hoeveel.
+                    */}
+                    <button
+                      type="button"
+                      className={`exadd${pumpCount > 0 ? " on" : ""}`}
+                      aria-pressed={pumpCount > 0}
+                      onClick={() => setPumps(pumpCount > 0 ? 0 : dryerCount)}
+                    >
+                      {pumpCount > 0 ? t.pompToegevoegd(pumpCount) : t.toevoegen}
+                    </button>
                   </div>
                 </div>
               </div>
