@@ -1032,6 +1032,21 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
                     ))}
                   </div>
                 )}
+                {/*
+                  Feiten als term en waarde, in de HTML en niet achter een
+                  klik: dit is wat het AI-overzicht van Google letterlijk
+                  overneemt. Zie `kortom` in regios.ts.
+                */}
+                {regio.kortom && (
+                  <dl className="feiten kortom" aria-label={`Vernast in ${regio.name}, in het kort`}>
+                    {regio.kortom.map((feit) => (
+                      <div key={feit.label}>
+                        <dt>{feit.label}</dt>
+                        <dd>{feit.waarde}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
                 <div className="hcta">
                   <Link className="btn btn-white glans" to={lp("/verhuur/calculator")}>
                     {g.hero.knop}
