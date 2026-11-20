@@ -1,4 +1,3 @@
-import { procesBeelden } from "@/data/dienstbeelden";
 import DienstVoorbeelden from "@/components/verhuur/DienstVoorbeelden";
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -403,7 +402,12 @@ const VerhuurPakketPage = () => {
   });
   const pakketBeeld = packageImage(config, items);
   const pakketAlt = packageGalleryAltsInTaal(config, items, [pakketBeeld], taal)[0];
-  const productFotos = [{ src: pakketBeeld, alt: pakketAlt }, ...toestelFotos, ...procesBeelden(taal)].slice(0, 6);
+  /*
+    De pakketfoto en één foto per toestelsoort, vier in totaal. Zes miniaturen
+    met werffoto's erbij maakten elk beeld te klein om te lezen; de werffoto's
+    staan verderop in `DienstVoorbeelden`.
+  */
+  const productFotos = [{ src: pakketBeeld, alt: pakketAlt }, ...toestelFotos].slice(0, 4);
   const gallery = productFotos.map((foto) => foto.src);
   const galleryAlts = productFotos.map((foto) => foto.alt);
   const lead = gallery[0];
@@ -488,7 +492,6 @@ const VerhuurPakketPage = () => {
                 </Head>
                 <img src={gallery[shot] ?? gallery[0]} alt={galleryAlts[shot] ?? galleryAlts[0]} fetchPriority="high" decoding="async" />
               </div>
-              <p className="pkg-photo-caption" aria-live="polite">{galleryAlts[shot] ?? galleryAlts[0]}</p>
               <div className="gth">
                 {gallery.map((src, i) => (
                   <button
