@@ -36,6 +36,10 @@
   display: grid;
   grid-template-columns: 250px 1fr;
   max-height: calc(100vh - 32px);
+  /* De rij neemt de hoogte van de popup over. Zonder dit groeien de twee
+     kolommen gewoon door en knipt `overflow:hidden` hierboven de onderkant
+     eraf — met de knop erin. Nu krimpt de rij en schuift `.kp-body`. */
+  grid-template-rows: minmax(0, 1fr);
   animation: kp-pop 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1);
 }
 @keyframes kp-pop {
@@ -156,18 +160,43 @@
 .kp-note svg { flex: none; }
 
 @media (max-width: 700px) {
-  .kp { grid-template-columns: 1fr; }
-  .kp-foto { min-height: 250px; }
+  /*
+    Op een telefoon paste de popup niet in het scherm: de foto (250) plus de
+    vragen (446) vroegen 696px in een venster van 664, en met `overflow:hidden`
+    viel "Ga verder" buiten de pil — onaanraakbaar, de bezoeker kwam de popup
+    niet meer uit dan via het kruisje. De rijen verdelen de hoogte nu zelf: de
+    foto krimpt mee met het scherm en de vragen schuiven binnen hun eigen vak,
+    zodat de knop altijd binnen de popup valt.
+  */
+  .kp { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
+  .kp-foto { min-height: 0; height: clamp(110px, 24vh, 250px); }
   .kp-foto::before { background-size: cover; background-position: center 62%; }
-  .kp-team { width: 84%; bottom: 16px; }
+  .kp-team { height: 86%; width: auto; max-width: 92%; bottom: 10px; }
   .kp-logo { width: 64px; bottom: 12px; }
   .kp-badge { top: 12px; left: 12px; transform: none; }
-  .kp-body { padding: 4px 16px 18px; }
+  .kp-body { padding: 4px 16px 18px; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .kp h2 { font-size: 19px; padding-right: 0; }
   .kp-q { grid-template-columns: 1fr; gap: 8px; }
   .kp-hint { grid-column: 1; margin-top: 0; }
   .kp-t { font-size: 12px; }
 }
+/*
+  Een laag venster — een liggende telefoon, een klein laptopscherm — loopt op
+  hetzelfde vast als een smal: de foto vraagt 350px hoogte terwijl het hele
+  scherm er 360 heeft. Daarom dezelfde ingreep op hoogte en niet alleen op
+  breedte; de vragen houden de ruimte die overblijft.
+*/
+@media (max-height: 640px) {
+  .kp-foto { min-height: 0; height: clamp(90px, 16vh, 150px); }
+  .kp-body { min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  /* De laatste tientallen pixels: zonder deze stond "Ga verder" net onder de
+     vouw en moest de bezoeker schuiven om een knop te vinden waarvan hij niet
+     weet dat hij er is. */
+  .kp-q { padding: 9px 0; }
+  .kp-foot { margin-top: 12px; }
+  .kp-note { margin-top: 8px; padding: 8px 10px; font-size: 11.5px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .kp-overlay, .kp { animation: none; }
   .kp-knob { transition: none; }
