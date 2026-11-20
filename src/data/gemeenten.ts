@@ -58,9 +58,9 @@ const G: Gemeente[] = [
       districten (Berchem, Borgerhout, Deurne, Merksem, Hoboken, Ekeren)
       waar Wilrijk bewust buiten valt, want dat heeft een eigen pagina.
     */
-    title: "Bouwdroger huren in Antwerpen stad | Vernast",
+    title: "Eco bouwdroger huren in Antwerpen stad | Vernast",
     description:
-      "Bouwdroger huren in Antwerpen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Antwerpen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Antwerpen stad en districten",
     kicker: "Antwerpen · levering op uw werf",
     rit: { afstand: "circa 12 km", tijd: "ongeveer twintig minuten" },
@@ -135,9 +135,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "berchem",
-    title: "Bouwdroger huren in Berchem en Zurenborg | Vernast",
+    title: "Eco bouwdroger huren in Berchem en Zurenborg | Vernast",
     description:
-      "Bouwdroger huren in Berchem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Berchem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Berchem",
     kicker: "Berchem · levering op uw werf",
     rit: { afstand: "circa 9 km", tijd: "ongeveer een kwartier" },
@@ -212,9 +212,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "borgerhout",
-    title: "Bouwdroger huren in Borgerhout | Vernast",
+    title: "Eco bouwdroger huren in Borgerhout | Vernast",
     description:
-      "Bouwdroger huren in Borgerhout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Borgerhout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Borgerhout",
     kicker: "Borgerhout · levering op uw werf",
     rit: { afstand: "circa 11 km", tijd: "ongeveer twintig minuten" },
@@ -289,9 +289,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "deurne",
-    title: "Bouwdroger huren in Deurne - op 20 minuten | Vernast",
+    title: "Eco bouwdroger huren in Deurne - op 20 minuten | Vernast",
     description:
-      "Bouwdroger huren in Deurne? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Deurne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Deurne",
     kicker: "Deurne · levering op uw werf",
     rit: { afstand: "circa 13 km", tijd: "ongeveer twintig minuten" },
@@ -366,9 +366,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "merksem",
-    title: "Bouwdroger huren in Merksem | Vernast",
+    title: "Eco bouwdroger huren in Merksem | Vernast",
     description:
-      "Bouwdroger huren in Merksem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Merksem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Merksem",
     kicker: "Merksem · levering op uw werf",
     rit: { afstand: "circa 16 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -443,9 +443,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hoboken",
-    title: "Bouwdroger huren in Hoboken - op 10 minuten | Vernast",
+    title: "Eco bouwdroger huren in Hoboken - op 10 minuten | Vernast",
     description:
-      "Bouwdroger huren in Hoboken? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hoboken met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hoboken",
     kicker: "Hoboken · levering op uw werf",
     rit: { afstand: "circa 6 km", tijd: "ongeveer tien minuten" },
@@ -520,9 +520,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ekeren",
-    title: "Bouwdroger huren in Ekeren | Vernast",
+    title: "Eco bouwdroger huren in Ekeren | Vernast",
     description:
-      "Bouwdroger huren in Ekeren? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ekeren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ekeren",
     kicker: "Ekeren · levering op uw werf",
     rit: { afstand: "circa 19 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -597,9 +597,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "berendrecht-zandvliet",
-    title: "Bouwdroger huren in Berendrecht en Zandvliet | Vernast",
+    title: "Eco bouwdroger huren in Berendrecht en Zandvliet | Vernast",
     description:
-      "Bouwdroger huren in Berendrecht en Zandvliet? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Berendrecht en Zandvliet met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Berendrecht en Zandvliet",
     kicker: "Berendrecht en Zandvliet · levering op uw werf",
     rit: { afstand: "circa 35 km", tijd: "ongeveer veertig minuten" },
@@ -674,9 +674,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "borsbeek",
-    title: "Bouwdroger huren in Borsbeek - op 20 minuten | Vernast",
+    title: "Eco bouwdroger huren in Borsbeek - op 20 minuten | Vernast",
     description:
-      "Bouwdroger huren in Borsbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Borsbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Borsbeek",
     kicker: "Borsbeek · levering op uw werf",
     rit: { afstand: "circa 14 km", tijd: "ongeveer twintig minuten" },
@@ -751,9 +751,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "boechout",
-    title: "Bouwdroger huren in Boechout - op 15 minuten | Vernast",
+    title: "Eco bouwdroger huren in Boechout - op 15 minuten | Vernast",
     description:
-      "Bouwdroger huren in Boechout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Boechout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Boechout",
     kicker: "Boechout · levering op uw werf",
     rit: { afstand: "circa 11 km", tijd: "ongeveer een kwartier" },
@@ -828,9 +828,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hove",
-    title: "Bouwdroger huren in Hove - op 15 minuten | Vernast",
+    title: "Eco bouwdroger huren in Hove - op 15 minuten | Vernast",
     description:
-      "Bouwdroger huren in Hove? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hove met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hove",
     kicker: "Hove · levering op uw werf",
     rit: { afstand: "circa 12 km", tijd: "ongeveer een kwartier" },
@@ -905,9 +905,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lint",
-    title: "Bouwdroger huren in Lint - op 20 minuten | Vernast",
+    title: "Eco bouwdroger huren in Lint - op 20 minuten | Vernast",
     description:
-      "Bouwdroger huren in Lint? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lint met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lint",
     kicker: "Lint · levering op uw werf",
     rit: { afstand: "circa 13 km", tijd: "ongeveer twintig minuten" },
@@ -982,9 +982,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hemiksem",
-    title: "Bouwdroger huren in Hemiksem - op 10 minuten | Vernast",
+    title: "Eco bouwdroger huren in Hemiksem - op 10 minuten | Vernast",
     description:
-      "Bouwdroger huren in Hemiksem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hemiksem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hemiksem",
     kicker: "Hemiksem · levering op uw werf",
     rit: { afstand: "circa 5 km", tijd: "ongeveer tien minuten" },
@@ -1059,9 +1059,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "niel",
-    title: "Bouwdroger huren in Niel - op 10 minuten | Vernast",
+    title: "Eco bouwdroger huren in Niel - op 10 minuten | Vernast",
     description:
-      "Bouwdroger huren in Niel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Niel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Niel",
     kicker: "Niel · levering op uw werf",
     rit: { afstand: "circa 7 km", tijd: "ongeveer tien minuten" },
@@ -1136,9 +1136,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rumst",
-    title: "Bouwdroger huren in Rumst - op 15 minuten | Vernast",
+    title: "Eco bouwdroger huren in Rumst - op 15 minuten | Vernast",
     description:
-      "Bouwdroger huren in Rumst? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Rumst met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Rumst",
     kicker: "Rumst · levering op uw werf",
     rit: { afstand: "circa 10 km", tijd: "ongeveer een kwartier" },
@@ -1213,9 +1213,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "schelle",
-    title: "Bouwdroger huren in Schelle - op 10 minuten | Vernast",
+    title: "Eco bouwdroger huren in Schelle - op 10 minuten | Vernast",
     description:
-      "Bouwdroger huren in Schelle? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Schelle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Schelle",
     kicker: "Schelle · levering op uw werf",
     rit: { afstand: "circa 5 km", tijd: "ongeveer tien minuten" },
@@ -1290,9 +1290,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bornem",
-    title: "Bouwdroger huren in Bornem - Klein-Brabant | Vernast",
+    title: "Eco bouwdroger huren in Bornem - Klein-Brabant | Vernast",
     description:
-      "Bouwdroger huren in Bornem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bornem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bornem",
     kicker: "Bornem · levering op uw werf",
     rit: { afstand: "circa 22 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -1367,9 +1367,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "puurs-sint-amands",
-    title: "Bouwdroger huren in Puurs-Sint-Amands | Vernast",
+    title: "Eco bouwdroger huren in Puurs-Sint-Amands | Vernast",
     description:
-      "Bouwdroger huren in Puurs-Sint-Amands? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Puurs-Sint-Amands met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Puurs-Sint-Amands",
     kicker: "Puurs-Sint-Amands · levering op uw werf",
     rit: { afstand: "circa 20 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -1444,9 +1444,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "willebroek",
-    title: "Bouwdroger huren in Willebroek - op 20 minuten | Vernast",
+    title: "Eco bouwdroger huren in Willebroek - op 20 minuten | Vernast",
     description:
-      "Bouwdroger huren in Willebroek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Willebroek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Willebroek",
     kicker: "Willebroek · levering op uw werf",
     rit: { afstand: "circa 15 km", tijd: "ongeveer twintig minuten" },
@@ -1521,9 +1521,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "berlaar",
-    title: "Bouwdroger huren in Berlaar - Netevallei | Vernast",
+    title: "Eco bouwdroger huren in Berlaar - Netevallei | Vernast",
     description:
-      "Bouwdroger huren in Berlaar? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Berlaar met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Berlaar",
     kicker: "Berlaar · levering op uw werf",
     rit: { afstand: "circa 22 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -1598,9 +1598,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bonheiden",
-    title: "Bouwdroger huren in Bonheiden - op 30 minuten | Vernast",
+    title: "Eco bouwdroger huren in Bonheiden - op 30 minuten | Vernast",
     description:
-      "Bouwdroger huren in Bonheiden? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bonheiden met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bonheiden",
     kicker: "Bonheiden · levering op uw werf",
     rit: { afstand: "circa 24 km", tijd: "ongeveer een halfuur" },
@@ -1675,9 +1675,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "nijlen",
-    title: "Bouwdroger huren in Nijlen - op 30 minuten | Vernast",
+    title: "Eco bouwdroger huren in Nijlen - op 30 minuten | Vernast",
     description:
-      "Bouwdroger huren in Nijlen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Nijlen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Nijlen",
     kicker: "Nijlen · levering op uw werf",
     rit: { afstand: "circa 24 km", tijd: "ongeveer een halfuur" },
@@ -1752,9 +1752,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "putte",
-    title: "Bouwdroger huren in Putte - op 30 minuten | Vernast",
+    title: "Eco bouwdroger huren in Putte - op 30 minuten | Vernast",
     description:
-      "Bouwdroger huren in Putte? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Putte met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Putte",
     kicker: "Putte · levering op uw werf",
     rit: { afstand: "circa 27 km", tijd: "ongeveer een halfuur" },
@@ -1829,9 +1829,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-katelijne-waver",
-    title: "Bouwdroger huren in Sint-Katelijne-Waver | Vernast",
+    title: "Eco bouwdroger huren in Sint-Katelijne-Waver | Vernast",
     description:
-      "Bouwdroger huren in Sint-Katelijne-Waver? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Katelijne-Waver met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Katelijne-Waver",
     kicker: "Sint-Katelijne-Waver · levering op uw werf",
     rit: { afstand: "circa 19 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -1906,9 +1906,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wommelgem",
-    title: "Bouwdroger huren in Wommelgem - op 20 minuten | Vernast",
+    title: "Eco bouwdroger huren in Wommelgem - op 20 minuten | Vernast",
     description:
-      "Bouwdroger huren in Wommelgem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wommelgem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wommelgem",
     kicker: "Wommelgem · levering op uw werf",
     rit: { afstand: "circa 16 km", tijd: "ongeveer twintig minuten" },
@@ -1983,9 +1983,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wijnegem",
-    title: "Bouwdroger huren in Wijnegem - op 20 minuten | Vernast",
+    title: "Eco bouwdroger huren in Wijnegem - op 20 minuten | Vernast",
     description:
-      "Bouwdroger huren in Wijnegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wijnegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wijnegem",
     kicker: "Wijnegem · levering op uw werf",
     rit: { afstand: "circa 17 km", tijd: "ongeveer twintig minuten" },
@@ -2060,9 +2060,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ranst",
-    title: "Bouwdroger huren in Ranst - op 25 minuten | Vernast",
+    title: "Eco bouwdroger huren in Ranst - op 25 minuten | Vernast",
     description:
-      "Bouwdroger huren in Ranst? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ranst met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ranst",
     kicker: "Ranst · levering op uw werf",
     rit: { afstand: "circa 20 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -2137,9 +2137,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "schilde",
-    title: "Bouwdroger huren in Schilde - op 25 minuten | Vernast",
+    title: "Eco bouwdroger huren in Schilde - op 25 minuten | Vernast",
     description:
-      "Bouwdroger huren in Schilde? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Schilde met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Schilde",
     kicker: "Schilde · levering op uw werf",
     rit: { afstand: "circa 19 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -2214,9 +2214,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zoersel",
-    title: "Bouwdroger huren in Zoersel - op 30 minuten | Vernast",
+    title: "Eco bouwdroger huren in Zoersel - op 30 minuten | Vernast",
     description:
-      "Bouwdroger huren in Zoersel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zoersel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zoersel",
     kicker: "Zoersel · levering op uw werf",
     rit: { afstand: "circa 25 km", tijd: "ongeveer een halfuur" },
@@ -2291,9 +2291,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zandhoven",
-    title: "Bouwdroger huren in Zandhoven - op 30 minuten | Vernast",
+    title: "Eco bouwdroger huren in Zandhoven - op 30 minuten | Vernast",
     description:
-      "Bouwdroger huren in Zandhoven? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zandhoven met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zandhoven",
     kicker: "Zandhoven · levering op uw werf",
     rit: { afstand: "circa 26 km", tijd: "ongeveer een halfuur" },
@@ -2368,9 +2368,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "malle",
-    title: "Bouwdroger huren in Malle - Oost- en Westmalle | Vernast",
+    title: "Eco bouwdroger huren in Malle - Oost- en Westmalle | Vernast",
     description:
-      "Bouwdroger huren in Malle? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Malle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Malle",
     kicker: "Malle · levering op uw werf",
     rit: { afstand: "circa 28 km", tijd: "ongeveer een halfuur" },
@@ -2445,9 +2445,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "brecht",
-    title: "Bouwdroger huren in Brecht - op 30 minuten | Vernast",
+    title: "Eco bouwdroger huren in Brecht - op 30 minuten | Vernast",
     description:
-      "Bouwdroger huren in Brecht? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Brecht met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Brecht",
     kicker: "Brecht · levering op uw werf",
     rit: { afstand: "circa 29 km", tijd: "ongeveer een halfuur" },
@@ -2522,9 +2522,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kapellen",
-    title: "Bouwdroger huren in Kapellen - op 25 minuten | Vernast",
+    title: "Eco bouwdroger huren in Kapellen - op 25 minuten | Vernast",
     description:
-      "Bouwdroger huren in Kapellen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kapellen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kapellen",
     kicker: "Kapellen · levering op uw werf",
     rit: { afstand: "circa 23 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -2599,9 +2599,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "stabroek",
-    title: "Bouwdroger huren in Stabroek - polder | Vernast",
+    title: "Eco bouwdroger huren in Stabroek - polder | Vernast",
     description:
-      "Bouwdroger huren in Stabroek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Stabroek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Stabroek",
     kicker: "Stabroek · levering op uw werf",
     rit: { afstand: "circa 27 km", tijd: "ongeveer een halfuur" },
@@ -2676,9 +2676,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kalmthout",
-    title: "Bouwdroger huren in Kalmthout - op 35 minuten | Vernast",
+    title: "Eco bouwdroger huren in Kalmthout - op 35 minuten | Vernast",
     description:
-      "Bouwdroger huren in Kalmthout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kalmthout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kalmthout",
     kicker: "Kalmthout · levering op uw werf",
     rit: { afstand: "circa 32 km", tijd: "ongeveer vijfendertig minuten" },
@@ -2753,9 +2753,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wuustwezel",
-    title: "Bouwdroger huren in Wuustwezel - op 35 minuten | Vernast",
+    title: "Eco bouwdroger huren in Wuustwezel - op 35 minuten | Vernast",
     description:
-      "Bouwdroger huren in Wuustwezel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wuustwezel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wuustwezel",
     kicker: "Wuustwezel · levering op uw werf",
     rit: { afstand: "circa 34 km", tijd: "ongeveer vijfendertig minuten" },
@@ -2830,9 +2830,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "essen",
-    title: "Bouwdroger huren in Essen - Noorderkempen | Vernast",
+    title: "Eco bouwdroger huren in Essen - Noorderkempen | Vernast",
     description:
-      "Bouwdroger huren in Essen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Essen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Essen",
     kicker: "Essen · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -2907,9 +2907,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "grobbendonk",
-    title: "Bouwdroger huren in Grobbendonk | Vernast",
+    title: "Eco bouwdroger huren in Grobbendonk | Vernast",
     description:
-      "Bouwdroger huren in Grobbendonk? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Grobbendonk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Grobbendonk",
     kicker: "Grobbendonk · levering op uw werf",
     rit: { afstand: "circa 27 km", tijd: "ongeveer een halfuur" },
@@ -2984,9 +2984,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "herenthout",
-    title: "Bouwdroger huren in Herenthout | Vernast",
+    title: "Eco bouwdroger huren in Herenthout | Vernast",
     description:
-      "Bouwdroger huren in Herenthout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Herenthout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herenthout",
     kicker: "Herenthout · levering op uw werf",
     rit: { afstand: "circa 28 km", tijd: "ongeveer een halfuur" },
@@ -3061,9 +3061,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vorselaar",
-    title: "Bouwdroger huren in Vorselaar | Vernast",
+    title: "Eco bouwdroger huren in Vorselaar | Vernast",
     description:
-      "Bouwdroger huren in Vorselaar? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Vorselaar met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vorselaar",
     kicker: "Vorselaar · levering op uw werf",
     rit: { afstand: "circa 30 km", tijd: "ongeveer een halfuur" },
@@ -3138,9 +3138,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lille",
-    title: "Bouwdroger huren in Lille - Kempen | Vernast",
+    title: "Eco bouwdroger huren in Lille - Kempen | Vernast",
     description:
-      "Bouwdroger huren in Lille? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lille met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lille",
     kicker: "Lille · levering op uw werf",
     rit: { afstand: "circa 33 km", tijd: "ongeveer vijfendertig minuten" },
@@ -3215,9 +3215,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vosselaar",
-    title: "Bouwdroger huren in Vosselaar | Vernast",
+    title: "Eco bouwdroger huren in Vosselaar | Vernast",
     description:
-      "Bouwdroger huren in Vosselaar? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Vosselaar met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vosselaar",
     kicker: "Vosselaar · levering op uw werf",
     rit: { afstand: "circa 37 km", tijd: "ongeveer vijfendertig minuten" },
@@ -3292,9 +3292,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beerse",
-    title: "Bouwdroger huren in Beerse - kleigrond | Vernast",
+    title: "Eco bouwdroger huren in Beerse - kleigrond | Vernast",
     description:
-      "Bouwdroger huren in Beerse? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Beerse met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beerse",
     kicker: "Beerse · levering op uw werf",
     rit: { afstand: "circa 36 km", tijd: "ongeveer vijfendertig minuten" },
@@ -3369,9 +3369,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rijkevorsel",
-    title: "Bouwdroger huren in Rijkevorsel | Vernast",
+    title: "Eco bouwdroger huren in Rijkevorsel | Vernast",
     description:
-      "Bouwdroger huren in Rijkevorsel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Rijkevorsel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Rijkevorsel",
     kicker: "Rijkevorsel · levering op uw werf",
     rit: { afstand: "circa 34 km", tijd: "ongeveer vijfendertig minuten" },
@@ -3446,9 +3446,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "merksplas",
-    title: "Bouwdroger huren in Merksplas | Vernast",
+    title: "Eco bouwdroger huren in Merksplas | Vernast",
     description:
-      "Bouwdroger huren in Merksplas? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Merksplas met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Merksplas",
     kicker: "Merksplas · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -3523,9 +3523,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hoogstraten",
-    title: "Bouwdroger huren in Hoogstraten | Vernast",
+    title: "Eco bouwdroger huren in Hoogstraten | Vernast",
     description:
-      "Bouwdroger huren in Hoogstraten? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hoogstraten met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hoogstraten",
     kicker: "Hoogstraten · levering op uw werf",
     rit: { afstand: "circa 42 km", tijd: "ongeveer veertig minuten" },
@@ -3600,9 +3600,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oud-turnhout",
-    title: "Bouwdroger huren in Oud-Turnhout | Vernast",
+    title: "Eco bouwdroger huren in Oud-Turnhout | Vernast",
     description:
-      "Bouwdroger huren in Oud-Turnhout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oud-Turnhout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oud-Turnhout",
     kicker: "Oud-Turnhout · levering op uw werf",
     rit: { afstand: "circa 43 km", tijd: "ongeveer veertig minuten" },
@@ -3677,9 +3677,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "arendonk",
-    title: "Bouwdroger huren in Arendonk | Vernast",
+    title: "Eco bouwdroger huren in Arendonk | Vernast",
     description:
-      "Bouwdroger huren in Arendonk? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Arendonk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Arendonk",
     kicker: "Arendonk · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -3754,9 +3754,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ravels",
-    title: "Bouwdroger huren in Ravels - Weelde en Poppel | Vernast",
+    title: "Eco bouwdroger huren in Ravels - Weelde en Poppel | Vernast",
     description:
-      "Bouwdroger huren in Ravels? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ravels met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ravels",
     kicker: "Ravels · levering op uw werf",
     rit: { afstand: "circa 47 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -3831,9 +3831,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "baarle-hertog",
-    title: "Bouwdroger huren in Baarle-Hertog | Vernast",
+    title: "Eco bouwdroger huren in Baarle-Hertog | Vernast",
     description:
-      "Bouwdroger huren in Baarle-Hertog? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Baarle-Hertog met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Baarle-Hertog",
     kicker: "Baarle-Hertog · levering op uw werf",
     rit: { afstand: "circa 46 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -3908,9 +3908,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "retie",
-    title: "Bouwdroger huren in Retie | Vernast",
+    title: "Eco bouwdroger huren in Retie | Vernast",
     description:
-      "Bouwdroger huren in Retie? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Retie met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Retie",
     kicker: "Retie · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -3985,9 +3985,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dessel",
-    title: "Bouwdroger huren in Dessel | Vernast",
+    title: "Eco bouwdroger huren in Dessel | Vernast",
     description:
-      "Bouwdroger huren in Dessel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Dessel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Dessel",
     kicker: "Dessel · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijftig minuten" },
@@ -4062,9 +4062,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kasterlee",
-    title: "Bouwdroger huren in Kasterlee | Vernast",
+    title: "Eco bouwdroger huren in Kasterlee | Vernast",
     description:
-      "Bouwdroger huren in Kasterlee? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kasterlee met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kasterlee",
     kicker: "Kasterlee · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -4139,9 +4139,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "olen",
-    title: "Bouwdroger huren in Olen | Vernast",
+    title: "Eco bouwdroger huren in Olen | Vernast",
     description:
-      "Bouwdroger huren in Olen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Olen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Olen",
     kicker: "Olen · levering op uw werf",
     rit: { afstand: "circa 33 km", tijd: "ongeveer vijfendertig minuten" },
@@ -4216,9 +4216,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "westerlo",
-    title: "Bouwdroger huren in Westerlo | Vernast",
+    title: "Eco bouwdroger huren in Westerlo | Vernast",
     description:
-      "Bouwdroger huren in Westerlo? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Westerlo met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Westerlo",
     kicker: "Westerlo · levering op uw werf",
     rit: { afstand: "circa 36 km", tijd: "ongeveer veertig minuten" },
@@ -4293,9 +4293,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "herselt",
-    title: "Bouwdroger huren in Herselt | Vernast",
+    title: "Eco bouwdroger huren in Herselt | Vernast",
     description:
-      "Bouwdroger huren in Herselt? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Herselt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herselt",
     kicker: "Herselt · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -4370,9 +4370,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hulshout",
-    title: "Bouwdroger huren in Hulshout | Vernast",
+    title: "Eco bouwdroger huren in Hulshout | Vernast",
     description:
-      "Bouwdroger huren in Hulshout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hulshout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hulshout",
     kicker: "Hulshout · levering op uw werf",
     rit: { afstand: "circa 33 km", tijd: "ongeveer vijfendertig minuten" },
@@ -4447,9 +4447,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "laakdal",
-    title: "Bouwdroger huren in Laakdal | Vernast",
+    title: "Eco bouwdroger huren in Laakdal | Vernast",
     description:
-      "Bouwdroger huren in Laakdal? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Laakdal met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Laakdal",
     kicker: "Laakdal · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer vijftig minuten" },
@@ -4524,9 +4524,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "meerhout",
-    title: "Bouwdroger huren in Meerhout | Vernast",
+    title: "Eco bouwdroger huren in Meerhout | Vernast",
     description:
-      "Bouwdroger huren in Meerhout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Meerhout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Meerhout",
     kicker: "Meerhout · levering op uw werf",
     rit: { afstand: "circa 46 km", tijd: "ongeveer vijftig minuten" },
@@ -4601,9 +4601,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "balen",
-    title: "Bouwdroger huren in Balen | Vernast",
+    title: "Eco bouwdroger huren in Balen | Vernast",
     description:
-      "Bouwdroger huren in Balen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Balen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Balen",
     kicker: "Balen · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -4678,9 +4678,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "temse",
-    title: "Bouwdroger huren in Temse - op 25 minuten | Vernast",
+    title: "Eco bouwdroger huren in Temse - op 25 minuten | Vernast",
     description:
-      "Bouwdroger huren in Temse? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Temse met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Temse",
     kicker: "Temse · levering op uw werf",
     rit: { afstand: "circa 22 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -4755,9 +4755,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beveren-kruibeke-zwijndrecht",
-    title: "Bouwdroger huren in Beveren-Kruibeke-Zwijndrecht | Vernast",
+    title: "Eco bouwdroger huren in Beveren-Kruibeke-Zwijndrecht | Vernast",
     description:
-      "Bouwdroger huren in Beveren-Kruibeke-Zwijndrecht? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Beveren-Kruibeke-Zwijndrecht met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Beveren-Kruibeke-Zwijndrecht",
     kicker: "Beveren-Kruibeke-Zwijndrecht · levering op uw werf",
     rit: { afstand: "circa 25 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -4832,9 +4832,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-niklaas",
-    title: "Bouwdroger huren in Sint-Niklaas | Vernast",
+    title: "Eco bouwdroger huren in Sint-Niklaas | Vernast",
     description:
-      "Bouwdroger huren in Sint-Niklaas? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Niklaas met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sint-Niklaas",
     kicker: "Sint-Niklaas · levering op uw werf",
     rit: { afstand: "circa 28 km", tijd: "ongeveer een halfuur" },
@@ -4909,9 +4909,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "waasmunster",
-    title: "Bouwdroger huren in Waasmunster | Vernast",
+    title: "Eco bouwdroger huren in Waasmunster | Vernast",
     description:
-      "Bouwdroger huren in Waasmunster? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Waasmunster met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Waasmunster",
     kicker: "Waasmunster · levering op uw werf",
     rit: { afstand: "circa 32 km", tijd: "ongeveer een halfuur" },
@@ -4986,9 +4986,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lokeren",
-    title: "Bouwdroger huren in Lokeren - Durmestad | Vernast",
+    title: "Eco bouwdroger huren in Lokeren - Durmestad | Vernast",
     description:
-      "Bouwdroger huren in Lokeren? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lokeren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lokeren",
     kicker: "Lokeren · levering op uw werf",
     rit: { afstand: "circa 38 km", tijd: "ongeveer vijfendertig minuten" },
@@ -5063,9 +5063,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-gillis-waas",
-    title: "Bouwdroger huren in Sint-Gillis-Waas | Vernast",
+    title: "Eco bouwdroger huren in Sint-Gillis-Waas | Vernast",
     description:
-      "Bouwdroger huren in Sint-Gillis-Waas? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Gillis-Waas met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Gillis-Waas",
     kicker: "Sint-Gillis-Waas · levering op uw werf",
     rit: { afstand: "circa 33 km", tijd: "ongeveer vijfendertig minuten" },
@@ -5140,9 +5140,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "stekene",
-    title: "Bouwdroger huren in Stekene | Vernast",
+    title: "Eco bouwdroger huren in Stekene | Vernast",
     description:
-      "Bouwdroger huren in Stekene? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Stekene met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Stekene",
     kicker: "Stekene · levering op uw werf",
     rit: { afstand: "circa 36 km", tijd: "ongeveer vijfendertig minuten" },
@@ -5217,9 +5217,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gent",
-    title: "Bouwdroger huren in Gent | Vernast",
+    title: "Eco bouwdroger huren in Gent | Vernast",
     description:
-      "Bouwdroger huren in Gent? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Gent met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gent",
     kicker: "Gent · levering op uw werf",
     rit: { afstand: "circa 60 km", tijd: "ongeveer vijftig minuten" },
@@ -5294,9 +5294,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "destelbergen",
-    title: "Bouwdroger huren in Destelbergen | Vernast",
+    title: "Eco bouwdroger huren in Destelbergen | Vernast",
     description:
-      "Bouwdroger huren in Destelbergen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Destelbergen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Destelbergen",
     kicker: "Destelbergen · levering op uw werf",
     rit: { afstand: "circa 57 km", tijd: "ongeveer vijftig minuten" },
@@ -5371,9 +5371,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lochristi",
-    title: "Bouwdroger huren in Lochristi | Vernast",
+    title: "Eco bouwdroger huren in Lochristi | Vernast",
     description:
-      "Bouwdroger huren in Lochristi? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lochristi met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lochristi",
     kicker: "Lochristi · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -5448,9 +5448,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "merelbeke-melle",
-    title: "Bouwdroger huren in Merelbeke-Melle | Vernast",
+    title: "Eco bouwdroger huren in Merelbeke-Melle | Vernast",
     description:
-      "Bouwdroger huren in Merelbeke-Melle? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Merelbeke-Melle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Merelbeke-Melle",
     kicker: "Merelbeke-Melle · levering op uw werf",
     rit: { afstand: "circa 62 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -5525,9 +5525,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oosterzele",
-    title: "Bouwdroger huren in Oosterzele | Vernast",
+    title: "Eco bouwdroger huren in Oosterzele | Vernast",
     description:
-      "Bouwdroger huren in Oosterzele? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oosterzele met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oosterzele",
     kicker: "Oosterzele · levering op uw werf",
     rit: { afstand: "circa 66 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -5602,9 +5602,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-martens-latem",
-    title: "Bouwdroger huren in Sint-Martens-Latem | Vernast",
+    title: "Eco bouwdroger huren in Sint-Martens-Latem | Vernast",
     description:
-      "Bouwdroger huren in Sint-Martens-Latem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Martens-Latem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Martens-Latem",
     kicker: "Sint-Martens-Latem · levering op uw werf",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
@@ -5679,9 +5679,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "nazareth-de-pinte",
-    title: "Bouwdroger huren in Nazareth-De Pinte | Vernast",
+    title: "Eco bouwdroger huren in Nazareth-De Pinte | Vernast",
     description:
-      "Bouwdroger huren in Nazareth-De Pinte? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Nazareth-De Pinte met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Nazareth-De Pinte",
     kicker: "Nazareth-De Pinte · levering op uw werf",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
@@ -5756,9 +5756,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gavere",
-    title: "Bouwdroger huren in Gavere | Vernast",
+    title: "Eco bouwdroger huren in Gavere | Vernast",
     description:
-      "Bouwdroger huren in Gavere? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Gavere met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gavere",
     kicker: "Gavere · levering op uw werf",
     rit: { afstand: "circa 75 km", tijd: "ongeveer een uur" },
@@ -5833,9 +5833,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "deinze",
-    title: "Bouwdroger huren in Deinze | Vernast",
+    title: "Eco bouwdroger huren in Deinze | Vernast",
     description:
-      "Bouwdroger huren in Deinze? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Deinze met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Deinze",
     kicker: "Deinze · levering op uw werf",
     rit: { afstand: "circa 77 km", tijd: "ongeveer een uur" },
@@ -5910,9 +5910,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zulte",
-    title: "Bouwdroger huren in Zulte | Vernast",
+    title: "Eco bouwdroger huren in Zulte | Vernast",
     description:
-      "Bouwdroger huren in Zulte? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zulte met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zulte",
     kicker: "Zulte · levering op uw werf",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -5987,9 +5987,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dendermonde",
-    title: "Bouwdroger huren in Dendermonde | Vernast",
+    title: "Eco bouwdroger huren in Dendermonde | Vernast",
     description:
-      "Bouwdroger huren in Dendermonde? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Dendermonde met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Dendermonde",
     kicker: "Dendermonde · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -6064,9 +6064,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hamme",
-    title: "Bouwdroger huren in Hamme | Vernast",
+    title: "Eco bouwdroger huren in Hamme | Vernast",
     description:
-      "Bouwdroger huren in Hamme? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hamme met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hamme",
     kicker: "Hamme · levering op uw werf",
     rit: { afstand: "circa 37 km", tijd: "ongeveer veertig minuten" },
@@ -6141,9 +6141,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zele",
-    title: "Bouwdroger huren in Zele | Vernast",
+    title: "Eco bouwdroger huren in Zele | Vernast",
     description:
-      "Bouwdroger huren in Zele? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zele met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zele",
     kicker: "Zele · levering op uw werf",
     rit: { afstand: "circa 43 km", tijd: "ongeveer veertig minuten" },
@@ -6218,9 +6218,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "berlare",
-    title: "Bouwdroger huren in Berlare | Vernast",
+    title: "Eco bouwdroger huren in Berlare | Vernast",
     description:
-      "Bouwdroger huren in Berlare? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Berlare met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Berlare",
     kicker: "Berlare · levering op uw werf",
     rit: { afstand: "circa 47 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -6295,9 +6295,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "buggenhout",
-    title: "Bouwdroger huren in Buggenhout | Vernast",
+    title: "Eco bouwdroger huren in Buggenhout | Vernast",
     description:
-      "Bouwdroger huren in Buggenhout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Buggenhout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Buggenhout",
     kicker: "Buggenhout · levering op uw werf",
     rit: { afstand: "circa 37 km", tijd: "ongeveer vijfendertig minuten" },
@@ -6372,9 +6372,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lebbeke",
-    title: "Bouwdroger huren in Lebbeke | Vernast",
+    title: "Eco bouwdroger huren in Lebbeke | Vernast",
     description:
-      "Bouwdroger huren in Lebbeke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lebbeke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lebbeke",
     kicker: "Lebbeke · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -6449,9 +6449,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wichelen",
-    title: "Bouwdroger huren in Wichelen | Vernast",
+    title: "Eco bouwdroger huren in Wichelen | Vernast",
     description:
-      "Bouwdroger huren in Wichelen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wichelen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wichelen",
     kicker: "Wichelen · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -6526,9 +6526,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "laarne",
-    title: "Bouwdroger huren in Laarne | Vernast",
+    title: "Eco bouwdroger huren in Laarne | Vernast",
     description:
-      "Bouwdroger huren in Laarne? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Laarne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Laarne",
     kicker: "Laarne · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -6603,9 +6603,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wetteren",
-    title: "Bouwdroger huren in Wetteren | Vernast",
+    title: "Eco bouwdroger huren in Wetteren | Vernast",
     description:
-      "Bouwdroger huren in Wetteren? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wetteren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wetteren",
     kicker: "Wetteren · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -6680,9 +6680,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "aalst",
-    title: "Bouwdroger huren in Aalst | Vernast",
+    title: "Eco bouwdroger huren in Aalst | Vernast",
     description:
-      "Bouwdroger huren in Aalst? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Aalst met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Aalst",
     kicker: "Aalst · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer veertig minuten" },
@@ -6757,9 +6757,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "denderleeuw",
-    title: "Bouwdroger huren in Denderleeuw | Vernast",
+    title: "Eco bouwdroger huren in Denderleeuw | Vernast",
     description:
-      "Bouwdroger huren in Denderleeuw? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Denderleeuw met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Denderleeuw",
     kicker: "Denderleeuw · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -6834,9 +6834,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "haaltert",
-    title: "Bouwdroger huren in Haaltert | Vernast",
+    title: "Eco bouwdroger huren in Haaltert | Vernast",
     description:
-      "Bouwdroger huren in Haaltert? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Haaltert met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Haaltert",
     kicker: "Haaltert · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -6911,9 +6911,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "erpe-mere",
-    title: "Bouwdroger huren in Erpe-Mere | Vernast",
+    title: "Eco bouwdroger huren in Erpe-Mere | Vernast",
     description:
-      "Bouwdroger huren in Erpe-Mere? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Erpe-Mere met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Erpe-Mere",
     kicker: "Erpe-Mere · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -6988,9 +6988,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lede",
-    title: "Bouwdroger huren in Lede | Vernast",
+    title: "Eco bouwdroger huren in Lede | Vernast",
     description:
-      "Bouwdroger huren in Lede? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lede met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lede",
     kicker: "Lede · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -7065,9 +7065,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ninove",
-    title: "Bouwdroger huren in Ninove | Vernast",
+    title: "Eco bouwdroger huren in Ninove | Vernast",
     description:
-      "Bouwdroger huren in Ninove? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ninove met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ninove",
     kicker: "Ninove · levering op uw werf",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -7142,9 +7142,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "geraardsbergen",
-    title: "Bouwdroger huren in Geraardsbergen | Vernast",
+    title: "Eco bouwdroger huren in Geraardsbergen | Vernast",
     description:
-      "Bouwdroger huren in Geraardsbergen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Geraardsbergen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Geraardsbergen",
     kicker: "Geraardsbergen · levering op uw werf",
     rit: { afstand: "circa 65 km", tijd: "ongeveer een uur" },
@@ -7219,9 +7219,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "herzele",
-    title: "Bouwdroger huren in Herzele | Vernast",
+    title: "Eco bouwdroger huren in Herzele | Vernast",
     description:
-      "Bouwdroger huren in Herzele? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Herzele met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herzele",
     kicker: "Herzele · levering op uw werf",
     rit: { afstand: "circa 58 km", tijd: "ongeveer vijftig minuten" },
@@ -7296,9 +7296,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-lievens-houtem",
-    title: "Bouwdroger huren in Sint-Lievens-Houtem | Vernast",
+    title: "Eco bouwdroger huren in Sint-Lievens-Houtem | Vernast",
     description:
-      "Bouwdroger huren in Sint-Lievens-Houtem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Lievens-Houtem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Lievens-Houtem",
     kicker: "Sint-Lievens-Houtem · levering op uw werf",
     rit: { afstand: "circa 57 km", tijd: "ongeveer vijftig minuten" },
@@ -7373,9 +7373,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "eeklo",
-    title: "Bouwdroger huren in Eeklo | Vernast",
+    title: "Eco bouwdroger huren in Eeklo | Vernast",
     description:
-      "Bouwdroger huren in Eeklo? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Eeklo met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Eeklo",
     kicker: "Eeklo · levering op uw werf",
     rit: { afstand: "circa 65 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -7450,9 +7450,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "maldegem",
-    title: "Bouwdroger huren in Maldegem | Vernast",
+    title: "Eco bouwdroger huren in Maldegem | Vernast",
     description:
-      "Bouwdroger huren in Maldegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Maldegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Maldegem",
     kicker: "Maldegem · levering op uw werf",
     rit: { afstand: "circa 72 km", tijd: "ongeveer een uur" },
@@ -7527,9 +7527,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "aalter",
-    title: "Bouwdroger huren in Aalter | Vernast",
+    title: "Eco bouwdroger huren in Aalter | Vernast",
     description:
-      "Bouwdroger huren in Aalter? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Aalter met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Aalter",
     kicker: "Aalter · levering op uw werf",
     rit: { afstand: "circa 72 km", tijd: "ongeveer een uur" },
@@ -7604,9 +7604,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "assenede",
-    title: "Bouwdroger huren in Assenede | Vernast",
+    title: "Eco bouwdroger huren in Assenede | Vernast",
     description:
-      "Bouwdroger huren in Assenede? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Assenede met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Assenede",
     kicker: "Assenede · levering op uw werf",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -7681,9 +7681,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "evergem",
-    title: "Bouwdroger huren in Evergem | Vernast",
+    title: "Eco bouwdroger huren in Evergem | Vernast",
     description:
-      "Bouwdroger huren in Evergem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Evergem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Evergem",
     kicker: "Evergem · levering op uw werf",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -7758,9 +7758,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kaprijke",
-    title: "Bouwdroger huren in Kaprijke | Vernast",
+    title: "Eco bouwdroger huren in Kaprijke | Vernast",
     description:
-      "Bouwdroger huren in Kaprijke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kaprijke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kaprijke",
     kicker: "Kaprijke · levering op uw werf",
     rit: { afstand: "circa 62 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -7835,9 +7835,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-laureins",
-    title: "Bouwdroger huren in Sint-Laureins | Vernast",
+    title: "Eco bouwdroger huren in Sint-Laureins | Vernast",
     description:
-      "Bouwdroger huren in Sint-Laureins? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Laureins met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sint-Laureins",
     kicker: "Sint-Laureins · levering op uw werf",
     rit: { afstand: "circa 65 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -7912,9 +7912,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lievegem",
-    title: "Bouwdroger huren in Lievegem | Vernast",
+    title: "Eco bouwdroger huren in Lievegem | Vernast",
     description:
-      "Bouwdroger huren in Lievegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lievegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lievegem",
     kicker: "Lievegem · levering op uw werf",
     rit: { afstand: "circa 63 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -7989,9 +7989,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zelzate",
-    title: "Bouwdroger huren in Zelzate | Vernast",
+    title: "Eco bouwdroger huren in Zelzate | Vernast",
     description:
-      "Bouwdroger huren in Zelzate? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zelzate met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zelzate",
     kicker: "Zelzate · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -8066,9 +8066,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oudenaarde",
-    title: "Bouwdroger huren in Oudenaarde | Vernast",
+    title: "Eco bouwdroger huren in Oudenaarde | Vernast",
     description:
-      "Bouwdroger huren in Oudenaarde? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oudenaarde met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oudenaarde",
     kicker: "Oudenaarde · levering op uw werf",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur en tien minuten" },
@@ -8143,9 +8143,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ronse",
-    title: "Bouwdroger huren in Ronse | Vernast",
+    title: "Eco bouwdroger huren in Ronse | Vernast",
     description:
-      "Bouwdroger huren in Ronse? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ronse met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ronse",
     kicker: "Ronse · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur en een kwartier" },
@@ -8220,9 +8220,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zottegem",
-    title: "Bouwdroger huren in Zottegem | Vernast",
+    title: "Eco bouwdroger huren in Zottegem | Vernast",
     description:
-      "Bouwdroger huren in Zottegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zottegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zottegem",
     kicker: "Zottegem · levering op uw werf",
     rit: { afstand: "circa 63 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -8297,9 +8297,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "brakel",
-    title: "Bouwdroger huren in Brakel | Vernast",
+    title: "Eco bouwdroger huren in Brakel | Vernast",
     description:
-      "Bouwdroger huren in Brakel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Brakel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Brakel",
     kicker: "Brakel · levering op uw werf",
     rit: { afstand: "circa 75 km", tijd: "ongeveer een uur" },
@@ -8374,9 +8374,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kluisbergen",
-    title: "Bouwdroger huren in Kluisbergen | Vernast",
+    title: "Eco bouwdroger huren in Kluisbergen | Vernast",
     description:
-      "Bouwdroger huren in Kluisbergen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kluisbergen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kluisbergen",
     kicker: "Kluisbergen · levering op uw werf",
     rit: { afstand: "circa 88 km", tijd: "ongeveer een uur en een kwartier" },
@@ -8451,9 +8451,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kruisem",
-    title: "Bouwdroger huren in Kruisem | Vernast",
+    title: "Eco bouwdroger huren in Kruisem | Vernast",
     description:
-      "Bouwdroger huren in Kruisem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kruisem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kruisem",
     kicker: "Kruisem · levering op uw werf",
     rit: { afstand: "circa 78 km", tijd: "ongeveer een uur" },
@@ -8528,9 +8528,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "horebeke",
-    title: "Bouwdroger huren in Horebeke | Vernast",
+    title: "Eco bouwdroger huren in Horebeke | Vernast",
     description:
-      "Bouwdroger huren in Horebeke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Horebeke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Horebeke",
     kicker: "Horebeke · levering op uw werf",
     rit: { afstand: "circa 72 km", tijd: "ongeveer een uur" },
@@ -8605,9 +8605,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lierde",
-    title: "Bouwdroger huren in Lierde | Vernast",
+    title: "Eco bouwdroger huren in Lierde | Vernast",
     description:
-      "Bouwdroger huren in Lierde? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lierde met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lierde",
     kicker: "Lierde · levering op uw werf",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
@@ -8682,9 +8682,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "maarkedal",
-    title: "Bouwdroger huren in Maarkedal | Vernast",
+    title: "Eco bouwdroger huren in Maarkedal | Vernast",
     description:
-      "Bouwdroger huren in Maarkedal? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Maarkedal met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Maarkedal",
     kicker: "Maarkedal · levering op uw werf",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur en tien minuten" },
@@ -8759,9 +8759,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wortegem-petegem",
-    title: "Bouwdroger huren in Wortegem-Petegem | Vernast",
+    title: "Eco bouwdroger huren in Wortegem-Petegem | Vernast",
     description:
-      "Bouwdroger huren in Wortegem-Petegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wortegem-Petegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Wortegem-Petegem",
     kicker: "Wortegem-Petegem · levering op uw werf",
     rit: { afstand: "circa 82 km", tijd: "ongeveer een uur en tien minuten" },
@@ -8836,9 +8836,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zwalm",
-    title: "Bouwdroger huren in Zwalm | Vernast",
+    title: "Eco bouwdroger huren in Zwalm | Vernast",
     description:
-      "Bouwdroger huren in Zwalm? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zwalm met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zwalm",
     kicker: "Zwalm · levering op uw werf",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
@@ -8913,9 +8913,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zemst",
-    title: "Bouwdroger huren in Zemst | Vernast",
+    title: "Eco bouwdroger huren in Zemst | Vernast",
     description:
-      "Bouwdroger huren in Zemst? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zemst met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zemst",
     kicker: "Zemst · levering op uw werf",
     rit: { afstand: "circa 28 km", tijd: "ongeveer een halfuur" },
@@ -8990,9 +8990,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "meise",
-    title: "Bouwdroger huren in Meise | Vernast",
+    title: "Eco bouwdroger huren in Meise | Vernast",
     description:
-      "Bouwdroger huren in Meise? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Meise met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Meise",
     kicker: "Meise · levering op uw werf",
     rit: { afstand: "circa 30 km", tijd: "ongeveer een halfuur" },
@@ -9067,9 +9067,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "grimbergen",
-    title: "Bouwdroger huren in Grimbergen | Vernast",
+    title: "Eco bouwdroger huren in Grimbergen | Vernast",
     description:
-      "Bouwdroger huren in Grimbergen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Grimbergen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Grimbergen",
     kicker: "Grimbergen · levering op uw werf",
     rit: { afstand: "circa 33 km", tijd: "ongeveer vijfendertig minuten" },
@@ -9144,9 +9144,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wemmel",
-    title: "Bouwdroger huren in Wemmel | Vernast",
+    title: "Eco bouwdroger huren in Wemmel | Vernast",
     description:
-      "Bouwdroger huren in Wemmel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wemmel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wemmel",
     kicker: "Wemmel · levering op uw werf",
     rit: { afstand: "circa 33 km", tijd: "ongeveer vijfendertig minuten" },
@@ -9221,9 +9221,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vilvoorde",
-    title: "Bouwdroger huren in Vilvoorde | Vernast",
+    title: "Eco bouwdroger huren in Vilvoorde | Vernast",
     description:
-      "Bouwdroger huren in Vilvoorde? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Vilvoorde met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vilvoorde",
     kicker: "Vilvoorde · levering op uw werf",
     rit: { afstand: "circa 35 km", tijd: "ongeveer vijfendertig minuten" },
@@ -9298,9 +9298,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "machelen",
-    title: "Bouwdroger huren in Machelen | Vernast",
+    title: "Eco bouwdroger huren in Machelen | Vernast",
     description:
-      "Bouwdroger huren in Machelen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Machelen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Machelen",
     kicker: "Machelen · levering op uw werf",
     rit: { afstand: "circa 37 km", tijd: "ongeveer vijfendertig minuten" },
@@ -9375,9 +9375,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kampenhout",
-    title: "Bouwdroger huren in Kampenhout | Vernast",
+    title: "Eco bouwdroger huren in Kampenhout | Vernast",
     description:
-      "Bouwdroger huren in Kampenhout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kampenhout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kampenhout",
     kicker: "Kampenhout · levering op uw werf",
     rit: { afstand: "circa 38 km", tijd: "ongeveer vijfendertig minuten" },
@@ -9452,9 +9452,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zaventem",
-    title: "Bouwdroger huren in Zaventem | Vernast",
+    title: "Eco bouwdroger huren in Zaventem | Vernast",
     description:
-      "Bouwdroger huren in Zaventem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zaventem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zaventem",
     kicker: "Zaventem · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -9529,9 +9529,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "steenokkerzeel",
-    title: "Bouwdroger huren in Steenokkerzeel | Vernast",
+    title: "Eco bouwdroger huren in Steenokkerzeel | Vernast",
     description:
-      "Bouwdroger huren in Steenokkerzeel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Steenokkerzeel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Steenokkerzeel",
     kicker: "Steenokkerzeel · levering op uw werf",
     rit: { afstand: "circa 42 km", tijd: "ongeveer veertig minuten" },
@@ -9606,9 +9606,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kortenberg",
-    title: "Bouwdroger huren in Kortenberg | Vernast",
+    title: "Eco bouwdroger huren in Kortenberg | Vernast",
     description:
-      "Bouwdroger huren in Kortenberg? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kortenberg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kortenberg",
     kicker: "Kortenberg · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer veertig minuten" },
@@ -9683,9 +9683,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kraainem",
-    title: "Bouwdroger huren in Kraainem | Vernast",
+    title: "Eco bouwdroger huren in Kraainem | Vernast",
     description:
-      "Bouwdroger huren in Kraainem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kraainem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kraainem",
     kicker: "Kraainem · levering op uw werf",
     rit: { afstand: "circa 42 km", tijd: "ongeveer veertig minuten" },
@@ -9760,9 +9760,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wezembeek-oppem",
-    title: "Bouwdroger huren in Wezembeek-Oppem | Vernast",
+    title: "Eco bouwdroger huren in Wezembeek-Oppem | Vernast",
     description:
-      "Bouwdroger huren in Wezembeek-Oppem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wezembeek-Oppem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Wezembeek-Oppem",
     kicker: "Wezembeek-Oppem · levering op uw werf",
     rit: { afstand: "circa 43 km", tijd: "ongeveer veertig minuten" },
@@ -9837,9 +9837,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tervuren",
-    title: "Bouwdroger huren in Tervuren | Vernast",
+    title: "Eco bouwdroger huren in Tervuren | Vernast",
     description:
-      "Bouwdroger huren in Tervuren? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Tervuren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tervuren",
     kicker: "Tervuren · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -9914,9 +9914,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hoeilaart",
-    title: "Bouwdroger huren in Hoeilaart | Vernast",
+    title: "Eco bouwdroger huren in Hoeilaart | Vernast",
     description:
-      "Bouwdroger huren in Hoeilaart? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hoeilaart met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hoeilaart",
     kicker: "Hoeilaart · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -9991,9 +9991,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "overijse",
-    title: "Bouwdroger huren in Overijse | Vernast",
+    title: "Eco bouwdroger huren in Overijse | Vernast",
     description:
-      "Bouwdroger huren in Overijse? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Overijse met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Overijse",
     kicker: "Overijse · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -10068,9 +10068,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-genesius-rode",
-    title: "Bouwdroger huren in Sint-Genesius-Rode | Vernast",
+    title: "Eco bouwdroger huren in Sint-Genesius-Rode | Vernast",
     description:
-      "Bouwdroger huren in Sint-Genesius-Rode? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Genesius-Rode met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Genesius-Rode",
     kicker: "Sint-Genesius-Rode · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -10145,9 +10145,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "drogenbos",
-    title: "Bouwdroger huren in Drogenbos | Vernast",
+    title: "Eco bouwdroger huren in Drogenbos | Vernast",
     description:
-      "Bouwdroger huren in Drogenbos? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Drogenbos met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Drogenbos",
     kicker: "Drogenbos · levering op uw werf",
     rit: { afstand: "circa 42 km", tijd: "ongeveer veertig minuten" },
@@ -10222,9 +10222,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "linkebeek",
-    title: "Bouwdroger huren in Linkebeek | Vernast",
+    title: "Eco bouwdroger huren in Linkebeek | Vernast",
     description:
-      "Bouwdroger huren in Linkebeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Linkebeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Linkebeek",
     kicker: "Linkebeek · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer veertig minuten" },
@@ -10299,9 +10299,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "asse",
-    title: "Bouwdroger huren in Asse | Vernast",
+    title: "Eco bouwdroger huren in Asse | Vernast",
     description:
-      "Bouwdroger huren in Asse? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Asse met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Asse",
     kicker: "Asse · levering op uw werf",
     rit: { afstand: "circa 35 km", tijd: "ongeveer vijfendertig minuten" },
@@ -10376,9 +10376,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ternat",
-    title: "Bouwdroger huren in Ternat | Vernast",
+    title: "Eco bouwdroger huren in Ternat | Vernast",
     description:
-      "Bouwdroger huren in Ternat? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ternat met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ternat",
     kicker: "Ternat · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -10453,9 +10453,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dilbeek",
-    title: "Bouwdroger huren in Dilbeek | Vernast",
+    title: "Eco bouwdroger huren in Dilbeek | Vernast",
     description:
-      "Bouwdroger huren in Dilbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Dilbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Dilbeek",
     kicker: "Dilbeek · levering op uw werf",
     rit: { afstand: "circa 42 km", tijd: "ongeveer veertig minuten" },
@@ -10530,9 +10530,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-pieters-leeuw",
-    title: "Bouwdroger huren in Sint-Pieters-Leeuw | Vernast",
+    title: "Eco bouwdroger huren in Sint-Pieters-Leeuw | Vernast",
     description:
-      "Bouwdroger huren in Sint-Pieters-Leeuw? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Pieters-Leeuw met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Pieters-Leeuw",
     kicker: "Sint-Pieters-Leeuw · levering op uw werf",
     rit: { afstand: "circa 43 km", tijd: "ongeveer veertig minuten" },
@@ -10607,9 +10607,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beersel",
-    title: "Bouwdroger huren in Beersel | Vernast",
+    title: "Eco bouwdroger huren in Beersel | Vernast",
     description:
-      "Bouwdroger huren in Beersel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Beersel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beersel",
     kicker: "Beersel · levering op uw werf",
     rit: { afstand: "circa 43 km", tijd: "ongeveer veertig minuten" },
@@ -10684,9 +10684,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "liedekerke",
-    title: "Bouwdroger huren in Liedekerke | Vernast",
+    title: "Eco bouwdroger huren in Liedekerke | Vernast",
     description:
-      "Bouwdroger huren in Liedekerke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Liedekerke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Liedekerke",
     kicker: "Liedekerke · levering op uw werf",
     rit: { afstand: "circa 43 km", tijd: "ongeveer veertig minuten" },
@@ -10761,9 +10761,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lennik",
-    title: "Bouwdroger huren in Lennik | Vernast",
+    title: "Eco bouwdroger huren in Lennik | Vernast",
     description:
-      "Bouwdroger huren in Lennik? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lennik met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lennik",
     kicker: "Lennik · levering op uw werf",
     rit: { afstand: "circa 47 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -10838,9 +10838,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "roosdaal",
-    title: "Bouwdroger huren in Roosdaal | Vernast",
+    title: "Eco bouwdroger huren in Roosdaal | Vernast",
     description:
-      "Bouwdroger huren in Roosdaal? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Roosdaal met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Roosdaal",
     kicker: "Roosdaal · levering op uw werf",
     rit: { afstand: "circa 47 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -10915,9 +10915,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "halle",
-    title: "Bouwdroger huren in Halle | Vernast",
+    title: "Eco bouwdroger huren in Halle | Vernast",
     description:
-      "Bouwdroger huren in Halle? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Halle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Halle",
     kicker: "Halle · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -10992,9 +10992,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "londerzeel",
-    title: "Bouwdroger huren in Londerzeel | Vernast",
+    title: "Eco bouwdroger huren in Londerzeel | Vernast",
     description:
-      "Bouwdroger huren in Londerzeel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Londerzeel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Londerzeel",
     kicker: "Londerzeel · levering op uw werf",
     rit: { afstand: "circa 25 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -11069,9 +11069,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kapelle-op-den-bos",
-    title: "Bouwdroger huren in Kapelle-op-den-Bos | Vernast",
+    title: "Eco bouwdroger huren in Kapelle-op-den-Bos | Vernast",
     description:
-      "Bouwdroger huren in Kapelle-op-den-Bos? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kapelle-op-den-Bos met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Kapelle-op-den-Bos",
     kicker: "Kapelle-op-den-Bos · levering op uw werf",
     rit: { afstand: "circa 25 km", tijd: "ongeveer vijfentwintig minuten" },
@@ -11146,9 +11146,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "merchtem",
-    title: "Bouwdroger huren in Merchtem | Vernast",
+    title: "Eco bouwdroger huren in Merchtem | Vernast",
     description:
-      "Bouwdroger huren in Merchtem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Merchtem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Merchtem",
     kicker: "Merchtem · levering op uw werf",
     rit: { afstand: "circa 32 km", tijd: "ongeveer vijfendertig minuten" },
@@ -11223,9 +11223,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "opwijk",
-    title: "Bouwdroger huren in Opwijk | Vernast",
+    title: "Eco bouwdroger huren in Opwijk | Vernast",
     description:
-      "Bouwdroger huren in Opwijk? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Opwijk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Opwijk",
     kicker: "Opwijk · levering op uw werf",
     rit: { afstand: "circa 35 km", tijd: "ongeveer vijfendertig minuten" },
@@ -11300,9 +11300,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "affligem",
-    title: "Bouwdroger huren in Affligem | Vernast",
+    title: "Eco bouwdroger huren in Affligem | Vernast",
     description:
-      "Bouwdroger huren in Affligem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Affligem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Affligem",
     kicker: "Affligem · levering op uw werf",
     rit: { afstand: "circa 42 km", tijd: "ongeveer veertig minuten" },
@@ -11377,9 +11377,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "pepingen",
-    title: "Bouwdroger huren in Pepingen | Vernast",
+    title: "Eco bouwdroger huren in Pepingen | Vernast",
     description:
-      "Bouwdroger huren in Pepingen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Pepingen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Pepingen",
     kicker: "Pepingen · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -11454,9 +11454,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "pajottegem",
-    title: "Bouwdroger huren in Pajottegem | Vernast",
+    title: "Eco bouwdroger huren in Pajottegem | Vernast",
     description:
-      "Bouwdroger huren in Pajottegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Pajottegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Pajottegem",
     kicker: "Pajottegem · levering op uw werf",
     rit: { afstand: "circa 57 km", tijd: "ongeveer vijftig minuten" },
@@ -11531,9 +11531,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bever",
-    title: "Bouwdroger huren in Bever | Vernast",
+    title: "Eco bouwdroger huren in Bever | Vernast",
     description:
-      "Bouwdroger huren in Bever? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bever met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bever",
     kicker: "Bever · levering op uw werf",
     rit: { afstand: "circa 60 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -11608,9 +11608,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "leuven",
-    title: "Bouwdroger huren in Leuven | Vernast",
+    title: "Eco bouwdroger huren in Leuven | Vernast",
     description:
-      "Bouwdroger huren in Leuven? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Leuven met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Leuven",
     kicker: "Leuven · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -11685,9 +11685,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "herent",
-    title: "Bouwdroger huren in Herent | Vernast",
+    title: "Eco bouwdroger huren in Herent | Vernast",
     description:
-      "Bouwdroger huren in Herent? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Herent met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herent",
     kicker: "Herent · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -11762,9 +11762,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bertem",
-    title: "Bouwdroger huren in Bertem | Vernast",
+    title: "Eco bouwdroger huren in Bertem | Vernast",
     description:
-      "Bouwdroger huren in Bertem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bertem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bertem",
     kicker: "Bertem · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -11839,9 +11839,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oud-heverlee",
-    title: "Bouwdroger huren in Oud-Heverlee | Vernast",
+    title: "Eco bouwdroger huren in Oud-Heverlee | Vernast",
     description:
-      "Bouwdroger huren in Oud-Heverlee? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oud-Heverlee met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oud-Heverlee",
     kicker: "Oud-Heverlee · levering op uw werf",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -11916,9 +11916,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "huldenberg",
-    title: "Bouwdroger huren in Huldenberg | Vernast",
+    title: "Eco bouwdroger huren in Huldenberg | Vernast",
     description:
-      "Bouwdroger huren in Huldenberg? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Huldenberg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Huldenberg",
     kicker: "Huldenberg · levering op uw werf",
     rit: { afstand: "circa 57 km", tijd: "ongeveer vijftig minuten" },
@@ -11993,9 +11993,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bierbeek",
-    title: "Bouwdroger huren in Bierbeek | Vernast",
+    title: "Eco bouwdroger huren in Bierbeek | Vernast",
     description:
-      "Bouwdroger huren in Bierbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bierbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bierbeek",
     kicker: "Bierbeek · levering op uw werf",
     rit: { afstand: "circa 57 km", tijd: "ongeveer vijftig minuten" },
@@ -12070,9 +12070,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "boutersem",
-    title: "Bouwdroger huren in Boutersem | Vernast",
+    title: "Eco bouwdroger huren in Boutersem | Vernast",
     description:
-      "Bouwdroger huren in Boutersem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Boutersem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Boutersem",
     kicker: "Boutersem · levering op uw werf",
     rit: { afstand: "circa 60 km", tijd: "ongeveer vijftig minuten" },
@@ -12147,9 +12147,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lubbeek",
-    title: "Bouwdroger huren in Lubbeek | Vernast",
+    title: "Eco bouwdroger huren in Lubbeek | Vernast",
     description:
-      "Bouwdroger huren in Lubbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lubbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lubbeek",
     kicker: "Lubbeek · levering op uw werf",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -12224,9 +12224,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "boortmeerbeek",
-    title: "Bouwdroger huren in Boortmeerbeek | Vernast",
+    title: "Eco bouwdroger huren in Boortmeerbeek | Vernast",
     description:
-      "Bouwdroger huren in Boortmeerbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Boortmeerbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Boortmeerbeek",
     kicker: "Boortmeerbeek · levering op uw werf",
     rit: { afstand: "circa 37 km", tijd: "ongeveer vijfendertig minuten" },
@@ -12301,9 +12301,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "keerbergen",
-    title: "Bouwdroger huren in Keerbergen | Vernast",
+    title: "Eco bouwdroger huren in Keerbergen | Vernast",
     description:
-      "Bouwdroger huren in Keerbergen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Keerbergen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Keerbergen",
     kicker: "Keerbergen · levering op uw werf",
     rit: { afstand: "circa 35 km", tijd: "ongeveer vijfendertig minuten" },
@@ -12378,9 +12378,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "begijnendijk",
-    title: "Bouwdroger huren in Begijnendijk | Vernast",
+    title: "Eco bouwdroger huren in Begijnendijk | Vernast",
     description:
-      "Bouwdroger huren in Begijnendijk? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Begijnendijk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Begijnendijk",
     kicker: "Begijnendijk · levering op uw werf",
     rit: { afstand: "circa 35 km", tijd: "ongeveer vijfendertig minuten" },
@@ -12455,9 +12455,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tremelo",
-    title: "Bouwdroger huren in Tremelo | Vernast",
+    title: "Eco bouwdroger huren in Tremelo | Vernast",
     description:
-      "Bouwdroger huren in Tremelo? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Tremelo met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tremelo",
     kicker: "Tremelo · levering op uw werf",
     rit: { afstand: "circa 38 km", tijd: "ongeveer vijfendertig minuten" },
@@ -12532,9 +12532,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "haacht",
-    title: "Bouwdroger huren in Haacht | Vernast",
+    title: "Eco bouwdroger huren in Haacht | Vernast",
     description:
-      "Bouwdroger huren in Haacht? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Haacht met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Haacht",
     kicker: "Haacht · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -12609,9 +12609,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rotselaar",
-    title: "Bouwdroger huren in Rotselaar | Vernast",
+    title: "Eco bouwdroger huren in Rotselaar | Vernast",
     description:
-      "Bouwdroger huren in Rotselaar? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Rotselaar met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Rotselaar",
     kicker: "Rotselaar · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer veertig minuten" },
@@ -12686,9 +12686,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "holsbeek",
-    title: "Bouwdroger huren in Holsbeek | Vernast",
+    title: "Eco bouwdroger huren in Holsbeek | Vernast",
     description:
-      "Bouwdroger huren in Holsbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Holsbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Holsbeek",
     kicker: "Holsbeek · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -12763,9 +12763,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "aarschot",
-    title: "Bouwdroger huren in Aarschot | Vernast",
+    title: "Eco bouwdroger huren in Aarschot | Vernast",
     description:
-      "Bouwdroger huren in Aarschot? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Aarschot met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Aarschot",
     kicker: "Aarschot · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer veertig minuten" },
@@ -12840,9 +12840,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tielt-winge",
-    title: "Bouwdroger huren in Tielt-Winge | Vernast",
+    title: "Eco bouwdroger huren in Tielt-Winge | Vernast",
     description:
-      "Bouwdroger huren in Tielt-Winge? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Tielt-Winge met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tielt-Winge",
     kicker: "Tielt-Winge · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -12917,9 +12917,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "scherpenheuvel-zichem",
-    title: "Bouwdroger huren in Scherpenheuvel-Zichem | Vernast",
+    title: "Eco bouwdroger huren in Scherpenheuvel-Zichem | Vernast",
     description:
-      "Bouwdroger huren in Scherpenheuvel-Zichem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Scherpenheuvel-Zichem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Scherpenheuvel-Zichem",
     kicker: "Scherpenheuvel-Zichem · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -12994,9 +12994,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bekkevoort",
-    title: "Bouwdroger huren in Bekkevoort | Vernast",
+    title: "Eco bouwdroger huren in Bekkevoort | Vernast",
     description:
-      "Bouwdroger huren in Bekkevoort? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bekkevoort met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bekkevoort",
     kicker: "Bekkevoort · levering op uw werf",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -13071,9 +13071,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "diest",
-    title: "Bouwdroger huren in Diest | Vernast",
+    title: "Eco bouwdroger huren in Diest | Vernast",
     description:
-      "Bouwdroger huren in Diest? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Diest met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Diest",
     kicker: "Diest · levering op uw werf",
     rit: { afstand: "circa 58 km", tijd: "ongeveer vijftig minuten" },
@@ -13148,9 +13148,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "glabbeek",
-    title: "Bouwdroger huren in Glabbeek | Vernast",
+    title: "Eco bouwdroger huren in Glabbeek | Vernast",
     description:
-      "Bouwdroger huren in Glabbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Glabbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Glabbeek",
     kicker: "Glabbeek · levering op uw werf",
     rit: { afstand: "circa 58 km", tijd: "ongeveer vijftig minuten" },
@@ -13225,9 +13225,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kortenaken",
-    title: "Bouwdroger huren in Kortenaken | Vernast",
+    title: "Eco bouwdroger huren in Kortenaken | Vernast",
     description:
-      "Bouwdroger huren in Kortenaken? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kortenaken met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kortenaken",
     kicker: "Kortenaken · levering op uw werf",
     rit: { afstand: "circa 62 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -13302,9 +13302,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "geetbets",
-    title: "Bouwdroger huren in Geetbets | Vernast",
+    title: "Eco bouwdroger huren in Geetbets | Vernast",
     description:
-      "Bouwdroger huren in Geetbets? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Geetbets met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Geetbets",
     kicker: "Geetbets · levering op uw werf",
     rit: { afstand: "circa 65 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -13379,9 +13379,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tienen",
-    title: "Bouwdroger huren in Tienen | Vernast",
+    title: "Eco bouwdroger huren in Tienen | Vernast",
     description:
-      "Bouwdroger huren in Tienen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Tienen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tienen",
     kicker: "Tienen · levering op uw werf",
     rit: { afstand: "circa 65 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -13456,9 +13456,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "linter",
-    title: "Bouwdroger huren in Linter | Vernast",
+    title: "Eco bouwdroger huren in Linter | Vernast",
     description:
-      "Bouwdroger huren in Linter? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Linter met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Linter",
     kicker: "Linter · levering op uw werf",
     rit: { afstand: "circa 65 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -13533,9 +13533,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zoutleeuw",
-    title: "Bouwdroger huren in Zoutleeuw | Vernast",
+    title: "Eco bouwdroger huren in Zoutleeuw | Vernast",
     description:
-      "Bouwdroger huren in Zoutleeuw? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zoutleeuw met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zoutleeuw",
     kicker: "Zoutleeuw · levering op uw werf",
     rit: { afstand: "circa 68 km", tijd: "ongeveer een uur" },
@@ -13610,9 +13610,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hoegaarden",
-    title: "Bouwdroger huren in Hoegaarden | Vernast",
+    title: "Eco bouwdroger huren in Hoegaarden | Vernast",
     description:
-      "Bouwdroger huren in Hoegaarden? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hoegaarden met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hoegaarden",
     kicker: "Hoegaarden · levering op uw werf",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
@@ -13687,9 +13687,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "landen",
-    title: "Bouwdroger huren in Landen | Vernast",
+    title: "Eco bouwdroger huren in Landen | Vernast",
     description:
-      "Bouwdroger huren in Landen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Landen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Landen",
     kicker: "Landen · levering op uw werf",
     rit: { afstand: "circa 78 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -13764,9 +13764,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "knokke-heist",
-    title: "Bouwdroger huren in Knokke-Heist | Vernast",
+    title: "Eco bouwdroger huren in Knokke-Heist | Vernast",
     description:
-      "Bouwdroger huren in Knokke-Heist? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Knokke-Heist met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Knokke-Heist",
     kicker: "Knokke-Heist · levering op uw werf",
     rit: { afstand: "circa 120 km", tijd: "ongeveer een uur en een kwartier" },
@@ -13841,9 +13841,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "blankenberge",
-    title: "Bouwdroger huren in Blankenberge | Vernast",
+    title: "Eco bouwdroger huren in Blankenberge | Vernast",
     description:
-      "Bouwdroger huren in Blankenberge? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Blankenberge met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Blankenberge",
     kicker: "Blankenberge · levering op uw werf",
     rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en tien minuten" },
@@ -13918,9 +13918,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "de-haan",
-    title: "Bouwdroger huren in De Haan | Vernast",
+    title: "Eco bouwdroger huren in De Haan | Vernast",
     description:
-      "Bouwdroger huren in De Haan? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in De Haan met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in De Haan",
     kicker: "De Haan · levering op uw werf",
     rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en tien minuten" },
@@ -13995,9 +13995,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bredene",
-    title: "Bouwdroger huren in Bredene | Vernast",
+    title: "Eco bouwdroger huren in Bredene | Vernast",
     description:
-      "Bouwdroger huren in Bredene? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bredene met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bredene",
     kicker: "Bredene · levering op uw werf",
     rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
@@ -14072,9 +14072,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oostende",
-    title: "Bouwdroger huren in Oostende | Vernast",
+    title: "Eco bouwdroger huren in Oostende | Vernast",
     description:
-      "Bouwdroger huren in Oostende? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oostende met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oostende",
     kicker: "Oostende · levering op uw werf",
     rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
@@ -14149,9 +14149,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "middelkerke",
-    title: "Bouwdroger huren in Middelkerke | Vernast",
+    title: "Eco bouwdroger huren in Middelkerke | Vernast",
     description:
-      "Bouwdroger huren in Middelkerke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Middelkerke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Middelkerke",
     kicker: "Middelkerke · levering op uw werf",
     rit: { afstand: "circa 120 km", tijd: "ongeveer een uur en twintig minuten" },
@@ -14226,9 +14226,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "nieuwpoort",
-    title: "Bouwdroger huren in Nieuwpoort | Vernast",
+    title: "Eco bouwdroger huren in Nieuwpoort | Vernast",
     description:
-      "Bouwdroger huren in Nieuwpoort? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Nieuwpoort met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Nieuwpoort",
     kicker: "Nieuwpoort · levering op uw werf",
     rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
@@ -14303,9 +14303,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "koksijde",
-    title: "Bouwdroger huren in Koksijde | Vernast",
+    title: "Eco bouwdroger huren in Koksijde | Vernast",
     description:
-      "Bouwdroger huren in Koksijde? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Koksijde met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Koksijde",
     kicker: "Koksijde · levering op uw werf",
     rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en dertig minuten" },
@@ -14380,9 +14380,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "de-panne",
-    title: "Bouwdroger huren in De Panne | Vernast",
+    title: "Eco bouwdroger huren in De Panne | Vernast",
     description:
-      "Bouwdroger huren in De Panne? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in De Panne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in De Panne",
     kicker: "De Panne · levering op uw werf",
     rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en dertig minuten" },
@@ -14457,9 +14457,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "brugge",
-    title: "Bouwdroger huren in Brugge | Vernast",
+    title: "Eco bouwdroger huren in Brugge | Vernast",
     description:
-      "Bouwdroger huren in Brugge? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Brugge met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Brugge",
     kicker: "Brugge · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -14534,9 +14534,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "damme",
-    title: "Bouwdroger huren in Damme | Vernast",
+    title: "Eco bouwdroger huren in Damme | Vernast",
     description:
-      "Bouwdroger huren in Damme? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Damme met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Damme",
     kicker: "Damme · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -14611,9 +14611,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zuienkerke",
-    title: "Bouwdroger huren in Zuienkerke | Vernast",
+    title: "Eco bouwdroger huren in Zuienkerke | Vernast",
     description:
-      "Bouwdroger huren in Zuienkerke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zuienkerke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zuienkerke",
     kicker: "Zuienkerke · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -14688,9 +14688,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oudenburg",
-    title: "Bouwdroger huren in Oudenburg | Vernast",
+    title: "Eco bouwdroger huren in Oudenburg | Vernast",
     description:
-      "Bouwdroger huren in Oudenburg? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oudenburg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oudenburg",
     kicker: "Oudenburg · levering op uw werf",
     rit: { afstand: "circa 108 km", tijd: "ongeveer een uur en tien minuten" },
@@ -14765,9 +14765,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gistel",
-    title: "Bouwdroger huren in Gistel | Vernast",
+    title: "Eco bouwdroger huren in Gistel | Vernast",
     description:
-      "Bouwdroger huren in Gistel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Gistel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gistel",
     kicker: "Gistel · levering op uw werf",
     rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en tien minuten" },
@@ -14842,9 +14842,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ichtegem",
-    title: "Bouwdroger huren in Ichtegem | Vernast",
+    title: "Eco bouwdroger huren in Ichtegem | Vernast",
     description:
-      "Bouwdroger huren in Ichtegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ichtegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ichtegem",
     kicker: "Ichtegem · levering op uw werf",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
@@ -14919,9 +14919,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "jabbeke",
-    title: "Bouwdroger huren in Jabbeke | Vernast",
+    title: "Eco bouwdroger huren in Jabbeke | Vernast",
     description:
-      "Bouwdroger huren in Jabbeke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Jabbeke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Jabbeke",
     kicker: "Jabbeke · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -14996,9 +14996,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zedelgem",
-    title: "Bouwdroger huren in Zedelgem | Vernast",
+    title: "Eco bouwdroger huren in Zedelgem | Vernast",
     description:
-      "Bouwdroger huren in Zedelgem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zedelgem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zedelgem",
     kicker: "Zedelgem · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -15073,9 +15073,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oostkamp",
-    title: "Bouwdroger huren in Oostkamp | Vernast",
+    title: "Eco bouwdroger huren in Oostkamp | Vernast",
     description:
-      "Bouwdroger huren in Oostkamp? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oostkamp met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oostkamp",
     kicker: "Oostkamp · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -15150,9 +15150,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beernem",
-    title: "Bouwdroger huren in Beernem | Vernast",
+    title: "Eco bouwdroger huren in Beernem | Vernast",
     description:
-      "Bouwdroger huren in Beernem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Beernem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beernem",
     kicker: "Beernem · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
@@ -15227,9 +15227,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "torhout",
-    title: "Bouwdroger huren in Torhout | Vernast",
+    title: "Eco bouwdroger huren in Torhout | Vernast",
     description:
-      "Bouwdroger huren in Torhout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Torhout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Torhout",
     kicker: "Torhout · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -15304,9 +15304,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ieper",
-    title: "Bouwdroger huren in Ieper | Vernast",
+    title: "Eco bouwdroger huren in Ieper | Vernast",
     description:
-      "Bouwdroger huren in Ieper? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ieper met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ieper",
     kicker: "Ieper · levering op uw werf",
     rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en een half" },
@@ -15381,9 +15381,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zonnebeke",
-    title: "Bouwdroger huren in Zonnebeke | Vernast",
+    title: "Eco bouwdroger huren in Zonnebeke | Vernast",
     description:
-      "Bouwdroger huren in Zonnebeke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zonnebeke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zonnebeke",
     kicker: "Zonnebeke · levering op uw werf",
     rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en een half" },
@@ -15458,9 +15458,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "langemark-poelkapelle",
-    title: "Bouwdroger huren in Langemark-Poelkapelle | Vernast",
+    title: "Eco bouwdroger huren in Langemark-Poelkapelle | Vernast",
     description:
-      "Bouwdroger huren in Langemark-Poelkapelle? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Langemark-Poelkapelle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Langemark-Poelkapelle",
     kicker: "Langemark-Poelkapelle · levering op uw werf",
     rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en een half" },
@@ -15535,9 +15535,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "mesen",
-    title: "Bouwdroger huren in Mesen | Vernast",
+    title: "Eco bouwdroger huren in Mesen | Vernast",
     description:
-      "Bouwdroger huren in Mesen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Mesen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Mesen",
     kicker: "Mesen · levering op uw werf",
     rit: { afstand: "circa 145 km", tijd: "ongeveer een uur en veertig minuten" },
@@ -15612,9 +15612,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "heuvelland",
-    title: "Bouwdroger huren in Heuvelland | Vernast",
+    title: "Eco bouwdroger huren in Heuvelland | Vernast",
     description:
-      "Bouwdroger huren in Heuvelland? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Heuvelland met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Heuvelland",
     kicker: "Heuvelland · levering op uw werf",
     rit: { afstand: "circa 145 km", tijd: "ongeveer een uur en veertig minuten" },
@@ -15689,9 +15689,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "poperinge",
-    title: "Bouwdroger huren in Poperinge | Vernast",
+    title: "Eco bouwdroger huren in Poperinge | Vernast",
     description:
-      "Bouwdroger huren in Poperinge? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Poperinge met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Poperinge",
     kicker: "Poperinge · levering op uw werf",
     rit: { afstand: "circa 145 km", tijd: "ongeveer een uur en veertig minuten" },
@@ -15766,9 +15766,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vleteren",
-    title: "Bouwdroger huren in Vleteren | Vernast",
+    title: "Eco bouwdroger huren in Vleteren | Vernast",
     description:
-      "Bouwdroger huren in Vleteren? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Vleteren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vleteren",
     kicker: "Vleteren · levering op uw werf",
     rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en dertig minuten" },
@@ -15843,9 +15843,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "diksmuide",
-    title: "Bouwdroger huren in Diksmuide | Vernast",
+    title: "Eco bouwdroger huren in Diksmuide | Vernast",
     description:
-      "Bouwdroger huren in Diksmuide? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Diksmuide met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Diksmuide",
     kicker: "Diksmuide · levering op uw werf",
     rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
@@ -15920,9 +15920,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "veurne",
-    title: "Bouwdroger huren in Veurne | Vernast",
+    title: "Eco bouwdroger huren in Veurne | Vernast",
     description:
-      "Bouwdroger huren in Veurne? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Veurne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Veurne",
     kicker: "Veurne · levering op uw werf",
     rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en dertig minuten" },
@@ -15997,9 +15997,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "alveringem",
-    title: "Bouwdroger huren in Alveringem | Vernast",
+    title: "Eco bouwdroger huren in Alveringem | Vernast",
     description:
-      "Bouwdroger huren in Alveringem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Alveringem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Alveringem",
     kicker: "Alveringem · levering op uw werf",
     rit: { afstand: "circa 135 km", tijd: "ongeveer een uur en dertig minuten" },
@@ -16074,9 +16074,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lo-reninge",
-    title: "Bouwdroger huren in Lo-Reninge | Vernast",
+    title: "Eco bouwdroger huren in Lo-Reninge | Vernast",
     description:
-      "Bouwdroger huren in Lo-Reninge? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lo-Reninge met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lo-Reninge",
     kicker: "Lo-Reninge · levering op uw werf",
     rit: { afstand: "circa 130 km", tijd: "ongeveer een uur en dertig minuten" },
@@ -16151,9 +16151,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "houthulst",
-    title: "Bouwdroger huren in Houthulst | Vernast",
+    title: "Eco bouwdroger huren in Houthulst | Vernast",
     description:
-      "Bouwdroger huren in Houthulst? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Houthulst met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Houthulst",
     kicker: "Houthulst · levering op uw werf",
     rit: { afstand: "circa 125 km", tijd: "ongeveer een uur en twintig minuten" },
@@ -16228,9 +16228,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kortemark",
-    title: "Bouwdroger huren in Kortemark | Vernast",
+    title: "Eco bouwdroger huren in Kortemark | Vernast",
     description:
-      "Bouwdroger huren in Kortemark? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kortemark met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kortemark",
     kicker: "Kortemark · levering op uw werf",
     rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
@@ -16305,9 +16305,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "koekelare",
-    title: "Bouwdroger huren in Koekelare | Vernast",
+    title: "Eco bouwdroger huren in Koekelare | Vernast",
     description:
-      "Bouwdroger huren in Koekelare? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Koekelare met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Koekelare",
     kicker: "Koekelare · levering op uw werf",
     rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
@@ -16382,9 +16382,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kortrijk",
-    title: "Bouwdroger huren in Kortrijk | Vernast",
+    title: "Eco bouwdroger huren in Kortrijk | Vernast",
     description:
-      "Bouwdroger huren in Kortrijk? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kortrijk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kortrijk",
     kicker: "Kortrijk · levering op uw werf",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
@@ -16459,9 +16459,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "harelbeke",
-    title: "Bouwdroger huren in Harelbeke | Vernast",
+    title: "Eco bouwdroger huren in Harelbeke | Vernast",
     description:
-      "Bouwdroger huren in Harelbeke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Harelbeke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Harelbeke",
     kicker: "Harelbeke · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -16536,9 +16536,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kuurne",
-    title: "Bouwdroger huren in Kuurne | Vernast",
+    title: "Eco bouwdroger huren in Kuurne | Vernast",
     description:
-      "Bouwdroger huren in Kuurne? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kuurne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kuurne",
     kicker: "Kuurne · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -16613,9 +16613,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "deerlijk",
-    title: "Bouwdroger huren in Deerlijk | Vernast",
+    title: "Eco bouwdroger huren in Deerlijk | Vernast",
     description:
-      "Bouwdroger huren in Deerlijk? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Deerlijk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Deerlijk",
     kicker: "Deerlijk · levering op uw werf",
     rit: { afstand: "circa 98 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -16690,9 +16690,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lendelede",
-    title: "Bouwdroger huren in Lendelede | Vernast",
+    title: "Eco bouwdroger huren in Lendelede | Vernast",
     description:
-      "Bouwdroger huren in Lendelede? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lendelede met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lendelede",
     kicker: "Lendelede · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -16767,9 +16767,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "waregem",
-    title: "Bouwdroger huren in Waregem | Vernast",
+    title: "Eco bouwdroger huren in Waregem | Vernast",
     description:
-      "Bouwdroger huren in Waregem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Waregem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Waregem",
     kicker: "Waregem · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
@@ -16844,9 +16844,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wevelgem",
-    title: "Bouwdroger huren in Wevelgem | Vernast",
+    title: "Eco bouwdroger huren in Wevelgem | Vernast",
     description:
-      "Bouwdroger huren in Wevelgem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wevelgem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wevelgem",
     kicker: "Wevelgem · levering op uw werf",
     rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
@@ -16921,9 +16921,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "menen",
-    title: "Bouwdroger huren in Menen | Vernast",
+    title: "Eco bouwdroger huren in Menen | Vernast",
     description:
-      "Bouwdroger huren in Menen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Menen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Menen",
     kicker: "Menen · levering op uw werf",
     rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
@@ -16998,9 +16998,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wervik",
-    title: "Bouwdroger huren in Wervik | Vernast",
+    title: "Eco bouwdroger huren in Wervik | Vernast",
     description:
-      "Bouwdroger huren in Wervik? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wervik met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wervik",
     kicker: "Wervik · levering op uw werf",
     rit: { afstand: "circa 120 km", tijd: "ongeveer een uur en twintig minuten" },
@@ -17075,9 +17075,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zwevegem",
-    title: "Bouwdroger huren in Zwevegem | Vernast",
+    title: "Eco bouwdroger huren in Zwevegem | Vernast",
     description:
-      "Bouwdroger huren in Zwevegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zwevegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zwevegem",
     kicker: "Zwevegem · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -17152,9 +17152,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "anzegem",
-    title: "Bouwdroger huren in Anzegem | Vernast",
+    title: "Eco bouwdroger huren in Anzegem | Vernast",
     description:
-      "Bouwdroger huren in Anzegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Anzegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Anzegem",
     kicker: "Anzegem · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -17229,9 +17229,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "avelgem",
-    title: "Bouwdroger huren in Avelgem | Vernast",
+    title: "Eco bouwdroger huren in Avelgem | Vernast",
     description:
-      "Bouwdroger huren in Avelgem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Avelgem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Avelgem",
     kicker: "Avelgem · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -17306,9 +17306,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "spiere-helkijn",
-    title: "Bouwdroger huren in Spiere-Helkijn | Vernast",
+    title: "Eco bouwdroger huren in Spiere-Helkijn | Vernast",
     description:
-      "Bouwdroger huren in Spiere-Helkijn? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Spiere-Helkijn met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Spiere-Helkijn",
     kicker: "Spiere-Helkijn · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -17383,9 +17383,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "roeselare",
-    title: "Bouwdroger huren in Roeselare | Vernast",
+    title: "Eco bouwdroger huren in Roeselare | Vernast",
     description:
-      "Bouwdroger huren in Roeselare? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Roeselare met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Roeselare",
     kicker: "Roeselare · levering op uw werf",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
@@ -17460,9 +17460,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "izegem",
-    title: "Bouwdroger huren in Izegem | Vernast",
+    title: "Eco bouwdroger huren in Izegem | Vernast",
     description:
-      "Bouwdroger huren in Izegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Izegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Izegem",
     kicker: "Izegem · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -17537,9 +17537,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ingelmunster",
-    title: "Bouwdroger huren in Ingelmunster | Vernast",
+    title: "Eco bouwdroger huren in Ingelmunster | Vernast",
     description:
-      "Bouwdroger huren in Ingelmunster? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ingelmunster met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ingelmunster",
     kicker: "Ingelmunster · levering op uw werf",
     rit: { afstand: "circa 98 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -17614,9 +17614,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lichtervelde",
-    title: "Bouwdroger huren in Lichtervelde | Vernast",
+    title: "Eco bouwdroger huren in Lichtervelde | Vernast",
     description:
-      "Bouwdroger huren in Lichtervelde? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lichtervelde met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lichtervelde",
     kicker: "Lichtervelde · levering op uw werf",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
@@ -17691,9 +17691,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hooglede",
-    title: "Bouwdroger huren in Hooglede | Vernast",
+    title: "Eco bouwdroger huren in Hooglede | Vernast",
     description:
-      "Bouwdroger huren in Hooglede? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hooglede met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hooglede",
     kicker: "Hooglede · levering op uw werf",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en tien minuten" },
@@ -17768,9 +17768,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "staden",
-    title: "Bouwdroger huren in Staden | Vernast",
+    title: "Eco bouwdroger huren in Staden | Vernast",
     description:
-      "Bouwdroger huren in Staden? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Staden met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Staden",
     kicker: "Staden · levering op uw werf",
     rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
@@ -17845,9 +17845,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "moorslede",
-    title: "Bouwdroger huren in Moorslede | Vernast",
+    title: "Eco bouwdroger huren in Moorslede | Vernast",
     description:
-      "Bouwdroger huren in Moorslede? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Moorslede met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Moorslede",
     kicker: "Moorslede · levering op uw werf",
     rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en een kwartier" },
@@ -17922,9 +17922,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ledegem",
-    title: "Bouwdroger huren in Ledegem | Vernast",
+    title: "Eco bouwdroger huren in Ledegem | Vernast",
     description:
-      "Bouwdroger huren in Ledegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ledegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ledegem",
     kicker: "Ledegem · levering op uw werf",
     rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
@@ -17999,9 +17999,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tielt",
-    title: "Bouwdroger huren in Tielt | Vernast",
+    title: "Eco bouwdroger huren in Tielt | Vernast",
     description:
-      "Bouwdroger huren in Tielt? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Tielt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tielt",
     kicker: "Tielt · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
@@ -18076,9 +18076,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wingene",
-    title: "Bouwdroger huren in Wingene | Vernast",
+    title: "Eco bouwdroger huren in Wingene | Vernast",
     description:
-      "Bouwdroger huren in Wingene? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wingene met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wingene",
     kicker: "Wingene · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
@@ -18153,9 +18153,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "pittem",
-    title: "Bouwdroger huren in Pittem | Vernast",
+    title: "Eco bouwdroger huren in Pittem | Vernast",
     description:
-      "Bouwdroger huren in Pittem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Pittem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Pittem",
     kicker: "Pittem · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -18230,9 +18230,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ardooie",
-    title: "Bouwdroger huren in Ardooie | Vernast",
+    title: "Eco bouwdroger huren in Ardooie | Vernast",
     description:
-      "Bouwdroger huren in Ardooie? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ardooie met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ardooie",
     kicker: "Ardooie · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -18307,9 +18307,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dentergem",
-    title: "Bouwdroger huren in Dentergem | Vernast",
+    title: "Eco bouwdroger huren in Dentergem | Vernast",
     description:
-      "Bouwdroger huren in Dentergem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Dentergem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Dentergem",
     kicker: "Dentergem · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
@@ -18384,9 +18384,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oostrozebeke",
-    title: "Bouwdroger huren in Oostrozebeke | Vernast",
+    title: "Eco bouwdroger huren in Oostrozebeke | Vernast",
     description:
-      "Bouwdroger huren in Oostrozebeke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oostrozebeke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oostrozebeke",
     kicker: "Oostrozebeke · levering op uw werf",
     rit: { afstand: "circa 92 km", tijd: "ongeveer een uur" },
@@ -18461,9 +18461,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wielsbeke",
-    title: "Bouwdroger huren in Wielsbeke | Vernast",
+    title: "Eco bouwdroger huren in Wielsbeke | Vernast",
     description:
-      "Bouwdroger huren in Wielsbeke? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wielsbeke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wielsbeke",
     kicker: "Wielsbeke · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
@@ -18538,9 +18538,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hasselt",
-    title: "Bouwdroger huren in Hasselt | Vernast",
+    title: "Eco bouwdroger huren in Hasselt | Vernast",
     description:
-      "Bouwdroger huren in Hasselt? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hasselt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hasselt",
     kicker: "Hasselt · levering op uw werf",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -18615,9 +18615,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "genk",
-    title: "Bouwdroger huren in Genk | Vernast",
+    title: "Eco bouwdroger huren in Genk | Vernast",
     description:
-      "Bouwdroger huren in Genk? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Genk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Genk",
     kicker: "Genk · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -18692,9 +18692,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zonhoven",
-    title: "Bouwdroger huren in Zonhoven | Vernast",
+    title: "Eco bouwdroger huren in Zonhoven | Vernast",
     description:
-      "Bouwdroger huren in Zonhoven? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zonhoven met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zonhoven",
     kicker: "Zonhoven · levering op uw werf",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -18769,9 +18769,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "diepenbeek",
-    title: "Bouwdroger huren in Diepenbeek | Vernast",
+    title: "Eco bouwdroger huren in Diepenbeek | Vernast",
     description:
-      "Bouwdroger huren in Diepenbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Diepenbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Diepenbeek",
     kicker: "Diepenbeek · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
@@ -18846,9 +18846,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "alken",
-    title: "Bouwdroger huren in Alken | Vernast",
+    title: "Eco bouwdroger huren in Alken | Vernast",
     description:
-      "Bouwdroger huren in Alken? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Alken met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Alken",
     kicker: "Alken · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -18923,9 +18923,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zutendaal",
-    title: "Bouwdroger huren in Zutendaal | Vernast",
+    title: "Eco bouwdroger huren in Zutendaal | Vernast",
     description:
-      "Bouwdroger huren in Zutendaal? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Zutendaal met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zutendaal",
     kicker: "Zutendaal · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en tien minuten" },
@@ -19000,9 +19000,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lummen",
-    title: "Bouwdroger huren in Lummen | Vernast",
+    title: "Eco bouwdroger huren in Lummen | Vernast",
     description:
-      "Bouwdroger huren in Lummen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lummen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lummen",
     kicker: "Lummen · levering op uw werf",
     rit: { afstand: "circa 75 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -19077,9 +19077,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "herk-de-stad",
-    title: "Bouwdroger huren in Herk-de-Stad | Vernast",
+    title: "Eco bouwdroger huren in Herk-de-Stad | Vernast",
     description:
-      "Bouwdroger huren in Herk-de-Stad? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Herk-de-Stad met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herk-de-Stad",
     kicker: "Herk-de-Stad · levering op uw werf",
     rit: { afstand: "circa 70 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -19154,9 +19154,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "halen",
-    title: "Bouwdroger huren in Halen | Vernast",
+    title: "Eco bouwdroger huren in Halen | Vernast",
     description:
-      "Bouwdroger huren in Halen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Halen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Halen",
     kicker: "Halen · levering op uw werf",
     rit: { afstand: "circa 70 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -19231,9 +19231,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "nieuwerkerken",
-    title: "Bouwdroger huren in Nieuwerkerken | Vernast",
+    title: "Eco bouwdroger huren in Nieuwerkerken | Vernast",
     description:
-      "Bouwdroger huren in Nieuwerkerken? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Nieuwerkerken met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Nieuwerkerken",
     kicker: "Nieuwerkerken · levering op uw werf",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -19308,9 +19308,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tessenderlo-ham",
-    title: "Bouwdroger huren in Tessenderlo-Ham | Vernast",
+    title: "Eco bouwdroger huren in Tessenderlo-Ham | Vernast",
     description:
-      "Bouwdroger huren in Tessenderlo-Ham? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Tessenderlo-Ham met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Tessenderlo-Ham",
     kicker: "Tessenderlo-Ham · levering op uw werf",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -19385,9 +19385,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beringen",
-    title: "Bouwdroger huren in Beringen | Vernast",
+    title: "Eco bouwdroger huren in Beringen | Vernast",
     description:
-      "Bouwdroger huren in Beringen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Beringen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beringen",
     kicker: "Beringen · levering op uw werf",
     rit: { afstand: "circa 65 km", tijd: "ongeveer vijftig minuten" },
@@ -19462,9 +19462,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "heusden-zolder",
-    title: "Bouwdroger huren in Heusden-Zolder | Vernast",
+    title: "Eco bouwdroger huren in Heusden-Zolder | Vernast",
     description:
-      "Bouwdroger huren in Heusden-Zolder? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Heusden-Zolder met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Heusden-Zolder",
     kicker: "Heusden-Zolder · levering op uw werf",
     rit: { afstand: "circa 70 km", tijd: "ongeveer vijfenvijftig minuten" },
@@ -19539,9 +19539,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "houthalen-helchteren",
-    title: "Bouwdroger huren in Houthalen-Helchteren | Vernast",
+    title: "Eco bouwdroger huren in Houthalen-Helchteren | Vernast",
     description:
-      "Bouwdroger huren in Houthalen-Helchteren? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Houthalen-Helchteren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Houthalen-Helchteren",
     kicker: "Houthalen-Helchteren · levering op uw werf",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -19616,9 +19616,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "leopoldsburg",
-    title: "Bouwdroger huren in Leopoldsburg | Vernast",
+    title: "Eco bouwdroger huren in Leopoldsburg | Vernast",
     description:
-      "Bouwdroger huren in Leopoldsburg? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Leopoldsburg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Leopoldsburg",
     kicker: "Leopoldsburg · levering op uw werf",
     rit: { afstand: "circa 65 km", tijd: "ongeveer vijftig minuten" },
@@ -19693,9 +19693,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hechtel-eksel",
-    title: "Bouwdroger huren in Hechtel-Eksel | Vernast",
+    title: "Eco bouwdroger huren in Hechtel-Eksel | Vernast",
     description:
-      "Bouwdroger huren in Hechtel-Eksel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hechtel-Eksel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hechtel-Eksel",
     kicker: "Hechtel-Eksel · levering op uw werf",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -19770,9 +19770,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lommel",
-    title: "Bouwdroger huren in Lommel | Vernast",
+    title: "Eco bouwdroger huren in Lommel | Vernast",
     description:
-      "Bouwdroger huren in Lommel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lommel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lommel",
     kicker: "Lommel · levering op uw werf",
     rit: { afstand: "circa 75 km", tijd: "ongeveer een uur" },
@@ -19847,9 +19847,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "peer",
-    title: "Bouwdroger huren in Peer | Vernast",
+    title: "Eco bouwdroger huren in Peer | Vernast",
     description:
-      "Bouwdroger huren in Peer? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Peer met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Peer",
     kicker: "Peer · levering op uw werf",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -19924,9 +19924,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "pelt",
-    title: "Bouwdroger huren in Pelt | Vernast",
+    title: "Eco bouwdroger huren in Pelt | Vernast",
     description:
-      "Bouwdroger huren in Pelt? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Pelt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Pelt",
     kicker: "Pelt · levering op uw werf",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -20001,9 +20001,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hamont-achel",
-    title: "Bouwdroger huren in Hamont-Achel | Vernast",
+    title: "Eco bouwdroger huren in Hamont-Achel | Vernast",
     description:
-      "Bouwdroger huren in Hamont-Achel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Hamont-Achel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hamont-Achel",
     kicker: "Hamont-Achel · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -20078,9 +20078,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bocholt",
-    title: "Bouwdroger huren in Bocholt | Vernast",
+    title: "Eco bouwdroger huren in Bocholt | Vernast",
     description:
-      "Bouwdroger huren in Bocholt? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bocholt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bocholt",
     kicker: "Bocholt · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
@@ -20155,9 +20155,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bree",
-    title: "Bouwdroger huren in Bree | Vernast",
+    title: "Eco bouwdroger huren in Bree | Vernast",
     description:
-      "Bouwdroger huren in Bree? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bree met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bree",
     kicker: "Bree · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
@@ -20232,9 +20232,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oudsbergen",
-    title: "Bouwdroger huren in Oudsbergen | Vernast",
+    title: "Eco bouwdroger huren in Oudsbergen | Vernast",
     description:
-      "Bouwdroger huren in Oudsbergen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oudsbergen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oudsbergen",
     kicker: "Oudsbergen · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
@@ -20309,9 +20309,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "as",
-    title: "Bouwdroger huren in As | Vernast",
+    title: "Eco bouwdroger huren in As | Vernast",
     description:
-      "Bouwdroger huren in As? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in As met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in As",
     kicker: "As · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
@@ -20386,9 +20386,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "maaseik",
-    title: "Bouwdroger huren in Maaseik | Vernast",
+    title: "Eco bouwdroger huren in Maaseik | Vernast",
     description:
-      "Bouwdroger huren in Maaseik? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Maaseik met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Maaseik",
     kicker: "Maaseik · levering op uw werf",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwartier" },
@@ -20463,9 +20463,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kinrooi",
-    title: "Bouwdroger huren in Kinrooi | Vernast",
+    title: "Eco bouwdroger huren in Kinrooi | Vernast",
     description:
-      "Bouwdroger huren in Kinrooi? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kinrooi met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kinrooi",
     kicker: "Kinrooi · levering op uw werf",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwartier" },
@@ -20540,9 +20540,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dilsen-stokkem",
-    title: "Bouwdroger huren in Dilsen-Stokkem | Vernast",
+    title: "Eco bouwdroger huren in Dilsen-Stokkem | Vernast",
     description:
-      "Bouwdroger huren in Dilsen-Stokkem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Dilsen-Stokkem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Dilsen-Stokkem",
     kicker: "Dilsen-Stokkem · levering op uw werf",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwartier" },
@@ -20617,9 +20617,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "maasmechelen",
-    title: "Bouwdroger huren in Maasmechelen | Vernast",
+    title: "Eco bouwdroger huren in Maasmechelen | Vernast",
     description:
-      "Bouwdroger huren in Maasmechelen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Maasmechelen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Maasmechelen",
     kicker: "Maasmechelen · levering op uw werf",
     rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
@@ -20694,9 +20694,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lanaken",
-    title: "Bouwdroger huren in Lanaken | Vernast",
+    title: "Eco bouwdroger huren in Lanaken | Vernast",
     description:
-      "Bouwdroger huren in Lanaken? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lanaken met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lanaken",
     kicker: "Lanaken · levering op uw werf",
     rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en twintig minuten" },
@@ -20771,9 +20771,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-truiden",
-    title: "Bouwdroger huren in Sint-Truiden | Vernast",
+    title: "Eco bouwdroger huren in Sint-Truiden | Vernast",
     description:
-      "Bouwdroger huren in Sint-Truiden? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Truiden met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sint-Truiden",
     kicker: "Sint-Truiden · levering op uw werf",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -20848,9 +20848,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tongeren-borgloon",
-    title: "Bouwdroger huren in Tongeren-Borgloon | Vernast",
+    title: "Eco bouwdroger huren in Tongeren-Borgloon | Vernast",
     description:
-      "Bouwdroger huren in Tongeren-Borgloon? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Tongeren-Borgloon met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Tongeren-Borgloon",
     kicker: "Tongeren-Borgloon · levering op uw werf",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur en een kwartier" },
@@ -20925,9 +20925,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bilzen-hoeselt",
-    title: "Bouwdroger huren in Bilzen-Hoeselt | Vernast",
+    title: "Eco bouwdroger huren in Bilzen-Hoeselt | Vernast",
     description:
-      "Bouwdroger huren in Bilzen-Hoeselt? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Bilzen-Hoeselt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Bilzen-Hoeselt",
     kicker: "Bilzen-Hoeselt · levering op uw werf",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur en tien minuten" },
@@ -21002,9 +21002,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "riemst",
-    title: "Bouwdroger huren in Riemst | Vernast",
+    title: "Eco bouwdroger huren in Riemst | Vernast",
     description:
-      "Bouwdroger huren in Riemst? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Riemst met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Riemst",
     kicker: "Riemst · levering op uw werf",
     rit: { afstand: "circa 115 km", tijd: "ongeveer een uur en twintig minuten" },
@@ -21079,9 +21079,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wellen",
-    title: "Bouwdroger huren in Wellen | Vernast",
+    title: "Eco bouwdroger huren in Wellen | Vernast",
     description:
-      "Bouwdroger huren in Wellen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wellen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wellen",
     kicker: "Wellen · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
@@ -21156,9 +21156,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "heers",
-    title: "Bouwdroger huren in Heers | Vernast",
+    title: "Eco bouwdroger huren in Heers | Vernast",
     description:
-      "Bouwdroger huren in Heers? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Heers met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Heers",
     kicker: "Heers · levering op uw werf",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur en tien minuten" },
@@ -21233,9 +21233,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gingelom",
-    title: "Bouwdroger huren in Gingelom | Vernast",
+    title: "Eco bouwdroger huren in Gingelom | Vernast",
     description:
-      "Bouwdroger huren in Gingelom? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Gingelom met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gingelom",
     kicker: "Gingelom · levering op uw werf",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur en vijf minuten" },
@@ -21310,9 +21310,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "herstappe",
-    title: "Bouwdroger huren in Herstappe | Vernast",
+    title: "Eco bouwdroger huren in Herstappe | Vernast",
     description:
-      "Bouwdroger huren in Herstappe? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Herstappe met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herstappe",
     kicker: "Herstappe · levering op uw werf",
     rit: { afstand: "circa 110 km", tijd: "ongeveer een uur en een kwartier" },
@@ -21387,9 +21387,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "voeren",
-    title: "Bouwdroger huren in Voeren | Vernast",
+    title: "Eco bouwdroger huren in Voeren | Vernast",
     description:
-      "Bouwdroger huren in Voeren? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Voeren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Voeren",
     kicker: "Voeren · levering op uw werf",
     rit: { afstand: "circa 140 km", tijd: "ongeveer twee uur" },
@@ -21464,9 +21464,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "brussel-stad",
-    title: "Bouwdroger huren in Brussel-stad | Vernast",
+    title: "Eco bouwdroger huren in Brussel-stad | Vernast",
     description:
-      "Bouwdroger huren in Brussel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Brussel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Brussel stad en de Vijfhoek",
     kicker: "Brussel · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer veertig minuten" },
@@ -21541,9 +21541,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "schaarbeek",
-    title: "Bouwdroger huren in Schaarbeek | Vernast",
+    title: "Eco bouwdroger huren in Schaarbeek | Vernast",
     description:
-      "Bouwdroger huren in Schaarbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Schaarbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Schaarbeek",
     kicker: "Schaarbeek · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer veertig minuten" },
@@ -21618,9 +21618,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-joost-ten-node",
-    title: "Bouwdroger huren in Sint-Joost-ten-Node | Vernast",
+    title: "Eco bouwdroger huren in Sint-Joost-ten-Node | Vernast",
     description:
-      "Bouwdroger huren in Sint-Joost-ten-Node? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Joost-ten-Node met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Joost-ten-Node",
     kicker: "Sint-Joost-ten-Node · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer veertig minuten" },
@@ -21695,9 +21695,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-gillis",
-    title: "Bouwdroger huren in Sint-Gillis | Vernast",
+    title: "Eco bouwdroger huren in Sint-Gillis | Vernast",
     description:
-      "Bouwdroger huren in Sint-Gillis? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Gillis met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sint-Gillis",
     kicker: "Sint-Gillis · levering op uw werf",
     rit: { afstand: "circa 47 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -21772,9 +21772,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "elsene",
-    title: "Bouwdroger huren in Elsene | Vernast",
+    title: "Eco bouwdroger huren in Elsene | Vernast",
     description:
-      "Bouwdroger huren in Elsene? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Elsene met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Elsene",
     kicker: "Elsene · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -21849,9 +21849,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "etterbeek",
-    title: "Bouwdroger huren in Etterbeek | Vernast",
+    title: "Eco bouwdroger huren in Etterbeek | Vernast",
     description:
-      "Bouwdroger huren in Etterbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Etterbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Etterbeek",
     kicker: "Etterbeek · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -21926,9 +21926,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "anderlecht",
-    title: "Bouwdroger huren in Anderlecht | Vernast",
+    title: "Eco bouwdroger huren in Anderlecht | Vernast",
     description:
-      "Bouwdroger huren in Anderlecht? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Anderlecht met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Anderlecht",
     kicker: "Anderlecht · levering op uw werf",
     rit: { afstand: "circa 45 km", tijd: "ongeveer veertig minuten" },
@@ -22003,9 +22003,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-jans-molenbeek",
-    title: "Bouwdroger huren in Molenbeek | Vernast",
+    title: "Eco bouwdroger huren in Molenbeek | Vernast",
     description:
-      "Bouwdroger huren in Sint-Jans-Molenbeek? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Jans-Molenbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Jans-Molenbeek",
     kicker: "Sint-Jans-Molenbeek · levering op uw werf",
     rit: { afstand: "circa 44 km", tijd: "ongeveer veertig minuten" },
@@ -22080,9 +22080,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "koekelberg",
-    title: "Bouwdroger huren in Koekelberg | Vernast",
+    title: "Eco bouwdroger huren in Koekelberg | Vernast",
     description:
-      "Bouwdroger huren in Koekelberg? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Koekelberg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Koekelberg",
     kicker: "Koekelberg · levering op uw werf",
     rit: { afstand: "circa 43 km", tijd: "ongeveer veertig minuten" },
@@ -22157,9 +22157,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ganshoren",
-    title: "Bouwdroger huren in Ganshoren | Vernast",
+    title: "Eco bouwdroger huren in Ganshoren | Vernast",
     description:
-      "Bouwdroger huren in Ganshoren? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ganshoren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ganshoren",
     kicker: "Ganshoren · levering op uw werf",
     rit: { afstand: "circa 42 km", tijd: "ongeveer veertig minuten" },
@@ -22234,9 +22234,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "jette",
-    title: "Bouwdroger huren in Jette | Vernast",
+    title: "Eco bouwdroger huren in Jette | Vernast",
     description:
-      "Bouwdroger huren in Jette? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Jette met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Jette",
     kicker: "Jette · levering op uw werf",
     rit: { afstand: "circa 41 km", tijd: "ongeveer vijfendertig minuten" },
@@ -22311,9 +22311,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-agatha-berchem",
-    title: "Bouwdroger huren in Sint-Agatha-Berchem | Vernast",
+    title: "Eco bouwdroger huren in Sint-Agatha-Berchem | Vernast",
     description:
-      "Bouwdroger huren in Sint-Agatha-Berchem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Agatha-Berchem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Agatha-Berchem",
     kicker: "Sint-Agatha-Berchem · levering op uw werf",
     rit: { afstand: "circa 43 km", tijd: "ongeveer veertig minuten" },
@@ -22388,9 +22388,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vorst",
-    title: "Bouwdroger huren in Vorst | Vernast",
+    title: "Eco bouwdroger huren in Vorst | Vernast",
     description:
-      "Bouwdroger huren in Vorst? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Vorst met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vorst",
     kicker: "Vorst · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -22465,9 +22465,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ukkel",
-    title: "Bouwdroger huren in Ukkel | Vernast",
+    title: "Eco bouwdroger huren in Ukkel | Vernast",
     description:
-      "Bouwdroger huren in Ukkel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Ukkel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ukkel",
     kicker: "Ukkel · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -22542,9 +22542,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "watermaal-bosvoorde",
-    title: "Bouwdroger huren in Watermaal-Bosvoorde | Vernast",
+    title: "Eco bouwdroger huren in Watermaal-Bosvoorde | Vernast",
     description:
-      "Bouwdroger huren in Watermaal-Bosvoorde? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Watermaal-Bosvoorde met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Watermaal-Bosvoorde",
     kicker: "Watermaal-Bosvoorde · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijftig minuten" },
@@ -22619,9 +22619,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oudergem",
-    title: "Bouwdroger huren in Oudergem | Vernast",
+    title: "Eco bouwdroger huren in Oudergem | Vernast",
     description:
-      "Bouwdroger huren in Oudergem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Oudergem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oudergem",
     kicker: "Oudergem · levering op uw werf",
     rit: { afstand: "circa 52 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -22696,9 +22696,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-pieters-woluwe",
-    title: "Bouwdroger huren in Sint-Pieters-Woluwe | Vernast",
+    title: "Eco bouwdroger huren in Sint-Pieters-Woluwe | Vernast",
     description:
-      "Bouwdroger huren in Sint-Pieters-Woluwe? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Pieters-Woluwe met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Pieters-Woluwe",
     kicker: "Sint-Pieters-Woluwe · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -22773,9 +22773,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-lambrechts-woluwe",
-    title: "Bouwdroger huren in Sint-Lambrechts-Woluwe | Vernast",
+    title: "Eco bouwdroger huren in Sint-Lambrechts-Woluwe | Vernast",
     description:
-      "Bouwdroger huren in Sint-Lambrechts-Woluwe? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Sint-Lambrechts-Woluwe met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Lambrechts-Woluwe",
     kicker: "Sint-Lambrechts-Woluwe · levering op uw werf",
     rit: { afstand: "circa 48 km", tijd: "ongeveer vijfenveertig minuten" },
@@ -22850,9 +22850,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "evere",
-    title: "Bouwdroger huren in Evere | Vernast",
+    title: "Eco bouwdroger huren in Evere | Vernast",
     description:
-      "Bouwdroger huren in Evere? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Evere met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Evere",
     kicker: "Evere · levering op uw werf",
     rit: { afstand: "circa 43 km", tijd: "ongeveer veertig minuten" },
@@ -22925,9 +22925,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "aartselaar",
-    title: "Bouwdroger huren in Aartselaar - ons magazijn | Vernast",
+    title: "Eco bouwdroger huren in Aartselaar - ons magazijn | Vernast",
     description:
-      "Bouwdroger huren in Aartselaar? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Aartselaar met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Aartselaar",
     kicker: "Aartselaar · levering op uw werf",
     rit: { afstand: "0 km", tijd: "we staan hier zelf" },
@@ -23000,9 +23000,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "mechelen",
-    title: "Bouwdroger huren in Mechelen - binnen 24 uur | Vernast",
+    title: "Eco bouwdroger huren in Mechelen - binnen 24 uur | Vernast",
     description:
-      "Bouwdroger huren in Mechelen? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Mechelen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Mechelen",
     kicker: "Mechelen · levering op uw werf",
     rit: { afstand: "circa 20 km", tijd: "ongeveer een halfuur" },
@@ -23075,9 +23075,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "turnhout",
-    title: "Bouwdroger huren in Turnhout en de Kempen | Vernast",
+    title: "Eco bouwdroger huren in Turnhout en de Kempen | Vernast",
     description:
-      "Bouwdroger huren in Turnhout? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Turnhout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Turnhout",
     kicker: "Turnhout · levering op uw werf",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -23150,9 +23150,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "lier",
-    title: "Bouwdroger huren in Lier - geleverd in 24 u | Vernast",
+    title: "Eco bouwdroger huren in Lier - geleverd in 24 u | Vernast",
     description:
-      "Bouwdroger huren in Lier? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Lier met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lier",
     kicker: "Lier · levering op uw werf",
     rit: { afstand: "circa 20 km", tijd: "ongeveer een halfuur" },
@@ -23225,9 +23225,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "boom",
-    title: "Bouwdroger huren in Boom en de Rupelstreek | Vernast",
+    title: "Eco bouwdroger huren in Boom en de Rupelstreek | Vernast",
     description:
-      "Bouwdroger huren in Boom? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Boom met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Boom",
     kicker: "Boom · levering op uw werf",
     rit: { afstand: "circa 7 km", tijd: "ongeveer een kwartier" },
@@ -23300,9 +23300,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "kontich",
-    title: "Bouwdroger huren in Kontich - op 10 minuten | Vernast",
+    title: "Eco bouwdroger huren in Kontich - op 10 minuten | Vernast",
     description:
-      "Bouwdroger huren in Kontich? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Kontich met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kontich",
     kicker: "Kontich · levering op uw werf",
     rit: { afstand: "circa 5 km", tijd: "ongeveer tien minuten" },
@@ -23375,9 +23375,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "geel",
-    title: "Bouwdroger huren in Geel - Kempense werven | Vernast",
+    title: "Eco bouwdroger huren in Geel - Kempense werven | Vernast",
     description:
-      "Bouwdroger huren in Geel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Geel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Geel",
     kicker: "Geel · levering op uw werf",
     rit: { afstand: "circa 50 km", tijd: "ongeveer drie kwartier" },
@@ -23450,9 +23450,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "mol",
-    title: "Bouwdroger huren in Mol - levering in 24 u | Vernast",
+    title: "Eco bouwdroger huren in Mol - levering in 24 u | Vernast",
     description:
-      "Bouwdroger huren in Mol? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Mol met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Mol",
     kicker: "Mol · levering op uw werf",
     rit: { afstand: "circa 60 km", tijd: "ongeveer een uur" },
@@ -23525,9 +23525,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "herentals",
-    title: "Bouwdroger huren in Herentals en omgeving | Vernast",
+    title: "Eco bouwdroger huren in Herentals en omgeving | Vernast",
     description:
-      "Bouwdroger huren in Herentals? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Herentals met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herentals",
     kicker: "Herentals · levering op uw werf",
     rit: { afstand: "circa 40 km", tijd: "ongeveer veertig minuten" },
@@ -23600,9 +23600,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "heist-op-den-berg",
-    title: "Bouwdroger huren in Heist-op-den-Berg | Vernast",
+    title: "Eco bouwdroger huren in Heist-op-den-Berg | Vernast",
     description:
-      "Bouwdroger huren in Heist-op-den-Berg? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Heist-op-den-Berg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Heist-op-den-Berg",
     kicker: "Heist-op-den-Berg · levering op uw werf",
     rit: { afstand: "circa 35 km", tijd: "ongeveer veertig minuten" },
@@ -23675,9 +23675,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "brasschaat",
-    title: "Bouwdroger huren in Brasschaat en de noordrand | Vernast",
+    title: "Eco bouwdroger huren in Brasschaat en de noordrand | Vernast",
     description:
-      "Bouwdroger huren in Brasschaat? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Brasschaat met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Brasschaat",
     kicker: "Brasschaat · levering op uw werf",
     rit: { afstand: "circa 22 km", tijd: "ongeveer een halfuur" },
@@ -23750,9 +23750,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "schoten",
-    title: "Bouwdroger huren in Schoten - binnen 24 uur | Vernast",
+    title: "Eco bouwdroger huren in Schoten - binnen 24 uur | Vernast",
     description:
-      "Bouwdroger huren in Schoten? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Schoten met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Schoten",
     kicker: "Schoten · levering op uw werf",
     rit: { afstand: "circa 20 km", tijd: "ongeveer een halfuur" },
@@ -23825,9 +23825,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "wilrijk",
-    title: "Bouwdroger huren in Wilrijk - op 15 minuten | Vernast",
+    title: "Eco bouwdroger huren in Wilrijk - op 15 minuten | Vernast",
     description:
-      "Bouwdroger huren in Wilrijk? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Wilrijk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wilrijk",
     kicker: "Wilrijk · levering op uw werf",
     rit: { afstand: "circa 7 km", tijd: "ongeveer een kwartier" },
@@ -23900,9 +23900,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "edegem",
-    title: "Bouwdroger huren in Edegem - op 10 minuten | Vernast",
+    title: "Eco bouwdroger huren in Edegem - op 10 minuten | Vernast",
     description:
-      "Bouwdroger huren in Edegem? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Edegem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Edegem",
     kicker: "Edegem · levering op uw werf",
     rit: { afstand: "circa 5 km", tijd: "ongeveer tien minuten" },
@@ -23975,9 +23975,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "duffel",
-    title: "Bouwdroger huren in Duffel aan de Nete | Vernast",
+    title: "Eco bouwdroger huren in Duffel aan de Nete | Vernast",
     description:
-      "Bouwdroger huren in Duffel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Duffel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Duffel",
     kicker: "Duffel · levering op uw werf",
     rit: { afstand: "circa 15 km", tijd: "ongeveer twintig minuten" },
@@ -24050,9 +24050,9 @@ const G: Gemeente[] = [
   },
   {
     slug: "mortsel",
-    title: "Bouwdroger huren in Mortsel - binnen 24 uur | Vernast",
+    title: "Eco bouwdroger huren in Mortsel - binnen 24 uur | Vernast",
     description:
-      "Bouwdroger huren in Mortsel? Bereken uw droogpakket bij Vernast, met levering, plaatsing en ophaling. Advies voor nieuwbouw, renovatie en waterschade.",
+      "Bouwdroger huren in Mortsel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Mortsel",
     kicker: "Mortsel · levering op uw werf",
     rit: { afstand: "circa 9 km", tijd: "ongeveer een kwartier" },
@@ -24126,9 +24126,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tubeke",
-    title: "Bouwdroger huren in Tubeke | Vernast",
+    title: "Eco bouwdroger huren in Tubeke | Vernast",
     description:
-      "Bouwdroger huren in Tubeke? Vernast levert, plaatst en haalt uw droogpakket op afspraak weer op. Voor chape, pleisterwerk en waterschade in de Zennevallei.",
+      "Bouwdroger huren in Tubeke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tubeke",
     kicker: "Tubeke · levering op afspraak",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -24198,9 +24198,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rebecq",
-    title: "Bouwdroger huren in Rebecq | Vernast",
+    title: "Eco bouwdroger huren in Rebecq | Vernast",
     description:
-      "Bouwdroger huren in Rebecq? Vernast levert en plaatst uw droogpakket op afspraak en haalt het weer op. Voor een verse chape, nieuw pleisterwerk of een natte kelder.",
+      "Bouwdroger huren in Rebecq met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Rebecq",
     kicker: "Rebecq · levering op afspraak",
     rit: { afstand: "circa 65 km", tijd: "bijna een uur" },
@@ -24270,9 +24270,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kasteelbrakel",
-    title: "Bouwdroger huren in Kasteelbrakel | Vernast",
+    title: "Eco bouwdroger huren in Kasteelbrakel | Vernast",
     description:
-      "Bouwdroger huren in Kasteelbrakel? Vernast brengt uw droogpakket op afspraak, plaatst het en haalt het weer op. Voor renovatie, nieuwbouw en een natte kelder.",
+      "Bouwdroger huren in Kasteelbrakel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kasteelbrakel",
     kicker: "Kasteelbrakel · levering op afspraak",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -24342,9 +24342,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "itter",
-    title: "Bouwdroger huren in Itter | Vernast",
+    title: "Eco bouwdroger huren in Itter | Vernast",
     description:
-      "Bouwdroger huren in Itter? Vernast levert en plaatst uw droogpakket op afspraak en haalt het nadien op. Advies op maat voor chape, pleisterwerk en waterschade.",
+      "Bouwdroger huren in Itter met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Itter",
     kicker: "Itter · levering op afspraak",
     rit: { afstand: "circa 65 km", tijd: "bijna een uur" },
@@ -24414,9 +24414,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "eigenbrakel",
-    title: "Bouwdroger huren in Eigenbrakel | Vernast",
+    title: "Eco bouwdroger huren in Eigenbrakel | Vernast",
     description:
-      "Bouwdroger huren in Eigenbrakel? Vernast levert uw droogpakket op afspraak, ook in een appartement, plaatst het en haalt het weer op. Voor chape en waterschade.",
+      "Bouwdroger huren in Eigenbrakel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Eigenbrakel",
     kicker: "Eigenbrakel · levering op afspraak",
     rit: { afstand: "circa 60 km", tijd: "ongeveer vijftig minuten" },
@@ -24486,9 +24486,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "waterloo",
-    title: "Bouwdroger huren in Waterloo | Vernast",
+    title: "Eco bouwdroger huren in Waterloo | Vernast",
     description:
-      "Bouwdroger huren in Waterloo? Vernast levert en plaatst uw droogpakket op afspraak, ook voor grote woningen en kelders, en haalt het nadien weer op.",
+      "Bouwdroger huren in Waterloo met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Waterloo",
     kicker: "Waterloo · levering op afspraak",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -24558,9 +24558,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "nijvel",
-    title: "Bouwdroger huren in Nijvel | Vernast",
+    title: "Eco bouwdroger huren in Nijvel | Vernast",
     description:
-      "Bouwdroger huren in Nijvel? Vernast brengt uw droogpakket op afspraak, plaatst het en haalt het nadien op. Voor de renovatie van een stadswoning, nieuwe chape en waterschade.",
+      "Bouwdroger huren in Nijvel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Nijvel",
     kicker: "Nijvel · levering op afspraak",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
@@ -24630,9 +24630,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "genepien",
-    title: "Bouwdroger huren in Genepiën | Vernast",
+    title: "Eco bouwdroger huren in Genepiën | Vernast",
     description:
-      "Bouwdroger huren in Genepiën? Vernast levert en plaatst uw droogpakket op afspraak, met een bouwkachel voor een koude werf, en haalt het nadien weer op.",
+      "Bouwdroger huren in Genepiën met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Genepiën",
     kicker: "Genepiën · levering op afspraak",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
@@ -24702,9 +24702,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lasne",
-    title: "Bouwdroger huren in Lasne | Vernast",
+    title: "Eco bouwdroger huren in Lasne | Vernast",
     description:
-      "Bouwdroger huren in Lasne? Vernast levert uw droogpakket op afspraak, plaatst het en haalt het weer op. Voor een chape onder parket, pleisterwerk en waterschade.",
+      "Bouwdroger huren in Lasne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lasne",
     kicker: "Lasne · levering op afspraak",
     rit: { afstand: "circa 60 km", tijd: "bijna een uur" },
@@ -24773,9 +24773,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "terhulpen",
-    title: "Bouwdroger huren in Terhulpen | Vernast",
+    title: "Eco bouwdroger huren in Terhulpen | Vernast",
     description:
-      "Bouwdroger huren in Terhulpen: Vernast levert op afspraak, plaatst de toestellen en haalt ze weer op. Voor chape, pleisterwerk en waterschade.",
+      "Bouwdroger huren in Terhulpen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Terhulpen",
     kicker: "Terhulpen · levering op afspraak",
     rit: { afstand: "circa 55 km", tijd: "ongeveer vijftig minuten" },
@@ -24845,9 +24845,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rixensart",
-    title: "Bouwdroger huren in Rixensart | Vernast",
+    title: "Eco bouwdroger huren in Rixensart | Vernast",
     description:
-      "Bouwdroger huren in Rixensart, Genval of Rosières? Vernast plaatst uw droogpakket op afspraak en haalt het weer op. Advies bij chape en waterschade.",
+      "Bouwdroger huren in Rixensart, Genval of Rosières met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Rixensart",
     kicker: "Rixensart · levering op afspraak",
     rit: { afstand: "circa 58 km", tijd: "ongeveer vijftig minuten" },
@@ -24917,9 +24917,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "waver",
-    title: "Bouwdroger huren in Waver | Vernast",
+    title: "Eco bouwdroger huren in Waver | Vernast",
     description:
-      "Bouwdroger huren in Waver? Vernast levert op afspraak een droogpakket met plaatsing en ophaling, voor een woning, appartement of bedrijfspand.",
+      "Bouwdroger huren in Waver met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Waver",
     kicker: "Waver · levering op afspraak",
     rit: { afstand: "circa 62 km", tijd: "ongeveer vijftig minuten" },
@@ -24989,9 +24989,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ottignies-louvain-la-neuve",
-    title: "Bouwdroger huren in Ottignies-Louvain-la-Neuve | Vernast",
+    title: "Eco bouwdroger huren in Ottignies-Louvain-la-Neuve | Vernast",
     description:
-      "Bouwdroger huren in Ottignies-Louvain-la-Neuve? Vernast levert op afspraak, plaatst de toestellen en haalt ze op. Ook voor studio's en appartementen.",
+      "Bouwdroger huren in Ottignies-Louvain-la-Neuve met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Ottignies-Louvain-la-Neuve",
     kicker: "Ottignies-Louvain-la-Neuve · levering op afspraak",
     rit: { afstand: "circa 68 km", tijd: "ongeveer een uur" },
@@ -25061,9 +25061,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "court-saint-etienne",
-    title: "Bouwdroger huren in Court-Saint-Étienne | Vernast",
+    title: "Eco bouwdroger huren in Court-Saint-Étienne | Vernast",
     description:
-      "Bouwdroger huren in Court-Saint-Étienne? Vernast brengt uw droogpakket op afspraak, plaatst het en haalt het op. Voor kelders, chape en pleisterwerk.",
+      "Bouwdroger huren in Court-Saint-Étienne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Court-Saint-Étienne",
     kicker: "Court-Saint-Étienne · levering op afspraak",
     rit: { afstand: "circa 72 km", tijd: "ongeveer een uur" },
@@ -25133,9 +25133,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "mont-saint-guibert",
-    title: "Bouwdroger huren in Mont-Saint-Guibert | Vernast",
+    title: "Eco bouwdroger huren in Mont-Saint-Guibert | Vernast",
     description:
-      "Bouwdroger huren in Mont-Saint-Guibert voor uw woning of bedrijfsruimte? Vernast levert, plaatst en haalt uw droogpakket weer op, op afspraak.",
+      "Bouwdroger huren in Mont-Saint-Guibert voor uw woning of bedrijfsruimte met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Mont-Saint-Guibert",
     kicker: "Mont-Saint-Guibert · levering op afspraak",
     rit: { afstand: "circa 72 km", tijd: "ongeveer een uur" },
@@ -25205,9 +25205,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "villers-la-ville",
-    title: "Bouwdroger huren in Villers-la-Ville | Vernast",
+    title: "Eco bouwdroger huren in Villers-la-Ville | Vernast",
     description:
-      "Bouwdroger huren in Villers-la-Ville? Vernast levert op afspraak drogers en bouwkachels, met plaatsing en ophaling. Ook voor koude en oudere woningen.",
+      "Bouwdroger huren in Villers-la-Ville met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Villers-la-Ville",
     kicker: "Villers-la-Ville · levering op afspraak",
     rit: { afstand: "circa 78 km", tijd: "iets meer dan een uur" },
@@ -25277,9 +25277,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "chastre",
-    title: "Bouwdroger huren in Chastre | Vernast",
+    title: "Eco bouwdroger huren in Chastre | Vernast",
     description:
-      "Bouwdroger huren in Chastre? Vernast levert op afspraak, plaatst de toestellen en haalt ze weer op. Advies bij nieuwbouw, renovatie en een koude werf.",
+      "Bouwdroger huren in Chastre met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Chastre",
     kicker: "Chastre · levering op afspraak",
     rit: { afstand: "circa 80 km", tijd: "iets meer dan een uur" },
@@ -25349,9 +25349,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "walhain",
-    title: "Bouwdroger huren in Walhain | Vernast",
+    title: "Eco bouwdroger huren in Walhain | Vernast",
     description:
-      "Bouwdroger huren in Walhain? Vernast brengt uw droogpakket op afspraak, plaatst het en haalt het weer op. Voor chape, pleisterwerk en renovatie.",
+      "Bouwdroger huren in Walhain met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Walhain",
     kicker: "Walhain · levering op afspraak",
     rit: { afstand: "circa 78 km", tijd: "ongeveer een uur" },
@@ -25420,9 +25420,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "graven",
-    title: "Bouwdroger huren in Graven | Vernast",
+    title: "Eco bouwdroger huren in Graven | Vernast",
     description:
-      "Bouwdroger huren in Graven (Grez-Doiceau): drogen na een renovatie, een nieuwe chape of vocht in een huis langs de Train. Levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Graven met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Graven",
     kicker: "Waals-Brabant · valleien van Dijle en Train",
     rit: { afstand: "circa 60 km", tijd: "ongeveer een uur" },
@@ -25488,9 +25488,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "chaumont-gistoux",
-    title: "Bouwdroger huren in Chaumont-Gistoux | Vernast",
+    title: "Eco bouwdroger huren in Chaumont-Gistoux | Vernast",
     description:
-      "Bouwdroger huren in Chaumont-Gistoux: drogen na de verbouwing van een vrijstaande woning, een nieuwe chape of waterschade. Levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Chaumont-Gistoux met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Chaumont-Gistoux",
     kicker: "Waals-Brabant · ten oosten van Waver",
     rit: { afstand: "circa 65 km", tijd: "ongeveer een uur" },
@@ -25556,9 +25556,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bevekom",
-    title: "Bouwdroger huren in Bevekom | Vernast",
+    title: "Eco bouwdroger huren in Bevekom | Vernast",
     description:
-      "Bouwdroger huren in Bevekom (Beauvechain): drogen na de verbouwing van een hoeve, bij een nieuwbouw of in een bewoonde woning. Levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Bevekom met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bevekom",
     kicker: "Waals-Brabant · aan de taalgrens",
     rit: { afstand: "circa 60 km", tijd: "ongeveer een uur" },
@@ -25624,9 +25624,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "incourt",
-    title: "Bouwdroger huren in Incourt | Vernast",
+    title: "Eco bouwdroger huren in Incourt | Vernast",
     description:
-      "Bouwdroger huren in Incourt, Glimes, Opprebais of Piétrebais: drogers voor nieuwbouw, verbouwde hoeves en waterschade, met levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Incourt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Incourt",
     kicker: "Waals-Brabant · landelijke dorpen",
     rit: { afstand: "circa 70 km", tijd: "ruim een uur" },
@@ -25692,9 +25692,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "perwijs",
-    title: "Bouwdroger huren in Perwijs | Vernast",
+    title: "Eco bouwdroger huren in Perwijs | Vernast",
     description:
-      "Bouwdroger huren in Perwijs (Perwez): drogen na waterschade, bij een nieuwbouw of een renovatie in het centrum of de dorpen. Levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Perwijs met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Perwijs",
     kicker: "Waals-Brabant · centrum en dorpen",
     rit: { afstand: "circa 75 km", tijd: "ruim een uur" },
@@ -25760,9 +25760,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ramillies",
-    title: "Bouwdroger huren in Ramillies | Vernast",
+    title: "Eco bouwdroger huren in Ramillies | Vernast",
     description:
-      "Bouwdroger huren in Ramillies: drogers en elektrische bouwkachels voor een koude werf, een verbouwde hoeve of waterschade. Levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Ramillies met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ramillies",
     kicker: "Waals-Brabant · open landbouwstreek",
     rit: { afstand: "circa 85 km", tijd: "ongeveer vijf kwartier" },
@@ -25828,9 +25828,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "geldenaken",
-    title: "Bouwdroger huren in Geldenaken | Vernast",
+    title: "Eco bouwdroger huren in Geldenaken | Vernast",
     description:
-      "Bouwdroger huren in Geldenaken (Jodoigne): drogen na de verbouwing van een woning of handelspand, een nieuwe chape of een natte kelder. Levering op afspraak.",
+      "Bouwdroger huren in Geldenaken met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Geldenaken",
     kicker: "Waals-Brabant · stadje aan de Grote Gete",
     rit: { afstand: "circa 72 km", tijd: "ongeveer een uur" },
@@ -25896,9 +25896,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "orp-jauche",
-    title: "Bouwdroger huren in Orp-Jauche | Vernast",
+    title: "Eco bouwdroger huren in Orp-Jauche | Vernast",
     description:
-      "Bouwdroger huren in Orp-Jauche: drogen na wateroverlast in een kelder, bij een nieuwe chape of in een verbouwde hoeve. Levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Orp-Jauche met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Orp-Jauche",
     kicker: "Waals-Brabant · vallei van de Kleine Gete",
     rit: { afstand: "circa 85 km", tijd: "ongeveer vijf kwartier" },
@@ -25964,9 +25964,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "helecine",
-    title: "Bouwdroger huren in Hélécine | Vernast",
+    title: "Eco bouwdroger huren in Hélécine | Vernast",
     description:
-      "Bouwdroger huren in Hélécine, aan de taalgrens bij Tienen en Linter: drogen na een renovatie, een nieuwe chape of waterschade. Levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Hélécine met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hélécine",
     kicker: "Waals-Brabant · aan de taalgrens bij Tienen",
     rit: { afstand: "circa 75 km", tijd: "ruim een uur" },
@@ -26031,9 +26031,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "s-gravenbrakel",
-    title: "Bouwdroger huren in 's-Gravenbrakel | Vernast",
+    title: "Eco bouwdroger huren in 's-Gravenbrakel | Vernast",
     description:
-      "Bouwdroger huren in 's-Gravenbrakel (Braine-le-Comte), Ronquières of Hennuyères? Wij leveren op afspraak, plaatsen per droogzone en halen weer op.",
+      "Bouwdroger huren in 's-Gravenbrakel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in 's-Gravenbrakel",
     kicker: "Henegouwen · het hellend vlak van Ronquières",
     rit: { afstand: "circa 75 km", tijd: "ongeveer een uur" },
@@ -26088,9 +26088,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "le-roeulx",
-    title: "Bouwdroger huren in Le Rœulx | Vernast",
+    title: "Eco bouwdroger huren in Le Rœulx | Vernast",
     description:
-      "Bouwdroger huren in Le Rœulx, Thieu of Mignault? Voor oude stenen woningen en vloeren op volle grond langs het kanaal. Geleverd, geplaatst en opgehaald.",
+      "Bouwdroger huren in Le Rœulx, Thieu of Mignault met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Le Rœulx",
     kicker: "Henegouwen · het stadje van de Croÿ en de lift van Thieu",
     rit: { afstand: "circa 90 km", tijd: "ruim een uur" },
@@ -26145,9 +26145,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "manage",
-    title: "Bouwdroger huren in Manage | Vernast",
+    title: "Eco bouwdroger huren in Manage | Vernast",
     description:
-      "Bouwdroger huren in Manage, Fayt-lez-Manage, La Hestre of Bois-d'Haine? Voor de renovatie van een rijwoning in de Centrumstreek. Geleverd en geplaatst.",
+      "Bouwdroger huren in Manage, Fayt-lez-Manage, La Hestre of Bois-d'Haine met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Manage",
     kicker: "Henegouwen · spoorknoop in de Centrumstreek",
     rit: { afstand: "circa 85 km", tijd: "ruim een uur" },
@@ -26202,9 +26202,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "seneffe",
-    title: "Bouwdroger huren in Seneffe | Vernast",
+    title: "Eco bouwdroger huren in Seneffe | Vernast",
     description:
-      "Bouwdroger huren in Seneffe, Feluy, Arquennes of Familleureux? Voor dorpswoningen in blauwe hardsteen en nieuwbouw. Geleverd, per zone geplaatst en opgehaald.",
+      "Bouwdroger huren in Seneffe, Feluy, Arquennes of Familleureux met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Seneffe",
     kicker: "Henegouwen · kasteel, kanalen en hardsteen van Feluy",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -26259,9 +26259,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zinnik",
-    title: "Bouwdroger huren in Zinnik | Vernast",
+    title: "Eco bouwdroger huren in Zinnik | Vernast",
     description:
-      "Bouwdroger huren in Zinnik (Soignies) of Casteau? Voor herenhuizen met blauwe hardsteen, hoeves en huurwoningen. Geleverd op afspraak, geplaatst en opgehaald.",
+      "Bouwdroger huren in Zinnik (Soignies) of Casteau met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Zinnik",
     kicker: "Henegouwen · de stad van de blauwe hardsteen",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -26316,9 +26316,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ecaussinnes",
-    title: "Bouwdroger huren in Écaussinnes | Vernast",
+    title: "Eco bouwdroger huren in Écaussinnes | Vernast",
     description:
-      "Bouwdroger huren in Écaussinnes of Marche-lez-Écaussinnes? Voor stenen woningen tegen de helling en kelders die koud blijven. Geleverd op afspraak en geplaatst.",
+      "Bouwdroger huren in Écaussinnes of Marche-lez-Écaussinnes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Écaussinnes",
     kicker: "Henegouwen · groeven en de burcht van Lalaing",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -26373,9 +26373,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "binche",
-    title: "Bouwdroger huren in Binche | Vernast",
+    title: "Eco bouwdroger huren in Binche | Vernast",
     description:
-      "Bouwdroger huren in Binche? Voor stadswoningen binnen de oude stadswallen en mijnwoningen in Ressaix en Leval-Trahegnies. Geleverd, geplaatst en opgehaald.",
+      "Bouwdroger huren in Binche met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Binche",
     kicker: "Henegouwen · de stad van de Gilles",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -26430,9 +26430,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "estinnes",
-    title: "Bouwdroger huren in Estinnes | Vernast",
+    title: "Eco bouwdroger huren in Estinnes | Vernast",
     description:
-      "Bouwdroger huren in Estinnes, Haulchin, Rouveroy of Vellereille? Voor hoeves, verbouwde stallen en dorpswoningen ten zuiden van Binche. Geleverd en geplaatst.",
+      "Bouwdroger huren in Estinnes, Haulchin, Rouveroy of Vellereille met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Estinnes",
     kicker: "Henegouwen · hoeves op het open plateau",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -26487,9 +26487,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "la-louviere",
-    title: "Bouwdroger huren in La Louvière | Vernast",
+    title: "Eco bouwdroger huren in La Louvière | Vernast",
     description:
-      "Bouwdroger huren in La Louvière, Houdeng of Strépy-Bracquegnies? Voor arbeiderswoningen en stadswoningen in renovatie langs het Centrumkanaal. Geleverd en geplaatst.",
+      "Bouwdroger huren in La Louvière, Houdeng of Strépy-Bracquegnies met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in La Louvière",
     kicker: "Henegouwen · scheepsliften en mijnwijken",
     rit: { afstand: "circa 90 km", tijd: "ruim een uur" },
@@ -26544,9 +26544,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "morlanwelz",
-    title: "Bouwdroger huren in Morlanwelz | Vernast",
+    title: "Eco bouwdroger huren in Morlanwelz | Vernast",
     description:
-      "Bouwdroger huren in Morlanwelz, Carnières of Mont-Sainte-Aldegonde? Voor mijnwerkershuizen met een nieuwe vloer in de vallei van de Haine. Geleverd en geplaatst.",
+      "Bouwdroger huren in Morlanwelz, Carnières of Mont-Sainte-Aldegonde met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Morlanwelz",
     kicker: "Henegouwen · het domein van Mariemont",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -26601,9 +26601,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "charleroi",
-    title: "Bouwdroger huren in Charleroi | Vernast",
+    title: "Eco bouwdroger huren in Charleroi | Vernast",
     description:
-      "Bouwdroger huren in Charleroi: rijhuizen in de benedenstad, herenhuizen in de Ville Haute en lofts in oude fabriekshallen. Geleverd en per verdieping geplaatst.",
+      "Bouwdroger huren in Charleroi met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Charleroi",
     kicker: "Henegouwen · de stad aan de Samber",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -26658,9 +26658,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "chatelet",
-    title: "Bouwdroger huren in Châtelet | Vernast",
+    title: "Eco bouwdroger huren in Châtelet | Vernast",
     description:
-      "Bouwdroger huren in Châtelet, Châtelineau en Bouffioulx: oude woningen op beide oevers van de Samber, met kelders in de vallei. Geleverd, geplaatst en opgehaald.",
+      "Bouwdroger huren in Châtelet met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Châtelet",
     kicker: "Henegouwen · twee oevers van de Samber",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -26715,9 +26715,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "courcelles",
-    title: "Bouwdroger huren in Courcelles | Vernast",
+    title: "Eco bouwdroger huren in Courcelles | Vernast",
     description:
-      "Bouwdroger huren in Courcelles, Trazegnies, Souvret of Gouy-lez-Piéton: mijnwerkerswoningen en nieuwere verkavelingen ten westen van Charleroi. Geleverd en geplaatst.",
+      "Bouwdroger huren in Courcelles met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Courcelles",
     kicker: "Henegouwen · het westen van het bekken",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -26772,9 +26772,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "fleurus",
-    title: "Bouwdroger huren in Fleurus | Vernast",
+    title: "Eco bouwdroger huren in Fleurus | Vernast",
     description:
-      "Bouwdroger huren in Fleurus, Wanfercée-Baulet, Heppignies of Wangenies: hoeves op het leemplateau en woningen in de oude mijndorpen. Geleverd en geplaatst.",
+      "Bouwdroger huren in Fleurus met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Fleurus",
     kicker: "Henegouwen · tussen bekken en leemplateau",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -26829,9 +26829,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "farciennes",
-    title: "Bouwdroger huren in Farciennes | Vernast",
+    title: "Eco bouwdroger huren in Farciennes | Vernast",
     description:
-      "Bouwdroger huren in Farciennes: bakstenen arbeiderswoningen aan de Samber, tussen terrils en oude mijnterreinen. Geleverd, geplaatst en met vochtmeting bij de start.",
+      "Bouwdroger huren in Farciennes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Farciennes",
     kicker: "Henegouwen · een mijngemeente aan de Samber",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -26886,9 +26886,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "aiseau-presles",
-    title: "Bouwdroger huren in Aiseau-Presles | Vernast",
+    title: "Eco bouwdroger huren in Aiseau-Presles | Vernast",
     description:
-      "Bouwdroger huren in Aiseau-Presles, Pont-de-Loup en Roselies: oude woningen aan de Samber en vrijstaande huizen op de beboste hellingen. Geleverd en geplaatst.",
+      "Bouwdroger huren in Aiseau-Presles met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Aiseau-Presles",
     kicker: "Henegouwen · waar het bekken overgaat in het groen",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -26943,9 +26943,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "chapelle-lez-herlaimont",
-    title: "Bouwdroger huren in Chapelle-lez-Herlaimont | Vernast",
+    title: "Eco bouwdroger huren in Chapelle-lez-Herlaimont | Vernast",
     description:
-      "Bouwdroger huren in Chapelle-lez-Herlaimont, Godarville of Piéton: voor mijnwerkershuizen en kelders in het oude steenkoolbekken. Op afspraak, met vochtmeting.",
+      "Bouwdroger huren in Chapelle-lez-Herlaimont met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Chapelle-lez-Herlaimont",
     kicker: "Henegouwen · tussen Centre en Charleroi",
     rit: { afstand: "circa 90 km", tijd: "ruim een uur" },
@@ -27000,9 +27000,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "fontaine-l-eveque",
-    title: "Bouwdroger huren in Fontaine-l'Évêque | Vernast",
+    title: "Eco bouwdroger huren in Fontaine-l'Évêque | Vernast",
     description:
-      "Bouwdroger huren in Fontaine-l'Évêque, Forchies-la-Marche of Leernes: bakstenen woningen en verkavelingen aan de westrand van Charleroi. Met vochtmeting.",
+      "Bouwdroger huren in Fontaine-l'Évêque met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Fontaine-l'Évêque",
     kicker: "Henegouwen · westrand van Charleroi",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -27057,9 +27057,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gerpinnes",
-    title: "Bouwdroger huren in Gerpinnes | Vernast",
+    title: "Eco bouwdroger huren in Gerpinnes | Vernast",
     description:
-      "Bouwdroger huren in Gerpinnes, Loverval of Acoz: villa's in het groen ten zuiden van Charleroi en stenen dorpshuizen. Levering op afspraak, met vochtmeting.",
+      "Bouwdroger huren in Gerpinnes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gerpinnes",
     kicker: "Henegouwen · Entre-Sambre-et-Meuse",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -27114,9 +27114,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "les-bons-villers",
-    title: "Bouwdroger huren in Les Bons Villers | Vernast",
+    title: "Eco bouwdroger huren in Les Bons Villers | Vernast",
     description:
-      "Bouwdroger huren in Les Bons Villers, Frasnes-lez-Gosselies, Rèves of Wayaux: verbouwde hoeves en dorpswoningen ten noorden van Charleroi. Met vochtmeting.",
+      "Bouwdroger huren in Les Bons Villers met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Les Bons Villers",
     kicker: "Henegouwen · landbouwdorpen boven Charleroi",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -27171,9 +27171,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "montigny-le-tilleul",
-    title: "Bouwdroger huren in Montigny-le-Tilleul | Vernast",
+    title: "Eco bouwdroger huren in Montigny-le-Tilleul | Vernast",
     description:
-      "Bouwdroger huren in Montigny-le-Tilleul en Landelies: villawijken op de hellingen aan Samber en Heure, en kelders in de vallei. Geplaatst en gemeten.",
+      "Bouwdroger huren in Montigny-le-Tilleul met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Montigny-le-Tilleul",
     kicker: "Henegouwen · tussen Samber en Heure",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -27228,9 +27228,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "pont-a-celles",
-    title: "Bouwdroger huren in Pont-à-Celles | Vernast",
+    title: "Eco bouwdroger huren in Pont-à-Celles | Vernast",
     description:
-      "Bouwdroger huren in Pont-à-Celles, Luttre of Liberchies: woningen langs het kanaal Charleroi-Brussel en hoeves op het plateau. Geleverd met vochtmeting.",
+      "Bouwdroger huren in Pont-à-Celles met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Pont-à-Celles",
     kicker: "Henegouwen · langs het kanaal Charleroi-Brussel",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -27285,9 +27285,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "anderlues",
-    title: "Bouwdroger huren in Anderlues | Vernast",
+    title: "Eco bouwdroger huren in Anderlues | Vernast",
     description:
-      "Bouwdroger huren in Anderlues, tussen Binche en Charleroi: rijwoningen uit de mijntijd en verkavelingen aan de rand. Geplaatst, ingesteld en gemeten aan huis.",
+      "Bouwdroger huren in Anderlues met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Anderlues",
     kicker: "Henegouwen · tussen Binche en Charleroi",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -27342,9 +27342,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bergen",
-    title: "Bouwdroger huren in Bergen | Vernast",
+    title: "Eco bouwdroger huren in Bergen | Vernast",
     description:
-      "Bouwdroger huren in Bergen (Mons): voor herenhuizen en kelders in de oude stadskern en voor woningen in Jemappes, Cuesmes en Ghlin. Geleverd en geplaatst.",
+      "Bouwdroger huren in Bergen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bergen",
     kicker: "Henegouwen · de provinciehoofdstad",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -27399,9 +27399,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "jurbeke",
-    title: "Bouwdroger huren in Jurbeke | Vernast",
+    title: "Eco bouwdroger huren in Jurbeke | Vernast",
     description:
-      "Bouwdroger huren in Jurbeke (Jurbise): voor nieuwbouw in de verkavelingen en voor verbouwde hoeves in Herchies en Masnuy, net boven Bergen. Geleverd en geplaatst.",
+      "Bouwdroger huren in Jurbeke met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Jurbeke",
     kicker: "Henegouwen · net ten noorden van Bergen",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
@@ -27456,9 +27456,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "quevy",
-    title: "Bouwdroger huren in Quévy | Vernast",
+    title: "Eco bouwdroger huren in Quévy | Vernast",
     description:
-      "Bouwdroger huren in Quévy: voor hoeves en dorpshuizen in Givry, Blaregnies en Quévy-le-Grand, ten zuiden van Bergen tegen de Franse grens. Geleverd en geplaatst.",
+      "Bouwdroger huren in Quévy met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Quévy",
     kicker: "Henegouwen · landelijk, tegen de Franse grens",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -27513,9 +27513,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "frameries",
-    title: "Bouwdroger huren in Frameries | Vernast",
+    title: "Eco bouwdroger huren in Frameries | Vernast",
     description:
-      "Bouwdroger huren in Frameries en La Bouverie: voor de renovatie van arbeiderswoningen uit de mijntijd van de Borinage, met kelder en natte muren. Geleverd en geplaatst.",
+      "Bouwdroger huren in Frameries met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Frameries",
     kicker: "Henegouwen · de Borinage, ten zuidwesten van Bergen",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -27570,9 +27570,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "quaregnon",
-    title: "Bouwdroger huren in Quaregnon | Vernast",
+    title: "Eco bouwdroger huren in Quaregnon | Vernast",
     description:
-      "Bouwdroger huren in Quaregnon en Wasmuël: voor de renovatie van rijwoningen uit de mijntijd van de Borinage, met een vochtmeting bij de plaatsing.",
+      "Bouwdroger huren in Quaregnon met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Quaregnon",
     kicker: "Henegouwen · de Borinage, aan de Haine",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -27627,9 +27627,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "saint-ghislain",
-    title: "Bouwdroger huren in Saint-Ghislain | Vernast",
+    title: "Eco bouwdroger huren in Saint-Ghislain | Vernast",
     description:
-      "Bouwdroger huren in Saint-Ghislain, Baudour en Tertre: voor renovaties en wateroverlast in de Haine-vallei en langs het kanaal. Geleverd en geplaatst.",
+      "Bouwdroger huren in Saint-Ghislain met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Saint-Ghislain",
     kicker: "Henegouwen · de Haine-vallei en het kanaal",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -27684,9 +27684,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lens",
-    title: "Bouwdroger huren in Lens | Vernast",
+    title: "Eco bouwdroger huren in Lens | Vernast",
     description:
-      "Bouwdroger huren in Lens (Henegouwen): voor hoeves en dorpshuizen in Cambron-Saint-Vincent, Lombise en Bauffe, tussen Aat en Bergen. Geleverd en geplaatst.",
+      "Bouwdroger huren in Lens met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lens",
     kicker: "Henegouwen · landelijk, tussen Aat en Bergen",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -27741,9 +27741,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "boussu",
-    title: "Bouwdroger huren in Boussu | Vernast",
+    title: "Eco bouwdroger huren in Boussu | Vernast",
     description:
-      "Bouwdroger huren in Boussu of Hornu? Wij leveren en plaatsen drogers in mijnwerkershuizen en woningen in de Haine-vallei, met een vochtmeting ter plaatse.",
+      "Bouwdroger huren in Boussu of Hornu met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Boussu",
     kicker: "Henegouwen · Borinage, Grand-Hornu en de Haine",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -27798,9 +27798,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "colfontaine",
-    title: "Bouwdroger huren in Colfontaine | Vernast",
+    title: "Eco bouwdroger huren in Colfontaine | Vernast",
     description:
-      "Bouwdroger huren in Colfontaine, Pâturages, Wasmes of Warquignies: drogers voor arbeiderswoningen op de heuvels van de Borinage, geleverd en geplaatst.",
+      "Bouwdroger huren in Colfontaine met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Colfontaine",
     kicker: "Henegouwen · Pâturages, Wasmes en Warquignies",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -27855,9 +27855,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dour",
-    title: "Bouwdroger huren in Dour | Vernast",
+    title: "Eco bouwdroger huren in Dour | Vernast",
     description:
-      "Bouwdroger huren in Dour, Élouges, Wihéries of Blaugies: drogers voor mijnwerkershuizen en hoeves aan de Franse grens, geleverd en geplaatst met vochtmeting.",
+      "Bouwdroger huren in Dour met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Dour",
     kicker: "Henegouwen · mijnstreek tegen de Franse grens",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -27912,9 +27912,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hensies",
-    title: "Bouwdroger huren in Hensies | Vernast",
+    title: "Eco bouwdroger huren in Hensies | Vernast",
     description:
-      "Bouwdroger huren in Hensies, Thulin, Hainin of Montrœul-sur-Haine: drogers voor woningen op de lage, natte gronden van de Haine-vallei. Geleverd en geplaatst.",
+      "Bouwdroger huren in Hensies met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hensies",
     kicker: "Henegouwen · de Haine-vallei aan de Franse grens",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -27969,9 +27969,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "honnelles",
-    title: "Bouwdroger huren in Honnelles | Vernast",
+    title: "Eco bouwdroger huren in Honnelles | Vernast",
     description:
-      "Bouwdroger huren in Honnelles, Roisin, Angre of Onnezies: drogers voor oude stenen huizen en hoeves in de valleien van de Honnelle, geleverd en geplaatst.",
+      "Bouwdroger huren in Honnelles met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Honnelles",
     kicker: "Henegouwen · dorpen in de valleien van de Honnelle",
     rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
@@ -28026,9 +28026,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "quievrain",
-    title: "Bouwdroger huren in Quiévrain | Vernast",
+    title: "Eco bouwdroger huren in Quiévrain | Vernast",
     description:
-      "Bouwdroger huren in Quiévrain, Baisieux of Audregnies: drogers voor rijwoningen en handelspanden in de kern en voor hoeves erbuiten, geleverd en geplaatst.",
+      "Bouwdroger huren in Quiévrain met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Quiévrain",
     kicker: "Henegouwen · grensstadje op de weg naar Valenciennes",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -28083,9 +28083,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bernissart",
-    title: "Bouwdroger huren in Bernissart | Vernast",
+    title: "Eco bouwdroger huren in Bernissart | Vernast",
     description:
-      "Bouwdroger huren in Bernissart, Blaton, Harchies of Pommerœul: drogers voor woningen langs het kanaal en bij de moerassen van Harchies, geleverd en geplaatst.",
+      "Bouwdroger huren in Bernissart met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bernissart",
     kicker: "Henegouwen · iguanodons, kanaal en moerassen",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -28140,9 +28140,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "aat",
-    title: "Bouwdroger huren in Aat | Vernast",
+    title: "Eco bouwdroger huren in Aat | Vernast",
     description:
-      "Bouwdroger huren in Aat (Ath) voor een herenhuis aan de Dender of een verbouwde hoeve. Wij leveren op afspraak, plaatsen per droogzone en meten het vocht.",
+      "Bouwdroger huren in Aat met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Aat",
     kicker: "Henegouwen · de reuzenstad aan de Dender",
     rit: { afstand: "circa 90 km", tijd: "ruim een uur" },
@@ -28197,9 +28197,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beloeil",
-    title: "Bouwdroger huren in Belœil | Vernast",
+    title: "Eco bouwdroger huren in Belœil | Vernast",
     description:
-      "Bouwdroger huren in Belœil, Quevaucamps, Basècles of Stambruges voor een oud dorpshuis in renovatie. Levering op afspraak, plaatsing en vochtmeting inbegrepen.",
+      "Bouwdroger huren in Belœil met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Belœil",
     kicker: "Henegouwen · rond het kasteel van de prinsen de Ligne",
     rit: { afstand: "circa 110 km", tijd: "bijna anderhalf uur" },
@@ -28254,9 +28254,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "brugelette",
-    title: "Bouwdroger huren in Brugelette | Vernast",
+    title: "Eco bouwdroger huren in Brugelette | Vernast",
     description:
-      "Bouwdroger huren in Brugelette, Attre, Gages, Mévergnies of Cambron-Casteau: voor een hoeve of dorpswoning aan de Dender. Levering op afspraak en vochtmeting.",
+      "Bouwdroger huren in Brugelette met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Brugelette",
     kicker: "Henegouwen · de vallei van de Westelijke Dender",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -28311,9 +28311,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "chievres",
-    title: "Bouwdroger huren in Chièvres | Vernast",
+    title: "Eco bouwdroger huren in Chièvres | Vernast",
     description:
-      "Bouwdroger huren in Chièvres, Ladeuze, Tongre of Vaudignies: voor een huurwoning tussen twee bewoners of een oude boerderij. Levering op afspraak, met vochtmeting.",
+      "Bouwdroger huren in Chièvres met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Chièvres",
     kicker: "Henegouwen · het stadje bij de vliegbasis",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -28368,9 +28368,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "edingen",
-    title: "Bouwdroger huren in Edingen | Vernast",
+    title: "Eco bouwdroger huren in Edingen | Vernast",
     description:
-      "Bouwdroger huren in Edingen (Enghien), Marcq of Petit-Enghien: voor een stadswoning in de kern of een nieuwbouw aan de rand. Levering op afspraak en plaatsing.",
+      "Bouwdroger huren in Edingen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Edingen",
     kicker: "Henegouwen · aan de taalgrens met het Pajottenland",
     rit: { afstand: "circa 65 km", tijd: "bijna een uur" },
@@ -28425,9 +28425,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "elzele",
-    title: "Bouwdroger huren in Elzele | Vernast",
+    title: "Eco bouwdroger huren in Elzele | Vernast",
     description:
-      "Bouwdroger huren in Elzele (Ellezelles) voor een hoeve of oude woning in het heuvelland van het Pays des Collines, bij Ronse. Levering op afspraak en plaatsing.",
+      "Bouwdroger huren in Elzele met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Elzele",
     kicker: "Henegouwen · het heuvelland tegen de Vlaamse Ardennen",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -28482,9 +28482,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "frasnes-lez-anvaing",
-    title: "Bouwdroger huren in Frasnes-lez-Anvaing | Vernast",
+    title: "Eco bouwdroger huren in Frasnes-lez-Anvaing | Vernast",
     description:
-      "Bouwdroger huren in Frasnes-lez-Anvaing voor een hoeve, schuur of dorpshuis in het Pays des Collines. Levering op afspraak, plaatsing per zone en vochtmeting.",
+      "Bouwdroger huren in Frasnes-lez-Anvaing met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Frasnes-lez-Anvaing",
     kicker: "Henegouwen · dorpen in het heuvelland",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -28539,9 +28539,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lessen",
-    title: "Bouwdroger huren in Lessen | Vernast",
+    title: "Eco bouwdroger huren in Lessen | Vernast",
     description:
-      "Bouwdroger huren in Lessen (Lessines) voor een arbeiderswoning bij de porfiergroeven of een oud huis aan de Dender. Levering op afspraak, plaatsing en vochtmeting.",
+      "Bouwdroger huren in Lessen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lessen",
     kicker: "Henegouwen · de porfierstad aan de Dender",
     rit: { afstand: "circa 85 km", tijd: "ruim een uur" },
@@ -28596,9 +28596,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "opzullik",
-    title: "Bouwdroger huren in Opzullik | Vernast",
+    title: "Eco bouwdroger huren in Opzullik | Vernast",
     description:
-      "Bouwdroger huren in Opzullik (Silly), Bassilly, Graty of Hellebecq: voor een dorpswoning of hoeve in de vallei van de Sille. Levering op afspraak en plaatsing.",
+      "Bouwdroger huren in Opzullik met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Opzullik",
     kicker: "Henegouwen · de dorpen langs de Sille",
     rit: { afstand: "circa 75 km", tijd: "ongeveer een uur" },
@@ -28653,9 +28653,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vloesberg",
-    title: "Bouwdroger huren in Vloesberg | Vernast",
+    title: "Eco bouwdroger huren in Vloesberg | Vernast",
     description:
-      "Bouwdroger huren in Vloesberg (Flobecq) voor een hoeve of oude woning op de heuvels van het Pays des Collines, aan de taalgrens. Levering op afspraak en plaatsing.",
+      "Bouwdroger huren in Vloesberg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vloesberg",
     kicker: "Henegouwen · faciliteitengemeente in het heuvelland",
     rit: { afstand: "circa 90 km", tijd: "ruim een uur" },
@@ -28710,9 +28710,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "doornik",
-    title: "Bouwdroger huren in Doornik | Vernast",
+    title: "Eco bouwdroger huren in Doornik | Vernast",
     description:
-      "Bouwdroger huren in Doornik (Tournai): voor herenhuizen in Doornikse steen en woningen in Kain of Templeuve. Wij leveren op afspraak, plaatsen en meten het vocht.",
+      "Bouwdroger huren in Doornik met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Doornik",
     kicker: "Henegouwen · de Scheldestad met de vijf torens",
     rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
@@ -28767,9 +28767,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "antoing",
-    title: "Bouwdroger huren in Antoing | Vernast",
+    title: "Eco bouwdroger huren in Antoing | Vernast",
     description:
-      "Bouwdroger huren in Antoing, Fontenoy, Péronnes of Calonne: voor woningen tussen de Schelde en de kalkgroeven. Geplaatst door onze technieker, met vochtmeting.",
+      "Bouwdroger huren in Antoing met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Antoing",
     kicker: "Henegouwen · kalkgroeven aan de Schelde",
     rit: { afstand: "circa 135 km", tijd: "ongeveer anderhalf uur" },
@@ -28824,9 +28824,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "brunehaut",
-    title: "Bouwdroger huren in Brunehaut | Vernast",
+    title: "Eco bouwdroger huren in Brunehaut | Vernast",
     description:
-      "Bouwdroger huren in Brunehaut, Bléharies, Hollain of Wez-Velvain: voor dorpswoningen en hoeves in de Scheldevlakte aan de Franse grens. Geleverd en geplaatst.",
+      "Bouwdroger huren in Brunehaut met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Brunehaut",
     kicker: "Henegouwen · dorpen in de Scheldevlakte",
     rit: { afstand: "circa 140 km", tijd: "ruim anderhalf uur" },
@@ -28881,9 +28881,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rumes",
-    title: "Bouwdroger huren in Rumes | Vernast",
+    title: "Eco bouwdroger huren in Rumes | Vernast",
     description:
-      "Bouwdroger huren in Rumes, Taintignies of La Glanerie, tegen de Franse grens bij Rijsel: geleverd en geplaatst in nieuwbouw, dorpswoningen en hoeves, met meting.",
+      "Bouwdroger huren in Rumes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Rumes",
     kicker: "Henegouwen · grensdorpen tussen Doornik en Rijsel",
     rit: { afstand: "circa 135 km", tijd: "ongeveer anderhalf uur" },
@@ -28938,9 +28938,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "pecq",
-    title: "Bouwdroger huren in Pecq | Vernast",
+    title: "Eco bouwdroger huren in Pecq | Vernast",
     description:
-      "Bouwdroger huren in Pecq, Warcoing, Hérinnes of Esquelmes: voor woningen in de Scheldevallei tussen Doornik en Kortrijk. Geleverd, geplaatst en weer opgehaald.",
+      "Bouwdroger huren in Pecq met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Pecq",
     kicker: "Henegouwen · de Scheldevallei richting Kortrijk",
     rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
@@ -28995,9 +28995,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "celles",
-    title: "Bouwdroger huren in Celles | Vernast",
+    title: "Eco bouwdroger huren in Celles | Vernast",
     description:
-      "Bouwdroger huren in Celles, Pottes, Escanaffles of Velaines: voor hoeves en dorpswoningen tussen de Schelde en de Kluisberg. Geplaatst door onze technieker.",
+      "Bouwdroger huren in Celles met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Celles",
     kicker: "Henegouwen · tussen de Schelde en de Kluisberg",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -29052,9 +29052,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "peruwelz",
-    title: "Bouwdroger huren in Péruwelz | Vernast",
+    title: "Eco bouwdroger huren in Péruwelz | Vernast",
     description:
-      "Bouwdroger huren in Péruwelz, Bon-Secours of Wiers: voor woningen aan de bosrand en in de natte Scheldevlakte, tegen de Franse grens. Geleverd en geplaatst.",
+      "Bouwdroger huren in Péruwelz met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Péruwelz",
     kicker: "Henegouwen · Bon-Secours en de Scheldevlakte",
     rit: { afstand: "circa 130 km", tijd: "ongeveer anderhalf uur" },
@@ -29109,9 +29109,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "moeskroen",
-    title: "Bouwdroger huren in Moeskroen | Vernast",
+    title: "Eco bouwdroger huren in Moeskroen | Vernast",
     description:
-      "Bouwdroger huren in Moeskroen (Mouscron), Herseeuw, Dottenijs of Lowingen? Wij leveren en plaatsen droger en ventilator in uw rijwoning, loft of fabriekshal.",
+      "Bouwdroger huren in Moeskroen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Moeskroen",
     kicker: "Henegouwen · textielstad tussen Kortrijk en Rijsel",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -29166,9 +29166,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "komen-waasten",
-    title: "Bouwdroger huren in Komen-Waasten | Vernast",
+    title: "Eco bouwdroger huren in Komen-Waasten | Vernast",
     description:
-      "Bouwdroger huren in Komen-Waasten (Comines-Warneton)? Levering en plaatsing in Komen, Waasten, Houthem, Neerwaasten en Ploegsteert, langs de Leie.",
+      "Bouwdroger huren in Komen-Waasten (Comines-Warneton) met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Komen-Waasten",
     kicker: "Henegouwen · de Leievallei tussen Wervik en Mesen",
     rit: { afstand: "circa 120 km", tijd: "bijna anderhalf uur" },
@@ -29223,9 +29223,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "estaimpuis",
-    title: "Bouwdroger huren in Estaimpuis | Vernast",
+    title: "Eco bouwdroger huren in Estaimpuis | Vernast",
     description:
-      "Bouwdroger huren in Estaimpuis? Levering en plaatsing in Néchin, Leers-Nord, Estaimbourg en de andere dorpen aan de Franse grens, met vochtmeting bij de start.",
+      "Bouwdroger huren in Estaimpuis met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Estaimpuis",
     kicker: "Henegouwen · grensdorpen tegen Roubaix",
     rit: { afstand: "circa 115 km", tijd: "bijna anderhalf uur" },
@@ -29280,9 +29280,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "mont-de-l-enclus",
-    title: "Bouwdroger huren in Mont-de-l'Enclus | Vernast",
+    title: "Eco bouwdroger huren in Mont-de-l'Enclus | Vernast",
     description:
-      "Bouwdroger huren in Mont-de-l'Enclus? Levering en plaatsing in Amougies, Anserœul, Orroir en Russeignies, op de Waalse kant van de Kluisberg bij Ronse.",
+      "Bouwdroger huren in Mont-de-l'Enclus met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Mont-de-l'Enclus",
     kicker: "Henegouwen · de Waalse kant van de Kluisberg",
     rit: { afstand: "circa 90 km", tijd: "ruim een uur" },
@@ -29337,9 +29337,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "leuze-en-hainaut",
-    title: "Bouwdroger huren in Leuze-en-Hainaut | Vernast",
+    title: "Eco bouwdroger huren in Leuze-en-Hainaut | Vernast",
     description:
-      "Bouwdroger huren in Leuze-en-Hainaut? Levering en plaatsing in het stadje aan de Dender en in Blicquy, Pipaix, Tourpes en de andere dorpen tussen Aat en Doornik.",
+      "Bouwdroger huren in Leuze-en-Hainaut met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Leuze-en-Hainaut",
     kicker: "Henegouwen · aan de Dender tussen Aat en Doornik",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -29394,9 +29394,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "thuin",
-    title: "Bouwdroger huren in Thuin | Vernast",
+    title: "Eco bouwdroger huren in Thuin | Vernast",
     description:
-      "Bouwdroger huren in Thuin: voor stenen huizen in de bovenstad en aan de Samberkade. We leveren, plaatsen de toestellen en meten het vocht bij de start.",
+      "Bouwdroger huren in Thuin met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Thuin",
     kicker: "Henegouwen · bovenstad en Samberkade",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -29451,9 +29451,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lobbes",
-    title: "Bouwdroger huren in Lobbes | Vernast",
+    title: "Eco bouwdroger huren in Lobbes | Vernast",
     description:
-      "Bouwdroger huren in Lobbes, Mont-Sainte-Geneviève of Sars-la-Buissière: voor rijwoningen aan de Samber en verbouwde hoeves. Geleverd, geplaatst en opgehaald.",
+      "Bouwdroger huren in Lobbes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lobbes",
     kicker: "Henegouwen · de abdijkerk aan de Samber",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -29508,9 +29508,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "merbes-le-chateau",
-    title: "Bouwdroger huren in Merbes-le-Château | Vernast",
+    title: "Eco bouwdroger huren in Merbes-le-Château | Vernast",
     description:
-      "Bouwdroger huren in Merbes-le-Château, Labuissière of Fontaine-Valmont: voor stenen dorpshuizen en hoeves aan de Samber. We leveren, plaatsen en halen weer op.",
+      "Bouwdroger huren in Merbes-le-Château met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Merbes-le-Château",
     kicker: "Henegouwen · Samberdorpen voor de grens",
     rit: { afstand: "circa 105 km", tijd: "bijna anderhalf uur" },
@@ -29565,9 +29565,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "erquelinnes",
-    title: "Bouwdroger huren in Erquelinnes | Vernast",
+    title: "Eco bouwdroger huren in Erquelinnes | Vernast",
     description:
-      "Bouwdroger huren in Erquelinnes, Grand-Reng of Solre-sur-Sambre: voor rijwoningen aan de Samber en hoeves aan de Franse grens. De technieker levert en plaatst ze.",
+      "Bouwdroger huren in Erquelinnes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Erquelinnes",
     kicker: "Henegouwen · grensstad aan de Samber",
     rit: { afstand: "circa 110 km", tijd: "ongeveer anderhalf uur" },
@@ -29622,9 +29622,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beaumont",
-    title: "Bouwdroger huren in Beaumont | Vernast",
+    title: "Eco bouwdroger huren in Beaumont | Vernast",
     description:
-      "Bouwdroger huren in Beaumont, het stadje van de Salamandertoren, en zijn dorpen: voor stenen huizen en verbouwde hoeves. We leveren en plaatsen de toestellen.",
+      "Bouwdroger huren in Beaumont met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beaumont",
     kicker: "Henegouwen · de poort van de Botte du Hainaut",
     rit: { afstand: "circa 115 km", tijd: "ongeveer anderhalf uur" },
@@ -29679,9 +29679,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sivry-rance",
-    title: "Bouwdroger huren in Sivry-Rance | Vernast",
+    title: "Eco bouwdroger huren in Sivry-Rance | Vernast",
     description:
-      "Bouwdroger huren in Sivry-Rance: voor oude stenen huizen en hoeves in het land van het rode marmer, tegen de Franse grens. Geleverd en geplaatst, met vochtmeting.",
+      "Bouwdroger huren in Sivry-Rance met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sivry-Rance",
     kicker: "Henegouwen · het land van het rode marmer",
     rit: { afstand: "circa 130 km", tijd: "bijna twee uur" },
@@ -29736,9 +29736,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "froidchapelle",
-    title: "Bouwdroger huren in Froidchapelle | Vernast",
+    title: "Eco bouwdroger huren in Froidchapelle | Vernast",
     description:
-      "Bouwdroger huren in Froidchapelle, bij de meren van de Eau d'Heure: voor vakantiewoningen, oude hoeves en huizen die lang dicht stonden. Met levering en plaatsing.",
+      "Bouwdroger huren in Froidchapelle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Froidchapelle",
     kicker: "Henegouwen · aan de meren van de Eau d'Heure",
     rit: { afstand: "circa 125 km", tijd: "bijna twee uur" },
@@ -29793,9 +29793,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "chimay",
-    title: "Bouwdroger huren in Chimay | Vernast",
+    title: "Eco bouwdroger huren in Chimay | Vernast",
     description:
-      "Bouwdroger huren in Chimay, Virelles of Forges: voor stenen huizen in de oude stad en hoeves aan de bosrand in de Botte du Hainaut. Geleverd en geplaatst.",
+      "Bouwdroger huren in Chimay met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Chimay",
     kicker: "Henegouwen · kasteelstad in de Botte du Hainaut",
     rit: { afstand: "circa 140 km", tijd: "ongeveer twee uur" },
@@ -29850,9 +29850,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "momignies",
-    title: "Bouwdroger huren in Momignies | Vernast",
+    title: "Eco bouwdroger huren in Momignies | Vernast",
     description:
-      "Bouwdroger huren in Momignies, Macon of Seloignes: voor oude hoeves en stenen huizen in de Thiérache, tegen de Franse grens. Geleverd en geplaatst.",
+      "Bouwdroger huren in Momignies met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Momignies",
     kicker: "Henegouwen · de zuidpunt aan de Franse grens",
     rit: { afstand: "circa 150 km", tijd: "ongeveer twee uur" },
@@ -29907,9 +29907,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ham-sur-heure-nalinnes",
-    title: "Bouwdroger huren in Ham-sur-Heure-Nalinnes | Vernast",
+    title: "Eco bouwdroger huren in Ham-sur-Heure-Nalinnes | Vernast",
     description:
-      "Bouwdroger huren in Ham-sur-Heure-Nalinnes: voor villa's in Nalinnes en oude stenen huizen in de vallei van de Heure. Met levering, plaatsing en ophaling.",
+      "Bouwdroger huren in Ham-sur-Heure-Nalinnes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Ham-sur-Heure-Nalinnes",
     kicker: "Henegouwen · de vallei van de Heure",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -29964,9 +29964,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "namen-stad",
-    title: "Bouwdroger huren in Namen | Vernast",
+    title: "Eco bouwdroger huren in Namen | Vernast",
     description:
-      "Bouwdroger huren in Namen (Namur): oude stadswoningen aan Samber en Maas, vochtige kelders en woningen in Jambes en Wépion. Geleverd en geplaatst op afspraak.",
+      "Bouwdroger huren in Namen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Namen",
     kicker: "Provincie Namen · de stad aan Samber en Maas",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -30026,9 +30026,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gembloers",
-    title: "Bouwdroger huren in Gembloers | Vernast",
+    title: "Eco bouwdroger huren in Gembloers | Vernast",
     description:
-      "Bouwdroger huren in Gembloers (Gembloux): nieuwbouw en verbouwde hoeves op het leemplateau, van Grand-Leez tot Corroy-le-Château. Geleverd en geplaatst.",
+      "Bouwdroger huren in Gembloers met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gembloers",
     kicker: "Provincie Namen · het leemplateau van Haspengouw",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -30084,9 +30084,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "eghezee",
-    title: "Bouwdroger huren in Éghezée | Vernast",
+    title: "Eco bouwdroger huren in Éghezée | Vernast",
     description:
-      "Bouwdroger huren in Éghezée: vierkantshoeves op de Haspengouwse graanvlakte, nieuwbouw in Leuze en Longchamps, kelders bij de Mehaigne. Geleverd en geplaatst.",
+      "Bouwdroger huren in Éghezée met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Éghezée",
     kicker: "Provincie Namen · graanland langs de E411",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -30142,9 +30142,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "fernelmont",
-    title: "Bouwdroger huren in Fernelmont | Vernast",
+    title: "Eco bouwdroger huren in Fernelmont | Vernast",
     description:
-      "Bouwdroger huren in Fernelmont: verbouwde hoeves en nieuwbouw in Noville-les-Bois, Hingeon, Franc-Waret en Marchovelette, op het plateau ten oosten van Namen.",
+      "Bouwdroger huren in Fernelmont met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Fernelmont",
     kicker: "Provincie Namen · landbouwdorpen ten oosten van Namen",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -30200,9 +30200,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "la-bruyere",
-    title: "Bouwdroger huren in La Bruyère | Vernast",
+    title: "Eco bouwdroger huren in La Bruyère | Vernast",
     description:
-      "Bouwdroger huren in La Bruyère: nieuwbouw en verbouwingen in Rhisnes, Émines, Meux en Bovesse, op het landbouwplateau vlak boven Namen. Geleverd en geplaatst.",
+      "Bouwdroger huren in La Bruyère met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in La Bruyère",
     kicker: "Provincie Namen · het plateau boven Namen",
     rit: { afstand: "circa 88 km", tijd: "ongeveer een uur" },
@@ -30258,9 +30258,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sombreffe",
-    title: "Bouwdroger huren in Sombreffe | Vernast",
+    title: "Eco bouwdroger huren in Sombreffe | Vernast",
     description:
-      "Bouwdroger huren in Sombreffe, Ligny, Tongrinne of Boignée: verbouwde hoeves en nieuwbouw op het leemplateau tussen Gembloers en Fleurus. Geleverd en geplaatst.",
+      "Bouwdroger huren in Sombreffe met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sombreffe",
     kicker: "Provincie Namen · Ligny en het plateau bij Fleurus",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -30316,9 +30316,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "jemeppe-sur-sambre",
-    title: "Bouwdroger huren in Jemeppe-sur-Sambre | Vernast",
+    title: "Eco bouwdroger huren in Jemeppe-sur-Sambre | Vernast",
     description:
-      "Bouwdroger huren in Jemeppe-sur-Sambre, Spy, Moustier of Ham-sur-Sambre: woningen in de Sambervallei met kelders bij het water. Geleverd en ter plaatse gemeten.",
+      "Bouwdroger huren in Jemeppe-sur-Sambre met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Jemeppe-sur-Sambre",
     kicker: "Provincie Namen · de vallei van de Samber",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -30374,9 +30374,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sambreville",
-    title: "Bouwdroger huren in Sambreville | Vernast",
+    title: "Eco bouwdroger huren in Sambreville | Vernast",
     description:
-      "Bouwdroger huren in Sambreville, Auvelais, Tamines of Velaine: rijhuizen uit het steenkool- en glasverleden langs de Samber, met kelders bij het water. Geleverd.",
+      "Bouwdroger huren in Sambreville met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sambreville",
     kicker: "Provincie Namen · Auvelais, Tamines en de Basse-Sambre",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -30431,9 +30431,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "andenne",
-    title: "Bouwdroger huren in Andenne | Vernast",
+    title: "Eco bouwdroger huren in Andenne | Vernast",
     description:
-      "Bouwdroger huren in Andenne, Seilles of Sclayn: woningen aan de Maas met een kelder dicht bij het rivierpeil en huizen tegen de rots. Geleverd en geplaatst.",
+      "Bouwdroger huren in Andenne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Andenne",
     kicker: "Namen · de Maasstad tussen Namen en Hoei",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -30489,9 +30489,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ohey",
-    title: "Bouwdroger huren in Ohey | Vernast",
+    title: "Eco bouwdroger huren in Ohey | Vernast",
     description:
-      "Bouwdroger huren in Ohey, Haillot of Évelette: hoeves en dorpshuizen in natuursteen op het Condroz-plateau, met dikke muren die traag drogen. Aan huis geplaatst.",
+      "Bouwdroger huren in Ohey met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ohey",
     kicker: "Namen · landelijk Condroz boven de Maas",
     rit: { afstand: "circa 115 km", tijd: "bijna anderhalf uur" },
@@ -30547,9 +30547,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gesves",
-    title: "Bouwdroger huren in Gesves | Vernast",
+    title: "Eco bouwdroger huren in Gesves | Vernast",
     description:
-      "Bouwdroger huren in Gesves, Mozet, Faulx-les-Tombes of Haltinne: kalkstenen dorpshuizen in de valleien van de Condroz. Geleverd en geplaatst op afspraak.",
+      "Bouwdroger huren in Gesves met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gesves",
     kicker: "Namen · dorpen in de dalen van de Condroz",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -30605,9 +30605,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "assesse",
-    title: "Bouwdroger huren in Assesse | Vernast",
+    title: "Eco bouwdroger huren in Assesse | Vernast",
     description:
-      "Bouwdroger huren in Assesse, Crupet, Courrière of Maillen: nieuwbouw langs de E411 en stenen hoeves in de Condroz. Geleverd en geplaatst, op afspraak.",
+      "Bouwdroger huren in Assesse met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Assesse",
     kicker: "Namen · aan de E411 in de Condroz",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -30663,9 +30663,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "profondeville",
-    title: "Bouwdroger huren in Profondeville | Vernast",
+    title: "Eco bouwdroger huren in Profondeville | Vernast",
     description:
-      "Bouwdroger huren in Profondeville, Lustin of Bois-de-Villers: woningen aan de Maas, huizen tegen de rots en nieuwbouw op het plateau. Aan huis geplaatst.",
+      "Bouwdroger huren in Profondeville met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Profondeville",
     kicker: "Namen · de Maasbocht onder de rotsen",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -30721,9 +30721,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "floreffe",
-    title: "Bouwdroger huren in Floreffe | Vernast",
+    title: "Eco bouwdroger huren in Floreffe | Vernast",
     description:
-      "Bouwdroger huren in Floreffe, Franière of Floriffoux: rijwoningen in het Samberdal onder de abdij en woningen op de helling. Op afspraak geleverd en geplaatst.",
+      "Bouwdroger huren in Floreffe met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Floreffe",
     kicker: "Namen · de abdij boven de Samber",
     rit: { afstand: "circa 100 km", tijd: "iets meer dan een uur" },
@@ -30779,9 +30779,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "fosses-la-ville",
-    title: "Bouwdroger huren in Fosses-la-Ville | Vernast",
+    title: "Eco bouwdroger huren in Fosses-la-Ville | Vernast",
     description:
-      "Bouwdroger huren in Fosses-la-Ville, Vitrival of Sart-Saint-Laurent: stenen huizen rond de collegiale en hoeves op het plateau. Geleverd en geplaatst.",
+      "Bouwdroger huren in Fosses-la-Ville met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Fosses-la-Ville",
     kicker: "Namen · de Chinels-stad tussen Samber en Maas",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -30837,9 +30837,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "mettet",
-    title: "Bouwdroger huren in Mettet | Vernast",
+    title: "Eco bouwdroger huren in Mettet | Vernast",
     description:
-      "Bouwdroger huren in Mettet, Saint-Gérard of Biesme: hoeves en dorpshuizen op het plateau van Entre-Sambre-et-Meuse. Aan huis geleverd en geplaatst.",
+      "Bouwdroger huren in Mettet met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Mettet",
     kicker: "Namen · het circuit op het plateau",
     rit: { afstand: "circa 120 km", tijd: "bijna anderhalf uur" },
@@ -30894,9 +30894,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dinant",
-    title: "Bouwdroger huren in Dinant | Vernast",
+    title: "Eco bouwdroger huren in Dinant | Vernast",
     description:
-      "Bouwdroger huren in Dinant: voor huizen tegen de rotswand, kelders aan de Maas en woningen in Anseremme en Bouvignes. Wij leveren, plaatsen en meten het vocht.",
+      "Bouwdroger huren in Dinant met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Dinant",
     kicker: "Namen · de stad tussen Maas en rots",
     rit: { afstand: "circa 115 km", tijd: "bijna anderhalf uur" },
@@ -30952,9 +30952,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "yvoir",
-    title: "Bouwdroger huren in Yvoir | Vernast",
+    title: "Eco bouwdroger huren in Yvoir | Vernast",
     description:
-      "Bouwdroger huren in Yvoir, Godinne, Spontin of Purnode: voor woningen aan de Maas en de Bocq en voor stenen hoeves op het plateau. Geleverd en geplaatst.",
+      "Bouwdroger huren in Yvoir met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Yvoir",
     kicker: "Namen · waar de Bocq in de Maas loopt",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -31010,9 +31010,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "anhee",
-    title: "Bouwdroger huren in Anhée | Vernast",
+    title: "Eco bouwdroger huren in Anhée | Vernast",
     description:
-      "Bouwdroger huren in Anhée, Annevoie, Denée of Warnant: woningen aan de Maas en in de vallei van de Molignée onder Maredsous. Geleverd en per ruimte geplaatst.",
+      "Bouwdroger huren in Anhée met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Anhée",
     kicker: "Namen · de vallei van de Molignée",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -31068,9 +31068,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hastiere",
-    title: "Bouwdroger huren in Hastière | Vernast",
+    title: "Eco bouwdroger huren in Hastière | Vernast",
     description:
-      "Bouwdroger huren in Hastière, Waulsort of Heer: voor woningen aan de Maas vlak bij de Franse grens en voor tweede verblijven. Geleverd, geplaatst en opgehaald.",
+      "Bouwdroger huren in Hastière met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hastière",
     kicker: "Namen · aan de Maas, tegen de Franse grens",
     rit: { afstand: "circa 125 km", tijd: "ongeveer anderhalf uur" },
@@ -31126,9 +31126,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "onhaye",
-    title: "Bouwdroger huren in Onhaye | Vernast",
+    title: "Eco bouwdroger huren in Onhaye | Vernast",
     description:
-      "Bouwdroger huren in Onhaye, Anthée, Falaën of Weillen: dorpshuizen en hoeves op het plateau ten westen van de Maas, onder de burcht van Montaigle. Geleverd.",
+      "Bouwdroger huren in Onhaye met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Onhaye",
     kicker: "Namen · dorpen op het plateau boven de Maas",
     rit: { afstand: "circa 120 km", tijd: "bijna anderhalf uur" },
@@ -31184,9 +31184,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "houyet",
-    title: "Bouwdroger huren in Houyet | Vernast",
+    title: "Eco bouwdroger huren in Houyet | Vernast",
     description:
-      "Bouwdroger huren in Houyet, Celles of Wanlin: voor stenen huizen in de vallei van de Lesse en hoeves die vakantiewoning worden. Wij leveren en plaatsen.",
+      "Bouwdroger huren in Houyet met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Houyet",
     kicker: "Namen · aan de Lesse, tussen Famenne en Condroz",
     rit: { afstand: "circa 130 km", tijd: "ongeveer anderhalf uur" },
@@ -31242,9 +31242,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beauraing",
-    title: "Bouwdroger huren in Beauraing | Vernast",
+    title: "Eco bouwdroger huren in Beauraing | Vernast",
     description:
-      "Bouwdroger huren in Beauraing, Pondrôme of Winenne: voor woningen rond het heiligdom, stenen hoeves en nieuwbouw in de Famenne. Geleverd en geplaatst.",
+      "Bouwdroger huren in Beauraing met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beauraing",
     kicker: "Namen · bedevaartsoord in de Famenne",
     rit: { afstand: "circa 135 km", tijd: "ruim anderhalf uur" },
@@ -31299,9 +31299,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ciney",
-    title: "Bouwdroger huren in Ciney | Vernast",
+    title: "Eco bouwdroger huren in Ciney | Vernast",
     description:
-      "Bouwdroger huren in Ciney, Achêne of Leignon: voor verbouwde Condrozische hoeves en rijwoningen in het centrum. Geplaatst, met een vochtmeting bij de start.",
+      "Bouwdroger huren in Ciney met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ciney",
     kicker: "Provincie Namen · de hoofdplaats van de Condroz",
     rit: { afstand: "circa 130 km", tijd: "ongeveer anderhalf uur" },
@@ -31357,9 +31357,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hamois",
-    title: "Bouwdroger huren in Hamois | Vernast",
+    title: "Eco bouwdroger huren in Hamois | Vernast",
     description:
-      "Bouwdroger huren in Hamois, Natoye, Emptinne of Schaltin: voor nieuwbouw op een kavel en verbouwde huizen op het plateau van de Condroz. Geleverd en ingesteld.",
+      "Bouwdroger huren in Hamois met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hamois",
     kicker: "Provincie Namen · dorpen op het Condrozisch plateau",
     rit: { afstand: "circa 125 km", tijd: "bijna anderhalf uur" },
@@ -31415,9 +31415,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "havelange",
-    title: "Bouwdroger huren in Havelange | Vernast",
+    title: "Eco bouwdroger huren in Havelange | Vernast",
     description:
-      "Bouwdroger huren in Havelange, Maffe, Méan of Barvaux-Condroz: hoeves en dorpshuizen in de oostelijke Condroz, tegen de provincie Luik. Geleverd en geplaatst.",
+      "Bouwdroger huren in Havelange met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Havelange",
     kicker: "Provincie Namen · de oostelijke Condroz",
     rit: { afstand: "circa 135 km", tijd: "ongeveer anderhalf uur" },
@@ -31473,9 +31473,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "somme-leuze",
-    title: "Bouwdroger huren in Somme-Leuze | Vernast",
+    title: "Eco bouwdroger huren in Somme-Leuze | Vernast",
     description:
-      "Bouwdroger huren in Somme-Leuze, Baillonville, Noiseux of Sinsin: tussen Condroz en Famenne, met woningen op zware grond en aan de Ourthe. Geleverd en geplaatst.",
+      "Bouwdroger huren in Somme-Leuze met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Somme-Leuze",
     kicker: "Provincie Namen · tussen Condroz en Famenne",
     rit: { afstand: "circa 145 km", tijd: "ruim anderhalf uur" },
@@ -31531,9 +31531,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rochefort",
-    title: "Bouwdroger huren in Rochefort | Vernast",
+    title: "Eco bouwdroger huren in Rochefort | Vernast",
     description:
-      "Bouwdroger huren in Rochefort, Han-sur-Lesse of Jemelle: stenen woningen aan de Lesse en de Lomme, in de Famenne. Bij u geleverd, geplaatst en ingesteld.",
+      "Bouwdroger huren in Rochefort met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Rochefort",
     kicker: "Provincie Namen · Famenne, Lesse en Lomme",
     rit: { afstand: "circa 155 km", tijd: "ruim anderhalf uur" },
@@ -31589,9 +31589,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gedinne",
-    title: "Bouwdroger huren in Gedinne | Vernast",
+    title: "Eco bouwdroger huren in Gedinne | Vernast",
     description:
-      "Bouwdroger huren in Gedinne: woningen in leisteen en tweede verblijven op het hoogste deel van de Naamse Ardennen. Aan huis geplaatst, met een meting bij de start.",
+      "Bouwdroger huren in Gedinne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gedinne",
     kicker: "Provincie Namen · de hoge Ardennen tegen Frankrijk",
     rit: { afstand: "circa 185 km", tijd: "ongeveer twee uur" },
@@ -31647,9 +31647,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bievre",
-    title: "Bouwdroger huren in Bièvre | Vernast",
+    title: "Eco bouwdroger huren in Bièvre | Vernast",
     description:
-      "Bouwdroger huren in Bièvre, Graide, Naomé of Gros-Fays: Ardense dorpen tussen de bossen, met leistenen huizen en vakantiewoningen. Geleverd en geplaatst.",
+      "Bouwdroger huren in Bièvre met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bièvre",
     kicker: "Provincie Namen · bosdorpen op het Ardens plateau",
     rit: { afstand: "circa 185 km", tijd: "ongeveer twee uur" },
@@ -31705,9 +31705,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vresse-sur-semois",
-    title: "Bouwdroger huren in Vresse-sur-Semois | Vernast",
+    title: "Eco bouwdroger huren in Vresse-sur-Semois | Vernast",
     description:
-      "Bouwdroger huren in Vresse-sur-Semois, Alle, Bohan of Laforêt: huizen en vakantiewoningen in de bochten van de Semois. Geleverd en geplaatst, ook na de winter.",
+      "Bouwdroger huren in Vresse-sur-Semois met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Vresse-sur-Semois",
     kicker: "Provincie Namen · de vallei van de Semois",
     rit: { afstand: "circa 205 km", tijd: "ruim twee uur" },
@@ -31762,9 +31762,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "philippeville",
-    title: "Bouwdroger huren in Philippeville | Vernast",
+    title: "Eco bouwdroger huren in Philippeville | Vernast",
     description:
-      "Bouwdroger huren in Philippeville: voor woningen in de oude vestingstad en stenen hoeves in de dorpen van de Fagne. Wij leveren, plaatsen en meten het vocht.",
+      "Bouwdroger huren in Philippeville met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Philippeville",
     kicker: "Provincie Namen · de vestingstad in de Fagne",
     rit: { afstand: "circa 125 km", tijd: "ongeveer anderhalf uur" },
@@ -31819,9 +31819,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "walcourt",
-    title: "Bouwdroger huren in Walcourt | Vernast",
+    title: "Eco bouwdroger huren in Walcourt | Vernast",
     description:
-      "Bouwdroger huren in Walcourt: voor huizen op de heuvel rond de basiliek, in het dal van de Eau d'Heure en in dorpen als Thy-le-Château en Yves-Gomezée.",
+      "Bouwdroger huren in Walcourt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Walcourt",
     kicker: "Provincie Namen · de basiliek boven de Eau d'Heure",
     rit: { afstand: "circa 115 km", tijd: "bijna anderhalf uur" },
@@ -31876,9 +31876,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "florennes",
-    title: "Bouwdroger huren in Florennes | Vernast",
+    title: "Eco bouwdroger huren in Florennes | Vernast",
     description:
-      "Bouwdroger huren in Florennes, Morialmé, Hemptinne of Flavion: woningen en hoeves op het plateau van Entre-Sambre-et-Meuse. Geplaatst en ingesteld door ons.",
+      "Bouwdroger huren in Florennes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Florennes",
     kicker: "Provincie Namen · het plateau tussen Samber en Maas",
     rit: { afstand: "circa 125 km", tijd: "bijna anderhalf uur" },
@@ -31933,9 +31933,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "cerfontaine",
-    title: "Bouwdroger huren in Cerfontaine | Vernast",
+    title: "Eco bouwdroger huren in Cerfontaine | Vernast",
     description:
-      "Bouwdroger huren in Cerfontaine, Silenrieux of Senzeille: woningen en vakantiehuizen rond de meren van de Eau d'Heure, op de natte grond van de Fagne.",
+      "Bouwdroger huren in Cerfontaine met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Cerfontaine",
     kicker: "Provincie Namen · aan de meren van de Eau d'Heure",
     rit: { afstand: "circa 130 km", tijd: "ongeveer anderhalf uur" },
@@ -31990,9 +31990,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "couvin",
-    title: "Bouwdroger huren in Couvin | Vernast",
+    title: "Eco bouwdroger huren in Couvin | Vernast",
     description:
-      "Bouwdroger huren in Couvin of Mariembourg: woningen aan de Eau Noire, op de kalkrotsen van de Calestienne en in de bosdorpen naar Frankrijk. Geleverd en geplaatst.",
+      "Bouwdroger huren in Couvin met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Couvin",
     kicker: "Provincie Namen · aan de Eau Noire",
     rit: { afstand: "circa 145 km", tijd: "ruim anderhalf uur" },
@@ -32047,9 +32047,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "viroinval",
-    title: "Bouwdroger huren in Viroinval | Vernast",
+    title: "Eco bouwdroger huren in Viroinval | Vernast",
     description:
-      "Bouwdroger huren in Viroinval: Nismes, Olloy, Treignes en Vierves langs de Viroin, met stenen huizen tussen de kalkheuvels van de Calestienne. Ter plaatse gemeten.",
+      "Bouwdroger huren in Viroinval met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Viroinval",
     kicker: "Provincie Namen · de vallei van de Viroin",
     rit: { afstand: "circa 150 km", tijd: "bijna twee uur" },
@@ -32104,9 +32104,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "doische",
-    title: "Bouwdroger huren in Doische | Vernast",
+    title: "Eco bouwdroger huren in Doische | Vernast",
     description:
-      "Bouwdroger huren in Doische, Matagne, Romerée of Gochenée: natuurstenen hoeves en dorpshuizen aan de Franse grens, tussen Fagne en Calestienne. Geleverd en geplaatst.",
+      "Bouwdroger huren in Doische met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Doische",
     kicker: "Provincie Namen · tegen de Franse grens",
     rit: { afstand: "circa 150 km", tijd: "bijna twee uur" },
@@ -32161,9 +32161,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "marche-en-famenne",
-    title: "Bouwdroger huren in Marche-en-Famenne | Vernast",
+    title: "Eco bouwdroger huren in Marche-en-Famenne | Vernast",
     description:
-      "Bouwdroger huren in Marche-en-Famenne, Marloie, Waha of Aye? Wij leveren op afspraak, plaatsen de toestellen en meten het vocht bij de start.",
+      "Bouwdroger huren in Marche-en-Famenne, Marloie, Waha of Aye met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Marche-en-Famenne",
     kicker: "Provincie Luxemburg · de hoofdplaats van de Famenne",
     rit: { afstand: "circa 150 km", tijd: "bijna twee uur" },
@@ -32219,9 +32219,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "durbuy",
-    title: "Bouwdroger huren in Durbuy | Vernast",
+    title: "Eco bouwdroger huren in Durbuy | Vernast",
     description:
-      "Bouwdroger huren in Durbuy, Barvaux, Bomal of Wéris, ook voor een tweede verblijf of gîte. Levering op afspraak, plaatsing en vochtmeting bij de start.",
+      "Bouwdroger huren in Durbuy met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Durbuy",
     kicker: "Provincie Luxemburg · het stadje aan de Ourthe",
     rit: { afstand: "circa 155 km", tijd: "bijna twee uur" },
@@ -32277,9 +32277,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hotton",
-    title: "Bouwdroger huren in Hotton | Vernast",
+    title: "Eco bouwdroger huren in Hotton | Vernast",
     description:
-      "Bouwdroger huren in Hotton, Melreux of Hampteau, voor woningen in het Ourthedal en op de kalksteen. Levering op afspraak, plaatsing en vochtmeting.",
+      "Bouwdroger huren in Hotton met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hotton",
     kicker: "Provincie Luxemburg · Ourthedal en grotten",
     rit: { afstand: "circa 160 km", tijd: "bijna twee uur" },
@@ -32335,9 +32335,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "la-roche-en-ardenne",
-    title: "Bouwdroger huren in La Roche-en-Ardenne | Vernast",
+    title: "Eco bouwdroger huren in La Roche-en-Ardenne | Vernast",
     description:
-      "Bouwdroger huren in La Roche-en-Ardenne, Samrée of Ortho, voor huizen in de Ourthebocht en koude woningen op het plateau. Levering op afspraak.",
+      "Bouwdroger huren in La Roche-en-Ardenne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in La Roche-en-Ardenne",
     kicker: "Provincie Luxemburg · het stadje in de Ourthebocht",
     rit: { afstand: "circa 175 km", tijd: "ongeveer twee uur" },
@@ -32393,9 +32393,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "manhay",
-    title: "Bouwdroger huren in Manhay | Vernast",
+    title: "Eco bouwdroger huren in Manhay | Vernast",
     description:
-      "Bouwdroger huren in Manhay, Dochamps of Grandménil, voor koude woningen op het Ardense hoogland. Levering op afspraak, plaatsing en vochtmeting bij de start.",
+      "Bouwdroger huren in Manhay met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Manhay",
     kicker: "Provincie Luxemburg · het hoogland aan de E25",
     rit: { afstand: "circa 170 km", tijd: "bijna twee uur" },
@@ -32451,9 +32451,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "nassogne",
-    title: "Bouwdroger huren in Nassogne | Vernast",
+    title: "Eco bouwdroger huren in Nassogne | Vernast",
     description:
-      "Bouwdroger huren in Nassogne, Forrières, Ambly of Bande, voor woningen tussen de Famenne en de Ardense bossen. Levering op afspraak en vochtmeting bij de start.",
+      "Bouwdroger huren in Nassogne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Nassogne",
     kicker: "Provincie Luxemburg · waar de Famenne de Ardennen raakt",
     rit: { afstand: "circa 160 km", tijd: "bijna twee uur" },
@@ -32509,9 +32509,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rendeux",
-    title: "Bouwdroger huren in Rendeux | Vernast",
+    title: "Eco bouwdroger huren in Rendeux | Vernast",
     description:
-      "Bouwdroger huren in Rendeux, Marcourt of Beffe, voor woningen en vakantiehuizen in het smalle Ourthedal. Levering op afspraak, plaatsing en vochtmeting.",
+      "Bouwdroger huren in Rendeux met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Rendeux",
     kicker: "Provincie Luxemburg · het smalle Ourthedal",
     rit: { afstand: "circa 165 km", tijd: "bijna twee uur" },
@@ -32567,9 +32567,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tenneville",
-    title: "Bouwdroger huren in Tenneville | Vernast",
+    title: "Eco bouwdroger huren in Tenneville | Vernast",
     description:
-      "Bouwdroger huren in Tenneville, Champlon of Erneuville, voor woningen op het koude plateau aan de N4. Levering op afspraak, plaatsing en vochtmeting.",
+      "Bouwdroger huren in Tenneville met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tenneville",
     kicker: "Provincie Luxemburg · het plateau aan de N4",
     rit: { afstand: "circa 175 km", tijd: "ongeveer twee uur" },
@@ -32625,9 +32625,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "erezee",
-    title: "Bouwdroger huren in Érezée | Vernast",
+    title: "Eco bouwdroger huren in Érezée | Vernast",
     description:
-      "Bouwdroger huren in Érezée, Soy, Mormont of Amonines, voor woningen in het dal van de Aisne en op de heuvels. Levering op afspraak, plaatsing en vochtmeting.",
+      "Bouwdroger huren in Érezée met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Érezée",
     kicker: "Provincie Luxemburg · het dal van de Aisne",
     rit: { afstand: "circa 165 km", tijd: "bijna twee uur" },
@@ -32682,9 +32682,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bastenaken",
-    title: "Bouwdroger huren in Bastenaken | Vernast",
+    title: "Eco bouwdroger huren in Bastenaken | Vernast",
     description:
-      "Bouwdroger huren in Bastenaken (Bastogne) en Bertogne: nieuwbouw en renovatie op het koude Ardense plateau, met een kachel waar nodig en een vochtmeting bij de start.",
+      "Bouwdroger huren in Bastenaken met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bastenaken",
     kicker: "Provincie Luxemburg · stad op het Ardense plateau",
     rit: { afstand: "circa 210 km", tijd: "ruim twee uur" },
@@ -32744,9 +32744,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "fauvillers",
-    title: "Bouwdroger huren in Fauvillers | Vernast",
+    title: "Eco bouwdroger huren in Fauvillers | Vernast",
     description:
-      "Bouwdroger huren in Fauvillers, in de Sûrevallei van de Belgische provincie Luxemburg: verbouwde hoeves, schuren en tweede verblijven. Geleverd en geplaatst op afspraak.",
+      "Bouwdroger huren in Fauvillers met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Fauvillers",
     kicker: "Provincie Luxemburg · de Sûre bij de grens",
     rit: { afstand: "circa 240 km", tijd: "ongeveer tweeënhalf uur" },
@@ -32802,9 +32802,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gouvy",
-    title: "Bouwdroger huren in Gouvy | Vernast",
+    title: "Eco bouwdroger huren in Gouvy | Vernast",
     description:
-      "Bouwdroger huren in Gouvy, Beho, Bovigny of Cherain: renovatie van stenen hoeves en nieuwbouw op de koude Ardense hoogvlakte. Met vochtmeting bij de start.",
+      "Bouwdroger huren in Gouvy met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gouvy",
     kicker: "Provincie Luxemburg · de oostrand van de Ardennen",
     rit: { afstand: "circa 210 km", tijd: "ruim twee uur" },
@@ -32860,9 +32860,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "houffalize",
-    title: "Bouwdroger huren in Houffalize | Vernast",
+    title: "Eco bouwdroger huren in Houffalize | Vernast",
     description:
-      "Bouwdroger huren in Houffalize, Nadrin, Tavigny of Wibrin: woningen en gîtes in het Ourthedal, hoeves op de Ardense hoogte. Geleverd, geplaatst en gemeten.",
+      "Bouwdroger huren in Houffalize met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Houffalize",
     kicker: "Provincie Luxemburg · het stadje in het Ourthedal",
     rit: { afstand: "circa 195 km", tijd: "ongeveer twee uur" },
@@ -32918,9 +32918,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sainte-ode",
-    title: "Bouwdroger huren in Sainte-Ode | Vernast",
+    title: "Eco bouwdroger huren in Sainte-Ode | Vernast",
     description:
-      "Bouwdroger huren in Sainte-Ode, Amberloup, Lavacherie of Tillet: stenen dorpshuizen langs de Westelijke Ourthe op het Ardense plateau. Geleverd en geplaatst.",
+      "Bouwdroger huren in Sainte-Ode met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sainte-Ode",
     kicker: "Provincie Luxemburg · dorpen langs de Westelijke Ourthe",
     rit: { afstand: "circa 200 km", tijd: "ongeveer twee uur" },
@@ -32976,9 +32976,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vaux-sur-sure",
-    title: "Bouwdroger huren in Vaux-sur-Sûre | Vernast",
+    title: "Eco bouwdroger huren in Vaux-sur-Sûre | Vernast",
     description:
-      "Bouwdroger huren in Vaux-sur-Sûre, Sibret, Hompré of Juseret: nieuwbouw en hoeves bij de bron van de Sûre, op het hoge plateau ten zuiden van Bastenaken.",
+      "Bouwdroger huren in Vaux-sur-Sûre met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vaux-sur-Sûre",
     kicker: "Provincie Luxemburg · bij de bron van de Sûre",
     rit: { afstand: "circa 225 km", tijd: "ruim twee uur" },
@@ -33034,9 +33034,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vielsalm",
-    title: "Bouwdroger huren in Vielsalm | Vernast",
+    title: "Eco bouwdroger huren in Vielsalm | Vernast",
     description:
-      "Bouwdroger huren in Vielsalm, Grand-Halleux, Bihain of Salmchâteau: renovatie van stenen woningen in het Salmdal en nieuwbouw op de hoogte. Geleverd en geplaatst.",
+      "Bouwdroger huren in Vielsalm met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vielsalm",
     kicker: "Provincie Luxemburg · het Salmdal en de coticule",
     rit: { afstand: "circa 190 km", tijd: "ongeveer twee uur" },
@@ -33091,9 +33091,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "libramont-chevigny",
-    title: "Bouwdroger huren in Libramont-Chevigny | Vernast",
+    title: "Eco bouwdroger huren in Libramont-Chevigny | Vernast",
     description:
-      "Bouwdroger huren in Libramont-Chevigny, Recogne of Bras? Wij leveren en plaatsen bouwdrogers op het Ardense plateau, voor nieuwbouw en verbouwde hoeves.",
+      "Bouwdroger huren in Libramont-Chevigny, Recogne of Bras met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Libramont-Chevigny",
     kicker: "Provincie Luxemburg · het plateau aan de E411",
     rit: { afstand: "circa 195 km", tijd: "ongeveer twee uur" },
@@ -33148,9 +33148,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "neufchateau",
-    title: "Bouwdroger huren in Neufchâteau | Vernast",
+    title: "Eco bouwdroger huren in Neufchâteau | Vernast",
     description:
-      "Bouwdroger huren in Neufchâteau, Longlier of Hamipré? Wij leveren bouwdrogers voor stenen dorpshuizen en nieuwbouw in de Belgische provincie Luxemburg.",
+      "Bouwdroger huren in Neufchâteau, Longlier of Hamipré met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Neufchâteau",
     kicker: "Provincie Luxemburg · arrondissementshoofdplaats op de hoogte",
     rit: { afstand: "circa 205 km", tijd: "ruim twee uur" },
@@ -33205,9 +33205,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "saint-hubert",
-    title: "Bouwdroger huren in Saint-Hubert | Vernast",
+    title: "Eco bouwdroger huren in Saint-Hubert | Vernast",
     description:
-      "Bouwdroger huren in Saint-Hubert, Arville of Mirwart? Wij leveren en plaatsen bouwdrogers in oude huizen rond de basiliek en in woningen in de bosdorpen.",
+      "Bouwdroger huren in Saint-Hubert, Arville of Mirwart met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Saint-Hubert",
     kicker: "Provincie Luxemburg · de basiliek in het woud",
     rit: { afstand: "circa 185 km", tijd: "ongeveer twee uur" },
@@ -33262,9 +33262,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "libin",
-    title: "Bouwdroger huren in Libin | Vernast",
+    title: "Eco bouwdroger huren in Libin | Vernast",
     description:
-      "Bouwdroger huren in Libin, Redu, Transinne of Anloy? Wij leveren en plaatsen bouwdrogers voor dorpshuizen van Ardense steen en verbouwde boerenhuizen.",
+      "Bouwdroger huren in Libin, Redu, Transinne of Anloy met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Libin",
     kicker: "Provincie Luxemburg · Redu en Transinne",
     rit: { afstand: "circa 180 km", tijd: "ongeveer twee uur" },
@@ -33319,9 +33319,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tellin",
-    title: "Bouwdroger huren in Tellin | Vernast",
+    title: "Eco bouwdroger huren in Tellin | Vernast",
     description:
-      "Bouwdroger huren in Tellin, Bure, Grupont of Resteigne? Wij leveren en plaatsen bouwdrogers in kalksteenhuizen op de rand van Famenne en Ardennen.",
+      "Bouwdroger huren in Tellin, Bure, Grupont of Resteigne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Tellin",
     kicker: "Provincie Luxemburg · op de rand van Famenne en Ardennen",
     rit: { afstand: "circa 170 km", tijd: "bijna twee uur" },
@@ -33376,9 +33376,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wellin",
-    title: "Bouwdroger huren in Wellin | Vernast",
+    title: "Eco bouwdroger huren in Wellin | Vernast",
     description:
-      "Bouwdroger huren in Wellin, Halma, Chanly of Sohier? Wij leveren en plaatsen bouwdrogers in natuurstenen dorpshuizen en verbouwde hoeves op de Calestienne.",
+      "Bouwdroger huren in Wellin, Halma, Chanly of Sohier met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Wellin",
     kicker: "Provincie Luxemburg · dorpen van natuursteen op de Calestienne",
     rit: { afstand: "circa 165 km", tijd: "ruim anderhalf uur" },
@@ -33433,9 +33433,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bouillon",
-    title: "Bouwdroger huren in Bouillon | Vernast",
+    title: "Eco bouwdroger huren in Bouillon | Vernast",
     description:
-      "Bouwdroger huren in Bouillon, aan de Semois onder de burcht: oude stenen huizen, vakantiewoningen in Rochehaut en Corbion. Geleverd en geplaatst, met vochtmeting.",
+      "Bouwdroger huren in Bouillon met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bouillon",
     kicker: "Provincie Luxemburg · de Semoislus onder de burcht",
     rit: { afstand: "circa 205 km", tijd: "ruim twee uur" },
@@ -33491,9 +33491,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bertrix",
-    title: "Bouwdroger huren in Bertrix | Vernast",
+    title: "Eco bouwdroger huren in Bertrix | Vernast",
     description:
-      "Bouwdroger huren in Bertrix, Cugnon of Auby-sur-Semois: leistenen daken, nieuwbouw op het Ardense plateau en oude huizen aan de Semois. Bij u geplaatst en ingesteld.",
+      "Bouwdroger huren in Bertrix met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bertrix",
     kicker: "Provincie Luxemburg · de leisteengemeente op het plateau",
     rit: { afstand: "circa 195 km", tijd: "ongeveer twee uur" },
@@ -33549,9 +33549,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "paliseul",
-    title: "Bouwdroger huren in Paliseul | Vernast",
+    title: "Eco bouwdroger huren in Paliseul | Vernast",
     description:
-      "Bouwdroger huren in Paliseul, Maissin, Carlsbourg of Opont: Ardense dorpen op het plateau boven de Semois, oude hoeves en nieuwbouw. Geleverd door een technieker.",
+      "Bouwdroger huren in Paliseul met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Paliseul",
     kicker: "Provincie Luxemburg · dorpen op het plateau tussen bos en weide",
     rit: { afstand: "circa 190 km", tijd: "ongeveer twee uur" },
@@ -33607,9 +33607,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "herbeumont",
-    title: "Bouwdroger huren in Herbeumont | Vernast",
+    title: "Eco bouwdroger huren in Herbeumont | Vernast",
     description:
-      "Bouwdroger huren in Herbeumont, Martilly of Saint-Médard: huizen tegen de helling van de Semoisvallei, vakantiewoningen in de bossen. Geleverd en geplaatst.",
+      "Bouwdroger huren in Herbeumont met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herbeumont",
     kicker: "Provincie Luxemburg · de kasteelruïne boven de Semois",
     rit: { afstand: "circa 205 km", tijd: "ruim twee uur" },
@@ -33665,9 +33665,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "daverdisse",
-    title: "Bouwdroger huren in Daverdisse | Vernast",
+    title: "Eco bouwdroger huren in Daverdisse | Vernast",
     description:
-      "Bouwdroger huren in Daverdisse, Gembes, Haut-Fays of Porcheresse: stenen dorpshuizen in de Lessevallei en op het plateau. Geleverd, geplaatst en weer opgehaald.",
+      "Bouwdroger huren in Daverdisse met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Daverdisse",
     kicker: "Provincie Luxemburg · het dorp aan de Lesse",
     rit: { afstand: "circa 175 km", tijd: "bijna twee uur" },
@@ -33723,9 +33723,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "leglise",
-    title: "Bouwdroger huren in Léglise | Vernast",
+    title: "Eco bouwdroger huren in Léglise | Vernast",
     description:
-      "Bouwdroger huren in Léglise, Mellier, Witry of Ebly: woningen aan de rand van het Anlierwoud, oude hoeves en nieuwbouw. Bij u geleverd en geplaatst door een technieker.",
+      "Bouwdroger huren in Léglise met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Léglise",
     kicker: "Provincie Luxemburg · aan de rand van het Anlierwoud",
     rit: { afstand: "circa 215 km", tijd: "ruim twee uur" },
@@ -33780,9 +33780,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "aarlen",
-    title: "Bouwdroger huren in Aarlen | Vernast",
+    title: "Eco bouwdroger huren in Aarlen | Vernast",
     description:
-      "Bouwdroger huren in Aarlen (Arlon): burgerhuizen in de oude stad en nieuwbouw in de deelgemeenten. Wij leveren, plaatsen de toestellen en halen ze weer op.",
+      "Bouwdroger huren in Aarlen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Aarlen",
     kicker: "Provincie Luxemburg · de hoofdstad op de heuvel",
     rit: { afstand: "circa 225 km", tijd: "ruim twee uur" },
@@ -33838,9 +33838,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "attert",
-    title: "Bouwdroger huren in Attert | Vernast",
+    title: "Eco bouwdroger huren in Attert | Vernast",
     description:
-      "Bouwdroger huren in Attert: voor nieuwbouw en verbouwde boerderijen in de Attertvallei, ten noorden van Aarlen. Levering op afspraak, plaatsing door onze technieker.",
+      "Bouwdroger huren in Attert met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Attert",
     kicker: "Provincie Luxemburg · de vallei van de Attert",
     rit: { afstand: "circa 230 km", tijd: "ruim twee uur" },
@@ -33896,9 +33896,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "aubange",
-    title: "Bouwdroger huren in Aubange | Vernast",
+    title: "Eco bouwdroger huren in Aubange | Vernast",
     description:
-      "Bouwdroger huren in Aubange, Athus of Halanzy: voor gerenoveerde arbeiderswoningen en nieuwbouw bij het drielandenpunt. Geleverd en geplaatst op afspraak.",
+      "Bouwdroger huren in Aubange met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Aubange",
     kicker: "Provincie Luxemburg · aan het drielandenpunt",
     rit: { afstand: "circa 245 km", tijd: "ongeveer tweeënhalf uur" },
@@ -33954,9 +33954,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "martelange",
-    title: "Bouwdroger huren in Martelange | Vernast",
+    title: "Eco bouwdroger huren in Martelange | Vernast",
     description:
-      "Bouwdroger huren in Martelange: voor stenen huizen in het dal van de Sûre en nieuwbouw langs de N4, tegen de grens. Levering op afspraak, toestellen geplaatst en ingesteld.",
+      "Bouwdroger huren in Martelange met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Martelange",
     kicker: "Provincie Luxemburg · aan de Sûre en de N4",
     rit: { afstand: "circa 210 km", tijd: "ruim twee uur" },
@@ -34012,9 +34012,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "messancy",
-    title: "Bouwdroger huren in Messancy | Vernast",
+    title: "Eco bouwdroger huren in Messancy | Vernast",
     description:
-      "Bouwdroger huren in Messancy, Habergy of Wolkrange: voor nieuwbouw met chape en verbouwde dorpshuizen ten zuiden van Aarlen. Geleverd en geplaatst op afspraak.",
+      "Bouwdroger huren in Messancy met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Messancy",
     kicker: "Provincie Luxemburg · ten zuiden van Aarlen",
     rit: { afstand: "circa 235 km", tijd: "ruim twee uur" },
@@ -34070,9 +34070,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "habay",
-    title: "Bouwdroger huren in Habay | Vernast",
+    title: "Eco bouwdroger huren in Habay | Vernast",
     description:
-      "Bouwdroger huren in Habay, Anlier of Rulles: voor nieuwbouw aan de rand van het woud van Anlier en gerenoveerde dorpshuizen. Levering op afspraak, met plaatsing.",
+      "Bouwdroger huren in Habay met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Habay",
     kicker: "Provincie Luxemburg · aan het woud van Anlier",
     rit: { afstand: "circa 215 km", tijd: "ruim twee uur" },
@@ -34128,9 +34128,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "etalle",
-    title: "Bouwdroger huren in Étalle | Vernast",
+    title: "Eco bouwdroger huren in Étalle | Vernast",
     description:
-      "Bouwdroger huren in Étalle, Vance of Sainte-Marie-sur-Semois: voor verbouwde Gaumse boerderijen en nieuwbouw aan de Semois. Geleverd, geplaatst en opgehaald.",
+      "Bouwdroger huren in Étalle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Étalle",
     kicker: "Provincie Luxemburg · aan de bovenloop van de Semois",
     rit: { afstand: "circa 225 km", tijd: "ruim twee uur" },
@@ -34185,9 +34185,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "virton",
-    title: "Bouwdroger huren in Virton | Vernast",
+    title: "Eco bouwdroger huren in Virton | Vernast",
     description:
-      "Bouwdroger huren in Virton, Ethe, Saint-Mard of Latour: diepe Lotharingse huizen in de Gaume. Levering, plaatsing en ophaling zitten in uw droogpakket.",
+      "Bouwdroger huren in Virton met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Virton",
     kicker: "Provincie Luxemburg · hoofdplaats van de Gaume",
     rit: { afstand: "circa 245 km", tijd: "ongeveer tweeënhalf uur" },
@@ -34242,9 +34242,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "chiny",
-    title: "Bouwdroger huren in Chiny | Vernast",
+    title: "Eco bouwdroger huren in Chiny | Vernast",
     description:
-      "Bouwdroger huren in Chiny, Jamoigne, Izel of Suxy: stenen huizen in de lus van de Semois en vakantiewoningen aan de bosrand. Geleverd, geplaatst en opgehaald.",
+      "Bouwdroger huren in Chiny met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Chiny",
     kicker: "Provincie Luxemburg · in een lus van de Semois",
     rit: { afstand: "circa 215 km", tijd: "ruim twee uur" },
@@ -34299,9 +34299,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "florenville",
-    title: "Bouwdroger huren in Florenville | Vernast",
+    title: "Eco bouwdroger huren in Florenville | Vernast",
     description:
-      "Bouwdroger huren in Florenville, Chassepierre, Lacuisine of Villers-devant-Orval bij de abdij van Orval: stenen huizen boven de Semois, geleverd en geplaatst.",
+      "Bouwdroger huren in Florenville met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Florenville",
     kicker: "Provincie Luxemburg · boven de Semois, bij Orval",
     rit: { afstand: "circa 220 km", tijd: "ruim twee uur" },
@@ -34356,9 +34356,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "meix-devant-virton",
-    title: "Bouwdroger huren in Meix-devant-Virton | Vernast",
+    title: "Eco bouwdroger huren in Meix-devant-Virton | Vernast",
     description:
-      "Bouwdroger huren in Meix-devant-Virton, Gérouville, Sommethonne of Robelmont: lange Lotharingse boerderijen in de Gaume, geleverd en met vochtmeting geplaatst.",
+      "Bouwdroger huren in Meix-devant-Virton met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Meix-devant-Virton",
     kicker: "Provincie Luxemburg · landelijke Gaume tegen Frankrijk",
     rit: { afstand: "circa 250 km", tijd: "bijna drie uur" },
@@ -34413,9 +34413,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "musson",
-    title: "Bouwdroger huren in Musson | Vernast",
+    title: "Eco bouwdroger huren in Musson | Vernast",
     description:
-      "Bouwdroger huren in Musson, Mussy-la-Ville, Baranzy of Signeulx: dorpen in Belgisch Luxemburg tegen de Franse grens. Geleverd, geplaatst en met vochtmeting.",
+      "Bouwdroger huren in Musson met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Musson",
     kicker: "Provincie Luxemburg · zuidelijke Gaume aan de grens",
     rit: { afstand: "circa 250 km", tijd: "bijna drie uur" },
@@ -34470,9 +34470,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rouvroy",
-    title: "Bouwdroger huren in Rouvroy en Torgny | Vernast",
+    title: "Eco bouwdroger huren in Rouvroy en Torgny | Vernast",
     description:
-      "Bouwdroger huren in Rouvroy, Torgny, Lamorteau of Dampicourt: het zuidelijkste hoekje van België, met kalkstenen huizen. Geleverd en geplaatst, met vochtmeting.",
+      "Bouwdroger huren in Rouvroy en Torgny met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Rouvroy",
     kicker: "Provincie Luxemburg · het zuidelijkste dorp van België",
     rit: { afstand: "circa 255 km", tijd: "bijna drie uur" },
@@ -34527,9 +34527,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "saint-leger",
-    title: "Bouwdroger huren in Saint-Léger | Vernast",
+    title: "Eco bouwdroger huren in Saint-Léger | Vernast",
     description:
-      "Bouwdroger huren in Saint-Léger, Châtillon of Meix-le-Tige: Gaumese dorpen tussen Virton en Aarlen in Belgisch Luxemburg. Geleverd, geplaatst en opgehaald.",
+      "Bouwdroger huren in Saint-Léger met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Saint-Léger",
     kicker: "Provincie Luxemburg · tussen Virton en Aarlen",
     rit: { afstand: "circa 240 km", tijd: "ongeveer tweeënhalf uur" },
@@ -34584,9 +34584,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tintigny",
-    title: "Bouwdroger huren in Tintigny | Vernast",
+    title: "Eco bouwdroger huren in Tintigny | Vernast",
     description:
-      "Bouwdroger huren in Tintigny, Bellefontaine, Rossignol of Saint-Vincent: dorpen in de Semoisvallei van de Gaume. Geleverd en geplaatst, met vochtmeting.",
+      "Bouwdroger huren in Tintigny met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tintigny",
     kicker: "Provincie Luxemburg · in de bovenloop van de Semois",
     rit: { afstand: "circa 225 km", tijd: "ruim twee uur" },
@@ -34641,9 +34641,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hannuit",
-    title: "Bouwdroger huren in Hannuit | Vernast",
+    title: "Eco bouwdroger huren in Hannuit | Vernast",
     description:
-      "Bouwdroger huren in Hannuit (Hannut)? Wij leveren en plaatsen drogers voor hoeves en nieuwbouw in Thisnes, Crehen, Merdorp en de andere dorpen van de gemeente.",
+      "Bouwdroger huren in Hannuit (Hannut) met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Hannuit",
     kicker: "Provincie Luik · het marktstadje van Waals Haspengouw",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -34699,9 +34699,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lijsem",
-    title: "Bouwdroger huren in Lijsem | Vernast",
+    title: "Eco bouwdroger huren in Lijsem | Vernast",
     description:
-      "Bouwdroger huren in Lijsem (Lincent), Pellaines of Racour, net over de taalgrens bij Landen? Wij leveren en plaatsen drogers voor renovatie en nieuwe chape.",
+      "Bouwdroger huren in Lijsem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lijsem",
     kicker: "Provincie Luik · een dorp op de taalgrens",
     rit: { afstand: "circa 85 km", tijd: "ruim vijftig minuten" },
@@ -34757,9 +34757,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wasseiges",
-    title: "Bouwdroger huren in Wasseiges | Vernast",
+    title: "Eco bouwdroger huren in Wasseiges | Vernast",
     description:
-      "Bouwdroger huren in Wasseiges, Ambresin, Meeffe of Acosse? Wij leveren en plaatsen drogers voor hoeves, schuren en dorpswoningen langs de Mehaigne.",
+      "Bouwdroger huren in Wasseiges, Ambresin, Meeffe of Acosse met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Wasseiges",
     kicker: "Provincie Luik · aan de Mehaigne, op de grens met Namen",
     rit: { afstand: "circa 100 km", tijd: "iets meer dan een uur" },
@@ -34815,9 +34815,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "braives",
-    title: "Bouwdroger huren in Braives | Vernast",
+    title: "Eco bouwdroger huren in Braives | Vernast",
     description:
-      "Bouwdroger huren in Braives, Fallais, Latinne of Avennes? Wij leveren en plaatsen drogers voor hoeves, stenen huizen en nieuwbouw in de vallei van de Mehaigne.",
+      "Bouwdroger huren in Braives, Fallais, Latinne of Avennes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Braives",
     kicker: "Provincie Luik · de Mehaigne en de oude heerweg",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -34873,9 +34873,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "burdinne",
-    title: "Bouwdroger huren in Burdinne | Vernast",
+    title: "Eco bouwdroger huren in Burdinne | Vernast",
     description:
-      "Bouwdroger huren in Burdinne, Oteppe, Marneffe of Lamontzée? Wij leveren en plaatsen drogers voor oude hoeves en dorpshuizen in het dal van de Burdinale.",
+      "Bouwdroger huren in Burdinne, Oteppe, Marneffe of Lamontzée met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Burdinne",
     kicker: "Provincie Luik · in de vallei van de Burdinale",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -34931,9 +34931,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "geer",
-    title: "Bouwdroger huren in Geer | Vernast",
+    title: "Eco bouwdroger huren in Geer | Vernast",
     description:
-      "Bouwdroger huren in Geer, Hollogne-sur-Geer, Omal, Darion of Boëlhe? Wij leveren en plaatsen drogers voor hoeves en dorpshuizen langs de bovenloop van de Jeker.",
+      "Bouwdroger huren in Geer, Hollogne-sur-Geer, Omal, Darion of Boëlhe met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Geer",
     kicker: "Provincie Luik · langs de jonge Jeker",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -34989,9 +34989,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "berloz",
-    title: "Bouwdroger huren in Berloz | Vernast",
+    title: "Eco bouwdroger huren in Berloz | Vernast",
     description:
-      "Bouwdroger huren in Berloz, Corswarem of Rosoux-Crenwick? Wij leveren en plaatsen drogers voor renovaties, nieuwe chapes en hoeves, vlak bij Gingelom en Borgworm.",
+      "Bouwdroger huren in Berloz, Corswarem of Rosoux-Crenwick met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Berloz",
     kicker: "Provincie Luik · tegen de Limburgse grens",
     rit: { afstand: "circa 100 km", tijd: "ongeveer een uur" },
@@ -35046,9 +35046,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "borgworm",
-    title: "Bouwdroger huren in Borgworm | Vernast",
+    title: "Eco bouwdroger huren in Borgworm | Vernast",
     description:
-      "Bouwdroger huren in Borgworm (Waremme): voor nieuwbouw in een verkaveling, een oude stationswoning of een verbouwde hoeve. Levering op afspraak, met plaatsing.",
+      "Bouwdroger huren in Borgworm met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Borgworm",
     kicker: "Luik · het centrum van Waals Haspengouw",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -35104,9 +35104,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oerle",
-    title: "Bouwdroger huren in Oerle | Vernast",
+    title: "Eco bouwdroger huren in Oerle | Vernast",
     description:
-      "Bouwdroger huren in Oerle (Oreye), Lens-sur-Geer, Bergilers of Otrange: voor huizen in de Jekervallei en hoeves op het plateau. Wij leveren en plaatsen op afspraak.",
+      "Bouwdroger huren in Oerle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oerle",
     kicker: "Luik · aan de Jeker, tegen de taalgrens",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -35162,9 +35162,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "crisnee",
-    title: "Bouwdroger huren in Crisnée | Vernast",
+    title: "Eco bouwdroger huren in Crisnée | Vernast",
     description:
-      "Bouwdroger huren in Crisnée, Kemexhe, Odeur, Thys of Fize-le-Marsal: voor nieuwbouw in een verkaveling of een renovatie in de dorpskern. Geleverd en geplaatst op afspraak.",
+      "Bouwdroger huren in Crisnée met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Crisnée",
     kicker: "Luik · tussen het plateau en de Luikse rand",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -35220,9 +35220,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "donceel",
-    title: "Bouwdroger huren in Donceel | Vernast",
+    title: "Eco bouwdroger huren in Donceel | Vernast",
     description:
-      "Bouwdroger huren in Donceel, Haneffe, Jeneffe of Limont: voor oude hoeves met dikke muren en nieuwbouw op het Haspengouwse plateau. Met vochtmeting bij de start.",
+      "Bouwdroger huren in Donceel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Donceel",
     kicker: "Luik · een landelijke gemeente bij Borgworm",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -35278,9 +35278,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "faimes",
-    title: "Bouwdroger huren in Faimes | Vernast",
+    title: "Eco bouwdroger huren in Faimes | Vernast",
     description:
-      "Bouwdroger huren in Faimes, Celles, Viemme, Les Waleffes, Borlez of Aineffe: voor hoeves en dorpswoningen in Waals Haspengouw. Op afspraak geleverd en ingesteld.",
+      "Bouwdroger huren in Faimes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Faimes",
     kicker: "Luik · vijf dorpen op het leemplateau",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -35336,9 +35336,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "fexhe-le-haut-clocher",
-    title: "Bouwdroger huren in Fexhe-le-Haut-Clocher | Vernast",
+    title: "Eco bouwdroger huren in Fexhe-le-Haut-Clocher | Vernast",
     description:
-      "Bouwdroger huren in Fexhe-le-Haut-Clocher, Freloux, Noville, Roloux of Voroux-Goreux: voor nieuwbouw en hoeves tussen Borgworm en Luik. Levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Fexhe-le-Haut-Clocher met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Fexhe-le-Haut-Clocher",
     kicker: "Luik · het dorp van de Vrede van Fexhe",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -35394,9 +35394,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "remicourt",
-    title: "Bouwdroger huren in Remicourt | Vernast",
+    title: "Eco bouwdroger huren in Remicourt | Vernast",
     description:
-      "Bouwdroger huren in Remicourt, Momalle, Hodeige, Lamine of Pousset: voor stationswoningen en nieuwbouw met vloerverwarming langs de E40. De technieker plaatst en stelt in.",
+      "Bouwdroger huren in Remicourt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Remicourt",
     kicker: "Luik · aan het spoor tussen Borgworm en Luik",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -35451,9 +35451,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "luik-stad",
-    title: "Bouwdroger huren in Luik | Vernast",
+    title: "Eco bouwdroger huren in Luik | Vernast",
     description:
-      "Bouwdroger huren in Luik (Liège) voor het souterrain van een herenhuis, een kelder bij Maas of Ourthe of een woning op de Coteaux. Geleverd en geplaatst.",
+      "Bouwdroger huren in Luik met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Luik",
     kicker: "Luik stad · waar Maas en Ourthe samenkomen",
     rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
@@ -35513,9 +35513,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ans",
-    title: "Bouwdroger huren in Ans | Vernast",
+    title: "Eco bouwdroger huren in Ans | Vernast",
     description:
-      "Bouwdroger huren in Ans, Alleur en Loncin: voor de renovatie van een rijwoning uit het mijnverleden of voor nieuwbouw op het plateau. Geleverd en geplaatst.",
+      "Bouwdroger huren in Ans met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ans",
     kicker: "Provincie Luik · op het plateau boven de stad",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -35571,9 +35571,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "awans",
-    title: "Bouwdroger huren in Awans | Vernast",
+    title: "Eco bouwdroger huren in Awans | Vernast",
     description:
-      "Bouwdroger huren in Awans, Othée, Hognoul, Fooz of Villers-l'Évêque: voor een verbouwde hoeve of nieuwbouw vlak bij de E40. Met levering en plaatsing.",
+      "Bouwdroger huren in Awans met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Awans",
     kicker: "Provincie Luik · aan de rand van Haspengouw",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -35629,9 +35629,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "grace-hollogne",
-    title: "Bouwdroger huren in Grâce-Hollogne | Vernast",
+    title: "Eco bouwdroger huren in Grâce-Hollogne | Vernast",
     description:
-      "Bouwdroger huren in Grâce-Hollogne, Bierset, Velroux of Horion-Hozémont: voor woningen, hoeves en bedrijfsgebouwen bij Liège Airport. Geleverd en geplaatst.",
+      "Bouwdroger huren in Grâce-Hollogne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Grâce-Hollogne",
     kicker: "Provincie Luik · de gemeente van de luchthaven",
     rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
@@ -35687,9 +35687,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "saint-nicolas",
-    title: "Bouwdroger huren in Saint-Nicolas | Vernast",
+    title: "Eco bouwdroger huren in Saint-Nicolas | Vernast",
     description:
-      "Bouwdroger huren in Saint-Nicolas, Montegnée of Tilleur: compacte drogers voor arbeiderswoningen en kelders op de helling boven de Maas. Geleverd en geplaatst.",
+      "Bouwdroger huren in Saint-Nicolas met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Saint-Nicolas",
     kicker: "Provincie Luik · dicht bebouwd tegen de stad",
     rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
@@ -35745,9 +35745,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "flemalle",
-    title: "Bouwdroger huren in Flémalle | Vernast",
+    title: "Eco bouwdroger huren in Flémalle | Vernast",
     description:
-      "Bouwdroger huren in Flémalle, Ivoz-Ramet, Mons-lez-Liège of Les Awirs: voor kelders langs de Maas en woningen op de helling. Geleverd en geplaatst.",
+      "Bouwdroger huren in Flémalle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Flémalle",
     kicker: "Provincie Luik · aan de Maas stroomopwaarts",
     rit: { afstand: "circa 130 km", tijd: "ruim een uur" },
@@ -35803,9 +35803,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "seraing",
-    title: "Bouwdroger huren in Seraing | Vernast",
+    title: "Eco bouwdroger huren in Seraing | Vernast",
     description:
-      "Bouwdroger huren in Seraing, Ougrée, Jemeppe of Boncelles: voor arbeiderswoningen in het Maasdal en nieuwbouw op het plateau. Geleverd en geplaatst.",
+      "Bouwdroger huren in Seraing met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Seraing",
     kicker: "Provincie Luik · de staalstad aan de Maas",
     rit: { afstand: "circa 130 km", tijd: "ruim een uur" },
@@ -35861,9 +35861,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "juprelle",
-    title: "Bouwdroger huren in Juprelle | Vernast",
+    title: "Eco bouwdroger huren in Juprelle | Vernast",
     description:
-      "Bouwdroger huren in Juprelle, Slins, Lantin, Paifve of Wihogne: voor verbouwde hoeves en nieuwbouw in het Luikse Haspengouw. Geleverd en geplaatst.",
+      "Bouwdroger huren in Juprelle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Juprelle",
     kicker: "Provincie Luik · landelijk Haspengouw boven Luik",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -35918,9 +35918,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "herstal",
-    title: "Bouwdroger huren in Herstal | Vernast",
+    title: "Eco bouwdroger huren in Herstal | Vernast",
     description:
-      "Bouwdroger huren in Herstal: arbeiderswoningen in de oude wijken, kelders tussen Maas en Albertkanaal, nieuwbouw in Vottem, Milmort en Liers. Geleverd en geplaatst.",
+      "Bouwdroger huren in Herstal met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herstal",
     kicker: "Luik · tussen de Maas en het Albertkanaal",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -35976,9 +35976,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oupeye",
-    title: "Bouwdroger huren in Oupeye | Vernast",
+    title: "Eco bouwdroger huren in Oupeye | Vernast",
     description:
-      "Bouwdroger huren in Oupeye: dorpshuizen in Haccourt en Hermalle aan de Maas, verkavelingen op het plateau van Hermée en Houtain. Geleverd, geplaatst en ingesteld.",
+      "Bouwdroger huren in Oupeye met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oupeye",
     kicker: "Luik · Basse-Meuse, van de Maas tot het plateau",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -36034,9 +36034,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wezet",
-    title: "Bouwdroger huren in Wezet | Vernast",
+    title: "Eco bouwdroger huren in Wezet | Vernast",
     description:
-      "Bouwdroger huren in Wezet, Visé: oude stadshuizen aan de Maas, Cheratte, Argenteau en Ternaaien tegen de Nederlandse grens. Geleverd en geplaatst door een technieker.",
+      "Bouwdroger huren in Wezet met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Wezet",
     kicker: "Luik · Maasstad aan de Nederlandse grens",
     rit: { afstand: "circa 125 km", tijd: "bijna anderhalf uur" },
@@ -36092,9 +36092,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bitsingen",
-    title: "Bouwdroger huren in Bitsingen | Vernast",
+    title: "Eco bouwdroger huren in Bitsingen | Vernast",
     description:
-      "Bouwdroger huren in Bitsingen (Bassenge): mergelhuizen en hoeves in de Jekervallei, van Eben-Emael tot Glons en Wonck. Geleverd en geplaatst, met vochtmeting.",
+      "Bouwdroger huren in Bitsingen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bitsingen",
     kicker: "Luik · de Jekervallei aan de taalgrens",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -36150,9 +36150,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dalhem",
-    title: "Bouwdroger huren in Dalhem | Vernast",
+    title: "Eco bouwdroger huren in Dalhem | Vernast",
     description:
-      "Bouwdroger huren in Dalhem: hoeves en dorpshuizen in de groene heuvels langs de Berwijn, van Berneau tot Warsage en Bombaye. Geleverd, geplaatst en ingesteld.",
+      "Bouwdroger huren in Dalhem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Dalhem",
     kicker: "Luik · het groene land langs de Berwijn",
     rit: { afstand: "circa 130 km", tijd: "bijna anderhalf uur" },
@@ -36208,9 +36208,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "blegny",
-    title: "Bouwdroger huren in Blegny | Vernast",
+    title: "Eco bouwdroger huren in Blegny | Vernast",
     description:
-      "Bouwdroger huren in Blegny: mijnwerkershuizen rond Blegny-Mine, hoeves in Saint-Remy en Housse, nieuwbouw in Barchon en Saive. Geleverd en geplaatst, met meting.",
+      "Bouwdroger huren in Blegny met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Blegny",
     kicker: "Luik · de gemeente van Blegny-Mine",
     rit: { afstand: "circa 130 km", tijd: "bijna anderhalf uur" },
@@ -36266,9 +36266,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beyne-heusay",
-    title: "Bouwdroger huren in Beyne-Heusay | Vernast",
+    title: "Eco bouwdroger huren in Beyne-Heusay | Vernast",
     description:
-      "Bouwdroger huren in Beyne-Heusay: rijwoningen uit de mijntijd, Queue-du-Bois en Bellaire tegen de rand van Luik. Geleverd en geplaatst, met vochtmeting bij de start.",
+      "Bouwdroger huren in Beyne-Heusay met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beyne-Heusay",
     kicker: "Luik · aan de oostrand van de stad",
     rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
@@ -36324,9 +36324,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "fleron",
-    title: "Bouwdroger huren in Fléron | Vernast",
+    title: "Eco bouwdroger huren in Fléron | Vernast",
     description:
-      "Bouwdroger huren in Fléron: woningen op het plateau oost van Luik, in Retinne, Romsée en Magnée, met kelders en chapes. Geleverd, geplaatst en ingesteld.",
+      "Bouwdroger huren in Fléron met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Fléron",
     kicker: "Luik · op het plateau aan de E40",
     rit: { afstand: "circa 130 km", tijd: "bijna anderhalf uur" },
@@ -36382,9 +36382,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "soumagne",
-    title: "Bouwdroger huren in Soumagne | Vernast",
+    title: "Eco bouwdroger huren in Soumagne | Vernast",
     description:
-      "Bouwdroger huren in Soumagne: hoeves en woningen in Melen, Micheroux, Ayeneux en Evegnée-Tignée op de rand van het Land van Herve. Geleverd en geplaatst.",
+      "Bouwdroger huren in Soumagne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Soumagne",
     kicker: "Luik · de poort naar het Land van Herve",
     rit: { afstand: "circa 135 km", tijd: "ongeveer anderhalf uur" },
@@ -36439,9 +36439,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "chaudfontaine",
-    title: "Bouwdroger huren in Chaudfontaine | Vernast",
+    title: "Eco bouwdroger huren in Chaudfontaine | Vernast",
     description:
-      "Bouwdroger huren in Chaudfontaine, Embourg, Beaufays of Vaux-sous-Chèvremont: drogen na waterschade in het Vesdredal of na een verbouwing op de heuvels.",
+      "Bouwdroger huren in Chaudfontaine met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Chaudfontaine",
     kicker: "Luik · het kuuroord in het Vesdredal",
     rit: { afstand: "circa 135 km", tijd: "bijna anderhalf uur" },
@@ -36497,9 +36497,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "trooz",
-    title: "Bouwdroger huren in Trooz | Vernast",
+    title: "Eco bouwdroger huren in Trooz | Vernast",
     description:
-      "Bouwdroger huren in Trooz, Forêt, Fraipont of Nessonvaux: rijhuizen in het smalle Vesdredal, na waterschade of verbouwing. Geleverd op afspraak, met vochtmeting.",
+      "Bouwdroger huren in Trooz met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Trooz",
     kicker: "Luik · dorpen aan de Vesdre",
     rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
@@ -36555,9 +36555,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "esneux",
-    title: "Bouwdroger huren in Esneux | Vernast",
+    title: "Eco bouwdroger huren in Esneux | Vernast",
     description:
-      "Bouwdroger huren in Esneux en Tilff: huizen langs de Ourthe en villa's in het bos op de hellingen. Geleverd op afspraak, geplaatst en gemeten door een technieker.",
+      "Bouwdroger huren in Esneux met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Esneux",
     kicker: "Luik · de meanders van de Ourthe",
     rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
@@ -36617,9 +36617,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "neupre",
-    title: "Bouwdroger huren in Neupré | Vernast",
+    title: "Eco bouwdroger huren in Neupré | Vernast",
     description:
-      "Bouwdroger huren in Neupré: villawijken in het bos in Plainevaux, Rotheux-Rimière en Neuville-en-Condroz. Voor renovatie, nieuwbouw en chape, geleverd en gemeten.",
+      "Bouwdroger huren in Neupré met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Neupré",
     kicker: "Luik · villawijken op de rand van de Condroz",
     rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
@@ -36675,9 +36675,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sprimont",
-    title: "Bouwdroger huren in Sprimont | Vernast",
+    title: "Eco bouwdroger huren in Sprimont | Vernast",
     description:
-      "Bouwdroger huren in Sprimont, Louveigné, Dolembreux of Gomzé-Andoumont: dikke kalksteenmuren in de oude kernen en nieuwbouw in de verkavelingen. Geleverd en gemeten.",
+      "Bouwdroger huren in Sprimont met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sprimont",
     kicker: "Luik · de gemeente van de steengroeven",
     rit: { afstand: "circa 145 km", tijd: "ongeveer anderhalf uur" },
@@ -36733,9 +36733,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "aywaille",
-    title: "Bouwdroger huren in Aywaille | Vernast",
+    title: "Eco bouwdroger huren in Aywaille | Vernast",
     description:
-      "Bouwdroger huren in Aywaille, Remouchamps of Harzé: woningen langs de Amblève, oude stenen huizen en nieuwbouw op het plateau. Geleverd op afspraak en gemeten.",
+      "Bouwdroger huren in Aywaille met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Aywaille",
     kicker: "Luik · aan de Amblève, poort van de Ardennen",
     rit: { afstand: "circa 155 km", tijd: "ruim anderhalf uur" },
@@ -36791,9 +36791,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "comblain-au-pont",
-    title: "Bouwdroger huren in Comblain-au-Pont | Vernast",
+    title: "Eco bouwdroger huren in Comblain-au-Pont | Vernast",
     description:
-      "Bouwdroger huren in Comblain-au-Pont en Poulseur, waar Amblève en Ourthe samenkomen: huizen aan het water en tegen de rotswand. Geplaatst en gemeten door een technieker.",
+      "Bouwdroger huren in Comblain-au-Pont met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Comblain-au-Pont",
     kicker: "Luik · waar de Amblève in de Ourthe vloeit",
     rit: { afstand: "circa 150 km", tijd: "ruim anderhalf uur" },
@@ -36848,9 +36848,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hoei",
-    title: "Bouwdroger huren in Hoei | Vernast",
+    title: "Eco bouwdroger huren in Hoei | Vernast",
     description:
-      "Bouwdroger huren in Hoei (Huy), Tihange of Ben-Ahin? Vernast levert, plaatst en haalt op, voor de renovatie van stadshuizen en kelders aan de Maas.",
+      "Bouwdroger huren in Hoei (Huy), Tihange of Ben-Ahin met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Hoei",
     kicker: "Provincie Luik · de stad van het fort aan de Maas",
     rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
@@ -36910,9 +36910,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "amay",
-    title: "Bouwdroger huren in Amay | Vernast",
+    title: "Eco bouwdroger huren in Amay | Vernast",
     description:
-      "Bouwdroger huren in Amay, Ampsin, Jehay-Bodegnée of Ombret? Vernast levert en plaatst drogers voor rijhuizen langs de Maas en verbouwde hoeves.",
+      "Bouwdroger huren in Amay, Ampsin, Jehay-Bodegnée of Ombret met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Amay",
     kicker: "Provincie Luik · Maasoevers en Haspengouwse rand",
     rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
@@ -36968,9 +36968,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "engis",
-    title: "Bouwdroger huren in Engis | Vernast",
+    title: "Eco bouwdroger huren in Engis | Vernast",
     description:
-      "Bouwdroger huren in Engis, Hermalle-sous-Huy of Clermont-sous-Huy? Vernast levert en plaatst drogers voor woningen in de Maasvallei, ook na waterschade.",
+      "Bouwdroger huren in Engis, Hermalle-sous-Huy of Clermont-sous-Huy met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Engis",
     kicker: "Provincie Luik · een smalle strook langs de Maas",
     rit: { afstand: "circa 130 km", tijd: "ruim een uur" },
@@ -37026,9 +37026,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "wanze",
-    title: "Bouwdroger huren in Wanze | Vernast",
+    title: "Eco bouwdroger huren in Wanze | Vernast",
     description:
-      "Bouwdroger huren in Wanze, Antheit, Bas-Oha, Moha of Huccorgne? Vernast levert en plaatst drogers voor stenen huizen aan de Mehaigne en voor nieuwbouw.",
+      "Bouwdroger huren in Wanze, Antheit, Bas-Oha, Moha of Huccorgne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Wanze",
     kicker: "Provincie Luik · suikerfabriek en Mehaignevallei",
     rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
@@ -37084,9 +37084,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "villers-le-bouillet",
-    title: "Bouwdroger huren in Villers-le-Bouillet | Vernast",
+    title: "Eco bouwdroger huren in Villers-le-Bouillet | Vernast",
     description:
-      "Bouwdroger huren in Villers-le-Bouillet, Warnant-Dreye of Vaux-et-Borset? Vernast levert drogers voor nieuwbouw langs de E42 en voor verbouwde hoeves.",
+      "Bouwdroger huren in Villers-le-Bouillet met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Villers-le-Bouillet",
     kicker: "Provincie Luik · op het plateau boven Hoei",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -37142,9 +37142,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "verlaine",
-    title: "Bouwdroger huren in Verlaine | Vernast",
+    title: "Eco bouwdroger huren in Verlaine | Vernast",
     description:
-      "Bouwdroger huren in Verlaine, Bodegnée, Chapon-Seraing of Seraing-le-Château? Vernast levert en plaatst drogers voor dorpswoningen en verbouwde hoeves.",
+      "Bouwdroger huren in Verlaine met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Verlaine",
     kicker: "Provincie Luik · een landelijke gemeente in Haspengouw",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -37200,9 +37200,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "heron",
-    title: "Bouwdroger huren in Héron | Vernast",
+    title: "Eco bouwdroger huren in Héron | Vernast",
     description:
-      "Bouwdroger huren in Héron, Couthuin, Lavoir of Waret-l'Évêque? Vernast levert en plaatst drogers voor verbouwde hoeves, dorpshuizen en koele kelders.",
+      "Bouwdroger huren in Héron, Couthuin, Lavoir of Waret-l'Évêque met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Héron",
     kicker: "Provincie Luik · akkers boven de Maas, tussen Hannuit en Andenne",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -37258,9 +37258,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "marchin",
-    title: "Bouwdroger huren in Marchin | Vernast",
+    title: "Eco bouwdroger huren in Marchin | Vernast",
     description:
-      "Bouwdroger huren in Marchin? Vernast levert en plaatst drogers voor stenen huizen in de Hoyouxvallei en woningen op de hellingen ten zuiden van Hoei.",
+      "Bouwdroger huren in Marchin met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Marchin",
     kicker: "Provincie Luik · de Hoyouxvallei en de rand van de Condroz",
     rit: { afstand: "circa 130 km", tijd: "ongeveer anderhalf uur" },
@@ -37316,9 +37316,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "saint-georges-sur-meuse",
-    title: "Bouwdroger huren in Saint-Georges-sur-Meuse | Vernast",
+    title: "Eco bouwdroger huren in Saint-Georges-sur-Meuse | Vernast",
     description:
-      "Bouwdroger huren in Saint-Georges-sur-Meuse? Vernast levert en plaatst drogers voor de renovatie van naoorlogse woningen, nieuwe chapes en vochtige kelders.",
+      "Bouwdroger huren in Saint-Georges-sur-Meuse met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Saint-Georges-sur-Meuse",
     kicker: "Provincie Luik · op de rand van het plateau boven de Maas",
     rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
@@ -37373,9 +37373,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "modave",
-    title: "Bouwdroger huren in Modave | Vernast",
+    title: "Eco bouwdroger huren in Modave | Vernast",
     description:
-      "Bouwdroger huren in Modave, Strée, Vierset-Barse of Outrelouxhe: voor stenen hoeves en dorpshuizen in de Hoyouxvallei. Geleverd, geplaatst en gemeten door een technieker.",
+      "Bouwdroger huren in Modave met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Modave",
     kicker: "Provincie Luik · de Hoyouxvallei in de Condroz",
     rit: { afstand: "circa 145 km", tijd: "ruim anderhalf uur" },
@@ -37431,9 +37431,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "clavier",
-    title: "Bouwdroger huren in Clavier | Vernast",
+    title: "Eco bouwdroger huren in Clavier | Vernast",
     description:
-      "Bouwdroger huren in Clavier, Ocquier, Pailhe of Bois-et-Borsu: voor natuurstenen dorpshuizen, hoeves en nieuwbouw in de Condroz. Met plaatsing en vochtmeting.",
+      "Bouwdroger huren in Clavier met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Clavier",
     kicker: "Provincie Luik · zes dorpen in de Condroz",
     rit: { afstand: "circa 150 km", tijd: "ruim anderhalf uur" },
@@ -37489,9 +37489,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ouffet",
-    title: "Bouwdroger huren in Ouffet | Vernast",
+    title: "Eco bouwdroger huren in Ouffet | Vernast",
     description:
-      "Bouwdroger huren in Ouffet, Warzée of Ellemelle: voor stenen hoeves, dorpswoningen en tweede verblijven op de Condroz tussen Ourthe en Hoyoux. Geplaatst en opgehaald.",
+      "Bouwdroger huren in Ouffet met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ouffet",
     kicker: "Provincie Luik · Condroz tussen Ourthe en Hoyoux",
     rit: { afstand: "circa 150 km", tijd: "ruim anderhalf uur" },
@@ -37547,9 +37547,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tinlot",
-    title: "Bouwdroger huren in Tinlot | Vernast",
+    title: "Eco bouwdroger huren in Tinlot | Vernast",
     description:
-      "Bouwdroger huren in Tinlot, Seny, Abée, Fraiture of Ramelot: voor hoeves en vrijstaande nieuwbouw op het open Condroz-plateau. Levering op afspraak, met vochtmeting.",
+      "Bouwdroger huren in Tinlot met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tinlot",
     kicker: "Provincie Luik · open plateau in de Condroz",
     rit: { afstand: "circa 145 km", tijd: "ongeveer anderhalf uur" },
@@ -37605,9 +37605,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "nandrin",
-    title: "Bouwdroger huren in Nandrin | Vernast",
+    title: "Eco bouwdroger huren in Nandrin | Vernast",
     description:
-      "Bouwdroger huren in Nandrin, Saint-Séverin, Villers-le-Temple of Yernée-Fraineux: voor de renovatie van villa's en stenen woningen op de Condroz. Met vochtmeting.",
+      "Bouwdroger huren in Nandrin met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Nandrin",
     kicker: "Provincie Luik · de Condroz aan de rand van Luik",
     rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
@@ -37663,9 +37663,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "anthisnes",
-    title: "Bouwdroger huren in Anthisnes | Vernast",
+    title: "Eco bouwdroger huren in Anthisnes | Vernast",
     description:
-      "Bouwdroger huren in Anthisnes, Hody, Tavier of Villers-aux-Tours: voor hoeves en stenen dorpshuizen op de Condroz boven de Ourthevallei. Aan huis geplaatst.",
+      "Bouwdroger huren in Anthisnes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Anthisnes",
     kicker: "Provincie Luik · Condroz boven de Ourthe",
     rit: { afstand: "circa 145 km", tijd: "ruim anderhalf uur" },
@@ -37721,9 +37721,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "ferrieres",
-    title: "Bouwdroger huren in Ferrières | Vernast",
+    title: "Eco bouwdroger huren in Ferrières | Vernast",
     description:
-      "Bouwdroger huren in Ferrières, Werbomont, Xhoris, My of Vieuxville: voor vakantiewoningen en stenen huizen tussen Ourthe en Ardennen. Geplaatst en opgehaald.",
+      "Bouwdroger huren in Ferrières met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Ferrières",
     kicker: "Provincie Luik · tussen Ourthe en Ardennen",
     rit: { afstand: "circa 165 km", tijd: "ongeveer een uur en drie kwartier" },
@@ -37779,9 +37779,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hamoir",
-    title: "Bouwdroger huren in Hamoir | Vernast",
+    title: "Eco bouwdroger huren in Hamoir | Vernast",
     description:
-      "Bouwdroger huren in Hamoir, Comblain-la-Tour of Filot: voor woningen aan de Ourthe en stenen huizen tegen de helling. Met vochtmeting bij plaatsing en ophaling.",
+      "Bouwdroger huren in Hamoir met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hamoir",
     kicker: "Provincie Luik · een dorp aan de Ourthe",
     rit: { afstand: "circa 160 km", tijd: "ongeveer een uur en drie kwartier" },
@@ -37836,9 +37836,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "verviers",
-    title: "Bouwdroger huren in Verviers | Vernast",
+    title: "Eco bouwdroger huren in Verviers | Vernast",
     description:
-      "Bouwdroger huren in Verviers voor een loft in een oude wolfabriek, een rijhuis op de helling of een kelder in de Vesdrevallei. Geleverd en geplaatst door een technieker.",
+      "Bouwdroger huren in Verviers met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Verviers",
     kicker: "Luik · de wolstad aan de Vesdre",
     rit: { afstand: "circa 150 km", tijd: "ruim anderhalf uur" },
@@ -37894,9 +37894,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dison",
-    title: "Bouwdroger huren in Dison | Vernast",
+    title: "Eco bouwdroger huren in Dison | Vernast",
     description:
-      "Bouwdroger huren in Dison en Andrimont: arbeiderswoningen uit de textieltijd en nieuwe verkavelingen tegen Verviers aan. Met vochtmeting bij de plaatsing.",
+      "Bouwdroger huren in Dison met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Dison",
     kicker: "Luik · textielgemeente naast Verviers",
     rit: { afstand: "circa 148 km", tijd: "ongeveer anderhalf uur" },
@@ -37952,9 +37952,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "herve",
-    title: "Bouwdroger huren in Herve | Vernast",
+    title: "Eco bouwdroger huren in Herve | Vernast",
     description:
-      "Bouwdroger huren in Herve, Battice of Charneux: bakstenen hoeves tussen boomgaarden en weiden op het plateau. Bij u geplaatst, met meting van muur en vloer.",
+      "Bouwdroger huren in Herve met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Herve",
     kicker: "Luik · het hart van het Land van Herve",
     rit: { afstand: "circa 140 km", tijd: "ruim een uur" },
@@ -38010,9 +38010,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "aubel",
-    title: "Bouwdroger huren in Aubel | Vernast",
+    title: "Eco bouwdroger huren in Aubel | Vernast",
     description:
-      "Bouwdroger huren in Aubel, op het plateau tegen de Voerstreek: hoeves, boomgaarden en de abdij van Val-Dieu. Levering op afspraak, plaatsing door een technieker.",
+      "Bouwdroger huren in Aubel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Aubel",
     kicker: "Luik · plateaudorp aan de grens met Voeren",
     rit: { afstand: "circa 145 km", tijd: "ongeveer anderhalf uur" },
@@ -38068,9 +38068,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "thimister-clermont",
-    title: "Bouwdroger huren in Thimister-Clermont | Vernast",
+    title: "Eco bouwdroger huren in Thimister-Clermont | Vernast",
     description:
-      "Bouwdroger huren in Thimister-Clermont: hoeves en dorpswoningen op het plateau van Herve, langs de Berwinne. Bij u geplaatst, met vochtmeting bij start en einde.",
+      "Bouwdroger huren in Thimister-Clermont met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Thimister-Clermont",
     kicker: "Luik · twee dorpen op het plateau van Herve",
     rit: { afstand: "circa 145 km", tijd: "ruim een uur" },
@@ -38126,9 +38126,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "olne",
-    title: "Bouwdroger huren in Olne | Vernast",
+    title: "Eco bouwdroger huren in Olne | Vernast",
     description:
-      "Bouwdroger huren in Olne en Saint-Hadelin: oude stenen huizen tussen de Vesdrevallei en het plateau van Herve. Op afspraak geleverd, geplaatst en ingesteld.",
+      "Bouwdroger huren in Olne met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Olne",
     kicker: "Luik · tussen de Vesdre en het plateau",
     rit: { afstand: "circa 140 km", tijd: "ruim een uur" },
@@ -38184,9 +38184,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "pepinster",
-    title: "Bouwdroger huren in Pepinster | Vernast",
+    title: "Eco bouwdroger huren in Pepinster | Vernast",
     description:
-      "Bouwdroger huren in Pepinster, Soiron, Wegnez of Cornesse: woningen bij de samenvloeiing van Vesdre en Hoëgne en dorpen op de hellingen. Met meting ter plaatse.",
+      "Bouwdroger huren in Pepinster met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Pepinster",
     kicker: "Luik · waar de Hoëgne in de Vesdre vloeit",
     rit: { afstand: "circa 145 km", tijd: "ruim anderhalf uur" },
@@ -38242,9 +38242,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "limbourg",
-    title: "Bouwdroger huren in Limbourg | Vernast",
+    title: "Eco bouwdroger huren in Limbourg | Vernast",
     description:
-      "Bouwdroger huren in Limbourg, het stadje aan de Vesdre: de oude bovenstad op de rots, Dolhain in de vallei en Goé. Bij u geplaatst door een technieker die meet.",
+      "Bouwdroger huren in Limbourg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Limbourg",
     kicker: "Luik · oude hoofdstad van het hertogdom Limburg",
     rit: { afstand: "circa 150 km", tijd: "ruim anderhalf uur" },
@@ -38300,9 +38300,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "baelen",
-    title: "Bouwdroger huren in Baelen | Vernast",
+    title: "Eco bouwdroger huren in Baelen | Vernast",
     description:
-      "Bouwdroger huren in Baelen en Membach: woningen en hoeves tussen het Hertogenwald en de Vesdre, vlak bij Eupen. Op afspraak geleverd en door een technieker geplaatst.",
+      "Bouwdroger huren in Baelen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Baelen",
     kicker: "Luik · aan de rand van het Hertogenwald",
     rit: { afstand: "circa 155 km", tijd: "ruim anderhalf uur" },
@@ -38358,9 +38358,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "welkenraedt",
-    title: "Bouwdroger huren in Welkenraedt | Vernast",
+    title: "Eco bouwdroger huren in Welkenraedt | Vernast",
     description:
-      "Bouwdroger huren in Welkenraedt en Henri-Chapelle: het spoorwegdorp aan de lijn naar Aken en de hoeves op het plateau. Geplaatst en ingesteld door een technieker.",
+      "Bouwdroger huren in Welkenraedt met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Welkenraedt",
     kicker: "Luik · aan de taalgrens en de spoorlijn naar Aken",
     rit: { afstand: "circa 155 km", tijd: "ruim anderhalf uur" },
@@ -38415,9 +38415,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "eupen",
-    title: "Bouwdroger huren in Eupen | Vernast",
+    title: "Eco bouwdroger huren in Eupen | Vernast",
     description:
-      "Bouwdroger huren in Eupen: drogen na een renovatie in de bovenstad of na wateroverlast in de benedenstad. Wij leveren, plaatsen de toestellen en meten het vocht.",
+      "Bouwdroger huren in Eupen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Eupen",
     kicker: "Luik · hoofdstad van de Duitstalige Gemeenschap",
     rit: { afstand: "circa 155 km", tijd: "ongeveer anderhalf uur" },
@@ -38473,9 +38473,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kelmis",
-    title: "Bouwdroger huren in Kelmis | Vernast",
+    title: "Eco bouwdroger huren in Kelmis | Vernast",
     description:
-      "Bouwdroger huren in Kelmis, met Hergenrath en Neu-Moresnet: drogen na de renovatie van een oude arbeiderswoning of een vochtige kelder. Geleverd en gemeten.",
+      "Bouwdroger huren in Kelmis met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kelmis",
     kicker: "Luik · het zinkdorp van Neutraal Moresnet",
     rit: { afstand: "circa 150 km", tijd: "ongeveer anderhalf uur" },
@@ -38531,9 +38531,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lontzen",
-    title: "Bouwdroger huren in Lontzen | Vernast",
+    title: "Eco bouwdroger huren in Lontzen | Vernast",
     description:
-      "Bouwdroger huren in Lontzen, Herbesthal of Walhorn: drogen na de verbouwing van een hoeve of stal en bij nieuwbouw. Wij leveren, plaatsen en meten het vocht.",
+      "Bouwdroger huren in Lontzen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lontzen",
     kicker: "Luik · dorpen tussen Eupen en de grens",
     rit: { afstand: "circa 150 km", tijd: "ongeveer anderhalf uur" },
@@ -38589,9 +38589,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "raeren",
-    title: "Bouwdroger huren in Raeren | Vernast",
+    title: "Eco bouwdroger huren in Raeren | Vernast",
     description:
-      "Bouwdroger huren in Raeren, Eynatten of Hauset: drogen na de renovatie van een oud stenen huis of bij nieuwbouw aan de grens. Geleverd, geplaatst en gemeten.",
+      "Bouwdroger huren in Raeren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Raeren",
     kicker: "Luik · het pottenbakkersdorp aan de grens",
     rit: { afstand: "circa 160 km", tijd: "ruim anderhalf uur" },
@@ -38647,9 +38647,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "plombieres",
-    title: "Bouwdroger huren in Plombières | Vernast",
+    title: "Eco bouwdroger huren in Plombières | Vernast",
     description:
-      "Bouwdroger huren in Plombières: Gemmenich, Moresnet, Montzen, Hombourg en Sippenaeken. Voor renovatie, verbouwde schuren en vochtige kelders. Geleverd en gemeten.",
+      "Bouwdroger huren in Plombières met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Plombières",
     kicker: "Luik · bij het drielandenpunt van Vaals",
     rit: { afstand: "circa 145 km", tijd: "ongeveer anderhalf uur" },
@@ -38705,9 +38705,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "jalhay",
-    title: "Bouwdroger huren in Jalhay | Vernast",
+    title: "Eco bouwdroger huren in Jalhay | Vernast",
     description:
-      "Bouwdroger huren in Jalhay of Sart: drogen na een renovatie of in een koude vakantiewoning aan de rand van de Hoge Venen. Wij leveren, plaatsen en meten.",
+      "Bouwdroger huren in Jalhay met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Jalhay",
     kicker: "Luik · aan de Gileppe en de Hoge Venen",
     rit: { afstand: "circa 155 km", tijd: "ongeveer anderhalf uur" },
@@ -38763,9 +38763,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "spa",
-    title: "Bouwdroger huren in Spa | Vernast",
+    title: "Eco bouwdroger huren in Spa | Vernast",
     description:
-      "Bouwdroger huren in Spa: drogen na de renovatie van een villa of herenhuis, of na wateroverlast in het dal van de Wayai. Met levering, plaatsing en vochtmeting.",
+      "Bouwdroger huren in Spa met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Spa",
     kicker: "Luik · de stad van het kuuroord",
     rit: { afstand: "circa 150 km", tijd: "ongeveer anderhalf uur" },
@@ -38821,9 +38821,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "theux",
-    title: "Bouwdroger huren in Theux | Vernast",
+    title: "Eco bouwdroger huren in Theux | Vernast",
     description:
-      "Bouwdroger huren in Theux, Polleur of La Reid: drogen na wateroverlast langs de Hoëgne of na een verbouwing op het plateau. Wij plaatsen de toestellen en meten.",
+      "Bouwdroger huren in Theux met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Theux",
     kicker: "Luik · aan de Hoëgne onder Franchimont",
     rit: { afstand: "circa 145 km", tijd: "bijna anderhalf uur" },
@@ -38878,9 +38878,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "malmedy",
-    title: "Bouwdroger huren in Malmedy | Vernast",
+    title: "Eco bouwdroger huren in Malmedy | Vernast",
     description:
-      "Bouwdroger huren in Malmedy, aan de rand van de Hoge Venen: drogers en kachels voor naoorlogse stadswoningen en stenen huizen. Levering op afspraak.",
+      "Bouwdroger huren in Malmedy met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Malmedy",
     kicker: "Provincie Luik · stad aan de Warche onder de Hoge Venen",
     rit: { afstand: "circa 175 km", tijd: "bijna twee uur" },
@@ -38936,9 +38936,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "weismes",
-    title: "Bouwdroger huren in Weismes | Vernast",
+    title: "Eco bouwdroger huren in Weismes | Vernast",
     description:
-      "Bouwdroger huren in Weismes (Waimes), op het plateau van de Hoge Venen rond Robertville en Botrange. Drogers en bouwkachels voor koude werven, op afspraak geleverd.",
+      "Bouwdroger huren in Weismes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Weismes",
     kicker: "Provincie Luik · het dak van België",
     rit: { afstand: "circa 185 km", tijd: "ongeveer twee uur" },
@@ -38994,9 +38994,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "stavelot",
-    title: "Bouwdroger huren in Stavelot | Vernast",
+    title: "Eco bouwdroger huren in Stavelot | Vernast",
     description:
-      "Bouwdroger huren in Stavelot, Francorchamps of Coo: voor stenen huizen rond de abdij en vakantiewoningen in het Amblèvedal. Geplaatst door onze technieker.",
+      "Bouwdroger huren in Stavelot met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Stavelot",
     kicker: "Provincie Luik · abdijstad aan de Amblève",
     rit: { afstand: "circa 170 km", tijd: "bijna twee uur" },
@@ -39052,9 +39052,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "trois-ponts",
-    title: "Bouwdroger huren in Trois-Ponts | Vernast",
+    title: "Eco bouwdroger huren in Trois-Ponts | Vernast",
     description:
-      "Bouwdroger huren in Trois-Ponts, waar Salm en Amblève samenkomen: voor woningen in het dal en hoeves in Wanne of Basse-Bodeux. Geleverd en geplaatst op afspraak.",
+      "Bouwdroger huren in Trois-Ponts met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Trois-Ponts",
     kicker: "Provincie Luik · waar de Salm in de Amblève stroomt",
     rit: { afstand: "circa 175 km", tijd: "bijna twee uur" },
@@ -39110,9 +39110,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "stoumont",
-    title: "Bouwdroger huren in Stoumont | Vernast",
+    title: "Eco bouwdroger huren in Stoumont | Vernast",
     description:
-      "Bouwdroger huren in Stoumont, La Gleize, Chevron of Lorcé: voor stenen dorpshuizen boven het Amblèvedal en chalets in het bos. Drogers en kachels, ter plaatse gezet.",
+      "Bouwdroger huren in Stoumont met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Stoumont",
     kicker: "Provincie Luik · dorpen boven de Amblève",
     rit: { afstand: "circa 160 km", tijd: "ruim anderhalf uur" },
@@ -39168,9 +39168,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "lierneux",
-    title: "Bouwdroger huren in Lierneux | Vernast",
+    title: "Eco bouwdroger huren in Lierneux | Vernast",
     description:
-      "Bouwdroger huren in Lierneux, Bra of Arbrefontaine: drogers en kachels voor hoeves en nieuwbouw op het koude plateau langs de Lienne. Levering op afspraak.",
+      "Bouwdroger huren in Lierneux met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Lierneux",
     kicker: "Provincie Luik · het plateau langs de Lienne",
     rit: { afstand: "circa 185 km", tijd: "ongeveer twee uur" },
@@ -39225,9 +39225,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "amel",
-    title: "Bouwdroger huren in Amel | Vernast",
+    title: "Eco bouwdroger huren in Amel | Vernast",
     description:
-      "Bouwdroger huren in Amel (Amblève): voor Eifelhoeves van breuksteen en nieuwbouw op de koude hoogvlakte. Een technieker plaatst de toestellen en meet bij start en einde.",
+      "Bouwdroger huren in Amel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Amel",
     kicker: "Provincie Luik · Eifeldorpen in het dal van de Amel",
     rit: { afstand: "circa 205 km", tijd: "ruim twee uur" },
@@ -39283,9 +39283,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "buellingen",
-    title: "Bouwdroger huren in Büllingen | Vernast",
+    title: "Eco bouwdroger huren in Büllingen | Vernast",
     description:
-      "Bouwdroger huren in Büllingen (Bullange): voor wederopbouwwoningen en natte nieuwbouw in de grensdorpen van de Oostkantons. Geleverd, geplaatst en gemeten.",
+      "Bouwdroger huren in Büllingen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Büllingen",
     kicker: "Provincie Luik · Oostkantons tegen de Duitse grens",
     rit: { afstand: "circa 210 km", tijd: "ruim twee uur" },
@@ -39341,9 +39341,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "buetgenbach",
-    title: "Bouwdroger huren in Bütgenbach | Vernast",
+    title: "Eco bouwdroger huren in Bütgenbach | Vernast",
     description:
-      "Bouwdroger huren in Bütgenbach (Butgenbach): voor woningen bij het stuwmeer en in Elsenborn of Weywertz, aan de rand van de Hoge Venen. Geplaatst en gemeten.",
+      "Bouwdroger huren in Bütgenbach met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bütgenbach",
     kicker: "Provincie Luik · het stuwmeer aan de rand van de Hoge Venen",
     rit: { afstand: "circa 200 km", tijd: "ongeveer twee uur" },
@@ -39399,9 +39399,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sankt-vith",
-    title: "Bouwdroger huren in Sankt Vith | Vernast",
+    title: "Eco bouwdroger huren in Sankt Vith | Vernast",
     description:
-      "Bouwdroger huren in Sankt Vith (Saint-Vith): voor woningen uit de wederopbouw, hoeves in de dorpen en nieuwbouw in de kou. Levering met plaatsing en vochtmeting.",
+      "Bouwdroger huren in Sankt Vith met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sankt Vith",
     kicker: "Provincie Luik · het centrum van de Belgische Eifel",
     rit: { afstand: "circa 215 km", tijd: "ruim twee uur" },
@@ -39457,9 +39457,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "burg-reuland",
-    title: "Bouwdroger huren in Burg-Reuland | Vernast",
+    title: "Eco bouwdroger huren in Burg-Reuland | Vernast",
     description:
-      "Bouwdroger huren in Burg-Reuland: voor hoeves van breuksteen en nieuwbouw in de Our-vallei, tegen Luxemburg en Duitsland. Geleverd, geplaatst en gemeten.",
+      "Bouwdroger huren in Burg-Reuland met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Burg-Reuland",
     kicker: "Provincie Luik · de Our-vallei op de drielandengrens",
     rit: { afstand: "circa 230 km", tijd: "ongeveer tweeënhalf uur" },
@@ -39514,9 +39514,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bergen-op-zoom",
-    title: "Bouwdroger huren in Bergen op Zoom | Vernast",
+    title: "Eco bouwdroger huren in Bergen op Zoom | Vernast",
     description:
-      "Bouwdroger huren in Bergen op Zoom en Halsteren: panden in de oude binnenstad, woningen aan de voet van de Brabantse Wal. Geleverd op een afgesproken dag.",
+      "Bouwdroger huren in Bergen op Zoom met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Bergen op Zoom",
     kicker: "Noord-Brabant · stad aan de Brabantse Wal",
     rit: { afstand: "circa 50 km", tijd: "ongeveer veertig minuten" },
@@ -39572,9 +39572,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "woensdrecht",
-    title: "Bouwdroger huren in Woensdrecht | Vernast",
+    title: "Eco bouwdroger huren in Woensdrecht | Vernast",
     description:
-      "Bouwdroger huren in Woensdrecht, Hoogerheide, Ossendrecht, Huijbergen of Putte: woningen op en onder de Brabantse Wal, vlak bij de grens. Geleverd op afspraak.",
+      "Bouwdroger huren in Woensdrecht met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Woensdrecht",
     kicker: "Noord-Brabant · dorpen op de Wal, tegen de grens",
     rit: { afstand: "circa 40 km", tijd: "ongeveer een halfuur" },
@@ -39630,9 +39630,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "roosendaal",
-    title: "Bouwdroger huren in Roosendaal | Vernast",
+    title: "Eco bouwdroger huren in Roosendaal | Vernast",
     description:
-      "Bouwdroger huren in Roosendaal, Wouw, Nispen of Heerle: rijwoningen in de naoorlogse wijken en boerderijen op het zand. Leverdag in overleg, geplaatst en gemeten.",
+      "Bouwdroger huren in Roosendaal met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Roosendaal",
     kicker: "Noord-Brabant · spoorstad aan de grens",
     rit: { afstand: "circa 60 km", tijd: "ongeveer drie kwartier" },
@@ -39688,9 +39688,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "steenbergen",
-    title: "Bouwdroger huren in Steenbergen | Vernast",
+    title: "Eco bouwdroger huren in Steenbergen | Vernast",
     description:
-      "Bouwdroger huren in Steenbergen, Dinteloord, Kruisland of Nieuw-Vossemeer: polderwoningen en boerderijen op zware zeeklei. Leverdag in overleg, met vochtmeting.",
+      "Bouwdroger huren in Steenbergen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Steenbergen",
     kicker: "Noord-Brabant · polders op de zeeklei",
     rit: { afstand: "circa 65 km", tijd: "ongeveer vijftig minuten" },
@@ -39746,9 +39746,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "halderberge",
-    title: "Bouwdroger huren in Halderberge | Vernast",
+    title: "Eco bouwdroger huren in Halderberge | Vernast",
     description:
-      "Bouwdroger huren in Halderberge: Oudenbosch, Hoeven, Oud Gastel, Bosschenhoofd en Stampersgat, van zand naar klei. Leverdag samen afgesproken, geplaatst en gemeten.",
+      "Bouwdroger huren in Halderberge met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Halderberge",
     kicker: "Noord-Brabant · van de basiliek naar de polder",
     rit: { afstand: "circa 75 km", tijd: "ongeveer een uur" },
@@ -39804,9 +39804,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "rucphen",
-    title: "Bouwdroger huren in Rucphen | Vernast",
+    title: "Eco bouwdroger huren in Rucphen | Vernast",
     description:
-      "Bouwdroger huren in Rucphen, Sint Willebrord, Sprundel, Schijf of Zegge: dorpswoningen en lintbebouwing op de zandgrond. Leverdag in overleg, met vochtmeting.",
+      "Bouwdroger huren in Rucphen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Rucphen",
     kicker: "Noord-Brabant · vijf dorpen op het zand",
     rit: { afstand: "circa 65 km", tijd: "ongeveer vijftig minuten" },
@@ -39862,9 +39862,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "zundert",
-    title: "Bouwdroger huren in Zundert | Vernast",
+    title: "Eco bouwdroger huren in Zundert | Vernast",
     description:
-      "Bouwdroger huren in Zundert, Rijsbergen, Wernhout, Achtmaal of Klein-Zundert: woningen en bedrijfspanden op de zandgrond aan de grens. Leverdag op afspraak.",
+      "Bouwdroger huren in Zundert met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zundert",
     kicker: "Noord-Brabant · het corsodorp aan de grens",
     rit: { afstand: "circa 50 km", tijd: "ongeveer veertig minuten" },
@@ -39920,9 +39920,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "moerdijk",
-    title: "Bouwdroger huren in Moerdijk | Vernast",
+    title: "Eco bouwdroger huren in Moerdijk | Vernast",
     description:
-      "Bouwdroger huren in Moerdijk, Zevenbergen, Klundert, Willemstad of Fijnaart: polderwoningen, vestingstadjes en bedrijfspanden. Leverdag samen afgesproken.",
+      "Bouwdroger huren in Moerdijk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Moerdijk",
     kicker: "Noord-Brabant · aan het Hollandsch Diep",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -39977,9 +39977,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "breda",
-    title: "Bouwdroger huren in Breda | Vernast",
+    title: "Eco bouwdroger huren in Breda | Vernast",
     description:
-      "Bouwdroger huren in Breda: stucwerk in een oud pand binnen de singels, een dekvloer in de Haagse Beemden of een vochtige kruipruimte in Ginneken.",
+      "Bouwdroger huren in Breda met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Breda",
     kicker: "Noord-Brabant · vestingstad aan de Mark",
     rit: { afstand: "circa 70 km", tijd: "ongeveer vijftig minuten" },
@@ -40035,9 +40035,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "etten-leur",
-    title: "Bouwdroger huren in Etten-Leur | Vernast",
+    title: "Eco bouwdroger huren in Etten-Leur | Vernast",
     description:
-      "Bouwdroger huren in Etten-Leur: rijwoningen uit de jaren zeventig en tachtig in renovatie, nieuwe dekvloeren en polderklei aan de noordkant. Op afspraak.",
+      "Bouwdroger huren in Etten-Leur met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Etten-Leur",
     kicker: "West-Brabant · tussen Breda en Roosendaal",
     rit: { afstand: "circa 70 km", tijd: "ongeveer vijftig minuten" },
@@ -40093,9 +40093,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oosterhout",
-    title: "Bouwdroger huren in Oosterhout | Vernast",
+    title: "Eco bouwdroger huren in Oosterhout | Vernast",
     description:
-      "Bouwdroger huren in Oosterhout: naoorlogse wijken in renovatie, nieuwbouw aan de rand, Dorst en Den Hout. Leverdag op afspraak, met vochtmeting ter plaatse.",
+      "Bouwdroger huren in Oosterhout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oosterhout",
     kicker: "Noord-Brabant · stad van slotjes en kloosters",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -40151,9 +40151,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "drimmelen",
-    title: "Bouwdroger huren in Drimmelen | Vernast",
+    title: "Eco bouwdroger huren in Drimmelen | Vernast",
     description:
-      "Bouwdroger huren in Drimmelen: Made, Lage Zwaluwe en de dorpen aan de Biesbosch, woningen op rivierklei en dijkhuizen langs de Amer. Leverdag samen gekozen.",
+      "Bouwdroger huren in Drimmelen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Drimmelen",
     kicker: "Biesbosch · polderdorpen langs de Amer",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -40209,9 +40209,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "geertruidenberg",
-    title: "Bouwdroger huren in Geertruidenberg | Vernast",
+    title: "Eco bouwdroger huren in Geertruidenberg | Vernast",
     description:
-      "Bouwdroger huren in Geertruidenberg en Raamsdonksveer: oude panden in het vestingstadje, woningen aan de Donge en klei in de ondergrond. Leverdag in overleg.",
+      "Bouwdroger huren in Geertruidenberg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Geertruidenberg",
     kicker: "Noord-Brabant · vestingstadje aan de Donge",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -40267,9 +40267,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "altena",
-    title: "Bouwdroger huren in Altena | Vernast",
+    title: "Eco bouwdroger huren in Altena | Vernast",
     description:
-      "Bouwdroger huren in Altena: Werkendam, Woudrichem en de dijkdorpen tussen Merwede en Bergsche Maas, op zware rivierklei. Leverdag vooraf samen gepland.",
+      "Bouwdroger huren in Altena met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Altena",
     kicker: "Land van Altena · tussen Merwede en Maas",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -40325,9 +40325,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "alphen-chaam",
-    title: "Bouwdroger huren in Alphen-Chaam | Vernast",
+    title: "Eco bouwdroger huren in Alphen-Chaam | Vernast",
     description:
-      "Bouwdroger huren in Alphen-Chaam: langgevelboerderijen, vrijstaande woningen op zandgrond en verbouwde stallen in Alphen, Chaam en Galder. Op afspraak.",
+      "Bouwdroger huren in Alphen-Chaam met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Alphen-Chaam",
     kicker: "Noord-Brabant · landelijk tussen Breda en Baarle",
     rit: { afstand: "circa 70 km", tijd: "ongeveer een uur" },
@@ -40383,9 +40383,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "baarle-nassau",
-    title: "Bouwdroger huren in Baarle-Nassau | Vernast",
+    title: "Eco bouwdroger huren in Baarle-Nassau | Vernast",
     description:
-      "Bouwdroger huren in Baarle-Nassau: het Nederlandse deel van Baarle rond de Belgische enclaves, met Ulicoten en Castelré. Dorpse woningen op zand.",
+      "Bouwdroger huren in Baarle-Nassau met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Baarle-Nassau",
     kicker: "Grensdorp · het Nederlandse deel van Baarle",
     rit: { afstand: "circa 50 km", tijd: "ongeveer drie kwartier" },
@@ -40440,9 +40440,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tilburg",
-    title: "Bouwdroger huren in Tilburg | Vernast",
+    title: "Eco bouwdroger huren in Tilburg | Vernast",
     description:
-      "Bouwdroger huren in Tilburg: arbeiderswoningen uit de textieltijd, de Reeshof en verbouwingen in de Spoorzone. Geplaatst en gemeten op een dag die we samen afspreken.",
+      "Bouwdroger huren in Tilburg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tilburg",
     kicker: "Noord-Brabant · de oude wolstad",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -40498,9 +40498,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "goirle",
-    title: "Bouwdroger huren in Goirle | Vernast",
+    title: "Eco bouwdroger huren in Goirle | Vernast",
     description:
-      "Bouwdroger huren in Goirle en Riel: woningen op Brabants zand, vlak bij de grens met Poppel. Toestel geplaatst en ingesteld op een leverdag die we samen kiezen.",
+      "Bouwdroger huren in Goirle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Goirle",
     kicker: "Noord-Brabant · tegen de grens bij Poppel",
     rit: { afstand: "circa 90 km", tijd: "ruim een uur" },
@@ -40556,9 +40556,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hilvarenbeek",
-    title: "Bouwdroger huren in Hilvarenbeek | Vernast",
+    title: "Eco bouwdroger huren in Hilvarenbeek | Vernast",
     description:
-      "Bouwdroger huren in Hilvarenbeek, Diessen of Esbeek: boerderijen en dorpswoningen langs beekdalen, vlak bij de grens. Geplaatst op een leverdag die we samen afspreken.",
+      "Bouwdroger huren in Hilvarenbeek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hilvarenbeek",
     kicker: "Noord-Brabant · kerkdorpen tussen Tilburg en de grens",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -40614,9 +40614,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oisterwijk",
-    title: "Bouwdroger huren in Oisterwijk | Vernast",
+    title: "Eco bouwdroger huren in Oisterwijk | Vernast",
     description:
-      "Bouwdroger huren in Oisterwijk, Moergestel of Haaren: villa's tussen bossen en vennen en oudere dorpswoningen. Geplaatst en gemeten op een afgesproken dag.",
+      "Bouwdroger huren in Oisterwijk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oisterwijk",
     kicker: "Noord-Brabant · tussen de bossen en vennen",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -40672,9 +40672,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "dongen",
-    title: "Bouwdroger huren in Dongen | Vernast",
+    title: "Eco bouwdroger huren in Dongen | Vernast",
     description:
-      "Bouwdroger huren in Dongen of 's Gravenmoer: dorpswoningen rond de oude vaart en nieuwbouw aan de randen. Toestellen geplaatst op een leverdag die u kiest.",
+      "Bouwdroger huren in Dongen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Dongen",
     kicker: "Noord-Brabant · aan de Dongense Vaart",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -40730,9 +40730,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gilze-en-rijen",
-    title: "Bouwdroger huren in Gilze en Rijen | Vernast",
+    title: "Eco bouwdroger huren in Gilze en Rijen | Vernast",
     description:
-      "Bouwdroger huren in Gilze, Rijen, Hulten of Molenschot: woningen en bedrijfsruimtes langs de A58. Op een samen gekozen leverdag geplaatst en ingesteld.",
+      "Bouwdroger huren in Gilze en Rijen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Gilze en Rijen",
     kicker: "Noord-Brabant · vier kernen aan de A58",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -40788,9 +40788,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "loon-op-zand",
-    title: "Bouwdroger huren in Loon op Zand | Vernast",
+    title: "Eco bouwdroger huren in Loon op Zand | Vernast",
     description:
-      "Bouwdroger huren in Kaatsheuvel, Loon op Zand of De Moer: woningen tussen de Efteling en de Loonse en Drunense Duinen. Geplaatst op een afgesproken leverdag.",
+      "Bouwdroger huren in Loon op Zand met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Loon op Zand",
     kicker: "Noord-Brabant · Kaatsheuvel, Loon op Zand en De Moer",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -40846,9 +40846,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "waalwijk",
-    title: "Bouwdroger huren in Waalwijk | Vernast",
+    title: "Eco bouwdroger huren in Waalwijk | Vernast",
     description:
-      "Bouwdroger huren in Waalwijk, Sprang-Capelle of Waspik: woningen in de Langstraat op de overgang van zand naar klei. Geplaatst en gemeten op een afgesproken dag.",
+      "Bouwdroger huren in Waalwijk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Waalwijk",
     kicker: "Noord-Brabant · het hart van de Langstraat",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -40904,9 +40904,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "heusden",
-    title: "Bouwdroger huren in Heusden | Vernast",
+    title: "Eco bouwdroger huren in Heusden | Vernast",
     description:
-      "Bouwdroger huren in Heusden, Drunen of Vlijmen: monumenten in de vesting aan de Maas en woonwijken op zand. Voorzichtig gedroogd, geplaatst op een afgesproken dag.",
+      "Bouwdroger huren in Heusden met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Heusden",
     kicker: "Noord-Brabant · vestingstad aan de Maas",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -40961,9 +40961,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "s-hertogenbosch",
-    title: "Bouwdroger huren in 's-Hertogenbosch | Vernast",
+    title: "Eco bouwdroger huren in 's-Hertogenbosch | Vernast",
     description:
-      "Bouwdroger huren in 's-Hertogenbosch: kelders in de binnenstad langs de Binnendieze, monumenten en nieuwbouw in Rosmalen. Geplaatst, gemeten en weer opgehaald.",
+      "Bouwdroger huren in 's-Hertogenbosch met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in 's-Hertogenbosch",
     kicker: "Noord-Brabant · vestingstad waar Dommel en Aa samenkomen",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -41023,9 +41023,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vught",
-    title: "Bouwdroger huren in Vught | Vernast",
+    title: "Eco bouwdroger huren in Vught | Vernast",
     description:
-      "Bouwdroger huren in Vught, Helvoirt of Cromvoirt: oudere villa's onder hoge bomen, renovaties en kelders aan de rand van de Dommel. Geplaatst en gemeten aan huis.",
+      "Bouwdroger huren in Vught met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vught",
     kicker: "Noord-Brabant · villadorp tussen bos, heide en Dommel",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -41081,9 +41081,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sint-michielsgestel",
-    title: "Bouwdroger huren in Sint-Michielsgestel | Vernast",
+    title: "Eco bouwdroger huren in Sint-Michielsgestel | Vernast",
     description:
-      "Bouwdroger huren in Sint-Michielsgestel, Berlicum, Den Dungen of Gemonde: woningen in het dal van de Dommel en landgoederen. Plaatsing en vochtmeting inbegrepen.",
+      "Bouwdroger huren in Sint-Michielsgestel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sint-Michielsgestel",
     kicker: "Noord-Brabant · dorpen langs de Dommel in de Meierij",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -41139,9 +41139,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "boxtel",
-    title: "Bouwdroger huren in Boxtel | Vernast",
+    title: "Eco bouwdroger huren in Boxtel | Vernast",
     description:
-      "Bouwdroger huren in Boxtel, Liempde of Esch: woningen langs de Dommel, renovaties in het centrum en nieuwbouw. Wij plaatsen, meten het vocht en halen weer op.",
+      "Bouwdroger huren in Boxtel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Boxtel",
     kicker: "Noord-Brabant · aan de Dommel, tussen Den Bosch en Eindhoven",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -41197,9 +41197,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "meierijstad",
-    title: "Bouwdroger huren in Meierijstad | Vernast",
+    title: "Eco bouwdroger huren in Meierijstad | Vernast",
     description:
-      "Bouwdroger huren in Meierijstad: Veghel, Schijndel, Sint-Oedenrode en de kerkdorpen. Woningen, bedrijfspanden en verbouwde boerderijen, met plaatsing en meting.",
+      "Bouwdroger huren in Meierijstad met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Meierijstad",
     kicker: "Noord-Brabant · Veghel, Schijndel en Sint-Oedenrode",
     rit: { afstand: "circa 125 km", tijd: "bijna anderhalf uur" },
@@ -41255,9 +41255,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bernheze",
-    title: "Bouwdroger huren in Bernheze | Vernast",
+    title: "Eco bouwdroger huren in Bernheze | Vernast",
     description:
-      "Bouwdroger huren in Bernheze: Heesch, Nistelrode, Heeswijk-Dinther, Vorstenbosch en Loosbroek. Nieuwbouw, renovatie en boerderijen, met plaatsing en vochtmeting.",
+      "Bouwdroger huren in Bernheze met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bernheze",
     kicker: "Noord-Brabant · vijf dorpen tussen Den Bosch en Uden",
     rit: { afstand: "circa 120 km", tijd: "bijna anderhalf uur" },
@@ -41312,9 +41312,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oss",
-    title: "Bouwdroger huren in Oss | Vernast",
+    title: "Eco bouwdroger huren in Oss | Vernast",
     description:
-      "Bouwdroger huren in Oss, Ravenstein, Lith of Berghem: rijtjeshuizen, nieuwbouwwijken en dijkdorpen langs de Maas. Geplaatst en gemeten door een technicus.",
+      "Bouwdroger huren in Oss met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oss",
     kicker: "Noord-Brabant · industriestad aan de Maas",
     rit: { afstand: "circa 135 km", tijd: "ruim een uur" },
@@ -41374,9 +41374,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "maashorst",
-    title: "Bouwdroger huren in Maashorst | Vernast",
+    title: "Eco bouwdroger huren in Maashorst | Vernast",
     description:
-      "Bouwdroger huren in Maashorst: Uden, Volkel, Zeeland, Schaijk en Reek. Nieuwbouw, verbouwingen en boerderijen op de Peelrand, met plaatsing en vochtmeting.",
+      "Bouwdroger huren in Maashorst met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Maashorst",
     kicker: "Noord-Brabant · Uden en Landerd op de Peelrand",
     rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
@@ -41432,9 +41432,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "boekel",
-    title: "Bouwdroger huren in Boekel | Vernast",
+    title: "Eco bouwdroger huren in Boekel | Vernast",
     description:
-      "Bouwdroger huren in Boekel of Venhorst: boerderijen, verbouwde schuren en nieuwbouw op Brabantse zandgrond. Op een afgesproken dag geleverd en geplaatst.",
+      "Bouwdroger huren in Boekel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Boekel",
     kicker: "Noord-Brabant · dorp aan de rand van de Peel",
     rit: { afstand: "circa 130 km", tijd: "ruim een uur" },
@@ -41490,9 +41490,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gemert-bakel",
-    title: "Bouwdroger huren in Gemert-Bakel | Vernast",
+    title: "Eco bouwdroger huren in Gemert-Bakel | Vernast",
     description:
-      "Bouwdroger huren in Gemert-Bakel: Gemert, Bakel, De Mortel, Handel, De Rips en Milheeze. Verbouwingen en nieuwbouw op de Peelrand, met plaatsing en meting.",
+      "Bouwdroger huren in Gemert-Bakel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gemert-Bakel",
     kicker: "Noord-Brabant · Gemert, Bakel en de Peeldorpen",
     rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
@@ -41548,9 +41548,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "land-van-cuijk",
-    title: "Bouwdroger huren in Land van Cuijk | Vernast",
+    title: "Eco bouwdroger huren in Land van Cuijk | Vernast",
     description:
-      "Bouwdroger huren in Land van Cuijk: Cuijk, Boxmeer, Grave, Mill en Sint Anthonis. Woningen op Maasklei en Peelzand, geleverd op een afgesproken dag en geplaatst.",
+      "Bouwdroger huren in Land van Cuijk met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Land van Cuijk",
     kicker: "Noord-Brabant · van de Maas tot de Peel",
     rit: { afstand: "circa 150 km", tijd: "ruim anderhalf uur" },
@@ -41609,9 +41609,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "eindhoven",
-    title: "Bouwdroger huren in Eindhoven | Vernast",
+    title: "Eco bouwdroger huren in Eindhoven | Vernast",
     description:
-      "Bouwdroger huren in Eindhoven: lofts in oude Philipsfabrieken op Strijp, naoorlogse wijken in Woensel en nieuwbouw op zandgrond. Geplaatst en gemeten door een technicus.",
+      "Bouwdroger huren in Eindhoven met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Eindhoven",
     kicker: "Noord-Brabant · de lichtstad van Brainport",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -41667,9 +41667,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "veldhoven",
-    title: "Bouwdroger huren in Veldhoven | Vernast",
+    title: "Eco bouwdroger huren in Veldhoven | Vernast",
     description:
-      "Bouwdroger huren in Veldhoven, Zeelst, Meerveldhoven of Oerle: nieuwbouwwijken en bedrijfspanden op Kempische zandgrond. Leverdag op afspraak, plaatsing met vochtmeting.",
+      "Bouwdroger huren in Veldhoven met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Veldhoven",
     kicker: "Noord-Brabant · gegroeid naast Eindhoven",
     rit: { afstand: "circa 95 km", tijd: "ongeveer een uur" },
@@ -41725,9 +41725,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "best",
-    title: "Bouwdroger huren in Best | Vernast",
+    title: "Eco bouwdroger huren in Best | Vernast",
     description:
-      "Bouwdroger huren in Best: woningen rond het oude Batadorp, nieuwbouw langs de A2 en bedrijfspanden aan het Wilhelminakanaal. Plaatsing en vochtmeting aan huis.",
+      "Bouwdroger huren in Best met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Best",
     kicker: "Noord-Brabant · Batadorp aan de A2",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -41783,9 +41783,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "son-en-breugel",
-    title: "Bouwdroger huren in Son en Breugel | Vernast",
+    title: "Eco bouwdroger huren in Son en Breugel | Vernast",
     description:
-      "Bouwdroger huren in Son en Breugel: woningen langs de Dommel, nieuwbouw aan het Wilhelminakanaal en bedrijfspanden op Ekkersrijt. Leverdag samen afgesproken.",
+      "Bouwdroger huren in Son en Breugel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Son en Breugel",
     kicker: "Noord-Brabant · tussen Dommel en Wilhelminakanaal",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -41841,9 +41841,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "nuenen",
-    title: "Bouwdroger huren in Nuenen | Vernast",
+    title: "Eco bouwdroger huren in Nuenen | Vernast",
     description:
-      "Bouwdroger huren in Nuenen, Gerwen of Nederwetten: oude panden in het Van Goghdorp, villa's en nieuwbouw op zandgrond. Leverdag op afspraak, met vochtmeting.",
+      "Bouwdroger huren in Nuenen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Nuenen",
     kicker: "Noord-Brabant · het dorp van Van Gogh",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -41899,9 +41899,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "geldrop-mierlo",
-    title: "Bouwdroger huren in Geldrop-Mierlo | Vernast",
+    title: "Eco bouwdroger huren in Geldrop-Mierlo | Vernast",
     description:
-      "Bouwdroger huren in Geldrop-Mierlo: oude textielpanden aan de Kleine Dommel, rijwoningen en nieuwbouw in Mierlo. Technicus plaatst en meet, levering op afspraak.",
+      "Bouwdroger huren in Geldrop-Mierlo met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Geldrop-Mierlo",
     kicker: "Noord-Brabant · textielverleden aan de Kleine Dommel",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -41957,9 +41957,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "waalre",
-    title: "Bouwdroger huren in Waalre | Vernast",
+    title: "Eco bouwdroger huren in Waalre | Vernast",
     description:
-      "Bouwdroger huren in Waalre of Aalst: villa's in de bossen, woningen in het Dommeldal en renovaties op zandgrond. Geleverd op een dag die we samen afspreken.",
+      "Bouwdroger huren in Waalre met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Waalre",
     kicker: "Noord-Brabant · villa's tussen bos en Dommel",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -42015,9 +42015,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "oirschot",
-    title: "Bouwdroger huren in Oirschot | Vernast",
+    title: "Eco bouwdroger huren in Oirschot | Vernast",
     description:
-      "Bouwdroger huren in Oirschot, Middelbeers, Oostelbeers of Spoordonk: monumenten rond de Markt, boerderijen en nieuwbouw in de Kempen. Levering op afspraak.",
+      "Bouwdroger huren in Oirschot met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Oirschot",
     kicker: "Noord-Brabant · monumentaal dorp in de Kempen",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -42073,9 +42073,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "valkenswaard",
-    title: "Bouwdroger huren in Valkenswaard | Vernast",
+    title: "Eco bouwdroger huren in Valkenswaard | Vernast",
     description:
-      "Bouwdroger huren in Valkenswaard, Dommelen of Borkel en Schaft: woningen bij de Dommel, oude sigarenpanden en nieuwbouw richting de Belgische grens.",
+      "Bouwdroger huren in Valkenswaard met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Valkenswaard",
     kicker: "Noord-Brabant · aan de Dommel, vlak bij de grens",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -42131,9 +42131,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "heeze-leende",
-    title: "Bouwdroger huren in Heeze-Leende | Vernast",
+    title: "Eco bouwdroger huren in Heeze-Leende | Vernast",
     description:
-      "Bouwdroger huren in Heeze, Leende of Sterksel: boerderijen en dorpswoningen tussen Strabrechtse Heide en Leenderbos. Een technicus plaatst en meet, leverdag in overleg.",
+      "Bouwdroger huren in Heeze-Leende met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Heeze-Leende",
     kicker: "Noord-Brabant · dorpen tussen heide en bos",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -42188,9 +42188,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bladel",
-    title: "Bouwdroger huren in Bladel | Vernast",
+    title: "Eco bouwdroger huren in Bladel | Vernast",
     description:
-      "Bouwdroger huren in Bladel, Hapert, Hoogeloon, Casteren of Netersel? Vernast droogt verbouwde boerderijen en nieuwbouw. Levering op afspraak, met plaatsing.",
+      "Bouwdroger huren in Bladel, Hapert, Hoogeloon, Casteren of Netersel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Bladel",
     kicker: "Noord-Brabant · Kempen aan de Belgische grens",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -42246,9 +42246,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "eersel",
-    title: "Bouwdroger huren in Eersel | Vernast",
+    title: "Eco bouwdroger huren in Eersel | Vernast",
     description:
-      "Bouwdroger huren in Eersel, Duizel, Steensel, Knegsel, Vessem of Wintelre? Droging van renovaties en nieuwbouw in de Kempen, levering op afspraak via de A67.",
+      "Bouwdroger huren in Eersel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Eersel",
     kicker: "Noord-Brabant · Kempendorpen langs de A67",
     rit: { afstand: "circa 90 km", tijd: "ongeveer een uur" },
@@ -42304,9 +42304,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bergeijk",
-    title: "Bouwdroger huren in Bergeijk | Vernast",
+    title: "Eco bouwdroger huren in Bergeijk | Vernast",
     description:
-      "Bouwdroger huren in Bergeijk, Westerhoven, Riethoven of Luyksgestel? Droging van verbouwingen en nieuwbouw naast Lommel, levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Bergeijk, Westerhoven, Riethoven of Luyksgestel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Bergeijk",
     kicker: "Noord-Brabant · lintdorp naast Lommel",
     rit: { afstand: "circa 95 km", tijd: "ruim een uur" },
@@ -42362,9 +42362,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "reusel-de-mierden",
-    title: "Bouwdroger huren in Reusel-De Mierden | Vernast",
+    title: "Eco bouwdroger huren in Reusel-De Mierden | Vernast",
     description:
-      "Bouwdroger huren in Reusel, Hooge Mierde, Lage Mierde of Hulsel? Droging van stallen, woningen en nieuwbouw net over de grens bij Arendonk. Levering op afspraak.",
+      "Bouwdroger huren in Reusel, Hooge Mierde, Lage Mierde of Hulsel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Reusel-De Mierden",
     kicker: "Noord-Brabant · net over de grens bij Arendonk",
     rit: { afstand: "circa 75 km", tijd: "ongeveer vijftig minuten" },
@@ -42420,9 +42420,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "cranendonck",
-    title: "Bouwdroger huren in Cranendonck | Vernast",
+    title: "Eco bouwdroger huren in Cranendonck | Vernast",
     description:
-      "Bouwdroger huren in Budel, Maarheeze, Soerendonk of Budel-Dorplein? Droging van renovaties en nieuwbouw tussen Hamont-Achel en Weert. Levering op afspraak.",
+      "Bouwdroger huren in Budel, Maarheeze, Soerendonk of Budel-Dorplein met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Cranendonck",
     kicker: "Noord-Brabant · Budel en Maarheeze aan de A2",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -42478,9 +42478,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "helmond",
-    title: "Bouwdroger huren in Helmond | Vernast",
+    title: "Eco bouwdroger huren in Helmond | Vernast",
     description:
-      "Bouwdroger huren in Helmond? Droging van rijwoningen in Mierlo-Hout en Stiphout, nieuwbouw in Brandevoort en appartementen. Levering en plaatsing op afspraak.",
+      "Bouwdroger huren in Helmond met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Helmond",
     kicker: "Noord-Brabant · stad aan de Zuid-Willemsvaart",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -42536,9 +42536,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "laarbeek",
-    title: "Bouwdroger huren in Laarbeek | Vernast",
+    title: "Eco bouwdroger huren in Laarbeek | Vernast",
     description:
-      "Bouwdroger huren in Beek en Donk, Aarle-Rixtel, Lieshout of Mariahout? Droging van renovaties en nieuwbouw langs de Aa en het kanaal. Levering op afspraak.",
+      "Bouwdroger huren in Beek en Donk, Aarle-Rixtel, Lieshout of Mariahout met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Laarbeek",
     kicker: "Noord-Brabant · vier dorpen tussen Aa en kanaal",
     rit: { afstand: "circa 125 km", tijd: "bijna anderhalf uur" },
@@ -42594,9 +42594,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "deurne-nb",
-    title: "Bouwdroger huren in Deurne (Noord-Brabant) | Vernast",
+    title: "Eco bouwdroger huren in Deurne (Noord-Brabant) | Vernast",
     description:
-      "Bouwdroger huren in Deurne in Noord-Brabant, met Liessel, Vlierden, Neerkant en Helenaveen? Droging van woningen en boerderijen aan de Peel. Levering op afspraak.",
+      "Bouwdroger huren in Deurne (Noord-Brabant) met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Deurne",
     kicker: "Noord-Brabant · aan de rand van de Peel",
     rit: { afstand: "circa 125 km", tijd: "bijna anderhalf uur" },
@@ -42652,9 +42652,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "asten",
-    title: "Bouwdroger huren in Asten | Vernast",
+    title: "Eco bouwdroger huren in Asten | Vernast",
     description:
-      "Bouwdroger huren in Asten, Heusden of Ommel? Droging van woningen en boerderijen aan de rand van de Groote Peel, renovatie en nieuwbouw. Levering op afspraak.",
+      "Bouwdroger huren in Asten, Heusden of Ommel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Asten",
     kicker: "Noord-Brabant · aan de Groote Peel",
     rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
@@ -42710,9 +42710,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "someren",
-    title: "Bouwdroger huren in Someren | Vernast",
+    title: "Eco bouwdroger huren in Someren | Vernast",
     description:
-      "Bouwdroger huren in Someren, Lierop, Someren-Eind of Someren-Heide? Droging van renovaties en nieuwbouw tussen Strabrechtse Heide en Peel. Levering op afspraak.",
+      "Bouwdroger huren in Someren, Lierop, Someren-Eind of Someren-Heide met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket, levering inbegrepen.",
     h1: "Bouwdroger huren in Someren",
     kicker: "Noord-Brabant · tussen heide en Peel",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -42767,9 +42767,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "hulst",
-    title: "Bouwdroger huren in Hulst | Vernast",
+    title: "Eco bouwdroger huren in Hulst | Vernast",
     description:
-      "Bouwdroger huren in Hulst, Clinge of Kloosterzande: renovatie binnen de vestingwallen en boerderijen op zeeklei. Levering op afspraak, met plaatsing.",
+      "Bouwdroger huren in Hulst met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Hulst",
     kicker: "Zeeland · vestingstad aan de grens met het Waasland",
     rit: { afstand: "circa 45 km", tijd: "ongeveer drie kwartier" },
@@ -42829,9 +42829,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sluis",
-    title: "Bouwdroger huren in Sluis | Vernast",
+    title: "Eco bouwdroger huren in Sluis | Vernast",
     description:
-      "Bouwdroger huren in Sluis, Oostburg, Breskens of Cadzand: vakantiewoningen aan de kust en oude dorpshuizen op polderklei. Levering op afspraak, met plaatsing.",
+      "Bouwdroger huren in Sluis met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Sluis",
     kicker: "Zeeland · West-Zeeuws-Vlaanderen aan de kust",
     rit: { afstand: "circa 90 km", tijd: "ruim een uur" },
@@ -42887,9 +42887,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "terneuzen",
-    title: "Bouwdroger huren in Terneuzen | Vernast",
+    title: "Eco bouwdroger huren in Terneuzen | Vernast",
     description:
-      "Bouwdroger huren in Terneuzen, Axel of Sas van Gent: rijwoningen langs het kanaal Gent-Terneuzen en polderdorpen op natte klei. Leverdatum in overleg.",
+      "Bouwdroger huren in Terneuzen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Terneuzen",
     kicker: "Zeeland · havenstad aan het kanaal Gent-Terneuzen",
     rit: { afstand: "circa 65 km", tijd: "een klein uur" },
@@ -42945,9 +42945,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "borsele",
-    title: "Bouwdroger huren in Borsele | Vernast",
+    title: "Eco bouwdroger huren in Borsele | Vernast",
     description:
-      "Bouwdroger huren in Borsele: Heinkenszand, 's-Heerenhoek en de dorpen langs de Westerschelde. Dijkhuizen en boerderijen op zeeklei, vocht gemeten bij plaatsing.",
+      "Bouwdroger huren in Borsele met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Borsele",
     kicker: "Zeeland · Zuid-Beveland aan de Westerschelde",
     rit: { afstand: "circa 85 km", tijd: "ongeveer een uur" },
@@ -43003,9 +43003,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "goes",
-    title: "Bouwdroger huren in Goes | Vernast",
+    title: "Eco bouwdroger huren in Goes | Vernast",
     description:
-      "Bouwdroger huren in Goes: panden rond de Grote Markt en het havenkanaal, nieuwbouwwijken en de dorpen aan het Veerse Meer. Leverdatum en vochtmeting in overleg.",
+      "Bouwdroger huren in Goes met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Goes",
     kicker: "Zeeland · de stad van Zuid-Beveland",
     rit: { afstand: "circa 80 km", tijd: "ongeveer een uur" },
@@ -43061,9 +43061,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kapelle",
-    title: "Bouwdroger huren in Kapelle | Vernast",
+    title: "Eco bouwdroger huren in Kapelle | Vernast",
     description:
-      "Bouwdroger huren in Kapelle, Biezelinge, Wemeldinge of Schore: dorpswoningen tussen de fruitboomgaarden en huizen aan het kanaal door Zuid-Beveland.",
+      "Bouwdroger huren in Kapelle met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kapelle",
     kicker: "Zeeland · fruitdorpen op Zuid-Beveland",
     rit: { afstand: "circa 75 km", tijd: "een klein uur" },
@@ -43119,9 +43119,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "reimerswaal",
-    title: "Bouwdroger huren in Reimerswaal | Vernast",
+    title: "Eco bouwdroger huren in Reimerswaal | Vernast",
     description:
-      "Bouwdroger huren in Reimerswaal: Yerseke, Kruiningen, Krabbendijke en Rilland. Dijkdorpen, fruitbedrijven en huizen op zilte zeeklei. Leverdag op afspraak.",
+      "Bouwdroger huren in Reimerswaal met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Reimerswaal",
     kicker: "Zeeland · Oost-Zuid-Beveland en Yerseke",
     rit: { afstand: "circa 60 km", tijd: "ongeveer drie kwartier" },
@@ -43176,9 +43176,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "middelburg",
-    title: "Bouwdroger huren in Middelburg | Vernast",
+    title: "Eco bouwdroger huren in Middelburg | Vernast",
     description:
-      "Bouwdroger huren in Middelburg, Arnemuiden of Nieuw- en Sint Joosland: monumentale panden in de binnenstad en nieuwbouw op Walcherse klei. Levering op afspraak.",
+      "Bouwdroger huren in Middelburg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Middelburg",
     kicker: "Zeeland · de hoofdstad van Walcheren",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -43234,9 +43234,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vlissingen",
-    title: "Bouwdroger huren in Vlissingen | Vernast",
+    title: "Eco bouwdroger huren in Vlissingen | Vernast",
     description:
-      "Bouwdroger huren in Vlissingen, Oost-Souburg of Ritthem: appartementen aan de boulevard, oude stadshuizen en nieuwbouw in zoute zeelucht. Levering op afspraak.",
+      "Bouwdroger huren in Vlissingen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vlissingen",
     kicker: "Zeeland · havenstad aan de monding van de Westerschelde",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -43292,9 +43292,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "veere",
-    title: "Bouwdroger huren in Veere | Vernast",
+    title: "Eco bouwdroger huren in Veere | Vernast",
     description:
-      "Bouwdroger huren in Veere, Domburg, Westkapelle of Zoutelande: vakantiewoningen achter de duinen die na de winter vochtig zijn, en dorpshuizen op Walcheren.",
+      "Bouwdroger huren in Veere met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Veere",
     kicker: "Zeeland · de kust van Walcheren",
     rit: { afstand: "circa 115 km", tijd: "bijna anderhalf uur" },
@@ -43350,9 +43350,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "noord-beveland",
-    title: "Bouwdroger huren in Noord-Beveland | Vernast",
+    title: "Eco bouwdroger huren in Noord-Beveland | Vernast",
     description:
-      "Bouwdroger huren op Noord-Beveland, in Kortgene, Kamperland, Colijnsplaat of Wissenkerke: polderboerderijen, dorpswoningen en vakantieparken aan het water.",
+      "Bouwdroger huren in Noord-Beveland met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Noord-Beveland",
     kicker: "Zeeland · eiland tussen Oosterschelde en Veerse Meer",
     rit: { afstand: "circa 100 km", tijd: "ruim een uur" },
@@ -43408,9 +43408,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "schouwen-duiveland",
-    title: "Bouwdroger huren in Schouwen-Duiveland | Vernast",
+    title: "Eco bouwdroger huren in Schouwen-Duiveland | Vernast",
     description:
-      "Bouwdroger huren in Schouwen-Duiveland, Zierikzee, Renesse of Bruinisse: monumentale panden, dijkdorpen en vakantiehuizen in de duinen. Levering op afspraak.",
+      "Bouwdroger huren in Schouwen-Duiveland met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Schouwen-Duiveland",
     kicker: "Zeeland · Zierikzee en de dorpen tussen duin en dijk",
     rit: { afstand: "circa 115 km", tijd: "ongeveer anderhalf uur" },
@@ -43466,9 +43466,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "tholen",
-    title: "Bouwdroger huren in Tholen | Vernast",
+    title: "Eco bouwdroger huren in Tholen | Vernast",
     description:
-      "Bouwdroger huren in Tholen, Sint-Maartensdijk, Sint-Annaland of Sint Philipsland: dorpswoningen en polderboerderijen op zeeklei, vlak bij de Brabantse Wal.",
+      "Bouwdroger huren in Tholen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Tholen",
     kicker: "Zeeland · het eiland tegen de Brabantse Wal",
     rit: { afstand: "circa 60 km", tijd: "ongeveer vijftig minuten" },
@@ -43523,9 +43523,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "venlo",
-    title: "Bouwdroger huren in Venlo | Vernast",
+    title: "Eco bouwdroger huren in Venlo | Vernast",
     description:
-      "Bouwdroger huren in Venlo, Blerick, Tegelen of Arcen: bovenwoningen in de binnenstad en oudere huizen bij de Maas. Leverdag op afspraak, met plaatsing en meting.",
+      "Bouwdroger huren in Venlo met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Venlo",
     kicker: "Nederlands Limburg · stad aan beide oevers van de Maas",
     rit: { afstand: "circa 160 km", tijd: "ruim anderhalf uur" },
@@ -43581,9 +43581,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "venray",
-    title: "Bouwdroger huren in Venray | Vernast",
+    title: "Eco bouwdroger huren in Venray | Vernast",
     description:
-      "Bouwdroger huren in Venray en de kerkdorpen zoals Oostrum, Ysselsteyn en Wanssum: nieuwbouw, boerderijen en Maasdorpen. Leverdag op afspraak, met plaatsing.",
+      "Bouwdroger huren in Venray met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Venray",
     kicker: "Nederlands Limburg · stad met kerkdorpen tussen Peel en Maas",
     rit: { afstand: "circa 170 km", tijd: "bijna twee uur" },
@@ -43639,9 +43639,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "horst-aan-de-maas",
-    title: "Bouwdroger huren in Horst aan de Maas | Vernast",
+    title: "Eco bouwdroger huren in Horst aan de Maas | Vernast",
     description:
-      "Bouwdroger huren in Horst aan de Maas, Sevenum, Grubbenvorst of America: woningen en bedrijfsruimtes in de tuinbouwstreek. Leverdag op afspraak, geplaatst.",
+      "Bouwdroger huren in Horst aan de Maas met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Horst aan de Maas",
     kicker: "Nederlands Limburg · tuinbouw tussen Peel en Maas",
     rit: { afstand: "circa 165 km", tijd: "ruim anderhalf uur" },
@@ -43697,9 +43697,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "peel-en-maas",
-    title: "Bouwdroger huren in Peel en Maas | Vernast",
+    title: "Eco bouwdroger huren in Peel en Maas | Vernast",
     description:
-      "Bouwdroger huren in Peel en Maas: Panningen, Helden, Maasbree, Baarlo, Kessel en Meijel, van de Maasoever tot de Peel. Leverdag samen gepland, met plaatsing.",
+      "Bouwdroger huren in Peel en Maas met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Peel en Maas",
     kicker: "Nederlands Limburg · van de Maasoever tot de Peel",
     rit: { afstand: "circa 155 km", tijd: "ruim anderhalf uur" },
@@ -43755,9 +43755,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beesel",
-    title: "Bouwdroger huren in Beesel | Vernast",
+    title: "Eco bouwdroger huren in Beesel | Vernast",
     description:
-      "Bouwdroger huren in Beesel, Reuver of Offenbeek: woningen op de oostoever van de Maas, tussen Venlo en Roermond. Leverdag op afspraak, met vochtmeting.",
+      "Bouwdroger huren in Beesel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beesel",
     kicker: "Nederlands Limburg · de drakendorpen aan de Maas",
     rit: { afstand: "circa 165 km", tijd: "ruim anderhalf uur" },
@@ -43813,9 +43813,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "bergen-limburg",
-    title: "Bouwdroger huren in Bergen (L.) | Vernast",
+    title: "Eco bouwdroger huren in Bergen (L.) | Vernast",
     description:
-      "Bouwdroger huren in Bergen (L.), met Nieuw-Bergen, Well, Afferden en Siebengewald: woningen tussen de Maas en de Maasduinen. Leverdag op afspraak, met plaatsing.",
+      "Bouwdroger huren in Bergen (L.) met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Bergen (L.)",
     kicker: "Nederlands Limburg · tussen Maas en Maasduinen",
     rit: { afstand: "circa 180 km", tijd: "bijna twee uur" },
@@ -43871,9 +43871,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gennep",
-    title: "Bouwdroger huren in Gennep | Vernast",
+    title: "Eco bouwdroger huren in Gennep | Vernast",
     description:
-      "Bouwdroger huren in Gennep, Ottersum, Milsbeek of Heijen: woningen waar de Niers in de Maas stroomt, vlak bij de Duitse grens. Leverdag op afspraak, geplaatst.",
+      "Bouwdroger huren in Gennep met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gennep",
     kicker: "Nederlands Limburg · waar de Niers de Maas bereikt",
     rit: { afstand: "circa 195 km", tijd: "ongeveer twee uur" },
@@ -43929,9 +43929,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "mook-en-middelaar",
-    title: "Bouwdroger huren in Mook en Middelaar | Vernast",
+    title: "Eco bouwdroger huren in Mook en Middelaar | Vernast",
     description:
-      "Bouwdroger huren in Mook en Middelaar, Molenhoek of Plasmolen: woningen tussen de Maas en de heuvels van de Mookerheide, bij Nijmegen. Op afspraak geleverd.",
+      "Bouwdroger huren in Mook en Middelaar met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Mook en Middelaar",
     kicker: "Nederlands Limburg · de noordelijkste gemeente aan de Maas",
     rit: { afstand: "circa 205 km", tijd: "ruim twee uur" },
@@ -43986,9 +43986,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "echt-susteren",
-    title: "Bouwdroger huren in Echt-Susteren | Vernast",
+    title: "Eco bouwdroger huren in Echt-Susteren | Vernast",
     description:
-      "Bouwdroger huren in Echt-Susteren, Roosteren, Nieuwstadt of Koningsbosch. Voor een nieuwe dekvloer, vers pleisterwerk of waterschade. Levering op afspraak.",
+      "Bouwdroger huren in Echt-Susteren met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Echt-Susteren",
     kicker: "Nederlands Limburg · de smalste strook van Nederland",
     rit: { afstand: "circa 130 km", tijd: "ongeveer anderhalf uur" },
@@ -44044,9 +44044,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "leudal",
-    title: "Bouwdroger huren in Leudal | Vernast",
+    title: "Eco bouwdroger huren in Leudal | Vernast",
     description:
-      "Bouwdroger huren in Leudal: Heythuysen, Haelen, Roggel, Neer of Horn. Voor verbouwde boerderijen, dorpswoningen en waterschade. Levering op afspraak.",
+      "Bouwdroger huren in Leudal met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Leudal",
     kicker: "Nederlands Limburg · dorpen tussen de Peel en de Maas",
     rit: { afstand: "circa 120 km", tijd: "ruim een uur" },
@@ -44102,9 +44102,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "maasgouw",
-    title: "Bouwdroger huren in Maasgouw | Vernast",
+    title: "Eco bouwdroger huren in Maasgouw | Vernast",
     description:
-      "Bouwdroger huren in Maasgouw: Thorn, Maasbracht, Stevensweert, Heel en Wessem. Voor oude panden, nieuwbouw en natte kelders bij de Maas. Levering op afspraak.",
+      "Bouwdroger huren in Maasgouw met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Maasgouw",
     kicker: "Nederlands Limburg · Thorn en de Maasplassen",
     rit: { afstand: "circa 125 km", tijd: "bijna anderhalf uur" },
@@ -44160,9 +44160,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "nederweert",
-    title: "Bouwdroger huren in Nederweert | Vernast",
+    title: "Eco bouwdroger huren in Nederweert | Vernast",
     description:
-      "Bouwdroger huren in Nederweert, Ospel of Leveroy: voor woningen, verbouwde stallen en een nieuwe dekvloer aan de rand van de Peel. Levering op afspraak.",
+      "Bouwdroger huren in Nederweert met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Nederweert",
     kicker: "Nederlands Limburg · aan de rand van de Peel",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -44218,9 +44218,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "roerdalen",
-    title: "Bouwdroger huren in Roerdalen | Vernast",
+    title: "Eco bouwdroger huren in Roerdalen | Vernast",
     description:
-      "Bouwdroger huren in Roerdalen: Sint Odiliënberg, Herkenbosch, Vlodrop en Melick, in het dal van de Roer. Voor waterschade, nieuwbouw en renovatie, op afspraak.",
+      "Bouwdroger huren in Roerdalen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Roerdalen",
     kicker: "Nederlands Limburg · het dal van de Roer",
     rit: { afstand: "circa 140 km", tijd: "ruim anderhalf uur" },
@@ -44276,9 +44276,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "roermond",
-    title: "Bouwdroger huren in Roermond | Vernast",
+    title: "Eco bouwdroger huren in Roermond | Vernast",
     description:
-      "Bouwdroger huren in Roermond, Swalmen of Herten: voor oude panden in de binnenstad, nieuwbouw en natte kelders bij de Roer en de Maas. Levering op afspraak.",
+      "Bouwdroger huren in Roermond met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Roermond",
     kicker: "Nederlands Limburg · waar de Roer in de Maas stroomt",
     rit: { afstand: "circa 130 km", tijd: "ongeveer anderhalf uur" },
@@ -44334,9 +44334,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "weert",
-    title: "Bouwdroger huren in Weert | Vernast",
+    title: "Eco bouwdroger huren in Weert | Vernast",
     description:
-      "Bouwdroger huren in Weert, Stramproy of Altweerterheide: voor nieuwbouw en renovatie op Kempense zandgrond, vlak over de grens bij Bocholt. Levering op afspraak.",
+      "Bouwdroger huren in Weert met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Weert",
     kicker: "Nederlands Limburg · over de grens bij Bocholt",
     rit: { afstand: "circa 105 km", tijd: "ruim een uur" },
@@ -44391,9 +44391,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "maastricht",
-    title: "Bouwdroger huren in Maastricht | Vernast",
+    title: "Eco bouwdroger huren in Maastricht | Vernast",
     description:
-      "Bouwdroger huren in Maastricht: mergelpanden in de binnenstad, kelders in Wyck en studentenhuizen die op tijd droog moeten zijn. Levering op afspraak, met vochtmeting.",
+      "Bouwdroger huren in Maastricht met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Maastricht",
     kicker: "Nederlands Limburg · stad aan de Maas",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -44449,9 +44449,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "eijsden-margraten",
-    title: "Bouwdroger huren in Eijsden-Margraten | Vernast",
+    title: "Eco bouwdroger huren in Eijsden-Margraten | Vernast",
     description:
-      "Bouwdroger huren in Eijsden-Margraten: huizen aan de Maas in Eijsden, hoeves van mergel en vakwerk op het plateau van Margraten. Levering op afspraak.",
+      "Bouwdroger huren in Eijsden-Margraten met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Eijsden-Margraten",
     kicker: "Nederlands Limburg · tussen de Maas en het plateau",
     rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
@@ -44507,9 +44507,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "meerssen",
-    title: "Bouwdroger huren in Meerssen | Vernast",
+    title: "Eco bouwdroger huren in Meerssen | Vernast",
     description:
-      "Bouwdroger huren in Meerssen, Bunde, Ulestraten of Geulle: woningen in het Geuldal en op de hellingen erboven. Levering op afspraak, met vochtmeting bij plaatsing.",
+      "Bouwdroger huren in Meerssen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Meerssen",
     kicker: "Nederlands Limburg · waar de Geul de Maas nadert",
     rit: { afstand: "circa 115 km", tijd: "ruim een uur" },
@@ -44565,9 +44565,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "valkenburg-aan-de-geul",
-    title: "Bouwdroger huren in Valkenburg aan de Geul | Vernast",
+    title: "Eco bouwdroger huren in Valkenburg aan de Geul | Vernast",
     description:
-      "Bouwdroger huren in Valkenburg aan de Geul: woningen, hotels en horeca in het Geuldal, mergelpanden bij de grotten en huizen in Houthem en Schin op Geul.",
+      "Bouwdroger huren in Valkenburg aan de Geul met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Valkenburg aan de Geul",
     kicker: "Nederlands Limburg · het Geuldal en de mergelgrotten",
     rit: { afstand: "circa 125 km", tijd: "ruim een uur" },
@@ -44623,9 +44623,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "gulpen-wittem",
-    title: "Bouwdroger huren in Gulpen-Wittem | Vernast",
+    title: "Eco bouwdroger huren in Gulpen-Wittem | Vernast",
     description:
-      "Bouwdroger huren in Gulpen-Wittem: vakwerkhuizen in Epen en Mechelen, hoeves langs de Geul en de Gulp, woningen in Gulpen en Wijlre. Levering op afspraak.",
+      "Bouwdroger huren in Gulpen-Wittem met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Gulpen-Wittem",
     kicker: "Nederlands Limburg · vakwerk in het Heuvelland",
     rit: { afstand: "circa 135 km", tijd: "ongeveer anderhalf uur" },
@@ -44681,9 +44681,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "vaals",
-    title: "Bouwdroger huren in Vaals | Vernast",
+    title: "Eco bouwdroger huren in Vaals | Vernast",
     description:
-      "Bouwdroger huren in Vaals, Lemiers of Vijlen: woningen op de hellingen bij het Drielandenpunt en de Vaalserberg, tegen de grens met Aken. Op afspraak geleverd.",
+      "Bouwdroger huren in Vaals met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Vaals",
     kicker: "Nederlands Limburg · bij het Drielandenpunt",
     rit: { afstand: "circa 145 km", tijd: "ongeveer anderhalf uur" },
@@ -44739,9 +44739,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beek",
-    title: "Bouwdroger huren in Beek | Vernast",
+    title: "Eco bouwdroger huren in Beek | Vernast",
     description:
-      "Bouwdroger huren in Beek, Spaubeek of Neerbeek: woningen op de lössheuvels bij Maastricht Aachen Airport en langs de A2. Levering op afspraak, met plaatsing.",
+      "Bouwdroger huren in Beek met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beek",
     kicker: "Nederlands Limburg · bij het vliegveld",
     rit: { afstand: "circa 110 km", tijd: "ruim een uur" },
@@ -44797,9 +44797,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "stein",
-    title: "Bouwdroger huren in Stein | Vernast",
+    title: "Eco bouwdroger huren in Stein | Vernast",
     description:
-      "Bouwdroger huren in Stein, Elsloo of Urmond: huizen langs de Maas en het Julianakanaal, bij de haven en op de steile Maasoever. Levering op afspraak.",
+      "Bouwdroger huren in Stein met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Stein",
     kicker: "Nederlands Limburg · aan de Maas en de haven",
     rit: { afstand: "circa 105 km", tijd: "ongeveer een uur" },
@@ -44854,9 +44854,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "heerlen",
-    title: "Bouwdroger huren in Heerlen | Vernast",
+    title: "Eco bouwdroger huren in Heerlen | Vernast",
     description:
-      "Bouwdroger huren in Heerlen: mijnwerkerswoningen in Hoensbroek en Heerlerheide, panden in de binnenstad en kelders op lössgrond. Leverdag samen afgesproken.",
+      "Bouwdroger huren in Heerlen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Heerlen",
     kicker: "Nederlands Limburg · het hart van Parkstad",
     rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
@@ -44912,9 +44912,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "kerkrade",
-    title: "Bouwdroger huren in Kerkrade | Vernast",
+    title: "Eco bouwdroger huren in Kerkrade | Vernast",
     description:
-      "Bouwdroger huren in Kerkrade: arbeiderswoningen in Chevremont en Bleijerheide, huizen op een helling en oude kelders bij de Duitse grens. Leverdag op afspraak.",
+      "Bouwdroger huren in Kerkrade met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Kerkrade",
     kicker: "Nederlands Limburg · Parkstad aan de Duitse grens",
     rit: { afstand: "circa 150 km", tijd: "ruim anderhalf uur" },
@@ -44970,9 +44970,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "landgraaf",
-    title: "Bouwdroger huren in Landgraaf | Vernast",
+    title: "Eco bouwdroger huren in Landgraaf | Vernast",
     description:
-      "Bouwdroger huren in Landgraaf: rijtjeshuizen in Schaesberg, Nieuwenhagen en Ubach over Worms, uitbouwen met verse dekvloer. De leverdag kiezen we samen.",
+      "Bouwdroger huren in Landgraaf met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Landgraaf",
     kicker: "Nederlands Limburg · Schaesberg, Nieuwenhagen en Ubach over Worms",
     rit: { afstand: "circa 145 km", tijd: "ruim anderhalf uur" },
@@ -45028,9 +45028,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "brunssum",
-    title: "Bouwdroger huren in Brunssum | Vernast",
+    title: "Eco bouwdroger huren in Brunssum | Vernast",
     description:
-      "Bouwdroger huren in Brunssum: koloniewoningen in Treebeek en Rumpen, aanbouwen met nieuwe dekvloer en huizen op zandgrond bij de heide. Leverdag in overleg.",
+      "Bouwdroger huren in Brunssum met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Brunssum",
     kicker: "Nederlands Limburg · mijnstad aan de Brunssummerheide",
     rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
@@ -45086,9 +45086,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "simpelveld",
-    title: "Bouwdroger huren in Simpelveld | Vernast",
+    title: "Eco bouwdroger huren in Simpelveld | Vernast",
     description:
-      "Bouwdroger huren in Simpelveld en Bocholtz: hoeves, kalksteen en huizen op een helling in het heuvelland bij Aken. Toestellen geplaatst op een afgesproken dag.",
+      "Bouwdroger huren in Simpelveld met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Simpelveld",
     kicker: "Nederlands Limburg · heuvelland bij Bocholtz",
     rit: { afstand: "circa 150 km", tijd: "ruim anderhalf uur" },
@@ -45144,9 +45144,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "voerendaal",
-    title: "Bouwdroger huren in Voerendaal | Vernast",
+    title: "Eco bouwdroger huren in Voerendaal | Vernast",
     description:
-      "Bouwdroger huren in Voerendaal, Klimmen, Ubachsberg of Kunrade: huizen van Kunradersteen, hoeves en kelders op lössgrond. Leverdag op afspraak, toestel geplaatst.",
+      "Bouwdroger huren in Voerendaal met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Voerendaal",
     kicker: "Nederlands Limburg · Kunrade, Klimmen en Ubachsberg",
     rit: { afstand: "circa 140 km", tijd: "ongeveer anderhalf uur" },
@@ -45202,9 +45202,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "beekdaelen",
-    title: "Bouwdroger huren in Beekdaelen | Vernast",
+    title: "Eco bouwdroger huren in Beekdaelen | Vernast",
     description:
-      "Bouwdroger huren in Beekdaelen: Nuth, Schinnen, Schinveld en Amstenrade. Boerderijen en dorpswoningen op lössgrond, nieuwbouw op een vrij kavel. Leverdag op afspraak.",
+      "Bouwdroger huren in Beekdaelen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Beekdaelen",
     kicker: "Nederlands Limburg · Nuth, Schinnen en Onderbanken",
     rit: { afstand: "circa 130 km", tijd: "bijna anderhalf uur" },
@@ -45260,9 +45260,9 @@ const G: Gemeente[] = [
   /* ------------------------------------------------------------------ */
   {
     slug: "sittard-geleen",
-    title: "Bouwdroger huren in Sittard-Geleen | Vernast",
+    title: "Eco bouwdroger huren in Sittard-Geleen | Vernast",
     description:
-      "Bouwdroger huren in Sittard-Geleen en Born: oude panden in de Sittardse binnenstad, mijnwerkerswijken in Geleen en dorpen aan de Maas. Levering op afspraak.",
+      "Bouwdroger huren in Sittard-Geleen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Sittard-Geleen",
     kicker: "Nederlands Limburg · Westelijke Mijnstreek, tegen de Maas",
     rit: { afstand: "circa 125 km", tijd: "ruim een uur" },

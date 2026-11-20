@@ -83,9 +83,9 @@ export const REGIOS: Regio[] = [
   /* ------------------------------------------------------------------ */
   {
     ...route("antwerpen"),
-    title: "Bouwdroger huren in provincie Antwerpen | Vernast",
+    title: "Eco bouwdroger huren in provincie Antwerpen | Vernast",
     description:
-      "Bouwdroger huren in Antwerpen? Bereken uw droogpakket bij Vernast. Levering, plaatsing en ophaling inbegrepen, met advies voor uw werf.",
+      "Bouwdroger huren in de provincie Antwerpen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in de provincie Antwerpen",
     kicker: "Hele provincie · magazijn in Aartselaar",
     intro: [
@@ -200,9 +200,9 @@ export const REGIOS: Regio[] = [
   /* ------------------------------------------------------------------ */
   {
     ...route("oost-vlaanderen"),
-    title: "Bouwdroger huren in Oost-Vlaanderen: Gent, Aalst | Vernast",
+    title: "Eco bouwdroger huren in Oost-Vlaanderen | Vernast",
     description:
-      "Bouwdroger huren in Oost-Vlaanderen? Bereken uw droogpakket bij Vernast. Levering, plaatsing en ophaling inbegrepen, met advies voor uw werf.",
+      "Bouwdroger huren in Oost-Vlaanderen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Oost-Vlaanderen",
     kicker: "Gent · Aalst · Sint-Niklaas · Dendermonde",
     intro: [
@@ -317,9 +317,9 @@ export const REGIOS: Regio[] = [
   /* ------------------------------------------------------------------ */
   {
     ...route("vlaams-brabant"),
-    title: "Bouwdroger huren in Vlaams-Brabant: Leuven, Halle | Vernast",
+    title: "Eco bouwdroger huren in Vlaams-Brabant | Vernast",
     description:
-      "Bouwdroger huren in Vlaams-Brabant? Bereken uw droogpakket bij Vernast. Levering, plaatsing en ophaling inbegrepen, met advies voor uw werf.",
+      "Bouwdroger huren in Vlaams-Brabant met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Vlaams-Brabant",
     kicker: "Leuven · Vilvoorde · Halle · Aarschot · de Brusselse rand",
     intro: [
@@ -434,9 +434,9 @@ export const REGIOS: Regio[] = [
   /* ------------------------------------------------------------------ */
   {
     ...route("brussel"),
-    title: "Bouwdroger huren in Brussel | Vernast",
+    title: "Eco bouwdroger huren in Brussel | Vernast",
     description:
-      "Bouwdroger huren in Brussel? Bereken uw droogpakket bij Vernast. Levering, plaatsing en ophaling inbegrepen, met advies voor uw werf.",
+      "Bouwdroger huren in Brussel met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Brussel",
     kicker: "Brussel · levering in alle negentien gemeenten",
     intro: [
@@ -559,9 +559,9 @@ export const REGIOS: Regio[] = [
   /* ------------------------------------------------------------------ */
   {
     ...route("west-vlaanderen"),
-    title: "Bouwdroger huren West-Vlaanderen | Pakket met Drooggarantie",
+    title: "Eco bouwdroger huren in West-Vlaanderen | Vernast",
     description:
-      "Bouwdroger huren in West-Vlaanderen? Bereken uw droogpakket bij Vernast. Levering, plaatsing en ophaling inbegrepen, met advies voor uw werf.",
+      "Bouwdroger huren in West-Vlaanderen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in West-Vlaanderen",
     kicker: "Brugge · Kortrijk · Oostende · Roeselare · de kust",
     intro: [
@@ -681,9 +681,9 @@ export const REGIOS: Regio[] = [
   /* ------------------------------------------------------------------ */
   {
     ...route("limburg"),
-    title: "Bouwdroger huren in Limburg | Bereken uw prijs | Vernast",
+    title: "Eco bouwdroger huren in Limburg | Vernast",
     description:
-      "Bouwdroger huren in Limburg? Bereken uw droogpakket bij Vernast. Levering, plaatsing en ophaling inbegrepen, met advies voor uw werf.",
+      "Bouwdroger huren in Limburg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Limburg",
     kicker: "Hasselt · Genk · Sint-Truiden · Tongeren · Maasland",
     intro: [
@@ -797,9 +797,9 @@ export const REGIOS: Regio[] = [
   /* ------------------------------------------------------------------ */
   {
     ...route("waals-brabant"),
-    title: "Bouwdroger huren in Waals-Brabant | Vernast",
+    title: "Eco bouwdroger huren in Waals-Brabant | Vernast",
     description:
-      "Bouwdroger huren in Waals-Brabant? Bereken uw droogpakket bij Vernast. Levering, plaatsing en ophaling inbegrepen, met advies voor uw werf.",
+      "Bouwdroger huren in Waals-Brabant met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Waals-Brabant",
     kicker: "Waals-Brabant · levering in alle 27 gemeenten",
     intro: [
@@ -930,9 +930,9 @@ export const REGIOS: Regio[] = [
       Werven heeft de provincie nog niet; de sectie leent de drie Brusselse,
       die op de route naar Henegouwen liggen. Zie `LEENT_VAN`.
     */
-    title: "Bouwdroger huren in Henegouwen | Vernast",
+    title: "Eco bouwdroger huren in Henegouwen | Vernast",
     description:
-      "Bouwdroger huren in Henegouwen: Charleroi, Bergen, Doornik en Moeskroen. Geleverd, geplaatst en opgehaald vanuit Aartselaar, zonder waarborg.",
+      "Bouwdroger huren in Henegouwen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Henegouwen",
     kicker: "Hainaut · 69 gemeenten · van Edingen tot Chimay",
     intro: [
@@ -1056,9 +1056,9 @@ export const REGIOS: Regio[] = [
       Werven heeft de provincie nog niet; de sectie leent de drie Brusselse.
       Zie `LEENT_VAN`.
     */
-    title: "Bouwdroger huren in de provincie Namen | Vernast",
+    title: "Eco bouwdroger huren in de provincie Namen | Vernast",
     description:
-      "Bouwdroger huren in de provincie Namen: Gembloers, Andenne, Dinant en Ciney. Geleverd, geplaatst en opgehaald vanuit Aartselaar, zonder waarborg.",
+      "Bouwdroger huren in de provincie Namen met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in de provincie Namen",
     kicker: "Province de Namur · 38 gemeenten · van de Hesbaye tot de Semois",
     intro: [
@@ -1180,9 +1180,9 @@ export const REGIOS: Regio[] = [
       Werven heeft de provincie nog niet; de sectie leent de drie Brusselse,
       die op de rit naar het zuiden liggen. Zie `LEENT_VAN`.
     */
-    title: "Bouwdroger huren in de provincie Luxemburg | Vernast",
+    title: "Eco bouwdroger huren in de provincie Luxemburg | Vernast",
     description:
-      "Bouwdroger huren in de Belgische provincie Luxemburg: Aarlen, Bastenaken, Marche en Libramont. Geleverd, geplaatst en opgehaald, zonder waarborg.",
+      "Bouwdroger huren in de provincie Luxemburg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in de provincie Luxemburg",
     kicker: "Province de Luxembourg (België) · 43 gemeenten · onze verste ritten",
     intro: [
@@ -1310,9 +1310,9 @@ export const REGIOS: Regio[] = [
       omdat Limburg aan Luik grenst en Hasselt op de E313 naar Luik ligt.
       Zie `LEENT_VAN`.
     */
-    title: "Bouwdroger huren in de provincie Luik | Vernast",
+    title: "Eco bouwdroger huren in de provincie Luik | Vernast",
     description:
-      "Bouwdroger huren in de provincie Luik: Hoei, Verviers, Seraing, Spa en de Oostkantons. Geleverd, geplaatst en opgehaald vanuit Aartselaar, zonder waarborg.",
+      "Bouwdroger huren in de provincie Luik met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in de provincie Luik",
     kicker: "Province de Liège · 84 gemeenten · van Hannuit tot de Oostkantons",
     intro: [
@@ -1437,9 +1437,9 @@ export const REGIOS: Regio[] = [
       Antwerpen, die aan West-Brabant grenst en op de route over de A12 en E19
       naar Breda ligt. Zie `LEENT_VAN`.
     */
-    title: "Bouwdroger huren in Noord-Brabant | Vernast",
+    title: "Eco bouwdroger huren in Noord-Brabant | Vernast",
     description:
-      "Bouwdroger huren in Noord-Brabant: Breda, Tilburg, Eindhoven, Den Bosch en de rest van de provincie. Geplaatst door onze technicus, geleverd op afspraak.",
+      "Bouwdroger huren in Noord-Brabant met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Noord-Brabant",
     kicker: "Nederland · 56 gemeenten · van de Brabantse Wal tot het Land van Cuijk",
     intro: [
@@ -1566,9 +1566,9 @@ export const REGIOS: Regio[] = [
       West-Vlaamse, omdat Sluis tegen Knokke-Heist en het Brugse Ommeland ligt
       en de kust er dezelfde zeelucht en hetzelfde zout kent. Zie `LEENT_VAN`.
     */
-    title: "Bouwdroger huren in Zeeland | Vernast",
+    title: "Eco bouwdroger huren in Zeeland | Vernast",
     description:
-      "Bouwdroger huren in Zeeland, van Hulst en Terneuzen tot Goes, Middelburg en Schouwen. Geplaatst en opgehaald vanuit Aartselaar, de leverdag op afspraak.",
+      "Bouwdroger huren in Zeeland met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen, geen waarborg.",
     h1: "Bouwdroger huren in Zeeland",
     kicker: "Nederland · 13 gemeenten · Zeeuws-Vlaanderen en de eilanden",
     intro: [
@@ -1692,9 +1692,9 @@ export const REGIOS: Regio[] = [
       Belgisch Limburg: Bocholt ligt tegen de grens bij Weert, Hasselt ligt
       op de E313, de weg die we naar Maastricht nemen.
     */
-    title: "Bouwdroger huren in Nederlands Limburg | Vernast",
+    title: "Eco bouwdroger huren in Nederlands Limburg | Vernast",
     description:
-      "Bouwdroger huren in Nederlands Limburg: Maastricht, Heerlen, Sittard, Roermond, Venlo en Venray. Leverdag op afspraak, geplaatst door onze technicus.",
+      "Bouwdroger huren in Nederlands Limburg met 100% drooggarantie. Geen gokwerk: wij berekenen uw droogpakket. Levering, plaatsing en ophaling inbegrepen.",
     h1: "Bouwdroger huren in Nederlands Limburg",
     kicker: "Nederland · 31 gemeenten · van Mook tot Vaals",
     intro: [
