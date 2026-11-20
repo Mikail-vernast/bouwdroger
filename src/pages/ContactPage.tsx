@@ -66,32 +66,32 @@ const ContactPage = () => {
                 <svg viewBox="0 0 900 460" role="img" aria-hidden="true">
                   <rect width="900" height="460" fill="#F7F6F6" />
                   <rect x="810" y="0" width="90" height="460" fill="#ECEAEA" />
-                  <text x="855" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#b3afaf" transform="rotate(-90 855 230)">A12</text>
+                  <text x="855" y="230" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="13" fontWeight="700" fill="#b3afaf" transform="rotate(-90 855 230)">A12</text>
                   <rect x="690" y="0" width="72" height="460" fill="#E3E1E1" />
                   <line x1="726" y1="0" x2="726" y2="460" stroke="#fff" strokeWidth="4" strokeDasharray="26 20" />
-                  <text x="672" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" transform="rotate(-90 672 230)">N177 · BOOMSESTEENWEG</text>
+                  <text x="672" y="230" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="13" fontWeight="700" fill="#8a8686" transform="rotate(-90 672 230)">N177 · BOOMSESTEENWEG</text>
                   <rect x="40" y="350" width="686" height="52" fill="#E3E1E1" />
-                  <text x="420" y="396" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
+                  <text x="420" y="396" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
                   <g>
                     <rect x="480" y="34" width="170" height="60" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
-                    <text x="565" y="60" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="11.5" fontWeight="700" fill="#8a8686" letterSpacing="1.5">KIA VERMANT</text>
+                    <text x="565" y="60" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="11.5" fontWeight="700" fill="#8a8686" letterSpacing="1.5">KIA VERMANT</text>
                     <text x="565" y="80" textAnchor="middle" fontFamily="system-ui" fontSize="11.5" fill="#b3afaf">{t.herkenning}</text>
                   </g>
                   <g>
                     <rect x="480" y="128" width="170" height="72" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
-                    <text x="565" y="160" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#3a3737" letterSpacing="2">TESLA</text>
+                    <text x="565" y="160" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="13" fontWeight="700" fill="#3a3737" letterSpacing="2">TESLA</text>
                     <text x="565" y="182" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">{t.eerstTesla}</text>
                   </g>
                   <g>
                     <rect x="462" y="236" width="188" height="86" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
                     <rect x="462" y="236" width="188" height="26" rx="10" fill="#C8102E" />
-                    <text x="556" y="254" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="12" fontWeight="700" fill="#fff" letterSpacing="2">CARGLASS</text>
+                    <text x="556" y="254" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="12" fontWeight="700" fill="#fff" letterSpacing="2">CARGLASS</text>
                     <text x="556" y="286" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">{t.daarnaCarglass}</text>
                     <text x="556" y="304" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">{t.rechtsIn}</text>
                   </g>
                   <g>
                     <rect x="40" y="216" width="250" height="100" rx="12" fill="#C8102E" />
-                    <text x="165" y="256" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="14" fontWeight="700" fill="#fff" letterSpacing="2">VERNAST · UNIT 11</text>
+                    <text x="165" y="256" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="14" fontWeight="700" fill="#fff" letterSpacing="2">VERNAST · UNIT 11</text>
                     <text x="165" y="280" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="rgba(255,255,255,.85)">{t.hoofdAfhaal}</text>
                   </g>
                   <path className="route-alt" d="M855 16 L855 200 L740 288 L726 310" fill="none" stroke="#DE9AA5" strokeWidth="4" strokeLinecap="round" />
@@ -194,32 +194,32 @@ const ContactPage = () => {
             <svg viewBox="0 0 900 460" role="img" aria-label={t.ariaMap}>
               <rect width="900" height="460" fill="#F7F6F6" />
               <rect x="810" y="0" width="90" height="460" fill="#ECEAEA" />
-              <text x="855" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#b3afaf" transform="rotate(-90 855 230)">A12</text>
+              <text x="855" y="230" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="13" fontWeight="700" fill="#b3afaf" transform="rotate(-90 855 230)">A12</text>
               <rect x="690" y="0" width="72" height="460" fill="#E3E1E1" />
               <line x1="726" y1="0" x2="726" y2="460" stroke="#fff" strokeWidth="4" strokeDasharray="26 20" />
-              <text x="672" y="230" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" transform="rotate(-90 672 230)">N177 · BOOMSESTEENWEG</text>
+              <text x="672" y="230" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="13" fontWeight="700" fill="#8a8686" transform="rotate(-90 672 230)">N177 · BOOMSESTEENWEG</text>
               <rect x="40" y="350" width="686" height="52" fill="#E3E1E1" />
-              <text x="420" y="396" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
+              <text x="420" y="396" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="13" fontWeight="700" fill="#8a8686" letterSpacing="2">KLEIDAAL</text>
               <g>
                 <rect x="480" y="34" width="170" height="60" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
-                <text x="565" y="60" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="11.5" fontWeight="700" fill="#8a8686" letterSpacing="1.5">KIA VERMANT</text>
+                <text x="565" y="60" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="11.5" fontWeight="700" fill="#8a8686" letterSpacing="1.5">KIA VERMANT</text>
                 <text x="565" y="80" textAnchor="middle" fontFamily="system-ui" fontSize="11.5" fill="#b3afaf">{t.herkenning}</text>
               </g>
               <g>
                 <rect x="480" y="128" width="170" height="72" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
-                <text x="565" y="160" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="13" fontWeight="700" fill="#3a3737" letterSpacing="2">TESLA</text>
+                <text x="565" y="160" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="13" fontWeight="700" fill="#3a3737" letterSpacing="2">TESLA</text>
                 <text x="565" y="182" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">{t.eerstTesla}</text>
               </g>
               <g>
                 <rect x="462" y="236" width="188" height="86" rx="10" fill="#fff" stroke="#d9d5d5" strokeWidth="2" />
                 <rect x="462" y="236" width="188" height="26" rx="10" fill="#C8102E" />
-                <text x="556" y="254" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="12" fontWeight="700" fill="#fff" letterSpacing="2">CARGLASS</text>
+                <text x="556" y="254" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="12" fontWeight="700" fill="#fff" letterSpacing="2">CARGLASS</text>
                 <text x="556" y="286" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">{t.daarnaCarglass}</text>
                 <text x="556" y="304" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#8a8686">{t.rechtsIn}</text>
               </g>
               <g>
                 <rect x="40" y="216" width="250" height="100" rx="12" fill="#C8102E" />
-                <text x="165" y="256" textAnchor="middle" fontFamily="ui-monospace,monospace" fontSize="14" fontWeight="700" fill="#fff" letterSpacing="2">VERNAST · UNIT 11</text>
+                <text x="165" y="256" textAnchor="middle" fontFamily="'Plus Jakarta Sans',system-ui,sans-serif" fontSize="14" fontWeight="700" fill="#fff" letterSpacing="2">VERNAST · UNIT 11</text>
                 <text x="165" y="280" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="rgba(255,255,255,.85)">{t.hoofdAfhaal}</text>
               </g>
               <path className="route-alt" d="M855 16 L855 200 L740 288 L726 310" fill="none" stroke="#DE9AA5" strokeWidth="4" strokeLinecap="round" />

@@ -33,7 +33,7 @@
   --page:#fff;--bg-alt:#F4F4F4;--bg-warm:#FAF6F6;--ok:#1E9E50;
   --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
   --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
-  --fm:'JetBrains Mono',ui-monospace,monospace;
+  --fm:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
   --wrap:1260px;
 }
 .oz-page{background:var(--page);color:var(--txt);font-family:var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}

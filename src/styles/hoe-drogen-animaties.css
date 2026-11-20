@@ -398,7 +398,7 @@
 
 .vgraf-rvlabel,
 .vgraf-tick {
-  font-family: var(--fm, ui-monospace, monospace);
+  font-family: var(--fm, 'Plus Jakarta Sans', system-ui, sans-serif);
   font-size: 10.5px;
   fill: var(--txt-dim, rgba(20, 20, 20, .42));
 }

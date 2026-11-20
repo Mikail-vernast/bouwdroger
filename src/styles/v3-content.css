@@ -37,7 +37,7 @@
   --page:#fff;--bg-alt:#F4F4F4;--ok:#1E9E50;--warn:#B45309;
   --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
   --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
-  --fm:'JetBrains Mono',ui-monospace,monospace;
+  --fm:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
   --wrap:1260px;
   margin:0;padding:0;
   background:var(--page);color:var(--txt);font-family:var(--fb);

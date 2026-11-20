@@ -35,7 +35,7 @@
     --wl:rgba(255,255,255,.16);--wl2:rgba(255,255,255,.3);
     --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
     --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
-    --fm:'JetBrains Mono',ui-monospace,monospace;
+    --fm:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
     --wrap:1280px;--r:28px;
   }
 .vh-calc{scroll-behavior:smooth}
@@ -299,12 +299,12 @@
 .vh-calc .adots i{width:28px;height:4px;border-radius:99px;background:rgba(255,255,255,.22);transition:all .3s}
 .vh-calc .adots i.done{background:rgba(255,255,255,.6)}
 .vh-calc .adots i.on{background:#fff;width:44px}
-.vh-calc .acount{font-family:var(--fm);font-size:11.5px;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-left:auto}
+.vh-calc .acount{font-family:var(--fm);font-variant-numeric:tabular-nums;font-size:11.5px;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-left:auto}
 .vh-calc .aq{padding-left:min(28%,340px);padding-top:72px;padding-bottom:32px}
 .vh-calc .astep{display:none}
 .vh-calc .astep.on{display:block;animation:ain .36s cubic-bezier(.2,.75,.3,1) both}
 .vh-calc .aqh{display:flex;align-items:center;gap:13px;margin-bottom:8px}
-.vh-calc .aqn{width:26px;height:26px;border-radius:7px;background:#fff;color:var(--maroon-d);display:grid;place-items:center;font-family:var(--fm);font-size:12px;font-weight:700}
+.vh-calc .aqn{width:26px;height:26px;border-radius:7px;background:#fff;color:var(--maroon-d);display:grid;place-items:center;font-family:var(--fm);font-variant-numeric:tabular-nums;font-size:12px;font-weight:700}
 .vh-calc .aqh h2{font-family:var(--fd);font-weight:600;font-size:clamp(24px,2.9vw,36px);color:#fff}
 .vh-calc .aqh h2 sup{color:rgba(255,255,255,.5);font-size:.6em}
 .vh-calc .asub{font-size:15.5px;line-height:1.6;color:rgba(255,255,255,.66);margin:0 0 30px;max-width:520px}
@@ -379,7 +379,7 @@
     --wl:rgba(255,255,255,.16);--wl2:rgba(255,255,255,.3);
     --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
     --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
-    --fm:'JetBrains Mono',ui-monospace,monospace;
+    --fm:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
     --wrap:1280px;--r:28px;
   }
 .vh-pkg{scroll-behavior:smooth}
@@ -585,7 +585,7 @@
 .vh-pkg .stp{display:flex;align-items:center;border:1.5px solid var(--line-2);border-radius:99px;overflow:hidden}
 .vh-pkg .stp button{width:32px;height:34px;border:0;background:#fff;cursor:pointer;font-size:16px;color:var(--txt-mid);transition:background .15s,color .15s}
 .vh-pkg .stp button:hover{background:var(--page);color:var(--red)}
-.vh-pkg .stp span{width:30px;text-align:center;font-family:var(--fb);font-weight:600;font-weight:600;font-size:14px}
+.vh-pkg .stp span{width:30px;text-align:center;font-family:var(--fb);font-variant-numeric:tabular-nums;font-weight:600;font-size:14px}
 /* delivery choice */
 .vh-pkg .dopt{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .vh-pkg .dch{border:1.5px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;background:#fff;transition:border-color .16s,transform .14s;display:flex;gap:12px;align-items:flex-start}
@@ -719,6 +719,11 @@
     --page:#F1EFEF;--card:#fff;--ok:#12a558;
     --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
     --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
+    /* Deze schil was de enige zonder `--fm`. Dezelfde kaart stond op
+       /verhuur/afhalen in het labelfont en op /verhuur/boeking in het
+       geërfde font; de `.payopt`-regels hieronder omzeilen dat nog met een
+       vaste `--fb`. */
+    --fm:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
     --wrap:1280px;--r:20px;
   }
 .vh-book{scroll-behavior:smooth}
@@ -859,7 +864,7 @@
 .vh-book .stp{display:flex;align-items:center;border:1.5px solid var(--line-2);border-radius:99px;overflow:hidden;flex-shrink:0}
 .vh-book .stp button{width:34px;height:36px;border:0;background:#fff;cursor:pointer;font-size:16px;color:var(--txt-mid);transition:background .15s,color .15s}
 .vh-book .stp button:hover{background:var(--page);color:var(--red)}
-.vh-book .stp span{width:32px;text-align:center;font-weight:700;font-size:14px}
+.vh-book .stp span{width:32px;text-align:center;font-variant-numeric:tabular-nums;font-weight:700;font-size:14px}
 /* postcode -> zone, stap 1 */
 .vh-book .pcz{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:15px 16px;border:1.5px solid var(--line);border-radius:14px;background:#fff}
 .vh-book .pcz.ja{border-color:rgba(18,165,88,.42);background:#f4fbf7}
@@ -911,10 +916,11 @@
 .vh-book .payopt,.vh-pick .payopt{position:relative;text-align:left;font-family:var(--fb);background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 16px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:6px}
 .vh-book .payopt:hover,.vh-pick .payopt:hover{border-color:rgba(200,16,46,.4);transform:translateY(-2px)}
 .vh-book .payopt.sel,.vh-pick .payopt.sel{border-color:var(--red);box-shadow:0 0 0 1.5px var(--red) inset;background:rgba(200,16,46,.03)}
-/* Bewust het bodyfont en niet `--fm`: dat is JetBrains Mono, maar de .vh-book-schil
-   definieert die variabele als enige niet. Op de boekingspagina viel `var(--fm)`
-   dus stil terug op het geërfde font en op de afhaalpagina niet — twee keer
-   dezelfde kaart, twee lettertypes. */
+/* De vaste `--fb` hier dateert van toen .vh-book als enige schil `--fm` niet
+   definieerde: op de boekingspagina viel `var(--fm)` stil terug op het
+   geërfde font en op de afhaalpagina niet — twee keer dezelfde kaart, twee
+   lettertypes. Die schil heeft de variabele nu wél, en `--fm` wijst sinds
+   deze commit naar hetzelfde merkfont, dus het verschil is weg. */
 .vh-book .payopt .pob,.vh-pick .payopt .pob{position:absolute;top:-9px;right:12px;font-family:var(--fb);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:99px;padding:4px 10px}
 .vh-book .payopt b,.vh-pick .payopt b{font-size:14.5px;font-weight:700}
 .vh-book .payopt span,.vh-pick .payopt span{font-size:12.5px;color:var(--txt-mid);line-height:1.5}
@@ -1029,7 +1035,7 @@
 .vh-book .stp{display:flex;align-items:center;border:1.5px solid var(--line-2);border-radius:99px;overflow:hidden;flex-shrink:0}
 .vh-book .stp button{width:34px;height:36px;border:0;background:#fff;cursor:pointer;font-size:16px;color:var(--txt-mid);transition:background .15s,color .15s}
 .vh-book .stp button:hover{background:var(--page);color:var(--red)}
-.vh-book .stp span{width:32px;text-align:center;font-weight:700;font-size:14px}
+.vh-book .stp span{width:32px;text-align:center;font-variant-numeric:tabular-nums;font-weight:700;font-size:14px}
 /* delivery + dates */
 .vh-book .dopt{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .vh-book .dch{border:1.5px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;background:#fff;transition:border-color .16s,transform .14s;display:flex;gap:12px;align-items:flex-start}
@@ -1131,7 +1137,7 @@
 .vh-book .inc-row .ext small{display:block;font-size:13px;color:var(--txt-mid);margin-top:3px;line-height:1.5}
 .vh-book .inc-row .inc-tag{flex-shrink:0}
 .vh-book .inc-row{display:flex;align-items:center;gap:15px;padding:16px 0;border-bottom:1px solid var(--line)}
-.vh-book .inc-tag{font-family:var(--fm,monospace);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#12a558;background:rgba(18,165,88,.1);border-radius:99px;padding:7px 14px;white-space:nowrap}
+.vh-book .inc-tag{font-family:var(--fm,'Plus Jakarta Sans',system-ui,sans-serif);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#12a558;background:rgba(18,165,88,.1);border-radius:99px;padding:7px 14px;white-space:nowrap}
 .vh-book .soon-tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);background:rgba(200,16,46,.09);border-radius:99px;padding:3px 9px;margin-left:8px;vertical-align:2px}
 .vh-book .acc{font-family:var(--fb,inherit);display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:11px 20px;border-radius:13px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:14px;font-weight:600;color:var(--txt);transition:all .14s}
 .vh-book .acc small{font-weight:500;font-size:12px;color:rgba(20,20,20,.55)}
@@ -1161,7 +1167,7 @@
     --bg:#fff;--bg-alt:#f7f5f5;
     --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
     --fb:'DM Sans','Inter',system-ui,sans-serif;
-    --fm:'JetBrains Mono',ui-monospace,monospace;
+    --fm:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
     --wrap:1220px;
   }
 .vh-prod{scroll-behavior:smooth}
@@ -1487,7 +1493,7 @@
     --page:#F1EFEF;
     --fd:'Plus Jakarta Sans','Outfit',system-ui,sans-serif;
     --fb:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
-    --fm:'JetBrains Mono',ui-monospace,monospace;
+    --fm:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
     --wrap:1260px;
   }
 .vh-pick{background:var(--page);color:var(--txt);font-family:var(--fb);-webkit-font-smoothing:antialiased}
@@ -1547,9 +1553,9 @@
 .vh-pick .pcard .pi b{display:block;font-size:15.5px;font-weight:700;line-height:1.3}
 .vh-pick .pcard .pi small{display:block;font-size:12.5px;color:var(--txt-mid);line-height:1.5;margin-top:2px}
 .vh-pick .pcard .sp{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.vh-pick .pcard .sp span{font-family:var(--fm);font-size:10.5px;font-weight:600;border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 11px;color:var(--txt);white-space:nowrap}
+.vh-pick .pcard .sp span{font-family:var(--fm);font-variant-numeric:tabular-nums;font-size:10.5px;letter-spacing:.03em;font-weight:600;border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 11px;color:var(--txt);white-space:nowrap}
 .vh-pick .pcard .pr{display:flex;flex-direction:column;align-items:flex-end;gap:9px;flex-shrink:0}
-.vh-pick .pcard .px{font-family:var(--fm);font-size:13px;font-weight:700;color:var(--red);white-space:nowrap}
+.vh-pick .pcard .px{font-family:var(--fm);font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:var(--red);white-space:nowrap}
 .vh-pick .pcard .px i{font-style:normal;font-weight:400;color:var(--txt-dim)}
 @media (max-width:620px){
 .vh-pick .pcard{flex-wrap:wrap}
@@ -1561,12 +1567,12 @@
 .vh-pick .prod .pi{flex:1}
 .vh-pick .prod .pi b{display:block;font-size:14.5px;font-weight:700;line-height:1.3}
 .vh-pick .prod .pi small{display:block;font-size:12px;color:var(--txt-dim);margin-top:3px;line-height:1.45}
-.vh-pick .prod .px{font-family:var(--fm);font-size:12.5px;font-weight:700;color:var(--red);white-space:nowrap}
+.vh-pick .prod .px{font-family:var(--fm);font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:700;color:var(--red);white-space:nowrap}
 .vh-pick .prod .px small{display:block;font-weight:400;color:var(--txt-dim);text-align:right}
 .vh-pick .stp{display:flex;align-items:center;gap:2px;background:var(--page);border-radius:99px;padding:3px}
 .vh-pick .stp button{width:32px;height:32px;border-radius:50%;border:0;background:#fff;font-size:16px;font-weight:700;cursor:pointer;color:var(--txt);box-shadow:0 2px 6px rgba(0,0,0,.08)}
 .vh-pick .stp button:hover{color:var(--red)}
-.vh-pick .stp span{width:34px;text-align:center;font-weight:700;font-size:14px}
+.vh-pick .stp span{width:34px;text-align:center;font-variant-numeric:tabular-nums;font-weight:700;font-size:14px}
 /* De plusknop op zijn maximum: klikbaar houden zou niets meer doen. */
 .vh-pick .stp button:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
 .vh-pick .stp button:disabled:hover{color:var(--txt)}
