@@ -104,12 +104,14 @@ function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
     ["baksteen", s("#f3e2d8", { map: baksteen, bumpMap: baksteen, bumpScale: 1.2, roughness: 0.92 })],
     ["arduin", s("#ffffff", { map: t("arduin"), roughness: 0.55 })],
     ["plaat", s("#d9d2c6", { roughness: 0.9 })],
-    ["snede", s("#2a2422", { roughness: 0.95 })],
+    // De snede van een opengewerkte muur: donker warmbruin. Bijna-zwart tekende elke muur met
+    // een zware omtrek; middengrijs liet de kamers in elkaar overlopen.
+    ["snede", s("#4f433c", { roughness: 0.95 })],
     ["kader", s("#f4f1ec", { roughness: 0.32 })],
-    ["glas", s("#33454f", { roughness: 0.05, metalness: 0.15, envMapIntensity: 2.4 })],
-    ["deur", s("#3b2a22", { roughness: 0.45 })],
-    ["deurblad", s("#8a7464", { roughness: 0.6 })],
-    ["pannen", s("#c9c9cc", { map: pannen, bumpMap: pannen, bumpScale: 1.5, roughness: 0.5 })],
+    ["glas", s("#5a7482", { roughness: 0.05, metalness: 0.15, envMapIntensity: 2.0 })],
+    ["deur", s("#33363a", { roughness: 0.45 })],
+    ["deurblad", s("#c9a57d", { roughness: 0.55 })],
+    ["pannen", s("#e4e4e6", { map: pannen, bumpMap: pannen, bumpScale: 1.5, roughness: 0.5 })],
     ["zink", s("#a7adb1", { metalness: 0.75, roughness: 0.32 })],
     ["zinkdak", s("#3a3d40", { metalness: 0.55, roughness: 0.45 })],
     ["boei", s("#2c2e31", { roughness: 0.6 })],
@@ -122,7 +124,7 @@ function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
     ["leuning", s("#2a2422", { roughness: 0.5 })],
     ["grind", s("#ffffff", { map: t("grind"), roughness: 0.95 })],
     // Inrichting (inrichting.ts)
-    ["kast", s("#ece9e3", { roughness: 0.35 })],
+    ["kast", s("#f3f0ea", { roughness: 0.35 })],
     ["voeg", s("#9d978e", { roughness: 0.6 })],
     ["zwart", s("#232323", { roughness: 0.7 })],
     ["werkblad", s("#3d3835", { roughness: 0.28 })],

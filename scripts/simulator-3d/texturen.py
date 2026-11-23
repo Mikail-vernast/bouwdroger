@@ -512,8 +512,7 @@ def grind2():
 
 def parket2():
     """Eiken planken met de houttekening van parket.py uit de vochtsimulator: lange
-    draad, poriën en een zachte vlam, elke plank uit een eigen stuk stam. Zelfde legpatroon
-    als de eerste reeks (twee planken per kolom, halfsteens verspringend)."""
+    draad, poriën en een zachte vlam, in wild verband."""
     PB, COLS, PL = 0.18, 8, 1.2
     PW, PH = PB * COLS, PL * 2
     sc = nieuwe_scene(PW, PH, 480, samples=48)
@@ -526,9 +525,9 @@ def parket2():
     def eik(k):
         m = bpy.data.materials.new(f'eik-{k}'); m.use_nodes = True
         n = m.node_tree.nodes; l = m.node_tree.links; b = n['Principled BSDF']
-        toon = rnd.uniform(0.88, 1.08)
-        licht = lin(*(min(1, c * toon) for c in (0.74, 0.58, 0.40)))
-        donker = lin(*(c * toon for c in (0.47, 0.33, 0.2)))
+        toon = rnd.uniform(0.92, 1.06)
+        licht = lin(*(min(1, c * toon) for c in (0.78, 0.62, 0.44)))
+        donker = lin(*(c * toon for c in (0.52, 0.38, 0.25)))
         tc = n.new('ShaderNodeTexCoord')
         mp = n.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (70, 2.2, 1)
         mp.inputs['Location'].default_value = (rnd.uniform(0, 50), rnd.uniform(0, 50), 0)
@@ -552,16 +551,24 @@ def parket2():
         l.new(h, bp.inputs['Height']); l.new(bp.outputs[0], b.inputs['Normal'])
         return m
 
-    # Per plank een eigen materiaal: de Location-verschuiving in de mapping is per materiaal,
-    # en Object Info › Random zou tussen een plank en zijn periodieke kopie verschillen.
-    offsets = [rnd.uniform(0, PL) for _ in range(COLS)]
-    hout = {(c, k): eik(f'{c}-{k}') for c in range(COLS) for k in range(2)}
+    # Planken van 0,8 tot 1,6 m, per kolom vanaf een eigen start tot de periode vol is. Twee
+    # planken per kolom op een halve verschuiving las in de woning als een visgraat die elke
+    # 1,4 m terugkwam. Een plank die over de rand loopt staat er via `periodiek` een periode
+    # verder nog eens; binnen een kolom raken de planken elkaar nooit dubbel.
+    planken = []
+    for c in range(COLS):
+        y = rnd.uniform(0, PH); eind = y + PH
+        while y < eind - 0.05:
+            L = min(rnd.choice((0.8, 1.2, 1.6)), eind - y)
+            planken.append((c, (y + L / 2) % PH, L))
+            y += L
+    # Tien houtsoorten: elk een eigen stuk stam (de Location-verschuiving in de mapping).
+    hout = [eik(k) for k in range(10)]
+    keuze = [rnd.randrange(len(hout)) for _ in planken]
 
     def maak(dx, dy):
-        for c in range(COLS):
-            for k in range(2):
-                y = dy + offsets[c] + k * PL
-                blok(f'plank-{c}-{k}', dx + c * PB + PB / 2, y + PL / 2, 0, PB - 0.002, PL - 0.002, 0.01, hout[(c, k)], bevel=0.0015)
+        for i, (c, yc, L) in enumerate(planken):
+            blok(f'plank-{i}', dx + c * PB + PB / 2, dy + yc, 0, PB - 0.002, L - 0.002, 0.01, hout[keuze[i]], bevel=0.0015)
     periodiek(sc, PW, PH, maak)
     render(sc, 'parket')
 

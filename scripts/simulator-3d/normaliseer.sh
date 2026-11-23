@@ -2,7 +2,8 @@
 # Zet de tegels van texturen.py op hun helderheid en contrast en schrijft ze als -v2.webp
 # naar public/simulator/3d/. three.js vermenigvuldigt de detailtegels met de kleuren uit
 # materiaal.ts; die kleuren zijn afgesteld op het gemiddelde van de eerste reeks, dus dat
-# gemiddelde blijft gelijk. Alleen het contrast gaat omhoog (de eerste chape, pleister en
+# gemiddelde blijft gelijk (behalve parket, iets lichter tegen de warme muren van "afgewerkt").
+# Alleen het contrast gaat omhoog (de eerste chape, pleister en
 # verf hadden een standaardafwijking onder 0,5 % en lazen als effen vlak).
 #
 #   scripts/simulator-3d/normaliseer.sh <uitmap van texturen.py> [naam ...]
@@ -16,7 +17,7 @@ verf 0.985 0.008
 pleisternat 0.85 0.06
 vloerplaat 0.8 0.075
 tegelvloer 0.68 kleur
-parket 0.566 kleur
+parket 0.59 kleur
 grind 0.45 kleur"
 echo "$DOEL" | while read -r f m sd; do
   if [ $# -gt 0 ] && [[ ! " $* " =~ " $f " ]]; then continue; fi

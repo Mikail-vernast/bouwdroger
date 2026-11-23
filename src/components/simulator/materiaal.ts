@@ -35,7 +35,7 @@ const FASE_BEELD: Record<Fase, { muurTegel: MuurTegel; muur: string; vloerTegel:
   gepleisterd: { muurTegel: "pleisternat", muur: "#d9cdc1", vloerTegel: "chape", vloer: "#b4ada2", glas: true, inrichting: false },
   // walls stay as the plasterer left them: they are only finished at "afgewerkt"
   tegels: { muurTegel: "pleisternat", muur: "#d9cdc1", vloerTegel: "tegelvloer", vloer: "#ffffff", glas: true, inrichting: false },
-  afgewerkt: { muurTegel: "verf", muur: "#f2eee7", vloerTegel: "parket", vloer: "#ffffff", glas: true, inrichting: true },
+  afgewerkt: { muurTegel: "verf", muur: "#f0eae1", vloerTegel: "parket", vloer: "#ffffff", glas: true, inrichting: true },
 };
 
 /** Hoe muren en vloer eruitzien in deze fase — alleen beeld, geen rekenwerk. */
