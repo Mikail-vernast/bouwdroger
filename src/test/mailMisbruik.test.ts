@@ -23,7 +23,7 @@ vi.mock("../lib/brevo.js", () => ({
   sendPlain: (mail: unknown) => sendPlain(mail),
 }));
 
-const { sendContactMails, alertSyncFailure } = await import("../lib/mail.js");
+const { sendContactMails, alertSyncFailure, forStranger } = await import("../lib/mail.js");
 
 /**
  * De teller per adres staat in een module-brede Map, dus elke test heeft een
@@ -228,5 +228,43 @@ describe("ontvangstbevestiging zonder sjabloon", () => {
       .filter((call) => call.to.email === email);
 
     expect(mail.params.bericht).toBe("Regel een\nRegel <b>twee</b>");
+  });
+});
+
+describe("de kopie aan een zelf ingetypt adres", () => {
+  it("haalt links uit naam en bericht, maar het team krijgt alles", async () => {
+    const email = freshAddress();
+    await sendContactMails({
+      naam: "Winactie via spam.example.com",
+      email,
+      bericht: "Klik op https://spam.example/winnen of www.oplichter.be nu!",
+    });
+
+    const kopie = sendTemplate.mock.calls
+      .map(([mail]) => mail as { to: { email: string; name: string | null }; params: Record<string, string> })
+      .find((mail) => mail.to.email === email);
+    expect(kopie?.params.bericht).toBe("Klik op [link] of [link] nu!");
+    expect(kopie?.params.klant_naam).toBe("Winactie via spam. example. com");
+    expect(kopie?.params.naam).toBe("Winactie via spam. example. com");
+    expect(kopie?.to.name).toBe("Winactie via spam. example. com");
+
+    const team = [...sendTemplate.mock.calls, ...sendPlain.mock.calls]
+      .map(([mail]) => JSON.stringify(mail))
+      .find((mail) => !mail.includes(`"email":"${email}"`) || mail.includes("intern"));
+    expect(team).toContain("https://spam.example/winnen");
+  });
+
+  it("breekt elk domein, ook met een extensie die niemand verwacht", () => {
+    expect(forStranger("ga naar winnen.club of oplichter.ws", 1000)).toBe("ga naar winnen. club of oplichter. ws");
+    expect(forStranger("spam\u3002example", 1000)).toBe("spam. example");
+    expect(forStranger("mailto:jan@spam.be", 1000)).toBe("[link]");
+  });
+
+  it("laat getallen en gewone zinnen staan", () => {
+    expect(forStranger("Kelder 2.5 m² nat. Morgen bellen aub.", 1000)).toBe("Kelder 2.5 m² nat. Morgen bellen aub.");
+  });
+
+  it("kapt een lang bericht af", () => {
+    expect(forStranger("a".repeat(1200), 1000)).toHaveLength(1001);
   });
 });
