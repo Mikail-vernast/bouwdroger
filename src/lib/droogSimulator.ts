@@ -249,6 +249,8 @@ export function toPackageConfig(a: SimAnswers): PackageConfig {
     // van de vraag die we de bezoeker stellen.
     heat: !a.verwarmt,
     weeks: 2,
+    // De simulator telt bouwlagen inclusief het gelijkvloers en de zolder.
+    floors: Math.max(0, Math.min(MAX_VERDIEPINGEN, a.verdiepingen) - 1),
   };
 }
 
