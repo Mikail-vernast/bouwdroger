@@ -920,6 +920,34 @@ function formatDateTime(date: Date): string {
     .replace(/,\s*/, " om ");
 }
 
+/**
+ * Vraagformulier op de homepage: alleen de ontvangstbevestiging aan de klant.
+ *
+ * Het team hoeft hier geen mail: de vraag staat al in het portaal én als lead
+ * in de Lead Planner (of kwam via `sendQuestionFallback` als mail binnen).
+ * Zelfde sjabloon en dezelfde drempel per adres als het contactformulier.
+ * Faalt nooit naar de aanroeper: een ontbrekende bevestiging mag een vraag
+ * die al bewaard is niet als mislukt laten ogen.
+ */
+export async function sendQuestionConfirmation(message: ContactMessage): Promise<void> {
+  try {
+    await sendToSelfChosenAddress(
+      "contact_ontvangen",
+      { email: message.email, name: message.naam || null },
+      {
+        naam: message.naam,
+        email: message.email,
+        telefoon: message.telefoon ?? "",
+        onderwerp: message.onderwerp ?? "",
+        bericht: message.bericht,
+        ...contactConfirmationParams(message),
+      },
+    );
+  } catch (error) {
+    console.error("[mail] bevestiging vraagformulier mislukt:", error instanceof Error ? error.message : error);
+  }
+}
+
 /** Contactformulier: kopie aan de klant, het bericht zelf naar het team. */
 export async function sendContactMails(message: ContactMessage): Promise<void> {
   const params: Record<string, unknown> = {

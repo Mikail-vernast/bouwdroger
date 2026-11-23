@@ -18,7 +18,7 @@
  * Stil falen is precies wat dit formulier ooit deed.
  */
 import { RateLimitedError, sendBouwdrogerRequest } from "../src/lib/vernastRequest.js";
-import { sendQuestionFallback } from "../src/lib/mail.js";
+import { sendQuestionConfirmation, sendQuestionFallback } from "../src/lib/mail.js";
 import { clientIp, gate, tooManyRequests } from "../src/lib/rateLimit.js";
 import { cleanText, isValidEmail, readJsonBody } from "../src/lib/formInput.js";
 
@@ -132,7 +132,11 @@ export async function POST(request: Request): Promise<Response> {
       attachments,
       page_url: str(body.page_url, 500) || null,
     });
-    if (result.ok) return json({ ok: true });
+    if (result.ok) {
+      // Stored in the portal: now the visitor gets the confirmation mail.
+      await sendQuestionConfirmation({ naam, email, telefoon, onderwerp: subject, bericht });
+      return json({ ok: true });
+    }
     reason = result.reason ?? "onbekende fout";
   } catch (error: unknown) {
     reason = error instanceof Error ? error.message : "onbekende fout";
@@ -166,7 +170,11 @@ export async function POST(request: Request): Promise<Response> {
     reden: limited ? `rate limit portaal: ${reason}` : reason,
   });
 
-  if (rescued) return json({ ok: true, via: "mail" });
+  if (rescued) {
+    // The team has it by mail, so the question did arrive: confirm it too.
+    await sendQuestionConfirmation({ naam, email, telefoon, onderwerp: subject, bericht });
+    return json({ ok: true, via: "mail" });
+  }
 
   // Ook de mail ging niet weg. Nu is het eerlijk om het te zeggen.
   return json(
