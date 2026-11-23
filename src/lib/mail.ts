@@ -885,9 +885,38 @@ export interface ContactMessage {
  * De afzender blijft van ons — `sendTemplate` zet altijd `BREVO_SENDER_EMAIL`
  * en negeert de afzender die in het sjabloon staat (info@vernast.be).
  */
+/*
+  De bevestiging gaat naar een adres dat de bezoeker zelf intypt, en ze toont
+  zijn naam en bericht terug. Zonder filter kan iedereen zo vanaf ons domein
+  een tekst met links naar een vreemde sturen: het formulier wordt een
+  spamrelais met onze reputatie bij Brevo als inzet. De drempels per adres en
+  per IP tellen per Worker-instantie en houden dat niet tegen.
+
+  Daarom haalt de kopie aan de bezoeker links eruit en kapt ze lange teksten
+  af. De mail aan het team en het portaal krijgen de volledige tekst.
+
+  Kale domeinen alleen met een gangbare extensie: met elke extensie werd een
+  tikfout als "kelder.Ik" al een link.
+*/
+const LINK =
+  /\b(?:https?:\/\/|www\.)\S+|\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|net|org|info|biz|be|nl|eu|fr|de|uk|io|co|me|ly|ru|cn|xyz|top|shop|site|online|app|link|click|live)\b(?:\/\S*)?/gi;
+const MAX_BERICHT_KOPIE = 1000;
+const MAX_NAAM_KOPIE = 80;
+
+export function forStranger(text: string, max: number): string {
+  const zonderLinks = text.replace(LINK, "[link]").trim();
+  return zonderLinks.length > max ? `${zonderLinks.slice(0, max).trimEnd()}…` : zonderLinks;
+}
+
+/** De ontvanger van de kopie: ook zijn weergavenaam ("Aan: …") toont de bezoeker zelf. */
+function strangerRecipient(message: ContactMessage): BrevoRecipient {
+  return { email: message.email, name: forStranger(message.naam, MAX_NAAM_KOPIE) || null };
+}
+
 function contactConfirmationParams(message: ContactMessage): Record<string, unknown> {
-  const naam = message.naam.trim();
+  const naam = forStranger(message.naam, MAX_NAAM_KOPIE);
   return {
+    naam,
     voornaam: naam.split(/\s+/)[0] || "klant",
     klant_naam: naam,
     email: message.email.trim(),
@@ -901,7 +930,7 @@ function contactConfirmationParams(message: ContactMessage): Record<string, unkn
       hier eerst in productie gemeten. De regelafbrekingen overleven doordat
       het berichtblok in sjabloon 202 `white-space: pre-line` draagt.
     */
-    bericht: message.bericht.trim(),
+    bericht: forStranger(message.bericht, MAX_BERICHT_KOPIE),
     verzonden_op: formatDateTime(new Date()),
   };
 }
@@ -933,13 +962,11 @@ export async function sendQuestionConfirmation(message: ContactMessage): Promise
   try {
     await sendToSelfChosenAddress(
       "contact_ontvangen",
-      { email: message.email, name: message.naam || null },
+      strangerRecipient(message),
       {
-        naam: message.naam,
         email: message.email,
         telefoon: message.telefoon ?? "",
         onderwerp: message.onderwerp ?? "",
-        bericht: message.bericht,
         ...contactConfirmationParams(message),
       },
     );
@@ -966,7 +993,7 @@ export async function sendContactMails(message: ContactMessage): Promise<void> {
     hier de enige opslag.
   */
   await Promise.all([
-    sendToSelfChosenAddress("contact_ontvangen", from, {
+    sendToSelfChosenAddress("contact_ontvangen", strangerRecipient(message), {
       ...params,
       ...contactConfirmationParams(message),
     }),
