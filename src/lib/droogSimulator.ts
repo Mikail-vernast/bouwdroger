@@ -72,6 +72,32 @@ export const WONING: Record<
   appartement: { label: "Appartement", sub: "Eén of twee bouwlagen", w: 9, l: 10, buren: 0, dakToegelaten: ["plat"] },
 };
 
+/**
+ * De gevelbreedtes die de simulator tekent, per woningtype, smal → breed. De
+ * vloeroppervlakte kiest er één (`woningBreedte`); de diepte blijft `WONING.l`.
+ * Het zijn vaste stappen en geen vrije maat, omdat de straat rond het huis per
+ * breedte vooraf gerenderd is (scripts/simulator-3d/straat.py): een vrije maat
+ * zou het huis door de buren heen laten groeien. De middelste stap is `WONING.w`.
+ */
+export const BREEDTES: Record<Woning, readonly number[]> = {
+  rijwoning: [5, 6, 7.5],
+  halfopen: [6.5, 8, 10],
+  open: [8, 10, 12.5],
+  appartement: [9],
+};
+
+/**
+ * De gevelbreedte bij een vloeroppervlakte: de stap die het dichtst bij
+ * (m² per laag / 0,85) / diepte ligt. Maatwerk ("custom") krijgt de breedste.
+ */
+export function woningBreedte(woning: Woning, size: string, verdiepingen: number): number {
+  const stappen = BREEDTES[woning];
+  const m2 = Number(size);
+  if (size === "custom" || !Number.isFinite(m2) || m2 <= 0) return stappen[stappen.length - 1];
+  const doel = m2 / Math.max(1, verdiepingen) / 0.85 / WONING[woning].l;
+  return stappen.reduce((best, b) => (Math.abs(b - doel) < Math.abs(best - doel) ? b : best));
+}
+
 export const DAK_LABEL: Record<Dak, { label: string; sub: string }> = {
   zadeldak: { label: "Zadeldak", sub: "Twee hellende vlakken" },
   plat: { label: "Plat dak", sub: "Of een appartement erboven" },
@@ -465,9 +491,9 @@ export function laagSoort(woning: Woning, v: number, verdiepingen: number, dak: 
 }
 
 /** Het aantal kamers waar de simulator mee begint, per bouwlaag. */
-export function standaardKamers(woning: Woning, v: number, verdiepingen: number, dak: Dak): number {
+export function standaardKamers(woning: Woning, v: number, verdiepingen: number, dak: Dak, breedte = WONING[woning].w): number {
   if (isZolder(v, verdiepingen, dak)) return 1;
-  const smal = WONING[woning].w < 7;
+  const smal = breedte < 7;
   if (woning === "appartement" && v === 0) return verdiepingen === 1 ? 4 : 3;
   if (v === 0 && verdiepingen === 1) return smal ? 3 : 4; // bungalow: ook slaapkamer en badkamer beneden
   if (v === 0) return smal ? 2 : 3;
@@ -484,8 +510,10 @@ export function programmaVan(soort: LaagSoort, n: number, lagen = 2): Programma 
   return geldig(soort, p);
 }
 
-export function standaardProgramma(woning: Woning, v: number, verdiepingen: number, dak: Dak): Programma {
-  return programmaVan(laagSoort(woning, v, verdiepingen, dak), standaardKamers(woning, v, verdiepingen, dak), verdiepingen);
+export function standaardProgramma(woning: Woning, v: number, verdiepingen: number, dak: Dak, breedte = WONING[woning].w): Programma {
+  // A narrow facade (a 5 m terraced bungalow) cannot always hold the usual count.
+  const n = Math.min(standaardKamers(woning, v, verdiepingen, dak, breedte), maxKamers(woning, v, verdiepingen, dak, breedte));
+  return programmaVan(laagSoort(woning, v, verdiepingen, dak), n, verdiepingen);
 }
 
 export function aantalKamers(p: Programma): number {
@@ -554,8 +582,8 @@ function rij(x0: number, x1: number, stukken: Stuk[]): { naam: string; x: number
  * kan. Een keuken naast de leefruimte krijgt er een open doorgang naar toe.
  * De vakken vullen de bouwlaag precies; de test bewaakt dat.
  */
-function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma: Programma): Plan {
-  const { w, l } = WONING[woning];
+function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma: Programma, w = WONING[woning].w): Plan {
+  const { l } = WONING[woning];
   const soort = laagSoort(woning, v, lagen, dak);
   const p = geldig(soort, programma);
   const opties = RUIMTES[soort];
@@ -730,12 +758,12 @@ function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma:
  * tekening en de verdeling van de toestellen hangen ervan af — het pakket
  * niet: de catalogus rekent per oppervlakte.
  */
-export function planVoor(woning: Woning, verdiepingen: number, dak: Dak, programmas: (Programma | undefined)[] = []): Plan {
+export function planVoor(woning: Woning, verdiepingen: number, dak: Dak, programmas: (Programma | undefined)[] = [], breedte = WONING[woning].w): Plan {
   const lagen = Math.min(MAX_VERDIEPINGEN, Math.max(1, verdiepingen));
   const uit: Plan = { kamers: [], openingen: [], trappen: [] };
   for (let v = 0; v < lagen; v++) {
-    const p = programmas[v] ?? standaardProgramma(woning, v, lagen, dak);
-    const laag = laagPlan(woning, v, lagen, dak, p);
+    const p = programmas[v] ?? standaardProgramma(woning, v, lagen, dak, breedte);
+    const laag = laagPlan(woning, v, lagen, dak, p, breedte);
     uit.kamers.push(...laag.kamers);
     uit.openingen.push(...laag.openingen);
     uit.trappen.push(...laag.trappen);
@@ -744,23 +772,23 @@ export function planVoor(woning: Woning, verdiepingen: number, dak: Dak, program
 }
 
 /** De kamers (met gang en hal) bij een aantal kamers per bouwlaag. */
-export function kamersVoor(woning: Woning, verdiepingen: number, dak: Dak, aantallen: number[] = []): Kamer[] {
+export function kamersVoor(woning: Woning, verdiepingen: number, dak: Dak, aantallen: number[] = [], breedte = WONING[woning].w): Kamer[] {
   const lagen = Math.min(MAX_VERDIEPINGEN, Math.max(1, verdiepingen));
   const programmas = Array.from({ length: lagen }, (_, v) =>
-    aantallen[v] === undefined ? undefined : programmaVan(laagSoort(woning, v, lagen, dak), Math.min(aantallen[v], maxKamers(woning, v, lagen, dak)), lagen),
+    aantallen[v] === undefined ? undefined : programmaVan(laagSoort(woning, v, lagen, dak), Math.min(aantallen[v], maxKamers(woning, v, lagen, dak, breedte)), lagen),
   );
-  return planVoor(woning, lagen, dak, programmas).kamers;
+  return planVoor(woning, lagen, dak, programmas, breedte).kamers;
 }
 
 /**
  * Hoeveel kamers er echt passen op deze bouwlaag: het grootste aantal uit de
  * standaardvolgorde waarvoor elke ruimte zijn minimale breedte krijgt.
  */
-export function maxKamers(woning: Woning, v: number, verdiepingen: number, dak: Dak): number {
+export function maxKamers(woning: Woning, v: number, verdiepingen: number, dak: Dak, breedte = WONING[woning].w): number {
   const soort = laagSoort(woning, v, verdiepingen, dak);
   for (let n = MAX_KAMERS; n > MIN_KAMERS; n--) {
     const p = programmaVan(soort, n, verdiepingen);
-    const kamers = laagPlan(woning, v, verdiepingen, dak, p).kamers.filter((k) => k.soort === "kamer").length;
+    const kamers = laagPlan(woning, v, verdiepingen, dak, p, breedte).kamers.filter((k) => k.soort === "kamer").length;
     if (kamers === aantalKamers(p)) return n;
   }
   return MIN_KAMERS;

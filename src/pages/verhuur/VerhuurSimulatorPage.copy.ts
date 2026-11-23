@@ -1,6 +1,7 @@
 import type { Copy } from "@/i18n/useTaal";
 import type { DeviceKey } from "@/data/verhuur";
 import type { Tempo } from "@/lib/droogTempo";
+import type { Dak } from "@/lib/droogSimulator";
 
 /**
  * Teksten van de droogsimulator. De Nederlandse staan letterlijk zoals ze in
@@ -53,6 +54,26 @@ export interface SimCopy {
   typeWoning: string;
   /* stap 2 */
   s2Kop: string;
+  s2DakKop: string;
+  keuzeKop: string;
+  keuzeSub: string;
+  keuzeTag: string;
+  keuze: Record<"werf" | "water", { label: string; sub: string }>;
+  wsStage: { eyebrow: string; keuzeEyebrow: string; leeg: string; nat: (waar: string) => string; plek: Record<"kelder" | "gelijkvloers" | "verdieping" | "zolder", string> };
+  funnel: {
+    lieverBellen: string;
+    /** de drie beloftes onder de keuze werf/waterschade */
+    beloftes: string[];
+  };
+  s2DakSub: string;
+  droogsimulator: string;
+  /** "Stap" en "van" rond de cijfers in de teller bovenaan: Stap 2 van 4 */
+  stapTeller: [string, string];
+  dakHint: Record<Dak, string>;
+  kamersTotaal: string;
+  kamersUitleg: string;
+  kamerMeer: string;
+  kamerMinder: string;
   kamers: (n: number) => string;
   dak: string;
   dakAppartement: string;
@@ -210,7 +231,28 @@ export const COPY: Copy<SimCopy> = {
     s1Kop: "Wat voor woning droogt u?",
     s1Sub: "Zo weten we hoe de ruimtes liggen en waar de toestellen komen.",
     typeWoning: "Type woning",
-    s2Kop: "Hoe ziet uw woning eruit?",
+    s2Kop: "Hoe is uw woning opgebouwd?",
+    s2DakKop: "Welk dak heeft uw woning?",
+    keuzeKop: "Wat moet er drogen?",
+    keuzeSub: "Zo sturen we u meteen de juiste kant op.",
+    keuzeTag: "Levering binnen 24 uur",
+    keuze: {
+      werf: { label: "Een werf", sub: "Nieuwbouw of renovatie: chape, pleister of metselwerk" },
+      water: { label: "Waterschade", sub: "Lek, overstroming of bluswater" },
+    },
+    wsStage: { eyebrow: "Waterschade", keuzeEyebrow: "Droogsimulator", leeg: "Waar is het nat?", nat: (waar) => `Nat: ${waar}`, plek: { kelder: "kelder", gelijkvloers: "gelijkvloers", verdieping: "verdieping", zolder: "zolder" } },
+    funnel: {
+      lieverBellen: "Liever bellen?",
+      beloftes: ["Levering binnen 24 uur", "Gratis advies", "Geen spam"],
+    },
+    s2DakSub: "Kies het dak dat het meest op het uwe lijkt.",
+    droogsimulator: "Droogsimulator",
+    stapTeller: ["Stap", "van"],
+    dakHint: { zadeldak: "Schuin, met een nok", plat: "Vlak, met een dakrand", lessenaar: "Schuin, naar één kant" },
+    kamersTotaal: "Kamers in totaal",
+    kamersUitleg: "Zonder gang, toilet en berging",
+    kamerMeer: "Eén kamer meer",
+    kamerMinder: "Eén kamer minder",
     kamers: (n) => `${n} kamers`,
     dak: "Dak",
     dakAppartement: " · bij een appartement altijd plat",
@@ -373,7 +415,28 @@ export const COPY: Copy<SimCopy> = {
     s1Kop: "Quel type de logement séchez-vous ?",
     s1Sub: "Nous savons ainsi comment les pièces sont disposées et où placer les appareils.",
     typeWoning: "Type de logement",
-    s2Kop: "À quoi ressemble votre logement ?",
+    s2Kop: "Comment votre logement est-il construit ?",
+    s2DakKop: "Quel toit a votre logement ?",
+    keuzeKop: "Que faut-il sécher ?",
+    keuzeSub: "Nous vous orientons ainsi directement dans la bonne direction.",
+    keuzeTag: "Livraison dans les 24 heures",
+    keuze: {
+      werf: { label: "Un chantier", sub: "Construction ou rénovation : chape, plâtre ou maçonnerie" },
+      water: { label: "Dégât des eaux", sub: "Fuite, inondation ou eau d'extinction" },
+    },
+    wsStage: { eyebrow: "Dégât des eaux", keuzeEyebrow: "Simulateur de séchage", leeg: "Où est-ce humide ?", nat: (waar) => `Humide : ${waar}`, plek: { kelder: "cave", gelijkvloers: "rez-de-chaussée", verdieping: "étage", zolder: "grenier" } },
+    funnel: {
+      lieverBellen: "Vous préférez appeler ?",
+      beloftes: ["Livraison dans les 24 h", "Conseil gratuit", "Pas de spam"],
+    },
+    s2DakSub: "Choisissez le toit qui ressemble le plus au vôtre.",
+    droogsimulator: "Simulateur de séchage",
+    stapTeller: ["Étape", "sur"],
+    dakHint: { zadeldak: "En pente, avec un faîte", plat: "Plat, avec un acrotère", lessenaar: "En pente, d'un seul côté" },
+    kamersTotaal: "Pièces au total",
+    kamersUitleg: "Sans couloir, WC ni débarras",
+    kamerMeer: "Une pièce de plus",
+    kamerMinder: "Une pièce de moins",
     kamers: (n) => `${n} pièces`,
     dak: "Toit",
     dakAppartement: " · toujours plat pour un appartement",
@@ -535,7 +598,28 @@ export const COPY: Copy<SimCopy> = {
     s1Kop: "What kind of property are you drying?",
     s1Sub: "That tells us how the rooms are laid out and where the units will go.",
     typeWoning: "Type of property",
-    s2Kop: "What does your home look like?",
+    s2Kop: "How is your home built up?",
+    s2DakKop: "What roof does your home have?",
+    keuzeKop: "What needs drying?",
+    keuzeSub: "That way we send you the right way straight away.",
+    keuzeTag: "Delivery within 24 hours",
+    keuze: {
+      werf: { label: "A building site", sub: "New build or renovation: screed, plaster or masonry" },
+      water: { label: "Water damage", sub: "Leak, flooding or firefighting water" },
+    },
+    wsStage: { eyebrow: "Water damage", keuzeEyebrow: "Drying simulator", leeg: "Where is it wet?", nat: (waar) => `Wet: ${waar}`, plek: { kelder: "basement", gelijkvloers: "ground floor", verdieping: "upper floor", zolder: "attic" } },
+    funnel: {
+      lieverBellen: "Rather call?",
+      beloftes: ["Delivery within 24 h", "Free advice", "No spam"],
+    },
+    s2DakSub: "Pick the roof that looks most like yours.",
+    droogsimulator: "Drying simulator",
+    stapTeller: ["Step", "of"],
+    dakHint: { zadeldak: "Sloped, with a ridge", plat: "Flat, with a parapet", lessenaar: "Sloped to one side" },
+    kamersTotaal: "Rooms in total",
+    kamersUitleg: "Not counting hall, toilet or storage",
+    kamerMeer: "One more room",
+    kamerMinder: "One room fewer",
     kamers: (n) => `${n} rooms`,
     dak: "Roof",
     dakAppartement: " · always flat for an apartment",

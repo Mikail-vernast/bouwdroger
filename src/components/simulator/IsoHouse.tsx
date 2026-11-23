@@ -243,6 +243,8 @@ function Toestel({ k, x, y, z, n, werkend, uid }: {
 
 export interface IsoHouseProps {
   woning: Woning;
+  /** gevelbreedte in meter (een stap uit BREEDTES); zonder deze de standaard van het woningtype */
+  breedte?: number;
   verdiepingen: number;
   dak: Dak;
   kamers: Kamer[];
@@ -272,6 +274,7 @@ const STANDAARD_MATERIAAL: Materiaal = {
 
 export default function IsoHouse({
   woning,
+  breedte,
   verdiepingen,
   dak,
   kamers,
@@ -289,7 +292,8 @@ export default function IsoHouse({
   const uid = useId().replace(/:/g, "");
   const reduced = useReducedMotion();
   const taal = useTaal();
-  const { w, l, buren } = WONING[woning];
+  const { l, buren } = WONING[woning];
+  const w = breedte ?? WONING[woning].w;
   const lagen = Math.max(1, verdiepingen);
   const act = Math.min(actief, lagen - 1);
   const o = useTween(open ? 1 : 0, 900, reduced || mini);

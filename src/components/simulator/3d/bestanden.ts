@@ -19,6 +19,23 @@ export const TEXTUUR = {
   tegelvloer: "/simulator/3d/tegelvloer.webp",
 } as const;
 
+/*
+  De straat rond de woning: een Blender-render per woningtype (scripts/simulator-3d/straat.py),
+  in een achter- en een voorlaag. Een gsm krijgt de versie op halve resolutie.
+*/
+export type StraatWoning = "rijwoning" | "halfopen" | "open";
+
+export function heeftStraat(woning: string): woning is StraatWoning {
+  return woning === "rijwoning" || woning === "halfopen" || woning === "open";
+}
+
+/** One render per facade width (BREEDTES), named by decimetres: halfopen-b80-achter.webp. */
+export function straatBeelden(woning: StraatWoning, breedte: number, klein: boolean): [string, string] {
+  const s = klein ? "-klein" : "";
+  const b = `${woning}-b${Math.round(breedte * 10)}`;
+  return [`/simulator/straat/${b}-achter${s}.webp`, `/simulator/straat/${b}-voor${s}.webp`];
+}
+
 type Verbinding = { saveData?: boolean; effectiveType?: string };
 
 /**

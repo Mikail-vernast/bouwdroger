@@ -32,7 +32,8 @@ import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../fil
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useTaal } from "@/i18n/useTaal";
-import { TEXTUUR } from "./bestanden";
+import { TEXTUUR, heeftStraat } from "./bestanden";
+import Straat3D, { StraatVangnet } from "./straat";
 
 /*
   De droogsimulator-woning in echte 3D.
@@ -205,13 +206,13 @@ interface Bouwers {
 }
 
 interface Woningplan {
-  woning: Woning; lagen: number; act: number; dak: Dak;
+  woning: Woning; w: number; lagen: number; act: number; dak: Dak;
   kamers: Kamer[]; openingen: Opening[]; trappen: Trap[];
 }
 
 function bouw(p: Woningplan) {
-  const { woning, lagen, act, dak, kamers, openingen, trappen } = p;
-  const { w, l, buren } = WONING[woning];
+  const { woning, w, lagen, act, dak, kamers, openingen, trappen } = p;
+  const { l, buren } = WONING[woning];
   const B: Bouwers = { vast: new Bouwer(), boven: new Bouwer(), dak: new Bouwer(), gevel: new Bouwer(), binnen: new Bouwer(), bladen: new Bouwer() };
 
   // Een punt op een gevel: `a` langs de gevel, `n` naar buiten vanaf het buitenvlak.
@@ -747,10 +748,10 @@ function natPatchSet(set: MatSet, u: NatUniforms) {
 }
 
 interface Kader { cx: number; cy: number; ex: number; ey: number }
-function kader(w: number, l: number, y0: number, y1: number, pad: number): Kader {
+function kader(w: number, l: number, y0: number, y1: number, pad: number, voor = 0): Kader {
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
   const v = new Vector3();
-  for (const x of [-T, w + T]) for (const y of [y0, y1]) for (const z of [-T, l + T]) {
+  for (const x of [-T, w + T]) for (const y of [y0, y1]) for (const z of [-T, l + T + voor]) {
     v.set(x, y, z);
     const px = v.dot(RECHTS), py = v.dot(OP);
     minX = Math.min(minX, px); maxX = Math.max(maxX, px); minY = Math.min(minY, py); maxY = Math.max(maxY, py);
@@ -763,7 +764,8 @@ interface SceneProps extends IsoHouseProps { anim: MutableRefObject<Anim>; label
 function Scene(props: SceneProps) {
   const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, filmRonde = 0, anim, labels, reduced } = props;
   const materiaal = props.materiaal ?? STANDAARD_MATERIAAL;
-  const { w, l, buren } = WONING[woning];
+  const { l, buren } = WONING[woning];
+  const w = props.breedte ?? WONING[woning].w;
   const lagen = Math.max(1, verdiepingen);
   const act = Math.min(actief, lagen - 1);
   const yfAct = act * FH + SLAB;
@@ -849,11 +851,11 @@ function Scene(props: SceneProps) {
   }, [gl, scene]);
 
   const geo = useMemo(() => {
-    const B = bouw({ woning, lagen, act, dak, kamers, openingen, trappen });
+    const B = bouw({ woning, w, lagen, act, dak, kamers, openingen, trappen });
     return {
       vast: B.vast.bouw(), boven: B.boven.bouw(), dak: B.dak.bouw(), gevel: B.gevel.bouw(), binnen: B.binnen.bouw(), bladen: B.bladen.bouw(),
     };
-  }, [woning, lagen, act, dak, kamers, openingen, trappen]);
+  }, [woning, w, lagen, act, dak, kamers, openingen, trappen]);
   useEffect(() => () => {
     for (const m of Object.values(geo)) for (const g of m.values()) g.dispose();
   }, [geo]);
@@ -871,8 +873,11 @@ function Scene(props: SceneProps) {
   const spook = useMemo(() => {
     const blokken: [number, number, number, number, number, number][] = [];
     const y1 = Math.max(2, lagen) * FH + 0.4;
-    if (buren >= 1) blokken.push([-6, -T, 0, y1, 0, l]);
-    if (buren === 2) blokken.push([w + T, w + T + 6, 0, y1, 0, l]);
+    // Bij een straat-render staan de echte buren erin; de contour zou er dwars door lopen.
+    if (woning === "appartement") {
+      if (buren >= 1) blokken.push([-6, -T, 0, y1, 0, l]);
+      if (buren === 2) blokken.push([w + T, w + T + 6, 0, y1, 0, l]);
+    }
     if (woning === "appartement") blokken.push([-T, w + T, -2 * FH, 0, -T, l + T]);
     const vlak = new MeshBasicMaterial({ color: "#5a3a2a", transparent: true, opacity: 0.035, depthWrite: false });
     const lijn = new LineDashedMaterial({ color: "#8a7864", dashSize: 0.25, gapSize: 0.18, transparent: true, opacity: 0.6 });
@@ -937,7 +942,12 @@ function Scene(props: SceneProps) {
     return new Vector3(k.x + k.w * bx, yfAct + HC + 0.15, k.z + k.l * bz);
   }), [actKamers, yfAct, plaatsingen]);
 
-  const dicht = useMemo(() => kader(w, l, 0, daktop + nok + 0.3, 1.3), [w, l, daktop, nok]);
+  // Closed, the frame also takes in the front garden and the pavement (straat.tsx),
+  // so the house stands in its street instead of filling the box edge to edge.
+  const voorTuin = woning === "appartement" ? 0 : 6;
+  const dicht = useMemo(() => kader(w, l, 0, daktop + nok + 0.3, voorTuin ? 3.4 : 1.3, voorTuin), [w, l, daktop, nok, voorTuin]);
+  // Hoe ver de woning opengewerkt is (0..1), voor de voorgrond van de straat.
+  const openStand = useMemo(() => ({ get current() { return anim.current.o.nu; } }), [anim]);
   const v = useMemo(() => new Vector3(), []);
 
   // Bouw-animaties. Een ander dak of meer/minder bouwlagen: de lagen erboven
@@ -1105,8 +1115,16 @@ function Scene(props: SceneProps) {
       {/* schaduw op het papier — bij een appartement op het dak van het gebouw eronder */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[w / 2, -0.002, l / 2]} receiveShadow>
         <planeGeometry args={[80, 80]} />
-        <shadowMaterial opacity={0.16} color="#5a3a2a" />
+        <shadowMaterial opacity={heeftStraat(woning) ? 0.32 : 0.16} color="#3a2a1e" />
       </mesh>
+      {/* De straat (Blender-render) laadt apart: de woning wacht er niet op. */}
+      {heeftStraat(woning) && (
+        <StraatVangnet key={`${woning}-${w}`}>
+          <Suspense fallback={null}>
+            <Straat3D woning={woning} w={w} l={l} klein={GSM} open={openStand} />
+          </Suspense>
+        </StraatVangnet>
+      )}
 
       {spook.delen.map((d, i) => (
         <group key={i}>
