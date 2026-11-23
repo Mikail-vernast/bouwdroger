@@ -120,6 +120,13 @@ function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
     ["pleister", s(m.muur, { map: t("pleister"), roughness: 0.95 })],
     ["vloer", s(m.parket ? "#ffffff" : m.vloer, { map: m.parket ? t("parket") : t("chape"), roughness: m.parket ? 0.55 : 0.9 })],
     ["trede", s("#c4a684", { roughness: 0.55 })],
+    // Afgewerkte trap en binnendeurkozijnen: wit gelakt, apart van de raamkaders, want
+    // ze komen pas bij de afwerking (de raamkaders al bij "ramen geplaatst").
+    ["trapwit", s("#f2efe9", { roughness: 0.45 })],
+    ["kozijn", s("#f2efe9", { roughness: 0.45 })],
+    // De ruwe trap tijdens de werf: gestorte beton met een leuning van werfplanken.
+    ["beton", s("#aaa59c", { roughness: 0.95 })],
+    ["werfhout", s("#c9a06a", { roughness: 0.85 })],
     ["trapzij", s("#7d6352", { roughness: 0.65 })],
     ["leuning", s("#2a2422", { roughness: 0.5 })],
     ["grind", s("#ffffff", { map: t("grind"), roughness: 0.95 })],
@@ -450,11 +457,11 @@ function bouw(p: Woningplan) {
           else B.bladen.blok("deurblad", n0, n1, 0, 2.05, s0, s1);
           // Kozijn: twee stijlen en een bovenregel, iets breder dan de muur.
           for (const [c0, c1] of [[o.van - 0.05, o.van], [o.tot, o.tot + 0.05]]) {
-            if (as === "x") B.binnen.blok("kader", c0, c1, 0, 2.1, vast - TI / 2 - 0.01, vast + TI / 2 + 0.01, { boven: "snede" });
-            else B.binnen.blok("kader", vast - TI / 2 - 0.01, vast + TI / 2 + 0.01, 0, 2.1, c0, c1, { boven: "snede" });
+            if (as === "x") B.binnen.blok("kozijn", c0, c1, 0, 2.1, vast - TI / 2 - 0.01, vast + TI / 2 + 0.01, { boven: "snede" });
+            else B.binnen.blok("kozijn", vast - TI / 2 - 0.01, vast + TI / 2 + 0.01, 0, 2.1, c0, c1, { boven: "snede" });
           }
-          if (as === "x") B.binnen.blok("kader", o.van - 0.05, o.tot + 0.05, 2.05, 2.1, vast - TI / 2 - 0.01, vast + TI / 2 + 0.01);
-          else B.binnen.blok("kader", vast - TI / 2 - 0.01, vast + TI / 2 + 0.01, 2.05, 2.1, o.van - 0.05, o.tot + 0.05);
+          if (as === "x") B.binnen.blok("kozijn", o.van - 0.05, o.tot + 0.05, 2.05, 2.1, vast - TI / 2 - 0.01, vast + TI / 2 + 0.01);
+          else B.binnen.blok("kozijn", vast - TI / 2 - 0.01, vast + TI / 2 + 0.01, 2.05, 2.1, o.van - 0.05, o.tot + 0.05);
         });
     };
     for (const k of laagKamers) {
@@ -473,26 +480,35 @@ function bouw(p: Woningplan) {
       const aan = t.l / treden, op = FH / treden;
       const zF = t.z + t.l, zT = t.z;
       const x0 = t.x + 0.02, x1 = t.x + t.w - 0.05;
+      const neus = (z: number) => yb + op + ((zF - z) / aan) * op;
+      const wx0 = x1, wx1 = x1 + 0.04;
+
+      // Afgewerkt: eiken treden, witte stootborden en een dichte wange tot op de vloer.
       for (let i = 0; i < treden; i++) {
         const top = yb + op * (i + 1), zv = zF - aan * i;
         B.vast.blok("trede", x0, x1 + 0.03, top - 0.04, top, zv - aan - 0.02, zv + 0.02);
-        B.vast.blok("kader", x0, x1, top - op, top - 0.04, zv - 0.02, zv, { boven: null });
+        B.vast.blok("trapwit", x0, x1, top - op, top - 0.04, zv - 0.02, zv, { boven: null });
       }
-      // Wange aan de open kant, van de vloer tot net boven de neuzen.
-      const neus = (z: number) => yb + op + ((zF - z) / aan) * op;
-      const wx0 = x1, wx1 = x1 + 0.04;
-      B.vast.hexa("kader", [
+      B.vast.hexa("trapwit", [
         [wx0, yb, zF], [wx1, yb, zF], [wx1, yb, zT], [wx0, yb, zT],
         [wx0, yb + op + 0.05, zF], [wx1, yb + op + 0.05, zF], [wx1, Math.min(neus(zT), yb + FH) + 0.05, zT], [wx0, Math.min(neus(zT), yb + FH) + 0.05, zT],
       ]);
       // De deur van de trapkast (vestiaire) onder het hoge eind.
       const kz0 = zT + 0.25, kz1 = Math.min(zT + 1.0, zF - 1.6);
-      if (kz1 - kz0 > 0.4) {
+      if (metLeuning && kz1 - kz0 > 0.4) {
+        // "deurblad" is pas zichtbaar bij de afwerking, net als de binnendeuren.
         B.vast.blok("deurblad", wx1, wx1 + 0.012, yb + 0.02, Math.min(yb + 1.95, neus(kz1) - 0.15), kz0, kz1);
-        B.vast.blok("inox", wx1 + 0.012, wx1 + 0.03, yb + 0.95, yb + 1.0, kz1 - 0.12, kz1 - 0.06);
       }
+
+      // Werf: een gestorte betontrap. Elke trede een blok op een schuine plaat van 15 cm,
+      // de onderkant blijft open (de trapkast komt er pas bij de afwerking).
+      for (let i = 0; i < treden; i++) {
+        const top = yb + op * (i + 1), zv = zF - aan * i;
+        B.vast.blok("beton", x0, x1 + 0.04, Math.max(yb, top - op - 0.17), top, zv - aan, zv, { boven: "beton" });
+      }
+
       if (!metLeuning) return;
-      // Leuning op 90 cm boven de neuzen, met spijlen om de twee treden.
+      // Afgewerkt: leuning op 90 cm boven de neuzen, met spijlen om de twee treden.
       const lh = 0.9, rx0 = wx0, rx1 = wx1;
       B.vast.hexa("leuning", [
         [rx0, neus(zF) + lh, zF], [rx1, neus(zF) + lh, zF], [rx1, neus(zT) + lh, zT], [rx0, neus(zT) + lh, zT],
@@ -503,6 +519,13 @@ function bouw(p: Woningplan) {
         B.vast.blok("leuning", rx0 + 0.005, rx1 - 0.005, neus(z) - 0.02, neus(z) + lh, z - 0.015, z + 0.015);
       }
       B.vast.blok("leuning", rx0 - 0.01, rx1 + 0.01, yb, neus(zF) + lh + 0.08, zF - 0.06, zF);
+      // Werf: drie staanders en twee planken, zoals een tijdelijke leuning op de bouw.
+      const plank = (h: number) => B.vast.hexa("werfhout", [
+        [rx0, neus(zF) + h, zF], [rx1 + 0.01, neus(zF) + h, zF], [rx1 + 0.01, neus(zT) + h, zT], [rx0, neus(zT) + h, zT],
+        [rx0, neus(zF) + h + 0.1, zF], [rx1 + 0.01, neus(zF) + h + 0.1, zF], [rx1 + 0.01, neus(zT) + h + 0.1, zT], [rx0, neus(zT) + h + 0.1, zT],
+      ]);
+      plank(0.45); plank(0.95);
+      for (const z of [zF - 0.1, (zF + zT) / 2, zT + 0.1]) B.vast.blok("werfhout", rx0, rx1 + 0.02, neus(z) - 0.05, neus(z) + 1.05, z - 0.04, z + 0.04);
     };
     // Boven een lagere bouwlaag: de trap van eronder loopt zichtbaar naar beneden in
     // het trapgat. Op de bovenste laag sluit een leuning het gat af aan de voorkant.
@@ -512,6 +535,8 @@ function bouw(p: Woningplan) {
         const zr = trapgat.z + trapgat.l;
         B.vast.blok("leuning", trapgat.x, trapgat.x + trapgat.w, yf + 0.86, yf + 0.92, zr, zr + 0.05);
         for (let x = trapgat.x + 0.1; x < trapgat.x + trapgat.w; x += 0.12) B.vast.blok("leuning", x, x + 0.025, yf, yf + 0.86, zr + 0.01, zr + 0.04);
+        B.vast.blok("werfhout", trapgat.x, trapgat.x + trapgat.w, yf + 0.85, yf + 0.95, zr, zr + 0.04);
+        B.vast.blok("werfhout", trapgat.x, trapgat.x + trapgat.w, yf + 0.4, yf + 0.5, zr, zr + 0.04);
       }
     }
     for (const t of laagTrappen) if (t.op) echteTrap(t, yf, true);
@@ -656,7 +681,7 @@ function dakBouw(b: Bouwer, { dak, w, l, buren, lagen }: { dak: Dak; w: number; 
 /* ─────────────────────────── React ─────────────────────────── */
 
 /** Werpen geen schaduw: glas, en de trap (zijn treden en spijlen tekenden een rooster op de vloer). */
-const ZONDER_SCHADUW = new Set(["glas", "trede", "trapzij", "leuning"]);
+const ZONDER_SCHADUW = new Set(["glas", "trede", "trapzij", "leuning", "werfhout"]);
 
 function Meshes({ geos, mats, schaduw = true }: { geos: Map<string, BufferGeometry>; mats: MatSet; schaduw?: boolean }) {
   return (
@@ -845,6 +870,10 @@ function Scene(props: SceneProps) {
       // Ruwbouw: no frames, no glass, the openings are holes.
       s.get("glas")!.visible = glasIn;
       s.get("kader")!.visible = glasIn;
+      // De trap groeit mee met de werf: ruwe betontrap met werfleuning tot de
+      // afwerking, daarna eiken treden, witte stootborden, leuning en kastdeur.
+      for (const n of ["trede", "trapwit", "leuning", "kozijn"]) s.get(n)!.visible = inrichtingIn;
+      for (const n of ["beton", "werfhout"]) s.get(n)!.visible = !inrichtingIn;
       // Inner doors are hung with the finishing, together with kitchen and bathroom.
       s.get("deurblad")!.visible = inrichtingIn;
     }
