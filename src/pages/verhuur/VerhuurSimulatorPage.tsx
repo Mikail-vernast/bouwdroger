@@ -7,7 +7,7 @@ import WaterschadeAanvraag from "@/components/simulator/WaterschadeAanvraag";
 import type { Antwoorden as WsAntwoorden } from "@/components/simulator/WaterschadeAanvraag.copy";
 import { materiaalVoor } from "@/components/simulator/materiaal";
 import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
-import { TEMPO_ORDER, type Tempo } from "@/lib/droogTempo";
+import { type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
 import { DROOG_DUUR, FILM_START, FILM_WACHT, filmStatus, plaatsDuur, voortgangNa, type FilmPlan } from "@/components/simulator/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
@@ -453,7 +453,14 @@ const VerhuurSimulatorPage = () => {
   /* ── de volgende-knop per stap ── */
   const volgende: { ok: boolean; label: string; melding?: string } =
     stap === 0 ? { ok: !!s.woning, label: t.volgende }
-    : stap === 2 ? { ok: !!s.fase && !!s.tempo, label: zonderLagen ? t.toonPlan : t.volgende }
+    /*
+      Alleen de fase is verplicht. Het tempo wordt niet meer gevraagd, en de
+      verwarmingsvraag heeft al een antwoord: `verwarmd` valt terug op wat bij
+      die fase hoort (bij gepleisterd draait de verwarming meestal al). Eisen
+      dat de bezoeker dat nóg eens bevestigt gaf een uitgeschakelde knop naast
+      een kaart die groen stond — wie niets doet, heeft hier het juiste antwoord.
+    */
+    : stap === 2 ? { ok: !!s.fase, label: zonderLagen ? t.toonPlan : t.volgende }
     : stap === 3 ? { ok: !!wat, label: t.toonPlan, melding: wat ? undefined : faseLagen.length > 1 ? t.minstensEen : t.nietsNat }
     : { ok: true, label: t.volgende };
 
@@ -555,7 +562,16 @@ const VerhuurSimulatorPage = () => {
                         </span>
                         <span className="ds-t">
                           <b>{woningTekst(w, taal).label}</b>
-                          <small>{woningTekst(w, taal).sub}</small>
+                          {/*
+                            Het aantal gemene muren bepaalt hoeveel muuroppervlak er nat
+                            staat, dus dát is waar deze vraag over gaat. Het stond in
+                            grijze 11,5 px onder de naam, terwijl de vier gevelfoto's
+                            allemaal dezelfde rode baksteen tonen: aan de foto zie je het
+                            verschil niet en aan het bijschrift las je eroverheen. Het
+                            plattegrondje zet het ernaast — jouw woning zwart, de gemene
+                            muren rood.
+                          */}
+                          <small className="ds-muren"><MuurSchema woning={w} />{woningTekst(w, taal).sub}</small>
                         </span>
                       </button>
                     ))}
@@ -675,32 +691,31 @@ const VerhuurSimulatorPage = () => {
                     <FaseKnoppen fase={s.fase} onKies={kiesFase} onToon={setFaseToon} />
                   </div>
                   {s.fase && <FaseRegels key={s.fase} fase={s.fase} />}
-                  <div className="ds-vragen">
-                    <div className="ds-vraag">
-                      <span>{t.verwarming}</span>
-                      <div className="ds-jn" role="radiogroup" aria-label={t.verwarming}>
-                        <button type="button" role="radio" aria-checked={verwarmd === true} className={verwarmd === true ? "on" : undefined} onClick={() => setS((p) => ({ ...p, verwarmt: true }))}>
-                          {t.ja}
-                        </button>
-                        <button type="button" role="radio" aria-checked={verwarmd === false} className={verwarmd === false ? "on" : undefined} onClick={() => setS((p) => ({ ...p, verwarmt: false }))}>
-                          {t.nee}
-                        </button>
-                      </div>
-                      {verwarmd === false && (
-                        <p className="ds-gevolg"><i>+</i><span><b>{t.kachelsErbij[0]}</b>{t.kachelsErbij[1]}</span></p>
-                      )}
-                    </div>
-                    <div className="ds-vraag ds-vraag--tempo">
-                      <span>{t.hoeSnel[0]}<span className="ds-lang">{t.hoeSnel[1]}</span>{taal === "fr" ? " ?" /* Franse typografie */ : "?" /* nl en en */}</span>
-                      <div className="ds-tempo" role="radiogroup" aria-label={t.hoeSnelVol}>
-                        {TEMPO_ORDER.map((tp) => (
-                          <button key={tp} type="button" role="radio" aria-checked={s.tempo === tp} className={s.tempo === tp ? "on" : undefined} onClick={() => setS((p) => ({ ...p, tempo: tp }))}>
-                            <b>{t.tempo[tp].label}</b>
-                            {/* De termijn ligt per pakket vast; "snel" zet er een droger bij. */}
-                            <small>{tp === "snel" ? t.plusDroger : resultaat ? t.weken(resultaat.weken) : t.tempo[tp].tekst}</small>
-                          </button>
-                        ))}
-                      </div>
+                  {/*
+                    De verwarmingsvraag als twee situaties met een bewegend
+                    beeld: een flakkerende vlam en een draaiend ijsblokje.
+                    Ja/Nee verzwijgt waarom de vraag gesteld wordt — zonder
+                    verwarming komen er kachels in het pakket en dat kost geld,
+                    dus koos de bezoeker blind. Nu staat het gevolg in het
+                    antwoord zelf, en het beeld zegt het nog voor je leest.
+
+                    "Hoe snel moet het droog zijn?" stond hier ook. Weg: niemand
+                    kan dat vooraf beantwoorden, want de gewone termijn staat
+                    nergens — "snel" of "rustig" betekent dan niets. In het
+                    droogplan staat de termijn er wél. `volledig()` rekent
+                    intussen met "gemiddeld".
+                  */}
+                  <div className="ds-warm">
+                    <div className="ds-lbl">{t.warmKop}</div>
+                    <div className="ds-warmset" role="radiogroup" aria-label={t.warmKop}>
+                      <button type="button" role="radio" aria-checked={verwarmd === true} className={`ds-warmk${verwarmd === true ? " on" : ""}`} onClick={() => setS((p) => ({ ...p, verwarmt: true }))}>
+                        <Vlam />
+                        <span><b>{t.warmJa[0]}</b><small>{t.warmJa[1]}</small></span>
+                      </button>
+                      <button type="button" role="radio" aria-checked={verwarmd === false} className={`ds-warmk${verwarmd === false ? " on" : ""}`} onClick={() => setS((p) => ({ ...p, verwarmt: false }))}>
+                        <IJsblok />
+                        <span><b>{t.warmNee[0]}</b><small>{t.warmNee[1]}</small></span>
+                      </button>
                     </div>
                   </div>
                 </>
@@ -726,46 +741,50 @@ const VerhuurSimulatorPage = () => {
               )}
 
               {stap === 4 && resultaat && (
-                <>
-                  <span className={`ds-tempo-label ds-tempo-label--${antwoorden.tempo}`}>{t.tempo[antwoorden.tempo ?? "gemiddeld"].label}</span>
-                  <h2 className="ds-plan-kop">
-                    {t.droogIn} <em>{t.weekOfWeken(resultaat.weken)}</em>
-                  </h2>
-                  <p className="ds-sub ds-sub--altijd">
-                    {woningTekst(woning, taal).label} · {maat} · {t.toestellen(aantalToestellen)}
-                  </p>
-                  <ul className="ds-bon">
+                /*
+                  Het droogplan beantwoordt "wat heb ik nodig" — niet "wat kost
+                  het". Vandaar geen bedrag: de prijs hoort op de pakketpagina,
+                  waar ook de huurduur, de korting en de btw staan. Eén bedrag
+                  zonder die context nodigt uit tot vergelijken met iets anders
+                  dan wat er geleverd wordt.
+
+                  Ontvochtiging in l/24u en luchtverplaatsing in m³/u stonden
+                  hier ook: getallen voor een technieker, niet voor iemand die
+                  wil weten wanneer hij verder kan. "Huurduur" is daarom
+                  "droog in ± x weken" geworden — hoe lang wij het toestel
+                  uitlenen is ons probleem.
+                */
+                <div className="ds-plan">
+                  <b className="ds-plan-titel">{t.planKop}</b>
+                  <small className="ds-plan-sub">
+                    {woningTekst(woning, taal).label} · {woningLagen(lagen, dak, t).toLowerCase()} · {t.kamers(totaalKamers)} · {maat}
+                  </small>
+                  <ul className="ds-plan-lijst">
                     {resultaat.items
                       .filter((it) => it.q > 0)
                       .map((it) => (
                         <li key={it.k}>
                           <img src={CAT[it.k].img.replace(/\.png$/, ".webp")} alt="" loading="lazy" decoding="async" />
-                          <span className="q">{it.q}×</span>
-                          <b>{t.toestelKort[it.k]}</b>
-                          <small>{cat[it.k].name.split(", ")[1] ?? ""}</small>
+                          <span>{t.toestelKort[it.k]}</span>
+                          <b>{it.q} ×</b>
                         </li>
                       ))}
+                    <li>
+                      <span className="ds-plan-geenbeeld" />
+                      <span>{t.planDroogIn}</span>
+                      <b>{t.weekOfWeken(resultaat.weken)}</b>
+                    </li>
+                    <li>
+                      <span className="ds-plan-geenbeeld" />
+                      <span>{t.planLevering}</span>
+                      <b className="ds-plan-ok">{t.planInbegrepen}</b>
+                    </li>
                   </ul>
-                  <dl className="ds-stats">
-                    {resultaat.capaciteit > 0 && (
-                      <div>
-                        <dt>{t.ontvochtiging}</dt>
-                        <dd>{resultaat.capaciteit} <small>{t.l24u}</small></dd>
-                      </div>
-                    )}
-                    {resultaat.luchtverzet > 0 && (
-                      <div>
-                        <dt>{t.lucht}</dt>
-                        <dd>{resultaat.luchtverzet.toLocaleString(NUMBER_LOCALE[taal])} <small>{t.m3u}</small></dd>
-                      </div>
-                    )}
-                  </dl>
-                  <div className="ds-advies ds-advies--plan">
-                    <b>{t.letOp} · {faseInTaal(antwoorden.fase, taal).label.toLowerCase()}</b>
-                    {faseInTaal(antwoorden.fase, taal).advies}
-                  </div>
-{totaal}
-                </>
+                  <Link className="ds-plan-knop" to={lp(`/verhuur/pakket?${configToQuery(resultaat.config)}${extraNaarQuery(resultaat.extra)}`)}>
+                    {t.planKnop} <span aria-hidden="true">→</span>
+                  </Link>
+                  <small className="ds-plan-knopsub">{t.planKnopSub}</small>
+                </div>
               )}
 
               {stap === 4 && !resultaat && (
@@ -810,14 +829,11 @@ const VerhuurSimulatorPage = () => {
                   {volgende.label}
                 </button>
               ) : resultaat ? (
-                <>
-                  <Link className="ds-boek" to={lp(`/verhuur/pakket?${configToQuery(resultaat.config)}${extraNaarQuery(resultaat.extra)}`)}>
-                    {t.boek}
-                  </Link>
-                  <button className="ds-rond" type="button" aria-label={t.opnieuwBeginnen} title={t.opnieuw} onClick={() => { setS(START); naar(0); }}>
-                    <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 10a6 6 0 1 0 2-4.5M4 3v3.5h3.5" /></svg>
-                  </button>
-                </>
+                /* De knop naar het pakket staat in het droogplan zelf; hier blijft
+                   alleen "opnieuw", anders staan er twee knoppen die hetzelfde doen. */
+                <button className="ds-rond ds-rond--rechts" type="button" aria-label={t.opnieuwBeginnen} title={t.opnieuw} onClick={() => { setS(START); naar(0); }}>
+                  <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 10a6 6 0 1 0 2-4.5M4 3v3.5h3.5" /></svg>
+                </button>
               ) : (
                 <button
                   className="ds-back ds-back--rechts"
@@ -838,7 +854,8 @@ const VerhuurSimulatorPage = () => {
           {/* ───────────── tekening ───────────── */}
           <section className="ds-stage" aria-label={t.tekening}>
             <div className="ds-shead">
-              <div>
+              {/* Eigen klasse: de kop staat op een glasplaatje boven de tekening, zie droogsimulator.css. */}
+              <div className="ds-shead-kop">
                 <p className="ds-eyebrow">{stageKop.eyebrow}</p>
                 <p className="ds-stitel" aria-live="polite">{stageKop.titel}</p>
               </div>
@@ -940,6 +957,40 @@ const VerhuurSimulatorPage = () => {
   );
 };
 
+/*
+  Het verschil tussen rijwoning, halfopen en open bebouwing is het aantal
+  gemene muren, en net dát zie je op een gevelfoto nauwelijks: drie van de vier
+  foto's tonen dezelfde rode baksteen. Dit plaatje is een plattegrond van
+  bovenaf — jouw woning in het midden, de gemene muren rood — zodat de keuze te
+  zien is in plaats van te lezen.
+*/
+function MuurSchema({ woning }: { woning: Woning }) {
+  // Appartement krijgt bouwlagen in plaats van gemene muren: het bijschrift
+  // ernaast zegt "één of twee bouwlagen", en een plaatje dat iets anders
+  // beweert dan de tekst maakt het juist troebeler.
+  if (woning === "appartement") {
+    return (
+      <svg className="ds-muurschema" viewBox="0 0 60 30" aria-hidden="true">
+        <rect className="buur" x={14} y={2} width={32} height={11} rx={1.5} />
+        <rect className="mijn" x={14} y={17} width={32} height={11} rx={1.5} />
+      </svg>
+    );
+  }
+  const links = woning === "rijwoning";
+  const rechts = woning === "rijwoning" || woning === "halfopen";
+  return (
+    <svg className="ds-muurschema" viewBox="0 0 60 30" aria-hidden="true">
+      {links && <rect className="buur" x={1} y={6} width={17} height={22} rx={1.5} />}
+      {rechts && <rect className="buur" x={42} y={6} width={17} height={22} rx={1.5} />}
+      <rect className="mijn" x={20} y={6} width={20} height={22} rx={1.5} />
+      {/* De gemene muur loopt door tot boven de blokken uit: zo valt de rode
+          streep op als de muur die gedeeld wordt, niet als een voeg. */}
+      {links && <line className="gemeen" x1={19} x2={19} y1={3} y2={29} />}
+      {rechts && <line className="gemeen" x1={41} x2={41} y1={3} y2={29} />}
+    </svg>
+  );
+}
+
 /** Foto uit Astra als die er is, anders de tekening (`children`). Decoratief: de knop draagt de naam. */
 function Foto({ sleutel, children }: { sleutel: FotoSleutel; children: ReactNode }) {
   const src = fotoVoor(sleutel);
@@ -998,10 +1049,15 @@ const LAAG = {
   pd: {
     waarden: PD_VALUES,
     standaard: DEFAULT_PD,
-    foto: "/simulator/dikte-pleister-v2.webp",
-    fotoKlein: "/simulator/dikte-pleister-v2-360.webp",
+    fotos: {
+      0: "/simulator/pleister-0cm-v3.webp",
+      1: "/simulator/pleister-1cm-v3.webp",
+      2: "/simulator/pleister-2cm-v3.webp",
+      3: "/simulator/pleister-3cm-v3.webp",
+    } as Record<number, string>,
+    fotoStandaard: "/simulator/pleister-2cm-v3.webp",
     fotoBreedte: 1024,
-    fotoPositie: "48% 50%",
+    fotoPositie: "50% 50%",
     // Vuistregel: ± 1 week per cm zonder droger.
     weken: (cm: number) => cm,
   },
@@ -1009,15 +1065,34 @@ const LAAG = {
     waarden: CD_VALUES,
     standaard: DEFAULT_CD,
     // Nieuwe bestandsnaam, niet de oude overschreven: zie VERSIE in fotos.ts.
-    foto: "/simulator/dikte-chape-v2.webp",
-    fotoKlein: "/simulator/dikte-chape-v2-360.webp",
+    fotos: {
+      0: "/simulator/chape-0cm-v3.webp",
+      5: "/simulator/chape-5cm-v3.webp",
+      6: "/simulator/chape-6cm-v3.webp",
+      7: "/simulator/chape-7cm-v3.webp",
+    } as Record<number, string>,
+    fotoStandaard: "/simulator/chape-6cm-v3.webp",
     // Staand 1024×1536: scherp genoeg voor de banner over de volle breedte als chape de enige laag is.
     fotoBreedte: 1024,
-    fotoPositie: "50% 72%",
+    fotoPositie: "50% 50%",
     // Vuistregel: 1 week per cm tot 4 cm, daarboven 2 weken per extra cm.
     weken: (cm: number) => (cm <= 4 ? cm : 4 + 2 * (cm - 4)),
   },
 } as const;
+
+/*
+  Vuur en ijs voor de verwarmingsvraag. Geen bibliotheek en geen videobestand:
+  drie gestapelde vlamlagen en een kubus van zes vlakken, alles in CSS (zie
+  `.ds-vlam` en `.ds-ijs` in droogsimulator.css). Blijft scherp op elk scherm en
+  staat stil zodra de bezoeker beweging uitzet.
+*/
+const Vlam = () => (
+  <span className="ds-vlam" aria-hidden="true"><i /><i /><i /></span>
+);
+
+const IJsblok = () => (
+  <span className="ds-ijs" aria-hidden="true"><span><i /><i /><i /><i /><i /><i /></span></span>
+);
 
 const Vink = ({ grootte = 10 }: { grootte?: number }) => (
   <svg width={grootte} height={grootte} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -1036,8 +1111,9 @@ function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd";
   const droog = gekozen === "geen";
   const onbekend = gekozen === "onbekend";
   const cm = droog ? 0 : Number(onbekend ? L.standaard : gekozen);
+  const foto = L.fotos[cm] ?? L.fotoStandaard;
+  const fotoKlein = foto.replace(/\.webp$/, "-360.webp");
   const max = Math.max(...L.waarden.map(Number));
-  const weken = L.weken(cm);
   const keuzes: { v: string; groot: ReactNode; klein: string }[] = [
     { v: "geen", groot: t.geen, klein: droog ? t.droogKlein : t.nietNat },
     ...L.waarden.map((v) => ({ v, groot: <>{v}<small> cm</small></>, klein: v === L.standaard ? t.meest : "" })),
@@ -1049,7 +1125,7 @@ function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd";
   return (
     <section className={`ds-laagk${droog ? " uit" : ""}${solo ? " ds-laagk--solo" : ""}`} aria-label={L.titel}>
       <figure className="ds-laagk-foto">
-        <img src={L.fotoKlein} srcSet={`${L.fotoKlein} 360w, ${L.foto.replace(/\.webp$/, "-640.webp")} 640w, ${L.foto} ${L.fotoBreedte}w`} sizes={solo ? "(max-width: 899px) 92vw, 640px" : "(max-width: 899px) 30vw, 260px"} alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
+        <img src={fotoKlein} srcSet={`${fotoKlein} 360w, ${foto.replace(/\.webp$/, "-640.webp")} 640w, ${foto} ${L.fotoBreedte}w`} sizes={solo ? "(max-width: 899px) 92vw, 640px" : "(max-width: 899px) 30vw, 260px"} alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
         {droog && <span className="ds-laagk-badge">{t.nietNatBadge}</span>}
         {solo ? (
           <figcaption className="ds-laagk-band">
@@ -1088,16 +1164,6 @@ function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd";
           ))}
         </div>
         <div className="ds-laagk-info" aria-live="polite">
-          <span className="tijd">
-            {droog ? <span className="ok-bol"><Vink grootte={8} /></span> : (
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.5" /><path d="M8 4.5V8l2.4 1.6" /></svg>
-            )}
-            <span>
-              {droog
-                ? laag === "pd" ? t.geenPleister : t.geenChape
-                : <>{t.zonderDroger(weken)}{onbekend && <em>{t.gerekendMet(cm)}</em>}</>}
-            </span>
-          </span>
           <span className="tip">{L.tip}</span>
         </div>
       </div>

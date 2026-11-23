@@ -98,6 +98,15 @@ export interface SimCopy {
   s3Sub: string;
   kiesFase: string;
   verwarming: string;
+  /*
+    De verwarmingsvraag als twee situaties in plaats van ja/nee (23-11-2026).
+    "Is er verwarming?" met Ja/Nee verzwijgt waarom hij gesteld wordt: zonder
+    verwarming komen er kachels in het pakket, en dat kost geld. De klant koos
+    dus blind. Nu staat het gevolg in het antwoord zelf.
+  */
+  warmKop: string;
+  warmJa: [titel: string, gevolg: string];
+  warmNee: [titel: string, gevolg: string];
   ja: string;
   nee: string;
   kachelsErbij: [vet: string, rest: string];
@@ -105,6 +114,13 @@ export interface SimCopy {
   hoeSnelVol: string;
   plusDroger: string;
   weken: (n: number) => string;
+  /* stap 5 */
+  planKop: string;
+  planDroogIn: string;
+  planLevering: string;
+  planInbegrepen: string;
+  planKnop: string;
+  planKnopSub: string;
   /* stap 4 */
   s4Kop: string;
   perLaag: string;
@@ -275,6 +291,9 @@ export const COPY: Copy<SimCopy> = {
     s3Sub: "Kies hoe ver de werken staan. De foto toont waar het vocht zit.",
     kiesFase: "Kies uw fase",
     verwarming: "Is er verwarming?",
+    warmKop: "Kan de woning warm gestookt worden?",
+    warmJa: ["De verwarming draait al", "Dan hebben we alleen drogers en ventilatoren nodig."],
+    warmNee: ["Nog geen verwarming", "Dan zetten we er kachels bij: drogen lukt niet in de kou."],
     ja: "Ja",
     nee: "Nee",
     kachelsErbij: ["Kachels", " erbij in uw pakket."],
@@ -282,6 +301,12 @@ export const COPY: Copy<SimCopy> = {
     hoeSnelVol: "Hoe snel moet het droog zijn?",
     plusDroger: "+1 droger",
     weken: (n) => `${n} weken`,
+    planKop: "Uw droogplan",
+    planDroogIn: "Droog in",
+    planLevering: "Levering & ophaling",
+    planInbegrepen: "Inbegrepen",
+    planKnop: "Bekijk uw pakket",
+    planKnopSub: "Daar ziet u de prijs, de huurduur en de leverdatum.",
     s4Kop: "Hoe dik is het nat?",
     perLaag: "Kies per laag de dikte.",
     eenLaag: "Kies de dikte.",
@@ -458,6 +483,9 @@ export const COPY: Copy<SimCopy> = {
     s3Sub: "Indiquez où en sont les travaux. La photo montre où se trouve l'humidité.",
     kiesFase: "Choisissez votre phase",
     verwarming: "Y a-t-il du chauffage ?",
+    warmKop: "Le logement peut-il être chauffé ?",
+    warmJa: ["Le chauffage fonctionne déjà", "Nous n'avons alors besoin que de déshumidificateurs et de ventilateurs."],
+    warmNee: ["Pas encore de chauffage", "Nous ajoutons alors des chauffages : rien ne sèche dans le froid."],
     ja: "Oui",
     nee: "Non",
     kachelsErbij: ["Chauffages", " ajoutés à votre pack."],
@@ -465,6 +493,12 @@ export const COPY: Copy<SimCopy> = {
     hoeSnelVol: "En combien de temps cela doit-il être sec ?",
     plusDroger: "+1 déshumidificateur",
     weken: (n) => `${n} semaines`,
+    planKop: "Votre plan de séchage",
+    planDroogIn: "Sec en",
+    planLevering: "Livraison & enlèvement",
+    planInbegrepen: "Inclus",
+    planKnop: "Voir votre formule",
+    planKnopSub: "Vous y trouvez le prix, la durée de location et la date de livraison.",
     s4Kop: "Quelle épaisseur est humide ?",
     perLaag: "Choisissez l'épaisseur de chaque couche.",
     eenLaag: "Choisissez l'épaisseur.",
@@ -640,6 +674,9 @@ export const COPY: Copy<SimCopy> = {
     s3Sub: "Choose how far the works have got. The photo shows where the moisture is.",
     kiesFase: "Choose your stage",
     verwarming: "Is there heating?",
+    warmKop: "Can the property be heated?",
+    warmJa: ["The heating is already on", "Then we only need dryers and fans."],
+    warmNee: ["No heating yet", "Then we add heaters: nothing dries in the cold."],
     ja: "Yes",
     nee: "No",
     kachelsErbij: ["Heaters", " added to your package."],
@@ -647,6 +684,12 @@ export const COPY: Copy<SimCopy> = {
     hoeSnelVol: "How fast does it need to be dry?",
     plusDroger: "+1 dehumidifier",
     weken: (n) => `${n} weeks`,
+    planKop: "Your drying plan",
+    planDroogIn: "Dry in",
+    planLevering: "Delivery & collection",
+    planInbegrepen: "Included",
+    planKnop: "View your package",
+    planKnopSub: "There you will find the price, the rental period and the delivery date.",
     s4Kop: "How thick is the wet layer?",
     perLaag: "Choose the thickness of each layer.",
     eenLaag: "Choose the thickness.",
