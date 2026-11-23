@@ -1825,6 +1825,8 @@
 .ds-warmk.on{border-color:var(--ok);box-shadow:0 0 0 4px rgba(47,158,91,.22),0 0 24px var(--ok-glow)}
 .ds-warmk b{display:block;font-size:13.5px;line-height:1.2}
 .ds-warmk small{display:block;margin-top:3px;font-size:11.5px;line-height:1.35;color:var(--mid)}
+/* De korte tekst is er alleen voor gsm; op pc staat de volle zin. */
+.ds-wkort{display:none}
 
 /*
   De vlamvorm: een vierkant met drie ronde hoeken en één scherpe, 45° gedraaid
@@ -1868,10 +1870,21 @@
   .ds-vlam i,.ds-vlam::after,.ds-ijs > span{animation:none}
 }
 @media (max-width:899px){
-  /* Op gsm staan de twee onder elkaar: naast elkaar wordt de zin onleesbaar. */
-  .ds-warmset{grid-template-columns:minmax(0,1fr);gap:6px}
-  .ds-warmk{padding:8px 11px;gap:10px}
-  .ds-vlam,.ds-ijs{width:34px;height:38px}
+  /*
+    Op gsm naast elkaar, met de korte tekst. Onder elkaar namen de twee kaarten
+    ruim 150 px, en dat ging van de bouwfoto erboven af — net de foto waaraan de
+    bezoeker zijn bouwfase herkent. Naast elkaar is dat de helft. Alleen op gsm:
+    op pc is er breedte genoeg voor de volle zin naast elkaar.
+  */
+  .ds-warmset{grid-template-columns:1fr 1fr;gap:7px}
+  .ds-warmk{align-items:flex-start;padding:8px 9px 9px 8px;gap:7px}
+  .ds-wlang{display:none}
+  .ds-wkort{display:inline}
+  .ds-warmk b{font-size:12.5px;line-height:1.15}
+  .ds-warmk small{margin-top:2px;font-size:10.5px;line-height:1.25}
+  /* Het beeldje hangt aan de bovenste tekstregel; een paar pixels lager staat
+     het optisch gelijk met het woord ernaast in plaats van erboven. */
+  .ds-vlam,.ds-ijs{width:26px;height:30px;margin-top:3px}
   .ds-ijs > span{width:24px;height:24px}
   .ds-ijs i:nth-child(1){transform:translateZ(12px)}
   .ds-ijs i:nth-child(2){transform:rotateY(180deg) translateZ(12px)}

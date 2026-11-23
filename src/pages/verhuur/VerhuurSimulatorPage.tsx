@@ -637,11 +637,17 @@ const VerhuurSimulatorPage = () => {
                     <div className="ds-warmset" role="radiogroup" aria-label={t.warmKop}>
                       <button type="button" role="radio" aria-checked={verwarmd === true} className={`ds-warmk${verwarmd === true ? ` on${gok("verwarmt")}` : ""}`} onClick={() => { raak("verwarmt"); setS((p) => ({ ...p, verwarmt: true })); }}>
                         <Vlam />
-                        <span><b>{t.warmJa[0]}</b><small>{t.warmJa[1]}</small></span>
+                        <span>
+                          <b><span className="ds-wlang">{t.warmJa[0]}</span><span className="ds-wkort">{t.warmJaKort[0]}</span></b>
+                          <small><span className="ds-wlang">{t.warmJa[1]}</span><span className="ds-wkort">{t.warmJaKort[1]}</span></small>
+                        </span>
                       </button>
                       <button type="button" role="radio" aria-checked={verwarmd === false} className={`ds-warmk${verwarmd === false ? ` on${gok("verwarmt")}` : ""}`} onClick={() => { raak("verwarmt"); setS((p) => ({ ...p, verwarmt: false })); }}>
                         <IJsblok />
-                        <span><b>{t.warmNee[0]}</b><small>{t.warmNee[1]}</small></span>
+                        <span>
+                          <b><span className="ds-wlang">{t.warmNee[0]}</span><span className="ds-wkort">{t.warmNeeKort[0]}</span></b>
+                          <small><span className="ds-wlang">{t.warmNee[1]}</span><span className="ds-wkort">{t.warmNeeKort[1]}</span></small>
+                        </span>
                       </button>
                     </div>
                   </div>

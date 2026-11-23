@@ -85,6 +85,12 @@ export interface SimCopy {
   warmKop: string;
   warmJa: [titel: string, gevolg: string];
   warmNee: [titel: string, gevolg: string];
+  /**
+   * Dezelfde twee antwoorden, kort. Op gsm staan de kaarten naast elkaar, zodat
+   * de bouwfoto erboven groter kan: in een halve kolom past de volle zin niet.
+   */
+  warmJaKort: [titel: string, gevolg: string];
+  warmNeeKort: [titel: string, gevolg: string];
   ja: string;
   nee: string;
   kachelsErbij: [vet: string, rest: string];
@@ -256,6 +262,8 @@ export const COPY: Copy<SimCopy> = {
     warmKop: "Kan de woning warm gestookt worden?",
     warmJa: ["De verwarming draait al", "Dan hebben we alleen drogers en ventilatoren nodig."],
     warmNee: ["Nog geen verwarming", "Dan zetten we er kachels bij: drogen lukt niet in de kou."],
+    warmJaKort: ["Verwarming aan", "Drogers + ventilatoren"],
+    warmNeeKort: ["Geen verwarming", "Kachels erbij"],
     ja: "Ja",
     nee: "Nee",
     kachelsErbij: ["Kachels", " erbij in uw pakket."],
@@ -430,6 +438,8 @@ export const COPY: Copy<SimCopy> = {
     warmKop: "Le logement peut-il être chauffé ?",
     warmJa: ["Le chauffage fonctionne déjà", "Nous n'avons alors besoin que de déshumidificateurs et de ventilateurs."],
     warmNee: ["Pas encore de chauffage", "Nous ajoutons alors des chauffages : rien ne sèche dans le froid."],
+    warmJaKort: ["Chauffage en marche", "Déshumidificateurs + ventilateurs"],
+    warmNeeKort: ["Pas de chauffage", "Chauffages en plus"],
     ja: "Oui",
     nee: "Non",
     kachelsErbij: ["Chauffages", " ajoutés à votre pack."],
@@ -603,6 +613,8 @@ export const COPY: Copy<SimCopy> = {
     warmKop: "Can the property be heated?",
     warmJa: ["The heating is already on", "Then we only need dryers and fans."],
     warmNee: ["No heating yet", "Then we add heaters: nothing dries in the cold."],
+    warmJaKort: ["Heating is on", "Dryers + fans"],
+    warmNeeKort: ["No heating", "Heaters added"],
     ja: "Yes",
     nee: "No",
     kachelsErbij: ["Heaters", " added to your package."],
