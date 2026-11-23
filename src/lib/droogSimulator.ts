@@ -331,6 +331,14 @@ export interface Kamer {
   l: number;
   /** hal, gang en overloop zijn circulatie: ze tellen niet als kamer */
   soort?: KamerSoort;
+  /**
+   * Een tweede rechthoek van een ruimte die geen rechthoek is (de zithoek naast de
+   * hal, de doorgang naast het toilet, de strook langs het trapgat): geen eigen
+   * label en geen eigen kamer in de telling.
+   */
+  deel?: boolean;
+  /** Bij een `deel` van een kamer: de id van de hoofdrechthoek. Toestellen tellen ze als één ruimte. */
+  hoort?: string;
 }
 
 /**
@@ -346,9 +354,15 @@ export interface Opening {
   tot: number;
   soort: "deur" | "open" | "voordeur";
   kant: 1 | -1;
+  /** Aan welk eind het scharnier zit; open ligt het blad tegen de muur aan die kant. */
+  scharnier?: "van" | "tot";
 }
 
-/** Een rechte trap in de gang; `op` = er gaat een trap naar boven, anders het trapgat. */
+/**
+ * Een rechte trap tegen de linkermuur van de hal. Hij klimt naar de tuinkant: de
+ * voet ligt aan de voorkant (z + l), de bovenste trede komt uit op de overloop (z).
+ * `op` = er gaat een trap naar boven, anders is dit het trapgat van de trap eronder.
+ */
 export interface Trap {
   verdieping: number;
   x: number;
@@ -386,18 +400,14 @@ export type Programma = Record<string, number>;
 export const MIN_KAMERS = 1;
 export const MAX_KAMERS = 6;
 
-/**
- * Minimale breedtes. Een slaapkamer van 2,6 m breed en ~4 m diep haalt de
- * ~10 m² van een echte slaapkamer; een badkamer heeft 1,8 m nodig voor bad of
- * douche plus lavabo, een toilet 1 m. Zo krijgt een rijwoning van 6 m breed
- * nooit vier repen naast elkaar — wat niet past, past niet.
- */
-const MIN_B: Record<string, number> = {
-  Leefruimte: 3.6, Keuken: 2.4, Slaapkamer: 2.6, Bureau: 2.2, Badkamer: 1.8,
-  Toilet: 1, Berging: 1.4, Wasplaats: 1.4, Dressing: 1.4, Zolder: 3,
+/** De minimale maten van een ruimte: [korte zijde, lange zijde]. */
+export const MIN_MAAT: Record<string, readonly [number, number]> = {
+  Leefruimte: [3.4, 4], Keuken: [2.4, 2.6], Slaapkamer: [2.7, 3], Bureau: [2.2, 2.5],
+  Badkamer: [2, 2.2], Toilet: [0.9, 1.5], Berging: [1.4, 1.6], Wasplaats: [1.6, 1.8],
+  Dressing: [1.4, 1.8], Zolder: [3, 3],
 };
 const opt = (naam: string, meervoud: string, min: number, max: number, gewicht: number, kant: RuimteOptie["kant"]): RuimteOptie =>
-  ({ naam, meervoud, min, max, gewicht, kant, minB: MIN_B[naam] ?? 1.5 });
+  ({ naam, meervoud, min, max, gewicht, kant, minB: MIN_MAAT[naam]?.[0] ?? 1.5 });
 
 export const RUIMTES: Record<LaagSoort, RuimteOptie[]> = {
   gelijkvloers: [
@@ -470,7 +480,8 @@ export function standaardKamers(woning: Woning, v: number, verdiepingen: number,
   const smal = WONING[woning].w < 7;
   if (woning === "appartement" && v === 0) return verdiepingen === 1 ? 4 : 3;
   if (v === 0 && verdiepingen === 1) return smal ? 3 : 4; // bungalow: ook slaapkamer en badkamer beneden
-  if (v === 0) return smal ? 2 : 3;
+  // Ook een rijwoning heeft beneden een toilet: leefruimte, keuken, toilet.
+  if (v === 0) return 3;
   return smal ? 3 : 4;
 }
 
@@ -509,219 +520,309 @@ export function geldig(soort: LaagSoort, p: Programma): Programma {
   return uit;
 }
 
-/** Gangbreedte en trap, in meter. */
+/*
+  De indeling volgt vaste regels, geen vaste plattegrond: zo blijft ze logisch
+  als er kamers bijkomen of het huis groter is.
+
+  - De kern ligt op elke bouwlaag op dezelfde plek, tegen de linkermuur (bij een
+    rij- of halfopen woning de gemene muur): een rechte trap van 14 treden die
+    van de voordeur naar de tuinkant klimt, met erachter een dwarse strook van
+    1,5 m. Beneden is die strook het toilet en de doorgang naar de leefruimte,
+    boven de overloop. Trapgat en overloop schuiven dus nooit mee.
+  - Gelijkvloers: aan de tuinkant leefruimte en keuken over de volle breedte;
+    aan de straatkant de hal met de trap (en onder de trap de vestiairekast).
+    Extra ruimtes (bureau, berging, wasplaats, ...) komen naast de hal, gestapeld
+    van de voorgevel naar achter, of — als ze zo niet passen — aan een gang
+    tussen hal en leefzone. Wat vooraan overblijft is de zithoek van de leefruimte.
+  - Verdieping: de overloop loopt dwars door het huis; slaapkamers, badkamer en
+    bureau liggen er aan beide kanten tegen, een apart toilet is een hokje aan
+    het eind. Geen kamer ligt achter een andere kamer.
+  - Wat niet past met zijn minimale maten, valt weg (maxKamers telt hoeveel er
+    passen); een kamer wordt nooit kleiner gemaakt dan zijn minimum.
+
+  Coördinaten in meter: x langs de voorgevel (0 = linkermuur), z van de
+  achtergevel (0, tuinkant) naar de voorgevel (l, straatkant).
+*/
+
+/** De trap: 14 treden van 25 cm diep, 90 cm breed plus speling tegen de muur. */
+const TRAP_B = 0.95;
+const TRAP_L = 3.5;
+/** De dwarse strook achter de trap: toilet beneden, overloop boven. */
+const KERN = 1.5;
+/** Vrije ruimte aan de voet van de trap, bij de voordeur. */
+const VOET = 1.0;
+/** Een gang (tussen hal en leefzone, als de extra ruimtes niet naast de hal passen). */
 const GANG = 1.2;
-const HAL = 1.2;
-const TRAP_L = 3;
-const MIN_BREEDTE = 1.5;
-const MIN_DIEPTE = 2.6;
-/** Een toilet: 1 m breed, 1,2 m (boven, op de overloop) tot 1,5 m (beneden, naast de hal) diep. */
-const TOILET_B = 1;
-const TOILET_L = 1.5;
+/** Het toilethokje op een verdieping, aan het eind van de overloop. */
+const TOILET_BOVEN = 1.0;
 
-interface Stuk { naam: string; gewicht: number; minB?: number }
+/** De hal: de trap plus een doorgang van minstens 95 cm. */
+export function halBreedte(w: number): number {
+  return w >= 9 ? 2.1 : 1.9;
+}
 
-/** Waar de gang begint (gezien vanaf de tuin): iets voorbij het midden, zodat de tuinkant de diepste kamers heeft. */
-function gangDiepte(l: number): number {
-  const z = (l - GANG) * 0.56;
-  return Math.round(Math.min(l - GANG - MIN_DIEPTE, Math.max(MIN_DIEPTE, z)) * 10) / 10;
+/** Waar de kern begint: de tuinkant ervoor is de leefzone (beneden) of de achterste kamers (boven). */
+export function kernDiepte(l: number): number {
+  return Math.round((l - KERN - TRAP_L - VOET) * 10) / 10;
+}
+
+/** Hoe diep (of breed) een ruimte graag is, als er plaats genoeg is. */
+const VOORKEUR: Record<string, number> = {
+  Slaapkamer: 3.4, Bureau: 3, Badkamer: 2.6, Wasplaats: 2.2, Berging: 2, Dressing: 2,
+};
+
+/** Hoe smal een ruimte mag zijn als de andere kant `diepte` meet; Infinity = past niet. */
+function minBreedte(naam: string, diepte: number): number {
+  const [kort, lang] = MIN_MAAT[naam] ?? [1.5, 1.5];
+  if (diepte >= lang - 1e-9) return kort;
+  if (diepte >= kort - 1e-9) return lang;
+  return Infinity;
+}
+
+interface Ruimte { naam: string; gewicht: number; kant: RuimteOptie["kant"] }
+
+/** Ruimtes die de overschot van een strook krijgen; de rest houdt zijn voorkeursmaat. */
+const REKT = new Set(["Slaapkamer", "Bureau", "Zolder", "Leefruimte"]);
+
+/**
+ * De breedtes van ruimtes naast elkaar in een strook: badkamer, berging en
+ * dergelijke krijgen hun voorkeursmaat, slaapkamers en bureau de rest. Een
+ * badkamer van 4 m breed omdat er toevallig plaats was, leest als een zaal.
+ */
+function breedtes(rij: Ruimte[], lengte: number, diepte: number): number[] | null {
+  const mins = rij.map((r) => minBreedte(r.naam, diepte));
+  const doel = rij.map((r, i) => (REKT.has(r.naam) ? mins[i] : Math.max(mins[i], VOORKEUR[r.naam] ?? mins[i])));
+  const rekt = rij.map((r) => (REKT.has(r.naam) ? r.gewicht : 0));
+  if (rekt.some((g) => g > 0) && doel.reduce((a, c) => a + c, 0) <= lengte + 1e-9) return verdeel(lengte, doel, rekt);
+  return verdeel(lengte, mins, rij.map((r) => r.gewicht));
 }
 
 /**
- * Verdeelt een strook in vakken naast elkaar: elk vak krijgt eerst zijn
- * minimale breedte, de rest van de strook gaat volgens gewicht.
+ * Verdeelt een strook van lengte `lengte` over ruimtes: elk eerst zijn minimum,
+ * de rest naar gewicht. Null als het minimum al niet past.
  */
-function rij(x0: number, x1: number, stukken: Stuk[]): { naam: string; x: number; w: number }[] {
-  const totaal = stukken.reduce((t, s) => t + s.gewicht, 0);
-  const vast = stukken.reduce((t, s) => t + (s.minB ?? 0), 0);
-  const over = Math.max(0, x1 - x0 - vast);
-  let x = x0;
-  return stukken.map((s, i) => {
-    const w = i === stukken.length - 1 ? x1 - x : (s.minB ?? 0) + (over * s.gewicht) / totaal;
-    const uit = { naam: s.naam, x, w };
-    x += w;
-    return uit;
+function verdeel(lengte: number, mins: number[], gewichten: number[]): number[] | null {
+  const vast = mins.reduce((a, b) => a + b, 0);
+  if (!Number.isFinite(vast) || vast > lengte + 1e-9) return null;
+  const totaal = gewichten.reduce((a, b) => a + b, 0) || 1;
+  const maten = mins.map((m, i) => Math.round((m + ((lengte - vast) * gewichten[i]) / totaal) * 100) / 100);
+  // Afronding: de laatste vult de strook precies.
+  maten[maten.length - 1] = Math.round((lengte - maten.slice(0, -1).reduce((a, b) => a + b, 0)) * 1000) / 1000;
+  return maten;
+}
+
+interface Bouw {
+  v: number;
+  kamers: Kamer[];
+  openingen: Opening[];
+  n: number;
+}
+
+function kamer(b: Bouw, naam: string, x: number, z: number, w: number, l: number, extra: Partial<Kamer> = {}): Kamer {
+  const k: Kamer = { id: `${b.v}-${b.n++}`, naam, verdieping: b.v, x, z, w, l, soort: "kamer", ...extra };
+  b.kamers.push(k);
+  return k;
+}
+
+/**
+ * Een deur in de wand tussen een gang en een kamer, 10 cm uit een hoek van de
+ * kamer. Het scharnier zit aan die hoek en het blad draait de kamer in: open
+ * ligt het tegen de muur, niet midden in de doorgang.
+ */
+function deur(b: Bouw, as: "x" | "z", vast: number, van: number, tot: number, kant: 1 | -1, hoek: "van" | "tot", breedte = 0.85) {
+  const bw = Math.min(breedte, tot - van - 0.2);
+  const [a, c] = hoek === "van" ? [van + 0.1, van + 0.1 + bw] : [tot - 0.1 - bw, tot - 0.1];
+  b.openingen.push({ verdieping: b.v, as, vast, van: a, tot: c, soort: "deur", kant, scharnier: hoek });
+}
+
+function open(b: Bouw, as: "x" | "z", vast: number, van: number, tot: number) {
+  if (tot - van > 1e-6) b.openingen.push({ verdieping: b.v, as, vast, van, tot, soort: "open", kant: 1 });
+}
+
+/** Het gelijkvloers (ook het appartement): hal en kern links, leefzone achter, extra ruimtes ernaast. */
+function gelijkvloers(b: Bouw, w: number, l: number, ruimtes: Ruimte[]): void {
+  const H = halBreedte(w), zc = kernDiepte(l);
+  const neem = (naam: string) => {
+    const i = ruimtes.findIndex((r) => r.naam === naam);
+    return i < 0 ? null : ruimtes.splice(i, 1)[0];
+  };
+  neem("Leefruimte");
+  const keuken = neem("Keuken");
+  const toilet = neem("Toilet");
+
+  // Kern: toilet (0,95 × 1,5 m, tegen de linkermuur) en de doorgang naar de leefruimte.
+  if (toilet) {
+    kamer(b, "Toilet", 0, zc, TRAP_B, KERN);
+    kamer(b, "Hal", TRAP_B, zc, H - TRAP_B, KERN, { soort: "circulatie", deel: true });
+    // De deur naar de leefruimte draait de hal in, tegen de toiletmuur; de toiletdeur
+    // (63 cm, de gangbare maat) zit erachter, aan de kant van de trap.
+    b.openingen.push({ verdieping: b.v, as: "z", vast: TRAP_B, van: zc + 0.82, tot: zc + KERN - 0.05, soort: "deur", kant: -1, scharnier: "tot" });
+    b.openingen.push({ verdieping: b.v, as: "x", vast: zc, van: TRAP_B + 0.05, tot: H - 0.05, soort: "deur", kant: 1, scharnier: "van" });
+    kamer(b, "Hal", 0, zc + KERN, H, l - zc - KERN, { soort: "circulatie" });
+    open(b, "x", zc + KERN, TRAP_B, H);
+  } else {
+    kamer(b, "Hal", 0, zc, H, l - zc, { soort: "circulatie" });
+    b.openingen.push({ verdieping: b.v, as: "x", vast: zc, van: TRAP_B + 0.05, tot: H - 0.05, soort: "deur", kant: 1, scharnier: "van" });
+  }
+  b.openingen.push({ verdieping: b.v, as: "x", vast: l, van: TRAP_B + 0.05, tot: H - 0.05, soort: "voordeur", kant: -1 });
+
+  // Extra ruimtes naast de hal. Eerst gestapeld van de voorgevel naar achter, elk met
+  // een deur in de halmuur; past dat niet, dan naast elkaar aan een gang.
+  const Wv = w - H, Dv = l - zc;
+  // Straatkant eerst (bureau, slaapkamer), natte ruimtes en berging bij de leefzone.
+  const orde = ["Bureau", "Slaapkamer", "Dressing", "Badkamer", "Wasplaats", "Berging"];
+  const extra = [...ruimtes].sort((a, c) => orde.indexOf(a.naam) - orde.indexOf(c.naam));
+  let zitVoor = 0; // diepte van de zithoek vooraan (deel van de leefruimte)
+  let gang = false;
+  for (;;) {
+    if (extra.length === 0) { zitVoor = Dv; break; }
+    const mins = extra.map((r) => minBreedte(r.naam, Wv));
+    const pref = extra.map((r, i) => Math.max(mins[i], VOORKEUR[r.naam] ?? mins[i]));
+    const somMin = mins.reduce((a, c) => a + c, 0), somPref = pref.reduce((a, c) => a + c, 0);
+    // Breed huis en meer dan één ruimte: naast elkaar aan een gang, geen stroken van 7 m breed.
+    const liever = extra.length > 1 && Wv >= 5.5 && breedtes(extra, Wv, Dv - GANG) !== null;
+    if (!liever && somPref + 2.4 <= Dv) {
+      // Ruim: elke ruimte haar voorkeursdiepte, de rest is zithoek.
+      stapel(b, H, w, l, extra.map((r) => r.naam), pref, zc + KERN);
+      zitVoor = Dv - somPref;
+      break;
+    }
+    if (!liever && somMin <= Dv + 1e-9) {
+      const extraDiep = verdeel(Dv, mins, pref.map((p, i) => p - mins[i] + 0.01))!;
+      stapel(b, H, w, l, extra.map((r) => r.naam), extraDiep, zc + KERN);
+      break;
+    }
+    const rij = breedtes(extra, Wv, Dv - GANG);
+    if (rij) {
+      gang = true;
+      kamer(b, "Gang", H, zc, Wv, GANG, { soort: "circulatie", deel: true });
+      open(b, "z", H, zc, zc + GANG);
+      let x = H;
+      extra.forEach((r, i) => {
+        kamer(b, r.naam, x, zc + GANG, rij[i], Dv - GANG);
+        deur(b, "x", zc + GANG, x, x + rij[i], 1, "van");
+        x += rij[i];
+      });
+      break;
+    }
+    // Past niet: de minst gevraagde ruimte valt weg (maxKamers telt wat overblijft).
+    const weg = extra.reduce((a, c) => (WEG_EERST.indexOf(c.naam) < WEG_EERST.indexOf(a.naam) ? c : a));
+    extra.splice(extra.indexOf(weg), 1);
+    ruimtes.splice(ruimtes.indexOf(weg), 1);
+  }
+
+  // Tuinkant: leefruimte, met de keuken rechts ertegen.
+  const wk = keuken ? Math.min(3.6, Math.max(2.6, Math.round(w * 0.38 * 10) / 10)) : 0;
+  const leef = kamer(b, "Leefruimte", 0, 0, w - wk, zc);
+  if (keuken) {
+    kamer(b, "Keuken", w - wk, 0, wk, zc);
+    // Open keuken: geen muur naar de leefruimte (een halve muur stond als een los
+    // stuk midden in de kamer), de eettafel staat ertussen.
+    open(b, "z", w - wk, 0, zc);
+  }
+  if (zitVoor > 1e-6 && !gang) {
+    // De zithoek vooraan, naast de hal: hetzelfde vertrek, zonder muur ertussen.
+    kamer(b, "Leefruimte", H, zc, Wv, zitVoor, { deel: true, hoort: leef.id });
+    open(b, "x", zc, H, w - wk);
+    if (keuken) open(b, "x", zc, w - wk, w);
+  }
+}
+
+/** Welke ruimte het eerst wegvalt als niet alles past. */
+const WEG_EERST = ["Dressing", "Berging", "Wasplaats", "Bureau", "Badkamer", "Slaapkamer"];
+
+/** Extra ruimtes gestapeld van de voorgevel naar achter, naast de hal. */
+function stapel(b: Bouw, H: number, w: number, l: number, namen: string[], diepten: number[], naad: number) {
+  let z = l;
+  namen.forEach((naam, i) => {
+    z -= diepten[i];
+    kamer(b, naam, H, z, w - H, diepten[i]);
+    // Niet over de naad tussen de doorgang naast het toilet en de hal: dan het stuk ervoor of erachter.
+    const [z0, z1] = z < naad && z + diepten[i] > naad ? (z + diepten[i] - naad >= 1.05 ? [naad, z + diepten[i]] : [z, naad]) : [z, z + diepten[i]];
+    deur(b, "z", H, z0, z1, 1, "tot");
   });
 }
 
-/**
- * De indeling van één bouwlaag, zoals een Vlaamse woning meestal ligt: een
- * gang dwars door het midden met de trap aan het eind, kamers aan de tuinkant
- * (achter, z klein) en aan de straatkant (voor, z = l). Op het gelijkvloers
- * loopt een hal van de voordeur naar die gang.
- *
- * Elke kamer raakt de gang en krijgt daar één deur — weg van de trap als dat
- * kan. Een keuken naast de leefruimte krijgt er een open doorgang naar toe.
- * De vakken vullen de bouwlaag precies; de test bewaakt dat.
- */
+/** Een verdieping of zolder: overloop dwars door het huis, kamers aan beide kanten. */
+function verdieping(b: Bouw, w: number, l: number, ruimtes: Ruimte[], trapOp: boolean): void {
+  const H = halBreedte(w), zc = kernDiepte(l);
+  const ti = ruimtes.findIndex((r) => r.naam === "Toilet");
+  const toilet = ti >= 0 ? ruimtes.splice(ti, 1)[0] : null;
+  const eind = toilet ? w - TOILET_BOVEN : w;
+  // Langs het trapgat: alleen het gat (bovenste laag), of gat plus doorgang als er
+  // nog een trap naar boven vertrekt — die begint vooraan, bij de voorgevel.
+  const strook = trapOp ? H : TRAP_B;
+  const diepAchter = zc, diepVoor = l - zc - KERN, breedVoor = w - strook;
+
+  // Badkamer en toilet aan de tuinkant, boven keuken en toilet; slaapkamers vullen aan.
+  const achter: Ruimte[] = [], voor: Ruimte[] = [];
+  const mins = (rij: Ruimte[], d: number) => rij.reduce((s, r) => s + minBreedte(r.naam, d), 0);
+  const past = (rij: Ruimte[], r: Ruimte) =>
+    rij === achter ? mins([...rij, r], diepAchter) <= w + 1e-9 : mins([...rij, r], diepVoor) <= breedVoor + 1e-9;
+  const opVolgorde = [...ruimtes.filter((r) => r.kant !== "vrij"), ...ruimtes.filter((r) => r.kant === "vrij")];
+  for (const r of opVolgorde) {
+    let rij = r.kant === "achter" ? achter : r.kant === "voor" ? voor
+      : mins(achter, diepAchter) / w <= mins(voor, diepVoor) / breedVoor ? achter : voor;
+    if (!past(rij, r)) rij = rij === achter ? voor : achter;
+    if (!past(rij, r)) continue;
+    rij.push(r);
+  }
+  // De badkamer rechts, recht boven de keuken; verder de smalste links. Zo is de
+  // ruimte die achter het toilethokje doorloopt breed genoeg voor een deur.
+  const plek = (r: Ruimte) => (r.naam === "Badkamer" ? 10 : MIN_MAAT[r.naam]?.[0] ?? 1.5);
+  achter.sort((a, c) => plek(a) - plek(c));
+  voor.sort((a, c) => plek(a) - plek(c));
+
+  kamer(b, "Overloop", 0, zc, eind, KERN, { soort: "circulatie" });
+  kamer(b, "Overloop", 0, zc + KERN, strook, l - zc - KERN, { soort: "circulatie", deel: true });
+  open(b, "x", zc + KERN, 0, strook);
+  if (toilet) {
+    kamer(b, "Toilet", eind, zc, TOILET_BOVEN, KERN);
+    deur(b, "z", eind, zc, zc + KERN, 1, "tot", 0.63);
+  }
+
+  const vul = (rij: Ruimte[], x0: number, x1: number, z: number, d: number, wand: number, kant: 1 | -1) => {
+    if (rij.length === 0) {
+      // Niets aan deze kant: een open ruimte aan de overloop (vide of speelhoek).
+      kamer(b, "Overloop", x0, z, x1 - x0, d, { soort: "circulatie", deel: true });
+      open(b, "x", wand, Math.max(x0, 0), Math.min(x1, eind));
+      return;
+    }
+    const maten = breedtes(rij, x1 - x0, d)!;
+    let x = x0;
+    rij.forEach((r, i) => {
+      kamer(b, r.naam, x, z, maten[i], d);
+      // De deur in het stuk dat aan de overloop grenst, bij de hoek die het dichtst bij de trap ligt.
+      deur(b, "x", wand, Math.max(x, 0), Math.min(x + maten[i], eind), kant, "van");
+      x += maten[i];
+    });
+  };
+  vul(achter, 0, w, 0, diepAchter, zc, -1);
+  vul(voor, strook, w, zc + KERN, diepVoor, zc + KERN, 1);
+}
+
+/** Het plan van één bouwlaag. De vakken vullen de bouwlaag precies; de test bewaakt dat. */
 function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma: Programma): Plan {
   const { w, l } = WONING[woning];
   const soort = laagSoort(woning, v, lagen, dak);
   const p = geldig(soort, programma);
-  const opties = RUIMTES[soort];
+  const ruimtes: Ruimte[] = [];
+  for (const o of RUIMTES[soort]) for (let i = 0; i < (p[o.naam] ?? 0); i++) ruimtes.push({ naam: o.naam, gewicht: o.gewicht, kant: o.kant });
 
-  // De ruimtes, in de volgorde van de opties, slaapkamers uitgeschreven.
-  const ruimtes: (Stuk & { kant: RuimteOptie["kant"] })[] = [];
-  for (const o of opties) for (let i = 0; i < (p[o.naam] ?? 0); i++) ruimtes.push({ naam: o.naam, gewicht: o.gewicht, kant: o.kant, minB: o.minB });
-
-  const metHal = v === 0;
-  const kamers: Kamer[] = [];
-  const openingen: Opening[] = [];
+  const b: Bouw = { v, kamers: [], openingen: [], n: 0 };
   const trappen: Trap[] = [];
-  let n = 0;
-  const id = () => `${v}-${n++}`;
-  const som = (r: Stuk[]) => r.reduce((t, s) => t + s.gewicht, 0);
+  const zc = kernDiepte(l);
+  if (lagen > 1) trappen.push({ verdieping: v, x: 0, z: zc + KERN, w: TRAP_B, l: TRAP_L, op: v < lagen - 1 });
 
-  // De gang ligt op elke bouwlaag even diep, zodat de trap recht boven de
-  // vorige uitkomt: een trapkoker, zoals in een echte woning.
-  const zb = gangDiepte(l);
-  const zf = zb + GANG;
-  const trapX0 = w - TRAP_L - 0.1, trapX1 = w - 0.1;
-  if (lagen > 1) trappen.push({ verdieping: v, x: trapX0, z: zb + 0.05, w: TRAP_L, l: GANG - 0.1, op: v < lagen - 1 });
-
-  // Een open zolder is één ruimte: geen overloop ernaast, de trap komt erin uit.
-  // Met de trapkoker als aparte strook bleef er anders meer overloop dan zolder over.
-  if (soort === "zolder" && ruimtes.length === 1 && ruimtes[0].naam === "Zolder") {
-    kamers.push({ id: id(), naam: "Zolder", verdieping: v, x: 0, z: 0, w, l, soort: "kamer" });
-    return { kamers, openingen, trappen };
+  if (v === 0) {
+    gelijkvloers(b, w, l, ruimtes);
+  } else if (soort === "zolder" && ruimtes.length === 1 && ruimtes[0].naam === "Zolder") {
+    // Een open zolder is één ruimte: de trap komt erin uit.
+    kamer(b, "Zolder", 0, 0, w, l);
+  } else {
+    verdieping(b, w, l, ruimtes, v < lagen - 1);
   }
-
-  // Eén ruimte boven: die loopt van tuin tot straat langs de zijgevel, naast
-  // een korte overloop. (Vroeger kreeg elke oneven verdieping zo'n strook van
-  // 10 m diep; in een rijwoning van 6 m breed werd dat een slaapkamer van 2,7 m
-  // breed waar de rest niet meer naast paste. De afwisseling tussen
-  // verdiepingen komt nu van het spiegelen hieronder.)
-  const zuil = !metHal && ruimtes.length === 1;
-  let gx = 0; // waar de gang begint
-  if (zuil) {
-    const grootste = ruimtes.reduce((g, r) => (r.gewicht > g.gewicht ? r : g), ruimtes[0]);
-    ruimtes.splice(ruimtes.indexOf(grootste), 1);
-    const max = w - TRAP_L - 0.3;
-    const wd = ruimtes.length === 0 ? max : Math.min(max, Math.max(MIN_DIEPTE, (w * grootste.gewicht) / (som(ruimtes) + grootste.gewicht) * 1.4));
-    gx = Math.round(wd * 10) / 10;
-    kamers.push({ id: id(), naam: grootste.naam, verdieping: v, x: 0, z: 0, w: gx, l, soort: "kamer" });
-    openingen.push({ verdieping: v, as: "z", vast: gx, van: zb + 0.15, tot: zf - 0.15, soort: "deur", kant: -1 });
-  }
-
-  const breed = w - gx;
-  const ruimte = { achter: breed, voor: breed - (metHal ? HAL : 0) };
-  const achter: Stuk[] = [], voor: Stuk[] = [];
-  const bezet = (band: Stuk[]) => band.reduce((t, s) => t + (s.minB ?? MIN_BREEDTE), 0);
-  const past = (band: Stuk[], r: Stuk) => bezet(band) + (r.minB ?? MIN_BREEDTE) <= (band === achter ? ruimte.achter : ruimte.voor) + 1e-9;
-  // Eerst de ruimtes met een vaste kant (badkamer boven de keuken, toilet bij
-  // de voordeur), daarna vullen de vrije ruimtes aan waar plaats is.
-  const opVolgorde = [...ruimtes.filter((r) => r.kant !== "vrij"), ...ruimtes.filter((r) => r.kant === "vrij")];
-  for (const r of opVolgorde) {
-    let band: Stuk[] =
-      r.kant === "achter" ? achter
-      : r.kant === "voor" ? voor
-      : som(achter) <= som(voor) ? achter : voor;
-    // Past niet, of — voor een ruimte zonder vaste kant — te scheef: naar de andere kant.
-    const ander = band === achter ? voor : achter;
-    if (!past(band, r) || (r.kant === "vrij" && som(band) > som(ander) + 2.5 * r.gewicht && past(ander, r))) band = ander;
-    // Past aan geen van beide kanten: die ruimte is er op deze bouwlaag niet (maxKamers houdt de teller eronder).
-    if (!past(band, r)) continue;
-    // Berging en wasplaats beneden horen bij de keuken en de tuindeur; aan de straatkant zijn ze er liever niet.
-    if (metHal && band === voor && (r.naam === "Berging" || r.naam === "Wasplaats")) continue;
-    band.push(r);
-  }
-  // De tuinkant is nooit leeg: die heeft de diepte nodig.
-  if (achter.length === 0 && voor.length > 1) achter.push(voor.shift()!);
-  // Het toilet ligt tegen de hal, bij de voordeur — niet achteraan een rij kamers.
-  if (metHal) voor.sort((a, b) => Number(b.naam === "Toilet") - Number(a.naam === "Toilet"));
-  // De tweede verdieping spiegelt de volgorde: natte ruimtes komen dan aan de
-  // andere kant van de overloop dan op de eerste.
-  if (v >= 2) {
-    achter.reverse();
-    voor.reverse();
-  }
-
-  // Boven: een toilet wordt een hokje aan het eind van de overloop (1 × 1,2 m),
-  // ver van de trap, in plaats van een reep van 4 m diep tussen de kamers. Alleen
-  // als er aan beide kanten kamers zijn en elke kamer daarna nog een deur op de
-  // overloop kwijt kan.
-  let toiletInGang = false;
-  if (!metHal && achter.length && voor.length) {
-    for (const band of [achter, voor]) {
-      const i = band.findIndex((r) => r.naam === "Toilet");
-      if (i < 0 || band.length < 2) continue;
-      const [t] = band.splice(i, 1);
-      const kan = [achter, voor].every((b) => {
-        const vakken = rij(gx, w, b);
-        return vakken.every((r) => r.x + r.w >= gx + TOILET_B + 1.0 - 1e-9);
-      });
-      if (kan) { toiletInGang = true; break; }
-      band.splice(i, 0, t);
-    }
-  }
-  const gangX0 = gx + (toiletInGang ? TOILET_B : 0);
-
-  const deurIn = (x0In: number, x1: number) => {
-    const x0 = Math.max(x0In, gangX0);
-    const breedte = Math.min(0.9, x1 - x0 - 0.3);
-    const kandidaten = [x0 + 0.15 + breedte / 2 + 0.1, x1 - 0.15 - breedte / 2 - 0.1];
-    const vrij = (c: number) => lagen < 2 || c + breedte / 2 < trapX0 - 0.1 || c - breedte / 2 > trapX1;
-    const c = kandidaten.find(vrij) ?? kandidaten[0];
-    return [c - breedte / 2, c + breedte / 2] as const;
-  };
-
-  // Tuinkant
-  const achterVakken = achter.length ? rij(gx, w, achter) : [];
-  achterVakken.forEach((r) => {
-    kamers.push({ id: id(), naam: r.naam, verdieping: v, x: r.x, z: 0, w: r.w, l: zb, soort: "kamer" });
-    const [a, b] = deurIn(r.x, r.x + r.w);
-    openingen.push({ verdieping: v, as: "x", vast: zb, van: a, tot: b, soort: "deur", kant: -1 });
-  });
-  // Keuken naast leefruimte: open doorgang in de tussenwand.
-  achterVakken.forEach((r, i) => {
-    const buur = achterVakken[i + 1];
-    if (!buur) return;
-    const paar = [r.naam, buur.naam];
-    if (paar.includes("Leefruimte") && paar.includes("Keuken")) {
-      const breedte = Math.min(1.6, zb - 1.2);
-      openingen.push({ verdieping: v, as: "z", vast: buur.x, van: zb / 2 - breedte / 2, tot: zb / 2 + breedte / 2, soort: "open", kant: 1 });
-    }
-  });
-
-  // Gang. Zonder kamers aan de straatkant loopt hij door tot de gevel; zonder
-  // kamers aan de tuinkant begint hij achteraan.
-  const gangNaam = soort === "boven" || soort === "zolder" ? "Overloop" : voor.length === 0 ? "Hal" : "Gang";
-  const g0 = achterVakken.length ? zb : 0;
-  const g1 = voor.length ? zf : l;
-  kamers.push({ id: id(), naam: gangNaam, verdieping: v, x: gangX0, z: g0, w: w - gangX0, l: g1 - g0, soort: "circulatie" });
-  if (toiletInGang) {
-    kamers.push({ id: id(), naam: "Toilet", verdieping: v, x: gx, z: zb, w: TOILET_B, l: GANG, soort: "kamer" });
-    openingen.push({ verdieping: v, as: "z", vast: gangX0, van: zb + 0.15, tot: zf - 0.15, soort: "deur", kant: 1 });
-  }
-  if (metHal && voor.length === 0) {
-    openingen.push({ verdieping: v, as: "x", vast: l, van: 0.25, tot: 1.15, soort: "voordeur", kant: -1 });
-  }
-
-  // Straatkant
-  if (voor.length > 0) {
-    const x0 = gx + (metHal ? HAL : 0);
-    if (metHal) {
-      kamers.push({ id: id(), naam: "Hal", verdieping: v, x: gx, z: zf, w: HAL, l: l - zf, soort: "circulatie" });
-      openingen.push({ verdieping: v, as: "x", vast: zf, van: gx, tot: gx + HAL, soort: "open", kant: 1 });
-      openingen.push({ verdieping: v, as: "x", vast: l, van: gx + 0.15, tot: gx + HAL - 0.15, soort: "voordeur", kant: -1 });
-    }
-    rij(x0, w, voor).forEach((r) => {
-      // Beneden: het toilet naast de hal is 1,5 m diep en gaat open op de hal;
-      // het stuk erachter, tot de voorgevel, hoort bij de hal (vestiaire).
-      if (metHal && r.naam === "Toilet" && Math.abs(r.x - x0) < 1e-9 && l - zf >= TOILET_L + 1.1) {
-        kamers.push({ id: id(), naam: "Toilet", verdieping: v, x: r.x, z: zf, w: r.w, l: TOILET_L, soort: "kamer" });
-        openingen.push({ verdieping: v, as: "z", vast: r.x, van: zf + 0.3, tot: zf + 0.3 + Math.min(0.8, TOILET_L - 0.45), soort: "deur", kant: 1 });
-        kamers.push({ id: id(), naam: "Vestiaire", verdieping: v, x: r.x, z: zf + TOILET_L, w: r.w, l: l - zf - TOILET_L, soort: "circulatie" });
-        openingen.push({ verdieping: v, as: "z", vast: r.x, van: zf + TOILET_L + 0.1, tot: l - 0.15, soort: "open", kant: 1 });
-        return;
-      }
-      kamers.push({ id: id(), naam: r.naam, verdieping: v, x: r.x, z: zf, w: r.w, l: l - zf, soort: "kamer" });
-      const [a, b] = deurIn(r.x, r.x + r.w);
-      openingen.push({ verdieping: v, as: "x", vast: zf, van: a, tot: b, soort: "deur", kant: 1 });
-    });
-  }
-
-  return { kamers, openingen, trappen };
+  return { kamers: b.kamers, openingen: b.openingen, trappen };
 }
 
 /**
@@ -776,20 +877,101 @@ export interface Plaatsing {
   n: number;
 }
 
+/** Een rechthoek binnen een kamer, in meter vanaf de hoek (x, z) van die kamer. */
+export interface Zone { x0: number; x1: number; z0: number; z1: number }
+
+/**
+ * Waar in een kamer de losse meubels van een afgewerkte woning staan: de eettafel
+ * tussen keuken en zithoek, de zetel in de zithoek. De 3D zet ze hier neer, en de
+ * toestellen blijven er weg — ook in een fase zonder meubels, zodat een droger niet
+ * verspringt als de bezoeker van fase wisselt.
+ */
+export function meubels(k: Kamer, kamers: Kamer[]): { soort: "eettafel" | "zetel"; zone: Zone }[] {
+  if (k.naam !== "Leefruimte") return [];
+  const zit = kamers.find((d) => d.hoort === k.id);
+  if (k.deel) {
+    // De zithoek vooraan: een zetel met de rug naar de leefruimte, kijkend naar de straat.
+    const cx = k.w / 2 + 0.3, cz = Math.min(k.l - 1.6, k.l / 2 + 0.6);
+    return [{ soort: "zetel", zone: { x0: cx - 1.1, x1: cx + 1.1, z0: cz - 0.45, z1: cz + 0.45 } }];
+  }
+  const keuken = kamers.some((d) => d.verdieping === k.verdieping && d.naam === "Keuken" && Math.abs(d.x - (k.x + k.w)) < 1e-6);
+  // Eettafel van 1,8 × 0,9 m met stoelen: dicht bij de keuken, midden in de diepte.
+  const cx = keuken ? k.w - 1.5 : k.w * 0.62, cz = k.l * 0.5;
+  const uit: { soort: "eettafel" | "zetel"; zone: Zone }[] = [
+    { soort: "eettafel", zone: { x0: cx - 1.0, x1: cx + 1.0, z0: cz - 1.0, z1: cz + 1.0 } },
+  ];
+  // Zonder zithoek vooraan staat de zetel aan de andere kant van de leefruimte.
+  if (!zit && k.w > 4.6) uit.push({ soort: "zetel", zone: { x0: 0.5, x1: 1.4, z0: cz - 1.1, z1: cz + 1.1 } });
+  return uit;
+}
+
+/** Hoe ver een toestel van de muren blijft: achter en links staat de muur op volle hoogte. */
+const MARGE_ACHTER = 0.5;
+/**
+ * Voor- en rechtermuur zijn opengewerkt tot 1,10 m; vanuit de isometrische camera
+ * (schuin van rechtsvoor) verbergen ze wat er tot ongeveer 1,1 m achter staat.
+ */
+const MARGE_ZICHT = 1.1;
+
+/**
+ * De beste vrije plek voor een toestel in een kamer: niet op de trap, niet in een
+ * deur, niet tussen de meubels of tegen de keuken- of badkamerwand, en zichtbaar
+ * van de camera. Lukt dat niet volledig, dan de plek met de kleinste overtreding.
+ */
+function vrijePlek(k: Kamer, kamers: Kamer[], al: { x: number; z: number }[], trappen: Trap[], openingen: Opening[]): [number, number] {
+  const deuren = openingen
+    .filter((o) => o.verdieping === k.verdieping && o.soort !== "open")
+    .map((o) => {
+      const m = (o.van + o.tot) / 2;
+      return o.as === "x" ? { x: m - k.x, z: o.vast - k.z } : { x: o.vast - k.x, z: m - k.z };
+    });
+  const zones = meubels(k, kamers).map((m) => m.zone);
+  // Keuken, badkamer en wasplaats hebben hun kasten en toestellen tegen de achterwand.
+  // Zonder aparte keuken staat de keukenrij in de leefruimte.
+  const openKeuken = k.naam === "Leefruimte" && !k.deel && !kamers.some((d) => d.verdieping === k.verdieping && d.naam === "Keuken");
+  const vasteWand = ["Keuken", "Badkamer", "Wasplaats"].includes(k.naam) || openKeuken ? 1.0 : 0;
+  const trap = trappen.filter((t) => t.verdieping === k.verdieping);
+  let best: [number, number] = [k.w / 2, k.l / 2], bestStraf = Infinity;
+  const stap = 0.1;
+  for (let x = Math.min(MARGE_ACHTER, k.w / 2); x <= k.w - Math.min(MARGE_ACHTER, k.w / 2) + 1e-9; x += stap) {
+    for (let z = Math.min(MARGE_ACHTER, k.l / 2); z <= k.l - Math.min(MARGE_ACHTER, k.l / 2) + 1e-9; z += stap) {
+      let straf = 0;
+      const tekort = (afstand: number, min: number) => Math.max(0, min - afstand);
+      straf += 4 * tekort(k.w - x, MARGE_ZICHT) + 4 * tekort(k.l - z, MARGE_ZICHT);
+      straf += 3 * tekort(z, MARGE_ACHTER + vasteWand);
+      for (const d of deuren) straf += 6 * tekort(Math.hypot(d.x - x, d.z - z), 1.1);
+      for (const p of al) straf += 5 * tekort(Math.hypot(p.x - x, p.z - z), 1.5);
+      for (const m of zones) if (x > m.x0 - 0.6 && x < m.x1 + 0.6 && z > m.z0 - 0.6 && z < m.z1 + 0.6) straf += 8;
+      for (const t of trap) {
+        const ax = k.x + x, az = k.z + z;
+        if (ax > t.x - 0.6 && ax < t.x + t.w + 0.6 && az > t.z - 0.6 && az < t.z + t.l + 0.6) straf += 20;
+      }
+      // Bij gelijke straf: zo dicht mogelijk bij het midden van wat zichtbaar is.
+      straf += 0.01 * Math.hypot(x - (k.w - MARGE_ZICHT + MARGE_ACHTER) / 2, z - (k.l - MARGE_ZICHT + MARGE_ACHTER) / 2);
+      if (straf < bestStraf - 1e-9) { bestStraf = straf; best = [x, z]; }
+    }
+  }
+  return [Math.round(best[0] * 100) / 100, Math.round(best[1] * 100) / 100];
+}
+
 /**
  * Verdeelt de toestellen uit het pakket over de kamers.
  *
- * Drogers gaan eerst naar de grootste ruimtes, met per kamer hooguit één tot
- * elke kamer er een heeft — zo werkt het op de werf ook: één droger per ruimte
+ * Drogers gaan eerst naar de grootste ruimtes, met per ruimte hooguit één tot
+ * elke ruimte er een heeft — zo werkt het op de werf ook: één droger per ruimte
  * met de deuren open, en wat overblijft bij de grootste natte oppervlakte.
  * Ventilatoren staan waar de meeste lucht te verplaatsen is, kachels verdeeld
- * over de lagen. Het aantal komt altijd uit `items`; deze functie verplaatst
- * alleen.
+ * over de lagen. Een leefruimte met zithoek is één ruimte. Het aantal komt altijd
+ * uit `items`; deze functie verplaatst alleen. Binnen een kamer kiest
+ * `vrijePlek` de plek.
  */
-export function plaatsToestellen(items: PackageItem[], kamers: Kamer[], trappen: Trap[] = []): Plaatsing[] {
+export function plaatsToestellen(items: PackageItem[], kamers: Kamer[], trappen: Trap[] = [], openingen: Opening[] = []): Plaatsing[] {
   if (kamers.length === 0) return [];
-  const opp = (k: Kamer) => k.w * k.l;
+  const ruimte = (k: Kamer) => k.hoort ?? k.id;
+  const opp = new Map<string, number>();
+  for (const k of kamers) opp.set(ruimte(k), (opp.get(ruimte(k)) ?? 0) + k.w * k.l);
   const bezet = new Map<string, number>();
+  const inKamer = new Map<string, { x: number; z: number }[]>();
   const uit: Plaatsing[] = [];
 
   const drogersIn = new Map<string, number>();
@@ -798,18 +980,25 @@ export function plaatsToestellen(items: PackageItem[], kamers: Kamer[], trappen:
   // open deuren.
   const doorloop = (kamer: Kamer) => kamer.soort === "circulatie" || kamer.naam === "Toilet";
   const geschikt = (kamer: Kamer, k: DeviceKey) => (isDroger(k) || k === "kachel") ? !doorloop(kamer) : true;
+  // Per ruimte één kandidaat: de hoofdrechthoek (de zithoek komt aan bod via `rechthoek`).
+  const ruimtes = kamers.filter((k) => !k.deel);
 
   const kies = (k: DeviceKey): Kamer => {
-    let kandidaten = kamers.filter((kamer) => geschikt(kamer, k));
-    if (kandidaten.length === 0) kandidaten = kamers;
-    // Drogers: eerst elke kamer één, pas daarna een tweede in de grootste.
+    let kandidaten = ruimtes.filter((kamer) => geschikt(kamer, k));
+    if (kandidaten.length === 0) kandidaten = ruimtes.length ? ruimtes : kamers;
+    // Drogers: eerst elke ruimte één, pas daarna een tweede in de grootste.
     if (isDroger(k)) {
-      const min = Math.min(...kandidaten.map((kamer) => drogersIn.get(kamer.id) ?? 0));
-      kandidaten = kandidaten.filter((kamer) => (drogersIn.get(kamer.id) ?? 0) === min);
+      const min = Math.min(...kandidaten.map((kamer) => drogersIn.get(ruimte(kamer)) ?? 0));
+      kandidaten = kandidaten.filter((kamer) => (drogersIn.get(ruimte(kamer)) ?? 0) === min);
     }
     const factor = (kamer: Kamer) => (kamer.naam === "Badkamer" ? (k === "kachel" ? 0.3 : 0.4) : 1);
-    const score = (kamer: Kamer) => (opp(kamer) * factor(kamer)) / ((bezet.get(kamer.id) ?? 0) + 1);
+    const score = (kamer: Kamer) => ((opp.get(ruimte(kamer)) ?? 0) * factor(kamer)) / ((bezet.get(ruimte(kamer)) ?? 0) + 1);
     return kandidaten.reduce((best, kamer) => (score(kamer) > score(best) + 1e-9 ? kamer : best));
+  };
+  /** In een ruimte van meer rechthoeken: de rechthoek met de meeste plaats per toestel. */
+  const rechthoek = (hoofd: Kamer): Kamer => {
+    const delen = kamers.filter((k) => k === hoofd || k.hoort === hoofd.id);
+    return delen.reduce((best, k) => (k.w * k.l / ((inKamer.get(k.id)?.length ?? 0) + 1) > best.w * best.l / ((inKamer.get(best.id)?.length ?? 0) + 1) + 1e-9 ? k : best));
   };
 
   // Volgorde: drogers eerst (die bepalen de verdeling), dan lucht, dan warmte.
@@ -818,48 +1007,20 @@ export function plaatsToestellen(items: PackageItem[], kamers: Kamer[], trappen:
   for (const k of volgorde) {
     const q = items.find((it) => it.k === k)?.q ?? 0;
     for (let i = 0; i < q; i++) {
-      const kamer = kies(k);
-      const plek = bezet.get(kamer.id) ?? 0;
-      bezet.set(kamer.id, plek + 1);
-      if (isDroger(k)) drogersIn.set(kamer.id, (drogersIn.get(kamer.id) ?? 0) + 1);
-      const [fx, fz] = SLOTS[plek % SLOTS.length];
+      const hoofd = kies(k);
+      const kamer = rechthoek(hoofd);
+      bezet.set(ruimte(hoofd), (bezet.get(ruimte(hoofd)) ?? 0) + 1);
+      if (isDroger(k)) drogersIn.set(ruimte(hoofd), (drogersIn.get(ruimte(hoofd)) ?? 0) + 1);
       const n = perSoort.get(k) ?? 0;
       perSoort.set(k, n + 1);
-      const [x, z] = naastTrap(kamer, kamer.w * fx, kamer.l * fz, trappen);
+      const al = inKamer.get(kamer.id) ?? [];
+      const [x, z] = vrijePlek(kamer, kamers, al, trappen, openingen);
+      inKamer.set(kamer.id, [...al, { x, z }]);
       uit.push({ k, kamer: kamer.id, x, z, n });
     }
   }
   return uit;
 }
-
-/**
- * Valt een plek in een trapgat (een open zolder heeft de trap in de kamer), dan
- * schuift het toestel naar de tuin- of straatkant van de trap, wat het verst
- * binnen de kamer blijft. Coördinaten zijn relatief aan de kamer.
- */
-function naastTrap(kamer: Kamer, x: number, z: number, trappen: Trap[]): [number, number] {
-  const marge = 0.6;
-  for (const t of trappen) {
-    if (t.verdieping !== kamer.verdieping) continue;
-    const ax = kamer.x + x, az = kamer.z + z;
-    if (ax < t.x - marge || ax > t.x + t.w + marge || az < t.z - marge || az > t.z + t.l + marge) continue;
-    const achter = t.z - marge - kamer.z;
-    const voor = t.z + t.l + marge - kamer.z;
-    const ruimAchter = achter >= marge, ruimVoor = voor <= kamer.l - marge;
-    if (ruimAchter && (!ruimVoor || achter >= kamer.l - voor)) return [x, achter];
-    if (ruimVoor) return [x, voor];
-  }
-  return [x, z];
-}
-
-/** Plekken binnen een kamer, als fracties: midden eerst, daarna de hoeken. */
-const SLOTS: [number, number][] = [
-  [0.5, 0.5],
-  [0.25, 0.3],
-  [0.75, 0.7],
-  [0.75, 0.3],
-  [0.25, 0.7],
-];
 
 export function verdiepingNaam(v: number, totaal: number, dak: Dak, taal: Taal = "nl"): string {
   if (taal === "fr") {

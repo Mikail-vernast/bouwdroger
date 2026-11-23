@@ -1,10 +1,11 @@
-import type { Kamer, Opening } from "@/lib/droogSimulator";
+import { meubels, type Kamer, type Opening } from "@/lib/droogSimulator";
 import type { Bouwer } from "./geo";
 
 /*
   Vaste inrichting per kamer: keuken, badkamer, toilet en wasplaats. Daaraan
-  herken je wat een ruimte is. Losse meubels komen er bewust niet in: de
-  simulator toont een werf, geen bewoond huis.
+  herken je wat een ruimte is. Van de losse meubels alleen eettafel en zetel in
+  de leefruimte (waar, staat in `meubels` in droogSimulator.ts; de toestellen
+  blijven daar weg). De groep is alleen zichtbaar in de fase "afgewerkt".
 
   Elke kamer kiest een muur om tegenaan te bouwen: een muur zonder deur, liefst
   een buitenmuur achteraan of links (die blijft op volle hoogte staan als de laag
@@ -47,6 +48,8 @@ function heeftOpening(k: Kamer, kant: Kant, openingen: Opening[]): boolean {
 
 /** De beste muur om tegenaan te bouwen: zonder opening, hoog, en lang genoeg. */
 function kiesMuur(k: Kamer, openingen: Opening[], gevels: { w: number; l: number }): Muur {
+  // Een toilet: de pot tegen de korte achterwand, zoals in elk hokje.
+  if (k.naam === "Toilet" && !heeftOpening(k, "achter", openingen)) return muur(k, "achter");
   const kanten: Kant[] = ["achter", "links", "rechts", "voor"];
   const score = (kant: Kant) => {
     const m = muur(k, kant);
@@ -75,6 +78,18 @@ type Blok = (mat: string, u0: number, u1: number, n0: number, n1: number, y0: nu
 export function richIn(B: Bouwer, kamers: Kamer[], openingen: Opening[], yf: number, gevels: { w: number; l: number }) {
   for (const k of kamers) {
     if (k.soort === "circulatie") continue;
+    if (k.naam === "Leefruimte") {
+      for (const m of meubels(k, kamers)) (m.soort === "eettafel" ? eettafel : zetel)(B, k.x + m.zone.x0, k.x + m.zone.x1, yf, k.z + m.zone.z0, k.z + m.zone.z1);
+      // Geen aparte keuken op deze laag: een open keukenrij tegen de achtergevel, rechts.
+      if (!k.deel && !kamers.some((kk) => kk.verdieping === k.verdieping && kk.naam === "Keuken")) {
+        const m = muur(k, "achter"), Lk = Math.min(3.2, m.L * 0.5), off = m.L - Lk;
+        keuken((mat, u0, u1, n0, n1, y0, y1) => {
+          const a = m.p(u0 + off, n0, yf + y0), b = m.p(u1 + off, n1, yf + y1);
+          B.blok(mat, Math.min(a[0], b[0]), Math.max(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[1], b[1]), Math.min(a[2], b[2]), Math.max(a[2], b[2]));
+        }, Lk, 0, m.hoog);
+      }
+      continue;
+    }
     const m = kiesMuur(k, openingen, gevels);
     // Een blok in het assenstelsel van de muur.
     const blok: Blok = (mat, u0, u1, n0, n1, y0, y1) => {
@@ -84,12 +99,23 @@ export function richIn(B: Bouwer, kamers: Kamer[], openingen: Opening[], yf: num
     switch (k.naam) {
       case "Keuken": keuken(blok, m.L, m.D, m.hoog); break;
       case "Badkamer": badkamer(blok, m.L, m.D); break;
-      case "Toilet": toilet(blok, m.L, m.D); break;
+      case "Toilet": toilet(blok, m.L, m.D, deurKant(k, m.kant, openingen)); break;
       case "Wasplaats": wasplaats(blok, m.L); break;
     }
   }
 }
 
+/** Waar de spoelbak staat, langs de muur: midden in het werkblad. Het raam erboven volgt deze maat. */
+export function spoelbakU(L: number): number {
+  const eind = L > 2.6 ? L - 0.72 : L - 0.08;
+  return (0.08 + eind) / 2;
+}
+
+/**
+ * Een rechte keuken tegen de muur: de kookplaat aan het open eind (bij de
+ * eettafel), de spoelbak in het midden onder het raam, de koelkast in een hoge
+ * kast aan het andere eind. Een eiland alleen als er rondom 1 m loopruimte blijft.
+ */
 function keuken(blok: Blok, L: number, D: number, hoog: boolean) {
   const n0 = WAND;
   const koelkast = L > 2.6;
@@ -100,37 +126,37 @@ function keuken(blok: Blok, L: number, D: number, hoog: boolean) {
   blok("kast", u0, eind, n0, n0 + 0.58, 0.1, 0.86);
   for (let u = u0 + 0.6; u < eind - 0.1; u += 0.6) blok("voeg", u - 0.004, u + 0.004, n0 + 0.58, n0 + 0.585, 0.14, 0.82);
   blok("werkblad", u0 - 0.02, eind, n0, n0 + 0.63, 0.86, 0.9);
-  const spoel = u0 + (eind - u0) * 0.3;
+  const spoel = spoelbakU(L);
   blok("inox", spoel - 0.4, spoel + 0.4, n0 + 0.1, n0 + 0.52, 0.9, 0.903);
   blok("donker", spoel - 0.33, spoel + 0.05, n0 + 0.14, n0 + 0.48, 0.903, 0.905);
   blok("inox", spoel + 0.15, spoel + 0.19, n0 + 0.04, n0 + 0.08, 0.9, 1.2);
   blok("inox", spoel + 0.15, spoel + 0.19, n0 + 0.04, n0 + 0.28, 1.17, 1.2);
-  const kook = u0 + (eind - u0) * 0.7;
+  const kook = Math.max(u0 + 0.4, Math.min(spoel - 0.9, u0 + 0.45));
   blok("zwartglas", kook - 0.3, kook + 0.3, n0 + 0.06, n0 + 0.56, 0.9, 0.905);
   for (const [du, dn] of [[-0.14, 0.17], [0.14, 0.17], [-0.14, 0.42], [0.14, 0.42]]) {
     blok("kookzone", kook + du - 0.08, kook + du + 0.08, n0 + 0.06 + dn - 0.08, n0 + 0.06 + dn + 0.08, 0.905, 0.907);
   }
   blok("zwartglas", kook - 0.29, kook + 0.29, n0 + 0.58, n0 + 0.585, 0.2, 0.76);
   blok("inox", kook - 0.2, kook + 0.2, n0 + 0.585, n0 + 0.6, 0.7, 0.72);
-  // Hoge kast met koelkast aan het eind.
+  // Hoge kast met koelkast aan het andere eind, tegen de zijmuur.
   if (koelkast) {
     blok("kast", L - 0.7, L - 0.08, n0, n0 + 0.62, 0, 2.15);
     blok("voeg", L - 0.7, L - 0.08, n0 + 0.62, n0 + 0.625, 1.4, 1.408);
-    blok("inox", L - 0.16, L - 0.13, n0 + 0.625, n0 + 0.65, 0.9, 1.3);
+    blok("inox", L - 0.66, L - 0.63, n0 + 0.625, n0 + 0.65, 0.9, 1.3);
   }
-  // Bovenkasten en dampkap: alleen tegen een muur die op volle hoogte blijft.
+  // Dampkap boven de kookplaat, tegen een muur die op volle hoogte blijft. Geen
+  // bovenkasten: boven de spoelbak zit het raam.
   if (hoog) {
-    blok("kast", u0, kook - 0.45, n0, n0 + 0.35, 1.45, 2.15);
-    blok("kast", kook + 0.45, eind, n0, n0 + 0.35, 1.45, 2.15);
     blok("inox", kook - 0.45, kook + 0.45, n0, n0 + 0.5, 1.6, 1.68);
     blok("inox", kook - 0.15, kook + 0.15, n0, n0 + 0.25, 1.68, 2.3);
   }
-  // Eiland in een ruime keuken.
-  if (D > 3.4 && L > 3) {
-    const len = Math.min(2.2, L * 0.5), c = L / 2, n = Math.min(D - 1.4, 2.0);
-    blok("kast", c - len / 2, c + len / 2, n, n + 0.9, 0.1, 0.86);
-    blok("zwart", c - len / 2 + 0.05, c + len / 2 - 0.05, n + 0.05, n + 0.85, 0, 0.1);
-    blok("werkblad", c - len / 2 - 0.05, c + len / 2 + 0.05, n - 0.05, n + 1.15, 0.86, 0.9);
+  // Eiland: werkblad 0,9 m diep, met 1 m loopruimte naar de keukenrij, de kamerrand en opzij.
+  const nEiland = n0 + 0.63 + 1.0, lengte = Math.min(2.2, L - 2.0);
+  if (lengte >= 1.2 && nEiland + 0.9 + 1.0 <= D) {
+    const c = L / 2;
+    blok("kast", c - lengte / 2, c + lengte / 2, nEiland, nEiland + 0.9, 0.1, 0.86);
+    blok("zwart", c - lengte / 2 + 0.05, c + lengte / 2 - 0.05, nEiland + 0.05, nEiland + 0.85, 0, 0.1);
+    blok("werkblad", c - lengte / 2 - 0.03, c + lengte / 2 + 0.03, nEiland - 0.03, nEiland + 0.93, 0.86, 0.9);
   }
 }
 
@@ -160,9 +186,50 @@ function toiletPot(blok: Blok, u: number, n: number, richting: 1 | -1) {
   blok("kast", u - 0.18, u + 0.18, p0, p1, 0.4, 0.43);
 }
 
-function toilet(blok: Blok, L: number, D: number) {
+/** Aan welke kant van de muur (u = 0 of u = L) de deur van de kamer zit, of null. */
+function deurKant(k: Kamer, kant: Kant, openingen: Opening[]): "begin" | "eind" | null {
+  const zijden: Kant[] = kant === "achter" || kant === "voor" ? ["links", "rechts"] : ["achter", "voor"];
+  const [a, b] = zijden.map((z) => heeftOpening(k, z, openingen));
+  if (!a && !b) return null;
+  // muur(): langs "achter" loopt u van links naar rechts; voor de andere kanten zie muur().
+  const beginIs: Record<Kant, Kant> = { achter: "links", voor: "rechts", links: "voor", rechts: "achter" };
+  const beginOpen = heeftOpening(k, beginIs[kant], openingen);
+  return beginOpen ? "begin" : "eind";
+}
+
+/** Hangpot tegen de korte achterwand, fonteintje aan de zijwand waar de deur niet zit. */
+function toilet(blok: Blok, L: number, D: number, deur: "begin" | "eind" | null) {
   toiletPot(blok, L / 2, WAND, 1);
-  if (L > 0.9 && D > 1.1) blok("sanitair", L - 0.4, L - 0.08, WAND, WAND + 0.25, 0.75, 0.85);
+  if (D < 1.2) return;
+  const [u0, u1] = deur === "begin" ? [L - 0.24, L - 0.02] : [0.02, 0.24];
+  blok("sanitair", u0, u1, 0.95, 1.3, 0.72, 0.84);
+  blok("inox", deur === "begin" ? u1 - 0.05 : u0 + 0.02, deur === "begin" ? u1 - 0.02 : u0 + 0.05, 1.1, 1.13, 0.84, 0.95);
+}
+
+function eettafel(B: Bouwer, x0: number, x1: number, yf: number, z0: number, z1: number) {
+  // Tafel van 1,8 × 0,9 m in het midden van de zone, met drie stoelen aan elke lange kant.
+  const cx = (x0 + x1) / 2, cz = (z0 + z1) / 2;
+  B.blok("hout", cx - 0.9, cx + 0.9, yf + 0.72, yf + 0.76, cz - 0.45, cz + 0.45);
+  for (const [dx, dz] of [[-0.82, -0.38], [0.82, -0.38], [-0.82, 0.38], [0.82, 0.38]]) B.blok("zwart", cx + dx - 0.03, cx + dx + 0.03, yf, yf + 0.72, cz + dz - 0.03, cz + dz + 0.03);
+  for (const zk of [-1, 1]) for (const dx of [-0.6, 0, 0.6]) {
+    const sz = cz + zk * 0.62;
+    B.blok("stof", cx + dx - 0.21, cx + dx + 0.21, yf + 0.42, yf + 0.47, sz - 0.2, sz + 0.2);
+    B.blok("stof", cx + dx - 0.21, cx + dx + 0.21, yf + 0.47, yf + 0.85, sz + zk * 0.17, sz + zk * 0.2);
+    B.blok("zwart", cx + dx - 0.18, cx + dx + 0.18, yf, yf + 0.42, sz - 0.17, sz + 0.17);
+  }
+}
+
+function zetel(B: Bouwer, x0: number, x1: number, yf: number, z0: number, z1: number) {
+  // Driezit langs de lange kant van de zone, met een salontafel ervoor.
+  const lang = x1 - x0 >= z1 - z0;
+  const blk = (a0: number, a1: number, b0: number, b1: number, y0: number, y1: number, mat: string) =>
+    lang ? B.blok(mat, x0 + a0, x0 + a1, yf + y0, yf + y1, z0 + b0, z0 + b1) : B.blok(mat, x0 + b0, x0 + b1, yf + y0, yf + y1, z0 + a0, z0 + a1);
+  const L = lang ? x1 - x0 : z1 - z0, D = lang ? z1 - z0 : x1 - x0;
+  blk(0, L, 0, D, 0.05, 0.42, "stof");
+  blk(0, L, 0, 0.2, 0.42, 0.78, "stof");
+  blk(0, 0.18, 0, D, 0.42, 0.6, "stof");
+  blk(L - 0.18, L, 0, D, 0.42, 0.6, "stof");
+  if (lang) B.blok("hout", x0 + L / 2 - 0.5, x0 + L / 2 + 0.5, yf + 0.38, yf + 0.42, z1 + 0.35, z1 + 0.85);
 }
 
 function wasplaats(blok: Blok, L: number) {

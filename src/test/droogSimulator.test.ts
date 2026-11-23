@@ -144,7 +144,7 @@ describe("kamersVoor", () => {
             // Boven het maximum wordt afgekapt, niet stil genegeerd. Hal, gang
             // en overloop komen erbij en tellen niet mee.
             // Wat niet past (minimale breedte per ruimte) valt weg; maxKamers zegt hoeveel dat is.
-            expect(laag.filter((k) => k.soort === "kamer").length, `${woning} ${dak} laag ${v}`).toBe(Math.min(n, maxKamers(woning, v, lagen, dak)));
+            expect(laag.filter((k) => k.soort === "kamer" && !k.deel).length, `${woning} ${dak} laag ${v}`).toBe(Math.min(n, maxKamers(woning, v, lagen, dak)));
             // Een open zolder is één ruimte met de trap erin: daar is geen overloop.
             const openZolder = laag.length === 1 && laag[0].naam === "Zolder";
             expect(openZolder || laag.some((k) => k.soort === "circulatie")).toBe(true);
@@ -172,10 +172,10 @@ describe("kamersVoor", () => {
   });
 
   it("begint met de standaardindeling als er geen aantallen gegeven zijn", () => {
-    const kamers = kamersVoor("halfopen", 2, "zadeldak").filter((k) => k.soort === "kamer");
+    const kamers = kamersVoor("halfopen", 2, "zadeldak").filter((k) => k.soort === "kamer" && !k.deel);
     expect(kamers.filter((k) => k.verdieping === 0)).toHaveLength(3);
     expect(kamers.filter((k) => k.verdieping === 1)).toHaveLength(4);
-    expect(kamers[0].naam).toBe("Leefruimte");
+    expect(kamers.filter((k) => k.verdieping === 0).map((k) => k.naam).sort()).toEqual(["Keuken", "Leefruimte", "Toilet"]);
   });
 });
 
@@ -222,54 +222,8 @@ describe("plaatsToestellen", () => {
 });
 
 describe("planVoor", () => {
-  const raakt = (a: Kamer, b: Kamer, as: "x" | "z", vast: number, van: number, tot: number) => {
-    // a ligt aan de ene kant van de wand, b aan de andere, en de opening valt binnen hun gedeelde stuk.
-    if (as === "x") {
-      const zijden = [a.z + a.l, a.z].some((z) => Math.abs(z - vast) < 1e-6) && [b.z + b.l, b.z].some((z) => Math.abs(z - vast) < 1e-6);
-      return zijden && van >= Math.max(a.x, b.x) - 1e-6 && tot <= Math.min(a.x + a.w, b.x + b.w) + 1e-6;
-    }
-    const zijden = [a.x + a.w, a.x].some((x) => Math.abs(x - vast) < 1e-6) && [b.x + b.w, b.x].some((x) => Math.abs(x - vast) < 1e-6);
-    return zijden && van >= Math.max(a.z, b.z) - 1e-6 && tot <= Math.min(a.z + a.l, b.z + b.l) + 1e-6;
-  };
+  // De deur- en maatregels van de indeling staan in droogIndeling.test.ts.
 
-  it("geeft elke kamer een deur naar de gang, en elke opening ligt in een gedeelde wand", () => {
-    for (const woning of WONINGEN) {
-      for (const dak of DAKEN) {
-        for (let lagen = 1; lagen <= MAX_VERDIEPINGEN; lagen++) {
-          for (let n = 1; n <= MAX_KAMERS; n++) {
-            const plan = planVoor(woning, lagen, dak, Array.from({ length: lagen }, () => undefined).map((_, v) => {
-              const p = standaardProgramma(woning, v, lagen, dak);
-              return aantalKamers(p) === n ? p : undefined;
-            }));
-            const { w, l } = WONING[woning];
-            for (const o of plan.openingen) {
-              expect(o.tot).toBeGreaterThan(o.van);
-              if (o.soort === "voordeur") {
-                expect(o.vast).toBe(l);
-                const hal = plan.kamers.find((k) => k.verdieping === o.verdieping && k.soort === "circulatie" && k.z + k.l === l && k.x <= o.van && k.x + k.w >= o.tot);
-                expect(hal, `${woning} voordeur zonder hal`).toBeDefined();
-                continue;
-              }
-              const laag = plan.kamers.filter((k) => k.verdieping === o.verdieping);
-              const paren = laag.flatMap((a) => laag.filter((b) => b !== a && raakt(a, b, o.as, o.vast, o.van, o.tot)));
-              expect(paren.length, `${woning} ${dak} ${lagen} opening ${JSON.stringify(o)}`).toBeGreaterThan(0);
-              expect(o.vast).toBeLessThanOrEqual(o.as === "x" ? l : w);
-            }
-            for (const k of plan.kamers.filter((kk) => kk.soort === "kamer")) {
-              const laag = plan.kamers.filter((kk) => kk.verdieping === k.verdieping && kk.soort === "circulatie");
-              // open zolder: de trap komt in de kamer uit, er is geen gang om naar te openen
-              if (laag.length === 0 && k.naam === "Zolder") continue;
-              const deur = plan.openingen.some((o) => o.verdieping === k.verdieping && o.soort === "deur" && laag.some((g) => raakt(k, g, o.as, o.vast, o.van, o.tot)));
-              expect(deur, `${woning} ${dak} ${lagen}: ${k.naam} zonder deur naar de gang`).toBe(true);
-            }
-            // gelijkvloers heeft altijd een voordeur; een trap zodra er meer dan één laag is
-            expect(plan.openingen.filter((o) => o.verdieping === 0 && o.soort === "voordeur")).toHaveLength(1);
-            expect(plan.trappen).toHaveLength(lagen > 1 ? lagen : 0);
-          }
-        }
-      }
-    }
-  });
 
   it("houdt een programma binnen min, max en het maximum aantal kamers", () => {
     const p = geldig("boven", { Slaapkamer: 9, Badkamer: 5, Bureau: 1, Toilet: 1, Dressing: 1, Onbekend: 2 });
@@ -281,11 +235,11 @@ describe("planVoor", () => {
   });
 
   it("toont de gekozen ruimtes, met de juiste namen", () => {
-    const plan = planVoor("rijwoning", 2, "zadeldak", [{ Leefruimte: 1, Keuken: 1, Toilet: 1 }, { Slaapkamer: 3, Badkamer: 1 }]);
-    const namen = (v: number) => plan.kamers.filter((k) => k.verdieping === v && k.soort === "kamer").map((k) => k.naam).sort();
+    const plan = planVoor("halfopen", 2, "zadeldak", [{ Leefruimte: 1, Keuken: 1, Toilet: 1 }, { Slaapkamer: 3, Badkamer: 1 }]);
+    const namen = (v: number) => plan.kamers.filter((k) => k.verdieping === v && k.soort === "kamer" && !k.deel).map((k) => k.naam).sort();
     expect(namen(0)).toEqual(["Keuken", "Leefruimte", "Toilet"]);
     expect(namen(1)).toEqual(["Badkamer", "Slaapkamer", "Slaapkamer", "Slaapkamer"]);
-    expect(laagSoort("rijwoning", 1, 2, "zadeldak")).toBe("boven");
+    expect(laagSoort("halfopen", 1, 2, "zadeldak")).toBe("boven");
     expect(RUIMTES.boven.find((o) => o.naam === "Slaapkamer")!.min).toBe(1);
   });
 
@@ -302,15 +256,6 @@ describe("planVoor", () => {
         }
       }
     }
-  });
-
-  it("past in een rijwoning boven drie slaapkamers en een badkamer, met de badkamer aan de tuinkant", () => {
-    expect(maxKamers("rijwoning", 1, 2, "zadeldak")).toBeGreaterThanOrEqual(4);
-    const plan = planVoor("rijwoning", 2, "zadeldak", [undefined, { Slaapkamer: 3, Badkamer: 1 }]);
-    const bad = plan.kamers.find((k) => k.verdieping === 1 && k.naam === "Badkamer")!;
-    expect(bad.z).toBe(0);
-    // geen slaapkamer smaller dan 2,6 m
-    for (const k of plan.kamers.filter((k) => k.verdieping === 1 && k.naam === "Slaapkamer")) expect(k.w).toBeGreaterThanOrEqual(2.6 - 1e-6);
   });
 
   it("zet de trap op elke verdieping recht boven die van de vorige laag", () => {

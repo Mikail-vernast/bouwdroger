@@ -84,7 +84,7 @@ export function Plattegrond({ kamers, openingen = [], trappen = [] }: { kamers: 
         return (
           <g key={k.id} className={`ds-plan-kamer${gang ? " gang" : ""}`} style={{ animationDelay: `${i * 30}ms` }}>
             <rect x={k.x} y={k.z} width={k.w} height={k.l} />
-            {fs > 0.24 && !(gang && k.w > k.l * 3) && (
+            {fs > 0.24 && !k.deel && !(gang && k.w > k.l * 3) && (
               <text x={k.x + k.w / 2} y={k.z + k.l / 2} fontSize={fs} textAnchor="middle" dominantBaseline="central">
                 {kamerNaam(k.naam, taal)}
               </text>
@@ -93,16 +93,18 @@ export function Plattegrond({ kamers, openingen = [], trappen = [] }: { kamers: 
         );
       })}
       {trappen.map((t, i) => {
-        const treden = 13;
+        // De trap klimt naar de tuinkant: de pijl wijst van de voet (voorkant) naar boven.
+        const treden = 14;
+        const mx = t.x + t.w / 2;
         return (
           <g key={`t${i}`} className="ds-plan-trap">
             <rect x={t.x} y={t.z} width={t.w} height={t.l} />
             {Array.from({ length: treden - 1 }, (_, j) => {
-              const x = t.x + (t.w * (j + 1)) / treden;
-              return <line key={j} x1={x} x2={x} y1={t.z} y2={t.z + t.l} />;
+              const z = t.z + (t.l * (j + 1)) / treden;
+              return <line key={j} x1={t.x} x2={t.x + t.w} y1={z} y2={z} />;
             })}
             {t.op && (
-              <path d={`M${t.x + 0.2} ${t.z + t.l / 2}H${t.x + t.w - 0.35}m-0.25 -0.2l0.25 0.2l-0.25 0.2`} className="ds-plan-pijl" />
+              <path d={`M${mx} ${t.z + t.l - 0.2}V${t.z + 0.35}m-0.2 0.25l0.2 -0.25l0.2 0.25`} className="ds-plan-pijl" />
             )}
           </g>
         );

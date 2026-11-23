@@ -452,30 +452,10 @@ export default function IsoHouse({
         c = Math.max(c, g.tot);
       }
       if (c < a1) vast_.push([c, a1]);
-      // Langs de trap is de wand een borstwering: zo kijk je in de trapkoker.
-      const laagTrap = laagTrappen.find((t) => !buiten && as === "x" && Math.abs(vast - (t.z + t.l + 0.05)) < 0.12);
-      if (laagTrap) {
-        const knip = [laagTrap.x, laagTrap.x + laagTrap.w];
-        for (let i = vast_.length - 1; i >= 0; i--) {
-          const [b0, b1] = vast_[i];
-          const delen = [b0, ...knip.filter((k) => k > b0 + 0.02 && k < b1 - 0.02), b1];
-          vast_.splice(i, 1, ...delen.slice(1).map((e, j) => [delen[j], e] as [number, number]));
-        }
-      }
       vast_.forEach(([b0, b1], j) => {
         const len = b1 - b0;
         if (len < 0.02) return;
-        const borst = laagTrap && b0 >= laagTrap.x - 0.02 && b1 <= laagTrap.x + laagTrap.w + 0.02;
-        const hoogte = borst ? 0.2 : hoogteVol;
-        if (borst) {
-          // Open leuning: handlijn op spijlen, je ziet de treden erdoor.
-          const n = Math.max(2, Math.round(len / 0.45));
-          for (let i = 0; i <= n; i++) {
-            const x = Math.min(b0 + (len * i) / n, b1 - 0.04);
-            items.push({ key: `${id}-spijl-${j}-${i}`, diepte: x + vast + 0.06, node: <Blok x0={x} x1={x + 0.04} y0={yf} y1={yf + 0.9} z0={vast - 0.02} z1={vast + 0.02} c={LEUNING} /> });
-          }
-          items.push({ key: `${id}-leuning-${j}`, diepte: b1 + vast + 0.07, node: <Blok x0={b0} x1={b1} y0={yf + 0.88} y1={yf + 0.94} z0={vast - 0.03} z1={vast + 0.03} c={LEUNING} /> });
-        }
+        const hoogte = hoogteVol;
         const stukken = Math.max(1, Math.ceil(len / SEG));
         for (let i = 0; i < stukken; i++) {
           const s0 = b0 + (len * i) / stukken;
@@ -490,17 +470,18 @@ export default function IsoHouse({
           items.push({ key: `${id}-${j}-${i}`, diepte: mid + vast + 0.05, node });
         }
       });
-      // Deurblad: open, haaks op de wand, scharnier aan het begin van het gat.
+      // Deurblad: open, haaks op de wand aan de scharnierkant, tegen de muur van die hoek.
       gaten.filter((g) => g.soort === "deur").forEach((g, i) => {
         const blad = Math.min(0.85, g.tot - g.van);
         const hb = Math.min(2.05, hoogteVol);
+        const s0 = g.scharnier === "tot" ? g.tot - 0.05 : g.van;
         const node =
           as === "x" ? (
-            <Blok x0={g.van} x1={g.van + 0.05} y0={yf} y1={yf + hb} z0={g.kant > 0 ? vast : vast - blad} z1={g.kant > 0 ? vast + blad : vast} c={DEURBLAD} />
+            <Blok x0={s0} x1={s0 + 0.05} y0={yf} y1={yf + hb} z0={g.kant > 0 ? vast : vast - blad} z1={g.kant > 0 ? vast + blad : vast} c={DEURBLAD} />
           ) : (
-            <Blok x0={g.kant > 0 ? vast : vast - blad} x1={g.kant > 0 ? vast + blad : vast} y0={yf} y1={yf + hb} z0={g.van} z1={g.van + 0.05} c={DEURBLAD} />
+            <Blok x0={g.kant > 0 ? vast : vast - blad} x1={g.kant > 0 ? vast + blad : vast} y0={yf} y1={yf + hb} z0={s0} z1={s0 + 0.05} c={DEURBLAD} />
           );
-        items.push({ key: `${id}-blad-${i}`, diepte: g.van + vast + g.kant * blad * 0.5 + 0.06, node });
+        items.push({ key: `${id}-blad-${i}`, diepte: s0 + vast + g.kant * blad * 0.5 + 0.06, node });
       });
     };
 
@@ -510,55 +491,46 @@ export default function IsoHouse({
       wand("z", rechts, k.z, front, rechts >= w - 1e-6, `${k.id}-r`);
     });
 
-    // Trap: de treden tot de snijhoogte als blokken, de rest als lijnen op de
-    // vloer — zoals een trap op een bouwplan doorgesneden wordt.
+    // Trap: een gesloten trap die naar de tuinkant klimt (-z). De treden tot de
+    // snijhoogte als blokken, de rest als lijnen op de vloer — zoals een trap op een
+    // bouwplan doorgesneden wordt.
+    const treden = 14;
+    const onder = v > 0 ? trappen.find((t) => t.verdieping === v - 1) : undefined;
+    if (onder) {
+      // Trapgat: de trap van de laag eronder loopt zichtbaar naar beneden, geknipt op de opening.
+      const t = onder, aan = t.l / treden, op = FH / treden, zF = t.z + t.l;
+      const gat: [number, number, number][] = [[t.x, yf + 0.01, t.z], [t.x + t.w, yf + 0.01, t.z], [t.x + t.w, yf + 0.01, zF], [t.x, yf + 0.01, zF]];
+      const clip = `${uid}-gat-${v}`;
+      items.push({
+        key: "trapgat",
+        diepte: t.x + t.z + 0.01,
+        node: (
+          <g>
+            <clipPath id={clip}><polygon points={pts(gat)} /></clipPath>
+            <Poly v={gat} fill="#2a2321" stroke="none" />
+            <g clipPath={`url(#${clip})`}>
+              {Array.from({ length: treden }, (_, i) => {
+                const top = yf - FH + op * (i + 1);
+                return <Blok key={i} x0={t.x} x1={t.x + t.w} y0={top - op} y1={top} z0={t.z} z1={zF - aan * i} c={TREDE} />;
+              })}
+            </g>
+            <Blok x0={t.x} x1={t.x + t.w} y0={yf + 0.86} y1={yf + 0.92} z0={zF} z1={zF + 0.05} c={LEUNING} />
+          </g>
+        ),
+      });
+    }
     trappen
-      .filter((t) => t.verdieping === v)
+      .filter((t) => t.verdieping === v && t.op)
       .forEach((t, ti) => {
-        if (!t.op) {
-          // Trapgat: de trap van de laag eronder loopt zichtbaar naar beneden,
-          // geknipt op de opening, met een leuning langs de overloop.
-          const treden = 13;
-          const aan = t.w / treden;
-          const op = FH / treden;
-          const gat: [number, number, number][] = [[t.x, yf + 0.01, t.z], [t.x + t.w, yf + 0.01, t.z], [t.x + t.w, yf + 0.01, t.z + t.l], [t.x, yf + 0.01, t.z + t.l]];
-          const clip = `${uid}-gat-${v}-${ti}`;
-          const spijlen = Math.max(3, Math.round(t.w / 0.5));
-          items.push({
-            key: `trapgat-${ti}`,
-            diepte: t.x + t.z + 0.01,
-            node: (
-              <g>
-                <clipPath id={clip}><polygon points={pts(gat)} /></clipPath>
-                <Poly v={gat} fill="#2a2321" stroke="none" />
-                <g clipPath={`url(#${clip})`}>
-                  {Array.from({ length: treden }, (_, i) => {
-                    const top = yf - FH + op * (i + 1);
-                    const x0 = t.x + aan * i;
-                    return <Blok key={i} x0={x0} x1={t.x + t.w} y0={top - op} y1={top} z0={t.z} z1={t.z + t.l} c={TREDE} />;
-                  })}
-                </g>
-                <Blok x0={t.x} x1={t.x + t.w} y0={yf + 0.86} y1={yf + 0.92} z0={t.z + t.l - 0.05} z1={t.z + t.l} c={LEUNING} />
-                {Array.from({ length: spijlen + 1 }, (_, i) => {
-                  const x = t.x + (t.w * i) / spijlen;
-                  return <Blok key={`s${i}`} x0={Math.min(x, t.x + t.w - 0.04)} x1={Math.min(x + 0.04, t.x + t.w)} y0={yf} y1={yf + 0.86} z0={t.z + t.l - 0.04} z1={t.z + t.l} c={LEUNING} />;
-                })}
-                <Blok x0={t.x} x1={t.x + 0.05} y0={yf} y1={yf + 0.92} z0={t.z} z1={t.z + t.l} c={LEUNING} />
-              </g>
-            ),
-          });
-          return;
-        }
-        const treden = 13;
-        const aan = t.w / treden;
-        const op = FH / treden;
+        const aan = t.l / treden, op = FH / treden, zF = t.z + t.l;
         for (let i = 0; i < treden; i++) {
           const top = op * (i + 1);
-          const x0 = t.x + aan * i;
+          const z1 = zF - aan * i, z0 = z1 - aan;
           if (top <= Math.min(HC, wandH) + 0.01) {
-            items.push({ key: `trede-${ti}-${i}`, diepte: x0 + t.z + 0.02, node: <Blok x0={x0} x1={t.x + t.w} y0={yf + top - op} y1={yf + top} z0={t.z} z1={t.z + t.l} c={TREDE} /> });
+            // Gesloten: elke trede een blok tot op de vloer.
+            items.push({ key: `trede-${ti}-${i}`, diepte: t.x + z1 + 0.02, node: <Blok x0={t.x} x1={t.x + t.w} y0={yf} y1={yf + top} z0={z0} z1={z1} c={TREDE} /> });
           } else {
-            items.push({ key: `trede-${ti}-${i}`, diepte: x0 + t.z, node: <polyline points={pts([[x0, yf + 0.005, t.z], [x0, yf + 0.005, t.z + t.l]])} stroke="#00000040" strokeWidth={0.6} fill="none" /> });
+            items.push({ key: `trede-${ti}-${i}`, diepte: t.x + z0, node: <polyline points={pts([[t.x, yf + 0.005, z0], [t.x + t.w, yf + 0.005, z0]])} stroke="#00000040" strokeWidth={0.6} fill="none" /> });
           }
         }
       });
@@ -618,7 +590,7 @@ export default function IsoHouse({
           <g key={it.key}>{it.node}</g>
         ))}
         {!mini && o > 0.01 &&
-          laagKamers.map((k) => {
+          laagKamers.filter((k) => !k.deel).map((k) => {
             const [tx, ty] = P([k.x + k.w * 0.5, yf + HC + 0.15, k.z + k.l * 0.5]);
             return (
               <text key={`l-${k.id}`} x={tx} y={ty} className={`ds-kamerlabel${k.soort === "circulatie" ? " ds-kamerlabel--gang" : ""}`} textAnchor="middle" style={{ opacity: o }}>
