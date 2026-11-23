@@ -151,6 +151,10 @@ export interface SimCopy {
   nietNat: string;
   meest: string;
   weetNietKlein: string;
+  /** Knop onder de lat in stap 4: de dikte is onbekend, reken met de gangbare maat. */
+  weetNietKnop: string;
+  /** Label boven de lat: de vakken van de lat zijn de keuze. */
+  dikteDruk: string;
   droog: string;
   nietNatBadge: string;
   dikteSleep: string;
@@ -324,6 +328,8 @@ export const COPY: Copy<SimCopy> = {
     nietNat: "niet nat",
     meest: "meest",
     weetNietKlein: "weet niet",
+    weetNietKnop: "Weet ik niet",
+    dikteDruk: "Dikte in cm \u00b7 druk op de maat",
     droog: "Droog",
     nietNatBadge: "Niet nat",
     dikteSleep: "Dikte in cm · sleep of kies",
@@ -496,6 +502,8 @@ export const COPY: Copy<SimCopy> = {
     nietNat: "pas humide",
     meest: "courant",
     weetNietKlein: "je ne sais pas",
+    weetNietKnop: "Je ne sais pas",
+    dikteDruk: "\u00c9paisseur en cm \u00b7 appuyez sur la mesure",
     droog: "Sèche",
     nietNatBadge: "Pas humide",
     dikteSleep: "Épaisseur en cm · faites glisser ou choisissez",
@@ -667,6 +675,8 @@ export const COPY: Copy<SimCopy> = {
     nietNat: "not wet",
     meest: "most common",
     weetNietKlein: "don't know",
+    weetNietKnop: "I don't know",
+    dikteDruk: "Thickness in cm \u00b7 tap a measure",
     droog: "Dry",
     nietNatBadge: "Not wet",
     dikteSleep: "Thickness in cm · drag or choose",

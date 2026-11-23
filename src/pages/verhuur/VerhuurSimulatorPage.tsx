@@ -184,6 +184,18 @@ const VerhuurSimulatorPage = () => {
   // Stap 2: het huis gaat open zodra de bezoeker aan de indeling werkt, en
   // weer dicht bij bouwlagen of dak — dan wil hij de woning zien.
   const [toonPlan, setToonPlan] = useState(false);
+  /*
+    Welke antwoorden de bezoeker zélf heeft aangedrukt. Elke stap komt met een
+    antwoord al ingevuld — zadeldak, twee bouwlagen, de geschatte oppervlakte,
+    de verwarming die bij de fase hoort, de gangbare dikte — anders zou de
+    tekening leeg blijven. Maar een ingevuld antwoord zag er precies zo uit als
+    een bevestigd antwoord, en dan klikt niemand nog iets aan. Daarom: rood
+    zolang het onze gok is, groen zodra de bezoeker het zelf zet.
+  */
+  const [geraakt, setGeraakt] = useState<Record<string, true>>({});
+  const raak = (k: string) => setGeraakt((g) => (g[k] ? g : { ...g, [k]: true }));
+  /** " gok" zolang dit antwoord nog van ons komt, anders niets (= groen). */
+  const gok = (k: string) => (geraakt[k] ? "" : " gok");
   const root = useRef<HTMLDivElement>(null);
 
   const wat = s.fase ? watVoor(s.fase, s.pd, s.cd) : null;
@@ -321,11 +333,13 @@ const VerhuurSimulatorPage = () => {
   };
 
   const zetDak = (d: Dak) => {
+    raak("dak");
     setToonPlan(false);
     setS((prev) => ({ ...prev, dak: d, kamers: herschik(prev, prev.verdiepingen, d) }));
   };
 
   const zetAantal = (v: number, n: number) => {
+    raak("kamers");
     setToonPlan(true);
     setActief(v);
     setS((prev) => {
@@ -499,7 +513,7 @@ const VerhuurSimulatorPage = () => {
                     <div className="ds-lbl">{t.dak}{woning === "appartement" && <span>{t.dakAppartement}</span>}</div>
                     <div className="ds-hkset ds-hkset--dak" role="radiogroup" aria-label={t.daktype}>
                       {DAKEN.map((d) => (
-                        <button key={d} type="button" role="radio" aria-checked={dak === d} disabled={!WONING[woning].dakToegelaten.includes(d)} className={`ds-hk ds-hk--dak${dak === d ? " on" : ""}`} onClick={() => zetDak(d)}>
+                        <button key={d} type="button" role="radio" aria-checked={dak === d} disabled={!WONING[woning].dakToegelaten.includes(d)} className={`ds-hk ds-hk--dak${dak === d ? ` on${gok("dak")}` : ""}`} onClick={() => zetDak(d)}>
                           <HuisIcoon dak={d} lagen={2} />
                           <b><span className="ds-lang">{dakTekst(d, taal).label}</span><span className="ds-kort">{t.dakKort[d]}</span></b>
                         </button>
@@ -510,7 +524,7 @@ const VerhuurSimulatorPage = () => {
                     <div className="ds-lbl">{t.verdiepen}</div>
                     <div className="ds-hkset ds-hkset--lagen" role="radiogroup" aria-label={t.verdiepen}>
                       {Array.from({ length: MAX_VERDIEPINGEN }, (_, i) => i + 1).map((n) => (
-                        <button key={n} type="button" role="radio" aria-checked={lagen === n} aria-label={woningLagen(n, dak, t)} disabled={n > maxLagen} className={`ds-hk ds-hk--laag${lagen === n ? " on" : ""}`} onClick={() => zetLagen(n)}>
+                        <button key={n} type="button" role="radio" aria-checked={lagen === n} aria-label={woningLagen(n, dak, t)} disabled={n > maxLagen} className={`ds-hk ds-hk--laag${lagen === n ? ` on${gok("lagen")}` : ""}`} onClick={() => zetLagen(n)}>
                           {/*
                             Geen plaatje hier. Vier huisjes die alleen in hoogte
                             verschillen zijn op knopformaat niet uit elkaar te
@@ -569,13 +583,13 @@ const VerhuurSimulatorPage = () => {
                         <b>{maatwerk ? `${GROOTSTE}+` : s.size}<span> m²</span></b>
                         <small>
                           {maatwerk ? t.maatwerkKlein : opIk === opSchat ? t.pastBij : (
-                            <button type="button" className="ds-opp-terug" onClick={() => setS((p) => ({ ...p, size: OPP_STAPPEN[opSchat] }))}>
+                            <button type="button" className="ds-opp-terug" onClick={() => { raak("size"); setS((p) => ({ ...p, size: OPP_STAPPEN[opSchat] })); }}>
                               {t.geschat(schatting)}
                             </button>
                           )}
                         </small>
                       </div>
-                      <div className="ds-opp-schuif" style={{ "--pos": `${(opIk / (OPP_STAPPEN.length - 1)) * 100}%`, "--schat": `${(opSchat / (OPP_STAPPEN.length - 1)) * 100}%` } as CSSProperties}>
+                      <div className={`ds-opp-schuif${gok("size")}`} style={{ "--pos": `${(opIk / (OPP_STAPPEN.length - 1)) * 100}%`, "--schat": `${(opSchat / (OPP_STAPPEN.length - 1)) * 100}%` } as CSSProperties}>
                         <input
                           type="range"
                           min={0}
@@ -584,7 +598,7 @@ const VerhuurSimulatorPage = () => {
                           value={opIk}
                           aria-label={t.vloeroppervlakte}
                           aria-valuetext={maatwerk ? t.meerDan(GROOTSTE) : t.tot(s.size)}
-                          onChange={(e) => setS((p) => ({ ...p, size: OPP_STAPPEN[Number(e.target.value)] }))}
+                          onChange={(e) => { raak("size"); setS((p) => ({ ...p, size: OPP_STAPPEN[Number(e.target.value)] })); }}
                         />
                         <i className="ds-opp-tick" aria-hidden="true" />
                         <span className="ds-opp-schaal" aria-hidden="true"><span>{MATEN[0]}</span><span>{GROOTSTE}+</span></span>
@@ -621,11 +635,11 @@ const VerhuurSimulatorPage = () => {
                   <div className="ds-warm">
                     <div className="ds-lbl">{t.warmKop}</div>
                     <div className="ds-warmset" role="radiogroup" aria-label={t.warmKop}>
-                      <button type="button" role="radio" aria-checked={verwarmd === true} className={`ds-warmk${verwarmd === true ? " on" : ""}`} onClick={() => setS((p) => ({ ...p, verwarmt: true }))}>
+                      <button type="button" role="radio" aria-checked={verwarmd === true} className={`ds-warmk${verwarmd === true ? ` on${gok("verwarmt")}` : ""}`} onClick={() => { raak("verwarmt"); setS((p) => ({ ...p, verwarmt: true })); }}>
                         <Vlam />
                         <span><b>{t.warmJa[0]}</b><small>{t.warmJa[1]}</small></span>
                       </button>
-                      <button type="button" role="radio" aria-checked={verwarmd === false} className={`ds-warmk${verwarmd === false ? " on" : ""}`} onClick={() => setS((p) => ({ ...p, verwarmt: false }))}>
+                      <button type="button" role="radio" aria-checked={verwarmd === false} className={`ds-warmk${verwarmd === false ? ` on${gok("verwarmt")}` : ""}`} onClick={() => { raak("verwarmt"); setS((p) => ({ ...p, verwarmt: false })); }}>
                         <IJsblok />
                         <span><b>{t.warmNee[0]}</b><small>{t.warmNee[1]}</small></span>
                       </button>
@@ -647,7 +661,8 @@ const VerhuurSimulatorPage = () => {
                       laag={laag}
                       solo={faseLagen.length === 1}
                       gekozen={s[laag]}
-                      onKies={(v) => setS((p) => ({ ...p, [laag]: v }))}
+                      bevestigd={!!geraakt[laag]}
+                      onKies={(v) => { raak(laag); setS((p) => ({ ...p, [laag]: v })); }}
                     />
                   ))}
                 </>
@@ -1002,38 +1017,47 @@ const Vink = ({ grootte = 10 }: { grootte?: number }) => (
 );
 
 /**
- * Eén laag (pleisterwerk of chape): foto, de gekozen dikte op ware grootte, en
- * de keuzes Geen / de catalogusmaten / weet niet. "Geen" is een antwoord, geen
- * uitgeschakelde kaart: de laag is droog en telt niet mee.
+ * Eén laag (pleisterwerk of chape): foto, en de dikte als lat waar je op drukt.
+ *
+ * De lat ís de keuze geworden (23-11-2026). Er stonden eerst twee regelaars
+ * onder elkaar voor hetzelfde getal — een schuif op ware grootte én een rij van
+ * vijf knoppen "Geen · 1 cm · 2 cm · 3 cm · ?" — en samen namen ze de halve
+ * kaart. Nu is elke catalogusmaat een vak van de lat: je drukt op het vak en
+ * alles links ervan loopt groen vol, dus de knop die je indrukt tóónt meteen de
+ * dikte. "Niet nat" en "Weet ik niet" staan eronder, want dat zijn geen maten.
  */
-function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd"; gekozen: string; onKies: (v: string) => void; solo?: boolean }) {
+function LaagKaart({ laag, gekozen, bevestigd, onKies, solo = false }: { laag: "pd" | "cd"; gekozen: string; bevestigd: boolean; onKies: (v: string) => void; solo?: boolean }) {
   const t = useCopy(COPY);
   const L = { ...LAAG[laag], ...t.laag[laag] };
+  const kies = onKies;
+  /*
+    Tijdens het slepen volgt de balk de vinger zelf (`ruw`), niet de maat waar
+    hij naartoe springt. Anders moest hij bij elke tussenstand van 0,05 cm
+    opnieuw een halve seconde naar de volgende hele centimeter animeren: van 5
+    naar 6 schokte hij dan mee met de vinger. Bij loslaten valt `ruw` weg en
+    glijdt hij alsnog naar de gekozen maat.
+  */
+  const [ruw, setRuw] = useState<number | null>(null);
   const droog = gekozen === "geen";
   const onbekend = gekozen === "onbekend";
   const cm = droog ? 0 : Number(onbekend ? L.standaard : gekozen);
   const foto = L.fotos[cm] ?? L.fotoStandaard;
   const fotoKlein = foto.replace(/\.webp$/, "-360.webp");
   const max = Math.max(...L.waarden.map(Number));
-  const keuzes: { v: string; groot: ReactNode; klein: string }[] = [
-    { v: "geen", groot: t.geen, klein: droog ? t.droogKlein : t.nietNat },
-    ...L.waarden.map((v) => ({ v, groot: <>{v}<small> cm</small></>, klein: v === L.standaard ? t.meest : "" })),
-    { v: "onbekend", groot: "?", klein: t.weetNietKlein },
-  ];
   const dikte = droog ? <span className="ok">{t.droog}</span> : <>{onbekend ? "± " : ""}{cm}<small> cm</small></>;
   // Solo (maar één laag in deze fase): de foto wordt een banner over de volle breedte die de vrije
   // hoogte opneemt, met naam en dikte erop; anders rekt één kaart uit tot gaten.
   return (
-    <section className={`ds-laagk${droog ? " uit" : ""}${solo ? " ds-laagk--solo" : ""}`} aria-label={L.titel}>
+    <section className={`ds-laagk${droog ? " uit" : ""}${solo ? " ds-laagk--solo" : ""}${bevestigd ? " bevestigd" : ""}`} aria-label={L.titel}>
       <figure className="ds-laagk-foto">
         <img src={fotoKlein} srcSet={`${fotoKlein} 360w, ${foto.replace(/\.webp$/, "-640.webp")} 640w, ${foto} ${L.fotoBreedte}w`} sizes={solo ? "(max-width: 899px) 92vw, 640px" : "(max-width: 899px) 30vw, 260px"} alt="" style={{ objectPosition: L.fotoPositie }} loading="lazy" decoding="async" />
         {droog && <span className="ds-laagk-badge">{t.nietNatBadge}</span>}
         {solo ? (
           <figcaption className="ds-laagk-band">
-            <span><h3>{L.titel}</h3>{L.onderschrift}</span>
+            <span><h3>{L.titel}</h3>{droog ? (laag === "pd" ? t.geenPleister : t.geenChape) : L.onderschrift}</span>
             <output>{dikte}</output>
           </figcaption>
-        ) : <figcaption><b>{L.titel}</b>{L.onderschrift}</figcaption>}
+        ) : <figcaption><b>{L.titel}</b>{droog ? (laag === "pd" ? t.geenPleister : t.geenChape) : L.onderschrift}</figcaption>}
       </figure>
       <div className="ds-laagk-inh">
         {!solo && (
@@ -1045,24 +1069,54 @@ function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd";
         <p className="ds-laagk-wat">{L.wat}</p>
         <div className="ds-ware" style={{ "--max": max } as CSSProperties}>
           <em>{t.dikteSleep}</em>
-          <div className="ds-ware-lat">
-            <i style={{ width: `${(cm / max) * 100}%` }} />
-            <WareSchuif laag={laag} cm={cm} max={max} onKies={onKies} />
+          {/*
+            De meter met aan weerszijden zijn twee uitzonderingen: links "Droog"
+            (nul — er zit hier niets nats) en rechts "?" (weet ik niet, reken met
+            de gangbare maat). Ze stonden eerst als "Geen" en "?" tussen de
+            centimeters in één knoppenrij; daardoor las "Geen" als een dikte. Aan
+            de uiteinden van de lat lezen ze als wat ze zijn: de twee punten
+            buiten de schaal.
+          */}
+          <div className="ds-wrij">
+            <button type="button" className={`ds-nk${droog ? " on" : ""}`} aria-pressed={droog} onClick={() => kies(droog ? L.standaard : "geen")}>
+              {t.droog}
+            </button>
+            <div className="ds-wmeter">
+              <div className={`ds-ware-lat${ruw !== null ? " sleept" : ""}`}>
+                <i style={{ width: `${(Math.min(Math.max(ruw ?? cm, 0), max) / max) * 100}%` }} />
+                <WareSchuif laag={laag} cm={ruw ?? cm} max={max} onKies={kies} onRuw={setRuw} />
+              </div>
+              <div className="ds-ware-schaal">{Array.from({ length: max + 1 }, (_, i) => <span key={i}>{i}</span>)}</div>
+            </div>
+            <button type="button" className={`ds-nk ds-nk--vraag${onbekend ? " on" : ""}`} aria-pressed={onbekend} aria-label={t.weetNietKnop} title={t.weetNietKnop} onClick={() => kies(onbekend ? L.standaard : "onbekend")}>
+              ?
+            </button>
           </div>
-          <div className="ds-ware-schaal">{Array.from({ length: max + 1 }, (_, i) => <span key={i}>{i}</span>)}</div>
+          {/*
+            Dezelfde maten nog eens als knop, want niet iedereen wil slepen. Geen
+            losse kaarten meer zoals eerder (vijf tegels met een groot cijfer en
+            een onderschrift namen de halve kaart in) maar één baan met vakken,
+            dezelfde vorm als de dak- en verdiepingskeuze in stap 2.
+          */}
+          <div className="ds-maten" role="radiogroup" aria-label={t.dikte(L.titel)}>
+            {L.waarden.map((v) => (
+              <button
+                key={v}
+                type="button"
+                role="radio"
+                aria-checked={!droog && !onbekend && String(cm) === v}
+                className={`ds-maat${!droog && !onbekend && String(cm) === v ? " on" : ""}`}
+                onClick={() => kies(v)}
+              >
+                <b>{v}<small> cm</small></b>
+                <i>{v === L.standaard ? t.meest : "\u00a0"}</i>
+              </button>
+            ))}
+          </div>
           <div className="ds-ware-droog" aria-hidden={!droog}>
             <span className="bol"><Vink grootte={14} /></span>
             <span><b>{t.laagDroog(L.titel)}</b><small>{t.telNiet}</small></span>
           </div>
-        </div>
-        <div className="ds-dk" role="radiogroup" aria-label={t.dikte(L.titel)}>
-          {keuzes.map((k) => (
-            <button key={k.v} type="button" role="radio" aria-checked={gekozen === k.v} className={`${k.v === "geen" ? "geen" : ""}${gekozen === k.v ? " on" : ""}`} onClick={() => onKies(k.v)}>
-              {k.v === "geen" && <span className="vink"><Vink /></span>}
-              <b>{k.groot}</b>
-              <i>{k.klein || "\u00a0"}</i>
-            </button>
-          ))}
         </div>
         <div className="ds-laagk-info" aria-live="polite">
           <span className="tip">{L.tip}</span>
@@ -1077,7 +1131,7 @@ function LaagKaart({ laag, gekozen, onKies, solo = false }: { laag: "pd" | "cd";
  * slepen, toetsenbord en schermlezer gewoon werken. Hij springt naar "geen" of
  * naar een catalogusmaat: andere diktes kent de berekening niet.
  */
-function WareSchuif({ laag, cm, max, onKies }: { laag: "pd" | "cd"; cm: number; max: number; onKies: (v: string) => void }) {
+function WareSchuif({ laag, cm, max, onKies, onRuw }: { laag: "pd" | "cd"; cm: number; max: number; onKies: (v: string) => void; onRuw: (v: number | null) => void }) {
   const t = useCopy(COPY);
   const L = { ...LAAG[laag], ...t.laag[laag] };
   const stops: { cm: number; v: string }[] = [{ cm: 0, v: "geen" }, ...L.waarden.map((v) => ({ cm: Number(v), v }))];
@@ -1095,9 +1149,15 @@ function WareSchuif({ laag, cm, max, onKies }: { laag: "pd" | "cd"; cm: number; 
       aria-label={t.dikteCm(L.titel)}
       aria-valuetext={cm === 0 ? t.nietNat : `${cm} cm`}
       onChange={(e) => {
-        const s = dichtst(Number(e.target.value));
+        const x = Number(e.target.value);
+        onRuw(x);
+        const s = dichtst(x);
         if (s.cm !== cm) onKies(s.v);
       }}
+      onPointerUp={() => onRuw(null)}
+      onPointerCancel={() => onRuw(null)}
+      onBlur={() => onRuw(null)}
+      onTouchEnd={() => onRuw(null)}
       onKeyDown={(e) => {
         // Pijltjes: naar de vorige of volgende maat, niet per 0,05 cm.
         const d = e.key === "ArrowRight" || e.key === "ArrowUp" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -1 : 0;
