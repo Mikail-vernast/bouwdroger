@@ -892,20 +892,22 @@ export interface ContactMessage {
   spamrelais met onze reputatie bij Brevo als inzet. De drempels per adres en
   per IP tellen per Worker-instantie en houden dat niet tegen.
 
-  Daarom haalt de kopie aan de bezoeker links eruit en kapt ze lange teksten
-  af. De mail aan het team en het portaal krijgen de volledige tekst.
-
-  Kale domeinen alleen met een gangbare extensie: met elke extensie werd een
-  tikfout als "kelder.Ik" al een link.
+  Daarom breekt de kopie aan de bezoeker elke link: een adres met schema
+  (`https://`, `www.`, `mailto:`) wordt "[link]", en elke punt tussen twee
+  letters krijgt een spatie ("oplichter. ws"). Geen mailprogramma maakt daar
+  nog een link van, welke extensie er ook achter staat. Een lijst met
+  extensies werd omzeild door de eerste die er niet in stond. Lange teksten
+  worden afgekapt. De mail aan het team en het portaal krijgen alles.
 */
-const LINK =
-  /\b(?:https?:\/\/|www\.)\S+|\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|net|org|info|biz|be|nl|eu|fr|de|uk|io|co|me|ly|ru|cn|xyz|top|shop|site|online|app|link|click|live)\b(?:\/\S*)?/gi;
+const SCHEMA_LINK = /\b(?:[a-z][a-z0-9+.-]*:\/\/|www\.|mailto:)\S+/giu;
+// Ook de punten die een spammer als look-alike gebruikt: 。 ． ｡ ‧ ・
+const PUNT_TUSSEN_LETTERS = /([\p{L}\p{N}])[.\u3002\uFF0E\uFF61\u2027\u30FB](?=\p{L})/gu;
 const MAX_BERICHT_KOPIE = 1000;
 const MAX_NAAM_KOPIE = 80;
 
 export function forStranger(text: string, max: number): string {
-  const zonderLinks = text.replace(LINK, "[link]").trim();
-  return zonderLinks.length > max ? `${zonderLinks.slice(0, max).trimEnd()}…` : zonderLinks;
+  const veilig = text.replace(SCHEMA_LINK, "[link]").replace(PUNT_TUSSEN_LETTERS, "$1. ").trim();
+  return veilig.length > max ? `${veilig.slice(0, max).trimEnd()}…` : veilig;
 }
 
 /** De ontvanger van de kopie: ook zijn weergavenaam ("Aan: …") toont de bezoeker zelf. */
