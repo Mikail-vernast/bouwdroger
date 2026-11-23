@@ -5,7 +5,7 @@
 #   Blender -b -P scripts/simulator-3d/texturen.py -- <uitmap> [naam ...]
 #
 # Zonder namen worden alle tegels gemaakt. Uitvoer: <naam>.png. Daarna naar webp:
-#   for f in <uitmap>/*.png; do cwebp -q 82 "$f" -o public/simulator/3d/$(basename "${f%.png}").webp; done
+#   scripts/simulator-3d/normaliseer.sh <uitmap>   (helderheid en contrast op doel, dan -v2.webp)
 # baksteen.webp komt uit de keldersimulator van Vernast (bricks.webp, zelfde Blender-reeks).
 #
 # De lichtopstelling is bewust vlak (veel hemel, weinig zon): de tegel draagt kleur,
@@ -342,21 +342,286 @@ def tegelvloer():
     render(sc, 'tegelvloer')
 
 
+
+# ─────────────────────── tweede reeks (23-11-2026) ───────────────────────
+# De eerste detailtegels waren bijna effen (chape, pleister, verf: standaardafwijking
+# onder 0,5 %) en de natte tegels toonden één grote wolk per periode, die je in de woning
+# als camouflage zag herhalen. Deze reeks heeft hoogte (korrel, spaansporen, granulaat)
+# onder strijklicht, en kleinere, zachtere vlekken. Helderheid en contrast worden daarna
+# op hun doel gezet (normaliseer.sh), zodat three.js ze met dezelfde kleuren
+# uit materiaal.ts kan blijven vermenigvuldigen.
+
+def ruis(n, l, tc, T, schaal, detail=4, rough=0.55, vervorm=0.0):
+    # Wereldpositie, niet Object: `vlak()` schaalt een vlak van 1 m op, dus in objectruimte
+    # is de tegel 1/T lang en loopt de torus niet rond (zichtbare naad, ook in de eerste reeks).
+    pos = n.new('ShaderNodeNewGeometry')
+    nz = torus_ruis(n, l, pos.outputs['Position'], T, T, schaal, detail=detail, rough=rough)
+    nz.inputs['Distortion'].default_value = vervorm
+    return nz.outputs['Fac']
+
+
+def som(n, l, delen):
+    """Σ gewicht × invoer; `delen` = [(socket, gewicht), ...]."""
+    acc = None
+    for s_, w in delen:
+        m = n.new('ShaderNodeMath'); m.operation = 'MULTIPLY'; m.inputs[1].default_value = w
+        l.new(s_, m.inputs[0])
+        if acc is None:
+            acc = m.outputs[0]
+        else:
+            a = n.new('ShaderNodeMath'); a.operation = 'ADD'
+            l.new(acc, a.inputs[0]); l.new(m.outputs[0], a.inputs[1]); acc = a.outputs[0]
+    return acc
+
+
+def strijklicht(sc, energie=1.6):
+    """Een lage zon over het vlak: korrel en spaansporen krijgen schaduw. De richting
+    verdwijnt in de normalisatie grotendeels; wat blijft is reliëf."""
+    for o in [o for o in sc.objects if o.type == 'LIGHT']:
+        bpy.data.objects.remove(o)
+    zon = bpy.data.lights.new('strijk', 'SUN'); zon.energy = energie; zon.angle = math.radians(6)
+    so = bpy.data.objects.new('strijk', zon); sc.collection.objects.link(so)
+    so.rotation_euler = (math.radians(64), 0, math.radians(35))
+    sc.world.node_tree.nodes['Background'].inputs['Strength'].default_value = 0.35
+
+
+def oppervlak(naam, T, px, kleur, hoogte, bump=0.5, afstand=0.004, rough=0.85, samples=64):
+    """Vlakke tegel met een albedo-socket `kleur` en een hoogte-socket `hoogte`."""
+    sc = nieuwe_scene(T, T, px, samples=samples)
+    m = mat(naam, (0.8, 0.8, 0.8), rough=rough)
+    n = m.node_tree.nodes; l = m.node_tree.links; b = n['Principled BSDF']
+    tc = n.new('ShaderNodeTexCoord')
+    l.new(kleur(n, l, tc), b.inputs['Base Color'])
+    bp = n.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = bump; bp.inputs['Distance'].default_value = afstand
+    l.new(hoogte(n, l, tc), bp.inputs['Height']); l.new(bp.outputs['Normal'], b.inputs['Normal'])
+    vlak(sc, T, T, m)
+    strijklicht(sc)
+    render(sc, naam)
+
+
+def grijs_ramp(n, l, fac, laag, hoog, pos=(0.3, 0.7)):
+    r = n.new('ShaderNodeValToRGB')
+    r.color_ramp.elements[0].position, r.color_ramp.elements[1].position = pos
+    r.color_ramp.elements[0].color = (laag, laag, laag, 1); r.color_ramp.elements[1].color = (hoog, hoog, hoog, 1)
+    l.new(fac, r.inputs[0])
+    return r.outputs['Color']
+
+
+def chape2():
+    """Zandcementchape, afgereid: fijne zandkorrel, de bogen van de spaan, een paar
+    plekken die iets langer nat bleven."""
+    T = 1.0
+    oppervlak('chape', T, 768,
+              lambda n, l, tc: grijs_ramp(n, l, som(n, l, [(ruis(n, l, tc, T, 2.5, 5), 0.6), (ruis(n, l, tc, T, 260, 2), 0.4)]), 0.62, 0.9),
+              lambda n, l, tc: som(n, l, [(ruis(n, l, tc, T, 260, 2, 0.7), 1.0), (ruis(n, l, tc, T, 4, 3, 0.5, 3.0), 0.6)]),
+              bump=0.45, afstand=0.003)
+
+
+def pleister2():
+    """Gipspleister, gesmoord: haast wit, alleen de zachte zwaai van de spaan en een
+    fijne korrel (zelfde opbouw als pleister.py van de vochtsimulator)."""
+    T = 1.5
+    oppervlak('pleister', T, 512,
+              lambda n, l, tc: grijs_ramp(n, l, ruis(n, l, tc, T, 2, 4), 0.86, 0.95),
+              lambda n, l, tc: som(n, l, [(ruis(n, l, tc, T, 1.8, 4, 0.55, 1.2), 0.35), (ruis(n, l, tc, T, 70, 3, 0.6), 1.0)]),
+              bump=0.5, afstand=0.006, rough=0.92)
+
+
+def verf2():
+    """Muurverf met de rol: een fijne sinaasappelhuid, verder egaal."""
+    T = 1.0
+    oppervlak('verf', T, 512,
+              lambda n, l, tc: grijs_ramp(n, l, ruis(n, l, tc, T, 3, 3), 0.9, 0.96),
+              lambda n, l, tc: ruis(n, l, tc, T, 160, 2, 0.5),
+              bump=0.25, afstand=0.002, rough=0.7)
+
+
+def pleisternat2():
+    """Pas gepleisterd: donkere natte vlekken die van de randen af opdrogen, kleiner en
+    zachter dan de eerste reeks, met de korrel van het pleister erdoor."""
+    T = 2.0
+
+    def kleur(n, l, tc):
+        vlek = som(n, l, [(ruis(n, l, tc, T, 1.6, 5, 0.6, 0.6), 0.75), (ruis(n, l, tc, T, 5, 3), 0.25)])
+        return grijs_ramp(n, l, vlek, 0.55, 0.95, pos=(0.3, 0.7))
+    oppervlak('pleisternat', T, 384, kleur,
+              lambda n, l, tc: som(n, l, [(ruis(n, l, tc, T, 1.8, 4, 0.55, 1.2), 0.35), (ruis(n, l, tc, T, 60, 3, 0.6), 1.0)]),
+              bump=0.45, afstand=0.006, rough=0.9)
+
+
+def vloerplaat2():
+    """Ruwe betonnen vloerplaat in de ruwbouw: granulaat in het oppervlak, een wolkerige
+    grijstint en plassen regenwater die langzaam opdrogen."""
+    T = 2.0
+
+    def kleur(n, l, tc):
+        beton = grijs_ramp(n, l, som(n, l, [(ruis(n, l, tc, T, 3, 5), 0.7), (ruis(n, l, tc, T, 120, 2), 0.5)]), 0.55, 0.92)
+        nat = grijs_ramp(n, l, som(n, l, [(ruis(n, l, tc, T, 1.5, 6, 0.6, 0.3), 0.8), (ruis(n, l, tc, T, 8, 3), 0.2)]), 0, 1, pos=(0.36, 0.66))
+        mix = n.new('ShaderNodeMix'); mix.data_type = 'RGBA'; mix.blend_type = 'MULTIPLY'
+        l.new(beton, rgba(mix.inputs, 'A')); rgba(mix.inputs, 'B').default_value = (0.68, 0.68, 0.68, 1)
+        # Waar de ruis laag is staat er nog water: daar de ramp gekeerd als factor.
+        inv = n.new('ShaderNodeInvert'); l.new(nat, inv.inputs['Color'])
+        l.new(inv.outputs[0], mix.inputs['Factor'])
+        return rgba(mix.outputs, 'Result')
+    oppervlak('vloerplaat', T, 384, kleur,
+              lambda n, l, tc: som(n, l, [(ruis(n, l, tc, T, 120, 2, 0.7), 1.0), (ruis(n, l, tc, T, 6, 3), 0.4)]),
+              bump=0.5, afstand=0.004, rough=0.9)
+
+
+def grind2():
+    """Dakgrind 8/16, dicht gestort: twee lagen kiezels zodat de bodem nergens doorschijnt,
+    elke kiezel een eigen tint."""
+    T = 0.5
+    sc = nieuwe_scene(T, T, 1024, samples=48)
+    vlak(sc, T, T, mat('bodem', (0.2, 0.19, 0.18), 0.9))
+    rnd = random.Random(31)
+    kleuren = ((0.36, 0.35, 0.33), (0.47, 0.45, 0.42), (0.27, 0.26, 0.25), (0.55, 0.52, 0.47), (0.42, 0.38, 0.33))
+    tinten = []
+    for i, c in enumerate(kleuren):
+        k = mat(f'k{i}', c, 0.6)
+        object_variatie(k, 0.18)
+        tinten.append(k)
+    vormen = []
+    for i in range(6):
+        me = bpy.data.meshes.new(f'kiezel-{i}')
+        bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=3, radius=1)
+        for v in bm.verts:
+            v.co *= rnd.uniform(0.85, 1.15)
+        bm.to_mesh(me); bm.free()
+        for p in me.polygons:
+            p.use_smooth = True
+        vormen.append(me)
+    kiezels = []
+    for laag, aantal in ((0, 2600), (1, 2200)):
+        for _ in range(aantal):
+            r = rnd.uniform(0.004, 0.0075)
+            kiezels.append((rnd.uniform(0, T), rnd.uniform(0, T), r, laag, rnd.randrange(len(vormen)), rnd.randrange(len(tinten)), rnd.random(), rnd.uniform(0, 6.28), rnd.uniform(-0.4, 0.4)))
+
+    def maak(dx, dy):
+        for i, (x, y, r, laag, v, t, var, a, kant) in enumerate(kiezels):
+            if not (-0.02 < x + dx < T + 0.02 and -0.02 < y + dy < T + 0.02):
+                continue
+            me = vormen[v].copy(); me.materials.append(tinten[t])
+            ob = bpy.data.objects.new(f'kiezel-{i}', me); sc.collection.objects.link(ob)
+            ob['v'] = var
+            ob.location = (x + dx, y + dy, r * 0.35 + laag * 0.004)
+            ob.scale = (r * 1.35, r, r * 0.65); ob.rotation_euler = (kant, 0, a)
+    periodiek(sc, T, T, maak)
+    render(sc, 'grind')
+
+
+def parket2():
+    """Eiken planken met de houttekening van parket.py uit de vochtsimulator: lange
+    draad, poriën en een zachte vlam, elke plank uit een eigen stuk stam. Zelfde legpatroon
+    als de eerste reeks (twee planken per kolom, halfsteens verspringend)."""
+    PB, COLS, PL = 0.18, 8, 1.2
+    PW, PH = PB * COLS, PL * 2
+    sc = nieuwe_scene(PW, PH, 480, samples=48)
+    vlak(sc, PW, PH, mat('voeg', (0.1, 0.07, 0.045), 0.7)).location.z = -0.01
+    rnd = random.Random(5)
+
+    def lin(*c):
+        return tuple(v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4 for v in c)
+
+    def eik(k):
+        m = bpy.data.materials.new(f'eik-{k}'); m.use_nodes = True
+        n = m.node_tree.nodes; l = m.node_tree.links; b = n['Principled BSDF']
+        toon = rnd.uniform(0.88, 1.08)
+        licht = lin(*(min(1, c * toon) for c in (0.74, 0.58, 0.40)))
+        donker = lin(*(c * toon for c in (0.47, 0.33, 0.2)))
+        tc = n.new('ShaderNodeTexCoord')
+        mp = n.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (70, 2.2, 1)
+        mp.inputs['Location'].default_value = (rnd.uniform(0, 50), rnd.uniform(0, 50), 0)
+        l.new(tc.outputs['Object'], mp.inputs['Vector'])
+        draad = n.new('ShaderNodeTexNoise'); draad.inputs['Scale'].default_value = 1.0; draad.inputs['Detail'].default_value = 6
+        draad.inputs['Roughness'].default_value = 0.62; draad.inputs['Distortion'].default_value = 0.4
+        l.new(mp.outputs[0], draad.inputs['Vector'])
+        pm = n.new('ShaderNodeMapping'); pm.inputs['Scale'].default_value = (300, 40, 1)
+        l.new(mp.outputs[0], pm.inputs['Vector'])
+        porie = n.new('ShaderNodeTexNoise'); porie.inputs['Scale'].default_value = 1; porie.inputs['Detail'].default_value = 2
+        l.new(pm.outputs[0], porie.inputs['Vector'])
+        vlam = n.new('ShaderNodeTexNoise'); vlam.inputs['Scale'].default_value = 3; vlam.inputs['Detail'].default_value = 3
+        l.new(mp.outputs[0], vlam.inputs['Vector'])
+        h = som(n, l, [(draad.outputs['Fac'], 0.6), (vlam.outputs['Fac'], 0.16), (porie.outputs['Fac'], 0.25)])
+        cr = n.new('ShaderNodeValToRGB')
+        cr.color_ramp.elements[0].position = 0.38; cr.color_ramp.elements[0].color = (*licht, 1)
+        cr.color_ramp.elements[1].position = 0.78; cr.color_ramp.elements[1].color = (*donker, 1)
+        l.new(h, cr.inputs[0]); l.new(cr.outputs[0], b.inputs['Base Color'])
+        b.inputs['Roughness'].default_value = 0.42; b.inputs['Coat Weight'].default_value = 0.2
+        bp = n.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.15; bp.inputs['Distance'].default_value = 0.001
+        l.new(h, bp.inputs['Height']); l.new(bp.outputs[0], b.inputs['Normal'])
+        return m
+
+    # Per plank een eigen materiaal: de Location-verschuiving in de mapping is per materiaal,
+    # en Object Info › Random zou tussen een plank en zijn periodieke kopie verschillen.
+    offsets = [rnd.uniform(0, PL) for _ in range(COLS)]
+    hout = {(c, k): eik(f'{c}-{k}') for c in range(COLS) for k in range(2)}
+
+    def maak(dx, dy):
+        for c in range(COLS):
+            for k in range(2):
+                y = dy + offsets[c] + k * PL
+                blok(f'plank-{c}-{k}', dx + c * PB + PB / 2, y + PL / 2, 0, PB - 0.002, PL - 0.002, 0.01, hout[(c, k)], bevel=0.0015)
+    periodiek(sc, PW, PH, maak)
+    render(sc, 'parket')
+
+
+def tegelvloer2():
+    """Grijze keramische tegels 60 × 60 cm zoals de eerste reeks, nu met een steenachtige
+    wolk en spikkel per tegel, een afgeronde rand en een fractie van een millimeter
+    hoogteverschil (zoals tegelvloer.py van de vochtsimulator)."""
+    TB, N = 0.6, 4
+    P = TB * N
+    sc = nieuwe_scene(P, P, 320, samples=48)
+    vlak(sc, P, P, mat('voeg', (0.3, 0.3, 0.29), 0.95)).location.z = -0.004
+    rnd = random.Random(7)
+
+    def tegel(k):
+        t = rnd.uniform(0.95, 1.05)
+        basis = tuple(c * t for c in (0.5, 0.51, 0.52))
+        m = mat(f'tegel-{k}', basis, rough=0.3, coat=0.15)
+        n = m.node_tree.nodes; l = m.node_tree.links; b = n['Principled BSDF']
+        tc = n.new('ShaderNodeTexCoord')
+        mp = n.new('ShaderNodeMapping'); mp.inputs['Location'].default_value = (rnd.uniform(0, 40), rnd.uniform(0, 40), 0)
+        l.new(tc.outputs['Object'], mp.inputs['Vector'])
+        wolk = n.new('ShaderNodeTexNoise'); wolk.inputs['Scale'].default_value = 4; wolk.inputs['Detail'].default_value = 8
+        wolk.inputs['Roughness'].default_value = 0.6; l.new(mp.outputs[0], wolk.inputs['Vector'])
+        spik = n.new('ShaderNodeTexNoise'); spik.inputs['Scale'].default_value = 90; spik.inputs['Detail'].default_value = 2
+        l.new(mp.outputs[0], spik.inputs['Vector'])
+        h = som(n, l, [(wolk.outputs['Fac'], 1.0), (spik.outputs['Fac'], 0.3)])
+        cr = n.new('ShaderNodeValToRGB')
+        cr.color_ramp.elements[0].position = 0.45; cr.color_ramp.elements[0].color = (*[c * 0.9 for c in basis], 1)
+        cr.color_ramp.elements[1].position = 0.95; cr.color_ramp.elements[1].color = (*[min(1, c * 1.1) for c in basis], 1)
+        l.new(h, cr.inputs[0]); l.new(cr.outputs[0], b.inputs['Base Color'])
+        return m
+
+    mats = [tegel(k) for k in range(6)]
+    keuze = {(c, r): (rnd.randrange(len(mats)), rnd.uniform(-0.0012, 0.0012), rnd.uniform(-0.0012, 0.0012)) for c in range(N) for r in range(N)}
+
+    def maak(dx, dy):
+        for c in range(N):
+            for r in range(N):
+                k, tx, ty = keuze[(c, r)]
+                blok(f't-{c}-{r}', dx + c * TB + TB / 2, dy + r * TB + TB / 2, 0, TB - 0.004, TB - 0.004, 0.008, mats[k], rot=(tx, ty, 0), bevel=0.0025)
+    periodiek(sc, P, P, maak)
+    render(sc, 'tegelvloer')
+
+
 TEGELS = {
     'dakpannen': dakpannen,
     'arduin': arduin,
-    'pleister': lambda: detail('pleister', 1.5, 2.5, 0.84, 0.97, ribbels=0.2),
-    'chape': lambda: detail('chape', 1.0, 4, 0.8, 0.96),
-    'parket': parket,
-    'grind': grind,
+    'pleister': pleister2,
+    'chape': chape2,
+    'parket': parket2,
+    'grind': grind2,
     # Bouwfasen (stap 4): dezelfde detailtegel-aanpak, three.js kleurt ze per fase.
     # Ruwe vloerplaat: grote natte vlekken van regenwater.
-    'vloerplaat': lambda: detail('vloerplaat', 2.0, 2.2, 0.3, 0.85, band=(0.42, 0.58), grijs=True),
-    # Vers pleisterwerk: wolkerig, natte en drogere plekken door elkaar.
-    'pleisternat': lambda: detail('pleisternat', 2.0, 2.4, 0.45, 0.92, ribbels=0.1, band=(0.4, 0.6), grijs=True),
-    # Geschilderd: bijna egaal.
-    'verf': lambda: detail('verf', 1.0, 3, 0.94, 0.99, grijs=True),
-    'tegelvloer': tegelvloer,
+    'vloerplaat': vloerplaat2,
+    # Vers pleisterwerk: natte en drogere plekken door elkaar.
+    'pleisternat': pleisternat2,
+    # Geschilderd: bijna egaal, met de korrel van de rol.
+    'verf': verf2,
+    'tegelvloer': tegelvloer2,
 }
 for naam, f in TEGELS.items():
     if not WANT or naam in WANT:

@@ -4,19 +4,24 @@
   al zijn als de 3D ze nodig heeft (de toestellen staan in modellen.ts). Dit bestand importeert niets van three.js,
   zodat de pagina het kan gebruiken zonder de 3D-chunk binnen te halen.
 */
+/*
+  Een textuur vervangen = een nieuwe bestandsnaam: /simulator/ gaat de deur uit met
+  `immutable` voor een jaar. De `-v2`-reeks (23-11-2026) heeft reliëf en een hogere
+  resolutie; zie de tweede reeks in scripts/simulator-3d/texturen.py.
+*/
 export const TEXTUUR = {
   baksteen: "/simulator/3d/baksteen.webp",
   arduin: "/simulator/3d/arduin.webp",
   pannen: "/simulator/3d/dakpannen.webp",
-  pleister: "/simulator/3d/pleister.webp",
-  chape: "/simulator/3d/chape.webp",
-  parket: "/simulator/3d/parket.webp",
-  grind: "/simulator/3d/grind.webp",
+  pleister: "/simulator/3d/pleister-v2.webp",
+  chape: "/simulator/3d/chape-v2.webp",
+  parket: "/simulator/3d/parket-v2.webp",
+  grind: "/simulator/3d/grind-v2.webp",
   // Bouwfasen (stap 3): wat er op muur en vloer zit, van ruwbouw tot afgewerkt.
-  pleisternat: "/simulator/3d/pleisternat.webp",
-  verf: "/simulator/3d/verf.webp",
-  vloerplaat: "/simulator/3d/vloerplaat.webp",
-  tegelvloer: "/simulator/3d/tegelvloer.webp",
+  pleisternat: "/simulator/3d/pleisternat-v2.webp",
+  verf: "/simulator/3d/verf-v2.webp",
+  vloerplaat: "/simulator/3d/vloerplaat-v2.webp",
+  tegelvloer: "/simulator/3d/tegelvloer-v2.webp",
 } as const;
 
 type Verbinding = { saveData?: boolean; effectiveType?: string };
