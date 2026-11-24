@@ -10,6 +10,7 @@ import {
   DELIVERY,
   EXTRAS,
   LADDER_FEE,
+  ACCESS_PROVISION_FEE,
   MAX_FLOORS,
   PUMP,
   type DeviceKey,
@@ -36,7 +37,8 @@ import {
 
 export const MAX_EXTRA_DEVICES = Number(TARIEVEN.pricing.max_extra_devices);
 
-export type Access = "trap" | "ladder";
+export const ACCESS_TYPES = ["trap", "lift", "ladder", "geen"] as const;
+export type Access = (typeof ACCESS_TYPES)[number];
 
 /**
  * Betalen kan volledig online — dat levert 5% korting op en de factuur volgt
@@ -184,7 +186,7 @@ export function normalizeOptions(raw: unknown): BookingOptions {
     pumps: o.pumps === null || o.pumps === undefined ? null : clampInt(o.pumps, 0, 99),
     dev,
     floors: clampInt(o.floors ?? 0, 0, MAX_FLOORS),
-    access: o.access === "ladder" ? "ladder" : "trap",
+    access: ACCESS_TYPES.includes(o.access as Access) ? (o.access as Access) : "trap",
     delivery: DELIVERY.some((d) => d.k === o.delivery) ? (o.delivery as string) : EMPTY_OPTIONS.delivery,
     payment: o.payment === "levering" ? "levering" : "online",
     land: isLand(o.land) ? o.land : null,
@@ -295,7 +297,7 @@ export function extraNaarQuery(extra: Partial<Record<DeviceKey, number>>): strin
 }
 
 export function bookingSummary(config: PackageConfig, raw: BookingOptions): BookingSummary {
-  const options = normalizeOptions(raw);
+  const options = normalizeOptions({ ...raw, floors: config.floors ?? raw.floors });
   const items = allItems(config, options.dev);
   const dryerCount = items
     .filter((it) => it.k === "small" || it.k === "medium")
@@ -340,10 +342,15 @@ export function bookingSummary(config: PackageConfig, raw: BookingOptions): Book
   }
 
   if (options.floors > 0) {
+    lines.push({ l: `Plaatsing tot verdieping ${options.floors}`, v: 0, inc: true });
     lines.push(
       options.access === "ladder"
         ? { l: "Plaatsing verdieping via ladder", v: LADDER_FEE }
-        : { l: "Plaatsing op verdieping (trap)", v: 0, inc: true }
+        : options.access === "geen"
+          ? { l: "Toegang voorzien door Vernast", v: ACCESS_PROVISION_FEE }
+          : options.access === "lift"
+            ? { l: "Plaatsing op verdieping (lift)", v: 0, inc: true }
+            : { l: "Plaatsing op verdieping (trap)", v: 0, inc: true }
     );
   }
 

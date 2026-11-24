@@ -1036,6 +1036,10 @@
 .vh-book .stp button{width:34px;height:36px;border:0;background:#fff;cursor:pointer;font-size:16px;color:var(--txt-mid);transition:background .15s,color .15s}
 .vh-book .stp button:hover{background:var(--page);color:var(--red)}
 .vh-book .stp span{width:32px;text-align:center;font-variant-numeric:tabular-nums;font-weight:700;font-size:14px}
+/* De − is uit zodra de teller op het pakketaantal staat: minder dan je eigen
+   pakket bestellen kan niet, meer wel. */
+.vh-book .stp button:disabled{opacity:.3;cursor:not-allowed}
+.vh-book .stp button:disabled:hover{background:#fff;color:var(--txt-mid)}
 /* delivery + dates */
 .vh-book .dopt{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .vh-book .dch{border:1.5px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;background:#fff;transition:border-color .16s,transform .14s;display:flex;gap:12px;align-items:flex-start}
@@ -1778,6 +1782,33 @@
 */
 .vh-book .ex .exi:has(img),.vh-pkg .ex .exi:has(img){width:58px;height:58px;border-radius:12px;background:#ece9e5}
 .vh-book .ex .exi img,.vh-pkg .ex .exi img{width:100%;height:100%;object-fit:cover;display:block}
+.vh-book .ex .exi.toestel-foto{background:#f2f0ed}
+.vh-book .ex .exi.toestel-foto img{object-fit:contain}
+
+/* Toegang tot de verdiepingen uit de simulator. */
+.vh-book .toegang-kop{display:flex;align-items:center;gap:10px}
+.vh-book .toegang-verdiepingen{margin:0 0 12px;font-size:14px;font-weight:600;color:var(--txt-mid,#555)}
+.vh-book .toegang-keuzes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.vh-book .toegang-keuze{display:flex;flex-direction:column;overflow:hidden;padding:0;border:2px solid var(--line,#e6e3df);border-radius:14px;background:#fff;text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .18s,box-shadow .18s,background .18s,transform .18s}
+/* Groen = gekozen, net als de betaalkeuze. Rood bleef hier staan terwijl het
+   elders de kleur van een fout is: een gekozen verdiepingstoegang las daardoor
+   als iets dat niet klopte. */
+.vh-book .toegang-keuze:hover{border-color:rgba(18,165,88,.5);transform:translateY(-2px);box-shadow:0 8px 18px rgba(20,20,20,.08)}
+.vh-book .toegang-keuze.on{border-color:var(--ok);background:#f4fbf7;box-shadow:0 0 0 1.5px var(--ok) inset}
+.vh-book .toegang-keuze.on .toegang-keuze-tekst small{color:#0d7a42}
+.vh-book .toegang-keuze:focus-visible{outline:3px solid var(--ok);outline-offset:4px}
+/* De trapfoto is liggend (1280×801), de drie andere vierkant. Met `contain`
+   kreeg zij grijze balken boven en onder en stond de trap kleiner in beeld dan
+   de rest; `cover` snijdt bij en houdt alle vier de blokjes gevuld. */
+.vh-book .toegang-keuze img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#f2f0ed;transition:transform .35s ease}
+.vh-book .toegang-keuze:hover img,.vh-book .toegang-keuze.on img{transform:scale(1.045)}
+.vh-book .toegang-keuze-tekst{display:flex;flex:1;flex-direction:column;gap:6px;padding:12px}
+.vh-book .toegang-keuze-tekst b{font-size:16px;line-height:1.3}
+.vh-book .toegang-keuze-tekst>span{font-size:14px;line-height:1.45;color:var(--txt-mid,#555)}
+.vh-book .toegang-keuze-tekst small{margin-top:auto;padding-top:4px;font-size:14px;font-weight:600;transition:color .18s}
+@media(prefers-reduced-motion:reduce){.vh-book .toegang-keuze,.vh-book .toegang-keuze img{transition:none}.vh-book .toegang-keuze:hover{transform:none}.vh-book .toegang-keuze:hover img,.vh-book .toegang-keuze.on img{transform:none}}
+@media(max-width:760px){.vh-book .toegang-keuzes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:360px){.vh-book .toegang-keuzes{grid-template-columns:1fr}}
 
 /* i-knop naast de naam van een optie, met popup (OptieInfo) */
 .vh-book .ext b.ext-naam{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px}
@@ -1786,10 +1817,14 @@
 .oi-laag{position:fixed;inset:0;z-index:10000;background:rgba(10,10,10,.6);display:grid;place-items:center;padding:20px;animation:oi-in .15s ease-out}
 @keyframes oi-in{from{opacity:0}to{opacity:1}}
 .oi-kaart{position:relative;width:min(560px,100%);max-height:calc(100vh - 40px);overflow:auto;background:#fff;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.3);font-family:"DM Sans",system-ui,sans-serif;color:#141414}
-.oi-kaart img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#f2f0ed}
+/* Toon de volledige foto: ook hoofden, slangen en pompen aan de randen. */
+.oi-kaart img{display:block;width:100%;height:auto;object-fit:contain;background:#f2f0ed}
+.oi-kaart img.oi-foto-onderkant{aspect-ratio:16/10;object-fit:cover;object-position:center bottom}
 .oi-tekst{padding:20px 24px 24px}
 .oi-tekst h3{margin:0 0 10px;font-family:"Plus Jakarta Sans","DM Sans",system-ui,sans-serif;font-weight:700;font-size:19px;line-height:1.3}
 .oi-tekst p{margin:0 0 10px;font-size:14.5px;line-height:1.6;color:#4a4a4a}
 .oi-tekst p b{color:#141414}
-.oi-tekst a{display:inline-block;margin-top:4px;font-size:14px;font-weight:600;color:var(--red,#e30613)}
+.oi-tekst .oi-meer{display:inline-flex;align-items:center;justify-content:center;min-height:44px;max-width:100%;margin-top:8px;padding:12px 18px;border:1px solid #141414;border-radius:10px;background:#141414;color:#fff;font-size:14px;line-height:1.4;font-weight:600;text-align:center;text-decoration:none;transition:background .15s,border-color .15s}
+.oi-tekst .oi-meer:hover{background:#333;border-color:#333;color:#fff}
+.oi-tekst .oi-meer:focus-visible{outline:3px solid #141414;outline-offset:3px}
 .oi-x{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:0;background:#fff;color:#141414;font-size:24px;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.18)}

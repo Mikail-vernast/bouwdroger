@@ -332,6 +332,9 @@ export const FIXED_WEEKS = Number(TARIEVEN.pricing.fixed_weeks);
 /** Eenmalig draagwerk wanneer de toestellen via een ladder naar boven moeten. */
 export const LADDER_FEE = Number(TARIEVEN.pricing.ladder_fee);
 
+/** Ladder meebrengen en toestellen dragen wanneer de klant geen toegang voorziet. */
+export const ACCESS_PROVISION_FEE = 115;
+
 /** Hoogste verdieping die het formulier laat kiezen. */
 export const MAX_FLOORS = Number(TARIEVEN.pricing.max_floors);
 

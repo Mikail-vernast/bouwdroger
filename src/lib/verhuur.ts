@@ -10,6 +10,7 @@ import {
   PRODUCTS,
   WEEKS,
   WET_IMG,
+  MAX_FLOORS,
   type DeviceKey,
   type ImageRule,
 } from "../data/verhuur.js";
@@ -35,6 +36,8 @@ export interface PackageConfig {
   /** false = klant zorgt niet zelf voor verwarming → kachels in het pakket */
   heat: boolean;
   weeks: number;
+  /** Hoogste verdieping uit de simulator; gelijkvloers = 0. */
+  floors?: number;
 }
 
 export interface PackageItem {
@@ -150,6 +153,7 @@ function pick(raw: string | null, allowed: readonly string[], fallback: string):
 }
 
 export function parseConfig(qs: URLSearchParams): PackageConfig {
+  const floors = Number(qs.get("floors"));
   return {
     size: pick(qs.get("size"), SIZE_VALUES, DEFAULT_SIZE),
     wat: pick(qs.get("wat"), WAT_VALUES, "beide"),
@@ -157,6 +161,9 @@ export function parseConfig(qs: URLSearchParams): PackageConfig {
     cd: pick(qs.get("cd"), CD_VALUES, DEFAULT_CD),
     heat: qs.get("heat") !== "0",
     weeks: clampWeeks(qs.get("weeks")),
+    ...(qs.has("floors") && Number.isInteger(floors) && floors >= 0
+      ? { floors: Math.min(MAX_FLOORS, floors) }
+      : {}),
   };
 }
 
@@ -168,6 +175,7 @@ export function configToQuery(c: PackageConfig): string {
     cd: c.cd,
     heat: c.heat ? "1" : "0",
     weeks: String(c.weeks),
+    ...(c.floors !== undefined ? { floors: String(c.floors) } : {}),
   }).toString();
 }
 

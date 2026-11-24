@@ -22,14 +22,13 @@ import {
   DropIcon,
   PulseIcon,
   ReportIcon,
-  StairsIcon,
   WarnIcon,
 } from "@/components/verhuur/icons";
 import {
   CAT,
   DELIVERY,
   LADDER_FEE,
-  MAX_FLOORS,
+  ACCESS_PROVISION_FEE,
   PUMP,
   type DeviceKey,
 } from "@/data/verhuur";
@@ -43,12 +42,14 @@ import {
   formatLongDate,
   isoDate,
   allItems,
+  baseItems,
   packageImage,
   packageTitle,
   parseConfig,
 } from "@/lib/verhuur";
 import {
   MAX_EXTRA_DEVICES,
+  normalizeOptions,
   extraNaarQuery,
   extraUitQuery,
   bookingFingerprint,
@@ -83,8 +84,23 @@ import { reportBookingEvent } from "@/lib/reportBookingEvent";
   komen uit het portaal; een extra die hier niet staat, krijgt gewoon geen i.
 */
 const EXTRA_INFO: Record<string, { sleutel: "rapport" | "stroom"; foto: string }> = {
-  rapport: { sleutel: "rapport", foto: "/vernast/man-klembord-pen.webp" },
-  stroom: { sleutel: "stroom", foto: "/vernast/man-duim-kabels.webp" },
+  rapport: { sleutel: "rapport", foto: "/vernast/vochtrapport-vernast-v3.webp" },
+  stroom: { sleutel: "stroom", foto: "/vernast/werfstroomkast-vernast-v3.webp" },
+};
+
+const ACCESS_PHOTOS: Record<Access, string> = {
+  trap: "/vernast/betonnen-trap-werf.webp",
+  lift: "/vernast/toegang-lift.webp",
+  ladder: "/vernast/toegang-ladder.webp",
+  geen: "/vernast/toegang-vernast-v3.webp",
+};
+
+/** Dezelfde werffotografie voor alle extra toestellen. */
+const DEVICE_PHOTOS: Record<DeviceKey, string> = {
+  small: "/vernast/eco-boost.webp",
+  medium: "/vernast/eco-performance.webp",
+  axiaal: "/vernast/vent-axiaal.webp",
+  kachel: "/vernast/kachel-30.webp",
 };
 
 const EXTRA_ICONS: Record<string, (props: { size?: number }) => JSX.Element> = {
@@ -275,6 +291,7 @@ const VerhuurBoekingPage = () => {
   const delivery_ = useMemo(() => deliveryInTaal(taal), [taal]);
   const cat_ = useMemo(() => catInTaal(taal), [taal]);
   const ladderFee = taal === "nl" ? `€ ${LADDER_FEE}` : formatEuro(LADDER_FEE, taal, 0);
+  const voorzienFee = taal === "nl" ? `€ ${ACCESS_PROVISION_FEE}` : formatEuro(ACCESS_PROVISION_FEE, taal, 0);
   const config = useMemo(() => parseConfig(searchParams), [searchParams]);
 
   // Na de omweg langs Stripe is de React-state weg; wat de bezoeker koos komt
@@ -302,8 +319,8 @@ const VerhuurBoekingPage = () => {
   });
   // null = de klant liet het standaardaantal staan: één pomp per bouwdroger.
   const [pumps, setPumps] = useState<number | null>(stored?.options.pumps ?? null);
-  const [floors, setFloors] = useState(stored?.options.floors ?? 0);
-  const [access, setAccess] = useState<Access>(stored?.options.access ?? "trap");
+  const floors = config.floors ?? normalizeOptions(stored?.options).floors;
+  const [access, setAccess] = useState<Access>(() => normalizeOptions(stored?.options).access);
   const [delivery, setDelivery] = useState(stored?.options.delivery ?? DELIVERY[0].k);
   /*
     De standaarddatum (morgen) komt pas na mount: bij de prerender is "morgen"
@@ -544,6 +561,18 @@ const VerhuurBoekingPage = () => {
   const start = startDate ? new Date(startDate) : null;
   const end = start ? addDays(start, rentalDays) : null;
   const tooShort = rentalDays < days;
+
+  /*
+    Wat het pakket zelf al bevat. De teller onder "Uw pakket" telde alleen de
+    extra's en stond dus op 0 terwijl er vier bouwdrogers in het pakket zaten:
+    het las als een leeg pakket. Hij toont nu het totaal, met het pakketaantal
+    als bodem — minder dan je pakket kan niet, meer wel.
+  */
+  const basisAantallen = useMemo(() => {
+    const per: Record<DeviceKey, number> = { small: 0, medium: 0, axiaal: 0, kachel: 0 };
+    for (const it of baseItems(config)) per[it.k] += it.q;
+    return per;
+  }, [config]);
 
   const bump = (k: DeviceKey, delta: number) =>
     setDev((prev) => ({
@@ -1141,7 +1170,7 @@ const VerhuurBoekingPage = () => {
                       <OptieInfo
                         knopLabel={t.infoKnop(t.vochtmetingKop)}
                         titel={t.optieInfo.vochtmeting.titel}
-                        foto="/vernast/dienst-vochtmeting-voorbeeld.webp"
+                        foto="/vernast/vochtmeting-vernast-v3.webp"
                         fotoAlt={t.optieInfo.vochtmeting.alt}
                         sluiten={t.fotoSluiten}
                       >
@@ -1201,7 +1230,7 @@ const VerhuurBoekingPage = () => {
                         <OptieInfo
                           knopLabel={t.infoKnop(t.monitoringKop)}
                           titel={t.optieInfo.monitoring.titel}
-                          foto="/vernast/koppel-digitaal.webp"
+                          foto="/vernast/droogmonitor-vernast-v3.webp"
                           fotoAlt={t.optieInfo.monitoring.alt}
                           sluiten={t.fotoSluiten}
                         >
@@ -1244,6 +1273,7 @@ const VerhuurBoekingPage = () => {
                           knopLabel={t.pompInfoKnop}
                           titel={t.pompInfoTitel}
                           foto="/vernast/condenspomp-slangopstelling.webp"
+                          fotoOnderkant
                           fotoAlt={t.pompFotoAlt}
                           sluiten={t.fotoSluiten}
                           link={{ to: lp("/verhuur/toebehoren/condenspomp"), tekst: t.pompMeerLink }}
@@ -1277,59 +1307,42 @@ const VerhuurBoekingPage = () => {
               </div>
 
               <div className="blk">
-                <div className="blkh">
+                <div className="blkh toegang-kop">
                   <h2>{t.verdiepingKop}</h2>
+                  <OptieInfo
+                    knopLabel={t.infoKnop(t.verdiepingKop)}
+                    titel={t.optieInfo.verdieping.titel}
+                    foto={ACCESS_PHOTOS[access]}
+                    fotoAlt={t.toegangKeuzes[access].alt}
+                    sluiten={t.fotoSluiten}
+                  >
+                    {t.optieInfo.verdieping.tekst}
+                    <p>{t.verdiepingSub(ladderFee, voorzienFee)}</p>
+                  </OptieInfo>
                 </div>
-                <p className="bsub">{t.verdiepingSub(ladderFee)}</p>
-                <div className="ex" style={{ borderBottom: 0 }}>
-                  <span className="exi">
-                    <StairsIcon />
-                  </span>
-                  <span className="ext">
-                    <b>{t.verdiepingenKop}</b>
-                    <small>{t.verdiepingenSub}</small>
-                  </span>
-                  <span className="stp">
-                    <button
-                      type="button"
-                      aria-label={t.verdiepingMinder}
-                      onClick={() => setFloors((f) => Math.max(0, f - 1))}
-                    >
-                      −
-                    </button>
-                    <span>{floors}</span>
-                    <button
-                      type="button"
-                      aria-label={t.verdiepingMeer}
-                      onClick={() => setFloors((f) => Math.min(MAX_FLOORS, f + 1))}
-                    >
-                      +
-                    </button>
-                  </span>
-                </div>
-                {floors > 0 && (
-                  <div style={{ padding: "2px 0 10px 51px" }}>
-                    <div style={{ fontSize: 13.5, fontWeight: 600, marginBottom: 9 }}>
-                      {t.hoeBoven}
-                    </div>
-                    <div style={{ display: "flex", gap: 9, flexWrap: "wrap" }}>
-                      <button
-                        type="button"
-                        className={`acc${access === "trap" ? " on" : ""}`}
-                        onClick={() => setAccess("trap")}
-                      >
-                        {t.viaTrap} <small>{t.inbegrepen}</small>
-                      </button>
-                      <button
-                        type="button"
-                        className={`acc${access === "ladder" ? " on" : ""}`}
-                        onClick={() => setAccess("ladder")}
-                      >
-                        {t.viaLadder} <small>{t.ladderEenmalig(ladderFee)}</small>
-                      </button>
-                    </div>
-                  </div>
+                {config.floors !== undefined && (
+                  <p className="toegang-verdiepingen">{t.verdiepingenUitSimulator(floors)}</p>
                 )}
+                <p className="bsub">{t.verdiepingSub(ladderFee, voorzienFee)}</p>
+                <div className="toegang-keuzes" role="group" aria-label={t.hoeBoven}>
+                  {(["trap", "lift", "ladder", "geen"] as const).map((keuze) => (
+                    <button
+                      key={keuze}
+                      type="button"
+                      className={`toegang-keuze${access === keuze ? " on" : ""}`}
+                      aria-pressed={access === keuze}
+                      onClick={() => setAccess(keuze)}
+                    >
+                      <img src={ACCESS_PHOTOS[keuze]} alt="" loading="lazy" decoding="async" />
+                      <span className="toegang-keuze-tekst">
+                        <b>{t.toegangKeuzes[keuze].label}</b>
+                        <span>{t.toegangKeuzes[keuze].sub}</span>
+                        {(keuze === "ladder" || keuze === "geen") && <small>{t.ladderEenmalig(keuze === "geen" ? voorzienFee : ladderFee)}</small>}
+                        {(keuze === "trap" || keuze === "lift") && <small>{t.inbegrepen}</small>}
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="blk">
@@ -1340,8 +1353,8 @@ const VerhuurBoekingPage = () => {
                 <div>
                   {DEVICE_KEYS.map((k) => (
                     <div className="ex" key={k}>
-                      <span className="exi">
-                        <img src={cat_[k].img} alt={cat_[k].name} loading="lazy" decoding="async" />
+                      <span className="exi toestel-foto">
+                        <img src={DEVICE_PHOTOS[k]} alt={cat_[k].name} loading="lazy" decoding="async" />
                       </span>
                       <span className="ext">
                         <b>{cat_[k].name}</b>
@@ -1352,10 +1365,15 @@ const VerhuurBoekingPage = () => {
                         <small>{t.per2Weken}</small>
                       </span>
                       <span className="stp">
-                        <button type="button" aria-label={t.eenMinder} onClick={() => bump(k, -1)}>
+                        <button
+                          type="button"
+                          aria-label={t.eenMinder}
+                          onClick={() => bump(k, -1)}
+                          disabled={dev[k] === 0}
+                        >
                           −
                         </button>
-                        <span>{dev[k]}</span>
+                        <span>{basisAantallen[k] + dev[k]}</span>
                         <button type="button" aria-label={t.eenMeer} onClick={() => bump(k, 1)}>
                           +
                         </button>

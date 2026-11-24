@@ -61,14 +61,16 @@ export interface BoekingTeksten {
   /** Aria-label van het i'tje naast een optie. */
   infoKnop: (optie: string) => string;
   /** Uitleg in de popup achter het i'tje, per optie. */
-  optieInfo: Record<"vochtmeting" | "rapport" | "stroom" | "monitoring", { titel: string; alt: string; tekst: ReactNode }>;
+  optieInfo: Record<"vochtmeting" | "rapport" | "stroom" | "monitoring" | "verdieping", { titel: string; alt: string; tekst: ReactNode }>;
   verdiepingKop: string;
-  verdiepingSub: (ladderFee: string) => ReactNode;
+  verdiepingSub: (ladderFee: string, voorzienFee: string) => ReactNode;
   verdiepingenKop: string;
   verdiepingenSub: string;
   verdiepingMinder: string;
   verdiepingMeer: string;
   hoeBoven: string;
+  verdiepingenUitSimulator: (n: number) => string;
+  toegangKeuzes: Record<"trap" | "lift" | "ladder" | "geen", { label: string; sub: string; alt: string }>;
   viaTrap: string;
   viaLadder: string;
   ladderEenmalig: (ladderFee: string) => string;
@@ -294,7 +296,7 @@ const nl: BoekingTeksten = {
     },
     stroom: {
       titel: "Wat is een werfstroomkast?",
-      alt: "Technieker van Vernast met stroomkabels voor de werf",
+      alt: "Werfstroomkast met stopcontacten en zekeringen op een werf",
       tekst: (
         <>
           <p>
@@ -311,7 +313,7 @@ const nl: BoekingTeksten = {
     },
     monitoring: {
       titel: "Wat is digitale monitoring?",
-      alt: "Klant volgt de droging van de werf op een laptop",
+      alt: "Smartphone in een hand met luchtvochtigheid, temperatuur en droogverloop",
       tekst: (
         <>
           <p>
@@ -325,13 +327,16 @@ const nl: BoekingTeksten = {
         </>
       ),
     },
+    verdieping: {
+      titel: "Hoe leveren we op een verdieping?",
+      alt: "Betonnen trap op een werf naar de bovenverdieping",
+      tekst: <p>Het aantal verdiepingen nemen we over uit uw simulator. Geef hier aan of er een trap, lift of ladder beschikbaar is. Is er niets voorzien? Kies dan die optie, zodat Vernast de toegang kan voorzien.</p>,
+    },
   },
-  verdiepingKop: "Op welke verdieping werken we?",
-  verdiepingSub: (ladderFee) => (
+  verdiepingKop: "Hoe bereiken we de verdiepingen?",
+  verdiepingSub: (ladderFee, voorzienFee) => (
     <>
-      Plaatsing op een verdieping is <b>inbegrepen in de prijs</b> zolang er een trap aanwezig is.
-      Moeten de toestellen via een ladder naar boven gedragen worden, dan rekenen wij eenmalig{" "}
-      {ladderFee} extra draagwerk aan.
+      Via de trap of lift is <b>inbegrepen</b>. Via een aanwezige ladder betaalt u eenmalig {ladderFee} voor het dragen. Is er niets voorzien? Dan brengen wij een ladder mee en dragen we de toestellen naar boven voor eenmalig {voorzienFee}.
     </>
   ),
   verdiepingenKop: "Aantal verdiepingen",
@@ -339,11 +344,18 @@ const nl: BoekingTeksten = {
     "Gelijkvloers = 0. Wij dragen en plaatsen alle toestellen op de juiste verdieping.",
   verdiepingMinder: "Eén verdieping minder",
   verdiepingMeer: "Eén verdieping meer",
-  hoeBoven: "Hoe geraken we boven?",
+  hoeBoven: "Hoe bereiken we de verdiepingen?",
+  verdiepingenUitSimulator: (n) => n === 0 ? "Gelijkvloers · overgenomen uit de simulator" : `Gelijkvloers + ${n} ${n === 1 ? "verdieping" : "verdiepingen"} · overgenomen uit de simulator`,
+  toegangKeuzes: {
+    trap: { label: "Via de trap", sub: "Trap aanwezig op de werf", alt: "Betonnen trap op een werf" },
+    lift: { label: "Via de lift", sub: "Lift beschikbaar voor de toestellen", alt: "Open lift in een gebouw in afwerking" },
+    ladder: { label: "Via een ladder", sub: "Ladder aanwezig op de werf", alt: "Aluminium ladder naar de bovenverdieping" },
+    geen: { label: "Niets voorzien", sub: "Wij brengen een ladder mee en dragen de toestellen", alt: "Technieker brengt een ladder mee naar de werf" },
+  },
   viaTrap: "Via de trap",
   viaLadder: "Via een ladder",
   ladderEenmalig: (ladderFee) => `+ ${ladderFee} eenmalig`,
-  extraToestellenKop: "Extra toestellen",
+  extraToestellenKop: "Uw pakket",
   extraToestellenSub:
     "Meer capaciteit betekent kortere droogtijd. Onze technicus bekijkt het bij levering en u betaalt enkel wat u gebruikt.",
   per2Weken: "per 2 weken",
@@ -608,7 +620,7 @@ const fr: BoekingTeksten = {
     },
     stroom: {
       titel: "Qu'est-ce qu'un coffret de chantier ?",
-      alt: "Technicien Vernast avec des câbles électriques pour le chantier",
+      alt: "Coffret de chantier avec prises et disjoncteurs",
       tekst: (
         <>
           <p>
@@ -625,7 +637,7 @@ const fr: BoekingTeksten = {
     },
     monitoring: {
       titel: "Qu'est-ce que le suivi numérique ?",
-      alt: "Client suivant le séchage du chantier sur un ordinateur portable",
+      alt: "Smartphone en main affichant l’humidité, la température et le suivi du séchage",
       tekst: (
         <>
           <p>
@@ -639,13 +651,16 @@ const fr: BoekingTeksten = {
         </>
       ),
     },
+    verdieping: {
+      titel: "Comment livrons-nous à l’étage ?",
+      alt: "Escalier en béton sur un chantier vers l’étage",
+      tekst: <p>Le nombre d’étages est repris du simulateur. Indiquez si un escalier, un ascenseur ou une échelle est disponible. Si rien n’est prévu, choisissez cette option pour que Vernast prévoie l’accès.</p>,
+    },
   },
-  verdiepingKop: "À quel étage travaillons-nous ?",
-  verdiepingSub: (ladderFee) => (
+  verdiepingKop: "Comment accédons-nous aux étages ?",
+  verdiepingSub: (ladderFee, voorzienFee) => (
     <>
-      L'installation à l'étage est <b>comprise dans le prix</b> tant qu'il y a un escalier. Si les
-      appareils doivent être montés par une échelle, nous facturons une seule fois {ladderFee} de
-      portage supplémentaire.
+      L’accès par un escalier ou un ascenseur est <b>compris</b>. Avec une échelle déjà sur place, le portage coûte {ladderFee} une seule fois. Si rien n’est prévu, nous apportons une échelle et portons les appareils pour {voorzienFee} une seule fois.
     </>
   ),
   verdiepingenKop: "Nombre d'étages",
@@ -653,11 +668,18 @@ const fr: BoekingTeksten = {
     "Rez-de-chaussée = 0. Nous portons et installons tous les appareils au bon étage.",
   verdiepingMinder: "Un étage de moins",
   verdiepingMeer: "Un étage de plus",
-  hoeBoven: "Comment monte-t-on ?",
+  hoeBoven: "Comment accédons-nous aux étages ?",
+  verdiepingenUitSimulator: (n) => n === 0 ? "Rez-de-chaussée · repris du simulateur" : `Rez-de-chaussée + ${n} ${n === 1 ? "étage" : "étages"} · repris du simulateur`,
+  toegangKeuzes: {
+    trap: { label: "Par l’escalier", sub: "Escalier présent sur le chantier", alt: "Escalier en béton sur un chantier" },
+    lift: { label: "Par l’ascenseur", sub: "Ascenseur disponible pour les appareils", alt: "Ascenseur ouvert dans un bâtiment en finition" },
+    ladder: { label: "Par une échelle", sub: "Échelle présente sur le chantier", alt: "Échelle en aluminium vers l’étage" },
+    geen: { label: "Rien de prévu", sub: "Nous apportons une échelle et portons les appareils", alt: "Technicien apportant une échelle sur le chantier" },
+  },
   viaTrap: "Par l'escalier",
   viaLadder: "Par une échelle",
   ladderEenmalig: (ladderFee) => `+ ${ladderFee} une seule fois`,
-  extraToestellenKop: "Appareils supplémentaires",
+  extraToestellenKop: "Votre forfait",
   extraToestellenSub:
     "Plus de capacité, c'est un séchage plus court. Notre technicien évalue la situation à la livraison et vous ne payez que ce que vous utilisez.",
   per2Weken: "par 2 semaines",
@@ -924,7 +946,7 @@ const en: BoekingTeksten = {
     },
     stroom: {
       titel: "What is a site power box?",
-      alt: "Vernast technician with power cables for the site",
+      alt: "Site power distribution cabinet with sockets and circuit breakers",
       tekst: (
         <>
           <p>
@@ -941,7 +963,7 @@ const en: BoekingTeksten = {
     },
     monitoring: {
       titel: "What is digital monitoring?",
-      alt: "Customer following the drying of the site on a laptop",
+      alt: "Hand holding a smartphone displaying humidity, temperature and drying progress",
       tekst: (
         <>
           <p>
@@ -955,13 +977,16 @@ const en: BoekingTeksten = {
         </>
       ),
     },
+    verdieping: {
+      titel: "How do we deliver upstairs?",
+      alt: "Concrete staircase leading to the upper floor on a construction site",
+      tekst: <p>We take the number of floors from your simulator. Select whether stairs, a lift or a ladder are available. If nothing is available, select that option so Vernast can arrange access.</p>,
+    },
   },
-  verdiepingKop: "Which floor are we working on?",
-  verdiepingSub: (ladderFee) => (
+  verdiepingKop: "How do we reach the upper floors?",
+  verdiepingSub: (ladderFee, voorzienFee) => (
     <>
-      Installation on an upper floor is <b>included in the price</b> as long as there is a staircase.
-      If the units have to be carried up by ladder, we charge a one-off {ladderFee} for the extra
-      carrying.
+      Access by stairs or lift is <b>included</b>. Carrying via a ladder already on site costs a one-off {ladderFee}. If nothing is available, we bring a ladder and carry the equipment upstairs for a one-off {voorzienFee}.
     </>
   ),
   verdiepingenKop: "Number of floors",
@@ -969,11 +994,18 @@ const en: BoekingTeksten = {
     "Ground floor = 0. We carry and install all units on the right floor.",
   verdiepingMinder: "One floor fewer",
   verdiepingMeer: "One floor more",
-  hoeBoven: "How do we get upstairs?",
+  hoeBoven: "How do we reach the upper floors?",
+  verdiepingenUitSimulator: (n) => n === 0 ? "Ground floor · taken from the simulator" : `Ground floor + ${n} ${n === 1 ? "floor" : "floors"} · taken from the simulator`,
+  toegangKeuzes: {
+    trap: { label: "By the stairs", sub: "Staircase available on site", alt: "Concrete staircase on a construction site" },
+    lift: { label: "By the lift", sub: "Lift available for the equipment", alt: "Open lift in a building under construction" },
+    ladder: { label: "By a ladder", sub: "Ladder available on site", alt: "Aluminium ladder leading upstairs" },
+    geen: { label: "Nothing available", sub: "We bring a ladder and carry the equipment", alt: "Technician bringing a ladder to the site" },
+  },
   viaTrap: "By the stairs",
   viaLadder: "By ladder",
   ladderEenmalig: (ladderFee) => `+ ${ladderFee} one-off`,
-  extraToestellenKop: "Extra units",
+  extraToestellenKop: "Your package",
   extraToestellenSub:
     "More capacity means a shorter drying time. Our technician assesses it at delivery and you only pay for what you use.",
   per2Weken: "per 2 weeks",
@@ -1134,6 +1166,8 @@ const REGEL_WOORDEN: Record<
       "Vochtmeting bij start & oplevering": "Mesure d'humidité au début & à la fin",
       "Plaatsing verdieping via ladder": "Installation à l'étage par une échelle",
       "Plaatsing op verdieping (trap)": "Installation à l'étage (escalier)",
+      "Plaatsing op verdieping (lift)": "Installation à l’étage (ascenseur)",
+      "Toegang voorzien door Vernast": "Accès prévu par Vernast",
       "Zelf afhalen": "Enlèvement par vos soins",
     },
     dekking: (naam) => `Couverture ${naam}`,
@@ -1146,6 +1180,8 @@ const REGEL_WOORDEN: Record<
       "Vochtmeting bij start & oplevering": "Moisture reading at start & handover",
       "Plaatsing verdieping via ladder": "Upper-floor installation by ladder",
       "Plaatsing op verdieping (trap)": "Upper-floor installation (stairs)",
+      "Plaatsing op verdieping (lift)": "Upper-floor installation (lift)",
+      "Toegang voorzien door Vernast": "Access arranged by Vernast",
       "Zelf afhalen": "Self-collection",
     },
     dekking: (naam) => `${naam} cover`,
@@ -1158,6 +1194,8 @@ export function regelInTaal(regel: string, taal: Taal): string {
   if (taal === "nl") return regel;
   const w = REGEL_WOORDEN[taal];
   if (w.vast[regel]) return w.vast[regel];
+  const verdieping = /^Plaatsing tot verdieping (\d+)$/.exec(regel);
+  if (verdieping) return taal === "fr" ? `Installation jusqu’à l’étage ${verdieping[1]}` : `Installation up to floor ${verdieping[1]}`;
   const dekking = /^Dekking (.+)$/.exec(regel);
   if (dekking) return w.dekking(vertaalPortaal(dekking[1], taal));
   const pomp = /^(\d+)× condenspomp · (\d+) dagen$/.exec(regel);

@@ -8,6 +8,8 @@ interface Props {
   titel: string;
   foto: string;
   fotoAlt: string;
+  /** Toon bij deze foto de onderkant groter in beeld. */
+  fotoOnderkant?: boolean;
   children: ReactNode;
   /** Tekst van de sluitknop. */
   sluiten: string;
@@ -27,7 +29,7 @@ interface Props {
  * De popup gaat via een portal naar `document.body`: de wizard zit in een
  * sticky stapelcontext, en daarbinnen viel een vaste laag onder de header.
  */
-const OptieInfo = ({ knopLabel, titel, foto, fotoAlt, children, sluiten, link }: Props) => {
+const OptieInfo = ({ knopLabel, titel, foto, fotoAlt, fotoOnderkant, children, sluiten, link }: Props) => {
   const [open, setOpen] = useState(false);
   const id = useId();
 
@@ -67,13 +69,13 @@ const OptieInfo = ({ knopLabel, titel, foto, fotoAlt, children, sluiten, link }:
               <button type="button" className="oi-x" aria-label={sluiten} onClick={() => setOpen(false)}>
                 ×
               </button>
-              <img src={foto} alt={fotoAlt} decoding="async" />
+              <img className={fotoOnderkant ? "oi-foto-onderkant" : undefined} src={foto} alt={fotoAlt} decoding="async" />
               <div className="oi-tekst">
                 <h3 id={id}>{titel}</h3>
                 {children}
                 {link && (
-                  <Link to={link.to} onClick={() => setOpen(false)}>
-                    {link.tekst} →
+                  <Link className="oi-meer" to={link.to} onClick={() => setOpen(false)}>
+                    {link.tekst}
                   </Link>
                 )}
               </div>
