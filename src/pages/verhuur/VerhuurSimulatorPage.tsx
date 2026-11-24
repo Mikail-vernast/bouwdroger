@@ -841,6 +841,7 @@ const VerhuurSimulatorPage = () => {
                 kamers={kamers}
                 openingen={plan.openingen}
                 trappen={plan.trappen}
+                ramen={plan.ramen}
                 open={soort === "water" ? wsPlekken.length > 0 : (stap >= 2 && !(stap === 4 && filmKlaar)) || (stap === 1 && toonPlan)}
                 actief={soort === "water" ? wsVerd : stap === 4 ? toonVerd : stap === 1 ? verd : 0}
                 plaatsingen={filmKlaar ? GEEN_PLAATSINGEN : plaatsingen}

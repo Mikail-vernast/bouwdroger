@@ -22,11 +22,11 @@ import {
   Vector3,
 } from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
-import { WONING, kamerNaam, woningTekst, type Dak, type Kamer, type Opening, type Trap, type Woning } from "@/lib/droogSimulator";
+import { WONING, kamerNaam, woningTekst, type Dak, type Kamer, type Opening, type Raam, type Trap, type Woning } from "@/lib/droogSimulator";
 import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
-import { inrichtingsMuur, richIn } from "./inrichting";
+import { richIn } from "./inrichting";
 import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
@@ -207,11 +207,11 @@ interface Bouwers {
 
 interface Woningplan {
   woning: Woning; w: number; lagen: number; act: number; dak: Dak;
-  kamers: Kamer[]; openingen: Opening[]; trappen: Trap[];
+  kamers: Kamer[]; openingen: Opening[]; trappen: Trap[]; ramen: Raam[];
 }
 
 function bouw(p: Woningplan) {
-  const { woning, w, lagen, act, dak, kamers, openingen, trappen } = p;
+  const { woning, w, lagen, act, dak, kamers, openingen, trappen, ramen } = p;
   const { l, buren } = WONING[woning];
   const B: Bouwers = { vast: new Bouwer(), boven: new Bouwer(), dak: new Bouwer(), gevel: new Bouwer(), binnen: new Bouwer(), bladen: new Bouwer() };
 
@@ -239,78 +239,19 @@ function bouw(p: Woningplan) {
 
   const voordeur = openingen.find((o) => o.soort === "voordeur" && o.verdieping === 0);
 
-  /** De openingen in een gevel van bouwlaag v (vloer op yf), zoals de SVG ze plaatst. */
+  /**
+   * De openingen in een gevel van bouwlaag v (vloer op yf): de ramen uit het
+   * plan (droogSimulator.ts beslist ze, per kamer) en op het gelijkvloers de voordeur.
+   */
   const gevelGaten = (g: Gevel, v: number, yf: number) => {
     const gaten: (Gat & { soort: "raam" | "deur"; kalf: number; stijl: boolean })[] = [];
-    if (g === "voor") {
-      // Eén kolomraster voor alle bouwlagen, zoals bij een echte gevel: de ramen
-      // staan recht boven elkaar en zijn overal even breed. De deurkolom ligt vast
-      // (gelijkvloers: de voordeur, erboven een smal raam); de andere kolommen
-      // verdelen de rest van de gevel gelijk.
-      const deurKolom = voordeur && woning !== "appartement" ? voordeur : null;
-      const n = w < 7 ? 2 : w < 9.5 ? 3 : 4;
-      let kolommen: number[];
-      let stapw: number;
-      if (deurKolom) {
-        const links = deurKolom.van - 0.3, rechts = w - (deurKolom.tot + 0.3);
-        const [s0, s1] = rechts >= links ? [deurKolom.tot + 0.3, w] : [0, deurKolom.van - 0.3];
-        stapw = (s1 - s0) / (n - 1);
-        kolommen = Array.from({ length: n - 1 }, (_, i) => s0 + stapw * (i + 0.5));
-      } else {
-        stapw = w / n;
-        kolommen = Array.from({ length: n }, (_, i) => stapw * (i + 0.5));
-      }
-      const bw = Math.min(1.3, stapw * 0.58);
-      for (const cx of kolommen) {
-        gaten.push({ a0: cx - bw / 2, a1: cx + bw / 2, b0: yf + 0.75, b1: yf + 2.3, soort: "raam", kalf: 0.5, stijl: bw > 0.9 });
-      }
-      if (deurKolom && v === 0) {
-        gaten.push({ a0: deurKolom.van - 0.06, a1: deurKolom.tot + 0.06, b0: yf, b1: yf + 2.3, soort: "deur", kalf: 0, stijl: false });
-      } else if (deurKolom) {
-        const dc = (deurKolom.van + deurKolom.tot) / 2, dw = Math.min(bw, deurKolom.tot - deurKolom.van + 0.12);
-        gaten.push({ a0: dc - dw / 2, a1: dc + dw / 2, b0: yf + 0.75, b1: yf + 2.3, soort: "raam", kalf: 0.5, stijl: false });
-      }
-    } else if (buren !== 2) {
-      const n = l > 10.5 ? 2 : 1;
-      for (let i = 0; i < n; i++) {
-        const cz = (l * (i + 1)) / (n + 1);
-        gaten.push({ a0: cz - 0.45, a1: cz + 0.45, b0: yf + 0.9, b1: yf + 2.3, soort: "raam", kalf: 0.45, stijl: false });
-      }
+    for (const r of ramen) {
+      if (r.verdieping !== v || r.gevel !== g) continue;
+      const breed = r.tot - r.van, hoog = r.boven - r.onder;
+      gaten.push({ a0: r.van, a1: r.tot, b0: yf + r.onder, b1: yf + r.boven, soort: "raam", kalf: r.soort === "raam" && hoog > 1.2 ? (g === "voor" ? 0.5 : 0.45) : 0, stijl: breed > 0.9 });
     }
-    return gaten;
-  };
-
-  /**
-   * Ramen in de achter- en linkergevel van de opengewerkte laag. Je ziet ze van
-   * binnenuit, dus ze volgen de kamers: één raam per kamer die tegen die gevel
-   * ligt. Waar de keuken tegen de gevel staat geen raam (bovenkasten); bij een
-   * badkamer, toilet of wasplaats een klein raam boven de toestellen. In de
-   * grootste kamer achteraan op het gelijkvloers een raamdeur naar de tuin.
-   * Links alleen bij een vrijstaande gevel: anders staat daar de buur.
-   */
-  const binnenRamen = (g: Gevel, v: number, yf: number, laag: Kamer[], laagOpeningen: Opening[]) => {
-    const gaten: (Gat & { kalf: number; stijl: boolean })[] = [];
-    if (g === "links" && buren !== 0) return gaten;
-    const tegen = laag.filter((k) => k.soort !== "circulatie" && (g === "achter" ? k.z < 1e-6 : k.x < 1e-6));
-    const breedte = (k: Kamer) => (g === "achter" ? k.w : k.l);
-    const tuin = g === "achter" && v === 0 ? tegen.filter((k) => !inrichtingsMuur(k, laagOpeningen, { w, l })).sort((p, q) => breedte(q) - breedte(p))[0] : undefined;
-    for (const k of tegen) {
-      const lang = breedte(k);
-      if (lang < 1.5) continue;
-      const mid = g === "achter" ? k.x + k.w / 2 : k.z + k.l / 2;
-      const muur = inrichtingsMuur(k, laagOpeningen, { w, l });
-      const bezet = muur === (g === "achter" ? "achter" : "links");
-      if (bezet && k.naam === "Keuken") continue;
-      if (k === tuin) {
-        const bw = Math.min(2.4, lang * 0.55);
-        gaten.push({ a0: mid - bw / 2, a1: mid + bw / 2, b0: yf + 0.02, b1: yf + 2.3, kalf: 0, stijl: true });
-      } else if (bezet) {
-        const bw = Math.min(0.7, lang * 0.4);
-        gaten.push({ a0: mid - bw / 2, a1: mid + bw / 2, b0: yf + 1.65, b1: yf + 2.25, kalf: 0, stijl: false });
-      } else {
-        const bw = Math.min(1.4, lang * 0.5);
-        gaten.push({ a0: mid - bw / 2, a1: mid + bw / 2, b0: yf + 0.9, b1: yf + 2.3, kalf: 0.45, stijl: bw > 0.9 });
-      }
+    if (g === "voor" && v === 0 && voordeur) {
+      gaten.push({ a0: voordeur.van - 0.06, a1: voordeur.tot + 0.06, b0: yf, b1: yf + 2.3, soort: "deur", kalf: 0, stijl: false });
     }
     return gaten;
   };
@@ -376,7 +317,7 @@ function bouw(p: Woningplan) {
     // Achtergevels op volle hoogte, binnenkant gepleisterd, met de ramen die je
     // van binnenuit ziet: per kamer één raam in het midden van zijn stuk muur.
     for (const g of ["achter", "links"] as Gevel[]) {
-      const gaten = binnenRamen(g, v, yf, laagKamers, laagOpeningen);
+      const gaten = gevelGaten(g, v, yf);
       const [a0, a1] = g === "achter" ? [-T, w] : [0, l];
       for (const r of muurMinGaten(a0, a1, yf, yf + H, gaten)) {
         // Bovenop een stuk onder een raam ligt de vensterbank, niet de snede.
@@ -425,13 +366,6 @@ function bouw(p: Woningplan) {
       const gaten = laagOpeningen
         .filter((o) => o.as === as && Math.abs(o.vast - vast) < 1e-6 && o.tot > a0 && o.van < a1)
         .map((o) => ({ a0: o.van, a1: o.tot, b0: 0, b1: H }));
-      // Langs een trap naar boven blijft de wand open: de trap heeft zijn eigen
-      // trapboom en schuine leuning (zie echteTrap), zo kijk je in de trapkoker.
-      const laagTrap = laagTrappen.find((t) => as === "x" && Math.abs(vast - (t.z + t.l + 0.05)) < 0.12);
-      if (laagTrap) {
-        const l0 = Math.max(a0, laagTrap.x), l1 = Math.min(a1, laagTrap.x + laagTrap.w);
-        if (l1 > l0) gaten.push({ a0: l0, a1: l1, b0: 0, b1: H });
-      }
       for (const r of muurMinGaten(a0, a1, 0, H, gaten)) {
         if (as === "x") B.binnen.blok("pleister", r.a0, r.a1, r.b0, r.b1, vast - TI / 2, vast + TI / 2, { boven: "snede" });
         else B.binnen.blok("pleister", vast - TI / 2, vast + TI / 2, r.b0, r.b1, r.a0, r.a1, { boven: "snede" });
@@ -442,8 +376,10 @@ function bouw(p: Woningplan) {
         .forEach((o) => {
           const blad = Math.min(0.85, o.tot - o.van);
           const z0 = o.kant > 0 ? vast : vast - blad, z1 = o.kant > 0 ? vast + blad : vast;
-          if (as === "x") B.bladen.blok("deurblad", o.van, o.van + 0.04, 0, 2.05, z0, z1);
-          else B.bladen.blok("deurblad", z0, z1, 0, 2.05, o.van, o.van + 0.04);
+          // Het blad hangt aan het scharnier en valt open tegen de dichtste hoek.
+          const s0 = o.scharnier === "tot" ? o.tot - 0.04 : o.van;
+          if (as === "x") B.bladen.blok("deurblad", s0, s0 + 0.04, 0, 2.05, z0, z1);
+          else B.bladen.blok("deurblad", z0, z1, 0, 2.05, s0, s0 + 0.04);
         });
     };
     for (const k of laagKamers) {
@@ -457,19 +393,23 @@ function bouw(p: Woningplan) {
     // loopt door tot de volgende vloer: in een opengewerkte laag zie je hem zo
     // omhoog lopen in plaats van als een plank op de snijhoogte te eindigen.
     const treden = 13;
+    // Een trap die naar +x klimt (richting 1) of terug (richting -1, de tweede
+    // trap van een halfslag). `pos(i)` is de neus van trede i, langs x.
     const echteTrap = (t: Trap, yb: number, leuning: boolean) => {
-      const aan = t.w / treden, op = FH / treden;
+      const aan = t.w / treden, op = FH / treden, r = t.richting;
       const z0 = t.z, z1 = t.z + t.l, bd = 0.05;
-      // Een open trap die naar +x klimt: losse treden met een overstekende neus en
-      // een dun stootbord, tussen twee trapbomen. Geen massief blok eronder, zo
-      // ziet hij er vanuit elke hoek uit als een trap en niet als een wig.
+      // Losse treden met een overstekende neus en een dun stootbord, tussen twee
+      // trapbomen. Geen massief blok eronder, zo ziet hij er vanuit elke hoek
+      // uit als een trap en niet als een wig.
       for (let i = 0; i < treden; i++) {
-        const x0 = t.x + aan * i, top = yb + op * (i + 1);
-        B.vast.blok("trede", x0 - 0.025, x0 + aan, top - 0.035, top, z0 + bd, z1 - bd);
-        B.vast.blok("trapzij", x0, x0 + 0.018, top - op, top - 0.035, z0 + bd, z1 - bd, { boven: null });
+        const top = yb + op * (i + 1);
+        const [x0, x1] = r > 0 ? [t.x + aan * i, t.x + aan * (i + 1)] : [t.x + t.w - aan * (i + 1), t.x + t.w - aan * i];
+        const neusX = r > 0 ? x0 : x1;
+        B.vast.blok("trede", r > 0 ? x0 - 0.025 : x0, r > 0 ? x1 : x1 + 0.025, top - 0.035, top, z0 + bd, z1 - bd);
+        B.vast.blok("trapzij", r > 0 ? neusX : neusX - 0.018, r > 0 ? neusX + 0.018 : neusX, top - op, top - 0.035, z0 + bd, z1 - bd, { boven: null });
       }
       // Trapbomen: schuine planken langs de neuzen, aan beide kanten.
-      const neus = (x: number) => yb + ((x - t.x) / t.w) * FH;
+      const neus = (x: number) => yb + ((r > 0 ? x - t.x : t.x + t.w - x) / t.w) * FH;
       const xa = t.x, xb = t.x + t.w;
       for (const [zb0, zb1] of [[z0, z0 + bd], [z1 - bd, z1]]) {
         B.vast.hexa("trapzij", [
@@ -478,14 +418,15 @@ function bouw(p: Woningplan) {
         ]);
       }
       if (!leuning) return;
-      // Leuning op 90 cm boven de neuzen, met een spijl op elke tweede trede.
-      const lh = 0.9, rz0 = z1 - 0.045, rz1 = z1 - 0.005;
+      // Leuning aan de open kant (de loopstrook), op 90 cm boven de neuzen, met een spijl op elke tweede trede.
+      const lh = 0.9;
+      const [rz0, rz1] = r > 0 ? [z1 - 0.045, z1 - 0.005] : [z0 + 0.005, z0 + 0.045];
       B.vast.hexa("leuning", [
         [xa, neus(xa) + lh, rz0], [xb, neus(xb) + lh, rz0], [xb, neus(xb) + lh, rz1], [xa, neus(xa) + lh, rz1],
         [xa, neus(xa) + lh + 0.05, rz0], [xb, neus(xb) + lh + 0.05, rz0], [xb, neus(xb) + lh + 0.05, rz1], [xa, neus(xa) + lh + 0.05, rz1],
       ]);
       for (let i = 0; i < treden; i += 2) {
-        const x = t.x + aan * (i + 0.5);
+        const x = r > 0 ? t.x + aan * (i + 0.5) : t.x + t.w - aan * (i + 0.5);
         B.vast.blok("leuning", x - 0.015, x + 0.015, yb + op * (i + 1), neus(x) + lh, rz0 + 0.005, rz1 - 0.005);
       }
     };
@@ -493,15 +434,19 @@ function bouw(p: Woningplan) {
       if (t.op) {
         echteTrap(t, yf, true);
       } else {
-        // Trapgat: de trap van de laag eronder loopt zichtbaar naar beneden.
+        // Trapgat: de trap van de laag eronder loopt zichtbaar naar beneden. Een
+        // borstwering langs de loopstrook en aan het lage eind; het hoge eind is
+        // waar je aankomt en blijft open.
         echteTrap(t, yf - FH, false);
         const spijlen = Math.max(3, Math.round(t.w / 0.5));
-        B.vast.blok("leuning", t.x, t.x + t.w, yf + 0.86, yf + 0.92, t.z + t.l - 0.05, t.z + t.l);
+        const [rz0, rz1] = t.richting > 0 ? [t.z + t.l - 0.05, t.z + t.l] : [t.z, t.z + 0.05];
+        B.vast.blok("leuning", t.x, t.x + t.w, yf + 0.86, yf + 0.92, rz0, rz1);
         for (let i = 0; i <= spijlen; i++) {
           const x = Math.min(t.x + (t.w * i) / spijlen, t.x + t.w - 0.04);
-          B.vast.blok("leuning", x, x + 0.04, yf, yf + 0.86, t.z + t.l - 0.04, t.z + t.l);
+          B.vast.blok("leuning", x, x + 0.04, yf, yf + 0.86, rz0, rz1);
         }
-        B.vast.blok("leuning", t.x, t.x + 0.05, yf, yf + 0.92, t.z, t.z + t.l);
+        const ex = t.richting > 0 ? t.x : t.x + t.w - 0.05;
+        B.vast.blok("leuning", ex, ex + 0.05, yf, yf + 0.92, t.z, t.z + t.l);
       }
     }
   };
@@ -762,7 +707,7 @@ function kader(w: number, l: number, y0: number, y1: number, pad: number, voor =
 interface SceneProps extends IsoHouseProps { anim: MutableRefObject<Anim>; labels: MutableRefObject<(HTMLDivElement | null)[]>; reduced: boolean; onKlaar?: () => void }
 
 function Scene(props: SceneProps) {
-  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, filmRonde = 0, anim, labels, reduced } = props;
+  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], ramen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, filmRonde = 0, anim, labels, reduced } = props;
   const materiaal = props.materiaal ?? STANDAARD_MATERIAAL;
   const { l, buren } = WONING[woning];
   const w = props.breedte ?? WONING[woning].w;
@@ -851,11 +796,11 @@ function Scene(props: SceneProps) {
   }, [gl, scene]);
 
   const geo = useMemo(() => {
-    const B = bouw({ woning, w, lagen, act, dak, kamers, openingen, trappen });
+    const B = bouw({ woning, w, lagen, act, dak, kamers, openingen, trappen, ramen });
     return {
       vast: B.vast.bouw(), boven: B.boven.bouw(), dak: B.dak.bouw(), gevel: B.gevel.bouw(), binnen: B.binnen.bouw(), bladen: B.bladen.bouw(),
     };
-  }, [woning, w, lagen, act, dak, kamers, openingen, trappen]);
+  }, [woning, w, lagen, act, dak, kamers, openingen, trappen, ramen]);
   useEffect(() => () => {
     for (const m of Object.values(geo)) for (const g of m.values()) g.dispose();
   }, [geo]);
