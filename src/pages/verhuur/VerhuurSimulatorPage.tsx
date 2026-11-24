@@ -7,6 +7,7 @@ import WaterschadeAanvraag from "@/components/simulator/WaterschadeAanvraag";
 import type { Antwoorden as WsAntwoorden } from "@/components/simulator/WaterschadeAanvraag.copy";
 import { materiaalVoor } from "@/components/simulator/materiaal";
 import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
+import { budget3D, heeftStraat, straatBeelden, voorlaad } from "@/components/simulator/3d/bestanden";
 import { type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
 import { DROOG_DUUR, FILM_START, FILM_WACHT, filmStatus, plaatsDuur, voortgangNa, type FilmPlan } from "@/components/simulator/film";
@@ -220,6 +221,28 @@ const VerhuurSimulatorPage = () => {
   const dak = antwoorden.dak;
   // The floor area sets the facade width: a bigger house is drawn wider, not just labelled bigger.
   const breedte = woningBreedte(woning, huis.size, lagen);
+  // Bij de woningvraag de mini-straat van de andere types al ophalen, in de breedte waarop
+  // een wissel uitkomt (kiesWoning zet de geschatte oppervlakte van dat type). Zonder dit
+  // stond er na een wissel even geen straat, tot het beeld binnen was.
+  // Pas na het laden en een korte pauze: bij de eerste vraag moeten eerst de 3D en de
+  // eigen straat binnen, deze beelden zijn voor de klik daarna.
+  useEffect(() => {
+    if (stap !== 0) return;
+    const b = budget3D();
+    if (b === "geen" || b === "zuinig") return;
+    const haal = () => {
+      for (const w of Object.keys(WONING) as Woning[]) {
+        if (!heeftStraat(w)) continue;
+        const l = w === "appartement" ? 1 : Math.max(2, lagen);
+        voorlaad(straatBeelden(w, woningBreedte(w, snapOppervlakte(geschatteOppervlakte(w, l)), l), "mini"), "image");
+      }
+    };
+    let t = 0;
+    const na = () => { t = window.setTimeout(haal, 2500); };
+    if (document.readyState === "complete") na();
+    else window.addEventListener("load", na, { once: true });
+    return () => { window.removeEventListener("load", na); window.clearTimeout(t); };
+  }, [stap, lagen]);
   // Wat de bezoeker koos, maar nooit meer kamers dan er op die bouwlaag passen: naast
   // elkaar langs de gevel (bv. na een wissel van open bebouwing naar rijwoning), en
   // binnen de gekozen oppervlakte (40 m² over twee lagen heeft geen acht kamers).
