@@ -879,7 +879,9 @@ function Scene(props: SceneProps) {
   // De straat (Blender-render) per breedte. Bij een andere breedte blijft het oude
   // beeld staan tot het nieuwe geladen is, en vloeit het dan weg; een ander
   // woningtype wisselt meteen. Van de andere breedtes laden de mini's vooraf.
-  const straatLagen = app ? lagen : 1;
+  // Altijd de render met één bouwlaag: een extra verdiep is er een van de unit zelf, niet van
+  // het hele gebouw (anders sprong het gebouw rondom in één klap een laag hoger).
+  const straatLagen = 1;
   const straatSleutel = `${woning}-${w}-${straatLagen}`;
   const [straten, setStraten] = useState<StraatLaag[]>(() =>
     heeftStraat(woning) ? [{ sleutel: straatSleutel, woning, w, lagen: straatLagen, zicht: { current: 1 }, weg: -1, geladen: false }] : [],
