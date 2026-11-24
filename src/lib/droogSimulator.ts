@@ -580,6 +580,11 @@ function rij(x0: number, x1: number, stukken: Stuk[]): { naam: string; x: number
  *
  * Elke kamer raakt de gang en krijgt daar één deur — weg van de trap als dat
  * kan. Een keuken naast de leefruimte krijgt er een open doorgang naar toe.
+ *
+ * Een appartement heeft geen voordeur in de gevel: het ligt op de tweede
+ * verdieping (zie straat.py) en je komt binnen vanaf de overloop van de
+ * trappenhal, die links tegen de unit staat. De gang wordt dan de inkomhal en
+ * de voordeur zit in de linkerwand (x = 0), aan het begin van die hal.
  * De vakken vullen de bouwlaag precies; de test bewaakt dat.
  */
 function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma: Programma, w = WONING[woning].w): Plan {
@@ -593,6 +598,8 @@ function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma:
   for (const o of opties) for (let i = 0; i < (p[o.naam] ?? 0); i++) ruimtes.push({ naam: o.naam, gewicht: o.gewicht, kant: o.kant, minB: o.minB });
 
   const metHal = v === 0;
+  const deurLinks = metHal && woning === "appartement";
+  const voorHal = metHal && !deurLinks;
   const kamers: Kamer[] = [];
   const openingen: Opening[] = [];
   const trappen: Trap[] = [];
@@ -632,7 +639,7 @@ function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma:
   }
 
   const breed = w - gx;
-  const ruimte = { achter: breed, voor: breed - (metHal ? HAL : 0) };
+  const ruimte = { achter: breed, voor: breed - (voorHal ? HAL : 0) };
   const achter: Stuk[] = [], voor: Stuk[] = [];
   const bezet = (band: Stuk[]) => band.reduce((t, s) => t + (s.minB ?? MIN_BREEDTE), 0);
   const past = (band: Stuk[], r: Stuk) => bezet(band) + (r.minB ?? MIN_BREEDTE) <= (band === achter ? ruimte.achter : ruimte.voor) + 1e-9;
@@ -713,7 +720,7 @@ function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma:
 
   // Gang. Zonder kamers aan de straatkant loopt hij door tot de gevel; zonder
   // kamers aan de tuinkant begint hij achteraan.
-  const gangNaam = soort === "boven" || soort === "zolder" ? "Overloop" : voor.length === 0 ? "Hal" : "Gang";
+  const gangNaam = soort === "boven" || soort === "zolder" ? "Overloop" : voor.length === 0 || deurLinks ? "Hal" : "Gang";
   const g0 = achterVakken.length ? zb : 0;
   const g1 = voor.length ? zf : l;
   kamers.push({ id: id(), naam: gangNaam, verdieping: v, x: gangX0, z: g0, w: w - gangX0, l: g1 - g0, soort: "circulatie" });
@@ -721,14 +728,17 @@ function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma:
     kamers.push({ id: id(), naam: "Toilet", verdieping: v, x: gx, z: zb, w: TOILET_B, l: GANG, soort: "kamer" });
     openingen.push({ verdieping: v, as: "z", vast: gangX0, van: zb + 0.15, tot: zf - 0.15, soort: "deur", kant: 1 });
   }
-  if (metHal && voor.length === 0) {
+  if (deurLinks) {
+    // De gang raakt de linkerwand altijd (gx = 0 op deze laag): de deur ligt in zijn breedte.
+    openingen.push({ verdieping: v, as: "z", vast: 0, van: zb + 0.15, tot: zf - 0.15, soort: "voordeur", kant: 1 });
+  } else if (metHal && voor.length === 0) {
     openingen.push({ verdieping: v, as: "x", vast: l, van: 0.25, tot: 1.15, soort: "voordeur", kant: -1 });
   }
 
   // Straatkant
   if (voor.length > 0) {
-    const x0 = gx + (metHal ? HAL : 0);
-    if (metHal) {
+    const x0 = gx + (voorHal ? HAL : 0);
+    if (voorHal) {
       kamers.push({ id: id(), naam: "Hal", verdieping: v, x: gx, z: zf, w: HAL, l: l - zf, soort: "circulatie" });
       openingen.push({ verdieping: v, as: "x", vast: zf, van: gx, tot: gx + HAL, soort: "open", kant: 1 });
       openingen.push({ verdieping: v, as: "x", vast: l, van: gx + 0.15, tot: gx + HAL - 0.15, soort: "voordeur", kant: -1 });
@@ -736,7 +746,7 @@ function laagPlan(woning: Woning, v: number, lagen: number, dak: Dak, programma:
     rij(x0, w, voor).forEach((r) => {
       // Beneden: het toilet naast de hal is 1,5 m diep en gaat open op de hal;
       // het stuk erachter, tot de voorgevel, hoort bij de hal (vestiaire).
-      if (metHal && r.naam === "Toilet" && Math.abs(r.x - x0) < 1e-9 && l - zf >= TOILET_L + 1.1) {
+      if (voorHal && r.naam === "Toilet" && Math.abs(r.x - x0) < 1e-9 && l - zf >= TOILET_L + 1.1) {
         kamers.push({ id: id(), naam: "Toilet", verdieping: v, x: r.x, z: zf, w: r.w, l: TOILET_L, soort: "kamer" });
         openingen.push({ verdieping: v, as: "z", vast: r.x, van: zf + 0.3, tot: zf + 0.3 + Math.min(0.8, TOILET_L - 0.45), soort: "deur", kant: 1 });
         kamers.push({ id: id(), naam: "Vestiaire", verdieping: v, x: r.x, z: zf + TOILET_L, w: r.w, l: l - zf - TOILET_L, soort: "circulatie" });

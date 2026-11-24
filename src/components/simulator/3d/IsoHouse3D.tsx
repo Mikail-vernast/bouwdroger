@@ -290,7 +290,8 @@ function bouw(p: Woningplan) {
    */
   const binnenRamen = (g: Gevel, v: number, yf: number, laag: Kamer[], laagOpeningen: Opening[]) => {
     const gaten: (Gat & { kalf: number; stijl: boolean })[] = [];
-    if (g === "links" && buren !== 0) return gaten;
+    // Links staat de buur, of bij een appartement de trappenhal: daar zit de voordeur, geen raam.
+    if (g === "links" && (buren !== 0 || woning === "appartement")) return gaten;
     const tegen = laag.filter((k) => k.soort !== "circulatie" && (g === "achter" ? k.z < 1e-6 : k.x < 1e-6));
     const breedte = (k: Kamer) => (g === "achter" ? k.w : k.l);
     const tuin = g === "achter" && v === 0 ? tegen.filter((k) => !inrichtingsMuur(k, laagOpeningen, { w, l })).sort((p, q) => breedte(q) - breedte(p))[0] : undefined;
@@ -377,8 +378,12 @@ function bouw(p: Woningplan) {
     // van binnenuit ziet: per kamer één raam in het midden van zijn stuk muur.
     for (const g of ["achter", "links"] as Gevel[]) {
       const gaten = binnenRamen(g, v, yf, laagKamers, laagOpeningen);
+      // Appartement: de voordeur in de linkerwand, naar de overloop van de trappenhal.
+      const deur = g === "links" ? laagOpeningen.find((o) => o.soort === "voordeur" && o.as === "z" && Math.abs(o.vast) < 1e-6) : undefined;
+      const deurGat = deur ? { a0: deur.van, a1: deur.tot, b0: yf, b1: yf + 2.15, kalf: 0, stijl: false } : undefined;
+      const open = deurGat ? [...gaten, deurGat] : gaten;
       const [a0, a1] = g === "achter" ? [-T, w] : [0, l];
-      for (const r of muurMinGaten(a0, a1, yf, yf + H, gaten)) {
+      for (const r of muurMinGaten(a0, a1, yf, yf + H, open)) {
         // Bovenop een stuk onder een raam ligt de vensterbank, niet de snede.
         gblok(B.vast, "baksteen", g, r.a0, r.a1, -T, 0, r.b0, r.b1, { boven: r.b1 > yf + H - 1e-4 ? "snede" : "arduin" });
       }
@@ -386,7 +391,15 @@ function bouw(p: Woningplan) {
       // Pleister op de binnenkant, en in de neggekanten tot aan het kader.
       const lijn = (a: number, b: number, y0: number, y1: number, n0: number, n1: number) => gblok(B.vast, "pleister", g, a, b, n0, n1, y0, y1);
       const ib = 0.002, kd = -REV - 0.06; // binnenvlak en achterkant van het kader, gemeten vanaf het buitenvlak
-      for (const r of muurMinGaten(Math.max(a0, 0), a1, yf, yf + H, gaten)) lijn(r.a0, r.a1, r.b0, r.b1, -T - ib, -T);
+      for (const r of muurMinGaten(Math.max(a0, 0), a1, yf, yf + H, open)) lijn(r.a0, r.a1, r.b0, r.b1, -T - ib, -T);
+      if (deurGat) {
+        // Deurblad in de muur, met een wit kader aan de binnenkant.
+        const fr = 0.06, n0 = -T - 0.012, n1 = -T + 0.04;
+        gblok(B.vast, "deur", g, deurGat.a0 + fr, deurGat.a1 - fr, -T + 0.04, -T + 0.08, deurGat.b0, deurGat.b1 - fr);
+        gblok(B.vast, "kader", g, deurGat.a0, deurGat.a0 + fr, n0, n1, deurGat.b0, deurGat.b1);
+        gblok(B.vast, "kader", g, deurGat.a1 - fr, deurGat.a1, n0, n1, deurGat.b0, deurGat.b1);
+        gblok(B.vast, "kader", g, deurGat.a0, deurGat.a1, n0, n1, deurGat.b1 - fr, deurGat.b1);
+      }
       for (const gt of gaten) {
         lijn(gt.a0, gt.a0 + 0.004, gt.b0, gt.b1, -T, kd);
         lijn(gt.a1 - 0.004, gt.a1, gt.b0, gt.b1, -T, kd);

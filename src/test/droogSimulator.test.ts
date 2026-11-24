@@ -270,8 +270,11 @@ describe("planVoor", () => {
             for (const o of plan.openingen) {
               expect(o.tot).toBeGreaterThan(o.van);
               if (o.soort === "voordeur") {
-                expect(o.vast).toBe(l);
-                const hal = plan.kamers.find((k) => k.verdieping === o.verdieping && k.soort === "circulatie" && k.z + k.l === l && k.x <= o.van && k.x + k.w >= o.tot);
+                // Een appartement komt binnen via de trappenhal links (linkerwand, x = 0).
+                const hal = woning === "appartement"
+                  ? plan.kamers.find((k) => k.verdieping === o.verdieping && k.soort === "circulatie" && k.x === 0 && k.z <= o.van && k.z + k.l >= o.tot)
+                  : plan.kamers.find((k) => k.verdieping === o.verdieping && k.soort === "circulatie" && k.z + k.l === l && k.x <= o.van && k.x + k.w >= o.tot);
+                expect(o.vast).toBe(woning === "appartement" ? 0 : l);
                 expect(hal, `${woning} voordeur zonder hal`).toBeDefined();
                 continue;
               }
@@ -292,6 +295,28 @@ describe("planVoor", () => {
             expect(plan.trappen).toHaveLength(lagen > 1 ? lagen : 0);
           }
         }
+      }
+    }
+  });
+
+  it("legt de voordeur van een appartement in de linkerwand, op de hal, en niet in de gevel", () => {
+    for (let lagen = 1; lagen <= 2; lagen++) {
+      for (let n = 1; n <= MAX_KAMERS; n++) {
+        const p = standaardProgramma("appartement", 0, lagen, "plat");
+        const plan = planVoor("appartement", lagen, "plat", [aantalKamers(p) === n ? p : undefined]);
+        const deuren = plan.openingen.filter((o) => o.soort === "voordeur");
+        expect(deuren).toHaveLength(1);
+        const [d] = deuren;
+        expect(d).toMatchObject({ verdieping: 0, as: "z", vast: 0 });
+        expect(d.tot - d.van).toBeGreaterThanOrEqual(0.85);
+        // geen voordeur in de voorgevel, ook niet op een andere laag
+        expect(plan.openingen.some((o) => o.as === "x" && o.vast === WONING.appartement.l && o.soort === "voordeur")).toBe(false);
+        // de hal raakt de linkerwand over de volle breedte van de deur
+        const hal = plan.kamers.find((k) => k.verdieping === 0 && k.naam === "Hal");
+        expect(hal, `hal bij ${lagen} lagen, ${n} kamers`).toBeDefined();
+        expect(hal!.x).toBe(0);
+        expect(hal!.z).toBeLessThanOrEqual(d.van);
+        expect(hal!.z + hal!.l).toBeGreaterThanOrEqual(d.tot);
       }
     }
   });

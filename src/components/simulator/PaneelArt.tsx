@@ -119,7 +119,12 @@ export function Plattegrond({ kamers, openingen = [], trappen = [] }: { kamers: 
         return <path key={i} d={d} className="ds-plan-deur" />;
       })}
       {openingen.filter((o) => o.soort === "voordeur").map((o, i) => (
-        <path key={`v${i}`} d={`M${(o.van + o.tot) / 2} ${o.vast + 0.45}l-0.22 0.3h0.44z`} className="ds-plan-ingang" />
+        // Pijl naar binnen: onder de voorgevel, of (appartement) links van de linkerwand.
+        <path
+          key={`v${i}`}
+          d={o.as === "x" ? `M${(o.van + o.tot) / 2} ${o.vast + 0.45}l-0.22 0.3h0.44z` : `M${o.vast - 0.08} ${(o.van + o.tot) / 2}l-0.3 -0.22v0.44z`}
+          className="ds-plan-ingang"
+        />
       ))}
     </svg>
   );
