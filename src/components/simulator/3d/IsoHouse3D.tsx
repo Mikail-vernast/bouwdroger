@@ -30,6 +30,7 @@ import { inrichtingsMuur, richIn } from "./inrichting";
 import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
+import { type GevelGat, voorgevelGaten, zijgevelGaten } from "../gevel";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useTaal } from "@/i18n/useTaal";
 import { TEXTUUR, budget3D, heeftStraat, meld } from "./bestanden";
@@ -239,48 +240,13 @@ function bouw(p: Woningplan) {
 
   const voordeur = openingen.find((o) => o.soort === "voordeur" && o.verdieping === 0);
 
-  /** De openingen in een gevel van bouwlaag v (vloer op yf), zoals de SVG ze plaatst. */
-  const gevelGaten = (g: Gevel, v: number, yf: number) => {
-    const gaten: (Gat & { soort: "raam" | "deur"; kalf: number; stijl: boolean })[] = [];
-    if (g === "voor") {
-      // Eén kolomraster voor alle bouwlagen, zoals bij een echte gevel: de ramen
-      // staan recht boven elkaar en zijn overal even breed. De deurkolom ligt vast
-      // (gelijkvloers: de voordeur, erboven een smal raam); de andere kolommen
-      // verdelen de rest van de gevel gelijk.
-      const deurKolom = voordeur && woning !== "appartement" ? voordeur : null;
-      const n = w < 7 ? 2 : w < 9.5 ? 3 : 4;
-      let kolommen: number[];
-      let stapw: number;
-      if (deurKolom) {
-        const links = deurKolom.van - 0.3, rechts = w - (deurKolom.tot + 0.3);
-        const [s0, s1] = rechts >= links ? [deurKolom.tot + 0.3, w] : [0, deurKolom.van - 0.3];
-        stapw = (s1 - s0) / (n - 1);
-        kolommen = Array.from({ length: n - 1 }, (_, i) => s0 + stapw * (i + 0.5));
-      } else {
-        stapw = w / n;
-        kolommen = Array.from({ length: n }, (_, i) => stapw * (i + 0.5));
-      }
-      const bw = Math.min(1.3, stapw * 0.58);
-      kolommen.forEach((cx, i) => {
-        // Appartement: de rechtse kolom van de onderste laag is een raamdeur naar het
-        // terras (straat.py: balkon van de unit, in de voorlaag van de render).
-        const terras = woning === "appartement" && v === 0 && i === kolommen.length - 1;
-        gaten.push({ a0: cx - bw / 2, a1: cx + bw / 2, b0: yf + (terras ? 0.02 : 0.75), b1: yf + 2.3, soort: "raam", kalf: 0.5, stijl: bw > 0.9 });
-      });
-      if (deurKolom && v === 0) {
-        gaten.push({ a0: deurKolom.van - 0.06, a1: deurKolom.tot + 0.06, b0: yf, b1: yf + 2.3, soort: "deur", kalf: 0, stijl: false });
-      } else if (deurKolom) {
-        const dc = (deurKolom.van + deurKolom.tot) / 2, dw = Math.min(bw, deurKolom.tot - deurKolom.van + 0.12);
-        gaten.push({ a0: dc - dw / 2, a1: dc + dw / 2, b0: yf + 0.75, b1: yf + 2.3, soort: "raam", kalf: 0.5, stijl: false });
-      }
-    } else if (buren !== 2) {
-      const n = l > 10.5 ? 2 : 1;
-      for (let i = 0; i < n; i++) {
-        const cz = (l * (i + 1)) / (n + 1);
-        gaten.push({ a0: cz - 0.45, a1: cz + 0.45, b0: yf + 0.9, b1: yf + 2.3, soort: "raam", kalf: 0.45, stijl: false });
-      }
-    }
-    return gaten;
+  /** De openingen in een gevel van bouwlaag v (vloer op yf): zie gevel.ts, dezelfde als de SVG. */
+  const gevelGaten = (g: Gevel, v: number, yf: number): GevelGat[] => {
+    const gaten =
+      g === "voor" ? voorgevelGaten(w, v, voordeur && woning !== "appartement" ? voordeur : null, woning === "appartement")
+      : buren !== 2 ? zijgevelGaten(l, v)
+      : [];
+    return gaten.map((gt) => ({ ...gt, b0: yf + gt.b0, b1: yf + gt.b1 }));
   };
 
   /**
@@ -539,7 +505,10 @@ function bouw(p: Woningplan) {
 function dakBouw(b: Bouwer, { dak, w, l, buren, lagen }: { dak: Dak; w: number; l: number; buren: number; lagen: number }) {
   const y = lagen * FH;
   const nok = nokHoogte(dak, l);
-  const x0 = -T - OV, x1 = w + T + OV;
+  // Geen oversteek aan een gemene muur (links bij halfopen, links en rechts bij een
+  // rijwoning): daar stopt het dak op de as van de muur, net als het dak van de buur in
+  // de straatrender. Met oversteek stak de dakrand in het dak van het huis ernaast.
+  const x0 = buren >= 1 ? -T : -T - OV, x1 = buren === 2 ? w + T : w + T + OV;
   const zinkGoot = (zz: number, yy: number) => b.cilinder("zink", [x0, yy, zz], [x1, yy, zz], 0.07, 14);
   const afvoer = (x: number, z: number, yGoot: number, zGoot: number) => {
     b.cilinder("zink", [x, 0.05, z], [x, yGoot - 0.5, z], 0.045, 10);
@@ -605,7 +574,8 @@ function dakBouw(b: Bouwer, { dak, w, l, buren, lagen }: { dak: Dak; w: number; 
     ], { onder: "boei", uvBoven: uvDak });
     // Boeiboord aan de goot en windveren langs de gevels.
     b.blok("boei", x0, x1, yE - 0.22, yE + 0.01, Math.min(zE, zE - kant * 0.03), Math.max(zE, zE - kant * 0.03));
-    for (const xw of [x0 - 0.03, x1]) {
+    // Windveren alleen aan een vrije gevel.
+    for (const xw of [...(buren >= 1 ? [] : [x0 - 0.03]), ...(buren === 2 ? [] : [x1])]) {
       b.hexa("boei", [
         [xw, yE - 0.2, zE], [xw + 0.03, yE - 0.2, zE], [xw + 0.03, yR - 0.2, mz], [xw, yR - 0.2, mz],
         [xw, yE + 0.03, zE], [xw + 0.03, yE + 0.03, zE], [xw + 0.03, yR + 0.03, mz], [xw, yR + 0.03, mz],

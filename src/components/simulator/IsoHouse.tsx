@@ -14,6 +14,7 @@ import {
 import type { DeviceKey } from "@/data/verhuur";
 import type { Materiaal } from "./materiaal";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "./maten";
+import { voorgevelGaten, zijgevelGaten } from "./gevel";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useTaal } from "@/i18n/useTaal";
 
@@ -347,69 +348,41 @@ export default function IsoHouse({
   const xf = w + T + 0.01; // zijgevelvlak
 
   /** Raam in de voorgevel: wit kader, glas met middenstijl en kalf, arduin dorpel. */
-  const raamZ = (x0: number, x1: number, y0: number, y1: number, key: string) => (
+  const raamZ = (x0: number, x1: number, y0: number, y1: number, kalf: number, stijl: boolean, key: string) => (
     <g key={key}>
       <Poly v={[[x0, y0, zf], [x1, y0, zf], [x1, y1, zf], [x0, y1, zf]]} fill={KADER} stroke="#00000022" sw={0.4} />
       <Poly v={[[x0 + 0.08, y0 + 0.08, zf + 0.005], [x1 - 0.08, y0 + 0.08, zf + 0.005], [x1 - 0.08, y1 - 0.08, zf + 0.005], [x0 + 0.08, y1 - 0.08, zf + 0.005]]} fill={GLAS} stroke="none" />
-      <polyline points={pts([[(x0 + x1) / 2, y0 + 0.08, zf + 0.01], [(x0 + x1) / 2, y1 - 0.08, zf + 0.01]])} stroke={KADER} strokeWidth={1.2} fill="none" />
-      <polyline points={pts([[x0 + 0.08, y1 - 0.5, zf + 0.01], [x1 - 0.08, y1 - 0.5, zf + 0.01]])} stroke={KADER} strokeWidth={1} fill="none" />
+      {stijl && <polyline points={pts([[(x0 + x1) / 2, y0 + 0.08, zf + 0.01], [(x0 + x1) / 2, y1 - 0.08 - kalf, zf + 0.01]])} stroke={KADER} strokeWidth={1.2} fill="none" />}
+      {kalf > 0 && <polyline points={pts([[x0 + 0.08, y1 - kalf, zf + 0.01], [x1 - 0.08, y1 - kalf, zf + 0.01]])} stroke={KADER} strokeWidth={1} fill="none" />}
       <Blok x0={x0 - 0.07} x1={x1 + 0.07} y0={y0 - 0.1} y1={y0} z0={l + T} z1={l + T + 0.09} c={ARDUIN} />
     </g>
   );
-  const raamX = (z0: number, z1: number, y0: number, y1: number, key: string) => (
+  const raamX = (z0: number, z1: number, y0: number, y1: number, kalf: number, key: string) => (
     <g key={key}>
       <Poly v={[[xf, y0, z0], [xf, y1, z0], [xf, y1, z1], [xf, y0, z1]]} fill={KADER} stroke="#00000022" sw={0.4} />
       <Poly v={[[xf + 0.005, y0 + 0.08, z0 + 0.08], [xf + 0.005, y1 - 0.08, z0 + 0.08], [xf + 0.005, y1 - 0.08, z1 - 0.08], [xf + 0.005, y0 + 0.08, z1 - 0.08]]} fill={GLAS} stroke="none" />
-      <polyline points={pts([[xf + 0.01, y1 - 0.45, z0 + 0.08], [xf + 0.01, y1 - 0.45, z1 - 0.08]])} stroke={KADER} strokeWidth={1} fill="none" />
+      {kalf > 0 && <polyline points={pts([[xf + 0.01, y1 - kalf, z0 + 0.08], [xf + 0.01, y1 - kalf, z1 - 0.08]])} stroke={KADER} strokeWidth={1} fill="none" />}
       <Blok x0={w + T} x1={w + T + 0.09} y0={y0 - 0.1} y1={y0} z0={z0 - 0.07} z1={z1 + 0.07} c={ARDUIN} />
     </g>
   );
 
-  /**
-   * Ramen in de voorgevel, op hetzelfde kolomraster als de 3D-woning: de ramen
-   * staan recht boven elkaar en zijn overal even breed. De deurkolom ligt vast
-   * (gelijkvloers de voordeur, erboven een smal raam); de andere kolommen
-   * verdelen de rest van de gevel gelijk.
-   */
-  const ramenZ = (yb: number, v: number) => {
-    const deurKolom = voordeur && woning !== "appartement" ? voordeur : null;
-    const n = w < 7 ? 2 : w < 9.5 ? 3 : 4;
-    let kolommen: number[];
-    let stap: number;
-    if (deurKolom) {
-      const links = deurKolom.van - 0.3, rechts = w - (deurKolom.tot + 0.3);
-      const [s0, s1] = rechts >= links ? [deurKolom.tot + 0.3, w] : [0, deurKolom.van - 0.3];
-      stap = (s1 - s0) / (n - 1);
-      kolommen = Array.from({ length: n - 1 }, (_, i) => s0 + stap * (i + 0.5));
-    } else {
-      stap = w / n;
-      kolommen = Array.from({ length: n }, (_, i) => stap * (i + 0.5));
-    }
-    const bw = Math.min(1.3, stap * 0.58);
-    const ramen = kolommen.map((cx, i) => raamZ(cx - bw / 2, cx + bw / 2, yb + 0.75, yb + 2.3, `z${i}`));
-    if (deurKolom && v > 0) {
-      const dc = (deurKolom.van + deurKolom.tot) / 2, dw = Math.min(bw, deurKolom.tot - deurKolom.van + 0.12);
-      ramen.push(raamZ(dc - dw / 2, dc + dw / 2, yb + 0.75, yb + 2.3, "zd"));
-    }
-    const deur = v === 0 ? deurKolom : null;
-    if (!deur) return ramen;
-    return [
-      ...ramen,
-      <g key="deur">
-        <Poly v={[[deur.van - 0.06, yb, zf], [deur.tot + 0.06, yb, zf], [deur.tot + 0.06, yb + 2.3, zf], [deur.van - 0.06, yb + 2.3, zf]]} fill={KADER} stroke="#00000022" sw={0.4} />
-        <Poly v={[[deur.van + 0.04, yb, zf + 0.005], [deur.tot - 0.04, yb, zf + 0.005], [deur.tot - 0.04, yb + 2.2, zf + 0.005], [deur.van + 0.04, yb + 2.2, zf + 0.005]]} fill="#3b2a22" stroke="none" />
-        <Poly v={[[deur.van + 0.2, yb + 1.3, zf + 0.01], [deur.tot - 0.2, yb + 1.3, zf + 0.01], [deur.tot - 0.2, yb + 2.0, zf + 0.01], [deur.van + 0.2, yb + 2.0, zf + 0.01]]} fill={GLAS} stroke="none" />
-        <Blok x0={deur.van - 0.15} x1={deur.tot + 0.15} y0={yb - SLAB} y1={yb - SLAB + 0.16} z0={l + T} z1={l + T + 0.4} c={ARDUIN} />
-      </g>,
-    ];
-  };
-  const ramenX = (yb: number) => {
+  /** Ramen en voordeur in de voorgevel: dezelfde indeling als de 3D-woning (gevel.ts). */
+  const ramenZ = (yb: number, v: number) =>
+    voorgevelGaten(w, v, voordeur && woning !== "appartement" ? voordeur : null, woning === "appartement").map((g, i) =>
+      g.soort === "raam" ? (
+        raamZ(g.a0, g.a1, yb + g.b0, yb + g.b1, g.kalf, g.stijl, `z${i}`)
+      ) : (
+        <g key="deur">
+          <Poly v={[[g.a0, yb, zf], [g.a1, yb, zf], [g.a1, yb + g.b1, zf], [g.a0, yb + g.b1, zf]]} fill={KADER} stroke="#00000022" sw={0.4} />
+          <Poly v={[[g.a0 + 0.1, yb, zf + 0.005], [g.a1 - 0.1, yb, zf + 0.005], [g.a1 - 0.1, yb + g.b1 - 0.1, zf + 0.005], [g.a0 + 0.1, yb + g.b1 - 0.1, zf + 0.005]]} fill="#3b2a22" stroke="none" />
+          <Poly v={[[g.a0 + 0.26, yb + 1.3, zf + 0.01], [g.a1 - 0.26, yb + 1.3, zf + 0.01], [g.a1 - 0.26, yb + 2.0, zf + 0.01], [g.a0 + 0.26, yb + 2.0, zf + 0.01]]} fill={GLAS} stroke="none" />
+          <Blok x0={g.a0 - 0.09} x1={g.a1 + 0.09} y0={yb - SLAB} y1={yb - SLAB + 0.16} z0={l + T} z1={l + T + 0.4} c={ARDUIN} />
+        </g>
+      ),
+    );
+  const ramenX = (yb: number, v: number) => {
     if (buren === 2) return null; // gemene muur aan de +x-kant
-    const n = l > 10.5 ? 2 : 1;
-    return Array.from({ length: n }, (_, i) => {
-      const cz = (l * (i + 1)) / (n + 1);
-      return raamX(cz - 0.45, cz + 0.45, yb + 0.9, yb + 2.3, `x${i}`);
-    });
+    return zijgevelGaten(l, v).map((g, i) => raamX(g.a0, g.a1, yb + g.b0, yb + g.b1, g.kalf, `x${i}`));
   };
 
   /* ── een gesloten bouwlaag ── */
@@ -420,7 +393,7 @@ export default function IsoHouse({
         <Blok x0={-T} x1={w + T} y0={yb} y1={yb + SLAB} z0={-T} z1={l + T} c={vloerband(v)} />
         <Blok x0={-T} x1={w + T} y0={yb + SLAB} y1={yb + FH} z0={-T} z1={l + T} c={gevel} />
         {ramenZ(yb + SLAB, v)}
-        {ramenX(yb + SLAB)}
+        {ramenX(yb + SLAB, v)}
       </g>
     );
   };
@@ -635,7 +608,7 @@ export default function IsoHouse({
           <Blok x0={0} x1={w + T} y0={yf + HC} y1={yf + H} z0={l} z1={l + T} c={gevel} />
           <Blok x0={w} x1={w + T} y0={yf + HC} y1={yf + H} z0={-T} z1={l} c={gevel} />
           {ramenZ(yf, v)}
-          {ramenX(yf)}
+          {ramenX(yf, v)}
         </g>
       </g>
     );

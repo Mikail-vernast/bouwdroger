@@ -11,6 +11,8 @@ een vlak loodrecht op de kijkrichting; zoomen en schuiven doet het dan vanzelf m
 De straat is opgebouwd uit percelen, zoals een echte verkaveling: elk huis heeft
 een voortuin met pad, haag en (behalve bij rijwoningen) een oprit, en een
 achtertuin met terras, tuinschermen, een achterhaag, een tuinhuis en een boom.
+Op ongeveer twee op drie opritten staat een auto, procedureel gebouwd (Poly Haven heeft
+geen auto's), net als de struiken in de borders.
 Daarachter ligt weiland met een bomenrij. Alle buren delen één bouwstijl met de
 live woning: dezelfde baksteen in nauwe tinten, donkere pannen, witte ramen en
 dezelfde goot- en nokhoogte, zodat de rij leest als één straat.
@@ -494,7 +496,44 @@ class Gevel:
         self.blok("stoep", u0 - 0.15, u1 + 0.15, 0, y0, 0, 0.4, M["arduin"])
 
 
-def huis(naam, x0, x1, kant, vrij_l, vrij_r, steen, deur_rechts, schouw):
+def voorgevel_ramen(bw, van, tot, v, variant=0):
+    """De ramen van een voorgevel van `bw` breed, met de voordeur van `van` tot `tot`
+    (vanaf de linkerhoek): een port van voorgevelGaten in src/components/simulator/gevel.ts.
+    Geeft (a0, a1, borstwering) per raam; de latei ligt voor alle ramen even hoog."""
+    rechts = bw - tot >= van
+    dc = (van + tot) / 2
+    gaten = []
+    if v == 0:
+        z0 = tot + 0.18 if rechts else van - 0.18 - 0.36
+        if (bw - (z0 + 0.36) if rechts else z0) >= 3.0:
+            gaten.append((z0, z0 + 0.36, 0.25))
+        rand = max([tot] + [g[1] for g in gaten]) if rechts else min([van] + [g[0] for g in gaten])
+    else:
+        gaten.append((dc - 0.3, dc + 0.3, 1.0))
+        rand = dc + 0.3 if rechts else dc - 0.3
+    s0, s1 = (rand + 0.5, bw - 0.4) if rechts else (0.4, rand - 0.5)
+    span = s1 - s0
+    if span < 0.8:
+        return gaten
+    if v == 0:
+        tweede = span >= 5.4
+        deel = span * 0.6 if tweede else span
+        rb = min(2.6, max(min(2.0, deel - 0.4), deel * 0.7))
+        c = s0 + deel / 2 if rechts else s1 - deel / 2
+        gaten.append((c - rb / 2, c + rb / 2, 0.5))
+        if tweede:
+            c2 = s1 - (span - deel) / 2 if rechts else s0 + (span - deel) / 2
+            gaten.append((c2 - 0.55, c2 + 0.55, 0.9))
+        return gaten
+    n = 1 if span < 3.0 else 2 if span < 6.4 else 3
+    for k in range(n):
+        c = s0 + span * (k + 0.5) / n
+        rb = min((1.3, 1.0, 1.2)[(k + v - 1 + variant) % 3], span / n - 0.5)
+        gaten.append((c - rb / 2, c + rb / 2, 0.9))
+    return gaten
+
+
+def huis(naam, x0, x1, kant, vrij_l, vrij_r, steen, deur_rechts, schouw, variant=0):
     """Een buurhuis van twee bouwlagen met zadeldak, in de bouwstijl van de live woning.
     Geeft het midden van de voordeur terug (langs x)."""
     z0, z1 = zr(kant, TUIN, TUIN + D)
@@ -535,34 +574,33 @@ def huis(naam, x0, x1, kant, vrij_l, vrij_r, steen, deur_rechts, schouw):
     voor = Gevel("z", z1 if kant > 0 else z0, kant)
     achter = Gevel("z", z0 if kant > 0 else z1, -kant)
     bw = x1 - x0
-    # Voorgevel: deur aan één kant, een breed raam ernaast, boven twee of drie ramen.
+    # Voorgevel zoals de live woning (src/components/simulator/gevel.ts): beneden de deur
+    # met een zijlicht en een breed leefruimteraam, boven een overloopraam en
+    # slaapkamerramen op hun eigen verdeling. Geen kolomraster: echte ramen staan zelden
+    # recht boven elkaar. `variant` laat de slaapkamerramen per huis anders afwisselen.
     dc = x1 - 1.1 if deur_rechts else x0 + 1.1
     voor.deur(dc - 0.5, dc + 0.5)
-    r0, r1 = (x0 + 0.8, dc - 1.0) if deur_rechts else (dc + 1.0, x1 - 0.8)
-    rb = min(2.6, r1 - r0)
-    rm = (r0 + r1) / 2
-    if rb > 0.8:
-        voor.raam(rm - rb / 2, rm + rb / 2, 1.15, 2.55)
-    n = 3 if bw >= 7.5 else 2
-    for k in range(n):
-        cx = x0 + bw * (k + 0.5) / n
-        voor.raam(cx - 0.65, cx + 0.65, FH + 1.15, FH + 2.55)
-    # Achtergevel: schuifraam naar het terras, en ramen boven.
+    for v in range(LAGEN):
+        for a0, a1, b0 in voorgevel_ramen(bw, dc - 0.5 - x0, dc + 0.5 - x0, v, variant):
+            voor.raam(x0 + a0, x0 + a1, v * FH + 0.3 + b0, v * FH + 2.55)
+    # Achtergevel: schuifraam naar het terras en een raam ernaast; boven een
+    # badkamerraam hoog in de muur en slaapkamerramen, niet recht boven de ramen beneden.
     achter.raam(x0 + bw * 0.3 - 1.2, x0 + bw * 0.3 + 1.2, 0.3, 2.55, dorpel=False)
     if bw > 6:
         achter.raam(x0 + bw * 0.78 - 0.6, x0 + bw * 0.78 + 0.6, 1.15, 2.55)
-    for k in range(n):
-        cx = x0 + bw * (k + 0.5) / n
-        achter.raam(cx - 0.6, cx + 0.6, FH + 1.15, FH + 2.55)
-    # Zijgevels: alleen aan een vrije kant.
+    for f, rb, y0 in ((0.18, 1.2, 1.15), (0.55, 0.7, 1.75)) + (((0.84, 1.1, 1.15),) if bw >= 7.5 else ()):
+        cx = x0 + bw * f
+        achter.raam(cx - rb / 2, cx + rb / 2, FH + y0, FH + 2.55)
+    # Zijgevels: alleen aan een vrije kant, zoals zijgevelGaten in gevel.ts.
+    zachter, zvoor = (z0, z1) if kant > 0 else (z1, z0)
     for vrij, xg, nx in ((vrij_l, x0, -1), (vrij_r, x1, 1)):
         if not vrij:
             continue
         g = Gevel("x", xg, nx)
-        for v in range(LAGEN):
-            for f in (0.3, 0.72):
-                cz = z0 + (z1 - z0) * f
-                g.raam(cz - 0.6, cz + 0.6, v * FH + 1.15, v * FH + 2.45)
+        ramen = [(0, 0.3, 1.2), (1, 0.55, 1.0)] + ([(0, 0.78, 0.9)] if L > 10.5 else [])
+        for v, f, rb in ramen:
+            cz = zachter + (zvoor - zachter) * f
+            g.raam(cz - rb / 2, cz + rb / 2, v * FH + 1.2, v * FH + 2.55)
     return dc
 
 
@@ -614,16 +652,11 @@ def plaats(bron, x, z, hoogte, hoek=None, y=0.0):
 
 
 BOMEN = [importeer(n) for n in ("island_tree_01", "island_tree_02", "island_tree_03", "tree_small_02")]
-STRUIKEN = [importeer(n) for n in ("shrub_01", "shrub_02", "shrub_03", "shrub_04")]
 TUINSET = importeer("outdoor_table_chair_set_01")
 
 
 def boom(x, z, hoogte):
     return plaats(random.choice(BOMEN), x, z, hoogte)
-
-
-def struik(x, z, hoogte):
-    return plaats(random.choice(STRUIKEN), x, z, hoogte)
 
 
 def bladmat(naam, kleuren, rough=0.45, sss=0.0):
@@ -798,6 +831,24 @@ def haag(x0, x1, z0, z1, hoogte, dicht=2200):
     return o
 
 
+def struik(x, z, hoogte, breed):
+    """Een gesnoeide tuinstruik (buxus, hortensia), gebouwd zoals de haag: een afgeronde
+    bol met blaadjes. Niet van Poly Haven: shrub_01 tot 04 zijn rijen kruidachtige plantjes
+    en jonge boompjes in één model. Samengevoegd en opgeschaald tot struikhoogte lagen ze
+    als dorre takjes tot meters buiten de border, op opritten en paden."""
+    r = min(breed, hoogte * 1.3) / 2 * random.uniform(0.85, 1.0)
+    o = blok("struik", x - r, x + r, -0.08, hoogte, z - r, z + r, M["haag"])
+    sub = o.modifiers.new("sub", "SUBSURF")
+    sub.levels = sub.render_levels = 3
+    dp = o.modifiers.new("golf", "DISPLACE")
+    dp.texture = ruis
+    dp.texture_coords = "GLOBAL"
+    dp.strength = 0.06
+    dp.mid_level = 0.5
+    verspreid(o, BLAD, 2000, (0.8, 1.35))
+    return o
+
+
 # ───────────────────────── tuinonderdelen ─────────────────────────
 
 UIT = [(-T - 0.05, W + T + 0.05, -T - 0.05, F + 0.05)]  # geen gras onder de live woning
@@ -886,13 +937,240 @@ def tuinhuis(x0, x1, z0, z1):
     blok("tuinhuisboord", x0 - 0.17, x1 + 0.17, 2.28, 2.36, z0 - 0.17, z1 + 0.17, M["boei"])
 
 
-def border(x0, x1, z0, z1, n):
-    """Strook houtschors met struiken, zoals langs elke tuinafsluiting."""
+def border(x0, x1, z0, z1, n, hoog=(0.7, 1.4)):
+    """Strook houtschors met struiken, zoals langs elke tuinafsluiting. Een struik is
+    hooguit zo breed als zijn plek in de strook, plus wat hij over de rand mag hangen."""
     verhard("border", x0, x1, z0, z1, M["schors"], 0.02)
     langs_z = abs(x1 - x0) < abs(z1 - z0)
+    diep, lang = sorted((abs(x1 - x0), abs(z1 - z0)))
+    breed = min(diep + 0.4, lang / n + 0.3)
     for k in range(n):
         t = (k + 0.5) / n
-        struik(x0 + (x1 - x0) * (0.5 if langs_z else t), z0 + (z1 - z0) * (t if langs_z else 0.5), random.uniform(0.7, 1.4))
+        struik(x0 + (x1 - x0) * (0.5 if langs_z else t), z0 + (z1 - z0) * (t if langs_z else 0.5), random.uniform(*hoog), breed)
+
+
+# ───────────────────────── auto's ─────────────────────────
+
+def lak(naam, hexkleur, metaal):
+    """Autolak: een basislaag met metaalschilfers onder een blanke laklaag. De schilfers
+    zijn fijne ruis op de normaal van de basislaag; de laklaag erboven blijft spiegelglad."""
+    m = bpy.data.materials.new(naam)
+    m.use_nodes = True
+    nt = m.node_tree
+    b = nt.nodes["Principled BSDF"]
+    b.inputs["Base Color"].default_value = (*srgb(hexkleur), 1)
+    b.inputs["Metallic"].default_value = metaal
+    b.inputs["Roughness"].default_value = 0.32
+    b.inputs["Coat Weight"].default_value = 1.0
+    b.inputs["Coat Roughness"].default_value = 0.03
+    b.inputs["Coat IOR"].default_value = 1.5
+    nz = nt.nodes.new("ShaderNodeTexNoise")
+    nz.inputs["Scale"].default_value = 2200.0
+    nz.inputs["Detail"].default_value = 1.0
+    bp = nt.nodes.new("ShaderNodeBump")
+    bp.inputs["Strength"].default_value = 0.12 * metaal
+    bp.inputs["Distance"].default_value = 0.001
+    nt.links.new(nz.outputs["Fac"], bp.inputs["Height"])
+    nt.links.new(bp.outputs["Normal"], b.inputs["Normal"])
+    return m
+
+
+def autoglas():
+    """Getint autoglas: donker, spiegelt de lucht, en de interieurschaduw erachter."""
+    m = bpy.data.materials.new("ruit")
+    m.use_nodes = True
+    b = m.node_tree.nodes["Principled BSDF"]
+    b.inputs["Base Color"].default_value = (*srgb("#0d1317"), 1)
+    b.inputs["Roughness"].default_value = 0.02
+    b.inputs["Specular IOR Level"].default_value = 0.7
+    b.inputs["Coat Weight"].default_value = 1.0
+    b.inputs["Coat Roughness"].default_value = 0.0
+    return m
+
+
+def lichtmat(naam, hexkleur, gloed):
+    """Lamp achter helder glas: spiegelend, met een zwakke eigen gloed."""
+    m = kleur(naam, srgb(hexkleur), 0.05)
+    b = m.node_tree.nodes["Principled BSDF"]
+    b.inputs["Coat Weight"].default_value = 1.0
+    b.inputs["Emission Color"].default_value = (*srgb(hexkleur), 1)
+    b.inputs["Emission Strength"].default_value = gloed
+    return m
+
+
+M.update({
+    "band": kleur("band", srgb("#161718"), 0.9),
+    "flank": kleur("flank", srgb("#232426"), 0.75),
+    "velg": kleur("velg", srgb("#c4c7ca"), 0.18, 1.0),
+    "velgdonker": kleur("velgdonker", srgb("#3a3d40"), 0.4, 0.8),
+    "kunststof": kleur("kunststof", srgb("#1e1f21"), 0.55),
+    "chroom": kleur("chroom", srgb("#d9dcdf"), 0.08, 1.0),
+    "ruit": autoglas(),
+    "koplamp": lichtmat("koplamp", "#f4f6f8", 0.4),
+    "achterlicht": lichtmat("achterlicht", "#a5100f", 0.6),
+    "plaat": kleur("plaat", srgb("#f3f3ef"), 0.45),
+    "plaattekst": kleur("plaattekst", srgb("#9b1b1b"), 0.5),
+})
+# Grijs metallic, zwart, parelwit en donkerblauw metallic: de kleuren van de meeste
+# Vlaamse opritten. Zwart en wit met weinig metaal, zoals uni- en parelmoerlak.
+LAKKEN = [lak("lak-grijs", "#6f757b", 0.75), lak("lak-zwart", "#0b0c0e", 0.35),
+          lak("lak-wit", "#e6e7e6", 0.12), lak("lak-blauw", "#182540", 0.7)]
+
+# Echte maten (m): lengte, breedte, gordellijn, dak, bodemvrijheid, wielstraal,
+# overbouw achter en voor, en de ruiten als (achter, voor) vanaf de achterkant:
+# onderaan op de gordellijn en bovenaan onder het dak.
+MODELLEN = {
+    "hatchback": dict(L=4.10, B=1.78, gordel=0.93, dak=1.46, vrij=0.15, r=0.31, oa=0.62, ov=0.82, onder=(0.22, 2.86), boven=(0.46, 2.06), rails=False),
+    "break": dict(L=4.65, B=1.80, gordel=0.94, dak=1.47, vrij=0.15, r=0.32, oa=0.92, ov=0.88, onder=(0.18, 3.16), boven=(0.30, 2.36), rails=True),
+    "suv": dict(L=4.45, B=1.86, gordel=1.06, dak=1.68, vrij=0.21, r=0.36, oa=0.78, ov=0.86, onder=(0.24, 3.02), boven=(0.40, 2.32), rails=True),
+}
+
+
+def auto(cx, zn, d, model, lakmat):
+    """Een personenwagen in de lengte van z, met de neus op z = `zn` en in richting
+    `d` (+1/-1 langs z). Een carrosserie met zijprofiel en wielkasten, een cabine van
+    getint glas met zwarte stijlen, wielen met band, flank en spaakvelg, deurnaden en
+    handgrepen, lichten, nummerplaten en (break, SUV) dakrails."""
+    m = MODELLEN[model]
+    L, B, r = m["L"], m["B"], m["r"]
+    za = zn - d * L  # achterkant
+
+    def z(u):
+        return za + d * u
+
+    def stuk(naam, u0, u1, y0, y1, b, mat, bevel=0.0):
+        return blok(naam, cx - b / 2, cx + b / 2, y0, y1, z(u0), z(u1), mat, bevel=bevel)
+
+    def profiel(naam, pts, b, mat, bevel):
+        """Een zijprofiel (u, y) over de breedte `b` getrokken, met afgeronde randen."""
+        n = len(pts)
+        vs = [V(cx + k * b / 2, y, z(u)) for k in (-1, 1) for u, y in pts]
+        vlakken = [tuple(range(n)), tuple(range(2 * n - 1, n - 1, -1))]
+        vlakken += [(i, (i + 1) % n, n + (i + 1) % n, n + i) for i in range(n)]
+        if d > 0:
+            vlakken = [tuple(reversed(f)) for f in vlakken]
+        o = mesh(naam, vs, vlakken, mat)
+        bv = o.modifiers.new("bevel", "BEVEL")
+        bv.width = bevel
+        bv.segments = 5
+        bv.limit_method = "NONE"
+        o.data.shade_smooth()
+        return o
+
+    ua, uv = m["oa"], L - m["ov"]  # assen
+    wk = r + 0.06  # halve breedte van een wielkast
+    yk = 2 * r * 0.82  # bovenkant van de wielkasten
+    g = m["gordel"]
+    (o0, o1), (b0, b1) = m["onder"], m["boven"]
+    # Bovenbak: achteraan op gordelhoogte, de motorkap loopt vanaf de voorruit af naar
+    # een lagere, afgeronde neus. Daaronder bumpers en dorpel tussen de wielkasten.
+    profiel("auto-bak", [(0, yk), (L, yk), (L, g - 0.26), (L - 0.12, g - 0.13), (o1 + 0.1, g - 0.01), (o1, g), (0.05, g), (0, g - 0.04)], B, lakmat, 0.11)
+    stuk("auto-bumper", 0, ua - wk, m["vrij"] + 0.06, yk + 0.05, B - 0.02, lakmat, 0.07)
+    stuk("auto-bumper", uv + wk, L, m["vrij"] + 0.06, yk + 0.05, B - 0.02, lakmat, 0.07)
+    stuk("auto-dorpel", ua + wk, uv - wk, m["vrij"] + 0.06, yk + 0.05, B - 0.04, lakmat, 0.05)
+    # Zwarte kunststof: onderrand, wielkastranden, dorpelstrip en onderbumpers.
+    stuk("auto-onder", 0.1, L - 0.1, m["vrij"], m["vrij"] + 0.08, B - 0.3, M["kunststof"])
+    stuk("auto-strip", ua + wk, uv - wk, m["vrij"] + 0.02, m["vrij"] + 0.12, B + 0.01, M["kunststof"], 0.03)
+    stuk("auto-spoiler", -0.01, ua - wk, m["vrij"], m["vrij"] + 0.12, B - 0.04, M["kunststof"], 0.03)
+    stuk("auto-spoiler", uv + wk, L + 0.01, m["vrij"], m["vrij"] + 0.12, B - 0.04, M["kunststof"], 0.03)
+    for u in (ua, uv):  # wielkastrand: een dunne zwarte boog boven elk wiel
+        for a in range(5):
+            h0, h1 = math.radians(20 + a * 28), math.radians(20 + (a + 1) * 28)
+            p0 = (u + math.cos(h0) * (r + 0.07), r + math.sin(h0) * (r + 0.07))
+            p1 = (u + math.cos(h1) * (r + 0.07), r + math.sin(h1) * (r + 0.07))
+            for k in (-1, 1):
+                xw = cx + k * (B / 2 + 0.004)
+                cilinder("auto-kastrand", (xw, p0[1], z(p0[0])), (xw, p1[1], z(p1[0])), 0.025, M["kunststof"], 8)
+
+    # Cabine: ruiten als schuine afgeknotte piramide met afgeronde randen, het dak erop
+    # in de lakkleur, zwarte stijlen ertussen.
+    yg, yd = g - 0.02, m["dak"] - 0.06
+    bo, bb = B / 2 - 0.08, B / 2 - 0.2
+
+    def afgeknot(naam, onder, boven, ho, hb, mat, bevel=0.0):
+        """Een doos die van onder (u-bereik, halve breedte ho) naar boven versmalt."""
+        vs = [V(cx - ho, yg, z(onder[0])), V(cx + ho, yg, z(onder[0])), V(cx + ho, yg, z(onder[1])), V(cx - ho, yg, z(onder[1])),
+              V(cx - hb, yd, z(boven[0])), V(cx + hb, yd, z(boven[0])), V(cx + hb, yd, z(boven[1])), V(cx - hb, yd, z(boven[1]))]
+        # Zelfde volgorde als blok(); gespiegeld langs z keren de vlakken om.
+        vlakken = BLOK_VLAKKEN if d < 0 else [tuple(reversed(f)) for f in BLOK_VLAKKEN]
+        o = mesh(naam, vs, vlakken, mat)
+        if bevel:
+            bv = o.modifiers.new("bevel", "BEVEL")
+            bv.width = bevel
+            bv.segments = 4
+            bv.limit_method = "NONE"
+            o.data.shade_smooth()
+        return o
+
+    afgeknot("auto-ruit", (o0, o1), (b0, b1), bo, bb, M["ruit"], 0.06)
+    stuk("auto-dak", b0 - 0.04, b1 + 0.04, yd - 0.02, m["dak"], 2 * bb + 0.06, lakmat, 0.06)
+    # B- en C-stijl in zwart glanzend, net buiten de ruit; een chroomlijst onder de ruiten.
+    s_ = 0.004
+    um = (o0 + o1) / 2 + 0.12
+    afgeknot("auto-stijl", (um - 0.06, um + 0.06), (um - 0.06, um + 0.06), bo + s_, bb + s_, M["kunststof"])
+    uc = o0 + 0.55
+    afgeknot("auto-stijl", (uc - 0.1, uc + 0.12), (b0 + 0.18, b0 + 0.36), bo + s_, bb + s_, lakmat)
+    for k in (-1, 1):
+        xl = cx + k * (bo + 0.01)
+        blok("auto-lijst", xl - 0.01, xl + 0.01, yg + 0.01, yg + 0.035, z(o0 + 0.1), z(o1 - 0.05), M["chroom"])
+    # Deurnaden en handgrepen op beide flanken.
+    for k in (-1, 1):
+        xf = cx + k * (B / 2 + 0.002)
+        for un in (um - 0.02, o1 - 0.02, uc - 0.12):
+            blok("auto-naad", xf - 0.004, xf + 0.004, yk - 0.06, g - 0.03, z(un - 0.008), z(un + 0.008), M["kunststof"])
+        for uh in (um - 0.35, o1 - 0.38):
+            blok("auto-greep", xf - 0.012, xf + 0.012, g - 0.17, g - 0.13, z(uh - 0.13), z(uh + 0.01), M["chroom"])
+    if m["rails"]:
+        for k in (-1, 1):
+            xr = cx + k * (bb - 0.06)
+            cilinder("auto-rail", (xr, m["dak"] + 0.05, z(b0 + 0.08)), (xr, m["dak"] + 0.05, z(b1 - 0.1)), 0.022, M["kunststof"], 8)
+            for ur in (b0 + 0.1, b1 - 0.12):
+                blok("auto-railvoet", xr - 0.025, xr + 0.025, m["dak"] - 0.01, m["dak"] + 0.06, z(ur - 0.05), z(ur + 0.05), M["kunststof"])
+    # Wielen: band met een iets lichtere flank, een spaakvelg met donkere naaf erachter.
+    for u in (ua, uv):
+        for k in (-1, 1):
+            xb = cx + k * (B / 2 - 0.14)
+            cilinder("auto-band", (xb - 0.115, r, z(u)), (xb + 0.115, r, z(u)), r, M["band"], 32)
+            xf = xb + k * 0.105
+            cilinder("auto-flank", (xf - 0.012, r, z(u)), (xf + 0.012, r, z(u)), r * 0.92, M["flank"], 32)
+            xv = xb + k * 0.115
+            cilinder("auto-velgbak", (xv - 0.012, r, z(u)), (xv + 0.012, r, z(u)), r * 0.66, M["velgdonker"], 28)
+            cilinder("auto-velgrand", (xv - 0.016, r, z(u)), (xv + 0.016, r, z(u)), r * 0.68, M["velg"], 28)
+            cilinder("auto-naaf", (xv, r, z(u)), (xv + k * 0.03, r, z(u)), r * 0.16, M["velg"], 16)
+            for a in range(5):
+                h = a * math.tau / 5 + 0.3
+                cilinder("auto-spaak", (xv + k * 0.02, r, z(u)), (xv + k * 0.02, r + math.sin(h) * r * 0.62, z(u + math.cos(h) * r * 0.62)), 0.03, M["velg"], 8)
+    # Spiegels aan de voet van de voorruit: kap in de lakkleur, voet in zwart.
+    for k in (-1, 1):
+        xs = cx + k * (B / 2 + 0.07)
+        blok("auto-spiegel", xs - 0.08, xs + 0.08, yg + 0.04, yg + 0.17, z(o1 - 0.14), z(o1 - 0.03), lakmat, bevel=0.03)
+        blok("auto-spiegelvoet", cx + k * (B / 2 - 0.02) - 0.03, cx + k * (B / 2 - 0.02) + 0.03, yg - 0.01, yg + 0.06, z(o1 - 0.12), z(o1 - 0.04), M["kunststof"])
+    # Koplampen (smal, naar de flank toe getrokken), grille, achterlichten en platen.
+    for k in (-1, 1):
+        xl = cx + k * (B / 2 - 0.27)
+        blok("auto-koplamp", xl - 0.22, xl + 0.22, g - 0.42, g - 0.33, z(L - 0.06), z(L + 0.008), M["koplamp"], bevel=0.02)
+        blok("auto-koplamphuis", xl - 0.24, xl + 0.24, g - 0.44, g - 0.31, z(L - 0.07), z(L + 0.002), M["kunststof"], bevel=0.02)
+        blok("auto-achterlicht", xl - 0.2, xl + 0.2, g - 0.17, g - 0.05, z(-0.012), z(0.06), M["achterlicht"], bevel=0.02)
+    stuk("auto-grille", L - 0.05, L + 0.008, g - 0.58, g - 0.36, 0.74, M["kunststof"], 0.02)
+    stuk("auto-grillelijst", L + 0.004, L + 0.012, g - 0.38, g - 0.36, 0.7, M["chroom"])
+    stuk("auto-plaat", L, L + 0.02, g - 0.72, g - 0.61, 0.52, M["plaat"])
+    stuk("auto-plaat", -0.02, 0, g - 0.42, g - 0.31, 0.52, M["plaat"])
+    stuk("auto-plaattekst", L + 0.02, L + 0.024, g - 0.69, g - 0.64, 0.38, M["plaattekst"])
+    stuk("auto-plaattekst", -0.024, -0.02, g - 0.39, g - 0.34, 0.38, M["plaattekst"])
+
+
+AUTOS = {"n": 0}
+
+
+def parkeer(cx, s_neus, kant):
+    """Zet op ongeveer twee op drie opritten een auto, met de neus naar het huis op
+    `s_neus` (vanaf de rand van het voetpad). Kleur en model wisselen af."""
+    n = AUTOS["n"]
+    AUTOS["n"] += 1
+    if n % 3 == 2:
+        return
+    model = ("hatchback", "break", "suv", "break", "hatchback")[n % 5]
+    auto(cx, zs(kant, s_neus), -kant, model, LAKKEN[(n * 3 + n // 4) % len(LAKKEN)])
 
 
 def kavel(i, kant, x0, x1, hx0, hx1, oprit=None, eigen=False, vrij_l=False, vrij_r=False,
@@ -905,7 +1183,7 @@ def kavel(i, kant, x0, x1, hx0, hx1, oprit=None, eigen=False, vrij_l=False, vrij
     if eigen:
         dc = DEUR
     else:
-        dc = huis(f"huis{kant}-{i}", hx0, hx1, kant, vrij_l, vrij_r, STENEN[i % len(STENEN)], deur_rechts, i % 3 != 1)
+        dc = huis(f"huis{kant}-{i}", hx0, hx1, kant, vrij_l, vrij_r, STENEN[i % len(STENEN)], deur_rechts, i % 3 != 1, i)
         UIT.append((hx0 - 0.1, hx1 + 0.1, *zr(kant, TUIN - 0.45, TUIN + D + 0.1)))
     gevel_v = TUIN
     gevel_a = TUIN + D
@@ -917,17 +1195,23 @@ def kavel(i, kant, x0, x1, hx0, hx1, oprit=None, eigen=False, vrij_l=False, vrij
         zijstrook = oprit[0] >= hx1 - 0.05 or oprit[1] <= hx0 + 0.05
         verhard("oprit", oprit[0], oprit[1], *zr(kant, 0, (gevel_a - 1.0) if zijstrook else (gevel_v - 0.05)), M["oprit"])
         gaten.append(oprit)
+        # Een auto: op de zijstrook naast de voorgevel, of op de parkeerplek in de
+        # voortuin van een rijwoning. Niet voor de gevel van de live woning, waar hij
+        # deur en leefruimteraam zou bedekken.
+        if in_beeld(oprit[0], oprit[1], *zr(kant, 0, gevel_v), 2.0) and (zijstrook or not eigen):
+            parkeer((oprit[0] + oprit[1]) / 2, gevel_v + 1.8 if zijstrook else gevel_v - 0.35, kant)
     a = x0 + 0.05
     for g0, g1 in sorted(gaten):
         haag(a, g0 - 0.05, *zr(kant, 0.1, 0.6), 0.85)
         a = g1 + 0.05
     haag(a, x1 - 0.05, *zr(kant, 0.1, 0.6), 0.85)
     # Plantvak onder het voorraam.
-    rv0, rv1 = (hx0 + 0.6, dc - 0.9) if deur_rechts else (dc + 0.9, hx1 - 0.6)
+    rv0, rv1 = (hx0 + 0.6, dc - 1.2) if deur_rechts else (dc + 1.2, hx1 - 0.6)  # naast het zijlicht
     if oprit and oprit[0] < rv1 and oprit[1] > rv0:
         rv1 = rv0  # de oprit ligt voor het raam
     if rv1 - rv0 > 1.2:
-        border(rv0, rv1, *zr(kant, gevel_v - 1.1, gevel_v - 0.45), max(2, round((rv1 - rv0) / 1.3)))
+        # Laag gehouden: het leefruimteraam heeft een lage borstwering.
+        border(rv0, rv1, *zr(kant, gevel_v - 1.1, gevel_v - 0.45), max(2, round((rv1 - rv0) / 1.3)), (0.5, 0.8))
     # Een kleine sierboom in de voortuin, aan de kant weg van pad en oprit. Niet bij elk
     # huis: een straat waar elke voortuin hetzelfde staat, leest als een maquette.
     if not eigen and i % 3 != 2 and TUIN > 3:  # in een smalle stadsvoortuin past geen boom
@@ -1092,10 +1376,6 @@ def omgeving():
 TOP = YU + BOUWLAGEN * FH  # bovenkant van de gevels = daktop van de live unit
 KERN = 3.2
 UB = W + 2 * T  # een unit buitenwerks
-# Zelfde kolomraster en raammaat als de voorgevel van de live unit (IsoHouse3D: gevelGaten).
-KOLOMMEN = 2 if W < 7 else 3 if W < 9.5 else 4
-RASTER = [W * (k + 0.5) / KOLOMMEN for k in range(KOLOMMEN)]
-RAAM_B = min(1.3, W / KOLOMMEN * 0.58)
 BALKON = os.environ.get("BALKON", "1") != "0"
 
 
@@ -1129,11 +1409,53 @@ def band(x0, x1, y, voor=True, zij=None):
         blok("band", zij, zij + 0.012, y, y + 0.3, -T, F + 0.012, M["arduin"])
 
 
-def lijstraam(g, cx, yf, b=RAAM_B, deur=False):
-    """Raam zoals in de live gevel: 0,75..2,30 m boven de vloer, met bovenlicht.
-    Een raamdeur (naar een balkon) loopt tot op de vloer."""
-    y0 = yf + 0.02 if deur else yf + 0.75
-    g.raam(cx - b / 2, cx + b / 2, y0, yf + 2.3, dorpel=not deur, kalf=0.5)
+def app_ramen(v, terras=False):
+    """De voorgevel van een appartement zonder voordeur in de gevel: een port van
+    voorgevelGaten(w, v, null, terras) in src/components/simulator/gevel.ts, de regels
+    van de live unit. Geeft (a0, a1, borstwering, bovenlicht) vanaf de binnenkant van
+    de linkermuur; de latei ligt op 2,30 m. Laag 0 heeft de leefruimte (een breed raam,
+    of met `terras` een raamdeur), laag 1 en hoger slaapkamerramen."""
+    s0, s1 = 0.4, W - 0.4
+    span = s1 - s0
+    if v == 0:
+        tweede = span >= 5.4
+        deel = span * 0.6 if tweede else span
+        rb = min(2.6, max(min(2.0, deel - 0.4), deel * 0.7))
+        c = s0 + deel / 2
+        uit = [(c - rb / 2, c + rb / 2, 0.02 if terras else 0.5, 0.0)]
+        if tweede:
+            c2 = s1 - (span - deel) / 2
+            uit.append((c2 - 0.55, c2 + 0.55, 0.9, 0.45))
+        return uit
+    n = 1 if span < 3.0 else 2 if span < 6.4 else 3
+    uit = []
+    for k in range(n):
+        c = s0 + span * (k + 0.5) / n
+        rb = min((1.3, 1.0, 1.2)[(k + v - 1) % 3], span / n - 0.5)
+        uit.append((c - rb / 2, c + rb / 2, 0.9, 0.45))
+    return uit
+
+
+def app_zijramen(v):
+    """zijgevelGaten(l, v) uit gevel.ts: (z0, z1, borstwering, bovenlicht)."""
+    if v == 0:
+        uit = [(L * 0.3 - 0.6, L * 0.3 + 0.6, 0.9, 0.45)]
+        if L > 10.5:
+            uit.append((L * 0.78 - 0.45, L * 0.78 + 0.45, 0.9, 0.45))
+        return uit
+    c = L * 0.55 if v % 2 else L * 0.45
+    return [(c - 0.5, c + 0.5, 0.9, 0.45)]
+
+
+def app_laag(g, x0, yf, v, terras=False, balkons=False):
+    """Ramen van één appartement in de voorgevel (x0 = binnenkant linkermuur), en
+    met `balkons` een balkon voor de raamdeur van de leefruimte."""
+    ramen = app_ramen(v, terras)
+    for a0, a1, b0, kalf in ramen:
+        g.raam(x0 + a0, x0 + a1, yf + b0, yf + 2.3, dorpel=b0 > 0.1, kalf=kalf)
+    if balkons and terras and v == 0:
+        a0, a1 = ramen[0][:2]
+        balkon(x0 + a0 - 0.9, x0 + a1 + 0.9, yf - 0.02)
 
 
 def balkon(x0, x1, yv, diep=1.5, naam="balkon"):
@@ -1154,21 +1476,15 @@ def balkon(x0, x1, yv, diep=1.5, naam="balkon"):
             plaats(random.choice(STRUIKEN), px, F + diep - 0.35, random.uniform(0.6, 0.9), y=yv + 0.38)
 
 
-def unit_gevel(x0, lagen_k, gelijkvloers="unit", balkons=True):
-    """Voorgevel van een travee met een unit per verdieping, kolommen als de live unit."""
+def unit_gevel(x0, balkons=True):
+    """Voorgevel van een travee met een appartement per verdieping, met dezelfde
+    gevelregels als de live unit. Gelijkvloers: tuin achteraan, dus geen balkon.
+    Erboven elk een leefruimte met raamdeur en balkon; bij twee bouwlagen voor de
+    unit is de bovenste laag (zoals haar duplex) slaapkamers."""
     g = Gevel("z", F, 1)
-    for k in lagen_k:
-        yb = k * FH
-        yf = yb + 0.3
-        for i, c in enumerate(RASTER):
-            cx = x0 + T + c
-            if k == 0 and gelijkvloers != "unit":
-                continue
-            deur = balkons and k >= 1 and i == len(RASTER) - 1
-            lijstraam(g, cx, yf, deur=deur)
-        if balkons and k >= 1:
-            cx = x0 + T + RASTER[-1]
-            balkon(cx - 1.6, cx + 1.6, yf - 0.02)
+    for k in range(int(round(TOP / FH))):
+        duplex_boven = BOUWLAGEN == 2 and k == int(round(TOP / FH)) - 1
+        app_laag(g, x0 + T, k * FH + 0.3, 1 if duplex_boven else 0, terras=k >= 1 and not duplex_boven, balkons=balkons)
 
 
 def kern(x0, x1, inkom=True):
@@ -1228,15 +1544,13 @@ def omgeving_appartement():
         band(-T, W + T, k * FH, zij=W + T)
     g = Gevel("z", F, 1)
     zij = Gevel("x", W + T, 1)
-    # Eerste verdieping: dezelfde ramen als de unit, recht eronder; ook in de zijgevel.
-    for c in RASTER:
-        lijstraam(g, c, FH + 0.3)
-    nz = 2 if L > 10.5 else 1
-    for i in range(nz):
-        cz = L * (i + 1) / (nz + 1)
-        zij.raam(cz - 0.45, cz + 0.45, FH + 0.3 + 0.9, FH + 0.3 + 2.3, kalf=0.45)
+    # Eerste verdieping: een appartement met dezelfde gevel als de unit erboven
+    # (leefruimte met raamdeur en balkon), ook in de zijgevel.
+    app_laag(g, 0.0, FH + 0.3, 0, terras=True, balkons=BALKON)
+    for z0_, z1_, b0, kalf in app_zijramen(0):
+        zij.raam(z0_, z1_, FH + 0.3 + b0, FH + 0.3 + 2.3, kalf=kalf)
     # Gelijkvloers: fietsenberging links, garagepoort rechts (hellingbaan binnen naar de kelder).
-    g.raam(RASTER[0] - 0.55, RASTER[0] + 0.55, 0.3, 2.45, dorpel=False, kader="alu")
+    g.raam(1.0, 2.1, 0.3, 2.45, dorpel=False, kader="alu")
     blok("garagepoort", W - 4.4, W - 0.6, 0.0, 2.45, F, F + 0.03, M["poort"])
     for a0, a1, b0, b1 in ((W - 4.5, W - 4.4, 0, 2.55), (W - 0.6, W - 0.5, 0, 2.55), (W - 4.4, W - 0.6, 2.45, 2.55)):
         blok("garagekader", a0, a1, b0, b1, F, F + 0.05, M["alu"])
@@ -1245,11 +1559,12 @@ def omgeving_appartement():
     # Regenpijp van de unit (IsoHouse3D: afvoer op x = w + T + 0.06) loopt door tot de grond.
     cilinder("afvoer", (W + T + 0.06, 0.05, L + T - 0.3), (W + T + 0.06, YU + 0.05, L + T - 0.3), 0.045, M["zink"], 10)
     verhard("inrit", W - 4.5, W - 0.5, F, PAD0, M["oprit"], 0.125)
-    # Terras van de unit, voor de raamdeur in haar rechtse kolom (IsoHouse3D: gevelGaten).
-    # Het staat vóór de gevel en komt dus in de voorlaag: het vervaagt als de unit opengaat.
+    # Terras van de unit, voor de raamdeur van haar leefruimte (gevel.ts: voorgevelGaten
+    # met terras). Het staat vóór de gevel en komt dus in de voorlaag: het vervaagt als
+    # de unit opengaat.
     if BALKON:
-        cx = RASTER[-1]
-        balkon(cx - 1.7, min(cx + 1.7, W + T), YU + 0.28, diep=1.6, naam="terras")
+        a0, a1 = app_ramen(0, True)[0][:2]
+        balkon(a0 - 1.0, a1 + 1.0, YU + 0.28, diep=1.6, naam="terras")
 
     # ── links: trappenhal, units, tweede trappenhal, unit, dan het volgende blok ──
     x = -T
@@ -1262,7 +1577,7 @@ def omgeving_appartement():
             steen("unit", x0, x1, 0, TOP, -T, F)
             for k in range(int(round(TOP / FH))):
                 band(x0, x1, k * FH)
-            unit_gevel(x0, range(int(round(TOP / FH))), balkons=BALKON)
+            unit_gevel(x0, balkons=BALKON)
             # Plantvak voor de ramen van de gelijkvloerse unit.
             verhard("plantvak", x0 + 0.4, x1 - 0.4, F + 0.15, F + 1.0, M["schors"], 0.16)
             if not ROUW:
@@ -1433,6 +1748,32 @@ w.use_nodes = True
 bg = w.node_tree.nodes["Background"]
 bg.inputs["Color"].default_value = (*srgb("#b7cbe2"), 1)
 bg.inputs["Strength"].default_value = 1.05
+# In spiegelingen (autolak, ruiten) een echte lucht: lichte horizon, blauwer zenit en
+# een donkere grond eronder. Een effen lucht gaf vlakke, plastieken auto's. Alleen voor
+# glossy-stralen, zodat de belichting van de scène dezelfde blijft.
+wn, wl = w.node_tree.nodes, w.node_tree.links
+tc = wn.new("ShaderNodeTexCoord")
+sep = wn.new("ShaderNodeSeparateXYZ")
+wl.new(tc.outputs["Generated"], sep.inputs[0])
+ramp = wn.new("ShaderNodeValToRGB")
+ramp.color_ramp.interpolation = "EASE"
+els = ramp.color_ramp.elements
+els[0].position, els[0].color = 0.44, (*srgb("#3d4238"), 1)
+els[1].position, els[1].color = 1.0, (*srgb("#5f8ac0"), 1)
+for pos, kl in ((0.495, "#7d8577"), (0.505, "#eef2f4"), (0.6, "#c7d8ea")):
+    e = els.new(pos)
+    e.color = (*srgb(kl), 1)
+mapr = wn.new("ShaderNodeMapRange")
+mapr.inputs["From Min"].default_value = -1.0
+wl.new(sep.outputs["Z"], mapr.inputs["Value"])
+wl.new(mapr.outputs["Result"], ramp.inputs["Fac"])
+lp = wn.new("ShaderNodeLightPath")
+mix = wn.new("ShaderNodeMix")
+mix.data_type = "RGBA"
+mix.inputs[6].default_value = (*srgb("#b7cbe2"), 1)
+wl.new(ramp.outputs["Color"], mix.inputs[7])
+wl.new(lp.outputs["Is Glossy Ray"], mix.inputs["Factor"])
+wl.new(mix.outputs[2], bg.inputs["Color"])
 
 # Zelfde zon als IsoHouse3D: rechtsvoor en hoog, richting (11, 24, 6) in three.js.
 zon = bpy.data.lights.new("zon", "SUN")
