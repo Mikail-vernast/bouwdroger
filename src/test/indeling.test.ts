@@ -281,7 +281,8 @@ describe("indeling: regels over alle combinaties", () => {
       const dak = WONING[woning].dakToegelaten[0];
       const plan = planVoor(woning, lagen, dak, [], b);
       const bad = plan.kamers.find((k) => k.verdieping === 1 && k.naam === "Badkamer");
-      const nat = plan.kamers.filter((k) => k.verdieping === 0 && (k.naam === "Keuken" || k.naam === "Wasplaats"));
+      // Alleen aan de tuinkant (z = 0): ligt de keuken aan de straat, dan geldt de regel niet.
+      const nat = plan.kamers.filter((k) => k.verdieping === 0 && k.z < 0.01 && (k.naam === "Keuken" || k.naam === "Wasplaats"));
       if (!bad || !nat.length) continue;
       const erboven = nat.some((k) => Math.min(k.x + k.w, bad.x + bad.w) - Math.max(k.x, bad.x) > 0.3 && Math.min(k.z + k.l, bad.z + bad.l) - Math.max(k.z, bad.z) > 0.3);
       expect(erboven, `${woning} ${b} m, ${lagen} lagen`).toBe(true);

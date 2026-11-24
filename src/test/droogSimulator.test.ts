@@ -25,6 +25,7 @@ import {
   standaardProgramma,
   simResultaat,
   snapOppervlakte,
+  geschatteOppervlakte,
   toPackageConfig,
   woningBreedte,
   type Dak,
@@ -131,7 +132,7 @@ describe("snapOppervlakte", () => {
 });
 
 describe("woningBreedte", () => {
-  it("tekent de standaardoppervlakte op de standaardbreedte (de middelste stap)", () => {
+  it("tekent de standaardoppervlakte op de standaardbreedte (`WONING.w`)", () => {
     for (const woning of WONINGEN) {
       expect(BREEDTES[woning]).toContain(WONING[woning].w);
       const m2 = Math.round(WONING[woning].w * WONING[woning].l * 0.85 * 2);
@@ -139,20 +140,28 @@ describe("woningBreedte", () => {
     }
   });
 
-  it("maakt een groot huis breder en een klein huis smaller", () => {
-    expect(woningBreedte("rijwoning", "300", 2)).toBe(7.5);
-    expect(woningBreedte("rijwoning", "40", 2)).toBe(5);
-    expect(woningBreedte("halfopen", "40", 1)).toBe(6.5);
-    expect(woningBreedte("open", "300", 2)).toBe(12.5);
+  it("maakt het huis bij elke stand van de schuif een stap breder of smaller", () => {
+    for (const woning of WONINGEN) for (let lagen = 1; lagen <= 3; lagen++) {
+      const b = SIZE_VALUES.map((s) => woningBreedte(woning, s, lagen));
+      const start = SIZE_VALUES.indexOf(snapOppervlakte(geschatteOppervlakte(woning, lagen)));
+      expect(b[start], `${woning} ${lagen}`).toBe(WONING[woning].w);
+      for (let i = 1; i < b.length; i++) {
+        expect(b[i], `${woning} ${lagen} ${SIZE_VALUES[i]}`).toBeGreaterThanOrEqual(b[i - 1]);
+        // Binnen het bereik van de breedtes verandert elke stand iets.
+        if (b[i - 1] > BREEDTES[woning][0] && b[i] < BREEDTES[woning][BREEDTES[woning].length - 1])
+          expect(b[i], `${woning} ${lagen} ${SIZE_VALUES[i]}`).toBeGreaterThan(b[i - 1]);
+      }
+    }
   });
 
   it("geeft maatwerk de breedste stap", () => {
     expect(woningBreedte("halfopen", "custom", 2)).toBe(10);
+    expect(woningBreedte("rijwoning", "custom", 1)).toBe(9);
   });
 });
 
 describe("kamersVoor", () => {
-  it("vult elke bouwlaag precies, zonder overlap en binnen de gevels, bij elke gevelbreedte", () => {
+  it("vult elke bouwlaag precies, zonder overlap en binnen de gevels, bij elke gevelbreedte", { timeout: 60_000 }, () => {
     for (const woning of WONINGEN) {
       for (const b of BREEDTES[woning])
       for (const dak of DAKEN) {

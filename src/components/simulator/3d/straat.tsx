@@ -42,7 +42,15 @@ interface Props {
   doel: StraatMaat;
   /** 0 closed .. 1 opened up: the front layer fades with the upper floors. */
   open: { current: number };
+  /** 1 .. 0 while an older street picture fades out over its successor (another width). */
+  zicht?: { current: number };
+  /** 0 = the newest street; an older one is drawn over it while it fades. */
+  orde?: number;
+  /** The mini pictures are on screen: an older street may start to fade. */
+  onKlaar?: () => void;
 }
+
+const HEEL = { current: 1 };
 
 function zetKleur(t: Texture) {
   t.colorSpace = SRGBColorSpace;
@@ -55,15 +63,18 @@ function zetKleur(t: Texture) {
   on screen within seconds on any line. The sharp ones load in the background and
   replace them when they are in; if they fail, the mini street simply stays.
 */
-export default function Straat3D({ woning, w, l, lagen, doel, open }: Props) {
+export default function Straat3D({ woning, w, l, lagen, doel, open, zicht = HEEL, orde = 0, onKlaar }: Props) {
   const mini = useLoader(TextureLoader, straatBeelden(woning, w, "mini", lagen));
   const [scherp, setScherp] = useState<[Texture, Texture] | null>(null);
+  const klaar = useRef(onKlaar);
+  klaar.current = onKlaar;
   const invalidate = useThree((s) => s.invalidate);
 
   useEffect(() => {
     mini.forEach(zetKleur);
     meld("straat", doel === "mini" ? "mini (eind)" : "mini, scherp laden");
     invalidate();
+    klaar.current?.();
     if (doel === "mini") return;
     let weg = false;
     const loader = new TextureLoader();
@@ -92,21 +103,24 @@ export default function Straat3D({ woning, w, l, lagen, doel, open }: Props) {
   // The render is centred on this ground point (straat.py: DOEL).
   const midden = useMemo(() => new Vector3(w / 2, 0, l / 2 + 3), [w, l]);
   const voorRef = useRef<Mesh>(null);
+  const achterRef = useRef<Mesh>(null);
 
   useFrame(() => {
     const m = voorRef.current?.material as MeshBasicMaterial | undefined;
-    if (m) m.opacity = 1 - 0.92 * open.current;
+    if (m) m.opacity = (1 - 0.92 * open.current) * zicht.current;
+    const a = achterRef.current?.material as MeshBasicMaterial | undefined;
+    if (a) a.opacity = zicht.current;
   });
 
   return (
     <>
       {/* Behind everything along the view axis: the house always covers it. */}
-      <mesh position={midden.clone().addScaledVector(KIJK, -40)} quaternion={STAND} renderOrder={-10}>
+      <mesh ref={achterRef} position={midden.clone().addScaledVector(KIJK, -40)} quaternion={STAND} renderOrder={-12 + orde}>
         <planeGeometry args={[BREED, HOOG]} />
         <meshBasicMaterial map={achterTex} transparent depthWrite={false} toneMapped={false} side={DoubleSide} />
       </mesh>
       {/* In front of the house: no depth test, drawn last. */}
-      <mesh ref={voorRef} position={midden.clone().addScaledVector(KIJK, 40)} quaternion={STAND} renderOrder={10}>
+      <mesh ref={voorRef} position={midden.clone().addScaledVector(KIJK, 40)} quaternion={STAND} renderOrder={8 + orde}>
         <planeGeometry args={[BREED, HOOG]} />
         <meshBasicMaterial map={voorTex} transparent depthTest={false} depthWrite={false} toneMapped={false} />
       </mesh>

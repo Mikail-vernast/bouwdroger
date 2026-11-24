@@ -73,29 +73,41 @@ export const WONING: Record<
 };
 
 /**
- * De gevelbreedtes die de simulator tekent, per woningtype, smal → breed. De
- * vloeroppervlakte kiest er één (`woningBreedte`); de diepte blijft `WONING.l`.
- * Het zijn vaste stappen en geen vrije maat, omdat de straat rond het huis per
- * breedte vooraf gerenderd is (scripts/simulator-3d/straat.py): een vrije maat
- * zou het huis door de buren heen laten groeien. De middelste stap is `WONING.w`.
+ * De gevelbreedtes die de simulator tekent, per woningtype, smal → breed, in
+ * stappen van een halve meter. De vloeroppervlakte kiest er één
+ * (`woningBreedte`); de diepte blijft `WONING.l`. Het zijn vaste stappen en geen
+ * vrije maat, omdat de straat rond het huis per breedte vooraf gerenderd is
+ * (scripts/simulator-3d/straat.py): een vrije maat zou het huis door de buren
+ * heen laten groeien. Er zijn er evenveel als standen op de schuif (8 maten +
+ * maatwerk), zodat elke stand het huis zichtbaar groter of kleiner maakt.
  */
 export const BREEDTES: Record<Woning, readonly number[]> = {
-  rijwoning: [5, 6, 7.5],
-  halfopen: [6.5, 8, 10],
-  open: [8, 10, 12.5],
-  appartement: [9],
+  rijwoning: [5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9],
+  halfopen: [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10],
+  open: [8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
+  appartement: [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11],
 };
 
 /**
- * De gevelbreedte bij een vloeroppervlakte: de stap die het dichtst bij
- * (m² per laag / 0,85) / diepte ligt. Maatwerk ("custom") krijgt de breedste.
+ * De gevelbreedte bij een vloeroppervlakte. De geschatte oppervlakte van de
+ * woning (`geschatteOppervlakte`, de stand waar de schuif begint) krijgt de
+ * standaardbreedte `WONING.w`; elke stand hoger of lager op de schuif is één
+ * breedtestap breder of smaller. Maatwerk ("custom") krijgt de breedste.
+ *
+ * Eerst volgde de breedte de echte m² per bouwlaag. Maar de schuif loopt van
+ * 40 tot 300 m², een factor 7,5, en het huis kan maar een factor 1,5 breder:
+ * bijna elke stand viel op de smalste of de breedste stap, en een rijwoning
+ * met twee lagen veranderde boven 140 m² niet meer.
  */
 export function woningBreedte(woning: Woning, size: string, verdiepingen: number): number {
   const stappen = BREEDTES[woning];
+  if (size === "custom") return stappen[stappen.length - 1];
   const m2 = Number(size);
-  if (size === "custom" || !Number.isFinite(m2) || m2 <= 0) return stappen[stappen.length - 1];
-  const doel = m2 / Math.max(1, verdiepingen) / 0.85 / WONING[woning].l;
-  return stappen.reduce((best, b) => (Math.abs(b - doel) < Math.abs(best - doel) ? b : best));
+  if (!Number.isFinite(m2) || m2 <= 0) return WONING[woning].w;
+  const standen = [...SIZE_VALUES, "custom"];
+  const stand = (x: number) => standen.indexOf(snapOppervlakte(x));
+  const i = stappen.indexOf(WONING[woning].w) + stand(m2) - stand(geschatteOppervlakte(woning, verdiepingen));
+  return stappen[Math.min(stappen.length - 1, Math.max(0, i))];
 }
 
 export const DAK_LABEL: Record<Dak, { label: string; sub: string }> = {
