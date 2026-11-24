@@ -1464,7 +1464,7 @@ def balkon(x0, x1, yv, diep=1.5, naam="balkon"):
         for k in range(2):
             px = x0 + 0.5 + k * (x1 - x0 - 1.0)
             blok(naam + "-bak", px - 0.3, px + 0.3, yv, yv + 0.4, F + diep - 0.55, F + diep - 0.15, M["arduin"])
-            plaats(random.choice(STRUIKEN), px, F + diep - 0.35, random.uniform(0.6, 0.9), y=yv + 0.38)
+            struik(px, F + diep - 0.35, random.uniform(0.5, 0.75), 0.5).location.z += yv + 0.38  # Blender z = hoogte
 
 
 def unit_gevel(x0, balkons=True):
@@ -1653,7 +1653,7 @@ def omgeving_appartement():
         if not ROUW:
             plaats(BOMEN[3], vx, pz_, random.uniform(7.0, 8.5))
             for k in range(2):
-                struik(vx + random.uniform(-0.5, 0.5), pz_ + random.uniform(-0.4, 0.4), random.uniform(0.3, 0.5))
+                struik(vx + random.uniform(-0.5, 0.5), pz_ + random.uniform(-0.4, 0.4), random.uniform(0.3, 0.5), 0.5)
 
     for vx, wat in vakken:
         if not in_beeld(vx - 3, vx + 3, pz - 2, pz + 2, 10):
