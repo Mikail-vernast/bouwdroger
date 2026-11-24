@@ -69,20 +69,7 @@ export interface WaaromTekst {
     kick: string;
     h2: string;
     lede: string;
-    voornaam: string;
-    naam: string;
-    achternaam: string;
-    mail: string;
-    mailPh: string;
-    tel: string;
-    onderwerp: string;
-    opties: string[];
-    situatie: string;
     situatiePh: string;
-    privacy: string;
-    verstuur: string;
-    klaar: string;
-    klaarP: string;
   };
 }
 
@@ -167,20 +154,7 @@ export const COPY = {
       kick: "Nog een vraag hierover?",
       h2: "Onze droogspecialisten denken graag mee.",
       lede: "Twijfelt u over de juiste aanpak voor uw project? Stel uw vraag, u krijgt binnen één werkdag antwoord van een specialist.",
-      voornaam: "Voornaam",
-      naam: "Naam",
-      achternaam: "Achternaam",
-      mail: "E-mail",
-      mailPh: "naam@voorbeeld.be",
-      tel: "Telefoon",
-      onderwerp: "Waarover gaat uw vraag?",
-      opties: ["Is bouwdroging nodig in mijn situatie?", "Advies over het juiste pakket", "Vraag over prijzen of levering", "Iets anders"],
-      situatie: "Uw situatie",
       situatiePh: "Bv. nieuwbouw 140 m², chape geplaatst vorige week, wanneer kan de vloerder starten?",
-      privacy: "Wij gebruiken uw gegevens enkel om uw vraag te beantwoorden.",
-      verstuur: "Verstuur uw vraag",
-      klaar: "Vraag verzonden",
-      klaarP: "Bedankt! Een droogspecialist neemt binnen één werkdag contact met u op.",
     },
   }),
   fr: (lp: Lp): WaaromTekst => ({
@@ -263,20 +237,7 @@ export const COPY = {
       kick: "Encore une question ?",
       h2: "Nos spécialistes du séchage vous conseillent volontiers.",
       lede: "Vous hésitez sur la bonne approche pour votre projet ? Posez votre question, un spécialiste vous répond dans un délai d'un jour ouvrable.",
-      voornaam: "Prénom",
-      naam: "Nom",
-      achternaam: "Nom de famille",
-      mail: "E-mail",
-      mailPh: "nom@exemple.be",
-      tel: "Téléphone",
-      onderwerp: "Sur quoi porte votre question ?",
-      opties: ["Un séchage de chantier est-il nécessaire dans ma situation ?", "Conseil sur le bon pack", "Question sur les prix ou la livraison", "Autre chose"],
-      situatie: "Votre situation",
       situatiePh: "P. ex. nouvelle construction de 140 m², chape posée la semaine dernière : quand le poseur de sol peut-il commencer ?",
-      privacy: "Nous utilisons vos données uniquement pour répondre à votre question.",
-      verstuur: "Envoyez votre question",
-      klaar: "Question envoyée",
-      klaarP: "Merci ! Un spécialiste du séchage vous contactera dans un délai d'un jour ouvrable.",
     },
   }),
   en: (lp: Lp): WaaromTekst => ({
@@ -359,20 +320,7 @@ export const COPY = {
       kick: "Any more questions about this?",
       h2: "Our drying specialists are happy to help.",
       lede: "Not sure about the right approach for your project? Ask your question and you will get an answer from a specialist within one working day.",
-      voornaam: "First name",
-      naam: "Name",
-      achternaam: "Surname",
-      mail: "Email",
-      mailPh: "name@example.com",
-      tel: "Phone",
-      onderwerp: "What is your question about?",
-      opties: ["Is construction drying needed in my situation?", "Advice on the right package", "Question about prices or delivery", "Something else"],
-      situatie: "Your situation",
       situatiePh: "E.g. new build of 140 m², screed laid last week: when can the floor fitter start?",
-      privacy: "We only use your details to answer your question.",
-      verstuur: "Send your question",
-      klaar: "Question sent",
-      klaarP: "Thank you! A drying specialist will contact you within one working day.",
     },
   }),
 } satisfies Copy<(lp: Lp) => WaaromTekst>;

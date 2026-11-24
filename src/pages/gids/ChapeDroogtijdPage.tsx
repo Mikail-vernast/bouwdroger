@@ -514,7 +514,7 @@ const ChapeDroogtijdPage = () => {
       kicker={t.contact.kicker}
       titel={t.contact.titel}
       lede={t.contact.lede}
-      onderwerpen={t.contact.onderwerpen}
+      onderwerp="droging_op_maat"
       placeholder={t.contact.placeholder}
     />
   </GidsShell>

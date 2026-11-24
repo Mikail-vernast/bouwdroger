@@ -150,7 +150,6 @@ export interface WsTeksten {
   contactKicker: string;
   contactTitel: string;
   contactLede: string;
-  contactOnderwerpen: string[];
   contactPlaceholder: string;
 
   urgTitel: string;
@@ -463,13 +462,6 @@ export const WS_COPY = {
     contactTitel: "Beschrijf uw situatie, wij bellen u terug.",
     contactLede:
       "Bij waterschade telt elk uur. Belt u liever meteen? Doe dat gerust, dan rijden we vandaag nog uit. Via dit formulier krijgt u binnen één werkdag antwoord.",
-    contactOnderwerpen: [
-      "Waterschade, dit is dringend",
-      "Water onder de vloer of in de isolatie",
-      "Vraag over mijn verzekeringsdossier",
-      "Prijs van een waterschadepakket",
-      "Iets anders",
-    ],
     contactPlaceholder:
       "Bv. kelder van 40 m² ondergelopen na een gesprongen leiding, water is weg, chape en onderkant van de muren zijn nat.",
 
@@ -793,13 +785,6 @@ export const WS_COPY = {
     contactTitel: "Décrivez votre situation, nous vous rappelons.",
     contactLede:
       "En cas de dégâts des eaux, chaque heure compte. Vous préférez appeler tout de suite ? N’hésitez pas, nous intervenons encore aujourd’hui. Via ce formulaire, vous recevez une réponse dans un délai d’un jour ouvrable.",
-    contactOnderwerpen: [
-      "Dégât des eaux, c’est urgent",
-      "Eau sous le sol ou dans l’isolation",
-      "Question sur mon dossier d’assurance",
-      "Prix d’un pack dégâts des eaux",
-      "Autre chose",
-    ],
     contactPlaceholder:
       "P. ex. cave de 40 m² inondée après une rupture de conduite, l’eau est partie, la chape et le bas des murs sont mouillés.",
 
@@ -1108,13 +1093,6 @@ export const WS_COPY = {
     contactTitel: "Describe your situation and we'll call you back.",
     contactLede:
       "With water damage, every hour counts. Would you rather call right away? Please do, and we'll head out today. Through this form you'll get an answer within one working day.",
-    contactOnderwerpen: [
-      "Water damage, this is urgent",
-      "Water under the floor or in the insulation",
-      "Question about my insurance claim",
-      "Price of a water damage package",
-      "Something else",
-    ],
     contactPlaceholder:
       "E.g. 40 m² basement flooded after a burst pipe, the water is gone, the screed and bottom of the walls are wet.",
 

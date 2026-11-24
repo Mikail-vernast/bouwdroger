@@ -253,7 +253,6 @@ const nl = {
   cTitel: "Twijfelt u over de termijn of het pakket?",
   cLede:
     "Geef ons uw oppervlakte, de laagdikte en wanneer de plafonneerder klaar is. U krijgt binnen één werkdag een voorstel van een droogspecialist.",
-  cOnderwerpen: ["Advies over pleisterwerk drogen", "Pleisterwerk en chape samen", "Prijs en leverdatum", "Iets anders"],
   cPlaceholder: "Bv. nieuwbouw 180 m², gipspleister van 1 cm gezet op 5 november, schilder komt begin december.",
 };
 
@@ -475,7 +474,6 @@ const fr: typeof nl = {
   cTitel: "Vous hésitez sur la durée ou le pack ?",
   cLede:
     "Donnez-nous votre surface, l'épaisseur de la couche et la date à laquelle le plafonneur aura terminé. Vous recevez dans un délai d'un jour ouvrable une proposition d'un spécialiste du séchage.",
-  cOnderwerpen: ["Conseil pour sécher un plafonnage", "Plafonnage et chape ensemble", "Prix et date de livraison", "Autre chose"],
   cPlaceholder: "P. ex. nouvelle construction 180 m², enduit au plâtre de 1 cm posé le 5 novembre, le peintre vient début décembre.",
 };
 
@@ -697,7 +695,6 @@ const en: typeof nl = {
   cTitel: "Unsure about the hire period or the package?",
   cLede:
     "Give us your floor area, the coat thickness and when the plasterer will be finished. Within one working day you will receive a proposal from a drying specialist.",
-  cOnderwerpen: ["Advice on plaster drying", "Plaster and screed together", "Price and delivery date", "Something else"],
   cPlaceholder: "E.g. new build 180 m², 1 cm gypsum plaster applied on 5 November, painter coming in early December.",
 };
 

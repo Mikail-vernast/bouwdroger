@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
+import ContactBlok from "@/components/content/ContactBlok";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { useSeo } from "@/data/seo";
 import { useCopy, useLokaalPad } from "@/i18n/useTaal";
@@ -20,10 +20,6 @@ import "@/styles/over-ons-fixes.css";
  */
 
 const OverOnsPage = () => {
-  // Het contactformulier toont in de bron na "Verstuur" een dankboodschap.
-  // We rerenderen dat met state, maar de begintoestand (formBody zichtbaar)
-  // wordt méé geprerenderd, zodat de inhoud er ook zonder JS staat.
-  const [verzonden, setVerzonden] = useState(false);
   const t = useCopy(OVER_ONS_COPY);
   const lp = useLokaalPad();
 
@@ -318,51 +314,10 @@ const OverOnsPage = () => {
         </div>
       </section>
 
-      {/* ================= CONTACTFORMULIER ================= */}
-      <section className="oform" id="formulier">
-        <div className="wrap">
-          <div className="sec-head mid" style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
-            <span className="kick">{t.formKick}</span>
-            <h2 className="sec" style={{ color: "#fff" }}>{t.formH2}</h2>
-            <p className="lede" style={{ color: "rgba(255,255,255,.78)", marginLeft: "auto", marginRight: "auto" }}>{t.formLede}</p>
-          </div>
-          <div className="fshell">
-            <div id="formBody" style={{ display: verzonden ? "none" : undefined }}>
-              <div className="frow">
-                <div className="fld"><label htmlFor="fVoor">{t.lVoor}</label><input type="text" id="fVoor" placeholder={t.phVoor} /></div>
-                <div className="fld"><label htmlFor="fNaam">{t.lNaam}</label><input type="text" id="fNaam" placeholder={t.phNaam} /></div>
-              </div>
-              <div className="frow">
-                <div className="fld"><label htmlFor="fMail">E-mail</label><input type="email" id="fMail" placeholder={t.phMail} /></div>
-                <div className="fld"><label htmlFor="fTel">{t.lTel}</label><input type="tel" id="fTel" placeholder="04.." /></div>
-              </div>
-              <div className="frow one">
-                <div className="fld"><label htmlFor="fOnd">{t.lOnd}</label>
-                  <select id="fOnd">
-                    <option>{t.o1}</option>
-                    <option>{t.o2}</option>
-                    <option>{t.o3}</option>
-                    <option>{t.o4}</option>
-                    <option>{t.o5}</option>
-                  </select>
-                </div>
-              </div>
-              <div className="frow one">
-                <div className="fld"><label htmlFor="fMsg">{t.lMsg}</label><textarea id="fMsg" rows={5} placeholder={t.phMsg}></textarea></div>
-              </div>
-              <div className="fsend">
-                <small>{t.privNote}</small>
-                <button className="btn btn-red2" id="fSend" type="button" onClick={() => setVerzonden(true)}>{t.verstuur}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
-              </div>
-            </div>
-            <div className={verzonden ? "fdone on" : "fdone"} id="formDone">
-              <div className="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg></div>
-              <h3>{t.doneH}</h3>
-              <p>{t.doneP}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ================= VRAAGFORMULIER =================
+          Tot 24-11-2026 toonde "Verstuur" hier alleen een dankboodschap en
+          verstuurde niets. Nu hetzelfde formulier als op de rest van de site. */}
+      <ContactBlok kicker={t.formKick} titel={t.formH2} lede={t.formLede} placeholder={t.phMsg} onderwerp="andere_vraag" />
 
       <V3Footer />
     </div>

@@ -1,10 +1,11 @@
 /*
-  Vraagformulier onderaan de homepage (V3Cta).
+  Het vraagformulier (VraagFormulier): onderaan de homepage (V3Cta) en
+  onderaan elke inhoudspagina (ContactBlok).
 
   Bewust dezelfde kaart als het contactformulier van
   vernast-vochtbestrijding.be/contact: wit, twee kolommen, label met rood
   sterretje, één brede donkerrode knop, privacyregel eronder. Gescoped onder
-  `.v3 .vq-*` zodat de oude `.cform`-regels in home-v3.css niets raken.
+  `.vq .vq-*` zodat de oude `.cform`-regels in home-v3.css niets raken.
 
   Geen begintoestand met opacity 0: deze sectie wordt geprerenderd (zie
   CLAUDE.md, "Wat geprerenderd wordt, moet zichtbaar zijn").
@@ -12,7 +13,7 @@
 
 .v3 .cta-r.vq-r { width: min(100%, 780px); }
 
-.v3 .vq-card {
+.vq .vq-card {
   position: relative;
   background: #fff;
   border-radius: 18px;
@@ -21,15 +22,15 @@
   box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .55);
 }
 
-.v3 .vq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.v3 .vq-full { grid-column: 1 / -1; }
+.vq .vq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.vq .vq-full { grid-column: 1 / -1; }
 
-.v3 .vq-f label { display: block; font-size: 14px; font-weight: 600; color: var(--txt); margin-bottom: 7px; }
-.v3 .vq-req { color: var(--red); }
+.vq .vq-f label { display: block; font-size: 14px; font-weight: 600; color: var(--txt); margin-bottom: 7px; }
+.vq .vq-req { color: var(--red); }
 
-.v3 .vq-f input,
-.v3 .vq-f select,
-.v3 .vq-f textarea {
+.vq .vq-f input,
+.vq .vq-f select,
+.vq .vq-f textarea {
   width: 100%;
   box-sizing: border-box;
   min-height: 50px;
@@ -42,25 +43,25 @@
   color: var(--txt);
   transition: border-color .15s, box-shadow .15s;
 }
-.v3 .vq-f textarea { min-height: 132px; resize: vertical; line-height: 1.55; }
-.v3 .vq-f select {
+.vq .vq-f textarea { min-height: 132px; resize: vertical; line-height: 1.55; }
+.vq .vq-f select {
   appearance: none;
   padding-right: 40px;
   background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a93a1' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 14px center no-repeat;
 }
-.v3 .vq-f input::placeholder,
-.v3 .vq-f textarea::placeholder { color: #8a93a1; }
-.v3 .vq-f input:focus,
-.v3 .vq-f select:focus,
-.v3 .vq-f textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 4px rgba(200, 16, 46, .12); }
+.vq .vq-f input::placeholder,
+.vq .vq-f textarea::placeholder { color: #8a93a1; }
+.vq .vq-f input:focus,
+.vq .vq-f select:focus,
+.vq .vq-f textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 4px rgba(200, 16, 46, .12); }
 
-.v3 .vq-f.is-err input,
-.v3 .vq-f.is-err textarea { border-color: #d93025; }
-.v3 .vq-err { display: block; margin-top: 6px; font-size: 13px; font-weight: 600; color: #b3261e; }
+.vq .vq-f.is-err input,
+.vq .vq-f.is-err textarea { border-color: #d93025; }
+.vq .vq-err { display: block; margin-top: 6px; font-size: 13px; font-weight: 600; color: #b3261e; }
 
-.v3 .vq-error { margin: 18px 0 0; padding: 10px 13px; border-radius: 9px; background: #fdeceb; color: #b3261e !important; font-size: 13.5px; line-height: 1.5; }
+.vq .vq-error { margin: 18px 0 0; padding: 10px 13px; border-radius: 9px; background: #fdeceb; color: #b3261e !important; font-size: 13.5px; line-height: 1.5; }
 
-.v3 .vq-send {
+.vq .vq-send {
   display: flex; align-items: center; justify-content: center; gap: 10px;
   width: 100%; margin-top: 24px; padding: 15px;
   border: 0; border-radius: 10px;
@@ -68,36 +69,36 @@
   font-family: var(--fb); font-weight: 700; font-size: 15.5px;
   cursor: pointer; transition: background .15s;
 }
-.v3 .vq-send:hover { background: #6b0f13; }
-.v3 .vq-send:disabled { opacity: .7; cursor: progress; }
+.vq .vq-send:hover { background: #6b0f13; }
+.vq .vq-send:disabled { opacity: .7; cursor: progress; }
 
-.v3 .vq-legal { margin: 14px 0 0; text-align: center; font-size: 13px; color: var(--txt-mid) !important; }
-.v3 .vq-legal a { color: var(--txt); text-decoration: underline; }
+.vq .vq-legal { margin: 14px 0 0; text-align: center; font-size: 13px; color: var(--txt-mid) !important; }
+.vq .vq-legal a { color: var(--txt); text-decoration: underline; }
 
-.v3 .vq-done { text-align: center; padding: 48px 40px; }
-.v3 .vq-check { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #0e7a3d; color: #fff; font-size: 26px; margin-bottom: 14px; }
-.v3 .vq-done h3 { font-family: var(--fd); font-weight: 800; font-size: 22px; color: var(--txt); margin: 0 0 8px; }
-.v3 .vq-done p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--txt-mid) !important; }
-.v3 .vq-done a { color: var(--red); font-weight: 700; }
+.vq .vq-done { text-align: center; padding: 48px 40px; }
+.vq .vq-check { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #0e7a3d; color: #fff; font-size: 26px; margin-bottom: 14px; }
+.vq .vq-done h3 { font-family: var(--fd); font-weight: 800; font-size: 22px; color: var(--txt); margin: 0 0 8px; }
+.vq .vq-done p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--txt-mid) !important; }
+.vq .vq-done a { color: var(--red); font-weight: 700; }
 
 @media (max-width: 640px) {
-  .v3 .vq-card { padding: 24px 18px 20px; border-radius: 16px; }
-  .v3 .vq-grid { grid-template-columns: 1fr; gap: 16px; }
+  .vq .vq-card { padding: 24px 18px 20px; border-radius: 16px; }
+  .vq .vq-grid { grid-template-columns: 1fr; gap: 16px; }
 }
 
 /* Address: street + number and postcode + town, each pair on its own row. */
-.v3 .vq-pair { display: grid; gap: 18px; }
-.v3 .vq-pair-straat { grid-template-columns: minmax(0, 1fr) 160px; }
-.v3 .vq-pair-gemeente { grid-template-columns: 200px minmax(0, 1fr); }
+.vq .vq-pair { display: grid; gap: 18px; }
+.vq .vq-pair-straat { grid-template-columns: minmax(0, 1fr) 160px; }
+.vq .vq-pair-gemeente { grid-template-columns: 200px minmax(0, 1fr); }
 @media (max-width: 640px) {
-  .v3 .vq-pair { gap: 12px; }
-  .v3 .vq-pair-straat { grid-template-columns: minmax(0, 1fr) 96px; }
-  .v3 .vq-pair-gemeente { grid-template-columns: 116px minmax(0, 1fr); }
+  .vq .vq-pair { gap: 12px; }
+  .vq .vq-pair-straat { grid-template-columns: minmax(0, 1fr) 96px; }
+  .vq .vq-pair-gemeente { grid-template-columns: 116px minmax(0, 1fr); }
 }
 
 /* Adressuggesties onder het straatveld (StraatVeld), in de stijl van .lpz-lijst. */
-.v3 .vq-zoek { position: relative; }
-.v3 .vq-lijst {
+.vq .vq-zoek { position: relative; }
+.vq .vq-lijst {
   position: absolute; z-index: 30; left: 0; right: 0; top: calc(100% + 6px);
   margin: 0; padding: 6px; list-style: none;
   background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
@@ -105,12 +106,21 @@
   max-height: 300px; overflow-y: auto;
 }
 /* De foutmelding schuift onder de lijst; zonder dit valt de lijst eronder weg. */
-.v3 .vq-zoek .vq-lijst + .vq-err { margin-top: 6px; }
-.v3 .vq-lijst li {
+.vq .vq-zoek .vq-lijst + .vq-err { margin-top: 6px; }
+.vq .vq-lijst li {
   display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
   padding: 10px 12px; border-radius: 8px; cursor: pointer;
   font-size: 14px; color: var(--txt);
 }
-.v3 .vq-lijst li.on { background: #fbeef0; }
-.v3 .vq-lijst li b { font-weight: 700; }
-.v3 .vq-lijst li span { font-size: 12.5px; color: var(--txt-mid); white-space: nowrap; }
+.vq .vq-lijst li.on { background: #fbeef0; }
+.vq .vq-lijst li b { font-weight: 700; }
+.vq .vq-lijst li span { font-size: 12.5px; color: var(--txt-mid); white-space: nowrap; }
+
+/* Onderaan een inhoudspagina (ContactBlok): de kaart staat gecentreerd onder
+   de kop van de sectie, in een rode (.oform) of witte (.oform.licht) band. */
+.oform .vq { width: min(100%, 780px); margin: 0 auto; }
+.oform.licht .vq .vq-card { border: 1px solid #e2e8f0; box-shadow: 0 30px 60px -40px rgba(0, 0, 0, .35); }
+.oform .vq-na { margin: 18px auto 0; text-align: center; font-size: 14px; color: rgba(255, 255, 255, .78); }
+.oform .vq-na a { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.oform.licht .vq-na { color: var(--txt-mid); }
+.oform.licht .vq-na a { color: var(--red); }

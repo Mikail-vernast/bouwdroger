@@ -238,13 +238,6 @@ const nl = {
   contactTitel: "Niet zeker welk toestel bij uw werf past?",
   contactLede:
     "Beschrijf kort de ruimte en wat er moet drogen. Een droogspecialist zegt u binnen één werkdag welk toestel of welke combinatie het wordt.",
-  contactOnderwerpen: [
-    "Advies over het juiste toestel",
-    "Meerdere toestellen voor een grote werf",
-    "Adsorptiedroger of condensdroger?",
-    "Prijs en beschikbaarheid",
-    "Iets anders",
-  ],
   contactPlaceholder:
     "Bv. kelder van 60 m² met 2,2 m plafondhoogte, onverwarmd, vochtige muren na een lek.",
 };
@@ -467,13 +460,6 @@ const fr: typeof nl = {
   contactTitel: "Vous ne savez pas quel appareil convient à votre chantier ?",
   contactLede:
     "Décrivez brièvement la pièce et ce qui doit sécher. Un spécialiste du séchage vous dit dans un délai d'un jour ouvrable quel appareil ou quelle combinaison il vous faut.",
-  contactOnderwerpen: [
-    "Conseil sur le bon appareil",
-    "Plusieurs appareils pour un grand chantier",
-    "Adsorption ou condensation ?",
-    "Prix et disponibilité",
-    "Autre chose",
-  ],
   contactPlaceholder:
     "P. ex. cave de 60 m² avec 2,2 m de hauteur sous plafond, non chauffée, murs humides après une fuite.",
 };
@@ -695,13 +681,6 @@ const en: typeof nl = {
   contactTitel: "Not sure which machine suits your site?",
   contactLede:
     "Briefly describe the room and what needs drying. A drying specialist will tell you within one working day which machine or combination you need.",
-  contactOnderwerpen: [
-    "Advice on the right machine",
-    "Several machines for a large site",
-    "Desiccant or condensation dehumidifier?",
-    "Price and availability",
-    "Something else",
-  ],
   contactPlaceholder:
     "E.g. cellar of 60 m² with a 2.2 m ceiling height, unheated, damp walls after a leak.",
 };

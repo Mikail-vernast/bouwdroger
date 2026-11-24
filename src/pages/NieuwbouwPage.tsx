@@ -448,7 +448,7 @@ const NieuwbouwPage = () => {
       kicker={t.cKicker}
       titel={t.cTitel}
       lede={t.cLede}
-      onderwerpen={t.cOnderwerpen}
+      onderwerp="droging_op_maat"
       placeholder={t.cPlaceholder}
       /*
         Wit, niet rood: de sectie erboven ("verder lezen") is rood, en twee

@@ -546,7 +546,7 @@ const NatuurlijkDrogenPage = () => {
       kicker={t.cKick}
       titel={t.cTitel}
       lede={t.cLede}
-      onderwerpen={t.cOnderwerpen}
+      onderwerp="droging_op_maat"
       placeholder={t.cPlaceholder}
     />
   </GidsShell>

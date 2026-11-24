@@ -711,25 +711,13 @@
 .v3c .kick.met-ic{display:inline-flex;align-items:center;gap:7px}
 
 /* ============ VRAAGFORMULIER ============
-   Hetzelfde blok als op /contact en /klantservice, maar in de v3-vormtaal van
-   deze schil. De verzendlogica hangt aan `useAanvraag`; dit is alleen de vorm.
-   (Op /hoe-drogen-werkt staat nog een formulier zónder handler — dat is een
-   overblijfsel van de designtranscriptie, niet het patroon om te volgen.) */
+   De band rond ContactBlok. Het formulier zelf (VraagFormulier) brengt zijn
+   eigen opmaak mee in vraagformulier.css. */
 .v3c .oform{padding:88px 0;background:var(--maroon-d) url('/vernast/bg-red-wide-2.webp') center/cover no-repeat}
 .v3c .oform .kick{color:rgba(255,255,255,.75)}
 .v3c .oform .sec{color:#fff}
 .v3c .oform .lede{color:rgba(255,255,255,.78)}
-.v3c .fshell{max-width:760px;margin:0 auto;background:#fff;border-radius:20px;padding:34px;color:var(--txt)}
-.v3c .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.v3c .frow.one{grid-template-columns:1fr}
-.v3c .fld label{display:block;font-size:12.5px;font-weight:700;margin-bottom:7px}
-.v3c .fld input,.v3c .fld select,.v3c .fld textarea{width:100%;box-sizing:border-box;font-family:var(--fb);font-size:14.5px;padding:13px 15px;border:1.5px solid var(--line-2);border-radius:11px;background:#fff;color:var(--txt);outline:none;resize:vertical}
-.v3c .fld input:focus,.v3c .fld select:focus,.v3c .fld textarea:focus{border-color:var(--red)}
-.v3c .fsend{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:6px}
-.v3c .fsend small{font-size:12.5px;color:var(--txt-dim);max-width:340px}
-.v3c .fsend .fbtns{display:flex;gap:10px;flex-wrap:wrap}
-.v3c .fshell .btn[disabled]{opacity:.6;cursor:progress}
-@media (max-width:620px){.v3c .frow{grid-template-columns:1fr}.v3c .fshell{padding:26px 20px}}
+
 
 /* ============ PAKKET OF LOS TOESTEL ============
    Twee panelen naast elkaar waarvan er één de aanbevolen keuze is. Het verschil
@@ -895,10 +883,6 @@
 .v3c .oform.licht .kick{color:var(--red)}
 .v3c .oform.licht .sec{color:var(--txt)}
 .v3c .oform.licht .lede{color:var(--txt-mid)}
-.v3c .oform.licht .fshell{background:var(--bg-alt)}
-.v3c .oform.licht .fld input,
-.v3c .oform.licht .fld select,
-.v3c .oform.licht .fld textarea{background:#fff}
 
 /* ============ ZWARTE NAMEN IN TABELLEN EN PRIJSLIJSTEN ============
    De toestelnaam in de eerste kolom en in de prijslijst was een rode link. Naast

@@ -164,7 +164,7 @@ export interface StroomTekst {
   mbP: ReactNode;
   mbCta: string;
   mbAlt: string;
-  contact: { kicker: string; titel: string; lede: string; onderwerpen: string[]; placeholder: string };
+  contact: { kicker: string; titel: string; lede: string; placeholder: string };
 }
 
 export const COPY = {
@@ -495,12 +495,6 @@ export const COPY = {
         kicker: "Nog een vraag hierover?",
         titel: "Onze droogspecialisten rekenen het met u mee.",
         lede: "Twijfelt u of uw kring het aankan, of welk toestel het zuinigst is voor uw project? Stel uw vraag, u krijgt binnen één werkdag antwoord van een specialist.",
-        onderwerpen: [
-          "Vraag over stroomverbruik en kosten",
-          "Advies over het juiste toestel",
-          "Vraag over de elektrische aansluiting",
-          "Iets anders",
-        ],
         placeholder: "Bv. nieuwbouw 140 m², één kring van 16 A beschikbaar, hoeveel toestellen kan ik aansluiten?",
       },
     };
@@ -835,12 +829,6 @@ export const COPY = {
         kicker: "Encore une question ?",
         titel: "Nos spécialistes du séchage font le calcul avec vous.",
         lede: "Vous vous demandez si votre circuit tiendra le coup, ou quel appareil est le plus économe pour votre projet ? Posez votre question, un spécialiste vous répond dans un délai d'un jour ouvrable.",
-        onderwerpen: [
-          "Question sur la consommation électrique et les coûts",
-          "Conseil sur le bon appareil",
-          "Question sur le raccordement électrique",
-          "Autre chose",
-        ],
         placeholder: "P. ex. nouvelle construction de 140 m², un circuit de 16 A disponible : combien d'appareils puis-je brancher ?",
       },
     };
@@ -1171,12 +1159,6 @@ export const COPY = {
         kicker: "Any more questions about this?",
         titel: "Our drying specialists will work it out with you.",
         lede: "Not sure whether your circuit can cope, or which machine is the most efficient for your project? Ask your question and a specialist will reply within one working day.",
-        onderwerpen: [
-          "Question about power consumption and costs",
-          "Advice on the right machine",
-          "Question about the electrical connection",
-          "Something else",
-        ],
         placeholder: "E.g. new build of 140 m², one 16 A circuit available, how many machines can I connect?",
       },
     };

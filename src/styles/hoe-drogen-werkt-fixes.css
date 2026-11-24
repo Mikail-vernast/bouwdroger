@@ -95,6 +95,5 @@
    Zie src/styles/gids.css, waar dezelfde drie regels staan. */
 .hdw-page .sec-head.mid{max-width:760px;margin-left:auto;margin-right:auto;text-align:center}
 .hdw-page .sec-head.mid .lede{margin-left:auto;margin-right:auto}
-.hdw-page .fsend .fbtns{display:flex;gap:10px;flex-wrap:wrap}
 .hdw-page .btn-line{background:transparent;border:1.5px solid var(--line-2);color:var(--txt)}
 .hdw-page .btn-line:hover{background:var(--bg-alt);color:var(--txt)}

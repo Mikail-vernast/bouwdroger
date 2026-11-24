@@ -183,20 +183,7 @@
 .hdw-page .oform .kick{color:rgba(255,255,255,.75)}
 .hdw-page .oform .sec{color:#fff}
 .hdw-page .oform .lede{color:rgba(255,255,255,.78)}
-.hdw-page .fshell{max-width:760px;margin:0 auto;background:#fff;border-radius:20px;padding:34px;color:var(--txt)}
-.hdw-page .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.hdw-page .frow.one{grid-template-columns:1fr}
-.hdw-page .fld label{display:block;font-size:12.5px;font-weight:700;margin-bottom:7px}
-.hdw-page .fld input,.hdw-page .fld select,.hdw-page .fld textarea{width:100%;box-sizing:border-box;font-family:var(--fb);font-size:14.5px;padding:13px 15px;border:1.5px solid var(--line-2);border-radius:11px;background:#fff;color:var(--txt);outline:none;resize:vertical}
-.hdw-page .fld input:focus,.hdw-page .fld select:focus,.hdw-page .fld textarea:focus{border-color:var(--red)}
-.hdw-page .fsend{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:6px}
-.hdw-page .fsend small{font-size:12.5px;color:var(--txt-dim)}
-.hdw-page .fdone{display:none;text-align:center;padding:26px 10px}
-.hdw-page .fdone.on{display:block}
-.hdw-page .fdone .ic{width:60px;height:60px;border-radius:50%;background:rgba(30,158,80,.12);color:var(--ok);display:grid;place-items:center;margin:0 auto 16px}
-.hdw-page .fdone h3{font-family:var(--fd);font-weight:800;font-size:22px;margin-bottom:8px}
-.hdw-page .fdone p{font-size:14px;color:var(--txt-mid);margin:0}
-@media (max-width:620px){.hdw-page .frow{grid-template-columns:1fr}.hdw-page .fshell{padding:26px 20px}}
+
 .hdw-page .manband{position:relative;margin-top:44px;border-radius:20px;background:var(--maroon-d) url('/vernast/bg-red-2.webp') center/cover no-repeat;padding:44px 44px 0;display:flex;align-items:flex-end;gap:36px;overflow:hidden}
 .hdw-page .manband .mb-t{flex:1;min-width:280px;padding-bottom:44px;color:#fff}
 .hdw-page .manband .mb-t .mbk{font-family:var(--fb);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);display:block;margin-bottom:10px}

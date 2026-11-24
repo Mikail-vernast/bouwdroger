@@ -639,7 +639,7 @@ const MachinesPage = () => {
         kicker={t.contactKicker}
         titel={t.contactTitel}
         lede={t.contactLede}
-        onderwerpen={t.contactOnderwerpen}
+        onderwerp="offerte_prijs"
         placeholder={t.contactPlaceholder}
       />
 

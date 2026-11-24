@@ -1096,7 +1096,7 @@ const RegioSjabloon = ({ regio, dans }: Props) => {
         <ContactBlok
           titel={g.contact.titel(nl ? regio.name : waar)}
           lede={g.contact.lede}
-          onderwerpen={g.contact.onderwerpen(nl ? regio.name : waar)}
+          onderwerp="waterschade"
           placeholder={t.placeholder(regio.towns[0])}
         />
       </main>

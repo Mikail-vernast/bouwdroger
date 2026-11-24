@@ -378,7 +378,7 @@ export default function LuchtkussenDrogenPage() {
           achtergrond="wit"
           titel={t.contactTitel}
           lede={t.contactIntro}
-          onderwerpen={t.onderwerpen}
+          onderwerp="waterschade"
           placeholder={t.placeholder}
         />
       </main>

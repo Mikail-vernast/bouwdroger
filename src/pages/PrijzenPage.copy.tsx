@@ -290,13 +290,6 @@ const nl = {
   contactTitel: "Liever een prijs op maat van uw werf?",
   contactLede:
     "Geef ons uw oppervlakte en wat er moet drogen. U krijgt binnen één werkdag een voorstel met het juiste pakket en de juiste termijn.",
-  contactOnderwerpen: [
-    "Prijs van een droogpakket",
-    "Prijs van een los toestel",
-    "Vraag over de drooggarantie",
-    "Factuur en btw",
-    "Iets anders",
-  ],
   contactPlaceholder:
     "Bv. nieuwbouw 160 m² met chape van 6 cm, levering half december, graag een prijsvoorstel.",
 };
@@ -554,13 +547,6 @@ const fr: typeof nl = {
   contactTitel: "Vous préférez un prix sur mesure pour votre chantier ?",
   contactLede:
     "Donnez-nous votre surface et ce qui doit sécher. Vous recevez dans un délai d'un jour ouvrable une proposition avec le bon pack et la bonne durée.",
-  contactOnderwerpen: [
-    "Prix d'un pack de séchage",
-    "Prix d'un appareil seul",
-    "Question sur la garantie de séchage",
-    "Facture et TVA",
-    "Autre chose",
-  ],
   contactPlaceholder:
     "P. ex. nouvelle construction de 160 m² avec une chape de 6 cm, livraison mi-décembre, merci pour une proposition de prix.",
 };
@@ -817,13 +803,6 @@ const en: typeof nl = {
   contactTitel: "Prefer a price tailored to your site?",
   contactLede:
     "Give us your floor area and what needs drying. Within one working day you will receive a proposal with the right package and the right hire period.",
-  contactOnderwerpen: [
-    "Price of a drying package",
-    "Price of an individual machine",
-    "Question about the drying guarantee",
-    "Invoice and VAT",
-    "Something else",
-  ],
   contactPlaceholder:
     "E.g. new build of 160 m² with 6 cm screed, delivery mid-December, I'd like a price proposal.",
 };
