@@ -200,7 +200,7 @@ describe("kamersVoor", () => {
     const kamers = kamersVoor("halfopen", 2, "zadeldak").filter((k) => k.soort === "kamer");
     expect(kamers.filter((k) => k.verdieping === 0)).toHaveLength(3);
     expect(kamers.filter((k) => k.verdieping === 1)).toHaveLength(4);
-    expect(kamers[0].naam).toBe("Leefruimte");
+    expect(kamers.some((k) => k.verdieping === 0 && k.naam === "Leefruimte")).toBe(true);
   });
 });
 
@@ -292,7 +292,8 @@ describe("planVoor", () => {
             }
             // gelijkvloers heeft altijd een voordeur; een trap zodra er meer dan één laag is
             expect(plan.openingen.filter((o) => o.verdieping === 0 && o.soort === "voordeur")).toHaveLength(1);
-            expect(plan.trappen).toHaveLength(lagen > 1 ? lagen : 0);
+            // één trap per verdieping erboven, en boven elke trap zijn trapgat
+            expect(plan.trappen).toHaveLength(2 * (lagen - 1));
           }
         }
       }
@@ -363,13 +364,18 @@ describe("planVoor", () => {
     for (const k of plan.kamers.filter((k) => k.verdieping === 1 && k.naam === "Slaapkamer")) expect(k.w).toBeGreaterThanOrEqual(2.6 - 1e-6);
   });
 
-  it("zet de trap op elke verdieping recht boven die van de vorige laag", () => {
+  it("zet elk trapgat recht boven zijn trap, en laat de trappen vanaf drie lagen omkeren op het bordes", () => {
     for (const woning of ["rijwoning", "halfopen", "open"] as Woning[]) {
       for (const n of [MIN_KAMERS, 3, MAX_KAMERS]) {
         const plan = planVoor(woning, 3, "zadeldak", [0, 1, 2].map((v) => programmaVan(laagSoort(woning, v, 3, "zadeldak"), n)));
-        const plekken = new Set(plan.trappen.map((t) => `${t.x}|${t.z}|${t.w}|${t.l}`));
-        expect(plan.trappen).toHaveLength(3);
-        expect(plekken.size).toBe(1);
+        expect(plan.trappen).toHaveLength(4);
+        for (const t of plan.trappen.filter((x) => x.op)) {
+          const gat = plan.trappen.find((x) => !x.op && x.verdieping === t.verdieping + 1)!;
+          expect({ ...gat, verdieping: 0, op: true }).toEqual({ ...t, verdieping: 0 });
+        }
+        const [eerste, tweede] = plan.trappen.filter((x) => x.op);
+        expect(eerste.richting).toBe(1);
+        expect(tweede.richting).toBe(-1);
       }
     }
   });

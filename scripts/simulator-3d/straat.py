@@ -498,7 +498,8 @@ class Gevel:
 
 def voorgevel_ramen(bw, van, tot, v, variant=0):
     """De ramen van een voorgevel van `bw` breed, met de voordeur van `van` tot `tot`
-    (vanaf de linkerhoek): een port van voorgevelGaten in src/components/simulator/gevel.ts.
+    (vanaf de linkerhoek): beneden deur, zijlicht en een breed leefruimteraam, boven
+    een overloopraam en slaapkamerramen op hun eigen verdeling.
     Geeft (a0, a1, borstwering) per raam; de latei ligt voor alle ramen even hoog."""
     rechts = bw - tot >= van
     dc = (van + tot) / 2
@@ -574,7 +575,7 @@ def huis(naam, x0, x1, kant, vrij_l, vrij_r, steen, deur_rechts, schouw, variant
     voor = Gevel("z", z1 if kant > 0 else z0, kant)
     achter = Gevel("z", z0 if kant > 0 else z1, -kant)
     bw = x1 - x0
-    # Voorgevel zoals de live woning (src/components/simulator/gevel.ts): beneden de deur
+    # Voorgevel: beneden de deur
     # met een zijlicht en een breed leefruimteraam, boven een overloopraam en
     # slaapkamerramen op hun eigen verdeling. Geen kolomraster: echte ramen staan zelden
     # recht boven elkaar. `variant` laat de slaapkamerramen per huis anders afwisselen.
@@ -591,7 +592,7 @@ def huis(naam, x0, x1, kant, vrij_l, vrij_r, steen, deur_rechts, schouw, variant
     for f, rb, y0 in ((0.18, 1.2, 1.15), (0.55, 0.7, 1.75)) + (((0.84, 1.1, 1.15),) if bw >= 7.5 else ()):
         cx = x0 + bw * f
         achter.raam(cx - rb / 2, cx + rb / 2, FH + y0, FH + 2.55)
-    # Zijgevels: alleen aan een vrije kant, zoals zijgevelGaten in gevel.ts.
+    # Zijgevels: alleen aan een vrije kant.
     zachter, zvoor = (z0, z1) if kant > 0 else (z1, z0)
     for vrij, xg, nx in ((vrij_l, x0, -1), (vrij_r, x1, 1)):
         if not vrij:
@@ -1410,34 +1411,24 @@ def band(x0, x1, y, voor=True, zij=None):
 
 
 def app_ramen(v, terras=False):
-    """De voorgevel van een appartement zonder voordeur in de gevel: een port van
-    voorgevelGaten(w, v, null, terras) in src/components/simulator/gevel.ts, de regels
-    van de live unit. Geeft (a0, a1, borstwering, bovenlicht) vanaf de binnenkant van
-    de linkermuur; de latei ligt op 2,30 m. Laag 0 heeft de leefruimte (een breed raam,
-    of met `terras` een raamdeur), laag 1 en hoger slaapkamerramen."""
-    s0, s1 = 0.4, W - 0.4
-    span = s1 - s0
-    if v == 0:
-        tweede = span >= 5.4
-        deel = span * 0.6 if tweede else span
-        rb = min(2.6, max(min(2.0, deel - 0.4), deel * 0.7))
-        c = s0 + deel / 2
-        uit = [(c - rb / 2, c + rb / 2, 0.02 if terras else 0.5, 0.0)]
-        if tweede:
-            c2 = s1 - (span - deel) / 2
-            uit.append((c2 - 0.55, c2 + 0.55, 0.9, 0.45))
-        return uit
-    n = 1 if span < 3.0 else 2 if span < 6.4 else 3
-    uit = []
-    for k in range(n):
-        c = s0 + span * (k + 0.5) / n
-        rb = min((1.3, 1.0, 1.2)[(k + v - 1) % 3], span / n - 0.5)
-        uit.append((c - rb / 2, c + rb / 2, 0.9, 0.45))
-    return uit
+    """De voorramen van een appartement zoals de live unit ze krijgt (droogSimulator.ts:
+    gevelKolommen en raamMaat, zonder voordeur in de gevel): een kolomraster over de
+    breedte, beneden breed en laag, boven smaller. Met `terras` zijn het raamdeuren.
+    Geeft (a0, a1, borstwering, bovenlicht) vanaf de binnenkant van de linkermuur; de
+    latei ligt op 2,30 m. Het plan laat soms een kolom weg (een keuken tegen de gevel)
+    of maakt er een hoog raam van; de render toont de gewone gevel."""
+    n = 2 if W < 7 else 3 if W < 9.5 else 4
+    stapw = W / n
+    bw = min(1.3, stapw * 0.58)
+    breed, onder = (min(1.75, bw * 1.3), 0.45) if v == 0 else (min(1.1, bw * 0.82), 1.0)
+    if terras and v == 0:
+        onder = 0.02
+    kalf = 0.5 if 2.3 - onder > 1.2 and onder > 0.1 else 0.0
+    return [(stapw * (k + 0.5) - breed / 2, stapw * (k + 0.5) + breed / 2, onder, kalf) for k in range(n)]
 
 
 def app_zijramen(v):
-    """zijgevelGaten(l, v) uit gevel.ts: (z0, z1, borstwering, bovenlicht)."""
+    """Ramen in de vrije zijgevel van een appartement: (z0, z1, borstwering, bovenlicht)."""
     if v == 0:
         uit = [(L * 0.3 - 0.6, L * 0.3 + 0.6, 0.9, 0.45)]
         if L > 10.5:
@@ -1454,8 +1445,8 @@ def app_laag(g, x0, yf, v, terras=False, balkons=False):
     for a0, a1, b0, kalf in ramen:
         g.raam(x0 + a0, x0 + a1, yf + b0, yf + 2.3, dorpel=b0 > 0.1, kalf=kalf)
     if balkons and terras and v == 0:
-        a0, a1 = ramen[0][:2]
-        balkon(x0 + a0 - 0.9, x0 + a1 + 0.9, yf - 0.02)
+        # Terras over de hele breedte, voor alle raamdeuren.
+        balkon(x0 + 0.3, x0 + W - 0.3, yf - 0.02)
 
 
 def balkon(x0, x1, yv, diep=1.5, naam="balkon"):
@@ -1559,12 +1550,11 @@ def omgeving_appartement():
     # Regenpijp van de unit (IsoHouse3D: afvoer op x = w + T + 0.06) loopt door tot de grond.
     cilinder("afvoer", (W + T + 0.06, 0.05, L + T - 0.3), (W + T + 0.06, YU + 0.05, L + T - 0.3), 0.045, M["zink"], 10)
     verhard("inrit", W - 4.5, W - 0.5, F, PAD0, M["oprit"], 0.125)
-    # Terras van de unit, voor de raamdeur van haar leefruimte (gevel.ts: voorgevelGaten
-    # met terras). Het staat vóór de gevel en komt dus in de voorlaag: het vervaagt als
-    # de unit opengaat.
+    # Terras van de unit over haar hele breedte: de voorramen van haar onderste laag
+    # zijn raamdeuren (droogSimulator.ts: ramenVan). Het staat vóór de gevel en komt
+    # dus in de voorlaag: het vervaagt als de unit opengaat.
     if BALKON:
-        a0, a1 = app_ramen(0, True)[0][:2]
-        balkon(a0 - 1.0, a1 + 1.0, YU + 0.28, diep=1.6, naam="terras")
+        balkon(0.3, W + T, YU + 0.28, diep=1.6, naam="terras")
 
     # ── links: trappenhal, units, tweede trappenhal, unit, dan het volgende blok ──
     x = -T

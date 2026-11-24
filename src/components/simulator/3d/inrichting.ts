@@ -72,9 +72,9 @@ export function inrichtingsMuur(k: Kamer, openingen: Opening[], gevels: { w: num
 
 type Blok = (mat: string, u0: number, u1: number, n0: number, n1: number, y0: number, y1: number) => void;
 
-export function richIn(B: Bouwer, kamers: Kamer[], openingen: Opening[], yf: number, gevels: { w: number; l: number }) {
+export function richIn(B: Bouwer, kamers: Kamer[], openingen: Opening[], yf: number, gevels: { w: number; l: number }, overslaan: ReadonlySet<string> = new Set()) {
   for (const k of kamers) {
-    if (k.soort === "circulatie") continue;
+    if (k.soort === "circulatie" || overslaan.has(k.naam)) continue;
     const m = kiesMuur(k, openingen, gevels);
     // Een blok in het assenstelsel van de muur.
     const blok: Blok = (mat, u0, u1, n0, n1, y0, y1) => {

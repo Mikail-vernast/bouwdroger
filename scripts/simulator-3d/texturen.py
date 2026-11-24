@@ -358,6 +358,121 @@ TEGELS = {
     'verf': lambda: detail('verf', 1.0, 3, 0.94, 0.99, grijs=True),
     'tegelvloer': tegelvloer,
 }
+# ── interieur (scripts/simulator-3d/interieur.py): vloeren en wanden per kamersoort ──
+
+def _hout(naam, licht, donker, variatie=0.14):
+    """Eikenhout met draad langs de lengte van de plank (object-X), per plank een andere tint."""
+    hout = mat(naam, licht, rough=0.45, coat=0.15)
+    n = hout.node_tree.nodes; l = hout.node_tree.links
+    b = n['Principled BSDF']
+    tc = n.new('ShaderNodeTexCoord')
+    golf = n.new('ShaderNodeTexWave'); golf.wave_type = 'BANDS'; golf.bands_direction = 'Y'
+    golf.inputs['Scale'].default_value = 7; golf.inputs['Distortion'].default_value = 5
+    golf.inputs['Detail'].default_value = 3
+    mp = n.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (0.12, 1, 1)
+    l.new(tc.outputs['Object'], mp.inputs['Vector']); l.new(mp.outputs[0], golf.inputs['Vector'])
+    ramp = n.new('ShaderNodeValToRGB')
+    ramp.color_ramp.elements[0].color = (*donker, 1)
+    ramp.color_ramp.elements[1].color = (*licht, 1)
+    l.new(golf.outputs['Fac'], ramp.inputs[0]); l.new(ramp.outputs['Color'], b.inputs['Base Color'])
+    object_variatie(hout, variatie)
+    return hout
+
+
+def visgraat():
+    """Eiken visgraat: planken van 60 × 10 cm. De trap van planken herhaalt per (W, W) en
+    per (-L, L); de kleinste rechthoek in dat rooster is 2L × 2L. three.js draait de tegel
+    45° zodat de graat langs de kamer loopt."""
+    L, W = 0.6, 0.1
+    P = 2 * L
+    sc = nieuwe_scene(P, P, 1024 / P, samples=32)
+    vlak(sc, P, P, mat('voeg', (0.14, 0.1, 0.06), 0.7)).location.z = -0.01
+    hout = _hout('eik', (0.6, 0.43, 0.26), (0.43, 0.29, 0.16))
+    rnd = random.Random(21)
+    tint = {}
+
+    def maak(dx, dy):
+        for k in range(-14, 26):
+            for s in range(-3, 4):
+                ox, oy = k * W - s * L + dx, k * W + s * L + dy
+                for soort, (x0, y0, sx, sy) in (('h', (ox, oy, L, W)), ('v', (ox, oy + W, W, L))):
+                    cx, cy = x0 + sx / 2, y0 + sy / 2
+                    if not (-0.7 < cx < P + 0.7 and -0.7 < cy < P + 0.7):
+                        continue
+                    # Zelfde tint voor dezelfde plank een periode verder: naadloos.
+                    sleutel = (soort, round(cx % P, 3), round(cy % P, 3))
+                    tint.setdefault(sleutel, rnd.random())
+                    # De draad loopt langs object-X: een staande plank wordt gedraaid.
+                    ob = blok('p', cx, cy, 0, L - 0.002, W - 0.002, 0.01, hout, rot=(0, 0, 0 if soort == 'h' else math.pi / 2), bevel=0.001)
+                    ob['v'] = tint[sleutel]
+    # Eén keer bouwen is genoeg: de lus hierboven dekt de buren al (dx, dy = 0).
+    maak(0, 0)
+    render(sc, 'visgraat')
+
+
+def planken():
+    """Brede eiken planken van 20 cm, willekeurig verspringend, lichter en rustiger dan het parket."""
+    PB, COLS, PL = 0.2, 6, 2.0
+    PW, PH = PB * COLS, PL
+    sc = nieuwe_scene(PW, PH, 1024 / PH, samples=32)
+    vlak(sc, PW, PH, mat('voeg', (0.2, 0.15, 0.1), 0.7)).location.z = -0.01
+    hout = _hout('eik', (0.66, 0.5, 0.33), (0.5, 0.36, 0.22), 0.1)
+    rnd = random.Random(8)
+    offsets = [rnd.uniform(0, PL) for _ in range(COLS)]
+    tint = {c: rnd.random() for c in range(COLS)}
+
+    def maak(dx, dy):
+        for c in range(COLS):
+            pl = blok(f'plank-{c}', dx + c * PB + PB / 2, dy + offsets[c] + PL / 2, 0, PL - 0.003, PB - 0.003, 0.01, hout, rot=(0, 0, math.pi / 2), bevel=0.0015)
+            pl['v'] = tint[c]
+    periodiek(sc, PW, PH, maak)
+    render(sc, 'planken')
+
+
+def _tegels(naam, TB, N, kleur, wolk_kleuren, voeg=(0.42, 0.4, 0.37), dikte=0.003, glans=0.3, rij_offset=0.0, TH=None):
+    TH = TH or TB
+    PW, PH = TB * N, TH * N
+    sc = nieuwe_scene(PW, PH, 1024 / max(PW, PH), samples=32)
+    vlak(sc, PW, PH, mat('voeg', voeg, 0.9)).location.z = -0.004
+    tegel = mat('tegel', kleur, rough=glans, coat=0.15)
+    n = tegel.node_tree.nodes; l = tegel.node_tree.links
+    b = n['Principled BSDF']
+    tc = n.new('ShaderNodeTexCoord')
+    wolk = torus_ruis(n, l, tc.outputs['Object'], PW, PH, 3, detail=5)
+    ramp = n.new('ShaderNodeValToRGB')
+    ramp.color_ramp.elements[0].color = (*wolk_kleuren[0], 1)
+    ramp.color_ramp.elements[1].color = (*wolk_kleuren[1], 1)
+    l.new(wolk.outputs['Fac'], ramp.inputs[0]); l.new(ramp.outputs['Color'], b.inputs['Base Color'])
+    object_variatie(tegel, 0.05)
+    rnd = random.Random(len(naam))
+    tint = {(c, r): rnd.random() for c in range(N) for r in range(N)}
+
+    def maak(dx, dy):
+        for r in range(N):
+            off = (r % 2) * rij_offset * TB
+            # Precies N per rij: wat door de verspringing over de rand valt, vult de buur aan.
+            for c in range(N):
+                x = dx + c * TB + TB / 2 + off
+                ob = blok(f't-{c}-{r}', x, dy + r * TH + TH / 2, 0, TB - dikte, TH - dikte, 0.008, tegel, bevel=0.0012)
+                ob['v'] = tint[(c, r)]
+    periodiek(sc, PW, PH, maak)
+    render(sc, naam)
+
+
+TEGELS.update({
+    'visgraat': visgraat,
+    'planken': planken,
+    # Keuken en hal: grote warme tegels van 60 × 60, beige-grijs.
+    'tegelwarm': lambda: _tegels('tegelwarm', 0.6, 4, (0.66, 0.57, 0.45), ((0.6, 0.52, 0.41), (0.7, 0.61, 0.49))),
+    # Badkamer en toilet: kleinere tegels van 30 × 30, warm grijs.
+    'tegelklein': lambda: _tegels('tegelklein', 0.3, 4, (0.5, 0.49, 0.47), ((0.46, 0.45, 0.43), (0.55, 0.54, 0.51)), voeg=(0.62, 0.6, 0.56)),
+    # Wandtegel: 7,5 × 30 liggend, halfsteens, crème en glanzend.
+    'wandtegel': lambda: _tegels('wandtegel', 0.3, 4, (0.86, 0.83, 0.76), ((0.83, 0.8, 0.72), (0.9, 0.88, 0.81)), voeg=(0.78, 0.76, 0.71), glans=0.12, rij_offset=0.5, TH=0.075),
+    # Kalkverf: wolkerig, grijs zodat three.js elke kamer zijn eigen tint kan geven.
+    'kalkverf': lambda: detail('kalkverf', 2.0, 1.6, 0.8, 0.97, band=(0.3, 0.7), grijs=True),
+})
+
+
 for naam, f in TEGELS.items():
     if not WANT or naam in WANT:
         f()

@@ -8,13 +8,13 @@ import {
   type Kamer,
   type Opening,
   type Plaatsing,
+  type Raam,
   type Trap,
   type Woning,
 } from "@/lib/droogSimulator";
 import type { DeviceKey } from "@/data/verhuur";
 import type { Materiaal } from "./materiaal";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "./maten";
-import { voorgevelGaten, zijgevelGaten } from "./gevel";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useTaal } from "@/i18n/useTaal";
 
@@ -252,6 +252,8 @@ export interface IsoHouseProps {
   /** deuren en doorgangen uit het plan; zonder deze geen openingen */
   openingen?: Opening[];
   trappen?: Trap[];
+  /** ramen uit het plan; zonder deze geen ramen */
+  ramen?: Raam[];
   /** opengewerkte weergave met de actieve laag zichtbaar */
   open: boolean;
   actief: number;
@@ -281,6 +283,7 @@ export default function IsoHouse({
   kamers,
   openingen = [],
   trappen = [],
+  ramen = [],
   open,
   actief,
   plaatsingen = [],
@@ -348,42 +351,48 @@ export default function IsoHouse({
   const xf = w + T + 0.01; // zijgevelvlak
 
   /** Raam in de voorgevel: wit kader, glas met middenstijl en kalf, arduin dorpel. */
-  const raamZ = (x0: number, x1: number, y0: number, y1: number, kalf: number, stijl: boolean, key: string) => (
+  const raamZ = (x0: number, x1: number, y0: number, y1: number, key: string) => (
     <g key={key}>
       <Poly v={[[x0, y0, zf], [x1, y0, zf], [x1, y1, zf], [x0, y1, zf]]} fill={KADER} stroke="#00000022" sw={0.4} />
       <Poly v={[[x0 + 0.08, y0 + 0.08, zf + 0.005], [x1 - 0.08, y0 + 0.08, zf + 0.005], [x1 - 0.08, y1 - 0.08, zf + 0.005], [x0 + 0.08, y1 - 0.08, zf + 0.005]]} fill={GLAS} stroke="none" />
-      {stijl && <polyline points={pts([[(x0 + x1) / 2, y0 + 0.08, zf + 0.01], [(x0 + x1) / 2, y1 - 0.08 - kalf, zf + 0.01]])} stroke={KADER} strokeWidth={1.2} fill="none" />}
-      {kalf > 0 && <polyline points={pts([[x0 + 0.08, y1 - kalf, zf + 0.01], [x1 - 0.08, y1 - kalf, zf + 0.01]])} stroke={KADER} strokeWidth={1} fill="none" />}
+      <polyline points={pts([[(x0 + x1) / 2, y0 + 0.08, zf + 0.01], [(x0 + x1) / 2, y1 - 0.08, zf + 0.01]])} stroke={KADER} strokeWidth={1.2} fill="none" />
+      <polyline points={pts([[x0 + 0.08, y1 - 0.5, zf + 0.01], [x1 - 0.08, y1 - 0.5, zf + 0.01]])} stroke={KADER} strokeWidth={1} fill="none" />
       <Blok x0={x0 - 0.07} x1={x1 + 0.07} y0={y0 - 0.1} y1={y0} z0={l + T} z1={l + T + 0.09} c={ARDUIN} />
     </g>
   );
-  const raamX = (z0: number, z1: number, y0: number, y1: number, kalf: number, key: string) => (
+  const raamX = (z0: number, z1: number, y0: number, y1: number, key: string) => (
     <g key={key}>
       <Poly v={[[xf, y0, z0], [xf, y1, z0], [xf, y1, z1], [xf, y0, z1]]} fill={KADER} stroke="#00000022" sw={0.4} />
       <Poly v={[[xf + 0.005, y0 + 0.08, z0 + 0.08], [xf + 0.005, y1 - 0.08, z0 + 0.08], [xf + 0.005, y1 - 0.08, z1 - 0.08], [xf + 0.005, y0 + 0.08, z1 - 0.08]]} fill={GLAS} stroke="none" />
-      {kalf > 0 && <polyline points={pts([[xf + 0.01, y1 - kalf, z0 + 0.08], [xf + 0.01, y1 - kalf, z1 - 0.08]])} stroke={KADER} strokeWidth={1} fill="none" />}
+      <polyline points={pts([[xf + 0.01, y1 - 0.45, z0 + 0.08], [xf + 0.01, y1 - 0.45, z1 - 0.08]])} stroke={KADER} strokeWidth={1} fill="none" />
       <Blok x0={w + T} x1={w + T + 0.09} y0={y0 - 0.1} y1={y0} z0={z0 - 0.07} z1={z1 + 0.07} c={ARDUIN} />
     </g>
   );
 
-  /** Ramen en voordeur in de voorgevel: dezelfde indeling als de 3D-woning (gevel.ts). */
-  const ramenZ = (yb: number, v: number) =>
-    voorgevelGaten(w, v, voordeur && woning !== "appartement" ? voordeur : null, woning === "appartement").map((g, i) =>
-      g.soort === "raam" ? (
-        raamZ(g.a0, g.a1, yb + g.b0, yb + g.b1, g.kalf, g.stijl, `z${i}`)
-      ) : (
-        <g key="deur">
-          <Poly v={[[g.a0, yb, zf], [g.a1, yb, zf], [g.a1, yb + g.b1, zf], [g.a0, yb + g.b1, zf]]} fill={KADER} stroke="#00000022" sw={0.4} />
-          <Poly v={[[g.a0 + 0.1, yb, zf + 0.005], [g.a1 - 0.1, yb, zf + 0.005], [g.a1 - 0.1, yb + g.b1 - 0.1, zf + 0.005], [g.a0 + 0.1, yb + g.b1 - 0.1, zf + 0.005]]} fill="#3b2a22" stroke="none" />
-          <Poly v={[[g.a0 + 0.26, yb + 1.3, zf + 0.01], [g.a1 - 0.26, yb + 1.3, zf + 0.01], [g.a1 - 0.26, yb + 2.0, zf + 0.01], [g.a0 + 0.26, yb + 2.0, zf + 0.01]]} fill={GLAS} stroke="none" />
-          <Blok x0={g.a0 - 0.09} x1={g.a1 + 0.09} y0={yb - SLAB} y1={yb - SLAB + 0.16} z0={l + T} z1={l + T + 0.4} c={ARDUIN} />
-        </g>
-      ),
-    );
-  const ramenX = (yb: number, v: number) => {
-    if (buren === 2) return null; // gemene muur aan de +x-kant
-    return zijgevelGaten(l, v).map((g, i) => raamX(g.a0, g.a1, yb + g.b0, yb + g.b1, g.kalf, `x${i}`));
+  /**
+   * Ramen in de voor- en zijgevel, uit het plan: dezelfde als in de 3D-woning
+   * (droogSimulator.ts beslist ze per kamer, op het kolomraster van de gevel).
+   */
+  const ramenZ = (yb: number, v: number) => {
+    const uit = ramen
+      .filter((r) => r.verdieping === v && r.gevel === "voor")
+      .map((r, i) => raamZ(r.van, r.tot, yb + r.onder, yb + r.boven, `z${i}`));
+    const deur = v === 0 && woning !== "appartement" ? voordeur : null;
+    if (!deur) return uit;
+    return [
+      ...uit,
+      <g key="deur">
+        <Poly v={[[deur.van - 0.06, yb, zf], [deur.tot + 0.06, yb, zf], [deur.tot + 0.06, yb + 2.3, zf], [deur.van - 0.06, yb + 2.3, zf]]} fill={KADER} stroke="#00000022" sw={0.4} />
+        <Poly v={[[deur.van + 0.04, yb, zf + 0.005], [deur.tot - 0.04, yb, zf + 0.005], [deur.tot - 0.04, yb + 2.2, zf + 0.005], [deur.van + 0.04, yb + 2.2, zf + 0.005]]} fill="#3b2a22" stroke="none" />
+        <Poly v={[[deur.van + 0.2, yb + 1.3, zf + 0.01], [deur.tot - 0.2, yb + 1.3, zf + 0.01], [deur.tot - 0.2, yb + 2.0, zf + 0.01], [deur.van + 0.2, yb + 2.0, zf + 0.01]]} fill={GLAS} stroke="none" />
+        <Blok x0={deur.van - 0.15} x1={deur.tot + 0.15} y0={yb - SLAB} y1={yb - SLAB + 0.16} z0={l + T} z1={l + T + 0.4} c={ARDUIN} />
+      </g>,
+    ];
   };
+  const ramenX = (yb: number, v: number) =>
+    ramen
+      .filter((r) => r.verdieping === v && r.gevel === "zij")
+      .map((r, i) => raamX(r.van, r.tot, yb + r.onder, yb + r.boven, `x${i}`));
 
   /* ── een gesloten bouwlaag ── */
   const geslotenLaag = (v: number) => {
@@ -429,30 +438,10 @@ export default function IsoHouse({
         c = Math.max(c, g.tot);
       }
       if (c < a1) vast_.push([c, a1]);
-      // Langs de trap is de wand een borstwering: zo kijk je in de trapkoker.
-      const laagTrap = laagTrappen.find((t) => !buiten && as === "x" && Math.abs(vast - (t.z + t.l + 0.05)) < 0.12);
-      if (laagTrap) {
-        const knip = [laagTrap.x, laagTrap.x + laagTrap.w];
-        for (let i = vast_.length - 1; i >= 0; i--) {
-          const [b0, b1] = vast_[i];
-          const delen = [b0, ...knip.filter((k) => k > b0 + 0.02 && k < b1 - 0.02), b1];
-          vast_.splice(i, 1, ...delen.slice(1).map((e, j) => [delen[j], e] as [number, number]));
-        }
-      }
       vast_.forEach(([b0, b1], j) => {
         const len = b1 - b0;
         if (len < 0.02) return;
-        const borst = laagTrap && b0 >= laagTrap.x - 0.02 && b1 <= laagTrap.x + laagTrap.w + 0.02;
-        const hoogte = borst ? 0.2 : hoogteVol;
-        if (borst) {
-          // Open leuning: handlijn op spijlen, je ziet de treden erdoor.
-          const n = Math.max(2, Math.round(len / 0.45));
-          for (let i = 0; i <= n; i++) {
-            const x = Math.min(b0 + (len * i) / n, b1 - 0.04);
-            items.push({ key: `${id}-spijl-${j}-${i}`, diepte: x + vast + 0.06, node: <Blok x0={x} x1={x + 0.04} y0={yf} y1={yf + 0.9} z0={vast - 0.02} z1={vast + 0.02} c={LEUNING} /> });
-          }
-          items.push({ key: `${id}-leuning-${j}`, diepte: b1 + vast + 0.07, node: <Blok x0={b0} x1={b1} y0={yf + 0.88} y1={yf + 0.94} z0={vast - 0.03} z1={vast + 0.03} c={LEUNING} /> });
-        }
+        const hoogte = hoogteVol;
         const stukken = Math.max(1, Math.ceil(len / SEG));
         for (let i = 0; i < stukken; i++) {
           const s0 = b0 + (len * i) / stukken;
@@ -471,13 +460,14 @@ export default function IsoHouse({
       gaten.filter((g) => g.soort === "deur").forEach((g, i) => {
         const blad = Math.min(0.85, g.tot - g.van);
         const hb = Math.min(2.05, hoogteVol);
+        const s0 = g.scharnier === "tot" ? g.tot - 0.05 : g.van;
         const node =
           as === "x" ? (
-            <Blok x0={g.van} x1={g.van + 0.05} y0={yf} y1={yf + hb} z0={g.kant > 0 ? vast : vast - blad} z1={g.kant > 0 ? vast + blad : vast} c={DEURBLAD} />
+            <Blok x0={s0} x1={s0 + 0.05} y0={yf} y1={yf + hb} z0={g.kant > 0 ? vast : vast - blad} z1={g.kant > 0 ? vast + blad : vast} c={DEURBLAD} />
           ) : (
-            <Blok x0={g.kant > 0 ? vast : vast - blad} x1={g.kant > 0 ? vast + blad : vast} y0={yf} y1={yf + hb} z0={g.van} z1={g.van + 0.05} c={DEURBLAD} />
+            <Blok x0={g.kant > 0 ? vast : vast - blad} x1={g.kant > 0 ? vast + blad : vast} y0={yf} y1={yf + hb} z0={s0} z1={s0 + 0.05} c={DEURBLAD} />
           );
-        items.push({ key: `${id}-blad-${i}`, diepte: g.van + vast + g.kant * blad * 0.5 + 0.06, node });
+        items.push({ key: `${id}-blad-${i}`, diepte: s0 + vast + g.kant * blad * 0.5 + 0.06, node });
       });
     };
 
@@ -511,16 +501,16 @@ export default function IsoHouse({
                 <g clipPath={`url(#${clip})`}>
                   {Array.from({ length: treden }, (_, i) => {
                     const top = yf - FH + op * (i + 1);
-                    const x0 = t.x + aan * i;
-                    return <Blok key={i} x0={x0} x1={t.x + t.w} y0={top - op} y1={top} z0={t.z} z1={t.z + t.l} c={TREDE} />;
+                    const [x0, x1] = t.richting > 0 ? [t.x + aan * i, t.x + t.w] : [t.x, t.x + t.w - aan * i];
+                    return <Blok key={i} x0={x0} x1={x1} y0={top - op} y1={top} z0={t.z} z1={t.z + t.l} c={TREDE} />;
                   })}
                 </g>
-                <Blok x0={t.x} x1={t.x + t.w} y0={yf + 0.86} y1={yf + 0.92} z0={t.z + t.l - 0.05} z1={t.z + t.l} c={LEUNING} />
+                <Blok x0={t.x} x1={t.x + t.w} y0={yf + 0.86} y1={yf + 0.92} z0={t.richting > 0 ? t.z + t.l - 0.05 : t.z} z1={t.richting > 0 ? t.z + t.l : t.z + 0.05} c={LEUNING} />
                 {Array.from({ length: spijlen + 1 }, (_, i) => {
                   const x = t.x + (t.w * i) / spijlen;
-                  return <Blok key={`s${i}`} x0={Math.min(x, t.x + t.w - 0.04)} x1={Math.min(x + 0.04, t.x + t.w)} y0={yf} y1={yf + 0.86} z0={t.z + t.l - 0.04} z1={t.z + t.l} c={LEUNING} />;
+                  return <Blok key={`s${i}`} x0={Math.min(x, t.x + t.w - 0.04)} x1={Math.min(x + 0.04, t.x + t.w)} y0={yf} y1={yf + 0.86} z0={t.richting > 0 ? t.z + t.l - 0.04 : t.z} z1={t.richting > 0 ? t.z + t.l : t.z + 0.04} c={LEUNING} />;
                 })}
-                <Blok x0={t.x} x1={t.x + 0.05} y0={yf} y1={yf + 0.92} z0={t.z} z1={t.z + t.l} c={LEUNING} />
+                <Blok x0={t.richting > 0 ? t.x : t.x + t.w - 0.05} x1={t.richting > 0 ? t.x + 0.05 : t.x + t.w} y0={yf} y1={yf + 0.92} z0={t.z} z1={t.z + t.l} c={LEUNING} />
               </g>
             ),
           });
@@ -531,11 +521,13 @@ export default function IsoHouse({
         const op = FH / treden;
         for (let i = 0; i < treden; i++) {
           const top = op * (i + 1);
-          const x0 = t.x + aan * i;
+          // De neus van trede i, en het blok tot aan het hoge eind van de trap.
+          const [x0, x1] = t.richting > 0 ? [t.x + aan * i, t.x + t.w] : [t.x, t.x + t.w - aan * i];
+          const neus = t.richting > 0 ? x0 : x1;
           if (top <= Math.min(HC, wandH) + 0.01) {
-            items.push({ key: `trede-${ti}-${i}`, diepte: x0 + t.z + 0.02, node: <Blok x0={x0} x1={t.x + t.w} y0={yf + top - op} y1={yf + top} z0={t.z} z1={t.z + t.l} c={TREDE} /> });
+            items.push({ key: `trede-${ti}-${i}`, diepte: neus + t.z + 0.02, node: <Blok x0={x0} x1={x1} y0={yf + top - op} y1={yf + top} z0={t.z} z1={t.z + t.l} c={TREDE} /> });
           } else {
-            items.push({ key: `trede-${ti}-${i}`, diepte: x0 + t.z, node: <polyline points={pts([[x0, yf + 0.005, t.z], [x0, yf + 0.005, t.z + t.l]])} stroke="#00000040" strokeWidth={0.6} fill="none" /> });
+            items.push({ key: `trede-${ti}-${i}`, diepte: neus + t.z, node: <polyline points={pts([[neus, yf + 0.005, t.z], [neus, yf + 0.005, t.z + t.l]])} stroke="#00000040" strokeWidth={0.6} fill="none" /> });
           }
         }
       });
