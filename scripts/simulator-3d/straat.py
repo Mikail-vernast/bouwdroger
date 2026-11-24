@@ -41,8 +41,18 @@ van de unit op YU = 2·FH; de camera mikt op dezelfde plek als in de app, waar d
 unit op y = 0 staat. Uitvoer: appartement-b90-l{BOUWLAGEN}-achter.png en -voor.png.
 
 ROUW=1 bouwt alleen de volumes in grijs, zonder planten (snelle controle).
-CONTROLE=1 tekent de live doos van de unit als rood draadmodel in de achterlaag,
-om de uitlijning met een screenshot uit de app te vergelijken.
+CONTROLE=1 tekent de live doos van de woning (of unit) als rood draadmodel in de
+achterlaag, om de uitlijning met een screenshot uit de app te vergelijken.
+
+HOEK kiest de camerahoek. Zonder HOEK (of HOEK=rv) is het rechtsvoor, KIJK = (1,1,1),
+zoals hierboven. De andere drie draaien de kijkrichting rond de verticale as; DOEL,
+SCHAAL en de resolutie blijven gelijk, zodat de app alleen het beeldvlak meedraait:
+  vl  voor-links     KIJK = (-1, 1,  1)   -90°
+  ar  achter-rechts  KIJK = ( 1, 1, -1)   +90°
+  al  achter-links   KIJK = (-1, 1, -1)   180°
+De zon draait mee, en de voorlaag (`sorteer_voor`) is per hoek wat tussen die camera
+en de woning kan staan. Uitvoer: {WONING}-b{BREEDTE*10}-{HOEK}-achter.png en -voor.png;
+straat_webp.py maakt daar de drie webp-maten van.
 
 Herkomst: alle geometrie is in dit script gemodelleerd. Van Poly Haven (CC0,
 polyhaven.com) komen de texturen leafy_grass en asphalt_02 en de modellen
@@ -73,7 +83,17 @@ APP = WONING == "appartement"
 ROUW = bool(os.environ.get("ROUW"))
 CONTROLE = bool(os.environ.get("CONTROLE"))
 BOUWLAGEN = int(os.environ.get("BOUWLAGEN", "1"))
-NAAM = f"{WONING}-b{round(W * 10)}" + (f"-l{BOUWLAGEN}" if APP else "")
+HOEK = os.environ.get("HOEK", "rv")
+# Draaiing rond de verticale as t.o.v. rechtsvoor, in three.js (rechtshandig, y omhoog).
+HOEKEN = {"rv": 0, "vl": -90, "ar": 90, "al": 180}
+DRAAI = math.radians(HOEKEN[HOEK])
+NAAM = f"{WONING}-b{round(W * 10)}" + (f"-l{BOUWLAGEN}" if APP else "") + (f"-{HOEK}" if HOEK != "rv" else "")
+
+
+def draai(x, y, z):
+    """Een three.js-vector rond y gedraaid over de hoekverschuiving van HOEK."""
+    c, s = round(math.cos(DRAAI), 9), round(math.sin(DRAAI), 9)
+    return (x * c + z * s, y, -x * s + z * c)
 T, FH = 0.24, 2.9
 # Vloer van de live unit boven de straat: twee bouwlagen eronder (IsoHouse3D: het spook-blok).
 YU = 2 * FH if APP else 0.0
@@ -855,8 +875,8 @@ def struik(x, z, hoogte, breed):
 UIT = [(-T - 0.05, W + T + 0.05, -T - 0.05, F + 0.05)]  # geen gras onder de live woning
 
 # Wat de camera ziet, in schermcoördinaten (zelfde assen als three.js).
-_R = Vector((1, 0, -1)).normalized()
-_O = Vector((-1, 2, -1)).normalized()
+_R = Vector(draai(1, 0, -1)).normalized()
+_O = Vector(draai(-1, 2, -1)).normalized()
 _DOEL = Vector((W / 2, YU, L / 2 + 3))
 _HALF = (SCHAAL / 2, SCHAAL * RES[1] / RES[0] / 2)
 
@@ -1358,8 +1378,38 @@ def omgeving():
     gz2 = gazon("gazon-over", -reik, W + reik, PAD1 + 0.02, zs(-1, EIND), UIT)
     verspreid(gz2, GAZON, 1300, (0.7, 1.35), hou_basis=False, rechtop=True)
     for kant in (1, -1):
-        wd = gazon("weide", -reik, W + reik, *zr(kant, EIND, EIND + 16), [])
+        # Uit een achterhoek reikt de onderhoek van het beeld voorbij 16 m weiland; daar
+        # zag je de rand naar het kale grasvlak. Vooraan blijft het weiland zoals het was.
+        diep = 34 if kant == 1 and HOEK in ("ar", "al") else 16
+        wd = gazon("weide", -reik, W + reik, *zr(kant, EIND, EIND + diep), [])
         verspreid(wd, WEIDE, 260, (0.7, 1.4), hou_basis=False, rechtop=True)
+
+    if CONTROLE:
+        # De live woning (IsoHouse3D: -T..w+T, -T..l+T, twee bouwlagen en een zadeldak
+        # met de nok in het midden) als rood draadmodel.
+        rood = bpy.data.materials.new("controle")
+        rood.use_nodes = True
+        nt = rood.node_tree
+        em = nt.nodes.new("ShaderNodeEmission")
+        em.inputs["Color"].default_value = (1, 0, 0, 1)
+        em.inputs["Strength"].default_value = 4
+        nt.links.new(em.outputs[0], nt.nodes["Material Output"].inputs[0])
+        d = 0.02
+        h = LAGEN * FH
+        xs_, ys_, zs__ = (-T, W + T), (0.0, h), (-T, F)
+        for yy in ys_:
+            for zz in zs__:
+                blok("draad", xs_[0], xs_[1], yy - d, yy + d, zz - d, zz + d, rood)
+            for xx in xs_:
+                blok("draad", xx - d, xx + d, yy - d, yy + d, zs__[0], zs__[1], rood)
+        for xx in xs_:
+            for zz in zs__:
+                blok("draad", xx - d, xx + d, ys_[0], ys_[1], zz - d, zz + d, rood)
+        zm = L / 2
+        blok("draad", xs_[0], xs_[1], h + NOK - d, h + NOK + d, zm - d, zm + d, rood)
+        for xx in xs_:
+            for zz in zs__:
+                cilinder("draad-dak", (xx, h, zz), (xx, h + NOK, zm), d, rood, 6)
 
 
 # ───────────────────────── appartement ─────────────────────────
@@ -1766,17 +1816,21 @@ wl.new(lp.outputs["Is Glossy Ray"], mix.inputs["Factor"])
 wl.new(mix.outputs[2], bg.inputs["Color"])
 
 # Zelfde zon als IsoHouse3D: rechtsvoor en hoog, richting (11, 24, 6) in three.js.
+# Bij een andere HOEK draait ze mee met de camera.
 zon = bpy.data.lights.new("zon", "SUN")
 zon.energy = 4.6
 zon.angle = math.radians(2.5)
 zon.color = srgb("#fff3e2")
 zo = bpy.data.objects.new("zon", zon)
 sc.collection.objects.link(zo)
-zo.rotation_euler = V(11, 24, 6).to_track_quat("Z", "Y").to_euler()
+zo.rotation_euler = V(*draai(11, 24, 6)).to_track_quat("Z", "Y").to_euler()
 
-KIJK = V(1, 1, 1).normalized()
-RECHTS = V(1, 0, -1).normalized()
-OP = V(-1, 2, -1).normalized()
+KIJK = V(*draai(1, 1, 1)).normalized()
+RECHTS = V(*draai(1, 0, -1)).normalized()
+OP = V(*draai(-1, 2, -1)).normalized()
+# Aan welke kant van de woning de camera staat, langs x en z (three.js).
+SX = 1 if draai(1, 1, 1)[0] > 0 else -1
+SZ = 1 if draai(1, 1, 1)[2] > 0 else -1
 DOEL = V(W / 2, YU, L / 2 + 3)
 cam = bpy.data.cameras.new("cam")
 cam.type = "ORTHO"
@@ -1814,12 +1868,16 @@ def gescheiden(a, b):
 def sorteer_voor():
     """Zet in de collectie 'voor' wat de live woning kan overlappen.
 
-    De camera kijkt van +x, +y en +z. Een object dat helemaal rechts van de woning
+    Rechtsvoor kijkt de camera van +x, +y en +z. Een object dat helemaal rechts van de woning
     (x > w + T) of vóór haar voorgevel (z > F) staat, kan nooit achter haar zitten:
     elke kijkstraal naar de camera blijft aan die kant van het gevelvlak. Staat zo'n
     object op het scherm over de woning, dan hoort het in de voorlaag. Wat plat op
     de grond ligt (oprit, gazon) kan de woning niet bedekken en blijft achter, anders
-    zou de voorlaag de live schaduw van de woning op de oprit overschilderen."""
+    zou de voorlaag de live schaduw van de woning op de oprit overschilderen.
+
+    Bij een andere HOEK geldt hetzelfde aan de kant van die camera (SX, SZ): links van
+    de woning (x < -T) en/of achter haar achtergevel (z < -T), dus de achtertuin, het
+    tuinhuis, de achterhaag en de buurwoning aan die kant."""
     hoog = 4 * FH + 4.2 + 1.2  # hoogste live woning: vier bouwlagen plus nok en schouw
     if APP:
         hoog = BOUWLAGEN * FH + 0.5  # plat dak met dakrand
@@ -1834,7 +1892,7 @@ def sorteer_voor():
     dg = bpy.context.evaluated_depsgraph_get()
     n = 0
     for o in list(col_achter.objects):
-        if o.type != "MESH" or o.hide_render:
+        if o.type != "MESH" or o.hide_render or o.name.startswith("draad"):
             continue
         ev = o.evaluated_get(dg)
         pts = [ev.matrix_world @ Vector(c) for c in ev.bound_box]
@@ -1846,7 +1904,9 @@ def sorteer_voor():
         # Met marge: een buur die precies tegen de zijgevel staat begint op x = W + T. Met
         # een strikte vergelijking viel zijn dak in de achterlaag en zijn puntgevel in de
         # voorlaag, en stak er een driehoek baksteen door het dak van de woning.
-        if not (min(xs) > W + T - 0.05 or min(zs_) > F - 0.05):
+        naast = min(xs) > W + T - 0.05 if SX > 0 else max(xs) < -T + 0.05
+        ervoor = min(zs_) > F - 0.05 if SZ > 0 else max(zs_) < -T + 0.05
+        if not (naast or ervoor):
             continue
         u0, u1, v0, v1 = scherm(pts)
         if u1 < hu0 or u0 > hu1 or v1 < hv0 or v0 > hv1:
