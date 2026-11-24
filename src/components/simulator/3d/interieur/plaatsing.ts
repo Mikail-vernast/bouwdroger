@@ -18,7 +18,7 @@
     - wat niet past, komt er niet: liever een lege hoek dan een kast door een deur.
 */
 import type { Kamer, Opening, Raam, Trap, Wand } from "@/lib/droogSimulator";
-import { aanloopVak, bordesVak, doorgangVak, overlapt, trapVak, type Vak, zwaaiVak } from "@/lib/droogSimulator";
+import { aanloopVak, bordesVak, doorgangVak, overlapt, trapVak, type Vak, voorDeurVak, zwaaiVak } from "@/lib/droogSimulator";
 
 /* ───────────── het manifest ───────────── */
 
@@ -174,14 +174,23 @@ export interface KamerPalet {
 function kaartVoor(k: Kamer, ctx: LaagContext): Kaart {
   const kaart = new Kaart(k, { x0: k.x, x1: k.x + k.w, z0: k.z, z1: k.z + k.l });
   const rand = kaart.vloer;
+  // In een toilet van 1 × 1,5 m is er na de draaicirkel geen 30 cm over: daar alleen de deur zelf.
+  const ruim = k.w * k.l > 3;
   for (const o of ctx.openingen) {
     if (o.soort === "deur") {
       const zw = zwaaiVak(o);
       // De deur en een strook van 30 cm erachter, om binnen te lopen.
+      const e = ruim ? 0.3 : 0;
       const breed = o.as === "x"
-        ? { ...zw, z0: o.kant > 0 ? zw.z0 : zw.z0 - 0.3, z1: o.kant > 0 ? zw.z1 + 0.3 : zw.z1 }
-        : { ...zw, x0: o.kant > 0 ? zw.x0 : zw.x0 - 0.3, x1: o.kant > 0 ? zw.x1 + 0.3 : zw.x1 };
+        ? { ...zw, z0: o.kant > 0 ? zw.z0 : zw.z0 - e, z1: o.kant > 0 ? zw.z1 + e : zw.z1 }
+        : { ...zw, x0: o.kant > 0 ? zw.x0 : zw.x0 - e, x1: o.kant > 0 ? zw.x1 + e : zw.x1 };
       if (overlapt(breed, rand)) kaart.hard.push({ vak: breed, max: 0 });
+      // In hal en gang: de vloer voor de deur blijft vrij, anders loop je ertegen.
+      const voor = voorDeurVak(o, 0.9);
+      if (k.soort === "circulatie" && overlapt(voor, rand)) kaart.hard.push({ vak: voor, max: 0 });
+    } else if (o.soort === "voordeur") {
+      const binnen: Vak = { x0: o.van - 0.2, x1: o.tot + 0.2, z0: o.vast - 1.2, z1: o.vast };
+      if (overlapt(binnen, rand)) kaart.hard.push({ vak: binnen, max: 0 });
     } else if (o.soort === "open") {
       const v = doorgangVak(o, 0.9);
       if (overlapt(v, rand)) kaart.hard.push({ vak: v, max: 0 });
@@ -224,6 +233,8 @@ function tegenMuur(P: Plaatser, m: Muur, naam: string, u: number, opt: { sx?: nu
     ...(vz > 0 ? [vakOp(m, u - b / 2 - vz, u - b / 2, n0, n0 + d), vakOp(m, u + b / 2, u + b / 2 + vz, n0, n0 + d)] : []),
   ];
   const top = (o.boven ?? 0) + o.h;
+  // In hal, gang en overloop blijft er altijd een looppad van 85 cm.
+  if (P.kaart.kamer.soort === "circulatie" && !(opt.plat ?? o.plat) && m.D - (n0 + d) < 0.85) return null;
   if (!P.kaart.kan(vak, top, vrij, opt.plat ?? o.plat)) return null;
   P.kaart.zet(vak, vrij, opt.plat ?? o.plat);
   // De oorsprong ligt midden-achteraan: op u, tegen het muurvlak.
@@ -341,6 +352,8 @@ function leefruimte(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet, ac
 
 function hoekplant(P: Plaatser, k: Kamer) {
   const r = 0.3;
+  // In een smalle hal of gang zou de plant het looppad versperren.
+  if (k.soort === "circulatie" && Math.min(k.w, k.l) - 2 * r - 0.05 < 0.85) return;
   for (const [cx, cz] of [[k.x + r + 0.05, k.z + r + 0.05], [k.x + k.w - r - 0.05, k.z + r + 0.05], [k.x + r + 0.05, k.z + k.l - r - 0.05], [k.x + k.w - r - 0.05, k.z + k.l - r - 0.05]]) {
     if (vrijStaand(P, "leefruimte_plant_groot", cx, cz, 0)) return;
   }
@@ -525,6 +538,102 @@ function bureau(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet, accent
   hoekplant(P, k);
 }
 
+/** Plekken van de uiteinden van een muur naar het midden: bad en douche staan in een hoek. */
+function aanEinde(P: Plaatser, m: Muur, naam: string, opt: Parameters<typeof tegenMuur>[4] = {}): { stuk: Stuk; m: Muur; u: number } | null {
+  const b = P.obj(naam).b * (opt.sx ?? 1);
+  for (let s = 0; s <= m.L / 2; s += 0.05) {
+    for (const u of [b / 2 + 0.02 + s, m.L - b / 2 - 0.02 - s]) {
+      if (u - b / 2 < 0.01 || u + b / 2 > m.L - 0.01) continue;
+      const st = tegenMuur(P, m, naam, u, opt);
+      if (st) return { stuk: st, m, u };
+    }
+  }
+  return null;
+}
+
+function eersteVrijeMuur(k: Kamer, ctx: LaagContext): Muur[] {
+  // De muur van de vaste inrichting (het plan houdt hem vrij van ramen en deuren) eerst.
+  const muren = murenVan(k, ctx).sort((a, b) => b.L - a.L);
+  return k.inrichting ? [muurVan(k, k.inrichting, ctx.w, ctx.l), ...muren.filter((m) => m.wand !== k.inrichting)] : muren;
+}
+
+/**
+ * Badkamer: een inloopdouche met glaswand tegen een hoge muur (het glas is 2 m
+ * hoog), anders een ingebouwd bad; een badmeubel met spiegel erboven, een
+ * hangtoilet, een handdoekradiator en een badmat.
+ */
+function badkamer(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet) {
+  const muren = eersteVrijeMuur(k, ctx);
+  let nat: { stuk: Stuk; m: Muur; u: number } | null = null;
+  for (const m of muren) {
+    nat = (m.hoog ? aanEinde(P, m, "badkamer_douche_120") : null) ?? aanEinde(P, m, "badkamer_bad_170");
+    if (nat) break;
+  }
+  const meubel = langsMuren(P, muren, "badkamer_badmeubel_100", { kleur: { eik: pal.hout ?? "" } }) ?? langsMuren(P, muren, "badkamer_badmeubel_70", { kleur: { eik: pal.hout ?? "" } });
+  if (meubel?.m.hoog) {
+    const [x, z] = meubel.m.p(meubel.u, meubel.m.n0);
+    erbij(P, meubel.m, "badkamer_spiegel_80", x, z, meubel.m.rot);
+  }
+  langsMuren(P, muren, "algemeen_hangtoilet");
+  langsMuren(P, muren.filter((m) => m.hoog), "badkamer_radiator");
+  if (nat) {
+    const o = P.obj(nat.stuk.naam);
+    const [x, z] = nat.m.p(nat.u, nat.m.n0 + o.d + 0.32);
+    const mat = P.obj("slaapkamer_kleed");
+    vrijStaand(P, "slaapkamer_kleed", x, z, nat.m.rot, { sx: 0.8 / mat.b, sz: 0.5 / mat.d, plat: true, kleur: { kleed: pal.textiel.kleed ?? "", kleed_rand: pal.textiel.kleed ?? "" } });
+  }
+}
+
+function toilet(P: Plaatser, k: Kamer, ctx: LaagContext) {
+  const muren = eersteVrijeMuur(k, ctx);
+  // In een toilet van 1 × 1,5 m draait de deur tot vlak voor de pot: de pot zelf blijft uit
+  // de draaicirkel, maar een vrije zone ervoor zou er altijd in vallen en het toilet leeg laten.
+  langsMuren(P, muren, "algemeen_hangtoilet", { zonderVrij: true });
+  langsMuren(P, muren, "toilet_fonteintje", { vrijVoor: 0.1 });
+}
+
+/** Wasplaats en berging: wasmachine en droogkast naast elkaar, een rek met dozen, een wasmand. */
+function wasplaats(P: Plaatser, k: Kamer, ctx: LaagContext) {
+  const muren = eersteVrijeMuur(k, ctx);
+  if (k.naam === "Wasplaats") {
+    const was = langsMuren(P, muren, "wasplaats_wasmachine");
+    if (was) {
+      const naast = tegenMuur(P, was.m, "wasplaats_droogkast", was.u + 0.62, { zonderVrij: true }) ?? tegenMuur(P, was.m, "wasplaats_droogkast", was.u - 0.62, { zonderVrij: true });
+      void naast;
+    }
+  }
+  langsMuren(P, muren.filter((m) => m.hoog), "wasplaats_rek_100");
+  if (k.naam === "Berging") langsMuren(P, muren.filter((m) => m.hoog), "wasplaats_rek_100");
+  for (const [fx, fz] of [[0.3, 0.3], [0.7, 0.3], [0.3, 0.7], [0.7, 0.7]]) {
+    if (vrijStaand(P, "wasplaats_wasmand", k.x + k.w * fx, k.z + k.l * fz, 0)) break;
+  }
+}
+
+/**
+ * Hal en vestiaire: een kapstok met jassen tegen een hoge muur, een lage
+ * schoenkast met een spiegel erboven, een loper en een plant. Gang en
+ * overloop: een plant, als er een hoek vrij is. Het looppad blijft 85 cm.
+ */
+function circulatie(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet) {
+  const muren = murenVan(k, ctx).sort((a, b) => b.L - a.L);
+  if (k.naam === "Hal" || k.naam === "Vestiaire") {
+    langsMuren(P, muren.filter((m) => m.hoog), "hal_kapstok_100");
+    const kast = langsMuren(P, muren, "hal_schoenkast_100", { kleur: { eik: pal.hout ?? "", stof: pal.textiel.stof ?? "" } });
+    if (kast?.m.hoog) {
+      const [x, z] = kast.m.p(kast.u, kast.m.n0);
+      erbij(P, kast.m, "hal_spiegel_rond", x, z, kast.m.rot);
+    }
+    // Loper in de lengte van de hal, als hij past zonder de deuren te raken.
+    const lang = k.l >= k.w;
+    const loper = P.obj("hal_loper");
+    const lengte = Math.min(2.4, (lang ? k.l : k.w) - 1.4);
+    if (lengte > 1 && Math.min(k.w, k.l) >= 1.1) {
+      vrijStaand(P, "hal_loper", k.x + k.w / 2, k.z + k.l / 2, lang ? 0 : Math.PI / 2, { sx: Math.min(0.8, Math.min(k.w, k.l) - 0.3) / loper.b, sz: lengte / loper.d, plat: true, kleur: { kleed: pal.textiel.kleed ?? "", kleed_rand: pal.textiel.kleed_rand ?? "" } });
+    }
+  }
+  if (k.w * k.l > 4) hoekplant(P, k);
+}
+
 function kleerkast(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet) {
   const hoog = murenVan(k, ctx).filter((m) => m.hoog);
   for (const naam of ["slaapkamer_kleerkast_150", "slaapkamer_kleerkast_100"]) {
@@ -570,7 +679,7 @@ function gordijnen(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet) {
 /* ───────────── de laag ───────────── */
 
 /** Kamers die in deze versie van de kit ingericht worden. */
-export const INGERICHTE_KAMERS = new Set(["Leefruimte", "Keuken", "Slaapkamer", "Bureau"]);
+export const INGERICHTE_KAMERS = new Set(["Leefruimte", "Keuken", "Slaapkamer", "Bureau", "Badkamer", "Toilet", "Wasplaats", "Berging", "Hal", "Vestiaire", "Gang", "Overloop"]);
 
 /**
  * De inrichting van één bouwlaag: losse meubels per kamer, en in elke
@@ -591,12 +700,16 @@ export function richLaagIn(ctx: LaagContext): LaagInrichting {
   const slaapkamers = ctx.laag.filter((k) => k.naam === "Slaapkamer").sort((a, b) => b.w * b.l - a.w * a.l);
 
   for (const k of ctx.laag) {
-    if (k.soort === "circulatie" || !INGERICHTE_KAMERS.has(k.naam)) continue;
+    if (!INGERICHTE_KAMERS.has(k.naam)) continue;
     const P: Plaatser = { ctx, kaart: kaartVoor(k, ctx), stukken: [], obj };
     const pal = ctx.palet(k);
     if (k.naam === "Leefruimte") leefruimte(P, k, ctx, pal, accent, !heeftKeuken || (k.w * k.l > 26 && !grooteKeuken));
     else if (k.naam === "Keuken") keuken(P, k, ctx, pal, accent);
     else if (k.naam === "Bureau") bureau(P, k, ctx, pal, accent);
+    else if (k.naam === "Badkamer") badkamer(P, k, ctx, pal);
+    else if (k.naam === "Toilet") toilet(P, k, ctx);
+    else if (k.naam === "Wasplaats" || k.naam === "Berging") wasplaats(P, k, ctx);
+    else if (k.soort === "circulatie") circulatie(P, k, ctx, pal);
     else if (k.naam === "Slaapkamer") slaapkamer(P, k, ctx, pal, accent, slaapkamers.indexOf(k) > 0 && k.w * k.l < 12);
     gordijnen(P, k, ctx, pal);
     stukken.push(...P.stukken);

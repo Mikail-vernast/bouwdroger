@@ -75,6 +75,13 @@ MATERIALEN = {
     'lampkap':     ('#f4ead8', 0.8, 0.0, '#ffcf8a'),  # licht: brandt warm
     'lamp':        ('#fff2d6', 0.4, 0.0, '#ffd9a0'),
     'spiegel':     ('#c9d2d6', 0.03, 1.0, None),
+    'glas':        ('#dfe9ec', 0.05, 0.0, None),   # douchewand: de app tekent hem doorschijnend
+    'tegel':       ('#dcd5ca', 0.3, 0.0, None),    # betegelde badombouw
+    'handdoek':    ('#e9dfd0', 0.95, 0.0, None),
+    'jas_1':       ('#4a5560', 0.9, 0.0, None),
+    'jas_2':       ('#a0714c', 0.9, 0.0, None),
+    'jas_3':       ('#c9c0ae', 0.9, 0.0, None),
+    'karton':      ('#c4a47c', 0.9, 0.0, None),
 }
 _mats = {}
 
@@ -687,6 +694,177 @@ def archiefkast(B=1.2):
     klaar(f'bureau_archiefkast_{round(B * 100)}', meta(voor=0.6, kleurbaar=('eik',)))
 
 
+# ── badkamer, toilet, wasplaats ─────────────────────────────────────
+
+def hangtoilet(naam='algemeen_hangtoilet'):
+    """Hangtoilet: pot vrij van de vloer, inbouwreservoir met drukplaat, toiletrol aan de muur."""
+    doos('keramiek', -0.18, 0.18, -0.54, -0.02, 0.3, 0.42, r=0.07, seg=3)
+    doos('keramiek', -0.19, 0.19, -0.56, -0.02, 0.42, 0.45, r=0.05, seg=3)
+    doos('keramiek', -0.12, 0.12, -0.16, 0, 0.18, 0.32, r=0.03)
+    doos('keramiek', -0.12, 0.12, -0.012, 0, 0.95, 1.1, r=0.008)          # drukplaat
+    doos('zwart', -0.03, 0.03, -0.016, -0.012, 1.0, 1.05, r=0.004)
+    buis('zwart', (0.32, -0.02, 0.7), (0.32, -0.12, 0.7), r=0.006, seg=6)
+    cil('linnen', 0.32, -0.08, 0.64, 0.76, 0.055, seg=14)
+    klaar(naam, meta(voor=0.6, zij=0.2))
+
+
+def fonteintje():
+    doos('keramiek', -0.2, 0.2, -0.24, 0, 0.78, 0.86, r=0.03, seg=3)
+    doos('zwart_glas', -0.15, 0.15, -0.2, -0.05, 0.86, 0.862)
+    buis('inox', (0, -0.03, 0.86), (0, -0.03, 0.98), r=0.01)
+    buis('inox', (0, -0.03, 0.98), (0, -0.12, 0.96), r=0.009)
+    buis('inox', (0.08, -0.12, 0.8), (0.08, -0.03, 0.8), r=0.004)
+    klaar('toilet_fonteintje', meta(voor=0.5))
+
+
+def badmeubel(B):
+    D = 0.48
+    doos('eik', -B / 2, B / 2, -D, 0, 0.3, 0.82, r=0.006)
+    doos('eik_donker', -B / 2 + 0.02, B / 2 - 0.02, -D - 0.002, -D + 0.005, 0.555, 0.56)
+    doos('keramiek', -B / 2, B / 2, -D - 0.01, 0, 0.82, 0.86, r=0.008)
+    cil('keramiek', 0, -0.25, 0.86, 0.87, 0.2 if B > 0.8 else 0.16, seg=24)
+    cil('zwart_glas', 0, -0.25, 0.862, 0.872, 0.17 if B > 0.8 else 0.13, seg=24)
+    buis('zwart', (0, -0.04, 0.86), (0, -0.04, 1.06), r=0.012)
+    buis('zwart', (0, -0.04, 1.06), (0, -0.16, 1.04), r=0.01)
+    cil('keramiek', B / 2 - 0.1, -0.12, 0.86, 0.96, 0.03, seg=10)            # zeeppompje
+    doos('handdoek', -B / 2 + 0.05, -B / 2 + 0.25, -0.3, -0.1, 0.86, 0.92, r=0.02)
+    klaar(f'badkamer_badmeubel_{round(B * 100)}', meta(voor=0.7, kleurbaar=('eik',)))
+
+
+def badspiegel():
+    doos('zwart', -0.4, 0.4, -0.025, 0, 1.15, 1.85, r=0.01)
+    doos('spiegel', -0.385, 0.385, -0.03, -0.024, 1.165, 1.835)
+    doos('lamp', -0.3, 0.3, -0.05, -0.02, 1.88, 1.9)
+    klaar('badkamer_spiegel_80', meta(hoog=True, boven=1.15))
+
+
+def douche():
+    """Inloopdouche van 120 × 90: tegelvloer, glaswand over 80 cm, regendouche en mengkraan."""
+    B, D = 1.2, 0.9
+    doos('tegel', -B / 2, B / 2, -D, 0, 0, 0.02)
+    doos('zwart', -0.3, 0.3, -0.5, -0.46, 0.02, 0.023)                       # douchegoot
+    doos('glas', -B / 2 + 0.4, B / 2, -D, -D + 0.01, 0.02, 2.0)
+    doos('zwart', -B / 2 + 0.4, B / 2, -D - 0.005, -D + 0.015, 1.98, 2.02)
+    doos('zwart', B / 2 - 0.02, B / 2, -D - 0.005, -D + 0.015, 0.02, 2.0)
+    buis('zwart', (0, -0.02, 1.0), (0, -0.02, 2.15), r=0.012)
+    buis('zwart', (0, -0.02, 2.15), (0, -0.3, 2.15), r=0.01)
+    cil('zwart', 0, -0.3, 2.12, 2.14, 0.12, seg=20)
+    doos('zwart', -0.1, 0.1, -0.05, 0, 1.0, 1.08, r=0.01)
+    klaar('badkamer_douche_120', meta(hoog=True, voor=0.6))
+
+
+def bad():
+    """Ingebouwd bad van 170 × 75 met betegelde ombouw en een kraan op de rand."""
+    B, D, H = 1.7, 0.75, 0.58
+    doos('tegel', -B / 2, B / 2, -D, 0, 0, H - 0.03)
+    # Rand als vier stroken rond de kuip, zodat je erin kijkt.
+    rr = 0.08
+    for x0, x1, y0, y1 in ((-B / 2, B / 2, -D, -D + rr), (-B / 2, B / 2, -rr, 0), (-B / 2, -B / 2 + rr, -D, 0), (B / 2 - rr, B / 2, -D, 0)):
+        doos('keramiek', x0, x1, y0, y1, H - 0.03, H, r=0.008)
+    doos('keramiek', -B / 2 + rr, B / 2 - rr, -D + rr, -rr, H - 0.4, H - 0.38)
+    doos('glas', -B / 2 + rr, B / 2 - rr, -D + rr, -rr, H - 0.12, H - 0.11)
+    buis('zwart', (B / 2 - 0.25, -0.04, H), (B / 2 - 0.25, -0.04, H + 0.18), r=0.012)
+    buis('zwart', (B / 2 - 0.25, -0.04, H + 0.18), (B / 2 - 0.25, -0.16, H + 0.16), r=0.01)
+    doos('handdoek', -B / 2 + 0.1, -B / 2 + 0.4, -D - 0.02, -D + 0.05, H - 0.25, H + 0.005)
+    klaar('badkamer_bad_170', meta(voor=0.6))
+
+
+def radiator():
+    for z in [0.15 + i * 0.07 for i in range(14)]:
+        doos('wit_kast', -0.25, 0.25, -0.08, -0.06, z, z + 0.035, r=0.008)
+    for x in (-0.24, 0.24):
+        doos('wit_kast', x - 0.012, x + 0.012, -0.09, -0.05, 0.12, 1.15)
+    doos('handdoek', -0.22, 0.22, -0.12, -0.04, 0.55, 1.02, r=0.02)
+    klaar('badkamer_radiator', meta(hoog=True, voor=0.3))
+
+
+def wasmachine(naam, droog=False):
+    doos('keramiek', -0.3, 0.3, -0.6, 0, 0.0, 0.85, r=0.02)
+    bm = bmesh.new()
+    bmesh.ops.create_cone(bm, cap_ends=True, segments=28, radius1=0.17, radius2=0.17, depth=0.03)
+    bmesh.ops.rotate(bm, verts=bm.verts, cent=(0, 0, 0), matrix=Matrix.Rotation(math.pi / 2, 3, 'X'))
+    for v in bm.verts:
+        v.co += Vector((0, -0.605, 0.42))
+    _ob(bm, 'zwart_glas' if not droog else 'inox')
+    doos('zwart', -0.28, 0.28, -0.605, -0.6, 0.74, 0.82)
+    for i in range(3):
+        cil('inox', -0.2 + i * 0.06, -0.612, 0.77, 0.79, 0.012, seg=8)
+    klaar(naam, meta(voor=0.8))
+
+
+def wasrek(B=1.0):
+    """Open metalen rek met dozen, wasmiddel en handdoeken."""
+    D, H = 0.4, 1.8
+    for x in (-B / 2 + 0.02, B / 2 - 0.02):
+        for y in (-D + 0.02, -0.02):
+            doos('zwart', x - 0.012, x + 0.012, y - 0.012, y + 0.012, 0, H)
+    rnd = random.Random(4)
+    for z in (0.1, 0.55, 1.0, 1.45, H - 0.03):
+        doos('eik', -B / 2, B / 2, -D, 0, z, z + 0.02)
+        if z > H - 0.1:
+            continue
+        x = -B / 2 + 0.05
+        while x < B / 2 - 0.2:
+            b = rnd.uniform(0.22, 0.36)
+            if rnd.random() < 0.6:
+                doos('karton', x, x + b, -D + 0.04, -0.04, z + 0.02, z + 0.02 + rnd.uniform(0.18, 0.3), r=0.004)
+            else:
+                doos('handdoek', x, x + b, -D + 0.06, -0.06, z + 0.02, z + 0.14, r=0.02)
+            x += b + 0.04
+    klaar(f'wasplaats_rek_{round(B * 100)}', meta(hoog=True, voor=0.6))
+
+
+def wasmand():
+    cil('eik', 0, -0.22, 0, 0.5, 0.2, seg=18, r2=0.22, dicht=False)
+    cil('eik', 0, -0.22, 0, 0.02, 0.2, seg=18)
+    doos('handdoek', -0.15, 0.12, -0.38, -0.08, 0.42, 0.55, r=0.04)
+    klaar('wasplaats_wasmand', meta(muur=False))
+
+
+# ── hal ─────────────────────────────────────────────────────────────
+
+def kapstok(B=1.0):
+    """Kapstok: een eiken plank met haken, jassen en een tas eraan, schoenen eronder."""
+    doos('eik', -B / 2, B / 2, -0.04, 0, 1.6, 1.75, r=0.006)
+    doos('eik', -B / 2, B / 2, -0.28, 0, 1.75, 1.77, r=0.004)
+    for i, (x, m) in enumerate(((-0.3, 'jas_1'), (-0.05, 'jas_2'), (0.22, 'jas_3'))):
+        buis('zwart', (x, -0.02, 1.66), (x, -0.08, 1.68), r=0.008, seg=6)
+        kussen(m, x - 0.2, x + 0.2, -0.2, -0.05, 0.85, 1.66, r=0.06)
+    doos('leder', 0.32, 0.46, -0.16, -0.06, 1.2, 1.5, r=0.03)
+    for x in (-0.35, -0.2, 0.05, 0.2):
+        doos('zwart', x - 0.05, x + 0.05, -0.3, -0.04, 0, 0.09, r=0.03)
+    klaar(f'hal_kapstok_{round(B * 100)}', meta(hoog=True, voor=0.4))
+
+
+def schoenkast(B=1.0):
+    """Lage schoenkast in eik met een bankkussen erop: schoenen aan en uit, onder de 1,1 m."""
+    D, H = 0.35, 0.48
+    doos('eik', -B / 2, B / 2, -D, 0, 0.06, H, r=0.006)
+    doos('zwart', -B / 2 + 0.03, B / 2 - 0.03, -D + 0.03, -0.03, 0, 0.06)
+    for i in range(1, 3):
+        x = -B / 2 + B * i / 3
+        doos('eik_donker', x - 0.003, x + 0.003, -D - 0.002, -D + 0.005, 0.1, H - 0.04)
+    kussen('stof', -B / 2 + 0.02, 0.15, -D + 0.02, -0.02, H, H + 0.07, r=0.03)
+    doos('keramiek', 0.25, 0.42, -0.25, -0.08, H, H + 0.06, r=0.02)          # sleutelschaaltje
+    klaar(f'hal_schoenkast_{round(B * 100)}', meta(voor=0.4, kleurbaar=('eik', 'stof')))
+
+
+def halspiegel():
+    bm = bmesh.new()
+    bmesh.ops.create_cone(bm, cap_ends=True, segments=32, radius1=0.3, radius2=0.3, depth=0.025)
+    bmesh.ops.rotate(bm, verts=bm.verts, cent=(0, 0, 0), matrix=Matrix.Rotation(math.pi / 2, 3, 'X'))
+    for v in bm.verts:
+        v.co += Vector((0, -0.013, 1.5))
+    _ob(bm, 'messing')
+    bm = bmesh.new()
+    bmesh.ops.create_cone(bm, cap_ends=True, segments=32, radius1=0.28, radius2=0.28, depth=0.004)
+    bmesh.ops.rotate(bm, verts=bm.verts, cent=(0, 0, 0), matrix=Matrix.Rotation(math.pi / 2, 3, 'X'))
+    for v in bm.verts:
+        v.co += Vector((0, -0.027, 1.5))
+    _ob(bm, 'spiegel')
+    klaar('hal_spiegel_rond', meta(hoog=True, boven=1.2))
+
+
 # ── overal ──────────────────────────────────────────────────────────
 
 def gordijn():
@@ -789,6 +967,22 @@ MAKERS = [
     ('bureau_bureau_120', lambda: bureau(1.2)),
     ('bureau_stoel', bureaustoel),
     ('bureau_archiefkast_120', lambda: archiefkast(1.2)),
+    ('algemeen_hangtoilet', hangtoilet),
+    ('toilet_fonteintje', fonteintje),
+    ('badkamer_badmeubel_100', lambda: badmeubel(1.0)),
+    ('badkamer_badmeubel_70', lambda: badmeubel(0.7)),
+    ('badkamer_spiegel_80', badspiegel),
+    ('badkamer_douche_120', douche),
+    ('badkamer_bad_170', bad),
+    ('badkamer_radiator', radiator),
+    ('wasplaats_wasmachine', lambda: wasmachine('wasplaats_wasmachine')),
+    ('wasplaats_droogkast', lambda: wasmachine('wasplaats_droogkast', True)),
+    ('wasplaats_rek_100', lambda: wasrek(1.0)),
+    ('wasplaats_wasmand', wasmand),
+    ('hal_kapstok_100', lambda: kapstok(1.0)),
+    ('hal_schoenkast_100', lambda: schoenkast(1.0)),
+    ('hal_spiegel_rond', halspiegel),
+    ('hal_loper', lambda: vloerkleed('hal_loper', 0.8, 2.4, 0.06)),
     ('algemeen_gordijn', gordijn),
     ('algemeen_gordijnrail', gordijnrail),
     ('algemeen_deur_85', lambda: deur(0.85)),

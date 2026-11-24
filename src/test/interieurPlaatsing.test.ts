@@ -12,7 +12,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   BREEDTES, MAX_KAMERS, MAX_VERDIEPINGEN, WONING, laagSoort, planVoor, programmaVan, maxKamers,
-  aanloopVak, bordesVak, doorgangVak, trapVak, zwaaiVak, type Vak, type Woning,
+  aanloopVak, bordesVak, doorgangVak, trapVak, voorDeurVak, zwaaiVak, type Vak, type Woning,
 } from "../lib/droogSimulator";
 import { richLaagIn, INGERICHTE_KAMERS, type Manifest } from "../components/simulator/3d/interieur/plaatsing";
 import { afwerkingVoor } from "../components/simulator/3d/interieur/palet";
@@ -36,7 +36,7 @@ function* plannen() {
 describe("interieur: plaatsing", () => {
   it("zet niets in de weg, en hoge kasten alleen tegen een hoge muur", { timeout: 120_000 }, () => {
     const fouten = new Map<string, string>();
-    const tel = { leef: 0, zetel: 0, slaap: 0, bed: 0, keuken: 0, blok: 0, bureau: 0, bureaublad: 0 };
+    const tel = { leef: 0, zetel: 0, slaap: 0, bed: 0, keuken: 0, blok: 0, bureau: 0, bureaublad: 0, bad: 0, badNat: 0, wc: 0, wcPot: 0 };
     for (const { woning, b: w, dak, lagen, plan } of plannen()) {
       const { l } = WONING[woning];
       const afw = afwerkingVoor(plan.kamers);
@@ -57,6 +57,8 @@ describe("interieur: plaatsing", () => {
           const hier = ins.stukken.filter((s) => s.kamer === k.id);
           if (k.naam === "Leefruimte") { tel.leef++; if (hier.some((s) => s.naam.startsWith("leefruimte_zetel"))) tel.zetel++; }
           if (k.naam === "Slaapkamer") { tel.slaap++; if (hier.some((s) => s.naam.startsWith("slaapkamer_bed"))) tel.bed++; }
+          if (k.naam === "Badkamer") { tel.bad++; if (hier.some((s) => s.naam === "badkamer_douche_120" || s.naam === "badkamer_bad_170")) tel.badNat++; }
+          if (k.naam === "Toilet") { tel.wc++; if (hier.some((s) => s.naam === "algemeen_hangtoilet")) tel.wcPot++; }
           if (k.naam === "Bureau") { tel.bureau++; if (hier.some((s) => s.naam.startsWith("bureau_bureau"))) tel.bureaublad++; }
           if (k.naam === "Keuken") { tel.keuken++; if (hier.some((s) => s.naam === "keuken_werkblad")) tel.blok++; }
           const kv: Vak = { x0: k.x, x1: k.x + k.w, z0: k.z, z1: k.z + k.l };
@@ -71,6 +73,12 @@ describe("interieur: plaatsing", () => {
             if (!s.vak) continue;
             if (s.vak.x0 < kv.x0 - E || s.vak.x1 > kv.x1 + E || s.vak.z0 < kv.z0 - E || s.vak.z1 > kv.z1 + E) fout(`${s.naam} steekt door de muur van de ${k.naam.toLowerCase()}`);
             if (hinder.some((h) => snijdt(s.vak!, h))) fout(`${s.naam} staat in een deur, doorgang of op de trap`);
+            // In hal en gang: niets op de vloer voor een deur, en een looppad van 85 cm.
+            if (k.soort === "circulatie" && !o.plat) {
+              if (openingen.some((op) => op.soort === "deur" && snijdt(s.vak!, voorDeurVak(op, 0.8)))) fout(`${s.naam} staat voor een deur in de ${k.naam.toLowerCase()}`);
+              const vrij = Math.max(s.vak.x0 - kv.x0, kv.x1 - s.vak.x1, s.vak.z0 - kv.z0, kv.z1 - s.vak.z1);
+              if (Math.min(k.w, k.l) - Math.min(s.vak.x1 - s.vak.x0, s.vak.z1 - s.vak.z0) < 0.85 - E && vrij < 0.85) fout(`${s.naam} versmalt de ${k.naam.toLowerCase()} tot onder 85 cm`);
+            }
             for (const r of ramen.filter((rr) => rr.kamer === k.id)) {
               const diep = r.soort === "raamdeur" ? 0.6 : 0.25;
               const rv: Vak = r.gevel === "voor" ? { x0: r.van, x1: r.tot, z0: l - diep, z1: l } : r.gevel === "achter" ? { x0: r.van, x1: r.tot, z0: 0, z1: diep }
@@ -93,6 +101,8 @@ describe("interieur: plaatsing", () => {
     // Wat de kamer herkenbaar maakt, staat er bijna altijd.
     expect(tel.bed / tel.slaap, `bed in ${tel.bed}/${tel.slaap} slaapkamers`).toBeGreaterThan(0.95);
     expect(tel.zetel / tel.leef, `zetel in ${tel.zetel}/${tel.leef} leefruimtes`).toBeGreaterThan(0.9);
+    expect(tel.badNat / tel.bad, `douche of bad in ${tel.badNat}/${tel.bad} badkamers`).toBeGreaterThan(0.9);
+    expect(tel.wcPot / tel.wc, `toilet in ${tel.wcPot}/${tel.wc} toiletten`).toBeGreaterThan(0.95);
     expect(tel.bureaublad / tel.bureau, `bureau in ${tel.bureaublad}/${tel.bureau} bureaus`).toBeGreaterThan(0.9);
     expect(tel.blok / tel.keuken, `keukenblok in ${tel.blok}/${tel.keuken} keukens`).toBeGreaterThan(0.9);
   });

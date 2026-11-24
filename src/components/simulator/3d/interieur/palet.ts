@@ -116,7 +116,8 @@ function textiel(k: Kamer, accent: Accent, nr: number): KamerPalet {
     case "Keuken":
       return { textiel: { stof: "#d9cdb9", gordijn: "#cdbca4" }, hout: "#b78a5c", front: meng(a, "#e9e5dc", 0.15) };
     default:
-      return { textiel: { gordijn: "#cdbca4" }, hout: "#b78a5c" };
+      // Hal, gang, badkamer, wasplaats: een loper of badmat in het accent, de schoenkast in eik.
+      return { textiel: { gordijn: "#cdbca4", kleed: meng("#d9c6aa", a, 0.35), kleed_rand: meng("#8c735a", a, 0.25), stof: meng(a, "#7b6d60", 0.3) }, hout: "#b78a5c" };
   }
 }
 
