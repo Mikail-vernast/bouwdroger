@@ -19,6 +19,7 @@ import {
   kamersVoor,
   laagSoort,
   maxKamers,
+  maxKamersBijOppervlakte,
   planVoor,
   programmaVan,
   plaatsToestellen,
@@ -157,6 +158,37 @@ describe("woningBreedte", () => {
   it("geeft maatwerk de breedste stap", () => {
     expect(woningBreedte("halfopen", "custom", 2)).toBe(10);
     expect(woningBreedte("rijwoning", "custom", 1)).toBe(9);
+  });
+});
+
+describe("maxKamersBijOppervlakte", () => {
+  it("laat een kleine woning geen acht kamers hebben", () => {
+    // 40 m² over twee lagen = 20 m² per laag: twee ruimtes per laag.
+    expect(maxKamersBijOppervlakte("40", 2)).toBe(2);
+    expect(maxKamersBijOppervlakte("40", 2) * 2).toBeLessThan(8);
+  });
+
+  it("legt een gewone woning geen grens op die de gevel niet al oplegt", () => {
+    // De standaard halfopen (± 140 m², 2 lagen) houdt zijn standaardindeling.
+    for (let v = 0; v < 2; v++) {
+      expect(maxKamersBijOppervlakte("140", 2)).toBeGreaterThanOrEqual(aantalKamers(standaardProgramma("halfopen", v, 2, "zadeldak")));
+    }
+  });
+
+  it("blijft tussen MIN_KAMERS en MAX_KAMERS, en maatwerk heeft geen grens", () => {
+    for (const s of SIZE_VALUES) for (let l = 1; l <= MAX_VERDIEPINGEN; l++) {
+      const n = maxKamersBijOppervlakte(s, l);
+      expect(n).toBeGreaterThanOrEqual(MIN_KAMERS);
+      expect(n).toBeLessThanOrEqual(MAX_KAMERS);
+    }
+    expect(maxKamersBijOppervlakte("custom", 2)).toBe(MAX_KAMERS);
+  });
+
+  it("geeft een grotere oppervlakte nooit minder ruimtes", () => {
+    const maten = SIZE_VALUES.map(Number).sort((a, b) => a - b);
+    for (let i = 1; i < maten.length; i++) {
+      expect(maxKamersBijOppervlakte(String(maten[i]), 2)).toBeGreaterThanOrEqual(maxKamersBijOppervlakte(String(maten[i - 1]), 2));
+    }
   });
 });
 

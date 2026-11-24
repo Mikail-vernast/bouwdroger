@@ -17,7 +17,9 @@ import {
   faseInTaal,
   watTekst,
   woningTekst,
+  kamerNaam,
   maxKamers,
+  maxKamersBijOppervlakte,
   MAX_VERDIEPINGEN,
   MIN_KAMERS,
   LAGEN_PER_FASE,
@@ -218,9 +220,12 @@ const VerhuurSimulatorPage = () => {
   const dak = antwoorden.dak;
   // The floor area sets the facade width: a bigger house is drawn wider, not just labelled bigger.
   const breedte = woningBreedte(woning, huis.size, lagen);
-  // Wat de bezoeker koos, maar nooit meer kamers dan er op die bouwlaag passen
-  // (bv. na een wissel van open bebouwing naar rijwoning).
-  const maxPer = Array.from({ length: lagen }, (_, v) => maxKamers(woning, v, lagen, dak, breedte));
+  // Wat de bezoeker koos, maar nooit meer kamers dan er op die bouwlaag passen: naast
+  // elkaar langs de gevel (bv. na een wissel van open bebouwing naar rijwoning), en
+  // binnen de gekozen oppervlakte (40 m² over twee lagen heeft geen acht kamers).
+  const gevelMax = Array.from({ length: lagen }, (_, v) => maxKamers(woning, v, lagen, dak, breedte));
+  const oppMax = maxKamersBijOppervlakte(huis.size, lagen);
+  const maxPer = gevelMax.map((n) => Math.min(n, oppMax));
   const programma = (v: number) => {
     const p = huis.kamers[v] ?? standaardProgramma(woning, v, lagen, dak, breedte);
     return aantalKamers(p) > maxPer[v] ? programmaVan(laagSoort(woning, v, lagen, dak), maxPer[v], lagen) : p;
@@ -367,22 +372,6 @@ const VerhuurSimulatorPage = () => {
     });
   };
 
-  /**
-   * Eén kamer meer of minder op het totaal. De klik blijft op de verdieping die de tekening
-   * toont, zodat je de kamer ziet verschijnen of verdwijnen; pas als die vol (of op het minimum)
-   * is, gaat hij naar de dichtstbijzijnde verdieping die nog kan — bij erbij eerst naar boven,
-   * bij eraf eerst naar beneden. Eerder ging elke klik naar een andere verdieping en sprong de
-   * tekening bij elke klik heen en weer.
-   */
-  const zetTotaal = (d: 1 | -1) => {
-    const kan = (v: number) => (d > 0 ? aantallen[v] < maxPer[v] : aantallen[v] > MIN_KAMERS);
-    const volgorde = [verd, ...Array.from({ length: lagen }, (_, i) => i)
-      .filter((v) => v !== verd)
-      .sort((a, b) => Math.abs(a - verd) - Math.abs(b - verd) || (d > 0 ? b - a : a - b))];
-    const doel = volgorde.find(kan);
-    if (doel !== undefined) zetAantal(doel, aantallen[doel] + d);
-  };
-
   /** Dak kiezen gaat na een korte pauze vanzelf door, zodat de keuze nog even zichtbaar is. */
   const kiesDak = (d: Dak) => {
     zetDak(d);
@@ -402,8 +391,18 @@ const VerhuurSimulatorPage = () => {
   const maxLagen = woning === "appartement" ? 2 : MAX_VERDIEPINGEN;
   const maatwerk = isMaatwerk(antwoorden);
   const totaalKamers = aantallen.reduce((a, b) => a + b, 0);
-  const kanMeer = aantallen.some((n, v) => n < maxPer[v]);
-  const kanMinder = aantallen.some((n) => n > MIN_KAMERS);
+  // Staat een bouwlaag op haar maximum door de oppervlakte (niet door de gevel), dan zeggen we hoe het meer wordt.
+  const volDoorOpp = !maatwerk && aantallen.some((n, v) => n >= maxPer[v] && maxPer[v] < gevelMax[v]);
+  /** De ruimtes van een bouwlaag, kort: "Leefruimte, keuken, toilet" of "3× slaapkamer, badkamer". */
+  const ruimtesVan = (p: Programma) =>
+    Object.entries(p)
+      .map(([naam, n]) => {
+        // De zolder heet al "Zolder" in de rij; de ruimte zelf is de open zolder.
+        const k = (naam === "Zolder" ? t.openZolder : kamerNaam(naam, taal)).toLowerCase();
+        return n > 1 ? `${n}× ${k}` : k;
+      })
+      .join(", ")
+      .replace(/^\p{Ll}/u, (c) => c.toUpperCase());
   // Een appartement heeft altijd een plat dak: dan valt het dakscherm weg.
   const toonDak = deel === 0 && WONING[woning].dakToegelaten.length > 1;
   const maat = maatwerk ? `${GROOTSTE}+ m²` : `± ${s.size} m²`;
@@ -604,31 +603,13 @@ const VerhuurSimulatorPage = () => {
                     </div>
                   </div>
 
-                  <div className="ds-kaart">
-                    <div className="ds-kamers">
-                      <span>
-                        <b>{t.kamersTotaal}</b>
-                        <small>{t.kamersUitleg}</small>
-                      </span>
-                      <span className="ds-kteller">
-                        <button type="button" aria-label={t.kamerMinder} disabled={!kanMinder} onClick={() => zetTotaal(-1)}>−</button>
-                        <output aria-live="polite">{totaalKamers}</output>
-                        <button type="button" aria-label={t.kamerMeer} disabled={!kanMeer} onClick={() => zetTotaal(1)}>+</button>
-                      </span>
-                    </div>
-                  </div>
-
                   <div className="ds-kaart ds-opp">
                     <div className="ds-opp-kop">
                       <span>
                         <b>{t.vloeroppervlakte}</b>
-                        <small>
-                          {maatwerk ? t.maatwerkKlein : opIk === opSchat ? t.pastBij : (
-                            <button type="button" className="ds-opp-terug" onClick={() => setS((p) => ({ ...p, size: OPP_STAPPEN[opSchat] }))}>
-                              {t.geschat(schatting)}
-                            </button>
-                          )}
-                        </small>
+                        {/* Per bouwlaag, want dat is wat de bezoeker in de tekening ziet. Geen gevelmaat: de
+                            tekening kent maar drie breedtes, dus 40 m² zou "6,5 × 10 m" (65 m²) tonen. */}
+                        <small>{maatwerk ? t.maatwerkKlein : t.oppPerLaag(Math.round(Number(s.size) / lagen).toLocaleString(NUMBER_LOCALE[taal]))}</small>
                       </span>
                       <span className="ds-opp-getal">{maatwerk ? `${GROOTSTE}+` : s.size}<small>m²</small></span>
                     </div>
@@ -646,6 +627,40 @@ const VerhuurSimulatorPage = () => {
                       <i className="ds-opp-tick" aria-hidden="true" />
                       <span className="ds-opp-schaal" aria-hidden="true"><span>{MATEN[0]} m²</span><span>{GROOTSTE}+ m²</span></span>
                     </div>
+                    {!maatwerk && opIk !== opSchat && (
+                      <button type="button" className="ds-opp-terug" onClick={() => setS((p) => ({ ...p, size: OPP_STAPPEN[opSchat] }))}>
+                        {t.geschat(schatting)}
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="ds-kaart ds-ruimtes">
+                    <div className="ds-kaart-kop ds-kaart-kop--rij">
+                      {t.kamersPerVerdieping}
+                      <span>{t.inTotaal(totaalKamers)}</span>
+                    </div>
+                    <small className="ds-ruimtes-uitleg">{t.kamersUitleg}</small>
+                    {/* Bovenste verdieping bovenaan, zoals in het huis. Een tik op een rij toont die verdieping in de tekening. */}
+                    <ul className="ds-laagrijen">
+                      {programmas.map((p, v) => ({ p, v })).reverse().map(({ p, v }) => {
+                        const naam = verdiepingNaam(v, lagen, dak, taal);
+                        const toont = toonPlan && verd === v;
+                        return (
+                          <li key={v} className={`ds-laagrij${toont ? " on" : ""}`}>
+                            <button type="button" className="ds-laagrij-naam" aria-pressed={toont} aria-label={t.toonInTekening(naam)} onClick={() => kiesVerdieping(v)}>
+                              <b>{naam}</b>
+                              <small>{ruimtesVan(p)}</small>
+                            </button>
+                            <span className="ds-kteller">
+                              <button type="button" aria-label={t.minderKamers(naam)} disabled={aantallen[v] <= MIN_KAMERS} onClick={() => zetAantal(v, aantallen[v] - 1)}>−</button>
+                              <output aria-live="polite">{aantallen[v]}</output>
+                              <button type="button" aria-label={t.meerKamers(naam)} disabled={aantallen[v] >= maxPer[v]} onClick={() => zetAantal(v, aantallen[v] + 1)}>+</button>
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    {volDoorOpp && <small className="ds-ruimtes-hint">{t.meerRuimtes}</small>}
                   </div>
                 </>
               )}

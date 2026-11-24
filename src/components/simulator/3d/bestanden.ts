@@ -98,7 +98,7 @@ export const DIAG = typeof window !== "undefined" && new URLSearchParams(window.
 const diagStand: Record<string, string> = {};
 export function meld(sleutel: string, waarde: string): void {
   if (!DIAG) return;
-  diagStand[sleutel] = waarde;
+  diagStand[sleutel] = `${waarde} @${(performance.now() / 1000).toFixed(1)}s`;
   window.dispatchEvent(new CustomEvent("ds-diag", { detail: { ...diagStand } }));
 }
 export function diagNu(): Record<string, string> {

@@ -672,6 +672,7 @@ function Scene(props: SceneProps) {
 
   const tex = useLoader(TextureLoader, URLS);
   const texturen = useMemo(() => Object.fromEntries(TEGEL_NAMEN.map((n, i) => [n, tex[i]])) as Record<TegelNaam, Texture>, [tex]);
+  useEffect(() => meld("texturen", "binnen"), [tex]);
 
   // Filmklok: begint opnieuw bij elke verdieping (en elk nieuw pakket); zie onder.
   const film = useRef<Film>({ ...filmPlan, start: -1, vast: reduced });
