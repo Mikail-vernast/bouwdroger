@@ -794,6 +794,22 @@ export function maxKamers(woning: Woning, v: number, verdiepingen: number, dak: 
   return MIN_KAMERS;
 }
 
+/** Bewoonbare m² die één ruimte gemiddeld vraagt, toilet en berging meegerekend. */
+export const M2_PER_RUIMTE = 8;
+
+/**
+ * Hoeveel ruimtes er per bouwlaag passen bij de gekozen vloeroppervlakte. De
+ * gevel bepaalt al hoeveel kamers er naast elkaar kunnen (`maxKamers`), maar de
+ * tekening kent maar drie breedtes: zonder deze grens kreeg een woning van 40 m²
+ * over twee lagen gewoon acht kamers. Maatwerk ("custom") heeft geen grens.
+ */
+export function maxKamersBijOppervlakte(size: string, verdiepingen: number): number {
+  const m2 = Number(size);
+  if (size === "custom" || !Number.isFinite(m2) || m2 <= 0) return MAX_KAMERS;
+  const perLaag = m2 / Math.max(1, verdiepingen);
+  return Math.min(MAX_KAMERS, Math.max(MIN_KAMERS, Math.floor(perLaag / M2_PER_RUIMTE)));
+}
+
 export interface Plaatsing {
   k: DeviceKey;
   kamer: string;

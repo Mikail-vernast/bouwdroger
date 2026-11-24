@@ -1,6 +1,7 @@
 import { Component, lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import IsoHouse, { type IsoHouseProps } from "./IsoHouse";
-import { DIAG, TEXTUUR, budget3D, diagNu, meld, voorlaad } from "./3d/bestanden";
+import { DIAG, TEXTUUR, budget3D, diagNu, heeftStraat, meld, straatBeelden, voorlaad } from "./3d/bestanden";
+import { WONING } from "@/lib/droogSimulator";
 
 /*
   Kiest tussen de SVG-tekening en de 3D-woning.
@@ -96,21 +97,25 @@ export default function IsoHouseAuto(props: IsoHouseProps) {
     const budget = budget3D();
     meld("budget", budget);
     if (budget === "geen") return; // ≤ 1 GB memory: the SVG house stays
-    // Fetch the 3D chunk and textures together, not one after the other. On a
-    // fast line that starts right away; on 3G it waits for the load event, so
-    // the question photos are not slowed down. The heavy build always waits
-    // for the load plus an idle moment.
+    // Fetch the 3D chunk, the house textures and the first (mini) street picture
+    // together, not one after the other: the street used to be requested only
+    // once the 3D had been built. On a fast line that starts right away; on 3G
+    // and with data saver it waits for the load event, so the question photos
+    // are not slowed down.
     const haal = () => {
       voorlaad(Object.values(TEXTUUR), "image");
+      if (heeftStraat(props.woning)) voorlaad(straatBeelden(props.woning, props.breedte ?? WONING[props.woning].w, "mini"), "image");
       return laad3D();
     };
     let chunk = budget === "meteen" ? haal() : null;
+    chunk?.then(() => meld("chunk", "binnen"), () => {});
     let weg = () => {};
     const start = () => {
       chunk ??= haal();
       const c = chunk;
+      meld("3d", "wacht op rustig moment");
       weg = opRustigMoment(() => {
-        meld("3d", "chunk laden");
+        meld("3d", "bouwen");
         c.then(
           () => setKan3d(true),
           (e: unknown) => {
@@ -120,12 +125,18 @@ export default function IsoHouseAuto(props: IsoHouseProps) {
         );
       });
     };
-    if (document.readyState === "complete") start();
+    // On a good line the build starts at the first idle moment after hydration.
+    // It used to wait for the load event, which waits for every image on the page
+    // (the welcome popup photo, the step photos): the 3D appeared seconds after
+    // it had been downloaded.
+    if (budget === "meteen" || document.readyState === "complete") start();
     else window.addEventListener("load", start, { once: true });
     return () => {
       window.removeEventListener("load", start);
       weg();
     };
+    // Only the first house matters here: woning and breedte pick the street picture to preload.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.mini]);
 
   const toon3d = kan3d && !fout;

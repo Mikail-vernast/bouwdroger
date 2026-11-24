@@ -70,10 +70,10 @@ export interface SimCopy {
   /** "Stap" en "van" rond de cijfers in de teller bovenaan: Stap 2 van 4 */
   stapTeller: [string, string];
   dakHint: Record<Dak, string>;
-  kamersTotaal: string;
   kamersUitleg: string;
-  kamerMeer: string;
-  kamerMinder: string;
+  meerRuimtes: string;
+  /** de zolder zelf, als ruimte op de zolderverdieping */
+  openZolder: string;
   kamers: (n: number) => string;
   dak: string;
   dakAppartement: string;
@@ -88,10 +88,11 @@ export interface SimCopy {
   meerKamers: (naam: string) => string;
   vloeroppervlakte: string;
   maatwerkKlein: string;
-  pastBij: string;
   geschat: (m2: number) => string;
   meerDan: (m2: number) => string;
   tot: (m2: string) => string;
+  /** de gekozen oppervlakte gedeeld over de bouwlagen */
+  oppPerLaag: (m2: string) => string;
   /* stap 3 */
   s3Kop: string;
   s3Sub: string;
@@ -196,7 +197,7 @@ export const COPY: Copy<SimCopy> = {
       stap1: "Stap 1 · Woning",
       welkeWoning: "Welke woning droogt u?",
       stap2: "Stap 2 · Verdiepingen",
-      lagenKamers: (lagen, kamers) => `${lagen}, ${kamers} kamers`,
+      lagenKamers: (lagen, kamers) => `${lagen}, ${kamers} ruimtes`,
       stap3: "Stap 3 · Bouwfase",
       hoeVer: "Hoe ver staat de werf?",
       stap4: "Stap 4 · Materiaal",
@@ -249,10 +250,9 @@ export const COPY: Copy<SimCopy> = {
     droogsimulator: "Droogsimulator",
     stapTeller: ["Stap", "van"],
     dakHint: { zadeldak: "Schuin, met een nok", plat: "Vlak, met een dakrand", lessenaar: "Schuin, naar één kant" },
-    kamersTotaal: "Kamers in totaal",
-    kamersUitleg: "Zonder gang, toilet en berging",
-    kamerMeer: "Eén kamer meer",
-    kamerMinder: "Eén kamer minder",
+    kamersUitleg: "Elke afgesloten ruimte telt, ook toilet en berging. Gang en trap niet.",
+    meerRuimtes: "Meer ruimtes? Kies een grotere oppervlakte.",
+    openZolder: "Open ruimte",
     kamers: (n) => `${n} kamers`,
     dak: "Dak",
     dakAppartement: " · bij een appartement altijd plat",
@@ -260,17 +260,17 @@ export const COPY: Copy<SimCopy> = {
     verdiepen: "Verdiepen boven het gelijkvloers",
     gelijkvloers: "Gelijkvloers",
     verdiepKort: (n) => (n === 1 ? "verdiep" : "verdiepen"),
-    kamersPerVerdieping: "Aantal kamers per verdieping",
+    kamersPerVerdieping: "Ruimtes per verdieping",
     inTotaal: (n) => `${n} in totaal`,
     toonInTekening: (naam) => `Toon ${naam.toLowerCase()} in de tekening`,
-    minderKamers: (naam) => `Minder kamers ${naam.toLowerCase()}`,
-    meerKamers: (naam) => `Meer kamers ${naam.toLowerCase()}`,
+    minderKamers: (naam) => `Eén ruimte minder: ${naam.toLowerCase()}`,
+    meerKamers: (naam) => `Eén ruimte meer: ${naam.toLowerCase()}`,
     vloeroppervlakte: "Vloeroppervlakte",
     maatwerkKlein: "maatwerk",
-    pastBij: "past bij uw woning",
     geschat: (m2) => `geschat ± ${m2} m²`,
     meerDan: (m2) => `meer dan ${m2} m²`,
     tot: (m2) => `tot ${m2} m²`,
+    oppPerLaag: (m2) => `± ${m2} m² per bouwlaag`,
     s3Kop: "Hoe ver staat de werf?",
     s3Sub: "Kies hoe ver de werken staan. De foto toont waar het vocht zit.",
     kiesFase: "Kies uw fase",
@@ -433,10 +433,9 @@ export const COPY: Copy<SimCopy> = {
     droogsimulator: "Simulateur de séchage",
     stapTeller: ["Étape", "sur"],
     dakHint: { zadeldak: "En pente, avec un faîte", plat: "Plat, avec un acrotère", lessenaar: "En pente, d'un seul côté" },
-    kamersTotaal: "Pièces au total",
-    kamersUitleg: "Sans couloir, WC ni débarras",
-    kamerMeer: "Une pièce de plus",
-    kamerMinder: "Une pièce de moins",
+    kamersUitleg: "Chaque pièce fermée compte, WC et débarras compris. Pas le couloir ni l'escalier.",
+    meerRuimtes: "Plus de pièces ? Choisissez une surface plus grande.",
+    openZolder: "Espace ouvert",
     kamers: (n) => `${n} pièces`,
     dak: "Toit",
     dakAppartement: " · toujours plat pour un appartement",
@@ -444,17 +443,17 @@ export const COPY: Copy<SimCopy> = {
     verdiepen: "Étages au-dessus du rez-de-chaussée",
     gelijkvloers: "Rez-de-chaussée",
     verdiepKort: (n) => (n === 1 ? "étage" : "étages"),
-    kamersPerVerdieping: "Nombre de pièces par étage",
+    kamersPerVerdieping: "Pièces par niveau",
     inTotaal: (n) => `${n} au total`,
     toonInTekening: (naam) => `Afficher ${naam.toLowerCase()} dans le dessin`,
-    minderKamers: (naam) => `Moins de pièces, ${naam.toLowerCase()}`,
-    meerKamers: (naam) => `Plus de pièces, ${naam.toLowerCase()}`,
+    minderKamers: (naam) => `Une pièce de moins : ${naam.toLowerCase()}`,
+    meerKamers: (naam) => `Une pièce de plus : ${naam.toLowerCase()}`,
     vloeroppervlakte: "Surface au sol",
     maatwerkKlein: "sur mesure",
-    pastBij: "correspond à votre logement",
     geschat: (m2) => `estimation ± ${m2} m²`,
     meerDan: (m2) => `plus de ${m2} m²`,
     tot: (m2) => `jusqu'à ${m2} m²`,
+    oppPerLaag: (m2) => `± ${m2} m² par niveau`,
     s3Kop: "Où en est le chantier ?",
     s3Sub: "Indiquez où en sont les travaux. La photo montre où se trouve l'humidité.",
     kiesFase: "Choisissez votre phase",
@@ -616,10 +615,9 @@ export const COPY: Copy<SimCopy> = {
     droogsimulator: "Drying simulator",
     stapTeller: ["Step", "of"],
     dakHint: { zadeldak: "Sloped, with a ridge", plat: "Flat, with a parapet", lessenaar: "Sloped to one side" },
-    kamersTotaal: "Rooms in total",
-    kamersUitleg: "Not counting hall, toilet or storage",
-    kamerMeer: "One more room",
-    kamerMinder: "One room fewer",
+    kamersUitleg: "Every closed room counts, toilet and storage included. Not the hall or stairs.",
+    meerRuimtes: "More rooms? Choose a larger floor area.",
+    openZolder: "Open space",
     kamers: (n) => `${n} rooms`,
     dak: "Roof",
     dakAppartement: " · always flat for an apartment",
@@ -627,17 +625,17 @@ export const COPY: Copy<SimCopy> = {
     verdiepen: "Floors above the ground floor",
     gelijkvloers: "Ground floor",
     verdiepKort: (n) => (n === 1 ? "floor" : "floors"),
-    kamersPerVerdieping: "Number of rooms per floor",
+    kamersPerVerdieping: "Rooms per floor",
     inTotaal: (n) => `${n} in total`,
     toonInTekening: (naam) => `Show ${naam.toLowerCase()} in the drawing`,
-    minderKamers: (naam) => `Fewer rooms, ${naam.toLowerCase()}`,
-    meerKamers: (naam) => `More rooms, ${naam.toLowerCase()}`,
+    minderKamers: (naam) => `One room fewer: ${naam.toLowerCase()}`,
+    meerKamers: (naam) => `One more room: ${naam.toLowerCase()}`,
     vloeroppervlakte: "Floor area",
     maatwerkKlein: "bespoke",
-    pastBij: "fits your home",
     geschat: (m2) => `estimated ± ${m2} m²`,
     meerDan: (m2) => `more than ${m2} m²`,
     tot: (m2) => `up to ${m2} m²`,
+    oppPerLaag: (m2) => `± ${m2} m² per floor`,
     s3Kop: "How far along is the site?",
     s3Sub: "Choose how far the works have got. The photo shows where the moisture is.",
     kiesFase: "Choose your stage",
