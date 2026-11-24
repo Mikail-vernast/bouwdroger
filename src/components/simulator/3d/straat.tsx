@@ -36,6 +36,8 @@ interface Props {
   woning: StraatWoning;
   w: number;
   l: number;
+  /** Storeys of an apartment: the building around it has its roof edge at the unit's. */
+  lagen: number;
   /** The sharpest size this device gets; the mini size always comes first. */
   doel: StraatMaat;
   /** 0 closed .. 1 opened up: the front layer fades with the upper floors. */
@@ -53,8 +55,8 @@ function zetKleur(t: Texture) {
   on screen within seconds on any line. The sharp ones load in the background and
   replace them when they are in; if they fail, the mini street simply stays.
 */
-export default function Straat3D({ woning, w, l, doel, open }: Props) {
-  const mini = useLoader(TextureLoader, straatBeelden(woning, w, "mini"));
+export default function Straat3D({ woning, w, l, lagen, doel, open }: Props) {
+  const mini = useLoader(TextureLoader, straatBeelden(woning, w, "mini", lagen));
   const [scherp, setScherp] = useState<[Texture, Texture] | null>(null);
   const invalidate = useThree((s) => s.invalidate);
 
@@ -65,7 +67,7 @@ export default function Straat3D({ woning, w, l, doel, open }: Props) {
     if (doel === "mini") return;
     let weg = false;
     const loader = new TextureLoader();
-    Promise.all(straatBeelden(woning, w, doel).map((u) => loader.loadAsync(u))).then(
+    Promise.all(straatBeelden(woning, w, doel, lagen).map((u) => loader.loadAsync(u))).then(
       (t) => {
         if (weg) return t.forEach((x) => x.dispose());
         t.forEach(zetKleur);
@@ -77,7 +79,7 @@ export default function Straat3D({ woning, w, l, doel, open }: Props) {
     return () => {
       weg = true;
     };
-  }, [mini, woning, w, doel, invalidate]);
+  }, [mini, woning, w, lagen, doel, invalidate]);
 
   // Free the sharp pair when the width changes or the street unmounts.
   useEffect(() => () => scherp?.forEach((t) => t.dispose()), [scherp]);

@@ -28,17 +28,22 @@ export const TEXTUUR = {
     groot  2800 × 2000: daarna op een groot scherm.
   Op een zuinige verbinding (databesparing, 2G) blijft het bij mini.
 */
-export type StraatWoning = "rijwoning" | "halfopen" | "open";
+export type StraatWoning = "rijwoning" | "halfopen" | "open" | "appartement";
 export type StraatMaat = "mini" | "klein" | "groot";
 
 export function heeftStraat(woning: string): woning is StraatWoning {
-  return woning === "rijwoning" || woning === "halfopen" || woning === "open";
+  return woning === "rijwoning" || woning === "halfopen" || woning === "open" || woning === "appartement";
 }
 
-/** One render per facade width (BREEDTES), named by decimetres: halfopen-b80-achter.webp. */
-export function straatBeelden(woning: StraatWoning, breedte: number, maat: StraatMaat): [string, string] {
+/**
+ * One render per facade width (BREEDTES), named by decimetres: halfopen-b80-achter.webp.
+ * An apartment also has one per number of storeys (1 or 2): the roof edge of the
+ * building around it follows the top of the unit, appartement-b90-l2-achter.webp.
+ */
+export function straatBeelden(woning: StraatWoning, breedte: number, maat: StraatMaat, lagen = 1): [string, string] {
   const s = maat === "groot" ? "" : `-${maat}`;
-  const b = `${woning}-b${Math.round(breedte * 10)}`;
+  const l = woning === "appartement" ? `-l${Math.min(2, Math.max(1, Math.round(lagen)))}` : "";
+  const b = `${woning}-b${Math.round(breedte * 10)}${l}`;
   return [`/simulator/straat/${b}-achter${s}.webp`, `/simulator/straat/${b}-voor${s}.webp`];
 }
 

@@ -261,9 +261,12 @@ function bouw(p: Woningplan) {
         kolommen = Array.from({ length: n }, (_, i) => stapw * (i + 0.5));
       }
       const bw = Math.min(1.3, stapw * 0.58);
-      for (const cx of kolommen) {
-        gaten.push({ a0: cx - bw / 2, a1: cx + bw / 2, b0: yf + 0.75, b1: yf + 2.3, soort: "raam", kalf: 0.5, stijl: bw > 0.9 });
-      }
+      kolommen.forEach((cx, i) => {
+        // Appartement: de rechtse kolom van de onderste laag is een raamdeur naar het
+        // terras (straat.py: balkon van de unit, in de voorlaag van de render).
+        const terras = woning === "appartement" && v === 0 && i === kolommen.length - 1;
+        gaten.push({ a0: cx - bw / 2, a1: cx + bw / 2, b0: yf + (terras ? 0.02 : 0.75), b1: yf + 2.3, soort: "raam", kalf: 0.5, stijl: bw > 0.9 });
+      });
       if (deurKolom && v === 0) {
         gaten.push({ a0: deurKolom.van - 0.06, a1: deurKolom.tot + 0.06, b0: yf, b1: yf + 2.3, soort: "deur", kalf: 0, stijl: false });
       } else if (deurKolom) {
@@ -761,10 +764,10 @@ function natPatchSet(set: MatSet, u: NatUniforms) {
 }
 
 interface Kader { cx: number; cy: number; ex: number; ey: number }
-function kader(w: number, l: number, y0: number, y1: number, pad: number, voor = 0): Kader {
+function kader(w: number, l: number, y0: number, y1: number, pad: number, voor = 0, links = 0): Kader {
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
   const v = new Vector3();
-  for (const x of [-T, w + T]) for (const y of [y0, y1]) for (const z of [-T, l + T + voor]) {
+  for (const x of [-T - links, w + T]) for (const y of [y0, y1]) for (const z of [-T, l + T + voor]) {
     v.set(x, y, z);
     const px = v.dot(RECHTS), py = v.dot(OP);
     minX = Math.min(minX, px); maxX = Math.max(maxX, px); minY = Math.min(minY, py); maxY = Math.max(maxY, py);
@@ -891,7 +894,8 @@ function Scene(props: SceneProps) {
       if (buren >= 1) blokken.push([-6, -T, 0, y1, 0, l]);
       if (buren === 2) blokken.push([w + T, w + T + 6, 0, y1, 0, l]);
     }
-    if (woning === "appartement") blokken.push([-T, w + T, -2 * FH, 0, -T, l + T]);
+    // Zonder render: het gebouw onder het appartement als contour. Met render staat het er echt.
+    if (woning === "appartement" && !heeftStraat(woning)) blokken.push([-T, w + T, -2 * FH, 0, -T, l + T]);
     const vlak = new MeshBasicMaterial({ color: "#5a3a2a", transparent: true, opacity: 0.035, depthWrite: false });
     const lijn = new LineDashedMaterial({ color: "#8a7864", dashSize: 0.25, gapSize: 0.18, transparent: true, opacity: 0.6 });
     const delen = blokken.map(([x0, x1, y0, yy1, z0, z1]) => {
@@ -957,8 +961,14 @@ function Scene(props: SceneProps) {
 
   // Closed, the frame also takes in the front garden and the pavement (straat.tsx),
   // so the house stands in its street instead of filling the box edge to edge.
-  const voorTuin = woning === "appartement" ? 0 : 6;
-  const dicht = useMemo(() => kader(w, l, 0, daktop + nok + 0.3, voorTuin ? 3.4 : 1.3, voorTuin), [w, l, daktop, nok, voorTuin]);
+  // An apartment, closed: the whole building down to the street (two storeys under
+  // the unit, straat.py: YU), the stair hall on its left and a strip of pavement.
+  const app = woning === "appartement";
+  const voorTuin = app ? 2.6 : 6;
+  const dicht = useMemo(
+    () => (app ? kader(w, l, -2 * FH, daktop + nok + 0.3, 1.6, voorTuin, 3.4) : kader(w, l, 0, daktop + nok + 0.3, 3.4, voorTuin)),
+    [app, w, l, daktop, nok, voorTuin],
+  );
   // Hoe ver de woning opengewerkt is (0..1), voor de voorgrond van de straat.
   const openStand = useMemo(() => ({ get current() { return anim.current.o.nu; } }), [anim]);
   const v = useMemo(() => new Vector3(), []);
@@ -1125,16 +1135,19 @@ function Scene(props: SceneProps) {
       <primitive object={zon} />
       <primitive object={zon.target} />
 
-      {/* schaduw op het papier — bij een appartement op het dak van het gebouw eronder */}
+      {/* Schaduw op het papier. Bij een appartement alleen op het dak eronder, dat
+          even groot is als de unit: daarbuiten hangt y = 0 in de lucht boven de
+          render, en een schaduw daar viel als een vlek over gevels en binnenplaats.
+          Haar slagschaduw op de omgeving zit in de render zelf (straat.py: unit-schaduw). */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[w / 2, -0.002, l / 2]} receiveShadow>
-        <planeGeometry args={[80, 80]} />
+        <planeGeometry args={app ? [w + 2 * T, l + 2 * T] : [80, 80]} />
         <shadowMaterial opacity={heeftStraat(woning) ? 0.32 : 0.16} color="#3a2a1e" />
       </mesh>
       {/* De straat (Blender-render) laadt apart: de woning wacht er niet op. */}
       {heeftStraat(woning) && (
-        <StraatVangnet key={`${woning}-${w}`}>
+        <StraatVangnet key={`${woning}-${w}-${app ? lagen : 0}`}>
           <Suspense fallback={null}>
-            <Straat3D woning={woning} w={w} l={l} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"} open={openStand} />
+            <Straat3D woning={woning} w={w} l={l} lagen={app ? lagen : 1} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"} open={openStand} />
           </Suspense>
         </StraatVangnet>
       )}
