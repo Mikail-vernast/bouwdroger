@@ -19,6 +19,8 @@
  */
 import { getPackageById } from "../data/packages.js";
 import { products } from "../data/products.js";
+import { CAT, WEEKS } from "../data/verhuur.js";
+import { packageTotal, packageWeeks } from "./vastPakket.js";
 import {
   earliestPickupDate,
   isPickupDay,
@@ -95,31 +97,42 @@ function toInt(value: unknown, fallback = 0): number {
   return Number.isFinite(n) && n >= 0 ? Math.floor(n) : fallback;
 }
 
-/** Aantal toestellen van één soort dat standaard in een pakket zit. */
+/**
+ * Aantal toestellen van één soort dat in de pakketprijs zit.
+ *
+ * Optionele toestellen (de kachels) tellen niet mee: die gaan pas mee als de
+ * klant erom vraagt en worden dan apart aangerekend, zoals in `configPrice`.
+ */
 function baseCount(packageId: string, type: string): number {
   const pkg = getPackageById(packageId);
   if (!pkg) return 0;
   return pkg.equipment
-    .filter((e) => e.type === type)
+    .filter((e) => e.type === type && !e.optional)
     .reduce((sum, e) => sum + e.count, 0);
 }
 
-/** Dagprijs van de extra toestellen die iemand bovenop het pakket koos. */
-const EXTRA_DAY_PRICE = { bouwdroger: 12, ventilator: 5 } as const;
+/*
+  Tot 24-11-2026 rekende deze route met eigen regels: de huurduur die de
+  bezoeker koos, een duurkorting van 5/10/15 % en € 12/€ 5 per dag voor een
+  extra toestel. Een vast pakket wordt echter voor één termijn verkocht (uit de
+  materiaaldikte), zonder staffelkorting. `chape-100-6` ging zo voor € 161,80
+  (14 dagen) de deur uit in plaats van € 256,20 (21 dagen). Nu rekent ze zoals
+  de boekingsflow: het pakkettotaal uit de catalogus, en wat erbovenop komt aan
+  het tarief per 2 weken × de weekfactor van de pakkettermijn.
+*/
+const EXTRA_DEVICE = { bouwdroger: "small", ventilator: "axiaal", kachel: "kachel" } as const;
 
-/** Kortingsstaffel op de huurduur, gelijk aan wat de pagina toont. */
-function durationDiscount(days: number): number {
-  if (days >= 28) return 15;
-  if (days >= 21) return 10;
-  if (days >= 14) return 5;
-  return 0;
+/** De huurduur in dagen van een vast pakket, of `null` als het pakket niet bestaat. */
+export function packageDays(packageId: string): number | null {
+  const pkg = getPackageById(packageId);
+  return pkg ? packageWeeks(pkg) * 7 : null;
 }
 
 /**
- * Berekent het bedrag van een boeking uit het pakket, de duur en de extra
- * toestellen. Levert `null` wanneer er niets te berekenen valt — dan gaat de
- * order zonder bedrag door en bepaalt het portaal de prijs, wat nog altijd
- * beter is dan een bedrag vertrouwen dat de bezoeker koos.
+ * Berekent het bedrag van een boeking uit het pakket en de extra toestellen.
+ * Levert `null` wanneer er niets te berekenen valt — dan gaat de order zonder
+ * bedrag door en bepaalt het portaal de prijs, wat nog altijd beter is dan een
+ * bedrag vertrouwen dat de bezoeker koos.
  */
 export function bookingPrice(row: Row): number | null {
   const days = toInt(row.duration_days);
@@ -127,15 +140,16 @@ export function bookingPrice(row: Row): number | null {
 
   if (tier) {
     const pkg = getPackageById(tier);
-    if (pkg && days > 0) {
-      const extraDrogers = Math.max(0, toInt(row.equipment_drogers) - baseCount(tier, "bouwdroger"));
-      const extraVent = Math.max(0, toInt(row.equipment_ventilatoren) - baseCount(tier, "ventilator"));
-      const perDay =
-        pkg.pricePerDay +
-        extraDrogers * EXTRA_DAY_PRICE.bouwdroger +
-        extraVent * EXTRA_DAY_PRICE.ventilator;
-      const subtotal = perDay * days;
-      return subtotal - Math.round(subtotal * (durationDiscount(days) / 100));
+    if (pkg) {
+      const factor = WEEKS[packageWeeks(pkg)] ?? 1;
+      const extra = (type: keyof typeof EXTRA_DEVICE, field: string) =>
+        Math.max(0, toInt(row[field]) - baseCount(tier, type)) * CAT[EXTRA_DEVICE[type]].w2 * factor;
+      const total =
+        packageTotal(pkg) +
+        extra("bouwdroger", "equipment_drogers") +
+        extra("ventilator", "equipment_ventilatoren") +
+        extra("kachel", "equipment_verwarming");
+      return Math.round(total * 100) / 100;
     }
   }
 
@@ -150,7 +164,15 @@ export function bookingPrice(row: Row): number | null {
 /** De rij zoals hij de database in mag: gefilterd, met servervelden gezet. */
 export function bookingRow(data: Row): Row {
   const clean = pickAllowed(data, BOOKING_FIELDS);
-  return { ...clean, status: "pending", user_id: null, total_price: bookingPrice(clean) };
+  // Een vast pakket loopt zijn eigen termijn; een gekozen duur gaat niet mee.
+  const days = typeof clean.package_tier === "string" ? packageDays(clean.package_tier) : null;
+  return {
+    ...clean,
+    ...(days ? { duration_days: days } : {}),
+    status: "pending",
+    user_id: null,
+    total_price: bookingPrice(clean),
+  };
 }
 
 /** Idem voor een reservering; die kent geen bedrag in het formulier. */
