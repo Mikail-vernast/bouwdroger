@@ -395,7 +395,9 @@ function keuken(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet, accent
     }
     const [u0, u1] = best;
     const kolom = m.hoog && u1 - u0 >= 2.4;
-    const n = Math.floor((u1 - u0 - (kolom ? 0.6 : 0)) / 0.6 + 1e-6);
+    // Hoogstens zeven modules (4,2 m): een keukenblok van 12 m over de hele muur van een
+    // brede woning bestaat niet. Het blok staat in het midden van de vrije muur.
+    const n = Math.min(7, Math.floor((u1 - u0 - (kolom ? 0.6 : 0)) / 0.6 + 1e-6));
     if (n >= 2) {
       const modules: string[] = Array.from({ length: n }, () => "keuken_onderkast_60");
       modules[0] = "keuken_ladekast_60";
@@ -455,8 +457,13 @@ function keuken(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet, accent
     }
     return false;
   });
-  if (!eiland) eethoek(P, k, ctx, pal);
+  // Een ruime keuken is een leefkeuken: naast het eiland ook een eettafel, en een plant.
+  if (!eiland || k.w * k.l > LEEFKEUKEN) eethoek(P, k, ctx, pal);
+  if (k.w * k.l > LEEFKEUKEN) hoekplant(P, k);
 }
+
+/** Vanaf deze oppervlakte (m²) krijgt de keuken ook de eettafel, en de leefruimte niet meer. */
+const LEEFKEUKEN = 20;
 
 function slaapkamer(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet, accent: Map<string, Wand>, kind: boolean) {
   // Hoofdbord liefst tegen een muur zonder raam, en zo dat er voor het bed nog 60 cm overblijft.
@@ -553,13 +560,14 @@ export function richLaagIn(ctx: LaagContext): LaagInrichting {
   const vakken: Vak[] = [];
   const accent = new Map<string, Wand>();
   const heeftKeuken = ctx.laag.some((k) => k.naam === "Keuken");
+  const grooteKeuken = ctx.laag.some((k) => k.naam === "Keuken" && k.w * k.l > LEEFKEUKEN);
   const slaapkamers = ctx.laag.filter((k) => k.naam === "Slaapkamer").sort((a, b) => b.w * b.l - a.w * a.l);
 
   for (const k of ctx.laag) {
     if (k.soort === "circulatie" || !INGERICHTE_KAMERS.has(k.naam)) continue;
     const P: Plaatser = { ctx, kaart: kaartVoor(k, ctx), stukken: [], obj };
     const pal = ctx.palet(k);
-    if (k.naam === "Leefruimte") leefruimte(P, k, ctx, pal, accent, !heeftKeuken || k.w * k.l > 26);
+    if (k.naam === "Leefruimte") leefruimte(P, k, ctx, pal, accent, !heeftKeuken || (k.w * k.l > 26 && !grooteKeuken));
     else if (k.naam === "Keuken") keuken(P, k, ctx, pal, accent);
     else if (k.naam === "Slaapkamer") slaapkamer(P, k, ctx, pal, accent, slaapkamers.indexOf(k) > 0 && k.w * k.l < 12);
     gordijnen(P, k, ctx, pal);

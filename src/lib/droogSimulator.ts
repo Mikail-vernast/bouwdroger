@@ -538,7 +538,9 @@ export function standaardKamers(woning: Woning, v: number, verdiepingen: number,
   const smal = breedte < 7;
   if (woning === "appartement" && v === 0) return verdiepingen === 1 ? 4 : 3;
   if (v === 0 && verdiepingen === 1) return smal ? 3 : 4; // bungalow: ook slaapkamer en badkamer beneden
-  if (v === 0) return smal ? 2 : 3;
+  // Een vrijstaande woning heeft haar voordeur in het midden: met een bureau naast
+  // het toilet ligt er aan elke kant van de hal een kamer, in plaats van een lege inkomhal.
+  if (v === 0) return woning === "open" ? 4 : smal ? 2 : 3;
   return smal ? 3 : 4;
 }
 
@@ -906,7 +908,8 @@ function probeer(P: Poging): Omit<Plan, "ramen"> | Mislukt {
   // Ligt er aan de straatkant beneden enkel een toilet, dan was de rest één lege
   // inkomhal van de volle breedte. De leefruimte komt dan vooraan, de keuken
   // houdt de tuinkant: zithoek aan de straat, eetkeuken aan de tuin.
-  if (metHal && achter.length >= 2 && voor.every((r) => r.naam === "Toilet")) {
+  const voorKamers = voor.filter((r) => r.naam !== "Toilet").length;
+  if (metHal && achter.length >= 2 && (voorKamers === 0 || (P.woning === "open" && voorKamers === 1))) {
     const i = achter.findIndex((r) => r.naam === "Leefruimte");
     if (i >= 0 && !P.naarAnder.has(achter[i].i) && past(voor, achter[i]) && l - zf >= (achter[i].minB ?? 0) - 1e-9) voor.push(...achter.splice(i, 1));
   }
@@ -975,35 +978,74 @@ function probeer(P: Poging): Omit<Plan, "ramen"> | Mislukt {
     kamers.push(k);
   }
   if (metHal && voor.length === 0) {
-    openingen.push({ verdieping: v, as: "x", vast: l, van: 0.25, tot: 1.15, soort: "voordeur", kant: -1 });
+    const [d0, d1] = P.woning === "open" ? [w / 2 - 0.45, w / 2 + 0.45] : [0.25, 1.15];
+    openingen.push({ verdieping: v, as: "x", vast: l, van: d0, tot: d1, soort: "voordeur", kant: -1 });
   }
 
-  // Straatkant
+  // Straatkant. Een open woning heeft haar voordeur in het midden van de gevel:
+  // de hal ligt dan in het midden, met de kamers links en rechts ervan en het
+  // toilet tegen de hal. Elders ligt de hal tegen de linkergevel (de buur).
   if (voor.length > 0) {
-    let halB = metHal ? HAL : 0;
-    const stukken: Stuk[] = voor.map((r) => (metHal && r.naam === "Toilet" ? { ...r, vast: TOILET_B } : r));
-    // Alleen een toilet aan de straatkant: dan is de hal een inkomhal tot aan het toilet.
-    if (metHal && stukken.length === 1 && stukken[0].naam === "Toilet") halB = w - TOILET_B;
-    if (metHal) {
-      kamers.push({ id: id(), naam: "Hal", verdieping: v, x: 0, z: zf, w: halB, l: l - zf, soort: "circulatie" });
-      openingen.push({ verdieping: v, as: "x", vast: zf, van: 0, tot: halB, soort: "open", kant: 1 });
-      openingen.push({ verdieping: v, as: "x", vast: l, van: 0.15, tot: HAL - 0.15, soort: "voordeur", kant: -1 });
-    }
-    rij(halB, w, stukken).forEach((r, i) => {
-      // Beneden: het toilet is 1,5 m diep; het stuk erachter, tot de voorgevel, is een vestiaire bij de hal.
-      if (metHal && r.naam === "Toilet" && l - zf >= TOILET_L + 1.1) {
-        const k: Kamer = { id: id(), naam: "Toilet", verdieping: v, x: r.x, z: zf, w: r.w, l: TOILET_L, soort: "kamer" };
-        ruimteVan.set(k.id, voor[i].i);
-        kamers.push(k);
-        kamers.push({ id: id(), naam: "Vestiaire", verdieping: v, x: r.x, z: zf + TOILET_L, w: r.w, l: l - zf - TOILET_L, soort: "circulatie" });
-        if (Math.abs(r.x - halB) < EPS) openingen.push({ verdieping: v, as: "z", vast: r.x, van: zf + TOILET_L + 0.1, tot: l - 0.15, soort: "open", kant: 1 });
-        else openingen.push({ verdieping: v, as: "z", vast: r.x + r.w, van: zf + TOILET_L + 0.1, tot: l - 0.15, soort: "open", kant: -1 });
-        return;
+    const centraal = metHal && P.woning === "open";
+    let links: Ruimte[] = [], rechts: Ruimte[] = voor;
+    let hx0 = 0, hx1 = metHal ? HAL : 0;
+    const toilet = metHal ? voor.find((r) => r.naam === "Toilet") : undefined;
+    if (centraal) {
+      hx0 = w / 2 - HAL / 2;
+      hx1 = w / 2 + HAL / 2;
+      links = [];
+      rechts = [];
+      const breed = (b: Ruimte[]) => b.reduce((t, r) => t + (r.naam === "Toilet" ? TOILET_B : r.minB ?? MIN_BREEDTE), 0);
+      // De grootste ruimtes eerst, telkens naar de kant met de meeste plaats over.
+      for (const r of voor.filter((x) => x !== toilet).sort((p, q) => (q.minB ?? 0) - (p.minB ?? 0))) {
+        const vrijL = hx0 - breed(links), vrijR = w - hx1 - breed(rechts);
+        const kant = vrijL >= vrijR ? links : rechts;
+        if (breed(kant) + (r.minB ?? MIN_BREEDTE) > (kant === links ? hx0 : w - hx1) + 1e-9) return { faal: r.i, strook: "voor", leden: voor.map((x) => x.i) };
+        kant.push(r);
       }
-      const k: Kamer = { id: id(), naam: r.naam, verdieping: v, x: r.x, z: zf, w: r.w, l: l - zf, soort: "kamer" };
-      ruimteVan.set(k.id, voor[i].i);
-      kamers.push(k);
-    });
+      if (toilet) {
+        const vrijL = hx0 - breed(links), vrijR = w - hx1 - breed(rechts);
+        if (Math.max(vrijL, vrijR) < TOILET_B - 1e-9) return { faal: toilet.i, strook: "voor", leden: voor.map((x) => x.i) };
+        if (vrijL >= vrijR) links.push(toilet);
+        else rechts.unshift(toilet);
+      }
+      // Een kant zonder kamer hoort bij de hal; staat er enkel het toilet, dan tegen de gevel.
+      if (links.length === 0) hx0 = 0;
+      else if (links.length === 1 && links[0] === toilet) hx0 = TOILET_B;
+      if (rechts.length === 0) hx1 = w;
+      else if (rechts.length === 1 && rechts[0] === toilet) hx1 = w - TOILET_B;
+    } else if (metHal && voor.length === 1 && toilet) {
+      // Alleen een toilet aan de straatkant: dan is de hal een inkomhal tot aan het toilet.
+      hx1 = w - TOILET_B;
+    }
+    if (metHal) {
+      kamers.push({ id: id(), naam: "Hal", verdieping: v, x: hx0, z: zf, w: hx1 - hx0, l: l - zf, soort: "circulatie" });
+      openingen.push({ verdieping: v, as: "x", vast: zf, van: hx0, tot: hx1, soort: "open", kant: 1 });
+      const [d0, d1] = centraal ? [w / 2 - 0.45, w / 2 + 0.45] : [0.15, HAL - 0.15];
+      openingen.push({ verdieping: v, as: "x", vast: l, van: d0, tot: d1, soort: "voordeur", kant: -1 });
+    }
+    const zet = (x0: number, x1: number, rs: Ruimte[]) => {
+      if (!rs.length) return;
+      const stukken: Stuk[] = rs.map((r) => (r === toilet ? { ...r, vast: TOILET_B } : r));
+      rij(x0, x1, stukken).forEach((r, i) => {
+        const bron = rs[i];
+        // Beneden: het toilet is 1,5 m diep; het stuk erachter, tot de voorgevel, is een vestiaire bij de hal.
+        if (bron === toilet && l - zf >= TOILET_L + 1.1) {
+          const k: Kamer = { id: id(), naam: "Toilet", verdieping: v, x: r.x, z: zf, w: r.w, l: TOILET_L, soort: "kamer" };
+          ruimteVan.set(k.id, bron.i);
+          kamers.push(k);
+          kamers.push({ id: id(), naam: "Vestiaire", verdieping: v, x: r.x, z: zf + TOILET_L, w: r.w, l: l - zf - TOILET_L, soort: "circulatie" });
+          if (Math.abs(r.x - hx1) < EPS) openingen.push({ verdieping: v, as: "z", vast: r.x, van: zf + TOILET_L + 0.1, tot: l - 0.15, soort: "open", kant: 1 });
+          else openingen.push({ verdieping: v, as: "z", vast: r.x + r.w, van: zf + TOILET_L + 0.1, tot: l - 0.15, soort: "open", kant: -1 });
+          return;
+        }
+        const k: Kamer = { id: id(), naam: r.naam, verdieping: v, x: r.x, z: zf, w: r.w, l: l - zf, soort: "kamer" };
+        ruimteVan.set(k.id, bron.i);
+        kamers.push(k);
+      });
+    };
+    zet(0, hx0, links);
+    zet(hx1, w, rechts);
   }
 
   // Deuren: elke kamer één, naar de circulatie.
@@ -1099,22 +1141,44 @@ function kiesInrichting(k: Kamer, openingen: Opening[], w: number, l: number, vr
   return best;
 }
 
-/** Het kolomraster van de voorgevel: ramen recht boven elkaar, overal even breed. */
+/**
+ * Het kolomraster van de voorgevel: de ramen staan op elke bouwlaag op dezelfde
+ * verticale assen. Een voordeur in het midden (open bebouwing) krijgt aan elke
+ * kant evenveel kolommen; een deur aan de zijkant laat de rest van de gevel
+ * gelijk verdelen. `bw` is de basisbreedte; per bouwlaag past `raamMaat` die aan.
+ */
 function gevelKolommen(woning: Woning, w: number, voordeur: Opening | undefined) {
   const deurKolom = voordeur && woning !== "appartement" ? voordeur : null;
   const n = w < 7 ? 2 : w < 9.5 ? 3 : 4;
-  let kolommen: number[];
-  let stapw: number;
-  if (deurKolom) {
-    const links = deurKolom.van - 0.3, rechts = w - (deurKolom.tot + 0.3);
-    const [s0, s1] = rechts >= links ? [deurKolom.tot + 0.3, w] : [0, deurKolom.van - 0.3];
-    stapw = (s1 - s0) / (n - 1);
-    kolommen = Array.from({ length: n - 1 }, (_, i) => s0 + stapw * (i + 0.5));
-  } else {
-    stapw = w / n;
-    kolommen = Array.from({ length: n }, (_, i) => stapw * (i + 0.5));
+  if (!deurKolom) {
+    const stapw = w / n;
+    return { kolommen: Array.from({ length: n }, (_, i) => stapw * (i + 0.5)), bw: Math.min(1.3, stapw * 0.58), deurKolom };
   }
-  return { kolommen, bw: Math.min(1.3, stapw * 0.58), deurKolom };
+  const links = deurKolom.van - 0.3, rechts = w - (deurKolom.tot + 0.3);
+  if (Math.min(links, rechts) > 2) {
+    // Deur in het midden: symmetrisch, aan elke kant de helft van de kolommen.
+    const m = Math.max(1, Math.round((n - 1) / 2));
+    const stapw = Math.min(links, rechts) / m;
+    const kolommen = [
+      ...Array.from({ length: m }, (_, i) => deurKolom.van - 0.3 - stapw * (i + 0.5)),
+      ...Array.from({ length: m }, (_, i) => deurKolom.tot + 0.3 + stapw * (i + 0.5)),
+    ];
+    return { kolommen, bw: Math.min(1.3, stapw * 0.58), deurKolom };
+  }
+  const [s0, s1] = rechts >= links ? [deurKolom.tot + 0.3, w] : [0, deurKolom.van - 0.3];
+  const stapw = (s1 - s0) / (n - 1);
+  return { kolommen: Array.from({ length: n - 1 }, (_, i) => s0 + stapw * (i + 0.5)), bw: Math.min(1.3, stapw * 0.58), deurKolom };
+}
+
+/**
+ * Hoe groot een raam in de voorgevel is, per bouwlaag. De lateien liggen op elke
+ * laag even hoog (2,30 m); het gelijkvloers heeft brede, hoge ramen met een lage
+ * borstwering (45 cm), de verdiepingen smallere met een borstwering van 1 m,
+ * zoals bij slaapkamers. Zo leest de gevel als een echte woning: zwaar onderaan,
+ * lichter naar boven, alles op dezelfde assen.
+ */
+function raamMaat(v: number, bw: number): { breed: number; onder: number } {
+  return v === 0 ? { breed: Math.min(1.75, bw * 1.3), onder: 0.45 } : { breed: Math.min(1.1, bw * 0.82), onder: 1.0 };
 }
 
 /**
@@ -1144,12 +1208,14 @@ function ramenVan(laag: Kamer[], openingen: Opening[], woning: Woning, v: number
   const voorKamers = laag.filter((k) => k.z + k.l > l - EPS);
   const kolomRamen: [number, number][] = kolommen.map((c) => [c, bw]);
   if (deurKolom && v > 0) kolomRamen.push([(deurKolom.van + deurKolom.tot) / 2, Math.min(bw, deurKolom.tot - deurKolom.van + 0.12)]);
-  for (const [c, b] of kolomRamen) {
+  const maat = raamMaat(v, bw);
+  for (const [c, b0] of kolomRamen) {
+    const b = b0 === bw ? maat.breed : Math.min(b0, maat.breed);
     const k = voorKamers.find((kk) => c > kk.x && c < kk.x + kk.w) ?? voorKamers.find((kk) => c - b / 2 < kk.x + kk.w && kk.x < c + b / 2);
     if (!k || k.inrichting === "voor") continue;
     // Schuift binnen de kamer als het raam over een binnenmuur zou lopen.
     const mid = Math.min(Math.max(c, k.x + MARGE + b / 2), k.x + k.w - MARGE - b / 2);
-    voeg(k, "voor", mid, b, hoog(k) ? "hoog" : "raam", hoog(k) ? 1.5 : 0.75, 2.3);
+    voeg(k, "voor", mid, b, hoog(k) ? "hoog" : "raam", hoog(k) ? 1.5 : maat.onder, 2.3);
   }
 
   // Achter-, linker- en zijgevel: één raam per kamer.
@@ -1173,7 +1239,7 @@ function ramenVan(laag: Kamer[], openingen: Opening[], woning: Woning, v: number
   // Wie zo nog geen raam heeft en er een nodig heeft: in het midden van zijn voorgevel.
   for (const k of voorKamers) {
     if (!MOET_RAAM.has(k.naam) || ramen.some((r) => r.kamer === k.id) || k.inrichting === "voor") continue;
-    voeg(k, "voor", k.x + k.w / 2, Math.min(bw, k.w - 2 * MARGE), "raam", 0.75, 2.3);
+    voeg(k, "voor", k.x + k.w / 2, Math.min(maat.breed, k.w - 2 * MARGE), "raam", maat.onder, 2.3);
   }
   return ramen;
 }
