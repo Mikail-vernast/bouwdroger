@@ -13,9 +13,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const sendQuestionFallback = vi.fn(async (_vraag: unknown) => true);
+const sendQuestionConfirmation = vi.fn(async (_vraag: unknown) => {});
 
 vi.mock("../lib/mail.js", () => ({
   sendQuestionFallback: (vraag: unknown) => sendQuestionFallback(vraag),
+  sendQuestionConfirmation: (vraag: unknown) => sendQuestionConfirmation(vraag),
 }));
 
 const { POST: aanvraag } = await import("../../api/aanvraag.js");
@@ -66,6 +68,7 @@ afterEach(() => {
   fetchMock.mockReset();
   sendQuestionFallback.mockReset();
   sendQuestionFallback.mockImplementation(async () => true);
+  sendQuestionConfirmation.mockReset();
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
 });
@@ -212,6 +215,9 @@ describe("api/vraag", () => {
       attachments: ["inbox/a.jpg", "inbox/c.pdf"],
       page_url: "https://vernast-bouwdrogers.be/",
     });
+    // De bezoeker krijgt de bevestiging op het adres dat hij zelf opgaf.
+    expect(sendQuestionConfirmation).toHaveBeenCalledTimes(1);
+    expect(sendQuestionConfirmation.mock.calls[0][0]).toMatchObject({ email: "an@voorbeeld.be" });
   });
 
   it("vertaalt een onbekende of geërfde onderwerpsleutel naar 'Andere vraag'", async () => {
@@ -228,5 +234,17 @@ describe("api/vraag", () => {
     const mail = sendQuestionFallback.mock.calls[0][0] as { bericht: string; adres: string };
     expect(mail.bericht).toContain("inbox/a.jpg");
     expect(mail.adres).toBe("Dorpsstraat 4 2630 Aartselaar");
+    // Het team heeft de vraag per mail, dus ze is aangekomen: ook dan een bevestiging.
+    expect(sendQuestionConfirmation).toHaveBeenCalledTimes(1);
+  });
+
+  it("stuurt geen bevestiging als portaal én vangnet falen", async () => {
+    fetchMock.mockImplementation(async () => new Response("", { status: 400 }));
+    sendQuestionFallback.mockImplementation(async () => false);
+
+    const response = await vraag(request(vraagBody()));
+
+    expect(response.status).toBe(502);
+    expect(sendQuestionConfirmation).not.toHaveBeenCalled();
   });
 });
