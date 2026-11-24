@@ -1,6 +1,6 @@
 import { Component, lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import IsoHouse, { type IsoHouseProps } from "./IsoHouse";
-import { TEXTUUR, budget3D, voorlaad } from "./3d/bestanden";
+import { DIAG, TEXTUUR, budget3D, diagNu, meld, voorlaad } from "./3d/bestanden";
 
 /*
   Kiest tussen de SVG-tekening en de 3D-woning.
@@ -60,15 +60,42 @@ class Vangnet extends Component<{ onFout: () => void; children: ReactNode }, { f
   }
 }
 
+/** ?diag=1: a small label with what the simulator decided and loaded. */
+function DiagLabel() {
+  const [stand, setStand] = useState(diagNu);
+  useEffect(() => {
+    const op = (e: Event) => setStand((e as CustomEvent<Record<string, string>>).detail);
+    window.addEventListener("ds-diag", op);
+    return () => window.removeEventListener("ds-diag", op);
+  }, []);
+  const n = navigator as Navigator & { connection?: { effectiveType?: string; saveData?: boolean }; deviceMemory?: number };
+  const regels = [
+    ...Object.entries(stand).map(([k, v]) => `${k}: ${v}`),
+    `net: ${n.connection?.effectiveType ?? "?"}${n.connection?.saveData ? " (databesparing)" : ""}`,
+    `geheugen: ${n.deviceMemory ?? "?"} GB`,
+  ];
+  return (
+    <pre
+      style={{ position: "absolute", left: 8, bottom: 8, zIndex: 50, margin: 0, padding: "6px 8px", font: "11px/1.35 ui-monospace, monospace", background: "rgba(0,0,0,.75)", color: "#fff", borderRadius: 6, pointerEvents: "none", whiteSpace: "pre-wrap", maxWidth: "90%" }}
+    >
+      {regels.join("\n")}
+    </pre>
+  );
+}
+
 export default function IsoHouseAuto(props: IsoHouseProps) {
   const [kan3d, setKan3d] = useState(false);
   const [klaar, setKlaar] = useState(false);
   const [fout, setFout] = useState(false);
 
   useEffect(() => {
-    if (props.mini || !webglMogelijk()) return;
+    if (props.mini) return;
+    const webgl = webglMogelijk();
+    meld("webgl", webgl ? "ja" : "NEE");
+    if (!webgl) return;
     const budget = budget3D();
-    if (budget === "geen") return; // data saver / 2G / little memory: the SVG house stays
+    meld("budget", budget);
+    if (budget === "geen") return; // ≤ 1 GB memory: the SVG house stays
     // Fetch the 3D chunk and textures together, not one after the other. On a
     // fast line that starts right away; on 3G it waits for the load event, so
     // the question photos are not slowed down. The heavy build always waits
@@ -83,7 +110,14 @@ export default function IsoHouseAuto(props: IsoHouseProps) {
       chunk ??= haal();
       const c = chunk;
       weg = opRustigMoment(() => {
-        c.then(() => setKan3d(true), () => setFout(true));
+        meld("3d", "chunk laden");
+        c.then(
+          () => setKan3d(true),
+          (e: unknown) => {
+            meld("3d", `chunk FOUT: ${String(e).slice(0, 80)}`);
+            setFout(true);
+          },
+        );
       });
     };
     if (document.readyState === "complete") start();
@@ -95,8 +129,17 @@ export default function IsoHouseAuto(props: IsoHouseProps) {
   }, [props.mini]);
 
   const toon3d = kan3d && !fout;
+  // Only after mount: the prerendered HTML has no ?diag, so rendering the label
+  // during hydration would be a mismatch.
+  const [diag, setDiag] = useState(false);
+  useEffect(() => setDiag(DIAG), []);
+  useEffect(() => {
+    if (klaar) meld("3d", fout ? "UIT (fout)" : "getekend");
+    else if (fout) meld("3d", "UIT (fout)");
+  }, [klaar, fout]);
   return (
     <>
+      {diag && !props.mini && <DiagLabel />}
       {(!toon3d || !klaar) && <IsoHouse {...props} />}
       {toon3d && (
         <Vangnet onFout={() => setFout(true)}>

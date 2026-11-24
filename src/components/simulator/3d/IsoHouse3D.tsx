@@ -32,7 +32,7 @@ import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../fil
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useTaal } from "@/i18n/useTaal";
-import { TEXTUUR, heeftStraat } from "./bestanden";
+import { TEXTUUR, budget3D, heeftStraat, meld } from "./bestanden";
 import Straat3D, { StraatVangnet } from "./straat";
 
 /*
@@ -1121,7 +1121,7 @@ function Scene(props: SceneProps) {
       {heeftStraat(woning) && (
         <StraatVangnet key={`${woning}-${w}`}>
           <Suspense fallback={null}>
-            <Straat3D woning={woning} w={w} l={l} klein={GSM} open={openStand} />
+            <Straat3D woning={woning} w={w} l={l} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"} open={openStand} />
           </Suspense>
         </StraatVangnet>
       )}
@@ -1215,10 +1215,29 @@ export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void
         dpr={[1, GSM ? 1.5 : 2]}
         camera={{ position: [60, 60, 60], near: 0.1, far: 300, zoom: 30 }}
         gl={{ antialias: true, alpha: true, toneMapping: NeutralToneMapping, preserveDrawingBuffer: false }}
-        onCreated={({ gl }) => {
+        onCreated={({ gl, invalidate }) => {
           gl.localClippingEnabled = true;
           gl.setClearColor(0x000000, 0);
-          gl.domElement.addEventListener("webglcontextlost", () => onFout?.(), { once: true });
+          // A phone drops the WebGL context when the tab goes to the background or
+          // memory runs short, and hands it back shortly after. three.js calls
+          // preventDefault on the loss and rebuilds everything on restore, so we
+          // wait for that; only a context that stays gone means the flat drawing.
+          // Falling back on the first loss turned the 3D off for good after one
+          // app switch on iOS.
+          let wacht = 0;
+          gl.domElement.addEventListener("webglcontextlost", () => {
+            meld("webgl-context", "weg, wacht op herstel");
+            window.clearTimeout(wacht);
+            wacht = window.setTimeout(() => {
+              meld("webgl-context", "NIET hersteld");
+              onFout?.();
+            }, 6000);
+          });
+          gl.domElement.addEventListener("webglcontextrestored", () => {
+            window.clearTimeout(wacht);
+            meld("webgl-context", "hersteld");
+            invalidate();
+          });
         }}
         aria-hidden="true"
       >

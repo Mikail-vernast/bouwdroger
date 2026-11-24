@@ -1,7 +1,7 @@
-import { Component, type ReactNode, useLayoutEffect, useMemo, useRef } from "react";
-import { useFrame, useLoader } from "@react-three/fiber";
-import { DoubleSide, type Mesh, type MeshBasicMaterial, Matrix4, Quaternion, SRGBColorSpace, TextureLoader, Vector3 } from "three";
-import { straatBeelden, type StraatWoning } from "./bestanden";
+import { Component, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { useFrame, useLoader, useThree } from "@react-three/fiber";
+import { DoubleSide, type Mesh, type MeshBasicMaterial, Matrix4, Quaternion, SRGBColorSpace, type Texture, TextureLoader, Vector3 } from "three";
+import { meld, straatBeelden, type StraatMaat, type StraatWoning } from "./bestanden";
 
 /*
   The street around the house: a Blender render (scripts/simulator-3d/straat.py),
@@ -36,20 +36,56 @@ interface Props {
   woning: StraatWoning;
   w: number;
   l: number;
-  klein: boolean;
+  /** The sharpest size this device gets; the mini size always comes first. */
+  doel: StraatMaat;
   /** 0 closed .. 1 opened up: the front layer fades with the upper floors. */
   open: { current: number };
 }
 
-export default function Straat3D({ woning, w, l, klein, open }: Props) {
-  const [achterTex, voorTex] = useLoader(TextureLoader, straatBeelden(woning, w, klein));
-  useLayoutEffect(() => {
-    for (const t of [achterTex, voorTex]) {
-      t.colorSpace = SRGBColorSpace;
-      t.anisotropy = 4;
-      t.needsUpdate = true;
-    }
-  }, [achterTex, voorTex]);
+function zetKleur(t: Texture) {
+  t.colorSpace = SRGBColorSpace;
+  t.anisotropy = 4;
+  t.needsUpdate = true;
+}
+
+/*
+  Progressive: the mini pictures (~25–90 kB per pair) suspend the street, so it is
+  on screen within seconds on any line. The sharp ones load in the background and
+  replace them when they are in; if they fail, the mini street simply stays.
+*/
+export default function Straat3D({ woning, w, l, doel, open }: Props) {
+  const mini = useLoader(TextureLoader, straatBeelden(woning, w, "mini"));
+  const [scherp, setScherp] = useState<[Texture, Texture] | null>(null);
+  const invalidate = useThree((s) => s.invalidate);
+
+  useEffect(() => {
+    mini.forEach(zetKleur);
+    meld("straat", doel === "mini" ? "mini (eind)" : "mini, scherp laden");
+    invalidate();
+    if (doel === "mini") return;
+    let weg = false;
+    const loader = new TextureLoader();
+    Promise.all(straatBeelden(woning, w, doel).map((u) => loader.loadAsync(u))).then(
+      (t) => {
+        if (weg) return t.forEach((x) => x.dispose());
+        t.forEach(zetKleur);
+        setScherp([t[0], t[1]]);
+        meld("straat", doel);
+      },
+      (e: unknown) => meld("straat", `mini (scherp FOUT: ${String(e).slice(0, 60)})`),
+    );
+    return () => {
+      weg = true;
+    };
+  }, [mini, woning, w, doel, invalidate]);
+
+  // Free the sharp pair when the width changes or the street unmounts.
+  useEffect(() => () => scherp?.forEach((t) => t.dispose()), [scherp]);
+  useEffect(() => {
+    if (scherp) invalidate();
+  }, [scherp, invalidate]);
+
+  const [achterTex, voorTex] = scherp ?? mini;
 
   // The render is centred on this ground point (straat.py: DOEL).
   const midden = useMemo(() => new Vector3(w / 2, 0, l / 2 + 3), [w, l]);
