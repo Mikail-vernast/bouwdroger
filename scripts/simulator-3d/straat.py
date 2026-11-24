@@ -1382,6 +1382,13 @@ def sorteer_voor():
         ys = [p.z for p in pts]
         if max(ys) < 0.3:
             continue
+        # Helemaal links van de woning (x <= -T) kan nooit vóór haar staan: de camera kijkt
+        # van +x, dus elke kijkstraal vanaf zo'n object gaat de woning in of erlangs, nooit
+        # ervoor. De gevel van de buur aan de gemene muur ligt precies in het vlak van de
+        # voorgevel (z = F) en kwam door de test hieronder in de voorlaag; daar schilderde
+        # hij een strook baksteen over de oversteek van het live dak.
+        if max(xs) < -T + 0.01:
+            continue
         # Met marge: een buur die precies tegen de zijgevel staat begint op x = W + T. Met
         # een strikte vergelijking viel zijn dak in de achterlaag en zijn puntgevel in de
         # voorlaag, en stak er een driehoek baksteen door het dak van de woning.
