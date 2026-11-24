@@ -29,6 +29,23 @@ uitvoer heet {WONING}-b{BREEDTE*10}-achter.png en -voor.png.
 
 Assen: three.js (x, y omhoog, z naar de straat) = Blender (x, -z, y). De woning
 staat op x 0..w, z 0..l; de voorgevel kijkt naar +z.
+
+WONING=appartement (BOUWLAGEN=1 of 2) zet de live unit in een appartementsgebouw
+in een stedelijke straat: zie de sectie "appartement" onderaan. De unit is de
+hoekunit rechts-vooraan op de bovenste verdieping, met twee bouwlagen eronder.
+Alles wat de camera tussen haar en de kijker kan zetten (rechts, vóór, boven)
+blijft daardoor leeg of laag. In dit script staat de straat op y = 0 en de vloer
+van de unit op YU = 2·FH; de camera mikt op dezelfde plek als in de app, waar de
+unit op y = 0 staat. Uitvoer: appartement-b90-l{BOUWLAGEN}-achter.png en -voor.png.
+
+ROUW=1 bouwt alleen de volumes in grijs, zonder planten (snelle controle).
+CONTROLE=1 tekent de live doos van de unit als rood draadmodel in de achterlaag,
+om de uitlijning met een screenshot uit de app te vergelijken.
+
+Herkomst: alle geometrie is in dit script gemodelleerd. Van Poly Haven (CC0,
+polyhaven.com) komen de texturen leafy_grass en asphalt_02 en de modellen
+island_tree_01/02/03, tree_small_02, shrub_01..04 en outdoor_table_chair_set_01.
+Baksteen en dakpannen zijn de eigen tegels uit public/simulator/3d.
 """
 import math
 import os
@@ -46,12 +63,18 @@ SCHAAL = float(os.environ.get("SCHAAL", "56"))  # ortho breedte in meter
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Zelfde maten als src/lib/droogSimulator.ts (WONING) en maten.ts.
-WONINGEN = {"rijwoning": (6, 10, 2), "halfopen": (8, 10, 1), "open": (10, 11, 0)}
+WONINGEN = {"rijwoning": (6, 10, 2), "halfopen": (8, 10, 1), "open": (10, 11, 0), "appartement": (9, 10, 0)}
 W, L, BUREN = WONINGEN[WONING]
 if os.environ.get("BREEDTE"):
     W = float(os.environ["BREEDTE"])
-NAAM = f"{WONING}-b{round(W * 10)}"
+APP = WONING == "appartement"
+ROUW = bool(os.environ.get("ROUW"))
+CONTROLE = bool(os.environ.get("CONTROLE"))
+BOUWLAGEN = int(os.environ.get("BOUWLAGEN", "1"))
+NAAM = f"{WONING}-b{round(W * 10)}" + (f"-l{BOUWLAGEN}" if APP else "")
 T, FH = 0.24, 2.9
+# Vloer van de live unit boven de straat: twee bouwlagen eronder (IsoHouse3D: het spook-blok).
+YU = 2 * FH if APP else 0.0
 OV = 0.35  # dakoversteek, zoals IsoHouse3D
 NOK = min(L * 0.38, 4.2)  # maten.ts: nokHoogte("zadeldak", l)
 D = L + 2 * T  # diepte van een huis, buitenwerks
@@ -62,14 +85,21 @@ F = L + T
 # Een rijwoning parkeert in de voortuin (geen zijstrook), dus die is diep genoeg voor een auto.
 TUIN = 5.6 if BUREN == 2 else 4.2
 VOETPAD, BOORD, FIETS, RIJWEG = 1.6, 0.15, 1.3, 5.6
+# In de stad staat het gebouw op de rooilijn: een smalle strook tegels en
+# plantvakken voor de gevel, een breder voetpad en een parkeerstrook langs de rijweg.
+PARK = 0.0
+if APP:
+    TUIN, VOETPAD, PARK = 1.6, 2.2, 2.1
 ACHTER = 15.0  # diepte van de achtertuin
 PAD0 = F + TUIN
 BOORD0 = PAD0 + VOETPAD
-FIETS0 = BOORD0 + BOORD
+PARK0 = BOORD0 + BOORD
+FIETS0 = PARK0 + PARK
 WEG0 = FIETS0 + FIETS
 WEG1 = WEG0 + RIJWEG
 FIETS1 = WEG1 + FIETS
-BOORD1 = FIETS1 + BOORD
+PARK1 = FIETS1 + PARK
+BOORD1 = PARK1 + BOORD
 PAD1 = BOORD1 + VOETPAD
 EIND = TUIN + D + ACHTER  # van de rand van het voetpad tot de achterhaag
 X0, X1, Z0, Z1 = -80, W + 80, -70, PAD1 + 70
@@ -322,6 +352,29 @@ M = {
     "schors": ruw("schors", ("#3a2a1f", "#5a4130"), 22.0, 0.8),
 }
 STENEN = ["steen1", "steen0", "steen2", "steen3", "steen0", "steen2"]
+# Appartementsgebouw: precies de tint van de live gevel, zodat render en unit één gevel zijn.
+M["steenapp"] = tegel("steenapp", BAKSTEEN, 0.92, tint=srgb("#f3e2d8"))
+M["zinkrand"] = kleur("zinkrand", srgb("#a7adb1"), 0.32, 0.75)  # IsoHouse3D "zink": de dakrand
+M["alu"] = kleur("alu", srgb("#2b2d30"), 0.4, 0.5)  # donker aluminium schrijnwerk
+M["poort"] = stenen("poort", 3.0, 0.5, ("#3a3c3f", "#36383b"), "#232426", offset=0.0, voegmaat=0.01, ruis=0.1, bump=0.4)
+M["beton"] = kleur("beton", srgb("#b9b5ad"), 0.85)
+# Hetzelfde grind als op het dak van de live unit (IsoHouse3D: grind.webp, periode 0,5 m).
+M["grind"] = tegel("grind", f"{REPO}/public/simulator/3d/grind.webp", 0.95, tint=srgb("#a39a8c"))
+M["balkonglas"] = kleur("balkonglas", srgb("#9fb4bd"), 0.05, 0.0)
+M["balkonglas"].node_tree.nodes["Principled BSDF"].inputs["Transmission Weight"].default_value = 0.85
+M["auto0"] = kleur("auto0", srgb("#4f5a66"), 0.25, 0.6)
+M["auto1"] = kleur("auto1", srgb("#c9c9c6"), 0.25, 0.6)
+M["auto2"] = kleur("auto2", srgb("#2b2c2e"), 0.25, 0.6)
+M["auto3"] = kleur("auto3", srgb("#7a2a26"), 0.25, 0.6)
+M["band"] = kleur("band", srgb("#1d1e20"), 0.8)
+M["fietsrek"] = kleur("fietsrek", srgb("#8f9499"), 0.35, 0.8)
+
+if ROUW:
+    # Grijze blokken: alleen volume en uitlijning beoordelen.
+    grijs = kleur("grijs", (0.55, 0.55, 0.55), 0.8)
+    donker = kleur("donkergrijs", (0.25, 0.25, 0.26), 0.8)
+    for k in list(M):
+        M[k] = donker if k in ("glas", "asfalt", "alu", "poort", "auto2", "band") else grijs
 
 
 # ───────────────────────── geometrie ─────────────────────────
@@ -351,7 +404,17 @@ def vlak(naam, x0, z0, x1, z1, mat, y=0.0):
 BLOK_VLAKKEN = [(0, 3, 2, 1), (4, 5, 6, 7), (0, 1, 5, 4), (2, 3, 7, 6), (0, 4, 7, 3), (1, 2, 6, 5)]
 
 
-def blok(naam, x0, x1, y0, y1, z0, z1, mat, bevel=0.0):
+def live_uv(p, ax):
+    """UV zoals de live woning (geo.ts: wereldUv) in baksteenperiodes: gevels op x of
+    z en de hoogte boven de vloer van de unit, vloeren op x/z. Zo lopen de lagen
+    baksteen van de render en van de live gevel op dezelfde hoogte door."""
+    x, z, y = p[0], -p[1], p[2] - YU
+    if ax == 2:
+        return (x / 3.232, z / 1.984)
+    return ((z if ax == 0 else x) / 3.232, y / 1.984)
+
+
+def blok(naam, x0, x1, y0, y1, z0, z1, mat, bevel=0.0, uv_live=False):
     """Een balk via de data-API: bpy.ops kost per aanroep een scène-update, en met
     een paar duizend blokken (ramen, palen, schermen) was dat minuten opbouwtijd."""
     x0, x1 = sorted((x0, x1))
@@ -365,7 +428,7 @@ def blok(naam, x0, x1, y0, y1, z0, z1, mat, bevel=0.0):
         nrm = (a[1] - a[0]).cross(a[2] - a[0])
         ax = max(range(3), key=lambda k: abs(nrm[k]))
         u_as, v_as = [k for k in range(3) if k != ax]
-        uvs += [(p[u_as] / 3.232, p[v_as] / 1.984) for p in a]
+        uvs += [live_uv(p, ax) if uv_live else (p[u_as] / 3.232, p[v_as] / 1.984) for p in a]
     o = mesh(naam, vs, BLOK_VLAKKEN, mat, uvs=uvs)
     if bevel:
         b = o.modifiers.new("bevel", "BEVEL")
@@ -408,14 +471,16 @@ class Gevel:
             return blok(naam, u0, u1, y0, y1, a, b, mat)
         return blok(naam, a, b, y0, y1, u0, u1, mat)
 
-    def raam(self, u0, u1, y0, y1, dorpel=True):
+    def raam(self, u0, u1, y0, y1, dorpel=True, kader="kader", kalf=0.0):
         self.blok("glas", u0, u1, y0, y1, 0, 0.015, M["glas"])
         k = 0.07
         for a0, a1, b0, b1 in ((u0, u0 + k, y0, y1), (u1 - k, u1, y0, y1), (u0, u1, y0, y0 + k), (u0, u1, y1 - k, y1)):
-            self.blok("kader", a0, a1, b0, b1, 0, 0.05, M["kader"])
+            self.blok("kader", a0, a1, b0, b1, 0, 0.05, M[kader])
         if u1 - u0 > 1.1:  # middenstijl zoals bij een draai-kipraam
             um = (u0 + u1) / 2
-            self.blok("kader", um - 0.035, um + 0.035, y0, y1, 0, 0.05, M["kader"])
+            self.blok("kader", um - 0.035, um + 0.035, y0, y1 - kalf, 0, 0.05, M[kader])
+        if kalf:  # bovenlicht, zoals de ramen van de live unit
+            self.blok("kader", u0, u1, y1 - kalf - 0.035, y1 - kalf + 0.035, 0, 0.05, M[kader])
         if dorpel:
             self.blok("dorpel", u0 - 0.07, u1 + 0.07, y0 - 0.06, y0, 0, 0.09, M["arduin"])
 
@@ -738,7 +803,7 @@ UIT = [(-T - 0.05, W + T + 0.05, -T - 0.05, F + 0.05)]  # geen gras onder de liv
 # Wat de camera ziet, in schermcoördinaten (zelfde assen als three.js).
 _R = Vector((1, 0, -1)).normalized()
 _O = Vector((-1, 2, -1)).normalized()
-_DOEL = Vector((W / 2, 0, L / 2 + 3))
+_DOEL = Vector((W / 2, YU, L / 2 + 3))
 _HALF = (SCHAAL / 2, SCHAAL * RES[1] / RES[0] / 2)
 
 
@@ -863,7 +928,7 @@ def kavel(i, kant, x0, x1, hx0, hx1, oprit=None, eigen=False, vrij_l=False, vrij
         border(rv0, rv1, *zr(kant, gevel_v - 1.1, gevel_v - 0.45), max(2, round((rv1 - rv0) / 1.3)))
     # Een kleine sierboom in de voortuin, aan de kant weg van pad en oprit. Niet bij elk
     # huis: een straat waar elke voortuin hetzelfde staat, leest als een maquette.
-    if not eigen and i % 3 != 2:
+    if not eigen and i % 3 != 2 and TUIN > 3:  # in een smalle stadsvoortuin past geen boom
         vrij0, vrij1 = (x0 + 0.8, dc - 1.2) if deur_rechts else (dc + 1.2, x1 - 0.8)
         if oprit:
             vrij0, vrij1 = (max(vrij0, oprit[1] + 0.8), vrij1) if oprit[0] < dc else (vrij0, min(vrij1, oprit[0] - 0.8))
@@ -910,8 +975,12 @@ def straat():
     vlak("fietspad", X0, FIETS0, X1, WEG0, M["fietspad"], 0.01)
     vlak("fietspad2", X0, WEG1, X1, FIETS1, M["fietspad"], 0.01)
     vlak("weg", X0, WEG0, X1, WEG1, M["asfalt"], 0.01)
-    blok("boord", X0, X1, 0.0, 0.14, BOORD0, FIETS0, M["boord"], bevel=0.02)
-    blok("boord2", X0, X1, 0.0, 0.14, FIETS1, BOORD1, M["boord"], bevel=0.02)
+    blok("boord", X0, X1, 0.0, 0.14, BOORD0, PARK0, M["boord"], bevel=0.02)
+    blok("boord2", X0, X1, 0.0, 0.14, PARK1, BOORD1, M["boord"], bevel=0.02)
+    if PARK:
+        # Parkeerstrook in klinkers, op de hoogte van de rijweg.
+        vlak("parkeer", X0, PARK0, X1, FIETS0, M["oprit"], 0.012)
+        vlak("parkeer2", X0, FIETS1, X1, PARK1, M["oprit"], 0.012)
     x = X0
     while x < X1:
         vlak("streep", x, WEG0 - 0.05, x + 1.0, WEG0 + 0.05, M["streep"], 0.016)
@@ -1006,7 +1075,352 @@ def omgeving():
         verspreid(wd, WEIDE, 260, (0.7, 1.4), hou_basis=False, rechtop=True)
 
 
-omgeving()
+# ───────────────────────── appartement ─────────────────────────
+#
+# Een hedendaags Vlaams appartementsgebouw op de rooilijn, van rechts naar links:
+#   A   onder de live unit: gelijkvloers met fietsenberging en garagepoort, een
+#       verdieping met een appartement. De unit zelf is live geometrie.
+#   K1  de trappenhal met lift, direct links tegen de unit: inkom, brievenbussen.
+#   B, C  twee units van dezelfde maat, K2 een tweede trappenhal, dan D.
+#   Daarna sluit de rij aan op oudere rijwoningen (het volgende blok).
+# Rechts een open strook met een pleintje, verderop weer rijwoningen: zo ver dat
+# niets ervan op het scherm over de unit komt. Achter een binnenplaats met de
+# privétuintjes van de gelijkvloerse units.
+
+TOP = YU + BOUWLAGEN * FH  # bovenkant van de gevels = daktop van de live unit
+KERN = 3.2
+UB = W + 2 * T  # een unit buitenwerks
+# Zelfde kolomraster en raammaat als de voorgevel van de live unit (IsoHouse3D: gevelGaten).
+KOLOMMEN = 2 if W < 7 else 3 if W < 9.5 else 4
+RASTER = [W * (k + 0.5) / KOLOMMEN for k in range(KOLOMMEN)]
+RAAM_B = min(1.3, W / KOLOMMEN * 0.58)
+BALKON = os.environ.get("BALKON", "1") != "0"
+
+
+def vlak_mat(naam, x0, z0, x1, z1, mat, y):
+    return vlak(naam, x0, z0, x1, z1, M[mat] if isinstance(mat, str) else mat, y)
+
+
+def steen(naam, x0, x1, y0, y1, z0, z1, mat="steenapp"):
+    return blok(naam, x0, x1, y0, y1, z0, z1, M[mat], uv_live=True)
+
+
+def dakrand(x0, x1, z0, z1, y):
+    """Plat dak zoals de live unit (IsoHouse3D, dakBouw plat): een zinken rand van
+    42 cm met een opstaande lip, grind ertussen. Zo loopt de kroonlijst van het
+    gebouw op exact dezelfde hoogte en in hetzelfde profiel door in die van de unit."""
+    e = 0.08
+    blok("dakrand", x0 - e, x1 + e, y, y + 0.3, z0 - e, z1 + e, M["zinkrand"])
+    for a in ((x0 - e, x1 + e, z0 - e, z0 + 0.2), (x0 - e, x1 + e, z1 - 0.2, z1 + e),
+              (x0 - e, x0 + 0.2, z0 + 0.2, z1 - 0.2), (x1 - 0.2, x1 + e, z0 + 0.2, z1 - 0.2)):
+        blok("dakrand-lip", a[0], a[1], y + 0.3, y + 0.46, a[2], a[3], M["zinkrand"])
+    a0, a1, b0, b1 = x0 + 0.2, x1 - 0.2, z0 + 0.2, z1 - 0.2
+    mesh("grind", [V(a0, y + 0.36, b0), V(a1, y + 0.36, b0), V(a1, y + 0.36, b1), V(a0, y + 0.36, b1)], [(0, 3, 2, 1)], M["grind"],
+         uvs=[(u / 0.5, v / 0.5) for u, v in ((a0, b0), (a0, b1), (a1, b1), (a1, b0))])
+
+
+def band(x0, x1, y, voor=True, zij=None):
+    """De vloerplaat in de gevel: arduin, zoals de onderste plaat van de live unit."""
+    if voor:
+        blok("band", x0, x1, y, y + 0.3, F, F + 0.012, M["arduin"])
+    if zij is not None:
+        blok("band", zij, zij + 0.012, y, y + 0.3, -T, F + 0.012, M["arduin"])
+
+
+def lijstraam(g, cx, yf, b=RAAM_B, deur=False):
+    """Raam zoals in de live gevel: 0,75..2,30 m boven de vloer, met bovenlicht.
+    Een raamdeur (naar een balkon) loopt tot op de vloer."""
+    y0 = yf + 0.02 if deur else yf + 0.75
+    g.raam(cx - b / 2, cx + b / 2, y0, yf + 2.3, dorpel=not deur, kalf=0.5)
+
+
+def balkon(x0, x1, yv, diep=1.5, naam="balkon"):
+    """Balkonplaat met glazen borstwering en een paar bakken met planten."""
+    blok(naam, x0, x1, yv - 0.2, yv, F, F + diep, M["beton"], bevel=0.01)
+    yb = yv + 1.0
+    for a in ((x0 + 0.03, x1 - 0.03, F + diep - 0.04, F + diep - 0.02),):
+        blok(naam + "-glas", a[0], a[1], yv + 0.05, yb, a[2], a[3], M["balkonglas"])
+    for xx in (x0 + 0.03, x1 - 0.05):
+        blok(naam + "-glas", xx, xx + 0.02, yv + 0.05, yb, F + 0.05, F + diep - 0.04, M["balkonglas"])
+    blok(naam + "-leuning", x0, x1, yb, yb + 0.04, F + diep - 0.06, F + diep, M["alu"])
+    for xx in (x0, x1 - 0.04):
+        blok(naam + "-leuning", xx, xx + 0.04, yb, yb + 0.04, F, F + diep, M["alu"])
+    if not ROUW:
+        for k in range(2):
+            px = x0 + 0.5 + k * (x1 - x0 - 1.0)
+            blok(naam + "-bak", px - 0.3, px + 0.3, yv, yv + 0.4, F + diep - 0.55, F + diep - 0.15, M["arduin"])
+            plaats(random.choice(STRUIKEN), px, F + diep - 0.35, random.uniform(0.6, 0.9), y=yv + 0.38)
+
+
+def unit_gevel(x0, lagen_k, gelijkvloers="unit", balkons=True):
+    """Voorgevel van een travee met een unit per verdieping, kolommen als de live unit."""
+    g = Gevel("z", F, 1)
+    for k in lagen_k:
+        yb = k * FH
+        yf = yb + 0.3
+        for i, c in enumerate(RASTER):
+            cx = x0 + T + c
+            if k == 0 and gelijkvloers != "unit":
+                continue
+            deur = balkons and k >= 1 and i == len(RASTER) - 1
+            lijstraam(g, cx, yf, deur=deur)
+        if balkons and k >= 1:
+            cx = x0 + T + RASTER[-1]
+            balkon(cx - 1.6, cx + 1.6, yf - 0.02)
+
+
+def kern(x0, x1, inkom=True):
+    """Trappenhal met lift: een glazen strook over de volle hoogte en de inkom eronder."""
+    steen("kern", x0, x1, 0, TOP, -T, F)
+    band(x0, x1, 0)
+    g = Gevel("z", F, 1)
+    xm = (x0 + x1) / 2
+    # Trappenhal: verticale glasstrook in donker aluminium, per verdieping een regel.
+    for k in range(1, int(round(TOP / FH))):
+        g.raam(xm - 0.8, xm + 0.8, k * FH + 0.15, (k + 1) * FH - 0.15, dorpel=False, kader="alu")
+    if inkom:
+        # Inkom: dubbele glazen deur onder een luifel, brievenbussen en bellenbord ernaast.
+        g.raam(xm - 0.95, xm + 0.95, 0.15, 2.6, dorpel=False, kader="alu")
+        blok("inkom-dorpel", xm - 1.1, xm + 1.1, 0.0, 0.15, F, F + 0.45, M["arduin"])
+        blok("luifel", x0 + 0.2, x1 - 0.2, 2.75, 2.95, F, F + 1.4, M["alu"])
+        blok("brievenbussen", x0 + 0.15, x0 + 0.65, 0.5, 1.7, F, F + 0.35, M["alu"], bevel=0.01)
+        blok("bellenbord", x1 - 0.45, x1 - 0.2, 1.1, 1.6, F, F + 0.03, M["alu"])
+    # Liftopbouw boven het dak, achter de dakrand.
+    blok("liftkoker", x0 + 0.4, x1 - 0.4, TOP, TOP + 1.3, 2.5, 5.2, M["steenapp"])
+    blok("liftkap", x0 + 0.32, x1 - 0.32, TOP + 1.3, TOP + 1.42, 2.42, 5.28, M["zinkrand"])
+
+
+def auto(x, z, mat, lang=4.3, breed=1.8):
+    """Een geparkeerde auto, langs de straat (lengte langs x)."""
+    x0, x1, z0, z1 = x - lang / 2, x + lang / 2, z - breed / 2, z + breed / 2
+    blok("auto", x0, x1, 0.3, 0.95, z0, z1, M[mat], bevel=0.14)
+    blok("auto-ramen", x0 + 1.0, x1 - 0.8, 0.9, 1.42, z0 + 0.12, z1 - 0.12, M["glas"], bevel=0.12)
+    blok("auto-dak", x0 + 1.15, x1 - 0.95, 1.38, 1.46, z0 + 0.16, z1 - 0.16, M[mat], bevel=0.03)
+    for wx in (x0 + 0.8, x1 - 0.8):
+        for a, b in ((z0 - 0.01, z0 + 0.22), (z1 - 0.22, z1 + 0.01)):
+            cilinder("wiel", (wx, 0.32, a), (wx, 0.32, b), 0.32, M["band"], 20)
+
+
+def fietsrek(x, z, n=4):
+    for k in range(n):
+        px = x + k * 0.8
+        for dz in (-0.35, 0.35):
+            cilinder("fietsrek", (px, 0.12, z + dz), (px, 0.8, z + dz), 0.025, M["fietsrek"], 8)
+        cilinder("fietsrek", (px, 0.8, z - 0.35), (px, 0.8, z + 0.35), 0.025, M["fietsrek"], 8)
+
+
+def lantaarn(lx, lz, r=1):
+    """Lantaarnpaal zoals in straat(); de arm wijst naar de rijweg (r = +1 of -1 langs z)."""
+    cilinder("lantaarn", (lx, 0.12, lz), (lx, 6.2, lz), 0.08, M["paal"], 16)
+    blok("lantaarn-arm", lx - 0.04, lx + 0.04, 6.05, 6.13, lz, lz + 1.0 * r, M["paal"])
+    blok("lantaarn-kop", lx - 0.16, lx + 0.16, 5.95, 6.12, lz + 0.8 * r, lz + 1.4 * r, M["paal"], bevel=0.04)
+    blok("lantaarn-glas", lx - 0.13, lx + 0.13, 5.93, 5.96, lz + 0.85 * r, lz + 1.35 * r, M["lamp"])
+
+
+def omgeving_appartement():
+    straat()
+
+    # ── A: de twee bouwlagen onder de live unit ──
+    steen("onder", -T, W + T, 0, YU, -T, F)
+    for k in (0, 1):
+        band(-T, W + T, k * FH, zij=W + T)
+    g = Gevel("z", F, 1)
+    zij = Gevel("x", W + T, 1)
+    # Eerste verdieping: dezelfde ramen als de unit, recht eronder; ook in de zijgevel.
+    for c in RASTER:
+        lijstraam(g, c, FH + 0.3)
+    nz = 2 if L > 10.5 else 1
+    for i in range(nz):
+        cz = L * (i + 1) / (nz + 1)
+        zij.raam(cz - 0.45, cz + 0.45, FH + 0.3 + 0.9, FH + 0.3 + 2.3, kalf=0.45)
+    # Gelijkvloers: fietsenberging links, garagepoort rechts (hellingbaan binnen naar de kelder).
+    g.raam(RASTER[0] - 0.55, RASTER[0] + 0.55, 0.3, 2.45, dorpel=False, kader="alu")
+    blok("garagepoort", W - 4.4, W - 0.6, 0.0, 2.45, F, F + 0.03, M["poort"])
+    for a0, a1, b0, b1 in ((W - 4.5, W - 4.4, 0, 2.55), (W - 0.6, W - 0.5, 0, 2.55), (W - 4.5, W - 0.5, 2.45, 2.55)):
+        blok("garagekader", a0, a1, b0, b1, F, F + 0.05, M["alu"])
+    for cz in (2.5, 5.0, 7.5):
+        zij.raam(cz - 0.9, cz + 0.9, 1.7, 2.5, kader="alu")  # hoge ramen van de fietsenberging
+    # Regenpijp van de unit (IsoHouse3D: afvoer op x = w + T + 0.06) loopt door tot de grond.
+    cilinder("afvoer", (W + T + 0.06, 0.05, L + T - 0.3), (W + T + 0.06, YU + 0.05, L + T - 0.3), 0.045, M["zink"], 10)
+    verhard("inrit", W - 4.5, W - 0.5, F, PAD0, M["oprit"], 0.125)
+    # Terras van de unit, voor de raamdeur in haar rechtse kolom (IsoHouse3D: gevelGaten).
+    # Het staat vóór de gevel en komt dus in de voorlaag: het vervaagt als de unit opengaat.
+    if BALKON:
+        cx = RASTER[-1]
+        balkon(cx - 1.7, min(cx + 1.7, W + T), YU + 0.28, diep=1.6, naam="terras")
+
+    # ── links: trappenhal, units, tweede trappenhal, unit, dan het volgende blok ──
+    x = -T
+    traveeen = [("kern", KERN), ("unit", UB), ("unit", UB), ("kern", KERN), ("unit", UB)]
+    for i, (soort, b) in enumerate(traveeen):
+        x0, x1 = x - b, x
+        if soort == "kern":
+            kern(x0, x1)
+        else:
+            steen("unit", x0, x1, 0, TOP, -T, F)
+            for k in range(int(round(TOP / FH))):
+                band(x0, x1, k * FH)
+            unit_gevel(x0, range(int(round(TOP / FH))), balkons=BALKON)
+            # Plantvak voor de ramen van de gelijkvloerse unit.
+            verhard("plantvak", x0 + 0.4, x1 - 0.4, F + 0.15, F + 1.0, M["schors"], 0.16)
+            if not ROUW:
+                haag(x0 + 0.4, x1 - 0.4, F + 0.75, F + 1.1, 0.7, 1800)
+        x = x0
+    xl = x
+    dakrand(xl, -T, -T, F, TOP)
+
+    # Het gebouw zelf: geen gras eronder. Voorzone tussen gevel en voetpad: tegels.
+    UIT.append((xl - 0.05, W + T + 0.05, -T - 0.05, F + 0.05))
+    verhard("voorzone", xl, W + T, F, PAD0, M["pad"], 0.12)
+
+    # Het volgende blok: oudere rijwoningen met zadeldak op dezelfde rooilijn, elk
+    # met een smalle voortuin en een achtertuin, zoals de percelen in de andere straten.
+    bx = xl
+    i = 0
+    while bx > -60 and in_beeld(bx - 8, bx, *zr(1, 0, EIND), 14):
+        bw = [6.0, 5.5, 6.5, 7.0][i % 4] + 2 * T
+        kavel(i, 1, bx - bw, bx, bx - bw, bx, deur_rechts=i % 2 == 0)
+        bx -= bw
+        i += 1
+
+    # ── rechts: een pleintje met banken en twee bomen, een gazon erachter ──
+    XR = W + T + 14.0
+    verhard("plein", W + T, XR, F - 3.5, PAD0, M["terras"], 0.12)
+    verhard("plein-pad", W + T, W + T + 2.0, -T - 8, F - 3.5, M["terras"], 0.12)
+    for bx_ in (W + T + 4.0, W + T + 8.5):
+        blok("bank", bx_, bx_ + 1.8, 0.42, 0.48, F - 3.2, F - 2.75, M["paaltje"])
+        blok("bank-rug", bx_, bx_ + 1.8, 0.48, 0.85, F - 3.25, F - 3.17, M["paaltje"])
+        for px in (bx_ + 0.15, bx_ + 1.55):
+            blok("bank-poot", px, px + 0.1, 0.12, 0.42, F - 3.15, F - 2.8, M["paal"])
+    for bx_ in (W + T + 6.8, W + T + 11.3):
+        verhard("plantvak", bx_ - 0.8, bx_ + 0.8, F - 1.6, F, M["schors"], 0.13)
+        blok("plantvak-rand", bx_ - 0.85, bx_ + 0.85, 0.0, 0.22, F - 1.65, F + 0.05, M["boord"])
+        if not ROUW:
+            plaats(BOMEN[3], bx_, F - 0.8, random.uniform(5.5, 6.5))
+    fietsrek(W + T + 2.6, F + 0.6, 5)
+    rx = XR
+    i = 0
+    while rx < W + 60 and in_beeld(rx, rx + 8, *zr(1, 0, EIND), 14):
+        bw = [6.5, 6.0, 7.0, 5.5][i % 4] + 2 * T
+        kavel(i, 1, rx, rx + bw, rx, rx + bw, vrij_l=i == 0, links_af=i == 0, deur_rechts=i % 2 == 1)
+        rx += bw
+        i += 1
+
+    # ── binnenplaats: privétuintjes van de gelijkvloerse units, gedeeld groen erachter ──
+    ZB = -T - 8.0  # einde van de privétuintjes
+    verhard("koer", -T, W + T, -T - 4, -T, M["terras"], 0.12)
+    x = -T
+    for soort, b in traveeen:
+        x0, x1 = x - b, x
+        if soort == "unit":
+            verhard("terras-b", x0 + 0.3, x1 - 0.3, -T - 3.0, -T, M["terras"], 0.13)
+            if not ROUW:
+                scherm_z(x0, -T, -T - 3.2)
+                haag(x0 - 0.25, x0 + 0.25, ZB, -T - 3.2, 1.6, 1300)
+                haag(x0, x1, ZB - 0.5, ZB, 1.2, 1300)
+                plaats(TUINSET, (x0 + x1) / 2, -T - 1.6, 0.95, hoek=random.random() * 0.6)
+                border(x0 + 0.4, x0 + 1.2, -T - 3.6, ZB - 0.8, 2)
+        else:
+            verhard("koerpad", x0 + 0.6, x1 - 0.6, ZB - 0.5, -T, M["pad"], 0.12)
+        x = x0
+    if not ROUW:
+        haag(xl, W + T + 2.0, *zr(1, EIND - 0.7, EIND), 1.9, 1300)
+        for bx_, bz_ in ((-9.0, -12.5), (-24.0, -12.0), (W - 2.0, -9.5), (-36.0, -12.5)):
+            # Iets in de grond: de eilandbomen hebben een lichte wortelvoet die op een gazon als vlek leest.
+            plaats(random.choice(BOMEN[:2]), bx_, bz_, random.uniform(6.5, 8.5), y=-0.15)
+
+    # ── straatmeubilair ──
+    lz = BOORD0 - 0.35
+    for lx in (-14.0, W + T + 8.0, -38.0):
+        lantaarn(lx, lz)
+    fietsrek(-T - KERN - 1.5, PAD0 + 0.5, 4)
+    # Parkeerstrook: auto's en bomen in plantvakken, om beurten. Straatbomen zijn
+    # rechte, opgekroonde bomen (tree_small_02), geen scheve eilandbomen.
+    pz = (PARK0 + FIETS0) / 2
+    vakken = [(-52, "boom"), (-44, "auto1"), (-38.5, "auto0"), (-33, "boom"), (-26, "auto2"), (-20.5, "boom"),
+              (-14, "auto3"), (-6.5, "boom"), (0.5, "auto1"), (6.0, "auto0"), (13.5, "boom"), (21, "auto2"), (28, "boom")]
+
+    def straatboom(vx, z0, z1, pz_):
+        verhard("boomvak", vx - 0.9, vx + 0.9, z0 + 0.15, z1 - 0.15, M["schors"], 0.02)
+        blok("boomvak-rand", vx - 0.95, vx + 0.95, 0, 0.1, z0 + 0.1, z1 - 0.1, M["boord"])
+        if not ROUW:
+            plaats(BOMEN[3], vx, pz_, random.uniform(7.0, 8.5))
+            for k in range(2):
+                struik(vx + random.uniform(-0.5, 0.5), pz_ + random.uniform(-0.4, 0.4), random.uniform(0.3, 0.5))
+
+    for vx, wat in vakken:
+        if not in_beeld(vx - 3, vx + 3, pz - 2, pz + 2, 10):
+            continue
+        if wat == "boom":
+            straatboom(vx, PARK0, FIETS0, pz)
+        else:
+            auto(vx, pz, wat)
+    # De overkant: rijwoningen met een smalle voortuin, ook met langsparkeren.
+    ox = -60.0
+    i = 0
+    while ox < W + 60:
+        bw = [6.0, 7.0, 6.5, 5.5, 8.0][i % 5] + 2 * T
+        kavel(i, -1, ox, ox + bw, ox, ox + bw, deur_rechts=i % 2 == 0, links_af=i == 0)
+        ox += bw
+        i += 1
+    pz2 = (FIETS1 + PARK1) / 2
+    for vx, wat in ((-30, "auto0"), (-21, "boom"), (-12, "auto2"), (-4, "boom"), (3, "auto1"), (10, "boom"), (17, "auto3")):
+        if not in_beeld(vx - 3, vx + 3, pz2 - 2, pz2 + 2, 10):
+            continue
+        if wat == "boom":
+            straatboom(vx, FIETS1, PARK1, pz2)
+        else:
+            auto(vx, pz2, wat)
+    for lx in (-26.0, W + 1.0):
+        lantaarn(lx, BOORD1 + 0.35, -1)
+
+    if not ROUW:
+        # Gazon met echte sprieten, weiland achter de tuinen, bomenrij op de grens: zoals straat().
+        gz = gazon("gazon", -60, W + 60, zs(1, EIND), PAD0 - 0.02, UIT)
+        verspreid(gz, GAZON, 1300, (0.7, 1.35), hou_basis=False, rechtop=True)
+        gz2 = gazon("gazon-over", -60, W + 60, PAD1 + 0.02, zs(-1, EIND), UIT)
+        verspreid(gz2, GAZON, 1300, (0.7, 1.35), hou_basis=False, rechtop=True)
+        for kant in (1, -1):
+            wd = gazon("weide", -60, W + 60, *zr(kant, EIND, EIND + 16), [])
+            verspreid(wd, WEIDE, 260, (0.7, 1.4), hou_basis=False, rechtop=True)
+            x = -60
+            while x < W + 60:
+                bx_, bz_ = x + random.uniform(-1.5, 1.5), zs(kant, EIND + 3.5 + random.uniform(-1, 1))
+                if in_beeld(bx_ - 4, bx_ + 4, bz_ - 4, bz_ + 4, 14):
+                    plaats(random.choice(BOMEN[:2]), bx_, bz_, random.uniform(10, 13), y=-0.2)
+                x += random.uniform(7, 10)
+
+    # De live unit werpt schaduw in de render (op de binnenplaats en de buren) maar
+    # is er zelf niet in te zien: dat doet de live geometrie.
+    schim = blok("unit-schaduw", -T, W + T, YU, TOP + 0.42, -T, F, M["beton"])
+    for attr in ("visible_camera", "visible_diffuse", "visible_glossy", "visible_transmission", "visible_volume_scatter"):
+        setattr(schim, attr, False)
+
+    if CONTROLE:
+        # De live doos van de unit (IsoHouse3D: -T..w+T, 0..daktop + dakrand, -T..l+T) als rood draadmodel.
+        rood = bpy.data.materials.new("controle")
+        rood.use_nodes = True
+        nt = rood.node_tree
+        em = nt.nodes.new("ShaderNodeEmission")
+        em.inputs["Color"].default_value = (1, 0, 0, 1)
+        em.inputs["Strength"].default_value = 4
+        nt.links.new(em.outputs[0], nt.nodes["Material Output"].inputs[0])
+        d = 0.015
+        xs_, ys_, zs__ = (-T, W + T), (YU, TOP), (-T, F)
+        for yy in ys_:
+            for zz in zs__:
+                blok("draad", xs_[0], xs_[1], yy - d, yy + d, zz - d, zz + d, rood)
+            for xx in xs_:
+                blok("draad", xx - d, xx + d, yy - d, yy + d, zs__[0], zs__[1], rood)
+        for xx in xs_:
+            for zz in zs__:
+                blok("draad", xx - d, xx + d, ys_[0], ys_[1], zz - d, zz + d, rood)
+
+
+if APP:
+    omgeving_appartement()
+else:
+    omgeving()
 
 
 # ───────────────────────── licht en camera ─────────────────────────
@@ -1030,7 +1444,7 @@ zo.rotation_euler = V(11, 24, 6).to_track_quat("Z", "Y").to_euler()
 KIJK = V(1, 1, 1).normalized()
 RECHTS = V(1, 0, -1).normalized()
 OP = V(-1, 2, -1).normalized()
-DOEL = V(W / 2, 0, L / 2 + 3)
+DOEL = V(W / 2, YU, L / 2 + 3)
 cam = bpy.data.cameras.new("cam")
 cam.type = "ORTHO"
 cam.ortho_scale = SCHAAL
@@ -1040,6 +1454,28 @@ sc.collection.objects.link(co)
 co.location = DOEL + KIJK * 80
 co.rotation_euler = (-KIJK).to_track_quat("-Z", "Y").to_euler()
 sc.camera = co
+
+
+# Alle paren hoekpunten: een overmaat aan assen is geen fout, en zo hangt het niet af van de volgorde.
+RIBBEN = [(i, j) for i in range(8) for j in range(i + 1, 8)]
+
+
+def gescheiden(a, b):
+    """Raken twee dozen (elk 8 hoekpunten, Blender-coördinaten) elkaar op het scherm niet?
+    Loodrecht op de verbindingen tussen hoekpunten liggen alle scheidende assen van hun omtrek."""
+    pa = [(p.dot(RECHTS), p.dot(OP)) for p in a]
+    pb = [(p.dot(RECHTS), p.dot(OP)) for p in b]
+    for pts in (pa, pb):
+        for i, j in RIBBEN:
+            dx, dy = pts[j][0] - pts[i][0], pts[j][1] - pts[i][1]
+            if abs(dx) + abs(dy) < 1e-9:
+                continue
+            nx, ny = -dy, dx
+            ra = [x * nx + y * ny for x, y in pa]
+            rb = [x * nx + y * ny for x, y in pb]
+            if max(ra) < min(rb) - 1e-6 or max(rb) < min(ra) - 1e-6:
+                return True
+    return False
 
 
 def sorteer_voor():
@@ -1052,7 +1488,9 @@ def sorteer_voor():
     de grond ligt (oprit, gazon) kan de woning niet bedekken en blijft achter, anders
     zou de voorlaag de live schaduw van de woning op de oprit overschilderen."""
     hoog = 4 * FH + 4.2 + 1.2  # hoogste live woning: vier bouwlagen plus nok en schouw
-    hoeken = [V(x, y, z) for x in (-T, W + T) for y in (0, hoog) for z in (-T, F)]
+    if APP:
+        hoog = BOUWLAGEN * FH + 0.5  # plat dak met dakrand
+    hoeken = [V(x, y, z) for x in (-T, W + T) for y in (YU, YU + hoog) for z in (-T, F)]
 
     def scherm(pts):
         us = [p.dot(RECHTS) for p in pts]
@@ -1079,6 +1517,11 @@ def sorteer_voor():
             continue
         u0, u1, v0, v1 = scherm(pts)
         if u1 < hu0 or u0 > hu1 or v1 < hv0 or v0 > hv1:
+            continue
+        # Bij een appartement liggen de gevels eronder in hetzelfde vlak als de unit,
+        # en vallen ze binnen haar rechthoek op het scherm zonder haar te raken: test
+        # dan de echte omtrek (scheidende assen langs de ribben van beide dozen).
+        if APP and gescheiden(pts, hoeken):
             continue
         link(o, voor=True)
         n += 1
