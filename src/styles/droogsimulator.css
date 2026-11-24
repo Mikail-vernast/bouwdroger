@@ -2097,6 +2097,7 @@
   .ds-wsfoto b{font-size:12.5px}
   .ds-wsfoto small{display:none}
   .ds-beloftes{font-size:11px;gap:4px 10px}
+}
 /* ───── één gekozen-taal voor het hele paneel ─────────────────────────────
   Elke keuze (woning, dak, verdiepingen, fase, dikte, verwarming, tempo) stond
   op "wit vlak" en verder niets. Op een bordeaux paneel is wit óók de kleur van
@@ -2284,3 +2285,30 @@
   .ds-hk--dak .ds-hk-ico{width:38px}
   .ds-hk--dak b{font-size:12px}
 }
+
+/* ═════ wit paneel op een rode pagina (overgenomen uit wip/pakket-teller-toegang, 24-11-2026) ═════
+   Wat hierboven na 23-11 bijkwam, ging nog uit van een bordeaux paneel (witte tekst, witte
+   kaarten, het merk in wit). Hier draait het om: het paneel vol wit, de kaarten in het
+   gebroken wit van /verhuur/boeking, tekst in inkt. Foto-kaarten (dak, werf, waterschade)
+   houden hun witte tekst: die staat op de foto, niet op het paneel. */
+.ds-panel{background:#fff}
+.ds-merk-t img{filter:brightness(0)}
+.ds-merk-v{background:var(--p-vlak)}
+.ds-merk-t small,.ds-merk small{color:var(--mid)}
+.ds-ptop .ds-count{color:var(--mid)}
+.ds-ptop .ds-count b{color:var(--ink)}
+.ds-beloftes{color:var(--mid)}
+.ds-kaart{background:var(--p-vlak);box-shadow:none}
+@media (min-width:900px){.ds-kaart{box-shadow:none}}
+.ds-sim .ds-laagtegel{background:#fff}
+.ds-laagrij{background:#fff}
+.ds-laagrij.on{box-shadow:inset 0 0 0 2px var(--ok)}
+.ds-sim .ds-laagrij .ds-kteller button{background:var(--p-vlak)}
+.ds-sim .ds-kteller button{background:#fff}
+.ds-dak{box-shadow:0 0 0 0 var(--ok)}
+.ds-dak.sel{box-shadow:0 0 0 3px var(--ok)}
+.ds-dak.sel .ds-dak-v{background:var(--ok);border-color:var(--ok);color:#fff}
+.ds-card.sel{box-shadow:0 0 0 3px var(--ok)}
+/* Gekozen = zwart, zoals elke keuzeknop in het witte paneel (rood is de pagina, wit het paneel). */
+.ds-sim .ds-laagtegel.on{background:#141414;color:#fff}
+.ds-laagtegel.on .ds-hk-ico{color:#fff}
