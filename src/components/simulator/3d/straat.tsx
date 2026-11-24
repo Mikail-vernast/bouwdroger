@@ -1,4 +1,4 @@
-import { Component, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { Component, type ReactNode, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { DoubleSide, type Mesh, type MeshBasicMaterial, Matrix4, Quaternion, SRGBColorSpace, type Texture, TextureLoader, Vector3 } from "three";
 import { meld, straatBeelden, type StraatMaat, type StraatWoning } from "./bestanden";
@@ -58,8 +58,11 @@ export default function Straat3D({ woning, w, l, doel, open }: Props) {
   const [scherp, setScherp] = useState<[Texture, Texture] | null>(null);
   const invalidate = useThree((s) => s.invalidate);
 
+  // Colour space before the first frame: in a passive effect the street could be
+  // drawn once in linear colour (washed out) before the fix landed.
+  useLayoutEffect(() => mini.forEach(zetKleur), [mini]);
+
   useEffect(() => {
-    mini.forEach(zetKleur);
     meld("straat", doel === "mini" ? "mini (eind)" : "mini, scherp laden");
     invalidate();
     if (doel === "mini") return;
