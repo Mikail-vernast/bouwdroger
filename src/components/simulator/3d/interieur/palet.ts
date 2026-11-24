@@ -108,6 +108,11 @@ function textiel(k: Kamer, accent: Accent, nr: number): KamerPalet {
         },
         hout: nr % 2 ? "#8a6244" : "#c19a70",
       };
+    case "Bureau":
+      return {
+        textiel: { stof: meng(a, "#3a3029", 0.2), kleed: meng("#e7dcc9", a, 0.25), kleed_rand: meng("#e7dcc9", a, 0.25), gordijn: meng("#cdbca4", a, 0.2) },
+        hout: nr % 2 ? "#8a6244" : "#a97c52",
+      };
     case "Keuken":
       return { textiel: { stof: "#d9cdb9", gordijn: "#cdbca4" }, hout: "#b78a5c", front: meng(a, "#e9e5dc", 0.15) };
     default:

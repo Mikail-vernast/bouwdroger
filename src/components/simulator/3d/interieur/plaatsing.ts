@@ -498,6 +498,33 @@ function slaapkamer(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet, ac
   kleerkast(P, k, ctx, pal);
 }
 
+/**
+ * Bureau: het bureau met de rug tegen een muur zonder raam (het scherm is hoger
+ * dan een vensterbank), de stoel ervoor, een boekenkast tegen een hoge muur of
+ * anders een lage archiefkast, een kleed en een plant.
+ */
+function bureau(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet, accent: Map<string, Wand>) {
+  const muren = murenVan(k, ctx).sort((a, b) => Number(heeftRaam(k, a, ctx)) - Number(heeftRaam(k, b, ctx)) || b.L - a.L);
+  for (const naam of ["bureau_bureau_140", "bureau_bureau_120"]) {
+    const plek = langsMuren(P, muren.filter((m) => m.D >= 1.9), naam, { kleur: { eik: pal.hout ?? "" }, vrijVoor: 0.95, vrijZij: 0.05 });
+    if (!plek) continue;
+    const { m, u } = plek;
+    accent.set(k.id, m.wand);
+    // De stoel kijkt naar het bureau; zijn voorkant schuift 15 cm onder het blad.
+    const [cx, cz] = m.p(u + 0.15, m.n0 + 0.55 + P.obj("bureau_stoel").d);
+    erbij(P, null, "bureau_stoel", cx, cz, m.rot + Math.PI, { kleur: { stof: pal.textiel.stof ?? "" } });
+    P.stukken[P.stukken.length - 1].schaduw = true;
+    const [kx, kz] = m.p(u, m.n0 + 1.05);
+    const kleed = P.obj("slaapkamer_kleed");
+    vrijStaand(P, "slaapkamer_kleed", kx, kz, m.rot, { sx: 1.6 / kleed.b, sz: 1.2 / kleed.d, plat: true, kleur: pal.textiel });
+    break;
+  }
+  if (!langsMuren(P, murenVan(k, ctx).filter((m) => m.hoog), "leefruimte_boekenkast_100", { kleur: { eik: pal.hout ?? "" } })) {
+    langsMuren(P, muren, "bureau_archiefkast_120", { kleur: { eik: pal.hout ?? "" } });
+  }
+  hoekplant(P, k);
+}
+
 function kleerkast(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet) {
   const hoog = murenVan(k, ctx).filter((m) => m.hoog);
   for (const naam of ["slaapkamer_kleerkast_150", "slaapkamer_kleerkast_100"]) {
@@ -543,7 +570,7 @@ function gordijnen(P: Plaatser, k: Kamer, ctx: LaagContext, pal: KamerPalet) {
 /* ───────────── de laag ───────────── */
 
 /** Kamers die in deze versie van de kit ingericht worden. */
-export const INGERICHTE_KAMERS = new Set(["Leefruimte", "Keuken", "Slaapkamer"]);
+export const INGERICHTE_KAMERS = new Set(["Leefruimte", "Keuken", "Slaapkamer", "Bureau"]);
 
 /**
  * De inrichting van één bouwlaag: losse meubels per kamer, en in elke
@@ -569,6 +596,7 @@ export function richLaagIn(ctx: LaagContext): LaagInrichting {
     const pal = ctx.palet(k);
     if (k.naam === "Leefruimte") leefruimte(P, k, ctx, pal, accent, !heeftKeuken || (k.w * k.l > 26 && !grooteKeuken));
     else if (k.naam === "Keuken") keuken(P, k, ctx, pal, accent);
+    else if (k.naam === "Bureau") bureau(P, k, ctx, pal, accent);
     else if (k.naam === "Slaapkamer") slaapkamer(P, k, ctx, pal, accent, slaapkamers.indexOf(k) > 0 && k.w * k.l < 12);
     gordijnen(P, k, ctx, pal);
     stukken.push(...P.stukken);

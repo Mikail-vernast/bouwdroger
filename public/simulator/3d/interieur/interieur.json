@@ -1096,6 +1096,113 @@
    "plat": true
   },
   {
+   "naam": "bureau_bureau_140",
+   "b": 1.4,
+   "d": 0.7,
+   "h": 1.22,
+   "tris": 932,
+   "materialen": [
+    "eik",
+    "eik_donker",
+    "keramiek",
+    "lampkap",
+    "linnen",
+    "scherm",
+    "terracotta",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.8,
+    "zij": 0.05,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "bureau_bureau_120",
+   "b": 1.2,
+   "d": 0.7,
+   "h": 1.22,
+   "tris": 932,
+   "materialen": [
+    "eik",
+    "eik_donker",
+    "keramiek",
+    "lampkap",
+    "linnen",
+    "scherm",
+    "terracotta",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.8,
+    "zij": 0.05,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "bureau_stoel",
+   "b": 0.551,
+   "d": 0.588,
+   "h": 0.98,
+   "tris": 632,
+   "materialen": [
+    "stof",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "stof"
+   ]
+  },
+  {
+   "naam": "bureau_archiefkast_120",
+   "b": 1.2,
+   "d": 0.435,
+   "h": 1.06,
+   "tris": 352,
+   "materialen": [
+    "blad",
+    "boek_1",
+    "boek_2",
+    "boek_4",
+    "eik",
+    "eik_donker",
+    "messing",
+    "terracotta",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.6,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
    "naam": "algemeen_gordijn",
    "b": 0.4,
    "d": 0.035,

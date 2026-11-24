@@ -627,6 +627,66 @@ def speelkist():
     klaar('slaapkamer_speelkist', meta(voor=0.4, kleurbaar=('stof_accent',)))
 
 
+# ── bureau ──────────────────────────────────────────────────────────
+
+def bureau(B):
+    """Bureau in eik op zwarte poten, met een scherm, toetsenbord, bureaulamp en wat papier."""
+    D, H = 0.7, 0.75
+    doos('eik', -B / 2, B / 2, -D, 0, H - 0.03, H, r=0.006)
+    for x in (-B / 2 + 0.04, B / 2 - 0.04):
+        doos('zwart', x - 0.015, x + 0.015, -D + 0.05, -0.05, 0, H - 0.03)
+        doos('zwart', x - 0.015, x + 0.015, -D + 0.04, -D + 0.07, 0, 0.03)
+        doos('zwart', x - 0.015, x + 0.015, -0.07, -0.04, 0, 0.03)
+    doos('zwart', -B / 2 + 0.04, B / 2 - 0.04, -0.07, -0.05, H - 0.12, H - 0.03)
+    # ladeblok rechts
+    doos('eik_donker', B / 2 - 0.45, B / 2 - 0.06, -D + 0.08, -0.08, H - 0.16, H - 0.03, r=0.004)
+    # scherm op een voet, toetsenbord, muis
+    doos('zwart', -0.12, 0.12, -0.25, -0.1, H, H + 0.012, r=0.004)
+    doos('zwart', -0.02, 0.02, -0.16, -0.12, H, H + 0.2)
+    doos('scherm', -0.3, 0.3, -0.2, -0.17, H + 0.12, H + 0.47, r=0.006)
+    doos('keramiek', -0.22, 0.22, -0.5, -0.36, H, H + 0.015, r=0.003)
+    doos('keramiek', 0.3, 0.36, -0.46, -0.38, H, H + 0.02, r=0.008)
+    # bureaulamp: voet, arm, kap
+    cil('zwart', -B / 2 + 0.16, -0.14, H, H + 0.02, 0.07, seg=14)
+    buis('zwart', (-B / 2 + 0.16, -0.14, H + 0.02), (-B / 2 + 0.2, -0.2, H + 0.38), r=0.008)
+    buis('zwart', (-B / 2 + 0.2, -0.2, H + 0.38), (-B / 2 + 0.3, -0.32, H + 0.42), r=0.008)
+    cil('lampkap', -B / 2 + 0.31, -0.33, H + 0.32, H + 0.42, 0.075, seg=16, r2=0.03, dicht=False)
+    # stapel papier en een potje pennen
+    doos('linnen', 0.3, 0.52, -0.3, -0.12, H, H + 0.02)
+    cil('terracotta', B / 2 - 0.12, -0.12, H, H + 0.1, 0.035, seg=10)
+    klaar(f'bureau_bureau_{round(B * 100)}', meta(voor=0.8, zij=0.05, kleurbaar=('eik',)))
+
+
+def bureaustoel():
+    """Draaistoel: stervoet op wieltjes, zitting en rug in stof. Voorkant naar -Y."""
+    for a in range(5):
+        ang = a / 5 * math.tau
+        buis('zwart', (0, -0.3, 0.06), (math.cos(ang) * 0.28, -0.3 + math.sin(ang) * 0.28, 0.04), r=0.014, seg=6)
+        bol('zwart', math.cos(ang) * 0.28, -0.3 + math.sin(ang) * 0.28, 0.025, 0.025, sub=1)
+    buis('zwart', (0, -0.3, 0.06), (0, -0.3, 0.42), r=0.022)
+    kussen('stof', -0.24, 0.24, -0.52, -0.06, 0.42, 0.5, r=0.03)
+    kussen('stof', -0.22, 0.22, -0.08, 0.0, 0.55, 0.98, r=0.035)
+    buis('zwart', (0, -0.05, 0.46), (0, -0.04, 0.6), r=0.015)
+    klaar('bureau_stoel', meta(muur=False, kleurbaar=('stof',)))
+
+
+def archiefkast(B=1.2):
+    """Lage kast met schuifdeuren, ordners erin, een plantje en een lampje erop."""
+    D, H = 0.42, 0.78
+    doos('eik', -B / 2, B / 2, -D, 0, 0.06, H, r=0.006)
+    doos('zwart', -B / 2 + 0.03, B / 2 - 0.03, -D + 0.04, -0.04, 0, 0.06)
+    doos('eik_donker', -0.003, 0.003, -D - 0.002, -D + 0.005, 0.1, H - 0.04)
+    for x in (-0.06, 0.06):
+        doos('messing', x - 0.004, x + 0.004, -D - 0.015, -D, 0.35, 0.5)
+    cil('terracotta', -B / 2 + 0.2, -0.2, H, H + 0.14, 0.08, seg=14, r2=0.06)
+    for a in range(9):
+        ang = a / 9 * math.tau
+        blad('blad', (-B / 2 + 0.2, -0.2, H + 0.13), (math.cos(ang) * 0.6, math.sin(ang) * 0.6, 0.8), 0.18, 0.06, buiging=0.3, draai=ang)
+    for i, m in enumerate(('boek_2', 'boek_4', 'boek_1')):
+        doos(m, 0.15 + i * 0.05, 0.19 + i * 0.05, -0.32, -0.08, H, H + 0.28)
+    klaar(f'bureau_archiefkast_{round(B * 100)}', meta(voor=0.6, kleurbaar=('eik',)))
+
+
 # ── overal ──────────────────────────────────────────────────────────
 
 def gordijn():
@@ -725,6 +785,10 @@ MAKERS = [
     ('slaapkamer_commode_120', lambda: commode(1.2)),
     ('slaapkamer_speelkist', speelkist),
     ('slaapkamer_kleed', lambda: vloerkleed('slaapkamer_kleed', 2.0, 1.4, 0.0)),
+    ('bureau_bureau_140', lambda: bureau(1.4)),
+    ('bureau_bureau_120', lambda: bureau(1.2)),
+    ('bureau_stoel', bureaustoel),
+    ('bureau_archiefkast_120', lambda: archiefkast(1.2)),
     ('algemeen_gordijn', gordijn),
     ('algemeen_gordijnrail', gordijnrail),
     ('algemeen_deur_85', lambda: deur(0.85)),

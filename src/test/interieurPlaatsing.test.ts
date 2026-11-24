@@ -36,7 +36,7 @@ function* plannen() {
 describe("interieur: plaatsing", () => {
   it("zet niets in de weg, en hoge kasten alleen tegen een hoge muur", { timeout: 120_000 }, () => {
     const fouten = new Map<string, string>();
-    const tel = { leef: 0, zetel: 0, slaap: 0, bed: 0, keuken: 0, blok: 0 };
+    const tel = { leef: 0, zetel: 0, slaap: 0, bed: 0, keuken: 0, blok: 0, bureau: 0, bureaublad: 0 };
     for (const { woning, b: w, dak, lagen, plan } of plannen()) {
       const { l } = WONING[woning];
       const afw = afwerkingVoor(plan.kamers);
@@ -57,6 +57,7 @@ describe("interieur: plaatsing", () => {
           const hier = ins.stukken.filter((s) => s.kamer === k.id);
           if (k.naam === "Leefruimte") { tel.leef++; if (hier.some((s) => s.naam.startsWith("leefruimte_zetel"))) tel.zetel++; }
           if (k.naam === "Slaapkamer") { tel.slaap++; if (hier.some((s) => s.naam.startsWith("slaapkamer_bed"))) tel.bed++; }
+          if (k.naam === "Bureau") { tel.bureau++; if (hier.some((s) => s.naam.startsWith("bureau_bureau"))) tel.bureaublad++; }
           if (k.naam === "Keuken") { tel.keuken++; if (hier.some((s) => s.naam === "keuken_werkblad")) tel.blok++; }
           const kv: Vak = { x0: k.x, x1: k.x + k.w, z0: k.z, z1: k.z + k.l };
           for (const s of hier) {
@@ -92,6 +93,7 @@ describe("interieur: plaatsing", () => {
     // Wat de kamer herkenbaar maakt, staat er bijna altijd.
     expect(tel.bed / tel.slaap, `bed in ${tel.bed}/${tel.slaap} slaapkamers`).toBeGreaterThan(0.95);
     expect(tel.zetel / tel.leef, `zetel in ${tel.zetel}/${tel.leef} leefruimtes`).toBeGreaterThan(0.9);
+    expect(tel.bureaublad / tel.bureau, `bureau in ${tel.bureaublad}/${tel.bureau} bureaus`).toBeGreaterThan(0.9);
     expect(tel.blok / tel.keuken, `keukenblok in ${tel.blok}/${tel.keuken} keukens`).toBeGreaterThan(0.9);
   });
 });
