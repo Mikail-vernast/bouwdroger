@@ -45,10 +45,11 @@ import { type LaagInrichting, type Manifest, richLaagIn, type Stuk } from "./pla
 
 /* ─────────────────────────── materiaalsoorten ─────────────────────────── */
 
-type Klasse = "mat" | "satijn" | "glans" | "metaal" | "licht";
-const KLASSEN: Klasse[] = ["mat", "satijn", "glans", "metaal", "licht"];
+type Klasse = "mat" | "satijn" | "glans" | "metaal" | "licht" | "glas";
+const KLASSEN: Klasse[] = ["mat", "satijn", "glans", "metaal", "licht", "glas"];
 
-function klasseVan(m: Manifest["materialen"][string]): Klasse {
+function klasseVan(m: Manifest["materialen"][string], naam: string): Klasse {
+  if (naam === "glas") return "glas";
   if (m.licht) return "licht";
   if (m.metaal >= 0.5) return "metaal";
   if (m.ruwheid < 0.3) return "glans";
@@ -64,6 +65,8 @@ function maakKlasse(k: Klasse): MeshStandardMaterial {
     case "glans": return new MeshStandardMaterial({ ...basis, roughness: 0.18, side: FrontSide });
     case "metaal": return new MeshStandardMaterial({ ...basis, roughness: 0.32, metalness: 0.85, side: FrontSide });
     case "licht": return new MeshStandardMaterial({ ...basis, roughness: 0.8, emissive: "#ffc985", emissiveIntensity: 0.75, side: DoubleSide });
+    // Douchewand: doorschijnend, schrijft geen diepte zodat wat erachter staat zichtbaar blijft.
+    case "glas": return new MeshStandardMaterial({ ...basis, roughness: 0.05, transparent: true, opacity: 0.28, depthWrite: false, side: DoubleSide });
   }
 }
 
@@ -114,7 +117,7 @@ function voegSamen(stukken: Stuk[], prims: Map<string, Prim[]>, kit: Manifest, y
     for (const p of lijst) {
       const info = kit.materialen[p.mat];
       if (!info) continue;
-      const kl = klasseVan(info);
+      const kl = klasseVan(info, p.mat);
       let b = bufs.get(kl);
       if (!b) bufs.set(kl, (b = { pos: [], nrm: [], col: [], idx: [] }));
       M.multiplyMatrices(S, p.matrix);
@@ -416,7 +419,7 @@ export default function Interieur(props: Props) {
   return (
     <>
       <group ref={meubels}>
-        {[...geo.meubels].map(([k, g]) => <mesh key={k} geometry={g} material={mats.klassen.get(k)} castShadow receiveShadow />)}
+        {[...geo.meubels].map(([k, g]) => <mesh key={k} geometry={g} material={mats.klassen.get(k)} castShadow={k !== "glas"} receiveShadow />)}
       </group>
       {[...geo.afw.vast].map(([k, g]) => <mesh key={`v-${k}`} geometry={g} material={mats.basis[k]} receiveShadow />)}
       {[...geo.afw.gevel].map(([k, g]) => (

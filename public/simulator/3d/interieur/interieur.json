@@ -212,6 +212,48 @@
    "ruwheid": 0.03,
    "metaal": 1.0,
    "licht": null
+  },
+  "glas": {
+   "kleur": "#dfe9ec",
+   "ruwheid": 0.05,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "tegel": {
+   "kleur": "#dcd5ca",
+   "ruwheid": 0.3,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "handdoek": {
+   "kleur": "#e9dfd0",
+   "ruwheid": 0.95,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "jas_1": {
+   "kleur": "#4a5560",
+   "ruwheid": 0.9,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "jas_2": {
+   "kleur": "#a0714c",
+   "ruwheid": 0.9,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "jas_3": {
+   "kleur": "#c9c0ae",
+   "ruwheid": 0.9,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "karton": {
+   "kleur": "#c4a47c",
+   "ruwheid": 0.9,
+   "metaal": 0.0,
+   "licht": null
   }
  },
  "objecten": [
@@ -1201,6 +1243,366 @@
    "kleurbaar": [
     "eik"
    ]
+  },
+  {
+   "naam": "algemeen_hangtoilet",
+   "b": 0.564,
+   "d": 0.56,
+   "h": 0.92,
+   "tris": 772,
+   "materialen": [
+    "keramiek",
+    "linnen",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.6,
+    "zij": 0.2,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "toilet_fonteintje",
+   "b": 0.4,
+   "d": 0.24,
+   "h": 0.209,
+   "tris": 284,
+   "materialen": [
+    "inox",
+    "keramiek",
+    "zwart_glas"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.5,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "badkamer_badmeubel_100",
+   "b": 1.0,
+   "d": 0.49,
+   "h": 0.77,
+   "tris": 612,
+   "materialen": [
+    "eik",
+    "eik_donker",
+    "handdoek",
+    "keramiek",
+    "zwart",
+    "zwart_glas"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.7,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "badkamer_badmeubel_70",
+   "b": 0.7,
+   "d": 0.49,
+   "h": 0.77,
+   "tris": 612,
+   "materialen": [
+    "eik",
+    "eik_donker",
+    "handdoek",
+    "keramiek",
+    "zwart",
+    "zwart_glas"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.7,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "badkamer_spiegel_80",
+   "b": 0.8,
+   "d": 0.05,
+   "h": 0.75,
+   "tris": 132,
+   "materialen": [
+    "lamp",
+    "spiegel",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "boven": 1.15
+  },
+  {
+   "naam": "badkamer_douche_120",
+   "b": 1.2,
+   "d": 0.905,
+   "h": 2.16,
+   "tris": 300,
+   "materialen": [
+    "glas",
+    "tegel",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.6,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "badkamer_bad_170",
+   "b": 1.7,
+   "d": 0.77,
+   "h": 0.77,
+   "tris": 536,
+   "materialen": [
+    "glas",
+    "handdoek",
+    "keramiek",
+    "tegel",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.6,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "badkamer_radiator",
+   "b": 0.504,
+   "d": 0.08,
+   "h": 1.03,
+   "tris": 1644,
+   "materialen": [
+    "handdoek",
+    "wit_kast"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.3,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "wasplaats_wasmachine",
+   "b": 0.6,
+   "d": 0.624,
+   "h": 0.85,
+   "tris": 312,
+   "materialen": [
+    "inox",
+    "keramiek",
+    "zwart",
+    "zwart_glas"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.8,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "wasplaats_droogkast",
+   "b": 0.6,
+   "d": 0.624,
+   "h": 0.85,
+   "tris": 312,
+   "materialen": [
+    "inox",
+    "keramiek",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.8,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "wasplaats_rek_100",
+   "b": 1.106,
+   "d": 0.4,
+   "h": 1.8,
+   "tris": 1404,
+   "materialen": [
+    "eik",
+    "handdoek",
+    "karton",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.6,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "wasplaats_wasmand",
+   "b": 0.433,
+   "d": 0.44,
+   "h": 0.55,
+   "tris": 212,
+   "materialen": [
+    "eik",
+    "handdoek"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "hal_kapstok_100",
+   "b": 1.0,
+   "d": 0.3,
+   "h": 1.77,
+   "tris": 1380,
+   "materialen": [
+    "eik",
+    "jas_1",
+    "jas_2",
+    "jas_3",
+    "leder",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.4,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "hal_schoenkast_100",
+   "b": 1.0,
+   "d": 0.352,
+   "h": 0.55,
+   "tris": 440,
+   "materialen": [
+    "eik",
+    "eik_donker",
+    "keramiek",
+    "stof",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.4,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik",
+    "stof"
+   ]
+  },
+  {
+   "naam": "hal_spiegel_rond",
+   "b": 0.6,
+   "d": 0.029,
+   "h": 0.6,
+   "tris": 248,
+   "materialen": [
+    "messing",
+    "spiegel"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "boven": 1.2
+  },
+  {
+   "naam": "hal_loper",
+   "b": 0.8,
+   "d": 2.4,
+   "h": 0.012,
+   "tris": 24,
+   "materialen": [
+    "kleed",
+    "kleed_rand"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "xy",
+   "kleurbaar": [
+    "kleed",
+    "kleed_rand"
+   ],
+   "plat": true
   },
   {
    "naam": "algemeen_gordijn",
