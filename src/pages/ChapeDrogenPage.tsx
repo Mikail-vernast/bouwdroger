@@ -377,7 +377,7 @@ const ChapeDrogenPage = () => {
       kicker={t.cKicker}
       titel={t.cTitel}
       lede={t.cLede}
-      onderwerpen={t.cOnderwerpen}
+      onderwerp="droging_op_maat"
       placeholder={t.cPlaceholder}
       achtergrond="wit"
     />

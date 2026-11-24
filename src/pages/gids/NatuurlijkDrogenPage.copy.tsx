@@ -111,7 +111,6 @@ export interface NatTekst {
   cKick: string;
   cTitel: string;
   cLede: string;
-  cOnderwerpen: string[];
   cPlaceholder: string;
 }
 
@@ -381,7 +380,6 @@ export const COPY = {
     cTitel: "Leg uw werf even voor aan een droogspecialist.",
     cLede:
       "Vertel ons wat er droogt, wanneer het klaar moet zijn en hoe uw werf erbij staat. U krijgt binnen één werkdag een eerlijk antwoord, ook als dat is dat u niets nodig heeft.",
-    cOnderwerpen: ["Moet ik hier iets voor huren?", "Hoe lang duurt het bij mij?", "Prijs en leverdatum", "Iets anders"],
     cPlaceholder:
       "Bv. nieuwbouw 140 m², chape van 6 cm gelegd op 3 november, gepleisterd eind oktober, vloerlegger komt half december.",
   }),
@@ -642,7 +640,6 @@ export const COPY = {
       cTitel: "Soumettez votre chantier à un spécialiste du séchage.",
       cLede:
         "Dites-nous ce qui sèche, quand ce doit être prêt et dans quel état se trouve votre chantier. Vous recevez une réponse honnête dans un délai d'un jour ouvrable, même si c'est pour vous dire que vous n'avez besoin de rien.",
-      cOnderwerpen: ["Dois-je louer quelque chose ?", "Combien de temps cela prendra-t-il chez moi ?", "Prix et date de livraison", "Autre chose"],
       cPlaceholder:
         "P. ex. nouvelle construction de 140 m², chape de 6 cm coulée le 3 novembre, plafonnage fin octobre, le poseur de sol vient mi-décembre.",
     };
@@ -901,7 +898,6 @@ export const COPY = {
       cTitel: "Run your site past a drying specialist.",
       cLede:
         "Tell us what is drying, when it needs to be ready and what state your site is in. You will get an honest answer within one working day, even if that answer is that you do not need anything.",
-      cOnderwerpen: ["Do I need to hire anything for this?", "How long will it take in my case?", "Price and delivery date", "Something else"],
       cPlaceholder:
         "E.g. new build of 140 m², 6 cm screed laid on 3 November, plastered at the end of October, floor layer coming mid-December.",
     };

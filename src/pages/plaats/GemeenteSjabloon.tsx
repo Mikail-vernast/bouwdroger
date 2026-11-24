@@ -1226,7 +1226,7 @@ const GemeenteSjabloon = ({ gemeente, beeld }: Props) => {
         <ContactBlok
           titel={g.contact.titel(nl ? naam : inPlaats(naam))}
           lede={g.contact.lede}
-          onderwerpen={g.contact.onderwerpen(nl ? naam : inPlaats(naam))}
+          onderwerp="waterschade"
           placeholder={t.placeholder(naam)}
         />
       </main>

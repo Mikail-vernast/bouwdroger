@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import V3Header from "@/components/home-v3/V3Header";
 import V3Footer from "@/components/home-v3/V3Footer";
+import ContactBlok from "@/components/content/ContactBlok";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { useSeo } from "@/data/seo";
 import "@/styles/waarom-bouwdroging.css";
@@ -203,47 +204,10 @@ const WaaromBouwdrogingPage = () => {
       </div>
     </section>
 
-    {/* ================= VRAAGFORMULIER ================= */}
-    <section className="oform" id="formulier">
-      <div className="wrap">
-        <div className="sec-head" style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
-          <span className="kick rv">{f.kick}</span>
-          <h2 className="sec rv">{f.h2}</h2>
-          <p className="lede rv d1" style={{ marginLeft: "auto", marginRight: "auto" }}>{f.lede}</p>
-        </div>
-        <div className="fshell rv d2">
-          <div id="formBody">
-            <div className="frow">
-              <div className="fld"><label htmlFor="fVoor">{f.voornaam}</label><input type="text" id="fVoor" placeholder={f.voornaam} /></div>
-              <div className="fld"><label htmlFor="fNaam">{f.naam}</label><input type="text" id="fNaam" placeholder={f.achternaam} /></div>
-            </div>
-            <div className="frow">
-              <div className="fld"><label htmlFor="fMail">{f.mail}</label><input type="email" id="fMail" placeholder={f.mailPh} /></div>
-              <div className="fld"><label htmlFor="fTel">{f.tel}</label><input type="tel" id="fTel" placeholder="04.." /></div>
-            </div>
-            <div className="frow one">
-              <div className="fld"><label htmlFor="fOnd">{f.onderwerp}</label>
-                <select id="fOnd">
-                  {f.opties.map((o) => <option key={o}>{o}</option>)}
-                </select>
-              </div>
-            </div>
-            <div className="frow one">
-              <div className="fld"><label htmlFor="fMsg">{f.situatie}</label><textarea id="fMsg" rows={5} placeholder={f.situatiePh}></textarea></div>
-            </div>
-            <div className="fsend">
-              <small>{f.privacy}</small>
-              <button className="btn" id="fSend" type="button">{f.verstuur}<Arrow /></button>
-            </div>
-          </div>
-          <div className="fdone" id="formDone">
-            <div className="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg></div>
-            <h3>{f.klaar}</h3>
-            <p>{f.klaarP}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    {/* ================= VRAAGFORMULIER =================
+        Tot 24-11-2026 had de knop hier geen handler: er vertrok niets. Nu
+        hetzelfde formulier als op de rest van de site. */}
+    <ContactBlok kicker={f.kick} titel={f.h2} lede={f.lede} placeholder={f.situatiePh} onderwerp="droging_op_maat" />
 
     <V3Footer />
   </div>

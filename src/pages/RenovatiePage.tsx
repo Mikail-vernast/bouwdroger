@@ -565,7 +565,7 @@ const RenovatiePage = () => {
       kicker={t.contactKicker}
       titel={t.contactTitel}
       lede={t.contactLede}
-      onderwerpen={t.contactOnderwerpen}
+      onderwerp="droging_op_maat"
       placeholder={t.contactPlaceholder}
     />
 

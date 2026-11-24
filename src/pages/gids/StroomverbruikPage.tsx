@@ -776,7 +776,7 @@ const StroomverbruikPage = () => {
       kicker={t.contact.kicker}
       titel={t.contact.titel}
       lede={t.contact.lede}
-      onderwerpen={t.contact.onderwerpen}
+      onderwerp="offerte_prijs"
       placeholder={t.contact.placeholder}
     />
   </GidsShell>

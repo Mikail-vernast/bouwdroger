@@ -8,7 +8,6 @@ import { CONTACT } from "@/lib/site";
  * hun sleutels.
  */
 type Teksten = {
-  verstuur: string;
   capBq: ReactNode;
   academyBtn: string;
   crumb: string;
@@ -21,9 +20,6 @@ type Teksten = {
   altVak: string;
   altGr1: string;
   altGr3: string;
-  phVoor: string;
-  phNaam: string;
-  phMail: string;
   phMsg: string;
   heroKick: string;
   heroH1: ReactNode;
@@ -126,24 +122,10 @@ type Teksten = {
   formKick: string;
   formH2: string;
   formLede: string;
-  lVoor: string;
-  lNaam: string;
-  lTel: string;
-  lOnd: string;
-  o1: string;
-  o2: string;
-  o3: string;
-  o4: string;
-  o5: string;
-  lMsg: string;
-  privNote: string;
-  doneH: string;
-  doneP: string;
 };
 
 export const OVER_ONS_COPY = {
   nl: {
-    verstuur: "Verstuur bericht",
     capBq: <>De beste oplossing is niet noodzakelijk de grootste installatie. Het is de installatie die technisch klopt. <b>Daarom adviseren wij ook wanneer minder beter is.</b></>,
     academyBtn: "Ontdek de Academy op vernast.be",
     crumb: "Over ons",
@@ -156,9 +138,6 @@ export const OVER_ONS_COPY = {
     altVak: "Vernast vakmannen",
     altGr1: "Team Vernast BouwDroging",
     altGr3: "Team Vernast Schilderwerken",
-    phVoor: "Voornaam",
-    phNaam: "Achternaam",
-    phMail: "naam@voorbeeld.be",
     phMsg: "Vertel kort waarmee we u kunnen helpen",
     heroKick: "Over Vernast BouwDroging",
     heroH1: <>Bouwdroging,<br />opnieuw uitgedacht.</>,
@@ -261,22 +240,8 @@ export const OVER_ONS_COPY = {
     formKick: "Vragen of samenwerken?",
     formH2: "Vertel ons waar u mee zit.",
     formLede: "Een vraag over onze aanpak, een project bespreken of solliciteren: u krijgt binnen één werkdag antwoord.",
-    lVoor: "Voornaam",
-    lNaam: "Naam",
-    lTel: "Telefoon",
-    lOnd: "Onderwerp",
-    o1: "Vraag over onze aanpak",
-    o2: "Project of samenwerking bespreken",
-    o3: "Solliciteren bij Vernast",
-    o4: "Pers of partnership",
-    o5: "Iets anders",
-    lMsg: "Uw bericht",
-    privNote: "Wij gebruiken uw gegevens enkel om uw vraag te beantwoorden.",
-    doneH: "Bericht verzonden",
-    doneP: "Bedankt! We nemen binnen één werkdag contact met u op.",
   },
   fr: {
-    verstuur: "Envoyer le message",
     capBq: <>La meilleure solution n'est pas forcément la plus grosse installation. C'est l'installation techniquement juste. <b>C'est pourquoi nous conseillons aussi quand moins, c'est mieux.</b></>,
     academyBtn: "Découvrez l'Academy sur vernast.be",
     crumb: "À propos",
@@ -289,9 +254,6 @@ export const OVER_ONS_COPY = {
     altVak: "Professionnels Vernast",
     altGr1: "L'équipe Vernast BouwDroging",
     altGr3: "L'équipe Vernast Schilderwerken",
-    phVoor: "Prénom",
-    phNaam: "Nom de famille",
-    phMail: "nom@exemple.be",
     phMsg: "Expliquez brièvement en quoi nous pouvons vous aider",
     heroKick: "À propos de Vernast BouwDroging",
     heroH1: <>Le séchage de chantier,<br />repensé.</>,
@@ -394,22 +356,8 @@ export const OVER_ONS_COPY = {
     formKick: "Des questions ou envie de collaborer ?",
     formH2: "Dites-nous ce qui vous préoccupe.",
     formLede: "Une question sur notre approche, un projet à discuter ou une candidature : vous recevez une réponse dans un délai d'un jour ouvrable.",
-    lVoor: "Prénom",
-    lNaam: "Nom",
-    lTel: "Téléphone",
-    lOnd: "Sujet",
-    o1: "Question sur notre approche",
-    o2: "Discuter d'un projet ou d'une collaboration",
-    o3: "Postuler chez Vernast",
-    o4: "Presse ou partenariat",
-    o5: "Autre chose",
-    lMsg: "Votre message",
-    privNote: "Nous utilisons vos données uniquement pour répondre à votre question.",
-    doneH: "Message envoyé",
-    doneP: "Merci ! Nous vous recontactons dans un délai d'un jour ouvrable.",
   },
   en: {
-    verstuur: "Send message",
     capBq: <>The best solution is not necessarily the biggest installation. It is the installation that is technically right. <b>That is why we also advise you when less is better.</b></>,
     academyBtn: "Discover the Academy on vernast.be",
     crumb: "About us",
@@ -422,9 +370,6 @@ export const OVER_ONS_COPY = {
     altVak: "Vernast specialists",
     altGr1: "The Vernast BouwDroging team",
     altGr3: "The Vernast Schilderwerken team",
-    phVoor: "First name",
-    phNaam: "Surname",
-    phMail: "name@example.be",
     phMsg: "Tell us briefly how we can help you",
     heroKick: "About Vernast BouwDroging",
     heroH1: <>Construction drying,<br />rethought.</>,
@@ -527,18 +472,5 @@ export const OVER_ONS_COPY = {
     formKick: "Questions or want to work together?",
     formH2: "Tell us what's on your mind.",
     formLede: "A question about our approach, a project to discuss or a job application: you will get an answer within one working day.",
-    lVoor: "First name",
-    lNaam: "Surname",
-    lTel: "Phone",
-    lOnd: "Subject",
-    o1: "Question about our approach",
-    o2: "Discuss a project or collaboration",
-    o3: "Apply to work at Vernast",
-    o4: "Press or partnership",
-    o5: "Something else",
-    lMsg: "Your message",
-    privNote: "We only use your details to answer your question.",
-    doneH: "Message sent",
-    doneP: "Thank you! We will get back to you within one working day.",
   },
 } satisfies Copy<Teksten>;

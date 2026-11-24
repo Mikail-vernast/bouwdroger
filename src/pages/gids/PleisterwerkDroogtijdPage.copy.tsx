@@ -107,7 +107,7 @@ export interface PleisterTekst {
   mbP: ReactNode;
   mbCta: string;
   mbAlt: string;
-  contact: { kicker: string; titel: string; lede: string; onderwerpen: string[]; placeholder: string };
+  contact: { kicker: string; titel: string; lede: string; placeholder: string };
 }
 
 export const COPY = {
@@ -426,12 +426,6 @@ export const COPY = {
         kicker: "Nog een vraag over uw muren?",
         titel: "Onze droogspecialisten kijken met u naar de planning.",
         lede: "Weet u niet of uw pleisterwerk op tijd droog is voor de schilder, of droogt u ook nog een chape? Stel uw vraag, u krijgt binnen één werkdag antwoord van een specialist.",
-        onderwerpen: [
-          "Vraag over de droogtijd van pleisterwerk",
-          "Chape en pleisterwerk samen drogen",
-          "Vraag over meten voor het schilderen",
-          "Iets anders",
-        ],
         placeholder: "Bv. 180 m² gipspleister van 1 cm, gepleisterd op 5 november, schilder komt begin december. Haalt dat?",
       },
     };
@@ -746,12 +740,6 @@ export const COPY = {
         kicker: "Encore une question sur vos murs ?",
         titel: "Nos spécialistes du séchage examinent le planning avec vous.",
         lede: "Vous ne savez pas si votre plafonnage sera sec à temps pour le peintre, ou vous séchez aussi une chape ? Posez votre question, un spécialiste vous répond dans un délai d'un jour ouvrable.",
-        onderwerpen: [
-          "Question sur le temps de séchage d'un plafonnage",
-          "Sécher la chape et le plafonnage ensemble",
-          "Question sur la mesure avant de peindre",
-          "Autre chose",
-        ],
         placeholder: "P. ex. 180 m² d'enduit plâtre de 1 cm, posé le 5 novembre, le peintre vient début décembre. Est-ce faisable ?",
       },
     };
@@ -1064,12 +1052,6 @@ export const COPY = {
         kicker: "Another question about your walls?",
         titel: "Our drying specialists will look at the schedule with you.",
         lede: "Not sure whether your plaster will be dry in time for the decorator, or drying a screed as well? Ask your question and a specialist will reply within one working day.",
-        onderwerpen: [
-          "Question about plaster drying time",
-          "Drying screed and plaster together",
-          "Question about measuring before painting",
-          "Something else",
-        ],
         placeholder: "E.g. 180 m² of 1 cm gypsum plaster, plastered on 5 November, decorator coming early December. Will that work?",
       },
     };

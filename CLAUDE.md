@@ -206,7 +206,8 @@ buiten het antwoord van de functie.
 
 ### Bijlagen gaan niet door de functie heen
 
-Het vraagformulier op de homepage (`V3Cta` → `api/vraag.ts`) laat foto's toe. De browser
+Het vraagformulier (`VraagFormulier` → `api/vraag.ts`, onderaan de homepage via `V3Cta`
+en onderaan elke inhoudspagina via `ContactBlok`) laat foto's toe. De browser
 vraagt eerst upload-plekken aan bij `api/vraag-uploads.ts` en uploadt daarna rechtstreeks
 naar de signed URL. Reden: Vercel weigert een grote body nog vóór de handler start, en een
 foto van een ondergelopen kelder is zo 8 MB. Nieuwe uploads horen hetzelfde patroon te

@@ -117,7 +117,7 @@ export interface ChapeTekst {
   mbP: ReactNode;
   mbCta: string;
   mbAlt: string;
-  contact: { kicker: string; titel: string; lede: string; onderwerpen: string[]; placeholder: string };
+  contact: { kicker: string; titel: string; lede: string; placeholder: string };
 }
 
 /* ------------------------------------------------------------------ */
@@ -419,12 +419,6 @@ export const COPY = {
       kicker: "Nog een vraag over uw vloer?",
       titel: "Onze droogspecialisten kijken met u naar de planning.",
       lede: "Weet u niet of uw chape op tijd droog is voor de vloerlegger, of twijfelt u over de dikte en het aantal toestellen? Stel uw vraag, u krijgt binnen één werkdag antwoord van een specialist.",
-      onderwerpen: [
-        "Vraag over de droogtijd van mijn chape",
-        "Advies over het aantal toestellen",
-        "Vraag over restvocht meten",
-        "Iets anders",
-      ],
       placeholder: "Bv. 120 m² chape van 6 cm, gelegd op 20 november, vloerlegger komt half januari, haalt dat?",
     },
   }),
@@ -700,12 +694,6 @@ export const COPY = {
       kicker: "Encore une question sur votre sol ?",
       titel: "Nos spécialistes du séchage examinent le planning avec vous.",
       lede: "Vous ne savez pas si votre chape sera sèche à temps pour le poseur de sol, ou vous hésitez sur l'épaisseur et le nombre d'appareils ? Posez votre question, un spécialiste vous répond dans un délai d'un jour ouvrable.",
-      onderwerpen: [
-        "Question sur le temps de séchage de ma chape",
-        "Conseil sur le nombre d'appareils",
-        "Question sur la mesure de l'humidité résiduelle",
-        "Autre chose",
-      ],
       placeholder: "P. ex. 120 m² de chape de 6 cm, posée le 20 novembre, le poseur de sol vient mi-janvier : est-ce faisable ?",
     },
   }),
@@ -981,12 +969,6 @@ export const COPY = {
       kicker: "Another question about your floor?",
       titel: "Our drying specialists will look at the schedule with you.",
       lede: "Not sure whether your screed will be dry in time for the floor layer, or unsure about the thickness and the number of units? Ask your question and a specialist will reply within one working day.",
-      onderwerpen: [
-        "Question about my screed's drying time",
-        "Advice on the number of units",
-        "Question about measuring residual moisture",
-        "Something else",
-      ],
       placeholder: "E.g. 120 m² of 6 cm screed, laid on 20 November, floor layer coming mid-January: will that work?",
     },
   }),

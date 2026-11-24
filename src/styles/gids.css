@@ -293,10 +293,8 @@
    die deze schil nog mist. */
 .hdw-page.gids .sec-head.mid{max-width:760px;margin-left:auto;margin-right:auto;text-align:center}
 .hdw-page.gids .sec-head.mid .lede{margin-left:auto;margin-right:auto}
-.hdw-page.gids .fsend .fbtns{display:flex;gap:10px;flex-wrap:wrap}
 .hdw-page.gids .btn-line{background:transparent;border:1.5px solid var(--line-2);color:var(--txt)}
 .hdw-page.gids .btn-line:hover{background:var(--bg-alt);color:var(--txt)}
-.hdw-page.gids .fshell .fsend small a{color:var(--red);font-weight:600}
 
 /* De CTA-band sluit aan op het blok erboven in plaats van er een hele
    sectiepadding tussen te laten. */

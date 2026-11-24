@@ -346,15 +346,15 @@ const HoeDrogenWerktPage = () => {
       Het formulier uit de designtranscriptie stond hier met een knop zonder
       handler: geen <form>, geen onClick, en de pagina draait geen JavaScript.
       Wie zijn vraag intikte en op "Verstuur uw vraag" drukte, kreeg niets en
-      wij ook niet. <ContactBlok> post naar /api/aanvraag, net als op de andere
-      inhoudspagina's en op de gidsen in deze zelfde schil, en draagt zijn eigen
-      vertalingen.
+      wij ook niet. <ContactBlok> toont het vraagformulier van de homepage
+      (VraagFormulier → /api/vraag), net als op de andere inhoudspagina's en op
+      de gidsen in deze zelfde schil, en draagt zijn eigen vertalingen.
     */}
     <ContactBlok
       kicker={t.form.kick}
       titel={t.form.h2}
       lede={t.form.lede}
-      onderwerpen={t.form.opties}
+      onderwerp="waterschade"
       placeholder={t.form.situatiePh}
     />
 

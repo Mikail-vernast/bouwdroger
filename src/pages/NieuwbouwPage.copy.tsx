@@ -227,13 +227,6 @@ const nl = {
   cTitel: "Twijfelt u over de termijn of het pakket?",
   cLede:
     "Geef ons uw oppervlakte, de chapedikte en wanneer de chapeur klaar is. U krijgt binnen één werkdag een voorstel van een droogspecialist.",
-  cOnderwerpen: [
-    "Advies over chape drogen",
-    "Advies over pleisterwerk drogen",
-    "Pleisterwerk en chape samen",
-    "Prijs en leverdatum",
-    "Iets anders",
-  ],
   cPlaceholder: "Bv. nieuwbouw 140 m², chape van 6 cm geplaatst op 3 november, vloerder komt begin december.",
 };
 
@@ -426,13 +419,6 @@ const fr: typeof nl = {
   cTitel: "Vous hésitez sur la durée ou le pack ?",
   cLede:
     "Donnez-nous votre surface, l'épaisseur de la chape et la date à laquelle le chapiste aura terminé. Vous recevez dans un délai d'un jour ouvrable une proposition d'un spécialiste du séchage.",
-  cOnderwerpen: [
-    "Conseil pour sécher une chape",
-    "Conseil pour sécher un plafonnage",
-    "Plafonnage et chape ensemble",
-    "Prix et date de livraison",
-    "Autre chose",
-  ],
   cPlaceholder: "P. ex. nouvelle construction 140 m², chape de 6 cm posée le 3 novembre, le poseur de sol vient début décembre.",
 };
 
@@ -622,13 +608,6 @@ const en: typeof nl = {
   cTitel: "Unsure about the hire period or the package?",
   cLede:
     "Give us your floor area, the screed thickness and when the screed fitter will be finished. Within one working day you will receive a proposal from a drying specialist.",
-  cOnderwerpen: [
-    "Advice on screed drying",
-    "Advice on plaster drying",
-    "Plaster and screed together",
-    "Price and delivery date",
-    "Something else",
-  ],
   cPlaceholder: "E.g. new build 140 m², 6 cm screed laid on 3 November, floor layer coming in early December.",
 };
 

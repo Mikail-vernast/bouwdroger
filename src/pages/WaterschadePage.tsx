@@ -613,7 +613,7 @@ const WaterschadePage = () => {
       kicker={t.contactKicker}
       titel={t.contactTitel}
       lede={t.contactLede}
-      onderwerpen={t.contactOnderwerpen}
+      onderwerp="waterschade"
       placeholder={t.contactPlaceholder}
     />
 

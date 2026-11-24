@@ -38,7 +38,7 @@ export interface LuchtkussenCopy {
   mbKick: string; mbTitel: string; mbTekst: string; mbAlt: string;
   refsKick: string; refsTitel: string; refsIntro: string;
   verderLezenKicker: string; verderLezenTitel: string; verderLezen: Lees[];
-  contactTitel: string; contactIntro: string; onderwerpen: string[]; placeholder: string;
+  contactTitel: string; contactIntro: string; placeholder: string;
   schemaType: string;
 }
 
@@ -127,7 +127,6 @@ const nl: LuchtkussenCopy = {
   ],
   contactTitel: "Is luchtkussen drogen geschikt voor uw schade?",
   contactIntro: "Vertel ons waar het lek zat, welk oppervlak nat is en hoe groot de getroffen zone is. We bespreken welke aanpak past.",
-  onderwerpen: ["Natte wand", "Natte vloer", "Vocht in de vloeropbouw", "Advies over de opstelling"],
   placeholder: "Bijvoorbeeld: een leidinglek heeft de onderste meter van een binnenmuur nat gemaakt. Het lek is hersteld…",
   schemaType: "Plaatselijke droging na waterschade",
 };
@@ -217,7 +216,6 @@ const fr: LuchtkussenCopy = {
   ],
   contactTitel: "Le séchage sous film convient-il à vos dégâts ?",
   contactIntro: "Indiquez où se trouvait la fuite, quelle surface est humide et la taille de la zone touchée. Nous discuterons de la méthode adaptée.",
-  onderwerpen: ["Mur humide", "Sol humide", "Humidité sous le sol", "Conseil sur l’installation"],
   placeholder: "Par exemple : une fuite a mouillé le bas d’un mur intérieur. La fuite est réparée…",
   schemaType: "Séchage localisé après un dégât des eaux",
 };
@@ -307,7 +305,6 @@ const en: LuchtkussenCopy = {
   ],
   contactTitel: "Is air cushion drying right for your damage?",
   contactIntro: "Tell us where the leak was, which surface is wet and how large the affected area is. We will discuss a suitable approach.",
-  onderwerpen: ["Wet wall", "Wet floor", "Moisture beneath the floor", "Setup advice"],
   placeholder: "For example: a pipe leak has soaked the lower part of an internal wall. The leak has been repaired…",
   schemaType: "Localised drying after water damage",
 };

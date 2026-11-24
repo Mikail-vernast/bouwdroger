@@ -115,7 +115,6 @@ export interface GedeeldeCopy {
   contact: {
     titel: (waar: string) => string;
     lede: string;
-    onderwerpen: (waar: string) => string[];
   };
   schema: { serviceType: string; werkgebied: string };
   leverenOpAfspraak: string;
@@ -336,13 +335,6 @@ export const GEDEELD: Copy<GedeeldeCopy> = {
     contact: {
       titel: (waar) => `Een vraag over drogen in ${waar}?`,
       lede: "Beschrijf kort wat er moet drogen en hoe groot de ruimte is. U krijgt binnen één werkdag antwoord van een droogspecialist, met een voorstel voor het juiste pakket.",
-      onderwerpen: (waar) => [
-        `Advies voor een werf in ${waar}`,
-        "Levering en leverdatum",
-        "Prijs van een droogpakket",
-        "Waterschade, dit is dringend",
-        "Iets anders",
-      ],
     },
     schema: { serviceType: "Bouwdroger verhuur", werkgebied: "Werkgebied" },
     leverenOpAfspraak: "Hier leveren we op afspraak.",
@@ -497,13 +489,6 @@ export const GEDEELD: Copy<GedeeldeCopy> = {
     contact: {
       titel: (waar) => `Une question sur le séchage ${waar} ?`,
       lede: "Décrivez brièvement ce qui doit sécher et la taille de la pièce. Un spécialiste du séchage vous répond dans un délai d'un jour ouvrable, avec une proposition de pack adaptée.",
-      onderwerpen: (waar) => [
-        `Conseil pour un chantier ${waar}`,
-        "Livraison et date de livraison",
-        "Prix d'un pack de séchage",
-        "Dégât des eaux, c'est urgent",
-        "Autre chose",
-      ],
     },
     schema: { serviceType: "Location de déshumidificateurs de chantier", werkgebied: "Zone d'activité" },
     leverenOpAfspraak: "Ici, nous livrons sur rendez-vous.",
@@ -653,13 +638,6 @@ export const GEDEELD: Copy<GedeeldeCopy> = {
     contact: {
       titel: (waar) => `A question about drying ${waar}?`,
       lede: "Briefly describe what needs to dry and how big the room is. A drying specialist will reply within one working day, with a proposal for the right package.",
-      onderwerpen: (waar) => [
-        `Advice for a site ${waar}`,
-        "Delivery and delivery date",
-        "Price of a drying package",
-        "Water damage, this is urgent",
-        "Something else",
-      ],
     },
     schema: { serviceType: "Construction dehumidifier hire", werkgebied: "Service area" },
     leverenOpAfspraak: "Here we deliver by appointment.",

@@ -108,7 +108,6 @@ export interface RnTeksten {
   contactKicker: string;
   contactTitel: string;
   contactLede: string;
-  contactOnderwerpen: string[];
   contactPlaceholder: string;
 }
 
@@ -367,13 +366,6 @@ export const RN_COPY = {
     contactTitel: "Niet zeker of drogen bij u de oplossing is?",
     contactLede:
       "Beschrijf wat u ziet en ruikt, dan zeggen wij welke oorzaak het waarschijnlijk is en of een bouwdroger helpt. Ook als het antwoord is dat u bij ons niets nodig hebt.",
-    contactOnderwerpen: [
-      "Vochtige kelder of berging",
-      "Schimmel op muren of plafond",
-      "Vocht na een verbouwing",
-      "Opstijgend of doorslaand vocht",
-      "Iets anders",
-    ],
     contactPlaceholder:
       "Bv. kelder van 25 m², muffe geur en donkere plekken onderaan de muur, vooral in de winter.",
   },
@@ -659,13 +651,6 @@ export const RN_COPY = {
     contactTitel: "Pas certain que sécher soit la solution chez vous ?",
     contactLede:
       "Décrivez ce que vous voyez et sentez, nous vous dirons quelle est probablement la cause et si un déshumidificateur de chantier peut aider. Même si la réponse est que vous n’avez besoin de rien chez nous.",
-    contactOnderwerpen: [
-      "Cave ou débarras humide",
-      "Moisissures sur les murs ou le plafond",
-      "Humidité après des travaux",
-      "Humidité ascensionnelle ou infiltrations latérales",
-      "Autre chose",
-    ],
     contactPlaceholder:
       "P. ex. cave de 25 m², odeur de moisi et taches sombres au bas du mur, surtout en hiver.",
   },
@@ -927,13 +912,6 @@ export const RN_COPY = {
     contactTitel: "Not sure whether drying is the solution for you?",
     contactLede:
       "Describe what you see and smell, and we'll tell you what the likely cause is and whether a construction dehumidifier will help. Even if the answer is that you don't need anything from us.",
-    contactOnderwerpen: [
-      "Damp basement or storeroom",
-      "Mould on walls or ceiling",
-      "Damp after building work",
-      "Rising or penetrating damp",
-      "Something else",
-    ],
     contactPlaceholder:
       "E.g. 25 m² basement, musty smell and dark patches at the bottom of the wall, mostly in winter.",
   },

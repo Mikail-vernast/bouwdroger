@@ -99,13 +99,13 @@ export interface HoeTekst {
   prinAlt: string;
   /*
     Alleen wat <ContactBlok> nog van de pagina vraagt. De labels van de velden,
-    de privacyzin en het bedankscherm draagt dat component zelf, in drie talen.
+    de onderwerpen, de privacyzin en het bedankscherm draagt het formulier
+    zelf, in drie talen.
   */
   form: {
     kick: string;
     h2: string;
     lede: string;
-    opties: string[];
     situatiePh: string;
   };
 }
@@ -221,7 +221,6 @@ export const COPY = {
       kick: "Nog een vraag hierover?",
       h2: "Onze droogspecialisten denken graag mee.",
       lede: "Twijfelt u over de juiste aanpak voor uw project? Stel uw vraag, u krijgt binnen één werkdag antwoord van een specialist.",
-      opties: ["Hoe werkt drogen in mijn situatie?", "Advies over het juiste pakket", "Vraag over prijzen of levering", "Iets anders"],
       situatiePh: "Bv. nieuwbouw 140 m², chape geplaatst vorige week, wanneer kan de vloerder starten?",
     },
   }),
@@ -335,7 +334,6 @@ export const COPY = {
       kick: "Encore une question ?",
       h2: "Nos spécialistes du séchage vous conseillent volontiers.",
       lede: "Vous hésitez sur la bonne approche pour votre projet ? Posez votre question, un spécialiste vous répond dans un délai d'un jour ouvrable.",
-      opties: ["Comment fonctionne le séchage dans ma situation ?", "Conseil sur le bon pack", "Question sur les prix ou la livraison", "Autre chose"],
       situatiePh: "P. ex. nouvelle construction de 140 m², chape posée la semaine dernière : quand le poseur de sol peut-il commencer ?",
     },
   }),
@@ -449,7 +447,6 @@ export const COPY = {
       kick: "Any more questions about this?",
       h2: "Our drying specialists are happy to help.",
       lede: "Not sure about the right approach for your project? Ask your question and you will get an answer from a specialist within one working day.",
-      opties: ["How does drying work in my situation?", "Advice on the right package", "Question about prices or delivery", "Something else"],
       situatiePh: "E.g. new build of 140 m², screed laid last week: when can the floor fitter start?",
     },
   }),
