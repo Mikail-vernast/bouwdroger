@@ -311,7 +311,17 @@ const KeuzePopup = ({ onKlaar }: { onKlaar: () => void }) => {
         </button>
 
         <div className="kp-foto">
-          <img className="kp-team" src="/vernast/drie-vakmannen.webp" alt="" width={1400} height={934} />
+          {/* Op het scherm hooguit ~260 px breed: de volle 1400 px (111 kB) concurreerde op een
+              gsm met de 3D van de simulator, die achter deze popup laadt. */}
+          <img
+            className="kp-team"
+            src="/vernast/drie-vakmannen.webp"
+            srcSet="/vernast/drie-vakmannen-500.webp 500w, /vernast/drie-vakmannen-1000.webp 1000w, /vernast/drie-vakmannen.webp 1400w"
+            sizes="(max-width: 899px) 320px, 260px"
+            alt=""
+            width={1400}
+            height={934}
+          />
           <div className="kp-badge">
             <img src="/vernast/schild-gecertificeerd.webp" alt="" width={24} height={24} />
             <span>{t.badge}</span>

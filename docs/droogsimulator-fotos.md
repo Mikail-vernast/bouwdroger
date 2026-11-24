@@ -1,5 +1,63 @@
 # Droogsimulator — foto's voor de keuzetegels
 
+## Diktefoto's die meewisselen (20-11-2026)
+
+Gemaakt met de ingebouwde `image_gen`-tool (imagegen-skill). De kaart in stap 3
+kiest nu een foto bij de geselecteerde dikte, zowel met de knoppen als de schuif.
+`Geen` toont kale baksteen of de isolatie zonder chape; `weet ik niet` gebruikt
+de standaarddikte. De illustratieve foto's tonen het dikteverschil; ze zijn geen
+meetinstrument.
+
+Opgeslagen in `public/simulator/`:
+
+- `pleister-{0,1,2,3}cm-v3.webp`: dezelfde muur, met een zichtbare pleisterrand.
+- `chape-{0,5,6,7}cm-v3.webp`: dezelfde vloeropbouw, met een zichtbare doorsnede.
+- Elk bestand heeft een `-360.webp` en `-640.webp` voor kleinere schermen.
+  Het origineel is 1024 × 1536. Nieuwe bestandsnamen voorkomen oude cachebeelden.
+
+### Promptset
+
+Basis pleister (2 cm):
+
+> Photorealistic-natural, premium construction thickness selector photograph for a
+> Belgian building drying website. Portrait 1024x1536. Close-up of a single neat
+> red-orange brick interior wall at a shallow three-quarter angle, pale mortar,
+> soft side daylight, realistic textures. On the right half of the same wall a
+> smooth off-white gypsum plaster coat exactly 2 cm thick, with a straight vertical
+> exposed cut edge at the centre. Left half bare brick. Keep the edge in the middle
+> 20% so portrait and landscape centre crops both show the cross section. No tools,
+> people, text, labels, ruler or watermarks.
+
+Bewerkingen van het 2 cm-basisbeeld, één generatie per variant:
+
+> Preserve exactly camera, framing, lighting, bricks, mortar lines and material
+> colours. For 0 cm: remove all plaster and continue the existing brick courses
+> seamlessly across the right half. For 1 cm: change only the plaster thickness
+> to half the reference thickness. For 3 cm: change it to one and a half times the
+> reference thickness. Keep the brick substrate fixed, white surface texture and
+> straight edge near centre. Portrait 1024x1536, photorealistic, no text or tools.
+
+Basis chape (6 cm):
+
+> Photorealistic-natural, premium construction photograph, portrait 1024x1536.
+> Close-up of a clean cutaway at a doorway of an unfinished room. Medium grey
+> sand-cement screed recedes into a softly blurred plastered room. Straight
+> horizontal exposed front edge: 6 cm compact granular screed on 8 cm cream rigid
+> insulation on darker structural concrete. Screed cross section between 42 and
+> 58 percent of image height, across the full width for landscape centre crops.
+> Low three-quarter camera, sharp tactile textures, soft neutral daylight.
+> Matte slightly damp screed, no glossy liquid concrete. No straightedge, tools,
+> people, writing, labels, ruler or watermarks. One coherent floor assembly.
+
+Bewerkingen van het 6 cm-basisbeeld, één generatie per variant:
+
+> Preserve camera, framing, room, window, walls, light, concrete base and insulation
+> thickness and locations. For 0 cm: remove the entire top grey screed layer and
+> expose cream insulation with subtle board joints throughout the room. For 5/7 cm:
+> change only the top screed layer from 6 cm to 5/7 cm; keep its bottom fixed on the
+> insulation and move its top down/up by 1 cm. Keep grey granular texture and matte
+> surface. Portrait 1024x1536. No tools, people, text, labels, ruler or watermark.
+
 ## Huidige set
 
 Eén reeks gegenereerd met Codex (`image_generation`, 12-11-2026): eerst een basishuis

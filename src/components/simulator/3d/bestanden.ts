@@ -19,20 +19,90 @@ export const TEXTUUR = {
   tegelvloer: "/simulator/3d/tegelvloer.webp",
 } as const;
 
-type Verbinding = { saveData?: boolean; effectiveType?: string };
+/*
+  De interieurkit (scripts/simulator-3d/interieur.py en texturen.py): meubels als
+  één GLB met een manifest, en de vloer- en wandtegels per kamersoort. Alleen
+  geladen als de woning afgewerkt (bewoond) getoond wordt; samen ± 520 kB, de
+  GLB ± 120 kB gzip. Los van de droogsimulator, zodat andere simulators hem
+  kunnen hergebruiken.
+*/
+export const INTERIEUR = {
+  glb: "/simulator/3d/interieur/interieur.glb",
+  manifest: "/simulator/3d/interieur/interieur.json",
+  tex: {
+    visgraat: "/simulator/3d/interieur/visgraat.webp",
+    planken: "/simulator/3d/interieur/planken.webp",
+    tegelwarm: "/simulator/3d/interieur/tegelwarm.webp",
+    tegelklein: "/simulator/3d/interieur/tegelklein.webp",
+    kalkverf: "/simulator/3d/interieur/kalkverf.webp",
+    wandtegel: "/simulator/3d/interieur/wandtegel.webp",
+  },
+} as const;
+
+/*
+  De straat rond de woning: een Blender-render per woningtype (scripts/simulator-3d/straat.py),
+  in een achter- en een voorlaag, in drie maten:
+    mini   875 × 625, ~25–90 kB per paar: komt altijd eerst, zodat de straat er op
+           elke lijn binnen een paar seconden staat.
+    klein  1750 × 1250: daarna op een gsm.
+    groot  2800 × 2000: daarna op een groot scherm.
+  Op een zuinige verbinding (databesparing, 2G) blijft het bij mini.
+*/
+export type StraatWoning = "rijwoning" | "halfopen" | "open" | "appartement";
+export type StraatMaat = "mini" | "klein" | "groot";
+
+export function heeftStraat(woning: string): woning is StraatWoning {
+  return woning === "rijwoning" || woning === "halfopen" || woning === "open" || woning === "appartement";
+}
 
 /**
- * How much the 3D may cost on this device. "geen": data saver, 2G or ≤ 2 GB
- * memory: the SVG house stays, the 3D chunk (~260 kB gz) is never fetched.
- * "later": 3G, where the chunk would compete with the question photos, so it
- * waits for the page load. "meteen": everything else.
+ * One render per facade width (BREEDTES), named by decimetres: halfopen-b80-achter.webp.
+ * An apartment also has one per number of storeys (1 or 2): the roof edge of the
+ * building around it follows the top of the unit, appartement-b90-l2-achter.webp.
  */
-export function budget3D(): "geen" | "later" | "meteen" {
+export function straatBeelden(woning: StraatWoning, breedte: number, maat: StraatMaat, lagen = 1): [string, string] {
+  const s = maat === "groot" ? "" : `-${maat}`;
+  const l = woning === "appartement" ? `-l${Math.min(2, Math.max(1, Math.round(lagen)))}` : "";
+  const b = `${woning}-b${Math.round(breedte * 10)}${l}`;
+  return [`/simulator/straat/${b}-achter${s}.webp`, `/simulator/straat/${b}-voor${s}.webp`];
+}
+
+type Verbinding = { saveData?: boolean; effectiveType?: string };
+export type Budget3D = "geen" | "zuinig" | "later" | "meteen";
+
+/**
+ * How much the 3D may cost on this device.
+ * "geen":   ≤ 1 GB memory: the SVG house stays, the 3D chunk (~260 kB gz) is never fetched.
+ * "zuinig": data saver or 2G: the 3D still comes, but only after the page has
+ *           loaded and with the smallest street picture.
+ * "later":  3G, where the chunk would compete with the question photos, so it
+ *           waits for the page load.
+ * "meteen": everything else.
+ * Before, data saver, 2G and 2 GB phones never got the 3D at all; a 2 GB phone
+ * runs this scene fine, and the house is the point of the page.
+ */
+export function budget3D(): Budget3D {
   const n = navigator as Navigator & { connection?: Verbinding; deviceMemory?: number };
   const c = n.connection;
-  if (c?.saveData || c?.effectiveType === "2g" || c?.effectiveType === "slow-2g") return "geen";
-  if (n.deviceMemory !== undefined && n.deviceMemory <= 2) return "geen";
+  if (n.deviceMemory !== undefined && n.deviceMemory <= 1) return "geen";
+  if (c?.saveData || c?.effectiveType === "2g" || c?.effectiveType === "slow-2g") return "zuinig";
   return c?.effectiveType === "3g" ? "later" : "meteen";
+}
+
+/*
+  Diagnose: met ?diag=1 in de URL toont de simulator wat hij beslist en laadt
+  (WebGL, budget, 3D, straat). Zo zie je op een gsm zonder ontwikkelaarstools
+  waarom er iets niet verschijnt.
+*/
+export const DIAG = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("diag");
+const diagStand: Record<string, string> = {};
+export function meld(sleutel: string, waarde: string): void {
+  if (!DIAG) return;
+  diagStand[sleutel] = `${waarde} @${(performance.now() / 1000).toFixed(1)}s`;
+  window.dispatchEvent(new CustomEvent("ds-diag", { detail: { ...diagStand } }));
+}
+export function diagNu(): Record<string, string> {
+  return { ...diagStand };
 }
 
 
