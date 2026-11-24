@@ -473,21 +473,23 @@ class Gevel:
 
     def raam(self, u0, u1, y0, y1, dorpel=True, kader="kader", kalf=0.0):
         self.blok("glas", u0, u1, y0, y1, 0, 0.015, M["glas"])
+        # De latten stuiken tegen elkaar en overlappen nergens: in Blender 5.3 (Metal)
+        # gaven de samenvallende vlakken van overlappende latten zwarte stippen in elke hoek.
         k = 0.07
-        for a0, a1, b0, b1 in ((u0, u0 + k, y0, y1), (u1 - k, u1, y0, y1), (u0, u1, y0, y0 + k), (u0, u1, y1 - k, y1)):
+        for a0, a1, b0, b1 in ((u0, u0 + k, y0, y1), (u1 - k, u1, y0, y1), (u0 + k, u1 - k, y0, y0 + k), (u0 + k, u1 - k, y1 - k, y1)):
             self.blok("kader", a0, a1, b0, b1, 0, 0.05, M[kader])
+        if kalf:  # bovenlicht, zoals de ramen van de live unit
+            self.blok("kader", u0 + k, u1 - k, y1 - kalf - 0.035, y1 - kalf + 0.035, 0, 0.05, M[kader])
         if u1 - u0 > 1.1:  # middenstijl zoals bij een draai-kipraam
             um = (u0 + u1) / 2
-            self.blok("kader", um - 0.035, um + 0.035, y0, y1 - kalf, 0, 0.05, M[kader])
-        if kalf:  # bovenlicht, zoals de ramen van de live unit
-            self.blok("kader", u0, u1, y1 - kalf - 0.035, y1 - kalf + 0.035, 0, 0.05, M[kader])
+            self.blok("kader", um - 0.035, um + 0.035, y0 + k, y1 - (kalf + 0.035 if kalf else k), 0, 0.05, M[kader])
         if dorpel:
             self.blok("dorpel", u0 - 0.07, u1 + 0.07, y0 - 0.06, y0, 0, 0.09, M["arduin"])
 
     def deur(self, u0, u1):
         y0, y1 = 0.3, 2.45
         self.blok("deur", u0, u1, y0, y1, 0, 0.03, M["deur"])
-        for a0, a1, b0, b1 in ((u0 - 0.06, u0, y0, y1 + 0.06), (u1, u1 + 0.06, y0, y1 + 0.06), (u0 - 0.06, u1 + 0.06, y1, y1 + 0.06)):
+        for a0, a1, b0, b1 in ((u0 - 0.06, u0, y0, y1 + 0.06), (u1, u1 + 0.06, y0, y1 + 0.06), (u0, u1, y1, y1 + 0.06)):
             self.blok("deurkader", a0, a1, b0, b1, 0, 0.05, M["boei"])
         self.blok("stoep", u0 - 0.15, u1 + 0.15, 0, y0, 0, 0.4, M["arduin"])
 
@@ -1236,7 +1238,7 @@ def omgeving_appartement():
     # Gelijkvloers: fietsenberging links, garagepoort rechts (hellingbaan binnen naar de kelder).
     g.raam(RASTER[0] - 0.55, RASTER[0] + 0.55, 0.3, 2.45, dorpel=False, kader="alu")
     blok("garagepoort", W - 4.4, W - 0.6, 0.0, 2.45, F, F + 0.03, M["poort"])
-    for a0, a1, b0, b1 in ((W - 4.5, W - 4.4, 0, 2.55), (W - 0.6, W - 0.5, 0, 2.55), (W - 4.5, W - 0.5, 2.45, 2.55)):
+    for a0, a1, b0, b1 in ((W - 4.5, W - 4.4, 0, 2.55), (W - 0.6, W - 0.5, 0, 2.55), (W - 4.4, W - 0.6, 2.45, 2.55)):
         blok("garagekader", a0, a1, b0, b1, F, F + 0.05, M["alu"])
     for cz in (2.5, 5.0, 7.5):
         zij.raam(cz - 0.9, cz + 0.9, 1.7, 2.5, kader="alu")  # hoge ramen van de fietsenberging
