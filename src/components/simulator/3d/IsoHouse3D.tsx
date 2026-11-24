@@ -1145,9 +1145,12 @@ function Scene(props: SceneProps) {
       </mesh>
       {/* De straat (Blender-render) laadt apart: de woning wacht er niet op. */}
       {heeftStraat(woning) && (
-        <StraatVangnet key={`${woning}-${w}-${app ? lagen : 0}`}>
+        // Altijd de render met één bouwlaag: een extra verdiep is er een van de unit
+        // zelf, niet van het hele gebouw. Met de l2-render sprong het gebouw rondom in
+        // één klap een laag hoger terwijl alleen de unit omhoog animeerde.
+        <StraatVangnet key={`${woning}-${w}`}>
           <Suspense fallback={null}>
-            <Straat3D woning={woning} w={w} l={l} lagen={app ? lagen : 1} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"} open={openStand} />
+            <Straat3D woning={woning} w={w} l={l} lagen={1} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"} open={openStand} />
           </Suspense>
         </StraatVangnet>
       )}
