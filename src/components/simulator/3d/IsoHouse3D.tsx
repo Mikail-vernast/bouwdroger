@@ -26,7 +26,11 @@ import { WONING, kamerNaam, woningTekst, type Dak, type Kamer, type Opening, typ
 import type { IsoHouseProps } from "../IsoHouse";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
+import { MAX_BRON, type NatUniforms, maakNat, natPatch } from "./nat";
 import { richIn } from "./inrichting";
+import Interieur from "./interieur/Interieur";
+import { INGERICHTE_KAMERS, vrijePlek } from "./interieur/plaatsing";
+import type { Vak } from "@/lib/droogSimulator";
 import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
@@ -614,79 +618,8 @@ const RECHTS = new Vector3(1, 0, -1).normalize();
 const OP = new Vector3(-1, 2, -1).normalize();
 const KIJK = new Vector3(1, 1, 1).normalize();
 
-/* ─────────────────────────── natte muren en vloeren ─────────────────────────── */
+/* ─────────────────────────── natte muren en vloeren (nat.ts) ─────────────────────────── */
 
-/*
-  Drying you can see: wet plaster and screed are darker, cooler and glossier.
-  Once a device stands, a dry patch grows around it with a ragged edge, over the
-  floor and up the walls, until it meets the next one and the floor is dry. A
-  shader does it per pixel, so the patches follow the real device positions on
-  every material that is plaster or floor, in each material set.
-*/
-const MAX_BRON = 16;
-interface NatUniforms {
-  bron: { value: Vector4[] };
-  n: { value: number };
-  r: { value: number };
-  muur: { value: number };
-  vloer: { value: number };
-}
-const maakNat = (): NatUniforms => ({
-  bron: { value: Array.from({ length: MAX_BRON }, () => new Vector4()) },
-  n: { value: 0 }, r: { value: 0 }, muur: { value: 0 }, vloer: { value: 0 },
-});
-const NAT_GLSL = /* glsl */ `
-uniform vec4 uNatBron[${MAX_BRON}];
-uniform int uNatN;
-uniform float uNatR;
-uniform float uNatAmt;
-uniform vec3 uNatTint;
-varying vec3 vNatPos;
-float natHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
-float natNoise(vec2 p) {
-  vec2 i = floor(p), f = fract(p);
-  f = f * f * (3.0 - 2.0 * f);
-  return mix(mix(natHash(i), natHash(i + vec2(1.0, 0.0)), f.x), mix(natHash(i + vec2(0.0, 1.0)), natHash(i + vec2(1.0, 1.0)), f.x), f.y);
-}
-float natWet() {
-  if (uNatAmt <= 0.0) return 0.0;
-  float d = 1000.0;
-  float hoog = 0.0;
-  for (int i = 0; i < ${MAX_BRON}; i++) {
-    if (i >= uNatN) break;
-    vec4 b = uNatBron[i];
-    // w = how far this device has switched on: a patch grows in, it does not pop.
-    if (b.w < 0.01) continue;
-    float dy = vNatPos.y - b.y;
-    if (dy < -0.5 || dy > 3.2) continue;
-    float di = length(vNatPos.xz - b.xz) + (1.0 - b.w) * 2.5;
-    if (di < d) { d = di; hoog = clamp(dy / 2.6, 0.0, 1.0); }
-  }
-  // Ragged edge, and the foot of a wall stays wet longest.
-  float n = natNoise(vNatPos.xz * 1.1 + vNatPos.y * 0.8) * 0.9 + natNoise(vNatPos.xz * 3.4 + vNatPos.y * 2.0) * 0.35;
-  d += n - 0.6 + (1.0 - hoog) * 0.5;
-  return (1.0 - smoothstep(-0.3, 0.3, uNatR - d)) * uNatAmt;
-}
-`;
-function natPatch(m: MeshStandardMaterial, u: NatUniforms, soort: "muur" | "vloer") {
-  const tint = soort === "muur" ? new Vector3(0.5, 0.53, 0.6) : new Vector3(0.46, 0.48, 0.54);
-  m.onBeforeCompile = (sh) => {
-    sh.uniforms.uNatBron = u.bron;
-    sh.uniforms.uNatN = u.n;
-    sh.uniforms.uNatR = u.r;
-    sh.uniforms.uNatAmt = u[soort];
-    sh.uniforms.uNatTint = { value: tint };
-    sh.vertexShader = "varying vec3 vNatPos;\n" + sh.vertexShader.replace(
-      "#include <project_vertex>",
-      "#include <project_vertex>\n  vNatPos = (modelMatrix * vec4(transformed, 1.0)).xyz;",
-    );
-    sh.fragmentShader = NAT_GLSL + sh.fragmentShader
-      .replace("#include <map_fragment>", "#include <map_fragment>\n  float natW = natWet();\n  diffuseColor.rgb *= mix(vec3(1.0), uNatTint, natW);")
-      .replace("#include <roughnessmap_fragment>", "#include <roughnessmap_fragment>\n  roughnessFactor = mix(roughnessFactor, 0.32, natW);");
-  };
-  m.customProgramCacheKey = () => `nat-${soort}`;
-  m.needsUpdate = true;
-}
 function natPatchSet(set: MatSet, u: NatUniforms) {
   natPatch(set.get("pleister")!, u, "muur");
   natPatch(set.get("vloer")!, u, "vloer");
@@ -754,6 +687,9 @@ function Scene(props: SceneProps) {
   const vloerTegel = materiaal.vloerTegel ?? (materiaal.parket ? "parket" : "chape");
   const glasIn = materiaal.glas ?? true;
   const inrichtingIn = materiaal.inrichting ?? true;
+  // Afgewerkt of bewoond: meubels uit de kit en de afwerking per kamer (interieur/).
+  // In de werffases blijft het huis leeg; daar toont de simulator een werf.
+  const meubelsIn = materiaal.meubels && inrichtingIn;
   useEffect(() => {
     const kopie = (naam: TegelNaam) => {
       const t = texturen[naam].clone();
@@ -780,11 +716,12 @@ function Scene(props: SceneProps) {
       // Ruwbouw: no frames, no glass, the openings are holes.
       s.get("glas")!.visible = glasIn;
       s.get("kader")!.visible = glasIn;
-      // Inner doors are hung with the finishing, together with kitchen and bathroom.
-      s.get("deurblad")!.visible = inrichtingIn;
+      // Inner doors are hung with the finishing, together with kitchen and bathroom;
+      // in a lived-in house the kit brings real doors with frame and handle.
+      s.get("deurblad")!.visible = inrichtingIn && !meubelsIn;
     }
     return () => { muurTex.dispose(); vloerTex.dispose(); };
-  }, [sets, texturen, materiaal.muur, materiaal.vloer, muurTegel, vloerTegel, glasIn, inrichtingIn]);
+  }, [sets, texturen, materiaal.muur, materiaal.vloer, muurTegel, vloerTegel, glasIn, inrichtingIn, meubelsIn]);
 
   // Omgevingslicht voor glas en zink: een neutrale studio, één keer berekend.
   useEffect(() => {
@@ -809,9 +746,10 @@ function Scene(props: SceneProps) {
   const inrichting = useMemo(() => {
     const B = new Bouwer();
     const laag = kamers.filter((k) => k.verdieping === act);
-    if (laag.length) richIn(B, laag, openingen, act * FH + SLAB, { w, l });
+    // The kit furnishes these rooms itself (the kitchen block among them).
+    if (laag.length) richIn(B, laag, openingen, act * FH + SLAB, { w, l }, meubelsIn ? INGERICHTE_KAMERS : new Set());
     return B.bouw();
-  }, [kamers, openingen, act, w, l]);
+  }, [kamers, openingen, act, w, l, meubelsIn]);
   useEffect(() => () => { for (const g of inrichting.values()) g.dispose(); }, [inrichting]);
 
   // Buren en het gebouw onder een appartement: alleen een gestreepte contour.
@@ -867,14 +805,30 @@ function Scene(props: SceneProps) {
   }, [anim, open, act, reduced]);
 
   const bovenRef = useRef<Group>(null);
+  const zichtRef = useRef(1);
+  const [meubelVakken, setMeubelVakken] = useState<Vak[] | null>(null);
+  const laagKamersAct = useMemo(() => kamers.filter((k) => k.verdieping === act), [kamers, act]);
+  // Toestellen landen naast de meubels, niet erop.
+  const vrijePlaatsingen = useMemo(() => {
+    if (!meubelsIn || !meubelVakken) return plaatsingen;
+    return plaatsingen.map((p) => {
+      const k = laagKamersAct.find((kk) => kk.id === p.kamer);
+      if (!k) return p;
+      const [x, z] = vrijePlek(k, k.x + p.x, k.z + p.z, meubelVakken);
+      return { ...p, x: x - k.x, z: z - k.z };
+    });
+  }, [plaatsingen, meubelsIn, meubelVakken, laagKamersAct]);
   const dakRef = useRef<Group>(null);
   const binnenRef = useRef<Group>(null);
   const bladenRef = useRef<Group>(null);
-  const actKamers = useMemo(() => kamers.filter((k) => k.verdieping === act), [kamers, act]);
+  const actKamers = laagKamersAct;
+  const laagOpeningen = useMemo(() => openingen.filter((o) => o.verdieping === act), [openingen, act]);
+  const laagRamen = useMemo(() => ramen.filter((r) => r.verdieping === act), [ramen, act]);
+  const laagTrappen = useMemo(() => trappen.filter((t) => t.verdieping === act), [trappen, act]);
   // Room labels sit in the middle of the room, unless a device stands there:
   // then the free spot farthest from the devices, so a name never covers a dryer.
   const labelPos = useMemo(() => actKamers.map((k) => {
-    const hier = plaatsingen.filter((p) => p.kamer === k.id);
+    const hier = vrijePlaatsingen.filter((p) => p.kamer === k.id);
     const vrij = ([fx, fz]: readonly [number, number]) =>
       hier.reduce((m, p) => Math.min(m, Math.hypot(k.w * fx - p.x, k.l * fz - p.z)), Infinity);
     let bx: number = LABEL_PLEKKEN[0][0], bz: number = LABEL_PLEKKEN[0][1];
@@ -885,7 +839,7 @@ function Scene(props: SceneProps) {
       if (d > best + 0.05) { best = d; [bx, bz] = c; }
     }
     return new Vector3(k.x + k.w * bx, yfAct + HC + 0.15, k.z + k.l * bz);
-  }), [actKamers, yfAct, plaatsingen]);
+  }), [actKamers, yfAct, vrijePlaatsingen]);
 
   // Closed, the frame also takes in the front garden and the pavement (straat.tsx),
   // so the house stands in its street instead of filling the box edge to edge.
@@ -933,10 +887,11 @@ function Scene(props: SceneProps) {
   useFrame(({ invalidate: volgende }) => {
     // Na twee getekende frames staat alles (texturen, schaduw) er: de SVG mag weg.
     if (frames.current < 3 && ++frames.current === 2) props.onKlaar?.();
-    if (import.meta.env.DEV) (window as unknown as { __sim3d?: unknown }).__sim3d = { scene, camera };
+    if (import.meta.env.DEV) (window as unknown as { __sim3d?: unknown }).__sim3d = { scene, camera, info: gl.info };
     const A = anim.current;
     const o = stap(A.o), camT = stap(A.cam), camA = stap(A.act);
     const zicht = 1 - o;
+    zichtRef.current = zicht;
     const G = groei.current;
     const b = stap(G.bouw, DUUR * 1.2), wg = stap(G.wand, DUUR * 0.8);
 
@@ -1035,13 +990,13 @@ function Scene(props: SceneProps) {
   // De toestellen van deze verdieping in de volgorde waarin ze neergezet worden:
   // van achter naar voor, zodat de film over de vloer naar de kijker toe loopt.
   const laagPlaatsingen = useMemo<Geplaatst[]>(() => {
-    const plek = (p: (typeof plaatsingen)[number]) => {
+    const plek = (p: (typeof vrijePlaatsingen)[number]) => {
       const k = actKamers.find((kk) => kk.id === p.kamer)!;
       return k.z + p.z + (k.x + p.x) * 0.3;
     };
-    const volgorde = plaatsingen.filter((p) => actKamers.some((k) => k.id === p.kamer)).sort((a, b) => plek(a) - plek(b));
+    const volgorde = vrijePlaatsingen.filter((p) => actKamers.some((k) => k.id === p.kamer)).sort((a, b) => plek(a) - plek(b));
     return volgorde.map((p, i) => ({ ...p, a: aankomst(i, volgorde.length) }));
-  }, [plaatsingen, actKamers]);
+  }, [vrijePlaatsingen, actKamers]);
   // Where the drying starts: the devices on the open floor.
   const natLaag = useMemo(() => laagPlaatsingen.map((p) => {
     const k = actKamers.find((kk) => kk.id === p.kamer)!;
@@ -1053,7 +1008,9 @@ function Scene(props: SceneProps) {
 
   return (
     <>
-      <hemisphereLight args={["#fffaf2", "#c9bba8", 1.1]} />
+      {/* Bewoond: een warmere hemel en een warmere weerkaatsing van de vloer. Geen lichten per kamer:
+          de lampen gloeien (emissive) en de meubels hebben een zachte contactschaduw. */}
+      <hemisphereLight args={meubelsIn ? ["#fff3e0", "#c7ab8c", 1.18] : ["#fffaf2", "#c9bba8", 1.1]} />
       <primitive object={zon} />
       <primitive object={zon.target} />
 
@@ -1101,6 +1058,15 @@ function Scene(props: SceneProps) {
           <group ref={inrichtingRef} visible={inrichtingIn}>
             <Meshes geos={inrichting} mats={sets.vast} />
           </group>
+          {meubelsIn && (
+            <Suspense fallback={null}>
+              <Interieur
+                laag={actKamers} kamers={kamers} openingen={laagOpeningen} ramen={laagRamen} trappen={laagTrappen}
+                w={w} l={l} act={act} binnenRef={binnenRef} inrichtingRef={inrichtingRef}
+                snij={snij} zicht={zichtRef} nat={nat} onVakken={setMeubelVakken}
+              />
+            </Suspense>
+          )}
           {/* Zolang de modellen laden staat de film stil (FilmWacht); elk toestel heeft
               zijn eigen vangnet, zodat één kapot model alleen zichzelf meeneemt. */}
           <Suspense fallback={<FilmWacht />}>

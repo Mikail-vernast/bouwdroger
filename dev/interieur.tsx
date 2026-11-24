@@ -24,6 +24,8 @@ const dak = (q.get("dak") ?? WONING[woning].dakToegelaten[0]) as Dak;
 const fase = (q.get("fase") ?? "afgewerkt") as Fase;
 const laag = Number(q.get("laag") ?? 0);
 const open = q.get("open") !== "0";
+// werk=1: het canvas tekent elke frame (zoals tijdens de droogfilm), om fps te meten.
+const werk = q.get("werk") === "1";
 const programmas = q.get("prog") ? JSON.parse(q.get("prog")!) : [];
 const plan = planVoor(woning, lagen, dak, programmas, breedte);
 (window as unknown as { __plan: unknown }).__plan = plan;
@@ -41,6 +43,7 @@ createRoot(document.getElementById("root")!).render(
         trappen={plan.trappen}
         ramen={plan.ramen}
         open={open}
+        werkend={werk}
         actief={laag}
         materiaal={materiaalVoor(null, fase, 0)}
         className="ds-iso"

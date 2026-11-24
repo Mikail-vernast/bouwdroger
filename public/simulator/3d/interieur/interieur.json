@@ -1,0 +1,1226 @@
+{
+ "versie": 1,
+ "eenheid": "meter",
+ "as": "oorsprong midden-achteraan op de vloer; voorkant naar +Z (three.js)",
+ "materialen": {
+  "stof": {
+   "kleur": "#b9ad9c",
+   "ruwheid": 0.92,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "stof_accent": {
+   "kleur": "#7d8b6a",
+   "ruwheid": 0.9,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "wol": {
+   "kleur": "#c98f6b",
+   "ruwheid": 0.95,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "linnen": {
+   "kleur": "#ece6dc",
+   "ruwheid": 0.9,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "linnen_2": {
+   "kleur": "#d9cbb8",
+   "ruwheid": 0.9,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "kleed": {
+   "kleur": "#cdbca3",
+   "ruwheid": 0.97,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "kleed_rand": {
+   "kleur": "#8f7a62",
+   "ruwheid": 0.97,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "gordijn": {
+   "kleur": "#e7dfd2",
+   "ruwheid": 0.9,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "leder": {
+   "kleur": "#9a5b34",
+   "ruwheid": 0.55,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "eik": {
+   "kleur": "#b58a5e",
+   "ruwheid": 0.55,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "eik_donker": {
+   "kleur": "#6e4a33",
+   "ruwheid": 0.5,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "wit_kast": {
+   "kleur": "#efece6",
+   "ruwheid": 0.4,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "front": {
+   "kleur": "#e9e5dc",
+   "ruwheid": 0.4,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "werkblad": {
+   "kleur": "#3e3a36",
+   "ruwheid": 0.3,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "zwart": {
+   "kleur": "#1f1f20",
+   "ruwheid": 0.45,
+   "metaal": 0.6,
+   "licht": null
+  },
+  "messing": {
+   "kleur": "#b8924a",
+   "ruwheid": 0.3,
+   "metaal": 1.0,
+   "licht": null
+  },
+  "inox": {
+   "kleur": "#c4c8cb",
+   "ruwheid": 0.28,
+   "metaal": 0.9,
+   "licht": null
+  },
+  "zwart_glas": {
+   "kleur": "#111315",
+   "ruwheid": 0.1,
+   "metaal": 0.2,
+   "licht": null
+  },
+  "keramiek": {
+   "kleur": "#f3f1ec",
+   "ruwheid": 0.18,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "terracotta": {
+   "kleur": "#b5653f",
+   "ruwheid": 0.8,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "blad": {
+   "kleur": "#4f6b3a",
+   "ruwheid": 0.6,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "blad_licht": {
+   "kleur": "#6f8a48",
+   "ruwheid": 0.6,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "aarde": {
+   "kleur": "#3a2a20",
+   "ruwheid": 0.95,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "scherm": {
+   "kleur": "#0d0f11",
+   "ruwheid": 0.15,
+   "metaal": 0.3,
+   "licht": null
+  },
+  "boek_1": {
+   "kleur": "#8c3b2e",
+   "ruwheid": 0.7,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "boek_2": {
+   "kleur": "#2f4a5e",
+   "ruwheid": 0.7,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "boek_3": {
+   "kleur": "#d8c9a8",
+   "ruwheid": 0.7,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "boek_4": {
+   "kleur": "#5e6b46",
+   "ruwheid": 0.7,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "boek_5": {
+   "kleur": "#c7a15a",
+   "ruwheid": 0.7,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "fruit_oranje": {
+   "kleur": "#e07b24",
+   "ruwheid": 0.5,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "fruit_groen": {
+   "kleur": "#8fae3c",
+   "ruwheid": 0.5,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "fruit_geel": {
+   "kleur": "#e9c63a",
+   "ruwheid": 0.5,
+   "metaal": 0.0,
+   "licht": null
+  },
+  "lampkap": {
+   "kleur": "#f4ead8",
+   "ruwheid": 0.8,
+   "metaal": 0.0,
+   "licht": "#ffcf8a"
+  },
+  "lamp": {
+   "kleur": "#fff2d6",
+   "ruwheid": 0.4,
+   "metaal": 0.0,
+   "licht": "#ffd9a0"
+  },
+  "spiegel": {
+   "kleur": "#c9d2d6",
+   "ruwheid": 0.03,
+   "metaal": 1.0,
+   "licht": null
+  }
+ },
+ "objecten": [
+  {
+   "naam": "leefruimte_zetel_3zit",
+   "b": 2.22,
+   "d": 0.92,
+   "h": 0.831,
+   "tris": 2612,
+   "materialen": [
+    "stof",
+    "stof_accent",
+    "wol",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.45,
+    "zij": 0.1,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "stof",
+    "stof_accent",
+    "wol"
+   ]
+  },
+  {
+   "naam": "leefruimte_zetel_2zit",
+   "b": 1.67,
+   "d": 0.92,
+   "h": 0.831,
+   "tris": 2236,
+   "materialen": [
+    "stof",
+    "stof_accent",
+    "wol",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.45,
+    "zij": 0.1,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "stof",
+    "stof_accent",
+    "wol"
+   ]
+  },
+  {
+   "naam": "leefruimte_salontafel",
+   "b": 1.1,
+   "d": 0.6,
+   "h": 0.56,
+   "tris": 592,
+   "materialen": [
+    "boek_1",
+    "boek_2",
+    "boek_3",
+    "eik",
+    "keramiek",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.35
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "leefruimte_tvmeubel_180",
+   "b": 1.8,
+   "d": 0.422,
+   "h": 1.27,
+   "tris": 716,
+   "materialen": [
+    "blad_licht",
+    "eik",
+    "eik_donker",
+    "keramiek",
+    "scherm",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 1.6,
+    "zij": 0.05,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ],
+   "tv": true
+  },
+  {
+   "naam": "leefruimte_tvmeubel_140",
+   "b": 1.4,
+   "d": 0.422,
+   "h": 1.27,
+   "tris": 716,
+   "materialen": [
+    "blad_licht",
+    "eik",
+    "eik_donker",
+    "keramiek",
+    "scherm",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 1.6,
+    "zij": 0.05,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ],
+   "tv": true
+  },
+  {
+   "naam": "leefruimte_boekenkast_100",
+   "b": 1.0,
+   "d": 0.36,
+   "h": 2.0,
+   "tris": 1336,
+   "materialen": [
+    "boek_1",
+    "boek_2",
+    "boek_3",
+    "boek_4",
+    "boek_5",
+    "eik",
+    "keramiek",
+    "terracotta"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.7,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "leefruimte_boekenkast_60",
+   "b": 0.6,
+   "d": 0.36,
+   "h": 2.0,
+   "tris": 800,
+   "materialen": [
+    "boek_1",
+    "boek_2",
+    "boek_3",
+    "boek_4",
+    "boek_5",
+    "eik",
+    "keramiek"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.7,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "leefruimte_lamp_staand",
+   "b": 0.41,
+   "d": 0.4,
+   "h": 1.622,
+   "tris": 196,
+   "materialen": [
+    "lamp",
+    "lampkap",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.05
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "licht": true
+  },
+  {
+   "naam": "leefruimte_plant_groot",
+   "b": 0.551,
+   "d": 0.601,
+   "h": 1.78,
+   "tris": 588,
+   "materialen": [
+    "aarde",
+    "blad",
+    "blad_licht",
+    "eik_donker",
+    "terracotta"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": []
+  },
+  {
+   "naam": "leefruimte_kleed",
+   "b": 2.0,
+   "d": 1.4,
+   "h": 0.012,
+   "tris": 24,
+   "materialen": [
+    "kleed",
+    "kleed_rand"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "xy",
+   "kleurbaar": [
+    "kleed",
+    "kleed_rand"
+   ],
+   "plat": true
+  },
+  {
+   "naam": "keuken_onderkast_60",
+   "b": 0.6,
+   "d": 0.6,
+   "h": 0.86,
+   "tris": 144,
+   "materialen": [
+    "front",
+    "wit_kast",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.9,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "front"
+   ],
+   "module": 0.6
+  },
+  {
+   "naam": "keuken_ladekast_60",
+   "b": 0.6,
+   "d": 0.601,
+   "h": 0.86,
+   "tris": 168,
+   "materialen": [
+    "front",
+    "wit_kast",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.9,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "front"
+   ],
+   "module": 0.6
+  },
+  {
+   "naam": "keuken_ovenkast_60",
+   "b": 0.6,
+   "d": 0.63,
+   "h": 0.86,
+   "tris": 276,
+   "materialen": [
+    "front",
+    "inox",
+    "wit_kast",
+    "zwart",
+    "zwart_glas"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.9,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "front"
+   ],
+   "module": 0.6
+  },
+  {
+   "naam": "keuken_koelkastkolom_60",
+   "b": 0.6,
+   "d": 0.645,
+   "h": 2.18,
+   "tris": 360,
+   "materialen": [
+    "front",
+    "wit_kast",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 1.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "front"
+   ],
+   "module": 0.6
+  },
+  {
+   "naam": "keuken_bovenkast_60",
+   "b": 0.6,
+   "d": 0.35,
+   "h": 0.706,
+   "tris": 132,
+   "materialen": [
+    "front",
+    "lamp",
+    "wit_kast"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "front"
+   ],
+   "module": 0.6,
+   "boven": 1.45
+  },
+  {
+   "naam": "keuken_werkblad",
+   "b": 1.0,
+   "d": 0.635,
+   "h": 0.04,
+   "tris": 108,
+   "materialen": [
+    "werkblad"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "x",
+   "kleurbaar": [
+    "werkblad"
+   ]
+  },
+  {
+   "naam": "keuken_spoelbak",
+   "b": 0.78,
+   "d": 0.506,
+   "h": 0.374,
+   "tris": 132,
+   "materialen": [
+    "inox",
+    "zwart_glas"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "boven": 0.9
+  },
+  {
+   "naam": "keuken_kookplaat",
+   "b": 0.58,
+   "d": 0.51,
+   "h": 0.008,
+   "tris": 844,
+   "materialen": [
+    "zwart",
+    "zwart_glas"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "boven": 0.9
+  },
+  {
+   "naam": "keuken_dampkap_60",
+   "b": 0.6,
+   "d": 0.5,
+   "h": 1.054,
+   "tris": 132,
+   "materialen": [
+    "inox",
+    "lamp"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "boven": 1.55
+  },
+  {
+   "naam": "keuken_eiland_180",
+   "b": 1.84,
+   "d": 1.34,
+   "h": 1.061,
+   "tris": 1296,
+   "materialen": [
+    "eik",
+    "front",
+    "fruit_geel",
+    "fruit_groen",
+    "fruit_oranje",
+    "keramiek",
+    "werkblad",
+    "wit_kast",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.9
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "front",
+    "werkblad"
+   ]
+  },
+  {
+   "naam": "keuken_eiland_140",
+   "b": 1.44,
+   "d": 1.34,
+   "h": 1.061,
+   "tris": 1296,
+   "materialen": [
+    "eik",
+    "front",
+    "fruit_geel",
+    "fruit_groen",
+    "fruit_oranje",
+    "keramiek",
+    "werkblad",
+    "wit_kast",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.9
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "front",
+    "werkblad"
+   ]
+  },
+  {
+   "naam": "keuken_tafel_160",
+   "b": 1.6,
+   "d": 0.9,
+   "h": 1.136,
+   "tris": 352,
+   "materialen": [
+    "blad",
+    "eik",
+    "keramiek",
+    "messing",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.75
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "keuken_tafel_120",
+   "b": 1.2,
+   "d": 0.9,
+   "h": 1.136,
+   "tris": 352,
+   "materialen": [
+    "blad",
+    "eik",
+    "keramiek",
+    "messing",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.75
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "keuken_stoel",
+   "b": 0.44,
+   "d": 0.467,
+   "h": 0.822,
+   "tris": 488,
+   "materialen": [
+    "eik",
+    "stof"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "stof"
+   ]
+  },
+  {
+   "naam": "keuken_pendellamp",
+   "b": 0.32,
+   "d": 0.32,
+   "h": 0.96,
+   "tris": 124,
+   "materialen": [
+    "lamp",
+    "messing",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "boven": 1.64,
+   "licht": true
+  },
+  {
+   "naam": "keuken_werkbladspullen",
+   "b": 0.788,
+   "d": 0.255,
+   "h": 0.36,
+   "tris": 352,
+   "materialen": [
+    "eik",
+    "keramiek",
+    "messing",
+    "zwart",
+    "zwart_glas"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "boven": 0.9
+  },
+  {
+   "naam": "slaapkamer_bed_160",
+   "b": 1.72,
+   "d": 2.08,
+   "h": 1.05,
+   "tris": 1792,
+   "materialen": [
+    "eik",
+    "linnen",
+    "linnen_2",
+    "stof",
+    "stof_accent",
+    "wol"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.6,
+    "zij": 0.6,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "stof",
+    "linnen",
+    "linnen_2",
+    "wol",
+    "stof_accent"
+   ]
+  },
+  {
+   "naam": "slaapkamer_bed_140",
+   "b": 1.52,
+   "d": 2.08,
+   "h": 1.05,
+   "tris": 1792,
+   "materialen": [
+    "eik",
+    "linnen",
+    "linnen_2",
+    "stof",
+    "stof_accent",
+    "wol"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.6,
+    "zij": 0.6,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "stof",
+    "linnen",
+    "linnen_2",
+    "wol",
+    "stof_accent"
+   ]
+  },
+  {
+   "naam": "slaapkamer_bed_90",
+   "b": 1.02,
+   "d": 1.98,
+   "h": 0.85,
+   "tris": 1228,
+   "materialen": [
+    "eik",
+    "linnen",
+    "linnen_2",
+    "stof",
+    "wol"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.6,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "stof",
+    "linnen",
+    "linnen_2",
+    "wol",
+    "stof_accent"
+   ]
+  },
+  {
+   "naam": "slaapkamer_nachtkast",
+   "b": 0.45,
+   "d": 0.395,
+   "h": 0.84,
+   "tris": 412,
+   "materialen": [
+    "boek_2",
+    "eik",
+    "eik_donker",
+    "keramiek",
+    "lampkap",
+    "messing",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ],
+   "licht": true
+  },
+  {
+   "naam": "slaapkamer_kleerkast_100",
+   "b": 1.0,
+   "d": 0.625,
+   "h": 2.2,
+   "tris": 360,
+   "materialen": [
+    "messing",
+    "wit_kast",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.7,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "wit_kast"
+   ],
+   "module": 1.0
+  },
+  {
+   "naam": "slaapkamer_kleerkast_150",
+   "b": 1.5,
+   "d": 0.625,
+   "h": 2.2,
+   "tris": 360,
+   "materialen": [
+    "messing",
+    "wit_kast",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": true,
+   "vrij": {
+    "voor": 0.7,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "wit_kast"
+   ],
+   "module": 1.5
+  },
+  {
+   "naam": "slaapkamer_commode_120",
+   "b": 1.2,
+   "d": 0.495,
+   "h": 1.52,
+   "tris": 456,
+   "materialen": [
+    "eik",
+    "eik_donker",
+    "keramiek",
+    "messing",
+    "spiegel",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.7,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "eik"
+   ]
+  },
+  {
+   "naam": "slaapkamer_speelkist",
+   "b": 0.8,
+   "d": 0.7,
+   "h": 0.46,
+   "tris": 296,
+   "materialen": [
+    "eik",
+    "fruit_geel",
+    "stof_accent"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.4,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "stof_accent"
+   ]
+  },
+  {
+   "naam": "slaapkamer_kleed",
+   "b": 2.0,
+   "d": 1.4,
+   "h": 0.012,
+   "tris": 24,
+   "materialen": [
+    "kleed",
+    "kleed_rand"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "xy",
+   "kleurbaar": [
+    "kleed",
+    "kleed_rand"
+   ],
+   "plat": true
+  },
+  {
+   "naam": "algemeen_gordijn",
+   "b": 0.4,
+   "d": 0.035,
+   "h": 2.49,
+   "tris": 16,
+   "materialen": [
+    "gordijn"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "x",
+   "kleurbaar": [
+    "gordijn"
+   ]
+  },
+  {
+   "naam": "algemeen_gordijnrail",
+   "b": 1.0,
+   "d": 0.07,
+   "h": 0.02,
+   "tris": 68,
+   "materialen": [
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "x",
+   "kleurbaar": []
+  },
+  {
+   "naam": "algemeen_deur_85",
+   "b": 0.99,
+   "d": 0.932,
+   "h": 2.17,
+   "tris": 264,
+   "materialen": [
+    "wit_kast",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "wit_kast"
+   ],
+   "deur": true
+  },
+  {
+   "naam": "algemeen_deur_70",
+   "b": 0.84,
+   "d": 0.782,
+   "h": 2.17,
+   "tris": 264,
+   "materialen": [
+    "wit_kast",
+    "zwart"
+   ],
+   "muur": false,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [
+    "wit_kast"
+   ],
+   "deur": true
+  },
+  {
+   "naam": "algemeen_stopcontact",
+   "b": 0.08,
+   "d": 0.036,
+   "h": 0.08,
+   "tris": 144,
+   "materialen": [
+    "keramiek",
+    "zwart"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "boven": 0.26
+  },
+  {
+   "naam": "algemeen_schakelaar",
+   "b": 0.08,
+   "d": 0.016,
+   "h": 0.08,
+   "tris": 216,
+   "materialen": [
+    "keramiek"
+   ],
+   "muur": true,
+   "hoog": false,
+   "vrij": {
+    "voor": 0.0,
+    "zij": 0.0,
+    "rond": 0.0
+   },
+   "schaal": "",
+   "kleurbaar": [],
+   "boven": 1.06
+  }
+ ]
+}

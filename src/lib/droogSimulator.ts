@@ -908,7 +908,7 @@ function probeer(P: Poging): Omit<Plan, "ramen"> | Mislukt {
   // houdt de tuinkant: zithoek aan de straat, eetkeuken aan de tuin.
   if (metHal && achter.length >= 2 && voor.every((r) => r.naam === "Toilet")) {
     const i = achter.findIndex((r) => r.naam === "Leefruimte");
-    if (i >= 0 && !P.naarAnder.has(achter[i].i) && past(voor, achter[i]) && l - zf >= (achter[i].minB ?? 0)) voor.push(...achter.splice(i, 1));
+    if (i >= 0 && !P.naarAnder.has(achter[i].i) && past(voor, achter[i]) && l - zf >= (achter[i].minB ?? 0) - 1e-9) voor.push(...achter.splice(i, 1));
   }
   if (metHal) {
     achter.sort((a, b) => (ACHTER_BENEDEN[a.naam] ?? 5) - (ACHTER_BENEDEN[b.naam] ?? 5));

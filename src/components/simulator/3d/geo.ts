@@ -42,16 +42,28 @@ const HEXA_VLAKKEN: [number, number, number, number][] = [
 
 export type Vlak = "onder" | "boven" | "zijkant";
 
-interface Buffer { pos: number[]; nrm: number[]; uv: number[] }
+interface Buffer { pos: number[]; nrm: number[]; uv: number[]; col: number[]; gekleurd: boolean }
 
 /** Verzamelt driehoeken per materiaalsleutel. */
 export class Bouwer {
   private bufs = new Map<string, Buffer>();
+  /**
+   * Kleur per hoekpunt (lineair RGB) voor wat hierna gebouwd wordt, of null.
+   * Zo kan één materiaal (bv. muurverf) elke kamer een eigen tint geven in
+   * één draw call; het materiaal zet dan `vertexColors` aan.
+   */
+  kleur: [number, number, number] | null = null;
+
+  private kleurPunt(buf: Buffer) {
+    const c = this.kleur;
+    if (c) buf.gekleurd = true;
+    buf.col.push(c ? c[0] : 1, c ? c[1] : 1, c ? c[2] : 1);
+  }
 
   private buf(mat: string): Buffer {
     let b = this.bufs.get(mat);
     if (!b) {
-      b = { pos: [], nrm: [], uv: [] };
+      b = { pos: [], nrm: [], uv: [], col: [], gekleurd: false };
       this.bufs.set(mat, b);
     }
     return b;
@@ -75,6 +87,7 @@ export class Bouwer {
       buf.nrm.push(n[0], n[1], n[2]);
       const [u, v] = uv(p, n);
       buf.uv.push(u, v);
+      this.kleurPunt(buf);
     }
   }
 
@@ -92,6 +105,7 @@ export class Bouwer {
       buf.nrm.push(n[0], n[1], n[2]);
       const [u, v] = uv(p, n);
       buf.uv.push(u, v);
+      this.kleurPunt(buf);
     }
   }
 
@@ -148,6 +162,7 @@ export class Bouwer {
         buf.pos.push(p[0], p[1], p[2]);
         buf.nrm.push(n[0], n[1], n[2]);
         buf.uv.push(k === 0 || k === 1 ? 0 : 1, k === 0 || k === 3 ? 0 : 1);
+        this.kleurPunt(buf);
       }
     }
   }
@@ -161,6 +176,7 @@ export class Bouwer {
       g.setAttribute("position", new Float32BufferAttribute(b.pos, 3));
       g.setAttribute("normal", new Float32BufferAttribute(b.nrm, 3));
       g.setAttribute("uv", new Float32BufferAttribute(b.uv, 2));
+      if (b.gekleurd) g.setAttribute("color", new Float32BufferAttribute(b.col, 3));
       g.computeBoundingSphere();
       uit.set(mat, g);
     }

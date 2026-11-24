@@ -20,6 +20,26 @@ export const TEXTUUR = {
 } as const;
 
 /*
+  De interieurkit (scripts/simulator-3d/interieur.py en texturen.py): meubels als
+  één GLB met een manifest, en de vloer- en wandtegels per kamersoort. Alleen
+  geladen als de woning afgewerkt (bewoond) getoond wordt; samen ± 520 kB, de
+  GLB ± 120 kB gzip. Los van de droogsimulator, zodat andere simulators hem
+  kunnen hergebruiken.
+*/
+export const INTERIEUR = {
+  glb: "/simulator/3d/interieur/interieur.glb",
+  manifest: "/simulator/3d/interieur/interieur.json",
+  tex: {
+    visgraat: "/simulator/3d/interieur/visgraat.webp",
+    planken: "/simulator/3d/interieur/planken.webp",
+    tegelwarm: "/simulator/3d/interieur/tegelwarm.webp",
+    tegelklein: "/simulator/3d/interieur/tegelklein.webp",
+    kalkverf: "/simulator/3d/interieur/kalkverf.webp",
+    wandtegel: "/simulator/3d/interieur/wandtegel.webp",
+  },
+} as const;
+
+/*
   De straat rond de woning: een Blender-render per woningtype (scripts/simulator-3d/straat.py),
   in een achter- en een voorlaag, in drie maten:
     mini   875 × 625, ~25–90 kB per paar: komt altijd eerst, zodat de straat er op
