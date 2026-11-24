@@ -1499,7 +1499,7 @@ def kern(x0, x1, inkom=True):
     blok("liftkap", x0 + 0.32, x1 - 0.32, TOP + 1.3, TOP + 1.42, 2.42, 5.28, M["zinkrand"])
 
 
-def auto(x, z, mat, lang=4.3, breed=1.8):
+def app_auto(x, z, mat, lang=4.3, breed=1.8):
     """Een geparkeerde auto, langs de straat (lengte langs x)."""
     x0, x1, z0, z1 = x - lang / 2, x + lang / 2, z - breed / 2, z + breed / 2
     blok("auto", x0, x1, 0.3, 0.95, z0, z1, M[mat], bevel=0.14)
@@ -1661,7 +1661,7 @@ def omgeving_appartement():
         if wat == "boom":
             straatboom(vx, PARK0, FIETS0, pz)
         else:
-            auto(vx, pz, wat)
+            app_auto(vx, pz, wat)
     # De overkant: rijwoningen met een smalle voortuin, ook met langsparkeren.
     ox = -60.0
     i = 0
@@ -1677,7 +1677,7 @@ def omgeving_appartement():
         if wat == "boom":
             straatboom(vx, FIETS1, PARK1, pz2)
         else:
-            auto(vx, pz2, wat)
+            app_auto(vx, pz2, wat)
     for lx in (-26.0, W + 1.0):
         lantaarn(lx, BOORD1 + 0.35, -1)
 
