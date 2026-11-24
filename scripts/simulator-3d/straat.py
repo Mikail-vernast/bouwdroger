@@ -884,40 +884,86 @@ def border(x0, x1, z0, z1, n, hoog=(0.7, 1.4)):
 
 # ───────────────────────── auto's ─────────────────────────
 
-def lak(naam, hexkleur):
-    """Autolak: metallic onder een blanke laklaag."""
-    m = kleur(naam, srgb(hexkleur), 0.35, 0.55)
+def lak(naam, hexkleur, metaal):
+    """Autolak: een basislaag met metaalschilfers onder een blanke laklaag. De schilfers
+    zijn fijne ruis op de normaal van de basislaag; de laklaag erboven blijft spiegelglad."""
+    m = bpy.data.materials.new(naam)
+    m.use_nodes = True
+    nt = m.node_tree
+    b = nt.nodes["Principled BSDF"]
+    b.inputs["Base Color"].default_value = (*srgb(hexkleur), 1)
+    b.inputs["Metallic"].default_value = metaal
+    b.inputs["Roughness"].default_value = 0.32
+    b.inputs["Coat Weight"].default_value = 1.0
+    b.inputs["Coat Roughness"].default_value = 0.03
+    b.inputs["Coat IOR"].default_value = 1.5
+    nz = nt.nodes.new("ShaderNodeTexNoise")
+    nz.inputs["Scale"].default_value = 2200.0
+    nz.inputs["Detail"].default_value = 1.0
+    bp = nt.nodes.new("ShaderNodeBump")
+    bp.inputs["Strength"].default_value = 0.12 * metaal
+    bp.inputs["Distance"].default_value = 0.001
+    nt.links.new(nz.outputs["Fac"], bp.inputs["Height"])
+    nt.links.new(bp.outputs["Normal"], b.inputs["Normal"])
+    return m
+
+
+def autoglas():
+    """Getint autoglas: donker, spiegelt de lucht, en de interieurschaduw erachter."""
+    m = bpy.data.materials.new("ruit")
+    m.use_nodes = True
+    b = m.node_tree.nodes["Principled BSDF"]
+    b.inputs["Base Color"].default_value = (*srgb("#0d1317"), 1)
+    b.inputs["Roughness"].default_value = 0.02
+    b.inputs["Specular IOR Level"].default_value = 0.7
+    b.inputs["Coat Weight"].default_value = 1.0
+    b.inputs["Coat Roughness"].default_value = 0.0
+    return m
+
+
+def lichtmat(naam, hexkleur, gloed):
+    """Lamp achter helder glas: spiegelend, met een zwakke eigen gloed."""
+    m = kleur(naam, srgb(hexkleur), 0.05)
     b = m.node_tree.nodes["Principled BSDF"]
     b.inputs["Coat Weight"].default_value = 1.0
-    b.inputs["Coat Roughness"].default_value = 0.06
+    b.inputs["Emission Color"].default_value = (*srgb(hexkleur), 1)
+    b.inputs["Emission Strength"].default_value = gloed
     return m
 
 
 M.update({
-    "band": kleur("band", srgb("#1b1c1e"), 0.85),
-    "velg": kleur("velg", srgb("#b9bcbf"), 0.25, 0.9),
-    "kunststof": kleur("kunststof", srgb("#26272a"), 0.7),
-    "ruit": kleur("ruit", srgb("#1d262d"), 0.04, 0.3),
-    "koplamp": kleur("koplamp", srgb("#eef0f2"), 0.08),
-    "achterlicht": kleur("achterlicht", srgb("#9b1414"), 0.2),
-    "plaat": kleur("plaat", srgb("#f1f1ee"), 0.5),
+    "band": kleur("band", srgb("#161718"), 0.9),
+    "flank": kleur("flank", srgb("#232426"), 0.75),
+    "velg": kleur("velg", srgb("#c4c7ca"), 0.18, 1.0),
+    "velgdonker": kleur("velgdonker", srgb("#3a3d40"), 0.4, 0.8),
+    "kunststof": kleur("kunststof", srgb("#1e1f21"), 0.55),
+    "chroom": kleur("chroom", srgb("#d9dcdf"), 0.08, 1.0),
+    "ruit": autoglas(),
+    "koplamp": lichtmat("koplamp", "#f4f6f8", 0.4),
+    "achterlicht": lichtmat("achterlicht", "#a5100f", 0.6),
+    "plaat": kleur("plaat", srgb("#f3f3ef"), 0.45),
+    "plaattekst": kleur("plaattekst", srgb("#9b1b1b"), 0.5),
 })
-LAKKEN = [lak(f"lak{i}", k) for i, k in enumerate(("#8b9096", "#15171a", "#e8e9ea", "#1f2c48"))]
+# Grijs metallic, zwart, parelwit en donkerblauw metallic: de kleuren van de meeste
+# Vlaamse opritten. Zwart en wit met weinig metaal, zoals uni- en parelmoerlak.
+LAKKEN = [lak("lak-grijs", "#6f757b", 0.75), lak("lak-zwart", "#0b0c0e", 0.35),
+          lak("lak-wit", "#e6e7e6", 0.12), lak("lak-blauw", "#182540", 0.7)]
 
 # Echte maten (m): lengte, breedte, gordellijn, dak, bodemvrijheid, wielstraal,
 # overbouw achter en voor, en de ruiten als (achter, voor) vanaf de achterkant:
 # onderaan op de gordellijn en bovenaan onder het dak.
 MODELLEN = {
-    "hatchback": dict(L=4.10, B=1.78, gordel=0.93, dak=1.46, vrij=0.15, r=0.31, oa=0.62, ov=0.82, onder=(0.22, 2.80), boven=(0.48, 2.12)),
-    "break": dict(L=4.65, B=1.80, gordel=0.94, dak=1.47, vrij=0.15, r=0.32, oa=0.92, ov=0.88, onder=(0.18, 3.10), boven=(0.32, 2.40)),
-    "suv": dict(L=4.45, B=1.86, gordel=1.06, dak=1.68, vrij=0.21, r=0.36, oa=0.78, ov=0.86, onder=(0.24, 2.98), boven=(0.40, 2.36)),
+    "hatchback": dict(L=4.10, B=1.78, gordel=0.93, dak=1.46, vrij=0.15, r=0.31, oa=0.62, ov=0.82, onder=(0.22, 2.86), boven=(0.46, 2.06), rails=False),
+    "break": dict(L=4.65, B=1.80, gordel=0.94, dak=1.47, vrij=0.15, r=0.32, oa=0.92, ov=0.88, onder=(0.18, 3.16), boven=(0.30, 2.36), rails=True),
+    "suv": dict(L=4.45, B=1.86, gordel=1.06, dak=1.68, vrij=0.21, r=0.36, oa=0.78, ov=0.86, onder=(0.24, 3.02), boven=(0.40, 2.32), rails=True),
 }
 
 
 def auto(cx, zn, d, model, lakmat):
     """Een personenwagen in de lengte van z, met de neus op z = `zn` en in richting
-    `d` (+1/-1 langs z). Opgebouwd uit afgeronde blokken: carrosserie met wielkasten,
-    een cabine met ruiten, vier wielen met velg, lichten en nummerplaten."""
+    `d` (+1/-1 langs z). Een carrosserie met zijprofiel en wielkasten, een cabine van
+    getint glas met zwarte stijlen, wielen met band, flank en spaakvelg, deurnaden en
+    handgrepen, lichten, nummerplaten en (break, SUV) dakrails."""
     m = MODELLEN[model]
     L, B, r = m["L"], m["B"], m["r"]
     za = zn - d * L  # achterkant
@@ -939,63 +985,111 @@ def auto(cx, zn, d, model, lakmat):
         o = mesh(naam, vs, vlakken, mat)
         bv = o.modifiers.new("bevel", "BEVEL")
         bv.width = bevel
-        bv.segments = 4
+        bv.segments = 5
         bv.limit_method = "NONE"
+        o.data.shade_smooth()
         return o
 
     ua, uv = m["oa"], L - m["ov"]  # assen
     wk = r + 0.06  # halve breedte van een wielkast
     yk = 2 * r * 0.82  # bovenkant van de wielkasten
     g = m["gordel"]
-    o1 = m["onder"][1]
+    (o0, o1), (b0, b1) = m["onder"], m["boven"]
     # Bovenbak: achteraan op gordelhoogte, de motorkap loopt vanaf de voorruit af naar
     # een lagere, afgeronde neus. Daaronder bumpers en dorpel tussen de wielkasten.
-    profiel("auto-bak", [(0, yk), (L, yk), (L, g - 0.26), (L - 0.12, g - 0.14), (o1 + 0.1, g - 0.01), (o1, g), (0, g)], B, lakmat, 0.09)
-    stuk("auto-bumper", 0, ua - wk, m["vrij"], yk + 0.05, B - 0.02, lakmat, 0.06)
-    stuk("auto-bumper", uv + wk, L, m["vrij"], yk + 0.05, B - 0.02, lakmat, 0.06)
-    stuk("auto-dorpel", ua + wk, uv - wk, m["vrij"] + 0.04, yk + 0.05, B - 0.04, lakmat, 0.04)
+    profiel("auto-bak", [(0, yk), (L, yk), (L, g - 0.26), (L - 0.12, g - 0.13), (o1 + 0.1, g - 0.01), (o1, g), (0.05, g), (0, g - 0.04)], B, lakmat, 0.11)
+    stuk("auto-bumper", 0, ua - wk, m["vrij"] + 0.06, yk + 0.05, B - 0.02, lakmat, 0.07)
+    stuk("auto-bumper", uv + wk, L, m["vrij"] + 0.06, yk + 0.05, B - 0.02, lakmat, 0.07)
+    stuk("auto-dorpel", ua + wk, uv - wk, m["vrij"] + 0.06, yk + 0.05, B - 0.04, lakmat, 0.05)
+    # Zwarte kunststof: onderrand, wielkastranden, dorpelstrip en onderbumpers.
     stuk("auto-onder", 0.1, L - 0.1, m["vrij"], m["vrij"] + 0.08, B - 0.3, M["kunststof"])
-    stuk("auto-spoiler", -0.01, ua - wk, m["vrij"], m["vrij"] + 0.1, B - 0.06, M["kunststof"], 0.03)
-    stuk("auto-spoiler", uv + wk, L + 0.01, m["vrij"], m["vrij"] + 0.1, B - 0.06, M["kunststof"], 0.03)
+    stuk("auto-strip", ua + wk, uv - wk, m["vrij"] + 0.02, m["vrij"] + 0.12, B + 0.01, M["kunststof"], 0.03)
+    stuk("auto-spoiler", -0.01, ua - wk, m["vrij"], m["vrij"] + 0.12, B - 0.04, M["kunststof"], 0.03)
+    stuk("auto-spoiler", uv + wk, L + 0.01, m["vrij"], m["vrij"] + 0.12, B - 0.04, M["kunststof"], 0.03)
+    for u in (ua, uv):  # wielkastrand: een dunne zwarte boog boven elk wiel
+        for a in range(5):
+            h0, h1 = math.radians(20 + a * 28), math.radians(20 + (a + 1) * 28)
+            p0 = (u + math.cos(h0) * (r + 0.07), r + math.sin(h0) * (r + 0.07))
+            p1 = (u + math.cos(h1) * (r + 0.07), r + math.sin(h1) * (r + 0.07))
+            for k in (-1, 1):
+                xw = cx + k * (B / 2 + 0.004)
+                cilinder("auto-kastrand", (xw, p0[1], z(p0[0])), (xw, p1[1], z(p1[0])), 0.025, M["kunststof"], 8)
 
-    # Cabine: ruiten als schuine afgeknotte piramide, het dak erop in de lakkleur.
-    (o0, o1), (b0, b1) = m["onder"], m["boven"]
-    yg, yd = m["gordel"] - 0.02, m["dak"] - 0.06
+    # Cabine: ruiten als schuine afgeknotte piramide met afgeronde randen, het dak erop
+    # in de lakkleur, zwarte stijlen ertussen.
+    yg, yd = g - 0.02, m["dak"] - 0.06
     bo, bb = B / 2 - 0.08, B / 2 - 0.2
 
-    def afgeknot(naam, onder, boven, ho, hb, mat):
+    def afgeknot(naam, onder, boven, ho, hb, mat, bevel=0.0):
         """Een doos die van onder (u-bereik, halve breedte ho) naar boven versmalt."""
         vs = [V(cx - ho, yg, z(onder[0])), V(cx + ho, yg, z(onder[0])), V(cx + ho, yg, z(onder[1])), V(cx - ho, yg, z(onder[1])),
               V(cx - hb, yd, z(boven[0])), V(cx + hb, yd, z(boven[0])), V(cx + hb, yd, z(boven[1])), V(cx - hb, yd, z(boven[1]))]
         # Zelfde volgorde als blok(); gespiegeld langs z keren de vlakken om.
         vlakken = BLOK_VLAKKEN if d < 0 else [tuple(reversed(f)) for f in BLOK_VLAKKEN]
-        return mesh(naam, vs, vlakken, mat)
+        o = mesh(naam, vs, vlakken, mat)
+        if bevel:
+            bv = o.modifiers.new("bevel", "BEVEL")
+            bv.width = bevel
+            bv.segments = 4
+            bv.limit_method = "NONE"
+            o.data.shade_smooth()
+        return o
 
-    afgeknot("auto-ruit", (o0, o1), (b0, b1), bo, bb, M["ruit"])
-    stuk("auto-dak", b0 - 0.03, b1 + 0.03, yd - 0.01, m["dak"], 2 * bb + 0.04, lakmat, 0.04)
-    # B-stijl tussen voor- en achterdeur, in de lakkleur, net buiten de ruit.
-    um = (o0 + o1) / 2 + 0.15
-    afgeknot("auto-stijl", (um - 0.05, um + 0.05), (um - 0.05, um + 0.05), bo + 0.006, bb + 0.006, lakmat)
-    # Wielen: band en velg.
+    afgeknot("auto-ruit", (o0, o1), (b0, b1), bo, bb, M["ruit"], 0.06)
+    stuk("auto-dak", b0 - 0.04, b1 + 0.04, yd - 0.02, m["dak"], 2 * bb + 0.06, lakmat, 0.06)
+    # B- en C-stijl in zwart glanzend, net buiten de ruit; een chroomlijst onder de ruiten.
+    s_ = 0.004
+    um = (o0 + o1) / 2 + 0.12
+    afgeknot("auto-stijl", (um - 0.06, um + 0.06), (um - 0.06, um + 0.06), bo + s_, bb + s_, M["kunststof"])
+    uc = o0 + 0.55
+    afgeknot("auto-stijl", (uc - 0.1, uc + 0.12), (b0 + 0.18, b0 + 0.36), bo + s_, bb + s_, lakmat)
+    for k in (-1, 1):
+        xl = cx + k * (bo + 0.01)
+        blok("auto-lijst", xl - 0.01, xl + 0.01, yg + 0.01, yg + 0.035, z(o0 + 0.1), z(o1 - 0.05), M["chroom"])
+    # Deurnaden en handgrepen op beide flanken.
+    for k in (-1, 1):
+        xf = cx + k * (B / 2 + 0.002)
+        for un in (um - 0.02, o1 - 0.02, uc - 0.12):
+            blok("auto-naad", xf - 0.004, xf + 0.004, yk - 0.06, g - 0.03, z(un - 0.008), z(un + 0.008), M["kunststof"])
+        for uh in (um - 0.35, o1 - 0.38):
+            blok("auto-greep", xf - 0.012, xf + 0.012, g - 0.17, g - 0.13, z(uh - 0.13), z(uh + 0.01), M["chroom"])
+    if m["rails"]:
+        for k in (-1, 1):
+            xr = cx + k * (bb - 0.06)
+            cilinder("auto-rail", (xr, m["dak"] + 0.05, z(b0 + 0.08)), (xr, m["dak"] + 0.05, z(b1 - 0.1)), 0.022, M["kunststof"], 8)
+            for ur in (b0 + 0.1, b1 - 0.12):
+                blok("auto-railvoet", xr - 0.025, xr + 0.025, m["dak"] - 0.01, m["dak"] + 0.06, z(ur - 0.05), z(ur + 0.05), M["kunststof"])
+    # Wielen: band met een iets lichtere flank, een spaakvelg met donkere naaf erachter.
     for u in (ua, uv):
-        for kant_ in (-1, 1):
-            xb = cx + kant_ * (B / 2 - 0.14)
-            cilinder("auto-band", (xb - 0.115, r, z(u)), (xb + 0.115, r, z(u)), r, M["band"], 24)
-            xv = xb + kant_ * 0.1
-            cilinder("auto-velg", (xv - 0.02, r, z(u)), (xv + 0.02, r, z(u)), r * 0.62, M["velg"], 20)
-    # Spiegels aan de voet van de voorruit.
-    for kant_ in (-1, 1):
-        xs = cx + kant_ * (B / 2 + 0.07)
-        blok("auto-spiegel", xs - 0.08, xs + 0.08, yg + 0.02, yg + 0.16, z(o1 - 0.12), z(o1 - 0.02), lakmat, bevel=0.02)
-    # Lichten, grille en nummerplaten: vooraan onder de afgeronde neus, achteraan
-    # net onder de gordellijn.
-    for kant_ in (-1, 1):
-        xl = cx + kant_ * (B / 2 - 0.28)
-        blok("auto-koplamp", xl - 0.2, xl + 0.2, g - 0.44, g - 0.33, z(L - 0.06), z(L + 0.008), M["koplamp"], bevel=0.02)
-        blok("auto-achterlicht", xl - 0.2, xl + 0.2, g - 0.18, g - 0.04, z(-0.012), z(0.06), M["achterlicht"], bevel=0.02)
-    stuk("auto-grille", L - 0.05, L + 0.008, g - 0.56, g - 0.36, 0.8, M["kunststof"], 0.02)
-    stuk("auto-plaat", L, L + 0.02, g - 0.7, g - 0.59, 0.52, M["plaat"])
+        for k in (-1, 1):
+            xb = cx + k * (B / 2 - 0.14)
+            cilinder("auto-band", (xb - 0.115, r, z(u)), (xb + 0.115, r, z(u)), r, M["band"], 32)
+            xf = xb + k * 0.105
+            cilinder("auto-flank", (xf - 0.012, r, z(u)), (xf + 0.012, r, z(u)), r * 0.92, M["flank"], 32)
+            xv = xb + k * 0.115
+            cilinder("auto-velgbak", (xv - 0.012, r, z(u)), (xv + 0.012, r, z(u)), r * 0.66, M["velgdonker"], 28)
+            cilinder("auto-velgrand", (xv - 0.016, r, z(u)), (xv + 0.016, r, z(u)), r * 0.68, M["velg"], 28)
+            cilinder("auto-naaf", (xv, r, z(u)), (xv + k * 0.03, r, z(u)), r * 0.16, M["velg"], 16)
+            for a in range(5):
+                h = a * math.tau / 5 + 0.3
+                cilinder("auto-spaak", (xv + k * 0.02, r, z(u)), (xv + k * 0.02, r + math.sin(h) * r * 0.62, z(u + math.cos(h) * r * 0.62)), 0.03, M["velg"], 8)
+    # Spiegels aan de voet van de voorruit: kap in de lakkleur, voet in zwart.
+    for k in (-1, 1):
+        xs = cx + k * (B / 2 + 0.07)
+        blok("auto-spiegel", xs - 0.08, xs + 0.08, yg + 0.04, yg + 0.17, z(o1 - 0.14), z(o1 - 0.03), lakmat, bevel=0.03)
+        blok("auto-spiegelvoet", cx + k * (B / 2 - 0.02) - 0.03, cx + k * (B / 2 - 0.02) + 0.03, yg - 0.01, yg + 0.06, z(o1 - 0.12), z(o1 - 0.04), M["kunststof"])
+    # Koplampen (smal, naar de flank toe getrokken), grille, achterlichten en platen.
+    for k in (-1, 1):
+        xl = cx + k * (B / 2 - 0.27)
+        blok("auto-koplamp", xl - 0.22, xl + 0.22, g - 0.42, g - 0.33, z(L - 0.06), z(L + 0.008), M["koplamp"], bevel=0.02)
+        blok("auto-koplamphuis", xl - 0.24, xl + 0.24, g - 0.44, g - 0.31, z(L - 0.07), z(L + 0.002), M["kunststof"], bevel=0.02)
+        blok("auto-achterlicht", xl - 0.2, xl + 0.2, g - 0.17, g - 0.05, z(-0.012), z(0.06), M["achterlicht"], bevel=0.02)
+    stuk("auto-grille", L - 0.05, L + 0.008, g - 0.58, g - 0.36, 0.74, M["kunststof"], 0.02)
+    stuk("auto-grillelijst", L + 0.004, L + 0.012, g - 0.38, g - 0.36, 0.7, M["chroom"])
+    stuk("auto-plaat", L, L + 0.02, g - 0.72, g - 0.61, 0.52, M["plaat"])
     stuk("auto-plaat", -0.02, 0, g - 0.42, g - 0.31, 0.52, M["plaat"])
+    stuk("auto-plaattekst", L + 0.02, L + 0.024, g - 0.69, g - 0.64, 0.38, M["plaattekst"])
+    stuk("auto-plaattekst", -0.024, -0.02, g - 0.39, g - 0.34, 0.38, M["plaattekst"])
 
 
 AUTOS = {"n": 0}
@@ -1207,6 +1301,32 @@ w.use_nodes = True
 bg = w.node_tree.nodes["Background"]
 bg.inputs["Color"].default_value = (*srgb("#b7cbe2"), 1)
 bg.inputs["Strength"].default_value = 1.05
+# In spiegelingen (autolak, ruiten) een echte lucht: lichte horizon, blauwer zenit en
+# een donkere grond eronder. Een effen lucht gaf vlakke, plastieken auto's. Alleen voor
+# glossy-stralen, zodat de belichting van de scène dezelfde blijft.
+wn, wl = w.node_tree.nodes, w.node_tree.links
+tc = wn.new("ShaderNodeTexCoord")
+sep = wn.new("ShaderNodeSeparateXYZ")
+wl.new(tc.outputs["Generated"], sep.inputs[0])
+ramp = wn.new("ShaderNodeValToRGB")
+ramp.color_ramp.interpolation = "EASE"
+els = ramp.color_ramp.elements
+els[0].position, els[0].color = 0.44, (*srgb("#3d4238"), 1)
+els[1].position, els[1].color = 1.0, (*srgb("#5f8ac0"), 1)
+for pos, kl in ((0.495, "#7d8577"), (0.505, "#eef2f4"), (0.6, "#c7d8ea")):
+    e = els.new(pos)
+    e.color = (*srgb(kl), 1)
+mapr = wn.new("ShaderNodeMapRange")
+mapr.inputs["From Min"].default_value = -1.0
+wl.new(sep.outputs["Z"], mapr.inputs["Value"])
+wl.new(mapr.outputs["Result"], ramp.inputs["Fac"])
+lp = wn.new("ShaderNodeLightPath")
+mix = wn.new("ShaderNodeMix")
+mix.data_type = "RGBA"
+mix.inputs[6].default_value = (*srgb("#b7cbe2"), 1)
+wl.new(ramp.outputs["Color"], mix.inputs[7])
+wl.new(lp.outputs["Is Glossy Ray"], mix.inputs["Factor"])
+wl.new(mix.outputs[2], bg.inputs["Color"])
 
 # Zelfde zon als IsoHouse3D: rechtsvoor en hoog, richting (11, 24, 6) in three.js.
 zon = bpy.data.lights.new("zon", "SUN")

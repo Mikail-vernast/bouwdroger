@@ -492,7 +492,10 @@ function bouw(p: Woningplan) {
 function dakBouw(b: Bouwer, { dak, w, l, buren, lagen }: { dak: Dak; w: number; l: number; buren: number; lagen: number }) {
   const y = lagen * FH;
   const nok = nokHoogte(dak, l);
-  const x0 = -T - OV, x1 = w + T + OV;
+  // Geen oversteek aan een gemene muur (links bij halfopen, links en rechts bij een
+  // rijwoning): daar stopt het dak op de as van de muur, net als het dak van de buur in
+  // de straatrender. Met oversteek stak de dakrand in het dak van het huis ernaast.
+  const x0 = buren >= 1 ? -T : -T - OV, x1 = buren === 2 ? w + T : w + T + OV;
   const zinkGoot = (zz: number, yy: number) => b.cilinder("zink", [x0, yy, zz], [x1, yy, zz], 0.07, 14);
   const afvoer = (x: number, z: number, yGoot: number, zGoot: number) => {
     b.cilinder("zink", [x, 0.05, z], [x, yGoot - 0.5, z], 0.045, 10);
@@ -558,7 +561,8 @@ function dakBouw(b: Bouwer, { dak, w, l, buren, lagen }: { dak: Dak; w: number; 
     ], { onder: "boei", uvBoven: uvDak });
     // Boeiboord aan de goot en windveren langs de gevels.
     b.blok("boei", x0, x1, yE - 0.22, yE + 0.01, Math.min(zE, zE - kant * 0.03), Math.max(zE, zE - kant * 0.03));
-    for (const xw of [x0 - 0.03, x1]) {
+    // Windveren alleen aan een vrije gevel.
+    for (const xw of [...(buren >= 1 ? [] : [x0 - 0.03]), ...(buren === 2 ? [] : [x1])]) {
       b.hexa("boei", [
         [xw, yE - 0.2, zE], [xw + 0.03, yE - 0.2, zE], [xw + 0.03, yR - 0.2, mz], [xw, yR - 0.2, mz],
         [xw, yE + 0.03, zE], [xw + 0.03, yE + 0.03, zE], [xw + 0.03, yR + 0.03, mz], [xw, yR + 0.03, mz],
