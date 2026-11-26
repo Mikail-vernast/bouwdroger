@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { MeshStandardMaterial, RepeatWrapping, SRGBColorSpace, type Texture, TextureLoader } from "three";
 import { FH, HC, SLAB, T } from "../maten";
-import { KELDER, kelderRaam, kelderTrap } from "../kelder";
+import { GREPPEL, KELDER, KOKER, kelderRaam, kelderTrap } from "../kelder";
 import type { Hoek } from "../types";
 import type { Raam, Trap } from "../woning";
 import { KELDER_TEXTUUR, TEXTUUR } from "./bestanden";
@@ -27,7 +27,7 @@ const TREDEN = 13;
 
 const ZONDER_SCHADUW = new Set(["leuning", "glas", "rooster"]);
 /** The light well in front of the cellar window: how far it reaches out, and its wall. */
-const KOKER = 0.7, KW = 0.08;
+const KW = 0.08;
 
 function tegel(t: Texture, pw: number, ph: number): Texture {
   const c = t.clone();
@@ -45,18 +45,21 @@ function bouwKelder(w: number, l: number, hoek: Hoek, trap: Trap, raam: Raam) {
   const voorNabij = hoek.kant === "voor", rechtsNabij = hoek.zij === "rechts";
 
   // The soil: a layer under the slab over the whole block, and full height beyond the far walls.
-  const x0 = rechtsNabij ? -T - MARGE : -T, x1 = rechtsNabij ? w + T : w + T + MARGE;
-  const z0 = voorNabij ? -T - MARGE : -T, z1 = voorNabij ? l + T : l + T + MARGE;
+  // On the near sides the soil stops at the far end of the trench (kelder.ts: GREPPEL), where
+  // the street's ground takes over: its cut ends show at the ends of the trench.
+  const x0 = rechtsNabij ? -T - MARGE : -T - GREPPEL, x1 = rechtsNabij ? w + T + GREPPEL : w + T + MARGE;
+  const z0 = voorNabij ? -T - MARGE : -T - GREPPEL, z1 = voorNabij ? l + T + GREPPEL : l + T + MARGE;
   B.blok("grond", x0, x1, yb - ONDER, yb, z0, z1);
   if (rechtsNabij) B.blok("grond", x0, -T, yb, 0, z0, z1, { boven: "gras" });
   else B.blok("grond", w + T, x1, yb, 0, z0, z1, { boven: "gras" });
+  const ga = rechtsNabij ? -T : x0, gb = rechtsNabij ? x1 : w + T;
   // Window and light well (in the back wall): the soil behind it leaves room for the well.
   const ry0 = yf + raam.onder, ry1 = yf + raam.boven;
   const kok = { a0: raam.van - 0.12, a1: raam.tot + 0.12, b0: -T - KOKER, b1: -T };
   const kb = ry0 - 0.15;
   if (voorNabij) {
-    B.blok("grond", -T, w + T, yb, kb, z0, -T);
-    for (const r of muurMinGaten(-T, w + T, z0, -T, [kok])) B.blok("grond", r.a0, r.a1, kb, 0, r.b0, r.b1, { boven: "gras" });
+    B.blok("grond", ga, gb, yb, kb, z0, -T);
+    for (const r of muurMinGaten(ga, gb, z0, -T, [kok])) B.blok("grond", r.a0, r.a1, kb, 0, r.b0, r.b1, { boven: "gras" });
     // The well: concrete walls up to just above the grass, gravel at the bottom, a grate on top.
     B.blok("rand", kok.a0, kok.a1, kb, 0.04, kok.b0, kok.b0 + KW);
     B.blok("rand", kok.a0, kok.a0 + KW, kb, 0.04, kok.b0 + KW, kok.b1);
@@ -64,7 +67,7 @@ function bouwKelder(w: number, l: number, hoek: Hoek, trap: Trap, raam: Raam) {
     B.blok("grind", kok.a0 + KW, kok.a1 - KW, kb, kb + 0.05, kok.b0 + KW, kok.b1);
     for (let x = kok.a0 + KW + 0.03; x < kok.a1 - KW; x += 0.06) B.blok("rooster", x, x + 0.015, 0.0, 0.035, kok.b0 + KW, kok.b1);
   }
-  else B.blok("grond", -T, w + T, yb, 0, l + T, z1, { boven: "gras" });
+  else B.blok("grond", ga, gb, yb, 0, l + T, z1, { boven: "gras" });
 
   // The floor slab, its cut ends showing on the near sides.
   B.blok("beton", -T, w + T, yb, yf, -T, l + T, { boven: "vloer" });

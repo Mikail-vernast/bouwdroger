@@ -35,7 +35,7 @@ import type { Vak } from "../woning";
 import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, VENSTER_OP, nokHoogte } from "../maten";
-import { KELDER, kelderKamer } from "../kelder";
+import { KELDER, kelderGaten, kelderKamer } from "../kelder";
 import Kelder3D from "./Kelder3D";
 import { bouwOmgeving } from "./omgeving";
 import { PERIODE_STIJL, periodeVan, type Periode } from "../periode";
@@ -968,6 +968,8 @@ function Scene(props: SceneProps) {
     for (const g of omgeving.buur?.values() ?? []) g.dispose();
   }, [omgeving]);
   const omgevingRef = useRef<Group>(null);
+  // The opened cellar's pit in the street's ground (straat.tsx: gaten).
+  const gaten = useMemo(() => (props.kelder && act === KELDER ? kelderGaten(trappen, w, l, hoek) : null), [props.kelder, act, trappen, w, l, hoek]);
   // Only a house that turns (the damp simulator passes `hoek`) ever shows the live street: its
   // grass loads in the background, never in the drying simulator, which looks from one corner.
   const draaitOoit = props.hoek !== undefined;
@@ -1456,7 +1458,7 @@ function Scene(props: SceneProps) {
           <Suspense fallback={null}>
             <Straat3D
               woning={st.woning} w={st.w} l={st.l} lagen={st.lagen} periode={st.periode} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"}
-              open={openStand} zicht={{ get current() { return st.zicht.current * straatHoek.current; } }} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)} hoek={hoek}
+              open={openStand} zicht={{ get current() { return st.zicht.current * straatHoek.current; } }} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)} hoek={hoek} gaten={gaten}
             />
           </Suspense>
         </StraatVangnet>

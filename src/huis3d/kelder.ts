@@ -1,5 +1,6 @@
-import { H } from "./maten";
-import type { Kamer, Raam, Trap } from "./woning";
+import { H, T } from "./maten";
+import type { Hoek } from "./types";
+import type { Kamer, Raam, Trap, Vak } from "./woning";
 
 /*
   The cellar under the house: one room over the whole footprint, a storey below the ground
@@ -47,4 +48,28 @@ export function kelderRaam(trappen: readonly Trap[], w: number): Raam {
   const [a, b] = stukken.reduce((m, s) => (s[1] - s[0] > m[1] - m[0] ? s : m));
   const mid = b - a >= RAAM_B ? (a + b) / 2 : w / 2;
   return { verdieping: KELDER, gevel: "achter", van: mid - RAAM_B / 2, tot: mid + RAAM_B / 2, ...KELDERRAAM, soort: "raam", kamer: "kelder" };
+}
+
+/**
+ * The trench in front of the near walls, in metres: wide enough to look over their cut (HC)
+ * from the iso camera's height (35°) into the cellar. The street around covers the rest.
+ */
+export const GREPPEL = 1.8;
+/** The light well, out from the back wall. */
+export const KOKER = 0.7;
+
+/**
+ * The holes in the ground while the cellar is open: the pit (the cellar and the trench on its
+ * near sides) and the light well. The ground of the street (straat.tsx) stays everywhere else,
+ * so it covers the cellar where it really lies in front of it.
+ */
+export function kelderGaten(trappen: readonly Trap[], w: number, l: number, hoek: Hoek): Vak[] {
+  const voorNabij = hoek.kant === "voor", rechtsNabij = hoek.zij === "rechts";
+  const put: Vak = {
+    x0: rechtsNabij ? -T : -T - GREPPEL, x1: rechtsNabij ? w + T + GREPPEL : w + T,
+    z0: voorNabij ? -T : -T - GREPPEL, z1: voorNabij ? l + T + GREPPEL : l + T,
+  };
+  if (!voorNabij) return [put];
+  const r = kelderRaam(trappen, w);
+  return [put, { x0: r.van - 0.12, x1: r.tot + 0.12, z0: -T - KOKER, z1: -T }];
 }

@@ -1,9 +1,11 @@
 import { Component, type ReactNode, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { DoubleSide, type Mesh, type MeshBasicMaterial, Matrix4, Quaternion, SRGBColorSpace, type Texture, TextureLoader, Vector3 } from "three";
+import { BufferGeometry, DoubleSide, Float32BufferAttribute, type Mesh, type MeshBasicMaterial, Matrix4, Quaternion, SRGBColorSpace, type Texture, TextureLoader, Vector3 } from "three";
 import type { Periode } from "../periode";
 import { meld, straatBeelden, type StraatMaat, type StraatWoning } from "./bestanden";
 import type { Hoek } from "../types";
+import type { Vak } from "../woning";
+import { muurMinGaten } from "./geo";
 
 /*
   The street around the house: a Blender render (scripts/simulator-3d/straat.py),
@@ -56,6 +58,42 @@ interface Props {
    * house, back right mirrors z, back left both (a half turn, no mirror).
    */
   hoek?: Hoek;
+  /**
+   * Holes in the ground (the opened cellar's pit, kelder.ts). Then the picture is also laid on
+   * the ground itself, at street level and writing depth, so the front garden covers the
+   * cellar where it lies in front of it; without it the cellar hung over the street.
+   */
+  gaten?: Vak[] | null;
+}
+
+/** How far the ground with the picture on it reaches round the house. */
+const GROND = 30;
+
+/**
+ * The ground at street level round `gaten`, with the picture on it: each point gets the UV of
+ * where the orthographic view projects it onto the picture plane, so it shows exactly the
+ * pixels behind it, and only adds depth.
+ */
+function grondMetBeeld(gaten: Vak[], w: number, l: number, vlak: Matrix4): BufferGeometry {
+  const naarBeeld = vlak.clone().invert();
+  const p = new Vector3();
+  const pos: number[] = [], uv: number[] = [];
+  const hoek = (x: number, z: number) => {
+    p.set(x, 0.004, z);
+    pos.push(p.x, p.y, p.z);
+    p.applyMatrix4(naarBeeld);
+    uv.push(p.x / BREED + 0.5, p.y / HOOG + 0.5);
+  };
+  const gat = gaten.map((g) => ({ a0: g.x0, a1: g.x1, b0: g.z0, b1: g.z1 }));
+  for (const r of muurMinGaten(w / 2 - GROND, w / 2 + GROND, l / 2 - GROND, l / 2 + GROND, gat)) {
+    // Two triangles facing up.
+    hoek(r.a0, r.b0); hoek(r.a0, r.b1); hoek(r.a1, r.b1);
+    hoek(r.a0, r.b0); hoek(r.a1, r.b1); hoek(r.a1, r.b0);
+  }
+  const g = new BufferGeometry();
+  g.setAttribute("position", new Float32BufferAttribute(pos, 3));
+  g.setAttribute("uv", new Float32BufferAttribute(uv, 2));
+  return g;
 }
 
 const HEEL = { current: 1 };
@@ -83,7 +121,7 @@ function spiegel(p: Vector3, hoek: Hoek | undefined, w: number, l: number): { po
   return { pos, stand, gespiegeld };
 }
 
-export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zicht = HEEL, orde = 0, onKlaar, hoek }: Props) {
+export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zicht = HEEL, orde = 0, onKlaar, hoek, gaten }: Props) {
   const mini = useLoader(TextureLoader, straatBeelden(woning, w, "mini", lagen, periode));
   const [scherp, setScherp] = useState<[Texture, Texture] | null>(null);
   const klaar = useRef(onKlaar);
@@ -129,12 +167,21 @@ export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zic
   const voor = useMemo(() => spiegel(midden.clone().addScaledVector(KIJK, 40), hoek, w, l), [midden, hoek, w, l]);
   const voorRef = useRef<Mesh>(null);
   const achterRef = useRef<Mesh>(null);
+  const grondRef = useRef<Mesh>(null);
+  const grond = useMemo(() => {
+    if (!gaten?.length) return null;
+    const m = new Matrix4().compose(achter.pos, achter.stand, new Vector3(achter.gespiegeld ? -1 : 1, 1, 1));
+    return grondMetBeeld(gaten, w, l, m);
+  }, [gaten, w, l, achter]);
+  useEffect(() => () => grond?.dispose(), [grond]);
 
   useFrame(() => {
     const m = voorRef.current?.material as MeshBasicMaterial | undefined;
     if (m) m.opacity = (1 - 0.92 * open.current) * zicht.current;
     const a = achterRef.current?.material as MeshBasicMaterial | undefined;
     if (a) a.opacity = zicht.current;
+    // Only while the picture stands in full: half faded, the ground would show as a plate.
+    if (grondRef.current) grondRef.current.visible = zicht.current > 0.99;
   });
 
   return (
@@ -144,6 +191,11 @@ export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zic
         <planeGeometry args={[BREED, HOOG]} />
         <meshBasicMaterial map={achterTex} transparent depthWrite={false} toneMapped={false} side={DoubleSide} />
       </mesh>
+      {grond && (
+        <mesh ref={grondRef} geometry={grond} visible={false}>
+          <meshBasicMaterial map={achterTex} toneMapped={false} />
+        </mesh>
+      )}
       {/* In front of the house: no depth test, drawn last. */}
       <mesh ref={voorRef} position={voor.pos} quaternion={voor.stand} scale={[voor.gespiegeld ? -1 : 1, 1, 1]} renderOrder={8 + orde}>
         <planeGeometry args={[BREED, HOOG]} />
