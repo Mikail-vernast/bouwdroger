@@ -1,4 +1,5 @@
-import type { Kamer, Trap } from "./woning";
+import { H } from "./maten";
+import type { Kamer, Raam, Trap } from "./woning";
 
 /*
   The cellar under the house: one room over the whole footprint, a storey below the ground
@@ -27,4 +28,23 @@ export function kelderTrap(trappen: readonly Trap[], w: number): Trap {
   const boven = trappen.find((t) => t.verdieping === 0 && t.op);
   if (boven) return { ...boven, verdieping: KELDER };
   return { verdieping: KELDER, x: 0.3, z: 0, w: Math.min(LOS_RUN, w - 0.6), l: 0.9, op: true, richting: 1 };
+}
+
+/** The cellar window: 80 cm wide, just under the ground, in the back wall (the garden side). */
+const RAAM_B = 0.8;
+export const KELDERRAAM = { onder: H - 0.6, boven: H - 0.15 } as const;
+
+/**
+ * The cellar window, in the back wall on the widest stretch the stair leaves free, so the
+ * stair never runs up in front of it. A light well outside brings the daylight down to it.
+ */
+export function kelderRaam(trappen: readonly Trap[], w: number): Raam {
+  const t = kelderTrap(trappen, w);
+  // A stair more than a metre from the back wall leaves the whole wall free.
+  const stukken: [number, number][] = t.z < 1
+    ? [[0.4, t.x - 0.3], [t.x + t.w + 0.3, w - 0.4]]
+    : [[0.4, w - 0.4]];
+  const [a, b] = stukken.reduce((m, s) => (s[1] - s[0] > m[1] - m[0] ? s : m));
+  const mid = b - a >= RAAM_B ? (a + b) / 2 : w / 2;
+  return { verdieping: KELDER, gevel: "achter", van: mid - RAAM_B / 2, tot: mid + RAAM_B / 2, ...KELDERRAAM, soort: "raam", kamer: "kelder" };
 }

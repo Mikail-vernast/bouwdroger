@@ -2,11 +2,11 @@ import { useEffect, useMemo } from "react";
 import { useLoader } from "@react-three/fiber";
 import { MeshStandardMaterial, RepeatWrapping, SRGBColorSpace, type Texture, TextureLoader } from "three";
 import { FH, HC, SLAB, T } from "../maten";
-import { KELDER, kelderTrap } from "../kelder";
+import { KELDER, kelderRaam, kelderTrap } from "../kelder";
 import type { Hoek } from "../types";
-import type { Trap } from "../woning";
+import type { Raam, Trap } from "../woning";
 import { KELDER_TEXTUUR, TEXTUUR } from "./bestanden";
-import { Bouwer } from "./geo";
+import { Bouwer, muurMinGaten } from "./geo";
 
 /*
   The cellar, opened up like the storeys above it: the walls nearest the camera cut at the
@@ -25,7 +25,9 @@ const ONDER = 0.6;
 /** A massive stair: as many steps as the house's own stair, as high as one storey. */
 const TREDEN = 13;
 
-const ZONDER_SCHADUW = new Set(["leuning"]);
+const ZONDER_SCHADUW = new Set(["leuning", "glas", "rooster"]);
+/** The light well in front of the cellar window: how far it reaches out, and its wall. */
+const KOKER = 0.7, KW = 0.08;
 
 function tegel(t: Texture, pw: number, ph: number): Texture {
   const c = t.clone();
@@ -37,7 +39,7 @@ function tegel(t: Texture, pw: number, ph: number): Texture {
   return c;
 }
 
-function bouwKelder(w: number, l: number, hoek: Hoek, trap: Trap) {
+function bouwKelder(w: number, l: number, hoek: Hoek, trap: Trap, raam: Raam) {
   const B = new Bouwer();
   const yb = KELDER * FH, yf = yb + SLAB, snede = yf + HC;
   const voorNabij = hoek.kant === "voor", rechtsNabij = hoek.zij === "rechts";
@@ -48,7 +50,20 @@ function bouwKelder(w: number, l: number, hoek: Hoek, trap: Trap) {
   B.blok("grond", x0, x1, yb - ONDER, yb, z0, z1);
   if (rechtsNabij) B.blok("grond", x0, -T, yb, 0, z0, z1, { boven: "gras" });
   else B.blok("grond", w + T, x1, yb, 0, z0, z1, { boven: "gras" });
-  if (voorNabij) B.blok("grond", -T, w + T, yb, 0, z0, -T, { boven: "gras" });
+  // Window and light well (in the back wall): the soil behind it leaves room for the well.
+  const ry0 = yf + raam.onder, ry1 = yf + raam.boven;
+  const kok = { a0: raam.van - 0.12, a1: raam.tot + 0.12, b0: -T - KOKER, b1: -T };
+  const kb = ry0 - 0.15;
+  if (voorNabij) {
+    B.blok("grond", -T, w + T, yb, kb, z0, -T);
+    for (const r of muurMinGaten(-T, w + T, z0, -T, [kok])) B.blok("grond", r.a0, r.a1, kb, 0, r.b0, r.b1, { boven: "gras" });
+    // The well: concrete walls up to just above the grass, gravel at the bottom, a grate on top.
+    B.blok("rand", kok.a0, kok.a1, kb, 0.04, kok.b0, kok.b0 + KW);
+    B.blok("rand", kok.a0, kok.a0 + KW, kb, 0.04, kok.b0 + KW, kok.b1);
+    B.blok("rand", kok.a1 - KW, kok.a1, kb, 0.04, kok.b0 + KW, kok.b1);
+    B.blok("grind", kok.a0 + KW, kok.a1 - KW, kb, kb + 0.05, kok.b0 + KW, kok.b1);
+    for (let x = kok.a0 + KW + 0.03; x < kok.a1 - KW; x += 0.06) B.blok("rooster", x, x + 0.015, 0.0, 0.035, kok.b0 + KW, kok.b1);
+  }
   else B.blok("grond", -T, w + T, yb, 0, l + T, z1, { boven: "gras" });
 
   // The floor slab, its cut ends showing on the near sides.
@@ -61,7 +76,23 @@ function bouwKelder(w: number, l: number, hoek: Hoek, trap: Trap) {
   const kop = (ver: boolean) => ({ boven: ver ? "rand" : "snede" });
   for (const [ver, za, zb] of [[achterVer, -T, 0], [voorVer, l, l + T]] as const) {
     const xa = !ver && linksVer ? 0 : -T, xb = !ver && rechtsVer ? w : w + T;
-    B.blok("baksteen", xa, xb, yf, top(ver), za, zb, kop(ver));
+    const gat = za < 0 ? [{ a0: raam.van, a1: raam.tot, b0: ry0, b1: ry1 }] : [];
+    for (const r of muurMinGaten(xa, xb, yf, top(ver), gat)) {
+      // Under the window its sill, in light concrete.
+      const opt = r.b1 < top(ver) - 1e-4 ? { boven: "rand" } : kop(ver);
+      B.blok("baksteen", r.a0, r.a1, r.b0, r.b1, za, zb, opt);
+    }
+  }
+  // The window: a white frame with a mullion and glass, set in the outer half of the wall.
+  if (achterVer) {
+    const f = 0.05, n0 = -0.15, n1 = -0.09;
+    B.blok("glas", raam.van, raam.tot, ry0, ry1, n0 + 0.02, n0 + 0.03);
+    B.blok("kader", raam.van, raam.van + f, ry0, ry1, n0, n1);
+    B.blok("kader", raam.tot - f, raam.tot, ry0, ry1, n0, n1);
+    B.blok("kader", raam.van, raam.tot, ry0, ry0 + f, n0, n1);
+    B.blok("kader", raam.van, raam.tot, ry1 - f, ry1, n0, n1);
+    const m = (raam.van + raam.tot) / 2;
+    B.blok("kader", m - 0.025, m + 0.025, ry0, ry1, n0, n1);
   }
   for (const [ver, xa, xb] of [[linksVer, -T, 0], [rechtsVer, w, w + T]] as const) {
     const za = ver && !achterVer ? -T : 0, zb = ver && !voorVer ? l + T : l;
@@ -91,7 +122,53 @@ function bouwKelder(w: number, l: number, hoek: Hoek, trap: Trap) {
     if (voet >= -0.05) continue;
     B.blok("leuning", x - 0.015, x + 0.015, voet, knip(neus(x) + lh), rz0, rz1);
   }
+  rek(B, w, l, rechtsNabij, trap, yf);
   return B.bouw();
+}
+
+/** A tiny deterministic random, so the boxes stand the same way every time. */
+function toeval(zaad: number): () => number {
+  let x = zaad;
+  return () => { x = (x * 16807) % 2147483647; return x / 2147483647; };
+}
+
+/**
+ * Storage, as in most cellars (and the damp simulator's cellar photo): a steel rack with
+ * boxes against the far side wall, two boxes and a bucket on the floor beside it. Mid-wall,
+ * so the corners stay free where the mould shows, and clear of the stair.
+ */
+function rek(B: Bouwer, w: number, l: number, rechtsNabij: boolean, trap: Trap, yf: number) {
+  const D = 0.45, L = 1.6, HOOG = 1.85;
+  const xa = rechtsNabij ? 0.04 : w - 0.04 - D, xb = xa + D;
+  const trapVrij = (za: number, zb: number) => xb < trap.x || xa > trap.x + trap.w || zb < trap.z - 0.3 || za > trap.z + trap.l + 0.3;
+  const kandidaten = [l / 2 - L / 2, l - L - 0.9, 0.9];
+  const za = kandidaten.find((z) => trapVrij(z, z + L + 0.8));
+  if (za === undefined) return;
+  const zb = za + L;
+  for (const x of [xa, xb - 0.03]) for (const z of [za, zb - 0.03]) B.blok("rek", x, x + 0.03, yf, yf + HOOG, z, z + 0.03);
+  const rnd = toeval(7);
+  const planken = [0.12, 0.6, 1.08, 1.56];
+  for (const [i, h] of planken.entries()) {
+    const y = yf + h;
+    B.blok("plank", xa, xb, y, y + 0.025, za, zb);
+    if (i === planken.length - 1 && rnd() < 0.3) continue;
+    // Boxes along the shelf, each a little different, some pushed back.
+    let z = za + 0.05;
+    while (z < zb - 0.3) {
+      const bz = 0.28 + rnd() * 0.22, bh = 0.2 + rnd() * 0.18, bd = 0.3 + rnd() * 0.12;
+      if (z + bz > zb - 0.04) break;
+      const terug = rnd() * (D - bd - 0.02);
+      const x0 = rechtsNabij ? xa + 0.01 + terug : xb - 0.01 - terug - bd;
+      B.blok(rnd() < 0.5 ? "doos" : "doos2", x0, x0 + bd, y + 0.025, y + 0.025 + bh, z, z + bz);
+      z += bz + 0.04 + rnd() * 0.1;
+    }
+  }
+  // On the floor beside the rack: two stacked boxes and a blue bucket.
+  const vx = rechtsNabij ? 0.1 : w - 0.1 - 0.5;
+  B.blok("doos", vx, vx + 0.5, yf, yf + 0.38, zb + 0.12, zb + 0.55);
+  B.blok("doos2", vx + 0.05, vx + 0.42, yf + 0.38, yf + 0.66, zb + 0.16, zb + 0.5);
+  const ex = rechtsNabij ? 0.75 : w - 0.75;
+  B.cilinder("emmer", [ex, yf, zb + 0.35], [ex, yf + 0.3, zb + 0.35], 0.15, 18);
 }
 
 interface Props {
@@ -117,6 +194,15 @@ export default function Kelder3D({ w, l, hoek, trappen }: Props) {
       ["baksteen", s("#f3e2d8", { map: steen, bumpMap: steen, bumpScale: 1.2, roughness: 0.92 })],
       ["snede", s("#2a2422", { roughness: 0.95 })],
       ["leuning", s("#55595e", { metalness: 0.6, roughness: 0.4 })],
+      ["kader", s("#f4f1ec", { roughness: 0.32 })],
+      ["glas", s("#33454f", { roughness: 0.05, metalness: 0.15, envMapIntensity: 2.4 })],
+      ["grind", s("#9b958b", { roughness: 1 })],
+      ["rooster", s("#8d949a", { metalness: 0.7, roughness: 0.35 })],
+      ["rek", s("#7d858b", { metalness: 0.5, roughness: 0.45 })],
+      ["plank", s("#c7aa80", { roughness: 0.8 })],
+      ["doos", s("#b98a57", { roughness: 0.95 })],
+      ["doos2", s("#a3794c", { roughness: 0.95 })],
+      ["emmer", s("#2f6fb3", { roughness: 0.4 })],
     ]);
   }, [grondTex, betonTex, steenTex]);
   useEffect(() => () => {
@@ -126,7 +212,8 @@ export default function Kelder3D({ w, l, hoek, trappen }: Props) {
   // The stair climbs away from the camera, whichever way the house's own stair runs: from the
   // other side you saw its tall blank end and none of the steps.
   const trap = useMemo<Trap>(() => ({ ...kelderTrap(trappen, w), richting: hoek.zij === "rechts" ? -1 : 1 }), [trappen, w, hoek.zij]);
-  const geos = useMemo(() => bouwKelder(w, l, hoek, trap), [w, l, hoek, trap]);
+  const raam = useMemo(() => kelderRaam(trappen, w), [trappen, w]);
+  const geos = useMemo(() => bouwKelder(w, l, hoek, trap, raam), [w, l, hoek, trap, raam]);
   useEffect(() => () => { for (const g of geos.values()) g.dispose(); }, [geos]);
 
   return (
