@@ -877,8 +877,8 @@ function Scene(props: SceneProps) {
   // van een camera die meezoomt en de groei wegwerkt.
   const dicht = useMemo(() => dichtVoor(Math.max(w, ...BREEDTES[woning])), [dichtVoor, w, woning]);
   // De straat (Blender-render) per breedte. Bij een andere breedte blijft het oude
-  // beeld staan tot het nieuwe geladen is, en vloeit het dan weg; een ander
-  // woningtype wisselt meteen. Van de andere breedtes laden de mini's vooraf.
+  // beeld staan tot het nieuwe geladen is, en vloeit het dan weg; ook bij een ander
+  // woningtype, anders stond er even geen straat. Van de andere breedtes laden de mini's vooraf.
   // Altijd de render met één bouwlaag: een extra verdiep is er een van de unit zelf, niet van
   // het hele gebouw (anders sprong het gebouw rondom in één klap een laag hoger).
   const straatLagen = 1;
@@ -891,7 +891,7 @@ function Scene(props: SceneProps) {
       if (!heeftStraat(woning)) return [];
       if (oud[oud.length - 1]?.sleutel === straatSleutel) return oud;
       const nieuw: StraatLaag = { sleutel: straatSleutel, woning, w, lagen: straatLagen, zicht: { current: 1 }, weg: -1, geladen: false };
-      if (reduced || oud.some((s) => s.woning !== woning || s.lagen !== straatLagen)) return [nieuw];
+      if (reduced || oud.some((s) => s.lagen !== straatLagen)) return [nieuw];
       // Blijven staan: wat al aan het wegvloeien is, en het laatste beeld dat er
       // echt staat. Sleep je snel over de schuif, dan vallen de tussenstanden die
       // nog laden weg; eerst hield dit het laatste beeld, ook als dat nog niet
@@ -900,9 +900,16 @@ function Scene(props: SceneProps) {
       return [...rest.filter((s) => s.weg >= 0), ...rest.filter((s) => s.weg < 0 && s.geladen).slice(-1), nieuw];
     });
   }, [straatSleutel, woning, w, straatLagen, reduced]);
+  // De mini's van de buurbreedtes, voor de oppervlakteschuif: alleen de twee naast de
+  // huidige, en pas als de straat die je ziet er staat. Eerst kwamen alle negen breedtes
+  // meteen mee (~650 kB op een gsm), vóór en naast de 3D en de straat zelf.
+  const straatStaat = straten.some((s) => s.sleutel === straatSleutel && s.geladen);
   useEffect(() => {
-    if (heeftStraat(woning)) voorlaad(BREEDTES[woning].flatMap((b) => straatBeelden(woning, b, "mini", straatLagen)), "image");
-  }, [woning, straatLagen]);
+    if (!straatStaat || !heeftStraat(woning) || budget3D() === "zuinig") return;
+    const rij = BREEDTES[woning], i = rij.indexOf(w);
+    const buren = [rij[i - 1], rij[i + 1]].filter((b): b is number => b !== undefined);
+    voorlaad(buren.flatMap((b) => straatBeelden(woning, b, "mini", straatLagen)), "image");
+  }, [straatStaat, woning, w, straatLagen]);
   const straatTeken = useThree((st) => st.invalidate);
   const straatKlaar = useCallback((sleutel: string) => {
     setStraten((oud) => {
@@ -937,8 +944,9 @@ function Scene(props: SceneProps) {
   // groeien (of krimpen) vanaf hun vloer, het dak rijdt mee naar zijn nieuwe
   // hoogte of valt er van boven op, en de camera glijdt mee. Andere kamers op de
   // actieve laag: de binnenwanden en de inrichting groeien uit de vloer.
-  // Een ander woningtype wisselt meteen, zonder animatie: daar vergelijk je
-  // types naast elkaar, en een huis dat telkens opnieuw opbouwt staat in de weg.
+  // Een ander woningtype: het gelijkvloers staat er meteen, de verdiepingen groeien
+  // erop en het dak valt er van boven op, terwijl de straat overvloeit. Eerst
+  // wisselde het type in één beeld, wat bij het vergelijken als een sprong las.
   //
   // Een andere breedte (de vloeroppervlakte, BREEDTES): de woning groeit of krimpt
   // vanaf haar linkergevel naar de nieuwe maat (een veer, zie useFrame), de camera
@@ -961,12 +969,12 @@ function Scene(props: SceneProps) {
       if (breedRef.current) breedRef.current.scale.x = G.wNu / w;
     }
     if (p.lagen !== lagen || p.dak !== dak || anderType) {
-      G.vanLagen = p.lagen;
-      G.nieuwDak = p.dak !== dak;
+      G.vanLagen = anderType ? act + 1 : p.lagen;
+      G.nieuwDak = anderType || p.dak !== dak;
       G.vanKader = G.kaderNu;
-      herstart(G.bouw, reduced || anderType);
+      herstart(G.bouw, reduced);
     }
-    if (p.binnen !== geo.binnen) herstart(G.wand, reduced || anderType);
+    if (p.binnen !== geo.binnen) herstart(G.wand, reduced);
   }, [lagen, dak, woning, act, geo.binnen, reduced, w]);
   const inrichtingRef = useRef<Group>(null);
   const vaagMats = useMemo(() => [...sets.vaag.values(), ...sets.boven.values()], [sets]);

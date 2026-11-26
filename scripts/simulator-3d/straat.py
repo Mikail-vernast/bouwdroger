@@ -73,12 +73,19 @@ APP = WONING == "appartement"
 ROUW = bool(os.environ.get("ROUW"))
 CONTROLE = bool(os.environ.get("CONTROLE"))
 BOUWLAGEN = int(os.environ.get("BOUWLAGEN", "1"))
-NAAM = f"{WONING}-b{round(W * 10)}" + (f"-l{BOUWLAGEN}" if APP else "")
+PERIODE = os.environ.get("PERIODE", "")
+assert PERIODE in ("", "voor1950", "na1990"), PERIODE
+NAAM = f"{WONING}-b{round(W * 10)}" + (f"-l{BOUWLAGEN}" if APP else "") + (f"-{PERIODE}" if PERIODE else "")
 T, FH = 0.24, 2.9
 # Vloer van de live unit boven de straat: twee bouwlagen eronder (IsoHouse3D: het spook-blok).
 YU = 2 * FH if APP else 0.0
 OV = 0.35  # dakoversteek, zoals IsoHouse3D
-NOK = min(L * 0.38, 4.2)  # maten.ts: nokHoogte("zadeldak", l)
+# Bouwperiode van de straat (de vochtsimulator, Vernast-v2.0: bouwstijl per bouwjaar).
+# Leeg = 1950–1990, de straat van de droogsimulator. De buren krijgen de stijl van de
+# live woning in die periode: hun daken sluiten aan op het hare, dus de dakhelling
+# moet exact dezelfde zijn (maten.ts: nokHoogte).
+# maten.ts: nokHoogte("zadeldak", l, periode). Voor 1950 steil (± 45°), na 1990 ± 40°.
+NOK = min(L * 0.5, 5.2) if PERIODE == "voor1950" else min(L * 0.42, 4.6) if PERIODE == "na1990" else min(L * 0.38, 4.2)
 D = L + 2 * T  # diepte van een huis, buitenwerks
 LAGEN = 2
 
@@ -105,7 +112,10 @@ BOORD1 = PARK1 + BOORD
 PAD1 = BOORD1 + VOETPAD
 EIND = TUIN + D + ACHTER  # van de rand van het voetpad tot de achterhaag
 X0, X1, Z0, Z1 = -80, W + 80, -70, PAD1 + 70
-DEUR = 0.7  # midden van de voordeur langs x (droogSimulator: 0.25..1.15)
+# Midden van de voordeur van de live woning langs x. droogSimulator.ts zet die van een
+# open woning in het midden van de gevel (w/2 ± 0.45), elders tegen de linkergevel
+# (0.25..1.15). Het pad naar de deur volgt deze waarde.
+DEUR = W / 2 if WONING == "open" else 0.7
 OPRIT_B, ZIJ = 3.0, 3.6
 OPRIT_R = 2.7  # parkeerplek in de voortuin van een rijwoning  # breedte van een oprit, en de strook naast het huis waarin ze ligt
 
@@ -371,6 +381,27 @@ M["auto3"] = kleur("auto3", srgb("#7a2a26"), 0.25, 0.6)
 M["band"] = kleur("band", srgb("#1d1e20"), 0.8)
 M["fietsrek"] = kleur("fietsrek", srgb("#8f9499"), 0.35, 0.8)
 
+# De periode kleurt de buren zoals de live woning (IsoHouse3D: PERIODE_STIJL in periode.ts),
+# met dezelfde nauwe tinten per huis: een straat uit één tijd.
+PLEISTER = f"{REPO}/public/simulator/3d/pleister.webp"
+if PERIODE == "voor1950":
+    # Rode, genuanceerde baksteen; rode keramische pannen; wit geschilderd houten schrijnwerk.
+    for i, t in enumerate(("#e3a48e", "#d8977f", "#df9f86", "#d29079")):
+        M[f"steen{i}"] = tegel(f"steen{i}", BAKSTEEN, 0.9, tint=srgb(t))
+    # Precies de pannen van de live woning (periode.ts: "#ff7860" × 1,5). De pannentegel is
+    # donker: een tint boven 1 maakt hem lichter, net als in three.js.
+    M["pannen"] = tegel("pannen", f"{REPO}/public/simulator/3d/dakpannen.webp", 0.55, tint=tuple(v * 1.5 for v in srgb("#ff7860")))
+    M["nokpan"] = kleur("nokpan", srgb("#9a4530"), 0.55)
+    M["deur"] = kleur("deur", srgb("#2f4a3a"), 0.45)
+elif PERIODE == "na1990":
+    # Witte crepi, één buur in lichte baksteen; antraciet pannen en schrijnwerk.
+    for i, t in enumerate(("#f6f4f0", "#f0ede8", "#f4f1ec")):
+        M[f"steen{i}"] = tegel(f"steen{i}", PLEISTER, 0.95, tint=srgb(t))
+    M["steen3"] = tegel("steen3", BAKSTEEN, 0.9, tint=srgb("#ead9cc"))
+    M["pannen"] = tegel("pannen", f"{REPO}/public/simulator/3d/dakpannen.webp", 0.5, tint=srgb("#7a7c80"))
+    M["kader"] = kleur("kader", srgb("#2b2d30"), 0.35)
+    M["deur"] = kleur("deur", srgb("#2b2d30"), 0.4)
+
 if ROUW:
     # Grijze blokken: alleen volume en uitlijning beoordelen.
     grijs = kleur("grijs", (0.55, 0.55, 0.55), 0.8)
@@ -534,6 +565,39 @@ def voorgevel_ramen(bw, van, tot, v, variant=0):
     return gaten
 
 
+def periode_ramen(bw, van, tot, v, variant=0):
+    """De voorgevelramen in de stijl van de periode; (a0, a1, borstwering) zoals voorgevel_ramen.
+    Voor 1950: staande ramen op assen, boven ook een raam boven de deur (het burgerhuis).
+    Na 1990: beneden één groot raam tot op de vloer, boven brede liggende ramen."""
+    if not PERIODE:
+        return voorgevel_ramen(bw, van, tot, v, variant)
+    rechts = bw - tot >= van
+    s0, s1 = (tot + 0.45, bw - 0.4) if rechts else (0.4, van - 0.45)
+    span = s1 - s0
+    gaten = []
+    if PERIODE == "voor1950":
+        if v > 0:
+            dc = (van + tot) / 2
+            gaten.append((dc - 0.45, dc + 0.45, 0.75))
+        n = max(1, min(3, int(span // 1.8)))
+        for k in range(n):
+            c = s0 + span * (k + 0.5) / n
+            gaten.append((c - 0.5, c + 0.5, 0.6 if v == 0 else 0.75))
+        return gaten
+    if v == 0:
+        rb = min(3.4, span - 0.2)
+        c = s0 + span / 2
+        return [(c - rb / 2, c + rb / 2, 0.0)] if rb > 0.8 else []
+    dc = (van + tot) / 2
+    gaten.append((dc - 0.35, dc + 0.35, 0.55))
+    n = 1 if span < 3.6 else 2
+    for k in range(n):
+        c = s0 + span * (k + 0.5) / n
+        rb = min(2.0, span / n - 0.5)
+        gaten.append((c - rb / 2, c + rb / 2, 0.55))
+    return gaten
+
+
 def huis(naam, x0, x1, kant, vrij_l, vrij_r, steen, deur_rechts, schouw, variant=0):
     """Een buurhuis van twee bouwlagen met zadeldak, in de bouwstijl van de live woning.
     Geeft het midden van de voordeur terug (langs x)."""
@@ -582,8 +646,10 @@ def huis(naam, x0, x1, kant, vrij_l, vrij_r, steen, deur_rechts, schouw, variant
     dc = x1 - 1.1 if deur_rechts else x0 + 1.1
     voor.deur(dc - 0.5, dc + 0.5)
     for v in range(LAGEN):
-        for a0, a1, b0 in voorgevel_ramen(bw, dc - 0.5 - x0, dc + 0.5 - x0, v, variant):
-            voor.raam(x0 + a0, x0 + a1, v * FH + 0.3 + b0, v * FH + 2.55)
+        for a0, a1, b0 in periode_ramen(bw, dc - 0.5 - x0, dc + 0.5 - x0, v, variant):
+            # Voor 1950 met een bovenlicht (kalf); een raam tot op de vloer zonder dorpel.
+            voor.raam(x0 + a0, x0 + a1, v * FH + 0.3 + b0, v * FH + 2.55, dorpel=b0 > 0.1,
+                      kalf=0.42 if PERIODE == "voor1950" else 0.0)
     # Achtergevel: schuifraam naar het terras en een raam ernaast; boven een
     # badkamerraam hoog in de muur en slaapkamerramen, niet recht boven de ramen beneden.
     achter.raam(x0 + bw * 0.3 - 1.2, x0 + bw * 0.3 + 1.2, 0.3, 2.55, dorpel=False)
@@ -1207,12 +1273,16 @@ def kavel(i, kant, x0, x1, hx0, hx1, oprit=None, eigen=False, vrij_l=False, vrij
         a = g1 + 0.05
     haag(a, x1 - 0.05, *zr(kant, 0.1, 0.6), 0.85)
     # Plantvak onder het voorraam.
-    rv0, rv1 = (hx0 + 0.6, dc - 1.2) if deur_rechts else (dc + 1.2, hx1 - 0.6)  # naast het zijlicht
-    if oprit and oprit[0] < rv1 and oprit[1] > rv0:
-        rv1 = rv0  # de oprit ligt voor het raam
-    if rv1 - rv0 > 1.2:
-        # Laag gehouden: het leefruimteraam heeft een lage borstwering.
-        border(rv0, rv1, *zr(kant, gevel_v - 1.1, gevel_v - 0.45), max(2, round((rv1 - rv0) / 1.3)), (0.5, 0.8))
+    # Een voordeur in het midden (de live open woning) heeft aan elke kant een raam.
+    midden = eigen and WONING == "open"
+    vakken = [(hx0 + 0.6, dc - 1.2), (dc + 1.2, hx1 - 0.6)] if midden else \
+        [(hx0 + 0.6, dc - 1.2) if deur_rechts else (dc + 1.2, hx1 - 0.6)]  # naast het zijlicht
+    for rv0, rv1 in vakken:
+        if oprit and oprit[0] < rv1 and oprit[1] > rv0:
+            rv1 = rv0  # de oprit ligt voor het raam
+        if rv1 - rv0 > 1.2:
+            # Laag gehouden: het leefruimteraam heeft een lage borstwering.
+            border(rv0, rv1, *zr(kant, gevel_v - 1.1, gevel_v - 0.45), max(2, round((rv1 - rv0) / 1.3)), (0.5, 0.8))
     # Een kleine sierboom in de voortuin, aan de kant weg van pad en oprit. Niet bij elk
     # huis: een straat waar elke voortuin hetzelfde staat, leest als een maquette.
     if not eigen and i % 3 != 2 and TUIN > 3:  # in een smalle stadsvoortuin past geen boom
