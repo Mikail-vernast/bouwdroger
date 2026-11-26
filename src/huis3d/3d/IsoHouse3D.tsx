@@ -35,10 +35,13 @@ import type { Vak } from "../woning";
 import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
 import { FH, H, HC, SLAB, T, TI, VENSTER_OP, nokHoogte } from "../maten";
+import { KELDER, kelderGaten, kelderKamer } from "../kelder";
+import Kelder3D from "./Kelder3D";
+import { bouwOmgeving } from "./omgeving";
 import { PERIODE_STIJL, periodeVan, type Periode } from "../periode";
 import { useReducedMotion } from "../useReducedMotion";
 import { useTaal } from "../taal";
-import { TEXTUUR, budget3D, heeftStraat, meld, naRust, straatBeelden, voorlaad, type StraatWoning } from "./bestanden";
+import { TEXTUUR, budget3D, heeftStraat, meld, naRust, straatBeelden, voorlaad, type StraatWoning, GRAS_TEXTUUR } from "./bestanden";
 import Straat3D, { StraatVangnet } from "./straat";
 
 /*
@@ -128,6 +131,12 @@ function maakMaterialen(tex: Record<TegelNaam, Texture>, m: Materiaal): MatSet {
     ["trapzij", s("#7d6352", { roughness: 0.65 })],
     ["leuning", s("#2a2422", { roughness: 0.5 })],
     ["grind", s("#ffffff", { map: t("grind"), roughness: 0.95 })],
+    // The live street while the picture is away (omgeving.ts).
+    ["gras", s("#6f8f45", { roughness: 0.97 })],
+    ["asfalt", s("#46484b", { roughness: 0.9 })],
+    ["fiets", s("#a0553f", { roughness: 0.9 })],
+    ["markering", s("#ecebe6", { roughness: 0.8 })],
+    ["haag", s("#3e5e30", { roughness: 0.95 })],
     // Inrichting (inrichting.ts)
     ["kast", s("#ece9e3", { roughness: 0.35 })],
     ["voeg", s("#9d978e", { roughness: 0.6 })],
@@ -812,7 +821,7 @@ function Scene(props: SceneProps) {
   const { l, buren } = WONING[woning];
   const w = props.breedte ?? WONING[woning].w;
   const lagen = Math.max(1, verdiepingen);
-  const act = Math.min(actief, lagen - 1);
+  const act = Math.max(props.kelder ? KELDER : 0, Math.min(actief, lagen - 1));
   const yfAct = act * FH + SLAB;
   const daktop = lagen * FH;
   const periode = periodeVan(props.periode);
@@ -842,6 +851,8 @@ function Scene(props: SceneProps) {
       vaag: afgeleid(vast, (m) => { m.transparent = true; }),
       onder: afgeleid(vast, (m) => { m.clippingPlanes = [snij.onder]; m.clipShadows = true; }),
       boven: afgeleid(vast, (m) => { m.clippingPlanes = [snij.boven]; m.clipShadows = true; m.transparent = true; }),
+      // The live street: faded in only while the street picture is away (a turn, or not loaded yet).
+      omgeving: afgeleid(vast, (m) => { m.transparent = true; m.opacity = 0; }),
     };
     for (const set of Object.values(uit)) natPatchSet(set, nat);
     return uit;
@@ -950,6 +961,36 @@ function Scene(props: SceneProps) {
     for (const m of Object.values(geo)) for (const g of m.values()) g.dispose();
   }, [geo]);
 
+  const omgeving = useMemo(() => (woning === "appartement" ? null : bouwOmgeving(woning, w, periode, dakBouw)), [woning, w, periode]);
+  useEffect(() => () => {
+    if (!omgeving) return;
+    for (const g of omgeving.grond.values()) g.dispose();
+    for (const g of omgeving.buur?.values() ?? []) g.dispose();
+  }, [omgeving]);
+  const omgevingRef = useRef<Group>(null);
+  // The opened cellar's pit in the street's ground (straat.tsx: gaten).
+  const gaten = useMemo(() => (props.kelder && act === KELDER ? kelderGaten(trappen, w, l, hoek) : null), [props.kelder, act, trappen, w, l, hoek]);
+  // Only a house that turns (the damp simulator passes `hoek`) ever shows the live street: its
+  // grass loads in the background, never in the drying simulator, which looks from one corner.
+  const draaitOoit = props.hoek !== undefined;
+  const tekenOmgeving = useThree((st) => st.invalidate);
+  useEffect(() => {
+    if (!draaitOoit || !omgeving) return undefined;
+    let weg = false;
+    let tex: Texture | null = null;
+    new TextureLoader().load(GRAS_TEXTUUR, (t) => {
+      if (weg) { t.dispose(); return; }
+      tex = t;
+      t.wrapS = t.wrapT = RepeatWrapping; t.repeat.set(1 / 1.2, 1 / 1.2); t.colorSpace = SRGBColorSpace; t.anisotropy = ANISO; t.needsUpdate = true;
+      const m = sets.omgeving.get("gras")!;
+      m.map = t; m.color.set("#c9d4b4"); m.needsUpdate = true;
+      tekenOmgeving();
+    });
+    return () => { weg = true; tex?.dispose(); };
+  }, [draaitOoit, omgeving, sets, tekenOmgeving]);
+  /** How much of the street picture stands (0 while turning or loading): the live street fills the rest. */
+  const straatVol = useRef(0);
+
   // Vaste inrichting van de actieve laag (keuken, badkamer, toilet, wasplaats).
   const inrichting = useMemo(() => {
     const B = new Bouwer();
@@ -1030,6 +1071,8 @@ function Scene(props: SceneProps) {
   const zichtRef = useRef(1);
   const [meubelVakken, setMeubelVakken] = useState<Vak[] | null>(null);
   const [meubels, setMeubels] = useState<Meubel[]>([]);
+  // The cellar has no interior (and its finish would lay parquet): forget the storey above's furniture.
+  useEffect(() => { if (act === KELDER) { setMeubels([]); setMeubelVakken(null); } }, [act]);
   const laagKamersAct = useMemo(() => kamers.filter((k) => k.verdieping === act), [kamers, act]);
   // Toestellen landen naast de meubels, niet erop.
   const vrijePlaatsingen = useMemo(() => {
@@ -1271,11 +1314,17 @@ function Scene(props: SceneProps) {
     const straatDoel = draait ? 0 : 1;
     straatHoek.current += (straatDoel - straatHoek.current) * Math.min(1, delta * 4);
     if (Math.abs(straatHoek.current - straatDoel) < 0.004) straatHoek.current = straatDoel;
+    straatVol.current = straten.some((st) => st.geladen) ? straatHoek.current : 0;
+    // In the opened cellar the live ground would lie over it: there the picture alone.
+    const omg = act === KELDER ? 0 : 1 - straatVol.current;
+    if (omgevingRef.current) omgevingRef.current.visible = omg > 0.01;
+    for (const m of sets.omgeving.values()) { m.opacity = omg; m.depthWrite = omg > 0.5; }
     const doelKader = d.az === Math.PI / 4 ? dicht : dichtVoor(Math.max(w, ...BREEDTES[woning]), assen);
     const d0 = G.vanKader;
     const dk = b < 1 ? { cx: d0.cx + (doelKader.cx - d0.cx) * b, cy: d0.cy + (doelKader.cy - d0.cy) * b, ex: d0.ex + (doelKader.ex - d0.ex) * b, ey: d0.ey + (doelKader.ey - d0.ey) * b } : doelKader;
     G.kaderNu = dk;
-    const opn = kader(wNu, l, 0, camA * FH + SLAB + H + 0.4, 1.3, 0, 0, assen);
+    // In the cellar the frame reaches down to the soil under its floor.
+    const opn = kader(wNu, l, Math.min(0, camA * (FH + 0.6)), camA * FH + SLAB + H + 0.4, 1.3, 0, 0, assen);
     const k0 = { cx: dk.cx + (opn.cx - dk.cx) * camT, cy: dk.cy + (opn.cy - dk.cy) * camT, ex: dk.ex + (opn.ex - dk.ex) * camT, ey: dk.ey + (opn.ey - dk.ey) * camT };
     const focusBeweegt = volgFocus(focus.current, brandpunt.current, k0, assen, delta);
     const k = mengFocus(k0, focus.current, assen);
@@ -1398,9 +1447,10 @@ function Scene(props: SceneProps) {
           even groot is als de unit: daarbuiten hangt y = 0 in de lucht boven de
           render, en een schaduw daar viel als een vlek over gevels en binnenplaats.
           Haar slagschaduw op de omgeving zit in de render zelf (straat.py: unit-schaduw). */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[w / 2, -0.002, l / 2]} receiveShadow>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[w / 2, -0.002, l / 2]} receiveShadow visible={act >= 0}>
         <planeGeometry args={app ? [w + 2 * T, l + 2 * T] : [80, 80]} />
-        <shadowMaterial opacity={heeftStraat(woning) ? 0.32 : 0.16} color="#3a2a1e" />
+        {/* No depth: it lies 2 cm over the live street (omgeving.ts) and hid it, for all its transparency. */}
+        <shadowMaterial opacity={heeftStraat(woning) ? 0.32 : 0.16} color="#3a2a1e" depthWrite={false} />
       </mesh>
       {/* De straat (Blender-render) laadt apart: de woning wacht er niet op. */}
       {straten.map((st, i) => (
@@ -1408,12 +1458,20 @@ function Scene(props: SceneProps) {
           <Suspense fallback={null}>
             <Straat3D
               woning={st.woning} w={st.w} l={st.l} lagen={st.lagen} periode={st.periode} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"}
-              open={openStand} zicht={{ get current() { return st.zicht.current * straatHoek.current; } }} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)} hoek={hoek}
+              open={openStand} zicht={{ get current() { return st.zicht.current * straatHoek.current; } }} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)} hoek={hoek} gaten={gaten}
             />
           </Suspense>
         </StraatVangnet>
       ))}
 
+      {omgeving && (
+        <group ref={omgevingRef} visible={false}>
+          <Meshes geos={omgeving.grond} mats={sets.omgeving} schaduw={false} />
+          {omgeving.buur && omgeving.buren.map((dx) => (
+            <group key={dx} position={[dx, 0, 0]}><Meshes geos={omgeving.buur!} mats={sets.omgeving} schaduw={false} /></group>
+          ))}
+        </group>
+      )}
       {spook.delen.map((d, i) => (
         <group key={i}>
           <mesh geometry={d.box} material={spook.vlak} />
@@ -1423,6 +1481,11 @@ function Scene(props: SceneProps) {
 
       <group ref={breedRef}>
       <HuisContext.Provider value={huisInfo}>{children}</HuisContext.Provider>
+      {props.kelder && act === KELDER && (
+        <Suspense fallback={null}>
+          <Kelder3D w={w} l={l} hoek={hoek} trappen={trappen} straat={straatVol} />
+        </Suspense>
+      )}
       <Meshes geos={geo.vast} mats={sets.vast} />
       {/* voor- en zijgevel staan aan de zonkant: hun schaduw valt alleen naar binnen, als een band over de vloer */}
       <Meshes geos={geo.gevel} mats={sets.onder} schaduw={false} />
@@ -1446,7 +1509,7 @@ function Scene(props: SceneProps) {
           <group ref={inrichtingRef} visible={inrichtingIn}>
             <Meshes geos={inrichting} mats={sets.vast} />
           </group>
-          {meubelsIn && (
+          {meubelsIn && act !== KELDER && (
             <Suspense fallback={null}>
               <Interieur
                 laag={actKamers} kamers={kamers} openingen={laagOpeningen} ramen={laagRamen} trappen={laagTrappen}
@@ -1516,12 +1579,17 @@ function useTypeNaStraat(props: IsoHouse3DProps, reduced: boolean) {
 export default function IsoHouse3D(alleProps: IsoHouse3DProps) {
   const reduced = useReducedMotion();
   const { getoond: props, onStraat } = useTypeNaStraat(alleProps, reduced);
-  const { woning, verdiepingen, kamers, actief, className, onKlaar, onFout } = props;
+  const { woning, verdiepingen, actief, className, onKlaar, onFout } = props;
+  // The cellar is a room of its own, a storey down (kelder.ts), unless the caller planned one.
+  const kamers = useMemo(() => {
+    if (!props.kelder || props.kamers.some((k) => k.verdieping === KELDER)) return props.kamers;
+    return [...props.kamers, kelderKamer(props.breedte ?? WONING[woning].w, WONING[woning].l)];
+  }, [props.kelder, props.kamers, props.breedte, woning]);
   const taal = useTaal();
   const anim = useRef<Anim>({ o: tween(props.open ? 1 : 0), cam: tween(props.open ? 1 : 0), act: tween(actief) });
   const labels = useRef<(HTMLDivElement | null)[]>([]);
   const lagen = Math.max(1, verdiepingen);
-  const act = Math.min(actief, lagen - 1);
+  const act = Math.max(props.kelder ? KELDER : 0, Math.min(actief, lagen - 1));
   const actKamers = kamers.filter((k) => k.verdieping === act);
 
   return (
@@ -1571,7 +1639,7 @@ export default function IsoHouse3D(alleProps: IsoHouse3DProps) {
         aria-hidden="true"
       >
         <Suspense fallback={null}>
-          <Scene {...props} straatWoning={alleProps.woning} straatBreedte={alleProps.breedte} onStraat={onStraat} anim={anim} labels={labels} reduced={reduced} onKlaar={onKlaar} />
+          <Scene {...props} kamers={kamers} straatWoning={alleProps.woning} straatBreedte={alleProps.breedte} onStraat={onStraat} anim={anim} labels={labels} reduced={reduced} onKlaar={onKlaar} />
         </Suspense>
       </Canvas>
       <div className="ds-labels3d" aria-hidden="true">
