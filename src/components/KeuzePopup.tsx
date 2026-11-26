@@ -31,7 +31,6 @@ interface Tekst {
   werf: string;
   landLabel: string;
   landen: Record<Land, string>;
-  buitenBelgie: string;
   verder: string;
   sluiten: string;
   /*
@@ -57,8 +56,6 @@ const COPY: Copy<Tekst> = {
     werf: "Je werf ligt in",
     landLabel: "Land van je werf",
     landen: { BE: "België", NL: "Nederland", LU: "Luxemburg", FR: "Frankrijk", XX: "Ander land" },
-    buitenBelgie:
-      "We leveren en installeren in België. Vanuit dit land kun je een toestel afhalen in ons magazijn, of je neemt contact op voor een levering op maat.",
     verder: "Ga verder",
     sluiten: "Sluiten",
     badge: "Nr. 1 Droogservice",
@@ -77,8 +74,6 @@ const COPY: Copy<Tekst> = {
     werf: "Votre chantier :",
     landLabel: "Pays du chantier",
     landen: { BE: "Belgique", NL: "Pays-Bas", LU: "Luxembourg", FR: "France", XX: "Autre pays" },
-    buitenBelgie:
-      "Nous livrons et installons en Belgique. Depuis ce pays, vous pouvez venir chercher un appareil à notre dépôt, ou nous contacter pour une livraison sur mesure.",
     verder: "Continuer",
     sluiten: "Fermer",
     badge: "Service de séchage n° 1",
@@ -97,8 +92,6 @@ const COPY: Copy<Tekst> = {
     werf: "Your site is in",
     landLabel: "Country of your site",
     landen: { BE: "Belgium", NL: "Netherlands", LU: "Luxembourg", FR: "France", XX: "Other country" },
-    buitenBelgie:
-      "We deliver and install in Belgium. From this country, you can collect a unit from our depot, or contact us about a custom delivery.",
     verder: "Continue",
     sluiten: "Close",
     badge: "No. 1 Drying Service",
@@ -180,13 +173,6 @@ const IcoCheck = () => (
 const IcoPijl = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M5 12h14M13 6l6 6-6 6" />
-  </svg>
-);
-const IcoTruck = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M2 6h12v10H2zM14 10h4l3 3v3h-7" />
-    <circle cx="6" cy="17.5" r="1.8" />
-    <circle cx="17" cy="17.5" r="1.8" />
   </svg>
 );
 
@@ -412,12 +398,6 @@ const KeuzePopup = ({ onKlaar }: { onKlaar: () => void }) => {
               {t.verder} <IcoPijl />
             </button>
           </div>
-          {land !== "BE" && (
-            <div className="kp-note">
-              <IcoTruck />
-              <span>{t.buitenBelgie}</span>
-            </div>
-          )}
         </div>
       </div>
     </div>

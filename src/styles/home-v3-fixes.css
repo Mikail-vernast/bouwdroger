@@ -230,18 +230,50 @@
 
 /* 11. De btw-schakelaar onder de inleiding van het gamma.
 
-       Twee knoppen in een omhulsel, de actieve wit met een schaduwtje zodat ze
-       ingedrukt lijkt. Bewust klein: het is een hulpmiddel bij het lezen van de
-       prijzen, geen call to action -- het rood blijft voor "Product huren". */
+       Twee knoppen in een omhulsel, de actieve in het rood zodat meteen te zien
+       is welke weergave aanstaat. Ze was eerst wit met een schaduwtje, om het
+       rood voor "Product huren" te bewaren, maar op de grijze rail verschilde
+       wit te weinig van de knop ernaast. Klein genoeg om geen call to action
+       te worden: het is een hulpmiddel bij het lezen van de prijzen. */
 .v3 .btw-switch {
+  position: relative;
   display: inline-flex;
-  gap: 3px;
   margin-top: 16px;
   padding: 3px;
   background: #ECEAEA;
   border-radius: 99px;
 }
+/*
+  Het rode vlak is één knop die meeschuift, geen achtergrond die van de ene
+  naar de andere springt. Twee aparte achtergronden kunnen niet schuiven -- de
+  ene verdwijnt en de andere verschijnt -- en dat las als een sprong.
+
+  De knop is absoluut gepositioneerd, dus `50%` rekent tegen de padding-box
+  van de rail: `calc(50% - 3px)` is precies de helft van de ruimte binnen de
+  3px binnenmarge, en dus precies één knop breed. `translateX(100%)` is dan
+  per definitie de breedte van die knop, en hij landt exact op de tweede.
+  Daarom staat er ook geen `gap` tussen de knoppen: die zou hem er elke keer
+  een paar pixels naast zetten.
+*/
+.v3 .btw-switch::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: 99px;
+  background: var(--red);
+  box-shadow: 0 2px 8px rgba(200, 16, 46, .3);
+  transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+}
+.v3 .btw-switch:has(button:nth-child(2)[aria-pressed="true"])::before {
+  transform: translateX(100%);
+}
 .v3 .btw-switch button {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 50%;
   border: 0;
   cursor: pointer;
   background: transparent;
@@ -251,13 +283,25 @@
   font-size: 12.5px;
   padding: 8px 16px;
   border-radius: 99px;
-  transition: background .15s, color .15s, box-shadow .15s;
+  white-space: nowrap;
+  transition: color .2s;
 }
 .v3 .btw-switch button:hover { color: var(--txt); }
-.v3 .btw-switch button[aria-pressed="true"] {
-  background: #fff;
-  color: var(--txt);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+.v3 .btw-switch button[aria-pressed="true"],
+/* Anders wordt de witte tekst op het rood donker zodra je erover gaat. */
+.v3 .btw-switch button[aria-pressed="true"]:hover { color: #fff; }
+
+/* Zonder `:has()` zou de schuifknop links blijven staan terwijl rechts
+   aanstaat. Dan liever terug naar het vlak dat per knop meekleurt. */
+@supports not (selector(:has(*))) {
+  .v3 .btw-switch::before { display: none; }
+  .v3 .btw-switch button[aria-pressed="true"] {
+    background: var(--red);
+    box-shadow: 0 2px 8px rgba(200, 16, 46, .3);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3 .btw-switch::before { transition: none; }
 }
 
 /* 12. De schakelaar staat rechts, onder de afhaalnotitie -- niet links onder de
@@ -525,3 +569,51 @@
    Deze schil heeft geen tweede knop met een rand. */
 .v3 .btn-white{color:#17171A}
 .v3 .btn-white:hover{color:#000}
+
+
+/* 14. De afhaalsectie: gebroken wit eronder, de kaarten wit erop.
+
+       `.why` had helemaal geen achtergrond en erfde dus het wit van de pagina.
+       Vier witte kaarten op een witte grond hangen aan één haarlijn van 10%
+       zwart, en op een scherm met weinig contrast valt de kaartvorm helemaal
+       weg -- precies wat op /sitemap al eens misging. Nu dragen de kaarten
+       zichzelf.
+
+       #F1EFEC en niet `--bg-alt` (#F4F4F4): dat grijs staat te dicht bij het
+       wit van de kaarten en is koud waar de rest van de pagina warm is.
+       Dezelfde tint als de mappensectie op /sitemap. De sectie ligt tussen
+       twee rode (`.pay` ervoor, `.revs` erna), dus ze mag ook niet nóg een
+       wit vlak zijn. */
+.v3 .why { background: #F1EFEC; }
+
+/* 15. De vier stappen lopen van rood naar groen.
+
+       Alle vier stonden in `--red` en zeiden daarmee alle vier hetzelfde. Ze
+       zijn geen vier losse voordelen maar een volgorde: reserveren,
+       bevestiging, afhalen, terugbrengen. Eén voor één naar groen laat die
+       volgorde zien zonder er een cijfer of een balk bij te tekenen.
+
+       Rood is de begintoestand en staat in de geprerenderde HTML; de klasse
+       `.stappen` komt er pas bij als de rij in beeld scrolt (zie V3Pickup).
+       `--stap` is de index van de kaart en zet de vertraging -- zo lopen ze na
+       elkaar in plaats van alle vier tegelijk. */
+.v3 .wcard .wi {
+  transition: background .5s ease, color .5s ease, transform .5s ease;
+  transition-delay: calc(var(--stap, 0) * .22s);
+}
+.v3 .why-grid.stappen .wcard .wi {
+  background: rgba(24, 160, 81, .12);
+  color: #0f8a42;
+  /* Een tikje groter op het moment dat hij omslaat -- zonder dat verschuift
+     alleen de kleur en valt de omslag nauwelijks op. */
+  animation: wistap .52s ease calc(var(--stap, 0) * .22s) both;
+}
+@keyframes wistap {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.14); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3 .wcard .wi { transition: none; }
+  .v3 .why-grid.stappen .wcard .wi { animation: none; }
+}

@@ -156,8 +156,6 @@
 .kp-cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .kp-cta svg { transition: transform 0.2s; }
 .kp-cta:hover svg { transform: translateX(3px); }
-.kp-note { margin-top: 10px; font-size: 12px; line-height: 1.45; background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 10px 12px; display: flex; gap: 10px; }
-.kp-note svg { flex: none; }
 
 @media (max-width: 700px) {
   /*
@@ -194,7 +192,6 @@
      weet dat hij er is. */
   .kp-q { padding: 9px 0; }
   .kp-foot { margin-top: 12px; }
-  .kp-note { margin-top: 8px; padding: 8px 10px; font-size: 11.5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
