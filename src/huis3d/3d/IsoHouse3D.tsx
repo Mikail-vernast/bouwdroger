@@ -706,6 +706,9 @@ function natPatchSet(set: MatSet, u: NatUniforms) {
   natPatch(set.get("vloer")!, u, "vloer");
 }
 
+/** Hoe lang (ms) de schuif van de vloeroppervlakte stil moet staan voor de straat volgt. */
+const SCHUIF_RUST = 350;
+
 interface Kader { cx: number; cy: number; ex: number; ey: number }
 /** Eén straatbeeld in beeld; `weg` is wanneer het begon weg te vloeien (-1: blijft). */
 interface StraatLaag { sleutel: string; woning: StraatWoning; w: number; l: number; lagen: number; periode: Periode; zicht: { current: number }; weg: number; geladen: boolean }
@@ -1128,7 +1131,18 @@ function Scene(props: SceneProps) {
   // het hele gebouw (anders sprong het gebouw rondom in één klap een laag hoger).
   // De straat volgt het gekozen type meteen; de woning zelf pas als die straat er staat.
   const sWoning = props.straatWoning ?? woning;
-  const sW = sWoning === woning ? w : props.straatBreedte ?? WONING[sWoning].w;
+  const gekozenW = sWoning === woning ? w : props.straatBreedte ?? WONING[sWoning].w;
+  // Een andere breedte (de schuif): de straat volgt pas als de schuif even stilstaat. Eerst
+  // wisselde ze bij elke stap, met een overvloei en een download per stap; tijdens het
+  // slepen groeit nu alleen de woning, daarna vloeit de straat één keer over. Een ander
+  // type gaat meteen (zie useTypeNaStraat).
+  const [rustW, setRustW] = useState({ woning: sWoning, w: gekozenW });
+  const sW = rustW.woning === sWoning ? rustW.w : gekozenW;
+  useEffect(() => {
+    if (rustW.woning === sWoning && rustW.w === gekozenW) return;
+    const t = window.setTimeout(() => setRustW({ woning: sWoning, w: gekozenW }), rustW.woning !== sWoning || reduced ? 0 : SCHUIF_RUST);
+    return () => window.clearTimeout(t);
+  }, [sWoning, gekozenW, rustW, reduced]);
   const sL = WONING[sWoning].l;
   const straatLagen = 1;
   // Another period has its own street (neighbours of that time): it cross-fades like another width.
