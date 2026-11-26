@@ -69,6 +69,10 @@ REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # Zelfde maten als src/huis3d/woning.ts (WONING) en src/huis3d/maten.ts.
 WONINGEN = {"rijwoning": (6, 10, 2), "halfopen": (8, 10, 1), "open": (10, 11, 0), "appartement": (9, 10, 0)}
 W, L, BUREN = WONINGEN[WONING]
+# De buren krijgen de standaardbreedte van het type, niet die van de live woning: anders
+# werd bij een andere vloeroppervlakte (de schuif) elk buurhuis mee breder en schoof de
+# hele straat, ook links en aan de overkant.
+W0 = W
 if os.environ.get("BREEDTE"):
     W = float(os.environ["BREEDTE"])
 APP = WONING == "appartement"
@@ -122,6 +126,13 @@ OPRIT_B, ZIJ = 3.0, 3.6
 OPRIT_R = 2.7  # parkeerplek in de voortuin van een rijwoning  # breedte van een oprit, en de strook naast het huis waarin ze ligt
 
 random.seed(4)
+
+
+def zaad(*sleutel):
+    """Zet de toeval vast op één plek in de straat. Eén doorlopende reeks voor alles liet
+    bij elke andere breedte alle bomen, struiken en tuinhuisjes verspringen: een bredere
+    woning plaatst een paar struiken meer, en alles daarna kreeg andere getallen."""
+    random.seed("|".join(str(k) for k in sleutel))
 
 
 def V(x, y, z):
@@ -1249,6 +1260,11 @@ def kavel(i, kant, x0, x1, hx0, hx1, oprit=None, eigen=False, vrij_l=False, vrij
     linker perceelgrens (alleen het eerste perceel van een rij)."""
     if not in_beeld(x0, x1, *zr(kant, 0, EIND), 12.0):
         return
+    # Per perceel, op zijn plek ten opzichte van de live woning: links en aan de overkant
+    # vanaf x = 0, rechts vanaf de rechtergevel. Zo staat bij elke breedte hetzelfde
+    # perceel er hetzelfde bij; de rechterrij schuift alleen op.
+    rel = x0 - W if kant == 1 and not eigen and x0 >= W else x0
+    zaad("kavel", WONING, PERIODE, kant, eigen, round(rel, 2))
     if eigen:
         dc = DEUR
     else:
@@ -1379,7 +1395,7 @@ def rij(kant, start, richting, eind, breedtes, soort):
 
 def omgeving():
     straat()
-    var = [W, W + 0.5, W - 0.5, W + 1.0, W]
+    var = [W0, W0 + 0.5, W0 - 0.5, W0 + 1.0, W0]
     soort = {2: "rij", 1: "half", 0: "open"}[BUREN]
     reik = 52
     if BUREN == 2:
@@ -1391,7 +1407,7 @@ def omgeving():
         # De live woning is de rechterhelft van een paar; haar partner staat links.
         lot1 = W + T + ZIJ
         kavel(0, 1, -T, lot1, -T, W + T, oprit=(lot1 - 0.3 - OPRIT_B, lot1 - 0.3), eigen=True, vrij_r=True)
-        bwp = W + 2 * T
+        bwp = W0 + 2 * T
         lo = -T - bwp - ZIJ
         kavel(1, 1, lo, -T, lo + ZIJ, -T, oprit=(lo + 0.3, lo + 0.3 + OPRIT_B), vrij_l=True)
         rij(1, lot1, 1, W + reik, var[1:], "half")
@@ -1406,6 +1422,7 @@ def omgeving():
 
     # Bomenrij op de perceelgrens achteraan, aan beide kanten.
     for kant in (1, -1):
+        zaad("bomenrij", WONING, PERIODE, kant)
         x = -reik
         while x < W + reik:
             bx_, bz_ = x + random.uniform(-1.5, 1.5), zs(kant, EIND + 3.5 + random.uniform(-1, 1))
@@ -1671,6 +1688,7 @@ def omgeving_appartement():
         blok("bank-rug", bx_, bx_ + 1.8, 0.48, 0.85, F - 3.25, F - 3.17, M["paaltje"])
         for px in (bx_ + 0.15, bx_ + 1.55):
             blok("bank-poot", px, px + 0.1, 0.12, 0.42, F - 3.15, F - 2.8, M["paal"])
+    zaad("plein", BOUWLAGEN, PERIODE)
     for bx_ in (W + T + 6.8, W + T + 11.3):
         verhard("plantvak", bx_ - 0.8, bx_ + 0.8, F - 1.6, F, M["schors"], 0.13)
         blok("plantvak-rand", bx_ - 0.85, bx_ + 0.85, 0.0, 0.22, F - 1.65, F + 0.05, M["boord"])
@@ -1689,6 +1707,7 @@ def omgeving_appartement():
     ZB = -T - 8.0  # einde van de privétuintjes
     verhard("koer", -T, W + T, -T - 4, -T, M["terras"], 0.12)
     x = -T
+    zaad("koer", BOUWLAGEN, PERIODE)
     for soort, b in traveeen:
         x0, x1 = x - b, x
         if soort == "unit":
@@ -1704,6 +1723,7 @@ def omgeving_appartement():
         x = x0
     if not ROUW:
         haag(xl, W + T + 2.0, *zr(1, EIND - 0.7, EIND), 1.9, 1300)
+        zaad("eilandbomen", BOUWLAGEN, PERIODE)
         for bx_, bz_ in ((-9.0, -12.5), (-24.0, -12.0), (W - 2.0, -9.5), (-36.0, -12.5)):
             # Iets in de grond: de eilandbomen hebben een lichte wortelvoet die op een gazon als vlek leest.
             plaats(random.choice(BOMEN[:2]), bx_, bz_, random.uniform(6.5, 8.5), y=-0.15)
@@ -1723,6 +1743,7 @@ def omgeving_appartement():
         verhard("boomvak", vx - 0.9, vx + 0.9, z0 + 0.15, z1 - 0.15, M["schors"], 0.02)
         blok("boomvak-rand", vx - 0.95, vx + 0.95, 0, 0.1, z0 + 0.1, z1 - 0.1, M["boord"])
         if not ROUW:
+            zaad("straatboom", BOUWLAGEN, PERIODE, vx)
             plaats(BOMEN[3], vx, pz_, random.uniform(7.0, 8.5))
             for k in range(2):
                 struik(vx + random.uniform(-0.5, 0.5), pz_ + random.uniform(-0.4, 0.4), random.uniform(0.3, 0.5), 0.5)
@@ -1762,6 +1783,7 @@ def omgeving_appartement():
         for kant in (1, -1):
             wd = gazon("weide", -60, W + 60, *zr(kant, EIND, EIND + 16), [])
             verspreid(wd, WEIDE, 260, (0.7, 1.4), hou_basis=False, rechtop=True)
+            zaad("bomenrij-app", BOUWLAGEN, PERIODE, kant)
             x = -60
             while x < W + 60:
                 bx_, bz_ = x + random.uniform(-1.5, 1.5), zs(kant, EIND + 3.5 + random.uniform(-1, 1))
