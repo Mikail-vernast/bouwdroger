@@ -27,16 +27,26 @@
 }
 
 /*
-  Drie kolommen: links de enige review die over een droger gaat (twee rijen
-  hoog), rechts de vier andere in een 2×2. Geen `auto-fit`: die eerste kaart
-  moet precies de hoogte van die twee rijen krijgen.
+  Een spoor dat je doorbladert in plaats van een raster dat alles tegelijk
+  toont. `scroll-snap` doet het werk: de knoppen eronder verschuiven het spoor,
+  maar vegen op een touchscreen en schuiven met het scrollwiel werken even goed
+  -- en zonder JavaScript staat het spoor er gewoon, wat nodig is omdat deze
+  pagina geprerenderd wordt.
 */
-.v3 .rv-grid {
-  display: grid;
-  grid-template-columns: .92fr 1fr 1fr;
+.v3 .rv-spoor {
+  display: flex;
   gap: 16px;
   margin-top: 44px;
-  align-items: stretch;
+  padding: 4px 2px 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+/* De eigen schuifbalk weg: de bolletjes eronder zeggen al waar je bent. */
+.v3 .rv-spoor::-webkit-scrollbar { display: none; }
+.v3 .rv-spoor > .rv-card {
+  scroll-snap-align: start;
+  flex: 0 0 clamp(280px, 30%, 380px);
 }
 
 .v3 .rv-card {
@@ -48,9 +58,12 @@
   flex-direction: column;
   gap: 16px;
 }
-/* De uitgelichte review: twee rijen hoog, grotere letter, citaat gecentreerd. */
+/* De uitgelichte review -- de enige die over een droger gaat -- staat vooraan
+   en is breder, zodat ze het spoor opent in plaats van erin te verdwijnen. */
+.v3 .rv-spoor > .rv-card.rv-big {
+  flex: 0 0 clamp(300px, 34%, 440px);
+}
 .v3 .rv-card.rv-big {
-  grid-row: span 2;
   padding: 30px 28px 26px;
 }
 .v3 .rv-card.rv-big blockquote {
@@ -118,14 +131,68 @@
   color: var(--txt-dim);
 }
 
+/* ---- doorbladeren ---- */
+.v3 .rv-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+/* Glas op de rode grond, net als de kaartjes in de hero: een witte knop zou
+   hier een derde vlak wit worden naast vijf witte reviewkaarten. */
+.v3 .rv-pijl {
+  width: 42px;
+  height: 42px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: background .18s, border-color .18s, transform .18s, opacity .18s;
+}
+.v3 .rv-pijl:hover:not(:disabled) {
+  background: rgba(255, 255, 255, .22);
+  border-color: rgba(255, 255, 255, .5);
+  transform: scale(1.07);
+}
+/* Uitgegrijsd in plaats van verborgen: een knop die verdwijnt laat de rij
+   verspringen en de bolletjes meeschuiven. */
+.v3 .rv-pijl:disabled { opacity: .32; cursor: default; }
+.v3 .rv-bollen { display: flex; align-items: center; gap: 8px; }
+.v3 .rv-bollen button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(255, 255, 255, .34);
+  transition: background .18s, width .18s;
+}
+.v3 .rv-bollen button:hover { background: rgba(255, 255, 255, .6); }
+/* De actieve wordt een streepje in plaats van een grotere stip: op een rode
+   grond is een maatverschil van een paar pixels nauwelijks te zien. */
+.v3 .rv-bollen button.aan { width: 22px; border-radius: 99px; background: #fff; }
+
 @media (max-width: 1040px) {
-  .v3 .rv-grid { grid-template-columns: 1fr 1fr; }
-  /* Twee kolommen: de grote kaart spant de volle breedte en wordt weer plat. */
-  .v3 .rv-card.rv-big { grid-row: auto; grid-column: span 2; }
+  .v3 .rv-spoor > .rv-card { flex-basis: clamp(270px, 44%, 360px); }
+  .v3 .rv-spoor > .rv-card.rv-big { flex-basis: clamp(290px, 48%, 400px); }
   .v3 .rv-card.rv-big blockquote { flex: 0 0 auto; }
 }
 @media (max-width: 660px) {
   .v3 .revs { padding: 64px 0; }
-  .v3 .rv-grid { grid-template-columns: 1fr; margin-top: 32px; }
-  .v3 .rv-card.rv-big { grid-column: auto; }
+  .v3 .rv-spoor { margin-top: 32px; }
+  /* Eén kaart tegelijk, met een randje van de volgende in beeld -- dat is wat
+     laat zien dát er nog meer staat. */
+  .v3 .rv-spoor > .rv-card,
+  .v3 .rv-spoor > .rv-card.rv-big { flex-basis: 86%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3 .rv-pijl:hover:not(:disabled) { transform: none; }
 }

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { DEPOSIT_GROSS } from "@/lib/booking";
 import { euroInt } from "@/lib/verhuur";
@@ -127,6 +127,38 @@ const COPY = {
 const V3Pickup = () => {
   const t = useCopy(COPY);
   const lp = useLokaalPad();
+  const rooster = useRef<HTMLDivElement>(null);
+  const [gelopen, setGelopen] = useState(false);
+
+  /*
+    De vier icoonvakjes lopen één voor één van rood naar groen zodra de rij in
+    beeld komt: dat maakt van vier losse kaarten een volgorde die je afwerkt.
+    Rood is de begintoestand en staat gewoon in de geprerenderde HTML -- een
+    bezoeker zonder JavaScript ziet vier rode stappen, niet vier lege vakjes.
+    Dat is dezelfde reden waarom `Reveal` zijn begintoestand pas ná mount zet.
+
+    Loopt één keer. Een kringetje dat blijft draaien trekt de aandacht weg van
+    de tekst ernaast, en de stappen zijn geen voortgangsbalk.
+  */
+  useEffect(() => {
+    const el = rooster.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setGelopen(true);
+      return;
+    }
+    const kijker = new IntersectionObserver(
+      (rijen) => {
+        if (!rijen.some((rij) => rij.isIntersecting)) return;
+        setGelopen(true);
+        kijker.disconnect();
+      },
+      { threshold: 0.35 },
+    );
+    kijker.observe(el);
+    return () => kijker.disconnect();
+  }, []);
+
   return (
   <section className="why" id="voordelen">
     <div className="wrap">
@@ -136,9 +168,9 @@ const V3Pickup = () => {
         <p className="lede">{t.lede}</p>
       </div>
 
-      <div className="why-grid">
+      <div className={gelopen ? "why-grid stappen" : "why-grid"} ref={rooster}>
         {t.steps.map((step, i) => (
-          <div className="wcard" key={step.title}>
+          <div className="wcard" key={step.title} style={{ "--stap": i } as CSSProperties}>
             <div className="wi">{ICONS[i]}</div>
             <h3>{step.title}</h3>
             <p>{step.body}</p>

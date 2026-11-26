@@ -6,10 +6,15 @@ import { ArrowRightIcon, GoogleIcon } from "./icons";
 
 /**
  * De drie zwevende trust-kaartjes over de team-banner. In het design staan ze
- * absoluut gepositioneerd in de hoeken van de hero (`.h-note > span`), elk met
- * een icoonvakje (`.hni`) en een titel + ondertitel (`.hnt`). Onder 1080px
+ * absoluut gepositioneerd in de hoeken van de hero (`.hn`), elk met een
+ * icoonvakje (`.hni`) en een titel + ondertitel (`.hnt`). Onder 1080px
  * verbergt het design ze — vandaar dat de HTML géén begintoestand mag dragen
  * die de prerender onzichtbaar maakt; deze markup is altijd zichtbaar.
+ *
+ * Twee lagen per kaartje: `.hn` zweeft, `.hn-glas` is de glasplaat die op de
+ * muis reageert. Beide bewegingen zijn een `transform`, en op één element wint
+ * de doorlopende animatie altijd van de hover-regel — dan gebeurde er bij het
+ * aanwijzen letterlijk niets.
  */
 const ICONS = [
   {
@@ -181,24 +186,26 @@ const V3Hero = () => {
     {/* De drie zwevende kaartjes over de banner — zie ICONS/COPY en .h-note in home-v3.css. */}
     <div className="h-note">
       {t.notes.map((note, i) => (
-        <span key={note.title}>
-          <i className="hni">
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {ICONS[i].icon}
-            </svg>
-          </i>
-          <span className="hnt">
-            <b>{note.title}</b>
-            <small>{note.sub}</small>
+        <span className="hn" key={note.title}>
+          <span className="hn-glas">
+            <i className="hni">
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {ICONS[i].icon}
+              </svg>
+            </i>
+            <span className="hnt">
+              <b>{note.title}</b>
+              <small>{note.sub}</small>
+            </span>
           </span>
         </span>
       ))}
