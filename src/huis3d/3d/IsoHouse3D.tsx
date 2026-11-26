@@ -29,7 +29,7 @@ import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { MAX_BRON, type NatUniforms, maakNat, natPatch } from "./nat";
 import { richIn } from "./inrichting";
-import Interieur, { type Meubel } from "./interieur/Interieur";
+import Interieur, { laadInterieurVooraf, type Meubel } from "./interieur/Interieur";
 import { INGERICHTE_KAMERS, vrijePlek } from "./interieur/plaatsing";
 import type { Vak } from "../woning";
 import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
@@ -38,7 +38,7 @@ import { FH, H, HC, SLAB, T, TI, VENSTER_OP, nokHoogte } from "../maten";
 import { PERIODE_STIJL, periodeVan, type Periode } from "../periode";
 import { useReducedMotion } from "../useReducedMotion";
 import { useTaal } from "../taal";
-import { TEXTUUR, budget3D, heeftStraat, meld, straatBeelden, voorlaad, type StraatWoning } from "./bestanden";
+import { TEXTUUR, budget3D, heeftStraat, meld, naRust, straatBeelden, voorlaad, type StraatWoning } from "./bestanden";
 import Straat3D, { StraatVangnet } from "./straat";
 
 /*
@@ -858,7 +858,17 @@ function Scene(props: SceneProps) {
   const inrichtingIn = materiaal.inrichting ?? true;
   // Afgewerkt of bewoond: meubels uit de kit en de afwerking per kamer (interieur/).
   // In de werffases blijft het huis leeg; daar toont de simulator een werf.
-  const meubelsIn = materiaal.meubels && inrichtingIn;
+  // Only once the house has been opened: closed, the roof hides the furniture, and its model
+  // (~650 kB) held up the first picture on a slow connection. On a fast one it is fetched in
+  // the first idle moment after the house is drawn, so opening it never waits.
+  const [ooitOpen, setOoitOpen] = useState(open);
+  useEffect(() => { if (open) setOoitOpen(true); }, [open]);
+  const meubelsIn = materiaal.meubels && inrichtingIn && ooitOpen;
+  const [getekend, setGetekend] = useState(false);
+  useEffect(() => {
+    if (!getekend || !materiaal.meubels || ooitOpen || budget3D() !== "meteen") return undefined;
+    return naRust(laadInterieurVooraf);
+  }, [getekend, materiaal.meubels, ooitOpen]);
   useEffect(() => {
     const kopie = (naam: TegelNaam) => {
       const t = texturen[naam].clone();
@@ -1217,7 +1227,7 @@ function Scene(props: SceneProps) {
 
   useFrame(({ invalidate: volgende }, delta) => {
     // Na twee getekende frames staat alles (texturen, schaduw) er: de SVG mag weg.
-    if (frames.current < 3 && ++frames.current === 2) props.onKlaar?.();
+    if (frames.current < 3 && ++frames.current === 2) { props.onKlaar?.(); setGetekend(true); }
     if (import.meta.env.DEV) (window as unknown as { __sim3d?: unknown }).__sim3d = { scene, camera, info: gl.info };
     const A = anim.current;
     const o = stap(A.o), camT = stap(A.cam), camA = stap(A.act);
