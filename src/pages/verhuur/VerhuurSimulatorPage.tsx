@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import PageMeta from "@/components/PageMeta";
 import IsoHouse from "@/components/simulator/IsoHouse";
@@ -226,23 +226,26 @@ const VerhuurSimulatorPage = () => {
   // stond er na een wissel even geen straat, tot het beeld binnen was.
   // Pas na het laden en een korte pauze: bij de eerste vraag moeten eerst de 3D en de
   // eigen straat binnen, deze beelden zijn voor de klik daarna.
+  /** De mini-straat waar een wissel naar type `w` op uitkomt (dezelfde maat als kiesWoning). */
+  const laadStraatVan = useCallback(
+    (w: Woning) => {
+      if (!heeftStraat(w) || budget3D() === "geen") return;
+      const l = w === "appartement" ? 1 : Math.max(2, lagen);
+      voorlaad(straatBeelden(w, woningBreedte(w, snapOppervlakte(geschatteOppervlakte(w, l)), l), "mini"), "image");
+    },
+    [lagen],
+  );
   useEffect(() => {
     if (stap !== 0) return;
     const b = budget3D();
     if (b === "geen" || b === "zuinig") return;
-    const haal = () => {
-      for (const w of Object.keys(WONING) as Woning[]) {
-        if (!heeftStraat(w)) continue;
-        const l = w === "appartement" ? 1 : Math.max(2, lagen);
-        voorlaad(straatBeelden(w, woningBreedte(w, snapOppervlakte(geschatteOppervlakte(w, l)), l), "mini"), "image");
-      }
-    };
+    const haal = () => (Object.keys(WONING) as Woning[]).forEach(laadStraatVan);
     let t = 0;
     const na = () => { t = window.setTimeout(haal, 2500); };
     if (document.readyState === "complete") na();
     else window.addEventListener("load", na, { once: true });
     return () => { window.removeEventListener("load", na); window.clearTimeout(t); };
-  }, [stap, lagen]);
+  }, [stap, laadStraatVan]);
   // Wat de bezoeker koos, maar nooit meer kamers dan er op die bouwlaag passen: naast
   // elkaar langs de gevel (bv. na een wissel van open bebouwing naar rijwoning), en
   // binnen de gekozen oppervlakte (40 m² over twee lagen heeft geen acht kamers).
@@ -577,7 +580,10 @@ const VerhuurSimulatorPage = () => {
                   <p className="ds-sub">{t.s1Sub}</p>
                   <div className="ds-cards" role="radiogroup" aria-label={t.typeWoning}>
                     {WONINGEN.map((w) => (
-                      <button key={w} type="button" role="radio" aria-checked={s.woning === w} className={`ds-card${s.woning === w ? " sel" : ""}`} onClick={() => kiesWoning(w)}>
+                      <button key={w} type="button" role="radio" aria-checked={s.woning === w} className={`ds-card${s.woning === w ? " sel" : ""}`} onClick={() => kiesWoning(w)}
+                        // Wie de muis op een tegel zet of hem aanraakt, kiest hem meestal: dan
+                        // de straat al ophalen, zodat de wissel er bij de klik meteen is.
+                        onPointerEnter={() => laadStraatVan(w)} onPointerDown={() => laadStraatVan(w)} onFocus={() => laadStraatVan(w)}>
                         <span className={`ds-art${fotoVoor(`woning-${w}`) ? " ds-art--foto" : ""}`}>
                           <Foto sleutel={`woning-${w}`}>
                             <IsoHouse mini woning={w} verdiepingen={w === "appartement" ? 1 : 2} dak={w === "appartement" ? "plat" : "zadeldak"} kamers={[]} open={false} actief={0} />

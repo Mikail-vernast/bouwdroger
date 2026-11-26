@@ -644,7 +644,7 @@ function natPatchSet(set: MatSet, u: NatUniforms) {
 
 interface Kader { cx: number; cy: number; ex: number; ey: number }
 /** Eén straatbeeld in beeld; `weg` is wanneer het begon weg te vloeien (-1: blijft). */
-interface StraatLaag { sleutel: string; woning: StraatWoning; w: number; lagen: number; zicht: { current: number }; weg: number; geladen: boolean }
+interface StraatLaag { sleutel: string; woning: StraatWoning; w: number; l: number; lagen: number; zicht: { current: number }; weg: number; geladen: boolean }
 function kader(w: number, l: number, y0: number, y1: number, pad: number, voor = 0, links = 0): Kader {
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
   const v = new Vector3();
@@ -656,7 +656,11 @@ function kader(w: number, l: number, y0: number, y1: number, pad: number, voor =
   return { cx: (minX + maxX) / 2, cy: (minY + maxY) / 2, ex: (maxX - minX) / 2 + pad, ey: (maxY - minY) / 2 + pad };
 }
 
-interface SceneProps extends IsoHouseProps { anim: MutableRefObject<Anim>; labels: MutableRefObject<(HTMLDivElement | null)[]>; reduced: boolean; onKlaar?: () => void }
+interface SceneProps extends IsoHouseProps {
+  anim: MutableRefObject<Anim>; labels: MutableRefObject<(HTMLDivElement | null)[]>; reduced: boolean; onKlaar?: () => void;
+  /** Het gekozen type en zijn breedte: de straat volgt die meteen, de woning pas na onStraat (zie useTypeNaStraat). */
+  straatWoning?: Woning; straatBreedte?: number; onStraat?: (woning: string) => void;
+}
 
 function Scene(props: SceneProps) {
   const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], ramen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, filmRonde = 0, anim, labels, reduced } = props;
@@ -881,16 +885,33 @@ function Scene(props: SceneProps) {
   // woningtype, anders stond er even geen straat. Van de andere breedtes laden de mini's vooraf.
   // Altijd de render met één bouwlaag: een extra verdiep is er een van de unit zelf, niet van
   // het hele gebouw (anders sprong het gebouw rondom in één klap een laag hoger).
+  // De straat volgt het gekozen type meteen; de woning zelf pas als die straat er staat.
+  const sWoning = props.straatWoning ?? woning;
+  const sW = sWoning === woning ? w : props.straatBreedte ?? WONING[sWoning].w;
+  const sL = WONING[sWoning].l;
   const straatLagen = 1;
-  const straatSleutel = `${woning}-${w}-${straatLagen}`;
+  const straatSleutel = `${sWoning}-${sW}-${straatLagen}`;
   const [straten, setStraten] = useState<StraatLaag[]>(() =>
-    heeftStraat(woning) ? [{ sleutel: straatSleutel, woning, w, lagen: straatLagen, zicht: { current: 1 }, weg: -1, geladen: false }] : [],
+    heeftStraat(sWoning) ? [{ sleutel: straatSleutel, woning: sWoning, w: sW, l: sL, lagen: straatLagen, zicht: { current: 1 }, weg: -1, geladen: false }] : [],
   );
   useEffect(() => {
     setStraten((oud) => {
-      if (!heeftStraat(woning)) return [];
+      if (!heeftStraat(sWoning)) return [];
       if (oud[oud.length - 1]?.sleutel === straatSleutel) return oud;
-      const nieuw: StraatLaag = { sleutel: straatSleutel, woning, w, lagen: straatLagen, zicht: { current: 1 }, weg: -1, geladen: false };
+      const terug = oud.find((s) => s.sleutel === straatSleutel);
+      if (terug?.geladen && !reduced) {
+        // Terug naar een beeld dat nog in beeld is (onder het nieuwste, of al aan het
+        // wegvloeien): dat komt weer vol onderaan, en de rest vloeit eroverheen weg.
+        // Eerst kwam er een nieuw item met dezelfde key: React hergebruikte het
+        // gemounte beeld, onKlaar vuurde nooit meer, er vloeide niets weg, en bij snel
+        // klikken bleven twee straten vol over elkaar staan.
+        const nu = performance.now();
+        terug.zicht.current = 1;
+        const rest = oud.filter((s) => s !== terug && (s.geladen || s.weg >= 0)).map((s) => (s.weg >= 0 ? s : { ...s, weg: nu }));
+        return [...rest, { ...terug, weg: -1 }];
+      }
+      if (terug) terug.zicht.current = 1;
+      const nieuw: StraatLaag = terug ? { ...terug, weg: -1 } : { sleutel: straatSleutel, woning: sWoning, w: sW, l: sL, lagen: straatLagen, zicht: { current: 1 }, weg: -1, geladen: false };
       if (reduced || oud.some((s) => s.lagen !== straatLagen)) return [nieuw];
       // Blijven staan: wat al aan het wegvloeien is, en het laatste beeld dat er
       // echt staat. Sleep je snel over de schuif, dan vallen de tussenstanden die
@@ -899,17 +920,17 @@ function Scene(props: SceneProps) {
       const rest = oud.filter((s) => s.sleutel !== straatSleutel);
       return [...rest.filter((s) => s.weg >= 0), ...rest.filter((s) => s.weg < 0 && s.geladen).slice(-1), nieuw];
     });
-  }, [straatSleutel, woning, w, straatLagen, reduced]);
+  }, [straatSleutel, sWoning, sW, sL, straatLagen, reduced]);
   // De mini's van de buurbreedtes, voor de oppervlakteschuif: alleen de twee naast de
   // huidige, en pas als de straat die je ziet er staat. Eerst kwamen alle negen breedtes
   // meteen mee (~650 kB op een gsm), vóór en naast de 3D en de straat zelf.
   const straatStaat = straten.some((s) => s.sleutel === straatSleutel && s.geladen);
   useEffect(() => {
-    if (!straatStaat || !heeftStraat(woning) || budget3D() === "zuinig") return;
-    const rij = BREEDTES[woning], i = rij.indexOf(w);
+    if (!straatStaat || !heeftStraat(sWoning) || budget3D() === "zuinig") return;
+    const rij = BREEDTES[sWoning], i = rij.indexOf(sW);
     const buren = [rij[i - 1], rij[i + 1]].filter((b): b is number => b !== undefined);
-    voorlaad(buren.flatMap((b) => straatBeelden(woning, b, "mini", straatLagen)), "image");
-  }, [straatStaat, woning, w, straatLagen]);
+    voorlaad(buren.flatMap((b) => straatBeelden(sWoning, b, "mini", straatLagen)), "image");
+  }, [straatStaat, sWoning, sW, straatLagen]);
   const straatTeken = useThree((st) => st.invalidate);
   const straatKlaar = useCallback((sleutel: string) => {
     setStraten((oud) => {
@@ -921,6 +942,12 @@ function Scene(props: SceneProps) {
     });
     straatTeken();
   }, [straatTeken]);
+  // Staat de nieuwste straat er, dan mag de woning van type wisselen (useTypeNaStraat).
+  const onStraat = props.onStraat;
+  const bovenste = straten[straten.length - 1];
+  useEffect(() => {
+    if (bovenste?.geladen) onStraat?.(bovenste.woning);
+  }, [bovenste, onStraat]);
   /** Laat oude straatbeelden wegvloeien; true zolang er nog een bezig is. */
   const vervaagStraten = () => {
     let bezig = false, op = false;
@@ -953,7 +980,7 @@ function Scene(props: SceneProps) {
   // blijft staan, en de straat
   // vloeit over naar het beeld van die breedte (zie `straten`). Zonder die animatie
   // sprong het huis van maat en knipperde de straat terwijl het nieuwe beeld laadde.
-  const groei = useRef({ bouw: tween(1), wand: tween(1), wNu: w, vW: 0, vanLagen: lagen, nieuwDak: false, vanKader: dicht, kaderNu: dicht });
+  const groei = useRef({ bouw: tween(1), wand: tween(1), wNu: w, vW: 0, vanLagen: lagen, nieuwDak: false, typeWissel: false, vanKader: dicht, kaderNu: dicht });
   const breedRef = useRef<Group>(null);
 
   const vorige = useRef({ lagen, dak, woning, binnen: geo.binnen, w });
@@ -970,7 +997,11 @@ function Scene(props: SceneProps) {
     }
     if (p.lagen !== lagen || p.dak !== dak || anderType) {
       G.vanLagen = anderType ? act + 1 : p.lagen;
-      G.nieuwDak = anderType || p.dak !== dak;
+      // Bij een ander type rijdt het dak mee op de groeiende verdiepingen, ook als het een
+      // ander dak is: viel het er van boven op, dan keek je tussendoor op de lichte
+      // vloerplaat van de verdieping (de witte flits bij een typewissel).
+      G.nieuwDak = !anderType && p.dak !== dak;
+      G.typeWissel = anderType;
       G.vanKader = G.kaderNu;
       herstart(G.bouw, reduced);
     }
@@ -1065,9 +1096,9 @@ function Scene(props: SceneProps) {
       bovenRef.current.visible = zicht > 0.01;
     }
     // Dak: rijdt van de oude dakhoogte naar de nieuwe met een sprongetje, of valt
-    // er van boven op als het een ander dak (of een andere woning) is.
+    // er van boven op als het een ander dak is (bij een ander woningtype rijdt het mee).
     const rit = (G.vanLagen - lagen) * FH * (1 - b);
-    const sprong = G.nieuwDak ? 6 * Math.pow(1 - b, 2) : Math.sin(Math.PI * b) * 1.4 * (G.vanLagen !== lagen ? 1 : 0);
+    const sprong = G.nieuwDak ? 6 * Math.pow(1 - b, 2) : Math.sin(Math.PI * b) * 1.4 * (G.vanLagen !== lagen && !G.typeWissel ? 1 : 0);
     if (dakRef.current) { dakRef.current.position.y = lift * 1.3 + rit + sprong; dakRef.current.visible = zicht > 0.01; }
     const nuTransparant = zicht < 0.999;
     for (const m of vaagMats) {
@@ -1150,7 +1181,7 @@ function Scene(props: SceneProps) {
         <StraatVangnet key={st.sleutel}>
           <Suspense fallback={null}>
             <Straat3D
-              woning={st.woning} w={st.w} l={l} lagen={st.lagen} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"}
+              woning={st.woning} w={st.w} l={st.l} lagen={st.lagen} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"}
               open={openStand} zicht={st.zicht} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)}
             />
           </Suspense>
@@ -1227,9 +1258,38 @@ const STANDAARD_MATERIAAL: Materiaal = {
  * De 3D-woning. Zelfde props als IsoHouse; `onKlaar` meldt dat de eerste frame
  * getekend is (de SVG eronder mag dan weg) en `onFout` dat WebGL niet lukt.
  */
-export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void; onFout?: () => void }) {
-  const { woning, verdiepingen, kamers, actief, className, onKlaar, onFout } = props;
+type IsoHouse3DProps = IsoHouseProps & { onKlaar?: () => void; onFout?: () => void };
+
+/**
+ * Een ander woningtype wordt pas getoond als de straat van dat type in de scène staat
+ * (de Scene meldt dat via onStraat), en hooguit na WACHT_TYPE ms. Eerst begon de nieuwe
+ * woning meteen op te bouwen in de straat van het vorige type: een half gelijkvloers met
+ * zijn lichte bovenkant tussen de verkeerde buren, wat bij de eerste wissel als een witte
+ * flits las. Wachten tot het bestand binnen is, volstaat niet: three.js laadt en decodeert
+ * het daarna nog. Klik je snel door, dan vallen de tussenliggende types weg.
+ */
+const WACHT_TYPE = 2500;
+function useTypeNaStraat(props: IsoHouse3DProps, reduced: boolean) {
+  const [klaarType, setKlaarType] = useState(props.woning);
+  const vast = useRef(props);
+  if (props.woning === klaarType) vast.current = props;
+  const doel = props.woning;
+  useEffect(() => {
+    if (doel === klaarType) return;
+    if (reduced || !heeftStraat(doel) || budget3D() === "geen") return setKlaarType(doel);
+    const t = window.setTimeout(() => setKlaarType(doel), WACHT_TYPE);
+    return () => window.clearTimeout(t);
+  }, [doel, klaarType, reduced]);
+  const onStraat = useCallback((w: string) => {
+    if (w === doel) setKlaarType(doel);
+  }, [doel]);
+  return { getoond: props.woning === klaarType ? props : vast.current, onStraat };
+}
+
+export default function IsoHouse3D(alleProps: IsoHouse3DProps) {
   const reduced = useReducedMotion();
+  const { getoond: props, onStraat } = useTypeNaStraat(alleProps, reduced);
+  const { woning, verdiepingen, kamers, actief, className, onKlaar, onFout } = props;
   const taal = useTaal();
   const anim = useRef<Anim>({ o: tween(props.open ? 1 : 0), cam: tween(props.open ? 1 : 0), act: tween(actief) });
   const labels = useRef<(HTMLDivElement | null)[]>([]);
@@ -1284,7 +1344,7 @@ export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void
         aria-hidden="true"
       >
         <Suspense fallback={null}>
-          <Scene {...props} anim={anim} labels={labels} reduced={reduced} onKlaar={onKlaar} />
+          <Scene {...props} straatWoning={alleProps.woning} straatBreedte={alleProps.breedte} onStraat={onStraat} anim={anim} labels={labels} reduced={reduced} onKlaar={onKlaar} />
         </Suspense>
       </Canvas>
       <div className="ds-labels3d" aria-hidden="true">
