@@ -55,7 +55,7 @@ const WATER_TERMIJN = termijnZonderDikte("waterschade");
 /** Het ondertekende vochtrapport is een betalende optie, geen standaard. */
 const RAPPORT = EXTRAS.find((x) => x.k === "rapport");
 
-const WHATSAPP = "https://wa.me/3236899065";
+const WHATSAPP = "https://wa.me/3233185045";
 
 /** WhatsApp staat niet in de v3-iconenset; dit is de enige plek waar hij hoort. */
 const WhatsAppIcon = ({ size = 18 }: { size?: number }) => (
