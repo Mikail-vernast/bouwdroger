@@ -34,6 +34,7 @@ import * as checkout from '../api/checkout';
 import * as checkoutSession from '../api/checkout-session';
 import * as contact from '../api/contact';
 import * as extension from '../api/extension';
+import * as funnel from '../api/funnel';
 import * as land from '../api/land';
 import * as order from '../api/order';
 import * as ozon from '../api/ozon';
@@ -93,6 +94,7 @@ const ROUTES: Record<string, RouteModule> = {
   '/api/checkout-session': checkoutSession,
   '/api/contact': contact,
   '/api/extension': extension,
+  '/api/funnel': funnel,
   '/api/land': land,
   '/api/order': order,
   '/api/ozon': ozon,

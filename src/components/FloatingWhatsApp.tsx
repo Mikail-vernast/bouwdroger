@@ -53,7 +53,7 @@ const FloatingWhatsApp = () => {
 
   return (
     <a
-      href="https://wa.me/3236899065"
+      href="https://wa.me/3233185045"
       target="_blank"
       rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}

@@ -1,0 +1,51 @@
+import { describe, expect, it } from "vitest";
+import { CALCULATOR_CONVERSION_ID, boekingStep, funnelArgs } from "../lib/funnel";
+
+const SESSIE = "0b54f322-fdc8-46dd-bfb2-1e6fd5500fd2";
+
+describe("funnelArgs", () => {
+  it("zet de conversie zelf, ook als de aanvraag een andere meestuurt", () => {
+    const args = funnelArgs({ session_id: SESSIE, event_type: "view", p_conversion_id: "iets-anders" });
+    expect(args?.p_conversion_id).toBe(CALCULATOR_CONVERSION_ID);
+    expect(args?.p_step_index).toBe(-1);
+  });
+
+  it("neemt een stap mee met zijn naam", () => {
+    const args = funnelArgs({ session_id: SESSIE, event_type: "step", step_index: 3, step_key: "Dikte chape" });
+    expect([args?.p_step_index, args?.p_step_key]).toEqual([3, "Dikte chape"]);
+  });
+
+  it("weigert een stap zonder geldig nummer", () => {
+    expect(funnelArgs({ session_id: SESSIE, event_type: "step" })).toBeNull();
+    expect(funnelArgs({ session_id: SESSIE, event_type: "step", step_index: 51 })).toBeNull();
+    expect(funnelArgs({ session_id: SESSIE, event_type: "step", step_index: 1.5 })).toBeNull();
+  });
+
+  it("weigert een onbekend event of een rare sessie", () => {
+    expect(funnelArgs({ session_id: SESSIE, event_type: "klik" })).toBeNull();
+    expect(funnelArgs({ session_id: "kort", event_type: "view" })).toBeNull();
+    expect(funnelArgs({ session_id: "<script>alert(1)</script>", event_type: "view" })).toBeNull();
+    expect(funnelArgs(null)).toBeNull();
+    expect(funnelArgs([])).toBeNull();
+  });
+
+  it("kort lange velden in en laat een onbekend toestel weg", () => {
+    const args = funnelArgs({
+      session_id: SESSIE, event_type: "view", landing_page: "x".repeat(900), device_type: "koelkast",
+    });
+    expect((args?.p_landing_page as string).length).toBe(500);
+    expect(args?.p_device_type).toBeNull();
+  });
+});
+
+describe("boekingStep", () => {
+  it("nummert de boekingsstappen na de calculator en het pakket", () => {
+    expect(boekingStep(1)).toEqual({ index: 11, key: "Dekking" });
+    expect(boekingStep(5)).toEqual({ index: 15, key: "Betaling" });
+  });
+
+  it("de bevestiging en de controlestand zijn geen stap", () => {
+    expect(boekingStep(6)).toBeNull();
+    expect(boekingStep(0)).toBeNull();
+  });
+});

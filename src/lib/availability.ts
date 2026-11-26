@@ -147,6 +147,15 @@ export function sendBookingEvent(event: Record<string, unknown>): Promise<Availa
   return call({ action: "event", event });
 }
 
+/**
+ * Geeft een trechterevent van de huurflow door (zie `src/lib/funnel.ts`). Zelfde
+ * poort en secret, zodat de meting geen eigen Supabase-sleutel op de site nodig
+ * heeft; de functie houdt er een aparte teller voor bij.
+ */
+export function sendFunnelEvent(args: Record<string, unknown>): Promise<AvailabilityResult> {
+  return call({ action: "funnel", args });
+}
+
 /** Logt een mislukte oproep zichtbaar genoeg om hem in Vercel terug te vinden. */
 export function logAvailabilityFailure(context: string, result: AvailabilityResult): void {
   if (result.ok) return;

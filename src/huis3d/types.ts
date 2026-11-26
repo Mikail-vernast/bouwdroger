@@ -63,4 +63,9 @@ export interface IsoHouseProps {
   children?: ReactNode;
   /** Furniture that fades away on request (damp simulator: in front of a damp wall). */
   wijk?: Wijk;
+  /**
+   * A cellar under the house (kelder.ts): `actief` -1 opens it. Left out, the house has none
+   * and never loads its textures (the drying simulator).
+   */
+  kelder?: boolean;
 }
