@@ -41,7 +41,7 @@ import { bouwOmgeving } from "./omgeving";
 import { PERIODE_STIJL, periodeVan, type Periode } from "../periode";
 import { useReducedMotion } from "../useReducedMotion";
 import { useTaal } from "../taal";
-import { TEXTUUR, budget3D, heeftStraat, meld, naRust, straatBeelden, voorlaad, type StraatWoning, GRAS_TEXTUUR } from "./bestanden";
+import { TEXTUUR, budget3D, heeftStraat, meld, naRust, straatBeelden, straatMaat, voorlaad, type StraatWoning, GRAS_TEXTUUR } from "./bestanden";
 import Straat3D, { StraatVangnet } from "./straat";
 
 /*
@@ -1471,7 +1471,7 @@ function Scene(props: SceneProps) {
         <StraatVangnet key={st.sleutel}>
           <Suspense fallback={null}>
             <Straat3D
-              woning={st.woning} w={st.w} l={st.l} lagen={st.lagen} periode={st.periode} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"}
+              woning={st.woning} w={st.w} l={st.l} lagen={st.lagen} periode={st.periode} doel={straatMaat(budget3D(), GSM)}
               open={openStand} zicht={{ get current() { return st.zicht.current * straatHoek.current; } }} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)} hoek={hoek} gaten={gaten}
             />
           </Suspense>
