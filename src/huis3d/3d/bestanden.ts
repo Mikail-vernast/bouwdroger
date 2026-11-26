@@ -111,6 +111,24 @@ export function diagNu(): Record<string, string> {
 
 const gevraagd = new Set<string>();
 /** Haalt bestanden op de achtergrond binnen (lage prioriteit), elk hooguit één keer. */
+/**
+ * Runs `fn` once the page has settled: `wacht` ms after now, then in the browser's next idle
+ * moment. For files a later step needs: they must not compete with what is on screen now.
+ * Returns a cancel function, for an effect's cleanup.
+ */
+export function naRust(fn: () => void, wacht = 1200): () => void {
+  let idle = 0;
+  const t = window.setTimeout(() => {
+    idle = typeof window.requestIdleCallback === "function"
+      ? window.requestIdleCallback(fn, { timeout: 3000 })
+      : window.setTimeout(fn, 0);
+  }, wacht);
+  return () => {
+    window.clearTimeout(t);
+    if (idle && typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idle);
+  };
+}
+
 export function voorlaad(urls: readonly string[], als: "image" | "fetch" = "fetch"): void {
   for (const href of urls) {
     if (gevraagd.has(href)) continue;
