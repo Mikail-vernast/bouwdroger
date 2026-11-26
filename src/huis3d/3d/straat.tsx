@@ -96,6 +96,22 @@ function grondMetBeeld(gaten: Vak[], w: number, l: number, vlak: Matrix4): Buffe
   return g;
 }
 
+/** The cut edge round the pit, dark as a section on a drawing: without it the cellar read as a plate over the street. */
+function snijrand(put: Vak, d = 0.09): BufferGeometry {
+  const pos: number[] = [];
+  const vlak = (x0: number, x1: number, z0: number, z1: number) => {
+    const y = 0.008;
+    pos.push(x0, y, z0, x0, y, z1, x1, y, z1, x0, y, z0, x1, y, z1, x1, y, z0);
+  };
+  vlak(put.x0 - d, put.x1 + d, put.z0 - d, put.z0);
+  vlak(put.x0 - d, put.x1 + d, put.z1, put.z1 + d);
+  vlak(put.x0 - d, put.x0, put.z0, put.z1);
+  vlak(put.x1, put.x1 + d, put.z0, put.z1);
+  const g = new BufferGeometry();
+  g.setAttribute("position", new Float32BufferAttribute(pos, 3));
+  return g;
+}
+
 const HEEL = { current: 1 };
 
 function zetKleur(t: Texture) {
@@ -174,6 +190,9 @@ export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zic
     return grondMetBeeld(gaten, w, l, m);
   }, [gaten, w, l, achter]);
   useEffect(() => () => grond?.dispose(), [grond]);
+  const rand = useMemo(() => (gaten?.length ? snijrand(gaten[0]) : null), [gaten]);
+  useEffect(() => () => rand?.dispose(), [rand]);
+  const randRef = useRef<Mesh>(null);
 
   useFrame(() => {
     const m = voorRef.current?.material as MeshBasicMaterial | undefined;
@@ -182,6 +201,7 @@ export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zic
     if (a) a.opacity = zicht.current;
     // Only while the picture stands in full: half faded, the ground would show as a plate.
     if (grondRef.current) grondRef.current.visible = zicht.current > 0.99;
+    if (randRef.current) randRef.current.visible = zicht.current > 0.99;
   });
 
   return (
@@ -194,6 +214,11 @@ export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zic
       {grond && (
         <mesh ref={grondRef} geometry={grond} visible={false}>
           <meshBasicMaterial map={achterTex} toneMapped={false} />
+        </mesh>
+      )}
+      {rand && (
+        <mesh ref={randRef} geometry={rand} visible={false}>
+          <meshBasicMaterial color="#2a2422" />
         </mesh>
       )}
       {/* In front of the house: no depth test, drawn last. */}
