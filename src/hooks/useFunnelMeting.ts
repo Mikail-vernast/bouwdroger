@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
-import type { FunnelEvent, FunnelEventType } from "@/lib/funnel";
+import { cleanUrl, type FunnelEvent, type FunnelEventType } from "@/lib/funnel";
 
 /**
  * Meet de huurflow voor Vernast › Marketing › Conversies: `view` bij het openen
@@ -54,8 +54,9 @@ function send(type: FunnelEventType, step?: number, stepKey?: string): void {
     event_type: type,
     step_index: step,
     step_key: stepKey ?? null,
-    landing_page: window.location.href,
-    referrer: document.referrer || null,
+    // Zonder querystring (op utm na): na Stripe staat er een session_id in.
+    landing_page: cleanUrl(window.location.href, true),
+    referrer: cleanUrl(document.referrer, false),
     device_type: window.matchMedia("(max-width: 768px)").matches ? "mobile" : "desktop",
     utm_source: url.searchParams.get("utm_source"),
     utm_medium: url.searchParams.get("utm_medium"),

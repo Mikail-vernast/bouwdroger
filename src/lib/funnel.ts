@@ -54,6 +54,31 @@ function text(value: unknown, max: number): string | null {
 }
 
 /**
+ * Een adres zonder wat er niet in een meting hoort: alleen origin + pad, plus
+ * de utm-parameters als `keepUtm`. Stripe zet na het betalen een `session_id`
+ * in de adresbalk van de boekingspagina; die mag niet naar Vernast. Geen
+ * geldige URL → null.
+ */
+export function cleanUrl(value: unknown, keepUtm: boolean): string | null {
+  if (typeof value !== "string" || !value) return null;
+  let u: URL;
+  try {
+    u = new URL(value);
+  } catch {
+    return null;
+  }
+  if (u.protocol !== "https:" && u.protocol !== "http:") return null;
+  const out = new URL(u.origin + u.pathname);
+  if (keepUtm) {
+    for (const k of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]) {
+      const v = u.searchParams.get(k);
+      if (v) out.searchParams.set(k, v);
+    }
+  }
+  return out.toString().slice(0, 500);
+}
+
+/**
  * De argumenten voor `track_conversion_funnel`, of null als de aanvraag niet
  * klopt. Externe input: alles wordt hier genarrowd en ingekort, de RPC kort
  * daarna nog eens zelf in.
@@ -86,8 +111,8 @@ export function funnelArgs(body: unknown): Record<string, unknown> | null {
     p_utm_source: text(b.utm_source, 120),
     p_utm_medium: text(b.utm_medium, 120),
     p_utm_campaign: text(b.utm_campaign, 200),
-    p_landing_page: text(b.landing_page, 500),
-    p_referrer: text(b.referrer, 500),
+    p_landing_page: cleanUrl(b.landing_page, true),
+    p_referrer: cleanUrl(b.referrer, false),
     p_device_type: device,
   };
 }
