@@ -1,5 +1,5 @@
-/* The 3D house shared by the simulators (bouwdroger: src/styles/droogsimulator.css, the
-   rules for .ds-iso3d and its room labels). Kept to what the 3D house itself needs. */
+/* What the 3D house itself needs to show: its canvas and room labels. bouwdroger has the same
+   rules in src/styles/droogsimulator.css (with the rest of the page); Vernast imports this file. */
 .ds-iso { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
 .ds-iso3d { transition: opacity 0.4s ease; }
 .ds-iso3d canvas { display: block; }
