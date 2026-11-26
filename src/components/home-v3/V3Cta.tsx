@@ -1,309 +1,156 @@
-import { useState, type ChangeEvent } from "react";
-import { ArrowRightIcon, FileIcon, UploadIcon } from "./icons";
-import { isValidEmail, maskEmail, maskPhone } from "@/lib/inputMask";
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import {
-  MAX_FILES,
-  filterAcceptable,
-  formatFileSize,
-  uploadFormFiles,
-} from "@/lib/formUploads";
+  isValidEmail,
+  isValidHouseNumber,
+  isValidPhone,
+  isValidPostcode,
+  maskEmail,
+  maskHouseNumber,
+  maskName,
+  maskPhone,
+  maskPostcode,
+  maskStreet,
+} from "@/lib/inputMask";
 import { CONTACT } from "@/lib/site";
-import { useCopy, useTaal, type Copy } from "@/i18n/useTaal";
+import { useCopy, useLokaalPad, useTaal } from "@/i18n/useTaal";
+import type { Adres } from "@/lib/adresZoeker";
+import { COPY, SUBJECTS, type Subject } from "./V3Cta.copy";
+import StraatVeld from "./StraatVeld";
+import "@/styles/vraagformulier.css";
 
 /**
- * The closing contact block: address details first, question second.
+ * The closing question form on the homepage.
  *
- * Submitting posts to `/api/vraag`, which forwards the question to the
- * bouwdroger portal in Vernast as a request with source `vraag` (decision of
- * 15-10-2026; it used to become an admin lead via `contact-submission`). Attachments
- * go straight to storage over a signed URL handed out by `/api/vraag-uploads`,
- * so a 10 MB photo never travels through the serverless function.
+ * One card, no steps — the same form as vernast-vochtbestrijding.be/contact,
+ * so the Vernast sites ask a question the same way (decision 23-11-2026).
+ * The previous version asked eight address fields across two steps and kept
+ * its button grey without saying why; visitors read that as a broken form.
  *
- * Every value the visitor typed stays on screen when sending fails: this form
- * used to swallow the whole thing, and losing it twice is worse than once.
+ * Submitting posts to `/api/vraag`. That lands in the bouwdroger portal
+ * (`bouwdroger_requests`) and, via `bouwdroger-request-webhook`, as a lead in
+ * the qualifier's Lead Planner.
+ *
+ * The button never disables on invalid input: clicking shows which field is
+ * wrong. Every value stays on screen when sending fails.
  */
-const SUBJECTS = [
-  "droging_op_maat",
-  "waterschade",
-  "schimmel_geur",
-  "offerte_prijs",
-  "verzekeringsrapport",
-  "andere_vraag",
-] as const;
-type Subject = (typeof SUBJECTS)[number];
 
-/*
-  De waarde van een onderwerp gaat zo naar het portaal en blijft dus in elke
-  taal dezelfde sleutel; alleen het label vertaalt.
-*/
-interface CtaCopy {
-  subjects: Record<Subject, string>;
-  kick: string;
-  h2: string;
-  intro: string;
-  stap1: string;
-  stap2: string;
-  voornaam: string;
-  achternaam: string;
-  telefoon: string;
-  email: string;
-  emailPh: string;
-  straat: string;
-  straatPh: string;
-  nr: string;
-  postcode: string;
-  gemeente: string;
-  gemeentePh: string;
-  volgende: string;
-  onderwerp: string;
-  vraag: string;
-  vraagPh: string;
-  bijlagen: string;
-  bijlagenSub: string;
-  verwijder: string;
-  nietToegevoegd: (namen: string) => string;
-  terug: string;
-  versturen: string;
-  verstuur: string;
-  klaarH3: string;
-  klaarP: string;
-  nietMee: (namen: string) => string;
-  fout: string;
-  foutVerbinding: string;
-}
-
-const COPY = {
-  nl: {
-    subjects: {
-      droging_op_maat: "Droging op maat",
-      waterschade: "Waterschade",
-      schimmel_geur: "Schimmel of geur",
-      offerte_prijs: "Offerte of prijs",
-      verzekeringsrapport: "Rapport voor verzekering",
-      andere_vraag: "Andere vraag",
-    },
-    kick: "Klaar om te starten?",
-    h2: "Uw woning drogen start hier.",
-    intro:
-      "Stel hieronder meteen uw vraag. Foto’s en documenten meesturen mag. Onze droogexperts antwoorden dezelfde werkdag.",
-    stap1: "1. Uw gegevens",
-    stap2: "2. Uw vraag",
-    voornaam: "Voornaam",
-    achternaam: "Achternaam",
-    telefoon: "Telefoon",
-    email: "E-mail",
-    emailPh: "naam@voorbeeld.be",
-    straat: "Straat",
-    straatPh: "Straatnaam",
-    nr: "Nr / bus",
-    postcode: "Postcode",
-    gemeente: "Gemeente",
-    gemeentePh: "Bv. Aartselaar",
-    volgende: "Volgende: uw vraag",
-    onderwerp: "Waarover gaat uw vraag?",
-    vraag: "Uw vraag",
-    vraagPh:
-      "Omschrijf kort uw situatie: welke ruimte, wat is er gebeurd, wanneer moet het droog zijn?",
-    bijlagen: "Foto's of documenten toevoegen",
-    bijlagenSub: "Foto's van de ruimte, plannen of verzekeringsdocumenten (pdf, jpg, png)",
-    verwijder: "Verwijder",
-    nietToegevoegd: (namen) =>
-      `Niet toegevoegd: ${namen}. Alleen jpg, png, webp, pdf of Word; foto's tot 30 MB, documenten tot 10 MB.`,
-    terug: "← Terug",
-    versturen: "Versturen…",
-    verstuur: "Verstuur mijn vraag",
-    klaarH3: "Uw vraag is verstuurd.",
-    klaarP: "Bedankt! Een droogexpert neemt dezelfde werkdag contact met u op. Dringend? Bel",
-    nietMee: (namen) => `Deze bijlagen konden niet mee: ${namen}. Mail ze gerust na naar`,
-    fout: "Verzenden lukte niet. Probeer het opnieuw of bel 03 689 90 65.",
-    foutVerbinding: "Verzenden lukte niet. Controleer uw verbinding en probeer opnieuw.",
-  },
-  fr: {
-    subjects: {
-      droging_op_maat: "Séchage sur mesure",
-      waterschade: "Dégâts des eaux",
-      schimmel_geur: "Moisissures ou odeurs",
-      offerte_prijs: "Devis ou prix",
-      verzekeringsrapport: "Rapport pour l'assurance",
-      andere_vraag: "Autre question",
-    },
-    kick: "Prêt à commencer ?",
-    h2: "Le séchage de votre habitation commence ici.",
-    intro:
-      "Posez directement votre question ci-dessous. Vous pouvez joindre des photos et des documents. Nos experts en séchage répondent le jour ouvrable même.",
-    stap1: "1. Vos coordonnées",
-    stap2: "2. Votre question",
-    voornaam: "Prénom",
-    achternaam: "Nom",
-    telefoon: "Téléphone",
-    email: "E-mail",
-    emailPh: "nom@exemple.be",
-    straat: "Rue",
-    straatPh: "Nom de rue",
-    nr: "N° / boîte",
-    postcode: "Code postal",
-    gemeente: "Commune",
-    gemeentePh: "P. ex. Aartselaar",
-    volgende: "Suivant : votre question",
-    onderwerp: "Sur quoi porte votre question ?",
-    vraag: "Votre question",
-    vraagPh:
-      "Décrivez brièvement votre situation : quelle pièce, que s'est-il passé, pour quand cela doit-il être sec ?",
-    bijlagen: "Ajouter des photos ou des documents",
-    bijlagenSub: "Photos de la pièce, plans ou documents d'assurance (pdf, jpg, png)",
-    verwijder: "Supprimer",
-    nietToegevoegd: (namen) =>
-      `Non ajouté\u202f: ${namen}. Uniquement jpg, png, webp, pdf ou Word\u202f; photos jusqu'à 30 Mo, documents jusqu'à 10 Mo.`,
-    terug: "← Retour",
-    versturen: "Envoi…",
-    verstuur: "Envoyer ma question",
-    klaarH3: "Votre question a été envoyée.",
-    klaarP: "Merci ! Un expert en séchage vous contacte le jour ouvrable même. Urgent ? Appelez le",
-    nietMee: (namen) => `Ces pièces jointes n'ont pas pu être envoyées\u202f: ${namen}. N'hésitez pas à les envoyer par e-mail à`,
-    fout: "L'envoi n'a pas abouti. Réessayez ou appelez le 03 689 90 65.",
-    foutVerbinding: "L'envoi n'a pas abouti. Vérifiez votre connexion et réessayez.",
-  },
-  en: {
-    subjects: {
-      droging_op_maat: "Tailored drying",
-      waterschade: "Water damage",
-      schimmel_geur: "Mould or odour",
-      offerte_prijs: "Quote or price",
-      verzekeringsrapport: "Report for insurance",
-      andere_vraag: "Other question",
-    },
-    kick: "Ready to start?",
-    h2: "Drying your home starts here.",
-    intro:
-      "Ask your question below straight away. You are welcome to send photos and documents. Our drying experts reply the same working day.",
-    stap1: "1. Your details",
-    stap2: "2. Your question",
-    voornaam: "First name",
-    achternaam: "Surname",
-    telefoon: "Phone",
-    email: "Email",
-    emailPh: "name@example.be",
-    straat: "Street",
-    straatPh: "Street name",
-    nr: "No. / box",
-    postcode: "Postcode",
-    gemeente: "Town",
-    gemeentePh: "E.g. Aartselaar",
-    volgende: "Next: your question",
-    onderwerp: "What is your question about?",
-    vraag: "Your question",
-    vraagPh: "Briefly describe your situation: which room, what happened, when does it need to be dry?",
-    bijlagen: "Add photos or documents",
-    bijlagenSub: "Photos of the room, plans or insurance documents (pdf, jpg, png)",
-    verwijder: "Remove",
-    nietToegevoegd: (namen) =>
-      `Not added: ${namen}. Only jpg, png, webp, pdf or Word; photos up to 30 MB, documents up to 10 MB.`,
-    terug: "← Back",
-    versturen: "Sending…",
-    verstuur: "Send my question",
-    klaarH3: "Your question has been sent.",
-    klaarP: "Thank you! A drying expert will contact you the same working day. Urgent? Call",
-    nietMee: (namen) => `These attachments could not be sent: ${namen}. Feel free to email them to`,
-    fout: "Sending failed. Please try again or call +32 3 689 90 65.",
-    foutVerbinding: "Sending failed. Please check your connection and try again.",
-  },
-} satisfies Copy<CtaCopy>;
-
-/*
-  De bijlagen gaan via `src/lib/formUploads.ts` naar storage — dezelfde module
-  als het ozonformulier op /ozonbehandeling. De grenzen en de reden erachter
-  staan daar; ze hoorden niet twee keer in de app te staan.
-*/
-
-interface Details {
-  voornaam: string;
+interface Fields {
   naam: string;
-  tel: string;
   mail: string;
+  tel: string;
   straat: string;
   nr: string;
   post: string;
   gemeente: string;
+  bericht: string;
 }
 
-const EMPTY: Details = {
-  voornaam: "",
-  naam: "",
-  tel: "",
-  mail: "",
-  straat: "",
-  nr: "",
-  post: "",
-  gemeente: "",
+type Field = keyof Fields;
+type Errors = Partial<Record<Field, string>>;
+
+const EMPTY: Fields = { naam: "", mail: "", tel: "", straat: "", nr: "", post: "", gemeente: "", bericht: "" };
+
+/** Every field except the message is formatted while typing. */
+const MASKS: Partial<Record<Field, (value: string) => string>> = {
+  naam: maskName,
+  mail: maskEmail,
+  tel: maskPhone,
+  straat: maskStreet,
+  nr: maskHouseNumber,
+  post: maskPostcode,
+  gemeente: maskName,
 };
 
-/** Phone and e-mail run through their mask; the rest is typed as-is. */
-const MASKS: Partial<Record<keyof Details, (value: string) => string>> = {
-  tel: maskPhone,
-  mail: maskEmail,
-};
+/** "Jan Van den Broeck" → ["Jan", "Van den Broeck"]; the API joins them again. */
+function splitName(full: string): [string, string] {
+  const [first = "", ...rest] = full.trim().split(/\s+/);
+  return [first, rest.join(" ")];
+}
 
 const V3Cta = () => {
-  const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [details, setDetails] = useState<Details>(EMPTY);
   const t = useCopy(COPY);
   const taal = useTaal();
-  const [subject, setSubject] = useState<string>(SUBJECTS[0]);
-  const [message, setMessage] = useState("");
-  const [files, setFiles] = useState<File[]>([]);
+  const lp = useLokaalPad();
+
+  const [fields, setFields] = useState<Fields>(EMPTY);
+  const [subject, setSubject] = useState<Subject>(SUBJECTS[0]);
+  const [errors, setErrors] = useState<Errors>({});
   const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [skipped, setSkipped] = useState<string[]>([]);
   const [honeypot, setHoneypot] = useState("");
 
-  const set = (key: keyof Details) => (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setDetails((current) => ({ ...current, [key]: MASKS[key]?.(value) ?? value }));
+  const validate = (values: Fields): Errors => {
+    const found: Errors = {};
+    if (values.naam.trim().length < 2) found.naam = t.errNaam;
+    if (!isValidEmail(values.mail)) found.mail = t.errEmail;
+    // Phone is optional, but a half-typed number is worse than none.
+    if (values.tel.trim() && !isValidPhone(values.tel)) found.tel = t.errTelefoon;
+    // The address is required: a drying job needs a site, and the qualifier
+    // cannot plan a visit for a lead without one (trg_sap_require_address).
+    if (values.straat.trim().length < 2) found.straat = t.errStraat;
+    if (!isValidHouseNumber(values.nr)) found.nr = t.errNummer;
+    if (!isValidPostcode(values.post)) found.post = t.errPostcode;
+    if (values.gemeente.trim().length < 2) found.gemeente = t.errGemeente;
+    if (values.bericht.trim().length < 5) found.bericht = t.errBericht;
+    return found;
   };
 
-  /*
-    De Vernast-inbox herkent een bestaande lead op het e-mailadres, dus zonder
-    adres kan de vraag niet door. Het formulier vroeg eerder telefoon óf mail;
-    mail is nu de harde eis en het telefoonnummer blijft optioneel.
-  */
-  const detailsComplete =
-    details.voornaam.trim().length > 1 &&
-    details.naam.trim().length > 1 &&
-    isValidEmail(details.mail) &&
-    details.post.trim().length > 3 &&
-    details.gemeente.trim().length > 1;
-
-  const addFiles = (event: ChangeEvent<HTMLInputElement>) => {
-    const { accepted, rejected } = filterAcceptable(Array.from(event.target.files ?? []));
-
-    setSkipped(rejected);
-    setFiles((current) => [...current, ...accepted].slice(0, MAX_FILES));
-    event.target.value = "";
+  const set = (key: Field) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const raw = event.target.value;
+    const value = MASKS[key]?.(raw) ?? raw;
+    setFields((current) => ({ ...current, [key]: value }));
+    // Clear a field's error as soon as it is fixed, not on the next submit.
+    if (errors[key]) setErrors((current) => ({ ...current, [key]: undefined }));
   };
 
-  const submit = async () => {
+  // A picked suggestion fills the whole address; a field the service leaves
+  // empty keeps what the visitor already typed.
+  const kiesAdres = (adres: Adres) => {
+    setFields((current) => ({
+      ...current,
+      straat: maskStreet(adres.straat) || current.straat,
+      nr: maskHouseNumber(adres.nr) || current.nr,
+      post: maskPostcode(adres.postcode) || current.post,
+      gemeente: maskName(adres.gemeente) || current.gemeente,
+    }));
+    setErrors((current) => ({ ...current, straat: undefined, nr: undefined, post: undefined, gemeente: undefined }));
+    // A street without a number: the number is the one thing still missing.
+    if (!adres.nr && !fields.nr) document.getElementById("ct-nr")?.focus();
+  };
+
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const found = validate(fields);
+    setErrors(found);
+    const first = (Object.keys(found) as Field[])[0];
+    if (first) {
+      document.getElementById(`ct-${first}`)?.focus();
+      return;
+    }
+
     setSending(true);
     setError(null);
-    setSkipped([]);
+    const [voornaam, achternaam] = splitName(fields.naam);
 
     try {
-      const { paths, failed } = await uploadFormFiles(files);
-
       const response = await fetch("/api/vraag", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          voornaam: details.voornaam,
-          achternaam: details.naam,
-          email: details.mail,
-          telefoon: details.tel,
-          straat: details.straat,
-          nummer: details.nr,
-          postcode: details.post,
-          gemeente: details.gemeente,
+          voornaam,
+          achternaam,
+          // maskName keeps a trailing space while typing; splitName already trims.
+          email: fields.mail,
+          telefoon: fields.tel,
+          straat: fields.straat.trim(),
+          nummer: fields.nr.trim(),
+          postcode: fields.post,
+          gemeente: fields.gemeente.trim(),
           onderwerp: subject,
-          bericht: message,
-          attachments: paths,
+          bericht: fields.bericht.trim(),
+          attachments: [],
           page_url: typeof window === "undefined" ? null : window.location.href,
           website: honeypot,
         }),
@@ -311,20 +158,41 @@ const V3Cta = () => {
 
       if (!response.ok) {
         const data = (await response.json().catch(() => ({}))) as { error?: string };
-        /* De foutmelding van `api/vraag.ts` is Nederlands; op een Franse
-           pagina tonen we liever de algemene Franse melding. */
+        // The API answers in Dutch; other languages get their own generic line.
         setError((taal === "nl" ? data.error : undefined) ?? t.fout);
         return;
       }
-
-      setSkipped(failed);
-      setStep(3);
+      setSent(true);
     } catch {
       setError(t.foutVerbinding);
     } finally {
       setSending(false);
     }
   };
+
+  const input = (
+    key: Field,
+    props: { label: string; required?: boolean; placeholder?: string; type?: string; autoComplete?: string; inputMode?: "tel" | "email" | "numeric" },
+  ) => (
+    <div className={errors[key] ? "vq-f is-err" : "vq-f"} key={key}>
+      <label htmlFor={`ct-${key}`}>
+        {props.label} {props.required && <span className="vq-req">*</span>}
+      </label>
+      <input
+        id={`ct-${key}`}
+        type={props.type ?? "text"}
+        autoComplete={props.autoComplete}
+        inputMode={props.inputMode}
+        placeholder={props.placeholder}
+        value={fields[key]}
+        onChange={set(key)}
+        aria-invalid={errors[key] ? true : undefined}
+        aria-describedby={errors[key] ? `ct-${key}-err` : undefined}
+        {...(key === "mail" ? { autoCapitalize: "none", spellCheck: false } : {})}
+      />
+      {errors[key] && <span className="vq-err" id={`ct-${key}-err`}>{errors[key]}</span>}
+    </div>
+  );
 
   return (
     <section className="cta" id="contact">
@@ -335,241 +203,98 @@ const V3Cta = () => {
           <p>{t.intro}</p>
         </div>
 
-        <div className="cta-r">
-          <div className="cform" id="cform">
-            <div className="cf-steps">
-              <span className={step === 1 ? "on" : undefined}>{t.stap1}</span>
-              <span className={step === 2 ? "on" : undefined}>{t.stap2}</span>
+        <div className="cta-r vq-r">
+          {sent ? (
+            <div className="vq-card vq-done" id="cform" role="status">
+              <span className="vq-check" aria-hidden="true">✓</span>
+              <h3>{t.klaarH3}</h3>
+              <p>
+                {t.klaarP} <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneLocal}</a>.
+              </p>
             </div>
+          ) : (
+            <form className="vq-card" id="cform" noValidate onSubmit={submit}>
+              <div className="vq-grid">
+                {input("naam", { label: t.naam, required: true, placeholder: t.naamPh, autoComplete: "name" })}
+                {input("mail", { label: t.email, required: true, placeholder: t.emailPh, type: "email", autoComplete: "email", inputMode: "email" })}
+                {input("tel", { label: t.telefoon, placeholder: "0470 00 00 00", type: "tel", autoComplete: "tel", inputMode: "tel" })}
 
-            {step === 1 && (
-              <div className="cf-p">
-                <div className="cf-row two">
-                  <div className="cf-f">
-                    <label htmlFor="ctVoor">{t.voornaam}</label>
-                    <input
-                      type="text"
-                      id="ctVoor"
-                      autoComplete="given-name"
-                      placeholder={t.voornaam}
-                      value={details.voornaam}
-                      onChange={set("voornaam")}
-                    />
-                  </div>
-                  <div className="cf-f">
-                    <label htmlFor="ctNaam">{t.achternaam}</label>
-                    <input
-                      type="text"
-                      id="ctNaam"
-                      autoComplete="family-name"
-                      placeholder={t.achternaam}
-                      value={details.naam}
-                      onChange={set("naam")}
-                    />
-                  </div>
-                </div>
-                <div className="cf-row two">
-                  <div className="cf-f">
-                    <label htmlFor="ctTel">{t.telefoon}</label>
-                    <input
-                      type="tel"
-                      id="ctTel"
-                      autoComplete="tel"
-                      inputMode="tel"
-                      placeholder="0470 00 00 00"
-                      value={details.tel}
-                      onChange={set("tel")}
-                    />
-                  </div>
-                  <div className="cf-f">
-                    <label htmlFor="ctMail">{t.email}</label>
-                    <input
-                      type="email"
-                      id="ctMail"
-                      autoComplete="email"
-                      inputMode="email"
-                      autoCapitalize="none"
-                      spellCheck={false}
-                      placeholder={t.emailPh}
-                      value={details.mail}
-                      onChange={set("mail")}
-                    />
-                  </div>
-                </div>
-                <div className="cf-row two" style={{ gridTemplateColumns: "1.6fr .6fr" }}>
-                  <div className="cf-f">
-                    <label htmlFor="ctStraat">{t.straat}</label>
-                    <input
-                      type="text"
-                      id="ctStraat"
-                      autoComplete="address-line1"
-                      placeholder={t.straatPh}
-                      value={details.straat}
-                      onChange={set("straat")}
-                    />
-                  </div>
-                  <div className="cf-f">
-                    <label htmlFor="ctNr">{t.nr}</label>
-                    <input
-                      type="text"
-                      id="ctNr"
-                      placeholder="12 / A"
-                      value={details.nr}
-                      onChange={set("nr")}
-                    />
-                  </div>
-                </div>
-                <div className="cf-row two" style={{ gridTemplateColumns: ".6fr 1.6fr" }}>
-                  <div className="cf-f">
-                    <label htmlFor="ctPost">{t.postcode}</label>
-                    <input
-                      type="text"
-                      id="ctPost"
-                      inputMode="numeric"
-                      autoComplete="postal-code"
-                      placeholder="2630"
-                      value={details.post}
-                      onChange={set("post")}
-                    />
-                  </div>
-                  <div className="cf-f">
-                    <label htmlFor="ctGem">{t.gemeente}</label>
-                    <input
-                      type="text"
-                      id="ctGem"
-                      autoComplete="address-level2"
-                      placeholder={t.gemeentePh}
-                      value={details.gemeente}
-                      onChange={set("gemeente")}
-                    />
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="btn btn-red cf-next"
-                  disabled={!detailsComplete}
-                  onClick={() => setStep(2)}
-                >
-                  {t.volgende} <ArrowRightIcon size={13} strokeWidth={2.6} />
-                </button>
-              </div>
-            )}
-
-            {step === 2 && (
-              <div className="cf-p">
-                <div className="cf-f">
-                  <label htmlFor="ctSub">{t.onderwerp}</label>
+                <div className="vq-f">
+                  <label htmlFor="ct-onderwerp">{t.onderwerp}</label>
                   <select
-                    id="ctSub"
+                    id="ct-onderwerp"
                     value={subject}
-                    onChange={(event) => setSubject(event.target.value)}
+                    onChange={(event) => setSubject(event.target.value as Subject)}
                   >
-                    {SUBJECTS.map((option) => (
-                      <option key={option} value={option}>
-                        {t.subjects[option]}
+                    {SUBJECTS.map((value) => (
+                      <option key={value} value={value}>
+                        {t.subjects[value]}
                       </option>
                     ))}
                   </select>
                 </div>
-                <div className="cf-f">
-                  <label htmlFor="ctMsg">{t.vraag}</label>
+
+                <div className="vq-pair vq-pair-straat vq-full">
+                  <StraatVeld
+                    value={fields.straat}
+                    nr={fields.nr}
+                    label={t.straat}
+                    placeholder={t.straatPh}
+                    lijstLabel={t.adresSuggesties}
+                    error={errors.straat}
+                    onChange={set("straat")}
+                    onKies={kiesAdres}
+                  />
+                  {input("nr", { label: t.nummer, required: true, placeholder: "12", autoComplete: "off" })}
+                </div>
+                <div className="vq-pair vq-pair-gemeente vq-full">
+                  {input("post", { label: t.postcode, required: true, placeholder: "2630", autoComplete: "postal-code" })}
+                  {input("gemeente", { label: t.gemeente, required: true, placeholder: t.gemeentePh, autoComplete: "address-level2" })}
+                </div>
+
+                <div className={errors.bericht ? "vq-f vq-full is-err" : "vq-f vq-full"}>
+                  <label htmlFor="ct-bericht">
+                    {t.bericht} <span className="vq-req">*</span>
+                  </label>
                   <textarea
-                    id="ctMsg"
-                    rows={4}
-                    placeholder={t.vraagPh}
-                    value={message}
-                    onChange={(event) => setMessage(event.target.value)}
+                    id="ct-bericht"
+                    rows={5}
+                    maxLength={4000}
+                    placeholder={t.berichtPh}
+                    value={fields.bericht}
+                    onChange={set("bericht")}
+                    aria-invalid={errors.bericht ? true : undefined}
+                    aria-describedby={errors.bericht ? "ct-bericht-err" : undefined}
                   />
-                </div>
-                <label className="cf-drop" htmlFor="ctFiles">
-                  <UploadIcon />
-                  <b>{t.bijlagen}</b>
-                  <small>{t.bijlagenSub}</small>
-                  <input
-                    type="file"
-                    id="ctFiles"
-                    multiple
-                    accept="image/*,.pdf,.doc,.docx"
-                    onChange={addFiles}
-                  />
-                </label>
-                <div className="cf-files">
-                  {files.map((file, i) => (
-                    <div className="cfile" key={`${file.name}-${i}`}>
-                      <FileIcon />
-                      <b>{file.name}</b>
-                      <span>{formatFileSize(file.size)}</span>
-                      <button
-                        type="button"
-                        aria-label={t.verwijder}
-                        onClick={() => setFiles((current) => current.filter((_, j) => j !== i))}
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                {skipped.length > 0 && (
-                  <p className="cf-note" role="status">
-                    {t.nietToegevoegd(skipped.join(", "))}
-                  </p>
-                )}
-                {error && (
-                  <p className="cf-error" role="alert">
-                    {error}
-                  </p>
-                )}
-
-                {/* Honeypot: onzichtbaar voor bezoekers, ingevuld door bots. */}
-                <input
-                  type="text"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  aria-hidden="true"
-                  value={honeypot}
-                  onChange={(event) => setHoneypot(event.target.value)}
-                  style={{ position: "absolute", left: "-9999px", width: 1, height: 1 }}
-                />
-
-                <div className="cf-nav">
-                  <button
-                    type="button"
-                    className="cf-back"
-                    disabled={sending}
-                    onClick={() => setStep(1)}
-                  >
-                    {t.terug}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-red"
-                    disabled={message.trim().length < 5 || sending}
-                    onClick={submit}
-                  >
-                    {sending ? t.versturen : t.verstuur}
-                  </button>
+                  {errors.bericht && <span className="vq-err" id="ct-bericht-err">{errors.bericht}</span>}
                 </div>
               </div>
-            )}
 
-            {step === 3 && (
-              <div className="cf-p">
-                <div className="cf-done">
-                  <span>✓</span>
-                  <h3>{t.klaarH3}</h3>
-                  <p>
-                    {t.klaarP} <a href="tel:+3236899065">03 689 90 65</a>.
-                  </p>
-                  {skipped.length > 0 && (
-                    <p className="cf-note">
-                      {t.nietMee(skipped.join(", "))}{" "}
-                      <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
+              {/* Honeypot: invisible to visitors, filled in by bots. */}
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={honeypot}
+                onChange={(event) => setHoneypot(event.target.value)}
+                style={{ position: "absolute", left: "-9999px", width: 1, height: 1 }}
+              />
+
+              {error && <p className="vq-error" role="alert">{error}</p>}
+
+              <button type="submit" className="vq-send" disabled={sending}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="m22 2-7 20-4-9-9-4z" />
+                  <path d="M22 2 11 13" />
+                </svg>
+                {sending ? t.versturen : t.verstuur}
+              </button>
+              <p className="vq-legal">
+                {t.privacy} <Link to={lp("/privacy")}>{t.privacyLink}</Link>.
+              </p>
+            </form>
+          )}
         </div>
       </div>
     </section>

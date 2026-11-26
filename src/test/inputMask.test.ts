@@ -1,5 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { isValidEmail, isValidPhone, maskEmail, maskPhone, normalizePhone } from "@/lib/inputMask";
+import {
+  isValidEmail,
+  isValidHouseNumber,
+  isValidPhone,
+  isValidPostcode,
+  maskEmail,
+  maskHouseNumber,
+  maskName,
+  maskPhone,
+  maskPostcode,
+  maskStreet,
+  normalizePhone,
+} from "@/lib/inputMask";
 
 describe("maskPhone", () => {
   it("groepeert een gsm-nummer terwijl je typt", () => {
@@ -74,5 +86,75 @@ describe("isValidEmail", () => {
     expect(isValidEmail("jan@voorbeeld")).toBe(false);
     expect(isValidEmail("jan.voorbeeld.be")).toBe(false);
     expect(isValidEmail("@voorbeeld.be")).toBe(false);
+  });
+});
+
+describe("maskPostcode", () => {
+  it("keeps a Belgian postcode at four digits", () => {
+    expect(maskPostcode("2500")).toBe("2500");
+    expect(maskPostcode("25001")).toBe("2500");
+    expect(maskPostcode("b-2500")).toBe("2500");
+  });
+
+  it("formats a Dutch postcode as 1234 AB", () => {
+    expect(maskPostcode("1234ab")).toBe("1234 AB");
+    expect(maskPostcode("1234 a")).toBe("1234 A");
+    expect(maskPostcode("1234abc")).toBe("1234 AB");
+    expect(maskPostcode("NL-1234 ab")).toBe("1234 AB");
+  });
+
+  it("drops letters that come before four digits", () => {
+    expect(maskPostcode("12a")).toBe("12");
+  });
+});
+
+describe("isValidPostcode", () => {
+  it("accepts BE and NL, rejects the rest", () => {
+    expect(isValidPostcode("2500")).toBe(true);
+    expect(isValidPostcode("1234 AB")).toBe(true);
+    expect(isValidPostcode("0250")).toBe(false);
+    expect(isValidPostcode("250")).toBe(false);
+    expect(isValidPostcode("1234 A")).toBe(false);
+  });
+});
+
+describe("maskName", () => {
+  it("keeps letters, accents, hyphens and apostrophes", () => {
+    expect(maskName("Jean-Pierre D'Hondt")).toBe("Jean-Pierre D'Hondt");
+    expect(maskName("Zoë Çelik")).toBe("Zoë Çelik");
+  });
+
+  it("drops digits and symbols, and collapses spaces", () => {
+    expect(maskName("Jan2 Peeters!")).toBe("Jan Peeters");
+    expect(maskName("  Jan   Peeters")).toBe("Jan Peeters");
+  });
+
+  it("keeps a trailing space so the next word can be typed", () => {
+    expect(maskName("Jan ")).toBe("Jan ");
+  });
+});
+
+describe("maskStreet", () => {
+  it("laat cijfers en leestekens van een straatnaam staan", () => {
+    expect(maskStreet("Rue du 1er Mai")).toBe("Rue du 1er Mai");
+    expect(maskStreet("  Sint-Jansplein;")).toBe("Sint-Jansplein");
+  });
+});
+
+describe("maskHouseNumber", () => {
+  it("houdt nummer en toevoeging, in hoofdletters", () => {
+    expect(maskHouseNumber("12a")).toBe("12A");
+    expect(maskHouseNumber("12/3")).toBe("12/3");
+    expect(maskHouseNumber("12 bus 3")).toBe("12 bus 3");
+  });
+  it("begint altijd met een cijfer", () => {
+    expect(maskHouseNumber("nr 5")).toBe("5");
+  });
+});
+
+describe("isValidHouseNumber", () => {
+  it("eist minstens één cijfer vooraan", () => {
+    expect(isValidHouseNumber("7")).toBe(true);
+    expect(isValidHouseNumber("")).toBe(false);
   });
 });

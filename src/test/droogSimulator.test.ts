@@ -8,6 +8,7 @@
  */
 import { describe, expect, it } from "vitest";
 import {
+  BREEDTES,
   LAGEN_PER_FASE,
   MAX_KAMERS,
   MAX_VERDIEPINGEN,
@@ -18,13 +19,16 @@ import {
   kamersVoor,
   laagSoort,
   maxKamers,
+  maxKamersBijOppervlakte,
   planVoor,
   programmaVan,
   plaatsToestellen,
   standaardProgramma,
   simResultaat,
   snapOppervlakte,
+  geschatteOppervlakte,
   toPackageConfig,
+  woningBreedte,
   type Dak,
   type Kamer,
   type SimAnswers,
@@ -128,13 +132,74 @@ describe("snapOppervlakte", () => {
   });
 });
 
-describe("kamersVoor", () => {
-  it("vult elke bouwlaag precies, zonder overlap en binnen de gevels", () => {
+describe("woningBreedte", () => {
+  it("tekent de standaardoppervlakte op de standaardbreedte (`WONING.w`)", () => {
     for (const woning of WONINGEN) {
+      expect(BREEDTES[woning]).toContain(WONING[woning].w);
+      const m2 = Math.round(WONING[woning].w * WONING[woning].l * 0.85 * 2);
+      expect(woningBreedte(woning, String(m2), 2), woning).toBe(WONING[woning].w);
+    }
+  });
+
+  it("maakt het huis bij elke stand van de schuif een stap breder of smaller", () => {
+    for (const woning of WONINGEN) for (let lagen = 1; lagen <= 3; lagen++) {
+      const b = SIZE_VALUES.map((s) => woningBreedte(woning, s, lagen));
+      const start = SIZE_VALUES.indexOf(snapOppervlakte(geschatteOppervlakte(woning, lagen)));
+      expect(b[start], `${woning} ${lagen}`).toBe(WONING[woning].w);
+      for (let i = 1; i < b.length; i++) {
+        expect(b[i], `${woning} ${lagen} ${SIZE_VALUES[i]}`).toBeGreaterThanOrEqual(b[i - 1]);
+        // Binnen het bereik van de breedtes verandert elke stand iets.
+        if (b[i - 1] > BREEDTES[woning][0] && b[i] < BREEDTES[woning][BREEDTES[woning].length - 1])
+          expect(b[i], `${woning} ${lagen} ${SIZE_VALUES[i]}`).toBeGreaterThan(b[i - 1]);
+      }
+    }
+  });
+
+  it("geeft maatwerk de breedste stap", () => {
+    expect(woningBreedte("halfopen", "custom", 2)).toBe(10);
+    expect(woningBreedte("rijwoning", "custom", 1)).toBe(9);
+  });
+});
+
+describe("maxKamersBijOppervlakte", () => {
+  it("laat een kleine woning geen acht kamers hebben", () => {
+    // 40 m² over twee lagen = 20 m² per laag: twee ruimtes per laag.
+    expect(maxKamersBijOppervlakte("40", 2)).toBe(2);
+    expect(maxKamersBijOppervlakte("40", 2) * 2).toBeLessThan(8);
+  });
+
+  it("legt een gewone woning geen grens op die de gevel niet al oplegt", () => {
+    // De standaard halfopen (± 140 m², 2 lagen) houdt zijn standaardindeling.
+    for (let v = 0; v < 2; v++) {
+      expect(maxKamersBijOppervlakte("140", 2)).toBeGreaterThanOrEqual(aantalKamers(standaardProgramma("halfopen", v, 2, "zadeldak")));
+    }
+  });
+
+  it("blijft tussen MIN_KAMERS en MAX_KAMERS, en maatwerk heeft geen grens", () => {
+    for (const s of SIZE_VALUES) for (let l = 1; l <= MAX_VERDIEPINGEN; l++) {
+      const n = maxKamersBijOppervlakte(s, l);
+      expect(n).toBeGreaterThanOrEqual(MIN_KAMERS);
+      expect(n).toBeLessThanOrEqual(MAX_KAMERS);
+    }
+    expect(maxKamersBijOppervlakte("custom", 2)).toBe(MAX_KAMERS);
+  });
+
+  it("geeft een grotere oppervlakte nooit minder ruimtes", () => {
+    const maten = SIZE_VALUES.map(Number).sort((a, b) => a - b);
+    for (let i = 1; i < maten.length; i++) {
+      expect(maxKamersBijOppervlakte(String(maten[i]), 2)).toBeGreaterThanOrEqual(maxKamersBijOppervlakte(String(maten[i - 1]), 2));
+    }
+  });
+});
+
+describe("kamersVoor", () => {
+  it("vult elke bouwlaag precies, zonder overlap en binnen de gevels, bij elke gevelbreedte", { timeout: 60_000 }, () => {
+    for (const woning of WONINGEN) {
+      for (const b of BREEDTES[woning])
       for (const dak of DAKEN) {
         for (let lagen = 1; lagen <= MAX_VERDIEPINGEN; lagen++) {
          for (let n = MIN_KAMERS; n <= MAX_KAMERS + 1; n++) {
-          const kamers = kamersVoor(woning, lagen, dak, Array(lagen).fill(n));
+          const kamers = kamersVoor(woning, lagen, dak, Array(lagen).fill(n), b);
           const xs = kamers.map((k) => k.x + k.w);
           const zs = kamers.map((k) => k.z + k.l);
           const w = Math.max(...xs);
@@ -144,12 +209,13 @@ describe("kamersVoor", () => {
             // Boven het maximum wordt afgekapt, niet stil genegeerd. Hal, gang
             // en overloop komen erbij en tellen niet mee.
             // Wat niet past (minimale breedte per ruimte) valt weg; maxKamers zegt hoeveel dat is.
-            expect(laag.filter((k) => k.soort === "kamer").length, `${woning} ${dak} laag ${v}`).toBe(Math.min(n, maxKamers(woning, v, lagen, dak)));
+            expect(laag.filter((k) => k.soort === "kamer").length, `${woning} ${b} ${dak} laag ${v}`).toBe(Math.min(n, maxKamers(woning, v, lagen, dak, b)));
             // Een open zolder is één ruimte met de trap erin: daar is geen overloop.
             const openZolder = laag.length === 1 && laag[0].naam === "Zolder";
             expect(openZolder || laag.some((k) => k.soort === "circulatie")).toBe(true);
             const som = laag.reduce((s, k) => s + k.w * k.l, 0);
-            expect(som, `${woning} ${dak} ${lagen} laag ${v}`).toBeCloseTo(w * l, 6);
+            expect(som, `${woning} ${b} ${dak} ${lagen} laag ${v}`).toBeCloseTo(w * l, 6);
+            expect(w).toBeCloseTo(b, 6);
             for (const k of laag) {
               expect(k.x).toBeGreaterThanOrEqual(0);
               expect(k.z).toBeGreaterThanOrEqual(0);
@@ -175,7 +241,7 @@ describe("kamersVoor", () => {
     const kamers = kamersVoor("halfopen", 2, "zadeldak").filter((k) => k.soort === "kamer");
     expect(kamers.filter((k) => k.verdieping === 0)).toHaveLength(3);
     expect(kamers.filter((k) => k.verdieping === 1)).toHaveLength(4);
-    expect(kamers[0].naam).toBe("Leefruimte");
+    expect(kamers.some((k) => k.verdieping === 0 && k.naam === "Leefruimte")).toBe(true);
   });
 });
 
@@ -245,8 +311,11 @@ describe("planVoor", () => {
             for (const o of plan.openingen) {
               expect(o.tot).toBeGreaterThan(o.van);
               if (o.soort === "voordeur") {
-                expect(o.vast).toBe(l);
-                const hal = plan.kamers.find((k) => k.verdieping === o.verdieping && k.soort === "circulatie" && k.z + k.l === l && k.x <= o.van && k.x + k.w >= o.tot);
+                // Een appartement komt binnen via de trappenhal links (linkerwand, x = 0).
+                const hal = woning === "appartement"
+                  ? plan.kamers.find((k) => k.verdieping === o.verdieping && k.soort === "circulatie" && k.x === 0 && k.z <= o.van && k.z + k.l >= o.tot)
+                  : plan.kamers.find((k) => k.verdieping === o.verdieping && k.soort === "circulatie" && k.z + k.l === l && k.x <= o.van && k.x + k.w >= o.tot);
+                expect(o.vast).toBe(woning === "appartement" ? 0 : l);
                 expect(hal, `${woning} voordeur zonder hal`).toBeDefined();
                 continue;
               }
@@ -264,9 +333,32 @@ describe("planVoor", () => {
             }
             // gelijkvloers heeft altijd een voordeur; een trap zodra er meer dan één laag is
             expect(plan.openingen.filter((o) => o.verdieping === 0 && o.soort === "voordeur")).toHaveLength(1);
-            expect(plan.trappen).toHaveLength(lagen > 1 ? lagen : 0);
+            // één trap per verdieping erboven, en boven elke trap zijn trapgat
+            expect(plan.trappen).toHaveLength(2 * (lagen - 1));
           }
         }
+      }
+    }
+  });
+
+  it("legt de voordeur van een appartement in de linkerwand, op de hal, en niet in de gevel", () => {
+    for (let lagen = 1; lagen <= 2; lagen++) {
+      for (let n = 1; n <= MAX_KAMERS; n++) {
+        const p = standaardProgramma("appartement", 0, lagen, "plat");
+        const plan = planVoor("appartement", lagen, "plat", [aantalKamers(p) === n ? p : undefined]);
+        const deuren = plan.openingen.filter((o) => o.soort === "voordeur");
+        expect(deuren).toHaveLength(1);
+        const [d] = deuren;
+        expect(d).toMatchObject({ verdieping: 0, as: "z", vast: 0 });
+        expect(d.tot - d.van).toBeGreaterThanOrEqual(0.85);
+        // geen voordeur in de voorgevel, ook niet op een andere laag
+        expect(plan.openingen.some((o) => o.as === "x" && o.vast === WONING.appartement.l && o.soort === "voordeur")).toBe(false);
+        // de hal raakt de linkerwand over de volle breedte van de deur
+        const hal = plan.kamers.find((k) => k.verdieping === 0 && k.naam === "Hal");
+        expect(hal, `hal bij ${lagen} lagen, ${n} kamers`).toBeDefined();
+        expect(hal!.x).toBe(0);
+        expect(hal!.z).toBeLessThanOrEqual(d.van);
+        expect(hal!.z + hal!.l).toBeGreaterThanOrEqual(d.tot);
       }
     }
   });
@@ -289,13 +381,13 @@ describe("planVoor", () => {
     expect(RUIMTES.boven.find((o) => o.naam === "Slaapkamer")!.min).toBe(1);
   });
 
-  it("geeft elke ruimte minstens haar minimale breedte, en past de standaardindeling altijd", () => {
-    for (const woning of WONINGEN) for (const dak of DAKEN) for (let lagen = 1; lagen <= MAX_VERDIEPINGEN; lagen++) {
+  it("geeft elke ruimte minstens haar minimale breedte, en past de standaardindeling altijd, bij elke gevelbreedte", () => {
+    for (const woning of WONINGEN) for (const b of BREEDTES[woning]) for (const dak of DAKEN) for (let lagen = 1; lagen <= MAX_VERDIEPINGEN; lagen++) {
       for (let v = 0; v < lagen; v++) {
         const soort = laagSoort(woning, v, lagen, dak);
-        expect(aantalKamers(standaardProgramma(woning, v, lagen, dak)), `${woning} ${lagen} laag ${v}`).toBeLessThanOrEqual(maxKamers(woning, v, lagen, dak));
-        const n = maxKamers(woning, v, lagen, dak);
-        const plan = planVoor(woning, lagen, dak, Array.from({ length: lagen }, (_, i) => (i === v ? programmaVan(soort, n, lagen) : undefined)));
+        expect(aantalKamers(standaardProgramma(woning, v, lagen, dak, b)), `${woning} ${b} ${lagen} laag ${v}`).toBeLessThanOrEqual(maxKamers(woning, v, lagen, dak, b));
+        const n = maxKamers(woning, v, lagen, dak, b);
+        const plan = planVoor(woning, lagen, dak, Array.from({ length: lagen }, (_, i) => (i === v ? programmaVan(soort, n, lagen) : undefined)), b);
         for (const k of plan.kamers.filter((k) => k.verdieping === v && k.soort === "kamer")) {
           const min = RUIMTES[soort].find((o) => o.naam === k.naam)!.minB;
           expect(Math.min(k.w, k.l), `${woning} ${lagen} laag ${v} ${k.naam}`).toBeGreaterThanOrEqual(min - 1e-6);
@@ -313,13 +405,18 @@ describe("planVoor", () => {
     for (const k of plan.kamers.filter((k) => k.verdieping === 1 && k.naam === "Slaapkamer")) expect(k.w).toBeGreaterThanOrEqual(2.6 - 1e-6);
   });
 
-  it("zet de trap op elke verdieping recht boven die van de vorige laag", () => {
+  it("zet elk trapgat recht boven zijn trap, en laat de trappen vanaf drie lagen omkeren op het bordes", () => {
     for (const woning of ["rijwoning", "halfopen", "open"] as Woning[]) {
       for (const n of [MIN_KAMERS, 3, MAX_KAMERS]) {
         const plan = planVoor(woning, 3, "zadeldak", [0, 1, 2].map((v) => programmaVan(laagSoort(woning, v, 3, "zadeldak"), n)));
-        const plekken = new Set(plan.trappen.map((t) => `${t.x}|${t.z}|${t.w}|${t.l}`));
-        expect(plan.trappen).toHaveLength(3);
-        expect(plekken.size).toBe(1);
+        expect(plan.trappen).toHaveLength(4);
+        for (const t of plan.trappen.filter((x) => x.op)) {
+          const gat = plan.trappen.find((x) => !x.op && x.verdieping === t.verdieping + 1)!;
+          expect({ ...gat, verdieping: 0, op: true }).toEqual({ ...t, verdieping: 0 });
+        }
+        const [eerste, tweede] = plan.trappen.filter((x) => x.op);
+        expect(eerste.richting).toBe(1);
+        expect(tweede.richting).toBe(-1);
       }
     }
   });

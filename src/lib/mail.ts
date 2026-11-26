@@ -885,9 +885,40 @@ export interface ContactMessage {
  * De afzender blijft van ons — `sendTemplate` zet altijd `BREVO_SENDER_EMAIL`
  * en negeert de afzender die in het sjabloon staat (info@vernast.be).
  */
+/*
+  De bevestiging gaat naar een adres dat de bezoeker zelf intypt, en ze toont
+  zijn naam en bericht terug. Zonder filter kan iedereen zo vanaf ons domein
+  een tekst met links naar een vreemde sturen: het formulier wordt een
+  spamrelais met onze reputatie bij Brevo als inzet. De drempels per adres en
+  per IP tellen per Worker-instantie en houden dat niet tegen.
+
+  Daarom breekt de kopie aan de bezoeker elke link: een adres met schema
+  (`https://`, `www.`, `mailto:`) wordt "[link]", en elke punt tussen twee
+  letters krijgt een spatie ("oplichter. ws"). Geen mailprogramma maakt daar
+  nog een link van, welke extensie er ook achter staat. Een lijst met
+  extensies werd omzeild door de eerste die er niet in stond. Lange teksten
+  worden afgekapt. De mail aan het team en het portaal krijgen alles.
+*/
+const SCHEMA_LINK = /\b(?:[a-z][a-z0-9+.-]*:\/\/|www\.|mailto:)\S+/giu;
+// Ook de punten die een spammer als look-alike gebruikt: 。 ． ｡ ‧ ・
+const PUNT_TUSSEN_LETTERS = /([\p{L}\p{N}])[.\u3002\uFF0E\uFF61\u2027\u30FB](?=\p{L})/gu;
+const MAX_BERICHT_KOPIE = 1000;
+const MAX_NAAM_KOPIE = 80;
+
+export function forStranger(text: string, max: number): string {
+  const veilig = text.replace(SCHEMA_LINK, "[link]").replace(PUNT_TUSSEN_LETTERS, "$1. ").trim();
+  return veilig.length > max ? `${veilig.slice(0, max).trimEnd()}…` : veilig;
+}
+
+/** De ontvanger van de kopie: ook zijn weergavenaam ("Aan: …") toont de bezoeker zelf. */
+function strangerRecipient(message: ContactMessage): BrevoRecipient {
+  return { email: message.email, name: forStranger(message.naam, MAX_NAAM_KOPIE) || null };
+}
+
 function contactConfirmationParams(message: ContactMessage): Record<string, unknown> {
-  const naam = message.naam.trim();
+  const naam = forStranger(message.naam, MAX_NAAM_KOPIE);
   return {
+    naam,
     voornaam: naam.split(/\s+/)[0] || "klant",
     klant_naam: naam,
     email: message.email.trim(),
@@ -901,7 +932,7 @@ function contactConfirmationParams(message: ContactMessage): Record<string, unkn
       hier eerst in productie gemeten. De regelafbrekingen overleven doordat
       het berichtblok in sjabloon 202 `white-space: pre-line` draagt.
     */
-    bericht: message.bericht.trim(),
+    bericht: forStranger(message.bericht, MAX_BERICHT_KOPIE),
     verzonden_op: formatDateTime(new Date()),
   };
 }
@@ -918,6 +949,32 @@ function formatDateTime(date: Date): string {
   })
     .format(date)
     .replace(/,\s*/, " om ");
+}
+
+/**
+ * Vraagformulier op de homepage: alleen de ontvangstbevestiging aan de klant.
+ *
+ * Het team hoeft hier geen mail: de vraag staat al in het portaal én als lead
+ * in de Lead Planner (of kwam via `sendQuestionFallback` als mail binnen).
+ * Zelfde sjabloon en dezelfde drempel per adres als het contactformulier.
+ * Faalt nooit naar de aanroeper: een ontbrekende bevestiging mag een vraag
+ * die al bewaard is niet als mislukt laten ogen.
+ */
+export async function sendQuestionConfirmation(message: ContactMessage): Promise<void> {
+  try {
+    await sendToSelfChosenAddress(
+      "contact_ontvangen",
+      strangerRecipient(message),
+      {
+        email: message.email,
+        telefoon: message.telefoon ?? "",
+        onderwerp: message.onderwerp ?? "",
+        ...contactConfirmationParams(message),
+      },
+    );
+  } catch (error) {
+    console.error("[mail] bevestiging vraagformulier mislukt:", error instanceof Error ? error.message : error);
+  }
 }
 
 /** Contactformulier: kopie aan de klant, het bericht zelf naar het team. */
@@ -938,7 +995,7 @@ export async function sendContactMails(message: ContactMessage): Promise<void> {
     hier de enige opslag.
   */
   await Promise.all([
-    sendToSelfChosenAddress("contact_ontvangen", from, {
+    sendToSelfChosenAddress("contact_ontvangen", strangerRecipient(message), {
       ...params,
       ...contactConfirmationParams(message),
     }),

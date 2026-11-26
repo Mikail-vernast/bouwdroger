@@ -80,3 +80,66 @@ export function maskEmail(raw: string): string {
 export function isValidEmail(raw: string): boolean {
   return /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(maskEmail(raw));
 }
+
+/**
+ * Formats a postcode while typing. Belgian postcodes are four digits (`2500`);
+ * Dutch ones are four digits and two letters (`1234 AB`) — the site delivers in
+ * Noord-Brabant and Zeeland too, so both have to fit.
+ */
+export function maskPostcode(raw: string): string {
+  // A country prefix ("B-2500", "NL-1234 AB") is dropped: the field holds the code.
+  const compact = raw.replace(/[^0-9a-zA-Z]/g, "").toUpperCase().replace(/^[A-Z]+(?=\d)/, "");
+  const digits = compact.match(/^\d{0,4}/)?.[0] ?? "";
+  const letters = compact.slice(digits.length).replace(/[^A-Z]/g, "").slice(0, 2);
+  // Letters only make sense after a full four-digit block.
+  return digits.length === 4 && letters ? `${digits} ${letters}` : digits;
+}
+
+/** True for a Belgian (`2500`) or Dutch (`1234 AB`) postcode. */
+export function isValidPostcode(raw: string): boolean {
+  return /^[1-9]\d{3}( [A-Z]{2})?$/.test(maskPostcode(raw));
+}
+
+/**
+ * Keeps a typed name to what a name can hold: letters (with accents), spaces,
+ * hyphens, apostrophes and dots. No leading space, no double spaces — the
+ * trailing space stays so the visitor can type the next word.
+ */
+export function maskName(raw: string): string {
+  return raw
+    .replace(/[^\p{L}\s'’.-]/gu, "")
+    .replace(/\s+/g, " ")
+    .replace(/^\s+/, "")
+    .slice(0, 120);
+}
+
+/**
+ * A street name: letters, digits ("Rue du 1er Mai"), spaces, hyphens,
+ * apostrophes and dots. Same whitespace rules as `maskName`.
+ */
+export function maskStreet(raw: string): string {
+  return raw
+    .replace(/[^\p{L}\d\s'’.-]/gu, "")
+    .replace(/\s+/g, " ")
+    .replace(/^\s+/, "")
+    .slice(0, 160);
+}
+
+/**
+ * A house number: starts with digits, then an optional suffix such as
+ * "12A", "12 bus 3" or "12/3". Upper-cased, at most 15 characters.
+ */
+export function maskHouseNumber(raw: string): string {
+  const cleaned = raw
+    .replace(/[^0-9a-zA-Z\s/-]/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/^[^0-9]+/, "")
+    .toUpperCase()
+    .slice(0, 15);
+  // "12 BUS 3" reads wrong; Belgian addresses write "bus" in lower case.
+  return cleaned.replace(/ BUS\b/g, " bus");
+}
+
+export function isValidHouseNumber(raw: string): boolean {
+  return /^\d{1,5}/.test(maskHouseNumber(raw).trim());
+}

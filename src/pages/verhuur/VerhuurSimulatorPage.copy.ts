@@ -1,6 +1,7 @@
 import type { Copy } from "@/i18n/useTaal";
 import type { DeviceKey } from "@/data/verhuur";
 import type { Tempo } from "@/lib/droogTempo";
+import type { Dak } from "@/lib/droogSimulator";
 
 /**
  * Teksten van de droogsimulator. De Nederlandse staan letterlijk zoals ze in
@@ -53,6 +54,26 @@ export interface SimCopy {
   typeWoning: string;
   /* stap 2 */
   s2Kop: string;
+  s2DakKop: string;
+  keuzeKop: string;
+  keuzeSub: string;
+  keuzeTag: string;
+  keuze: Record<"werf" | "water", { label: string; sub: string }>;
+  wsStage: { eyebrow: string; keuzeEyebrow: string; leeg: string; nat: (waar: string) => string; plek: Record<"kelder" | "gelijkvloers" | "verdieping" | "zolder", string> };
+  funnel: {
+    lieverBellen: string;
+    /** de drie beloftes onder de keuze werf/waterschade */
+    beloftes: string[];
+  };
+  s2DakSub: string;
+  droogsimulator: string;
+  /** "Stap" en "van" rond de cijfers in de teller bovenaan: Stap 2 van 4 */
+  stapTeller: [string, string];
+  dakHint: Record<Dak, string>;
+  kamersUitleg: string;
+  meerRuimtes: string;
+  /** de zolder zelf, als ruimte op de zolderverdieping */
+  openZolder: string;
   kamers: (n: number) => string;
   dak: string;
   dakAppartement: string;
@@ -67,10 +88,11 @@ export interface SimCopy {
   meerKamers: (naam: string) => string;
   vloeroppervlakte: string;
   maatwerkKlein: string;
-  pastBij: string;
   geschat: (m2: number) => string;
   meerDan: (m2: number) => string;
   tot: (m2: string) => string;
+  /** de gekozen oppervlakte gedeeld over de bouwlagen */
+  oppPerLaag: (m2: string) => string;
   /* stap 3 */
   s3Kop: string;
   s3Sub: string;
@@ -85,12 +107,6 @@ export interface SimCopy {
   warmKop: string;
   warmJa: [titel: string, gevolg: string];
   warmNee: [titel: string, gevolg: string];
-  /**
-   * Dezelfde twee antwoorden, kort. Op gsm staan de kaarten naast elkaar, zodat
-   * de bouwfoto erboven groter kan: in een halve kolom past de volle zin niet.
-   */
-  warmJaKort: [titel: string, gevolg: string];
-  warmNeeKort: [titel: string, gevolg: string];
   ja: string;
   nee: string;
   kachelsErbij: [vet: string, rest: string];
@@ -157,10 +173,6 @@ export interface SimCopy {
   nietNat: string;
   meest: string;
   weetNietKlein: string;
-  /** Knop onder de lat in stap 4: de dikte is onbekend, reken met de gangbare maat. */
-  weetNietKnop: string;
-  /** Label boven de lat: de vakken van de lat zijn de keuze. */
-  dikteDruk: string;
   droog: string;
   nietNatBadge: string;
   dikteSleep: string;
@@ -201,7 +213,7 @@ export const COPY: Copy<SimCopy> = {
       stap1: "Stap 1 · Woning",
       welkeWoning: "Welke woning droogt u?",
       stap2: "Stap 2 · Verdiepingen",
-      lagenKamers: (lagen, kamers) => `${lagen}, ${kamers} kamers`,
+      lagenKamers: (lagen, kamers) => `${lagen}, ${kamers} ruimtes`,
       stap3: "Stap 3 · Bouwfase",
       hoeVer: "Hoe ver staat de werf?",
       stap4: "Stap 4 · Materiaal",
@@ -236,7 +248,27 @@ export const COPY: Copy<SimCopy> = {
     s1Kop: "Wat voor woning droogt u?",
     s1Sub: "Zo weten we hoe de ruimtes liggen en waar de toestellen komen.",
     typeWoning: "Type woning",
-    s2Kop: "Hoe ziet uw woning eruit?",
+    s2Kop: "Hoe is uw woning opgebouwd?",
+    s2DakKop: "Welk dak heeft uw woning?",
+    keuzeKop: "Wat moet er drogen?",
+    keuzeSub: "Zo sturen we u meteen de juiste kant op.",
+    keuzeTag: "Levering binnen 24 uur",
+    keuze: {
+      werf: { label: "Een werf", sub: "Nieuwbouw of renovatie: chape, pleister of metselwerk" },
+      water: { label: "Waterschade", sub: "Lek, overstroming of bluswater" },
+    },
+    wsStage: { eyebrow: "Waterschade", keuzeEyebrow: "Droogsimulator", leeg: "Waar is het nat?", nat: (waar) => `Nat: ${waar}`, plek: { kelder: "kelder", gelijkvloers: "gelijkvloers", verdieping: "verdieping", zolder: "zolder" } },
+    funnel: {
+      lieverBellen: "Liever bellen?",
+      beloftes: ["Levering binnen 24 uur", "Gratis advies", "Geen spam"],
+    },
+    s2DakSub: "Kies het dak dat het meest op het uwe lijkt.",
+    droogsimulator: "Droogsimulator",
+    stapTeller: ["Stap", "van"],
+    dakHint: { zadeldak: "Schuin, met een nok", plat: "Vlak, met een dakrand", lessenaar: "Schuin, naar één kant" },
+    kamersUitleg: "Elke afgesloten ruimte telt, ook toilet en berging. Gang en trap niet.",
+    meerRuimtes: "Meer ruimtes? Kies een grotere oppervlakte.",
+    openZolder: "Open ruimte",
     kamers: (n) => `${n} kamers`,
     dak: "Dak",
     dakAppartement: " · bij een appartement altijd plat",
@@ -244,17 +276,17 @@ export const COPY: Copy<SimCopy> = {
     verdiepen: "Verdiepen boven het gelijkvloers",
     gelijkvloers: "Gelijkvloers",
     verdiepKort: (n) => (n === 1 ? "verdiep" : "verdiepen"),
-    kamersPerVerdieping: "Aantal kamers per verdieping",
+    kamersPerVerdieping: "Ruimtes per verdieping",
     inTotaal: (n) => `${n} in totaal`,
     toonInTekening: (naam) => `Toon ${naam.toLowerCase()} in de tekening`,
-    minderKamers: (naam) => `Minder kamers ${naam.toLowerCase()}`,
-    meerKamers: (naam) => `Meer kamers ${naam.toLowerCase()}`,
+    minderKamers: (naam) => `Eén ruimte minder: ${naam.toLowerCase()}`,
+    meerKamers: (naam) => `Eén ruimte meer: ${naam.toLowerCase()}`,
     vloeroppervlakte: "Vloeroppervlakte",
     maatwerkKlein: "maatwerk",
-    pastBij: "past bij uw woning",
     geschat: (m2) => `geschat ± ${m2} m²`,
     meerDan: (m2) => `meer dan ${m2} m²`,
     tot: (m2) => `tot ${m2} m²`,
+    oppPerLaag: (m2) => `± ${m2} m² per bouwlaag`,
     s3Kop: "Hoe ver staat de werf?",
     s3Sub: "Kies hoe ver de werken staan. De foto toont waar het vocht zit.",
     kiesFase: "Kies uw fase",
@@ -262,8 +294,6 @@ export const COPY: Copy<SimCopy> = {
     warmKop: "Kan de woning warm gestookt worden?",
     warmJa: ["De verwarming draait al", "Dan hebben we alleen drogers en ventilatoren nodig."],
     warmNee: ["Nog geen verwarming", "Dan zetten we er kachels bij: drogen lukt niet in de kou."],
-    warmJaKort: ["Verwarming aan", "Drogers + ventilatoren"],
-    warmNeeKort: ["Geen verwarming", "Kachels erbij"],
     ja: "Ja",
     nee: "Nee",
     kachelsErbij: ["Kachels", " erbij in uw pakket."],
@@ -336,8 +366,6 @@ export const COPY: Copy<SimCopy> = {
     nietNat: "niet nat",
     meest: "meest",
     weetNietKlein: "weet niet",
-    weetNietKnop: "Weet ik niet",
-    dikteDruk: "Dikte in cm \u00b7 druk op de maat",
     droog: "Droog",
     nietNatBadge: "Niet nat",
     dikteSleep: "Dikte in cm · sleep of kies",
@@ -412,7 +440,27 @@ export const COPY: Copy<SimCopy> = {
     s1Kop: "Quel type de logement séchez-vous ?",
     s1Sub: "Nous savons ainsi comment les pièces sont disposées et où placer les appareils.",
     typeWoning: "Type de logement",
-    s2Kop: "À quoi ressemble votre logement ?",
+    s2Kop: "Comment votre logement est-il construit ?",
+    s2DakKop: "Quel toit a votre logement ?",
+    keuzeKop: "Que faut-il sécher ?",
+    keuzeSub: "Nous vous orientons ainsi directement dans la bonne direction.",
+    keuzeTag: "Livraison dans les 24 heures",
+    keuze: {
+      werf: { label: "Un chantier", sub: "Construction ou rénovation : chape, plâtre ou maçonnerie" },
+      water: { label: "Dégât des eaux", sub: "Fuite, inondation ou eau d'extinction" },
+    },
+    wsStage: { eyebrow: "Dégât des eaux", keuzeEyebrow: "Simulateur de séchage", leeg: "Où est-ce humide ?", nat: (waar) => `Humide : ${waar}`, plek: { kelder: "cave", gelijkvloers: "rez-de-chaussée", verdieping: "étage", zolder: "grenier" } },
+    funnel: {
+      lieverBellen: "Vous préférez appeler ?",
+      beloftes: ["Livraison dans les 24 h", "Conseil gratuit", "Pas de spam"],
+    },
+    s2DakSub: "Choisissez le toit qui ressemble le plus au vôtre.",
+    droogsimulator: "Simulateur de séchage",
+    stapTeller: ["Étape", "sur"],
+    dakHint: { zadeldak: "En pente, avec un faîte", plat: "Plat, avec un acrotère", lessenaar: "En pente, d'un seul côté" },
+    kamersUitleg: "Chaque pièce fermée compte, WC et débarras compris. Pas le couloir ni l'escalier.",
+    meerRuimtes: "Plus de pièces ? Choisissez une surface plus grande.",
+    openZolder: "Espace ouvert",
     kamers: (n) => `${n} pièces`,
     dak: "Toit",
     dakAppartement: " · toujours plat pour un appartement",
@@ -420,17 +468,17 @@ export const COPY: Copy<SimCopy> = {
     verdiepen: "Étages au-dessus du rez-de-chaussée",
     gelijkvloers: "Rez-de-chaussée",
     verdiepKort: (n) => (n === 1 ? "étage" : "étages"),
-    kamersPerVerdieping: "Nombre de pièces par étage",
+    kamersPerVerdieping: "Pièces par niveau",
     inTotaal: (n) => `${n} au total`,
     toonInTekening: (naam) => `Afficher ${naam.toLowerCase()} dans le dessin`,
-    minderKamers: (naam) => `Moins de pièces, ${naam.toLowerCase()}`,
-    meerKamers: (naam) => `Plus de pièces, ${naam.toLowerCase()}`,
+    minderKamers: (naam) => `Une pièce de moins : ${naam.toLowerCase()}`,
+    meerKamers: (naam) => `Une pièce de plus : ${naam.toLowerCase()}`,
     vloeroppervlakte: "Surface au sol",
     maatwerkKlein: "sur mesure",
-    pastBij: "correspond à votre logement",
     geschat: (m2) => `estimation ± ${m2} m²`,
     meerDan: (m2) => `plus de ${m2} m²`,
     tot: (m2) => `jusqu'à ${m2} m²`,
+    oppPerLaag: (m2) => `± ${m2} m² par niveau`,
     s3Kop: "Où en est le chantier ?",
     s3Sub: "Indiquez où en sont les travaux. La photo montre où se trouve l'humidité.",
     kiesFase: "Choisissez votre phase",
@@ -438,8 +486,6 @@ export const COPY: Copy<SimCopy> = {
     warmKop: "Le logement peut-il être chauffé ?",
     warmJa: ["Le chauffage fonctionne déjà", "Nous n'avons alors besoin que de déshumidificateurs et de ventilateurs."],
     warmNee: ["Pas encore de chauffage", "Nous ajoutons alors des chauffages : rien ne sèche dans le froid."],
-    warmJaKort: ["Chauffage en marche", "Déshumidificateurs + ventilateurs"],
-    warmNeeKort: ["Pas de chauffage", "Chauffages en plus"],
     ja: "Oui",
     nee: "Non",
     kachelsErbij: ["Chauffages", " ajoutés à votre pack."],
@@ -512,8 +558,6 @@ export const COPY: Copy<SimCopy> = {
     nietNat: "pas humide",
     meest: "courant",
     weetNietKlein: "je ne sais pas",
-    weetNietKnop: "Je ne sais pas",
-    dikteDruk: "\u00c9paisseur en cm \u00b7 appuyez sur la mesure",
     droog: "Sèche",
     nietNatBadge: "Pas humide",
     dikteSleep: "Épaisseur en cm · faites glisser ou choisissez",
@@ -587,7 +631,27 @@ export const COPY: Copy<SimCopy> = {
     s1Kop: "What kind of property are you drying?",
     s1Sub: "That tells us how the rooms are laid out and where the units will go.",
     typeWoning: "Type of property",
-    s2Kop: "What does your home look like?",
+    s2Kop: "How is your home built up?",
+    s2DakKop: "What roof does your home have?",
+    keuzeKop: "What needs drying?",
+    keuzeSub: "That way we send you the right way straight away.",
+    keuzeTag: "Delivery within 24 hours",
+    keuze: {
+      werf: { label: "A building site", sub: "New build or renovation: screed, plaster or masonry" },
+      water: { label: "Water damage", sub: "Leak, flooding or firefighting water" },
+    },
+    wsStage: { eyebrow: "Water damage", keuzeEyebrow: "Drying simulator", leeg: "Where is it wet?", nat: (waar) => `Wet: ${waar}`, plek: { kelder: "basement", gelijkvloers: "ground floor", verdieping: "upper floor", zolder: "attic" } },
+    funnel: {
+      lieverBellen: "Rather call?",
+      beloftes: ["Delivery within 24 h", "Free advice", "No spam"],
+    },
+    s2DakSub: "Pick the roof that looks most like yours.",
+    droogsimulator: "Drying simulator",
+    stapTeller: ["Step", "of"],
+    dakHint: { zadeldak: "Sloped, with a ridge", plat: "Flat, with a parapet", lessenaar: "Sloped to one side" },
+    kamersUitleg: "Every closed room counts, toilet and storage included. Not the hall or stairs.",
+    meerRuimtes: "More rooms? Choose a larger floor area.",
+    openZolder: "Open space",
     kamers: (n) => `${n} rooms`,
     dak: "Roof",
     dakAppartement: " · always flat for an apartment",
@@ -595,17 +659,17 @@ export const COPY: Copy<SimCopy> = {
     verdiepen: "Floors above the ground floor",
     gelijkvloers: "Ground floor",
     verdiepKort: (n) => (n === 1 ? "floor" : "floors"),
-    kamersPerVerdieping: "Number of rooms per floor",
+    kamersPerVerdieping: "Rooms per floor",
     inTotaal: (n) => `${n} in total`,
     toonInTekening: (naam) => `Show ${naam.toLowerCase()} in the drawing`,
-    minderKamers: (naam) => `Fewer rooms, ${naam.toLowerCase()}`,
-    meerKamers: (naam) => `More rooms, ${naam.toLowerCase()}`,
+    minderKamers: (naam) => `One room fewer: ${naam.toLowerCase()}`,
+    meerKamers: (naam) => `One more room: ${naam.toLowerCase()}`,
     vloeroppervlakte: "Floor area",
     maatwerkKlein: "bespoke",
-    pastBij: "fits your home",
     geschat: (m2) => `estimated ± ${m2} m²`,
     meerDan: (m2) => `more than ${m2} m²`,
     tot: (m2) => `up to ${m2} m²`,
+    oppPerLaag: (m2) => `± ${m2} m² per floor`,
     s3Kop: "How far along is the site?",
     s3Sub: "Choose how far the works have got. The photo shows where the moisture is.",
     kiesFase: "Choose your stage",
@@ -613,8 +677,6 @@ export const COPY: Copy<SimCopy> = {
     warmKop: "Can the property be heated?",
     warmJa: ["The heating is already on", "Then we only need dryers and fans."],
     warmNee: ["No heating yet", "Then we add heaters: nothing dries in the cold."],
-    warmJaKort: ["Heating is on", "Dryers + fans"],
-    warmNeeKort: ["No heating", "Heaters added"],
     ja: "Yes",
     nee: "No",
     kachelsErbij: ["Heaters", " added to your package."],
@@ -687,8 +749,6 @@ export const COPY: Copy<SimCopy> = {
     nietNat: "not wet",
     meest: "most common",
     weetNietKlein: "don't know",
-    weetNietKnop: "I don't know",
-    dikteDruk: "Thickness in cm \u00b7 tap a measure",
     droog: "Dry",
     nietNatBadge: "Not wet",
     dikteSleep: "Thickness in cm · drag or choose",

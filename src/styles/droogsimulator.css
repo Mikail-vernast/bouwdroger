@@ -43,12 +43,12 @@
   button` anders zwaarder weegt dan `.ds-hk`.
 */
 .ds-sim button{font:inherit;color:inherit}
-.ds-sim .ds-hk,.ds-sim .ds-tegel,.ds-sim .ds-fk,.ds-sim .ds-warmk{color:var(--ink)}
+.ds-sim .ds-hk,.ds-sim .ds-tegel,.ds-sim .ds-fk,.ds-sim .ds-dk button,.ds-sim .ds-warmk{color:var(--ink)}
 
 /* Geen site-header of footer (conversiepagina): de simulator vult het hele scherm. */
 .ds-app{height:100vh;height:100dvh;display:grid;grid-template-rows:minmax(0,1fr);overflow:hidden}
 
-.ds-main{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;padding:16px 20px 20px;min-height:0;max-width:1600px;width:100%;margin:0 auto}
+.ds-main{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;padding:16px 20px 20px;min-height:0;max-width:2200px;width:100%;margin:0 auto}
 
 /* ───── vraagpaneel ───── */
 /*
@@ -740,8 +740,7 @@
 .ds-opp-rij{display:flex;align-items:center;gap:16px;padding:10px 16px 10px 14px;border-radius:14px;background:#fff;border:1px solid var(--wl2)}
 .ds-opp-waarde{flex:none;display:flex;flex-direction:column;min-width:96px}
 .ds-opp-waarde b{font-size:24px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-.ds-opp-waarde b span{font-size:14px;font-weight:700;color:#1F8A4C;opacity:1;transition:color .3s}
-.ds-opp:has(.ds-opp-schuif.gok) .ds-opp-waarde b span{color:var(--red-br)}
+.ds-opp-waarde b span{font-size:14px;font-weight:700;color:var(--red-br);opacity:1}
 .ds-opp-waarde small{font-size:11px;opacity:.65;white-space:nowrap}
 .ds-opp-terug{padding:0;border:0;background:none;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:2px;cursor:pointer}
 .ds-opp-terug:hover{opacity:1;color:var(--red)}
@@ -753,15 +752,8 @@
   hetzelfde rode verloop met gloed als de voortgangsbalk — rood betekent in
   deze simulator "dit is jouw waarde".
 */
-.ds-opp-schuif input::-webkit-slider-runnable-track{height:6px;border-radius:99px;background:linear-gradient(90deg,#3FB872 0,#1F8A4C var(--pos),var(--p-goot) var(--pos))}
-.ds-opp-schuif input::-moz-range-track{height:6px;border-radius:99px;background:linear-gradient(90deg,#3FB872 0,#1F8A4C var(--pos),var(--p-goot) var(--pos))}
-/* Nog onze schatting: rood, tot de bezoeker de schuif zelf verzet. */
-.ds-opp-schuif.gok input::-webkit-slider-runnable-track{background:linear-gradient(90deg,#F0454F 0,var(--red-br) var(--pos),var(--p-goot) var(--pos))}
-.ds-opp-schuif.gok input::-moz-range-track{background:linear-gradient(90deg,#F0454F 0,var(--red-br) var(--pos),var(--p-goot) var(--pos))}
-.ds-opp-schuif input::-webkit-slider-thumb{border-color:#1F8A4C}
-.ds-opp-schuif input::-moz-range-thumb{border-color:#1F8A4C}
-.ds-opp-schuif.gok input::-webkit-slider-thumb{border-color:var(--red)}
-.ds-opp-schuif.gok input::-moz-range-thumb{border-color:var(--red)}
+.ds-opp-schuif input::-webkit-slider-runnable-track{height:6px;border-radius:99px;background:linear-gradient(90deg,#F0454F 0,var(--red-br) var(--pos),var(--p-goot) var(--pos))}
+.ds-opp-schuif input::-moz-range-track{height:6px;border-radius:99px;background:linear-gradient(90deg,#F0454F 0,var(--red-br) var(--pos),var(--p-goot) var(--pos))}
 .ds-opp-schuif input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border-radius:50%;background:#fff;border:4px solid var(--red);box-shadow:0 2px 8px rgba(0,0,0,.3);transition:transform .12s}
 .ds-opp-schuif input::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:4px solid var(--red);box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .ds-opp-schuif input:active::-webkit-slider-thumb{transform:scale(1.12)}
@@ -931,6 +923,12 @@
 /* ───── 3D-woning (IsoHouse3D) ───── */
 .ds-iso3d{transition:opacity .4s ease}
 .ds-iso3d canvas{display:block}
+/* The street render (3d/straat.tsx) fills the whole stage edge to edge, under the title
+   and the legend: a fade into the paper read as a white glow around the street. The
+   canvas leaves the grid; title and footer float over it on their own surfaces. */
+.ds-canvas{position:absolute;inset:0}
+.ds-shead,.ds-sfoot{position:relative;z-index:1}
+.ds-shead>div:first-child{padding:9px 14px 10px;border-radius:14px;background:#fbf8f2e6;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 1px 2px #0000001a}
 .ds-iso3d--laden{opacity:0}
 .ds-labels3d{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .ds-kamerlabel3d{position:absolute;left:0;top:0;font-family:var(--fm);font-size:clamp(6px,calc(var(--zl,40) * .27px),11px);font-weight:600;letter-spacing:.12em;color:#1a1a1acc;white-space:nowrap;text-shadow:0 0 2px #F1EFEF,0 0 4px #F1EFEF,0 0 8px #F1EFEFaa;will-change:transform,opacity}
@@ -1068,7 +1066,7 @@
    de kaart zegt dat met een vinkje in plaats van grijs te worden. Beide kaarten
    delen de hoogte van het paneel, zodat de vraag nooit scrolt. */
 .ds-sim{--groen:#2f9e5b}
-.ds-laagk{flex:1 1 0;min-height:0;display:grid;grid-template-columns:32% minmax(0,1fr);border-radius:18px;background:var(--p-vlak);border:1px solid var(--wl);overflow:hidden;animation:ds-laagk-in .6s cubic-bezier(.2,.8,.2,1) both}
+.ds-laagk{flex:1 1 0;min-height:0;display:grid;grid-template-columns:40% minmax(0,1fr);border-radius:18px;background:var(--p-vlak);border:1px solid var(--wl);overflow:hidden;animation:ds-laagk-in .6s cubic-bezier(.2,.8,.2,1) both}
 .ds-laagk + .ds-laagk{animation-delay:.08s}
 @keyframes ds-laagk-in{from{opacity:0;transform:translateY(10px)}}
 .ds-laagk-foto{position:relative;margin:0;overflow:hidden;background:#2a1a17}
@@ -1077,9 +1075,7 @@
 .ds-laagk.uit .ds-laagk-foto img{filter:none}
 /* Het bijschrift stond op een grijze sluier en verdween in een lichte foto.
    Een rode gradient — ons rood — zet de tekst vast en hoort bij de pagina. */
-/* Alleen een voet onder het bijschrift. Een sluier die tot halverwege liep
-   maakte van een foto baksteen een gekleurd vlak. */
-.ds-laagk-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 70%,rgba(0,0,0,.5) 85%,rgba(0,0,0,.88) 100%)}
+.ds-laagk-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(150,16,32,.6) 74%,rgba(104,10,18,.97) 92%,#5A0C10 100%)}
 /* Plus Jakarta Sans 800 met negatieve letterafstand — dezelfde koptypografie
    als elders op de site. Mono-kapitalen met letterspatiëring maakten er een
    technisch strookje van dat je wegscant. */
@@ -1092,30 +1088,18 @@
 .ds-laagk-kop{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .ds-sim .ds-laagk-kop h3{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
 .ds-laagk-kop output{font-size:clamp(34px,4.4dvh,44px);font-weight:800;font-variant-numeric:tabular-nums;line-height:.95;letter-spacing:-.03em}
-.ds-laagk-kop output small{font-size:15px;font-weight:700;color:var(--red-br);letter-spacing:0;transition:color .35s}
-.ds-laagk.bevestigd .ds-laagk-kop output small{color:var(--ok)}
-.ds-laagk-band output small{transition:color .35s}
+.ds-laagk-kop output small{font-size:15px;font-weight:700;color:var(--mid);letter-spacing:0}
 .ds-laagk-kop output .ok{font-size:15px;color:#1c7a45}
 .ds-laagk-wat{margin:-4px 0 0;font-size:13.5px;line-height:1.4;opacity:.68}
 
-.ds-ware{--s:1;position:relative;display:flex;flex-direction:column;gap:9px;padding:25px 12px 10px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--wl)}
-.ds-ware em{position:absolute;top:7px;left:12px;font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:-.005em;color:rgba(20,20,20,.5)}
-/* The bar spans the full width: one cm = 100% / --max, so you can drag edge to edge. */
+.ds-ware{--s:1;position:relative;display:flex;flex-direction:column;gap:6px;padding:25px 14px 9px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--wl)}
+.ds-ware em{position:absolute;top:7px;left:14px;font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:-.005em;color:rgba(20,20,20,.5)}
 /* The bar spans the full width: one cm = 100% / --max, so you can drag edge to edge. */
 .ds-ware-lat{position:relative;height:clamp(30px,3.8dvh,42px);width:100%;border-radius:5px;background-color:var(--p-goot);
   background-image:repeating-linear-gradient(90deg,rgba(20,20,20,.2) 0 1px,transparent 1px calc(100%/var(--max)))}
 .ds-ware-lat::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.3) 0 1px,transparent 1px calc(50%/var(--max)));background-size:100% 40%;background-repeat:no-repeat;background-position:bottom;pointer-events:none}
-/*
-  Rood zolang de dikte nog onze gok is, groen zodra de bezoeker ze zelf zet.
-  Elke stap komt met een maat al ingevuld ("meest voorkomend"); zonder dat
-  verschil ziet een ingevulde kaart er precies zo uit als een bevestigde.
-*/
-.ds-ware-lat i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;overflow:hidden;background:linear-gradient(180deg,#F0454F,var(--red-br));box-shadow:0 0 16px -3px rgba(217,31,38,.6),0 6px 18px -10px rgba(0,0,0,.35);transition:width .34s cubic-bezier(.22,.61,.36,1),background .35s,box-shadow .35s}
-/* Onder de vinger geen overgang: die loopt dan achter op de sleepbeweging. */
-.ds-ware-lat.sleept i{transition:background .35s,box-shadow .35s}
-.ds-laagk.bevestigd .ds-ware-lat i{background:linear-gradient(180deg,#3FB872,#1F8A4C);box-shadow:0 0 16px -3px rgba(47,158,91,.7),0 6px 18px -10px rgba(0,0,0,.35)}
-/* Dezelfde glans als de voortgangsbalk op /verhuur/boeking. */
-.ds-ware-lat i::before{content:"";position:absolute;inset:0;border-radius:5px;overflow:hidden;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-100%);animation:ds-glans 2.6s ease-in-out infinite}
+/* Zie de baan van de vloeroppervlakte: de gevulde dikte is rood, niet wit. */
+.ds-ware-lat i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(180deg,#3FB872,#1F8A4C);box-shadow:0 0 16px -3px rgba(47,158,91,.7),0 6px 18px -10px rgba(0,0,0,.4);transition:width .5s cubic-bezier(.2,.8,.2,1)}
 .ds-ware-schaal{display:flex;align-items:flex-start;font-family:var(--fm);font-size:11px;color:rgba(20,20,20,.42)}
 .ds-ware-schaal > *{flex:none;width:calc(100%/var(--max));transform:translateX(-4px)}
 .ds-ware-schaal > :last-child{width:auto}
@@ -1141,45 +1125,18 @@
 */
 /* De vijf maten onder de lat: "Geen", de catalogusdiktes en "weet niet". De lat
    zegt hoe dik het is, deze rij laat je het aantikken. */
-/* ── lat op ware grootte = schuif ──
-   Een onzichtbare native range over de lat (slepen, toetsenbord, schermlezer);
-   het greepje aan het eind toont dat je hem kan verzetten. */
-.ds-ware-lat{overflow:visible}
-.ds-ware-schuif{position:absolute;inset:-8px 0;width:100%;height:calc(100% + 16px);margin:0;opacity:0;cursor:ew-resize;-webkit-appearance:none;appearance:none;background:transparent;touch-action:none}
-.ds-ware-schuif::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:46px;cursor:ew-resize}
-.ds-ware-schuif::-moz-range-thumb{width:32px;height:46px;border:0;cursor:ew-resize}
-.ds-ware-lat i::after{content:"";position:absolute;z-index:1;right:5px;top:50%;width:6px;height:52%;max-height:16px;transform:translateY(-50%);border-left:2px solid rgba(255,255,255,.5);border-right:2px solid rgba(255,255,255,.5)}
-.ds-ware-lat:has(.ds-ware-schuif:hover) i,.ds-ware-lat:has(.ds-ware-schuif:active) i{box-shadow:0 0 0 2px rgba(20,20,20,.25),0 6px 18px -8px rgba(0,0,0,.45)}
-.ds-ware-lat:has(.ds-ware-schuif:focus-visible){outline:2px solid var(--ink);outline-offset:3px}
-.ds-laagk.uit .ds-ware-schuif{pointer-events:none}
-
-/*
-  "Niet nat" en "Weet ik niet" zijn geen maten: ze stonden als "Geen" en "?"
-  tussen de centimeters in dezelfde rij knoppen, en daardoor las "Geen" als een
-  dikte. Nu twee schakelaars onder de lat, uit tenzij ze aan staan.
-*/
-.ds-wrij{display:flex;align-items:flex-start;gap:7px}
-.ds-wmeter{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
-/* Even hoog als de lat, zodat de drie samen één regelaar vormen. */
-.ds-nk{flex:none;display:inline-flex;align-items:center;justify-content:center;height:clamp(30px,3.8dvh,42px);padding:0 11px;border-radius:9px;border:1.5px solid var(--wl2);background:#fff;color:var(--mid);font-size:12.5px;font-weight:700;line-height:1;cursor:pointer;transition:border-color .18s,color .18s,box-shadow .2s}
-.ds-nk:hover:not(.on){color:var(--ink);border-color:rgba(20,20,20,.32)}
-.ds-nk.on{border-color:var(--ok);color:var(--ink);box-shadow:0 0 0 3px rgba(47,158,91,.18)}
-.ds-nk--vraag{padding:0;width:clamp(30px,3.8dvh,42px);font-size:16px;font-weight:800}
-.ds-nk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-/*
-  Rood zolang de maat nog onze gok is, groen zodra de bezoeker drukt — dezelfde
-  code als de meter erboven.
-*/
-.ds-maten{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:4px;padding:4px;border-radius:12px;background:var(--p-goot)}
-.ds-maat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;min-width:0;padding:7px 4px 6px;border:0;border-radius:9px;background:none;color:var(--mid);cursor:pointer;transition:background .2s,color .2s}
-.ds-maat:hover:not(.on){background:#fff;color:var(--ink)}
-.ds-maat:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
-.ds-maat b{font-size:14.5px;font-weight:800;letter-spacing:-.015em;line-height:1.1;white-space:nowrap}
-.ds-maat b small{font-size:.72em;font-weight:600;opacity:.8}
-.ds-maat i{font-style:normal;font-size:9.5px;font-weight:600;opacity:.75;white-space:nowrap}
-.ds-maat.on{background:var(--red-br);color:#fff;box-shadow:0 2px 10px -4px rgba(217,31,38,.8)}
-.ds-laagk.bevestigd .ds-maat.on{background:#1F8A4C;color:#fff;box-shadow:0 2px 10px -4px rgba(31,138,76,.8)}
-.ds-laagk.uit .ds-maten{opacity:.45;pointer-events:none;transition:opacity .3s}
+.ds-dk{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.ds-dk button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:10px 2px;border-radius:13px;border:2px solid var(--wl);background:#fff;color:var(--ink);cursor:pointer;box-shadow:0 6px 18px -14px rgba(0,0,0,.6);transition:border-color .18s,transform .15s,box-shadow .2s}
+.ds-dk button:hover:not(.on){transform:translateY(-1px);box-shadow:0 10px 22px -12px rgba(0,0,0,.7)}
+.ds-dk button:active{transform:scale(.96)}
+.ds-dk button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ds-dk button b{font-size:18px;font-weight:800;line-height:1.1}
+.ds-dk button b small{font-size:11px;font-weight:600;color:var(--mid)}
+.ds-dk button i{font-style:normal;font-size:10.5px;color:var(--mid);white-space:nowrap}
+.ds-dk button.on{color:var(--ink)!important;border-color:var(--ok);box-shadow:0 0 0 4px rgba(47,158,91,.22),0 0 22px var(--ok-glow)}
+.ds-dk .vink{position:absolute;top:-6px;right:-6px;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--groen);color:#fff;opacity:0;transform:scale(.4);transition:opacity .2s,transform .25s cubic-bezier(.2,.8,.2,1)}
+.ds-dk button.geen.on .vink{opacity:1;transform:scale(1)}
+.ds-dk button.geen.on i{color:var(--groen);opacity:1;font-weight:700}
 .ds-laagk-info{display:flex;flex-direction:column;gap:6px;padding-top:9px;border-top:1px solid var(--wl);font-size:12.5px;line-height:1.35}
 .ds-laagk-info .tijd{display:flex;gap:8px;align-items:center;padding:7px 11px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--wl);font-weight:700;font-size:13px}
 .ds-laagk-info .tijd svg{flex:none;opacity:.85}
@@ -1200,16 +1157,8 @@
   .ds-laagk-kop h3{font-size:15px}.ds-laagk-kop output{font-size:19px}
   .ds-laagk-wat,.ds-laagk-info .tip,.ds-ware em{display:none}
   .ds-ware{--s:.62;padding:7px 8px 4px;gap:3px}
-  .ds-ware-lat{height:16px}
+  .ds-ware-lat{height:14px}
   .ds-ware-schaal{font-size:8.5px}
-  .ds-nk{height:16px;padding:0 7px;font-size:10px;border-radius:6px}
-  .ds-nk--vraag{width:16px;font-size:11px}
-  .ds-wrij{gap:4px}
-  .ds-ware{gap:5px}
-  .ds-maten{gap:2px;padding:2px;border-radius:9px}
-  .ds-maat{padding:4px 2px}
-  .ds-maat b{font-size:12px}
-  .ds-maat i{display:none}
   .ds-ware-droog{padding:0 8px;gap:7px}.ds-ware-droog .bol{width:20px;height:20px}.ds-ware-droog small{display:none}
   .ds-laagk-info{padding-top:6px;font-size:11px}
   .ds-melding{font-size:11px}
@@ -1224,7 +1173,7 @@
   .ds-laagk-inh{gap:7px;padding:12px 14px 10px}
   .ds-laagk-kop h3{font-size:19px}.ds-laagk-kop output{font-size:26px}
   .ds-ware{padding:18px 10px 5px;gap:3px}.ds-ware em{top:4px;left:10px}
-  .ds-ware-lat{height:22px}
+  .ds-ware-lat{height:20px}
   .ds-laagk-info{padding-top:7px}
 }
 /* Nog lager (gsm, kleine laptop): de droogtijd valt weg, de dikte zelf blijft. */
@@ -1234,14 +1183,22 @@
   .ds-laagk-inh{justify-content:center}
 }
 @container paneel (max-height:640px) and (max-width:520px){
-  .ds-ware{padding:5px 8px 3px}.ds-ware-lat{height:14px}.ds-ware-schaal{font-size:8px}
+  .ds-ware{padding:5px 8px 3px}.ds-ware-lat{height:12px}.ds-ware-schaal{font-size:8px}
   .ds-laagk-inh{gap:5px;padding:7px 9px}
 }
-@media (prefers-reduced-motion:reduce){.ds-laagk,.ds-laagk-foto img,.ds-ware-lat i,.ds-ware-lat i::before{animation:none;transition:none}}
+@media (prefers-reduced-motion:reduce){.ds-laagk,.ds-laagk-foto img,.ds-ware-lat i{animation:none;transition:none}}
 
 /* ── lat op ware grootte = schuif ──
    Een onzichtbare native range over de lat (slepen, toetsenbord, schermlezer);
    het greepje aan het eind van de witte lat toont dat je hem kan verzetten. */
+.ds-ware-lat{overflow:visible}
+.ds-ware-schuif{position:absolute;inset:-8px 0;width:100%;height:calc(100% + 16px);margin:0;opacity:0;cursor:ew-resize;-webkit-appearance:none;appearance:none;background:transparent;touch-action:none}
+.ds-ware-schuif::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:46px;cursor:ew-resize}
+.ds-ware-schuif::-moz-range-thumb{width:32px;height:46px;border:0;cursor:ew-resize}
+.ds-ware-lat i::after{content:"";position:absolute;right:5px;top:50%;width:6px;height:52%;max-height:16px;transform:translateY(-50%);border-left:2px solid rgba(255,255,255,.45);border-right:2px solid rgba(255,255,255,.45)}
+.ds-ware-lat:has(.ds-ware-schuif:hover) i,.ds-ware-lat:has(.ds-ware-schuif:active) i{box-shadow:0 0 0 2px rgba(20,20,20,.25),0 6px 18px -8px rgba(0,0,0,.45)}
+.ds-ware-lat:has(.ds-ware-schuif:focus-visible){outline:2px solid var(--ink);outline-offset:3px}
+.ds-laagk.uit .ds-ware-schuif{pointer-events:none}
 
 /* ───── stap 4 · bouwfase: bouwfilm boven de fase-knoppen in het paneel, het huis blijft in de tekening ───── */
 .ds-sim{--nat:#5aa6e8;--groen:#2f9e5b;--geel:#f2b84b}
@@ -1700,7 +1657,7 @@
    hoogte opneemt, naam en dikte groot erop; lat, knoppen en info sluiten eronder aan. */
 .ds-laagk.ds-laagk--solo{display:flex;flex-direction:column;grid-template-columns:none}
 .ds-laagk--solo .ds-laagk-foto{flex:1 1 0;min-height:170px}
-.ds-laagk--solo .ds-laagk-foto::after{background:linear-gradient(180deg,transparent 62%,rgba(0,0,0,.48) 82%,rgba(0,0,0,.9) 100%)}
+.ds-laagk--solo .ds-laagk-foto::after{background:linear-gradient(180deg,transparent 46%,rgba(150,16,32,.58) 72%,rgba(104,10,18,.97) 92%,#5A0C10 100%)}
 .ds-laagk--solo .ds-laagk-inh{flex:none;justify-content:flex-start;gap:12px}
 .ds-laagk--solo .ds-laagk-foto figcaption.ds-laagk-band{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;left:18px;right:18px;bottom:14px;font-size:13px;opacity:1}
 .ds-sim .ds-laagk-band h3{margin:0 0 2px;font-size:28px;font-weight:800;letter-spacing:-.01em;line-height:1.05;color:#fff}
@@ -1718,6 +1675,7 @@
 /* Heel laag paneel met twee kaarten (tablet staand, kleine gsm): eerst de cijfers onder de
    lat weg, daarna de lat zelf; de dikteknoppen blijven altijd staan. */
 @container paneel (max-height:440px){
+  .ds-laagk:not(.ds-laagk--solo) .ds-ware-schaal{display:none}
   .ds-laagk:not(.ds-laagk--solo) .ds-laagk-inh{padding-top:8px;padding-bottom:8px;gap:6px}
 }
 @container paneel (max-height:380px){
@@ -1739,6 +1697,407 @@
   .ds-sim[data-stap="4"] .ds-bon .q{font-size:11px}
 }
 
+/* ═════ stap 2, v5 (nov. 2026): eerst het dak als fotokaarten, dan de opbouw in witte kaarten ═════
+   Goedgekeurd ontwerp: drie vragen die de bezoeker in één oogopslag ziet (bouwlagen, kamers,
+   oppervlakte). Kamers is één totaal; per verdieping kan, maar is een uitzondering. Zo past de
+   opbouw op een gsm zonder scrollen, ook met de woning erboven. */
+.ds-daken{flex:1;min-height:0;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:10px;padding-bottom:4px}
+.ds-dak{position:relative;min-height:0;padding:0;border:0;border-radius:16px;overflow:hidden;cursor:pointer;background:#2a0508;text-align:left;box-shadow:0 0 0 0 #fff;transition:box-shadow .15s,transform .15s}
+.ds-dak img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ds-dak::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,4,6,.78),rgba(20,4,6,.05) 70%)}
+.ds-dak:hover{transform:translateY(-1px)}
+.ds-dak.sel{box-shadow:0 0 0 3px #fff}
+.ds-dak-t{position:absolute;left:16px;bottom:12px;z-index:1;color:#fff}
+.ds-dak-t b{display:block;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.ds-dak-t small{display:block;font-size:12.5px;opacity:.85}
+.ds-dak-v{position:absolute;right:12px;top:12px;z-index:1;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.85);color:transparent}
+.ds-dak-v svg{width:13px;height:13px}
+.ds-dak.sel .ds-dak-v{background:#fff;border-color:#fff;color:var(--red)}
+
+.ds-kaart{background:#fff;color:var(--ink);border-radius:18px;padding:14px 16px}
+.ds-kaart-kop{margin-bottom:10px;font-size:14px;font-weight:700}
+.ds-kaart-kop--rij{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ds-kaart-kop--rij span{font-size:12.5px;font-weight:500;color:var(--mid)}
+
+.ds-lagenkeuze{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ds-sim .ds-laagtegel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;min-height:64px;padding:7px 4px;border:0;border-radius:12px;background:#f6efed;color:var(--ink);cursor:pointer;transition:background .15s,color .15s}
+.ds-laagtegel .ds-hk-ico{width:34px;height:30px;color:var(--red)}
+.ds-laagtegel.on .ds-hk-ico{color:#fff}
+.ds-laagtegel b{font-size:13px;line-height:1.1;text-align:center}
+.ds-laagtegel small{display:block;font-size:11px;font-weight:500;color:var(--mid)}
+.ds-sim .ds-laagtegel.on{background:var(--red);color:#fff}
+.ds-laagtegel.on small{color:rgba(255,255,255,.82)}
+.ds-laagtegel:disabled{opacity:.35;cursor:default}
+
+.ds-kamers{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ds-kamers b{display:block;font-size:14px;font-weight:700}
+.ds-kamers small{display:block;margin-top:2px;font-size:12px;color:var(--mid)}
+.ds-kteller{display:flex;align-items:center;gap:6px;flex:none}
+.ds-sim .ds-kteller button{width:38px;height:38px;border:0;border-radius:50%;background:#fbe9ec;color:var(--red);font-size:21px;line-height:1;cursor:pointer;transition:transform .12s}
+.ds-sim .ds-kteller button:active:not(:disabled){transform:scale(.9)}
+.ds-kteller button:disabled{opacity:.3;cursor:default}
+.ds-kteller output{min-width:38px;text-align:center;font-size:30px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ds-sim .ds-link{flex:none;padding:4px 0;border:0;background:none;font-size:13px;font-weight:700;color:var(--red);text-decoration:underline;text-underline-offset:3px;white-space:nowrap;cursor:pointer}
+.ds-kaart > .ds-link{display:block;margin:8px auto 0}
+.ds-kaart .ds-verdrijen{gap:4px}
+.ds-kaart .ds-verdrij{background:#f6efed;border-color:transparent;color:var(--ink)}
+.ds-sim .ds-kaart .ds-tel button{background:#fbe9ec;color:var(--red)}
+
+.ds-kaart.ds-opp{margin-top:0}
+.ds-opp-kop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ds-opp-kop b{display:block;font-size:14px;font-weight:700}
+.ds-opp-kop small{display:block;margin-top:2px;font-size:12px;color:var(--mid)}
+.ds-kaart .ds-opp-terug:hover{color:var(--red)}
+.ds-opp-getal{font-size:30px;font-weight:800;line-height:1;letter-spacing:-.03em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ds-opp-getal small{margin-left:3px;font-size:14px;font-weight:600;letter-spacing:0;color:var(--mid)}
+.ds-kaart .ds-opp-schuif{padding:10px 0 16px}
+.ds-kaart .ds-opp-schuif input::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--red) var(--pos),#f0e6e4 var(--pos))}
+.ds-kaart .ds-opp-schuif input::-moz-range-track{background:linear-gradient(90deg,var(--red) var(--pos),#f0e6e4 var(--pos))}
+.ds-kaart .ds-opp-schuif input:focus-visible{outline-color:var(--red)}
+.ds-kaart .ds-opp-tick{top:28px;background:rgba(20,20,20,.35)}
+.ds-kaart .ds-opp-schaal{color:var(--mid);opacity:1;font-size:11px}
+.ds-kaart > .ds-opp-terug{display:block;margin-top:2px;font-size:12px;color:var(--mid)}
+
+/* Ruimtes per verdieping: één rij per bouwlaag, de bovenste bovenaan zoals in het huis. */
+.ds-ruimtes-uitleg{display:block;margin:-6px 0 8px;font-size:12px;line-height:1.35;color:var(--mid)}
+.ds-laagrijen{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.ds-laagrij{display:flex;align-items:center;gap:10px;padding:6px 6px 6px 12px;border-radius:12px;background:#f6efed;transition:background .15s,box-shadow .15s}
+.ds-laagrij.on{background:#fff;box-shadow:inset 0 0 0 2px var(--red)}
+.ds-sim .ds-laagrij-naam{flex:1;min-width:0;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.ds-laagrij-naam b{display:block;font-size:13.5px;font-weight:700}
+.ds-laagrij-naam small{display:block;margin-top:1px;overflow:hidden;font-size:11.5px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
+.ds-laagrij .ds-kteller{gap:2px}
+.ds-sim .ds-laagrij .ds-kteller button{width:32px;height:32px;background:#fff;font-size:18px}
+.ds-sim .ds-laagrij.on .ds-kteller button{background:#fbe9ec}
+.ds-laagrij .ds-kteller output{min-width:26px;font-size:20px}
+.ds-ruimtes-hint{display:block;margin-top:8px;font-size:12px;color:var(--red);font-weight:600}
+
+/* Drie of vier bouwlagen passen niet altijd: dan scrolt de vraag, de knoppen onderaan blijven staan. */
+.ds-sim[data-stap="1"] .ds-body:has(.ds-ruimtes){overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+.ds-sim[data-stap="1"] .ds-body:has(.ds-ruimtes) > *{flex-shrink:0}
+
+@media (max-width:899px){
+  /* Op een gsm zegt de rij zelf al wat telt ("Leefruimte, keuken, toilet"): de uitleg mag weg. */
+  .ds-ruimtes-uitleg{display:none}
+  /* Het totaal staat al in de kop boven het huis ("…, 7 ruimtes"). */
+  .ds-ruimtes .ds-kaart-kop{display:none}
+  .ds-kaart.ds-ruimtes{padding:6px}
+  .ds-laagrijen{gap:4px}
+  .ds-laagrij{gap:8px;padding:3px 3px 3px 10px;border-radius:10px}
+  .ds-sim .ds-laagrij-naam{display:flex;align-items:baseline;gap:6px}
+  .ds-laagrij-naam b{flex:none;font-size:12.5px}
+  .ds-laagrij-naam small{min-width:0;margin-top:0;font-size:11px}
+  .ds-sim .ds-laagrij .ds-kteller button{width:28px;height:28px;font-size:17px}
+  .ds-laagrij .ds-kteller output{min-width:22px;font-size:17px}
+  .ds-ruimtes-hint{margin-top:6px;font-size:11px}
+  .ds-kaart > .ds-opp-terug{font-size:11px}
+}
+/* Een 320 px-scherm (eerste iPhone SE): de titel op één regel liep over de rand. */
+@media (max-width:360px){
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart) h2{white-space:normal;font-size:18px}
+}
+
+@media (max-width:899px){
+  .ds-daken{gap:8px}
+  .ds-dak-t{left:12px;bottom:8px}
+  .ds-dak-t b{font-size:15px}
+  .ds-dak-t small{font-size:11.5px}
+  .ds-dak-v{top:8px;right:8px;width:22px;height:22px}
+  .ds-kaart{padding:10px 12px;border-radius:16px}
+  .ds-kaart-kop{margin-bottom:8px;font-size:13px}
+  .ds-lagenkeuze{gap:6px}
+  .ds-sim .ds-laagtegel{min-height:52px;padding:5px 2px;gap:2px}
+  .ds-laagtegel .ds-hk-ico{width:26px;height:22px}
+  .ds-laagtegel b{font-size:12px}
+  .ds-laagtegel small{font-size:10px}
+  .ds-kamers b,.ds-opp-kop b{font-size:13px}
+  .ds-kamers small,.ds-opp-kop small{font-size:11.5px}
+  .ds-sim .ds-kteller button{width:34px;height:34px;font-size:19px}
+  .ds-kteller output{min-width:32px;font-size:26px}
+  .ds-sim .ds-link{font-size:12.5px}
+  .ds-opp-getal{font-size:26px}
+  .ds-kaart .ds-opp-schuif{padding:6px 0 4px}
+  .ds-kaart .ds-opp-tick{top:24px}
+  .ds-kaart .ds-opp-schaal{display:none}
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart) h2{font-size:22px}
+  .ds-kaart-kop--lagen{display:none}
+  .ds-body:has(.ds-verdrijen){overflow-y:auto}
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart){gap:8px}
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart) h2{font-size:20px;white-space:nowrap}
+}
+@media (max-width:899px){
+  .ds-sim .ds-laagtegel{min-height:46px;padding:4px 2px}
+  .ds-laagtegel .ds-hk-ico{width:22px;height:19px}
+  .ds-kaart .ds-opp-schuif{padding:4px 0 0}
+  .ds-kaart .ds-opp-tick{top:20px}
+}
+/* het getal en "m²" op één regel; de algemene kleine-tekstregel van de kop zette m² eronder */
+.ds-opp-getal small{display:inline}
+/* kleine gsm (iPhone SE, 667 px): de woning houdt haar plaats, de kaarten worden krapper */
+@media (max-width:899px) and (max-height:740px){
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart){gap:6px}
+  .ds-kaart{padding:8px 10px;border-radius:14px}
+  /* op 375 px past "Gelijkvloers" niet naast een icoon: dan alleen de tekst */
+  .ds-sim .ds-laagtegel{min-height:40px}
+  .ds-laagtegel .ds-hk-ico{display:none}
+  .ds-sim .ds-kteller button{width:30px;height:30px;font-size:17px}
+  .ds-kteller output{font-size:22px;min-width:28px}
+  .ds-opp-kop > span:first-child > small{display:none}
+  .ds-opp-getal{font-size:22px}
+  .ds-kaart .ds-opp-schuif{padding:2px 0 0}
+  .ds-kaart .ds-opp-tick{top:18px}
+}
+
+/* ═════ huisstijl en desktop (nov. 2026) ═════
+   Het paneel draagt de Vernast-achtergrond (bordeaux met de schuine capsules) in plaats van een
+   kale gradient. Op desktop is het paneel zo hoog als het scherm: de kaarten van stap 2 groeien
+   mee met de hoogte (dvh), anders bleef de onderste helft van het paneel leeg. */
+.ds-panel{background:#6b0013 url(/vernast/bg-brand.webp) 62% 0/auto 100% no-repeat}
+@media (min-width:900px){
+  /* Het huis is wat verkoopt: 30 % vragen, 70 % woning (Brent, 23-11-2026). Het paneel zakt nooit
+     onder 380 px, anders passen de vier bouwlaag-tegels niet meer naast elkaar. */
+  .ds-main,.ds-sim[data-stap] .ds-main{grid-template-columns:minmax(380px,3fr) minmax(0,7fr);padding:16px 24px 20px;gap:20px}
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart){gap:clamp(12px,1.8dvh,22px);padding-top:clamp(14px,2dvh,26px)}
+  .ds-kaart{padding:clamp(16px,2.2dvh,28px) clamp(18px,2vw,28px);border-radius:22px;box-shadow:0 18px 40px -24px rgba(40,0,8,.65)}
+  .ds-kaart-kop{margin-bottom:clamp(10px,1.4dvh,18px);font-size:clamp(14px,1.6dvh,17px)}
+  .ds-lagenkeuze{gap:clamp(8px,1vw,12px)}
+  .ds-sim .ds-laagtegel{min-height:clamp(72px,10dvh,132px);gap:6px;border-radius:16px}
+  .ds-laagtegel .ds-hk-ico{width:clamp(34px,4.4dvh,54px);height:clamp(30px,3.8dvh,46px)}
+  .ds-laagtegel b{font-size:clamp(13px,1.6dvh,17px)}
+  .ds-laagtegel small{font-size:clamp(11px,1.3dvh,13px)}
+  .ds-kamers b,.ds-opp-kop b{font-size:clamp(14px,1.7dvh,18px)}
+  .ds-kamers small,.ds-opp-kop small{font-size:clamp(12px,1.4dvh,14px);margin-top:4px}
+  .ds-sim .ds-kteller button{width:clamp(38px,4.8dvh,56px);height:clamp(38px,4.8dvh,56px);font-size:clamp(20px,2.4dvh,26px)}
+  .ds-kteller{gap:clamp(6px,1dvh,12px)}
+  .ds-kteller output{min-width:clamp(38px,5dvh,64px);font-size:clamp(30px,4.4dvh,52px)}
+  .ds-sim .ds-link{font-size:clamp(13px,1.45dvh,15px)}
+  .ds-opp-getal{font-size:clamp(30px,4.4dvh,52px)}
+  .ds-opp-getal small{font-size:clamp(14px,1.7dvh,18px)}
+  .ds-kaart .ds-opp-schuif{padding:clamp(12px,2dvh,24px) 0 18px}
+  .ds-kaart .ds-opp-tick{top:calc(clamp(12px,2dvh,24px) + 18px)}
+  .ds-kaart .ds-opp-schaal{font-size:12px}
+  .ds-dak-t{left:22px;bottom:18px}
+  .ds-dak-t b{font-size:clamp(17px,2dvh,22px)}
+  .ds-dak-t small{font-size:clamp(12.5px,1.5dvh,15px)}
+}
+@media (min-width:900px){
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart){padding-bottom:clamp(12px,2dvh,24px)}
+}
+.ds-kaart .ds-opp-schuif{flex:none}
+/* Hoge schermen (≥ 1000 px): het smalle paneel van 30 % liet onder stap 2 een derde leeg. Groter
+   in plaats van uitgerekt: uitgerekte kaarten met de inhoud in het midden lazen als lege dozen. */
+@media (min-width:900px) and (min-height:1000px){
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart) h2{font-size:40px}
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart){gap:24px;padding-top:28px}
+  .ds-kaart{padding:28px 26px;border-radius:24px}
+  .ds-kaart-kop{font-size:18px;margin-bottom:18px}
+  .ds-lagenkeuze{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .ds-sim .ds-laagtegel{min-height:96px;flex-direction:row;gap:12px;justify-content:flex-start;padding:10px 16px}
+  .ds-laagtegel .ds-hk-ico{width:52px;height:46px}
+  .ds-laagtegel b{font-size:19px;text-align:left}
+  .ds-laagtegel small{font-size:14px}
+  .ds-kamers b,.ds-opp-kop b{font-size:19px}
+  .ds-kamers small,.ds-opp-kop small{font-size:14.5px}
+  .ds-sim .ds-kteller button{width:56px;height:56px;font-size:26px}
+  .ds-kteller output{min-width:64px;font-size:54px}
+  .ds-sim .ds-link{font-size:15px}
+  .ds-opp-getal{font-size:54px}
+  .ds-opp-getal small{font-size:18px}
+  .ds-kaart .ds-opp-schuif{padding:26px 0 20px}
+  .ds-kaart .ds-opp-tick{top:44px}
+}
+
+/* ═════ paneelkader volgens het ontwerp (nov. 2026) ═════
+   Bovenaan het Vernast-logo met "Droogsimulator" en de vraagteller; de voortgangsstreepjes staan
+   onderaan in het midden, tussen Terug en Volgende. */
+.ds-merk{display:flex;flex-direction:column;gap:3px;min-width:0}
+.ds-merk img{display:block;width:auto;height:22px}
+.ds-merk small{padding-left:31px;font-size:9.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.ds-ptop .ds-count{color:rgba(255,255,255,.8);letter-spacing:.06em;text-transform:none;font-size:12.5px;font-weight:600}
+.ds-foot .ds-bar{margin:0 auto}
+.ds-foot .ds-bar ~ .ds-next{margin-left:0}
+@media (max-width:899px){
+  .ds-merk img{height:17px}
+  .ds-merk small{padding-left:24px;font-size:8.5px}
+  .ds-foot .ds-bar li{width:16px}
+  .ds-foot .ds-bar li.on{width:26px}
+}
+
+/* dakkaarten zoals de mockup: grote naam, keuzebolletje rechtsonder */
+.ds-dak-t b{font-size:clamp(17px,2.2dvh,24px)}
+.ds-dak-v{top:auto;bottom:14px;right:14px;width:28px;height:28px}
+@media (max-width:899px){.ds-dak-v{bottom:8px;right:8px;width:24px;height:24px}}
+
+/* ═════ stap 1 in dezelfde vormtaal: foto over de hele kaart, naam erop, keuzebolletje ═════ */
+.ds-sim .ds-card{position:relative;display:block;border:0;border-radius:16px;background:#2a0508;box-shadow:0 0 0 0 #fff;transition:box-shadow .15s,transform .15s}
+.ds-card .ds-art{position:absolute;inset:0}
+.ds-card .ds-art img{width:100%;height:100%;object-fit:cover}
+.ds-card::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(0deg,rgba(20,4,6,.82),rgba(20,4,6,0) 55%);pointer-events:none}
+.ds-card .ds-t{position:absolute;left:14px;right:44px;bottom:12px;z-index:1;color:#fff;padding:0;background:none}
+.ds-sim .ds-card .ds-t b{font-size:clamp(15px,1.9dvh,20px);font-weight:800;color:#fff}
+.ds-sim .ds-card .ds-t small{display:block;font-size:clamp(11.5px,1.4dvh,13.5px);color:rgba(255,255,255,.85)}
+.ds-card::before{content:"";position:absolute;right:12px;bottom:12px;z-index:2;width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.85);box-sizing:border-box}
+.ds-sim .ds-card.sel{border:0;box-shadow:0 0 0 3px #fff}
+.ds-card.sel::before{border-color:#fff;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23C8102E' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.2l2.3 2.3 4.7-5'/%3E%3C/svg%3E") center/13px no-repeat}
+@media (max-width:899px){
+  .ds-card .ds-t{left:10px;bottom:8px;right:34px}
+  .ds-sim .ds-card .ds-t small{display:none}
+  .ds-card::before{right:8px;bottom:8px;width:20px;height:20px}
+}
+@media (max-width:899px){
+  /* één regel: logo · droogsimulator · teller, en Terug · streepjes · Volgende zonder te wrappen */
+  .ds-merk{flex-direction:row;align-items:center;gap:8px}
+  .ds-merk small{padding-left:8px;border-left:1px solid rgba(255,255,255,.3);letter-spacing:.16em}
+  .ds-foot:has(.ds-bar){flex-wrap:nowrap}
+  .ds-foot:has(.ds-bar) .ds-back{padding:10px 13px;font-size:13px;white-space:nowrap}
+  .ds-foot:has(.ds-bar) .ds-next{padding:12px 18px;font-size:14px;white-space:nowrap}
+  .ds-foot .ds-bar{gap:4px}
+  .ds-foot .ds-bar li{width:12px}
+  .ds-foot .ds-bar li.on{width:22px}
+}
+.ds-foot .ds-back,.ds-foot .ds-next{white-space:nowrap}
+@media (min-width:900px){
+  /* smal paneel (30 % op een laptop van 1280 px): de vier tegels in twee rijen, de knoppen compacter */
+  @container paneel (max-width:470px){
+    .ds-lagenkeuze{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .ds-sim .ds-laagtegel{flex-direction:row;justify-content:flex-start;gap:10px;min-height:52px;padding:6px 12px}
+    .ds-laagtegel b{text-align:left}
+    .ds-foot .ds-back{padding:10px 13px}
+    .ds-foot .ds-next{padding:12px 18px}
+    .ds-foot .ds-bar li{width:14px}
+    .ds-foot .ds-bar li.on{width:24px}
+  }
+}
+@media (min-width:900px) and (max-height:780px){
+  /* laptop van 720–780 px hoog: stap 2 moet nog altijd zonder scrollen passen */
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart){gap:8px;padding-top:6px}
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart) h2{font-size:24px}
+  .ds-kaart{padding:10px 14px}
+  .ds-kaart-kop{margin-bottom:8px}
+  .ds-opp-kop > span:first-child > small{display:none}
+}
+
+/* logo zoals het ontwerp: de V op een wit tegeltje, woordmerk met "Droogsimulator" eronder */
+.ds-merk,.ds-merk{flex-direction:row;align-items:center;gap:10px}
+.ds-merk-v{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:11px;background:#fff}
+.ds-merk-v img{width:24px;height:auto}
+.ds-merk-t{display:flex;flex-direction:column;gap:5px}
+.ds-merk-t img{display:block;width:auto;height:13px}
+.ds-merk-t small,.ds-merk small{padding:0;border:0;font-size:9.5px;font-weight:800;letter-spacing:.22em;color:rgba(255,255,255,.78)}
+.ds-ptop .ds-count{font-size:13px;font-weight:600;letter-spacing:0;color:rgba(255,255,255,.85)}
+.ds-ptop .ds-count b{color:#fff;font-weight:800}
+.ds-merk > img{display:none}
+@media (max-width:899px){
+  .ds-merk{gap:8px}
+  .ds-merk-v{width:32px;height:32px;border-radius:9px}
+  .ds-merk-v img{width:19px}
+  .ds-merk-t{gap:3px}
+  .ds-merk-t img{height:11px}
+  .ds-merk-t small,.ds-merk small{font-size:8px;letter-spacing:.18em}
+  .ds-ptop .ds-count{font-size:12px}
+}
+/* echte dakfoto's: het huis staat lager in beeld dan in de render */
+.ds-dak img{object-position:center 45%}
+@media (max-width:899px){
+  .ds-ptop{padding-top:10px}
+  .ds-merk-v{width:30px;height:30px}
+  .ds-merk-v img{width:18px}
+}
+@media (max-width:899px){
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart){gap:6px}
+}
+@media (max-width:899px) and (max-height:740px){
+  .ds-sim[data-stap="1"] .ds-body:has(.ds-kaart){gap:5px}
+}
+
+/* stap 1 zoals het dakscherm: de vier woningtypes onder elkaar, als brede fotostroken */
+.ds-sim .ds-cards{grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(4,minmax(0,1fr));grid-auto-rows:auto;gap:10px}
+.ds-card .ds-art img{object-position:center 55%}
+@media (max-width:899px){
+  .ds-sim .ds-cards{gap:6px}
+  .ds-sim .ds-card .ds-t small{display:block;font-size:11px}
+  .ds-sim .ds-card .ds-t b{font-size:15px}
+}
+/* zelfde leesbaarheid als de dakkaarten: donker van links, naam links op de foto */
+.ds-card::after{background:linear-gradient(90deg,rgba(20,4,6,.8),rgba(20,4,6,.05) 70%)}
+@media (max-width:899px){
+  /* op een gsm is elke strook ~60 px hoog: alleen de naam, verticaal gecentreerd */
+  .ds-sim .ds-card .ds-t small{display:none}
+  .ds-card .ds-t{top:50%;bottom:auto;transform:translateY(-50%)}
+  .ds-sim .ds-card .ds-t b{font-size:16px}
+  .ds-card::before{top:50%;bottom:auto;transform:translateY(-50%)}
+}
+
+/* ═════ keuze werf of waterschade, en de waterschade-aanvraag (nov. 2026) ═════ */
+.ds-daken--twee{grid-template-rows:repeat(2,minmax(0,1fr))}
+.ds-dak-tag{position:absolute;left:14px;top:14px;z-index:1;padding:6px 10px;border-radius:99px;background:#fff;color:var(--red);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+/* Op een gsm blijft het 3D-huis bij de keuze en bij waterschade, maar kleiner: het paneel heeft
+   de ruimte nodig voor foto-antwoorden en een formulier. */
+@media (max-width:899px){
+  .ds-sim[data-soort="water"] .ds-main,.ds-sim[data-soort="keuze"] .ds-main{grid-template-rows:minmax(0,30dvh) minmax(0,1fr)}
+}
+.ds-ws{overflow-y:auto;padding-bottom:12px;scrollbar-width:thin}
+.ds-ws .ds-kaart-kop.ds-ws-sub{margin-top:12px}
+.ds-ws-seg{display:flex;gap:3px;padding:3px;border-radius:12px;background:#f6efed}
+.ds-sim .ds-ws-seg button{flex:1;min-width:0;padding:9px 6px;border-radius:9px;font-size:13px;font-weight:700;color:var(--mid);line-height:1.15;cursor:pointer}
+.ds-ws-seg small{display:block;font-size:10.5px;font-weight:600}
+.ds-sim .ds-ws-seg button.on{background:var(--red);color:#fff}
+.ds-ws-rij{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ds-ws-rij > b{font-size:14px}
+.ds-ws-rij .ds-ws-seg{flex:none;width:150px}
+.ds-ws-rij--stapel{flex-direction:column;align-items:stretch}
+.ds-ws-rij--stapel .ds-ws-seg{width:auto}
+.ds-ws-vink{display:flex;flex-wrap:wrap;gap:6px}
+.ds-sim .ds-ws-vink button,.ds-sim .ds-ws-check{display:inline-flex;align-items:center;gap:7px;padding:8px 12px 8px 8px;border-radius:99px;background:#f6efed;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;text-align:left}
+.ds-ws-check{margin-top:10px}
+.ds-ws .cb{display:grid;place-items:center;flex:none;width:18px;height:18px;border-radius:6px;border:2px solid #d9c9c6;font-size:11px;line-height:1;color:transparent}
+.ds-sim .ds-ws-vink button.on,.ds-sim .ds-ws-check.on{background:#fbe9ec;color:var(--red)}
+.ds-ws-vink button.on .cb,.ds-ws-check.on .cb{background:var(--red);border-color:var(--red);color:#fff}
+.ds-ws-tip{margin:-2px 0 0;padding:9px 12px;border-radius:12px;background:#fff4e5;color:#6b3a00;font-size:12.5px;line-height:1.4}
+.ds-ws-tip--in{margin-top:10px}
+.ds-ws-noot{margin:8px 0 0;font-size:12px;color:var(--mid);line-height:1.4}
+.ds-ws-velden{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ds-ws-velden--los{margin-top:10px}
+.ds-ws-veld{display:flex;flex-direction:column;gap:4px;min-width:0}
+.ds-ws-veld.breed{grid-column:1/-1}
+.ds-ws-velden:has(.ds-ws-veld:nth-child(2):not(.breed)) .ds-ws-veld:first-child.breed{grid-column:auto}
+.ds-ws-veld span{font-size:12px;font-weight:700;color:var(--mid)}
+.ds-ws-veld input,.ds-ws-veld textarea{width:100%;min-width:0;padding:10px 12px;border-radius:10px;border:1.5px solid #e6d9d6;background:#fff;font:inherit;font-size:15px;color:var(--ink);resize:vertical}
+.ds-ws-veld input:focus,.ds-ws-veld textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(200,16,46,.15)}
+.ds-ws-upload{display:flex;align-items:center;justify-content:center;height:46px;border-radius:12px;border:1.5px dashed #e0c7cb;color:var(--red);font-size:14px;font-weight:700;cursor:pointer}
+.ds-ws-upload input{position:absolute;width:1px;height:1px;opacity:0}
+.ds-ws-upload:focus-within{border-color:var(--red)}
+.ds-ws-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.ds-ws-fout{margin:0;padding:10px 12px;border-radius:12px;background:#fff;color:var(--red);font-size:13px;font-weight:700}
+.ds-ws-klaar{display:flex;flex-direction:column;gap:12px}
+.ds-ws-klaar b{font-size:15px}
+.ds-ws-bel{display:flex;align-items:center;justify-content:center;height:50px;border-radius:99px;background:var(--red);color:#fff!important;font-weight:800;font-size:16px;text-decoration:none}
+
+/* foto-antwoorden bij waterschade, zoals de offertefunnels van Vernast: foto boven, tekst eronder */
+.ds-wsfotos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ds-sim .ds-wsfoto{position:relative;display:flex;flex-direction:column;overflow:hidden;padding:0;border:1.5px solid #ece3e1;border-radius:13px;background:#fff;color:var(--ink);text-align:left;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s}
+.ds-sim .ds-wsfoto:hover{transform:translateY(-1px);box-shadow:0 10px 22px -14px rgba(60,0,10,.45)}
+.ds-wsfoto img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.ds-wsfoto span{display:block;padding:8px 10px 10px}
+.ds-wsfoto b{display:block;font-size:13.5px;font-weight:800}
+.ds-wsfoto small{display:block;margin-top:1px;font-size:11.5px;line-height:1.3;color:var(--mid)}
+.ds-sim .ds-wsfoto.on{border-color:var(--red);box-shadow:0 0 0 3px rgba(200,16,46,.18)}
+.ds-wsfoto.on::after{content:"✓";position:absolute;right:8px;top:8px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:12px;font-weight:800}
+.ds-sim .ds-wsanders{display:inline-block;margin-top:8px;padding:2px 0;border:0;background:none;font-size:13px;color:var(--mid);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.ds-sim .ds-wsanders.on{color:var(--red);font-weight:700}
+/* beloftes onder de keuze werf/waterschade */
+.ds-beloftes{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 0;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.85)}
+/* "Liever bellen?": zwevend rechtsonder op desktop, zoals in de offertefunnels */
+.ds-bellen{position:fixed;right:24px;bottom:24px;z-index:50;display:none;align-items:center;gap:8px;padding:12px 20px;border-radius:99px;background:#fff;color:#334155;font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 4px 24px rgba(0,0,0,.18)}
+.ds-bellen b{color:#059669;font-weight:800}
+@media (min-width:900px){.ds-bellen{display:flex}}
+@media (max-width:899px){
+  .ds-wsfoto img{aspect-ratio:2/1}
+  .ds-wsfoto span{padding:6px 8px 8px}
+  .ds-wsfoto b{font-size:12.5px}
+  .ds-wsfoto small{display:none}
+  .ds-beloftes{font-size:11px;gap:4px 10px}
+}
 /* ───── één gekozen-taal voor het hele paneel ─────────────────────────────
   Elke keuze (woning, dak, verdiepingen, fase, dikte, verwarming, tempo) stond
   op "wit vlak" en verder niets. Op een bordeaux paneel is wit óók de kleur van
@@ -1762,19 +2121,7 @@
    ring genoeg, een slagschaduw plakt tegen de rand van die goot aan. */
 .ds-sim .ds-jn button.on,
 .ds-sim .ds-tempo button.on{box-shadow:0 0 0 2px var(--ok),0 0 16px var(--ok-glow)}
-.ds-sim .ds-hk.on,.ds-sim .ds-tegel.on,.ds-sim .ds-chip.on{transition:box-shadow .25s,background .15s,transform .15s,border-color .25s}
-
-/* ───── rood = onze gok, groen = u bevestigde het ──────────────────────────
-  Elke stap komt met een antwoord al ingevuld: zadeldak, twee bouwlagen, de
-  geschatte oppervlakte, de verwarming die bij de bouwfase hoort, de gangbare
-  dikte. Zonder dat zou de tekening leeg blijven — maar een ingevuld antwoord
-  zag er precies zo uit als een bevestigd antwoord, en dan drukt niemand nog
-  iets aan. `.gok` staat op de knop zolang het antwoord van ons komt; valt hij
-  weg, dan springt dezelfde knop van rood naar groen.
-*/
-.ds-sim .ds-hk.on.gok,
-.ds-sim .ds-warmk.on.gok{border-color:var(--red-br);box-shadow:0 0 0 4px rgba(217,31,38,.18),0 0 22px rgba(217,31,38,.45)}
-.ds-sim .ds-hk.on.gok .ds-hk-ico{color:var(--red-br)}
+.ds-sim .ds-hk.on,.ds-sim .ds-tegel.on,.ds-sim .ds-chip.on{transition:box-shadow .25s,background .15s,transform .15s}
 
 
 /* ───── stap 2: elke deelvraag een eigen vak ─────────────────────────────
@@ -1825,8 +2172,6 @@
 .ds-warmk.on{border-color:var(--ok);box-shadow:0 0 0 4px rgba(47,158,91,.22),0 0 24px var(--ok-glow)}
 .ds-warmk b{display:block;font-size:13.5px;line-height:1.2}
 .ds-warmk small{display:block;margin-top:3px;font-size:11.5px;line-height:1.35;color:var(--mid)}
-/* De korte tekst is er alleen voor gsm; op pc staat de volle zin. */
-.ds-wkort{display:none}
 
 /*
   De vlamvorm: een vierkant met drie ronde hoeken en één scherpe, 45° gedraaid
@@ -1870,21 +2215,10 @@
   .ds-vlam i,.ds-vlam::after,.ds-ijs > span{animation:none}
 }
 @media (max-width:899px){
-  /*
-    Op gsm naast elkaar, met de korte tekst. Onder elkaar namen de twee kaarten
-    ruim 150 px, en dat ging van de bouwfoto erboven af — net de foto waaraan de
-    bezoeker zijn bouwfase herkent. Naast elkaar is dat de helft. Alleen op gsm:
-    op pc is er breedte genoeg voor de volle zin naast elkaar.
-  */
-  .ds-warmset{grid-template-columns:1fr 1fr;gap:7px}
-  .ds-warmk{align-items:flex-start;padding:8px 9px 9px 8px;gap:7px}
-  .ds-wlang{display:none}
-  .ds-wkort{display:inline}
-  .ds-warmk b{font-size:12.5px;line-height:1.15}
-  .ds-warmk small{margin-top:2px;font-size:10.5px;line-height:1.25}
-  /* Het beeldje hangt aan de bovenste tekstregel; een paar pixels lager staat
-     het optisch gelijk met het woord ernaast in plaats van erboven. */
-  .ds-vlam,.ds-ijs{width:26px;height:30px;margin-top:3px}
+  /* Op gsm staan de twee onder elkaar: naast elkaar wordt de zin onleesbaar. */
+  .ds-warmset{grid-template-columns:minmax(0,1fr);gap:6px}
+  .ds-warmk{padding:8px 11px;gap:10px}
+  .ds-vlam,.ds-ijs{width:34px;height:38px}
   .ds-ijs > span{width:24px;height:24px}
   .ds-ijs i:nth-child(1){transform:translateZ(12px)}
   .ds-ijs i:nth-child(2){transform:rotateY(180deg) translateZ(12px)}
@@ -1951,3 +2285,36 @@
   .ds-hk--dak .ds-hk-ico{width:38px}
   .ds-hk--dak b{font-size:12px}
 }
+
+/* ═════ wit paneel op een rode pagina (overgenomen uit wip/pakket-teller-toegang, 24-11-2026) ═════
+   Wat hierboven na 23-11 bijkwam, ging nog uit van een bordeaux paneel (witte tekst, witte
+   kaarten, het merk in wit). Hier draait het om: het paneel vol wit, de kaarten in het
+   gebroken wit van /verhuur/boeking, tekst in inkt. Foto-kaarten (dak, werf, waterschade)
+   houden hun witte tekst: die staat op de foto, niet op het paneel. */
+.ds-panel{background:#fff}
+.ds-merk-t img{filter:brightness(0)}
+.ds-merk-v{background:var(--p-vlak)}
+.ds-merk-t small,.ds-merk small{color:var(--mid)}
+.ds-ptop .ds-count{color:var(--mid)}
+.ds-ptop .ds-count b{color:var(--ink)}
+.ds-beloftes{color:var(--mid)}
+.ds-kaart{background:var(--p-vlak);box-shadow:none}
+@media (min-width:900px){.ds-kaart{box-shadow:none}}
+.ds-sim .ds-laagtegel{background:#fff}
+.ds-laagrij{background:#fff}
+.ds-laagrij.on{box-shadow:inset 0 0 0 2px var(--ok)}
+.ds-sim .ds-laagrij .ds-kteller button{background:var(--p-vlak)}
+.ds-sim .ds-kteller button{background:#fff}
+.ds-dak{box-shadow:0 0 0 0 var(--ok)}
+.ds-dak.sel{box-shadow:0 0 0 3px var(--ok)}
+.ds-dak.sel .ds-dak-v{background:var(--ok);border-color:var(--ok);color:#fff}
+.ds-card.sel{box-shadow:0 0 0 3px var(--ok)}
+/* De oude rode stijl (regel ~120) tekende op .sel::after een groen bolletje; met de inset:0 van
+   het fotoverloop belandde dat links over de naam. Hier is ::after weer gewoon het verloop en
+   zit het vinkje rechts in ::before, net als bij de dakkaarten. */
+.ds-card.sel::after{inset:0;width:auto;height:auto;border-radius:inherit;box-shadow:none;animation:none;background:linear-gradient(90deg,rgba(20,4,6,.8),rgba(20,4,6,.05) 70%)}
+.ds-card.sel::before{top:auto;right:12px;bottom:12px;width:24px;height:24px;border:2px solid var(--ok);border-radius:50%;transform:none;animation:none;background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.2l2.3 2.3 4.7-5'/%3E%3C/svg%3E") center/13px no-repeat}
+@media (max-width:899px){.ds-card.sel::before{top:50%;bottom:auto;right:8px;width:20px;height:20px;transform:translateY(-50%)}}
+/* Gekozen = zwart, zoals elke keuzeknop in het witte paneel (rood is de pagina, wit het paneel). */
+.ds-sim .ds-laagtegel.on{background:#141414;color:#fff}
+.ds-laagtegel.on .ds-hk-ico{color:#fff}

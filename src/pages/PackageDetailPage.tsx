@@ -4,13 +4,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import V3Footer from "@/components/home-v3/V3Footer";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { equipmentSummary, getPackageById, packageMetaTitle } from "@/data/packages";
 import {
   CheckCircle2,
@@ -25,23 +19,13 @@ import {
   Wind,
   Flame,
   ArrowRight,
-  Building2,
-  User,
-  Plus,
-  Minus,
   Check,
-  CalendarIcon,
 } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { Toaster } from "@/components/ui/toaster";
-import { format, addDays, differenceInDays } from "date-fns";
-import { enGB, fr, nl } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import PageMeta from "@/components/PageMeta";
 import { useSeo } from "@/data/seo";
 import { useCopy, useLokaalPad, useTaal, useToonBedrag, type Copy } from "@/i18n/useTaal";
-import { NUMBER_LOCALE } from "@/i18n/taal";
 import {
   equipmentSummaryEn,
   equipmentSummaryFr,
@@ -50,10 +34,9 @@ import {
   pakketInTaal,
 } from "@/data/packages.fr";
 import { breadcrumbSchema, productSchema } from "@/lib/schema";
-import { maskEmail, maskPhone } from "@/lib/inputMask";
 import { altVoorBeeld } from "@/lib/altTekst";
-
-type CustomerType = "particulier" | "zakelijk";
+import { packageTotal, packageWeeks } from "@/lib/vastPakket";
+import { configToQuery } from "@/lib/verhuur";
 
 const equipmentImages: Record<string, string> = {
   "Small Bouwdroger": "/products/eco-boost-50.webp",
@@ -81,64 +64,32 @@ const categoryImages: Record<string, string[]> = {
 const defaultGallery = ["/products/pakket-1.webp", "/products/extra-6.webp", "/products/extra-7.webp", "/products/extra-8.webp"];
 
 /*
-  De dagprijzen van een extra toestel bovenop het pakket. Stonden twee keer in
-  de pagina: in de berekening én als "+€12/dag" in de tekst. Nu één waarde die
-  beide lezen. Wat de server aanrekent, rekent `orderIntake.ts` opnieuw uit.
+  Boeken gebeurt in de boekingsflow (/verhuur/pakket), niet meer op deze pagina.
+  Tot 24-11-2026 had ze een eigen formulier met een vrij gekozen huurduur, een
+  duurkorting van 5/10/15 % en kachels die gratis meegingen. Een vast pakket
+  loopt echter één termijn (uit de materiaaldikte), zonder staffelkorting:
+  chape-100-6 werd zo € 161,80 in plaats van € 256,20. Deze pagina toont nu het
+  pakket met zijn vaste termijn en prijs en stuurt door naar de flow die ook
+  `api/checkout.ts` gebruikt.
 */
-const EXTRA_DROGER_DAG = 12;
-const EXTRA_VENTILATOR_DAG = 5;
 
 type Tekst = {
-  verplicht: string;
-  kiesDatums: string;
-  fout: string;
-  probeerOpnieuw: string;
   nietGevonden: string;
   terugConfigurator: string;
   samenstelling: (titel: string, inhoud: string) => string;
   foto: (titel: string, nr: number) => string;
   levering: string;
   badges: [string, string, string];
-  uitgifte: string;
-  retour: string;
-  kiesDatum: string;
-  weken: (w: number, d: number) => string;
-  duurkorting: (pct: number) => string;
-  bespaart: (bedrag: string) => string;
-  extraVraag: string;
-  extraDroger: string;
-  extraVentilator: string;
-  perDag: string;
+  termijn: (w: number, d: number) => string;
+  pakketprijs: string;
+  kachelsOptioneel: string;
+  volgendeStap: string;
   boekDirect: string;
   vertrouwen: [string, string, string, string];
   specKop: string;
   inbegrepen: (n: number) => string;
-  watInbegrepen: string;
   hulp: string;
   specificaties: string;
-  boekNu: string;
-  bevestigen: string;
-  klantType: { particulier: string; zakelijk: string };
-  bedrijfsnaam: string;
-  btwNummer: string;
-  voornaam: string;
-  achternaam: string;
-  email: string;
-  telefoon: string;
-  straat: string;
-  postcode: string;
-  gemeente: string;
-  opmerkingen: string;
-  opmerkingenPh: string;
-  bezig: string;
-  boekKnop: (bedrag: string) => string;
-  geenBetaling: string;
-  prijsoverzicht: string;
-  pakketDagen: (d: number) => string;
-  extraApparatuur: string;
-  duurkortingRegel: (pct: number) => string;
-  totaal: string;
-  zijbalk: [string, string, string, string];
   opnieuw: string;
   mobielInfo: (w: number, n: number) => string;
   boekNuKort: string;
@@ -147,115 +98,47 @@ type Tekst = {
 
 const COPY = {
   nl: {
-    verplicht: "Vul alle verplichte velden in",
-    kiesDatums: "Selecteer een start- en einddatum",
-    fout: "Er ging iets mis",
-    probeerOpnieuw: "Probeer het opnieuw.",
     nietGevonden: "Pakket niet gevonden",
     terugConfigurator: "Terug naar configurator",
     samenstelling: (titel, inhoud) => `Samenstelling van het pakket ${titel}: ${inhoud}`,
     foto: (titel, nr) => `${titel}, foto ${nr}`,
     levering: "Levering",
     badges: ["Inclusief vochtmeting", "Bouwnorm proof", "Altijd inbegrepen"],
-    uitgifte: "Uitgifte datum",
-    retour: "Retour datum",
-    kiesDatum: "Kies datum",
-    weken: (w, d) => `${w} ${w === 1 ? "week" : "weken"} (${d} dagen)`,
-    duurkorting: (pct) => `-${pct}% duurkorting`,
-    bespaart: (bedrag) => `U bespaart ${bedrag} dankzij duurkorting`,
-    extraVraag: "Extra apparatuur toevoegen?",
-    extraDroger: "Extra bouwdroger",
-    extraVentilator: "Extra ventilator",
-    perDag: "/dag",
-    boekDirect: "Direct Boeken",
+    termijn: (w, d) => `Vaste huurtermijn: ${w} ${w === 1 ? "week" : "weken"} (${d} dagen)`,
+    pakketprijs: "Pakketprijs voor de volledige termijn",
+    kachelsOptioneel: "Verwarmt u zelf niet? Kachels voegt u toe in de volgende stap.",
+    volgendeStap: "In de volgende stap kiest u de leverdatum, de plaatsing en eventueel extra toestellen.",
+    boekDirect: "Boek dit pakket",
     vertrouwen: ["Gratis levering & ophaling", "Vochtmeting inbegrepen", "Levering binnen 24u", "Heel België"],
     specKop: "Slim formaat met robuuste prestaties",
     inbegrepen: (n) =>
       `${n}× inbegrepen in uw pakket. Professionele kwaliteit, getest en onderhouden door onze technici.`,
-    watInbegrepen: "Wat Is Inbegrepen?",
     hulp: "Hulp Nodig? Bel Ons",
     specificaties: "Specificaties",
-    boekNu: "Boek nu",
-    bevestigen: "Wij bevestigen uw boeking binnen 24 uur.",
-    klantType: { particulier: "particulier", zakelijk: "zakelijk" },
-    bedrijfsnaam: "Bedrijfsnaam *",
-    btwNummer: "BTW-nummer",
-    voornaam: "Voornaam *",
-    achternaam: "Achternaam *",
-    email: "E-mail *",
-    telefoon: "Telefoon *",
-    straat: "Straat + huisnummer *",
-    postcode: "Postcode",
-    gemeente: "Gemeente",
-    opmerkingen: "Opmerkingen (optioneel)",
-    opmerkingenPh: "Bijv. toegangsinformatie, specifieke wensen...",
-    bezig: "Bezig met verzenden...",
-    boekKnop: (bedrag) => `Boek Nu, ${bedrag}`,
-    geenBetaling: "Geen betaling vereist. Wij bevestigen binnen 24 uur.",
-    prijsoverzicht: "Prijsoverzicht",
-    pakketDagen: (d) => `Pakket (${d}d)`,
-    extraApparatuur: "Extra apparatuur",
-    duurkortingRegel: (pct) => `Duurkorting (-${pct}%)`,
-    totaal: "Totaal",
-    zijbalk: ["Gratis levering & ophaling", "500+ projecten afgerond", "Vochtmeting inbegrepen", "Binnen 24u antwoord"],
     opnieuw: "Opnieuw configureren",
-    mobielInfo: (w, n) => `${w}w • ${n} apparaten`,
+    mobielInfo: (w, n) => `${w} weken • ${n} apparaten`,
     boekNuKort: "Boek nu",
     metaBeschrijving: (kort, inhoud, prijs) =>
       `${kort} droogpakket met ${inhoud}. ${prijs} per 2 weken, inclusief levering, installatie en ophaling.`,
   },
   fr: {
-    verplicht: "Veuillez remplir tous les champs obligatoires",
-    kiesDatums: "Sélectionnez une date de début et de fin",
-    fout: "Une erreur s'est produite",
-    probeerOpnieuw: "Veuillez réessayer.",
     nietGevonden: "Pack introuvable",
     terugConfigurator: "Retour au configurateur",
     samenstelling: (titel, inhoud) => `Composition du pack ${titel} : ${inhoud}`,
     foto: (titel, nr) => `${titel}, photo ${nr}`,
     levering: "Livraison",
     badges: ["Mesure d'humidité comprise", "Conforme aux normes de construction", "Toujours inclus"],
-    uitgifte: "Date de départ",
-    retour: "Date de retour",
-    kiesDatum: "Choisir une date",
-    weken: (w, d) => `${w} ${w === 1 ? "semaine" : "semaines"} (${d} jours)`,
-    duurkorting: (pct) => `-${pct} % de remise de durée`,
-    bespaart: (bedrag) => `Vous économisez ${bedrag} grâce à la remise de durée`,
-    extraVraag: "Ajouter des appareils ?",
-    extraDroger: "Déshumidificateur de chantier supplémentaire",
-    extraVentilator: "Ventilateur supplémentaire",
-    perDag: "/jour",
-    boekDirect: "Réserver directement",
+    termijn: (w, d) => `Durée de location fixe : ${w} ${w === 1 ? "semaine" : "semaines"} (${d} jours)`,
+    pakketprijs: "Prix du pack pour toute la durée",
+    kachelsOptioneel: "Vous ne chauffez pas vous-même ? Ajoutez des chauffages à l'étape suivante.",
+    volgendeStap: "À l'étape suivante, vous choisissez la date de livraison, l'installation et d'éventuels appareils supplémentaires.",
+    boekDirect: "Réserver ce pack",
     vertrouwen: ["Livraison et reprise gratuites", "Mesure d'humidité comprise", "Livraison sous 24 h", "Toute la Belgique"],
     specKop: "Format compact, performances robustes",
     inbegrepen: (n) =>
       `${n}× inclus dans votre pack. Qualité professionnelle, testée et entretenue par nos techniciens.`,
-    watInbegrepen: "Qu'est-ce qui est inclus ?",
-    hulp: "Besoin d'aide ? Appelez-nous",
+    hulp: "Besoin d'aide ? Appelez-nous",
     specificaties: "Spécifications",
-    boekNu: "Réservez maintenant",
-    bevestigen: "Nous confirmons votre réservation dans les 24 heures.",
-    klantType: { particulier: "Particulier", zakelijk: "Professionnel" },
-    bedrijfsnaam: "Nom de l'entreprise *",
-    btwNummer: "Numéro de TVA",
-    voornaam: "Prénom *",
-    achternaam: "Nom *",
-    email: "E-mail *",
-    telefoon: "Téléphone *",
-    straat: "Rue + numéro *",
-    postcode: "Code postal",
-    gemeente: "Commune",
-    opmerkingen: "Remarques (facultatif)",
-    opmerkingenPh: "P. ex. informations d'accès, souhaits particuliers...",
-    bezig: "Envoi en cours...",
-    boekKnop: (bedrag) => `Réserver, ${bedrag}`,
-    geenBetaling: "Aucun paiement requis. Nous confirmons dans les 24 heures.",
-    prijsoverzicht: "Aperçu du prix",
-    pakketDagen: (d) => `Pack (${d} j)`,
-    extraApparatuur: "Appareils supplémentaires",
-    duurkortingRegel: (pct) => `Remise de durée (-${pct} %)`,
-    totaal: "Total",
-    zijbalk: ["Livraison et reprise gratuites", "500+ projets réalisés", "Mesure d'humidité comprise", "Réponse sous 24 h"],
     opnieuw: "Reconfigurer",
     mobielInfo: (w, n) => `${w} sem. • ${n} appareils`,
     boekNuKort: "Réserver",
@@ -263,59 +146,25 @@ const COPY = {
       `Pack de séchage ${kort} avec ${inhoud}. ${prijs} par 2 semaines, livraison, installation et reprise comprises.`,
   },
   en: {
-    verplicht: "Please fill in all required fields",
-    kiesDatums: "Select a start and end date",
-    fout: "Something went wrong",
-    probeerOpnieuw: "Please try again.",
     nietGevonden: "Package not found",
     terugConfigurator: "Back to the configurator",
     samenstelling: (titel, inhoud) => `Contents of the ${titel} package: ${inhoud}`,
     foto: (titel, nr) => `${titel}, photo ${nr}`,
     levering: "Delivery",
     badges: ["Moisture reading included", "Meets building standards", "Always included"],
-    uitgifte: "Start date",
-    retour: "Return date",
-    kiesDatum: "Choose a date",
-    weken: (w, d) => `${w} ${w === 1 ? "week" : "weeks"} (${d} days)`,
-    duurkorting: (pct) => `-${pct}% duration discount`,
-    bespaart: (bedrag) => `You save ${bedrag} with the duration discount`,
-    extraVraag: "Add extra equipment?",
-    extraDroger: "Extra construction dehumidifier",
-    extraVentilator: "Extra fan",
-    perDag: "/day",
-    boekDirect: "Book now",
+    termijn: (w, d) => `Fixed rental period: ${w} ${w === 1 ? "week" : "weeks"} (${d} days)`,
+    pakketprijs: "Package price for the full period",
+    kachelsOptioneel: "Not heating the site yourself? Add heaters in the next step.",
+    volgendeStap: "In the next step you choose the delivery date, the placement and any extra equipment.",
+    boekDirect: "Book this package",
     vertrouwen: ["Free delivery & collection", "Moisture reading included", "Delivery within 24h", "All of Belgium"],
     specKop: "Compact size, robust performance",
     inbegrepen: (n) =>
       `${n}× included in your package. Professional quality, tested and maintained by our technicians.`,
-    watInbegrepen: "What's included?",
     hulp: "Need help? Call us",
     specificaties: "Specifications",
-    boekNu: "Book now",
-    bevestigen: "We will confirm your booking within 24 hours.",
-    klantType: { particulier: "Private", zakelijk: "Business" },
-    bedrijfsnaam: "Company name *",
-    btwNummer: "VAT number",
-    voornaam: "First name *",
-    achternaam: "Last name *",
-    email: "Email *",
-    telefoon: "Phone *",
-    straat: "Street + house number *",
-    postcode: "Postcode",
-    gemeente: "Town",
-    opmerkingen: "Comments (optional)",
-    opmerkingenPh: "E.g. access information, specific requests...",
-    bezig: "Sending...",
-    boekKnop: (bedrag) => `Book now, ${bedrag}`,
-    geenBetaling: "No payment required. We will confirm within 24 hours.",
-    prijsoverzicht: "Price overview",
-    pakketDagen: (d) => `Package (${d}d)`,
-    extraApparatuur: "Extra equipment",
-    duurkortingRegel: (pct) => `Duration discount (-${pct}%)`,
-    totaal: "Total",
-    zijbalk: ["Free delivery & collection", "500+ projects completed", "Moisture reading included", "Reply within 24h"],
     opnieuw: "Reconfigure",
-    mobielInfo: (w, n) => `${w}w • ${n} units`,
+    mobielInfo: (w, n) => `${w} weeks • ${n} units`,
     boekNuKort: "Book now",
     metaBeschrijving: (kort, inhoud, prijs) =>
       `${kort} drying package with ${inhoud}. ${prijs} per 2 weeks, including delivery, installation and collection.`,
@@ -325,7 +174,6 @@ const COPY = {
 const PackageDetailPage = () => {
   const { packageId } = useParams<{ packageId: string }>();
   const navigate = useNavigate();
-  const { toast } = useToast();
   const t = useCopy(COPY);
   const lp = useLokaalPad();
   const seoNietGevonden = useSeo("notFound");
@@ -333,46 +181,11 @@ const PackageDetailPage = () => {
   const toon = useToonBedrag();
   /** Bedrag + btw-label, zoals de bezoeker het hoort te zien. */
   const bedrag = (excl: number) => `${toon(excl).tekst} ${toon(excl).label}`;
-  /*
-    Nederlands houdt zijn date-fns-notatie ("3 dec. 2026"); de andere talen
-    volgen NUMBER_LOCALE, zoals elders op de site.
-  */
-  const datum = (d: Date) =>
-    taal === "nl"
-      ? format(d, "d MMM yyyy", { locale: nl })
-      : d.toLocaleDateString(NUMBER_LOCALE[taal], { day: "numeric", month: "short", year: "numeric" });
-  /*
-    De kalender bleef in het Nederlands als de taal niet "fr" was; Engels krijgt
-    zijn eigen locale (Britse volgorde, week vanaf maandag) in plaats van de
-    Amerikaanse standaard van date-fns.
-  */
-  const kalenderLocale = taal === "fr" ? fr : taal === "en" ? enGB : undefined;
   const pkg = packageId ? getPackageById(packageId) : undefined;
 
   // Gallery
   const [activeImg, setActiveImg] = useState(0);
 
-  // Date picker
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
-
-  // Upsell
-  const [extraDrogers, setExtraDrogers] = useState(0);
-  const [extraVentilatoren, setExtraVentilatoren] = useState(0);
-
-  // Form
-  const [customerType, setCustomerType] = useState<CustomerType>("particulier");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [city, setCity] = useState("");
-  const [notes, setNotes] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [vatNumber, setVatNumber] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!pkg) {
     return (
@@ -415,94 +228,24 @@ const PackageDetailPage = () => {
   );
   const pad = lp(`/levering/pakket/${pkg.id}`);
 
-  // Duration calculation
-  const rentalDays = startDate && endDate ? Math.max(1, differenceInDays(endDate, startDate)) : 14;
-  const rentalWeeks = Math.ceil(rentalDays / 7);
-
-  // Pricing
-  const baseTotal = pkg.pricePerDay * rentalDays;
-  const durationDiscount = rentalDays >= 28 ? 15 : rentalDays >= 21 ? 10 : rentalDays >= 14 ? 5 : 0;
-  const extraEquipmentDaily = extraDrogers * EXTRA_DROGER_DAG + extraVentilatoren * EXTRA_VENTILATOR_DAG;
-  const extraEquipmentTotal = extraEquipmentDaily * rentalDays;
-  const subtotal = baseTotal + extraEquipmentTotal;
-  const discount = Math.round(subtotal * (durationDiscount / 100));
-  const totalPrice = subtotal - discount;
-
-  const handleStartDateSelect = (date: Date | undefined) => {
-    setStartDate(date);
-    if (date && (!endDate || endDate <= date)) {
-      setEndDate(addDays(date, 14));
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !firstName || !lastName || !phone || !address) {
-      toast({ title: t.verplicht, variant: "destructive" });
-      return;
-    }
-    if (!startDate || !endDate) {
-      toast({ title: t.kiesDatums, variant: "destructive" });
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const year = new Date().getFullYear();
-      const random = Math.floor(10000 + Math.random() * 90000);
-      const bookingNumber = `BDR-${year}-${random}`;
-
-      const totalDrogers = pkg.equipment.filter(e => e.type === "bouwdroger").reduce((s, e) => s + e.count, 0) + extraDrogers;
-      const totalVent = pkg.equipment.filter(e => e.type === "ventilator").reduce((s, e) => s + e.count, 0) + extraVentilatoren;
-      const totalVerw = pkg.equipment.filter(e => e.type === "kachel").reduce((s, e) => s + e.count, 0);
-
-      const bookingData = {
-        booking_number: bookingNumber,
-        customer_type: customerType,
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        phone,
-        address,
-        postal_code: postalCode,
-        city,
-        company_name: customerType === "zakelijk" ? companyName : null,
-        vat_number: customerType === "zakelijk" ? vatNumber : null,
-        notes: notes || null,
-        status: "pending",
-        package_tier: pkg.id,
-        duration_days: rentalDays,
-        rental_start_date: format(startDate, "yyyy-MM-dd"),
-        rental_end_date: format(endDate, "yyyy-MM-dd"),
-        total_price: totalPrice,
-        equipment_drogers: totalDrogers,
-        equipment_ventilatoren: totalVent,
-        equipment_verwarming: totalVerw,
-      };
-
-      // Via /api/order — zie BookingPage: die route stuurt de boeking ook door
-      // naar het bouwdrogers-portaal in Vernast.
-      const response = await fetch("/api/order", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ kind: "booking", data: bookingData }),
-      });
-
-      if (!response.ok) {
-        toast({ title: t.fout, description: t.probeerOpnieuw, variant: "destructive" });
-        setIsSubmitting(false);
-        return;
-      }
-      navigate(lp("/booking/success"), { state: { bookingNumber, firstName, email } });
-    } catch {
-      toast({ title: t.fout, variant: "destructive" });
-      setIsSubmitting(false);
-    }
-  };
+  // Een vast pakket loopt één termijn en kost dagprijs × die dagen, zonder
+  // staffelkorting — precies wat de boekingsflow en api/checkout.ts rekenen.
+  const weeks = packageWeeks(pkg);
+  const days = weeks * 7;
+  const totalPrice = packageTotal(pkg);
+  const included = pkg.equipment.filter((item) => !item.optional);
+  const hasOptionalHeaters = pkg.equipment.some((item) => item.optional);
+  const boekPad = `${lp("/verhuur/pakket")}?${configToQuery({
+    size: String(pkg.sqm),
+    wat: pkg.workType,
+    pd: pkg.workType === "pleister" && pkg.thicknessCm !== null ? String(pkg.thicknessCm) : "2",
+    cd: pkg.workType === "chape" && pkg.thicknessCm !== null ? String(pkg.thicknessCm) : "6",
+    heat: false,
+    weeks,
+  })}`;
 
   return (
     <div className="min-h-screen bg-background">
-      <Toaster />
       <PageMeta
         /*
          * De titel moet de variant benoemen, niet alleen de oppervlakte: drie
@@ -613,55 +356,10 @@ const PackageDetailPage = () => {
                 </h1>
                 <p className="text-muted-foreground mb-6">{tp.description}</p>
 
-                {/* Date pickers */}
-                <div className="grid grid-cols-2 gap-3 mb-6">
-                  <div>
-                    <Label className="text-xs font-semibold text-muted-foreground mb-1 block">{t.uitgifte}</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !startDate && "text-muted-foreground")}>
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {startDate ? datum(startDate) : t.kiesDatum}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={startDate}
-                          onSelect={handleStartDateSelect}
-                          locale={kalenderLocale}
-                          disabled={(date) => date < new Date()}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <div>
-                    <Label className="text-xs font-semibold text-muted-foreground mb-1 block">{t.retour}</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !endDate && "text-muted-foreground")}>
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {endDate ? datum(endDate) : t.kiesDatum}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={endDate}
-                          onSelect={setEndDate}
-                          locale={kalenderLocale}
-                          disabled={(date) => date < (startDate || new Date())}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                </div>
-
-                {/* Equipment list with images */}
-                <div className="border border-border rounded-xl divide-y divide-border mb-6">
-                  {pkg.equipment.map((item, i) => {
+                {/* Equipment list with images: what the package price includes */}
+                <div className="border border-border rounded-xl divide-y divide-border mb-3">
+                  {included.map((item) => {
+                    const i = pkg.equipment.indexOf(item);
                     const img = equipmentImages[item.name];
                     return (
                       <div key={i} className="flex items-center gap-3 p-3">
@@ -679,14 +377,17 @@ const PackageDetailPage = () => {
                     );
                   })}
                 </div>
+                {hasOptionalHeaters && (
+                  <p className="flex items-center gap-2 text-xs text-muted-foreground mb-6">
+                    <Flame className="h-3.5 w-3.5 text-primary flex-shrink-0" />
+                    {t.kachelsOptioneel}
+                  </p>
+                )}
 
-                {/* Duration info */}
+                {/* Fixed rental period */}
                 <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                   <Clock className="h-4 w-4" />
-                  <span>{t.weken(rentalWeeks, rentalDays)}</span>
-                  {durationDiscount > 0 && (
-                    <Badge variant="secondary" className="text-xs bg-primary/10 text-primary">{t.duurkorting(durationDiscount)}</Badge>
-                  )}
+                  <span>{t.termijn(weeks, days)}</span>
                 </div>
 
                 {/* Price */}
@@ -695,46 +396,16 @@ const PackageDetailPage = () => {
                     <span className="text-3xl font-black text-foreground">{toon(totalPrice).tekst}</span>
                     <span className="text-muted-foreground text-sm">{toon(totalPrice).label}</span>
                   </div>
-                  {discount > 0 && (
-                    <p className="text-sm text-primary font-medium">{t.bespaart(toon(discount).tekst)}</p>
-                  )}
+                  <p className="text-sm text-muted-foreground">{t.pakketprijs}</p>
                 </div>
 
-                {/* Extra equipment upsell */}
-                <div className="bg-muted/50 rounded-xl p-4 mb-6 space-y-3">
-                  <p className="text-sm font-bold">{t.extraVraag}</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium">{t.extraDroger}</p>
-                      <p className="text-xs text-muted-foreground">+{toon(EXTRA_DROGER_DAG).tekst}{t.perDag}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button type="button" onClick={() => setExtraDrogers(Math.max(0, extraDrogers - 1))} className="w-7 h-7 rounded-full border border-border flex items-center justify-center hover:bg-background"><Minus className="h-3 w-3" /></button>
-                      <span className="text-sm font-bold w-5 text-center">{extraDrogers}</span>
-                      <button type="button" onClick={() => setExtraDrogers(extraDrogers + 1)} className="w-7 h-7 rounded-full border border-border flex items-center justify-center hover:bg-background"><Plus className="h-3 w-3" /></button>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium">{t.extraVentilator}</p>
-                      <p className="text-xs text-muted-foreground">+{toon(EXTRA_VENTILATOR_DAG).tekst}{t.perDag}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button type="button" onClick={() => setExtraVentilatoren(Math.max(0, extraVentilatoren - 1))} className="w-7 h-7 rounded-full border border-border flex items-center justify-center hover:bg-background"><Minus className="h-3 w-3" /></button>
-                      <span className="text-sm font-bold w-5 text-center">{extraVentilatoren}</span>
-                      <button type="button" onClick={() => setExtraVentilatoren(extraVentilatoren + 1)} className="w-7 h-7 rounded-full border border-border flex items-center justify-center hover:bg-background"><Plus className="h-3 w-3" /></button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* CTA */}
-                <Button
-                  size="lg"
-                  className="w-full rounded-xl font-bold text-base gap-2"
-                  onClick={() => document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                >
-                  {t.boekDirect} <ArrowRight className="h-4 w-4" />
+                {/* CTA: booking happens in the booking flow */}
+                <Button asChild size="lg" className="w-full rounded-xl font-bold text-base gap-2">
+                  <Link to={boekPad}>
+                    {t.boekDirect} <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </Button>
+                <p className="text-xs text-muted-foreground mt-2">{t.volgendeStap}</p>
 
                 {/* Trust row */}
                 <div className="grid grid-cols-2 gap-2 mt-4">
@@ -782,11 +453,11 @@ const PackageDetailPage = () => {
                             {t.specKop}
                           </h2>
                           <p className="text-muted-foreground mb-6">
-                            {t.inbegrepen(item.count)}
+                            {item.optional ? t.kachelsOptioneel : t.inbegrepen(item.count)}
                           </p>
                           <div className="flex flex-col gap-3">
-                            <Button variant="default" className="rounded-full w-fit" onClick={() => document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth" })}>
-                              {t.watInbegrepen}
+                            <Button asChild variant="default" className="rounded-full w-fit">
+                              <Link to={boekPad}>{t.boekDirect}</Link>
                             </Button>
                             <Button variant="outline" className="rounded-full w-fit" onClick={() => navigate(lp("/contact"))}>
                               <Phone className="h-4 w-4 mr-2" /> {t.hulp}
@@ -818,160 +489,22 @@ const PackageDetailPage = () => {
           </div>
         </section>
 
-        {/* BOOKING FORM SECTION */}
-        <section id="booking-form" className="py-10 md:py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto grid lg:grid-cols-3 gap-8">
-              {/* Form */}
-              <div className="lg:col-span-2">
-                <h2 className="text-2xl font-black mb-1">{t.boekNu}</h2>
-                <p className="text-muted-foreground text-sm mb-6">{t.bevestigen}</p>
-
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Customer type */}
-                  <div className="grid grid-cols-2 gap-3">
-                    {(["particulier", "zakelijk"] as const).map((type) => (
-                      <button
-                        key={type}
-                        type="button"
-                        onClick={() => setCustomerType(type)}
-                        className={cn(
-                          "flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left",
-                          customerType === type ? "border-primary bg-primary/5" : "border-border hover:border-primary/30"
-                        )}
-                      >
-                        {type === "particulier" ? <User className="h-4 w-4" /> : <Building2 className="h-4 w-4" />}
-                        <span className="font-semibold text-sm capitalize">{t.klantType[type]}</span>
-                      </button>
-                    ))}
-                  </div>
-
-                  {customerType === "zakelijk" && (
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
-                        <Label className="text-sm font-semibold">{t.bedrijfsnaam}</Label>
-                        <Input value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label className="text-sm font-semibold">{t.btwNummer}</Label>
-                        <Input value={vatNumber} onChange={(e) => setVatNumber(e.target.value)} placeholder="BE0123.456.789" />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">{t.voornaam}</Label>
-                      <Input id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">{t.achternaam}</Label>
-                      <Input value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-                    </div>
-                  </div>
-
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">{t.email}</Label>
-                      <Input type="email" inputMode="email" autoComplete="email" autoCapitalize="none" spellCheck={false} value={email} onChange={(e) => setEmail(maskEmail(e.target.value))} required />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">{t.telefoon}</Label>
-                      <Input type="tel" inputMode="tel" autoComplete="tel" placeholder="0470 00 00 00" value={phone} onChange={(e) => setPhone(maskPhone(e.target.value))} required />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <Label className="text-sm font-semibold">{t.straat}</Label>
-                    <Input value={address} onChange={(e) => setAddress(e.target.value)} required />
-                  </div>
-
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">{t.postcode}</Label>
-                      <Input value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label className="text-sm font-semibold">{t.gemeente}</Label>
-                      <Input value={city} onChange={(e) => setCity(e.target.value)} />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <Label className="text-sm font-semibold">{t.opmerkingen}</Label>
-                    <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={t.opmerkingenPh} rows={3} />
-                  </div>
-
-                  <Button type="submit" size="lg" className="w-full font-bold text-base rounded-xl" disabled={isSubmitting}>
-                    {isSubmitting ? t.bezig : t.boekKnop(bedrag(totalPrice))}
-                  </Button>
-                  <p className="text-xs text-muted-foreground text-center">{t.geenBetaling}</p>
-                </form>
-              </div>
-
-              {/* Sticky sidebar summary */}
-              <div className="lg:sticky lg:top-24 space-y-5">
-                {/* Price recap */}
-                <div className="bg-accent text-primary-foreground rounded-2xl p-5">
-                  <h3 className="font-bold text-sm mb-3 opacity-80">{t.prijsoverzicht}</h3>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="opacity-80">{t.pakketDagen(rentalDays)}</span>
-                      <span>{toon(baseTotal).tekst}</span>
-                    </div>
-                    {extraEquipmentTotal > 0 && (
-                      <div className="flex justify-between">
-                        <span className="opacity-80">{t.extraApparatuur}</span>
-                        <span>{toon(extraEquipmentTotal).tekst}</span>
-                      </div>
-                    )}
-                    {discount > 0 && (
-                      <div className="flex justify-between text-primary-foreground/80">
-                        <span>{t.duurkortingRegel(durationDiscount)}</span>
-                        <span>-{toon(discount).tekst}</span>
-                      </div>
-                    )}
-                    <div className="border-t border-primary-foreground/20 pt-2 flex justify-between text-lg font-black">
-                      <span>{t.totaal}</span>
-                      <span>{toon(totalPrice).tekst}</span>
-                    </div>
-                    <p className="text-xs opacity-60">{toon(totalPrice).label}</p>
-                  </div>
-                </div>
-
-                {/*
-                  Hier stond een sterrenrij met "4.9/5" en een quote van
-                  "Pieter D." — allebei verzonnen, en op élke pakketpagina
-                  geprerenderd. Wat overblijft zijn de vier punten hieronder:
-                  die staan in de voorwaarden en zijn dus na te gaan.
-                */}
-                <div className="bg-card border border-border rounded-2xl p-5">
-                  <div className="space-y-2">
-                    {t.zijbalk.map((regel) => (
-                      <div key={regel} className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Check className="h-3 w-3 text-primary flex-shrink-0" />
-                        <span>{regel}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <Button variant="ghost" onClick={() => navigate(lp("/levering"))} className="w-full gap-2 text-sm">
-                  <ArrowLeft className="h-4 w-4" /> {t.opnieuw}
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <div className="container mx-auto px-4 pb-10 text-center">
+          <Button variant="ghost" onClick={() => navigate(lp("/levering"))} className="gap-2 text-sm">
+            <ArrowLeft className="h-4 w-4" /> {t.opnieuw}
+          </Button>
+        </div>
 
         {/* Sticky mobile CTA */}
         <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border p-3 flex items-center justify-between lg:hidden z-50">
           <div>
             <div className="text-lg font-black text-foreground">{toon(totalPrice).tekst}</div>
-            <div className="text-xs text-muted-foreground">{t.mobielInfo(rentalWeeks, pkg.equipment.reduce((s, e) => s + e.count, 0) + extraDrogers + extraVentilatoren)}</div>
+            <div className="text-xs text-muted-foreground">{t.mobielInfo(weeks, included.reduce((s, e) => s + e.count, 0))}</div>
           </div>
-          <Button size="sm" className="rounded-xl font-bold gap-1" onClick={() => document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth" })}>
-            {t.boekNuKort} <ArrowRight className="h-4 w-4" />
+          <Button asChild size="sm" className="rounded-xl font-bold gap-1">
+            <Link to={boekPad}>
+              {t.boekNuKort} <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
         </div>
       <DienstVoorbeelden />

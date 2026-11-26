@@ -102,7 +102,12 @@ export function Plattegrond({ kamers, openingen = [], trappen = [] }: { kamers: 
               return <line key={j} x1={x} x2={x} y1={t.z} y2={t.z + t.l} />;
             })}
             {t.op && (
-              <path d={`M${t.x + 0.2} ${t.z + t.l / 2}H${t.x + t.w - 0.35}m-0.25 -0.2l0.25 0.2l-0.25 0.2`} className="ds-plan-pijl" />
+              <path
+                d={t.richting > 0
+                  ? `M${t.x + 0.2} ${t.z + t.l / 2}H${t.x + t.w - 0.35}m-0.25 -0.2l0.25 0.2l-0.25 0.2`
+                  : `M${t.x + t.w - 0.2} ${t.z + t.l / 2}H${t.x + 0.35}m0.25 -0.2l-0.25 0.2l0.25 0.2`}
+                className="ds-plan-pijl"
+              />
             )}
           </g>
         );
@@ -112,14 +117,22 @@ export function Plattegrond({ kamers, openingen = [], trappen = [] }: { kamers: 
       ))}
       {openingen.filter((o) => o.soort === "deur").map((o, i) => {
         const b = Math.min(0.85, o.tot - o.van);
+        // Blad aan het scharnier, boog naar het andere eind van de opening.
+        const h = o.scharnier === "tot" ? o.tot : o.van, e = o.scharnier === "tot" ? o.tot - b : o.van + b;
+        const veeg = (o.as === "x" ? o.kant > 0 : o.kant < 0) !== (o.scharnier === "tot") ? 1 : 0;
         const d =
           o.as === "x"
-            ? `M${o.van} ${o.vast}V${o.vast + o.kant * b}M${o.van + b} ${o.vast}A${b} ${b} 0 0 ${o.kant > 0 ? 1 : 0} ${o.van} ${o.vast + o.kant * b}`
-            : `M${o.vast} ${o.van}H${o.vast + o.kant * b}M${o.vast} ${o.van + b}A${b} ${b} 0 0 ${o.kant > 0 ? 0 : 1} ${o.vast + o.kant * b} ${o.van}`;
+            ? `M${h} ${o.vast}V${o.vast + o.kant * b}M${e} ${o.vast}A${b} ${b} 0 0 ${veeg} ${h} ${o.vast + o.kant * b}`
+            : `M${o.vast} ${h}H${o.vast + o.kant * b}M${o.vast} ${e}A${b} ${b} 0 0 ${veeg} ${o.vast + o.kant * b} ${h}`;
         return <path key={i} d={d} className="ds-plan-deur" />;
       })}
       {openingen.filter((o) => o.soort === "voordeur").map((o, i) => (
-        <path key={`v${i}`} d={`M${(o.van + o.tot) / 2} ${o.vast + 0.45}l-0.22 0.3h0.44z`} className="ds-plan-ingang" />
+        // Pijl naar binnen: onder de voorgevel, of (appartement) links van de linkerwand.
+        <path
+          key={`v${i}`}
+          d={o.as === "x" ? `M${(o.van + o.tot) / 2} ${o.vast + 0.45}l-0.22 0.3h0.44z` : `M${o.vast - 0.08} ${(o.van + o.tot) / 2}l-0.3 -0.22v0.44z`}
+          className="ds-plan-ingang"
+        />
       ))}
     </svg>
   );
