@@ -1458,7 +1458,7 @@ function Scene(props: SceneProps) {
           <Suspense fallback={null}>
             <Straat3D
               woning={st.woning} w={st.w} l={st.l} lagen={st.lagen} periode={st.periode} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"}
-              open={openStand} zicht={{ get current() { return st.zicht.current * straatHoek.current; } }} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)} hoek={hoek} gaten={gaten}
+              open={openStand} snede={yfAct + HC} zicht={{ get current() { return st.zicht.current * straatHoek.current; } }} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)} hoek={hoek} gaten={gaten}
             />
           </Suspense>
         </StraatVangnet>

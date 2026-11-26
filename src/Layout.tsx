@@ -14,8 +14,10 @@ const KeuzePopup = lazy(() => import("@/components/KeuzePopup"));
   Pagina's waar de popup niet mag verschijnen: de QR-betaling bij de
   installatie, de verlenglink uit de mail en de bevestigingen na betaling.
   Wie daar komt, heeft al geboekt — en een technieker staat ernaast te wachten.
+  Ook niet in de droogsimulator: daar schoof hij over het 3D-huis heen voor de
+  eerste vraag; de taal volgt er de URL, de prijzen tonen incl. btw.
 */
-const ZONDER_POPUP = /\/(saldo|solde|balance|verlengen|prolonger|extend|success|confirmation)(\/|$)/;
+const ZONDER_POPUP = /\/(saldo|solde|balance|verlengen|prolonger|extend|success|confirmation|simulator|simulateur)(\/|$)/;
 
 /**
  * Applicatieschil rond elke route. Staat los van de router zelf omdat de
