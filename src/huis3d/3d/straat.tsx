@@ -212,7 +212,8 @@ export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zic
         <meshBasicMaterial map={achterTex} transparent depthWrite={false} toneMapped={false} side={DoubleSide} />
       </mesh>
       {grond && (
-        <mesh ref={grondRef} geometry={grond} visible={false}>
+        // It casts the sun's shadow into the pit: the edge of the ground over the cellar is what makes it read as below ground.
+        <mesh ref={grondRef} geometry={grond} visible={false} castShadow>
           <meshBasicMaterial map={achterTex} toneMapped={false} />
         </mesh>
       )}
