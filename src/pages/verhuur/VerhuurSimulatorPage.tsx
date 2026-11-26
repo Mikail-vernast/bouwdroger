@@ -279,9 +279,12 @@ const VerhuurSimulatorPage = () => {
   );
 
   // Waterschade toont een bewoonde, afgewerkte woning; nat zodra er een plek aangevinkt is.
+  // Before a phase is chosen (choosing rooms per floor) the rooms are shown furnished, so a
+  // visitor recognises bedroom, office and living room; from the phase on, the house shows the site.
+  const zonderWater = materiaalVoor(stap >= 3 ? wat : null, stap >= 2 ? s.fase : null, FASE[antwoorden.fase].vocht);
   const materiaal = soort === "water"
     ? materiaalVoor(wsPlekken.length ? "waterschade" : null, "afgewerkt", 1)
-    : materiaalVoor(stap >= 3 ? wat : null, stap >= 2 ? s.fase : null, FASE[antwoorden.fase].vocht);
+    : stap < 2 ? { ...zonderWater, meubels: true } : zonderWater;
 
   // Het droogplan speelt als film (zie droogfilm): eerst plaatsen van onder naar
   // boven, dan drogen van boven naar beneden, en daarna staat de woning droog en

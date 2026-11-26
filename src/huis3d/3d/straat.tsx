@@ -44,8 +44,10 @@ interface Props {
   periode?: Periode;
   /** The sharpest size this device gets; the mini size always comes first. */
   doel: StraatMaat;
-  /** 0 closed .. 1 opened up: the front layer fades with the upper floors. */
+  /** 0 closed .. 1 opened up: the front layer fades with the upper floors, over the open floor only. */
   open: { current: number };
+  /** Height of the cut through the open floor (yf + HC): where the visitor looks into the house. */
+  snede?: number;
   /** 1 .. 0 while an older street picture fades out over its successor (another width). */
   zicht?: { current: number };
   /** 0 = the newest street; an older one is drawn over it while it fades. */
@@ -114,6 +116,47 @@ function snijrand(put: Vak, d = 0.09): BufferGeometry {
 
 const HEEL = { current: 1 };
 
+/** Must match T in maten.ts: the outer walls stand outside 0..w and 0..l. */
+const MUUR = 0.24;
+
+/**
+ * The front layer fades only where the visitor looks into the opened house. Per pixel it
+ * follows the view ray (parallel to KIJK: the camera is orthographic) down to the height of
+ * the cut; inside the house's outline there, the pixel shows the open floor. Elsewhere,
+ * over the facade, the plinth and the street, the layer stays: a car parked beside the house
+ * is closer to the camera than its side wall, and fading it left the copy in the back layer,
+ * which the house then covered, as if the house stood on the car.
+ */
+interface VoorUniforms {
+  uVaag: { value: number };
+  uSnede: { value: number };
+  uHuis: { value: [number, number, number, number] };
+  /** The view axis for this corner: KIJK mirrored like the street picture (spiegel). */
+  uKijk: { value: Vector3 };
+}
+
+function voorShader(u: VoorUniforms) {
+  return (shader: { uniforms: Record<string, unknown>; vertexShader: string; fragmentShader: string }) => {
+    Object.assign(shader.uniforms, u);
+    shader.vertexShader = shader.vertexShader
+      .replace("#include <common>", "#include <common>\nvarying vec3 vWereld;")
+      .replace("#include <project_vertex>", "#include <project_vertex>\nvWereld = (modelMatrix * vec4(transformed, 1.0)).xyz;");
+    shader.fragmentShader = shader.fragmentShader
+      .replace("#include <common>", `#include <common>
+varying vec3 vWereld;
+uniform float uVaag;
+uniform float uSnede;
+uniform vec4 uHuis;
+uniform vec3 uKijk;`)
+      .replace("#include <map_fragment>", `#include <map_fragment>
+{
+  vec3 p = vWereld - uKijk * ((vWereld.y - uSnede) / uKijk.y);
+  float binnen = step(uHuis.x, p.x) * step(p.x, uHuis.y) * step(uHuis.z, p.z) * step(p.z, uHuis.w);
+  diffuseColor.a *= 1.0 - uVaag * binnen;
+}`);
+  };
+}
+
 function zetKleur(t: Texture) {
   t.colorSpace = SRGBColorSpace;
   t.anisotropy = 4;
@@ -137,7 +180,7 @@ function spiegel(p: Vector3, hoek: Hoek | undefined, w: number, l: number): { po
   return { pos, stand, gespiegeld };
 }
 
-export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zicht = HEEL, orde = 0, onKlaar, hoek, gaten }: Props) {
+export default function Straat3D({ woning, w, l, lagen, periode, doel, open, snede = 0, zicht = HEEL, orde = 0, onKlaar, hoek, gaten }: Props) {
   const mini = useLoader(TextureLoader, straatBeelden(woning, w, "mini", lagen, periode));
   const [scherp, setScherp] = useState<[Texture, Texture] | null>(null);
   const klaar = useRef(onKlaar);
@@ -194,9 +237,21 @@ export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zic
   useEffect(() => () => rand?.dispose(), [rand]);
   const randRef = useRef<Mesh>(null);
 
+  const voorU = useMemo<VoorUniforms>(() => ({
+    uVaag: { value: 0 }, uSnede: { value: 0 }, uHuis: { value: [0, 0, 0, 0] }, uKijk: { value: KIJK.clone() },
+  }), []);
+  const voorCompile = useMemo(() => voorShader(voorU), [voorU]);
+  useEffect(() => {
+    voorU.uSnede.value = snede;
+    voorU.uHuis.value = [-MUUR, w + MUUR, -MUUR, l + MUUR];
+    voorU.uKijk.value.set(hoek?.zij === "links" ? -1 : 1, 1, hoek?.kant === "achter" ? -1 : 1).normalize();
+    invalidate();
+  }, [voorU, snede, w, l, hoek, invalidate]);
+
   useFrame(() => {
     const m = voorRef.current?.material as MeshBasicMaterial | undefined;
-    if (m) m.opacity = (1 - 0.92 * open.current) * zicht.current;
+    if (m) m.opacity = zicht.current;
+    voorU.uVaag.value = 0.92 * open.current;
     const a = achterRef.current?.material as MeshBasicMaterial | undefined;
     if (a) a.opacity = zicht.current;
     // Only while the picture stands in full: half faded, the ground would show as a plate.
@@ -225,7 +280,7 @@ export default function Straat3D({ woning, w, l, lagen, periode, doel, open, zic
       {/* In front of the house: no depth test, drawn last. */}
       <mesh ref={voorRef} position={voor.pos} quaternion={voor.stand} scale={[voor.gespiegeld ? -1 : 1, 1, 1]} renderOrder={8 + orde}>
         <planeGeometry args={[BREED, HOOG]} />
-        <meshBasicMaterial map={voorTex} transparent depthTest={false} depthWrite={false} toneMapped={false} side={DoubleSide} />
+        <meshBasicMaterial map={voorTex} transparent depthTest={false} depthWrite={false} toneMapped={false} side={DoubleSide} onBeforeCompile={voorCompile} />
       </mesh>
     </>
   );
