@@ -105,7 +105,10 @@ BOORD1 = PARK1 + BOORD
 PAD1 = BOORD1 + VOETPAD
 EIND = TUIN + D + ACHTER  # van de rand van het voetpad tot de achterhaag
 X0, X1, Z0, Z1 = -80, W + 80, -70, PAD1 + 70
-DEUR = 0.7  # midden van de voordeur langs x (droogSimulator: 0.25..1.15)
+# Midden van de voordeur van de live woning langs x. droogSimulator.ts zet die van een
+# open woning in het midden van de gevel (w/2 ± 0.45), elders tegen de linkergevel
+# (0.25..1.15). Het pad naar de deur volgt deze waarde.
+DEUR = W / 2 if WONING == "open" else 0.7
 OPRIT_B, ZIJ = 3.0, 3.6
 OPRIT_R = 2.7  # parkeerplek in de voortuin van een rijwoning  # breedte van een oprit, en de strook naast het huis waarin ze ligt
 
@@ -1207,12 +1210,16 @@ def kavel(i, kant, x0, x1, hx0, hx1, oprit=None, eigen=False, vrij_l=False, vrij
         a = g1 + 0.05
     haag(a, x1 - 0.05, *zr(kant, 0.1, 0.6), 0.85)
     # Plantvak onder het voorraam.
-    rv0, rv1 = (hx0 + 0.6, dc - 1.2) if deur_rechts else (dc + 1.2, hx1 - 0.6)  # naast het zijlicht
-    if oprit and oprit[0] < rv1 and oprit[1] > rv0:
-        rv1 = rv0  # de oprit ligt voor het raam
-    if rv1 - rv0 > 1.2:
-        # Laag gehouden: het leefruimteraam heeft een lage borstwering.
-        border(rv0, rv1, *zr(kant, gevel_v - 1.1, gevel_v - 0.45), max(2, round((rv1 - rv0) / 1.3)), (0.5, 0.8))
+    # Een voordeur in het midden (de live open woning) heeft aan elke kant een raam.
+    midden = eigen and WONING == "open"
+    vakken = [(hx0 + 0.6, dc - 1.2), (dc + 1.2, hx1 - 0.6)] if midden else \
+        [(hx0 + 0.6, dc - 1.2) if deur_rechts else (dc + 1.2, hx1 - 0.6)]  # naast het zijlicht
+    for rv0, rv1 in vakken:
+        if oprit and oprit[0] < rv1 and oprit[1] > rv0:
+            rv1 = rv0  # de oprit ligt voor het raam
+        if rv1 - rv0 > 1.2:
+            # Laag gehouden: het leefruimteraam heeft een lage borstwering.
+            border(rv0, rv1, *zr(kant, gevel_v - 1.1, gevel_v - 0.45), max(2, round((rv1 - rv0) / 1.3)), (0.5, 0.8))
     # Een kleine sierboom in de voortuin, aan de kant weg van pad en oprit. Niet bij elk
     # huis: een straat waar elke voortuin hetzelfde staat, leest als een maquette.
     if not eigen and i % 3 != 2 and TUIN > 3:  # in een smalle stadsvoortuin past geen boom
