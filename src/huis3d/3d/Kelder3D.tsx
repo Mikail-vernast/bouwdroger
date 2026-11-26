@@ -123,7 +123,9 @@ export default function Kelder3D({ w, l, hoek, trappen }: Props) {
     for (const m of mats.values()) { m.map?.dispose(); m.dispose(); }
   }, [mats]);
 
-  const trap = useMemo(() => kelderTrap(trappen, w), [trappen, w]);
+  // The stair climbs away from the camera, whichever way the house's own stair runs: from the
+  // other side you saw its tall blank end and none of the steps.
+  const trap = useMemo<Trap>(() => ({ ...kelderTrap(trappen, w), richting: hoek.zij === "rechts" ? -1 : 1 }), [trappen, w, hoek.zij]);
   const geos = useMemo(() => bouwKelder(w, l, hoek, trap), [w, l, hoek, trap]);
   useEffect(() => () => { for (const g of geos.values()) g.dispose(); }, [geos]);
 

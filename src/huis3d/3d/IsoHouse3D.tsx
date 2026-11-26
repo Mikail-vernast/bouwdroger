@@ -1032,6 +1032,8 @@ function Scene(props: SceneProps) {
   const zichtRef = useRef(1);
   const [meubelVakken, setMeubelVakken] = useState<Vak[] | null>(null);
   const [meubels, setMeubels] = useState<Meubel[]>([]);
+  // The cellar has no interior (and its finish would lay parquet): forget the storey above's furniture.
+  useEffect(() => { if (act === KELDER) { setMeubels([]); setMeubelVakken(null); } }, [act]);
   const laagKamersAct = useMemo(() => kamers.filter((k) => k.verdieping === act), [kamers, act]);
   // Toestellen landen naast de meubels, niet erop.
   const vrijePlaatsingen = useMemo(() => {
@@ -1457,7 +1459,7 @@ function Scene(props: SceneProps) {
           <group ref={inrichtingRef} visible={inrichtingIn}>
             <Meshes geos={inrichting} mats={sets.vast} />
           </group>
-          {meubelsIn && (
+          {meubelsIn && act !== KELDER && (
             <Suspense fallback={null}>
               <Interieur
                 laag={actKamers} kamers={kamers} openingen={laagOpeningen} ramen={laagRamen} trappen={laagTrappen}
