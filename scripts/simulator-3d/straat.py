@@ -22,12 +22,14 @@ Twee lagen per woningtype en breedte:
   voor:   alleen wat de woning kan overlappen (zie `sorteer_voor`). De rest is
           holdout, dus doorzichtig. Komt vóór de woning en vervaagt als ze opengaat.
 
-Gebruik (assets van Poly Haven, CC0, buiten de repo):
-  ASSETS=/pad/naar/polyhaven OUT=/pad/uit WONING=halfopen BREEDTE=8 \\
+Gebruik: scripts/simulator-3d/render-straat.sh (rendert en zet de webp's meteen in
+public/simulator/straat). Rechtstreeks, met de assets van Poly Haven (CC0) buiten de repo:
+  ASSETS=~/Blender/huis3d/polyhaven OUT=~/Blender/huis3d/renders WONING=halfopen BREEDTE=8 \\
     blender -b -P scripts/simulator-3d/straat.py
 
-BREEDTE is de gevelbreedte van de live woning (droogSimulator.ts: BREEDTES); de
-uitvoer heet {WONING}-b{BREEDTE*10}-achter.png en -voor.png.
+BREEDTE is de gevelbreedte van de live woning (src/huis3d/woning.ts: BREEDTES); de
+uitvoer heet {WONING}-b{BREEDTE*10}[-{PERIODE}]-achter.png en -voor.png. Het huis en
+deze straat delen de droogsimulator en de vochtsimulator (Vernast-v2.0): src/huis3d.
 
 Assen: three.js (x, y omhoog, z naar de straat) = Blender (x, -z, y). De woning
 staat op x 0..w, z 0..l; de voorgevel kijkt naar +z.
@@ -64,7 +66,7 @@ RES = (int(os.environ.get("RESX", "3500")), int(os.environ.get("RESY", "2500")))
 SCHAAL = float(os.environ.get("SCHAAL", "56"))  # ortho breedte in meter
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Zelfde maten als src/lib/droogSimulator.ts (WONING) en maten.ts.
+# Zelfde maten als src/huis3d/woning.ts (WONING) en src/huis3d/maten.ts.
 WONINGEN = {"rijwoning": (6, 10, 2), "halfopen": (8, 10, 1), "open": (10, 11, 0), "appartement": (9, 10, 0)}
 W, L, BUREN = WONINGEN[WONING]
 if os.environ.get("BREEDTE"):
@@ -112,7 +114,7 @@ BOORD1 = PARK1 + BOORD
 PAD1 = BOORD1 + VOETPAD
 EIND = TUIN + D + ACHTER  # van de rand van het voetpad tot de achterhaag
 X0, X1, Z0, Z1 = -80, W + 80, -70, PAD1 + 70
-# Midden van de voordeur van de live woning langs x. droogSimulator.ts zet die van een
+# Midden van de voordeur van de live woning langs x. huis3d/woning.ts zet die van een
 # open woning in het midden van de gevel (w/2 ± 0.45), elders tegen de linkergevel
 # (0.25..1.15). Het pad naar de deur volgt deze waarde.
 DEUR = W / 2 if WONING == "open" else 0.7
@@ -1481,7 +1483,7 @@ def band(x0, x1, y, voor=True, zij=None):
 
 
 def app_ramen(v, terras=False):
-    """De voorramen van een appartement zoals de live unit ze krijgt (droogSimulator.ts:
+    """De voorramen van een appartement zoals de live unit ze krijgt (huis3d/woning.ts:
     gevelKolommen en raamMaat, zonder voordeur in de gevel): een kolomraster over de
     breedte, beneden breed en laag, boven smaller. Met `terras` zijn het raamdeuren.
     Geeft (a0, a1, borstwering, bovenlicht) vanaf de binnenkant van de linkermuur; de
@@ -1621,7 +1623,7 @@ def omgeving_appartement():
     cilinder("afvoer", (W + T + 0.06, 0.05, L + T - 0.3), (W + T + 0.06, YU + 0.05, L + T - 0.3), 0.045, M["zink"], 10)
     verhard("inrit", W - 4.5, W - 0.5, F, PAD0, M["oprit"], 0.125)
     # Terras van de unit over haar hele breedte: de voorramen van haar onderste laag
-    # zijn raamdeuren (droogSimulator.ts: ramenVan). Het staat vóór de gevel en komt
+    # zijn raamdeuren (huis3d/woning.ts: ramenVan). Het staat vóór de gevel en komt
     # dus in de voorlaag: het vervaagt als de unit opengaat.
     if BALKON:
         balkon(0.3, W + T, YU + 0.28, diep=1.6, naam="terras")

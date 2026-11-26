@@ -1,4 +1,4 @@
-import type { Fase, Wat } from "@/lib/droogSimulator";
+import type { Fase, Wat } from "./woning";
 
 /** Blender tiles the 3D house can put on its inner walls and floors (public/simulator/3d). */
 export type MuurTegel = "baksteen" | "pleister" | "pleisternat" | "verf";

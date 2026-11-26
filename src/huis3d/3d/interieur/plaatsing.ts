@@ -17,8 +17,8 @@
       opengewerkte laag op volle hoogte blijft (de achter- en de linkergevel);
     - wat niet past, komt er niet: liever een lege hoek dan een kast door een deur.
 */
-import type { Kamer, Opening, Raam, Trap, Wand } from "@/lib/droogSimulator";
-import { aanloopVak, bordesVak, doorgangVak, overlapt, trapVak, type Vak, voorDeurVak, zwaaiVak } from "@/lib/droogSimulator";
+import type { Kamer, Opening, Raam, Trap, Wand } from "../../woning";
+import { aanloopVak, bordesVak, doorgangVak, overlapt, trapVak, type Vak, voorDeurVak, zwaaiVak } from "../../woning";
 
 /* ───────────── het manifest ───────────── */
 

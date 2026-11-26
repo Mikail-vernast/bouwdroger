@@ -4,6 +4,7 @@
   al zijn als de 3D ze nodig heeft (de toestellen staan in modellen.ts). Dit bestand importeert niets van three.js,
   zodat de pagina het kan gebruiken zonder de 3D-chunk binnen te halen.
 */
+import type { Periode } from "../periode";
 export const TEXTUUR = {
   baksteen: "/simulator/3d/baksteen.webp",
   arduin: "/simulator/3d/arduin.webp",
@@ -60,10 +61,12 @@ export function heeftStraat(woning: string): woning is StraatWoning {
  * An apartment also has one per number of storeys (1 or 2): the roof edge of the
  * building around it follows the top of the unit, appartement-b90-l2-achter.webp.
  */
-export function straatBeelden(woning: StraatWoning, breedte: number, maat: StraatMaat, lagen = 1): [string, string] {
+/** A building period other than 1950–1990 has its own street, with neighbours of that time: -voor1950, -na1990. */
+export function straatBeelden(woning: StraatWoning, breedte: number, maat: StraatMaat, lagen = 1, periode: Periode = "1950-1990"): [string, string] {
   const s = maat === "groot" ? "" : `-${maat}`;
   const l = woning === "appartement" ? `-l${Math.min(2, Math.max(1, Math.round(lagen)))}` : "";
-  const b = `${woning}-b${Math.round(breedte * 10)}${l}`;
+  const p = periode === "1950-1990" || woning === "appartement" ? "" : `-${periode}`;
+  const b = `${woning}-b${Math.round(breedte * 10)}${l}${p}`;
   return [`/simulator/straat/${b}-achter${s}.webp`, `/simulator/straat/${b}-voor${s}.webp`];
 }
 

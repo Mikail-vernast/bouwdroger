@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Bouwer, muurMinGaten } from "@/components/simulator/3d/geo";
+import { Bouwer, muurMinGaten } from "@/huis3d/3d/geo";
 
 const opp = (rs: { a0: number; a1: number; b0: number; b1: number }[]) =>
   rs.reduce((t, r) => t + (r.a1 - r.a0) * (r.b1 - r.b0), 0);
