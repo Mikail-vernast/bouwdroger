@@ -1,4 +1,4 @@
-import type { Kamer, Opening } from "@/lib/droogSimulator";
+import type { Kamer, Opening } from "../woning";
 import type { Bouwer } from "./geo";
 
 /*

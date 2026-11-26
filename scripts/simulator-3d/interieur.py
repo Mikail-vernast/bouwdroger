@@ -13,7 +13,7 @@
 # cilinders, eigen bladvormen). Er wordt geen enkel extern model, scan of textuur
 # geladen; de kit is dus vrij van licenties van derden.
 #
-# Afspraken met de code (src/components/simulator/3d/interieur/):
+# Afspraken met de code (src/huis3d/3d/interieur/):
 #   - meter; oorsprong midden-achteraan op de vloer, de achterkant tegen de muur;
 #   - de voorkant kijkt naar Blender -Y (= +Z in three.js, de n-as van inrichting.ts);
 #   - naam = <kamer>_<object>_<variant>, bv. slaapkamer_bed_160;

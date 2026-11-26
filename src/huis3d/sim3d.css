@@ -1,0 +1,15 @@
+/* The 3D house shared by the simulators (bouwdroger: src/styles/droogsimulator.css, the
+   rules for .ds-iso3d and its room labels). Kept to what the 3D house itself needs. */
+.ds-iso { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
+.ds-iso3d { transition: opacity 0.4s ease; }
+.ds-iso3d canvas { display: block; }
+.ds-labels3d { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.ds-kamerlabel3d {
+  position: absolute; left: 0; top: 0;
+  font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
+  font-size: clamp(6px, calc(var(--zl, 40) * 0.27px), 11px);
+  font-weight: 600; letter-spacing: 0.12em; color: #1a1a1acc; white-space: nowrap;
+  text-shadow: 0 0 2px #f7f3ec, 0 0 4px #f7f3ec, 0 0 8px #f7f3ecaa;
+  will-change: transform, opacity;
+}
+.ds-kamerlabel3d--gang { color: #1a1a1a80; font-size: clamp(5px, calc(var(--zl, 40) * 0.22px), 9px); }

@@ -11,8 +11,8 @@ import {
   RingGeometry,
   Vector3,
 } from "three";
-import type { Kamer, Plaatsing } from "@/lib/droogSimulator";
-import type { DeviceKey } from "@/data/verhuur";
+import type { Kamer, Plaatsing } from "../woning";
+import type { DeviceKey } from "../woning";
 import { TOESTEL_MODEL } from "./modellen";
 import { FILM_START, FILM_WACHT, VAL, aanVoortgang, droogStand, filmStatus, stuit, toestelTijd, type Film } from "../film";
 

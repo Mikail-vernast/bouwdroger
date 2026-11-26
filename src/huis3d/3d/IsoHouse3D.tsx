@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
+import { createContext, Suspense, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import {
   BoxGeometry,
@@ -20,22 +20,24 @@ import {
   type Texture,
   TextureLoader,
   Vector3,
+  MathUtils,
 } from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
-import { BREEDTES, WONING, kamerNaam, woningTekst, type Dak, type Kamer, type Opening, type Raam, type Trap, type Woning } from "@/lib/droogSimulator";
-import type { IsoHouseProps } from "../IsoHouse";
+import { BREEDTES, WONING, kamerNaam, woningTekst, type Dak, type Kamer, type Opening, type Raam, type Trap, type Woning } from "../woning";
+import type { Hoek, IsoHouseProps } from "../types";
 import type { Materiaal } from "../materiaal";
 import { Bouwer, type Gat, muurMinGaten, type UvFn, type V3 } from "./geo";
 import { MAX_BRON, type NatUniforms, maakNat, natPatch } from "./nat";
 import { richIn } from "./inrichting";
-import Interieur from "./interieur/Interieur";
+import Interieur, { type Meubel } from "./interieur/Interieur";
 import { INGERICHTE_KAMERS, vrijePlek } from "./interieur/plaatsing";
-import type { Vak } from "@/lib/droogSimulator";
+import type { Vak } from "../woning";
 import { Druppels3D, FilmStart, FilmWacht, Luchtstroom3D, Toestel3D, ToestelVangnet, type Geplaatst } from "./onderdelen";
 import { GEEN_PLAN, aankomst, aanVoortgang, droogStand, type Film } from "../film";
-import { FH, H, HC, SLAB, T, TI, nokHoogte } from "../maten";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useTaal } from "@/i18n/useTaal";
+import { FH, H, HC, SLAB, T, TI, VENSTER_OP, nokHoogte } from "../maten";
+import { PERIODE_STIJL, periodeVan, type Periode } from "../periode";
+import { useReducedMotion } from "../useReducedMotion";
+import { useTaal } from "../taal";
 import { TEXTUUR, budget3D, heeftStraat, meld, straatBeelden, voorlaad, type StraatWoning } from "./bestanden";
 import Straat3D, { StraatVangnet } from "./straat";
 
@@ -212,10 +214,31 @@ interface Bouwers {
 interface Woningplan {
   woning: Woning; w: number; lagen: number; act: number; dak: Dak;
   kamers: Kamer[]; openingen: Opening[]; trappen: Trap[]; ramen: Raam[];
+  hoek: Hoek; periode: Periode;
+}
+
+export type { Hoek };
+export const VOOR_RECHTS: Hoek = { kant: "voor", zij: "rechts" };
+export const isVoorRechts = (h: Hoek): boolean => h.kant === "voor" && h.zij === "rechts";
+
+/** The two facades nearest the camera: cut open at HC on the active storey. */
+function nabijeGevels(h: Hoek): Gevel[] {
+  return [h.kant === "voor" ? "voor" : "achter", h.zij === "rechts" ? "zij" : "links"];
+}
+const ALLE_GEVELS: Gevel[] = ["voor", "zij", "achter", "links"];
+
+/**
+ * Where each facade runs, along its own axis, so the four meet at the corners without
+ * overlap: the front and back take the corners on the right and left respectively.
+ */
+function gevelSpan(g: Gevel, w: number, l: number): [number, number] {
+  return g === "voor" ? [-T, w + T] : g === "zij" ? [-T, l] : g === "achter" ? [-T, w] : [0, l];
 }
 
 function bouw(p: Woningplan) {
-  const { woning, w, lagen, act, dak, kamers, openingen, trappen, ramen } = p;
+  const { woning, w, lagen, act, dak, kamers, openingen, trappen, ramen, hoek, periode } = p;
+  const nabij = nabijeGevels(hoek);
+  const ver = ALLE_GEVELS.filter((g) => !nabij.includes(g));
   const { l, buren } = WONING[woning];
   const B: Bouwers = { vast: new Bouwer(), boven: new Bouwer(), dak: new Bouwer(), gevel: new Bouwer(), binnen: new Bouwer(), bladen: new Bouwer() };
 
@@ -237,8 +260,10 @@ function bouw(p: Woningplan) {
     gblok(b, "kader", g, a0, a1, n0, n1, y1 - fr, y1);
     if (stijl) gblok(b, "kader", g, (a0 + a1) / 2 - 0.035, (a0 + a1) / 2 + 0.035, n0 - 0.005, n1, y0, y1 - (kalf || 0));
     if (kalf) gblok(b, "kader", g, a0, a1, n0 - 0.005, n1, y1 - kalf - 0.035, y1 - kalf + 0.035);
-    // Dorpel: steekt 5 cm uit en loopt 5 cm voorbij de neggekant.
-    gblok(b, "arduin", g, a0 - 0.05, a1 + 0.05, -REV, 0.05, y0 - 0.07, y0);
+    // Dorpel: steekt 5 cm uit en loopt 5 cm voorbij de neggekant. Hij ligt 12 mm óp de onderkant
+    // van het gat: met zijn bovenvlak precies op dat vlak vochten ze om dezelfde pixels, en
+    // flikkerde de dorpel tijdens elke camerabeweging (Brent, 24-11-2026: "ramen clippen").
+    gblok(b, "arduin", g, a0 - 0.05, a1 + 0.05, -REV, 0.05, y0 - 0.07, y0 + VENSTER_OP);
   };
 
   const voordeur = openingen.find((o) => o.soort === "voordeur" && o.verdieping === 0);
@@ -252,7 +277,11 @@ function bouw(p: Woningplan) {
     for (const r of ramen) {
       if (r.verdieping !== v || r.gevel !== g) continue;
       const breed = r.tot - r.van, hoog = r.boven - r.onder;
-      gaten.push({ a0: r.van, a1: r.tot, b0: yf + r.onder, b1: yf + r.boven, soort: "raam", kalf: r.soort === "raam" && hoog > 1.2 ? (g === "voor" ? 0.5 : 0.45) : 0, stijl: breed > 0.9 });
+      // Top light (kalf) and mullion follow the period: before 1950 every upright window has
+      // a top light, after 1990 they are large panes without one and at most one mullion.
+      const kalf = periode === "na1990" ? 0 : r.soort === "raam" && hoog > 1.2 ? (periode === "voor1950" ? 0.42 : g === "voor" ? 0.5 : 0.45) : 0;
+      const stijl = periode === "na1990" ? breed > 1.9 : breed > 0.9;
+      gaten.push({ a0: r.van, a1: r.tot, b0: yf + r.onder, b1: yf + r.boven, soort: "raam", kalf, stijl });
     }
     // Een appartement heeft zijn voordeur in de linkerwand (as z), niet in de gevel.
     if (g === "voor" && v === 0 && voordeur && voordeur.as === "x") {
@@ -261,32 +290,33 @@ function bouw(p: Woningplan) {
     return gaten;
   };
 
-  /** Voor- en zijgevel van een bouwlaag, met hun ramen en de voordeur. */
+  /** Front door: a dark wooden leaf with a strip of glass, frame, bluestone sill and step. */
+  const deur = (b: Bouwer, stoep: Bouwer, g: Gevel, gat: Gat) => {
+    const fr = 0.06;
+    gblok(b, "kader", g, gat.a0, gat.a0 + fr, -REV - 0.07, -REV, gat.b0, gat.b1);
+    gblok(b, "kader", g, gat.a1 - fr, gat.a1, -REV - 0.07, -REV, gat.b0, gat.b1);
+    gblok(b, "kader", g, gat.a0, gat.a1, -REV - 0.07, -REV, gat.b1 - fr, gat.b1);
+    gblok(b, "deur", g, gat.a0 + fr, gat.a1 - fr, -REV - 0.05, -REV - 0.01, gat.b0, gat.b1 - fr);
+    gblok(b, "glas", g, gat.a0 + 0.22, gat.a1 - 0.22, -REV - 0.012, -REV - 0.005, gat.b0 + 1.3, gat.b0 + 2.0);
+    gblok(b, "arduin", g, gat.a0 - 0.04, gat.a1 + 0.04, -REV, 0.04, gat.b0 - 0.03, gat.b0);
+    gblok(stoep, "arduin", g, gat.a0 - 0.15, gat.a1 + 0.15, 0, 0.4, gat.b0 - SLAB, gat.b0 - SLAB + 0.16);
+  };
+
+  /**
+   * The four facades of a closed storey, each with its windows, and the front door.
+   * All four: the drying simulator only ever saw the front and right one, the damp
+   * simulator walks round the house.
+   */
   const gevels = (b: Bouwer, v: number, yf: number) => {
-    for (const g of ["voor", "zij"] as Gevel[]) {
+    for (const g of ALLE_GEVELS) {
       const gaten = gevelGaten(g, v, yf);
-      // De voorgevel loopt over de volle breedte incl. hoeken; de zijgevel sluit erop aan.
-      const [a0, a1] = g === "voor" ? [-T, w + T] : [-T, l];
+      const [a0, a1] = gevelSpan(g, w, l);
       for (const r of muurMinGaten(a0, a1, yf, yf + H, gaten)) gblok(b, "baksteen", g, r.a0, r.a1, -T, 0, r.b0, r.b1);
       for (const gat of gaten) {
-        if (gat.soort === "raam") {
-          raam(b, g, gat.a0, gat.a1, gat.b0, gat.b1, gat.kalf, gat.stijl);
-        } else {
-          // Voordeur: donker houten blad met een glasstrook, kader, arduin dorpel en trede.
-          const fr = 0.06;
-          gblok(b, "kader", g, gat.a0, gat.a0 + fr, -REV - 0.07, -REV, gat.b0, gat.b1);
-          gblok(b, "kader", g, gat.a1 - fr, gat.a1, -REV - 0.07, -REV, gat.b0, gat.b1);
-          gblok(b, "kader", g, gat.a0, gat.a1, -REV - 0.07, -REV, gat.b1 - fr, gat.b1);
-          gblok(b, "deur", g, gat.a0 + fr, gat.a1 - fr, -REV - 0.05, -REV - 0.01, gat.b0, gat.b1 - fr);
-          gblok(b, "glas", g, gat.a0 + 0.22, gat.a1 - 0.22, -REV - 0.012, -REV - 0.005, gat.b0 + 1.3, gat.b0 + 2.0);
-          gblok(b, "arduin", g, gat.a0 - 0.04, gat.a1 + 0.04, -REV, 0.04, gat.b0 - 0.03, gat.b0);
-          gblok(b, "arduin", g, gat.a0 - 0.15, gat.a1 + 0.15, 0, 0.4, gat.b0 - SLAB, gat.b0 - SLAB + 0.16);
-        }
+        if (gat.soort === "raam") raam(b, g, gat.a0, gat.a1, gat.b0, gat.b1, gat.kalf, gat.stijl);
+        else deur(b, b, g, gat);
       }
     }
-    // Achter- en linkergevel: zonder ramen, de kijker ziet ze niet.
-    b.blok("baksteen", -T, w, yf, yf + H, -T, 0);
-    b.blok("baksteen", -T, 0, yf, yf + H, 0, l);
     // De gevels van de actieve laag hebben ook een snede bovenop nodig; zie `snede`.
   };
 
@@ -319,24 +349,30 @@ function bouw(p: Woningplan) {
         B.vast.quad("vloer", [r.a0, yf + 0.003, r.b0], [r.a1, yf + 0.003, r.b0], [r.a1, yf + 0.003, r.b1], [r.a0, yf + 0.003, r.b1], [0, 100, 0]);
       }
     }
-    // Achtergevels op volle hoogte, binnenkant gepleisterd, met de ramen die je
-    // van binnenuit ziet: per kamer één raam in het midden van zijn stuk muur.
-    for (const g of ["achter", "links"] as Gevel[]) {
+    // The far facades at full height, plastered inside, with the windows you see
+    // from inside: per room one window in the middle of its stretch of wall.
+    for (const g of ver) {
       const gaten = gevelGaten(g, v, yf);
       // Appartement: de voordeur in de linkerwand, naar de overloop van de trappenhal.
-      const deur = g === "links" ? laagOpeningen.find((o) => o.soort === "voordeur" && o.as === "z" && Math.abs(o.vast) < 1e-6) : undefined;
-      const deurGat = deur ? { a0: deur.van, a1: deur.tot, b0: yf, b1: yf + 2.15, kalf: 0, stijl: false } : undefined;
+      const zijDeur = g === "links" ? laagOpeningen.find((o) => o.soort === "voordeur" && o.as === "z" && Math.abs(o.vast) < 1e-6) : undefined;
+      const deurGat = zijDeur ? { a0: zijDeur.van, a1: zijDeur.tot, b0: yf, b1: yf + 2.15, kalf: 0, stijl: false } : undefined;
       const open = deurGat ? [...gaten, deurGat] : gaten;
-      const [a0, a1] = g === "achter" ? [-T, w] : [0, l];
+      const [a0, a1] = gevelSpan(g, w, l);
       for (const r of muurMinGaten(a0, a1, yf, yf + H, open)) {
         // Bovenop een stuk onder een raam ligt de vensterbank, niet de snede.
         gblok(B.vast, "baksteen", g, r.a0, r.a1, -T, 0, r.b0, r.b1, { boven: r.b1 > yf + H - 1e-4 ? "snede" : "arduin" });
       }
-      for (const gt of gaten) raam(B.vast, g, gt.a0, gt.a1, gt.b0, gt.b1, gt.kalf, gt.stijl);
+      for (const gt of gaten) {
+        // Seen from the garden the front door is in a far wall: a door, not a window.
+        if (gt.soort === "deur") deur(B.vast, B.vast, g, gt);
+        else raam(B.vast, g, gt.a0, gt.a1, gt.b0, gt.b1, gt.kalf, gt.stijl);
+      }
       // Pleister op de binnenkant, en in de neggekanten tot aan het kader.
       const lijn = (a: number, b: number, y0: number, y1: number, n0: number, n1: number) => gblok(B.vast, "pleister", g, a, b, n0, n1, y0, y1);
       const ib = 0.002, kd = -REV - 0.06; // binnenvlak en achterkant van het kader, gemeten vanaf het buitenvlak
-      for (const r of muurMinGaten(Math.max(a0, 0), a1, yf, yf + H, open)) lijn(r.a0, r.a1, r.b0, r.b1, -T - ib, -T);
+      // Plaster only between the inner corners: the corner pieces belong to the walls either side.
+      const binnenEind = g === "voor" || g === "achter" ? w : l;
+      for (const r of muurMinGaten(0, binnenEind, yf, yf + H, open)) lijn(r.a0, r.a1, r.b0, r.b1, -T - ib, -T);
       if (deurGat) {
         // Deurblad in de muur, met een wit kader aan de binnenkant.
         const fr = 0.06, n0 = -T - 0.012, n1 = -T + 0.04;
@@ -352,10 +388,10 @@ function bouw(p: Woningplan) {
       }
     }
 
-    // Voor- en zijgevel: één geheel, getekend in twee helften rond de snede.
-    for (const g of ["voor", "zij"] as Gevel[]) {
+    // The near facades: one whole, drawn in two halves around the cut.
+    for (const g of nabij) {
       const gaten = gevelGaten(g, v, yf);
-      const [a0, a1] = g === "voor" ? [-T, w + T] : [-T, l];
+      const [a0, a1] = gevelSpan(g, w, l);
       for (const r of muurMinGaten(a0, a1, yf, yf + H, gaten)) gblok(B.gevel, "baksteen", g, r.a0, r.a1, -T, 0, r.b0, r.b1);
       for (const gt of gaten) {
         if (gt.soort === "raam") raam(B.gevel, g, gt.a0, gt.a1, gt.b0, gt.b1, gt.kalf, gt.stijl);
@@ -364,17 +400,8 @@ function bouw(p: Woningplan) {
       // opening door de snijhoogte loopt, is er geen muur om door te snijden.
       const doorSnede = gaten.filter((gt) => gt.b0 < yf + HC && gt.b1 > yf + HC).map((gt) => ({ a0: gt.a0, a1: gt.a1, b0: 0, b1: 1 }));
       for (const r of muurMinGaten(a0, a1, 0, 1, doorSnede)) gblok(B.vast, "snede", g, r.a0, r.a1, -T, 0, yf + HC - 0.004, yf + HC);
-      // Voordeur, trede en dorpel: onder de snede, dus vast.
-      for (const gt of gaten.filter((x) => x.soort === "deur")) {
-        const fr = 0.06;
-        gblok(B.gevel, "kader", g, gt.a0, gt.a0 + fr, -REV - 0.07, -REV, gt.b0, gt.b1);
-        gblok(B.gevel, "kader", g, gt.a1 - fr, gt.a1, -REV - 0.07, -REV, gt.b0, gt.b1);
-        gblok(B.gevel, "kader", g, gt.a0, gt.a1, -REV - 0.07, -REV, gt.b1 - fr, gt.b1);
-        gblok(B.gevel, "deur", g, gt.a0 + fr, gt.a1 - fr, -REV - 0.05, -REV - 0.01, gt.b0, gt.b1 - fr);
-        gblok(B.gevel, "glas", g, gt.a0 + 0.22, gt.a1 - 0.22, -REV - 0.012, -REV - 0.005, gt.b0 + 1.3, gt.b0 + 2.0);
-        gblok(B.gevel, "arduin", g, gt.a0 - 0.04, gt.a1 + 0.04, -REV, 0.04, gt.b0 - 0.03, gt.b0);
-        gblok(B.vast, "arduin", g, gt.a0 - 0.15, gt.a1 + 0.15, 0, 0.4, gt.b0 - SLAB, gt.b0 - SLAB + 0.16);
-      }
+      // Voordeur, trede en dorpel: onder de snede, dus vast; de trede op de vaste laag.
+      for (const gt of gaten.filter((x) => x.soort === "deur")) deur(B.gevel, B.vast, g, gt);
     }
 
     // Binnenwanden langs de voor- en rechterrand van elke kamer, met de openingen
@@ -477,14 +504,14 @@ function bouw(p: Woningplan) {
     } else geslotenLaag(B.boven, v);
   }
 
-  dakBouw(B.dak, { dak, w, l, buren, lagen });
+  dakBouw(B.dak, { dak, w, l, buren, lagen, periode });
   return B;
 }
 
 /** Het dak bovenop `lagen` bouwlagen, met goten, afvoeren, schoorsteen en dakramen. */
-function dakBouw(b: Bouwer, { dak, w, l, buren, lagen }: { dak: Dak; w: number; l: number; buren: number; lagen: number }) {
+function dakBouw(b: Bouwer, { dak, w, l, buren, lagen, periode }: { dak: Dak; w: number; l: number; buren: number; lagen: number; periode: Periode }) {
   const y = lagen * FH;
-  const nok = nokHoogte(dak, l);
+  const nok = nokHoogte(dak, l, periode);
   // Geen oversteek aan een gemene muur (links bij halfopen, links en rechts bij een
   // rijwoning): daar stopt het dak op de as van de muur, net als het dak van de buur in
   // de straatrender. Met oversteek stak de dakrand in het dak van het huis ernaast.
@@ -631,9 +658,37 @@ const URLS = TEGEL_NAMEN.map((n) => TEGELS[n].url);
 /** Where a room label may go (fractions of the room), most preferred first. */
 const LABEL_PLEKKEN = [[0.5, 0.5], [0.5, 0.26], [0.28, 0.3], [0.72, 0.3], [0.5, 0.76], [0.28, 0.72], [0.72, 0.72]] as const;
 
-const RECHTS = new Vector3(1, 0, -1).normalize();
-const OP = new Vector3(-1, 2, -1).normalize();
-const KIJK = new Vector3(1, 1, 1).normalize();
+/**
+ * The camera's axes for an azimuth `az` (radians, round the vertical): `kijk` points from
+ * the house to the camera, `rechts` and `op` span the screen. At 45° (the front right
+ * corner) they are exactly the drying simulator's fixed axes, which the street render
+ * was made for: kijk (1, 1, 1), rechts (1, 0, -1), op (-1, 2, -1).
+ */
+interface Assen { rechts: Vector3; op: Vector3; kijk: Vector3 }
+function zetAssen(uit: Assen, az: number): Assen {
+  const s = Math.sin(az), c = Math.cos(az);
+  uit.kijk.set(Math.SQRT2 * s, 1, Math.SQRT2 * c).normalize();
+  uit.rechts.set(c, 0, -s).normalize();
+  uit.op.crossVectors(uit.kijk, uit.rechts).normalize();
+  return uit;
+}
+const nieuweAssen = (az: number): Assen => zetAssen({ rechts: new Vector3(), op: new Vector3(), kijk: new Vector3() }, az);
+
+/** The azimuth of each corner: front right 45°, front left -45°, back right 135°, back left -135°. */
+function hoekAz(h: Hoek): number {
+  const voor = h.kant === "voor", rechts = h.zij === "rechts";
+  return voor ? (rechts ? 1 : -1) * (Math.PI / 4) : (rechts ? 1 : -1) * ((3 * Math.PI) / 4);
+}
+/** The shortest way round from `van` to `naar`, so a turn never goes the long way. */
+function naarAz(van: number, naar: number): number {
+  let d = naar - van;
+  while (d > Math.PI) d -= 2 * Math.PI;
+  while (d < -Math.PI) d += 2 * Math.PI;
+  return van + d;
+}
+
+const VAST = nieuweAssen(Math.PI / 4);
+const { rechts: RECHTS, op: OP } = VAST;
 
 /* ─────────────────────────── natte muren en vloeren (nat.ts) ─────────────────────────── */
 
@@ -644,22 +699,111 @@ function natPatchSet(set: MatSet, u: NatUniforms) {
 
 interface Kader { cx: number; cy: number; ex: number; ey: number }
 /** Eén straatbeeld in beeld; `weg` is wanneer het begon weg te vloeien (-1: blijft). */
-interface StraatLaag { sleutel: string; woning: StraatWoning; w: number; lagen: number; zicht: { current: number }; weg: number; geladen: boolean }
-function kader(w: number, l: number, y0: number, y1: number, pad: number, voor = 0, links = 0): Kader {
+interface StraatLaag { sleutel: string; woning: StraatWoning; w: number; lagen: number; periode: Periode; zicht: { current: number }; weg: number; geladen: boolean }
+function kader(w: number, l: number, y0: number, y1: number, pad: number, voor = 0, links = 0, assen: Assen = VAST): Kader {
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
   const v = new Vector3();
   for (const x of [-T - links, w + T]) for (const y of [y0, y1]) for (const z of [-T, l + T + voor]) {
     v.set(x, y, z);
-    const px = v.dot(RECHTS), py = v.dot(OP);
+    const px = v.dot(assen.rechts), py = v.dot(assen.op);
     minX = Math.min(minX, px); maxX = Math.max(maxX, px); minY = Math.min(minY, py); maxY = Math.max(maxY, py);
   }
   return { cx: (minX + maxX) / 2, cy: (minY + maxY) / 2, ex: (maxX - minX) / 2 + pad, ey: (maxY - minY) / 2 + pad };
 }
 
+/**
+ * Springs the focus towards the spot (or back out to the whole storey). The centre springs
+ * in world space, so it stays on its spot while the camera turns. Returns whether it moves.
+ */
+function volgFocus(f: Focus, bp: Brandpunt | null, k: Kader, assen: Assen, dt: number): boolean {
+  const d = Math.min(dt, 0.1);
+  if (!bp || bp.pts.length === 0) {
+    f.t = MathUtils.damp(f.t, 0, FOCUS_SNELHEID, d);
+    if (f.t < 0.002) f.t = 0;
+    return f.t > 0;
+  }
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+  const mid = new Vector3();
+  for (const p of bp.pts) {
+    const px = p.dot(assen.rechts), py = p.dot(assen.op);
+    x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py);
+    mid.add(p);
+  }
+  mid.divideScalar(bp.pts.length);
+  let ex = k.ex * bp.schaal, ey = k.ey * bp.schaal;
+  if (bp.passend) {
+    ex = Math.min(k.ex, Math.max(ex, ((x1 - x0) / 2) * 1.12 + 0.5));
+    ey = Math.min(k.ey, Math.max(ey, ((y1 - y0) / 2) * 1.12 + 0.5));
+  }
+  // From the whole storey, start the spring on the spot itself: only the zoom moves, not a pan from elsewhere.
+  if (f.t === 0) { f.c.copy(mid); f.ex = ex; f.ey = ey; }
+  f.c.set(MathUtils.damp(f.c.x, mid.x, FOCUS_SNELHEID, d), MathUtils.damp(f.c.y, mid.y, FOCUS_SNELHEID, d), MathUtils.damp(f.c.z, mid.z, FOCUS_SNELHEID, d));
+  f.ex = MathUtils.damp(f.ex, ex, FOCUS_SNELHEID, d);
+  f.ey = MathUtils.damp(f.ey, ey, FOCUS_SNELHEID, d);
+  f.t = MathUtils.damp(f.t, 1, FOCUS_SNELHEID, d);
+  if (f.t > 0.998) f.t = 1;
+  const rust = f.c.distanceTo(mid) < 0.003 && Math.abs(f.ex - ex) < 0.003 && Math.abs(f.ey - ey) < 0.003 && f.t === 1;
+  if (rust) { f.c.copy(mid); f.ex = ex; f.ey = ey; }
+  return !rust;
+}
+
+/** The storey's frame, moved in on the focus as far as it has sprung, kept inside the storey. */
+function mengFocus(k: Kader, f: Focus, assen: Assen): Kader {
+  if (f.t === 0) return k;
+  const ex = Math.min(k.ex, f.ex), ey = Math.min(k.ey, f.ey);
+  const klem = (x: number, m: number, e: number, h: number) => Math.min(m + e - h, Math.max(m - e + h, x));
+  const cx = klem(f.c.dot(assen.rechts), k.cx, k.ex, ex), cy = klem(f.c.dot(assen.op), k.cy, k.ey, ey);
+  const t = f.t * f.t * (3 - 2 * f.t);
+  return { cx: k.cx + (cx - k.cx) * t, cy: k.cy + (cy - k.cy) * t, ex: k.ex + (ex - k.ex) * t, ey: k.ey + (ey - k.ey) * t };
+}
+
+/**
+ * What a layer drawn on top of the house (the damp, the works) needs to know: the size,
+ * the active storey and its floor height, the corner the walls are built for, how far the
+ * house is opened up (0..1, read per frame) and the camera's axes (per frame, mid-turn too).
+ */
+export interface HuisInfo {
+  woning: Woning; w: number; l: number; lagen: number; act: number; yf: number; hoek: Hoek;
+  open: { readonly current: number };
+  /** Where the camera moves in on, set by a layer (the damp, the works); null = the whole storey. */
+  brandpunt: { current: Brandpunt | null };
+  assen: Assen;
+  kamers: Kamer[]; openingen: Opening[]; ramen: Raam[]; trappen: Trap[];
+  /** The furniture on the active storey (empty until the interior has loaded). */
+  meubels: Meubel[];
+}
+export const HuisContext = createContext<HuisInfo | null>(null);
+
+/**
+ * A spot the camera moves in on, inside the opened storey's frame. `schaal` is the part of
+ * that frame that stays in view (0,5 = twice as close). With `passend` the box of `pts` is
+ * fitted with air around it instead, never closer than `schaal` and never further than the
+ * whole storey. The camera stays inside the storey's frame: no empty paper beside the house.
+ */
+export interface Brandpunt { pts: Vector3[]; schaal: number; passend?: boolean }
+
+/** The camera's spring towards a spot: its world centre and half sizes, and how far in (0..1). */
+interface Focus { t: number; c: Vector3; ex: number; ey: number }
+const FOCUS_SNELHEID = 3.2;
+export function useHuis(): HuisInfo {
+  const h = useContext(HuisContext);
+  if (!h) throw new Error("useHuis: only inside the 3D house");
+  return h;
+}
+
 interface SceneProps extends IsoHouseProps { anim: MutableRefObject<Anim>; labels: MutableRefObject<(HTMLDivElement | null)[]>; reduced: boolean; onKlaar?: () => void }
 
 function Scene(props: SceneProps) {
-  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], ramen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, filmRonde = 0, anim, labels, reduced } = props;
+  const { woning, verdiepingen, dak, kamers, openingen = [], trappen = [], ramen = [], open, actief, plaatsingen = [], werkend = false, filmPlan = GEEN_PLAN, filmRonde = 0, anim, labels, reduced, children } = props;
+  // The corner the camera turns to, and the one the walls are built for: the house is
+  // rebuilt for the new corner halfway through the turn, never before it, or a full wall
+  // would flash up in front of the camera (damp simulator, camera rule 3).
+  const doelHoek = props.hoek ?? VOOR_RECHTS;
+  const doelSleutel = `${doelHoek.kant}-${doelHoek.zij}`;
+  const [hoek, setHoek] = useState<Hoek>(doelHoek);
+  const draai = useRef({ az: hoekAz(doelHoek), van: hoekAz(doelHoek), naar: hoekAz(doelHoek), start: 0, doel: doelHoek, gewisseld: true });
+  const assen = useMemo(() => nieuweAssen(hoekAz(doelHoek)), []); // eslint-disable-line react-hooks/exhaustive-deps
+  const straatHoek = useRef(1);
   const materiaal = props.materiaal ?? STANDAARD_MATERIAAL;
   const { l, buren } = WONING[woning];
   const w = props.breedte ?? WONING[woning].w;
@@ -667,7 +811,8 @@ function Scene(props: SceneProps) {
   const act = Math.min(actief, lagen - 1);
   const yfAct = act * FH + SLAB;
   const daktop = lagen * FH;
-  const nok = nokHoogte(dak, l);
+  const periode = periodeVan(props.periode);
+  const nok = nokHoogte(dak, l, periode);
   const { gl, scene, camera, size } = useThree();
 
   const tex = useLoader(TextureLoader, URLS);
@@ -743,6 +888,35 @@ function Scene(props: SceneProps) {
     return () => { muurTex.dispose(); vloerTex.dispose(); };
   }, [sets, texturen, materiaal.muur, materiaal.vloer, muurTegel, vloerTegel, glasIn, inrichtingIn, meubelsIn]);
 
+  // The building period dresses the outside (periode.ts): brick or white render, the
+  // tiles, the joinery and the front door. In place, as above: new materials made a
+  // phone compile every shader again, a visible hitch on each click.
+  useEffect(() => {
+    const st = PERIODE_STIJL[periode];
+    let crepi: Texture | null = null;
+    if (st.crepi) {
+      crepi = texturen.pleister.clone();
+      // The brick UVs are in metres: one plaster tile per 1.5 m.
+      crepi.wrapS = crepi.wrapT = RepeatWrapping; crepi.repeat.set(1 / 1.5, 1 / 1.5); crepi.colorSpace = SRGBColorSpace; crepi.anisotropy = ANISO; crepi.needsUpdate = true;
+    }
+    for (const s of Object.values(sets)) {
+      const b = s.get("baksteen")!;
+      if (!b.userData.steen) b.userData.steen = b.map;
+      b.color.set(st.gevel);
+      b.map = crepi ?? b.userData.steen;
+      b.bumpMap = b.map;
+      b.bumpScale = crepi ? 0.25 : 1.2;
+      b.roughness = crepi ? 0.97 : 0.92;
+      b.needsUpdate = true;
+      s.get("pannen")!.color.set(st.pannen).multiplyScalar(st.pannenLicht ?? 1);
+      s.get("nok")!.color.set(st.nok);
+      s.get("kader")!.color.set(st.kader);
+      s.get("deur")!.color.set(st.deur);
+    }
+    // A new frame follows by itself: the scene asks for one after every render (see `invalidate` below).
+    return () => { crepi?.dispose(); };
+  }, [sets, texturen, periode]);
+
   // Omgevingslicht voor glas en zink: een neutrale studio, één keer berekend.
   useEffect(() => {
     const pm = new PMREMGenerator(gl);
@@ -753,11 +927,11 @@ function Scene(props: SceneProps) {
   }, [gl, scene]);
 
   const geo = useMemo(() => {
-    const B = bouw({ woning, w, lagen, act, dak, kamers, openingen, trappen, ramen });
+    const B = bouw({ woning, w, lagen, act, dak, kamers, openingen, trappen, ramen, hoek, periode });
     return {
       vast: B.vast.bouw(), boven: B.boven.bouw(), dak: B.dak.bouw(), gevel: B.gevel.bouw(), binnen: B.binnen.bouw(), bladen: B.bladen.bouw(),
     };
-  }, [woning, w, lagen, act, dak, kamers, openingen, trappen, ramen]);
+  }, [woning, w, lagen, act, dak, kamers, openingen, trappen, ramen, hoek, periode]);
   useEffect(() => () => {
     for (const m of Object.values(geo)) for (const g of m.values()) g.dispose();
   }, [geo]);
@@ -813,10 +987,23 @@ function Scene(props: SceneProps) {
     c.updateProjectionMatrix();
     // Zon rechtsvoor en hoog: de binnenmuren die je in een opengewerkte laag ziet
     // (achter en links) staan in het licht, en de slagschaduw valt achter de woning.
-    zon.position.set(w / 2 + 11, 24, l / 2 + 6);
+    // Rotated with the corner, so the far walls are always the lit ones.
+    const rot = hoekAz(hoek) - Math.PI / 4, cr = Math.cos(rot), sn = Math.sin(rot);
+    zon.position.set(w / 2 + 11 * cr + 6 * sn, 24, l / 2 - 11 * sn + 6 * cr);
     zon.target.position.set(w / 2, 0, l / 2);
     zon.target.updateMatrixWorld();
-  }, [zon, w, l]);
+  }, [zon, w, l, hoek]);
+
+  useEffect(() => {
+    const d = draai.current;
+    const naar = naarAz(d.az, hoekAz(doelHoek));
+    if (reduced) {
+      Object.assign(d, { az: naar, van: naar, naar, start: 0, doel: doelHoek, gewisseld: true });
+      setHoek(doelHoek);
+      return;
+    }
+    Object.assign(d, { van: d.az, naar, start: -1, doel: doelHoek, gewisseld: false });
+  }, [doelSleutel, reduced]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Animatiedoelen.
   useEffect(() => {
@@ -828,6 +1015,7 @@ function Scene(props: SceneProps) {
   const bovenRef = useRef<Group>(null);
   const zichtRef = useRef(1);
   const [meubelVakken, setMeubelVakken] = useState<Vak[] | null>(null);
+  const [meubels, setMeubels] = useState<Meubel[]>([]);
   const laagKamersAct = useMemo(() => kamers.filter((k) => k.verdieping === act), [kamers, act]);
   // Toestellen landen naast de meubels, niet erop.
   const vrijePlaatsingen = useMemo(() => {
@@ -869,7 +1057,7 @@ function Scene(props: SceneProps) {
   const app = woning === "appartement";
   const voorTuin = app ? 2.6 : 6;
   const dichtVoor = useCallback(
-    (bw: number) => (app ? kader(bw, l, -2 * FH, daktop + nok + 0.3, 1.6, voorTuin, 3.4) : kader(bw, l, 0, daktop + nok + 0.3, 3.4, voorTuin)),
+    (bw: number, a: Assen = VAST) => (app ? kader(bw, l, -2 * FH, daktop + nok + 0.3, 1.6, voorTuin, 3.4, a) : kader(bw, l, 0, daktop + nok + 0.3, 3.4, voorTuin, 0, a)),
     [app, l, daktop, nok, voorTuin],
   );
   // Gesloten kadert de camera altijd de breedste maat van dit type: zo zie je de
@@ -882,15 +1070,17 @@ function Scene(props: SceneProps) {
   // Altijd de render met één bouwlaag: een extra verdiep is er een van de unit zelf, niet van
   // het hele gebouw (anders sprong het gebouw rondom in één klap een laag hoger).
   const straatLagen = 1;
-  const straatSleutel = `${woning}-${w}-${straatLagen}`;
+  // Another period has its own street (neighbours of that time): it cross-fades like another width.
+  const straatPeriode: Periode = app ? "1950-1990" : periode;
+  const straatSleutel = `${woning}-${w}-${straatLagen}-${straatPeriode}`;
   const [straten, setStraten] = useState<StraatLaag[]>(() =>
-    heeftStraat(woning) ? [{ sleutel: straatSleutel, woning, w, lagen: straatLagen, zicht: { current: 1 }, weg: -1, geladen: false }] : [],
+    heeftStraat(woning) ? [{ sleutel: straatSleutel, woning, w, lagen: straatLagen, periode: straatPeriode, zicht: { current: 1 }, weg: -1, geladen: false }] : [],
   );
   useEffect(() => {
     setStraten((oud) => {
       if (!heeftStraat(woning)) return [];
       if (oud[oud.length - 1]?.sleutel === straatSleutel) return oud;
-      const nieuw: StraatLaag = { sleutel: straatSleutel, woning, w, lagen: straatLagen, zicht: { current: 1 }, weg: -1, geladen: false };
+      const nieuw: StraatLaag = { sleutel: straatSleutel, woning, w, lagen: straatLagen, periode: straatPeriode, zicht: { current: 1 }, weg: -1, geladen: false };
       if (reduced || oud.some((s) => s.lagen !== straatLagen)) return [nieuw];
       // Blijven staan: wat al aan het wegvloeien is, en het laatste beeld dat er
       // echt staat. Sleep je snel over de schuif, dan vallen de tussenstanden die
@@ -899,7 +1089,7 @@ function Scene(props: SceneProps) {
       const rest = oud.filter((s) => s.sleutel !== straatSleutel);
       return [...rest.filter((s) => s.weg >= 0), ...rest.filter((s) => s.weg < 0 && s.geladen).slice(-1), nieuw];
     });
-  }, [straatSleutel, woning, w, straatLagen, reduced]);
+  }, [straatSleutel, woning, w, straatLagen, straatPeriode, reduced]);
   // De mini's van de buurbreedtes, voor de oppervlakteschuif: alleen de twee naast de
   // huidige, en pas als de straat die je ziet er staat. Eerst kwamen alle negen breedtes
   // meteen mee (~650 kB op een gsm), vóór en naast de 3D en de straat zelf.
@@ -908,8 +1098,8 @@ function Scene(props: SceneProps) {
     if (!straatStaat || !heeftStraat(woning) || budget3D() === "zuinig") return;
     const rij = BREEDTES[woning], i = rij.indexOf(w);
     const buren = [rij[i - 1], rij[i + 1]].filter((b): b is number => b !== undefined);
-    voorlaad(buren.flatMap((b) => straatBeelden(woning, b, "mini", straatLagen)), "image");
-  }, [straatStaat, woning, w, straatLagen]);
+    voorlaad(buren.flatMap((b) => straatBeelden(woning, b, "mini", straatLagen, straatPeriode)), "image");
+  }, [straatStaat, woning, w, straatLagen, straatPeriode]);
   const straatTeken = useThree((st) => st.invalidate);
   const straatKlaar = useCallback((sleutel: string) => {
     setStraten((oud) => {
@@ -938,6 +1128,10 @@ function Scene(props: SceneProps) {
   };
   // Hoe ver de woning opengewerkt is (0..1), voor de voorgrond van de straat.
   const openStand = useMemo(() => ({ get current() { return anim.current.o.nu; } }), [anim]);
+  const brandpunt = useRef<Brandpunt | null>(null);
+  const focus = useRef<Focus>({ t: 0, c: new Vector3(), ex: 1, ey: 1 });
+  const huisInfo = useMemo<HuisInfo>(() => ({ woning, w, l, lagen, act, yf: yfAct, hoek, open: openStand, brandpunt, assen, kamers, openingen, ramen, trappen, meubels }),
+    [woning, w, l, lagen, act, yfAct, hoek, openStand, assen, kamers, openingen, ramen, trappen, meubels]);
   const v = useMemo(() => new Vector3(), []);
 
   // Bouw-animaties. Een ander dak of meer/minder bouwlagen: de lagen erboven
@@ -1019,12 +1213,31 @@ function Scene(props: SceneProps) {
 
     // Camera: van de hele woning naar de actieve laag, zoals de viewBox in de SVG.
     // Tijdens een bouw-animatie glijdt het kader van de oude naar de nieuwe woning.
-    const doelKader = dicht;
+    // The turn to another corner: an eased azimuth (cubic in-out), rebuilt halfway.
+    const d = draai.current;
+    if (d.start < 0) d.start = performance.now();
+    let draait = false;
+    if (d.az !== d.naar) {
+      const t = Math.min(1, (performance.now() - d.start) / (DUUR * 1.4));
+      const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      d.az = t >= 1 ? d.naar : d.van + (d.naar - d.van) * e;
+      if (t >= 0.5 && !d.gewisseld) { d.gewisseld = true; setHoek(d.doel); }
+      draait = d.az !== d.naar;
+    }
+    zetAssen(assen, d.az);
+    // The street is a picture for one corner: it fades out while the camera turns and back in
+    // once it stands on the new corner (the picture swaps with the house, halfway through).
+    const straatDoel = draait ? 0 : 1;
+    straatHoek.current += (straatDoel - straatHoek.current) * Math.min(1, delta * 4);
+    if (Math.abs(straatHoek.current - straatDoel) < 0.004) straatHoek.current = straatDoel;
+    const doelKader = d.az === Math.PI / 4 ? dicht : dichtVoor(Math.max(w, ...BREEDTES[woning]), assen);
     const d0 = G.vanKader;
     const dk = b < 1 ? { cx: d0.cx + (doelKader.cx - d0.cx) * b, cy: d0.cy + (doelKader.cy - d0.cy) * b, ex: d0.ex + (doelKader.ex - d0.ex) * b, ey: d0.ey + (doelKader.ey - d0.ey) * b } : doelKader;
     G.kaderNu = dk;
-    const opn = kader(wNu, l, 0, camA * FH + SLAB + H + 0.4, 1.3);
-    const k = { cx: dk.cx + (opn.cx - dk.cx) * camT, cy: dk.cy + (opn.cy - dk.cy) * camT, ex: dk.ex + (opn.ex - dk.ex) * camT, ey: dk.ey + (opn.ey - dk.ey) * camT };
+    const opn = kader(wNu, l, 0, camA * FH + SLAB + H + 0.4, 1.3, 0, 0, assen);
+    const k0 = { cx: dk.cx + (opn.cx - dk.cx) * camT, cy: dk.cy + (opn.cy - dk.cy) * camT, ex: dk.ex + (opn.ex - dk.ex) * camT, ey: dk.ey + (opn.ey - dk.ey) * camT };
+    const focusBeweegt = volgFocus(focus.current, brandpunt.current, k0, assen, delta);
+    const k = mengFocus(k0, focus.current, assen);
 
     // Walls and floor dry from the devices outward, on the film clock: a device
     // starts drying once it has landed, and at the end the patches cover all.
@@ -1045,8 +1258,8 @@ function Scene(props: SceneProps) {
     nat.muur.value = droogt && materiaal.muurNat ? sterkte : 0;
     nat.vloer.value = droogt && materiaal.vloerNat ? sterkte : 0;
     const cam = camera as OrthographicCamera;
-    const doel = v.copy(RECHTS).multiplyScalar(k.cx).addScaledVector(OP, k.cy);
-    cam.position.copy(doel).addScaledVector(KIJK, 60);
+    const doel = v.copy(assen.rechts).multiplyScalar(k.cx).addScaledVector(assen.op, k.cy);
+    cam.position.copy(doel).addScaledVector(assen.kijk, 60);
     cam.up.set(0, 1, 0);
     cam.lookAt(doel);
     cam.zoom = Math.min(size.width / (2 * k.ex), size.height / (2 * k.ey));
@@ -1072,6 +1285,9 @@ function Scene(props: SceneProps) {
     const nuTransparant = zicht < 0.999;
     for (const m of vaagMats) {
       m.opacity = zicht;
+      // A faded wall must stop writing depth: at opacity 0 it was still there for the depth test,
+      // and hid the damp band and the smell in the rooms behind the cut front wall (Brent, 24-11-2026).
+      m.depthWrite = zicht > 0.98;
       if (nuTransparant !== transparant.current) { m.transparent = nuTransparant; m.needsUpdate = true; }
     }
     transparant.current = nuTransparant;
@@ -1105,7 +1321,7 @@ function Scene(props: SceneProps) {
       el.style.opacity = String(o * wg);
     });
 
-    const beweegt = vervaagStraten() || G.wNu !== w || [A.o, A.cam, A.act, G.bouw, G.wand].some((tw) => tw.start < 0 || tw.nu !== tw.naar);
+    const beweegt = focusBeweegt || vervaagStraten() || draait || (straatHoek.current !== 0 && straatHoek.current !== 1) || G.wNu !== w || [A.o, A.cam, A.act, G.bouw, G.wand].some((tw) => tw.start < 0 || tw.nu !== tw.naar);
     if (beweegt || frames.current < 3) volgende();
   });
 
@@ -1150,8 +1366,8 @@ function Scene(props: SceneProps) {
         <StraatVangnet key={st.sleutel}>
           <Suspense fallback={null}>
             <Straat3D
-              woning={st.woning} w={st.w} l={l} lagen={st.lagen} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"}
-              open={openStand} zicht={st.zicht} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)}
+              woning={st.woning} w={st.w} l={l} lagen={st.lagen} periode={st.periode} doel={budget3D() === "zuinig" ? "mini" : GSM ? "klein" : "groot"}
+              open={openStand} zicht={{ get current() { return st.zicht.current * straatHoek.current; } }} orde={straten.length - 1 - i} onKlaar={() => straatKlaar(st.sleutel)} hoek={hoek}
             />
           </Suspense>
         </StraatVangnet>
@@ -1165,6 +1381,7 @@ function Scene(props: SceneProps) {
       ))}
 
       <group ref={breedRef}>
+      <HuisContext.Provider value={huisInfo}>{children}</HuisContext.Provider>
       <Meshes geos={geo.vast} mats={sets.vast} />
       {/* voor- en zijgevel staan aan de zonkant: hun schaduw valt alleen naar binnen, als een band over de vloer */}
       <Meshes geos={geo.gevel} mats={sets.onder} schaduw={false} />
@@ -1193,7 +1410,7 @@ function Scene(props: SceneProps) {
               <Interieur
                 laag={actKamers} kamers={kamers} openingen={laagOpeningen} ramen={laagRamen} trappen={laagTrappen}
                 w={w} l={l} act={act} binnenRef={binnenRef} inrichtingRef={inrichtingRef}
-                snij={snij} zicht={zichtRef} nat={nat} onVakken={setMeubelVakken}
+                snij={snij} zicht={zichtRef} nat={nat} onVakken={setMeubelVakken} onMeubels={setMeubels} wijk={props.wijk}
               />
             </Suspense>
           )}
@@ -1251,7 +1468,7 @@ export default function IsoHouse3D(props: IsoHouseProps & { onKlaar?: () => void
     >
       <Canvas
         // het droogplan is een film (toestellen, ventilatoren, drogen): dan altijd tekenen
-        frameloop={props.werkend ? "always" : "demand"}
+        frameloop={props.werkend || props.altijd ? "always" : "demand"}
         orthographic
         shadows={{ type: PCFShadowMap }}
         dpr={[1, GSM ? 1.5 : 2]}

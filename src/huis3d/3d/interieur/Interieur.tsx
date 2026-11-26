@@ -3,6 +3,7 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader, type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
   BufferGeometry,
+  MathUtils,
   CanvasTexture,
   Color,
   DoubleSide,
@@ -23,9 +24,10 @@ import {
   TextureLoader,
   Vector3,
 } from "three";
-import type { Kamer, Opening, Raam, Trap, Wand } from "@/lib/droogSimulator";
+import type { Kamer, Opening, Raam, Trap, Wand } from "../../woning";
+import type { Meubel, Wijk } from "../../types";
 import { Bouwer, muurMinGaten, type UvFn, type V3 } from "../geo";
-import { FH, H, HC, SLAB, T, TI } from "../../maten";
+import { FH, H, HC, SLAB, T, TI, VENSTER_OP } from "../../maten";
 import { type NatUniforms, natPatch } from "../nat";
 import { INTERIEUR } from "../bestanden";
 import { afwerkingVoor, type Afwerking, type Vloer } from "./palet";
@@ -169,6 +171,8 @@ interface Afwerkingen {
   /** voor- en zijgevel: worden doorgesneden zoals de gevel */
   gevel: Map<string, BufferGeometry>;
   schaduw: BufferGeometry;
+  /** Contact shadow of furniture that makes way (IsoHouseProps.wijk), per group: it fades with its furniture. */
+  schaduwWijk: Map<string, BufferGeometry>;
 }
 
 interface Zijde {
@@ -214,7 +218,7 @@ function blokOp(B: Bouwer, mat: string, z: Zijde, n0: number, n1: number, a0: nu
 }
 
 function bouwAfwerking(laag: Kamer[], openingen: Opening[], ramen: Raam[], trappen: Trap[], w: number, l: number, yf: number,
-  afw: Map<string, Afwerking>, ins: LaagInrichting): Afwerkingen {
+  afw: Map<string, Afwerking>, ins: LaagInrichting, groepVan: ReadonlyMap<Stuk, string> = new Map()): Afwerkingen {
   const vast = new Bouwer(), binnen = new Bouwer(), gevel = new Bouwer(), schaduw = new Bouwer();
   const gat = trappen.find((t) => !t.op);
   for (const k of laag) {
@@ -253,7 +257,8 @@ function bouwAfwerking(laag: Kamer[], openingen: Opening[], ramen: Raam[], trapp
       vast.kleur = lin("#d9d4cb");
       for (const r of ramenHier) {
         if (r.soort === "raamdeur" || (!hoog && r.onder > HC - 0.05)) continue;
-        blokOp(vast, "vensterbank", z, -(T - 0.15), 0.04, r.van - 0.04, r.tot + 0.04, yf + r.onder - 0.03, yf + r.onder);
+        // Op de onderkant van het raamgat, niet erin: in hetzelfde vlak flikkerden ze om beurten (z-fighting).
+        blokOp(vast, "vensterbank", z, -(T - 0.15), 0.04, r.van - 0.04, r.tot + 0.04, yf + r.onder - 0.03, yf + r.onder + VENSTER_OP);
       }
       // Zachte schaduw langs de voet van de muur.
       if (!holes.some((h) => h.b0 < 0.1 && h.a0 <= z.a0 && h.a1 >= z.a1)) {
@@ -280,15 +285,19 @@ function bouwAfwerking(laag: Kamer[], openingen: Opening[], ramen: Raam[], trapp
       }
     }
   }
-  // Contactschaduw onder de meubels.
+  // Contactschaduw onder de meubels. Die van een wijkend meubel apart per groep: anders bleef
+  // de schaduw liggen van een kast die er niet meer stond (Brent, 24-11-2026).
   for (const s of ins.stukken) {
     if (!s.schaduw || !s.vak) continue;
     const r = 0.09, yy = yf + 0.008;
     const v = s.vak;
     const uv: UvFn = (p) => [(p[0] - (v.x0 - r)) / (v.x1 - v.x0 + 2 * r), (p[2] - (v.z0 - r)) / (v.z1 - v.z0 + 2 * r)];
-    schaduw.quad("s", [v.x0 - r, yy, v.z0 - r], [v.x1 + r, yy, v.z0 - r], [v.x1 + r, yy, v.z1 + r], [v.x0 - r, yy, v.z1 + r], [0, 100, 0], uv);
+    const g = groepVan.get(s);
+    schaduw.quad(g ? `w:${g}` : "s", [v.x0 - r, yy, v.z0 - r], [v.x1 + r, yy, v.z0 - r], [v.x1 + r, yy, v.z1 + r], [v.x0 - r, yy, v.z1 + r], [0, 100, 0], uv);
   }
-  return { vast: vast.bouw(), binnen: binnen.bouw(), gevel: gevel.bouw(), schaduw: schaduw.bouw().get("s") ?? new BufferGeometry() };
+  const schaduwen = schaduw.bouw();
+  const schaduwWijk = new Map([...schaduwen].filter(([k]) => k.startsWith("w:")).map(([k, geo]) => [k.slice(2), geo]));
+  return { vast: vast.bouw(), binnen: binnen.bouw(), gevel: gevel.bouw(), schaduw: schaduwen.get("s") ?? new BufferGeometry(), schaduwWijk };
 }
 
 /** Een zachte rechthoek: donker in het midden, vervagend naar de rand. Eén keer, gedeeld. */
@@ -338,10 +347,41 @@ interface Props {
   zicht: MutableRefObject<number>;
   nat: NatUniforms;
   onVakken?: (vakken: LaagInrichting["vakken"]) => void;
+  /** Every piece of furniture on the floor, with its height: for layers that must not hide behind it. */
+  onMeubels?: (meubels: Meubel[]) => void;
+  /** Furniture that fades away by group (IsoHouseProps.wijk). */
+  wijk?: Wijk;
+}
+
+export type { Meubel };
+
+/** A placed piece as a box: its floor spot, or for wall cabinets the kit object's size, turned as placed. */
+function meubelVan(st: Stuk, maat: ReadonlyMap<string, Manifest["objecten"][number]>): Meubel | null {
+  if (st.wand) return null;
+  const o = maat.get(st.naam);
+  if (st.vak) return { vak: st.vak, onder: 0, top: st.top, muur: o?.muur };
+  if (!o) return null;
+  // A wall object (a counter, a sink, a hood) has its origin at its back, against the wall, and
+  // its front (+Z) into the room; anything else is centred on its origin. Turned by `rot` about y.
+  const b = (o.b * Math.abs(st.sx)) / 2;
+  const [z0, z1] = o.muur ? [0, o.d] : [-o.d / 2, o.d / 2];
+  const c = Math.cos(st.rot), s = Math.sin(st.rot);
+  let x0 = Infinity, x1 = -Infinity, zz0 = Infinity, zz1 = -Infinity;
+  for (const lx of [-b, b]) for (const lz of [z0, z1]) {
+    const x = st.x + lx * c + lz * s, z = st.z - lx * s + lz * c;
+    x0 = Math.min(x0, x); x1 = Math.max(x1, x); zz0 = Math.min(zz0, z); zz1 = Math.max(zz1, z);
+  }
+  const onder = st.y + (o.boven ?? 0);
+  return { vak: { x0, x1, z0: zz0, z1: zz1 }, onder, top: Math.max(st.top, onder + o.h), muur: o.muur };
+}
+
+function meubelsVan(stukken: Stuk[], kit: Manifest): Meubel[] {
+  const maat = new Map(kit.objecten.map((o) => [o.naam, o]));
+  return stukken.flatMap((st) => meubelVan(st, maat) ?? []);
 }
 
 export default function Interieur(props: Props) {
-  const { laag, kamers, openingen, ramen, trappen, w, l, act, binnenRef, inrichtingRef, snij, zicht, nat, onVakken } = props;
+  const { laag, kamers, openingen, ramen, trappen, w, l, act, binnenRef, inrichtingRef, snij, zicht, nat, onVakken, onMeubels, wijk } = props;
   const gltf = useLoader(GLTFLoader, INTERIEUR.glb);
   const kit = useLoader(FileLoader, INTERIEUR.manifest, (ld) => ld.setResponseType("json")) as unknown as Manifest;
   const tex = useLoader(TextureLoader, TEX_NAMEN.map((n) => INTERIEUR.tex[n]));
@@ -353,18 +393,35 @@ export default function Interieur(props: Props) {
     [laag, openingen, ramen, trappen, w, l, kit, afw],
   );
   useEffect(() => onVakken?.(ins.vakken), [ins, onVakken]);
+  useEffect(() => onMeubels?.(meubelsVan(ins.stukken, kit)), [ins, kit, onMeubels]);
 
+  // Furniture that makes way goes into a merged mesh of its own per group, faded as one.
+  const wijkGroep = wijk?.groep;
   const geo = useMemo(() => {
     const prims = primsVan(gltf);
+    const maat = new Map(kit.objecten.map((o) => [o.naam, o]));
+    const groepen = new Map<string, Stuk[]>();
+    const groepVan = new Map<Stuk, string>();
+    const blijft: Stuk[] = [];
+    for (const st of ins.stukken) {
+      if (st.wand) continue;
+      const m = wijkGroep ? meubelVan(st, maat) : null;
+      // A rug hides nothing: it stays. A worktop is as thin, but belongs with the units under it.
+      const g = m && (m.top > 0.15 || m.muur) ? wijkGroep?.(m) ?? null : null;
+      if (g) { groepen.set(g, [...(groepen.get(g) ?? []), st]); groepVan.set(st, g); }
+      else blijft.push(st);
+    }
     return {
-      meubels: voegSamen(ins.stukken.filter((s) => !s.wand), prims, kit, yf),
+      meubels: voegSamen(blijft, prims, kit, yf),
+      wijkend: new Map([...groepen].map(([g, st]) => [g, voegSamen(st, prims, kit, yf)])),
       deuren: voegSamen(ins.stukken.filter((s) => s.wand), prims, kit, 0),
-      afw: bouwAfwerking(laag, openingen, ramen, trappen, w, l, yf, afw, ins),
+      afw: bouwAfwerking(laag, openingen, ramen, trappen, w, l, yf, afw, ins, groepVan),
     };
-  }, [gltf, kit, ins, laag, openingen, ramen, trappen, w, l, yf, afw]);
+  }, [gltf, kit, ins, laag, openingen, ramen, trappen, w, l, yf, afw, wijkGroep]);
   useEffect(() => () => {
-    for (const m of [geo.meubels, geo.deuren, geo.afw.vast, geo.afw.binnen, geo.afw.gevel]) for (const g of m.values()) g.dispose();
+    for (const m of [geo.meubels, geo.deuren, geo.afw.vast, geo.afw.binnen, geo.afw.gevel, ...geo.wijkend.values()]) for (const g of m.values()) g.dispose();
     geo.afw.schaduw.dispose();
+    for (const g of geo.afw.schaduwWijk.values()) g.dispose();
   }, [geo]);
 
   const mats = useMemo(() => {
@@ -406,20 +463,58 @@ export default function Interieur(props: Props) {
     for (const t of mats.tex) t.dispose();
   }, [mats]);
 
+  // The fading groups get their own copies of the furniture materials, transparent.
+  const wijkMats = useMemo(() => new Map([...geo.wijkend].map(([g, klassen]) => [g, new Map([...klassen.keys()].map((k) => {
+    const m = mats.klassen.get(k)!.clone();
+    m.transparent = true;
+    return [k, m];
+  }))])), [geo, mats]);
+  // Their contact shadow, one material per group, faded with them.
+  const wijkSchaduw = useMemo(() => new Map([...geo.afw.schaduwWijk.keys()].map((g) => [g, mats.schaduw.clone()])), [geo, mats]);
+  useEffect(() => () => {
+    for (const ms of wijkMats.values()) for (const m of ms.values()) m.dispose();
+    for (const m of wijkSchaduw.values()) m.dispose();
+  }, [wijkMats, wijkSchaduw]);
+  const wijkStand = useRef(new Map<string, number>());
+  const wijkGroepen = useRef(new Map<string, Group>());
+
   // Volg de animatie van de groepen in IsoHouse3D: binnenwanden zakken tot de snede, nieuwe kamers groeien uit de vloer.
   const binnen = useRef<Group>(null);
   const meubels = useRef<Group>(null);
-  useFrame(() => {
+  useFrame(({ invalidate }, delta) => {
     const b = binnenRef.current, i = inrichtingRef.current;
     if (b && binnen.current) { binnen.current.position.copy(b.position); binnen.current.scale.copy(b.scale); }
     if (i && meubels.current) { meubels.current.position.copy(i.position); meubels.current.scale.copy(i.scale); meubels.current.visible = i.visible; }
-    for (const m of Object.values(mats.boven)) m.opacity = zicht.current;
+    // The paint above the cut fades with the wall, and like it stops writing depth once faded.
+    for (const m of Object.values(mats.boven)) { m.opacity = zicht.current; m.depthWrite = zicht.current > 0.98; }
+    let wijkt = false;
+    const groepen = new Set([...wijkMats.keys(), ...wijkSchaduw.keys()]);
+    for (const g of groepen) {
+      const doel = wijk?.zicht.current[g] ?? 1;
+      const nu = wijkStand.current.get(g) ?? 1;
+      let st = MathUtils.damp(nu, doel, 5, Math.min(delta, 0.1));
+      if (Math.abs(st - doel) < 0.004) st = doel; else wijkt = true;
+      wijkStand.current.set(g, st);
+      const sm = wijkSchaduw.get(g);
+      if (sm) { sm.opacity = mats.schaduw.opacity * st; sm.visible = st > 0.01; }
+      const ms = wijkMats.get(g);
+      if (!ms) continue;
+      for (const m of ms.values()) { m.opacity = st; m.depthWrite = st > 0.98; }
+      const grp = wijkGroepen.current.get(g);
+      if (grp) grp.visible = st > 0.01;
+    }
+    if (wijkt) invalidate();
   });
 
   return (
     <>
       <group ref={meubels}>
         {[...geo.meubels].map(([k, g]) => <mesh key={k} geometry={g} material={mats.klassen.get(k)} castShadow={k !== "glas"} receiveShadow />)}
+        {[...geo.wijkend].map(([grp, klassen]) => (
+          <group key={`w-${grp}`} ref={(x) => { if (x) wijkGroepen.current.set(grp, x); else wijkGroepen.current.delete(grp); }}>
+            {[...klassen].map(([k, g]) => <mesh key={k} geometry={g} material={wijkMats.get(grp)?.get(k)} receiveShadow />)}
+          </group>
+        ))}
       </group>
       {[...geo.afw.vast].map(([k, g]) => <mesh key={`v-${k}`} geometry={g} material={mats.basis[k]} receiveShadow />)}
       {[...geo.afw.gevel].map(([k, g]) => (
@@ -433,6 +528,7 @@ export default function Interieur(props: Props) {
         {[...geo.deuren].map(([k, g]) => <mesh key={`d-${k}`} geometry={g} material={mats.klassen.get(k)} receiveShadow />)}
       </group>
       <mesh geometry={geo.afw.schaduw} material={mats.schaduw} renderOrder={1} />
+      {[...geo.afw.schaduwWijk].map(([g, s]) => <mesh key={`ws-${g}`} geometry={s} material={wijkSchaduw.get(g)} renderOrder={1} />)}
     </>
   );
 }

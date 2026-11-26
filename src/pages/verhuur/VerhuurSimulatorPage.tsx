@@ -5,12 +5,12 @@ import IsoHouse from "@/components/simulator/IsoHouse";
 import IsoHouseAuto from "@/components/simulator/IsoHouseAuto";
 import WaterschadeAanvraag from "@/components/simulator/WaterschadeAanvraag";
 import type { Antwoorden as WsAntwoorden } from "@/components/simulator/WaterschadeAanvraag.copy";
-import { materiaalVoor } from "@/components/simulator/materiaal";
-import { voorlaadToestellen } from "@/components/simulator/3d/modellen";
-import { budget3D, heeftStraat, straatBeelden, voorlaad } from "@/components/simulator/3d/bestanden";
+import { materiaalVoor } from "@/huis3d/materiaal";
+import { voorlaadToestellen } from "@/huis3d/3d/modellen";
+import { budget3D, heeftStraat, straatBeelden, voorlaad } from "@/huis3d/3d/bestanden";
 import { type Tempo } from "@/lib/droogTempo";
 import { Bouwfilm, FaseKnoppen, FaseRegels } from "@/components/simulator/Bouwfilm";
-import { DROOG_DUUR, FILM_START, FILM_WACHT, filmStatus, plaatsDuur, voortgangNa, type FilmPlan } from "@/components/simulator/film";
+import { DROOG_DUUR, FILM_START, FILM_WACHT, filmStatus, plaatsDuur, voortgangNa, type FilmPlan } from "@/huis3d/film";
 import { fotoSrcSet, fotoVoor, huisFoto, type FotoSleutel } from "@/components/simulator/fotos";
 import {
   FASE,

@@ -233,6 +233,16 @@ voordien de twee Vercel Hobby-crons): `/api/reconcile-orders` om 04:00,
 twee taken in één run — een erfenis van die Vercel-limiet. Een nieuwe cron kan nu wel, maar
 een derde herinnering past evengoed in die run.
 
+### Het 3D-huis is gedeeld met Vernast-v2.0 (`src/huis3d/`)
+
+Het huis, de straat en het woningmodel van de droogsimulator zijn **dezelfde bestanden** als
+die van de vochtsimulator in Vernast-v2.0. Deze repo is de bron; Vernast heeft een kopie die
+`npm run huis3d:sync` daar bijwerkt en `huis3d:check` bewaakt. Een fix aan het huis hoort dus
+hier, en beide simulators krijgen hem. Regels en werkwijze: `src/huis3d/README.md`.
+Straatbeelden renderen: `scripts/simulator-3d/render-straat.sh` (Blender-werkmap `~/Blender/huis3d`).
+Waarom: de twee kopieën liepen in twee dagen ~600 regels uit elkaar, en een dakfix hier kwam
+nooit in de vochtsimulator (ontbrekende hoek in het dak, 26-11-2026).
+
 ## Conventies
 
 - Commentaar legt **waarom** uit, niet wat — vaak met de fout die eraan voorafging. Volg die

@@ -1,7 +1,9 @@
 import { Component, lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import IsoHouse, { type IsoHouseProps } from "./IsoHouse";
-import { DIAG, TEXTUUR, budget3D, diagNu, heeftStraat, meld, straatBeelden, voorlaad } from "./3d/bestanden";
+import { DIAG, TEXTUUR, budget3D, diagNu, heeftStraat, meld, straatBeelden, voorlaad } from "@/huis3d/3d/bestanden";
 import { WONING } from "@/lib/droogSimulator";
+import { HuisTaal } from "@/huis3d/taal";
+import { useTaal } from "@/i18n/useTaal";
 
 /*
   Kiest tussen de SVG-tekening en de 3D-woning.
@@ -15,7 +17,7 @@ import { WONING } from "@/lib/droogSimulator";
   `?weergave=svg` in de URL forceert de SVG, om beide te vergelijken.
 */
 
-const laad3D = () => import("./3d/IsoHouse3D");
+const laad3D = () => import("@/huis3d/3d/IsoHouse3D");
 const IsoHouse3D = lazy(laad3D);
 
 function webglMogelijk(): boolean {
@@ -85,6 +87,7 @@ function DiagLabel() {
 }
 
 export default function IsoHouseAuto(props: IsoHouseProps) {
+  const taal = useTaal();
   const [kan3d, setKan3d] = useState(false);
   const [klaar, setKlaar] = useState(false);
   const [fout, setFout] = useState(false);
@@ -155,12 +158,14 @@ export default function IsoHouseAuto(props: IsoHouseProps) {
       {toon3d && (
         <Vangnet onFout={() => setFout(true)}>
           <Suspense fallback={null}>
+            <HuisTaal.Provider value={taal}>
             <IsoHouse3D
               {...props}
               className={`${props.className ?? ""}${klaar ? "" : " ds-iso3d--laden"}`.trim() || undefined}
               onKlaar={() => setKlaar(true)}
               onFout={() => setFout(true)}
             />
+            </HuisTaal.Provider>
           </Suspense>
         </Vangnet>
       )}

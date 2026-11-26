@@ -1,4 +1,5 @@
-import type { FilmPlan } from "./film";
+import type { FilmPlan } from "@/huis3d/film";
+import type { IsoHouseProps } from "@/huis3d/types";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import {
   WONING,
@@ -13,8 +14,8 @@ import {
   type Woning,
 } from "@/lib/droogSimulator";
 import type { DeviceKey } from "@/data/verhuur";
-import type { Materiaal } from "./materiaal";
-import { FH, H, HC, SLAB, T, TI, nokHoogte } from "./maten";
+import type { Materiaal } from "@/huis3d/materiaal";
+import { FH, H, HC, SLAB, T, TI, nokHoogte } from "@/huis3d/maten";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useTaal } from "@/i18n/useTaal";
 
@@ -242,34 +243,7 @@ function Toestel({ k, x, y, z, n, werkend, uid }: {
 
 /* ─────────────────────────── de woning ─────────────────────────── */
 
-export interface IsoHouseProps {
-  woning: Woning;
-  /** gevelbreedte in meter (een stap uit BREEDTES); zonder deze de standaard van het woningtype */
-  breedte?: number;
-  verdiepingen: number;
-  dak: Dak;
-  kamers: Kamer[];
-  /** deuren en doorgangen uit het plan; zonder deze geen openingen */
-  openingen?: Opening[];
-  trappen?: Trap[];
-  /** ramen uit het plan; zonder deze geen ramen */
-  ramen?: Raam[];
-  /** opengewerkte weergave met de actieve laag zichtbaar */
-  open: boolean;
-  actief: number;
-  plaatsingen?: Plaatsing[];
-  werkend?: boolean;
-  materiaal?: Materiaal;
-  /** kleine variant voor de keuzekaarten: geen labels, geen animatie */
-  mini?: boolean;
-  /** duur van één droogcyclus in seconden, voor de vochtsluier */
-  cyclus?: number;
-  /** 3D only: which segment of the drying film this floor plays (placing or drying, and how far) */
-  filmPlan?: FilmPlan;
-  /** telt op bij "opnieuw afspelen" of een tweede klik op een verdieping: de 3D-film begint dan opnieuw */
-  filmRonde?: number;
-  className?: string;
-}
+export type { IsoHouseProps } from "@/huis3d/types";
 
 const STANDAARD_MATERIAAL: Materiaal = {
   muur: "#ddd6cb", vloer: "#c9c2b6", vocht: 0, muurNat: false, vloerNat: false, parket: false, meubels: false,

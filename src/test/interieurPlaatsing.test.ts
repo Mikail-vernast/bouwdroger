@@ -14,8 +14,8 @@ import {
   BREEDTES, MAX_KAMERS, MAX_VERDIEPINGEN, WONING, laagSoort, planVoor, programmaVan, maxKamers,
   aanloopVak, bordesVak, doorgangVak, trapVak, voorDeurVak, zwaaiVak, type Vak, type Woning,
 } from "../lib/droogSimulator";
-import { richLaagIn, INGERICHTE_KAMERS, type Manifest } from "../components/simulator/3d/interieur/plaatsing";
-import { afwerkingVoor } from "../components/simulator/3d/interieur/palet";
+import { richLaagIn, INGERICHTE_KAMERS, type Manifest } from "../huis3d/3d/interieur/plaatsing";
+import { afwerkingVoor } from "../huis3d/3d/interieur/palet";
 
 const kit = JSON.parse(readFileSync(new URL("../../public/simulator/3d/interieur/interieur.json", import.meta.url), "utf8")) as Manifest;
 const meta = new Map(kit.objecten.map((o) => [o.naam, o]));

@@ -1,4 +1,4 @@
-import type { DeviceKey } from "@/data/verhuur";
+import type { DeviceKey } from "../woning";
 
 /*
   De toestelmodellen uit Blender (scripts/simulator-3d/toestellen.py). Apart van

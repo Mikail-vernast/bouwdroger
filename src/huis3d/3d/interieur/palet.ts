@@ -9,7 +9,7 @@
   volgorde verschuift per bouwlaag, zodat ook boven elkaar liggende kamers
   verschillen.
 */
-import type { Kamer } from "@/lib/droogSimulator";
+import type { Kamer } from "../../woning";
 import type { KamerPalet } from "./plaatsing";
 
 export const KLEUR = {
