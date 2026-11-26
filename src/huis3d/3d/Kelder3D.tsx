@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useLoader } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import { MeshStandardMaterial, RepeatWrapping, SRGBColorSpace, type Texture, TextureLoader } from "three";
 import { FH, HC, SLAB, T } from "../maten";
 import { KELDER, kelderRaam, kelderTrap } from "../kelder";
@@ -122,7 +122,7 @@ function bouwKelder(w: number, l: number, hoek: Hoek, trap: Trap, raam: Raam) {
     if (voet >= -0.05) continue;
     B.blok("leuning", x - 0.015, x + 0.015, voet, knip(neus(x) + lh), rz0, rz1);
   }
-  rek(B, w, l, rechtsNabij, trap, yf);
+  inrichten(B, w, l, hoek, trap, yf);
   return B.bouw();
 }
 
@@ -132,43 +132,141 @@ function toeval(zaad: number): () => number {
   return () => { x = (x * 16807) % 2147483647; return x / 2147483647; };
 }
 
-/**
- * Storage, as in most cellars (and the damp simulator's cellar photo): a steel rack with
- * boxes against the far side wall, two boxes and a bucket on the floor beside it. Mid-wall,
- * so the corners stay free where the mould shows, and clear of the stair.
- */
-function rek(B: Bouwer, w: number, l: number, rechtsNabij: boolean, trap: Trap, yf: number) {
-  const D = 0.45, L = 1.6, HOOG = 1.85;
-  const xa = rechtsNabij ? 0.04 : w - 0.04 - D, xb = xa + D;
-  const trapVrij = (za: number, zb: number) => xb < trap.x || xa > trap.x + trap.w || zb < trap.z - 0.3 || za > trap.z + trap.l + 0.3;
-  const kandidaten = [l / 2 - L / 2, l - L - 0.9, 0.9];
-  const za = kandidaten.find((z) => trapVrij(z, z + L + 0.8));
-  if (za === undefined) return;
-  const zb = za + L;
-  for (const x of [xa, xb - 0.03]) for (const z of [za, zb - 0.03]) B.blok("rek", x, x + 0.03, yf, yf + HOOG, z, z + 0.03);
-  const rnd = toeval(7);
-  const planken = [0.12, 0.6, 1.08, 1.56];
-  for (const [i, h] of planken.entries()) {
-    const y = yf + h;
-    B.blok("plank", xa, xb, y, y + 0.025, za, zb);
-    if (i === planken.length - 1 && rnd() < 0.3) continue;
-    // Boxes along the shelf, each a little different, some pushed back.
-    let z = za + 0.05;
-    while (z < zb - 0.3) {
-      const bz = 0.28 + rnd() * 0.22, bh = 0.2 + rnd() * 0.18, bd = 0.3 + rnd() * 0.12;
-      if (z + bz > zb - 0.04) break;
-      const terug = rnd() * (D - bd - 0.02);
-      const x0 = rechtsNabij ? xa + 0.01 + terug : xb - 0.01 - terug - bd;
-      B.blok(rnd() < 0.5 ? "doos" : "doos2", x0, x0 + bd, y + 0.025, y + 0.025 + bh, z, z + bz);
-      z += bz + 0.04 + rnd() * 0.1;
+interface Muur { as: "x" | "z"; vast: number; binnen: 1 | -1; lengte: number; ver: boolean }
+interface Rechthoek { x0: number; x1: number; z0: number; z1: number }
+type Rnd = () => number;
+/** Builds a piece against wall `m`, from `u0` along it, `n` metres into the room. */
+type Bouw = (blok: (mat: string, u0: number, u1: number, n0: number, n1: number, y0: number, y1: number) => void,
+  cil: (mat: string, u: number, n: number, y0: number, y1: number, r: number) => void, rnd: Rnd) => void;
+interface Stuk { L: number; D: number; ver: boolean; bouw: Bouw }
+
+/** A steel rack with four shelves of boxes, each box a little different. */
+const REK: Stuk = { L: 1.6, D: 0.45, ver: true, bouw: (blok, _cil, rnd) => {
+  const { L, D } = REK;
+  for (const u of [0, L - 0.03]) for (const n of [0.02, D - 0.03]) blok("rek", u, u + 0.03, n, n + 0.03, 0, 1.85);
+  for (const [i, h] of [0.12, 0.6, 1.08, 1.56].entries()) {
+    blok("plank", 0, L, 0.02, D, h, h + 0.025);
+    if (i === 3 && rnd() < 0.4) continue;
+    let u = 0.05;
+    while (u < L - 0.3) {
+      const bu = 0.26 + rnd() * 0.22, bh = 0.18 + rnd() * 0.2, bd = 0.28 + rnd() * 0.12;
+      if (u + bu > L - 0.04) break;
+      const n0 = 0.04 + rnd() * (D - bd - 0.06);
+      blok(rnd() < 0.5 ? "doos" : "doos2", u, u + bu, n0, n0 + bd, h + 0.025, h + 0.025 + bh);
+      u += bu + 0.04 + rnd() * 0.1;
     }
   }
-  // On the floor beside the rack: two stacked boxes and a blue bucket.
-  const vx = rechtsNabij ? 0.1 : w - 0.1 - 0.5;
-  B.blok("doos", vx, vx + 0.5, yf, yf + 0.38, zb + 0.12, zb + 0.55);
-  B.blok("doos2", vx + 0.05, vx + 0.42, yf + 0.38, yf + 0.66, zb + 0.16, zb + 0.5);
-  const ex = rechtsNabij ? 0.75 : w - 0.75;
-  B.cilinder("emmer", [ex, yf, zb + 0.35], [ex, yf + 0.3, zb + 0.35], 0.15, 18);
+} };
+
+/** A workbench with a pegboard of tools above it and a vice. */
+const WERKBANK: Stuk = { L: 1.6, D: 0.62, ver: true, bouw: (blok, cil) => {
+  const { L, D } = WERKBANK;
+  for (const u of [0.04, L - 0.09]) for (const n of [0.06, D - 0.1]) blok("rek", u, u + 0.05, n, n + 0.05, 0, 0.86);
+  blok("hout", 0, L, 0.02, D, 0.86, 0.92);
+  blok("hout", 0.04, L - 0.04, 0.06, D - 0.06, 0.18, 0.21);
+  blok("paneel", 0.05, L - 0.05, 0, 0.02, 1.0, 1.75);
+  // Tools on the pegboard: a saw, hammers, a square, spanners.
+  blok("metaal", 0.15, 0.62, 0.02, 0.03, 1.35, 1.52);
+  blok("zwart", 0.7, 0.74, 0.02, 0.05, 1.2, 1.6);
+  blok("zwart", 0.82, 0.86, 0.02, 0.05, 1.25, 1.6);
+  blok("metaal", 0.98, 1.3, 0.02, 0.03, 1.58, 1.62);
+  blok("metaal", 0.98, 1.02, 0.02, 0.03, 1.3, 1.62);
+  for (const [i, u] of [1.12, 1.2, 1.28, 1.36].entries()) blok("metaal", u, u + 0.025, 0.02, 0.035, 1.12 + i * 0.03, 1.32);
+  blok("donker", L - 0.35, L - 0.15, D - 0.2, D - 0.02, 0.92, 1.02);
+  cil("rood", 0.35, D - 0.2, 0.92, 1.12, 0.09);
+} };
+
+/** A wall-hung central heating boiler with its pipes and a red expansion vessel. */
+const KETEL: Stuk = { L: 0.75, D: 0.4, ver: true, bouw: (blok, cil) => {
+  blok("kast", 0.08, 0.52, 0.02, 0.37, 1.3, 2.05);
+  blok("zwart", 0.22, 0.38, 0.37, 0.375, 1.5, 1.58);
+  for (const u of [0.16, 0.26, 0.36, 0.46]) cil("koper", u, 0.12, 0.35, 1.3, 0.012);
+  cil("rood", 0.64, 0.14, 1.45, 1.85, 0.1);
+} };
+
+/** A chest freezer: white, a lid with a seam and a handle. */
+const DIEPVRIES: Stuk = { L: 1.1, D: 0.66, ver: false, bouw: (blok) => {
+  const { L, D } = DIEPVRIES;
+  blok("kast", 0, L, 0.02, D, 0.04, 0.82);
+  blok("voeg", 0.01, L - 0.01, 0.03, D - 0.01, 0.72, 0.725);
+  blok("kast", 0, L, 0.02, D, 0.82, 0.86);
+  blok("metaal", L / 2 - 0.15, L / 2 + 0.15, D, D + 0.03, 0.76, 0.79);
+  blok("zwart", 0.02, L - 0.02, 0.04, D - 0.02, 0, 0.04);
+} };
+
+/** A wooden wine rack with the bottles lying in it, necks out. */
+const WIJNREK: Stuk = { L: 0.84, D: 0.32, ver: false, bouw: (blok, cil) => {
+  const { L, D } = WIJNREK;
+  for (const u of [0, L - 0.03]) blok("hout", u, u + 0.03, 0.02, D, 0, 1.0);
+  const rijen = 5, kolommen = 6;
+  for (let r = 0; r <= rijen; r++) blok("hout", 0, L, 0.02, D, r * 0.19, r * 0.19 + 0.02);
+  for (let r = 0; r < rijen; r++) for (let k = 0; k < kolommen; k++) {
+    if ((r * 7 + k * 3) % 5 === 0) continue;
+    const u = 0.08 + k * ((L - 0.16) / (kolommen - 1)), y = r * 0.19 + 0.1;
+    // A bottle on its side, pointing into the room: drawn as a short dark cylinder end.
+    blok("fles", u - 0.035, u + 0.035, D - 0.12, D + 0.02, y - 0.035, y + 0.035);
+  }
+} };
+
+/** Two stacked boxes and a blue bucket on the floor. */
+const DOZEN: Stuk = { L: 1.0, D: 0.55, ver: false, bouw: (blok, cil) => {
+  blok("doos", 0, 0.5, 0.04, 0.48, 0, 0.38);
+  blok("doos2", 0.04, 0.42, 0.08, 0.44, 0.38, 0.66);
+  cil("emmer", 0.75, 0.25, 0, 0.3, 0.15);
+} };
+
+const STUKKEN = [REK, WERKBANK, KETEL, DIEPVRIES, WIJNREK, DOZEN];
+
+/**
+ * The cellar's contents, along its walls: the tall pieces on the far walls (on a near wall
+ * the cut would slice them), clear of the stair and its foot, and out of the far corners,
+ * where the mould shows. Each piece takes the free spot nearest the middle of its wall.
+ */
+function inrichten(B: Bouwer, w: number, l: number, hoek: Hoek, trap: Trap, yf: number) {
+  const voorNabij = hoek.kant === "voor", rechtsNabij = hoek.zij === "rechts";
+  const muren: Muur[] = [
+    { as: "x", vast: 0, binnen: 1, lengte: w, ver: voorNabij },
+    { as: "z", vast: 0, binnen: 1, lengte: l, ver: rechtsNabij },
+    { as: "x", vast: l, binnen: -1, lengte: w, ver: !voorNabij },
+    { as: "z", vast: w, binnen: -1, lengte: l, ver: !rechtsNabij },
+  ].sort((a, b) => Number(b.ver) - Number(a.ver)) as Muur[];
+  const plek = (m: Muur, u: number, n: number): [number, number] => (m.as === "x" ? [u, m.vast + m.binnen * n] : [m.vast + m.binnen * n, u]);
+  const vak = (m: Muur, u0: number, u1: number, n0: number, n1: number): Rechthoek => {
+    const [xa, za] = plek(m, u0, n0), [xb, zb] = plek(m, u1, n1);
+    return { x0: Math.min(xa, xb), x1: Math.max(xa, xb), z0: Math.min(za, zb), z1: Math.max(za, zb) };
+  };
+  const raakt = (a: Rechthoek, b: Rechthoek) => a.x0 < b.x1 && b.x0 < a.x1 && a.z0 < b.z1 && b.z0 < a.z1;
+  // The stair, with room to walk round it, and a metre free at its foot.
+  const voet = trap.richting > 0 ? { x0: trap.x - 1, x1: trap.x, z0: trap.z, z1: trap.z + trap.l } : { x0: trap.x + trap.w, x1: trap.x + trap.w + 1, z0: trap.z, z1: trap.z + trap.l };
+  const bezet: Rechthoek[] = [{ x0: trap.x - 0.25, x1: trap.x + trap.w + 0.25, z0: trap.z - 0.25, z1: trap.z + trap.l + 0.25 }, voet];
+  const rnd = toeval(7);
+  for (const stuk of STUKKEN) {
+    let keus: { m: Muur; u: number } | null = null;
+    for (const m of muren) {
+      if (stuk.ver && !m.ver) continue;
+      const rand = m.ver ? 0.95 : 0.35;
+      const vrij: number[] = [];
+      for (let u = rand; u <= m.lengte - rand - stuk.L + 1e-6; u += 0.05) {
+        if (!bezet.some((b) => raakt(b, vak(m, u, u + stuk.L, 0, stuk.D)))) vrij.push(u);
+      }
+      if (!vrij.length) continue;
+      const mid = (m.lengte - stuk.L) / 2;
+      keus = { m, u: vrij.reduce((a, b) => (Math.abs(b - mid) < Math.abs(a - mid) ? b : a)) };
+      break;
+    }
+    if (!keus) continue;
+    const { m, u } = keus;
+    bezet.push(vak(m, u - 0.12, u + stuk.L + 0.12, 0, stuk.D + 0.1));
+    const blok = (mat: string, u0: number, u1: number, n0: number, n1: number, y0: number, y1: number) => {
+      const r = vak(m, u + u0, u + u1, n0, n1);
+      B.blok(mat, r.x0, r.x1, yf + y0, yf + y1, r.z0, r.z1);
+    };
+    const cil = (mat: string, uu: number, n: number, y0: number, y1: number, r: number) => {
+      const [x, z] = plek(m, u + uu, n);
+      B.cilinder(mat, [x, yf + y0, z], [x, yf + y1, z], r, 18);
+    };
+    stuk.bouw(blok, cil, rnd);
+  }
 }
 
 interface Props {
@@ -177,16 +275,18 @@ interface Props {
   hoek: Hoek;
   /** The house's stairs: the cellar stair goes under the ground floor's. */
   trappen: readonly Trap[];
+  /** How much of the street picture stands: its garden replaces the grass on the soil. */
+  straat?: { readonly current: number };
 }
 
-export default function Kelder3D({ w, l, hoek, trappen }: Props) {
+export default function Kelder3D({ w, l, hoek, trappen, straat }: Props) {
   const [grondTex, betonTex, steenTex] = useLoader(TextureLoader, [KELDER_TEXTUUR.grond, KELDER_TEXTUUR.beton, TEXTUUR.baksteen]);
   const mats = useMemo(() => {
     const grond = tegel(grondTex, 1, 3.4), beton = tegel(betonTex, 1, 1), steen = tegel(steenTex, 16 * 0.202, 32 * 0.062);
     const s = (color: string, o: Partial<MeshStandardMaterial> = {}) => Object.assign(new MeshStandardMaterial({ color, roughness: 0.9 }), o);
     return new Map<string, MeshStandardMaterial>([
       ["grond", s("#ffffff", { map: grond, roughness: 0.97 })],
-      ["gras", s("#6a8a43", { roughness: 0.95 })],
+      ["gras", s("#6a8a43", { roughness: 0.95, transparent: true })],
       ["beton", s("#d2cfc8", { map: beton })],
       ["vloer", s("#bdb9b1", { map: beton, roughness: 0.85 })],
       ["rand", s("#e6e3dc", { map: beton })],
@@ -203,6 +303,16 @@ export default function Kelder3D({ w, l, hoek, trappen }: Props) {
       ["doos", s("#b98a57", { roughness: 0.95 })],
       ["doos2", s("#a3794c", { roughness: 0.95 })],
       ["emmer", s("#2f6fb3", { roughness: 0.4 })],
+      ["hout", s("#a57a51", { roughness: 0.6 })],
+      ["paneel", s("#c9b08a", { roughness: 0.85 })],
+      ["kast", s("#ecebe7", { roughness: 0.35 })],
+      ["voeg", s("#9d978e", { roughness: 0.6 })],
+      ["metaal", s("#8a9095", { metalness: 0.7, roughness: 0.35 })],
+      ["donker", s("#2f3236", { metalness: 0.5, roughness: 0.4 })],
+      ["zwart", s("#26272a", { roughness: 0.6 })],
+      ["koper", s("#b87333", { metalness: 0.8, roughness: 0.3 })],
+      ["rood", s("#b83a2e", { roughness: 0.45 })],
+      ["fles", s("#25402a", { roughness: 0.15, metalness: 0.2 })],
     ]);
   }, [grondTex, betonTex, steenTex]);
   useEffect(() => () => {
@@ -211,6 +321,14 @@ export default function Kelder3D({ w, l, hoek, trappen }: Props) {
 
   // The stair climbs away from the camera, whichever way the house's own stair runs: from the
   // other side you saw its tall blank end and none of the steps.
+  // The grass on top of the soil gives way to the street picture's own garden, which runs on
+  // round the house: the cellar then lies under the real garden, not under a green slab.
+  useFrame(() => {
+    const g = mats.get("gras")!;
+    const o = 1 - (straat?.current ?? 0);
+    if (Math.abs(g.opacity - o) > 0.001) { g.opacity = o; g.depthWrite = o > 0.5; }
+  });
+
   const trap = useMemo<Trap>(() => ({ ...kelderTrap(trappen, w), richting: hoek.zij === "rechts" ? -1 : 1 }), [trappen, w, hoek.zij]);
   const raam = useMemo(() => kelderRaam(trappen, w), [trappen, w]);
   const geos = useMemo(() => bouwKelder(w, l, hoek, trap, raam), [w, l, hoek, trap, raam]);
