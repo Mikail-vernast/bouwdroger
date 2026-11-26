@@ -1429,7 +1429,8 @@ function Scene(props: SceneProps) {
           Haar slagschaduw op de omgeving zit in de render zelf (straat.py: unit-schaduw). */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[w / 2, -0.002, l / 2]} receiveShadow visible={act >= 0}>
         <planeGeometry args={app ? [w + 2 * T, l + 2 * T] : [80, 80]} />
-        <shadowMaterial opacity={heeftStraat(woning) ? 0.32 : 0.16} color="#3a2a1e" />
+        {/* No depth: it lies 2 cm over the live street (omgeving.ts) and hid it, for all its transparency. */}
+        <shadowMaterial opacity={heeftStraat(woning) ? 0.32 : 0.16} color="#3a2a1e" depthWrite={false} />
       </mesh>
       {/* De straat (Blender-render) laadt apart: de woning wacht er niet op. */}
       {straten.map((st, i) => (
