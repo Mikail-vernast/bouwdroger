@@ -20,6 +20,16 @@ export const TEXTUUR = {
   tegelvloer: "/simulator/3d/tegelvloer.webp",
 } as const;
 
+/**
+ * The cellar (kelder.ts): only loaded when a simulator asks for one, so the drying simulator
+ * never fetches them. Soil in section (1 × 3,4 m a tile) and poured concrete (1 × 1 m), the
+ * tiles of the damp simulator's cellar render (Vernast: scripts/simulator-textures).
+ */
+export const KELDER_TEXTUUR = {
+  grond: "/simulator/3d/grond.webp",
+  beton: "/simulator/3d/beton.webp",
+} as const;
+
 /*
   De interieurkit (scripts/simulator-3d/interieur.py en texturen.py): meubels als
   één GLB met een manifest, en de vloer- en wandtegels per kamersoort. Alleen
