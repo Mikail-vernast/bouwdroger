@@ -1,0 +1,30 @@
+/* 404-pagina — aanvulling op privacy.css (header, hero en tokens komen daar
+   vandaan, gescoped onder `.pv-page`). Alleen wat de 404 extra heeft. */
+
+.nf-page .nf-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.nf-page .nf-btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;padding:14px 26px;border-radius:99px;white-space:nowrap;transition:transform .16s,background .16s,color .16s}
+.nf-page .nf-btn:hover{transform:translateY(-2px)}
+.nf-page .nf-btn-w{background:#fff;color:var(--txt)}
+.nf-page .nf-btn-w:hover{color:var(--red)}
+.nf-page .nf-btn-o{border:1px solid rgba(255,255,255,.45);color:#fff}
+.nf-page .nf-btn-o:hover{background:rgba(255,255,255,.1);color:#fff}
+
+.nf-page .nf-links{background:var(--bg-alt);padding:64px 0 72px}
+.nf-page .nf-links h2{font-family:var(--fd);font-weight:800;font-size:clamp(22px,2.4vw,30px);margin-bottom:24px}
+.nf-page .nf-links ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.nf-page .nf-links li a{display:flex;flex-direction:column;gap:6px;height:100%;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;color:var(--txt);transition:transform .16s,border-color .16s}
+.nf-page .nf-links li a:hover{transform:translateY(-2px);border-color:var(--red)}
+.nf-page .nf-links strong{font-size:16px;font-weight:700}
+.nf-page .nf-links li a:hover strong{color:var(--red)}
+.nf-page .nf-links span{font-size:14px;color:var(--txt-mid);line-height:1.5}
+.nf-page .nf-help{margin:28px 0 0;font-size:14.5px;color:var(--txt-mid)}
+.nf-page .nf-help a{font-weight:600}
+
+@media (max-width:900px){
+  .nf-page .nf-links ul{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  .nf-page .nf-links{padding:44px 0 52px}
+  .nf-page .nf-links ul{grid-template-columns:1fr}
+  .nf-page .nf-btn{width:100%;justify-content:center}
+}
