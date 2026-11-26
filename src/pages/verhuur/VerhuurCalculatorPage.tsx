@@ -17,6 +17,7 @@ import {
 import { useSeo } from "@/data/seo";
 import { useCopy, useLokaalPad, type Copy } from "@/i18n/useTaal";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
+import { useFunnelMeting } from "@/hooks/useFunnelMeting";
 import "@/styles/verhuur.css";
 import "@/styles/verhuur-fixes.css";
 
@@ -332,6 +333,9 @@ const needsScreed = (wat: string | null) => wat === "chape" || wat === "beide";
  * 260 m² skips straight to the custom-quote panel; waterschade skips both
  * thickness questions.
  */
+/** Step names in Vernast's funnel view, per panel. */
+const STEP_KEYS = ["Oppervlakte", "Wat drogen", "Dikte pleister", "Dikte chape", "Zelf verwarmen", "Maatwerk"];
+
 function sequence(answers: Answers): number[] {
   if (answers.size === "custom") return [0, 5];
   const steps = [0, 1];
@@ -352,6 +356,10 @@ const VerhuurCalculatorPage = () => {
 
   const steps = sequence(answers);
   const index = steps[Math.min(pos, steps.length - 1)];
+
+  // The panel number, not the position: "dikte chape" stays step 3 whether or
+  // not the visitor saw the plaster question, so the funnel compares like with like.
+  useFunnelMeting({ step: index, stepKey: STEP_KEYS[index] });
 
   const finish = (next: Answers) => {
     const config: PackageConfig = {
