@@ -45,8 +45,8 @@ export const INTERIEUR = {
   in een achter- en een voorlaag, in drie maten:
     mini   875 × 625, ~25–90 kB per paar: komt altijd eerst, zodat de straat er op
            elke lijn binnen een paar seconden staat.
-    klein  1750 × 1250: daarna op een gsm.
-    groot  2800 × 2000: daarna op een groot scherm.
+    klein  1750 × 1250: daarna op een gsm, en op een groot scherm met 3G.
+    groot  2800 × 2000: daarna op een groot scherm met een snelle lijn.
   Op een zuinige verbinding (databesparing, 2G) blijft het bij mini.
 */
 export type StraatWoning = "rijwoning" | "halfopen" | "open" | "appartement";
@@ -90,6 +90,16 @@ export function budget3D(): Budget3D {
   if (n.deviceMemory !== undefined && n.deviceMemory <= 1) return "geen";
   if (c?.saveData || c?.effectiveType === "2g" || c?.effectiveType === "slow-2g") return "zuinig";
   return c?.effectiveType === "3g" ? "later" : "meteen";
+}
+
+/**
+ * Which street picture replaces the mini one. A large screen gets the 2800 px pair
+ * (~750 kB) only on a fast line; on 3G it gets the 1750 px pair (~250 kB), the same
+ * one a phone gets, which is still sharp at the size the street is drawn.
+ */
+export function straatMaat(budget: Budget3D, gsm: boolean): StraatMaat {
+  if (budget === "zuinig") return "mini";
+  return gsm || budget === "later" ? "klein" : "groot";
 }
 
 /*
