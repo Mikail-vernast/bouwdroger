@@ -30,6 +30,9 @@ export const KELDER_TEXTUUR = {
   beton: "/simulator/3d/beton.webp",
 } as const;
 
+/** Grass for the live street (omgeving.ts), 0,6 m a tile: only fetched by a house that turns. */
+export const GRAS_TEXTUUR = "/simulator/3d/gras.webp";
+
 /*
   De interieurkit (scripts/simulator-3d/interieur.py en texturen.py): meubels als
   één GLB met een manifest, en de vloer- en wandtegels per kamersoort. Alleen

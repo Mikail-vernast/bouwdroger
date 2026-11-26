@@ -41,7 +41,7 @@ import { bouwOmgeving } from "./omgeving";
 import { PERIODE_STIJL, periodeVan, type Periode } from "../periode";
 import { useReducedMotion } from "../useReducedMotion";
 import { useTaal } from "../taal";
-import { TEXTUUR, budget3D, heeftStraat, meld, naRust, straatBeelden, voorlaad, type StraatWoning } from "./bestanden";
+import { TEXTUUR, budget3D, heeftStraat, meld, naRust, straatBeelden, voorlaad, type StraatWoning, GRAS_TEXTUUR } from "./bestanden";
 import Straat3D, { StraatVangnet } from "./straat";
 
 /*
@@ -968,6 +968,24 @@ function Scene(props: SceneProps) {
     for (const g of omgeving.buur?.values() ?? []) g.dispose();
   }, [omgeving]);
   const omgevingRef = useRef<Group>(null);
+  // Only a house that turns (the damp simulator passes `hoek`) ever shows the live street: its
+  // grass loads in the background, never in the drying simulator, which looks from one corner.
+  const draaitOoit = props.hoek !== undefined;
+  const tekenOmgeving = useThree((st) => st.invalidate);
+  useEffect(() => {
+    if (!draaitOoit || !omgeving) return undefined;
+    let weg = false;
+    let tex: Texture | null = null;
+    new TextureLoader().load(GRAS_TEXTUUR, (t) => {
+      if (weg) { t.dispose(); return; }
+      tex = t;
+      t.wrapS = t.wrapT = RepeatWrapping; t.repeat.set(1 / 1.2, 1 / 1.2); t.colorSpace = SRGBColorSpace; t.anisotropy = ANISO; t.needsUpdate = true;
+      const m = sets.omgeving.get("gras")!;
+      m.map = t; m.color.set("#c9d4b4"); m.needsUpdate = true;
+      tekenOmgeving();
+    });
+    return () => { weg = true; tex?.dispose(); };
+  }, [draaitOoit, omgeving, sets, tekenOmgeving]);
   /** How much of the street picture stands (0 while turning or loading): the live street fills the rest. */
   const straatVol = useRef(0);
 
