@@ -281,7 +281,9 @@ export function DroogSimulator({ soort }: { soort: "werf" | "water" }) {
   // Waterschade toont een bewoonde, afgewerkte woning; nat zodra er een plek aangevinkt is.
   const materiaal = soort === "water"
     ? materiaalVoor(wsPlekken.length ? "waterschade" : null, "afgewerkt", 1)
-    : materiaalVoor(stap >= 3 ? wat : null, stap >= 2 ? s.fase : null, FASE[antwoorden.fase].vocht);
+    // Stap 1 en 2 (woning, opbouw en kamers): een afgewerkte, ingerichte woning, zodat de bezoeker
+    // zijn kamers herkent terwijl hij ze telt. Vanaf de bouwfase toont het huis de werf van die fase.
+    : materiaalVoor(stap >= 3 ? wat : null, stap >= 2 ? s.fase : "afgewerkt", FASE[antwoorden.fase].vocht);
 
   // Het droogplan speelt als film (zie droogfilm): eerst plaatsen van onder naar
   // boven, dan drogen van boven naar beneden, en daarna staat de woning droog en
